@@ -97,9 +97,11 @@
 
 (display
  (string-append
-  (texi-file-head "LilyPond Internals Reference" file-name
-                  "(lilypond-internals.info)")
-  "
+   "\\input texinfo @c -*-texinfo-*-\n"
+   "@setfilename " file-name ".info\n"
+   "@documentlanguage en\n"
+   "@documentencoding UTF-8\n"
+   "
 
 @include en/macros.itexi
 

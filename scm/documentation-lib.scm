@@ -137,19 +137,6 @@ environment."
      "\n@end ifhtml\n"
      "\n@end ignore\n")))
 
-(define (texi-file-head name file-name top)
-  (string-append
-   "\\input texinfo @c -*-texinfo-*-"
-   "\n@setfilename " file-name ".info"
-   "\n@settitle " name
-   "\n@dircategory LilyPond"
-   "\n@direntry"
-   ;; prepend GNU for dir, must be unique
-   "\n* GNU " name ": (" file-name ").          " name "."
-   "\n@end direntry\n"
-   "@documentlanguage en\n"
-   "@documentencoding UTF-8\n"))
-
 (define (context-name name)
   name)
 
