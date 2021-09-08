@@ -843,10 +843,9 @@ mark {ly~a_stream} /CLOSE pdfmark
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
          (port (ly:outputter-port outputter))
          (rounded-bbox (to-rounded-bp-box bbox))
-         (port (ly:outputter-port outputter))
-         (header (eps-header paper rounded-bbox load-fonts)))
+         (port (ly:outputter-port outputter)))
     (initialize-font-embedding)
-    (display header port)
+    (display (eps-header paper rounded-bbox load-fonts) port)
     (write-preamble paper load-fonts port)
     (display "/mark_page_link { pop pop pop pop pop } bind def\n" port)
     (display "gsave set-ps-scale-to-lily-scale\n" port)
@@ -935,37 +934,40 @@ mark {ly~a_stream} /CLOSE pdfmark
                      system-list)))
               score-system-list)))
 
+
+(define-public (output-stencil basename stencil paper)
+  (dump-stencil-as-EPS paper
+                       stencil
+                       basename
+                       #t)
+  (postprocess-output paper framework-ps-module
+                      (cons "png" (ly:output-formats))
+                      basename
+                      (format #f "~a.eps" basename)
+                      #t
+                      ))
+
 (define-public (output-preview-framework basename book paper)
   (let* ((systems (relevant-book-systems book))
          (to-dump-systems (relevant-dump-systems systems)))
-    (dump-stencil-as-EPS paper
-                         (stack-stencils Y DOWN 0.0
-                                         (map paper-system-stencil
-                                              (reverse to-dump-systems)))
-                         (format #f "~a.preview" basename)
-                         #t)
-    (postprocess-output paper framework-ps-module
-                        (cons "png" (ly:output-formats))
-                        (format #f "~a.preview" basename)
-                        (format #f "~a.preview.eps" basename)
-                        #t
-                        )))
+    (output-stencil
+     (format #f "~a.preview" basename)
+     (stack-stencils Y DOWN 0.0
+                     (map paper-system-stencil
+                          (reverse to-dump-systems)))
+     paper)))
+    
 
 (define-public (output-crop-framework basename book paper)
   (let* ((systems (relevant-book-systems book)))
-    (dump-stencil-as-EPS paper
-                         (stack-stencils Y DOWN 0.0
-                                         (map paper-system-stencil
-                                              (reverse (reverse systems))))
-                         (format #f "~a.cropped" basename)
-                         #t)
-    (postprocess-output paper framework-ps-module
-                        (cons "png" (ly:output-formats))
-                        (format #f "~a.cropped" basename)
-                        (format #f "~a.cropped.eps" basename)
-                        #t
-                        )))
-
+    
+    (output-stencil
+     (format #f "~a.cropped" basename)
+     (stack-stencils Y DOWN 0.0
+                     (map paper-system-stencil
+                          (reverse (reverse systems))))
+     paper)))
+     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (output-width-height defs)
