@@ -209,7 +209,8 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_2 (func, output_channel, self_scm ());
+          // TODO - paper or top_paper?
+          scm_call_3 (func, output_channel, self_scm (), paper ()->self_scm ());
         }
       else
         warning (_f ("program option -dprint-pages not supported by backend `%s'",
@@ -224,7 +225,7 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_2 (func, output_channel, self_scm ());
+          scm_call_3 (func, output_channel, self_scm (), paper ()->self_scm ());
         }
       else
         warning (_f ("program option -dpreview not supported by backend `%s'",
@@ -239,7 +240,7 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_2 (func, output_channel, self_scm ());
+          scm_call_3 (func, output_channel, self_scm (), paper ()->self_scm ());
         }
       else
         warning (_f ("program option -dcrop not supported by backend `%s'",
@@ -314,7 +315,7 @@ Paper_book::classic_output (SCM output)
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);
-  scm_call_2 (func, output, self_scm ());
+  scm_call_3 (func, output, self_scm (), paper ()->self_scm ());
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */

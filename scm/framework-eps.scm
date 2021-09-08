@@ -127,18 +127,18 @@ alignment."
         ;; this file is present.
         (write-file count-system-port "count"))))
 
-(define-public (output-classic-framework basename book)
+(define-public (output-classic-framework basename book paper)
   (dump-stencils-as-EPSes (map paper-system-stencil
                                (ly:paper-book-systems book))
-                          (ly:paper-book-paper book)
+                          paper
                           basename))
 
-(define-public (output-framework basename book) 
+(define-public (output-framework basename book paper) 
   (if (ly:get-option 'clip-systems)
       (clip-system-EPSes basename book))
   (dump-stencils-as-EPSes (map page-stencil
                                (ly:paper-book-pages book))
-                          (ly:paper-book-paper book)
+                          paper
                           basename))
 
 ;; redefine to imports from framework-ps

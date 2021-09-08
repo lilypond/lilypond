@@ -1165,17 +1165,16 @@ Cairo_outputter::output (SCM expr)
 }
 
 void
-output_cairo_format (Cairo_output_format format, SCM basename, SCM paper_book)
+output_cairo_format (Cairo_output_format format, SCM basename,
+                     Paper_book *paper_book, Output_def *paper)
 {
   Cpu_timer timer;
-  auto *const pbook = LY_ASSERT_SMOB (Paper_book, paper_book, 1);
-  SCM pages = pbook->pages ();
+  SCM pages = paper_book->pages ();
   Cairo_outputter outputter (format, ly_scm2string (basename),
-                             from_scm<int> (scm_length (pages)),
-                             pbook->top_paper ());
+                             from_scm<int> (scm_length (pages)), paper);
 
   outputter.create_surface ();
-  outputter.handle_metadata (pbook->header_);
+  outputter.handle_metadata (paper_book->header_);
 
   for (SCM p = pages; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -1195,17 +1194,20 @@ output_cairo_format (Cairo_output_format format, SCM basename, SCM paper_book)
 
 #endif // CAIRO_BACKEND
 
-LY_DEFINE (ly_output_cairo, "ly:output-cairo", 2, 0, 0,
-           (SCM basename, SCM paper_book), "dump book through cairo backend")
+LY_DEFINE (ly_output_cairo, "ly:output-cairo", 3, 0, 0,
+           (SCM basename, SCM paper_book, SCM paper),
+           "dump book through cairo backend")
 {
 #if CAIRO_BACKEND
+  auto *const pbook = LY_ASSERT_SMOB (Paper_book, paper_book, 2);
+  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 3);
   for (auto const &fmt : string_split (output_format_global, ','))
     {
       Cairo_output_format f = parse_format (fmt);
       if (f == UNKNOWN)
         warning (_f ("unknown output format %s", fmt.c_str ()));
       else
-        output_cairo_format (f, basename, paper_book);
+        output_cairo_format (f, basename, pbook, odef);
     }
 #else
   error ("compiled without CAIRO_BACKEND");

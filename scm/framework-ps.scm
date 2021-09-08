@@ -754,11 +754,10 @@ mark {ly~a_stream} /CLOSE pdfmark
               (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
-(define-public (output-framework basename book)
+(define-public (output-framework basename book paper)
   (let* ((port (make-tmpfile basename))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
-         (paper (ly:paper-book-paper book))
          (header (ly:paper-book-header book))
          (page-stencils (map page-stencil (ly:paper-book-pages book)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -769,7 +768,7 @@ mark {ly~a_stream} /CLOSE pdfmark
      (else))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
-        (clip-system-EPSes basename (ly:paper-book-systems paper-book)))
+        (clip-system-EPSes basename (ly:paper-book-systems book)))
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
@@ -939,9 +938,8 @@ mark {ly~a_stream} /CLOSE pdfmark
                      system-list)))
               score-system-list)))
 
-(define-public (output-preview-framework basename book)
-  (let* ((paper (ly:paper-book-paper book))
-         (systems (relevant-book-systems book))
+(define-public (output-preview-framework basename book paper)
+  (let* ((systems (relevant-book-systems book))
          (to-dump-systems (relevant-dump-systems systems)))
     (dump-stencil-as-EPS paper
                          (stack-stencils Y DOWN 0.0
@@ -956,9 +954,8 @@ mark {ly~a_stream} /CLOSE pdfmark
                         #t
                         )))
 
-(define-public (output-crop-framework basename book)
-  (let* ((paper (ly:paper-book-paper book))
-         (systems (relevant-book-systems book)))
+(define-public (output-crop-framework basename book paper)
+  (let* ((systems (relevant-book-systems book)))
     (dump-stencil-as-EPS paper
                          (stack-stencils Y DOWN 0.0
                                          (map paper-system-stencil
@@ -1005,7 +1002,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 (define-public (convert-to-ps paper base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
 
-(define-public (output-classic-framework basename book)
+(define-public (output-classic-framework basename book paper)
   (ly:error (_ "\nThe PostScript backend does not support the
 system-by-system output.  For that, use the EPS backend instead,
 
