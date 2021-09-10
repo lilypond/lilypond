@@ -199,6 +199,11 @@ class Package:
 class ConfigurePackage(Package):
     """A package that has a configure script and is built with make."""
 
+    @property
+    def configure_script(self) -> str:
+        """Return the relative path to the configure script"""
+        return "configure"
+
     def configure_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to the configure script
 
@@ -247,7 +252,7 @@ class ConfigurePackage(Package):
                 )
 
             # Run the configure script.
-            args = [f"{src_directory}/configure"]
+            args = [f"{src_directory}/{self.configure_script}"]
 
             if self.configure_default_static:
                 # Disable shared libraries, force static library build.
@@ -263,14 +268,14 @@ class ConfigurePackage(Package):
                 return False
 
             # Build the package.
-            args = ["make", "-j", str(c.jobs)] + self.make_args
+            args = [c.make_command, "-j", str(c.jobs)] + self.make_args
             result = run(args)
             if result.returncode != 0:
                 logging.error("make exited with code %d", result.returncode)
                 return False
 
             # Install the package.
-            args = ["make", "install"] + self.make_install_args
+            args = [c.make_command, "install"] + self.make_install_args
             result = run(args)
             if result.returncode != 0:
                 logging.error("install exited with code %d", result.returncode)

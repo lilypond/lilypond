@@ -98,6 +98,11 @@ class Config:
         """Return True if this config is for platform Linux"""
         return self.platform == Platform.LINUX
 
+    @property
+    def make_command(self) -> str:
+        """Return the command for the make build system"""
+        return "make"
+
     def create_directories(self):
         """Create all necessary directories for this configuration."""
         os.makedirs(self.downloads_dir, exist_ok=True)
