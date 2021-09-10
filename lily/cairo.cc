@@ -121,10 +121,6 @@ class Cairo_outputter : public Stencil_sink
   // Transform staff-space units to Cairo bigpoints
   Real scale_factor_;
 
-  // In bigpoints.
-  Real paper_height_;
-  Real paper_width_;
-
   cairo_surface_t *surface_ = nullptr;
   cairo_t *context_ = nullptr;
 
@@ -132,8 +128,6 @@ class Cairo_outputter : public Stencil_sink
   std::string filename_;
 
   SCM point_and_click_;
-  int current_page_number_; // starts at 1
-  int page_count_;
 
   // png specific data
   unsigned int png_height_;
@@ -187,12 +181,11 @@ class Cairo_outputter : public Stencil_sink
 
 public:
   Cairo_outputter (Cairo_output_format format, std::string const &basename,
-                   int page_count, Output_def *paper);
+                   Output_def *paper);
   ~Cairo_outputter ();
-  void create_surface ();
+  void create_surface (Stencil const *, int);
   void finish_page ();
   void handle_metadata (SCM header);
-  void showpage ();
   void close ();
 };
 
@@ -559,34 +552,39 @@ Cairo_outputter::finish_page ()
 }
 
 void
-Cairo_outputter::create_surface ()
+Cairo_outputter::create_surface (Stencil const *stencil, int page_number)
 {
   filename_ = outfile_basename_;
   if (format_ == SVG || format_ == PNG)
-    filename_ += "-" + std::to_string (current_page_number_);
+    filename_ += "-" + std::to_string (page_number);
   filename_ += "." + format_name (format_);
 
   message (_f ("Output to `%s'...\n", filename_.c_str ()));
 
+  Real paper_width = stencil->extent (X_AXIS).length ();
+  Real paper_height = stencil->extent (Y_AXIS).length ();
+
+  paper_width *= scale_factor_;
+  paper_height *= scale_factor_;
+
   switch (format_)
     {
     case SVG:
-      surface_ = cairo_svg_surface_create (filename_.c_str (), paper_width_,
-                                           paper_height_);
+      surface_ = cairo_svg_surface_create (filename_.c_str (), paper_width,
+                                           paper_height);
       context_ = cairo_create (surface_);
       break;
     case PDF:
-      surface_ = cairo_pdf_surface_create (filename_.c_str (), paper_width_,
-                                           paper_height_);
+      surface_ = cairo_pdf_surface_create (filename_.c_str (), paper_width,
+                                           paper_height);
       context_ = cairo_create (surface_);
       break;
     case PNG:
       {
         int png_dpi
           = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
-        png_height_
-          = std::max ((int) round (paper_height_ / 72.0 * png_dpi), 1);
-        png_width_ = std::max ((int) round (paper_width_ / 72.0 * png_dpi), 1);
+        png_height_ = std::max ((int) round (paper_height / 72.0 * png_dpi), 1);
+        png_width_ = std::max ((int) round (paper_width / 72.0 * png_dpi), 1);
         surface_ = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, png_width_,
                                                png_height_);
         context_ = cairo_create (surface_);
@@ -594,8 +592,8 @@ Cairo_outputter::create_surface ()
         break;
       }
     case PS:
-      surface_ = cairo_ps_surface_create (filename_.c_str (), paper_width_,
-                                          paper_height_);
+      surface_ = cairo_ps_surface_create (filename_.c_str (), paper_width,
+                                          paper_height);
       context_ = cairo_create (surface_);
       break;
     default:
@@ -603,17 +601,6 @@ Cairo_outputter::create_surface ()
     }
 
   cairo_scale (context_, scale_factor_, -scale_factor_);
-}
-
-void
-Cairo_outputter::showpage ()
-{
-  finish_page ();
-  current_page_number_++;
-  if ((format_ == SVG || format_ == PNG) && current_page_number_ <= page_count_)
-    {
-      create_surface ();
-    }
 }
 
 void
@@ -1061,25 +1048,16 @@ Cairo_outputter::~Cairo_outputter ()
 }
 
 Cairo_outputter::Cairo_outputter (Cairo_output_format format,
-                                  std::string const &basename, int page_count,
+                                  std::string const &basename,
                                   Output_def *paper)
 {
   point_and_click_ = ly_get_option (ly_symbol2scm ("point-and-click"));
   format_ = format;
   outfile_basename_ = basename;
-  current_page_number_ = 1;
-  page_count_ = page_count;
 
   scale_factor_
     = paper->get_dimension (ly_symbol2scm ("output-scale")) / bigpoint_constant;
-  paper_width_ = paper->get_dimension (ly_symbol2scm ("paper-width"));
-  paper_height_ = paper->get_dimension (ly_symbol2scm ("paper-height"));
 
-  paper_width_ *= scale_factor_;
-  paper_height_ *= scale_factor_;
-
-  png_height_ = 0;
-  png_width_ = 0;
 }
 
 void
@@ -1175,18 +1153,21 @@ output_cairo_format (Cairo_output_format format, SCM basename, SCM stencils,
                      SCM header, Output_def *paper)
 {
   Cpu_timer timer;
-  Cairo_outputter outputter (format, ly_scm2string (basename),
-                             from_scm<int> (scm_length (stencils)), paper);
+  Cairo_outputter outputter (format, ly_scm2string (basename), paper);
 
-  outputter.create_surface ();
-  outputter.handle_metadata (header);
-
-  for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p))
+  int page = 1;
+  for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p), page++)
     {
       const Stencil *stencil = unsmob<const Stencil> (scm_car (p));
+      if ((format == SVG || format == PNG) || page == 1)
+        {
+          outputter.create_surface (stencil, page);
+          if (page == 1)
+            outputter.handle_metadata (header);
+        }
       interpret_stencil_expression (stencil->expr (), &outputter,
                                     Offset (0, 0));
-      outputter.showpage ();
+      outputter.finish_page ();
     }
 
   outputter.close ();
