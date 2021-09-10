@@ -42,6 +42,8 @@ c.create_directories()
 
 logging.info("Downloading files...")
 for package in all_dependencies + all_fonts:
+    if not package.enabled(c):
+        continue
     package.download(c)
 
 if not args.debug:
@@ -49,6 +51,8 @@ if not args.debug:
     logging.info("")
 
 for package in all_dependencies:
+    if not package.enabled(c):
+        continue
     logging.info("Building %s", package)
     if not package.prepare_sources(c):
         sys.exit(1)

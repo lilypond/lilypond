@@ -191,8 +191,7 @@ class Fontconfig(ConfigurePackage):
         self.patch_file(c, os.path.join("src", "fccache.c"), patch_uuid_header)
         self.patch_file(c, os.path.join("src", "fchash.c"), patch_uuid_header)
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [expat, freetype, util_linux]
 
     def configure_args(self, c: Config) -> List[str]:
@@ -238,8 +237,7 @@ class Ghostscript(ConfigurePackage):
         for unused in dirs:
             shutil.rmtree(os.path.join(self.src_directory(c), unused))
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [freetype]
 
     @property
@@ -376,8 +374,7 @@ class GLib(MesonPackage):
         major_version = ".".join(self.version.split(".")[0:2])
         return f"https://download.gnome.org/sources/glib/{major_version}/{self.archive}"
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [libffi, zlib]
 
     def meson_args(self, c: Config) -> List[str]:
@@ -579,8 +576,7 @@ class Guile(ConfigurePackage):
         pkgconfig = os.path.join("meta", f"guile-{self.major_version}.pc.in")
         self.patch_file(c, pkgconfig, patch_pkgconfig)
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [bdwgc, libffi, libtool, libunistring, gmp]
 
     def configure_args(self, c: Config) -> str:
@@ -634,8 +630,7 @@ class HarfBuzz(MesonPackage):
         # pylint: disable=line-too-long
         return f"https://github.com/harfbuzz/harfbuzz/releases/download/{self.version}/{self.archive}"
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [freetype]
 
     def meson_args(self, c: Config) -> List[str]:
@@ -703,8 +698,7 @@ class Pango(MesonPackage):
         major_version = ".".join(self.version.split(".")[0:2])
         return f"http://ftp.gnome.org/pub/GNOME/sources/pango/{major_version}/{self.archive}"
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [fontconfig, freetype, fribidi, glib, harfbuzz]
 
     def build_env(self, c: Config) -> Dict[str, str]:

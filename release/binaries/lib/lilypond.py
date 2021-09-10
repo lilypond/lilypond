@@ -87,8 +87,7 @@ class LilyPond(ConfigurePackage):
     def download_url(self) -> str:
         raise NotImplementedError
 
-    @property
-    def dependencies(self) -> List[Package]:
+    def dependencies(self, c: Config) -> List[Package]:
         return [freetype, fontconfig, ghostscript, glib, guile, pango, python]
 
     @property

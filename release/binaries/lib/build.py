@@ -41,6 +41,11 @@ class Package:
 
     # pylint: disable=too-many-public-methods
 
+    def enabled(self, c: Config) -> bool:
+        """Return whether this package is enabled for this configuration."""
+        # pylint: disable=no-self-use,unused-argument
+        return True
+
     @property
     def version(self) -> str:
         """Return the version of this package"""
@@ -93,9 +98,9 @@ class Package:
         """
         raise NotImplementedError
 
-    @property
-    def dependencies(self) -> List["Package"]:
+    def dependencies(self, c: Config) -> List["Package"]:
         """Return the dependencies for this package"""
+        # pylint: disable=no-self-use,unused-argument
         return []
 
     def download(self, c: Config):
@@ -151,7 +156,7 @@ class Package:
     def collect_pkgconfig_paths(self, c: Config) -> List[str]:
         """Collect the pkgconfig paths for all dependencies."""
         all_paths = []
-        for dependency in self.dependencies:
+        for dependency in self.dependencies(c):
             all_paths += dependency.collect_pkgconfig_paths(c)
 
         path = self.pkgconfig_path(c)
