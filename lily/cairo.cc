@@ -67,14 +67,12 @@ enum Cairo_output_format
   PDF,
   SVG,
   PNG,
+  EPS,
   PS,
 };
 
 static std::unordered_map<std::string, Cairo_output_format> output_formats = {
-  {"svg", SVG},
-  {"pdf", PDF},
-  {"ps", PS},
-  {"png", PNG},
+  {"svg", SVG}, {"pdf", PDF}, {"eps", EPS}, {"ps", PS}, {"png", PNG},
 };
 
 std::string
@@ -89,6 +87,20 @@ format_name (Cairo_output_format f)
     }
 
   abort ();
+}
+
+static bool
+single_page_format (Cairo_output_format fmt)
+{
+  switch (fmt)
+    {
+    case EPS:
+    case SVG:
+    case PNG:
+      return true;
+    default:
+      return false;
+    }
 }
 
 Cairo_output_format
@@ -537,7 +549,7 @@ Cairo_outputter::finish_page ()
 {
   cairo_show_page (context_);
   check_errors ();
-  if (format_ == PNG || format_ == SVG)
+  if (single_page_format (format_))
     {
       cairo_surface_flush (surface_);
       if (format_ == PNG)
@@ -555,7 +567,7 @@ void
 Cairo_outputter::create_surface (Stencil const *stencil, int page_number)
 {
   filename_ = outfile_basename_;
-  if (format_ == SVG || format_ == PNG)
+  if (single_page_format (format_))
     filename_ += "-" + std::to_string (page_number);
   filename_ += "." + format_name (format_);
 
@@ -592,8 +604,10 @@ Cairo_outputter::create_surface (Stencil const *stencil, int page_number)
         break;
       }
     case PS:
+    case EPS:
       surface_ = cairo_ps_surface_create (filename_.c_str (), paper_width,
                                           paper_height);
+      cairo_ps_surface_set_eps (surface_, format_ == EPS);
       context_ = cairo_create (surface_);
       break;
     default:
@@ -1159,7 +1173,7 @@ output_cairo_format (Cairo_output_format format, SCM basename, SCM stencils,
   for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p), page++)
     {
       const Stencil *stencil = unsmob<const Stencil> (scm_car (p));
-      if ((format == SVG || format == PNG) || page == 1)
+      if (single_page_format (format) || page == 1)
         {
           outputter.create_surface (stencil, page);
           if (page == 1)
