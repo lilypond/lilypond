@@ -174,7 +174,7 @@ class Package:
 
     def build_env(self, c: Config) -> Dict[str, str]:
         """Return the environment mapping to build this package."""
-        env = os.environ
+        env = os.environ.copy()
         env["PKG_CONFIG"] = os.path.join(lib_path, "pkg-config-static.sh")
         env["PKG_CONFIG_LIBDIR"] = os.pathsep.join(self.collect_pkgconfig_paths(c))
         return env
