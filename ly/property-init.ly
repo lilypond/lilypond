@@ -420,8 +420,8 @@ mergeDifferentlyHeadedOff =
 
 %% numeric time signature
 
-numericTimeSignature = \override Staff.TimeSignature.style = #'numbered
-defaultTimeSignature = \revert Staff.TimeSignature.style
+numericTimeSignature = \override Timing.TimeSignature.style = #'numbered
+defaultTimeSignature = \revert Timing.TimeSignature.style
 
 
 %% palm mutes
