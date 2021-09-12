@@ -3681,9 +3681,9 @@ channel numbers wrap around back to 0, possibly causing the incorrect
 assignment of instruments to some notes.  This context property can be
 set to one of the following values:
 
-@table @var
+@table @code
 
-@item @code{'staff}
+@item 'staff
 
 Allocate a separate MIDI channel to each staff in the score (this is
 the default).  All notes in all voices contained within each staff will
@@ -3693,7 +3693,7 @@ in the same MIDI track.
 The limit of 16 channels is applied to the total number of staff and
 lyrics contexts, even though MIDI lyrics do not take up a MIDI channel.
 
-@item @code{'instrument}
+@item 'instrument
 
 Allocate a separate MIDI channel to each distinct MIDI instrument
 specified in the score.  This means that all the notes played with the
@@ -3705,7 +3705,7 @@ limit of 16 (as they will not be assigned to a MIDI instrument), so
 this setting may allow a better allocation of MIDI channels when the
 number of staves and lyrics contexts in a score exceeds 16.
 
-@item @code{'voice}
+@item 'voice
 
 Allocate a separate MIDI channel to each voice in the score that has a
 unique name among the voices in its enclosing staff.  Voices in
@@ -3786,9 +3786,9 @@ implementation of the MIDI output device).
 
 The following context properties are supported:
 
-@table @var
+@table @code
 
-@item @code{Staff.midiPanPosition}
+@item Staff.midiPanPosition
 
 The pan position controls how the sound on a MIDI channel is
 distributed between left and right stereo outputs.  The context
@@ -3800,7 +3800,7 @@ right stereo outputs, and the value 1.0 will move all sound to the
 right stereo output.  Values between -1.0 and 1.0 can be used to obtain
 mixed distributions between left and right stereo outputs.
 
-@item @code{Staff.midiBalance}
+@item Staff.midiBalance
 
 The stereo balance of a MIDI channel.  Similarly to the pan position,
 this context property accepts a number between -1.0 (@code{#LEFT}) and
@@ -3808,7 +3808,7 @@ this context property accepts a number between -1.0 (@code{#LEFT}) and
 stereo speakers without affecting the distribution of the stereo
 signals.
 
-@item @code{Staff.midiExpression}
+@item Staff.midiExpression
 
 Expression level (as a fraction of the maximum available level) to
 apply to a MIDI channel.  A MIDI device combines the MIDI channel's
@@ -3825,13 +3825,13 @@ sustained notes (not supported automatically by LilyPond).
 The expression level ranges from 0.0 (no expression, meaning zero
 volume) to 1.0 (full expression).
 
-@item @code{Staff.midiReverbLevel}
+@item Staff.midiReverbLevel
 
 Reverb level (as a fraction of the maximum available level) to apply
 to a MIDI channel.  This property accepts numbers between 0.0 (no
 reverb) and 1.0 (full effect).
 
-@item @code{Staff.midiChorusLevel}
+@item Staff.midiChorusLevel
 
 Chorus level (as a fraction of the maximum available level) to apply to
 a MIDI channel.  This property accepts numbers between 0.0 (no chorus
