@@ -1342,6 +1342,33 @@ Internals Reference:
 @endmorerefs
 
 
+@knownissues
+@code{\numericTimeSignature} and @code{\defaultTimeSignature} have no effect when used in a
+@code{MensuralStaff}. To use these modern time signatures in a @code{MensuralStaff}, either
+select them already when creating the context:
+
+@lilypond[quote,verbatim]
+\new MensuralStaff \with { \numericTimeSignature } {
+  c'1
+}
+@end lilypond
+
+or use an explicit @code{\override}:
+
+@lilypond[quote,verbatim]
+\new MensuralStaff {
+  \time 2/2
+  c'1
+  \override MensuralStaff.TimeSignature.style = #'numbered
+  \time 2/2
+  c'
+  \override MensuralStaff.TimeSignature.style = #'default
+  \time 2/2
+  c'
+}
+@end lilypond
+
+
 @node Metronome marks
 @unnumberedsubsubsec Metronome marks
 

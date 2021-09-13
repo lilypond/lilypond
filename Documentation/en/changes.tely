@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+@code{\numericTimeSignature} and @code{\defaultTimeSignature} now act on
+all staves at once (more precisely, on all staves in the same @code{Timing}
+context), thus matching the behavior of @code{\time}.
+
+@item
 Parenthesizing chords is supported.  Currently, the font size of the
 parentheses has to be adjusted manually.
 
