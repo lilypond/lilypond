@@ -114,8 +114,9 @@ src: url('~a');
   (set! output-dir dir)
   (define-fonts paper svg-define-font svg-define-font))
 
-(define (output-stencil filename stencil paper)
-  (let* ((outputter (ly:make-paper-outputter
+(define (output-stencil basename stencil paper)
+  (let* ((filename (string-append basename ".svg"))
+         (outputter (ly:make-paper-outputter
                      (cond-expand
                       (guile-2 (open-output-file filename #:encoding "UTF-8"))
                       (else (open-file filename "wb")))
@@ -255,25 +256,22 @@ src: url('~a');
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
-       (set! filename (format #f "~a~a.svg"
+       (set! filename (format #f "~a~a"
                               basename
                               (file-suffix page-number)))
        (output-stencil filename page paper))
      stencils)))
 
-(define (output-preview-framework basename book paper)
-  (let* ((systems (relevant-book-systems book))
-         (to-dump-systems (relevant-dump-systems systems)))
-    (output-stencil (format #f "~a.preview.svg" basename)
-                  (stack-stencils Y DOWN 0.0
-                                  (map paper-system-stencil
-                                       (reverse to-dump-systems)))
-                  paper)
-    ))
+(define-public (output-preview-framework basename book paper)
+    (output-stencil
+     (format #f "~a.preview" basename)
+     (generate-preview-stencil book)
+     paper))
+    
 
-(define (output-crop-framework basename book paper)
-  (let* ((systems (relevant-book-systems book))
-         (page-stencils (stack-stencils Y DOWN 0.0
-                                        (map paper-system-stencil
-                                             (reverse (reverse systems))))))
-    (output-stencil (format #f "~a.cropped.svg" basename) page-stencils paper)))
+(define-public (output-crop-framework basename book paper)
+    (output-stencil
+     (format #f "~a.cropped" basename)
+     (generate-crop-stencil book)
+     paper))
+     

@@ -362,7 +362,7 @@ created."
        ))
    fields))
 
-(define-public (relevant-book-systems book)
+(define (relevant-book-systems book)
   (let ((systems (ly:paper-book-systems book)))
     ;; skip booktitles.
     (if (and (not (ly:get-option 'include-book-title-preview))
@@ -371,7 +371,7 @@ created."
         (cdr systems)
         systems)))
 
-(define-public (relevant-dump-systems systems)
+(define (relevant-dump-systems systems)
   (let ((to-dump-systems '()))
     (for-each
      (lambda (sys)
@@ -382,6 +382,23 @@ created."
      systems)
     to-dump-systems))
 
+(define-public (generate-preview-stencil paper-book)
+  "Returns a stencil for a preview of given Paper_book"
+  (let* ((systems (relevant-book-systems paper-book))
+         (to-dump-systems (relevant-dump-systems systems)))
+
+    (stack-stencils Y DOWN 0.0
+                    (map paper-system-stencil
+                         (reverse to-dump-systems)))
+    ))
+
+(define-public (generate-crop-stencil paper-book)
+  "Returns a stencil for the cropped output of the given Paper_book"
+  (let* ((systems (relevant-book-systems paper-book)))
+     (stack-stencils Y DOWN 0.0
+                     (map paper-system-stencil
+                          (reverse (reverse systems))))))
+  
 (define-public (font-name-split font-name)
   "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
 string or @code{#f}."

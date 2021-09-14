@@ -948,25 +948,16 @@ mark {ly~a_stream} /CLOSE pdfmark
                       ))
 
 (define-public (output-preview-framework basename book paper)
-  (let* ((systems (relevant-book-systems book))
-         (to-dump-systems (relevant-dump-systems systems)))
-    (output-stencil
-     (format #f "~a.preview" basename)
-     (stack-stencils Y DOWN 0.0
-                     (map paper-system-stencil
-                          (reverse to-dump-systems)))
-     paper)))
+  (output-stencil
+   (format #f "~a.preview" basename)
+   (generate-preview-stencil book)
+   paper))
     
-
 (define-public (output-crop-framework basename book paper)
-  (let* ((systems (relevant-book-systems book)))
-    
-    (output-stencil
-     (format #f "~a.cropped" basename)
-     (stack-stencils Y DOWN 0.0
-                     (map paper-system-stencil
-                          (reverse (reverse systems))))
-     paper)))
+  (output-stencil
+   (format #f "~a.cropped" basename)
+   (generate-crop-stencil book)
+   paper))
      
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
