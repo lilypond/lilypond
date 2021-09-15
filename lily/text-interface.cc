@@ -221,18 +221,21 @@ SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
-
-  return internal_interpret_markup (layout, props, markup);
+  SCM st_scm = internal_interpret_markup (layout, props, markup);
+  if (unsmob<const Stencil> (st_scm))
+    return st_scm;
+  programming_error ("markup interpretation must yield stencil");
+  return Stencil ().smobbed_copy ();
 }
 
 Stencil
 Text_interface::interpret_markup (Output_def *layout, SCM props, SCM markup)
 {
-  Stencil result;
   SCM st_scm = internal_interpret_markup (layout, props, markup);
   if (auto *st = unsmob<const Stencil> (st_scm))
-    result = *st;
-  return result;
+    return *st;
+  programming_error ("markup interpretation must yield stencil");
+  return Stencil ();
 }
 
 SCM

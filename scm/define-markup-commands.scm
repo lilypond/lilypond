@@ -100,7 +100,7 @@
 ;;;     the command documentation string (used to generate manuals)
 ;;;
 ;;;   body
-;;;     the command body.  The function is supposed to return a stencil.
+;;;     the command body.  The function must return a stencil.
 ;;;
 ;;; Each markup command definition shall have a documentation string
 ;;; with description, syntax and example.
