@@ -182,14 +182,16 @@ way the transposition number is displayed."
                          #f))
 
          (alt (ly:event-property event 'alteration))
+         (alt-bracket (ly:event-property event 'alteration-bracket #f))
          (alt-markup
           (if (number? alt)
-              (make-general-align-markup
-               Y DOWN
-               (make-fontsize-markup
-                (if (not (= alt DOUBLE-SHARP))
-                    -2 2)
-                (alteration->text-accidental-markup alt)))
+              ((if alt-bracket make-bracket-markup identity)
+               (make-general-align-markup
+                Y DOWN
+                (make-fontsize-markup
+                 (if (not (= alt DOUBLE-SHARP))
+                     -2 2)
+                 (alteration->text-accidental-markup alt))))
               #f))
 
          (plus-markup (if (eq? #t (ly:event-property event 'augmented))
@@ -199,12 +201,17 @@ way the transposition number is displayed."
          (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
          (plus-dir (ly:context-property context 'figuredBassPlusDirection)))
 
+    (if (and (not alt-markup) alt-bracket)
+        (ly:programming-error "Cannot put brackets around non-existent bass figure alteration."))
+
     (if (and (not fig-markup) alt-markup)
         (begin
-          (set! fig-markup (make-left-align-markup
-                            (make-pad-around-markup 0.3 alt-markup)))
+          (set! fig-markup
+                (make-translate-markup
+                  (cons (if alt-bracket -0.5 0) 0)
+                  (make-left-align-markup
+                    (make-pad-around-markup 0.3 alt-markup))))
           (set! alt-markup #f)))
-
 
     ;; hmm, how to get figures centered between note, and
     ;; lone accidentals too?

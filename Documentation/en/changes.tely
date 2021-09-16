@@ -66,6 +66,15 @@ which scares away people.
 @end ignore
 
 @item
+In figured bass, brackets can now also be added around accidentals.
+
+@lilypond
+\figures {
+  <7 [5 3[+]]> <5[!]> <[5!]>
+}
+@end lilypond
+
+@item
 @code{\numericTimeSignature} and @code{\defaultTimeSignature} now act on
 all staves at once (more precisely, on all staves in the same @code{Timing}
 context), thus matching the behavior of @code{\time}.

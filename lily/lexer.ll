@@ -190,6 +190,8 @@ ESCAPED		[nt\\''""]
 EXTENDER	__
 HYPHEN		--
 BOM_UTF8	\357\273\277
+FIG_ALT_SYMB	[+\-\!]
+FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 
 %%
 
@@ -481,6 +483,10 @@ BOM_UTF8	\357\273\277
 	\\\\	{
 		yylval = SCM_UNSPECIFIED;
 		return E_BACKSLASH;
+	}
+	{FIG_ALT_EXPR}|(\[{FIG_ALT_EXPR}\])		{
+		yylval = scm_from_ascii_string (YYText ());
+		return FIGURE_ALTERATION_EXPR;
 	}
 	[][]	{
 		yylval = SCM_UNSPECIFIED;

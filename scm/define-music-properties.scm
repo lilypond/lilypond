@@ -58,6 +58,7 @@ splitting in @code{Completion_heads_engraver}.")
 
 TODO: Use SpanEvents?")
      (bracket-stop ,boolean? "Stop a bracket here.")
+     (alteration-bracket ,boolean? "Put brackets around bass figure alteration.")
      (break-penalty ,number? "Penalty for line break hint.")
      (break-permission ,symbol?
                        "Whether to allow, forbid or force a line break.")

@@ -331,6 +331,7 @@ If we give names, Bison complains.
 %token FIGURE_CLOSE /* "\\>" */
 %token FIGURE_OPEN /* "\\<" */
 %token FIGURE_SPACE "_"
+%token FIGURE_ALTERATION_EXPR
 %token HYPHEN "--"
 
 %token MULTI_MEASURE_REST
@@ -3561,12 +3562,6 @@ bass_number:
 	}
 	;
 
-figured_bass_alteration:
-	'-' 	{ $$ = to_scm (FLAT_ALTERATION); }
-	| '+'	{ $$ = to_scm (SHARP_ALTERATION); }
-	| '!'	{ $$ = to_scm (0); }
-	;
-
 bass_figure:
 	FIGURE_SPACE {
 		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent", @$);
@@ -3587,15 +3582,33 @@ bass_figure:
 		$$ = $1;
 		set_property (unsmob<Music> ($1), "bracket-stop", SCM_BOOL_T);
 	}
-	| bass_figure figured_bass_alteration {
+	| bass_figure FIGURE_ALTERATION_EXPR {
 		Music *m = unsmob<Music> ($1);
-		if (scm_to_double ($2)) {
-			SCM salter = get_property (m, "alteration");
-			SCM alter = scm_is_number (salter) ? salter : to_scm (0);
-			set_property (m, "alteration",
-					 scm_sum (alter, $2));
-		} else {
-			set_property (m, "alteration", to_scm (0));
+
+		if (scm_is_number (get_property (m, "alteration")))
+			m->warning (_f ("Dropping surplus alteration symbols for bass figure."));
+		else {
+			string alter_expr = ly_scm2string ($2);
+			Rational alter (0);
+			bool bracket = false;
+
+			for (string::iterator it=alter_expr.begin(); it != alter_expr.end (); it++)
+			{
+				int c = *it & 0xff;
+
+				/* The friendly lexer guarantees that '[' has its matching ']',
+				   so we don't have to check here. */
+				if (c == '[')		bracket = true;
+
+				/* "!" resets the counter: we mimic this traditional (pre-2.23.4) behavior. */
+				else if (c == '!')	alter = 0;
+				else if (c == '+')	alter += SHARP_ALTERATION;
+				else if (c == '-')	alter += FLAT_ALTERATION;
+			}
+
+			set_property (m, "alteration", to_scm (alter));
+			if (bracket)
+				set_property (m, "alteration-bracket", SCM_BOOL_T);
 		}
 	}
 	| bass_figure figured_bass_modification  {

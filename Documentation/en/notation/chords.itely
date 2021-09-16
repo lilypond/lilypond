@@ -953,11 +953,12 @@ sixth steps) can be created:
 }
 @end lilypond
 
-Brackets can be included in figures:
+Brackets can be added around accidentals, figures, and consecutive
+groups of figures:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <[12] 8 [6  4]>
+  <9[-] 8 [7-] 5 [4[!] 2+]>
 }
 @end lilypond
 

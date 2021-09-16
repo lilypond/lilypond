@@ -603,7 +603,10 @@ expression."
   "\\~")
 
 (define-display-method BassFigureEvent (figure)
+  ;; TODO handle \+, / and friends as well as arbitrary levels of alteration
+  (define (bracketify content) (format #f "[~a]" content))
   (let ((alteration (ly:music-property figure 'alteration))
+        (alteration-bracket (ly:music-property figure 'alteration-bracket))
         (fig (ly:music-property figure 'figure))
         (bracket-start (ly:music-property figure 'bracket-start))
         (bracket-stop (ly:music-property figure 'bracket-stop)))
@@ -615,13 +618,14 @@ expression."
                   (else fig))
             (if (null? alteration)
                 ""
-                (cond
-                 ((= alteration DOUBLE-FLAT) "--")
-                 ((= alteration FLAT) "-")
-                 ((= alteration NATURAL) "!")
-                 ((= alteration SHARP) "+")
-                 ((= alteration DOUBLE-SHARP) "++")
-                 (else "")))
+                ((if (null? alteration-bracket) identity bracketify)
+                 (cond
+                  ((= alteration DOUBLE-FLAT) "--")
+                  ((= alteration FLAT) "-")
+                  ((= alteration NATURAL) "!")
+                  ((= alteration SHARP) "+")
+                  ((= alteration DOUBLE-SHARP) "++")
+                  (else ""))))
             (if (null? bracket-stop) "" "]"))))
 
 (define-display-method LyricEvent (lyric)
