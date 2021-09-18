@@ -333,7 +333,6 @@ Grob::translate_axis (Real y, Axis a)
 Real
 Grob::relative_coordinate (Grob const *refp, Axis a) const
 {
-  /* eaa - hmmm, should we do a programming_error() here? */
   if (refp == this)
     return 0.0;
 
