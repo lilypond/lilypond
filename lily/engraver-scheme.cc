@@ -109,7 +109,10 @@ LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  en->announce_end_grob (g, cause);
+  if (!en->context ()->get_parent ())
+    programming_error ("context for engraver has been detached");
+  else
+    en->announce_end_grob (g, cause);
 
   return SCM_UNSPECIFIED;
 }
