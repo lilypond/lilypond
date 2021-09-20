@@ -144,6 +144,27 @@ Spanner::get_break_index () const
   return break_index_;
 }
 
+Item *
+Spanner::get_bound (Direction d) const
+{
+  if (Item *b = spanned_drul_[d])
+    return b;
+  else if (internal_has_interface (ly_symbol2scm ("sticky-grob-interface")))
+    {
+      /* For sticky spanners, there is no point in the engraver cycle where
+         the Spanner_tracking_engraver could reliably set the bounds since
+         the engravers taking care of the host can set its right bound (and
+         even the left bound) as late as the finalize hook, and we don't want
+         dependencies on engraver order.  So we handle this at bound retrieval
+         time, falling back on the host's bounds if we don't have any. */
+      if (Spanner *sp = unsmob<Spanner> (get_object (this, "sticky-host")))
+        return sp->get_bound (d);
+      else
+        programming_error ("sticky spanner's host is not a spanner");
+    }
+  return nullptr;
+}
+
 void
 Spanner::set_my_columns ()
 {
@@ -575,6 +596,7 @@ Spanner::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
 {
   Spanner *g = eng->internal_make_spanner (type, cause, file, line, fun);
   // Delegate ending the sticky spanner to the Spanner_tracking_engraver.
+  // The bounds are inherited implicitly.
   return g;
 }
 

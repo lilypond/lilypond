@@ -991,10 +991,7 @@ vertical position.")))
         ;; Map host spanners to lists of (spanner . source-engraver)
         ;; pairs.  We keep the source-engraver so we can announce the end
         ;; from it rather than from this engraver.
-        (table (make-hash-table))
-        ;; List of potential host spanners for which we should end
-        ;; spanners in this time step.
-        (spanners-found '()))
+        (table (make-hash-table)))
     (make-engraver
       (acknowledgers
         ((sticky-grob-interface engraver grob source-engraver)
@@ -1006,28 +1003,16 @@ vertical position.")))
                                    (hashq-ref table host '())))))))
       (end-acknowledgers
         ((spanner-interface engraver host source-engraver)
-           (set! spanners-found (cons host spanners-found))))
-      ((process-acknowledged engraver)
-         (for-each
-           (lambda (host)
-             (let ((spanners (hashq-ref table host)))
-               (if spanners
-                   (let ((left-bound (ly:spanner-bound host LEFT))
-                         (right-bound (ly:spanner-bound host RIGHT)))
-                     (for-each
-                       (lambda (spanner-engraver-pair)
-                         (let ((spanner (car spanner-engraver-pair))
-                               (source-engraver (cdr spanner-engraver-pair)))
-                           ;; TODO: fall back to currentMusicalColumn?  The old
-                           ;; Footnote_engraver code did this, but if a spanner
-                           ;; has no bounds by the time its end is announced,
-                           ;; shouldn't that get fixed?
-                           (ly:spanner-set-bound! spanner LEFT left-bound)
-                           (ly:spanner-set-bound! spanner RIGHT right-bound)
-                           (ly:engraver-announce-end-grob source-engraver spanner host)))
-                     spanners)))))
-           spanners-found)
-         (set! spanners-found '())))))
+           (let ((spanners (hashq-ref table host)))
+             (if spanners
+                 (begin
+                   (for-each
+                     (lambda (spanner-engraver-pair)
+                       (let ((spanner (car spanner-engraver-pair))
+                             (source-engraver (cdr spanner-engraver-pair)))
+                         (ly:engraver-announce-end-grob source-engraver spanner host)))
+                     spanners)
+                   (hashq-remove! table host)))))))))
 
 (ly:register-translator
  Spanner_tracking_engraver 'Spanner_tracking_engraver
@@ -1038,8 +1023,7 @@ vertical position.")))
    (description . "Helper for creating spanners attached to other spanners.
 If a spanner has the @code{sticky-grob-interface}, the engraver tracks the
 spanner contained in its @code{sticky-host} object.  When the host ends,
-the sticky spanner attached to it has its end announced too, and takes its
-bounds from the host.")))
+the sticky spanner attached to it has its end announced too.")))
 
 (define (Show_control_points_engraver context)
   ;; The usual ties and slurs are spanners, but semi-ties

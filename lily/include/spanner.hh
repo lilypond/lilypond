@@ -78,7 +78,7 @@ public:
   // accepts_as_bound_...() are used in the implementation of set_bound ().
   virtual bool accepts_as_bound_item (const Item *) const;
   virtual bool accepts_as_bound_paper_column (const Paper_column *) const;
-  Item *get_bound (Direction d) const { return spanned_drul_[d]; }
+  Item *get_bound (Direction d) const;
 
   Spanner (SCM);
   Spanner (Spanner const &);

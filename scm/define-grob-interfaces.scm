@@ -49,7 +49,8 @@ note)."
  'sticky-grob-interface
  "A grob that is attached to another grob.  Grobs type having this
 interface can be either items or spanners, depending on the class
-of their host."
+of their host.  Sticky spanners implicitly take their bounds from
+the host."
  '(sticky-host))
 
 (ly:add-interface
