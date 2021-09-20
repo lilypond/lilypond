@@ -35,8 +35,8 @@ void
 Spanner::do_break_processing ()
 {
   //break_into_pieces
-  Item *left = spanned_drul_[LEFT];
-  Item *right = spanned_drul_[RIGHT];
+  Item *left = get_bound (LEFT);
+  Item *right = get_bound (RIGHT);
 
   if (!left || !right || !is_live ())
     return;
@@ -149,8 +149,9 @@ Spanner::set_my_columns ()
 {
   for (const auto d : {LEFT, RIGHT})
     {
-      if (!spanned_drul_[d]->get_system ())
-        set_bound (d, spanned_drul_[d]->find_prebroken_piece (-d));
+      Item *b = get_bound (d);
+      if (!b->get_system ())
+        set_bound (d, b->find_prebroken_piece (-d));
     }
 }
 
@@ -158,19 +159,20 @@ Interval_t<int>
 Spanner::spanned_rank_interval () const
 {
   Interval_t<int> iv (0, 0);
-
-  if (spanned_drul_[LEFT] && spanned_drul_[LEFT]->get_column ())
-    iv[LEFT] = spanned_drul_[LEFT]->get_column ()->get_rank ();
-  if (spanned_drul_[RIGHT] && spanned_drul_[RIGHT]->get_column ())
-    iv[RIGHT] = spanned_drul_[RIGHT]->get_column ()->get_rank ();
+  for (const auto d: {LEFT, RIGHT})
+    {
+      if (Item *b = get_bound (d))
+        if (Paper_column *col = b->get_column ())
+          iv[d] = col->get_rank ();
+    }
   return iv;
 }
 
 Interval_t<Moment>
 Spanner::spanned_time () const
 {
-  return spanned_time_interval (spanned_drul_[LEFT],
-                                spanned_drul_[RIGHT]);
+  return spanned_time_interval (get_bound (LEFT),
+                                get_bound (RIGHT));
 }
 
 /*
@@ -274,7 +276,7 @@ Spanner::spanner_length () const
   if (lr.is_empty ())
     {
       for (const auto d : {LEFT, RIGHT})
-        lr[d] = spanned_drul_[d]->relative_coordinate (0, X_AXIS);
+        lr[d] = get_bound (d)->relative_coordinate (0, X_AXIS);
     }
 
   if (lr.is_empty ())
@@ -286,12 +288,15 @@ Spanner::spanner_length () const
 System *
 Spanner::get_system () const
 {
-  if (spanned_drul_[LEFT] && spanned_drul_[RIGHT])
+  if (Item *left = get_bound (LEFT))
     {
-      if (auto *const system = spanned_drul_[LEFT]->get_system ())
+      if (Item *right = get_bound (RIGHT))
         {
-          if (system == spanned_drul_[RIGHT]->get_system ())
-            return system;
+          if (auto *const system = left->get_system ())
+            {
+              if (system == right->get_system ())
+                return system;
+            }
         }
     }
 
@@ -342,8 +347,8 @@ Spanner::derived_mark () const
   scm_gc_mark (pure_property_cache_);
 
   for (const auto d : {LEFT, RIGHT})
-    if (spanned_drul_[d])
-      scm_gc_mark (spanned_drul_[d]->self_scm ());
+    if (Item *b = spanned_drul_[d])
+      scm_gc_mark (b->self_scm ());
   ;
 
   // If break_index_ is -1, broken_intos_ might not yet have run its
