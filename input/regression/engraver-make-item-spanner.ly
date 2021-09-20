@@ -9,6 +9,7 @@ definition does not mandate a particular grob class."
 
 #(define (prepare-balloon balloon parent class sgn)
    (ly:grob-set-object! balloon 'sticky-host parent)
+   (ly:grob-set-parent! balloon X parent)
    (ly:grob-set-parent! balloon Y parent)
    (ly:grob-set-property!
      balloon
@@ -26,8 +27,7 @@ definition does not mandate a particular grob class."
   \consists
     #(lambda (context)
        (let ((items '())
-             (spanners '())
-             (counter 0))
+             (spanners '()))
          (make-engraver
            (acknowledgers
              ((item-interface engraver grob source-engraver)
@@ -37,11 +37,9 @@ definition does not mandate a particular grob class."
            ((process-acknowledged engraver)
               (for-each
                 (lambda (item)
-                  (set! counter (1+ counter))
                   (if (grob::has-interface item 'note-head-interface) ;; issue #6155
                       (let ((balloon
                               (ly:engraver-make-item engraver 'BalloonText item)))
-                        (ly:grob-set-parent! balloon X item)
                         (prepare-balloon balloon item 'Item 1))))
                 items)
               (set! items '())

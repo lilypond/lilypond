@@ -574,9 +574,7 @@ Spanner::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
                                 char const *file, int line, char const *fun)
 {
   Spanner *g = eng->internal_make_spanner (type, cause, file, line, fun);
-  g->set_y_parent (this);
-  // Delegate ending the sticky spanner and setting its bounds
-  // to the Spanner_tracking_engraver.
+  // Delegate ending the sticky spanner to the Spanner_tracking_engraver.
   return g;
 }
 

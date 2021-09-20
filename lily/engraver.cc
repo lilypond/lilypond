@@ -238,6 +238,8 @@ Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause,
                              sticky->name ()));
     }
   set_object (sticky, "sticky-host", host->self_scm ());
+  sticky->set_x_parent (host);
+  sticky->set_y_parent (host);
   return sticky;
 }
 
