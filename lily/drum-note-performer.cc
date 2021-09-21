@@ -35,9 +35,12 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
+
   void listen_note (Stream_event *);
+  void listen_tie (Stream_event *);
+  void listen_articulation (Stream_event *);
 private:
-  vector<Stream_event *> note_evs_;
+  vector<Stream_event *> note_evs_, script_evs_;
 };
 
 Drum_note_performer::Drum_note_performer (Context *c)
@@ -67,6 +70,10 @@ Drum_note_performer::process_music ()
           Stream_event *tie_event = 0;
           auto len = get_event_length (n, now_mom ());
           int velocity = 0;
+
+          for (vsize j = script_evs_.size (); j--;)
+            articulations = scm_cons (script_evs_[j]->self_scm (), articulations);
+
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
               Stream_event *ev = unsmob<Stream_event> (scm_car (s));
@@ -99,6 +106,7 @@ void
 Drum_note_performer::stop_translation_timestep ()
 {
   note_evs_.clear ();
+  script_evs_.clear ();
 }
 
 void
@@ -108,9 +116,23 @@ Drum_note_performer::listen_note (Stream_event *ev)
 }
 
 void
+Drum_note_performer::listen_tie (Stream_event *ev)
+{
+  script_evs_.push_back (ev);
+}
+
+void
+Drum_note_performer::listen_articulation (Stream_event *ev)
+{
+  script_evs_.push_back (ev);
+}
+
+void
 Drum_note_performer::boot ()
 {
   ADD_LISTENER (Drum_note_performer, note);
+  ADD_LISTENER (Drum_note_performer, tie);
+  ADD_LISTENER (Drum_note_performer, articulation);
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
