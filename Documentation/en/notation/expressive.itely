@@ -1228,27 +1228,26 @@ A glissando can connect notes across staves:
 @funindex \glissandoMap
 
 A glissando can connect notes in chords.  If anything other than a
-direct one-to-one pairing of the notes in the two chords is required
+direct one-to-one pairing of the notes in the two chords is required,
 the connections between the notes are defined by setting
-@code{\glissandoMap}, where the notes of a chord are assumed to be
-numbered from zero in the order in which they appear in the input
-@file{.ly} file.
+@code{\glissandoMap} to a Scheme list.  The elements are pairs of
+integers; each pair @var{(x . y)} creates a glissando line from the
+@var{x}-th note of the first chord to the @var{y}-th note of the second
+chord.  Notes are numbered from zero in the order in which they appear
+in the input @file{.ly} file.  Not all notes need be part in a
+glissando.
 
 @lilypond[verbatim,quote]
 \relative {
-  <c' e>1\glissando g' |
-  <c, e>1\glissando |
-  <g' b> |
+  <c' e>2\glissando g'
+  <c, e>\glissando <g' b>
   \break
   \set glissandoMap = #'((0 . 1) (1 . 0))
-  <c, g'>1\glissando |
-  <d a'> |
+  <c, g'>\glissando <d a'>
   \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
-  c1\glissando |
-  <d f a> |
-  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
-  <f d a'>1\glissando |
-  <c c'> |
+  c\glissando <d f a>
+  \set glissandoMap = #'((2 . 2) (0 . 0))
+  <f d a'>\glissando <c f c'>
 }
 @end lilypond
 
