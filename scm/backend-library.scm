@@ -151,26 +151,21 @@
 
 (define-public (postscript->png resolution paper-width paper-height bbox
                                 base-name tmp-name is-eps)
-  (let* ((verbose (ly:get-option 'verbose))
-         (rename-page-1 #f))
-
-    ;; Do not try to guess the name of the png file,
-    ;; GS produces PNG files like BASE-page%d.png.
-    (ly:message (_ "Converting to ~a...") "PNG")
-    ;; If option `png-width` and/or `png-height` is set, `resolution`
-    ;; is ignored.
-    (make-ps-images base-name tmp-name is-eps
-                    #:resolution resolution
-                    #:page-width paper-width
-                    #:page-height paper-height
-                    #:bbox bbox
-                    #:rename-page-1 rename-page-1
-                    #:be-verbose verbose
-                    #:anti-alias-factor (ly:get-option 'anti-alias-factor)
-                    #:pixmap-format (ly:get-option 'pixmap-format)
-                    #:png-width (ly:get-option 'png-width)
-                    #:png-height (ly:get-option 'png-height))
-    (ly:progress "\n")))
+  ;; Do not try to guess the name of the png file,
+  ;; GS produces PNG files like BASE-page%d.png.
+  (ly:message (_ "Converting to ~a...") "PNG")
+  ;; If option `png-width` and/or `png-height` is set, `resolution`
+  ;; is ignored.
+  (make-ps-images base-name tmp-name is-eps
+                  #:resolution resolution
+                  #:page-width paper-width
+                  #:page-height paper-height
+                  #:bbox bbox
+                  #:anti-alias-factor (ly:get-option 'anti-alias-factor)
+                  #:pixmap-format (ly:get-option 'pixmap-format)
+                  #:png-width (ly:get-option 'png-width)
+                  #:png-height (ly:get-option 'png-height))
+  (ly:progress "\n"))
 
 (define-public (postscript->ps base-name tmp-name is-eps)
   (let* ((ps-name (string-append base-name
