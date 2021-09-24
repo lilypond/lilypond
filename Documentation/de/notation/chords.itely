@@ -1206,34 +1206,3 @@ Noten der Bassstimme benutzt werden.
   }
 >>
 @end lilypond
-
-Wenn Fortsetzungslinien eingesetzt werden, können aufeinander
-folgende Bezifferungen mit der selben Zahl in einer anderen
-Position dazu führen, dass sich die Reihenfolge der Zahlen
-umkehrt.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    \bassFigureExtendersOn
-    <6 5>4 <5\! 4> < 5 _!> <6>
-  }
->>
-@end lilypond
-
-Um dieses Problem zu umgehen, kann die Fortsetzungslinie nach der
-Bezifferung, mit der die Linie beginnen soll, angeschaltet und
-am Ende der Linie wieder ausgeschaltet werden.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    <6 5>4 <5 4>
-    \bassFigureExtendersOn
-    < 5 _!>4 <6>
-    \bassFigureExtendersOff
-  }
->>
-@end lilypond
