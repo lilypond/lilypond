@@ -849,6 +849,22 @@ partial_function:
 					     scm_cadr ($2), scm_car ($2)),
 				 $4);
 	}
+	| REPEAT simple_string unsigned_number
+	{
+		$$ = scm_cons (scm_list_3 (Syntax::repeat, $3, $2), SCM_EOL);
+	}
+	| REPEAT simple_string unsigned_number partial_function
+	{
+		$$ = scm_cons (scm_list_3 (Syntax::repeat, $3, $2), $4);
+	}
+	| REPEAT simple_string
+	{
+		$$ = scm_cons (scm_list_2 (Syntax::repeat, $2), SCM_EOL);
+	}
+	| REPEAT simple_string partial_function
+	{
+		$$ = scm_cons (scm_list_2 (Syntax::repeat, $2), $3);
+	}
 // Stupid duplication because we already expect ETC here.  It will follow anyway.
 	| script_dir markup_mode markup_partial_function
 	{
@@ -1487,11 +1503,11 @@ music_assign:
 repeated_music:
 	REPEAT simple_string unsigned_number music
 	{
-		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, SCM_EOL);
+		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4);
 	}
 	| REPEAT simple_string unsigned_number music sequential_alternative_music
 	{
-		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, $5);
+		$$ = MAKE_SYNTAX (repeat_alt, @$, $2, $3, $4, $5);
 	}
 	;
 

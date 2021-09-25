@@ -153,6 +153,7 @@ Variable property_revert ("property-revert");
 Variable property_set ("property-set");
 Variable property_unset ("property-unset");
 Variable repeat ("repeat");
+Variable repeat_alt ("repeat-alt");
 Variable repetition_chord ("repetition-chord");
 Variable sequential_alternative_music ("sequential-alternative-music");
 Variable sequential_music ("sequential-music");

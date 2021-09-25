@@ -190,7 +190,13 @@
         (make-sequential-music (list tempo-change tempo-set))
         tempo-change)))
 
-(define-public (repeat type num body alts)
+(define-public repeat
+  (define-syntax-function ly:music?
+    (type num body)
+    (string? index? ly:music?)
+    (ly:set-origin! (make-repeat type num body '()))))
+
+(define-public (repeat-alt type num body alts)
   (ly:set-origin! (make-repeat type num body alts)))
 
 (define (script-to-mmrest-text music)

@@ -166,6 +166,7 @@ extern Variable property_revert;
 extern Variable property_set;
 extern Variable property_unset;
 extern Variable repeat;
+extern Variable repeat_alt;
 extern Variable repetition_chord;
 extern Variable sequential_alternative_music;
 extern Variable sequential_music;
