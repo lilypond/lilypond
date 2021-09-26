@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+@command{lilypond-book} supports two new music fragment options
+@option{paper-width} and @option{paper-height} to set a custom paper size.
+
+@item
 @code{set-default-paper-size} and @code{set-paper-size} now accept
 a custom paper size.
 
@@ -94,7 +98,6 @@ user-friendly.  It uses the new markup commands @code{\if} and
 @item @code{\on-the-fly #(on-page @var{n}) @dots{}}
 @tab @code{\if \on-page #@var{n} @dots{}}
 @end multitable
-
 
 @item
 In figured bass, brackets can now also be added around accidentals.

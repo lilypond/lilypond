@@ -62,7 +62,9 @@ NOTIME = 'notime'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
 PAPER = 'paper'
+PAPER_HEIGHT = 'paper-height'
 PAPERSIZE = 'papersize'
+PAPER_WIDTH = 'paper-width'
 PARA = 'para'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
@@ -97,6 +99,8 @@ simple_options = [
     NOFRAGMENT,
     NOGETTEXT,
     NOINDENT,
+    PAPER_HEIGHT,
+    PAPER_WIDTH,
     PRINTFILENAME,
     DOCTITLE,
     TEXIDOC,
@@ -120,7 +124,7 @@ snippet_options = {
     # TODO: Remove the 1mm additional padding in the line-width
     #       once lilypond creates tighter cropped images!
     PAPER: {
-        PAPERSIZE: r'''#(set-paper-size "%(papersize)s")''',
+        PAPERSIZE: r'''#(set-paper-size %(papersize)s)''',
         INDENT: r'''indent = %(indent)s''',
         LINE_WIDTH: r'''line-width = %(line-width)s
   %% offset the left padding, also add 1mm as lilypond creates cropped
@@ -251,6 +255,7 @@ ly_var_def_re = re.compile(r'^([a-zA-Z]+)[\t ]*=', re.M)
 ly_comment_re = re.compile(r'(%+[\t ]*)(.*)$', re.M)
 ly_context_id_re = re.compile('\\\\(?:new|context)\\s+(?:[a-zA-Z]*?(?:Staff\
 (?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\\s+=\\s+"?([a-zA-Z]+)"?\\s+')
+ly_dimen_re = re.compile(r'^([0-9]+\.?[0-9]*|\.[0-9]+)\s*\\(cm|mm|in|pt)$')
 
 
 def ly_comment_gettext(t, m):
@@ -439,6 +444,44 @@ class LilypondSnippet (Snippet):
             # Finally, insert the option:
             if key:
                 self.snippet_option_dict[key] = value
+
+        if PAPERSIZE in self.snippet_option_dict:
+            self.snippet_option_dict[PAPERSIZE] = (
+                '"' + self.snippet_option_dict[PAPERSIZE] + '"')
+
+        # If we have an explicit paper width or height, use it,
+        # overriding a `papersize` option.  If either width or height
+        # is missing, use the corresponding A4 dimension.
+        has_paper_width = PAPER_WIDTH in self.snippet_option_dict
+        has_paper_height = PAPER_HEIGHT in self.snippet_option_dict
+        if has_paper_width or has_paper_height:
+            if not has_paper_height:
+                self.snippet_option_dict[PAPER_HEIGHT] = r'297\mm'
+            if not has_paper_width:
+                self.snippet_option_dict[PAPER_WIDTH] = r'210\mm'
+
+            wd = self.snippet_option_dict[PAPER_WIDTH]
+            m = re.match(ly_dimen_re, wd)
+            if m:
+                (w, w_unit) = m.group(1, 2)
+            else:
+                ly.warning(_("ignoring invalid option %s=%s")
+                    % (PAPER_WIDTH, wd))
+                # Use A4 paper width in case of error
+                (w, w_unit) = ("210", "mm")
+
+            ht = self.snippet_option_dict[PAPER_HEIGHT]
+            m = re.match(ly_dimen_re, ht)
+            if m:
+                (h, h_unit) = m.group(1, 2)
+            else:
+                ly.warning(_("ignoring invalid option %s=%s")
+                    % (PAPER_HEIGHT, ht))
+                # Use A4 paper height in case of error
+                (h, h_unit) = ("297", "mm")
+
+            self.snippet_option_dict[PAPERSIZE] = (
+              "'(cons (* %s %s) (* %s %s))" % (w, w_unit, h, h_unit))
 
         # If LINE_WIDTH is used without parameter, set it to default.
         has_line_width = LINE_WIDTH in self.snippet_option_dict

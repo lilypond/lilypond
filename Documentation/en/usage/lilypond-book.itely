@@ -720,6 +720,37 @@ Values not defined in @file{scm/paper.scm} will be ignored, a warning
 will be posted and the snippet will be printed using the default
 @code{a4} size.
 
+@item paper-width=@var{size}\@var{unit}
+Set paper width to @var{size} (using @var{unit} as units) for
+music fragments that use @code{\book}.  @var{unit} is one of the
+following strings: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+
+This option affects LilyPond output (that is, the paper width of
+the music fragment), not the text layout.  If set, it overrides
+option @option{papersize} if given.  If option
+@option{paper-height} is not specified, set the paper height to
+the default A4 paper height (296@dmn{mm}).
+
+@item paper-height=@var{size}\@var{unit}
+Set paper height to @var{size} (using @var{unit} as units) for
+music fragments that use @code{\book}.  @var{unit} is one of the
+following strings: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+
+This option affects LilyPond output (that is, the paper height of
+the music fragment), not the text layout.  If set, it overrides
+option @option{papersize} if given.  If option
+@option{paper-width} is not specified, set the paper width to the
+default A4 paper width (210@dmn{mm}).
+
+Example:
+@example
+\lilypond[paper-width=10\cm, paper-height=57\mm]@{
+  \book @{
+    ...
+  @}
+@}
+@end example
+
 @item notime
 Do not print the time signature, and turns off the timing (time signature,
 bar lines) in the score.

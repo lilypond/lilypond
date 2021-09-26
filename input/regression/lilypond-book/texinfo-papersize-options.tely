@@ -1,0 +1,99 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename texinfo-papersize-options.info
+@settitle Test paper size options in texinfo
+
+
+@chapter Test paper size options in texinfo
+
+@section @code{papersize}
+
+Option @option{papersize=a8landscape}:
+
+@lilypond[papersize=a8landscape]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Option @option{papersize = a8landscape}:
+
+@lilypond[papersize = a8landscape]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Invalid option value @option{papersize=foo}; expect overfull warnings from
+texinfo:
+
+@lilypond[papersize=foo]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Invalid option key @option{paprsize=a8landscape}; expect overfull warnings
+from texinfo:
+
+@lilypond[paprsize=a8landscape]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+
+@section @code{paper-width} and @code{paper-height}
+
+Options @option{paper-width=100\mm, paper-height=10\cm}:
+
+@lilypond[paper-width=100\mm, paper-height=10\cm]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Options @option{paper-width = 3 \in, paper-height = 300 \pt}:
+
+@lilypond[paper-width = 3 \in, paper-height = 300 \pt]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Option @option{paper-width=100\mm}: expect overfull warnings from texinfo:
+
+@lilypond[paper-width=100\mm]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Option @option{paper-height=100\mm}: expect overfull warnings from texinfo:
+
+@lilypond[paper-height=100\mm]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+Invalid option values @option{paper-width=foo\xy, paper-height=..4\yz};
+expect overfull warnings from texinfo:
+
+@lilypond[paper-width=foo\xy, paper-height=..4\cm]
+\book {
+  \header { title = "Top" }
+  \score { c''2 }
+}
+@end lilypond
+
+End of tests.
+
+@bye
