@@ -176,7 +176,7 @@ Wenn man eine @code{tagline} (die Zeile unten auf der Seite) braucht
 (in Standard oder angepasst), dann muss der ganze Schnipsel in eine
 @code{\book @{ @}}-Umgebung.
 
-@lilypond[papersize=a8,verbatim]
+@lilypond[papersize=a7,verbatim]
 \book{
   \header{
     title = "A scale in LilyPond"

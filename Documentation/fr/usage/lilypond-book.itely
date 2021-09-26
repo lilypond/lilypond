@@ -215,7 +215,7 @@ Lorsque vous désirez y inclure un @code{tagline}, personnalisé ou non,
 l'intégralité de l'extrait devra apparaître dans une construction de
 type @code{\book @{ @}}.
 
-@lilypond[papersize=a8,verbatim]
+@lilypond[papersize=a7,verbatim]
 \book{
   \header{ title = "LilyPond fait ses gammes" }
 

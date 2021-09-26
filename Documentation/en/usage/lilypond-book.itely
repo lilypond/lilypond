@@ -193,7 +193,7 @@ produces
 If a @code{tagline} is required, either default or custom, the
 entire snippet must be enclosed in a @code{\book @{ @}} construct.
 
-@lilypond[papersize=a8,verbatim]
+@lilypond[papersize=a7,verbatim]
 \book {
   \header { title = "A scale in LilyPond" }
 

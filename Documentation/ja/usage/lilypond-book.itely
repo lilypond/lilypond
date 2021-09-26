@@ -175,7 +175,7 @@ c'4 f16
 デフォルトあるいはカスタムの @code{tagline} が必要であれば、
 楽譜コード断片全体を @code{\book @{ @}} 構造で囲んでください。
 
-@lilypond[papersize=a8,verbatim]
+@lilypond[papersize=a7,verbatim]
 \book{
   \header{
     title = "A scale in LilyPond"

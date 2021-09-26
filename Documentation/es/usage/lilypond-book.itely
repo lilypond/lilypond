@@ -177,7 +177,7 @@ personalizado, entonces el fragmento completo se debe incluir
 dentro de una construcción @code{\book @{ @}}.
 
 @c KEEP LY
-@lilypond[papersize=a8,verbatim]
+@lilypond[papersize=a7,verbatim]
 \book{
   \header{
     title = "Una escala en LilyPond"
