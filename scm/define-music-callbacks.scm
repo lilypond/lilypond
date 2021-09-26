@@ -189,7 +189,6 @@ depth-first through MUSIC."
      body
      (list (make-music
             'SequentialAlternativeMusic
-            'alternative-dir STOP ; ugly (see iterator)
             'elements alts)))))
 
 (define (make-time-signature-set music)

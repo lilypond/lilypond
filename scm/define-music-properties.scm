@@ -30,8 +30,9 @@
      (absolute-octave ,integer?
                       "The absolute octave for an octave check note.")
      (alteration ,number? "Alteration for figured bass.")
-     (alternative-dir ,ly:dir? "Indicates if an AlternativeMusic is the
-First (-1), Middle (0), or Last (1) of group of alternate endings.")
+     (alternative-dir ,ly:dir? "Indicates that an
+@code{alternative-@/event} is the first (-1), middle (0), or last (1)
+of group of alternate endings.")
      (articulation-type ,string? "Key for script definitions alist.
 
 TODO: Consider making type into symbol.")

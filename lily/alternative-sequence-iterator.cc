@@ -25,6 +25,10 @@
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
 #include "music.hh"
+#include "repeat-styler.hh"
+#include "volta-repeat-iterator.hh"
+
+#include <memory>
 
 // iterator for \alternative {...}
 class Alternative_sequence_iterator final : public Sequential_iterator
@@ -39,7 +43,6 @@ protected:
   void process (Moment) override;
   void derived_mark () const override;
 
-  void add_repeat_command (SCM);
   void end_alternative ();
   void report_alternative_event (Music *element, Direction, SCM volta_nums);
   void restore_context_properties ();
@@ -53,6 +56,7 @@ private:
   long alt_count_ = 0;
   long done_count_ = 0;
   SCM alt_restores_ = SCM_EOL;
+  std::shared_ptr<Repeat_styler> repeat_styler_;
 };
 
 void
@@ -67,29 +71,18 @@ Alternative_sequence_iterator::create_children ()
 {
   Sequential_iterator::create_children ();
 
+  // Note: \alternative can be used with \repeat unfold in ly code, but those
+  // are transformed before the music is iterated; therefore, searching here
+  // for the nearest enclosing folded repeat is the same as searching for the
+  // nearest enclosing repeat.
+  auto *const repeat_iter = dynamic_cast<Volta_repeat_iterator *>
+                            (where_defined (this, "folded-repeat-type"));
+  repeat_styler_ = repeat_iter
+                   ? repeat_iter->get_repeat_styler ()
+                   : Repeat_styler::create (this, SCM_EOL); // defensive
+
   alt_count_ = scm_ilength (get_property (get_music (), "elements"));
   done_count_ = 0;
-
-  // TODO: This property is ugly.  Instead, check whether this iterator's end
-  // time coincides with the repeat iterator's end time.  This is one thing
-  // (not necessarily the only thing) that blocks the use of \alternative {}
-  // end-justified within the body of \repeat {}.
-  if (from_scm (get_property (get_music (), "alternative-dir"), CENTER) == STOP)
-    alts_need_end_repeat_ = true;
-}
-
-void
-Alternative_sequence_iterator::add_repeat_command (SCM what)
-{
-  SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = SCM_EOL;
-  auto *const where = where_defined (get_context (), reps, &current_reps);
-
-  if (where && ly_cheap_is_list (current_reps))
-    {
-      current_reps = scm_cons (what, current_reps);
-      set_property (where, reps, current_reps);
-    }
 }
 
 void
@@ -98,14 +91,14 @@ Alternative_sequence_iterator::end_alternative ()
   if (done_count_ == alt_count_) // ending the final alternative
     {
       if (final_alt_needs_end_repeat_)
-        add_repeat_command (ly_symbol2scm ("end-repeat"));
+        repeat_styler_->report_end ();
 
       report_alternative_event (get_music (), STOP, SCM_EOL);
     }
   else if (done_count_ < alt_count_) // ending an earlier alternative
     {
       if (alts_need_end_repeat_)
-        add_repeat_command (ly_symbol2scm ("end-repeat"));
+        repeat_styler_->report_end ();
 
       if (from_scm<bool> (get_property (get_context (), "timing")))
         restore_context_properties ();
@@ -236,6 +229,16 @@ Alternative_sequence_iterator::process (Moment m)
   if (first_time_)
     {
       first_time_ = false;
+
+      // If this iterator's end time coincides with the repeat iterator's time,
+      // we need to report end-repeats.
+      {
+        // This won't compute the correct endpoint inside \grace.
+        const auto len = music_get_length () - music_start_mom ();
+        const auto end = get_context ()->now_mom () + len;
+        if (end == repeat_styler_->spanned_time ().right ())
+          alts_need_end_repeat_ = true;
+      }
 
       if (alt_count_ > 1)
         {

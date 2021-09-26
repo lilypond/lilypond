@@ -17,50 +17,26 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sequential-iterator.hh"
+#include "volta-repeat-iterator.hh"
 
-#include "context.hh"
-#include "lily-imports.hh"
 #include "music.hh"
+#include "repeat-styler.hh"
 
-using std::string;
+#include <memory>
 
-class Volta_repeat_iterator final : public Sequential_iterator
+bool
+Volta_repeat_iterator::empty () const
 {
-public:
-  DECLARE_SCHEME_CALLBACK (constructor, ());
-  Volta_repeat_iterator () = default;
+  return !music_get_length () && !music_start_mom ().grace_part_;
+}
 
-  void add_repeat_command (SCM);
-protected:
-  void process (Moment) override;
-
-private:
-  bool empty () const
-  {
-    return !music_get_length () && !music_start_mom ().grace_part_;
-  }
-
-private:
-  bool started_ = false;
-  bool stopped_ = false;
-};
-
-/*
-  TODO: add source information for debugging
-*/
 void
-Volta_repeat_iterator::add_repeat_command (SCM what)
+Volta_repeat_iterator::create_children ()
 {
-  SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = SCM_EOL;
-  auto *const where = where_defined (get_context (), reps, &current_reps);
+  SCM repeat_type_sym = get_property (this, "folded-repeat-type");
+  repeat_styler_ = Repeat_styler::create (this, repeat_type_sym);
 
-  if (where && ly_cheap_is_list (current_reps))
-    {
-      current_reps = scm_cons (what, current_reps);
-      set_property (where, reps, current_reps);
-    }
+  Sequential_iterator::create_children ();
 }
 
 void
@@ -71,7 +47,12 @@ Volta_repeat_iterator::process (Moment m)
       // Robustness: Avoid printing a misleading bar line for a zero-duration
       // repeated section.
       if (!empty ())
-        add_repeat_command (ly_symbol2scm ("start-repeat"));
+        {
+          // This won't compute the correct lifetime inside \grace.
+          const auto &start = get_context ()->now_mom ();
+          const auto len = music_get_length () - music_start_mom ();
+          repeat_styler_->report_start ({start, start + len});
+        }
       started_ = true;
     }
 
@@ -79,22 +60,11 @@ Volta_repeat_iterator::process (Moment m)
 
   if (started_ && !stopped_ && (m == music_get_length ()))
     {
-      if (!empty ())
+      // When there are tail alternatives, Alternative_sequence_iterator
+      // issues end-repeat commands.
+      if (!empty () && !repeat_styler_->reported_end ())
         {
-          // When there are tail alternatives, Alternative_sequence_iterator
-          // issues end-repeat commands.
-          //
-          // TODO: The 'elements property informs us of this:
-          //
-          //     \repeat { ... } \alternative { ... }
-          //
-          // but not this:
-          //
-          //     \repeat { ... \alternative { ... } }
-          //
-          bool has_alts = scm_is_pair (get_property (get_music (), "elements"));
-          if (!has_alts)
-            add_repeat_command (ly_symbol2scm ("end-repeat"));
+          repeat_styler_->report_end ();
         }
       stopped_ = true;
     }

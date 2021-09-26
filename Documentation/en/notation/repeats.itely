@@ -544,10 +544,6 @@ is ambiguous, since it is not clear to which @code{\repeat} the
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
 
-An @code{\alternative} block end-justified within the body of a
-@code{\repeat} block (as opposed to following it) does not print
-the repeat bar lines that are expected of alternative endings.
-
 
 @node Manual repeat marks
 @unnumberedsubsubsec Manual repeat marks
