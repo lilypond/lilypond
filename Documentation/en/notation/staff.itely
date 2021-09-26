@@ -352,7 +352,7 @@ turned on with a @code{\paper} option.
 
 @c \book is required here to display the system separator
 @c ragged-right is required as there are two systems
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[paper-width=100\mm,paper-height=75\mm,verbatim,quote,ragged-right]
 \book {
   \score {
     \new StaffGroup <<
@@ -374,9 +374,6 @@ turned on with a @code{\paper} option.
   }
   \paper {
     system-separator-markup = \slashSeparator
-    % following commands are needed only to format this documentation
-    paper-width = 100\mm
-    paper-height = 100\mm
     tagline = ##f
   }
 }

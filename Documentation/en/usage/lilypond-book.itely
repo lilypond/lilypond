@@ -700,10 +700,11 @@ added to the LilyPond snippet.
 
 @item line-width
 @itemx line-width=@var{size}\@var{unit}
-Set line width to @var{size}, using @var{unit} as units.  @var{unit} is
-one of the following strings: @code{cm}, @code{mm}, @code{in}, or
-@code{pt}.  This option affects LilyPond output (this is, the staff
-length of the music snippet), not the text layout.
+Set line width to @var{size} (expressed in @var{unit}).
+@var{unit} is one of the following: @code{cm}, @code{mm},
+@code{in}, or @code{pt}.  This option affects LilyPond output
+(that is, the staff length of the music fragment), not the text
+layout.
 
 If used without an argument, set line width to a default value (as
 computed with a heuristic algorithm).
@@ -713,34 +714,37 @@ guess a default for @code{lilypond} environments which don't use the
 @code{ragged-right} option.
 
 @item papersize=@var{string}
-Where @var{string} is a paper size defined in @file{scm/paper.scm} i.e.
-@code{a5}, @code{quarto}, @code{11x17} etc.
+Set paper size to @var{string} (for example @code{a5} or
+@code{letter}) for music fragments that use @code{\book}.  See
+@ruser{Predefined paper sizes} for a list of available paper
+sizes.
 
-Values not defined in @file{scm/paper.scm} will be ignored, a warning
-will be posted and the snippet will be printed using the default
-@code{a4} size.
+This option affects LilyPond output (that is, the paper size of
+the music fragment), not the text layout.  Unknown values of
+@var{string} are ignored: a warning is emitted and the snippet is
+printed using the default @code{a4} size.
 
 @item paper-width=@var{size}\@var{unit}
-Set paper width to @var{size} (using @var{unit} as units) for
-music fragments that use @code{\book}.  @var{unit} is one of the
-following strings: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+Set paper width to @var{size} (expressed in @var{unit}) for music
+fragments that use @code{\book}.  @var{unit} is one of the
+following: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
 
 This option affects LilyPond output (that is, the paper width of
 the music fragment), not the text layout.  If set, it overrides
 option @option{papersize} if given.  If option
-@option{paper-height} is not specified, set the paper height to
+@option{paper-height} is not specified, the paper height is set to
 the default A4 paper height (296@dmn{mm}).
 
 @item paper-height=@var{size}\@var{unit}
-Set paper height to @var{size} (using @var{unit} as units) for
-music fragments that use @code{\book}.  @var{unit} is one of the
-following strings: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+Set paper height to @var{size} (expressed in @var{unit}) for music
+fragments that use @code{\book}.  @var{unit} is one of the
+following: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
 
 This option affects LilyPond output (that is, the paper height of
 the music fragment), not the text layout.  If set, it overrides
 option @option{papersize} if given.  If option
-@option{paper-width} is not specified, set the paper width to the
-default A4 paper width (210@dmn{mm}).
+@option{paper-width} is not specified, the paper width is set to
+the default A4 paper width (210@dmn{mm}).
 
 Example:
 @example
@@ -752,7 +756,7 @@ Example:
 @end example
 
 @item notime
-Do not print the time signature, and turns off the timing (time signature,
+Do not print the time signature and turn off the timing (time signature,
 bar lines) in the score.
 
 @item fragment
@@ -804,10 +808,10 @@ is widely known.
 @endIndentedBlock
 
 @item indent=@var{size}\@var{unit}
-Set indentation of the first music system to @var{size}, using
-@var{unit} as units.  @var{unit} is one of the following strings:
-@code{cm}, @code{mm}, @code{in}, or @code{pt}.  This option affects
-LilyPond, not the text layout.
+Set indentation of the first music system to @var{size} (expressed
+in @var{unit}).  @var{unit} is one of the following: @code{cm},
+@code{mm}, @code{in}, or @code{pt}.  This option affects LilyPond,
+not the text layout.
 
 @item noindent
 Set indentation of the first music system to zero.  This option affects
@@ -853,7 +857,7 @@ last occurrence of such a comment; similarly, quoting the source verbatim
 will stop just before the first occurrence of a comment containing
 @samp{end verbatim}, if there is any.  In the following source file
 example, the music will be interpreted in relative mode, but the
-verbatim quote will not show the @code{relative} block, i.e.
+verbatim quote will not show the @code{relative} block, i.e.,
 
 @example
 \relative @{ % begin verbatim
@@ -941,7 +945,7 @@ names in the snippet quoted verbatim.
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print
 the file name right before the music snippet.  For HTML output, this
-is a link.  Only the base name of the file is printed, i.e. the
+is a link.  Only the base name of the file is printed, i.e., the
 directory part of the file path is stripped.
 
 @end table
