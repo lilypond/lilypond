@@ -25,6 +25,14 @@ default:
   image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:20210502
   interruptible: true
 
+# Conditionally include a file to add the tag 'lilypond' to all jobs so that
+# they are assigned to our custom runners, but we can leave the shared runners
+# enabled for external contributors forking the repository.
+include:
+  - local: .gitlab-ci.lilypond.yml
+    rules:
+      - if: $CI_PROJECT_PATH == "lilypond/lilypond"
+
 .if-default-branch: &if-default-branch
   if: $CI_PROJECT_PATH == "lilypond/lilypond" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
