@@ -336,12 +336,13 @@ of layout settings just like markups inside the music"
     (if (annotate? layout)
         (set! page-stencil (annotate-page layout page-stencil)))
 
-    (ly:make-stencil
-     (ly:stencil-expr page-stencil)
-     (cons 0 (ly:output-def-lookup layout 'paper-width))
-     (cons (- (ly:output-def-lookup layout 'paper-height)) 0))
-    ))
-
+    (if (ly:get-option 'use-paper-size-for-page)
+        (set! page-stencil (ly:make-stencil
+                            (ly:stencil-expr page-stencil)
+                            (cons 0 (ly:output-def-lookup layout 'paper-width))
+                            (cons (- (ly:output-def-lookup layout 'paper-height)) 0))
+              ))
+    page-stencil))
 
 (define-public (page-stencil page)
   (if (not (ly:stencil? (page-property page 'stencil)))

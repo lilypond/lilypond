@@ -946,6 +946,12 @@ is also recommended not to use any font @q{aliases} or @q{lists} in
 case the SVG viewer cannot handle them.
 Default: @code{#f}.
 
+@item @code{use-paper-size-for-page} @var{bool}
+If @var{bool} is @code{#t} (the default), each page is set to the
+paper size, possibly cropping parts that extend beyond the
+paper. Setting it @code{#f} will resize the page to contain the
+content as necessary.
+
 @item @code{verbose}
 Verbosity level.  This is a read-only option; setting it has no
 effect.

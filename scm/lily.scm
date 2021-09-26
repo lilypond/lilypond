@@ -402,6 +402,9 @@ increases but often markedly better PDF
 previews.")
     (svg-woff #f
               "Use woff font files in SVG backend.")
+    (use-paper-size-for-page #t "Set page stencil size to paper size defined in
+\\paper. If unset, the size of the page stencil will be
+defined by the extents of its contents.") 
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e., loglevel at least DEBUG
 (read-only).")

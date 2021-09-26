@@ -46,3 +46,4 @@
 #(ly:set-option (quote no-point-and-click))
 #(define inside-lilypond-book #t)
 #(define version-seen #t)
+#(ly:set-option 'use-paper-size-for-page #f)
