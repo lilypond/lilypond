@@ -764,6 +764,45 @@ expression."
             (parameterize ((*current-context* ctype))
               (music->lily-string music)))))
 
+;; \after
+(define-extra-display-method ContextSpeccedMusic (expr)
+  "If `expr' is an \\after expression with a post-event, return
+\"\\after ...\". Otherwise, return #f."
+  (with-music-match
+   (expr (music 'ContextSpeccedMusic
+                context-type 'Bottom
+                element
+                (music 'SimultaneousMusic
+                       elements ((music 'SequentialMusic
+                                        elements ((music 'SkipMusic
+                                                         duration ?delta)
+                                                  (music 'EventChord
+                                                         elements ?ev)))
+                                 ?mus))))
+   (format #f "\\after ~a ~a ~a"
+           (duration->lily-string ?delta)
+           (music->lily-string (car ?ev))
+           (music->lily-string ?mus))))
+
+(define-extra-display-method ContextSpeccedMusic (expr)
+  "If `expr' is an \\after expression with a standalone music event, return
+\"\\after ...\". Otherwise, return #f."
+  (with-music-match
+   (expr (music 'ContextSpeccedMusic
+                context-type 'Bottom
+                element
+                (music 'SimultaneousMusic
+                       elements ((music 'SequentialMusic
+                                        elements ((music 'SkipMusic
+                                                         duration ?delta)
+                                                  (music 'EventChord)
+                                                  ?ev))
+                                 ?mus))))
+   (format #f "\\after ~a ~a ~a"
+           (duration->lily-string ?delta)
+           (music->lily-string ?ev)
+           (music->lily-string ?mus))))
+
 ;; \afterGrace
 (define-extra-display-method ContextSpeccedMusic (expr)
   "If `sim' is an \afterGrace expression, return \"\\afterGrace ...\".

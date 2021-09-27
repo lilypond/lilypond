@@ -55,6 +55,22 @@ addQuote =
 @var{name}")
    (add-quotable name music))
 
+after =
+#(define-music-function (delta ev mus) (ly:duration? ly:music? ly:music?)
+  (_i "Add music @var{ev} (usually a post-event) with a delay of @var{delta}
+after the onset of @var{mus}.")
+  (define (empty-chord? m)
+     "Checks whether m is an empty chord <>."
+     (and (music-is-of-type? m 'event-chord)
+          (null? (ly:music-property m 'elements))
+          (null? (ly:music-property m 'duration))))
+  (if (and (not (empty-chord? mus))
+           (ly:moment<?
+            (ly:music-length mus)
+            (ly:moment-add (ly:music-length ev) (ly:duration-length delta))))
+      (ly:warning (_ "\\after expression longer than main music argument.")))
+  #{ \context Bottom << { \skip $delta <> $ev } #mus >> #})
+
 %% keep these two together
 afterGraceFraction = 3/4
 afterGrace =

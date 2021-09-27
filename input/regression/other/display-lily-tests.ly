@@ -1,4 +1,4 @@
-\version "2.23.2"
+\version "2.23.4"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -280,6 +280,11 @@ are reported on the stderr of this run."
 \test ##[ \partial 2 #]
 \test ##[ \partial 8. #]
 \test ##[ \partial 4*2/3 #]
+
+%% \after
+\test ##[ \after 4 \f d'2 #]
+\test ##[ \after 4 \turn d'2 #]
+\test ##[ \after 4 e'4 d'2 #]
 
 %% \partCombine
 \test ##[ \partCombine { c4 e4 }

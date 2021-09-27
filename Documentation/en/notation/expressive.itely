@@ -411,14 +411,55 @@ ends.
 
 @cindex multiple dynamic marks, on one note
 @cindex dynamic mark, multiple on one note
-Spacer rests are needed to engrave multiple marks on one note.
-This is particularly useful when adding a @notation{crescendo} and
-@notation{decrescendo} to the same note:
+@funindex \after
+Often, marks like @notation{crescendo} or @notation{decrescendo} should
+begin or end at some point of time during a sustained note. This can
+be achieved with @code{\after}, which can also be used to create
+delayed articulations or text scripts:
+
+@lilypond[verbatim,quote]
+<<
+  \relative {
+    \after 2 \< c'1
+    d4\f\> e f g
+    \after 2. \pp c,1
+    \after 2. \fermata e
+    \after 2. ^"Fine." f
+  }
+  \relative {
+    \repeat unfold 12 c'4
+    c c c c\fermata
+    c c c c
+  }
+>>
+@end lilypond
+
+Multiple instances of @code{\after} can be used to engrave multiple marks
+on one note. This is particularly useful when adding a crescendo
+and decrescendo to the same note:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4\< c\! d\> e\!
-  << f1 { s4 s4\< s4\> s4\! } >>
+  c''4\< d\! e\> c\!
+  \after 4 \< \after 2\> \after 2. \! f1
+  \textLengthOn
+  \after 4 \> \after 2. ^"hush!" c1
+  g4\pp
+}
+@end lilypond
+
+@cindex empty chord
+@cindex chord, empty
+If the first in such a sequence of marks on a single note is supposed
+to coincide with the onset of the note, it is convenient to attach
+it to an empty chord @code{<>}. This way, all marks can be entered
+in their natural visual order:
+
+@lilypond[verbatim,quote]
+{
+  <>\< \after 4 \> \after 2 \! c'1
+  % easier to write and read than:
+  \after 4 \> \after 2 \! c'1\<
 }
 @end lilypond
 
@@ -426,7 +467,7 @@ This is particularly useful when adding a @notation{crescendo} and
 
 @funindex \espressivo
 
-The @code{\espressivo} command can be used to indicate a crescendo
+The @code{\espressivo} command can also be used to indicate a crescendo
 and decrescendo on the same note.  However, be warned that this is
 implemented as an articulation, not a dynamic.
 
@@ -434,6 +475,7 @@ implemented as an articulation, not a dynamic.
 \relative {
   c''2 b4 a
   g1\espressivo
+  \after 2. \espressivo c
 }
 @end lilypond
 

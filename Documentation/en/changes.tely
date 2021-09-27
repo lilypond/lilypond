@@ -66,6 +66,21 @@ which scares away people.
 @end ignore
 
 @item
+Events attached to notes (e.g., dynamics or articulations) can be
+delayed by an arbitrary duration using @code{\after}.  This simplifies
+many situations that previously required the use of explicit polyphony
+and spacer rests.
+
+@lilypond[verbatim,quote]
+{
+  \after 2 \turn g'2. a'4
+  \after 2 \< b'1
+  \after 2. \f c''
+  <>\< \after 4 \> \after 2\! d''
+}
+@end lilypond
+
+@item
 @command{lilypond-book} supports two new music fragment options
 @option{paper-width} and @option{paper-height} to set a custom paper size.
 
