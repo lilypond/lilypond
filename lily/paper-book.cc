@@ -260,7 +260,7 @@ Paper_book::output (SCM output_channel)
     }
   if (get_program_option ("crop"))
     {
-      scm_call_3 (func, ly_string2scm (basename + ".crop"),
+      scm_call_3 (func, ly_string2scm (basename + ".cropped"),
                   Lily::generate_crop_stencil (self_scm ()),
                   paper ()->self_scm ());
     }
