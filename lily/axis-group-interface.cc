@@ -142,6 +142,149 @@ Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
 }
 
 Interval
+Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
+{
+  /* It saves a _lot_ of time if we assume a VerticalAxisGroup is additive
+     (ie. height (i, k) = std::max (height (i, j) height (j, k)) for all i <= j <= k).
+     Unfortunately, it isn't always true, particularly if there is a
+     VerticalAlignment somewhere in the descendants.
+
+     Usually, the only VerticalAlignment comes from Score. This makes it
+     reasonably safe to assume that if our parent is a VerticalAlignment,
+     we can assume additivity and cache things nicely. */
+  Grob *p = me->get_y_parent ();
+  if (has_interface<Align_interface> (p))
+    return Axis_group_interface::sum_partial_pure_heights (me, start, end);
+
+  Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
+  extract_grob_set (me, "pure-relevant-grobs", elts);
+
+  Interval r;
+  for (auto *g : elts)
+    {
+      g = g->pure_find_visible_prebroken_piece (start, end);
+      if (!g)
+        continue;
+
+      Interval_t<int> rank_span = g->spanned_rank_interval ();
+      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
+          && !(from_scm<bool> (get_property (g, "cross-staff"))
+               && has_interface<Stem> (g)))
+        {
+          Interval dims = g->pure_y_extent (common, start, end);
+          if (!dims.is_empty ())
+            r.unite (dims);
+        }
+    }
+  return r;
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
+SCM
+Axis_group_interface::width (SCM smob)
+{
+  Grob *me = unsmob<Grob> (smob);
+  return generic_group_extent (me, X_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
+SCM
+Axis_group_interface::height (SCM smob)
+{
+  Grob *me = unsmob<Grob> (smob);
+  return generic_group_extent (me, Y_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height, 3);
+SCM
+Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  int start = from_scm (start_scm, 0);
+  int end = from_scm (end_scm, INT_MAX);
+  Grob *me = unsmob<Grob> (smob);
+
+  /* Maybe we are in the second pass of a two-pass spacing run. In that
+     case, the Y-extent of a system is already given to us */
+  System *system = dynamic_cast<System *> (me);
+  if (system)
+    {
+      SCM line_break_details = get_property (system->column (start), "line-break-system-details");
+      SCM system_y_extent = scm_assq (ly_symbol2scm ("system-Y-extent"), line_break_details);
+      if (scm_is_pair (system_y_extent))
+        return scm_cdr (system_y_extent);
+    }
+
+  return to_scm (pure_group_height (me, start, end));
+}
+
+Interval
+Axis_group_interface::pure_group_height (Grob *me, int start, int end)
+{
+  Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
+
+  if (!common)
+    {
+      programming_error ("no pure Y common refpoint");
+      return Interval ();
+    }
+  Real my_coord = me->pure_relative_y_coordinate (common, start, end);
+  Interval r (relative_pure_height (me, start, end));
+
+  return r - my_coord;
+}
+
+SCM
+Axis_group_interface::generic_group_extent (Grob *me, Axis a)
+{
+  extract_grob_set (me, "elements", elts);
+
+  /* trigger the callback to do skyline-spacing on the children */
+  if (a == Y_AXIS)
+    for (vsize i = 0; i < elts.size (); i++)
+      if (!(has_interface<Stem> (elts[i])
+            && from_scm<bool> (get_property (elts[i], "cross-staff"))))
+        (void) get_property (elts[i], "vertical-skylines");
+
+  Grob *common = common_refpoint_of_array (elts, me, a);
+
+  Real my_coord = me->relative_coordinate (common, a);
+  Interval r (relative_group_extent (elts, common, a));
+
+  return to_scm (r - my_coord);
+}
+
+/* This is like generic_group_extent, but it only counts the grobs that
+   are children of some other axis-group. This is uncached; if it becomes
+   commonly used, it may be necessary to cache it somehow. */
+Interval
+Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staff, Axis parent_a)
+{
+  extract_grob_set (me, "elements", elts);
+  vector<Grob *> new_elts;
+
+  for (vsize i = 0; i < elts.size (); i++)
+    if (elts[i]->common_refpoint (staff, parent_a) == staff)
+      new_elts.push_back (elts[i]);
+
+  return relative_group_extent (new_elts, refp, ext_a);
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
+SCM
+Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
+{
+  Grob *me = unsmob<Grob> (smob);
+  /* TODO: Filter out elements that belong to a different Axis_group,
+     such as the tie in
+     << \new Staff=A { c'1~ \change Staff=B c'}
+        \new Staff=B { \clef bass R1 R } >>
+    because thier location relative to this Axis_group is not known before
+    page layout.  For now, we need to trap this case in calc_pure_y_common.
+  */
+  return internal_calc_pure_relevant_grobs (me, "elements");
+}
+
+Interval
 Axis_group_interface::sum_partial_pure_heights (Grob *me, int start, int end)
 {
   Interval iv = begin_of_line_pure_height (me, start);
@@ -337,82 +480,6 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   return scm_cons (begin_scm, mid_scm);
 }
 
-Interval
-Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
-{
-  /* It saves a _lot_ of time if we assume a VerticalAxisGroup is additive
-     (ie. height (i, k) = std::max (height (i, j) height (j, k)) for all i <= j <= k).
-     Unfortunately, it isn't always true, particularly if there is a
-     VerticalAlignment somewhere in the descendants.
-
-     Usually, the only VerticalAlignment comes from Score. This makes it
-     reasonably safe to assume that if our parent is a VerticalAlignment,
-     we can assume additivity and cache things nicely. */
-  Grob *p = me->get_y_parent ();
-  if (has_interface<Align_interface> (p))
-    return Axis_group_interface::sum_partial_pure_heights (me, start, end);
-
-  Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
-  extract_grob_set (me, "pure-relevant-grobs", elts);
-
-  Interval r;
-  for (auto *g : elts)
-    {
-      g = g->pure_find_visible_prebroken_piece (start, end);
-      if (!g)
-        continue;
-
-      Interval_t<int> rank_span = g->spanned_rank_interval ();
-      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-          && !(from_scm<bool> (get_property (g, "cross-staff"))
-               && has_interface<Stem> (g)))
-        {
-          Interval dims = g->pure_y_extent (common, start, end);
-          if (!dims.is_empty ())
-            r.unite (dims);
-        }
-    }
-  return r;
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
-SCM
-Axis_group_interface::width (SCM smob)
-{
-  Grob *me = unsmob<Grob> (smob);
-  return generic_group_extent (me, X_AXIS);
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
-SCM
-Axis_group_interface::height (SCM smob)
-{
-  Grob *me = unsmob<Grob> (smob);
-  return generic_group_extent (me, Y_AXIS);
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height, 3);
-SCM
-Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
-{
-  int start = from_scm (start_scm, 0);
-  int end = from_scm (end_scm, INT_MAX);
-  Grob *me = unsmob<Grob> (smob);
-
-  /* Maybe we are in the second pass of a two-pass spacing run. In that
-     case, the Y-extent of a system is already given to us */
-  System *system = dynamic_cast<System *> (me);
-  if (system)
-    {
-      SCM line_break_details = get_property (system->column (start), "line-break-system-details");
-      SCM system_y_extent = scm_assq (ly_symbol2scm ("system-Y-extent"), line_break_details);
-      if (scm_is_pair (system_y_extent))
-        return scm_cdr (system_y_extent);
-    }
-
-  return to_scm (pure_group_height (me, start, end));
-}
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
 SCM
 Axis_group_interface::calc_skylines (SCM smob)
@@ -454,57 +521,6 @@ Axis_group_interface::combine_skylines (SCM smob)
         }
     }
   return ret.smobbed_copy ();
-}
-
-SCM
-Axis_group_interface::generic_group_extent (Grob *me, Axis a)
-{
-  extract_grob_set (me, "elements", elts);
-
-  /* trigger the callback to do skyline-spacing on the children */
-  if (a == Y_AXIS)
-    for (vsize i = 0; i < elts.size (); i++)
-      if (!(has_interface<Stem> (elts[i])
-            && from_scm<bool> (get_property (elts[i], "cross-staff"))))
-        (void) get_property (elts[i], "vertical-skylines");
-
-  Grob *common = common_refpoint_of_array (elts, me, a);
-
-  Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (elts, common, a));
-
-  return to_scm (r - my_coord);
-}
-
-/* This is like generic_group_extent, but it only counts the grobs that
-   are children of some other axis-group. This is uncached; if it becomes
-   commonly used, it may be necessary to cache it somehow. */
-Interval
-Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staff, Axis parent_a)
-{
-  extract_grob_set (me, "elements", elts);
-  vector<Grob *> new_elts;
-
-  for (vsize i = 0; i < elts.size (); i++)
-    if (elts[i]->common_refpoint (staff, parent_a) == staff)
-      new_elts.push_back (elts[i]);
-
-  return relative_group_extent (new_elts, refp, ext_a);
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
-SCM
-Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
-{
-  Grob *me = unsmob<Grob> (smob);
-  /* TODO: Filter out elements that belong to a different Axis_group,
-     such as the tie in
-     << \new Staff=A { c'1~ \change Staff=B c'}
-        \new Staff=B { \clef bass R1 R } >>
-    because thier location relative to this Axis_group is not known before
-    page layout.  For now, we need to trap this case in calc_pure_y_common.
-  */
-  return internal_calc_pure_relevant_grobs (me, "elements");
 }
 
 struct Grob_with_priority
@@ -602,22 +618,6 @@ SCM
 Axis_group_interface::calc_y_common (SCM grob)
 {
   return calc_common (unsmob<Grob> (grob), Y_AXIS);
-}
-
-Interval
-Axis_group_interface::pure_group_height (Grob *me, int start, int end)
-{
-  Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
-
-  if (!common)
-    {
-      programming_error ("no pure Y common refpoint");
-      return Interval ();
-    }
-  Real my_coord = me->pure_relative_y_coordinate (common, start, end);
-  Interval r (relative_pure_height (me, start, end));
-
-  return r - my_coord;
 }
 
 void
