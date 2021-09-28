@@ -29,8 +29,7 @@
 class Axis_group_interface
 {
   static Real default_outside_staff_padding_;
-  public
-:
+  public:
   static SCM generic_group_extent (Grob *me, Axis a);
   static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
