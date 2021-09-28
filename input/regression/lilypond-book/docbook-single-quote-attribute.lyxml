@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xml:lang="en_US" xmlns="http://docbook.org/ns/docbook" version="5.2">
+<title>LilyPond-book and LyX</title>
+<mediaobject>
+<textobject>
+<programlisting language='lilypond' role='fragment verbatim staffsize=16 ragged-right relative=2'>
+\relative c'' {  g a b c}
+</programlisting>
+</textobject>
+</mediaobject>
+</article>

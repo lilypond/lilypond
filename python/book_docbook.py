@@ -43,7 +43,7 @@ Docbook_snippet_res = {
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
           <textobject.*?>\s*
-          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
+          <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
           (?P<code>.*?)
           </programlisting\s*>\s*
           </textobject\s*>\s*
@@ -54,7 +54,7 @@ Docbook_snippet_res = {
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
           <textobject.*?>\s*
-          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
+          <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
           (?P<code>.*?)
           </programlisting\s*>\s*
           </textobject\s*>\s*
@@ -66,8 +66,8 @@ Docbook_snippet_res = {
           <(?P<inline>(inline)?)mediaobject>\s*
           <imageobject.*?>\s*
           <imagedata\s+
-           fileref="(?P<filename>.*?\.ly)"\s*
-           (role="(?P<options>.*?)")?\s*
+           fileref=["'](?P<filename>.*?\.ly)["']\s*
+           (role=["'](?P<options>.*?)["'])?\s*
            (/>|>\s*</imagedata>)\s*
           </imageobject>\s*
           </(inline)?mediaobject>)''',
