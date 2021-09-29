@@ -40,37 +40,37 @@ import book_snippets
 Docbook_snippet_res = {
     'lilypond':
     r'''(?smx)
-          (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
+          (?P<match>
           <textobject.*?>\s*
           <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
           (?P<code>.*?)
           </programlisting\s*>\s*
-          </textobject\s*>\s*
-          </(inline)?mediaobject>)''',
+          </textobject\s*>\s*)
+          </(inline)?mediaobject>''',
 
     'lilypond_block':
     r'''(?smx)
-          (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
+          (?P<match>
           <textobject.*?>\s*
           <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
           (?P<code>.*?)
           </programlisting\s*>\s*
-          </textobject\s*>\s*
-          </(inline)?mediaobject>)''',
+          </textobject\s*>\s*)
+          </(inline)?mediaobject>''',
 
     'lilypond_file':
     r'''(?smx)
-          (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
+          (?P<match>
           <imageobject.*?>\s*
           <imagedata\s+
            fileref=["'](?P<filename>.*?\.ly)["']\s*
            (role=["'](?P<options>.*?)["'])?\s*
            (/>|>\s*</imagedata>)\s*
-          </imageobject>\s*
-          </(inline)?mediaobject>)''',
+          </imageobject>\s*)
+          </(inline)?mediaobject>''',
 
     'multiline_comment':
     r'''(?smx)
@@ -108,8 +108,9 @@ Docbook_output = {
   </simpara>
 </textobject>''',
 
-    book_snippets.VERBATIM: r'''<programlisting>
-%(verb)s</programlisting>''',
+    book_snippets.VERBATIM: r'''<textobject>
+  <programlisting language="lilypond" role="processed">%(verb)s</programlisting>
+</textobject>''',
 
     book_snippets.VERSION: r'''%(program_version)s''',
 }
@@ -139,13 +140,12 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
             (rep['base'], rep['ext']) = os.path.splitext(image)
             s += self.output[book_snippets.OUTPUT] % rep
             s += self.output_print_filename(basename, snippet)
-            if snippet.substring('inline') == 'inline':
-                s = '<inlinemediaobject>' + s + '</inlinemediaobject>'
-            else:
-                s = '<mediaobject>' + s + '</mediaobject>'
+            s += '\n'
         if book_snippets.VERBATIM in snippet.option_dict:
             rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
-            s = self.output[book_snippets.VERBATIM] % rep + s
+            s += self.output[book_snippets.VERBATIM] % rep
+            s += '\n'
+            
         return s
 
 
