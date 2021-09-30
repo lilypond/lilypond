@@ -76,6 +76,14 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
+  is_midi_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("is-midi"),
+                                           definition,
+                                           SCM_BOOL_F));
+
+  is_layout_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("is-layout"),
+                                             definition,
+                                             is_midi_ ? SCM_BOOL_F : SCM_BOOL_T));
+
   SCM p = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
   SCM listeners = SCM_EOL;
 

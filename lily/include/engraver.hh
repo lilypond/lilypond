@@ -50,6 +50,7 @@ protected:
   void announce_grob (Grob_info, Context *reroute_context = 0);
   void announce_end_grob (Grob_info, Context *reroute_context = 0);
   Engraver_group *get_group () const;
+  bool is_midi () const override { return false; }
 
 public:
   /**

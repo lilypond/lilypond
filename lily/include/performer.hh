@@ -40,6 +40,7 @@ public:
 protected:
   void announce_element (Audio_element_info);
   virtual void acknowledge_audio_element (Audio_element_info);
+  bool is_layout () const override { return false; }
 };
 
 #endif /* PERFORMER_HH */

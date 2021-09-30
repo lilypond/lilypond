@@ -3040,7 +3040,11 @@ Symbols mapping to a function would be @code{initialize},
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
 event classes, and @code{acknowledgers} and @code{end-acknowledgers}
-with the subordinate symbols being interfaces."
+with the subordinate symbols being interfaces.
+
+An alist pair of @code{(is-midi . #t)} specifies possible use as a
+performer, @code{(is-layout . #t)} as an engraver.  If neither is
+specified, engraver-only use is assumed."
   (let loop ((forms forms))
     (if (or (null? forms) (pair? forms))
         `(list

@@ -52,6 +52,8 @@ protected:
   void derived_mark () const override;
   SCM get_listener_list () const override;
   bool must_be_last () const override;
+  bool is_midi () const override { return is_midi_; };
+  bool is_layout () const override { return is_layout_; };
 
 private:
   SCM get_acknowledger (SCM sym, Direction start_end) override
@@ -63,6 +65,8 @@ private:
   SCM init_acknowledgers (SCM alist);
 
   bool must_be_last_;
+  bool is_midi_;
+  bool is_layout_;
 };
 
 #endif /* SCHEME_ENGRAVER_HH */

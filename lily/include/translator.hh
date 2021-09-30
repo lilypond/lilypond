@@ -142,6 +142,8 @@ public:
   Translator_group *get_group ()const;
   virtual Moment now_mom () const;
   virtual bool must_be_last () const;
+  virtual bool is_midi () const { return true; };
+  virtual bool is_layout () const { return true; };
 
   virtual void initialize ();
   virtual void finalize ();

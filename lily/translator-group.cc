@@ -154,9 +154,10 @@ Translator_group::create_child_translator (SCM sev)
   /* Filter unwanted translator types. Required to make
      \with { \consists "..." } work. */
   if (dynamic_cast<Engraver_group *> (g))
-    trans_list.remove_if ([] (SCM s) { return unsmob<Performer> (s); });
+    trans_list.remove_if ([] (SCM s) { return !unsmob<Translator> (s)->is_layout (); });
   else if (dynamic_cast<Performer_group *> (g))
-    trans_list.remove_if ([] (SCM s) { return unsmob<Engraver> (s); });
+    trans_list.remove_if ([] (SCM s) { return !unsmob<Translator> (s)->is_midi (); });
+
   g->simple_trans_list_ = trans_list.begin_scm ();
 
   // TODO: scrap Context::implementation
