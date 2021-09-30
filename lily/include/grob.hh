@@ -177,6 +177,7 @@ public:
   Grob *get_y_parent () const { return dim_cache_[Y_AXIS].parent_; }
   Grob *get_parent (Axis a) const { return dim_cache_[a].parent_; }
   void fixup_refpoint ();
+  bool has_in_ancestry (const Grob *possible_ancestor, Axis a) const;
 
   /* vertical ordering */
   static bool internal_vertical_less (Grob *g1, Grob *g2, bool pure);

@@ -601,6 +601,20 @@ Grob::fixup_refpoint ()
     }
 }
 
+// Is possible_ancestor a parent, or parent of parent, etc. of this
+// on axis a?
+bool
+Grob::has_in_ancestry (const Grob *possible_ancestor, Axis a) const
+{
+  for (const Grob *parent = this; parent; parent = parent->get_parent (a))
+    {
+      if (parent == possible_ancestor)
+        return true;
+    }
+  return false;
+}
+
+
 /****************************************************************
   VERTICAL ORDERING
 ****************************************************************/

@@ -251,7 +251,7 @@ Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staf
   vector<Grob *> new_elts;
 
   for (vsize i = 0; i < elts.size (); i++)
-    if (elts[i]->common_refpoint (staff, parent_a) == staff)
+    if (elts[i]->has_in_ancestry (staff, parent_a))
       new_elts.push_back (elts[i]);
 
   return relative_group_extent (new_elts, refp, ext_a);

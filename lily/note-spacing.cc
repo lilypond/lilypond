@@ -63,7 +63,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       */
       if (g)
         {
-          if (g->common_refpoint (col, X_AXIS) != col)
+          if (!g->has_in_ancestry (col, X_AXIS))
             programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
           else
             left_head_end = g->extent (col, X_AXIS)[RIGHT];

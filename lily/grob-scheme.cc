@@ -212,7 +212,7 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 
   const auto a = from_scm<Axis> (axis);
 
-  if (ref->common_refpoint (sc, a) != ref)
+  if (!sc->has_in_ancestry (ref, a))
     {
       // ugh. should use other error message
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
@@ -231,7 +231,7 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
 
   const auto a = from_scm<Axis> (axis);
 
-  if (ref->common_refpoint (sc, a) != ref)
+  if (!sc->has_in_ancestry (ref, a))
     {
       // ugh. should use other error message
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
@@ -251,7 +251,7 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 
   const auto a = from_scm<Axis> (axis);
 
-  if (ref->common_refpoint (sc, a) != ref)
+  if (!sc->has_in_ancestry (ref, a))
     {
       // ugh. should use other error message
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
