@@ -81,22 +81,24 @@ The musical position of the grace expression is after a
 given fraction of the main note's duration has passed.  If
 @var{fraction} is not specified as first argument, it is taken from
 @code{afterGraceFraction} which has a default value of @code{3/4}.")
-   (let ((main-length (ly:music-length main))
-         (fraction (or fraction (ly:parser-lookup 'afterGraceFraction))))
-     (descend-to-context
-      (make-simultaneous-music
-       (list
-        main
-        (make-sequential-music
-         (list
-          (make-music 'SkipMusic
-                      'duration (ly:make-duration
-                                 0 0
-                                 (* (ly:moment-main main-length)
-                                    (scale->factor fraction))))
-          (make-music 'GraceMusic
-                      'element grace)))))
-      'Bottom)))
+   (let* ((factor
+            (scale->factor (or fraction
+                               (ly:parser-lookup 'afterGraceFraction))))
+          (delta
+            (* factor (ly:moment-main (ly:music-length main))))
+          (grace-music
+            (make-music 'GraceMusic 'element grace)))
+     (if (> factor 1)
+         (ly:warning (_ "\\afterGrace exceeds duration of main argument.")))
+     ;;; Despite the similarity of definitions, don't reduce this to
+     ;;; an application of \after. For \afterGrace, the arguments are
+     ;;; input in visual order, hence they should be used in that order
+     ;;; to ensure
+     ;;;   \relative \afterGrace c'2 d8
+     ;;; gives the expected result.
+     #{
+       \context Bottom << #main { \skip 1*$delta #grace-music } >>
+     #}))
 
 
 %% music identifiers not allowed at top-level,

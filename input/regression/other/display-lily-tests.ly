@@ -106,7 +106,7 @@ are reported on the stderr of this run."
 \test ##[ { \grace c8 d2 } #]				% GraceMusic
 \test ##[ { \appoggiatura c8 d2 } #]
 \test ##[ { \acciaccatura c8 d2 } #]
-\test ##[ { c1 \afterGrace { b,16 c16 } d2 } #]
+\test ##[ { c1 \afterGrace 3/4 { b,16 c16 } d2 } #]
 
 %% Clusters
 \test ##[ { \makeClusters { c4 g4 } } #]		% ClusterNoteEvent
