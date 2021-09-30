@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2021-08-10.14}
+\def\texinfoversion{2021-09-26.10}
 %
 % Copyright 1985, 1986, 1988, 1990-2021 Free Software Foundation, Inc.
 %
@@ -9403,7 +9403,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \fi\fi
   %
   \ifimagevmode
-    \nobreak\medskip
+    \medskip
     % Usually we'll have text after the image which will insert
     % \parskip glue, so insert it here too to equalize the space
     % above and below.
@@ -11600,11 +11600,9 @@ directory should work if nowhere else does.}
 @setregularquotes
 
 @c Local variables:
-@c eval: (add-hook 'before-save-hook 'time-stamp)
+@c eval: (add-hook 'before-save-hook 'time-stamp nil t)
+@c time-stamp-pattern: "texinfoversion{%Y-%02m-%02d.%02H}"
 @c page-delimiter: "^\\\\message\\|emacs-page"
-@c time-stamp-start: "def\\\\texinfoversion{"
-@c time-stamp-format: "%:y-%02m-%02d.%02H"
-@c time-stamp-end: "}"
 @c End:
 
 @c vim:sw=2:
