@@ -1869,15 +1869,6 @@ slashedGrace =
    (_i "Create slashed graces (slashes through stems, but no slur) from
 the following music expression"))
 
-spacingTweaks =
-#(define-music-function (parameters) (list?)
-   (_i "Set the system stretch, by reading the 'system-stretch property of
-the `parameters' assoc list.")
-   (overrideProperty
-    '(Score NonMusicalPaperColumn line-break-system-details)
-    (list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
-          (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))))
-
 styledNoteHeads =
 #(define-music-function (style heads music)
    (symbol? symbol-list-or-symbol? ly:music?)

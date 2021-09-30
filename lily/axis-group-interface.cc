@@ -202,18 +202,6 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   int start = from_scm (start_scm, 0);
   int end = from_scm (end_scm, INT_MAX);
   Grob *me = unsmob<Grob> (smob);
-
-  /* Maybe we are in the second pass of a two-pass spacing run. In that
-     case, the Y-extent of a system is already given to us */
-  System *system = dynamic_cast<System *> (me);
-  if (system)
-    {
-      SCM line_break_details = get_property (system->column (start), "line-break-system-details");
-      SCM system_y_extent = scm_assq (ly_symbol2scm ("system-Y-extent"), line_break_details);
-      if (scm_is_pair (system_y_extent))
-        return scm_cdr (system_y_extent);
-    }
-
   return to_scm (pure_group_height (me, start, end));
 }
 
