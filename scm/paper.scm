@@ -244,9 +244,14 @@
 (define (lookup-paper-name module name landscape?)
   "Look up @var{name} and return a number pair of width and height,
 where @var{landscape?} specifies whether the dimensions should be swapped
-unless explicitly overridden in the name."
+unless explicitly overridden in the name.
+
+If @var{name} is a quoted pair of numbers, use the values directly,
+ignoring @var{landscape?}."
   (let* ((swapped?
-          (cond ((string-suffix? "landscape" name)
+          (cond ((pair? name)
+                 #f)
+                ((string-suffix? "landscape" name)
                  (set! name
                        (string-trim-right (string-drop-right name 9)))
                  #t)
@@ -257,7 +262,9 @@ unless explicitly overridden in the name."
                 (else landscape?)))
          (is-paper? (module-defined? module 'is-paper))
          (entry (and is-paper?
-                     (eval-carefully (assoc-get name paper-alist)
+                     (eval-carefully (if (pair? name)
+                                         name
+                                         (assoc-get name paper-alist))
                                      module
                                      #f))))
     (and entry is-paper?

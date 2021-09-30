@@ -203,8 +203,8 @@ Installed Files:
 @node Setting the paper size
 @unnumberedsubsubsec Setting the paper size
 
-@q{A4} is the default value when no explicit paper size is set. However,
-there are two functions that can be used to change it:
+@q{A4} is the default value when no explicit paper size is set.
+However, there are two functions that can be used to change it:
 
 @table @code
 @item set-default-paper-size
@@ -226,49 +226,44 @@ which must always be placed at the toplevel scope, and
 which must always be placed in a @code{\paper} block.
 @end table
 
-If the @code{set-default-paper-size} function is used in the toplevel
-scope, it must come before any @code{\paper} block.
-@code{set-default-paper-size} sets the paper size for all pages,
-whereas @code{set-paper-size} only sets the paper size for the pages
-that the @code{\paper} block applies to.  For example, if the
-@code{\paper} block is at the top of the file, then it will apply the
-paper size to all pages.  If the @code{\paper} block is inside a
-@code{\book}, then the paper size will only apply to that book.
+If the @code{set-default-paper-size} function is used in the
+toplevel scope, it must come before any @code{\paper} block.
+@code{set-@/default-@/paper-@/size} sets the paper size for all
+pages, whereas @code{set-@/paper-@/size} only sets the paper size
+for the pages that the @code{\paper} block applies to.  For
+example, if the @code{\paper} block is at the top of the file,
+then it applies the paper size to all pages.  If the @code{\paper}
+block is inside a @code{\book}, then the paper size applies only
+to that book.
 
 When the @code{set-paper-size} function is used, it must be
 placed @emph{before} any other functions used within the same
 @code{\paper} block.  See @ref{Automatic scaling to paper size}.
 
-Paper sizes are defined in @file{scm/paper.scm}, and while it is
-possible to add custom sizes, they will be overwritten on subsequent
-software updates.  The available paper sizes are listed in
-@ref{Predefined paper sizes}.
+Paper sizes are defined in file @file{scm/paper.scm};
+@pxref{Predefined paper sizes} for a complete list.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
-The following command can be used in the file to add a custom paper size
-which can then be used with @code{set-default-paper-size} or
-@code{set-paper-size} as appropriate,
+Both @code{set-default-paper-size} and @code{set-paper-size} also
+accept a quoted number pair as its argument to set a custom paper
+size.
 
 @example
-#(set! paper-alist
-  (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-alist))
-
-\paper @{
-  #(set-paper-size "my size")
-@}
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
 @end example
 
-The units @code{in} (inches), @code{cm} (centimeters) and @code{mm}
-(millimeters) can all be used.
+@noindent
+The units @code{in} (inches), @code{cm} (centimeters), @code{mm}
+(millimeters), and @code{pt} (points) can all be used.
 
 @cindex paper size, orientation
 @cindex page, orientation
 @cindex paper size, landscape
 
-If the symbol @code{'landscape} is added to the paper size function,
-pages will be rotated by 90 degrees, and wider line widths will be set
-accordingly.
+If the symbol @code{'landscape} is added to the paper size
+function as a second argument, pages are rotated by 90 degrees,
+and wider line widths are set accordingly.
 
 @example
 #(set-default-paper-size "a6" 'landscape)

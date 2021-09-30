@@ -66,6 +66,14 @@ which scares away people.
 @end ignore
 
 @item
+@code{set-default-paper-size} and @code{set-paper-size} now accept
+a custom paper size.
+
+@example
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
+@end example
+
+@item
 Scheme-defined translators usable in both @samp{\layout} and
 @samp{\midi} can now be created with @code{make-translator}.
 Scheme-defined performers usable only in @samp{\midi} can now be
