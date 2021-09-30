@@ -65,6 +65,14 @@ which scares away people.
 
 @end ignore
 
+@item
+Scheme-defined translators usable in both @samp{\layout} and
+@samp{\midi} can now be created with @code{make-translator}.
+Scheme-defined performers usable only in @samp{\midi} can now be
+created with @code{make-performer}.  Those macros work strictly like
+the previously existing macro @code{make-engraver} for creating
+engravers only usable in @samp{\layout}.
+
 @item The syntax for conditions in markups was made more flexible and
 user-friendly.  It uses the new markup commands @code{\if} and
 @code{\not}.  Here are example replacements:
