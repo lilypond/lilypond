@@ -178,13 +178,9 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
 
   Drul_array<Grob *> adj_cols = adjacent_note_columns (me, ref_stem);
 
-  Item *left = me->get_bound (LEFT);
-  Item *right = me->get_bound (RIGHT);
-
-  if (!left || !right)
+  const auto bounds = me->get_bounds ();
+  if (!bounds[LEFT] || !bounds[RIGHT])
     return false;
-
-  Drul_array<Item *> bounds (left, right);
 
   Interval available_ext;
   Real padding = from_scm<double> (get_property (me, "padding"), 0.5);

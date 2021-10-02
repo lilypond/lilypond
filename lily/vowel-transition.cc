@@ -40,7 +40,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
     {
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
+      const auto bounds = sp->get_bounds ();
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
       std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));

@@ -119,11 +119,10 @@ Hairpin::print (SCM smob)
   Direction grow_dir = from_scm<Direction> (s);
   Real padding = from_scm<double> (get_property (me, "bound-padding"), 0.5);
 
+  const auto bounds = me->get_bounds ();
   Drul_array<bool> broken;
-  Drul_array<Item *> bounds;
   for (const auto d : {LEFT, RIGHT})
     {
-      bounds[d] = me->get_bound (d);
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
 

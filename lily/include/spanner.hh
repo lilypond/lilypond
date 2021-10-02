@@ -79,6 +79,7 @@ public:
   virtual bool accepts_as_bound_item (const Item *) const;
   virtual bool accepts_as_bound_paper_column (const Paper_column *) const;
   Item *get_bound (Direction d) const;
+  Drul_array<Item *> get_bounds () const;
 
   Spanner (SCM);
   Spanner (Spanner const &);

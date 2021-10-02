@@ -36,8 +36,7 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
   Spanner *orig_spanner = me->original ();
   if (!orig_spanner) return SCM_EOL;
 
-  Drul_array<Item *> bounds (me->get_bound (LEFT),
-                             me->get_bound (RIGHT));
+  const auto bounds = me->get_bounds ();
   Drul_array<bool> connect_to_other;
 
   for (const auto d : {LEFT, RIGHT})
@@ -69,7 +68,7 @@ Measure_spanner::print (SCM smob)
 
   SCM visible = get_property (me, "bracket-visibility");
 
-  Drul_array<Item *> bounds (me->get_bound (LEFT), me->get_bound (RIGHT));
+  const auto bounds = me->get_bounds ();
 
   /* should store note columns in engraver? */
   Grob *common_x = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);

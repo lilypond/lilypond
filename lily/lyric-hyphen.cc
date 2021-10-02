@@ -37,8 +37,7 @@ SCM
 Lyric_hyphen::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  Drul_array<Item *> bounds (me->get_bound (LEFT),
-                             me->get_bound (RIGHT));
+  const auto bounds = me->get_bounds ();
 
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
@@ -131,22 +130,18 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  Rod rod;
   Spanner *sp = dynamic_cast<Spanner *> (me);
   System *root = get_root_system (me);
-  Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
+  const auto bounds = sp->get_bounds ();
   if (!bounds[LEFT] || !bounds[RIGHT])
     return SCM_UNSPECIFIED;
   std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
+  Rod rod;
   rod.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
-  for (const auto d : {LEFT, RIGHT})
-    rod.item_drul_[d] = bounds[d];
+  rod.item_drul_ = bounds;
   rod.distance_ += rod.bounds_protrusion ();
-
-  if (rod.item_drul_[LEFT]
-      && rod.item_drul_[RIGHT])
-    rod.add_to_cols ();
+  rod.add_to_cols ();
 
   if (cols.size () && from_scm<bool> (get_property (me, "after-line-breaking")))
     {

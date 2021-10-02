@@ -165,6 +165,12 @@ Spanner::get_bound (Direction d) const
   return nullptr;
 }
 
+Drul_array<Item *>
+Spanner::get_bounds () const
+{
+  return {get_bound (LEFT), get_bound (RIGHT)};
+}
+
 void
 Spanner::set_my_columns ()
 {
@@ -405,8 +411,7 @@ Spanner::set_spacing_rods (SCM smob)
     {
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      Drul_array<Item *> bounds (sp->get_bound (LEFT),
-                                 sp->get_bound (RIGHT));
+      const auto bounds = sp->get_bounds ();
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
 
