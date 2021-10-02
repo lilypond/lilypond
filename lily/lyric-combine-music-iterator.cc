@@ -45,7 +45,7 @@ using std::string;
 class Lyric_combine_music_iterator final : public Music_iterator
 {
 public:
-  Lyric_combine_music_iterator ();
+  Lyric_combine_music_iterator () = default;
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
@@ -64,29 +64,18 @@ private:
   void set_busy (SCM);
   void check_new_context (SCM);
 
-  bool music_found_;
-  bool lyrics_found_;
-  Context *lyrics_context_;
-  Context *music_context_;
-  SCM lyricsto_voice_name_;
-  SCM lyricsto_voice_type_;
+  bool music_found_ = false;
+  bool lyrics_found_ = false;
+  Context *lyrics_context_ = nullptr;
+  Context *music_context_ = nullptr;
+  SCM lyricsto_voice_name_ = SCM_EOL;
+  SCM lyricsto_voice_type_ = SCM_EOL;
 
   Moment busy_moment_ {-Rational::infinity ()};
   Moment pending_grace_moment_ {Rational::infinity ()};
 
-  Music_iterator *lyric_iter_;
+  Music_iterator *lyric_iter_ = nullptr;
 };
-
-Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
-{
-  music_found_ = false;
-  lyrics_found_ = false;
-  lyric_iter_ = 0;
-  music_context_ = 0;
-  lyrics_context_ = 0;
-  lyricsto_voice_name_ = SCM_UNDEFINED;
-  lyricsto_voice_type_ = SCM_UNDEFINED;
-}
 
 /*
   It's dubious whether we can ever make this fully work.  Due to
