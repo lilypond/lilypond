@@ -325,7 +325,9 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
         self.prepare_package()
 
         # Put the entire tree into a .tar.gz archive.
-        archive = f"{self.lilypond.directory}-{self.c.platform.value}.tar.gz"
+        platform = self.c.platform.value
+        architecture = self.c.architecture
+        archive = f"{self.lilypond.directory}-{platform}-{architecture}.tar.gz"
         archive_path = os.path.join(self.c.base_dir, archive)
         if os.path.exists(archive_path):
             os.remove(archive_path)

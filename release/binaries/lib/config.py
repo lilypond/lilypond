@@ -51,6 +51,7 @@ class Config:
     downloads_dir: str
     jobs: int
     platform: Platform
+    architecture: str
 
     def __init__(
         self,
@@ -70,6 +71,7 @@ class Config:
             self.platform = Platform.get_platform(platform.system())
         else:
             self.platform = forced_platform
+        self.architecture = platform.machine()
 
     @property
     def dependencies_dir(self) -> str:
