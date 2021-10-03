@@ -75,7 +75,6 @@ import book_html
 import book_latex
 import book_texinfo
 import book_snippets
-import fontextract
 
 # Load translation and install _() into Python's builtins namespace.
 gettext.install('lilypond', '@localedir@')
