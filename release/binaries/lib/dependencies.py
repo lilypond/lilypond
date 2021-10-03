@@ -847,6 +847,7 @@ class Python(ConfigurePackage):
         def patch_setup(content: str) -> str:
             for module in [
                 "array",
+                "fcntl",
                 "math",
                 # Needed for fractions
                 "_contextvars",
