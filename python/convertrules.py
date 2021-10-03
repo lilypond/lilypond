@@ -4379,17 +4379,17 @@ trill_pitch_group_re = r"""TrillPitchGroup\.
 repl = r"TrillPitchParentheses.\1"
 
 on_the_fly_replacements = (
-    (r"[\\#$]print-page-number-check-first", r"\\should-print-page-number"),
-    (r"[\\#$]create-page-number-stencil", r"\\should-print-page-numbers-global"),
-    (r"[\\#$]print-all-headers", r"\\should-print-all-headers"),
-    (r"[\\#$]first-page", r"\\on-first-page"),
-    (r"[\\#$]not-first-page", r"\\not \\on-first-page"),
-    (r"[#$]\(on-page (\d+)\)", r"\\on-page #\1"),
-    (r"[\\#$]last-page", r"\\on-last-page"),
-    (r"[\\#$]part-first-page", r"\\on-first-page-of-part"),
-    (r"[\\#$]not-part-first-page", r"\\not \\on-first-page-of-part"),
-    (r"[\\#$]part-last-page", r"\\on-last-page-of-part"),
-    (r"[\\#$]not-single-page", r"\\not \\single-page"),
+    (r"[\\#$]print-page-number-check-first", r"\\if \\should-print-page-number"),
+    (r"[\\#$]create-page-number-stencil", r"\\if \\should-print-page-numbers-global"),
+    (r"[\\#$]print-all-headers", r"\\if \\should-print-all-headers"),
+    (r"[\\#$]first-page", r"\\if \\on-first-page"),
+    (r"[\\#$]not-first-page", r"\\unless \\on-first-page"),
+    (r"[#$]\(on-page (\d+)\)", r"\\if \\on-page #\1"),
+    (r"[\\#$]last-page", r"\\if \\on-last-page"),
+    (r"[\\#$]part-first-page", r"\\if \\on-first-page-of-part"),
+    (r"[\\#$]not-part-first-page", r"\\unless \\on-first-page-of-part"),
+    (r"[\\#$]part-last-page", r"\\if \\on-last-page-of-part"),
+    (r"[\\#$]not-single-page", r"\\unless \\single-page"),
 )
 
 @rule((2, 23, 4), r"""
@@ -4412,8 +4412,7 @@ def conv(s):
     s = re.sub(trill_pitch_group_re, repl, s, flags=re.VERBOSE)
     for pattern, replacement in on_the_fly_replacements:
         complete_pattern = r"\\on-the-fly\s+" + pattern
-        complete_replacement = r"\\if " + replacement
-        s = re.sub(complete_pattern, complete_replacement, s)
+        s = re.sub(complete_pattern, replacement, s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
