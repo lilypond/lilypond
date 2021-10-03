@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1240,25 +1240,24 @@ Un glissando peut intervenir au moment d'un changement de portée :
 
 Un glissando peut affecter des notes d'un accord.  En dehors du cas où
 les notes des deux accords sont reliées directement l'une à l'autre, les
-relations s'établissent à l'aide de la commande @code{\glissandoMap} ;
+relations s'établissent à l'aide d'une liste Scheme @code{glissandoMap}
+dont les éléments sont des paires d'entier ; chaque paire @var{(x . y)}
+crée une ligne de glissando de la note @var{x} à la note @var{y} --
 les notes d'un accord sont numérotées à partir de zéro et dans leur
-ordre d'apparition dans le fichier @file{.ly}.
+ordre d'apparition dans le fichier @file{.ly}. Toutes les notes ne sont
+pas forcément partie d'un glissando.
 
 @lilypond[verbatim,quote]
 \relative {
-  <c' e>1\glissando g' |
-  <c, e>1\glissando |
-  <g' b> |
+  <c' e>2\glissando g'
+  <c, e>\glissando <g' b>
   \break
   \set glissandoMap = #'((0 . 1) (1 . 0))
-  <c, g'>1\glissando |
-  <d a'> |
+  <c, g'>\glissando <d a'>
   \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
-  c1\glissando |
-  <d f a> |
-  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
-  <f d a'>1\glissando |
-  <c c'> |
+  c\glissando <d f a>
+  \set glissandoMap = #'((2 . 2) (0 . 0))
+  <f d a'>\glissando <c f c'>
 }
 @end lilypond
 
@@ -1611,5 +1610,10 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Référence des propriétés internes :
-@rinternals{TrillSpanner}.
+@rinternals{TrillSpanner},
+@rinternals{TrillPitchHead},
+@rinternals{TrillPitchAccidental},
+@rinternals{TrillPitchParentheses},
+@rinternals{TrillPitchGroup},
+@rinternals{Pitched_trill_engraver}.
 @endmorerefs

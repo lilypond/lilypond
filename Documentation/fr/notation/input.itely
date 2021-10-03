@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
+   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1200,48 +1200,26 @@ les quatre variables suivantes, attachées au bloc @code{\paper} :
 @cindex condition et markup
 @cindex on-the-fly (à la volée)
 
-@funindex \on-the-fly
+@funindex \if
+@funindex \unless
 
-L'instruction @code{\on-the-fly} au sein d'un @code{\markup} permet
-d'ajouter, lorsque certaines conditions sont respectées, des éléments
-au texte des entête et pied de page définis dans le bloc @code{\paper}.
-En voici la syntaxe :
+L'instruction @code{\if} au sein d'un @code{\markup} permet d'ajouter,
+lorsque certaines conditions sont respectées, des éléments au texte des
+entêtes et pieds de page définis dans le bloc @code{\paper}. En voici la
+syntaxe :
 
 @example
-variable = \markup @{
-  @dots{}
-  \on-the-fly \@var{procédure} @var{markup}
-  @dots{}
-@}
+\if \@var{condition} @var{argument}
 @end example
 
-La @var{procédure} est appelée à chaque fois que la commande
-@code{\markup} où elle apparaît est évaluée.  La @var{procédure}
-effectuera un test de conformité particulier et interprètera, autrement
-dit imprimera l'argument @var{markup} si et seulement si cette
-condition est remplie.
+La @var{condition} est testée à chaque fois que le @emph{markup} où elle
+apparaît est évalué. Sera imprimé le @emph{markup} @var{argument} si et
+seulement si cette condition est remplie.
 
-LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
-
-@quotation
-@multitable {print-page-number-check-first-----} {ce n'est pas la première page du book--}
-
-@headitem  Nom de la procédure      @tab  Condition testée
-
-@item print-page-number-check-first @tab  il faut imprimer ce numéro de page.
-@item create-page-number-stencil    @tab  print-page-numbers est vrai.
-@item print-all-headers             @tab  print-all-headers est vrai.
-@item first-page                    @tab  c'est la première page du @emph{book}.
-@item not-first-page                @tab  ce n'est pas la première page du @emph{book}.
-@item (on-page nombre)              @tab  numéro de page = nombre
-@item last-page                     @tab  c'est la dernière page du @emph{book}.
-@item part-first-page               @tab  c'est la première page de la partie.
-@item not-part-first-page           @tab  ce n'est pas la première page de la partie.
-@item part-last-page                @tab  c'est la dernière page de la partie.
-@item not-single-page               @tab  cette partie fait plus d'une page.
-
-@end multitable
-@end quotation
+LilyPond dispose d'ores et déjà d'un certain nombre de conditions
+relatives à la numérotation des pages (la première, la dernière, une
+page spécifique, etc.). Le test renversant la condition s'obtient en
+remplaçant le @code{\if} par un @code{\unless}.
 
 L'exemple suivant illustre la manière de centrer son numéro au bas de
 chaque page.  Il nous faut tout d'abord annuler les définitions de
@@ -1271,20 +1249,33 @@ Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
 }
 @end lilypond
 
-Plusieurs conditions @code{\on-the-fly} mentionnées l'une à la suite de
-l'autre se cumulent.  Ainsi, par exemple,
+Voici une liste des procédures prédéfinies utilisables avec @code{\if}
+ou @code{\unless}.
 
-@example
-  \if \on-first-page
-  \if \on-last-page
-  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
-@end example
+@quotation
+@multitable {@code{\should-print-page-numbers-global}} {ce n'est pas la première page du book--}
 
-@noindent
-teste si la sortie tient sur une page unique.
+@headitem  Syntaxe                      @tab  Condition testée
+@item @code{\on-first-page}             @tab  c'est la première page du @emph{book}.
+@item @code{\on-last-page}              @tab  c'est la dernière page du @emph{book}.
+@item @code{\on-first-page-of-part}     @tab  c'est la première page de la partie.
+@item @code{\on-last-page-of-part}      @tab  c'est la dernière page de la partie.
+@item @code{\on-page @var{nombre}}      @tab  ceci est la page @var{nombre}
+@item @code{\single-page}               @tab  ce @emph{book} tient sur une page.
+@item @code{\should-print-page-numbers-global} @tab  il faut imprimer les numéros de page.
+   @footnote{@code{\should-@/print-@/page-@/numbers-@/global} peut être
+   différent de @code{\should-@/print-@/page-@/number} pour la première
+   page de l'ouvrage, selon le réglage affecté à
+   @code{print-@/first-@/page-@/number} dans le bloc @code{\paper}.}
+@item @code{\should-print-page-number}  @tab  il faut imprimer le numéro de cette page.
+@item @code{\should-print-all-headers}  @tab  @code{print-all-headers} est vrai.
+
+@end multitable
+@end quotation
 
 @morerefs
 Manuel de notation :
+@rusernamed{Conditionals,Conditions},
 @ref{Généralités en matière de titrages},
 @ref{Mise en forme par défaut des titrages subalternes}.
 
@@ -3884,9 +3875,9 @@ cas, lorsque la limite au nombre de canaux est atteinte, LilyPond repart
 du canal 0, ce qui peut affecter des notes au mauvais instrument.  Cette
 propriété de contexte peut prendre les valeurs suivantes :
 
-@table @var
+@table @code
 
-@item @code{'staff}
+@item 'staff
 
 Allocation d'un canal MIDI particulier à chacune des portées de la
 partition (option par défaut).  Toutes les notes de toutes les voix
@@ -3897,7 +3888,7 @@ La limite des 16 canaux s'applique au nombre total de portées augmenté
 des contextes de paroles même si les paroles MIDI n'occupent pas de
 canal MIDI.
 
-@item @code{'instrument}
+@item 'instrument
 
 Allocation d'un canal MIDI particulier à chaque instrument MIDI tel que
 spécifié dans la partition.  En d'autre termes, des notes jouées par un
@@ -3909,7 +3900,7 @@ compte dans la limite des 16 canaux, puisqu'ils ne sont pas assignés à
 un instrument MIDI, ce qui permet une meilleure allocation des canaux
 MIDI lorsque le nombre de portées et de contextes de paroles dépasse 16.
 
-@item @code{'voice}
+@item 'voice
 
 Allocation d'un canal MIDI particulier à chaque voix de la partition
 portant un nom unique parmi les voix de la portée considérée.  Des voix
@@ -3985,9 +3976,9 @@ périphérique de sortie MIDI.
 
 LilyPond dispose des propriétés de contexte suivantes :
 
-@table @var
+@table @code
 
-@item @code{Staff.midiPanPosition}
+@item Staff.midiPanPosition
 
 La spatialisation (@emph{pan position}) contrôle le positionnement d'un
 canal MIDI entre les sorties stéréo droite et gauche.  Cette propriété
@@ -4001,7 +3992,7 @@ et 1.0 permettent d'obtenir une répartition du son entre les sorties
 gauche et droite d'un équipement stéréophonique.
 
 
-@item @code{Staff.midiBalance}
+@item Staff.midiBalance
 
 La balance stéréo d'un canal MIDI.  Tout comme la spatialisation, cette
 propriété de contexte prend en argument une valeur comprise entre -1.0
@@ -4009,7 +4000,7 @@ propriété de contexte prend en argument une valeur comprise entre -1.0
 volume relatif envoyé aux deux haut-parleurs stéréo sans pour autant
 affecter la distribution des signaux stéréo.
 
-@item @code{Staff.midiExpression}
+@item Staff.midiExpression
 
 Le niveau d'expression, en tant que fraction du niveau maximum de volume
 disponible, à appliquer à un canal MIDI.  Un périphérique MIDI combine
@@ -4027,13 +4018,13 @@ automatiquement.
 Le niveau d'expression varie entre 0.0 (sans expression, autrement dit
 volume à zéro) et 1.0 (volume au maximum).
 
-@item @code{Staff.midiReverbLevel}
+@item Staff.midiReverbLevel
 
 Le niveau de réverbération, en tant que fraction du niveau maximum
 disponible, à appliquer à un canal MIDI.  Cette propriété prend en
 argument une valeur entre 0.0 (pas d'écho) et 1.0 (effet maximal).
 
-@item @code{Staff.midiChorusLevel}
+@item Staff.midiChorusLevel
 
 Le niveau de chœur, en tant que fraction du niveau maximum disponible, à
 appliquer à un canal MIDI.  Cette propriété prend en argument une valeur
