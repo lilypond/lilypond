@@ -234,6 +234,12 @@ compter et les alternatives.
 }
 @end lilypond
 
+@item
+@code{\numericTimeSignature} et @code{\defaultTimeSignature}
+s'appliquent désormais en même temps à toutes les portée -- plus
+précisément à toutes les portées d'un même contexte @code{Timing} --
+afin de correspondre au comportement de @code{\time}.
+
 @end itemize
 
 @subsubheading Améliorations en matière d'expressivité
@@ -371,6 +377,16 @@ identique à @code{\footnote}.
   \parenthesize Staff.KeySignature
   \key g \major
   c'1
+}
+@end lilypond
+
+@item
+En matière de basse chiffrée, il est désormais possible de placer les
+altérations entre crochets.
+
+@lilypond
+\figures {
+  <7 [5 3[+]]> <5[!]> <[5!]>
 }
 @end lilypond
 
@@ -550,15 +566,27 @@ les attachements.
 @end itemize
 
 
-@ignore
 @subsubheading Améliorations pour les titrages et entêtes
 
 @itemize
 
 @item
-Un
+La syntaxe permettant de gérer des conditions pour les @emph{markups} a
+gagné en flexibilité et en simplicité. Elle utilise les nouvelles
+commandes de @emph{markup} @code{\if} et @code{\not}. Voici quelques uns
+des changements apportés :
+
+@multitable {@code{\on-the-fly #not-first-page @dots{}}} {@code{\if \not \on-first-page-of-part @dots{}}}
+@headitem Syntaxe version 2.22 @tab Syntaxe version 2.24
+@item @code{\on-the-fly #first-page @dots{}}
+@tab @code{\if \on-first-page @dots{}}
+@item @code{\on-the-fly #not-part-first-page @dots{}}
+@tab @code{\if \not \on-first-page-of-part @dots{}}
+@item @code{\on-the-fly #(on-page @var{n}) @dots{}}
+@tab @code{\if \on-page #@var{n} @dots{}}
+@end multitable
+
 @end itemize
-@end ignore
 
 
 @ignore
