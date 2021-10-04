@@ -146,8 +146,15 @@ Global_context::iterate (Music *music, bool force_found_music)
       final_mom_ = iter->music_get_length ();
       if (isinf (final_mom_.main_part_))
         {
-          // We'll probably also reach "Moment is not increasing" below.
-          music->programming_error ("music has infinite length");
+          // The top-level music is LyricCombineMusic or something similar.
+          music->warning (_ ("cannot determine music length"));
+
+          // Lyric_combine_music_iterator cannot be trusted to behave such that
+          // the loop below will terminate.  We have no use case for
+          // indefinite-length music at the top level, so there is no harm in
+          // cutting it short.  To understand how things go wrong without this,
+          // try regression test lyric-combine-top-level-no-music.ly.
+          final_mom_ = 0;
         }
 
       // This forces at least one full pass through the loop to initialize
