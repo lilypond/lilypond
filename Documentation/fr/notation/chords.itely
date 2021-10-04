@@ -11,7 +11,7 @@
 @c \version "2.19.28"
 
 @c Translators: Valentin Villenave,Jean-Charles Malahieude
-@c Translation checkers: Jean-Charles Malahieude, John Mandereau
+@c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
 
 
 @node Notation des accords
@@ -981,7 +981,7 @@ une « petite sixte » :
 }
 @end lilypond
 
-Vous pouvez insérer des crochets aux altérations, chiffrages ou bien
+Vous pouvez insérer des crochets aux altérations, chiffrages et
 groupes de chiffrages consécutifs :
 
 @lilypond[verbatim,quote,ragged-right]

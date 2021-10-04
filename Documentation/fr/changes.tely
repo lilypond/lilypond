@@ -9,7 +9,7 @@
 @end ignore
 
 @c Translators: Jean-Charles Malahieude
-@c Translation checkers:
+@c Translation checkers: Jean Abou Samra
 
 @setfilename lilypond-changes.info
 @settitle LilyPond Changes
@@ -236,7 +236,7 @@ compter et les alternatives.
 
 @item
 @code{\numericTimeSignature} et @code{\defaultTimeSignature}
-s'appliquent désormais en même temps à toutes les portée -- plus
+s'appliquent désormais en même temps à toutes les portées -- plus
 précisément à toutes les portées d'un même contexte @code{Timing} --
 afin de correspondre au comportement de @code{\time}.
 
@@ -573,15 +573,15 @@ les attachements.
 @item
 La syntaxe permettant de gérer des conditions pour les @emph{markups} a
 gagné en flexibilité et en simplicité. Elle utilise les nouvelles
-commandes de @emph{markup} @code{\if} et @code{\not}. Voici quelques uns
-des changements apportés :
+commandes de @emph{markup} @code{\if} et @code{\unless}. Voici quelques
+uns des changements apportés :
 
-@multitable {@code{\on-the-fly #not-first-page @dots{}}} {@code{\if \not \on-first-page-of-part @dots{}}}
+@multitable {@code{\on-the-fly #not-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
 @headitem Syntaxe version 2.22 @tab Syntaxe version 2.24
 @item @code{\on-the-fly #first-page @dots{}}
 @tab @code{\if \on-first-page @dots{}}
 @item @code{\on-the-fly #not-part-first-page @dots{}}
-@tab @code{\if \not \on-first-page-of-part @dots{}}
+@tab @code{\unless \on-first-page-of-part @dots{}}
 @item @code{\on-the-fly #(on-page @var{n}) @dots{}}
 @tab @code{\if \on-page #@var{n} @dots{}}
 @end multitable

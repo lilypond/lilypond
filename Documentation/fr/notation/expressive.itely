@@ -11,7 +11,7 @@
 @c \version "2.21.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
-@c Translation checkers: Jean-Charles Malahieude, John Mandereau
+@c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
 
 
 @node Signes d'interprétation
@@ -1241,10 +1241,10 @@ Un glissando peut intervenir au moment d'un changement de portée :
 Un glissando peut affecter des notes d'un accord.  En dehors du cas où
 les notes des deux accords sont reliées directement l'une à l'autre, les
 relations s'établissent à l'aide d'une liste Scheme @code{glissandoMap}
-dont les éléments sont des paires d'entier ; chaque paire @var{(x . y)}
+dont les éléments sont des paires d'entiers ; chaque paire @var{(x . y)}
 crée une ligne de glissando de la note @var{x} à la note @var{y} --
 les notes d'un accord sont numérotées à partir de zéro et dans leur
-ordre d'apparition dans le fichier @file{.ly}. Toutes les notes ne sont
+ordre d'apparition dans le fichier @file{.ly}. Toutes les notes ne font
 pas forcément partie d'un glissando.
 
 @lilypond[verbatim,quote]

@@ -11,6 +11,7 @@
 @c \version "2.23.4"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
+@c Translation checkers: Jean Abou Samra
 
 
 @node Généralités en matière d'entrée et sortie
@@ -1203,17 +1204,17 @@ les quatre variables suivantes, attachées au bloc @code{\paper} :
 @funindex \if
 @funindex \unless
 
-L'instruction @code{\if} au sein d'un @code{\markup} permet d'ajouter,
-lorsque certaines conditions sont respectées, des éléments au texte des
-entêtes et pieds de page définis dans le bloc @code{\paper}. En voici la
-syntaxe :
+L'instruction @code{\if} au sein d'un @code{\markup} permet d'ajouter
+des éléments au texte des entêtes et pieds de page définis dans le bloc
+@code{\paper}, et ce uniquement lorsque certaines conditions sont
+vérifiées. En voici la syntaxe :
 
 @example
 \if \@var{condition} @var{argument}
 @end example
 
 La @var{condition} est testée à chaque fois que le @emph{markup} où elle
-apparaît est évalué. Sera imprimé le @emph{markup} @var{argument} si et
+apparaît est évalué. Le @emph{markup} @var{argument} sera imprimé si et
 seulement si cette condition est remplie.
 
 LilyPond dispose d'ores et déjà d'un certain nombre de conditions
