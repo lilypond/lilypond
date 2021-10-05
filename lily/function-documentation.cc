@@ -82,55 +82,53 @@ LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation
   return doc_hash_table;
 }
 
-map<void *, string> type_names;
+static map<const void *, string> type_names;
 
 void
-ly_add_type_predicate (void *ptr,
-                       const char *name)
+ly_internal_add_type_predicate (const void *pred, const char *name)
 {
-  type_names[ptr] = std::string (name);
+  type_names[pred] = std::string (name);
 }
 
 string
-predicate_to_typename (void *ptr)
+internal_predicate_to_typename (const void *pred)
 {
-  if (type_names.find (ptr) == type_names.end ())
-    {
-      programming_error ("Unknown type predicate");
-      return "unknown type";
-    }
-  else
-    return type_names[ptr];
+  auto it = type_names.find (pred);
+  if (it != type_names.end ())
+    return it->second;
+
+  programming_error ("Unknown type predicate");
+  return "unknown type";
 }
 
 void
 init_func_doc ()
 {
-  ly_add_type_predicate ((void *) &is_scm<Direction>, "direction");
-  ly_add_type_predicate ((void *) &scm_is_real, "real number");
-  ly_add_type_predicate ((void *) &is_scm<Offset>, "pair of reals");
-  ly_add_type_predicate ((void *) &ly_is_port, "port");
-  ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
-  ly_add_type_predicate ((void *) &unsmob<Global_context>, "Global_context");
-  ly_add_type_predicate ((void *) &unsmob<Paper_score>, "Paper_score");
-  ly_add_type_predicate ((void *) &unsmob<Performance>, "Performance");
-  ly_add_type_predicate ((void *) &is_scm<Axis>, "axis");
-  ly_add_type_predicate ((void *) &is_number_pair, "number pair");
-  ly_add_type_predicate ((void *) &ly_is_list, "list");
-  ly_add_type_predicate ((void *) &ly_is_procedure, "procedure");
-  ly_add_type_predicate ((void *) &ly_is_symbol, "symbol");
-  ly_add_type_predicate ((void *) &scm_is_bool, "boolean");
-  ly_add_type_predicate ((void *) &scm_is_integer, "integer");
-  ly_add_type_predicate ((void *) &scm_is_number, "number");
-  ly_add_type_predicate ((void *) &scm_is_pair, "pair");
-  ly_add_type_predicate ((void *) &scm_is_rational, "rational");
-  ly_add_type_predicate ((void *) &scm_is_string, "string");
-  ly_add_type_predicate ((void *) &unsmob<Transform>, "coordinate transform");
-  ly_add_type_predicate ((void *) &scm_is_vector, "vector");
-  ly_add_type_predicate ((void *) &unsmob<Item>, "Item");
-  ly_add_type_predicate ((void *) &unsmob<Music>, "Music");
-  ly_add_type_predicate ((void *) &unsmob<Spanner>, "Spanner");
-  ly_add_type_predicate ((void *) &unsmob<Stream_event>, "Stream_event");
+  ly_add_type_predicate (is_scm<Direction>, "direction");
+  ly_add_type_predicate (scm_is_real, "real number");
+  ly_add_type_predicate (is_scm<Offset>, "pair of reals");
+  ly_add_type_predicate (ly_is_port, "port");
+  ly_add_type_predicate (ly_cheap_is_list, "list");
+  ly_add_type_predicate (unsmob<Global_context>, "Global_context");
+  ly_add_type_predicate (unsmob<Paper_score>, "Paper_score");
+  ly_add_type_predicate (unsmob<Performance>, "Performance");
+  ly_add_type_predicate (is_scm<Axis>, "axis");
+  ly_add_type_predicate (is_number_pair, "number pair");
+  ly_add_type_predicate (ly_is_list, "list");
+  ly_add_type_predicate (ly_is_procedure, "procedure");
+  ly_add_type_predicate (ly_is_symbol, "symbol");
+  ly_add_type_predicate (scm_is_bool, "boolean");
+  ly_add_type_predicate (scm_is_integer, "integer");
+  ly_add_type_predicate (scm_is_number, "number");
+  ly_add_type_predicate (scm_is_pair, "pair");
+  ly_add_type_predicate (scm_is_rational, "rational");
+  ly_add_type_predicate (scm_is_string, "string");
+  ly_add_type_predicate (unsmob<Transform>, "coordinate transform");
+  ly_add_type_predicate (scm_is_vector, "vector");
+  ly_add_type_predicate (unsmob<Item>, "Item");
+  ly_add_type_predicate (unsmob<Music>, "Music");
+  ly_add_type_predicate (unsmob<Spanner>, "Spanner");
+  ly_add_type_predicate (unsmob<Stream_event>, "Stream_event");
 }
 
 ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

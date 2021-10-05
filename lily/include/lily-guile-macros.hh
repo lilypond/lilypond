@@ -88,8 +88,29 @@ scm_or_str2symbol (SCM s)
 
 std::string mangle_cxx_identifier (const char *);
 
-void ly_add_type_predicate (void *ptr, const char *name);
-std::string predicate_to_typename (void *ptr);
+void ly_internal_add_type_predicate (const void *pred, const char *name);
+
+template <typename ReturnType>
+inline void ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
+{
+  // ReturnType might be bool.
+  // ReturnType might be int for scm_is_foo().
+  // ReturnType might be a pointer for unsmob<Foo>().
+  static_assert (static_cast<bool> (ReturnType ()) || true,
+                 "predicate return type must be convertible to bool");
+  return ly_internal_add_type_predicate (reinterpret_cast<const void *> (pred),
+                                         name);
+}
+
+std::string internal_predicate_to_typename (const void *pred);
+
+template <typename ReturnType>
+inline std::string predicate_to_typename (ReturnType (*pred) (SCM))
+{
+  static_assert (static_cast<bool> (ReturnType ()) || true,
+                 "predicate return type must be convertible to bool");
+  return internal_predicate_to_typename (reinterpret_cast<const void *> (pred));
+}
 
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
 // arguments and returning SCM.
@@ -237,26 +258,24 @@ void ly_check_name (const char *cxx, const char *fname);
       {                                                                 \
         scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
                                number, var, \
-                               predicate_to_typename ((void*) &pred).c_str()); \
+                               predicate_to_typename (pred).c_str());   \
       }                                                                 \
   }
 
 template <class T>
 T *unsmob (SCM var);
 
-[[noreturn]] void
-ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
-
 // Do not call this directly.
 // Use LY_ASSERT_SMOB() which supplies the function name automatically.
 template <class T>
 inline T *ly_assert_smob (SCM var, int number, const char *fun)
 {
-  T *smob = unsmob<T> (var);
-  if (smob)
+  if (auto *smob = unsmob<T> (var))
     return smob;
 
-  ly_wrong_smob_arg (T::is_smob, var, number, fun);
+  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
+                          number, var,
+                          predicate_to_typename (unsmob<T>).c_str ());
 }
 
 // Could be just implemented using LY_ASSERT_TYPE, but this variant

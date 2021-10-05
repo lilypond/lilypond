@@ -311,22 +311,6 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   return true;
 }
 
-[[noreturn]] void
-ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
-{
-  string type = predicate_to_typename ((void *) pred);
-  if (pred (var))
-    {
-      // Uh oh.  unsmob<T> delivered 0, yet
-      // unsmob<T> delivers true.  This means that unsmob<T> is a
-      // matching check from a base class of T, but var is of an
-      // incompatible derived type.
-      type = (_ ("Wrong kind of ")).append (type);
-    }
-  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
-                          number, var, type.c_str ());
-}
-
 /*
   display stuff without using stack
 */
