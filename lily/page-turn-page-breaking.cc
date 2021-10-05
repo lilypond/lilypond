@@ -181,7 +181,10 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       bool ok_page = true;
 
       if (debug_page_breaking_scoring)
-        message (_f ("page-turn-page-breaking: breaking from %d to %d", (int) start, (int) end));
+        {
+          message (_f ("page-turn-page-breaking: breaking from %zu to %zu",
+                       start, end));
+        }
 
       /* heuristic: we've just added a breakpoint, we'll need at least as
          many systems as before */
@@ -244,8 +247,8 @@ SCM
 Page_turn_page_breaking::solve ()
 {
   state_.clear ();
-  message (_f ("Calculating page and line breaks (%d possible page breaks)...",
-               (int) last_break_position ()));
+  message (_f ("Calculating page and line breaks (%zu possible page breaks)...",
+               last_break_position ()));
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
@@ -313,9 +316,9 @@ Page_turn_page_breaking::print_break_node (Break_node const &node)
   for (vsize i = 0; i < node.system_count_.size (); i++)
     system_count += node.system_count_[i];
 
-  message (_f ("break starting at page %d", (int) node.first_page_number_));
+  message (_f ("break starting at page %d", node.first_page_number_));
   message (_f ("\tdemerits: %f", node.demerits_));
   message (_f ("\tsystem count: %zu", system_count));
-  message (_f ("\tpage count: %d", (int) node.page_count_));
-  message (_f ("\tprevious break: %d", (int) node.prev_));
+  message (_f ("\tpage count: %zu", node.page_count_));
+  message (_f ("\tprevious break: %zu", node.prev_));
 }

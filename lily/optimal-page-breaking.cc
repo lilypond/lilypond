@@ -127,13 +127,13 @@ Optimal_page_breaking::solve ()
         }
     }
 
-
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
   else if (scm_is_integer (forced_page_count) || page_count == 0)
-    message (_f ("Fitting music on %d pages...", (int)page_count));
+    message (_f ("Fitting music on %zu pages...", page_count));
   else
-    message (_f ("Fitting music on %d or %d pages...", (int)page_count - 1, (int)page_count));
+    message (_f ("Fitting music on %zu or %zu pages...",
+                 page_count - 1, page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
@@ -143,7 +143,7 @@ Optimal_page_breaking::solve ()
       set_current_breakpoints (0, end, sys_count, Line_division (), bound);
 
       if (debug_page_breaking_scoring)
-        message (_f ("trying %d systems", (int)sys_count));
+        message (_f ("trying %zu systems", sys_count));
 
       for (vsize i = 0; i < current_configuration_count (); i++)
         {
@@ -197,7 +197,7 @@ Optimal_page_breaking::solve ()
       set_current_breakpoints (0, end, sys_count, bound);
 
       if (debug_page_breaking_scoring)
-        message (_f ("trying %d systems", (int)sys_count));
+        message (_f ("trying %zu systems", sys_count));
 
       for (vsize i = 0; i < current_configuration_count (); i++)
         {
