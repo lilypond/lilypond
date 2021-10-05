@@ -49,7 +49,7 @@ typedef int I32;
 typedef unsigned long long U64;
 
 typedef size_t vsize;
-#define VPOS ((vsize) -1)
+static constexpr vsize VPOS (-1);
 
 /* We should really use LLONG_MAX; unfortunately, this appears not to
    be defined for the gub x-compiler.

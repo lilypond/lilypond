@@ -377,9 +377,9 @@ Spanner::derived_mark () const
       scm_gc_mark (b->self_scm ());
   ;
 
-  // If break_index_ is -1, broken_intos_ might not yet have run its
+  // If break_index_ is VPOS, broken_intos_ might not yet have run its
   // constructor and any access might break things.
-  if (break_index_ != (vsize) - 1)
+  if (break_index_ != VPOS)
     for (vsize i = broken_intos_.size (); i--;)
       scm_gc_mark (broken_intos_[i]->self_scm ());
 }
