@@ -162,7 +162,7 @@ public:
   static void init ()
   {
     // TODO: GUILE should take const char * for the name.
-    char *name = (char *) "Overlay_string_port";
+    char *name = const_cast<char *> ("Overlay_string_port");
 #if GUILEV2
     type_ = scm_make_port_type (name, &read_scm, NULL);
 #else

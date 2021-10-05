@@ -145,8 +145,7 @@ Pango_font::name_to_index (string nm) const
 {
   PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
-  char *nm_str = (char *) nm.c_str ();
-  FT_UInt idx = FT_Get_Name_Index (face, nm_str);
+  FT_UInt idx = FT_Get_Name_Index (face, const_cast<char *> (nm.c_str ()));
   return (idx != 0) ? idx : GLYPH_INDEX_INVALID;
 }
 

@@ -271,8 +271,7 @@ Polynomial::solve_linear ()const
 vector<Real>
 Polynomial::solve () const
 {
-  Polynomial *me = (Polynomial *) this;
-  me->clean ();
+  const_cast<Polynomial *> (this)->clean ();
 
   switch (degree ())
     {

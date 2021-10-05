@@ -80,7 +80,7 @@ Paper_column::set_system (System *s)
 Paper_column *
 Paper_column::get_column () const
 {
-  return (Paper_column *) (this);
+  return const_cast<Paper_column *> (this);
 }
 
 Paper_column::Paper_column (SCM l)

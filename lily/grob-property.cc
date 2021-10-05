@@ -213,7 +213,7 @@ Grob::internal_get_property (SCM sym) const
 
   if (ly_is_procedure (val))
     {
-      Grob *me = ((Grob *)this);
+      auto *me = const_cast<Grob *> (this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
     }
 
@@ -328,7 +328,7 @@ Grob::internal_get_object (SCM sym) const
       if (ly_is_procedure (val)
           || unsmob<Unpure_pure_container> (val))
         {
-          Grob *me = ((Grob *)this);
+          auto *me = const_cast<Grob *> (this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);
         }
 

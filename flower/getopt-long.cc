@@ -30,7 +30,7 @@
 inline char *
 gettext (char const *s)
 {
-  return (char *)s;
+  return const_cast<char *> (s);
 }
 #else
 #include <libintl.h>

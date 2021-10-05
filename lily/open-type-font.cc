@@ -428,8 +428,7 @@ Open_type_font::name_to_index (string nm) const
       return it->second;
     }
 
-  char *nm_str = (char *) nm.c_str ();
-  FT_UInt idx = FT_Get_Name_Index (face_, nm_str);
+  FT_UInt idx = FT_Get_Name_Index (face_, const_cast<char *> (nm.c_str ()));
   size_t result = (idx != 0) ? idx : GLYPH_INDEX_INVALID;
   name_to_index_map_[nm] = result;
   return result;

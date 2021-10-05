@@ -92,7 +92,7 @@ Grob::Grob (SCM basicprops)
 Grob::Grob (Grob const &s)
   : Smob<Grob> ()
 {
-  original_ = (Grob *) & s;
+  original_ = const_cast<Grob *> (&s);
 
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
@@ -570,7 +570,7 @@ Grob::common_refpoint (Grob const *s, Axis a) const
       d = d->dim_cache_[a].parent_;
     }
 
-  return (Grob *) c;
+  return const_cast<Grob *> (c);
 }
 
 void
