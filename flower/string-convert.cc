@@ -42,7 +42,7 @@ using std::string;
 static const int STRING_BUFFER_LEN = 1024;
 
 static char
-nibble2hex (Byte byte)
+nibble2hex (int byte)
 {
   const auto nibble = byte & 0x0f;
   if (nibble <= 9)
@@ -55,7 +55,7 @@ string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;
-  str += nibble2hex ((Byte) (bin_char >> 4));
+  str += nibble2hex (bin_char >> 4);
   str += nibble2hex (bin_char);
   return str;
 }
@@ -80,16 +80,13 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
     hex_string = "0" + hex_string;
 
   bin_string_r = "";
-  Byte const *byte = (Byte const *) hex_string.data ();
-  ssize i = 0;
-  while (i < hex_string.length ())
+  for (auto it = hex_string.begin (); it != hex_string.end (); /*in loop*/)
     {
-      int high_i = hex2nibble (*byte++);
-      int low_i = hex2nibble (*byte++);
+      int high_i = hex2nibble (*it++);
+      int low_i = hex2nibble (*it++);
       if (high_i < 0 || low_i < 0)
         return 1; // invalid char
       bin_string_r += static_cast<char> (high_i << 4 | low_i);
-      i += 2;
     }
   return 0;
 }
@@ -106,7 +103,7 @@ String_convert::hex2bin (const string &hex_string)
 }
 
 int
-String_convert::hex2nibble (Byte byte)
+String_convert::hex2nibble (char byte)
 {
   if (byte >= '0' && byte <= '9')
     return byte - '0';
