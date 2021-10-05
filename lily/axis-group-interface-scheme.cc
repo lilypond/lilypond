@@ -44,7 +44,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
 
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
                                                               com,
-                                                              (Axis) scm_to_int (axis));
+                                                              from_scm<Axis> (axis));
   return to_scm (ext);
 }
 

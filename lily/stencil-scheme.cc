@@ -354,8 +354,7 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
-  target.align_to ((Axis)scm_to_int (axis),
-                   scm_to_double (dir));
+  target.align_to (from_scm<Axis> (axis), scm_to_double (dir));
   return target.smobbed_copy ();
 }
 
@@ -497,7 +496,7 @@ LY_DEFINE (ly_bracket, "ly:bracket",
       return Stencil ().smobbed_copy ();
     }
 
-  return Lookup::bracket ((Axis) scm_to_int (a), extent, scm_to_double (t),
+  return Lookup::bracket (from_scm<Axis> (a), extent, scm_to_double (t),
                           scm_to_double (p), 0.95 * scm_to_double (t))
          .smobbed_copy ();
 }

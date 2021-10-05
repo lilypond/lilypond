@@ -64,7 +64,7 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
 
   for (SCM ax = axes; scm_is_pair (ax); ax = scm_cdr (ax))
     {
-      Axis a = (Axis) scm_to_int (scm_car (ax));
+      const auto a = from_scm<Axis> (scm_car (ax));
 
       if (!e->get_parent (a))
         e->set_parent (me, a);
