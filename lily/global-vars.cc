@@ -33,7 +33,7 @@ vector<string> dump_header_fieldnames_global;
 string init_name_global;
 
 /* Output formats to generate.  */
-string output_format_global = "";
+vector<string> output_formats_global;
 
 /* Current output name. */
 string output_name_global;

@@ -594,15 +594,11 @@ setup_localisation ()
 
 static void
 add_output_format (const string &format)
-/*
- * Capture information internally from command-line options
- * re output format.
- *
- */
 {
-  if (output_format_global != "")
-    output_format_global += ",";
-  output_format_global += format;
+  if (std::find (output_formats_global.begin (), output_formats_global.end (),
+                 format)
+      == output_formats_global.end ())
+    output_formats_global.push_back (format);
 }
 
 static void
@@ -621,24 +617,17 @@ parse_argv (int argc, char **argv)
         {
         case 'f':
           {
-            vector<string> components
-              = string_split (option_parser->optional_argument_str0_, ',');
-            bool wants_svg = 0;
-            for (vsize i = 0; i < components.size (); i++)
+            string arg = option_parser->optional_argument_str0_;
+            if (arg.find ("svg") != string::npos)
               {
-                string format = (components[i]);
-                if (format == "svg")
-                  {
-                    wants_svg = 1;
-                    init_scheme_variables_global += "(backend . svg)\n";
-                  }
-                if ((i > 0) && (wants_svg))
-                  {
-                    warning (_ ("SVG backend requested; other formats will be ignored."));
-                    wants_svg = 0;
-                  }
-                add_output_format (format);
+                if (arg != "svg")
+                  warning (_ (
+                    "SVG backend requested; other formats will be ignored."));
+                arg = "svg";
+                init_scheme_variables_global += "(backend . svg)\n";
               }
+            for (string a : string_split (arg, ','))
+              add_output_format (a);
           }
           break;
 
@@ -650,7 +639,7 @@ parse_argv (int argc, char **argv)
           else if (string (opt->longname_str0_) == "svg")
             {
               init_scheme_variables_global += "(backend . svg)\n";
-              add_output_format (opt->longname_str0_);
+              add_output_format ("svg");
             }
           else if (string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));
@@ -755,8 +744,8 @@ parse_argv (int argc, char **argv)
         }
     }
 
-  if (output_format_global == "")
-    output_format_global = "pdf";
+  if (output_formats_global.empty ())
+    add_output_format ("pdf");
 
   if (show_help)
     {

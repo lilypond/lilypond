@@ -300,12 +300,9 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
            "Formats passed to command line option @option{--format} as a list"
            " of strings, used for the output.")
 {
-  vector<string> output_formats = string_split (output_format_global, ',');
-
   SCM lst = SCM_EOL;
-  vsize output_formats_count = output_formats.size ();
-  for (vsize i = 0; i < output_formats_count; i++)
-    lst = scm_cons (ly_string2scm (output_formats[i]), lst);
+  for (std::string const &fmt : output_formats_global)
+    lst = scm_cons (ly_string2scm (fmt), lst);
 
   return lst;
 }

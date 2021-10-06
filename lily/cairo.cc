@@ -1255,7 +1255,7 @@ LY_DEFINE (ly_output_cairo, "ly:output-cairo", 4, 0, 0,
 
 #if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
-  for (auto const &fmt : string_split (output_format_global, ','))
+  for (auto const &fmt : output_formats_global)
     {
       Cairo_output_format f = parse_format (fmt);
       if (f == UNKNOWN)

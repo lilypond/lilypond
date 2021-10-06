@@ -37,10 +37,7 @@ extern bool strict_infinity_checking;
 extern std::string init_scheme_code_global;
 extern std::string init_scheme_variables_global;
 
-/*
-  todo: collect in Output_option struct?
-*/
-extern std::string output_format_global;
+extern std::vector<std::string> output_formats_global;
 
 /* misc */
 extern File_path global_path;
