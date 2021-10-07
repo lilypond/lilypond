@@ -31,6 +31,7 @@ public:
   Volta_specced_music_iterator () = default;
 
 protected:
+  void create_children () override;
   Music *create_event (Direction d);
   void process (Moment) override;
 
@@ -39,6 +40,21 @@ private:
   bool started_ = false;
   bool stopped_ = false;
 };
+
+void
+Volta_specced_music_iterator::create_children ()
+{
+  Music_wrapper_iterator::create_children ();
+
+  // Do not emit events inside LyricCombineMusic because the way the
+  // Lyric_combine_music_iterator drives the processing tends to place them at
+  // the wrong point in time, causing incorrect volta brackets.
+  if (find_above_by_music_type (ly_symbol2scm ("lyric-combine-music")))
+    {
+      started_ = true;
+      stopped_ = true;
+    }
+}
 
 Music *
 Volta_specced_music_iterator::create_event (Direction d)

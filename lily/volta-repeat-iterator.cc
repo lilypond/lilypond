@@ -33,7 +33,15 @@ Volta_repeat_iterator::empty () const
 void
 Volta_repeat_iterator::create_children ()
 {
-  repeat_styler_ = Repeat_styler::create_volta (this);
+  // Do not style repeats inside LyricCombineMusic because the way the
+  // Lyric_combine_music_iterator drives the processing tends to place things
+  // at the wrong point in time.
+  const auto timing_is_accurate
+    = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
+
+  repeat_styler_ = timing_is_accurate
+                   ? Repeat_styler::create_volta (this)
+                   : Repeat_styler::create_null (this);
 
   Sequential_iterator::create_children ();
 }
