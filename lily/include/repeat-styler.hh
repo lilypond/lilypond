@@ -36,9 +36,12 @@ class Music_iterator;
 class Repeat_styler
 {
 public:
-  // owner must not be null
-  static std::unique_ptr<Repeat_styler> create (Music_iterator *owner,
-                                                SCM type_sym);
+  // Create a no-op styler.  Owner must not be null.
+  static std::unique_ptr<Repeat_styler> create_null (Music_iterator *owner);
+
+  // Create a styler for \repeat volta.  Owner must not be null.
+  static std::unique_ptr<Repeat_styler> create_volta (Music_iterator *owner);
+
   virtual ~Repeat_styler () = default;
 
   // Return the lifetime of the repeat in the timeline of the score, which was

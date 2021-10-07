@@ -39,7 +39,7 @@ Fine_iterator::process (Moment m)
   if (!has_started ())
     {
       // Outside a folded repeat, stop iterating.
-      if (scm_is_null (get_property (this, "folded-repeat-type")))
+      if (!find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")))
         find_global_context (get_context ())->set_final_moment ();
     }
 

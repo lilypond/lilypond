@@ -811,10 +811,9 @@ Syntax: @code{\\\\}")
      . ((description . "Repeats with alternatives placed sequentially.")
         (iterator-ctor . ,ly:volta-repeat-iterator::constructor)
         (elements-callback . ,make-volta-set)
-        (folded-repeat-type . ,'volta)
         (start-callback .  ,ly:calculated-sequential-music::start)
         (length-callback . ,ly:calculated-sequential-music::length)
-        (types . (repeated-music volta-repeated-music))
+        (types . (volta-repeated-music folded-repeated-music repeated-music))
         ))
 
     (VoltaSpanEvent

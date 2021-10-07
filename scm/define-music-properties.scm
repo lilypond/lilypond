@@ -93,7 +93,6 @@ a sequential iterator.  Takes a single music parameter.")
                   "If true, a parsing error was found in this expression.")
 
      (figure ,integer? "A bass figure.")
-     (folded-repeat-type ,symbol? "Type of folded repeat music.")
      (footnote-text ,markup? "Text to appear in a footnote.")
      (force-accidental ,boolean? "If set, a cautionary accidental should
 always be printed on this note.")

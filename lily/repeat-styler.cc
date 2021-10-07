@@ -71,15 +71,13 @@ public:
 };
 
 std::unique_ptr<Repeat_styler>
-Repeat_styler::create (Music_iterator *owner, SCM type_sym)
+Repeat_styler::create_null (Music_iterator *owner)
 {
-  // TODO: \repeat segno
-  if (scm_is_eq (type_sym, ly_symbol2scm ("volta")))
-    return std::unique_ptr<Repeat_styler> (new Volta_repeat_styler (owner));
-
-  std::string s ("Cannot style repeat type: ");
-  s += ly_scm_write_string (type_sym);
-  owner->programming_error (s);
-
   return std::unique_ptr<Repeat_styler> (new Null_repeat_styler (owner));
+}
+
+std::unique_ptr<Repeat_styler>
+Repeat_styler::create_volta (Music_iterator *owner)
+{
+  return std::unique_ptr<Repeat_styler> (new Volta_repeat_styler (owner));
 }

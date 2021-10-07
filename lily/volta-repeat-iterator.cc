@@ -33,8 +33,7 @@ Volta_repeat_iterator::empty () const
 void
 Volta_repeat_iterator::create_children ()
 {
-  SCM repeat_type_sym = get_property (this, "folded-repeat-type");
-  repeat_styler_ = Repeat_styler::create (this, repeat_type_sym);
+  repeat_styler_ = Repeat_styler::create_volta (this);
 
   Sequential_iterator::create_children ();
 }

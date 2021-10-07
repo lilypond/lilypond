@@ -146,6 +146,11 @@ public:
 
   Music_iterator *get_parent () const { return parent_; }
 
+  // Scoped search for music by type: look in this iterator's music, then
+  // search the ancestors up to the top.  Return the first iterator whose music
+  // has the given type (null if none does).
+  Music_iterator *find_above_by_music_type (SCM type_sym) const;
+
   // Scoped property access: look in this iterator's music, then search the
   // ancestors up to the top.
   SCM internal_get_property (SCM name_sym) const

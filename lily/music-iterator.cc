@@ -240,6 +240,25 @@ Music_iterator::descend_to_child (Context *child_report)
 }
 
 Music_iterator *
+Music_iterator::find_above_by_music_type (SCM type_sym) const
+{
+  for (auto scope = const_cast<Music_iterator *> (this);
+       scope;
+       scope = scope->parent_)
+    {
+      if (auto m = scope->get_music ())
+        {
+          if (m->internal_is_music_type (type_sym))
+            {
+              return scope;
+            }
+        }
+    }
+
+  return nullptr;
+}
+
+Music_iterator *
 Music_iterator::internal_where_defined (SCM sym, SCM *value_out) const
 {
   // TODO: Abstract Context property features into a reusable base class?

@@ -75,11 +75,13 @@ Alternative_sequence_iterator::create_children ()
   // are transformed before the music is iterated; therefore, searching here
   // for the nearest enclosing folded repeat is the same as searching for the
   // nearest enclosing repeat.
-  auto *const repeat_iter = dynamic_cast<Volta_repeat_iterator *>
-                            (where_defined (this, "folded-repeat-type"));
+  auto *const repeat_iter
+    = dynamic_cast<Volta_repeat_iterator *>
+      (find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")));
+
   repeat_styler_ = repeat_iter
                    ? repeat_iter->get_repeat_styler ()
-                   : Repeat_styler::create (this, SCM_EOL); // defensive
+                   : Repeat_styler::create_null (this); // defensive
 
   alt_count_ = scm_ilength (get_property (get_music (), "elements"));
   done_count_ = 0;
