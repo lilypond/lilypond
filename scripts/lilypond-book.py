@@ -662,14 +662,13 @@ def main():
     formats = global_options.formatter.image_formats
 
     if global_options.process_cmd == '':
-        global_options.process_cmd = (lilypond_binary
-                                      + ' --formats=%s -dbackend=eps ' % formats)
+        global_options.process_cmd = (
+            lilypond_binary + ' --formats=%s -dbackend=eps ' % formats)
 
-    if global_options.process_cmd:
-        includes = global_options.include_path
-        global_options.process_cmd += ' '.join([' -I %s' % mkarg(p)
-                                                for p in includes])
-
+    global_options.process_cmd += (
+        ' '.join([' -I %s' % mkarg(p) for p in global_options.include_path])
+        + ' -daux-files ')
+    
     global_options.formatter.process_options(global_options)
 
     if global_options.lily_loglevel:

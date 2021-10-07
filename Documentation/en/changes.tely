@@ -66,6 +66,13 @@ which scares away people.
 @end ignore
 
 @item
+The default of the @code{aux-files} program option changed to
+@code{#f}. If you are calling LilyPond with the
+@code{-dbackend=eps} argument and need the auxiliary @file{.tex} and
+@file{.texi} files, you now have to specify @code{-daux-files}
+explicitly. 
+
+@item
 Events attached to notes (e.g., dynamics or articulations) can be
 delayed by an arbitrary duration using @code{\after}.  This simplifies
 many situations that previously required the use of explicit polyphony
@@ -100,7 +107,7 @@ created with @code{make-performer}.  Those macros work strictly like
 the previously existing macro @code{make-engraver} for creating
 engravers only usable in @samp{\layout}.
 
-@item
+@item 
 The syntax for conditions in markups was made more flexible and
 user-friendly.  It uses the new markup commands @code{\if} and
 @code{\unless}.  Here are example replacements:

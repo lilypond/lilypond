@@ -253,9 +253,9 @@ session has started."
                        "Render at higher resolution (using given
 positive integer factor <=8) and scale down
 result to prevent jaggies in PNG images.")
-    (aux-files #t
-               "Create .tex, .texi, .count files in the
-EPS backend.")
+    (aux-files #f
+               "Create .tex, .texi, .count files for use with
+lilypond-book")
     (backend ps
              "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'svg.")

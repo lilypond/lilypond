@@ -647,8 +647,7 @@ parse_argv (int argc, char **argv)
 
         case 'E':
           add_output_format ("ps");
-          init_scheme_variables_global
-          += "(backend . eps)\n(aux-files . #f)\n";
+          init_scheme_variables_global += "(backend . eps)\n";
           break;
 
         case 'O':
