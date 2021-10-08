@@ -1525,7 +1525,7 @@
                     (height-limit . 1.0)))
         (direction . ,ly:tie::calc-direction)
         (head-direction . ,LEFT)
-        (stencil  . ,laissez-vibrer::print)
+        (stencil  . ,ly:tie::print)
         (thickness . 1.0)
         (extra-spacing-height . (-0.5 . 0.5))
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)

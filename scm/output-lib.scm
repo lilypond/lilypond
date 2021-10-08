@@ -1579,11 +1579,6 @@ parent or the parent has no setting."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  laissez-vibrer tie
-;;
-;;  needed so we can make laissez-vibrer a pure print
-;;
-(define-public (laissez-vibrer::print grob)
-  (ly:tie::print grob))
 
 (define-public (semi-tie::calc-cross-staff grob)
   (let* ((note-head (ly:grob-object grob 'note-head))
