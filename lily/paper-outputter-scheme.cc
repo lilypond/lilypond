@@ -34,11 +34,8 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
-  if (default_callback != SCM_UNDEFINED && !ly_is_procedure (default_callback))
-    {
-      scm_wrong_type_arg_msg (mangle_cxx_identifier (__FUNCTION__).c_str (), 3,
-                              default_callback, "procedure");
-    }
+  if (!SCM_UNBNDP (default_callback))
+    LY_ASSERT_TYPE (ly_is_procedure, default_callback, 3);
 
   Paper_outputter *po = new Paper_outputter (port, alist, default_callback);
 

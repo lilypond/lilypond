@@ -85,7 +85,7 @@ replace_special_characters (string &str, SCM props)
                                               props,
                                               SCM_EOL);
 
-  if (replacement_alist == SCM_EOL || str.empty ())
+  if (scm_is_null (replacement_alist) || str.empty ())
     return;
 
   populate_cache (replacement_alist);

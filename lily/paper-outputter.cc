@@ -82,13 +82,13 @@ Paper_outputter::output_scheme (SCM expr)
   SCM head = scm_car (expr);
   SCM callback = scm_hashq_ref (callback_tab_, head, SCM_BOOL_F);
   SCM result = SCM_BOOL_F;
-  if (callback != SCM_BOOL_F)
+  if (scm_is_true (callback))
     {
       result = scm_apply_0 (callback, scm_cdr (expr));
       if (scm_is_string (result))
         dump_string (result);
     }
-  else if (default_callback_ != SCM_BOOL_F)
+  else if (scm_is_true (default_callback_))
     {
       result = scm_call_1 (default_callback_, expr);
       if (scm_is_string (result))

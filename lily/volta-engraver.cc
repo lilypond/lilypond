@@ -98,7 +98,7 @@ Volta_engraver::format_numbers (SCM volta_numbers)
 
   std::string result;
 
-  if (volta_numbers == SCM_EOL)
+  if (scm_is_null (volta_numbers))
     return result;
 
   size_t range_start = 0;
@@ -227,11 +227,11 @@ Volta_engraver::process_music ()
       cs = scm_cdr (cs);
     }
 
-  if (bracket_text == SCM_EOL) // no user-supplied label
+  if (scm_is_null (bracket_text)) // no user-supplied label
     {
       // use an automatic label?
       if (got_new_nums_this_timestep_
-          || (end && (groomed_volta_numbers_ != SCM_EOL)))
+          || (end && !scm_is_null (groomed_volta_numbers_)))
         {
           if (volta_bracket_)
             {
@@ -287,7 +287,7 @@ Volta_engraver::process_music ()
       volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
       // Allow \override Score.VoltaBracket.text = "foo".
-      if (get_property (volta_bracket_, "text") == SCM_EOL)
+      if (scm_is_null (get_property (volta_bracket_, "text")))
         {
           set_property (volta_bracket_, "text", bracket_text);
         }

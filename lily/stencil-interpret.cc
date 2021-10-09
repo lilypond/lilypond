@@ -128,8 +128,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           SCM result = sink->output (expr);
           sink->output (scm_list_1 (ly_symbol2scm ("resettranslation")));
 
-          if (result == SCM_BOOL_F && scm_is_pair (expr)
-              && scm_car (expr) == ly_symbol2scm ("utf-8-string"))
+          if (scm_is_false (result) && scm_is_pair (expr)
+              && scm_is_eq (scm_car (expr), ly_symbol2scm ("utf-8-string")))
             {
               expr = scm_list_ref (expr, SCM_I_MAKINUM (3));
               continue;

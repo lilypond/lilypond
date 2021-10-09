@@ -86,7 +86,7 @@ is_module_internal_symbol (SCM key)
   // consequences. For example, exporting 'sym from one module, will
   // export it from other modules too (with potentially the same
   // value!)
-  return key == ly_symbol2scm ("%module-public-interface");
+  return scm_is_eq (key, ly_symbol2scm ("%module-public-interface"));
 }
 
 #define FUNC_NAME __FUNCTION__
