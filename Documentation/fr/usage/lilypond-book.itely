@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c52d78d34f84d0524472d006b9b60fb7388ac521
+    Translation of GIT committish: 0c07c6f80d57f05b30f951be32e673408c007726
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -772,13 +772,49 @@ pour les cas où les environnements @code{lilypond} ne font pas appel à
 @option{ragged-right}.
 
 @item papersize=@var{chaîne}
-Détermine le format du papier à @var{chaîne} tel que défini dans le
-fichier @file{scm/paper.scm} -- @code{a5}, @code{quarto},
-@code{11x17}, etc.
+Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
+@code{letter}) pour les fragments utilisant @code{\book}. Voir
+@rprogramnamed{Predefined paper sizes, Formats de papier prédéfinis}
+pour une liste des différentes tailles disponibles.
 
-Toute valeur non mentionnée dans @file{scm/paper.scm} sera rejetée.
-@code{lilypond-book} émettra un message d'avertissement et l'extrait
-utilisera le format par défaut, à savoir @code{a4}.
+Cette option affecte le résultat de LilyPond -- les dimensions de la
+feuille contenant le fragment musical -- et en aucaun cas le texte. Une
+valeur non reconnue de @var{chaîne} sera rejetée. @code{lilypond-book}
+émettra un message d'avertissement et l'extrait utilisera le format par
+défaut, à savoir @code{a4}.
+
+@item paper-width=@var{taille}\@var{unité}
+Définit la largeur du papier à @var{taille} (exprimée en @var{unité})
+pour les fragments musicaux utilisant @code{\book}. @var{unité} peut
+prendre les valeurs @code{cm}, @code{mm}, @code{in} ou @code{pt}.
+
+Cette option affecte le résultat de LilyPond -- les dimensions de la
+feuille contenant le fragement musical -- et en aucun cas le texte.
+Cette option, lorsqu'elle est présente, a préséance sur l'option
+@option{papersize}. En l'absence d'option @option{paper-height}, la
+hauteur de la feuille est déterminée à sa valeur par défaut de A4
+(296@dmn{mm}).
+
+@item paper-height=@var{taille}\@var{unité}
+Définit la hauteur du papier à @var{taille} (exprimée en @var{unité})
+pour les fragments musicaux utilisant @code{\book}. @var{unité} peut
+prendre les valeurs @code{cm}, @code{mm}, @code{in} ou @code{pt}.
+
+Cette option affecte le résultat de LilyPond -- les dimensions de la
+feuille contenant le fragement musical -- et en aucun cas le texte.
+Cette option, lorsqu'elle est présente, a préséance sur l'option
+@option{papersize}. En l'absence d'option @option{paper-width}, la
+largeur de la feuille est déterminée à sa valeur par défaut de A4
+(210@dmn{mm}).
+
+Exemple :
+@example
+\lilypond[paper-width=10\cm, paper-height=57\mm]@{
+  \book @{
+    ...
+  @}
+@}
+@end example
 
 @item notime
 Désactive l'impression des métriques et barres de mesure pour
