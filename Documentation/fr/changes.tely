@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f35ddfa8e490ee10b145aa55bff540d70e1c1c2b
+    Translation of GIT committish: b04d9db1483211fe3f635f3cf5a82eb72228133e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,8 +70,11 @@ which scares away people.
 @end ignore
 
 
+
+
 @subheading Nouveautés en matière de notation musicale
 @c VO New for musical notation
+
 
 @subsubheading Améliorations de la représentation des hauteurs
 
@@ -125,7 +128,6 @@ Par ailleurs, la propriété @code{stem-attachment} des objets graphiques
 de hampe en lieu et place d'un hypothétique point d'attachement d'une
 hampe ascendante.
 
-
 @item
 Les crochets d'octaviation peuvent s'appliquer à une seule voix plutôt
 qu'à l'intégralité de la portée. Ceci demandait auparavant quelques
@@ -178,7 +180,6 @@ circonvolutions.
 @subsubheading Améliorations en matière de rythme
 
 @itemize
-
 @item
 Les numéros de mesure peuvent se présenter au centre de la mesure comme
 il est d'usage dans les musiques de film.
@@ -240,12 +241,27 @@ s'appliquent désormais en même temps à toutes les portées -- plus
 précisément à toutes les portées d'un même contexte @code{Timing} --
 afin de correspondre au comportement de @code{\time}.
 
+@item
+Les événements attachés à des notes, tels que nuances ou articulations,
+peuvent être différés d'une durée arbitraire à l'aide de @code{\after}.
+Ceci permet de simplifier de nombreuses situations qui jusqu'alors
+demandaient de recourir à une polypĥonie et des silences invisibles.
+
+@lilypond[verbatim,quote]
+{
+  \after 2 \turn g'2. a'4
+  \after 2 \< b'1
+  \after 2. \f c''
+  <>\< \after 4 \> \after 2\! d''
+}
+@end lilypond
+
 @end itemize
+
 
 @subsubheading Améliorations en matière d'expressivité
 
 @itemize
-
 @item
 Les terminaisons des soufflets peuvent désormais s'aligner sur la
 gauche, au centre ou sur la droite des @emph{grobs} @code{NoteColumn} à
@@ -276,7 +292,6 @@ enveloppe, afin de faciliter les ajustements.
 @subsubheading Améliorations en matière de reprises
 
 @itemize
-
 @item
 Les alternatives peuvent se placer ailleurs qu'après la fin du fragment
 répété.
@@ -303,10 +318,10 @@ expansée.
 
 @end itemize
 
+
 @subsubheading Améliorations en matière de notation sur la portée
 
 @itemize
-
 @item
 L'ajout du @code{Melody_engraver} à un contexte @code{Voice} prend
 désormais en compte le sens de la mélodie pour orienter la hampe de la
@@ -334,7 +349,6 @@ désactiver temporairement ce comportement, tout comme le faisait
 @subsubheading Améliorations en matière d'annotations éditoriales
 
 @itemize
-
 @item
 Il est désormais possible de placer un accord entre parenthèses.
 Toutefois, la taille de la fonte utlisée pour les parenthèses devra être
@@ -396,7 +410,6 @@ altérations entre crochets.
 @subsubheading Améliorations en matière de mise en forme du texte
 
 @itemize
-
 @item
 La nouvelle commande de @emph{markup} @code{string-lines} permet de
 couper une chaîne à un caractère donné. La coupure intervient par défaut
@@ -428,12 +441,12 @@ pour ajouter des couplets à une chanson.
 @subsubheading Améliorations pour la musique vocale
 
 @itemize
-
 @item
 Un
 
 @end itemize
 @end ignore
+
 
 @subsubheading Améliorations pour les cordes frettées ou non
 
@@ -478,7 +491,6 @@ D'autres styles sont disponibles : @code{dashed-line},
 @code{dotted-line}, @code{zigzag}, @code{trill}, @code{bow} et
 @code{none}.
 
-
 @item
 Le nouvel objet graphique @code{BendSpanner} permet, dans le cadre d'un
 @code{TabStaff}, d'indiquer une désinance. En plus de l'apparence par
@@ -514,11 +526,11 @@ mus = {
 
 @end itemize
 
+
 @ignore
 @subsubheading Améliorations pour la notation des accords
 
 @itemize
-
 @item
 Les
 
@@ -528,7 +540,6 @@ Les
 @subsubheading Améliorations pour la notation contemporaine
 
 @itemize
-
 @item
 Un
 
@@ -543,7 +554,6 @@ Un
 @subsubheading Améliorations pour la structure
 
 @itemize
-
 @item
 Une même définition d'objet graphique peut désormais s'utiliser pour
 créer des @emph{grobs} de classe différente (@code{Item},
@@ -569,7 +579,6 @@ les attachements.
 @subsubheading Améliorations pour les titrages et entêtes
 
 @itemize
-
 @item
 La syntaxe permettant de gérer des conditions pour les @emph{markups} a
 gagné en flexibilité et en simplicité. Elle utilise les nouvelles
@@ -593,7 +602,6 @@ uns des changements apportés :
 @subsubheading Améliorations pour les fichiers sources
 
 @itemize
-
 @item
 Un
 
@@ -604,11 +612,23 @@ Un
 @subsubheading Améliorations pour les fichiers résultants
 
 @itemize
-
 @item
 La transparence des couleurs est prise en charge lors de la génération
 de PostScript et de PDF. L'utilisation de cette fonctionnalité requiert
 une version de Ghostscript égale ou supérieure à la 9.53.
+
+@item
+@code{set-default-paper-size} et @code{set-paper-size} acceptent
+désormais des tailles de papier personnalisées.
+
+@example
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
+@end example
+
+@item
+@command{lilypond-book} prend en charge deux nouvelles options pour le
+traitement des extraits : @option{paper-width} et @option{paper-height}
+permettent de déterminer une taille particulière de papier.
 
 @end itemize
 
@@ -616,19 +636,17 @@ une version de Ghostscript égale ou supérieure à la 9.53.
 @subsubheading Améliorations pour le MIDI
 
 @itemize
-
 @item
 Un
 
 @end itemize
 
+
 @subsubheading Améliorations en matière d'extraction de la musique
 
 @itemize
-
 @item
 La
-
 
 @end itemize
 @end ignore
@@ -642,19 +660,18 @@ La
 @subsubheading Améliorations pour les sauts de page
 
 @itemize
-
 @item
 Un
 
 @end itemize
 @end ignore
 
+
 @ignore
 @subheading Nouveautés en matière de modification des réglages par défaut
 @c VO New for changing defaults
 
 @itemize
-
 @item
 Un
 
@@ -666,7 +683,6 @@ Un
 @c VO New for Internal interfaces and functions
 
 @itemize
-
 @item
 Le script @command{lilypond-book} autorise désormais l'utilisation
 d'accolades dans les arguments des commandes @code{\lilypond} (pour
@@ -689,7 +705,17 @@ faire apparaître des bribes de partition, comme
 }
 au sein même d'un paragraphe de texte.
 
+@item
+Les traducteurs définis en Scheme et utilisables à la fois dans le cadre
+d'un @samp{\layout} et d'un @samp{\midi} peuvent désormais être créés à
+l'aide de @code{make-translator}. Les exécutants définis en Scheme, qui
+ne peuvent s'utiliser de dans un @samp{\midi} se créent à l'aide de
+@code{make-performer}. Ces macros fontionnent tout comme la macro
+préexistante @code{make-engraver} qui permet de créer un graveur,
+uniquement utilisable dans un @samp{\layout}.
+
 @end itemize
+
 
 @ifhtml
 Pour des annonces plus anciennes, rendez-vouz aux pages
