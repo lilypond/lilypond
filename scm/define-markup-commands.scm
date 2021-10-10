@@ -960,8 +960,7 @@ c,8. c16 c4 r
                thickness))
         (pad (* (magstep font-size) box-padding))
         (m (interpret-markup layout props arg)))
-    (ly:stencil-add (rounded-box-stencil m th pad corner-radius)
-                    m)))
+    (rounded-box-stencil m th pad corner-radius)))
 
 (define-markup-command (rotate layout props ang arg)
   (number? markup?)

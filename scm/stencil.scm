@@ -708,12 +708,11 @@ producing a new stencil."
                  (interval-widen xext ideal-thickness)
                  (interval-widen yext ideal-thickness)
                  ideal-blot))
-         (inner (ly:make-stencil (ly:stencil-in-color
-                                  (ly:round-filled-box
-                                   xext yext (- ideal-blot ideal-thickness))
-                                   "white"))))
-    (set! stencil (ly:stencil-add outer inner))
-    stencil))
+         (inner (ly:stencil-in-color
+                 (ly:round-filled-box
+                 xext yext (- ideal-blot ideal-thickness))
+                 "white")))
+    (ly:stencil-add outer inner stencil)))
 
 (define-public (flip-stencil axis stil)
   "Flip stencil @var{stil} in the direction of @var{axis}.
