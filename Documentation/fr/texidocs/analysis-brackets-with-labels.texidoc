@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
+%% Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
   texidocfr = "
 Un @emph{markup} textuel peut venir s'ajouter aux crochets d'analyse
 grâce à la propriété @code{texte} de l'objet graphique

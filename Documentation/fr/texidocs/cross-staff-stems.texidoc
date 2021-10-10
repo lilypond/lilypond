@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
+%% Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
   texidocfr = "
 L'exemple ci-dessous illustre l'utilisation du @code{Span_stem_engraver}
 et de la commande @code{\\crossStaff} afin de connecter des hampes entre
