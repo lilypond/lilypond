@@ -4869,7 +4869,8 @@ except that the control points and polygon are additionally displayed.
 @lilypond[verbatim,quote,ragged-right]
 \relative {
   c''8(\( a) e4 gis a\)
-  \vshape #'((0 . -0.3) (0.5 . -0.2) (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
+  \vshape #'((0 . -0.3) (0.5 . -0.2)
+             (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
   c8(\( a) e4 gis a\)
 }
 @end lilypond
@@ -4883,8 +4884,10 @@ be shaped:
 @lilypond[verbatim,quote,ragged-right]
 \relative {
   c''8(\( a) a'4 e c\)
-  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
-  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  \shape #'((0.7 . -0.4) (0.5 . -0.4)
+            (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5)
+            (0 . 0.5) (0 . 0)) PhrasingSlur
   c8(\( a) a'4 e c\)
 }
 @end lilypond
@@ -5112,6 +5115,10 @@ Extending LilyPond:
 @node Unpure-pure containers
 @subsection Unpure-pure containers
 
+@c See issue #3512.
+@warning{While this subsubsection reflects the current state, the given
+example is moot and does not show any effect.}
+
 @cindex Scheme, pure container
 @cindex Scheme, unpure container
 @cindex pure container, Scheme
@@ -5256,21 +5263,23 @@ function =
 @noindent
 where
 
-@multitable @columnfractions .33 .66
+@quotation
+@multitable @columnfractions .2 .7
 @item @code{@var{argN}}
-@tab @var{n}th argument
+@tab The @var{n}th argument.
 
 @item @code{@var{typeN?}}
-@tab a scheme @emph{type predicate} for which @code{@var{argN}}
+@tab A Scheme @emph{type predicate} for which @code{@var{argN}}
 must return @code{#t}.
 
 @item @code{@var{@dots{}music@dots{}}}
-@tab normal LilyPond input, using @code{$} (in places where only
+@tab Normal LilyPond input, using @code{$} (in places where only
 LilyPond constructs are allowed) or @code{#} (to use it as a Scheme
 value or music function argument or music inside of music lists) to
 reference arguments
-(eg. @samp{#arg1}).
+(e.g., @samp{#arg1}).
 @end multitable
+@end quotation
 
 The list of type predicates is required.  Some of the most common
 type predicates used in music functions are:

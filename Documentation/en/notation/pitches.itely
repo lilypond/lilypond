@@ -1243,7 +1243,7 @@ c'2 c'
 @end lilypond
 
 The pitches are displayed as if the numeric argument were
-given without parentheses/brackets.
+given without parentheses/@/brackets.
 
 By default, a clef change taking place at a line break will cause
 the new clef symbol to be printed at the end of the previous line,

@@ -3324,13 +3324,13 @@ Internals Reference:
 @cindex lexer
 @cindex Flex
 
-A @strong{lexer} is a program which converts a sequence of
-characters into a sequence of tokens, a process called lexical
-analysis.  The LilyPond lexer converts the stream obtained from an
+A @strong{lexer} is a program that converts a sequence of
+characters into a sequence of tokens, a process called @dfn{lexical
+analysis}.  The LilyPond lexer converts the stream obtained from an
 input @file{.ly} file into a tokenized stream more suited to the
 next stage of processing -- parsing (@pxref{parser}).
 The LilyPond lexer is built with Flex from the lexer file
-@file{lily/lexer.ll} which contains the lexical rules.  This file
+@file{lily/lexer.ll}, which contains the lexical rules.  This file
 is part of the source code and is not included in the LilyPond
 binary installation.
 
