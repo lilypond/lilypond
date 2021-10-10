@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 218ab325bb3f893a596ab05b999119be346d1688
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -264,7 +264,9 @@ Le contrôle de typologie des arguments et l'omission des arguments
 optionnels seront traîtés de la même manière que lorsque l'appel est
 fait à partir de LilyPond, la valeur Scheme @code{*unspecified*} ayant
 le rôle du mot réservé @code{\default} pour omettre explicitement les
-arguments optionnels.
+arguments optionnels. Les arguments optionnels en fin de liste
+d'arguments peuvent être omsi sans plus d'indication lorsque l'appel est
+fait au sein même de Scheme.
 
 
 @node Fonctions Scheme fantômes
@@ -382,6 +384,10 @@ Fichiers d'initialisation :
 @node Utilisation de fonctions musicales
 @subsection Utilisation de fonctions musicales
 @translationof Music function usage
+
+En ce qui concerne la gestion des listes d'argments, les fonctions
+musicales ne diffèrent en rien des fonction Scheme -- voir
+@ref{Utilisation de fonctions Scheme}.
 
 Une « fonction musicale » doit impérativement renvoyer une expression
 répondant au prédicat @code{ly:music?}.  Ceci a pour conséquence
