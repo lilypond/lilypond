@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+   Translation of GIT committish: 1cf73214ed17ad6ed3d77c7dedc282eea9ea32c0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -393,14 +393,57 @@ influe sur la terminaison du soufflet :
 @cindex nuances successives sur une note tenue
 @cindex tenue et nuances successives
 
-Les indications de nuance sont attachées aux notes ; aussi, lorsque
-l'on veut faire se succéder plusieurs nuances pendant une note tenue, il
-faudra avoir recours à des silences invisibles :
+@funindex \after
+
+Les indications de nuance sont attachées aux notes ; aussi, lorsque l'on
+veut faire se succéder plusieurs nuances pendant une note tenue, il
+faudra avoir recours à la commande @code{\after} qui permet aussi de
+gérer le différé des articulations et scripts textuels :
+
+@lilypond[verbatim,quote]
+<<
+  \relative {
+    \after 2 \< c'1
+    d4\f\> e f g
+    \after 2. \pp c,1
+
+    \after 2. \fermata e
+    \after 2. ^"Fine." f
+  }
+  \relative {
+    \repeat unfold 12 c'4
+    c c c c\fermata
+    c c c c
+  }
+>>
+@end lilypond
+
+Plusieurs instances de @code{\after} peuvent se succéder afin de graver
+plusieurs indications pour une note. Ceci est particulièrement utile
+lorsqu'il faut ajouter un crescendo et un decrescendo à une même note :
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4\< c\! d\> e\!
-  << f1 { s4 s4\< s4\> s4\! } >>
+  c''4\< d\! e\> c\!
+  \after 4 \< \after 2\> \after 2. \! f1
+  \textLengthOn
+  \after 4 \> \after 2. ^"hush!" c1
+  g4\pp
+}
+@end lilypond
+
+@cindex vide, accord
+@cindex accord vide
+Lorsque la première d'une succession d'indications sur une même note
+coïncide avec son attaque, il est judicieux de l'attacher à un accord
+vide @code{<>} ; les indications seront alors saisies selon leur ordre
+d'apparition :
+
+@lilypond[verbatim,quote]
+{
+  <>\< \after 4 \> \after 2 \! c'1
+  % plus facile à écrire et lire que :
+  \after 4 \> \after 2 \! c'1\<
 }
 @end lilypond
 
@@ -408,14 +451,15 @@ faudra avoir recours à des silences invisibles :
 
 @funindex \espressivo
 
-On peut avoir recours à l'indication @code{\espressivo} pour indiquer un
-crescendo suivi d'un decrescendo sur une même note.  Gardez à l'esprit
-qu'il s'agit d'une articulation, et en aucun cas d'une nuance.
+On peut aussi avoir recours à l'indication @code{\espressivo} pour
+indiquer un crescendo suivi d'un decrescendo sur une même note. Gardez à
+l'esprit qu'il s'agit d'une articulation, et en aucun cas d'une nuance.
 
 @lilypond[verbatim,quote]
 \relative {
   c''2 b4 a
   g1\espressivo
+  \after 2. \espressivo c
 }
 @end lilypond
 

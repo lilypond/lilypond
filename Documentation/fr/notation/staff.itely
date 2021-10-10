@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 1cf73214ed17ad6ed3d77c7dedc282eea9ea32c0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -366,7 +366,7 @@ défaut, mais vous pouvez l'activer par une option au sein du bloc
 
 @c \book is required here to display the system separator
 @c ragged-right is required as there are two systems
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[paper-width=100\mm,paper-height=75\mm,verbatim,quote,ragged-right]
 \book {
   \score {
     \new StaffGroup <<
@@ -388,9 +388,6 @@ défaut, mais vous pouvez l'activer par une option au sein du bloc
   }
   \paper {
     system-separator-markup = \slashSeparator
-    % following commands are needed only to format this documentation
-    paper-width = 100\mm
-    paper-height = 100\mm
     tagline = ##f
   }
 }

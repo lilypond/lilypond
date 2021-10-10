@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 1cf73214ed17ad6ed3d77c7dedc282eea9ea32c0
   texidocfr = "
 Obtenir un groupetto retardé et dans lequel la note la plus basse
 est altérée requiert quelques surcharges.  La propriété
 @w{@code{outside-staff-priority}} doit être désactivée (@code{#f}) pour
 éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.
-L'ajustement du positionnement horizontal s'effectue en jouant sur les
-fractions @code{2/3} et @code{1/3}.
+L'ajustement du positionnement horizontal s'effectue en jouant sur la
+fraction @code{2/3}.
 
 "
   doctitlefr = "Création d'un groupetto retardé"
