@@ -13,6 +13,6 @@
       (key #{ a #} major)
       (time '(3 . 4))
       (tuplet '(2 . 3) #{ 4. #} #{ d,8 e fis gis #})
-      (key *unspecified*)
+      (key)
       #{ a2. #})))
 }

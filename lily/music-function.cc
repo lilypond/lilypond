@@ -139,6 +139,21 @@ Music_function::call (SCM rest)
       rest = scm_cdr (rest);
     }
 
+  // There may be trailing optional arguments: for those we don't
+  // require an additional *unspecified* as a substitute for \default
+  // since the end of the argument list is explicitly recognisable,
+  // unlike with LilyPond syntactic entry.  That allows using things
+  // like (key) in Scheme to serve the function of \key \default in LilyPond.
+
+  for (; scm_is_pair (signature); signature = scm_cdr (signature))
+    {
+      SCM pred = scm_car (signature);
+      if (!scm_is_pair (pred))
+        break;
+
+      args = scm_cons (with_loc (scm_cdr (pred), location), args);
+    }
+
   if (scm_is_pair (rest) || scm_is_pair (signature))
     scm_wrong_num_args (self_scm ());
 

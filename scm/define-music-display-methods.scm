@@ -805,21 +805,23 @@ expression."
 
 ;; \afterGrace
 (define-extra-display-method ContextSpeccedMusic (expr)
-  "If `sim' is an \afterGrace expression, return \"\\afterGrace ...\".
+  "If `expr' is an \\afterGrace expression, return \"\\afterGrace ...\".
 Otherwise, return #f."
-  ;; TODO: do something with afterGraceFraction?
   (with-music-match
    (expr (music 'ContextSpeccedMusic
                 context-type 'Bottom
                 element
                 (music 'SimultaneousMusic
-                       elements (?before-grace
+                       elements (?main
                                  (music 'SequentialMusic
-                                        elements ((music 'SkipMusic)
+                                        elements ((music 'SkipMusic
+                                                         duration ?delay-dur)
                                                   (music 'GraceMusic
                                                          element ?grace)))))))
-   (format #f "\\afterGrace ~a ~a"
-           (music->lily-string ?before-grace)
+   (format #f "\\afterGrace ~a ~a ~a"
+           (/ (ly:duration-scale ?delay-dur)
+              (ly:moment-main (ly:music-length ?main)))
+           (music->lily-string ?main)
            (music->lily-string ?grace))))
 
 

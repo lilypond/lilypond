@@ -233,6 +233,8 @@ and skipping optional arguments will happen in the same manner as
 when called from within LilyPond, with the Scheme value
 @code{*unspecified*} taking the role of the @code{\default}
 reserved word for explicitly skipping optional arguments.
+Optional arguments at the end of an argument list can just be
+omitted without indication when called via Scheme.
 
 @node Void scheme functions
 @subsection Void scheme functions
@@ -332,6 +334,9 @@ Installed Files:
 
 @node Music function usage
 @subsection Music function usage
+With regard to handling the argument list, music functions don't
+differ from scheme functions, @ref{Scheme function usage}.
+
 A @q{music function} has to return an expression matching the predicate
 @code{ly:music?}.  This makes music function calls suitable as arguments
 of type @code{ly:music?} for another music function call.
