@@ -2680,7 +2680,7 @@ same source.
 
 It is customary when transcribing mensural music into modern notation to place
 an indication of how the initial rests and note or notes of the original version
-appeared - including the original clefs.  This is called an @emph{incipit}.  The
+appeared -- including the original clefs.  This is called an @emph{incipit}.  The
 @code{\incipit} command uses the @code{indent} of the main staff to set the
 width occupied by the incipit, and @code{incipit-width} to set the width of the
 incipit staff.

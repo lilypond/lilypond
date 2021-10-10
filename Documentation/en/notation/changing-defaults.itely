@@ -109,15 +109,15 @@ remaining ones without further explanation and with links to the IR.
 Contexts are arranged hierarchically:
 
 @menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Output definitions -- blueprints for contexts::
+* Score -- the master of all contexts::
+* Top-level contexts -- staff containers::
+* Intermediate-level contexts -- staves::
+* Bottom-level contexts -- voices::
 @end menu
 
-@node Output definitions - blueprints for contexts
-@unnumberedsubsubsec Output definitions - blueprints for contexts
+@node Output definitions -- blueprints for contexts
+@unnumberedsubsubsec Output definitions -- blueprints for contexts
 
 This section explains the relevance of output definitions when
 working with contexts.  Examples for actual output definitions are
@@ -162,8 +162,8 @@ Installed Files:
 @endmorerefs
 
 
-@node Score - the master of all contexts
-@unnumberedsubsubsec Score - the master of all contexts
+@node Score -- the master of all contexts
+@unnumberedsubsubsec Score -- the master of all contexts
 
 This is the top level notation context.  No other context can
 contain a Score context.  By default the Score context handles
@@ -174,8 +174,8 @@ across staves.
 A Score context is instantiated implicitly when a
 @code{\score @{@dots{}@}} block is processed.
 
-@node Top-level contexts - staff containers
-@unnumberedsubsubsec Top-level contexts - staff containers
+@node Top-level contexts -- staff containers
+@unnumberedsubsubsec Top-level contexts -- staff containers
 
 @strong{@emph{StaffGroup}}
 
@@ -200,8 +200,8 @@ connected vertically.
 Just like @code{GrandStaff}, but with support for instrument names
 to the left of each system.
 
-@node Intermediate-level contexts - staves
-@unnumberedsubsubsec Intermediate-level contexts - staves
+@node Intermediate-level contexts -- staves
+@unnumberedsubsubsec Intermediate-level contexts -- staves
 
 @strong{@emph{Staff}}
 
@@ -233,8 +233,8 @@ a piece in gregorian style.
 Same as @code{Staff}, except that it is designed for typesetting
 a piece in mensural style.
 
-@node Bottom-level contexts - voices
-@unnumberedsubsubsec Bottom-level contexts - voices
+@node Bottom-level contexts -- voices
+@unnumberedsubsubsec Bottom-level contexts -- voices
 
 Voice-level contexts initialise certain properties and start
 appropriate engravers.  A bottom-level context is one without
@@ -863,8 +863,8 @@ specified in a @code{\context} block within any @code{\layout}
 block.
 
 Settings for Midi output as opposed to typesetting will have to be
-separately specified in @code{\midi} blocks (see @ref{Output
-definitions - blueprints for contexts}).
+separately specified in @code{\midi} blocks (@pxref{Output
+definitions -- blueprints for contexts}).
 
 The @code{\layout} block should be placed within the @code{\score}
 block to which it is to apply, after the music.
@@ -976,8 +976,8 @@ Property-setting commands can be placed in a @code{\layout} block
 without being enclosed in a @code{\context} block.  Such settings
 are equivalent to including the same property-setting commands at
 the start of every context of the type specified.  If no context
-is specified @emph{every} bottom-level context is affected, see
-@ref{Bottom-level contexts - voices}.  The syntax of a
+is specified @emph{every} bottom-level context is affected
+(@pxref{Bottom-level contexts -- voices}).  The syntax of a
 property-setting command in a @code{\layout} block is the same as
 the same command written in the music stream.
 
@@ -1150,7 +1150,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Contexts explained},
-@ref{Bottom-level contexts - voices},
+@ref{Bottom-level contexts -- voices},
 @ref{The set command},
 @ref{The override command},
 @ref{The layout block}.
@@ -5119,7 +5119,7 @@ Extending LilyPond:
 @cindex horizontal spacing, overriding
 
 Unpure-pure containers are useful for overriding @emph{Y-axis} spacing
-calculations - specifically @code{Y-offset} and @code{Y-extent} - with a
+calculations -- specifically @code{Y-offset} and @code{Y-extent} -- with a
 Scheme function instead of a literal (i.e., a number or pair).
 
 For certain grobs, the @code{Y-extent} is based on the @code{stencil}

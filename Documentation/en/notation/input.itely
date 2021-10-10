@@ -2166,7 +2166,7 @@ and in main.ly write
 
 Files which are to be included in many scores may be placed in
 the LilyPond directory @file{../ly}.  (The location of this
-directory is installation-dependent - see
+directory is installation-dependent -- see
 @rlearning{Other sources of information}).  These files can then
 be included simply by naming them on an @code{\include} statement.
 This is how the language-dependent files like @file{english.ly} are
@@ -2619,7 +2619,7 @@ all common Latin characters in one byte, and represents other
 characters using a variable length format of up to four bytes.
 
 The actual appearance of the characters is determined by the
-glyphs defined in the particular fonts available - a font defines
+glyphs defined in the particular fonts available -- a font defines
 the mapping of a subset of the Unicode code points to glyphs.
 LilyPond uses the Pango library to layout and render multi-lingual
 texts.
@@ -2887,7 +2887,7 @@ Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.  As a property of the
 @code{Score} context, it affects all voices and staves; see
-@ref{Score - the master of all contexts}.
+@ref{Score -- the master of all contexts}.
 
 This property is also used to control output to the MIDI file.
 If some event in the skipped section alters some of its context
@@ -2915,7 +2915,7 @@ new setting will take effect only at the point in time where
 @morerefs
 Notation Reference:
 @ref{Interpretation contexts},
-@ref{Score - the master of all contexts}.
+@ref{Score -- the master of all contexts}.
 
 Internals Reference:
 @rinternals{All context properties}.
@@ -3362,7 +3362,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @end example
 
 In the following example the dynamic range of the overall MIDI
-volume is limited to the range @code{0.2} - @code{0.5}.
+volume is limited to the range 0.2--0.5.
 
 @example
 \score @{
