@@ -17,7 +17,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define (engraver-makes-grob? name-symbol grav)
-  (memq name-symbol (assoc 'grobs-created (ly:translator-description grav))))
+  (memq name-symbol (assoc-get 'grobs-created (ly:translator-description grav) '())))
 
 (define (engraver-accepts-music-type? name-symbol grav)
   (memq name-symbol (assoc 'events-accepted (ly:translator-description grav))))
@@ -250,7 +250,7 @@
                  grav)))
     (if (eq? eg #f)
         '()
-        (map symbol->string (assoc-get 'grobs-created (ly:translator-description eg))))))
+        (map symbol->string (assoc-get 'grobs-created (ly:translator-description eg) '())))))
 
 (define (context-grobs context-desc)
   (let* ((group (assq-ref context-desc 'group-type))
