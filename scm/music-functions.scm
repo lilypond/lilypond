@@ -2811,7 +2811,6 @@ scaling, then does the equivalent of a
 ;;
 
 (define tag-groups (make-hash-table))
-(call-after-session (lambda () (hash-clear! tag-groups)))
 
 (define-public (define-tag-group tags)
   "Define a tag group consisting of the given @var{tags}, a@tie{}list
@@ -2826,6 +2825,15 @@ there is a conflicting tag group definition."
           (lambda (elt) (hashq-set! tag-groups elt tags))
           tags)
          #f)))
+
+;; Isolate LilyPond's internal tags from the user's tags.
+(define-tag-group '($autoChange))
+(define-tag-group '($partCombine))
+
+;; Save the default tag groups and restore them after every session.
+(define default-tag-groups (hash-table->alist tag-groups))
+(call-after-session (lambda ()
+                      (set! tag-groups (alist->hash-table default-tag-groups))))
 
 (define-public (tag-group-get tag)
   "Return the tag group (as a list of symbols) that the given
