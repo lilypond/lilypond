@@ -617,6 +617,7 @@ messages into errors.")
     "define-grob-interfaces"
     "define-stencil-commands"
     "scheme-engravers"
+    "scheme-performers"
     "titling"
 
     "paper"

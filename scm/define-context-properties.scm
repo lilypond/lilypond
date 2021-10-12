@@ -140,6 +140,8 @@ count if this property is unset.")
 each note.")
      (barCheckSynchronize ,boolean? "If true then reset
 @code{measurePosition} when finding a bar check.")
+     (barExtraVelocity ,integer? "Extra MIDI velocity added by the
+@samp{Beat_performer} at the start of each measure.")
      (barNumberFormatter ,procedure? "A procedure that takes a bar
 number, measure position, and alternative number and returns a markup
 of the bar number to print.")
@@ -183,6 +185,8 @@ own as a subdivided section.")
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
 halfway through the measure in triple time, which could look like 6/8.")
+     (beatExtraVelocity ,integer? "Extra MIDI velocity added by the
+@samp{Beat_performer} at the start of each beat.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 
