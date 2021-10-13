@@ -235,6 +235,12 @@ available at
 for Mac OS, has a @uref{https://ports.macports.org/port/lilypond/summary,
 LilyPond port}.
 
+@item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, another package manager
+for Mac OS, has a @uref{https://formulae.brew.sh/formula/lilypond,
+LilyPond formula}.
+
 @end itemize
 
 @subsubheading Install
