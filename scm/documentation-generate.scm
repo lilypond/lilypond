@@ -38,6 +38,7 @@
                     "document-backend"
                     "document-markup"
                     "document-outside-staff-priorities"
+                    "document-paper-sizes"
                     "hyphenate-internal-words"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,6 +79,10 @@
 (display
  outside-staff-priorities-doc-string
  (open-output-file "outside-staff-priorities.tely"))
+
+(display
+ paper-sizes-doc-string
+ (open-output-file "paper-sizes.tely"))
 
 (display
  hyphenation-rules-string
