@@ -22,12 +22,6 @@ argument.  Since listeners are equivalent to callbacks, this is no
 longer needed."
   callback)
 
-(define (get-property-where-defined context property)
-  (let ((property-context (ly:context-property-where-defined context property)))
-    (if (null? property-context)
-         #f
-        (ly:context-property property-context property))))
-
 (define (set-counter-text! grob
                            property
                            number
@@ -35,10 +29,10 @@ longer needed."
                            measure-pos
                            context)
   ; FIXME: slight code duplication with Bar_number_engraver
-  (let* ((style (get-property-where-defined context 'alternativeNumberingStyle))
+  (let* ((style (ly:context-property context 'alternativeNumberingStyle))
          (number-alternatives (eq? style 'numbers-with-letters))
          (final-alt-number (if number-alternatives alternative-number 0))
-         (formatter (get-property-where-defined context 'barNumberFormatter)))
+         (formatter (ly:context-property context 'barNumberFormatter #f)))
     (if formatter
         (ly:grob-set-property! grob
                                property
