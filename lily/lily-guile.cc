@@ -57,12 +57,6 @@ ly_scm_write_string (SCM s)
   return ly_scm2string (scm_strport_to_string (port));
 }
 
-SCM
-ly_quote_scm (SCM s)
-{
-  return scm_list_2 (ly_symbol2scm ("quote"), s);
-}
-
 string
 ly_symbol2string (SCM s)
 {

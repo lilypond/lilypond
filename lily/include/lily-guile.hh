@@ -75,7 +75,6 @@ unique_stdlib_ptr<char> ly_scm2str0 (SCM str);
 
 std::string robust_scm2string (SCM, const std::string &);
 
-SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
 std::string print_scm_val (SCM val);
 SCM ly_number2string (SCM s);
