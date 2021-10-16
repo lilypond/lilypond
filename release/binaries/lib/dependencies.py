@@ -416,7 +416,7 @@ zlib = Zlib()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.68.3"
+        return "2.70.0"
 
     @property
     def directory(self) -> str:
@@ -446,8 +446,8 @@ class GLib(MesonPackage):
 
     def meson_args(self, c: Config) -> List[str]:
         return [
-            # Use the internal PCRE library to avoid an external dependency.
-            "-Dinternal_pcre=true",
+            # Force the fallback PCRE library to avoid an external dependency.
+            "--force-fallback-for=libpcre",
             # Disable unused features and tests.
             "-Dlibmount=disabled",
             "-Dtests=false",
