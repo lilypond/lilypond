@@ -143,8 +143,8 @@ Prob::print_smob (SCM port, scm_print_state *) const
   scm_display (type_, port);
   scm_puts (" C++: ", port);
   scm_puts (class_name (), port);
-  scm_display (mutable_property_alist_, port);
-  scm_display (immutable_property_alist_, port);
+  scm_write (mutable_property_alist_, port);
+  scm_write (immutable_property_alist_, port);
 
   scm_puts (" >\n", port);
   return 1;
