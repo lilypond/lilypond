@@ -89,7 +89,7 @@ class LilyPond(ConfigurePackage):
 
     def dependencies(self, c: Config) -> List[Package]:
         gettext_dep = []
-        if c.is_freebsd():
+        if c.is_freebsd() or c.is_macos():
             gettext_dep = [gettext]
         return gettext_dep + [freetype, fontconfig, ghostscript, glib, guile, pango, python]
 
@@ -103,16 +103,20 @@ class LilyPond(ConfigurePackage):
         env["GHOSTSCRIPT"] = ghostscript.exe_path(c)
         env["GUILE"] = guile.exe_path(c)
         env["PYTHON"] = python.exe_path(c)
-        if c.is_freebsd():
+        if c.is_freebsd() or c.is_macos():
             env.update(gettext.get_env_variables(c))
         return env
 
     def configure_args(self, c: Config) -> List[str]:
         texgyre_install = texgyre.install_directory(c)
         urwbase35_install = urwbase35.install_directory(c)
-        return [
-            # Include the static version of libstdc++.
-            "--enable-static-gxx",
+        static = []
+        if not c.is_macos():
+            static = [
+                # Include the static version of libstdc++.
+                "--enable-static-gxx",
+            ]
+        return static + [
             # Disable the documentation.
             "--disable-documentation",
             # Ideally LilyPond's configure should not know about fonts, and the

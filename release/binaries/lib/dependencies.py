@@ -293,7 +293,7 @@ ghostscript = Ghostscript()
 
 class Gettext(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
-        return c.is_freebsd()
+        return c.is_freebsd() or c.is_macos()
 
     @property
     def version(self) -> str:
@@ -433,13 +433,13 @@ class GLib(MesonPackage):
 
     def dependencies(self, c: Config) -> List[Package]:
         gettext_dep = []
-        if c.is_freebsd():
+        if c.is_freebsd() or c.is_macos():
             gettext_dep = [gettext]
         return gettext_dep + [libffi, zlib]
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
-        if c.is_freebsd():
+        if c.is_freebsd() or c.is_macos():
             # Make meson find libintl.
             env.update(gettext.get_env_variables(c))
         return env
@@ -653,6 +653,12 @@ class Guile(ConfigurePackage):
     def dependencies(self, c: Config) -> List[Package]:
         return [bdwgc, libffi, libtool, libunistring, gmp]
 
+    def build_env(self, c: Config) -> Dict[str, str]:
+        env = super().build_env(c)
+        if c.is_macos():
+            env["LDFLAGS"] = "-Wl,-framework -Wl,CoreFoundation"
+        return env
+
     def configure_args(self, c: Config) -> str:
         gmp_install_dir = gmp.install_directory(c)
         libunistring_install_dir = libunistring.install_directory(c)
@@ -775,7 +781,10 @@ class Pango(MesonPackage):
     def apply_patches(self, c: Config):
         # Disable tests, fail to build on FreeBSD.
         def patch_meson_build(content: str) -> str:
-            return content.replace("subdir('tests')", "")
+            # Disable unused parts (tests fail to build on FreeBSD, utils and tools on macOS)
+            for subdir in ["tests", "tools", "utils"]:
+                content = content.replace(f"subdir('{subdir}')", "")
+            return content
 
         self.patch_file(c, "meson.build", patch_meson_build)
 

@@ -106,6 +106,10 @@ class Config:
         """Return True if this config is for platform Linux"""
         return self.platform == Platform.LINUX
 
+    def is_macos(self) -> bool:
+        """Return True if this config is for platform macOS"""
+        return self.platform == Platform.MACOS
+
     @property
     def make_command(self) -> str:
         """Return the command for the make build system"""
