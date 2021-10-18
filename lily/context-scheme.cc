@@ -22,6 +22,7 @@
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "grob-properties.hh"
+#include "output-def.hh"
 
 LY_DEFINE (ly_context_current_moment,
            "ly:context-current-moment",
@@ -184,4 +185,12 @@ LY_DEFINE (ly_context_events_below, "ly:context-events-below",
 {
   auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
   return ctx->events_below ()->self_scm ();
+}
+
+LY_DEFINE (ly_context_output_def, "ly:context-output-def",
+           1, 0, 0, (SCM context),
+           "Return the output definition of @var{context}.")
+{
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
+  return ctx->get_output_def ()->self_scm ();
 }
