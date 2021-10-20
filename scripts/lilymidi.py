@@ -143,7 +143,7 @@ class note_formatter (channel_formatter):
         pitch_names = ['C', 'Cis', 'D', 'Dis', 'E',
                        'F', 'Fis', 'G', 'Gis', 'A', 'Ais', 'B']
         p = val % 12
-        oct = val / 12 - 1
+        oct = val // 12 - 1
         return pitch_names[p] + str(oct) + "(" + str(val) + ")"
 
     def velocity(self, val):
