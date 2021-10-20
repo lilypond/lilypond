@@ -1035,7 +1035,6 @@ ADD_INTERFACE (Axis_group_interface,
                "bound-alignment-interfaces "
                "default-staff-staff-spacing "
                "elements "
-               "no-alignment "
                "nonstaff-nonstaff-spacing "
                "nonstaff-relatedstaff-spacing "
                "nonstaff-unrelatedstaff-spacing "

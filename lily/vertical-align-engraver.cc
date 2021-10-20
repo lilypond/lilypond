@@ -35,12 +35,11 @@ using std::vector;
 class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;
-  bool qualifies (Grob_info) const;
   SCM id_to_group_hashtab_;
 
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
-  void acknowledge_axis_group (Grob_info);
+  void acknowledge_hara_kiri_group_spanner (Grob_info);
   void acknowledge_outside_staff (Grob_info);
 
 protected:
@@ -55,7 +54,7 @@ protected:
 void
 Vertical_align_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
+  ADD_ACKNOWLEDGER (Vertical_align_engraver, hara_kiri_group_spanner);
   ADD_ACKNOWLEDGER (Vertical_align_engraver, outside_staff);
 }
 
@@ -75,6 +74,10 @@ ADD_TRANSLATOR (Vertical_align_engraver,
                 /* write */
                 ""
                );
+
+// TODO: consider splitting out a Staff_grouper_engraver.
+// The code paths for top_level_ being true or false seem
+// to share very little. --JeanAS
 
 Vertical_align_engraver::Vertical_align_engraver (Context *c)
   : Engraver (c)
@@ -128,23 +131,13 @@ Vertical_align_engraver::finalize ()
     }
 }
 
-bool
-Vertical_align_engraver::qualifies (Grob_info i) const
-{
-  return has_interface<Axis_group_interface> (i.grob ())
-         && dynamic_cast<Spanner *> (i.grob ())
-         && !i.grob ()->get_y_parent ()
-         && !from_scm<bool> (get_property (i.grob (), "no-alignment"))
-         && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
-}
-
 void
-Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
+Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 {
   if (scm_is_null (id_to_group_hashtab_))
     return;
 
-  if (top_level_ && qualifies (i))
+  if (top_level_)
     {
       auto *const origin_ctx = i.origin_engraver ()->context ();
       const auto &id = origin_ctx->id_string ();
@@ -207,7 +200,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
             }
         }
     }
-  else if (qualifies (i))
+  else
     {
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
       if (!unsmob<Grob> (get_object (i.grob (), "staff-grouper")))

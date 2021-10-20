@@ -688,9 +688,6 @@ center of the staff.")
 to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender).")
-     (no-alignment ,boolean? "If set, don't place this grob in a
-@code{VerticalAlignment}; rather, place it using its own
-@code{Y-offset} callback.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
