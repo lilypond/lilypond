@@ -326,20 +326,25 @@ Grob::translate_axis (Real y, Axis a)
     *dim_cache_[a].offset_ += y;
 }
 
-/* Find the offset relative to D.  If D equals THIS, then it is 0.
-   Otherwise, it recursively defd as
-
-   OFFSET_ + PARENT_L_->relative_coordinate (D) */
+/* Find the offset on axis a relative to refp. */
 Real
 Grob::relative_coordinate (Grob const *refp, Axis a) const
 {
-  if (refp == this)
-    return 0.0;
-
-  /* We catch PARENT_L_ == nil case with this, but we crash if we did
-     not ask for the absolute coordinate (ie. REFP == nil.)  */
-
-  return get_offset (a) + parent_relative (refp, a);
+  // refp should really always be non-null, but this
+  // does not hold currently.
+  Real result = 0.0;
+  for (const Grob *ancestor = this;
+       ancestor != refp;
+       ancestor = ancestor->get_parent (a))
+    {
+      // !ancestor here means that we asked for a coordinate
+      // relative to something that is not a reference point.
+      // This shouldn't occur (issue #6149), but does at the moment.
+      if (!ancestor)
+        break;
+      result += ancestor->get_offset (a);
+    }
+  return result;
 }
 
 Real
