@@ -45,7 +45,7 @@ protected:
   vector<Grob *> backup_axis_groups_;
 
   void finalize () override;
-  void acknowledge_axis_group (Grob_info);
+  void acknowledge_hara_kiri_group_spanner (Grob_info);
   void process_music ();
   void start_spanner ();
   void consider_start_spanner ();
@@ -126,25 +126,16 @@ Instrument_name_engraver::start_spanner ()
 }
 
 void
-Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
+Instrument_name_engraver::acknowledge_hara_kiri_group_spanner (Grob_info info)
 {
-  if (dynamic_cast<Spanner *> (info.grob ())
-      && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
-
-      /* ugh. */
-
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("volta-interface"))
-      && (!has_interface<Align_interface> (info.grob ())))
+  if (Page_layout_problem::is_spaceable (info.grob ()))
+    axis_groups_.push_back (info.grob ());
+  else
     {
-      if (Page_layout_problem::is_spaceable (info.grob ()))
-        axis_groups_.push_back (info.grob ());
-      else
-        // By default, don't include non-spaceable staves in the
-        // support of an instrument name.  However, if the only staves
-        // are non-spaceable, we'll fall back to using them.
-        backup_axis_groups_.push_back (info.grob ());
+      // By default, don't include non-spaceable staves in the
+      // support of an instrument name.  However, if the only staves
+      // are non-spaceable, we'll fall back to using them.
+      backup_axis_groups_.push_back (info.grob ());
     }
 }
 
@@ -179,7 +170,7 @@ Instrument_name_engraver::stop_spanner ()
 void
 Instrument_name_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+  ADD_ACKNOWLEDGER (Instrument_name_engraver, hara_kiri_group_spanner);
 }
 
 ADD_TRANSLATOR (Instrument_name_engraver,
