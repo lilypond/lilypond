@@ -1,4 +1,4 @@
-\version "2.21.2"
+\version "2.23.5"
 
 \header{
   texidoc = "CSS-style color codes are supported
@@ -30,7 +30,10 @@ darkgreen = "#080"
   \override NoteHead.color = #(rgb-color 0.5 0.5 0 1)
   c'4
   %% Color codes are case-insensitive.
-  \override NoteHead.color = #"#Ff0000"
+  \override NoteHead.color = "#ffDab9"
+  f
+  %% Above and below should be equivalent.
+  \override NoteHead.color = "peachPUFF"
   f
   %% CSS three-chars shorthand is supported.
   \override NoteHead.color = #"#808"
@@ -52,7 +55,7 @@ darkgreen = "#080"
            (stencil-with-color st "#00F")
            empty-stencil)))
   \override Flag.color = "#F0F"
-  e8 es d dis e4 r
+  e8 es d dis e4
 }
 
 \layout {

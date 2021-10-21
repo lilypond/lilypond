@@ -20,6 +20,7 @@
 #include "stencil.hh"
 
 #include "font-metric.hh"
+#include "international.hh"
 #include "lookup.hh"
 #include "ly-scm-list.hh"
 #include "offset.hh"
@@ -460,10 +461,14 @@ Stencil::in_color (std::string const &name) const
         {
           int c1 = String_convert::hex2nibble (hex_rgba[2 * i]);
           int c2 = String_convert::hex2nibble (hex_rgba[2 * i + 1]);
-
-          c.rgba_[i] = Real ((((c1 >= 0) ? uint8_t (c1) : 0) << 8)
-                             | ((c2 >= 0) ? uint8_t (c2) : 0))
-                       / 256.0;
+          if (c1 == -1 || c2 == -1)
+            {
+              warning (_f ("invalid sequence %c%c in color "
+                           "(characters should be in one of ranges "
+                           "0-9, a-f, A-F)", hex_rgba[2*i], hex_rgba[2*i+1]));
+              c1 = c2 = 0;
+            }
+          c.rgba_[i] = Real (c1*16 + c2) / 255.0;
         }
     }
   else
