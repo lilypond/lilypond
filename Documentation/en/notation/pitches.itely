@@ -1721,12 +1721,13 @@ accidental style to use.  This function is called as follows:
 >>
 @end example
 
-The accidental style applies to the current @code{Staff} by
-default (with the exception of the styles @code{piano} and
-@code{piano-cautionary}, which are explained below).  Optionally,
-the function can take a second argument that determines in which
-scope the style should be changed.  For example, to use the same
-style in all staves of the current @code{StaffGroup}, use:
+The accidental style normally applies to the current
+@code{Staff} (with the exception of the styles @code{choral},
+@code{piano} and @code{piano-cautionary}, which are explained
+below).  Optionally, the function can take a second argument
+that determines in which scope the style should be changed.
+For example, to use the same style in all staves of the
+current @code{StaffGroup}, use:
 
 @example
 \accidentalStyle StaffGroup.voice
@@ -2205,7 +2206,7 @@ accidentals also get canceled across the staves in the same
 cancellations of the final notes.
 
 This accidental style applies to the current @code{GrandStaff} or
-@code{PianoStaff} by default.
+@code{PianoStaff} unless qualified with a second argument.
 
 @lilypond[quote]
 musicA = {
@@ -2322,7 +2323,8 @@ style. It shows all accidentals required for singers that only follow their
 own voice, as well as additional accidentals for readers that follow all
 voices of an entire @code{ChoirStaff} simultaneously.
 
-This accidental style applies to the current @code{ChoirStaff} by default.
+This accidental style applies to the current @code{ChoirStaff} unless
+qualified with a second argument.
 
 @lilypond[quote]
 musicA = {
