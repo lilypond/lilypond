@@ -203,19 +203,25 @@ String_convert::be_u24 (uint32_t u)
   return string (reinterpret_cast<char*> (r), 3);
 }
 
-bool
+static bool
 is_not_escape_character (Byte c)
 {
+  if (('a' <= c) && (c <= 'z'))
+    return true;
+
+  if (('A' <= c) && (c <= 'Z'))
+    return true;
+
+  if (('0' <= c) && (c <= '9'))
+    return true;
+
   switch (c)
     {
     case '-':
     case '.':
     case '/':
-    case '0' ... '9':
     case ':':
-    case 'A' ... 'Z':
     case '_':
-    case 'a' ... 'z':
       return true;
     }
 
