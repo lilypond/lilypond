@@ -142,15 +142,13 @@ struct Path_interpreter
   }
   FT_Outline_Funcs funcs () const
   {
-    FT_Outline_Funcs funcs =
-    {
-      .move_to = &moveto_void,
-      .line_to = &lineto_void,
-      .conic_to = &curve2to_void,
-      .cubic_to = &curve3to_void,
-      .shift = 0,
-      .delta = 0,
-    };
+    FT_Outline_Funcs funcs{};
+    funcs.move_to = &moveto_void;
+    funcs.line_to = &lineto_void;
+    funcs.conic_to = &curve2to_void;
+    funcs.cubic_to = &curve3to_void;
+    funcs.shift = 0;
+    funcs.delta = 0;
     return funcs;
   };
 
