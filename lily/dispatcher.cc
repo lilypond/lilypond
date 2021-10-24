@@ -23,6 +23,8 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include <alloca.h>
+
 const char *const Dispatcher::type_p_name_ = "ly:dispatcher?";
 
 Dispatcher::~Dispatcher ()
@@ -100,7 +102,15 @@ Dispatcher::dispatch (SCM sev)
     The first step is to collect all listener lists and to initially
     insert them in the priority queue.
   */
-  struct { int prio; SCM list; } lists[num_classes + 1];
+  struct Entry
+  {
+    int prio;
+    SCM list;
+  };
+
+  auto *const lists
+    = reinterpret_cast<Entry *> (alloca (sizeof (Entry) * (num_classes + 1)));
+
   int i = 0;
   for (SCM cl = class_list; scm_is_pair (cl); cl = scm_cdr (cl))
     {
