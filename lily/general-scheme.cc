@@ -251,9 +251,8 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
            "Return the current LilyPond version as a list, e.g.,"
            " @code{(1 3 127 uu1)}.")
 {
-  char const *vs = "\'(" MAJOR_VERSION " " MINOR_VERSION " " PATCH_LEVEL " " MY_PATCH_LEVEL ")";
-
-  return scm_c_eval_string ((char *)vs);
+  return scm_c_eval_string ("\'(" MAJOR_VERSION " " MINOR_VERSION
+                            " " PATCH_LEVEL " " MY_PATCH_LEVEL ")");
 }
 
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),

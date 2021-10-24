@@ -333,8 +333,7 @@ Spanner *
 Spanner::find_broken_piece (System *l) const
 {
   auto candidate = std::lower_bound (broken_intos_.begin (),
-                                     broken_intos_.end (), (Spanner *) l,
-                                     Spanner::less);
+                                     broken_intos_.end (), l, Spanner::less);
   if (candidate != broken_intos_.end () && !Spanner::less (*candidate, l))
     return *candidate;
   return 0;

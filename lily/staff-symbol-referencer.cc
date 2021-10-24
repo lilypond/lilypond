@@ -203,8 +203,8 @@ Staff_symbol_referencer::staff_radius (Grob *me)
 int
 compare_position (Grob *const &a, Grob *const &b)
 {
-  return sign (Staff_symbol_referencer::get_position ((Grob *)a)
-               - Staff_symbol_referencer::get_position ((Grob *) b));
+  return sign (Staff_symbol_referencer::get_position (a)
+               - Staff_symbol_referencer::get_position (b));
 }
 
 bool

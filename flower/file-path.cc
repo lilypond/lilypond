@@ -230,7 +230,7 @@ File_path::find (const string &name) const
   for (vsize i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
-      File_name dir = (string) dirs_[i];
+      File_name dir (dirs_[i]);
 
       // update `file_name' to hold `dir' and `file_name' concatenated
       file_name.root_ = dir.root_;

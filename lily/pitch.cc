@@ -42,7 +42,7 @@ Pitch::Pitch ()
   notename_ = 0;
   scale_ = default_global_scale;
   octave_ = 0;
-  alteration_ = (Rational)0;
+  alteration_ = 0;
 }
 
 int
@@ -57,7 +57,7 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
   if (n)
     return n;
   if (a)
-    return a > (Rational)0 ? 1 : -1;
+    return (a > 0) ? 1 : -1;
 
   return 0;
 }

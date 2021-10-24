@@ -305,7 +305,7 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 string
 Midi_tempo::to_string () const
 {
-  uint32_t useconds_per_4 = 60 * (int) 1e6 / audio_->per_minute_4_;
+  uint32_t useconds_per_4 = 60 * 1000000 / audio_->per_minute_4_;
   uint8_t out[] = {0xff, 0x51, 0x03};
   return string ((char *) out, sizeof (out))
          + String_convert::be_u24 (useconds_per_4);

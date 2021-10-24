@@ -129,8 +129,8 @@ protected_parse_embedded_scheme (Parse_start *ps)
   // Catch #t : catch all Scheme level errors.
   return scm_internal_catch (SCM_BOOL_T,
                              parse_embedded_scheme_void,
-                             (void *) ps,
-                             &Parse_start::handle_error, (void *) ps);
+                             ps,
+                             &Parse_start::handle_error, ps);
 }
 
 // Try parsing.  Upon failure return SCM_UNDEFINED. Upon success, set
@@ -197,7 +197,7 @@ evaluate_embedded_scheme (SCM form, Input const &start, bool safe, Lily_parser *
             (Lily::f_location,
              start.smobbed_copy (),
              parse_protect_global ? protected_evaluate_scheme_form
-             : evaluate_scheme_form_void, (void *) &ps);
+             : evaluate_scheme_form_void, &ps);
 
   scm_remember_upto_here_1 (form);
   return ans;

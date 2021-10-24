@@ -30,8 +30,7 @@ int
 Moment::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Mom ", port);
-  string str = to_string ();
-  scm_puts ((char *)str.c_str (), port);
+  scm_puts (to_string ().c_str (), port);
   scm_puts (">", port);
 
   return 1;

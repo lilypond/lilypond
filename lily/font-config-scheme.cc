@@ -82,7 +82,7 @@ display_list (FcConfig *fcc)
 
   FcObjectSet *os = 0;
   if (!os)
-    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, (char *)0);
+    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, nullptr);
 
   FcFontSet *fs = FcFontList (fcc, pat, os);
   FcObjectSetDestroy (os);

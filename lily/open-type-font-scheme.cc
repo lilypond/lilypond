@@ -112,7 +112,7 @@ LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
-  return to_scm ((int) otf->count ());
+  return to_scm (otf->count ());
 }
 
 LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,

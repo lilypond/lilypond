@@ -177,7 +177,7 @@ void
 update_tuplet (const Rational &start_moment_main, const Rational &factor,
                Rational *tuplet_start)
 {
-  int tuplet_number = (int) factor.den ();
+  const auto tuplet_number = factor.den ();
   if ((tuplet_number > 1) && (*tuplet_start < 0))
     *tuplet_start = start_moment_main;
   else if (tuplet_number == 1)

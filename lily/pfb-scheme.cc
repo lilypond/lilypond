@@ -101,8 +101,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   face = open_ft_face (file_name, i);
   string table = get_otf_table (face, "CFF ");
 
-  SCM asscm = scm_from_latin1_stringn ((char *) table.data (),
-                                       table.length ());
+  SCM asscm = scm_from_latin1_stringn (table.data (), table.length ());
   FT_Done_Face (face);
 
   debug_output ("]", false);

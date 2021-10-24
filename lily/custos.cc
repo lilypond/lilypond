@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK (Custos, print, 1);
 SCM
 Custos::print (SCM smob)
 {
-  Item *me = (Item *)unsmob<Grob> (smob);
+  auto *const me = unsmob<Item> (smob);
 
   SCM scm_style = get_property (me, "style");
   string style;
