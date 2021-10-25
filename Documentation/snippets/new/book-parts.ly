@@ -11,7 +11,7 @@ with the book last page.
 
 "
   doctitle = "Book parts"
-} % begin verbatim
+}
 
 #(set-default-paper-size "a6")
 

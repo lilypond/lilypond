@@ -21,6 +21,7 @@ Reference.
   doctitle = "Accordion register symbols"
 } % begin verbatim
 
+
 #(use-modules (lily accreg))
 
 \new PianoStaff
@@ -30,8 +31,7 @@ Reference.
     \discant "10"
     r8 s32 f'[ bes f] s e[ a e] s d[ g d] s16 e32[ a]
     <<
-      { r16 <f bes> r <e a> r <d g> } % begin verbatim
-
+      { r16 <f bes> r <e a> r <d g> }
       \\
       { d r a r bes r }
     >> |

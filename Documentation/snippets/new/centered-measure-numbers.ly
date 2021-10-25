@@ -15,7 +15,7 @@ This snippet presents a legacy method: starting from LilyPond 2.23.3,
 
 "
   doctitle = "Centered measure numbers"
-} % begin verbatim
+}
 
 \layout {
   \context {

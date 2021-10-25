@@ -12,7 +12,7 @@ Reference.
 
 "
   doctitle = "Accordion register symbols"
-} % begin verbatim
+}
 
 #(use-modules (lily accreg))
 

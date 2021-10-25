@@ -20,6 +20,7 @@ with the book last page.
   doctitle = "Book parts"
 } % begin verbatim
 
+
 #(set-default-paper-size "a6")
 
 \book {
@@ -32,8 +33,7 @@ with the book last page.
         \fill-line {
           %% Copyright header field only on book first page.
           \if \on-first-page \fromproperty #'header:copyright
-        } % begin verbatim
-
+        }
         \fill-line {
           %% Part tagline header field only on each part last page.
           \if \on-last-page-of-part \fromproperty #'header:parttagline

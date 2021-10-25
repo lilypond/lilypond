@@ -24,6 +24,7 @@ This snippet presents a legacy method: starting from LilyPond 2.23.3,
   doctitle = "Centered measure numbers"
 } % begin verbatim
 
+
 \layout {
   \context {
     \Dynamics
@@ -33,8 +34,7 @@ This snippet presents a legacy method: starting from LilyPond 2.23.3,
     \override MeasureCounter.font-shape = #'italic
     % to control the distance of the Dynamics context from the staff:
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #2
-  } % begin verbatim
-
+  }
   \context {
     \Score
     \remove "Bar_number_engraver"
