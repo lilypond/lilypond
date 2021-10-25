@@ -127,7 +127,7 @@ public:
   [[noreturn]] System *make_sticky_same_type (Engraver *eng, SCM type,
                                               SCM cause, char const *file,
                                               int line, char const *fun)
-                                              override;
+  override;
 
 protected:
   void derived_mark () const override;

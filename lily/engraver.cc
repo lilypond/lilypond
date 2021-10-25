@@ -99,7 +99,7 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            " the C++ source file.  Call with @code{#f} as argument to unset"
            " the callback.")
 {
-  creation_callback = check_debug_callback(cb);
+  creation_callback = check_debug_callback (cb);
   return SCM_UNSPECIFIED;
 }
 
@@ -195,7 +195,6 @@ Engraver::internal_make_grob (SCM symbol,
 
   return grob;
 }
-
 
 Item *
 Engraver::internal_make_item (SCM x, SCM cause,

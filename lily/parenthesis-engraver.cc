@@ -66,40 +66,40 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
       // way to merge the two.
       && !has_interface<Accidental_interface> (g))
     {
-       SCM id = get_property (g, "parenthesis-id");
-       bool must_add_to_alist = false;
-       Grob *paren = nullptr;
-       if (scm_is_symbol (id))
-         {
-           SCM maybe_paren = scm_assq_ref (id_alist_, id);
-           if (scm_is_true (maybe_paren))
-             paren = unsmob<Grob> (maybe_paren);
-           else
-             must_add_to_alist = true;
-         }
-       if (!paren)
-         {
-           Engraver *const eng = info.origin_engraver ();
-           paren = eng->make_sticky ("Parentheses", g, g->self_scm ());
-         }
-       if (must_add_to_alist)
-         {
-           // No need for scm_assq_set_x: we already know that the
-           // id is not a key in the alist.
-           id_alist_ = scm_acons (id, paren->self_scm (), id_alist_);
-         }
+      SCM id = get_property (g, "parenthesis-id");
+      bool must_add_to_alist = false;
+      Grob *paren = nullptr;
+      if (scm_is_symbol (id))
+        {
+          SCM maybe_paren = scm_assq_ref (id_alist_, id);
+          if (scm_is_true (maybe_paren))
+            paren = unsmob<Grob> (maybe_paren);
+          else
+            must_add_to_alist = true;
+        }
+      if (!paren)
+        {
+          Engraver *const eng = info.origin_engraver ();
+          paren = eng->make_sticky ("Parentheses", g, g->self_scm ());
+        }
+      if (must_add_to_alist)
+        {
+          // No need for scm_assq_set_x: we already know that the
+          // id is not a key in the alist.
+          id_alist_ = scm_acons (id, paren->self_scm (), id_alist_);
+        }
 
-       Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), g);
+      Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), g);
 
-       Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
-                   + from_scm<double> (get_property (g, "font-size"), 0.0);
-       set_property (paren, "font-size", to_scm (size));
+      Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
+                  + from_scm<double> (get_property (g, "font-size"), 0.0);
+      set_property (paren, "font-size", to_scm (size));
 
-       /*
-         TODO?
+      /*
+        TODO?
 
-         enlarge victim to allow for parentheses space?
-       */
+        enlarge victim to allow for parentheses space?
+      */
     }
 }
 

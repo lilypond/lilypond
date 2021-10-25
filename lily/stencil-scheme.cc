@@ -386,9 +386,8 @@ LY_DEFINE (ly_set_color_names, "ly:set-color-names", 1, 0, 0, (SCM alist),
         {
           Real v = from_scm<Real> (scm_car (c), -1);
           if (v < 0 || v > 1)
-            scm_wrong_type_arg_msg (
-              mangle_cxx_identifier (__FUNCTION__).c_str (), 1, scm_car (c),
-              "list of 3 or 4 numbers in [0.0,1.0]");
+            scm_wrong_type_arg_msg (mangle_cxx_identifier (__FUNCTION__).c_str (), 1, scm_car (c),
+                                    "list of 3 or 4 numbers in [0.0,1.0]");
 
           color.rgba_[sz] = v;
         }
@@ -426,9 +425,9 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
     LY_ASSERT_TYPE (is_scm<Real>, a, 4);
 
   return stil
-    ->in_color (from_scm<Real> (r), from_scm<Real> (g), from_scm<Real> (b),
-                SCM_UNBNDP (a) ? 1.0 : from_scm<Real> (a))
-    .smobbed_copy ();
+         ->in_color (from_scm<Real> (r), from_scm<Real> (g), from_scm<Real> (b),
+                     SCM_UNBNDP (a) ? 1.0 : from_scm<Real> (a))
+         .smobbed_copy ();
 }
 
 Stencil
@@ -464,10 +463,10 @@ Stencil::in_color (std::string const &name) const
             {
               warning (_f ("invalid sequence %c%c in color "
                            "(characters should be in one of ranges "
-                           "0-9, a-f, A-F)", hex_rgba[2*i], hex_rgba[2*i+1]));
+                           "0-9, a-f, A-F)", hex_rgba[2 * i], hex_rgba[2 * i + 1]));
               c1 = c2 = 0;
             }
-          c.rgba_[i] = Real (c1*16 + c2) / 255.0;
+          c.rgba_[i] = Real (c1 * 16 + c2) / 255.0;
         }
     }
   else

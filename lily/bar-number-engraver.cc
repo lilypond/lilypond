@@ -54,7 +54,6 @@ protected:
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
 
-
 void
 Bar_number_engraver::create_bar_number (SCM text)
 {

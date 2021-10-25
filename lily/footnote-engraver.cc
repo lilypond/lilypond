@@ -41,7 +41,6 @@ Footnote_engraver::Footnote_engraver (Context *c)
 {
 }
 
-
 void
 Footnote_engraver::acknowledge_grob (Grob_info info)
 {

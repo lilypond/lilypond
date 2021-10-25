@@ -236,7 +236,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
             {
               Grob *footnote = footnote_grobs[i];
               SCM footnote_markup = get_property (footnote, "footnote-text");
-              if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+              if (Spanner *orig = dynamic_cast<Spanner *> (footnote))
                 if (orig->is_broken ())
                   footnote_markup = get_property (orig->broken_intos_[0], "footnote-text");
 
@@ -246,7 +246,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                 = Text_interface::interpret_markup (paper, props,
                                                     footnote_markup);
               bool do_numbering = from_scm<bool> (get_property (footnote, "automatically-numbered"));
-              if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+              if (Spanner *orig = dynamic_cast<Spanner *> (footnote))
                 {
                   if (orig->is_broken ())
                     for (vsize i = 0; i < orig->broken_intos_.size (); i++)
@@ -257,7 +257,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                 {
                   SCM annotation_scm = scm_car (in_text_numbers);
                   set_property (footnote, "text", annotation_scm);
-                  if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
+                  if (Spanner *orig = dynamic_cast<Spanner *> (footnote))
                     {
                       set_property (orig, "text", annotation_scm);
                       if (orig->is_broken ())
@@ -351,8 +351,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
   bool footnotes_found = false;
   Real footnote_padding
     = from_scm<double> (pb->paper ()->c_variable ("footnote-padding"), 0.0);
-  Real footnote_footer_padding = from_scm<double> (
-    pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
+  Real footnote_footer_padding = from_scm<double> (pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
 
   footnotes = scm_reverse (footnotes);
 
@@ -479,7 +478,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
           Spring spring (0, 0);
           Real padding = 0.0;
           Real indent = line_dimension_interval (sys->paper_score ()->layout (),
-                                                 static_cast<vsize>(sys->get_rank ()))[LEFT];
+                                                 static_cast<vsize> (sys->get_rank ()))[LEFT];
           alter_spring_from_spacing_spec (spec, &spring);
           read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 

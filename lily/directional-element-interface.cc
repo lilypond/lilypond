@@ -30,7 +30,7 @@ internal_get_grob_direction (Grob *me, bool strict)
   if (strict && (dir == CENTER))
     {
       me->warning (_f ("direction of grob %s must be UP or DOWN; using UP",
-                       me-> name()));
+                       me->name ()));
       set_grob_direction (me, UP);
       return UP;
     }

@@ -49,7 +49,7 @@ public:
   [[noreturn]] Paper_column *make_sticky_same_type (Engraver *eng, SCM type,
                                                     SCM cause, char const *file,
                                                     int line, char const *fun)
-                                                    override;
+  override;
   Paper_column *original () const
   {
     // safe: if there is an original, it is because this was cloned from it

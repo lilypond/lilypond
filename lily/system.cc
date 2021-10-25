@@ -245,7 +245,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
       Grob *at_bat = footnote_grobs[i];
       int pos = at_bat->spanned_rank_interval ()[LEFT];
       bool end_of_line_visible = true;
-      if (Spanner *s = dynamic_cast<Spanner *>(at_bat))
+      if (Spanner *s = dynamic_cast<Spanner *> (at_bat))
         {
           Direction spanner_placement = from_scm (get_property (s, "spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
@@ -259,7 +259,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
             }
         }
 
-      if (Item *item = dynamic_cast<Item *>(at_bat))
+      if (Item *item = dynamic_cast<Item *> (at_bat))
         {
           /*
             We use this to weed out grobs that fall at the end
@@ -1034,8 +1034,8 @@ System::get_nonspaceable_staves (SCM smob)
 
 [[noreturn]] System *
 System::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
-                              SCM /*cause*/, char const * /*file*/,
-                              int /*line*/, char const * /*fun*/)
+                               SCM /*cause*/, char const * /*file*/,
+                               int /*line*/, char const * /*fun*/)
 {
   error (_ ("refusing to create a grob sticking to a System"
             " grob; systems should not be created from custom engravers."));

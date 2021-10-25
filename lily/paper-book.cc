@@ -212,8 +212,7 @@ Paper_book::output (SCM output_channel)
           SCM stencils = SCM_EOL;
           for (SCM s = pages (); scm_is_pair (s); s = scm_cdr (s))
             {
-              stencils = scm_cons (
-                get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
+              stencils = scm_cons (get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
             }
           stencils = scm_reverse_x (stencils, SCM_EOL);
 
@@ -309,8 +308,7 @@ Paper_book::dump_signatures (SCM basename)
   int page = 1;
   for (SCM s = systems (); scm_is_pair (s); s = scm_cdr (s))
     {
-      std::string name = String_convert::form_string (
-        "%s-%d.signature", ly_scm2string (basename).c_str (), page);
+      std::string name = String_convert::form_string ("%s-%d.signature", ly_scm2string (basename).c_str (), page);
 
       message (String_convert::form_string ("Writing %s", name.c_str ()), true);
       Lily::write_system_signature (ly_string2scm (name), scm_car (s));

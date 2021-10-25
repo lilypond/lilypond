@@ -314,7 +314,6 @@ Pitch::negated () const
   return pitch_interval (*this, Pitch ());
 }
 
-
 /* TODO: find a good place for this function */
 void
 set_middle_C (Context *c)

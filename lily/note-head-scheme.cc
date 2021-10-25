@@ -35,7 +35,6 @@ LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
   else
     LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 
-  return to_scm (Note_head::get_stem_attachment (
-    fm, ly_scm2string (glyph_name), from_scm<Direction> (direction)));
+  return to_scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name), from_scm<Direction> (direction)));
 }
 

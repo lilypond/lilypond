@@ -260,10 +260,8 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
     = from_scm<bool> (pb->paper ()->c_variable ("ragged-last-bottom"));
   systems_per_page_
     = std::max (0, from_scm (pb->paper ()->c_variable ("systems-per-page"), 0));
-  max_systems_per_page_ = std::max (
-    0, from_scm (pb->paper ()->c_variable ("max-systems-per-page"), 0));
-  min_systems_per_page_ = std::max (
-    0, from_scm (pb->paper ()->c_variable ("min-systems-per-page"), 0));
+  max_systems_per_page_ = std::max (0, from_scm (pb->paper ()->c_variable ("max-systems-per-page"), 0));
+  min_systems_per_page_ = std::max (0, from_scm (pb->paper ()->c_variable ("min-systems-per-page"), 0));
   orphan_penalty_
     = from_scm (pb->paper ()->c_variable ("orphan-penalty"), 100000);
 
@@ -284,11 +282,9 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
     = from_scm<double> (pb->paper ()->c_variable ("footnote-padding"), 0.0);
   in_note_padding_
     = from_scm<double> (pb->paper ()->c_variable ("in-note-padding"), 0.0);
-  footnote_footer_padding_ = from_scm<double> (
-    pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
+  footnote_footer_padding_ = from_scm<double> (pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
 
-  footnote_number_raise_ = from_scm<double> (
-    pb->paper ()->c_variable ("footnote-number-raise"), 0.0);
+  footnote_number_raise_ = from_scm<double> (pb->paper ()->c_variable ("footnote-number-raise"), 0.0);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
@@ -1034,10 +1030,9 @@ Page_breaking::cache_line_details (vsize configuration_index)
           else
             {
               assert (div[i] == 0);
-              uncompressed_line_details_.push_back (
-                system_specs_[sys].prob_
-                  ? Line_details (system_specs_[sys].prob_, book_->paper ())
-                  : Line_details ());
+              uncompressed_line_details_.push_back (system_specs_[sys].prob_
+                                                    ? Line_details (system_specs_[sys].prob_, book_->paper ())
+                                                    : Line_details ());
             }
         }
       cached_line_details_ = compress_lines (uncompressed_line_details_);
@@ -1346,8 +1341,7 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   m_res = finalize_spacing_result (configuration, m_res);
   n_res = finalize_spacing_result (configuration, n_res);
 
-  Real page_spacing_weight = from_scm<double> (
-    book_->paper ()->c_variable ("page-spacing-weight"), 10);
+  Real page_spacing_weight = from_scm<double> (book_->paper ()->c_variable ("page-spacing-weight"), 10);
   n_res.demerits_ += penalty_for_fewer_pages * page_spacing_weight;
 
   if (n_res.force_.size ())
@@ -1494,8 +1488,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
   Real line_force = 0;
   Real line_penalty = 0;
   Real page_demerits = res.penalty_;
-  Real page_weighting = from_scm<double> (
-    book_->paper ()->c_variable ("page-spacing-weight"), 10);
+  Real page_weighting = from_scm<double> (book_->paper ()->c_variable ("page-spacing-weight"), 10);
 
   for (vsize i = 0; i < uncompressed_line_details_.size (); i++)
     {

@@ -41,20 +41,20 @@ pfb2pfa (const string &pfb)
   string::const_iterator p = pfb.begin ();
   while (p < pfb.end ())
     {
-      if (static_cast<Byte>(*p++) != 128)
+      if (static_cast<Byte> (*p++) != 128)
         {
           error (_ ("Segment header of the Type 1 (PFB) font is broken."));
           break;
         }
 
-      Byte type = static_cast<Byte>(*p++);
+      Byte type = static_cast<Byte> (*p++);
       if (type == 3)
         break;
 
-      size_t seglen = static_cast<Byte>(*p++);
-      seglen |= (static_cast<Byte>(*p++) << 8);
-      seglen |= (static_cast<Byte>(*p++) << 16);
-      seglen |= (static_cast<Byte>(*p++) << 24);
+      size_t seglen = static_cast<Byte> (*p++);
+      seglen |= (static_cast<Byte> (*p++) << 8);
+      seglen |= (static_cast<Byte> (*p++) << 16);
+      seglen |= (static_cast<Byte> (*p++) << 24);
       if ((p + seglen) > pfb.end ())
         {
           error (_ ("Segment length of the Type 1 (PFB) font is too long."));
@@ -74,7 +74,7 @@ pfb2pfa (const string &pfb)
 
           for (size_t i = seglen; i > 0; --i)
             {
-              ss << std::setw (2) << static_cast<int>(static_cast<Byte>(*p++));
+              ss << std::setw (2) << static_cast<int> (static_cast<Byte> (*p++));
               if (! (i % 32))
                 ss << '\n';
             }

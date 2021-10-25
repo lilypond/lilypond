@@ -456,8 +456,6 @@ Paper_column::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
              this->name ()));
 }
 
-
-
 ADD_INTERFACE (Paper_column,
                "@code{Paper_column} objects form the top-most X@tie{}parents"
                " for items.  There are two types of columns: musical and"

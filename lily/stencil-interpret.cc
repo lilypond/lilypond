@@ -66,8 +66,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           if (scm_to_int (scm_length (color)) == 4)
             {
               SCM a = scm_cadddr (color);
-              sink->output (
-                scm_list_5 (ly_symbol2scm ("setcolor"), r, g, b, a));
+              sink->output (scm_list_5 (ly_symbol2scm ("setcolor"), r, g, b, a));
             }
           else
             sink->output (scm_list_4 (ly_symbol2scm ("setcolor"), r, g, b));

@@ -96,8 +96,7 @@ Drum_notes_engraver::process_music ()
           if (scm_is_string (script))
             {
               // Error out if script doesn't exist
-              if (scm_is_false (ly_assoc (
-                    script, get_property (context (), "scriptDefinitions"))))
+              if (scm_is_false (ly_assoc (script, get_property (context (), "scriptDefinitions"))))
                 ev->origin ()->error (_f ("unrecognised percussion sign: \"%s\"",
                                           ly_scm2string (script)));
 

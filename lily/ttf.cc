@@ -127,7 +127,7 @@ void t42_write_table (std::ostream &stream, FT_Face face,
         programming_error ("FT_Load_Sfnt_Table (): error.");
 
       /* we access the lower byte of indexToLocFormat */
-      long_offsets = head_buf[4*4 + 2*2 + 2*8 + 4*2 + 3*2 + 1] == 1;
+      long_offsets = head_buf[4 * 4 + 2 * 2 + 2 * 8 + 4 * 2 + 3 * 2 + 1] == 1;
 
       delete[] head_buf;
     }

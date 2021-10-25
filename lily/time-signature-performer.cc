@@ -85,7 +85,7 @@ Time_signature_performer::process_music ()
       Rational base_moment_clocks = 96 * base_moment.main_part_;
       SCM common_beat = SCM_INUM0;
       for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p); p = scm_cdr (p))
-          common_beat = scm_gcd (common_beat, scm_car (p));
+        common_beat = scm_gcd (common_beat, scm_car (p));
       if (is_scm<Rational> (common_beat) && scm_is_false (scm_zero_p (common_beat)))
         base_moment_clocks *= from_scm<Rational> (common_beat);
       if (base_moment_clocks.denominator () != 1

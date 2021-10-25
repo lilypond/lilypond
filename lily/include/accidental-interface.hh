@@ -20,7 +20,6 @@
 #ifndef ACCIDENTAL_INTERFACE_HH
 #define ACCIDENTAL_INTERFACE_HH
 
-
 #include "box.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"

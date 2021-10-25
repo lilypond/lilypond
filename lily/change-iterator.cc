@@ -89,7 +89,7 @@ Change_iterator::process (Moment m)
         {
           auto *scope
             = where_tagged (get_property (get_music (), "change-tag"));
-          scope->preorder_walk ([last, dest] (Music_iterator *iter)
+          scope->preorder_walk ([last, dest] (Music_iterator * iter)
           {
             Change_iterator::change (iter, last, dest);
           });

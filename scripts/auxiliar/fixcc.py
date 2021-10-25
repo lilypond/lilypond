@@ -53,7 +53,7 @@ rules = {
     CXX:
     [
         # space before parenthesis open; astyle -xd does this except for foo().
-        (r'([\w\)\]])\(', '\\1 ('),
+        (r'([\w\)\]>])\(', '\\1 ('),
         # delete inline double spaces
         (r'(\S)  +', '\\1 '),
         # delete space before parenthesis close
@@ -550,6 +550,14 @@ a = "foo() 2,2,4";
   {
    span_ = make_spanner (StaffSymbol, SCM_EOL);
   }
+}
+
+void casts()
+{
+  auto a=const_cast<A>(foo);
+  auto a=dynamic_cast<A>(foo);
+  auto a=reinterpret_cast<A>(foo);
+  auto a=static_cast<A>(foo);
 }
 '''
 

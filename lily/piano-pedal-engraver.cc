@@ -121,7 +121,7 @@ private:
   void typeset_all (Pedal_info *p);
 };
 
-const char * pedal_type_name (int t)
+const char *pedal_type_name (int t)
 {
   switch (t)
     {
@@ -137,7 +137,7 @@ const char * pedal_type_name (int t)
     }
 }
 
-const char * pedal_type_ident (int t)
+const char *pedal_type_ident (int t)
 {
   switch (t)
     {

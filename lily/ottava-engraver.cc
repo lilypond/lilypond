@@ -124,7 +124,7 @@ Ottava_spanner_engraver::process_music ()
           set_property (context (), "ottavaStartNow", SCM_BOOL_T);
           create_spanner ();
         }
-     }
+    }
 }
 
 void

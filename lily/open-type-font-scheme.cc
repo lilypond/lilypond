@@ -281,10 +281,10 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
           return SCM_BOOL_F;
         }
       int numfonts
-        = static_cast<unsigned char>(buff[0]) << 24
-          | static_cast<unsigned char>(buff[1]) << 16
-          | static_cast<unsigned char>(buff[2]) << 8
-          | static_cast<unsigned char>(buff[3]);
+        = static_cast<unsigned char> (buff[0]) << 24
+          | static_cast<unsigned char> (buff[1]) << 16
+          | static_cast<unsigned char> (buff[2]) << 8
+          | static_cast<unsigned char> (buff[3]);
 
       if ( i > numfonts)
         {
@@ -304,10 +304,10 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
           return SCM_BOOL_F;
         }
       unsigned int offset
-        = static_cast<unsigned char>(buff[0]) << 24
-          | static_cast<unsigned char>(buff[1]) << 16
-          | static_cast<unsigned char>(buff[2]) << 8
-          | static_cast<unsigned char>(buff[3]);
+        = static_cast<unsigned char> (buff[0]) << 24
+          | static_cast<unsigned char> (buff[1]) << 16
+          | static_cast<unsigned char> (buff[2]) << 8
+          | static_cast<unsigned char> (buff[3]);
 
       // Seek to subfont and skip `sfnt version`
       fseek (fp, offset + 4, SEEK_SET);
@@ -324,8 +324,8 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
       return SCM_BOOL_F;
     }
   int numtables
-    = static_cast<unsigned char>(buff[0]) << 8
-      | static_cast<unsigned char>(buff[1]);
+    = static_cast<unsigned char> (buff[0]) << 8
+      | static_cast<unsigned char> (buff[1]);
 
   // Skip `searchRange`, `entrySelector` and `rangeShift`
   fseek (fp, 6, SEEK_CUR);
@@ -358,10 +358,10 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
               return SCM_BOOL_F;
             }
           unsigned int offset
-            = static_cast<unsigned char>(buff[0]) << 24
-              | static_cast<unsigned char>(buff[1]) << 16
-              | static_cast<unsigned char>(buff[2]) << 8
-              | static_cast<unsigned char>(buff[3]);
+            = static_cast<unsigned char> (buff[0]) << 24
+              | static_cast<unsigned char> (buff[1]) << 16
+              | static_cast<unsigned char> (buff[2]) << 8
+              | static_cast<unsigned char> (buff[3]);
 
           // Done
           fclose (fp);
@@ -456,10 +456,10 @@ LY_DEFINE (ly_extract_subfont_from_collection,
       return SCM_BOOL_F;
     }
   int numfonts
-    = static_cast<unsigned char>(buff[0]) << 24
-      | static_cast<unsigned char>(buff[1]) << 16
-      | static_cast<unsigned char>(buff[2]) << 8
-      | static_cast<unsigned char>(buff[3]);
+    = static_cast<unsigned char> (buff[0]) << 24
+      | static_cast<unsigned char> (buff[1]) << 16
+      | static_cast<unsigned char> (buff[2]) << 8
+      | static_cast<unsigned char> (buff[3]);
 
   if ( i > numfonts)
     {
@@ -479,10 +479,10 @@ LY_DEFINE (ly_extract_subfont_from_collection,
       return SCM_BOOL_F;
     }
   unsigned int offset
-    = static_cast<unsigned char>(buff[0]) << 24
-      | static_cast<unsigned char>(buff[1]) << 16
-      | static_cast<unsigned char>(buff[2]) << 8
-      | static_cast<unsigned char>(buff[3]);
+    = static_cast<unsigned char> (buff[0]) << 24
+      | static_cast<unsigned char> (buff[1]) << 16
+      | static_cast<unsigned char> (buff[2]) << 8
+      | static_cast<unsigned char> (buff[3]);
 
   // Seek to subfont
   fseek (fi, offset, SEEK_SET);
@@ -534,8 +534,8 @@ LY_DEFINE (ly_extract_subfont_from_collection,
       return SCM_BOOL_F;
     }
   unsigned int numtables
-    = static_cast<unsigned char>(buff[0]) << 8
-      | static_cast<unsigned char>(buff[1]);
+    = static_cast<unsigned char> (buff[0]) << 8
+      | static_cast<unsigned char> (buff[1]);
 
   // Write `numTables` and `searchRange`
   if (fwrite (buff, 4, 1, fo) != 1)
@@ -640,10 +640,10 @@ LY_DEFINE (ly_extract_subfont_from_collection,
           return SCM_BOOL_F;
         }
       tbl.offset
-        = static_cast<unsigned char>(buff[0]) << 24
-          | static_cast<unsigned char>(buff[1]) << 16
-          | static_cast<unsigned char>(buff[2]) << 8
-          | static_cast<unsigned char>(buff[3]);
+        = static_cast<unsigned char> (buff[0]) << 24
+          | static_cast<unsigned char> (buff[1]) << 16
+          | static_cast<unsigned char> (buff[2]) << 8
+          | static_cast<unsigned char> (buff[3]);
       tbl.new_offset = next_offset;
       buff[0] = static_cast<char> ((tbl.new_offset >> 24) & 0xff);
       buff[1] = static_cast<char> ((tbl.new_offset >> 16) & 0xff);
@@ -670,10 +670,10 @@ LY_DEFINE (ly_extract_subfont_from_collection,
           return SCM_BOOL_F;
         }
       tbl.length
-        = static_cast<unsigned char>(buff[0]) << 24
-          | static_cast<unsigned char>(buff[1]) << 16
-          | static_cast<unsigned char>(buff[2]) << 8
-          | static_cast<unsigned char>(buff[3]);
+        = static_cast<unsigned char> (buff[0]) << 24
+          | static_cast<unsigned char> (buff[1]) << 16
+          | static_cast<unsigned char> (buff[2]) << 8
+          | static_cast<unsigned char> (buff[3]);
       // Write `length`
       if (fwrite (buff, 4, 1, fo) != 1)
         {

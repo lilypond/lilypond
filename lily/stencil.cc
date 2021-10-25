@@ -398,13 +398,12 @@ Stencil
 Stencil::in_color (Real r, Real g, Real b, Real a) const
 {
 
-  Stencil new_stencil (
-    extent_box (),
-    scm_list_3 (ly_symbol2scm ("color"),
-                scm_list_n (to_scm (r), to_scm (g), to_scm (b),
-                            a == 1.0 ? SCM_UNDEFINED : to_scm (a),
-                            SCM_UNDEFINED),
-                expr ()));
+  Stencil new_stencil (extent_box (),
+                       scm_list_3 (ly_symbol2scm ("color"),
+                                   scm_list_n (to_scm (r), to_scm (g), to_scm (b),
+                                               a == 1.0 ? SCM_UNDEFINED : to_scm (a),
+                                               SCM_UNDEFINED),
+                                   expr ()));
   return new_stencil;
 }
 

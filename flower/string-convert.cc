@@ -179,7 +179,7 @@ String_convert::be_u16 (uint16_t u)
   uint8_t r[2];
   r[0] = uint8_t (u >> 8);
   r[1] = uint8_t (u);
-  return string (reinterpret_cast<char*> (r), 2);
+  return string (reinterpret_cast<char *> (r), 2);
 }
 
 string
@@ -190,7 +190,7 @@ String_convert::be_u32 (uint32_t u)
   r[1] = uint8_t (u >> 16);
   r[2] = uint8_t (u >> 8);
   r[3] = uint8_t (u);
-  return string (reinterpret_cast<char*> (r), 4);
+  return string (reinterpret_cast<char *> (r), 4);
 }
 
 string
@@ -200,7 +200,7 @@ String_convert::be_u24 (uint32_t u)
   r[0] = uint8_t (u >> 16);
   r[1] = uint8_t (u >> 8);
   r[2] = uint8_t (u);
-  return string (reinterpret_cast<char*> (r), 3);
+  return string (reinterpret_cast<char *> (r), 3);
 }
 
 static bool

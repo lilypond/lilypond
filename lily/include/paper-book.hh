@@ -57,12 +57,12 @@ public:
 
   Output_def *top_paper () const;
   Output_def *paper () const { return paper_; }
-  
+
   void add_score (SCM);
   void add_bookpart (SCM);
   void add_performance (SCM);
 
-  SCM get_scopes() const;
+  SCM get_scopes () const;
   SCM performances () const;
   SCM systems ();
   SCM pages ();

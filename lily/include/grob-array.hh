@@ -66,7 +66,7 @@ public:
   {
     vsize new_size = 0;
     for (auto *og : grobs_)
-      if (auto *g = std::forward<Fn>(fn) (std::forward<Args>(args)..., og))
+      if (auto *g = std::forward<Fn> (fn) (std::forward<Args> (args)..., og))
         grobs_[new_size++] = g;
     grobs_.resize (new_size);
     grobs_.shrink_to_fit ();
@@ -82,12 +82,12 @@ public:
         grobs_.clear ();
         grobs_.reserve (src.grobs_.size ());
         for (auto *og : src.grobs_)
-          if (auto *g = std::forward<Fn>(fn) (std::forward<Args>(args)..., og))
+          if (auto *g = std::forward<Fn> (fn) (std::forward<Args> (args)..., og))
             grobs_.push_back (g);
         grobs_.shrink_to_fit ();
       }
     else
-      filter_map (std::forward<Fn>(fn), std::forward<Args>(args)...);
+      filter_map (std::forward<Fn> (fn), std::forward<Args> (args)...);
   }
 };
 

@@ -431,7 +431,7 @@ ly_hash2alist (SCM tab)
 string
 mangle_cxx_identifier (const char *cxx_id)
 {
-  std::string mangled_id(cxx_id);
+  std::string mangled_id (cxx_id);
   if (mangled_id.substr (0, 3) == "ly_")
     mangled_id.replace (0, 3, "ly:");
   else

@@ -264,8 +264,8 @@ public:
   {
     std::ostringstream os;
     os << at << expr
-       << "\nleft:  (" << demangle<Left>() << ") " << a
-       << "\nright: (" << demangle<Right>() << ") " << b;
+       << "\nleft:  (" << demangle<Left> () << ") " << a
+       << "\nright: (" << demangle<Right> () << ") " << b;
     failure_ = os.str ();
   }
   failure (const char *at = "", const char *expr = "")
@@ -287,7 +287,7 @@ struct Registrator
   }
   const std::string &TestName ()
   {
-    static const std::string name (demangle<Suite>() + "::" + demangle<Case>());
+    static const std::string name (demangle<Suite> () + "::" + demangle<Case> ());
     return name;
   }
   static ITest *Create ()
@@ -305,7 +305,7 @@ struct Registrator<Case, void>
   }
   const std::string &TestName ()
   {
-    static const std::string name ("::" + demangle<Case>());
+    static const std::string name ("::" + demangle<Case> ());
     return name;
   }
   static ITest *Create ()

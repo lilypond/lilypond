@@ -216,7 +216,7 @@ Line_spanner::calc_cross_staff (SCM smob)
   auto *const lb = me->get_bound (LEFT);
   if (from_scm<bool> (get_property (lb, "non-musical")))
     return SCM_BOOL_F;
-  
+
   auto *const rb = me->get_bound (RIGHT);
   if (from_scm<bool> (get_property (rb, "non-musical")))
     return SCM_BOOL_F;

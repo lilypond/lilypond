@@ -75,8 +75,8 @@ Bend_engraver::stop_translation_timestep ()
     {
       // don't cross a barline
       SCM col_scm = scm_is_string (get_property (this, "whichBar"))
-        ? get_property (this, "currentCommandColumn")
-        : get_property (this, "currentMusicalColumn");
+                    ? get_property (this, "currentCommandColumn")
+                    : get_property (this, "currentMusicalColumn");
       if (auto *col = unsmob<Grob> (col_scm))
         {
           last_fall_->set_bound (RIGHT, col);

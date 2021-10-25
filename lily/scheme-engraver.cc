@@ -139,7 +139,7 @@ Scheme_engraver::init_acknowledgers (SCM alist)
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
         continue;
 
-      unsmob<Scheme_hash_table>(hash)->set (iface, proc);
+      unsmob<Scheme_hash_table> (hash)->set (iface, proc);
     }
   return hash;
 }

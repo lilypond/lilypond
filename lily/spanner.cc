@@ -186,7 +186,7 @@ Interval_t<int>
 Spanner::spanned_rank_interval () const
 {
   Interval_t<int> iv (0, 0);
-  for (const auto d: {LEFT, RIGHT})
+  for (const auto d : {LEFT, RIGHT})
     {
       if (Item *b = get_bound (d))
         if (Paper_column *col = b->get_column ())

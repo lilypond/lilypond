@@ -159,15 +159,15 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
       if (scm_is_false (before) && scm_is_false (after))
         {
           if (scm_is_string (before_id))
-             {
-               warning (_f ("alignAboveContext not found: %s",
-                            ly_scm2string (before_id)));
-             }
+            {
+              warning (_f ("alignAboveContext not found: %s",
+                           ly_scm2string (before_id)));
+            }
           else
-             {
-               warning (_f ("alignBelowContext not found: %s",
-                            ly_scm2string (after_id)));
-             }
+            {
+              warning (_f ("alignBelowContext not found: %s",
+                           ly_scm2string (after_id)));
+            }
           return;
         }
 

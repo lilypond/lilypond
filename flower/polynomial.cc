@@ -107,7 +107,7 @@ Polynomial::clean ()
     We only do relative comparisons. Absolute comparisons break down in
     degenerate cases.  */
   while (degree () > 0
-         && (fabs (coefs_.back ()) < FUDGE * fabs (coefs_.rbegin()[1])
+         && (fabs (coefs_.back ()) < FUDGE * fabs (coefs_.rbegin ()[1])
              || coefs_.back () == 0))
     coefs_.pop_back ();
 }

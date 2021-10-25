@@ -186,8 +186,8 @@ Grob::get_print_stencil () const
                                     from_scm<Real> (scm_cadr (color)),
                                     from_scm<Real> (scm_caddr (color)),
                                     scm_is_pair (scm_cdddr (color))
-                                      ? from_scm<Real> (scm_cadddr (color))
-                                      : 1.0);
+                                    ? from_scm<Real> (scm_cadddr (color))
+                                    : 1.0);
         }
 
       SCM attributes = get_property (this, "output-attributes");
@@ -232,7 +232,7 @@ System *
 Grob::get_system (Grob *me)
 {
   Grob *p = me->get_x_parent ();
-  return p ? get_system (p) : dynamic_cast<System *>(me);
+  return p ? get_system (p) : dynamic_cast<System *> (me);
 }
 
 void
@@ -618,7 +618,6 @@ Grob::has_in_ancestry (const Grob *possible_ancestor, Axis a) const
     }
   return false;
 }
-
 
 /****************************************************************
   VERTICAL ORDERING

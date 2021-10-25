@@ -55,8 +55,8 @@ init_fontconfig ()
 
   /* fontconfig's default conf file */
   void *default_conf = FcConfigFilename (NULL);
-  confs.push_back (static_cast<char *>(default_conf));
-  FcStrFree (static_cast<FcChar8 *>(default_conf));
+  confs.push_back (static_cast<char *> (default_conf));
+  FcStrFree (static_cast<FcChar8 *> (default_conf));
 
   /* LilyPond local fontconfig conf file 99
      This file is loaded *after* fontconfig's default conf. */

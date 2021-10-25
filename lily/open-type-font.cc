@@ -154,7 +154,7 @@ get_postscript_name (FT_Face face)
   const char *fmt = FT_Get_Font_Format (face);
   if (fmt)
     {
-      if (static_cast<string>(fmt) != "CFF")
+      if (static_cast<string> (fmt) != "CFF")
         return face_ps_name;  // For non-CFF font, pass it through.
     }
   else
@@ -209,7 +209,7 @@ get_cff_name (FT_Face face)
   FT_Open_Args args;
   args.flags = FT_OPEN_MEMORY;
   args.memory_base = static_cast<const FT_Byte *>
-                     (static_cast<const void *>(cff_table.data ()));
+                     (static_cast<const void *> (cff_table.data ()));
   args.memory_size = cff_table.size ();
 
   FT_Face cff_face;
@@ -240,14 +240,14 @@ get_cff_name (FT_Face face)
       debug_output (_ ("Directly parsing 'CFF' table of font."));
 
       // See Adobe technote '5176.CFF.pdf', sections 2 and 5-7.
-      size_t hdrsize = static_cast<unsigned char>(cff_table.at (2));
+      size_t hdrsize = static_cast<unsigned char> (cff_table.at (2));
       string::iterator it = cff_table.begin () + hdrsize;
 
       unsigned int name_index_count;
-      name_index_count = static_cast<unsigned char>(*it++) << 8;
-      name_index_count |= static_cast<unsigned char>(*it++);
+      name_index_count = static_cast<unsigned char> (*it++) << 8;
+      name_index_count |= static_cast<unsigned char> (*it++);
 
-      size_t offsize = static_cast<unsigned char>(*it++);
+      size_t offsize = static_cast<unsigned char> (*it++);
 
       if (name_index_count && 1 <= offsize && offsize <= 4)
         {
@@ -256,11 +256,11 @@ get_cff_name (FT_Face face)
           // has only one name.
           size_t off1 = 0, off2 = 0;
           for (size_t t = 0; t < offsize; t++)
-            off1 = ( off1 << 8) | static_cast<unsigned char>(*it++);
+            off1 = ( off1 << 8) | static_cast<unsigned char> (*it++);
           if (off1)
             {
               for (size_t t = 0; t < offsize; t++)
-                off2 = ( off2 << 8) | static_cast<unsigned char>(*it++);
+                off2 = ( off2 << 8) | static_cast<unsigned char> (*it++);
             }
           if (off1 && off1 < off2)
             {
@@ -370,8 +370,8 @@ Open_type_font::attachment_point (const string &glyph_name, Direction d) const
 Box
 Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 {
-  auto const &bbox_it = lily_index_to_bbox_table_.find(signed_idx);
-  if (bbox_it != lily_index_to_bbox_table_.end())
+  auto const &bbox_it = lily_index_to_bbox_table_.find (signed_idx);
+  if (bbox_it != lily_index_to_bbox_table_.end ())
     {
       return bbox_it->second;
     }

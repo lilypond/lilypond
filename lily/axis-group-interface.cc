@@ -551,7 +551,7 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
 
   SCM grobs_scm = Grob_array::make_array ();
   Grob_array *grobs = unsmob<Grob_array> (grobs_scm);
-  for (auto const& g : relevant_grobs)
+  for (auto const &g : relevant_grobs)
     grobs->add (g.grob_);
 
   return grobs_scm;
@@ -883,7 +883,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
             {
               left_extent = g->extent (x_common, X_AXIS)[LEFT];
             }
-          }
+        }
       elements.emplace_back (g, priority, left_extent);
     }
 

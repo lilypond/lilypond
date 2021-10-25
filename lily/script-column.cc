@@ -94,7 +94,7 @@ Script_column::row_before_line_breaking (SCM smob)
       vector<Grob *> grobs = (*i).second;
 
       // this isn't right in all cases, but in general a safe assumption.
-      grobs.insert (grobs.end(), affect_all_grobs.begin (),
+      grobs.insert (grobs.end (), affect_all_grobs.begin (),
                     affect_all_grobs.end ());
       order_grobs (grobs);
     }

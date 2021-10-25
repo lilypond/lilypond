@@ -34,7 +34,6 @@
 
 using std::vector;
 
-
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff, 1)
 SCM
 Stem_tremolo::calc_cross_staff (SCM smob)

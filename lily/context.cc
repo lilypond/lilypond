@@ -564,7 +564,7 @@ Context::internal_where_defined (SCM sym, SCM *value) const
 #endif
 
   if (properties_dict ()->try_retrieve (sym, value))
-    return const_cast<Context *>(this);
+    return const_cast<Context *> (this);
 
   return parent_ ? parent_->internal_where_defined (sym, value) : nullptr;
 }

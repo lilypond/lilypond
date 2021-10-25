@@ -393,14 +393,15 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 {
   fflush (stderr);
 
-  if (scm_is_integer (fd_or_file_name)) {
-    // If passed a file descriptor, just replace the error stream (fd 2) by
-    // calling dup2.
-    int fd = scm_to_int (fd_or_file_name);
-    if (dup2 (fd, 2) == -1)
-      error (_ ("failed redirecting stderr"));
-    return SCM_UNSPECIFIED;
-  }
+  if (scm_is_integer (fd_or_file_name))
+    {
+      // If passed a file descriptor, just replace the error stream (fd 2) by
+      // calling dup2.
+      int fd = scm_to_int (fd_or_file_name);
+      if (dup2 (fd, 2) == -1)
+        error (_ ("failed redirecting stderr"));
+      return SCM_UNSPECIFIED;
+    }
 
   LY_ASSERT_TYPE (scm_is_string, fd_or_file_name, 1);
 

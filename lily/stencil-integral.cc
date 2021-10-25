@@ -232,7 +232,8 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
       Real radius = (quantization ? diameter / 2 : 0.);
 
       /* draw straight lines */
-      Offset points[] =
+      Offset points[]
+      =
       {
         Offset (-left, -bottom + radius), Offset (-left, top - radius),
         Offset (-left + radius, top), Offset (right - radius, top),
@@ -302,7 +303,8 @@ add_draw_bezier_segments_scm (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr);
   Real y3 = from_scm<double> (scm_car (expr), 0.0);
 
-  Offset ps[] =
+  Offset ps[]
+  =
   {
     Offset (x0, y0),
     Offset (x1, y1),
@@ -549,7 +551,7 @@ add_named_glyph_segments (Lazy_skyline_pair *skyline,
 
   Open_type_font *open_fm
     = dynamic_cast<Open_type_font *>
-      (dynamic_cast<Modified_font_metric *>(fm)->original_font ());
+      (dynamic_cast<Modified_font_metric *> (fm)->original_font ());
   SCM_ASSERT_TYPE (open_fm, fm_scm, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   size_t gidx = open_fm->name_to_index (glyph_s);

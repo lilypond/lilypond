@@ -436,7 +436,7 @@ Beaming_options::Beaming_options ()
 }
 
 void
-Beaming_options::gc_mark() const
+Beaming_options::gc_mark () const
 {
   scm_gc_mark (grouping_);
 }

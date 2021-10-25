@@ -30,7 +30,7 @@
 #include <map>
 #include <utility>
 
-static const size_t GLYPH_INDEX_INVALID (std::numeric_limits<size_t>::max());
+static const size_t GLYPH_INDEX_INVALID (std::numeric_limits<size_t>::max ());
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
