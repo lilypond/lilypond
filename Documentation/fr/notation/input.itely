@@ -1227,7 +1227,7 @@ chaque page.  Il nous faut tout d'abord annuler les définitions de
 @code{oddHeaderMarkup} et @code{evenHeaderMarkup} à l'aide d'un
 @emph{markup} @code{\null}. Nous redéfinissons ensuite
 @code{oddFooterMarkup} pour qu'il contienne le numéro de page, centré.
-Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
+Enfin, nous appliquons le même paramétrage au @code{\evenFooterMarkup}.
 
 @lilypond[papersize=a8,quote,verbatim,noragged-right]
 \book {
