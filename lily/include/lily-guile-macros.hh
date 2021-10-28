@@ -64,7 +64,7 @@ scm_or_str2symbol (SCM s)
   return s;
 }
 
-/* Using this trick we cache the value of scm_from_locale_symbol
+/* Using this trick we cache the value of scm_from_utf8_symbol
    ("fooo") where "fooo" is a constant std::string. This is done at the
    cost of one static variable per ly_symbol2scm() use, and the cost
    of C++' mechanism to ensure a static variable is only initialized
@@ -72,10 +72,10 @@ scm_or_str2symbol (SCM s)
  */
 #define ly_symbol2scm(x)                                                \
   (__builtin_constant_p (x)                                             \
-   ? ({                                                                 \
-       static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
-       cached;                                                          \
-     })                                                                 \
+   ? [&] {                                                              \
+     static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
+     return cached;                                                     \
+   } ()                                                                 \
    : scm_or_str2symbol (x))
 
 /*
