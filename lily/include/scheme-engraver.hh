@@ -41,7 +41,7 @@ struct Preinit_Scheme_engraver
 class Scheme_engraver : Preinit_Scheme_engraver, public Engraver
 {
 public:
-  TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver);
+  TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver)
   Scheme_engraver (SCM definition, Context *c);
 
 protected:

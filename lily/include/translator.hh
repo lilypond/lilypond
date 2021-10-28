@@ -85,7 +85,7 @@ Translator_creator::allocate (Context *ctx)
 
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
   public:                                                               \
-  TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                \
+  TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                 \
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   static Protected_scm listener_list_;                                  \
   static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
