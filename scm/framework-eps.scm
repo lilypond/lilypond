@@ -33,25 +33,6 @@
 (define framework-eps-module
   (current-module))
 
-(define (widen-left-stencil-edges stencils)
-  "Change STENCILS to use the union for the left extents in every
-stencil so that LaTeX's \\includegraphics command doesn't modify the
-alignment."
-  (define left
-    (if (pair? stencils)
-        (apply min
-               (map (lambda (stc)
-                      (interval-start (ly:stencil-extent stc X)))
-                    stencils))
-        0.0))
-
-  (map (lambda (stil)
-         (ly:make-stencil
-          (ly:stencil-expr stil)
-          (cons left
-                (cdr (ly:stencil-extent stil X)))
-          (ly:stencil-extent stil Y)))
-       stencils))
 
 (define (dump-stencils-as-EPSes stencils paper basename)
   (define do-pdf
@@ -82,8 +63,7 @@ alignment."
   ;; Otherwise the .eps and the -1.eps file will be identical and waste space
   ;; Also always create if aux-files=##t
   (if (or create-aux-files (< 1 (length stencils)))
-      (let* ((widened-stencils (widen-left-stencil-edges stencils))
-             (counted-systems  (count-list widened-stencils))
+      (let* ((counted-systems  (count-list stencils))
              (eps-files (map dump-counted-stencil counted-systems)))
         (if do-pdf
             (for-each (lambda (y) (postscript->pdf 0 0

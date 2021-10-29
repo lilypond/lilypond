@@ -499,8 +499,27 @@ created."
 
 (define (generate-system-stencils paper-book)
   "Generate list of stencils for lilypond-book output" 
-  (map paper-system-stencil
-       (ly:paper-book-systems paper-book)))
+  (let*
+      ((stencils (map paper-system-stencil
+                      (ly:paper-book-systems paper-book)))
+
+       ;; Change STENCILS to use the union for the left extents in every
+       ;; stencil so that LaTeX's \\includegraphics command doesn't modify the
+       ;; alignment.
+       (left (if (pair? stencils)
+                 (apply min
+                        (map (lambda (stc)
+                               (interval-start (ly:stencil-extent stc X)))
+                             stencils))
+                 0.0)))
+
+  (map (lambda (stil)
+         (ly:make-stencil
+          (ly:stencil-expr stil)
+          (cons left
+                (cdr (ly:stencil-extent stil X)))
+          (ly:stencil-extent stil Y)))
+       stencils)))
 
 (define-public (font-name-split font-name)
   "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
