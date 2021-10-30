@@ -174,22 +174,20 @@ Dispatcher::is_listened_class (SCM cl)
   return false;
 }
 
-static SCM
-accumulate_types (void * /* closure */,
-                  SCM key,
-                  SCM val,
-                  SCM result)
-{
-  if (scm_is_pair (val))
-    return scm_cons (key, result);
-  return result;
-}
-
 SCM
 Dispatcher::listened_types ()
 {
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &accumulate_types,
-                                 NULL, SCM_EOL, listeners_);
+  auto accumulate_types = [] (void * /* closure */,
+                              SCM key,
+                              SCM val,
+                              SCM result)
+  {
+    if (scm_is_pair (val))
+      return scm_cons (key, result);
+    return result;
+  };
+
+  return ly_scm_hash_fold (accumulate_types, nullptr, SCM_EOL, listeners_);
 }
 
 void

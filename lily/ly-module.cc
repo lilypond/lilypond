@@ -107,18 +107,6 @@ ly_module_symbols (SCM mod)
   return filtered;
 }
 
-static SCM
-entry_to_alist (void * /* closure */,
-                SCM key,
-                SCM val,
-                SCM result)
-{
-  if (from_scm<bool> (scm_variable_bound_p (val)))
-    return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
-  programming_error ("unbound variable in module");
-  return result;
-}
-
 LY_DEFINE (ly_module_2_alist, "ly:module->alist",
            1, 0, 0, (SCM mod),
            "Dump the contents of module @var{mod} as an alist.")
@@ -126,8 +114,18 @@ LY_DEFINE (ly_module_2_alist, "ly:module->alist",
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &entry_to_alist,
-                                 NULL, SCM_EOL, obarr);
+  auto entry_to_alist = [] (void * /* closure */,
+                            SCM key,
+                            SCM val,
+                            SCM result)
+  {
+    if (from_scm<bool> (scm_variable_bound_p (val)))
+      return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
+    programming_error ("unbound variable in module");
+    return result;
+  };
+
+  return ly_scm_hash_fold (entry_to_alist, nullptr, SCM_EOL, obarr);
 }
 
 void

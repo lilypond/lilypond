@@ -158,10 +158,20 @@ inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 
-/* For backward compatability with Guile 1.8 */
+// Wrap scm_internal_hash_fold() to reduce the number of places we need to use
+// reinterpret_cast.
+inline SCM
+ly_scm_hash_fold (SCM (*fn) (void *closure, SCM key, SCM val, SCM result),
+                  void *closure, SCM init, SCM table)
+{
 #if !HAVE_GUILE_HASH_FUNC
-typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
+  // For backward compatibility with Guile 1.8
+  typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 #endif
+
+  return scm_internal_hash_fold (reinterpret_cast<scm_t_hash_fold_fn> (fn),
+                                 closure, init, table);
+}
 
 // These are patterns for conversion functions.  We currently use them to
 // predict the return types of overloaded functions before they are defined,

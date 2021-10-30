@@ -416,21 +416,19 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   return SCM_UNSPECIFIED;
 }
 
-static SCM
-accumulate_symbol (void * /* closure */,
-                   SCM key,
-                   SCM /* val */,
-                   SCM result)
-{
-  return scm_cons (key, result);
-}
-
 LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
            1, 0, 0, (SCM tab),
            "Return a list of keys in @var{tab}.")
 {
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &accumulate_symbol,
-                                 NULL, SCM_EOL, tab);
+  auto accumulate_symbol = [] (void * /* closure */,
+                               SCM key,
+                               SCM /* val */,
+                               SCM result)
+  {
+    return scm_cons (key, result);
+  };
+
+  return ly_scm_hash_fold (accumulate_symbol, nullptr, SCM_EOL, tab);
 }
 
 LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",

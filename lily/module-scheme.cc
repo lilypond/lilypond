@@ -26,28 +26,27 @@
   definitions.
 */
 
-static SCM
-module_define_closure_func (void *closure,
-                            SCM key,
-                            SCM val,
-                            SCM /* result */)
-{
-  SCM module = *static_cast<SCM *> (closure);
-  if (from_scm<bool> (scm_variable_bound_p (val))
-      && !is_module_internal_symbol (key))
-    scm_module_define (module, key, scm_variable_ref (val));
-  return SCM_EOL;
-}
-
 LY_DEFINE (ly_module_copy, "ly:module-copy",
            2, 0, 0, (SCM dest, SCM src),
            "Copy all bindings from module @var{src} into @var{dest}.")
 {
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
-  scm_internal_hash_fold ((scm_t_hash_fold_fn) &module_define_closure_func,
-                          static_cast<void *> (&dest),
-                          SCM_EOL, SCM_MODULE_OBARRAY (src));
+
+  auto module_define_closure_func = [] (void *closure,
+                                        SCM key,
+                                        SCM val,
+                                        SCM /* result */)
+  {
+    SCM module = *static_cast<SCM *> (closure);
+    if (from_scm<bool> (scm_variable_bound_p (val))
+        && !is_module_internal_symbol (key))
+      scm_module_define (module, key, scm_variable_ref (val));
+    return SCM_EOL;
+  };
+
+  ly_scm_hash_fold (module_define_closure_func, static_cast<void *> (&dest),
+                    SCM_EOL, SCM_MODULE_OBARRAY (src));
   return SCM_UNSPECIFIED;
 }
 
