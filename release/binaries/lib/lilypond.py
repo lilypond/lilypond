@@ -110,10 +110,9 @@ class LilyPond(ConfigurePackage):
             python,
         ]
 
-    @property
-    def configure_default_static(self) -> bool:
+    def configure_args_static(self, c: Config) -> List[str]:
         # LilyPond itself isn't a library!
-        return False
+        return []
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)

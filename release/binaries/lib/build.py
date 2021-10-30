@@ -172,12 +172,6 @@ class Package:
 
         return all_paths
 
-    @property
-    def configure_default_static(self) -> bool:
-        """Return True if the package should be configured for a static build
-        with the default arguments."""
-        return True
-
     def build_env(self, c: Config) -> Dict[str, str]:
         """Return the environment mapping to build this package."""
         env = os.environ
@@ -211,12 +205,17 @@ class ConfigurePackage(Package):
         """Return the relative path to the configure script"""
         return "configure"
 
+    def configure_args_static(self, c: Config) -> List[str]:
+        """Return the parameters to configure the package for a static build (if any)"""
+        # pylint: disable=no-self-use,unused-argument
+        return ["--disable-shared", "--enable-static"]
+
     def configure_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to the configure script
 
         The build process automatically adds options for a static library build
-        (unless !self.configure_default_static) and the install prefix to the
-        temporary location."""
+        (see configure_args_static) and the install prefix to the temporary
+        location."""
         # pylint: disable=no-self-use,unused-argument
         return []
 
@@ -261,9 +260,8 @@ class ConfigurePackage(Package):
             # Run the configure script.
             args = [f"{src_directory}/{self.configure_script}"]
 
-            if self.configure_default_static:
-                # Disable shared libraries, force static library build.
-                args += ["--disable-shared", "--enable-static"]
+            # Disable shared libraries, force static library build.
+            args += self.configure_args_static(c)
 
             # Install the package to a temporary location.
             args += [f"--prefix={install_directory}"]
@@ -294,12 +292,17 @@ class ConfigurePackage(Package):
 class MesonPackage(Package):
     """A package that is configured with meson and built with ninja."""
 
+    def meson_args_static(self, c: Config) -> List[str]:
+        """Return the parameters to configure the package for a static build (if any)"""
+        # pylint: disable=no-self-use,unused-argument
+        return ["--default-library=static"]
+
     def meson_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to 'meson setup'
 
         The build process automatically adds options for optimizations, a static
-        library build (unless !self.configure_default_static) and the install
-        prefix to the temporary location."""
+        library build (see meson_args_static) and the install prefix to the
+        temporary location."""
         # pylint: disable=no-self-use,unused-argument
         return []
 
@@ -334,9 +337,8 @@ class MesonPackage(Package):
             # Run 'meson setup' to configure the package.
             args = ["meson", "setup", "--buildtype=release"]
 
-            if self.configure_default_static:
-                # Disable shared libraries, force static library build.
-                args += ["--default-library=static"]
+            # Disable shared libraries, force static library build.
+            args += self.meson_args_static(c)
 
             # Install the package to a temporary location.
             args += ["--libdir=lib", f"--prefix={install_directory}"]

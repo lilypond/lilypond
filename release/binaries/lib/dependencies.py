@@ -240,10 +240,9 @@ class Ghostscript(ConfigurePackage):
     def dependencies(self, c: Config) -> List[Package]:
         return [freetype]
 
-    @property
-    def configure_default_static(self) -> bool:
+    def configure_args_static(self, c: Config) -> List[str]:
         # Ghostscript doesn't have --disable-shared nor --enable-static.
-        return False
+        return []
 
     def configure_args(self, c: Config) -> List[str]:
         return [
@@ -394,12 +393,7 @@ class Zlib(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://www.zlib.net/{self.archive}"
 
-    @property
-    def configure_default_static(self) -> bool:
-        # zlib uses the non-default argument --static, see below.
-        return False
-
-    def configure_args(self, c: Config) -> List[str]:
+    def configure_args_static(self, c: Config) -> List[str]:
         return ["--static"]
 
     def copy_license_files(self, destination: str, c: Config):
