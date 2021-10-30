@@ -205,6 +205,16 @@ class ConfigurePackage(Package):
         """Return the relative path to the configure script"""
         return "configure"
 
+    def configure_args_triples(self, c: Config) -> List[str]:
+        """Return the parameters to configure the package for the platform"""
+        # pylint: disable=no-self-use
+        return [
+            # "--build" is the current system.
+            f"--build={c.native_config.triple}",
+            # "--host" is the system we are compiling for.
+            f"--host={c.triple}",
+        ]
+
     def configure_args_static(self, c: Config) -> List[str]:
         """Return the parameters to configure the package for a static build (if any)"""
         # pylint: disable=no-self-use,unused-argument
@@ -213,8 +223,9 @@ class ConfigurePackage(Package):
     def configure_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to the configure script
 
-        The build process automatically adds options for a static library build
-        (see configure_args_static) and the install prefix to the temporary
+        The build process automatically adds options for the build and host
+        triples (see configure_args_triples), a static library build (see
+        configure_args_static), as well as the install prefix to the temporary
         location."""
         # pylint: disable=no-self-use,unused-argument
         return []
@@ -259,6 +270,9 @@ class ConfigurePackage(Package):
 
             # Run the configure script.
             args = [f"{src_directory}/{self.configure_script}"]
+
+            # Add the target triples.
+            args += self.configure_args_triples(c)
 
             # Disable shared libraries, force static library build.
             args += self.configure_args_static(c)
@@ -335,6 +349,7 @@ class MesonPackage(Package):
                 )
 
             # Run 'meson setup' to configure the package.
+            # TODO: Support cross compilation.
             args = ["meson", "setup", "--buildtype=release"]
 
             # Disable shared libraries, force static library build.

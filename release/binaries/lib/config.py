@@ -22,7 +22,8 @@ for example where to store downloaded files.
 
 import enum
 import os
-import platform
+import platform as py_platform
+import sysconfig
 
 
 @enum.unique
@@ -52,14 +53,20 @@ class Config:
     jobs: int
     platform: Platform
     architecture: str
+    triple: str
 
     def __init__(
         self,
         base_dir: str,
         downloads_dir: str = None,
         jobs: int = 1,
-        forced_platform: Platform = None,
+        platform: Platform = None,
+        architecture: str = None,
+        triple: str = None,
     ):
+        """Create a new Config instance, optionally for a given platform."""
+        # pylint: disable=too-many-arguments
+
         self.base_dir = os.path.realpath(base_dir)
         if downloads_dir is None:
             downloads_dir = os.path.join(base_dir, "downloads")
@@ -67,11 +74,14 @@ class Config:
 
         self.jobs = jobs
 
-        if forced_platform is None:
-            self.platform = Platform.get_platform(platform.system())
-        else:
-            self.platform = forced_platform
-        self.architecture = platform.machine()
+        self.platform = platform or Platform.get_platform(py_platform.system())
+        self.architecture = architecture or py_platform.machine()
+        self.triple = triple or sysconfig.get_config_var("HOST_GNU_TYPE")
+
+    @property
+    def native_config(self) -> "Config":
+        """Return the native Config for this object"""
+        return self
 
     @property
     def dependencies_dir(self) -> str:

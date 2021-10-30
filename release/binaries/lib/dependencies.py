@@ -393,6 +393,10 @@ class Zlib(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://www.zlib.net/{self.archive}"
 
+    def configure_args_triples(self, c: Config) -> List[str]:
+        # TODO: Support cross compilation via CHOST environment variable.
+        return []
+
     def configure_args_static(self, c: Config) -> List[str]:
         return ["--static"]
 
