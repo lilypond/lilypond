@@ -345,6 +345,7 @@ class Gettext(ConfigurePackage):
     def __str__(self) -> str:
         return f"gettext {self.version}"
 
+
 gettext = Gettext()
 
 

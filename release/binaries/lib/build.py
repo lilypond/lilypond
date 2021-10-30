@@ -152,7 +152,9 @@ class Package:
             return lib_pkgconfig
 
         # On FreeBSD, meson puts pkgconfig files into libdata/.
-        libdata_pkgconfig = os.path.join(self.install_directory(c), "libdata", "pkgconfig")
+        libdata_pkgconfig = os.path.join(
+            self.install_directory(c), "libdata", "pkgconfig"
+        )
         if os.path.isdir(libdata_pkgconfig):
             return libdata_pkgconfig
 

@@ -29,7 +29,16 @@ from typing import Dict, List
 from .build import Package, ConfigurePackage
 from .config import Config
 from .dependencies import all_dependencies
-from .dependencies import freetype, fontconfig, ghostscript, gettext, glib, guile, pango, python
+from .dependencies import (
+    freetype,
+    fontconfig,
+    ghostscript,
+    gettext,
+    glib,
+    guile,
+    pango,
+    python,
+)
 from .fonts import all_fonts
 from .fonts import texgyre, urwbase35
 
@@ -91,7 +100,15 @@ class LilyPond(ConfigurePackage):
         gettext_dep = []
         if c.is_freebsd() or c.is_macos():
             gettext_dep = [gettext]
-        return gettext_dep + [freetype, fontconfig, ghostscript, glib, guile, pango, python]
+        return gettext_dep + [
+            freetype,
+            fontconfig,
+            ghostscript,
+            glib,
+            guile,
+            pango,
+            python,
+        ]
 
     @property
     def configure_default_static(self) -> bool:
