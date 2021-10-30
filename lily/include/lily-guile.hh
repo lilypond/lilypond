@@ -102,6 +102,13 @@ inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
  */
 inline bool ly_is_symbol (SCM x) { return scm_is_symbol (x); }
 
+// Is the given value an *integer* in the valid range of Unicode code points?
+// Note the difference between this and a *character*.
+inline bool ly_is_unicode_integer (SCM x)
+{
+  return scm_is_unsigned_integer (x, 0, 0x10FFFFL);
+}
+
 inline bool ly_is_equal (SCM x, SCM y)
 {
   return scm_is_true (scm_equal_p (x, y));
@@ -271,11 +278,27 @@ template <> inline const SCM &to_scm<SCM> (const SCM &s) { return s; }
 template <> inline SCM &to_scm<SCM> (SCM &s) { return s; }
 
 template <> inline bool
+is_scm<short> (SCM s)
+{
+  using limits = std::numeric_limits<short>;
+  return scm_is_signed_integer (s, limits::min (), limits::max ());
+}
+template <> inline short
+from_scm<short> (const SCM &s)
+{
+  return scm_to_short (s);
+}
+template <> inline SCM
+to_scm<short> (const short &i)
+{
+  return scm_from_short (i);
+}
+
+template <> inline bool
 is_scm<int> (SCM s)
 {
-  return scm_is_signed_integer (s,
-                                std::numeric_limits<int>::min (),
-                                std::numeric_limits<int>::max ());
+  using limits = std::numeric_limits<int>;
+  return scm_is_signed_integer (s, limits::min (), limits::max ());
 }
 template <> inline int
 from_scm<int> (const SCM &s)
@@ -289,50 +312,10 @@ to_scm<int> (const int &i)
 }
 
 template <> inline bool
-is_scm<size_t> (SCM s)
-{
-  return scm_is_unsigned_integer (s,
-                                  std::numeric_limits<size_t>::min (),
-                                  std::numeric_limits<size_t>::max ());
-}
-template <> inline size_t
-from_scm<size_t> (const SCM &s)
-{
-  return scm_to_size_t (s);
-}
-template <> inline SCM
-to_scm<size_t> (const size_t &i)
-{
-  return scm_from_size_t (i);
-}
-
-// The following specializations for unsigned are declared inside
-// scm_conversions<unsigned> because on 32 bit targets, unsigned
-// and size_t are the  same type. Having multiple definitions is
-// an error, but implementing an unused fallback is ok.
-template <>
-struct scm_conversions <unsigned>
-{
-  static bool is_scm (SCM s)
-  {
-    return scm_is_unsigned_integer (s,
-                                    std::numeric_limits<unsigned>::min (),
-                                    std::numeric_limits<unsigned>::max ());
-  }
-  static unsigned from_scm (SCM s) { return scm_to_uint (s); }
-  static unsigned from_scm (SCM s, unsigned fallback)
-  {
-    return is_scm (s) ? from_scm (s) : fallback;
-  }
-  static SCM to_scm (unsigned i) { return scm_from_uint (i); }
-};
-
-template <> inline bool
 is_scm<long> (SCM s)
 {
-  return scm_is_signed_integer (s,
-                                std::numeric_limits<long>::min (),
-                                std::numeric_limits<long>::max ());
+  using limits = std::numeric_limits<long>;
+  return scm_is_signed_integer (s, limits::min (), limits::max ());
 }
 template <> inline long
 from_scm<long> (const SCM &s)
@@ -348,9 +331,8 @@ to_scm<long> (const long &i)
 template <> inline bool
 is_scm<long long> (SCM s)
 {
-  return scm_is_signed_integer (s,
-                                std::numeric_limits<long long>::min (),
-                                std::numeric_limits<long long>::max ());
+  using limits = std::numeric_limits<long long>;
+  return scm_is_signed_integer (s, limits::min (), limits::max ());
 }
 template <> inline long long
 from_scm<long long> (const SCM &s)
@@ -361,6 +343,74 @@ template <> inline SCM
 to_scm<long long> (const long long &i)
 {
   return scm_from_long_long (i);
+}
+
+template <> inline bool
+is_scm<unsigned short> (SCM s)
+{
+  using limits = std::numeric_limits<unsigned short>;
+  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+}
+template <> inline unsigned short
+from_scm<unsigned short> (const SCM &s)
+{
+  return scm_to_ushort (s);
+}
+template <> inline SCM
+to_scm<unsigned short> (const unsigned short &i)
+{
+  return scm_from_ushort (i);
+}
+
+template <> inline bool
+is_scm<unsigned> (SCM s)
+{
+  using limits = std::numeric_limits<unsigned>;
+  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+}
+template <> inline unsigned
+from_scm<unsigned> (const SCM &s)
+{
+  return scm_to_uint (s);
+}
+template <> inline SCM
+to_scm<unsigned> (const unsigned &i)
+{
+  return scm_from_uint (i);
+}
+
+template <> inline bool
+is_scm<unsigned long> (SCM s)
+{
+  using limits = std::numeric_limits<unsigned long>;
+  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+}
+template <> inline unsigned long
+from_scm<unsigned long> (const SCM &s)
+{
+  return scm_to_ulong (s);
+}
+template <> inline SCM
+to_scm<unsigned long> (const unsigned long &i)
+{
+  return scm_from_ulong (i);
+}
+
+template <> inline bool
+is_scm<unsigned long long> (SCM s)
+{
+  using limits = std::numeric_limits<unsigned long long>;
+  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+}
+template <> inline unsigned long long
+from_scm<unsigned long long> (const SCM &s)
+{
+  return scm_to_ulong_long (s);
+}
+template <> inline SCM
+to_scm<unsigned long long> (const unsigned long long &i)
+{
+  return scm_from_ulong_long (i);
 }
 
 template <> inline bool

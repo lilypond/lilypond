@@ -41,6 +41,7 @@
 #include <ghostscript/ierrors.h>
 #endif
 
+#include <cstdint>
 #include <cstdio>
 #include <cstring> /* memset */
 #include <ctype.h>
@@ -314,29 +315,30 @@ LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 {
   char buf[5];
 
-  LY_ASSERT_TYPE (scm_is_integer, wc, 1);
-  unsigned wide_char = (unsigned) scm_to_int (wc);
+  // TODO: The input to ly:wide-char->utf-8 is not a char.  Rename?
+  LY_ASSERT_TYPE (ly_is_unicode_integer, wc, 1);
+  const auto wide_char = from_scm<std::uint32_t> (wc);
   char *p = buf;
 
   if (wide_char < 0x0080)
-    *p++ = (char)wide_char;
+    *p++ = static_cast<char> (wide_char);
   else if (wide_char < 0x0800)
     {
-      *p++ = (char) (((wide_char >> 6)) | 0xC0);
-      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char >> 6)) | 0xC0);
+      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
     }
   else if (wide_char < 0x10000)
     {
-      *p++ = (char) (((wide_char >> 12)) | 0xE0);
-      *p++ = (char) (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char >> 12)) | 0xE0);
+      *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
     }
   else
     {
-      *p++ = (char) (((wide_char >> 18)) | 0xF0);
-      *p++ = (char) (((wide_char >> 12) & 0x3F) | 0x80);
-      *p++ = (char) (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char >> 18)) | 0xF0);
+      *p++ = static_cast<char> (((wide_char >> 12) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
     }
   *p = 0;
 
