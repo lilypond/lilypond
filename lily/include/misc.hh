@@ -58,11 +58,13 @@ sign (int i)
   else return 0;
 }
 
-inline int
-shift_left (int value, int shiftamount)
+// Shift value left by shiftamount; if shiftamount is negative, shift right
+// instead.
+template <class T>
+constexpr T
+shift_left (T value, int shiftamount)
 {
-  if (shiftamount < 0) return (value >> -shiftamount);
-  else return (value << shiftamount);
+  return (shiftamount >= 0) ? (value << shiftamount) : (value >> -shiftamount);
 }
 
 inline Real

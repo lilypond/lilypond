@@ -61,8 +61,8 @@ Duration::Duration (Rational r, bool scale)
          satisfies the left inequality and is within a factor of 2 of
          satistying the right one. Therefore either k = k' or k = k'+1 */
 
-      int p = (int) r.num ();
-      int q = (int) r.den ();
+      auto p = r.num ();
+      auto q = r.den ();
       int k = intlog2 (q) - intlog2 (p);
       if (shift_left (p, k) < q)
         k++;
@@ -77,9 +77,9 @@ Duration::Duration (Rational r, bool scale)
          by shifting right.
          */
       if (k >= 0)
-        p = shift_left (p, k);
+        p <<= k;
       else
-        q = shift_left (q, -k);
+        q <<= -k;
       p -= q;
       dots_ = 0;
       while ((p *= 2) >= q)
