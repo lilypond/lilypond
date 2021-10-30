@@ -26,6 +26,7 @@
 #include "translator.icc"
 
 #include <algorithm>
+#include <array>
 #include <map>
 #include <vector>
 
@@ -108,29 +109,35 @@ Pure_from_neighbor_engraver::finalize ()
     to the elements of need_pure_heights_from_neighbors_ on either side.
   */
 
-  int pos[2] = { -1, 0};
-  for (vsize i = 0; i < pure_relevants_.size (); i++)
+  std::array<vsize, 2> pos { VPOS, 0 };
+  for (const auto &pure_relevant : pure_relevants_)
     {
-      while (pos[1] < (int) need_pure_heights_from_neighbors.size ()
-             && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
+      while (pos[1] < need_pure_heights_from_neighbors.size ()
+             && (pure_relevant->spanned_rank_interval ()[LEFT]
                  > (need_pure_heights_from_neighbors[pos[1]][0]
                     ->spanned_rank_interval ()[LEFT])))
         {
           pos[0] = pos[1];
           pos[1]++;
         }
-      for (int j = 0; j < 2; j++)
-        if (pos[j] >= 0 && pos[j]
-            < (int) need_pure_heights_from_neighbors.size ())
-          for (vsize k = 0;
-               k < need_pure_heights_from_neighbors[pos[j]].size ();
-               k++)
-            if (!in_same_column (need_pure_heights_from_neighbors[pos[j]][k],
-                                 pure_relevants_[i]))
-              Pointer_group_interface::add_grob
-              (need_pure_heights_from_neighbors[pos[j]][k],
-               ly_symbol2scm ("neighbors"),
-               pure_relevants_[i]);
+
+      for (const auto p : pos)
+        {
+          if ((p != VPOS) && (p < need_pure_heights_from_neighbors.size ()))
+            {
+              for (vsize k = 0;
+                   k < need_pure_heights_from_neighbors[p].size ();
+                   k++)
+                {
+                  if (!in_same_column (need_pure_heights_from_neighbors[p][k],
+                                       pure_relevant))
+                    Pointer_group_interface::add_grob
+                    (need_pure_heights_from_neighbors[p][k],
+                     ly_symbol2scm ("neighbors"),
+                     pure_relevant);
+                }
+            }
+        }
     }
 
   need_pure_heights_from_neighbors_.clear ();
