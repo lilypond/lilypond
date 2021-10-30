@@ -244,6 +244,9 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98753
 #pragma GCC diagnostic ignored "-Wfree-nonheap-object"
 
+// generated code contains some old-style casts
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+
 // generated code contains some useless casts
 #pragma GCC diagnostic ignored "-Wuseless-cast"
 

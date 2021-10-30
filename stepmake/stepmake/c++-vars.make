@@ -1,6 +1,14 @@
 ALL_LDFLAGS = $(LDFLAGS) $(CONFIG_LDFLAGS) $(MODULE_LDFLAGS) $(CONFIG_LDFLAGS)
 
-EXTRA_CXXFLAGS = -std=c++11 -fno-exceptions -W -Wall -Wconversion -Woverloaded-virtual
+EXTRA_CXXFLAGS = \
+	-std=c++11 \
+	-fno-exceptions \
+	-Wall \
+	-Wconversion \
+	-Wextra \
+	-Wold-style-cast \
+	-Woverloaded-virtual \
+# end
 
 o-dep-out = $(outdir)/$(subst .o,.dep,$(notdir $@))#
 EXTRA_CXXFLAGS += -MMD -MP -MF $(o-dep-out) -MT $(outdir)/$(notdir $@)

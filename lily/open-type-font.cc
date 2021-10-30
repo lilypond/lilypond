@@ -49,7 +49,13 @@ std::unique_ptr<FT_Byte[]>
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
   *length = 0;
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+  // The FT_MAKE_TAG macro has C-style casts and GCC is not smart enough to
+  // ignore them.
   FT_ULong tag = FT_MAKE_TAG (tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
+#pragma GCC diagnostic pop
 
   FT_Error error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)

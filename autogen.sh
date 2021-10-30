@@ -60,8 +60,6 @@ if test -n "$CI" ; then
     conf_flags="$conf_flags --enable-gs-api"
     conf_flags="$conf_flags --disable-debugging"
 
-    CFLAGS="$CFLAGS -Wall"
-    CFLAGS="$CFLAGS -Wextra"
     CFLAGS="$CFLAGS -Werror"
     export CFLAGS
 fi
