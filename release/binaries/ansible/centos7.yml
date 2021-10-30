@@ -34,6 +34,7 @@
           - gcc
           - gcc-c++
           - gperf
+          - libstdc++-static
           - m4
           - ninja-build
           - perl
