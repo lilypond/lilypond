@@ -21,6 +21,9 @@ root@Lily-CentOS7
 
 [lily_freebsd12]
 root@Lily-FreeBSD12
+
+[lily_ubuntu20_04]
+root@Lily-Ubuntu20.04
 ```
 
 The lines with square brackets, such as `[lily_centos7]`, set the group name and **must not be changed**.
