@@ -19,10 +19,10 @@
 
 #include "lilypond-version.hh"
 #include "std-vector.hh"
-#include "string-convert.hh"
 #include "misc.hh"
 
 #include <ctype.h>
+#include <string>
 
 using std::string;
 using std::vector;
@@ -55,16 +55,16 @@ Lilypond_version::Lilypond_version (const string &str)
       if (version[2].find_first_not_of (digits) != string::npos
           || version[1].empty ())
         return;
-      patch_ = String_convert::dec2int (version[2]);
+      patch_ = std::stoi (version[2]);
     // fallthrough
     case 2:
       if (version[1].find_first_not_of (digits) != string::npos
           || version[1].empty () || version[0].empty ())
         return;
-      minor_ = String_convert::dec2int (version[1]);
+      minor_ = std::stoi (version[1]);
       if (version[0].find_first_not_of (digits) != string::npos)
         return;
-      major_ = String_convert::dec2int (version[0]);
+      major_ = std::stoi (version[0]);
     }
 }
 

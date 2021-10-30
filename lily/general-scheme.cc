@@ -46,6 +46,7 @@
 #include <cstring> /* memset */
 #include <ctype.h>
 #include <glib.h>
+#include <string>
 
 using std::string;
 using std::vector;
@@ -453,7 +454,7 @@ string
 format_single_argument (SCM arg, int precision, bool escape = false)
 {
   if (scm_is_integer (arg) && scm_is_true (scm_exact_p (arg)))
-    return (String_convert::int_string (scm_to_int (arg)));
+    return std::to_string (scm_to_int (arg));
   else if (scm_is_number (arg))
     {
       Real val = scm_to_double (arg);

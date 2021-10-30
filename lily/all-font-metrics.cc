@@ -26,6 +26,8 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
+#include <string>
+
 using std::string;
 
 Index_to_charcode_map const *
@@ -33,7 +35,7 @@ All_font_metrics::get_index_to_charcode_map (const string &filename,
                                              int face_index,
                                              FT_Face face)
 {
-  string key = filename + String_convert::int_string (face_index);
+  string key = filename + std::to_string (face_index);
   if (filename_charcode_maps_map_.find (key)
       == filename_charcode_maps_map_.end ())
     filename_charcode_maps_map_[key] = make_index_to_charcode_map (face);

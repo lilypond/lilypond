@@ -61,19 +61,6 @@ String_convert::bin2hex (Byte bin_char)
 }
 
 int
-String_convert::dec2int (const string &dec_string)
-{
-  if (!dec_string.length ())
-    return 0;
-
-  long l = 0;
-  if (!sscanf (dec_string.c_str (), "%ld", &l))
-    assert (false);
-
-  return (int)l;
-}
-
-int
 String_convert::hex2bin (string hex_string, string &bin_string_r)
 {
   if (hex_string.length () % 2)
@@ -112,21 +99,6 @@ String_convert::hex2nibble (char byte)
   if (byte >= 'a' && byte <= 'f')
     return byte - 'a' + 10;
   return -1;
-}
-
-/**
-   Convert an integer to a string
-
-   @param
-   #fmt# is a printf style format, default assumes "%d" as format.
-*/
-string
-String_convert::int_string (int i, char const *fmt)
-{
-  char buffer[STRING_BUFFER_LEN];
-  snprintf (buffer, STRING_BUFFER_LEN,
-            (fmt ? fmt : "%d"), i); // assume radix 10
-  return string (buffer);
 }
 
 string
