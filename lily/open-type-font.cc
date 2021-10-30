@@ -461,7 +461,7 @@ Open_type_font::index_to_charcode (size_t i) const
   iter = index_to_charcode_map_.find (FT_UInt (i));
 
   if (iter != index_to_charcode_map_.end ())
-    return (size_t) iter->second;
+    return static_cast<size_t> (iter->second);
   else
     {
       programming_error ("Invalid index for character");

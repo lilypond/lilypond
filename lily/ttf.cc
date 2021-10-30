@@ -62,8 +62,8 @@ print_header (std::ostream &stream, FT_Face face)
 {
   stream << "%!PS-TrueTypeFont" << std::endl;
 
-  TT_Postscript *pt
-    = (TT_Postscript *) FT_Get_Sfnt_Table (face, ft_sfnt_post);
+  const auto *const pt
+    = static_cast<TT_Postscript *> (FT_Get_Sfnt_Table (face, ft_sfnt_post));
 
   if (pt->maxMemType42)
     stream << "%%VMUsage: 0 0" << std::endl;
@@ -75,8 +75,8 @@ print_header (std::ostream &stream, FT_Face face)
          << "/PaintType 0 def" << std::endl
          << "/FontMatrix [1 0 0 1 0 0] def" << std::endl;
 
-  TT_Header *ht
-    = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
+  const auto *const ht
+    = static_cast<TT_Header *> (FT_Get_Sfnt_Table (face, ft_sfnt_head));
 
   stream << "/FontBBox ["
          << float (ht->xMin) / float (ht->Units_Per_EM) << " "
@@ -268,7 +268,7 @@ print_body (std::ostream &stream, FT_Face face)
   hbuf[1] = 0x01;
   hbuf[2] = 0x00;
   hbuf[3] = 0x00;
-  hbuf[4] = (unsigned char) ((idx & 0xFF00) >> 8);      /* numTables */
+  hbuf[4] = static_cast<unsigned char> ((idx & 0xFF00) >> 8); /* numTables */
   hbuf[5] = idx & 0x00FF;
 
   FT_UInt searchRange, entrySelector, rangeShift;
@@ -279,11 +279,11 @@ print_body (std::ostream &stream, FT_Face face)
   searchRange = 0x10 << entrySelector;
   rangeShift = (idx << 4) - searchRange;
 
-  hbuf[6] = (unsigned char) ((searchRange & 0xFF00) >> 8);
+  hbuf[6] = static_cast<unsigned char> ((searchRange & 0xFF00) >> 8);
   hbuf[7] = searchRange & 0x00FF;
-  hbuf[8] = (unsigned char) ((entrySelector & 0xFF00) >> 8);
+  hbuf[8] = static_cast<unsigned char> ((entrySelector & 0xFF00) >> 8);
   hbuf[9] = entrySelector & 0x00FF;
-  hbuf[10] = (unsigned char) ((rangeShift & 0xFF00) >> 8);
+  hbuf[10] = static_cast<unsigned char> ((rangeShift & 0xFF00) >> 8);
   hbuf[11] = rangeShift & 0x00FF;
 
   p = &hbuf[12];
@@ -326,24 +326,24 @@ print_body (std::ostream &stream, FT_Face face)
 
       delete[] buf;
 
-      *(p++) = (unsigned char) ((tags[i] & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((tags[i] & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((tags[i] & 0x0000FF00UL) >> 8);
+      *(p++) = static_cast<unsigned char> ((tags[i] & 0xFF000000UL) >> 24);
+      *(p++) = static_cast<unsigned char> ((tags[i] & 0x00FF0000UL) >> 16);
+      *(p++) = static_cast<unsigned char> ((tags[i] & 0x0000FF00UL) >> 8);
       *(p++) = tags[i] & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((checksum & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((checksum & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((checksum & 0x0000FF00UL) >> 8);
+      *(p++) = static_cast<unsigned char> ((checksum & 0xFF000000UL) >> 24);
+      *(p++) = static_cast<unsigned char> ((checksum & 0x00FF0000UL) >> 16);
+      *(p++) = static_cast<unsigned char> ((checksum & 0x0000FF00UL) >> 8);
       *(p++) = checksum & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((offset & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((offset & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((offset & 0x0000FF00UL) >> 8);
+      *(p++) = static_cast<unsigned char> ((offset & 0xFF000000UL) >> 24);
+      *(p++) = static_cast<unsigned char> ((offset & 0x00FF0000UL) >> 16);
+      *(p++) = static_cast<unsigned char> ((offset & 0x0000FF00UL) >> 8);
       *(p++) = offset & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((lengths[i] & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((lengths[i] & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((lengths[i] & 0x0000FF00UL) >> 8);
+      *(p++) = static_cast<unsigned char> ((lengths[i] & 0xFF000000UL) >> 24);
+      *(p++) = static_cast<unsigned char> ((lengths[i] & 0x00FF0000UL) >> 16);
+      *(p++) = static_cast<unsigned char> ((lengths[i] & 0x0000FF00UL) >> 8);
       *(p++) = lengths[i] & 0x000000FFUL;
 
       /* offset must be a multiple of 4 */
@@ -379,9 +379,12 @@ print_body (std::ostream &stream, FT_Face face)
       if (tag == head_tag)
         {
           /* in the second pass simply store the computed font checksum */
-          buf[8] = (unsigned char) ((font_checksum & 0xFF000000UL) >> 24);
-          buf[9] = (unsigned char) ((font_checksum & 0x00FF0000UL) >> 16);
-          buf[10] = (unsigned char) ((font_checksum & 0x0000FF00UL) >> 8);
+          buf[8]
+            = static_cast<unsigned char> ((font_checksum & 0xFF000000UL) >> 24);
+          buf[9]
+            = static_cast<unsigned char> ((font_checksum & 0x00FF0000UL) >> 16);
+          buf[10]
+            = static_cast<unsigned char> ((font_checksum & 0x0000FF00UL) >> 8);
           buf[11] = font_checksum & 0x000000FFUL;
         }
 
@@ -401,8 +404,8 @@ print_trailer (std::ostream &stream, FT_Face face)
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
 
-  TT_MaxProfile *mp
-    = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
+  const auto *const mp
+    = static_cast<TT_MaxProfile *> (FT_Get_Sfnt_Table (face, ft_sfnt_maxp));
 
   stream << "/CharStrings " << mp->numGlyphs << " dict dup begin" << std::endl;
 

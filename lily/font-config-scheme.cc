@@ -108,7 +108,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   FcValue val;
 
   val.type = FcTypeString;
-  val.u.s = (const FcChar8 *)ly_scm2string (name).c_str (); // FC_SLANT_ITALIC;
+  val.u.s = reinterpret_cast<const FcChar8 *> (ly_scm2string (name).c_str ());
   FcPatternAdd (pat, FC_FAMILY, val, FcFalse);
 
   FcResult result;
@@ -120,7 +120,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   pat = FcFontMatch (NULL, pat, &result);
   FcChar8 *str = 0;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = scm_from_utf8_string ((char const *)str);
+    scm_result = scm_from_utf8_string (reinterpret_cast<char const *> (str));
 
   FcPatternDestroy (pat);
 
@@ -147,7 +147,7 @@ LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0
 
   string d = ly_scm2string (dir);
 
-  if (!FcConfigAppFontAddDir (0, (const FcChar8 *)d.c_str ()))
+  if (!FcConfigAppFontAddDir (0, reinterpret_cast<const FcChar8 *> (d.c_str ())))
     error (_f ("failed adding font directory: %s", d.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", d.c_str ()));
@@ -163,7 +163,7 @@ LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
 
   string f = ly_scm2string (font);
 
-  if (!FcConfigAppFontAddFile (0, (const FcChar8 *)f.c_str ()))
+  if (!FcConfigAppFontAddFile (0, reinterpret_cast<const FcChar8 *> (f.c_str ())))
     error (_f ("failed adding font file: %s", f.c_str ()));
   else
     debug_output (_f ("Adding font file: %s", f.c_str ()));

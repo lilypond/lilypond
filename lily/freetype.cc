@@ -143,33 +143,27 @@ struct Path_interpreter
   FT_Outline_Funcs funcs () const
   {
     FT_Outline_Funcs funcs{};
-    funcs.move_to = &moveto_void;
-    funcs.line_to = &lineto_void;
-    funcs.conic_to = &curve2to_void;
-    funcs.cubic_to = &curve3to_void;
+    funcs.move_to = [] (const FT_Vector * to, void *user)
+    {
+      return static_cast<Path_interpreter *> (user)->moveto (*to);
+    };
+    funcs.line_to = [] (const FT_Vector * to, void *user)
+    {
+      return static_cast<Path_interpreter *> (user)->lineto (*to);
+    };
+    funcs.conic_to = [] (const FT_Vector * c1, const FT_Vector * to, void *user)
+    {
+      return static_cast<Path_interpreter *> (user)->curve2to (*c1, *to);
+    };
+    funcs.cubic_to = [] (const FT_Vector * c1, const FT_Vector * c2,
+                         const FT_Vector * to, void *user)
+    {
+      return static_cast<Path_interpreter *> (user)->curve3to (*c1, *c2, *to);
+    };
     funcs.shift = 0;
     funcs.delta = 0;
     return funcs;
   };
-
-  static int moveto_void (const FT_Vector *to, void *user)
-  {
-    return ((Path_interpreter *) user)->moveto (*to);
-  }
-  static int lineto_void (const FT_Vector *to, void *user)
-  {
-    return ((Path_interpreter *) user)->lineto (*to);
-  }
-  static int curve2to_void (const FT_Vector *c1, const FT_Vector *to,
-                            void *user)
-  {
-    return ((Path_interpreter *) user)->curve2to (*c1, *to);
-  }
-  static int curve3to_void (const FT_Vector *c1, const FT_Vector *c2,
-                            const FT_Vector *to, void *user)
-  {
-    return ((Path_interpreter *) user)->curve3to (*c1, *c2, *to);
-  }
 };
 
 void

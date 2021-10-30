@@ -54,34 +54,34 @@ init_fontconfig ()
   confs.push_back (lilypond_datadir + "/fonts/00-lilypond-fonts.conf");
 
   /* fontconfig's default conf file */
-  void *default_conf = FcConfigFilename (NULL);
-  confs.push_back (static_cast<char *> (default_conf));
-  FcStrFree (static_cast<FcChar8 *> (default_conf));
+  {
+    FcChar8 *default_conf = FcConfigFilename (nullptr);
+    confs.emplace_back (reinterpret_cast<char *> (default_conf));
+    FcStrFree (default_conf);
+  }
 
   /* LilyPond local fontconfig conf file 99
      This file is loaded *after* fontconfig's default conf. */
   confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
 
   /* Load fontconfig conf files */
-  for (vector<string>::const_iterator it = confs.begin ();
-       it != confs.end ();
-       it++)
+  for (const auto &conf : confs)
     {
-      if (!FcConfigParseAndLoad (font_config_global,
-                                 (FcChar8 *)it->c_str (),
-                                 FcFalse))
+      auto *const fcstr = reinterpret_cast<const FcChar8 *> (conf.c_str ());
+      if (!FcConfigParseAndLoad (font_config_global, fcstr, FcFalse))
         error (_f ("failed to add fontconfig configuration file `%s'",
-                   it->c_str ()));
+                   conf.c_str ()));
       else
         debug_output (_f ("Adding fontconfig configuration file: %s",
-                          it->c_str ()));
+                          conf.c_str ()));
     }
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
      on windows.  */
   string dir (lilypond_datadir + "/fonts/otf");
 
-  if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
+  if (!FcConfigAppFontAddDir (font_config_global,
+                              reinterpret_cast<const FcChar8 *> (dir.c_str ())))
     error (_f ("failed adding font directory: %s", dir.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));

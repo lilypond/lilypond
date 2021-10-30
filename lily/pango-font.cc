@@ -268,8 +268,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
   string file_name;
   if (file_name_as_ptr)
-    // Normalize file name.
-    file_name = File_name ((char const *)file_name_as_ptr).to_string ();
+    {
+      // Normalize file name.
+      auto cstr = reinterpret_cast<char const *> (file_name_as_ptr);
+      file_name = File_name (cstr).to_string ();
+    }
 
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
@@ -426,9 +429,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
   if (ps_name.length ())
     {
-      ((Pango_font *) this)->register_font_file (file_name,
-                                                 ps_name,
-                                                 face_index);
+      // Hm.  Is register_font_file() const or is it not?
+      {
+        auto me = const_cast<Pango_font *> (this);
+        me->register_font_file (file_name, ps_name, face_index);
+      }
 
       SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"), self_scm (), ly_string2scm (ps_name),
                              to_scm (size), scm_from_bool (cid_keyed), glyph_exprs,
@@ -485,12 +490,12 @@ Pango_font::text_stencil (Output_def * /* state */,
 
   for (GSList *l = lines; l; l = l->next)
     {
-      PangoLayoutLine *line = (PangoLayoutLine *) l->data;
+      auto *const line = static_cast<PangoLayoutLine *> (l->data);
       GSList *layout_runs = line->runs;
 
       for (GSList *p = layout_runs; p; p = p->next)
         {
-          PangoGlyphItem *item = (PangoGlyphItem *) p->data;
+          auto *const item = static_cast<PangoGlyphItem *> (p->data);
           Stencil item_stencil = pango_item_string_stencil (item);
 
           item_stencil.translate_axis (last_x, X_AXIS);

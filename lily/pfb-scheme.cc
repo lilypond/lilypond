@@ -41,7 +41,7 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
   string type1_string = gulp_file (file_name, 0);
   SCM pfa_scm;
 
-  if ((Byte) type1_string[0] == 0x80)
+  if (static_cast<Byte> (type1_string[0]) == 0x80)
     {
       /* The file is in PFB format. Convert it to PFA format. */
       string pfa = pfb2pfa (type1_string);
