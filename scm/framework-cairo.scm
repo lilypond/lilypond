@@ -19,9 +19,8 @@
 
 (use-modules (lily))
 
-(define-public output-stencils ly:output-cairo)
+(define-public output-stencils ly:cairo-output-stencils)
 
 ;; TODO - implement output-clipped-systems 
 
-(define-public (output-stencil basename stencil paper)
-  (ly:output-cairo basename (list stencil) #f paper))
+(define-public output-stencil ly:cairo-output-stencil)
