@@ -222,7 +222,7 @@ in cima al file @file{.ly}.
 Genera file EPS.
 
 Questa opzione equivale a impostare le opzioni a linea di comando di LilyPond
-@code{--ps}, @code{-dbackend=eps} e @code{-daux-files='#f'}.
+@code{--ps} e @code{-dlilypond-book-output}.
 
 @cindex output, formato
 @cindex formato, output
@@ -558,12 +558,6 @@ ottenere file di grosse dimensioni.
 Anche per l'output PDF viene usato il backend @code{ps}; i dati PS risultanti
 sono poi rielaborati dallo script di Ghostscript @code{ps2pdf}, che si
 occupa anche dei sottoinsiemi di font.
-
-@item eps
-Usato come backend predefinito dal comando @command{lilypond-book}.  Per
-ogni pagina crea sia un singolo file con tutte le pagine e i tipi di carattere
-inclusi sia file EPS (Encapsulated PostScript) separati per ogni pagina
-ma senza i tipi di caratteri inclusi.
 
 @item svg
 Scalable Vector Graphics.

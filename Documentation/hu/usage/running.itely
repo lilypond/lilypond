@@ -221,19 +221,6 @@ A PostScript fájlok teljes egészükben tartalmazzák a megjelenítéshez szük
 TTF, Type1 és OTF betűkészleteket. Keleti karakterkészletek használata esetén
 ez nagy fájlokhoz vezethet.
 
-@item eps
-
-@cindex Encapsulated PostScript
-@cindex EPS (Encapsulated PostScript)
-
- Encapsulated PostScript.
-
-Minden oldal külön @file{EPS} fájlba kerül, betűtípusok nélkül, valamint egy
-összesített @file{EPS} fájl is létrejön, amely az összes oldalt tartalmazza
-betűtípusokkal együtt.
-
-A @command{lilypond-book} alapértelmezetten ezt a formátumot használja.
-
 @item svg
 
 @cindex SVG (Scalable Vector Graphics)

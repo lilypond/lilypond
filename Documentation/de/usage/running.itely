@@ -432,13 +432,6 @@ wird nicht reduziert (Subsetting).  Die Benutzung von östlichen
 Schriftarten kann zu sehr großen Dateien führen.
 
 @item
-@tab @code{eps}
-@tab Encapsulated PostScript.  Hiermit wird jede Seite (System) als eine
-eigene @file{EPS}-Datei gespeichert, ohne Schriftarten, sowie als eine
-kombinierte @file{EPS}-Datei mit allen Seiten (Systemen) inclusive
-Schriftarten.  Wird als Standard von @command{lilypond-book} benützt.
-
-@item
 @tab @code{svg}
 @tab Scalable Vector Graphics.  Hiermit wird eine einzelne @code{SVG}-Datei
 für jede Seite der Ausgabe erstellt, ohne Schriftarten.  Es wird

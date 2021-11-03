@@ -663,11 +663,12 @@ def main():
 
     if global_options.process_cmd == '':
         global_options.process_cmd = (
-            lilypond_binary + ' --formats=%s -dbackend=eps ' % formats)
+            lilypond_binary + ' --formats=%s ' % formats)
 
     global_options.process_cmd += (
         ' '.join([' -I %s' % mkarg(p) for p in global_options.include_path])
-        + ' -daux-files ')
+        + ' -daux-files '
+        + ' -dlilypond-book-output ')
     
     global_options.formatter.process_options(global_options)
 

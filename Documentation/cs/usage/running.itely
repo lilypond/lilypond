@@ -284,13 +284,6 @@ großen Dateien führen.
 @cindex PostScript Ausgabeformat
 @cindex EPS (encapsulated PostScript)
 
-@item eps
-Erzeugt @q{encapsulated PostScript} (EPS). Jede Seite (oder jedes System) wird
-als eigene @file{EPS}-Datei ausgegeben, inklusive Schriftarten. Außerdem wird
-eine Datei mit allen Seiten (bzw. Systemen) und Schriftarten erzeugt.
-
-Dies ist die Standardeinstellung von @command{lilypond-book}.
-
 @cindex SVG (scalable vector graphics)
 @cindex Vektorgraphik (SVG)
 

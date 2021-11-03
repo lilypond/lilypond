@@ -417,14 +417,6 @@ de lletra.  L'ús de conjunts de  caràcters @q{orientals} pot
 produir fitxers molts grans.
 
 @item
-@tab @code{eps}
-@tab PostScript encapsulat.  Bolca cada pàgina o sistema com un
-fitxer @file{EPS} diferent, sense tipus tipogràfics de lletra, i
-com un fitxer @file{EPS} enquadernat amb totes les pàgines o
-sistemes que inclouen els tipus de lletra.  Utilitzat com a opció
-predeterminada per part de @command{lilypond-book}.
-
-@item
 @tab @code{svg}
 @tab Gràfics vectorials escalables.  Crea un únic fitxer
 @code{SVG}, sense tipus tipogràfics de lletra incrustats, per a

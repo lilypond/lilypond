@@ -240,8 +240,8 @@ lugar de apóstrofos simples.}
 Generar archivos EPS.
 
 Esta opción equivale a establecer las opciones de la línea de
-órdenes de LilyPond a @code{--ps}, @code{-dbackend=eps} y
-@code{-daux-files='#f'}.
+órdenes de LilyPond a @code{--ps} y
+@code{-dlilypond-book-output}.
 
 @cindex salida, formato
 @cindex formato, salida
@@ -608,13 +608,6 @@ Para la salida PDF se utiliza también el backend @code{ps}; los
 datos PS resultantes se post-procesan mediante el guión
 @code{ps2pdf} de Ghostscript, que también efectúa subconjuntos de
 fuentes de manera predeterminada.
-
-@item eps
-Usado como la opción predeterminada por la instrucción
-@command{lilypond-book}.  Vuelca cada página al mismo tiempo como
-un solo archivo con todas las ṕaginas y fuentes tipográficas
-incluidas y como archivos Postscript separados para cada página
-pero sin las fuentes tipográficas incluidas.
 
 @item svg
 Gráficos vectoriales escalables.  Por cada página de la salida, se

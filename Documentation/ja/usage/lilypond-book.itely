@@ -843,7 +843,7 @@ Texinfo ドキュメント @file{test.texinfo} に以下の記述があると仮
 
 @example
 lilypond-book --pdf --process="lilypond \
-  -dbackend=eps --header=texidoc" test.texinfo
+  --header=texidoc" test.texinfo
 @end example
 
 たいていの LilyPond テスト ドキュメント (配布ソースの @file{input}

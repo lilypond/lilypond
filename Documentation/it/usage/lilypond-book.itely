@@ -834,7 +834,7 @@ il seguente comando produce il risultato atteso
 
 @example
 lilypond-book --pdf --process="lilypond \
-  -dbackend=eps --header=texidoc" test.texinfo
+  --header=texidoc" test.texinfo
 @end example
 
 Per la maggior parte, i documenti di test di LilyPond (nella directory @file{input}

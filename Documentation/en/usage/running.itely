@@ -553,12 +553,6 @@ For PDF output, the @code{ps} backend is used, too; the resulting
 PS data is post-processed by Ghostscript's @code{ps2pdf} script,
 which also does font subsetting by default.
 
-@item eps
-Used as the default by the @command{lilypond-book} command.  This dumps
-every page as both a single file with all pages and fonts included and
-as separate encapsulated PostScript files for each page but without fonts
-included.
-
 @item svg
 Scalable Vector Graphics.
 A single SVG file is created for every page of output.  Music glyphs

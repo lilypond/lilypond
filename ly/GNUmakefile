@@ -20,7 +20,7 @@ welcome.%: Welcome_to_LilyPond.ly
 	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --$* -o $(outdir)/welcome $<" \
 	    "$@.log"
 
-LILYPOND_EPS_FLAGS = $(LILYPOND_FLAGS) -dbackend=eps --formats=pdf,png
+LILYPOND_EPS_FLAGS = $(LILYPOND_FLAGS) -dlilypond-book-output --formats=pdf,png
 welcome_eps.pdf: Welcome_to_LilyPond.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \

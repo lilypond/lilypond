@@ -979,7 +979,7 @@ La ligne de commande suivante produira le résultat escompté.
 
 @example
 lilypond-book --pdf --process="lilypond \
-  -dbackend=eps --header=texidoc" test.texinfo
+  --header=texidoc" test.texinfo
 @end example
 
 La plupart des fichiers de test contenus dans le répertoire @file{input}

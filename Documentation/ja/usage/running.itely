@@ -227,7 +227,7 @@ lilypond -e '(define-public a 42)'
 EPS ファイルを生成します。
 
 このオプションは LilyPond のコマンドラインオプションに
-@code{--ps}, @code{-dbackend=eps}, と @code{-daux-files='#f'}
+@code{--ps}, と @code{-dlilypond-book-output},
 を指定するのと同じです。
 
 @cindex output, format (出力のフォーマット)
