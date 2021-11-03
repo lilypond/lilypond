@@ -47,6 +47,9 @@ private:
   void add_score_title (SCM);
   SCM get_score_title (SCM);
 
+  void output_stencils (SCM, SCM);
+  void output_stencil (SCM, SCM);
+  
   Paper_book *parent_;
   Output_def *paper_;
 public:

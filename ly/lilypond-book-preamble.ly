@@ -41,8 +41,6 @@
 
 #(set! output-empty-score-list #t)
 
-
-#(ly:set-option 'backend 'eps)
 #(ly:set-option (quote no-point-and-click))
 #(define inside-lilypond-book #t)
 #(define version-seen #t)

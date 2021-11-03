@@ -22,10 +22,14 @@
 
 using std::string;
 
-string
+std::string
 get_output_backend_name ()
 {
-  return ly_symbol2string (ly_get_option (ly_symbol2scm ("backend")));
+  std::string name
+    = ly_symbol2string (ly_get_option (ly_symbol2scm ("backend")));
+  if (name == "eps")
+    name = "ps";
+  return name;
 }
 
 bool

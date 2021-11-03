@@ -213,7 +213,7 @@ at the top of the @file{.ly} file.
 Generate EPS files.
 
 This option is equivalent to setting LilyPond's command line options
-@code{--ps}, @code{-dbackend=eps}, and @code{-daux-files='#f'}.
+@code{--ps} and @code{-dlilypond-book-output}.
 
 @cindex output, format
 @cindex format, output

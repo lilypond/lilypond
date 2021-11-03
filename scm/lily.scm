@@ -327,6 +327,9 @@ processed.")
     (job-count #f
                "Process in parallel, using the given number of
 jobs.")
+    (lilypond-book-output #f
+                          "Generate separate output files for
+individual pages/systems")
     (log-file #f
               "If string FOO is given as an argument, redirect
 output to log file `FOO.log'.")

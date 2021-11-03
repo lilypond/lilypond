@@ -197,67 +197,37 @@ Paper_book::output (SCM output_channel)
   dump_header_fields (output_channel, false);
   dump_signatures (output_channel);
 
-  string mod_nm = "lily framework-" + get_output_backend_name ();
-
-  SCM mod = scm_c_resolve_module (mod_nm.c_str ());
-
   if (get_program_option ("print-pages"))
     {
-      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencils"));
-
-      if (scm_is_true (framework))
+      SCM stencils = SCM_EOL;
+      for (SCM s = pages (); scm_is_pair (s); s = scm_cdr (s))
         {
-          SCM func = scm_variable_ref (framework);
-
-          SCM stencils = SCM_EOL;
-          for (SCM s = pages (); scm_is_pair (s); s = scm_cdr (s))
-            {
-              stencils = scm_cons (get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
-            }
-          stencils = scm_reverse_x (stencils, SCM_EOL);
-
-          // TODO - paper or top_paper?
-          scm_call_4 (func, output_channel, stencils, header_,
-                      paper ()->self_scm ());
+          stencils = scm_cons (
+            get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
         }
-      else
-        warning (_f ("program option -dprint-pages not supported by backend `%s'",
-                     get_output_backend_name ()));
+      output_stencils (output_channel, scm_reverse_x (stencils, SCM_EOL));
     }
 
-  SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
-  if (scm_is_false (framework))
-    {
-      warning (_f ("program option -dclip-systems/-dcrop/-dpreview not "
-                   "supported by backend `%s'",
-                   get_output_backend_name ()));
-      return;
-    }
-
-  SCM func = scm_variable_ref (framework);
   if (get_program_option ("clip-systems"))
     {
       SCM name_stencil_alist
         = Lily::clipped_systems_stencils (output_channel, systems ());
 
       for (SCM p = name_stencil_alist; scm_is_pair (p); p = scm_cdr (p))
-        scm_call_3 (func, scm_caar (p), scm_cdar (p), paper_->self_scm ());
+        output_stencil (scm_caar (p), scm_cdar (p));
     }
 
   std::string basename = ly_scm2string (output_channel);
   if (get_program_option ("preview"))
     {
-
-      scm_call_3 (func, ly_string2scm (basename + ".preview"),
-                  Lily::generate_preview_stencil (self_scm ()),
-                  paper ()->self_scm ());
+      output_stencil (ly_string2scm (basename + ".preview"),
+                      Lily::generate_preview_stencil (self_scm ()));
     }
 
   if (get_program_option ("crop"))
     {
-      scm_call_3 (func, ly_string2scm (basename + ".cropped"),
-                  Lily::generate_crop_stencil (self_scm ()),
-                  paper ()->self_scm ());
+      output_stencil (ly_string2scm (basename + ".cropped"),
+                      Lily::generate_crop_stencil (self_scm ()));
     }
 
   if (get_program_option ("aux-files"))
@@ -323,25 +293,70 @@ Paper_book::classic_output (SCM output)
   dump_header_fields (output, true);
   dump_signatures (output);
 
-  string format = get_output_backend_name ();
-  string mod_nm = "lily framework-" + format;
+  output_stencils (output, Lily::generate_system_stencils (self_scm ()));
 
+  if (get_program_option ("aux-files"))
+    Lily::write_lilypond_book_aux_files (output, scm_length (systems ()));
+}
+
+void
+Paper_book::output_stencil (SCM out_name, SCM stencil)
+{
+  string mod_nm = "lily framework-" + get_output_backend_name ();
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
-  SCM func = scm_c_module_lookup (mod, "output-stencils");
-  if (scm_is_false (func))
+
+  SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
+  if (scm_is_false (framework))
     {
-      warning (_f ("lilypond-book output not supported by backend `%s'",
+      warning (_f ("program option -dclip-systems/-dcrop/-dpreview not "
+                   "supported by backend `%s'",
                    get_output_backend_name ()));
       return;
     }
 
-  func = scm_variable_ref (func);
+  SCM func = scm_variable_ref (framework);
+  scm_call_3 (func, out_name, stencil, paper_->self_scm ());
+}
 
-  SCM stencils = Lily::generate_system_stencils (self_scm ());
-  scm_call_4 (func, output, stencils, SCM_BOOL_F, paper ()->self_scm ());
+void
+Paper_book::output_stencils (SCM out_name, SCM stencils)
+{
+  if (get_program_option ("aux-files")
+      || get_program_option ("lilypond-book-output"))
+    {
+      Stencil acc;
+      std::string base = ly_scm2string (out_name);
+      for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s))
+        {
+          Stencil const *st = unsmob<Stencil const> (scm_car (s));
+          acc.add_at_edge (Y_AXIS, DOWN, *st, 2.0);
+        }
 
-  if (get_program_option ("aux-files"))
-    Lily::write_lilypond_book_aux_files (output, scm_length (systems ()));
+      output_stencil (out_name, acc.smobbed_copy ());
+      int i = 1;
+      for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s), i++)
+        {
+          output_stencil (ly_string2scm (base + "-" + std::to_string (i)),
+                          scm_car (s));
+        }
+    }
+  else
+    {
+      string format = get_output_backend_name ();
+      string mod_nm = "lily framework-" + format;
+
+      SCM mod = scm_c_resolve_module (mod_nm.c_str ());
+      SCM func = scm_c_module_lookup (mod, "output-stencils");
+      if (scm_is_false (func))
+        {
+          warning (_f ("multi-page output not supported by backend `%s'",
+                       get_output_backend_name ()));
+          return;
+        }
+
+      func = scm_variable_ref (func);
+      scm_call_4 (func, out_name, stencils, SCM_BOOL_F, paper ()->self_scm ());
+    }
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */
