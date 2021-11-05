@@ -115,7 +115,6 @@ Tuplet_iterator::process (Moment m)
   if (spanner_duration_
       && Moment (m.main_part_) == next_split_mom_)
     {
-      descend_to_bottom_context ();
       if (tuplet_handler_.get_context ())
         create_event (STOP)->send_to_context (tuplet_handler_.get_context ());
 
