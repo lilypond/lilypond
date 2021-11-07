@@ -163,16 +163,6 @@ init_func_doc ()
   ly_add_type_predicate (is_scm<unsigned long>, int_text (0UL));
   ly_add_type_predicate (is_scm<unsigned long long>, int_text (0ULL));
 
-  // smobs
-  ly_add_type_predicate (unsmob<Global_context>, "Global_context");
-  ly_add_type_predicate (unsmob<Item>, "Item");
-  ly_add_type_predicate (unsmob<Music>, "Music");
-  ly_add_type_predicate (unsmob<Paper_score>, "Paper_score");
-  ly_add_type_predicate (unsmob<Performance>, "Performance");
-  ly_add_type_predicate (unsmob<Spanner>, "Spanner");
-  ly_add_type_predicate (unsmob<Stream_event>, "Stream_event");
-  ly_add_type_predicate (unsmob<Transform>, "coordinate transform");
-
   // etc.
   ly_add_type_predicate (is_number_pair, "number pair");
   ly_add_type_predicate (is_scm<Axis>, "axis");

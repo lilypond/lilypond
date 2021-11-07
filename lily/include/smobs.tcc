@@ -24,8 +24,6 @@
 // included from smobs.hh, but other template expansion systems might
 // make it feasible to compile this only a single time.
 
-#include <typeinfo>
-
 template <class Super>
 SCM
 Smob_base<Super>::mark_trampoline (SCM arg)
@@ -117,12 +115,7 @@ const char *const Smob_base<Super>::type_p_name_ = 0;
 template <class Super>
 void Smob_base<Super>::init ()
 {
-  smob_name_ = typeid (Super).name ();
-  // Primitive demangling, suitable for GCC, should be harmless
-  // elsewhere.  The worst that can happen is that we get material
-  // unsuitable for Texinfo documentation.  If that proves to be an
-  // issue, we need some smarter strategy.
-  smob_name_ = smob_name_.substr (smob_name_.find_first_not_of ("0123456789"));
+  smob_name_ = calc_smob_name<Super> ();
   assert (!smob_tag_);
   smob_tag_ = scm_make_smob_type (smob_name_.c_str (), 0);
   // The following have trivial private default definitions not
@@ -149,7 +142,7 @@ void Smob_base<Super>::init ()
                                      fundoc.c_str ());
       scm_c_export (Super::type_p_name_, NULL);
     }
-  ly_add_type_predicate (is_smob, smob_name_.c_str ());
+  ly_add_type_predicate (unsmob<const Super>, smob_name_.c_str ());
   Super::smob_proc_init (smob_tag_);
 }
 #endif

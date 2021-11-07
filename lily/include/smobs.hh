@@ -25,6 +25,7 @@
 #include "warn.hh"
 
 #include <string>
+#include <typeinfo>
 #include <vector>
 
 /*
@@ -275,6 +276,18 @@ private:
   template <class T>
   friend T *ly_assert_smob (SCM s, int number, const char *fun);
 };
+
+template <class T>
+std::string calc_smob_name ()
+{
+  std::string name = typeid (T).name ();
+  // Primitive demangling, suitable for GCC, should be harmless
+  // elsewhere.  The worst that can happen is that we get material
+  // unsuitable for Texinfo documentation.  If that proves to be an
+  // issue, we need some smarter strategy.
+  name = name.substr (name.find_first_not_of ("0123456789"));
+  return name;
+}
 
 template <class T>
 inline T *unsmob (SCM s)

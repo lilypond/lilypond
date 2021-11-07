@@ -22,6 +22,8 @@
 
 #include "config.hh"
 
+#include <string>
+
 #if GUILEV2
 // if Guile's internal representation switches to utf8, this should be
 // changed accordingly for efficiency's sake.  This is used for
@@ -95,7 +97,6 @@ inline void ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
 {
   // ReturnType might be bool.
   // ReturnType might be int for scm_is_foo().
-  // ReturnType might be a pointer for unsmob<Foo>().
   static_assert (static_cast<bool> (ReturnType ()) || true,
                  "predicate return type must be convertible to bool");
   return ly_internal_add_type_predicate (reinterpret_cast<const void *> (pred),
@@ -252,6 +253,7 @@ void ly_check_name (const char *cxx, const char *fname);
 #define set_property(p, x, y) (p)->internal_set_property (ly_symbol2scm (x), y)
 #endif
 
+// Note: For Smobs, use LY_ASSERT_SMOB instead.
 #define LY_ASSERT_TYPE(pred, var, number)                                       \
   {                                                                     \
     if (!pred (var)) \
@@ -261,6 +263,9 @@ void ly_check_name (const char *cxx, const char *fname);
                                predicate_to_typename (pred).c_str());   \
       }                                                                 \
   }
+
+template <class T>
+std::string calc_smob_name ();
 
 template <class T>
 T *unsmob (SCM var);
@@ -274,12 +279,8 @@ inline T *ly_assert_smob (SCM var, int number, const char *fun)
     return smob;
 
   scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
-                          number, var,
-                          predicate_to_typename (unsmob<T>).c_str ());
+                          number, var, calc_smob_name<T> ().c_str ());
 }
-
-// Could be just implemented using LY_ASSERT_TYPE, but this variant
-// saves a slight amount of code
 
 #define LY_ASSERT_SMOB(klass, var, number)                              \
   ly_assert_smob<klass> (var, number, __FUNCTION__)
