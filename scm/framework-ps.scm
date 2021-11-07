@@ -755,7 +755,7 @@ mark {ly~a_stream} /CLOSE pdfmark
               (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
-(define-public (output-stencils basename stencils header paper)
+(define-public (output-stencils basename stencils header paper formats)
   (let* ((port (make-tmpfile basename))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
@@ -783,7 +783,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          port))
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (postprocess-output paper framework-ps-module (ly:output-formats)
+    (postprocess-output paper framework-ps-module formats
                         basename tmp-name #f)))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename
@@ -855,13 +855,13 @@ mark {ly~a_stream} /CLOSE pdfmark
     (ly:rename-file tmp-name dest-name)
     ))
 
-(define-public (output-stencil basename stencil paper)
+(define-public (output-stencil basename stencil paper formats)
   (dump-stencil-as-EPS paper
                        stencil
                        basename
                        #t)
   (postprocess-output paper framework-ps-module
-                      (cons "png" (ly:output-formats))
+                      formats
                       basename
                       (format #f "~a.eps" basename)
                       #t

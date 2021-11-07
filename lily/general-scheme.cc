@@ -296,37 +296,6 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return ly_string2scm (_ (ly_scm2string (original).c_str ()));
 }
 
-LY_DEFINE (ly_output_formats, "ly:output-formats",
-           0, 0, 0, (),
-           "Formats passed to command line option @option{--format} as a list"
-           " of strings, used for the output.")
-{
-  SCM lst = SCM_EOL;
-  for (std::string const &fmt : output_formats_global)
-    lst = scm_cons (ly_string2scm (fmt), lst);
-
-  return lst;
-}
-
-LY_DEFINE (
-  ly_tall_page_output_formats, "ly:tall-page-output-formats", 0, 0, 0, (),
-  "Formats passed to command line option @option{-dtall-page-formats} as a list"
-  " of strings.")
-{
-  std::string arg = robust_symbol2string (
-    ly_get_option (ly_symbol2scm ("tall-page-formats")), "");
-  std::set<std::string> formats;
-  for (string format : string_split (arg, ','))
-    if (std::find (formats.begin (), formats.end (), format) == formats.end ())
-      formats.insert (format);
-
-  SCM lst = SCM_EOL;
-  for (std::string const &fmt : formats)
-    lst = scm_cons (ly_string2scm (fmt), lst);
-
-  return lst;
-}
-
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
            1, 0, 0, (SCM wc),
            "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.")

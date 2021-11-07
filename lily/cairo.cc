@@ -1215,19 +1215,18 @@ Cairo_outputter::output (SCM expr)
   return SCM_UNSPECIFIED;
 }
 
-#endif // CAIRO_BACKEND
-
-LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 4, 0, 0,
-           (SCM basename, SCM stencils, SCM header, SCM paper),
-           "dump book through cairo backend")
+static std::vector<Cairo_output_format>
+parse_formats (const char *funcname, int format_arg, SCM formats)
 {
-  if (scm_is_null (stencils))
-    return SCM_UNSPECIFIED;
-
-#if CAIRO_BACKEND
-  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
-  for (auto const &fmt : output_formats_global)
+  std::vector<Cairo_output_format> result;
+  for (SCM fmt_scm = formats; scm_is_pair (fmt_scm);
+       fmt_scm = scm_cdr (fmt_scm))
     {
+      if (!scm_is_string (scm_car (fmt_scm)))
+        scm_wrong_type_arg_msg (funcname, format_arg, formats,
+                                "list of string");
+
+      std::string fmt = ly_scm2string (scm_car (fmt_scm));
       Cairo_output_format f = parse_format (fmt);
       if (f == UNKNOWN)
         {
@@ -1235,6 +1234,24 @@ LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 4, 0, 0,
           continue;
         }
 
+      result.push_back (f);
+    }
+  return result;
+}
+
+#endif // CAIRO_BACKEND
+
+LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
+           (SCM basename, SCM stencils, SCM header, SCM paper, SCM formats),
+           "dump book through cairo backend")
+{
+  if (scm_is_null (stencils))
+    return SCM_UNSPECIFIED;
+
+#if CAIRO_BACKEND
+  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
+  for (auto const &f : parse_formats ("ly:cairo-output-stencils", 5, formats))
+    {
       Cairo_outputter outputter (f, ly_scm2string (basename), odef);
 
       int page = 1;
@@ -1258,28 +1275,21 @@ LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 4, 0, 0,
   (void) basename;
   (void) header;
   (void) paper;
-
+  (void) formats;
   error ("compiled without CAIRO_BACKEND");
 #endif // CAIRO_BACKEND
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 3, 0, 0,
-           (SCM basename, SCM stencil, SCM paper),
+LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 4, 0, 0,
+           (SCM basename, SCM stencil, SCM paper, SCM formats),
            "dump a single stencil through the Cairo backend")
 {
 #if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 3);
   bool seen_eps = false;
-  for (auto const &fmt : output_formats_global)
+  for (auto f : parse_formats ("ly:cairo-output-stencil", 4, formats))
     {
-      Cairo_output_format f = parse_format (fmt);
-      if (f == UNKNOWN)
-        {
-          warning (_f ("unknown output format %s", fmt.c_str ()));
-          continue;
-        }
-
       if (f == PS)
         f = EPS;
 
@@ -1301,6 +1311,7 @@ LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 3, 0, 0,
   (void) basename;
   (void) stencil;
   (void) paper;
+  (void) formats;
 
 #endif // CAIRO_BACKEND
   return SCM_UNSPECIFIED;
