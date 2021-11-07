@@ -29,6 +29,7 @@ defined in the output modules (in files @file{output-*.scm})."
                    draw-line
                    ellipse
                    end-group-node
+                   eps-file
                    glyph-string
                    grob-cause
                    named-glyph

@@ -85,6 +85,35 @@
 (define (embedded-ps string)
   string)
 
+(define (eps-file file-name contents bbox factor)
+  (let*
+      ;; We need to shift the whole eps to (0,0), otherwise it will appear
+      ;; displaced in lilypond (displacement will depend on the scaling!)
+      ((translate-string (ly:format "~a ~a translate" (- (list-ref bbox 0)) (- (list-ref bbox 1))))
+       (clip-rect-string (ly:format
+                          "~a ~a ~a ~a rectclip"
+                          (list-ref bbox 0)
+                          (list-ref bbox 1)
+                          (- (list-ref bbox 2) (list-ref bbox 0))
+                          (- (list-ref bbox 3) (list-ref bbox 1)))))
+
+    (string-append
+     (ly:format
+      "gsave
+currentpoint translate
+BeginEPSF
+~a dup scale
+~a
+~a
+%%BeginDocument: ~a
+"
+      factor translate-string  clip-rect-string file-name)
+     contents
+     "%%EndDocument
+EndEPSF
+grestore
+")))
+
 (define (glyph-string pango-font
                       postscript-font-name
                       size
@@ -292,6 +321,7 @@
     (circle . ,circle)
     (dashed-line . ,dashed-line)
     (draw-line . ,draw-line)
+    (eps-file . ,eps-file)
     (partial-ellipse . ,partial-ellipse)
     (ellipse . ,ellipse)
     (embedded-ps . ,embedded-ps)
