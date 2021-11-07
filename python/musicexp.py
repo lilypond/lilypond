@@ -1130,6 +1130,8 @@ class ChordEvent (NestedMusic):
         # articulations/ornaments before the note
 
         for e in other_events:
+            if not hasattr(e, 'print_before_note'):
+                continue
             e.print_before_note(printer)
 
         if rest_events:
@@ -1163,6 +1165,8 @@ class ChordEvent (NestedMusic):
             e.print_ly(printer)
 
         for e in other_events:
+            if not hasattr(e, 'print_after_note'):
+                continue
             e.print_after_note(printer)
 
         if self.after_grace_elements:
@@ -1212,6 +1216,7 @@ class Event(Music):
     def __init__(self):
         # strings to print before the note to which an event is attached.
         # Ignored for notes etc.
+        super(Event, self).__init__()
         self.before_note = None
         self.after_note = None
    # print something before the note to which an event is attached, e.g. overrides
@@ -1917,7 +1922,7 @@ class SkipEvent (RhythmicEvent):
 class NoteEvent(RhythmicEvent):
     def __init__(self):
         RhythmicEvent.__init__(self)
-        #self.pitch = None
+        self.pitch = Pitch()
         self.cautionary = False
         self.forced_accidental = False
 
@@ -1961,7 +1966,7 @@ class NoteEvent(RhythmicEvent):
             printer.print_note_color("Stem", self.color)
             printer.print_note_color("Beam", self.color)
 
-        if self.pitch:
+        if hasattr(self, "pitch"):
             self.pitch.print_ly(printer)
             printer(self.pitch_mods())
 
@@ -2752,7 +2757,7 @@ if __name__ == '__main__':
 
     expr = test_expr()
     expr.set_start(Fraction(0))
-    print(expr.ly_expression())
+    expr.print_ly(Output_printer())
     start = Fraction(0, 4)
     stop = Fraction(4, 2)
 
