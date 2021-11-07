@@ -161,11 +161,14 @@ class BookOutputFormat:
 
     def process_options_pdfnotdefault(self, global_options):
         # prevent PDF from being switched on by default.
-        global_options.process_cmd += ' --formats=eps '
+        formats = ['eps']
         if global_options.create_pdf:
-            global_options.process_cmd += "--pdf -dinclude-eps-fonts -dgs-load-fonts "
+            global_options.process_cmd += ' -dinclude-eps-fonts -dgs-load-fonts '
+            formats.append('pdf')
             if global_options.latex_program == 'latex':
                 global_options.latex_program = 'pdflatex'
+        if '-dseparate-page-formats' not in global_options.process_cmd:
+            global_options.process_cmd += ' -dseparate-page-formats=%s ' % (','.join(formats))
 
     def snippet_class(self, type):
         return BookSnippet.snippet_type_to_class.get(type, BookSnippet.Snippet)

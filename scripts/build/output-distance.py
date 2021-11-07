@@ -1419,7 +1419,7 @@ def test_basic_compare():
 
     names = simple_names + ["20multipage", "19multipage"]
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
-    system('%s -dlilypond-book-output -daux-files -dtall-page-formats=ps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
+    system('%s -dseparate-page-formats=ps -daux-files -dtall-page-formats=ps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
     test_compare_signatures(simple_names)
 
 

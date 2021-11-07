@@ -328,8 +328,8 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         book_base.BookOutputFormat.init_default_snippet_options(self, source)
 
     def adjust_snippet_command(self, cmd):
-        if '--formats' not in cmd:
-            cmd += ' --formats=png '
+        if '-dseparate-page-formats' not in cmd:
+            cmd += ' -dseparate-page-formats=png,pdf '
         if '-dtall-page-formats' not in cmd:
             # TODO: the EPS output here is useless for cairo, but the
             # rest of lilypond-book expects it to be there. 

@@ -128,8 +128,8 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
         self.snippet_option_separator = r'\s+'
 
     def adjust_snippet_command(self, cmd):
-        if '--formats' not in cmd:
-            cmd += ' --formats=pdf '
+        if '-dseparate-page-formats' not in cmd:
+            cmd += ' -dseparate-page-formats=pdf '
         if '-dtall-page-formats' not in cmd:
             cmd += ' -dtall-page-formats=eps,pdf,png '
         return cmd

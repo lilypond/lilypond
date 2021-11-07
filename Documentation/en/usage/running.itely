@@ -212,8 +212,8 @@ at the top of the @file{.ly} file.
 @item @code{-E}, @code{--eps}
 Generate EPS files.
 
-This option is equivalent to setting LilyPond's command line options
-@code{--ps} and @code{-dlilypond-book-output}.
+This option is equivalent to specifying
+@code{-dseparate-page-formats=ps}.
 
 @cindex output, format
 @cindex format, output
@@ -902,6 +902,11 @@ data to files @file{file1.log}, @file{file2.log}, @dots{}, if
 @var{bool} is @code{#t}.
 Default: @code{#f}.
 
+@item @code{separate-page-formats} @var{symbol}
+Comma-separated list of formats (@code{svg}, @code{pdf},
+@code{png}, or @code{eps}) to use for the separate page
+images in @code{lilypond-book}.
+
 @item @code{show-available-fonts} @var{bool}
 If @var{bool} is @code{#t}, list available font names as delivered by
 the fontconfig library.  Appended to this list LilyPond displays the
@@ -941,9 +946,9 @@ case the SVG viewer cannot handle them.
 Default: @code{#f}.
 
 @item @code{tall-page-formats} @var{symbol}
-Comma separated list of formats (@code{svg}, @code{pdf},
-@code{png}, or @code{eps}) to use for the `tall page' image. It is
-used for generating music images when using @code{lilypond-book}.
+Comma-separated list of formats (@code{svg}, @code{pdf},
+@code{png}, or @code{eps}) to use for the `tall page' image in
+@code{lilypond-book}.
 
 @item @code{use-paper-size-for-page} @var{bool}
 If @var{bool} is @code{#t} (the default), each page is set to the

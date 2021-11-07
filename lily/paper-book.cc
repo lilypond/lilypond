@@ -183,10 +183,9 @@ ly_output_formats ()
 }
 
 SCM
-tall_page_output_formats ()
+lilypond_book_output_formats (SCM sym)
 {
-  std::string arg = robust_symbol2string (
-    ly_get_option (ly_symbol2scm ("tall-page-formats")), "");
+  std::string arg = robust_symbol2string (ly_get_option (sym), "");
   std::set<std::string> formats;
   for (string format : string_split (arg, ','))
     if (std::find (formats.begin (), formats.end (), format) == formats.end ())
@@ -197,6 +196,22 @@ tall_page_output_formats ()
     lst = scm_cons (ly_string2scm (fmt), lst);
 
   return lst;
+}
+
+SCM
+all_formats ()
+{
+  SCM formats = ly_output_formats ();
+  SCM lists[2]
+    = {lilypond_book_output_formats (ly_symbol2scm ("tall-page-formats")),
+       lilypond_book_output_formats (ly_symbol2scm ("separate-page-formats"))};
+
+  for (int i = 0; i < 2; i++)
+    for (SCM s = lists[i]; scm_is_pair (s); s = scm_cdr (s))
+      if (scm_is_false (scm_member (scm_car (s), formats)))
+        formats = scm_cons (scm_car (s), formats);
+
+  return formats;
 }
 
 void
@@ -244,8 +259,9 @@ Paper_book::output (SCM output_channel)
       SCM name_stencil_alist
         = Lily::clipped_systems_stencils (output_channel, systems ());
 
+      // Have to use all formats, otherwise the clip-systems regtest breaks.
       for (SCM p = name_stencil_alist; scm_is_pair (p); p = scm_cdr (p))
-        output_stencil (scm_caar (p), scm_cdar (p), formats);
+        output_stencil (scm_caar (p), scm_cdar (p), all_formats ());
     }
 
   SCM pngstr = ly_string2scm ("png");
@@ -357,12 +373,15 @@ Paper_book::output_stencil (SCM out_name, SCM stencil, SCM formats)
 void
 Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
 {
-  if (get_program_option ("aux-files")
-      || get_program_option ("lilypond-book-output"))
+  SCM tall_formats
+    = lilypond_book_output_formats (ly_symbol2scm ("tall-page-formats"));
+  SCM separate_formats
+    = lilypond_book_output_formats (ly_symbol2scm ("separate-page-formats"));
+
+  if (scm_is_pair (tall_formats) || scm_is_pair (separate_formats))
     {
       Stencil acc;
       std::string base = ly_scm2string (out_name);
-      SCM tall_formats = tall_page_output_formats ();
       if (scm_is_pair (tall_formats))
         {
           for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s))
@@ -373,11 +392,15 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
 
           output_stencil (out_name, acc.smobbed_copy (), tall_formats);
         }
-      int i = 1;
-      for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s), i++)
+
+      if (scm_is_pair (separate_formats))
         {
-          output_stencil (ly_string2scm (base + "-" + std::to_string (i)),
-                          scm_car (s), formats);
+          int i = 1;
+          for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s), i++)
+            {
+              output_stencil (ly_string2scm (base + "-" + std::to_string (i)),
+                              scm_car (s), separate_formats);
+            }
         }
     }
   else

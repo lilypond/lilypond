@@ -68,9 +68,14 @@ which scares away people.
 @item
 The default of the @code{aux-files} program option changed to
 @code{#f}. If you are calling LilyPond with the
-@code{-dbackend=eps} argument and need the auxiliary @file{.tex} and
-@file{.texi} files, you now have to specify @code{-daux-files}
-explicitly. 
+@code{-dbackend=eps} argument and need the auxiliary @file{.tex}
+and @file{.texi} files, you now have to specify @code{-daux-files}
+explicitly. The formats for @code{lilypond-book} images can be set
+separately for the tall page image (typically PNG for HTML output)
+and per-system images (typically, EPS or PDF for printed output)
+with the @code{-d} sub-options @code{-dtall-page-formats} and
+@code{-dseparate-page-formats} respectively.
+
 
 @item
 Events attached to notes (e.g., dynamics or articulations) can be

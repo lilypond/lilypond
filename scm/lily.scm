@@ -327,9 +327,6 @@ processed.")
     (job-count #f
                "Process in parallel, using the given number of
 jobs.")
-    (lilypond-book-output #f
-                          "Generate separate output files for
-individual pages/systems")
     (log-file #f
               "If string FOO is given as an argument, redirect
 output to log file `FOO.log'.")
@@ -389,6 +386,11 @@ given value (in dpi).")
                         "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
 `FILE2.log', ...")
+    (separate-page-formats #f
+                           "formats to use for
+separate-page output in lilypond-book. Format is
+a symbol containing as comma-separated
+formats")
     (show-available-fonts #f
                           "List available font names.")
     (strict-infinity-checking #f

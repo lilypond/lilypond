@@ -667,8 +667,7 @@ def main():
 
     global_options.process_cmd += (
         ' '.join([' -I %s' % mkarg(p) for p in global_options.include_path])
-        + ' -daux-files '
-        + ' -dlilypond-book-output ')
+        + ' -daux-files ')
     
     global_options.formatter.process_options(global_options)
 

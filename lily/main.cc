@@ -646,8 +646,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'E':
-          add_output_format ("ps");
-          init_scheme_variables_global += "(lilypond-book-output . #t)\n";
+          init_scheme_variables_global += "(separate-page-formats . eps)\n";
+          init_scheme_variables_global += "(tall-page-formats . eps)\n";
           break;
 
         case 'O':
