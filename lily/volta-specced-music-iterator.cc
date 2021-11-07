@@ -78,8 +78,11 @@ Volta_specced_music_iterator::process (Moment m)
   if (!started_)
     {
       started_ = true;
-      event_handler_.set_context (get_context ());
-      report_event (create_event (START));
+      if (auto *c = get_context ())
+        {
+          event_handler_.set_context (c);
+          create_event (START)->send_to_context (c);
+        }
     }
 
   Music_wrapper_iterator::process (m);
