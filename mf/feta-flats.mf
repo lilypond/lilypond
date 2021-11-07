@@ -452,6 +452,8 @@ fet_beginchar ("Semi flat", "mirroredflat");
 
   draw_meta_flat (0, w, 0.31 staff_space, false, false);
   currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
+
+  draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -488,6 +490,8 @@ fet_beginchar ("Semi flat", "mirroredflat.backslash");
   currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 
   labels (1, 2, 3);
+
+  draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -506,6 +510,8 @@ fet_beginchar ("Double Flat", "flatflat");
   draw_meta_flat (hround ((left_wid - overlap) * staff_space),
                   right_wid * staff_space, 1/3 staff_space,
                   false, false);
+
+  draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
