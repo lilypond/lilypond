@@ -162,21 +162,21 @@ def draw_natural (expr arrowup, arrowdown) =
 enddef;
 
 
-fet_beginchar ("Natural", "natural");
+fet_beginchar ("natural", "natural");
   draw_natural (false, false);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
+fet_beginchar ("arrowed natural (arrow up)", "natural.arrowup");
   draw_natural (true, false);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
+fet_beginchar ("arrowed natural (arrow down)", "natural.arrowdown");
   draw_natural (false, true);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
+fet_beginchar ("arrowed natural (arrows up and down)", "natural.arrowboth");
   draw_natural (true, true);
 fet_endchar;

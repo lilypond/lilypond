@@ -172,7 +172,7 @@ fet_beginchar ("C clef", "C");
 fet_endchar;
 
 
-fet_beginchar ("C clef", "C_change");
+fet_beginchar ("C clef (reduced)", "C_change");
   draw_c_clef (.8);
 fet_endchar;
 
@@ -246,12 +246,12 @@ def draw_varc_clef (expr reduction) =
 enddef;
 
 
-fet_beginchar ("Variant C clef", "varC");
+fet_beginchar ("variant C clef", "varC");
   draw_varc_clef (1.0);
 fet_endchar;
 
 
-fet_beginchar ("Variant C clef", "varC_change");
+fet_beginchar ("variant C clef (reduced)", "varC_change");
   draw_varc_clef (0.8);
 fet_endchar;
 
@@ -578,7 +578,7 @@ fet_beginchar ("G clef", "G");
 fet_endchar;
 
 
-fet_beginchar ("G clef", "G_change");
+fet_beginchar ("G clef (reduced)", "G_change");
   draw_gclef (0.8, 0, 0);
 fet_endchar;
 
@@ -588,7 +588,7 @@ fet_beginchar ("double G clef", "GG");
 fet_endchar;
 
 
-fet_beginchar ("double G clef", "GG_change");
+fet_beginchar ("double G clef (reduced)", "GG_change");
   draw_gclef (0.8, 1.5, 0);
 fet_endchar;
 
@@ -658,13 +658,13 @@ def draw_tenor_extension (expr reduction) =
   draw_staff_if_debugging (-1, 3);
 enddef;
 
-fet_beginchar ("Tenor G clef", "tenorG");
+fet_beginchar ("tenor G clef", "tenorG");
   draw_gclef (1.0, 0, 0.75);
   draw_tenor_extension (1.0);
 fet_endchar;
 
 
-fet_beginchar ("Tenor G clef", "tenorG_change");
+fet_beginchar ("tenor G clef (reduced)", "tenorG_change");
   draw_gclef (0.8, 0, 0.75);
   draw_tenor_extension (0.8);
 fet_endchar;

@@ -46,7 +46,7 @@ def draw_paren =
 enddef;
 
 
-fet_beginchar ("Right Parenthesis", "rightparen");
+fet_beginchar ("right parenthesis", "rightparen");
   draw_paren;
   penlabels (1, 2, 3);
 
@@ -54,7 +54,7 @@ fet_beginchar ("Right Parenthesis", "rightparen");
 fet_endchar;
 
 
-fet_beginchar ("Left Parenthesis", "leftparen");
+fet_beginchar ("left parenthesis", "leftparen");
   draw_paren;
 
   currentpicture := currentpicture xscaled -1;

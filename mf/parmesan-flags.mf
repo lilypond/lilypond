@@ -174,145 +174,145 @@ enddef;
 
 
 % 8th mensural flag, upwards, between staff lines
-fet_beginchar ("8th Mensural Flag (up)", "mensuralu03");
+fet_beginchar ("8th mensural flag (up, between lines)", "mensuralu03");
   draw_mensural_flag (between_staff_lines, 1, dir_up);
 fet_endchar;
 
 
 % 8th mensural flag, upwards, on staff line
-fet_beginchar ("8th Mensural Flag (up)", "mensuralu13");
+fet_beginchar ("8th mensural flag (up, on line)", "mensuralu13");
   draw_mensural_flag (on_staff_line, 1, dir_up);
 fet_endchar;
 
 
 % 8th mensural flag, upwards, anywhere
-fet_beginchar ("8th Mensural Flag (up)", "mensuralu23");
+fet_beginchar ("8th mensural flag (up)", "mensuralu23");
   draw_mensural_flag (anywhere, 1, dir_up);
 fet_endchar;
 
 
 % 8th mensural flag, downwards, between staff lines
-fet_beginchar ("8th Mensural Flag (down)", "mensurald03");
+fet_beginchar ("8th mensural flag (down, between lines)", "mensurald03");
   draw_mensural_flag (between_staff_lines, 1, dir_down);
 fet_endchar;
 
 
 % 8th mensural flag, downwards, on staff line
-fet_beginchar ("8th Mensural Flag (down)", "mensurald13");
+fet_beginchar ("8th mensural flag (down, on line)", "mensurald13");
   draw_mensural_flag (on_staff_line, 1, dir_down);
 fet_endchar;
 
 
 % 8th mensural flag, downwards, anywhere
-fet_beginchar ("8th Mensural Flag (down)", "mensurald23");
+fet_beginchar ("8th mensural flag (down)", "mensurald23");
   draw_mensural_flag (anywhere, 1, dir_down);
 fet_endchar;
 
 
 % 16th mensural flag, upwards, between staff lines
-fet_beginchar ("16th Mensural Flag (up)", "mensuralu04");
+fet_beginchar ("16th mensural flag (up, between lines)", "mensuralu04");
   draw_mensural_flag (between_staff_lines, 2, dir_up);
 fet_endchar;
 
 
 % 16th mensural flag, upwards, on staff line
-fet_beginchar ("16th Mensural Flag (up)", "mensuralu14");
+fet_beginchar ("16th mensural flag (up, on line)", "mensuralu14");
   draw_mensural_flag (on_staff_line, 2, dir_up);
 fet_endchar;
 
 
 % 16th mensural flag, upwards, anywhere
-fet_beginchar ("16th Mensural Flag (up)", "mensuralu24");
+fet_beginchar ("16th mensural flag (up)", "mensuralu24");
   draw_mensural_flag (anywhere, 2, dir_up);
 fet_endchar;
 
 
 % 16th mensural flag, downwards, between staff lines
-fet_beginchar ("16th Mensural Flag (down)", "mensurald04");
+fet_beginchar ("16th mensural flag (down, between lines)", "mensurald04");
   draw_mensural_flag (between_staff_lines, 2, dir_down);
 fet_endchar;
 
 
 % 16th mensural flag, downwards, on staff line
-fet_beginchar ("16th Mensural Flag (down)", "mensurald14");
+fet_beginchar ("16th mensural flag (down, on line)", "mensurald14");
   draw_mensural_flag (on_staff_line, 2, dir_down);
 fet_endchar;
 
 
 % 16th mensural flag, downwards, anywhere
-fet_beginchar ("16th Mensural Flag (down)", "mensurald24");
+fet_beginchar ("16th mensural flag (down)", "mensurald24");
   draw_mensural_flag (anywhere, 2, dir_down);
 fet_endchar;
 
 
 % 32th mensural flag, upwards, between staff lines
-fet_beginchar ("32th Mensural Flag (up)", "mensuralu05");
+fet_beginchar ("32th mensural flag (up, between lines)", "mensuralu05");
   draw_mensural_flag (between_staff_lines, 3, dir_up);
 fet_endchar;
 
 
 % 32th mensural flag, upwards, on staff line
-fet_beginchar ("32th Mensural Flag (up)", "mensuralu15");
+fet_beginchar ("32th mensural flag (up, on line)", "mensuralu15");
   draw_mensural_flag (on_staff_line, 3, dir_up);
 fet_endchar;
 
 
 % 32th mensural flag, upwards, anywhere
-fet_beginchar ("32th Mensural Flag (up)", "mensuralu25");
+fet_beginchar ("32th mensural flag (up)", "mensuralu25");
   draw_mensural_flag (anywhere, 3, dir_up);
 fet_endchar;
 
 
 % 32th mensural flag, downwards, between staff lines
-fet_beginchar ("32th Mensural Flag (down)", "mensurald05");
+fet_beginchar ("32th mensural flag (down, between lines)", "mensurald05");
   draw_mensural_flag (between_staff_lines, 3, dir_down);
 fet_endchar;
 
 
 % 32th mensural flag, downwards, on staff line
-fet_beginchar ("32th Mensural Flag (down)", "mensurald15");
+fet_beginchar ("32th mensural flag (down, on line)", "mensurald15");
   draw_mensural_flag (on_staff_line, 3, dir_down);
 fet_endchar;
 
 
 % 32th mensural flag, downwards, anywhere
-fet_beginchar ("32th Mensural Flag (down)", "mensurald25");
+fet_beginchar ("32th mensural flag (down)", "mensurald25");
   draw_mensural_flag (anywhere, 3, dir_down);
 fet_endchar;
 
 
 % 64th mensural flag, upwards, between staff lines
-fet_beginchar ("64th Mensural Flag (up)", "mensuralu06");
+fet_beginchar ("64th mensural flag (up, between lines)", "mensuralu06");
   draw_mensural_flag (between_staff_lines, 4, dir_up);
 fet_endchar;
 
 
 % 64th mensural flag, upwards, on staff line
-fet_beginchar ("64th Mensural Flag (up)", "mensuralu16");
+fet_beginchar ("64th mensural flag (up, on line)", "mensuralu16");
   draw_mensural_flag (on_staff_line, 4, dir_up);
 fet_endchar;
 
 
 % 64th mensural flag, upwards, anywhere
-fet_beginchar ("64th Mensural Flag (up)", "mensuralu26");
+fet_beginchar ("64th mensural flag (up)", "mensuralu26");
   draw_mensural_flag (anywhere, 4, dir_up);
 fet_endchar;
 
 
 % 64th mensural flag, downwards, between staff lines
-fet_beginchar ("64th Mensural Flag (down)", "mensurald06");
+fet_beginchar ("64th mensural flag (down, between lines)", "mensurald06");
   draw_mensural_flag (between_staff_lines, 4, dir_down);
 fet_endchar;
 
 
 % 64th mensural flag, downwards, on staff line
-fet_beginchar ("64th Mensural Flag (down)", "mensurald16");
+fet_beginchar ("64th mensural flag (down, on line)", "mensurald16");
   draw_mensural_flag (on_staff_line, 4, dir_down);
 fet_endchar;
 
 
 % 64th mensural flag, downwards, anywhere
-fet_beginchar ("64th Mensural Flag (down)", "mensurald26");
+fet_beginchar ("64th mensural flag (down)", "mensurald26");
   draw_mensural_flag (anywhere, 4, dir_down);
 fet_endchar;
 

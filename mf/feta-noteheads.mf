@@ -148,14 +148,14 @@ def draw_longa (expr up) =
 enddef;
 
 
-fet_beginchar ("Longa notehead", "uM2");
+fet_beginchar ("longa notehead (up)", "uM2");
   draw_longa (true);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-fet_beginchar ("Longa notehead", "dM2");
+fet_beginchar ("longa notehead (down)", "dM2");
   draw_longa (false);
 
   draw_staff_if_debugging (-2, 2);
@@ -224,21 +224,21 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 enddef;
 
 
-fet_beginchar ("Brevis notehead", "sM1");
+fet_beginchar ("brevis notehead", "sM1");
   draw_brevis (1, 1);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-fet_beginchar ("Double-lined brevis notehead", "sM1double");
+fet_beginchar ("double-lined brevis notehead", "sM1double");
   draw_brevis (2, 0.8);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-fet_beginchar ("Whole notehead", "s0");
+fet_beginchar ("whole notehead", "s0");
   draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
   undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
                          0.68, 2 stafflinethickness#);
@@ -249,7 +249,7 @@ fet_beginchar ("Whole notehead", "s0");
 fet_endchar;
 
 
-fet_beginchar ("Half notehead", "s1");
+fet_beginchar ("half notehead", "s1");
   draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
   undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
 
@@ -259,7 +259,7 @@ fet_beginchar ("Half notehead", "s1");
 fet_endchar;
 
 
-fet_beginchar ("Quarter notehead", "s2");
+fet_beginchar ("quarter notehead", "s2");
   draw_quarter_path;
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -268,7 +268,7 @@ fet_endchar;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-fet_beginchar ("Whole diamondhead", "s0diamond");
+fet_beginchar ("whole diamondhead", "s0diamond");
   draw_outside_ellipse (1.80, 0, 0.495, 0);
   undraw_inside_ellipse (1.30, 125, 0.6,
                          .4 staff_space# + stafflinethickness#);
@@ -277,7 +277,7 @@ fet_beginchar ("Whole diamondhead", "s0diamond");
 fet_endchar;
 
 
-fet_beginchar ("Half diamondhead", "s1diamond");
+fet_beginchar ("half diamondhead", "s1diamond");
   draw_outside_ellipse (1.50, 34, 0.49, 0.17);
   undraw_inside_ellipse (3.5, 33, 0.80,
                          .3 staff_space# + 1.5 stafflinethickness#);
@@ -286,7 +286,7 @@ fet_beginchar ("Half diamondhead", "s1diamond");
 fet_endchar;
 
 
-fet_beginchar ("Quarter diamondhead", "s2diamond");
+fet_beginchar ("quarter diamondhead", "s2diamond");
   draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 
   draw_staff_if_debugging (-2, 2);
@@ -445,7 +445,7 @@ def draw_whole_triangle_head =
 enddef;
 
 
-fet_beginchar ("Whole trianglehead", "s0triangle");
+fet_beginchar ("whole trianglehead", "s0triangle");
   draw_whole_triangle_head;
 
   draw_staff_if_debugging (-2, 2);
@@ -470,7 +470,7 @@ def draw_small_triangle_head =
 enddef;
 
 
-fet_beginchar ("Half trianglehead", "s1triangle");
+fet_beginchar ("half trianglehead", "s1triangle");
   draw_small_triangle_head;
 
   draw_staff_if_debugging (-2, 2);
@@ -491,7 +491,7 @@ def draw_closed_triangle_head =
 enddef;
 
 
-fet_beginchar ("Quarter trianglehead", "s2triangle");
+fet_beginchar ("quarter trianglehead", "s2triangle");
   draw_closed_triangle_head;
 
   draw_staff_if_debugging (-2, 2);
@@ -568,21 +568,21 @@ def draw_slash (expr hwid_hash) =
 enddef;
 
 
-fet_beginchar ("Whole slashhead", "s0slash");
+fet_beginchar ("whole slashhead", "s0slash");
   draw_slash (4 slash_thick# + 0.5 staff_space#);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-fet_beginchar ("Half slashhead", "s1slash");
+fet_beginchar ("half slashhead", "s1slash");
   draw_slash (3.0 slash_thick# + 0.15 staff_space#);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-fet_beginchar ("Quarter slashhead", "s2slash");
+fet_beginchar ("quarter slashhead", "s2slash");
   draw_slash (1.5 slash_thick#);
 
   draw_staff_if_debugging (-2, 2);
@@ -689,7 +689,7 @@ def draw_cross (expr thick) =
 enddef;
 
 
-fet_beginchar ("Whole Crossed notehead", "s0cross");
+fet_beginchar ("whole crossed notehead", "s0cross");
   save wid, hei;
 
   wid# := black_notehead_width# + 4 stafflinethickness#;
@@ -703,7 +703,7 @@ fet_beginchar ("Whole Crossed notehead", "s0cross");
 fet_endchar;
 
 
-fet_beginchar ("Half Crossed notehead", "s1cross");
+fet_beginchar ("half crossed notehead", "s1cross");
   save wid, hei;
 
   wid# := black_notehead_width# + 2 stafflinethickness#;
@@ -717,7 +717,7 @@ fet_beginchar ("Half Crossed notehead", "s1cross");
 fet_endchar;
 
 
-fet_beginchar ("Crossed notehead", "s2cross");
+fet_beginchar ("crossed notehead", "s2cross");
   wid# := black_notehead_width#;
   hei# := noteheight#;
   set_char_box (0, wid#, hei# / 2, hei# / 2);
@@ -728,7 +728,7 @@ fet_beginchar ("Crossed notehead", "s2cross");
 fet_endchar;
 
 
-fet_beginchar ("X-Circled notehead", "s2xcircle");
+fet_beginchar ("x-circled notehead", "s2xcircle");
   save wid, hei;
   save cthick, cxd, cyd, dy;
 
@@ -893,41 +893,41 @@ save do_weight;
 do_weight := 2;
 
 
-fet_beginchar ("Whole dohead", "s0do");
+fet_beginchar ("whole dohead", "s0do");
   draw_do_head (solfa_whole_width, do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half dohead", "s1do");
+fet_beginchar ("half dohead", "s1do");
   draw_do_head (solfa_half_width, do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter dohead", "s2do");
+fet_beginchar ("quarter dohead", "s2do");
   draw_do_head (solfa_quarter_width, do_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin dohead", "s0doThin");
+fet_beginchar ("whole thin dohead", "s0doThin");
   draw_do_head (solfa_whole_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin dohead", "s1doThin");
+fet_beginchar ("half thin dohead", "s1doThin");
   draw_do_head (solfa_half_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin dohead", "s2doThin");
+fet_beginchar ("quarter thin dohead", "s2doThin");
   draw_do_head (solfa_quarter_width, 1);
   fill p_out;
 fet_endchar;
@@ -1008,41 +1008,41 @@ enddef;
 save re_weight;
 re_weight := 2;
 
-fet_beginchar ("Whole rehead", "s0re");
+fet_beginchar ("whole rehead", "s0re");
   draw_re_head (solfa_whole_width, re_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half rehead", "s1re");
+fet_beginchar ("half rehead", "s1re");
   draw_re_head (solfa_half_width, re_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter rehead", "s2re");
+fet_beginchar ("quarter rehead", "s2re");
   draw_re_head (solfa_quarter_width, re_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin rehead", "s0reThin");
+fet_beginchar ("whole thin rehead", "s0reThin");
   draw_re_head (solfa_whole_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin rehead", "s1reThin");
+fet_beginchar ("half thin rehead", "s1reThin");
   draw_re_head (solfa_half_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin rehead", "s2reThin");
+fet_beginchar ("quarter thin rehead", "s2reThin");
   draw_re_head (solfa_quarter_width, 1);
   fill p_out;
 fet_endchar;
@@ -1146,61 +1146,61 @@ enddef;
 save mi_weight;
 mi_weight := 2;
 
-fet_beginchar ("Whole mihead", "s0mi");
+fet_beginchar ("whole mihead", "s0mi");
   draw_mi_head (solfa_whole_width, mi_weight, false);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half mihead", "s1mi");
+fet_beginchar ("half mihead", "s1mi");
   draw_mi_head (solfa_quarter_width, mi_weight, false);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter mihead", "s2mi");
+fet_beginchar ("quarter mihead", "s2mi");
   draw_mi_head (solfa_quarter_width, mi_weight, false);
   fill path_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole mirror mihead", "s0miMirror");
+fet_beginchar ("whole mirror mihead", "s0miMirror");
   draw_mi_head (solfa_whole_width, mi_weight, true);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half  mirror mihead", "s1miMirror");
+fet_beginchar ("half mirror mihead", "s1miMirror");
   draw_mi_head (solfa_quarter_width, mi_weight, true);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter mirror mihead", "s2miMirror");
+fet_beginchar ("quarter mirror mihead", "s2miMirror");
   draw_mi_head (solfa_quarter_width, mi_weight, true);
   fill path_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin mihead", "s0miThin");
+fet_beginchar ("whole thin mihead", "s0miThin");
   draw_mi_head (solfa_whole_width, 1, false);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin mihead", "s1miThin");
+fet_beginchar ("half thin mihead", "s1miThin");
   draw_mi_head (solfa_quarter_width, 1, false);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin mihead", "s2miThin");
+fet_beginchar ("quarter thin mihead", "s2miThin");
   draw_mi_head (solfa_quarter_width, 1, false);
   fill path_out;
 fet_endchar;
@@ -1278,14 +1278,14 @@ enddef;
 save fa_weight;
 fa_weight := 1.75;
 
-fet_beginchar ("Whole fa up head", "u0fa");
+fet_beginchar ("whole fa up head", "u0fa");
   draw_fa_head (solfa_whole_width, fa_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole fa down head", "d0fa");
+fet_beginchar ("whole fa down head", "d0fa");
   draw_fa_head (solfa_whole_width, fa_weight);
   fill p_down_out;
   unfill p_down_in;
@@ -1299,33 +1299,33 @@ fet_beginchar ("half fa up head", "u1fa");
 fet_endchar;
 
 
-fet_beginchar ("Half fa down head", "d1fa");
+fet_beginchar ("half fa down head", "d1fa");
   draw_fa_head (solfa_half_width, fa_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter fa up head", "u2fa");
+fet_beginchar ("quarter fa up head", "u2fa");
   draw_fa_head (solfa_quarter_width, fa_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter fa down head", "d2fa");
+fet_beginchar ("quarter fa down head", "d2fa");
   draw_fa_head (solfa_quarter_width, fa_weight);
   fill p_down_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin fa up head", "u0faThin");
+fet_beginchar ("whole thin fa up head", "u0faThin");
   draw_fa_head (solfa_whole_width, 1);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin fa down head", "d0faThin");
+fet_beginchar ("whole thin fa down head", "d0faThin");
   draw_fa_head (solfa_whole_width, 1);
   fill p_down_out;
   unfill p_down_in;
@@ -1339,20 +1339,20 @@ fet_beginchar ("half thin fa up head", "u1faThin");
 fet_endchar;
 
 
-fet_beginchar ("Half thin fa down head", "d1faThin");
+fet_beginchar ("half thin fa down head", "d1faThin");
   draw_fa_head (solfa_half_width, 1);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin fa up head", "u2faThin");
+fet_beginchar ("quarter thin fa up head", "u2faThin");
   draw_fa_head (solfa_quarter_width, 1);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin fa down head", "d2faThin");
+fet_beginchar ("quarter thin fa down head", "d2faThin");
   draw_fa_head (solfa_quarter_width, 1);
   fill p_down_out;
 fet_endchar;
@@ -1374,17 +1374,17 @@ def draw_sol_head (expr filled) =
   draw_staff_if_debugging (-2, 2);
 enddef;
 
-fet_beginchar ("Whole solhead", "s0sol");
+fet_beginchar ("whole solhead", "s0sol");
   draw_sol_head ( false);
 fet_endchar;
 
 
-fet_beginchar ("Half solhead", "s1sol");
+fet_beginchar ("half solhead", "s1sol");
   draw_sol_head ( false);
 fet_endchar;
 
 
-fet_beginchar ("Quarter solhead", "s2sol");
+fet_beginchar ("quarter solhead", "s2sol");
   draw_sol_head ( true);
 fet_endchar;
 
@@ -1442,41 +1442,41 @@ enddef;
 save la_weight;
 la_weight := 2;
 
-fet_beginchar ("Whole lahead", "s0la");
+fet_beginchar ("whole lahead", "s0la");
   draw_la_head (solfa_whole_width, la_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half lahead", "s1la");
+fet_beginchar ("half lahead", "s1la");
   draw_la_head (solfa_half_width, la_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter lahead", "s2la");
+fet_beginchar ("quarter lahead", "s2la");
   draw_la_head (solfa_quarter_width, la_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin lahead", "s0laThin");
+fet_beginchar ("whole thin lahead", "s0laThin");
   draw_la_head (solfa_whole_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin lahead", "s1laThin");
+fet_beginchar ("half thin lahead", "s1laThin");
   draw_la_head (solfa_half_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter lahead", "s2laThin");
+fet_beginchar ("quarter lahead", "s2laThin");
   draw_la_head (solfa_quarter_width, 1);
   fill p_out;
 fet_endchar;
@@ -1570,41 +1570,41 @@ enddef;
 save ti_weight;
 ti_weight := 2;
 
-fet_beginchar ("Whole tihead", "s0ti");
+fet_beginchar ("whole tihead", "s0ti");
   draw_ti_head (solfa_whole_width, ti_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half tihead", "s1ti");
+fet_beginchar ("half tihead", "s1ti");
   draw_ti_head (solfa_half_width, ti_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter tihead", "s2ti");
+fet_beginchar ("quarter tihead", "s2ti");
   draw_ti_head (solfa_quarter_width, ti_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin tihead", "s0tiThin");
+fet_beginchar ("whole thin tihead", "s0tiThin");
   draw_ti_head (solfa_whole_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin tihead", "s1tiThin");
+fet_beginchar ("half thin tihead", "s1tiThin");
   draw_ti_head (solfa_half_width, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin tihead", "s2tiThin");
+fet_beginchar ("quarter thin tihead", "s2tiThin");
   draw_ti_head (solfa_quarter_width, 1);
   fill p_out;
 fet_endchar;
@@ -1677,41 +1677,41 @@ enddef;
 save funk_do_weight;
 funk_do_weight := 1.7;
 
-fet_beginchar ("Whole up Funk dohead", "u0doFunk");
+fet_beginchar ("whole up Funk dohead", "u0doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole down Funk dohead", "d0doFunk");
+fet_beginchar ("whole down Funk dohead", "d0doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Funk dohead", "u1doFunk");
+fet_beginchar ("half up Funk dohead", "u1doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Funk dohead", "d1doFunk");
+fet_beginchar ("half down Funk dohead", "d1doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Funk dohead", "u2doFunk");
+fet_beginchar ("quarter up Funk dohead", "u2doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Funk dohead", "d2doFunk");
+fet_beginchar ("quarter down Funk dohead", "d2doFunk");
   draw_Funk_do_head (funk_notehead_width, funk_do_weight);
   fill p_down_out;
 fet_endchar;
@@ -1815,41 +1815,41 @@ def draw_Funk_re_head (expr width_factor, thickness_factor) =
 save funk_re_weight;
 funk_re_weight = 1.7;
 
-fet_beginchar ("Whole up Funk rehead", "u0reFunk");
+fet_beginchar ("whole up Funk rehead", "u0reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole down Funk rehead", "d0reFunk");
+fet_beginchar ("whole down Funk rehead", "d0reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Funk rehead", "u1reFunk");
+fet_beginchar ("half up Funk rehead", "u1reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Funk rehead", "d1reFunk");
+fet_beginchar ("half down Funk rehead", "d1reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Funk rehead", "u2reFunk");
+fet_beginchar ("quarter up Funk rehead", "u2reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Funk rehead", "d2reFunk");
+fet_beginchar ("quarter down Funk rehead", "d2reFunk");
   draw_Funk_re_head (funk_notehead_width, funk_re_weight);
   fill p_down_out;
 fet_endchar;
@@ -1862,7 +1862,7 @@ fet_endchar;
 save funk_mi_weight;
 funk_mi_weight := 1.9;
 
-fet_beginchar ("Whole up Funk mihead", "u0miFunk");
+fet_beginchar ("whole up Funk mihead", "u0miFunk");
   draw_mi_head (funk_notehead_width, funk_mi_weight, false);
 
   fill path_out;
@@ -1870,28 +1870,28 @@ fet_beginchar ("Whole up Funk mihead", "u0miFunk");
 fet_endchar;
 
 
-fet_beginchar ("Whole down Funk mihead", "d0miFunk");
+fet_beginchar ("whole down Funk mihead", "d0miFunk");
   draw_mi_head (funk_notehead_width, funk_mi_weight, true);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Funk mihead", "u1miFunk");
+fet_beginchar ("half up Funk mihead", "u1miFunk");
   draw_mi_head (funk_notehead_width, funk_mi_weight, false);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Funk mihead", "d1miFunk");
+fet_beginchar ("half down Funk mihead", "d1miFunk");
   draw_mi_head (funk_notehead_width, funk_mi_weight, true);
   fill path_out;
   unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter Funk mihead", "s2miFunk");
+fet_beginchar ("quarter Funk mihead", "s2miFunk");
   draw_mi_head (funk_notehead_width, funk_mi_weight, false);
   fill path_out;
 fet_endchar;
@@ -1906,41 +1906,41 @@ fet_endchar;
 save funk_fa_weight;
 funk_fa_weight := 1.9;
 
-fet_beginchar ("Whole up Funk fahead", "u0faFunk");
+fet_beginchar ("whole up Funk fahead", "u0faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole down Funk fahead", "d0faFunk");
+fet_beginchar ("whole down Funk fahead", "d0faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Funk fahead", "u1faFunk");
+fet_beginchar ("half up Funk fahead", "u1faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Funk fahead", "d1faFunk");
+fet_beginchar ("half down Funk fahead", "d1faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Funk fahead", "u2faFunk");
+fet_beginchar ("quarter up Funk fahead", "u2faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Funk fahead", "d2faFunk");
+fet_beginchar ("quarter down Funk fahead", "d2faFunk");
   draw_fa_head (funk_notehead_width, funk_fa_weight);
   fill p_down_out;
 fet_endchar;
@@ -1962,17 +1962,17 @@ def draw_Funk_sol_head (expr filled) =
 enddef;
 
 
-fet_beginchar ("Whole Funk solhead", "s0solFunk");
+fet_beginchar ("whole Funk solhead", "s0solFunk");
   draw_Funk_sol_head ( false);
 fet_endchar;
 
 
-fet_beginchar ("Half Funk solhead", "s1solFunk");
+fet_beginchar ("half Funk solhead", "s1solFunk");
   draw_Funk_sol_head ( false);
 fet_endchar;
 
 
-fet_beginchar ("Quarter Funk solhead", "s2solFunk");
+fet_beginchar ("quarter Funk solhead", "s2solFunk");
   draw_Funk_sol_head ( true);
 fet_endchar;
 
@@ -1985,21 +1985,21 @@ fet_endchar;
 save funk_la_weight;
 funk_la_weight := 1.9;
 
-fet_beginchar ("Whole Funk lahead", "s0laFunk");
+fet_beginchar ("whole Funk lahead", "s0laFunk");
   draw_la_head (funk_notehead_width, funk_notehead_width);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half Funk lahead", "s1laFunk");
+fet_beginchar ("half Funk lahead", "s1laFunk");
   draw_la_head (funk_notehead_width, funk_notehead_width);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter Funk lahead", "s2laFunk");
+fet_beginchar ("quarter Funk lahead", "s2laFunk");
   draw_la_head (funk_notehead_width, funk_notehead_width);
   fill p_out;
 fet_endchar;
@@ -2095,41 +2095,41 @@ enddef;
 save funk_ti_weight;
 funk_ti_weight := 1.6;
 
-fet_beginchar ("Whole up Funk tihead", "u0tiFunk");
+fet_beginchar ("whole up Funk tihead", "u0tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole down Funk tihead", "d0tiFunk");
+fet_beginchar ("whole down Funk tihead", "d0tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Funk tihead", "u1tiFunk");
+fet_beginchar ("half up Funk tihead", "u1tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Funk tihead", "d1tiFunk");
+fet_beginchar ("half down Funk tihead", "d1tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Funk tihead", "u2tiFunk");
+fet_beginchar ("quarter up Funk tihead", "u2tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Funk tihead", "d2tiFunk");
+fet_beginchar ("quarter down Funk tihead", "d2tiFunk");
   draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
   fill p_down_out;
 fet_endchar;
@@ -2229,34 +2229,34 @@ enddef;
 save walker_do_weight;
 walker_do_weight := 1.5;
 
-fet_beginchar ("Whole Walker dohead", "s0doWalker");
+fet_beginchar ("whole Walker dohead", "s0doWalker");
   draw_Walker_do_head (funk_notehead_width, 0, walker_do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Walker dohead", "u1doWalker");
+fet_beginchar ("half up Walker dohead", "u1doWalker");
   draw_Walker_do_head (funk_notehead_width, 1, walker_do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Walker dohead", "d1doWalker");
+fet_beginchar ("half down Walker dohead", "d1doWalker");
   draw_Walker_do_head (funk_notehead_width, 0, walker_do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Walker dohead", "u2doWalker");
+fet_beginchar ("quarter up Walker dohead", "u2doWalker");
   draw_Walker_do_head (funk_notehead_width, 1, walker_do_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Walker dohead", "d2doWalker");
+fet_beginchar ("quarter down Walker dohead", "d2doWalker");
   draw_Walker_do_head (funk_notehead_width, 0, walker_do_weight);
   fill p_out;
 fet_endchar;
@@ -2365,34 +2365,34 @@ enddef;
 save walker_re_weight;
 walker_re_weight := 1.2;
 
-fet_beginchar ("Whole Walker rehead", "s0reWalker");
+fet_beginchar ("whole Walker rehead", "s0reWalker");
   draw_Walker_re_head (funk_notehead_width, walker_re_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Walker rehead", "u1reWalker");
+fet_beginchar ("half up Walker rehead", "u1reWalker");
   draw_Walker_re_head (funk_notehead_width, walker_re_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Walker rehead", "d1reWalker");
+fet_beginchar ("half down Walker rehead", "d1reWalker");
   draw_Walker_re_head (funk_notehead_width, walker_re_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Walker rehead", "u2reWalker");
+fet_beginchar ("quarter up Walker rehead", "u2reWalker");
   draw_Walker_re_head (funk_notehead_width, walker_re_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Walker rehead", "d2reWalker");
+fet_beginchar ("quarter down Walker rehead", "d2reWalker");
   draw_Walker_re_head (funk_notehead_width, walker_re_weight);
   fill p_down_out;
 fet_endchar;
@@ -2406,7 +2406,7 @@ save walker_mi_width, walker_mi_weight;
 walker_mi_width := 1;
 walker_mi_weight := 1.5;
 
-fet_beginchar ("Whole Walker mihead", "s0miWalker");
+fet_beginchar ("whole Walker mihead", "s0miWalker");
   draw_mi_head (walker_mi_width * funk_notehead_width,
                 walker_mi_weight, true);
   fill path_out;
@@ -2414,7 +2414,7 @@ fet_beginchar ("Whole Walker mihead", "s0miWalker");
 fet_endchar;
 
 
-fet_beginchar ("Half Walker mihead", "s1miWalker");
+fet_beginchar ("half Walker mihead", "s1miWalker");
   draw_mi_head (walker_mi_width * funk_notehead_width,
                 walker_mi_weight, true);
   fill path_out;
@@ -2422,7 +2422,7 @@ fet_beginchar ("Half Walker mihead", "s1miWalker");
 fet_endchar;
 
 
-fet_beginchar ("Quarter Walker mihead", "s2miWalker");
+fet_beginchar ("quarter Walker mihead", "s2miWalker");
   draw_mi_head (walker_mi_width * funk_notehead_width,
                 walker_mi_weight, true);
   fill path_out;
@@ -2440,34 +2440,34 @@ fet_endchar;
 save walker_fa_weight;
 walker_fa_weight := 1.5;
 
-fet_beginchar ("Whole Walker fahead", "s0faWalker");
+fet_beginchar ("whole Walker fahead", "s0faWalker");
   draw_fa_head (funk_notehead_width, walker_fa_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Walker fahead", "u1faWalker");
+fet_beginchar ("half up Walker fahead", "u1faWalker");
   draw_fa_head (funk_notehead_width, walker_fa_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Walker fahead", "d1faWalker");
+fet_beginchar ("half down Walker fahead", "d1faWalker");
   draw_fa_head (funk_notehead_width, walker_fa_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Walker fahead", "u2faWalker");
+fet_beginchar ("quarter up Walker fahead", "u2faWalker");
   draw_fa_head (funk_notehead_width, walker_fa_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Walker fahead", "d2faWalker");
+fet_beginchar ("quarter down Walker fahead", "d2faWalker");
   draw_fa_head (funk_notehead_width, walker_fa_weight);
   fill p_down_out;
 fet_endchar;
@@ -2484,21 +2484,21 @@ fet_endchar;
 save walker_la_weight;
 walker_la_weight := 1.5;
 
-fet_beginchar ("Whole Walker lahead", "s0laWalker");
+fet_beginchar ("whole Walker lahead", "s0laWalker");
   draw_la_head (funk_notehead_width, walker_la_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half Funk lahead", "s1laWalker");
+fet_beginchar ("half Funk lahead", "s1laWalker");
   draw_la_head (funk_notehead_width, walker_la_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter Funk lahead", "s2laWalker");
+fet_beginchar ("quarter Funk lahead", "s2laWalker");
   draw_la_head (funk_notehead_width, walker_la_weight);
   fill p_out;
 fet_endchar;
@@ -2583,34 +2583,34 @@ enddef;
 save walker_ti_weight;
 walker_ti_weight := 1.4;
 
-fet_beginchar ("Whole Walker tihead", "s0tiWalker");
+fet_beginchar ("whole Walker tihead", "s0tiWalker");
   draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up Walker tihead", "u1tiWalker");
+fet_beginchar ("half up Walker tihead", "u1tiWalker");
   draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
   fill p_up_out;
   unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down Walker tihead", "d1tiWalker");
+fet_beginchar ("half down Walker tihead", "d1tiWalker");
   draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
   fill p_down_out;
   unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter up Walker tihead", "u2tiWalker");
+fet_beginchar ("quarter up Walker tihead", "u2tiWalker");
   draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
   fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter down Walker tihead", "d2tiWalker");
+fet_beginchar ("quarter down Walker tihead", "d2tiWalker");
   draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
   fill p_down_out;
 fet_endchar;

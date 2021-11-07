@@ -60,12 +60,12 @@ def draw_lyric_tie (expr width_sharp) =
 enddef;
 
 
-fet_beginchar ("Short lyric tie", "lyric.short");
+fet_beginchar ("short lyric tie", "lyric.short");
   draw_lyric_tie (1.25 staff_space#);
 fet_endchar;
 
 
-fet_beginchar ("Default lyric tie", "lyric.default");
+fet_beginchar ("default lyric tie", "lyric.default");
   draw_lyric_tie (1.75 staff_space#);
 fet_endchar;
 

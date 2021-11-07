@@ -137,27 +137,27 @@ def draw_sharp (expr arrowup, arrowdown) =
 enddef;
 
 
-fet_beginchar ("Sharp", "sharp");
+fet_beginchar ("sharp", "sharp");
   draw_sharp (false, false);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Sharp (arrow up)", "sharp.arrowup");
+fet_beginchar ("arrowed sharp (arrow up)", "sharp.arrowup");
   draw_sharp (true, false);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
+fet_beginchar ("arrowed sharp (arrow down)", "sharp.arrowdown");
   draw_sharp (false, true);
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Sharp (arrows up and down)", "sharp.arrowboth");
+fet_beginchar ("arrowed sharp (arrows up and down)", "sharp.arrowboth");
   draw_sharp (true, true);
 fet_endchar;
 
 
-fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
+fet_beginchar ("1/2 sharp", "sharp.slashslash.stem");
   save outer_space;
   save half_height, interbeam_dist;
 
@@ -188,7 +188,7 @@ fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 fet_endchar;
 
 
-fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
+fet_beginchar ("sharp (3 beams)", "sharp.slashslashslash.stemstem");
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
@@ -230,7 +230,7 @@ fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 fet_endchar;
 
 
-fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
+fet_beginchar ("1/2 sharp (3 beams)", "sharp.slashslashslash.stem");
   save outer_space;
   save half_height, interbeam_dist;
   save default_beam_thickness;
@@ -266,7 +266,7 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 fet_endchar;
 
 
-fet_beginchar ("1/2 Sharp (1 beam)", "sharp.slash.stem");
+fet_beginchar ("1/2 sharp (1 beam)", "sharp.slash.stem");
   save outer_space;
   save half_height, interbeam_dist;
 
@@ -296,7 +296,7 @@ fet_beginchar ("1/2 Sharp (1 beam)", "sharp.slash.stem");
 fet_endchar;
 
 
-fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
+fet_beginchar ("3/4 sharp", "sharp.slashslash.stemstemstem");
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
@@ -337,7 +337,7 @@ fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
 fet_endchar;
 
 
-fet_beginchar ("Double Sharp", "doublesharp");
+fet_beginchar ("double sharp", "doublesharp");
   save klaverblad, klaversteel;
   save pat;
   path pat;

@@ -38,7 +38,7 @@ pedalbh# = 4/7 pedalh#;
 define_pixels (pedalh, pedalbh);
 
 
-fet_beginchar ("Pedal asterisk", "*");
+fet_beginchar ("pedal asterisk", "*");
   save bulb, p, radius, thin, inner_r;
   path pat;
 
@@ -96,7 +96,7 @@ fet_endchar;
 
 %% ugh. rounded corners!
 
-fet_beginchar ("Pedal dash", "M");
+fet_beginchar ("pedal dash", "M");
   save dash_thickness;
 
   dash_thickness# := penw#;
@@ -117,7 +117,7 @@ fet_beginchar ("Pedal dash", "M");
 fet_endchar;
 
 
-fet_beginchar ("Pedal dot", ".");
+fet_beginchar ("pedal dot", ".");
   set_char_box (0, penw#, 0, penw#);
 
   pickup pencircle scaled penw;
@@ -296,28 +296,28 @@ def draw_pedal_e (expr show_labels) =
 enddef;
 
 
-fet_beginchar ("Pedal P", "P");
+fet_beginchar ("pedal P", "P");
   set_char_box (0, 5/6 pedalh#, 0, pedalh#);
 
   draw_pedal_P (1);
 fet_endchar;
 
 
-fet_beginchar ("Pedal d", "d");
+fet_beginchar ("pedal d", "d");
   set_char_box (0, 2/3 pedalh#, 0, 7/8 pedalh#);
 
   draw_pedal_d (1);
 fet_endchar;
 
 
-fet_beginchar ("Pedal e", "e");
+fet_beginchar ("pedal e", "e");
   set_char_box (0, 2/5 pedalh#, 0, pedalbh#);
 
   draw_pedal_e (1);
 fet_endchar;
 
 
-fet_beginchar ("Pedal Ped", "Ped");
+fet_beginchar ("pedal Ped", "Ped");
   P_width# = 5/6 pedalh#;
   e_width# = 2/5 pedalh#;
   d_width# = 2/3 pedalh#;

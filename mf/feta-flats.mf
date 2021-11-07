@@ -201,7 +201,7 @@ enddef;
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
 
-fet_beginchar ("Flat", "flat");
+fet_beginchar ("flat", "flat");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           false, false);
   penlabels (range 0 thru 11);
@@ -210,7 +210,7 @@ fet_beginchar ("Flat", "flat");
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Flat (arrow up)", "flat.arrowup");
+fet_beginchar ("arrowed flat (arrow up)", "flat.arrowup");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           true, false);
   penlabels (range 0 thru 23);
@@ -219,7 +219,7 @@ fet_beginchar ("Arrowed Flat (arrow up)", "flat.arrowup");
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Flat (arrow down)", "flat.arrowdown");
+fet_beginchar ("arrowed flat (arrow down)", "flat.arrowdown");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           false, true);
   penlabels (range 0 thru 23);
@@ -228,7 +228,7 @@ fet_beginchar ("Arrowed Flat (arrow down)", "flat.arrowdown");
 fet_endchar;
 
 
-fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
+fet_beginchar ("arrowed flat (arrow up and down)", "flat.arrowboth");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           true, true);
   penlabels (range 0 thru 23);
@@ -237,7 +237,7 @@ fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
 fet_endchar;
 
 
-fet_beginchar ("Flat (slashed)", "flat.slash");
+fet_beginchar ("flat (slashed)", "flat.slash");
   set_char_box (.4 staff_space#, .8 staff_space#,
                 0.6 staff_space#, 1.9 staff_space#);
 
@@ -274,7 +274,7 @@ fet_beginchar ("Flat (slashed)", "flat.slash");
 fet_endchar;
 
 
-fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
+fet_beginchar ("flat (slashed twice)", "flat.slashslash");
   set_char_box (.4 staff_space#, .8 staff_space#,
                 0.6 staff_space#, 1.9 staff_space#);
 
@@ -332,7 +332,7 @@ fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
 fet_endchar;
 
 
-fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
+fet_beginchar ("flatflat (mirrored)", "mirroredflat.flat");
   set_char_box (0, 1.6 staff_space#,
                 0.6 staff_space#, 1.9 staff_space#);
 
@@ -446,7 +446,7 @@ fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 fet_endchar;
 
 
-fet_beginchar ("Semi flat", "mirroredflat");
+fet_beginchar ("semi flat", "mirroredflat");
   set_char_box (1.2 stafflinethickness#, .8 staff_space#,
                 0.6 staff_space#, 1.9 staff_space#);
 
@@ -457,7 +457,7 @@ fet_beginchar ("Semi flat", "mirroredflat");
 fet_endchar;
 
 
-fet_beginchar ("Semi flat", "mirroredflat.backslash");
+fet_beginchar ("semi flat (slashed)", "mirroredflat.backslash");
   set_char_box (.4 staff_space#, .8 staff_space#,
                 0.6 staff_space#, 1.9 staff_space#);
 
@@ -495,7 +495,7 @@ fet_beginchar ("Semi flat", "mirroredflat.backslash");
 fet_endchar;
 
 
-fet_beginchar ("Double Flat", "flatflat");
+fet_beginchar ("double flat", "flatflat");
   save left_wid, overlap, right_wid;
 
   left_wid = .7;
@@ -515,7 +515,7 @@ fet_beginchar ("Double Flat", "flatflat");
 fet_endchar;
 
 
-fet_beginchar ("3/4 Flat", "flatflat.slash");
+fet_beginchar ("3/4 flat", "flatflat.slash");
   save left_wid, overlap, right_wid;
 
   left_wid = .7;

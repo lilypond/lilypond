@@ -250,7 +250,7 @@ define_pixels (dot_diam);
 
 code := 42;         % , 43
 
-fet_beginchar ("Plus", "plus");
+fet_beginchar ("plus", "plus");
   set_char_box (0, .5 height#, -0.25 height#, 0.75 height#);
 
   save hthick, vthick, size, outer_hsize, outer_vsize;
@@ -280,7 +280,7 @@ fet_endchar;
 
 code := 43;        % , = 44
 
-fet_beginchar ("Numeral comma", "comma");
+fet_beginchar ("numeral comma", "comma");
   save pat, pos;
   path pat;
 
@@ -319,7 +319,7 @@ fet_beginchar ("Numeral comma", "comma");
 fet_endchar;
 
 
-fet_beginchar ("Numeral dash", "hyphen");
+fet_beginchar ("numeral dash", "hyphen");
   set_char_box (0, height# / 3, 0, height#);
 
   draw_rounded_block ((-b, h / 3 - thin / 2),
@@ -327,7 +327,7 @@ fet_beginchar ("Numeral dash", "hyphen");
 fet_endchar;
 
 
-fet_beginchar ("Numeral dot", "period");
+fet_beginchar ("numeral dot", "period");
   set_char_box (0, dot_diam#, 0, dot_diam#);
 
   pickup pencircle scaled dot_diam;
@@ -340,7 +340,7 @@ fet_endchar;
 
 code := 47;        % 0 = 48
 
-fet_beginchar ("Numeral 0", "zero");
+fet_beginchar ("numeral 0", "zero");
   set_char_box (0, 11/15 height# * widen, 0, height#);
 
   penpos1 (thin, 90);
@@ -372,7 +372,7 @@ fet_beginchar ("Numeral 0", "zero");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 1", "one");
+fet_beginchar ("numeral 1", "one");
   save alpha, beta, gamma;
 
   % set_char_box (0, 19/30 height# * widen, 0, height#);
@@ -423,7 +423,7 @@ fet_beginchar ("Numeral 1", "one");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 2", "two");
+fet_beginchar ("numeral 2", "two");
   save tolerance;
   save alpha, beta, gamma, theta;
   save flare_start_distance;
@@ -501,7 +501,7 @@ fet_endchar;
 % TODO: should widen a bit.  The right edge of the 3 bumps into next glyph in
 % combinations
 %
-fet_beginchar ("Numeral 3", "three");
+fet_beginchar ("numeral 3", "three");
   set_char_box (0, 2/3 height# * widen, 0, height#);
 
   penpos1 (hair, -90);
@@ -563,7 +563,7 @@ fet_beginchar ("Numeral 3", "three");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 4", "four");
+fet_beginchar ("numeral 4", "four");
   save alpha, beta, gamma;
 
   set_char_box (0, 4/5 height# * widen, 0, height#);
@@ -629,7 +629,7 @@ fet_beginchar ("Numeral 4", "four");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 5", "five");
+fet_beginchar ("numeral 5", "five");
   save alpha, beta, gamma, delta;
   save inner_t, outer_t;
   save pat;
@@ -708,12 +708,12 @@ fet_beginchar ("Numeral 5", "five");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 6", "six");
+fet_beginchar ("numeral 6", "six");
   draw_six;
 fet_endchar;
 
 
-fet_beginchar ("Numeral 7", "seven");
+fet_beginchar ("numeral 7", "seven");
   save tolerance;
   save alpha, beta, gamma, delta;
   save pata, ta, patb, tb, bow;
@@ -813,7 +813,7 @@ fet_beginchar ("Numeral 7", "seven");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 8", "eight");
+fet_beginchar ("numeral 8", "eight");
   save alpha, beta;
 
   set_char_box (0, 11/15 height# * widen, 0, height#);
@@ -872,7 +872,7 @@ fet_beginchar ("Numeral 8", "eight");
 fet_endchar;
 
 
-fet_beginchar ("Numeral 9", "nine");
+fet_beginchar ("numeral 9", "nine");
   draw_six;
 %  xy_mirror_char;
 

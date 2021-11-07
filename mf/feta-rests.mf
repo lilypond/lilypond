@@ -138,7 +138,7 @@ fet_beginchar ("breve rest (outside staff)", "M1o");
 fet_endchar;
 
 
-fet_beginchar ("Quarter rest", "2");
+fet_beginchar ("quarter rest", "2");
   save alpha, yshift, height;
   save xcenter;
 
@@ -372,13 +372,13 @@ def draw_eighth_rest (expr show_labels) =
 enddef;
 
 
-fet_beginchar ("Classical quarter rest", "2classical");
+fet_beginchar ("classical quarter rest", "2classical");
   draw_eighth_rest (0);
   currentpicture := currentpicture xscaled -1 shifted (w, 0);
 fet_endchar;
 
 
-fet_beginchar ("Z-shaped quarter rest", "2z");
+fet_beginchar ("z-shaped quarter rest", "2z");
   save ycenter;
   save pat, bulb, rest;
   path pat, bulb, rest;

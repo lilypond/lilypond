@@ -268,47 +268,47 @@ nm_brevis_width := nm_longa_width;
 nm_holeheight := 4 linethickness;
 nm_red_holeheight := 2.5 linethickness;
 
-fet_beginchar ("Neo-mensural maxima notehead (up)", "uM3neomensural");
+fet_beginchar ("neo-mensural maxima notehead (up)", "uM3neomensural");
   draw_neomensural_longa (nm_maxima_width, nm_holeheight, 1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural maxima notehead (down)", "dM3neomensural");
+fet_beginchar ("neo-mensural maxima notehead (down)", "dM3neomensural");
   draw_neomensural_longa (nm_maxima_width, nm_holeheight, -1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural longa notehead (up)", "uM2neomensural");
+fet_beginchar ("neo-mensural longa notehead (up)", "uM2neomensural");
   draw_neomensural_longa (nm_longa_width, nm_holeheight, 1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural longa notehead (down)", "dM2neomensural");
+fet_beginchar ("neo-mensural longa notehead (down)", "dM2neomensural");
   draw_neomensural_longa (nm_longa_width, nm_holeheight, -1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural brevis notehead", "sM1neomensural");
+fet_beginchar ("neo-mensural brevis notehead", "sM1neomensural");
   draw_neomensural_brevis (nm_brevis_width, nm_holeheight, true, true);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural maxima notehead (up, reduced hole)",
+fet_beginchar ("neo-mensural maxima notehead (up, reduced hole)",
                "urM3neomensural");
   draw_neomensural_longa (nm_maxima_width, nm_red_holeheight, 1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural maxima notehead (down, reduced hole)",
+fet_beginchar ("neo-mensural maxima notehead (down, reduced hole)",
                "drM3neomensural");
   draw_neomensural_longa (nm_maxima_width, nm_red_holeheight, -1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural longa notehead (up, reduced hole)",
+fet_beginchar ("neo-mensural longa notehead (up, reduced hole)",
                "urM2neomensural");
   draw_neomensural_longa (nm_longa_width, nm_red_holeheight, 1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural longa notehead (down, reduced hole)",
+fet_beginchar ("neo-mensural longa notehead (down, reduced hole)",
                "drM2neomensural");
   draw_neomensural_longa (nm_longa_width, nm_red_holeheight, -1);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural brevis notehead (reduced hole)",
+fet_beginchar ("neo-mensural brevis notehead (reduced hole)",
                "srM1neomensural");
   draw_neomensural_brevis (nm_brevis_width, nm_red_holeheight, true, true);
 fet_endchar;
@@ -321,15 +321,15 @@ fet_endchar;
 save nm_height, nm_width;
 nm_height := noteheight#;
 nm_width := staff_space#;
-fet_beginchar ("Neo-mensural semibrevis head", "s0neomensural");
+fet_beginchar ("neo-mensural semibrevis head", "s0neomensural");
   draw_neomensural_open_head (nm_width, nm_height, 0);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural minima head", "s1neomensural");
+fet_beginchar ("neo-mensural minima head", "s1neomensural");
   draw_neomensural_open_head (nm_width, nm_height, 0);
 fet_endchar;
 
-fet_beginchar ("Neo-mensural semiminima head", "s2neomensural");
+fet_beginchar ("neo-mensural semiminima head", "s2neomensural");
   draw_neomensural_black_head (nm_width, nm_height, 0);
 fet_endchar;
 
@@ -346,13 +346,13 @@ fet_endchar;
 % WL says the thin lines should be thinner.
 %
 
-fet_beginchar ("Harmonic notehead (Neo-mensural open)", "s0harmonic");
+fet_beginchar ("harmonic notehead (neo-mensural open)", "s0harmonic");
   draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#, 5);
   charwx := head_width#;
   charwy := 0;
 fet_endchar;
 
-fet_beginchar ("Harmonic notehead (Neo-mensural black)", "s2harmonic");
+fet_beginchar ("harmonic notehead (neo-mensural black)", "s2harmonic");
   draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#, 5);
   charwx := head_width#;
   charwy := 0;
@@ -480,87 +480,87 @@ m_holeheight := nm_holeheight;
 m_red_holeheight := nm_red_holeheight;
 
 
-fet_beginchar ("Mensural maxima notehead (up)", "uM3mensural");
+fet_beginchar ("mensural maxima notehead (up)", "uM3mensural");
   draw_mensural_longa (m_maxima_width, m_holeheight,
                        true, true, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead (down)", "dM3mensural");
+fet_beginchar ("mensural maxima notehead (down)", "dM3mensural");
   draw_mensural_longa (m_maxima_width, m_holeheight,
                        true, true, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead (ligature)", "sM3ligmensural");
+fet_beginchar ("mensural maxima notehead (ligature)", "sM3ligmensural");
   draw_mensural_brevis (m_maxima_width, m_holeheight, true, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead (up)", "uM2mensural");
+fet_beginchar ("mensural longa notehead (up)", "uM2mensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, true, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead (down)", "dM2mensural");
+fet_beginchar ("mensural longa notehead (down)", "dM2mensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, true, -1, false);
 fet_endchar;
 
-fet_beginchar ("Mensural longa notehead (ligature)", "sM2ligmensural");
+fet_beginchar ("mensural longa notehead (ligature)", "sM2ligmensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, true, -1, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural brevis notehead", "sM1mensural");
+fet_beginchar ("mensural brevis notehead", "sM1mensural");
   draw_mensural_brevis (m_brevis_width, m_holeheight, true, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead (up, reduced hole)",
+fet_beginchar ("mensural maxima notehead (up, reduced hole)",
                "urM3mensural");
   draw_mensural_longa (m_maxima_width, m_red_holeheight,
                        true, true, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead (down, reduced hole)",
+fet_beginchar ("mensural maxima notehead (down, reduced hole)",
                "drM3mensural");
   draw_mensural_longa (m_maxima_width, m_red_holeheight,
                        true, true, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead (ligature, reduced hole)",
+fet_beginchar ("mensural maxima notehead (ligature, reduced hole)",
                "srM3ligmensural");
   draw_mensural_brevis (m_maxima_width, m_red_holeheight, true, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead (up, reduced hole)",
+fet_beginchar ("mensural longa notehead (up, reduced hole)",
                "urM2mensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, true, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead (down, reduced hole)",
+fet_beginchar ("mensural longa notehead (down, reduced hole)",
                "drM2mensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, true, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead (ligature, reduced hole)",
+fet_beginchar ("mensural longa notehead (ligature, reduced hole)",
                "srM2ligmensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, true, -1, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural brevis notehead (reduced hole)", "srM1mensural");
+fet_beginchar ("mensural brevis notehead (reduced hole)", "srM1mensural");
   draw_mensural_brevis (m_brevis_width, m_red_holeheight, true, true);
 fet_endchar;
 
@@ -569,94 +569,94 @@ fet_endchar;
 % Semi-colored mensural/Petrucci maxima/longa/brevis
 %
 
-fet_beginchar ("Semi-colored mensural maxima notehead (up)",
+fet_beginchar ("semi-colored mensural maxima notehead (up)",
                "uM3semimensural");
   draw_mensural_longa (m_maxima_width, m_holeheight,
                        true, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural maxima notehead (down)",
+fet_beginchar ("semi-colored mensural maxima notehead (down)",
                "dM3semimensural");
   draw_mensural_longa (m_maxima_width, m_holeheight,
                        true, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural maxima notehead (ligature)",
+fet_beginchar ("semi-colored mensural maxima notehead (ligature)",
                "sM3semiligmensural");
   draw_mensural_brevis (m_maxima_width, m_holeheight, true, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (up)",
+fet_beginchar ("semi-colored mensural longa notehead (up)",
                "uM2semimensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (down)",
+fet_beginchar ("semi-colored mensural longa notehead (down)",
                "dM2semimensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (ligature)",
+fet_beginchar ("semi-colored mensural longa notehead (ligature)",
                "sM2semiligmensural");
   draw_mensural_longa (m_longa_width, m_holeheight,
                        true, false, -1, true);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural brevis notehead", "sM1semimensural");
+fet_beginchar ("semi-colored mensural brevis notehead", "sM1semimensural");
   draw_mensural_brevis (m_brevis_width, m_holeheight, true, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural maxima notehead (up, reduced hole)",
+fet_beginchar ("semi-colored mensural maxima notehead (up, reduced hole)",
                "urM3semimensural");
   draw_mensural_longa (m_maxima_width, m_red_holeheight,
                        true, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural maxima notehead (down, reduced hole)",
+fet_beginchar ("semi-colored mensural maxima notehead (down, reduced hole)",
                "drM3semimensural");
   draw_mensural_longa (m_maxima_width, m_red_holeheight,
                        true, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural maxima notehead (ligature, reduced hole)",
+fet_beginchar ("semi-colored mensural maxima notehead (ligature, reduced hole)",
                "srM3semiligmensural");
   draw_mensural_brevis (m_maxima_width, m_red_holeheight, true, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (up, reduced hole)",
+fet_beginchar ("semi-colored mensural longa notehead (up, reduced hole)",
                "urM2semimensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (down, reduced hole)",
+fet_beginchar ("semi-colored mensural longa notehead (down, reduced hole)",
                "drM2semimensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural longa notehead (ligature, reduced hole)",
+fet_beginchar ("semi-colored mensural longa notehead (ligature, reduced hole)",
                "srM2semiligmensural");
   draw_mensural_longa (m_longa_width, m_red_holeheight,
                        true, false, -1, true);
 fet_endchar;
 
 
-fet_beginchar ("Semi-colored mensural brevis notehead (reduced hole)",
+fet_beginchar ("semi-colored mensural brevis notehead (reduced hole)",
                "srM1semimensural");
   draw_mensural_brevis (m_brevis_width, m_red_holeheight, true, false);
 fet_endchar;
@@ -666,39 +666,39 @@ fet_endchar;
 % Black mensural/Petrucci maxima/longa/brevis
 %
 
-fet_beginchar ("Black mensural maxima notehead (up)", "uM3blackmensural");
+fet_beginchar ("black mensural maxima notehead (up)", "uM3blackmensural");
   draw_mensural_longa (m_maxima_width, 0, false, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural maxima notehead (down)", "dM3blackmensural");
+fet_beginchar ("black mensural maxima notehead (down)", "dM3blackmensural");
   draw_mensural_longa (m_maxima_width, 0, false, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural maxima notehead (ligature)",
+fet_beginchar ("black mensural maxima notehead (ligature)",
                "sM3blackligmensural");
   draw_mensural_brevis (m_maxima_width, 0, false, false);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural longa notehead (up)", "uM2blackmensural");
+fet_beginchar ("black mensural longa notehead (up)", "uM2blackmensural");
   draw_mensural_longa (m_longa_width, 0, false, false, 1, false);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural longa notehead (down)", "dM2blackmensural");
+fet_beginchar ("black mensural longa notehead (down)", "dM2blackmensural");
   draw_mensural_longa (m_longa_width, 0, false, false, -1, false);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural longa notehead (ligature)",
+fet_beginchar ("black mensural longa notehead (ligature)",
                "sM2blackligmensural");
   draw_mensural_longa (m_longa_width, 0, false, false, -1, true);
 fet_endchar;
 
 
-fet_beginchar ("Black mensural brevis notehead", "sM1blackmensural");
+fet_beginchar ("black mensural brevis notehead", "sM1blackmensural");
   draw_mensural_brevis (m_brevis_width, 0, false, false);
 fet_endchar;
 
@@ -707,17 +707,17 @@ fet_endchar;
 % Mensural semibrevis/minima/semiminima
 %
 
-fet_beginchar ("Mensural semibrevis head", "s0mensural");
+fet_beginchar ("mensural semibrevis head", "s0mensural");
   draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural minima head", "s1mensural");
+fet_beginchar ("mensural minima head", "s1mensural");
   draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
 
-fet_beginchar ("Mensural semiminima head", "s2mensural");
+fet_beginchar ("mensural semiminima head", "s2mensural");
   draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 
@@ -726,7 +726,7 @@ fet_endchar;
 % Black mensural semibrevis/minima/semiminima
 %
 
-fet_beginchar ("Black mensural semibrevis head", "s0blackmensural");
+fet_beginchar ("black mensural semibrevis head", "s0blackmensural");
   draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 

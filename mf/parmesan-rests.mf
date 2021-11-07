@@ -48,7 +48,7 @@ def neomens_half_block_rest =
 enddef;
 
 
-fet_beginchar ("Neo-mensural maxima rest", "M3neomensural");
+fet_beginchar ("neo-mensural maxima rest", "M3neomensural");
   set_char_box (0, 3 neomens_block_rest_x#,
                 neomens_block_rest_y#, neomens_block_rest_y#);
 
@@ -59,7 +59,7 @@ fet_beginchar ("Neo-mensural maxima rest", "M3neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural longa rest", "M2neomensural");
+fet_beginchar ("neo-mensural longa rest", "M2neomensural");
   set_char_box (0, neomens_block_rest_x#,
                 neomens_block_rest_y#, neomens_block_rest_y#);
 
@@ -68,7 +68,7 @@ fet_beginchar ("Neo-mensural longa rest", "M2neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural breve rest", "M1neomensural");
+fet_beginchar ("neo-mensural breve rest", "M1neomensural");
   set_char_box (0, neomens_block_rest_x#,
                 0, neomens_block_rest_y#);
 
@@ -77,7 +77,7 @@ fet_beginchar ("Neo-mensural breve rest", "M1neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural whole rest", "0neomensural");
+fet_beginchar ("neo-mensural whole rest", "0neomensural");
   set_char_box (0, neomens_block_rest_x#,
                 neomens_half_block_rest_y#,  0);
 
@@ -87,7 +87,7 @@ fet_beginchar ("Neo-mensural whole rest", "0neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural half rest", "1neomensural");
+fet_beginchar ("neo-mensural half rest", "1neomensural");
   set_char_box (0, neomens_block_rest_x#,
                 0, neomens_half_block_rest_y#);
 
@@ -98,7 +98,7 @@ fet_endchar;
 neomensrestsize# = 0.8 staff_space#;
 
 
-fet_beginchar ("Neo-mensural 4th rest", "2neomensural");
+fet_beginchar ("neo-mensural 4th rest", "2neomensural");
   set_char_box (0, neomensrestsize#,
                 0, neomensrestsize#);
 
@@ -141,7 +141,7 @@ fet_beginchar ("Neo-mensural 4th rest", "2neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural 8th rest", "3neomensural");
+fet_beginchar ("neo-mensural 8th rest", "3neomensural");
   set_char_box (0, neomensrestsize#,
                 0, neomensrestsize#);
 
@@ -183,7 +183,7 @@ fet_beginchar ("Neo-mensural 8th rest", "3neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural 16th rest", "4neomensural");
+fet_beginchar ("neo-mensural 16th rest", "4neomensural");
   set_char_box (0, neomensrestsize#,
                 0, staff_space#);
 
@@ -263,7 +263,7 @@ define_pixels (mens_block_rest_y, mens_half_block_rest_y,
                pen_width, pen_height);
 
 
-fet_beginchar ("Mensural maxima rest", "M3mensural");
+fet_beginchar ("mensural maxima rest", "M3mensural");
   set_char_box (0, pen_width#,
                 mens_block_rest_y#, 2 mens_block_rest_y#);
 
@@ -276,7 +276,7 @@ fet_beginchar ("Mensural maxima rest", "M3mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa rest", "M2mensural");
+fet_beginchar ("mensural longa rest", "M2mensural");
   set_char_box (0, pen_width#,
                 mens_block_rest_y#, mens_block_rest_y#);
 
@@ -289,7 +289,7 @@ fet_beginchar ("Mensural longa rest", "M2mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural breve rest", "M1mensural");
+fet_beginchar ("mensural breve rest", "M1mensural");
   set_char_box (0, pen_width#,
                 0, mens_block_rest_y#);
 
@@ -302,7 +302,7 @@ fet_beginchar ("Mensural breve rest", "M1mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural whole rest", "0mensural");
+fet_beginchar ("mensural whole rest", "0mensural");
   set_char_box (0, pen_width#,
                 mens_half_block_rest_y#, 0);
 
@@ -315,7 +315,7 @@ fet_beginchar ("Mensural whole rest", "0mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural half rest", "1mensural");
+fet_beginchar ("mensural half rest", "1mensural");
   set_char_box (0, pen_width#,
                 0, mens_half_block_rest_y#);
 
@@ -331,7 +331,7 @@ fet_endchar;
 mensrestsize# = .8 staff_space#;
 
 
-fet_beginchar ("Mensural 4th rest", "2mensural");
+fet_beginchar ("mensural 4th rest", "2mensural");
   set_char_box (0, mensrestsize#,
                 0, mensrestsize#);
 
@@ -359,7 +359,7 @@ fet_endchar;
 %
 % FIXME: The left sharp corner produces ugly results at lower resolutions.
 %
-fet_beginchar ("Mensural 8th rest", "3mensural");
+fet_beginchar ("mensural 8th rest", "3mensural");
   set_char_box (0, mensrestsize#,
                 0, mensrestsize#);
 
@@ -391,7 +391,7 @@ fet_endchar;
 %
 % FIXME: The left sharp corner produces ugly results at lower resolutions.
 %
-fet_beginchar ("Mensural 16th rest", "4mensural");
+fet_beginchar ("mensural 16th rest", "4mensural");
   set_char_box (0, mensrestsize#,
                 0, staff_space#);
 

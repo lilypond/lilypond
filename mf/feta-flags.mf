@@ -759,42 +759,42 @@ enddef;
 
 
 
-fet_beginchar ("8th Flag (up)", "u3");
+fet_beginchar ("8th flag (up)", "u3");
   upstemsingleflag (0.0);
 fet_endchar;
 
 
-fet_beginchar ("16th Flag (up)", "u4");
+fet_beginchar ("16th flag (up)", "u4");
   upstemdoubleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("32nd Flag (up)", "u5");
+fet_beginchar ("32nd flag (up)", "u5");
   upstemtripleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("64th Flag (up)", "u6");
+fet_beginchar ("64th flag (up)", "u6");
   upstemquadrupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("128th Flag (up)", "u7");
+fet_beginchar ("128th flag (up)", "u7");
   upstemquintupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("256th Flag (up)", "u8");
+fet_beginchar ("256th flag (up)", "u8");
   upstemsextupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("512th Flag (up)", "u9");
+fet_beginchar ("512th flag (up)", "u9");
   upstemseptupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("1024th Flag (up)", "u10");
+fet_beginchar ("1024th flag (up)", "u10");
   upstemoctupleflag (0);
 fet_endchar;
 
@@ -802,42 +802,42 @@ fet_endchar;
 
 
 
-fet_beginchar ("8th Flag (down)", "d3");
+fet_beginchar ("8th flag (down)", "d3");
   downstemsingleflag (0.0);
 fet_endchar;
 
 
-fet_beginchar ("16th Flag (down) 3", "d4");
+fet_beginchar ("16th flag (down) 3", "d4");
   downstemdoubleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("32nd Flag (down)", "d5");
+fet_beginchar ("32nd flag (down)", "d5");
   downstemtripleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("64th Flag (down)", "d6");
+fet_beginchar ("64th flag (down)", "d6");
   downstemquadrupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("128th Flag (down)", "d7");
+fet_beginchar ("128th flag (down)", "d7");
   downstemquintupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("256th Flag (down)", "d8");
+fet_beginchar ("256th flag (down)", "d8");
   downstemsextupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("512th Flag (down)", "d9");
+fet_beginchar ("512th flag (down)", "d9");
   downstemseptupleflag (0);
 fet_endchar;
 
 
-fet_beginchar ("1024th Flag (down)", "d10");
+fet_beginchar ("1024th flag (down)", "d10");
   downstemoctupleflag (0);
 fet_endchar;
 

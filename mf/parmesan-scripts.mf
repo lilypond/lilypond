@@ -115,7 +115,7 @@ def draw_half_circle (expr diam) =
 enddef;
 
 
-fet_beginchar ("half circle", "usemicirculus");
+fet_beginchar ("half circle up", "usemicirculus");
   draw_half_circle (5/16 staff_space#);
 
   currentpicture := currentpicture yscaled -1;
@@ -125,7 +125,7 @@ fet_beginchar ("half circle", "usemicirculus");
 fet_endchar;
 
 
-fet_beginchar ("half circle", "dsemicirculus");
+fet_beginchar ("half circle down", "dsemicirculus");
   draw_half_circle (5/16 staff_space#);
 
   set_char_box (diameter# / 2, diameter# / 2,

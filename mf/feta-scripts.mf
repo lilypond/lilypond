@@ -518,7 +518,7 @@ fet_endchar;
 % the same way in the score.
 %
 
-fet_beginchar ("Thumb", "thumb");
+fet_beginchar ("thumb", "thumb");
   save thin, height, width, thick, depth;
   height# = 5/4 width#;
   height# = staff_space#;
@@ -606,7 +606,7 @@ def draw_accent (expr bottom_left, top_right, thickness, diminish) =
 enddef;
 
 
-fet_beginchar ("> accent", "sforzato");
+fet_beginchar ("wedge accent", "sforzato");
   set_char_box (.9 staff_space#, .9 staff_space#,
                 .5 staff_space#, .5 staff_space#);
 
@@ -903,7 +903,7 @@ fet_beginchar ("plus (stopped)", "stopped");
 fet_endchar;
 
 
-fet_beginchar ("Upbow", "upbow");
+fet_beginchar ("upbow", "upbow");
   save ht, wd, thick;
 
   thick = 1.4 linethickness;
@@ -917,7 +917,7 @@ fet_beginchar ("Upbow", "upbow");
 fet_endchar;
 
 
-fet_beginchar ("Downbow", "downbow");
+fet_beginchar ("downbow", "downbow");
   save stemthick, beamheight, wd;
   save pat;
   path pat;
@@ -1023,19 +1023,19 @@ def draw_turn (expr height_factor, thicker_center) =
 enddef;
 
 
-fet_beginchar ("Reverse turn", "reverseturn");
+fet_beginchar ("reverse turn", "reverseturn");
   draw_turn (1, 1.1);
   currentpicture := currentpicture yscaled -1;
 fet_endchar;
 
 
-fet_beginchar ("Turn", "turn");
+fet_beginchar ("turn", "turn");
   draw_turn (1, 1.1);
   penlabels (1, 2, 3, 4, 5, 6, 7);
 fet_endchar;
 
 
-fet_beginchar ("Slashed turn", "slashturn");
+fet_beginchar ("slashed turn", "slashturn");
   draw_turn (4 / 3, 0.96);
 
   clearxy;
@@ -1112,7 +1112,7 @@ fet_endchar;
 % FIXME generic macros for serifs: top of the t and bottom of r
 %
 
-fet_beginchar ("Trill (`tr')", "trill");
+fet_beginchar ("trill (`tr')", "trill");
   save start_nib_angle, ascender_extra, ex, hair_thick, fatness;
   save slant, t_fatness, r_fatness, kerning, t_overshoot;
   save uitschieter, bulb_size, krul_ang;
@@ -1355,7 +1355,7 @@ fet_beginchar ("right toe", "dpedaltoe");
 fet_endchar;
 
 
-fet_beginchar ("Flageolet", "flageolet");
+fet_beginchar ("flageolet", "flageolet");
   save height, width, thickness, superness;
 
   height# = 4/15 staffsize#;
@@ -1405,7 +1405,7 @@ fet_endchar;
 % TODO:  ARGRGHGH code dup.
 %
 
-fet_beginchar ("Segno", "segno");
+fet_beginchar ("segno", "segno");
   save thin, thick, ball_diam, darkness, pointheight;
   save wd, ht, thick_nibangle, ball_nib_thick;
   save turndir;
@@ -1480,7 +1480,7 @@ fet_beginchar ("Segno", "segno");
 fet_endchar;
 
 
-fet_beginchar ("Varied Segno", "varsegno");
+fet_beginchar ("varied segno", "varsegno");
   save ht, wd, loopdist, loopangle;
   save thin, med, thick;
   save bulbradius, center;
@@ -1570,7 +1570,7 @@ fet_beginchar ("Varied Segno", "varsegno");
 fet_endchar;
 
 
-fet_beginchar ("Coda", "coda");
+fet_beginchar ("coda", "coda");
   save stickout, thin, thick, codawidth, codaheight;
 
   stickout# = 0.35 staff_space#;
@@ -1614,7 +1614,7 @@ fet_beginchar ("Coda", "coda");
 fet_endchar;
 
 
-fet_beginchar ("Varied Coda", "varcoda");
+fet_beginchar ("varied coda", "varcoda");
   save thin, thick, codawidth, codaheight;
   thin# = 1.2 linethickness#;
   thick# = 1.0 linethickness# + 0.25 staff_space#;
@@ -1678,13 +1678,13 @@ def draw_comma =
 enddef;
 
 
-fet_beginchar ("Right Comma", "rcomma");
+fet_beginchar ("right comma", "rcomma");
   draw_comma;
   penlabels (1, 2, 3, 4);
 fet_endchar;
 
 
-fet_beginchar ("Left Comma", "lcomma");
+fet_beginchar ("left comma", "lcomma");
   draw_comma;
   xy_mirror_char;
 fet_endchar;
@@ -1709,13 +1709,13 @@ def draw_varcomma (expr show_labels) =
 enddef;
 
 
-fet_beginchar ("Right Varied Comma", "rvarcomma");
+fet_beginchar ("right varied comma", "rvarcomma");
   draw_varcomma (1);
   labels (1, 2);
 fet_endchar;
 
 
-fet_beginchar ("Left Varied Comma", "lvarcomma");
+fet_beginchar ("left varied comma", "lvarcomma");
   draw_varcomma (0);
   xy_mirror_char;
 fet_endchar;
@@ -1773,7 +1773,7 @@ def draw_arpeggio =
 enddef;
 
 
-fet_beginchar ("Arpeggio", "arpeggio");
+fet_beginchar ("arpeggio", "arpeggio");
   begingroup;
     save height, overshoot, width;
     height# := staff_space#;
@@ -1795,7 +1795,7 @@ fet_endchar;
 % Rename me to Trill, rename Trill to Tr?
 %
 
-fet_beginchar ("Trill_element", "trill_element");
+fet_beginchar ("trill element", "trill_element");
   begingroup;
     save height, overshoot, width;
     height# = staff_space#;
@@ -1896,13 +1896,13 @@ def draw_arpeggio_arrow =
 enddef;
 
 
-fet_beginchar ("Arpeggio arrow down", "arpeggio.arrow.M1");
+fet_beginchar ("arpeggio arrow down", "arpeggio.arrow.M1");
   draw_arpeggio_arrow;
   penlabels (range 1 thru 12);
 fet_endchar;
 
 
-fet_beginchar ("Arpeggio arrow up", "arpeggio.arrow.1");
+fet_beginchar ("arpeggio arrow up", "arpeggio.arrow.1");
   draw_arpeggio_arrow;
   currentpicture := currentpicture scaled -1
                                    shifted (w - feta_eps, h - feta_eps);
@@ -1918,7 +1918,7 @@ input feta-trills;
 % tapered, comma-shaped curves and as two straight parallel slashes.
 %
 
-fet_beginchar ("Curved caesura", "caesura.curved");
+fet_beginchar ("curved caesura", "caesura.curved");
   save slant, space_between, clearance;
   save alpha, pat;
   save botthick, topthick;
@@ -1971,7 +1971,7 @@ fet_beginchar ("Curved caesura", "caesura.curved");
 fet_endchar;
 
 
-fet_beginchar ("Straight caesura", "caesura.straight");
+fet_beginchar ("straight caesura", "caesura.straight");
   save slant, space_between, clearance;
   save thick, ne, pat;
   path pat;
@@ -2028,7 +2028,7 @@ fet_endchar;
 % A tick character to use instead of a comma or caesura as a breath mark.
 % Very common in vocal notation.
 
-fet_beginchar ("Tick mark", "tickmark");
+fet_beginchar ("tick mark", "tickmark");
   save end_rad, bot_rad, pat, x_centre, x_extent;
   path pat;
 

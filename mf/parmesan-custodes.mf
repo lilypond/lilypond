@@ -139,32 +139,32 @@ enddef;
 
 
 % custos hufnagel, stem up, between staff lines
-custos_hufnagel ("Custos Hufnagel", "hufnagel.u0",
+custos_hufnagel ("custos Hufnagel (up, between lines)", "hufnagel.u0",
                  dir_up, between_staff_lines);
 
 
 % custos hufnagel, stem up, on staff line
-custos_hufnagel ("Custos Hufnagel", "hufnagel.u1",
+custos_hufnagel ("custos Hufnagel (up, on line)", "hufnagel.u1",
                  dir_up, on_staff_line);
 
 
 % custos hufnagel, stem up, anywhere
-custos_hufnagel ("Custos Hufnagel", "hufnagel.u2",
+custos_hufnagel ("custos Hufnagel (up)", "hufnagel.u2",
                  dir_up, anywhere);
 
 
 % custos hufnagel, stem down, between staff lines
-custos_hufnagel ("Reverse Custos Hufnagel", "hufnagel.d0",
+custos_hufnagel ("reverse custos Hufnagel (down, between lines)", "hufnagel.d0",
                  dir_down, between_staff_lines);
 
 
 % custos hufnagel, stem down, on staff line
-custos_hufnagel ("Reverse Custos Hufnagel", "hufnagel.d1",
+custos_hufnagel ("reverse custos Hufnagel (down, on line)", "hufnagel.d1",
                  dir_down, on_staff_line);
 
 
 % custos hufnagel, stem down, anywhere
-custos_hufnagel ("Reverse Custos Hufnagel", "hufnagel.d2",
+custos_hufnagel ("reverse custos Hufnagel (down)", "hufnagel.d2",
                  dir_down, anywhere);
 
 
@@ -239,32 +239,32 @@ enddef;
 
 
 % custos medicaea, stem up, between staff lines
-custos_medicaea ("Custos Med.", "medicaea.u0",
+custos_medicaea ("custos Med. (up, between lines)", "medicaea.u0",
                  dir_up, between_staff_lines);
 
 
 % custos medicaea, stem up, on staff line
-custos_medicaea ("Custos Med.", "medicaea.u1",
+custos_medicaea ("custos Med. (up, on line)", "medicaea.u1",
                  dir_up, on_staff_line);
 
 
 % custos medicaea, stem up, anywhere
-custos_medicaea ("Custos Med.", "medicaea.u2",
+custos_medicaea ("custos Med. (up)", "medicaea.u2",
                  dir_up, anywhere);
 
 
 % custos medicaea, stem down, between staff lines
-custos_medicaea ("Reverse Custos Med.", "medicaea.d0",
+custos_medicaea ("reverse custos Med. (down, between lines)", "medicaea.d0",
                  dir_down, between_staff_lines);
 
 
 % custos medicaea, stem down, on staff line
-custos_medicaea ("Reverse Custos Med.", "medicaea.d1",
+custos_medicaea ("reverse custos Med. (down, on line)", "medicaea.d1",
                  dir_down, on_staff_line);
 
 
 % custos medicaea, stem down, anywhere
-custos_medicaea ("Reverse Custos Med.", "medicaea.d2",
+custos_medicaea ("reverse custos Med. (down)", "medicaea.d2",
                  dir_down, anywhere);
 
 
@@ -342,32 +342,32 @@ enddef;
 
 
 % custos vaticana, stem up, between staff lines
-custos_vaticana ("Custos Ed. Vat.", "vaticana.u0",
+custos_vaticana ("custos Ed. Vat. (up, between lines)", "vaticana.u0",
                  dir_up, between_staff_lines);
 
 
 % custos vaticana, stem up, on staff line
-custos_vaticana ("Custos Ed. Vat.", "vaticana.u1",
+custos_vaticana ("custos Ed. Vat. (up, on line)", "vaticana.u1",
                  dir_up, on_staff_line);
 
 
 % custos vaticana, stem up, anywhere
-custos_vaticana ("Custos Ed. Vat.", "vaticana.u2",
+custos_vaticana ("custos Ed. Vat. (up)", "vaticana.u2",
                  dir_up, anywhere);
 
 
 % custos vaticana, stem down, between staff lines
-custos_vaticana ("Reverse Custos Ed. Vat.", "vaticana.d0",
+custos_vaticana ("reverse custos Ed. Vat. (down, between lines)", "vaticana.d0",
                  dir_down, between_staff_lines);
 
 
 % custos vaticana, stem down, on_staff_line
-custos_vaticana ("Reverse Custos Ed. Vat.", "vaticana.d1",
+custos_vaticana ("reverse custos Ed. Vat. (down, on line)", "vaticana.d1",
                  dir_down, on_staff_line);
 
 
 % custos vaticana, stem down, anywhere
-custos_vaticana ("Reverse Custos Ed. Vat.", "vaticana.d2",
+custos_vaticana ("reverse custos Ed. Vat. (down)", "vaticana.d2",
                  dir_down, anywhere);
 
 
@@ -472,32 +472,32 @@ enddef;
 
 
 % custos mensural, stem up, between staff lines
-custos_mensural ("Custos Mensural", "mensural.u0",
+custos_mensural ("custos mensural (up, between lines)", "mensural.u0",
                  dir_up, between_staff_lines);
 
 
 % custos mensural, stem up, on staff line
-custos_mensural ("Custos Mensural", "mensural.u1",
+custos_mensural ("custos mensural (up, on line)", "mensural.u1",
                  dir_up, on_staff_line);
 
 
 % custos mensural, stem up, anywhere
-custos_mensural ("Custos Mensural", "mensural.u2",
+custos_mensural ("custos mensural (up)", "mensural.u2",
                  dir_up, anywhere);
 
 
 % custos mensural, stem down, between staff lines
-custos_mensural ("Reverse Custos Mensural", "mensural.d0",
+custos_mensural ("reverse custos mensural (down, between lines)", "mensural.d0",
                  dir_down, between_staff_lines);
 
 
 % custos mensural, stem down, on staff line
-custos_mensural ("Reverse Custos Mensural", "mensural.d1",
+custos_mensural ("reverse custos mensural (down, on line)", "mensural.d1",
                  dir_down, on_staff_line);
 
 
 % custos mensural, stem down, anywhere
-custos_mensural ("Reverse Custos Mensural", "mensural.d2",
+custos_mensural ("reverse custos mensural (down)", "mensural.d2",
                  dir_down, anywhere);
 
 fet_endgroup ("custodes");
