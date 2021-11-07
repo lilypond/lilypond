@@ -402,6 +402,11 @@ increases but often markedly better PDF
 previews.")
     (svg-woff #f
               "Use woff font files in SVG backend.")
+    (tall-page-formats #f
+                       "formats to use for
+tall-page output in lilypond-book. Format is
+a symbol containing as comma-separated
+formats")
     (use-paper-size-for-page #t "Set page stencil size to paper size defined in
 \\paper. If unset, the size of the page stencil will be
 defined by the extents of its contents.") 

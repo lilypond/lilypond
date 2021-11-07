@@ -946,6 +946,11 @@ is also recommended not to use any font @q{aliases} or @q{lists} in
 case the SVG viewer cannot handle them.
 Default: @code{#f}.
 
+@item @code{tall-page-formats} @var{symbol}
+Comma separated list of formats (@code{svg}, @code{pdf},
+@code{png}, or @code{eps}) to use for the `tall page' image. It is
+used for generating music images when using @code{lilypond-book}.
+
 @item @code{use-paper-size-for-page} @var{bool}
 If @var{bool} is @code{#t} (the default), each page is set to the
 paper size, possibly cropping parts that extend beyond the

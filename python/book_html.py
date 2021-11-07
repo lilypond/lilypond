@@ -129,10 +129,9 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
         return []
 
     def adjust_snippet_command(self, cmd):
-        if '--formats' not in cmd:
-            return cmd + ' --formats=png '
-        else:
-            return cmd
+        if '-dtall-page-formats' not in cmd:
+            cmd += ' -dtall-page-formats=eps,png '
+        return cmd
 
     def output_images(self, basename, snippet):
         s = ''

@@ -54,7 +54,7 @@
   ;; First, create the output, then if necessary, individual staves and
   ;; finally write some auxiliary files if desired
   (dump-stencil-as-EPS paper (stack-stencils Y DOWN 2.0 stencils) basename #t)
-  (postprocess-output paper framework-eps-module (ly:output-formats)
+  (postprocess-output paper framework-eps-module (ly:tall-page-output-formats)
                       basename
                       (format #f "~a.eps" basename)
                       #t)

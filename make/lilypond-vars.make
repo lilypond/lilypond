@@ -32,7 +32,7 @@ LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))
 LANG_DOCTITLE_FLAGS:=$(foreach lang,$(LANGS),--header=doctitle$(lang))
 
 LILYPOND_BOOK_LILYPOND_FLAGS=-dbackend=eps \
---formats=ps,png,pdf \
+--formats=ps,pdf \
 $(LILYPOND_JOBS) \
 -dinclude-eps-fonts \
 -dgs-load-fonts \

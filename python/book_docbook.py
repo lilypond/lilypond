@@ -91,6 +91,7 @@ Docbook_output = {
   </textobject>
 </mediaobject>''',
 
+    # TODO: this looks wrong: in PDF, we should use per-system output
     book_snippets.OUTPUT: r'''<imageobject role="latex">
   <imagedata fileref="%(base)s.pdf" format="PDF"/>
 </imageobject>
@@ -128,9 +129,10 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
 
     def adjust_snippet_command(self, cmd):
         if '--formats' not in cmd:
-            return cmd + ' --formats=png,pdf '
-        else:
-            return cmd
+            cmd += ' --formats=pdf '
+        if '-dtall-page-formats' not in cmd:
+            cmd += ' -dtall-page-formats=eps,pdf,png '
+        return cmd
 
     def snippet_output(self, basename, snippet):
         s = ''

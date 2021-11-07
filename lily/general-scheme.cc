@@ -46,6 +46,7 @@
 #include <cstring> /* memset */
 #include <ctype.h>
 #include <glib.h>
+#include <set>
 #include <string>
 
 using std::string;
@@ -302,6 +303,25 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 {
   SCM lst = SCM_EOL;
   for (std::string const &fmt : output_formats_global)
+    lst = scm_cons (ly_string2scm (fmt), lst);
+
+  return lst;
+}
+
+LY_DEFINE (
+  ly_tall_page_output_formats, "ly:tall-page-output-formats", 0, 0, 0, (),
+  "Formats passed to command line option @option{-dtall-page-formats} as a list"
+  " of strings.")
+{
+  std::string arg = robust_symbol2string (
+    ly_get_option (ly_symbol2scm ("tall-page-formats")), "");
+  std::set<std::string> formats;
+  for (string format : string_split (arg, ','))
+    if (std::find (formats.begin (), formats.end (), format) == formats.end ())
+      formats.insert (format);
+
+  SCM lst = SCM_EOL;
+  for (std::string const &fmt : formats)
     lst = scm_cons (ly_string2scm (fmt), lst);
 
   return lst;
