@@ -304,6 +304,8 @@ class Cairo_outputter : public Stencil_sink
   std::string pdf_rect (Real llx, Real lly, Real w, Real h,
                         bool relative_to_current) const;
   void cairo_link (std::string const &attr);
+  void eps_file (std::string const &content, std::vector<int> bbox, Real scale);
+  void eps_file (SCM, SCM, SCM);
   void url_link (SCM target, SCM varx, SCM vary);
   void url_link (std::string const &target, Real llx, Real lly, Real w, Real h,
                  bool relative);
@@ -874,6 +876,87 @@ Cairo_outputter::reset_rotation ()
 }
 
 void
+Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
+                           Real scale)
+{
+  if (format_ != PS && format_ != EPS)
+    {
+      static bool warned = false;
+      if (!warned)
+        warning (_ ("embedding EPS only supported for PS/EPS output.\n"
+                    "Use Ghostscript to create other output formats."));
+      warned = true;
+      return;
+    }
+
+  /* Since we don't create real image data, it should be possible to
+     make a 1x1 image. However, the pattern does not necessarily
+     have a 1:1 aspect ratio. Avoid scaling magic by creating the
+     image exactly to bbox size.
+   */
+  int height = bbox[3] - bbox[1];
+  cairo_surface_t *image = cairo_image_surface_create (
+    CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
+
+  assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
+
+  char *dupped_content = strdup (content.c_str ());
+  cairo_status_t status = cairo_surface_set_mime_data (
+    image, CAIRO_MIME_TYPE_EPS,
+    reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
+    free, dupped_content);
+  assert (status == CAIRO_STATUS_SUCCESS);
+
+  std::string bbox_str = String_convert::form_string (
+    "bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
+
+  char *dupped_bbox = strdup (bbox_str.c_str ());
+  status = cairo_surface_set_mime_data (
+    image, CAIRO_MIME_TYPE_EPS_PARAMS,
+    reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
+    &free, dupped_bbox);
+  assert (status == CAIRO_STATUS_SUCCESS);
+
+  Real x = 0.0;
+  Real y = 0.0;
+  cairo_get_current_point (context (), &x, &y);
+
+  /* Must save & restore: the source image introduces a clip path that
+     will trim subsequent elements otherwise
+  */
+  cairo_save (context ());
+
+  cairo_pattern_t *pattern = cairo_pattern_create_for_surface (image);
+
+  cairo_matrix_t matrix = {};
+
+  cairo_matrix_init_identity (&matrix);
+
+  // Undo Cairo's -1 Y-scaling
+  cairo_matrix_scale (&matrix, 1 / scale, -1 / scale);
+  cairo_matrix_translate (&matrix, -x, -y - scale * height);
+  cairo_pattern_set_matrix (pattern, &matrix);
+
+  cairo_set_source (context (), pattern);
+
+  cairo_paint (context ());
+  cairo_restore (context ());
+  cairo_surface_destroy (image);
+  cairo_pattern_destroy (pattern);
+}
+
+void
+Cairo_outputter::eps_file (SCM content, SCM bbox_scm, SCM scale)
+{
+  std::vector<int> bbox;
+  for (SCM b = bbox_scm; scm_is_pair (b); b = scm_cdr (b))
+    bbox.push_back (from_scm<int> (scm_car (b)));
+
+  assert (bbox.size () == 4);
+  eps_file (ly_scm2string (content), bbox, from_scm<Real> (scale));
+}
+
+void
 Cairo_outputter::textedit_link (Real llx, Real lly, Real w, Real h,
                                 std::string const &file, int line,
                                 int byte_count, int col)
@@ -1190,6 +1273,8 @@ Cairo_outputter::output (SCM expr)
     reset_scale ();
   else if (head == ly_symbol2scm ("utf-8-string"))
     return SCM_BOOL_F;
+  else if (head == ly_symbol2scm ("eps-file"))
+    eps_file (arg[1], arg[2], arg[3]);
 
   return SCM_UNSPECIFIED;
 }
