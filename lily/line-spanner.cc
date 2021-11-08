@@ -57,19 +57,15 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
-                                                         X_AXIS);
-  commonx = me->common_refpoint (commonx, X_AXIS);
+  Item *bound_item = me->get_bound (dir);
 
   SCM bound_details = get_property (me, "bound-details");
 
-  SCM details = SCM_BOOL_F;
-  if (scm_is_false (details))
-    details = ly_assoc_get ((dir == LEFT)
-                            ? ly_symbol2scm ("left")
-                            : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
+  SCM details = ly_assoc_get ((dir == LEFT)
+                              ? ly_symbol2scm ("left")
+                              : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
 
-  if (me->get_bound (dir)->break_status_dir ())
+  if (bound_item->break_status_dir ())
     {
       SCM extra = ly_assoc_get ((dir == LEFT)
                                 ? ly_symbol2scm ("left-broken")
@@ -94,19 +90,24 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
+      auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
+                                                             X_AXIS);
+      commonx = me->common_refpoint (commonx, X_AXIS);
+
       Direction attach = from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
                                                  details, SCM_BOOL_F),
                                    CENTER);
 
-      Item *bound_item = me->get_bound (dir);
       Grob *bound_grob = bound_item;
       if (from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
           && bound_item->break_status_dir ())
         {
           extract_grob_set (me, "note-columns", columns);
-          if (columns.size ())
-            bound_grob = (dir == LEFT)
-                         ? columns[0] : columns.back ();
+          if (!columns.empty ())
+            {
+              bound_grob = (dir == LEFT)
+                           ? columns.front () : columns.back ();
+            }
         }
 
       Real x_coord = (has_interface<Paper_column> (bound_grob)
@@ -133,8 +134,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
                                         0.0);
 
-      Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
-      if (me->get_bound (dir)->break_status_dir ())
+      Grob *common_y = me->common_refpoint (bound_item, Y_AXIS);
+      if (bound_item->break_status_dir ())
         {
           if (from_scm<bool> (get_property (me, "simple-Y")))
             {
@@ -192,7 +193,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
         }
       else
         {
-          Interval ii = me->get_bound (dir)->extent (common_y, Y_AXIS);
+          Interval ii = bound_item->extent (common_y, Y_AXIS);
           if (!ii.is_empty ())
             y = ii.center ();
           details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
