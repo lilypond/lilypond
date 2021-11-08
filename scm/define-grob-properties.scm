@@ -939,8 +939,6 @@ placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
-     (simple-Y ,boolean? "Should the Y placement of a spanner
-disregard changes in system heights?")
      (size ,number? "The ratio of the size of the object to its default
 size.")
      (skip-quanting ,boolean? "Should beam quanting be skipped?")

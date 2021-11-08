@@ -20,6 +20,7 @@
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "font-interface.hh"
+#include "grob.hh"
 #include "grob-interface.hh"
 #include "item.hh"
 #include "lily-proto.hh"
@@ -34,6 +35,8 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
+#include <cassert>
+
 class Line_spanner
 {
 public:
@@ -45,12 +48,38 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
 };
 
-Spanner *parent_spanner (Grob *g)
+Drul_array<Real>
+offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
 {
-  if (has_interface<Spanner> (g))
-    return dynamic_cast<Spanner *> (g);
-  return parent_spanner (g->get_y_parent ());
+  Grob *g1 = grobs[LEFT];
+  Grob *g2 = grobs[RIGHT];
+  if (g1 && g2)
+    {
+      common = g1->common_refpoint (g2, Y_AXIS);
+      Real coord1 = g1->relative_coordinate (common, Y_AXIS);
+      Real coord2 = g2->relative_coordinate (common, Y_AXIS);
+      return Drul_array<Real> (coord1, coord2);
+    }
+  else if (g1)
+    {
+      common = g1;
+      Real coord1 = g1->relative_coordinate (common, Y_AXIS);
+      // The 0.0 shouldn't get used.
+      return Drul_array<Real> (coord1, 0.0);
+    }
+  else if (g2)
+    {
+      common = g2;
+      Real coord2 = g2->relative_coordinate (common, Y_AXIS);
+      return Drul_array<Real> (0.0, coord2);
+    }
+  else
+    {
+      common = nullptr;
+      return Drul_array<Real> (0.0, 0.0);
+    }
 }
+
 
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir)
@@ -137,59 +166,146 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       Grob *common_y = me->common_refpoint (bound_item, Y_AXIS);
       if (bound_item->break_status_dir ())
         {
-          if (from_scm<bool> (get_property (me, "simple-Y")))
-            {
-              Spanner *orig = me->original ();
-              Spanner *extreme = dir == LEFT ? orig->broken_intos_.front () : orig->broken_intos_.back ();
-              Grob *e_bound = extreme->get_bound (dir);
-              Grob *e_common_y = extreme->common_refpoint (e_bound, Y_AXIS);
-              y = e_bound->extent (e_common_y, Y_AXIS).center ();
-            }
-          else
-            {
-              Spanner *next_sp = me->broken_neighbor (dir);
-              Item *next_bound = next_sp->get_bound (dir);
+          /*
+             We want to compute the slope of something like a glissando
+             when broken across several systems.  We make it continuous,
+             giving the same slope to all pieces and choosing it such that
+             visually it could be one glissando line if the systems were
+             stuck together in a row.  To this end, we have to compute the
+             vertical coordinates on two different systems and bring them
+             to a common coordinate reference.  For normal glissandi, this
+             is achieved by taking coordinates relative to the VerticalAxisGroup
+             of the staff, which is broken just like the glissando.  For
+             cross-staff glissandi, we schematically have this:
 
-              if (next_bound->break_status_dir ())
+                                                       |
+             -----------------------                   |
+             -----------------------  \\               |
+             -----------------------  \\            xxx|
+             -----------------------  \\   /~~~~/---xxx|-----------
+             -----------------------  \\ /~~~/---------------------
+                                 /  ~~~~ /-------------------------
+  This line                  / ~~~~   \\  -------------------------  |
+   might be             / ~~~~~       \\  -------------------------  |
+  stretched...       ~~~~~~~/         \\                             |  ... while this
+                   ~~~ /              \\  -------------------------  |  line might be
+              |xxx                    \\  -------------------------  |  compressed.
+              |xxx------------------  \\  -------------------------
+             -|---------------------  \\  -------------------------
+             -|---------------------  \\  -------------------------
+             -|---------------------  \\
+             -----------------------
+
+                                  Line break
+                                     here.
+
+
+             The distance between the two staves can vary across the
+             break.  There is not an obvious way to choose the common
+             slope in this case.  If we take the lower staff as a
+             reference baseline in the example above, the line on the left will
+             have a small slope compared to the distance between the
+             systems.  On the other hand, aligning the upper staves will
+             result in a steep line on the second system.
+
+             This code makes the choice of Solomon: align the middles
+             of each pair of staves.  Blame Jean AS if you don't like
+             it, and feel free to improve.
+          */
+
+          Spanner *orig = me->original ();
+          System *sys_here = me->get_system ();
+          System *sys_there;
+          Drul_array<Item *> extreme_bounds;
+          Drul_array<Grob *> extreme_bound_groups;
+          for (const auto d : {LEFT, RIGHT})
+            {
+              Spanner *extreme = ((d == LEFT)
+                                  ? orig->broken_intos_.front ()
+                                  : orig->broken_intos_.back ());
+              extreme_bounds[d] = extreme->get_bound (d);
+              extreme_bound_groups[d] =
+                Grob::get_vertical_axis_group (extreme_bounds[d]);
+              if (!extreme_bound_groups[d])
                 {
-                  programming_error ("no note heads for the line spanner on neighbor line?"
-                                     " Confused.");
-                  me->suicide ();
-                  return SCM_EOL;
+                  programming_error ("extremal broken spanner's bound has no parent"
+                                     " vertical axis group");
+                  return details;
                 }
+            }
+          sys_there = extreme_bounds[dir]->get_system ();
+          Drul_array<Grob *> extreme_bound_groups_here;
+          Drul_array<Grob *> extreme_bound_groups_there;
+          for (const auto d : {LEFT, RIGHT})
+            {
+              // This one can be null if the corresponding staff ended
+              // prematurely or started after the beginning of the score.
+              extreme_bound_groups_here[d] =
+                extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
+              // Can be null for the direction other than dir.
+              extreme_bound_groups_there[d] =
+                extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
+            }
+          Grob *common_here;
+          Drul_array<Real> offsets_here =
+            offsets_maybe (extreme_bound_groups_here, common_here);
+          Real offset_here;
+          Grob *common_there;
+          Drul_array<Real> offsets_there =
+            offsets_maybe (extreme_bound_groups_there, common_there);
+          Real offset_there;
 
-              Spanner *next_bound_parent = parent_spanner (next_bound);
-              Interval next_ext = next_bound->extent (next_bound_parent, Y_AXIS);
-
-              /*
-                We want to know what would be the y-position of the next
-                bound (relative to my y-parent) if it belonged to the
-                same system as this bound.  We rely on the fact that the
-                y-parent of the next bound is a spanner (probably the
-                VerticalAxisGroup of a staff) that extends over the break.
-              */
-              Spanner *next_bound_parent_on_this_line
-                = next_bound_parent->broken_neighbor (-dir);
-
-              if (next_bound_parent_on_this_line)
+          // Here we have all weird edge cases that can happen
+          // when staves are added or removed midway.  To continue
+          // the example above, if the lower staff was removed on
+          // the second system, we would align the upper staves.
+          assert (extreme_bound_groups_there[dir]);
+          if (!extreme_bound_groups_here[dir]
+              && !extreme_bound_groups_here[-dir])
+            {
+              // If neither of the staves is present on this system, just
+              // disappear.  This can happen with contorted input that starts
+              // a glissando, stops that staff, then later spawns another
+              // staff and ends the glissando there.
+              me->suicide ();
+              return SCM_UNSPECIFIED;
+            }
+          if (extreme_bound_groups_there[-dir])
+            {
+              if (extreme_bound_groups_here[dir]
+                  && extreme_bound_groups_here[-dir])
                 {
-                  Grob *common = me->common_refpoint (next_bound_parent_on_this_line, Y_AXIS);
-                  Real bound_offset = next_bound_parent_on_this_line->relative_coordinate (common, Y_AXIS);
-                  y = next_ext.center () + bound_offset - me->relative_coordinate (common, Y_AXIS);
+                  offset_here = (offsets_here[LEFT] + offsets_here[RIGHT])/2;
+                  offset_there = (offsets_there[LEFT] + offsets_there[RIGHT])/2;
+                }
+              else if (extreme_bound_groups_here[dir])
+                {
+                  offset_here = offsets_here[dir];
+                  offset_there = offsets_there[dir];
                 }
               else
                 {
-                  /*
-                    We fall back to assuming that the distance between
-                    staves doesn't change over line breaks.
-                  */
-                  programming_error ("next-bound's parent doesn't extend to this line");
-                  Grob *next_system = next_bound->get_system ();
-                  Grob *this_system = me->get_system ();
-                  y = next_ext.center () + next_bound_parent->relative_coordinate (next_system, Y_AXIS)
-                      - me->relative_coordinate (this_system, Y_AXIS);
+                  offset_here = offsets_here[-dir];
+                  offset_there = offsets_there[-dir];
                 }
             }
+          else // !extreme_bound_groups_there[-dir]
+            {
+              if (extreme_bound_groups_here[dir])
+                {
+                  offset_here = offsets_here[dir];
+                  offset_there = offsets_there[dir];
+                }
+              else
+                {
+                  offset_here = offsets_here[-dir];
+                  offset_there = offsets_there[dir];
+                }
+            }
+          Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
+          Real coord_there = extent.center ();
+          y = coord_there - offset_there + offset_here;
+          details = scm_acons (ly_symbol2scm ("common-Y"), common_here->self_scm (), details);
         }
       else
         {
@@ -263,9 +379,6 @@ Line_spanner::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  // Triggers simple-Y calculations
-  bool simple_y = from_scm<bool> (get_property (me, "simple-Y")) && !from_scm<bool> (get_property (me, "cross-staff"));
-
   Drul_array<SCM> bounds (get_property (me, "left-bound-info"),
                           get_property (me, "right-bound-info"));
 
@@ -309,12 +422,8 @@ Line_spanner::print (SCM smob)
     }
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
-
-  if (!simple_y)
-    {
-      for (const auto d : {LEFT, RIGHT})
-        span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
-    }
+  for (const auto d : {LEFT, RIGHT})
+    span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
 
   Interval normalized_endpoints = from_scm (get_property (me, "normalized-endpoints"), Interval (0, 1));
   Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
@@ -375,7 +484,7 @@ Line_spanner::print (SCM smob)
     }
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
-                          simple_y ? 0.0 : -me->relative_coordinate (my_common_y, Y_AXIS)));
+                          -me->relative_coordinate (my_common_y, Y_AXIS)));
 
   return line.smobbed_copy ();
 }
@@ -436,7 +545,6 @@ ADD_INTERFACE (Line_spanner,
                "left-bound-info "
                "note-columns "
                "right-bound-info "
-               "simple-Y "
                "thickness "
                "to-barline "
               );

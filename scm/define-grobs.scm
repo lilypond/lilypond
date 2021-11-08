@@ -1264,7 +1264,6 @@
         (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
         (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
         (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
-        (simple-Y . #t)
         (stencil . ,ly:line-spanner::print)
         (style . line)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
