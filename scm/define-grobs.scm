@@ -964,8 +964,6 @@
           (left . ((padding . -0.3)
                    (start-at-dot . #f)))))
         (breakable . #t)
-        ;; TODO needed/wished?
-        (cross-staff . ,ly:line-spanner::calc-cross-staff)
         (details
          .
          ((hook-height . 0.34)
