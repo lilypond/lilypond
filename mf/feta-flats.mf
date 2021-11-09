@@ -204,7 +204,8 @@ enddef;
 fet_beginchar ("flat", "flat");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           false, false);
-  penlabels (range 0 thru 11);
+  penlabels (range 0 thru 16);
+  labels (2a);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -214,6 +215,7 @@ fet_beginchar ("arrowed flat (arrow up)", "flat.arrowup");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           true, false);
   penlabels (range 0 thru 23);
+  labels (2a);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -223,6 +225,7 @@ fet_beginchar ("arrowed flat (arrow down)", "flat.arrowdown");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           false, true);
   penlabels (range 0 thru 23);
+  labels (2a);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -232,6 +235,7 @@ fet_beginchar ("arrowed flat (arrow up and down)", "flat.arrowboth");
   draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
                           true, true);
   penlabels (range 0 thru 23);
+  labels (2a);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -268,7 +272,7 @@ fet_beginchar ("flat (slashed)", "flat.slash");
        .. cycle;
 
   penlabels (12, 13);
-  labels (14, 15);
+  labels (11, 14, 15);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -305,7 +309,7 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
        .. cycle;
 
   penlabels (12, 13);
-  labels (14, 15);
+  labels (11, 14, 15);
 
   z21 = (0, 2/3 h);
   z22 = z21 - (slash_width, slash_width * slope) / 2;
@@ -326,7 +330,7 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
        .. cycle;
 
   penlabels (22, 23);
-  labels (24, 25);
+  labels (21, 24, 25);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
