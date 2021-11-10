@@ -59,8 +59,10 @@ def new_bulb (expr start_point, start_angle,
 
     before := z3'{dir (turning_dir * 90)}
               .. z4'{-dir (0)}
-              ..tension 1.1.. z1'{-dir (turning_dir* 90)};
-    after := z2'{dir (turning_dir * 90)}
+              ..tension 1.1.. z1'{-dir (turning_dir* 90)}
+              -- z5';
+    after := z5'
+             -- z2'{dir (turning_dir * 90)}
              .. end_point{dir (end_angle)};
     (u, v) = before intersectiontimes after;
 
@@ -68,7 +70,7 @@ def new_bulb (expr start_point, start_angle,
            .. outer_tangent_point{dir (-turning_dir * 90)}
            ..tension 1.02.. z5'{dir (0)}
            .. subpath (0, u) of before
-           .. subpath (v, infinity) of after;
+           -- subpath (v, infinity) of after;
 
     if direction = 0:
       pat := reverse pat;
