@@ -48,7 +48,7 @@ def draw_natural (expr arrowup, arrowdown) =
 
   half_height# := 0.5 full_height#;
   define_pixels (half_height);
-  define_pixels (full_width);
+  define_whole_pixels (full_width);
 
   set_char_box (0, full_width#, half_height#, half_height#);
   d := d - feta_space_shift;
@@ -70,6 +70,13 @@ def draw_natural (expr arrowup, arrowdown) =
   downstem_end_thickness# = downstem_factor * stem_thickness#;
   define_whole_blacker_pixels (upstem_end_thickness, downstem_end_thickness);
   define_whole_blacker_pixels (stem_thickness);
+
+  if odd (upstem_end_thickness - stem_thickness):
+    upstem_end_thickness := upstem_end_thickness - 1;
+  fi;
+  if odd (downstem_end_thickness - stem_thickness):
+    downstem_end_thickness := downstem_end_thickness - 1;
+  fi;
 
   half_box_height := hole_highest_point + beam_thickness
                      %% correction for the fact that x11 != x12.
