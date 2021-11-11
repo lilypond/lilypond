@@ -3068,6 +3068,7 @@
         (cross-staff . #t)
         (gap . 0.5)
         (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
         (non-musical . #t)
         (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
         (stencil . ,ly:line-spanner::print)
