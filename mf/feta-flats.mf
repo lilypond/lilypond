@@ -532,7 +532,7 @@ fet_beginchar ("3/4 flat", "flatflat.slash");
   right_wid = .8;
   overlap = .05;
 
-  set_char_box (1.2 stafflinethickness#,
+  set_char_box (0.53 staff_space#,
                 (left_wid + right_wid - overlap) * staff_space#,
                 .6 staff_space#, 1.9 staff_space#);
   draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
@@ -546,7 +546,7 @@ fet_beginchar ("3/4 flat", "flatflat.slash");
   %% or reverse it?
   pickup pencircle scaled 2 stafflinethickness;
 
-  z12 = round (-.25 w - b, .55 staff_space) + feta_offset;
+  z12 = round (-b, .55 staff_space) + feta_offset;
   z13 = round (.75 w, 1.45 staff_space) + feta_offset;
   penpos12 (2 stafflinethickness, angle (z13 - z12) - 90);
   penpos13 (2 stafflinethickness, angle (z13 - z12) - 90);
