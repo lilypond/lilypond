@@ -332,11 +332,16 @@ Spanner::get_system () const
 Spanner *
 Spanner::find_broken_piece (System *l) const
 {
-  auto candidate = std::lower_bound (broken_intos_.begin (),
-                                     broken_intos_.end (), l, Spanner::less);
-  if (candidate != broken_intos_.end () && !Spanner::less (*candidate, l))
-    return *candidate;
-  return 0;
+  if (broken_intos_.empty ())
+    return nullptr;
+  auto l_rank = static_cast<int> (l->get_system ()->get_rank ());
+  Spanner *first = broken_intos_.front ();
+  auto first_rank = static_cast<int> (first->get_system ()->get_rank ());
+  auto size = static_cast<int> (broken_intos_.size ());
+  int delta = l_rank - first_rank;
+  if (delta >= 0 && delta < size)
+    return broken_intos_[delta];
+  return nullptr;
 }
 
 Spanner *
