@@ -42,28 +42,36 @@ define_whole_blacker_pixels (stem_thickness);
 
 
 def draw_sharp_beam (expr xcenter, length, y_offset) =
-  save beam_length;
   save ne_beam_dir, nw_dist;
   pair ne_beam_dir, nw_dist;
-
-  beam_length := length;
-
-  define_whole_vertical_blacker_pixels (default_beam_thickness);
 
   clearxy;
 
   pickup pencircle scaled 2 blot_diameter;
 
-  rt x2 - lft x1 = beam_length;
-  z2 = z1 + whatever * (beam_length, default_beam_thickness);
+  % use a fractional pixel value to get a uniform slant...
+  define_pixels (default_beam_thickness);
+
+  ne_beam_dir = unitvector (length, default_beam_thickness);
+  nw_dist = (ne_beam_dir rotated 90) * blot_diameter;
+
+  rt x2 - lft x1 = length;
+  z2 = z1 + whatever * ne_beam_dir;
   .5 [z1, z3] = (xcenter, y_offset);
   x3 = x2;
+
+  % ... but use an integer pixel value for actually drawing the beam
+  define_whole_vertical_blacker_pixels (default_beam_thickness);
+
   top y2 - bot y3 = default_beam_thickness;
   x4 = x1;
   top y1 - bot y4 = default_beam_thickness;
 
-  ne_beam_dir = unitvector (z2 - z1);
-  nw_dist = (ne_beam_dir rotated 90) * blot_diameter;
+  % shift beam vertically to be aligned with the pixel grid
+  y1 := good.y (y1);
+  y2 := good.y (y2);
+  y3 := good.y (y3);
+  y4 := good.y (y4);
 
   fill lft z1{up}
        ... (z1 + nw_dist){ne_beam_dir}
