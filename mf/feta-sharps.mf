@@ -88,36 +88,54 @@ enddef;
 
 
 def draw_sharp (expr arrowup, arrowdown) =
+  save depth, height, width, extendleft;
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
+  save beam_length, beam_xcenter;
 
-  half_height# := 0.5 default_height#;
+  half_height# := .5 default_height#;
   define_pixels (half_height);
-  interbeam_dist := default_interbeam_dist;
 
-  set_char_box (0, default_width#, half_height#, half_height#);
-  d := d - feta_space_shift;
+  dist_between_stems# := 7 / 16 * default_width#;
+  define_whole_pixels (dist_between_stems);
 
-  dist_between_stems := hround (7 / 16 * default_width);
-  outer_space := hround ((w - dist_between_stems - stem_thickness) / 2);
+  outer_space# := .5 (default_width# - dist_between_stems#
+                      - stem_thickness#);
+  define_whole_pixels (outer_space);
 
-  w := 2 outer_space + dist_between_stems + stem_thickness;
+  width# := 2 outer_space# + dist_between_stems# + stem_thickness#;
+  depth# := half_height#;
+  height# := half_height#;
+  extendleft# := 0;
 
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
+  beam_length := 2 outer_space + dist_between_stems + stem_thickness;
+  beam_xcenter := .5 beam_length;
 
-  % expand the charbox so that it encloses the whole arrow;
-  % this must not happen earlier because some commands above
-  % still rely on the old width
   if arrowup:
-    w := w + 1.5 stafflinethickness;
-    h := h + 1.2 staff_space;
+    width# := width# + 1.5 stafflinethickness#;
+    % synchronized with point z4 of the arrow
+    height# := half_height# - .5 stem_thickness#          % y8
+               + .1 staff_space# + .5 stafflinethickness#
+                 + .5 stem_thickness#                     % upshift
+               + .85 staff_space# + stafflinethickness#;  % htip
   fi;
   if arrowdown:
-    b := b + 1.5 stafflinethickness;
-    d := d + 1.2 staff_space;
+    extendleft# := extendleft# + 1.5 stafflinethickness#;
+    % synchronized with point z4 of the arrow
+    depth# := half_height# - .5 stem_thickness#          % y5
+              + .1 staff_space# + .5 stafflinethickness#
+                + .5 stem_thickness#                     % upshift
+               + .85 staff_space# + stafflinethickness#;  % htip
   fi;
+
+  set_char_box (extendleft#, width#, depth#, height#);
+  d := d - feta_space_shift;
+
+  interbeam_dist := default_interbeam_dist;
+  draw_sharp_beam (beam_xcenter, beam_length, -.5 interbeam_dist);
+  draw_sharp_beam (beam_xcenter, beam_length,
+                   -.5 interbeam_dist + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
@@ -166,22 +184,29 @@ fet_endchar;
 
 
 fet_beginchar ("1/2 sharp", "sharp.slashslash.stem");
+  save width;
   save outer_space;
   save half_height, interbeam_dist;
+  save beam_length, beam_xcenter;
 
-  half_height# := 0.5 onestemmed_height#;
+  half_height# := .5 onestemmed_height#;
   define_pixels (half_height);
-  interbeam_dist := default_interbeam_dist;
 
-  set_char_box (0, 0.7 staff_space#, half_height#, half_height#);
+  outer_space# := .5 (.7 staff_space# - stem_thickness#);
+  define_whole_pixels (outer_space);
+
+  width# := 2 outer_space# + stem_thickness#;
+
+  beam_length := 2 outer_space + stem_thickness;
+  beam_xcenter := .5 beam_length;
+
+  set_char_box (0, width#, half_height#, half_height#);
   d := d - feta_space_shift;
 
-  outer_space := hround ((w - stem_thickness) / 2);
-
-  w := 2 outer_space + stem_thickness;
-
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
+  interbeam_dist := default_interbeam_dist;
+  draw_sharp_beam (beam_xcenter, beam_length, -.5 interbeam_dist);
+  draw_sharp_beam (beam_xcenter, beam_length,
+                   -.5 interbeam_dist + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
@@ -197,29 +222,38 @@ fet_endchar;
 
 
 fet_beginchar ("sharp (3 beams)", "sharp.slashslashslash.stemstem");
+  save width;
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
   save default_beam_thickness;
+  save beam_length, beam_xcenter;
 
-  half_height# := 0.5 default_height#;
+  half_height# := .5 default_height#;
   define_pixels (half_height);
-  interbeam_dist := triples_interbeam_dist;
 
-  default_beam_thickness# := 0.22 staff_space# + stafflinethickness#;
+  dist_between_stems# := 7 / 16 * default_width#;
+  define_whole_pixels (dist_between_stems);
 
-  set_char_box (0, default_width#, half_height#, half_height#);
+  outer_space# := .5 (default_width# - dist_between_stems#
+                      - stem_thickness#);
+  define_whole_pixels (outer_space);
 
-  dist_between_stems := hround (7 / 16 * default_width);
-  outer_space := hround ((w - dist_between_stems - stem_thickness) / 2);
+  width# := 2 outer_space# + dist_between_stems# + stem_thickness#;
 
-  w := 2 outer_space + dist_between_stems + stem_thickness;
+  beam_length := 2 outer_space + dist_between_stems + stem_thickness;
+  beam_xcenter := .5 beam_length;
+
+  set_char_box (0, width#, half_height#, half_height#);
   d := d - feta_space_shift;
 
-  draw_sharp_beam (.5 w, .88 w, -.5 interbeam_dist);
-  draw_sharp_beam (.5 w, .88 w, -.5 interbeam_dist + vround interbeam_dist);
+  interbeam_dist := triples_interbeam_dist;
+  default_beam_thickness# := .22 staff_space# + stafflinethickness#;
+  draw_sharp_beam (beam_xcenter, .88 beam_length, -.5 interbeam_dist);
+  draw_sharp_beam (beam_xcenter, .88 beam_length,
+                   -.5 interbeam_dist + vround interbeam_dist);
   default_beam_thickness# := 1/.88 default_beam_thickness#;
-  draw_sharp_beam (.5 w, w, 0);
+  draw_sharp_beam (beam_xcenter, beam_length, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -239,27 +273,33 @@ fet_endchar;
 
 
 fet_beginchar ("1/2 sharp (3 beams)", "sharp.slashslashslash.stem");
+  save width;
   save outer_space;
   save half_height, interbeam_dist;
   save default_beam_thickness;
+  save beam_length, beam_xcenter;
 
-  half_height# := 0.5 onestemmed_height#;
+  half_height# := .5 onestemmed_height#;
   define_pixels (half_height);
-  interbeam_dist := triples_interbeam_dist;
 
-  default_beam_thickness# := 0.22 staff_space# + stafflinethickness#;
+  outer_space# := .5 (.95 staff_space# - stem_thickness#);
+  define_whole_pixels (outer_space);
 
-  set_char_box (0, 0.95 staff_space#, half_height#, half_height#);
+  width# := 2 outer_space# + stem_thickness#;
 
-  outer_space := hround ((w - stem_thickness) / 2);
+  beam_length := 2 outer_space + stem_thickness;
+  beam_xcenter := .5 beam_length;
 
-  w := 2 outer_space + stem_thickness;
+  set_char_box (0, width#, half_height#, half_height#);
   d := d - feta_space_shift;
 
-  draw_sharp_beam (.5 w, .8 w, -.5 interbeam_dist);
-  draw_sharp_beam (.5 w, .8 w, -.5 interbeam_dist + vround interbeam_dist);
+  interbeam_dist := triples_interbeam_dist;
+  default_beam_thickness# := .22 staff_space# + stafflinethickness#;
+  draw_sharp_beam (beam_xcenter, .8 beam_length, -.5 interbeam_dist);
+  draw_sharp_beam (beam_xcenter, .8 beam_length,
+                   -.5 interbeam_dist + vround interbeam_dist);
   default_beam_thickness# := 1/.8 default_beam_thickness#;
-  draw_sharp_beam (.5 w, w, 0);
+  draw_sharp_beam (beam_xcenter, beam_length, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -275,21 +315,26 @@ fet_endchar;
 
 
 fet_beginchar ("1/2 sharp (1 beam)", "sharp.slash.stem");
+  save width;
   save outer_space;
   save half_height, interbeam_dist;
+  save beam_length, beam_xcenter;
 
-  half_height# := 0.5 onestemmed_height#;
+  half_height# := .5 onestemmed_height#;
   define_pixels (half_height);
-  interbeam_dist := default_interbeam_dist;
 
-  set_char_box (0, 0.7 staff_space#, half_height#, half_height#);
+  outer_space# := .5 (.7 staff_space# - stem_thickness#);
+  define_whole_pixels (outer_space);
+
+  width# := 2 outer_space# + stem_thickness#;
+
+  beam_length := 2 outer_space + stem_thickness;
+  beam_xcenter := .5 beam_length;
+
+  set_char_box (0, width#, half_height#, half_height#);
   d := d - feta_space_shift;
 
-  outer_space := hround ((w - stem_thickness) / 2);
-
-  w := 2 outer_space + stem_thickness;
-
-  draw_sharp_beam (.5 w, w, 0);
+  draw_sharp_beam (beam_xcenter, beam_length, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -305,24 +350,34 @@ fet_endchar;
 
 
 fet_beginchar ("3/4 sharp", "sharp.slashslash.stemstemstem");
+  save width;
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
+  save beam_length, beam_xcenter;
 
   half_height# := 0.5 default_height#;
   define_pixels (half_height);
-  interbeam_dist := default_interbeam_dist;
 
-  set_char_box (0, 1.6 staff_space#, half_height#, half_height#);
+  dist_between_stems# := 9 / 32 * 1.6 staff_space#;
+  define_whole_pixels (dist_between_stems);
+
+  outer_space# := .5 (1.6 staff_space# - 2 dist_between_stems#
+                      - stem_thickness#);
+  define_whole_pixels (outer_space);
+
+  width# := 2 outer_space# + 2 dist_between_stems# + stem_thickness#;
+
+  beam_length := 2 outer_space + 2 dist_between_stems + stem_thickness;
+  beam_xcenter := .5 beam_length;
+
+  set_char_box (0, width#, half_height#, half_height#);
   d := d - feta_space_shift;
 
-  dist_between_stems := hround (9 / 32 * w);
-  outer_space := hround ((w - 2 dist_between_stems - stem_thickness) / 2);
-
-  w := 2 outer_space + 2 dist_between_stems + stem_thickness;
-
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
-  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
+  interbeam_dist := default_interbeam_dist;
+  draw_sharp_beam (beam_xcenter, beam_length, -.5 interbeam_dist);
+  draw_sharp_beam (beam_xcenter, beam_length,
+                   -.5 interbeam_dist + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
