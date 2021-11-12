@@ -41,7 +41,7 @@ stem_thickness# := stafflinethickness# + .05 staff_space#;
 define_whole_blacker_pixels (stem_thickness);
 
 
-def draw_sharp_beam (expr length, y_offset) =
+def draw_sharp_beam (expr xcenter, length, y_offset) =
   save beam_length;
   save ne_beam_dir, nw_dist;
   pair ne_beam_dir, nw_dist;
@@ -56,7 +56,7 @@ def draw_sharp_beam (expr length, y_offset) =
 
   rt x2 - lft x1 = beam_length;
   z2 = z1 + whatever * (beam_length, default_beam_thickness);
-  .5 [z1, z3] = (.5 w, y_offset);
+  .5 [z1, z3] = (xcenter, y_offset);
   x3 = x2;
   top y2 - bot y3 = default_beam_thickness;
   x4 = x1;
@@ -96,8 +96,8 @@ def draw_sharp (expr arrowup, arrowdown) =
 
   w := 2 outer_space + dist_between_stems + stem_thickness;
 
-  draw_sharp_beam (w, -.5 interbeam_dist);
-  draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
 
   % expand the charbox so that it encloses the whole arrow;
   % this must not happen earlier because some commands above
@@ -172,8 +172,8 @@ fet_beginchar ("1/2 sharp", "sharp.slashslash.stem");
 
   w := 2 outer_space + stem_thickness;
 
-  draw_sharp_beam (w, -.5 interbeam_dist);
-  draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
@@ -208,10 +208,10 @@ fet_beginchar ("sharp (3 beams)", "sharp.slashslashslash.stemstem");
   w := 2 outer_space + dist_between_stems + stem_thickness;
   d := d - feta_space_shift;
 
-  draw_sharp_beam (.88 w, -.5 interbeam_dist);
-  draw_sharp_beam (.88 w, -.5 interbeam_dist + vround interbeam_dist);
+  draw_sharp_beam (.5 w, .88 w, -.5 interbeam_dist);
+  draw_sharp_beam (.5 w, .88 w, -.5 interbeam_dist + vround interbeam_dist);
   default_beam_thickness# := 1/.88 default_beam_thickness#;
-  draw_sharp_beam (w, 0);
+  draw_sharp_beam (.5 w, w, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -248,10 +248,10 @@ fet_beginchar ("1/2 sharp (3 beams)", "sharp.slashslashslash.stem");
   w := 2 outer_space + stem_thickness;
   d := d - feta_space_shift;
 
-  draw_sharp_beam (.8 w, -.5 interbeam_dist);
-  draw_sharp_beam (.8 w, -.5 interbeam_dist + vround interbeam_dist);
+  draw_sharp_beam (.5 w, .8 w, -.5 interbeam_dist);
+  draw_sharp_beam (.5 w, .8 w, -.5 interbeam_dist + vround interbeam_dist);
   default_beam_thickness# := 1/.8 default_beam_thickness#;
-  draw_sharp_beam (w, 0);
+  draw_sharp_beam (.5 w, w, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -281,7 +281,7 @@ fet_beginchar ("1/2 sharp (1 beam)", "sharp.slash.stem");
 
   w := 2 outer_space + stem_thickness;
 
-  draw_sharp_beam (w, 0);
+  draw_sharp_beam (.5 w, w, 0);
 
   pickup pencircle scaled stem_thickness;
 
@@ -313,8 +313,8 @@ fet_beginchar ("3/4 sharp", "sharp.slashslash.stemstemstem");
 
   w := 2 outer_space + 2 dist_between_stems + stem_thickness;
 
-  draw_sharp_beam (w, -.5 interbeam_dist);
-  draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist);
+  draw_sharp_beam (.5 w, w, -.5 interbeam_dist + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
