@@ -106,7 +106,7 @@ public:
     SCM encoding = ly_symbol2scm ("UTF-8");
     return scm_c_make_port_with_encoding (type_, SCM_RDNG, encoding,
                                           ly_symbol2scm ("error"),
-                                          (scm_t_bits) this);
+                                          reinterpret_cast<scm_t_bits> (this));
   }
 #else
   static int fill_buffer_scm (SCM port)
@@ -134,7 +134,7 @@ public:
   SCM as_port ()
   {
     // Avoid compiler-warning because of unused private field.
-    (void) pos_;
+    static_cast<void> (pos_);
 
     // strports.c in GUILE 1.8 has ominous comments about locking to
     // protect the global port table. We assume LilyPond doesn't use
@@ -145,8 +145,9 @@ public:
 
     scm_t_port *pt = SCM_PTAB_ENTRY (port);
 
-    pt->read_buf = (unsigned char *) data_;
-    pt->read_pos = (const unsigned char *) data_;
+    pt->read_buf
+      = reinterpret_cast<unsigned char *> (const_cast<char *> (data_));
+    pt->read_pos = pt->read_buf;
     pt->read_buf_size = len_;
     pt->read_end = pt->read_buf + len_;
     return port;

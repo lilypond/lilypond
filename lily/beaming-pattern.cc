@@ -279,7 +279,7 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
                              ? dt / options.base_moment_
                              : tuplet_dt / Rational (1, 8) / tuplet;
           if (infos_[i].rhythmic_importance_ >= 0)
-            infos_[i].rhythmic_importance_ = (int) ratio.den ();
+            infos_[i].rhythmic_importance_ = static_cast<int> (ratio.den ());
 
           i++;
         }

@@ -84,7 +84,8 @@ Semi_tie::get_column_rank (Item *me)
 int
 Semi_tie::get_position (Item *me)
 {
-  return (int) rint (Staff_symbol_referencer::get_position (head (me)));
+  return
+    static_cast<int> (rint (Staff_symbol_referencer::get_position (head (me))));
 }
 
 bool

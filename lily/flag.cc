@@ -94,7 +94,8 @@ Flag::glyph_name (SCM smob)
       if (adjust)
         {
           Real ss = Staff_symbol_referencer::staff_space (me);
-          int p = (int) (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
+          const auto p = static_cast<int>
+                         (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
           staffline_offs
             = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
         }

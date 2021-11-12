@@ -454,7 +454,8 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
               Bezier back_dash, curve_dash;
               Real seg_length = (back_segment.control_[3]
                                  - back_segment.control_[0]).length ();
-              int pattern_count = (int) (seg_length / dash_period);
+              const auto pattern_count
+                = static_cast<int> (seg_length / dash_period);
               Real pattern_length = 1.0 / (pattern_count + dash_fraction);
               Real start_t, end_t;
               for (int p = 0; p <= pattern_count; p++)

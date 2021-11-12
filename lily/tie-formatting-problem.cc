@@ -903,24 +903,25 @@ Ties_configuration
 Tie_formatting_problem::generate_base_chord_configuration ()
 {
   Ties_configuration ties_config;
-  for (vsize i = 0; i < specifications_.size (); i++)
+  for (const auto &spec : specifications_)
     {
       Tie_configuration conf;
-      if (specifications_[i].has_manual_dir_)
-        conf.dir_ = specifications_[i].manual_dir_;
-      if (specifications_[i].has_manual_position_)
+      if (spec.has_manual_dir_)
+        conf.dir_ = spec.manual_dir_;
+      if (spec.has_manual_position_)
         {
-          conf.position_ = (int) round_halfway_up (specifications_[i].manual_position_);
-          if (specifications_[i].has_manual_delta_y_)
-            conf.delta_y_ = (specifications_[i].manual_position_ - conf.position_)
+          conf.position_
+            = static_cast<int> (round_halfway_up (spec.manual_position_));
+          if (spec.has_manual_delta_y_)
+            conf.delta_y_ = (spec.manual_position_ - conf.position_)
                             * 0.5 * details_.staff_space_;
         }
       else
         {
-          conf.position_ = specifications_[i].position_;
+          conf.position_ = spec.position_;
         }
 
-      conf.column_ranks_ = specifications_[i].column_ranks_;
+      conf.column_ranks_ = spec.column_ranks_;
       ties_config.push_back (conf);
     }
 

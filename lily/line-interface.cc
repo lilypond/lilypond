@@ -105,7 +105,7 @@ Line_interface::make_zigzag_line (Grob *me,
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Real w = from_scm<double> (get_property (me, "zigzag-width"), 1) * staff_space;
-  int count = (int) ceil (dz.length () / w);
+  const auto count = static_cast<int> (ceil (dz.length () / w));
   w = dz.length () / count;
 
   Real l = from_scm<double> (get_property (me, "zigzag-length"), 1) * w;
@@ -247,8 +247,8 @@ Line_interface::line (Grob *me, Offset from, Offset to)
         there will be one more dash than complete dash + whitespace
         units (full periods).
       */
-      int full_period_count
-        = (int) rint ((len - period * fraction) / period);
+      auto full_period_count
+        = static_cast<int> (rint ((len - period * fraction) / period));
       full_period_count = std::max (0, full_period_count);
       if (full_period_count > 0)
         {

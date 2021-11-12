@@ -97,7 +97,7 @@ LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
   struct timeval tv = {};
   pid_t pid = getpid ();
   gettimeofday (&tv, NULL);
-  srand ((unsigned int) (tv.tv_sec ^ tv.tv_usec ^ pid));
+  srand (static_cast<unsigned> (tv.tv_sec ^ tv.tv_usec ^ pid));
   return SCM_UNSPECIFIED;
 }
 

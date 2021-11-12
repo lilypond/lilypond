@@ -214,7 +214,8 @@ Dot_column::calc_positioning_done (SCM smob)
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
-      p += (int) from_scm<double> (get_property (dp.dot_, "staff-position"), 0.0);
+      p += static_cast<int>
+           (from_scm<double> (get_property (dp.dot_, "staff-position"), 0.0));
       dp.pos_ = p;
 
       cfg.remove_collision (p);

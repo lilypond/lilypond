@@ -257,7 +257,7 @@ Text_interface::internal_interpret_markup (Output_def *layout,
       // Don't use SCM_F_DYNWIND_REWINDABLE since it may be expensive
       // without any obvious use for retaining continuations into
       // markup expansion
-      scm_dynwind_begin ((scm_t_dynwind_flags)0);
+      scm_dynwind_begin (static_cast<scm_t_dynwind_flags> (0));
       // scm_dynwind_rewind_handler (markup_up_depth, 0, SCM_F_WIND_EXPLICITLY);
       markup_up_depth (0);
       scm_dynwind_unwind_handler (markup_down_depth, 0, SCM_F_WIND_EXPLICITLY);

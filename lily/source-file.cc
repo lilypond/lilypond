@@ -41,7 +41,7 @@ Source_file::load_stdin ()
   data_.clear ();
   int c;
   while ((c = fgetc (stdin)) != EOF)
-    data_.push_back ((char)c);
+    data_.push_back (static_cast<char> (c));
 }
 
 /*

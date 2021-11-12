@@ -37,7 +37,7 @@ Slur_score_parameters::fill (Grob *me)
   SCM details = get_property (me, "details");
 
   region_size_
-    = (int) get_detail (details, ly_symbol2scm ("region-size"));
+    = static_cast<int> (get_detail (details, ly_symbol2scm ("region-size")));
   head_encompass_penalty_
     = get_detail (details, ly_symbol2scm ("head-encompass-penalty"));
   stem_encompass_penalty_

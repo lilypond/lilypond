@@ -227,7 +227,8 @@ private:
 #define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                 \
   static void smob_proc_init (scm_t_bits smob_tag)                      \
   {                                                                     \
-    scm_set_smob_apply (smob_tag, (scm_t_subr)(FUN), REQ, OPT, VAR);    \
+    scm_set_smob_apply (smob_tag, reinterpret_cast<scm_t_subr> (FUN),   \
+                        REQ, OPT, VAR);                                 \
   }
 
 #define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \

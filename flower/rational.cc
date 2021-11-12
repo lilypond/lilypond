@@ -43,7 +43,7 @@ Rational::operator double () const
              static_cast<double> (inum) / static_cast<double> (iden);
     }
 #else
-    return (double)sign_ * (double)num_ / (double)den_;
+    return static_cast<double> (sign_) * static_cast<double> (num_) / static_cast<double> (den_);
 #endif
   if (sign_ == -2)
     return -HUGE_VAL;
@@ -308,8 +308,8 @@ Rational::Rational (double x)
         easily.
       */
 
-      num_ = (U64) (mantissa * FACT);
-      den_ = (U64) FACT;
+      num_ = static_cast<U64> (mantissa * FACT);
+      den_ = static_cast<U64> (FACT);
       normalize ();
       if (expt < 0)
         den_ <<= -expt;

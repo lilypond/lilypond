@@ -161,9 +161,8 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
   fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
 
-  int
-  lo = 0;
-  int hi = std::max ((int) fm->count () - 1, 2);
+  int lo = 0;
+  int hi = std::max (static_cast<int> (fm->count ()) - 1, 2);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   Box b;

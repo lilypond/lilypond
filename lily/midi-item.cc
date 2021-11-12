@@ -87,7 +87,7 @@ Midi_instrument::to_string () const
   SCM program = Lily::midi_program (ly_symbol2scm (audio_->str_.c_str ()));
   found = (scm_is_true (program));
   if (found)
-    program_byte = (Byte) scm_to_int (program);
+    program_byte = static_cast<Byte> (from_scm<int> (program));
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
@@ -158,7 +158,7 @@ Midi_key::to_string () const
                    uint8_t (audio_->major_ ? 0 : 1)
                   };
 
-  return string ((char *) str, sizeof (str));
+  return string (reinterpret_cast<char *> (str), sizeof (str));
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
@@ -186,7 +186,7 @@ Midi_time_signature::to_string () const
                    uint8_t (audio_->base_moment_clocks_),
                    8
                   };
-  return string ((char *) out, sizeof (out));
+  return string (reinterpret_cast<char *> (out), sizeof (out));
 }
 
 Midi_note::Midi_note (Audio_note *a)
@@ -207,7 +207,7 @@ Midi_note::get_fine_tuning () const
   tune -= Rational (get_semitone_pitch ());
 
   tune *= PITCH_WHEEL_SEMITONE;
-  return (int) double (tune);
+  return static_cast<int> (static_cast<double> (tune));
 }
 
 int
@@ -221,7 +221,7 @@ Midi_note::get_semitone_pitch () const
 string
 Midi_note::to_string () const
 {
-  Byte status_byte = (char) (0x90 + channel_);
+  const auto status_byte = static_cast<Byte> (0x90 + channel_);
   string str = "";
 
   // print warning if fine tuning was needed, HJJ
@@ -255,7 +255,7 @@ Midi_note_off::Midi_note_off (Midi_note *n)
 string
 Midi_note_off::to_string () const
 {
-  Byte status_byte = (char) (0x90 + channel_);
+  const auto status_byte = static_cast<Byte> (0x90 + channel_);
 
   string str (1, status_byte);
   str += static_cast<char> (get_semitone_pitch () + Midi_note::c0_pitch_);
@@ -282,7 +282,7 @@ Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
 string
 Midi_piano_pedal::to_string () const
 {
-  Byte status_byte = (char) (0xB0 + channel_);
+  const auto status_byte = static_cast<Byte> (0xB0 + channel_);
   string str (1, status_byte);
 
   if (audio_->type_ == SOSTENUTO)
@@ -307,7 +307,7 @@ Midi_tempo::to_string () const
 {
   uint32_t useconds_per_4 = 60 * 1000000 / audio_->per_minute_4_;
   uint8_t out[] = {0xff, 0x51, 0x03};
-  return string ((char *) out, sizeof (out))
+  return string (reinterpret_cast<char *> (out), sizeof (out))
          + String_convert::be_u24 (useconds_per_4);
 }
 
@@ -320,7 +320,7 @@ string
 Midi_text::to_string () const
 {
   uint8_t text_code[] = {0xff, audio_->type_};
-  string str ((char *) text_code, sizeof (text_code));
+  string str (reinterpret_cast<char *> (text_code), sizeof (text_code));
   str += int2midi_varint_string (int (audio_->text_string_.length ()));
   str += audio_->text_string_;
   return str;
@@ -329,7 +329,7 @@ Midi_text::to_string () const
 string
 Midi_control_change::to_string () const
 {
-  Byte status_byte = (char) (0xB0 + channel_);
+  const auto status_byte = static_cast<Byte> (0xB0 + channel_);
   string str (1, status_byte);
   str += static_cast<char> (audio_->control_);
   str += static_cast<char> (audio_->value_);

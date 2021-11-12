@@ -164,7 +164,7 @@ struct ly_scm_func_of_arity<4>
     ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
                                                (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,    \
-                                               (scm_t_subr) func); \
+                                               reinterpret_cast<scm_t_subr> (func)); \
     ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
                                    DOC);                                \
     scm_c_export (id.c_str (), NULL);                                   \
@@ -202,7 +202,7 @@ void ly_check_name (const char *cxx, const char *fname);
   INITPREFIX ## init ()                                                 \
   {                                                                     \
     FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,       \
-                                         (scm_t_subr) FNAME); \
+                                         reinterpret_cast<scm_t_subr> (FNAME)); \
     ly_check_name (#FNAME, PRIMNAME);\
     ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
                                    DOCSTRING);                          \

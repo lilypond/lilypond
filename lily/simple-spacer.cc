@@ -112,7 +112,7 @@ Simple_spacer::heuristic_rod_force (vsize l, vsize r, Real dist)
   if (! (overcompensation > 1e-6))
     return previous_force;
 
-  Real shrink_value = overcompensation / (Real) (r - l);
+  Real shrink_value = overcompensation / static_cast<Real> (r - l);
   Real current_force = previous_force;
   Real current_length = previous_length;
   while (overcompensation > 1e-6 && shrink_value > 1e-6)

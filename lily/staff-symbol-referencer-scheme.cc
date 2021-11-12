@@ -34,7 +34,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) - pos) < 1e-6) // ugh.
-    return to_scm ((int) round_halfway_up (pos));
+    return to_scm (static_cast<int> (round_halfway_up (pos)));
   else
     return to_scm (pos);
 }

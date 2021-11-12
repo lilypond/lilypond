@@ -60,9 +60,9 @@ Midi_track::Midi_track (int number, bool port)
 
   if (port)
     {
-      uint8_t num = uint8_t (number_);
-      uint8_t out[5] = {0x00, 0xff, 0x21, 0x01, num};
-      data_string += string ((char *) out, sizeof (out));
+      const char num = static_cast<char> (number);
+      const char out[5] = {0x00, '\xff', 0x21, 0x01, num};
+      data_string += string (out, sizeof (out));
     }
 
   set ("MTrk", data_string, "");

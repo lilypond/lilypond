@@ -64,7 +64,7 @@ avoid_staff_line (Slur_score_state const &state,
       Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
                / state.staff_space_;
 
-      int round_p = (int) round_halfway_up (p);
+      auto round_p = static_cast<int> (round_halfway_up (p));
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
         round_p += (p > round_p) ? 1 : -1;
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))

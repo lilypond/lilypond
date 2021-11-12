@@ -53,7 +53,7 @@ struct Parse_start
 
   static SCM handle_error (void *data, SCM /*tag*/, SCM args)
   {
-    Parse_start *ps = (Parse_start *) data;
+    const auto *const ps = reinterpret_cast<Parse_start *> (data);
 
     ps->start_.non_fatal_error
     (_ ("GUILE signaled an error for the expression beginning here"));

@@ -642,7 +642,8 @@ Slur_score_state::move_away_from_staffline (Real y,
       * 2.0 / staff_space_;
 
   if (fabs (pos - round_halfway_up (pos)) < 0.2
-      && Staff_symbol_referencer::on_staff_line (on_staff, (int) rint (pos)))
+      && Staff_symbol_referencer::on_staff_line (on_staff,
+                                                 static_cast<int> (rint (pos))))
     y += 1.5 * staff_space_ * dir_ / 10;
 
   return y;

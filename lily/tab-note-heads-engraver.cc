@@ -105,7 +105,7 @@ Tab_note_heads_engraver::process_music ()
   SCM fret_procedure = get_property (this, "tablatureFormat");
   SCM staff_line_procedure = get_property (this, "tabStaffLineLayoutFunction");
   SCM staff_position = SCM_EOL;
-  vsize fret_count = (vsize) scm_ilength (string_fret_finger);
+  const auto fret_count = static_cast<vsize> (scm_ilength (string_fret_finger));
   bool length_changed = (note_events_.size () != fret_count);
   vsize index;
 

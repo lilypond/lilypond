@@ -67,7 +67,7 @@ Protected_scm::operator = (SCM s)
 Protected_scm &
 Protected_scm::operator = (Protected_scm const &s)
 {
-  return *this = (SCM) s;
+  return *this = static_cast<SCM> (s);
 }
 
 Protected_scm::operator SCM const &() const

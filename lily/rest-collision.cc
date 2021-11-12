@@ -181,7 +181,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       if (diff > 0)
         {
-          int amount_down = (int) ceil (diff / 2);
+          const auto amount_down = static_cast<int> (ceil (diff / 2));
           diff -= amount_down;
           Rest::translate (ordered_rests[DOWN].back (),
                            -2 * amount_down);
@@ -199,7 +199,10 @@ Rest_collision::calc_positioning_done (SCM smob)
 
               Real diff = d * ((last_y - y) / staff_space);
               if (diff > 0)
-                Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
+                {
+                  const auto amount = static_cast<int> (ceil (diff)) * 2;
+                  Rest::translate (ordered_rests[d][i], d * amount);
+                }
             }
         }
     }

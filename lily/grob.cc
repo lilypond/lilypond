@@ -664,7 +664,7 @@ Grob::get_vertical_axis_group_index (Grob *g)
   extract_grob_set (val, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i] == vax)
-      return (int) i;
+      return static_cast<int> (i);
   g->programming_error ("could not find this grob's vertical axis group in the vertical alignment");
   return -1;
 }

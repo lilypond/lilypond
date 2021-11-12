@@ -690,8 +690,10 @@ Beam_scoring_problem::calc_concaveness ()
           the beam.
         */
 
-        close_positions.push_back ((int) rint (head_positions_[i][beam_dir]));
-        far_positions.push_back ((int) rint (head_positions_[i][-beam_dir]));
+        auto close = static_cast<int> (rint (head_positions_[i][beam_dir]));
+        close_positions.push_back (close);
+        auto far = static_cast<int> (rint (head_positions_[i][-beam_dir]));
+        far_positions.push_back (far);
       }
 
   Real concaveness = 0.0;
@@ -858,7 +860,7 @@ Beam_scoring_problem::shift_region_to_valid ()
 void
 Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *scores) const
 {
-  int region_size = (int) parameters_.REGION_SIZE;
+  auto region_size = static_cast<int> (parameters_.REGION_SIZE);
 
   // Knees and collisions are harder, lets try some more possibilities
   if (is_knee_)

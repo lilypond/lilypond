@@ -670,8 +670,8 @@ Stem::calc_default_direction (SCM smob)
     {
       int staff_center = 0;
       Interval hp = head_positions (me);
-      int udistance = (int) (UP * hp[UP] - staff_center);
-      int ddistance = (int) (DOWN * hp[DOWN] - staff_center);
+      int udistance = static_cast<int> (UP * hp[UP] - staff_center);
+      int ddistance = static_cast<int> (DOWN * hp[DOWN] - staff_center);
 
       dir = Direction (sign (ddistance - udistance));
     }

@@ -86,9 +86,11 @@ Tie::get_position (Spanner *me)
 {
   for (const auto d : {LEFT, RIGHT})
     {
-      Grob *h = head (me, d);
-      if (h)
-        return (int) rint (Staff_symbol_referencer::get_position (h));
+      if (auto *const h = head (me, d))
+        {
+          return
+            static_cast<int> (rint (Staff_symbol_referencer::get_position (h)));
+        }
     }
 
   /*

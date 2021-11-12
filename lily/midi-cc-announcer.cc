@@ -88,9 +88,10 @@ void Midi_control_change_announcer::announce_control_changes ()
           const Real full_fine_scale = 0x3FFF;
           const Real full_coarse_scale = 0x7F;
           const bool fine_resolution = (spec->lsb_control_number_ >= 0);
-          const int v = (int) (round_halfway_up (val * (fine_resolution
-                                                        ? full_fine_scale
-                                                        : full_coarse_scale)));
+          const auto v
+            = static_cast<int> (round_halfway_up (val * (fine_resolution
+                                                         ? full_fine_scale
+                                                         : full_coarse_scale)));
           // Announce a control change for the most significant 7 bits of the
           // control value (and, if the control supports fine resolution, for
           // the least significant 7 bits as well).

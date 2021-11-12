@@ -113,7 +113,7 @@ Span_bar_stub_engraver::process_acknowledged ()
         {
           int i = Grob::get_vertical_axis_group_index (bars[j]);
           if (i >= 0)
-            bar_axis_indices.push_back ((vsize) i);
+            bar_axis_indices.push_back (static_cast<vsize> (i));
         }
       vector<Context *> affected_contexts;
       vector<Grob *> y_parents;

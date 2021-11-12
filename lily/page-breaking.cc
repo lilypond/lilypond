@@ -521,7 +521,8 @@ Page_breaking::page_height (int page_num, bool last) const
   // if calc_height returns a negative number.  But that's likely to
   // be rare, so it shouldn't affect performance.
   vector<Real> &cache = last ? last_page_height_cache_ : page_height_cache_;
-  if (page_num >= 0 && (int) cache.size () > page_num && cache[page_num] >= 0)
+  if ((page_num >= 0) && (cache.size () > static_cast<vsize> (page_num))
+      && (cache[page_num] >= 0))
     return cache[page_num];
   else
     {
@@ -535,7 +536,7 @@ Page_breaking::page_height (int page_num, bool last) const
 
       if (page_num >= 0)
         {
-          if ((int) cache.size () <= page_num)
+          if (cache.size () <= static_cast<vsize> (page_num))
             cache.resize (page_num + 1, -1);
           cache[page_num] = height;
         }

@@ -166,15 +166,17 @@ add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
-  int quantization
-    = std::max (1, (int) (((rad[X_AXIS] * x_scale) + (rad[Y_AXIS] * y_scale))
-                          * M_PI / QUANTIZATION_UNIT));
+  const auto quantization
+    = static_cast<vsize> (std::max (1.0, ((rad[X_AXIS] * x_scale)
+                                          + (rad[Y_AXIS] * y_scale))
+                                    * M_PI / QUANTIZATION_UNIT));
 
   Offset last;
   Offset first;
-  for (vsize i = 0; i <= (vsize) quantization; i++)
+  for (vsize i = 0; i <= quantization; i++)
     {
-      Real ang = linear_interpolate (static_cast<Real> (i), 0, quantization,
+      Real ang = linear_interpolate (static_cast<Real> (i), 0,
+                                     static_cast<Real> (quantization),
                                      start, end);
       Offset pt (offset_directed (ang).scale (rad));
       if (i > 0)
@@ -225,8 +227,10 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
     }
   else
     {
-      int quantization = (int) (rounded * diameter * (x_scale + y_scale)
-                                * M_PI / QUANTIZATION_UNIT / 8);
+      const auto quantization
+        = static_cast<vsize> (std::max (0.0,
+                                        rounded * diameter * (x_scale + y_scale)
+                                        * M_PI / QUANTIZATION_UNIT / 8));
       /* if there is no quantization, there is no need to draw
          rounded corners. >>> Set the effective skyline radius to 0 */
       Real radius = (quantization ? diameter / 2 : 0.);
@@ -262,10 +266,12 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
             for (const auto h : {LEFT, RIGHT})
               {
                 Offset last;
-                for (vsize i = 0; i <= (vsize) quantization; i++)
+                for (vsize i = 0; i <= quantization; i++)
                   {
-                    Real ang = linear_interpolate (static_cast<Real> (i), 0,
-                                                   quantization, 0., 90.);
+                    Real ang
+                      = linear_interpolate (static_cast<Real> (i), 0,
+                                            static_cast<Real> (quantization),
+                                            0., 90.);
                     Offset pt (offset_directed (ang).scale (rad));
                     Offset inter (cx[h] + h * pt[X_AXIS],
                                   cy[v] + v * pt[Y_AXIS]);
@@ -335,15 +341,16 @@ add_draw_bezier_segments (Lazy_skyline_pair *skyline,
     }
 
   //////////////////////
-  int quantization = int (len / QUANTIZATION_UNIT);
+  const auto quantization
+    = static_cast<vsize> (std::max (0.0, len / QUANTIZATION_UNIT));
 
   vector<Offset> points;
   points.reserve (quantization + 1);
 
   last = curve.control_[0];
-  for (vsize i = 1; i < (vsize) quantization; i++)
+  for (vsize i = 1; i < quantization; i++)
     {
-      Real t = static_cast<Real> (i) / quantization;
+      Real t = static_cast<Real> (i) / static_cast<Real> (quantization);
       Offset pt = curve.curve_point (t);
       skyline->add_segment (transform, last, pt, th);
       last = pt;

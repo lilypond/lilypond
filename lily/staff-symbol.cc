@@ -205,7 +205,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
       ledger_fill.add_point (pos + 0.5 * dir + ledger_extra * dir);
 
       // fill the Interval ledger_fill with ledger lines
-      int n = (int) floor ((ledger_fill[DOWN] - min_pos) / cycle);
+      auto n = static_cast<int> (floor ((ledger_fill[DOWN] - min_pos) / cycle));
       Real current;
       SCM s = scm_cdr (ledger_positions);
       if (!scm_is_pair (s) || cycle < 0.1)
@@ -253,7 +253,9 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   else
     // normal ledger lines
     {
-      int ledger_count = (int) floor ((abs (nearest_line - pos) + ledger_extra) / 2);
+      const auto ledger_count
+        = static_cast<int> (floor ((abs (nearest_line - pos) + ledger_extra)
+                                   / 2));
       values.resize (ledger_count);
       for (int i = 0; i < ledger_count; i++)
         {

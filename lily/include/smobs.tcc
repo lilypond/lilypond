@@ -135,7 +135,7 @@ void Smob_base<Super>::init ()
   if (Super::type_p_name_ != 0)
     {
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
-                                     (scm_t_subr) smob_p);
+                                     reinterpret_cast<scm_t_subr> (smob_p));
       std::string fundoc = std::string ("Is @var{x} a smob of class"
                                         " @code{" + smob_name_ + "}?");
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
