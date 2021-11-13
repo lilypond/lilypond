@@ -91,20 +91,6 @@ format_name (Cairo_output_format f)
   abort ();
 }
 
-static bool
-single_page_format (Cairo_output_format fmt)
-{
-  switch (fmt)
-    {
-    case EPS:
-    case SVG:
-    case PNG:
-      return true;
-    default:
-      return false;
-    }
-}
-
 Cairo_output_format
 parse_format (std::string const &f)
 {
@@ -334,7 +320,7 @@ public:
   Cairo_outputter (Cairo_output_format format, std::string const &basename,
                    Output_def *paper);
   ~Cairo_outputter ();
-  void create_surface (Stencil const *, int);
+  void create_surface (Stencil const *);
   void finish_page ();
   void handle_metadata (SCM header);
   void close ();
@@ -643,22 +629,12 @@ Cairo_outputter::finish_page ()
 {
   cairo_show_page (context ());
   surface_->check_errors ();
-  if (single_page_format (format_))
-    {
-      surface_->finish ();
-      surface_->check_errors ();
-      delete surface_;
-      surface_ = nullptr;
-    }
 }
 
 void
-Cairo_outputter::create_surface (Stencil const *stencil, int page_number)
+Cairo_outputter::create_surface (Stencil const *stencil)
 {
-  filename_ = outfile_basename_;
-  if (page_number > 0 && single_page_format (format_))
-    filename_ += "-" + std::to_string (page_number);
-  filename_ += "." + format_name (format_);
+  filename_ = outfile_basename_ + "." + format_name (format_);
 
   message (_f ("Output to `%s'...\n", filename_.c_str ()));
 
@@ -1242,6 +1218,18 @@ parse_formats (const char *funcname, int format_arg, SCM formats)
   return result;
 }
 
+void
+output_stencil_format (std::string const &basename, const Stencil *stc,
+                       Output_def *odef, Cairo_output_format fmt)
+{
+  Cairo_outputter outputter (fmt, basename, odef);
+
+  outputter.create_surface (stc);
+  interpret_stencil_expression (stc->expr (), &outputter, Offset (0, 0));
+  outputter.finish_page ();
+  outputter.close ();
+}
+
 #endif // CAIRO_BACKEND
 
 LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
@@ -1253,20 +1241,29 @@ LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
 
 #if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
-  for (auto const &f : parse_formats ("ly:cairo-output-stencils", 5, formats))
+  for (auto const format :
+       parse_formats ("ly:cairo-output-stencils", 5, formats))
     {
-      Cairo_outputter outputter (f, ly_scm2string (basename), odef);
+      std::string base = ly_scm2string (basename);
+      if (format == EPS || format == PNG || format == SVG)
+        {
+          int page = 1;
+          for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p), page++)
+            {
+              output_stencil_format (base + "-" + std::to_string (page),
+                                     unsmob<const Stencil> (scm_car (p)), odef,
+                                     format);
+            }
+          continue;
+        }
 
-      int page = 1;
-      for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p), page++)
+      Cairo_outputter outputter (format, base, odef);
+      outputter.create_surface (unsmob<const Stencil> (scm_car (stencils)));
+      outputter.handle_metadata (header);
+
+      for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p))
         {
           const Stencil *stencil = unsmob<const Stencil> (scm_car (p));
-          if (single_page_format (f) || page == 1)
-            {
-              outputter.create_surface (stencil, page);
-              if (page == 1)
-                outputter.handle_metadata (header);
-            }
           interpret_stencil_expression (stencil->expr (), &outputter,
                                         Offset (0, 0));
           outputter.finish_page ();
@@ -1301,13 +1298,9 @@ LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 4, 0, 0,
 
       if (f == EPS)
         seen_eps = true;
-      Cairo_outputter outputter (f, ly_scm2string (basename), odef);
 
       const Stencil *stc = unsmob<const Stencil> (stencil);
-      outputter.create_surface (stc, 0);
-      interpret_stencil_expression (stc->expr (), &outputter, Offset (0, 0));
-      outputter.finish_page ();
-      outputter.close ();
+      output_stencil_format (ly_scm2string (basename), stc, odef, f);
     }
 #else
   error ("compiled without CAIRO_BACKEND");
