@@ -208,8 +208,10 @@ public:
   {
     filename_ = filename;
     int png_dpi = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
-    height_ = std::max ((int) round (paper_height / 72.0 * png_dpi), 1);
-    width_ = std::max ((int) round (paper_width / 72.0 * png_dpi), 1);
+    height_
+      = std::max (static_cast<int> (round (paper_height / 72.0 * png_dpi)), 1);
+    width_
+      = std::max (static_cast<int> (round (paper_width / 72.0 * png_dpi)), 1);
     surface_
       = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width_, height_);
     context_ = cairo_create (surface_);
@@ -361,8 +363,9 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
       // balanced with FT_Done_Face calls in ~Cairo_outputter.
       FT_Reference_Face (face);
 
-      if (cairo_font_face_set_user_data (cairo_font_face, &ukey, face,
-                                         (cairo_destroy_func_t) FT_Done_Face))
+      if (cairo_font_face_set_user_data (
+            cairo_font_face, &ukey, face,
+            reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
         {
           programming_error ("cairo_font_face_set_user_data failed");
         }
@@ -413,9 +416,9 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
   Real cx, cy;
   cairo_get_current_point (context (), &cx, &cy);
   cairo_glyph_t oneglyph
-  = {FT_Get_Name_Index (otf->freetype_handle (), (FT_String *) g.c_str ()),
-     cx, cy
-    };
+    = {FT_Get_Name_Index (otf->freetype_handle (),
+                          const_cast<FT_String *> (g.c_str ())),
+       cx, cy};
 
   cairo_show_glyphs (context (), &oneglyph, 1);
 }
@@ -475,7 +478,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
                 hex = glyph_ustr.substr (1);
               unsigned long gb = std::stoul (hex, nullptr, 16);
               char gc[] = {0, 0, 0, 0, 0, 0};
-              int n = g_unichar_to_utf8 ((gunichar) gb, gc);
+              int n = g_unichar_to_utf8 (static_cast<gunichar> (gb), gc);
               utf8 += std::string (gc, n);
             }
           else
@@ -498,9 +501,9 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       else // we have a font with glyph names
         {
           std::string g = ly_scm2string (glyph_scm);
-          cairo_glyphs.push_back (cairo_glyph_t (
-          {
-            .index = FT_Get_Name_Index (ft_face, (FT_String *) g.c_str ()),
+          cairo_glyphs.push_back (cairo_glyph_t ({
+            .index
+            = FT_Get_Name_Index (ft_face, const_cast<FT_String *> (g.c_str ())),
             .x = startx + (x + sumw),
             .y = starty - y,
           }));
