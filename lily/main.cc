@@ -618,14 +618,6 @@ parse_argv (int argc, char **argv)
         case 'f':
           {
             string arg = option_parser->optional_argument_str0_;
-            if (arg.find ("svg") != string::npos)
-              {
-                if (arg != "svg")
-                  warning (_ (
-                    "SVG backend requested; other formats will be ignored."));
-                arg = "svg";
-                init_scheme_variables_global += "(backend . svg)\n";
-              }
             for (string a : string_split (arg, ','))
               add_output_format (a);
           }
@@ -638,7 +630,6 @@ parse_argv (int argc, char **argv)
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "svg")
             {
-              init_scheme_variables_global += "(backend . svg)\n";
               add_output_format ("svg");
             }
           else if (string (opt->longname_str0_) == "relocate")
@@ -745,6 +736,12 @@ parse_argv (int argc, char **argv)
 
   if (output_formats_global.empty ())
     add_output_format ("pdf");
+
+  if (output_formats_global.size () == 1 && output_formats_global[0] == "svg"
+      && init_scheme_variables_global.find ("backend") == std::string::npos)
+    {
+      init_scheme_variables_global += "(backend . svg)\n";
+    }
 
   if (show_help)
     {
