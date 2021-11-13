@@ -127,6 +127,8 @@ Translator_group::create_child_translator (SCM sev)
 
   for (SCM trans : ly_scm_list (def->get_translator_names (ops)))
     {
+      SCM arg = trans; // in case we want to print the original value below
+
       if (ly_is_symbol (trans))
         trans = get_translator_creator (trans);
       if (ly_is_procedure (trans))
@@ -136,7 +138,7 @@ Translator_group::create_child_translator (SCM sev)
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
         {
-          warning (_f ("cannot find: `%s'", ly_scm_write_string (trans).c_str ()));
+          warning (_f ("cannot find: `%s'", ly_scm_write_string (arg).c_str ()));
           continue;
         }
 
