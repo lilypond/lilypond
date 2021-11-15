@@ -114,7 +114,13 @@ src: url('~a');
   (set! output-dir dir)
   (define-fonts paper svg-define-font svg-define-font))
 
-(define (output-stencil basename stencil paper ignored-formats)
+(define (warn-formats formats)
+  (let*
+      ((ignored (filter (lambda (f) (not (equal? f "svg"))) formats)))
+    (if (pair? ignored)
+        (ly:warning (_ "ignoring unsupported formats ~a") ignored))))
+
+(define (output-stencil basename stencil paper formats)
   (let* ((filename (string-append basename ".svg"))
          (outputter (ly:make-paper-outputter
                      (cond-expand
@@ -136,6 +142,7 @@ src: url('~a');
          (eval-svg (lambda (expr)
                      (ly:outputter-output-scheme outputter expr))))
 
+    (warn-formats formats)
     (if (ly:get-option 'svg-woff)
         (eval-svg `(set-paper ,paper)))
     (dump (svg-begin svg-width svg-height
@@ -150,19 +157,20 @@ src: url('~a');
     (dump (svg-end))
     (ly:outputter-close outputter)))
 
-(define (output-stencils basename stencils header paper ignored-formats)
+(define (output-stencils basename stencils header paper formats)
   (let* ((page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length stencils))
          (filename "")
          (file-suffix (lambda (num)
                         (if (= page-count 1) "" (format #f "-~a" num)))))
+    (warn-formats formats)
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
        (set! filename (format #f "~a~a"
                               basename
                               (file-suffix page-number)))
-       (output-stencil filename page paper ignored-formats))
+       (output-stencil filename page paper '("svg")))
      stencils)))
 
      

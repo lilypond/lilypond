@@ -755,7 +755,12 @@ mark {ly~a_stream} /CLOSE pdfmark
               (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
+(define (warn-formats formats)
+  (if (member "svg" formats)
+      (ly:warning (_ "PS backend does not support SVG format"))))
+  
 (define-public (output-stencils basename stencils header paper formats)
+  (warn-formats formats)
   (let* ((port (make-tmpfile basename))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
@@ -856,6 +861,7 @@ mark {ly~a_stream} /CLOSE pdfmark
     ))
 
 (define-public (output-stencil basename stencil paper formats)
+  (warn-formats formats)
   (dump-stencil-as-EPS paper
                        stencil
                        basename
