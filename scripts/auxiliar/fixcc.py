@@ -36,6 +36,7 @@ import time
 import subprocess
 
 COMMENT = 'COMMENT'
+RAW_STRING = 'RAW_STRING'
 STRING = 'STRING'
 GLOBAL_CXX = 'GC++'
 CXX = 'C++'
@@ -105,6 +106,10 @@ rules = {
         # delete newline before end?
         #('\n(\*/)', '\\1'),
     ],
+
+    RAW_STRING:
+    [
+    ],
 }
 
 # Recognize special sequences in the input.
@@ -128,6 +133,12 @@ snippet_res = {
     (?P<match>
     (?P<code>
     [ \t]*/\*.*?\*/))''',
+
+        'raw_string':
+        r'''(?sx)
+    (?P<match>
+    (?P<code>
+    R"(?P<delim>[^\\() ]{0,16})\(.*\)(?P=delim)"))''',
 
         'singleline_comment':
         r'''(?mx)
@@ -227,9 +238,27 @@ class Multiline_comment (Snippet):
             s = re.sub(i[0], i[1], s)
         return s
 
+class Raw_string (Snippet):
+    def __init__(self, source, match, format):
+        self.type = type
+        self.match = match
+        self.hash = 0
+        self.options = []
+        self.format = format
+
+    def replacement_text(self):
+        s = self.match.group('match')
+        if verbose_p:
+            sys.stderr.write('RAW_STRING Rules')
+        for i in rules[RAW_STRING]:
+            if verbose_p:
+                sys.stderr.write('.')
+            s = re.sub(i[0], i[1], s)
+        return s
 
 snippet_type_to_class = {
     'multiline_comment': Multiline_comment,
+    'raw_string': Raw_string,
     #        'string': Multiline_comment,
     #        'include': Include_snippet,
 }
@@ -321,6 +350,7 @@ def nitpick_file(outdir, file):
     snippet_types = (
         'define',
         'multiline_comment',
+        'raw_string',
         'singleline_comment',
         'string',
         #                'char',
@@ -559,6 +589,19 @@ void casts()
   auto a=reinterpret_cast<A>(foo);
   auto a=static_cast<A>(foo);
 }
+
+auto      raw_string=R"_(foo -> bar)_"    ;
+
+auto raw_string = R"(
+first line of multi+line-raw+string()
+second line of ! (multi -> line -> raw . string)
+)";
+
+auto raw_string = R"_foo_(
+if (true) { _foo_(); } else { return R"_foo_("; }
+second line of ! (multi -> line -> raw . string < T > )
+)_foo_";
+
 '''
 
 
