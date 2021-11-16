@@ -376,6 +376,34 @@ class Libffi(ConfigurePackage):
 libffi = Libffi()
 
 
+class PCRE(ConfigurePackage):
+    @property
+    def version(self) -> str:
+        return "8.45"
+
+    @property
+    def directory(self) -> str:
+        return f"pcre-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.bz2"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://sourceforge.net/projects/pcre/files/pcre/{self.version}/{self.archive}"
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["LICENCE"]
+
+    def __str__(self) -> str:
+        return f"PCRE {self.version}"
+
+
+pcre = PCRE()
+
+
 class Zlib(ConfigurePackage):
     @property
     def version(self) -> str:
@@ -434,7 +462,7 @@ class GLib(MesonPackage):
         gettext_dep = []
         if c.is_freebsd() or c.is_macos():
             gettext_dep = [gettext]
-        return gettext_dep + [libffi, zlib]
+        return gettext_dep + [libffi, pcre, zlib]
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
@@ -445,8 +473,6 @@ class GLib(MesonPackage):
 
     def meson_args(self, c: Config) -> List[str]:
         return [
-            # Force the fallback PCRE library to avoid an external dependency.
-            "--force-fallback-for=libpcre",
             # Disable unused features and tests.
             "-Dlibmount=disabled",
             "-Dtests=false",
@@ -911,6 +937,7 @@ all_dependencies: List[Package] = [
     ghostscript,
     gettext,
     libffi,
+    pcre,
     zlib,
     glib,
     bdwgc,
