@@ -493,7 +493,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.0.4"
+        return "8.0.6"
 
     @property
     def directory(self) -> str:
@@ -506,14 +506,6 @@ class Bdwgc(ConfigurePackage):
     @property
     def download_url(self) -> str:
         return f"https://www.hboehm.info/gc/gc_source/{self.archive}"
-
-    def apply_patches(self, c: Config):
-        # Already fixed for future releases:
-        # https://github.com/ivmai/bdwgc/commit/d2c4444fea498114b892bc65887221e36aa1e3a1
-        def patch_pkgconfig(content: str) -> str:
-            return re.sub("Cflags:.*", "\\g<0> -pthread", content)
-
-        self.patch_file(c, "bdw-gc.pc.in", patch_pkgconfig)
 
     def configure_args(self, c: Config) -> List[str]:
         return ["--disable-docs"]
