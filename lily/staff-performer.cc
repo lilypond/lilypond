@@ -111,7 +111,9 @@ ADD_TRANSLATOR (Staff_performer,
                 "",
 
                 /* read */
-                "",
+                "midiChannelMapping "
+                "midiMergeUnisons "
+                "midiSkipOffset ",
 
                 /* write */
                 "");
@@ -218,10 +220,12 @@ Staff_performer::stop_translation_timestep ()
 void
 Staff_performer::finalize ()
 {
+  Moment end_mom = now_mom ()
+    + from_scm (get_property (this, "midiSkipOffset"), Moment ());
   for (map<string, Audio_staff *>::iterator i = staff_map_.begin ();
        i != staff_map_.end (); ++i)
     {
-      i->second->end_mom_ = now_mom ();
+      i->second->end_mom_ = end_mom;
     }
 
   staff_map_.clear ();

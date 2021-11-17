@@ -52,7 +52,7 @@ private:
 
   Audio_column *audio_column_;
   bool skipping_;
-  Moment skip_start_mom_;
+  Moment skip_last_mom_;
   Moment offset_mom_;
 };
 

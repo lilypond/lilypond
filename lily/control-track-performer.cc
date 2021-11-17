@@ -90,7 +90,8 @@ Control_track_performer::initialize ()
 void
 Control_track_performer::finalize ()
 {
-  control_track_->end_mom_ = now_mom ();
+  control_track_->end_mom_ = now_mom ()
+    + from_scm (get_property (this, "midiSkipOffset"), Moment ());
 }
 
 void
@@ -107,7 +108,7 @@ ADD_TRANSLATOR (Control_track_performer,
                 "",
 
                 /* read */
-                "",
+                "midiSkipOffset",
 
                 /* write */
                 ""

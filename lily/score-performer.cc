@@ -39,10 +39,11 @@ ADD_TRANSLATOR_GROUP (Score_performer,
                       "",
 
                       /* read */
-                      "",
+                      "midiChannelMapping "
+                      "skipTypesetting ",
 
                       /* write */
-                      ""
+                      "midiSkipOffset "
                      );
 
 Score_performer::Score_performer ()
@@ -143,15 +144,22 @@ Score_performer::one_time_step (SCM)
     {
       if (!skipping_)
         {
-          skip_start_mom_ = audio_column_->when ();
           skipping_ = true;
         }
+      else
+        {
+          offset_mom_ -= audio_column_->when () - skip_last_mom_;
+          set_property (context (), "midiSkipOffset", to_scm (offset_mom_));
+        }
+      skip_last_mom_ = audio_column_->when ();
+      audio_column_->offset_when (offset_mom_);
     }
   else
     {
       if (skipping_)
         {
-          offset_mom_ -= audio_column_->when () - skip_start_mom_;
+          offset_mom_ -= audio_column_->when () - skip_last_mom_;
+          set_property (context (), "midiSkipOffset", to_scm (offset_mom_));
           skipping_ = false;
         }
 

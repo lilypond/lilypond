@@ -777,6 +777,8 @@ also contain @code{((@var{octave} . @var{name}) . (@var{alter}
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
 This can be used to signal melismas on top of those automatically
 detected.")
+     (midiSkipOffset ,ly:moment? "This is the accrued MIDI offset to
+account for time skipped via @code{skipTypesetting}.")
 
 
      (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
