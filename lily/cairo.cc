@@ -105,12 +105,18 @@ protected:
   cairo_surface_t *surface_;
   cairo_t *context_;
 
+  // Size in staff space.
+  Offset original_extent_;
+
 public:
   Cairo_surface ()
   {
     surface_ = nullptr;
     surface_ = nullptr;
   }
+  void set_original_extent (Offset ext) { original_extent_ = ext; }
+  Offset original_extent () { return original_extent_; }
+
   cairo_surface_t *cairo_surface () { return surface_; }
   cairo_t *context () { return context_; }
   void check_errors ()
@@ -306,6 +312,7 @@ class Cairo_outputter : public Stencil_sink
   void cairo_link (std::string const &attr);
   void eps_file (std::string const &content, std::vector<int> bbox, Real scale);
   void eps_file (SCM, SCM, SCM);
+  void embedded_ps (SCM);
   void url_link (SCM target, SCM varx, SCM vary);
   void url_link (std::string const &target, Real llx, Real lly, Real w, Real h,
                  bool relative);
@@ -656,6 +663,8 @@ Cairo_outputter::create_surface (Stencil const *stencil)
         = new Vanilla_surface (format_, filename_, paper_width, paper_height);
     }
 
+  surface_->set_original_extent (Offset (stencil->extent (X_AXIS).length (),
+                                         stencil->extent (Y_AXIS).length ()));
   cairo_scale (context (), scale_factor_, -scale_factor_);
 }
 
@@ -954,6 +963,44 @@ Cairo_outputter::eps_file (SCM content, SCM bbox_scm, SCM scale)
 
   assert (bbox.size () == 4);
   eps_file (ly_scm2string (content), bbox, from_scm<Real> (scale));
+}
+
+void
+Cairo_outputter::embedded_ps (SCM arg)
+{
+  if (format_ != PS && format_ != EPS)
+    {
+      static bool warned = false;
+      if (!warned)
+        warning (_ ("embedded-ps only supported for PS/EPS. "
+                    "Use Ghostscript to create output in other formats"));
+      warned = true;
+      return;
+    }
+  std::string command = ly_scm2string (arg);
+
+  Offset sz = surface_->original_extent ();
+  Real x, y;
+  cairo_get_current_point (context (), &x, &y);
+
+  /*
+    Pretend we're embedding an EPS file that coincides with the page
+    boundary from where we are drawing.
+  */
+  std::vector<int> bbox
+    = {0, 0, static_cast<int> (sz[X_AXIS]), static_cast<int> (sz[Y_AXIS])};
+  cairo_save (context ());
+  cairo_move_to (context (), 0, -sz[Y_AXIS]);
+
+  std::string eps_command
+    = "%!PS-Adobe-3.0 EPSF-3.0\n" + std::string ("%%BoundingBox: ")
+      + String_convert::form_string ("%d %d %d %d\n"
+                                     "%f %f moveto\n",
+                                     bbox[0], bbox[1], bbox[2], bbox[3], x,
+                                     sz[Y_AXIS] + y)
+      + command;
+  eps_file (eps_command, bbox, 1.0);
+  cairo_restore (context ());
 }
 
 void
@@ -1275,6 +1322,8 @@ Cairo_outputter::output (SCM expr)
     return SCM_BOOL_F;
   else if (head == ly_symbol2scm ("eps-file"))
     eps_file (arg[1], arg[2], arg[3]);
+  else if (head == ly_symbol2scm ("embedded-ps"))
+    embedded_ps (arg[0]);
 
   return SCM_UNSPECIFIED;
 }
