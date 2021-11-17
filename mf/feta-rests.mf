@@ -398,8 +398,8 @@ fet_beginchar ("z-shaped quarter rest", "2z");
   x2 = w - hround 0.5 slash_thickness;
   y2 = h - vround 0.5 slash_thickness;
 
-  penpos1 (slash_thickness, angle(z2 - z1) - 90);
-  penpos2 (slash_thickness, angle(z2 - z1) - 90);
+  penpos1 (slash_thickness, angle (z2 - z1) - 90);
+  penpos2 (slash_thickness, angle (z2 - z1) - 90);
 
   z9 = z2 + 0.5 slash_thickness * dir (angle (z2 - z1));
   z12 = z1 + 0.5 slash_thickness * dir (angle (z1 - z2));

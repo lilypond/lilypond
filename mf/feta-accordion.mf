@@ -467,7 +467,7 @@ fet_beginchar ("accordion push", "push");
   height# := 2.0 staff_space# + 3.0 stafflinethickness#;
   width# := 0.4 height#;
 
-  define_pixels(height, width);
+  define_pixels (height, width);
 
   save linewidth;
 
@@ -527,7 +527,7 @@ fet_beginchar ("accordion pull", "pull");
   height# := 2.0 staff_space# + 3.0 stafflinethickness#;
   width# := 0.4 height#;
 
-  define_pixels(height, width);
+  define_pixels (height, width);
 
   save linewidth;
 

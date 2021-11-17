@@ -22,11 +22,11 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-message "******************************************************";
+message "**********************************************************************";
 message "Using feta Autometric macros.";
 message "Order of glyph parameters:";
-message "  name charcode bp wd dp ht charwx charwy idstr";
-message "******************************************************";
+message "  name charcode bp wd dp ht charwx charwy chardwx chardwy idstr";
+message "**********************************************************************";
 message "";
 
 
@@ -141,7 +141,7 @@ enddef;
 def set_char_box (expr b_sharp, w_sharp, d_sharp, h_sharp) =
   save scharbp, scharht, scharwd, schardp;
 
-  % some paranoia if someone calls set_char_box (charwd, charbp, ...)
+  % some paranoia if someone calls set_char_box (charbp, charwd, ...)
   scharbp := b_sharp;
   scharht := h_sharp;
   schardp := d_sharp;

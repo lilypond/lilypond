@@ -2020,8 +2020,8 @@ fet_beginchar ("straight caesura", "caesura.straight");
   fill pat;
   fill pat shifted (space_between, 0);
 
-  labels(range 1 thru 4);
-  labels(1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
+  labels (range 1 thru 4);
+  labels (1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
 fet_endchar;
 
 
@@ -2054,8 +2054,8 @@ fet_beginchar ("tick mark", "tickmark");
   y4 = staff_space;
 
   penpos2 (0.4 staff_space, 90);
-  penpos3 (end_rad, angle(z4 - z3) + 90);
-  penpos1 (end_rad, angle(z2 - z1) + 90);
+  penpos3 (end_rad, angle (z4 - z3) + 90);
+  penpos1 (end_rad, angle (z2 - z1) + 90);
 
   pat = z1r
         .. top z1

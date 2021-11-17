@@ -158,6 +158,13 @@ in some cases it might show design flaws.
 
 - Use `define_whole_pixels` and friends where appropriate.
 
+- After calling `set_char_box` to set the metrics of a glyph, the variables
+  `b`, `w`, `h`, and `d` hold the breapth, width, height, and depth,
+  respectively, scaled to the output device resolution and rounded to
+  integer values.  Modify them, if necessary, to ensure symmetrical
+  rendering.  However, don't actually *change* them to completely different
+  values.
+
 - Use `hround` and `vround` consistently.  A lot of auxiliary macros are defined
   in file `feta-macros.mf`.
 
@@ -203,6 +210,8 @@ If the 'char' line is within a group, then group name and *idstr* are
 concatenated, with a `.` inbetween, to form the glyph name.  In the above
 example, we are in the group 'rests' and *idstr* is 'M1', thus the glyph name of
 'breve rest' is `rests.M1`.
+
+The values in the above table are emitted when `fet_endchar` is called.
 
 The log file contains more data that gets parsed; see file `feta-autometric.mf`
 for the details.  For example, lines with the `parameter` keyword hold global

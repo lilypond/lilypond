@@ -2180,9 +2180,9 @@ def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
   save left_dir, left_perp, right_dir, right_perp;
   pair left_dir, left_perp, right_dir, right_perp;
 
-  left_dir = unitvector(z1 - z4);
+  left_dir = unitvector (z1 - z4);
   left_perp = (left_dir rotated 90) * solfa_pen_radius;
-  right_dir = unitvector(z3 - z2);
+  right_dir = unitvector (z3 - z2);
   right_perp = (right_dir rotated 90) * solfa_pen_radius;
 
   save path_a, path_b, path_c, path_d;
@@ -2316,8 +2316,8 @@ def draw_Walker_re_head (expr width_factor, thickness_factor) =
             .. z4{down}
             .. z1;
 
-  p_a_start_dir := unitvector(direction 0 of path_a);
-  p_a_end_dir := unitvector(direction infinity of path_a);
+  p_a_start_dir := unitvector (direction 0 of path_a);
+  p_a_end_dir := unitvector (direction infinity of path_a);
   p_a_start_perp := (p_a_start_dir rotated 90) * pen_radius;
   p_a_end_perp := (p_a_end_dir rotated 90) * pen_radius;
 

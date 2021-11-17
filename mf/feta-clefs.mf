@@ -47,7 +47,7 @@ def new_bulb (expr start_point, start_angle,
     clearxy;
 
     center = outer_tangent_point + big_radius * dir (0);
-    %        + (big_radius - bulb_radius) * dir (-turning_dir * 90)
+             % + (big_radius - bulb_radius) * dir (-turning_dir * 90)
 
     z1' = center + bulb_radius * dir (turning_dir * 180);
     z2' = outer_tangent_point + flare * dir (0);
@@ -110,9 +110,9 @@ def draw_c_clef (expr reduction) =
   % has the same number of pixels as the thickness of the right
   % stem
   draw_block ((0, -d + feta_shift),
-  (3/4 norm + 1/2 hair, h));
+              (3/4 norm + 1/2 hair, h));
   draw_block ((3/4 norm + 1/2 hair + hround (3/2 hair), -d + feta_shift),
-  (3/4 norm + 1/2 hair + 2 hround (3/2 hair), h));
+              (3/4 norm + 1/2 hair + 2 hround (3/2 hair), h));
 
   % assure symmetry
   h := h - feta_shift;
@@ -240,7 +240,7 @@ def draw_varc_clef (expr reduction) =
 
   fill upper_stroke;
   % the c clef parts should be symmetrical to the forth staff line
-  fill  upper_stroke yscaled -1;
+  fill upper_stroke yscaled -1;
 
   penlabels (1'', 2'', 3'', 4'', 5'', 6'', 7'', 8'');
 

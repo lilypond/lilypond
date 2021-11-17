@@ -52,8 +52,10 @@ def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
          ..tension tens_o.. z1{right};
   tip_dir_o := direction 0 of pat;
   z4 = z3 = z2;
+
   penpos2 (arrowlinethickness, angle tip_dir_o + 90);
   penpos3 (arrowlinethickness, angle tip_dir_o + 180);
+
   if closed:
     y5 = 0;
     x5 = x2 + indent;
@@ -61,6 +63,7 @@ def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
            .. z5{down};
     tip_dir_i := direction 0 of pat;
     wing_dir := down;
+
     penpos5 (arrowlinethickness, angle wing_dir + 90);
   else:
     pat := z2l{tip_dir_o}
@@ -70,8 +73,10 @@ def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
 
     tip_dir_i := tip_dir_o;
     wing_dir := direction ta of pat;
-                penpos5 (0, 0);
+
+    penpos5 (0, 0);
   fi;
+
   penpos4 (arrowlinethickness, angle tip_dir_i + 90);
 
   pat := z1r{left}
@@ -82,7 +87,6 @@ def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
   arrow_path := pat
                 .. reverse pat yscaled -1
                 .. cycle;
-
 enddef;
 
 

@@ -204,7 +204,7 @@ def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
   fi;
 
   set_char_box (extendleft#, width, depth#, height#);
-  draw_meta_flat(xcenter, w, crook_fatness, arrowup, arrowdown);
+  draw_meta_flat (xcenter, w, crook_fatness, arrowup, arrowdown);
 enddef;
 
 %
