@@ -267,7 +267,7 @@ fet_beginchar ("flat (slashed)", "flat.slash");
   slope = 0.5;
   slash_width = w;
 
-  z11 = (0, vround (h / 2));
+  z11 = (0, staff_space_rounded);
   z12 = z11 - (slash_width, slash_width * slope) / 2;
   z13 = z11 + (slash_width, slash_width * slope) / 2;
   penpos12 (1.5 stafflinethickness, angle (z13 - z12) - 90);
@@ -304,11 +304,12 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
 
   clearxy;
 
-  save slope, slash_width;
+  save slope, slash_width, slash_distance;
   slope = 0.5;
   slash_width = w;
+  slash_distance = vround (.5 staff_space_rounded);
 
-  z11 = (0, vround (5/12 h));
+  z11 = (0, staff_space_rounded - .5 slash_distance);
   z12 = z11 - (slash_width, slash_width * slope) / 2;
   z13 = z11 + (slash_width, slash_width * slope) / 2;
   penpos12 (1.5 stafflinethickness, angle (z13 - z12) - 90);
@@ -329,7 +330,7 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
   penlabels (12, 13);
   labels (11, 14, 15);
 
-  z21 = (0, vround (2/3 h));
+  z21 = (0, staff_space_rounded + .5 slash_distance);
   z22 = z21 - (slash_width, slash_width * slope) / 2;
   z23 = z21 + (slash_width, slash_width * slope) / 2;
   penpos22 (1.5 stafflinethickness, angle (z23 - z22) - 90);
