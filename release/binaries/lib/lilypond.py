@@ -116,9 +116,9 @@ class LilyPond(ConfigurePackage):
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
-        env["GHOSTSCRIPT"] = ghostscript.exe_path(c)
-        env["GUILE"] = guile.exe_path(c)
-        env["PYTHON"] = python.exe_path(c)
+        env["GHOSTSCRIPT"] = ghostscript.exe_path(c.native_config)
+        env["GUILE"] = guile.exe_path(c.native_config)
+        env["PYTHON"] = python.exe_path(c.native_config)
         if c.is_freebsd() or c.is_macos():
             env.update(gettext.get_env_variables(c))
         return env
@@ -319,7 +319,8 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
         # Copy all of LilyPond, creating the base of the archive.
         lilypond_install = self.lilypond.install_directory(self.c)
         shutil.copytree(lilypond_install, self.package_dir)
-        lilypond_exe = os.path.join(self.package_dir, "bin", "lilypond")
+        lilypond_exe = f"lilypond{self.c.program_suffix}"
+        lilypond_exe = os.path.join(self.package_dir, "bin", lilypond_exe)
         strip(lilypond_exe)
 
         # Files needed to run core LilyPond.

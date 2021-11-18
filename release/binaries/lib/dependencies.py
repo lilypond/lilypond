@@ -277,7 +277,8 @@ class Ghostscript(ConfigurePackage):
 
     def exe_path(self, c: Config) -> str:
         """Return path to gs executable."""
-        return os.path.join(self.install_directory(c), "bin", "gs")
+        gs_exe = f"gs{c.program_suffix}"
+        return os.path.join(self.install_directory(c), "bin", gs_exe)
 
     @property
     def license_files(self) -> List[str]:
@@ -712,7 +713,8 @@ class Guile(ConfigurePackage):
 
     def exe_path(self, c: Config) -> str:
         """Return path to the guile interpreter."""
-        return os.path.join(self.install_directory(c), "bin", "guile")
+        guile_exe = f"guile{c.program_suffix}"
+        return os.path.join(self.install_directory(c), "bin", guile_exe)
 
     @property
     def license_files(self) -> List[str]:

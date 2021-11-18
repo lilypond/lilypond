@@ -48,12 +48,16 @@ class Platform(enum.Enum):
 class Config:
     """A class to store the configuration for a given platform."""
 
+    # pylint: disable=too-many-instance-attributes
+
     base_dir: str
     downloads_dir: str
     jobs: int
     platform: Platform
     architecture: str
     triple: str
+    native_config: "Config"
+    program_suffix: str
 
     def __init__(
         self,
@@ -63,6 +67,8 @@ class Config:
         platform: Platform = None,
         architecture: str = None,
         triple: str = None,
+        native_config: "Config" = None,
+        program_suffix: str = "",
     ):
         """Create a new Config instance, optionally for a given platform."""
         # pylint: disable=too-many-arguments
@@ -78,10 +84,8 @@ class Config:
         self.architecture = architecture or py_platform.machine()
         self.triple = triple or sysconfig.get_config_var("HOST_GNU_TYPE")
 
-    @property
-    def native_config(self) -> "Config":
-        """Return the native Config for this object"""
-        return self
+        self.native_config = native_config or self
+        self.program_suffix = program_suffix
 
     @property
     def dependencies_dir(self) -> str:
