@@ -305,6 +305,8 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
         os.makedirs(destination)
 
         for package in all_dependencies + all_fonts + [self.lilypond]:
+            if not package.enabled(self.c):
+                continue
             package.copy_license_files(destination, self.c)
 
     def prepare_package(self):
