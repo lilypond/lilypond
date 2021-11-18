@@ -258,6 +258,16 @@ enddef;
 
 
 def makebox_with_breapth (text r) =
+  % Recompute scaled box dimensions; they might have been adjusted
+  % to get better pixel rendering.  However, we want to display
+  % the bounding box exactly as given by the metric values in
+  % `set_char_box`.
+
+  b := hround (charbp * hppp);
+  w := hround (charwd * hppp);
+  h := vround (charht * vppp);
+  d := vround (chardp * vppp);
+
   for y = -d, 0, h:
     r ((-b, y), (w, y));
   endfor;
@@ -274,11 +284,12 @@ enddef;
 def breapth_endchar =
   scantokens extra_endchar;
 
+  chardx := w + b;        % advance width
+
   if proofing > 0:
     makebox_with_breapth (proofrule);
   fi;
 
-  chardx := w + b;        % advance width
   shipit;
   endgroup;
 enddef;
