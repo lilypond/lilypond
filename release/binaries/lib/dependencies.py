@@ -331,7 +331,11 @@ class Gettext(ConfigurePackage):
         return os.path.join("gettext-runtime", "configure")
 
     def configure_args(self, c: Config) -> List[str]:
-        return ["--disable-java"]
+        return [
+            # Disable unused features.
+            "--disable-java",
+            "--disable-threads",
+        ]
 
     def get_env_variables(self, c: Config) -> Dict[str, str]:
         """Return environment variables to make libintl available."""
@@ -601,6 +605,9 @@ class Libunistring(ConfigurePackage):
     @property
     def download_url(self) -> str:
         return f"https://ftp.gnu.org/gnu/libunistring/{self.archive}"
+
+    def configure_args(self, c: Config) -> List[str]:
+        return ["--disable-threads"]
 
     @property
     def license_files(self) -> List[str]:
