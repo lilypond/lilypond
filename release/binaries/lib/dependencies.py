@@ -20,6 +20,7 @@
 # Each class in this file represents a package, ignore missing docstrings.
 # pylint: disable=missing-class-docstring
 
+import logging
 import os
 import re
 import shutil
@@ -116,6 +117,9 @@ freetype = FreeType()
 
 
 class UtilLinux(ConfigurePackage):
+    def enabled(self, c: Config) -> bool:
+        return not c.is_mingw()
+
     @property
     def version(self) -> str:
         return "2.37.1"
@@ -192,7 +196,10 @@ class Fontconfig(ConfigurePackage):
         self.patch_file(c, os.path.join("src", "fchash.c"), patch_uuid_header)
 
     def dependencies(self, c: Config) -> List[Package]:
-        return [expat, freetype, util_linux]
+        util_linux_dep = []
+        if not c.is_mingw():
+            util_linux_dep = [util_linux]
+        return [expat, freetype] + util_linux_dep
 
     def configure_args(self, c: Config) -> List[str]:
         return ["--disable-docs"]
@@ -236,6 +243,14 @@ class Ghostscript(ConfigurePackage):
 
         for unused in dirs:
             shutil.rmtree(os.path.join(self.src_directory(c), unused))
+
+        def patch_gp_unix(content: str) -> str:
+            return content.replace(
+                "gp_local_arg_encoding_get_codepoint(FILE",
+                "gp_local_arg_encoding_get_codepoint(gp_file",
+            )
+
+        self.patch_file(c, os.path.join("base", "gp_unix.c"), patch_gp_unix)
 
     def dependencies(self, c: Config) -> List[Package]:
         return [freetype]
@@ -293,7 +308,7 @@ ghostscript = Ghostscript()
 
 class Gettext(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
-        return c.is_freebsd() or c.is_macos()
+        return c.is_freebsd() or c.is_macos() or c.is_mingw()
 
     @property
     def version(self) -> str:
@@ -330,6 +345,14 @@ class Gettext(ConfigurePackage):
     @property
     def configure_script(self) -> str:
         return os.path.join("gettext-runtime", "configure")
+
+    def configure_args_static(self, c: Config) -> List[str]:
+        if c.is_mingw():
+            # On mingw, we need to build glib as shared libraries for DllMain to
+            # work. This also requires a shared libintl.dll to ensure there is
+            # exactly one copy of the variables and code.
+            return ["--enable-shared", "--disable-static"]
+        return super().configure_args_static(c)
 
     def configure_args(self, c: Config) -> List[str]:
         return [
@@ -435,8 +458,20 @@ class Zlib(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://www.zlib.net/{self.archive}"
 
+    def apply_patches(self, c: Config):
+        def patch_configure(content: str) -> str:
+            return content.replace("leave 1", "")
+
+        self.patch_file(c, "configure", patch_configure)
+
+    def build_env(self, c: Config) -> Dict[str, str]:
+        env = super().build_env(c)
+        if c.is_mingw():
+            env["CHOST"] = c.triple
+        return env
+
     def configure_args_triples(self, c: Config) -> List[str]:
-        # TODO: Support cross compilation via CHOST environment variable.
+        # Cross-compilation is enabled via the CHOST environment variable.
         return []
 
     def configure_args_static(self, c: Config) -> List[str]:
@@ -474,16 +509,22 @@ class GLib(MesonPackage):
 
     def dependencies(self, c: Config) -> List[Package]:
         gettext_dep = []
-        if c.is_freebsd() or c.is_macos():
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
         return gettext_dep + [libffi, pcre, zlib]
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
-        if c.is_freebsd() or c.is_macos():
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
             # Make meson find libintl.
             env.update(gettext.get_env_variables(c))
         return env
+
+    def meson_args_static(self, c: Config) -> List[str]:
+        if c.is_mingw():
+            # The libraries rely on DllMain which doesn't work with static.
+            return ["--default-library=shared"]
+        return super().meson_args_static(c)
 
     def meson_args(self, c: Config) -> List[str]:
         return [
@@ -522,7 +563,11 @@ class Bdwgc(ConfigurePackage):
         return f"https://www.hboehm.info/gc/gc_source/{self.archive}"
 
     def configure_args(self, c: Config) -> List[str]:
-        return ["--disable-docs"]
+        return [
+            "--disable-docs",
+            # Fix cross-compilation for mingw.
+            "--with-libatomic-ops=none",
+        ]
 
     def copy_license_files(self, destination: str, c: Config):
         readme_src = os.path.join(self.src_directory(c), "README.md")
@@ -569,6 +614,37 @@ class GMP(ConfigurePackage):
 
 
 gmp = GMP()
+
+
+class Libiconv(ConfigurePackage):
+    def enabled(self, c: Config) -> bool:
+        return c.is_mingw()
+
+    @property
+    def version(self) -> str:
+        return "1.16"
+
+    @property
+    def directory(self) -> str:
+        return f"libiconv-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.gz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://ftp.gnu.org/gnu/libiconv/{self.archive}"
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["COPYING"]
+
+    def __str__(self) -> str:
+        return f"libiconv {self.version}"
+
+
+libiconv = Libiconv()
 
 
 class Libtool(ConfigurePackage):
@@ -659,6 +735,50 @@ class Guile(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://ftp.gnu.org/gnu/guile/{self.archive}"
 
+    def _apply_patches_mingw(self, c: Config):
+        # Fix the build.
+        def patch_start_child(content: str) -> str:
+            return content.replace("int start_child", "pid_t start_child")
+
+        posix_w32_h = os.path.join("libguile", "posix-w32.h")
+        self.patch_file(c, posix_w32_h, patch_start_child)
+
+        # TODO: Find proper solution...
+        def patch_gethostname(content: str) -> str:
+            return "\n".join(
+                [
+                    line
+                    for line in content.split("\n")
+                    if "gethostname_used_without_requesting" not in line
+                ]
+            )
+
+        unistd_in_h = os.path.join("lib", "unistd.in.h")
+        self.patch_file(c, unistd_in_h, patch_gethostname)
+
+        # Fix headers so compilation of LilyPond works.
+        def patch_iselect(content: str) -> str:
+            return content.replace("sys/select.h", "winsock2.h")
+
+        iselect_h = os.path.join("libguile", "iselect.h")
+        self.patch_file(c, iselect_h, patch_iselect)
+
+        def patch_null_threads(content: str) -> str:
+            content = content.replace(" sigset_t", " _sigset_t")
+            content = re.sub("return sigprocmask.*", "return 0;", content)
+            return content
+
+        null_threads_h = os.path.join("libguile", "null-threads.h")
+        self.patch_file(c, null_threads_h, patch_null_threads)
+
+        def patch_numbers(content: str) -> str:
+            return "\n".join(
+                [line for line in content.split("\n") if "copysign" not in line]
+            )
+
+        numbers_h = os.path.join("libguile", "numbers.h")
+        self.patch_file(c, numbers_h, patch_numbers)
+
     def apply_patches(self, c: Config):
         # Fix configure on CentOS7 to not look in lib64.
         def patch_configure(content: str) -> str:
@@ -684,8 +804,14 @@ class Guile(ConfigurePackage):
         libguile_makefile_in = os.path.join("libguile", "Makefile.in")
         self.patch_file(c, libguile_makefile_in, patch_inplace_sed)
 
+        if c.is_mingw():
+            self._apply_patches_mingw(c)
+
     def dependencies(self, c: Config) -> List[Package]:
-        return [bdwgc, libffi, libtool, libunistring, gmp]
+        libiconv_dep = []
+        if c.is_mingw():
+            libiconv_dep = [libiconv]
+        return libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
@@ -697,6 +823,16 @@ class Guile(ConfigurePackage):
         gmp_install_dir = gmp.install_directory(c)
         libunistring_install_dir = libunistring.install_directory(c)
         libtool_install_dir = libtool.install_directory(c)
+
+        mingw_args = []
+        if c.is_mingw():
+            guile_for_build = self.exe_path(c.native_config)
+            libiconv_install_dir = libiconv.install_directory(c)
+            mingw_args = [
+                f"GUILE_FOR_BUILD={guile_for_build}",
+                f"--with-libiconv-prefix={libiconv_install_dir}",
+            ]
+
         return [
             # Disable unused parts of Guile.
             "--without-threads",
@@ -709,7 +845,7 @@ class Guile(ConfigurePackage):
             f"--with-libunistring-prefix={libunistring_install_dir}",
             # Prevent that configure searches for libcrypt.
             "ac_cv_search_crypt=no",
-        ]
+        ] + mingw_args
 
     def exe_path(self, c: Config) -> str:
         """Return path to the guile interpreter."""
@@ -850,10 +986,18 @@ class Pango(MesonPackage):
 pango = Pango()
 
 
+PYTHON_VERSION = "3.9.6"
+
+
 class Python(ConfigurePackage):
+    def enabled(self, c: Config) -> bool:
+        # For Windows, we are using the embeddable package because it's
+        # impossible to cross-compile Python without tons of patches...
+        return not c.is_mingw()
+
     @property
     def version(self) -> str:
-        return "3.9.6"
+        return PYTHON_VERSION
 
     @property
     def major_version(self) -> str:
@@ -939,6 +1083,75 @@ class Python(ConfigurePackage):
 
 python = Python()
 
+
+class EmbeddablePython(Package):
+    def enabled(self, c: Config) -> bool:
+        return c.is_mingw()
+
+    @property
+    def version(self) -> str:
+        return PYTHON_VERSION
+
+    @property
+    def directory(self) -> str:
+        return f"python-{self.version}-embed-amd64"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.zip"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://www.python.org/ftp/python/{self.version}/{self.archive}"
+
+    def prepare_sources(self, c: Config) -> bool:
+        src_directory = self.src_directory(c)
+        if os.path.exists(src_directory):
+            logging.debug("'%s' already extracted", self.archive)
+            return True
+
+        archive = self.archive_path(c)
+        if not os.path.exists(archive):
+            logging.error("'%s' does not exist!", self.archive)
+            return False
+
+        # The archive has no directory, directly extract into src_directory.
+        shutil.unpack_archive(archive, self.src_directory(c))
+
+        return True
+
+    def build(self, c: Config):
+        src_directory = self.src_directory(c)
+        install_directory = self.install_directory(c)
+
+        os.makedirs(install_directory, exist_ok=True)
+
+        # NB: Without a dot between the two numbers!
+        major_version = "".join(self.version.split(".")[0:2])
+        python_with_major_version = f"python{major_version}"
+
+        # Copy over the needed files from the downloaded archive.
+        for filename in [
+            "python.exe",
+            f"{python_with_major_version}.dll",
+            f"{python_with_major_version}.zip",
+            # For parsing (Music)XML
+            "pyexpat.pyd",
+        ]:
+            shutil.copy(os.path.join(src_directory, filename), install_directory)
+
+        return True
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["LICENSE.txt"]
+
+    def __str__(self) -> str:
+        return f"Python {self.version} (embeddable package)"
+
+
+embeddable_python = EmbeddablePython()
+
 all_dependencies: List[Package] = [
     expat,
     freetype,
@@ -952,6 +1165,7 @@ all_dependencies: List[Package] = [
     glib,
     bdwgc,
     gmp,
+    libiconv,
     libtool,
     libunistring,
     guile,
@@ -959,4 +1173,5 @@ all_dependencies: List[Package] = [
     fribidi,
     pango,
     python,
+    embeddable_python,
 ]

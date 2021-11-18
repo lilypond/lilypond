@@ -20,18 +20,24 @@
   tasks:
     - name: Upgrade all packages
       apt:
+        update_cache: yes
         name: '*'
         state: latest
     - name: Install packages
       apt:
         name:
+          - binutils-mingw-w64-x86-64
           - bison
           - flex
           - fontforge
           - gcc
+          - gcc-mingw-w64-x86-64
           - g++
+          - g++-mingw-w64-x86-64
           - gettext
           - gperf
+          - icoutils
+          - imagemagick
           - m4
           - make
           - ninja-build

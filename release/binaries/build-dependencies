@@ -22,12 +22,13 @@ import logging
 import os
 import sys
 
-from lib import Config, all_dependencies, all_fonts
+from lib import Config, MingwConfig, all_dependencies, all_fonts
 
 cpus = os.cpu_count() or 1
 
 parser = argparse.ArgumentParser(description="Build dependencies")
 parser.add_argument("--debug", help="show debugging messages", action="store_true")
+parser.add_argument("--mingw", help="cross-compile for mingw", action="store_true")
 parser.add_argument("--jobs", help="number of simultaneous jobs", default=cpus)
 args = parser.parse_args()
 
@@ -38,6 +39,8 @@ else:
     logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
 c = Config(".", jobs=args.jobs)
+if args.mingw:
+    c = MingwConfig("mingw", native_config=c)
 c.create_directories()
 
 logging.info("Downloading files...")

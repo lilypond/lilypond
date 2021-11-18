@@ -20,11 +20,13 @@
 import glob
 import logging
 import os
+import re
 import shutil
 import stat
 import subprocess
 import tarfile
 from typing import Dict, List
+import zipfile
 
 from .build import Package, ConfigurePackage
 from .config import Config
@@ -38,6 +40,7 @@ from .dependencies import (
     guile,
     pango,
     python,
+    embeddable_python,
 )
 from .fonts import all_fonts
 from .fonts import texgyre, urwbase35
@@ -85,6 +88,10 @@ class LilyPond(ConfigurePackage):
     def log_path(self, c: Config) -> str:
         return os.path.join(c.base_dir, "lilypond", "lilypond.log")
 
+    def flexlexer_directory(self, c: Config) -> str:
+        """Return the directory where FlexLexer.h is stored (for mingw)."""
+        return os.path.join(self.build_directory(c), "FlexLexer")
+
     @property
     def archive(self) -> str:
         return os.path.basename(self._archive_path)
@@ -98,17 +105,23 @@ class LilyPond(ConfigurePackage):
 
     def dependencies(self, c: Config) -> List[Package]:
         gettext_dep = []
-        if c.is_freebsd() or c.is_macos():
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
-        return gettext_dep + [
-            freetype,
-            fontconfig,
-            ghostscript,
-            glib,
-            guile,
-            pango,
-            python,
-        ]
+        python_dep = [python]
+        if c.is_mingw():
+            python_dep = [embeddable_python]
+        return (
+            gettext_dep
+            + [
+                freetype,
+                fontconfig,
+                ghostscript,
+                glib,
+                guile,
+                pango,
+            ]
+            + python_dep
+        )
 
     def configure_args_static(self, c: Config) -> List[str]:
         # LilyPond itself isn't a library!
@@ -119,7 +132,7 @@ class LilyPond(ConfigurePackage):
         env["GHOSTSCRIPT"] = ghostscript.exe_path(c.native_config)
         env["GUILE"] = guile.exe_path(c.native_config)
         env["PYTHON"] = python.exe_path(c.native_config)
-        if c.is_freebsd() or c.is_macos():
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
             env.update(gettext.get_env_variables(c))
         return env
 
@@ -132,14 +145,51 @@ class LilyPond(ConfigurePackage):
                 # Include the static version of libstdc++.
                 "--enable-static-gxx",
             ]
-        return static + [
-            # Disable the documentation.
-            "--disable-documentation",
-            # Ideally LilyPond's configure should not know about fonts, and the
-            # build system should not copy the .otf files without their license.
-            f"--with-texgyre-dir={texgyre_install}",
-            f"--with-urwotf-dir={urwbase35_install}",
-        ]
+
+        flexlexer = []
+        if c.is_mingw():
+            flexlexer_dir = self.flexlexer_directory(c)
+            flexlexer = [f"--with-flexlexer-dir={flexlexer_dir}"]
+
+        return (
+            static
+            + [
+                # Disable the documentation.
+                "--disable-documentation",
+                # Ideally LilyPond's configure should not know about fonts, and the
+                # build system should not copy the .otf files without their license.
+                f"--with-texgyre-dir={texgyre_install}",
+                f"--with-urwotf-dir={urwbase35_install}",
+            ]
+            + flexlexer
+        )
+
+    def build(self, c: Config) -> bool:
+        # We should not need to patch our own sources here, but applying this
+        # fix would break GUB, so we can only do this once we don't care about
+        # it anymore.
+        if c.is_mingw():
+
+            def patch_makefile(content: str) -> str:
+                # First remove program_suffix everywhere...
+                content = content.replace("$(program_suffix)", "")
+                # ... then add it to EXECUTABLE so that dependencies and
+                # installation works fine.
+                content = re.sub("EXECUTABLE = .*", "\\g<0>$(program_suffix)", content)
+                content = content.replace("$(outdir)/lilypond:", "$(EXECUTABLE):")
+                return content
+
+            lily_gnumakefile = os.path.join("lily", "GNUmakefile")
+            self.patch_file(c, lily_gnumakefile, patch_makefile)
+
+        # If mingw, copy FlexLexer.h from /usr/include and pass it to configure
+        # because the cross-compiler would not find it.
+        if c.is_mingw():
+            flexlexer_dir = self.flexlexer_directory(c)
+            os.makedirs(flexlexer_dir, exist_ok=True)
+            shutil.copy("/usr/include/FlexLexer.h", flexlexer_dir)
+
+        return super().build(c)
 
     @property
     def python_scripts(self) -> List[str]:
@@ -197,6 +247,11 @@ class LilyPondPackager:
         return os.path.join(self.c.base_dir, "package")
 
     @property
+    def bin_dir(self) -> str:
+        """Return the path to bin in the temporary package directory."""
+        return os.path.join(self.package_dir, "bin")
+
+    @property
     def libexec_dir(self) -> str:
         """Return the path to libexec in the temporary package directory.
 
@@ -214,6 +269,10 @@ class LilyPondPackager:
         dst = os.path.join(self.libexec_dir, os.path.basename(src))
         shutil.copy(src, dst)
         strip(dst)
+
+    def _copy_to_bin(self, src: str):
+        dst = os.path.join(self.bin_dir, os.path.basename(src))
+        shutil.copy(src, dst)
 
     def _copy_guile_files(self):
         # Copy needed files for Guile. Source files in share/ should go before
@@ -234,6 +293,41 @@ class LilyPondPackager:
         relocate_src = os.path.join(root_path, "relocate")
         relocate_dst = os.path.join(self.package_dir, "etc", "relocate")
         shutil.copytree(relocate_src, relocate_dst)
+
+    def _copy_mingw_files(self):
+        # Copy shared Dlls for mingw.
+        gettext_install = gettext.install_directory(self.c)
+        libintl_dll = os.path.join(gettext_install, "bin", "libintl-8.dll")
+        self._copy_to_bin(libintl_dll)
+
+        glib_install = glib.install_directory(self.c)
+        for lib in [
+            "libgio-2.0-0.dll",
+            "libglib-2.0-0.dll",
+            "libgmodule-2.0-0.dll",
+            "libgobject-2.0-0.dll",
+        ]:
+            self._copy_to_bin(os.path.join(glib_install, "bin", lib))
+
+        # Copy helper executable for spawning from glib.
+        gspawn = os.path.join(glib_install, "bin", "gspawn-win64-helper-console.exe")
+        self._copy_to_bin(gspawn)
+
+    def _copy_mingw_python(self):
+        python_install = embeddable_python.install_directory(self.c)
+        for python_file in glob.glob(os.path.join(python_install, "*")):
+            self._copy_to_bin(python_file)
+
+    def _move_scripts(self):
+        for script in self.lilypond.python_scripts:
+            src = os.path.join(self.bin_dir, script)
+            dst = os.path.join(self.bin_dir, f"{script}.py")
+            os.rename(src, dst)
+
+        for script in self.lilypond.guile_scripts:
+            src = os.path.join(self.bin_dir, script)
+            dst = os.path.join(self.bin_dir, f"{script}.scm")
+            os.rename(src, dst)
 
     def _copy_python_files(self):
         # Copy packages for Python ...
@@ -260,7 +354,7 @@ class LilyPondPackager:
             shutil.rmtree(os.path.join(python_libdir, directory))
 
     def _create_wrapper(self, script: str, shebang: str, wrapper_template: str):
-        bin_path = os.path.join(self.package_dir, "bin", script)
+        bin_path = os.path.join(self.bin_dir, script)
         libexec_path = os.path.join(self.libexec_dir, script)
 
         with open(bin_path, "r", encoding="utf-8") as orig:
@@ -320,26 +414,33 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
         lilypond_install = self.lilypond.install_directory(self.c)
         shutil.copytree(lilypond_install, self.package_dir)
         lilypond_exe = f"lilypond{self.c.program_suffix}"
-        lilypond_exe = os.path.join(self.package_dir, "bin", lilypond_exe)
+        lilypond_exe = os.path.join(self.bin_dir, lilypond_exe)
         strip(lilypond_exe)
 
         # Files needed to run core LilyPond.
         self._copy_guile_files()
         self._copy_fontconfig_files()
         self._copy_relocation_files()
+        if self.c.is_mingw():
+            self._copy_mingw_files()
 
         os.makedirs(self.libexec_dir)
         self._copy_to_libexec_and_strip(ghostscript.exe_path(self.c))
 
-        # Files needed to run the scripts.
-        self._copy_to_libexec_and_strip(guile.exe_path(self.c))
-        self._copy_to_libexec_and_strip(python.exe_path(self.c))
+        if self.c.is_mingw():
+            self._copy_mingw_python()
+            # Move scripts to have proper extensions.
+            self._move_scripts()
+        else:
+            # Files needed to run the scripts.
+            self._copy_to_libexec_and_strip(guile.exe_path(self.c))
+            self._copy_to_libexec_and_strip(python.exe_path(self.c))
 
-        self._copy_python_files()
+            self._copy_python_files()
 
-        # Move scripts to libexec, adapt their shebangs, and create wrappers.
-        self._create_python_wrappers()
-        self._create_guile_wrappers()
+            # Move scripts to libexec, adapt their shebangs, and create wrappers.
+            self._create_python_wrappers()
+            self._create_guile_wrappers()
 
         self._copy_license_files()
 
@@ -369,3 +470,35 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
                 recursive=True,
                 filter=reset,
             )
+
+    def package_zip(self):
+        """Create a .zip archive of the LilyPond binaries (for mingw)."""
+        self.prepare_package()
+
+        # Put the entire tree into a .zip archive.
+        platform = self.c.platform.value
+        architecture = self.c.architecture
+        archive = f"{self.lilypond.directory}-{platform}-{architecture}.zip"
+        archive_path = os.path.join(self.c.base_dir, archive)
+        if os.path.exists(archive_path):
+            os.remove(archive_path)
+
+        logging.debug("Creating archive '%s'...", archive_path)
+
+        # Adapted from zipfile.py.
+        def add_to_zip(zip_archive, path, zippath):
+            if os.path.isfile(path):
+                zip_archive.write(path, zippath, zipfile.ZIP_DEFLATED)
+            elif os.path.isdir(path):
+                if zippath:
+                    zip_archive.write(path, zippath)
+                for name in sorted(os.listdir(path)):
+                    add_to_zip(
+                        zip_archive,
+                        os.path.join(path, name),
+                        os.path.join(zippath, name),
+                    )
+            # else: ignore
+
+        with zipfile.ZipFile(archive_path, "w") as zip_archive:
+            add_to_zip(zip_archive, self.package_dir, self.lilypond.directory)

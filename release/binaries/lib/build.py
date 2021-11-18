@@ -349,8 +349,11 @@ class MesonPackage(Package):
                 )
 
             # Run 'meson setup' to configure the package.
-            # TODO: Support cross compilation.
             args = ["meson", "setup", "--buildtype=release"]
+
+            if c.is_mingw():
+                mingw_cross = os.path.join(lib_path, "mingw_cross.txt")
+                args += [f"--cross-file={mingw_cross}"]
 
             # Disable shared libraries, force static library build.
             args += self.meson_args_static(c)

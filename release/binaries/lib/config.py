@@ -35,6 +35,8 @@ class Platform(enum.Enum):
     LINUX = "linux"
     MACOS = "darwin"
 
+    MINGW = "mingw"
+
     @classmethod
     def get_platform(cls, platform_system: str) -> "Platform":
         """Find the platform for the given value of platform.system()"""
@@ -124,6 +126,10 @@ class Config:
         """Return True if this config is for platform macOS"""
         return self.platform == Platform.MACOS
 
+    def is_mingw(self) -> bool:
+        """Return True if this config is for platform mingw"""
+        return self.platform == Platform.MINGW
+
     @property
     def make_command(self) -> str:
         """Return the command for the make build system"""
@@ -143,3 +149,23 @@ class Config:
 
     def __repr__(self) -> str:
         return f"<Config for {self.platform}>"
+
+
+class MingwConfig(Config):
+    """A class for cross-compilation to mingw."""
+
+    def __init__(
+        self,
+        base_dir: str,
+        native_config: Config,
+    ):
+        super().__init__(
+            base_dir=base_dir,
+            downloads_dir=native_config.downloads_dir,
+            jobs=native_config.jobs,
+            platform=Platform.MINGW,
+            architecture="x86_64",
+            triple="x86_64-w64-mingw32",
+            native_config=native_config,
+            program_suffix=".exe",
+        )

@@ -22,12 +22,13 @@ import logging
 import os
 import sys
 
-from lib import Config, LilyPond, LilyPondPackager
+from lib import Config, MingwConfig, LilyPond, LilyPondPackager
 
 cpus = os.cpu_count() or 1
 
 parser = argparse.ArgumentParser(description="Build LilyPond")
 parser.add_argument("--debug", help="show debugging messages", action="store_true")
+parser.add_argument("--mingw", help="cross-compile for mingw", action="store_true")
 parser.add_argument("--jobs", help="number of simultaneous jobs", default=cpus)
 parser.add_argument("archive", help="the archive with LilyPond's source code")
 args = parser.parse_args()
@@ -39,6 +40,8 @@ else:
     logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
 c = Config(".", jobs=args.jobs)
+if args.mingw:
+    c = MingwConfig("mingw", native_config=c)
 lilypond = LilyPond(args.archive)
 
 logging.info("Building %s", lilypond)
@@ -50,4 +53,7 @@ if not lilypond.build(c):
     sys.exit(1)
 
 packager = LilyPondPackager(lilypond, c)
-packager.package_tar()
+if c.is_mingw():
+    packager.package_zip()
+else:
+    packager.package_tar()

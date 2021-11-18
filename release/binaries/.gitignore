@@ -2,8 +2,11 @@ __pycache__
 dependencies/
 downloads/
 lilypond/
+mingw/
 package/
 
 *.tar.gz
+*.zip
+
 *.ly
 *.pdf

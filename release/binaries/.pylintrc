@@ -2,3 +2,5 @@
 # Config objects are passed as 'c'. This is sufficiently clear for short
 # functions, any longer name just means more typing.
 good-names=c
+# dependencies.py is slightly longer than the default limit of 1000 lines.
+max-module-lines=1500
