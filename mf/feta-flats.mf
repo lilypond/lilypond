@@ -179,16 +179,14 @@ enddef;
 
 def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
                            arrowup, arrowdown) =
-  save depth, height, extendleft;
+  save depth, height;
 
   % synchronized with vertical position of point z11 but with less overshoot
   depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
   % synchronized with vertical position of point z1
   height# := 2 staff_space# - 1.7 stafflinethickness#;
-  extendleft# := 1.2 stafflinethickness#;
 
   if arrowup:
-    extendleft# := 3.45 stafflinethickness#;
     % synchronized with point z4 of the arrow
     height# := 2 staff_space# - .5 staff_space#           % y1
                + .1 staff_space# + .5 stafflinethickness# % upshift
@@ -196,14 +194,13 @@ def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
   fi;
 
   if arrowdown:
-    extendleft# := 3.45 stafflinethickness#;
     % synchronized with point z4 of the arrow
     depth# := .5 staff_space# + .5 stafflinethickness#  % y2
               + .1 staff_space# + .5 staff_space#       % upshift
               + .85 staff_space# + stafflinethickness#; % htip
   fi;
 
-  set_char_box (extendleft#, width, depth#, height#);
+  set_char_box (1.2 stafflinethickness#, width, depth#, height#);
   draw_meta_flat (xcenter, w, crook_fatness, arrowup, arrowdown);
 enddef;
 
@@ -257,7 +254,7 @@ fet_beginchar ("flat (slashed)", "flat.slash");
   depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
   height# := 2 staff_space# - 1.7 stafflinethickness#;
 
-  set_char_box (.4 staff_space#, .8 staff_space#, depth#, height#);
+  set_char_box (1.2 stafflinethickness#, .8 staff_space#, depth#, height#);
 
   draw_meta_flat (0, w, 0.31 staff_space, false, false);
 
@@ -298,7 +295,7 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
   depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
   height# := 2 staff_space# - 1.7 stafflinethickness#;
 
-  set_char_box (.4 staff_space#, .8 staff_space#, depth#, height#);
+  set_char_box (1.2 stafflinethickness#, .8 staff_space#, depth#, height#);
 
   draw_meta_flat (0, w, 0.31 staff_space, false, false);
 

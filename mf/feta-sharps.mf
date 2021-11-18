@@ -88,7 +88,7 @@ enddef;
 
 
 def draw_sharp (expr arrowup, arrowdown) =
-  save depth, height, width, extendleft;
+  save depth, height, width;
   save dist_between_stems;
   save outer_space;
   save half_height, interbeam_dist;
@@ -107,13 +107,11 @@ def draw_sharp (expr arrowup, arrowdown) =
   width# := 2 outer_space# + dist_between_stems# + stem_thickness#;
   depth# := half_height#;
   height# := half_height#;
-  extendleft# := 0;
 
   beam_length := 2 outer_space + dist_between_stems + stem_thickness;
   beam_xcenter := .5 beam_length;
 
   if arrowup:
-    width# := width# + 1.5 stafflinethickness#;
     % synchronized with point z4 of the arrow
     height# := half_height# - .5 stem_thickness#          % y8
                + .1 staff_space# + .5 stafflinethickness#
@@ -121,7 +119,6 @@ def draw_sharp (expr arrowup, arrowdown) =
                + .85 staff_space# + stafflinethickness#;  % htip
   fi;
   if arrowdown:
-    extendleft# := extendleft# + 1.5 stafflinethickness#;
     % synchronized with point z4 of the arrow
     depth# := half_height# - .5 stem_thickness#          % y5
               + .1 staff_space# + .5 stafflinethickness#
@@ -129,7 +126,7 @@ def draw_sharp (expr arrowup, arrowdown) =
                + .85 staff_space# + stafflinethickness#;  % htip
   fi;
 
-  set_char_box (extendleft#, width#, depth#, height#);
+  set_char_box (0, width#, depth#, height#);
   d := d - feta_space_shift;
 
   interbeam_dist := default_interbeam_dist;
