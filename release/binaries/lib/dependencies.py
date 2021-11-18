@@ -342,7 +342,9 @@ class Gettext(ConfigurePackage):
         gettext_install = self.install_directory(c)
         return {
             "CPATH": os.path.join(gettext_install, "include"),
-            "LIBRARY_PATH": os.path.join(gettext_install, "lib"),
+            # Cannot use LIBRARY_PATH because it is only used if GCC is built
+            # as a native compiler, so it doesn't work for mingw.
+            "LDFLAGS": "-L" + os.path.join(gettext_install, "lib"),
         }
 
     @property
