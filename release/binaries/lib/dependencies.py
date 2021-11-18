@@ -345,6 +345,13 @@ class Gettext(ConfigurePackage):
             "LIBRARY_PATH": os.path.join(gettext_install, "lib"),
         }
 
+    @property
+    def license_files(self) -> List[str]:
+        return [
+            os.path.join("gettext-runtime", "COPYING"),
+            os.path.join("gettext-runtime", "intl", "COPYING.LIB"),
+        ]
+
     def __str__(self) -> str:
         return f"gettext {self.version}"
 
