@@ -125,9 +125,15 @@ See Info node `(elisp)Security Considerations'."
 ;;;       "[^-0-9a-zA-Z_./\n]" Negative ranges are too dangerous since
 ;;;       their UTF-8 implications aren't clear: we don't want
 ;;;       characters outside the ASCII range quoted since it is not
-;;;       clear whether we need to quote bytes or characters.  So we just
-;;;       invert the above regexp pattern for Posix characters manually.
-          "[\x01-\x09\x0b-,:-@[-^{-\x7f]"
+;;;       clear whether we need to quote bytes or characters. Inverting
+;;;       the ranges doesn't work either since "man 7 regex" suggests
+;;;       that "Ranges are very collating-sequence-dependent, and
+;;;       portable programs should avoid relying on them." So we just
+;;;       take care of a subset of (printable) characters that are known
+;;;       to cause problems.
+;;;       (']' has to be first because it cannot be escaped, and '-' has
+;;;       to be last or it is (again) interpreted as a range.)
+          "[]!\"#$%&'()*+,.:;<=>?@[\\^_`{|}~-]"
           argument
           'pre "\\" 0 'post)
          'pre  "'\n'" 'post)))
