@@ -37,7 +37,7 @@ hole_highest_point := 0.5 (staff_space - stafflinethickness);
 
 
 def draw_natural (expr arrowup, arrowdown) =
-  save depth, height, width;
+  save depth, height, width, breapth;
   save upstem_factor, downstem_factor;
   save upstem_end_thickness, downstem_end_thickness;
   save half_height, half_box_height;
@@ -54,12 +54,14 @@ def draw_natural (expr arrowup, arrowdown) =
   depth# := half_height#;
   height# := half_height#;
   width# := full_width#;
+  breapth# := 0;
 
   if arrowup:
     % synchronized with point z4 of the arrow
     height# := half_height#                               % y1
                + .1 staff_space# + .5 stafflinethickness# % upshift
                + .85 staff_space# + stafflinethickness#;  % htip
+    breapth# := .3 staff_space# - .5 stem_thickness#;
     % to look nice, arrowed stems must be less brushed
     upstem_factor := 0.5 (1 + upstem_factor);
   fi;
@@ -68,11 +70,12 @@ def draw_natural (expr arrowup, arrowdown) =
     depth# := half_height#                               % y3
               + .1 staff_space# + .5 stafflinethickness# % upshift
               + .85 staff_space# + stafflinethickness#;  % htip
+    width# := width# + .3 staff_space# - .5 stem_thickness#;
     % to look nice, arrowed stems must be less brushed
     downstem_factor := 0.5 (1 + downstem_factor);
   fi;
 
-  set_char_box (0, width#, depth#, height#);
+  set_char_box (breapth#, width#, depth#, height#);
   d := d - feta_space_shift;
 
   upstem_end_thickness# = upstem_factor * stem_thickness#;

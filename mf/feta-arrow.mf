@@ -26,6 +26,29 @@
 % * `extend' is used to make the stem longer or shorter (if negative);
 %   different kinds of accidentals need different values here
 %
+% For accidentals, the left or right arrow part should be outside of the
+% bounding box.  Using arrowed sharp glyphs as the model, the horizontal
+% distance from the `attach` point to the bounding box width or breapth
+% should be `3/10 staff_space`; this is very near to the real value (with a
+% delta of approx. 3%):
+%
+%   glyph `sharp`, horizontal position `pos` of point 5:
+%
+%     pos = outer_space + .5 stem_thickness
+%     outer_space = .5 (default_width - dist_between_stems - stem_thickness)
+%     -> pos = .5 default_width - .5 dist_between_stems
+%
+%     dist_between_stems = 7/16 default_width
+%     -> pos = 9/32 default_width
+%
+%     default_width = 1.1 staff_space
+%     -> pos = 99/320 staff_space
+%            =~ 3/10 staff_space
+%
+% An even better small fractional approximation would be 4/13, with a
+% delta of approx. 0.5%; however, such a fraction looks unnatural if
+% compared to other Feta values.
+%
 def draw_arrow (expr attach, stemwidth, stemslant, extend, pointingdown) =
   begingroup;
     save htip;  % tip height
