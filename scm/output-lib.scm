@@ -168,27 +168,6 @@
   (pretty-print (grob::all-objects grob))
   (newline))
 
-(define-public (grob-elts::X-extent grob)
-  "Take the grob @var{grob}, get its @code{'elements}, calculate their
-@code{'X-extent} and return the minimum and maximum value as a pair.
-If @code{'elements} is empty return @code{'(0 . 0)}."
-  ;; TODO make 'elements and/or 'X-extent optional to cover more use-cases?
-  (let* ((grob-elts-array
-          (ly:grob-object grob 'elements #f))
-         (grob-elts-list
-          (if grob-elts-array
-              (ly:grob-array->list grob-elts-array)
-              '()))
-         (live-grobs
-          (filter grob::is-live? grob-elts-list))
-         (grob-elts-X-ext
-          (if (pair? live-grobs)
-              (map
-               (lambda (elt) (ly:grob-property elt 'X-extent))
-               live-grobs)
-              '((0 . 0)))))
-    (reduce interval-union '() grob-elts-X-ext)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
@@ -2648,7 +2627,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           ;; For a broken DurationLine take line-starting grobs into account.
           ;; Otherwise use left-bound directly
           (cond ((not-first-broken-spanner? grob)
-                 (grob-elts::X-extent left-bound))
+                 (ly:grob-robust-relative-extent left-bound left-bound X))
                 (else left-note-column-main-X-ext)))
          ;; `left-X' is line-starting X-coordinate relative to grob's system
          ;; NB the final line-stencil will start at left-bound not at `left-X'
@@ -2711,7 +2690,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
                 0))
            ;; respect items at line-break
            (else
-            (- (car (grob-elts::X-extent right-bound))))))
+            (- (car (ly:grob-robust-relative-extent right-bound right-bound X))))))
          ;; `right-X' is line-ending X-coordinate relative to grob's system
          ;; NB the final line-stencil will end at `right-end' not at `right-X'
          ;;    we need this value to calculate `right-end' lateron
