@@ -357,35 +357,6 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   return to_scm (offset + avoidance_offset);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, vertical_skylines, 1);
-SCM
-Slur::vertical_skylines (SCM smob)
-{
-  Grob *me = unsmob<Grob> (smob);
-  if (!me)
-    return Skyline_pair ().smobbed_copy ();
-
-  Bezier curve = Slur::get_curve (me);
-  vsize box_count = from_scm<vsize> (get_property (me, "skyline-quantizing"), 10);
-
-  Offset last;
-  vector<Drul_array<Offset>> segments;
-  for (vsize i = 0; i <= box_count; i++)
-    {
-      // TODO: This doesn't take into account the slur thickness or
-      // the line thickness.
-      Offset p = curve.curve_point (static_cast<Real> (i)
-                                    / static_cast<Real> (box_count));
-      if (i > 0)
-        {
-          segments.push_back (Drul_array<Offset> (last, p));
-        }
-      last = p;
-    }
-
-  return Skyline_pair (segments, X_AXIS).smobbed_copy ();
-}
-
 /*
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */

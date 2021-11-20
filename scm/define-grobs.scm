@@ -2091,7 +2091,7 @@
         (springs-and-rods . ,ly:spanner::set-spacing-rods)
         (stencil . ,ly:slur::print)
         (thickness . 1.1)
-        (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
                  (interfaces . (bezier-curve-interface
@@ -2264,7 +2264,7 @@
         (springs-and-rods . ,ly:spanner::set-spacing-rods)
         (stencil . ,ly:slur::print)
         (thickness . 1.2)
-        (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
                  (interfaces . (bezier-curve-interface
