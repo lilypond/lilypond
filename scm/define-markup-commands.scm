@@ -3730,11 +3730,12 @@ A feta brace in point size @var{size}.
             (> scaled-size (interval-length
                             (ly:stencil-extent (glyph glyph-count) Y))))
         (begin
-          (ly:warning (_ "no brace found for point size ~S ") size)
-          (ly:warning (_ "defaulting to ~S pt")
-                      (/ (* scale (interval-length
-                                   (ly:stencil-extent glyph-found Y)))
-                         (ly:pt 1)))))
+          (ly:warning (ice9-format #f (_ "no brace found for point size ~,1f ") size))
+          (ly:warning (ice9-format #f
+                                   (_ "defaulting to ~,1f pt")
+                                   (/ (* scale (interval-length
+                                                (ly:stencil-extent glyph-found Y)))
+                                      (ly:pt 1))))))
     glyph-found))
 
 (define-markup-command (right-brace layout props size)
