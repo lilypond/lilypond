@@ -554,9 +554,9 @@ as a thin double bar line.")
         (types . (section-event event))
         ))
 
-    (SegnoEvent
+    (SegnoMarkEvent
      . ((description . "Add a segno mark or bar line.")
-        (types . (segno-event event))
+        (types . (segno-mark-event event))
         ))
 
     (SequentialAlternativeMusic

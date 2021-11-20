@@ -53,7 +53,7 @@ public:
 protected:
   void listen_fine (Stream_event *);
   void listen_section (Stream_event *);
-  void listen_segno (Stream_event *);
+  void listen_segno_mark (Stream_event *);
   void listen_volta_span (Stream_event *);
   void start_translation_timestep ();
   void stop_translation_timestep ();
@@ -64,7 +64,7 @@ private:
   bool first_time_ = true;
   bool heard_fine_ = false;
   bool heard_section_ = false;
-  bool heard_segno_ = false;
+  bool heard_segno_mark_ = false;
   bool heard_volta_span_ = false;
 };
 
@@ -90,7 +90,7 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
 
   heard_fine_ = false;
   heard_section_ = false;
-  heard_segno_ = false;
+  heard_segno_mark_ = false;
   heard_volta_span_ = false;
 }
 
@@ -107,9 +107,9 @@ Repeat_acknowledge_engraver::listen_section (Stream_event *)
 }
 
 void
-Repeat_acknowledge_engraver::listen_segno (Stream_event *)
+Repeat_acknowledge_engraver::listen_segno_mark (Stream_event *)
 {
-  heard_segno_ = true;
+  heard_segno_mark_ = true;
 }
 
 void
@@ -149,7 +149,7 @@ Repeat_acknowledge_engraver::process_music ()
   // creating the grob.  In that case, the Repeat_acknowledge_engraver would
   // not add a segno to the bar line, but would still use underlyingBarType.
   // Until then, we add the segno to the bar line whenever we hear the event.
-  const bool segno = heard_segno_;
+  const bool segno = heard_segno_mark_;
 
   auto forced_bar_type = BarType::NONE;
   SCM wb = get_property (this, "whichBar");
@@ -259,7 +259,7 @@ Repeat_acknowledge_engraver::process_music ()
           ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
           has_underlying_bar = true;
         }
-      else if ((heard_segno_ || has_repeat_bar)
+      else if ((heard_segno_mark_ || has_repeat_bar)
                && (forced_bar_type < BarType::DEFAULT))
         {
           // At points of repetition or departure where there wouldn't
@@ -328,7 +328,7 @@ Repeat_acknowledge_engraver::boot ()
 {
   ADD_LISTENER (Repeat_acknowledge_engraver, fine);
   ADD_LISTENER (Repeat_acknowledge_engraver, section);
-  ADD_LISTENER (Repeat_acknowledge_engraver, segno);
+  ADD_LISTENER (Repeat_acknowledge_engraver, segno_mark);
   ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }
 

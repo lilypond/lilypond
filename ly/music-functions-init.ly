@@ -647,7 +647,7 @@ compatible with the repeat command.")
    #{
      {
        %% TODO: \once \set Score.segnoStyle = #'bar-line
-       #(make-music 'SegnoEvent)
+       #(make-music 'SegnoMarkEvent)
      }
    #})
 
