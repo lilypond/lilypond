@@ -92,7 +92,14 @@ Performance::output (Midi_stream &midi_stream,
           assert (text != 0);
           assert (text->type_ == Audio_text::TRACK_NAME);
           assert (text->text_string_ == "control track");
-          text->text_string_ = performance_name;
+          if (!performance_name.empty ())
+            text->text_string_ = performance_name;
+          else
+            {
+              // This is an efficiency misdemeanor, but the control
+              // track is not expected to be humongous in size.
+              c->audio_items_.erase (c->audio_items_.begin ());
+            }
         }
       debug_output ("[" + std::to_string (i), true);
       s->output (midi_stream, i, ports_, start_mom_);
