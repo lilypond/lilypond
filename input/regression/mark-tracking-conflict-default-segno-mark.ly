@@ -3,8 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1, 2, 4, 5,
-and@tie{}6."
+marks and engraves only the first -- in this case, segno marks 1, 2,
+3, 4, and@tie{}9."
 }
 
 \layout {
@@ -15,34 +15,34 @@ and@tie{}6."
 }
 
 \parallelMusic upper,lower {
-  R1 \mark \default |
-  R1 \mark "A!"     |
+  R1 \segnoMark \default |
+  R1 \mark "A!" |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "ad-hoc-mark-event")
 
-  R1 \mark \default |
-  R1 \mark \default |
-  %% no warning
-
-  R1 \mark \default |
-  R1 \mark 4        |
-  %% no warning
-
-  R1 \mark \default |
   R1 \segnoMark \default |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
-
   R1 \mark \default |
-  R1 \segnoMark 2 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
+                       "discarding event: `%s'") "rehearsal-mark-event")
+
+  R1 \segnoMark \default |
+  R1 \mark 9 |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "segno-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "rehearsal-mark-event")
+
+  R1 \segnoMark \default |
+  R1 \segnoMark \default |
+  %% no warning
+
+  R1 \segnoMark \default |
+  R1 \segnoMark 9 |
+  %% no warning
 
   R1 |
   R1 |

@@ -39,6 +39,7 @@
 */
 class Mark_engraver : public Engraver
 {
+  bool first_time_ = true;
   Item *text_ = nullptr;
   Item *final_text_ = nullptr;
 
@@ -73,6 +74,8 @@ Mark_engraver::stop_translation_timestep ()
       final_text_ = text_;
       text_ = nullptr;
     }
+
+  first_time_ = false;
 }
 
 void
@@ -97,8 +100,11 @@ Mark_engraver::process_music ()
     return;
 
   SCM text = SCM_EOL;
+  const char *grob_name = nullptr;
   if (ev->in_event_class ("rehearsal-mark-event"))
     {
+      grob_name = "RehearsalMark";
+
       const auto label
         = Mark_tracking_translator::get_rehearsal_mark_label (context (), ev);
       if (label > 0)
@@ -108,12 +114,27 @@ Mark_engraver::process_music ()
             text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
         }
     }
+  else if (ev->in_event_class ("segno-mark-event"))
+    {
+      grob_name = "SegnoMark";
+
+      const auto label
+        = Mark_tracking_translator::get_segno_mark_label (context (), ev);
+      if (label > 0)
+        {
+          SCM proc = get_property (this, "segnoMarkFormatter");
+          if (ly_is_procedure (proc))
+            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
+        }
+    }
   else // ad-hoc-mark-event
     {
+      grob_name = "RehearsalMark";
+
       text = get_property (ev, "text");
     }
 
-  text_ = make_item ("RehearsalMark", ev->self_scm ());
+  text_ = make_item (grob_name, ev->self_scm ());
   if (Text_interface::is_markup (text))
     set_property (text_, "text", text);
   else
@@ -128,11 +149,10 @@ Mark_engraver::boot ()
 ADD_TRANSLATOR (Mark_engraver,
                 /* doc */ R"(
 
-This engraver creates rehearsal marks.
+This engraver creates rehearsal and segno marks.
 
-@code{Mark_@/engraver} creates marks formatted according to the
-@code{markFormatter} context property and places them vertically outside the
-set of staves given in the @code{stavesFound} context property.
+@code{Mark_@/engraver} creates marks, formats them, and places them vertically
+outside the set of staves given in the @code{stavesFound} context property.
 
 If @code{Mark_@/engraver} is added or moved to another context,
 @iref{Staff_collecting_engraver} also needs to be there so that marks appear at
@@ -146,11 +166,13 @@ multiple @code{Mark_tracking_translators} must be used.
 )",
 
                 /* create */
-                "RehearsalMark ",
+                "RehearsalMark "
+                "SegnoMark ",
 
                 /* read */
                 "currentMarkEvent "
                 "markFormatter "
+                "segnoMarkFormatter "
                 "stavesFound ",
 
                 /* write */

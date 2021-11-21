@@ -3,7 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1 to 5 in order."
+marks and engraves only the first -- in this case, segno marks 1 to 5
+in order."
 }
 
 \layout {
@@ -14,35 +15,35 @@ marks and engraves only the first -- in this case, 1 to 5 in order."
 }
 
 \parallelMusic upper,lower {
-  R1 \mark 1    |
+  R1 \segnoMark 1 |
   R1 \mark "A!" |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "ad-hoc-mark-event")
 
-  R1 \mark 2        |
+  R1 \segnoMark 2 |
   R1 \mark \default |
-  %% no warning
-
-  R1 \mark 3 |
-  R1 \mark 9 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "rehearsal-mark-event")
 
-  R1 \mark 4 |
-  R1 \segnoMark \default |
+  R1 \segnoMark 3 |
+  R1 \mark 3 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
+                       "discarding event: `%s'") "rehearsal-mark-event")
 
-  R1 \mark 5 |
+  R1 \segnoMark 4 |
+  R1 \segnoMark \default |
+  %% no warning
+
   R1 \segnoMark 5 |
+  R1 \segnoMark 9 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
+                       "conflict with event: `%s'") "segno-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "segno-mark-event")
 

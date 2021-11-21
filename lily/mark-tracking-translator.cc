@@ -62,15 +62,34 @@ Mark_tracking_translator::set_event_once (Event_type type, Stream_event *ev)
 void
 Mark_tracking_translator::stop_translation_timestep ()
 {
+  // Initialize segnoMarkCount to indicate that we are no longer at the
+  // beginning.
+  if (first_time_)
+    set_property (context (), "segnoMarkCount", to_scm (0));
+
+  // Update the counter for the chosen mark.  The segno count is incremented at
+  // the end of the timestep so that there is no inconsistency in its value
+  // during iteration or translators' process_music ().
+  //
+  // The rehearsal mark count is handled differently to support its legacy
+  // interface: the user may set the property directly rather than with \mark.
   switch (event_type_)
     {
     case Event_type::default_rehearsal_mark:
     case Event_type::specific_rehearsal_mark:
       {
-        // A sequential mark determines the sequence number for next time.
         const auto label = get_rehearsal_mark_label (context (), event_);
         if (label > 0)
           set_property (context (), "rehearsalMark", to_scm (label + 1));
+        break;
+      }
+
+    case Event_type::default_segno_mark:
+    case Event_type::specific_segno_mark:
+      {
+        const auto label = get_segno_mark_label (context (), event_);
+        if (label > 0)
+          set_property (context (), "segnoMarkCount", to_scm (label));
         break;
       }
 
@@ -79,6 +98,7 @@ Mark_tracking_translator::stop_translation_timestep ()
     }
 
   clear_event ();
+  first_time_ = false;
 }
 
 size_t
@@ -88,6 +108,16 @@ Mark_tracking_translator::get_rehearsal_mark_label (const Context *context,
   auto n = from_scm<size_t> (get_property (ev, "label"), 0);
   if (n < 1)
     n = from_scm<size_t> (get_property (context, "rehearsalMark"), 0);
+  return n;
+}
+
+size_t
+Mark_tracking_translator::get_segno_mark_label (const Context *context,
+                                                const Stream_event *ev)
+{
+  auto n = from_scm<size_t> (get_property (ev, "label"), 0);
+  if (n < 1)
+    n = from_scm<size_t> (get_property (context, "segnoMarkCount"), 0) + 1;
   return n;
 }
 
@@ -137,10 +167,52 @@ Mark_tracking_translator::listen_rehearsal_mark (Stream_event *ev)
 }
 
 void
+Mark_tracking_translator::listen_segno_mark (Stream_event *ev)
+{
+  SCM label = get_property (ev, "label");
+  if (!scm_is_integer (label)) // \segnoMark \default
+    {
+      // Ignore a default segno at the beginning of a piece.
+      if (!first_time_)
+        {
+          switch (event_type_)
+            {
+            // Silently ignore default segno events after we have any segno
+            // event.
+            case Event_type::default_segno_mark:
+            case Event_type::specific_segno_mark:
+              break;
+
+            // Check others.
+            default:
+              set_event_once (Event_type::default_segno_mark, ev);
+              break;
+            }
+        }
+    }
+  else // a specific segno
+    {
+      switch (event_type_)
+        {
+        // Silently replace a default segno.
+        case Event_type::default_segno_mark:
+          set_event (Event_type::specific_segno_mark, ev);
+          break;
+
+        // Check others.
+        default:
+          set_event_once (Event_type::specific_segno_mark, ev);
+          break;
+        }
+    }
+}
+
+void
 Mark_tracking_translator::boot ()
 {
   ADD_LISTENER (Mark_tracking_translator, ad_hoc_mark);
   ADD_LISTENER (Mark_tracking_translator, rehearsal_mark);
+  ADD_LISTENER (Mark_tracking_translator, segno_mark);
 }
 
 ADD_TRANSLATOR (Mark_tracking_translator,
@@ -154,9 +226,11 @@ This translator chooses which mark @code{Mark_engraver} should engrave.
                 "",
 
                 /* read */
-                "rehearsalMark ",
+                "rehearsalMark "
+                "segnoMarkCount ",
 
                 /* write */
                 "currentMarkEvent "
                 "rehearsalMark "
+                "segnoMarkCount "
 );

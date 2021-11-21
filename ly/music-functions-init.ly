@@ -646,8 +646,8 @@ inStaffSegno =
 compatible with the repeat command.")
    #{
      {
-       %% TODO: \once \set Score.segnoStyle = #'bar-line
-       #(make-music 'SegnoMarkEvent)
+       \once \set Timing.segnoStyle = #'bar-line
+       \segnoMark \default
      }
    #})
 
@@ -1731,6 +1731,16 @@ scaleDurations =
    (scale? ly:music?)
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
    (ly:music-compress music fraction))
+
+segnoMark =
+#(define-music-function (num) ((index?))
+   (_i "Create a segno mark (or bar line, if the @code{segnoStyle}
+context property is @code{'bar-line}).  @var{num} may be 1 for the
+first segno, 2 for the second, etc., or it may be @code{\\default} to
+use the next number in sequence automatically.")
+   (if num
+       (make-music 'SegnoMarkEvent 'label num)
+       (make-music 'SegnoMarkEvent)))
 
 settingsFrom =
 #(define-scheme-function (ctx music)

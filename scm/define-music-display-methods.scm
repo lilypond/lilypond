@@ -566,6 +566,11 @@ expression."
     (string-append "\\mark "
                    (if label (value->lily-string label) "\\default"))))
 
+(define-display-method SegnoMarkEvent (segno)
+  (let ((label (ly:music-property segno 'label #f)))
+    (string-append "\\segnoMark "
+                   (if label (value->lily-string label) "\\default"))))
+
 (define-display-method KeyChangeEvent (key)
   (let ((pitch-alist (ly:music-property key 'pitch-alist))
         (tonic (ly:music-property key 'tonic)))

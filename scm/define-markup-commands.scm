@@ -3228,6 +3228,24 @@ the possible glyphs.
 
     glyph))
 
+(define-markup-command (segno layout props)
+  ()
+  #:category music
+  "Draw a segno symbol.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\segno
+}
+@end lilypond"
+  (let ((segno (ly:stencil-scale
+                (interpret-markup
+                 layout props
+                 (make-musicglyph-markup "scripts.segno")) 0.6 0.6)))
+    (ly:stencil-translate-axis
+     segno
+     (/ (interval-length (ly:stencil-extent segno Y)) 2.25) Y)))
+
 (define-markup-command (accidental layout props alteration)
   (exact-rational?)
   #:category music

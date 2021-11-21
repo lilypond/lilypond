@@ -701,6 +701,8 @@ run."
   lyricMelismaAlignment = #LEFT
   markFormatter = #format-mark-letters
   rehearsalMark = #1
+  segnoMarkFormatter = #format-segno-mark-considering-bar-lines
+  segnoStyle = #'mark
   subdivideBeams = ##f
   extraNatural = ##t
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))

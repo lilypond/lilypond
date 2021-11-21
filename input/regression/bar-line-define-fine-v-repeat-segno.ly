@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.6"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -24,6 +24,8 @@ thick bar line without dots."
     endRepeatSegnoType = "::..S"
     fineSegnoType = "..S"
     fineStartRepeatSegnoType = "..S..::"
+    %% omit these to sharpen the focus on the bar lines
+    \omit SegnoMark
   }
 }
 

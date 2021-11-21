@@ -32,7 +32,9 @@ private:
     none = 0,
     ad_hoc_mark,
     default_rehearsal_mark,
+    default_segno_mark,
     specific_rehearsal_mark,
+    specific_segno_mark,
   };
 
 public:
@@ -40,6 +42,7 @@ public:
 private:
   Stream_event *event_ = nullptr;
   Event_type event_type_ = Event_type::none;
+  bool first_time_ = true;
 
 public:
   // Get the label for a rehearsal mark event during process_music ().  It may
@@ -47,11 +50,16 @@ public:
   static size_t get_rehearsal_mark_label (const Context *,
                                           const Stream_event *);
 
+  // Get the label for a segno event during process_music ().  It may be
+  // specified in the event or come from the context.
+  static size_t get_segno_mark_label (const Context *, const Stream_event *);
+
 protected:
   void stop_translation_timestep ();
 
   void listen_ad_hoc_mark (Stream_event *);
   void listen_rehearsal_mark (Stream_event *);
+  void listen_segno_mark (Stream_event *);
 
 private:
   void set_event (Event_type, Stream_event *);

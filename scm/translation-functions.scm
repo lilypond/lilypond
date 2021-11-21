@@ -95,7 +95,8 @@ way the transposition number is displayed."
         (fr (select-option options '(noframe box circle oval)))
         (fs (select-option options '(bold medium)))
         (lc (select-option options '(uppercase lowercase mixedcase)))
-        (dl (select-option options '(combine repeat))))
+        (dl (select-option options '(combine repeat)))
+        (sign (select-option options '(nosign segno))))
     (lambda (number context)
       (let* ((the-string
               (case ab
@@ -110,12 +111,17 @@ way the transposition number is displayed."
                 ((uppercase)                    the-string)
                 ((mixedcase) (string-capitalize the-string))
                 ((lowercase) (string-downcase   the-string))))
+             (the-flanked-string
+              (case sign
+                ((segno) (format-sign-with-number
+                          number (make-segno-markup) the-cased-string))
+                (else the-cased-string)))
              (the-framed-string
               (case fr
-                ((box)    (make-box-markup    the-cased-string))
-                ((circle) (make-circle-markup the-cased-string))
-                ((oval)   (make-oval-markup   the-cased-string))
-                ((noframe)                    the-cased-string))))
+                ((box)    (make-box-markup    the-flanked-string))
+                ((circle) (make-circle-markup the-flanked-string))
+                ((oval)   (make-oval-markup   the-flanked-string))
+                ((noframe)                    the-flanked-string))))
         (case fs
           ((bold) (make-bold-markup the-framed-string))
           ((medium)                 the-framed-string))))))
@@ -155,6 +161,29 @@ way the transposition number is displayed."
 
 (define-public format-mark-circle-barnumbers
   (format-mark-generic '(barnumbers circle)))
+
+(define-public format-segno-mark
+  (format-mark-generic '(numbers segno)))
+
+(define-public (format-segno-mark-considering-bar-lines segno-number context)
+  "When bar lines incorporate segni, print no mark for the first segno
+because that would be redundant.  Print the usual marks for later
+segni to avoid ambiguity."
+  (if (and
+       (<= segno-number 1)
+       (eq? (ly:context-property context 'segnoStyle) 'bar-line))
+      empty-markup
+      (format-segno-mark segno-number context)))
+
+(define (format-sign-with-number number sign-markup number-markup)
+  (make-concat-markup
+   (if (<= number 2)
+       (make-list number sign-markup)
+       (list sign-markup
+             "\xe2\x80\x8a" ; UTF-8 hair space
+             number-markup
+             "\xe2\x80\x8a" ; UTF-8 hair space
+             sign-markup))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

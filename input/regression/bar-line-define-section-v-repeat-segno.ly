@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.6"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -33,6 +33,8 @@ bar line on its own."
   startRepeatSegnoType = "k["
   segnoType = "k"
   sectionBarType = "."
+  %% Omit these to sharpen the focus on the bar lines.
+  \omit SegnoMark
 } \new Staff \fixed c' {
   %% It is important that these bars are not aligned to measure
   %% boundaries.  It shows that LilyPond chooses sectionBarType over

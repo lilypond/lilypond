@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.6"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -33,6 +33,8 @@ in-staff segno that is flanked by thick bar lines."
   endRepeatSegnoType = ":;|].S"
   startRepeatSegnoType = "S.[|;:"
   segnoType = ".S."
+  %% omit these to sharpen the focus on the bar lines
+  \omit SegnoMark
 } \new Staff \fixed c' {
   r2. \repeat unfold 2 { \repeat volta 2 { \inStaffSegno r4 | r2. } }
   \inStaffSegno r4 | r2. \inStaffSegno r4 |

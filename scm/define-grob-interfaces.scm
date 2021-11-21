@@ -354,7 +354,7 @@ accidentals)."
 
 (ly:add-interface
  'mark-interface
- "A rehearsal mark."
+ "A rehearsal mark or segno."
  '())
 
 (ly:add-interface
@@ -436,9 +436,19 @@ accidentals)."
  '(accidental-grob))
 
 (ly:add-interface
+ 'rehearsal-mark-interface
+ "A rehearsal mark."
+ '())
+
+(ly:add-interface
  'rhythmic-grob-interface
  "Any object with a duration.  Used to determine which grobs are
 interesting enough to maintain a hara-kiri staff."
+ '())
+
+(ly:add-interface
+ 'segno-mark-interface
+ "A segno."
  '())
 
 (ly:add-interface

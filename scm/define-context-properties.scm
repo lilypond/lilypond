@@ -553,7 +553,7 @@ shortest-playing duration.  This is used for switching on proportional
 notation.")
 
 
-     (rehearsalMark ,integer? "The last rehearsal mark printed.")
+     (rehearsalMark ,integer? "The next rehearsal mark to print.")
      (repeatCommands ,list? "This property is a list of commands
 of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
 @code{#f}.  @code{'end-repeat} is also accepted as a command.")
@@ -572,8 +572,14 @@ of all contexts in the context hierarchy for a voice to provide rhythms
 for the lyrics.")
      (sectionBarType ,string? "The bar line for @code{\\section}.  See
 @code{whichBar} for information on available bar types.")
-     (segnoType ,string? "Set the default bar line for a requested segno.
-Default is @samp{S}.")
+     (segnoMarkFormatter ,procedure? "A procedure that creates a
+segno (which conventionally indicates the start of a repeated
+section), taking as arguments the mark sequence number and the
+context.  It should return a markup object.")
+     (segnoStyle ,symbol? "A symbol that indicates how to print a segno:
+@code{bar-line} or @code{mark}.")
+     (segnoType ,string? "Set the default segno bar line.  Default is
+@samp{S}.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for
 each note head relative to the tonic (qv.) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
@@ -801,6 +807,10 @@ is not set")
      (scriptDefinitions ,list? "The description of scripts.  This is
 used by the @code{Script_engraver} for typesetting note-superscripts
 and subscripts.  See @file{scm/@/script.scm} for more information.")
+     (segnoMarkCount ,index? "Updated at the end of each timestep in which
+a segno appears: not set during the first timestep, 0 up to the first
+segno, 1 from the first to the second segno, 2 from the second to the
+third segno, etc.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
      (stringFretFingerList ,list? "A list containg three entries.

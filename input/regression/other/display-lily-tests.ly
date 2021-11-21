@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.23.6"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -194,6 +194,11 @@ are reported on the stderr of this run."
 \test ##[ \tempo 4 = 108 - 116 #]
 \test ##[ \tempo "Allegro" 4 = 132 #]
 \test ##[ \tempo "Andante" #]
+
+%% Segno
+\test ##[ \segnoMark \default #]
+\test ##[ \segnoMark #2 #]
+\test ##[ c4-\markup \segno #]
 
 %% key, time, clef, bar
 \test ##[ \key \default #]			% KeyChangeEvent

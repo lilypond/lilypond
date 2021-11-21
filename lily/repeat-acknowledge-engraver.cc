@@ -107,8 +107,17 @@ Repeat_acknowledge_engraver::listen_section (Stream_event *)
 }
 
 void
-Repeat_acknowledge_engraver::listen_segno_mark (Stream_event *)
+Repeat_acknowledge_engraver::listen_segno_mark (Stream_event *ev)
 {
+  // Ignore a default segno at the beginning of a piece, just like
+  // Mark_tracking_translator.
+  if (first_time_)
+    {
+      SCM label = get_property (ev, "label");
+      if (!scm_is_integer (label)) // \segnoMark \default
+        return;
+    }
+
   heard_segno_mark_ = true;
 }
 
@@ -121,35 +130,36 @@ Repeat_acknowledge_engraver::listen_volta_span (Stream_event *)
 void
 Repeat_acknowledge_engraver::process_music ()
 {
+  bool start = false;
+  bool end = false;
+  bool volta_found = false;
+
   /*
     At the start of a piece, we don't print any repeat bars.
   */
-  if (first_time_)
-    return;
-
-  SCM cs = get_property (this, "repeatCommands");
-
-  bool start = false;
-  bool end = false;
-  bool volta_found = heard_volta_span_;
-  while (scm_is_pair (cs))
+  if (!first_time_)
     {
-      SCM command = scm_car (cs);
-      if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
-        start = true;
-      else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
-        end = true;
-      else if (scm_is_pair (command)
-               && scm_is_eq (scm_car (command), ly_symbol2scm ("volta")))
+      if (heard_volta_span_)
         volta_found = true;
-      cs = scm_cdr (cs);
+
+      SCM cs = get_property (this, "repeatCommands");
+      while (scm_is_pair (cs))
+        {
+          SCM command = scm_car (cs);
+          if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
+            start = true;
+          else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
+            end = true;
+          else if (scm_is_pair (command)
+                   && scm_is_eq (scm_car (command), ly_symbol2scm ("volta")))
+            volta_found = true;
+          cs = scm_cdr (cs);
+        }
     }
 
-  // TODO: Implement a mark style of segno with (probably) the Mark_engraver
-  // creating the grob.  In that case, the Repeat_acknowledge_engraver would
-  // not add a segno to the bar line, but would still use underlyingBarType.
-  // Until then, we add the segno to the bar line whenever we hear the event.
-  const bool segno = heard_segno_mark_;
+  const bool segno = heard_segno_mark_
+                     && scm_is_eq (get_property (this, "segnoStyle"),
+                                   ly_symbol2scm ("bar-line"));
 
   auto forced_bar_type = BarType::NONE;
   SCM wb = get_property (this, "whichBar");
@@ -352,6 +362,7 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 "fineStartRepeatSegnoType "
                 "repeatCommands "
                 "sectionBarType "
+                "segnoStyle "
                 "segnoType "
                 "startRepeatSegnoType "
                 "startRepeatType "
