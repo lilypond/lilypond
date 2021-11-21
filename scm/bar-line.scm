@@ -514,7 +514,7 @@ drawn by the procedure associated with glyph @var{glyph}."
               (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2))
               (staff-space (ly:staff-symbol-staff-space grob)))
 
-          (set! staff-extent (ly:staff-symbol::height staff-symbol))
+          (set! staff-extent (ly:grob-extent staff-symbol staff-symbol Y))
 
           (if (zero? staff-space)
               (set! staff-space 1.0))
