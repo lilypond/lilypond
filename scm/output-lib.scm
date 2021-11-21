@@ -2433,32 +2433,6 @@ representing the amount a string is bent."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DurationLine
 
-;; helper
-(define-public (note-column::main-extent grob)
-  "Return extent of the noteheads in the @q{main column} (i.e., excluding any
-suspended noteheads), or extent of the rest (if there are no heads)."
-  ;; Partial rewrite of a C++-procedure
-  (let* ((note-heads (ly:grob-object grob 'note-heads #f))
-         ;; stem is currently not needed, for now we let it in, commented
-                                        ;(stem (ly:grob-object grob 'stem))
-         (rest (ly:grob-object grob 'rest #f)))
-    (cond (note-heads
-           (let (;; get the cdr from all note-heads-extents, where the car
-                 ;; is zero
-                 (n-h-right-coords
-                  (filter-map
-                   (lambda (n-h)
-                     (let ((ext (ly:grob-extent n-h grob X)))
-                       (and (= (car ext) 0) (cdr ext))))
-                   (ly:grob-array->list note-heads))))
-             ;; better be paranoid, find the max of n-h-right-coords and return
-             ;; a pair with (cons 0 <max>)
-             (cons 0.0 (reduce max 0 n-h-right-coords))))
-          (rest
-           (ly:grob-extent rest grob X))
-          ;; better be paranoid again
-          (else '(0 . 0)))))
-
 ;;;; We separate coding the stencil of DurationLine into
 ;;;; - coding arrow-stencil
 ;;;; - coding hook-stencil
@@ -2564,6 +2538,8 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
     ;;;; DurationLine start
     ;;;;;;;;;;;;;;;;;;;;;;;;
          (left-bound (ly:spanner-bound grob LEFT))
+         ;; FIXME: misnamed because it's sometimes a PaperColumn.
+         ;; Investigate. --JeanAS
          (left-note-column
           (if (note-head-or-rest? left-bound)
               (ly:grob-parent left-bound X)
@@ -2585,9 +2561,8 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          ;; of the whole NoteColumn-width and main NoteColumn-width.
          ;; Depending on the stem-direction this happens to the left or right.
 
-
          (left-note-column-main-X-ext
-          (note-column::main-extent left-note-column))
+          (ly:grob-property left-note-column 'main-extent '(0 . 0)))
      ;;;;
      ;;;; adjust for DotColumn of left NoteColumn
      ;;;;
@@ -2669,6 +2644,8 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
     ;;;;;;;;;;;;;;;;;;;;;;;;
          ;; NB `right-bound' may not always be a NoteColumn
          (right-bound (ly:spanner-bound grob RIGHT))
+         ;; FIXME: misnamed because it's sometimes a PaperColumn
+         ;; or BarLine.  Investigate. --JeanAS
          (right-note-column
           (if (note-head-or-rest? right-bound)
               (ly:grob-parent right-bound X)
@@ -2678,7 +2655,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          ;; value to adjust the end of DurationLine.
          ;; Applied later while calculating `right-end'
          (right-bound-X-ext (ly:grob-extent right-note-column right-bound X))
-         (right-bound-main-X-ext (note-column::main-extent right-note-column))
+         (right-bound-main-X-ext (ly:grob-property right-note-column 'main-extent '(0 . 0)))
          (adjust-right-for-suspended-heads-and-broken-items
           ;; Could be simple (if ...)
           (cond ;; compensate suspended heads if present

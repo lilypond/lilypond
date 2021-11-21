@@ -1914,6 +1914,7 @@
         (axes . (,X ,Y))
         (bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
+        (main-extent . ,ly:note-column::calc-main-extent)
         (skyline-vertical-padding . 0.15)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)

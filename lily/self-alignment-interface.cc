@@ -129,7 +129,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
     {
       if (from_scm<bool> (get_property (me, "X-align-on-main-noteheads"))
           && has_interface<Note_column> (him))
-        he = Note_column::calc_main_extent (him);
+        he = from_scm<Interval> (get_property (him, "main-extent"));
       else
         he = him->extent (him, a);
     }

@@ -36,7 +36,6 @@ public:
   static Grob *accidentals (Grob *me);
   static Slice head_positions_interval (Grob *me);
   static Grob *first_head (Grob *me);
-  static Interval calc_main_extent (Grob *me);
   static Grob *get_rest (Grob *me);
   static void set_stem (Grob *me, Grob *);
   static void add_head (Grob *me, Grob *);
@@ -46,6 +45,8 @@ public:
 
   static Item *get_stem (Grob *);
   static Item *get_flag (Grob *);
+
+  DECLARE_SCHEME_CALLBACK (calc_main_extent, (SCM));
 };
 
 #endif // NOTE_COLUMN_HH

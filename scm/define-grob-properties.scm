@@ -633,6 +633,10 @@ visual output is influenced by changes to
 ;;;
 ;;; m
 ;;;
+     (main-extent ,number-pair? "The horizontal extent of a
+@code{NoteColumn} grob without taking suspended @code{NoteHead}
+grobs into account (i.e., @code{NoteHead}s forced into the unnatural
+direction of the @code{Stem} because of a chromatic clash).")
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem.  Further beams are typeset as beamlets.")
      (maximum-gap ,number? "Maximum value allowed for @code{gap}

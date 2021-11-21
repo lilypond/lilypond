@@ -37,6 +37,10 @@
 /*
   TODO: figure out if we can prune this class. This is just an
   annoying layer between (rest)collision & (note-head + stem)
+
+  TODO: If it's not pruned altogether, replace most of these
+  functions with storage in objects, either in the engraver or
+  via object-callbacks. --JeanAS
 */
 
 bool
@@ -163,9 +167,11 @@ Note_column::first_head (Grob *me)
   (i.e. excluding any suspended noteheads), or extent
   of the rest (if there are no heads).
 */
-Interval
-Note_column::calc_main_extent (Grob *me)
+MAKE_SCHEME_CALLBACK (Note_column, calc_main_extent, 1);
+SCM
+Note_column::calc_main_extent (SCM smob)
 {
+  auto *me = unsmob<Grob> (smob);
   Grob *main_head = 0;
   if (get_stem (me))
     main_head = first_head (me);
@@ -180,9 +186,9 @@ Note_column::calc_main_extent (Grob *me)
                     ? main_head
                     : unsmob<Grob> (get_object (me, "rest"));
 
-  return main_item
-         ? main_item->extent (me, X_AXIS)
-         : Interval (0, 0);
+  return to_scm (main_item
+                 ? main_item->extent (me, X_AXIS)
+                 : Interval (0, 0));
 }
 
 /*
@@ -247,6 +253,7 @@ ADD_INTERFACE (Note_column,
                "horizontal-shift "
                "ignore-collision "
                "note-heads "
+               "main-extent "
                "rest "
                "rest-collision "
                "stem "
