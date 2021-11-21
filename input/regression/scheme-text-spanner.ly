@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.23.6"
 
 \header {
   texidoc = "Use @code{define-event-class}, scheme engraver methods,
@@ -42,15 +42,16 @@ in scheme."
     (dash-period . 3.0)
     (direction . ,UP)
     (font-shape . italic)
-    (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+    (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
     (outside-staff-priority . 350)
-    (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+    (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
     (staff-padding . 0.8)
     (stencil . ,ly:line-spanner::print)
     (style . dashed-line)
 
     (meta . ((class . Spanner)
              (interfaces . (font-interface
+                            horizontal-line-spanner-interface
                             line-interface
                             line-spanner-interface
                             outside-staff-interface

@@ -982,7 +982,8 @@
         (zigzag-length . 1)
         (zigzag-width . 1)
         (meta . ((class . Spanner)
-                 (interfaces . (line-interface
+                 (interfaces . (horizontal-line-spanner-interface
+                                line-interface
                                 line-spanner-interface
                                 duration-line-interface
                                 font-interface
@@ -1045,7 +1046,6 @@
      . (
         (before-line-breaking . ,dynamic-text-spanner::before-line-breaking)
         (bound-details . ((right . ((attach-dir .  ,LEFT)
-                                    (Y . 0)
                                     (padding . 0.75)
                                     ))
                           (right-broken . ((attach-dir .  ,RIGHT)
@@ -1053,7 +1053,6 @@
                                            ))
 
                           (left . ((attach-dir .  ,LEFT)
-                                   (Y . 0)
                                    (stencil-offset . (-0.75 . -0.5))
                                    (padding . 0.75)
                                    ))
@@ -1070,13 +1069,13 @@
         ;; need to blend with dynamic texts.
         (font-size . 1)
 
-        (left-bound-info . ,ly:line-spanner::calc-left-bound-info-and-text)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info-and-text)
 
         (minimum-length . 2.0)
         ;; make sure the spanner doesn't get too close to notes
         (minimum-Y-extent . (-1 . 1))
 
-        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (skyline-horizontal-padding . 0.2)
         (springs-and-rods . ,ly:spanner::set-spacing-rods)
         (stencil . ,ly:line-spanner::print)
@@ -1086,6 +1085,7 @@
                  (interfaces . (dynamic-interface
                                 dynamic-text-spanner-interface
                                 font-interface
+                                horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
                                 ;; for now, LilyPond never will typeset
@@ -1098,19 +1098,17 @@
 
     (Episema
      . (
-        (bound-details . ((left . ((Y . 0)
-                                   (padding . 0)
+        (bound-details . ((left . ((padding . 0)
                                    (attach-dir . ,LEFT)
                                    ))
-                          (right . ((Y . 0)
-                                    (padding . 0)
+                          (right . ((padding . 0)
                                     (attach-dir . ,RIGHT)
                                     ))
                           ))
         (direction . ,UP)
-        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (quantize-position . #t)
-        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (side-axis . ,Y)
         (stencil . ,ly:line-spanner::print)
         (style . line)
@@ -1118,6 +1116,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (episema-interface
                                 font-interface
+                                horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
                                 side-position-interface))))))
@@ -2752,22 +2751,20 @@
 
     (TextSpanner
      . (
-        (bound-details . ((left . ((Y . 0)
-                                   (padding . 0.25)
+        (bound-details . ((left . ((padding . 0.25)
                                    (attach-dir . ,LEFT)
                                    ))
                           (left-broken . ((attach-dir . ,RIGHT)))
-                          (right . ((Y . 0)
-                                    (padding . 0.25)
+                          (right . ((padding . 0.25)
                                     ))
                           ))
         (dash-fraction . 0.2)
         (dash-period . 3.0)
         (direction . ,UP)
         (font-shape . italic)
-        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (outside-staff-priority . 350)
-        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (side-axis . ,Y)
         (staff-padding . 0.8)
         (stencil . ,ly:line-spanner::print)
@@ -2776,6 +2773,7 @@
 
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
+                                horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
                                 outside-staff-interface
@@ -2927,19 +2925,18 @@
      . (
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
         (bound-details . ((left . ((text . ,(make-musicglyph-markup "scripts.trill"))
-                                   (Y . 0)
                                    (stencil-offset . (-0.5 . -1))
                                    (padding . 0.5)
                                    (attach-dir . ,CENTER)
                                    ))
                           (left-broken . ((end-on-note . #t)))
-                          (right . ((Y . 0)))
+                          (right . ())
                           ))
         (direction . ,UP)
-        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (outside-staff-priority . 50)
         (padding . 0.5)
-        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (side-axis . ,Y)
         (staff-padding . 1.0)
         (stencil . ,ly:line-spanner::print)
@@ -2947,6 +2944,7 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
+                                horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
                                 outside-staff-interface
@@ -3155,27 +3153,26 @@
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
         (arrow-length . 0.5)
         (arrow-width . 0.5)
-        (bound-details . ((left . ((Y . 0)
-                                   (padding . 0.14)
+        (bound-details . ((left . ((padding . 0.14)
                                    (attach-dir . ,RIGHT)
                                    ))
                           (right-broken . ((padding . 0)))
                           (left-broken . ((padding . 0)))
-                          (right . ((Y . 0)
-                                    (padding . 0.14)
+                          (right . ((padding . 0.14)
                                     (attach-dir . ,LEFT)
                                     (arrow . #t)
                                     ))))
-        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (minimum-length . 1.0)
-        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (springs-and-rods . ,ly:vowel-transition::set-spacing-rods)
         (stencil . ,ly:line-spanner::print)
         (style . line)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-offset . 0.5)
         (meta . ((class . Spanner)
-                 (interfaces . (line-interface
+                 (interfaces . (horizontal-line-spanner-interface
+                                line-interface
                                 line-spanner-interface
                                 lyric-interface))))))
 

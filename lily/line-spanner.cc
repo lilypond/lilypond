@@ -37,15 +37,38 @@
 
 #include <cassert>
 
+/*
+  There are basically two types of horizontal line spanners we
+  want to distinguish between.  The non-horizontal ones (such as
+  Glissando and VoiceFollower) usually compute Y positions automatically,
+  and even when the positions are tweaked by the user, they try
+  to make them relative to their containing vertical axis group.
+  The horizontal ones (TextSpanner, DynamicTextSpanner, etc.)
+  don't try to compute refpoints. In particular, for these, user
+  tweaks to Y values are always relative to the spanner itself.
+  This means that horizontal line spanners can be side-positioned
+  without causing cyclic dependencies on their distance from the
+  staff.
+*/
+
 class Line_spanner
 {
 public:
+  static SCM calc_bound_info (SCM, Direction, bool);
+  static SCM calc_left_bound_info_and_text (SCM, bool);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
+};
+
+class Horizontal_line_spanner
+{
+public:
+  DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
 };
 
 Drul_array<Real>
@@ -82,7 +105,7 @@ offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
 
 
 SCM
-Line_spanner::calc_bound_info (SCM smob, Direction dir)
+Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
@@ -156,205 +179,237 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                            details);
     }
 
-  if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)))
+  Grob *common_y;
+  if (horizontal)
     {
+      common_y = me;
+    }
+  else
+    {
+      bool y_needed = (!scm_is_number (ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)));
+      // Even when we don't need to compute a Y value, run through part
+      // of the code below in order to convey a reference point.  The
+      // purpose is to make user tweaks to the Y value relative to the
+      // relevant staff in the case of cross-staff line spanners.  Note
+      // that this is not relevant for horizontal line spanners, the Y
+      // value is always relative to the spanner itself.
       Real y = 0.0;
 
-      Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
-                                        0.0);
-
-      Grob *common_y = me->common_refpoint (bound_item, Y_AXIS);
       if (bound_item->break_status_dir ())
-        {
-          /*
-             We want to compute the slope of something like a glissando
-             when broken across several systems.  We make it continuous,
-             giving the same slope to all pieces and choosing it such that
-             visually it could be one glissando line if the systems were
-             stuck together in a row.  To this end, we have to compute the
-             vertical coordinates on two different systems and bring them
-             to a common coordinate reference.  For normal glissandi, this
-             is achieved by taking coordinates relative to the VerticalAxisGroup
-             of the staff, which is broken just like the glissando.  For
-             cross-staff glissandi, we schematically have this:
+         {
+            /*
+              We want to compute the slope of something like a glissando
+              when broken across several systems.  We make it continuous,
+              giving the same slope to all pieces and choosing it such that
+              visually it could be one glissando line if the systems were
+              stuck together in a row.  To this end, we have to compute the
+              vertical coordinates on two different systems and bring them
+              to a common coordinate reference.  For normal glissandi, this
+              is achieved by taking coordinates relative to the VerticalAxisGroup
+              of the staff, which is broken just like the glissando.  For
+              cross-staff glissandi, we schematically have this:
 
-                                                       |
-             -----------------------                   |
-             -----------------------  \\               |
-             -----------------------  \\            xxx|
-             -----------------------  \\   /~~~~/---xxx|-----------
-             -----------------------  \\ /~~~/---------------------
-                                 /  ~~~~ /-------------------------
-  This line                  / ~~~~   \\  -------------------------  |
-   might be             / ~~~~~       \\  -------------------------  |
-  stretched...       ~~~~~~~/         \\                             |  ... while this
-                   ~~~ /              \\  -------------------------  |  line might be
-              |xxx                    \\  -------------------------  |  compressed.
-              |xxx------------------  \\  -------------------------
-             -|---------------------  \\  -------------------------
-             -|---------------------  \\  -------------------------
-             -|---------------------  \\
-             -----------------------
+                                                        |
+              -----------------------                   |
+              -----------------------  \\               |
+              -----------------------  \\            xxx|
+              -----------------------  \\   /~~~~/---xxx|-----------
+              -----------------------  \\ /~~~/---------------------
+                                  /  ~~~~ /-------------------------
+     This line                 / ~~~~  \\  -------------------------
+     might be            / ~~~~~       \\  -------------------------
+     stretched...      ~~~~~~~/        \\                               ... while this
+                    ~~~ /              \\  -------------------------    line might be
+               |xxx                    \\  -------------------------    compressed.
+               |xxx------------------  \\  -------------------------
+              -|---------------------  \\  -------------------------
+              -|---------------------  \\  -------------------------
+              -|---------------------  \\
+              -----------------------
 
-                                  Line break
-                                     here.
+                                   Line break
+                                      here.
 
 
-             The distance between the two staves can vary across the
-             break.  There is not an obvious way to choose the common
-             slope in this case.  If we take the lower staff as a
-             reference baseline in the example above, the line on the left will
-             have a small slope compared to the distance between the
-             systems.  On the other hand, aligning the upper staves will
-             result in a steep line on the second system.
+              The distance between the two staves can vary across the
+              break.  There is not an obvious way to choose the common
+              slope in this case.  If we take the lower staff as a
+              reference baseline in the example above, the line on the left will
+              have a small slope compared to the distance between the
+              systems.  On the other hand, aligning the upper staves will
+              result in a steep line on the second system.
 
-             This code makes the choice of Solomon: align the middles
-             of each pair of staves.  Blame Jean AS if you don't like
-             it, and feel free to improve.
-          */
+              This code makes the choice of Solomon: align the middles
+              of each pair of staves.  Blame Jean AS if you don't like
+              it, and feel free to improve.
+           */
 
-          Spanner *orig = me->original ();
-          System *sys_here = me->get_system ();
-          System *sys_there;
-          Drul_array<Item *> extreme_bounds;
-          Drul_array<Grob *> extreme_bound_groups;
-          for (const auto d : {LEFT, RIGHT})
-            {
-              Spanner *extreme = ((d == LEFT)
-                                  ? orig->broken_intos_.front ()
-                                  : orig->broken_intos_.back ());
-              extreme_bounds[d] = extreme->get_bound (d);
-              extreme_bound_groups[d] =
-                Grob::get_vertical_axis_group (extreme_bounds[d]);
-              if (!extreme_bound_groups[d])
-                {
-                  programming_error ("extremal broken spanner's bound has no parent"
-                                     " vertical axis group");
-                  return details;
-                }
-            }
-          sys_there = extreme_bounds[dir]->get_system ();
-          Drul_array<Grob *> extreme_bound_groups_here;
-          Drul_array<Grob *> extreme_bound_groups_there;
-          for (const auto d : {LEFT, RIGHT})
-            {
-              // This one can be null if the corresponding staff ended
-              // prematurely or started after the beginning of the score.
-              extreme_bound_groups_here[d] =
-                extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
-              // Can be null for the direction other than dir.
-              extreme_bound_groups_there[d] =
-                extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
-            }
-          Grob *common_here;
-          Drul_array<Real> offsets_here =
-            offsets_maybe (extreme_bound_groups_here, common_here);
-          Real offset_here;
-          Grob *common_there;
-          Drul_array<Real> offsets_there =
-            offsets_maybe (extreme_bound_groups_there, common_there);
-          Real offset_there;
+           Spanner *orig = me->original ();
+           System *sys_here = me->get_system ();
+           System *sys_there;
+           Drul_array<Item *> extreme_bounds;
+           Drul_array<Grob *> extreme_bound_groups;
+           for (const auto d : {LEFT, RIGHT})
+             {
+               Spanner *extreme = ((d == LEFT)
+                                   ? orig->broken_intos_.front ()
+                                   : orig->broken_intos_.back ());
+               extreme_bounds[d] = extreme->get_bound (d);
+               extreme_bound_groups[d] =
+                 Grob::get_vertical_axis_group (extreme_bounds[d]);
+               if (!extreme_bound_groups[d])
+                 {
+                   programming_error ("extremal broken spanner's bound has no parent"
+                                      " vertical axis group");
+                   return details;
+                 }
+             }
+           sys_there = extreme_bounds[dir]->get_system ();
+           Drul_array<Grob *> extreme_bound_groups_here;
+           Drul_array<Grob *> extreme_bound_groups_there;
+           for (const auto d : {LEFT, RIGHT})
+             {
+               // This one can be null if the corresponding staff ended
+               // prematurely or started after the beginning of the score.
+               extreme_bound_groups_here[d] =
+                 extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
+               // Can be null for the direction other than dir.
+               extreme_bound_groups_there[d] =
+                 extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
+             }
+           Grob *common_here;
+           Grob *common_there;
+           Drul_array<Real> offsets_here =
+             offsets_maybe (extreme_bound_groups_here, common_here);
+           Real offset_here;
+           Drul_array<Real> offsets_there =
+             offsets_maybe (extreme_bound_groups_there, common_there);
+           Real offset_there;
 
-          // Here we have all weird edge cases that can happen
-          // when staves are added or removed midway.  To continue
-          // the example above, if the lower staff was removed on
-          // the second system, we would align the upper staves.
-          assert (extreme_bound_groups_there[dir]);
-          if (!extreme_bound_groups_here[dir]
-              && !extreme_bound_groups_here[-dir])
-            {
-              // If neither of the staves is present on this system, just
-              // disappear.  This can happen with contorted input that starts
-              // a glissando, stops that staff, then later spawns another
-              // staff and ends the glissando there.
-              me->suicide ();
-              return SCM_UNSPECIFIED;
-            }
-          if (extreme_bound_groups_there[-dir])
-            {
-              if (extreme_bound_groups_here[dir]
-                  && extreme_bound_groups_here[-dir])
-                {
-                  offset_here = (offsets_here[LEFT] + offsets_here[RIGHT])/2;
-                  offset_there = (offsets_there[LEFT] + offsets_there[RIGHT])/2;
-                }
-              else if (extreme_bound_groups_here[dir])
-                {
-                  offset_here = offsets_here[dir];
-                  offset_there = offsets_there[dir];
-                }
-              else
-                {
-                  offset_here = offsets_here[-dir];
-                  offset_there = offsets_there[-dir];
-                }
-            }
-          else // !extreme_bound_groups_there[-dir]
-            {
-              if (extreme_bound_groups_here[dir])
-                {
-                  offset_here = offsets_here[dir];
-                  offset_there = offsets_there[dir];
-                }
-              else
-                {
-                  offset_here = offsets_here[-dir];
-                  offset_there = offsets_there[dir];
-                }
-            }
-          Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
-          Real coord_there = extent.center ();
-          y = coord_there - offset_there + offset_here;
-          details = scm_acons (ly_symbol2scm ("common-Y"), common_here->self_scm (), details);
-        }
+           if (y_needed)
+             {
+               // Here we have all weird edge cases that can happen
+               // when staves are added or removed midway.  To continue
+               // the example above, if the lower staff was removed on
+               // the second system, we would align the upper staves.
+               assert (extreme_bound_groups_there[dir]);
+               if (!extreme_bound_groups_here[dir]
+                   && !extreme_bound_groups_here[-dir])
+                 {
+                   // If neither of the staves is present on this system, just
+                   // disappear.  This can happen with contorted input that starts
+                   // a glissando, stops that staff, then later spawns another
+                   // staff and ends the glissando there.
+                   me->suicide ();
+                   return SCM_UNSPECIFIED;
+                 }
+               if (extreme_bound_groups_there[-dir])
+                 {
+                   if (extreme_bound_groups_here[dir]
+                       && extreme_bound_groups_here[-dir])
+                     {
+                       offset_here = (offsets_here[LEFT] + offsets_here[RIGHT])/2;
+                       offset_there = (offsets_there[LEFT] + offsets_there[RIGHT])/2;
+                     }
+                   else if (extreme_bound_groups_here[dir])
+                     {
+                       offset_here = offsets_here[dir];
+                       offset_there = offsets_there[dir];
+                     }
+                   else
+                     {
+                       offset_here = offsets_here[-dir];
+                       offset_there = offsets_there[-dir];
+                     }
+                 }
+               else // !extreme_bound_groups_there[-dir]
+                 {
+                   if (extreme_bound_groups_here[dir])
+                     {
+                       offset_here = offsets_here[dir];
+                       offset_there = offsets_there[dir];
+                     }
+                   else
+                     {
+                       offset_here = offsets_here[-dir];
+                       offset_there = offsets_there[dir];
+                     }
+                 }
+               Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
+               Real coord_there = extent.center ();
+               y = coord_there - offset_there + offset_here;
+             }
+           if (extreme_bound_groups_here[dir])
+             {
+               common_y = extreme_bound_groups_here[dir];
+               if (y_needed)
+                 y -= offsets_here[dir];
+             }
+           else
+             {
+               common_y = common_here;
+             }
+         }
       else
+         {
+           common_y = Grob::get_vertical_axis_group (bound_item);
+           if (!common_y)
+             {
+               programming_error ("bound item has no parent vertical axis group");
+               common_y = bound_item;
+             }
+           if (y_needed)
+             {
+               Interval ii = bound_item->extent (common_y, Y_AXIS);
+               if (!ii.is_empty ())
+                 y = ii.center ();
+             }
+         }
+
+      if (y_needed)
         {
-          Interval ii = bound_item->extent (common_y, Y_AXIS);
-          if (!ii.is_empty ())
-            y = ii.center ();
-          details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
+          Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
+                                            0.0);
+          y += dir * extra_dy / 2;
+          details = scm_acons (ly_symbol2scm ("Y"), to_scm (y), details);
         }
-
-      y += dir * extra_dy / 2;
-      details = scm_acons (ly_symbol2scm ("Y"), to_scm (y), details);
     }
-
+  details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
   return details;
-}
-
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
-SCM
-Line_spanner::calc_cross_staff (SCM smob)
-{
-  Spanner *me = unsmob<Spanner> (smob);
-  if (!me)
-    return SCM_BOOL_F;
-
-  auto *const lb = me->get_bound (LEFT);
-  auto *const rb = me->get_bound (RIGHT);
-  return to_scm<bool> (Staff_symbol_referencer::get_staff_symbol (lb)
-                       != Staff_symbol_referencer::get_staff_symbol (rb));
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info, 1);
 SCM
 Line_spanner::calc_right_bound_info (SCM smob)
 {
-  return Line_spanner::calc_bound_info (smob, RIGHT);
+  return Line_spanner::calc_bound_info (smob, RIGHT, false);
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info, 1);
 SCM
 Line_spanner::calc_left_bound_info (SCM smob)
 {
-  return Line_spanner::calc_bound_info (smob, LEFT);
+  return Line_spanner::calc_bound_info (smob, LEFT, false);
 }
 
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info_and_text, 1);
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_right_bound_info, 1);
 SCM
-Line_spanner::calc_left_bound_info_and_text (SCM smob)
+Horizontal_line_spanner::calc_right_bound_info (SCM smob)
 {
-  SCM alist = Line_spanner::calc_bound_info (smob, LEFT);
+  return Line_spanner::calc_bound_info (smob, RIGHT, true);
+}
+
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info, 1);
+SCM
+Horizontal_line_spanner::calc_left_bound_info (SCM smob)
+{
+  return Line_spanner::calc_bound_info (smob, LEFT, true);
+}
+
+SCM
+Line_spanner::calc_left_bound_info_and_text (SCM smob, bool horizontal)
+{
+  SCM alist = Line_spanner::calc_bound_info (smob, LEFT, horizontal);
   Spanner *me = unsmob<Spanner> (smob);
 
   SCM text = get_property (me, "text");
@@ -371,6 +426,36 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob)
     }
 
   return alist;
+}
+
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info_and_text, 1);
+SCM
+Line_spanner::calc_left_bound_info_and_text (SCM smob)
+{
+  return Line_spanner::calc_left_bound_info_and_text (smob, false);
+}
+
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info_and_text, 1);
+SCM
+Horizontal_line_spanner::calc_left_bound_info_and_text (SCM smob)
+{
+  return Line_spanner::calc_left_bound_info_and_text (smob, true);
+}
+
+// TODO: for horizontal line spanners, avoid looking at the
+// right bound, and never mark cross-staff.
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
+SCM
+Line_spanner::calc_cross_staff (SCM smob)
+{
+  Spanner *me = unsmob<Spanner> (smob);
+  if (!me)
+    return SCM_BOOL_F;
+
+  auto *const lb = me->get_bound (LEFT);
+  auto *const rb = me->get_bound (RIGHT);
+  return to_scm<bool> (Staff_symbol_referencer::get_staff_symbol (lb)
+                       != Staff_symbol_referencer::get_staff_symbol (rb));
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
@@ -418,7 +503,10 @@ Line_spanner::print (SCM smob)
       common_y[d] = unsmob<Grob> (ly_assoc_get (ly_symbol2scm ("common-Y"),
                                                 bounds[d], SCM_BOOL_F));
       if (!common_y[d])
-        common_y[d] = me;
+        {
+          programming_error ("no common-Y in bound details");
+          common_y[d] = me;
+        }
     }
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
@@ -490,53 +578,62 @@ Line_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Line_spanner,
-               "Generic line drawn between two objects, e.g., for use with"
-               " glissandi.\n"
-               "\n"
-               "@code{bound-details} is a nested alist.  It's possible to"
-               " specify settings for the sub-properties: @code{left},"
-               " @code{left-broken}, @code{right} and @code{right-broken}.\n"
-               "\n"
-               "Values for the following keys may be set:\n"
-               "\n"
-               "@table @code\n"
-               "@item Y\n"
-               "Sets the Y@tie{}coordinate of the end point, in staff-spaces"
-               " offset from the staff center line.  By default, it is the"
-               " center of the bound object, so a glissando points to the"
-               " vertical center of the note head.  For horizontal spanners,"
-               " such as text spanners and trill spanners, it is hardcoded"
-               " to 0.\n"
-               "@item attach-dir\n"
-               "Determines where the line starts and ends in the"
-               " X@tie{}direction, relative to the bound object."
-               " So, a value of -1 (or @code{LEFT}) makes the line start/end"
-               " at the left side of the note head it is attached to.\n"
-               "@item X\n"
-               "This is the absolute X@tie{}coordinate of the end point."
-               " Usually computed on the fly.\n"
-               "@item stencil\n"
-               "Line spanners may have symbols at the beginning or end, which"
-               " is contained in this sub-property.  For internal use.\n"
-               "@item text\n"
-               "This is a markup that is evaluated to yield the stencil.\n"
-               "@item stencil-align-dir-y\n"
-               "@itemx stencil-offset\n"
-               "Without setting one of these, the stencil is simply put at the"
-               " end-point, centered on the line, as defined by the @code{X}"
-               " and @code{Y} sub-properties.  Setting"
-               " @code{stencil-align-dir-y} moves the symbol at the edge"
-               " vertically relative to the end point of the line.  With"
-               " @code{stencil-offset}, expecting a number pair, the stencil"
-               " is moved along the X@tie{}axis according to the first value,"
-               " the second value moves the stencil along the Y@tie{}axis.\n"
-               "@item arrow\n"
-               "Produces an arrowhead at the end-points of the line.\n"
-               "@item padding\n"
-               "Controls the space between the specified end point of the"
-               " line and the actual end.  Without padding, a glissando would"
-               " start and end in the center of each note head.\n"
-               "@end table\n",
+               R"(
+
+Generic line drawn between two objects, e.g., for use with glissandi.
+
+@code{bound-details} is a nested alist.  It's possible to specify
+settings for the sub-properties: @code{left}, @code{left-broken},
+@code{right} and @code{right-broken}.
+
+Values for the following keys may be set:
+
+@table @code
+@item Y
+Sets the Y@tie{}coordinate of the end point, in staff-spaces offset
+from the staff center line.  By default, it is the center of the bound
+object, so a glissando points to the vertical center of the note head.
+Not relevant for grobs having the
+@ref{horizontal-line-spanner-interface,horizontal-@/line-@/spanner-@/interface}.
+
+@item attach-dir
+Determines where the line starts and ends in the X@tie{}direction,
+relative to the bound object.  So, a value of -1 (or @code{LEFT})
+makes the line start/end at the left side of the note head it is
+attached to.
+
+@item X
+This is the absolute X@tie{}coordinate of the end point.  Usually
+computed on the fly.
+
+@item stencil
+Line spanners may have symbols at the beginning or end, which is
+contained in this sub-property.  For internal use.
+
+@item text
+This is a markup that is evaluated to yield the stencil.
+
+@item stencil-align-dir-y
+@itemx stencil-offset
+Without setting one of these, the stencil is simply put at the
+end-point, centered on the line, as defined by the @code{X} and
+@code{Y} sub-properties.  Setting @code{stencil-align-dir-y} moves the
+symbol at the edge vertically relative to the end point of the line.
+With @code{stencil-offset}, expecting a number pair, the stencil is
+moved along the X@tie{}axis according to the first value, the second
+value moves the stencil along the Y@tie{}axis.
+
+@item arrow
+Produces an arrowhead at the end-points of the line.
+
+@item padding
+Controls the space between the specified end point of the line and the
+actual end.  Without padding, a glissando would start and end in the
+center of each note head.
+
+@end table
+
+)",
 
                /* properties */
                "bound-details "
@@ -548,3 +645,17 @@ ADD_INTERFACE (Line_spanner,
                "thickness "
                "to-barline "
               );
+
+
+ADD_INTERFACE (Horizontal_line_spanner,
+               R"(
+
+This interface is a subset of the @ref{line-spanner-interface}, for
+use with line spanners that are always horizontal (such as crescendo
+spanners).  The @code{details.Y} subproperty is irrelevant.  Grobs
+having this interface can be side-positioned vertically.
+
+)",
+               /* properties */
+               ""
+               );
