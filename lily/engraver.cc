@@ -176,7 +176,7 @@ Engraver::internal_make_grob (SCM symbol,
   SCM props = Grob_property_info (context (), symbol).updated ();
   if (!scm_is_pair (props))
     {
-      error (_f ("No grob definition found for `%s’.",
+      error (_f ("No grob definition found for `%s'.",
                  ly_symbol2string (symbol)));
     }
 

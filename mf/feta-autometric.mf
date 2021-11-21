@@ -134,7 +134,7 @@ enddef;
 %              |
 %              |
 %
-%         | bp |     wd     |
+%         | bp |     wd     |
 %
 % `breapth' is positive leftwards; `depth' is positive downwards.
 %

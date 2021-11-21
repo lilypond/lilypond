@@ -122,7 +122,7 @@ Ambitus_engraver::stop_translation_timestep ()
        * set values. Therefore
        *  1. \ottava is incompatible with non-default offset and
        *     position values (is this a bug? TODO)
-       *  2. we don’t need to read these values and revert the
+       *  2. we don't need to read these values and revert the
        *     changes \ottava made but we can just read the
        *     clef position.
        */
