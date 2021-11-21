@@ -1421,7 +1421,7 @@
         (font-shape . italic)
         (non-musical . #t)
         (outside-staff-horizontal-padding . 0.2)
-        (outside-staff-priority . 1500)
+        (outside-staff-priority . 1450) ; slightly lower than RehearsalMark
         (padding . 0.8)
         (self-alignment-X . ,RIGHT)
         (stencil . ,ly:text-interface::print)
