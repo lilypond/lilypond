@@ -318,14 +318,16 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
     def input_fullname(self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
         try:
-            trial = subprocess.run(['kpsewhich', input_filename],
-                                   check=True, stdout=subprocess.PIPE).stdout
-            if trial:
-                return trial
-        except subprocess.CalledProcessError:
-            pass
+            input_fullname = subprocess.run(['kpsewhich', input_filename],
+                                            check=True,
+                                            stdout=subprocess.PIPE).stdout
 
-        return book_base.BookOutputFormat.input_fullname(self, input_filename)
+        except subprocess.CalledProcessError:
+            input_fullname = book_base.BookOutputFormat.input_fullname(
+                self,
+                input_filename)
+
+        return input_fullname
 
     def process_chunks(self, chunks):
         for c in chunks:
