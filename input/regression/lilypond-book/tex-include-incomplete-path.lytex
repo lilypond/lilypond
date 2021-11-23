@@ -1,0 +1,13 @@
+\documentclass{article}
+
+\input{include/def}
+
+\begin{document}
+
+If the full path to a file included by
+\verb|\input| is not given, lilypond-book
+tries to infer the path.
+
+Brought to you by \signature.
+
+\end{document}
