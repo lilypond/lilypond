@@ -322,7 +322,7 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
                                             check=True,
                                             stdout=subprocess.PIPE).stdout
 
-        except subprocess.CalledProcessError:
+        except (subprocess.CalledProcessError, FileNotFoundError):
             input_fullname = book_base.BookOutputFormat.input_fullname(
                 self,
                 input_filename)
