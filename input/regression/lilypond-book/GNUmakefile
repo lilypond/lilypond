@@ -41,9 +41,14 @@ $(outdir)/%.html: %.xml
 
 ############## LaTeX ########################
 
+# Only for the following recipe: Prepend the source dir to $TEXINPUTS
+# to allow testing `\input` statements that work only with help of
+# kpathsea/kpsewhich
+
 $(outdir)/%.tex: %.lytex
 	$(call ly_progress,Making,$@,< lytex)
-	$(LILYPOND_BOOK_COMMAND) --pdf --latex-program $(PDFLATEX) \
+	TEXINPUTS=$(src-dir):$$TEXINPUTS \
+		$(LILYPOND_BOOK_COMMAND) --pdf --latex-program $(PDFLATEX) \
 		-o $(outdir) $<
 
 $(outdir)/%.tex: %.tex
