@@ -141,7 +141,9 @@ blockquote blockquote {
 }
 
 .verbatim, .example, .lisp {
-  font-size: 1em;
+  /* Tested with DejaVu fonts.  Maybe we should specify explicit
+     fonts instead of relying on system defaults anyway? */
+  font-size: 1.03em;
   padding: 1em;
   margin: 0;
 }
@@ -205,10 +207,19 @@ p {
   margin: 1em 0;
 }
 
-#languages {
-  font-size: 0.8em;
-  padding: 0.9em 18px;
+#languages, #highlighting-settings {
+  font-size: 0.9em;
+  padding-left: 0.9em;
   margin: 0;
+}
+
+#languages {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+#highlighting-settings {
+  padding-bottom: 1.3em;
 }
 
 pre.menu-comment {

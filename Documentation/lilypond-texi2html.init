@@ -118,7 +118,8 @@ our $web_manual;
 $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 
 @Texi2HTML::Config::CSS_REFS = (
-    {FILENAME => "lilypond-manuals.css", TITLE => "Default style"}
+    {FILENAME => "lilypond-manuals.css", TITLE => "Default style"},
+    {FILENAME => "lilypond-highlighting.css"}
     );
 @Texi2HTML::Config::ALT_CSS_REFS      = (
     );

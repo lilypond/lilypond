@@ -20,7 +20,7 @@
 
 """
 Postprocess HTML files:
-add footer, tweak links, add language selection menu.
+add footer, tweak links, add language selection menu and syntax highlighting toggle.
 """
 import re
 import os
@@ -28,7 +28,6 @@ import sys
 import time
 
 import langdefs
-
 
 def _doc(s):
     return s
@@ -44,7 +43,6 @@ footer = '''
 %(footer_report_links)s
 </p>
 '''
-
 
 footer_name_version = _doc('This page is for %(package_name)s-'
                            '%(package_version)s (%(branch_str)s).')
@@ -62,6 +60,14 @@ help_us_url = 'https://lilypond.org/help-us.html'
 lang_available = _doc("Other languages: %s.")
 browser_lang = _doc('About <a href="%s">automatic language selection</a>.')
 browser_language_url = "http://www.lilypond.org/website/misc/browser-language"
+syntax_highlighting_disable = _doc("Disable syntax highlighting")
+syntax_highlighting_enable = _doc("Enable syntax highlighting")
+syntax_highlighting_save = _doc("Save syntax highlighting preference")
+syntax_highlighting_warn_local_storage = _doc("""Remembering your preference regarding \
+syntax highlighting for later visits on this documentation necessitates storing \
+the preference in cookie-like browser storage.  This information remains local \
+to your device and is never accessed by lilypond.org.""")
+
 
 LANGUAGES_TEMPLATE = '''
 <p id="languages">
@@ -70,7 +76,6 @@ LANGUAGES_TEMPLATE = '''
 %(browser_language)s
 </p>
 '''
-
 
 html_re = re.compile('(.*?)(?:[.]([^/.]*))?[.]html$')
 
@@ -143,7 +148,6 @@ offline_links_re = re.compile('''href=['"]\
 ([.]html)(#[^"\']*|)[\'"]''')
 big_page_name_re = re.compile('''(.+?)-big-page''')
 
-
 def process_i18n_links(pages_dict, match, prefix, lang_ext):
     big_page_name = big_page_name_re.match(match.group(1))
     if big_page_name:
@@ -178,6 +182,56 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
                                            content)]
     return page_flavors
 
+# About the @license comments, see
+# https://www.gnu.org/software/librejs/free-your-javascript.html
+syntax_highlighting_code = '''
+<script>
+    // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
+    (function () {
+        let handled = false;
+        function restoreHighlighting () {
+            if (handled) return;
+            if (localStorage.getItem('syntax-highlighting') !== 'no') {
+            enable_highlighting();
+            }
+            else {
+              disable_highlighting();
+            }
+            handled = true;
+        }
+
+        // Attempt early handling but fall back to onload just in case.
+        document.addEventListener('DOMContentLoaded', restoreHighlighting);
+        document.addEventListener('load', restoreHighlighting);
+    })();
+
+    let enabled = true;
+    function enable_highlighting() {
+        document.body.classList.add('highlight');
+        enabled = true;
+        document.getElementById('highlighting-active-link').innerHTML =
+            "<a href='javascript:disable_highlighting()'>%(disable_text)s</a>";
+    }
+    function disable_highlighting() {
+        document.body.classList.remove('highlight');
+        enabled = false;
+        document.getElementById('highlighting-active-link').innerHTML =
+            "<a href='javascript:enable_highlighting()'>%(enable_text)s</a>";
+    }
+
+    function save_preference() {
+        if (confirm("%(warn_local_storage_text)s")) // EU law compliance
+            localStorage.setItem('syntax-highlighting', enabled ? 'yes' : 'no');
+    }
+    // @license-end
+</script>
+
+<div id="highlighting-settings">
+  <a id="highlighting-active-link"></a>
+  &ndash;
+  <a href='javascript:save_preference()'>%(save_text)s</a>
+</div>
+'''
 
 def add_menu(page_flavors, prefix, available, target, translation):
     for k in page_flavors:
@@ -204,6 +258,17 @@ def add_menu(page_flavors, prefix, available, target, translation):
 
         full_footer += languages
 
+        if 'web' not in prefix:
+            disable = t(syntax_highlighting_disable)
+            enable = t(syntax_highlighting_enable)
+            save = t(syntax_highlighting_save)
+            warn = t(syntax_highlighting_warn_local_storage)
+            code = syntax_highlighting_code % {"disable_text": disable,
+                                               "enable_text": enable,
+                                               "save_text": save,
+                                               "warn_local_storage_text": warn}
+            full_footer += code
+
         full_footer = '''<div id="footer">%s</div>''' % full_footer
 
         page_flavors[k][1] = add_footer(page_flavors[k][1], full_footer)
@@ -214,7 +279,8 @@ def process_html_files(pages_dict,
                        package_name='',
                        package_version='',
                        target='offline'):
-    """Add header, footer and tweak links to a number of HTML files
+    """Add header, footer, syntax highlighting toggle, and tweak links
+    to a number of HTML files.
 
     Arguments:
      pages_dict:               dict of filename => translations

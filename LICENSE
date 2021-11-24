@@ -39,3 +39,6 @@ The following exceptions apply:
       to do so.  If you do not wish to do so, delete this exception
       statement from your version.
 
+  * It does not apply to python/auxiliar/vendored/pygments.zip, which
+    is a vendored dependency, itself licensed under the BSD 2-clause
+    "simplified" license.

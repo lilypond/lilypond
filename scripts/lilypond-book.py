@@ -159,6 +159,12 @@ def get_option_parser():
                  action="help",
                  help=_("show this help and exit"))
 
+    # Turn on syntax highlighting using vendored Pygments
+    # when building the main documentation.  Purposefully
+    # undocumented, it is not for end users.
+    p.add_option("--highlight",
+                 action="store_true")
+
     p.add_option("-I", '--include',
                  help=_("add DIR to include path"),
                  metavar=_("DIR"),

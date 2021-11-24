@@ -62,8 +62,8 @@ MISC_FILES = \
     THANKS-2.18 THANKS-2.2 THANKS-2.4 THANKS-2.6 THANKS-2.8
 
 OUT_MISC_FILES = $(addprefix $(outdir)/misc/,$(MISC_FILES))
-OUT_CSS_FILES = $(addprefix $(outdir)/,$(call src-wildcard,css/*.css))
-
+OUT_CSS_FILES = \
+  $(addprefix $(outdir)/,$(call src-wildcard,css/*.css) css/lilypond-highlighting.css)
 
 ### Snippets
 #
@@ -210,6 +210,9 @@ include $(depth)/make/stepmake.make
 OUT_HTML_FILES = \
   $(foreach m, $(SPLIT_HTML_MANUALS), $(outdir)/$(m)-big-page.html)
 EXTRACT_TEXI_FILENAMES_FLAGS += $(if $(VERBOSE),,--quiet)
+
+LILYPOND_BOOK_FLAGS += \
+  --highlight
 
 # xref map maps section titles <> node names for translated split HTML docs.
 $(outdir)/%.xref-map: $(outdir)/%.texi
@@ -902,3 +905,9 @@ $(outdir)/%.css: %.css
 	$(call ly_progress,Making,$@,(copy))
 	mkdir -p $(dir $@)
 	cp -f $< $@
+
+$(outdir)/css/lilypond-highlighting.css:
+	$(call ly_progress,Making,$@,(Pygments generation))
+	mkdir -p $(dir $@)
+	$(PYTHON) $(auxpython-dir)/book_highlight.py \
+	  > $(outdir)/css/lilypond-highlighting.css

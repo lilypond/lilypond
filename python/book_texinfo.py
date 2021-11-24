@@ -408,8 +408,13 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         substr = ''
         rep = snippet.get_replacements()
         if book_snippets.VERBATIM in snippet.option_dict:
-            rep['verb'] = snippet.verb_ly()
-            substr = self.output[book_snippets.VERBATIM] % rep
+            ly_code = snippet.verb_ly()
+            if self.global_options.highlight:
+                from auxiliar.book_highlight import highlight_ly
+                substr = highlight_ly(ly_code)
+            else:
+                rep['verb'] = ly_code
+                substr = self.output[book_snippets.VERBATIM] % rep
         substr += self.output_info(basename, snippet)
         if book_snippets.QUOTE in snippet.option_dict:
             substr = self.output[book_snippets.QUOTE] % {'str': substr}
