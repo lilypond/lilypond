@@ -167,12 +167,14 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
   fi;
 
   if arrowup:
-    draw_arrow (z1, top_stem_thick, z1l - z2l,
-                0.5 stafflinethickness, false);
+    fill draw_arrow (z1, top_stem_thick, z1l - z2l,
+                     0.5 stafflinethickness, false)
+         -- cycle;
   fi;
   if arrowdown:
-    draw_arrow ((0.5 [x2l, x2a], y2), x2a - x2l, up,
-                staff_space / 2, true);
+    fill draw_arrow ((0.5 [x2l, x2a], y2), x2a - x2l, up,
+                     staff_space / 2, true)
+         -- cycle;
   fi;
 enddef;
 

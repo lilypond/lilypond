@@ -166,12 +166,14 @@ def draw_natural (expr arrowup, arrowdown) =
        -- cycle;
 
   if arrowup:
-    draw_arrow (z1, upstem_end_thickness,
-                z1l - z4l, stafflinethickness / 2, false);
+    fill draw_arrow (z1, upstem_end_thickness,
+                     z1l - z4l, stafflinethickness / 2, false)
+         -- cycle;
   fi;
   if arrowdown:
-    draw_arrow (z3, downstem_end_thickness,
-                z2r - z3r, stafflinethickness / 2, true);
+    fill draw_arrow (z3, downstem_end_thickness,
+                     z2r - z3r, stafflinethickness / 2, true)
+         -- cycle;
   fi;
 
   %% debugging:

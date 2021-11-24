@@ -101,14 +101,14 @@ def draw_arrow (expr attach, stemwidth, stemslant, extend, pointingdown) =
            .. z4{(dir angle_tip) transformed flip};
     pat := pat shifted (-xpart attach, 0);
     pat := pat
-           .. reverse pat xscaled -1 shifted (-feta_eps, 0)
-           -- cycle;
+           .. reverse pat xscaled -1 shifted (-feta_eps, 0);
     pat := pat shifted (xpart attach, 0);
-
-    % Draw the arrow
-    pickup pencircle scaled 1;
-    fill pat;
+    if not pointingdown:
+      pat := reverse pat;
+    fi;
 
     labels (range 1 thru 4, 3a, 3b);
-  endgroup;
+
+    pat
+  endgroup
 enddef;

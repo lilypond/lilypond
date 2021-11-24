@@ -143,17 +143,31 @@ def draw_sharp (expr arrowup, arrowdown) =
   z6 = z8 + whatever * ne_beam_dir;
   bot y7 = -top y6 + feta_space_shift;
 
-  draw_gridline (z5, z6, stem_thickness);
-  draw_gridline (z7, z8, stem_thickness);
+  fill lft z7{down}
+       .. bot z7{right}
+       .. rt z7{up}
+    if arrowup:
+       -- draw_arrow (z8, stem_thickness, up,
+                      stafflinethickness / 2 + stem_thickness / 2, false)
+    else:
+       -- rt z8{up}
+       .. top z8{left}
+       .. lft z8{down}
+    fi
+       -- cycle;
 
-  if arrowup:
-    draw_arrow (z8, stem_thickness, up,
-                stafflinethickness / 2 + stem_thickness / 2, false);
-  fi;
-  if arrowdown:
-    draw_arrow (z5, stem_thickness, up,
-                stafflinethickness / 2 + stem_thickness / 2, true);
-  fi;
+  fill rt z6{up}
+       .. top z6{left}
+       .. lft z6{down}
+    if arrowdown:
+       -- draw_arrow (z5, stem_thickness, up,
+                      stafflinethickness / 2 + stem_thickness / 2, true)
+    else:
+       -- lft z5{down}
+       .. bot z5{right}
+       .. rt z5{up}
+    fi
+       -- cycle;
 
   labels (5, 6, 7, 8);
   draw_staff_if_debugging (-2, 2);
