@@ -35,7 +35,9 @@ public:
   }
 
   void derived_report_start () override {}
-  void derived_report_end () override {}
+  void derived_report_alternative_start (Music *, long, SCM) override {}
+  void derived_report_return (long /*alt_num*/) override {}
+  void derived_report_alternative_group_end (Music *) override {}
 };
 
 class Volta_repeat_styler final : public Repeat_styler
@@ -54,6 +56,20 @@ private:
       }
   }
 
+  void report_event (Music *element, Direction d, SCM volta_nums)
+  {
+    SCM ev_scm = Lily::make_music (ly_symbol2scm ("AlternativeEvent"));
+    auto *const ev = unsmob<Music> (ev_scm);
+    if (element)
+      {
+        if (auto *origin = element->origin ())
+          ev->set_spot (*origin);
+      }
+    set_property (ev, "alternative-dir", to_scm (d));
+    set_property (ev, "volta-numbers", volta_nums);
+    ev->send_to_context (owner ()->get_context ());
+  }
+
 public:
   explicit Volta_repeat_styler (Music_iterator *owner) : Repeat_styler (owner)
   {
@@ -64,9 +80,20 @@ public:
     add_repeat_command (ly_symbol2scm ("start-repeat"));
   }
 
-  void derived_report_end () override
+  void derived_report_alternative_start (Music *element,
+                                         long alt_num, SCM volta_nums) override
+  {
+    report_event (element, (alt_num == 1) ? START : CENTER, volta_nums);
+  }
+
+  void derived_report_return (long /*alt_num*/) override
   {
     add_repeat_command (ly_symbol2scm ("end-repeat"));
+  }
+
+  void derived_report_alternative_group_end (Music *element) override
+  {
+    report_event (element, STOP, SCM_EOL);
   }
 };
 

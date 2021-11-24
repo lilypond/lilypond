@@ -69,9 +69,9 @@ Volta_repeat_iterator::process (Moment m)
     {
       // When there are tail alternatives, Alternative_sequence_iterator
       // issues end-repeat commands.
-      if (!empty () && !repeat_styler_->reported_end ())
+      if (!empty () && !repeat_styler_->reported_return ())
         {
-          repeat_styler_->report_end ();
+          repeat_styler_->report_return (0);
         }
       stopped_ = true;
     }

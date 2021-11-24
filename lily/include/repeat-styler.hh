@@ -25,6 +25,7 @@
 
 #include <memory>
 
+class Music;
 class Music_iterator;
 
 // Repeat_styler announces the boundaries of repeated sections on behalf of the
@@ -48,7 +49,8 @@ public:
   // passed into report_start ().
   const Interval_t<Moment> &spanned_time () const { return spanned_time_; }
 
-  bool reported_end () const { return reported_end_; }
+  // Tell whether report_return () has been called at least once.
+  bool reported_return () const { return reported_return_; }
 
   // Report that a repeat has started.  spanned_time is the lifetime of the
   // repeat in the timeline of the score.
@@ -58,10 +60,27 @@ public:
     derived_report_start ();
   }
 
-  void report_end ()
+  // Report that an alternative has started.  alt_num is the index (1-...) of
+  // the alternative within its group and volta_nums is a list of the volta
+  // numbers in which the alternative is used.
+  void report_alternative_start (Music *alt, long alt_num, SCM volta_nums)
   {
-    reported_end_ = true;
-    derived_report_end ();
+    derived_report_alternative_start (alt, alt_num, volta_nums);
+  }
+
+  // Report that it is time to return to the start of the repeated section.
+  // alt_number is the index (1-...) of the alternative that is ending, or 0
+  // for a simple repeat with no alternatives.
+  void report_return (long alt_num)
+  {
+    reported_return_ = true;
+    derived_report_return (alt_num);
+  }
+
+  // Report that the last alternative of a group has ended.
+  void report_alternative_group_end (Music *alt)
+  {
+    derived_report_alternative_group_end (alt);
   }
 
 protected:
@@ -69,12 +88,16 @@ protected:
   Music_iterator *owner () const { return owner_; }
 
   virtual void derived_report_start () = 0;
-  virtual void derived_report_end () = 0;
+  virtual void derived_report_alternative_start (Music *alt,
+                                                 long alt_num,
+                                                 SCM volta_nums) = 0;
+  virtual void derived_report_return (long alt_num) = 0;
+  virtual void derived_report_alternative_group_end (Music *element) = 0;
 
 private:
   Music_iterator *owner_ = nullptr;
   Interval_t<Moment> spanned_time_ {Moment::infinity (), Moment::infinity ()};
-  bool reported_end_ = false;
+  bool reported_return_ = false;
 };
 
 #endif // REPEAT_STYLER_HH

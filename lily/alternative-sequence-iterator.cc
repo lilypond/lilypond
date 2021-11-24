@@ -44,7 +44,6 @@ protected:
   void derived_mark () const override;
 
   void end_alternative ();
-  void report_alternative_event (Music *element, Direction, SCM volta_nums);
   void restore_context_properties ();
   void save_context_properties ();
   void start_alternative ();
@@ -93,35 +92,18 @@ Alternative_sequence_iterator::end_alternative ()
   if (done_count_ == alt_count_) // ending the final alternative
     {
       if (final_alt_needs_end_repeat_)
-        repeat_styler_->report_end ();
+        repeat_styler_->report_return (done_count_);
 
-      report_alternative_event (get_music (), STOP, SCM_EOL);
+      repeat_styler_->report_alternative_group_end (get_music ());
     }
   else if (done_count_ < alt_count_) // ending an earlier alternative
     {
       if (alts_need_end_repeat_)
-        repeat_styler_->report_end ();
+        repeat_styler_->report_return (done_count_);
 
       if (from_scm<bool> (get_property (get_context (), "timing")))
         restore_context_properties ();
     }
-}
-
-void
-Alternative_sequence_iterator::report_alternative_event (Music *element,
-                                                         Direction d,
-                                                         SCM volta_nums)
-{
-  auto *const ev = make_music_by_name (ly_symbol2scm ("AlternativeEvent"));
-  if (element)
-    {
-      if (auto *origin = element->origin ())
-        ev->set_spot (*origin);
-    }
-  set_property (ev, "alternative-dir", to_scm (d));
-  set_property (ev, "volta-numbers", volta_nums);
-  report_event (ev);
-  ev->unprotect ();
 }
 
 void
@@ -197,7 +179,8 @@ Alternative_sequence_iterator::start_alternative ()
       volta_nums = SCM_EOL;
     }
 
-  report_alternative_event (music, (done_count_ ? CENTER : START), volta_nums);
+  repeat_styler_->report_alternative_start (music,
+                                            (done_count_ + 1), volta_nums);
 
   if ((done_count_ + 1) == alt_count_) // starting the final alternative
     {
