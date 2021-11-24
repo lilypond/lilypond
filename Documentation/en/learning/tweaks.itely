@@ -770,7 +770,7 @@ Slur, where it says @q{Slur objects are created by: Slur
 engraver}.  So slurs will be created in whichever context
 the @code{Slur_engraver} is in.  Follow the link to the
 @code{Slur_engraver} page.  At the very bottom it tells
-us that @code{Slur_engraver} is part of seven Voice contexts,
+us that @code{Slur_engraver} is part of eight Voice contexts,
 including the standard voice context, @code{Voice}, so our
 guess was correct.  And because @code{Voice} is one of the
 lowest level contexts which is implied unambiguously by
