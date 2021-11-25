@@ -72,7 +72,7 @@
        (define ,$copy-record #f)
        ,@(map (lambda (s) `(define ,(make-symbol reader-format (car s)) #f)) slots*)
        ,@(map (lambda (s) `(define ,(make-symbol writer-format (car s)) #f)) slots*)
-       (let ((,record ,(make-record-type name (map car slots*))))
+       (let ((,record (make-record-type ',name ',(map car slots*))))
          (set! ,$record?
                (lambda (record) ((record-predicate ,record) record)))
          (set! ,$make-record
