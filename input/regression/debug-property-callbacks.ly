@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.23.6"
 
 \header {
   texidoc = "Cyclic dependencies are detected and warned about.  When
@@ -8,15 +8,20 @@ printed with the warning."
 
 #(ly:set-option 'debug-property-callbacks)
 
+% No lambdas: Guile 2 prints them with their object address,
+% making for nondeterministic output.
+#(define (color-callback grob)
+   (ly:grob-property grob 'layer))
+
+#(define (layer-callback grob)
+   (ly:grob-property grob 'stencil))
+
+#(define (stencil-callback grob)
+   (ly:grob-property grob 'layer))
+
 {
-  \override NoteHead.color =
-    #(lambda (grob)
-       (ly:grob-property grob 'layer))
-  \override NoteHead.layer =
-    #(lambda (grob)
-       (ly:grob-property grob 'stencil))
-  \override NoteHead.stencil =
-    #(lambda (grob)
-       (ly:grob-property grob 'color))
+  \override NoteHead.color = #color-callback
+  \override NoteHead.layer = #layer-callback
+  \override NoteHead.stencil = #stencil-callback
   c
 }
