@@ -40,14 +40,16 @@
     length of stems of notes they encompass.
 */
 
-struct Preinit_Spanner
+class Preinit_Spanner
 {
-  Drul_array<Item *> spanned_drul_;
-  SCM pure_property_cache_;
-  Preinit_Spanner ();
+protected:
+  Drul_array<Item *> spanned_drul_ {nullptr, nullptr};
+  SCM pure_property_cache_ = SCM_UNDEFINED;
+public:
+  std::vector<Spanner *> broken_intos_;
 };
 
-class Spanner : Preinit_Spanner, public Grob
+class Spanner : public Preinit_Spanner, public Grob
 {
   vsize break_index_;
 
@@ -58,8 +60,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_normalized_endpoints, (SCM));
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
-
-  std::vector<Spanner *> broken_intos_;
 
   vsize get_break_index () const;
   Spanner *broken_neighbor (Direction d) const;

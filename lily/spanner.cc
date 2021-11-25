@@ -220,12 +220,6 @@ Spanner::accepts_as_bound_paper_column (const Paper_column *col) const
   return Spanner::accepts_as_bound_item (col);
 }
 
-Preinit_Spanner::Preinit_Spanner ()
-{
-  spanned_drul_.set (0, 0);
-  pure_property_cache_ = SCM_UNDEFINED;
-}
-
 Spanner::Spanner (SCM s)
   : Grob (s)
 {
@@ -332,13 +326,9 @@ Spanner::derived_mark () const
   for (LEFT_and_RIGHT (d))
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm ());
-  ;
 
-  // If break_index_ is -1, broken_intos_ might not yet have run its
-  // constructor and any access might break things.
-  if (break_index_ != (vsize) - 1)
-    for (vsize i = broken_intos_.size (); i--;)
-      scm_gc_mark (broken_intos_[i]->self_scm ());
+  for (vsize i = broken_intos_.size (); i--;)
+    scm_gc_mark (broken_intos_[i]->self_scm ());
 }
 
 /*
