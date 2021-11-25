@@ -35,6 +35,7 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
+#include "string-convert.hh"
 
 #include <cstring>
 
@@ -47,7 +48,16 @@ print_property_callback_stack ()
 {
   int frame = 0;
   for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
-    message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
+    {
+      SCM grob = scm_caar (s);
+      SCM prop = scm_cadar (s);
+      SCM callback = scm_caddar (s);
+      message (String_convert::form_string ("  %d: %s.%s (%s)",
+                                            frame++,
+                                            unsmob<Grob> (grob)->name ().c_str (),
+                                            ly_symbol2string (prop).c_str (),
+                                            ly_scm_write_string (callback).c_str ()));
+    }
 }
 
 static Protected_scm modification_callback (SCM_EOL);
@@ -198,12 +208,12 @@ Grob::internal_get_property (SCM sym) const
 
   if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
     {
-      programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
-                                    ly_symbol2string (sym).c_str (),
-                                    name ().c_str ()));
+      programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for %s.%s",
+                                    name ().c_str (),
+                                    ly_symbol2string (sym).c_str ()));
       if (debug_property_callbacks)
         {
-          message ("backtrace: ");
+          ::message ("backtrace: ");
           print_property_callback_stack ();
         }
     }
