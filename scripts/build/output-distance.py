@@ -321,7 +321,10 @@ class SystemLink:
 
                 if g not in self.link_list_dict:
                     closest = system1.closest(g.name, g.centroid)
-                    if closest is None:
+                    if closest is not None:
+                        self.link_list_dict[g] = [closest]
+                        self.back_link_dict[closest] = g
+                    else:
                         self.orphans.append((None, g))
 
     def calc_geometric_distance(self):
