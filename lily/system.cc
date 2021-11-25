@@ -64,10 +64,11 @@ System::System (SCM s)
 void
 System::init_elements ()
 {
-  SCM scm_arr = Grob_array::make_array ();
-  all_elements_ = unsmob<Grob_array> (scm_arr);
+  all_elements_scm_ = Grob_array::make_array ();
+  all_elements_ = unsmob<Grob_array> (all_elements_scm_);
   all_elements_->set_ordered (false);
-  set_object (this, "all-elements", scm_arr);
+  // TODO: is this actually needed when we do GC via all_elements_scm_ ?
+  set_object (this, "all-elements", all_elements_scm_);
 }
 
 vsize
@@ -105,8 +106,10 @@ System::typeset_grob (Grob *elem)
 void
 System::derived_mark () const
 {
+  scm_gc_mark (all_elements_scm_);
   if (all_elements_)
     {
+      // Grob_array does not protect its elements on its own.
       const vector <Grob *> &arr = all_elements_->array ();
       for (vsize i = arr.size (); i--;)
         scm_gc_mark (arr[i]->self_scm ());
