@@ -957,7 +957,7 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override Tie.stencil = ##f
   \override RepeatTie.stencil = ##f
   \override LaissezVibrerTie.stencil = ##f
-  \override Slur.stencil = #slur::draw-tab-slur
+  \override Slur.control-points = #slur::move-closer-to-tab-note-heads
   \override PhrasingSlur.stencil = ##f
   %% 'tied to' fret numbers become invisible or parenthesized, respectively)
   \override Tie.after-line-breaking = #tie::handle-tab-note-head

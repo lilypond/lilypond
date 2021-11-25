@@ -625,7 +625,7 @@ tabFullNotation = {
   \revert TabStaff.RepeatTie.stencil
   \revert TabStaff.RepeatTie.after-line-breaking
   \revert TabStaff.LaissezVibrerTie.stencil
-  \revert TabStaff.Slur.stencil
+  \revert TabStaff.Slur.control-points
   \revert TabStaff.PhrasingSlur.stencil
   % tuplet stuff
   \revert TabStaff.TupletBracket.stencil

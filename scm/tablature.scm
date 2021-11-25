@@ -128,6 +128,9 @@
         -0.75
         0.75)))
 
+;; FIXME: some of the below routines have side effects that sound
+;; like they could cause dependency on callback order. --JeanAS
+
 ;; the handler for ties in tablature; according to TabNoteHead #'details,
 ;; the 'tied to' note is handled differently after a line break
 (define-public (tie::handle-tab-note-head grob)
@@ -187,28 +190,22 @@
               ;; tab note head is invisible
               (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
 
-;; the slurs should not be too far apart from the corresponding fret number, so
-;; we move the slur towards the TabNoteHeads; moreover, if the left fret number is
-;; the right-bound of a tie, we'll set it in parentheses:
-(define-public (slur::draw-tab-slur grob)
+;; The slurs should not be too far apart from the corresponding fret number, so
+;; we move the slur towards the TabNoteHeads.
+(define-public slur::move-closer-to-tab-note-heads
   ;; TODO: use a less "brute-force" method to decrease
   ;; the distance between the slur ends and the fret numbers
-  (let* ((original (ly:grob-original grob))
-         (left-bound (ly:spanner-bound original LEFT))
-         (left-tab-note-head (ly:grob-property left-bound 'cause))
-         (staff-space (ly:staff-symbol-staff-space grob))
-         (control-points (ly:grob-property grob 'control-points))
-         (new-control-points (map
-                              (lambda (p)
-                                (cons (car p)
-                                      (- (cdr p)
-                                         (* staff-space
-                                            (ly:grob-property grob 'direction)
-                                            0.35))))
-                              control-points)))
-
-    (ly:grob-set-property! grob 'control-points new-control-points)
-    (ly:slur::print grob)))
+  (grob-transformer
+   'control-points
+   (lambda (grob control-points)
+     (let ((direction (ly:grob-property grob 'direction))
+           (staff-space (ly:staff-symbol-staff-space grob)))
+       (map
+        (lambda (p)
+          (cons (car p)
+                (- (cdr p)
+                   (* staff-space direction 0.35))))
+        control-points)))))
 
 ;; The glissando routine works similarly to the slur routine; if the
 ;; fret number is "tied to", it should become parenthesized.
