@@ -33,7 +33,16 @@
   up at the root object. This root object is called @ref{System}, and it
   represents a system (i.e. a line of music).
 */
-class System : public Spanner
+
+class Preinit_System
+{
+protected:
+  SCM all_elements_scm_ = SCM_UNDEFINED;
+  Grob_array *all_elements_ = nullptr;
+  Paper_score *pscore_ = nullptr; // ugh.
+};
+
+class System : private Preinit_System, public Spanner
 {
 public:
   // See Substitution_entry.
@@ -41,10 +50,8 @@ public:
 
 private:
   rank_type rank_ = 0;
-  Grob_array *all_elements_ = nullptr;
   void init_elements ();
   friend class Paper_score;     // ugh.
-  Paper_score *pscore_ = nullptr; // ugh.
 
 public:
   Paper_score *paper_score () const;
