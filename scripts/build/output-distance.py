@@ -94,10 +94,10 @@ def read_pipe(c: str) -> str:
     return os.popen(c).read()
 
 
-def system(c: str):
+def system(c: str, cwd=None):
     log_verbose('system %s' % c)
     # explicitly use bash, so we don't get dash on Ubuntu.
-    subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True)
+    subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True, cwd=cwd)
 
 
 def system_allow_exit1(x: str):
@@ -644,6 +644,54 @@ class MidiFileLink (TextFileCompareLink):
         return str
 
 
+def eps_to_png(fn: str,  dest_dir: str) -> List[str]:
+    # EPS files generated for regression tests don't contain fonts
+    # to save disk space.  Instead, paths to the fonts are stored in
+    # the files that are loaded by Ghostscript's `.loadfont'
+    # operator later on.
+    #
+    # In gub builds, these paths get massaged to be relative to the
+    # location of the particular EPS files.  Since gs doesn't
+    # provide an option to adjust the font lookup paths for
+    # `.loadfont', we enter the directory so that the relative paths
+    # are valid.
+    ret = []
+    if not os.path.exists(fn):
+        return ret
+
+    (dir, base) = os.path.split(fn)
+
+    out_dir = os.path.abspath(dest_dir + '/' + dir)
+    mkdir(out_dir)
+
+    data_option = ''
+    if options.local_data_dir:
+        data_option = ('-slilypond-datadir=%s/share/lilypond/current '
+                       % os.path.abspath(dir))
+
+    driver = open(os.path.join(dir, 'batch.ps'), 'w', encoding='utf8')
+    outfile = os.path.join(out_dir, base).replace('.eps', '.png')
+    driver.write('''
+        mark /OutputFile (%s)
+        /GraphicsAlphaBits 4 /TextAlphaBits 4
+        /HWResolution [101 101]
+        (png16m) finddevice putdeviceprops setdevice
+        (%s) run
+        ''' % (outfile, base))
+    driver.close()
+    cmd = ('gs '
+           ' -dNOSAFER'
+           ' -dEPSCrop'
+           ' -q'
+           ' -dNOPAUSE'
+           ' -dNODISPLAY'
+           ' -dAutoRotatePages=/None'
+           ' -dPrinted=false'
+           ' batch.ps'
+           ' -c quit')
+    system(cmd, cwd=dir)
+    return [outfile]
+
 class SignatureFileLink (FileLink):
     def __init__(self, f1, f2):
         FileLink.__init__(self, f1, f2)
@@ -685,64 +733,10 @@ class SignatureFileLink (FileLink):
     def create_images(self, dest_dir: str) -> Tuple[List[str],List[str]]:
         """Returns a (OLD-FILES, NEW-FILES) tuple."""
 
-        files_created: List[List[str]] = [[], []]
-        for oldnew in (0, 1):
-            pat = self.base_names[oldnew] + '.eps'
+        outputs = [eps_to_png (self.base_names[oldnew] + '.eps', dest_dir)
+                   for oldnew in (0, 1)]
 
-            # EPS files generated for regression tests don't contain fonts
-            # to save disk space.  Instead, paths to the fonts are stored in
-            # the files that are loaded by Ghostscript's `.loadfont'
-            # operator later on.
-            #
-            # In gub builds, these paths get massaged to be relative to the
-            # location of the particular EPS files.  Since gs doesn't
-            # provide an option to adjust the font lookup paths for
-            # `.loadfont', we enter the directory so that the relative paths
-            # are valid.
-            (dir, base) = os.path.split(pat)
-
-            out_dir = os.path.abspath(dest_dir + '/' + dir)
-            mkdir(out_dir)
-
-            abs_dir = os.path.abspath(dir)
-            cur_dir = os.getcwd()
-
-            log_verbose('entering directory %s' % abs_dir)
-            os.chdir(dir)
-
-            data_option = ''
-            if options.local_data_dir:
-                data_option = ('-slilypond-datadir=%s/share/lilypond/current '
-                               % abs_dir)
-
-            driver = open('batch.ps', 'w', encoding='utf8')
-            for f in glob.glob(base):
-                outfile = (out_dir + '/' + f).replace('.eps', '.png')
-                driver.write('''
-                mark /OutputFile (%s)
-                /GraphicsAlphaBits 4 /TextAlphaBits 4
-                /HWResolution [101 101]
-                (png16m) finddevice putdeviceprops setdevice
-                (%s) run
-                ''' % (outfile, f))
-                files_created[oldnew].append(outfile)
-            driver.close()
-            cmd = ('gs '
-                   ' -dNOSAFER'
-                   ' -dEPSCrop'
-                   ' -q'
-                   ' -dNOPAUSE'
-                   ' -dNODISPLAY'
-                   ' -dAutoRotatePages=/None'
-                   ' -dPrinted=false'
-                   ' batch.ps'
-                   ' -c quit')
-            system(cmd)
-
-            log_verbose('leaving directory %s' % abs_dir)
-            os.chdir(cur_dir)
-
-        return (files_created[0], files_created[1])
+        return (outputs[0], outputs[1])
 
     def link_files_for_html(self, dest_dir: str):
         FileLink.link_files_for_html(self, dest_dir)
