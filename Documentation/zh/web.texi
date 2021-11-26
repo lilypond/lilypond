@@ -136,7 +136,7 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 @include en/web/news-headlines.itexi
 
 @divClass{float-right}
-(@ref{旧闻})
+(@ref{News})
 @divEnd
 
 @divEnd
