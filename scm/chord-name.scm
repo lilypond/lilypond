@@ -155,7 +155,7 @@ note names are capitalized."
 
 (define ((chord-name->italian-markup french?) pitch lowercase?)
   "Return pitch markup for @var{pitch}, using Italian/@/French note names.
-If @var{re-with-eacute} is set to @code{#t}, french `ré' is returned for
+If @var{french?} is set to @code{#t}, french `ré' is returned for
 pitch@tie{}D instead of `re'."
 
   (let* ((name (note-name->string pitch
