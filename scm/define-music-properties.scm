@@ -176,7 +176,7 @@ overriding @code{\\transposition}.")
      (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem
 or down-stem?")
 
-     (repeat-count ,integer? "Do a @code{\\repeat} how often?")
+     (repeat-count ,index? "The number of times to perform a @code{\\repeat}.")
 
      (search-direction ,ly:dir? "Limits the scope of @code{\\context} searches.")
      (slash-count ,integer? "The number of slashes in a single-beat repeat.
