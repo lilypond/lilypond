@@ -690,10 +690,10 @@ Beam_scoring_problem::calc_concaveness ()
           the beam.
         */
 
-        auto close = static_cast<int> (rint (head_positions_[i][beam_dir]));
-        close_positions.push_back (close);
-        auto far = static_cast<int> (rint (head_positions_[i][-beam_dir]));
-        far_positions.push_back (far);
+        auto close_pos = static_cast<int> (rint (head_positions_[i][beam_dir]));
+        close_positions.push_back (close_pos);
+        auto far_pos = static_cast<int> (rint (head_positions_[i][-beam_dir]));
+        far_positions.push_back (far_pos);
       }
 
   Real concaveness = 0.0;
