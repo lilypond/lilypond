@@ -23,7 +23,11 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#ifdef __MINGW32__
+#include <malloc.h>
+#else
 #include <alloca.h>
+#endif
 
 const char *const Dispatcher::type_p_name_ = "ly:dispatcher?";
 
