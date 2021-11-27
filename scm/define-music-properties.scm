@@ -33,6 +33,8 @@
      (alternative-dir ,ly:dir? "Indicates that an
 @code{alternative-@/event} is the first (-1), middle (0), or last (1)
 of group of alternate endings.")
+     (alternative-number ,index? "The index of the current
+@code{\\alternative} element, starting from one.")
      (articulation-type ,string? "Key for script definitions alist.
 
 TODO: Consider making type into symbol.")
@@ -176,7 +178,10 @@ overriding @code{\\transposition}.")
      (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem
 or down-stem?")
 
+     (repeat-body-start-moment ,ly:moment? "In a @emph{D.S.} event,
+the moment of the segno.")
      (repeat-count ,index? "The number of times to perform a @code{\\repeat}.")
+     (return-count ,index? "The number of times to perform a @emph{D.S.}")
 
      (search-direction ,ly:dir? "Limits the scope of @code{\\context} searches.")
      (slash-count ,integer? "The number of slashes in a single-beat repeat.

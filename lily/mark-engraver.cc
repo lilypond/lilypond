@@ -17,7 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
+#include "mark-engraver.hh"
 
 #include "axis-group-interface.hh"
 #include "context.hh"
@@ -32,26 +32,6 @@
 #include "translator.icc"
 
 #include <cctype>
-
-/**
-   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
-   rehearsal marks.
-*/
-class Mark_engraver : public Engraver
-{
-  bool first_time_ = true;
-  Item *text_ = nullptr;
-  Item *final_text_ = nullptr;
-
-public:
-  TRANSLATOR_DECLARATIONS (Mark_engraver);
-
-protected:
-  void process_music ();
-  void start_translation_timestep ();
-  void stop_translation_timestep ();
-  void finalize () override;
-};
 
 Mark_engraver::Mark_engraver (Context *c)
   : Engraver (c)
@@ -99,77 +79,100 @@ Mark_engraver::finalize ()
   final_text_ = nullptr;
 }
 
+SCM
+Mark_engraver::get_current_mark_text (Context *context)
+{
+  const char *grob_name = nullptr;
+  SCM text = SCM_EOL;
+  get_current_mark (context, &grob_name, &text);
+  return text;
+}
+
+SCM
+Mark_engraver::get_current_mark (Context *ctx,
+                                 const char **grob_name, SCM *text)
+{
+  *grob_name = nullptr;
+  *text = SCM_EOL;
+
+  // Get the event chosen by Mark_tracking_translator.
+  SCM ev_scm = get_property (ctx, "currentMarkEvent");
+  auto *const ev = unsmob<Stream_event> (ev_scm);
+  if (!ev)
+    return SCM_EOL;
+
+  if (ev->in_event_class ("coda-mark-event"))
+    {
+      *grob_name = "CodaMark";
+
+      const auto label
+        = Mark_tracking_translator::get_coda_mark_label (ctx, ev);
+      if (label > 0)
+        {
+          SCM proc = get_property (ctx, "codaMarkFormatter");
+          if (ly_is_procedure (proc))
+            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+        }
+    }
+  else if (ev->in_event_class ("rehearsal-mark-event"))
+    {
+      *grob_name = "RehearsalMark";
+
+      const auto label
+        = Mark_tracking_translator::get_rehearsal_mark_label (ctx, ev);
+      if (label > 0)
+        {
+          SCM proc = get_property (ctx, "markFormatter");
+          if (ly_is_procedure (proc))
+            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+        }
+    }
+  else if (ev->in_event_class ("section-label-event"))
+    {
+      *grob_name = "SectionLabel";
+
+      *text = get_property (ev, "text");
+    }
+  else if (ev->in_event_class ("segno-mark-event"))
+    {
+      *grob_name = "SegnoMark";
+
+      const auto label
+        = Mark_tracking_translator::get_segno_mark_label (ctx, ev);
+      if (label > 0)
+        {
+          SCM proc = get_property (ctx, "segnoMarkFormatter");
+          if (ly_is_procedure (proc))
+            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+        }
+    }
+  else // ad-hoc-mark-event
+    {
+      *grob_name = "RehearsalMark";
+
+      *text = get_property (ev, "text");
+    }
+
+  return ev_scm;
+}
+
 void
 Mark_engraver::process_music ()
 {
   if (text_)
     return;
 
-  // Get the event chosen by Mark_tracking_translator.
-  SCM ev_scm = get_property (this, "currentMarkEvent");
-  auto *const ev = unsmob<Stream_event> (ev_scm);
-  if (!ev)
-    return;
-
-  SCM text = SCM_EOL;
   const char *grob_name = nullptr;
-  if (ev->in_event_class ("coda-mark-event"))
+  SCM text = SCM_EOL;
+  SCM ev_scm = get_current_mark (context (), &grob_name, &text);
+  if (auto *const ev = unsmob<Stream_event> (ev_scm))
     {
-      grob_name = "CodaMark";
-
-      const auto label
-        = Mark_tracking_translator::get_coda_mark_label (context (), ev);
-      if (label > 0)
-        {
-          SCM proc = get_property (this, "codaMarkFormatter");
-          if (ly_is_procedure (proc))
-            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
-        }
+      text_ = make_item (grob_name, ev->self_scm ());
+      if (Text_interface::is_markup (text))
+        set_property (text_, "text", text);
+      else
+        ev->warning (_ ("mark label must be a markup object"));
     }
-  else if (ev->in_event_class ("rehearsal-mark-event"))
-    {
-      grob_name = "RehearsalMark";
-
-      const auto label
-        = Mark_tracking_translator::get_rehearsal_mark_label (context (), ev);
-      if (label > 0)
-        {
-          SCM proc = get_property (this, "markFormatter");
-          if (ly_is_procedure (proc))
-            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
-        }
-    }
-  else if (ev->in_event_class ("section-label-event"))
-    {
-      grob_name = "SectionLabel";
-
-      text = get_property (ev, "text");
-    }
-  else if (ev->in_event_class ("segno-mark-event"))
-    {
-      grob_name = "SegnoMark";
-
-      const auto label
-        = Mark_tracking_translator::get_segno_mark_label (context (), ev);
-      if (label > 0)
-        {
-          SCM proc = get_property (this, "segnoMarkFormatter");
-          if (ly_is_procedure (proc))
-            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
-        }
-    }
-  else // ad-hoc-mark-event
-    {
-      grob_name = "RehearsalMark";
-
-      text = get_property (ev, "text");
-    }
-
-  text_ = make_item (grob_name, ev->self_scm ());
-  if (Text_interface::is_markup (text))
-    set_property (text_, "text", text);
-  else
-    ev->warning (_ ("mark label must be a markup object"));
 }
 
 void

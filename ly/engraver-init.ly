@@ -709,6 +709,7 @@ run."
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))
   autoCautionaries = #'()
 
+  dalSegnoTextFormatter = #format-dal-segno-text
   fineText = "Fine"
 
   printKeyCancellation = ##t

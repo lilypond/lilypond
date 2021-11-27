@@ -19,6 +19,7 @@
 
 #include "music-wrapper-iterator.hh"
 
+#include "alternative-sequence-iterator.hh"
 #include "context.hh"
 #include "input.hh"
 #include "lily-imports.hh"
@@ -67,13 +68,27 @@ Volta_specced_music_iterator::create_event (Direction d)
   ev->set_spot (*mus->origin ());
   set_property (ev, "volta-numbers", get_property (mus, "volta-numbers"));
   // TODO: tweaks? (see Tuplet_iterator)
-  // TODO: length? (see Tuplet_iterator)
   return ev;
 }
 
 void
 Volta_specced_music_iterator::process (Moment m)
 {
+  // Let the Alternative_sequence_iterator veto the bracket, e.g. for the tail
+  // alternatives of a \repeat segno.
+  if (!started_)
+    {
+      if (auto * const parent
+          = dynamic_cast<Alternative_sequence_iterator *> (get_parent ()))
+        {
+          if (!parent->volta_brackets_enabled ())
+            {
+              started_ = true;
+              stopped_ = true;
+            }
+        }
+    }
+
   // TODO: Test empty music and grace notes (probably won't work as-is).
   if (!started_)
     {

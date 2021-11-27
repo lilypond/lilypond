@@ -52,6 +52,7 @@ public:
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
   void listen_coda_mark (Stream_event *);
+  void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
   void listen_section (Stream_event *);
   void listen_segno_mark (Stream_event *);
@@ -64,6 +65,7 @@ protected:
 private:
   bool first_time_ = true;
   bool heard_coda_mark_ = false;
+  bool heard_dal_segno_ = false;
   bool heard_fine_ = false;
   bool heard_section_ = false;
   bool heard_segno_mark_ = false;
@@ -91,10 +93,17 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
   set_property (tr, "repeatCommands", SCM_EOL);
 
   heard_coda_mark_ = false;
+  heard_dal_segno_ = false;
   heard_fine_ = false;
   heard_section_ = false;
   heard_segno_mark_ = false;
   heard_volta_span_ = false;
+}
+
+void
+Repeat_acknowledge_engraver::listen_dal_segno (Stream_event *)
+{
+  heard_dal_segno_ = true;
 }
 
 void
@@ -278,7 +287,8 @@ Repeat_acknowledge_engraver::process_music ()
           ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
           has_underlying_bar = true;
         }
-      else if ((heard_coda_mark_ || heard_segno_mark_ || has_repeat_bar)
+      else if ((heard_coda_mark_ || heard_dal_segno_ || heard_segno_mark_
+                || has_repeat_bar)
                && (forced_bar_type < BarType::DEFAULT))
         {
           // At points of repetition or departure where there wouldn't
@@ -345,6 +355,7 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
+  ADD_LISTENER (Repeat_acknowledge_engraver, dal_segno);
   ADD_LISTENER (Repeat_acknowledge_engraver, fine);
   ADD_LISTENER (Repeat_acknowledge_engraver, section);
   ADD_LISTENER (Repeat_acknowledge_engraver, coda_mark);
@@ -354,9 +365,11 @@ Repeat_acknowledge_engraver::boot ()
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 /* doc */
-                "Acknowledge repeated music, and convert the contents of"
-                " @code{repeatCommands} into an appropriate setting for"
-                " @code{whichBar}.",
+                R"(
+This translator chooses a bar line based on @code{repeatCommands} and a variety
+of events pertaining to the structure of the piece.  It sets @code{whichBar} to
+the chosen bar line if it has not been set by the user.
+                )",
 
                 /* create */
                 "",

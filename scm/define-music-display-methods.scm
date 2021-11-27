@@ -721,6 +721,9 @@ expression."
                           (music->lily-string music))
                         (ly:music-property expr 'elements))))
 
+(define-display-method SegnoRepeatedMusic (expr)
+  (repeat->lily-string expr "segno"))
+
 (define-display-method VoltaRepeatedMusic (expr)
   (repeat->lily-string expr "volta"))
 

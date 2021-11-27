@@ -88,6 +88,61 @@ way the transposition number is displayed."
                  options)))
     (if o o (car available))))
 
+(define-public (format-dal-segno-text
+                context
+                return-count
+                marks)
+  (let* ((start-markup (car marks))
+         (end-markup (cadr marks))
+         (next-markup (caddr marks))
+         (result (if start-markup "D.S." "D.C.")))
+    (if start-markup
+        (set! result (make-line-markup (list result start-markup))))
+    (if (= 1 return-count)
+        ;; The "al (mark)" detail would probably do more harm than
+        ;; good when there are multiple returns, since it matters the
+        ;; last time only.
+        (if (and next-markup end-markup) ; "... al (mark) e poi ..."
+            (set! result (make-line-markup (list result "al" end-markup))))
+        (set! result (make-line-markup
+                      (list result (number->string return-count) "V."))))
+    (if next-markup ; "... e poi ..."
+        (set! result (make-right-column-markup
+                      (list
+                       result
+                       (make-line-markup (list "e poi la" next-markup)))))
+        (if end-markup ; like "... al Fine"
+            (set! result (make-right-column-markup
+                          (list
+                           result
+                           (make-line-markup (list "al" end-markup)))))))
+    result))
+
+(define-public (format-dal-segno-text-brief
+                context
+                return-count
+                marks)
+  (let* ((start-markup (car marks))
+         (end-markup (cadr marks))
+         (next-markup (caddr marks))
+         (result (if start-markup "D.S." "D.C.")))
+    (if start-markup
+        (set! result (make-line-markup (list result start-markup))))
+    (if (!= 1 return-count)
+        (set! result (make-line-markup
+                      (list result (number->string return-count) "V."))))
+    (if next-markup ; like "al Coda"
+        (set! result (make-right-column-markup
+                      (list
+                       result
+                       (make-line-markup (list "al" next-markup)))))
+        (if end-markup ; like "al Fine"
+            (set! result (make-right-column-markup
+                          (list
+                           result
+                           (make-line-markup (list "al" end-markup)))))))
+    result))
+
 (define-public (format-mark-generic options)
   ;; Select "alphabet", frame, font-series, letter-case and double letter behaviour
   ;; from options list; if none is given, default to first available.

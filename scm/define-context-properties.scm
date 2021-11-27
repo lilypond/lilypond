@@ -267,6 +267,27 @@ staff.")
 This property is incremented at every bar line.")
 
 
+     (dalSegnoTextFormatter ,procedure? "Format a jump instruction
+such as @emph{D.S.}
+
+The first argument is the context.
+
+The second argument is the number of times the instruction is
+performed.
+
+The third argument is a list of three markups: @var{start-markup},
+@var{end-markup}, and @var{next-markup}.
+
+If @var{start-markup} is @code{#f}, the form is @emph{da capo};
+otherwise the form is @emph{dal segno} and @var{start-markup} is the
+sign at the start of the repeated section.
+
+If @var{end-markup} is not @code{#f}, it is either the sign at the end
+of the main body of the repeat, or it is a @emph{Fine} instruction.
+When it is a Fine instruction, @var{next-markup} is @code{#f}.
+
+If @var{next-markup} is not @code{#f}, it is the mark to be jumped to
+after performing the body of the repeat, e.g. Coda.")
      (decrescendoSpanner ,symbol? "The type of spanner to be used for
 decrescendi.  Available values are @samp{hairpin} and @samp{text}.  If
 unset, a hairpin decrescendo is used.")

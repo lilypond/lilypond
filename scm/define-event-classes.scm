@@ -29,6 +29,7 @@
     (music-event . (annotate-output-event
                     footnote-event arpeggio-event breathing-event
                     coda-mark-event
+                    dal-segno-event
                     extender-event span-event rhythmic-event dynamic-event
                     break-event label-event percent-event key-change-event
                     string-number-event stroke-finger-event tie-event

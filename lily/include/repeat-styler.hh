@@ -20,6 +20,7 @@
 #ifndef REPEAT_STYLER_HH
 #define REPEAT_STYLER_HH
 
+#include "direction.hh"
 #include "lily-guile.hh"
 #include "moment.hh"
 
@@ -39,6 +40,9 @@ class Repeat_styler
 public:
   // Create a no-op styler.  Owner must not be null.
   static std::unique_ptr<Repeat_styler> create_null (Music_iterator *owner);
+
+  // Create a styler for \repeat segno.  Owner must not be null.
+  static std::unique_ptr<Repeat_styler> create_segno (Music_iterator *owner);
 
   // Create a styler for \repeat volta.  Owner must not be null.
   static std::unique_ptr<Repeat_styler> create_volta (Music_iterator *owner);
@@ -60,6 +64,24 @@ public:
     derived_report_start ();
   }
 
+  // Report that an alternative group is starting.
+  //
+  // The start direction is START if the start of the alternative group is
+  // aligned with the start of the repeated section, otherwise CENTER.
+  //
+  // The end direction is STOP if the end of the alternative group is aligned
+  // with the end of the repeated section, otherwise CENTER.
+  //
+  // in_order is true if the alternatives are performed in order.
+  //
+  // This returns true if the styler has determined that volta brackets should
+  // be enabled over this group of alternatives.
+  bool report_alternative_group_start (Direction start, Direction end,
+                                       bool in_order)
+  {
+    return derived_report_alternative_group_start (start, end, in_order);
+  }
+
   // Report that an alternative has started.  alt_num is the index (1-...) of
   // the alternative within its group and volta_nums is a list of the volta
   // numbers in which the alternative is used.
@@ -70,11 +92,12 @@ public:
 
   // Report that it is time to return to the start of the repeated section.
   // alt_number is the index (1-...) of the alternative that is ending, or 0
-  // for a simple repeat with no alternatives.
-  void report_return (long alt_num)
+  // for a simple repeat with no alternatives.  return_count is the number of
+  // times this return is performed.
+  void report_return (long alt_num, long return_count)
   {
     reported_return_ = true;
-    derived_report_return (alt_num);
+    derived_report_return (alt_num, return_count);
   }
 
   // Report that the last alternative of a group has ended.
@@ -87,14 +110,23 @@ protected:
   explicit Repeat_styler (Music_iterator *owner) : owner_ (owner) {}
   Music_iterator *owner () const { return owner_; }
 
+  void report_alternative_event (Music *element, Direction d, SCM volta_nums);
+
   virtual void derived_report_start () = 0;
+  virtual bool derived_report_alternative_group_start (Direction start,
+                                                       Direction end,
+                                                       bool in_order) = 0;
   virtual void derived_report_alternative_start (Music *alt,
                                                  long alt_num,
                                                  SCM volta_nums) = 0;
-  virtual void derived_report_return (long alt_num) = 0;
+  virtual void derived_report_return (long alt_num, long return_count) = 0;
   virtual void derived_report_alternative_group_end (Music *element) = 0;
 
 private:
+  // Think twice before adding state or logic to the repeat stylers.  Dealing
+  // with the complexities of music structure should mainly be left to the
+  // music iterators.  The stylers should mainly just act on what the iterators
+  // have discovered, using information that is plainly communicated to them.
   Music_iterator *owner_ = nullptr;
   Interval_t<Moment> spanned_time_ {Moment::infinity (), Moment::infinity ()};
   bool reported_return_ = false;

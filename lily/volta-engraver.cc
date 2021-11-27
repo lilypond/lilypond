@@ -48,6 +48,8 @@ public:
 protected:
 
   void acknowledge_bar_line (Grob_info_t<Item>);
+  void listen_dal_segno (Stream_event *);
+  void listen_fine (Stream_event *);
   void listen_volta_span (Stream_event *);
   static std::string format_numbers (SCM volta_numbers);
 
@@ -65,6 +67,8 @@ protected:
   // sorted, deduped union of volta_numbers_
   SCM groomed_volta_numbers_ = SCM_EOL;
   bool got_new_nums_this_timestep_ = false;
+  bool heard_dal_segno_ = false;
+  bool heard_fine_ = false;
 };
 
 void
@@ -142,6 +146,18 @@ Volta_engraver::format_numbers (SCM volta_numbers)
   handle_num (0);
 
   return result;
+}
+
+void
+Volta_engraver::listen_dal_segno (Stream_event *)
+{
+  heard_dal_segno_ = true;
+}
+
+void
+Volta_engraver::listen_fine (Stream_event *)
+{
+  heard_fine_ = true;
 }
 
 void
@@ -316,6 +332,8 @@ void
 Volta_engraver::start_translation_timestep ()
 {
   got_new_nums_this_timestep_ = false;
+  heard_dal_segno_ = false;
+  heard_fine_ = false;
 }
 
 void
@@ -339,21 +357,24 @@ Volta_engraver::stop_translation_timestep ()
 
   if (end_volta_bracket_)
     {
-      bool open = true;
-
-      // Call out to Scheme to figure out whether the right end of this bracket
-      // should be closed.  (If anything else ever needs to do this, consider
-      // moving this call into Repeat_acknowledge_engraver and having it
-      // communicate the result to other translators via context properties.)
-      SCM glyph = get_property (this, "whichBar");
-      if (scm_is_string (glyph))
+      // Figure out whether the right end of this bracket should be closed
+      // based on the type of bar line and other repeat information.  (If
+      // anything other than Volta_engraver ever needs to do this, consider
+      // moving this into Repeat_acknowledge_engraver and having it communicate
+      // the result to other translators via context properties.)
+      bool open = !(heard_dal_segno_ || heard_fine_);
+      if (open)
         {
-          glyph = Lily::bar_line_calc_glyph_name_for_direction (glyph,
-                                                                to_scm (LEFT));
+          SCM glyph = get_property (this, "whichBar");
           if (scm_is_string (glyph))
             {
-              open = from_scm<bool>
-                     (Lily::volta_bracket_calc_hook_visibility (glyph));
+              glyph = Lily::bar_line_calc_glyph_name_for_direction
+                      (glyph, to_scm (LEFT));
+              if (scm_is_string (glyph))
+                {
+                  open = from_scm<bool>
+                         (Lily::volta_bracket_calc_hook_visibility (glyph));
+                }
             }
         }
 
@@ -382,6 +403,8 @@ void
 Volta_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
+  ADD_LISTENER (Volta_engraver, dal_segno);
+  ADD_LISTENER (Volta_engraver, fine);
   ADD_LISTENER (Volta_engraver, volta_span);
 }
 
@@ -394,9 +417,11 @@ ADD_TRANSLATOR (Volta_engraver,
                 "VoltaBracketSpanner ",
 
                 /* read */
+                "currentCommandColumn "
                 "repeatCommands "
+                "stavesFound "
                 "voltaSpannerDuration "
-                "stavesFound ",
+                "whichBar ",
 
                 /* write */
                 ""

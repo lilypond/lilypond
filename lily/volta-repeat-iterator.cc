@@ -36,12 +36,26 @@ Volta_repeat_iterator::create_children ()
   // Do not style repeats inside LyricCombineMusic because the way the
   // Lyric_combine_music_iterator drives the processing tends to place things
   // at the wrong point in time.
-  const auto timing_is_accurate
-    = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
+  auto create_styler
+    = [this] (std::unique_ptr<Repeat_styler> factory (Music_iterator *))
+  {
+    const auto timing_is_accurate
+      = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
 
-  repeat_styler_ = timing_is_accurate
-                   ? Repeat_styler::create_volta (this)
-                   : Repeat_styler::create_null (this);
+    return timing_is_accurate
+           ? factory (this)
+           : Repeat_styler::create_null (this);
+  };
+
+  if (get_music ()->is_mus_type ("segno-repeated-music"))
+    repeat_styler_ = create_styler (Repeat_styler::create_segno);
+  else if (get_music ()->is_mus_type ("volta-repeated-music"))
+    repeat_styler_ = create_styler (Repeat_styler::create_volta);
+  else
+    {
+      programming_error ("no repeat styler for this type of music");
+      repeat_styler_ = Repeat_styler::create_null (this);
+    }
 
   Sequential_iterator::create_children ();
 }
@@ -71,7 +85,10 @@ Volta_repeat_iterator::process (Moment m)
       // issues end-repeat commands.
       if (!empty () && !repeat_styler_->reported_return ())
         {
-          repeat_styler_->report_return (0);
+          // -1 because there is no return for the final volta
+          const auto return_count
+            = from_scm (get_property (get_music (), "repeat-count"), 1L) - 1;
+          repeat_styler_->report_return (0, return_count);
         }
       stopped_ = true;
     }

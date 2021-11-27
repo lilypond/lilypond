@@ -17,46 +17,19 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sequential-iterator.hh"
+#include "alternative-sequence-iterator.hh"
 
 #include "context.hh"
 #include "input.hh"
 #include "international.hh"
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "music.hh"
 #include "repeat-styler.hh"
 #include "volta-repeat-iterator.hh"
 
 #include <memory>
-
-// iterator for \alternative {...}
-class Alternative_sequence_iterator final : public Sequential_iterator
-{
-public:
-  DECLARE_SCHEME_CALLBACK (constructor, ());
-  Alternative_sequence_iterator () = default;
-
-protected:
-  void next_element () override;
-  void create_children () override;
-  void process (Moment) override;
-  void derived_mark () const override;
-
-  void end_alternative ();
-  void restore_context_properties ();
-  void save_context_properties ();
-  void start_alternative ();
-
-private:
-  bool alts_need_end_repeat_ = false;
-  bool final_alt_needs_end_repeat_ = false;
-  bool first_time_ = true;
-  long alt_count_ = 0;
-  long done_count_ = 0;
-  SCM alt_restores_ = SCM_EOL;
-  std::shared_ptr<Repeat_styler> repeat_styler_;
-};
 
 void
 Alternative_sequence_iterator::derived_mark () const
@@ -81,26 +54,90 @@ Alternative_sequence_iterator::create_children ()
   repeat_styler_ = repeat_iter
                    ? repeat_iter->get_repeat_styler ()
                    : Repeat_styler::create_null (this); // defensive
+}
 
-  alt_count_ = scm_ilength (get_property (get_music (), "elements"));
-  done_count_ = 0;
+// Peek at the alternatives to figure out how they should be presented.
+void
+Alternative_sequence_iterator::analyze ()
+{
+  Direction start_alignment = CENTER;
+  Direction end_alignment = CENTER;
+
+  {
+    // This won't compute the correct endpoint inside \grace.
+    const auto start = get_context ()->now_mom ();
+    const auto len = music_get_length () - music_start_mom ();
+    const auto end = start + len;
+
+    // Do these alternatives start at the start of the repeated section?
+    if (start == repeat_styler_->spanned_time ().left ())
+      start_alignment = START;
+
+    // Do these alternatives end at the end of the repeated section?
+    if (end == repeat_styler_->spanned_time ().right ())
+      end_alignment = STOP;
+  }
+
+  bool alts_in_order = true;
+
+  {
+    const auto repeat_count
+      = from_scm<size_t> (get_property (this, "repeat-count"));
+    SCM alts = get_property (get_music (), "elements");
+    size_t next_expected_volta_num = 1;
+    for (auto *alt : as_ly_smob_list<Music> (alts))
+      {
+        alt_info_.emplace_back ();
+        auto &info = alt_info_.back ();
+
+        SCM volta_nums = alt ? get_property (alt, "volta-numbers") : SCM_EOL;
+        if (!scm_is_pair (volta_nums))
+          {
+            alt->warning (_ ("missing volta specification on alternative"
+                             " element"));
+            alts_in_order = false;
+          }
+        else
+          {
+            volta_nums = scm_sort_list (volta_nums, Guile_user::less);
+            for (auto num : as_ly_scm_list_t<size_t> (volta_nums))
+              {
+                // In tail alternatives, we repeat after every volta except the
+                // last.
+                if ((end_alignment == STOP) && (num < repeat_count))
+                  ++info.return_count;
+
+                if (num == next_expected_volta_num)
+                  ++next_expected_volta_num;
+                else
+                  alts_in_order = false;
+              }
+          }
+      }
+  }
+
+  volta_brackets_enabled_
+    = repeat_styler_->report_alternative_group_start (start_alignment,
+                                                      end_alignment,
+                                                      alts_in_order);
 }
 
 void
 Alternative_sequence_iterator::end_alternative ()
 {
-  if (done_count_ == alt_count_) // ending the final alternative
-    {
-      if (final_alt_needs_end_repeat_)
-        repeat_styler_->report_return (done_count_);
+  if (done_count_ > alt_info_.size ()) // paranoia
+    return;
 
+  const auto &info = alt_info_[done_count_ - 1];
+  if (info.return_count > 0)
+    repeat_styler_->report_return (done_count_, info.return_count);
+
+  if (done_count_ == alt_info_.size ()) // ending the final alternative
+    {
       repeat_styler_->report_alternative_group_end (get_music ());
     }
-  else if (done_count_ < alt_count_) // ending an earlier alternative
+  else if (done_count_ < alt_info_.size ()) // ending an earlier alternative
     {
-      if (alts_need_end_repeat_)
-        repeat_styler_->report_return (done_count_);
-
       if (from_scm<bool> (get_property (get_context (), "timing")))
         restore_context_properties ();
     }
@@ -165,7 +202,7 @@ Alternative_sequence_iterator::save_context_properties ()
 void
 Alternative_sequence_iterator::start_alternative ()
 {
-  if (done_count_ >= alt_count_)
+  if (done_count_ >= alt_info_.size ())
     return;
 
   // Examining the child music is ugly but effective.
@@ -175,37 +212,12 @@ Alternative_sequence_iterator::start_alternative ()
   SCM volta_nums = music ? get_property (music, "volta-numbers") : SCM_EOL;
   if (!scm_is_pair (volta_nums))
     {
-      music->warning (_ ("missing volta specification on alternative element"));
+      // We already warned about this in analyze().
       volta_nums = SCM_EOL;
     }
 
   repeat_styler_->report_alternative_start (music,
                                             (done_count_ + 1), volta_nums);
-
-  if ((done_count_ + 1) == alt_count_) // starting the final alternative
-    {
-      // If alternatives need end-repeat bars, even the final alternative needs
-      // an end-repeat bar if it applies to any volta other than the final one.
-      if (!alts_need_end_repeat_)
-        {
-          // No alternatives need an end repeat, including this one.
-        }
-      else if (!scm_is_pair (volta_nums))
-        {
-          // We already warned above.  Not finding a label, we'll continue as
-          // if the final alternative is for the final volta only.
-        }
-      else if (scm_is_pair (scm_cdr (volta_nums)))
-        {
-          final_alt_needs_end_repeat_ = true;
-        }
-      else // a single, specified volta
-        {
-          SCM rep_count = get_property (this, "repeat-count");
-          final_alt_needs_end_repeat_
-            = scm_is_false (scm_equal_p (scm_car (volta_nums), rep_count));
-        }
-    }
 }
 
 void
@@ -214,18 +226,9 @@ Alternative_sequence_iterator::process (Moment m)
   if (first_time_)
     {
       first_time_ = false;
+      analyze ();
 
-      // If this iterator's end time coincides with the repeat iterator's time,
-      // we need to report end-repeats.
-      {
-        // This won't compute the correct endpoint inside \grace.
-        const auto len = music_get_length () - music_start_mom ();
-        const auto end = get_context ()->now_mom () + len;
-        if (end == repeat_styler_->spanned_time ().right ())
-          alts_need_end_repeat_ = true;
-      }
-
-      if (alt_count_ > 1)
+      if (alt_info_.size () > 1)
         {
           // TODO: Ignoring context properties when timing is disabled is the
           // legacy behavior, but it is questionable.  Wouldn't we want to

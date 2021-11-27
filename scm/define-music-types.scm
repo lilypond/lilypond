@@ -182,6 +182,11 @@ An alternative syntax is @var{note}@code{\\cr} @dots{}
                              event))
         ))
 
+    (DalSegnoEvent
+     . ((description . "Add a @emph{D.S.} or similar instruction.")
+        (types . (dal-segno-event event))
+        ))
+
     (DecrescendoEvent
      . ((description . "Begin or end a decrescendo.
 
@@ -568,6 +573,16 @@ not imply a section division.")
     (SegnoMarkEvent
      . ((description . "Add a segno mark or bar line.")
         (types . (segno-mark-event event))
+        ))
+
+    (SegnoRepeatedMusic
+     . ((description . "Repeats with alternatives placed sequentially and
+marked with segno, Coda, @emph{D.C.}, etc.")
+        (iterator-ctor . ,ly:volta-repeat-iterator::constructor)
+        (elements-callback . ,make-volta-set)
+        (start-callback .  ,ly:calculated-sequential-music::start)
+        (length-callback . ,ly:calculated-sequential-music::length)
+        (types . (segno-repeated-music folded-repeated-music repeated-music))
         ))
 
     (SequentialAlternativeMusic

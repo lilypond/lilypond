@@ -304,6 +304,7 @@ The number of dots in the shifted music may not be less than zero."
 properly."
   (let* ((sane-times (max times 1)) ; TODO: Warn?
          (type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
+                                     ("segno" . SegnoRepeatedMusic)
                                      ("unfold" . UnfoldedRepeatedMusic)
                                      ("percent" . PercentRepeatedMusic)
                                      ("tremolo" . TremoloRepeatedMusic)))
@@ -418,6 +419,7 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
               types))
          (repeat-types-alist
           '((volta . volta-repeated-music)
+            (segno . segno-repeated-music)
             (percent . percent-repeated-music)
             (tremolo . tremolo-repeated-music)
             (() . repeated-music)))

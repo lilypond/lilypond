@@ -24,6 +24,7 @@
 #include "grob-array.hh"
 #include "international.hh"
 #include "item.hh"
+#include "mark-engraver.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
 #include "warn.hh"
@@ -35,7 +36,10 @@
 */
 class Jump_engraver final : public Engraver
 {
+  bool first_time_ = true;
+  bool printed_fine_ = false;
   Item *text_ = nullptr;
+  Stream_event *dal_segno_ev_ = nullptr;
   Stream_event *fine_ev_ = nullptr;
 
 public:
@@ -45,12 +49,19 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
+  void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
 };
 
 Jump_engraver::Jump_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Jump_engraver::listen_dal_segno (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE (dal_segno_ev_, ev);
 }
 
 void
@@ -65,7 +76,82 @@ Jump_engraver::process_music ()
   SCM m = SCM_EOL;
   Stream_event *ev = nullptr;
 
-  if (fine_ev_)
+  if (dal_segno_ev_)
+    {
+      if (fine_ev_)
+        {
+          // Sure, we could complicate this engraver to print text for both,
+          // but the resulting score would still be unclear.  A user who really
+          // wants both D.S. and Fine at the same point can add text to the
+          // score with other features.
+          fine_ev_->warning (_i ("Ignoring Fine simultaneous with"
+                                 " D.C. or D.S."));
+        }
+
+      ev = dal_segno_ev_;
+      text_ = make_item ("JumpScript", ev->self_scm ());
+
+      // We indicate D.S. to the most recent segno mark.  This would not be
+      // correct for nested segno repeats, but we don't care to support those.
+      SCM body_start_markup = SCM_BOOL_F; // D.C.
+      auto segno_count
+        = from_scm<size_t> (get_property (this, "segnoMarkCount"), 0);
+      if (segno_count > 0)
+        {
+          SCM proc = get_property (this, "segnoMarkFormatter");
+          if (ly_is_procedure (proc))
+            {
+              body_start_markup = scm_call_2 (proc, to_scm (segno_count),
+                                              context ()->self_scm ());
+            }
+        }
+
+      SCM body_end_markup = SCM_BOOL_F;
+      SCM next_markup = SCM_BOOL_F;
+      auto alt_num
+        = from_scm<size_t> (get_property (ev, "alternative-number"), 0);
+      if (alt_num > 0)
+        {
+          // Assuming that the coda marks of the current group of alternatives
+          // are sequential, we compute the sequence number of the first one.
+          auto coda_mark_count
+            = from_scm<size_t> (get_property (this, "codaMarkCount"), 0);
+          coda_mark_count -= (alt_num - 1);
+          SCM proc = get_property (this, "codaMarkFormatter");
+          if (ly_is_procedure (proc))
+            {
+              body_end_markup = scm_call_2 (proc, to_scm (coda_mark_count),
+                                            context ()->self_scm ());
+            }
+
+          next_markup = Mark_engraver::get_current_mark_text (context ());
+          // get_current_mark_text () may return SCM_EOL like a failed property
+          // lookup, but our formatter expects either markup or SCM_BOOL_F.
+          if (scm_is_null (next_markup))
+            next_markup = SCM_BOOL_F;
+        }
+
+      if (scm_is_false (next_markup) && printed_fine_)
+        {
+          // Print "al Fine" if there was a "Fine" at any prior point.  This
+          // heuristic might not be correct in scores with multiple segno
+          // repeats, but we don't care enough to complicate this.
+          body_end_markup = get_property (this, "fineText");
+        }
+
+      SCM proc = get_property (this, "dalSegnoTextFormatter");
+      if (ly_is_procedure (proc))
+        {
+          const auto count = from_scm (get_property (ev, "return-count"), 1L);
+          m = scm_call_3 (proc,
+                          context ()->self_scm (),
+                          to_scm (count),
+                          scm_cons2 (body_start_markup,
+                                     body_end_markup,
+                                     scm_cons (next_markup, SCM_EOL)));
+        }
+    }
+  else if (fine_ev_)
     {
       ev = fine_ev_;
       text_ = make_item ("JumpScript", ev->self_scm ());
@@ -91,27 +177,41 @@ Jump_engraver::stop_translation_timestep ()
       text_ = nullptr;
     }
 
+  if (fine_ev_)
+    printed_fine_ = true;
+
+  first_time_ = false;
+  dal_segno_ev_ = nullptr;
   fine_ev_ = nullptr;
 }
 
 void
 Jump_engraver::boot ()
 {
+  ADD_LISTENER (Jump_engraver, dal_segno);
   ADD_LISTENER (Jump_engraver, fine);
 }
 
 ADD_TRANSLATOR (Jump_engraver,
                 /* doc */
-                "Create @code{JumpScript} objects.  It puts them outside"
-                " all staves (which is taken from the property"
-                " @code{stavesFound}).  If moving this engraver to a different"
-                " context, @ref{Staff_collecting_engraver} must move along,"
-                " otherwise all marks end up on the same Y@tie{}location.",
+                R"(
+This engraver creates instructions such as @emph{D.C.} and @emph{Fine}, placing
+them vertically outside the set of staves given in the @code{stavesFound}
+context property.
+
+If @code{Jump_@/engraver} is added or moved to another context,
+@iref{Staff_collecting_engraver} also needs to be there so that marks appear at
+the intended Y@tie{}location.
+                )",
 
                 /* create */
                 "JumpScript ",
 
                 /* read */
+                "dalSegnoTextFormatter "
+                "fineText "
+                "segnoMarkCount "
+                "segnoMarkFormatter "
                 "stavesFound ",
 
                 /* write */
