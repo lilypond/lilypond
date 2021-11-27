@@ -807,10 +807,10 @@ is not set")
      (scriptDefinitions ,list? "The description of scripts.  This is
 used by the @code{Script_engraver} for typesetting note-superscripts
 and subscripts.  See @file{scm/@/script.scm} for more information.")
-     (segnoMarkCount ,index? "Updated at the end of each timestep in which
-a segno appears: not set during the first timestep, 0 up to the first
-segno, 1 from the first to the second segno, 2 from the second to the
-third segno, etc.")
+     (segnoMarkCount ,index? "Updated at the end of each timestep in
+which a segno appears: not set during the first timestep, 0@tie{}up to
+the first segno, 1@tie{}from the first to the second segno,
+2@tie{}from the second to the third segno, etc.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
      (stringFretFingerList ,list? "A list containg three entries.

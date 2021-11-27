@@ -1735,9 +1735,9 @@ scaleDurations =
 segnoMark =
 #(define-music-function (num) ((index?))
    (_i "Create a segno mark (or bar line, if the @code{segnoStyle}
-context property is @code{'bar-line}).  @var{num} may be 1 for the
-first segno, 2 for the second, etc., or it may be @code{\\default} to
-use the next number in sequence automatically.")
+context property is @code{'bar-line}).  @var{num} may be 1@tie{}for
+the first segno, 2@tie{}for the second, etc., or it may be
+@code{\\default} to use the next number in sequence automatically.")
    (if num
        (make-music 'SegnoMarkEvent 'label num)
        (make-music 'SegnoMarkEvent)))
