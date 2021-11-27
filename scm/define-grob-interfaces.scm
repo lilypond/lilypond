@@ -453,7 +453,7 @@ interesting enough to maintain a hara-kiri staff."
 
 (ly:add-interface
  'section-label-interface
- "A section label, e.g. Coda."
+ "A section label, e.g. @qq{Coda}."
  '())
 
 (ly:add-interface
