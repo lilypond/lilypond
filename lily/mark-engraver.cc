@@ -69,6 +69,14 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
+      if (first_time_)
+        {
+          // A mark created at the very beginning is always visible even if it
+          // would not be visible at the beginning of a broken line.
+          set_property (text_, "break-visibility",
+                        scm_c_make_vector (3, SCM_BOOL_T));
+        }
+
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
       final_text_ = text_;
@@ -82,8 +90,12 @@ void
 Mark_engraver::finalize ()
 {
   if (final_text_)
-    set_property (final_text_, "break-visibility",
-                  scm_c_make_vector (3, SCM_BOOL_T));
+    {
+      // A mark created at the very end is always visible even if it would not
+      // be visible at the end of a broken line.
+      set_property (final_text_, "break-visibility",
+                    scm_c_make_vector (3, SCM_BOOL_T));
+    }
   final_text_ = nullptr;
 }
 
@@ -101,7 +113,20 @@ Mark_engraver::process_music ()
 
   SCM text = SCM_EOL;
   const char *grob_name = nullptr;
-  if (ev->in_event_class ("rehearsal-mark-event"))
+  if (ev->in_event_class ("coda-mark-event"))
+    {
+      grob_name = "CodaMark";
+
+      const auto label
+        = Mark_tracking_translator::get_coda_mark_label (context (), ev);
+      if (label > 0)
+        {
+          SCM proc = get_property (this, "codaMarkFormatter");
+          if (ly_is_procedure (proc))
+            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
+        }
+    }
+  else if (ev->in_event_class ("rehearsal-mark-event"))
     {
       grob_name = "RehearsalMark";
 
@@ -149,7 +174,7 @@ Mark_engraver::boot ()
 ADD_TRANSLATOR (Mark_engraver,
                 /* doc */ R"(
 
-This engraver creates rehearsal and segno marks.
+This engraver creates rehearsal, segno, and coda marks.
 
 @code{Mark_@/engraver} creates marks, formats them, and places them vertically
 outside the set of staves given in the @code{stavesFound} context property.
@@ -166,10 +191,12 @@ multiple @code{Mark_tracking_translators} must be used.
 )",
 
                 /* create */
+                "CodaMark "
                 "RehearsalMark "
                 "SegnoMark ",
 
                 /* read */
+                "codaMarkFormatter "
                 "currentMarkEvent "
                 "markFormatter "
                 "segnoMarkFormatter "

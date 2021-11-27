@@ -96,7 +96,7 @@ way the transposition number is displayed."
         (fs (select-option options '(bold medium)))
         (lc (select-option options '(uppercase lowercase mixedcase)))
         (dl (select-option options '(combine repeat)))
-        (sign (select-option options '(nosign segno))))
+        (sign (select-option options '(nosign coda segno varcoda))))
     (lambda (number context)
       (let* ((the-string
               (case ab
@@ -113,8 +113,12 @@ way the transposition number is displayed."
                 ((lowercase) (string-downcase   the-string))))
              (the-flanked-string
               (case sign
+                ((coda) (format-sign-with-number
+                         number (make-coda-markup) the-cased-string))
                 ((segno) (format-sign-with-number
                           number (make-segno-markup) the-cased-string))
+                ((varcoda) (format-sign-with-number
+                            number (make-varcoda-markup) the-cased-string))
                 (else the-cased-string)))
              (the-framed-string
               (case fr
@@ -125,6 +129,9 @@ way the transposition number is displayed."
         (case fs
           ((bold) (make-bold-markup the-framed-string))
           ((medium)                 the-framed-string))))))
+
+(define-public format-coda-mark
+  (format-mark-generic '(numbers coda)))
 
 (define-public format-mark-alphabet
   (format-mark-generic '(alphabet)))
@@ -185,6 +192,8 @@ segni to avoid ambiguity."
              (ly:wide-char->utf-8 #x200a)
              sign-markup))))
 
+(define-public format-varcoda-mark
+  (format-mark-generic '(numbers varcoda)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bass figures.

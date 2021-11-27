@@ -3,8 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, segno marks 1, 2,
-3, 4, and@tie{}9."
+marks and engraves only the first -- in this case, segno marks 1 to 4,
+then 9 to @tie{}11."
 }
 
 \layout {
@@ -43,6 +43,20 @@ marks and engraves only the first -- in this case, segno marks 1, 2,
   R1 \segnoMark \default |
   R1 \segnoMark 9 |
   %% no warning
+
+  R1 \segnoMark \default |
+  R1 \codaMark \default |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "segno-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "coda-mark-event")
+
+  R1 \segnoMark \default |
+  R1 \codaMark 2 |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "segno-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "coda-mark-event")
 
   R1 |
   R1 |

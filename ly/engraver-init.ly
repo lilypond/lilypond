@@ -699,6 +699,7 @@ run."
 
   extendersOverRests = ##t
   lyricMelismaAlignment = #LEFT
+  codaMarkFormatter = #format-coda-mark
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   segnoMarkFormatter = #format-segno-mark-considering-bar-lines

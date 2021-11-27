@@ -723,6 +723,36 @@
                  (interfaces . (cluster-beacon-interface
                                 rhythmic-grob-interface))))))
 
+    (CodaMark
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (baseline-skip . 2)
+        (break-align-symbols . (staff-bar key-signature clef))
+        (break-visibility . ,begin-of-line-invisible)
+        (direction . ,UP)
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        (font-size . 2)
+        (non-musical . #t)
+        (outside-staff-horizontal-padding . 0.2)
+        (outside-staff-padding . 0.4)
+        (outside-staff-priority . 1500) ; same as RehearsalMark
+        (padding . 0.4)
+        (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (break-alignable-interface
+                                coda-mark-interface
+                                font-interface
+                                mark-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))))))
+
     (ControlPoint
      . (
         (color . "IndianRed")

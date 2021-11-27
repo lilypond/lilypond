@@ -221,6 +221,10 @@ and @samp{bracketed}.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
+     (codaMarkFormatter ,procedure? "A procedure that creates a coda
+mark (which in conventional @emph{D.S. al Coda} form indicates the
+start of the alternative endings), taking as arguments the mark
+sequence number and the context.  It should return a markup object.")
      (completionBusy ,boolean? "Whether a completion-note head is playing.")
      (completionFactor ,rational-or-procedure?
                        "When @code{Completion_heads_engraver} and
@@ -746,6 +750,10 @@ property contains the grobs which are still busy (e.g. note heads,
 spanners, etc.).")
 
 
+     (codaMarkCount ,index? "Updated at the end of each timestep in
+which a coda mark appears: not set during the first timestep,
+0@tie{}up to the first coda mark, 1@tie{}from the first to the second,
+2@tie{}from the second to the third, etc.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable (clef, key signature, etc.) items.")
      (currentMarkEvent ,ly:stream-event? "The event selected by

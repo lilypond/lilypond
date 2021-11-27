@@ -362,6 +362,14 @@ clef =
    (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
 
+codaMark =
+#(define-music-function (num) ((index?))
+   (_i "Create a coda mark.  @var{num} may be 1@tie{}for the first
+mark, 2@tie{}for the second, etc., or it may be @code{\\default} to
+use the next number in sequence automatically.")
+   (if num
+       (make-music 'CodaMarkEvent 'label num)
+       (make-music 'CodaMarkEvent)))
 
 compoundMeter =
 #(define-music-function (args) (pair?)

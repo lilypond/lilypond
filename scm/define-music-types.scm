@@ -142,6 +142,11 @@ Syntax: @var{note}@code{\\breathe}")
         (types . (cluster-note-event melodic-event rhythmic-event event))
         ))
 
+    (CodaMarkEvent
+     . ((description . "Add a coda mark.")
+        (types . (coda-mark-event event))
+        ))
+
     (CompletizeExtenderEvent
      . ((description . "Used internally to signal the end of a lyrics block to
 ensure extenders are completed correctly when a @code{Lyrics} context ends

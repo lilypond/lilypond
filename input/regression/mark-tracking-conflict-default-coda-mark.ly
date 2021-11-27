@@ -3,7 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1! to 7! in order."
+marks and engraves only the first -- in this case, coda marks 1 to 6,
+then@tie{}9."
 }
 
 \layout {
@@ -14,54 +15,48 @@ marks and engraves only the first -- in this case, 1! to 7! in order."
 }
 
 \parallelMusic upper,lower {
-  R1 \mark "1!" |
+  R1 \codaMark \default |
   R1 \mark "A!" |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
+                       "conflict with event: `%s'") "coda-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "ad-hoc-mark-event")
 
-  R1 \mark "2!"     |
+  R1 \codaMark \default |
   R1 \mark \default |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
+                       "conflict with event: `%s'") "coda-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "rehearsal-mark-event")
 
-  R1 \mark "3!" |
-  R1 \mark 3    |
+  R1 \codaMark \default |
+  R1 \mark 9 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
+                       "conflict with event: `%s'") "coda-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "rehearsal-mark-event")
 
-  R1 \mark "4!"     |
+  R1 \codaMark \default |
   R1 \segnoMark \default |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
+                       "conflict with event: `%s'") "coda-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "segno-mark-event")
 
-  R1 \mark "5!" |
-  R1 \segnoMark 5 |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
-
-  R1 \mark "6!"     |
   R1 \codaMark \default |
+  R1 \segnoMark 9 |
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
+                       "conflict with event: `%s'") "coda-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "coda-mark-event")
+                       "discarding event: `%s'") "segno-mark-event")
 
-  R1 \mark "7!" |
-  R1 \codaMark 5 |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "ad-hoc-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "coda-mark-event")
+  R1 \codaMark \default |
+  R1 \codaMark \default |
+  %% no warning
+
+  R1 \codaMark \default |
+  R1 \codaMark 9 |
+  %% no warning
 
   R1 |
   R1 |

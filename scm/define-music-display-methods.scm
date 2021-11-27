@@ -561,6 +561,11 @@ expression."
   (string-append "\\mark "
                  (markup->lily-string (ly:music-property mark 'text))))
 
+(define-display-method CodaMarkEvent (mark)
+  (let ((label (ly:music-property mark 'label #f)))
+    (string-append "\\codaMark "
+                   (if label (value->lily-string label) "\\default"))))
+
 (define-display-method RehearsalMarkEvent (mark)
   (let ((label (ly:music-property mark 'label #f)))
     (string-append "\\mark "

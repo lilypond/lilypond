@@ -3,7 +3,7 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1 to 5 in order."
+marks and engraves only the first -- in this case, 1 to 7 in order."
 }
 
 \layout {
@@ -45,6 +45,20 @@ marks and engraves only the first -- in this case, 1 to 5 in order."
                        "conflict with event: `%s'") "rehearsal-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "segno-mark-event")
+
+  R1 \mark 6 |
+  R1 \codaMark \default |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "rehearsal-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "coda-mark-event")
+
+  R1 \mark 7 |
+  R1 \codaMark 8 |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "rehearsal-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "coda-mark-event")
 
   R1 |
   R1 |

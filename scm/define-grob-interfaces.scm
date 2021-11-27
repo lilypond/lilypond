@@ -179,6 +179,11 @@ or 15 (two octaves), but LilyPond allows any integer here."
  '(clef-alignments))
 
 (ly:add-interface
+ 'coda-mark-interface
+ "A coda sign."
+ '())
+
+(ly:add-interface
  'control-point-interface
   "A grob used to visualize one control point of a Bézier curve
 (such as a tie or a slur), for ease of tweaking."
@@ -354,7 +359,7 @@ accidentals)."
 
 (ly:add-interface
  'mark-interface
- "A rehearsal mark or segno."
+ "A rehearsal mark, segno, or coda sign."
  '())
 
 (ly:add-interface

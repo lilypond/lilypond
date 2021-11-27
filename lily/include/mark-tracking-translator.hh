@@ -31,8 +31,10 @@ private:
   {
     none = 0,
     ad_hoc_mark,
+    default_coda_mark,
     default_rehearsal_mark,
     default_segno_mark,
+    specific_coda_mark,
     specific_rehearsal_mark,
     specific_segno_mark,
   };
@@ -45,6 +47,10 @@ private:
   bool first_time_ = true;
 
 public:
+  // Get the label for a coda mark event during process_music ().  It may be
+  // specified in the event or come from the context.
+  static size_t get_coda_mark_label (const Context *, const Stream_event *);
+
   // Get the label for a rehearsal mark event during process_music ().  It may
   // be specified in the event or come from the context.
   static size_t get_rehearsal_mark_label (const Context *,
@@ -58,6 +64,7 @@ protected:
   void stop_translation_timestep ();
 
   void listen_ad_hoc_mark (Stream_event *);
+  void listen_coda_mark (Stream_event *);
   void listen_rehearsal_mark (Stream_event *);
   void listen_segno_mark (Stream_event *);
 

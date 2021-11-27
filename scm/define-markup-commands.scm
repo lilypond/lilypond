@@ -3228,6 +3228,42 @@ the possible glyphs.
 
     glyph))
 
+(define-markup-command (coda layout props)
+  ()
+  #:category music
+  "Draw a coda sign.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\coda
+}
+@end lilypond"
+  (let ((coda (ly:stencil-scale
+                (interpret-markup
+                 layout props
+                 (make-musicglyph-markup "scripts.coda")) 0.8 0.8)))
+    (ly:stencil-translate-axis
+     coda
+     (/ (interval-length (ly:stencil-extent coda Y)) 2.7) Y)))
+
+(define-markup-command (varcoda layout props)
+  ()
+  #:category music
+  "Draw a varcoda sign.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\varcoda
+}
+@end lilypond"
+  (let ((coda (ly:stencil-scale
+                (interpret-markup
+                 layout props
+                 (make-musicglyph-markup "scripts.varcoda")) 0.8 0.8)))
+    (ly:stencil-translate-axis
+     coda
+     (/ (interval-length (ly:stencil-extent coda Y)) 2.7) Y)))
+
 (define-markup-command (segno layout props)
   ()
   #:category music

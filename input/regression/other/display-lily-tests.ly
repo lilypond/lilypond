@@ -200,6 +200,12 @@ are reported on the stderr of this run."
 \test ##[ \segnoMark #2 #]
 \test ##[ c4-\markup \segno #]
 
+%% Coda sign
+\test ##[ \codaMark \default #]
+\test ##[ \codaMark #2 #]
+\test ##[ c4-\markup \coda #]
+\test ##[ c4-\markup \varcoda #]
+
 %% key, time, clef, bar
 \test ##[ \key \default #]			% KeyChangeEvent
 \test ##[ \key e \minor #]

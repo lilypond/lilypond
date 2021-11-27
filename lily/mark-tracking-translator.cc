@@ -65,16 +65,28 @@ Mark_tracking_translator::stop_translation_timestep ()
   // Initialize segnoMarkCount to indicate that we are no longer at the
   // beginning.
   if (first_time_)
-    set_property (context (), "segnoMarkCount", to_scm (0));
+    {
+      set_property (context (), "codaMarkCount", to_scm (0));
+      set_property (context (), "segnoMarkCount", to_scm (0));
+    }
 
-  // Update the counter for the chosen mark.  The segno count is incremented at
-  // the end of the timestep so that there is no inconsistency in its value
-  // during iteration or translators' process_music ().
+  // Update the counter for the chosen mark.  Those for segno and coda marks
+  // are incremented at the end of the timestep so that there is no
+  // inconsistency in value during iteration or translators' process_music ().
   //
   // The rehearsal mark count is handled differently to support its legacy
   // interface: the user may set the property directly rather than with \mark.
   switch (event_type_)
     {
+    case Event_type::default_coda_mark:
+    case Event_type::specific_coda_mark:
+      {
+        const auto label = get_coda_mark_label (context (), event_);
+        if (label > 0)
+          set_property (context (), "codaMarkCount", to_scm (label));
+        break;
+      }
+
     case Event_type::default_rehearsal_mark:
     case Event_type::specific_rehearsal_mark:
       {
@@ -99,6 +111,19 @@ Mark_tracking_translator::stop_translation_timestep ()
 
   clear_event ();
   first_time_ = false;
+}
+
+size_t
+Mark_tracking_translator::get_coda_mark_label (const Context *context,
+                                               const Stream_event *ev)
+{
+  auto n = from_scm<size_t> (get_property (ev, "label"), 0);
+  if (n < 1)
+    {
+      n = from_scm<size_t> (get_property (context, "codaMarkCount"), 0)
+          + 1;
+    }
+  return n;
 }
 
 size_t
@@ -128,6 +153,48 @@ Mark_tracking_translator::listen_ad_hoc_mark (Stream_event *ev)
   // RehearsalMark grobs for backward compatibility), so this conflict check is
   // simple: complain about everything to incentivize using something else.
   set_event_once (Event_type::ad_hoc_mark, ev);
+}
+
+void
+Mark_tracking_translator::listen_coda_mark (Stream_event *ev)
+{
+  SCM label = get_property (ev, "label");
+  if (!scm_is_integer (label)) // \codaMark \default
+    {
+      // Ignore a default coda mark at the beginning of a piece.  There is no
+      // use case in mind here; this is merely for consistency with segni.
+      if (!first_time_)
+        {
+          switch (event_type_)
+            {
+            // Silently ignore default coda mark events after we have any coda
+            // mark event.
+            case Event_type::default_coda_mark:
+            case Event_type::specific_coda_mark:
+              break;
+
+            // Check others.
+            default:
+              set_event_once (Event_type::default_coda_mark, ev);
+              break;
+            }
+        }
+    }
+  else // a specific coda mark
+    {
+      switch (event_type_)
+        {
+        // Silently replace a default coda mark.
+        case Event_type::default_coda_mark:
+          set_event (Event_type::specific_coda_mark, ev);
+          break;
+
+        // Check others.
+        default:
+          set_event_once (Event_type::specific_coda_mark, ev);
+          break;
+        }
+    }
 }
 
 void
@@ -211,6 +278,7 @@ void
 Mark_tracking_translator::boot ()
 {
   ADD_LISTENER (Mark_tracking_translator, ad_hoc_mark);
+  ADD_LISTENER (Mark_tracking_translator, coda_mark);
   ADD_LISTENER (Mark_tracking_translator, rehearsal_mark);
   ADD_LISTENER (Mark_tracking_translator, segno_mark);
 }
@@ -226,10 +294,12 @@ This translator chooses which mark @code{Mark_engraver} should engrave.
                 "",
 
                 /* read */
+                "codaMarkCount "
                 "rehearsalMark "
                 "segnoMarkCount ",
 
                 /* write */
+                "codaMarkCount "
                 "currentMarkEvent "
                 "rehearsalMark "
                 "segnoMarkCount "
