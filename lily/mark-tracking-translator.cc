@@ -234,6 +234,12 @@ Mark_tracking_translator::listen_rehearsal_mark (Stream_event *ev)
 }
 
 void
+Mark_tracking_translator::listen_section_label (Stream_event *ev)
+{
+  set_event_once (Event_type::section_label, ev);
+}
+
+void
 Mark_tracking_translator::listen_segno_mark (Stream_event *ev)
 {
   SCM label = get_property (ev, "label");
@@ -280,6 +286,7 @@ Mark_tracking_translator::boot ()
   ADD_LISTENER (Mark_tracking_translator, ad_hoc_mark);
   ADD_LISTENER (Mark_tracking_translator, coda_mark);
   ADD_LISTENER (Mark_tracking_translator, rehearsal_mark);
+  ADD_LISTENER (Mark_tracking_translator, section_label);
   ADD_LISTENER (Mark_tracking_translator, segno_mark);
 }
 

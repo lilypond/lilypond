@@ -139,6 +139,12 @@ Mark_engraver::process_music ()
             text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
         }
     }
+  else if (ev->in_event_class ("section-label-event"))
+    {
+      grob_name = "SectionLabel";
+
+      text = get_property (ev, "text");
+    }
   else if (ev->in_event_class ("segno-mark-event"))
     {
       grob_name = "SegnoMark";
@@ -174,7 +180,7 @@ Mark_engraver::boot ()
 ADD_TRANSLATOR (Mark_engraver,
                 /* doc */ R"(
 
-This engraver creates rehearsal, segno, and coda marks.
+This engraver creates rehearsal, segno, and coda marks, and section labels.
 
 @code{Mark_@/engraver} creates marks, formats them, and places them vertically
 outside the set of staves given in the @code{stavesFound} context property.
@@ -193,6 +199,7 @@ multiple @code{Mark_tracking_translators} must be used.
                 /* create */
                 "CodaMark "
                 "RehearsalMark "
+                "SectionLabel "
                 "SegnoMark ",
 
                 /* read */

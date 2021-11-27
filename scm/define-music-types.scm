@@ -559,6 +559,12 @@ as a thin double bar line.")
         (types . (section-event event))
         ))
 
+    (SectionLabelEvent
+     . ((description . "Mark the beginning of a named passage.  Does
+not imply a section division.")
+        (types . (section-label-event event))
+        ))
+
     (SegnoMarkEvent
      . ((description . "Add a segno mark or bar line.")
         (types . (segno-mark-event event))

@@ -34,6 +34,7 @@ private:
     default_coda_mark,
     default_rehearsal_mark,
     default_segno_mark,
+    section_label,
     specific_coda_mark,
     specific_rehearsal_mark,
     specific_segno_mark,
@@ -66,6 +67,7 @@ protected:
   void listen_ad_hoc_mark (Stream_event *);
   void listen_coda_mark (Stream_event *);
   void listen_rehearsal_mark (Stream_event *);
+  void listen_section_label (Stream_event *);
   void listen_segno_mark (Stream_event *);
 
 private:

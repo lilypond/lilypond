@@ -3,8 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, coda marks 1 to 6,
-then@tie{}9."
+marks and engraves only the first -- in this case, coda marks 1
+to@tie{}6, then coda marks 8 and@tie{}9."
 }
 
 \layout {
@@ -55,8 +55,15 @@ then@tie{}9."
   %% no warning
 
   R1 \codaMark \default |
-  R1 \codaMark 9 |
+  R1 \codaMark 8 |
   %% no warning
+
+  R1 \codaMark \default |
+  R1 \sectionLabel "Coda" |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "coda-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "section-label-event")
 
   R1 |
   R1 |

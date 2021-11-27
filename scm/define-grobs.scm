@@ -2283,6 +2283,36 @@
         (meta . ((class . Item)
                  (interfaces . (script-column-interface))))))
 
+    (SectionLabel
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (baseline-skip . 2)
+        (break-align-symbols . (left-edge staff-bar))
+        (break-visibility . ,end-of-line-invisible)
+        (direction . ,UP)
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        ;; Larger than MetronomeMark; smaller than RehearsalMark.
+        ;; Avoid bold to contrast with descriptive tempo marks.
+        (font-size . 1.5)
+        (non-musical . #t)
+        (outside-staff-horizontal-padding . 0.2)
+        (outside-staff-priority . 1550) ; slightly higher than RehearsalMark
+        (padding . 0.8)
+        (self-alignment-X . ,LEFT)
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (break-alignable-interface
+                                font-interface
+                                outside-staff-interface
+                                section-label-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))))))
+
     (SegnoMark
      . (
         (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)

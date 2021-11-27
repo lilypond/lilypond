@@ -3,7 +3,8 @@
 
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1! to 7! in order."
+marks and engraves only the first -- in this case, 1! to@tie{}8! in
+order."
 }
 
 \layout {
@@ -62,6 +63,13 @@ marks and engraves only the first -- in this case, 1! to 7! in order."
                        "conflict with event: `%s'") "ad-hoc-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "coda-mark-event")
+
+  R1 \mark "8!" |
+  R1 \sectionLabel "Coda" |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "ad-hoc-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "section-label-event")
 
   R1 |
   R1 |

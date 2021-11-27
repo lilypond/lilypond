@@ -1740,6 +1740,14 @@ scaleDurations =
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
    (ly:music-compress music fraction))
 
+sectionLabel =
+#(define-music-function (text) (markup?)
+   (_i "Mark the beginning of a named passage, e.g. Coda.  This is
+well suited for use at a section division created with
+@code{\\section}, but it does not imply @code{\\section} and may be
+used alone.")
+   (make-music 'SectionLabelEvent 'text text))
+
 segnoMark =
 #(define-music-function (num) ((index?))
    (_i "Create a segno mark (or bar line, if the @code{segnoStyle}

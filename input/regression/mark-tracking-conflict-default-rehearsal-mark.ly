@@ -4,7 +4,7 @@
 \header {
   texidoc = "LilyPond issues warnings for conflicting simultaneous
 marks and engraves only the first -- in this case, 1, 2, then 4
-to@tie{}8."
+to@tie{}9."
 }
 
 \layout {
@@ -57,6 +57,13 @@ to@tie{}8."
                        "conflict with event: `%s'") "rehearsal-mark-event")
   #(ly:expect-warning (ly:translate-cpp-warning-scheme
                        "discarding event: `%s'") "coda-mark-event")
+
+  R1 \mark \default |
+  R1 \sectionLabel "Coda" |
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "conflict with event: `%s'") "rehearsal-mark-event")
+  #(ly:expect-warning (ly:translate-cpp-warning-scheme
+                       "discarding event: `%s'") "section-label-event")
 
   R1 |
   R1 |
