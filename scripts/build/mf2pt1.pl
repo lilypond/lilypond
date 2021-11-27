@@ -1,3 +1,5 @@
+#! /usr/bin/env perl
+
 ##################################################
 # Convert stylized Metafont to PostScript Type 1 #
 # By Scott Pakin <scott+mf@pakin.org>            #
@@ -5,7 +7,7 @@
 
 ########################################################################
 # mf2pt1                                                               #
-# Copyright (C) 2005-2020 Scott Pakin                                  #
+# Copyright (C) 2005-2021 Scott Pakin                                  #
 #                                                                      #
 # This program may be distributed and/or modified under the conditions #
 # of the LaTeX Project Public License, either version 1.3c of this     #
@@ -19,9 +21,10 @@
 # version 2006/05/20 or later.                                         #
 ########################################################################
 
-our $VERSION = "2.6";     # mf2pt1 version number
+our $VERSION = "2.7";     # mf2pt1 version number
 require 5.6.1;            # I haven't tested mf2pt1 with older Perl versions
 
+use Cwd;
 use File::Basename;
 use File::Spec;
 use Getopt::Long;
@@ -158,7 +161,7 @@ my $filedir;
 my $filenoext;
 my $versionmsg = "mf2pt1 version $VERSION
 
-Copyright (C) 2005-2020 Scott Pakin
+Copyright (C) 2005-2021 Scott Pakin
 
 This program may be distributed and/or modified under the conditions
 of the LaTeX Project Public License, either version 1.3c of this
@@ -345,20 +348,110 @@ sub assign_default (\$@)
 }
 
 
+# This function is taken unchanged from the Parse::CommandLine package
+# on CPAN.  It gets included here to avoid a dependency on a module
+# that is rarely contained in distributions.
+
+sub parse_command_line {
+    my $str = shift;
+
+    $str =~ s/\A\s+//ms;
+    $str =~ s/\s+\z//ms;
+
+    my @argv;
+    my $buf;
+    my $escaped;
+    my $double_quoted;
+    my $single_quoted;
+
+    for my $char (split //, $str) {
+        if ($escaped) {
+            $buf .= $char;
+            $escaped = undef;
+            next;
+        }
+
+        if ($char eq '\\') {
+            if ($single_quoted) {
+                $buf .= $char;
+            }
+            else {
+                $escaped = 1;
+            }
+            next;
+        }
+
+        if ($char =~ /\s/) {
+            if ($single_quoted || $double_quoted) {
+                $buf .= $char;
+            }
+            else {
+                push @argv, $buf if defined $buf;
+                undef $buf;
+            }
+            next;
+        }
+
+        if ($char eq '"') {
+            if ($single_quoted) {
+                $buf .= $char;
+                next;
+            }
+            $double_quoted = !$double_quoted;
+            next;
+        }
+
+        if ($char eq "'") {
+            if ($double_quoted) {
+                $buf .= $char;
+                next;
+            }
+            $single_quoted = !$single_quoted;
+            next;
+        }
+
+        $buf .= $char;
+    }
+    push @argv, $buf if defined $buf;
+
+    if ($escaped || $single_quoted || $double_quoted) {
+        die 'invalid command line string';
+    }
+
+    @argv;
+}
+
+
 # Print and execute a shell command.  An environment variable with the
-# same name as the command overrides the command name.  Return 1 on
+# same name as the command overrides the command name; it can also be
+# used to insert additional command-line parameters.  Return 1 on
 # success, 0 on failure.  Optionally abort if the command fails, based
 # on the first argument to execute_command.
 sub execute_command ($@)
 {
     my $abort_on_failure = shift;
     my @command = @_;
-    $command[0] = $ENV{uc $command[0]} || $command[0];
+    my $env = $ENV{uc $command[0]};
+    if ($env) {
+      my @argv = parse_command_line ($env);
+      splice @command, 0, 1, @argv;
+    }
     my $prettyargs = join (" ", map {/[\\ ]/ ? "'$_'" : $_} @command);
     print "Invoking \"$prettyargs\"...\n";
     my $result = system @command;
     die "${progname}: \"$prettyargs\" failed ($!)\n" if $result && $abort_on_failure;
     return !$result;
+}
+
+
+# Prepend a directory to a TeX variable.
+sub prepend_directory($$$)
+{
+    my ($dir, $varname, $ftype) = @_;
+    my $old_value = `kpsewhich --show-path=$ftype`;
+    die "${progname}: failed to run kpathsea ($!)" if $?;
+    chomp $old_value;
+    $ENV{$varname} = "$dir:$old_value";
 }
 
 
@@ -424,7 +517,7 @@ ENDHEADER
 # parameters, too.
 sub get_bboxes ($)
 {
-    execute_command 1, ("mpost", "-mem=mf2pt1", "-recorder", "-progname=mpost",
+    execute_command 1, ("mpost", "-mem=mf2pt1", "-progname=mpost",
                         "\\mode:=localfont; mag:=$mag; bpppix $bpppix; nonstopmode; input $mffile");
     opendir (CURDIR, ".") || die "${progname}: $! ($filedir)\n";
     @charfiles = sort
@@ -759,6 +852,8 @@ GetOptions (\%opthash,
             "rounding=f",
             "bpppix=f",
             "ffscript=s",
+            "save-temps!",
+            "output-dir=s",
             "h|help",
             "V|version") || pod2usage(2);
 if (defined $opthash{"h"}) {
@@ -772,7 +867,7 @@ do {print $versionmsg; exit 1} if defined $opthash{"V"};
 pod2usage(2) if $#ARGV != 0;
 
 # Extract the filename from the command line.
-$mffile = $ARGV[0];
+$mffile = File::Spec->rel2abs($ARGV[0]);
 my @fileparts = fileparse $mffile, ".mf";
 $filebase = $fileparts[0];
 $filedir = $fileparts[1];
@@ -780,9 +875,18 @@ $filenoext = File::Spec->catfile ($filedir, $filebase);
 $pt1file = $filebase . ".pt1";
 $pfbfile = $filebase . ".pfb";
 
-assign_default $bpppix, $opthash{bpppix}, 0.02;
+# If --output-dir was specified, switch to that directory, but point
+# Metapost to the current directory.
+my $outdir = $opthash{"output-dir"};
+if ($outdir) {
+    my $here = getcwd();
+    prepend_directory $here, "MPINPUTS", "mp";
+    prepend_directory $here, "MFINPUTS", "mf";
+    chdir $outdir or die "${progname}: failed to switch to $outdir ($!)\n";
+}
 
 # Make our first pass through the input, to set values for various options.
+assign_default $bpppix, $opthash{bpppix}, 0.02;
 $mag = 100;           # Get a more precise bounding box.
 get_bboxes(1);        # This might set $designsize.
 
@@ -877,7 +981,7 @@ printf OUTFILE "2 index /CharStrings %d dict dup begin\n",
 output_font_programs();
 output_trailer();
 close OUTFILE;
-unlink @charfiles;
+unlink @charfiles unless $opthash{'save-temps'};
 print "\n";
 
 # Convert from the disassembled font format to Type 1 binary format.
@@ -886,7 +990,7 @@ if (!execute_command 0, ("t1asm", $pt1file, $pfbfile)) {
     exit 1;
 }
 print "\n";
-unlink $pt1file;
+unlink $pt1file unless $opthash{'save-temps'};
 
 # Use FontForge to autohint the result.
 my $user_script = 0;   # 1=script file was provided by the user; 0=created here
@@ -917,7 +1021,7 @@ AUTOHINT
 if (!execute_command 0, ("fontforge", "-script", $ffscript, $pfbfile)) {
     warn "${progname}: You'll need to install FontForge if you want $pfbfile autohinted (not required, but strongly recommended)\n";
 }
-unlink $ffscript if !$user_script;
+unlink $ffscript if !$user_script && !$opthash{'save-temps'};
 print "\n";
 
 # Finish up.
@@ -954,6 +1058,8 @@ mf2pt1
 [B<--rounding>=I<number>]
 [B<--bpppix>=I<number>]
 [B<--ffscript>=I<file.pe>]
+[B<--save-temps>]
+[B<--output-dir>=I<directory>]
 I<infile>.mf
 
 
@@ -1065,7 +1171,25 @@ Redefine the number of big points per pixel from 0.02 to I<number>.
 
 Name a script to pass to FontForge.
 
+=item B<--save-temps>
+
+Do not delete intermediate files (can be useful for debugging).
+
+=item B<--output-dir>=I<directory>
+
+Write all intermediate and output files to directory I<directory>
+[default: the current directory].  The directory must already exist.
+
 =back
+
+
+=head1 ENVIRONMENT
+
+Environment variables with the same name as a program that B<mf2pt1>
+launches but in uppercase specify an alternative program, possibly
+with arguments, to run instead.  For example, setting C<MPOST='mpost
+-recorder'> causes B<mf2pt1> to include the B<-recorder> option when
+running B<mpost>.
 
 
 =head1 FILES

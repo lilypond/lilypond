@@ -43,6 +43,10 @@ cd $tmp
 export MFINPUTS="${srcdir}:..:"
 export max_print_line=1000
 
+# While calling the `mf2pt1` script, activate the filename recorder (which
+# creates a `.fls` file); we use it to set up a dependencies file.
+export MPOST="mpost -recorder"
+
 ${mf2pt1} --rounding=0.0001 \
   --family=$name \
   --fullname=$name \
