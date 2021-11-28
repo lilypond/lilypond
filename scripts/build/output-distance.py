@@ -644,7 +644,7 @@ class MidiFileLink (TextFileCompareLink):
         return str
 
 
-def eps_to_png(fn: str,  dest_dir: str) -> List[str]:
+def eps_to_png(fn: str,  dest_dir: str) -> str:
     # EPS files generated for regression tests don't contain fonts
     # to save disk space.  Instead, paths to the fonts are stored in
     # the files that are loaded by Ghostscript's `.loadfont'
@@ -655,10 +655,6 @@ def eps_to_png(fn: str,  dest_dir: str) -> List[str]:
     # provide an option to adjust the font lookup paths for
     # `.loadfont', we enter the directory so that the relative paths
     # are valid.
-    ret = []
-    if not os.path.exists(fn):
-        return ret
-
     (dir, base) = os.path.split(fn)
 
     out_dir = os.path.abspath(dest_dir + '/' + dir)
@@ -690,7 +686,7 @@ def eps_to_png(fn: str,  dest_dir: str) -> List[str]:
            ' batch.ps'
            ' -c quit')
     system(cmd, cwd=dir)
-    return [outfile]
+    return outfile
 
 class SignatureFileLink (FileLink):
     def __init__(self, f1, f2):
@@ -730,19 +726,21 @@ class SignatureFileLink (FileLink):
 
         self.add_system_link(link, system_index[0])
 
-    def create_images(self, dest_dir: str) -> Tuple[List[str],List[str]]:
+    def create_images(self, dest_dir: str) -> Tuple[Optional[str], Optional[str]]:
         """Returns a (OLD-FILES, NEW-FILES) tuple."""
 
-        outputs = [eps_to_png (self.base_names[oldnew] + '.eps', dest_dir)
-                   for oldnew in (0, 1)]
+        outputs = [None, None]
+        for oldnew in (0, 1):
+            fn = self.base_names[oldnew] + '.eps'
+            if os.path.exists(fn):
+                outputs[oldnew] = eps_to_png (fn, dest_dir) 
 
         return (outputs[0], outputs[1])
 
     def link_files_for_html(self, dest_dir: str):
         FileLink.link_files_for_html(self, dest_dir)
-        to_compare = self.create_images(dest_dir)
-
-        for (old, new) in zip(to_compare[0], to_compare[1]):
+        old, new  = self.create_images(dest_dir)
+        if old and new: 
             compare_png_images(old, new, dest_dir)
 
     def get_cell(self, oldnew):
@@ -759,11 +757,6 @@ class SignatureFileLink (FileLink):
 <div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt=""/></a></div>
 ''' % locals())
 
-        def multi_img_cell(imgs: List[str]):
-            imgs_str = '\n'.join(['''<a href="%s"><img src="%s" alt=""/></a>''' % (img, img)
-                                  for img in imgs])
-            return '', imgs_str
-
         # If we have systems, we expect that images have been or will
         # be created.
         num_systems = (sum(1 for x in list(self.system_links.values()) if x.system1),
@@ -776,11 +769,6 @@ class SignatureFileLink (FileLink):
             ext = '.compare.jpeg'
         else:
             ext = '.png'
-
-        # TODO: this is broken; no regtest outputs a page[0-9].{eps,png} file
-        pages = glob.glob(base + '-page*' + ext)
-        if pages:
-            return multi_img_cell(sorted(pages))
 
         img = base + ext
         if expect_compare:
