@@ -1311,6 +1311,9 @@ def test_compare_tree_pairs():
     system('cp 20multipage* dir1')
     system('cp 20multipage* dir2')
 
+    system('cp removed* dir1')
+    system('cp added* dir2')
+
     system('mkdir -p dir1/subdir/ dir2/subdir/')
     system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir1/subdir/')
     system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir2/subdir/')
@@ -1328,6 +1331,7 @@ def test_compare_tree_pairs():
     system('cp 19-1.signature dir2/20grob-2.signature')
     system('cp 19-1.eps dir2/20grob-1.eps')
     system('cp 19-1.eps dir2/20grob-2.eps')
+    system('cp 19.ly dir2/20grob.ly')
     system('cp 19.eps dir2/20grob.eps')
     system('cp 19.log dir2/20grob.log')
     system('cp 20{.ly,.log} dir2/')
@@ -1336,8 +1340,6 @@ def test_compare_tree_pairs():
     system('cp 19multipage.log dir1/log-differ.log')
     system('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    system('echo "removed" > dir1/removed.log')
-    system('echo "added" > dir2/added.log')
 
     compare_tree_pairs([('dir1', 'dir2')],
                        'compare-dir1dir2', options.threshold)
@@ -1420,7 +1422,28 @@ def test_basic_compare():
     open('19multipage.ly', 'w', encoding='utf8').write(
         '#(set-global-staff-size 19.5)\n' + multipage_str)
 
-    names = simple_names + ["20multipage", "19multipage"]
+    open('added.ly', 'w', encoding='utf8').write(
+        r"""
+#(define default-toplevel-book-handler
+  print-book-with-defaults-as-systems )
+
+#(ly:set-option (quote no-point-and-click))
+
+\sourcefilename "added.ly"
+{ a'4 }
+""")
+    open('removed.ly', 'w', encoding='utf8').write(
+        r"""
+#(define default-toplevel-book-handler
+  print-book-with-defaults-as-systems )
+
+#(ly:set-option (quote no-point-and-click))
+
+\sourcefilename "removed.ly"
+{ e'4 }
+""")
+
+    names = simple_names + ["20multipage", "19multipage"] + ['added', 'removed']
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
     system('%s -dseparate-page-formats=ps -daux-files -dtall-page-formats=ps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
     test_compare_signatures(simple_names)
