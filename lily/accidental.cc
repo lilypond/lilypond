@@ -62,6 +62,8 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   Skyline_pair sky (skylines_from_stencil (my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
+  SCM parenthesized = get_property (me, "parenthesized");
+
   SCM props = Font_interface::music_font_alist_chain (me);
   SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
                                   props,
@@ -69,7 +71,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
   SCM alt = get_property (me, "alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
                                          "");
-  if (glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
+  if ((glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat") && !from_scm<bool> (parenthesized))
     {
       // a bit more padding for the right of the stem
       // we raise the stem horizontally to a bit less than the average
