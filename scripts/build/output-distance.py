@@ -28,6 +28,7 @@ import math
 import optparse
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -70,7 +71,7 @@ class TempDirectory:
 
     def __del__(self):
         log_verbose('rm -rf %s' % self.dir)
-        os.system('rm -rf %s' % self.dir)
+        shutil.rmtree(self.dir)
 
     def __call__(self):
         return self.dir
