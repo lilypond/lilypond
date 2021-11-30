@@ -296,6 +296,9 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return ly_string2scm (_ (ly_scm2string (original).c_str ()));
 }
 
+// TODO: When we drop Guile 1 support, remove this function
+// and simply use either escape sequences (\u, \U) and/or
+// integer->char.
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
            1, 0, 0, (SCM wc),
            "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.")

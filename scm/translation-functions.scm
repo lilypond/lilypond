@@ -175,21 +175,14 @@ segni to avoid ambiguity."
       empty-markup
       (format-segno-mark segno-number context)))
 
-(define unicode-hair-space
-  (cond-expand
-   (guile-2
-    ;; Get it indirectly to make Guile 1 happy about the syntax.
-    (string (integer->char #x200a)))
-   (else "\xe2\x80\x8a")))
-
 (define (format-sign-with-number number sign-markup number-markup)
   (make-concat-markup
    (if (<= number 2)
        (make-list number sign-markup)
        (list sign-markup
-             unicode-hair-space
+             (ly:wide-char->utf-8 #x200a) ;; Unicode hair space
              number-markup
-             unicode-hair-space
+             (ly:wide-char->utf-8 #x200a)
              sign-markup))))
 
 
