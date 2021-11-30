@@ -2,8 +2,8 @@
 
 \header {
   texidoc = "Chords containing unisons or seconds:
-    Center articulation marks, dynamics, slurs, etc. on the notehead that
-    is on the “correct” side of the stem."
+    Center articulation marks, dynamics, slurs, etc., on the notehead that
+    is on the ``correct'' side of the stem."
 }
 
 {

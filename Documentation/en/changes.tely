@@ -226,7 +226,7 @@ accidental glyphs may be set for all grobs at once
 (refer to @ruser{Alternate accidental glyphs}).
 
 @lilypond
-% Avoid unfortunate cropping of the arrow-sharp glyph…
+% Avoid unfortunate cropping of the arrow-sharp glyph...
 \markup \vspace #0.5
 
 \layout {

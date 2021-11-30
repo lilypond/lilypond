@@ -3055,7 +3055,7 @@ New bar line types can be defined with @code{\defineBarLine}:
 @noindent
 In addition to @var{bartype} (the character string that will
 then be used to refer to that new bar line), it takes three values:
-the first two determine the bar line’s appearance when it occurs at
+the first two determine the bar line's appearance when it occurs at
 a line break, in which case the first and second given glyphs
 are printed respectively at the @var{end} of the system and at
 the @var{begin}ning of the next one.  The third given glyph is

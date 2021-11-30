@@ -3,9 +3,9 @@
 \header {
   texidoc = "TOC labels can be explicitly specified,
 and structured hierarchically; they appear in PDF
-bookmarks as well (the `table of contents’ panel
+bookmarks as well (the `table of contents' panel
 in PDF viewers).  PDF bookmarks are reordered so as
-to not `go back in time’."
+to not `go back in time'."
 }
 
 #(set-default-paper-size "a8" 'landscape)

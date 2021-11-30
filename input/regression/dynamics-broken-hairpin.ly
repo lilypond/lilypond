@@ -1,7 +1,8 @@
 \version "2.19.21"
 
 \header {
-  texidoc = "When a hairpin is broken, the broken parts should be open at the ‘breaking point’."
+  texidoc = "When a hairpin is broken, the broken parts should be open
+             at the `breaking point'."
 }
 
 \layout {

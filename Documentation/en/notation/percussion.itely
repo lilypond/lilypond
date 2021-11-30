@@ -447,7 +447,7 @@ Existing notations may be redefined as an association list
 where each entry has to be comprised of four items:
 a name, the note head style (or @code{default}), an
 articulation sign if needed (or @code{#f} if not), and
-the note head’s position on the staff.  That list must then
+the note head's position on the staff.  That list must then
 be converted into a Scheme hash table, using the
 @code{alist->hash-table} function.
 

@@ -1219,7 +1219,7 @@ using @code{ly:@/line-interface::@/line} and getting layout information from
   (if (< (length points) 2)
       (begin
         (ly:warning
-         "´make-connected-line´ needs at least two points: ~a"
+         "'make-connected-line' needs at least two points: ~a"
          points)
         empty-stencil)
       (connected-points grob '() points)))

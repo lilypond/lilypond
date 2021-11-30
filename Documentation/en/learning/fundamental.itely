@@ -3184,7 +3184,7 @@ that has to be added @emph{after} a note (see
 @ref{Structure of a note entry}), often prefixed with a dash or a direction
 modifier.  In fact, even these events can be stored in
 a variable -- in which case the usual curly braces are not wanted,
-since you wouldn’t use them between a note and its articulations.
+since you wouldn't use them between a note and its articulations.
 
 @noindent
 If such a definition includes a prefix, then the variable can be

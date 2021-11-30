@@ -323,7 +323,7 @@ darodo   = { \pgrace { G32[ d G c G] } }
 Gdarodo  = { \pgrace { d32[ G c G] } }
 pdarodo  = { \pgrace { G16[ d32 G c G16] } }
 pGdarodo = { \pgrace { d32[ G c G16] } }
-% Weird stuff from Joseph MacDonald’s book
+% Weird stuff from Joseph MacDonald's book
 fifteenthcutting     = { \pgrace { G32[ d a e a f a e a d] } }
 fifteenthcuttingG    = { \pgrace { G32[ d a e G f G e G d] } }
 Gfifteenthcutting    = { \pgrace { d32[ a e a f a e a d] } }

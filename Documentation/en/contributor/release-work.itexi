@@ -424,13 +424,13 @@ Update the htaccess redirections (@code{/latest/}, @code{/stable/} etc.)
 in @file{Documentation/webserver/lilypond.org.htaccess}.
 
 @item
-Add a link to the previous stable version’s
+Add a link to the previous stable version's
 announcement, list of changes and contributors
 acknowledgements to the @q{Attic} page, in
 @file{Documentation/en/web/community.itexi}.
 
 @item
-Add a link to the previous stable version’s documentation
+Add a link to the previous stable version's documentation
 to @file{Documentation/en/web/manuals.itexi}.
 
 @end itemize

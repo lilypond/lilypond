@@ -3511,7 +3511,7 @@ space.
 The SpacingSpanner is an abstract grob that lives in the Score
 context.  As with our settings of proportionalNotationDuration,
 overrides to the SpacingSpanner can occur in any of three
-different places in our input file – in the Score \with block, in
+different places in our input file -- in the Score \with block, in
 a Score \context block, or in note entry directly.
 
 There is by default only one @code{SpacingSpanner} per @code{Score}.  This

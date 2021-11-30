@@ -1361,7 +1361,7 @@ we write:
 and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
 a symbol, but a character string, mapped to a predefined list
-of internal values.  In that regard, LilyPond’s syntax mimics the
+of internal values.  In that regard, LilyPond's syntax mimics the
 @uref{https://www.w3.org/Style/CSS/, CSS language}
 commonly used in webpages; in addition to predefined names,
 we can specify a hexadecimal color code:
@@ -1408,9 +1408,9 @@ whiteVar = "#FFFFFF"
 
 Another way of adding colors to your score is by using a function.
 There are two useful functions in this regard; one is the
-@code{x11-color} function, which we’ll get to use shortly.
+@code{x11-color} function, which we'll get to use shortly.
 The other one, the @code{rgb-color} function, closely
-demonstrates LilyPond’s internal logic:  it takes
+demonstrates LilyPond's internal logic:  it takes
 three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}

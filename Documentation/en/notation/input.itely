@@ -1836,9 +1836,9 @@ inside a music expression.
 @end verbatim
 
 Optionally, a label can be associated with a particular item, or a
-hierarchical list of existing labels, finishing with that item’s
+hierarchical list of existing labels, finishing with that item's
 label.  That latter case allows to mark the item as a @q{child}
-of the preceeding labeled items, thus making the score’s structure
+of the preceeding labeled items, thus making the score's structure
 apparent in the table of contents.
 
 Markups used for formatting the table of contents are defined in the
@@ -1876,7 +1876,7 @@ tocItemMarkup = \markup \fill-line {
 @code{tocFormatMarkup}
 
 @noindent
-How the table’s top level entries will be formatted (if there
+How the table's top level entries will be formatted (if there
 are several hierarchical levels).  This is actually a procedure,
 as explained in @rextend{Markup construction in Scheme}.
 
@@ -1887,7 +1887,7 @@ tocFormatMarkup = #make-bold-markup
 @code{tocIndentMarkup}
 
 @noindent
-Used to define how the outline’s hierarchy will be made apparent.
+Used to define how the outline's hierarchy will be made apparent.
 This markup is printed zero, one or several times depending on
 the level of each entry.
 
@@ -1993,7 +1993,7 @@ definitions, the source file could then be written as follows:
   tocItemMarkup = \markup \fill-line {
     \fill-with-pattern #1.5 #CENTER .
     \line {
-      \hspace #-4 %% Cancelling the first level’s tocIndentMarkup
+      \hspace #-4 %% Cancelling the first level's tocIndentMarkup
       \fromproperty #'toc:indent \fromproperty #'toc:text
       \hspace #2
     }
@@ -2868,7 +2868,7 @@ When entering or copying music, usually only the music near the end (where
 new notes are being added) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
 the last few measures.  This is achieved by defining a special variable
-at the source file’s top level, as follows:
+at the source file's top level, as follows:
 
 @example
 showLastLength = R1*5

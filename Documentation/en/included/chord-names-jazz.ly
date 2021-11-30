@@ -2,7 +2,7 @@
 \header {
 
 texidoc = "This list demonstrates the support for
-jazz chord names, using Klaus Ignatzek’s notation."
+jazz chord names, using Klaus Ignatzek's notation."
 
 }
 

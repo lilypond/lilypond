@@ -956,7 +956,7 @@ it is part of the larger group of fretted strings, which is playing.
 @funindex remove-layer
 
 The @code{Keep_alive_together_engraver} internally uses the
-@code{remove-layer} property of a staff’s @code{VerticalAxisGroup}
+@code{remove-layer} property of a staff's @code{VerticalAxisGroup}
 to decide whether to print it or not when it is considered empty.
 That property may also be set directly, in which case it acts as
 a priority index: values closest to zero take precedence over
@@ -981,7 +981,7 @@ they may contain;
 when that property gets unset (and thus reverts to its default
 setting), it is no longer preventing the two other staves from being
 printed; however, as their @code{remove-layer} setting is lower than
-the single staff’s, these two staves are now printed in its place.
+the single staff's, these two staves are now printed in its place.
 
 @end itemize
 
@@ -1847,9 +1847,9 @@ it must be followed by a music expression:
 
 @lilypond[quote,verbatim,fragment]
 \compressMMRests {
-  % Rests are compressed…
+  % Rests are compressed...
   R1*7
-  % … but notes can still span multiple measures.
+  % ... but notes can still span multiple measures.
   g'1 a'1*2 d'1
   R1*2
 }

@@ -737,7 +737,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                   (< (cdr pairA) (cdr pairB)))))
          (remaining (map car sorted-page-numbers)))
     ;; TODO -- properly handle non-linear parent-children
-    ;; relationships (within the format’s limitations) -vv
+    ;; relationships (within the format's limitations) -vv
     (map
      (lambda (entry)
        (let* ((id (car entry))

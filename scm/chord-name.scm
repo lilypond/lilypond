@@ -43,7 +43,7 @@
   (member alteration
           ;; flat-based glyphs in various notation systems.
           ;; (duplicates come from the input files, for
-          ;; consistency’s sake) -vv
+          ;; consistency's sake) -vv
           '(0
             ;; western accidentals
             -1/2 -1/4

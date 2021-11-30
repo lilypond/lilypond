@@ -9,7 +9,7 @@
 
     With @code{\override Fingering.X-align-on-main-noteheads = ##t},
     the fingerings oriented @code{up} and @code{down} will be arranged
-    in a straight column aligned on the noteheads on the “correct” side
+    in a straight column aligned on the noteheads on the ``correct'' side
     of the stem."
 }
 

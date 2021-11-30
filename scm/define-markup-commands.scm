@@ -214,7 +214,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
           ;; Add double-thickness to avoid overlapping.
           (set! off (+ (* 2 th) off))
           (let* (;; Make a guess how often the off/on-pair should be printed
-                 ;; after the initial `on´.
+                 ;; after the initial `on'.
                  ;; Assume a minimum of 1 to avoid division by zero.
                  (guess (max 1 (round (/ (- line-length on) (+ off on)))))
                  ;; Not sure about the value or why corr is necessary at all,
@@ -230,13 +230,13 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
 
              ;; Settings for (= on 0). Resulting in a dotted line.
 
-             ;; If line-length isn't shorter than `th´, change the given
-             ;; value for `off´ to fit the line-length.
+             ;; If line-length isn't shorter than `th', change the given
+             ;; value for `off' to fit the line-length.
              ((and (= on 0) (< th line-length))
               (set! off new-off))
 
-             ;; If the line-length is shorter than `th´, it makes no
-             ;; sense to adjust `off´. The rounded edges of the lines
+             ;; If the line-length is shorter than `th', it makes no
+             ;; sense to adjust `off'. The rounded edges of the lines
              ;; would prevent any nice output.
              ;; Do nothing.
              ;; This will result in a single dot for very short lines.
@@ -246,7 +246,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
              ;; Settings for (not (= on 0)). Resulting in a dashed line.
 
              ;; If line-length isn't shorter than one go of on-off-on,
-             ;; change the given value for `off´ to fit the line-length.
+             ;; change the given value for `off' to fit the line-length.
              ((< (+ (* 2 on) off) line-length)
               (set! off new-off))
              ;; If the line-length is too short, but greater than
@@ -257,11 +257,11 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
              ;; If the line-length is shorter than (* 4 th), it makes
              ;; no sense trying to adjust on/off. The rounded edges of
              ;; the lines would prevent any nice output.
-             ;; Simply set `on´ to line-length.
+             ;; Simply set `on' to line-length.
              (else
               (set! on line-length))))))
 
-    ;; If `on´ or `off´ is negative, or the sum of `on' and `off' equals zero a
+    ;; If `on' or `off' is negative, or the sum of `on' and `off' equals zero a
     ;; ghostscript-error occurs while calling
     ;; (ly:make-stencil (list 'dashed-line th on off x y phase) x-ext y-ext)
     ;; Better be paranoid.
@@ -4084,13 +4084,13 @@ ledger lines are selected.
            (style-strg
             (cond (
                    ;; 'baroque needs to be special-cased, otherwise
-                   ;; `select-head-glyph´ would catch neomensural-glyphs for
+                   ;; `select-head-glyph' would catch neomensural-glyphs for
                    ;; this style, if (< log 0).
                    (eq? style 'baroque)
                    (string-append (number->string log) ""))
                   ((eq? style 'petrucci)
                    (string-append (number->string log) "mensural"))
-                  ;; In other cases `select-head-glyph´ from output-lib.scm
+                  ;; In other cases `select-head-glyph' from output-lib.scm
                   ;; works for rest-glyphs, too.
                   ((and (symbol? style) (not (eq? style 'default)))
                    (select-head-glyph style log))

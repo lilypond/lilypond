@@ -40,7 +40,7 @@ those listed below.  As mentor availability varies from project to
 project and from year to year it is wise to get in touch with us as
 early as possible.
 
-Per 2018 we have installed the new role of “Community Mentor”.  We aim
+Per 2018 we have installed the new role of @qq{Community Mentor}.  We aim
 at assigning one Community Mentor to each active project who is
 @emph{not} responsible for discussing the implementation or reviewing
 the code.  Instead they will on the one hand discuss the @emph{design}
@@ -188,12 +188,12 @@ internals)
 
 LilyPond's engraving output can be tweaked to the least detail, and one
 important addition in recent years was the ability to use alternative
-notation fonts.  It is possible to create reusable modules for “house
-styles”, but this project aims at bringing this to a new level by creating
+notation fonts.  It is possible to create reusable modules for @qq{house
+styles}, but this project aims at bringing this to a new level by creating
 a convenient extension package with support for creating, applying,
 and sharing modular style sheets.  We are looking for a hierarchical
-structure that allows to mix and match style elements for “house” (e.g.
-“my-personal-style”, “client-a”, “client-b” etc.), score type, paper
+structure that allows to mix and match style elements for @qq{house} (e.g.,
+@qq{my-personal-style}, @qq{client-a}, @qq{client-b} etc.), score type, paper
 size etc.
 
 Work can be built upon the existing
@@ -248,7 +248,7 @@ contemporary notation techniques
 One strategy that may improve the issue of LilyPond's compilation time is
 to handle scores in a system-by-system manner through partial compilation.
 This project explores one approach to achieve this and may lay the ground
-for future development towards a “LilyPond server”.  It is very ambitions
+for future development towards a @qq{LilyPond server}.  It is very ambitions
 because it involves working with LilyPond's internals and optionally a
 reference user interface in @uref{http://frescobaldi.org, Frescobaldi}.
 
@@ -306,7 +306,7 @@ require us to reject or ignore an application that hasn't been discussed
 before.
 
 @item
-We do not know in advance how many “slots” we will have available for
+We do not know in advance how many @qq{slots} we will have available for
 projects, so please be aware that you may find yourself in competition
 with other applicants or not.  Interested or even enthusiastic response
 from our mentors is no guarantee of eventually being accepted, and
@@ -369,7 +369,7 @@ which we currently don't have mentors available.
 @subsubheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
-framework for LilyPond code providing a “snippets” repository and a
+framework for LilyPond code providing a @qq{snippets} repository and a
 suite of integrated packages such as for example page layout tools or
 scholarly annotations.  It is very powerful and promising, but to really
 get off the ground two features are missing: automated testing and
@@ -377,12 +377,12 @@ documentation generation.
 
 Automated testing is necessary to ensure modifications to functionality
 don't break other functions within the library.  There is already some
-Automated Testing of the “snippets” repository with Github's Travis
+Automated Testing of the @qq{snippets} repository with Github's Travis
 server, but this has to be reconsidered and extended to cover the
 standalone packages too.
 
-In order to be usable for a wider range of LilyPond users on a “consumer
-level” openLilyLib needs proper documentation.  This documentation has
+In order to be usable for a wider range of LilyPond users on a @qq{consumer
+level} openLilyLib needs proper documentation.  This documentation has
 to be generated from the sources, so a system is needed that requires
 package authors to document the input files and provide additional usage
 examples, from which documentation is generated.  Ideally but not
@@ -391,7 +391,7 @@ each update to the repository.  We don't prescribe the tools and
 approaches to be used, but the most widely used language in the LilyPond
 domain is Python, so there would be some bias towards that.
 Alternatively a Scheme solution could be fine so generating the
-documentation would actually be triggered by “compiling” a certain
+documentation would actually be triggered by @qq{compiling} a certain
 LilyPond input file.  In general it is advisable to make use of proven
 concepts and tools from other languages.
 

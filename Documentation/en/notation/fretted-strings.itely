@@ -1958,7 +1958,7 @@ c'\rightHandFinger #4
 
 For convenience, @code{\rightHandFinger} may be abbreviated to something
 shorter, for example @code{\RH}, by adding the appropriate definition
-at the source file’s top level:
+at the source file's top level:
 
 @example
 RH = \rightHandFinger \etc

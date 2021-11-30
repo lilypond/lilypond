@@ -89,7 +89,7 @@ way the transposition number is displayed."
     (if o o (car available))))
 
 (define-public (format-mark-generic options)
-  ;; Select “alphabet”, frame, font-series, letter-case and double letter behaviour
+  ;; Select "alphabet", frame, font-series, letter-case and double letter behaviour
   ;; from options list; if none is given, default to first available.
   (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman)))
         (fr (select-option options '(noframe box circle oval)))
@@ -107,7 +107,7 @@ way the transposition number is displayed."
              (the-cased-string
               (case lc
                 ;; both roman numbers and alphabet-based marks are
-                ;; already uppercase, (bar)numbers aren’t affected
+                ;; already uppercase, (bar)numbers aren't affected
                 ((uppercase)                    the-string)
                 ((mixedcase) (string-capitalize the-string))
                 ((lowercase) (string-downcase   the-string))))

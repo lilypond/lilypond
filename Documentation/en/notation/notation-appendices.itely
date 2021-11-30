@@ -42,7 +42,7 @@
 @node Chord name chart
 @appendixsec Chord name chart
 
-The following chart shows LilyPond’s standard system for printing chord
+The following chart shows LilyPond's standard system for printing chord
 names, along with the pitches they represent.  Additional (unsupported)
 naming systems are also demonstrated in the @qq{Chord names alternative}
 snippet in @rlsr{Chords}, including the notation inspired
@@ -1980,7 +1980,7 @@ for more readability.
 @cindex post-events
 @cindex scripts
 
-In LilyPond’s internal logic, an @q{articulation} is any object
+In LilyPond's internal logic, an @q{articulation} is any object
 (other than dynamics) that may be attached directly after a rhythmic
 event: notes, chords; even silences and skips, or the empty chord
 construct @code{<>} (see @rlearning{Structure of a note entry}).

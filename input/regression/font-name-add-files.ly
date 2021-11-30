@@ -24,7 +24,7 @@ rather than a letter glyph."
 
 
 %% tmpnam is deprecated.  We could get away with using mkstemp! only,
-%% but since there’s no mkdtemp in Guile, we need to fiddle with
+%% but since there's no mkdtemp in Guile, we need to fiddle with
 %% filename strings anyway:
 
 tmpdir = #(or (getenv "TMPDIR") "/tmp")

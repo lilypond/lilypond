@@ -72,8 +72,8 @@
       markup))
 
 ;;; TODO: reimplement alternative chord-naming functions.
-;;; Early pre-1.7.20 LilyPond versions had `Banter’ style,
-;;; `American’ style (later renamed as jazz-chord-names)
+;;; Early pre-1.7.20 LilyPond versions had `Banter' style,
+;;; `American' style (later renamed as jazz-chord-names)
 ;;; German style and possibly others. -vv
 
 (define-public (ignatzek-chord-names in-pitches bass inversion context)

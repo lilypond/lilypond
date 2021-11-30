@@ -1409,7 +1409,7 @@ Special @emph{bracketed} arpeggio symbols can be created:
 @end lilypond
 
 These predefined commands internally override the @code{Arpeggio}
-object’s @code{'stencil} property, and may also adapt its
+object's @code{'stencil} property, and may also adapt its
 @code{'X-extent} (that is, the horizontal dimension it takes
 not to collide with other objects).
 

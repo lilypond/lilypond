@@ -1844,7 +1844,7 @@ on the same staff line."
            (Voice ,(make-accidental-rule 'same-octave 0))
            ())
     ;; accidentals as suggested by Kurt Stone in
-    ;; ‘Music Notation in the 20th century’.
+    ;; `Music Notation in the 20th century'.
     ;; This includes all the default accidentals, but accidentals also need
     ;; canceling in other octaves and in the next measure.
     (modern #f

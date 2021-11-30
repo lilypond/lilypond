@@ -1,7 +1,7 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "A voice with \ottava shouldn’t confuse ambitus."
+  texidoc = "A voice with \ottava shouldn't confuse ambitus."
 }
 
 \layout {

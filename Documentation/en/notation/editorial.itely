@@ -722,7 +722,7 @@ channels, and an optional @var{alpha} number for
 semi-transparency.  (All values must be numbers from 0 to@tie{}1.)
 Semi-transparency is supported in SVG output, for PS and PDF output
 it is only supported if Ghostscript 9.53+ is used.  In the
-following fragment the staff’s clef can be seen through if
+following fragment the staff's clef can be seen through if
 rendered under the conditions mentioned above.
 
 @lilypond[verbatim,quote]
