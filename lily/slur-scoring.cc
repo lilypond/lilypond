@@ -230,9 +230,9 @@ Slur_score_state::get_bound_info () const
 }
 
 void
-Slur_score_state::fill (Grob *me)
+Slur_score_state::fill (Spanner *me)
 {
-  slur_ = dynamic_cast<Spanner *> (me);
+  slur_ = me;
   note_columns_
     = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
@@ -253,8 +253,6 @@ Slur_score_state::fill (Grob *me)
   extract_grob_set (me, "note-columns", columns);
   extract_grob_set (me, "encompass-objects", extra_objects);
 
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-
   for (const auto a : {X_AXIS, Y_AXIS})
     {
       common_[a] = common_refpoint_of_array (columns, me, a);
@@ -267,7 +265,7 @@ Slur_score_state::fill (Grob *me)
             its Y-position
           */
           if (a != Y_AXIS)
-            common_[a] = common_[a]->common_refpoint (sp->get_bound (d), a);
+            common_[a] = common_[a]->common_refpoint (me->get_bound (d), a);
         }
     }
 

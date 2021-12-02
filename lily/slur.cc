@@ -231,14 +231,14 @@ Slur::get_curve (Grob *me)
 }
 
 void
-Slur::add_column (Grob *me, Grob *n)
+Slur::add_column (Spanner *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  add_bound_item (dynamic_cast<Spanner *> (me), n);
+  add_bound_item (me, n);
 }
 
 void
-Slur::add_extra_encompass (Grob *me, Grob *n)
+Slur::add_extra_encompass (Spanner *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
 }
@@ -362,14 +362,14 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  */
 void
 Slur::auxiliary_acknowledge_extra_object (Grob *e,
-                                          vector<Grob *> &slurs,
-                                          vector<Grob *> &end_slurs)
+                                          vector<Spanner *> &slurs,
+                                          vector<Spanner *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;
 
   SCM avoid = get_property (e, "avoid-slur");
-  Grob *slur;
+  Spanner *slur;
   if (end_slurs.size () && !slurs.size ())
     slur = end_slurs[0];
   else

@@ -124,7 +124,7 @@ public:
 
   Slur_configuration *get_forced_configuration (Interval ys) const;
   Slur_configuration *get_best_curve () const;
-  void fill (Grob *);
+  void fill (Spanner *);
   Direction slur_direction () const;
 
   std::vector<Offset> generate_avoid_offsets () const;

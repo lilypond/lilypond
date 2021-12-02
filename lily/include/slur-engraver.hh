@@ -44,8 +44,8 @@ protected:
 
   typedef std::multimap<Stream_event *, Spanner *> Note_slurs;
   Drul_array<Note_slurs> note_slurs_;
-  std::vector<Grob *> slurs_;
-  std::vector<Grob *> end_slurs_;
+  std::vector<Spanner *> slurs_;
+  std::vector<Spanner *> end_slurs_;
 
   // objects that we need for formatting, eg. scripts and ties.
   std::vector<Grob *> objects_to_acknowledge_;

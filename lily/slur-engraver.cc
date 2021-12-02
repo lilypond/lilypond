@@ -225,7 +225,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
 {
   for (vsize j = slurs_.size (); j--;)
     {
-      Grob *slur = slurs_[j];
+      Spanner *slur = slurs_[j];
       Direction updown = from_scm<Direction> (get_property (ev, "direction"));
 
       // Check if we already have a slur with the same spanner-id.
@@ -291,9 +291,7 @@ Slur_engraver::try_to_end (Event_info evi)
           ended = true;
           end_slurs_.push_back (slurs_[j]);
           if (evi.note_)
-            note_slurs_[STOP].insert
-            (Note_slurs::value_type
-             (evi.note_, dynamic_cast <Spanner *> (slurs_[j])));
+            note_slurs_[STOP].insert (Note_slurs::value_type (evi.note_, slurs_[j]));
           slurs_.erase (slurs_.begin () + j);
         }
     }
@@ -349,7 +347,7 @@ Slur_engraver::stop_translation_timestep ()
 
   for (vsize i = 0; i < end_slurs_.size (); i++)
     {
-      Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
+      Spanner *s = end_slurs_[i];
       if (!s->get_bound (RIGHT))
         {
           auto *col
