@@ -40,7 +40,7 @@ rm -rf $tmp
 mkdir $tmp
 cd $tmp
 
-export MFINPUTS="${srcdir}:..::"
+export MFINPUTS="${srcdir}:..:"
 export max_print_line=1000
 
 ${mf2pt1} --rounding=0.0001 \

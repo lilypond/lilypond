@@ -71,10 +71,8 @@ ifeq ($(out),test)
 LILYPOND_BOOK_FLAGS += --skip-png-check
 endif
 
-TEXINPUTS=$(top-src-dir)/tex/::
-export TEXINPUTS
-TEXFONTMAPS=$(top-build-dir)/tex/$(outdir)::
-export TEXFONTMAPS
+export TEXINPUTS=$(top-src-dir)/tex/:
+export TEXFONTMAPS=$(top-build-dir)/tex/$(outdir):
 
 export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 
