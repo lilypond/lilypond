@@ -23,8 +23,10 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-#ifdef __MINGW32__
+#if defined(__MINGW32__)
 #include <malloc.h>
+#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+#include <stdlib.h>
 #else
 #include <alloca.h>
 #endif
