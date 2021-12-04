@@ -439,6 +439,10 @@ automatically moved to avoid collisions.  The @code{\oneVoice}
 command returns all the voice settings to the neutral default
 directions.
 
+Note that @code{Voice} is a bottom-level context
+(@pxref{Bottom-level contexts -- voices}).
+In @code{TabStaff} one would use @code{TabVoice} instead.
+
 @subsubsubheading Temporary polyphonic passages
 
 A temporary polyphonic passage can be created with the following
@@ -486,15 +490,57 @@ during and after a polyphonic section:
 Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
 required to define the settings of each voice.
 
+@noindent
+In @code{TabStaff} one needs to use @code{TabVoice}.
+
+If the same music should appear in @code{Staff} @emph{and} @code{TabStaff} the
+general @code{Bottom} context may be used
+(@pxref{Bottom-level contexts -- voices}).
+
+@lilypond[quote,verbatim]
+mus =
+\relative
+  \new Bottom = "melody" {
+    a'4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Bottom {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+
+<<
+  \new Staff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+
+<<
+  \new TabStaff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+@end lilypond
+
 @subsubsubheading The double backslash construct
 
 The @code{<< @{@dots{}@} \\ @{@dots{}@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
 differently to the similar construct without the double backslashes:
 @emph{all} the expressions within this construct are assigned
-to new @code{Voice} contexts.  These new @code{Voice} contexts
-are created implicitly and are given the fixed names @code{"1"},
-@code{"2"}, etc.
+to new @code{Bottom} contexts of the current type, typically @code{Voice} or
+@code{TabVoice} (@pxref{Bottom-level contexts -- voices}).
+These new @code{Bottom} contexts are created implicitly and are given the fixed
+names @code{"1"}, @code{"2"}, etc.
 
 The first example could be typeset as follows:
 
