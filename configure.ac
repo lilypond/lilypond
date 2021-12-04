@@ -405,7 +405,7 @@ fi
 STEPMAKE_PROGS(TEXI2PDF, texi2pdf, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(TEXINDEX, texindex, $DOCUMENTATION_REQUIRED)
 AC_MSG_CHECKING(for epsf.tex)
-TEX_EPSF=`kpsewhich tex epsf`
+TEX_EPSF=`kpsewhich -format=tex epsf`
 if test "$TEX_EPSF" = ""; then
     AC_MSG_RESULT(not found)
     STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,epsf.tex)
