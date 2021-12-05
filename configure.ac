@@ -397,6 +397,7 @@ else
 fi
 STEPMAKE_PROGS(TEXI2PDF, texi2pdf, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(TEXINDEX, texindex, $DOCUMENTATION_REQUIRED)
+
 AC_MSG_CHECKING(for epsf.tex)
 TEX_EPSF=`kpsewhich -format=tex epsf`
 if test "$TEX_EPSF" = ""; then
@@ -404,6 +405,28 @@ if test "$TEX_EPSF" = ""; then
     STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,epsf.tex)
 else
     AC_MSG_RESULT($TEX_EPSF)
+fi
+
+STEPMAKE_PROGS(PLTOTF, pltotf, $DOCUMENTATION_REQUIRED)
+AC_MSG_CHECKING(for TeX fontinst package support)
+TEX_FONTINST=`kpsewhich -format=tex fontinst.sty`
+if test "$TEX_FONTINST" == ""; then
+    AC_MSG_RESULT(not found)
+    STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,
+['fontinst CTAN package (texlive-fontinst or texlive-font-utils)'])
+else
+    AC_MSG_RESULT(yes)
+fi
+AC_MSG_CHECKING(for lmodern Type1 fonts)
+# We check for `lmtl10.afm` -- if this file is present, the Type1 fonts are
+# certainly installed, too.
+TEX_LM=`kpsewhich -format=afm lmtl10`
+if test "$TEX_LM" == ""; then
+    AC_MSG_RESULT(not found)
+    STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,
+['lm CTAN package (lmodern or texlive-lm)'])
+else
+    AC_MSG_RESULT(yes)
 fi
 AC_MSG_CHECKING(for Cyrillic characters support in TeX)
 TEX_FIKPARM=`kpsewhich -format=mf fikparm`
@@ -414,6 +437,7 @@ if test "$TEX_FIKPARM" = ""; then
 else
     AC_MSG_RESULT(yes)
 fi
+
 STEPMAKE_PROGS(IMAGEMAGICK, convert, $DOCUMENTATION_REQUIRED)
 # this name avoids a conflict with ZIP in stepmake/aclocal.m4
 STEPMAKE_PROGS(ZIPDOC, zip, $DOCUMENTATION_REQUIRED)

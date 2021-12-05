@@ -1,0 +1,56 @@
+% lm-ot1.tex
+%
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2021--2022 Werner Lemberg <wl@gnu.org>
+%
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+
+% This is an input file for the `fontinst` plain TeX macro package to create
+% metric files in OT1TT encoding for the 'LMMonoLt10' family, which comes
+% with the 'Latin Modern' font bundle.  The necessary `.afm` input files are
+% part of the 'lm' TeXLive package.
+%
+% Usage:
+%
+%   export TEXINPUTS="/path/to/afm/files;"
+%   tex lm-ot1.tex
+%
+% Using a semicolon above allows the `TEXINPUTS` environment variable to be
+% the same on Unix and Windows.
+
+\input fontinst.sty
+
+\recordtransforms{lm-ot1-transforms.recs}
+  \transformfont{lmttr}{\reencodefont{ot1tt}{\fromafm{lmtl10}}}
+  \transformfont{lmttb}{\reencodefont{ot1tt}{\fromafm{lmtk10}}}
+  \transformfont{lmttro}{\reencodefont{ot1tt}{\fromafm{lmtlo10}}}
+  \transformfont{lmttbo}{\reencodefont{ot1tt}{\fromafm{lmtko10}}}
+
+  % Since we don't need an `.fd` file, replace `\installfonts ...
+  % \endinstallfonts` with an ordinary group.
+  \bgroup
+    \installrawfont{lmttr}{lmttr,newlatin option nosc}{ot1tt}%
+                     {OT1}{lmtt}{m}{n}{}
+    \installrawfont{lmttb}{lmttb,newlatin option nosc}{ot1tt}%
+                     {OT1}{lmtt}{b}{n}{}
+    \installrawfont{lmttro}{lmttro,newlatin option nosc}{ot1tt}%
+                     {OT1}{lmtt}{m}{sl}{}
+    \installrawfont{lmttbo}{lmttbo,newlatin option nosc}{ot1tt}%
+                     {OT1}{lmtt}{b}{sl}{}
+  \egroup
+\endrecordtransforms
+
+\bye

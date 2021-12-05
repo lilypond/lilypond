@@ -71,8 +71,22 @@ ifeq ($(out),test)
 LILYPOND_BOOK_FLAGS += --skip-png-check
 endif
 
+# The various flavours of TeX support environment variables to search input
+# files.  We have to prepend directories (as indicated by the trailing `;`
+# characters) to some of them so that our generated LM typewriter fonts in
+# OT1 font encoding are found.
+#
+#    variable     type
+#   --------------------------------------------------------
+#    TEXINPUTS    TeX input source files
+#    TFMFONTS     TeX metric files (suffix `.tfm`)
+#    TEXFONTMAPS  font map files (suffix `.map`)
+#    ENCFONTS     PostScript encoding files (suffix `.enc`)
+#
 export TEXINPUTS=$(top-src-dir)/tex/:
-export TEXFONTMAPS=$(top-build-dir)/tex/$(outdir):
+export TFMFONTS=$(top-build-dir)/tex/$(outdir);
+export TEXFONTMAPS=$(top-build-dir)/tex/$(outdir);
+export ENCFONTS=$(top-build-dir)/tex/$(outdir);
 
 export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 

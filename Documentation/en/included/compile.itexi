@@ -605,15 +605,23 @@ to PDF files, including more than thousand PDF snippets generated
 by LilyPond, @uref{https://tug.org/xetex/, Xe@TeX{}} is used by
 default.  If not available,
 @uref{https://tug.org/applications/pdftex/index.html, pdf@TeX{}} is
-tried instead, which might give inferior results, however -- for
-example, ligatures (fi, fl, ff, etc.) may not be printed in the
-PDF output.
+tried instead.
 
 Not surprisingly, both Xe@TeX{} and pdf@TeX{} are also part of @TeX{} Live.
 Most GNU/Linux and other free software distributions already
 provide packages for @uref{https://tug.org/texlive, @TeX{} Live}, see
 above.  @TeX{} Live can can also be installed separately; it contains
 stand-alone binaries for most platforms.
+
+To support syntax highlighting of LilyPond source code in the PDF
+manuals (using the @q{pygments} Python package), typewriter shapes
+of the Computer Modern font family are replaced with the extended
+set of shapes provided by Latin Modern.  For this reason, two more
+@TeX{} Live packages are necessary in case they are not already
+installed: @q{fontinst} (a macro package for plain @TeX{}) and
+@q{lmodern} (we need some @file{.pfb} and @file{.afm} files).
+Additionally, the utility program @command{pltotf} must be
+available.
 
 @end itemize
 

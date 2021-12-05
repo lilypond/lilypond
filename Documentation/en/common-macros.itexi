@@ -627,3 +627,103 @@ UNTRANSLATED NODE: IGNORE ME
 @macro staticFile{RELLINK, DESC}
 @uref{https://lilypond.gitlab.io/static-files/\RELLINK\, \DESC\}
 @end macro
+
+
+@tex
+
+% Override CM typewriter.  For pygments support we need bold and bold
+% slanted typewriter, which is not available in the Computer Modern font
+% family used by texinfo.  Instead, we use the font family 'LMMonoLt10' that
+% comes with the 'Latin Modern' package, which is a light version of 'cmtt',
+% and which provides all necessary shapes.
+%
+% We do even more than just overriding: We correctly use bold shapes for
+% typewriter in section titles.  Note that texinfo is already partially
+% prepared to do so via the `\ttbshape` macro; however, it doesn't provide
+% `\ttbslshape`.
+\global\font\texttt = lmttr scaled \mainmagstep
+\global\font\deftt = lmttr scaled \magstep1
+\global\font\smalltt = lmttr scaled 900
+\global\font\smallertt = lmttr scaled 800
+\global\font\seventt = lmttr scaled 700
+\global\font\titlett = lmttb scaled \magstep4
+\global\font\chaptt = lmttb scaled \magstep3
+\global\font\sectt = lmttb scaled \magstep2
+\global\font\ssectt = lmttb scaled 1315
+\global\font\reducedtt = lmttr
+
+\global\font\textttsl = lmttro scaled \mainmagstep
+\global\font\defttsl = lmttro scaled \magstep1
+\global\font\smallttsl = lmttro scaled 900
+\global\font\smallerttsl = lmttro scaled 800
+\global\font\seventtsl = lmttro scaled 700
+\global\font\titlettsl = lmttbo scaled \magstep4
+\global\font\chapttsl = lmttbo scaled \magstep3
+\global\font\secttsl = lmttbo scaled \magstep2
+\global\font\ssecttsl = lmttbo scaled 1315
+\global\font\reducedttsl = lmttro
+
+% Activate font changes.  To avoid redefinitions of texinfo macros, we use
+% `\aftergroup` to call `\assignfonts{text}` to do this job (right now we
+% are in a `@tex` group).
+\gdef\callassignfonts{\assignfonts{text}}
+\aftergroup\callassignfonts
+
+% Bold and bold italic typewriter are only needed by pygments in the
+% `@format` environment; no need to set up sectioning fonts or other
+% sizes.
+\global\font\textttbx = lmttb scaled \mainmagstep
+\global\font\textttbxsl = lmttbo scaled \mainmagstep
+
+% Register additional CMaps.
+\csname cmapOT1TT\endcsname{\textttbx}
+\csname cmapOT1TT\endcsname{\textttbxsl}
+
+% Load font map file.
+\pdfmapfile{+lmtt.map}
+
+% Internal font switches for `@tb` and `@tbsl`.
+\gdef\dotb#1{{%
+  \textttbx
+  \plainfrenchspacing
+  #1}%
+  \null}
+
+\gdef\dotbsl#1{{%
+  \textttbxsl
+  \plainfrenchspacing
+  #1}%
+  \null}
+
+@end tex
+
+
+@c Since stuff like `@t{@b{...}}` doesn't work in texinfo, provide `@tb` as
+@c a command to access bold typewriter.
+
+@iftex
+@macro tb {arg}
+@dotb{\arg\}
+@end macro
+@end iftex
+
+@ifnottex
+@macro tb {arg}
+\arg\
+@end macro
+@end ifnottex
+
+
+@c Provide another command `@tbsl` to access bold slanted typewriter.
+
+@iftex
+@macro tbsl {arg}
+@dotbsl{\arg\}
+@end macro
+@end iftex
+
+@ifnottex
+@macro tbsl {arg}
+\arg\
+@end macro
+@end ifnottex
