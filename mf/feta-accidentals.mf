@@ -45,5 +45,6 @@ fet_begingroup ("accidentals");
   input feta-sharps;
   input feta-naturals;
   input feta-flats;
+  input feta-sori-koron;
   input feta-parenthesis;
 fet_endgroup ("accidentals");

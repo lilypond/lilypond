@@ -1,0 +1,325 @@
+% Feta (not the Font-En-Tja) music font --  Accidentals
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2021 Werner Lemberg <wl@gnu.org>
+%
+% The LilyPond font is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version, or you can redistribute it under
+% the SIL Open Font License.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+
+%
+% Accidentals 'sori' and 'koron' for Iranian classical music.
+%
+
+% This file should be included after `feta-accidentals.mf` and
+% `feta-flats.mf`.
+
+save default_width, default_height;
+save default_beam_thickness, stem_thickness;
+
+% Values taken from `feta-sharps.mf`.
+default_width# := 1.1 staff_space#;
+default_height# := 3 staff_space#;
+
+default_beam_thickness# := 0.3 staff_space# + stafflinethickness#;
+stem_thickness# := stafflinethickness# + .05 staff_space#;
+define_whole_blacker_pixels (stem_thickness);
+
+
+fet_beginchar ("sori", "sharp.sori");
+  save depth, height, width;
+  save dist_between_stems, outer_space, half_height, stem_offset;
+  save wedge_length, bottom_thick, top_thick, diameter, factor;
+  save se, sw, se_dist, sw_dist;
+  save ne_beam_dir;
+  pair se, sw, se_dist, sw_dist;
+  pair ne_beam_dir;
+
+
+  % In comparison to the 'sharp' glyph we shorten the stems to get a
+  % better visual balance.
+  half_height# := .45 default_height#; % 10% shorter
+  define_pixels (half_height);
+
+  dist_between_stems# := 7 / 16 * default_width#;
+  define_whole_pixels (dist_between_stems);
+
+  wedge_length# := 1.2 default_width#;
+  outer_space# := .5 (wedge_length# - dist_between_stems#
+                      - stem_thickness#);
+  stem_offset# := outer_space# - 0.5 stem_thickness#;
+  define_whole_pixels (outer_space);
+  define_whole_pixels (stem_offset);
+
+  width# := 2 outer_space# + dist_between_stems# + stem_thickness#;
+  depth# := half_height#;
+  height# := half_height#;
+  set_char_box (0, width#, depth#, height#);
+
+  wedge_length := 2 outer_space + dist_between_stems + stem_thickness;
+
+  % To preserve legibility the top beam must become thicker at small
+  % design sizes, while the bottom beam must become thinner.
+  %
+  % At 11pt design size the beams are equally thick.
+  %
+  % The values were determined heuristically.
+  top_thick# := -.04 staff_space# + 2.37 stafflinethickness#;
+  bottom_thick# := .36 staff_space# - .24 stafflinethickness#;
+  define_pixels (top_thick, bottom_thick);
+
+  diameter := min (top_thick - feta_eps, 2 blot_diameter);
+  pickup pencircle scaled diameter;
+
+  lft x1 = 0;
+  x2 = x1;
+  top y1 - bot y2 = vround top_thick;
+  bot y2 = floor (.5 staff_space_rounded);
+  rt x3 - lft x1 = wedge_length;
+  x4 = x3;
+  y3 - y4 = y1 - y2;
+
+  lft x5 = 0;
+  x6 = x5;
+  top y5 - bot y6 = vround bottom_thick;
+  top y5 = -floor (.5 staff_space_rounded);
+  rt x7 - lft x5 = wedge_length;
+  x8 = x7;
+  y7 - y8 = y5 - y6;
+
+  z4 = z8;
+  y4 + y7 = 0;
+
+  se = unitvector (z3 - z1);
+  sw_dist = (se rotated 90) * .5 diameter;
+  sw = unitvector (z6 - z8);
+  se_dist = (sw rotated -90) * .5 diameter;
+
+  z0 = (z2 - sw_dist) + whatever * se;
+  y0 = 0;
+
+  % For smaller design sizes we lengthen the beams to reduce the
+  % chances that the glyph gets mixed up with a sharp accidental.
+  factor := min (.2 * (design_size - 17.82) / (17.82 - 11.22), 0);
+
+  x1' = good.x (factor[x1, x3]);
+  y1' = good.y (factor[y1, y3]);
+  x2' = good.x (factor[x2, x4]);
+  y2' = good.y (factor[y2, y4]);
+
+  x5' = good.x (factor[x5, x7]);
+  y5' = good.y (factor[y5, y7]);
+  x6' = good.x (factor[x6, x8]);
+  y6' = good.y (factor[y6, y8]);
+
+  fill z0
+       -- (z2' - sw_dist){-se}
+       .. lft z2'{up}
+       -- lft z1'{up}
+       .. top z1'{right}
+       .. (z1' + sw_dist){se}
+       -- (z3 + sw_dist){se}
+       .. rt z3{down}
+       -- rt z8{down}
+       .. (z8 - se_dist){sw}
+       -- (z6' - se_dist){sw}
+       .. bot z6'{left}
+       .. lft z6'{up}
+       -- lft z5'{up}
+       .. (z5' + se_dist){-sw}
+       -- cycle;
+
+  % We want a similar vertical offset of the stems as in the ordinary
+  % sharp accidental.
+  define_pixels (default_beam_thickness);
+  ne_beam_dir = unitvector (wedge_length, default_beam_thickness);
+
+  pickup pencircle scaled stem_thickness;
+
+  lft x9 = lft x10 = stem_offset;
+  lft x11 = lft x12 = stem_offset + dist_between_stems;
+  bot y9 = -half_height;
+  top y12 = half_height;
+  z10 = z12 + whatever * ne_beam_dir;
+  bot y11 = -top y10 + feta_space_shift;
+
+  z11'l = whatever[z6, z8] = whatever[lft z11, lft z12];
+  z11'r = whatever[z6, z8] = whatever[rt z11, rt z12];
+  z12'l = whatever[z1, z3] = whatever[lft z11, lft z12];
+  z12'r = whatever[z1, z3] = whatever[rt z11, rt z12];
+
+  draw_gridline (z9, z10, stem_thickness);
+  fill z12'r
+       -- rt z12{up}
+       .. top z12{left}
+       .. lft z12{down}
+       -- z12'l
+       -- cycle;
+  fill z11'l
+       -- lft z11{down}
+       .. bot z11{right}
+       .. rt z11{up}
+       -- z11'r
+       -- cycle;
+
+  labels (range 0 thru 10, 1', 2', 5', 6');
+  penlabels(11', 12');
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("koron", "flat.koron");
+  save depth, height, breapth, width;
+  save top_stem_thick, middle_stem_thick, bottom_stem_thick;
+  save outer_thick, inner_top_thick, inner_bot_thick;
+  save inner_top_dist, outer_top_dist;
+  save inner_bot_dist, outer_bot_dist;
+  save se, sw;
+  save tolerance;
+  pair inner_top_dist, outer_top_dist;
+  pair inner_bot_dist, outer_bot_dist;
+  pair se, sw;
+
+  width# := 1.1 staff_space#;
+  depth# := 2 staff_space# - 1.7 stafflinethickness#;
+  height# := 0.5 staff_space# + 1.3 stafflinethickness#;
+  breapth# := 1.2 stafflinethickness#;
+  set_char_box (breapth#, width#, depth#, height#);
+
+  % These are the values from the 'flat' glyph...
+  top_stem_thick# = 0.06 staff_space# + 0.6 stafflinethickness#;
+  bottom_stem_thick# = 0.1 staff_space# + 1.2 stafflinethickness#;
+
+  % ... however, we don't reduce the thickness of the stem's upper
+  % part.
+  middle_stem_thick# := bottom_stem_thick#
+                        - .5 (bottom_stem_thick# - top_stem_thick#);
+
+  define_whole_blacker_pixels (top_stem_thick);
+  define_whole_blacker_pixels (middle_stem_thick);
+  define_whole_blacker_pixels (bottom_stem_thick);
+
+  % For consistency with other accidentals we do this test with the
+  % (otherwise unused) `top_stem_thick` value.
+  if odd (bottom_stem_thick - top_stem_thick):
+    bottom_stem_thick := bottom_stem_thick - 1;
+  fi;
+  if odd (middle_stem_thick - top_stem_thick):
+    middle_stem_thick := middle_stem_thick - 1;
+  fi;
+
+  pickup pencircle scaled middle_stem_thick;
+
+  x1l = hround (-.5 middle_stem_thick);
+  top y1 = h;
+  x2l = x1l;
+  y2 = -.5 staff_space_rounded;
+  x3l = hround (-.5 bottom_stem_thick);
+  y3 = -d;
+
+  penpos1 (middle_stem_thick, 0);
+  penpos2 (middle_stem_thick, 0);
+  penpos3 (bottom_stem_thick, 0);
+
+  fill simple_serif (z3l, z3r, 30)
+       -- z2r
+       -- z1r
+       -- z1l
+       -- z2l
+       -- cycle;
+
+  % To preserve legibility the top beam must become thicker at small
+  % design sizes, while the bottom beam must become thinner.  To
+  % simplify the construction of the wedge, we split the thickness
+  % into an inner top and bottom thickness for the top and bottom
+  % beam, respectively, and an outer thickness, which is the same for
+  % both beams.
+  %
+  % The values were determined heuristically.
+  outer_thick# := .04 staff_space# + .45 stafflinethickness#;
+  inner_top_thick# := -.11 staff_space# + 1.41 stafflinethickness#;
+  inner_bot_thick# := .24 staff_space# - .58 stafflinethickness#;
+  define_pixels (outer_thick, inner_top_thick, inner_bot_thick);
+
+  % The angles of the top and bottom beams are approximately given by
+  % `charht` and `charwd`; the deviation from the correct values is
+  % just a few degrees.  For emulating a pen position's left and right
+  % point, this approximation is good enough.
+  se = unitvector (charwd, -charht);
+  sw = unitvector (-charwd, -charht);
+
+  inner_top_dist = (se rotated 90) * inner_top_thick;
+  outer_top_dist = (se rotated 90) * outer_thick;
+  inner_bot_dist = (sw rotated -90) * inner_bot_thick;
+  outer_bot_dist = (sw rotated -90) * outer_thick;
+
+  % We use infixes `t` and `b` for positions related to the top and
+  % bottom beam, respectively.
+  z1tl = z1 - inner_top_dist;
+  z1tr = z1 + outer_top_dist;
+
+  x5 = x1;
+  bot y5 = vround (-1.1 h);
+  z5bl = z5 - outer_bot_dist;
+  z5br = z5 + inner_bot_dist;
+
+  rt x6 = w;
+  z6bl = z6 - outer_bot_dist;
+  z6br = z6 + inner_bot_dist;
+  z6tl = z6 - inner_top_dist;
+  z6tr = z6 + outer_top_dist;
+
+  % The right corner of the glyph's inner white triangle, z7, should
+  % be positioned at the horizontal axis, i.e., at the middle of a
+  % staff line.  However, METAFONT (and METAPOST) can't solve this
+  % directly; we have to iterate to get a proper y6 value for which y7
+  % is zero.
+  vardef zz@# = (xx@#, yy@#) enddef;
+
+  vardef f(expr dist) =
+    save xx, yy;
+
+    rt xx6 = w;
+    yy6 = dist;
+
+    zz6br = zz6 + inner_bot_dist;
+    zz6tl = zz6 - inner_top_dist;
+
+    zz7 = whatever[zz6br, z5br] = whatever[zz6tl, z1tl];
+    yy7 < 0
+  enddef;
+
+  tolerance := epsilon;
+  y6 = solve f(-0.5h, 0);
+  z7 = whatever[z6br, z5br] = whatever[z6tl, z1tl];
+
+  z4 = whatever[z1, z5] = whatever[z6br, z5br];
+
+  fill lft z1
+       -- z1tl
+       -- z7
+       -- z4
+       -- z5bl
+       -- z6bl{z6 - z5}
+       .. rt z6
+       .. z6tr{z1 - z6}
+       -- z1tr{z1 - z6}
+       .. lft z1{down}
+       & cycle;
+
+  penlabels (1, 2, 3);
+  labels (1tl, 1tr, 4, 5, 5bl, 6, 6bl, 6tr, 7);
+
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;

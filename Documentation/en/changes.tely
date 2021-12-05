@@ -66,6 +66,33 @@ which scares away people.
 @end ignore
 
 @item
+Two accidental glyphs for Iranian music support, @emph{sori} and
+@emph{koron}, have been added.
+
+@lilypond[quote]
+VaziriGlyphs = #'(
+  (0 . "accidentals.natural")
+  (-1/2 . "accidentals.flat")
+  (1/2 . "accidentals.sharp")
+
+  (1/4 . "accidentals.sharp.sori")
+  (-1/4 . "accidentals.flat.koron")
+)
+
+\relative c' {
+  \cadenzaOn
+  f!4 fih fis g! geh ges
+}
+
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs = #VaziriGlyphs
+  }
+}
+@end lilypond
+
+@item
 The new @code{Mark_tracking_translator} takes over from
 @code{Mark_engraver} the decision of when to create a mark.
 @code{Mark_engraver} continues to control formatting and vertical
