@@ -3820,6 +3820,7 @@ A feta brace in point size @var{size}, rotated 180 degrees.
   #:category music
   #:properties ((font-size 0)
                 (flag-style '())
+                (dots-direction 0)
                 (style '()))
   "
 @cindex note, within text, by @code{log} and @code{dot-count}
@@ -4055,10 +4056,11 @@ mensural-flags.  Both are supplied for convenience.
     (if (ly:stencil? dots)
         (set! stem-glyph
               (ly:stencil-add
-               (ly:stencil-translate-axis
+               (ly:stencil-translate
                 dots
-                (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
-                X)
+                (cons (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
+                      ;; dots-direction unit is _half_ staff spaces
+                      (/ dots-direction 2)))
                stem-glyph)))
     stem-glyph))
 

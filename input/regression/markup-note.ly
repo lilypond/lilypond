@@ -7,45 +7,45 @@
 
 mrkp =
 \markup {
-   \note {1} #1
-   \note {2} #1
-   \note {4} #1
-   \note {8} #1
-   \note {16} #1
-   \note {32} #1
-   \note {64} #1
+   \note {1} #UP
+   \note {2} #UP
+   \note {4} #UP
+   \note {8} #UP
+   \note {16} #UP
+   \note {32} #UP
+   \note {64} #UP
 
-   \note {1} #-1
-   \note {2} #-1
-   \note {4} #-1
-   \note {8} #-1
-   \note {16} #-1
-   \note {32} #-1
-   \note {64} #-1
+   \note {1} #DOWN
+   \note {2} #DOWN
+   \note {4} #DOWN
+   \note {8} #DOWN
+   \note {16} #DOWN
+   \note {32} #DOWN
+   \note {64} #DOWN
 
-   \note {1.} #-1
-   \note {2.} #-1
-   \note {4.} #-1
-   \note {8.} #-1
-   \note {16.} #-1
-   \note {32.} #-1
-   \note {64.} #-1
+   \note {1.} #DOWN
+   \note {2.} #DOWN
+   \note {4.} #DOWN
+   \note {8.} #DOWN
+   \note {16.} #DOWN
+   \note {32.} #DOWN
+   \note {64.} #DOWN
 
-   \note {1.} #1
-   \note {2.} #1
-   \note {4.} #1
-   \note {8.} #1
-   \note {16.} #1
-   \note {32.} #1
-   \note {64.} #1
+   \note {1.} #UP
+   \note {2.} #UP
+   \note {4.} #UP
+   \note {8.} #UP
+   \note {16.} #UP
+   \note {32.} #UP
+   \note {64.} #UP
 
    \override #'(style . cross)
-   { \note-by-number #2 #1 #1
-     \note-by-number #2 #1 #-1
+   { \note-by-number #2 #1 #UP
+     \note-by-number #2 #1 #DOWN
    }
    \override #'(style . triangle)
-   { \note-by-number #2 #1 #1
-     \note-by-number #2 #1 #-1
+   { \note-by-number #2 #1 #UP
+     \note-by-number #2 #1 #DOWN
    }
 }
 
