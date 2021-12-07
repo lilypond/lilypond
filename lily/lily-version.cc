@@ -22,6 +22,7 @@
 #include "config.hh"
 #include "version.hh"
 #include "lily-guile.hh"
+#include "international.hh"
 
 using std::string;
 
@@ -47,8 +48,10 @@ gnu_lilypond_version_string ()
 {
   string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
                          + std::to_string (SCM_MINOR_VERSION);
-  string str = gnu_lilypond_string () + " " + version_string ()
-               + " (running Guile " + guile_version + ")";
+  string str = _f ("%s %s (running Guile %s)",
+                   gnu_lilypond_string (),
+                   version_string (),
+                   guile_version);
   return str;
 }
 
