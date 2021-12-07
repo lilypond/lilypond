@@ -19,6 +19,7 @@ that are relevant to traditions outside the Western tradition.
 * Common notation for non-Western music::
 * Arabic music::
 * Turkish classical music::
+* Iranian classical music::
 @end menu
 
 
@@ -65,6 +66,7 @@ details see @ref{Arabic music}.
 @cindex Ottoman, classical music
 @cindex Arabic maqam
 @cindex Persian makam
+@cindex Iranian makam
 @cindex Turkish makam
 
 Other types of music require extended or unique notations, for example,
@@ -95,7 +97,8 @@ Notation Reference:
 @ref{Writing pitches},
 @ref{Note names in other languages},
 @ref{Arabic music},
-@ref{Turkish classical music}.
+@ref{Turkish classical music},
+@ref{Iranian classical music}.
 @endmorerefs
 
 
@@ -644,5 +647,76 @@ contains information about the history of Ottoman court music.
 @noindent
 contains information in English regarding Turkish makam including two
 CDs.
+
+@end itemize
+
+
+@node Iranian classical music
+@subsection Iranian classical music
+
+@cindex Iranian classical music
+@cindex Persian classical music
+
+This section highlights issues that are relevant to notating
+Iranian classical music.
+
+@menu
+* Sori and koron::
+* Further reading on Iranian music::
+@end menu
+
+@node Sori and koron
+@unnumberedsubsubsec Sori and koron
+
+@cindex sori
+@cindex koron
+@cindex Iranian accidentals (sori, koron)
+@cindex accidental, Iranian (sori, koron)
+@cindex semi-flat symbol, Iranian (koron)
+@cindex semi-sharp symbol, Iranian (sori)
+@cindex Persian accidentals (sori, koron)
+
+The notation for Iranian classical music commonly uses two
+accidentals for microtones, @dfn{sori} and @dfn{koron}.  Invented
+by Ali-Naqi Vaziri around 1935, they indicate raising and lowering
+a pitch by (approximately) a quarter tone, respectively.
+
+@lilypond[quote,verbatim]
+VaziriGlyphs = #'(
+  (0 . "accidentals.natural")
+  (-1/2 . "accidentals.flat")
+  (1/2 . "accidentals.sharp")
+
+  (1/4 . "accidentals.sharp.sori")
+  (-1/4 . "accidentals.flat.koron")
+)
+
+\relative c' {
+  \cadenzaOn
+  f!4 fih fis g! geh ges \bar "|"
+  g!4 gih gis a! aeh aes
+}
+
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs = #VaziriGlyphs
+  }
+}
+@end lilypond
+
+
+@node Further reading on Iranian music
+@unnumberedsubsubsec Further reading on Iranian music
+
+@itemize
+
+@item
+@emph{Armoni-e Musiqi-e Iran} by Ali-Naqi Vaziri (in Persian)
+[1935]
+
+@item
+@emph{Scales and Modes Around the World} by Herman Rechberger
+[Fennica Gehrman, 2018, ISBN 978-952-5489-07-1]
 
 @end itemize
