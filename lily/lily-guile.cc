@@ -456,8 +456,12 @@ SCM
 ly_string_array_to_scm (const vector<string> &a)
 {
   SCM s = SCM_EOL;
-  for (vsize i = a.size (); i; i--)
-    s = scm_cons (ly_symbol2scm (a[i - 1].c_str ()), s);
+  for (auto it = a.rbegin (); it != a.rend (); it++)
+    {
+      const string &part = *it;
+      if (!part.empty ())
+        s = scm_cons (ly_symbol2scm (part.c_str ()), s);
+    }
   return s;
 }
 

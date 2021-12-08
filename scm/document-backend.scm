@@ -46,7 +46,7 @@
 
 (define (interface-doc-string interface grob-description)
   (let* ((name (car interface))
-         (desc (cadr interface))
+         (desc (string-trim-both (cadr interface)))
          (props (caddr interface))
          (docfunc (lambda (pr)
                     (property->texi

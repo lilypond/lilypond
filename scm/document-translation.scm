@@ -35,7 +35,7 @@
          (accepted  (assoc-get 'events-accepted (ly:translator-description engraver)))
          (name-sym  (ly:translator-name engraver))
          (name-str (symbol->string name-sym))
-         (desc (assoc-get 'description (ly:translator-description engraver)))
+         (desc (string-trim-both (assoc-get 'description (ly:translator-description engraver))))
          (grobs (engraver-grobs engraver)))
 
     (string-append

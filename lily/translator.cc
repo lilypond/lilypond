@@ -157,11 +157,8 @@ Translator::static_translator_description (const char *grobs,
   static_properties = scm_acons (ly_symbol2scm ("grobs-created"),
                                  parse_symbol_list (grobs), static_properties);
 
-  SCM trimmed_desc = scm_string_trim_both (scm_from_utf8_string (desc),
-                                           SCM_UNDEFINED, SCM_UNDEFINED,
-                                           SCM_UNDEFINED);
   static_properties = scm_acons (ly_symbol2scm ("description"),
-                                 trimmed_desc, static_properties);
+                                 scm_from_utf8_string (desc), static_properties);
 
   SCM list = SCM_EOL;
   for (; scm_is_pair (listener_list); listener_list = scm_cdr (listener_list))

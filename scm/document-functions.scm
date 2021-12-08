@@ -43,7 +43,7 @@
    "@defun " (regexp-substitute/global #f "::" (symbol->string name)
                                        'pre "::@/" 'post)
    " " arguments "\n"
-   doc-string
+   (string-trim-both doc-string)
    "\n@end defun\n\n"))
 
 ;; Map function names (as strings) to full documentation entries
