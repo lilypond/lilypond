@@ -103,7 +103,6 @@ offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
     }
 }
 
-
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 {
@@ -196,175 +195,175 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
       Real y = 0.0;
 
       if (bound_item->break_status_dir ())
-         {
-            /*
-              We want to compute the slope of something like a glissando
-              when broken across several systems.  We make it continuous,
-              giving the same slope to all pieces and choosing it such that
-              visually it could be one glissando line if the systems were
-              stuck together in a row.  To this end, we have to compute the
-              vertical coordinates on two different systems and bring them
-              to a common coordinate reference.  For normal glissandi, this
-              is achieved by taking coordinates relative to the VerticalAxisGroup
-              of the staff, which is broken just like the glissando.  For
-              cross-staff glissandi, we schematically have this:
+        {
+          /*
+            We want to compute the slope of something like a glissando
+            when broken across several systems.  We make it continuous,
+            giving the same slope to all pieces and choosing it such that
+            visually it could be one glissando line if the systems were
+            stuck together in a row.  To this end, we have to compute the
+            vertical coordinates on two different systems and bring them
+            to a common coordinate reference.  For normal glissandi, this
+            is achieved by taking coordinates relative to the VerticalAxisGroup
+            of the staff, which is broken just like the glissando.  For
+            cross-staff glissandi, we schematically have this:
 
-                                                        |
-              -----------------------                   |
-              -----------------------  \\               |
-              -----------------------  \\            xxx|
-              -----------------------  \\   /~~~~/---xxx|-----------
-              -----------------------  \\ /~~~/---------------------
-                                  /  ~~~~ /-------------------------
-     This line                 / ~~~~  \\  -------------------------
-     might be            / ~~~~~       \\  -------------------------
-     stretched...      ~~~~~~~/        \\                               ... while this
-                    ~~~ /              \\  -------------------------    line might be
-               |xxx                    \\  -------------------------    compressed.
-               |xxx------------------  \\  -------------------------
-              -|---------------------  \\  -------------------------
-              -|---------------------  \\  -------------------------
-              -|---------------------  \\
-              -----------------------
+                                                      |
+            -----------------------                   |
+            -----------------------  \\               |
+            -----------------------  \\            xxx|
+            -----------------------  \\   /~~~~/---xxx|-----------
+            -----------------------  \\ /~~~/---------------------
+                                /  ~~~~ /-------------------------
+          This line                 / ~~~~  \\  -------------------------
+          might be            / ~~~~~       \\  -------------------------
+          stretched...      ~~~~~~~/        \\                               ... while this
+                  ~~~ /              \\  -------------------------    line might be
+             |xxx                    \\  -------------------------    compressed.
+             |xxx------------------  \\  -------------------------
+            -|---------------------  \\  -------------------------
+            -|---------------------  \\  -------------------------
+            -|---------------------  \\
+            -----------------------
 
-                                   Line break
-                                      here.
+                                 Line break
+                                    here.
 
 
-              The distance between the two staves can vary across the
-              break.  There is not an obvious way to choose the common
-              slope in this case.  If we take the lower staff as a
-              reference baseline in the example above, the line on the left will
-              have a small slope compared to the distance between the
-              systems.  On the other hand, aligning the upper staves will
-              result in a steep line on the second system.
+            The distance between the two staves can vary across the
+            break.  There is not an obvious way to choose the common
+            slope in this case.  If we take the lower staff as a
+            reference baseline in the example above, the line on the left will
+            have a small slope compared to the distance between the
+            systems.  On the other hand, aligning the upper staves will
+            result in a steep line on the second system.
 
-              This code makes the choice of Solomon: align the middles
-              of each pair of staves.  Blame Jean AS if you don't like
-              it, and feel free to improve.
-           */
+            This code makes the choice of Solomon: align the middles
+            of each pair of staves.  Blame Jean AS if you don't like
+            it, and feel free to improve.
+          */
 
-           Spanner *orig = me->original ();
-           System *sys_here = me->get_system ();
-           System *sys_there;
-           Drul_array<Item *> extreme_bounds;
-           Drul_array<Grob *> extreme_bound_groups;
-           for (const auto d : {LEFT, RIGHT})
-             {
-               Spanner *extreme = ((d == LEFT)
-                                   ? orig->broken_intos_.front ()
-                                   : orig->broken_intos_.back ());
-               extreme_bounds[d] = extreme->get_bound (d);
-               extreme_bound_groups[d] =
-                 Grob::get_vertical_axis_group (extreme_bounds[d]);
-               if (!extreme_bound_groups[d])
-                 {
-                   programming_error ("extremal broken spanner's bound has no parent"
-                                      " vertical axis group");
-                   return details;
-                 }
-             }
-           sys_there = extreme_bounds[dir]->get_system ();
-           Drul_array<Grob *> extreme_bound_groups_here;
-           Drul_array<Grob *> extreme_bound_groups_there;
-           for (const auto d : {LEFT, RIGHT})
-             {
-               // This one can be null if the corresponding staff ended
-               // prematurely or started after the beginning of the score.
-               extreme_bound_groups_here[d] =
-                 extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
-               // Can be null for the direction other than dir.
-               extreme_bound_groups_there[d] =
-                 extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
-             }
-           Grob *common_here;
-           Grob *common_there;
-           Drul_array<Real> offsets_here =
-             offsets_maybe (extreme_bound_groups_here, common_here);
-           Real offset_here;
-           Drul_array<Real> offsets_there =
-             offsets_maybe (extreme_bound_groups_there, common_there);
-           Real offset_there;
+          Spanner *orig = me->original ();
+          System *sys_here = me->get_system ();
+          System *sys_there;
+          Drul_array<Item *> extreme_bounds;
+          Drul_array<Grob *> extreme_bound_groups;
+          for (const auto d : {LEFT, RIGHT})
+            {
+              Spanner *extreme = ((d == LEFT)
+                                  ? orig->broken_intos_.front ()
+                                  : orig->broken_intos_.back ());
+              extreme_bounds[d] = extreme->get_bound (d);
+              extreme_bound_groups[d]
+                = Grob::get_vertical_axis_group (extreme_bounds[d]);
+              if (!extreme_bound_groups[d])
+                {
+                  programming_error ("extremal broken spanner's bound has no parent"
+                                     " vertical axis group");
+                  return details;
+                }
+            }
+          sys_there = extreme_bounds[dir]->get_system ();
+          Drul_array<Grob *> extreme_bound_groups_here;
+          Drul_array<Grob *> extreme_bound_groups_there;
+          for (const auto d : {LEFT, RIGHT})
+            {
+              // This one can be null if the corresponding staff ended
+              // prematurely or started after the beginning of the score.
+              extreme_bound_groups_here[d]
+                = extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
+              // Can be null for the direction other than dir.
+              extreme_bound_groups_there[d]
+                = extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
+            }
+          Grob *common_here;
+          Grob *common_there;
+          Drul_array<Real> offsets_here
+            = offsets_maybe (extreme_bound_groups_here, common_here);
+          Real offset_here;
+          Drul_array<Real> offsets_there
+            = offsets_maybe (extreme_bound_groups_there, common_there);
+          Real offset_there;
 
-           if (y_needed)
-             {
-               // Here we have all weird edge cases that can happen
-               // when staves are added or removed midway.  To continue
-               // the example above, if the lower staff was removed on
-               // the second system, we would align the upper staves.
-               assert (extreme_bound_groups_there[dir]);
-               if (!extreme_bound_groups_here[dir]
-                   && !extreme_bound_groups_here[-dir])
-                 {
-                   // If neither of the staves is present on this system, just
-                   // disappear.  This can happen with contorted input that starts
-                   // a glissando, stops that staff, then later spawns another
-                   // staff and ends the glissando there.
-                   me->suicide ();
-                   return SCM_UNSPECIFIED;
-                 }
-               if (extreme_bound_groups_there[-dir])
-                 {
-                   if (extreme_bound_groups_here[dir]
-                       && extreme_bound_groups_here[-dir])
-                     {
-                       offset_here = (offsets_here[LEFT] + offsets_here[RIGHT])/2;
-                       offset_there = (offsets_there[LEFT] + offsets_there[RIGHT])/2;
-                     }
-                   else if (extreme_bound_groups_here[dir])
-                     {
-                       offset_here = offsets_here[dir];
-                       offset_there = offsets_there[dir];
-                     }
-                   else
-                     {
-                       offset_here = offsets_here[-dir];
-                       offset_there = offsets_there[-dir];
-                     }
-                 }
-               else // !extreme_bound_groups_there[-dir]
-                 {
-                   if (extreme_bound_groups_here[dir])
-                     {
-                       offset_here = offsets_here[dir];
-                       offset_there = offsets_there[dir];
-                     }
-                   else
-                     {
-                       offset_here = offsets_here[-dir];
-                       offset_there = offsets_there[dir];
-                     }
-                 }
-               Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
-               Real coord_there = extent.center ();
-               y = coord_there - offset_there + offset_here;
-             }
-           if (extreme_bound_groups_here[dir])
-             {
-               common_y = extreme_bound_groups_here[dir];
-               if (y_needed)
-                 y -= offsets_here[dir];
-             }
-           else
-             {
-               common_y = common_here;
-             }
-         }
+          if (y_needed)
+            {
+              // Here we have all weird edge cases that can happen
+              // when staves are added or removed midway.  To continue
+              // the example above, if the lower staff was removed on
+              // the second system, we would align the upper staves.
+              assert (extreme_bound_groups_there[dir]);
+              if (!extreme_bound_groups_here[dir]
+                  && !extreme_bound_groups_here[-dir])
+                {
+                  // If neither of the staves is present on this system, just
+                  // disappear.  This can happen with contorted input that starts
+                  // a glissando, stops that staff, then later spawns another
+                  // staff and ends the glissando there.
+                  me->suicide ();
+                  return SCM_UNSPECIFIED;
+                }
+              if (extreme_bound_groups_there[-dir])
+                {
+                  if (extreme_bound_groups_here[dir]
+                      && extreme_bound_groups_here[-dir])
+                    {
+                      offset_here = (offsets_here[LEFT] + offsets_here[RIGHT]) / 2;
+                      offset_there = (offsets_there[LEFT] + offsets_there[RIGHT]) / 2;
+                    }
+                  else if (extreme_bound_groups_here[dir])
+                    {
+                      offset_here = offsets_here[dir];
+                      offset_there = offsets_there[dir];
+                    }
+                  else
+                    {
+                      offset_here = offsets_here[-dir];
+                      offset_there = offsets_there[-dir];
+                    }
+                }
+              else // !extreme_bound_groups_there[-dir]
+                {
+                  if (extreme_bound_groups_here[dir])
+                    {
+                      offset_here = offsets_here[dir];
+                      offset_there = offsets_there[dir];
+                    }
+                  else
+                    {
+                      offset_here = offsets_here[-dir];
+                      offset_there = offsets_there[dir];
+                    }
+                }
+              Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
+              Real coord_there = extent.center ();
+              y = coord_there - offset_there + offset_here;
+            }
+          if (extreme_bound_groups_here[dir])
+            {
+              common_y = extreme_bound_groups_here[dir];
+              if (y_needed)
+                y -= offsets_here[dir];
+            }
+          else
+            {
+              common_y = common_here;
+            }
+        }
       else
-         {
-           common_y = Grob::get_vertical_axis_group (bound_item);
-           if (!common_y)
-             {
-               programming_error ("bound item has no parent vertical axis group");
-               common_y = bound_item;
-             }
-           if (y_needed)
-             {
-               Interval ii = bound_item->extent (common_y, Y_AXIS);
-               if (!ii.is_empty ())
-                 y = ii.center ();
-             }
-         }
+        {
+          common_y = Grob::get_vertical_axis_group (bound_item);
+          if (!common_y)
+            {
+              programming_error ("bound item has no parent vertical axis group");
+              common_y = bound_item;
+            }
+          if (y_needed)
+            {
+              Interval ii = bound_item->extent (common_y, Y_AXIS);
+              if (!ii.is_empty ())
+                y = ii.center ();
+            }
+        }
 
       if (y_needed)
         {
@@ -644,8 +643,7 @@ center of each note head.
                "right-bound-info "
                "thickness "
                "to-barline "
-              );
-
+);
 
 ADD_INTERFACE (Horizontal_line_spanner,
                R"(
@@ -658,4 +656,4 @@ having this interface can be side-positioned vertically.
 )",
                /* properties */
                ""
-               );
+);

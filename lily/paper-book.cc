@@ -204,7 +204,8 @@ all_formats ()
   SCM formats = ly_output_formats ();
   SCM lists[2]
     = {lilypond_book_output_formats (ly_symbol2scm ("tall-page-formats")),
-       lilypond_book_output_formats (ly_symbol2scm ("separate-page-formats"))};
+       lilypond_book_output_formats (ly_symbol2scm ("separate-page-formats"))
+      };
 
   for (int i = 0; i < 2; i++)
     for (SCM s = lists[i]; scm_is_pair (s); s = scm_cdr (s))
@@ -247,8 +248,7 @@ Paper_book::output (SCM output_channel)
       SCM stencils = SCM_EOL;
       for (SCM s = pages (); scm_is_pair (s); s = scm_cdr (s))
         {
-          stencils = scm_cons (
-            get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
+          stencils = scm_cons (get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
         }
       output_stencils (output_channel, scm_reverse_x (stencils, SCM_EOL),
                        formats);

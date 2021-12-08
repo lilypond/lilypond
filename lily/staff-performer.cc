@@ -221,7 +221,7 @@ void
 Staff_performer::finalize ()
 {
   Moment end_mom = now_mom ()
-    + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+                   + from_scm (get_property (this, "midiSkipOffset"), Moment ());
   for (map<string, Audio_staff *>::iterator i = staff_map_.begin ();
        i != staff_map_.end (); ++i)
     {

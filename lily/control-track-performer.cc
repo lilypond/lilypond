@@ -91,7 +91,7 @@ void
 Control_track_performer::finalize ()
 {
   control_track_->end_mom_ = now_mom ()
-    + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+                             + from_scm (get_property (this, "midiSkipOffset"), Moment ());
 }
 
 void

@@ -358,9 +358,8 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
       // balanced with FT_Done_Face calls in ~Cairo_outputter.
       FT_Reference_Face (face);
 
-      if (cairo_font_face_set_user_data (
-            cairo_font_face, &ukey, face,
-            reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
+      if (cairo_font_face_set_user_data (cairo_font_face, &ukey, face,
+                                         reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
         {
           programming_error ("cairo_font_face_set_user_data failed");
         }
@@ -413,7 +412,8 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
   cairo_glyph_t oneglyph
     = {FT_Get_Name_Index (otf->freetype_handle (),
                           const_cast<FT_String *> (g.c_str ())),
-       cx, cy};
+       cx, cy
+      };
 
   cairo_show_glyphs (context (), &oneglyph, 1);
 }
@@ -496,7 +496,8 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       else // we have a font with glyph names
         {
           std::string g = ly_scm2string (glyph_scm);
-          cairo_glyphs.push_back (cairo_glyph_t ({
+          cairo_glyphs.push_back (cairo_glyph_t (
+          {
             .index
             = FT_Get_Name_Index (ft_face, const_cast<FT_String *> (g.c_str ())),
             .x = startx + (x + sumw),
@@ -904,26 +905,22 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
      image exactly to bbox size.
    */
   int height = bbox[3] - bbox[1];
-  cairo_surface_t *image = cairo_image_surface_create (
-    CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
+  cairo_surface_t *image = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
 
   assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
 
   char *dupped_content = strdup (content.c_str ());
-  cairo_status_t status = cairo_surface_set_mime_data (
-    image, CAIRO_MIME_TYPE_EPS,
-    reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
-    free, dupped_content);
+  cairo_status_t status = cairo_surface_set_mime_data (image, CAIRO_MIME_TYPE_EPS,
+                                                       reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
+                                                       free, dupped_content);
   assert (status == CAIRO_STATUS_SUCCESS);
 
-  std::string bbox_str = String_convert::form_string (
-    "bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
+  std::string bbox_str = String_convert::form_string ("bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
 
   char *dupped_bbox = strdup (bbox_str.c_str ());
-  status = cairo_surface_set_mime_data (
-    image, CAIRO_MIME_TYPE_EPS_PARAMS,
-    reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
-    &free, dupped_bbox);
+  status = cairo_surface_set_mime_data (image, CAIRO_MIME_TYPE_EPS_PARAMS,
+                                        reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
+                                        &free, dupped_bbox);
   assert (status == CAIRO_STATUS_SUCCESS);
 
   Real x = 0.0;
@@ -1375,8 +1372,8 @@ LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
 
 #if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
-  for (auto const format :
-       parse_formats ("ly:cairo-output-stencils", 5, formats))
+  for (auto const format
+       : parse_formats ("ly:cairo-output-stencils", 5, formats))
     {
       std::string base = ly_scm2string (basename);
       if (format == EPS || format == PNG || format == SVG)
