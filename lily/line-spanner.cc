@@ -532,7 +532,7 @@ Line_spanner::print (SCM smob)
 
       if (stencils[d])
         {
-          Stencil s = stencils[d]->translated (span_points[d]);
+          Stencil s (*stencils[d]);
           SCM align = ly_assoc_get (ly_symbol2scm ("stencil-align-dir-y"),
                                     bounds[d], SCM_BOOL_F);
           SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"),
@@ -543,6 +543,8 @@ Line_spanner::print (SCM smob)
 
           if (is_number_pair (off))
             s.translate (from_scm<Offset> (off) * magstep);
+
+          s.translate (span_points[d]);
 
           line.add_stencil (s);
         }
