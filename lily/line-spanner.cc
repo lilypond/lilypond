@@ -578,7 +578,6 @@ Line_spanner::print (SCM smob)
 
 ADD_INTERFACE (Line_spanner,
                R"(
-
 Generic line drawn between two objects, e.g., for use with glissandi.
 
 @code{bound-details} is a nested alist.  It's possible to specify
@@ -631,29 +630,27 @@ actual end.  Without padding, a glissando would start and end in the
 center of each note head.
 
 @end table
-
 )",
 
                /* properties */
-               "bound-details "
-               "extra-dy "
-               "gap "
-               "left-bound-info "
-               "note-columns "
-               "right-bound-info "
-               "thickness "
-               "to-barline "
-);
+               R"(
+bound-details
+extra-dy
+gap
+left-bound-info
+note-columns
+right-bound-info
+thickness
+to-barline
+               )");
 
 ADD_INTERFACE (Horizontal_line_spanner,
                R"(
-
 This interface is a subset of the @ref{line-spanner-interface}, for
 use with line spanners that are always horizontal (such as crescendo
 spanners).  The @code{details.Y} subproperty is irrelevant.  Grobs
 having this interface can be side-positioned vertically.
-
 )",
                /* properties */
-               ""
-);
+               R"(
+               )");
