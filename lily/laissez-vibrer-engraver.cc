@@ -118,15 +118,22 @@ Laissez_vibrer_engraver::boot ()
 
 ADD_TRANSLATOR (Laissez_vibrer_engraver,
                 /* doc */
-                "Create laissez vibrer items.",
+                R"(
+Create laissez vibrer items.
+                )",
 
                 /* create */
-                "LaissezVibrerTie "
-                "LaissezVibrerTieColumn ",
+                R"(
+LaissezVibrerTie
+LaissezVibrerTieColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

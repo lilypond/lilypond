@@ -67,15 +67,21 @@ Forbid_line_break_engraver::boot ()
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
                 /* doc */
-                "Forbid line breaks when note heads are still playing at some"
-                " point.",
+                R"(
+Forbid line breaks when note heads are still playing at some point.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "busyGrobs ",
+                R"(
+busyGrobs
+                )",
 
                 /* write */
-                "forbidBreak "
-               );
+                R"(
+forbidBreak
+                )");

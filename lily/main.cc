@@ -308,7 +308,9 @@ notice ()
 
 LY_DEFINE (ly_usage, "ly:usage",
            0, 0, 0, (),
-           "Print usage message.")
+           R"(
+Print usage message.
+           )")
 /*
  * ly_usage: Routine to output standard information when LilyPond is run without a
  * source file to compile.

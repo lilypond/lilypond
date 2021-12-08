@@ -81,15 +81,22 @@ Stanza_number_align_engraver::boot ()
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
                 /* doc */
-                "This engraver ensures that stanza numbers are neatly"
-                " aligned.",
+                R"(
+This engraver ensures that stanza numbers are neatly aligned.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                "");
+                R"(
+
+                )");
 

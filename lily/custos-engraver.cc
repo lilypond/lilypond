@@ -153,14 +153,21 @@ Custos_engraver::boot ()
 
 ADD_TRANSLATOR (Custos_engraver,
                 /* doc */
-                "Engrave custodes.",
+                R"(
+Engrave custodes.
+                )",
 
                 /* create */
-                "Custos ",
+                R"(
+Custos
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

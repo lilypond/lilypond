@@ -60,11 +60,14 @@ Rhythmic_head::duration_log (Grob *me)
 }
 
 ADD_INTERFACE (Rhythmic_head,
-               "Note head or rest.",
+               R"(
+Note head or rest.
+               )",
 
                /* properties */
-               "dot "
-               "duration-log "
-               "glissando-skip "
-               "stem "
-              );
+               R"(
+dot
+duration-log
+glissando-skip
+stem
+               )");

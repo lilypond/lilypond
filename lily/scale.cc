@@ -31,10 +31,10 @@ using std::vector;
 */
 LY_DEFINE (ly_make_scale, "ly:make-scale",
            1, 0, 0, (SCM steps),
-           "Create a scale."
-           "  The argument is a vector of rational numbers, each of which"
-           " represents the number of 200-cent tones of a pitch above the"
-           " tonic.")
+           R"(
+Create a scale.  The argument is a vector of rational numbers, each of which
+represents the number of 200-cent tones of a pitch above the tonic.
+           )")
 {
   bool type_ok = scm_is_vector (steps);
 
@@ -71,19 +71,22 @@ Protected_scm default_global_scale_scm (SCM_BOOL_F);
 
 LY_DEFINE (ly_default_scale, "ly:default-scale",
            0, 0, 0, (),
-           "Get the global default scale.")
+           R"(
+Get the global default scale.
+           )")
 {
   return default_global_scale_scm;
 }
 
 LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
            1, 0, 0, (SCM scale),
-           "Set the global default scale.  This determines the tuning of"
-           " pitches with no accidentals or key signatures.  The first"
-           " pitch is C.  Alterations are calculated relative to this"
-           " scale.  The number of pitches in this scale determines the"
-           " number of scale steps that make up an octave.  Usually the"
-           " 7-note major scale.")
+           R"(
+Set the global default scale.  This determines the tuning of pitches with no
+accidentals or key signatures.  The first pitch is C.  Alterations are
+calculated relative to this scale.  The number of pitches in this scale
+determines the number of scale steps that make up an octave.  Usually the
+7-note major scale.
+           )")
 {
   auto *const s = LY_ASSERT_SMOB (Scale, scale, 1);
 

@@ -137,23 +137,29 @@ Fretboard_engraver::boot ()
 
 ADD_TRANSLATOR (Fretboard_engraver,
                 /* doc */
-                "Generate fret diagram from one or more events of type"
-                " @code{NoteEvent}.",
+                R"(
+Generate fret diagram from one or more events of type @code{NoteEvent}.
+                )",
 
                 /* create */
-                "FretBoard ",
+                R"(
+FretBoard
+                )",
 
                 /* read */
-                "chordChanges "
-                "defaultStrings "
-                "highStringOne "
-                "maximumFretStretch "
-                "minimumFret "
-                "noteToFretFunction "
-                "predefinedDiagramTable "
-                "stringTunings "
-                "tablatureFormat ",
+                R"(
+chordChanges
+defaultStrings
+highStringOne
+maximumFretStretch
+minimumFret
+noteToFretFunction
+predefinedDiagramTable
+stringTunings
+tablatureFormat
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

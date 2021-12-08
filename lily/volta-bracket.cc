@@ -149,12 +149,15 @@ Volta_bracket_interface::add_bar (Grob *me, Item *b)
 }
 
 ADD_INTERFACE (Volta_bracket_interface,
-               "Volta bracket with number.",
+               R"(
+Volta bracket with number.
+               )",
 
                /* properties */
-               "bars "
-               "dashed-edge "
-               "height "
-               "shorten-pair "
-               "thickness "
-              );
+               R"(
+bars
+dashed-edge
+height
+shorten-pair
+thickness
+               )");

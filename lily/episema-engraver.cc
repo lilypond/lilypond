@@ -174,14 +174,21 @@ Episema_engraver::boot ()
 
 ADD_TRANSLATOR (Episema_engraver,
                 /* doc */
-                "Create an @emph{Editio Vaticana}-style episema line.",
+                R"(
+Create an @emph{Editio Vaticana}-style episema line.
+                )",
 
                 /* create */
-                "Episema ",
+                R"(
+Episema
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

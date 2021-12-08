@@ -1024,28 +1024,31 @@ Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, 
 }
 
 ADD_INTERFACE (Axis_group_interface,
-               "An object that groups other layout objects.",
+               R"(
+An object that groups other layout objects.
+               )",
 
                // TODO: some of these properties are specific to
                // VerticalAxisGroup. We should split off a
                // vertical-axis-group-interface.
                /* properties */
-               "adjacent-pure-heights "
-               "axes "
-               "bound-alignment-interfaces "
-               "default-staff-staff-spacing "
-               "elements "
-               "nonstaff-nonstaff-spacing "
-               "nonstaff-relatedstaff-spacing "
-               "nonstaff-unrelatedstaff-spacing "
-               "pure-relevant-grobs "
-               "pure-relevant-items "
-               "pure-relevant-spanners "
-               "pure-Y-common "
-               "staff-affinity "
-               "staff-grouper "
-               "staff-staff-spacing "
-               "system-Y-offset "
-               "X-common "
-               "Y-common "
-              );
+               R"(
+adjacent-pure-heights
+axes
+bound-alignment-interfaces
+default-staff-staff-spacing
+elements
+nonstaff-nonstaff-spacing
+nonstaff-relatedstaff-spacing
+nonstaff-unrelatedstaff-spacing
+pure-relevant-grobs
+pure-relevant-items
+pure-relevant-spanners
+pure-Y-common
+staff-affinity
+staff-grouper
+staff-staff-spacing
+system-Y-offset
+X-common
+Y-common
+               )");

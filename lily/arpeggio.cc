@@ -253,16 +253,19 @@ Arpeggio::pure_height (SCM smob, SCM, SCM)
 }
 
 ADD_INTERFACE (Arpeggio,
-               "Functions and settings for drawing an arpeggio symbol.",
+               R"(
+Functions and settings for drawing an arpeggio symbol.
+               )",
 
                /* properties */
-               "arpeggio-direction "
-               "dash-definition " // TODO: make apply to non-slur arpeggios
-               "line-thickness "
-               "positions "
-               "protrusion "
-               "script-priority " // TODO: make around-note-interface
-               "stems "
-               "thickness "
-              );
+               R"(
+arpeggio-direction
+dash-definition
+line-thickness
+positions
+protrusion
+script-priority
+stems
+thickness
+               )");
 

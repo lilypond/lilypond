@@ -26,17 +26,24 @@
 
 ADD_TRANSLATOR_GROUP (Performer_group,
                       /* doc */
-                      "",
+                      R"(
+
+                )",
 
                       /* create */
-                      "",
+                      R"(
+
+                )",
 
                       /* read */
-                      "",
+                      R"(
+
+                )",
 
                       /* write */
-                      ""
-                     );
+                      R"(
+
+                )");
 
 void
 Performer_group::announce_element (Audio_element_info info)

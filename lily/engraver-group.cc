@@ -218,17 +218,24 @@ Engraver_group::Engraver_group ()
 
 ADD_TRANSLATOR_GROUP (Engraver_group,
                       /* doc */
-                      "A group of engravers taken together.",
+                      R"(
+A group of engravers taken together.
+                )",
 
                       /* create */
-                      "",
+                      R"(
+
+                )",
 
                       /* read */
-                      "",
+                      R"(
+
+                )",
 
                       /* write */
-                      ""
-                     );
+                      R"(
+
+                )");
 
 void
 Engraver_group::derived_mark () const

@@ -100,15 +100,22 @@ Beam_performer::boot ()
 
 ADD_TRANSLATOR (Beam_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 

@@ -73,15 +73,22 @@ Slash_repeat_engraver::boot ()
 
 ADD_TRANSLATOR (Slash_repeat_engraver,
                 /* doc */
-                "Make beat repeats.",
+                R"(
+Make beat repeats.
+                )",
 
                 /* create */
-                "DoubleRepeatSlash "
-                "RepeatSlash ",
+                R"(
+DoubleRepeatSlash
+RepeatSlash
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

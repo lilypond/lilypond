@@ -528,25 +528,26 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
 }
 
 ADD_INTERFACE (Side_position_interface,
-               "Position a victim object (this one) next to other objects"
-               " (the support).  The property @code{direction} signifies where"
-               " to put the victim object relative to the support (left or"
-               " right, up or down?)\n"
-               "\n"
-               "The routine also takes the size of the staff into account if"
-               " @code{staff-padding} is set.  If undefined, the staff symbol"
-               " is ignored.",
+               R"(
+Position a victim object (this one) next to other objects (the support).  The
+property @code{direction} signifies where to put the victim object relative to
+the support (left or right, up or down?)
+
+The routine also takes the size of the staff into account if
+@code{staff-padding} is set.  If undefined, the staff symbol is ignored.
+               )",
 
                /* properties */
-               "add-stem-support "
-               "direction "
-               "minimum-space "
-               "horizon-padding "
-               "padding "
-               "quantize-position "
-               "side-axis "
-               "side-support-elements "
-               "slur-padding "
-               "staff-padding "
-               "use-skylines "
-              );
+               R"(
+add-stem-support
+direction
+minimum-space
+horizon-padding
+padding
+quantize-position
+side-axis
+side-support-elements
+slur-padding
+staff-padding
+use-skylines
+               )");

@@ -23,8 +23,10 @@
 
 LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,
            (SCM from_scm, SCM to_scm),
-           "Return the spacing spec going between the two given grobs,"
-           " @var{from-scm} and @var{to-scm}.")
+           R"(
+Return the spacing spec going between the two given grobs, @var{from-scm} and
+@var{to-scm}.
+           )")
 {
   auto *const from = LY_ASSERT_SMOB (Grob, from_scm, 1);
   auto *const to = LY_ASSERT_SMOB (Grob, to_scm, 2);

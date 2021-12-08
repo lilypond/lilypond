@@ -82,14 +82,21 @@ Breathing_sign_engraver::boot ()
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
                 /* doc */
-                "Create a breathing sign.",
+                R"(
+Create a breathing sign.
+                )",
 
                 /* create */
-                "BreathingSign ",
+                R"(
+BreathingSign
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

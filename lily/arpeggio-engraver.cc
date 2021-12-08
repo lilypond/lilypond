@@ -120,14 +120,21 @@ Arpeggio_engraver::boot ()
 
 ADD_TRANSLATOR (Arpeggio_engraver,
                 /* doc */
-                "Generate an Arpeggio symbol.",
+                R"(
+Generate an Arpeggio symbol.
+                )",
 
                 /* create */
-                "Arpeggio",
+                R"(
+Arpeggio
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

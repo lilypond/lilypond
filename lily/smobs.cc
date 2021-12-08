@@ -83,7 +83,9 @@ ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 
 LY_DEFINE (ly_smob_protects, "ly:smob-protects",
            0, 0, 0, (),
-           "Return LilyPond's internal smob protection list.")
+           R"(
+Return LilyPond's internal smob protection list.
+           )")
 {
   return scm_is_pair (smob_protection_list)
          ? scm_cdr (smob_protection_list)

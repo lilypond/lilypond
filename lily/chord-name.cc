@@ -44,8 +44,11 @@ Chord_name::after_line_breaking (SCM smob)
 }
 
 ADD_INTERFACE (Chord_name,
-               "A chord label (name or fretboard).",
+               R"(
+A chord label (name or fretboard).
+               )",
 
                /* properties */
-               "begin-of-line-visible "
-              );
+               R"(
+begin-of-line-visible
+               )");

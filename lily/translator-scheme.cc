@@ -24,7 +24,9 @@
 
 LY_DEFINE (ly_translator_context, "ly:translator-context",
            1, 0, 0, (SCM trans),
-           "Return the context of the translator object @var{trans}.")
+           R"(
+Return the context of the translator object @var{trans}.
+           )")
 {
   auto *const tr = LY_ASSERT_SMOB (Translator, trans, 1);
 

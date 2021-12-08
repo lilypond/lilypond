@@ -166,14 +166,21 @@ Separating_line_group_engraver::boot ()
 
 ADD_TRANSLATOR (Separating_line_group_engraver,
                 /* doc */
-                "Generate objects for computing spacing parameters.",
+                R"(
+Generate objects for computing spacing parameters.
+                )",
 
                 /* create */
-                "StaffSpacing ",
+                R"(
+StaffSpacing
+                )",
 
                 /* read */
-                "createSpacing ",
+                R"(
+createSpacing
+                )",
 
                 /* write */
-                "hasStaffSpacing "
-               );
+                R"(
+hasStaffSpacing
+                )");

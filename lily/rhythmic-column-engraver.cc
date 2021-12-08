@@ -148,15 +148,21 @@ Rhythmic_column_engraver::boot ()
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
                 /* doc */
-                "Generate @code{NoteColumn}, an object that groups stems,"
-                " note heads, and rests.",
+                R"(
+Generate @code{NoteColumn}, an object that groups stems, note heads, and rests.
+                )",
 
                 /* create */
-                "NoteColumn ",
+                R"(
+NoteColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

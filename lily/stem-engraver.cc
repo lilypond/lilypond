@@ -244,20 +244,27 @@ Stem_engraver::boot ()
 
 ADD_TRANSLATOR (Stem_engraver,
                 /* doc */
-                "Create stems, flags and single-stem tremolos.  It also works"
-                " together with the beam engraver for overriding beaming.",
+                R"(
+Create stems, flags and single-stem tremolos.  It also works together with the
+beam engraver for overriding beaming.
+                )",
 
                 /* create */
-                "Flag "
-                "Stem "
-                "StemStub "
-                "StemTremolo ",
+                R"(
+Flag
+Stem
+StemStub
+StemTremolo
+                )",
 
                 /* read */
-                "stemLeftBeamCount "
-                "stemRightBeamCount "
-                "whichBar ",
+                R"(
+stemLeftBeamCount
+stemRightBeamCount
+whichBar
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

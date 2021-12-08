@@ -69,14 +69,21 @@ Footnote_engraver::boot ()
 
 ADD_TRANSLATOR (Footnote_engraver,
                 /* doc */
-                "Create footnote texts.",
+                R"(
+Create footnote texts.
+                )",
 
                 /* create */
-                "Footnote",
+                R"(
+Footnote
+                )",
 
                 /*read*/
-                "",
+                R"(
+
+                )",
 
                 /*write*/
-                ""
-               );
+                R"(
+
+                )");

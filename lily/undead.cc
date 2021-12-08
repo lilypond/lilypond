@@ -61,8 +61,10 @@ parsed_dead::readout ()
 
 LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!",
            0, 0, 0, (),
-           "Return the list of objects that have been found alive"
-           " but should have been dead, and clear that list.")
+           R"(
+Return the list of objects that have been found alive but should have been
+dead, and clear that list.
+           )")
 {
   return parsed_dead::readout ();
 }

@@ -165,14 +165,21 @@ Text_spanner_engraver::boot ()
 
 ADD_TRANSLATOR (Text_spanner_engraver,
                 /* doc */
-                "Create text spanner from an event.",
+                R"(
+Create text spanner from an event.
+                )",
 
                 /* create */
-                "TextSpanner ",
+                R"(
+TextSpanner
+                )",
 
                 /* read */
-                "currentMusicalColumn ",
+                R"(
+currentMusicalColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

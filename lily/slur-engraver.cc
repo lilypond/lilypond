@@ -82,18 +82,25 @@ Slur_engraver::boot ()
 
 ADD_TRANSLATOR (Slur_engraver,
                 /* doc */
-                "Build slur grobs from slur events.",
+                R"(
+Build slur grobs from slur events.
+                )",
 
                 /* create */
-                "Slur ",
+                R"(
+Slur
+                )",
 
                 /* read */
-                "slurMelismaBusy "
-                "doubleSlurs ",
+                R"(
+slurMelismaBusy
+doubleSlurs
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 
 void
 Slur_engraver::derived_mark () const

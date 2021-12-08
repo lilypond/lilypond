@@ -28,7 +28,9 @@
 
 LY_DEFINE (ly_module_copy, "ly:module-copy",
            2, 0, 0, (SCM dest, SCM src),
-           "Copy all bindings from module @var{src} into @var{dest}.")
+           R"(
+Copy all bindings from module @var{src} into @var{dest}.
+           )")
 {
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
@@ -81,9 +83,10 @@ ly_module_lookup (SCM module, SCM sym)
 LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
            2, 1, 0,
            (SCM modules, SCM sym, SCM def),
-           "Look up @var{sym} in the list @var{modules},"
-           " returning the first occurrence.  If not found, return"
-           " @var{def} or @code{#f} if @var{def} isn't specified.")
+           R"(
+Look up @var{sym} in the list @var{modules}, returning the first occurrence.
+If not found, return @var{def} or @code{#f} if @var{def} isn't specified.
+           )")
 {
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {

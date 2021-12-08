@@ -243,46 +243,43 @@ Item::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
 }
 
 ADD_INTERFACE (Item,
-               "Grobs can be distinguished in their role in the horizontal"
-               " spacing.  Many grobs define constraints on the spacing by"
-               " their sizes, for example, note heads, clefs, stems, and all"
-               " other symbols with a fixed shape.  These grobs form a"
-               " subtype called @code{Item}.\n"
-               "\n"
-               "Some items need special treatment for line breaking.  For"
-               " example, a clef is normally only printed at the start of a"
-               " line (i.e., after a line break).   To model this,"
-               " @q{breakable} items (clef, key signature, bar lines, etc.)"
-               " are copied twice.  Then we have three versions of each"
-               " breakable item: one version if there is no line break, one"
-               " version that is printed before the line break (at the end of"
-               " a system), and one version that is printed after the line"
-               " break.\n"
-               "\n"
-               "Whether these versions are visible and take up space is"
-               " determined by the outcome of the @code{break-visibility}"
-               " grob property, which is a function taking a direction"
-               " (@w{@code{-1}}, @code{0} or@tie{}@code{1}) as an argument.  It"
-               " returns a cons of booleans, signifying whether this grob"
-               " should be transparent and have no extent.\n"
-               "\n"
-               "The following variables for @code{break-visibility} are"
-               " predefined:\n"
-               "@example\n"
-               "           grob will show:   before  no     after\n"
-               "                             break   break  break\n"
-               "  all-invisible              no      no     no\n"
-               "  begin-of-line-visible      no      no     yes\n"
-               "  end-of-line-visible        yes     no     no\n"
-               "  all-visible                yes     yes    yes\n"
-               "  begin-of-line-invisible    yes     yes    no\n"
-               "  end-of-line-invisible      no      yes    yes\n"
-               "  center-invisible           yes      no    yes\n"
-               "@end example",
+               R"(
+Grobs can be distinguished in their role in the horizontal spacing.  Many grobs
+define constraints on the spacing by their sizes, for example, note heads,
+clefs, stems, and all other symbols with a fixed shape.  These grobs form a
+subtype called @code{Item}.
+
+Some items need special treatment for line breaking.  For example, a clef is
+normally only printed at the start of a line (i.e., after a line break).   To
+model this, @q{breakable} items (clef, key signature, bar lines, etc.) are
+copied twice.  Then we have three versions of each breakable item: one version
+if there is no line break, one version that is printed before the line break
+(at the end of a system), and one version that is printed after the line break.
+
+Whether these versions are visible and take up space is determined by the
+outcome of the @code{break-visibility} grob property, which is a function
+taking a direction (@w{@code{-1}}, @code{0} or@tie{}@code{1}) as an argument.
+It returns a cons of booleans, signifying whether this grob should be
+transparent and have no extent.
+
+The following variables for @code{break-visibility} are predefined:
+@example
+           grob will show:   before  no     after
+                             break   break  break
+  all-invisible              no      no     no
+  begin-of-line-visible      no      no     yes
+  end-of-line-visible        yes     no     no
+  all-visible                yes     yes    yes
+  begin-of-line-invisible    yes     yes    no
+  end-of-line-invisible      no      yes    yes
+  center-invisible           yes      no    yes
+@end example
+               )",
 
                /* properties */
-               "break-visibility "
-               "extra-spacing-height "
-               "extra-spacing-width "
-               "non-musical "
-              );
+               R"(
+break-visibility
+extra-spacing-height
+extra-spacing-width
+non-musical
+               )");

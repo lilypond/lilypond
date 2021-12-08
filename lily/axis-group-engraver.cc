@@ -179,17 +179,24 @@ Axis_group_engraver::boot ()
 
 ADD_TRANSLATOR (Axis_group_engraver,
                 /* doc */
-                "Group all objects created in this context in a"
-                " @code{VerticalAxisGroup} spanner.",
+                R"(
+Group all objects created in this context in a @code{VerticalAxisGroup}
+spanner.
+                )",
 
                 /* create */
-                "VerticalAxisGroup ",
+                R"(
+VerticalAxisGroup
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "keepAliveInterfaces "
-                "hasAxisGroup ",
+                R"(
+currentCommandColumn
+keepAliveInterfaces
+hasAxisGroup
+                )",
 
                 /* write */
-                "hasAxisGroup "
-               );
+                R"(
+hasAxisGroup
+                )");

@@ -36,8 +36,9 @@ Protected_scm global_translator_dict;
 Protected_scm global_translator_dict_rev;
 
 LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
-           "Return a list of all translator objects that may be"
-           " instantiated.")
+           R"(
+Return a list of all translator objects that may be instantiated.
+           )")
 {
   Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
   SCM l = dict ? dict->to_alist () : SCM_EOL;
@@ -65,8 +66,10 @@ add_translator_creator (SCM creator, SCM name, SCM description)
 
 LY_DEFINE (ly_translator_name, "ly:translator-name",
            1, 0, 0, (SCM creator),
-           "Return the type name of the translator definition @var{creator}."
-           "  The name is a symbol.")
+           R"(
+Return the type name of the translator definition @var{creator}.  The name is a
+symbol.
+           )")
 {
   SCM res = global_translator_dict_rev.is_bound ()
             ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
@@ -78,7 +81,9 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
 
 LY_DEFINE (ly_translator_description, "ly:translator-description",
            1, 0, 0, (SCM creator),
-           "Return an alist of properties of translator definition @var{creator}.")
+           R"(
+Return an alist of properties of translator definition @var{creator}.
+           )")
 {
   SCM res = global_translator_dict_rev.is_bound ()
             ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
@@ -90,10 +95,11 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
 
 LY_DEFINE (ly_register_translator, "ly:register-translator",
            2, 1, 0, (SCM creator, SCM name, SCM description),
-           "Register a translator @var{creator} (usually a descriptive"
-           " alist or a function/closure returning one when given a"
-           " context argument) with the given symbol @var{name} and"
-           " the given @var{description} alist.")
+           R"(
+Register a translator @var{creator} (usually a descriptive alist or a
+function/closure returning one when given a context argument) with the given
+symbol @var{name} and the given @var{description} alist.
+           )")
 {
   SCM_ASSERT_TYPE (ly_is_procedure (creator) || scm_is_pair (creator),
                    creator, SCM_ARG1, __FUNCTION__, "translator creator");

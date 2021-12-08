@@ -518,13 +518,16 @@ Accidental_placement::calc_positioning_done (SCM smob)
 }
 
 ADD_INTERFACE (Accidental_placement,
-               "Resolve accidental collisions.",
+               R"(
+Resolve accidental collisions.
+               )",
 
                /* properties */
-               "accidental-grobs "
-               "direction "
-               "padding "
-               "positioning-done "
-               "right-padding "
-               "script-priority "
-              );
+               R"(
+accidental-grobs
+direction
+padding
+positioning-done
+right-padding
+script-priority
+               )");

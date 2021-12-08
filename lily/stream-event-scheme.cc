@@ -21,15 +21,18 @@
 
 LY_DEFINE (ly_stream_event_p, "ly:stream-event?",
            1, 0, 0, (SCM obj),
-           "Is @var{obj} a @code{Stream_event} object?")
+           R"(
+Is @var{obj} a @code{Stream_event} object?
+           )")
 {
   return scm_from_bool (unsmob<Stream_event> (obj));
 }
 
 LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
            1, 1, 0, (SCM cl, SCM proplist),
-           "Create a stream event of class @var{cl} with the given"
-           " mutable property list.")
+           R"(
+Create a stream event of class @var{cl} with the given mutable property list.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_pair, cl, 1);
 
@@ -45,9 +48,10 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
 
 LY_DEFINE (ly_event_property, "ly:event-property",
            2, 1, 0, (SCM sev, SCM sym, SCM val),
-           "Get the property @var{sym} of stream event @var{sev}."
-           "  If @var{sym} is undefined, return @var{val} or"
-           " @code{'()} if @var{val} is not specified.")
+           R"(
+Get the property @var{sym} of stream event @var{sev}.  If @var{sym} is
+undefined, return @var{val} or @code{'()} if @var{val} is not specified.
+           )")
 {
   LY_ASSERT_SMOB (Stream_event, sev, 1);
   return ly_prob_property (sev, sym, val);
@@ -55,7 +59,9 @@ LY_DEFINE (ly_event_property, "ly:event-property",
 
 LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
            3, 0, 0, (SCM ev, SCM sym, SCM val),
-           "Set property @var{sym} in event @var{ev} to @var{val}.")
+           R"(
+Set property @var{sym} in event @var{ev} to @var{val}.
+           )")
 {
   LY_ASSERT_SMOB (Stream_event, ev, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -65,7 +71,9 @@ LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
 
 LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy",
            1, 0, 0, (SCM m),
-           "Copy @var{m} and all sub-expressions of@tie{}@var{m}.")
+           R"(
+Copy @var{m} and all sub-expressions of@tie{}@var{m}.
+           )")
 {
   SCM copy = m;
   if (Stream_event *ev = unsmob<Stream_event> (m))

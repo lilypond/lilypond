@@ -192,16 +192,23 @@ Pitched_trill_engraver::boot ()
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
                 /* doc */
-                "Print the bracketed note head after a note head with trill.",
+                R"(
+Print the bracketed note head after a note head with trill.
+                )",
 
                 /* create */
-                "TrillPitchHead "
-                "TrillPitchAccidental "
-                "TrillPitchGroup ",
+                R"(
+TrillPitchHead
+TrillPitchAccidental
+TrillPitchGroup
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

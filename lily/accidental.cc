@@ -171,14 +171,17 @@ Accidental_interface::print (SCM smob)
 }
 
 ADD_INTERFACE (Accidental_interface,
-               "A single accidental.",
+               R"(
+A single accidental.
+               )",
 
                /* properties */
-               "alteration "
-               "avoid-slur "
-               "forced "
-               "alteration-glyph-name-alist "
-               "hide-tied-accidental-after-break "
-               "restore-first "
-               "tie "
-              );
+               R"(
+alteration
+avoid-slur
+forced
+alteration-glyph-name-alist
+hide-tied-accidental-after-break
+restore-first
+tie
+               )");

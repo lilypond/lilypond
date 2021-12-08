@@ -129,15 +129,21 @@ Ligature_bracket_engraver::boot ()
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
                 /* doc */
-                "Handle @code{Ligature_events} by engraving @code{Ligature}"
-                " brackets.",
+                R"(
+Handle @code{Ligature_events} by engraving @code{Ligature} brackets.
+                )",
 
                 /* create */
-                "LigatureBracket ",
+                R"(
+LigatureBracket
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

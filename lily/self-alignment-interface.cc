@@ -187,23 +187,25 @@ Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 }
 
 ADD_INTERFACE (Self_alignment_interface,
-               "Position this object on itself and/or on its parent.  To this"
-               " end, the following functions are provided:\n"
-               "\n"
-               "@table @code\n"
-               "@item Self_alignment_interface::[xy]_aligned_on_self\n"
-               "Align self on reference point, using"
-               " @code{self-alignment-X} and @code{self-alignment-Y}."
-               "@item Self_alignment_interface::aligned_on_[xy]_parent\n"
-               "@item Self_alignment_interface::centered_on_[xy]_parent\n"
-               "Shift the object so its own reference point is centered on"
-               " the extent of the parent\n"
-               "@end table\n",
+               R"(
+Position this object on itself and/or on its parent.  To this end, the
+following functions are provided:
+
+@table @code
+@item Self_alignment_interface::[xy]_aligned_on_self
+Align self on reference point, using @code{self-alignment-X} and
+@code{self-alignment-Y}.@item Self_alignment_interface::aligned_on_[xy]_parent
+@item Self_alignment_interface::centered_on_[xy]_parent
+Shift the object so its own reference point is centered on the extent of the
+parent
+@end table
+               )",
 
                /* properties */
-               "parent-alignment-X "
-               "parent-alignment-Y "
-               "self-alignment-X "
-               "self-alignment-Y "
-               "X-align-on-main-noteheads "
-              );
+               R"(
+parent-alignment-X
+parent-alignment-Y
+self-alignment-X
+self-alignment-Y
+X-align-on-main-noteheads
+               )");

@@ -211,10 +211,13 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
 }
 
 ADD_INTERFACE (Staff_spacing,
-               "This object calculates spacing details from a breakable"
-               " symbol (left) to another object.  For example, it takes care"
-               " of optical spacing from a bar line to a note.",
+               R"(
+This object calculates spacing details from a breakable symbol (left) to
+another object.  For example, it takes care of optical spacing from a bar line
+to a note.
+               )",
 
                /* properties */
-               "stem-spacing-correction "
-              );
+               R"(
+stem-spacing-correction
+               )");

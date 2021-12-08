@@ -330,21 +330,28 @@ Beam_engraver::boot ()
 
 ADD_TRANSLATOR (Beam_engraver,
                 /* doc */
-                "Handle @code{Beam} events by engraving beams.  If omitted,"
-                " then notes are printed with flags instead of beams.",
+                R"(
+Handle @code{Beam} events by engraving beams.  If omitted, then notes are
+printed with flags instead of beams.
+                )",
 
                 /* create */
-                "Beam ",
+                R"(
+Beam
+                )",
 
                 /* read */
-                "baseMoment "
-                "beamMelismaBusy "
-                "beatStructure "
-                "subdivideBeams ",
+                R"(
+baseMoment
+beamMelismaBusy
+beatStructure
+subdivideBeams
+                )",
 
                 /* write */
-                "forbidBreak"
-               );
+                R"(
+forbidBreak
+                )");
 
 class Grace_beam_engraver : public Beam_engraver
 {
@@ -385,20 +392,27 @@ Grace_beam_engraver::boot ()
 
 ADD_TRANSLATOR (Grace_beam_engraver,
                 /* doc */
-                "Handle @code{Beam} events by engraving beams.  If omitted,"
-                " then notes are printed with flags instead of beams.  Only"
-                " engraves beams when we are at grace points in time.",
+                R"(
+Handle @code{Beam} events by engraving beams.  If omitted, then notes are
+printed with flags instead of beams.  Only engraves beams when we are at grace
+points in time.
+                )",
 
                 /* create */
-                "Beam ",
+                R"(
+Beam
+                )",
 
                 /* read */
-                "baseMoment "
-                "beamMelismaBusy "
-                "beatStructure "
-                "subdivideBeams ",
+                R"(
+baseMoment
+beamMelismaBusy
+beatStructure
+subdivideBeams
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 

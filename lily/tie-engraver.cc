@@ -386,16 +386,23 @@ Tie_engraver::boot ()
 
 ADD_TRANSLATOR (Tie_engraver,
                 /* doc */
-                "Generate ties between note heads of equal pitch.",
+                R"(
+Generate ties between note heads of equal pitch.
+                )",
 
                 /* create */
-                "Tie "
-                "TieColumn ",
+                R"(
+Tie
+TieColumn
+                )",
 
                 /* read */
-                "skipTypesetting "
-                "tieWaitForNote ",
+                R"(
+skipTypesetting
+tieWaitForNote
+                )",
 
                 /* write */
-                "tieMelismaBusy "
-               );
+                R"(
+tieMelismaBusy
+                )");

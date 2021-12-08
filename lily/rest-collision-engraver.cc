@@ -105,14 +105,21 @@ Rest_collision_engraver::boot ()
 
 ADD_TRANSLATOR (Rest_collision_engraver,
                 /* doc */
-                "Handle collisions of rests.",
+                R"(
+Handle collisions of rests.
+                )",
 
                 /* create */
-                "RestCollision ",
+                R"(
+RestCollision
+                )",
 
                 /* read */
-                "busyGrobs ",
+                R"(
+busyGrobs
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

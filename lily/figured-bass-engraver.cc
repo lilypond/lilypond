@@ -518,23 +518,30 @@ Figured_bass_engraver::boot ()
 
 ADD_TRANSLATOR (Figured_bass_engraver,
                 /* doc */
-                "Make figured bass numbers.",
+                R"(
+Make figured bass numbers.
+                )",
 
                 /* create */
-                "BassFigure "
-                "BassFigureAlignment "
-                "BassFigureBracket "
-                "BassFigureContinuation "
-                "BassFigureLine ",
+                R"(
+BassFigure
+BassFigureAlignment
+BassFigureBracket
+BassFigureContinuation
+BassFigureLine
+                )",
 
                 /* read */
-                "figuredBassAlterationDirection "
-                "figuredBassCenterContinuations "
-                "figuredBassFormatter "
-                "implicitBassFigures "
-                "useBassFigureExtenders "
-                "ignoreFiguredBassRest ",
+                R"(
+figuredBassAlterationDirection
+figuredBassCenterContinuations
+figuredBassFormatter
+implicitBassFigures
+useBassFigureExtenders
+ignoreFiguredBassRest
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

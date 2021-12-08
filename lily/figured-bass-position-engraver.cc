@@ -164,14 +164,21 @@ Figured_bass_position_engraver::boot ()
 
 ADD_TRANSLATOR (Figured_bass_position_engraver,
                 /* doc */
-                "Position figured bass alignments over notes.",
+                R"(
+Position figured bass alignments over notes.
+                )",
 
                 /* create */
-                "BassFigureAlignmentPositioning ",
+                R"(
+BassFigureAlignmentPositioning
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

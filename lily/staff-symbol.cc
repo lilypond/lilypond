@@ -402,22 +402,24 @@ Staff_symbol::line_span (Grob *me)
 }
 
 ADD_INTERFACE (Staff_symbol,
-               "This spanner draws the lines of a staff.  A staff symbol"
-               " defines a vertical unit, the @emph{staff space}.  Quantities"
-               " that go by a half staff space are called @emph{positions}."
-               "  The center (i.e., middle line or space) is position@tie{}0."
-               " The length of the symbol may be set by hand through the"
-               " @code{width} property.",
+               R"(
+This spanner draws the lines of a staff.  A staff symbol defines a vertical
+unit, the @emph{staff space}.  Quantities that go by a half staff space are
+called @emph{positions}.  The center (i.e., middle line or space) is
+position@tie{}0. The length of the symbol may be set by hand through the
+@code{width} property.
+               )",
 
                /* properties */
-               "break-align-symbols "
-               "ledger-extra "
-               "ledger-line-thickness "
-               "ledger-positions "
-               "ledger-positions-function "
-               "line-count "
-               "line-positions "
-               "staff-space "
-               "thickness "
-               "width "
-              );
+               R"(
+break-align-symbols
+ledger-extra
+ledger-line-thickness
+ledger-positions
+ledger-positions-function
+line-count
+line-positions
+staff-space
+thickness
+width
+               )");

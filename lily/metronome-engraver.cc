@@ -172,22 +172,28 @@ Metronome_mark_engraver::boot ()
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
                 /* doc */
-                "Engrave metronome marking.  This delegates the formatting"
-                " work to the function in the @code{metronomeMarkFormatter}"
-                " property.  The mark is put over all staves.  The staves are"
-                " taken from the @code{stavesFound} property, which is"
-                " maintained by @ref{Staff_collecting_engraver}.",
+                R"(
+Engrave metronome marking.  This delegates the formatting work to the function
+in the @code{metronomeMarkFormatter} property.  The mark is put over all
+staves.  The staves are taken from the @code{stavesFound} property, which is
+maintained by @ref{Staff_collecting_engraver}.
+                )",
 
                 /* create */
-                "MetronomeMark ",
+                R"(
+MetronomeMark
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "currentMusicalColumn "
-                "metronomeMarkFormatter "
-                "stavesFound "
-                "tempoHideNote ",
+                R"(
+currentCommandColumn
+currentMusicalColumn
+metronomeMarkFormatter
+stavesFound
+tempoHideNote
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

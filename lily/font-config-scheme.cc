@@ -100,7 +100,9 @@ display_list (FcConfig *fcc)
 
 LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0,
            (SCM name),
-           "Get the file for font @var{name}, as found by FontConfig.")
+           R"(
+Get the file for font @var{name}, as found by FontConfig.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
@@ -129,7 +131,9 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
 
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
            (),
-           "Dump a list of all fonts visible to FontConfig.")
+           R"(
+Dump a list of all fonts visible to FontConfig.
+           )")
 {
   string str = display_list (NULL);
   str += display_config (NULL);
@@ -141,7 +145,9 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0
 
 LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0,
            (SCM dir),
-           "Add directory @var{dir} to FontConfig.")
+           R"(
+Add directory @var{dir} to FontConfig.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, dir, 1);
 
@@ -157,7 +163,9 @@ LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0
 
 LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
            (SCM font),
-           "Add font @var{font} to FontConfig.")
+           R"(
+Add font @var{font} to FontConfig.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, font, 1);
 

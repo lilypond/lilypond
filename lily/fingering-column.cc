@@ -164,12 +164,14 @@ Fingering_column::add_fingering (Grob *fc, Grob *f)
 }
 
 ADD_INTERFACE (Fingering_column,
-               "Makes sure that fingerings placed laterally"
-               " do not collide and that they are flush if"
-               " necessary.",
+               R"(
+Makes sure that fingerings placed laterally do not collide and that they are
+flush if necessary.
+               )",
 
                /* properties */
-               "padding "
-               "positioning-done "
-               "snap-radius "
-              );
+               R"(
+padding
+positioning-done
+snap-radius
+               )");

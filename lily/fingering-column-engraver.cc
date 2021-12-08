@@ -113,15 +113,22 @@ Fingering_column_engraver::boot ()
 
 ADD_TRANSLATOR (Fingering_column_engraver,
                 /* doc */
-                "Find potentially colliding scripts and put them into a"
-                " @code{FingeringColumn} object; that will fix the collisions.",
+                R"(
+Find potentially colliding scripts and put them into a @code{FingeringColumn}
+object; that will fix the collisions.
+                )",
 
                 /* create */
-                "FingeringColumn ",
+                R"(
+FingeringColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

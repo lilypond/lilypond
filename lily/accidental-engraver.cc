@@ -530,28 +530,33 @@ Accidental_engraver::boot ()
 
 ADD_TRANSLATOR (Accidental_engraver,
                 /* doc */
-                "Make accidentals."
-                "  Catch note heads, ties and notices key-change events."
-                "  This engraver usually lives at Staff level, but"
-                " reads the settings for Accidental at @code{Voice} level,"
-                " so you can @code{\\override} them at @code{Voice}.",
+                R"(
+Make accidentals.  Catch note heads, ties and notices key-change events.  This
+engraver usually lives at Staff level, but reads the settings for Accidental at
+@code{Voice} level, so you can @code{\override} them at @code{Voice}.
+                )",
 
                 /* create */
-                "Accidental "
-                "AccidentalCautionary "
-                "AccidentalPlacement "
-                "AccidentalSuggestion ",
+                R"(
+Accidental
+AccidentalCautionary
+AccidentalPlacement
+AccidentalSuggestion
+                )",
 
                 /* read */
-                "autoAccidentals "
-                "autoCautionaries "
-                "internalBarNumber "
-                "extraNatural "
-                "harmonicAccidentals "
-                "accidentalGrouping "
-                "keyAlterations "
-                "localAlterations ",
+                R"(
+autoAccidentals
+autoCautionaries
+internalBarNumber
+extraNatural
+harmonicAccidentals
+accidentalGrouping
+keyAlterations
+localAlterations
+                )",
 
                 /* write */
-                "localAlterations "
-               );
+                R"(
+localAlterations
+                )");

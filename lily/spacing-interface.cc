@@ -225,10 +225,12 @@ Spacing_interface::extremal_break_aligned_grob (Grob *me,
 }
 
 ADD_INTERFACE (Spacing_interface,
-               "This object calculates the desired and minimum distances"
-               " between two columns.",
+               R"(
+This object calculates the desired and minimum distances between two columns.
+               )",
 
                /* properties */
-               "left-items "
-               "right-items "
-              );
+               R"(
+left-items
+right-items
+               )");

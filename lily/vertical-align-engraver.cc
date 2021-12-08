@@ -60,20 +60,26 @@ Vertical_align_engraver::boot ()
 
 ADD_TRANSLATOR (Vertical_align_engraver,
                 /* doc */
-                "Catch groups (staves, lyrics lines, etc.) and stack them"
-                " vertically.",
+                R"(
+Catch groups (staves, lyrics lines, etc.) and stack them vertically.
+                )",
 
                 /* create */
-                "VerticalAlignment ",
+                R"(
+VerticalAlignment
+                )",
 
                 /* read */
-                "alignAboveContext "
-                "alignBelowContext "
-                "hasAxisGroup ",
+                R"(
+alignAboveContext
+alignBelowContext
+hasAxisGroup
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 
 // TODO: consider splitting out a Staff_grouper_engraver.
 // The code paths for top_level_ being true or false seem

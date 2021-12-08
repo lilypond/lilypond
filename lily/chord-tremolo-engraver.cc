@@ -162,14 +162,21 @@ Chord_tremolo_engraver::boot ()
 
 ADD_TRANSLATOR (Chord_tremolo_engraver,
                 /* doc */
-                "Generate beams for tremolo repeats.",
+                R"(
+Generate beams for tremolo repeats.
+                )",
 
                 /* create */
-                "Beam ",
+                R"(
+Beam
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

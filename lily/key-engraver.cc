@@ -224,24 +224,31 @@ Key_engraver::boot ()
 
 ADD_TRANSLATOR (Key_engraver,
                 /* doc */
-                "Engrave a key signature.",
+                R"(
+Engrave a key signature.
+                )",
 
                 /* create */
-                "KeyCancellation "
-                "KeySignature ",
+                R"(
+KeyCancellation
+KeySignature
+                )",
 
                 /* read */
-                "createKeyOnClefChange "
-                "explicitKeySignatureVisibility "
-                "extraNatural "
-                "keyAlterationOrder "
-                "keyAlterations "
-                "lastKeyAlterations "
-                "printKeyCancellation "
-                "middleCClefPosition ",
+                R"(
+createKeyOnClefChange
+explicitKeySignatureVisibility
+extraNatural
+keyAlterationOrder
+keyAlterations
+lastKeyAlterations
+printKeyCancellation
+middleCClefPosition
+                )",
 
                 /* write */
-                "keyAlterations "
-                "lastKeyAlterations "
-                "tonic "
-               );
+                R"(
+keyAlterations
+lastKeyAlterations
+tonic
+                )");

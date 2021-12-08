@@ -37,8 +37,10 @@ using std::string;
 
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
            (SCM font),
-           "Given the font metric @var{font} of an OpenType font, return the"
-           " names of the subfonts within @var{font}.")
+           R"(
+Given the font metric @var{font} of an OpenType font, return the names of the
+subfonts within @var{font}.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -47,8 +49,10 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
            (SCM font, SCM glyph),
-           "Given the font metric @var{font} of an OpenType font, return the"
-           " information about named glyph @var{glyph} (a string).")
+           R"(
+Given the font metric @var{font} of an OpenType font, return the information
+about named glyph @var{glyph} (a string).
+           )")
 {
   Modified_font_metric *fm
     = unsmob<Modified_font_metric> (font);
@@ -65,8 +69,10 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
 
 LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
            (SCM font, SCM tag),
-           "Extract a table @var{tag} from @var{font}.  Return empty string"
-           " for non-existent @var{tag}.")
+           R"(
+Extract a table @var{tag} from @var{font}.  Return empty string for
+non-existent @var{tag}.
+           )")
 {
   Modified_font_metric *fm
     = unsmob<Modified_font_metric> (font);
@@ -89,7 +95,9 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
 
 LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
            (SCM font),
-           "Is @var{font} an OpenType font?")
+           R"(
+Is @var{font} an OpenType font?
+           )")
 {
   Modified_font_metric *fm
     = unsmob<Modified_font_metric> (font);
@@ -102,7 +110,9 @@ LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
 
 LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
            (SCM font),
-           "Return the number of glyphs in @var{font}.")
+           R"(
+Return the number of glyphs in @var{font}.
+           )")
 {
   Modified_font_metric *fm
     = unsmob<Modified_font_metric> (font);
@@ -117,7 +127,9 @@ LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
 
 LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
            (SCM font),
-           "Return a list of glyph names for @var{font}.")
+           R"(
+Return a list of glyph names for @var{font}.
+           )")
 {
   Modified_font_metric *fm
     = unsmob<Modified_font_metric> (font);
@@ -132,12 +144,12 @@ LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
 
 LY_DEFINE (ly_get_font_format, "ly:get-font-format",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Get the font format for @var{font-file-name},"
-           " returning it as a symbol.  The optional"
-           " @var{idx} argument is useful for TrueType Collections (TTC) and"
-           " OpenType/CFF collections (OTC) only;"
-           " it specifies the font index within the TTC/OTC."
-           " The default value of @var{idx} is@tie{}0.")
+           R"(
+Get the font format for @var{font-file-name}, returning it as a symbol.  The
+optional @var{idx} argument is useful for TrueType Collections (TTC) and
+OpenType/CFF collections (OTC) only; it specifies the font index within the
+TTC/OTC. The default value of @var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, font_file_name, 1);
 
@@ -178,12 +190,12 @@ LY_DEFINE (ly_get_font_format, "ly:get-font-format",
 
 LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Does the font for @var{font-file-name} have glyph names?"
-           "  The optional @var{idx} argument is useful for"
-           " TrueType Collections (TTC) and"
-           " OpenType/CFF collections (OTC) only;"
-           " it specifies the font index within the TTC/OTC."
-           "  The default value of @var{idx} is@tie{}0.")
+           R"(
+Does the font for @var{font-file-name} have glyph names?  The optional
+@var{idx} argument is useful for TrueType Collections (TTC) and OpenType/CFF
+collections (OTC) only; it specifies the font index within the TTC/OTC.  The
+default value of @var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, font_file_name, 1);
 
@@ -224,12 +236,12 @@ LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
 
 LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Get the offset of the `CFF' table for @var{font-file-name},"
-           " returning it as an integer.  The optional"
-           " @var{idx} argument is useful for"
-           " OpenType/CFF collections (OTC) only;"
-           " it specifies the font index within the OTC."
-           "  The default value of @var{idx} is@tie{}0.")
+           R"(
+Get the offset of the `CFF' table for @var{font-file-name}, returning it as an
+integer.  The optional @var{idx} argument is useful for OpenType/CFF
+collections (OTC) only; it specifies the font index within the OTC.  The
+default value of @var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, font_file_name, 1);
 
@@ -383,10 +395,11 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
 LY_DEFINE (ly_extract_subfont_from_collection,
            "ly:extract-subfont-from-collection",
            3, 0, 0, (SCM collection_file_name, SCM idx, SCM subfont_file_name),
-           "Extract the subfont of index @var{idx} in"
-           " TrueType collection (TTC) or OpenType/CFF collection (OTC) file"
-           " @var{collection-file-name} and write it to file"
-           " @var{subfont-file-name}.")
+           R"(
+Extract the subfont of index @var{idx} in TrueType collection (TTC) or
+OpenType/CFF collection (OTC) file @var{collection-file-name} and write it to
+file @var{subfont-file-name}.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, collection_file_name, 1);
   LY_ASSERT_TYPE (scm_is_integer, idx, 2);

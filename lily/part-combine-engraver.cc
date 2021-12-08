@@ -146,19 +146,26 @@ Part_combine_engraver::boot ()
 
 ADD_TRANSLATOR (Part_combine_engraver,
                 /* doc */
-                "Part combine engraver for orchestral scores: Print markings"
-                " @q{a2}, @q{Solo}, @q{Solo II}, and @q{unisono}.",
+                R"(
+Part combine engraver for orchestral scores: Print markings @q{a2}, @q{Solo},
+@q{Solo II}, and @q{unisono}.
+                )",
 
                 /* create */
-                "CombineTextScript ",
+                R"(
+CombineTextScript
+                )",
 
                 /* read */
-                "printPartCombineTexts "
-                "partCombineTextsOnNote "
-                "soloText "
-                "soloIIText "
-                "aDueText ",
+                R"(
+printPartCombineTexts
+partCombineTextsOnNote
+soloText
+soloIIText
+aDueText
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -105,18 +105,26 @@ Staff_performer::boot ()
 
 ADD_TRANSLATOR (Staff_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "midiChannelMapping "
-                "midiMergeUnisons "
-                "midiSkipOffset ",
+                R"(
+midiChannelMapping
+midiMergeUnisons
+midiSkipOffset
+                )",
 
                 /* write */
-                "");
+                R"(
+
+                )");
 
 Staff_performer::Staff_performer (Context *c)
   : Performer (c),

@@ -258,13 +258,16 @@ Dot_column::add_head (Grob *me, Grob *head)
 }
 
 ADD_INTERFACE (Dot_column,
-               "Group dot objects so they form a column, and position"
-               " dots so they do not clash with staff lines.",
+               R"(
+Group dot objects so they form a column, and position dots so they do not clash
+with staff lines.
+               )",
 
                /* properties */
-               "chord-dots-limit "
-               "dots "
-               "positioning-done "
-               "direction "
-               "note-collision "
-              );
+               R"(
+chord-dots-limit
+dots
+positioning-done
+direction
+note-collision
+               )");

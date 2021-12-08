@@ -102,14 +102,21 @@ Control_track_performer::boot ()
 
 ADD_TRANSLATOR (Control_track_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "midiSkipOffset",
+                R"(
+midiSkipOffset
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

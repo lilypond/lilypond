@@ -62,21 +62,24 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
   read by the associated item class, such as VaticanaLigature.--jr
 */
 ADD_INTERFACE (Gregorian_ligature,
-               "A gregorian ligature.",
+               R"(
+A gregorian ligature.
+               )",
 
                /* properties */
-               "virga "
-               "stropha "
-               "inclinatum "
-               "auctum "
-               "descendens "
-               "ascendens "
-               "oriscus "
-               "quilisma "
-               "deminutum "
-               "cavum "
-               "linea "
-               "pes-or-flexa "
-               "context-info "
-               "prefix-set "
-              );
+               R"(
+virga
+stropha
+inclinatum
+auctum
+descendens
+ascendens
+oriscus
+quilisma
+deminutum
+cavum
+linea
+pes-or-flexa
+context-info
+prefix-set
+               )");

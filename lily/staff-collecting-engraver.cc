@@ -65,14 +65,21 @@ Staff_collecting_engraver::boot ()
 
 ADD_TRANSLATOR (Staff_collecting_engraver,
                 /* doc */
-                "Maintain the @code{stavesFound} variable.",
+                R"(
+Maintain the @code{stavesFound} variable.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "stavesFound ",
+                R"(
+stavesFound
+                )",
 
                 /* write */
-                "stavesFound "
-               );
+                R"(
+stavesFound
+                )");

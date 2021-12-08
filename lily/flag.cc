@@ -206,15 +206,16 @@ Flag::calc_x_offset (SCM smob)
 }
 
 ADD_INTERFACE (Flag,
-               "A flag that gets attached to a stem."
-               "The style property is  symbol determining"
-               " what style of flag glyph is typeset on a"
-               " @code{Stem}.  Valid options include @code{'()}"
-               " for standard flags, @code{'mensural} and"
-               " @code{'no-flag}, which switches off the flag.",
+               R"(
+A flag that gets attached to a stem.The style property is  symbol determining
+what style of flag glyph is typeset on a @code{Stem}.  Valid options include
+@code{'()} for standard flags, @code{'mensural} and @code{'no-flag}, which
+switches off the flag.
+               )",
 
                /* properties */
-               "glyph-name "
-               "style "
-               "stroke-style "
-              );
+               R"(
+glyph-name
+style
+stroke-style
+               )");

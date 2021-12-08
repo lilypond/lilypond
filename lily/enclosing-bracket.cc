@@ -33,17 +33,20 @@ public:
 };
 
 ADD_INTERFACE (Enclosing_bracket,
-               "Brackets alongside bass figures.",
+               R"(
+Brackets alongside bass figures.
+               )",
 
                /* properties */
-               "bracket-flare "
-               "dashed-edge "
-               "edge-height "
-               "elements "
-               "padding "
-               "shorten-pair "
-               "thickness "
-              );
+               R"(
+bracket-flare
+dashed-edge
+edge-height
+elements
+padding
+shorten-pair
+thickness
+               )");
 
 /* ugh: should make bracket interface. */
 

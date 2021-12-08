@@ -70,14 +70,21 @@ Font_size_engraver::boot ()
 
 ADD_TRANSLATOR (Font_size_engraver,
                 /* doc */
-                "Put @code{fontSize} into @code{font-size} grob property.",
+                R"(
+Put @code{fontSize} into @code{font-size} grob property.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "fontSize ",
+                R"(
+fontSize
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

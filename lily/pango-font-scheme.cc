@@ -29,7 +29,9 @@
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
            1, 0, 0,
            (SCM f),
-           "Is @var{f} a Pango font?")
+           R"(
+Is @var{f} a Pango font?
+           )")
 {
   return scm_from_bool (unsmob<Pango_font> (f));
 }
@@ -37,8 +39,10 @@ LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
 LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
            1, 0, 0,
            (SCM f),
-           "Return alist of @code{(ps-name file-name font-index)} lists"
-           " for Pango font@tie{}@var{f}.")
+           R"(
+Return alist of @code{(ps-name file-name font-index)} lists for Pango
+font@tie{}@var{f}.
+           )")
 {
   Pango_font *pf = unsmob<Pango_font> (f);
 

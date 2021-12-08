@@ -57,8 +57,9 @@ SCM ly_progress (SCM, SCM);
 
 LY_DEFINE (ly_find_file, "ly:find-file",
            1, 0, 0, (SCM name),
-           "Return the absolute file name of @var{name},"
-           " or @code{#f} if not found.")
+           R"(
+Return the absolute file name of @var{name}, or @code{#f} if not found.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
@@ -72,10 +73,12 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 
 LY_DEFINE (ly_rename_file, "ly:rename-file",
            2, 0, 0, (SCM oldname, SCM newname),
-           "Rename @var{oldname} to @var{newname}. In contrast to Guile's"
-           " @code{rename-file} function, this replaces the destination if"
-           " it already exists.  On Windows, fall back to copying the file"
-           " contents if @var{newname} cannot be deleted.")
+           R"(
+Rename @var{oldname} to @var{newname}. In contrast to Guile's
+@code{rename-file} function, this replaces the destination if it already
+exists.  On Windows, fall back to copying the file contents if @var{newname}
+cannot be deleted.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, oldname, 1);
   LY_ASSERT_TYPE (scm_is_string, newname, 1);
@@ -93,7 +96,9 @@ LY_DEFINE (ly_rename_file, "ly:rename-file",
 }
 
 LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
-           "Randomize C random generator.")
+           R"(
+Randomize C random generator.
+           )")
 {
   struct timeval tv = {};
   pid_t pid = getpid ();
@@ -108,10 +113,11 @@ LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
 */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
            1, 1, 0, (SCM name, SCM size),
-           "Read @var{size} characters from the file @var{name},"
-           " and return its contents in a string."
-           "  If @var{size} is undefined, the entire file is read."
-           "  The file is looked up using the search path.")
+           R"(
+Read @var{size} characters from the file @var{name}, and return its contents in
+a string.  If @var{size} is undefined, the entire file is read.  The file is
+looked up using the search path.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   int sz = INT_MAX;
@@ -127,10 +133,11 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 
 LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8",
            1, 1, 0, (SCM name, SCM size),
-           "Read @var{size} characters from the file @var{name},"
-           " and return its contents in a string decoded from UTF-8."
-           "  If @var{size} is undefined, the entire file is read."
-           "  The file is looked up using the search path.")
+           R"(
+Read @var{size} characters from the file @var{name}, and return its contents in
+a string decoded from UTF-8.  If @var{size} is undefined, the entire file is
+read.  The file is looked up using the search path.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   int sz = INT_MAX;
@@ -146,10 +153,12 @@ LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8",
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
-           "Is @var{s} a direction?  Valid directions are @w{@code{-1}},"
-           " @code{0}, or@tie{}@code{1}, where @w{@code{-1}} represents"
-           " left or down, @code{1}@tie{}represents right or up, and @code{0}"
-           " represents a neutral direction.")
+           R"(
+Is @var{s} a direction?  Valid directions are @w{@code{-1}}, @code{0},
+or@tie{}@code{1}, where @w{@code{-1}} represents left or down,
+@code{1}@tie{}represents right or up, and @code{0} represents a neutral
+direction.
+           )")
 {
   if (scm_is_integer (s))
     {
@@ -162,10 +171,11 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
 LY_DEFINE (ly_assoc_get, "ly:assoc-get",
            2, 2, 0,
            (SCM key, SCM alist, SCM default_value, SCM strict_checking),
-           "Return value if @var{key} in @var{alist}, else @var{default-value}"
-           " (or @code{#f} if not specified).  If @var{strict-checking} is set"
-           " to @code{#t} and @var{key} is not in @var{alist}, a programming error"
-           " is output.")
+           R"(
+Return value if @var{key} in @var{alist}, else @var{default-value} (or
+@code{#f} if not specified).  If @var{strict-checking} is set to @code{#t} and
+@var{key} is not in @var{alist}, a programming error is output.
+           )")
 {
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
 
@@ -194,8 +204,9 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 
 LY_DEFINE (ly_string_substitute, "ly:string-substitute",
            3, 0, 0, (SCM a, SCM b, SCM s),
-           "Replace string@tie{}@var{a} by string@tie{}@var{b} in"
-           " string@tie{}@var{s}.")
+           R"(
+Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, s, 1);
   LY_ASSERT_TYPE (scm_is_string, b, 2);
@@ -210,10 +221,11 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 
 LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
-           "Encode all characters in string @var{str} with hexadecimal"
-           " percent escape sequences, with the following exceptions:"
-           " characters @w{@samp{-./_}} and"
-           " characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.")
+           R"(
+Encode all characters in string @var{str} with hexadecimal percent escape
+sequences, with the following exceptions: characters @w{@samp{-./_}} and
+characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
@@ -225,7 +237,9 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
 
 LY_DEFINE (ly_number_2_string, "ly:number->string",
            1, 0, 0, (SCM s),
-           "Convert @var{s} to a string without generating many decimals.")
+           R"(
+Convert @var{s} to a string without generating many decimals.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, s, 1);
 
@@ -251,22 +265,27 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
-           "Return the current LilyPond version as a list, e.g.,"
-           " @code{(1 3 127 uu1)}.")
+           R"(
+Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
+           )")
 {
   return scm_c_eval_string ("\'(" MAJOR_VERSION " " MINOR_VERSION
                             " " PATCH_LEVEL " " MY_PATCH_LEVEL ")");
 }
 
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
-           "Return the unit used for lengths as a string.")
+           R"(
+Return the unit used for lengths as a string.
+           )")
 {
   return scm_from_ascii_string (INTERNAL_UNIT);
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
-           "Is @var{d} a dimension?  Used to distinguish length"
-           " variables from normal numbers.")
+           R"(
+Is @var{d} a dimension?  Used to distinguish length variables from normal
+numbers.
+           )")
 {
   return scm_number_p (d);
 }
@@ -276,7 +295,9 @@ LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
 */
 LY_DEFINE (ly_protects, "ly:protects",
            0, 0, 0, (),
-           "Return hash of protected objects.")
+           R"(
+Return hash of protected objects.
+           )")
 {
   //scm_protects is available only in Guile versions before 2.1.
 #if SCM_MAJOR_VERSION < 2 || SCM_MAJOR_VERSION == 2 && SCM_MINOR_VERSION < 1
@@ -289,8 +310,9 @@ LY_DEFINE (ly_protects, "ly:protects",
 
 LY_DEFINE (ly_gettext, "ly:gettext",
            1, 0, 0, (SCM original),
-           "A Scheme wrapper function for @code{gettext} (to translate"
-           " messages).")
+           R"(
+A Scheme wrapper function for @code{gettext} (to translate messages).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, original, 1);
   return ly_string2scm (_ (ly_scm2string (original).c_str ()));
@@ -301,7 +323,9 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 // integer->char.
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
            1, 0, 0, (SCM wc),
-           "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.")
+           R"(
+Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
+           )")
 {
   char buf[5];
 
@@ -337,19 +361,23 @@ LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
            0, 0, 0, (),
-           "Return effective prefix.  For example, if LilyPond Scheme files"
-           " are stored in directory @file{/foo/bar/scm} and PS files in"
-           " @file{/foo/bar/ps}, the effective prefix is @file{/foo/bar}.")
+           R"(
+Return effective prefix.  For example, if LilyPond Scheme files are stored in
+directory @file{/foo/bar/scm} and PS files in @file{/foo/bar/ps}, the effective
+prefix is @file{/foo/bar}.
+           )")
 {
   return ly_string2scm (lilypond_datadir);
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
            2, 2, 0, (SCM key, SCM achain, SCM default_value, SCM strict_checking),
-           "Return value for @var{key} from a list of alists @var{achain}."
-           "  If no entry is found, return @var{default-value} or @code{#f} if"
-           " @var{default-value} is not specified.  With @var{strict-checking}"
-           " set to @code{#t}, a programming error is output in such cases.")
+           R"(
+Return value for @var{key} from a list of alists @var{achain}.  If no entry is
+found, return @var{default-value} or @code{#f} if @var{default-value} is not
+specified.  With @var{strict-checking} set to @code{#t}, a programming error is
+output in such cases.
+           )")
 {
   if (scm_is_pair (achain))
     {
@@ -379,9 +407,11 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
            1, 1, 0, (SCM fd_or_file_name, SCM mode),
-           "Redirect standard error output (stderr) to file descriptor"
-           " @var{fd} if the first parameter is an integer,"
-           " or to file @var{file-name}, opened with @var{mode}.")
+           R"(
+Redirect standard error output (stderr) to file descriptor @var{fd} if the
+first parameter is an integer, or to file @var{file-name}, opened with
+@var{mode}.
+           )")
 {
   fflush (stderr);
 
@@ -410,7 +440,9 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 
 LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
            1, 0, 0, (SCM tab),
-           "Return a list of keys in @var{tab}.")
+           R"(
+Return a list of keys in @var{tab}.
+           )")
 {
   auto accumulate_symbol = [] (void * /* closure */,
                                SCM key,
@@ -425,7 +457,9 @@ LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
 
 LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
            1, 0, 0, (SCM name_sym),
-           "Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.")
+           R"(
+Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, name_sym, 1);
 
@@ -486,8 +520,10 @@ format_single_argument (SCM arg, int precision, bool escape = false)
 
 LY_DEFINE (ly_format, "ly:format",
            1, 0, 1, (SCM str, SCM rest),
-           "LilyPond specific format function, supporting @code{~a} and"
-           " @code{~[0-9]f}.  Basic support for @code{~s} is also provided.")
+           R"(
+LilyPond specific format function, supporting @code{~a} and @code{~[0-9]f}.
+Basic support for @code{~s} is also provided.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
@@ -585,9 +621,10 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
 
 LY_DEFINE (ly_spawn, "ly:spawn",
            1, 0, 1, (SCM command, SCM rest),
-           "Simple Scheme interface to the GLib function @code{g_spawn_sync}."
-           "  If an error occurs, format it with @code{format} and"
-           " @var{rest}.")
+           R"(
+Simple Scheme interface to the GLib function @code{g_spawn_sync}.  If an error
+occurs, format it with @code{format} and @var{rest}.
+           )")
 
 {
   LY_ASSERT_TYPE (scm_is_string, command, 1);
@@ -631,7 +668,9 @@ static void *gs_inst = NULL;
 static string gs_args;
 
 LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
-           "Shutdown GhostScript instance and flush pending writes.")
+           R"(
+Shutdown GhostScript instance and flush pending writes.
+           )")
 {
   if (gs_inst == NULL)
     {
@@ -653,7 +692,9 @@ LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
 }
 
 LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
-           "Use GhostScript started with @var{args}, and run @var{run_string}")
+           R"(
+Use GhostScript started with @var{args}, and run @var{run_string}
+           )")
 {
   LY_ASSERT_TYPE (scm_is_pair, args, 1);
   LY_ASSERT_TYPE (scm_is_string, run_string, 2);

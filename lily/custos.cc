@@ -93,12 +93,15 @@ Custos::print (SCM smob)
 }
 
 ADD_INTERFACE (Custos,
-               "A custos object.  @code{style} can have four valid values:"
-               " @code{mensural}, @code{vaticana}, @code{medicaea}, and"
-               " @code{hufnagel}.  @code{mensural} is the default style.",
+               R"(
+A custos object.  @code{style} can have four valid values: @code{mensural},
+@code{vaticana}, @code{medicaea}, and @code{hufnagel}.  @code{mensural} is the
+default style.
+               )",
 
                /* properties */
-               "style "
-               "neutral-position "
-               "neutral-direction "
-              );
+               R"(
+style
+neutral-position
+neutral-direction
+               )");

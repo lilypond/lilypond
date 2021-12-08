@@ -184,13 +184,16 @@ Ottava_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Ottava_bracket,
-               "An ottava bracket.",
+               R"(
+An ottava bracket.
+               )",
 
                /* properties */
-               "bracket-flare "
-               "dashed-edge "
-               "edge-height "
-               "minimum-length "
-               "shorten-pair "
-              );
+               R"(
+bracket-flare
+dashed-edge
+edge-height
+minimum-length
+shorten-pair
+               )");
 

@@ -110,9 +110,10 @@ Grob_properties::mark_smob () const
 
 LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
            1, 0, 0, (SCM alist),
-           "Package the given property list @var{alist} in"
-           " a grob property container stored in a context property"
-           " with the name of a grob.")
+           R"(
+Package the given property list @var{alist} in a grob property container stored
+in a context property with the name of a grob.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_list, alist, 1);
   return Grob_properties (alist, SCM_EOL).smobbed_copy ();

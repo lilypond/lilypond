@@ -115,15 +115,22 @@ Note_head_line_engraver::boot ()
 
 ADD_TRANSLATOR (Note_head_line_engraver,
                 /* doc */
-                "Engrave a line between two note heads in a staff"
-                " switch if @code{followVoice} is set.",
+                R"(
+Engrave a line between two note heads in a staff switch if @code{followVoice}
+is set.
+                )",
 
                 /* create */
-                "VoiceFollower ",
+                R"(
+VoiceFollower
+                )",
 
                 /* read */
-                "followVoice ",
+                R"(
+followVoice
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

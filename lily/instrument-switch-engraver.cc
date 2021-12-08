@@ -84,14 +84,21 @@ Instrument_switch_engraver::boot ()
 
 ADD_TRANSLATOR (Instrument_switch_engraver,
                 /* doc */
-                "Create a cue text for taking instrument.",
+                R"(
+Create a cue text for taking instrument.
+                )",
 
                 /* create */
-                "InstrumentSwitch ",
+                R"(
+InstrumentSwitch
+                )",
 
                 /* read */
-                "instrumentCueName ",
+                R"(
+instrumentCueName
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

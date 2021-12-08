@@ -58,11 +58,14 @@ Clef_modifier::calc_parent_alignment (SCM smob)
 }
 
 ADD_INTERFACE (Clef_modifier,
-               "The number describing transposition of the clef, placed below\n"
-               "or above clef sign. Usually this is 8 (octave transposition)\n"
-               "or 15 (two octaves), but LilyPond allows any integer here.",
+               R"(
+The number describing transposition of the clef, placed below or above clef
+sign.  Usually this is 8 (octave transposition) or 15 (two octaves), but
+LilyPond allows any integer here.
+               )",
 
                /* properties */
-               "clef-alignments "
-              );
+               R"(
+clef-alignments
+               )");
 

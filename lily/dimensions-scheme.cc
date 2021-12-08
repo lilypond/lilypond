@@ -23,7 +23,9 @@
 
 LY_DEFINE (ly_pt, "ly:pt",
            1, 0, 0, (SCM num),
-           "@var{num} printer points.")
+           R"(
+@var{num} printer points.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (point_constant
@@ -32,7 +34,9 @@ LY_DEFINE (ly_pt, "ly:pt",
 
 LY_DEFINE (ly_cm, "ly:cm",
            1, 0, 0, (SCM num),
-           "@var{num} cm.")
+           R"(
+@var{num} cm.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (cm_constant
@@ -41,7 +45,9 @@ LY_DEFINE (ly_cm, "ly:cm",
 
 LY_DEFINE (ly_inch, "ly:inch",
            1, 0, 0, (SCM num),
-           "@var{num} inches.")
+           R"(
+@var{num} inches.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (inch_constant
@@ -50,7 +56,9 @@ LY_DEFINE (ly_inch, "ly:inch",
 
 LY_DEFINE (ly_mm, "ly:mm",
            1, 0, 0, (SCM num),
-           "@var{num} mm.")
+           R"(
+@var{num} mm.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (mm_constant
@@ -59,7 +67,9 @@ LY_DEFINE (ly_mm, "ly:mm",
 
 LY_DEFINE (ly_bp, "ly:bp",
            1, 0, 0, (SCM num),
-           "@var{num} bigpoints (1/72th inch).")
+           R"(
+@var{num} bigpoints (1/72th inch).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (bigpoint_constant

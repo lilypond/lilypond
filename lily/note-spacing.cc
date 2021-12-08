@@ -308,13 +308,16 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 }
 
 ADD_INTERFACE (Note_spacing,
-               "This object calculates spacing wishes for individual voices.",
+               R"(
+This object calculates spacing wishes for individual voices.
+               )",
 
                /* properties */
-               "knee-spacing-correction "
-               "left-items "
-               "right-items "
-               "same-direction-correction "
-               "stem-spacing-correction "
-               "space-to-barline "
-              );
+               R"(
+knee-spacing-correction
+left-items
+right-items
+same-direction-correction
+stem-spacing-correction
+space-to-barline
+               )");

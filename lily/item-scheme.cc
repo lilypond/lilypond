@@ -23,16 +23,19 @@
 
 LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
-           "Is @var{g} an @code{Item} object?")
+           R"(
+Is @var{g} an @code{Item} object?
+           )")
 {
   return ly_bool2scm (unsmob<Item> (g));
 }
 
 LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
            1, 0, 0, (SCM it),
-           "The break status direction of item @var{it}.  @w{@code{-1}} means"
-           " end of line, @code{0}@tie{}unbroken, and"
-           " @code{1}@tie{}beginning of line.")
+           R"(
+The break status direction of item @var{it}.  @w{@code{-1}} means end of line,
+@code{0}@tie{}unbroken, and @code{1}@tie{}beginning of line.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Item, it, 1);
   return to_scm (me->break_status_dir ());
@@ -40,8 +43,10 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 
 LY_DEFINE (ly_item_get_column, "ly:item-get-column",
            1, 0, 0, (SCM it),
-           "Return the @code{PaperColumn} or @code{NonMusicalPaperColumn}"
-           " associated with this @code{Item}.")
+           R"(
+Return the @code{PaperColumn} or @code{NonMusicalPaperColumn} associated with
+this @code{Item}.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Item, it, 1);
 

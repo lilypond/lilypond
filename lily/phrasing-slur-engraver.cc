@@ -87,14 +87,21 @@ Phrasing_slur_engraver::boot ()
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
                 /* doc */
-                "Print phrasing slurs.  Similar to @ref{Slur_engraver}.",
+                R"(
+Print phrasing slurs.  Similar to @ref{Slur_engraver}.
+                )",
 
                 /* create */
-                "PhrasingSlur ",
+                R"(
+PhrasingSlur
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

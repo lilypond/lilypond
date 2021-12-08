@@ -366,15 +366,22 @@ Page_turn_engraver::boot ()
 
 ADD_TRANSLATOR (Page_turn_engraver,
                 /* doc */
-                "Decide where page turns are allowed to go.",
+                R"(
+Decide where page turns are allowed to go.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "minimumPageTurnLength "
-                "minimumRepeatLengthForPageTurn ",
+                R"(
+minimumPageTurnLength
+minimumRepeatLengthForPageTurn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

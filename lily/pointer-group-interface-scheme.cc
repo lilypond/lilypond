@@ -22,7 +22,9 @@
 
 LY_DEFINE (ly_pointer_group_interface__add_grob, "ly:pointer-group-interface::add-grob",
            3, 0, 0, (SCM grob, SCM sym, SCM grob_element),
-           "Add @var{grob-element} to @var{grob}'s @var{sym} grob array.")
+           R"(
+Add @var{grob-element} to @var{grob}'s @var{sym} grob array.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);

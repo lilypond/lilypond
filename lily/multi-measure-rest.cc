@@ -437,19 +437,22 @@ Multi_measure_rest::set_text_rods (SCM smob)
 }
 
 ADD_INTERFACE (Multi_measure_rest,
-               "A rest that spans a whole number of measures.",
+               R"(
+A rest that spans a whole number of measures.
+               )",
 
                /* properties */
-               "bound-padding "
-               "expand-limit "
-               "hair-thickness "
-               "max-symbol-separation "
-               "measure-count "
-               "minimum-length "
-               "round-up-exceptions "
-               "round-up-to-longer-rest "
-               "space-increment "
-               "spacing-pair "
-               "thick-thickness "
-               "usable-duration-logs "
-              );
+               R"(
+bound-padding
+expand-limit
+hair-thickness
+max-symbol-separation
+measure-count
+minimum-length
+round-up-exceptions
+round-up-to-longer-rest
+space-increment
+spacing-pair
+thick-thickness
+usable-duration-logs
+               )");

@@ -26,9 +26,10 @@ Protected_scm prob_property_lookup_table;
 
 LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
            1, 0, 0, (SCM sym),
-           "Return hash table with a property access corresponding to"
-           " @var{sym}.  Choices are @code{prob}, @code{grob}, and"
-           " @code{context}.")
+           R"(
+Return hash table with a property access corresponding to @var{sym}.  Choices
+are @code{prob}, @code{grob}, and @code{context}.
+           )")
 {
   if (context_property_lookup_table.is_bound ()
       && scm_is_eq (sym, ly_symbol2scm ("context")))

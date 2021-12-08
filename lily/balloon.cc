@@ -153,13 +153,15 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 }
 
 ADD_INTERFACE (Balloon_interface,
-               "A collection of routines to put text balloons around an"
-               " object.",
+               R"(
+A collection of routines to put text balloons around an object.
+               )",
 
                /* properties */
-               "annotation-balloon "
-               "annotation-line "
-               "padding "
-               "spanner-placement "
-               "text "
-              );
+               R"(
+annotation-balloon
+annotation-line
+padding
+spanner-placement
+text
+               )");

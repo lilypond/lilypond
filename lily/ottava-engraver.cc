@@ -192,16 +192,23 @@ Ottava_spanner_engraver::boot ()
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
                 /* doc */
-                "Create a text spanner when the ottavation property changes.",
+                R"(
+Create a text spanner when the ottavation property changes.
+                )",
 
                 /* create */
-                "OttavaBracket ",
+                R"(
+OttavaBracket
+                )",
 
                 /* read */
-                "middleCOffset "
-                "ottavation "
-                "currentMusicalColumn ",
+                R"(
+middleCOffset
+ottavation
+currentMusicalColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

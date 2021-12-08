@@ -245,14 +245,21 @@ Dynamic_align_engraver::boot ()
 
 ADD_TRANSLATOR (Dynamic_align_engraver,
                 /* doc */
-                "Align hairpins and dynamic texts on a horizontal line.",
+                R"(
+Align hairpins and dynamic texts on a horizontal line.
+                )",
 
                 /* create */
-                "DynamicLineSpanner ",
+                R"(
+DynamicLineSpanner
+                )",
 
                 /* read */
-                "currentMusicalColumn ",
+                R"(
+currentMusicalColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

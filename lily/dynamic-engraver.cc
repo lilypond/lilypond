@@ -288,20 +288,27 @@ Dynamic_engraver::boot ()
 
 ADD_TRANSLATOR (Dynamic_engraver,
                 /* doc */
-                "Create hairpins, dynamic texts and dynamic text spanners.",
+                R"(
+Create hairpins, dynamic texts and dynamic text spanners.
+                )",
 
                 /* create */
-                "DynamicTextSpanner "
-                "DynamicText "
-                "Hairpin ",
+                R"(
+DynamicTextSpanner
+DynamicText
+Hairpin
+                )",
 
                 /* read */
-                "crescendoSpanner "
-                "crescendoText "
-                "currentMusicalColumn "
-                "decrescendoSpanner "
-                "decrescendoText ",
+                R"(
+crescendoSpanner
+crescendoText
+currentMusicalColumn
+decrescendoSpanner
+decrescendoText
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

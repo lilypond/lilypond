@@ -68,15 +68,22 @@ Repeat_tie_engraver::boot ()
 
 ADD_TRANSLATOR (Repeat_tie_engraver,
                 /* doc */
-                "Create repeat ties.",
+                R"(
+Create repeat ties.
+                )",
 
                 /* create */
-                "RepeatTie "
-                "RepeatTieColumn ",
+                R"(
+RepeatTie
+RepeatTieColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

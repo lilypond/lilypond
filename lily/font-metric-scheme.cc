@@ -26,15 +26,15 @@
 LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
            2, 0, 0,
            (SCM font, SCM name),
-           "Return a stencil from @var{font} for the glyph named @var{name}."
-           "  If the glyph is not available, return an empty stencil.\n"
-           "\n"
-           "Note that this command can only be used to access glyphs from"
-           " fonts loaded with @code{ly:system-font-load}; currently, this"
-           " means either the Emmentaler or Emmentaler-Brace "
-           " fonts, corresponding"
-           " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
-           " respectively.")
+           R"(
+Return a stencil from @var{font} for the glyph named @var{name}.  If the glyph
+is not available, return an empty stencil.
+
+Note that this command can only be used to access glyphs from fonts loaded with
+@code{ly:system-font-load}; currently, this means either the Emmentaler or
+Emmentaler-Brace  fonts, corresponding to the font encodings @code{fetaMusic}
+and @code{fetaBraces}, respectively.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
@@ -48,13 +48,14 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
            2, 0, 0,
            (SCM font, SCM name),
-           "Return the index for @var{name} in @var{font}.\n"
-           "\n"
-           "Note that this command can only be used to access glyphs from"
-           " fonts loaded with @code{ly:system-font-load}; currently, this"
-           " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
-           " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
-           " respectively.")
+           R"(
+Return the index for @var{name} in @var{font}.
+
+Note that this command can only be used to access glyphs from fonts loaded with
+@code{ly:system-font-load}; currently, this means either the Emmentaler or
+Emmentaler-Brace fonts, corresponding to the font encodings @code{fetaMusic}
+and @code{fetaBraces}, respectively.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
@@ -69,13 +70,14 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
            2, 0, 0,
            (SCM font, SCM index),
-           "Return the character code for @var{index} in @var{font}.\n"
-           "\n"
-           "Note that this command can only be used to access glyphs from"
-           " fonts loaded with @code{ly:system-font-load}; currently, this"
-           " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
-           " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
-           " respectively.")
+           R"(
+Return the character code for @var{index} in @var{font}.
+
+Note that this command can only be used to access glyphs from fonts loaded with
+@code{ly:system-font-load}; currently, this means either the Emmentaler or
+Emmentaler-Brace fonts, corresponding to the font encodings @code{fetaMusic}
+and @code{fetaBraces}, respectively.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
@@ -89,13 +91,14 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
            2, 0, 0,
            (SCM font, SCM name),
-           "Return the character code for glyph @var{name} in @var{font}.\n"
-           "\n"
-           "Note that this command can only be used to access glyphs from"
-           " fonts loaded with @code{ly:system-font-load}; currently, this"
-           " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
-           " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
-           " respectively.")
+           R"(
+Return the character code for glyph @var{name} in @var{font}.
+
+Note that this command can only be used to access glyphs from fonts loaded with
+@code{ly:system-font-load}; currently, this means either the Emmentaler or
+Emmentaler-Brace fonts, corresponding to the font encodings @code{fetaMusic}
+and @code{fetaBraces}, respectively.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
@@ -109,8 +112,9 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 LY_DEFINE (ly_font_file_name, "ly:font-file-name",
            1, 0, 0,
            (SCM font),
-           "Given the font metric @var{font},"
-           " return the corresponding file name.")
+           R"(
+Given the font metric @var{font}, return the corresponding file name.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -122,8 +126,9 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 LY_DEFINE (ly_font_name, "ly:font-name",
            1, 0, 0,
            (SCM font),
-           "Given the font metric @var{font},"
-           " return the corresponding name.")
+           R"(
+Given the font metric @var{font}, return the corresponding name.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -132,8 +137,10 @@ LY_DEFINE (ly_font_name, "ly:font-name",
 
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
            (SCM font),
-           "Given the font metric @var{font}, return the"
-           " magnification, relative to the current @code{output-scale}.")
+           R"(
+Given the font metric @var{font}, return the magnification, relative to the
+current @code{output-scale}.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -142,8 +149,10 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 
 LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
            (SCM font),
-           "Given the font metric @var{font}, return the"
-           " design size, relative to the current @code{output-scale}.")
+           R"(
+Given the font metric @var{font}, return the design size, relative to the
+current @code{output-scale}.
+           )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 

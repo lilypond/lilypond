@@ -425,55 +425,63 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
 }
 
 ADD_INTERFACE (Break_alignment_interface,
-               "The object that performs break alignment.\n"
-               "\n"
-               "Three interfaces deal specifically with break alignment:\n"
-               "@enumerate\n"
-               "@item break-alignment-interface (this one),\n"
-               "@item @ref{break-alignable-interface}, and\n"
-               "@item @ref{break-aligned-interface}.\n"
-               "@end enumerate\n"
-               "\n"
-               " Each of these interfaces supports grob properties that use"
-               " @w{@emph{break-align symbols}}, which are Scheme symbols that"
-               " are used to specify the alignment, ordering, and spacing of"
-               " certain notational elements (@q{breakable}@tie{}items)."
-               "\n"
-               "@subsubheading Available break-align symbols:\n"
-               "\n"
-               "@example\n"
-               "ambitus\n"
-               "breathing-sign\n"
-               "clef\n"
-               "cue-clef\n"
-               "cue-end-clef\n"
-               "custos\n"
-               "key-cancellation\n"
-               "key-signature\n"
-               "left-edge\n"
-               "staff-bar\n"
-               "time-signature\n"
-               "@end example",
+               R"(
+The object that performs break alignment.
+
+Three interfaces deal specifically with break alignment:
+@enumerate
+@item break-alignment-interface (this one),
+@item @ref{break-alignable-interface}, and
+@item @ref{break-aligned-interface}.
+@end enumerate
+
+ Each of these interfaces supports grob properties that use
+@w{@emph{break-align symbols}}, which are Scheme symbols that are used to
+specify the alignment, ordering, and spacing of certain notational elements
+(@q{breakable}@tie{}items).
+@subsubheading Available break-align symbols:
+
+@example
+ambitus
+breathing-sign
+clef
+cue-clef
+cue-end-clef
+custos
+key-cancellation
+key-signature
+left-edge
+staff-bar
+time-signature
+@end example
+               )",
 
                /* properties */
-               "positioning-done "
-               "break-align-orders "
-              );
+               R"(
+positioning-done
+break-align-orders
+               )");
 
 ADD_INTERFACE (Break_alignable_interface,
-               "Object that is aligned on a break alignment.",
+               R"(
+Object that is aligned on a break alignment.
+               )",
 
                /* properties */
-               "break-align-symbols "
-               "non-break-align-symbols "
-              );
+               R"(
+break-align-symbols
+non-break-align-symbols
+               )");
 
 ADD_INTERFACE (Break_aligned_interface,
-               "Breakable items.",
+               R"(
+Breakable items.
+               )",
 
                /* properties */
-               "break-align-anchor "
-               "break-align-anchor-alignment "
-               "break-align-symbol "
-               "space-alist "
-              );
+               R"(
+break-align-anchor
+break-align-anchor-alignment
+break-align-symbol
+space-alist
+               )");

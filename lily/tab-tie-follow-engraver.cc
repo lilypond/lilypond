@@ -121,15 +121,21 @@ Tab_tie_follow_engraver::boot ()
 
 ADD_TRANSLATOR (Tab_tie_follow_engraver,
                 /* doc */
-                "Adjust TabNoteHead properties when a tie is followed"
-                " by a slur or glissando.",
+                R"(
+Adjust TabNoteHead properties when a tie is followed by a slur or glissando.
+                )",
 
                 /* create */
-                " ",
+                R"(
+
+                )",
 
                 /* read */
-                " ",
+                R"(
+
+                )",
 
                 /* write */
-                " "
-               );
+                R"(
+
+                )");

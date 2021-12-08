@@ -24,17 +24,20 @@
 
 LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
            1, 0, 0, (SCM obj),
-           "Is @var{obj} a C++ @code{Prob} object of type"
-           " @code{paper-system}?")
+           R"(
+Is @var{obj} a C++ @code{Prob} object of type @code{paper-system}?
+           )")
 {
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
 }
 
 LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
            2, 0, 0, (SCM sys1, SCM sys2),
-           "Measure the minimum distance between two paper system @code{Prob}s"
-           " @var{sys1} and @var{sys2}, using their stored skylines if"
-           " possible and falling back to their extents otherwise.")
+           R"(
+Measure the minimum distance between two paper system @code{Prob}s @var{sys1}
+and @var{sys2}, using their stored skylines if possible and falling back to
+their extents otherwise.
+           )")
 {
   Real ret = 0;
   Prob *p1 = unsmob<Prob> (sys1);

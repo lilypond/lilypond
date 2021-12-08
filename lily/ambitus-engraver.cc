@@ -245,23 +245,30 @@ Ambitus_engraver::boot ()
 
 ADD_TRANSLATOR (Ambitus_engraver,
                 /* doc */
-                "Create an ambitus.",
+                R"(
+Create an ambitus.
+                )",
 
                 /* create */
-                "AccidentalPlacement "
-                "Ambitus "
-                "AmbitusAccidental "
-                "AmbitusLine "
-                "AmbitusNoteHead ",
+                R"(
+AccidentalPlacement
+Ambitus
+AmbitusAccidental
+AmbitusLine
+AmbitusNoteHead
+                )",
 
                 /* read */
-                "keyAlterations "
-                "middleCPosition "
-                "middleCClefPosition "
-                "middleCCuePosition "
-                "middleCOffset "
-                "staffLineLayoutFunction ",
+                R"(
+keyAlterations
+middleCPosition
+middleCClefPosition
+middleCCuePosition
+middleCOffset
+staffLineLayoutFunction
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

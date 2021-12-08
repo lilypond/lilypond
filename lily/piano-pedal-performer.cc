@@ -161,14 +161,21 @@ Piano_pedal_performer::boot ()
 
 ADD_TRANSLATOR (Piano_pedal_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

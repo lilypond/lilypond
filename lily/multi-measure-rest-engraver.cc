@@ -281,23 +281,29 @@ Multi_measure_rest_engraver::boot ()
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 /* doc */
-                "Engrave multi-measure rests that are produced with"
-                " @samp{R}.  It reads @code{measureStartNow} and"
-                " @code{internalBarNumber} to determine what number to print"
-                " over the @ref{MultiMeasureRest}.",
+                R"(
+Engrave multi-measure rests that are produced with @samp{R}.  It reads
+@code{measureStartNow} and @code{internalBarNumber} to determine what number to
+print over the @ref{MultiMeasureRest}.
+                )",
 
                 /* create */
-                "MultiMeasureRest "
-                "MultiMeasureRestNumber "
-                "MultiMeasureRestText "
-                "MultiMeasureRestScript ",
+                R"(
+MultiMeasureRest
+MultiMeasureRestNumber
+MultiMeasureRestText
+MultiMeasureRestScript
+                )",
 
                 /* read */
-                "internalBarNumber "
-                "restNumberThreshold "
-                "currentCommandColumn "
-                "measureStartNow ",
+                R"(
+internalBarNumber
+restNumberThreshold
+currentCommandColumn
+measureStartNow
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

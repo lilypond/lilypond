@@ -27,9 +27,11 @@
 
 LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
            2, 1, 0, (SCM def, SCM sym, SCM val),
-           "Return the value of @var{sym} in output definition @var{def}"
-           " (e.g., @code{\\paper}).  If no value is found, return"
-           " @var{val} or @code{'()} if @var{val} is undefined.")
+           R"(
+Return the value of @var{sym} in output definition @var{def} (e.g.,
+@code{\paper}).  If no value is found, return @var{val} or @code{'()} if
+@var{val} is undefined.
+           )")
 {
   auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -48,7 +50,9 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
            1, 0, 0, (SCM def),
-           "Return the variable scope inside @var{def}.")
+           R"(
+Return the variable scope inside @var{def}.
+           )")
 {
   auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
   return op->scope_;
@@ -56,7 +60,9 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
            1, 0, 0, (SCM def),
-           "Return the parent output definition of @var{def}.")
+           R"(
+Return the parent output definition of @var{def}.
+           )")
 {
   auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
@@ -64,7 +70,9 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 
 LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
            3, 0, 0, (SCM def, SCM sym, SCM val),
-           "Set an output definition @var{def} variable @var{sym} to @var{val}.")
+           R"(
+Set an output definition @var{def} variable @var{sym} to @var{val}.
+           )")
 {
   auto *const output_def = LY_ASSERT_SMOB (Output_def, def, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -74,7 +82,9 @@ LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
 
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
            1, 0, 0, (SCM def),
-           "Clone output definition @var{def}.")
+           R"(
+Clone output definition @var{def}.
+           )")
 {
   auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
 
@@ -84,7 +94,9 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 
 LY_DEFINE (ly_output_description, "ly:output-description",
            1, 0, 0, (SCM output_def),
-           "Return the description of translators in @var{output-def}.")
+           R"(
+Return the description of translators in @var{output-def}.
+           )")
 {
   auto *const id = LY_ASSERT_SMOB (Output_def, output_def, 1);
 
@@ -102,8 +114,10 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 
 LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
            1, 1, 0, (SCM output_def, SCM context_name),
-           "Return an alist of all context defs (matching @var{context-name}"
-           " if given) in @var{output-def}.")
+           R"(
+Return an alist of all context defs (matching @var{context-name} if given) in
+@var{output-def}.
+           )")
 {
   auto *const id = LY_ASSERT_SMOB (Output_def, output_def, 1);
   if (!SCM_UNBNDP (context_name))
@@ -127,7 +141,9 @@ const char
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
            1, 0, 0, (SCM def),
-           "Return the @code{output-scale} for output definition @var{def}.")
+           R"(
+Return the @code{output-scale} for output definition @var{def}.
+           )")
 {
   auto *const b = LY_ASSERT_SMOB (Output_def, def, 1);
   return to_scm (output_scale (b));
@@ -135,7 +151,9 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
            0, 0, 0, (),
-           "Make an output definition.")
+           R"(
+Make an output definition.
+           )")
 {
   Output_def *bp = new Output_def;
   return bp->unprotect ();
@@ -143,10 +161,11 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
            2, 0, 0, (SCM def, SCM chain),
-           "Find a font metric in output definition @var{def} satisfying"
-           " the font qualifiers in alist chain @var{chain}, and return"
-           " it.  (An alist chain is a list of alists, containing grob"
-           " properties.)")
+           R"(
+Find a font metric in output definition @var{def} satisfying the font
+qualifiers in alist chain @var{chain}, and return it.  (An alist chain is a
+list of alists, containing grob properties.)
+           )")
 {
   auto *const paper = LY_ASSERT_SMOB (Output_def, def, 1);
 
@@ -156,8 +175,10 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
 
 LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
            2, 0, 0, (SCM def, SCM sym),
-           "Return the value of variable @var{sym} in output definition"
-           " @var{def} as a double.")
+           R"(
+Return the value of variable @var{sym} in output definition @var{def} as a
+double.
+           )")
 {
   auto *const layout = LY_ASSERT_SMOB (Output_def, def, 1);
   return to_scm (layout->get_dimension (sym));
@@ -165,8 +186,10 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
 
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
            1, 0, 0, (SCM def),
-           "Return a list containing the fonts from output definition"
-           " @var{def} (e.g., @code{\\paper}).")
+           R"(
+Return a list containing the fonts from output definition @var{def} (e.g.,
+@code{\paper}).
+           )")
 {
   auto *const b = LY_ASSERT_SMOB (Output_def, def, 1);
 

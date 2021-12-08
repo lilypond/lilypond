@@ -493,15 +493,22 @@ Mensural_ligature_engraver::boot ()
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,
                 /* doc */
-                "Handle @code{Mensural_ligature_events} by glueing special"
-                " ligature heads together.",
+                R"(
+Handle @code{Mensural_ligature_events} by glueing special ligature heads
+together.
+                )",
 
                 /* create */
-                "MensuralLigature ",
+                R"(
+MensuralLigature
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

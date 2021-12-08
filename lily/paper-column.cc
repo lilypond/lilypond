@@ -212,11 +212,12 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
 
 LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
            2, 0, 0, (SCM col, SCM align_syms),
-           "Determine the extent along the x@tie{}axis of a grob used for"
-           " break alignment organized by column @var{col}.  The grob is"
-           " specified by @var{align-syms}, which contains either a"
-           " single @code{break-align-symbol} or a list of such"
-           " symbols.")
+           R"(
+Determine the extent along the x@tie{}axis of a grob used for break alignment
+organized by column @var{col}.  The grob is specified by @var{align-syms},
+which contains either a single @code{break-align-symbol} or a list of such
+symbols.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, col, 1);
   SCM_ASSERT_TYPE (scm_is_symbol (align_syms) || ly_is_list (align_syms),
@@ -457,39 +458,39 @@ Paper_column::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
 }
 
 ADD_INTERFACE (Paper_column,
-               "@code{Paper_column} objects form the top-most X@tie{}parents"
-               " for items.  There are two types of columns: musical and"
-               " non-musical, to which musical and non-musical objects are"
-               " attached respectively.  The spacing engine determines the"
-               " X@tie{}positions of these objects.\n"
-               "\n"
-               "They are numbered, the first (leftmost) is column@tie{}0."
-               "  Numbering happens before line breaking, and columns are not"
-               " renumbered after line breaking.  Since many columns go"
-               " unused, you should only use the rank field to get ordering"
-               " information.  Two adjacent columns may have non-adjacent"
-               " numbers.\n"
-               "\n"
-               "The @code{paper-column-interface} implies the"
-               " @iref{item-interface}.",
+               R"(
+@code{Paper_column} objects form the top-most X@tie{}parents for items.  There
+are two types of columns: musical and non-musical, to which musical and
+non-musical objects are attached respectively.  The spacing engine determines
+the X@tie{}positions of these objects.
+
+They are numbered, the first (leftmost) is column@tie{}0.  Numbering happens
+before line breaking, and columns are not renumbered after line breaking.
+Since many columns go unused, you should only use the rank field to get
+ordering information.  Two adjacent columns may have non-adjacent numbers.
+
+The @code{paper-column-interface} implies the @iref{item-interface}.
+               )",
 
                /* properties */
-               "between-cols "
-               "bounded-by-me "
-               "full-measure-extra-space "
-               "grace-spacing "
-               "labels "
-               "line-break-system-details "
-               "line-break-penalty "
-               "line-break-permission "
-               "maybe-loose "
-               "page-break-penalty "
-               "page-break-permission "
-               "page-turn-penalty "
-               "page-turn-permission "
-               "rhythmic-location "
-               "shortest-playing-duration "
-               "shortest-starter-duration "
-               "spacing "
-               "used "
-               "when ");
+               R"(
+between-cols
+bounded-by-me
+full-measure-extra-space
+grace-spacing
+labels
+line-break-system-details
+line-break-penalty
+line-break-permission
+maybe-loose
+page-break-penalty
+page-break-permission
+page-turn-penalty
+page-turn-permission
+rhythmic-location
+shortest-playing-duration
+shortest-starter-duration
+spacing
+used
+when
+               )");

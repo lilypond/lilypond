@@ -424,22 +424,28 @@ New_fingering_engraver::boot ()
 
 ADD_TRANSLATOR (New_fingering_engraver,
                 /* doc */
-                "Create fingering scripts for notes in a new chord.  This"
-                " engraver is ill-named, since it also takes care of"
-                " articulations and harmonic note heads.",
+                R"(
+Create fingering scripts for notes in a new chord.  This engraver is ill-named,
+since it also takes care of articulations and harmonic note heads.
+                )",
 
                 /* create */
-                "Fingering "
-                "StringNumber "
-                "StrokeFinger "
-                "Script ",
+                R"(
+Fingering
+StringNumber
+StrokeFinger
+Script
+                )",
 
                 /* read */
-                "fingeringOrientations "
-                "harmonicDots "
-                "strokeFingerOrientations "
-                "stringNumberOrientations ",
+                R"(
+fingeringOrientations
+harmonicDots
+strokeFingerOrientations
+stringNumberOrientations
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

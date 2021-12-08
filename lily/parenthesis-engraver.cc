@@ -117,15 +117,21 @@ Parenthesis_engraver::boot ()
 
 ADD_TRANSLATOR (Parenthesis_engraver,
                 /* doc */
-                "Parenthesize objects whose @code{parenthesize} property"
-                " is @code{#t}.",
+                R"(
+Parenthesize objects whose @code{parenthesize} property is @code{#t}.
+                )",
 
                 /* create */
-                "Parentheses ",
+                R"(
+Parentheses
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

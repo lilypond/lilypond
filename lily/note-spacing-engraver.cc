@@ -147,15 +147,22 @@ Note_spacing_engraver::boot ()
 
 ADD_TRANSLATOR (Note_spacing_engraver,
                 /* doc */
-                "Generate @code{NoteSpacing}, an object linking horizontal"
-                " lines for use in spacing.",
+                R"(
+Generate @code{NoteSpacing}, an object linking horizontal lines for use in
+spacing.
+                )",
 
                 /* create */
-                "NoteSpacing ",
+                R"(
+NoteSpacing
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

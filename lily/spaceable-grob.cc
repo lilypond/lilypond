@@ -95,15 +95,18 @@ Spaceable_grob::get_spring (Paper_column *this_col, Grob *next_col)
 }
 
 ADD_INTERFACE (Spaceable_grob,
-               "A layout object that takes part in the spacing problem.",
+               R"(
+A layout object that takes part in the spacing problem.
+               )",
 
                /* properties */
-               "allow-loose-spacing "
-               "ideal-distances "
-               "keep-inside-line "
-               "left-neighbor "
-               "measure-length "
-               "minimum-distances "
-               "right-neighbor "
-               "spacing-wishes "
-              );
+               R"(
+allow-loose-spacing
+ideal-distances
+keep-inside-line
+left-neighbor
+measure-length
+minimum-distances
+right-neighbor
+spacing-wishes
+               )");

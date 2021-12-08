@@ -261,16 +261,23 @@ Piano_pedal_align_engraver::boot ()
 
 ADD_TRANSLATOR (Piano_pedal_align_engraver,
                 /* doc */
-                "Align piano pedal symbols and brackets.",
+                R"(
+Align piano pedal symbols and brackets.
+                )",
 
                 /* create */
-                "SostenutoPedalLineSpanner "
-                "SustainPedalLineSpanner "
-                "UnaCordaPedalLineSpanner ",
+                R"(
+SostenutoPedalLineSpanner
+SustainPedalLineSpanner
+UnaCordaPedalLineSpanner
+                )",
 
                 /* read */
-                "currentCommandColumn ",
+                R"(
+currentCommandColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -131,20 +131,25 @@ Keep_alive_together_engraver::boot ()
 
 ADD_TRANSLATOR (Keep_alive_together_engraver,
                 /* doc */
-                "This engraver collects all @code{Hara_kiri_group_spanner}s "
-                "that are created in contexts at or below its own.  "
-                "These spanners are then tied together so that one will "
-                "be removed only if all are removed.  For example, "
-                "if a @code{StaffGroup} uses this engraver, then the staves "
-                "in the group will all be visible as long as there is a note "
-                "in at least one of them.",
+                R"(
+This engraver collects all @code{Hara_kiri_group_spanner}s that are created in
+contexts at or below its own.  These spanners are then tied together so that
+one will be removed only if all are removed.  For example, if a
+@code{StaffGroup} uses this engraver, then the staves in the group will all be
+visible as long as there is a note in at least one of them.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

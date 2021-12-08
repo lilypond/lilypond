@@ -50,12 +50,14 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 }
 
 ADD_INTERFACE (Pure_from_neighbor_interface,
-               "A collection of routines to allow for objects' pure "
-               "heights and heights to be calculated based on the "
-               "heights of the objects' neighbors.",
+               R"(
+A collection of routines to allow for objects' pure heights and heights to be
+calculated based on the heights of the objects' neighbors.
+               )",
 
                /* properties */
-               "neighbors "
-               "pure-relevant-grobs "
-               "pure-Y-common "
-              );
+               R"(
+neighbors
+pure-relevant-grobs
+pure-Y-common
+               )");

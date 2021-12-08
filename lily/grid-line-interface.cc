@@ -79,16 +79,22 @@ Grid_line_interface::add_grid_point (Grob *me, Grob *b)
 }
 
 ADD_INTERFACE (Grid_line_interface,
-               "A line that is spanned between grid-points.",
+               R"(
+A line that is spanned between grid-points.
+               )",
 
                /* properties */
-               "elements "
-               "thickness "
-              );
+               R"(
+elements
+thickness
+               )");
 
 ADD_INTERFACE (Grid_point_interface,
-               "A spanning point for grid lines.",
+               R"(
+A spanning point for grid lines.
+               )",
 
                /* properties */
-               ""
-              );
+               R"(
+
+               )");

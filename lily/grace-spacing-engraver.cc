@@ -85,15 +85,21 @@ Grace_spacing_engraver::boot ()
 }
 
 ADD_TRANSLATOR (Grace_spacing_engraver,
-                "Bookkeeping of shortest starting and playing notes in grace"
-                " note runs.",
+                R"(
+Bookkeeping of shortest starting and playing notes in grace note runs.
+                )",
 
                 /* create */
-                "GraceSpacing ",
+                R"(
+GraceSpacing
+                )",
 
                 /* read */
-                "currentMusicalColumn ",
+                R"(
+currentMusicalColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

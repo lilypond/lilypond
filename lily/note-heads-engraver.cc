@@ -130,15 +130,22 @@ Note_heads_engraver::boot ()
 
 ADD_TRANSLATOR (Note_heads_engraver,
                 /* doc */
-                "Generate note heads.",
+                R"(
+Generate note heads.
+                )",
 
                 /* create */
-                "NoteHead ",
+                R"(
+NoteHead
+                )",
 
                 /* read */
-                "middleCPosition "
-                "staffLineLayoutFunction ",
+                R"(
+middleCPosition
+staffLineLayoutFunction
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

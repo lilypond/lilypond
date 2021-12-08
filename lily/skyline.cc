@@ -803,7 +803,9 @@ Skyline::get_height (SCM skyline_scm, SCM x_scm)
 
 LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
            1, 0, 0, (SCM sky),
-           "Return whether skyline @var{sky} is empty.")
+           R"(
+Return whether skyline @var{sky} is empty.
+           )")
 {
   auto *const s = LY_ASSERT_SMOB (Skyline, sky, 1);
   return scm_from_bool (s->is_empty ());

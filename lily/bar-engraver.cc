@@ -139,18 +139,24 @@ Bar_engraver::boot ()
 
 ADD_TRANSLATOR (Bar_engraver,
                 /* doc */
-                "Create barlines.  This engraver is controlled through the"
-                " @code{whichBar} property.  If it has no bar line to create,"
-                " it will forbid a linebreak at this point.  This engraver"
-                " is required to trigger the creation of clefs at the start"
-                " of systems.",
+                R"(
+Create barlines.  This engraver is controlled through the @code{whichBar}
+property.  If it has no bar line to create, it will forbid a linebreak at this
+point.  This engraver is required to trigger the creation of clefs at the start
+of systems.
+                )",
 
                 /* create */
-                "BarLine ",
+                R"(
+BarLine
+                )",
 
                 /* read */
-                "whichBar ",
+                R"(
+whichBar
+                )",
 
                 /* write */
-                "forbidBreak "
-               );
+                R"(
+forbidBreak
+                )");

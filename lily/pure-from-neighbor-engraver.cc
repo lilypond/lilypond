@@ -152,14 +152,21 @@ Pure_from_neighbor_engraver::boot ()
 
 ADD_TRANSLATOR (Pure_from_neighbor_engraver,
                 /* doc */
-                "Coordinates items that get their pure heights from their neighbors.",
+                R"(
+Coordinates items that get their pure heights from their neighbors.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

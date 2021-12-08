@@ -167,31 +167,36 @@ Bar_number_engraver::boot ()
 
 ADD_TRANSLATOR (Bar_number_engraver,
                 /* doc */
-                "A bar number may be created at any bar line, subject to the"
-                " @code{barNumberVisibility} callback.  By default, it is put"
-                " on top of all staves and appears only at the left side of"
-                " the staff.  "
-                "The staves are taken from @code{stavesFound}, which is "
-                " maintained by @ref{Staff_collecting_engraver}.  "
-                "This engraver usually creates @code{BarNumber} grobs,"
-                " but when @code{centerBarNumbers} is true, it makes"
-                " @code{CenteredBarNumber} grobs instead.",
+                R"(
+A bar number may be created at any bar line, subject to the
+@code{barNumberVisibility} callback.  By default, it is put on top of all
+staves and appears only at the left side of the staff.  The staves are taken
+from @code{stavesFound}, which is  maintained by
+@ref{Staff_collecting_engraver}.  This engraver usually creates
+@code{BarNumber} grobs, but when @code{centerBarNumbers} is true, it makes
+@code{CenteredBarNumber} grobs instead.
+                )",
 
                 /* create */
-                "BarNumber "
-                "CenteredBarNumber ",
+                R"(
+BarNumber
+CenteredBarNumber
+                )",
 
                 /* read */
-                "alternativeNumber "
-                "alternativeNumberingStyle "
-                "barNumberFormatter "
-                "barNumberVisibility "
-                "centerBarNumbers "
-                "currentBarNumber "
-                "currentCommandColumn "
-                "measurePosition "
-                "stavesFound ",
+                R"(
+alternativeNumber
+alternativeNumberingStyle
+barNumberFormatter
+barNumberVisibility
+centerBarNumbers
+currentBarNumber
+currentCommandColumn
+measurePosition
+stavesFound
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

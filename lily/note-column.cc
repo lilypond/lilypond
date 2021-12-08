@@ -246,16 +246,19 @@ Note_column::cross_staff_extent (Grob *me, Grob *refp)
 }
 
 ADD_INTERFACE (Note_column,
-               "Stem and noteheads combined.",
+               R"(
+Stem and noteheads combined.
+               )",
 
                /* properties */
-               "force-hshift "
-               "horizontal-shift "
-               "ignore-collision "
-               "note-heads "
-               "main-extent "
-               "rest "
-               "rest-collision "
-               "stem "
-               "glissando-skip "
-              );
+               R"(
+force-hshift
+horizontal-shift
+ignore-collision
+note-heads
+main-extent
+rest
+rest-collision
+stem
+glissando-skip
+               )");

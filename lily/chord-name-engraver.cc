@@ -178,22 +178,29 @@ Chord_name_engraver::boot ()
 
 ADD_TRANSLATOR (Chord_name_engraver,
                 /* doc */
-                "Catch note and rest events and generate the appropriate chordname.",
+                R"(
+Catch note and rest events and generate the appropriate chordname.
+                )",
 
                 /* create */
-                "ChordName ",
+                R"(
+ChordName
+                )",
 
                 /* read */
-                "chordChanges "
-                "chordNameExceptions "
-                "chordNameFunction "
-                "chordNoteNamer "
-                "chordRootNamer "
-                "chordNameExceptions "
-                "lastChord "
-                "majorSevenSymbol "
-                "noChordSymbol ",
+                R"(
+chordChanges
+chordNameExceptions
+chordNameFunction
+chordNoteNamer
+chordRootNamer
+chordNameExceptions
+lastChord
+majorSevenSymbol
+noChordSymbol
+                )",
 
                 /* write */
-                "lastChord "
-               );
+                R"(
+lastChord
+                )");

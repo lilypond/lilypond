@@ -68,8 +68,9 @@ Grob_pq_engraver::initialize ()
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
            2, 0, 0, (SCM a, SCM b),
-           "Compare two grob priority queue entries."
-           "  This is an internal function.")
+           R"(
+Compare two grob priority queue entries.  This is an internal function.
+           )")
 {
   if (Moment::compare (*unsmob<Moment> (scm_car (a)),
                        *unsmob<Moment> (scm_car (b))) < 0)
@@ -153,15 +154,21 @@ Grob_pq_engraver::boot ()
 
 ADD_TRANSLATOR (Grob_pq_engraver,
                 /* doc */
-                "Administrate when certain grobs (e.g., note heads) stop"
-                " playing.",
+                R"(
+Administrate when certain grobs (e.g., note heads) stop playing.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "busyGrobs ",
+                R"(
+busyGrobs
+                )",
 
                 /* write */
-                "busyGrobs "
-               );
+                R"(
+busyGrobs
+                )");

@@ -108,16 +108,22 @@ Melody_engraver::boot ()
 
 ADD_TRANSLATOR (Melody_engraver,
                 /* doc */
-                "Create information for context dependent typesetting"
-                " decisions.",
+                R"(
+Create information for context dependent typesetting decisions.
+                )",
 
                 /* create */
-                "MelodyItem ",
+                R"(
+MelodyItem
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 

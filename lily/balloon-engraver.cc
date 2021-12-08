@@ -87,14 +87,21 @@ Balloon_engraver::boot ()
 
 ADD_TRANSLATOR (Balloon_engraver,
                 /* doc */
-                "Create balloon texts.",
+                R"(
+Create balloon texts.
+                )",
 
                 /* create */
-                "BalloonText",
+                R"(
+BalloonText
+                )",
 
                 /*read*/
-                "",
+                R"(
+
+                )",
 
                 /*write*/
-                ""
-               );
+                R"(
+
+                )");

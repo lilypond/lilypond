@@ -85,15 +85,15 @@ check_debug_callback (SCM cb)
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
            1, 0, 0, (SCM cb),
-           "Specify a procedure that gets called every time LilyPond"
-           " modifies a grob property.  The callback receives as"
-           " arguments the grob that is being modified, the name of the"
-           " C++ file in which the modification was requested, the line"
-           " number in the C++ file in which the modification was requested,"
-           " the name of the function in which the modification was"
-           " requested, the property to be changed, and the new value for"
-           " the property.  Call with @code{#f} as argument to unset the"
-           " callback.")
+           R"(
+Specify a procedure that gets called every time LilyPond modifies a grob
+property.  The callback receives as arguments the grob that is being modified,
+the name of the C++ file in which the modification was requested, the line
+number in the C++ file in which the modification was requested, the name of the
+function in which the modification was requested, the property to be changed,
+and the new value for the property.  Call with @code{#f} as argument to unset
+the callback.
+           )")
 {
   modification_callback = check_debug_callback (cb);
   return SCM_UNSPECIFIED;
@@ -101,13 +101,13 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 
 LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
            1, 0, 0, (SCM cb),
-           "Specify a procedure that gets called whenever LilyPond"
-           " calculates a callback function and caches the result.  The"
-           " callback receives as arguments the grob whose property it"
-           " is, the name of the property, the name of the callback that"
-           " calculated the property, and the new (cached) value of the"
-           " property.  Call with @code{#f} as argument to unset the"
-           " callback.")
+           R"(
+Specify a procedure that gets called whenever LilyPond calculates a callback
+function and caches the result.  The callback receives as arguments the grob
+whose property it is, the name of the property, the name of the callback that
+calculated the property, and the new (cached) value of the property.  Call with
+@code{#f} as argument to unset the callback.
+           )")
 {
   cache_callback = check_debug_callback (cb);
   return SCM_UNSPECIFIED;

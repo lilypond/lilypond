@@ -21,7 +21,9 @@
 
 LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
            2, 1, 0, (SCM obj, SCM sym, SCM value),
-           "Set property @var{sym} of @var{obj} to @var{value}.")
+           R"(
+Set property @var{sym} of @var{obj} to @var{value}.
+           )")
 {
   auto *const ps = LY_ASSERT_SMOB (Prob, obj, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -35,16 +37,19 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 */
 LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
            2, 1, 0, (SCM obj, SCM sym),
-           "Is boolean prop @var{sym} of @var{obj} set?")
+           R"(
+Is boolean prop @var{sym} of @var{obj} set?
+           )")
 {
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
 
 LY_DEFINE (ly_prob_property, "ly:prob-property",
            2, 1, 0, (SCM prob, SCM sym, SCM val),
-           "Return the value for property @var{sym} of Prob object"
-           " @var{prob}.  If no value is found, return @var{val} or"
-           " @code{'()} if @var{val} is not specified.")
+           R"(
+Return the value for property @var{sym} of Prob object @var{prob}.  If no value
+is found, return @var{val} or @code{'()} if @var{val} is not specified.
+           )")
 {
   auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -62,7 +67,9 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
            2, 0, 0,
            (SCM obj, SCM type),
-           "Is @var{obj} the specified prob type?")
+           R"(
+Is @var{obj} the specified prob type?
+           )")
 {
   auto *prob = unsmob<Prob> (obj);
   return scm_from_bool (prob && scm_is_eq (prob->type (), type));
@@ -71,7 +78,9 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 LY_DEFINE (ly_make_prob, "ly:make-prob",
            2, 0, 1,
            (SCM type, SCM init, SCM rest),
-           "Create a @code{Prob} object.")
+           R"(
+Create a @code{Prob} object.
+           )")
 {
   Prob *pr = new Prob (type, init);
 
@@ -90,7 +99,9 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
 LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
            1, 0, 0,
            (SCM prob),
-           "Retrieve an alist of mutable properties.")
+           R"(
+Retrieve an alist of mutable properties.
+           )")
 {
   auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   return ps->get_property_alist (true);
@@ -99,7 +110,9 @@ LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
 LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
            1, 0, 0,
            (SCM prob),
-           "Retrieve an alist of immutable properties.")
+           R"(
+Retrieve an alist of immutable properties.
+           )")
 {
   auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   return ps->get_property_alist (false);

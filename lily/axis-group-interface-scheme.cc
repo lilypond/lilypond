@@ -26,8 +26,10 @@ using std::vector;
 
 LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
            3, 0, 0, (SCM elements, SCM common, SCM axis),
-           "Determine the extent of @var{elements} relative to @var{common} in the"
-           " @var{axis} direction.")
+           R"(
+Determine the extent of @var{elements} relative to @var{common} in the
+@var{axis} direction.
+           )")
 {
   Grob_array *ga = unsmob<Grob_array> (elements);
 
@@ -50,10 +52,12 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
 
 LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
            2, 0, 0, (SCM grob, SCM common),
-           "Determine the extent of @var{grob} relative to @var{common} along"
-           " the x@tie{}axis, finding its extent as a bound when it a has"
-           " @code{bound-alignment-interfaces} property list set and"
-           " otherwise the full extent.")
+           R"(
+Determine the extent of @var{grob} relative to @var{common} along the
+x@tie{}axis, finding its extent as a bound when it a has
+@code{bound-alignment-interfaces} property list set and otherwise the full
+extent.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const com = LY_ASSERT_SMOB (Grob, common, 2);
@@ -64,10 +68,11 @@ LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
 
 LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
            2, 0, 0, (SCM grob, SCM grob_element),
-           "Add @var{grob-element} to the axis group @var{grob}.  In"
-           " particular, @var{grob} becomes parent to @var{grob-element}"
-           " on all axes supported by @var{grob}, unless the parents are"
-           " already set.")
+           R"(
+Add @var{grob-element} to the axis group @var{grob}.  In particular, @var{grob}
+becomes parent to @var{grob-element} on all axes supported by @var{grob},
+unless the parents are already set.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const elem = LY_ASSERT_SMOB (Grob, grob_element, 2);

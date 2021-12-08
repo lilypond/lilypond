@@ -756,81 +756,76 @@ Grob::name () const
 }
 
 ADD_INTERFACE (Grob,
-               "A grob represents a piece of music notation.\n"
-               "\n"
-               "All grobs have an X and Y@tie{}position on the page.  These"
-               " X and Y@tie{}positions are stored in a relative format, thus"
-               " they can easily be combined by stacking them, hanging one"
-               " grob to the side of another, or coupling them into grouping"
-               " objects.\n"
-               "\n"
-               "Each grob has a reference point (a.k.a.@: parent): The"
-               " position of a grob is stored relative to that reference"
-               " point.  For example, the X@tie{}reference point of a staccato"
-               " dot usually is the note head that it applies to.  When the"
-               " note head is moved, the staccato dot moves along"
-               " automatically.\n"
-               "\n"
-               "A grob is often associated with a symbol, but some grobs do"
-               " not print any symbols.  They take care of grouping objects."
-               " For example, there is a separate grob that stacks staves"
-               " vertically.  The @ref{NoteCollision} object is also an"
-               " abstract grob: It only moves around chords, but doesn't print"
-               " anything.\n"
-               "\n"
-               "Grobs have properties (Scheme variables) that can be read and"
-               " set.  Two types of them exist: immutable and mutable."
-               "  Immutable variables define the default style and behavior."
-               "  They are shared between many objects.  They can be changed"
-               " using @code{\\override} and @code{\\revert}.  Mutable"
-               " properties are variables that are specific to one grob."
-               "  Typically, lists of other objects, or results from"
-               " computations are stored in mutable properties.  In"
-               " particular, every call to @code{ly:grob-set-property!}"
-               " (or its C++ equivalent) sets a mutable property.\n"
-               "\n"
-               "The properties @code{after-line-breaking} and"
-               " @code{before-line-breaking} are dummies that are not"
-               " user-serviceable.",
+               R"(
+A grob represents a piece of music notation.
+
+All grobs have an X and Y@tie{}position on the page.  These X and
+Y@tie{}positions are stored in a relative format, thus they can easily be
+combined by stacking them, hanging one grob to the side of another, or coupling
+them into grouping objects.
+
+Each grob has a reference point (a.k.a.@: parent): The position of a grob is
+stored relative to that reference point.  For example, the X@tie{}reference
+point of a staccato dot usually is the note head that it applies to.  When the
+note head is moved, the staccato dot moves along automatically.
+
+A grob is often associated with a symbol, but some grobs do not print any
+symbols.  They take care of grouping objects.  For example, there is a separate
+grob that stacks staves vertically.  The @ref{NoteCollision} object is also an
+abstract grob: It only moves around chords, but doesn't print anything.
+
+Grobs have properties (Scheme variables) that can be read and set.  Two types
+of them exist: immutable and mutable.  Immutable variables define the default
+style and behavior.  They are shared between many objects.  They can be changed
+using @code{\override} and @code{\revert}.  Mutable properties are variables
+that are specific to one grob.  Typically, lists of other objects, or results
+from computations are stored in mutable properties.  In particular, every call
+to @code{ly:grob-set-property!} (or its C++ equivalent) sets a mutable
+property.
+
+The properties @code{after-line-breaking} and @code{before-line-breaking} are
+dummies that are not user-serviceable.
+               )",
 
                /* properties */
-               "X-extent "
-               "X-offset "
-               "Y-extent "
-               "Y-offset "
-               "after-line-breaking "
-               "avoid-slur "
-               "axis-group-parent-X "
-               "axis-group-parent-Y "
-               "before-line-breaking "
-               "cause "
-               "color "
-               "cross-staff "
-               "extra-offset "
-               "footnote-music "
-               "forced-spacing "
-               "horizontal-skylines "
-               "id "
-               "interfaces "
-               "layer "
-               "meta "
-               "minimum-X-extent "
-               "minimum-Y-extent "
-               "output-attributes "
-               "parenthesis-id "
-               "parenthesis-friends "
-               "parenthesized "
-               "pure-Y-offset-in-progress "
-               "rotation "
-               "skyline-horizontal-padding "
-               "springs-and-rods "
-               "staff-symbol "
-               "stencil "
-               "transparent "
-               "vertical-skylines "
-               "whiteout "
-               "whiteout-style "
-              );
+               R"(
+X-extent
+X-offset
+Y-extent
+Y-offset
+after-line-breaking
+avoid-slur
+axis-group-parent-X
+axis-group-parent-Y
+before-line-breaking
+cause
+color
+cross-staff
+extra-offset
+footnote-music
+forced-spacing
+horizontal-skylines
+id
+interfaces
+layer
+meta
+minimum-X-extent
+minimum-Y-extent
+output-attributes
+parenthesis-id
+parenthesis-friends
+parenthesized
+pure-Y-offset-in-progress
+rotation
+skyline-horizontal-padding
+springs-and-rods
+staff-symbol
+stencil
+transparent
+vertical-skylines
+whiteout
+whiteout-style
+               )");
 
 /****************************************************************
   CALLBACKS

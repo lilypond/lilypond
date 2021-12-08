@@ -521,28 +521,33 @@ Auto_beam_engraver::boot ()
 
 ADD_TRANSLATOR (Auto_beam_engraver,
                 /* doc */
-                "Generate beams based on measure characteristics and observed"
-                " Stems.  Uses @code{baseMoment}, @code{beatStructure},"
-                " @code{beamExceptions}, @code{measureLength}, and"
-                " @code{measurePosition} to decide when to start and stop a"
-                " beam.  Overriding beaming is done through"
-                " @ref{Stem_engraver} properties @code{stemLeftBeamCount} and"
-                " @code{stemRightBeamCount}.",
+                R"(
+Generate beams based on measure characteristics and observed Stems.  Uses
+@code{baseMoment}, @code{beatStructure}, @code{beamExceptions},
+@code{measureLength}, and @code{measurePosition} to decide when to start and
+stop a beam.  Overriding beaming is done through @ref{Stem_engraver} properties
+@code{stemLeftBeamCount} and @code{stemRightBeamCount}.
+                )",
 
                 /* create */
-                "Beam ",
+                R"(
+Beam
+                )",
 
                 /* read */
-                "autoBeaming "
-                "baseMoment "
-                "beamExceptions "
-                "beamHalfMeasure "
-                "beatStructure "
-                "subdivideBeams ",
+                R"(
+autoBeaming
+baseMoment
+beamExceptions
+beamHalfMeasure
+beatStructure
+subdivideBeams
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 
 class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
@@ -614,17 +619,23 @@ Grace_auto_beam_engraver::boot ()
 
 ADD_TRANSLATOR (Grace_auto_beam_engraver,
                 /* doc */
-                "Generates one autobeam group across an entire grace phrase. "
-                " As usual, any manual beaming or @code{\\noBeam} will block"
-                " autobeaming, just like setting the context property"
-                " @samp{autoBeaming} to @code{##f}.",
+                R"(
+Generates one autobeam group across an entire grace phrase.  As usual, any
+manual beaming or @code{\noBeam} will block autobeaming, just like setting the
+context property @samp{autoBeaming} to @code{##f}.
+                )",
 
                 /* create */
-                "Beam ",
+                R"(
+Beam
+                )",
 
                 /* read */
-                "autoBeaming ",
+                R"(
+autoBeaming
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

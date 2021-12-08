@@ -33,9 +33,11 @@ using std::string;
 
 LY_DEFINE (ly_error, "ly:error",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the error @var{str}."
-           "  The error is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue the error @var{str}.  The error is
+formatted with @code{format}; @var{rest} holds the formatting arguments (if
+any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -45,9 +47,11 @@ LY_DEFINE (ly_error, "ly:error",
 
 LY_DEFINE (ly_programming_error, "ly:programming-error",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the internal warning"
-           " @var{str}.  The message is formatted with @code{format};"
-           " @var{rest} holds the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue the internal warning @var{str}.  The
+message is formatted with @code{format}; @var{rest} holds the formatting
+arguments (if any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -57,9 +61,11 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 
 LY_DEFINE (ly_warning, "ly:warning",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the warning @var{str}."
-           "  The message is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue the warning @var{str}.  The message is
+formatted with @code{format}; @var{rest} holds the formatting arguments (if
+any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -69,9 +75,11 @@ LY_DEFINE (ly_warning, "ly:warning",
 
 LY_DEFINE (ly_progress, "ly:progress",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to print progress @var{str}."
-           "  The message is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to print progress @var{str}.  The message is
+formatted with @code{format}; @var{rest} holds the formatting arguments (if
+any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -82,9 +90,11 @@ LY_DEFINE (ly_progress, "ly:progress",
 
 LY_DEFINE (ly_basic_progress, "ly:basic-progress",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a basic progress message"
-           " @var{str}.  The message is formatted with @code{format};"
-           " @var{rest} holds the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue a basic progress message @var{str}.  The
+message is formatted with @code{format}; @var{rest} holds the formatting
+arguments (if any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -94,9 +104,11 @@ LY_DEFINE (ly_basic_progress, "ly:basic-progress",
 
 LY_DEFINE (ly_message, "ly:message",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue the message @var{str}."
-           "  The message is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue the message @var{str}.  The message is
+formatted with @code{format}; @var{rest} holds the formatting arguments (if
+any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -106,9 +118,11 @@ LY_DEFINE (ly_message, "ly:message",
 
 LY_DEFINE (ly_debug, "ly:debug",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a debug message @var{str}."
-           "  The message is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue a debug message @var{str}.  The message is
+formatted with @code{format}; @var{rest} holds the formatting arguments (if
+any).
+           )")
 {
   // TODO: Add the newline flag!
   LY_ASSERT_TYPE (scm_is_string, str, 1);
@@ -119,10 +133,11 @@ LY_DEFINE (ly_debug, "ly:debug",
 
 LY_DEFINE (ly_warning_located, "ly:warning-located",
            2, 0, 1, (SCM location, SCM str, SCM rest),
-           "A Scheme callable function to issue the warning @var{str} at"
-           " the specified location in an input file."
-           "  The message is formatted with @code{format}; @var{rest} holds"
-           " the formatting arguments (if any).")
+           R"(
+A Scheme callable function to issue the warning @var{str} at the specified
+location in an input file.  The message is formatted with @code{format};
+@var{rest} holds the formatting arguments (if any).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, location, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
@@ -133,11 +148,12 @@ LY_DEFINE (ly_warning_located, "ly:warning-located",
 
 LY_DEFINE (ly_expect_warning, "ly:expect-warning",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to register a warning to be expected"
-           " and subsequently suppressed.  If the warning is not encountered,"
-           " a warning about the missing warning is shown.  The message"
-           " should be translated with @code{(_ ...)} and changing parameters"
-           " given after the format string.")
+           R"(
+A Scheme callable function to register a warning to be expected and
+subsequently suppressed.  If the warning is not encountered, a warning about
+the missing warning is shown.  The message should be translated with @code{(_
+...)} and changing parameters given after the format string.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -147,7 +163,9 @@ LY_DEFINE (ly_expect_warning, "ly:expect-warning",
 
 LY_DEFINE (ly_check_expected_warnings, "ly:check-expected-warnings",
            0, 0, 0, (),
-           "Check whether all expected warnings have really been triggered.")
+           R"(
+Check whether all expected warnings have really been triggered.
+           )")
 {
   check_expected_warnings ();
   return SCM_UNSPECIFIED;
@@ -155,8 +173,10 @@ LY_DEFINE (ly_check_expected_warnings, "ly:check-expected-warnings",
 
 LY_DEFINE (ly_translate_cpp_warning_scheme, "ly:translate-cpp-warning-scheme",
            1, 0, 0, (SCM str),
-           "Translate a string in C++ @code{printf} format and modify it to"
-           " use it for Scheme formatting.")
+           R"(
+Translate a string in C++ @code{printf} format and modify it to use it for
+Scheme formatting.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   string s = _ (ly_scm2string (str).c_str ());

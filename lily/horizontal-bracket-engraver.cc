@@ -142,16 +142,22 @@ Horizontal_bracket_engraver::boot ()
 
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
                 /* doc */
-                "Create horizontal brackets over notes for musical analysis"
-                " purposes.",
+                R"(
+Create horizontal brackets over notes for musical analysis purposes.
+                )",
 
                 /* create */
-                "HorizontalBracket "
-                "HorizontalBracketText ",
+                R"(
+HorizontalBracket
+HorizontalBracketText
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

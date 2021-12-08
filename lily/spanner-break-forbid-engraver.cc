@@ -78,14 +78,21 @@ Spanner_break_forbid_engraver::boot ()
 
 ADD_TRANSLATOR (Spanner_break_forbid_engraver,
                 /* doc */
-                "Forbid breaks in certain spanners.",
+                R"(
+Forbid breaks in certain spanners.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

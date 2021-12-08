@@ -335,23 +335,29 @@ Completion_heads_engraver::boot ()
 
 ADD_TRANSLATOR (Completion_heads_engraver,
                 /* doc */
-                "This engraver replaces @code{Note_heads_engraver}.  It plays"
-                " some trickery to break long notes and automatically tie them"
-                " into the next measure.",
+                R"(
+This engraver replaces @code{Note_heads_engraver}.  It plays some trickery to
+break long notes and automatically tie them into the next measure.
+                )",
 
                 /* create */
-                "NoteHead "
-                "Tie "
-                "TieColumn ",
+                R"(
+NoteHead
+Tie
+TieColumn
+                )",
 
                 /* read */
-                "completionFactor "
-                "completionUnit "
-                "measureLength "
-                "measurePosition "
-                "middleCPosition "
-                "timing ",
+                R"(
+completionFactor
+completionUnit
+measureLength
+measurePosition
+middleCPosition
+timing
+                )",
 
                 /* write */
-                "completionBusy "
-               );
+                R"(
+completionBusy
+                )");

@@ -27,10 +27,11 @@ using std::string;
 
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
            (SCM port, SCM alist, SCM default_callback),
-           "Create an outputter dumping to @var{port}.  @var{alist} should map"
-           " symbols to procedures.  See file @file{output-ps.scm} for an"
-           " example.  If @var{default-callback} is given, it is called for"
-           " unsupported expressions.")
+           R"(
+Create an outputter dumping to @var{port}.  @var{alist} should map symbols to
+procedures.  See file @file{output-ps.scm} for an example.  If
+@var{default-callback} is given, it is called for unsupported expressions.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
@@ -45,7 +46,9 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
 
 LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
            2, 0, 0, (SCM outputter, SCM stencil),
-           "Dump stencil @var{expr} onto @var{outputter}.")
+           R"(
+Dump stencil @var{expr} onto @var{outputter}.
+           )")
 {
 
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
@@ -57,7 +60,9 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 
 LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
            2, 0, 0, (SCM outputter, SCM str),
-           "Dump @var{str} onto @var{outputter}.")
+           R"(
+Dump @var{str} onto @var{outputter}.
+           )")
 {
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
@@ -67,7 +72,9 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 
 LY_DEFINE (ly_outputter_port, "ly:outputter-port",
            1, 0, 0, (SCM outputter),
-           "Return output port for @var{outputter}.")
+           R"(
+Return output port for @var{outputter}.
+           )")
 {
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
@@ -76,7 +83,9 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
 
 LY_DEFINE (ly_outputter_close, "ly:outputter-close",
            1, 0, 0, (SCM outputter),
-           "Close port of @var{outputter}.")
+           R"(
+Close port of @var{outputter}.
+           )")
 {
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
@@ -86,7 +95,9 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
 
 LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme", 2, 0, 0,
            (SCM outputter, SCM expr),
-           "Output @var{expr} to the paper outputter.")
+           R"(
+Output @var{expr} to the paper outputter.
+           )")
 {
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 

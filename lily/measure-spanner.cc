@@ -120,17 +120,20 @@ Measure_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Measure_spanner,
-               "A bracket aligned to a measure or measures.",
+               R"(
+A bracket aligned to a measure or measures.
+               )",
 
                /* properties */
-               "bracket-flare "
-               "bracket-visibility "
-               "connect-to-neighbor "
-               "direction "
-               "edge-height "
-               "padding "
-               "shorten-pair "
-               "spacing-pair "
-               "staff-padding "
-               "thickness "
-              );
+               R"(
+bracket-flare
+bracket-visibility
+connect-to-neighbor
+direction
+edge-height
+padding
+shorten-pair
+spacing-pair
+staff-padding
+thickness
+               )");

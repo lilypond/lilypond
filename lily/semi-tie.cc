@@ -28,30 +28,30 @@
 #include "staff-symbol-referencer.hh"
 
 ADD_INTERFACE (Semi_tie,
-               "A tie which is only connected to a note head on one side."
-               "\n"
-               "The following properties may be set in the @code{details}"
-               " list:\n"
-               "\n"
-               "@table @code\n"
-               "@item height-limit\n"
-               "Maximum tie height: The longer the tie, the closer it is"
-               " to this height.\n"
-               "@item ratio\n"
-               "Parameter for tie shape.  The higher this number, the"
-               " quicker the tie attains its @code{height-limit}.\n"
-               "@end table\n",
+               R"(
+A tie which is only connected to a note head on one side.  The following
+properties may be set in the @code{details} list:
+
+@table @code
+@item height-limit
+Maximum tie height: The longer the tie, the closer it is to this height.
+@item ratio
+Parameter for tie shape.  The higher this number, the quicker the tie attains
+its @code{height-limit}.
+@end table
+               )",
 
                /* properties */
-               "annotation "
-               "control-points "
-               "direction "
-               "details "
-               "head-direction "
-               "note-head "
-               "thickness "
-               "line-thickness "
-              );
+               R"(
+annotation
+control-points
+direction
+details
+head-direction
+note-head
+thickness
+line-thickness
+               )");
 
 MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM

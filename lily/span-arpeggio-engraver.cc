@@ -136,14 +136,21 @@ Span_arpeggio_engraver::boot ()
 
 ADD_TRANSLATOR (Span_arpeggio_engraver,
                 /* doc */
-                "Make arpeggios that span multiple staves.",
+                R"(
+Make arpeggios that span multiple staves.
+                )",
 
                 /* create */
-                "Arpeggio ",
+                R"(
+Arpeggio
+                )",
 
                 /* read */
-                "connectArpeggios ",
+                R"(
+connectArpeggios
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

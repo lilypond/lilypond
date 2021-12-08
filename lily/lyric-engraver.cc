@@ -202,16 +202,23 @@ Lyric_engraver::boot ()
 
 ADD_TRANSLATOR (Lyric_engraver,
                 /* doc */
-                "Engrave text for lyrics.",
+                R"(
+Engrave text for lyrics.
+                )",
 
                 /* create */
-                "LyricText ",
+                R"(
+LyricText
+                )",
 
                 /* read */
-                "ignoreMelismata "
-                "lyricMelismaAlignment "
-                "searchForVoice",
+                R"(
+ignoreMelismata
+lyricMelismaAlignment
+searchForVoice
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

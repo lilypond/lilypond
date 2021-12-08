@@ -140,15 +140,21 @@ Kievan_ligature_engraver::boot ()
 
 ADD_TRANSLATOR (Kievan_ligature_engraver,
                 /* doc */
-                "Handle @code{Kievan_ligature_events} by glueing Kievan"
-                " heads together.",
+                R"(
+Handle @code{Kievan_ligature_events} by glueing Kievan heads together.
+                )",
 
                 /* create */
-                "KievanLigature ",
+                R"(
+KievanLigature
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

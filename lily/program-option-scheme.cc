@@ -179,8 +179,10 @@ get_help_string ()
 }
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 1, 0, (SCM port),
-           "Print @code{ly:set-option} usage.  Optional @var{port} argument"
-           " for the destination defaults to current output port.")
+           R"(
+Print @code{ly:set-option} usage.  Optional @var{port} argument for the
+destination defaults to current output port.
+           )")
 {
   SCM str = scm_from_locale_string (get_help_string ().c_str ());
   scm_write_line (str, port);
@@ -190,8 +192,10 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 1, 0, (SCM port),
 
 LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
            (SCM sym, SCM val, SCM description),
-           "Add a program option @var{sym}.  @var{val} is the default"
-           " value and @var{description} is a string description.")
+           R"(
+Add a program option @var{sym}.  @var{val} is the default value and
+@var{description} is a string description.
+           )")
 {
   if (!option_hash.is_bound ())
     option_hash = scm_c_make_hash_table (11);
@@ -207,7 +211,9 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 }
 
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
-           "Set a program option.")
+           R"(
+Set a program option.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
 
@@ -230,35 +236,42 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 }
 
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
-           "The Scheme options specified on the command line with"
-           " option @option{-d}.")
+           R"(
+The Scheme options specified on the command line with option @option{-d}.
+           )")
 {
   return ly_string2scm (init_scheme_variables_global);
 }
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
-           "The Scheme code specified on the command line with"
-           " option @option{-e}.")
+           R"(
+The Scheme code specified on the command line with option @option{-e}.
+           )")
 {
   return ly_string2scm (init_scheme_code_global);
 }
 
 LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
-           "Was verbose output requested, i.e., is the log level at least"
-           " @code{DEBUG}?")
+           R"(
+Was verbose output requested, i.e., is the log level at least @code{DEBUG}?
+           )")
 {
   return scm_from_bool (is_loglevel (LOG_DEBUG));
 }
 
 LY_DEFINE (ly_all_options, "ly:all-options",
            0, 0, 0, (),
-           "Get all option settings in an alist.")
+           R"(
+Get all option settings in an alist.
+           )")
 {
   return ly_hash2alist (option_hash);
 }
 
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
-           "Get a global option setting.")
+           R"(
+Get a global option setting.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);

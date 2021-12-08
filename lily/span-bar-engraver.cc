@@ -104,15 +104,22 @@ Span_bar_engraver::boot ()
 
 ADD_TRANSLATOR (Span_bar_engraver,
                 /* doc */
-                "Make cross-staff bar lines: It catches all normal bar lines"
-                " and draws a single span bar across them.",
+                R"(
+Make cross-staff bar lines: It catches all normal bar lines and draws a single
+span bar across them.
+                )",
 
                 /* create */
-                "SpanBar ",
+                R"(
+SpanBar
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -109,7 +109,9 @@ ly_module_symbols (SCM mod)
 
 LY_DEFINE (ly_module_2_alist, "ly:module->alist",
            1, 0, 0, (SCM mod),
-           "Dump the contents of module @var{mod} as an alist.")
+           R"(
+Dump the contents of module @var{mod} as an alist.
+           )")
 {
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);

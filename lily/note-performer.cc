@@ -189,17 +189,24 @@ Note_performer::boot ()
 
 ADD_TRANSLATOR (Note_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 
 Note_performer::Note_performer (Context *c)
   : Performer (c)

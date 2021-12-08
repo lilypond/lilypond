@@ -55,15 +55,18 @@ Horizontal_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Horizontal_bracket,
-               "A horizontal bracket encompassing notes.",
+               R"(
+A horizontal bracket encompassing notes.
+               )",
 
                /* properties */
-               "bracket-flare "
-               "bracket-text "
-               "columns "
-               "dashed-edge "
-               "edge-height "
-               "shorten-pair "
-               "connect-to-neighbor "
-              );
+               R"(
+bracket-flare
+bracket-text
+columns
+dashed-edge
+edge-height
+shorten-pair
+connect-to-neighbor
+               )");
 

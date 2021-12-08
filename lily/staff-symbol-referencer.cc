@@ -222,11 +222,13 @@ pure_position_less (Grob *const &a, Grob *const &b)
 }
 
 ADD_INTERFACE (Staff_symbol_referencer,
-               "An object whose Y@tie{}position is meant relative to a staff"
-               " symbol.  These usually"
-               " have @code{Staff_symbol_referencer::callback} in their"
-               " @code{Y-offset-callbacks}.",
+               R"(
+An object whose Y@tie{}position is meant relative to a staff symbol.  These
+usually have @code{Staff_symbol_referencer::callback} in their
+@code{Y-offset-callbacks}.
+               )",
 
                /* properties */
-               "staff-position "
-              );
+               R"(
+staff-position
+               )");

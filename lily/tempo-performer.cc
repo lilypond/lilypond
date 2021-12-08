@@ -94,14 +94,21 @@ Tempo_performer::boot ()
 
 ADD_TRANSLATOR (Tempo_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "tempoWholesPerMinute ",
+                R"(
+tempoWholesPerMinute
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

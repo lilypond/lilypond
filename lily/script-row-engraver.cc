@@ -101,14 +101,21 @@ Script_row_engraver::boot ()
 
 ADD_TRANSLATOR (Script_row_engraver,
                 /* doc */
-                "Determine order in horizontal side position elements.",
+                R"(
+Determine order in horizontal side position elements.
+                )",
 
                 /* create */
-                "ScriptRow ",
+                R"(
+ScriptRow
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

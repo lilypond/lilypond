@@ -292,19 +292,26 @@ Completion_rest_engraver::boot ()
 
 ADD_TRANSLATOR (Completion_rest_engraver,
                 /* doc */
-                "This engraver replaces @code{Rest_engraver}.  It plays"
-                " some trickery to break long rests into the next measure.",
+                R"(
+This engraver replaces @code{Rest_engraver}.  It plays some trickery to break
+long rests into the next measure.
+                )",
 
                 /* create */
-                "Rest ",
+                R"(
+Rest
+                )",
 
                 /* read */
-                "completionFactor "
-                "completionUnit "
-                "middleCPosition "
-                "measurePosition "
-                "measureLength ",
+                R"(
+completionFactor
+completionUnit
+middleCPosition
+measurePosition
+measureLength
+                )",
 
                 /* write */
-                "restCompletionBusy "
-               );
+                R"(
+restCompletionBusy
+                )");

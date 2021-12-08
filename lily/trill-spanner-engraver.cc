@@ -161,15 +161,22 @@ Trill_spanner_engraver::boot ()
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
                 /* doc */
-                "Create trill spanner from an event.",
+                R"(
+Create trill spanner from an event.
+                )",
 
                 /* create */
-                "TrillSpanner ",
+                R"(
+TrillSpanner
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "currentMusicalColumn ",
+                R"(
+currentCommandColumn
+currentMusicalColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

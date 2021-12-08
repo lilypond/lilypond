@@ -41,22 +41,29 @@ Default_bar_line_engraver::boot ()
 
 ADD_TRANSLATOR (Default_bar_line_engraver,
                 /* doc */
-                "This engraver determines what kind of automatic bar lines"
-                " should be produced, and sets @code{whichBar} accordingly."
-                "  It should be at the same level as @ref{Timing_translator}.",
+                R"(
+This engraver determines what kind of automatic bar lines should be produced,
+and sets @code{whichBar} accordingly.  It should be at the same level as
+@ref{Timing_translator}.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "automaticBars "
-                "barAlways "
-                "defaultBarType "
-                "measureStartNow ",
+                R"(
+automaticBars
+barAlways
+defaultBarType
+measureStartNow
+                )",
 
                 /* write */
-                "whichBar "
-               );
+                R"(
+whichBar
+                )");
 
 Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
   : Engraver (c)

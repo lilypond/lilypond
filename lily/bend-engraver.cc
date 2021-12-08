@@ -148,14 +148,21 @@ Bend_engraver::boot ()
 
 ADD_TRANSLATOR (Bend_engraver,
                 /* doc */
-                "Create fall spanners.",
+                R"(
+Create fall spanners.
+                )",
 
                 /* create */
-                "BendAfter ",
+                R"(
+BendAfter
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

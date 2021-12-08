@@ -150,14 +150,21 @@ Fingering_engraver::boot ()
 
 ADD_TRANSLATOR (Fingering_engraver,
                 /* doc */
-                "Create fingering scripts.",
+                R"(
+Create fingering scripts.
+                )",
 
                 /* create */
-                "Fingering ",
+                R"(
+Fingering
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

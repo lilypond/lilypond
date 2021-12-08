@@ -1045,25 +1045,26 @@ System::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
 }
 
 ADD_INTERFACE (System,
-               "This is the top-level object: Each object in a score"
-               " ultimately has a @code{System} object as its X and"
-               " Y@tie{}parent.\n"
-               "\n"
-               "The @code{system-interface} implies the"
-               " @iref{spanner-interface}.",
+               R"(
+This is the top-level object: Each object in a score ultimately has a
+@code{System} object as its X and Y@tie{}parent.
+
+The @code{system-interface} implies the @iref{spanner-interface}.
+               )",
 
                /* properties */
-               "all-elements "
-               "columns "
-               "footnote-stencil "
-               "footnotes-before-line-breaking "
-               "footnotes-after-line-breaking "
-               "in-note-direction "
-               "in-note-padding "
-               "in-note-stencil "
-               "labels "
-               "page-number "
-               "pure-Y-extent "
-               "rank-on-page "
-               "vertical-alignment "
-              );
+               R"(
+all-elements
+columns
+footnote-stencil
+footnotes-before-line-breaking
+footnotes-after-line-breaking
+in-note-direction
+in-note-padding
+in-note-stencil
+labels
+page-number
+pure-Y-extent
+rank-on-page
+vertical-alignment
+               )");

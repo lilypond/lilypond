@@ -70,15 +70,22 @@ Dot_column_engraver::boot ()
 
 ADD_TRANSLATOR (Dot_column_engraver,
                 /* doc */
-                "Engrave dots on dotted notes shifted to the right of the"
-                " note.  If omitted, then dots appear on top of the notes.",
+                R"(
+Engrave dots on dotted notes shifted to the right of the note.  If omitted,
+then dots appear on top of the notes.
+                )",
 
                 /* create */
-                "DotColumn ",
+                R"(
+DotColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

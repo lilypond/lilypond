@@ -175,18 +175,25 @@ Instrument_name_engraver::boot ()
 
 ADD_TRANSLATOR (Instrument_name_engraver,
                 /* doc */
-                "Create a system start text for instrument or vocal names.",
+                R"(
+Create a system start text for instrument or vocal names.
+                )",
 
                 /* create */
-                "InstrumentName ",
+                R"(
+InstrumentName
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "instrumentName "
-                "shortInstrumentName "
-                "shortVocalName "
-                "vocalName ",
+                R"(
+currentCommandColumn
+instrumentName
+shortInstrumentName
+shortVocalName
+vocalName
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

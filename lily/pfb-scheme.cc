@@ -28,9 +28,10 @@ using std::vector;
 
 LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
            1, 0, 0, (SCM type1_file_name),
-           "Convert the contents of a Type@tie{}1 font in PFB format"
-           " to PFA format.  If the file is already in PFA format,"
-           " pass it through.")
+           R"(
+Convert the contents of a Type@tie{}1 font in PFB format to PFA format.  If the
+file is already in PFA format, pass it through.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, type1_file_name, 1);
 
@@ -61,11 +62,12 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
 
 LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
            1, 1, 0, (SCM otf_file_name, SCM idx),
-           "Convert the contents of an OTF file to a CFF file,"
-           " returning it as a string.  The optional"
-           " @var{idx} argument is useful for OpenType/CFF collections (OTC)"
-           " only; it specifies the font index within the OTC.  The default"
-           " value of @var{idx} is@tie{}0.")
+           R"(
+Convert the contents of an OTF file to a CFF file, returning it as a string.
+The optional @var{idx} argument is useful for OpenType/CFF collections (OTC)
+only; it specifies the font index within the OTC.  The default value of
+@var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, otf_file_name, 1);
 

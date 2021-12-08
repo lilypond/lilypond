@@ -115,11 +115,13 @@ Tie_column::calc_positioning_done (SCM smob)
 }
 
 ADD_INTERFACE (Tie_column,
-               "Object that sets directions of multiple ties in a tied"
-               " chord.",
+               R"(
+Object that sets directions of multiple ties in a tied chord.
+               )",
 
                /* properties */
-               "positioning-done "
-               "tie-configuration "
-               "ties "
-              );
+               R"(
+positioning-done
+tie-configuration
+ties
+               )");

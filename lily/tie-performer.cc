@@ -192,14 +192,21 @@ Tie_performer::boot ()
 
 ADD_TRANSLATOR (Tie_performer,
                 /* doc */
-                "Generate ties between note heads of equal pitch.",
+                R"(
+Generate ties between note heads of equal pitch.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "tieWaitForNote",
+                R"(
+tieWaitForNote
+                )",
 
                 /* write */
-                "tieMelismaBusy"
-               );
+                R"(
+tieMelismaBusy
+                )");

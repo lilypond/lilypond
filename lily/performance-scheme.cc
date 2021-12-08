@@ -21,7 +21,9 @@
 
 LY_DEFINE (ly_performance_headers, "ly:performance-headers",
            1, 0, 0, (SCM performance),
-           "Return the list of headers with the innermost first.")
+           R"(
+Return the list of headers with the innermost first.
+           )")
 {
   auto *const p = LY_ASSERT_SMOB (Performance, performance, 1);
 
@@ -30,8 +32,10 @@ LY_DEFINE (ly_performance_headers, "ly:performance-headers",
 
 LY_DEFINE (ly_performance_write, "ly:performance-write",
            3, 0, 0, (SCM performance, SCM filename, SCM name),
-           "Write @var{performance} to @var{filename} storing @var{name} as "
-           "the name of the performance in the file metadata.")
+           R"(
+Write @var{performance} to @var{filename} storing @var{name} as the name of the
+performance in the file metadata.
+           )")
 {
   auto *const p = LY_ASSERT_SMOB (Performance, performance, 1);
   LY_ASSERT_TYPE (scm_is_string, filename, 2);

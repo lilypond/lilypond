@@ -288,16 +288,23 @@ Tuplet_engraver::boot ()
 
 ADD_TRANSLATOR (Tuplet_engraver,
                 /* doc */
-                "Catch tuplet events and generate appropriate bracket.",
+                R"(
+Catch tuplet events and generate appropriate bracket.
+                )",
 
                 /* create */
-                "TupletBracket "
-                "TupletNumber ",
+                R"(
+TupletBracket
+TupletNumber
+                )",
 
                 /* read */
-                "tupletFullLength "
-                "tupletFullLengthNote ",
+                R"(
+tupletFullLength
+tupletFullLengthNote
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

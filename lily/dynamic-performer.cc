@@ -495,18 +495,25 @@ Dynamic_performer::boot ()
 
 ADD_TRANSLATOR (Dynamic_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "dynamicAbsoluteVolumeFunction "
-                "instrumentEqualizer "
-                "midiMaximumVolume "
-                "midiMinimumVolume "
-                "midiInstrument ",
+                R"(
+dynamicAbsoluteVolumeFunction
+instrumentEqualizer
+midiMaximumVolume
+midiMinimumVolume
+midiInstrument
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

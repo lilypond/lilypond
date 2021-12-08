@@ -1470,75 +1470,71 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 }
 
 ADD_INTERFACE (Beam,
-               "A beam.\n"
-               "\n"
-               "The @code{beam-thickness} property is the weight of beams,"
-               " measured in staffspace.  The @code{direction} property is"
-               " not user-serviceable.  Use the @code{direction} property"
-               " of @code{Stem} instead.\n"
-               "The following properties may be set in the @code{details}"
-               " list.\n"
-               "\n"
-               "@table @code\n"
-               "@item stem-length-demerit-factor\n"
-               "Demerit factor used for inappropriate stem lengths.\n"
-               "@item secondary-beam-demerit\n"
-               "Demerit used in quanting calculations for multiple"
-               " beams.\n"
-               "@item region-size\n"
-               "Size of region for checking quant scores.\n"
-               "@item beam-eps\n"
-               "Epsilon for beam quant code to check for presence"
-               " in gap.\n"
-               "@item stem-length-limit-penalty\n"
-               "Penalty for differences in stem lengths on a beam.\n"
-               "@item damping-direction-penalty\n"
-               "Demerit penalty applied when beam direction is different"
-               " from damping direction.\n"
-               "@item hint-direction-penalty\n"
-               "Demerit penalty applied when beam direction is different"
-               " from damping direction, but damping slope is"
-               " <= @code{round-to-zero-slope}.\n"
-               "@item musical-direction-factor\n"
-               "Demerit scaling factor for difference between"
-               " beam slope and music slope.\n"
-               "@item ideal-slope-factor\n"
-               "Demerit scaling factor for difference between"
-               " beam slope and damping slope.\n"
-               "@item round-to-zero-slope\n"
-               "Damping slope which is considered zero for purposes of"
-               " calculating direction penalties.\n"
-               "@end table\n",
+               R"(
+A beam.
+
+The @code{beam-thickness} property is the weight of beams, measured in
+staffspace.  The @code{direction} property is not user-serviceable.  Use the
+@code{direction} property of @code{Stem} instead.  The following properties may
+be set in the @code{details} list.
+
+@table @code
+@item stem-length-demerit-factor
+Demerit factor used for inappropriate stem lengths.
+@item secondary-beam-demerit
+Demerit used in quanting calculations for multiple beams.
+@item region-size
+Size of region for checking quant scores.
+@item beam-eps
+Epsilon for beam quant code to check for presence in gap.
+@item stem-length-limit-penalty
+Penalty for differences in stem lengths on a beam.
+@item damping-direction-penalty
+Demerit penalty applied when beam direction is different from damping
+direction.
+@item hint-direction-penalty
+Demerit penalty applied when beam direction is different from damping
+direction, but damping slope is <= @code{round-to-zero-slope}.
+@item musical-direction-factor
+Demerit scaling factor for difference between beam slope and music slope.
+@item ideal-slope-factor
+Demerit scaling factor for difference between beam slope and damping slope.
+@item round-to-zero-slope
+Damping slope which is considered zero for purposes of calculating direction
+penalties.
+@end table
+               )",
 
                /* properties */
-               "annotation "
-               "auto-knee-gap "
-               "beamed-stem-shorten "
-               "beaming "
-               "beam-segments "
-               "beam-thickness "
-               "break-overshoot "
-               "clip-edges "
-               "concaveness "
-               "collision-interfaces "
-               "collision-voice-only "
-               "covered-grobs "
-               "damping "
-               "details "
-               "direction "
-               "gap "
-               "gap-count "
-               "grow-direction "
-               "inspect-quants "
-               "knee "
-               "length-fraction "
-               "least-squares-dy "
-               "neutral-direction "
-               "normal-stems "
-               "positions "
-               "quantized-positions "
-               "shorten "
-               "skip-quanting "
-               "stems "
-               "X-positions "
-              );
+               R"(
+annotation
+auto-knee-gap
+beamed-stem-shorten
+beaming
+beam-segments
+beam-thickness
+break-overshoot
+clip-edges
+concaveness
+collision-interfaces
+collision-voice-only
+covered-grobs
+damping
+details
+direction
+gap
+gap-count
+grow-direction
+inspect-quants
+knee
+length-fraction
+least-squares-dy
+neutral-direction
+normal-stems
+positions
+quantized-positions
+shorten
+skip-quanting
+stems
+X-positions
+               )");

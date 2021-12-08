@@ -47,7 +47,9 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
            2, 0, 0, (SCM a, SCM b),
-           "Compare two grobs by script priority.  For internal use.")
+           R"(
+Compare two grobs by script priority.  For internal use.
+           )")
 {
   Grob *i1 = unsmob<Grob> (a);
   Grob *i2 = unsmob<Grob> (b);
@@ -180,9 +182,12 @@ Script_column::order_grobs (vector<Grob *> grobs)
 }
 
 ADD_INTERFACE (Script_column,
-               "An interface that sorts scripts according to their"
-               " @code{script-priority} and @code{outside-staff-priority}.",
+               R"(
+An interface that sorts scripts according to their @code{script-priority} and
+@code{outside-staff-priority}.
+               )",
 
                /* properties */
-               "scripts "
-              );
+               R"(
+scripts
+               )");

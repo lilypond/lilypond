@@ -600,18 +600,20 @@ Spanner::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
 }
 
 ADD_INTERFACE (Spanner,
-               "Some objects are horizontally spanned between objects.  For"
-               " example, slurs, beams, ties, etc.  These grobs form a subtype"
-               " called @code{Spanner}.  All spanners have two span points"
-               " (these must be @code{Item} objects), one on the left and one"
-               " on the right.  The left bound is also the X@tie{}reference"
-               " point of the spanner.",
+               R"(
+Some objects are horizontally spanned between objects.  For example, slurs,
+beams, ties, etc.  These grobs form a subtype called @code{Spanner}.  All
+spanners have two span points (these must be @code{Item} objects), one on the
+left and one on the right.  The left bound is also the X@tie{}reference point
+of the spanner.
+               )",
 
                /* properties */
-               "normalized-endpoints "
-               "minimum-length "
-               "minimum-length-after-break "
-               "spanner-broken "
-               "spanner-id "
-               "to-barline "
-              );
+               R"(
+normalized-endpoints
+minimum-length
+minimum-length-after-break
+spanner-broken
+spanner-id
+to-barline
+               )");

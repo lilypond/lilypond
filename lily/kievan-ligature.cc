@@ -31,9 +31,12 @@ Kievan_ligature::print (SCM)
 }
 
 ADD_INTERFACE (Kievan_ligature,
-               "A kievan ligature.",
+               R"(
+A kievan ligature.
+               )",
 
                /* properties */
-               "primitive "
-               "padding "
-              );
+               R"(
+primitive
+padding
+               )");

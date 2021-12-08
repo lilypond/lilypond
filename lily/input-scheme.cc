@@ -23,9 +23,11 @@
 using std::string;
 
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
-           "Print @var{msg} as a GNU compliant warning message, pointing"
-           " to the location in @var{sip}.  @var{msg} is interpreted"
-           " similar to @code{format}'s argument, using @var{rest}.")
+           R"(
+Print @var{msg} as a GNU compliant warning message, pointing to the location in
+@var{sip}.  @var{msg} is interpreted similar to @code{format}'s argument, using
+@var{rest}.
+           )")
 {
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
@@ -39,9 +41,11 @@ LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM
 }
 
 LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
-           "Print @var{msg} as a GNU compliant error message, pointing"
-           " to the location in @var{sip}.  @var{msg} is interpreted"
-           " similar to @code{format}'s argument, using @var{rest}.")
+           R"(
+Print @var{msg} as a GNU compliant error message, pointing to the location in
+@var{sip}.  @var{msg} is interpreted similar to @code{format}'s argument, using
+@var{rest}.
+           )")
 {
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
@@ -57,8 +61,9 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 LY_DEFINE (ly_input_file_line_char_column,
            "ly:input-file-line-char-column",
            1, 0, 0, (SCM sip),
-           "Return input location in @var{sip} as"
-           " @code{(file-name line char column)}.")
+           R"(
+Return input location in @var{sip} as @code{(file-name line char column)}.
+           )")
 {
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);
 
@@ -73,10 +78,12 @@ LY_DEFINE (ly_input_file_line_char_column,
 LY_DEFINE (ly_input_both_locations,
            "ly:input-both-locations",
            1, 0, 0, (SCM sip),
-           "Return input location in @var{sip} as\n"
-           "@example\n"
-           "(file-name first-line first-column last-line last-column)\n"
-           "@end example")
+           R"(
+Return input location in @var{sip} as
+@example
+(file-name first-line first-column last-line last-column)
+@end example
+           )")
 {
 
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);

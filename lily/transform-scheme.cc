@@ -42,15 +42,17 @@ Transform::call (SCM arg)
 
 LY_DEFINE (ly_make_transform, "ly:make-transform",
            0, 6, 0, (SCM xx, SCM yx, SCM xy, SCM yy, SCM x0, SCM y0),
-           "Create a transform.  Without options, it is the identity"
-           " transform.  Given four arguments @var{xx}, @var{yx}, @var{xy},"
-           " and @var{yy}, it is a linear transform.  Given six arguments"
-           " (with @var{x0} and @var{y0} last), it is an affine transform.\n"
-           "\n"
-           "Transforms can be called as functions on other transforms"
-           " (concatening them) or on points given either as complex"
-           " number or real number pair.  See also @code{ly:make-rotation},"
-           " @code{ly:make-scaling}, and @code{ly:make-translation}.")
+           R"(
+Create a transform.  Without options, it is the identity transform.  Given four
+arguments @var{xx}, @var{yx}, @var{xy}, and @var{yy}, it is a linear transform.
+Given six arguments (with @var{x0} and @var{y0} last), it is an affine
+transform.
+
+Transforms can be called as functions on other transforms (concatening them) or
+on points given either as complex number or real number pair.  See also
+@code{ly:make-rotation}, @code{ly:make-scaling}, and
+@code{ly:make-translation}.
+           )")
 {
   if (SCM_UNBNDP (xx))
     return Transform ().smobbed_copy ();
@@ -76,13 +78,14 @@ LY_DEFINE (ly_make_transform, "ly:make-transform",
 
 LY_DEFINE (ly_make_scaling, "ly:make-scaling",
            1, 1, 0, (SCM scale, SCM scaley),
-           "Create a scaling transform from argument @var{scale} and"
-           " optionally @var{scaley}.  When both arguments are given, they"
-           " must be real and give the scale in x and y@tie{}direction.  If"
-           " only @var{scale} is given, it may also be complex to indicate a"
-           " scaled rotation in the manner of complex number rotations, or a"
-           " pair of reals for specifying different scales in x and"
-           " y@tie{}direction like with the first calling convention.")
+           R"(
+Create a scaling transform from argument @var{scale} and optionally
+@var{scaley}.  When both arguments are given, they must be real and give the
+scale in x and y@tie{}direction.  If only @var{scale} is given, it may also be
+complex to indicate a scaled rotation in the manner of complex number
+rotations, or a pair of reals for specifying different scales in x and
+y@tie{}direction like with the first calling convention.
+           )")
 {
   if (SCM_UNBNDP (scaley))
     {
@@ -107,10 +110,11 @@ LY_DEFINE (ly_make_scaling, "ly:make-scaling",
 
 LY_DEFINE (ly_make_rotation, "ly:make-rotation",
            1, 1, 0, (SCM angle, SCM center),
-           "Make a transform rotating by @var{angle} in degrees.\n"
-           "If @var{center} is given as a pair of coordinates,"
-           " it is the center of the rotation, otherwise the rotation"
-           " is around @w{(0, 0)}.")
+           R"(
+Make a transform rotating by @var{angle} in degrees.  If @var{center} is given
+as a pair of coordinates, it is the center of the rotation, otherwise the
+rotation is around @w{(0, 0)}.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_real, angle, 1);
   if (!SCM_UNBNDP (center))
@@ -121,9 +125,11 @@ LY_DEFINE (ly_make_rotation, "ly:make-rotation",
 
 LY_DEFINE (ly_make_translation, "ly:make-translation",
            1, 1, 0, (SCM x, SCM y),
-           "Make a transform translating by @var{x} and @var{y}.\n"
-           "If only @var{x} is given, it can also be a complex number"
-           " or a pair of numbers indicating the offset to use.")
+           R"(
+Make a transform translating by @var{x} and @var{y}. If only @var{x} is given,
+it can also be a complex number or a pair of numbers indicating the offset to
+use.
+           )")
 {
   if (!SCM_UNBNDP (y))
     {
@@ -143,8 +149,10 @@ LY_DEFINE (ly_make_translation, "ly:make-translation",
 
 LY_DEFINE (ly_transform_2_list, "ly:transform->list",
            1, 0, 0, (SCM transform),
-           "Convert a transform matrix to a list of six values.\n"
-           "Values are @var{xx}, @var{yx}, @var{xy}, @var{yy}, @var{x0}, @var{y0}.")
+           R"(
+Convert a transform matrix to a list of six values.  Values are @var{xx},
+@var{yx}, @var{xy}, @var{yy}, @var{x0}, @var{y0}.
+           )")
 {
   auto *const tr = LY_ASSERT_SMOB (Transform, transform, 1);
   SCM res = scm_list_n (to_scm (tr->get_xx ()), to_scm (tr->get_yx ()),

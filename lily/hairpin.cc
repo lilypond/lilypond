@@ -355,16 +355,19 @@ Hairpin::print (SCM smob)
 }
 
 ADD_INTERFACE (Hairpin,
-               "A hairpin crescendo or decrescendo.",
+               R"(
+A hairpin crescendo or decrescendo.
+               )",
 
                /* properties */
-               "adjacent-spanners "
-               "circled-tip "
-               "concurrent-hairpins "
-               "broken-bound-padding "
-               "bound-padding "
-               "endpoint-alignments "
-               "grow-direction "
-               "height "
-               "shorten-pair "
-              );
+               R"(
+adjacent-spanners
+circled-tip
+concurrent-hairpins
+broken-bound-padding
+bound-padding
+endpoint-alignments
+grow-direction
+height
+shorten-pair
+               )");

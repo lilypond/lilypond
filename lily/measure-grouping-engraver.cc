@@ -132,17 +132,24 @@ Measure_grouping_engraver::boot ()
 
 ADD_TRANSLATOR (Measure_grouping_engraver,
                 /* doc */
-                "Create @code{MeasureGrouping} to indicate beat subdivision.",
+                R"(
+Create @code{MeasureGrouping} to indicate beat subdivision.
+                )",
 
                 /* create */
-                "MeasureGrouping ",
+                R"(
+MeasureGrouping
+                )",
 
                 /* read */
-                "baseMoment "
-                "beatStructure "
-                "currentMusicalColumn "
-                "measurePosition ",
+                R"(
+baseMoment
+beatStructure
+currentMusicalColumn
+measurePosition
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

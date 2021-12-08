@@ -80,7 +80,9 @@ ly_add_function_documentation (SCM func,
 
 LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
            0, 0, 0, (),
-           "Get a hash table with all LilyPond Scheme extension functions.")
+           R"(
+Get a hash table with all LilyPond Scheme extension functions.
+           )")
 {
   return doc_hash_table;
 }

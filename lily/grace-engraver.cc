@@ -166,14 +166,21 @@ Grace_engraver::boot ()
 
 ADD_TRANSLATOR (Grace_engraver,
                 /* doc */
-                "Set font size and other properties for grace notes.",
+                R"(
+Set font size and other properties for grace notes.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "graceSettings ",
+                R"(
+graceSettings
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

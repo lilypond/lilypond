@@ -287,14 +287,21 @@ Script_engraver::boot ()
 
 ADD_TRANSLATOR (Script_engraver,
                 /* doc */
-                "Handle note scripted articulations.",
+                R"(
+Handle note scripted articulations.
+                )",
 
                 /* create */
-                "Script ",
+                R"(
+Script
+                )",
 
                 /* read */
-                "scriptDefinitions ",
+                R"(
+scriptDefinitions
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -112,14 +112,21 @@ Concurrent_hairpin_engraver::boot ()
 
 ADD_TRANSLATOR (Concurrent_hairpin_engraver,
                 /* doc */
-                "Collect concurrent hairpins.",
+                R"(
+Collect concurrent hairpins.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

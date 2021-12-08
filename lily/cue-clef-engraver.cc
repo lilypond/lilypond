@@ -218,22 +218,29 @@ Cue_clef_engraver::boot ()
 
 ADD_TRANSLATOR (Cue_clef_engraver,
                 /* doc */
-                "Determine and set reference point for pitches in cued voices.",
+                R"(
+Determine and set reference point for pitches in cued voices.
+                )",
 
                 /* create */
-                "CueClef "
-                "CueEndClef "
-                "ClefModifier ",
+                R"(
+CueClef
+CueEndClef
+ClefModifier
+                )",
 
                 /* read */
-                "cueClefGlyph "
-                "cueClefTransposition "
-                "cueClefTranspositionStyle "
-                "cueClefPosition "
-                "explicitCueClefVisibility "
-                "middleCCuePosition "
-                "clefTransposition ",
+                R"(
+cueClefGlyph
+cueClefTransposition
+cueClefTranspositionStyle
+cueClefPosition
+explicitCueClefVisibility
+middleCCuePosition
+clefTransposition
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

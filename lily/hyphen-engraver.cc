@@ -210,16 +210,23 @@ Hyphen_engraver::boot ()
 
 ADD_TRANSLATOR (Hyphen_engraver,
                 /* doc */
-                "Create lyric hyphens, vowel transitions and distance "
-                "constraints between words.",
+                R"(
+Create lyric hyphens, vowel transitions and distance constraints between words.
+                )",
 
                 /* create */
-                "LyricHyphen "
-                "LyricSpace "
-                "VowelTransition ",
+                R"(
+LyricHyphen
+LyricSpace
+VowelTransition
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                "");
+                R"(
+
+                )");

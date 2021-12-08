@@ -158,15 +158,17 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
 }
 
 ADD_INTERFACE (Lyric_hyphen,
-               "A centered hyphen is simply a line between lyrics used to"
-               " divide syllables.",
+               R"(
+A centered hyphen is simply a line between lyrics used to divide syllables.
+               )",
 
                /* properties */
-               "dash-period "
-               "height "
-               "length "
-               "minimum-distance "
-               "minimum-length "
-               "padding "
-               "thickness "
-              );
+               R"(
+dash-period
+height
+length
+minimum-distance
+minimum-length
+padding
+thickness
+               )");

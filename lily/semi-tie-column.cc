@@ -35,14 +35,17 @@
 using std::vector;
 
 ADD_INTERFACE (Semi_tie_column,
-               "The interface for a column of l.v. (laissez vibrer) ties.",
+               R"(
+The interface for a column of l.v.  (laissez vibrer) ties.
+               )",
 
                /* properties */
-               "positioning-done "
-               "head-direction "
-               "tie-configuration "
-               "ties "
-              );
+               R"(
+positioning-done
+head-direction
+tie-configuration
+ties
+               )");
 
 /*
   Cut & paste from tie-column.cc

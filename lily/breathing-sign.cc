@@ -212,8 +212,11 @@ Breathing_sign::offset_callback (SCM smob)
 }
 
 ADD_INTERFACE (Breathing_sign,
-               "A breathing sign.",
+               R"(
+A breathing sign.
+               )",
 
                /* properties */
-               "direction "
-              );
+               R"(
+direction
+               )");

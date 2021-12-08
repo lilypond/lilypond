@@ -88,15 +88,22 @@ Collision_engraver::boot ()
 
 ADD_TRANSLATOR (Collision_engraver,
                 /* doc */
-                "Collect @code{NoteColumns}, and as soon as there are two or"
-                " more, put them in a @code{NoteCollision} object.",
+                R"(
+Collect @code{NoteColumns}, and as soon as there are two or more, put them in a
+@code{NoteCollision} object.
+                )",
 
                 /* create */
-                "NoteCollision ",
+                R"(
+NoteCollision
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

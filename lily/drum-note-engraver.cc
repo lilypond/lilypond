@@ -157,15 +157,22 @@ Drum_notes_engraver::boot ()
 
 ADD_TRANSLATOR (Drum_notes_engraver,
                 /* doc */
-                "Generate drum note heads.",
+                R"(
+Generate drum note heads.
+                )",
 
                 /* create */
-                "NoteHead "
-                "Script ",
+                R"(
+NoteHead
+Script
+                )",
 
                 /* read */
-                "drumStyleTable ",
+                R"(
+drumStyleTable
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

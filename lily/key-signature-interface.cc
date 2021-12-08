@@ -133,15 +133,18 @@ Key_signature_interface::print (SCM smob)
 }
 
 ADD_INTERFACE (Key_signature_interface,
-               "A group of accidentals, to be printed as signature sign.",
+               R"(
+A group of accidentals, to be printed as signature sign.
+               )",
 
                /* properties */
-               "alteration-alist "
-               "c0-position "
-               "alteration-glyph-name-alist "
-               "flat-positions "
-               "sharp-positions "
-               "padding "
-               "padding-pairs "
-               "non-default "
-              );
+               R"(
+alteration-alist
+c0-position
+alteration-glyph-name-alist
+flat-positions
+sharp-positions
+padding
+padding-pairs
+non-default
+               )");

@@ -51,15 +51,22 @@ Tab_staff_symbol_engraver::boot ()
 
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
                 /* doc */
-                "Create a tablature staff symbol, but look at"
-                " @code{stringTunings} for the number of lines.",
+                R"(
+Create a tablature staff symbol, but look at @code{stringTunings} for the
+number of lines.
+                )",
 
                 /* create */
-                "StaffSymbol ",
+                R"(
+StaffSymbol
+                )",
 
                 /* read */
-                "stringTunings ",
+                R"(
+stringTunings
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

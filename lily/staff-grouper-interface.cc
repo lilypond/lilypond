@@ -79,10 +79,13 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
 }
 
 ADD_INTERFACE (Staff_grouper_interface,
-               "A grob that collects staves together.",
+               R"(
+A grob that collects staves together.
+               )",
 
                /* properties */
-               "staff-staff-spacing "
-               "staffgroup-staff-spacing "
-              );
+               R"(
+staff-staff-spacing
+staffgroup-staff-spacing
+               )");
 

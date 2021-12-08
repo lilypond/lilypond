@@ -132,20 +132,26 @@ Midi_control_change_performer::boot ()
 
 ADD_TRANSLATOR (Midi_control_change_performer,
                 /* doc */
-                "This performer listens to SetProperty events on context "
-                "properties for generating MIDI control changes and "
-                "prepares them for MIDI output.",
+                R"(
+This performer listens to SetProperty events on context properties for
+generating MIDI control changes and prepares them for MIDI output.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "midiBalance "
-                "midiPanPosition "
-                "midiExpression "
-                "midiReverbLevel "
-                "midiChorusLevel ",
+                R"(
+midiBalance
+midiPanPosition
+midiExpression
+midiReverbLevel
+midiChorusLevel
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -196,17 +196,24 @@ Percent_repeat_engraver::boot ()
 
 ADD_TRANSLATOR (Percent_repeat_engraver,
                 /* doc */
-                "Make whole measure repeats.",
+                R"(
+Make whole measure repeats.
+                )",
 
                 /* create */
-                "PercentRepeat "
-                "PercentRepeatCounter ",
+                R"(
+PercentRepeat
+PercentRepeatCounter
+                )",
 
                 /* read */
-                "countPercentRepeats "
-                "currentCommandColumn "
-                "repeatCountVisibility ",
+                R"(
+countPercentRepeats
+currentCommandColumn
+repeatCountVisibility
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

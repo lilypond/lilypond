@@ -267,22 +267,24 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 }
 
 ADD_INTERFACE (Line_interface,
-               "Generic line objects.  Any object using lines supports this."
-               "  The property @code{style} can be @code{line},"
-               " @code{dashed-line}, @code{trill}, @code{dotted-line},"
-               " @code{zigzag} or @code{none} (a transparent line).\n"
-               "\n"
-               "For @code{dashed-line}, the length of the dashes is tuned"
-               " with @code{dash-fraction}.  If the latter is set to@tie{}0, a"
-               " dotted line is produced.",
+               R"(
+Generic line objects.  Any object using lines supports this.  The property
+@code{style} can be @code{line}, @code{dashed-line}, @code{trill},
+@code{dotted-line}, @code{zigzag} or @code{none} (a transparent line).
+
+For @code{dashed-line}, the length of the dashes is tuned with
+@code{dash-fraction}.  If the latter is set to@tie{}0, a dotted line is
+produced.
+               )",
 
                /* properties */
-               "arrow-length "
-               "arrow-width "
-               "dash-fraction "
-               "dash-period "
-               "style "
-               "thickness "
-               "zigzag-length "
-               "zigzag-width "
-              );
+               R"(
+arrow-length
+arrow-width
+dash-fraction
+dash-period
+style
+thickness
+zigzag-length
+zigzag-width
+               )");

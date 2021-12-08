@@ -189,14 +189,21 @@ Extender_engraver::boot ()
 
 ADD_TRANSLATOR (Extender_engraver,
                 /* doc */
-                "Create lyric extenders.",
+                R"(
+Create lyric extenders.
+                )",
 
                 /* create */
-                "LyricExtender ",
+                R"(
+LyricExtender
+                )",
 
                 /* read */
-                "extendersOverRests ",
+                R"(
+extendersOverRests
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

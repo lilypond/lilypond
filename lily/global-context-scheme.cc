@@ -27,9 +27,10 @@
 
 LY_DEFINE (ly_format_output, "ly:format-output",
            1, 0, 0, (SCM context),
-           "Given a global context in its final state,"
-           " process it and return the @code{Music_output} object"
-           " in its final state.")
+           R"(
+Given a global context in its final state, process it and return the
+@code{Music_output} object in its final state.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Global_context, context, 1);
 
@@ -43,8 +44,10 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 
 LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
            1, 0, 0, (SCM global),
-           "Create a translator group and connect it to the global context"
-           " @var{global}.  The translator group is returned.")
+           R"(
+Create a translator group and connect it to the global context @var{global}.
+The translator group is returned.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Global_context, global, 1);
 
@@ -57,8 +60,10 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
 
 LY_DEFINE (ly_make_global_context, "ly:make-global-context",
            1, 0, 0, (SCM output_def),
-           "Set up a global interpretation context, using the output"
-           " block @var{output-def}.  The context is returned.")
+           R"(
+Set up a global interpretation context, using the output block
+@var{output-def}.  The context is returned.
+           )")
 {
   auto *const odef = LY_ASSERT_SMOB (Output_def, output_def, 1);
 
@@ -75,8 +80,10 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 
 LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
            2, 0, 0, (SCM mus, SCM ctx),
-           "Interpret the music expression @var{mus} in the global context"
-           " @var{ctx}.  The context is returned in its final state.")
+           R"(
+Interpret the music expression @var{mus} in the global context @var{ctx}.  The
+context is returned in its final state.
+           )")
 {
   auto *const music = LY_ASSERT_SMOB (Music, mus, 1);
   auto *const g = LY_ASSERT_SMOB (Global_context, ctx, 2);
@@ -86,13 +93,14 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",
            2, 1, 0, (SCM mus, SCM output_def),
-           "Process @var{mus} according to @var{output-def}.  An"
-           " interpretation context is set up, and @var{mus} is"
-           " interpreted with it.  The context is returned in its"
-           " final state.\n"
-           "\n"
-           "Optionally, this routine takes an object key to"
-           " to uniquely identify the score block containing it.")
+           R"(
+Process @var{mus} according to @var{output-def}.  An interpretation context is
+set up, and @var{mus} is interpreted with it.  The context is returned in its
+final state.
+
+Optionally, this routine takes an object key to to uniquely identify the score
+block containing it.
+           )")
 {
   auto *const music = LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Output_def, output_def, 2);

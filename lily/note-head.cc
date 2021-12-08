@@ -233,17 +233,19 @@ Note_head::calc_tab_stem_attachment (SCM smob)
 }
 
 ADD_INTERFACE (Note_head,
-               "A note head.  There are many possible values for"
-               " @code{style}.  For a complete list, see"
-               " @ruser{Note head styles}.",
+               R"(
+A note head.  There are many possible values for @code{style}.  For a complete
+list, see @ruser{Note head styles}.
+               )",
 
                /* properties */
-               "duration-log "
-               "note-names "
-               "accidental-grob "
-               "ignore-ambitus "
-               "glyph-name "
-               "stem-attachment "
-               "style "
-               "ledger-positions "
-              );
+               R"(
+duration-log
+note-names
+accidental-grob
+ignore-ambitus
+glyph-name
+stem-attachment
+style
+ledger-positions
+               )");

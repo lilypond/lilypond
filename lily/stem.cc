@@ -1152,62 +1152,61 @@ Stem::flag (Grob *me)
 
 /* FIXME:  Too many properties  */
 ADD_INTERFACE (Stem,
-               "The stem represents the graphical stem.  In addition, it"
-               " internally connects note heads, beams, and tremolos.  Rests"
-               " and whole notes have invisible stems.\n"
-               "\n"
-               "The following properties may be set in the @code{details}"
-               " list.\n"
-               "\n"
-               "@table @code\n"
-               "@item beamed-lengths\n"
-               "List of stem lengths given beam multiplicity.\n"
-               "@item beamed-minimum-free-lengths\n"
-               "List of normal minimum free stem lengths (chord to beams)"
-               " given beam multiplicity.\n"
-               "@item beamed-extreme-minimum-free-lengths\n"
-               "List of extreme minimum free stem lengths (chord to beams)"
-               " given beam multiplicity.\n"
-               "@item lengths\n"
-               "Default stem lengths.  The list gives a length for each"
-               " flag count.\n"
-               "@item stem-shorten\n"
-               "How much a stem in a forced direction should be shortened."
-               "  The list gives an amount depending on the number of flags"
-               " and beams.\n"
-               "@end table\n",
+               R"(
+The stem represents the graphical stem.  In addition, it internally connects
+note heads, beams, and tremolos.  Rests and whole notes have invisible stems.
+
+The following properties may be set in the @code{details} list.
+
+@table @code
+@item beamed-lengths
+List of stem lengths given beam multiplicity.
+@item beamed-minimum-free-lengths
+List of normal minimum free stem lengths (chord to beams) given beam
+multiplicity.
+@item beamed-extreme-minimum-free-lengths
+List of extreme minimum free stem lengths (chord to beams) given beam
+multiplicity.
+@item lengths
+Default stem lengths.  The list gives a length for each flag count.
+@item stem-shorten
+How much a stem in a forced direction should be shortened.  The list gives an
+amount depending on the number of flags and beams.
+@end table
+               )",
 
                /* properties */
-               "avoid-note-head "
-               "beam "
-               "beaming "
-               "beamlet-default-length "
-               "beamlet-max-length-proportion "
-               "default-direction "
-               "details "
-               "direction "
-               "double-stem-separation "
-               "duration-log "
-               "flag "
-               "french-beaming "
-               "french-beaming-stem-adjustment "
-               "length "
-               "length-fraction "
-               "max-beam-connect "
-               "melody-spanner "
-               "neutral-direction "
-               "no-stem-extend "
-               "note-heads "
-               "note-collision-threshold "
-               "positioning-done "
-               "rests "
-               "stem-begin-position "
-               "stem-info "
-               "stemlet-length "
-               "thickness "
-               "tremolo-flag "
-               "tuplet-start "
-              );
+               R"(
+avoid-note-head
+beam
+beaming
+beamlet-default-length
+beamlet-max-length-proportion
+default-direction
+details
+direction
+double-stem-separation
+duration-log
+flag
+french-beaming
+french-beaming-stem-adjustment
+length
+length-fraction
+max-beam-connect
+melody-spanner
+neutral-direction
+no-stem-extend
+note-heads
+note-collision-threshold
+positioning-done
+rests
+stem-begin-position
+stem-info
+stemlet-length
+thickness
+tremolo-flag
+tuplet-start
+               )");
 
 /****************************************************************/
 

@@ -491,23 +491,30 @@ Piano_pedal_engraver::boot ()
 
 ADD_TRANSLATOR (Piano_pedal_engraver,
                 /* doc */
-                "Engrave piano pedal symbols and brackets.",
+                R"(
+Engrave piano pedal symbols and brackets.
+                )",
 
                 /* create */
-                "PianoPedalBracket "
-                "SostenutoPedal "
-                "SustainPedal "
-                "UnaCordaPedal ",
+                R"(
+PianoPedalBracket
+SostenutoPedal
+SustainPedal
+UnaCordaPedal
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "pedalSostenutoStrings "
-                "pedalSostenutoStyle "
-                "pedalSustainStrings "
-                "pedalSustainStyle "
-                "pedalUnaCordaStrings "
-                "pedalUnaCordaStyle ",
+                R"(
+currentCommandColumn
+pedalSostenutoStrings
+pedalSostenutoStyle
+pedalSustainStrings
+pedalSustainStyle
+pedalUnaCordaStrings
+pedalUnaCordaStyle
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

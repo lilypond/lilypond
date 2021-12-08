@@ -89,11 +89,14 @@ Figured_bass_continuation::print (SCM grob)
 }
 
 ADD_INTERFACE (Figured_bass_continuation,
-               "Simple extender line between bounds.",
+               R"(
+Simple extender line between bounds.
+               )",
 
                /* properties */
-               "thickness "
-               "padding "
-               "figures "
-              );
+               R"(
+thickness
+padding
+figures
+               )");
 

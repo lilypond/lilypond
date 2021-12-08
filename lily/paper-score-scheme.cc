@@ -22,8 +22,9 @@
 LY_DEFINE (ly_paper_score_paper_systems, "ly:paper-score-paper-systems",
            1, 0, 0,
            (SCM paper_score),
-           "Return vector of @code{paper_system} objects from"
-           " @var{paper-score}.")
+           R"(
+Return vector of @code{paper_system} objects from @var{paper-score}.
+           )")
 {
   auto *const pscore = LY_ASSERT_SMOB (Paper_score, paper_score, 1);
 

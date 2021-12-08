@@ -95,14 +95,21 @@ Rest_engraver::boot ()
 
 ADD_TRANSLATOR (Rest_engraver,
                 /* doc */
-                "Engrave rests.",
+                R"(
+Engrave rests.
+                )",
 
                 /* create */
-                "Rest ",
+                R"(
+Rest
+                )",
 
                 /* read */
-                "middleCPosition ",
+                R"(
+middleCPosition
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

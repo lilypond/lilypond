@@ -120,14 +120,21 @@ Text_engraver::boot ()
 
 ADD_TRANSLATOR (Text_engraver,
                 /* doc */
-                "Create text scripts.",
+                R"(
+Create text scripts.
+                )",
 
                 /* create */
-                "TextScript ",
+                R"(
+TextScript
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

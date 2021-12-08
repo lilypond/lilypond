@@ -137,14 +137,21 @@ Drum_note_performer::boot ()
 
 ADD_TRANSLATOR (Drum_note_performer,
                 /* doc */
-                "Play drum notes.",
+                R"(
+Play drum notes.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

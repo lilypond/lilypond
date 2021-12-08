@@ -131,15 +131,22 @@ Ledger_line_engraver::boot ()
 
 ADD_TRANSLATOR (Ledger_line_engraver,
                 /* doc */
-                "Create the spanner to draw ledger lines, and notices"
-                " objects that need ledger lines.",
+                R"(
+Create the spanner to draw ledger lines, and notices objects that need ledger
+lines.
+                )",
 
                 /* create */
-                "LedgerLineSpanner ",
+                R"(
+LedgerLineSpanner
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

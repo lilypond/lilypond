@@ -424,12 +424,13 @@ Context_def::is_alias (SCM sym) const
 
 LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
            2, 1, 0, (SCM def, SCM sym, SCM val),
-           "Return the value of @var{sym} in context definition @var{def}"
-           " (e.g., @code{\\Voice}).  If no value is found, return"
-           " @var{val} or @code{'()} if @var{val} is undefined."
-           " @var{sym} can be any of @samp{default-child}, @samp{consists},"
-           " @samp{description}, @samp{aliases}, @samp{accepts},"
-           " @samp{property-ops}, @samp{context-name}, @samp{group-type}.")
+           R"(
+Return the value of @var{sym} in context definition @var{def} (e.g.,
+@code{\Voice}).  If no value is found, return @var{val} or @code{'()} if
+@var{val} is undefined.  @var{sym} can be any of @samp{default-child},
+@samp{consists}, @samp{description}, @samp{aliases}, @samp{accepts},
+@samp{property-ops}, @samp{context-name}, @samp{group-type}.
+           )")
 {
   auto *const cd = LY_ASSERT_SMOB (Context_def, def, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -449,8 +450,10 @@ LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
 
 LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
            2, 0, 0, (SCM def, SCM mod),
-           "Return the result of applying the context-mod @var{mod} to"
-           " the context definition @var{def}.  Does not change @var{def}.")
+           R"(
+Return the result of applying the context-mod @var{mod} to the context
+definition @var{def}.  Does not change @var{def}.
+           )")
 {
   auto *const orig_cd = LY_ASSERT_SMOB (Context_def, def, 1);
   auto *const cm = LY_ASSERT_SMOB (Context_mod, mod, 2);

@@ -92,14 +92,21 @@ Stanza_number_engraver::boot ()
 
 ADD_TRANSLATOR (Stanza_number_engraver,
                 /* doc */
-                "Engrave stanza numbers.",
+                R"(
+Engrave stanza numbers.
+                )",
 
                 /* create */
-                "StanzaNumber ",
+                R"(
+StanzaNumber
+                )",
 
                 /* read */
-                "stanza ",
+                R"(
+stanza
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

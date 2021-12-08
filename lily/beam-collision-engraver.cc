@@ -250,14 +250,21 @@ Beam_collision_engraver::boot ()
 
 ADD_TRANSLATOR (Beam_collision_engraver,
                 /* doc */
-                "Help beams avoid colliding with notes and clefs in other voices.",
+                R"(
+Help beams avoid colliding with notes and clefs in other voices.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

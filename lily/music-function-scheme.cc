@@ -21,7 +21,9 @@
 
 LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
            (SCM x),
-           "Return the Scheme function inside@tie{}@var{x}.")
+           R"(
+Return the Scheme function inside@tie{}@var{x}.
+           )")
 {
   auto *const fn = LY_ASSERT_SMOB (Music_function, x, 1);
 
@@ -30,7 +32,9 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
 
 LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
            (SCM x),
-           "Return the function signature inside@tie{}@var{x}.")
+           R"(
+Return the function signature inside@tie{}@var{x}.
+           )")
 {
   auto *const fn = LY_ASSERT_SMOB (Music_function, x, 1);
 
@@ -39,11 +43,12 @@ LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
 
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
            (SCM signature, SCM func),
-           "Make a function to process music, to be used for the"
-           " parser.  @var{func} is the function, and @var{signature}"
-           " describes its arguments.  @var{signature}'s cdr is a list"
-           " containing either @code{ly:music?} predicates or other type"
-           " predicates.  Its car is the syntax function to call.")
+           R"(
+Make a function to process music, to be used for the parser.  @var{func} is the
+function, and @var{signature} describes its arguments.  @var{signature}'s cdr
+is a list containing either @code{ly:music?} predicates or other type
+predicates.  Its car is the syntax function to call.
+           )")
 {
   LY_ASSERT_TYPE (ly_is_list, signature, 1);
   LY_ASSERT_TYPE (ly_is_procedure, func, 2);

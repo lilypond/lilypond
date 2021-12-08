@@ -101,17 +101,24 @@ Double_percent_repeat_engraver::boot ()
 
 ADD_TRANSLATOR (Double_percent_repeat_engraver,
                 /* doc */
-                "Make double measure repeats.",
+                R"(
+Make double measure repeats.
+                )",
 
                 /* create */
-                "DoublePercentRepeat "
-                "DoublePercentRepeatCounter ",
+                R"(
+DoublePercentRepeat
+DoublePercentRepeatCounter
+                )",
 
                 /* read */
-                "countPercentRepeats "
-                "measureLength "
-                "repeatCountVisibility ",
+                R"(
+countPercentRepeats
+measureLength
+repeatCountVisibility
+                )",
 
                 /* write */
-                "forbidBreak "
-               );
+                R"(
+forbidBreak
+                )");

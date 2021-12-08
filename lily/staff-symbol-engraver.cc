@@ -174,14 +174,21 @@ Staff_symbol_engraver::boot ()
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
                 /* doc */
-                "Create the constellation of five (default) staff lines.",
+                R"(
+Create the constellation of five (default) staff lines.
+                )",
 
                 /* create */
-                "StaffSymbol ",
+                R"(
+StaffSymbol
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

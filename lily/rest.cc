@@ -321,13 +321,15 @@ Rest::pure_height (SCM smob,
 }
 
 ADD_INTERFACE (Rest,
-               "A rest symbol.  The property @code{style} can be"
-               " @code{default}, @code{mensural}, @code{neomensural} or"
-               " @code{classical}.",
+               R"(
+A rest symbol.  The property @code{style} can be @code{default},
+@code{mensural}, @code{neomensural} or @code{classical}.
+               )",
 
                /* properties */
-               "direction "
-               "minimum-distance "
-               "style "
-               "voiced-position "
-              );
+               R"(
+direction
+minimum-distance
+style
+voiced-position
+               )");

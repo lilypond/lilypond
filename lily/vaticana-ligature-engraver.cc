@@ -720,16 +720,22 @@ Vaticana_ligature_engraver::boot ()
 
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
                 /* doc */
-                "Handle ligatures by glueing special ligature heads"
-                " together.",
+                R"(
+Handle ligatures by glueing special ligature heads together.
+                )",
 
                 /* create */
-                "VaticanaLigature "
-                "DotColumn ",
+                R"(
+VaticanaLigature
+DotColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

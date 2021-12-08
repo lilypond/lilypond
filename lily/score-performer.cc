@@ -33,18 +33,25 @@
 
 ADD_TRANSLATOR_GROUP (Score_performer,
                       /* doc */
-                      "",
+                      R"(
+
+                )",
 
                       /* create */
-                      "",
+                      R"(
+
+                )",
 
                       /* read */
-                      "midiChannelMapping "
-                      "skipTypesetting ",
+                      R"(
+midiChannelMapping
+skipTypesetting
+                )",
 
                       /* write */
-                      "midiSkipOffset "
-                     );
+                      R"(
+midiSkipOffset
+                )");
 
 Score_performer::Score_performer ()
 {

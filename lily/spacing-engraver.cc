@@ -274,17 +274,24 @@ Spacing_engraver::boot ()
 
 ADD_TRANSLATOR (Spacing_engraver,
                 /* doc */
-                "Make a @code{SpacingSpanner} and do bookkeeping of shortest"
-                " starting and playing notes.",
+                R"(
+Make a @code{SpacingSpanner} and do bookkeeping of shortest starting and
+playing notes.
+                )",
 
                 /* create */
-                "SpacingSpanner ",
+                R"(
+SpacingSpanner
+                )",
 
                 /* read */
-                "currentMusicalColumn "
-                "currentCommandColumn "
-                "proportionalNotationDuration ",
+                R"(
+currentMusicalColumn
+currentCommandColumn
+proportionalNotationDuration
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

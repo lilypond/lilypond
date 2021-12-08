@@ -150,25 +150,31 @@ Tab_note_heads_engraver::boot ()
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
                 /* doc */
-                "Generate one or more tablature note heads from event of type"
-                " @code{NoteEvent}.",
+                R"(
+Generate one or more tablature note heads from event of type @code{NoteEvent}.
+                )",
 
                 /* create */
-                "TabNoteHead ",
+                R"(
+TabNoteHead
+                )",
 
                 /* read */
-                "defaultStrings "
-                "fretLabels "
-                "highStringOne "
-                "maximumFretStretch "
-                "middleCPosition "
-                "minimumFret "
-                "noteToFretFunction "
-                "stringOneTopmost "
-                "stringTunings "
-                "tablatureFormat "
-                "tabStaffLineLayoutFunction ",
+                R"(
+defaultStrings
+fretLabels
+highStringOne
+maximumFretStretch
+middleCPosition
+minimumFret
+noteToFretFunction
+stringOneTopmost
+stringTunings
+tablatureFormat
+tabStaffLineLayoutFunction
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

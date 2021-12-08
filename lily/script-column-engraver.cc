@@ -88,15 +88,22 @@ Script_column_engraver::boot ()
 
 ADD_TRANSLATOR (Script_column_engraver,
                 /* doc */
-                "Find potentially colliding scripts and put them into a"
-                " @code{ScriptColumn} object; that will fix the collisions.",
+                R"(
+Find potentially colliding scripts and put them into a @code{ScriptColumn}
+object; that will fix the collisions.
+                )",
 
                 /* create */
-                "ScriptColumn ",
+                R"(
+ScriptColumn
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

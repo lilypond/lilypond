@@ -30,8 +30,10 @@
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
            2, 0, 0, (SCM grob, SCM sym),
-           "Return the value for property @var{sym} of @var{grob},"
-           " but do not process callbacks.")
+           R"(
+Return the value for property @var{sym} of @var{grob}, but do not process
+callbacks.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -41,7 +43,9 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
            3, 0, 0, (SCM grob, SCM sym, SCM val),
-           "Set @var{sym} in grob @var{grob} to value @var{val}.")
+           R"(
+Set @var{sym} in grob @var{grob} to value @var{val}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -56,7 +60,9 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 
 LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
            3, 0, 0, (SCM grob, SCM symlist, SCM val),
-           "Set nested property @var{symlist} in grob @var{grob} to value @var{val}.")
+           R"(
+Set nested property @var{symlist} in grob @var{grob} to value @var{val}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -77,9 +83,10 @@ LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
 
 LY_DEFINE (ly_grob_pure_property, "ly:grob-pure-property",
            4, 1, 0, (SCM grob, SCM sym, SCM beg, SCM end, SCM val),
-           "Return the pure value for property @var{sym} of @var{grob}."
-           "  If no value is found, return @var{val} or @code{'()}"
-           " if @var{val} is not specified.")
+           R"(
+Return the pure value for property @var{sym} of @var{grob}.  If no value is
+found, return @var{val} or @code{'()} if @var{val} is not specified.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -97,9 +104,10 @@ LY_DEFINE (ly_grob_pure_property, "ly:grob-pure-property",
 
 LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
            4, 1, 0, (SCM grob, SCM refp, SCM beg, SCM end, SCM val),
-           "Return the pure height of @var{grob} given refpoint @var{refp}."
-           "  If no value is found, return @var{val} or @code{'()}"
-           " if @var{val} is not specified.")
+           R"(
+Return the pure height of @var{grob} given refpoint @var{refp}.  If no value is
+found, return @var{val} or @code{'()} if @var{val} is not specified.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
@@ -115,9 +123,10 @@ LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
            2, 1, 0, (SCM grob, SCM sym, SCM val),
-           "Return the value for property @var{sym} of @var{grob}."
-           "  If no value is found, return @var{val} or @code{'()}"
-           " if @var{val} is not specified.")
+           R"(
+Return the value for property @var{sym} of @var{grob}.  If no value is found,
+return @var{val} or @code{'()} if @var{val} is not specified.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -133,7 +142,9 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
 
 LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
            1, 0, 0, (SCM grob),
-           "Return the interfaces list of grob @var{grob}.")
+           R"(
+Return the interfaces list of grob @var{grob}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -142,15 +153,16 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",
            2, 1, 0, (SCM grob, SCM sym, SCM val),
-           "Return the value of a pointer in grob @var{grob} of property"
-           " @var{sym}.  When @var{sym} is undefined in @var{grob}, it"
-           " returns @var{val} if specified or @code{'()} (end-of-list)"
-           " otherwise.  The kind of properties this taps into differs"
-           " from regular properties.  It is used to store links between grobs,"
-           " either grobs or grob arrays.  For instance, a note head has a"
-           " @code{stem} property, the stem grob it belongs to.  Just"
-           " after line breaking, all those grobs are scanned and replaced"
-           " by their relevant broken versions when applicable.")
+           R"(
+Return the value of a pointer in grob @var{grob} of property @var{sym}.  When
+@var{sym} is undefined in @var{grob}, it returns @var{val} if specified or
+@code{'()} (end-of-list) otherwise.  The kind of properties this taps into
+differs from regular properties.  It is used to store links between grobs,
+either grobs or grob arrays.  For instance, a note head has a @code{stem}
+property, the stem grob it belongs to.  Just after line breaking, all those
+grobs are scanned and replaced by their relevant broken versions when
+applicable.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -163,7 +175,9 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
 
 LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
            3, 0, 0, (SCM grob, SCM sym, SCM val),
-           "Set @var{sym} in grob @var{grob} to value @var{val}.")
+           R"(
+Set @var{sym} in grob @var{grob} to value @var{val}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -176,7 +190,9 @@ LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
    calling (i.e different funcs.) */
 LY_DEFINE (ly_grob_layout, "ly:grob-layout",
            1, 0, 0, (SCM grob),
-           "Get @code{\\layout} definition from grob @var{grob}.")
+           R"(
+Get @code{\layout} definition from grob @var{grob}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -185,9 +201,10 @@ LY_DEFINE (ly_grob_layout, "ly:grob-layout",
 
 LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
            1, 1, 0, (SCM grob, SCM global),
-           "Get an alist chain for grob @var{grob}, with @var{global} as"
-           " the global default.  If unspecified, @code{font-defaults}"
-           " from the layout block is taken.")
+           R"(
+Get an alist chain for grob @var{grob}, with @var{global} as the global
+default.  If unspecified, @code{font-defaults} from the layout block is taken.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -203,8 +220,10 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 
 LY_DEFINE (ly_grob_extent, "ly:grob-extent",
            3, 0, 0, (SCM grob, SCM refp, SCM axis),
-           "Get the extent in @var{axis} direction of @var{grob} relative to"
-           " the grob @var{refp}.")
+           R"(
+Get the extent in @var{axis} direction of @var{grob} relative to the grob
+@var{refp}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
@@ -222,8 +241,10 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 
 LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
            3, 0, 0, (SCM grob, SCM refp, SCM axis),
-           "Get the extent in @var{axis} direction of @var{grob} relative to"
-           " the grob @var{refp}, or @code{(0,0)} if empty.")
+           R"(
+Get the extent in @var{axis} direction of @var{grob} relative to the grob
+@var{refp}, or @code{(0,0)} if empty.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
@@ -242,8 +263,10 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
 
 LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
            3, 0, 0, (SCM grob, SCM refp, SCM axis),
-           "Get the coordinate in @var{axis} direction of @var{grob} relative"
-           " to the grob @var{refp}.")
+           R"(
+Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
+@var{refp}.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
@@ -262,8 +285,10 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
            2, 0, 0, (SCM grob, SCM axis),
-           "Get the parent of @var{grob}.  @var{axis} is @code{0} for the"
-           " x@tie{}axis, @code{1}@tie{}for the y@tie{}axis.")
+           R"(
+Get the parent of @var{grob}.  @var{axis} is @code{0} for the x@tie{}axis,
+@code{1}@tie{}for the y@tie{}axis.
+           )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -274,8 +299,9 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 
 LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
            3, 0, 0, (SCM grob, SCM axis, SCM parent_grob),
-           "Set @var{parent-grob} as the parent of grob @var{grob} in axis"
-           " @var{axis}.")
+           R"(
+Set @var{parent-grob} as the parent of grob @var{grob} in axis @var{axis}.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -287,7 +313,9 @@ LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
 
 LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
            1, 0, 0, (SCM grob),
-           "Get the immutable properties of @var{grob}.")
+           R"(
+Get the immutable properties of @var{grob}.
+           )")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -297,7 +325,9 @@ LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
 
 LY_DEFINE (ly_grob_system, "ly:grob-system",
            1, 0, 0, (SCM grob),
-           "Return the system grob of @var{grob}.")
+           R"(
+Return the system grob of @var{grob}.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -309,7 +339,9 @@ LY_DEFINE (ly_grob_system, "ly:grob-system",
 
 LY_DEFINE (ly_grob_original, "ly:grob-original",
            1, 0, 0, (SCM grob),
-           "Return the unbroken original grob of @var{grob}.")
+           R"(
+Return the unbroken original grob of @var{grob}.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   return me->original () ? me->original ()->self_scm () : me->self_scm ();
@@ -317,7 +349,9 @@ LY_DEFINE (ly_grob_original, "ly:grob-original",
 
 LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
            1, 0, 0, (SCM grob),
-           "Kill @var{grob}.")
+           R"(
+Kill @var{grob}.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -327,8 +361,9 @@ LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
 
 LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
            3, 0, 0, (SCM grob, SCM d, SCM a),
-           "Translate @var{grob} on axis@tie{}@var{a} over"
-           " distance@tie{}@var{d}.")
+           R"(
+Translate @var{grob} on axis@tie{}@var{a} over distance@tie{}@var{d}.
+           )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (scm_is_number, d, 2);
@@ -340,7 +375,9 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
            1, 0, 0, (SCM grob),
-           "Return the default font for grob @var{grob}.")
+           R"(
+Return the default font for grob @var{grob}.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -354,8 +391,9 @@ LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
  */
 LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
            3, 0, 0, (SCM grob, SCM other, SCM axis),
-           "Find the common refpoint of @var{grob} and @var{other}"
-           " for @var{axis}.")
+           R"(
+Find the common refpoint of @var{grob} and @var{other} for @var{axis}.
+           )")
 {
 
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
@@ -369,8 +407,10 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 
 LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
            3, 0, 0, (SCM grob, SCM others, SCM axis),
-           "Find the common refpoint of @var{grob} and @var{others}"
-           " (a grob-array) for @var{axis}.")
+           R"(
+Find the common refpoint of @var{grob} and @var{others} (a grob-array) for
+@var{axis}.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const ga = LY_ASSERT_SMOB (Grob_array, others, 2);
@@ -383,10 +423,11 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
 
 LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
            3, 0, 0, (SCM grob, SCM proc, SCM sym),
-           "Find the callback that is stored as property"
-           " @var{sym} of grob @var{grob} and chain @var{proc}"
-           " to the head of this, meaning that it is called"
-           " using @var{grob} and the previous callback's result.")
+           R"(
+Find the callback that is stored as property @var{sym} of grob @var{grob} and
+chain @var{proc} to the head of this, meaning that it is called using
+@var{grob} and the previous callback's result.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
   SCM_ASSERT_TYPE (ly_is_procedure (proc) || unsmob<Unpure_pure_container> (proc), proc, SCM_ARG2, __FUNCTION__, "procedure or unpure pure container");
@@ -398,7 +439,9 @@ LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
 
 LY_DEFINE (ly_grob_vertical_less_p, "ly:grob-vertical<?",
            2, 0, 0, (SCM a, SCM b),
-           "Does @var{a} lie above @var{b} on the page?")
+           R"(
+Does @var{a} lie above @var{b} on the page?
+           )")
 {
   auto *const ga = LY_ASSERT_SMOB (Grob, a, 1);
   auto *const gb = LY_ASSERT_SMOB (Grob, b, 2);
@@ -408,8 +451,10 @@ LY_DEFINE (ly_grob_vertical_less_p, "ly:grob-vertical<?",
 
 LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-group-index",
            1, 0, 0, (SCM grob),
-           "Get the index of the vertical axis group the grob @var{grob} belongs to;"
-           " return @code{-1} if none is found.")
+           R"(
+Get the index of the vertical axis group the grob @var{grob} belongs to; return
+@code{-1} if none is found.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
 
@@ -418,9 +463,10 @@ LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-gro
 
 LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
            1, 0, 0, (SCM grob),
-           "Return a pair with the @code{rank} of the furthest left"
-           " column and the @code{rank} of the furthest right column"
-           " spanned by @code{grob}.")
+           R"(
+Return a pair with the @code{rank} of the furthest left column and the
+@code{rank} of the furthest right column spanned by @code{grob}.
+           )")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
 

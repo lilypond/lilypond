@@ -26,9 +26,10 @@
 
 LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
            1, 0, 0, (SCM str),
-           "Encode @var{str} as either Latin-1 (which is a subset of"
-           " PDFDocEncoding) or, if that's not possible, as full UTF-16BE"
-           " with a leading Byte Order Mark (BOM).")
+           R"(
+Encode @var{str} as either Latin-1 (which is a subset of PDFDocEncoding) or, if
+that's not possible, as full UTF-16BE with a leading Byte Order Mark (BOM).
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 

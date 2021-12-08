@@ -153,16 +153,23 @@ Cluster_spanner_engraver::boot ()
 
 ADD_TRANSLATOR (Cluster_spanner_engraver,
                 /* doc */
-                "Engrave a cluster using @code{Spanner} notation.",
+                R"(
+Engrave a cluster using @code{Spanner} notation.
+                )",
 
                 /* create */
-                "ClusterSpanner "
-                "ClusterSpannerBeacon ",
+                R"(
+ClusterSpanner
+ClusterSpannerBeacon
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
 

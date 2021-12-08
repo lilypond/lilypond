@@ -189,14 +189,21 @@ Span_bar_stub_engraver::boot ()
 
 ADD_TRANSLATOR (Span_bar_stub_engraver,
                 /* doc */
-                "Make stubs for span bars in all contexts that the span bars cross.",
+                R"(
+Make stubs for span bars in all contexts that the span bars cross.
+                )",
 
                 /* create */
-                "SpanBarStub ",
+                R"(
+SpanBarStub
+                )",
 
                 /* read */
-                "",
+                R"(
+
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

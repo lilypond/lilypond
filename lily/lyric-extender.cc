@@ -121,14 +121,16 @@ Lyric_extender::print (SCM smob)
 }
 
 ADD_INTERFACE (Lyric_extender,
-               "The extender is a simple line at the baseline of the lyric"
-               " that helps show the length of a melisma (a tied or slurred"
-               " note).",
+               R"(
+The extender is a simple line at the baseline of the lyric that helps show the
+length of a melisma (a tied or slurred note).
+               )",
 
                /* properties */
-               "heads "
-               "left-padding "
-               "next "
-               "right-padding "
-               "thickness "
-              );
+               R"(
+heads
+left-padding
+next
+right-padding
+thickness
+               )");

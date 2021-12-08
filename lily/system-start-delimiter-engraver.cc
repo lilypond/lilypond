@@ -248,22 +248,28 @@ System_start_delimiter_engraver::boot ()
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
                 /* doc */
-                "Create a system start delimiter (i.e., a"
-                " @code{SystemStartBar}, @code{SystemStartBrace},"
-                " @code{SystemStartBracket} or @code{SystemStartSquare}"
-                " spanner).",
+                R"(
+Create a system start delimiter (i.e., a @code{SystemStartBar},
+@code{SystemStartBrace}, @code{SystemStartBracket} or @code{SystemStartSquare}
+spanner).
+                )",
 
                 /* create */
-                "SystemStartSquare "
-                "SystemStartBrace "
-                "SystemStartBracket "
-                "SystemStartBar ",
+                R"(
+SystemStartSquare
+SystemStartBrace
+SystemStartBracket
+SystemStartBar
+                )",
 
                 /* read */
-                "systemStartDelimiter "
-                "systemStartDelimiterHierarchy "
-                "currentCommandColumn ",
+                R"(
+systemStartDelimiter
+systemStartDelimiterHierarchy
+currentCommandColumn
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

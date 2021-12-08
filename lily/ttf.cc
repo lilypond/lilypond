@@ -485,10 +485,11 @@ create_type42_font (std::ostream &stream, const string &name, int idx)
 
 LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
            1, 1, 0, (SCM ttf_file_name, SCM idx),
-           "Extract the PostScript name from a TrueType font.  The optional"
-           " @var{idx} argument is useful for TrueType collections (TTC)"
-           " only; it specifies the font index within the TTC.  The default"
-           " value of @var{idx} is@tie{}0.")
+           R"(
+Extract the PostScript name from a TrueType font.  The optional @var{idx}
+argument is useful for TrueType collections (TTC) only; it specifies the font
+index within the TTC.  The default value of @var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
 
@@ -533,11 +534,12 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
 LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
            1, 1, 0, (SCM ttf_file_name, SCM idx),
-           "Convert the contents of a TrueType font file to PostScript"
-           " Type@tie{}42 font, returning it as a string.  The optional"
-           " @var{idx} argument is useful for TrueType collections (TTC)"
-           " only; it specifies the font index within the TTC.  The default"
-           " value of @var{idx} is@tie{}0.")
+           R"(
+Convert the contents of a TrueType font file to PostScript Type@tie{}42 font,
+returning it as a string.  The optional @var{idx} argument is useful for
+TrueType collections (TTC) only; it specifies the font index within the TTC.
+The default value of @var{idx} is@tie{}0.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
 

@@ -123,16 +123,22 @@ Time_signature_performer::boot ()
 
 ADD_TRANSLATOR (Time_signature_performer,
                 /* doc */
-                "Creates a MIDI time signature whenever"
-                " @code{timeSignatureFraction} changes or a @code{\\time} command"
-                " is issued.",
+                R"(
+Creates a MIDI time signature whenever @code{timeSignatureFraction} changes or
+a @code{\time} command is issued.
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "timeSignatureFraction ",
+                R"(
+timeSignatureFraction
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

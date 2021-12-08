@@ -116,14 +116,21 @@ Key_performer::boot ()
 
 ADD_TRANSLATOR (Key_performer,
                 /* doc */
-                "",
+                R"(
+
+                )",
 
                 /* create */
-                "",
+                R"(
+
+                )",
 
                 /* read */
-                "instrumentTransposition ",
+                R"(
+instrumentTransposition
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

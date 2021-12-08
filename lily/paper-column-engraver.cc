@@ -285,26 +285,31 @@ Paper_column_engraver::boot ()
 
 ADD_TRANSLATOR (Paper_column_engraver,
                 /* doc */
-                "Take care of generating columns.\n"
-                "\n"
-                "This engraver decides whether a column is breakable.  The"
-                " default is that a column is always breakable.  However,"
-                " every @code{Bar_engraver} that does not have a barline at a"
-                " certain point will set @code{forbidBreaks} in the score"
-                " context to stop line breaks.  In practice, this means that"
-                " you can make a break point by creating a bar line (assuming"
-                " that there are no beams or notes that prevent a break"
-                " point).",
+                R"(
+Take care of generating columns.
+
+This engraver decides whether a column is breakable.  The default is that a
+column is always breakable.  However, every @code{Bar_engraver} that does not
+have a barline at a certain point will set @code{forbidBreaks} in the score
+context to stop line breaks.  In practice, this means that you can make a break
+point by creating a bar line (assuming that there are no beams or notes that
+prevent a break point).
+                )",
 
                 /* create */
-                "PaperColumn "
-                "NonMusicalPaperColumn ",
+                R"(
+PaperColumn
+NonMusicalPaperColumn
+                )",
 
                 /* read */
-                "forbidBreak ",
+                R"(
+forbidBreak
+                )",
 
                 /* write */
-                "forbidBreak "
-                "currentCommandColumn "
-                "currentMusicalColumn "
-               );
+                R"(
+forbidBreak
+currentCommandColumn
+currentMusicalColumn
+                )");

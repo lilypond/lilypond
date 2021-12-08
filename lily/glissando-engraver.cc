@@ -182,14 +182,21 @@ Glissando_engraver::boot ()
 
 ADD_TRANSLATOR (Glissando_engraver,
                 /* doc */
-                "Engrave glissandi.",
+                R"(
+Engrave glissandi.
+                )",
 
                 /* create */
-                "Glissando ",
+                R"(
+Glissando
+                )",
 
                 /* read */
-                "glissandoMap ",
+                R"(
+glissandoMap
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

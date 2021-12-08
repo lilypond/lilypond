@@ -210,20 +210,27 @@ Clef_engraver::boot ()
 
 ADD_TRANSLATOR (Clef_engraver,
                 /* doc */
-                "Determine and set reference point for pitches.",
+                R"(
+Determine and set reference point for pitches.
+                )",
 
                 /* create */
-                "Clef "
-                "ClefModifier ",
+                R"(
+Clef
+ClefModifier
+                )",
 
                 /* read */
-                "clefGlyph "
-                "clefTransposition "
-                "clefTranspositionStyle "
-                "clefPosition "
-                "explicitClefVisibility "
-                "forceClef ",
+                R"(
+clefGlyph
+clefTransposition
+clefTranspositionStyle
+clefPosition
+explicitClefVisibility
+forceClef
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");

@@ -840,34 +840,36 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Tuplet_bracket,
-               "A bracket with a number in the middle, used for tuplets."
-               "  When the bracket spans a line break, the value of"
-               " @code{break-overshoot} determines how far it extends"
-               " beyond the staff.  At a line break, the markups in the"
-               " @code{edge-text} are printed at the edges.",
+               R"(
+A bracket with a number in the middle, used for tuplets.  When the bracket
+spans a line break, the value of @code{break-overshoot} determines how far it
+extends beyond the staff.  At a line break, the markups in the @code{edge-text}
+are printed at the edges.
+               )",
 
                /* properties */
-               "avoid-scripts "
-               "bracket-flare "
-               "bracket-visibility "
-               "break-overshoot "
-               "connect-to-neighbor "
-               "dashed-edge "
-               "direction "
-               "edge-height "
-               "edge-text "
-               "full-length-padding "
-               "full-length-to-extent "
-               "gap "
-               "positions "
-               "note-columns "
-               "padding "
-               "tuplet-number "
-               "scripts "
-               "shorten-pair "
-               "staff-padding "
-               "thickness "
-               "tuplets "
-               "tuplet-slur "
-               "X-positions "
-              );
+               R"(
+avoid-scripts
+bracket-flare
+bracket-visibility
+break-overshoot
+connect-to-neighbor
+dashed-edge
+direction
+edge-height
+edge-text
+full-length-padding
+full-length-to-extent
+gap
+positions
+note-columns
+padding
+tuplet-number
+scripts
+shorten-pair
+staff-padding
+thickness
+tuplets
+tuplet-slur
+X-positions
+               )");

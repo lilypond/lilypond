@@ -35,8 +35,9 @@ using std::string;
 
 LY_DEFINE (ly_parse_file, "ly:parse-file",
            1, 0, 0, (SCM name),
-           "Parse a single @code{.ly} file."
-           "  Upon failure, throw @code{ly-file-failed} key.")
+           R"(
+Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   string file = ly_scm2string (name);
@@ -140,7 +141,9 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 }
 
 LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
-           "Parse the init file @var{name}.")
+           R"(
+Parse the init file @var{name}.
+           )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   string file = ly_scm2string (name);
@@ -170,11 +173,12 @@ LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            0, 2, 0, (SCM closures, SCM location),
-           "Return a clone of current parser.  An association list"
-           " of port positions to closures can be specified in @var{closures}"
-           " in order to have @code{$} and @code{#} interpreted in their original"
-           " lexical environment.  If @var{location} is a valid location,"
-           " it becomes the source of all music expressions inside.")
+           R"(
+Return a clone of current parser.  An association list of port positions to
+closures can be specified in @var{closures} in order to have @code{$} and
+@code{#} interpreted in their original lexical environment.  If @var{location}
+is a valid location, it becomes the source of all music expressions inside.
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
@@ -190,7 +194,9 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 
 LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
            2, 0, 0, (SCM symbol, SCM val),
-           "Bind @var{symbol} to @var{val} in current parser's module.")
+           R"(
+Bind @var{symbol} to @var{val} in current parser's module.
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
@@ -203,8 +209,10 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 
 LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
            1, 0, 0, (SCM symbol),
-           "Look up @var{symbol} in current parser's module."
-           "  Return @code{'()} if not defined.")
+           R"(
+Look up @var{symbol} in current parser's module.  Return @code{'()} if not
+defined.
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
@@ -220,8 +228,10 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
            2, 0, 0, (SCM parser_smob, SCM ly_code),
-           "Parse the string @var{ly-code} with @var{parser-smob}."
-           "  Upon failure, throw @code{ly-file-failed} key.")
+           R"(
+Parse the string @var{ly-code} with @var{parser-smob}.  Upon failure, throw
+@code{ly-file-failed} key.
+           )")
 {
   auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
@@ -238,9 +248,11 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
            2, 2, 0, (SCM parser_smob, SCM ly_code, SCM filename,
                      SCM line),
-           "Parse the string @var{ly-code} with @var{parser-smob}."
-           " Return the contained music expression."
-           " @var{filename} and @var{line} are optional source indicators.")
+           R"(
+Parse the string @var{ly-code} with @var{parser-smob}. Return the contained
+music expression.  @var{filename} and @var{line} are optional source
+indicators.
+           )")
 {
   auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
@@ -268,9 +280,10 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            1, 0, 0, (SCM ly_code),
-           "Include the string @var{ly-code} into the input stream"
-           " for current parser.  Can only be used in immediate"
-           " Scheme expressions (@code{$} instead of @code{#}).")
+           R"(
+Include the string @var{ly-code} into the input stream for current parser.  Can
+only be used in immediate Scheme expressions (@code{$} instead of @code{#}).
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
@@ -284,9 +297,10 @@ LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
 
 LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
            1, 0, 0, (SCM names),
-           "Replace current note names in parser."
-           "  @var{names} is an alist of symbols.  This only has effect"
-           " if the current mode is notes.")
+           R"(
+Replace current note names in parser.  @var{names} is an alist of symbols.
+This only has effect if the current mode is notes.
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
@@ -303,8 +317,10 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 
 LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
            0, 1, 0, (SCM parser),
-           "Return the base name of the output file.  If @var{parser} is left"
-           " off, use currently active parser.")
+           R"(
+Return the base name of the output file.  If @var{parser} is left off, use
+currently active parser.
+           )")
 {
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
@@ -316,8 +332,10 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
            1, 1, 0, (SCM msg, SCM input),
-           "Display an error message and make current parser fail."
-           " Without a current parser, trigger an ordinary error.")
+           R"(
+Display an error message and make current parser fail.  Without a current
+parser, trigger an ordinary error.
+           )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
 
@@ -346,7 +364,9 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
 
 LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
            0, 1, 0, (SCM parser),
-           "Clear error flag for @var{parser}, defaulting to current parser.")
+           R"(
+Clear error flag for @var{parser}, defaulting to current parser.
+           )")
 {
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
@@ -361,7 +381,9 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
 
 LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
            0, 1, 0, (SCM parser),
-           "Does @var{parser} (defaulting to current parser) have an error flag?")
+           R"(
+Does @var{parser} (defaulting to current parser) have an error flag?
+           )")
 {
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
