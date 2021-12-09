@@ -104,6 +104,10 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 
   Paper_book *pb = book->process (unsmob<Output_def> (default_paper),
                                   unsmob<Output_def> (default_layout));
+
+  scm_remember_upto_here_1 (book_smob);
+  scm_remember_upto_here_2 (default_paper, default_layout);
+
   if (pb)
     {
       pb->classic_output (output);
