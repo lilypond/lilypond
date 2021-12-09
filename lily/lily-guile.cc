@@ -453,7 +453,7 @@ mangle_cxx_identifier (const char *cxx_id)
 }
 
 SCM
-ly_string_array_to_scm (vector<string> a)
+ly_string_array_to_scm (const vector<string> &a)
 {
   SCM s = SCM_EOL;
   for (vsize i = a.size (); i; i--)
