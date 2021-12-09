@@ -106,6 +106,10 @@ output).
   auto *const layout = LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
   Paper_book *pb = book->process (paper, layout);
+
+  scm_remember_upto_here_1 (book_smob);
+  scm_remember_upto_here_2 (default_paper, default_layout);
+
   if (pb)
     {
       pb->classic_output (output);
