@@ -351,7 +351,7 @@ Spanner::find_broken_piece (System *l) const
 {
   if (broken_intos_.empty ())
     return nullptr;
-  auto l_rank = static_cast<int> (l->get_system ()->get_rank ());
+  auto l_rank = static_cast<int> (l->get_rank ());
   Spanner *first = broken_intos_.front ();
   auto first_rank = static_cast<int> (first->get_system ()->get_rank ());
   auto size = static_cast<int> (broken_intos_.size ());
