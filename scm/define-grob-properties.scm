@@ -800,8 +800,22 @@ of a potential collision, the grob with the smaller
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
-     (padding-pairs ,list? "An alist mapping @code{(@var{name}
-. @var{name})} to distances.")
+     (padding-pairs ,list?  "An alist of padding pairs for key
+signatures (and key cancellations).  Each alist entry has the form
+@example
+((@var{left-glyph-name} . @var{right-glyph-name}) . @var{dist})
+@end example
+@noindent
+specifying the padding @var{dist} between two adjacent key signature
+elements.  If there is no entry in the alist for a given pair, the
+padding value given by the @code{padding} property of the
+@code{KeySignature} (or @code{KeyCancellation}) grob is used instead.
+
+A special feature is the handling of adjacent naturals (to be more precise,
+the handling of glyph @code{accidentals@/.natural}): If there is no
+@q{natural-natural} entry in @code{padding-pairs} explicitly overriding it,
+LilyPond adds some extra padding (in addition to the grob's @code{padding}
+value) to avoid collisions.")
      (page-break-penalty ,number? "Penalty for page break at this
 column.  This affects the choices of the page breaker; it avoids a
 page break at a column with a positive penalty and prefers a page
