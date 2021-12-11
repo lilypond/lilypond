@@ -302,18 +302,12 @@ void unprotect_smob (SCM smob);
 
 // The Smob_core class is not templated and contains material not
 // depending on the Super class.
-
 class Smob_core
 {
 protected:
   SCM self_scm_;
-  Smob_core () : self_scm_ (SCM_UNDEFINED)
-  {
-    count++;
-    maybe_grow_heap ();
-  };
-  ~Smob_core () { count--; }
-  static size_t count;
+  Smob_core ();
+  ~Smob_core ();
   void maybe_grow_heap ();
 public:
   SCM self_scm () const { return self_scm_; }
