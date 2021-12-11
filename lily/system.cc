@@ -105,7 +105,9 @@ void
 System::derived_mark () const
 {
   scm_gc_mark (all_elements_scm_);
-  if (all_elements_)
+
+  /* Check if all_elements_scm_ is still live; it may have been finalized. */
+  if (unsmob<Grob_array> (all_elements_scm_))
     {
       // Grob_array does not protect its elements on its own.
       const vector <Grob *> &arr = all_elements_->array ();
