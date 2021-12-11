@@ -19,11 +19,23 @@
 
 #include "smobs.hh"
 
+#include <atomic>
+
 #if (GUILEV2)
 #include <gc/gc.h>
 #endif
 
-size_t Smob_core::count = 0;
+/* Guile runs finalization on a separate thread, so use atomics to
+   keep track of counts safely. */
+static std::atomic<int> smob_core_count (0);
+
+Smob_core::~Smob_core () { smob_core_count.fetch_add (-1); }
+
+Smob_core::Smob_core () : self_scm_ (SCM_UNDEFINED)
+{
+  smob_core_count.fetch_add (1);
+  maybe_grow_heap ();
+};
 
 void
 Smob_core::maybe_grow_heap ()
@@ -60,7 +72,7 @@ Smob_core::maybe_grow_heap ()
 
   GC_word size = GC_get_heap_size ();
   GC_word bytes_per_obj = 2000;
-  GC_word want_heap = count * bytes_per_obj;
+  GC_word want_heap = smob_core_count.load () * bytes_per_obj;
   if (size < want_heap)
     {
       GC_expand_hp (want_heap - size);
