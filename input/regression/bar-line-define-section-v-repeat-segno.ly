@@ -5,7 +5,7 @@
 \header {
   texidoc="The @code{\\section} command gives @code{sectionBarType}
 precedence in the selection of repeat bar types where
-@code{underlyingRepeatType} would normally be used.  Customizing
+@code{underlyingRepeatBarType} would normally be used.  Customizing
 @code{sectionBarType} is effective when appropriate bar lines are
 defined.  The output should show two adjacent repeated sections with
 kievan final bar lines outside of the brackets, followed by a kievan
@@ -28,17 +28,17 @@ bar line on its own."
 \new Score \with {
   %% N.B. We don't want the annotation here.  LilyPond should append
   %% it automatically where \section is used.
-  doubleRepeatSegnoType = "]k["
-  endRepeatSegnoType = "]k"
-  startRepeatSegnoType = "k["
-  segnoType = "k"
+  doubleRepeatSegnoBarType = "]k["
+  endRepeatSegnoBarType = "]k"
+  startRepeatSegnoBarType = "k["
+  segnoBarType = "k"
   sectionBarType = "."
   %% Omit these to sharpen the focus on the bar lines.
   \omit SegnoMark
 } \new Staff \fixed c' {
   %% It is important that these bars are not aligned to measure
   %% boundaries.  It shows that LilyPond chooses sectionBarType over
-  %% underlyingRepeatType.
+  %% underlyingRepeatBarType.
   r2.
   \section \inStaffSegno
   \repeat volta 2 { r4 | r2. }

@@ -4426,6 +4426,22 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 23, 6), r"""
+startRepeatType -> startRepeatBarType (etc.)
+""")
+def conv(s):
+    s = re.sub("doubleRepeatSegnoType", "doubleRepeatSegnoBarType", s)
+    s = re.sub("doubleRepeatType", "doubleRepeatBarType", s)
+    s = re.sub("endRepeatSegnoType", "endRepeatSegnoBarType", s)
+    s = re.sub("endRepeatType", "endRepeatBarType", s)
+    s = re.sub("fineSegnoType", "fineSegnoBarType", s)
+    s = re.sub("fineStartRepeatSegnoType", "fineStartRepeatSegnoBarType", s)
+    s = re.sub("segnoType", "segnoBarType", s)
+    s = re.sub("startRepeatSegnoType", "startRepeatSegnoBarType", s)
+    s = re.sub("startRepeatType", "startRepeatBarType", s)
+    s = re.sub("underlyingRepeatType", "underlyingRepeatBarType", s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

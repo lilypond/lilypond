@@ -2,7 +2,7 @@
   texidocfr = "
 LilyPond dispose de trois différents styles de barre pour indiquer une
 succession de reprises. Vous devez opter pour un style par défaut, à
-l'aide de la propriété @code{doubleRepeatType}.
+l'aide de la propriété @code{doubleRepeatBarType}.
 
 "
   doctitlefr = "Succession de reprises et style de barre par défaut"

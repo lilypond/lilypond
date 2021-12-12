@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -317,8 +317,8 @@ Entre dues repeticions:
 
 Es poden obtenir símbols de línia divisòria alternatius mitjançant
 l'establiment (en el context Score) de les propietats
-@code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} al tipus
+@code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType} o @code{doubleRepeatSegnoBarType} al tipus
 de línia requerit.  Els tipus de línia divisòria alternatius s'han
 de seleccionar a partir dels tipus predefinits o de tipus definits
 anteriorment amb la instrucció @code{\defineBarLine}
@@ -331,7 +331,7 @@ anteriorment amb la instrucció @code{\defineBarLine}
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

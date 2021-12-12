@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 @node Repeticiones
 @section Repeticiones
@@ -314,8 +314,8 @@ Entre dos repeticiones:
 
 Se pueden obtener símbolos de línea divisoria alternativos
 mediante el establecimiento (en el contexto Score) de las
-propiedades @code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} al tipo
+propiedades @code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType} o @code{doubleRepeatSegnoBarType} al tipo
 de línea requerido.  Los tipos de línea divisoria alternativos
 deben seleccionarse a partir de los tipos predefinidos o de tipos
 definidos anteriormente con la instrucción @code{\defineBarLine}
@@ -328,7 +328,7 @@ definidos anteriormente con la instrucción @code{\defineBarLine}
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

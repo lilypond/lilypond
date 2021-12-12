@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 
 @node Repeats
@@ -422,8 +422,8 @@ Between two repeats:
 @end lilypond
 
 Alternative bar line symbols can be obtained by setting (in the Score
-context) the properties @code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} or @code{doubleRepeatSegnoType} to the
+context) the properties @code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType} or @code{doubleRepeatSegnoBarType} to the
 required bar line type.  The alternative bar line types must be
 selected from the pre-defined types or types previously defined
 with the @code{\defineBarLine} command (see @ref{Bar lines}).
@@ -435,7 +435,7 @@ with the @code{\defineBarLine} command (see @ref{Bar lines}).
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

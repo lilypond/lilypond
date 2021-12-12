@@ -1,9 +1,9 @@
-\version "2.23.1"
+\version "2.23.6"
 
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc="Customizing @code{underlyingRepeatType} is effective when
+  texidoc="Customizing @code{underlyingRepeatBarType} is effective when
 appropriate bar lines are defined.  The first system should end with a
 single thick bar line with a dashed span."
 }
@@ -21,4 +21,4 @@ staff = \new Staff \fixed c' {
 
 piece = \new PianoStaff << \staff \staff >>
 
-\new Score \with { underlyingRepeatType = ".-test" } << \piece >>
+\new Score \with { underlyingRepeatBarType = ".-test" } << \piece >>

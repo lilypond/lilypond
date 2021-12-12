@@ -211,7 +211,7 @@ Repeat_acknowledge_engraver::process_music ()
             {
               if (end) // { segno, start, end }
                 {
-                  SCM s = get_property (this, "doubleRepeatSegnoType");
+                  SCM s = get_property (this, "doubleRepeatSegnoBarType");
                   rb = robust_scm2string (s, ":|.S.|:");
                   has_repeat_bar = true;
                 }
@@ -219,13 +219,13 @@ Repeat_acknowledge_engraver::process_music ()
                 {
                   if (heard_fine_)
                     {
-                      SCM s = get_property (this, "fineStartRepeatSegnoType");
+                      SCM s = get_property (this, "fineStartRepeatSegnoBarType");
                       rb = robust_scm2string (s, "|.S.|:");
                       has_repeat_bar = true;
                     }
                   else
                     {
-                      SCM s = get_property (this, "startRepeatSegnoType");
+                      SCM s = get_property (this, "startRepeatSegnoBarType");
                       rb = robust_scm2string (s, "S.|:");
                       has_repeat_bar = true;
                     }
@@ -233,7 +233,7 @@ Repeat_acknowledge_engraver::process_music ()
             }
           else if (end) // { segno, end }
             {
-              SCM s = get_property (this, "endRepeatSegnoType");
+              SCM s = get_property (this, "endRepeatSegnoBarType");
               rb = robust_scm2string (s, ":|.S");
               has_repeat_bar = true;
             }
@@ -241,13 +241,13 @@ Repeat_acknowledge_engraver::process_music ()
             {
               if (heard_fine_)
                 {
-                  SCM s = get_property (this, "fineSegnoType");
+                  SCM s = get_property (this, "fineSegnoBarType");
                   rb = robust_scm2string (s, "|.S");
                   has_repeat_bar = true;
                 }
               else
                 {
-                  SCM s = get_property (this, "segnoType");
+                  SCM s = get_property (this, "segnoBarType");
                   rb = robust_scm2string (s, "S");
                   has_repeat_bar = true;
                 }
@@ -257,20 +257,20 @@ Repeat_acknowledge_engraver::process_music ()
         {
           if (end) // { start, end }
             {
-              SCM s = get_property (this, "doubleRepeatType");
+              SCM s = get_property (this, "doubleRepeatBarType");
               rb = robust_scm2string (s, ":..:");
               has_repeat_bar = true;
             }
           else // { start }
             {
-              SCM s = get_property (this, "startRepeatType");
+              SCM s = get_property (this, "startRepeatBarType");
               rb = robust_scm2string (s, ".|:");
               has_repeat_bar = true;
             }
         }
       else if (end) // { end }
         {
-          SCM s = get_property (this, "endRepeatType");
+          SCM s = get_property (this, "endRepeatBarType");
           rb = robust_scm2string (s, ":|.");
           has_repeat_bar = true;
         }
@@ -301,7 +301,7 @@ Repeat_acknowledge_engraver::process_music ()
           // At points of repetition or departure where there wouldn't
           // otherwise be a bar line, print a thin double bar line (Behind
           // Bars, p.240).
-          SCM s = get_property (this, "underlyingRepeatType");
+          SCM s = get_property (this, "underlyingRepeatBarType");
           ub = robust_scm2string (s, "||");
           has_underlying_bar = true;
         }
@@ -319,10 +319,10 @@ Repeat_acknowledge_engraver::process_music ()
 
               // Try to keep out of the way when a user overrides the default
               // repeat bar types.  For example, if the user set
-              // startRepeatType to ".|:-||", appending the default value of
-              // underlyingRepeatType would make it ".|:-||-||", which isn't in
-              // the built-in set of bar lines.  Rather than setting whichBar
-              // to a useless value, discard the annotation.
+              // startRepeatBarType to ".|:-||", appending the default value of
+              // underlyingRepeatBarType would make it ".|:-||-||", which isn't
+              // in the built-in set of bar lines.  Rather than setting
+              // whichBar to a useless value, discard the annotation.
               if (!scm_is_null (ly_assoc_get (ly_string2scm (annotated_rb),
                                               Lily::bar_glyph_alist,
                                               SCM_EOL)))
@@ -382,23 +382,26 @@ the chosen bar line if it has not been set by the user.
                 "",
 
                 /* read */
-                "defaultBarType "
-                "doubleRepeatSegnoType "
-                "doubleRepeatType "
-                "endRepeatSegnoType "
-                "endRepeatType "
-                "fineBarType "
-                "fineSegnoType "
-                "fineStartRepeatSegnoType "
-                "repeatCommands "
-                "sectionBarType "
-                "segnoStyle "
-                "segnoType "
-                "startRepeatSegnoType "
-                "startRepeatType "
-                "underlyingRepeatType "
-                "whichBar",
+                R"(
+defaultBarType
+doubleRepeatSegnoBarType
+doubleRepeatBarType
+endRepeatSegnoBarType
+endRepeatBarType
+fineBarType
+fineSegnoBarType
+fineStartRepeatSegnoBarType
+repeatCommands
+sectionBarType
+segnoStyle
+segnoBarType
+startRepeatSegnoBarType
+startRepeatBarType
+underlyingRepeatBarType
+whichBar
+                )",
 
                 /* write */
-                "whichBar"
-               );
+                R"(
+whichBar
+                )");

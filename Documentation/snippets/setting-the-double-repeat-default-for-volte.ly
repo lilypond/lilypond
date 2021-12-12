@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.2"
+\version "2.23.6"
 
 \header {
   lsrtags = "repeats"
 
   texidoc = "
 There are three different styles of double repeats for volte, that can
-be set using @code{doubleRepeatType}.
+be set using @code{doubleRepeatBarType}.
 
 "
   doctitle = "Setting the double repeat default for volte"
@@ -19,10 +19,10 @@ be set using @code{doubleRepeatType}.
 
 \relative c'' {
   \repeat volta 1 { c1 }
-  \set Score.doubleRepeatType = #":..:"
+  \set Score.doubleRepeatBarType = #":..:"
   \repeat volta 1 { c1 }
-  \set Score.doubleRepeatType = #":|.|:"
+  \set Score.doubleRepeatBarType = #":|.|:"
   \repeat volta 1 { c1 }
-  \set Score.doubleRepeatType = #":|.:"
+  \set Score.doubleRepeatBarType = #":|.:"
   \repeat volta 1 { c1 }
 }

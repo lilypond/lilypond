@@ -5,8 +5,8 @@
 \header {
   texidoc="The @code{\\fine} command gives @code{fineBarType}
 precedence in the selection of repeat bar types where
-@code{underlyingRepeatType} or @code{sectionBarType} would normally be
-used.  Customizing @code{fineBarType} is effective when appropriate
+@code{underlyingRepeatBarType} or @code{sectionBarType} would normally
+be used.  Customizing @code{fineBarType} is effective when appropriate
 bar lines are defined.  The output should show two adjacent repeated
 sections with doubled dots and thick bar lines, followed by a double
 thick bar line without dots."
@@ -20,10 +20,10 @@ thick bar line without dots."
     fineBarType = "..-test"
     %% N.B. We don't want the "-..-test" annotation on these.
     %% LilyPond should append it at \fine based on fineBarType.
-    doubleRepeatSegnoType = "::..S..::"
-    endRepeatSegnoType = "::..S"
-    fineSegnoType = "..S"
-    fineStartRepeatSegnoType = "..S..::"
+    doubleRepeatSegnoBarType = "::..S..::"
+    endRepeatSegnoBarType = "::..S"
+    fineSegnoBarType = "..S"
+    fineStartRepeatSegnoBarType = "..S..::"
     %% omit these to sharpen the focus on the bar lines
     \omit SegnoMark
   }
@@ -40,7 +40,7 @@ thick bar line without dots."
 
 %% It is important that these bars are not aligned to measure
 %% boundaries.  It shows that LilyPond chooses fineBarType over
-%% underlyingRepeatType as well as over sectionBarType.
+%% underlyingRepeatBarType as well as over sectionBarType.
 \new Score \fixed c' {
   r2.
   \repeat volta 2 {

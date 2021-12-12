@@ -1,7 +1,7 @@
 %% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
 Esistono tre diversi stili di doppie ripetizioni per le volte, che si
-possono impostare con @code{doubleRepeatType}.
+possono impostare con @code{doubleRepeatBarType}.
 
 "
   doctitleit = "Impostare la doppia ripetizione predefinita per le volte"

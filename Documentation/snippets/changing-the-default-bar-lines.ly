@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.2"
+\version "2.23.6"
 
 \header {
   lsrtags = "repeats, staff-notation"
@@ -25,9 +25,9 @@ Default bar lines can be changed when re-defined in a score context.
     \Score
     %% Changing the defaults from engraver-init.ly
     defaultBarType = #"!"
-    startRepeatType = #"[|:"
-    endRepeatType = #":|]"
-    doubleRepeatType = #":|][|:"
+    startRepeatBarType = #"[|:"
+    endRepeatBarType = #":|]"
+    doubleRepeatBarType = #":|][|:"
   }
 }
 

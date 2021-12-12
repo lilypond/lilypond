@@ -1,13 +1,13 @@
-\version "2.23.1"
+\version "2.23.6"
 
 #(ly:set-option 'warning-as-error #t)
 
 \header {
   texidoc="User-defined bar lines can be printed for @code{\\repeat
-volta} by setting the @code{startRepeatType}, @code{endRepeatType},
-and @code{doubleRepeatType} context properties, and when the bar line
+volta} by setting the @code{startRepeatBarType}, @code{endRepeatBarType},
+and @code{doubleRepeatBarType} context properties, and when the bar line
 does not fall on a measure boundary, the value of
-@code{underlyingRepeatType} is appended.  This output should show two
+@code{underlyingRepeatBarType} is appended.  This output should show two
 adjacent repeated sections with unusually ornate bar lines."
 }
 
@@ -26,9 +26,9 @@ adjacent repeated sections with unusually ornate bar lines."
 \new Score \with {
   %% N.B. We don't want the -|| annotation here.  LilyPond should
   %% append it automatically for unaligned repeats/segni.
-  doubleRepeatType = ":;|][|;:"
-  endRepeatType = ":;|]."
-  startRepeatType = ".[|;:"
+  doubleRepeatBarType = ":;|][|;:"
+  endRepeatBarType = ":;|]."
+  startRepeatBarType = ".[|;:"
 } \new Staff \fixed c' {
   r2. \repeat unfold 2 { \repeat volta 2 { r4 | r2. } }
 }

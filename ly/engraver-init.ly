@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.3"
+\version "2.23.5"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -636,15 +636,13 @@ run."
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
 
-  %% TODO: The inconsistency between ...Type and ...BarType drives
-  %% people like Dan Eble crazy.  All of these are bar types.
   defaultBarType = "|"
   sectionBarType = "||"
   fineBarType = "|."
 
-  doubleRepeatType = ":..:"
-  startRepeatType = ".|:"
-  endRepeatType = ":|."
+  doubleRepeatBarType = ":..:"
+  startRepeatBarType = ".|:"
+  endRepeatBarType = ":|."
   %% TODO: Add 'measureStartNow to alternativeRestores?
   %% TODO: Add 'timing to alternativeRestores?
   alternativeRestores = #'(measurePosition measureLength lastChord)

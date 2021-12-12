@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -421,9 +421,9 @@ Entre deux reprises :
 @end lilypond
 
 Des symboles alternatifs de barre de mesure sont aussi accessibles, dans
-un contexte @code{Score}, à l'aide des propriétés @code{segnoType},
-@code{startRepeatSegnoType}, @code{endRepeatSegnoType} ou
-@code{doubleRepeatSegnoType} selon les besoins. Ces types de barre
+un contexte @code{Score}, à l'aide des propriétés @code{segnoBarType},
+@code{startRepeatSegnoBarType}, @code{endRepeatSegnoBarType} ou
+@code{doubleRepeatSegnoBarType} selon les besoins. Ces types de barre
 alternative doivent être choisis parmi les types prédéfinis ou
 préalablement créés à l'aide d'une commande @code{\defineBarLine} --
 voir @ref{Barres de mesure}.
@@ -435,7 +435,7 @@ voir @ref{Barres de mesure}.
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

@@ -293,18 +293,17 @@ decrescendi.  Available values are @samp{hairpin} and @samp{text}.  If
 unset, a hairpin decrescendo is used.")
      (decrescendoText ,markup? "The text to print at start of
 non-hairpin decrescendo, i.e., @samp{dim.}.")
-     (defaultBarType ,string? "Set the default type of bar line.  See
-@code{whichBar} for information on available bar types.
-
-This variable is read by @rinternals{Timing_translator} at
-@rinternals{Score} level.")
+     (defaultBarType ,string? "Value for @code{whichBar} at a measure
+boundary.")
      (defaultStrings ,list? "A list of strings to use in calculating
 frets for tablatures and fretboards if no strings are provided in
 the notes for the current moment.")
-     (doubleRepeatSegnoType ,string? "Set the default bar line for
-the combinations double repeat with segno. Default is @samp{:|.S.|:}.")
-     (doubleRepeatType ,string? "Set the default bar line for double
-repeats.")
+     (doubleRepeatBarType ,string? "Value for @code{whichBar} where
+the end of one @code{\\repeat volta} coincides with the start of
+another.  The default is @samp{:..:}.")
+     (doubleRepeatSegnoBarType ,string? "Value for @code{whichBar}
+where an in-staff segno coincides with the end of one @code{\\repeat
+volta} and the beginning of another.  The default is @samp{:|.S.|:}.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
 slurred note, one above and one below the chord.")
      (drumPitchTable ,hash-table? "A table mapping percussion
@@ -320,10 +319,11 @@ the symbol @samp{hihat}) as keys, and a list
 values.")
 
      (endAtSkip ,boolean? "End @code{DurationLine} grob on @code{skip-event}")
-     (endRepeatSegnoType ,string? "Set the default bar line for the
-combinations ending of repeat with segno. Default is @samp{:|.S}.")
-     (endRepeatType ,string? "Set the default bar line for the ending
-of repeats.")
+     (endRepeatBarType ,string? "Value for @code{whichBar} at the end
+of a @code{\\repeat volta}.  The default is @samp{:|.}.")
+     (endRepeatSegnoBarType ,string? "Value for @code{whichBar} where
+an in-staff segno coincides with the end of a @code{\\repeat volta}.
+The default is @samp{:|.S}.")
      (explicitClefVisibility ,vector? "@samp{break-visibility}
 function for clef changes.")
      (explicitCueClefVisibility ,vector? "@samp{break-visibility}
@@ -347,13 +347,16 @@ lines.")
 for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
-     (fineBarType ,string? "The bar line for @code{\\fine}.  See
-@code{whichBar} for information on available bar types.")
-     (fineSegnoType ,string? "Set the default bar line for a requested
-segno with fine.  Default is @samp{|.S}.")
-     (fineStartRepeatSegnoType ,string? "Set the default bar line for
-the combinations beginning of repeat with segno and fine.  Default is
-@samp{|.S.|:}.")
+     (fineBarType ,string? "Value for @code{whichBar} at
+@code{\\fine}.  Where there is also a repeat bar line, the repeat bar
+line takes precedence and this value is appended to it as an
+annotation.  The default is @samp{|.}.")
+     (fineSegnoBarType ,string? "Value for @code{whichBar} where an
+in-staff segno coincides with @code{\\fine}.  The default is
+@samp{|.S}.")
+     (fineStartRepeatSegnoBarType ,string? "Value for @code{whichBar}
+where an in-staff segno coincides with @code{\\fine} and the start of
+a @code{\\repeat volta}.  The default is @samp{|.S.|:}.")
      (fineText ,markup? "The text to print at @code{\\fine}.")
      (fingeringOrientations ,list? "A list of symbols, containing
 @samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
@@ -595,16 +598,18 @@ automatic fret calculator.")
      (searchForVoice ,boolean? "Signal whether a search should be made
 of all contexts in the context hierarchy for a voice to provide rhythms
 for the lyrics.")
-     (sectionBarType ,string? "The bar line for @code{\\section}.  See
-@code{whichBar} for information on available bar types.")
+     (sectionBarType ,string? "Value for @code{whichBar} at
+@code{\\section}.  Where there is also a repeat bar line, the repeat
+bar line takes precedence and this value is appended to it as an
+annotation.  The default is @samp{||}.")
      (segnoMarkFormatter ,procedure? "A procedure that creates a
 segno (which conventionally indicates the start of a repeated
 section), taking as arguments the mark sequence number and the
 context.  It should return a markup object.")
      (segnoStyle ,symbol? "A symbol that indicates how to print a segno:
 @code{bar-line} or @code{mark}.")
-     (segnoType ,string? "Set the default segno bar line.  Default is
-@samp{S}.")
+     (segnoBarType ,string? "Value for @code{whichBar} at an in-staff
+segno.  The default is @samp{S}.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for
 each note head relative to the tonic (qv.) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
@@ -642,10 +647,11 @@ verse.  Use in @code{Lyrics} context.")
 @code{skip-event}.")
      (startAtNoteColumn ,boolean? "Start @code{DurationLine} grob at entire
 @code{NoteColumn}.")
-     (startRepeatSegnoType ,string? "Set the default bar line for the
-combinations beginning of repeat with segno. Default is @samp{S.|:}.")
-     (startRepeatType ,string? "Set the default bar line for the beginning
-of repeats.")
+     (startRepeatBarType ,string? "Value for @code{whichBar} at the
+start of a @code{\\repeat volta}.  The default is @samp{.|:}.")
+     (startRepeatSegnoBarType ,string? "Value for @code{whichBar}
+where an in-staff segno coincides with the start of a @code{\\repeat
+volta}.  The default is @samp{S.|:}.")
      (stemLeftBeamCount ,integer? "Specify the number of beams to draw
 on the left side of the next note.  Overrides automatic beaming.  The
 value is only used once, and then it is erased.")
@@ -721,10 +727,12 @@ setting this property, you can make brackets last shorter.
 @end example")
 
 
-     (underlyingRepeatType ,string? "Set the bar line to use at points
-of repetition or departure where no bar line would normally appear,
-for example at the end of a system broken in mid measure where the
-next system begins with a segno.")
+     (underlyingRepeatBarType ,string? "Value for @code{whichBar} at
+points of repetition or departure where no bar line would normally
+appear, for example at the end of a system broken in mid measure where
+the next system begins with a segno.  Where there is also a repeat bar
+line, the repeat bar line takes precedence and this value is appended
+to it as an annotation.  The default is @samp{||}.")
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
@@ -313,8 +313,8 @@ c'4 e g
 @end lilypond
 
 他の小節線記号を用いる場合、 (Score コンテキストに) プロパティ
-@code{segnoType}, @code{startRepeatSegnoType}, @code{endRepeatSegnoType},
-@code{doubleRepeatSegnoType} を好みの値を設定します。小節線の種類は@c
+@code{segnoBarType}, @code{startRepeatSegnoBarType}, @code{endRepeatSegnoBarType},
+@code{doubleRepeatSegnoBarType} を好みの値を設定します。小節線の種類は@c
 あらかじめ定義されているものか、前に @code{\defineBarLine} コマンドで定義@c
 されているものから選択する必要があります (@ref{小節線}を参照してください)。
 
@@ -325,7 +325,7 @@ c'4 e g
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

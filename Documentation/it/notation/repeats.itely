@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -310,8 +310,8 @@ Tra due ripetizioni:
 
 
 Si possono impostare simboli alternativi delle stanghette modificando nel
-contesto Score le proprietà @code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} per il tipo di
+contesto Score le proprietà @code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType} o @code{doubleRepeatSegnoBarType} per il tipo di
 stanghetta richiesto.  I tipi di stanghetta alternativi devono essere
 selezionati dai tipi predefiniti o dai tipi precedentemente definiti col
 comando @code{\defineBarLine} (vedi @ref{Stanghette}).
@@ -323,7 +323,7 @@ comando @code{\defineBarLine} (vedi @ref{Stanghette}).
   e'1
   \repeat volta 2 {
     f2 g a b
-    \once \set Score.endRepeatSegnoType = ":|.S["
+    \once \set Score.endRepeatSegnoBarType = ":|.S["
     \inStaffSegno
   }
   f2 g \bar "]" a b

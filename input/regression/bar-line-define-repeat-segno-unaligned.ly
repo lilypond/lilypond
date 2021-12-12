@@ -4,13 +4,13 @@
 
 \header {
   texidoc="User-defined bar lines with in-staff segni can be printed
-by setting the @code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType}, and @code{doubleRepeatSegnoType} context
-properties, and when the bar line does not fall on a measure boundary,
-the value of @code{underlyingRepeatType} is appended.  The output
-should show two adjacent repeated sections with unusually ornate bar
-lines with in-staff segni, followed by an in-staff segno that is
-flanked by thick bar lines."
+by setting the @code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType}, and @code{doubleRepeatSegnoBarType}
+context properties, and when the bar line does not fall on a measure
+boundary, the value of @code{underlyingRepeatBarType} is appended.
+The output should show two adjacent repeated sections with unusually
+ornate bar lines with in-staff segni, followed by an in-staff segno
+that is flanked by thick bar lines."
 }
 
 \layout {
@@ -29,10 +29,10 @@ flanked by thick bar lines."
 \new Score \with {
   %% N.B. We don't want the -|| annotation here.  LilyPond should
   %% append it automatically for unaligned repeats/segni.
-  doubleRepeatSegnoType = ":;|]S[|;:"
-  endRepeatSegnoType = ":;|].S"
-  startRepeatSegnoType = "S.[|;:"
-  segnoType = ".S."
+  doubleRepeatSegnoBarType = ":;|]S[|;:"
+  endRepeatSegnoBarType = ":;|].S"
+  startRepeatSegnoBarType = "S.[|;:"
+  segnoBarType = ".S."
   %% Omit these to sharpen the focus on the bar lines.
   \omit SegnoMark
 } \new Staff \fixed c' {

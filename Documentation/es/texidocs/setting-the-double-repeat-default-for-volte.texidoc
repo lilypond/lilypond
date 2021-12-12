@@ -2,7 +2,7 @@
   texidoces = "
 Existen tres estilos distintos de repeticiones dobles para la primera
 y segunda vez, que se pueden ajustar utilizando
-@code{doubleRepeatType}.
+@code{doubleRepeatBarType}.
 
 "
   doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"

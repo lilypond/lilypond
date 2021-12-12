@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.23.6"
 
 @c Translators: Till Paala
 
@@ -260,8 +260,8 @@ Der @code{\inStaffSegno}-Befehl kann angewandt werden, um das
 Segno-Zeichen in die Notenzeile einzubinden, auch in Kooperation
 mit dem @code{\repeat volta}-Befehl. Die benutzten
 Taktstrichsymbole können durch Überschreiben der Eigenschaften
-@code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} bzw. @code{doubleRepeatSegnoType}
+@code{segnoBarType}, @code{startRepeatSegnoBarType},
+@code{endRepeatSegnoBarType} bzw. @code{doubleRepeatSegnoBarType}
 geändert werden.
 
 @lilypond[verbatim,quote,relative=1]
