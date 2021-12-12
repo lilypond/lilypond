@@ -179,9 +179,7 @@ class Package:
         env["PKG_CONFIG_LIBDIR"] = os.pathsep.join(self.collect_pkgconfig_paths(c))
         return env
 
-    def run_command(
-        self, c: Config, args: List[str], log: TextIO
-    ) -> subprocess.CompletedProcess:
+    def run_command(self, c: Config, args: List[str], log: TextIO, stage: str) -> bool:
         """Run command in the build directory and log invocation."""
         # Separating command and args with single quotes to prevent
         # the need for escaping spaces in the paths or arguments when
@@ -192,7 +190,7 @@ class Package:
         log.write(f" $ {formatted_args}\n")
         log.flush()
 
-        return subprocess.run(
+        result = subprocess.run(
             args,
             stdout=log,
             stderr=log,
@@ -200,6 +198,12 @@ class Package:
             env=self.build_env(c),
             check=False,
         )
+
+        if result.returncode != 0:
+            logging.error("%s exited with code %d", stage, result.returncode)
+            return False
+
+        return True
 
     def build(self, c: Config) -> bool:
         """Build the package and install it to a temporary location."""
@@ -285,23 +289,17 @@ class ConfigurePackage(Package):
             args += [f"--prefix={install_directory}"]
             args += self.configure_args(c)
 
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("configure exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "configure"):
                 return False
 
             # Build the package.
             args = [c.make_command, "-j", str(c.jobs)] + self.make_args
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("make exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "make"):
                 return False
 
             # Install the package.
             args = [c.make_command, "install"] + self.make_install_args
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("install exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "install"):
                 return False
 
         return True
@@ -352,23 +350,17 @@ class MesonPackage(Package):
             args += self.meson_args(c)
             args += [src_directory, build_directory]
 
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("configure exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "configure"):
                 return False
 
             # Build the package.
             args = ["ninja", "-j", str(c.jobs)]
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("build exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "build"):
                 return False
 
             # Install the package.
             args = ["ninja", "install"]
-            result = self.run_command(c, args, log)
-            if result.returncode != 0:
-                logging.error("install exited with code %d", result.returncode)
+            if not self.run_command(c, args, log, "install"):
                 return False
 
         return True
