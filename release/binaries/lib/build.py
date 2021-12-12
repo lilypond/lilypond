@@ -28,7 +28,7 @@ import logging
 import os
 import shutil
 import subprocess
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, TextIO
 import urllib.request
 
 from .config import Config
@@ -179,6 +179,28 @@ class Package:
         env["PKG_CONFIG_LIBDIR"] = os.pathsep.join(self.collect_pkgconfig_paths(c))
         return env
 
+    def run_command(
+        self, c: Config, args: List[str], log: TextIO
+    ) -> subprocess.CompletedProcess:
+        """Run command in the build directory and log invocation."""
+        # Separating command and args with single quotes to prevent
+        # the need for escaping spaces in the paths or arguments when
+        # copying the invocations to the shell.
+        formatted_args = "' '".join(args)
+        formatted_args = f"'{formatted_args}'"
+        logging.debug("Running [ %s ] in '%s'", formatted_args, self.build_directory(c))
+        log.write(f" $ {formatted_args}\n")
+        log.flush()
+
+        return subprocess.run(
+            args,
+            stdout=log,
+            stderr=log,
+            cwd=self.build_directory(c),
+            env=self.build_env(c),
+            check=False,
+        )
+
     def build(self, c: Config) -> bool:
         """Build the package and install it to a temporary location."""
         raise NotImplementedError
@@ -247,26 +269,8 @@ class ConfigurePackage(Package):
 
         os.makedirs(build_directory, exist_ok=True)
 
-        build_env = self.build_env(c)
-
         # Set up the log file.
         with open(self.log_path(c), "w", encoding="utf-8") as log:
-
-            def run(args: List[str]) -> subprocess.CompletedProcess:
-                formatted_args = "' '".join(args)
-                formatted_args = f"'{formatted_args}'"
-                logging.debug("Running [ %s ] in '%s'", formatted_args, build_directory)
-                log.write(f" $ {formatted_args}\n")
-                log.flush()
-
-                return subprocess.run(
-                    args,
-                    stdout=log,
-                    stderr=log,
-                    cwd=build_directory,
-                    env=build_env,
-                    check=False,
-                )
 
             # Run the configure script.
             args = [f"{src_directory}/{self.configure_script}"]
@@ -281,21 +285,21 @@ class ConfigurePackage(Package):
             args += [f"--prefix={install_directory}"]
             args += self.configure_args(c)
 
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("configure exited with code %d", result.returncode)
                 return False
 
             # Build the package.
             args = [c.make_command, "-j", str(c.jobs)] + self.make_args
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("make exited with code %d", result.returncode)
                 return False
 
             # Install the package.
             args = [c.make_command, "install"] + self.make_install_args
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("install exited with code %d", result.returncode)
                 return False
@@ -327,26 +331,8 @@ class MesonPackage(Package):
 
         os.makedirs(build_directory, exist_ok=True)
 
-        build_env = self.build_env(c)
-
         # Set up the log file.
         with open(self.log_path(c), "w", encoding="utf-8") as log:
-
-            def run(args: List[str]) -> subprocess.CompletedProcess:
-                formatted_args = "' '".join(args)
-                formatted_args = f"'{formatted_args}'"
-                logging.debug("Running [ %s ] in '%s'", formatted_args, build_directory)
-                log.write(f" $ {formatted_args}\n")
-                log.flush()
-
-                return subprocess.run(
-                    args,
-                    stdout=log,
-                    stderr=log,
-                    cwd=build_directory,
-                    env=build_env,
-                    check=False,
-                )
 
             # Run 'meson setup' to configure the package.
             args = ["meson", "setup", "--buildtype=release"]
@@ -366,21 +352,21 @@ class MesonPackage(Package):
             args += self.meson_args(c)
             args += [src_directory, build_directory]
 
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("configure exited with code %d", result.returncode)
                 return False
 
             # Build the package.
             args = ["ninja", "-j", str(c.jobs)]
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("build exited with code %d", result.returncode)
                 return False
 
             # Install the package.
             args = ["ninja", "install"]
-            result = run(args)
+            result = self.run_command(c, args, log)
             if result.returncode != 0:
                 logging.error("install exited with code %d", result.returncode)
                 return False
