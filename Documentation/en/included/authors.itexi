@@ -45,9 +45,9 @@
 
 @itemize
 
-@item Trevor Daniels:
-@email{t.daniels@@treda.co.uk},
-Assistant documentation editor
+@item Jean Abou Samra:
+@email{jean@@abou-samra.fr},
+Factotum
 
 @item Dan Eble:
 @email{nine.fierce.ballads@@gmail.com},
@@ -80,21 +80,8 @@ Patch meister
 @uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
-@item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org},
-@uref{http://JoyofSource.com},
-@uref{http://AvatarAcademy.nl},
-Main author
-
-@item Carl Sorensen:
-@email{c_sorensen@@byu.edu},
-Core developer
-
 @item Francisco Vila:
 Translation meister
-
-@item Valentin Villenave:
-Core developer
 
 @end itemize
 @end macro
@@ -116,6 +103,10 @@ Support guru
 @email{bordage.bertrand@@gmail.com},
 Core developer, font designer
 
+@item Trevor Daniels:
+@email{t.daniels@@treda.co.uk},
+Assistant documentation editor
+
 @item Colin Hall:
 Bug meister
 
@@ -135,6 +126,12 @@ Assistant documentation editor
 
 @item Joe Neeman:
 Core developer
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://JoyofSource.com},
+@uref{http://AvatarAcademy.nl},
+Main author
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
@@ -168,6 +165,13 @@ Bug meister
 @item Nicolas Sceaux:
 Core developer, Schemer extraordinaire
 
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Core developer
+
+@item Valentin Villenave:
+Core developer
+
 @item Janek Warchoł:
 @email{janek.lilypond@@gmail.com},
 Core developer
@@ -189,7 +193,6 @@ Martin Joerg,
 Michael Käppler,
 Thomas Morley,
 Knut Petersen,
-Jean Abou Samra,
 Pete Siddall
 
 @c no comma for last entry
@@ -216,8 +219,7 @@ Owen Lamb
 @c use commas not colons
 
 Michael Käppler,
-Thomas Morley,
-Jean Abou Samra
+Thomas Morley
 
 @c no comma for last entry
 
@@ -336,7 +338,6 @@ Nathan Reed,
 Julien Rioux,
 Johannes Rohrer,
 Ben Rudiak-Gould,
-Jean Abou Samra,
 Stan Sanderson,
 Andreas Scherer,
 Johannes Schindelin,
