@@ -660,12 +660,14 @@ This section highlights issues that are relevant to notating
 Persian classical music.
 
 @menu
-* Sori and koron::
+* Persian music notation::
+* Persian tunings::
+* Persian key signatures::
 * Further reading on Persian music::
 @end menu
 
-@node Sori and koron
-@unnumberedsubsubsec Sori and koron
+@node Persian music notation
+@unnumberedsubsubsec Persian music notation
 
 @cindex sori
 @cindex koron
@@ -678,27 +680,148 @@ accidentals for microtones, @dfn{sori} and @dfn{koron}.  Invented
 by Ali-Naqi Vaziri around 1935, they indicate raising and lowering
 a pitch by (approximately) a quarter tone, respectively.
 
-@lilypond[quote,verbatim]
-VaziriGlyphs = #'(
-  (0 . "accidentals.natural")
-  (-1/2 . "accidentals.flat")
-  (1/2 . "accidentals.sharp")
+@lilypond[quote]
+\markup {
+  \center-column {
+    "sori"
+    \musicglyph "accidentals.sharp.sori"
+  }
+  \hspace #10
+  \center-column {
+    "koron"
+    \musicglyph "accidentals.flat.koron"
+  }
+}
+@end lilypond
 
-  (1/4 . "accidentals.sharp.sori")
-  (-1/4 . "accidentals.flat.koron")
-)
+The file @file{persian.ly}@footnote{There exists another, older
+support file for Persian classical music also called
+@file{persian.ly} (written by Kees van den Doel) that no longer
+works with the current LilyPond version; while note names are
+compatible, the selection of key signatures is not.} provides
+support for koron and sori; they can be obtained by appending
+@q{k} (koron) and @q{o} (sori) to the English note symbols.
+
+LilyPond supports tunings for all major Persian modes in all keys,
+sufficient to notate the @dfn{gusheh}s (central nuclear melodies)
+of all @dfn{dastgah}s (musical modal systems).
+
+The note immediately following a koron is sometimes@footnote{If
+the interval defined by the note before the koron and after the
+koron is a minor third.  The same is true for the note below the
+finalis in the @q{Esfahan} dastgah according to some (but not all)
+Persian musicians.} lowered by about 20@tie{}cents.  This is not
+notated but considered part of the tuning.  However, for getting
+better MIDI support you can make a sound flat by appending @q{v}
+to the note name (@q{@emph{v}lat}).  This note should actually
+also get a strong vibrato, and the vibrato and low tuning are
+perceptually integrated (@emph{serialism}).  This is just for MIDI
+and has no effect on the notation itself.
+
+There are no further tuning issues in Persian music.  Since the
+music is monophonic, the difference between just intonation (for
+example) and equal temperament is merely academic -- there are no
+chords where out-of-tune intervals would be noticeable.
+
+The following suffixes to English note names are provided.
+
+@quotation
+@multitable @columnfractions .03 .77
+@item @code{ff} @tab double-flat
+@item @code{f}  @tab flat
+@item @code{k}  @tab koron (about quarter-flat, -3/10 of whole
+                     tone, 60@tie{}cents)
+@item @code{o}  @tab sori (about quarter-sharp, 2/10 of whole
+                     tone, 40@tie{}cents)
+@item @code{s}  @tab sharp
+@item @code{x}  @tab double-sharp
+@item @code{v}  @tab 20@tie{}cent flat-tuned note (@qq{vlat}, not
+                     notated)
+@item @code{fv} @tab flat, tuned 20@tie{}cents down (notated as a
+                     normal flat)
+@item @code{sv} @tab sharp, tuned 20@tie{}cents down (notated as a
+                     normal sharp; does never occur in traditional
+                     Persian music)
+@end multitable
+@end quotation
+
+
+@node Persian tunings
+@unnumberedsubsubsec Persian tunings
+
+Dastgahs can have many tunings; it has become common to name
+tunings after representative dastgahs featuring them.  The
+following Persian tunings are provided to be used as the second
+argument of the @code{\key} command.  Note that in practice not
+all tunings are used in all keys.
+
+@quotation
+@multitable @columnfractions .2 .6
+@item @code{\shur}          @tab @q{Shur} gushehs with natural 5th
+                                 degree
+@item @code{\shurk}         @tab @q{Shur} gushehs with koron 5th
+                                 degree
+@item @code{\esfahan}       @tab
+@item @code{\mokhalefsegah} @tab
+@item @code{\chahargah}     @tab
+@item @code{\mahur}         @tab the same as @code{\major} but
+                                 used in a completely different
+                                 context
+@item @code{\delkashMahur}  @tab
+@end multitable
+@end quotation
+
+In dastgah @q{Shur}, the 5th degree can either be natural or
+koron, so two tunings are provided (@code{\shur}, @code{\shurk}).
+Secondary dastgahs @q{Dashti}, @q{Abuata}, and @q{Bayat-e-tork}
+use @code{\shur}, the derived dastgah @q{Afshari} uses
+@code{\shurk}.  @q{Nava} on@tie{}G is like @q{Shur} on@tie{}D (a
+4th apart).  The tuning of @q{Segah} is @code{\shurk}.  Other
+tunings are @code{\esfahan} (@q{Homayoun} on@tie{}C is like
+@q{Esfahan} on@tie{}G, a 5th apart), @code{\chahargah}, and
+@code{\mokhalefsegah}.  For dastgahs @q{Mahur} and
+@q{Rast-panjgah} the same tuning @code{\mahur} can be used.
+
+All the various modulatory gushehs in all dastgahs can be notated
+with these tunings, with the exception of @q{Delkash} in
+@q{Mahur}, but traditionally the peculiar accidentals there are
+notated explicitly (however, @file{persian.ly} also defines a
+tuning @code{\delkashMahur}).
+
+As an example, Chahargah in@tie{}D can be input with the
+following.
+
+@lilypond[verbatim,quote]
+\include "persian.ly"
 
 \relative c' {
-  \cadenzaOn
-  f!4 fih fis g! geh ges \bar "|"
-  g!4 gih gis a! aeh aes
+  \key d \chahargah
+  bk'8 a gs fo r g ak g |
+  fs ek d c d ef16 d c4 |
 }
+@end lilypond
 
-\layout {
-  \context {
-    \Staff
-    alterationGlyphs = #VaziriGlyphs
-  }
+
+@node Persian key signatures
+@unnumberedsubsubsec Persian key signatures
+
+By default, the order of accidentals in Persian key signatures is
+flats followed by korons, then sharps followed by soris (then
+double flats, then double sharps).
+
+An alternative key order, similar to the one used in
+@file{turkish-makam.ly}, can be selected.  Here, the order is
+flats or korons (or double flats), then sharps or soris (or double
+sharps).  In other words, korons and soris are handled equal to
+flats and sharps, respectively.
+
+@lilypond[verbatim,quote]
+\include "persian.ly"
+
+{
+  \key b \chahargah b'1 |
+  \set Staff.keyAlterationOrder = \persianAltKeyAlterationOrder
+  \key b \chahargah b'1 |
 }
 @end lilypond
 
@@ -707,6 +830,25 @@ VaziriGlyphs = #'(
 @unnumberedsubsubsec Further reading on Persian music
 
 @itemize
+
+@item
+@emph{Traditional Persian Art Music} by Dariush Tala'i
+[Bibliotheca Persica, Costa Mesa CA, 2000]
+
+@noindent
+The provided Persian tunings closely follow this book.
+
+@item
+@emph{The Dastgah Concept in Persian Music} by Hormoz Farhat
+[Cambridge University Press, Cambridge, 1990]
+
+@item
+@emph{Le répertoire-modèle de la musique iranienne} by Jean During
+(in French) [Sourush, Tehran, 1995]
+
+@noindent
+This book contains measurements of the intervals in actual
+practice, consistent with the tunings of @file{persian.ly}.
 
 @item
 @emph{Armoni-e Musiqi-e Iran} by Ali-Naqi Vaziri (in Persian)
