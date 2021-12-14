@@ -692,8 +692,21 @@ class Libunistring(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://ftp.gnu.org/gnu/libunistring/{self.archive}"
 
+    def dependencies(self, c: Config) -> List[Package]:
+        libiconv_dep = []
+        if c.is_mingw():
+            libiconv_dep = [libiconv]
+        return libiconv_dep
+
     def configure_args(self, c: Config) -> List[str]:
-        return ["--disable-threads"]
+        mingw_args = []
+        if c.is_mingw():
+            libiconv_install_dir = libiconv.install_directory(c)
+            mingw_args = [
+                f"--with-libiconv-prefix={libiconv_install_dir}",
+            ]
+
+        return ["--disable-threads"] + mingw_args
 
     @property
     def license_files(self) -> List[str]:
