@@ -19,7 +19,7 @@
 
 
 %
-% Accidentals 'sori' and 'koron' for Iranian classical music.
+% Accidentals 'sori' and 'koron' for Persian classical music.
 %
 
 % This file should be included after `feta-accidentals.mf` and

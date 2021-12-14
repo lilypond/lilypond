@@ -1,7 +1,7 @@
 \version "2.23.6"
 
 \header {
-  texidoc = "One notation style for Iranian music uses the @emph{sori} and
+  texidoc = "One notation style for Persian music uses the @emph{sori} and
 @emph{koron} accidental glyphs."
 }
 

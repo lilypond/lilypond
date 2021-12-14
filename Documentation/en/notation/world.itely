@@ -19,7 +19,7 @@ that are relevant to traditions outside the Western tradition.
 * Common notation for non-Western music::
 * Arabic music::
 * Turkish classical music::
-* Iranian classical music::
+* Persian classical music::
 @end menu
 
 
@@ -66,7 +66,7 @@ details see @ref{Arabic music}.
 @cindex Ottoman, classical music
 @cindex Arabic maqam
 @cindex Persian makam
-@cindex Iranian makam
+@cindex Persian makam
 @cindex Turkish makam
 
 Other types of music require extended or unique notations, for example,
@@ -98,7 +98,7 @@ Notation Reference:
 @ref{Note names in other languages},
 @ref{Arabic music},
 @ref{Turkish classical music},
-@ref{Iranian classical music}.
+@ref{Persian classical music}.
 @endmorerefs
 
 
@@ -651,18 +651,17 @@ CDs.
 @end itemize
 
 
-@node Iranian classical music
-@subsection Iranian classical music
+@node Persian classical music
+@subsection Persian classical music
 
-@cindex Iranian classical music
 @cindex Persian classical music
 
 This section highlights issues that are relevant to notating
-Iranian classical music.
+Persian classical music.
 
 @menu
 * Sori and koron::
-* Further reading on Iranian music::
+* Further reading on Persian music::
 @end menu
 
 @node Sori and koron
@@ -670,13 +669,11 @@ Iranian classical music.
 
 @cindex sori
 @cindex koron
-@cindex Iranian accidentals (sori, koron)
-@cindex accidental, Iranian (sori, koron)
-@cindex semi-flat symbol, Iranian (koron)
-@cindex semi-sharp symbol, Iranian (sori)
+@cindex semi-flat symbol, Persian (koron)
+@cindex semi-sharp symbol, Persian (sori)
 @cindex Persian accidentals (sori, koron)
 
-The notation for Iranian classical music commonly uses two
+The notation for Persian classical music commonly uses two
 accidentals for microtones, @dfn{sori} and @dfn{koron}.  Invented
 by Ali-Naqi Vaziri around 1935, they indicate raising and lowering
 a pitch by (approximately) a quarter tone, respectively.
@@ -706,8 +703,8 @@ VaziriGlyphs = #'(
 @end lilypond
 
 
-@node Further reading on Iranian music
-@unnumberedsubsubsec Further reading on Iranian music
+@node Further reading on Persian music
+@unnumberedsubsubsec Further reading on Persian music
 
 @itemize
 
