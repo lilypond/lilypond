@@ -821,10 +821,13 @@ class Guile(ConfigurePackage):
             self._apply_patches_mingw(c)
 
     def dependencies(self, c: Config) -> List[Package]:
+        gettext_dep = []
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
+            gettext_dep = [gettext]
         libiconv_dep = []
         if c.is_mingw():
             libiconv_dep = [libiconv]
-        return libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
+        return gettext_dep + libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
 
     def build_env(self, c: Config) -> Dict[str, str]:
         env = super().build_env(c)
@@ -837,6 +840,13 @@ class Guile(ConfigurePackage):
         libunistring_install_dir = libunistring.install_directory(c)
         libtool_install_dir = libtool.install_directory(c)
 
+        libintl_args = []
+        if c.is_freebsd() or c.is_macos() or c.is_mingw():
+            gettext_install_dir = gettext.install_directory(c)
+            libintl_args = [
+                f"--with-libintl-prefix={gettext_install_dir}",
+            ]
+
         mingw_args = []
         if c.is_mingw():
             guile_for_build = self.exe_path(c.native_config)
@@ -846,19 +856,23 @@ class Guile(ConfigurePackage):
                 f"--with-libiconv-prefix={libiconv_install_dir}",
             ]
 
-        return [
-            # Disable unused parts of Guile.
-            "--without-threads",
-            "--disable-networking",
-            # Disable -Werror to enable builds with newer compilers.
-            "--disable-error-on-warning",
-            # Make configure find the statically built dependencies.
-            f"--with-libgmp-prefix={gmp_install_dir}",
-            f"--with-libltdl-prefix={libtool_install_dir}",
-            f"--with-libunistring-prefix={libunistring_install_dir}",
-            # Prevent that configure searches for libcrypt.
-            "ac_cv_search_crypt=no",
-        ] + mingw_args
+        return (
+            [
+                # Disable unused parts of Guile.
+                "--without-threads",
+                "--disable-networking",
+                # Disable -Werror to enable builds with newer compilers.
+                "--disable-error-on-warning",
+                # Make configure find the statically built dependencies.
+                f"--with-libgmp-prefix={gmp_install_dir}",
+                f"--with-libltdl-prefix={libtool_install_dir}",
+                f"--with-libunistring-prefix={libunistring_install_dir}",
+                # Prevent that configure searches for libcrypt.
+                "ac_cv_search_crypt=no",
+            ]
+            + libintl_args
+            + mingw_args
+        )
 
     def exe_path(self, c: Config) -> str:
         """Return path to the guile interpreter."""
