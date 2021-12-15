@@ -287,6 +287,13 @@ Repeat_acknowledge_engraver::process_music ()
           ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
           has_underlying_bar = true;
         }
+      else if (forced_bar_type == BarType::DEFAULT)
+        {
+          // "robust" here is paranoia; this should always work and result in
+          // ub holding the value of defaultBarType because of logic above.
+          ub = robust_scm2string (wb, "|");
+          has_underlying_bar = true;
+        }
       else if ((heard_coda_mark_ || heard_dal_segno_ || heard_segno_mark_
                 || has_repeat_bar)
                && (forced_bar_type < BarType::DEFAULT))
