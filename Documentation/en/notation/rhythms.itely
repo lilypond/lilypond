@@ -2813,6 +2813,7 @@ music snippets, and when numbers in the fraction are small.
 
 @menu
 * Bar lines::
+* Automatic bar lines::
 * Bar numbers::
 * Bar and bar number checks::
 * Rehearsal marks::
@@ -2824,38 +2825,40 @@ music snippets, and when numbers in the fraction are small.
 
 @cindex bar line
 @cindex measure line
-@cindex closing bar line
-@cindex bar line, closing
+@cindex final bar line
+@cindex bar line, final
 @cindex double bar line
 @cindex bar line, double
 @cindex repeat bar
 
 @funindex \bar
 
-Bar lines delimit measures, and are also used to indicate
-repeats.  Normally, simple bar lines are automatically inserted
-into the printed output at places based on the current time
-signature.
+Bar lines are used to delimit measures and sections, and to
+indicate repetition.  Normally, simple bar lines are automatically
+inserted into the printed output at places according to the
+current time signature.  Various commands insert other kinds of
+bar lines automatically as part of their effect (see
+@ref{Automatic bar lines}).
 
-The simple bar lines inserted automatically can be changed to
-other types with the @code{\bar} command.  For example, a closing
-double bar line is usually placed at the end of a piece:
+A bar line inserted automatically can be changed to another type
+with the @code{\bar} command.  For example, the end of a piece is
+usually indicated with a final bar line:
 
 @lilypond[quote,verbatim]
 \relative { e'4 d c2 \bar "|." }
 @end lilypond
 
-It is not invalid if the final note in a measure does not
-end on the automatically entered bar line: the note is assumed
-to carry over into the next measure.  But if a long sequence
-of such carry-over measures appears the music can appear compressed
-or even flowing off the page.  This is because automatic line
-breaks happen only at the end of complete measures, i.e., where
-all notes end before the end of a measure.
+The final note of a measure is not required to end on the
+automatically inserted bar line: the note is assumed to carry over
+into the next measure.  But if a long sequence of such carry-over
+measures appears, the music can appear compressed or even flowing
+off the page.  This is because automatic line breaks happen only
+at the end of complete measures, i.e., where all notes end before
+the end of a measure.
 
-@warning{An incorrect duration can cause line breaks to be
-inhibited, leading to a line of highly compressed music or
-music that flows off the page.}
+@warning{An incorrect duration can inhibit line breaks, leading to
+a line of highly compressed music or music that flows off the
+page.}
 
 @cindex line break
 @cindex bar line, invisible
@@ -2872,8 +2875,8 @@ printing a bar line, use the following:
 @noindent
 This will insert an invisible bar line and allow (but not
 force) a line break to occur at this point.  The bar number
-counter is not increased.  To force a line break see
-@ref{Line breaking}.
+counter is not increased.  To force a line break, @pxref{Line
+breaking}.
 
 @cindex manual bar line
 @cindex manual measure line
@@ -2887,12 +2890,12 @@ automatically.  When they do not coincide with the end of a measure
 the specified bar line is inserted at that point in the printed
 output.
 
-Note that manual bar lines are purely visual.  They do not affect
-any of the properties that a normal bar line would affect, such as
-measure numbers, accidentals, line breaks, etc.  They do not affect
-the calculation and placement of subsequent automatic bar lines.
-When a manual bar line is placed where a normal bar line already
-exists, the effects of the original bar line are not altered.
+Manual bar lines are purely visual.  They do not affect any of the
+properties that a normal bar line would affect, such as measure
+numbers and accidentals.  They do not affect the calculation and
+placement of subsequent automatic bar lines.  When a manual bar
+line is placed where a normal bar line already exists, the effects
+of the original bar line are not altered.
 
 Two types of simple bar lines and five types of double bar lines are
 available for manual insertion:
@@ -2984,8 +2987,9 @@ differ in their behavior at line breaks:
 Although the bar line types signifying repeats may be inserted
 manually they do not in themselves cause LilyPond to recognize
 a repeated section.  Such repeated sections are better entered
-using the various repeat commands (see @ref{Repeats}), which
-automatically print the appropriate bar lines.
+using the various repeat commands (@pxref{Repeats}), which
+automatically print the appropriate bar lines, which can be
+customized (@pxref{Automatic bar lines}).
 
 In addition, you can specify @code{".|:-||"}, which is equivalent to
 @code{".|:"} except at line breaks, where it gives a double bar
@@ -3222,6 +3226,140 @@ Internals Reference:
 @rinternals{BarLine} (created at @code{Staff} level),
 @rinternals{SpanBar} (across staves),
 @rinternals{Timing_translator} (for Timing properties).
+@endmorerefs
+
+@knownissues
+A @code{\bar} command that specifies the current value of
+@code{defaultBarType} (default @samp{|}) does not override
+automatic bar lines.
+
+
+@node Automatic bar lines
+@unnumberedsubsubsec Automatic bar lines
+
+@cindex automatic bar line
+@cindex bar line, automatic
+
+Various commands other than @code{\bar} can also create bar lines
+as part of their effect.  The bar lines created in these cases can
+be changed by setting context properties.  Bar line types must be
+selected from the pre-defined types or types previously defined
+with the @code{\defineBarLine} command (@pxref{Bar lines}).
+
+Multiple reasons for creating different automatic bar lines may
+apply at the same time.  Conflicts are resolved in part by
+providing properties for predetermined combinations, in part by
+annotating bar types on the fly, and in part by a priority scheme.
+The table below presents the available properties in order of
+increasing priority.
+
+@quotation
+@table @code
+
+@cindex bar line, double
+@cindex bar line, underlying repeat
+@cindex double bar line
+@cindex repeat bar line, underlying
+@cindex underlying repeat bar line
+@funindex \codaMark
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+@item underlyingRepeatBarType
+Used at points of repetition or departure where no bar line would
+otherwise appear.  This is expected when repeated sections are not
+aligned to measures.  Several commands employ this bar type:
+@code{\codaMark}, @code{\inStaffSegno}, @code{\repeat segno},
+@code{\repeat volta}, and @code{\segnoMark}.
+
+@cindex bar line, default
+@cindex bar line, measure
+@cindex bar line, single
+@cindex default bar line
+@cindex measure line
+@cindex single bar line
+@item defaultBarType
+Used at a measure boundary.
+
+@cindex bar line, double
+@cindex bar line, section
+@cindex double bar line
+@cindex section bar line
+@funindex \section
+@item sectionBarType
+Used at a section break created by @code{\section}.
+
+@cindex bar line, final
+@cindex final bar line
+@funindex \fine
+@item fineBarType
+Used at a @emph{Fine} instruction created by @code{\fine}.
+
+@cindex bar line, repeat
+@cindex bar line, segno
+@cindex repeat bar line
+@cindex segno bar line
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+@item doubleRepeatBarType
+@itemx doubleRepeatSegnoBarType
+@itemx endRepeatBarType
+@itemx endRepeatSegnoBarType
+@itemx fineSegnoBarType
+@itemx fineStartRepeatSegnoBarType
+@itemx segnoBarType
+@itemx startRepeatBarType
+@itemx startRepeatSegnoBarType
+Only one of these bar types is used at a time; which one is used
+depends on the structure of the piece.
+
+Properties with @code{startRepeat} or @code{endRepeat} in the name
+are used at the start or end of a repeated section created by
+@code{\repeat volta}, and properties with @code{doubleRepeat} in
+the name are used where the end of one repeated section and the
+start of another coincide.
+
+Properties with @code{segno} in the name are used at an in-staff
+segno, which can be created by @code{\repeat segno} or
+@code{\segnoMark} when the @code{segnoStyle} property is set to
+@code{bar-line}, or created by @code{\inStaffSegno}.
+
+Properties with @code{fine} in the name are used at a @emph{Fine}
+instruction created by @code{\fine}.
+
+Though these are the highest-priority automatic bar types, they do
+not completely hide the others: the next-highest-priority bar type
+is appended as an annotation, provided that the resulting bar type
+is defined.  This allows the secondary bar line to become visible
+at line breaks if suitable bar types are defined (@pxref{Bar
+lines}).
+
+@end table
+@end quotation
+
+@snippets
+
+@cindex repeat, double, style for volta
+@cindex volta, double repeat style
+@cindex style, double repeat for volta
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/setting-the-double-repeat-default-for-volte.ly}
+
+@morerefs
+Notation Reference:
+@ref{Bar lines},
+@ref{Repeats}.
+
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference:
+@rinternals{Default_bar_line_engraver},
+@rinternals{Repeat_acknowledge_engraver}.
+
 @endmorerefs
 
 

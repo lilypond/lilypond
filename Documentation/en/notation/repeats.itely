@@ -421,28 +421,8 @@ Between two repeats:
 }
 @end lilypond
 
-Alternative bar line symbols can be obtained by setting (in the Score
-context) the properties @code{segnoBarType}, @code{startRepeatSegnoBarType},
-@code{endRepeatSegnoBarType} or @code{doubleRepeatSegnoBarType} to the
-required bar line type.  The alternative bar line types must be
-selected from the pre-defined types or types previously defined
-with the @code{\defineBarLine} command (see @ref{Bar lines}).
-
-@lilypond[verbatim,quote]
-\defineBarLine ":|.S[" #'(":|." "S[" "")
-\defineBarLine "]" #'("]" "" "")
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
-    \once \set Score.endRepeatSegnoBarType = ":|.S["
-    \inStaffSegno
-  }
-  f2 g \bar "]" a b
-  c1_"D.S." \bar "|."
-}
-@end lilypond
-
+Alternative bar line symbols can be obtained by setting various
+context properties (see @ref{Automatic bar lines}).
 
 @snippets
 
@@ -455,12 +435,6 @@ with the @code{\defineBarLine} command (see @ref{Bar lines}).
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-volta-brackets-to-additional-staves.ly}
-
-@cindex repeat, double, style for volta
-@cindex volta, double repeat style
-@cindex style, double repeat for volta
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex repeat, bar numbers with letters
 @cindex bar number, with letter, in repeat
