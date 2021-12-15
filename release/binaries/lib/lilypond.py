@@ -127,8 +127,8 @@ class LilyPond(ConfigurePackage):
         # LilyPond itself isn't a library!
         return []
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        env = super().build_env(c)
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
         env["GHOSTSCRIPT"] = ghostscript.exe_path(c.native_config)
         env["GUILE"] = guile.exe_path(c.native_config)
         env["PYTHON"] = python.exe_path(c.native_config)

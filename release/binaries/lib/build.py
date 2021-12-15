@@ -172,9 +172,9 @@ class Package:
 
         return all_paths
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        """Return the environment mapping to build this package."""
-        env = os.environ.copy()
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        """Return additional environment mappings to build this package."""
+        env: Dict[str, str] = {}
         env["PKG_CONFIG"] = os.path.join(lib_path, "pkg-config-static.sh")
         env["PKG_CONFIG_LIBDIR"] = os.pathsep.join(self.collect_pkgconfig_paths(c))
         return env
@@ -190,12 +190,15 @@ class Package:
         log.write(f" $ {formatted_args}\n")
         log.flush()
 
+        build_env = os.environ.copy()
+        build_env.update(self.build_env_extra(c))
+
         result = subprocess.run(
             args,
             stdout=log,
             stderr=log,
             cwd=self.build_directory(c),
-            env=self.build_env(c),
+            env=build_env,
             check=False,
         )
 

@@ -464,8 +464,8 @@ class Zlib(ConfigurePackage):
 
         self.patch_file(c, "configure", patch_configure)
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        env = super().build_env(c)
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
         if c.is_mingw():
             env["CHOST"] = c.triple
         return env
@@ -513,8 +513,8 @@ class GLib(MesonPackage):
             gettext_dep = [gettext]
         return gettext_dep + [libffi, pcre, zlib]
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        env = super().build_env(c)
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
             # Make meson find libintl.
             env.update(gettext.get_env_variables(c))
@@ -829,8 +829,8 @@ class Guile(ConfigurePackage):
             libiconv_dep = [libiconv]
         return gettext_dep + libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        env = super().build_env(c)
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
         if c.is_macos():
             env["LDFLAGS"] = "-Wl,-framework -Wl,CoreFoundation"
         return env
@@ -989,10 +989,10 @@ class Pango(MesonPackage):
     def dependencies(self, c: Config) -> List[Package]:
         return [fontconfig, freetype, fribidi, glib, harfbuzz]
 
-    def build_env(self, c: Config) -> Dict[str, str]:
-        env = super().build_env(c)
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
         glib_bin = os.path.join(glib.install_directory(c), "bin")
-        env["PATH"] = f"{glib_bin}{os.pathsep}{env['PATH']}"
+        env["PATH"] = f"{glib_bin}{os.pathsep}{os.environ['PATH']}"
         return env
 
     def meson_args(self, c: Config) -> List[str]:
