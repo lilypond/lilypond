@@ -301,7 +301,7 @@ MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
 SCM
 Music::duration_length_callback (SCM m)
 {
-  Music *me = unsmob<Music> (m);
+  auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Duration *d = unsmob<Duration> (get_property (me, "duration"));
   Moment mom (d ? d->get_length () : 0);
   return mom.smobbed_copy ();

@@ -29,7 +29,7 @@ MAKE_SCHEME_CALLBACK (Lyric_combine_music, length_callback, 1);
 SCM
 Lyric_combine_music::length_callback (SCM m)
 {
-  Music *me = unsmob<Music> (m);
+  auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Music *melody = unsmob<Music> (scm_car (get_property (me, "elements")));
   return melody->get_length ().smobbed_copy ();
 }
