@@ -30,7 +30,6 @@ class Paper_score : public Music_output
 {
   Output_def *layout_;
   System *system_;
-  SCM systems_;
   SCM paper_systems_;
 
   mutable std::vector<Paper_column *> cols_;

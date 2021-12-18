@@ -53,6 +53,9 @@ protected:
   SCM mutable_property_alist_;
   SCM object_alist_;
 
+  /* centralized GC marking: all Grobs from the same system share this pool. */
+  SCM protection_pool_;
+
   /*
     If this is a property, it accounts for 25% of the property
     lookups.

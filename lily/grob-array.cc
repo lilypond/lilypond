@@ -29,8 +29,9 @@ Grob_array::Grob_array ()
 SCM
 Grob_array::mark_smob () const
 {
-  /* no marking; see System::derived_mark () const */
-  return SCM_UNDEFINED;
+  /* grobs[0]->protection_pool_ should be hotter in cache, but returning it here
+     does not make a dent in benchmarks */
+  return grobs_.empty () ? SCM_UNDEFINED : grobs_[0]->self_scm ();
 }
 
 int

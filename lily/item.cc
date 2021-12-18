@@ -205,15 +205,6 @@ spanned_time_interval (Item *l, Item *r)
   return iv;
 }
 
-void
-Item::derived_mark () const
-{
-  if (broken_to_drul_[LEFT])
-    scm_gc_mark (broken_to_drul_[LEFT]->self_scm ());
-  if (broken_to_drul_[RIGHT])
-    scm_gc_mark (broken_to_drul_[RIGHT]->self_scm ());
-}
-
 Interval
 Item::pure_y_extent (Grob *g, vsize start, vsize end)
 {

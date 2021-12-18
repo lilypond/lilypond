@@ -74,7 +74,6 @@ public:
 protected:
   void break_breakable_item (System *) override;
   void copy_breakable_items ();
-  void derived_mark () const override;
 
   bool cached_pure_height_valid_;
   Interval cached_pure_height_;

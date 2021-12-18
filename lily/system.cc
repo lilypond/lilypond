@@ -27,6 +27,7 @@
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
@@ -34,13 +35,13 @@
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "pointer-group-interface.hh"
+#include "protection-pool.hh"
 #include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
 #include "system-start-delimiter.hh"
 #include "text-interface.hh"
-#include "warn.hh"
 #include "unpure-pure-container.hh"
-#include "lily-imports.hh"
+#include "warn.hh"
 
 #include <algorithm>
 #include <limits>
@@ -59,6 +60,8 @@ System::System (SCM s)
 {
   init_elements ();
   interfaces_ = scm_cons (ly_symbol2scm ("system-interface"), interfaces_);
+  protection_pool_ = new_protection_pool ();
+  protection_pool_add (protection_pool_, self_scm ());
 }
 
 void
@@ -99,6 +102,11 @@ System::typeset_grob (Grob *elem)
     {
       elem->layout_ = pscore_->layout ();
       all_elements_->add (elem);
+      if (scm_is_false (elem->protection_pool_))
+        elem->protection_pool_ = protection_pool_;
+      else
+        assert (elem->protection_pool_ == protection_pool_);
+      protection_pool_add (protection_pool_, elem->self_scm ());
       elem->unprotect ();
     }
 }
@@ -107,19 +115,8 @@ void
 System::derived_mark () const
 {
   scm_gc_mark (all_elements_scm_);
-
-  /* Check if all_elements_scm_ is still live; it may have been finalized. */
-  if (unsmob<Grob_array> (all_elements_scm_))
-    {
-      // Grob_array does not protect its elements on its own.
-      const vector <Grob *> &arr = all_elements_->array ();
-      for (vsize i = arr.size (); i--;)
-        scm_gc_mark (arr[i]->self_scm ());
-    }
-
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());
-
   Spanner::derived_mark ();
 }
 
@@ -456,6 +453,8 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
   for (vsize i = 0; i < breaking.size (); i++)
     {
       System *system = clone ();
+      protection_pool_add (protection_pool_, system->self_scm ());
+      system->unprotect ();
 
       // set rank
       {

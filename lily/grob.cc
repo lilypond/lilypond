@@ -54,6 +54,7 @@ Grob::Grob (SCM basicprops)
   immutable_property_alist_ = basicprops;
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
+  protection_pool_ = SCM_BOOL_F;
 
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
@@ -104,7 +105,7 @@ Grob::Grob (Grob const &s)
   object_alist_ = SCM_EOL;
 
   layout_ = 0;
-
+  protection_pool_ = s.protection_pool_;
   smobify_self ();
 
   mutable_property_alist_ = ly_alist_copy (s.mutable_property_alist_);
@@ -257,15 +258,10 @@ Grob::handle_broken_dependencies ()
       && common_refpoint (system, X_AXIS)
       && common_refpoint (system, Y_AXIS))
     substitute_object_links (system, object_alist_);
-  else if (dynamic_cast<System *> (this))
-    substitute_object_links (nullptr, object_alist_);
   else
     /* THIS element is `invalid'; it has been removed from all
        dependencies, so let's junk the element itself.
-
-       Do not do this for System, since that would remove references
-       to the originals of score-grobs, which get then GC'd (a bad
-       thing).  */
+    */
     suicide ();
 }
 

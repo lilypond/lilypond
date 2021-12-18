@@ -30,21 +30,10 @@ Grob::mark_smob () const
   ASSERT_LIVE_IS_ALLOWED (self_scm ());
 
   scm_gc_mark (immutable_property_alist_);
-
-  /* Do not mark the parents.  The pointers in the mutable
-     property list form two tree like structures (one for X
-     relations, one for Y relations).  Marking these can be done
-     in limited stack space.  If we add the parents, we will jump
-     between X and Y in an erratic manner, leading to much more
-     recursion depth (and core dumps if we link to pthreads).  */
-
-  if (original ())
-    scm_gc_mark (original ()->self_scm ());
-
   derived_mark ();
   scm_gc_mark (object_alist_);
   scm_gc_mark (interfaces_);
-
+  scm_gc_mark (protection_pool_);
   return mutable_property_alist_;
 }
 

@@ -370,13 +370,6 @@ void
 Spanner::derived_mark () const
 {
   scm_gc_mark (pure_property_cache_);
-
-  for (const auto d : {LEFT, RIGHT})
-    if (Item *b = spanned_drul_[d])
-      scm_gc_mark (b->self_scm ());
-
-  for (vsize i = broken_intos_.size (); i--;)
-    scm_gc_mark (broken_intos_[i]->self_scm ());
 }
 
 /*
