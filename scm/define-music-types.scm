@@ -509,7 +509,7 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
 
 Syntax: @code{\\mark} @var{marker}
 
-Example: @code{\\mark \"A\"}")
+Example: @code{\\mark 3}")
         (types . (rehearsal-mark-event mark-event event))
         ))
 

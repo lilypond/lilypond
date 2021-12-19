@@ -38,6 +38,7 @@ information, see @ref{Text encoding}.}
 * Text objects overview::
 * Text scripts::
 * Text spanners::
+* Section labels::
 * Text marks::
 * Separate text::
 @end menu
@@ -356,6 +357,46 @@ Internals Reference:
 @endmorerefs
 
 
+@node Section labels
+@unnumberedsubsubsec Section labels
+
+
+@cindex section label
+@cindex text, on bar line
+
+@funindex \sectionLabel
+
+The @code{\sectionLabel} command marks the beginning of a named
+passage.  It is well suited for use at a section division created
+with @code{\section}, but it does not imply @code{\section} and
+may be used alone.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \sectionLabel "Verse"
+  c2 g
+  \section
+  \sectionLabel "Chorus"
+  g2 c
+  \bar "|."
+}
+@end lilypond
+
+@morerefs
+Notation Reference:
+@ref{Formatting text},
+@ref{Rehearsal marks},
+@ref{Section divisions}.
+
+Snippets:
+@rlsr{Text}.
+
+Internals Reference:
+@rinternals{SectionLabel},
+@rinternals{SectionLabelEvent}.
+@endmorerefs
+
+
 @node Text marks
 @unnumberedsubsubsec Text marks
 
@@ -363,34 +404,20 @@ Internals Reference:
 @cindex text mark
 @cindex mark, text
 @cindex text, on bar line
-@cindex @q{coda} sign, on bar line
-@cindex @q{segno} sign, on bar line
 @cindex fermata, on bar line
 @cindex bar line, symbols on
 
 @funindex \mark
 @funindex \markup
 
-Various text elements may be added to a score using the syntax described
-in @ref{Rehearsal marks}:
+Arbitrary text may be centered over a bar line with the
+@code{\mark} command (@pxref{Rehearsal marks}).  Before using this
+feature to add text that is effectively something other than a
+rehearsal mark, seeking a more fitting command is recommended.
+Some possibilities are referenced at the end of this section.
 
-@c \mark needs to be placed on a separate line (it's not
-@c attached to an object like \markup is). -vv
-
-@lilypond[verbatim,quote]
-\relative {
-  \mark "Verse"
-  c'2 g'
-  \bar "||"
-  \mark "Chorus"
-  g2 c,
-  \bar "|."
-}
-@end lilypond
-
-This syntax makes it possible to put any text on a bar line;
-more complex text formatting may be added using a @code{\markup}
-block, as described in @ref{Formatting text}:
+Complex text formatting may be added using a @code{\markup} block
+(@pxref{Formatting text}).
 
 @lilypond[quote,verbatim]
 \relative {
@@ -402,33 +429,10 @@ block, as described in @ref{Formatting text}:
 @end lilypond
 
 @noindent
-This syntax also allows to print special signs, like coda, segno
-or fermata, by specifying the appropriate symbol name as explained in
-@ref{Music notation inside markup}:
-
-@lilypond[quote,verbatim]
-\relative {
-  <bes' f>2 <aes d>
-  \mark \markup { \musicglyph "scripts.ufermata" }
-  <e g>1
-}
-@end lilypond
-
-@noindent
-Such objects are only typeset above the top staff of the score;
-depending on whether they are specified at the end or the middle of a
-bar, they can be placed above the bar line or between notes.  When
-specified at a line break, the mark will be printed at the beginning of
-the next line.
-
-@lilypond[quote,verbatim,ragged-right]
-\relative c'' {
-  \mark "Allegro"
-  c1 c
-  \mark "assai" \break
-  c  c
-}
-@end lilypond
+As for normal rehearsal marks, these objects are typeset above the
+top staff of the score; depending on whether they are specified at
+the end or the middle of a bar, they can be placed above the bar
+line or between notes.
 
 @funindex \markLengthOn
 @funindex \markLengthOff
@@ -441,6 +445,10 @@ the next line.
 
 @snippets
 
+@c TODO: This snippet uses \mark "D.C. al Fine".  It should be
+@c edited to avoid drawing attention away from \repeat segno.
+@c Maybe it should be replaced: demonstrating alignment of a
+@c fermata in @ref{Rehearsal marks} seems like a good alternative.
 @cindex end of line, positioning marks
 @cindex line, end of, positioning marks
 @cindex mark, at end of line
@@ -456,7 +464,9 @@ the next line.
 
 @morerefs
 Notation Reference:
+@ref{Metronome marks},
 @ref{Rehearsal marks},
+@ref{Section labels},
 @ref{Formatting text},
 @ref{Music notation inside markup},
 @ref{The Emmentaler font}.
@@ -465,7 +475,7 @@ Snippets:
 @rlsr{Text}.
 
 Internals Reference:
-@rinternals{MarkEvent},
+@rinternals{AdHocMarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 @endmorerefs

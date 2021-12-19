@@ -2818,6 +2818,7 @@ music snippets, and when numbers in the fraction are small.
 * Bar and bar number checks::
 * Rehearsal marks::
 * Measure counts::
+* Section divisions::
 @end menu
 
 @node Bar lines
@@ -2904,7 +2905,7 @@ available for manual insertion:
 \relative {
   f'1 \bar "|"
   f1 \bar "."
-  g1 \bar "||"
+  g1 \bar "||"     % see \section
   a1 \bar ".|"
   b1 \bar ".."
   c1 \bar "|.|"
@@ -3678,20 +3679,26 @@ You may use @code{format-@/mark-@/barnumbers},
 @code{format-@/mark-@/circle-@/barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
-Other styles of rehearsal mark can be specified manually:
+Arbitrary text can be provided to create a rehearsal mark that is
+independent of the @code{rehearsalMark} sequence.
 
 @example
 \mark "A1"
 @end example
 
 @noindent
-Note that @code{Score.markFormatter} does not affect marks specified
-in this manner.  However, it is possible to apply a @code{\markup} to the
-string.
+When text is supplied, @code{Score.markFormatter} has no effect;
+however, it is possible to apply a @code{\markup} to the string.
 
 @example
 \mark \markup @{ \box A1 @}
 @end example
+
+@noindent
+Before using @code{\mark} to add text that is effectively
+something other than a rehearsal mark, seeking a more fitting
+command is recommended.  Some possibilities are referenced at the
+end of this section.
 
 @cindex @q{segno} sign
 @cindex sign, segno
@@ -3704,25 +3711,24 @@ string.
 
 @funindex \musicglyph
 
-Music glyphs (such as the segno sign) may be printed inside a
-@code{\mark}
+Music glyphs may be centered over bar lines by specifying the
+appropriate symbol name (@pxref{Music notation inside markup}).
 
 @lilypond[quote,verbatim]
-\relative c' {
-  c1 \mark \markup { \musicglyph "scripts.segno" }
-  c1 \mark \markup { \musicglyph "scripts.coda" }
-  c1 \mark \markup { \musicglyph "scripts.ufermata" }
+\fixed c'' {
+  c1
+  \mark \markup { \musicglyph "scripts.ufermata" }
   c1
 }
 @end lilypond
 
 @noindent
-See @ref{The Emmentaler font}, for a list of symbols which may be
-printed with @code{\musicglyph}.
+For a list of symbols which may be printed with
+@code{\musicglyph}, @pxref{The Emmentaler font},
 
-For common tweaks to the positioning of rehearsal marks, see
-@ref{Formatting text}.  For more precise control, see
-@code{break-alignable-interface} in @ref{Aligning objects}.
+For common tweaks to the positioning of rehearsal marks,
+@pxref{Formatting text}.  For more precise control, consider
+@code{break-alignable-interface} (@pxref{Aligning objects}).
 
 The file @file{scm/translation-functions.scm} contains
 the definitions of @code{format-mark-numbers} and
@@ -3733,7 +3739,10 @@ other formatting functions.
 Notation Reference:
 @ref{The Emmentaler font},
 @ref{Formatting text},
-@ref{Aligning objects}.
+@ref{Aligning objects},
+@ref{Music notation inside markup},
+@ref{Metronome marks},
+@ref{Section labels}.
 
 Installed Files:
 @file{scm/translation-functions.scm}.
@@ -3742,9 +3751,9 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 @endmorerefs
 
 
@@ -3878,6 +3887,51 @@ Internals Reference:
 @rinternals{Measure_counter_engraver},
 @rinternals{MeasureCounter},
 @rinternals{measure-counter-interface}.
+@endmorerefs
+
+
+@node Section divisions
+@unnumberedsubsubsec Section divisions
+
+@cindex bar line, double
+@cindex bar line, section
+@cindex double bar line
+@cindex section bar line
+
+@funindex \section
+
+The @code{\section} command marks a point where one section of
+music ends and another begins.  It does not have to be followed by
+more music: it may also be used to emphasize that the written end
+of the music is not the end of the piece, such as at a @emph{D.C.}
+instruction or where one movement continues into the next without
+a break.
+
+@code{\section} normally creates a double bar line, but its effect
+can depend on other notation, e.g., repeat bar lines.  For details
+on interactions with other types of bar lines and options for
+changing their appearance, @pxref{Automatic bar lines}.
+
+A section can optionally be named with @code{\sectionLabel}
+(@pxref{Section labels}).
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  f1
+  \section
+  \sectionLabel "Refrain"
+  f1
+}
+@end lilypond
+
+@morerefs
+Notation Reference:
+@ref{Automatic bar lines},
+@ref{Divisiones},
+@ref{Section labels}.
+
+Internals Reference:
+@rinternals{SectionEvent}.
 @endmorerefs
 
 
