@@ -25,6 +25,8 @@
 #include "grob-info.hh"
 #include "translator.hh"
 
+#include <utility>
+
 /* Convert a music definition into an audio representation.
    A baseclass.  */
 class Performer : public Translator
@@ -39,6 +41,17 @@ public:
 
 protected:
   void announce_element (Audio_element_info);
+
+  // Create and announce an Audio_element.
+  template <typename T, typename... Args>
+  T *announce (Stream_event *cause, Args &&... args)
+  {
+    T *const elem = new T (std::forward<Args> (args)...);
+    Audio_element_info info (elem, cause);
+    announce_element (info);
+    return elem;
+  }
+
   virtual void acknowledge_audio_element (Audio_element_info);
   bool is_layout () const override { return false; }
 };

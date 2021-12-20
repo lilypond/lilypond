@@ -34,10 +34,8 @@ public:
 protected:
 
   void derived_mark () const override;
-  void stop_translation_timestep ();
   void process_music ();
 private:
-  Audio_tempo *audio_;
   SCM last_tempo_;
 };
 
@@ -51,7 +49,6 @@ Tempo_performer::Tempo_performer (Context *c)
   : Performer (c)
 {
   last_tempo_ = SCM_EOL;
-  audio_ = 0;
 }
 
 Tempo_performer::~Tempo_performer ()
@@ -68,21 +65,10 @@ Tempo_performer::process_music ()
       Rational r = unsmob<Moment> (w)->main_part_;
       r *= Rational (4, 1);
 
-      audio_ = new Audio_tempo (static_cast<int> (r.trunc_int ()));
-
-      Audio_element_info info (audio_, 0);
-      announce_element (info);
+      Stream_event *cause = nullptr;
+      announce<Audio_tempo> (cause, static_cast<int> (r.trunc_int ()));
 
       last_tempo_ = w;
-    }
-}
-
-void
-Tempo_performer::stop_translation_timestep ()
-{
-  if (audio_)
-    {
-      audio_ = 0;
     }
 }
 

@@ -35,13 +35,11 @@ protected:
   void listen_lyric (Stream_event *);
 private:
   vector<Stream_event *> events_;
-  Audio_text *audio_;
 };
 
 Lyric_performer::Lyric_performer (Context *c)
   : Performer (c)
 {
-  audio_ = 0;
 }
 
 void
@@ -52,10 +50,8 @@ Lyric_performer::process_music ()
       && scm_is_string (get_property (events_[0], "text"))
       && ly_scm2string (get_property (events_[0], "text")).length ())
     {
-      audio_ = new Audio_text (Audio_text::LYRIC,
-                               ly_scm2string (get_property (events_[0], "text")));
-      Audio_element_info info (audio_, events_[0]);
-      announce_element (info);
+      announce<Audio_text> (events_[0], Audio_text::LYRIC,
+                            ly_scm2string (get_property (events_[0], "text")));
     }
   events_.clear ();
 }
@@ -63,10 +59,6 @@ Lyric_performer::process_music ()
 void
 Lyric_performer::stop_translation_timestep ()
 {
-  if (audio_)
-    {
-      audio_ = 0;
-    }
   events_.clear ();
 }
 

@@ -93,11 +93,8 @@ Note_performer::process_music ()
               velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 
-          Audio_note *p = new Audio_note (*pitp, len,
-                                          tie_event, transposing, velocity);
-          Audio_element_info info (p, n);
-          announce_element (info);
-          notes_.push_back (p);
+          notes_.push_back (announce<Audio_note> (n, *pitp, len, tie_event,
+                                                  transposing, velocity));
 
           /*
             Grace notes shorten the previous non-grace note. If it was

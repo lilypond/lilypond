@@ -92,10 +92,7 @@ Drum_note_performer::process_music ()
               velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 
-          Audio_note *p = new Audio_note (*pit, len,
-                                          tie_event, Pitch (0, 0), velocity);
-          Audio_element_info info (p, n);
-          announce_element (info);
+          announce<Audio_note> (n, *pit, len, tie_event, Pitch (0, 0), velocity);
         }
     }
 

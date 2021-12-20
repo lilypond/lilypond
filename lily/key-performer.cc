@@ -34,19 +34,16 @@ public:
 
 protected:
   void process_music ();
-  void stop_translation_timestep ();
 
   void listen_key_change (Stream_event *);
 private:
   Stream_event *key_ev_;
-  Audio_key *audio_;
 };
 
 Key_performer::Key_performer (Context *c)
   : Performer (c)
 {
   key_ev_ = 0;
-  audio_ = 0;
 }
 
 Key_performer::~Key_performer ()
@@ -83,21 +80,8 @@ Key_performer::process_music ()
                     && scm_is_number (scm_cdr (third))
                     && from_scm<Rational> (scm_cdr (third)) == FLAT_ALTERATION);
 
-      audio_ = new Audio_key (scm_to_int (acc),
-                              !minor);
-
-      Audio_element_info info (audio_, key_ev_);
-      announce_element (info);
+      announce<Audio_key> (key_ev_, scm_to_int (acc), !minor);
       key_ev_ = 0;
-    }
-}
-
-void
-Key_performer::stop_translation_timestep ()
-{
-  if (audio_)
-    {
-      audio_ = 0;
     }
 }
 
