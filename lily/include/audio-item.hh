@@ -46,7 +46,7 @@ private:
 // next Audio_span_dynamic in the performance.  For example, a crescendo
 // notated as mf < p is represented as [mf < x) [p ...) i.e. growth to some
 // volume louder than mf followed by an abrupt change to p.
-class Audio_span_dynamic : public Audio_element
+class Audio_span_dynamic final : public Audio_element
 {
 public:
   static const Real MINIMUM_VOLUME;
@@ -69,7 +69,7 @@ public:
   Audio_span_dynamic (Moment mom, Real volume);
 };
 
-class Audio_key : public Audio_item
+class Audio_key final : public Audio_item
 {
 public:
   Audio_key (int acc, bool major);
@@ -78,7 +78,7 @@ public:
   bool major_;
 };
 
-class Audio_instrument : public Audio_item
+class Audio_instrument final : public Audio_item
 {
 public:
   Audio_instrument (std::string instrument_string);
@@ -86,7 +86,7 @@ public:
   std::string str_;
 };
 
-class Audio_note : public Audio_item
+class Audio_note final : public Audio_item
 {
 public:
   Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition, int velocity);
@@ -106,14 +106,14 @@ public:
   bool tie_event_;
 };
 
-class Audio_piano_pedal : public Audio_item
+class Audio_piano_pedal final : public Audio_item
 {
 public:
   Pedal_type type_;
   Direction dir_;
 };
 
-class Audio_text : public Audio_item
+class Audio_text final : public Audio_item
 {
 public:
   enum Type : uint8_t
@@ -128,7 +128,7 @@ public:
   std::string text_string_;
 };
 
-class Audio_tempo : public Audio_item
+class Audio_tempo final : public Audio_item
 {
 public:
   Audio_tempo (int per_minute_4);
@@ -136,7 +136,7 @@ public:
   int per_minute_4_;
 };
 
-class Audio_time_signature : public Audio_item
+class Audio_time_signature final : public Audio_item
 {
 public:
   Audio_time_signature (int beats, int one_beat, int base_moment_clocks);
@@ -146,7 +146,7 @@ public:
   int base_moment_clocks_;
 };
 
-class Audio_control_change : public Audio_item
+class Audio_control_change final : public Audio_item
 {
 public:
   Audio_control_change (int control, int value);
