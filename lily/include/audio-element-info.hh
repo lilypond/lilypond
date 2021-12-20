@@ -30,14 +30,18 @@
 class Audio_element_info
 {
 public:
-  Audio_element *elem_;
-  Stream_event *event_;
-  Translator *origin_trans_;
+  Audio_element *elem_ = nullptr;
+  Stream_event *event_ = nullptr;
+  Translator *origin_trans_ = nullptr;
 
   std::vector<Context *> origin_contexts (Translator *) const;
 
-  Audio_element_info (Audio_element *, Stream_event *);
-  Audio_element_info ();
+  Audio_element_info () = default;
+
+  Audio_element_info (Audio_element *elem, Stream_event *event)
+    : elem_ (elem), event_ (event)
+  {
+  }
 };
 
 #endif
