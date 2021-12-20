@@ -98,6 +98,10 @@ LilyPond.
 @end lilypond
 
 @item
+The new @code{Mark_performer} creates MIDI Marker events like
+@code{Mark_engraver} creates printed marks.
+
+@item
 The new @code{Mark_tracking_translator} takes over from
 @code{Mark_engraver} the decision of when to create a mark.
 @code{Mark_engraver} continues to control formatting and vertical

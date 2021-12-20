@@ -50,11 +50,16 @@ Control_track_performer::Control_track_performer (Context *c)
 void
 Control_track_performer::acknowledge_audio_element (Audio_element_info info)
 {
-  if (Audio_tempo *tempo = dynamic_cast<Audio_tempo *> (info.elem_))
+  if (auto *tempo = dynamic_cast<Audio_tempo *> (info.elem_))
     {
       control_track_->add_audio_item (tempo);
     }
-  if (Audio_time_signature *sig = dynamic_cast<Audio_time_signature *> (info.elem_))
+  else if (auto *text = dynamic_cast<Audio_text *> (info.elem_))
+    {
+      if (text->type_ == Audio_text::MARKER)
+        control_track_->add_audio_item (text);
+    }
+  else if (auto *sig = dynamic_cast<Audio_time_signature *> (info.elem_))
     {
       control_track_->add_audio_item (sig);
     }

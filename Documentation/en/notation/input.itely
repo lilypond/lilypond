@@ -3156,9 +3156,10 @@ capabilities to produce MIDI output;
 linearly between the two extremes
 @item Dynamic markings from @code{ppppp} to @code{fffff}, including
 @code{mp}, @code{mf} and @code{sf}
+@item Lyrics
+@item Markers: rehearsal marks, segni, coda marks, and section labels
 @item Microtones but @emph{not} microtonal chords.  A MIDI player that
 supports pitch bending will also be required.
-@item Lyrics
 @item Pitches
 @item Rhythms entered as note durations, including tuplets
 @item @q{Simple} articulations; staccato, staccatissimo, accent, marcato

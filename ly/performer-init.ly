@@ -279,8 +279,10 @@
   \accepts TabStaff
   \accepts VaticanaStaff
 
+  \consists "Mark_tracking_translator"
   \consists "Time_signature_performer"
   \consists "Control_track_performer"
+  \consists "Mark_performer"
   \consists "Tempo_performer"
 
   \alias "Timing"
@@ -295,6 +297,10 @@
   timeSignatureSettings = #default-time-signature-settings
   timeSignatureFraction = 4/4
   autoBeaming = ##t  % needed for consistent melismata with engravers
+  codaMarkFormatter = #format-coda-mark
+  markFormatter = #format-mark-letters
+  rehearsalMark = #1
+  segnoMarkFormatter = #format-segno-mark
 
   %% It is not unusual for bar number checks to be wrong in MIDI
   %% scores, for example when repeats are unfolded.

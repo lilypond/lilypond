@@ -125,20 +125,29 @@ following stencil.  Stencils with empty y@tie{}extent are not given
      ((null? m) "")
      ((not (pair? m)) "")
 
-     ;;;; special cases: \concat, \put-adjacent, \fill-with-pattern and
-     ;;;;                \fromproperty-markup
-     ;;;;
-     ;;;; TODO do we really want a string-joined return-value for \concat and
-     ;;;; \put-adjacent?
-     ;;;; \overlay or \combine will return a string with spaces
+     ;; TODO: Let \box enclose text in square brackets?  Implementing
+     ;; this would affect how rehearsal marks are rendered in MIDI
+     ;; files when the chosen formatter uses \box.
+
+     ;; TODO: Let \circle enclose text in parentheses?  That would
+     ;; follow the convention of using "(C)" in copyright notices when
+     ;; a true circled C is not available.  Also, \circle <digit> and
+     ;; \circle <english_letter> could be transformed to U+2460 etc.,
+     ;; but there are a limited number of them, so it would create
+     ;; inconsistencies when things outside the set are used.
+     ;;
+     ;; Implementing this would affect how rehearsal marks are
+     ;; rendered in MIDI files when the formatter uses \circle.
+
+     ;; \coda to Unicode
+     ((and (pair? m) (equal? (car m) coda-markup))
+      (markup->string (ly:wide-char->utf-8 #x1d10c) scopes))
 
      ;; handle \concat (string-join without spaces)
+     ;; TODO: Do we really want a string-joined return-value?
+     ;; \overlay or \combine will return a string with spaces.
      ((and (pair? m) (equal? (car m) concat-markup))
       (string-cons-join (markup-cons->string-cons (cadr m) scopes)))
-
-     ;; handle \put-adjacent (string-join without spaces)
-     ((and (pair? m) (equal? (car m) put-adjacent-markup))
-      (string-cons-join (markup-cons->string-cons (take-right m 2) scopes)))
 
      ;; handle \fill-with-pattern (ignore the filling markup)
      ((and (pair? m) (equal? (car m) fill-with-pattern-markup))
@@ -156,6 +165,20 @@ following stencil.  Stencils with empty y@tie{}extent are not given
         ;; Prevent loops by temporarily clearing the variable we have just looked up
         (module-define! mod var "")
         (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
+
+     ;; handle \put-adjacent (string-join without spaces)
+     ;; TODO: Do we really want a string-joined return-value?
+     ;; \overlay or \combine will return a string with spaces.
+     ((and (pair? m) (equal? (car m) put-adjacent-markup))
+      (string-cons-join (markup-cons->string-cons (take-right m 2) scopes)))
+
+     ;; \segno to Unicode
+     ((and (pair? m) (equal? (car m) segno-markup))
+      (markup->string (ly:wide-char->utf-8 #x1d10b) scopes))
+
+     ;; \varcoda to Unicode coda sign
+     ((and (pair? m) (equal? (car m) varcoda-markup))
+      (markup->string (ly:wide-char->utf-8 #x1d10c) scopes))
 
      ((member (car m)
               (primitive-eval (cons 'list all-relevant-markup-commands)))
