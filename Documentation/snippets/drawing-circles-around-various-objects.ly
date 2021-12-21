@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.2"
+\version "2.23.6"
 
 \header {
   lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
@@ -21,7 +21,7 @@ strategies for rehearsal marks and measure numbers.
 
 \relative c' {
   c1
-  \set Score.markFormatter =
+  \set Score.rehearsalMarkFormatter =
     #(lambda (mark context)
              (make-circle-markup (format-mark-numbers mark context)))
   \mark \default

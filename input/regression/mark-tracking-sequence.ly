@@ -1,4 +1,4 @@
-\version "2.23.5"
+\version "2.23.6"
 #(ly:set-option 'warning-as-error #t)
 
 \header {
@@ -12,7 +12,7 @@ rehearsal-mark sequence for (potentially) many
   \context {
     \Score
     \remove "Mark_engraver"
-    markFormatter = #format-mark-numbers
+    rehearsalMarkFormatter = #format-mark-numbers
   }
   \context {
     \Staff

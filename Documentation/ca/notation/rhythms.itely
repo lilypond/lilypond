@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -3358,14 +3358,14 @@ ordres següents, segons l'estil de marques d'assaig que desitgeu
 cercle).
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3388,23 +3388,23 @@ cercle).
 @cindex manual, marca d'assaig
 
 L'estil es defineix per mitjà de la propietat
-@code{markFormatter}.  És una funció que agafa com arguments la
+@code{rehearsalMarkFormatter}.  És una funció que agafa com arguments la
 marca en curs (un nombre enter) i el context actual.  Ha de tornar
 un objecte de marcatge.  A l'exemple següent, s'estableix
-@code{markFormatter} amb el valor d'un procediment predefinit.
+@code{rehearsalMarkFormatter} amb el valor d'un procediment predefinit.
 Després d'alguns compassos s'estableix amb un valor d'una funció
 que produeix un número tancat a una capsa.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3427,7 +3427,7 @@ Es poden especificar altres estils de lletra d'assaig de forma manual:
 @end example
 
 @noindent
-Observeu que @code{Score.markFormatter} no afecta a las marque que
+Observeu que @code{Score.rehearsalMarkFormatter} no afecta a las marque que
 s'especifiquen de aquest forma.  Malgrat això, és possible aplicar
 un element @code{\markup} a la cadena.
 

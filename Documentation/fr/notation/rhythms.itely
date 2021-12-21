@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -3681,14 +3681,14 @@ utilisant l'une des commandes suivantes selon que ce repère doive être
 simple, inclus dans un rectangle ou dans un cercle :
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3705,23 +3705,23 @@ simple, inclus dans un rectangle ou dans un cercle :
 @cindex spécification d'un repère
 @cindex repère, personnalisation
 
-Le style de repère est déterminé par la propriété @code{markFormatter}.
+Le style de repère est déterminé par la propriété @code{rehearsalMarkFormatter}.
 Il s'agit d'une fonction qui prend en arguments le repère en cours (un
 entier) ainsi que le contexte en cours, et retournera un objet de type
-@emph{markup}.  Dans l'exemple qui suit, @code{markFormatter} est réglé
+@emph{markup}.  Dans l'exemple qui suit, @code{rehearsalMarkFormatter} est réglé
 pour une procédure type.  Quelques mesures plus loin, son comportement
 est modifié pour imprimer un repère encadré.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3745,7 +3745,7 @@ de la séquence @code{rehearsalMark} :
 @end example
 
 @noindent
-@code{Score.markFormatter} sera sans effet sur des repères ainsi
+@code{Score.rehearsalMarkFormatter} sera sans effet sur des repères ainsi
 définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 
 @example

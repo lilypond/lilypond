@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.23.6"
 
 \header {
   tagline = ##f
@@ -149,7 +149,7 @@ modern =
 }
 
   marks = \relative c' {
-    \set markFormatter = #format-mark-box-numbers
+    \set rehearsalMarkFormatter = #format-mark-box-numbers
     \tempo \presto 4.=112
 \set Score.currentBarNumber = #11
     s2.*4 |

@@ -10,7 +10,7 @@ to@tie{}6, then coda marks 8 and@tie{}9."
 \layout {
   \context {
     \Score
-    markFormatter = #format-mark-numbers
+    rehearsalMarkFormatter = #format-mark-numbers
   }
 }
 

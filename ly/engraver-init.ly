@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.5"
+\version "2.23.6"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -698,8 +698,8 @@ run."
   extendersOverRests = ##t
   lyricMelismaAlignment = #LEFT
   codaMarkFormatter = #format-coda-mark
-  markFormatter = #format-mark-letters
   rehearsalMark = #1
+  rehearsalMarkFormatter = #format-mark-letters
   segnoMarkFormatter = #format-segno-mark-considering-bar-lines
   segnoStyle = #'mark
   subdivideBeams = ##f

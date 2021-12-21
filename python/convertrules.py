@@ -4427,6 +4427,7 @@ def conv(s):
     return s
 
 @rule((2, 23, 6), r"""
+markFormatter -> rehearsalMarkFormatter
 startRepeatType -> startRepeatBarType (etc.)
 """)
 def conv(s):
@@ -4436,6 +4437,7 @@ def conv(s):
     s = re.sub("endRepeatType", "endRepeatBarType", s)
     s = re.sub("fineSegnoType", "fineSegnoBarType", s)
     s = re.sub("fineStartRepeatSegnoType", "fineStartRepeatSegnoBarType", s)
+    s = re.sub("markFormatter", "rehearsalMarkFormatter", s)
     s = re.sub("segnoType", "segnoBarType", s)
     s = re.sub("startRepeatSegnoType", "startRepeatSegnoBarType", s)
     s = re.sub("startRepeatType", "startRepeatBarType", s)

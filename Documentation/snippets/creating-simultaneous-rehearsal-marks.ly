@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.2"
+\version "2.23.6"
 
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
@@ -26,7 +26,7 @@ the end of one system and the start of the following system.
 
 {
   \key a \major
-  \set Score.markFormatter = #format-mark-box-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-box-letters
   \once \override Score.RehearsalMark.outside-staff-priority = #5000
   \once \override Score.RehearsalMark.self-alignment-X = #LEFT
   \once \override Score.RehearsalMark.break-align-symbols = #'(key-signature)

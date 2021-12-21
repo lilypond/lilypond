@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -3414,14 +3414,14 @@ f'1 \bar "k"
 に合わせて以下のコマンドの 1 つを使用します:
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3441,22 +3441,22 @@ f'1 \bar "k"
 @cindex custom rehearsal mark (リハーサル記号のカスタム)
 @cindex manual rehearsal mark (手動のリハーサル記号)
 
-スタイルはプロパティ @code{markFormatter} によって定義されます。@c
+スタイルはプロパティ @code{rehearsalMarkFormatter} によって定義されます。@c
 これは引数としてカレントの記号 (整数) とカレントのコンテキストをとる関数です。@c
 この関数はマークアップ オブジェクトを返します。@c
-以下の例では、@code{markFormatter} には定義済みの手続きがセットされています。@c
+以下の例では、@code{rehearsalMarkFormatter} には定義済みの手続きがセットされています。@c
 数小節後では、四角で囲まれた番号を作り出す手続きがセットされています。
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3478,7 +3478,7 @@ f'1 \bar "k"
 @end example
 
 @noindent
-@code{Score.markFormatter} はこの方法で指定された記号に影響を与えません。@c
+@code{Score.rehearsalMarkFormatter} はこの方法で指定された記号に影響を与えません。@c
 しかしながら、文字列として @code{\markup} 使用することができます。
 
 @example

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @node Duraciones
 @section Duraciones
@@ -3576,14 +3576,14 @@ desee (sólo letras, letras dentro de un rectángulo o letras dentro
 de un círculo).
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3606,23 +3606,23 @@ de un círculo).
 @cindex manual, marca de ensayo
 
 El estilo se define por medio de la propiedad
-@code{markFormatter}.  Es una función que toma como argumentos la
+@code{rehearsalMarkFormatter}.  Es una función que toma como argumentos la
 marca en curso (un número entero) y el contexto actual.  Debe
 devolver un objeto de marcado.  En el ejemplo siguiente, se
-establece @code{markFormatter} con el valor de un procedimiento
+establece @code{rehearsalMarkFormatter} con el valor de un procedimiento
 enlatado.  Después de algunos compases, se establece con el valor
 de una función que produce un número encerrado en una caja.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3647,7 +3647,7 @@ manual:
 @end example
 
 @noindent
-Observe que @code{Score.markFormatter} no afecta a las marcas que
+Observe que @code{Score.rehearsalMarkFormatter} no afecta a las marcas que
 se especifican de esta forma.  Sin embargo, es posible aplicar un
 elemento @code{\markup} a la cadena.
 

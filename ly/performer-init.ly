@@ -298,8 +298,8 @@
   timeSignatureFraction = 4/4
   autoBeaming = ##t  % needed for consistent melismata with engravers
   codaMarkFormatter = #format-coda-mark
-  markFormatter = #format-mark-letters
   rehearsalMark = #1
+  rehearsalMarkFormatter = #format-mark-letters
   segnoMarkFormatter = #format-segno-mark
 
   %% It is not unusual for bar number checks to be wrong in MIDI

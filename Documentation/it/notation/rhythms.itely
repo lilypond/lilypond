@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -3381,14 +3381,14 @@ vuole (solo lettere, lettere in un quadrato o lettere in un
 cerchio).
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3406,23 +3406,23 @@ cerchio).
 @cindex segno di chiamata manuale
 @cindex segno di chiamata personalizzato
 
-Lo stile viene definito dalla proprietà @code{markFormatter}.  È una
+Lo stile viene definito dalla proprietà @code{rehearsalMarkFormatter}.  È una
 funzione che accoglie come argomenti il segno corrente (un numero intero) e
 il contesto corrente.  Dovrebbe restituire un oggetto testuale.  Nell'esempio
-seguente, @code{markFormatter} viene prima impostato su una procedura
+seguente, @code{rehearsalMarkFormatter} viene prima impostato su una procedura
 predefinita e dopo alcune misure su una procedura che produce un
 numero racchiuso in un quadrato.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3445,7 +3445,7 @@ Si possono specificare manualmente altri stili di segni di chiamata:
 @end example
 
 @noindent
-Si noti che @code{Score.markFormatter} non ha effetto sui segni specificati
+Si noti che @code{Score.rehearsalMarkFormatter} non ha effetto sui segni specificati
 in questo modo.  Tuttavia, è possibile applicare un @code{\markup} alla
 stringa.
 

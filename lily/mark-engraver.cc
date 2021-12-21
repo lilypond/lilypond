@@ -122,7 +122,7 @@ Mark_engraver::get_current_mark (Context *ctx,
         = Mark_tracking_translator::get_rehearsal_mark_label (ctx, ev);
       if (label > 0)
         {
-          SCM proc = get_property (ctx, "markFormatter");
+          SCM proc = get_property (ctx, "rehearsalMarkFormatter");
           if (ly_is_procedure (proc))
             *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
         }
@@ -181,8 +181,8 @@ Mark_engraver::boot ()
 }
 
 ADD_TRANSLATOR (Mark_engraver,
-                /* doc */ R"(
-
+                /* doc */
+                R"(
 This engraver creates rehearsal, segno, and coda marks, and section labels.
 
 @code{Mark_@/engraver} creates marks, formats them, and places them vertically
@@ -196,22 +196,26 @@ By default, @code{Mark_@/engravers} in multiple contexts create a common
 sequence of marks chosen by the @code{Score}-level
 @iref{Mark_tracking_translator}.  If independent sequences are desired,
 multiple @code{Mark_tracking_translators} must be used.
-
-)",
+                )",
 
                 /* create */
-                "CodaMark "
-                "RehearsalMark "
-                "SectionLabel "
-                "SegnoMark ",
+                R"(
+CodaMark
+RehearsalMark
+SectionLabel
+SegnoMark
+                )",
 
                 /* read */
-                "codaMarkFormatter "
-                "currentMarkEvent "
-                "markFormatter "
-                "segnoMarkFormatter "
-                "stavesFound ",
+                R"(
+codaMarkFormatter
+currentMarkEvent
+rehearsalMarkFormatter
+segnoMarkFormatter
+stavesFound
+                )",
 
                 /* write */
-                ""
-);
+                R"(
+
+                )");

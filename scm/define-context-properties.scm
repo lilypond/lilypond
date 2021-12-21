@@ -455,9 +455,6 @@ denoting alteration.  For alterations, use symbols, e.g.
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
-     (markFormatter ,procedure? "A procedure taking as arguments the
-context and the sequence number of the rehearsal mark.  It should
-return the formatted mark as a markup object.")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureLength ,ly:moment? "Length of one measure in the current
@@ -584,6 +581,9 @@ notation.")
 
 
      (rehearsalMark ,integer? "The next rehearsal mark to print.")
+     (rehearsalMarkFormatter ,procedure? "A procedure taking as
+arguments the context and the sequence number of the rehearsal mark.
+It should return the formatted mark as a markup object.")
      (repeatCommands ,list? "This property is a list of commands
 of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
 @code{#f}.  @code{'end-repeat} is also accepted as a command.")

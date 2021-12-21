@@ -10,7 +10,7 @@ to@tie{}9."
 \layout {
   \context {
     \Score
-    markFormatter = #format-mark-numbers
+    rehearsalMarkFormatter = #format-mark-numbers
   }
 }
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @node Rhythms
 @section Rhythms
@@ -3618,14 +3618,14 @@ you want (letters only, letters in a hollow box, or letters in a
 hollow circle).
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3645,23 +3645,23 @@ hollow circle).
 @cindex custom rehearsal mark
 @cindex manual rehearsal mark
 
-The style is defined by the property @code{markFormatter}.  It is
+The style is defined by the property @code{rehearsalMarkFormatter}.  It is
 a function taking the current mark (an integer) and the current
 context as argument.  It should return a markup object.  In the
-following example, @code{markFormatter} is set to a pre-defined
+following example, @code{rehearsalMarkFormatter} is set to a pre-defined
 procedure.  After a few measures, it is set to a procedure that
 produces a boxed number.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3685,7 +3685,7 @@ independent of the @code{rehearsalMark} sequence.
 @end example
 
 @noindent
-When text is supplied, @code{Score.markFormatter} has no effect;
+When text is supplied, @code{Score.rehearsalMarkFormatter} has no effect;
 however, it is possible to apply a @code{\markup} to the string.
 
 @example

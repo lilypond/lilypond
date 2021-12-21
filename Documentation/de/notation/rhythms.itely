@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.23.1"
+@c \version "2.23.6"
 
 @c Translators: Till Paala
 
@@ -3172,14 +3172,14 @@ je nachdem, was für einen Übungszeichenstil Sie wollen (Buchstaben,
 Buchstaben in einem Kasten, Buchstaben in einem Kreis).
 
 @example
-\set Score.markFormatter = #format-mark-alphabet
-\set Score.markFormatter = #format-mark-box-alphabet
-\set Score.markFormatter = #format-mark-circle-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
+\set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet
 @end example
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-box-alphabet
+  \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8
@@ -3196,23 +3196,23 @@ Buchstaben in einem Kasten, Buchstaben in einem Kreis).
 @cindex manuelles Übungszeichen
 @cindex Formatierung von Übungszeichen
 
-Der Stil der Übungszeichen wird von der Eigenschaft @code{markFormatter} definiert.  Das ist eine Funktion, die
+Der Stil der Übungszeichen wird von der Eigenschaft @code{rehearsalMarkFormatter} definiert.  Das ist eine Funktion, die
 das aktuelle Zeichen und den aktuellen Kontext als Argument
 annimmt.  Sie gibt dann ein Textbeschriftungsobjekt aus.  Im
-folgenden Beispiel ist @code{markFormatter} so definiert, dass
+folgenden Beispiel ist @code{rehearsalMarkFormatter} so definiert, dass
 eine Zahl ausgegeben wird.  Dann wird ein Übungszeichen in einem
 Kasten produziert.
 
 @lilypond[quote,verbatim]
 \relative c'' {
-  \set Score.markFormatter = #format-mark-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-numbers
   c1 \mark \default
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-box-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-numbers
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-numbers
   c1 \mark \default
-  \set Score.markFormatter = #format-mark-circle-letters
+  \set Score.rehearsalMarkFormatter = #format-mark-circle-letters
   c1
 }
 @end lilypond
@@ -3237,7 +3237,7 @@ Andere Übungszeichenstile können auch manuell gesetzt werden:
 @end example
 
 @noindent
-@code{Score.markFormatter} hat keine Auswirkungen auf solcherart
+@code{Score.rehearsalMarkFormatter} hat keine Auswirkungen auf solcherart
 definierte Zeichen.  Man kann aber auch mit @code{\markup}
 Textbeschriftungsobjekte zu dem selbstdefinierten Zeichen
 hinzufügen:

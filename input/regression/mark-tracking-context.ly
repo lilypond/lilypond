@@ -1,4 +1,4 @@
-\version "2.23.5"
+\version "2.23.6"
 #(ly:set-option 'warning-as-error #t)
 
 \header  {
@@ -14,7 +14,7 @@ points."
     \remove "Mark_engraver"
     \remove "Mark_tracking_translator"
     \remove "Staff_collecting_engraver"
-    markFormatter = #format-mark-numbers
+    rehearsalMarkFormatter = #format-mark-numbers
   }
   \context {
     \Staff

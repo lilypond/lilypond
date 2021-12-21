@@ -5,7 +5,7 @@
 %%
 %% This file is in the public domain.
 %% Note: this file works from version 2.21.0
-\version "2.21.0"
+\version "2.23.6"
 
 \header {
   lsrtags = "headword"
@@ -124,7 +124,7 @@ ViolinSolo = \relative c' {
 
   \voiceOne
 
-  \set Score.markFormatter                    = #format-mark-box-numbers
+  \set Score.rehearsalMarkFormatter           = #format-mark-box-numbers
   \override Score.VoltaBracket.font-name      = "LilyPond Sans Serif"
   \override Score.VoltaBracket.extra-offset   = #'(0 . 1)
   \override SpacingSpanner.uniform-stretching = ##t

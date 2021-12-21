@@ -10,7 +10,7 @@ order."
 \layout {
   \context {
     \Score
-    markFormatter = #format-mark-numbers
+    rehearsalMarkFormatter = #format-mark-numbers
   }
 }
 
