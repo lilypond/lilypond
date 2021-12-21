@@ -19,9 +19,11 @@
 
 #include "audio-item.hh"
 
-#include "midi-item.hh"
 #include "audio-column.hh"
 #include "international.hh"
+#include "lily-imports.hh"
+#include "midi-item.hh"
+#include "text-interface.hh"
 
 using std::string;
 
@@ -195,10 +197,15 @@ Audio_time_signature::Audio_time_signature (int beats, int one_beat, int base_mo
   base_moment_clocks_ = base_moment_clocks;
 }
 
-Audio_text::Audio_text (Audio_text::Type type, const string &text_string)
+std::string
+Audio_text::markup_to_string (SCM markup)
 {
-  text_string_ = text_string;
-  type_ = type;
+  if (Text_interface::is_markup (markup))
+    {
+      markup = Lily::markup_to_string (markup);
+    }
+
+  return robust_scm2string (markup, "");
 }
 
 Audio_control_change::Audio_control_change (int control, int value)

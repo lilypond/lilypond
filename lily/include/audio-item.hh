@@ -21,9 +21,12 @@
 #define AUDIO_ITEM_HH
 
 #include "audio-element.hh"
+#include "lily-guile.hh"
 #include "moment.hh"
 #include "piano-pedal.hh"
 #include "pitch.hh"
+
+#include <string>
 
 class Audio_item : public Audio_element
 {
@@ -122,7 +125,17 @@ public:
     MARKER, CUE_POINT
   };
 
-  Audio_text (Audio_text::Type type, const std::string &text_string);
+  Audio_text (Audio_text::Type type, const std::string &text_string)
+    : type_ (type), text_string_ (text_string)
+  {
+  }
+
+  Audio_text (Audio_text::Type type, SCM markup)
+    : Audio_text (type, markup_to_string (markup))
+  {
+  }
+
+  static std::string markup_to_string (SCM markup);
 
   Type type_;
   std::string text_string_;

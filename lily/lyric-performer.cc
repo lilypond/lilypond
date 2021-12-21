@@ -22,8 +22,6 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
-using std::vector;
-
 class Lyric_performer : public Performer
 {
 public:
@@ -34,7 +32,7 @@ protected:
   void process_music ();
   void listen_lyric (Stream_event *);
 private:
-  vector<Stream_event *> events_;
+  Stream_event *event_ = nullptr;
 };
 
 Lyric_performer::Lyric_performer (Context *c)
@@ -45,27 +43,27 @@ Lyric_performer::Lyric_performer (Context *c)
 void
 Lyric_performer::process_music ()
 {
-  // FIXME: won't work with fancy lyrics
-  if (events_.size ()
-      && scm_is_string (get_property (events_[0], "text"))
-      && ly_scm2string (get_property (events_[0], "text")).length ())
+  if (event_)
     {
-      announce<Audio_text> (events_[0], Audio_text::LYRIC,
-                            ly_scm2string (get_property (events_[0], "text")));
+      SCM text = get_property (event_, "text");
+      if (!scm_is_null (text))
+        announce<Audio_text> (event_, Audio_text::LYRIC, text);
+
+      event_ = nullptr;
     }
-  events_.clear ();
 }
 
 void
 Lyric_performer::stop_translation_timestep ()
 {
-  events_.clear ();
+  event_ = nullptr;
 }
 
 void
 Lyric_performer::listen_lyric (Stream_event *event)
 {
-  events_.push_back (event);
+  if (!event_)
+    event_ = event;
 }
 
 void

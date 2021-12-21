@@ -32,7 +32,7 @@ options=""
       d''4 b8 c4 a8 | d4 b8 g4
     }
     \addlyrics {
-      Girls and boys come | out to play,
+      Girls and \markup \bold boys come | out to play,
     }
   >>
   \layout {}

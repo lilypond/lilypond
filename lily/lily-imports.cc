@@ -95,6 +95,7 @@ Variable markup_command_signature ("markup-command-signature");
 Variable markup_function_p ("markup-function?");
 Variable markup_list_function_p ("markup-list-function?");
 Variable markup_list_p ("markup-list?");
+Variable markup_to_string ("markup->string");
 Variable midi_program ("midi-program");
 #if !GUILEV2
 Variable module_export_all_x ("module-export-all!");
