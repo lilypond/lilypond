@@ -2807,7 +2807,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 \drums { tommh4 tommh1 }
 @end lilypond
 @tab
-@code{highhat @* hh @*}
+@code{hihat @* hh @*}
 @lilypond[inline,notime,ragged-right]
 \drums { hh4 hh1 }
 @end lilypond
@@ -2818,7 +2818,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 \drums { hhc4 hhc1 }
 @end lilypond
 @tab
-@code{openhighhat @* hho @*}
+@code{openhihat @* hho @*}
 @lilypond[inline,notime,ragged-right]
 \drums { hho4 hho1 }
 @end lilypond
