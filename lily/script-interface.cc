@@ -84,7 +84,7 @@ Script_interface::calc_direction (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction d = Script_interface::get_direction (me);
 
-  if (!d && scm_is_true (get_property (me, "stencil")))
+  if (!d)
     {
       me->programming_error ("script direction not yet known");
       d = DOWN;
@@ -164,4 +164,3 @@ slur-padding
 toward-stem-shift
 toward-stem-shift-in-column
                )");
-
