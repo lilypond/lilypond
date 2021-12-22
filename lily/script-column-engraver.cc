@@ -31,7 +31,7 @@ using std::vector;
    Script_column, that will fix the collisions.  */
 class Script_column_engraver : public Engraver
 {
-  Grob *script_column_;
+  Grob *script_column_ = nullptr;
   vector<Grob *> scripts_;
 
 public:
@@ -45,7 +45,6 @@ protected:
 Script_column_engraver::Script_column_engraver (Context *c)
   : Engraver (c)
 {
-  script_column_ = 0;
 }
 
 void
@@ -58,7 +57,7 @@ Script_column_engraver::stop_translation_timestep ()
           Script_column::add_side_positioned (script_column_, scripts_[i]);
     }
 
-  script_column_ = 0;
+  script_column_ = nullptr;
   scripts_.clear ();
 }
 
