@@ -94,6 +94,7 @@ Languages in this order.
 * acciaccatura::
 * accidental::
 * adagio::
+* al fine::
 * al niente::
 * alla breve::
 * allegro::
@@ -213,6 +214,7 @@ Languages in this order.
 * fermata::
 * fifth::
 * figured bass::
+* fine::
 * fingering::
 * flag::
 * flageolet::
@@ -638,6 +640,22 @@ of sonatas, symphonies, etc.
 
 @morerefs
 @ref{andante}, @ref{largo}, @ref{sonata}.
+@endmorerefs
+
+
+@node al fine
+@section al fine
+
+[Italian: @q{to the end}]
+
+In an instruction such as @notation{D.C. al Fine}, indicates that
+the performance should continue to the point marked
+@notation{Fine}.
+
+@morerefs
+@ref{da capo},
+@ref{dal segno},
+@ref{fine}.
 @endmorerefs
 
 
@@ -2537,10 +2555,12 @@ S: da capo,
 FI: da capo, alusta.
 
 Abbreviated @notation{D.C.}  Indicates that the piece is to be repeated from
-the beginning to the end or to a certain place marked @emph{fine}.
+the beginning to the end or to a certain place marked @notation{Fine}.
 
 @morerefs
-No cross-references.
+@ref{al fine},
+@ref{dal segno},
+@ref{fine}.
 @endmorerefs
 
 
@@ -2594,7 +2614,9 @@ b4 a g2-\markup {
 @end lilypond
 
 @morerefs
-No cross-references.
+@ref{al fine},
+@ref{da capo},
+@ref{fine}.
 @endmorerefs
 
 
@@ -3774,6 +3796,20 @@ played above the bass notes.
 
 @morerefs
 @ref{chord}, @ref{interval}.
+@endmorerefs
+
+
+@node fine
+@section fine
+
+[Italian: @q{end}]
+
+Indicates the end of the piece when it is not the written end of
+the music.
+
+@morerefs
+@ref{da capo},
+@ref{dal segno}.
 @endmorerefs
 
 

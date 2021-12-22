@@ -62,6 +62,7 @@ repeats.
 * Simple repeats::
 * Alternative endings::
 * Other variation in repeated sections::
+* Al-fine repeats::
 * In-staff segno::
 * Manual repeat marks::
 @end menu
@@ -361,8 +362,8 @@ music = \fixed c' {
       \volta 2 { \unfolded { R1 } }
     >>
     c'1
-    \volta 2 { \unfolded { \bar "|." } }
   }
+  \fine
 }
 
 \score { \music }
@@ -371,6 +372,82 @@ music = \fixed c' {
 
 @warning{The @code{\volta} and @code{\unfolded} commands
 function with respect to the innermost repeat enclosing them.}
+
+
+@node Al-fine repeats
+@unnumberedsubsubsec Al-fine repeats
+
+@funindex \fine
+
+The @code{\fine} command ends the music, but placing it inside a
+folded repeat suspends its effect.  When a repeat containing
+@code{\fine} is unfolded, the @code{\fine} command is unfolded
+like any other music and is performed wherever it first appears in
+the unfolded music.  Therefore, it is necessary to specify the
+volta in which the @emph{Fine} should be performed (@pxref{Other
+variation in repeated sections}).
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    b1
+  }
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+As shown immediately above, at the written end of the music,
+@code{\fine} creates a final bar line without a @emph{Fine}
+instruction.  To force @emph{Fine} to appear in such cases, set
+the @code{finalFineTextVisibility} context property.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.finalFineTextVisibility = ##t
+  f1
+  \fine
+}
+@end lilypond
+
+To change the text that @code{\fine} prints, set the
+@code{fineText} context property.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.fineText = "Fine."
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    b1
+  }
+}
+@end lilypond
+
+For details on interactions with other types of bar lines and
+options for changing their appearance, @pxref{Automatic bar
+lines}.
+
+@morerefs
+Music Glossary:
+@rglos{fine}.
+
+Notation Reference:
+@ref{Automatic bar lines},
+@ref{Other variation in repeated sections},
+@ref{Section divisions}.
+
+Snippets:
+@rlsr{Repeats}.
+
+Internals Reference:
+@rinternals{FineEvent},
+@rinternals{Jump_engraver},
+@rinternals{JumpScript}.
+@endmorerefs
 
 
 @node In-staff segno

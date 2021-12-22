@@ -2842,11 +2842,10 @@ bar lines automatically as part of their effect (see
 @ref{Automatic bar lines}).
 
 A bar line inserted automatically can be changed to another type
-with the @code{\bar} command.  For example, the end of a piece is
-usually indicated with a final bar line:
+with the @code{\bar} command:
 
 @lilypond[quote,verbatim]
-\relative { e'4 d c2 \bar "|." }
+\relative { e'4 d c2 \bar "!" }
 @end lilypond
 
 The final note of a measure is not required to end on the
@@ -2909,7 +2908,7 @@ available for manual insertion:
   a1 \bar ".|"
   b1 \bar ".."
   c1 \bar "|.|"
-  d1 \bar "|."
+  d1 \bar "|."     % see \fine
   e1
 }
 @end lilypond
@@ -3295,7 +3294,7 @@ Used at a section break created by @code{\section}.
 @cindex final bar line
 @funindex \fine
 @item fineBarType
-Used at a @emph{Fine} instruction created by @code{\fine}.
+Used at @code{\fine}.
 
 @cindex bar line, repeat
 @cindex bar line, segno
@@ -3328,8 +3327,7 @@ segno, which can be created by @code{\repeat segno} or
 @code{\segnoMark} when the @code{segnoStyle} property is set to
 @code{bar-line}, or created by @code{\inStaffSegno}.
 
-Properties with @code{fine} in the name are used at a @emph{Fine}
-instruction created by @code{\fine}.
+Properties with @code{fine} in the name are used at @code{\fine}.
 
 Though these are the highest-priority automatic bar types, they do
 not completely hide the others: the next-highest-priority bar type
@@ -3894,10 +3892,13 @@ Internals Reference:
 @unnumberedsubsubsec Section divisions
 
 @cindex bar line, double
+@cindex bar line, final
 @cindex bar line, section
 @cindex double bar line
+@cindex final bar line
 @cindex section bar line
 
+@funindex \fine
 @funindex \section
 
 The @code{\section} command marks a point where one section of
@@ -3905,12 +3906,12 @@ music ends and another begins.  It does not have to be followed by
 more music: it may also be used to emphasize that the written end
 of the music is not the end of the piece, such as at a @emph{D.C.}
 instruction or where one movement continues into the next without
-a break.
+a break.  @code{\section} normally creates a double bar line, but
+its effect can depend on other notation, e.g., repeat bar lines.
 
-@code{\section} normally creates a double bar line, but its effect
-can depend on other notation, e.g., repeat bar lines.  For details
-on interactions with other types of bar lines and options for
-changing their appearance, @pxref{Automatic bar lines}.
+The @code{\fine} command ends the piece, normally with a final bar
+line.  It is not limited to use at the written end of the music:
+it may also appear inside @code{\repeat} (@pxref{Al-fine repeats}).
 
 A section can optionally be named with @code{\sectionLabel}
 (@pxref{Section labels}).
@@ -3920,17 +3921,28 @@ A section can optionally be named with @code{\sectionLabel}
   f1
   \section
   \sectionLabel "Refrain"
-  f1
+  g1
+  a1
+  \fine
 }
 @end lilypond
 
+For details on interactions of @code{\fine} and @code{\section}
+bar lines with other types of bar lines, and options for changing
+their appearance, @pxref{Automatic bar lines}.
+
 @morerefs
+Music Glossary:
+@rglos{fine}.
+
 Notation Reference:
 @ref{Automatic bar lines},
 @ref{Divisiones},
+@ref{Al-fine repeats},
 @ref{Section labels}.
 
 Internals Reference:
+@rinternals{FineEvent},
 @rinternals{SectionEvent}.
 @endmorerefs
 
