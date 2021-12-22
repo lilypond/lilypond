@@ -347,6 +347,8 @@ lines.")
 for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
+     (finalFineTextVisibility ,boolean? "Whether @code{\\fine} at the
+written end of the music should create a @emph{Fine} instruction.")
      (fineBarType ,string? "Value for @code{whichBar} at
 @code{\\fine}.  Where there is also a repeat bar line, the repeat bar
 line takes precedence and this value is appended to it as an
