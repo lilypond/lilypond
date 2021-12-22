@@ -22,6 +22,7 @@
 #include "directional-element-interface.hh"
 #include "item.hh"
 #include "warn.hh"
+#include "international.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "output-def.hh"
@@ -39,8 +40,23 @@ Script_interface::get_stencil (Grob *me, Direction d)
   if (scm_is_eq (key, ly_symbol2scm ("feta")))
     {
       SCM name_entry = scm_cdr (s);
-      SCM str = ((scm_is_pair (name_entry)) ? index_get_cell (name_entry, d)
-                 : name_entry);
+      SCM str;
+      if (scm_is_pair (name_entry))
+        {
+          if (d)
+            str = index_get_cell (name_entry, d);
+          else
+            {
+              if (!ly_is_equal (scm_car (name_entry), scm_cdr (name_entry)))
+                {
+                  me->warning (_f ("script needs an explicit direction specifier"
+                                   " to disambiguate between different glyphs"));
+                }
+              str = scm_car (name_entry);
+            }
+        }
+      else
+        str = name_entry;
       return Font_interface::get_default_font (me)
              ->find_by_name ("scripts." + ly_scm2string (str));
     }
@@ -74,6 +90,13 @@ Script_interface::get_direction (Grob *me)
   if (auto *e = unsmob<Grob> (other_elt))
     return relative_dir * get_grob_direction (e);
 
+  /* This might be a script attached to a skip in a
+     Dynamics context between two piano staves, for
+     example.  Some scripts have differing glyphs depending
+     on their direction, so we still pass a non-CENTER
+     direction for downstream code, but we pick it silently
+     because it can be useful, and let the user write an
+     explicit direction specifier if the result does not fit. */
   return CENTER;
 }
 
@@ -83,13 +106,6 @@ Script_interface::calc_direction (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction d = Script_interface::get_direction (me);
-
-  if (!d)
-    {
-      me->programming_error ("script direction not yet known");
-      d = DOWN;
-    }
-
   (void) get_property (me, "positioning-done");
   return to_scm (d);
 }

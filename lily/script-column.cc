@@ -134,7 +134,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
   for (vsize i = 0; i < grobs.size (); i++)
     {
       Grob *g = grobs[i];
-      Direction d = get_grob_direction (g);
+      Direction d = get_strict_grob_direction (g);
 
       scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);
     }
