@@ -89,7 +89,7 @@ Balloon_interface::print_balloon_spanner (Spanner *spanner)
   if (!p)
     return Stencil ();
 
-  Offset off (spanner->relative_coordinate (spanner->get_bound (LEFT), X_AXIS),
+  Offset off (spanner->relative_coordinate (p, X_AXIS),
               spanner->relative_coordinate (p, Y_AXIS));
   Box b (robust_relative_extent (p, p, X_AXIS),
          robust_relative_extent (p, p, Y_AXIS));
