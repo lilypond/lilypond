@@ -218,7 +218,44 @@ there is a truly incomplete measure the first time through.
 @funindex \volta
 @funindex volta
 
-This is the syntax for a repeat with alternative endings:
+Repeats with alternative endings can be written two ways.  This is
+the preferred syntax:
+
+@example
+\repeat volta @var{repeatcount} @{
+  @var{musicexpr@dots{}}
+  \alternative @{
+    \volta @var{numberlist} @var{musicexpr}
+    \volta @var{numberlist} @var{musicexpr}
+    @dots{}
+  @}
+@}
+@end example
+
+@noindent
+where @code{@var{musicexpr}} is a music expression,
+@code{@var{musicexpr@dots{}}} is any number of them, and
+@code{@var{numberlist}} is a comma-separated list of volta numbers
+chosen from the range 1 to @code{@var{repeatcount}}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \repeat volta 6 {
+    c4 d e f
+    \alternative {
+      \volta 1,2,3 { c2 e }
+      \volta 4,5 { f2 d }
+      \volta 6 { e2 f }
+    }
+  }
+  c1
+}
+@end lilypond
+
+@noindent
+An older syntax where the @code{\alternative} block follows
+outside the repeated music expression is still supported and has
+the same effect.
 
 @example
 \repeat volta @var{repeatcount} @var{musicexpr}
@@ -229,23 +266,6 @@ This is the syntax for a repeat with alternative endings:
 @}
 @end example
 
-@noindent
-where @code{@var{musicexpr}} is a music expression and
-@code{@var{numberlist}} is a comma-separated list of volta numbers
-chosen from the range 1 to @code{@var{repeatcount}}.
-
-@lilypond[verbatim,quote]
-\fixed c'' {
-  \repeat volta 6 { c4 d e f }
-  \alternative {
-    \volta 1,2,3 { c2 e }
-    \volta 4,5 { f2 d }
-    \volta 6 { e2 f }
-  }
-  c1
-}
-@end lilypond
-
 @code{\volta} specifications within an @code{\alternative} block
 are optional on an all-or-none basis.  If they are omitted,
 alternatives are used once each, but the first is repeated as
@@ -253,11 +273,13 @@ needed to satisfy the repeat count.
 
 @lilypond[verbatim,quote]
 \fixed c'' {
-  \repeat volta 6 { c4 d e f }
-  \alternative {
-    { c2 e }
-    { f2 d }
-    { e2 f }
+  \repeat volta 6 {
+    c4 d e f
+    \alternative {
+      { c2 e }
+      { f2 d }
+      { e2 f }
+    }
   }
   c1
 }
@@ -283,9 +305,8 @@ results.}
 @unnumberedsubsubsec Other variation in repeated sections
 
 An @code{\alternative} block can be used within a @code{\repeat}
-block to produce notation similar to alternative endings; however,
-it can not be used in this manner for alternative endings
-themselves (see @ref{Alternative endings}).
+block to produce notation similar to alternative endings
+(@pxref{Alternative endings}).
 
 @lilypond[verbatim,quote]
 \fixed c'' {
@@ -319,15 +340,15 @@ music = \repeat volta 3 {
   \volta #'() { \mark "3×" }
 }
 
-\new Score { \music }
-\new Score { \unfoldRepeats \music }
+\score { \music }
+\score { \unfoldRepeats \music }
 @end lilypond
 
 When a @code{\repeat} is unfolded, it may be desirable not only to
 filter out volta-specific music, but also to add music that was
-not present in the @code{volta} form.  The @code{\unfolded}
-command designates music to be ignored until the enclosing
-@code{\repeat} is unfolded.
+not present in the folded form.  The @code{\unfolded} command
+designates music to be ignored until the enclosing @code{\repeat}
+is unfolded.
 
 @lilypond[verbatim,quote]
 music = \fixed c' {
@@ -344,8 +365,8 @@ music = \fixed c' {
   }
 }
 
-\new Score { \music }
-\new Score { \unfoldRepeats \music }
+\score { \music }
+\score { \unfoldRepeats \music }
 @end lilypond
 
 @warning{The @code{\volta} and @code{\unfolded} commands

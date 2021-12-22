@@ -440,8 +440,7 @@ returns its actual, direction-dependent stem attachment point instead of a
 hypothetical upwards-stem attachment point.
 
 @item
-Repeat alternatives may appear in places other than the end of the
-repeated section.
+Repeat alternatives may appear within the repeated section.
 
 @lilypond[verbatim,quote]
 \repeat volta 3 { c'1 \alternative { d' e' } f' }
