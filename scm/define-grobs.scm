@@ -201,6 +201,7 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (Y-extent . ,balloon::height)
