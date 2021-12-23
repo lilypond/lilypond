@@ -58,6 +58,7 @@ void
 Balloon_engraver::acknowledge_grob (Grob_info info)
 {
   Stream_event *cause = info.event_cause ();
+  Engraver *eng = info.origin_engraver ();
 
   SCM arts = cause ? get_property (cause, "articulations") : SCM_EOL;
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
@@ -66,7 +67,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
       Stream_event *e = unsmob<Stream_event> (e_scm);
       if (e->in_event_class ("annotate-output-event"))
         {
-          make_sticky ("BalloonText", info.grob (), e_scm);
+          eng->make_sticky ("BalloonText", info.grob (), e_scm);
         }
     }
 
@@ -74,7 +75,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
     {
       if (info.grob ()->name ()
           == ly_symbol2string (get_property (ev, "symbol")))
-        make_sticky ("BalloonText", info.grob (), ev->self_scm ());
+        eng->make_sticky ("BalloonText", info.grob (), ev->self_scm ());
     }
 }
 
