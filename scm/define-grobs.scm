@@ -757,6 +757,8 @@
     (ControlPoint
      . (
         (color . "IndianRed")
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (horizontal-skylines . #f)
         (layer . 3)
         (text . ,(make-draw-circle-markup 0.3 0.01 #t))
@@ -774,6 +776,8 @@
     (ControlPolygon
      . (
         (color . "BurlyWood")
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (extroversion . 0.5)
         (filled . #f)
         (horizontal-skylines . #f)
@@ -1248,6 +1252,8 @@
         (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
         (break-visibility . ,(sticky-grob-interface::inherit-property
                                'break-visibility))
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (footnote . #t)
         (footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
         (spanner-placement . ,LEFT)
