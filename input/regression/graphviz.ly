@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.6"
 \include "graphviz-init.ly"
 
 \header {
@@ -21,7 +21,7 @@ label-formatting.mod =
 
 \book {
   \score {
-    c'4
+    c'1
   }
 }
 

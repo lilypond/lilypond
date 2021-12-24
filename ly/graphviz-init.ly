@@ -60,7 +60,10 @@
   ;; otherwise the final pdf-creation will break
   (regexp-substitute/global #f "\"" label 'pre "\\\"" 'post))
 
-#(define (discard arg) '())
+%% Create an uninterned symbol to get a unique value.
+#(define discard-marker (make-symbol "discard-marker"))
+
+#(define (discard arg) discard-marker)
 
 #(define default-label-formatting
   ;; Store all settings needed for label formatting.
@@ -73,8 +76,8 @@
   ;; Use the `identity` function to leave arguments unprocessed.
   ;; If the final callback function must (for the sake of compatibility
   ;; with the C++ code) accept more arguments than wanted for
-  ;; label formatting, the superfluous arguments may be discarded with
-  ;; a function that returns the empty list for every input.
+  ;; label formatting, the superfluous arguments may be discarded
+  ;; with the `discard` function.
   `((mod . ("~a\\n~a:~a\\n~a <- ~a"
             (,grob::name ,identity ,identity ,discard ,identity ,truncate-value)
             ,escape-label))
@@ -88,7 +91,7 @@
 #(define (make-label-formatter template-string preprocessors postprocessor)
   (lambda args
     (let* ((preprocessed-args
-             (remove null? (map
+             (delete discard-marker (map
                ;; Call every function in `preprocessors` with the corresponding
                ;; argument in the argument list
                (lambda (proc arg) (proc arg))
