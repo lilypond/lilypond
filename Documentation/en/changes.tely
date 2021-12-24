@@ -66,6 +66,22 @@ which scares away people.
 @end ignore
 
 @item
+The new @code{\repeat segno} command automatically notates a
+variety of @emph{da-capo} and @emph{dal-segno} forms.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat segno 2 {
+    b1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@item
 The new @code{\fine} command inserts a final bar line that
 interacts gracefully with repeat bar lines.  Used inside
 @code{\repeat}, it also prints @emph{Fine} and ends the music

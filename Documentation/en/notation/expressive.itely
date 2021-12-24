@@ -129,9 +129,10 @@ Methods to create new dynamic markings are also discussed.
 @cindex sign, segno
 @cindex @q{coda} sign
 @cindex sign, coda
-@cindex @q{variant coda} sign
+@cindex variant @q{coda} sign
 @cindex sign, variant coda
-@cindex coda sign, variant
+@cindex sign, coda, variant
+@cindex @q{coda} sign, variant
 
 @funindex \accent
 @funindex \marcato

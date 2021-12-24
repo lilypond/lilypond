@@ -29,6 +29,14 @@ repeated section begins the piece.  Alternative endings are
 printed in sequence, bracketed, and numbered with the volte to
 which they apply.
 
+@item segno
+This supports various @emph{da capo} and @emph{dal segno} cases.
+The repeated section begins with a segno mark, except at the start
+of the piece.  Alternative endings are printed in sequence and
+marked with coda marks, and a section label such as @q{Coda} can
+optionally be applied to the final alternative.  The repeated
+section ends with an instruction such as @emph{D.S.}
+
 @item unfold
 The repeated music is written out in full a specified number of
 times.
@@ -63,7 +71,8 @@ repeats.
 * Alternative endings::
 * Other variation in repeated sections::
 * Al-fine repeats::
-* In-staff segno::
+* Segno repeat structure::
+* Segno repeat appearance::
 * Manual repeat marks::
 @end menu
 
@@ -81,14 +90,15 @@ repeats.
 
 The @code{\repeat unfold} command repeats music by writing it out
 a number of times.  The syntax is the same as the @code{\repeat
-volta} command, which is documented in following sections.
+volta} and @code{\repeat segno} commands, which are documented in
+following sections.
 
 To avoid redundancy, unfolding is not demonstrated in detail here;
 however, some of the examples in following sections illustrate
-features in both @code{volta} and @code{unfold} forms using the
-@code{\unfoldRepeats} command to convert the @code{volta} form to
-the @code{unfold} form.  For another important use of the
-@code{\unfoldRepeats} command, see @ref{Using repeats with MIDI}.
+repeats in multiple forms using the @code{\unfoldRepeats} command
+to convert the @code{volta} or @code{segno} form to the
+@code{unfold} form.  For another important use of the
+@code{\unfoldRepeats} command, @pxref{Using repeats with MIDI}.
 
 There are some points of interest specific to the @code{\repeat
 unfold} command.
@@ -110,7 +120,7 @@ a'4 b c d |
 @end example
 
 Also, nesting @code{\repeat unfold} can be practical in ways that
-nesting @code{\repeat volta} would not be.
+nesting @code{\repeat volta} or @code{\repeat segno} would not be.
 
 @warning{If you include @code{\relative} inside a @code{\repeat}
 without explicitly instantiating the @code{Voice} context, extra
@@ -450,77 +460,350 @@ Internals Reference:
 @endmorerefs
 
 
-@node In-staff segno
-@unnumberedsubsubsec In-staff segno
+@node Segno repeat structure
+@unnumberedsubsubsec Segno repeat structure
 
-@funindex \inStaffSegno
-@cindex repeat, with segno
+@cindex @q{coda} sign, with repeats
 @cindex @q{segno} sign, with repeats
+@cindex sign, coda, with repeats
+@cindex sign, segno, with repeats
+@funindex \repeat segno
+
+@code{\repeat segno} differs from @code{\repeat volta} only in the
+resulting notation.  Refer to the preceding sections for general
+information on entering music with repetition, alternatives, and
+variation.  This section covers particulars of segno notation
+without fully reiterating the input syntax.
+
+@code{\repeat segno} notates repetition with @emph{D.C.} or
+@emph{D.S.} instructions.  It marks the beginning of the repeated
+section with a segno mark when it is not the beginning of the
+piece.  It also marks alternative endings with coda marks in lieu
+of volta brackets, provided that the endings are intended to be
+performed in order, e.g., not @code{\volta 1,3} then @code{\volta
+2,4}.
+
+When alternative bar numbering is enabled, it is applied to
+alternatives notated with volta brackets whether they are created
+by @code{\repeat segno} or @code{\repeat volta}, but it is not
+applied to alternative endings notated with coda marks.
+
+Demonstrations of common uses follow.
+
+@quotation
+@table @emph
+
+@cindex al fine
+@cindex fine
+@cindex repeat, al fine
+@funindex \fine
+@item al fine
+Repeat instructions include @emph{al Fine} if a @code{\fine}
+command appears at any prior point (@pxref{Al-fine repeats}).
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+    \volta 2 \fine
+    a1
+  }
+  \section
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@cindex al coda
+@cindex alla coda
+@cindex coda
+@cindex repeat, alla coda
+@cindex repeat, e poi la coda
+@funindex \sectionLabel
+@item alla coda
+The beginning of each alternative ending is marked with an implied
+@code{\codaMark \default}.  Repeat instructions in alternatives
+include @q{@emph{al@tie{}@dots{} e poi la@tie{}@dots{}}} referring
+to the mark at the first alternative and the mark to skip to.
+Provided that the duration of the final alternative is zero, the
+automatic mark is suppressed, allowing a section label to be set
+instead.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+    \alternative {
+      \volta 1 { \repeat unfold 8 { a4 } }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
+  }
+  b1
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+The return instruction can be abbreviated by setting an
+alternative formatting procedure (@pxref{Segno repeat
+appearance}).
+
+@cindex D.C.
+@cindex da capo
+@cindex repeat, D.C.
+@cindex repeat, da capo
+@item da capo
+Repeat instructions include @emph{D.C.} when the repeated section
+begins at the beginning of the score.  The supported @emph{da
+capo} cases parallel the supported @emph{dal segno} cases.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat segno 2 {
+    g1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@cindex D.S.
+@cindex dal segno
+@cindex repeat, D.S.
+@cindex repeat, dal segno
+@cindex segno
+@item dal segno
+Repeat instructions include @emph{D.S.} when the repeated section
+begins after the beginning of the score.  The beginning of the
+repeated section is marked with an implied @code{\segnoMark
+\default}.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+  }
+  \repeat segno 2 {
+    a1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@noindent
+A @emph{dal-segno} repeat starting at the beginning of the score
+can be forced (@pxref{Segno repeat appearance}).
+
+@item multiple return
+A repeat instruction to be performed more than once includes
+@q{@emph{@dots{}@tie{}V.}}.  The number of times the instruction
+is performed is one less than the number of times the passage is
+performed.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat segno 3 {
+    g1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+@end table
+@end quotation
+
+@morerefs
+Music Glossary:
+@rglos{da capo},
+@rglos{dal segno},
+@rglos{fine}.
+
+Notation Reference:
+@ref{Al-fine repeats},
+@ref{Alternative endings},
+@ref{Automatic bar lines},
+@ref{Other variation in repeated sections},
+@ref{Section divisions},
+@ref{Section labels},
+@ref{Simple repeats}.
+
+Snippets:
+@rlsr{Repeats}.
+
+Internals Reference:
+@rinternals{CodaMark},
+@rinternals{JumpScript},
+@rinternals{SectionLabel},
+@rinternals{SegnoMark}.
+@endmorerefs
+
+
+@node Segno repeat appearance
+@unnumberedsubsubsec Segno repeat appearance
+
+@funindex \codaMark
+@funindex \segnoMark
+@cindex @q{segno} sign, bar line
+@cindex @q{segno} sign, with repeats
+@cindex bar line, segno
+@cindex repeat, with segno
+@cindex segno bar line
+@cindex sign, segno, bar line
 @cindex sign, segno, with repeats
 
-The @code{\inStaffSegno} command can be used to generate a composite
-bar line incorporating the segno symbol with the appropriate repeat
-bar line when used with the @code{\repeat volta} command.  The
-correct type of repeat bar line, viz. start repeat, end repeat or
-double repeat, is selected automatically.  Note that the
-corresponding @qq{D.S.} mark must be added manually.
+The marks and return instructions that @code{\repeat segno}
+creates are adjustable in some respects.
 
-Away from a repeat:
+Return instructions are formatted with the procedure specified in
+the @code{dalSegnoTextFormatter} property.  There is a predefined
+alternative formatter that creates shorter instructions.
 
-@lilypond[verbatim,quote]
-\relative {
-  e'1
-  \inStaffSegno
-  f2 g a b
-  c1_"D.S." \bar "|."
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.dalSegnoTextFormatter = #format-dal-segno-text-brief
+  f1
+  \repeat segno 2 {
+    g1
+    \alternative {
+      \volta 1 { a1 }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
+  }
+  b1
+  \fine
 }
 @end lilypond
 
-At the start of a repeat:
+@cindex D.S., forced at start
+@cindex dal segno, forced at start
+@cindex repeat, D.S., forced at start
+@cindex repeat, dal segno, forced at start
+@cindex segno, forced at start
+The sequence numbers of the marks at the beginning of the repeated
+section and the beginning of the first alternative may be set
+explicitly without interfering with automatic return instructions
+(@pxref{Manual repeat marks}).
 
-@lilypond[verbatim,quote]
-\relative {
-  e'1
-  \repeat volta 2 {
-    \inStaffSegno  % start repeat
-    f2 g a b
+@lilypond[quote,verbatim]
+\fixed c' {
+  \repeat segno 2 {
+    \volta #'() { \segnoMark 2 }
+    g1
+    \alternative {
+      \volta 1 {
+        \volta #'() { \codaMark 2 }
+        \repeat unfold 8 { a4 }
+      }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
   }
-  c1_"D.S." \bar "|."
+  b1
+  \fine
 }
 @end lilypond
 
-At the end of a repeat:
+@noindent
+Without the explicit @code{\segnoMark 2}, the above would have
+been rendered as a @emph{da-capo} repeat.
+
+As an alternative to printing a segno as a mark above the staff,
+it is possible to print it as a bar line by setting the
+@code{segnoStyle} property to @code{bar-line}.  To avoid
+ambiguity, only the first segno bar remains unmarked.
 
 @lilypond[verbatim,quote]
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
-    \inStaffSegno  % end repeat
+\fixed c' {
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \repeat segno 2 {
+      R1*2
+    }
   }
-  f2 g a b
-  c1_"D.S." \bar "|."
+  \fine
 }
 @end lilypond
 
-Between two repeats:
+Where a segno bar coincides with other special bar lines, a
+combination bar line is chosen automatically from a predetermined
+set.  For each supported combination, the bar line can be
+customized by setting a context property (@pxref{Automatic bar
+lines}).
+
+Segno and coda marks are formatted with procedures specified in
+the @code{segnoMarkFormatter} and @code{codaMarkFormatter}
+properties.  These are interchangeable with procedures used to
+format rehearsal marks (@pxref{Rehearsal marks}).
 
 @lilypond[verbatim,quote]
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
+\fixed c' {
+  \set Score.segnoMarkFormatter = #format-mark-numbers
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \repeat segno 2 {
+      R1*2
+    }
   }
-  \inStaffSegno  % double repeat
-  \repeat volta 2 {
-    f2 g a b
-  }
-  c1_"D.S." \bar "|."
+  \fine
 }
 @end lilypond
 
-Alternative bar line symbols can be obtained by setting various
-context properties (see @ref{Automatic bar lines}).
+There is a predefined alternative segno formatter that prints a
+mark even over the first bar line:
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.segnoMarkFormatter = #format-segno-mark
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \segnoMark \default
+    R1*2
+  }
+}
+@end lilypond
+
+@cindex @q{coda} sign, variant
+@cindex sign, coda, variant
+@cindex sign, variant coda
+@cindex variant @q{coda} sign
+
+There is a predefined alternative coda mark formatter that uses
+@code{\varcoda} signs.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.codaMarkFormatter = #format-varcoda-mark
+  R1
+  \repeat unfold 3 {
+    \codaMark \default
+    R1*2
+  }
+}
+@end lilypond
 
 @snippets
 
@@ -548,6 +831,7 @@ Music Glossary:
 @rglos{volta}.
 
 Notation Reference:
+@ref{Automatic bar lines},
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
@@ -640,7 +924,8 @@ or by printing the relevant bar lines.  For more information, see
 @ref{Bar lines}.}
 
 The property @code{repeatCommands} can be used to control the
-layout of repeats.  Its value is a Scheme list of repeat commands.
+layout of volta-style repeats.  Its value is a Scheme list of
+repeat commands.
 
 @table @code
 @item start-repeat
@@ -721,17 +1006,91 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
+@cindex @q{coda} sign
+@cindex @q{segno} sign
+@cindex sign, coda
+@cindex sign, segno
+@funindex \codaMark
+@funindex \inStaffSegno
+@funindex \segnoMark
+
+Segno and coda marks can be created with the @code{\segnoMark},
+@code{\inStaffSegno}, and @code{\codaMark} commands.  This is the
+syntax for the mark commands:
+
+@example
+\codaMark @var{n}
+\segnoMark @var{n}
+@end example
+
+@noindent
+where @code{@var{n}} is a sequence number, or @code{\default} to
+use the next automatically.  Rehearsal, segno, and coda marks
+are counted independently.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  e1
+  \segnoMark \default
+  e1
+  \segnoMark \default
+  g1
+  \codaMark \default
+  g1
+  \codaMark \default
+  b1
+  \codaMark 96
+  b1
+  \segnoMark 96
+}
+@end lilypond
+
+@cindex segno, forced at start
+At the beginning of a piece, @code{\segnoMark \default} and
+@code{\codaMark \default} create no mark.  Specify @samp{1} to
+force a mark.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \segnoMark 1
+  f1
+}
+@end lilypond
+
+The @code{\inStaffSegno} command is equivalent to @code{\segnoMark
+\default} with the extra effect of temporarily setting the
+@code{segnoStyle} property to @code{bar-line} to force printing it
+as a bar line.
+
+@lilypond[verbatim,quote]
+\fixed c' {  
+  e1
+  \inStaffSegno
+  g1
+  \segnoMark \default
+  b1
+}
+@end lilypond
+
+For more information on changing the appearance of segno and coda
+marks, @pxref{Segno repeat appearance}.
+
 @morerefs
 Notation Reference:
 @ref{Bar lines},
-@ref{Formatting text}.
+@ref{Formatting text},
+@ref{Rehearsal marks},
+@ref{Segno repeat appearance}.
 
 Snippets:
 @rlsr{Repeats}.
 
 Internals Reference:
+@rinternals{CodaMark},
+@rinternals{Mark_engraver},
+@rinternals{SegnoMark},
+@rinternals{SegnoRepeatedMusic},
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
 @endmorerefs
 

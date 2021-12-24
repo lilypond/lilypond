@@ -2411,9 +2411,11 @@ f^\thumb e,_\thumb b'\thumb
 @cindex @q{segno} sign
 @cindex sign, segno
 @cindex @q{coda} sign
+@cindex @q{coda} sign, variant
 @cindex sign, coda
-@cindex @q{variant coda} sign
+@cindex variant @q{coda} sign
 @cindex sign, variant coda
+@cindex sign, coda, variant
 @cindex coda sign, variant
 
 @node Repeat sign scripts
