@@ -287,13 +287,10 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       return false;
     }
 
-  /*
-    Always succeeds.
-
-
-    TODO: should remove #f from allowed vals?
-  */
-  if (scm_is_null (val) || scm_is_false (val))
+  // '(), #f and *unspecified* always succeed.
+  if (scm_is_null (val)
+      || scm_is_false (val)
+      || scm_is_eq (val, SCM_UNSPECIFIED))
     return true;
 
   if (!scm_is_null (val)
