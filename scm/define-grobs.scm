@@ -1306,8 +1306,6 @@
         (stencil . ,ly:line-spanner::print)
         (style . line)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
-        (X-extent . #f)
-        (Y-extent . #f)
         (zigzag-width . 0.75)
         (meta . ((class . Spanner)
                  (interfaces . (glissando-interface
@@ -3170,8 +3168,6 @@
         (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
         (stencil . ,ly:line-spanner::print)
         (style . line)
-        (X-extent . #f)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
                                 line-spanner-interface))))))
