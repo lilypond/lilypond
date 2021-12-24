@@ -1122,6 +1122,8 @@ actually fully cloned."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
+;; FIXME: Why is this all duplicated from C++? --JeanAS
+
 (define-public (ly:music-message music msg . rest)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
@@ -1153,6 +1155,8 @@ actually fully cloned."
                                 (list name)))
                        "."))
          (event (event-cause grob)))
+    ;; FIXME: since the message is variadic, this makes such
+    ;; warnings untranslatable. --JeanAS
     (if event (apply ly:event-warning event (string-append path-string ": " msg) rest)
         (apply ly:warning (string-append path-string ": " msg) rest))))
 
@@ -2464,7 +2468,7 @@ other stems just because of that."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following is used by the alterBroken function.
 
-(define ((value-for-spanner-piece arg) grob)
+(define ((value-for-spanner-piece property arg) grob)
   "Associate a piece of broken spanner @var{grob} with an element
 of list @var{arg}."
   (if (ly:spanner? grob)
@@ -2481,9 +2485,9 @@ of list @var{arg}."
         (if (>= (length siblings) 2)
             (helper siblings arg)
             (car arg)))
-      (ly:event-warning (event-cause grob)
-                       "this ~a is not a spanner"
-                       (grob::name grob))))
+      (ly:grob-warning grob
+                       property
+                       "this grob is not a spanner")))
 (export value-for-spanner-piece)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

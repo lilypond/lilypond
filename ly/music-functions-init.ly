@@ -125,14 +125,14 @@ form of a spanner event, @var{property} may also have the form
   (if (ly:music? item)
       (if (or (eqv? (ly:music-property item 'span-direction) START)
               (music-is-of-type? item 'tie-event))
-          (tweak property (value-for-spanner-piece arg) item)
+          (tweak property (value-for-spanner-piece property arg) item)
           (begin
             (ly:music-warning item (_ "not a spanner"))
             item))
       (propertyOverride (append item (if (symbol? property)
                                          (list property)
                                          property))
-                        (value-for-spanner-piece arg))))
+                        (value-for-spanner-piece property arg))))
 
 appendToTag =
 #(define-music-function (tag more music)
