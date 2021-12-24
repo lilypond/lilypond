@@ -39,6 +39,9 @@ Lyric_hyphen::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   const auto bounds = me->get_bounds ();
 
+  // FIXME: does this bring anything more than
+  // ly:spanner::kill-zero-spanned-time in
+  // after-line-breaking? --JeanAS
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
           == Paper_column::when_mom (bounds[RIGHT]->get_column ())
@@ -143,7 +146,7 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   rod.distance_ += rod.bounds_protrusion ();
   rod.add_to_cols ();
 
-  if (cols.size () && from_scm<bool> (get_property (me, "after-line-breaking")))
+  if (cols.size () && from_scm<bool> (get_property_data (me, "after-line-breaking")))
     {
       Rod rod_after_break;
       rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);

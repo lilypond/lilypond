@@ -89,7 +89,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
             or property after-line-breaking is set to #t.
           */
           if ((segment_time.length () != Moment (0, 0))
-              || from_scm<bool> (get_property (me, "after-line-breaking")))
+              || from_scm<bool> (get_property_data (me, "after-line-breaking")))
             {
               rod_after_break.distance_ = (scm_is_number (broken_length)
                                            ? from_scm<double> (broken_length, 0)
