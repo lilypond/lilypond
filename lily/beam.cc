@@ -165,7 +165,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, 1);
 SCM
 Beam::calc_normal_stems (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "stems", stems);
   SCM val = Grob_array::make_array ();
@@ -181,7 +181,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
 SCM
 Beam::calc_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   /* Beams with less than 2 two stems don't make much sense, but could happen
      when you do
@@ -295,7 +295,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_beaming, 1)
 SCM
 Beam::calc_beaming (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "stems", stems);
 
@@ -371,7 +371,7 @@ Beam::calc_beam_segments (SCM smob)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem.beaming is correct */
-  Grob *me_grob = unsmob<Grob> (smob);
+  auto *const me_grob = LY_ASSERT_SMOB (Grob, smob, 1);
   (void) get_property (me_grob, "beaming");
 
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
@@ -969,7 +969,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, 1)
 SCM
 Beam::calc_stem_shorten (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   /*
     shortening looks silly for x staff beams
@@ -1004,7 +1004,7 @@ MAKE_SCHEME_CALLBACK (Beam, quanting, 3);
 SCM
 Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Drul_array<Real> ys = from_scm (ys_scm, Drul_array<Real> (infinity_f, -infinity_f));
   bool cbs = from_scm<bool> (align_broken_intos);
 
@@ -1074,7 +1074,7 @@ MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1);
 SCM
 Beam::set_stem_lengths (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   /* trigger callbacks. */
   (void) get_property (me, "direction");
@@ -1246,7 +1246,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   if (!scm_is_number (prev_offset))
     prev_offset = SCM_INUM0;
 
-  Grob *rest = unsmob<Grob> (smob);
+  auto *const rest = LY_ASSERT_SMOB (Grob, smob, 1);
   if (scm_is_number (get_property (rest, "staff-position")))
     return prev_offset;
 
@@ -1342,7 +1342,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   if (!scm_is_number (prev_offset))
     prev_offset = SCM_INUM0;
 
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   if (!stem)
     return prev_offset;

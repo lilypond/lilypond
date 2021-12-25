@@ -45,7 +45,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2,
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
-  Grob *rest_grob = unsmob<Grob> (rest);
+  auto *const rest_grob = LY_ASSERT_SMOB (Grob, rest, 1);
   Grob *parent = rest_grob->get_x_parent ();
 
   /*
@@ -100,7 +100,7 @@ MAKE_SCHEME_CALLBACK (Rest_collision, calc_positioning_done, 1);
 SCM
 Rest_collision::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 

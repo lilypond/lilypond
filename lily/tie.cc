@@ -154,7 +154,7 @@ Tie::calc_direction (SCM smob)
 {
   // In this method, Tie and Semi_tie require the same logic with different
   // types.  It might be clearer to use a template.
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *yparent = me->get_y_parent ();
   if ((has_interface<Tie_column> (yparent)
        || has_interface<Semi_tie_column> (yparent))
@@ -248,7 +248,7 @@ MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
 Tie::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   SCM cp = get_property (me, "control-points");
 

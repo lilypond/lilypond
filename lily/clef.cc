@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK (Clef, print, 1)
 SCM
 Clef::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM glyph_scm = get_property (me, "glyph-name");
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;

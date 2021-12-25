@@ -391,7 +391,7 @@ MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, 1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM num_length = get_property (me, "minimum-length");
   SCM broken_length = get_property (me, "minimum-length-after-break");
   if (scm_is_number (num_length)

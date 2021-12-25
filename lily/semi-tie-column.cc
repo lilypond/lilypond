@@ -54,7 +54,7 @@ MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_positioning_done, 1);
 SCM
 Semi_tie_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
@@ -91,7 +91,7 @@ MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_head_direction, 1);
 SCM
 Semi_tie_column::calc_head_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "ties", ties);
   Direction d = LEFT;

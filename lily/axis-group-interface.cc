@@ -183,7 +183,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
 SCM
 Axis_group_interface::width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return generic_group_extent (me, X_AXIS);
 }
 
@@ -191,7 +191,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
 SCM
 Axis_group_interface::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return generic_group_extent (me, Y_AXIS);
 }
 
@@ -199,9 +199,9 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height, 3);
 SCM
 Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int start = from_scm (start_scm, 0);
   int end = from_scm (end_scm, INT_MAX);
-  Grob *me = unsmob<Grob> (smob);
   return to_scm (pure_group_height (me, start, end));
 }
 
@@ -261,7 +261,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
 SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   /* TODO: Filter out elements that belong to a different Axis_group,
      such as the tie in
      << \new Staff=A { c'1~ \change Staff=B c'}
@@ -361,7 +361,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
 SCM
 Axis_group_interface::adjacent_pure_heights (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
   extract_grob_set (me, "pure-relevant-grobs", elts);
@@ -472,7 +472,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
 SCM
 Axis_group_interface::calc_skylines (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Skyline_pair skylines = skyline_spacing (me);
   return skylines.smobbed_copy ();
 }
@@ -487,7 +487,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, combine_skylines, 1);
 SCM
 Axis_group_interface::combine_skylines (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "elements", elements);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
@@ -561,7 +561,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common, 1);
 SCM
 Axis_group_interface::calc_pure_y_common (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "pure-relevant-grobs", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
@@ -975,7 +975,7 @@ Axis_group_interface::print (SCM smob)
   if (!debug_skylines)
     return SCM_BOOL_F;
 
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Stencil ret;
   if (Skyline_pair *s = unsmob<Skyline_pair> (get_property (me, "vertical-skylines")))
     {

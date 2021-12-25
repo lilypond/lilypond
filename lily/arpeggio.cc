@@ -60,7 +60,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, calc_cross_staff, 1);
 SCM
 Arpeggio::calc_cross_staff (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
   extract_grob_set (me, "stems", stems);
   Grob *vag = 0;
@@ -83,7 +83,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, calc_positions, 1);
 SCM
 Arpeggio::calc_positions (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *common = get_common_y (me);
 
   /*
@@ -116,7 +116,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
 SCM
 Arpeggio::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Interval heads = from_scm (get_property (me, "positions"),
                              Interval ())
                    * Staff_symbol_referencer::staff_space (me);
@@ -184,7 +184,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket, 1);
 SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Interval heads = from_scm (get_property (me, "positions"),
                              Interval ())
                    * Staff_symbol_referencer::staff_space (me);
@@ -205,7 +205,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, 1);
 SCM
 Arpeggio::brew_chord_slur (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM dash_definition = get_property (me, "dash-definition");
   Interval heads = from_scm (get_property (me, "positions"),
                              Interval ())
@@ -237,7 +237,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, width, 1);
 SCM
 Arpeggio::width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (get_squiggle (me).extent (X_AXIS));
 }
 
@@ -245,7 +245,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
 SCM
 Arpeggio::pure_height (SCM smob, SCM, SCM)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (from_scm<bool> (get_property (me, "cross-staff")))
     return to_scm (Interval ());
 

@@ -141,7 +141,7 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff, 1)
 SCM
 Side_position_interface::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "side-support-elements", elts);
 
   Direction my_dir = get_grob_direction (me);

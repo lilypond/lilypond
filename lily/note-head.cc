@@ -111,7 +111,7 @@ MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, 1);
 SCM
 Note_head::stem_x_shift (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   if (stem)
     (void) get_property (stem, "positioning-done");
@@ -123,7 +123,7 @@ MAKE_SCHEME_CALLBACK (Note_head, print, 1);
 SCM
 Note_head::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   string idx;
   return internal_print (me, &idx).smobbed_copy ();
@@ -133,7 +133,7 @@ MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height, 1);
 SCM
 Note_head::include_ledger_line_height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
 
   if (staff)
@@ -200,7 +200,7 @@ MAKE_SCHEME_CALLBACK (Note_head, calc_stem_attachment, 1);
 SCM
 Note_head::calc_stem_attachment (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Font_metric *fm = Font_interface::get_default_font (me);
   string key;
@@ -222,7 +222,7 @@ MAKE_SCHEME_CALLBACK (Note_head, calc_tab_stem_attachment, 1);
 SCM
 Note_head::calc_tab_stem_attachment (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
 
   Direction dir = get_grob_direction (stem);

@@ -36,7 +36,7 @@ MAKE_SCHEME_CALLBACK (Melody_spanner, calc_neutral_stem_direction, 1);
 SCM
 Melody_spanner::calc_neutral_stem_direction (SCM smob)
 {
-  Grob *stem = unsmob<Grob> (smob);
+  auto *const stem = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *me = unsmob<Grob> (get_object (stem, "melody-spanner"));
   if (!me || !me->is_live ())
     return to_scm (DOWN);

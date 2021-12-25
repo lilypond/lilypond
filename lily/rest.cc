@@ -37,7 +37,7 @@ MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);
 SCM
 Rest::y_offset_callback (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int duration_log = scm_to_int (get_property (me, "duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -151,7 +151,7 @@ MAKE_SCHEME_CALLBACK (Rest, calc_cross_staff, 1);
 SCM
 Rest::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
 
   if (!stem)
@@ -315,7 +315,7 @@ Rest::pure_height (SCM smob,
                    SCM /* start */,
                    SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM m = brew_internal_stencil (me, false);
   return to_scm (unsmob<const Stencil> (m)->extent (Y_AXIS));
 }

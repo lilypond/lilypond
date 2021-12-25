@@ -30,7 +30,7 @@ MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment, 1)
 SCM
 Clef_modifier::calc_parent_alignment (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *clef = me->get_x_parent ();
   string full_clef_name = ly_scm2string (get_property (clef, "glyph"));
   string clef_name = replace_all (&full_clef_name, "clefs.", "");

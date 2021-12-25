@@ -50,7 +50,7 @@ MAKE_SCHEME_CALLBACK (Sustain_pedal, print, 1);
 SCM
 Sustain_pedal::print (SCM smob)
 {
-  Grob *e = unsmob<Grob> (smob);
+  auto *const e = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Stencil mol;
   SCM glyph = get_property (e, "text");

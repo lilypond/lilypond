@@ -33,7 +33,7 @@ MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1)
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set ((me->original () && me->original ()->is_live ()
                      ? me->original ()
                      : me),

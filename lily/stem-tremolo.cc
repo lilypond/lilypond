@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff, 1)
 SCM
 Stem_tremolo::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   return get_property (stem, "cross-staff");
 }
@@ -47,7 +47,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Spanner *beam = Stem::get_beam (stem);
 
@@ -81,7 +81,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
 SCM
 Stem_tremolo::calc_width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
@@ -95,7 +95,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_shape, 1)
 SCM
 Stem_tremolo::calc_shape (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
@@ -206,7 +206,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, width, 1);
 SCM
 Stem_tremolo::width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   /*
     Cannot use the real slope, since it looks at the Beam.
@@ -246,7 +246,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_y_offset, 1);
 SCM
 Stem_tremolo::calc_y_offset (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (y_offset (me, false));
 }
 
@@ -256,7 +256,7 @@ Stem_tremolo::pure_calc_y_offset (SCM smob,
                                   SCM, /* start */
                                   SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (y_offset (me, true));
 }
 
@@ -363,7 +363,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
 SCM
 Stem_tremolo::print (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
   Stencil s = untranslated_stencil (me, from_scm<double> (get_property (me, "slope"), 0.25));
   return s.smobbed_copy ();

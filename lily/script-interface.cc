@@ -54,7 +54,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done, 1);
 SCM
 Script_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (Grob *par = me->get_x_parent ())
     {
       Grob *stem = Note_column::get_stem (par);
@@ -81,7 +81,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
 SCM
 Script_interface::calc_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction d = Script_interface::get_direction (me);
 
   if (!d && scm_is_true (get_property (me, "stencil")))
@@ -98,7 +98,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff, 1);
 SCM
 Script_interface::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = Note_column::get_stem (me->get_x_parent ());
 
   if (stem && from_scm<bool> (get_property (stem, "cross-staff")))
@@ -119,7 +119,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
 SCM
 Script_interface::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Direction dir = get_grob_direction (me);
 

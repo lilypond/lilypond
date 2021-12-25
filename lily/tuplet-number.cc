@@ -448,7 +448,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)
 SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return get_property (unsmob<Grob> (get_object (me, "bracket")), "cross-staff");
 }
 

@@ -51,8 +51,8 @@ LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
 Compare two grobs by script priority.  For internal use.
            )")
 {
-  Grob *i1 = unsmob<Grob> (a);
-  Grob *i2 = unsmob<Grob> (b);
+  auto *const i1 = LY_ASSERT_SMOB (Grob, a, 1);
+  auto *const i2 = LY_ASSERT_SMOB (Grob, b, 2);
 
   SCM p1 = get_property (i1, "script-priority");
   SCM p2 = get_property (i2, "script-priority");
@@ -64,7 +64,7 @@ MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking, 1);
 SCM
 Script_column::row_before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   vector<Grob *> horizontal_grobs;
   extract_grob_set (me, "scripts", scripts);
 
@@ -108,7 +108,7 @@ MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   vector<Grob *> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);

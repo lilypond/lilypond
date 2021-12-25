@@ -389,7 +389,7 @@ MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking, 1);
 SCM
 System::footnotes_before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   vector<Grob *> footnotes;
   SCM grobs_scm = Grob_array::make_array ();
   extract_grob_set (me, "all-elements", elts);
@@ -420,7 +420,7 @@ MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements, 1);
 SCM
 System::vertical_skyline_elements (SCM smob)
 {
-  Grob *me_grob = unsmob<Grob> (smob);
+  auto *const me_grob = LY_ASSERT_SMOB (Grob, smob, 1);
   vector<Grob *> vertical_skyline_grobs;
   extract_grob_set (me_grob, "elements", my_elts);
   for (vsize i = 0; i < my_elts.size (); i++)
@@ -784,7 +784,7 @@ MAKE_SCHEME_CALLBACK (System, get_vertical_alignment, 1);
 SCM
 System::get_vertical_alignment (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "elements", elts);
   Grob *ret = 0;
   for (vsize i = 0; i < elts.size (); i++)
@@ -910,7 +910,7 @@ MAKE_SCHEME_CALLBACK (System, calc_pure_relevant_grobs, 1);
 SCM
 System::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "elements", elts);
   vector<Grob *> relevant_grobs;

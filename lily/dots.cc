@@ -32,7 +32,7 @@ MAKE_SCHEME_CALLBACK (Dots, print, 1);
 SCM
 Dots::print (SCM d)
 {
-  Grob *sc = unsmob<Grob> (d);
+  auto *const sc = LY_ASSERT_SMOB (Grob, d, 1);
   Stencil mol;
 
   SCM c = get_property (sc, "dot-count");

@@ -199,7 +199,7 @@ Separation_item::print (SCM smob)
   if (!debug_skylines)
     return SCM_BOOL_F;
 
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Stencil ret;
   if (Skyline_pair *s = unsmob<Skyline_pair> (get_property (me, "horizontal-skylines")))
     {
