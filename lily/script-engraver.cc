@@ -80,9 +80,9 @@ Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
   for (vsize i = 0; i < scripts_.size (); i++)
-    if (ly_is_equal (get_property (scripts_[i].event_,
-                                   "articulation-type"),
-                     get_property (ev, "articulation-type")))
+    if (scm_is_eq (get_property (scripts_[i].event_,
+                                 "articulation-type"),
+                   get_property (ev, "articulation-type")))
       return;
 
   Script_tuple t;
@@ -108,16 +108,17 @@ copy_property (Grob *g, SCM sym, SCM alist)
 void
 make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
+  if (!scm_is_symbol (art_type))
+    programming_error (_f ("articulation-type must be symbol since 2.23.6: %s",
+                           ly_scm_write_string (art_type)));
+
   SCM alist = get_property (tg, "scriptDefinitions");
-  SCM art = ly_assoc (art_type, alist);
+  SCM art = scm_assq (art_type, alist);
 
   if (scm_is_false (art))
     {
-      /* FIXME: */
-      warning (_ ("do not know how to interpret articulation:"));
-      warning (_ (" scheme encoding: "));
-      scm_write (art_type, scm_current_error_port ());
-      message ("");
+      warning (_f ("do not know how to interpret articulation: %s",
+                   ly_scm_write_string (art_type)));
       return;
     }
 

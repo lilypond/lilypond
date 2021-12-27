@@ -1313,7 +1313,7 @@ wie @code{\displayMusic} benutzt wird, hilft hier weiter.
 
 @example
 F = #(let ((m (make-music 'ArticulationEvent
-                          'articulation-type "flageolet")))
+                          'articulation-type 'flageolet)))
        (set! (ly:music-property m 'tweaks)
              (acons 'font-size -3
                     (ly:music-property m 'tweaks)))

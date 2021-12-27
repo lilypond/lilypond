@@ -497,8 +497,8 @@ be converted into a Scheme hash table, using the
          (bassdrum        default   #f           -1)
          (snare           default   #f           0)
          (hihat           cross     #f           1)
-         (halfopenhihat   cross     "halfopen"   1)
-         (pedalhihat      xcircle   "stopped"    2)
+         (halfopenhihat   cross     halfopen     1)
+         (pedalhihat      xcircle   stopped      2)
          (lowtom          diamond   #f           3)))
 
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
@@ -566,11 +566,11 @@ drumPitchNames.dsm        = #'dslapmute
 
 #(define djembe-style
   '((dbass      default  #f         -2)
-    (dbassmute  default  "stopped"  -2)
+    (dbassmute  default  stopped    -2)
     (dopen      default  #f          0)
-    (dopenmute  default  "stopped"   0)
+    (dopenmute  default  stopped     0)
     (dslap      default  #f          2)
-    (dslapmute  default  "stopped"   2)))
+    (dslapmute  default  stopped     2)))
 
 midiDrumPitches.dbass     = g
 midiDrumPitches.dbassmute = fis

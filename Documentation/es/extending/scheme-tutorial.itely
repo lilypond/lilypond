@@ -1549,8 +1549,7 @@ salida deseada.
   'articulations
   (list (make-music
           'ArticulationEvent
-          'articulation-type
-          "accent"))
+          'articulation-type 'accent))
   'duration
   (ly:make-duration 2 0 1/1)
   'pitch
@@ -1570,7 +1569,7 @@ Para construir esta función, empezamos con
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
-                'articulation-type "accent")
+                'articulation-type 'accent)
               (ly:music-property note-event 'articulations)))
   note-event)
 @end example
@@ -1650,7 +1649,7 @@ propiedades musicales (las @code{'articulations}, @code{'duration},
 
 @example
 (cons (make-music 'ArticulationEvent
-        'articulation-type "accent")
+        'articulation-type 'accent)
       (ly:music-property result-event-chord 'articulations))
 @end example
 
@@ -1675,7 +1674,7 @@ addAccent = #(define-music-function (note-event)
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
-                'articulation-type "accent")
+                'articulation-type 'accent)
               (ly:music-property note-event 'articulations)))
   note-event)
 @end example

@@ -443,8 +443,8 @@ in una tabella hash Scheme, usando la funzione @code{alist->hash-table}.
          (bassdrum        default   #f           -1)
          (snare           default   #f           0)
          (hihat           cross     #f           1)
-         (halfopenhihat   cross     "halfopen"   1)
-         (pedalhihat      xcircle   "stopped"    2)
+         (halfopenhihat   cross     halfopen     1)
+         (pedalhihat      xcircle   stopped      2)
          (lowtom          diamond   #f           3)))
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
@@ -510,11 +510,11 @@ drumPitchNames.dsm        = #'dslapmute
 
 #(define djembe-style
   '((dbass      default  #f         -2)
-    (dbassmute  default  "stopped"  -2)
+    (dbassmute  default  stopped    -2)
     (dopen      default  #f          0)
-    (dopenmute  default  "stopped"   0)
+    (dopenmute  default  stopped     0)
     (dslap      default  #f          2)
-    (dslapmute  default  "stopped"   2)))
+    (dslapmute  default  stopped     2)))
 
 midiDrumPitches.dbass     = g
 midiDrumPitches.dbassmute = fis

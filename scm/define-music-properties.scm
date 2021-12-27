@@ -35,9 +35,7 @@
 of group of alternate endings.")
      (alternative-number ,index? "The index of the current
 @code{\\alternative} element, starting from one.")
-     (articulation-type ,string? "Key for script definitions alist.
-
-TODO: Consider making type into symbol.")
+     (articulation-type ,symbol? "Key for script definitions alist.")
      (articulations ,ly:music-list?
                     "Articulation events specifically for this note.")
      (associated-context ,string? "Name of the context associated with

@@ -1,4 +1,4 @@
-\version "2.19.43"
+\version "2.23.6"
 
 \header {
 
@@ -6,10 +6,10 @@
 
 }
 #(define mydrums '(
-         (hihat         cross #f                 5)
-         (openhihat     cross "open"             5)
-         (closedhihat   cross "stopped"          5)
-         (halfopenhihat cross "halfopenvertical" 5)))
+         (hihat         cross #f               5)
+         (openhihat     cross open             5)
+         (closedhihat   cross stopped          5)
+         (halfopenhihat cross halfopenvertical 5)))
 
 \new DrumStaff <<
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)

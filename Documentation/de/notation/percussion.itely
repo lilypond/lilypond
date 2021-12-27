@@ -396,8 +396,8 @@ eigene Liste der Positionen und Notenköpfe am Anfang ihrer Datei erstellen.
          (bassdrum        default   #f           -1)
          (snare           default   #f           0)
          (hihat           cross     #f           1)
-         (halfopenhihat   cross     "halfopen"   1)
-         (pedalhihat      xcircle   "stopped"    2)
+         (halfopenhihat   cross     halfopen     1)
+         (pedalhihat      xcircle   stopped      2)
          (lowtom          diamond   #f           3)))
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
@@ -420,8 +420,8 @@ Zwei Holzblöcke, notiert mit wbh (hoch) und wbl (tief)
 % These lines define the position of the woodblocks in the stave;
 % if you like, you can change it or you can use special note heads
 % for the woodblocks.
-#(define mydrums '((hiwoodblock default #t  3)
-                   (lowoodblock default #t -2)))
+#(define mydrums '((hiwoodblock default #f  3)
+                   (lowoodblock default #f -2)))
 
 woodstaff = {
   % This defines a staff with only two lines.
@@ -454,7 +454,7 @@ auch definiert werden.
 Tamburin, notiert mit @code{tamb}:
 
 @lilypond[quote,verbatim]
-#(define mydrums '((tambourine default #t 0)))
+#(define mydrums '((tambourine default #f 0)))
 
 tambustaff = {
   \override Staff.StaffSymbol.line-positions = #'( 0 )
@@ -480,7 +480,7 @@ tambustaff = {
 Noten für Tam-Tam (notiert mit @code{tt}):
 
 @lilypond[quote,verbatim]
-#(define mydrums '((tamtam default #t 0)))
+#(define mydrums '((tamtam default #f 0)))
 
 tamtamstaff = {
   \override Staff.StaffSymbol.line-positions = #'( 0 )
@@ -502,8 +502,8 @@ Zwei Glocken, notiert mit @code{cb} (Kuhglocke) und @code{rb}
 (Reiterglocke)
 
 @lilypond[quote,verbatim]
-#(define mydrums '((ridebell default #t  3)
-                   (cowbell  default #t -2)))
+#(define mydrums '((ridebell default #f  3)
+                   (cowbell  default #f -2)))
 
 bellstaff = {
   \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
@@ -522,12 +522,12 @@ bellstaff = {
 }
 @end lilypond
 
-Hier ein kurzes Beispiel von Stravinsky (aus @qq{L'histoire du Soldat}):
+Hier ein kurzes Beispiel von Stravinsky (aus @qq{L'Histoire du Soldat}):
 
 @lilypond[quote,verbatim]
-#(define mydrums '((bassdrum   default #t  4)
-                   (snare      default #t -4)
-                   (tambourine default #t  0)))
+#(define mydrums '((bassdrum   default #f  4)
+                   (snare      default #f -4)
+                   (tambourine default #f  0)))
 
 global = {
   \time 3/8 s4.

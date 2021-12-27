@@ -34,7 +34,13 @@ Stencil
 Script_interface::get_stencil (Grob *me, Direction d)
 {
   SCM s = get_property (me, "script-stencil");
-  assert (scm_is_pair (s));
+
+  if (!scm_is_pair (s))
+    {
+      warning (_f ("script-stencil property must be pair: %s",
+                    ly_scm_write_string (s)));
+      return Stencil ();
+    }
 
   SCM key = scm_car (s);
   if (scm_is_eq (key, ly_symbol2scm ("feta")))
@@ -61,9 +67,10 @@ Script_interface::get_stencil (Grob *me, Direction d)
              ->find_by_name ("scripts." + ly_scm2string (str));
     }
   else
-    assert (false);
-
-  return Stencil ();
+    {
+      programming_error ("cannot deal with script-stencil key other than 'feta");
+      return Stencil ();
+    }
 }
 
 MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done, 1);

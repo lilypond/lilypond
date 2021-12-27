@@ -93,12 +93,12 @@ Drum_notes_engraver::process_music ()
           if (scm_is_symbol (style))
             set_property (note, "style", style);
 
-          if (scm_is_string (script))
+          if (scm_is_true (script))
             {
               // Error out if script doesn't exist
               if (scm_is_false (ly_assoc (script, get_property (context (), "scriptDefinitions"))))
                 ev->origin ()->error (_f ("unrecognised percussion sign: \"%s\"",
-                                          ly_scm2string (script)));
+                                          ly_scm_write_string (script)));
 
               Item *p = make_item ("Script", ev->self_scm ());
               make_script_from_event (p, context (), script,

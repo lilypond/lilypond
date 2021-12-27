@@ -4426,10 +4426,21 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+dash_abbreviations = ["Hat", "Plus", "Dash", "Bang", "Larger", "Dot", "Underscore"]
+
 @rule((2, 23, 6), r"""
 markFormatter -> rehearsalMarkFormatter
 startRepeatType -> startRepeatBarType (etc.)
+make-articulation "X" -> make-articulation 'X
+'articulation-type "X" -> 'articulation-type 'X
+dashX = "Y" -> dashX = #(make-articulation 'Y)
 """)
+# It would be nicer to do
+# dashX = "Y" -> dashX = \Y
+# but it is not guaranteed that for any 'symbol valid as 'articulation-type
+# (see the list in scm/script.scm), there is a corresponding after-event \symbol
+# defined via #(make-articulation 'symbol ...) in ly/script-init.ly or
+# ly/gregorian.ly. (Example: There is no \comma as of 2.23.5)
 def conv(s):
     s = re.sub("doubleRepeatSegnoType", "doubleRepeatSegnoBarType", s)
     s = re.sub("doubleRepeatType", "doubleRepeatBarType", s)
@@ -4442,6 +4453,9 @@ def conv(s):
     s = re.sub("startRepeatSegnoType", "startRepeatSegnoBarType", s)
     s = re.sub("startRepeatType", "startRepeatBarType", s)
     s = re.sub("underlyingRepeatType", "underlyingRepeatBarType", s)
+    s = re.sub(r'''((make-articulation|'articulation-type)\s+)"(\w+)"''', r"\1'\3", s)
+    s = re.sub(r'(dash(%s)\s+)=(\s+)"(\w+)"' % "|".join(dash_abbreviations),
+               r"\1=\3#(make-articulation '\4)", s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

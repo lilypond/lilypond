@@ -1404,8 +1404,7 @@ Scheme.  We begin by examining our input and desired output.
   'articulations
   (list (make-music
           'ArticulationEvent
-          'articulation-type
-          "accent"))
+          'articulation-type 'accent))
   'duration
   (ly:make-duration 2 0 1/1)
   'pitch
@@ -1425,7 +1424,7 @@ To build this function, we begin with
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
-                'articulation-type "accent")
+                'articulation-type 'accent)
               (ly:music-property note-event 'articulations)))
   note-event)
 @end example
@@ -1498,7 +1497,7 @@ former @code{'articulations} property, with an extra item: the
 
 @example
 (cons (make-music 'ArticulationEvent
-        'articulation-type "accent")
+        'articulation-type 'accent)
       (ly:music-property result-event-chord 'articulations))
 @end example
 
@@ -1521,7 +1520,7 @@ addAccent = #(define-music-function (note-event) (ly:music?)
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
-                'articulation-type "accent")
+                'articulation-type 'accent)
               (ly:music-property note-event 'articulations)))
   note-event)
 @end example

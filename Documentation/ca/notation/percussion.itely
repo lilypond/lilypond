@@ -433,8 +433,8 @@ vostra pròpia llista al principi del vostre fitxer.
          (bassdrum        default   #f           -1)
          (snare           default   #f           0)
          (hihat           cross     #f           1)
-         (halfopenhihat   cross     "halfopen"   1)
-         (pedalhihat      xcircle   "stopped"    2)
+         (halfopenhihat   cross     halfopen     1)
+         (pedalhihat      xcircle   stopped      2)
          (lowtom          diamond   #f           3)))
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
@@ -460,8 +460,8 @@ bloc alt) i wbl (@emph{woodblock-low} bloc baix.)
 % Aquestes línies defineixen la posició dels blocs de fusta al pentagrama;
 % si ho voleu, podeu canviar-lo o podeu usar caps de nota especials
 % per als blocs de fusta.
-#(define mydrums '((hiwoodblock default #t  3)
-                   (lowoodblock default #t -2)))
+#(define mydrums '((hiwoodblock default #f  3)
+                   (lowoodblock default #f -2)))
 
 woodstaff = {
   % Això defineix un pentagrama amb sols dues línies.
@@ -496,7 +496,7 @@ més informació sobre aquests temes delicats, consulteu
 Una pandereta, escrita mitjaç+ant @q{tamb} (@emph{tambourine}):
 
 @lilypond[verbatim,quote]
-#(define mydrums '((tambourine default #t 0)))
+#(define mydrums '((tambourine default #f 0)))
 
 \new DrumStaff \with { instrumentName = "Tambourine" }
 
@@ -517,7 +517,7 @@ Una pandereta, escrita mitjaç+ant @q{tamb} (@emph{tambourine}):
 Música per a gong, introduïda amb @q{tt} (tam-tam):
 
 @lilypond[quote,verbatim]
-#(define mydrums '((tamtam default #t 0)))
+#(define mydrums '((tamtam default #f 0)))
 
 \new DrumStaff \with { instrumentName = "Tamtam" }
 
@@ -534,8 +534,8 @@ Dues campanes, introduïdes amb @q{cb} (@emph{cowbell}, esquella) i
 @q{rb} (@emph{ridebell}, campana normal)
 
 @lilypond[quote,verbatim]
-#(define mydrums '((ridebell default #t  3)
-                   (cowbell  default #t -2)))
+#(define mydrums '((ridebell default #f  3)
+                   (cowbell  default #f -2)))
 
 \new DrumStaff \with { instrumentName = "Different Bells" }
 
@@ -554,9 +554,9 @@ Aquí hi ha un exemple breu procedent de la @q{Història del soldat} de
 Stravinsky:
 
 @lilypond[quote,verbatim]
-#(define mydrums '((bassdrum   default #t  4)
-                   (snare      default #t -4)
-                   (tambourine default #t  0)))
+#(define mydrums '((bassdrum   default #f  4)
+                   (snare      default #f -4)
+                   (tambourine default #f  0)))
 
 global = {
   \time 3/8 s4.

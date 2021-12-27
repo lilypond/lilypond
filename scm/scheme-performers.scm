@@ -50,7 +50,7 @@
 	     ;; events for debugging purposes: the performer is not
 	     ;; intended to be used while typesetting, but a
 	     ;; wrapper may add an "is-layout" property
-	     (articulation-type . ,(if strong? "marcato" "accent"))
+	     (articulation-type . ,(if strong? 'marcato 'accent))
 	     (midi-extra-velocity
               . ,(+ (or (ly:context-property ctx 'beatExtraVelocity 15) 0)
                     (or (and strong? (ly:context-property ctx 'barExtraVelocity 10))
@@ -68,8 +68,8 @@
     ;; to let syncopated accents silence the next "regular" stress
     ((articulation-event performer event)
      (cond ((eq? fired event))	; ignore our own events
-	   ((member (ly:event-property event 'articulation-type)
-		    '("accent" "marcato"))
+	   ((memq (ly:event-property event 'articulation-type)
+		    '(accent marcato))
 	    (let ((mp (ly:context-property context
 					   'measurePosition ZERO-MOMENT))
 		  (now (ly:context-current-moment context)))

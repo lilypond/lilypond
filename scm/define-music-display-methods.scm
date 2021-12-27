@@ -171,7 +171,7 @@ expression."
 (define-display-method ArticulationEvent (event) #t
   (let* ((articulation  (ly:music-property event 'articulation-type))
          (shorthand
-          (case (string->symbol articulation)
+          (case articulation
             ((marcato) "^")
             ((stopped) "+")
             ((tenuto)    "-")

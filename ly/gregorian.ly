@@ -160,10 +160,10 @@ finalis = {
 %
 % Declare articulation shortcuts.
 %
-accentus = #(make-articulation "accentus")
-ictus = #(make-articulation "ictus")
-semicirculus = #(make-articulation "semicirculus")
-circulus = #(make-articulation "circulus")
+accentus = #(make-articulation 'accentus)
+ictus = #(make-articulation 'ictus)
+semicirculus = #(make-articulation 'semicirculus)
+circulus = #(make-articulation 'circulus)
 
 %
 % \augmentum increases the dot-count value of all note heads to which

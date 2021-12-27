@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.23.6"
 
 drumPitchNames =
 #'((acousticbassdrum . acousticbassdrum)
@@ -264,12 +264,12 @@ midiDrumPitches =
       (handclap triangle #f 1)
       (electricsnare () #f 1)
       (lowfloortom () #f -4)
-      (closedhihat cross "stopped" 3)
+      (closedhihat cross stopped 3)
       (hihat cross #f 3)
       (highfloortom () #f -2)
       (pedalhihat cross #f -5)
       (lowtom () #f -1)
-      (openhihat cross "open" 3)
+      (openhihat cross open 3)
       (halfopenhihat xcircle #f 3)
       (lowmidtom () #f 0)
       (himidtom () #f 2)
@@ -333,33 +333,33 @@ midiDrumPitches =
    (congas-style .
      ((losidestick cross #f -1)
       (loconga () #f -1)
-      (openloconga () "open" -1)
-      (muteloconga () "stopped" -1)
+      (openloconga () open -1)
+      (muteloconga () stopped -1)
       (hisidestick cross #f 1)
       (hiconga () #f 1)
-      (openhiconga () "open" 1)
-      (mutehiconga () "stopped" 1)
+      (openhiconga () open 1)
+      (mutehiconga () stopped 1)
       ))
 
 
    (bongos-style .
      ((losidestick cross #f -1)
       (lobongo () #f -1)
-      (openlobongo () "open" -1)
-      (mutelobongo () "stopped" -1)
+      (openlobongo () open -1)
+      (mutelobongo () stopped -1)
       (hisidestick cross #f 1)
       (hibongo () #f 1)
-      (openhibongo () "open" 1)
-      (mutehibongo () "stopped" 1)
+      (openhibongo () open 1)
+      (mutehibongo () stopped 1)
       ))
 
 
    (percussion-style .
-     ((opentriangle cross "open" 0)
-      (mutetriangle cross "stopped" 0)
+     ((opentriangle cross open 0)
+      (mutetriangle cross stopped 0)
       (triangle cross #f 0)
-      (shortguiro () "staccato" 0)
-      (longguiro () "tenuto" 0)
+      (shortguiro () staccato 0)
+      (longguiro () tenuto 0)
       (guiro () #f 0)
       (cowbell triangle #f 0)
       (claves () #f 0)
@@ -378,12 +378,12 @@ midiDrumPitches =
      (sidestick cross #f 1)
      (snare () #f 1)
      (lowfloortom () #f -2)
-     (closedhihat cross "stopped" 5)
+     (closedhihat cross stopped 5)
      (hihat cross #f 5)
      (highfloortom () #f -1)
      (pedalhihat cross #f -5)
      (lowtom () #f -1)
-     (openhihat cross "open" 5)
+     (openhihat cross open 5)
      (lowmidtom () #f 2)
      (himidtom () #f 4)
      (crashcymbal cross #f 6)
