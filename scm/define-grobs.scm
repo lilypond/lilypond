@@ -1907,7 +1907,6 @@
      . (
         (allow-loose-spacing . #t)
         (axes . (,X))
-        (before-line-breaking . ,ly:paper-column::before-line-breaking)
         (bound-alignment-interfaces . (break-alignment-interface))
         ;; used by Paper_column::print when debugging columns:
         (font-size . -7.5)
@@ -2042,7 +2041,6 @@
      . (
         (allow-loose-spacing . #t)
         (axes . (,X))
-        (before-line-breaking . ,ly:paper-column::before-line-breaking)
         (bound-alignment-interfaces . (note-column-interface))
         ;; used by Paper_column::print when debugging columns:
         (font-size . -7.5)

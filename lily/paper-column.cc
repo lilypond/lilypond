@@ -394,31 +394,6 @@ Paper_column::print (SCM p)
   return t.smobbed_copy ();
 }
 
-static bool grob_is_live (const Grob *g)
-{
-  return g && g->is_live ();
-}
-
-/*
-  This is all too hairy. We use bounded-by-me to make sure that some
-  columns are kept "alive". Unfortunately, when spanners are suicided,
-  this falls apart again, because suicided spanners are still in
-  bounded-by-me
-
-  THIS IS BROKEN KLUDGE. WE SHOULD INVENT SOMETHING BETTER.
-*/
-MAKE_SCHEME_CALLBACK (Paper_column, before_line_breaking, 1);
-SCM
-Paper_column::before_line_breaking (SCM grob)
-{
-  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
-
-  if (Grob_array *ga = unsmob<Grob_array> (get_object (me, "bounded-by-me")))
-    ga->filter (grob_is_live);
-
-  return SCM_UNSPECIFIED;
-}
-
 /* FIXME: This is a hack that we use to identify columns that used to
    contain note-heads but whose note-heads were moved by one of the ligature
    engravers. Once the ligature engravers are fixed to behave nicely, this
