@@ -72,6 +72,10 @@ various kinds of music.  Problems are reported on stderr."
 #ZERO-MOMENT
 #(ly:make-moment 1/8 0)
 
+\testStartAndLength \unfoldRepeats \skip \repeat volta 2 c8
+#ZERO-MOMENT
+#(ly:make-moment 1/4 0)
+
 \testStartAndLength <d>8
 #ZERO-MOMENT
 #(ly:make-moment 1/8 0)

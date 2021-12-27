@@ -21,6 +21,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; type predicates.
+(define-public (duration-or-music? x)
+  (or (ly:duration? x) (ly:music? x)))
+
 (define-public (number-pair? x)
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))

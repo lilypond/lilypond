@@ -637,6 +637,17 @@ Syntax: @code{\\skip} @var{duration}")
         (types . (event skip-event))
         ))
 
+    (SkippedMusic
+     . ((description . "Filler that takes up duration, does not
+print anything, and also does not create staves or voices implicitly.
+
+Syntax: @code{\\skip} @var{music}")
+        (iterator-ctor . ,ly:simple-music-iterator::constructor)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (types . (skipped-music music-wrapper-music))
+        ))
+
     (SlurEvent
      . ((description . "Start or end slur.
 

@@ -94,6 +94,7 @@ are reported on the stderr of this run."
 \test ##[ s2..*3/4 #]		% SkipEvent
 \test ##[ R1.*2/3 #]		% MultiMeasureRestMusicGroup, MultiMeasureRestEvent
 \test ##[ \skip 2.*3/4 #]		% SkipMusic
+\test ##[ \skip { c4 } #]		% SkippedMusic
 \test ##[ < c\1 e\3 >4.*3/4-. #]	% EventChord, NoteEvent, StringNumberEvent, ArticulationEvent
 \test ##[ < c-1\4 >8 #]
 \test ##[ { < c e g c' >4 q8-. } #] % RepeatedChord

@@ -1884,10 +1884,13 @@ This does not convert @code{\\revert}, @code{\\set} or @code{\\unset}.")
     overrides))
 
 skip =
-#(define-music-function (dur) (ly:duration?)
-  (_i "Skip forward by @var{dur}.")
-  (make-music 'SkipMusic
-              'duration dur))
+#(define-music-function (arg) (duration-or-music?)
+  (_i "Skip over @var{arg}, which may be music or a duration.")
+  (if (ly:duration? arg)
+      (make-music 'SkipMusic
+                  'duration arg)
+      (make-music 'SkippedMusic
+                  'element arg)))
 
 
 slashedGrace =

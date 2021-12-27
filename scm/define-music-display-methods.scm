@@ -477,6 +477,10 @@ expression."
 (define-display-method SkipMusic (skip)
   (format #f "\\skip ~a" (duration->lily-string (ly:music-property skip 'duration) #:force-duration #t)))
 
+(define-display-method SkippedMusic (skip)
+  (format #f "\\skip ~a"
+          (music->lily-string (ly:music-property skip 'element))))
+
 (define-display-method OttavaEvent (ottava)
   (format #f "\\ottava #~a" (ly:music-property ottava 'ottava-number)))
 
