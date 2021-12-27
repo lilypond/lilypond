@@ -15,11 +15,17 @@ should end open and bracket 2 should end closed."
 #(allow-volta-hook "||-eol-test")
 
 \new Score <<
-  {
+  \repeat volta 2 {
     s1
-    \volta 1 s1 \bar "||"
+    \alternative {
+      \volta 1 { s1 \bar "||" }
+      \volta 2 {}
+    }
     s1
-    \volta 2 s1 \bar "||-closed-test"
+    \alternative {
+      \volta 1 {}
+      \volta 2 { s1 \bar "||-closed-test" }
+    }
     s1
   }
 >>

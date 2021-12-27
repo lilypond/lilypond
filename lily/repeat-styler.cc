@@ -29,7 +29,9 @@
 
 void
 Repeat_styler::report_alternative_event (Music *element,
-                                         Direction d, SCM volta_nums)
+                                         Direction d,
+                                         size_t volta_depth,
+                                         SCM volta_nums)
 {
   SCM ev_scm = Lily::make_music (ly_symbol2scm ("AlternativeEvent"));
   auto *const ev = unsmob<Music> (ev_scm);
@@ -39,6 +41,7 @@ Repeat_styler::report_alternative_event (Music *element,
         ev->set_spot (*origin);
     }
   set_property (ev, "alternative-dir", to_scm (d));
+  set_property (ev, "volta-depth", to_scm (volta_depth));
   set_property (ev, "volta-numbers", volta_nums);
   ev->send_to_context (owner ()->get_context ());
 }
@@ -57,10 +60,14 @@ public:
   {
     return false; // disable volta brackets
   }
-  void derived_report_alternative_start (Music *, long, SCM) override {}
+  void derived_report_alternative_start (Music *,
+                                         long /*alt_num*/,
+                                         size_t /*volta_depth*/,
+                                         SCM /*volta_nums*/) override {}
   void derived_report_return (long /*alt_num*/,
                               long /*return_count*/) override {}
-  void derived_report_alternative_group_end (Music *) override {}
+  void derived_report_alternative_group_end (Music *,
+                                             size_t /*volta_depth*/) override {}
 };
 
 class Segno_repeat_styler final : public Repeat_styler
@@ -98,17 +105,23 @@ public:
     // the tail of the repeated section and are performed in order.  The repeat
     // body must also not be empty.  In other cases, we fall back on volta
     // brackets and simplify our D.S. instructions.
-    const bool aligned_at_start = (start == START);
-    const bool aligned_at_end = (end == STOP);
-    coda_marks_enabled_ = !aligned_at_start && aligned_at_end && in_order;
-    return !coda_marks_enabled_;
+    if (alternative_depth () == 1)
+      {
+        const bool aligned_at_start = (start == START);
+        const bool aligned_at_end = (end == STOP);
+        coda_marks_enabled_ = !aligned_at_start && aligned_at_end && in_order;
+      }
+
+    // ... and nested alternatives always get volta brackets.
+    return !(coda_marks_enabled_ && (alternative_depth () < 2));
   }
 
   void derived_report_alternative_start (Music *element,
                                          long alt_num,
+                                         size_t volta_depth,
                                          SCM volta_nums) override
   {
-    if (coda_marks_enabled_)
+    if (coda_marks_enabled_ && (alternative_depth () < 2))
       {
         // In general, there is no reason to mark an empty passage.
         // Importantly, this allows "al Coda" structures where the final
@@ -122,7 +135,7 @@ public:
     else
       {
         report_alternative_event (element, (alt_num == 1) ? START : CENTER,
-                                  volta_nums);
+                                  volta_depth, volta_nums);
       }
   }
 
@@ -136,7 +149,7 @@ public:
 
     // If we have fallen back on notating alternatives with volta brackets, we
     // want to keep redundant information out of our D.S. instructions.
-    if (coda_marks_enabled_)
+    if (coda_marks_enabled_ && (alternative_depth () < 2))
       {
         if (alt_num > 0)
           set_property (ev, "alternative-number", to_scm (alt_num));
@@ -156,10 +169,13 @@ public:
     ev->send_to_context (owner ()->get_context ());
   }
 
-  void derived_report_alternative_group_end (Music *element) override
+  void derived_report_alternative_group_end (Music *element,
+                                             size_t volta_depth) override
   {
-    if (!coda_marks_enabled_)
-      report_alternative_event (element, STOP, SCM_EOL);
+    if (coda_marks_enabled_ && (alternative_depth () < 2))
+      ; // though marks are enabled, we don't mark the end
+    else
+      report_alternative_event (element, STOP, volta_depth, SCM_EOL);
   }
 };
 
@@ -197,10 +213,12 @@ public:
   }
 
   void derived_report_alternative_start (Music *element,
-                                         long alt_num, SCM volta_nums) override
+                                         long alt_num,
+                                         size_t volta_depth,
+                                         SCM volta_nums) override
   {
     report_alternative_event (element, (alt_num == 1) ? START : CENTER,
-                              volta_nums);
+                              volta_depth, volta_nums);
   }
 
   void derived_report_return (long /*alt_num*/, long /*return_count*/) override
@@ -208,9 +226,10 @@ public:
     add_repeat_command (ly_symbol2scm ("end-repeat"));
   }
 
-  void derived_report_alternative_group_end (Music *element) override
+  void derived_report_alternative_group_end (Music *element,
+                                             size_t volta_depth) override
   {
-    report_alternative_event (element, STOP, SCM_EOL);
+    report_alternative_event (element, STOP, volta_depth, SCM_EOL);
   }
 };
 

@@ -131,6 +131,18 @@ Alternative_sequence_iterator::analyze ()
     = repeat_styler_->report_alternative_group_start (start_alignment,
                                                       end_alignment,
                                                       alts_in_order);
+
+  // The local volta bracket depth is whatever it was for the nearest enclosing
+  // \alternative, plus one if volta brackets are enabled here.
+  volta_bracket_depth_ = volta_brackets_enabled_ ? 1 : 0;
+  for (auto *mi = get_parent (); mi; mi = mi->get_parent ())
+    {
+      if (auto *asi = dynamic_cast<Alternative_sequence_iterator *> (mi))
+        {
+          volta_bracket_depth_ += asi->volta_bracket_depth ();
+          break;
+        }
+    }
 }
 
 void
@@ -145,7 +157,8 @@ Alternative_sequence_iterator::end_alternative ()
 
   if (done_count_ == alt_info_.size ()) // ending the final alternative
     {
-      repeat_styler_->report_alternative_group_end (get_music ());
+      repeat_styler_->report_alternative_group_end (get_music (),
+                                                    volta_bracket_depth_);
     }
   else if (done_count_ < alt_info_.size ()) // ending an earlier alternative
     {
@@ -227,8 +240,8 @@ Alternative_sequence_iterator::start_alternative ()
       volta_nums = SCM_EOL;
     }
 
-  repeat_styler_->report_alternative_start (music,
-                                            (done_count_ + 1), volta_nums);
+  repeat_styler_->report_alternative_start (music, (done_count_ + 1),
+                                            volta_bracket_depth_, volta_nums);
 }
 
 void

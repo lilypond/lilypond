@@ -5,7 +5,6 @@
 }
 
 music = \context Voice \fixed c' \repeat volta 2 {
-  \once \hide Score.VoltaBracket
   <<
     \volta 1 a1
     \volta 2 \new Voice {

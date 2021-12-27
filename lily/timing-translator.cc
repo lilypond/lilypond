@@ -35,6 +35,11 @@ Timing_translator::derived_mark () const
 void
 Timing_translator::listen_alternative (Stream_event *ev)
 {
+  // Use alternative bar numbers for the outermost volta brackets.
+  const auto depth = from_scm<size_t> (get_property (ev, "volta-depth"), 0);
+  if (depth != 1)
+    return;
+
   // It is common to have the same repeat structure in multiple voices, so we
   // ignore simultaneous events; but it might not be a bad thing to add some
   // consistency checks here if they could catch some kinds of user error.

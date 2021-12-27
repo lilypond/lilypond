@@ -79,15 +79,18 @@ public:
   bool report_alternative_group_start (Direction start, Direction end,
                                        bool in_order)
   {
+    ++alternative_depth_;
     return derived_report_alternative_group_start (start, end, in_order);
   }
 
   // Report that an alternative has started.  alt_num is the index (1-...) of
-  // the alternative within its group and volta_nums is a list of the volta
+  // the alternative within its group.  volta_depth is the depth of the
+  // alternative in the repeat structure.  volta_nums is a list of the volta
   // numbers in which the alternative is used.
-  void report_alternative_start (Music *alt, long alt_num, SCM volta_nums)
+  void report_alternative_start (Music *alt, long alt_num,
+                                 size_t volta_depth, SCM volta_nums)
   {
-    derived_report_alternative_start (alt, alt_num, volta_nums);
+    derived_report_alternative_start (alt, alt_num, volta_depth, volta_nums);
   }
 
   // Report that it is time to return to the start of the repeated section.
@@ -96,21 +99,37 @@ public:
   // times this return is performed.
   void report_return (long alt_num, long return_count)
   {
+    // When two \alternative groups are nested and both are end-aligned, we
+    // report returns for the deeper one and then remain silent when the outer
+    // one tries to report.
+    if (alternative_depth_ < reported_return_depth_)
+      return;
+    reported_return_depth_ = alternative_depth_;
     reported_return_ = true;
     derived_report_return (alt_num, return_count);
   }
 
   // Report that the last alternative of a group has ended.
-  void report_alternative_group_end (Music *alt)
+  void report_alternative_group_end (Music *alt, size_t volta_depth)
   {
-    derived_report_alternative_group_end (alt);
+    derived_report_alternative_group_end (alt, volta_depth);
+
+    if (alternative_depth_ > 0) // paranoia
+      {
+        --alternative_depth_;
+        if (!alternative_depth_)
+          reported_return_depth_ = 0;
+      }
   }
 
 protected:
   explicit Repeat_styler (Music_iterator *owner) : owner_ (owner) {}
   Music_iterator *owner () const { return owner_; }
 
-  void report_alternative_event (Music *element, Direction d, SCM volta_nums);
+  size_t alternative_depth () const { return alternative_depth_; }
+
+  void report_alternative_event (Music *element, Direction d,
+                                 size_t volta_depth, SCM volta_nums);
 
   virtual void derived_report_start () = 0;
   virtual bool derived_report_alternative_group_start (Direction start,
@@ -118,9 +137,11 @@ protected:
                                                        bool in_order) = 0;
   virtual void derived_report_alternative_start (Music *alt,
                                                  long alt_num,
+                                                 size_t volta_depth,
                                                  SCM volta_nums) = 0;
   virtual void derived_report_return (long alt_num, long return_count) = 0;
-  virtual void derived_report_alternative_group_end (Music *element) = 0;
+  virtual void derived_report_alternative_group_end (Music *element,
+                                                     size_t volta_depth) = 0;
 
 private:
   // Think twice before adding state or logic to the repeat stylers.  Dealing
@@ -129,6 +150,8 @@ private:
   // have discovered, using information that is plainly communicated to them.
   Music_iterator *owner_ = nullptr;
   Interval_t<Moment> spanned_time_ {Moment::infinity (), Moment::infinity ()};
+  size_t alternative_depth_ = 0;
+  size_t reported_return_depth_ = 0;
   bool reported_return_ = false;
 };
 

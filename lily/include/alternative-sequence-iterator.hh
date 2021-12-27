@@ -32,6 +32,13 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Alternative_sequence_iterator () = default;
 
+  // The number of enclosing \alternatives with volta brackets enabled (not
+  // limited to the current \repeat, all the way to the root of the music),
+  // plus one if volta brackets are enabled for this \alternative.
+  // N.B. Before the first call to process (), the result is possibly
+  // incorrect.
+  size_t volta_bracket_depth () const { return volta_bracket_depth_; }
+
   // True if volta brackets should be created for this group of alternatives.
   // N.B. Before the first call to process (), the result is possibly
   // incorrect.
@@ -59,6 +66,7 @@ private:
 
   bool first_time_ = true;
   bool volta_brackets_enabled_ = true;
+  size_t volta_bracket_depth_ = 1;
   size_t done_count_ = 0;
   SCM alt_restores_ = SCM_EOL;
   std::shared_ptr<Repeat_styler> repeat_styler_;

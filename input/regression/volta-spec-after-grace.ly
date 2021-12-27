@@ -7,7 +7,6 @@
 music = \context Voice \fixed c' {
   \repeat volta 2 {
     e2
-    \once \hide Score.VoltaBracket
     <<
       a2
       \volta 1 { s4... \grace { g8 f } }

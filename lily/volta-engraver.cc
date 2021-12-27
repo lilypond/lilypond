@@ -25,6 +25,7 @@
 #include "international.hh"
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "note-column.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
@@ -36,12 +37,44 @@
 #include "translator.icc"
 
 #include <string>
+#include <vector>
+
+// State pertaining to volta spans at a specific depth of nested folded
+// repeats.
+class Volta_layer
+{
+public:
+  Moment started_mom_;
+  Spanner *bracket_ = nullptr;
+  Spanner *end_bracket_ = nullptr;
+  Spanner *spanner_ = nullptr;
+  // list of lists: one list per active volta span
+  SCM numbers_ = SCM_EOL;
+  // sorted, deduped union of numbers_
+  SCM groomed_numbers_ = SCM_EOL;
+  bool got_new_nums_this_timestep_ = false;
+
+public:
+  void gc_mark () const
+  {
+    scm_gc_mark (numbers_);
+    scm_gc_mark (groomed_numbers_);
+  }
+};
+
+struct Preinit_Volta_engraver
+{
+  // Entry [n] pertains to volta spans in the nth-deep folded repeat.  [0] is
+  // used if \volta appears at the top level, which is not expected, but is
+  // easily written.
+  std::vector<Volta_layer> layers_;
+};
 
 /*
   Create Volta spanners, by reading repeatCommands  property, usually
   set by Volta_repeat_iterator.
 */
-class Volta_engraver : public Engraver
+class Volta_engraver : Preinit_Volta_engraver, public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
@@ -54,19 +87,11 @@ protected:
   static std::string format_numbers (SCM volta_numbers);
 
   void derived_mark () const override;
+  void finalize () override;
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
 
-  Moment started_mom_;
-  Spanner *volta_bracket_ = nullptr;
-  Spanner *end_volta_bracket_ = nullptr;
-  Spanner *volta_spanner_ = nullptr;
-  // list of lists: one list per active volta span
-  SCM volta_numbers_ = SCM_EOL;
-  // sorted, deduped union of volta_numbers_
-  SCM groomed_volta_numbers_ = SCM_EOL;
-  bool got_new_nums_this_timestep_ = false;
   bool heard_dal_segno_ = false;
   bool heard_fine_ = false;
 };
@@ -74,13 +99,22 @@ protected:
 void
 Volta_engraver::derived_mark () const
 {
-  scm_gc_mark (volta_numbers_);
-  scm_gc_mark (groomed_volta_numbers_);
+  for (const auto &layer : layers_)
+    layer.gc_mark ();
+}
+
+void
+Volta_engraver::finalize ()
+{
+  layers_.clear ();
 }
 
 Volta_engraver::Volta_engraver (Context *c)
   : Engraver (c)
 {
+  // We need at least one layer to support manual repeat commands.
+  // Others may be created as needed.
+  layers_.resize (1);
 }
 
 // TODO: The volta number formatter could be a Scheme procedure configured as a
@@ -163,14 +197,19 @@ Volta_engraver::listen_fine (Stream_event *)
 void
 Volta_engraver::listen_volta_span (Stream_event *ev)
 {
-  got_new_nums_this_timestep_ = true;
+  const auto layer_no = from_scm<size_t> (get_property (ev, "volta-depth"), 0);
+  if (layer_no >= layers_.size ())
+    layers_.resize (layer_no + 1);
+  auto &layer = layers_[layer_no];
+
+  layer.got_new_nums_this_timestep_ = true;
 
   SCM nums = get_property (ev, "volta-numbers");
 
   auto dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (dir == START)
     {
-      volta_numbers_ = scm_cons (nums, volta_numbers_);
+      layer.numbers_ = scm_cons (nums, layer.numbers_);
     }
   else if (dir == STOP)
     {
@@ -178,14 +217,14 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
       // simplicity, we remove all matches and then restore some if there were
       // actually more than one.
       auto removed_count
-        = as_ly_scm_list (volta_numbers_).remove_if ([nums] (SCM entry)
+        = as_ly_scm_list (layer.numbers_).remove_if ([nums] (SCM entry)
       {
         return from_scm<bool> (scm_equal_p (entry, nums));
       });
 
       for (size_t i = 1; i < removed_count; ++i)
         {
-          volta_numbers_ = scm_cons (nums, volta_numbers_);
+          layer.numbers_ = scm_cons (nums, layer.numbers_);
         }
     }
   else
@@ -197,121 +236,130 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
 void
 Volta_engraver::process_music ()
 {
-  // Simultaneous \volta commands do not necessarily change the union of active
-  // volta numbers when a particular \volta begins or ends.  Figure out whether
-  // there is an actual change now.
-  if (got_new_nums_this_timestep_)
+  for (size_t layer_no = 0; layer_no < layers_.size (); ++layer_no)
     {
-      SCM nums = SCM_EOL;
-      for (SCM more : as_ly_scm_list (volta_numbers_))
+      auto &layer = layers_[layer_no];
+
+      // Simultaneous \volta commands do not necessarily change the union of
+      // active volta numbers when a particular \volta begins or ends.  Figure
+      // out whether there is an actual change now.
+      //
+      // TODO: Some of the complexity of this engraver was introduced in a
+      // misstep with the initial \volta implementation.  It can likely be
+      // simplified now that volta brackets are associated with \alternative
+      // groups rather than every \volta spec.
+      if (layer.got_new_nums_this_timestep_)
         {
-          nums = Srfi_1::lset_union (Guile_user::equal, nums, more);
-        }
-
-      nums = scm_sort_list (nums, Guile_user::less);
-      nums = Srfi_1::delete_duplicates (nums, Guile_user::equal);
-
-      got_new_nums_this_timestep_
-        = !from_scm<bool> (scm_equal_p (nums, groomed_volta_numbers_));
-
-      if (got_new_nums_this_timestep_)
-        {
-          groomed_volta_numbers_ = nums;
-        }
-    }
-
-  SCM cs = get_property (this, "repeatCommands");
-
-  bool end = false;
-  SCM bracket_text = SCM_EOL;
-
-  while (scm_is_pair (cs))
-    {
-      SCM c = scm_car (cs);
-
-      if (scm_is_pair (c)
-          && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
-          && scm_is_pair (scm_cdr (c)))
-        {
-          SCM label = scm_cadr (c);
-          if (scm_is_false (label))
-            end = true;
-          else
-            bracket_text = label;
-        }
-
-      cs = scm_cdr (cs);
-    }
-
-  if (scm_is_null (bracket_text)) // no user-supplied label
-    {
-      // use an automatic label?
-      if (got_new_nums_this_timestep_
-          || (end && !scm_is_null (groomed_volta_numbers_)))
-        {
-          if (volta_bracket_)
+          SCM nums = SCM_EOL;
+          for (SCM more : as_ly_scm_list (layer.numbers_))
             {
-              end = true;
+              nums = Srfi_1::lset_union (Guile_user::equal, nums, more);
             }
 
-          const auto &s = format_numbers (groomed_volta_numbers_);
-          if (!s.empty ())
+          nums = scm_sort_list (nums, Guile_user::less);
+          nums = Srfi_1::delete_duplicates (nums, Guile_user::equal);
+
+          layer.got_new_nums_this_timestep_
+            = !from_scm<bool> (scm_equal_p (nums, layer.groomed_numbers_));
+
+          if (layer.got_new_nums_this_timestep_)
             {
-              bracket_text = ly_string2scm (s);
+              layer.groomed_numbers_ = nums;
             }
         }
-    }
 
-  if (volta_bracket_ && !end)
-    {
-      auto voltaSpannerDuration
-        = from_scm (get_property (this, "voltaSpannerDuration"),
-                    Moment::infinity ());
-      end = (voltaSpannerDuration <= now_mom () - started_mom_);
-    }
+      bool end = false;
+      SCM bracket_text = SCM_EOL;
 
-  if (end && !volta_bracket_)
-    /* fixme: be more verbose.  */
-    warning (_ ("cannot end volta spanner"));
-  else if (end)
-    {
-      end_volta_bracket_ = volta_bracket_;
-      volta_bracket_ = 0;
-    }
-
-  if (volta_bracket_
-      && (scm_is_string (bracket_text) || scm_is_pair (bracket_text)))
-    {
-      warning (_ ("already have a volta spanner, ending that one prematurely"));
-
-      if (end_volta_bracket_)
+      if (layer_no == 0) // manual repeat commands
         {
-          warning (_ ("also already have an ended spanner"));
-          warning (_ ("giving up"));
-          return;
+          SCM repeat_commands = get_property (this, "repeatCommands");
+          for (SCM c : as_ly_scm_list (repeat_commands))
+            {
+              if (scm_is_pair (c)
+                  && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
+                  && scm_is_pair (scm_cdr (c)))
+                {
+                  SCM label = scm_cadr (c);
+                  if (scm_is_false (label))
+                    end = true;
+                  else
+                    bracket_text = label;
+                }
+            }
         }
 
-      end_volta_bracket_ = volta_bracket_;
-      volta_bracket_ = 0;
-    }
-
-  if (!volta_bracket_
-      && Text_interface::is_markup (bracket_text))
-    {
-      started_mom_ = now_mom ();
-
-      volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
-
-      // Allow \override Score.VoltaBracket.text = "foo".
-      if (scm_is_null (get_property (volta_bracket_, "text")))
+      if (scm_is_null (bracket_text)) // no user-supplied label
         {
-          set_property (volta_bracket_, "text", bracket_text);
+          // use an automatic label?
+          if (layer.got_new_nums_this_timestep_
+              || (end && !scm_is_null (layer.groomed_numbers_)))
+            {
+              if (layer.bracket_)
+                {
+                  end = true;
+                }
+
+              const auto &s = format_numbers (layer.groomed_numbers_);
+              if (!s.empty ())
+                {
+                  bracket_text = ly_string2scm (s);
+                }
+            }
         }
 
-      if (!volta_spanner_)
-        volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+      if (layer.bracket_ && !end)
+        {
+          auto voltaSpannerDuration
+            = from_scm (get_property (this, "voltaSpannerDuration"),
+                        Moment::infinity ());
+          end = (voltaSpannerDuration <= now_mom () - layer.started_mom_);
+        }
 
-      Axis_group_interface::add_element (volta_spanner_, volta_bracket_);
+      if (end && !layer.bracket_)
+        /* fixme: be more verbose.  */
+        warning (_ ("cannot end volta spanner"));
+      else if (end)
+        {
+          layer.end_bracket_ = layer.bracket_;
+          layer.bracket_ = 0;
+        }
+
+      if (layer.bracket_
+          && (scm_is_string (bracket_text) || scm_is_pair (bracket_text)))
+        {
+          warning (_ ("already have a volta spanner, "
+                      "ending that one prematurely"));
+
+          if (layer.end_bracket_)
+            {
+              warning (_ ("also already have an ended spanner"));
+              warning (_ ("giving up"));
+              return;
+            }
+
+          layer.end_bracket_ = layer.bracket_;
+          layer.bracket_ = 0;
+        }
+
+      if (!layer.bracket_
+          && Text_interface::is_markup (bracket_text))
+        {
+          layer.started_mom_ = now_mom ();
+
+          layer.bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
+
+          // Allow \override Score.VoltaBracket.text = "foo".
+          if (scm_is_null (get_property (layer.bracket_, "text")))
+            {
+              set_property (layer.bracket_, "text", bracket_text);
+            }
+
+          if (!layer.spanner_)
+            layer.spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+
+          Axis_group_interface::add_element (layer.spanner_, layer.bracket_);
+        }
     }
 }
 
@@ -319,19 +367,24 @@ void
 Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
 {
   auto *const item = info.grob ();
-  if (volta_bracket_)
-    Volta_bracket_interface::add_bar (volta_bracket_, item);
-  if (end_volta_bracket_)
-    Volta_bracket_interface::add_bar (end_volta_bracket_, item);
+  for (auto &layer : layers_)
+    {
+      if (layer.bracket_)
+        Volta_bracket_interface::add_bar (layer.bracket_, item);
+      if (layer.end_bracket_)
+        Volta_bracket_interface::add_bar (layer.end_bracket_, item);
 
-  if (volta_spanner_)
-    Side_position_interface::add_support (volta_spanner_, item);
+      if (layer.spanner_)
+        Side_position_interface::add_support (layer.spanner_, item);
+    }
 }
 
 void
 Volta_engraver::start_translation_timestep ()
 {
-  got_new_nums_this_timestep_ = false;
+  for (auto &layer : layers_)
+    layer.got_new_nums_this_timestep_ = false;
+
   heard_dal_segno_ = false;
   heard_fine_ = false;
 }
@@ -341,59 +394,68 @@ Volta_engraver::stop_translation_timestep ()
 {
   auto *const ci = unsmob<Item> (get_property (this, "currentCommandColumn"));
 
-  if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
-    end_volta_bracket_->set_bound (RIGHT, ci);
-
-  if (volta_spanner_ && end_volta_bracket_)
-    volta_spanner_->set_bound (RIGHT, end_volta_bracket_->get_bound (RIGHT));
-
-  if (end_volta_bracket_ && !volta_bracket_)
+  for (auto &layer : layers_)
     {
-      for (SCM s = get_property (this, "stavesFound"); scm_is_pair (s); s = scm_cdr (s))
-        Side_position_interface::add_support (volta_spanner_, unsmob<Grob> (scm_car (s)));
+      if (layer.end_bracket_ && !layer.end_bracket_->get_bound (RIGHT))
+        layer.end_bracket_->set_bound (RIGHT, ci);
 
-      volta_spanner_ = 0;
-    }
+      if (layer.spanner_ && layer.end_bracket_)
+        layer.spanner_->set_bound (RIGHT, layer.end_bracket_->get_bound (RIGHT));
 
-  if (end_volta_bracket_)
-    {
-      // Figure out whether the right end of this bracket should be closed
-      // based on the type of bar line and other repeat information.  (If
-      // anything other than Volta_engraver ever needs to do this, consider
-      // moving this into Repeat_acknowledge_engraver and having it communicate
-      // the result to other translators via context properties.)
-      bool open = !(heard_dal_segno_ || heard_fine_);
-      if (open)
+      if (layer.end_bracket_ && !layer.bracket_)
         {
-          SCM glyph = get_property (this, "whichBar");
-          if (scm_is_string (glyph))
+          SCM staves_found = get_property (this, "stavesFound");
+          for (auto *g : as_ly_smob_list<Grob> (staves_found))
+            Side_position_interface::add_support (layer.spanner_, g);
+
+          layer.spanner_ = 0;
+        }
+
+      if (layer.end_bracket_)
+        {
+          // Figure out whether the right end of this bracket should be closed
+          // based on the type of bar line and other repeat information.  (If
+          // anything other than Volta_engraver ever needs to do this, consider
+          // moving this into Repeat_acknowledge_engraver and having it
+          // communicate the result to other translators via context
+          // properties.)
+          //
+          // TODO: Now that we attempt to handle nested repeats, consider
+          // whether there is a case in which one layer should have an end hook
+          // and the other should not, and how important it is to get it right.
+          bool open = !(heard_dal_segno_ || heard_fine_);
+          if (open)
             {
-              glyph = Lily::bar_line_calc_glyph_name_for_direction
-                      (glyph, to_scm (LEFT));
+              SCM glyph = get_property (this, "whichBar");
               if (scm_is_string (glyph))
                 {
-                  open = from_scm<bool>
-                         (Lily::volta_bracket_calc_hook_visibility (glyph));
+                  glyph = Lily::bar_line_calc_glyph_name_for_direction
+                          (glyph, to_scm (LEFT));
+                  if (scm_is_string (glyph))
+                    {
+                      open = from_scm<bool>
+                             (Lily::volta_bracket_calc_hook_visibility (glyph));
+                    }
                 }
             }
+
+          if (open)
+            {
+              SCM eh = get_property (layer.end_bracket_, "edge-height");
+              eh = scm_cons (scm_car (eh), to_scm (0));
+              set_property (layer.end_bracket_, "edge-height", eh);
+            }
+
+          announce_end_grob (layer.end_bracket_, SCM_EOL);
+          layer.end_bracket_ = 0;
         }
 
-      if (open)
-        {
-          SCM eh = get_property (end_volta_bracket_, "edge-height");
-          eh = scm_cons (scm_car (eh), to_scm (0));
-          set_property (end_volta_bracket_, "edge-height", eh);
-        }
+      if (layer.bracket_ && !layer.bracket_->get_bound (LEFT))
+        layer.bracket_->set_bound (LEFT, ci);
 
-      announce_end_grob (end_volta_bracket_, SCM_EOL);
-      end_volta_bracket_ = 0;
+      if (layer.spanner_ && layer.bracket_ && !layer.spanner_->get_bound (LEFT))
+        layer.spanner_->set_bound (LEFT, layer.bracket_->get_bound (LEFT));
     }
-
-  if (volta_bracket_ && !volta_bracket_->get_bound (LEFT))
-    volta_bracket_->set_bound (LEFT, ci);
-
-  if (volta_spanner_ && volta_bracket_ && !volta_spanner_->get_bound (LEFT))
-    volta_spanner_->set_bound (LEFT, volta_bracket_->get_bound (LEFT));
 }
 
 /*
