@@ -522,7 +522,7 @@ bellstaff = {
 }
 @end lilypond
 
-Hier ein kurzes Beispiel von Stravinsky (aus @qq{L'Histoire du Soldat}):
+Hier ein kurzes Beispiel von Stravinsky (aus @qq{L'Histoire du soldat}):
 
 @lilypond[quote,verbatim]
 #(define mydrums '((bassdrum   default #f  4)

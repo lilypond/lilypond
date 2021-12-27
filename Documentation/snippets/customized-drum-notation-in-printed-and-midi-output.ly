@@ -18,15 +18,15 @@ variables as @code{drumPitchNames}, @code{drumStyleTable} and
 
 @itemize
 @item
-defines some \"pitch\" names
+defines some \"pitch\" names,
 @item
-defines how they will be rendered
+defines how they will be rendered,
 @item
-tell LilyPond to use them for layout
+tells LilyPond to use them for layout,
 @item
-assigns pitches to the names
+assigns pitches to the names,
 @item
-tell LilyPond to use them for MIDI output
+tells LilyPond to use them for MIDI output.
 @end itemize
 
 "
@@ -40,7 +40,7 @@ tell LilyPond to use them for MIDI output
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% To use custom drum-pitch-names for your score and midi you need to follow
+%% To use custom drum pitch names for your score and midi you need to follow
 %% this route:
 %%
 %%%%%%%%%%%%
@@ -52,7 +52,8 @@ tell LilyPond to use them for MIDI output
 %%         drumPitchNames.my-name  = #'my-name
 %%     It's possible to add an alias as well.
 %% (2) Define how it should be printed
-%%     Therefore put them into a toplevel-list, where each entry should look:
+%%     Therefore put them into a top-level list, where each entry should
+%%     be of the form:
 %%         (my-name
 %%           note-head-style-or-default
 %%             articulation-type-or-#f
@@ -63,11 +64,11 @@ tell LilyPond to use them for MIDI output
 %%             (my-name default tenuto -1)
 %%             ; ...
 %%             ))
-%% (3) Tell LilyPond to use this custom-definitions, with
+%% (3) Tell LilyPond to use these custom definitions, with
 %%         drumStyleTable = #(alist->hash-table my-style)
-%%     in a \layout or \with
+%%     in a \layout or \with block
 %%
-%%     Now we're done for layout, here a short, but complete example:
+%%     Now we're done for layout. Here is a short but complete example:
 %%         \new DrumStaff
 %%           \with { drumStyleTable = #(alist->hash-table my-style) }
 %%           \drummode { my-name }
@@ -76,7 +77,7 @@ tell LilyPond to use them for MIDI output
 %% MIDI:
 %%%%%%%%%%%%
 %%
-%% (1) Again at toplvel, assign a pitch to your custom-note-name
+%% (1) Again at top-level, assign a pitch to your custom note name
 %%         midiDrumPitches.my-name = ges
 %%     Note that you have to use the name, which is in drumPitchNames, no alias
 %% (2) Tell LilyPond to use this pitch(es), with
@@ -103,7 +104,7 @@ tell LilyPond to use them for MIDI output
 %%         midi2ly my-file.midi
 %%         gedit my-file-midi.ly
 %%
-%% Which will do:
+%% This will do the following:
 %% 1. create pdf and midi
 %% 2. transform the midi back to a .ly-file
 %%    (note: midi2ly is not always good in correctly identifying enharmonic pitches)

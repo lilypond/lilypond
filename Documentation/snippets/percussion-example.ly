@@ -11,7 +11,7 @@
   lsrtags = "percussion, really-simple, rhythms, specific-notation"
 
   texidoc = "
-A short example taken from Stravinsky's L'histoire du Soldat.
+A short example taken from Stravinsky's @emph{L'Histoire du soldat}.
 
 "
   doctitle = "Percussion example"
@@ -51,25 +51,25 @@ drumsB = {
 }
 
 \layout {
-  indent = #40
+  indent = 40
+  \context {
+    \DrumStaff
+    drumStyleTable = #(alist->hash-table mydrums)
+  }
 }
 
 \score {
   \new StaffGroup <<
     \new DrumStaff \with {
-      instrumentName = \markup {
-        \center-column {
-          "Tambourine"
-          "et"
-          "caisse claire s. timbre"
+      instrumentName = \markup \center-column {
+        "Tambourine"
+        "et"
+        "caisse claire s. timbre"
         }
-      }
-    drumStyleTable = #(alist->hash-table mydrums)
   }
   \drumsA
   \new DrumStaff \with {
-    instrumentName = #"Grosse Caisse"
-    drumStyleTable = #(alist->hash-table mydrums)
+    instrumentName = "Grosse Caisse"
   }
   \drumsB
   >>

@@ -14,7 +14,7 @@ flat-ties.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 outputting-the-version-number.ly
-overriding-articulations-of-destinct-type.ly
+overriding-articulations-by-type.ly
 replacing-default-midi-instrument-equalization.ly
 string-number-extender-lines.ly
 three-sided-box.ly
