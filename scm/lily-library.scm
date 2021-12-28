@@ -917,35 +917,97 @@ numbers."
 ;;;;;;;;;;;;;;;;
 ;; broken spanner
 
-(define spanner-bounds-break-status
-  (lambda (spanner)
-    (cons
-     (ly:item-break-dir (ly:spanner-bound spanner LEFT))
-     (ly:item-break-dir (ly:spanner-bound spanner RIGHT)))))
+;; TODO: maybe we should add in the following functions some sanity checks
+;; for unbroken input spanners really being spanners that did
+;; not need to be broken, characterized by null ly:spanner-broken-intos,
+;; as opposed to original spanners that were broken?  Or maybe not? --JeanAS
 
-(define-public unbroken-spanner?
-  (lambda (spanner) (equal? '(0 . 0) (spanner-bounds-break-status spanner))))
+(define-public (unbroken-spanner? spanner)
+  "Is @var{spanner} unbroken?  A spanner has to be broken if it spans
+more than one system, or if one of its bounds is on the limit of the
+system.  This function returns @code{#f} on the clones, but @code{#t}
+on the originals."
+  (eq? spanner (ly:grob-original spanner)))
 
-(define-public first-broken-spanner?
-  (lambda (spanner) (equal? '(0 . -1) (spanner-bounds-break-status spanner))))
+(define (check-broken-spanner unbroken-val siblings-condition? spanner)
+  ;; Generic broken status checker: return `unbroken-val` if `spanner`
+  ;; is unbroken, else call `siblings-condition?` on its siblings.
+  (if (unbroken-spanner? spanner)
+      unbroken-val
+      (let ((siblings (ly:spanner-broken-into (ly:grob-original spanner))))
+        (if (null? siblings)
+            (begin
+              ;; Should really not happen because at least `spanner`
+              ;; will be in the siblings.
+              (ly:programming-error "broken spanner ~a without siblings"
+                                    (grob::name spanner))
+              #f)
+            (siblings-condition? siblings)))))
 
-(define-public middle-broken-spanner?
-  (lambda (spanner) (equal? '(1 . -1) (spanner-bounds-break-status spanner))))
+(define-public (first-broken-spanner? spanner)
+  "Is @var{spanner} broken @emph{and} the first of its broken
+siblings?  See also @code{unbroken-or-first-broken-spanner?}."
+  (check-broken-spanner
+   #f
+   (lambda (siblings)
+     (eq? spanner (first siblings)))
+   spanner))
 
-(define-public end-broken-spanner?
-  (lambda (spanner) (equal? '(1 . 0) (spanner-bounds-break-status spanner))))
+(define-public (middle-broken-spanner? spanner)
+  "Is @var{spanner} broken and among the middle broken pieces (i.e.,
+neither the first nor the last)?"
+  (check-broken-spanner
+   #f
+   (lambda (siblings)
+     (and (not (eq? spanner (first siblings)))
+          (not (eq? spanner (last siblings)))))
+   spanner))
 
-(define-public not-first-broken-spanner?
-  (lambda (spanner) (positive? (car (spanner-bounds-break-status spanner)))))
+;; FIXME: *end*-broken-spanner? vs. not-*last*-broken-spanner?
+(define-public (end-broken-spanner? spanner)
+  "Is @var{spanner} broken @emph{and} the last of its broken siblings?
+See also @code{unbroken-or-last-broken-spanner?}."
+  (check-broken-spanner
+   #f
+   (lambda (siblings)
+     (eq? spanner (last siblings)))
+   spanner))
 
-(define-public not-last-broken-spanner?
-  (lambda (spanner) (negative? (cdr (spanner-bounds-break-status spanner)))))
+(define-public (not-first-broken-spanner? spanner)
+  "Is @var{spanner} broken @emph{and} not the first of its broken
+siblings?  The name is read @qq{(not first) and broken}."
+  (check-broken-spanner
+   #f
+   (lambda (siblings)
+     (not (eq? spanner (first siblings))))
+   spanner))
 
-(define-public unbroken-or-last-broken-spanner?
-  (lambda (spanner) (zero? (cdr (spanner-bounds-break-status spanner)))))
+(define-public (not-last-broken-spanner? spanner)
+  "Is @var{spanner} broken @emph{and} not the last of its broken
+siblings?  The name is read @qq{(not last) and broken}."
+  (check-broken-spanner
+   #f
+   (lambda (siblings)
+     (not (eq? spanner (last siblings))))
+   spanner))
 
-(define-public unbroken-or-first-broken-spanner?
-  (lambda (spanner) (zero? (car (spanner-bounds-break-status spanner)))))
+(define-public (unbroken-or-first-broken-spanner? spanner)
+  "Is @var{spanner} either unbroken or the first of its broken
+siblings?"
+  (check-broken-spanner
+   #t
+   (lambda (siblings)
+     (eq? spanner (first siblings)))
+   spanner))
+
+(define-public (unbroken-or-last-broken-spanner? spanner)
+  "Is @var{spanner} either unbroken or the last of its broken
+siblings?"
+  (check-broken-spanner
+   #t
+   (lambda (siblings)
+     (eq? spanner (last siblings)))
+   spanner))
 
 ;;;;;;;;;;;;;;;;
 ;; other

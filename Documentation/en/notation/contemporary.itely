@@ -220,47 +220,6 @@ The duration line may end with a hook (beam-style only) or an arrow.
 }
 @end lilypond
 
-@knownissues
-If a @code{DurationLine} grob runs to the very end of a score, ending items are
-not printed for technical reasons.
-A workaround would be:
-
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Voice
-    \consists "Duration_line_engraver"
-    \omit Stem
-    \omit Flag
-    \omit Beam
-    \override NoteHead.duration-log = 2
-  }
-}
-
-lastEndStyle =
-#(define-music-function (end-style)(symbol?)
-#{
-  \override DurationLine.stencil =
-    #(lambda (grob)
-      (let* ((orig (ly:grob-original grob))
-             (siblings (if (ly:grob? orig)
-                           (ly:spanner-broken-into orig) '()))
-             (last-grob (if (pair? siblings) (last siblings) #f)))
-        (if last-grob
-            (ly:grob-set-nested-property!
-              last-grob
-              '(bound-details right-broken end-style) end-style))
-        duration-line::print))
-#})
-
-{
-  \once \override DurationLine.bound-details.right.end-style = #'arrow
-  \lastEndStyle #'arrow
-  a'1\-
-  \bar "|."
-}
-@end lilypond
-
 
 @node Contemporary scoring techniques
 @subsection Contemporary scoring techniques
@@ -317,4 +276,3 @@ by Kurt Stone [W. W. Norton, 1980]
         Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
         Karlheinz Stockhausen (Gruppen?)
 @end ignore
-

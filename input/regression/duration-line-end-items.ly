@@ -1,32 +1,9 @@
-\version "2.21.3"
+\version "2.23.6"
 
 \header {
   texidoc = "A @code{DurationLine} grob may end with a special behaviour.
 Currently available are hooks (with settable direction) and arrows."
 }
-
-%% Running to the very end of a score, the DurationLine is the not-last
-%% part of a broken spanner, thus we need to go for the
-%% right-broken-subproperty:
-%% \override DurationLine.bound-details.right-broken.end-style = #'arrow/hook
-%% or
-%% call the function lastEndStyle with 'arrow/hook
-
-lastEndStyle =
-#(define-music-function (end-style)(symbol?)
-#{
-  \override DurationLine.stencil =
-    #(lambda (grob)
-      (let* ((orig (ly:grob-original grob))
-             (siblings (if (ly:grob? orig)
-                           (ly:spanner-broken-into orig) '()))
-             (last-grob (if (pair? siblings) (last siblings) #f)))
-        (if last-grob
-            (ly:grob-set-nested-property!
-              last-grob
-              '(bound-details right-broken end-style) end-style))
-        duration-line::print))
-#})
 
 \layout {
   \context {
@@ -55,7 +32,6 @@ lastEndStyle =
       }
     >>
     << { d''\- } \\ d'\- >>
-    \lastEndStyle #'arrow
     e'\-
     \bar "|."
   }
@@ -84,7 +60,6 @@ lastEndStyle =
       }
     >>
     << { d''\- } \\ d'\- >>
-    \lastEndStyle #'hook
     e'\-
     \bar "|."
   }

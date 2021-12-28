@@ -555,12 +555,6 @@ one voice.")))
       ;; current-moment to get the condition for ending the DurationLine.
       ;; We can't go for (ly:context-property context 'busyGrobs), because
       ;; we then wouldn't know if a skip-event needs to be respected.
-      ;;
-      ;; FIXME
-      ;; As a result a DurationLine running to the very end of a score is the
-      ;; first or a middle part of a broken spanner.
-      ;; Other parts are disregarded
-
       (if rhyth-event
           (let* ((rhyhtmic-evt-start (car rhyth-event))
                  (rhyhtmic-evt-length
