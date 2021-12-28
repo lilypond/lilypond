@@ -3,7 +3,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2016--2021 John Gourlay <john@weathervanefarm.net>
+# Copyright (C) 2016--2022 John Gourlay <john@weathervanefarm.net>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

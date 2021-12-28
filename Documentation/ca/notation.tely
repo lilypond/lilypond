@@ -31,7 +31,7 @@ lector està familiaritzat amb el material que hi ha a
 @c   file: Documentation/tex/refman.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 pels autors.
+Copyright @copyright{} 1999--2022 pels autors.
 @end macro
 
 

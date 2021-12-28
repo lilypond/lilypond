@@ -2862,7 +2862,7 @@ partitura:
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2021" \char ##x00A9 }
+\markup { "Copyright 2008--2022" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright, símbolo de

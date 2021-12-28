@@ -15,7 +15,7 @@ XGETTEXT_OPTIONS = \
   --package-name=$(package) \
   --package-version=$(VERSION)
 
-sed-header = \# Translation of LilyPond\n\# Copyright \(C\) 1998--2021 Han-Wen Nienhuys, Jan Nieuwenhuizen.\n\# This file is distributed under the same license as the LilyPond package.
+sed-header = \# Translation of LilyPond\n\# Copyright \(C\) 1998--2022 Han-Wen Nienhuys, Jan Nieuwenhuizen.\n\# This file is distributed under the same license as the LilyPond package.
 sed-content = "Content-Type: text\/plain; charset=UTF-8\\n"
 
 po: local-po

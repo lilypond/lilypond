@@ -19,7 +19,7 @@ Tento soubor poskytuje úvod pro LilyPond verze
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Autorské právo @copyright{} 1999--2021 autoři.
+Autorské právo @copyright{} 1999--2022 autoři.
 @end macro
  
 @set FDL

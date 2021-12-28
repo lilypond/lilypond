@@ -23,7 +23,7 @@ vorgestellt.
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 bei den Autoren.
+Copyright @copyright{} 1999--2022 bei den Autoren.
 @end macro
 
 @set FDL

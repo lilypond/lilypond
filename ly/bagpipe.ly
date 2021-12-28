@@ -1,7 +1,7 @@
 %%%% Predefined dynamic scripts.
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2005--2021 Sven Axelsson <sven.axelsson@gmail.com>,
+%%%% Copyright (C) 2005--2022 Sven Axelsson <sven.axelsson@gmail.com>,
 %%%%               (FIXME -- date and address?) Andrew McNabb
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify

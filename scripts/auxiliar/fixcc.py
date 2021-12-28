@@ -4,7 +4,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2005--2021 Jan Nieuwenhuizen <janneke@gnu.org>
+# Copyright (C) 2005--2022 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -501,7 +501,7 @@ typedef struct _t_ligature
 typedef std::map < AFM_Ligature const *, int > Bar;
 
  /**
- Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+ Copyright (C) 1997--2022 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
 /*      ||

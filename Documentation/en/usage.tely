@@ -26,7 +26,7 @@ LilyPond version @version{}.  In addition, it suggests some
 @c   file: Documentation/user/invoking.itexi
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 by the authors.
+Copyright @copyright{} 1999--2022 by the authors.
 @end macro
 
 @set FDL

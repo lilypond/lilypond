@@ -15,7 +15,7 @@
 
 @c `Web' was imported 2009-08-05 with git commit b938d71...
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2021 by the authors.
+@c Copyright @copyright{} 2009--2022 by the authors.
 @c @end macro
 
 @c Translators: Ben Luo, Anthony Fok
@@ -27,7 +27,7 @@
 
 
 @copying
-Copyright @copyright{} 2009--2021 by the authors.
+Copyright @copyright{} 2009--2022 by the authors.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

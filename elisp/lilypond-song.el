@@ -2,7 +2,7 @@
 ;;;;
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2006--2021 Brailcom, o.p.s.
+;;;; Copyright (C) 2006--2022 Brailcom, o.p.s.
 ;;;; Author: Milan Zamazal <pdm@brailcom.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify

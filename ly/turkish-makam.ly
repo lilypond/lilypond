@@ -1,7 +1,7 @@
 %%%% Turkish makam note names.
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2019--2021 Adam Good <goodadamgood@gmail.com>
+%%%% Copyright (C) 2019--2022 Adam Good <goodadamgood@gmail.com>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

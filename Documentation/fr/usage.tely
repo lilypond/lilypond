@@ -28,7 +28,7 @@ pratiques » pour une utilisation plus efficace.
 @c   file: Documentation/user/invoking.itexi
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 par les auteurs.
+Copyright @copyright{} 1999--2022 par les auteurs.
 @end macro
 
 @set FDL

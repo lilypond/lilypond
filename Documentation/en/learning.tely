@@ -25,7 +25,7 @@ This file provides an introduction to LilyPond version
 @c   file: Documentation/tex/tutorial.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1998--2021 by the authors.
+Copyright @copyright{} 1998--2022 by the authors.
 @end macro
 
 @set FDL

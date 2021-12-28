@@ -44,7 +44,7 @@ fichier ou sur l'image vous affichera le code sous-jacent.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 par les auteurs.
+Copyright @copyright{} 1999--2022 par les auteurs.
 @end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi

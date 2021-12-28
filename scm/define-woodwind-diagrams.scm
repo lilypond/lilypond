@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2010--2021 Mike Solomon <mikesol@stanfordalumni.org>
+;;;; Copyright (C) 2010--2022 Mike Solomon <mikesol@stanfordalumni.org>
 ;;;;    Clarinet drawings copied from diagrams created by
 ;;;;    Gilles Thibault <gilles.thibault@free.fr>
 ;;;;

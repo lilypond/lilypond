@@ -25,7 +25,7 @@ suggereix certes @qq{bones pràctiques} per a una utilització eficient.
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 pels autors.
+Copyright @copyright{} 1999--2022 pels autors.
 @end macro
 
 @set FDL

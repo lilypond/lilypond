@@ -27,7 +27,7 @@ LilyPond versión @version{}.
 @c   file: Documentation/user/programming-interface.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2003--2021 por los autores.
+Copyright @copyright{} 2003--2022 por los autores.
 @end macro
 
 @set FDL
