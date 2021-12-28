@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
+    Translation of GIT committish: 86aefccc7d8b71857afe815a49a7e788a86e270d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -228,6 +228,18 @@ Per Mac OS X 10.4--10.14 con processore Intel (per la versione 10.15 vedi sotto)
 @c file name is unpredictable, linking to main page
 Dei bundle applicazione 64-bit (non ufficiali) per macOS 10.15 sono disponibili
 all'indirizzo @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
+
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, un gestore di pacchetti
+per Mac OS, ha un @uref{https://ports.macports.org/port/lilypond/summary,
+port LilyPond}.
+
+@item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, un altro gestore pacchetti
+per Mac OS, ha una @uref{https://formulae.brew.sh/formula/lilypond,
+formula per LilyPond}.
 
 @end itemize
 
