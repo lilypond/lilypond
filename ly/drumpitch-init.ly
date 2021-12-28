@@ -368,4 +368,30 @@ midiDrumPitches =
       (maracas () #f 0)
       (handclap () #f 0)
       ))
+
+; Reference: Norman Weinberg, Guidelines for Drumset Notation
+; http://www.normanweinberg.com/uploads/8/1/6/4/81640608/940506pn_guildines_for_drumset.pdf
+; Percussive Notes, June 1994, p.15-26
+  (weinberg-drums-style .
+    ((acousticbassdrum () #f -3)
+     (bassdrum () #f -3)
+     (sidestick cross #f 1)
+     (snare () #f 1)
+     (lowfloortom () #f -2)
+     (closedhihat cross "stopped" 5)
+     (hihat cross #f 5)
+     (highfloortom () #f -1)
+     (pedalhihat cross #f -5)
+     (lowtom () #f -1)
+     (openhihat cross "open" 5)
+     (lowmidtom () #f 2)
+     (himidtom () #f 4)
+     (crashcymbal cross #f 6)
+     (hightom () #f 4)
+     (ridecymbala cross #f 2)
+     (ridecymbal cross #f 4)
+     (chinesecymbal cross #f 7)
+     (ridebell diamond #f 4)
+     (cowbell triangle #f 3)
+     ))
    ))

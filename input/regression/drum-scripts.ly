@@ -20,6 +20,7 @@ is printed."
 #(define predefined-drumstyles
  '(drums-style
    agostini-drums-style
+   weinberg-drums-style
    timbales-style
    congas-style
    bongos-style

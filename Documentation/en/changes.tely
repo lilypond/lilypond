@@ -83,6 +83,11 @@ named with the new @code{\sectionLabel} command.
 @end lilypond
 
 @item
+The drum notation style @code{weinberg-drums-style} was added.
+It is based on Norman Weinberg's standardization work.
+
+
+@item
 Support for Persian classical music is now available.  For this, two
 accidental glyphs, @emph{sori} and @emph{koron}, have been added to
 LilyPond.
