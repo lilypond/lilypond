@@ -452,11 +452,13 @@ The number of staff lines can be altered:
 @end lilypond
 
 The position of each staff line can also be altered.  A list of
-numbers sets each line's position.  @code{0}@tie{}corresponds to the normal
-center line, and the normal line positions are
+numbers sets each line's position.  @code{0}@tie{}corresponds to
+the normal center line, and the normal line positions are
 @code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.  A single staff line is
-printed for every value entered so that the number of staff lines, as
-well as their position, can be changed with a single override.
+printed for every value entered so that the number of staff lines,
+as well as their position, can be changed with a single override
+(thus, the @code{line-count} property is disregarded if
+@code{line-positions is set}).
 
 @lilypond[verbatim,quote]
 \relative {
@@ -554,6 +556,16 @@ line spacing as well.
 }
 @end lilypond
 
+The width of a staff can be modified.  The units are staff
+spaces.  The spacing of objects inside the staff is not affected by
+this setting.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.width = #23
+}
+\relative { a4 e' f b | d1 }
+@end lilypond
 
 @snippets
 
