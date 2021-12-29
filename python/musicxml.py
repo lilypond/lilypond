@@ -1365,8 +1365,12 @@ class Part(Music_xml_node):
                     attributes_dict = n._dict.copy()
                     attributes_object = n
 
-                    factor = Fraction(1,
-                                      int(attributes_dict.get('divisions').get_text()))
+                    # default to <divisions>1</divisions>
+                    divisions = (int(attributes_dict['divisions'].get_text())
+                        if 'divisions' in attributes_dict else 1)
+
+                    factor = Fraction(1, divisions)
+
 
                 if n.get_maybe_exist_typed_child(Duration):
                     mxl_dur = n.get_maybe_exist_typed_child(Duration)
