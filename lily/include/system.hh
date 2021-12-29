@@ -40,8 +40,6 @@ class Engraver;
 class Preinit_System
 {
 protected:
-  SCM all_elements_scm_ = SCM_UNDEFINED;
-  Grob_array *all_elements_ = nullptr;
   Paper_score *pscore_ = nullptr; // ugh.
 };
 
@@ -54,6 +52,8 @@ public:
 
 private:
   rank_type rank_ = 0;
+  Grob_array *all_elements ();
+  Grob_array const *all_elements () const;
   void init_elements ();
   friend class Paper_score;     // ugh.
 

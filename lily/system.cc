@@ -49,6 +49,20 @@
 
 using std::vector;
 
+Grob_array *
+System::all_elements ()
+{
+  SCM obj = get_object (this, "all-elements");
+  return unsmob<Grob_array> (obj);
+}
+
+Grob_array const *
+System::all_elements () const
+{
+  SCM obj = get_object (this, "all-elements");
+  return unsmob<Grob_array> (obj);
+}
+
 System::System (System const &src)
   : Spanner (src)
 {
@@ -67,17 +81,16 @@ System::System (SCM s)
 void
 System::init_elements ()
 {
-  all_elements_scm_ = Grob_array::make_array ();
-  all_elements_ = unsmob<Grob_array> (all_elements_scm_);
-  all_elements_->set_ordered (false);
-  // TODO: is this actually needed when we do GC via all_elements_scm_ ?
-  set_object (this, "all-elements", all_elements_scm_);
+  SCM all = Grob_array::make_array ();
+  set_object (this, "all-elements", all);
+  unsmob<Grob_array> (all)->set_ordered (false);
 }
 
 vsize
 System::element_count () const
 {
-  return all_elements_->size ();
+  const Grob_array *a = all_elements ();
+  return a ? a->size () : 0;
 }
 
 static bool
@@ -89,7 +102,7 @@ is_spanner (const Grob *g)
 vsize
 System::spanner_count () const
 {
-  const vector<Grob *> &grobs = all_elements_->array ();
+  const vector<Grob *> &grobs = all_elements ()->array ();
   return std::count_if (grobs.begin (), grobs.end (), is_spanner);
 }
 
@@ -101,7 +114,7 @@ System::typeset_grob (Grob *elem)
   else
     {
       elem->layout_ = pscore_->layout ();
-      all_elements_->add (elem);
+      all_elements ()->add (elem);
       if (scm_is_false (elem->protection_pool_))
         elem->protection_pool_ = protection_pool_;
       else
@@ -114,7 +127,6 @@ System::typeset_grob (Grob *elem)
 void
 System::derived_mark () const
 {
-  scm_gc_mark (all_elements_scm_);
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());
   Spanner::derived_mark ();
@@ -130,9 +142,9 @@ fixup_refpoints (vector<Grob *> const &grobs)
 void
 System::do_break_substitution_and_fixup_refpoints ()
 {
-  for (vsize i = 0; i < all_elements_->size (); i++)
+  std::vector<Grob *> &all_elts = all_elements ()->array_reference ();
+  for (Grob *g : all_elts)
     {
-      Grob *g = all_elements_->grob (i);
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
         {
           /*
@@ -158,10 +170,11 @@ System::do_break_substitution_and_fixup_refpoints ()
     {
       Grob *se = broken_intos_[i];
 
-      extract_grob_set (se, "all-elements", all_elts);
-      for (vsize j = 0; j < all_elts.size (); j++)
+      const std::vector<Grob *> &all_elts
+        = static_cast<System *> (se)->all_elements ()->array_reference ();
+
+      for (Grob *g : all_elts)
         {
-          Grob *g = all_elts[j];
           g->fixup_refpoint ();
         }
 
@@ -171,10 +184,10 @@ System::do_break_substitution_and_fixup_refpoints ()
   /*
     needed for doing items.
   */
-  fixup_refpoints (all_elements_->array ());
+  fixup_refpoints (all_elts);
 
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    all_elements_->grob (i)->handle_broken_dependencies ();
+  for (Grob *g : all_elts)
+    g->handle_broken_dependencies ();
 
   handle_broken_dependencies ();
 
@@ -186,17 +199,16 @@ System::do_break_substitution_and_fixup_refpoints ()
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       System *child = dynamic_cast<System *> (broken_intos_[i]);
-      child->all_elements_->remove_duplicates ();
 
-      for (vsize j = 0; j < child->all_elements_->size (); j++)
+      Grob_array *all_elts_ga = child->all_elements ();
+      all_elts_ga->remove_duplicates ();
+      for (Grob *g : all_elts_ga->array_reference ())
         {
-          Grob *g = child->all_elements_->grob (j);
-
           (void) get_property (g, "after-line-breaking");
         }
     }
 
-  debug_output (_f ("Element count %zu", count + element_count ()) + "\n");
+  debug_output (_f ("Element count %zu", count + all_elts.size ()) + "\n");
 }
 
 bool
@@ -531,32 +543,31 @@ System::pre_processing ()
     itself (for before and after a break) to the vector.  We stop after
     breaking the originals and don't invite the clones to break themselves.
   */
-  vsize num_original_grobs = all_elements_->size ();
+  Grob_array *all = all_elements ();
+  vsize num_original_grobs = all->size ();
   for (vsize i = 0; i < num_original_grobs; i++)
-    all_elements_->grob (i)->break_breakable_item (this);
+    all->grob (i)->break_breakable_item (this);
 
-  debug_output (_f ("Grob count %zu", element_count ()));
+  debug_output (_f ("Grob count %zu", all->size ()));
 
   /*
     order is significant: broken grobs are added to the end of the
     array, and should be processed before the original is potentially
     killed.
   */
-  for (vsize i = all_elements_->size (); i--;)
-    all_elements_->grob (i)->handle_prebroken_dependencies ();
+  for (vsize i = all->size (); i--;)
+    all->grob (i)->handle_prebroken_dependencies ();
 
-  fixup_refpoints (all_elements_->array ());
+  fixup_refpoints (all->array ());
 
-  for (vsize i = 0; i < all_elements_->size (); i++)
+  for (Grob *g : all->array_reference ())
     {
-      Grob *g = all_elements_->grob (i);
       (void) get_property (g, "before-line-breaking");
     }
 
-  for (vsize i = 0; i < all_elements_->size (); i++)
+  for (Grob *g : all->array_reference ())
     {
-      Grob *e = all_elements_->grob (i);
-      (void) get_property (e, "springs-and-rods");
+      (void) get_property (g, "springs-and-rods");
     }
 }
 
@@ -573,12 +584,11 @@ System::post_processing ()
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
 
-  vector<Grob *> all_elts_sorted (all_elements_->array ());
+  vector<Grob *> all_elts_sorted (all_elements ()->array ());
   uniquify (all_elts_sorted);
   get_stencil ();
-  for (vsize i = all_elts_sorted.size (); i--;)
+  for (Grob *g : all_elts_sorted)
     {
-      Grob *g = all_elts_sorted[i];
       g->get_stencil ();
     }
 }
@@ -608,10 +618,11 @@ System::get_paper_system ()
   post_processing ();
 
   vector<Layer_entry> entries;
-  for (vsize j = 0; j < all_elements_->size (); j++)
+  auto &all_elts = all_elements ()->array ();
+  for (Grob *g : all_elts)
     {
       Layer_entry e;
-      e.grob_ = all_elements_->grob (j);
+      e.grob_ = g;
       e.layer_ = from_scm (get_property (e.grob_, "layer"), 1);
 
       entries.push_back (e);
