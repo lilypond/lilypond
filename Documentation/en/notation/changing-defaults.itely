@@ -2961,13 +2961,13 @@ tweaking methods related to them.
 * Distances and measurements::
 * Dimensions::
 * Spanners::
-* Visibility of objects::
 * Line styles::
+* Line spanners::
+* Visibility of objects::
 * Rotating objects::
 * Aligning objects::
 * Modifying stencils::
 * Modifying shapes::
-* Modifying broken spanners::
 @end menu
 
 @morerefs
@@ -3217,26 +3217,137 @@ Notation Reference:
 @node Spanners
 @subsection Spanners
 
+@cindex spanner
+
 Many objects of musical notation extend over several notes or even
 several bars.  Examples are slurs, beams, tuplet brackets, volta
 repeat brackets, crescendi, trills, and glissandi.  Such objects
-are collectively called @qq{spanners}, and have special properties to control
-their appearance and behaviour.  Some of these properties are common
-to all spanners; others are restricted to a sub-set of the spanners.
-
-All spanners support the @code{spanner-interface}.  A few, essentially
-those that draw a straight line between the two objects, support in
-addition the @code{line-spanner-interface}.
+are collectively called @qq{spanners}, and have special properties
+to control their appearance and behaviour, as well as special
+tweaking methods related to the fact that they can be broken
+across systems.
 
 @menu
-* Using the spanner-interface::
-* Using the line-spanner-interface::
+* Modifying broken spanners::
+* Setting minimum lengths for spanners::
+* Controlling spanner end points::
 @end menu
 
-@node Using the spanner-interface
-@unnumberedsubsubsec Using the @code{spanner-interface}
+@node Modifying broken spanners
+@unnumberedsubsubsec Modifying broken spanners
 
-This interface provides three properties that apply to several spanners.
+@cindex spanner, modifying
+@cindex broken spanner, modifying
+@funindex \alterBroken
+
+When a spanner crosses a line break or breaks, each piece
+inherits the attributes of the original spanner.  Thus, ordinary
+tweaking of a broken spanner applies the same modifications to
+each of its segments.  In the example below, overriding
+@code{thickness} affects the slur on either side of the line
+break.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \once\override Slur.thickness = 10
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+Independently modifying the appearance of individual pieces
+of a broken spanner is possible with the @code{\alterBroken}
+command.  This command can produce either an @code{\override}
+or a @code{\tweak} of a spanner property.
+
+The syntax for @code{\alterBroken} is
+
+@example
+[-]\alterBroken @var{property} @var{values} @var{item}
+@end example
+
+The argument @var{values} is a list of values, one for each
+broken piece.  If @var{item} is a grob name like @code{Slur} or
+@code{Staff.PianoPedalBracket}, the result is an @code{\override}
+of the specified grob type.  If @var{item} is a music expression
+such as @qq{(} or @qq{[} the result is the same music expression
+with an appropriate tweak applied.
+
+The leading hyphen must be used with the @code{\tweak} form.  Do
+not add it when @code{\alterBroken} is used as an
+@code{\override}.
+
+@funindex \once
+@funindex \temporary
+
+In its @code{\override} usage, @code{\alterBroken} may be prefaced
+by @code{\once} or @code{\temporary} and reverted by using
+@code{\revert} with @var{property} (see @rextend{Intermediate
+substitution functions}).
+
+The following code applies an independent @code{\override} to
+each of the slur segments in the previous example:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \alterBroken thickness #'(10 1) Slur
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+The @code{\alterBroken} command may be used with any spanner
+object, including @code{Tie}, @code{PhrasingSlur}, @code{Beam}
+and @code{TextSpanner}.  For example, an editor preparing a
+scholarly edition may wish to indicate the absence of part of a
+phrasing slur in a source by dashing only the segment which has
+been added.  The following example illustrates how this can be
+done, in this case using the @code{\tweak} form of the command:
+
+@lilypond[verbatim,quote,ragged-right]
+% The empty list is conveniently used below, because it is the
+% default setting of dash-definition, resulting in a solid curve.
+\relative {
+  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+  \break
+  g2 e\)
+}
+@end lilypond
+
+It is important to understand that @code{\alterBroken} will set
+each piece of a broken spanner to the corresponding value in
+@var{values}.  When there are fewer values than pieces, any
+additional piece will be assigned the empty list.  This may lead
+to undesired results if the layout property is not set to the
+empty list by default.  In such cases, each segment should be
+assigned an appropriate value.
+
+@knownissues
+Line breaks may occur in different places following changes in
+layout. Settings chosen for @code{\alterBroken} may be unsuitable
+for a spanner that is no longer broken or is split into more
+segments than before.  Explicit use of @code{\break} can guard
+against this situation.
+
+The @code{\alterBroken} command is ineffective for spanner
+properties accessed before line-breaking such as
+@code{direction}.
+
+@morerefs
+Extending LilyPond:
+@rextend{Difficult tweaks}.
+@endmorerefs
+
+
+@node Setting minimum lengths for spanners
+@unnumberedsubsubsec Setting minimum lengths for spanners
+
+The @code{spanner-interface} interface provides three properties
+that apply to several spanners.
 
 @subsubsubheading The @code{minimum-length} property
 
@@ -3395,13 +3506,14 @@ As for the @code{minimum-length} property, it is often needed to set the
 }
 @end lilypond
 
-@subsubsubheading The @code{to-barline} property
+@node Controlling spanner end points
+@unnumberedsubsubsec Controlling spanner end points
 
-The third useful property of the @code{spanner-interface} is
-@code{to-barline}.  By default this is true, causing hairpins and
-other spanners which are terminated on the first note of a measure to
-end instead on the immediately preceding bar line.  If set to false,
-the spanner will extend beyond the bar line and end on the note
+ The @code{to-barline} property of the @code{spanner-interface},
+usually defaulting to true, causes hairpins and other spanners
+which are terminated on the first note of a measure to end instead
+on the immediately preceding bar line.  If set to false, the
+spanner will extend beyond the bar line and end on the note
 itself:
 
 @lilypond[verbatim,quote]
@@ -3417,28 +3529,44 @@ setting it to @code{#t} has no effect on slurs or phrasing slurs
 or on other spanners for which terminating on the bar line would
 not be meaningful.
 
-@node Using the line-spanner-interface
-@unnumberedsubsubsec Using the @code{line-spanner-interface}
 
-Objects which support the @code{line-spanner-interface} include
+@node Line styles
+@subsection Line styles
 
-@itemize
-@item @code{DynamicTextSpanner}
-@item @code{Glissando}
-@item @code{TextSpanner}
-@item @code{TrillSpanner}
-@item @code{VoiceFollower}
-@end itemize
+The @rinternals{line-interface} groups all objects printing lines.
+All objects supporting these interfaces can be printed using
+different line styles.  Here is an example showing the available
+values.
 
-The routine responsible for drawing the stencils for these spanners is
-@code{ly:@/line-@/spanner::@/print}.  This routine determines the
-exact location of the two end points and draws a line
-between them, in the style requested.  The locations of the two
-end points of the spanner are computed on-the-fly, but it is
-possible to override their Y-coordinates.  The
-properties which need to be specified are nested
-two levels down within the property hierarchy, but the syntax of
-the @code{\override} command is quite simple:
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
+@end lilypond
+
+Some objects may support specific additional styles.
+
+
+@node Line spanners
+@subsection Line spanners
+
+Some performance indications, e.g., @i{rallentando} and
+@i{accelerando} and @i{trills} are written as text and are
+extended over many measures with lines, sometimes dotted or wavy.
+
+The locations of the two end points of the spanner are computed
+on-the-fly, but it is possible to override their Y-coordinates.
+The properties which need to be specified are nested two levels
+down within the property hierarchy, but the syntax of the
+@code{\override} command is quite simple:
 
 @lilypond[quote,fragment,verbatim]
 e''2 \glissando b'
@@ -3544,6 +3672,7 @@ glissando would start and end in the center of each note head.
 
 @end table
 
+@c FIXME: this should be somewhere else --JeanAS
 @funindex \endSpanners
 
 The music function @code{\endSpanners} terminates the spanner
@@ -3988,61 +4117,6 @@ Learning Manual:
 @rlearning{Visibility and color of objects}.
 @endmorerefs
 
-
-@node Line styles
-@subsection Line styles
-
-Some performance indications, e.g., @i{rallentando} and
-@i{accelerando} and @i{trills} are written as text and are
-extended over many measures with lines, sometimes dotted or wavy.
-
-These all use the same routines as the glissando for drawing the
-texts and the lines, and tuning their behavior is therefore also
-done in the same way.  It is done with a spanner, and the routine
-responsible for drawing the spanners is
-@code{ly:line-spanner::print}.  This routine determines the
-exact location of the two @i{span points} and draws a line
-between them, in the style requested.
-
-Here is an example showing the different line styles available,
-and how to tune them.
-
-@lilypond[ragged-right,verbatim,quote]
-\relative {
-  d''2 \glissando d'2
-  \once \override Glissando.style = #'dashed-line
-  d,2 \glissando d'2
-  \override Glissando.style = #'dotted-line
-  d,2 \glissando d'2
-  \override Glissando.style = #'zigzag
-  d,2 \glissando d'2
-  \override Glissando.style = #'trill
-  d,2 \glissando d'2
-}
-@end lilypond
-
-The locations of the end-points of the spanner are computed
-on-the-fly for every graphic object, but it is possible to
-override these:
-
-@c TODO Complete
-@lilypond[ragged-right,verbatim,quote]
-\relative {
-  e''2 \glissando f
-  \once \override Glissando.bound-details.right.Y = #-2
-  e2 \glissando f
-}
-@end lilypond
-
-The value for @code{Y} is set to @w{@code{-2}} for the right end
-point.  The left side may be similarly adjusted by specifying
-@code{left} instead of @code{right}.
-
-If @code{Y} is not set, the value is computed from the vertical
-position of the left and right attachment points of the spanner.
-
-Other adjustments of spanners are possible, for details, see
-@ref{Spanners}.
 
 @node Rotating objects
 @subsection Rotating objects
@@ -4799,114 +4873,4 @@ required.
 @morerefs
 Internals Reference:
 @rinternals{TieColumn}.
-@endmorerefs
-
-
-@node Modifying broken spanners
-@subsection Modifying broken spanners
-
-@cindex spanner, modifying
-@cindex broken spanner, modifying
-@funindex \alterBroken
-
-When a spanner crosses a line break or breaks, each piece
-inherits the attributes of the original spanner.  Thus, ordinary
-tweaking of a broken spanner applies the same modifications to
-each of its segments.  In the example below, overriding
-@code{thickness} affects the slur on either side of the line
-break.
-
-@lilypond[verbatim,quote,ragged-right]
-\relative c'' {
-  r2
-  \once\override Slur.thickness = 10
-  c8( d e f
-  \break
-  g8 f e d) r2
-}
-@end lilypond
-
-Independently modifying the appearance of individual pieces
-of a broken spanner is possible with the @code{\alterBroken}
-command.  This command can produce either an @code{\override}
-or a @code{\tweak} of a spanner property.
-
-The syntax for @code{\alterBroken} is
-
-@example
-[-]\alterBroken @var{property} @var{values} @var{item}
-@end example
-
-The argument @var{values} is a list of values, one for each
-broken piece.  If @var{item} is a grob name like @code{Slur} or
-@code{Staff.PianoPedalBracket}, the result is an @code{\override}
-of the specified grob type.  If @var{item} is a music expression
-such as @qq{(} or @qq{[} the result is the same music expression
-with an appropriate tweak applied.
-
-The leading hyphen must be used with the @code{\tweak} form.  Do
-not add it when @code{\alterBroken} is used as an
-@code{\override}.
-
-@funindex \once
-@funindex \temporary
-
-In its @code{\override} usage, @code{\alterBroken} may be prefaced
-by @code{\once} or @code{\temporary} and reverted by using
-@code{\revert} with @var{property} (see @rextend{Intermediate
-substitution functions}).
-
-The following code applies an independent @code{\override} to
-each of the slur segments in the previous example:
-
-@lilypond[verbatim,quote,ragged-right]
-\relative c'' {
-  r2
-  \alterBroken thickness #'(10 1) Slur
-  c8( d e f
-  \break
-  g8 f e d) r2
-}
-@end lilypond
-
-The @code{\alterBroken} command may be used with any spanner
-object, including @code{Tie}, @code{PhrasingSlur}, @code{Beam}
-and @code{TextSpanner}.  For example, an editor preparing a
-scholarly edition may wish to indicate the absence of part of a
-phrasing slur in a source by dashing only the segment which has
-been added.  The following example illustrates how this can be
-done, in this case using the @code{\tweak} form of the command:
-
-@lilypond[verbatim,quote,ragged-right]
-% The empty list is conveniently used below, because it is the
-% default setting of dash-definition, resulting in a solid curve.
-\relative {
-  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
-  \break
-  g2 e\)
-}
-@end lilypond
-
-It is important to understand that @code{\alterBroken} will set
-each piece of a broken spanner to the corresponding value in
-@var{values}.  When there are fewer values than pieces, any
-additional piece will be assigned the empty list.  This may lead
-to undesired results if the layout property is not set to the
-empty list by default.  In such cases, each segment should be
-assigned an appropriate value.
-
-@knownissues
-Line breaks may occur in different places following changes in
-layout. Settings chosen for @code{\alterBroken} may be unsuitable
-for a spanner that is no longer broken or is split into more
-segments than before.  Explicit use of @code{\break} can guard
-against this situation.
-
-The @code{\alterBroken} command is ineffective for spanner
-properties accessed before line-breaking such as
-@code{direction}.
-
-@morerefs
-Extending LilyPond:
-@rextend{Difficult tweaks}.
 @endmorerefs
