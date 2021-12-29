@@ -47,7 +47,6 @@ Scheme.}
 * Explaining the Internals Reference::
 * Modifying properties::
 * Useful concepts and properties::
-* Advanced tweaks::
 * Using music functions::
 @end menu
 
@@ -2955,17 +2954,45 @@ modified by completely re-defining them as alists.}
 @node Useful concepts and properties
 @section Useful concepts and properties
 
+This section discusses various common layout issues and the
+tweaking methods related to them.
 
 @menu
 * Direction and placement::
 * Distances and measurements::
 * Dimensions::
-* Staff symbol properties::
 * Spanners::
 * Visibility of objects::
 * Line styles::
 * Rotating objects::
+* Aligning objects::
+* Modifying stencils::
+* Modifying shapes::
+* Modifying broken spanners::
+* Unpure-pure containers::
 @end menu
+
+@morerefs
+Learning Manual:
+@rlearning{Tweaking output},
+@rlearning{Other sources of information}.
+
+Notation Reference:
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties}.
+
+Extending LilyPond:
+@rextend{Interfaces for programmers}.
+
+Installed Files:
+@file{scm/define-grobs.scm}.
+
+Snippets:
+@rlsr{Tweaks and overrides}.
+
+Internals Reference:
+@rinternals{All layout objects}.
+@endmorerefs
 
 @node Direction and placement
 @subsection Direction and placement
@@ -4080,44 +4107,6 @@ b^\markup { \rotate #30 "a B" }
 des'^\markup { \rotate #30 "a D-Flat" }
 fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
-
-@node Advanced tweaks
-@section Advanced tweaks
-
-This section discusses various approaches to fine tuning the
-appearance of the printed score.
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Modifying broken spanners::
-* Unpure-pure containers::
-@end menu
-
-@morerefs
-Learning Manual:
-@rlearning{Tweaking output},
-@rlearning{Other sources of information}.
-
-Notation Reference:
-@ref{Explaining the Internals Reference},
-@ref{Modifying properties}.
-
-Extending LilyPond:
-@rextend{Interfaces for programmers}.
-
-Installed Files:
-@file{scm/define-grobs.scm}.
-
-Snippets:
-@rlsr{Tweaks and overrides}.
-
-Internals Reference:
-@rinternals{All layout objects}.
-@endmorerefs
-
 
 @node Aligning objects
 @subsection Aligning objects
