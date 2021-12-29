@@ -1828,10 +1828,6 @@ LilyPond-specific?
 @node Modifying properties
 @section Modifying properties
 
-@c TODO change the menu and subsection node names to use
-@c backslash once the new macro to handle the refs
-@c is available.  Need to find and change all refs at
-@c the same time. -td
 
 @menu
 * Overview of modifying properties::
