@@ -114,6 +114,17 @@ Alternative_sequence_iterator::analyze ()
               }
           }
       }
+
+    if (alts_in_order && (next_expected_volta_num == repeat_count + 1)
+        && (alt_info_.size () == 1))
+      {
+        // The same alternative is used for all volte.  A coda mark would
+        // mislead: no material needs to be skipped.  We don't want to
+        // complicate the segno styler to handle this exception: a user who
+        // wants something like "D.C. 2 V." without a coda mark can use a
+        // simple \repeat without \alternative.  We fall back to a bracket.
+        alts_in_order = false;
+      }
   }
 
   volta_brackets_enabled_
