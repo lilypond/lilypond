@@ -2957,7 +2957,6 @@ modified by completely re-defining them as alists.}
 
 
 @menu
-* Input modes::
 * Direction and placement::
 * Distances and measurements::
 * Dimensions::
@@ -2967,127 +2966,6 @@ modified by completely re-defining them as alists.}
 * Line styles::
 * Rotating objects::
 @end menu
-
-@node Input modes
-@subsection Input modes
-
-The way in which the notation contained within an input file is
-interpreted is determined by the current input mode.  In general,
-there are two ways of specifying the mode: a long form, e.g.
-@code{\chordmode}, and a short form, e.g. @code{\chords}.  The long
-form is typically used when supplying input to a variable or when
-entering input directly into an explicitly created context.  The short
-form implicitly creates a context of the correct type for the input and
-passes the input directly to it.  It is useful in simple situations
-when there is no requirement to explicitly create the receiving context.
-
-@subsubsubheading Chord mode
-
-@funindex \chordmode
-@funindex \chords
-
-This is activated with the @code{\chordmode} command, and causes
-input to be interpreted with the syntax of chord notation, see
-@ref{Chord notation}.  Music in chord mode is rendered as chords on a staff
-when entered into a @code{Staff} context, as chord names when entered
-into a @code{ChordNames} context or as fretboards when entered into
-a @code{FretBoards} context.
-
-Chord mode is also activated with the @code{\chords} command.  This
-also causes the following input to be interpreted with the syntax of
-chord notation but in addition it implicitly creates a new
-@code{ChordNames} context and renders the input into it as chord names,
-see @ref{Printing chord names}.
-
-@subsubsubheading Drum mode
-
-@funindex \drummode
-@funindex \drums
-
-This is activated with the @code{\drummode} command, and causes
-input to be interpreted with the syntax of drum notation, see
-@ref{Basic percussion notation}.  Music in drum mode is rendered as
-percussion notes when entered into a @code{DrumStaff} context.
-
-Drum mode is also activated with the @code{\drums} command.  This
-also causes the following input to be interpreted with the syntax of
-drum notation but in addition it implicitly creates a new
-@code{DrumStaff} context and renders the input into it as percussion
-notes, see @ref{Basic percussion notation}.
-
-@subsubsubheading Figure mode
-
-@funindex \figuremode
-@funindex \figures
-
-This is activated with the @code{\figuremode} command, and causes
-input to be interpreted with the syntax of figured bass, see
-@ref{Entering figured bass}.  Music in figure mode is rendered as
-figured bass when entered into a @code{FiguredBass} context or a
-@code{Staff} context.
-
-Figure mode is also activated with the @code{\figures} command.
-This also causes the following input to be interpreted with the
-figured bass syntax but in addition it implicitly creates a new
-@code{FiguredBass} context and renders the input into it as figured
-bass, see @ref{Introduction to figured bass}.
-
-@subsubsubheading Fret and tab modes
-
-There are no special input modes for entering fret and tab symbols.
-
-To create tab diagrams, enter notes or chords in note mode and
-render them in a @code{TabStaff} context, see
-@ref{Default tablatures}.
-
-To create fret diagrams above a staff, enter notes or chords in either
-note mode or chord mode and render them in a @code{FretBoards} context,
-see @ref{Automatic fret diagrams}.  Alternatively, fret diagrams can be
-entered as markup above the notes using the @code{\fret-diagram}
-command, see @ref{Fret diagram markups}.
-
-@subsubsubheading Lyrics mode
-
-@funindex \lyricmode
-@funindex \lyrics
-
-This is activated with the @code{\lyricmode} command, and causes
-input to be interpreted as lyric syllables with optional durations
-and associated lyric modifiers, see @ref{Vocal music}.  Input in
-lyric mode is rendered as lyric syllables when entered into a
-@code{Lyrics} context.
-
-Lyric mode is also activated with the @code{\lyrics} command.  This
-also causes the following input to be interpreted as lyric syllables
-but in addition it implicitly creates a new @code{Lyrics} context and
-renders the input into it as lyric syllables.
-
-Lyric mode is also activated with the @code{\addlyrics} command.  This
-also implicitly creates a new @code{Lyrics} context and in addition it
-adds an implicit @code{\lyricsto} command which associates the following
-lyrics with the preceding music, see @ref{Automatic syllable durations}.
-
-@subsubsubheading Markup mode
-
-@funindex \markup
-
-This is activated with the @code{\markup} command, and causes
-input to be interpreted with the syntax of markup, see
-@ref{Text markup commands}.
-
-@subsubsubheading Note mode
-
-@funindex \notemode
-
-This is the default mode or it may be activated with the
-@code{\notemode} command.  Input is interpreted as pitches,
-durations, markup, etc and typeset as musical notation on a staff.
-
-It is not normally necessary to specify note mode explicitly, but
-it may be useful to do so in certain situations, for example if you
-are in lyric mode, chord mode or any other mode and want to insert
-something that only can be done with note mode syntax.
-
 
 @node Direction and placement
 @subsection Direction and placement
