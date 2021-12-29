@@ -52,10 +52,10 @@ information, see @ref{Text encoding}.}
 @cindex markup object
 @cindex object, markup
 
-Text objects are entered either as simple strings between
-double quotes, or as @code{\markup} blocks that can accept
-a variety of advanced text formatting and graphical enhancements,
-as detailed in @ref{Formatting text}.
+Simple text objects are entered as strings between double quotes
+(these are optional for a single word).  The markup mode is a
+richer tool that can accept a variety of advanced text formatting
+and graphical enhancements, as detailed in @ref{Formatting text}.
 
 As such, markup blocks may be used:
 @itemize
@@ -74,11 +74,11 @@ introduced with the @code{\mark} or @code{\tempo} keywords;
 see @ref{Text marks};
 
 @item
-as standalone markup blocks, entered at the top level
-outside of any @code{\score} block (in this specific case the
-@code{\markup@tie{}@{...@}} command is mandatory, and cannot be
-omitted in favor of a simple text string between double quotes);
-see @ref{Separate text};
+as standalone text blocks, entered at the top level outside of any
+@code{\score} block (in this specific case the @code{\markup} or
+@code{\markuplist} command is mandatory, and cannot be omitted in
+favor of a simple text string between double quotes); see
+@ref{Separate text};
 
 @item
 in any definition inside the @code{\header} block (e.g.,
@@ -493,9 +493,9 @@ Internals Reference:
 
 @funindex \markup
 
-A @code{\markup} block can exist by itself, outside of any
-@code{\score} block, as a @qq{top-level expression}.  This syntax
-is described in @ref{File structure}.
+A @code{\markup} or @code{\markuplist} block can exist by itself,
+outside of any @code{\score} block, as a @qq{top-level
+expression}.  This syntax is described in @ref{File structure}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -520,11 +520,11 @@ as described in @ref{Multiple scores in a book}.
 }
 @end lilypond
 
-Separate text blocks can be spread over multiple pages,
-making it possible to print text documents or books entirely
-within LilyPond.  This feature, and the specific syntax it
-requires, are described in @ref{Multi-page markup}.
-
+Using @code{\markuplist}, separate text blocks can be spread over
+multiple pages, making it possible to print text documents or
+books entirely within LilyPond.  For a description of this feature
+and the specific syntax it requires, @pxref{Text markup
+introduction}.
 
 @funindex \markup
 @funindex \markuplist
@@ -549,8 +549,7 @@ requires, are described in @ref{Multi-page markup}.
 Notation Reference:
 @ref{Formatting text},
 @ref{File structure},
-@ref{Multiple scores in a book},
-@ref{Multi-page markup}.
+@ref{Multiple scores in a book}.
 
 Snippets:
 @rlsr{Text}.
@@ -564,7 +563,7 @@ Internals Reference:
 @subsection Formatting text
 
 This section presents basic and advanced text formatting,
-using the @code{\markup} mode specific syntax.
+using the markup mode specific syntax.
 
 @menu
 * Text markup introduction::
@@ -572,7 +571,6 @@ using the @code{\markup} mode specific syntax.
 * Text alignment::
 * Graphic notation inside markup::
 * Music notation inside markup::
-* Multi-page markup::
 @end menu
 
 @node Text markup introduction
@@ -585,35 +583,28 @@ using the @code{\markup} mode specific syntax.
 
 @funindex \markup
 
-A @code{\markup} block is used to typeset text with an extensible
-syntax called @qq{markup mode}.  Such blocks may be used anywhere,
-as explained in @ref{Text objects overview}.
+A @code{\markup} or @code{\markuplist} block is used to typeset
+text with an extensible syntax called @qq{markup mode}.  Such
+blocks can be used in many contexts (@pxref{Text objects
+overview}).
 
 @cindex markup expression
 @cindex expression, markup
 @cindex markup syntax
 @cindex syntax, markup
 
-The markup syntax is similar to LilyPond's usual syntax: a
-@code{\markup} expression is enclosed in curly braces
-@code{@{@dots{} @}}.  A single word is regarded as a minimal expression,
-and therefore does not need to be enclosed with braces.
+In markup mode, words are written as-is.  A single word does not
+need any quotes.
 
-Unlike simple @qq{quoted text} indications, @code{\markup} blocks may
-contain nested expressions or markup commands, entered using the
-backslash @code{\} character.  Such commands only affect the first
-following expression.
+@lilypond[verbatim,quote]
+\markup intenso
+@end lilypond
 
-@lilypond[quote,verbatim]
-\relative {
-  a'1-\markup intenso
-  a2^\markup { poco \italic più forte  }
-  c e1
-  d2_\markup { \italic "string. assai" }
-  e
-  b1^\markup { \bold { molto \italic  agitato } }
-  c
-}
+Several words can be grouped together by enclosing them in
+quotes.
+
+@lilypond[verbatim,quote]
+\markup "molto intenso"
 @end lilypond
 
 @cindex special character, in markup mode
@@ -624,12 +615,10 @@ following expression.
 @cindex quoted text, in markup mode
 @cindex markup mode, quoted text
 
-A @code{\markup} block may also contain quoted text strings.  Such
-strings are treated as minimal text expressions, and therefore any
-markup command or special character (such as @code{\} and@tie{}@code{#})
-will be printed verbatim without affecting the formatting of the text.
-Double quotation marks themselves may be printed by preceding them
-with backslashes.
+Apart from grouping, quoting also allows writing special
+characters such as @samp{\} and @samp{#} without affecting the
+formatting of the text.  Double quotation marks themselves may be
+printed by preceding them with backslashes.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -639,26 +628,151 @@ with backslashes.
 }
 @end lilypond
 
-To be treated as a distinct expression, a list of words needs to be
-enclosed with double quotes or preceded by a command.  The way markup
-expressions are defined affects how these expressions will be stacked,
-centered and aligned; in the following example, the second
-@code{\markup} expression is treated the same as the first one:
+Formatting is achieved through markup commands.  Their name is
+written preceded by a backslash.  They expect a number of
+arguments specific to the command.  For an exhaustive list of
+@code{\markup}-specific commands, @pxref{Text markup commands}.
 
-@lilypond[quote,verbatim]
-\relative c'' {
-  c1^\markup { \center-column { a bbb c } }
-  c1^\markup { \center-column { a { bbb c } } }
-  c1^\markup { \center-column { a \line { bbb c } } }
-  c1^\markup { \center-column { a "bbb c" } }
+@lilypond[verbatim,quote]
+\markup \italic "string. assai"
+\markup \with-color "red" intenso
+@end lilypond
+
+Markup commands can be nested.  The markup block ends when all
+commands have received their arguments.
+
+@lilypond[verbatim,quote]
+\markup \with-color "red" \italic intenso
+@end lilypond
+
+@cindex markup list
+@cindex list of markups
+
+Several markup expressions can be grouped together within braces
+to form a so-called @dfn{markup list}.  Without further
+formatting, the elements of a markup list are typeset in a row.
+
+@lilypond[verbatim,quote]
+\markup { molto \italic intenso }
+@end lilypond
+
+Some commands do not expect a markup but a markup list, allowing
+for more complex text arrangements than printing in a row.
+
+@lilypond[verbatim,quote]
+\markup \center-column {
+  \bold "Des Simplicius Simplicissimus Jugend"
+  "Karl Amadeus Hartmann"
 }
 @end lilypond
 
-Markups can be stored in variables.  Such variables may be
+Also, some commands do not return a markup but a markup list.  The
+result can then be used where a markup list is expected.  For a
+list of these commands, @pxref{Text markup list commands}.
+
+@lilypond[verbatim,quote]
+\markup \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+@lilypond[verbatim,quote]
+\markup \center-column \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+Elements of a nested markup list are simply treated as elements of
+the main markup list.
+
+@lilypond[verbatim,quote]
+\markup \center-column {
+  \bold "Des Simplicius Simplicissimus Jugend"
+  { Karl Amadeus \smallCaps Hartmann }
+}
+@end lilypond
+
+To group elements of a nested markup list in a row, apply the
+@code{\line} command to the markup list.  This stacks elements
+from the markup list horizontally into a single markup.
+
+@lilypond[verbatim,quote]
+\markup \center-column {
+  \bold "Des Simplicius Simplicissimus Jugend"
+  \line { Karl Amadeus \smallCaps Hartmann }
+}
+@end lilypond
+
+A special feature is the handling of commands taking markups when
+applied to markup lists.  When a command expects a markup as its
+last argument, and a markup list is given for this argument, the
+markup command is applied to each of the individual markups in the
+list.
+
+@lilypond[verbatim,quote]
+\markup \box { Karl Amadeus \smallCaps Hartmann }
+@end lilypond
+
+In this case, the result is in turn a markup list, which can be
+passed to a command expecting a markup list, or to one expecting a
+markup, with again the mapping behavior described above in the
+latter case.
+
+@lilypond[verbatim,quote]
+\markup \center-column \box { Karl Amadeus \smallCaps Hartmann }
+\markup \rotate #30 \box { Karl Amadeus \smallCaps Hartmann }
+@end lilypond
+
+Apply @code{\line} to a markup list in order to make it treated as
+a single markup argument.
+
+@lilypond[verbatim,quote]
+\markup \box { Karl Amadeus \smallCaps Hartmann }
+\markup \box \line { Karl Amadeus \smallCaps Hartmann }
+@end lilypond
+
+@cindex multi-page markup
+@cindex markup, multi-page
+@cindex markup text, multi-page
+@cindex text, spread over multiple pages
+@cindex page breaks, within markup
+
+@funindex \markuplist
+@funindex \justified-lines
+@funindex \wordwrap-lines
+
+When the entire content of a @code{\markup} expression is a markup
+list, it is implicitly typeset using the @code{\line} command.
+Thus, elements are stacked horizontally and grouped as a single,
+unbreakable text block.  The @code{\markuplist} command acts
+differently: it expects a markup list, and prints the individual
+markups on the page, stacking them vertically, and allowing page
+breaks.  The following example illustrates this difference.
+
+@lilypond[quote,verbatim]
+\markup \box \wordwrap {
+  Lorem ipsum dolor sit amet, consectetur
+  adipisicing elit, sed do eiusmod tempor incididunt
+  ut labore et dolore magna aliqua.  Ut enim ad minim
+  veniam, quis nostrud exercitation ullamco laboris
+  nisi ut aliquip ex ea commodo consequat.
+}
+
+\markuplist \box \wordwrap-lines {
+  Lorem ipsum dolor sit amet, consectetur
+  adipisicing elit, sed do eiusmod tempor incididunt
+  ut labore et dolore magna aliqua.  Ut enim ad minim
+  veniam, quis nostrud exercitation ullamco laboris
+  nisi ut aliquip ex ea commodo consequat.
+}
+@end lilypond
+
+Markups can be stored in variables, to be reused in any context
+where a markup is accepted.  For example, such a variable can be
 directly attached to notes:
 
 @lilypond[quote,verbatim]
-allegro = \markup { \bold \large Allegro }
+allegro = \markup \bold \large Allegro
 
 {
   d''8.^\allegro
@@ -666,26 +780,38 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
+@funindex \etc
 
-@noindent
-An exhaustive list of @code{\markup}-specific commands can be found in
-@ref{Text markup commands}.
-The inner workings of these commands, and how to implement new ones, is
-explained in @rextend{Markup functions}.
+The @code{\etc} syntax allows to define custom shorthands usable
+as markup commands.
+
+@lilypond[quote,verbatim]
+\markup reddish = \markup \with-color "tomato" \etc
+
+\markup { molto \reddish intenso }
+@end lilypond
+
+The inner workings of markup commands and how to implement more
+complex ones is explained in @rextend{Markup functions}.
 
 @morerefs
 Notation Reference:
 @ref{Text objects overview},
-@ref{Text markup commands}.
+@ref{Text markup commands},
+@ref{Text markup list commands}.
 
 Extending LilyPond:
 @rextend{Markup functions}.
 
+Installed Files:
+@file{scm/markup.scm},
+@file{scm/define-markup-commands.scm}.
+
 Snippets:
 @rlsr{Text}.
 
-Installed Files:
-@file{scm/markup.scm}.
+Internals Reference:
+@rinternals{TextScript}.
 @endmorerefs
 
 @knownissues
@@ -1513,72 +1639,6 @@ Internals Reference:
 Vertical spacing of a @code{\score} inside a markup object is controlled
 by @code{baseline-skip}.  Any @code{\paper} settings are ignored.
 
-
-@node Multi-page markup
-@unnumberedsubsubsec Multi-page markup
-
-@cindex multi-page markup
-@cindex markup, multi-page
-@cindex markup text, multi-page
-@cindex text, spread over multiple pages
-
-@funindex \markuplist
-@funindex \justified-lines
-@funindex \wordwrap-lines
-
-Although standard markup objects are not breakable, a specific syntax
-makes it possible to enter lines of text that can spread over multiple
-pages:
-
-@lilypond[quote,verbatim]
-\markuplist {
-  \justified-lines {
-    A very long text of justified lines.
-    ...
-  }
-  \wordwrap-lines {
-    Another very long paragraph.
-    ...
-  }
-  ...
-}
-@end lilypond
-
-This syntax accepts a list of markups, that can be
-@itemize
-@item
-the result of a markup list command,
-@item
-a list of markups,
-@item
-a list of markup lists.
-@end itemize
-
-An exhaustive list of markup list commands can be found in
-@ref{Text markup list commands}.
-
-@morerefs
-Notation Reference:
-@ref{Text markup list commands}.
-
-Extending LilyPond:
-@rextend{New markup list command definition}.
-
-Installed Files:
-@file{scm/define-markup-commands.scm}.
-
-Snippets:
-@rlsr{Text}.
-
-Internals Reference:
-@rinternals{TextScript}.
-@endmorerefs
-
-@funindex \markuplist
-
-@predefined
-@code{\markuplist}.
-@endpredefined
 
 
 @node Fonts
