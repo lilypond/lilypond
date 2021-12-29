@@ -33,7 +33,8 @@ class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_spanner_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (width, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
 
   static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
@@ -59,22 +60,41 @@ Balloon_interface::print (SCM smob)
   return internal_balloon_print (me, b, off).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, pure_spanner_height, 3);
+MAKE_SCHEME_CALLBACK (Balloon_interface, width, 1);
 SCM
-Balloon_interface::pure_spanner_height (SCM smob, SCM start_scm, SCM end_scm)
+Balloon_interface::width (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
+  Grob *annotated = unsmob<Grob> (get_object (me, "sticky-host"));
+  if (!annotated)
+    {
+      me->programming_error ("sticky grob without host");
+      return to_scm (Interval ());
+    }
+  Box b (robust_relative_extent (annotated, annotated, X_AXIS),
+         Interval (0, 0));
+  Real off = me->relative_coordinate (annotated, X_AXIS);
+  return to_scm (internal_balloon_print (me, b, Offset (off, 0)).extent (X_AXIS));
+}
 
-  if (!p || !p->is_live ())
-    return SCM_EOL;
+MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, 3);
+SCM
+Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  Grob *annotated = unsmob<Grob> (get_object (me, "sticky-host"));
+  if (!annotated)
+    {
+      me->programming_error ("sticky grob without host");
+      return to_scm (Interval ());
+    }
 
   vsize start = from_scm<vsize> (start_scm);
-  int end = scm_to_int (end_scm);
+  vsize end = from_scm<vsize> (end_scm);
 
-  Interval y = robust_relative_pure_y_extent (p, p, start, end);
+  Interval y = robust_relative_pure_y_extent (annotated, annotated, start, end);
 
-  Real off = me->relative_coordinate (p, Y_AXIS);
+  Real off = me->relative_coordinate (annotated, Y_AXIS);
 
   return to_scm (internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
                  .extent (Y_AXIS));
@@ -97,6 +117,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 
   SCM bt = get_property (me, "text");
   SCM chain = Font_interface::text_font_alist_chain (me);
+  // TODO: cache somehow?
   auto text_stil = Text_interface::interpret_markup (me->layout (), chain, bt);
 
   Offset z1;

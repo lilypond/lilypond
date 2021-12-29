@@ -1364,10 +1364,7 @@ parent or the parent has no setting."
 (define-public balloon::height
   (ly:make-unpure-pure-container
    ly:grob::stencil-height
-   (lambda (grob start end)
-     (if (ly:item? grob)
-         (ly:grob::stencil-height grob)
-         (ly:balloon-interface::pure-spanner-height grob start end)))))
+   ly:balloon-interface::pure-height))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards

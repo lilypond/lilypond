@@ -207,6 +207,7 @@
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+        (X-extent . ,ly:balloon-interface::width)
         (Y-extent . ,balloon::height)
         (meta . ((classes . (Item Spanner))
                  (interfaces . (accidental-switch-interface
