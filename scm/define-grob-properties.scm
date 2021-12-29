@@ -1154,6 +1154,8 @@ this property.")
 ;;; t
 ;;;
      (text ,markup? "Text markup.  See @ruser{Formatting text}.")
+     (text-alignment-X ,number? "How to align an annotation horizontally.")
+     (text-alignment-Y ,number? "How to align an annotation vertically.")
      ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
@@ -1243,6 +1245,8 @@ texts.")
 ;;;
      (X-align-on-main-noteheads ,boolean? "If true, this grob will
 ignore suspended noteheads when aligning itself on NoteColumn.")
+     (X-attachment ,number? "Horizontal attachment of a line on a
+frame, typically between -1 (left) and 1 (right).")
      (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (X-offset ,number? "The horizontal amount that this object is
@@ -1255,6 +1259,8 @@ in the form @code{(@var{left} . @var{right})}, where both @var{left} and
 ;;;
 ;;; y
 ;;;
+     (Y-attachment ,number? "Vertical attachment of a line on a
+frame, typically between -1 (down) and 1 (up).")
      (Y-extent ,number-pair? "Extent (size) in the Y@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (Y-offset ,number? "The vertical amount that this object is moved

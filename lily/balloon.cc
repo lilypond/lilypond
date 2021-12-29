@@ -103,8 +103,35 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 
   for (const auto a : {X_AXIS, Y_AXIS})
     {
-      z1[a] = b[a].linear_combination (sign (off[a]));
-      text_stil.align_to (a, -sign (off[a]));
+      /* By default, we use these alignments:
+
+          Balloon text
+                      \
+                       \
+                        grob
+
+                     Balloon text
+                          |
+                          |
+                        grob
+
+                              Balloon text
+                             /
+                            /
+                        grob
+
+      */
+      Real off_sign = static_cast<Real> (sign (off[a]));
+      SCM text_align_prop = ((a == X_AXIS)
+                             ? ly_symbol2scm ("text-alignment-X")
+                             : ly_symbol2scm ("text-alignment-Y"));
+      Real text_align = from_scm (get_property (me, text_align_prop), -off_sign);
+      SCM attach_align_prop = ((a == X_AXIS)
+                               ? ly_symbol2scm ("X-attachment")
+                               : ly_symbol2scm ("Y-attachment"));
+      Real attach_align = from_scm (get_property (me, attach_align_prop), off_sign);
+      z1[a] = b[a].linear_combination (attach_align);
+      text_stil.align_to (a, text_align);
     }
 
   Offset z2 = z1 + off;
@@ -131,5 +158,9 @@ annotation-line
 padding
 spanner-placement
 text
+text-alignment-X
+text-alignment-Y
 thickness
+X-attachment
+Y-attachment
                )");

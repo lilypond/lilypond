@@ -66,6 +66,25 @@ which scares away people.
 @end ignore
 
 @item
+Balloons now have changeable formatting.
+
+@lilypond
+\new Score \with {
+  \consists Balloon_engraver
+  \override SpacingSpanner.spacing-increment = 5
+}
+{
+  \balloonLengthOn
+  \balloonGrobText Rest #'(1 . 2) "rest"
+  r4
+  \once \override Score.BalloonText.Y-attachment = #CENTER
+  \once \override Score.BalloonText.text-alignment-X = #CENTER
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
+}
+@end lilypond
+
+@item
 The new @code{\repeat segno} command automatically notates a
 variety of @emph{da-capo} and @emph{dal-segno} forms.
 
@@ -198,7 +217,7 @@ created with @code{make-performer}.  Those macros work strictly like
 the previously existing macro @code{make-engraver} for creating
 engravers only usable in @samp{\layout}.
 
-@item 
+@item
 The syntax for conditions in markups was made more flexible and
 user-friendly.  It uses the new markup commands @code{\if} and
 @code{\unless}.  Here are example replacements:

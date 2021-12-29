@@ -1094,6 +1094,43 @@ Balloon text does not influence note spacing, but this can be altered:
 }
 @end lilypond
 
+The default behavior for the attachment point of the line on the
+frame and the alignment of the balloon text is demonstrated below.
+
+@lilypond
+\new Voice \with {
+  \consists Balloon_engraver
+}
+{
+  \time 3/4
+  \balloonGrobText Rest #'(-1 . 1) "rest"
+  r4
+  \balloonGrobText Rest #'(0 . 1) "rest"
+  r4
+  \balloonGrobText Rest #'(1 . 1) "rest"
+  r4
+}
+@end lilypond
+
+The default calculation of the attachment point can be overruled
+using the @code{X-attachment} and @code{Y-attachment} properties,
+which take values between -1 and 1, with the limits corresponding
+to the left (resp. bottom) and right (resp. top) of the frame.
+Alignment of the text is controlled by @code{text-alignment-X} and
+@code{text-alignment-Y}, which have a similar form.
+
+@lilypond[verbatim,quote]
+\new Voice \with {
+  \consists Balloon_engraver
+}
+{
+  \once \override BalloonText.Y-attachment = -0.5
+  \once \override BalloonText.text-alignment-X = 0.0
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
+}
+@end lilypond
+
 @predefined
 @code{\balloonLengthOn},
 @code{\balloonLengthOff}.
@@ -1104,6 +1141,7 @@ Snippets:
 @rlsr{Editorial annotations}.
 
 Internals Reference:
+@rinternals{AnnotateOutputEvent},
 @rinternals{Balloon_engraver},
 @rinternals{BalloonText},
 @rinternals{balloon-interface}.
