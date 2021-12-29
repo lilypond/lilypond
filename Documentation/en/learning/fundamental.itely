@@ -1838,19 +1838,6 @@ for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
 message is logged in the log file.
 
-Similarly, if the property name is mis-spelt no error message is
-produced, and clearly the expected action cannot be performed.  In
-fact, you can set any (fictitious) @q{property} using any name you
-like in any context that exists by using the @code{\set} command.  But
-if the name is not known to LilyPond it will not cause any action to
-be taken.  Some text editors with special support for LilyPond input
-files document property names with bullets when you hover them with
-the mouse, like JEdit with LilyPondTool, or highlight unknown property
-names differently, like ConTEXT.  If you do not use an editor with
-such features, it is recommended to check the property name in the
-Internals Reference: see @rinternals{Tunable context properties}, or
-@rinternals{Contexts}.
-
 The @code{clefGlyph} property will take effect only
 if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
