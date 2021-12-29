@@ -4993,13 +4993,6 @@ Internals Reference:
 @node Modifying broken spanners
 @subsection Modifying broken spanners
 
-@menu
-* Using alterBroken::
-@end menu
-
-@node Using alterBroken
-@unnumberedsubsubsec Using @code{\alterBroken}
-
 @cindex spanner, modifying
 @cindex broken spanner, modifying
 @funindex \alterBroken
