@@ -3083,7 +3083,7 @@ resultants es connecten entre els diferents pentagrames d'un
 @cindex línia divisòria predeterminada, canviar
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3094,7 +3094,7 @@ caràcters, es crea una línia divisòria d'aquest tipus.
 
 El tipus de barra predeterminat que s'usa per a les línies
 divisòries inserides automàticament és @code{"|"}.  Es pot canviar
-en qualsevol moment amb @samp{\set Timing.defaultBarType
+en qualsevol moment amb @samp{\set Timing.measureBarType
 = @var{tipus de barra}}.
 
 @morerefs

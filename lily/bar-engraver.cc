@@ -77,15 +77,15 @@ Bar_engraver::process_acknowledged ()
       auto *const wbc = where_defined (context (), "whichBar", &wb);
       if (scm_is_string (wb))
         {
-          // Map the default bar type from its value in the same context in
+          // Map the measure bar type from its value in the same context in
           // which "whichBar" is defined to the value visible in this
-          // engraver's context.  This allows removing default bar lines in
+          // engraver's context.  This allows removing measure bar lines in
           // Staff contexts designed for ancient notation.  \omit and \hide
           // have side effects that make them unsuitable for this purpose.
           if ((wbc != context ()) && wbc)
             {
-              if (ly_is_equal (wb, get_property (wbc, "defaultBarType")))
-                wb = get_property (this, "defaultBarType");
+              if (ly_is_equal (wb, get_property (wbc, "measureBarType")))
+                wb = get_property (this, "measureBarType");
             }
 
           if (scm_is_string (wb))
@@ -153,6 +153,7 @@ BarLine
 
                 /* read */
                 R"(
+measureBarType
 whichBar
                 )",
 

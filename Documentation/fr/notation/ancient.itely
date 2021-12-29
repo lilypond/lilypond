@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.21.0"
+@c \version "2.23.6"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -959,7 +959,7 @@ Par exemple,
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "-"
+    \set Score.measureBarType = "-"
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -987,7 +987,7 @@ par le @code{Mensural_@/ligature_@/engraver}, on obtient
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "-"
+  \set Score.measureBarType = "-"
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"

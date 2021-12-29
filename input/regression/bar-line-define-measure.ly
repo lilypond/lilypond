@@ -3,7 +3,7 @@
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc="Customizing @code{defaultBarType} is effective when
+  texidoc="Customizing @code{measureBarType} is effective when
 appropriate bar lines are defined.  The first system should end with a
 single thick bar line with a dashed span.  The second system should
 end with a single thick bar line spanning the whole system."
@@ -22,4 +22,4 @@ staff = \new Staff \fixed c' {
 
 piece = \new PianoStaff << \staff \staff >>
 
-\new Score \with { defaultBarType = ".-test" } << \piece >>
+\new Score \with { measureBarType = ".-test" } << \piece >>

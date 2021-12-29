@@ -3290,7 +3290,7 @@ pentagramas de un @code{StaffGroup}, @code{PianoStaff} o
 @cindex línea divisoria predeterminada, cambiar
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3301,7 +3301,7 @@ crea una línea divisoria de ese tipo.
 
 El tipo de barra predeterminado que se usa para las líneas
 divisorias insertadas automáticamente es @code{"|"}.  Se puede
-cambiar en cualquier momento con @samp{\set Timing.defaultBarType
+cambiar en cualquier momento con @samp{\set Timing.measureBarType
 = @var{tipo de barra}}.
 
 @morerefs

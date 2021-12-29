@@ -238,7 +238,7 @@ def dump_default_bar(outf):
     Nowadays abc2ly outputs explicits barlines (?)
     """
     # < 2.2
-    outf.write("\n\\set Score.defaultBarType = \"\"\n")
+    outf.write("\n\\set Score.measureBarType = \"\"\n")
 
 
 def dump_slyrics(outf):

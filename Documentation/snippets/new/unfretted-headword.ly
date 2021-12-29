@@ -212,7 +212,7 @@ ViolinSolo = \relative c' {
     >>
 
     \hide Score.Rest
-    \set Score.defaultBarType          = "-"
+    \set Score.measureBarType          = "-"
   >>
 
   \layout  {

@@ -3205,7 +3205,7 @@ connected between different staves of a @code{StaffGroup},
 @cindex bar line, default, changing
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3213,9 +3213,9 @@ The command @samp{\bar @var{bartype}} is a shortcut for
 @samp{\set Timing.whichBar = @var{bartype}}.  A bar line is
 created whenever the @code{whichBar} property is set.
 
-The default bar type used for automatically inserted bar lines is
-@code{"|"}.  This may be changed at any time with
-@samp{\set Timing.defaultBarType = @var{bartype}}.
+The bar type used for automatically inserted measure bar lines is
+@code{"|"}.  This may be changed at any time with @samp{\set
+Timing@/.measureBarType = @var{bartype}}.
 
 @morerefs
 Notation Reference:
@@ -3237,7 +3237,7 @@ Internals Reference:
 
 @knownissues
 A @code{\bar} command that specifies the current value of
-@code{defaultBarType} (default @samp{|}) does not override
+@code{measureBarType} (default @samp{|}) does not override
 automatic bar lines.
 
 
@@ -3286,7 +3286,7 @@ aligned to measures.  Several commands employ this bar type:
 @cindex default bar line
 @cindex measure line
 @cindex single bar line
-@item defaultBarType
+@item measureBarType
 Used at a measure boundary.
 
 @cindex bar line, double

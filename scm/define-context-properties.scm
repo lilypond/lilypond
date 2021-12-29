@@ -293,8 +293,6 @@ decrescendi.  Available values are @samp{hairpin} and @samp{text}.  If
 unset, a hairpin decrescendo is used.")
      (decrescendoText ,markup? "The text to print at start of
 non-hairpin decrescendo, i.e., @samp{dim.}.")
-     (defaultBarType ,string? "Value for @code{whichBar} at a measure
-boundary.")
      (defaultStrings ,list? "A list of strings to use in calculating
 frets for tablatures and fretboards if no strings are provided in
 the notes for the current moment.")
@@ -462,6 +460,8 @@ denoting alteration.  For alterations, use symbols, e.g.
 in a chord name?")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
+     (measureBarType ,string? "Value for @code{whichBar} at a measure
+boundary.")
      (measureLength ,ly:moment? "Length of one measure in the current
 time signature.")
      (measurePosition ,ly:moment? "How much of the current measure have

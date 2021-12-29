@@ -3268,7 +3268,7 @@ les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 @c snippets
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3278,7 +3278,7 @@ La commande @samp{\bar @var{type_de_barre}} sert de raccourci pour
 
 Le type de barre de mesure par défaut utilisé pour l'insertion
 automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
-à @samp{\set Timing.defaultBarType = @var{type_de_barre}}.
+à @samp{\set Timing.measureBarType = @var{type_de_barre}}.
 
 @morerefs
 Manuel de notation :
@@ -3300,7 +3300,7 @@ Référence des propriétés internes :
 
 @knownissues
 Une commande @code{\bar} qui spécifierait la valeur courante de
-@code{defaultBarType} (par défaut @samp{|}) ne viendra pas outrepasser
+@code{measureBarType} (par défaut @samp{|}) ne viendra pas outrepasser
 les barres de mesure automatiques.
 
 
@@ -3349,7 +3349,7 @@ emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @cindex barre simple
 @cindex défaut, barre de mesure
 @cindex simple, barre de mesure
-@item defaultBarType
+@item measureBarType
 S'utilise en limite de mesure.
 
 @cindex barre double

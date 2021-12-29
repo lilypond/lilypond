@@ -4437,6 +4437,7 @@ markup2string_replacement = """
 """
 
 @rule((2, 23, 6), r"""
+defaultBarType -> measureBarType
 markFormatter -> rehearsalMarkFormatter
 startRepeatType -> startRepeatBarType (etc.)
 make-articulation "X" -> make-articulation 'X
@@ -4451,6 +4452,7 @@ markup->string 2nd argument change
 # defined via #(make-articulation 'symbol ...) in ly/script-init.ly or
 # ly/gregorian.ly. (Example: There is no \comma as of 2.23.5)
 def conv(s):
+    s = re.sub("defaultBarType", "measureBarType", s)
     s = re.sub("doubleRepeatSegnoType", "doubleRepeatSegnoBarType", s)
     s = re.sub("doubleRepeatType", "doubleRepeatBarType", s)
     s = re.sub("endRepeatSegnoType", "endRepeatSegnoBarType", s)

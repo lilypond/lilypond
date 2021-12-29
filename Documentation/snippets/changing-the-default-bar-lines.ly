@@ -24,7 +24,7 @@ Default bar lines can be changed when re-defined in a score context.
   \context {
     \Score
     %% Changing the defaults from engraver-init.ly
-    defaultBarType = #"!"
+    measureBarType = #"!"
     startRepeatBarType = #"[|:"
     endRepeatBarType = #":|]"
     doubleRepeatBarType = #":|][|:"

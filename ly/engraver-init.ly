@@ -637,7 +637,7 @@ run."
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
 
-  defaultBarType = "|"
+  measureBarType = "|"
   sectionBarType = "||"
   fineBarType = "|."
 
@@ -1028,7 +1028,7 @@ of Editio Vaticana."
   \consists "Custos_engraver"
 
   %% Eliminate measure bar lines.
-  defaultBarType = ""
+  measureBarType = ""
 
   %% Make both \bar "||" and \bar "|." look like the finalis sign.
   \override BarLine.hair-thickness = #0.6
@@ -1084,7 +1084,7 @@ of Editio Vaticana."
   \defaultchild "GregorianTranscriptionVoice"
 
   %% Eliminate measure bar lines.
-  defaultBarType = ""
+  measureBarType = ""
 
   %% Make both \bar "||" and \bar "|." look like the finalis sign.
   \override BarLine.hair-thickness = #1.9
@@ -1124,7 +1124,7 @@ accommodated for typesetting a piece in mensural style."
   \consists "Custos_engraver"
 
   %% Eliminate measure bar lines.
-  defaultBarType = ""
+  measureBarType = ""
 
   %% Make both \bar "||" and \bar "|." look like the finalis sign.
   \override BarLine.hair-thickness = #0.6

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.80"
+@c \version "2.23.6"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -888,7 +888,7 @@ Per esempio,
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "-"
+    \set Score.measureBarType = "-"
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -916,7 +916,7 @@ Senza sostituire l'incisore @code{Ligature_bracket_engraver} con
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "-"
+  \set Score.measureBarType = "-"
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"

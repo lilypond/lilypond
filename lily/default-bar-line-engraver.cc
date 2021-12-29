@@ -56,7 +56,7 @@ and sets @code{whichBar} accordingly.  It should be at the same level as
                 R"(
 automaticBars
 barAlways
-defaultBarType
+measureBarType
 measureStartNow
                 )",
 
@@ -86,7 +86,7 @@ Default_bar_line_engraver::start_translation_timestep ()
     {
       if (from_scm<bool> (get_property (this, "automaticBars")))
         {
-          wb = get_property (this, "defaultBarType");
+          wb = get_property (this, "measureBarType");
         }
     }
 

@@ -18,7 +18,7 @@ only for coordination and is not meant to imply any rhythmic stress.
 } % begin verbatim
 
 \relative c' {
-  \set Score.defaultBarType = #"'"
+  \set Score.measureBarType = #"'"
   c4 d e f
   g4 f e d
   c4 d e f

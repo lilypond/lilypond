@@ -188,9 +188,9 @@ Repeat_acknowledge_engraver::process_music ()
   SCM wb = get_property (this, "whichBar");
   if (scm_is_string (wb))
     {
-      // Note that we don't distinguish between a default bar set by the
-      // Default_bar_line_engraver and a default bar set by the user.
-      forced_bar_type = ly_is_equal (wb, get_property (this, "defaultBarType"))
+      // Note that we don't distinguish between a measure bar set by the
+      // Default_bar_line_engraver and a measure bar set by the user.
+      forced_bar_type = ly_is_equal (wb, get_property (this, "measureBarType"))
                         ? BarType::DEFAULT
                         : BarType::OTHER;
     }
@@ -295,7 +295,7 @@ Repeat_acknowledge_engraver::process_music ()
       else if (forced_bar_type == BarType::DEFAULT)
         {
           // "robust" here is paranoia; this should always work and result in
-          // ub holding the value of defaultBarType because of logic above.
+          // ub holding the value of measureBarType because of logic above.
           ub = robust_scm2string (wb, "|");
           has_underlying_bar = true;
         }
@@ -388,7 +388,6 @@ the chosen bar line if it has not been set by the user.
 
                 /* read */
                 R"(
-defaultBarType
 doubleRepeatSegnoBarType
 doubleRepeatBarType
 endRepeatSegnoBarType
@@ -396,6 +395,7 @@ endRepeatBarType
 fineBarType
 fineSegnoBarType
 fineStartRepeatSegnoBarType
+measureBarType
 repeatCommands
 sectionBarType
 segnoStyle

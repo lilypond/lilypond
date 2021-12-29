@@ -3143,7 +3143,7 @@ f'1 \bar "k"
 @cindex bar line, default, changing (デフォルトの小節線を変更する)
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3153,7 +3153,7 @@ f'1 \bar "k"
 
 自動的に挿入される小節線に使用されるデフォルトの@c
 小節線タイプは @code{"|"} です。@c
-これは @samp{\set Timing.defaultBarType = @var{bartype}} でいつでも@c
+これは @samp{\set Timing.measureBarType = @var{bartype}} でいつでも@c
 変更することができます。
 
 @morerefs

@@ -3103,7 +3103,7 @@ di un @code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff}.
 @cindex stanghetta predefinita, modifica
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -3113,7 +3113,7 @@ viene creata ogni volta che si imposta la proprietà @code{whichBar}.
 
 Il tipo di stanghetta predefinita per le stanghette inserite automaticamente
 è @code{"|"}.  Si può modificare in qualsiasi momento con
-@samp{\set Timing.defaultBarType = @var{tipo-stanghetta}}.
+@samp{\set Timing.measureBarType = @var{tipo-stanghetta}}.
 
 @morerefs
 Guida alla notazione:

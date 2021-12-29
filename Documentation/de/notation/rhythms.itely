@@ -2915,7 +2915,7 @@ Taktstriche sind miteinander verbunden innerhalb einer Gruppe
 @snippets
 
 @funindex whichBar
-@funindex defaultBarType
+@funindex measureBarType
 @funindex \bar
 @funindex bartype
 
@@ -2925,7 +2925,7 @@ Der Befehl @code{\bar }@var{Taktart} ist eine Kurzform von:
 Taktstrich dieses Typs erzeugt.
 
 Der automatisch erzeugte Taktstrich ist @code{"|"}.  Das kann
-jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
+jederzeit durch den Befehl @code{\set Timing.measureBarType = }
 @var{Taktstrichart} geändert werden.
 
 @morerefs
