@@ -4638,19 +4638,6 @@ e'1
 @end lilypond
 
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
-
-@c TODO Expand this section
-
-The VerticalAlignment and VerticalAxisGroup grobs work together.
-VerticalAxisGroup groups together different grobs like Staff, Lyrics,
-etc.  VerticalAlignment then vertically aligns the different grobs
-grouped together by VerticalAxisGroup.  There is usually only one
-VerticalAlignment per score but every Staff, Lyrics, etc., has its own
-VerticalAxisGroup.
-
-
 @node Modifying stencils
 @subsection Modifying stencils
 
