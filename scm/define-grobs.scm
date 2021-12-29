@@ -203,6 +203,7 @@
         (spanner-placement . ,LEFT)
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
+        (thickness . 1.0)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))

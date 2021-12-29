@@ -27,6 +27,7 @@
 #include "output-def.hh"
 #include "misc.hh"
 #include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 
 class Balloon_interface
 {
@@ -85,10 +86,14 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
   Real padding = from_scm<double> (get_property (me, "padding"), .1);
   b.widen (padding, padding);
 
-  // FIXME
-  Stencil fr;
+  Stencil result;
   if (from_scm<bool> (get_property (me, "annotation-balloon")))
-    fr = Lookup::frame (b, 0.1, 0.05);
+    {
+      Real thickness = from_scm (get_property (me, "thickness"), 1.0);
+      thickness *= Staff_symbol_referencer::line_thickness (me);
+      Real blot_diameter = 0.05; // FIXME: hardcoded
+      result = Lookup::frame (b, thickness, blot_diameter);
+    }
 
   SCM bt = get_property (me, "text");
   SCM chain = Font_interface::text_font_alist_chain (me);
@@ -105,13 +110,13 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
   Offset z2 = z1 + off;
 
   if (from_scm<bool> (get_property (me, "annotation-line")))
-    fr.add_stencil (Line_interface::line (me, z1, z2));
+    result.add_stencil (Line_interface::line (me, z1, z2));
 
   text_stil.translate (z2);
-  fr.add_stencil (text_stil);
+  result.add_stencil (text_stil);
 
-  fr.translate (-off);
-  return fr;
+  result.translate (-off);
+  return result;
 }
 
 ADD_INTERFACE (Balloon_interface,
@@ -126,4 +131,5 @@ annotation-line
 padding
 spanner-placement
 text
+thickness
                )");
