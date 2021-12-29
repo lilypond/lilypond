@@ -192,6 +192,7 @@
 
     (BalloonText
      . (
+        (after-line-breaking . ,ly:balloon-interface::remove-irrelevant-spanner)
         (annotation-balloon . #t)
         (annotation-line . #t)
         (break-visibility . ,(sticky-grob-interface::inherit-property
@@ -199,6 +200,7 @@
         (cross-staff . ,(sticky-grob-interface::inherit-property
                           'cross-staff))
         (extra-spacing-width . (+inf.0 . -inf.0))
+        (spanner-placement . ,LEFT)
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
@@ -1247,6 +1249,7 @@
 
     (Footnote
      . (
+        (after-line-breaking . ,ly:balloon-interface::remove-irrelevant-spanner)
         (annotation-balloon . #f)
         (annotation-line . #t)
         (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))

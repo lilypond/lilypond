@@ -43,28 +43,6 @@ Balloon_interface::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
-  if (Spanner *me_spanner = dynamic_cast<Spanner *> (me))
-    {
-      Direction spanner_placement = from_scm (get_property (me, "spanner-placement"), LEFT);
-      if (!spanner_placement)
-        {
-          warning ("spanner-placement must be #LEFT or #RIGHT, not #CENTER");
-          spanner_placement = LEFT;
-        }
-      Spanner *orig = me_spanner->original ();
-      if (orig)
-        {
-          Spanner *wanted = (spanner_placement == LEFT)
-                            ? orig->broken_intos_.front ()
-                            : orig->broken_intos_.back ();
-          if (me_spanner != wanted)
-            {
-              me->suicide (); // TODO: maybe do this in after-line-breaking?
-              return Stencil ().smobbed_copy ();
-            }
-        }
-    }
-
   Grob *annotated = unsmob<Grob> (get_object (me, "sticky-host"));
   if (!annotated)
     {

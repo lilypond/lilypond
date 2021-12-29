@@ -1334,6 +1334,33 @@ parent or the parent has no setting."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; balloons
 
+;; TODO: What if the host of the broken piece picked here is dead?
+;; For a hairpin, the last part is typically removed.  The problem
+;; is that for grobs with more complex behavior, suicide could happen
+;; late in the process.
+
+;; TODO: Make interface for items more similar to spanner-placement
+;; for spanners?
+
+(define-public (ly:balloon-interface::remove-irrelevant-spanner grob)
+  (if (ly:spanner? grob)
+      (let* ((spanner-placement (ly:grob-property grob 'spanner-placement))
+             (irrelevant?
+              (cond
+               ((eqv? spanner-placement LEFT)
+                not-first-broken-spanner?)
+               ((eqv? spanner-placement RIGHT)
+                not-last-broken-spanner?)
+               (else
+                (ly:grob-warning
+                 grob
+                 'after-line-breaking
+                 "spanner-placement must be #LEFT or #RIGHT, found ~s"
+                 spanner-placement)
+                not-first-broken-spanner?))))
+        (if (irrelevant? grob)
+            (ly:grob-suicide! grob)))))
+
 (define-public balloon::height
   (ly:make-unpure-pure-container
    ly:grob::stencil-height
