@@ -82,7 +82,7 @@ Alternative_sequence_iterator::analyze ()
 
   {
     const auto repeat_count
-      = from_scm<size_t> (get_property (this, "repeat-count"));
+      = from_scm<size_t> (get_property (this, "repeat-count"), 1);
     SCM alts = get_property (get_music (), "elements");
     size_t next_expected_volta_num = 1;
     for (auto *alt : as_ly_smob_list<Music> (alts))
