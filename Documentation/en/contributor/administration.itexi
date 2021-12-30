@@ -6,7 +6,7 @@ don't fit anywhere else.
 
 @menu
 * Environment variables::
-* Unsorted policies::
+* Performing yearly copyright update (grand-replace)::
 @end menu
 
 
@@ -37,15 +37,8 @@ should be set to the repository lilypond-extra, see
 @ref{lilypond-extra}.
 
 
-@node Unsorted policies
-@section Unsorted policies
-
-@subsubheading Language-specific mailing lists
-
-A translator can ask for an official lilypond-xy mailing list once
-they've finished all @qq{priority 1} translation items.
-
-@subsubheading Performing yearly copyright update (@qq{grand-replace})
+@node Performing yearly copyright update (grand-replace)
+@section Performing yearly copyright update (@qq{grand-replace})
 
 At the start of each year, copyright notices for all source files
 should be refreshed by running the following command from the top of
