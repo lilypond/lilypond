@@ -36,6 +36,9 @@
   symbol)
 
 
+;;; Both the user and internal context properties are sorted alphabetically
+;;; (ignoring case).
+
 (define-public all-user-translation-properties
   (map
    (lambda (x)
@@ -47,12 +50,12 @@
      (accidentalGrouping ,symbol? "If set to @code{'voice}, accidentals
 on the same note in different octaves may be horizontally staggered
 if in different voices.")
-     (aDueText ,markup? "Text to print at a unisono passage.")
      (additionalBassStrings ,list? "The additional tablature bass-strings, which
 will not get a seprate line in TabStaff.  It is a list of the pitches of each
 string (starting with the lowest numbered one).")
      (additionalPitchPrefix ,string? "Text with which to prefix
 additional pitches within a chord name.")
+     (aDueText ,markup? "Text to print at a unisono passage.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
      (alignBelowContext ,string? "Where to insert newly created context in
@@ -178,7 +181,6 @@ for bars 2, 4, 6, etc.
 If bar numbers 1, 4, 7, etc., should be enabled, @var{n}@tie{}(the modulo)
 must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 @end table")
-
      (baseMoment ,ly:moment? "Smallest unit of time that will stand on its
 own as a subdivided section.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
@@ -190,6 +192,7 @@ halfway through the measure in triple time, which could look like 6/8.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 
+
      (centerBarNumbers ,boolean? "Whether to center bar numbers in
 their measure instead of aligning them on the bar line.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
@@ -200,9 +203,6 @@ of pitches to chord names.")
      (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
-     (slashChordSeparator ,markup? "The markup object used to separate
-a chord name from its root note in case of inversions or slash
-chords.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for single pitches.")
      (chordPrefixSpacer ,number? "The space added between the root
@@ -210,6 +210,9 @@ symbol and the prefix of a chord name.")
      (chordRootNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for chords.")
      (clefGlyph ,string? "Name of the symbol within the music font.")
+     (clefPosition ,number? "Where should the center of the clef
+symbol go, measured in half staff spaces from the center of the
+staff.")
      (clefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
      (clefTranspositionFormatter ,procedure? "A procedure that takes the
@@ -218,9 +221,6 @@ markup.")
      (clefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
-     (clefPosition ,number? "Where should the center of the clef
-symbol go, measured in half staff spaces from the center of the
-staff.")
      (codaMarkFormatter ,procedure? "A procedure that creates a coda
 mark (which in conventional @emph{D.S. al Coda} form indicates the
 start of the alternative endings), taking as arguments the mark
@@ -252,6 +252,9 @@ a hairpin crescendo is used.")
      (crescendoText ,markup? "The text to print at start of non-hairpin
 crescendo, i.e., @samp{cresc.}.")
      (cueClefGlyph ,string? "Name of the symbol within the music font.")
+     (cueClefPosition ,number? "Where should the center of the clef
+symbol go, measured in half staff spaces from the center of the
+staff.")
      (cueClefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
      (cueClefTranspositionFormatter ,procedure? "A procedure that
@@ -260,9 +263,6 @@ and returns a markup.")
      (cueClefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
-     (cueClefPosition ,number? "Where should the center of the clef
-symbol go, measured in half staff spaces from the center of the
-staff.")
      (currentBarNumber ,integer? "Contains the current barnumber.
 This property is incremented at every bar line.")
 
@@ -317,6 +317,7 @@ The layout style is a hash table, containing the drum-pitches (e.g.,
 the symbol @samp{hihat}) as keys, and a list
 @code{(@var{notehead-style} @var{script} @var{vertical-position})} as
 values.")
+
 
      (endAtSkip ,boolean? "End @code{DurationLine} grob on @code{skip-event}")
      (endRepeatBarType ,string? "Value for @code{whichBar} at the end
@@ -453,6 +454,8 @@ denoting alteration.  For alterations, use symbols, e.g.
      (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
 
 
+     (magnifyStaffValue ,positive? "The most recent value set with
+@code{\\magnifyStaff}.")
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
      (maximumFretStretch ,number? "Don't allocate frets further than
@@ -483,32 +486,32 @@ is used for ottava brackets.")
      (middleCPosition ,number? "The place of the middle C, measured in
 half staff-spaces.  Usually determined by looking at
 @code{middleCClefPosition} and @code{middleCOffset}.")
-     (midiInstrument ,string? "Name of the MIDI instrument to use.")
-     (midiMergeUnisons ,boolean? "If true, output only one MIDI note-on
-event when notes with the same pitch, in the same MIDI-file track, overlap.")
-     (midiMaximumVolume ,number? "Analogous to
-@code{midiMinimumVolume}.")
-     (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
-Ranges from 0 to@tie{}1.")
-     (midiChannelMapping ,symbol? "How to map MIDI channels: per
-@code{staff} (default), @code{instrument} or @code{voice}.")
      (midiBalance ,number? "Stereo balance for the MIDI channel
 associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
 where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
 and@tie{}1 (@code{#RIGHT}) correspond to leftmost emphasis, center
 balance, and rightmost emphasis, respectively.")
+     (midiChannelMapping ,symbol? "How to map MIDI channels: per
+@code{staff} (default), @code{instrument} or @code{voice}.")
+     (midiChorusLevel ,number? "Chorus effect level for the MIDI
+channel associated with the current context.  Ranges from 0
+to@tie{}1 (0=off,@tie{}1=full effect).")
+     (midiExpression ,number? "Expression control for the MIDI
+channel associated with the current context.  Ranges from 0
+to@tie{}1 (0=off,@tie{}1=full effect).")
+     (midiInstrument ,string? "Name of the MIDI instrument to use.")
+     (midiMaximumVolume ,number? "Analogous to
+@code{midiMinimumVolume}.")
+     (midiMergeUnisons ,boolean? "If true, output only one MIDI note-on
+event when notes with the same pitch, in the same MIDI-file track, overlap.")
+     (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
+Ranges from 0 to@tie{}1.")
      (midiPanPosition ,number? "Pan position for the MIDI channel
 associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
 where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
 and@tie{}1 (@code{#RIGHT}) correspond to hard left, center, and hard
 right, respectively.")
-     (midiExpression ,number? "Expression control for the MIDI
-channel associated with the current context.  Ranges from 0
-to@tie{}1 (0=off,@tie{}1=full effect).")
      (midiReverbLevel ,number? "Reverb effect level for the MIDI
-channel associated with the current context.  Ranges from 0
-to@tie{}1 (0=off,@tie{}1=full effect).")
-     (midiChorusLevel ,number? "Chorus effect level for the MIDI
 channel associated with the current context.  Ranges from 0
 to@tie{}1 (0=off,@tie{}1=full effect).")
      (minimumFret ,number? "The tablature auto string-selecting
@@ -518,9 +521,9 @@ mechanism selects the highest string with a fret at least
 page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
 repeated section for a page turn to be allowed within that section.")
-
      (minorChordModifier ,markup? "Markup displayed following the root
 for a minor chord")
+
 
      (noChordSymbol ,markup? "Markup to be displayed for rests in a
 ChordNames context.")
@@ -536,6 +539,7 @@ tabstring events, and the fretboard grob if a fretboard is desired.")
 generates no accidentals for notes in contexts were this is set.
 In addition to supressing the printed accidental, this option removes
 any effect the note would have had on accidentals in other voices.")
+
 
      (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")
@@ -565,10 +569,10 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (pedalUnaCordaStyle ,symbol? "See @code{pedalSustainStyle}.")
      (predefinedDiagramTable ,hash-table? "The hash table of predefined
 fret diagrams to use in FretBoards.")
-     (printKeyCancellation ,boolean? "Print restoration alterations
-before a key signature change.")
      (printAccidentalNames ,boolean-or-symbol? "Print accidentals in the
 @code{NoteNames} context.")
+     (printKeyCancellation ,boolean? "Print restoration alterations
+before a key signature change.")
      (printNotesLanguage ,string? "Use a specific language in the
 @code{NoteNames} context.")
      (printOctaveNames ,boolean-or-symbol? "Print octave marks in the
@@ -597,6 +601,7 @@ measures than this, a number is printed.")
      (restrainOpenStrings ,boolean? "Exclude open strings from the
 automatic fret calculator.")
 
+
      (searchForVoice ,boolean? "Signal whether a search should be made
 of all contexts in the context hierarchy for a voice to provide rhythms
 for the lyrics.")
@@ -604,14 +609,14 @@ for the lyrics.")
 @code{\\section}.  Where there is also a repeat bar line, the repeat
 bar line takes precedence and this value is appended to it as an
 annotation.  The default is @samp{||}.")
+     (segnoBarType ,string? "Value for @code{whichBar} at an in-staff
+segno.  The default is @samp{S}.")
      (segnoMarkFormatter ,procedure? "A procedure that creates a
 segno (which conventionally indicates the start of a repeated
 section), taking as arguments the mark sequence number and the
 context.  It should return a markup object.")
      (segnoStyle ,symbol? "A symbol that indicates how to print a segno:
 @code{bar-line} or @code{mark}.")
-     (segnoBarType ,string? "Value for @code{whichBar} at an in-staff
-segno.  The default is @samp{S}.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for
 each note head relative to the tonic (qv.) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
@@ -633,6 +638,9 @@ voices is preserved.
      (skipTypesetting ,boolean? "If true, no typesetting is done,
 speeding up the interpretation phase.  Useful for debugging large
 scores.")
+     (slashChordSeparator ,markup? "The markup object used to separate
+a chord name from its root note in case of inversions or slash
+chords.")
      (soloIIText ,markup? "The text for the start of a solo for
 voice @q{two} when part-combining.")
      (soloText ,markup? "The text for the start of a solo when
@@ -641,14 +649,12 @@ part-combining.")
 @rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
-     (magnifyStaffValue ,positive? "The most recent value set with
-@code{\\magnifyStaff}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
 verse.  Use in @code{Lyrics} context.")
-     (startAtSkip ,boolean? "Start @code{DurationLine} grob at
-@code{skip-event}.")
      (startAtNoteColumn ,boolean? "Start @code{DurationLine} grob at entire
 @code{NoteColumn}.")
+     (startAtSkip ,boolean? "Start @code{DurationLine} grob at
+@code{skip-event}.")
      (startRepeatBarType ,string? "Value for @code{whichBar} at the
 start of a @code{\\repeat volta}.  The default is @samp{.|:}.")
      (startRepeatSegnoBarType ,string? "Value for @code{whichBar}
@@ -676,11 +682,11 @@ accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
      (supportNonIntegerFret ,boolean? "If set in @code{Score} the
 @code{TabStaff} will print micro-tones as @samp{2½}")
-     (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
-merge rests when this is set to true.")
      (suspendMelodyDecisions ,boolean? "When using the @code{Melody_engraver},
 stop changing orientation of stems based on the melody when this is set
 to true.")
+     (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
+merge rests when this is set to true.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
 of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
@@ -737,6 +743,7 @@ line, the repeat bar line takes precedence and this value is appended
 to it as an annotation.  The default is @samp{||}.")
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
+
 
      (vocalName ,markup? "Name of a vocal line.")
      (voltaSpannerDuration ,ly:moment? "This specifies the maximum
@@ -859,6 +866,7 @@ finger to use")
 
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
      )))
+
 
 (define-public all-translation-properties
   (append all-user-translation-properties
