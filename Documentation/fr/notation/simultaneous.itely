@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -474,6 +474,10 @@ quelque peu décalées, tout comme leurs silences, afin d'éviter les
 collisions.  La commande @code{\oneVoice} permet de retrouver les
 réglages par défaut.
 
+N'oubliez pas que @code{Voice} est un contexte de bas niveau --
+voir @ref{Contextes de bas niveau -- les voix}. Dans le cadre d'un
+@code{TabStaff}, il faudrait donc utiliser un @code{TabVoice}.
+
 
 @subsubsubheading Polyphonie temporaire
 
@@ -522,6 +526,49 @@ après lui :
 Vous remarquerez que les commandes @code{\voiceOne} et @code{\voiceTwo}
 permettent d'obtenir des réglages différents pour chacune des voix.
 
+@noindent
+Dans un @code{TabStaff} doit être utilisé un @code{TabVoice}.
+
+Lorsque la même musique doit apparaître à la fois dans un
+@code{Staff} @b{et} dans un @code{TabStaff}, il est possible de
+recourir au contexte générique @code{Bottom} -- voir
+@ref{Contextes de bas niveau -- les voix}.
+
+@lilypond[quote,verbatim]
+mus =
+\relative
+  \new Bottom = "melody" {
+    a'4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Bottom {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+
+<<
+  \new Staff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+
+<<
+  \new TabStaff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+@end lilypond
+
+
 @subsubsubheading La construction avec un double antislash
 
 @cindex couche
@@ -533,10 +580,11 @@ Une construction de la forme @code{<< @{@dots{}@} \\ @{@dots{}@} >>},
 dans laquelle plusieurs expressions sont séparées par des doubles
 obliques inversées, se comporte différemment de celle sans séparateur :
 @strong{tous} les membres de cette construction seront assignés à de
-nouveaux contextes de voix.  Ces contextes de voix, créés implicitement,
-portent les noms @code{"1"}, @code{"2"}, etc.  Dans chacun de ces
-contextes, le positionnement des liaisons, la direction des hampes, etc.
-sont réglés de manière appropriée. En voici un exemple :
+nouveaux contextes @code{Bottom} du même type, à savoir @code{Voice} ou
+@code{TabVoice}. Ces nouveaux contextes @code{Bottom}, créés
+implicitement, portent les noms @code{"1"}, @code{"2"}, etc. Dans chacun
+de ces contextes, le positionnement des liaisons, la direction des
+hampes, etc. sont réglés de manière appropriée. En voici un exemple :
 
 @lilypond[quote,verbatim]
 <<

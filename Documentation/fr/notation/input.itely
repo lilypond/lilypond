@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2095,7 +2095,7 @@ pourrait ressembler à ceci :
   tocItemMarkup = \markup \fill-line {
     \fill-with-pattern #1.5 #CENTER .
     \line {
-      \hspace #-4 %% Cancelling the first level’s tocIndentMarkup
+      \hspace #-4 %% Cancelling the first level's tocIndentMarkup
       \fromproperty #'toc:indent \fromproperty #'toc:text
       \hspace #2
     }
@@ -3331,10 +3331,12 @@ notation suivants :
 le volume s'ajuste linéairement entre les deux extrêmes,
 @item les indications de nuance, de @code{ppppp} à @code{fffff}, y compris
 @code{mp}, @code{mf} et @code{sf},
+@item les paroles,
+@item les marques : indications de repère, segnos, indications de coda
+et libellés de section,
 @item les microtonalités, mais @emph{pas} sous forme d'accord ; leur
 rendu nécessite cependant un lecteur qui prenne en charge la
 modulation,
-@item les paroles,
 @item les hauteurs,
 @item le rythme sous forme de durée de note, y compris les n-olets,
 @item les articulations « simples » comme staccato, staccatissimo,

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2878,10 +2878,12 @@ courts extraits, avec une faible amplitude.
 
 @menu
 * Barres de mesure::
+* Barres de mesure automatiques::
 * Numéros de mesure::
 * Vérification des limites et numéros de mesure::
 * Indications de repère::
 * Compteurs de mesures::
+* Division en sections::
 @end menu
 
 
@@ -2891,18 +2893,21 @@ courts extraits, avec une faible amplitude.
 
 @cindex barre de mesure
 @cindex barre finale
+@cindex finale, barre
 @cindex double barre
 @cindex barre de reprise
 
 @funindex \bar
 
-Les barres de mesures délimitent les mesures, mais peuvent aussi
-indiquer une reprise.  En principe, elles sont insérées automatiquement
-en respectant la métrique en vigueur.
+Les barres de mesure délimitent les mesures ou sections, mais peuvent
+aussi indiquer une reprise. En principe, de simples barres sont insérées
+automatiquement en respectant la métrique en vigueur. Diverses commandes
+permettent l'insertion automatique de différents types de barre selon
+l'effet attendu -- voir @ref{Barres de mesure automatiques}.
 
-Il est possible de forcer l'impression d'une barre de mesure spéciale,
-avec la commande @code{\bar} -- c'est d'ailleurs l'habitude en fin de
-morceau, où l'on voit une double barre :
+Il est possible de forcer l'impression d'une barre de mesure spécifique
+à l'aide de commande @code{\bar} -- c'est d'ailleurs l'habitude en fin
+de morceau, où l'on voit une double barre :
 
 @lilypond[quote,verbatim]
 \relative { e'4 d c2 \bar "|." }
@@ -2958,7 +2963,7 @@ doubles barres :
 \relative {
   f'1 \bar "|"
   f1 \bar "."
-  g1 \bar "||"
+  g1 \bar "||"     % voir \section
   a1 \bar ".|"
   b1 \bar ".."
   c1 \bar "|.|"
@@ -3047,7 +3052,8 @@ Bien que l'on puisse insérer des barres de reprise manuellement,
 LilyPond n'en déduira pas pour autant qu'il s'agit d'un passage à
 répéter.  Il est préférable d'indiquer les passages répétés à l'aide des
 différentes commandes de reprise (voir @ref{Répétitions et reprises})
-qui se chargeront d'imprimer le type de barre approprié.
+qui se chargeront d'imprimer le type de barre approprié qui peut
+d'ailleurs être personnalisé -- voir @ref{Barres de mesure automatiques}.
 
 Dans les faits, un @code{".|:-||"} équivaut à un @code{".|:"} sauf s'il
 intervient à un saut de ligne : une double barre sera alors
@@ -3290,6 +3296,139 @@ Référence des propriétés internes :
 @rinternals{BarLine} (faisant partie du contexte @code{Staff}),
 @rinternals{SpanBar} (sur plusieurs portées),
 @rinternals{Timing_translator} (pour les propriétés liées au temps).
+@endmorerefs
+
+@knownissues
+Une commande @code{\bar} qui spécifierait la valeur courante de
+@code{defaultBarType} (par défaut @samp{|}) ne viendra pas outrepasser
+les barres de mesure automatiques.
+
+
+@node Barres de mesure automatiques
+@unnumberedsubsubsec Barres de mesure automatiques
+@translationof Automatic bar lines
+
+@cindex automatique, barre de mesure
+@cindex barre de mesure automatique
+
+Diverses commandes, autres que @code{\bar}, peuvent créer des barres de
+mesure en raison de leurs effets. Les barres générées en pariel cas
+peuvent se modifier en réglant des propriétés de contexte. Les types de
+barre de mesure se sélectionnent dans une liste prédéfinie de types ou
+bien des types préalablement définis à l'aide de la commande
+@code{\defineBarLine} -- voir @ref{Barres de mesure}.
+
+De multiples raisons peuvent expliquer la création de barres de mesure
+automatiques différentes en un même moment. Les conflits se résoudront
+en partie par la fourniture de propriétés pour des combinaisons
+prédéterminées, en partie par l'annotation à la volée des types de
+barre, et en partie par un jeu de priorités. La table suivante présente,
+par ordre de priorité croissant, les propriétés disponibles.
+
+@quotation
+@table @code
+
+@cindex barre double
+@cindex barre de mesure, reprise sous-jascente
+@cindex double barre
+@cindex reprise sous-jascente, barre de mesure
+@funindex \codaMark
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+@item underlyingRepeatBarType
+S'utilise en des points de reprise ou de départ pour lesquels aucune
+barre n'apparaîtrait normalement. Tel est le cas lorsque des sections
+répétées ne s'alignent pas avec les mesures. Certaines commandes
+emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
+@code{\repeat segno}, @code{\repeat volta} et @code{\segnoMark}.
+
+@cindex barre par défaut
+@cindex barre, mesure
+@cindex barre simple
+@cindex défaut, barre de mesure
+@cindex simple, barre de mesure
+@item defaultBarType
+S'utilise en limite de mesure.
+
+@cindex barre double
+@cindex barre, section
+@cindex double barre
+@cindex section, barre de mesure
+@funindex \section
+@item sectionBarType
+S'utilise à un saut de section créé par @code{\section}.
+
+@cindex barre finale
+@cindex finale, barre de mesure
+@funindex \fine
+@item fineBarType
+S'utilise avec l'instruction @emph{Fine} créée par @code{\fine}.
+
+@cindex barre de mesure, reprise
+@cindex barre de mesure, @emph{segno}
+@cindex reprise, barre de mesure
+@cindex @emph{segno}, barre de mesure
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+@item doubleRepeatBarType
+@itemx doubleRepeatSegnoBarType
+@itemx endRepeatBarType
+@itemx endRepeatSegnoBarType
+@itemx fineSegnoBarType
+@itemx fineStartRepeatSegnoBarType
+@itemx segnoBarType
+@itemx startRepeatBarType
+@itemx startRepeatSegnoBarType
+Seul l'un de ces types s'utilisera, selon la structure de la pièce.
+
+Les propriétés dont le nom comporte @code{startRepeat} ou
+@code{endRepeat} s'utilisent en début ou en fin de reprise créée par
+@code{\repeat volta}. Celles comportant @code{doubleRepeat}
+s'utilisent lorsque la fin d'une reprise coïncide avec le début d'une
+autre.
+
+Les propriétés dont le nom comporte @code{segno} s'utilisent pour un
+@emph{segno} sur la portée ; ceux-ci peuvent être créés par
+@code{\repeat segno} ou @code{\segnoMark}, dès lors que la propriété
+@code{segnoStyle} est réglée sur @code{bar-line}, ou encore lorsqu'ils
+sont créés par @code{\inStaffSegno}.
+
+Les propriétés dont le nom comporte @code{fine} s'utilisent pour une
+instruction @emph{Fine} créée par @code{\fine}.
+
+Bien que ces barres automatiques possèdent la priorité la plus élévée,
+elles n'en masquent pas pour autant les autres : la barre de mesure de
+rang directement inférieur s'ajoute à titre d'annotation, si tant est
+que le type de barre résultant est défini. Ceci permet l'affichage de la
+barre secondaire à l'occasion d'un saut de ligne dès lors que les types
+de barre adéquats auront été définis -- voir @ref{Barres de mesure}.
+
+@end table
+@end quotation
+
+@snippets
+
+@cindex reprises successives, barre de mesure
+@cindex barre de mesure, reprises successives
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/setting-the-double-repeat-default-for-volte.ly}
+
+@morerefs
+Manuel de notation :
+@ref{Barres de mesure},
+@ref{Répétitions et reprises}.
+
+Morceaux choisis :
+@rlsrnamed{Rhythms, Rythmes}.
+
+Référence des propriétés internes :
+@rinternals{Default_bar_line_engraver},
+@rinternals{Repeat_acknowledge_engraver}.
+
 @endmorerefs
 
 
@@ -3598,7 +3737,8 @@ d'autres fonctions de formatage.
 @code{format-@/mark-@/circle-@/barnumbers} permettent d'imprimer le
 numéro de mesure au lieu des compteurs alphabétique ou numérique.
 
-On peut aussi spécifier manuellement une marque de repère :
+On peut aussi spécifier manuellement une marque de repère indépendamment
+de la séquence @code{rehearsalMark} :
 
 @example
 \mark "A1"
@@ -3612,22 +3752,28 @@ définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 \mark \markup @{ \box A1 @}
 @end example
 
-@cindex segno
-@cindex coda
-@cindex D.S al Fine
+@noindent
+Avant d'utiliser @code{\mark} pour ajouter un texte qui ne constitue pas
+en lui-même un repère, il peut être judicieux de chercher un commande
+qui serait plus appropriée. Quelques possibilités sont mentionnées à la
+fin de cette section.
+
+@cindex @emph{segno}
+@cindex @emph{coda}
+@cindex @emph{D.S al Fine}
 @cindex point d'orgue
 @cindex glyphe musical
 
 @funindex \musicglyph
 
-Un @code{\mark} peut contenir un glyphe musical tel que le signe
-@emph{segno}.
+Un glyphe musical peut venir se centrer en surplomb d'une barre de
+mesure dès lors qu'aura été spécifié le symbole adéquat -- voir
+@ref{Notation musicale dans du texte formaté}.
 
 @lilypond[quote,verbatim]
-\relative c' {
-  c1 \mark \markup { \musicglyph "scripts.segno" }
-  c1 \mark \markup { \musicglyph "scripts.coda" }
-  c1 \mark \markup { \musicglyph "scripts.ufermata" }
+\fixed c'' {
+  c1
+  \mark \markup { \musicglyph "scripts.ufermata" }
   c1
 }
 @end lilypond
@@ -3649,8 +3795,11 @@ formatage.
 @morerefs
 Manuel de notation :
 @ref{Alignement des objets},
+@ref{Indication métronomique},
 @ref{La fonte Emmentaler},
-@ref{Mise en forme du texte}.
+@ref{Marque de section},
+@ref{Mise en forme du texte},
+@ref{Notation musicale dans du texte formaté}.
 
 Fichiers d'initialisation :
 @file{scm/translation-functions.scm}.
@@ -3659,9 +3808,9 @@ Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 @endmorerefs
 
 
@@ -3799,6 +3948,53 @@ Référence des propriétés internes :
 @rinternals{Measure_counter_engraver},
 @rinternals{MeasureCounter},
 @rinternals{measure-counter-interface}.
+@endmorerefs
+
+
+@node Division en sections
+@unnumberedsubsubsec Division en sections
+@translationof Section divisions
+
+@cindex barre de mesure double
+@cindex barre de mesure, section
+@cindex double barre
+@cindex section, barre de mesure
+
+@funindex \section
+
+La commande @code{\section} marque un point dans la musique où une
+section se termine et une autre commence. Il n'y a pas nécessairement de
+musique à la suite : cela peut aussi indiquer que cette terminaison
+apparente n'est pas la fin du morceau comme lorsqu'apparaît
+l'instruction @emph{D.C.} ou lorsqu'un mouvement s'enchaîne directement
+avec le suivant.
+
+En règle générale, @code{\section} crée une double barre de mesure. Ses
+effets peuvent aussi dépendre d'autres considérations, comme par exemple
+une barre de reprise. Pour de plus amples détails sur les interactions
+avec d'autres types de barre et les options pour modifier leur
+apparrence, voir @ref{Barres de mesure automatiques}.
+
+Une section peut être nommée à l'aide de @code{\sectionLabel} --
+voir @ref{Marque de section}).
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  f1
+  \section
+  \sectionLabel "Refrain"
+  f1
+}
+@end lilypond
+
+@morerefs
+Manuel de notation :
+@ref{Barres de mesure automatiques},
+@ref{Divisiones},
+@ref{Marque de section}.
+
+Référence des propriétés internes :
+@rinternals{SectionEvent}.
 @endmorerefs
 
 

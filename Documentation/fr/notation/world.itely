@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+    Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,7 @@ qu'occidentales.
 * Noms des notes et altérations non-occidentaux::
 * Musique arabe::
 * Musique classique turque::
+* Musique classique perse::
 @end menu
 
 
@@ -101,6 +102,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Écriture des hauteurs de note},
 @ref{Musique arabe},
+@ref{Musique classique perse},
 @ref{Musique classique turque},
 @ref{Nom des notes dans d'autres langues}.
 @endmorerefs
@@ -684,5 +686,247 @@ contient des informations sur l'histoire de la musique de cour ottomane.
 @noindent
 contient des informations en anglais sur les makams turcs et inclut deux
 disques compacts.
+
+@end itemize
+
+
+@node Musique classique perse
+@subsection Musique classique perse
+@translationof Persian classical music
+
+@cindex Perse, musique classique
+
+Ce chapitre met en évidence des questions propres à la notation de la
+musique classique perse.
+
+@menu
+* Notation de la musique perse::
+* Tonalités perses::
+* Armures perses::
+* Lectures complémentaires pour la musique perse::
+@end menu
+
+@node Notation de la musique perse
+@unnumberedsubsubsec Notation de la musique perse
+@translationof Persian music notation
+
+@cindex sori
+@cindex koron
+@cindex demi bémol, symbole perse (koron)
+@cindex demi dièse, symbole perse (sori)
+@cindex perse, altérations (sori, koron)
+@cindex altérations perses (sori, koron)
+
+La notation de musique classique perse utilise couramment deux
+altérations microtonales, @dfn{sori} et @dfn{koron}. Inventées par
+Ali-Naqi vers 1935, elles indiquent, respectivement à la hausse et à la
+baisse, un écart d'approximativement un quart de ton pour la hauteur
+considérée.
+
+@lilypond[quote]
+\markup {
+  \center-column {
+    "sori"
+    \musicglyph "accidentals.sharp.sori"
+  }
+  \hspace #10
+  \center-column {
+    "koron"
+    \musicglyph "accidentals.flat.koron"
+  }
+}
+@end lilypond
+
+Le fichier @file{persian.ly}@footnote{Il existe un autre fichier de
+prise en charge de la musique classique perse, plus ancien, créé par
+Kees van den Doel. Il n'est plus fonctionnel avec cette version de
+LilyPond ; bien que les noms de note y soient compatibles, la sélection
+des armures ne l'est plus.} fournit ce qu'il faut pour le koron et le
+sori. Ils s'obtiennent en ajoutant un « k » (koron) ou un « o » aux noms
+de note en anglais.
+
+Lilypond prend en charge l'accordage de tous les modes perses majeurs
+dans toutes les tonalités nécessaires à la notation des @dfn{gusheh}s
+(courts thèmes mélodiques) de tous les @dfn{dastgah}s (systèmes de
+musique modale).
+
+La note qui suit immédiatement un koron est parfois@footnote{Si
+l'intervalle entre la note qui précède le koron et celle qui le suit est
+d'une tierce mineure. Il en va de même pour la note en dessous de la
+finale du dastgah « Esfahan » selon certains (mais pas tous) musiciens
+iraniens.} abaisée d'environ 20 centièmes. Bien que ce ne soit pas noté,
+ceci est considéré comme faisant partie de l'accordage. Néanmoins, et
+dans le but d'un meilleur rendu MIDI, on peut bémoliser un son en
+ajoutant un « v » au nom de la note (« @emph{v}lat »). Cette note
+devrait par ailleurs être affublée d'un fort vibrato qui, lui aussi,
+sera intégré de manière perceptible (@emph{sérialisme}).
+
+Il n'existe pas d'autre particularité en matière d'accordage dans la
+musique perse. Dans la mesure où il s'agit de musique monophonique, la
+différence entre intonation juste (par exemple) et tempérament égal est
+purement académique -- il n'y a pas d'accord où seraient notables des
+intervalles étrangers.
+
+Voici les différents suffixes à porter aux nom des notes en anglais.
+
+@quotation
+@multitable @columnfractions .03 .77
+@item @code{ff} @tab double bémol
+@item @code{f}  @tab bémol
+@item @code{k}  @tab koron (environ quart de bémol, -3/10 de
+                     ton, 60@tie{}centièmes)
+@item @code{o}  @tab sori (environ quart de dièse, 2/10 de
+                     ton, 40@tie{}cents)
+@item @code{s}  @tab dièse
+@item @code{x}  @tab double dièse
+@item @code{v}  @tab 20@tie{}centièmes de bémol (@qq{vlat}, non
+                     noté)
+@item @code{fv} @tab bémol, tuned 20@tie{}cents down (notated as a
+                     normal flat)
+@item @code{sv} @tab dièse, à 20@tie{}centièmes en dessous (noté comme
+                     un dièse normal ; on ne le trouve jamais en musique
+                     traditionelle iranienne)
+@end multitable
+@end quotation
+
+
+@node Tonalités perses
+@unnumberedsubsubsec Tonalités perses
+@translationof Persian tunings
+
+Les dastgahs peuvent avoir plusieurs tonalités ; il est maintenant
+courant de nommer les tonalités selon la représentation des dastgahs qui
+les mettent en œuvre. Les tonalités perses qui suivent sont à fournir en
+second argument à la commande @code{\key}. Notez bien que, en pratique,
+ces tonalités ne sont pas toutes utilisées dans tous les tons.
+
+@quotation
+@multitable @columnfractions .2 .6
+@item @code{\shur}
+@tab gushehs « Shur » avec
+@ifnothtml
+5@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+5<sup>e</sup>
+@end html
+@end ifhtml
+ degré naturel
+
+@item @code{\shurk}
+@tab gushehs « Shur » avec
+@ifnothtml
+5@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+5<sup>e</sup>
+@end html
+@end ifhtml
+ degré koron
+
+@item @code{\esfahan}       @tab
+@item @code{\mokhalefsegah} @tab
+@item @code{\chahargah}     @tab
+@item @code{\mahur}         @tab identique à @code{\major} mais utilisé
+                                 dans un contexte complètement different
+@item @code{\delkashMahur}  @tab
+@end multitable
+@end quotation
+
+Dans un dastgah « Shur », le
+@ifnothtml
+5@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+5<sup>e</sup>
+@end html
+@end ifhtml
+ degré peut être soit naturel, soit koron, raison pour laquelle deux
+tonalités sont disponibles (@code{\shur} et @code{\shurk}). Pour les
+dastgahs secondaires « Dashti », « Abuata » et « Bayat-e-tork »
+utilisent @code{\shur}, et le dasgah dérivé « Afshari » @code{\shurk}.
+« Nava » en sol est comme « Shur » en ré (à la quarte). La tonalité de
+« Segah » est @code{\shurk}. Les autres tonalités sont @code{\esfahan}
+(« Homayoun » en ut est comme  « Esfahan » en sol, à la quinte),
+@code{\chahargah} et @code{\mokhalefsegah}. Les dastgahs « Mahur » et
+« Rast-panjgah » peuvent utiliser la même tonalité @code{\mahur}.
+
+Toutes les différentes modulations de gushehs dans tous les dastaghs
+peuvent se noter avec ces tonalités, à l'exception du « Delkash » dans
+un « Mahur » mais, traditionnellement, les accidentelles particulières y
+sont alors notées explicitement (toutefois, @file{persian.ly} définit
+aussi la tonalité @code{\delkashMahur}).
+
+À titre d'exemple, un Chahargah en ré peut se noter ainsi.
+
+@lilypond[verbatim,quote]
+\include "persian.ly"
+
+\relative c' {
+  \key d \chahargah
+  bk'8 a gs fo r g ak g |
+  fs ek d c d ef16 d c4 |
+}
+@end lilypond
+
+
+@node Armures perses
+@unnumberedsubsubsec Armures perses
+@translationof Persian key signatures
+
+Par défaut, l'ordre des altérations dans une armure perse est la
+suivant : bémols uivis des korons, puis dièses suivis des soris (puis
+doubles bémols et enfin doubles dièses). L'ordre sera alors bémols ou
+korons (ou doubles bémols) puis dièses ou soris (ou doubles dièses).
+Autrement dit, korons et soris sont respectivement considérés comme
+bémols et dièses.
+
+@lilypond[verbatim,quote]
+\include "persian.ly"
+
+{
+  \key b \chahargah b'1 |
+  \set Staff.keyAlterationOrder = \persianAltKeyAlterationOrder
+  \key b \chahargah b'1 |
+}
+@end lilypond
+
+
+@node Lectures complémentaires pour la musique perse
+@unnumberedsubsubsec Lectures complémentaires pour la musique perse
+@translationof Further reading on Persian music
+
+@itemize
+
+@item
+@emph{Traditional Persian Art Music} par Dariush Tala'i
+[Bibliotheca Persica, Costa Mesa CA, 2000]
+
+@noindent
+Les tonalités perses disponibles suivent de près cet ouvrage.
+
+@item
+@emph{The Dastgah Concept in Persian Music} par Hormoz Farhat
+[Cambridge University Press, Cambridge, 1990]
+
+@item
+@emph{Le répertoire-modèle de la musique iranienne} par Jean During
+[Sourush, Téhéran, 1995]
+
+@noindent
+Cet ouvrage contient la mesure des intervalles selon la pratique
+actuelle, par ailleurs compatible avec les tonalités de
+@file{persian.ly}.
+
+@item
+@emph{Armoni-e Musiqi-e Iran} par Ali-Naqi Vaziri (en perse)
+[1935]
+
+@item
+@emph{Scales and Modes Around the World} par Herman Rechberger
+[Fennica Gehrman, 2018, ISBN 978-952-5489-07-1]
 
 @end itemize

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2764,7 +2764,7 @@ une édition en notation moderne à partir d'une même source.
 Il est d'usage, lorsque l'on transcrit de la musique ancienne en
 notation moderne, d'indiquer aussi comment apparaissaient les silences
 ou notes initiaux dans la version originale, y compris la clef.  Ceci
-s'appelle un @emph{incipit}.  La commande @code{\incipit} utilise le
+s'appelle un @dfn{incipit}.  La commande @code{\incipit} utilise le
 @code{indent} de la portée principale pour déterminer la place occupée
 par l'incipit, et @code{incipit-width} pour déterminer la longueur de la
 portée d'incipit.

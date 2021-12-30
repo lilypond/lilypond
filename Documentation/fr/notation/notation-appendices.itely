@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
+  Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -557,6 +557,10 @@ dispose.
 @translationof Predefined paper sizes
 
 Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
+
+@c La génération automatique de en/paper-sizes.tely n'est pas
+@c traduisible à ce jour, aussi j'en conserve une version en
+@c français. - JCM
 
 @noindent
 @strong{La série A « ISO 216 »}
@@ -3345,13 +3349,13 @@ Référence des propriétés internes :
 @cindex Flex
 
 Un @strong{lexer} est un programme chargé de convertir une séquence de
-caractères en une séquence de jetons.  Cette opération s'appelle
-l'analyse lexicale.  L'analyseur lexical de LilyPond convertit le flot
-d'information contenu dans un fichier @file{.ly} en flot de jetons qui
-pourront être traités lors de l'étape suivant, l'analyse
+caractères en une séquence de jetons. Cette opération s'appelle
+@dfn{analyse lexicale}. L'analyseur lexical de LilyPond convertit le
+flot d'information contenu dans un fichier @file{.ly} en flot de jetons
+qui pourront être traités lors de l'étape suivant, l'analyse
 grammaticale abordée à la rubrique @ref{parser (analyseur syntaxique)}.
 L'analyseur lexical de LilyPond repose sur @code{Flex} ; les règles
-lexicales sont regroupées dans le fichier @file{lily/lexer.ll}.  Ce
+lexicales sont regroupées dans le fichier @file{lily/lexer.ll}. Ce
 fichier, partie intégrante des sources, n'est pas distribué avec les
 programmes binaires de LilyPond.
 

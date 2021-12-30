@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
   texidocfr = "
 @code{\\bookpart} permet de découper un ouvrage en plusieurs parties.
 La dernière page de chaque partie peut être affectée d'un

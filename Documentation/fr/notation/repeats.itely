@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -232,7 +232,43 @@ d'une pièce commençant par une levée afin de respecter cette entame.
 @funindex \volta
 @funindex volta
 
-Une répétition avec fins alternatives s'indique ainsi :
+Une répétition avec fins alternatives peut s'indiquer de deux manières
+différentes. La syntaxe préférentielle est la suivante :
+
+@example
+\repeat volta @var{nombre_de_fois} @{
+  @var{expression_musicale}
+  \alternative @{
+    \volta @var{liste_de_nombres} @var{expression_musicale}
+    \volta @var{liste_de_nombres} @var{expression_musicale}
+    @dots{}
+  @}
+@}
+@end example
+
+@noindent
+où @code{@var{liste_de_nombres}} est une liste de nombres, séparés par
+des virgules, indiquant les occurrences à répéter, de 1 à
+@code{@var{nombre_de_fois}}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \repeat volta 6 {
+    c4 d e f
+    \alternative {
+      \volta 1,2,3 { c2 e }
+      \volta 4,5 { f2 d }
+      \volta 6 { e2 f }
+    }
+  }
+  c1
+}
+@end lilypond
+
+@noindent
+Une autre syntaxe, plus ancienne et toujours prise en charge, consiste à
+instancier le bloc @code{\alternative} à la suite de l'expression
+musicale répétée. Elle produit les mêmes effets.
 
 @example
 \repeat volta @var{nombre_de_fois} @var{expression_musicale}
@@ -243,26 +279,23 @@ Une répétition avec fins alternatives s'indique ainsi :
 @}
 @end example
 
-@noindent
-où @var{liste_de_nombres} est une liste de nombres, séparés par des
-virgules, indiquant les occurrences à répéter, de 1 à
-@var{nombre_de_fois}.
+Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
+passage doit être rejoué, la première alternative sera jouée plusieurs
+fois.
 
 @lilypond[verbatim,quote]
 \fixed c'' {
-  \repeat volta 6 { c4 d e f }
-  \alternative {
-    \volta 1,2,3 { c2 e }
-    \volta 4,5 { f2 d }
-    \volta 6 { e2 f }
+  \repeat volta 6 {
+    c4 d e f
+    \alternative {
+      { c2 e }
+      { f2 d }
+      { e2 f }
+    }
   }
   c1
 }
 @end lilypond
-
-Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
-passage doit être rejoué, la première alternative sera jouée plusieurs
-fois.
 
 @warning{Tout élément inclus dans un bloc @code{\alternative} sera
 traîté en tant qu'alternative. Quelque chose d'aussi simple qu'un
@@ -281,8 +314,7 @@ immanquablement des portées parasites.  Voir
 
 Un bloc @code{\alternative} peut prendre place à l'intérieur d'un bloc
 @code{\repeat} afin de produire une notation comparable à des
-alternatives. Il ne saurait toutefois s'utiliser ainsi pour signifier
-les alternatives réelles -- voir @ref{Fins alternatives}.
+alternatives -- voir @ref{Fins alternatives}.
 
 @lilypond[verbatim,quote]
 \fixed c'' {
@@ -317,13 +349,13 @@ music = \repeat volta 3 {
   \volta #'() { \mark "3×" }
 }
 
-\new Score { \music }
-\new Score { \unfoldRepeats \music }
+\score { \music }
+\score { \unfoldRepeats \music }
 @end lilypond
 
 Lorsqu'un bloc @code{\repeat} est expansé, il peut être souhaitable de
 non seulement filtrer les fragments spécifiques, mais aussi d'ajouter de
-la musique qui serait absente de la forme @code{\volta}. La commande
+la musique qui serait absente de la forme « repliée ». La commande
 @code{\unfolded} permet de désigner la musique qui sera ignorée jusqu'à
 l'expansion du bloc @code{\repeat} qui la contient.
 
@@ -342,8 +374,8 @@ music = \fixed c' {
   }
 }
 
-\new Score { \music }
-\new Score { \unfoldRepeats \music }
+\score { \music }
+\score { \unfoldRepeats \music }
 @end lilypond
 
 @warning{Les commandes @code{\volta} et @code{\unfolded} fontionnent en
@@ -420,28 +452,9 @@ Entre deux reprises :
 }
 @end lilypond
 
-Des symboles alternatifs de barre de mesure sont aussi accessibles, dans
-un contexte @code{Score}, à l'aide des propriétés @code{segnoBarType},
-@code{startRepeatSegnoBarType}, @code{endRepeatSegnoBarType} ou
-@code{doubleRepeatSegnoBarType} selon les besoins. Ces types de barre
-alternative doivent être choisis parmi les types prédéfinis ou
-préalablement créés à l'aide d'une commande @code{\defineBarLine} --
-voir @ref{Barres de mesure}.
-
-@lilypond[verbatim,quote]
-\defineBarLine ":|.S[" #'(":|." "S[" "")
-\defineBarLine "]" #'("]" "" "")
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
-    \once \set Score.endRepeatSegnoBarType = ":|.S["
-    \inStaffSegno
-  }
-  f2 g \bar "]" a b
-  c1_"D.S." \bar "|."
-}
-@end lilypond
+Des symboles alternatifs de barre de mesure sont aussi accessibles grâce
+à différentes propriétés de contexte -- voir
+@ref{Barres de mesure automatiques}.
 
 @snippets
 
@@ -454,11 +467,6 @@ voir @ref{Barres de mesure}.
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-volta-brackets-to-additional-staves.ly}
-
-@cindex reprises successives, barre de mesure
-@cindex barre de mesure, reprises successives
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex reprise et numéro de mesure
 @cindex numéro de mesure et reprise

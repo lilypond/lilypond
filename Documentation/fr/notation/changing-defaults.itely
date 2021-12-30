@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0ba1638b49e5bba0236e9397c5158891325b0c49
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -130,7 +130,7 @@ Les contextes sont hiérarchisés :
 
 @node Définitions de la sortie -- hiérarchie des contextes
 @unnumberedsubsubsec Définitions de la sortie -- hiérarchie des contextes
-@translationof Output definitions - blueprints for contexts
+@translationof Output definitions -- blueprints for contexts
 
 Les lignes qui suivent traitent de l'intérêt des définitions de sorties
 lorsque l'on travaille avec les contextes.  Des exemples de définitions
@@ -187,7 +187,7 @@ Fichiers d'initialisation :
 
 @node Score -- le père de tous les contextes
 @unnumberedsubsubsec Score -- le père de tous les contextes
-@translationof Score - the master of all contexts
+@translationof Score -- the master of all contexts
 
 Il s'agit en l'occurrence du contexte le plus élevé, autrement dit le
 plus important, en matière de notation.  En effet, c'est au niveau de la
@@ -202,7 +202,7 @@ se crée implicitement un contexte @code{Score}.
 
 @node Contextes de haut niveau -- les systèmes
 @unnumberedsubsubsec Contextes de haut niveau -- les systèmes
-@translationof Top-level contexts - staff containers
+@translationof Top-level contexts -- staff containers
 
 De nombreuses partitions sont écrites sur plus d'une portée.  Ces
 portées peuvent être regroupées de différentes manières.
@@ -231,7 +231,7 @@ nom de l'instrument sera directement attaché au système.
 
 @node Contextes de niveau intermédiaire -- les portées
 @unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
-@translationof Intermediate-level contexts - staves
+@translationof Intermediate-level contexts -- staves
 
 @strong{@emph{Staff}}
 
@@ -269,7 +269,7 @@ particulièrement adapté au style mensural de musique ancienne.
 
 @node Contextes de bas niveau -- les voix
 @unnumberedsubsubsec Contextes de bas niveau -- les voix
-@translationof Bottom-level contexts - voices
+@translationof Bottom-level contexts -- voices
 
 Les contextes de niveau « voix » initialisent un certain nombre de
 propriétés et activent les graveurs appropriés.  Un contexte de bas
@@ -5202,7 +5202,8 @@ contrôle et le polygone.
 @lilypond[verbatim,quote,ragged-right]
 \relative {
   c''8(\( a) e4 gis a\)
-  \vshape #'((0 . -0.3) (0.5 . -0.2) (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
+  \vshape #'((0 . -0.3) (0.5 . -0.2)
+             (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
   c8(\( a) e4 gis a\)
 }
 @end lilypond
@@ -5217,8 +5218,10 @@ au même instant musical :
 @lilypond[verbatim,quote,ragged-right]
 \relative {
   c''8(\( a) a'4 e c\)
-  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
-  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  \shape #'((0.7 . -0.4) (0.5 . -0.4)
+            (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5)
+            (0 . 0.5) (0 . 0)) PhrasingSlur
   c8(\( a) a'4 e c\)
 }
 @end lilypond
@@ -5452,6 +5455,10 @@ Manuel d'extension :
 @subsection Conteneurs requalifiants
 @translationof Unpure-pure containers
 
+@c See issue #3512.
+@warning{Bien que cette rubrique reflète la situation actuelle,
+l'exemple qui suit est discutable et ne met rien en évidence.}
+
 @cindex Scheme, @emph{pure container}
 @cindex Scheme, @emph{unpure container}
 @cindex @emph{pure containers}, Scheme
@@ -5609,21 +5616,23 @@ fonction =
 @noindent
 où
 
-@multitable @columnfractions .33 .66
+@quotation
+@multitable @columnfractions .2 .7
 @item @code{@var{argN}}
-@tab @var{n}ième argument.
+@tab Le @var{n}ième argument.
 
 @item @code{@var{typeN?}}
-@tab un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
+@tab Un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
 doit renvoyer @code{#t}.
 
 @item @code{@var{@dots{}musique@dots{}}}
-@tab du code LilyPond tout ce qu'il y a de plus ordinaire, avec
+@tab Du code LilyPond tout ce qu'il y a de plus ordinaire, avec
 des @code{$} (là où seule une construction LilyPond est autorisée) et
 des @code{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
 fonction musicale ou de musique faisant partie d'une liste) pour
 référencer les arguments (par ex. @samp{#arg1}).
 @end multitable
+@end quotation
 
 La liste des types de prédicat est aussi obligatoire.  Voici quelques
 uns des types de prédicat les plus utilisés dans les fonctions

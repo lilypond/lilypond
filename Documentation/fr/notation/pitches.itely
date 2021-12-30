@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1714,11 +1714,11 @@ suivante :
 >>
 @end example
 
-La règle de gestion des altérations s'applique par défaut au contexte
-@code{Staff} en cours, exception faite des styles @code{piano} et
-@code{piano-cautionary} comme nous allons le voir.  Cette fonction
-accepte un éventuel argument supplémentaire chargé de spécifier
-le champ d'action de la règle à suivre.  À titre d'exemple, il faudra
+La règle de gestion des altérations s'applique normalement au contexte
+@code{Staff} en cours, exception faite des styles @code{choral},
+@code{piano} et @code{piano-cautionary} comme nous allons le voir. Cette
+fonction accepte un éventuel argument supplémentaire chargé de spécifier
+le champ d'action de la règle à suivre. À titre d'exemple, il faudra
 utiliser, pour que toutes les portées d'un même système -- contexte
 @code{StaffGroup} -- soient soumises à la même règle :
 
@@ -2223,7 +2223,7 @@ elle s'en distingue en ce que les altérations tiennent compte des autres
 portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
 Cette règle s'applique par défaut dans un @code{GrandStaff} et dans un
-@code{PianoStaff}.
+@code{PianoStaff} à moins d'être qualifiée d'un second argument.
 
 @lilypond[quote]
 musicA = {
@@ -2342,7 +2342,7 @@ pour un chanteur qui suit seulement sa voix, que pour un lecteur suivant
 toutes les voix d'un @code{ChoirStaff}.
 
 Ce style d'altération s'applique, par défaut, au @code{ChoirStaff} en
-cours.
+cours à moins d'être qualifié d'un second argument.
 
 @lilypond[quote]
 musicA = {

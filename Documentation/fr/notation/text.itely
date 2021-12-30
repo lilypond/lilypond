@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -47,6 +47,7 @@ d'informations, voir @ref{Codage du texte}.}
 * Vue d'ensemble des objets textuels::
 * Commentaires textuels::
 * Indication textuelle avec extension::
+* Marque de section::
 * Indications textuelles::
 * Texte indépendant::
 @end menu
@@ -381,40 +382,66 @@ Référence des propriétés internes :
 LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 
 
+@node Marque de section
+@unnumberedsubsubsec Marque de section
+@translationof Section labels
+
+@cindex section, marque
+@cindex texte, sur barre de mesure
+
+@funindex \sectionLabel
+
+La commande @code{\sectionLabel} indique le début d'un passage nommé.
+Elle est tout à fait appropriée dans le cadre d'une division en sections
+créées par @code{\section} et peut s'utiliser de manière indépendante.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \sectionLabel "Verse"
+  c2 g
+  \section
+  \sectionLabel "Chorus"
+  g2 c
+  \bar "|."
+}
+@end lilypond
+
+@morerefs
+Manuel de notation :
+@ref{Division en sections},
+@ref{Indications de repère},
+@ref{Mise en forme du texte}.
+
+Morceaux choisis :
+@rlsrnamed{Text, Texte}.
+
+Référence des propriétés internes :
+@rinternals{SectionLabel},
+@rinternals{SectionLabelEvent}.
+@endmorerefs
+
+
 @node Indications textuelles
 @unnumberedsubsubsec Indications textuelles
 @translationof Text marks
 
 @cindex indication textuelle
-@cindex coda sur une barre de mesure
-@cindex segno sur une barre de mesure
 @cindex point d'orgue sur une barre de mesure
 @cindex barre de mesure, symbole au dessus
 
 @funindex \mark
 @funindex \markup
 
-La commande @code{\mark} est tout d'abord conçue pour les
-@ref{Indications de repère}.
+N'importe quel texte peut venir se centrer en surplomb d'une barre de
+mesure à l'aide de la commande @code{\mark}. Avant d'utiliser cette
+fonctionnalité pour ajouter un texte qui ne constitue pas en lui-même un
+repère, il peut être judicieux de chercher un commande qui serait plus
+appropriée. Quelques possibilités sont mentionnées à la fin de cette
+section.
 
-@c \mark needs to be placed on a separate line (it's not
-@c attached to an object like \markup is). -vv
-
-@lilypond[verbatim,quote]
-\relative {
-  \mark "Verse"
-  c'2 g'
-  \bar "||"
-  \mark "Chorus"
-  g2 c,
-  \bar "|."
-}
-@end lilypond
-
-Cette syntaxe rend possible l'adjonction de n'importe quel texte à une
-barre de mesure.  Ce texte peut être mis en forme de différentes
-manières dès lors qu'est utilisé un bloc @code{\markup}, comme indiqué
-au chapitre @ref{Mise en forme du texte}.
+Le texte peut être mis en forme de différentes manières dès lors qu'est
+utilisé un bloc @code{\markup}, comme indiqué à la rubrique
+@ref{Mise en forme du texte}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -425,39 +452,10 @@ au chapitre @ref{Mise en forme du texte}.
 }
 @end lilypond
 
-@noindent
-Elle peut aussi servir à insérer des signes de @emph{coda} ou de
-@emph{segno}, ou bien un point d'orgue, au-dessus d'une
-barre de mesure.  Couplez-la alors à la commande @code{\markup} pour
-avoir accès au symbole approprié, selon les indications contenues au
-chapitre @ref{Notation musicale dans du texte formaté}.
-
-@lilypond[quote,verbatim]
-\relative {
-  <bes' f>2 <aes d>
-  \mark \markup { \musicglyph "scripts.ufermata" }
-  <e g>1
-}
-@end lilypond
-
-@noindent
-Le résultat de @code{\mark} n'apparaîtra que sur la portée supérieure
-d'un système.  Si vous introduisez la commande @code{\mark} au moment
-d'une barre de mesure, la marque se placera au-dessus de la barre.  Si
-vous y faites appel au milieu d'une mesure, cette marque sera
-positionnée entre les notes.  Si elle intervient en début de ligne,
-elle sera placée juste avant la première note de cette portée.  Enfin,
-une marque qui tomberait sur un saut de ligne sera imprimée au début
-de la ligne suivante.
-
-@lilypond[quote,verbatim,ragged-right]
-\relative c'' {
-  \mark "Allegro"
-  c1 c
-  \mark "assai" \break
-  c  c
-}
-@end lilypond
+Tout comme les indications de repère habituelles, ces objets viendront
+se positionner en surplomb de la portée supérieure d'un système. Selon
+qu'ils sont introduits à la fin ou en cours de mesure, ils seront placés
+au-dessus de la barre ou entre les notes.
 
 @funindex \markLengthOn
 @funindex \markLengthOff
@@ -469,6 +467,10 @@ de la ligne suivante.
 
 @snippets
 
+@c TODO: This snippet uses \mark "D.C. al Fine".  It should be
+@c edited to avoid drawing attention away from \repeat segno.
+@c Maybe it should be replaced: demonstrating alignment of a
+@c fermata in @ref{Rehearsal marks} seems like a good alternative.
 @cindex fin de ligne, repère, positionnement
 @cindex repère, positionnement en fin de ligne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -483,7 +485,9 @@ de la ligne suivante.
 @morerefs
 Manuel de notation :
 @ref{Indications de repère},
+@ref{Indication métronomique},
 @ref{La fonte Emmentaler},
+@ref{Marque de section},
 @ref{Mise en forme du texte},
 @ref{Notation musicale dans du texte formaté}.
 
@@ -491,7 +495,7 @@ Morceaux choisis:
 @rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
-@rinternals{MarkEvent},
+@rinternals{AdHocMarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 @endmorerefs
