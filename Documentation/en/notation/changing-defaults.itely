@@ -1507,8 +1507,12 @@ Installed Files:
 * Navigating the program reference::
 * Layout interfaces::
 * Determining the grob property::
-* Naming conventions::
 @end menu
+
+@morerefs
+Notation Reference:
+@ref{Naming conventions}.
+@endmorerefs
 
 @node Navigating the program reference
 @subsection Navigating the program reference
@@ -1788,42 +1792,6 @@ In this case, the context for this tweak is @code{Voice}.  See
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
-
-@node Naming conventions
-@subsection Naming conventions
-
-Another thing that is needed, is an overview of the various naming
-conventions:
-
-@itemize
-@item scheme functions: lowercase-with-hyphens (also includes one-word
-names)
-
-@item LilyPond-specific scheme functions: ly:plus-scheme-style
-
-@item music events, music classes and music properties:
-as-scheme-functions
-
-@item Grob interfaces: scheme-style
-
-@item backend properties: scheme-style (but X and Y!)
-
-@item contexts (and MusicExpressions and grobs): Capitalized or
-CamelCase
-
-@item context properties: lowercaseFollowedByCamelCase
-
-@item engravers: Capitalized_followed_by_lowercase_and_with_underscores
-@end itemize
-
-Questions to be answered:
-@itemize
-
-@item Which of these are conventions and which are rules?
-
-@item Which are rules of the underlying language, and which are
-LilyPond-specific?
-@end itemize
 
 @node Modifying properties
 @section Modifying properties

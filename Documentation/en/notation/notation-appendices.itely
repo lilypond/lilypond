@@ -34,6 +34,7 @@
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
+* Naming conventions::
 * Predefined type predicates::
 @end menu
 
@@ -3035,8 +3036,10 @@ instances of the @code{Grob} class.
 @morerefs
 Learning Manual:
 @rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
 @rlearning{Properties of layout objects}.
+
+Notation Reference:
+@ref{Naming conventions}.
 
 Internals Reference:
 @rinternals{grob-interface},
@@ -3080,10 +3083,10 @@ just @q{interface} for short.
 @morerefs
 Learning Manual:
 @rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
 @rlearning{Properties found in interfaces}.
 
 Notation Reference:
+@ref{Naming conventions},
 @ref{Layout interfaces}.
 
 Internals Reference:
@@ -3308,6 +3311,69 @@ The following commands are defined for use as context modifications
 within a @code{\layout} or @code{\with} block.
 
 @include en/context-mod-identifiers.tely
+
+
+@node Naming conventions
+@appendixsec Naming conventions
+
+Naming conventions are used so that it is easier to keep the
+nature of an object in mind.
+
+@c Superset of the table in the Learning Manual. --JeanAS
+@multitable @columnfractions .33 .33 .33
+@headitem Object/property type
+  @tab Naming convention
+  @tab Examples
+@item Keywords
+  @tab @code{aaaa}
+  @tab @code{\score}, @code{\addlyrics}
+@item Music functions and shortcuts
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{\time}, @code{\stemUp}
+@item Markup functions
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{\bold}, @code{\with-dimensions}
+@item Paper variables
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{indent}, @code{page-breaking}
+@item Music expressions
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{NoteEvent}, @code{SequentialMusic}
+@item Music classes
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{note-event}, @code{rhythmic-event}
+@item Music properties
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{force-accidental}, @code{iterator-ctor}
+@item Contexts
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
+@item Context properties
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{stanza}, @code{instrumentName}
+@item Engravers
+  @tab @code{Aaaa_engraver} or @code{Aaaa_aaaa_aaaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
+@item Layout Objects
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
+@item Layout Object Properties
+  @tab @code{aaa} or @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
+@item Interfaces
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
+@item Scheme functions defined in Guile
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{map}, @code{for-each}
+@item Scheme functions defined in LilyPond
+  @tab @code{ly:aaaa} or @code{ly:aaaa-aaaa-aaaa} or
+  @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @footnote{For historical reasons, some but not all of the functions
+  defined by LilyPond start with the @code{ly:} prefix.}
+  @tab @code{ly:grob-relative-coordinate}, @code{music-map}
+@end multitable
+
 
 @node Predefined type predicates
 @appendixsec Predefined type predicates

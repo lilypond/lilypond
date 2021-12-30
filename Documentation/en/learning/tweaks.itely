@@ -158,23 +158,23 @@ verbatim.
   @tab Naming convention
   @tab Examples
 @item Contexts
-  @tab Aaaa or AaaaAaaaAaaa
-  @tab Staff, GrandStaff
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
 @item Layout Objects
-  @tab Aaaa or AaaaAaaaAaaa
-  @tab Slur, NoteHead
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
 @item Engravers
-  @tab Aaaa_aaa_engraver
-  @tab Clef_engraver, Note_heads_engraver
+  @tab @code{Aaaa_aaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
 @item Interfaces
-  @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
 @item Context Properties
-  @tab aaa or aaaAaaaAaaa
-  @tab alignAboveContext, skipBars
+  @tab @code{aaa} or @code{aaaAaaaAaaa}
+  @tab @code{alignAboveContext}, @code{skipBars}
 @item Layout Object Properties
-  @tab aaa or aaa-aaa-aaa
-  @tab direction, beam-thickness
+  @tab @code{aaa} or @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
 @end multitable
 
 As we shall see shortly, the properties of different types of object are
@@ -183,6 +183,7 @@ the types of objects and properties from their names.
 
 @morerefs
 Notation Reference:
+@ruser{Naming conventions},
 @ruser{Modifying properties}.
 @endmorerefs
 
@@ -4586,6 +4587,3 @@ the staff.
 
 Further examples showing the use of these programmable interfaces
 can be found in @rextend{Callback functions}.
-
-
-
