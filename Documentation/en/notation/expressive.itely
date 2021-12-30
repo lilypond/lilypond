@@ -1336,7 +1336,7 @@ Internals Reference:
 @endmorerefs
 
 @knownissues
-Printing text over the line (such as @notation{gliss.}) is not
+Printing text over the line (such as @notation{gliss.})@: is not
 supported.
 
 

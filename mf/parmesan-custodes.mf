@@ -219,7 +219,7 @@ def custos_medicaea (expr verbose_name, internal_name,
     if direction > 0:
       top y4 = stem_ht;
       draw_rounded_block (bot lft z3, top rt z4,
-      0.6 linethickness);
+                          0.6 linethickness);
     else:
       bot y4 = -stem_ht;
       draw_rounded_block (bot lft z4, top rt z3,

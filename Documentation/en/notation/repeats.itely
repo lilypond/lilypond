@@ -490,7 +490,7 @@ applied to alternative endings notated with coda marks.
 
 Demonstrations of common uses follow.
 
-@quotation
+@indentedblock
 @table @emph
 
 @cindex al fine
@@ -537,7 +537,7 @@ music = \fixed c' {
   \repeat segno 2 {
     g1
     \alternative {
-      \volta 1 { \repeat unfold 8 { a4 } }
+      \volta 1 { \repeat unfold 4 { a2 } }
       \volta 2 \volta #'() {
         \section
         \sectionLabel "Coda"
@@ -626,7 +626,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 @end table
-@end quotation
+@end indentedblock
 
 @morerefs
 Music Glossary:

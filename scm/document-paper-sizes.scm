@@ -35,7 +35,7 @@
 @strong{~a}
 
 @quotation
-@multitable @columnfractions 0.25 0.5
+@multitable @columnfractions 0.27 0.5
 ~a
 @end multitable
 @end quotation

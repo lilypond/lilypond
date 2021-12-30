@@ -238,8 +238,8 @@ def draw_rounded_block (expr bottom_left, top_right, roundness) =
     % Originally, there was `floor' instead of `round', but this is
     % not correct because pens use `round' also.
     size = round min (roundness,
-    xpart (top_right - bottom_left),
-    ypart (top_right - bottom_left));
+                      xpart (top_right - bottom_left),
+                      ypart (top_right - bottom_left));
 
     z2 + (size / 2, size / 2) = top_right;
     z4 - (size / 2, size / 2) = bottom_left;

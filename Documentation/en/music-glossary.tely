@@ -8044,15 +8044,20 @@ This comma is also known as the comma of Didymus, or didymic comma.
 ES: sistema,
 I: sistema,
 F: système,
-D: Notensystem, Partitur,
+D: Notensystem,
 NL: systeem,
 DK: system,
 S: system,
 FI: nuottiviivasto.
 
-The collection of staves (@notation{staff}), two or more, as used
-for writing down keyboard, chamber, choral, or orchestral music;
-a section of the score spanning the width of a single page.
+One @q{line} of music on the page, consisting of one or more
+staves grouped vertically.  A line break is a switch to the next
+system.
+
+For example, a piano music score often contains five to six
+systems per page (with normally two staves per system), while a
+full orchestral score usually contains only one or two systems per
+page.
 
 @morerefs
 @ref{staff}.
