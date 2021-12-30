@@ -328,7 +328,7 @@ git fetch -p origin
 
 @menu
 * Uploading a patch for review::
-* Automated and manual testing::
+* Automated testing::
 * Patch countdown::
 * Merging to master::
 * Abandoned patches::
@@ -366,16 +366,32 @@ for somebody with permissions to rebase your changes and merge them
 for you.  Please refer to @ref{Merging to master} for more details.
 
 
-@node Automated and manual testing
-@subsection Automated and manual testing
+@node Automated testing
+@subsection Automated testing
 
 When a merge request is opened, a bot automatically adds the
-@code{Patch::new} label to it, and it enters the countdown cycle.  GitLab
-triggers automated testing which ensures that the patch completes
-@code{make}, @code{make test}, and @code{make doc}.  Afterwards, the Patch
-Meister manually runs @code{make check} to verify regression tests.  If
-both steps pass, the merge request is labelled @code{Patch::review}.  On
-failure, the status is updated to @code{Patch::needs_work}.
+@code{Patch::new} label to it, and it enters the countdown cycle.
+GitLab triggers automated testing which ensures that the patch
+completes @code{make}, @code{make check}, and @code{make doc}.
+After testing succeeds, the patch author or a reviewer should
+check regression test results.  To find these, first view the log
+for the @code{make check} step.  Currently, this can be reached by
+clicking the second of the three check marks next to the text
+@qq{Detached merge request pipeline passed@tie{}@dots{}}.  You
+will find a link to the regression test visual comparison at the
+very end of the log.  If tests display no obviously bad
+differences, the patch can be advanced to @code{Patch::review}.
+If the size of the regression test visual differences allows it,
+please paste screenshots of them on the merge request for easier
+review.  Otherwise, simply paste a link to the full HTML diff.
+Also, for changes which are by nature not expected to yield
+regression test differences, such as documentation improvements,
+it is not necessary to leave a comment at all.  In case any of the
+testing steps fails, the patch should be set to
+@code{Patch::needs_work}.  When revisions are made, this process
+repeats (if the regression test diff is not changed by the latest
+iteration, a comment stating so can replace posting screenshots
+again).
 
 
 @node Patch countdown
