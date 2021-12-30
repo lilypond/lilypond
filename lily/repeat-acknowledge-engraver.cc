@@ -51,6 +51,7 @@ public:
 
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
+  void listen_ad_hoc_jump (Stream_event *);
   void listen_coda_mark (Stream_event *);
   void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
@@ -64,9 +65,8 @@ protected:
 
 private:
   bool first_time_ = true;
-  bool heard_coda_mark_ = false;
-  bool heard_dal_segno_ = false;
   bool heard_fine_ = false;
+  bool heard_jump_ = false;
   bool heard_section_ = false;
   bool heard_segno_mark_ = false;
   bool heard_volta_span_ = false;
@@ -92,24 +92,29 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
 
   set_property (tr, "repeatCommands", SCM_EOL);
 
-  heard_coda_mark_ = false;
-  heard_dal_segno_ = false;
   heard_fine_ = false;
+  heard_jump_ = false;
   heard_section_ = false;
   heard_segno_mark_ = false;
   heard_volta_span_ = false;
 }
 
 void
-Repeat_acknowledge_engraver::listen_dal_segno (Stream_event *)
+Repeat_acknowledge_engraver::listen_ad_hoc_jump (Stream_event *)
 {
-  heard_dal_segno_ = true;
+  heard_jump_ = true;
 }
 
 void
 Repeat_acknowledge_engraver::listen_coda_mark (Stream_event *)
 {
-  heard_coda_mark_ = true;
+  heard_jump_ = true;
+}
+
+void
+Repeat_acknowledge_engraver::listen_dal_segno (Stream_event *)
+{
+  heard_jump_ = true;
 }
 
 void
@@ -294,8 +299,7 @@ Repeat_acknowledge_engraver::process_music ()
           ub = robust_scm2string (wb, "|");
           has_underlying_bar = true;
         }
-      else if ((heard_coda_mark_ || heard_dal_segno_ || heard_segno_mark_
-                || has_repeat_bar)
+      else if ((heard_jump_ || heard_segno_mark_ || has_repeat_bar)
                && (forced_bar_type < BarType::DEFAULT))
         {
           // At points of repetition or departure where there wouldn't
@@ -362,10 +366,11 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
+  ADD_LISTENER (Repeat_acknowledge_engraver, ad_hoc_jump);
+  ADD_LISTENER (Repeat_acknowledge_engraver, coda_mark);
   ADD_LISTENER (Repeat_acknowledge_engraver, dal_segno);
   ADD_LISTENER (Repeat_acknowledge_engraver, fine);
   ADD_LISTENER (Repeat_acknowledge_engraver, section);
-  ADD_LISTENER (Repeat_acknowledge_engraver, coda_mark);
   ADD_LISTENER (Repeat_acknowledge_engraver, segno_mark);
   ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }

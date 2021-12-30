@@ -31,6 +31,15 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
         (types . (post-event event dynamic-event absolute-dynamic-event))
         ))
 
+    (AdHocJumpEvent
+     . ((description . "Insert a @code{JumpScript}.
+
+Syntax: @code{\\jump} @var{markup}
+
+Example: @code{\\jump \"D.C. Gavotte I\"}")
+        (types . (ad-hoc-jump-event event))
+        ))
+
     (AdHocMarkEvent
      . ((description . "Insert markup as a rehearsal mark without advancing
 the rehearsal mark sequence.

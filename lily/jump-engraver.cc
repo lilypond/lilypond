@@ -39,8 +39,10 @@ class Jump_engraver final : public Engraver
 {
   bool first_time_ = true;
   bool printed_fine_ = false;
+  Item *ad_hoc_jump_text_ = nullptr;
   Item *ds_text_ = nullptr;
   Item *fine_text_ = nullptr;
+  Stream_event *ad_hoc_jump_ev_ = nullptr;
   Stream_event *ds_ev_ = nullptr;
   Stream_event *fine_ev_ = nullptr;
 
@@ -51,6 +53,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
+  void listen_ad_hoc_jump (Stream_event *);
   void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
 };
@@ -58,6 +61,12 @@ protected:
 Jump_engraver::Jump_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Jump_engraver::listen_ad_hoc_jump (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE (ad_hoc_jump_ev_, ev);
 }
 
 void
@@ -75,6 +84,18 @@ Jump_engraver::listen_fine (Stream_event *ev)
 void
 Jump_engraver::process_music ()
 {
+  if (ad_hoc_jump_ev_)
+    {
+      ad_hoc_jump_text_
+        = make_item ("JumpScript", ad_hoc_jump_ev_->self_scm ());
+
+      SCM m = get_property (ad_hoc_jump_ev_, "text");
+      if (Text_interface::is_markup (m))
+        set_property (ad_hoc_jump_text_, "text", m);
+      else
+        ad_hoc_jump_ev_->warning (_ ("jump text must be a markup object"));
+    }
+
   if (ds_ev_)
     {
       ds_text_ = make_item ("JumpScript", ds_ev_->self_scm ());
@@ -177,7 +198,7 @@ void
 Jump_engraver::stop_translation_timestep ()
 {
   SCM staves_found = SCM_UNDEFINED;
-  for (Item *const text : {ds_text_, fine_text_})
+  for (Item *const text : {ds_text_, fine_text_, ad_hoc_jump_text_})
     {
       if (text)
         {
@@ -197,11 +218,14 @@ Jump_engraver::stop_translation_timestep ()
   fine_ev_ = nullptr;
   fine_text_ = nullptr;
   first_time_ = false;
+  ad_hoc_jump_ev_ = nullptr;
+  ad_hoc_jump_text_ = nullptr;
 }
 
 void
 Jump_engraver::boot ()
 {
+  ADD_LISTENER (Jump_engraver, ad_hoc_jump);
   ADD_LISTENER (Jump_engraver, dal_segno);
   ADD_LISTENER (Jump_engraver, fine);
 }

@@ -696,6 +696,13 @@ invertChords =
        (else (loop (1- num) (raiseNote 1 music))))))
 
 
+jump =
+#(define-music-function (text) (markup?)
+   "Mark a point of departure, e.g. @q{D.C. Gavotte I}."
+   (make-music 'AdHocJumpEvent 'text text))
+
+
+
 keepWithTag =
 #(define-music-function (tags music)
    (symbol-list-or-symbol? ly:music?)
