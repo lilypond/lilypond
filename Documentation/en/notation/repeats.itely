@@ -296,6 +296,32 @@ needed to satisfy the repeat count.
 }
 @end lilypond
 
+@code{\alternative} blocks can be nested.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 3 {
+    s1_"A"
+    \alternative {
+      \volta 1 { s1_"B" }
+      \volta 2,3 {
+        s1_"C"
+        \once \set Score.voltaSpannerDuration = #(ly:make-moment 1)
+        s1_"D"
+        \alternative {
+          \volta 2 { s1_"E" }
+          \volta 3 { s1_"F" }
+        }
+      }
+    }
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
 @warning{Every element in an @code{\alternative} block is
 treated as an alternative ending.  Something as simple as a bar
 check on the wrong side of a bracket can produce unexpected
@@ -305,6 +331,9 @@ results.}
 @code{\repeat} without explicitly instantiating the
 @code{Voice} context, extra (unwanted) staves will appear.  See
 @rprogram{An extra staff appears}.}
+
+@warning{When alternative bar numbering is enabled, it is applied
+to the outermost bracketed alternatives.}
 
 @funindex \alternative
 @funindex \unfolded
@@ -332,13 +361,10 @@ block to produce notation similar to alternative endings
 }
 @end lilypond
 
-The @code{\volta} command is not limited to use within
-@code{\alternative} blocks.  It can be used anywhere within a
-@code{\repeat} to designate music that applies to particular
-volte.  If the volta-specific music has a duration, it is by
-default printed under a bracket as if it were in an
-@code{\alternative} block; the bracket may need to be hidden (see
-@ref{Visibility of objects}) or customized to suit other purposes.
+The @code{\volta} command is not limited to use on the elements of
+an @code{\alternative} block.  It can be used anywhere within a
+@code{\repeat} to designate music for particular volte, though it
+does not create brackets in other cases.
 
 When a @code{\repeat} is unfolded, volta-specific music is omitted
 from every volta to which it does not apply.  Providing an empty
@@ -365,11 +391,14 @@ is unfolded.
 music = \fixed c' {
   \repeat volta 2 {
     c1
-    \once \override Score.VoltaBracket.text = "1st time only"
-    \once \override Score.VoltaBracket.font-name = "TeX Gyre Schola"
     <<
-      \volta 1 { g4 g g g }
-      \volta 2 { \unfolded { R1 } }
+      \volta #'() {
+        \once \override TextSpanner.bound-details.left.text =
+          "2nd time tacet"
+        s4*7\startTextSpan s4\stopTextSpan
+      }
+      \volta 1 { f4 f f f | f f f f }
+      \volta 2 { \unfolded { R1*2 } }
     >>
     c'1
   }
