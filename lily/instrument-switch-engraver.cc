@@ -86,6 +86,8 @@ ADD_TRANSLATOR (Instrument_switch_engraver,
                 /* doc */
                 R"(
 Create a cue text for taking instrument.
+
+This engraver is deprecated.
                 )",
 
                 /* create */

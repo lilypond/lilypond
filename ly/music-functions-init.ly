@@ -46,7 +46,9 @@ instrument-definitions = #'()
 addInstrumentDefinition =
 #(define-void-function
    (name lst) (string? list?)
-   (_i "Create instrument @var{name} with properties @var{list}.")
+   (_i "Create instrument @var{name} with properties @var{list}.
+
+This function is deprecated.")
    (set! instrument-definitions (acons name lst instrument-definitions)))
 
 addQuote =
@@ -663,7 +665,9 @@ instrumentSwitch =
 #(define-music-function
    (name) (string?)
    (_i "Switch instrument to @var{name}, which must have been predefined with
-function @code{\\addInstrumentDefinition}.")
+function @code{\\addInstrumentDefinition}.
+
+This function is deprecated.")
    (let* ((handle (assoc name instrument-definitions))
           (instrument-def (if handle (cdr handle) '())))
 

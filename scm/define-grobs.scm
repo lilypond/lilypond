@@ -1426,6 +1426,7 @@
                                 system-start-text-interface
                                 text-interface))))))
 
+    ;; This grob is deprecated.
     (InstrumentSwitch
      . (
         (direction . ,UP)

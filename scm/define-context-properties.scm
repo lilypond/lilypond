@@ -417,7 +417,9 @@ the initial time signature.")
      (includeGraceNotes ,boolean? "Do not ignore grace notes for
 @rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another
-instrument is to be taken.")
+instrument is to be taken.
+
+This property is deprecated")
      (instrumentEqualizer ,procedure? "A function taking a
 string (instrument name), and returning a @code{(@var{min} . @var{max})}
 pair of numbers for the loudness range of the instrument.")
