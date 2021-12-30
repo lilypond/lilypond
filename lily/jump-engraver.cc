@@ -219,15 +219,23 @@ the intended Y@tie{}location.
                 )",
 
                 /* create */
-                "JumpScript ",
+                R"(
+JumpScript
+                )",
 
                 /* read */
-                "dalSegnoTextFormatter "
-                "fineText "
-                "segnoMarkCount "
-                "segnoMarkFormatter "
-                "stavesFound ",
+                R"(
+codaMarkCount
+codaMarkFormatter
+dalSegnoTextFormatter
+finalFineTextVisibility
+fineText
+segnoMarkCount
+segnoMarkFormatter
+stavesFound
+                )",
 
                 /* write */
-                ""
-               );
+                R"(
+
+                )");
