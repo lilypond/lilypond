@@ -2993,6 +2993,7 @@ or in the source code.
 * parser variable::
 * prob::
 * smob::
+* spanner::
 * stencil::
 @end menu
 
@@ -3278,6 +3279,41 @@ types of smob objects: simple smobs, intended for simple immutable
 objects like numbers, and complex smobs, used for objects with
 identities.  If you have access to the LilyPond sources, more
 information can be found in @file{lily/includes/smob.hh}.
+
+
+@node spanner
+@unnumberedsubsec spanner
+
+@cindex spanner
+
+@strong{Spanners} are a class of grobs that are not horizontally
+fixed on one point of the score but extend from one point to
+another.  Examples include beams, ties, and slurs, as well as
+hairpins and staff lines.  Whereas non-spanners can only be broken
+into at most two visible pieces (for example, a clef duplicated at
+the end of the line and the beginning of the next line), spanners
+are broken into as many pieces as required by their start and end
+points (such as a long crescendo extending on three systems, or
+staff lines, which always span the whole score).
+
+Technically, spanners are defined as grobs having the
+@code{spanner-@/interface}; on the C++ side of LilyPond, they are
+instances of the @code{Spanner} sub-class of @code{Grob}.  The
+left and right bounds of a spanner can be retrieved and set using
+@code{ly:spanner-@/bound} and @code{ly:spanner-@/set-@/bound!},
+respectively.  The bounds are always items.  The X@tie{}parent of
+a spanner has little musical sense, but is usually set to the left
+bound.
+
+@morerefs
+Notation Reference:
+@ref{Spanners}.
+
+Internals Reference:
+@rinternals{all-layout-objects},
+@rinternals{spanner-interface}.
+@endmorerefs
+
 
 @node stencil
 @unnumberedsubsec stencil
