@@ -397,6 +397,14 @@ again).
 @node Patch countdown
 @subsection Patch countdown
 
+The @dfn{Patch Meister} is the person who advances patches in the
+countdown process based on review comments.
+
+@warning{The Patch Meister's role is a purely administrative one and no
+programming skill or judgement is assumed or required.}
+
+The current Patch Meister is James Lowe @email{pkx@@gnu.org}.
+
 The Patch Meister reviews the tracker periodically, to list patches
 which have been on review for at least 24 hours.  For each patch, the
 Handler reviews any discussion on the merge request, to determine

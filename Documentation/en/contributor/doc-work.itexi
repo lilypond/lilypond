@@ -64,8 +64,7 @@ they also stem from attempting to find the most effective use of
 limited documentation help.
 
 Before undertaking any large documentation work, contributors are
-encouraged to contact the @ref{Meisters, Documentation Meister}.
-
+encouraged to contact the @code{lilypond-devel} mailing list.
 
 @node version in documentation files
 @section @code{\version} in documentation files
@@ -1658,8 +1657,7 @@ least the documentation so that you can check the output yourself and
 more quickly; if you are interested, see @ref{Compiling}.
 
 Before undertaking any large translation work, contributors are
-encouraged to contact the @ref{Meisters, Translation Meister}.
-
+encouraged to contact the @code{lilypond-devel} mailing list.
 
 @node Which documentation can be translated
 @unnumberedsubsubsec Which documentation can be translated

@@ -6,7 +6,6 @@ don't fit anywhere else.
 
 @menu
 * Environment variables::
-* Meisters::
 * Unsorted policies::
 @end menu
 
@@ -38,107 +37,6 @@ should be set to the repository lilypond-extra, see
 @ref{lilypond-extra}.
 
 
-@node Meisters
-@section Meisters
-
-We have four primary jobs to help organize all our contributors:
-
-@unnumberedsubsec The Bug Meister
-
-The Bug Meister's responsibilities are:
-
-@itemize
-
-@item
-To organize the individual Bug Squad volunteers, making sure that
-each member is aware of their responsibilities.  See
-@ref{The Bug Squad}.
-
-@item
-To train new Bug Squad volunteers in the Issue Tracker process.  See
-@ref{Issues}.
-
-@item
-To have the final say on our policies for Issues and their
-classification.  See @ref{Issue classification}.
-
-@end itemize
-
-Current Bug Meister: Colin Hall @email{bug-lilypond@@gnu.org}
-
-
-@unnumberedsubsec The Doc Meister
-
-The Doc Meister's responsibilities are:
-
-@itemize
-
-@item
-To train new volunteers in our Documentation style and policy,
-including organizing LilyPond Snippet Repository (LSR) work.
-
-@item
-To organize the individual volunteers -- who does what on which job --
-and to check that everything is running smoothly.
-
-@item
-To have final say on any Documentation policy.  See
-@ref{Documentation policy}.
-
-@end itemize
-
-Current Doc Meister: None
-
-
-@unnumberedsubsec The Patch Meister
-
-The Patch Meister's responsibilities are:
-
-@itemize
-
-@item
-To keep track of all patches submitted for testing and review.  This
-includes scanning the bug and dev email lists looking for any patches
-submitted by @q{random} contributors and advising them on how to submit
-a patch for testing and review.  See @ref{Lifecycle of a merge request}.
-
-@item
-Updates all Issue statuses for all patches that are currently in the
-testing and review process periodically -- currently every 3 - 4 days.
-See @ref{Patch handling}.
-
-@end itemize
-
-@warning{The Patch Meister's role is a purely administrative one and no
-programming skill or judgement is assumed or required.}
-
-Currently: James Lowe @email{pkx@@gnu.org}
-
-
-@unnumberedsubsec The Translation Meister
-
-The Translation Meister's responsibilities are:
-
-@itemize
-
-@item
-To train new documentation translators in the translation process.  See
-@ref{Translating the documentation}.
-
-@item
-To update the translation priority list and handle the merging of the
-translation branches (in both directions).
-
-@item
-To have final say on any Translation management policies.  See
-@ref{Translating the documentation}.
-
-@end itemize
-
-Currently: Francisco Vila @email{translations@@lilynet.net}
-
-
-
 @node Unsorted policies
 @section Unsorted policies
 
@@ -164,4 +62,3 @@ wherever it finds a valid copyright notice.
 Note that snapshots of third party files such as @file{texinfo.tex} should
 not be included in the automatic update; @file{grand-replace.py} ignores these
 files if they are listed in the variable @code{copied_files}.
-
