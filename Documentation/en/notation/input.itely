@@ -2773,23 +2773,22 @@ reference arguments
 The list of type predicates is required.  Some of the most common
 type predicates used in music functions are:
 
-@example
-boolean?
-cheap-list?  @emph{(use instead of }@q{list?}@emph{ for faster processing)}
-ly:duration?
-ly:music?
-ly:pitch?
-markup?
-number?
-pair?
-string?
-symbol?
-@end example
+@itemize @w{}
+@item boolean?
+@item cheap-list?  @emph{(use instead of }@q{list?}@emph{ for faster processing)}
+@item ly:duration?
+@item ly:music?
+@item ly:pitch?
+@item markup?
+@item number?
+@item pair?
+@item string?
+@item symbol?
+@end itemize
 
 @noindent
-For a list of available type predicates, see
-@ref{Predefined type predicates}.  User-defined type predicates
-are also allowed.
+For a list of available type predicates, @pxref{Predefined type
+predicates}.  User-defined type predicates are also allowed.
 
 @morerefs
 Notation Reference:
@@ -2813,7 +2812,7 @@ These are not intended to be exhaustive, but rather to demonstrate
 some of the possibilities of simple substitution functions.
 
 In the first example, a function is defined that simplifies
-setting the padding of a TextScript:
+setting the padding of a @code{TextScript} grob:
 
 @lilypond[quote,verbatim,ragged-right]
 padText =

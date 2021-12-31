@@ -3232,12 +3232,13 @@ The syntax for @code{\alterBroken} is
 [-]\alterBroken @var{property} @var{values} @var{item}
 @end example
 
-The argument @var{values} is a list of values, one for each
-broken piece.  If @var{item} is a grob name like @code{Slur} or
+@noindent
+The argument @var{values} is a list of values, one for each broken
+piece.  If @var{item} is a grob name like @code{Slur} or
 @code{Staff.PianoPedalBracket}, the result is an @code{\override}
 of the specified grob type.  If @var{item} is a music expression
-such as @qq{(} or @qq{[} the result is the same music expression
-with an appropriate tweak applied.
+such as @samp{(} or @samp{[} the result is the same music
+expression with an appropriate tweak applied.
 
 The leading hyphen must be used with the @code{\tweak} form.  Do
 not add it when @code{\alterBroken} is used as an
@@ -3282,8 +3283,8 @@ done, in this case using the @code{\tweak} form of the command:
 }
 @end lilypond
 
-It is important to understand that @code{\alterBroken} will set
-each piece of a broken spanner to the corresponding value in
+It is important to understand that @code{\alterBroken} sets each
+piece of a broken spanner to the corresponding value in
 @var{values}.  When there are fewer values than pieces, any
 additional piece will be assigned the empty list.  This may lead
 to undesired results if the layout property is not set to the
@@ -3292,7 +3293,7 @@ assigned an appropriate value.
 
 @knownissues
 Line breaks may occur in different places following changes in
-layout. Settings chosen for @code{\alterBroken} may be unsuitable
+layout.  Settings chosen for @code{\alterBroken} may be unsuitable
 for a spanner that is no longer broken or is split into more
 segments than before.  Explicit use of @code{\break} can guard
 against this situation.
@@ -3475,10 +3476,9 @@ As for the @code{minimum-length} property, it is often needed to set the
 
  The @code{to-barline} property of the @code{spanner-interface},
 usually defaulting to true, causes hairpins and other spanners
-which are terminated on the first note of a measure to end instead
+that are terminated on the first note of a measure to end instead
 on the immediately preceding bar line.  If set to false, the
-spanner will extend beyond the bar line and end on the note
-itself:
+spanner extends beyond the bar line and end on the note itself:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3523,13 +3523,13 @@ Some objects may support specific additional styles.
 @subsection Line spanners
 
 Some performance indications, e.g., @i{rallentando} and
-@i{accelerando} and @i{trills} are written as text and are
-extended over many measures with lines, sometimes dotted or wavy.
+@i{accelerando} and trills are written as text and are extended
+over many measures with lines, sometimes dotted or wavy.
 
-The locations of the two end points of the spanner are computed
-on-the-fly, but it is possible to override their Y-coordinates.
-The properties which need to be specified are nested two levels
-down within the property hierarchy, but the syntax of the
+The locations of the two end points of the spanner are computed on
+the fly, but it is possible to override their Y-coordinates.  The
+properties that need to be specified are nested two levels down
+within the property hierarchy, but the syntax of the
 @code{\override} command is quite simple:
 
 @lilypond[quote,fragment,verbatim]

@@ -1495,8 +1495,11 @@ list we recommend that any @q{pure} functions you create do not use
 
 An unpure-pure container is constructed as follows;
 
-@code{(ly:make-unpure-pure-container f0 f1)}
+@example
+(ly:make-unpure-pure-container f0 f1)
+@end example
 
+@noindent
 where @code{f0} is a function taking @var{n} arguments (@var{n >= 1})
 and the first argument must always be the grob.  This is the function
 that gives the actual result.  @var{f1} is the function being labeled
@@ -1552,6 +1555,7 @@ smartSquareLineCircleSpace = {
 }
 @end lilypond
 
+@noindent
 In the first measure, without the unpure-pure container, the spacing
 engine does not know the width of the note head and lets it collide with
 the accidentals.  In the second measure, with unpure-pure containers,
