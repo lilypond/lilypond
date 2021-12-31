@@ -12,7 +12,7 @@
   texidoc = "
 Beat grouping within a measure is controlled by the
 @code{beatStructure} context property.  Values of @code{beatStructure}
-are established for many time signatures in
+are established for many time signatures in file
 @code{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
 can be changed or set with @code{\\set}. Alternatively, @code{\\time}
 can be used to both set the time signature and establish the beat
