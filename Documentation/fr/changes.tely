@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b04d9db1483211fe3f635f3cf5a82eb72228133e
+    Translation of GIT committish: 2b33c5aa6527d913b257573390152b40ff848a89
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -86,7 +86,7 @@ peuvent se définir globalement les glyphes à utiliser pour tous les
 objets -- voir @ruser{Glyphes d'altération alternatifs}.
 
 @lilypond
-% Avoid unfortunate cropping of the arrow-sharp glyph…
+% Avoid unfortunate cropping of the arrow-sharp glyph...
 \markup \vspace #0.5
 
 \layout {
@@ -256,6 +256,34 @@ demandaient de recourir à une polypĥonie et des silences invisibles.
 }
 @end lilypond
 
+@item
+La nouvelle commande @code{\section} insère une double barre qui
+interagit de manière optimale avec les barres de reprise. Un passage
+peut être nommé à l'aide de la commande @code{\sectionLabel}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  f1
+  \break
+  \section
+  \sectionLabel "Trio"
+  \repeat volta 2 {
+    b1
+  }
+}
+@end lilypond
+
+@item
+Le nouveau @code{Mark_tracking_translator} prend le pas sur le
+@code{Mark_engraver} en matière de désision quant à la création d'une
+marque. Le @code{Mark_engraver} se charge toutefois de contrôler la mise
+en forme et le positionnement vertical du repère.
+
+Par défaut, des @code{Mark_engravers} dans de multiples contextes
+créeent une séquence commune de repères. Lorsque des séquences
+indépendantes sont préférables, il faut utiliser plusieurs
+@code{Mark_tracking_translator}.
+
 @end itemize
 
 
@@ -293,8 +321,7 @@ enveloppe, afin de faciliter les ajustements.
 
 @itemize
 @item
-Les alternatives peuvent se placer ailleurs qu'après la fin du fragment
-répété.
+Les alternatives peuvent se placer au sein même du bloc de répétition.
 
 @lilypond[verbatim,quote]
 \repeat volta 3 { c'1 \alternative { d' e' } f' }
@@ -547,6 +574,26 @@ Un
 @end ignore
 
 
+@subsubheading Améliorations pour les musiques du monde
+
+@itemize
+@item
+LilyPond prend désormais en charge la musique persane. Deux glyphes
+d'altération ont été ajoutés à cet effet : @emph{sori} et @emph{koron}.
+
+@lilypond[verbatim,quote]
+\include "persian.ly"
+
+\relative c' {
+  \key d \chahargah
+  bk'8 a gs fo r g ak g |
+  fs ek d c d ef16 d c4 |
+}
+@end lilypond
+
+@end itemize
+
+
 @subheading Nouveautés en matière d'entrée et sortie
 @c VO New for input and output
 
@@ -630,18 +677,30 @@ désormais des tailles de papier personnalisées.
 traitement des extraits : @option{paper-width} et @option{paper-height}
 permettent de déterminer une taille particulière de papier.
 
+@item
+La valeur par défaut de l'option @code{aux-files} est désormais fixée
+à @code{#f}. Lorsque LilyPond est lancé avec l'argument
+@code{-dbackend=eps} et que sont nécessaires les fichiers @file{.tex}
+et @file{.texi}, il faut désormais specifier explicitement l'option
+@code{-daux-files}. Les formats pour les images @code{lilypond-book}
+peuvent se définir séparément selon qu'il s'agit de la page (donc une
+sorie PNG pour du format HTML) ou des images indépendantes par système
+(pour des formats imprimables EPS ou PDF) à l'aide respectivement des
+sous-options @code{-dtall-page-formats} et
+@code{-dseparate-page-formats}.
+
 @end itemize
 
-@ignore
 @subsubheading Améliorations pour le MIDI
 
 @itemize
 @item
-Un
+Le nouveau @code{Mark_performer} crée des événements MIDI à l'instar du
+@code{Mark_engraver} pour les sorties imprimables.
 
 @end itemize
 
-
+@ignore
 @subsubheading Améliorations en matière d'extraction de la musique
 
 @itemize
