@@ -2129,57 +2129,45 @@ different ways to force linebreaks when using
 @code{\markup}.  For inputting a whole string you may use
 @code{\string-lines} with manually inserted @code{\n}
 or automatic line breaks as entered or
-@code{\wordwrap-string}.  If inner fomatting code is used
+@code{\wordwrap-string}.  If inner formatting code is used
 a combination of @code{\line} and @code{\column} is recommended.
-
 
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative {
-e' d c d | e e e e |
-d d e d | c1 |
-}
+  e' d c d | e e e e |
+  d d e d | c1 | }
 
 text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
-its fleece was white as snow.
-}
+  \set stanza = "1."
+  Ma- ry had a lit- tle lamb,
+  its fleece was white as snow. }
 
 \score {
   <<
     \new Voice = "one" { \melody }
     \new Lyrics \lyricsto "one" \text
   >>
-  \layout { }
 }
-\markup {
-  \column {
-    \string-lines
-      "Verse 2. \n Everywhere that Mary went \n The lamb was sure to go."
-  }
-}
-\markup {
-  \column {
-    \string-lines
-      "Verse 3.
-       All the children laughed and played,
-       To see a lamb at school."
-  }
-}
-\markup {
-  \column {
-    \line \italic { Verse 4. }
-    \line { And so the teacher turned it out, }
-    \line { But still it lingered near. }
-  }
-}
-\markup {
-  \wordwrap-string "
+
+\markup \column \string-lines
+  "Verse 2. \n Everywhere that Mary went \n The lamb was sure to go."
+
+\markup \column \string-lines
+  "Verse 3.
+   All the children laughed and played,
+   To see a lamb at school."
+
+\markup \column {
+  \line \italic { Verse 4. }
+  \line { And so the teacher turned it out, }
+  \line { But still it lingered near. } }
+
+\markup \wordwrap-string "
   Verse 5.
 
   Mary took it home again,
 
   It was against the rule."
-}
 @end lilypond
 
 
