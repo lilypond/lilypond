@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+    Translation of GIT committish: 21e1040bc80882919ed2b4243527170325c42899
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -312,6 +312,40 @@ mus = \drummode {
        \hide Stem
        \override Stem.Y-extent = ##f
        drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
+@item weinberg-drums-style
+Cette notation est basée sur les travaux de Norman Weinberg, publiés
+dans son @emph{Guidelines for Drumset Notation}.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb }
+mus = \drummode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb
+  }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #weinberg-drums-style
      } \mus
      \new Lyrics \nam
   >>
