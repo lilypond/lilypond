@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c07c6f80d57f05b30f951be32e673408c007726
+   Translation of GIT committish: 6a22f5d3f7ff1bb202301c5e686767a937a26649
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -234,8 +234,7 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 @item @code{-E}, @code{--eps}
 Génère des fichiers EPS.
 
-Cette option revient à fournir à la ligne de commande de LilyPond les
-options @code{--ps} et @code{-dlilypond-book-output}.
+Cette option est équivalente à @code{-dseparate-page-formats=ps}.
 
 @cindex sortie, format
 @cindex format de sortie
@@ -952,6 +951,11 @@ enregistre le déroulement dans les journaux @file{fichier1.log},
 @file{fichier2.log}@dots{} si @var{bool} est déterminé à @code{#t}. La
 valeur par défaut est @code{#f}.
 
+@item @code{separate-page-formats} @var{symbole}
+Liste des formats (@code{svg}, @code{pdf}, @code{png}, ou @code{eps}),
+séparés par des virgules, à utiliser pour les images séparées des pages pour
+@code{lilypond-book}.
+
 @item @code{show-available-fonts} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, liste le nom des fontes
 disponibles tel que le ressort la bibliothèque fontconfig. LilyPond
@@ -995,6 +999,11 @@ d'installer les fontes que les fichiers SVG utiliseront dans
 l'environnement du visionneur.  Néanmoins, LilyPond ne dispose pas de
 fichier de fonte @code{woff} textuelle.  La présence du fichier de fonte
 @code{woff} est un prérequis.
+
+@item @code{tall-page-formats} @var{symbole}
+Liste des formats (@code{svg}, @code{pdf}, @code{png}, ou @code{eps}),
+séparés par des virgules, à utiliser pour l'image pleine page pour
+@code{lilypond-book}.
 
 @item @code{use-paper-size-for-page} @var{bool}
 Si @var{bool} est déterminé à @code{#t} (valeur par défaut), chaque page
