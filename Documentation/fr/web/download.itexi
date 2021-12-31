@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: bf2eecf4f8f123dceb72bb0c2802cd133c507f08
+   Translation of GIT committish: 5d34ddc0e45c6853644b01cf1a57aa80606e5977
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -246,7 +246,14 @@ disponibles sur
 @uref{https://www.macports.org/,MacPorts}, un gestionnaire de paquetages
 pour Mac OS, dispose de
 @uref{https://ports.macports.org/port/lilypond/summary, LilyPond port}.
+
+@item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, autre gestionnaire de paquets pour
+for Mac OS, propose @uref{https://formulae.brew.sh/formula/lilypond,
+LilyPond formula}.
 @end itemize
+
 
 @subsubheading Installation
 
