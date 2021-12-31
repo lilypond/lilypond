@@ -83,7 +83,7 @@ MAKE_SCHEME_CALLBACK (Tie_column, calc_positioning_done, 1)
 SCM
 Tie_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "ties", ro_ties);
   vector<Grob *> ties (ro_ties);
   if (!ties.size ())

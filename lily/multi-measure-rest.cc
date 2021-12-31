@@ -64,7 +64,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, percent, 1);
 SCM
 Multi_measure_rest::percent (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Stencil r = Percent_repeat_item_interface::x_percent (me, 1);
@@ -98,7 +98,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, 1);
 SCM
 Multi_measure_rest::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Interval sp_iv = bar_width (sp);
@@ -122,7 +122,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, 1);
 SCM
 Multi_measure_rest::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Real space = 1000000; // something very large...
 
@@ -413,7 +413,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   calculate_spacing_rods (me, sym_width);
 
@@ -424,7 +424,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   auto *stil = me->get_stencil ();
 
   /* FIXME uncached */

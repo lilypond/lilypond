@@ -311,7 +311,7 @@ Stem::pure_height (SCM smob,
                    SCM /* start */,
                    SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_pure_height (me, true));
 }
 
@@ -391,7 +391,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
 SCM
 Stem::calc_stem_end_position (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_end_position (me, true));
 }
 
@@ -401,7 +401,7 @@ Stem::pure_calc_stem_end_position (SCM smob,
                                    SCM, /* start */
                                    SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_end_position (me, false));
 }
 
@@ -519,7 +519,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_positioning_done, 1);
 SCM
 Stem::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (!head_count (me))
     return SCM_BOOL_T;
 
@@ -640,7 +640,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_direction, 1);
 SCM
 Stem::calc_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction dir = CENTER;
   if (Grob *beam = unsmob<Grob> (get_object (me, "beam")))
     {
@@ -663,7 +663,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_default_direction, 1);
 SCM
 Stem::calc_default_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Direction dir = CENTER;
   if (head_count (me))
@@ -685,7 +685,7 @@ MAKE_SCHEME_CALLBACK (Stem, height, 1);
 SCM
 Stem::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_height (me, true));
 }
 
@@ -758,7 +758,7 @@ MAKE_SCHEME_CALLBACK (Stem, width, 1);
 SCM
 Stem::width (SCM e)
 {
-  Grob *me = unsmob<Grob> (e);
+  auto *const me = LY_ASSERT_SMOB (Grob, e, 1);
 
   Interval r;
 
@@ -784,7 +784,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_stem_begin_position, 1);
 SCM
 Stem::calc_stem_begin_position (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_begin_position (me, true));
 }
 
@@ -794,7 +794,7 @@ Stem::pure_calc_stem_begin_position (SCM smob,
                                      SCM, /* start */
                                      SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_begin_position (me, false));
 }
 
@@ -833,7 +833,7 @@ MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
 SCM
 Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real beg = from_scm<double> (get_pure_property (me, "stem-begin-position", 0, INT_MAX), 0.0);
   Real res = fabs (internal_calc_stem_end_position (me, false) - beg);
   return to_scm (res);
@@ -843,7 +843,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_length, 1);
 SCM
 Stem::calc_length (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (unsmob<Grob> (get_object (me, "beam")))
     {
       me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
@@ -878,7 +878,7 @@ MAKE_SCHEME_CALLBACK (Stem, print, 1);
 SCM
 Stem::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (!is_valid_stem (me))
     return SCM_EOL;
 
@@ -921,7 +921,7 @@ MAKE_SCHEME_CALLBACK (Stem, offset_callback, 1);
 SCM
 Stem::offset_callback (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "rests", rests);
   if (rests.size ())
@@ -984,7 +984,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_stem_info, 1);
 SCM
 Stem::calc_stem_info (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction my_dir = get_grob_direction (me);
 
   if (!my_dir)

@@ -840,7 +840,7 @@ MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
 SCM
 Grob::stencil_height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return grob_stencil_extent (me, Y_AXIS);
 }
 
@@ -848,7 +848,7 @@ MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, 3);
 SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (unsmob<const Stencil> (get_property_data (me, "stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
@@ -860,7 +860,7 @@ MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);
 SCM
 Grob::y_parent_positioning (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *par = me->get_y_parent ();
   if (par)
     (void) get_property (par, "positioning-done");
@@ -872,7 +872,7 @@ MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Grob *par = me->get_x_parent ();
   if (par)
@@ -885,7 +885,7 @@ MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
 SCM
 Grob::stencil_width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return grob_stencil_extent (me, X_AXIS);
 }
 

@@ -51,7 +51,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "note-columns", encompasses);
 
   if (encompasses.empty ())
@@ -85,7 +85,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     -- adding extra height for scripts that avoid slurs on the inside
     -- adding extra height for the "bulge" in a slur above a note head
   */
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
   Direction dir = get_grob_direction (me);
@@ -136,7 +136,7 @@ MAKE_SCHEME_CALLBACK (Slur, height, 1);
 SCM
 Slur::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   // FIXME uncached
   auto *m = me->get_stencil ();
@@ -148,7 +148,7 @@ MAKE_SCHEME_CALLBACK (Slur, print, 1);
 SCM
 Slur::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "note-columns", encompasses);
   if (encompasses.empty ())
     {
@@ -249,7 +249,7 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 {
   int start = from_scm (start_scm, 0);
   int end = from_scm (end_scm, 0);
-  Grob *script = unsmob<Grob> (grob);
+  auto *const script = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *slur = unsmob<Grob> (get_object (script, "slur"));
   if (!slur)
     return offset_scm;
@@ -268,7 +268,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
 SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
-  Grob *script = unsmob<Grob> (grob);
+  auto *const script = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *slur = unsmob<Grob> (get_object (script, "slur"));
 
   if (!slur)
@@ -416,7 +416,7 @@ Slur::outside_slur_cross_staff (SCM smob, SCM previous)
   if (from_scm<bool> (previous))
     return previous;
 
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *slur = unsmob<Grob> (get_object (me, "slur"));
 
   if (!slur)
@@ -428,7 +428,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)
 SCM
 Slur::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "encompass-objects", extras);

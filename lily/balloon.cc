@@ -41,7 +41,7 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
 SCM
 Balloon_interface::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   if (Spanner *me_spanner = dynamic_cast<Spanner *> (me))
     {
@@ -84,7 +84,7 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, pure_spanner_height, 3);
 SCM
 Balloon_interface::pure_spanner_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
 
   if (!p || !p->is_live ())

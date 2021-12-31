@@ -274,7 +274,7 @@ MAKE_SCHEME_CALLBACK (Mensural_ligature, brew_ligature_primitive, 1);
 SCM
 Mensural_ligature::brew_ligature_primitive (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return internal_brew_primitive (me).smobbed_copy ();
 }
 

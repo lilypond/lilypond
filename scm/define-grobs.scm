@@ -201,6 +201,7 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (Y-extent . ,balloon::height)
@@ -756,6 +757,8 @@
     (ControlPoint
      . (
         (color . "IndianRed")
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (horizontal-skylines . #f)
         (layer . 3)
         (text . ,(make-draw-circle-markup 0.3 0.01 #t))
@@ -773,6 +776,8 @@
     (ControlPolygon
      . (
         (color . "BurlyWood")
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (extroversion . 0.5)
         (filled . #f)
         (horizontal-skylines . #f)
@@ -1247,6 +1252,8 @@
         (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
         (break-visibility . ,(sticky-grob-interface::inherit-property
                                'break-visibility))
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                         'cross-staff))
         (footnote . #t)
         (footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
         (spanner-placement . ,LEFT)
@@ -1299,8 +1306,6 @@
         (stencil . ,ly:line-spanner::print)
         (style . line)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
-        (X-extent . #f)
-        (Y-extent . #f)
         (zigzag-width . 0.75)
         (meta . ((class . Spanner)
                  (interfaces . (glissando-interface
@@ -3163,8 +3168,6 @@
         (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
         (stencil . ,ly:line-spanner::print)
         (style . line)
-        (X-extent . #f)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
                                 line-spanner-interface))))))

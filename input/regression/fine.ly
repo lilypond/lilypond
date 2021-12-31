@@ -4,8 +4,8 @@
 
 \header {
   texidoc="@code{\\fine} places a performance instruction below all
-staves and at end-of-line at a break.  The context property
-@code{fineText} controls the text."
+staves and at end-of-line at a break, except at the written end of the
+music.  The context property @code{fineText} controls the text."
 }
 
 \layout {
@@ -23,6 +23,7 @@ staff = \new Staff \fixed c' {
     \volta 2 \fine \break
     b1
   }
+  \fine
 }
 
 \new PianoStaff << \staff \staff >>

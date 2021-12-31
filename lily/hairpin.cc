@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
 SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real height = from_scm<double> (get_property (me, "height"), 0.0)
                 * Staff_symbol_referencer::staff_space (me);
 

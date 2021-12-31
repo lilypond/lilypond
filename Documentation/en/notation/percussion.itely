@@ -298,6 +298,40 @@ mus = \drummode {
 }
 @end lilypond
 
+@item weinberg-drums-style
+Based on the work of Norman Weinberg, published in his 
+@emph{Guidelines for Drumset Notation}.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb }
+mus = \drummode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb
+  }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #weinberg-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
 @item timbales-style
 This typesets timbales on a two line staff:
 

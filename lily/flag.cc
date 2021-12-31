@@ -48,7 +48,7 @@ MAKE_SCHEME_CALLBACK (Flag, width, 1);
 SCM
 Flag::width (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   auto *sten = unsmob<const Stencil> (get_property (me, "stencil"));
   if (!sten)
     return to_scm (Interval (0.0, 0.0));
@@ -68,7 +68,7 @@ MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
 SCM
 Flag::glyph_name (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = me->get_x_parent ();
 
   Direction d = get_grob_direction (stem);
@@ -114,7 +114,7 @@ MAKE_SCHEME_CALLBACK (Flag, print, 1);
 SCM
 Flag::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = me->get_x_parent ();
 
   Direction d = get_grob_direction (stem);
@@ -180,7 +180,7 @@ Flag::calc_y_offset (SCM smob)
 SCM
 Flag::internal_calc_y_offset (SCM smob, bool pure)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = me->get_x_parent ();
   Direction d = get_grob_direction (stem);
 
@@ -200,7 +200,7 @@ MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);
 SCM
 Flag::calc_x_offset (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = me->get_x_parent ();
   return to_scm (stem->extent (stem, X_AXIS)[RIGHT]);
 }

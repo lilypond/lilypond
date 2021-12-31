@@ -21,6 +21,7 @@
 
 #include "axis-group-interface.hh"
 #include "context.hh"
+#include "global-context.hh"
 #include "grob-array.hh"
 #include "international.hh"
 #include "item.hh"
@@ -38,8 +39,9 @@ class Jump_engraver final : public Engraver
 {
   bool first_time_ = true;
   bool printed_fine_ = false;
-  Item *text_ = nullptr;
-  Stream_event *dal_segno_ev_ = nullptr;
+  Item *ds_text_ = nullptr;
+  Item *fine_text_ = nullptr;
+  Stream_event *ds_ev_ = nullptr;
   Stream_event *fine_ev_ = nullptr;
 
 public:
@@ -61,7 +63,7 @@ Jump_engraver::Jump_engraver (Context *c)
 void
 Jump_engraver::listen_dal_segno (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (dal_segno_ev_, ev);
+  ASSIGN_EVENT_ONCE (ds_ev_, ev);
 }
 
 void
@@ -73,23 +75,9 @@ Jump_engraver::listen_fine (Stream_event *ev)
 void
 Jump_engraver::process_music ()
 {
-  SCM m = SCM_EOL;
-  Stream_event *ev = nullptr;
-
-  if (dal_segno_ev_)
+  if (ds_ev_)
     {
-      if (fine_ev_)
-        {
-          // Sure, we could complicate this engraver to print text for both,
-          // but the resulting score would still be unclear.  A user who really
-          // wants both D.S. and Fine at the same point can add text to the
-          // score with other features.
-          fine_ev_->warning (_i ("Ignoring Fine simultaneous with"
-                                 " D.C. or D.S."));
-        }
-
-      ev = dal_segno_ev_;
-      text_ = make_item ("JumpScript", ev->self_scm ());
+      ds_text_ = make_item ("JumpScript", ds_ev_->self_scm ());
 
       // We indicate D.S. to the most recent segno mark.  This would not be
       // correct for nested segno repeats, but we don't care to support those.
@@ -109,7 +97,7 @@ Jump_engraver::process_music ()
       SCM body_end_markup = SCM_BOOL_F;
       SCM next_markup = SCM_BOOL_F;
       auto alt_num
-        = from_scm<size_t> (get_property (ev, "alternative-number"), 0);
+        = from_scm<size_t> (get_property (ds_ev_, "alternative-number"), 0);
       if (alt_num > 0)
         {
           // Assuming that the coda marks of the current group of alternatives
@@ -139,10 +127,12 @@ Jump_engraver::process_music ()
           body_end_markup = get_property (this, "fineText");
         }
 
+      SCM m = SCM_EOL;
       SCM proc = get_property (this, "dalSegnoTextFormatter");
       if (ly_is_procedure (proc))
         {
-          const auto count = from_scm (get_property (ev, "return-count"), 1L);
+          const auto count
+            = from_scm (get_property (ds_ev_, "return-count"), 1L);
           m = scm_call_3 (proc,
                           context ()->self_scm (),
                           to_scm (count),
@@ -150,39 +140,63 @@ Jump_engraver::process_music ()
                                      body_end_markup,
                                      scm_cons (next_markup, SCM_EOL)));
         }
-    }
-  else if (fine_ev_)
-    {
-      ev = fine_ev_;
-      text_ = make_item ("JumpScript", ev->self_scm ());
-      m = get_property (this, "fineText");
+
+      if (Text_interface::is_markup (m))
+        set_property (ds_text_, "text", m);
+      else
+        ds_ev_->warning (_ ("jump text must be a markup object"));
     }
 
-  if (ev)
+  if (fine_ev_)
     {
-      if (Text_interface::is_markup (m))
-        set_property (text_, "text", m);
-      else
-        ev->warning (_ ("jump text must be a markup object"));
+      // By default, avoid printing "Fine" at the written end of the music.
+      // These cases are noteworthy:
+      //
+      // * Repeats have been unfolded.  No other repeat notation remains, so
+      //   leaving "Fine" would look strange.
+      //
+      // * It is more convenient to code an optionally unfoldable piece as
+      //       \repeat volta 2 { ... } \fine
+      //   than
+      //       \repeat volta 2 { ... \volta 2 \unfolded \bar "|." }
+      if (!find_global_context ()->is_at_final_moment ()
+          || from_scm<bool> (get_property (this, "finalFineTextVisibility")))
+        {
+          fine_text_ = make_item ("JumpScript", fine_ev_->self_scm ());
+
+          SCM m = get_property (this, "fineText");
+          if (Text_interface::is_markup (m))
+            set_property (fine_text_, "text", m);
+          else
+            fine_ev_->warning (_ ("jump text must be a markup object"));
+        }
     }
 }
 
 void
 Jump_engraver::stop_translation_timestep ()
 {
-  if (text_)
+  SCM staves_found = SCM_UNDEFINED;
+  for (Item *const text : {ds_text_, fine_text_})
     {
-      set_object (text_, "side-support-elements",
-                  grob_list_to_grob_array (get_property (this, "stavesFound")));
-      text_ = nullptr;
+      if (text)
+        {
+          if (SCM_UNBNDP (staves_found))
+            staves_found = get_property (this, "stavesFound");
+
+          set_object (text, "side-support-elements",
+                      grob_list_to_grob_array (staves_found));
+        }
     }
 
   if (fine_ev_)
     printed_fine_ = true;
 
-  first_time_ = false;
-  dal_segno_ev_ = nullptr;
+  ds_ev_ = nullptr;
+  ds_text_ = nullptr;
   fine_ev_ = nullptr;
+  fine_text_ = nullptr;
+  first_time_ = false;
 }
 
 void

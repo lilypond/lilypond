@@ -37,7 +37,7 @@ MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
 SCM
 Align_interface::align_to_minimum_distances (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
@@ -50,7 +50,7 @@ MAKE_SCHEME_CALLBACK (Align_interface, align_to_ideal_distances, 1);
 SCM
 Align_interface::align_to_ideal_distances (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 

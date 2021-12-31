@@ -57,7 +57,7 @@ Enclosing_bracket::width (SCM grob)
   /*
      UGH. cut & paste code.
   */
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   extract_grob_set (me, "elements", elements);
   if (elements.empty ())
     {
@@ -87,7 +87,7 @@ MAKE_SCHEME_CALLBACK (Enclosing_bracket, print, 1);
 SCM
 Enclosing_bracket::print (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   extract_grob_set (me, "elements", elements);
   if (elements.empty ())
     {

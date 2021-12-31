@@ -130,7 +130,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);
 SCM
 Staff_symbol_referencer::callback (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   SCM pos = get_property (me, "staff-position");
   Real off = 0.0;

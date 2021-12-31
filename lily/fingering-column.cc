@@ -52,7 +52,7 @@ MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done, 1);
 SCM
 Fingering_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (!me->is_live ())
     return SCM_BOOL_T;
 
@@ -100,8 +100,8 @@ Fingering_column::do_y_positioning (Grob *me)
            i < fingerings.size ();
            i += d)
         {
-          Interval x_ext = fingerings[i]->extent (common[X_AXIS], X_AXIS);
-          Interval y_ext = fingerings[i]->extent (fingerings[i], Y_AXIS);
+          Interval x_ext = robust_relative_extent (fingerings[i], common[X_AXIS], X_AXIS);
+          Interval y_ext = robust_relative_extent (fingerings[i], fingerings[i], Y_AXIS);
           Real parent_y = fingerings[i]->parent_relative (common[Y_AXIS], Y_AXIS);
 
           // Checking only between sequential neighbors, seems good enough

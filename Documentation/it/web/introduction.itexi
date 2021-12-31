@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 97db0bc6c59a7041a2edc6e8ba187b70fbdc9a3a
+    Translation of GIT committish: 1222079e16735f1c93d512c3b0a1dfde3ead6c5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1347,6 +1347,23 @@ Avviato nel 2009, WebLily.net è uno dei primi servizi web basati su
 LilyPond ed è stato aggiornato regolarmente da allora.
 È gratuito (ma è richiesta la registrazione) e include una versione
 cliccabile della documentazione di LilyPond.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Plugin per programmi di videoscrittura
+
+@subsubheading OOoLilyPond
+
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+Un'estensione di OpenOffice.org che converte i file LilyPond in immagini
+incorporate nei documenti OpenOffice.org.
 
 @divEnd
 

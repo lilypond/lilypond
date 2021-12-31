@@ -46,7 +46,7 @@ MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
 SCM
 Dot_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   /*
     Trigger note collision resolution first, since that may kill off

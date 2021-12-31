@@ -292,7 +292,7 @@ MAKE_SCHEME_CALLBACK (Vaticana_ligature, brew_ligature_primitive, 1);
 SCM
 Vaticana_ligature::brew_ligature_primitive (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM primitive = vaticana_brew_primitive (me).smobbed_copy ();
   return primitive;
 }

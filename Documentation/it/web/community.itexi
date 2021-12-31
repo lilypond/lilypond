@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
+    Translation of GIT committish: 05a9d4aa29a8b28f126ff7a1ca7bdc12ac62e98f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -99,7 +99,7 @@ quando si discute di LilyPond.
 @translationof Contact
 
 
-@divClass{column-left-bottom}
+@divClass{column-left-top}
 @subheading Discussioni e aiuto per gli utenti
 
 @subsubheading Mailing list degli utenti: @code{lilypond-user@@gnu.org}
@@ -108,18 +108,41 @@ Questa mailing list è il principale luogo dove gli utenti possono discutere
 e aiutarsi.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user/,
 iscrizione e informazioni su lilypond-user}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-user/,
-archivio 1 della lista degli utenti}
+archivio@tie{}1 della lista degli utenti}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-archivio 2}
+archivio@tie{}2}
 @end quotation
 
 @warning{Quando poni domande, usa gli @ref{Esempi minimi}!}
 
-@subsubheading LilyPond Snippet Repository
+@subsubheading Altre lingue
+
+@quotation
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+Mailing list francese}
+
+@uref{https://lilypondforum.de/,
+Forum tedesco}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Mailing list italiana}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+Gruppo portoghese}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Mailing list spagnola}
+@end quotation
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading LilyPond Snippet Repository
 
 Il LilyPond Snippet Repository è una grande raccolta di esempi
 proposti dagli utenti, che possono essere liberamente copiati e
@@ -132,90 +155,6 @@ e aggiungi i tuoi esempi!
 
 Esempi particolarmente istruttivi provenienti dal LSR sono inclusi nella
 nostra documentazione ufficiale, in @ref{Frammenti}.
-
-@subsubheading IRC
-
-Un certo livello di supporto è fornito nel nostro canale IRC,
-
-@example
-@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
-@end example
-
-Questo canale non ha un archivio pubblico, dunque qualsiasi domanda che
-potrebbe essere utile per altri dovrebbe essere inviata a una delle mailing list.
-
-@html
-<form action="https://web.libera.chat"
-      method="get"
-      name="f_lily_irc"
-  <label>irc name:
-    <input name="nick" type="text" size="15" value="">
-  </label>
-  <input name="channels" type="hidden" value="lilypond">
-  <input type="submit" value="Entra nella chat IRC #lilypond">
-</form>
-
-<script language="JavaScript" type="text/javascript">
-  var username = "web";
-  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
-  : window.navigator.language;
-  username += '-' + lang.substr(0, 2);
-  username += '-' + navigator.appName.substr(0, 2);
-  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
-  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
-  document.forms["f_lily_irc"].nick.value = username;
-</script>
-@end html
-
-@subsubheading Altre lingue
-
-@quotation
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-Mailing list francese}
-
-@uref{http://groups.google.com/group/lilypond-brasil,
-Gruppo portoghese}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Mailing list spagnola}
-
-@uref{https://lilypondforum.de/,
-Forum tedesco}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
-Mailing list italiana}
-
-@end quotation
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading LilyPond Blog
-
-Leggi il blog gestito dalla comunità, @q{Scores of Beauty}:
-
-@example
-@uref{https://lilypondblog.org}
-@end example
-
-@subsubheading Mailing list dei rilasci: @code{info-lilypond@@gnu.org}
-
-Questa mailing list è una lista a basso volume e in sola lettura che riceve
-notifiche dei nuovi rilasci.
-
-@quotation
-@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
-iscrizione e informazioni su info-lilypond}
-
-@uref{https://lists.gnu.org/archive/html/info-lilypond/,
-archivio 1 della lista info}
-@uref{https://www.mail-archive.com/info-lilypond@@gnu.org/,
-archivio 2}
-@end quotation
-
-
 @divEnd
 
 
@@ -255,18 +194,80 @@ archivio 2}
 
 @warning{Prima di inviare un messaggio alla lista bug, leggi le nostre
 linee guida per la @ref{Segnalazione bug}.}
+@divEnd
 
-@subsubheading Mailing list dei traduttori: @code{translations@@lilynet.org}
 
-Tutte le discussioni relative alla traduzione dei manuali di LilyPond deve
-avere luogo qui.  Non inviare patch a questa lista.
+@divClass{column-left-top}
+@subheading Annunci dei rilasci
+
+@subsubheading Mailing list dei rilasci: @code{info-lilypond@@gnu.org}
+
+Questa mailing list è una lista a basso volume e in sola lettura che riceve
+notifiche dei nuovi rilasci.
 
 @quotation
-@uref{https://lilypond-translations.3384276.n2.nabble.com/,
-Archivio della mailing list dei traduttori}
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
+iscrizione e informazioni su info-lilypond}
+
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
+archivio@tie{}1 della lista info}
+@uref{https://www.mail-archive.com/info-lilypond@@gnu.org/,
+archivio@tie{}2}
 @end quotation
+@divEnd
+
+@divClass{column-left-top}
+@subheading IRC
+
+Un certo livello di supporto è fornito nel nostro canale IRC,
+
+@example
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
+@end example
+
+Questo canale non ha un archivio pubblico, dunque qualsiasi domanda che
+potrebbe essere utile per altri dovrebbe essere inviata a una delle mailing list.
+
+@html
+<form action="https://web.libera.chat"
+      method="get"
+      name="f_lily_irc"
+  <label>irc name:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="channels" type="hidden" value="lilypond">
+  <input type="submit" value="Entra nella chat IRC #lilypond">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
+@divEnd
+
+@c Attualmente inattivo e non più accessibile.
+
+@ignore
+
+@divClass{column-right-top}
+@subheading LilyPond Blog
+
+Leggi il blog gestito dalla comunità, @q{Scores of Beauty}:
+
+@example
+@uref{https://lilypondblog.org}
+@end example
 
 @divEnd
+
+@end ignore
 
 
 @node Esempi minimi
@@ -592,6 +593,9 @@ l'ultimo binario:
 @c file name is unpredictable, linking to main page
 @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
 Mac OS X x86 64-bit (non ufficiale)}
+
+@uref{https://ports.macports.org/port/lilypond-devel/summary,
+MacPorts package}
 
 @downloadDevelWindows
 
@@ -932,6 +936,8 @@ e registri di modifiche (changelog).
 @subheading Annunci
 
 Annunci e notizie ordinati per versione:
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013-1,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
@@ -947,6 +953,8 @@ Annunci e notizie ordinati per versione:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Elenco descrittivo dei cambiamenti per ogni versione:
+@uref{https://lilypond.org/doc/v2.22/Documentation/changes/,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.it.html,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
@@ -969,6 +977,8 @@ Elenco descrittivo dei cambiamenti per ogni versione:
 
 Grazie a sviluppatori, collaboratori, cacciatori di bug e a chi ci ha dato
 preziosi suggerimenti
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
 @miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},

@@ -35,7 +35,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol, print, 1);
 SCM
 Staff_symbol::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Spanner *sp = dynamic_cast<Spanner *> (me);
   Grob *common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
@@ -315,7 +315,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol, height, 1);
 SCM
 Staff_symbol::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Interval y_ext = line_span (me); // units of staff position
   if (!y_ext.is_empty ()) // line count > 0

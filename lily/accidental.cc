@@ -52,7 +52,7 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines, 1);
 SCM
 Accidental_interface::horizontal_skylines (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (!me->is_live ())
     return Skyline_pair ().smobbed_copy ();
 
@@ -93,7 +93,7 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
 SCM
 Accidental_interface::height (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
@@ -108,7 +108,7 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, remove_tied, 1);
 SCM
 Accidental_interface::remove_tied (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
@@ -124,8 +124,7 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
 SCM
 Accidental_interface::print (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
-
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Font_metric *fm = Font_interface::get_default_font (me);
   SCM props = Font_interface::music_font_alist_chain (me);
   SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),

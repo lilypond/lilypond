@@ -43,6 +43,7 @@ public:
   void add_moment_to_process (Moment);
   bool iterate (Music *, bool force_found_music);
   void set_final_moment () { final_mom_ = now_mom_; }
+  bool is_at_final_moment () const { return now_mom_ == final_mom_; }
 
   bool is_accessible_to_user () const override { return false; }
 

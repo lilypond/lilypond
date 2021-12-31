@@ -34,7 +34,7 @@ SCM
 Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 {
   Pitch p = *unsmob<Pitch> (last_pitch);
-  Music *m = unsmob<Music> (music);
+  auto *const m = LY_ASSERT_SMOB (Music, music, 1);
   Pitch *check_p = unsmob<Pitch> (get_property (m, "pitch"));
 
   int delta_oct = 0;

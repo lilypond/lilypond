@@ -726,7 +726,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction, 1);
 SCM
 Tuplet_bracket::calc_direction (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Direction dir = Tuplet_bracket::get_default_dir (me);
   return to_scm (dir);
 }
@@ -812,7 +812,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
 SCM
 Tuplet_bracket::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "tuplets", tuplets);
 

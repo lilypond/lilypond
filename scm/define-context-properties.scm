@@ -310,7 +310,7 @@ slurred note, one above and one below the chord.")
 instruments (symbols) to pitches.")
      (drumStyleTable ,hash-table? "A hash table which maps drums to
 layout settings.  Predefined values: @samp{drums-style},
-@samp{agostini-drums-style}, @samp{timbales-style}, @samp{congas-style},
+@samp{agostini-drums-style}, @samp{weinberg-drums-style}, @samp{timbales-style}, @samp{congas-style},
 @samp{bongos-style}, and @samp{percussion-style}.
 
 The layout style is a hash table, containing the drum-pitches (e.g.,
@@ -347,6 +347,8 @@ lines.")
 for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
+     (finalFineTextVisibility ,boolean? "Whether @code{\\fine} at the
+written end of the music should create a @emph{Fine} instruction.")
      (fineBarType ,string? "Value for @code{whichBar} at
 @code{\\fine}.  Where there is also a repeat bar line, the repeat bar
 line takes precedence and this value is appended to it as an

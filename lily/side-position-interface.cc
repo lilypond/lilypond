@@ -141,7 +141,7 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff, 1)
 SCM
 Side_position_interface::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   extract_grob_set (me, "side-support-elements", elts);
 
   Direction my_dir = get_grob_direction (me);
@@ -187,13 +187,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   if (!dir)
     {
-      // Should we even warn?  Previously this caused an assertion
-      // failure, so this might not be well-supported behavior.  But
-      // possibly this could be useful?
-      me->warning (_f ("%s needs a direction for side alignment",
-                       me->name ().c_str ()));
-      // Too much of the remaining code does not do anything sensible
-      // without a direction, so we just take what we have and bail
+      // This is occasionally useful, for example to place
+      // scripts in the middle of two piano staves using a
+      // Dynamics context.
       return to_scm (current_off ? *current_off : 0.0);
     }
 

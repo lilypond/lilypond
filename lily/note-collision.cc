@@ -367,7 +367,7 @@ MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   set_property (me, "positioning-done", SCM_BOOL_T);
 
   Drul_array<vector<Grob *> > clash_groups = get_clash_groups (me);

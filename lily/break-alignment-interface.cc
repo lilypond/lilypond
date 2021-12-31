@@ -331,7 +331,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)
 SCM
 Break_aligned_interface::calc_average_anchor (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Real avg = 0.0;
   int count = 0;
 
@@ -392,7 +392,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
 SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real alignment = from_scm<double> (get_property (me, "break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
@@ -407,7 +407,7 @@ SCM
 Break_aligned_interface::calc_break_visibility (SCM smob)
 {
   /* a BreakAlignGroup is break-visible if it has one element that is break-visible */
-  Grob *me = unsmob<Grob> (smob);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM ret = scm_c_make_vector (3, SCM_EOL);
   extract_grob_set (me, "elements", elts);
   for (int dir = 0; dir <= 2; dir++)

@@ -411,7 +411,7 @@ MAKE_SCHEME_CALLBACK (Paper_column, before_line_breaking, 1);
 SCM
 Paper_column::before_line_breaking (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
   if (Grob_array *ga = unsmob<Grob_array> (get_object (me, "bounded-by-me")))
     ga->filter (grob_is_live);
