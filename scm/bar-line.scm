@@ -1023,7 +1023,7 @@ of the volta brackets relative to the bar lines."
 ;; (define-bar-line "S-S" "S" "" "=")
 
 ;; common bar lines
-(define-bar-line "" "" "" #f)
+(define-bar-line "" "" #f #f)
 (define-bar-line "-" #f #f #f)
 (define-bar-line "|" "|" #f "|")
 (define-bar-line "|-s" #f "|" "|")
@@ -1059,7 +1059,7 @@ of the volta brackets relative to the bar lines."
 (define-bar-line "|.S" "|." "S" "|.")
 (define-bar-line "|.S-S" "|.S" #f "|.")
 (define-bar-line ":|.S" ":|." "S" " |.")
-(define-bar-line ":|.S-S" ":|.S" "" " |.")
+(define-bar-line ":|.S-S" ":|.S" #f " |.")
 (define-bar-line "S.|:" "|" "S.|:" " .|")
 (define-bar-line "S.|:-||" "||" "S.|:" " .|")
 (define-bar-line "S.|:-S" "S" ".|:" " .|")
