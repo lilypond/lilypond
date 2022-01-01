@@ -1,0 +1,13 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@c Digits are right-aligned by using one or two leading U+2007 characters if
+@c necessary.
+
+@smallIndentedBlock
+@multitable {128 @ @ @code{mt-32 kit}/@code{cm-64 kit}} { 49 @ @ @code{orchestra kit}} { 17 @ @ @code{power kit}}
+@item   1 @ @ @code{standard kit} @tab   9 @ @ @code{room kit} @tab  17 @ @ @code{power kit}
+@item  25 @ @ @code{electronic kit} @tab  26 @ @ @code{tr-808 kit} @tab  33 @ @ @code{jazz kit}
+@item  41 @ @ @code{brush kit} @tab  49 @ @ @code{orchestra kit} @tab  57 @ @ @code{sfx kit}
+@item 128 @ @ @code{mt-32 kit}/@code{cm-64 kit}
+@end multitable
+@endSmallIndentedBlock

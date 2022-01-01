@@ -1,0 +1,137 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@c Digits are right-aligned by using one or two leading U+2007 characters if
+@c necessary.
+
+@smallIndentedBlock
+@multitable {111@ @ @code{acoustic guitar (nylon)}} {111@ @ @code{acoustic guitar (steel)}} {111@ @ @code{electric guitar (clean)}}
+@item   1 @ @ @code{acoustic grand}
+  @tab   2 @ @ @code{bright acoustic}
+  @tab   3 @ @ @code{electric grand}
+@item   4 @ @ @code{honky-tonk}
+  @tab   5 @ @ @code{electric piano 1}
+  @tab   6 @ @ @code{electric piano 2}
+@item   7 @ @ @code{harpsichord}
+  @tab   8 @ @ @code{clav}
+  @tab   9 @ @ @code{celesta}
+@item  10 @ @ @code{glockenspiel}
+  @tab  11 @ @ @code{music box}
+  @tab  12 @ @ @code{vibraphone}
+@item  13 @ @ @code{marimba}
+  @tab  14 @ @ @code{xylophone}
+  @tab  15 @ @ @code{tubular bells}
+@item  16 @ @ @code{dulcimer}
+  @tab  17 @ @ @code{drawbar organ}
+  @tab  18 @ @ @code{percussive organ}
+@item  19 @ @ @code{rock organ}
+  @tab  20 @ @ @code{church organ}
+  @tab  21 @ @ @code{reed organ}
+@item  22 @ @ @code{accordion}
+  @tab  23 @ @ @code{harmonica}
+  @tab  24 @ @ @code{concertina}
+@item  25 @ @ @code{acoustic guitar (nylon)}
+  @tab  26 @ @ @code{acoustic guitar (steel)}
+  @tab  27 @ @ @code{electric guitar (jazz)}
+@item  28 @ @ @code{electric guitar (clean)}
+  @tab  29 @ @ @code{electric guitar (muted)}
+  @tab  30 @ @ @code{overdriven guitar}
+@item  31 @ @ @code{distorted guitar}
+  @tab  32 @ @ @code{guitar harmonics}
+  @tab  33 @ @ @code{acoustic bass}
+@item  34 @ @ @code{electric bass (finger)}
+  @tab  35 @ @ @code{electric bass (pick)}
+  @tab  36 @ @ @code{fretless bass}
+@item  37 @ @ @code{slap bass 1}
+  @tab  38 @ @ @code{slap bass 2}
+  @tab  39 @ @ @code{synth bass 1}
+@item  40 @ @ @code{synth bass 2}
+  @tab  41 @ @ @code{violin}
+  @tab  42 @ @ @code{viola}
+@item  43 @ @ @code{cello}
+  @tab  44 @ @ @code{contrabass}
+  @tab  45 @ @ @code{tremolo strings}
+@item  46 @ @ @code{pizzicato strings}
+  @tab  47 @ @ @code{orchestral harp}
+  @tab  48 @ @ @code{timpani}
+@item  49 @ @ @code{string ensemble 1}
+  @tab  50 @ @ @code{string ensemble 2}
+  @tab  51 @ @ @code{synthstrings 1}
+@item  52 @ @ @code{synthstrings 2}
+  @tab  53 @ @ @code{choir aahs}
+  @tab  54 @ @ @code{voice oohs}
+@item  55 @ @ @code{synth voice}
+  @tab  56 @ @ @code{orchestra hit}
+  @tab  57 @ @ @code{trumpet}
+@item  58 @ @ @code{trombone}
+  @tab  59 @ @ @code{tuba}
+  @tab  60 @ @ @code{muted trumpet}
+@item  61 @ @ @code{french horn}
+  @tab  62 @ @ @code{brass section}
+  @tab  63 @ @ @code{synthbrass 1}
+@item  64 @ @ @code{synthbrass 2}
+  @tab  65 @ @ @code{soprano sax}
+  @tab  66 @ @ @code{alto sax}
+@item  67 @ @ @code{tenor sax}
+  @tab  68 @ @ @code{baritone sax}
+  @tab  69 @ @ @code{oboe}
+@item  70 @ @ @code{english horn}
+  @tab  71 @ @ @code{bassoon}
+  @tab  72 @ @ @code{clarinet}
+@item  73 @ @ @code{piccolo}
+  @tab  74 @ @ @code{flute}
+  @tab  75 @ @ @code{recorder}
+@item  76 @ @ @code{pan flute}
+  @tab  77 @ @ @code{blown bottle}
+  @tab  78 @ @ @code{shakuhachi}
+@item  79 @ @ @code{whistle}
+  @tab  80 @ @ @code{ocarina}
+  @tab  81 @ @ @code{lead 1 (square)}
+@item  82 @ @ @code{lead 2 (sawtooth)}
+  @tab  83 @ @ @code{lead 3 (calliope)}
+  @tab  84 @ @ @code{lead 4 (chiff)}
+@item  85 @ @ @code{lead 5 (charang)}
+  @tab  86 @ @ @code{lead 6 (voice)}
+  @tab  87 @ @ @code{lead 7 (fifths)}
+@item  88 @ @ @code{lead 8 (bass+lead)}
+  @tab  89 @ @ @code{pad 1 (new age)}
+  @tab  90 @ @ @code{pad 2 (warm)}
+@item  91 @ @ @code{pad 3 (polysynth)}
+  @tab  92 @ @ @code{pad 4 (choir)}
+  @tab  93 @ @ @code{pad 5 (bowed)}
+@item  94 @ @ @code{pad 6 (metallic)}
+  @tab  95 @ @ @code{pad 7 (halo)}
+  @tab  96 @ @ @code{pad 8 (sweep)}
+@item  97 @ @ @code{fx 1 (rain)}
+  @tab  98 @ @ @code{fx 2 (soundtrack)}
+  @tab  99 @ @ @code{fx 3 (crystal)}
+@item 100 @ @ @code{fx 4 (atmosphere)}
+  @tab 101 @ @ @code{fx 5 (brightness)}
+  @tab 102 @ @ @code{fx 6 (goblins)}
+@item 103 @ @ @code{fx 7 (echoes)}
+  @tab 104 @ @ @code{fx 8 (sci-fi)}
+  @tab 105 @ @ @code{sitar}
+@item 106 @ @ @code{banjo}
+  @tab 107 @ @ @code{shamisen}
+  @tab 108 @ @ @code{koto}
+@item 109 @ @ @code{kalimba}
+  @tab 110 @ @ @code{bagpipe}
+  @tab 111 @ @ @code{fiddle}
+@item 112 @ @ @code{shanai}
+  @tab 113 @ @ @code{tinkle bell}
+  @tab 114 @ @ @code{agogo}
+@item 115 @ @ @code{steel drums}
+  @tab 116 @ @ @code{woodblock}
+  @tab 117 @ @ @code{taiko drum}
+@item 118 @ @ @code{melodic tom}
+  @tab 119 @ @ @code{synth drum}
+  @tab 120 @ @ @code{reverse cymbal}
+@item 121 @ @ @code{guitar fret noise}
+  @tab 122 @ @ @code{breath noise}
+  @tab 123 @ @ @code{seashore}
+@item 124 @ @ @code{bird tweet}
+  @tab 125 @ @ @code{telephone ring}
+  @tab 126 @ @ @code{helicopter}
+@item 127 @ @ @code{applause}
+  @tab 128 @ @ @code{gunshot}
+@end multitable
+@endSmallIndentedBlock
