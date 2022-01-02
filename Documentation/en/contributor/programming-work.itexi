@@ -935,6 +935,7 @@ describes how to use both gdb and the Guile Debugger.
 * Debugging C++ code::
 * Debugging Scheme code::
 * Debugging scoring algorithms::
+* Debugging skylines::
 @end menu
 
 @node Debugging overview
@@ -1318,6 +1319,42 @@ Demerits are configurable, see @rinternals{tie-interface} for a
 list of tunable parameters.
 
 @end table
+
+@node Debugging skylines
+@subsection Debugging skylines
+
+To show the skylines used for spacing, use
+
+@example
+\override SomeGrob.show-horizontal-skylines = ##t
+@end example
+
+@noindent
+or
+
+@example
+\override SomeGrob.show-vertical-skylines = ##t
+@end example
+
+The option @code{debug-skylines} is equivalent to setting
+@code{show-vertical-skylines} on @rinternals{VerticalAxisGroup}
+and @rinternals{System}.
+
+Another particularly useful application is showing the skylines
+used for note spacing:
+
+@example
+\layout @{
+  \context @{
+    \Score
+    \override PaperColumn.show-horizontal-skylines = ##t
+    \override NonMusicalPaperColumn.show-horizontal-skylines = ##t
+  @}
+@}
+@end example
+
+This is also an occasion to test if the pure estimates used to
+build them are reasonably accurate.
 
 
 @node Tracing object relationships
