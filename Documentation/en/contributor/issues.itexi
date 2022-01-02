@@ -443,59 +443,12 @@ Add the issue and classify it according to the guidelines in
 @ref{Issue classification}.  In particular, the item should have
 @code{Status} and type labels.
 
-Include output with the first applicable method:
-
-@itemize
-
 @item
-If the issue has a notation example which fits in one system,
-generate a small @file{bug.preview.png} file with:
-
-@example
-lilypond -dpreview bug.ly
-@end example
-
-@item
-If the issue has an example which requires more than one system
-(i.e. a spacing bug), generate a @file{bug.png} file with:
-
-@example
-lilypond --png bug.ly
-@end example
-
-@item
-If the issue requires one or two pages of output, then generate a
-@file{bug.png} file with the normal:
-
-@example
-lilypond --png bug.ly
-@end example
-
-@item
-Images created as @file{bug.png} may be trimmed to a minimum size
-by using the @code{trimtagline.sh} script, which can be found at
-
-@smallexample
-@uref{https://raw.github.com/gperciva/lilypond-extra/master/bug-squad/trimtagline.sh}
-@end smallexample
-
-@example
-trimtagline.sh bug.ly
-@end example
-
-@item
-If the issue cannot be shown with less than three pages, then
-generate a @file{bug.pdf} file with:
-
-@example
-lilypond --pdf bug.ly
-@end example
-
-Note that this is likely to be extremely rare; most bugs should
-fit into the first two categories above.
-
-
-@end itemize
+Include output.  Usually, the problem can be demonstrated in an image
+created using @command{lilypond -dcrop bug.ly}, which generates
+@file{bug.cropped.png}.  However, for spacing bugs, this image may
+not show the problem; attach the full PDF produced by a normal
+@command{lilypond} invocation in this case.
 
 @item
 After adding the issue, please send a response email to the same
