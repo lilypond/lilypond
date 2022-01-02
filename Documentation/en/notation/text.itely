@@ -330,6 +330,17 @@ object property.  This syntax is described in @ref{Line styles}.
 @knownissues
 LilyPond is only able to handle one text spanner per voice.
 
+The texts at the bounds of a text spanner may collide.
+
+@lilypond[verbatim,quote]
+{
+  \once \override TextSpanner.bound-details.left.text = "The text is"
+  \once \override TextSpanner.bound-details.right.text = "too long"
+  c'2\startTextSpan d'2\stopTextSpan
+}
+@end lilypond
+
+Workarounds can be found in @ref{Horizontal spacing}.
 
 @snippets
 

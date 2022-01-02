@@ -2950,7 +2950,8 @@ Snippets:
 @menu
 * Horizontal spacing overview::
 * New spacing section::
-* Changing horizontal spacing::
+* Changing horizontal spacing globally::
+* Adjusting horizontal spacing for specific layout objects::
 * Line width::
 * Proportional notation::
 @end menu
@@ -3130,8 +3131,8 @@ Internals Reference:
 @endmorerefs
 
 
-@node Changing horizontal spacing
-@subsection Changing horizontal spacing
+@node Changing horizontal spacing globally
+@subsection Changing horizontal spacing globally
 
 @menu
 * Uniform stretching of tuplets::
@@ -3220,6 +3221,308 @@ regard for clefs, bar lines, and grace notes,
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
+
+
+@node Adjusting horizontal spacing for specific layout objects
+@subsection Adjusting horizontal spacing for specific layout objects
+
+In addition to the general-purpose parameters of the default
+spacing algorithm that apply to all elements of the score or
+spacing section, several properties serve to operate adjustments
+on a per-object-type-basis.  Examples include adjusting the
+distance from clefs to time signatures, but not from clefs to
+notes when there is no time signature, or stretching notes further
+apart in the presence of a printed text so that it does not
+overlap with the next note.  Tweaking these first requires
+identifying the type of spacing at play.
+
+@menu
+* Overview of object-specific horizontal spacing tweaks::
+* Spacing between adjacent non-musical items::
+* Spacing between adjacent columns::
+@end menu
+
+@node Overview of object-specific horizontal spacing tweaks
+@subsubsection Overview of object-specific horizontal spacing tweaks
+
+@cindex paper column
+@cindex column
+@cindex musical item
+@cindex non-musical item
+@cindex item, musical
+@cindex item, non-musical
+@cindex prefatory material
+
+Layout objects that have a horizontally fixed position are called
+@emph{items}, as opposed to @emph{spanners}, and for the purpose
+of horizontal spacing, are grouped into @emph{columns}.  Note
+heads and rests, forming the main musical material, together with
+those objects that are logically linked to them -- accidentals,
+articulations, stems, dots, etc. -- are all part of @emph{musical
+column}.  Prefatory items, such as clefs, time signatures and bar
+lines, are grouped into @q{non-musical columns}.
+
+In the following example, musical items are colored red, while
+non-musical items are blue.
+
+@lilypond
+musical =
+#(define-music-function (grob) (key-list?)
+   #{ \override $grob . color = red #})
+
+nonmusical =
+#(define-music-function (grob) (key-list?)
+   #{ \override $grob . color = blue #})
+
+\layout {
+  \context {
+    \Score
+    %% Don't interleave columns for ease of understanding in this
+    %% first example.
+    \override RehearsalMark.extra-spacing-width = #'(0 . 0)
+    \override RehearsalMark.extra-spacing-height = #'(-inf.0 . +inf.0)
+  }
+}
+
+\relative {
+  \nonmusical Staff.Clef
+  \nonmusical Staff.TimeSignature
+  \nonmusical Staff.BarLine
+  \nonmusical BreathingSign
+  \nonmusical Score.RehearsalMark
+  \musical NoteHead
+  \musical Dots
+  \musical Accidental
+  \musical Stem
+  \musical Script
+  \time 3/8
+  g'4-> 8
+  \mark \default
+  \clef alto
+  aes4.
+  \breathe
+}
+@end lilypond
+
+This example shows that there is an alternation between musical
+and non-musical columns.  The first non-musical column contains a
+clef and a time signature.  The first musical column has a note
+head with its stem and articulation.  The second non-musical
+column is empty and thus is removed during the layout process.
+The second musical column has a note again.  The third non-musical
+column contains a clef, a bar line and a rehearsal mark, etc.
+
+Within one column, spacing is fixed.  On the other hand, the
+amount of space between consecutive columns is flexible.  As we
+shall see, the methods to adjust spacing within a column and
+between columns are different.
+
+
+@node Spacing between adjacent non-musical items
+@subsubsection Spacing between adjacent non-musical items
+
+@cindex horizontal spacing, between non-musical items
+
+Within a non-musical column, items are laid out in a specific
+order.  For instance, with the set of items in the picture below,
+the default order places the breathing sign first, then the clef,
+then the bar line, the key cancellation and key signature, and
+finally the time signature (this is controlled by the
+@code{BreakAlignment@/.break@/-align@/-orders} property).
+
+@lilypond[verbatim,quote]
+\relative {
+  \key g \minor
+  g'1
+  \breathe
+  \clef alto
+  \time 6/8
+  \key a \major
+  aes4.
+}
+@end lilypond
+
+@cindex break align symbol
+@funindex space-alist
+
+The distance between two adjacent items from the same non-musical
+column is controlled by the value of the @code{space-alist}
+property of the leftmost one of the two.  @code{space-alist} has
+the form of an associative list mapping break align symbols to
+@code{(spacing-style . value)} pairs.  A breakable item's break
+align symbol is given by the value of its
+@code{break-@/align-@/symbol} property; standard choices are
+listed in @rinternals{break-alignment-interface}.  Spacing styles
+are listed in @rinternals{break-aligned-interface}.  Among the
+available options, only @code{extra-space} and
+@code{minimum-space} are relevant for tweaking the space between
+non-musical items.  The difference is that @code{extra-space}
+measures the padding from the right of the first object to the
+left of the second object while @code{minimum-space} counts from
+the left of the first object.  Thus, a way to move the bar line
+farther from the clef is:
+
+@lilypond[verbatim,quote]
+\relative {
+  \key g \minor
+  g'1
+  \override Staff.Clef.space-alist.staff-bar = #'(extra-space . 4)
+  \breathe
+  \clef alto
+  \time 6/8
+  \key a \major
+  aes4.
+}
+@end lilypond
+
+@code{space-alist} settings, not limited to the two spacing styles
+described above, are also possible to override the spacing between
+different columns.  However, this kind of spacing is flexible, and
+does not merely depend on the types of object involved but also
+their shapes.  Methods specific to it are documented in the next
+section.
+
+@morerefs
+Notation Reference:
+@ref{Using the break-alignable-interface}.
+
+Extending LilyPond:
+@rextend{Association lists}.
+
+Internals Reference:
+@rinternals{Break_align_engraver},
+@rinternals{BreakAlignGroup},
+@rinternals{BreakAlignment},
+@rinternals{break-alignable-interface},
+@rinternals{break-aligned-interface},
+@rinternals{break-alignment-interface}.
+@endmorerefs
+
+
+@node Spacing between adjacent columns
+@subsubsection Spacing between adjacent columns
+
+@cindex horizontal spacing, between columns
+
+Contrary to spacing within one column, spacing between adjacent
+columns is flexible and stretches or compresses according to the
+density of music on the line.  By default, columns may even
+overlap in some situations.  The following example shows three
+cases.  The first accidental slides behind the bar line, while the
+third one overlaps with the clef.  Also, the tempo marking
+@emph{Presto} spans several columns.  Observe how the second
+accidental, which remains within the vertical extent of the bar
+line on its left, is placed further apart.
+
+@lilypond
+{
+  cis'4 r2.
+  \tempo Presto
+  fis16 8 16 4 \clef alto cis4 fis4
+}
+@end lilypond
+
+@funindex extra-spacing-width
+@funindex extra-spacing-height
+
+These spacing rules can be overridden.  This is done by modifying
+the width and height that an object takes in horizontal spacing.
+The relevant properties are @code{extra-@/spacing-@/width} and
+@code{extra-@/spacing-@/height}.  When unset, an object takes as
+much space in horizontal spacing as its @code{X-extent} and
+@code{Y-extent} properties allow, and are accurate values of its
+dimensions.  The @code{extra-@/spacing-@/width} and
+@code{extra-@/spacing-@/height} properties make an object larger
+or smaller for computation of horizontal spacing between columns
+only, but preserve its dimensions for other spacing types.
+
+@lilypond[verbatim,quote]
+{
+  \mark "Default"
+  c'2 2 cis'2 2
+}
+
+{
+  \mark "Modified X-extent"
+  \override NoteHead.X-extent = #'(-2 . 2)
+  c'2 2 cis'2 2
+}
+
+{
+  \mark "Modified extra-spacing-width"
+  \override NoteHead.extra-spacing-width = #'(-2 . 2)
+  c'2 2 cis'2 2
+}
+@end lilypond
+
+@code{extra-@/spacing-@/width} and @code{extra-@/spacing-@/height}
+are pairs of numbers, which are added to the dimensions on each
+axis.  For instance, setting @code{extra-@/spacing-@/height} to
+@code{'(-2 . 3)} makes the object three units larger on the top,
+and two units larger on the bottom (limit lowered by@tie{}2).  The
+following example shows how to use @code{extra-@/spacing-@/height}
+to change the limit after which accidentals no longer overlap with
+bar lines.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \time 1/4
+  cis8 8 | dis8 8 | eis8 8 | fis8 8 |
+  gis8 8 | ais8 8 | bis8 8 | cis8 8 |
+}
+
+{
+  \music
+}
+
+{
+  \override Accidental.extra-spacing-height = #'(0 . 1.0)
+  \music
+}
+@end lilypond
+
+The value @code{'(+inf.0 . -inf.0)} for
+@code{extra-@/spacing-@/width} or @code{extra-@/spacing-@/height}
+removes the object's presence.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \time 1/4
+  cis8 8 | dis8 8 | eis8 8 | fis8 8 |
+  gis8 8 | ais8 8 | bis8 8 | cis8 8 |
+}
+
+{
+  \override Accidental.extra-spacing-height = #'(+inf.0 . -inf.0)
+  \music
+}
+@end lilypond
+
+Conversely, an @code{extra-@/spacing-@/height} of @code{'(-inf.0
+. +inf.0)} makes the object infinitely high, preventing overlap
+with another column completely.  The below example demonstrates
+this technique on @code{Accidental} and @code{Metronome@/Mark}.
+In the case of @code{Metronome@/Mark}, it is necessary to set
+@code{extra-@/spacing-@/width} to @code{'(0 . 0)} because the
+default is @code{'(+inf.0 . -inf.0)}, and even an infinitely high
+object does not take space if it has no width.
+
+@lilypond[verbatim,quote]
+{
+  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 0)
+  \override Score.MetronomeMark.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override Accidental.extra-spacing-height = #'(-inf.0 . +inf.0)
+  cis'4 r2.
+  \tempo Presto
+  fis16 8 16 4 \clef alto cis4 fis4
+}
+@end lilypond
+
+@morerefs
+Internals Reference:
+@rinternals{item-interface},
+@rinternals{separation-item-interface}.
 @endmorerefs
 
 
@@ -3761,8 +4064,8 @@ can be moved closer to the staff:
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  For more
-details, see @ref{Changing horizontal spacing}.  The following
-example illustrates the default spacing:
+details, see @ref{Changing horizontal spacing globally}.  The
+following example illustrates the default spacing:
 
 @lilypond[verbatim,quote]
 \score {
@@ -3811,7 +4114,7 @@ block so that it applies to the whole score.
 @morerefs
 Notation Reference:
 @ref{Page layout},
-@ref{Changing horizontal spacing}.
+@ref{Changing horizontal spacing globally}.
 
 Snippets:
 @rlsr{Spacing}.
