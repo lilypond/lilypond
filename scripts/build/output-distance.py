@@ -1251,8 +1251,7 @@ def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float):
 
     data.read_sources()
 
-    if os.path.isdir(dest_dir):
-        system('rm -rf %s ' % dest_dir)
+    shutil.rmtree(dest_dir, ignore_errors=True)
 
     data.write_changed(dest_dir, threshold)
     data.create_html_result_page(dest_dir, threshold)
@@ -1496,13 +1495,13 @@ def run_tests():
     testdir = os.path.join(options.output_dir, 'test-output-distance')
     print('test results in ', testdir)
 
-    system('rm -rf ' + testdir)
+    shutil.rmtree(testdir, ignore_errors=True)
     system('mkdir ' + testdir)
     os.chdir(testdir)
 
     test_basic_compare()
     test_compare_tree_pairs()
-    system('rm -rf ' + testdir)
+    shutil.rmtree(testdir, ignore_errors=True)
 
 
 def main():
