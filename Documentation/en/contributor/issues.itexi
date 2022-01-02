@@ -7,10 +7,9 @@ miscellaneous development tasks.
 
 @menu
 * Introduction to issues::
-* The Bug Squad::
+* Triaging bugs::
 * Issue classification::
 * Adding issues to the tracker::
-* Patch handling::
 * Summary of project status::
 @end menu
 
@@ -24,23 +23,8 @@ ability to run LilyPond.}
 
 The term @q{issues} refers not just to software bugs but also includes
 feature requests, documentation additions and corrections as well as any
-other general code @q{TODOs} that need to be kept track of.
-
-
-@node The Bug Squad
-@section The Bug Squad
-
-@menu
-* Bug Squad setup::
-* Bug Squad checklists::
-@end menu
-
-TODO: This section needs updating since we no longer have a formal bug
-squad at the moment.
-
-To help keep track and organize all issues are a group of tireless
-volunteers collectively known as the @emph{Bug Squad}.  Composed mainly
-of non-programmers, the Bug Squad's responsibilities include:
+other general code @q{TODOs} that need to be kept track of.  Tasks
+revolving around issues include:
 
 @itemize
 
@@ -54,28 +38,9 @@ enough information for the developers to work with, preferably with
 Adding new issues to the @emph{issue tracker} or updating existing
 issues with new information.
 
-@item
-Verifying issues in the @emph{issue tracker} that have been marked
-as @q{fixed}; making sure either that the fix works or (in the case of
-Documentation for example) has at least been commited to the code base.
-
 @end itemize
 
-The @ref{Meisters, Bug Meister} also helps check the current
-@ref{Regression tests} and highlights any significant changes (or
-problems) since the previous LilyPond release.
-
-If you would like to be part of the Bug Squad, please contact the
-@ref{Meisters, Bug Meister}.
-
-
-@node Bug Squad setup
-@subsection Bug Squad setup
-
-We highly recommend that you configure your email client to use some
-kind of sorting and filtering as this will significantly reduce and
-simplify your workload.  Suggested email folder names are mentioned
-below to work when sorted alphabetically.
+To start working on bug triage, follow these steps:
 
 @enumerate
 
@@ -85,9 +50,6 @@ Read every section of the @ref{Issues} chapter in this guide.
 @item
 Subscribe your email account to @code{bug-lilypond}.  See
 @uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}.
-
-@item
-Send your email address to the @ref{Meisters, Bug Meister}.
 
 @item
 Create your own GitLab login (required to manage issues):
@@ -113,49 +75,25 @@ email address) to @email{bug-lilypond@@gnu.org}, asking to be given
 appropriate permissions to manage issues.
 
 @item
-Configure your email client:  Any email sent @code{To:} or @code{CC:} to
+Configure your email client to use some kind of sorting and filtering as
+this will significantly reduce and simplify your workload.  Suggested
+email folder names are mentioned below to work when sorted
+alphabetically.
 
-@example
-bug-lilypond
-@end example
-
-@noindent
-should be configured to go into a @code{bug-current} folder.
+Any email sent @code{To:} or @code{CC:} to @code{bug-lilypond} should be
+configured to go into a @code{bug-current} folder.
 
 @end enumerate
 
 
-@node Bug Squad checklists
-@subsection Bug Squad checklists
-
-When you do Bug Squad work, start at the top of this page and work
-your way down.  Stop when you've done 20 minutes.
-
-Please use the email sorting described in @ref{Bug Squad setup}.
-This means that (as Bug Squad members) you will only ever respond
-to emails sent or CC'd to the @code{bug-lilypond} mailing list.
-
+@node Triaging bugs
+@section Triaging bugs
 
 @subsubheading Emails to you personally
 
-You are not expected to work on Bug Squad matters outside of your
-20 minutes, but sometimes a confused user will send a bug report
-(or an update to a report) to you personally.  If that happens,
-please forward such emails to the @code{bug-lilypond} list so that
-the currently-active Bug Squad member(s) can handle the message.
-
-
-@subsubheading Daily schedule as of July 2015
-
-@example
-Monday: Federico Bruni
-Tuesday: Graham Percival
-Wednesday: Simon Albrecht
-Thursday: Colin Campbell
-Friday: Ralph Palmer
-Saturday: Colin Campbell
-Sunday: Graham Percival
-@end example
+Sometimes a confused user will send a bug report (or an update to a
+report) to you personally.  If that happens, please forward such emails
+to the @code{bug-lilypond} list.
 
 
 @subsubheading Emails to @code{bug-answers}
@@ -251,7 +189,7 @@ discussion and be notified about fixes here:
 @end example
 
 @noindent
-(copy+paste the google code issue URL)
+(copy+paste the GitLab issue URL)
 
 @item
 Accept the report as described in
@@ -495,8 +433,8 @@ follow the guidelines for @rweb{Bug reports}.}
 
 @item
 Check if the issue falls into any previous category given on the
-relevant checklists in @ref{Bug Squad checklists}.  If in doubt,
-add a new issue for a report.  We would prefer to have some
+relevant checklists in @ref{Triaging bugs}.  If in doubt, add a
+new issue for a report.  We would prefer to have some
 incorrectly-added issues rather than lose information that should
 have been added.
 
@@ -568,20 +506,9 @@ email should contain a link to the issue you just added.
 
 @end enumerate
 
-
-@node Patch handling
-@section Patch handling
-
-@warning{This is not a Bug Squad responsibility; we have a
-separate person handling this task.}
-
-For contributors/developers: follow the steps in
-@ref{Lifecycle of a merge request}.
-
-@ignore
-For people doing maintenance tasks: A bot is adding Patch::new, James
-is testing patches and managing the Patch countdown.
-@end ignore
+If patches are sent to the bug list, please submit them via GitLab
+(or help the author to do so). Alternatively, if discussion is
+needed, forward the patch to @code{lilypond-devel}.
 
 
 @node Summary of project status
