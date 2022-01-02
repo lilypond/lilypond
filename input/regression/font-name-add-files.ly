@@ -1,10 +1,11 @@
 \header {
 
   texidoc = "External fonts may be used without being installed on the
-operating system, by loading either a specific font file or a directory
-that contains font files.  In this example two logos should be printed,
-rather than a letter glyph."
+operating system, by loading either a specific font file or a
+directory that contains font files.  In this example two logos ('GPL'
+and 'GFDL') should be printed, rather than letter glyphs."
 
+  tagline = ##f
 }
 
 \version "2.18.0"
@@ -22,20 +23,11 @@ rather than a letter glyph."
 %% deserving a visual diff.
 #(ly:set-option 'dump-signatures #f)
 
+%% We want the logo font embedded into output, so we the test result
+%% is self-contained.
+#(ly:set-option 'gs-load-fonts #f)
 
-%% tmpnam is deprecated.  We could get away with using mkstemp! only,
-%% but since there's no mkdtemp in Guile, we need to fiddle with
-%% filename strings anyway:
-
-tmpdir = #(or (getenv "TMPDIR") "/tmp")
-
-dummyname = #(port-filename (mkstemp! (string-append tmpdir "/" "dummyfont-XXXXXX")))
-
-dummyfontfile = #(string-append dummyname "-font.otf")
-dummyfontdir = #(string-append dummyname "-dir")
-dummyfontfileInSubdir = #(string-append dummyfontdir "/" "font.otf")
-
-dummyfont = "
+gplLogoFont = "
 T1RUTwAKAIAAAwAgQ0ZGIE5UIR0AAAUAAAAD2kZGVE2PvFSrAAAI3AAAABxPUy8yV+hiwAAAARAA
 AABgY21hcAANAugAAAOcAAABQmhlYWQaNWE/AAAArAAAADZoaGVhCBUFxAAAAOQAAAAkaG10eAm0
 AGMAAAj4AAAACG1heHAAAlAAAAABCAAAAAZuYW1lH80HAQAAAXAAAAIrcG9zdP+4ADIAAATgAAAA
@@ -78,7 +70,7 @@ fYZ8hX58a3VwcnJNTj5VOWRgd115W4N7iHuKe4sIhYuHiwV0i3KQdpd3ln2fhKCLjIqLi4yLkJCO
 j4uOi4+KjIcIDvp8FBwFYRV3n/i1iwaLDAqLjJuQp5PElPAMDJsLm5cMDQAAAAAAAQAAAADabjaA
 AAAAANqmcOcAAAAA2qetQwPoADIFzAAx"
 
-dummyfontAlt = "
+gfdlLogoFont = "
 T1RUTwAKAIAAAwAgQ0ZGIH4FALoAAAVEAAAEUEZGVE2PvFQcAAAJlAAAABxPUy8yWBlixAAAARAA
 AABgY21hcAANAugAAAPgAAABQmhlYWQaBGDXAAAArAAAADZoaGVhCBsFlwAAAOQAAAAkaG10eAsu
 AHcAAAmwAAAACG1heHAAAlAAAAABCAAAAAZuYW1li6hnNgAAAXAAAAJwcG9zdP+4ADMAAAUkAAAA
@@ -217,52 +209,53 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
        (set! byte #f))))
     #t))
 
-\header { tagline = #f }
-
-%% Write minimal OTF files.
-
-\book {
-
-#(let* ((port (open-output-file dummyfontfile)))
-  (cond-expand
+#(define (dump-base64 name content)
+  (let* ((port (open-output-file name)))
+   (cond-expand
     (guile-2 (set-port-encoding! port "ISO-8859-1"))
     (else))
-  (base64-decode port dummyfont)
-  (close port))
+   (base64-decode port content)
+   (close port)))
 
-#(ly:font-config-add-font dummyfontfile)
+#(define (my-tmpnam)
+  "like tmpnam but not deprecated"
+  (format #f "~a/font-name-add-file-~a" (or (getenv "TMPDIR") "/tmp") (random 1000000)))
 
-\markup \fontsize #20 \override #'(font-name . "DummyGPL") "A"
+#(define temp-dir (my-tmpnam))
+#(define subdir (string-append temp-dir "/subdir"))
 
-#(mkdir dummyfontdir)
+#(let*
+  ((fontfile (string-append temp-dir "/gpl-logo-font.otf" )))
+  
+  (mkdir temp-dir) ;; will error out if it already exists.
+  (mkdir subdir)
+  
+  (dump-base64 fontfile gplLogoFont)
+  (ly:font-config-add-font fontfile)
 
-#(let* ((port (open-output-file dummyfontfileInSubdir)))
-   (base64-decode port dummyfontAlt)
-   (close port))
-
-#(ly:font-config-add-directory dummyfontdir)
-
-\markup \fontsize #20 \override #'(font-name . "DummyGFDL") "A"
-}
-
-%% This will not appear in collated files:
+  (dump-base64 (string-append subdir "/gfdl-logo.otf") gfdlLogoFont)
+  (ly:font-config-add-directory subdir))
 
 \book {
-  #(delete-file dummyname)
-  #(delete-file dummyfontfile)
-  %% Cleaning up the whole directory content,
-  %% in case fontconfig or anything else
-  %% may have left behind unwanted files.
-  #(let ((dir (opendir dummyfontdir)))
-     (do ((f (readdir dir) (readdir dir)))
-       ((eof-object? f))
-       (or (equal? "." f) (equal? ".." f)
-           (delete-file (string-append dummyfontdir "/" f)))))
-  #(rmdir dummyfontdir)
-  \markup { These files and directories should have been removed:}
-  \markup \left-column {
-    \line {- #dummyfontfile }
-    \line {- #dummyfontfileInSubdir }
-    \line {- #dummyfontdir }
+  \markup {
+    GPL logo: \fontsize #20 \override #'(font-name . "DummyGPL") "A"
+  }
+  \markup {
+    GFDL logo: \fontsize #20 \override #'(font-name . "DummyGFDL") "A"
   }
 }
+
+#(define (clear-dir dirname)
+  (let*
+   ((dir (opendir dirname)))
+   (do ((f (readdir dir) (readdir dir)))
+    ((eof-object? f))
+    (or (equal? "." f) (equal? ".." f)
+     (delete-file (string-append dirname "/" f))))
+   (closedir dir)))
+
+#(begin
+  (clear-dir subdir)
+  (rmdir subdir)
+  (clear-dir temp-dir)
+  (rmdir temp-dir))
