@@ -163,20 +163,15 @@ Text_interface::interpret_string (SCM layout_smob,
 
   // The font-features value is stored in a scheme list. This joins the entries
   // with commas for processing with pango.
-  string features_str = string ();
+  string features_str;
   if (scm_is_pair (features))
     {
-      bool first = true;
       for (SCM s = features; scm_is_pair (s); s = scm_cdr (s))
         {
           SCM feature = scm_car (s);
           if (scm_is_string (feature))
             {
-              if (first)
-                {
-                  first = false;
-                }
-              else
+              if (!features_str.empty ())
                 {
                   features_str += ",";
                 }
