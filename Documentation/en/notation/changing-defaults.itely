@@ -3229,14 +3229,14 @@ or a @code{\tweak} of a spanner property.
 The syntax for @code{\alterBroken} is
 
 @example
-[-]\alterBroken @var{property} @var{values} @var{item}
+[-]\alterBroken @var{property} @var{values} @var{target}
 @end example
 
 @noindent
 The argument @var{values} is a list of values, one for each broken
-piece.  If @var{item} is a grob name like @code{Slur} or
+piece.  If @var{target} is a grob name like @code{Slur} or
 @code{Staff.PianoPedalBracket}, the result is an @code{\override}
-of the specified grob type.  If @var{item} is a music expression
+of the specified grob type.  If @var{target} is a music expression
 such as @samp{(} or @samp{[} the result is the same music
 expression with an appropriate tweak applied.
 
