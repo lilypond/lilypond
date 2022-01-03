@@ -67,7 +67,7 @@ Spaceable_grob::add_rod (Paper_column *me, Paper_column *p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
+Spaceable_grob::add_spring (Grob *me, Grob *other, Spring const &sp)
 {
   SCM ideal = get_object (me, "ideal-distances");
 
