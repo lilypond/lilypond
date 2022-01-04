@@ -149,30 +149,25 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           else
             programming_error ("Column without spacing object");
 
-          Real base_note_space = 0.0;
-          Real tight_note_space = 0.0;
-
+          Spring spring;
           if (Paper_column::is_musical (next_col)
               && Paper_column::is_musical (loose_col))
             {
-              Spring spring = Spacing_spanner::note_spacing (spacing, loose_col,
-                                                             next_col, &options);
               if (has_interface<Note_spacing> (spacing))
                 spring = Note_spacing::get_spacing (spacing, next_col,
                                                     spring, options.increment_);
-
-              base_note_space = spring.ideal_distance ();
-              tight_note_space = spring.min_distance ();
+              else
+                spring = Spacing_spanner::note_spacing (spacing, loose_col,
+                                                        next_col, &options);
             }
           else
             {
-              Spring spring = Spacing_spanner::standard_breakable_column_spacing (spacing,
-                              loose_col, next_col,
-                              &options);
-
-              base_note_space = spring.ideal_distance ();
-              tight_note_space = spring.min_distance ();
+              spring = Spacing_spanner::standard_breakable_column_spacing (
+                spacing, loose_col, next_col, &options);
             }
+
+          Real base_note_space = spring.ideal_distance ();
+          Real tight_note_space = spring.min_distance ();
 
           Real loose_col_horizontal_length = loose_col->extent (loose_col, X_AXIS).length ();
           base_note_space = std::max (base_note_space, loose_col_horizontal_length);
