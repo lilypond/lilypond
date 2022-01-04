@@ -161,7 +161,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
                 spring = Note_spacing::get_spacing (spacing, next_col,
                                                     spring, options.increment_);
 
-              base_note_space = spring.distance ();
+              base_note_space = spring.ideal_distance ();
               tight_note_space = spring.min_distance ();
             }
           else
@@ -170,7 +170,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
                               loose_col, next_col,
                               &options);
 
-              base_note_space = spring.distance ();
+              base_note_space = spring.ideal_distance ();
               tight_note_space = spring.min_distance ();
             }
 

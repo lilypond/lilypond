@@ -25,35 +25,43 @@
 
 #include <vector>
 
+/*
+  A spring changes length according to force, according to the formula
+
+  length = max(ideal_distance_ + (force * inverse_strength), min_distance)
+
+  inverse_strength can be set differently for stretching/compressing.
+ */
 class Spring : public Simple_smob<Spring>
 {
 public:
   static SCM equal_p (SCM, SCM);
   static const char *const type_p_name_;
 private:
-  Real distance_;
+  // parameters
+  Real ideal_distance_;
   Real min_distance_;
-
   Real inverse_stretch_strength_;
   Real inverse_compress_strength_;
 
+  // derived data.
   Real blocking_force_;
 
   void update_blocking_force ();
 
 public:
   Spring ();
-  Spring (Real distance, Real min_distance);
+  Spring (Real ideal_distance, Real min_distance);
 
-  Real distance () const {return distance_;}
-  Real min_distance () const {return min_distance_;}
-  Real inverse_stretch_strength () const {return inverse_stretch_strength_;}
-  Real inverse_compress_strength () const {return inverse_compress_strength_;}
-  Real blocking_force () const {return blocking_force_;}
+  Real ideal_distance () const { return ideal_distance_; }
+  Real min_distance () const { return min_distance_; }
+  Real inverse_stretch_strength () const { return inverse_stretch_strength_; }
+  Real inverse_compress_strength () const { return inverse_compress_strength_; }
+  Real blocking_force () const { return blocking_force_; }
 
-  Real length (Real f) const;
+  Real length (Real force) const;
 
-  void set_distance (Real);
+  void set_ideal_distance (Real);
   void set_min_distance (Real);
   void ensure_min_distance (Real);
   void set_inverse_stretch_strength (Real);

@@ -657,7 +657,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
                 {
                   Real dy = scm_to_double (scm_car (manual_dists));
 
-                  springs_.back ().set_distance (dy);
+                  springs_.back ().set_ideal_distance (dy);
                   springs_.back ().set_min_distance (dy);
                   springs_.back ().set_inverse_stretch_strength (0);
                 }
@@ -705,7 +705,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
     {
       spring_copy.set_min_distance (minimum_distance);
       spring_copy.set_inverse_stretch_strength (0.0);
-      spring_copy.set_distance (0.0);
+      spring_copy.set_ideal_distance (0.0);
     }
   else
     spring_copy.ensure_min_distance (minimum_distance + padding);
@@ -1244,7 +1244,7 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring *spring)
   Real stretch;
   Real min_dist;
   if (read_spacing_spec (spec, &space, ly_symbol2scm ("basic-distance")))
-    spring->set_distance (space);
+    spring->set_ideal_distance (space);
   if (read_spacing_spec (spec, &min_dist, ly_symbol2scm ("minimum-distance")))
     spring->set_min_distance (min_dist);
   spring->set_default_strength ();

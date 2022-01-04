@@ -313,9 +313,8 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM number_markup
-        = ly_string2scm (String_convert::form_string ("%5.2lf",
-                                                      sp->distance ()));
+      SCM number_markup = ly_string2scm (
+        String_convert::form_string ("%5.2lf", sp->ideal_distance ()));
       auto number_stc = Text_interface::interpret_markup (me->layout (),
                                                           properties,
                                                           number_markup);
@@ -328,13 +327,13 @@ Paper_column::print (SCM p)
       Real y = -2.5;
       y -= j * (num_height + small_pad + big_pad);
       // horizontally center number on the arrow, excluding arrowhead.
-      Offset num_off = Offset ((sp->distance () - num_len - head_len) / 2,
+      Offset num_off = Offset ((sp->ideal_distance () - num_len - head_len) / 2,
                                y + small_pad);
 
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
-      Offset p2 (sp->distance (), y);
+      Offset p2 (sp->ideal_distance (), y);
       pts.push_back (p2);
 
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);

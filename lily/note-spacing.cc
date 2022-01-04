@@ -75,7 +75,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     note head (or the rest). For example, a quarter rest gets almost 0.5 ss
     less horizontal space than a note.
   */
-  Real ideal = base.distance () - increment + left_head_end;
+  Real ideal = base.ideal_distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
   Real distance = skys[LEFT].distance (skys[RIGHT], from_scm<double> (get_property (right_col, "skyline-vertical-padding"), 0.0));
   Real min_dist = std::max (0.0, distance);
@@ -105,7 +105,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
   stem_dir_correction (me, right_col, increment, &ideal);
 
-  base.set_distance (std::max (0.0, ideal));
+  base.set_ideal_distance (std::max (0.0, ideal));
   return base;
 }
 

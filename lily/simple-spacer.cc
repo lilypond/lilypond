@@ -155,9 +155,10 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
         for (vsize i = l; i < r; i++)
           {
             if (spring_dist)
-              springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+              springs_[i].set_ideal_distance (springs_[i].ideal_distance ()
+                                              * dist / spring_dist);
             else
-              springs_[i].set_distance (dist / static_cast<Real> (r - l));
+              springs_[i].set_ideal_distance (dist / static_cast<Real> (r - l));
           }
 
       return;
@@ -181,7 +182,7 @@ Simple_spacer::range_ideal_len (vsize l, vsize r) const
 {
   Real d = 0.;
   for (vsize i = l; i < r; i++)
-    d += springs_[i].distance ();
+    d += springs_[i].ideal_distance ();
   return d;
 }
 

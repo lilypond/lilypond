@@ -420,10 +420,10 @@ Spacing_spanner::musical_column_spacing (Grob *me,
          should be fixed in the ligature-engravers. --jneem
       */
       if (Paper_column::is_extraneous_column_from_ligature (left_col))
-        spring.set_distance (spring.min_distance ());
+        spring.set_ideal_distance (spring.min_distance ());
       else
-        spring.set_distance (std::max (left_col->extent (left_col, X_AXIS)[RIGHT],
-                                       spring.min_distance ()));
+        spring.set_ideal_distance (std::max (
+          left_col->extent (left_col, X_AXIS)[RIGHT], spring.min_distance ()));
 
       spring.set_inverse_stretch_strength (1.0);
     }
