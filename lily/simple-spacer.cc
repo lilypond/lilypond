@@ -96,7 +96,7 @@ Simple_spacer::fits () const
    rod distance as possible without being less than it.
 */
 Real
-Simple_spacer::heuristic_rod_force (vsize l, vsize r, Real dist)
+Simple_spacer::heuristic_rod_force (vsize l, vsize r, Real dist) const
 {
   Real ideal_length = range_ideal_len (l, r);
   Real stiffness = range_stiffness (l, r, dist > ideal_length);
@@ -152,15 +152,19 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
     {
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
-        for (vsize i = l; i < r; i++)
-          {
-            if (spring_dist)
-              springs_[i].set_ideal_distance (springs_[i].ideal_distance ()
-                                              * dist / spring_dist);
-            else
-              springs_[i].set_ideal_distance (dist / static_cast<Real> (r - l));
-          }
+        {
+          Real factor = spring_dist > 0.0 ? dist / spring_dist
+                                          : dist / static_cast<Real> (r - l);
 
+          for (vsize i = l; i < r; i++)
+            {
+              if (spring_dist > 0)
+                springs_[i].set_ideal_distance (springs_[i].ideal_distance ()
+                                                * factor);
+              else
+                springs_[i].set_ideal_distance (factor);
+            }
+        }
       return;
     }
   force_ = std::max (force_, block_force);
@@ -200,11 +204,7 @@ Simple_spacer::range_stiffness (vsize l, vsize r, bool stretch) const
 Real
 Simple_spacer::configuration_length (Real force) const
 {
-  Real l = 0.;
-  for (vsize i = 0; i < springs_.size (); i++)
-    l += springs_[i].length (force);
-
-  return l;
+  return range_len (0, springs_.size (), force);
 }
 
 void
@@ -327,6 +327,7 @@ Simple_spacer::spring_positions () const
 
   for (vsize i = 0; i < springs_.size (); i++)
     ret.push_back (ret.back () + springs_[i].length (ragged_ && force_ > 0 ? 0.0 : force_));
+
   return ret;
 }
 
