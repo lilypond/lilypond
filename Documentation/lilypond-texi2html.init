@@ -18,6 +18,7 @@
 ###    is added to every page; implemented by:
 ###           lilypond_print_page_head -- start <div id="main">
 ###           lilypond_print_page_foot -- closing id=main, output of footer & TOC
+### -) Internal refs are formatted without the 'section ' prefix.
 ### -) External refs are formatted only as "Text of the node" (not as >>see
 ###    "NODE" section "SECTION" in "BOOK"<< like with default texi2html). Also,
 ###    the leading "(book-name)" is removed.
@@ -161,6 +162,8 @@ $Texi2HTML::Config::print_page_foot      = \&lilypond_print_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
 $Texi2HTML::Config::print_title          = \&lilypond_print_title;
 $Texi2HTML::Config::about_body           = sub { return ''; };
+$default_internal_ref = $Texi2HTML::Config::internal_ref;
+$Texi2HTML::Config::internal_ref         = \&lilypond_internal_ref;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $default_external_href = $Texi2HTML::Config::external_href;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
@@ -576,6 +579,36 @@ sub lilypond_bodytext ()
   $Texi2HTML::Config::BODYTEXT = $bodytext;
 }
 push @Texi2HTML::Config::command_handler_process, \&lilypond_bodytext;
+
+
+#############################################################################
+###  CLEANER LINK TITLE FOR INTERNAL REFS
+#############################################################################
+
+# Never use 'section ' as a prefix to the link text.
+#
+# Ideally, we would like to simply use command line option `--short-ref`
+# instead of providing a customized handler.  Unfortunately, this option
+# drops formatting stuff like `<code>` in link texts, so we take a different
+# route by setting `$is_section` to false, which has the desired effect.
+
+sub lilypond_internal_ref($$$$$$$)
+{
+    my $type = shift;
+    my $href = shift;
+    my $short_name = shift;
+    my $name = shift;
+    my $is_section = shift;
+
+    $is_section = 0;
+
+    my $args_texi = shift;
+    my $formatted_args = shift;
+
+    return &$default_internal_ref ($type, $href, $short_name, $name,
+                                   $is_section, $args_texi, $formatted_args);
+}
+
 
 #############################################################################
 ###  CLEANER LINK TITLE FOR EXTERNAL REFS
