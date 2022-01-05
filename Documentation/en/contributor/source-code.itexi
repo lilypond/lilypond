@@ -365,6 +365,16 @@ members who can merge to the target branch}.  This makes it possible
 for somebody with permissions to rebase your changes and merge them
 for you.  Please refer to @ref{Merging to master} for more details.
 
+@warning{When commenting on GitLab, be careful if you talk about
+Texinfo markup.  An @samp{@@} sign is taken as introducing a
+mention.  If you leave it without special markup, @samp{@@foo}
+makes the person who has @code{foo} as a GitLab username receive
+unsolicited notifications.  To avoid this, enclose the markup in
+backticks: @code{`@@lilypond`}.  For code suggestions, there is
+also a dedicated feature, see
+@uref{https://docs.gitlab.com/ee/user/project/merge_requests/reviews/suggestions.html,
+the GitLab documentation} for information.}
+
 
 @node Automated testing
 @subsection Automated testing
