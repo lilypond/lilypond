@@ -654,27 +654,15 @@ System::get_paper_system ()
       tail = SCM_CDRLOC (*tail);
     }
 
-  if (auto *me = get_stencil ())
-    exprs = scm_cons (me->expr (), exprs);
+  Stencil me = get_print_stencil ();
+  if (!scm_is_null (me.expr ()))
+    exprs = scm_cons (me.expr (), exprs);
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Stencil sys_stencil (Box (x, y),
                        scm_cons (ly_symbol2scm ("combine-stencil"),
                                  exprs));
-  if (debug_skylines)
-    {
-      Skyline_pair *skylines = unsmob<Skyline_pair> (get_property (this, "vertical-skylines"));
-      if (skylines)
-        {
-          Stencil up
-            = Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS));
-          Stencil down
-            = Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS));
-          sys_stencil.add_stencil (up.in_color (1.0, 0.0, 0.0));
-          sys_stencil.add_stencil (down.in_color (0.0, 1.0, 0.0));
-        }
-    }
 
   Paper_column *left_bound = get_bound (LEFT);
   SCM prop_init = get_property (left_bound, "line-break-system-details");

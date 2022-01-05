@@ -184,31 +184,6 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;
 }
 
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Separation_item, print, 1,
-                                 "Optional stencil for @code{PaperColumn} or"
-                                 " @code{NonMusicalPaperColumn}."
-                                 "  This function draws @code{horizontal-skylines} of each"
-                                 " @code{PaperColumn}, showing the shapes used"
-                                 " to determine the minimum distances between"
-                                 " @code{PaperColumns} at the note spacing step,"
-                                 " before staves have been spaced (vertically)"
-                                 " on the page.")
-SCM
-Separation_item::print (SCM smob)
-{
-  if (!debug_skylines)
-    return SCM_BOOL_F;
-
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Stencil ret;
-  if (Skyline_pair *s = unsmob<Skyline_pair> (get_property (me, "horizontal-skylines")))
-    {
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS)).in_color (1.0, 1.0, 0.0));
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS)).in_color (0.0, 1.0, 1.0));
-    }
-  return ret.smobbed_copy ();
-}
-
 ADD_INTERFACE (Separation_item,
                R"(
 Item that computes widths to generate spacing rods.

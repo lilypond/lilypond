@@ -168,6 +168,13 @@
   (pretty-print (grob::all-objects grob))
   (newline))
 
+(define-public (grob::show-skylines-if-debug-skylines-set grob)
+  ;; It looks like the default can be set to this
+  ;; value directly, but that wouldn't work when
+  ;; using ly:set-option in the file.
+  (ly:get-option 'debug-skylines))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 

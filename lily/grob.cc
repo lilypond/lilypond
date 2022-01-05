@@ -24,11 +24,13 @@
 #include "input.hh"
 #include "international.hh"
 #include "item.hh"
+#include "lookup.hh"
 #include "misc.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "program-option.hh"
+#include "skyline-pair.hh"
 #include "stencil.hh"
 #include "stream-event.hh"
 #include "system.hh"
@@ -202,7 +204,30 @@ Grob::get_print_stencil () const
         }
 
     }
-
+  auto &&add_skylines = [&retval] (Axis a, SCM skyp_scm) {
+    if (Skyline_pair *skyp = unsmob<Skyline_pair> (skyp_scm))
+      {
+        for (Direction d : {LEFT, RIGHT})
+          {
+            const vector<Offset> &points = (*skyp)[d].to_points (other_axis (a));
+            Stencil sky_stil = Lookup::points_to_line_stencil (0.1, points);
+            Stencil colored_stil;
+            if (a == X_AXIS && d == LEFT)
+              colored_stil = sky_stil.in_color (1.0, 1.0, 0.0);
+            else if (a == X_AXIS && d == RIGHT)
+              colored_stil = sky_stil.in_color (0.0, 1.0, 0.0);
+            else if (a == Y_AXIS && d == DOWN)
+              colored_stil = sky_stil.in_color (0.0, 1.0, 1.0);
+            else
+              colored_stil = sky_stil.in_color (1.0, 0.0, 1.0);
+            retval.add_stencil (colored_stil);
+          }
+      }
+  };
+  if (from_scm<bool> (get_property (this, "show-horizontal-skylines")))
+    add_skylines (X_AXIS, get_property (this, "horizontal-skylines"));
+  if (from_scm<bool> (get_property (this, "show-vertical-skylines")))
+    add_skylines (Y_AXIS, get_property (this, "vertical-skylines"));
   return retval;
 }
 
@@ -813,6 +838,8 @@ parenthesis-friends
 parenthesized
 pure-Y-offset-in-progress
 rotation
+show-horizontal-skylines
+show-vertical-skylines
 skyline-horizontal-padding
 springs-and-rods
 staff-symbol

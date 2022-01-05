@@ -66,6 +66,26 @@ which scares away people.
 @end ignore
 
 @item
+The new @code{show-horizontal-skylines} and
+@code{show-vertical-skylines} properties allow to display an
+object's skylines.  This is more flexible than the already
+existing @code{debug-skylines} option because it works for all
+grobs.  While primarily meant for debugging LilyPond, this can be
+useful when trying to understand spacing decisions or overriding
+stencils in Scheme.
+
+@lilypond
+#(set-global-staff-size 40)
+
+{
+  \override Staff.Clef.show-vertical-skylines = ##t
+  \override Accidental.show-horizontal-skylines = ##t
+  cis'
+}
+@end lilypond
+
+
+@item
 Balloons now have changeable formatting.
 
 @lilypond

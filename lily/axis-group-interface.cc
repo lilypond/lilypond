@@ -25,7 +25,6 @@
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "interval-set.hh"
-#include "lookup.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
@@ -966,25 +965,6 @@ Axis_group_interface::skyline_spacing (Grob *me)
   skylines.shift (-me->relative_coordinate (x_common, X_AXIS));
 
   return skylines;
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, print, 1)
-SCM
-Axis_group_interface::print (SCM smob)
-{
-  if (!debug_skylines)
-    return SCM_BOOL_F;
-
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Stencil ret;
-  if (Skyline_pair *s = unsmob<Skyline_pair> (get_property (me, "vertical-skylines")))
-    {
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS))
-                       .in_color (1.0, 0.0, 1.0));
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS))
-                       .in_color (0.0, 1.0, 1.0));
-    }
-  return ret.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing, 3)

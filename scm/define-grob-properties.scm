@@ -950,6 +950,10 @@ shortest note that starts here.")
      (show-control-points ,boolean? "For grobs printing Bézier
 curves, setting this property to true causes the control points
 and control polygon to be drawn on the page for ease of tweaking.")
+     (show-horizontal-skylines ,boolean? "If true, print this
+grob's horizontal skylines.  This is meant for debugging purposes.")
+     (show-vertical-skylines ,boolean? "If true, print this
+grob's vertical skylines.  This is meant for debugging purposes.")
      (side-axis ,number? "If the value is @code{X} (or
 equivalently@tie{}@code{0}), the object is placed horizontally next to
 the other object.  If the value is @code{Y} or@tie{}@code{1}, it is
