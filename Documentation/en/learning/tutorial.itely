@@ -27,15 +27,16 @@ This chapter gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @section Compiling a file
 
-This section introduces @qq{compiling}---the processing of
+This section introduces @qq{compiling} -- the processing of
 LilyPond input files (written by you) to produce output files.
 
 @menu
 * Entering input::
 * MacOS X::
 * Windows::
-* Command-line::
+* Command line::
 @end menu
+
 
 @node Entering input
 @subsection Entering input
@@ -63,9 +64,10 @@ This example shows a simple input file:
 @}
 @end example
 
+@noindent
 The graphical output is:
 
-@c  in this case we don't want verbatim
+@c No 'verbatim' option here.
 @lilypond[quote]
 {
   c' e' g' e'
@@ -81,8 +83,8 @@ in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the manuals}.}
 
 In addition, LilyPond input is @strong{case sensitive}.
-@w{@samp{@{ c d e @}}} is valid input; @w{@samp{@{ C D E @}}} will
-produce an error message.
+@w{@samp{@{ c d e @}}} is valid input; @w{@samp{@{ C D E @}}}
+produces an error message.
 
 
 @smallspace
@@ -100,20 +102,25 @@ and the program(s) you use.
 @itemize
 
 @item
+@ifhtml
 @ref{MacOS X, @sourceimage{logo-macosx,,}}
+@end ifhtml
 @ref{MacOS X, MacOS X} (graphical)
 
 @item
+@ifhtml
 @ref{Windows, @sourceimage{logo-windows,,}}
+@end ifhtml
 @ref{Windows, Microsoft Windows} (graphical)
 
 @item
-@ref{Command-line, @sourceimage{logo-linux,,}
+@ifhtml
+@ref{Command line, @sourceimage{logo-linux,,}
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Command-line, All operating systems} (command-line)
+@sourceimage{logo-windows,,}}
+@end ifhtml
+@ref{Command line, All operating systems} (command line)
 
 @end itemize
 
@@ -144,13 +151,14 @@ first.  After this, LilyPond will be much faster!}
 @lilypadWindows
 
 
-@node Command-line
-@subsection Command-line
+@node Command line
+@subsection Command line
 
 @cindex running LilyPond under Unix
 @cindex Unix, running LilyPond
 
 @lilypadCommandLine
+
 
 @node How to write input files
 @section How to write input files
@@ -180,9 +188,9 @@ started writing input files.
 * All together::
 @end menu
 
-LilyPond will add some notation elements automatically.  In the
-next example, we have only specified four pitches, but LilyPond
-has added a clef, time signature, and rhythms.
+LilyPond adds some notation elements automatically.  In the next
+example, we have only specified four pitches, but LilyPond has
+added a clef, a time signature, and rhythms.
 
 @lilypond[verbatim,quote]
 {
@@ -213,25 +221,25 @@ Music Glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
-LilyPond uses lower-case letters for pitches.
-Note names in all examples in this section use the Dutch
-naming system (white piano keys are c-b).  However, LilyPond
-does support many different naming schemes like English or
-@q{Fixed-Do} (do-re-mi-...).
-See @ruser{Note names in other languages}.
-The letters @code{c} through@tie{}@code{b} denote pitches in the
-@q{small octave} below @notation{middle C}.  Added @code{'}
-or@tie{}@code{,} suffixes indicate higher or lower octaves.
-Here is a scale starting on @notation{middle C}, and an arpeggio:
+LilyPond uses lowercase letters for pitches.  Note names in all
+examples in this section use the Dutch naming system (white piano
+keys are c, d, e, f, g, a,@tie{}b).  However, LilyPond supports
+many different naming schemes like @q{English} or @q{Fixed-Do}
+(do, re, mi, @dots{}).  See @ruser{Note names in other languages}.
+The letters @samp{c} through @samp{b} denote pitches in the
+@q{small octave} below @notation{middle C}.  Added @samp{'} or
+@samp{,} suffixes indicate higher or lower octaves.  Here is a
+scale starting on @notation{middle C}, and an arpeggio:
 
 @lilypond[verbatim,quote]
-{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+{ c' d' e' f' g' a' b' c''
+  g c' e' g' c'' e'' g'' c''' }
 @end lilypond
 
 The easiest way to enter notes is by using @code{\relative} mode.
-In this mode, the octave is chosen automatically by assuming the
-following note is always to be placed closest to the previous
-note, i.e., it is to be placed in the octave which is within three
+In this mode, the octave is chosen automatically by assuming that
+the following note is always to be placed closest to the previous
+note, i.e., it is to be placed in the octave that is within three
 staff spaces of the previous note.  We begin by entering the most
 elementary piece of music, a @notation{scale}, in which every note
 is within just one staff space of the previous note.
@@ -243,12 +251,13 @@ is within just one staff space of the previous note.
 }
 @end lilypond
 
+@noindent
 The initial note is @notation{middle C}, denoted by @code{c'}.
-Each successive note is
-placed closest to the previous note -- in other words, the first
-@code{c} is the closest C to middle C.  This is followed by the
-closest D to the previous note.  We can create melodies which have
-larger intervals, still using only @code{\relative} mode:
+Each successive note is placed closest to the previous note -- in
+other words, the first @samp{c} is the closest@tie{}C to
+middle@tie{}C.  This is followed by the closest@tie{}D to the
+previous note.  We can create melodies that have larger intervals,
+still using only relative mode:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -259,11 +268,11 @@ larger intervals, still using only @code{\relative} mode:
 
 @noindent
 In the previous example, the first note -- the @code{d'} with one
-@code{'}-mark -- is the D in the octave starting from middle C
-and going up to B.
+@samp{'} mark -- is the D in the octave starting from
+middle@tie{}C and going up to@tie{}B.
 
-By adding (or removing) quotes @code{'} or commas @code{,} from
-the first note, we can change the starting octave:
+By adding (or removing) quotes (@samp{'}) or commas (@samp{,})
+from the first note, we can change the starting octave:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -273,11 +282,12 @@ the first note, we can change the starting octave:
 
 Relative mode can be confusing initially, but is the easiest way
 to enter most melodies.  Let us see how this relative calculation
-works in practice.  Starting from a B, which is on the middle line
-in a treble clef, you can reach a C, D and E within 3 staff spaces
-going up, and an A, G and F within 3 staff spaces going down.  So
-if the note following a B is a C, D or E it will be assumed to be
-above the B, and an A, G or F will be assumed to be below.
+works in practice.  Starting from a@tie{}B, which is on the middle
+line in a treble clef, you can reach a C, D and@tie{}E within
+3@tie{}staff spaces going up, and an A, G and@tie{}F within
+3@tie{}staff spaces going down.  So if the note following a@tie{}B
+is a C, D or@tie{}E it is assumed to be above the@tie{}B, and an
+A, G or@tie{}F is assumed to be below.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -292,14 +302,14 @@ above the B, and an A, G or F will be assumed to be below.
 
 Exactly the same happens even when any of these notes are
 sharpened or flattened.  @notation{Accidentals} are
-@strong{totally ignored} in the calculation of relative position.
-Precisely the same staff space counting is done from a note at any
-other position on the staff.
+@strong{totally ignored} in the calculation of the relative
+position.  Precisely the same staff space counting is done from a
+note at any other position on the staff.
 
 To add intervals that are larger than three staff spaces, we can
-raise the @notation{octave} by adding a single quote @code{'} (or
+raise the @notation{octave} by adding a single quote @samp{'} (or
 apostrophe) to the note name.  We can lower the octave by adding a
-comma @code{,} to the note name.
+comma @samp{,} to the note name.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -311,8 +321,9 @@ comma @code{,} to the note name.
 @noindent
 To change a note by two (or more!) octaves, we use multiple
 @code{''} or @code{,,} -- but be careful that you use two single
-quotes @code{''} and not one double quote @code{"}@tie{}!
+quotes @code{''} and not one double quote @samp{"}!
 @c " - keeps quotes in order for context-sensitive editor -td
+
 
 @node Durations (rhythms)
 @unnumberedsubsubsec Durations (rhythms)
@@ -331,8 +342,8 @@ Music Glossary: @rglos{beam}, @rglos{duration},
 @rglos{dotted note}.
 
 The @notation{duration} of a note is specified by a number after
-the note name:  @code{1} for a @notation{whole note}, @code{2} for
-a @notation{half note}, @code{4} for a @notation{quarter note} and
+the note name: @samp{1} for a @notation{whole note}, @samp{2} for
+a @notation{half note}, @samp{4} for a @notation{quarter note} and
 so on.  @notation{Beams} are added automatically.
 
 If you do not specify a duration, the previous duration is used
@@ -347,7 +358,7 @@ quarter note.
 }
 @end lilypond
 
-To create @notation{dotted notes}, add a dot @code{.} to the
+To create @notation{dotted notes}, add a dot (@samp{.}) to the
 duration number.  The duration of a dotted note must be stated
 explicitly (i.e., with a number).
 
@@ -358,6 +369,7 @@ explicitly (i.e., with a number).
 }
 @end lilypond
 
+
 @node Rests
 @unnumberedsubsubsec Rests
 
@@ -367,7 +379,7 @@ explicitly (i.e., with a number).
 Music Glossary: @rglos{rest}.
 
 A @notation{rest} is entered just like a note with the name
-@code{r}@tie{}:
+@samp{r}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -399,6 +411,7 @@ command:
   a4 a a a
 }
 @end lilypond
+
 
 @node Tempo marks
 @unnumberedsubsubsec Tempo marks
@@ -445,13 +458,13 @@ The @notation{clef} can be set using the @code{\clef} command:
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef "treble"
+  \clef treble
   c'1
-  \clef "alto"
+  \clef alto
   c1
-  \clef "tenor"
+  \clef tenor
   c1
-  \clef "bass"
+  \clef bass
   c1
 }
 @end lilypond
@@ -464,7 +477,7 @@ Here is a small example showing all these elements together:
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef "bass"
+  \clef bass
   \time 3/4
   \tempo "Andante" 4 = 120
   c,2 e8 c'
@@ -474,12 +487,12 @@ Here is a small example showing all these elements together:
 }
 @end lilypond
 
-
 @morerefs
 Notation Reference: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
 @endmorerefs
+
 
 @node Working on input files
 @subsection Working on input files
@@ -505,12 +518,12 @@ Notation Reference: @ruser{Writing pitches},
 
 LilyPond input files are similar to source files in many common
 programming languages.  They contain a version statement, are case
-sensitive, and white-space is generally ignored.  Expressions are
+sensitive, and whitespace is generally ignored.  Expressions are
 formed with curly braces @w{@code{@{ @}}}, and comments are
-denoted with @code{%} or @w{@code{%@{ @dots{} %@}}}@tie{}.
+denoted with @samp{%} or @w{@samp{%@{ @dots{} %@}}}.
 
-If the previous sentences sound like nonsense, don't worry!  We'll
-explain what all these terms mean:
+If the previous sentences sound like nonsense, don't worry!  We
+are now going to explain what all these terms mean.
 
 @itemize
 
@@ -521,7 +534,7 @@ statement is a line that describes the version of LilyPond for which
 the file was written, as in the following example:
 
 @example
-\version "@w{@version{}}"
+\version "@version{}"
 @end example
 
 By convention, the version statement is placed at the top of the
@@ -532,21 +545,35 @@ it allows automatic updating of the input file as LilyPond syntax
 changes.  Second, it describes the version of LilyPond needed to
 compile the file.
 
-If the version statement is omitted from an input file, LilyPond will print
-a warning during the compilation of the file.
+If the version statement is omitted from an input file, LilyPond
+prints a warning during the compilation of the file.
 
 @item
 @strong{Case sensitive}:
-it matters whether you enter a letter in lower case (e.g.
-@w{@code{a, b, s, t}}) or upper case (e.g. @w{@code{A, B, S, T}}).
-Notes are lower case: @w{@samp{@{ c d e @}}} is valid input;
-@w{@samp{@{ C D E @}}} will produce an error message.
+It matters whether you enter a letter in lowercase (e.g.,
+@samp{a}, @samp{b}, @samp{s}, @samp{t}) or uppercase (e.g.,
+@samp{A}, @samp{B}, @samp{S}, @samp{T}).  Notes are lowercase:
+@samp{@{@tie{}c d e@tie{}@}} is valid input; @samp{@{@tie{}C D
+E@tie{}@}} produces an error message.
 
 @item
 @strong{Whitespace insensitive}:
-it does not matter how many spaces (or tabs or new lines) you add.
-@w{@samp{@{ c4 d e @}}} means the same thing as
-@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} and:
+It does not matter how many spaces (or tabs, or new lines) you
+add.
+
+@example
+@{ c4 d e@}
+@end example
+
+@noindent
+means the same thing as
+
+@example
+@{ c4       d e @}
+@end example
+
+@noindent
+or
 
 @example
 @{ c4                       d
@@ -573,32 +600,32 @@ brace.
 
 @item
 @strong{Expressions}:
-every piece of LilyPond input needs to have
-@strong{@{@tie{}curly@tie{}braces@tie{}@}} placed around the
-input.  These braces tell LilyPond that the input is a single
-music expression, just like parentheses @code{()} in mathematics.
-The braces should be surrounded by a space unless they are at the
-beginning or end of a line to avoid ambiguities.
+Every piece of LilyPond input needs to have @strong{@{@tie{}curly
+braces@tie{}@}} placed around the input.  These braces tell
+LilyPond that the input is a single music expression, just like
+parentheses @q{()} in mathematics.  The braces should be
+surrounded by a space unless they are at the beginning or end of a
+line to avoid ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @q{@w{@code{\relative @{ @dots{} @}}}}) also counts as a
-single music expression.
+as @samp{\relative @{ @dots{}@tie{}@}}) also counts as a single
+music expression.
 
 @cindex comments
 @cindex line comment
 @cindex block comment
 @item
 @strong{Comments}:
-a comment is a remark for the human reader of the music input; it
+A comment is a remark for the human reader of the music input; it
 is ignored while parsing, so it has no effect on the printed
 output.  There are two types of comments.  The percent symbol
-@code{%} introduces a line comment; anything after @code{%} on
+@samp{%} introduces a line comment; anything after @samp{%} on
 that line is ignored.  By convention, a line comment is placed
 @emph{above} the code it refers to.
 
 @example
 a4 a a a
-% this comment refers to the Bs
+% this comment refers to the next line with the two bs
 b2 b
 @end example
 
@@ -608,11 +635,11 @@ However, block comments do not @q{nest}.  This means that you
 cannot place a block comment inside another block comment.  If you
 try, the first @code{%@}} will terminate @emph{both} block
 comments.  The following fragment shows possible uses for
-comments:
+comments.
 
 @example
 % notes for twinkle twinkle follow
-  c4 c g' g a a g2
+c4 c g' g a a g2
 
 %@{
   This line, and the notes below are ignored,
@@ -634,11 +661,11 @@ Sometimes LilyPond doesn't produce the output you expect.  This
 section provides some links to help you solve the problems you
 might encounter.
 
-
 @menu
 * General troubleshooting tips::
 * Some common errors::
 @end menu
+
 
 @node General troubleshooting tips
 @subsection General troubleshooting tips
@@ -661,7 +688,6 @@ based simply on the error messages that are displayed.  These are
 described in @rprogram{Common errors}.
 
 
-
 @node How to read the manuals
 @section How to read the manuals
 
@@ -679,7 +705,6 @@ online version.
 @node Omitted material
 @subsection Omitted material
 
-
 @cindex how to read the manual
 @cindex manual, reading
 @cindex reading the manual
@@ -690,12 +715,11 @@ online version.
 @cindex constructing files, tips
 @cindex files, tips for constructing
 
-LilyPond input must be surrounded by @code{@{ @}} marks or a
-@q{@w{@code{\relative @{ @dots{} @}}}}, as we saw in
-@ref{Working on input files}.  For the rest of this manual,
-some short examples will omit this.  To replicate these examples,
-you can copy displayed input, but paste it between @code{@{}
-and @code{@}} in your input file.
+LilyPond input must be surrounded by @code{@{@tie{}@}} marks or
+@q{@code{\relative @{ @dots{}@tie{}@}}} (@pxref{Working on input
+files}).  For the rest of this manual, some short examples omit
+this.  To replicate these examples, you can copy displayed input,
+but paste it between @samp{@{} and @samp{@}} in your input file.
 
 @example
 @{
@@ -707,6 +731,7 @@ Also, remember that every LilyPond file should have a
 @code{\version} statement.  Because the examples in the manuals
 are snippets, not files, the @code{\version} statement is omitted.
 But you should make a practice of including them in your files.
+
 
 @node Clickable examples
 @subsection Clickable examples
@@ -726,6 +751,7 @@ this image:
 }
 @end lilypond
 
+@noindent
 By cutting and pasting everything in the @qq{ly snippet} section,
 you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
@@ -745,6 +771,7 @@ This is item 825
 We are currently working on this feature.
 @end ignore
 
+
 @node Overview of manuals
 @subsection Overview of manuals
 
@@ -759,26 +786,22 @@ sections.}
 @itemize
 
 @item
-@strong{Before trying to do @emph{anything}}: read the Learning
-manual's @ref{Tutorial}, and @ref{Common notation}.  If you
-encounter musical terms which you do not recognize, please look
-them up in the @rglosnamed{Top, Glossary}.
+@strong{Before trying to do @emph{anything}}: @pxref{Tutorial},
+and @ref{Common notation} of this manual.  If you encounter
+musical terms which you do not recognize, please look them up in
+the @rglos{Top}.
 
 @item
-@strong{Before trying to write a complete piece of music}: read
-the Learning manual's @ref{Fundamental concepts}.  After that, you
-may want to look in relevant sections of the
-@rusernamed{Top, Notation reference}.
+@strong{Before trying to write a complete piece of music}:
+@pxref{Fundamental concepts} of this manual.  After that, you may
+want to look into relevant sections of the @ruser{Top}.
 
 @item
-@strong{Before trying to change the default output}: read the
-Learning manual's @ref{Tweaking output}.
+@strong{Before trying to change the default output}:
+@pxref{Tweaking output} in this manual.
 
 @item
 @strong{Before undertaking a large project}: read the Usage
 document's @rprogram{Suggestions for writing files}.
 
 @end itemize
-
-
-
