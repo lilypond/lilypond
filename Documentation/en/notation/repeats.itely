@@ -1165,6 +1165,19 @@ Patterns of one or two measures are replaced by percent-like symbols.
 }
 @end lilypond
 
+@funindex \after
+
+Note that the correct time offset to access the
+@code{DoublePercentRepeat} grob is the beginning of the repeat's
+second bar, which can be easily achieved with @code{\after}.
+
+@lilypond[verbatim,quote]
+\new Voice \with { \consists "Balloon_engraver" }
+  { \after 1*3
+      \balloonGrobText DoublePercentRepeat #'(-1 . 2) "repeat"
+    \repeat percent 2 { g'1 | a'1 } }
+@end lilypond
+
 Patterns that are shorter than one measure but contain mixed durations
 use a double-percent symbol.
 
