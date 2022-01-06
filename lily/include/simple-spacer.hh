@@ -48,8 +48,8 @@ private:
   Real range_len (vsize l, vsize r, Real force) const;
   Real range_ideal_len (vsize l, vsize r) const;
   Real range_stiffness (vsize l, vsize r, bool stretch) const;
-  Solution expand_line (Real line_len, Real max_block_force) const;
-  Solution compress_line (Real line_len, Real max_block_force) const;
+  Solution expand_line (Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Solution compress_line (Real line_len, Real max_block_force_len, Real max_block_force) const;
   Real heuristic_rod_force (vsize l, vsize r, Real dist) const;
   // Maximum force that causes any spring to block.
   Real range_max_block_force (vsize l, vsize r) const;

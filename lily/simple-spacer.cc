@@ -202,13 +202,13 @@ Simple_spacer::Solution
 Simple_spacer::solve (Real line_len, bool ragged) const
 {
   Real max_block_force = range_max_block_force (0, springs_.size ());
-  Real conf = configuration_length (max_block_force);
+  Real max_block_force_len = configuration_length (max_block_force);
 
   Solution sol;
-  if (conf < line_len)
-    sol = expand_line (line_len, max_block_force);
-  else if (conf > line_len)
-    sol = compress_line (line_len, max_block_force);
+  if (max_block_force_len < line_len)
+    sol = expand_line (line_len, max_block_force_len, max_block_force);
+  else if (max_block_force_len > line_len)
+    sol = compress_line (line_len, max_block_force_len, max_block_force);
   else
     {
       sol.force_ = max_block_force;
@@ -222,10 +222,10 @@ Simple_spacer::solve (Real line_len, bool ragged) const
 }
 
 Simple_spacer::Solution
-Simple_spacer::expand_line (Real line_len, Real max_block_force) const
+Simple_spacer::expand_line (Real line_len, Real max_block_force_len,
+                            Real max_block_force) const
 {
   double inv_hooke = 0;
-  double cur_len = configuration_length (max_block_force);
 
   for (vsize i = 0; i < springs_.size (); i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
@@ -233,17 +233,21 @@ Simple_spacer::expand_line (Real line_len, Real max_block_force) const
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
     inv_hooke = 1e-6;   /* then report a very large stretching force */
 
-  if (cur_len > (1 + 1e-6) * line_len)
-    programming_error ("misuse of expand_line");
-
   Solution sol;
-  sol.force_ = (line_len - cur_len) / inv_hooke + max_block_force;
+  sol.force_ = (line_len - max_block_force_len) / inv_hooke + max_block_force;
   sol.fits_ = true;
   return sol;
 }
 
+static bool
+spring_pointer_greater (Spring const *const a, Spring const *const b)
+{
+  return *a > *b;
+}
+
 Simple_spacer::Solution
-Simple_spacer::compress_line (Real line_len, Real max_block_force) const
+Simple_spacer::compress_line (Real line_len, Real max_block_force_len,
+                              Real max_block_force) const
 {
   /* just because we are in compress_line () doesn't mean that the line
      will actually be compressed (as in, a negative force) because
@@ -255,49 +259,42 @@ Simple_spacer::compress_line (Real line_len, Real max_block_force) const
   Simple_spacer::Solution cur;
   cur.force_ = compressed ? 0.0 : max_block_force;
   cur.fits_ = true;
-  Real cur_len
-    = compressed ? neutral_length : configuration_length (max_block_force);
+  Real cur_len = compressed ? neutral_length : max_block_force_len;
 
-  if (line_len > (1 + 1e-6) * cur_len)
-    programming_error ("misuse of compress_line");
-  vector<Spring> sorted_springs = springs_;
-  sort (sorted_springs.begin (), sorted_springs.end (), std::greater<Spring> ());
+  vector<const Spring *> sorted_springs;
+  sorted_springs.reserve (springs_.size ());
+  for (vsize i = 0; i < springs_.size (); i++)
+    sorted_springs.push_back (&springs_[i]);
+
+  sort (sorted_springs.begin (), sorted_springs.end (), spring_pointer_greater);
 
   /* inv_hooke is the total flexibility of currently-active springs */
   double inv_hooke = 0;
   vsize i = sorted_springs.size ();
-  for (; i && sorted_springs[i - 1].blocking_force () < cur.force_; i--)
+  for (; i && sorted_springs[i - 1]->blocking_force () < cur.force_; i--)
     inv_hooke += compressed
-                 ? sorted_springs[i - 1].inverse_compress_strength ()
-                 : sorted_springs[i - 1].inverse_stretch_strength ();
+                   ? sorted_springs[i - 1]->inverse_compress_strength ()
+                   : sorted_springs[i - 1]->inverse_stretch_strength ();
   /* i now indexes the first active spring, so */
   for (; i < sorted_springs.size (); i++)
     {
-      Spring sp = sorted_springs[i];
+      const Spring *sp = sorted_springs[i];
 
-      if (std::isinf (sp.blocking_force ()))
+      if (std::isinf (sp->blocking_force ()))
         break;
 
-      double block_dist = (cur.force_ - sp.blocking_force ()) * inv_hooke;
+      double block_dist = (cur.force_ - sp->blocking_force ()) * inv_hooke;
       if (cur_len - block_dist < line_len)
         {
           cur.force_ += (line_len - cur_len) / inv_hooke;
           cur_len = line_len;
-
-          /*
-            Paranoia check.
-          */
-          if (fabs (configuration_length (cur.force_) - cur_len)
-              > 1e-6 * cur_len)
-            programming_error (to_string ("mis-predicted force, %.6f ~= %.6f",
-                                          cur_len,
-                                          configuration_length (cur.force_)));
           return cur;
         }
 
       cur_len -= block_dist;
-      inv_hooke -= compressed ? sp.inverse_compress_strength () : sp.inverse_stretch_strength ();
-      cur.force_ = sp.blocking_force ();
+      inv_hooke -= compressed ? sp->inverse_compress_strength ()
+                              : sp->inverse_stretch_strength ();
+      cur.force_ = sp->blocking_force ();
     }
 
   cur.fits_ = false;
