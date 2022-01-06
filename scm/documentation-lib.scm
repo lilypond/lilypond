@@ -162,13 +162,13 @@ environment."
                      "")
                  "}"))
 
-(define (human-listify lst)
+(define* (human-listify lst #:key (last-word "and"))
   "Produce a textual enumeration from LST, a list of strings"
 
   (match lst
     (() "none")
     ((one) one)
-    ((one two) (string-append one " and " two))
+    ((one two) (string-append one " " last-word " " two))
     ((one . rest) (string-append one ", " (human-listify rest)))))
 
 (define (writing-wip x)

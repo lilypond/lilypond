@@ -215,7 +215,7 @@ node."
            (format #f
                    "This object can be of either of the following classes: ~a.
 It supports the following interfaces conditionally depending on the class: ~a."
-                   (human-listify class-list)
+                   (human-listify class-list #:last-word "or")
                    (list-symbols (apply append class-interfaces)))
            (format #f "This object is of class ~a." (car class-list)))
        "\n\n@endRaggedRight"))))
