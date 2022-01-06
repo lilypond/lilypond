@@ -18,7 +18,8 @@
 
 (use-modules (oop goops)
              (srfi srfi-13)
-             (srfi srfi-1))
+             (srfi srfi-1)
+             (ice-9 match))
 
 (cond-expand
  (guile-2 (use-modules (ice-9 curried-definitions)))
@@ -164,11 +165,11 @@ environment."
 (define (human-listify lst)
   "Produce a textual enumeration from LST, a list of strings"
 
-  (cond
-   ((null? lst) "none")
-   ((null? (cdr lst)) (car lst))
-   ((null? (cddr lst)) (string-append (car lst) " and " (cadr lst)))
-   (else (string-append (car lst) ", " (human-listify (cdr lst))))))
+  (match lst
+    (() "none")
+    ((one) one)
+    ((one two) (string-append one " and " two))
+    ((one . rest) (string-append one ", " (human-listify rest)))))
 
 (define (writing-wip x)
   (ly:message (_ "Writing ~S...") x))
