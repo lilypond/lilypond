@@ -16,9 +16,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules ((ice-9 list)
-              #:select (rassoc)))
-
 (define (sort-grob-properties props)
   ;; force 'meta to the end of each prop-list
   (let ((meta (assoc 'meta props)))
@@ -74,59 +71,81 @@
           (description-list->texi internal-propdocs #t))
          ""))))
 
+;; The defining interface is expected to be first.
+(define class-specific-interfaces
+  '((Item . (item-interface))
+    (Spanner . (spanner-interface))
+    (Paper_column . (paper-column-interface item-interface))
+    (System . (system-interface spanner-interface))))
+
+
+;; Map interface to list of grobs that support it.
 (define iface->grob-table (make-hash-table 61))
-;; extract ifaces, and put grob into the hash table.
+;; item-interface and spanner-interface (maybe others in
+;; the future) are supported "conditionally": a Footnote,
+;; for example, supports either of them depending on the
+;; object it annotates.  We distinguish this situation in
+;; the presentation.
+(define class-iface->conditional-grob-table (make-hash-table 4))
 (for-each
- (lambda (x)
-   (let* ((meta (assoc-get 'meta (cdr x)))
-          (ifaces (assoc-get 'interfaces meta)))
+ (lambda (grob-entry)
+   (let* ((grob-name (car grob-entry))
+          (grob-description (cdr grob-entry))
+          (meta (assoc-get 'meta grob-description))
+          (ifaces (assoc-get 'interfaces meta))
+          (classes (assoc-get 'classes meta))
+          (two-or-more (pair? (cdr classes)))
+          (class-table (if two-or-more
+                           class-iface->conditional-grob-table
+                           iface->grob-table)))
 
      (for-each (lambda (iface)
                  (hashq-set!
                   iface->grob-table iface
-                  (cons (car x)
+                  (cons grob-name
                         (hashq-ref iface->grob-table iface '()))))
-               ifaces)))
+               ifaces)
+     (for-each (lambda (class)
+                 (let ((class-ifaces
+                        (assoc-get class class-specific-interfaces)))
+                   (for-each
+                    (lambda (class-iface)
+                      (hashq-set!
+                       class-table
+                       class-iface
+                       (cons grob-name (hashq-ref class-table class-iface '()))))
+                    class-ifaces)))
+               classes)))
  all-grob-descriptions)
 
-(define class-specific-interfaces
-  '((Item . item-interface)
-    (Spanner . spanner-interface)
-    (Paper_column . paper-column-interface)
-    (System . system-interface)))
+(define (list-symbols lst)
+  (human-listify (map ref-ify (sort (map symbol->string lst)
+                                    ly:string-ci<?))))
 
 ;; First level Interface description
 (define (interface-doc interface)
-  (let* ((name (symbol->string (car interface)))
-         (interface-list (human-listify
-                          (map ref-ify
-                               (sort
-                                (map symbol->string
-                                     (hashq-ref iface->grob-table
-                                                (car interface)
-                                                '()))
-                                ly:string-ci<?)))))
+  (let* ((name (car interface))
+         (unconditional-grobs (hashq-ref iface->grob-table name))
+         (conditional-grobs (hashq-ref class-iface->conditional-grob-table name)))
     (make <texi-node>
       #:code-tag #t
-      #:name name
+      #:name (symbol->string name)
       #:text (string-append
               (interface-doc-string (cdr interface) '())
               "\n\n@raggedRight\n"
               "This grob interface "
-              (if (not (equal? interface-list "none"))
+              (if unconditional-grobs
                   (format #f
-                          "is used in the following graphical object(s): ~a"
-                          interface-list)
-                  (let ((class (rassoc (car interface)
-                                       class-specific-interfaces
-                                       eq?)))
-                    (if class
-                        (format
-                          #f
-                          "is added dynamically to grobs of class @code{~a}"
-                          (car class))
-                        "is not used in any graphical object")))
-              "."
+                          "is used in the following graphical object(s): ~a."
+                          (list-symbols unconditional-grobs))
+                  "is not used in any graphical object.")
+              "\n\n"
+              (if conditional-grobs
+                  (format #f
+                          "In addition, this interface is supported conditionally
+by the following objects depending on their class: ~a."
+                          (list-symbols conditional-grobs))
+                  "")
               "\n@endRaggedRight"))))
 
 (define (grob-alist->texi alist)
@@ -144,23 +163,19 @@ node."
 
   (let* ((meta (assoc-get 'meta description))
          (name (assoc-get 'name meta))
-         (ifaces (map lookup-interface (assoc-get 'interfaces meta)))
-         (ifacedoc (map ref-ify
-                        (sort
-                         (map (lambda (iface)
-                                (if (pair? iface)
-                                    (symbol->string (car iface))
-                                    (ly:error (_ "pair expected in doc ~s") name)))
-                              ifaces)
-                         ly:string-ci<?)))
+         (ifaces (assoc-get 'interfaces meta))
          (classes (assoc-get 'classes meta))
+         (class-interfaces (map (lambda (class)
+                                  (assoc-get class class-specific-interfaces))
+                                classes))
+         (two-or-more (pair? (cdr classes)))
          (class-list (map
-                       (lambda (class)
+                       (lambda (class ifaces)
                          (ref-ify
-                           (symbol->string
-                             (assoc-get class class-specific-interfaces))
+                           (symbol->string (car ifaces))
                            (symbol->string class)))
-                       classes))
+                       classes
+                       class-interfaces))
          (engravers (filter
                      (lambda (x) (engraver-makes-grob? name x))
                      all-engravers-list))
@@ -191,13 +206,18 @@ node."
        (grob-alist->texi description)
        "\n\n@raggedRight\n"
        "This object supports the following interface(s):\n"
-       (human-listify ifacedoc)
+       (list-symbols
+        (if two-or-more
+            ifaces
+            (append ifaces (car class-interfaces))))
        ".\n\n"
-       (if (eqv? 1 (length class-list))
-           (format #f "This object is of class ~a." (first class-list))
+       (if two-or-more
            (format #f
-                   "This object can be of either of the following classes: ~a."
-                   (human-listify class-list)))
+                   "This object can be of either of the following classes: ~a.
+It supports the following interfaces conditionally depending on the class: ~a."
+                   (human-listify class-list)
+                   (list-symbols (apply append class-interfaces)))
+           (format #f "This object is of class ~a." (car class-list)))
        "\n\n@endRaggedRight"))))
 
 (define (all-grobs-doc)
