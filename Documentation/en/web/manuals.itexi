@@ -138,6 +138,11 @@ Ben Lemon, a LilyPond user, has created a range of video tutorials on
 his blog and which are aimed at new users.
 
 @item
+@uref{https://extending-lilypond.readthedocs.io,Extending Guide}:
+an external documentation resource about extending LilyPond in
+Scheme.
+
+@item
 @ref{Development}:
 manuals for the unstable version.
 
