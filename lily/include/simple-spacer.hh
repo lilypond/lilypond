@@ -45,13 +45,14 @@ public:
   Real configuration_length (Real force) const;
 
 private:
+  Solution range_solve (vsize l, vsize r, Real line_len, bool ragged) const;
   Real range_len (vsize l, vsize r, Real force) const;
   Real range_ideal_len (vsize l, vsize r) const;
   Real range_stiffness (vsize l, vsize r, bool stretch) const;
-  Solution expand_line (Real line_len, Real max_block_force_len, Real max_block_force) const;
-  Solution compress_line (Real line_len, Real max_block_force_len, Real max_block_force) const;
-  Real heuristic_rod_force (vsize l, vsize r, Real dist) const;
-  // Maximum force that causes any spring to block.
+  Solution expand_line (vsize l, vsize r, Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Solution compress_line (vsize l, vsize r, Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Real rod_force (vsize l, vsize r, Real dist) const;
+ // Maximum force that causes any spring to block.
   Real range_max_block_force (vsize l, vsize r) const;
 
   std::vector<Spring> springs_;

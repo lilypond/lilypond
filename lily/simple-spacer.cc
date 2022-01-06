@@ -73,50 +73,17 @@ using std::vector;
 
 Simple_spacer::Simple_spacer () {}
 
-/*
-   Heuristically try to calculate the force that will get us as close to the
-   rod distance as possible without being less than it.
-*/
 Real
-Simple_spacer::heuristic_rod_force (vsize l, vsize r, Real dist) const
+Simple_spacer::rod_force (vsize l, vsize r, Real dist) const
 {
   Real ideal_length = range_ideal_len (l, r);
   Real stiffness = range_stiffness (l, r, dist > ideal_length);
-  Real block_stretch = dist - ideal_length;
 
   if (std::isinf (stiffness)) // nothing we can do here
     return stiffness;
 
-  Real previous_force = stiffness * block_stretch;
-  Real previous_length = range_len (l, r, previous_force);
-  Real overcompensation = previous_length - dist;
-
-  if (! (overcompensation > 1e-6))
-    return previous_force;
-
-  Real shrink_value = overcompensation / static_cast<Real> (r - l);
-  Real current_force = previous_force;
-  Real current_length = previous_length;
-  while (overcompensation > 1e-6 && shrink_value > 1e-6)
-    {
-      previous_force = current_force;
-      previous_length = current_length;
-
-      current_force -= shrink_value;
-      current_length = range_len (l, r, current_force);
-      if (current_length < dist) // We've gone too far
-        {
-          // Go back one step and try again with smaller shrink values
-          current_force = previous_force;
-          current_length = previous_length;
-          shrink_value /= 2;
-        }
-
-      // Stop trying when we can't make it any smaller
-      if (! (previous_length - current_length > 1e-6))
-        break;
-    }
-  return current_force;
+  Solution sol = range_solve (l, r, dist, false);
+  return sol.force_;
 }
 
 void
@@ -128,7 +95,12 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
       return;
     }
 
-  Real block_force = heuristic_rod_force (l, r, dist);
+  if (range_len (l, r, -infinity_f) > dist)
+    {
+      return;
+    }
+
+  Real block_force = rod_force (l, r, dist);
 
   if (std::isinf (block_force))
     {
@@ -201,14 +173,20 @@ Simple_spacer::range_max_block_force (vsize l, vsize r) const
 Simple_spacer::Solution
 Simple_spacer::solve (Real line_len, bool ragged) const
 {
-  Real max_block_force = range_max_block_force (0, springs_.size ());
-  Real max_block_force_len = configuration_length (max_block_force);
+  return range_solve (0, springs_.size (), line_len, ragged);
+}
+
+Simple_spacer::Solution
+Simple_spacer::range_solve (vsize l, vsize r, Real line_len, bool ragged) const
+{
+  Real max_block_force = range_max_block_force (l, r);
+  Real max_block_force_len = range_len (l, r, max_block_force);
 
   Solution sol;
   if (max_block_force_len < line_len)
-    sol = expand_line (line_len, max_block_force_len, max_block_force);
+    sol = expand_line (l, r, line_len, max_block_force_len, max_block_force);
   else if (max_block_force_len > line_len)
-    sol = compress_line (line_len, max_block_force_len, max_block_force);
+    sol = compress_line (l, r, line_len, max_block_force_len, max_block_force);
   else
     {
       sol.force_ = max_block_force;
@@ -222,12 +200,12 @@ Simple_spacer::solve (Real line_len, bool ragged) const
 }
 
 Simple_spacer::Solution
-Simple_spacer::expand_line (Real line_len, Real max_block_force_len,
+Simple_spacer::expand_line (vsize l, vsize r, Real line_len,
+                            Real max_block_force_len,
                             Real max_block_force) const
 {
   double inv_hooke = 0;
-
-  for (vsize i = 0; i < springs_.size (); i++)
+  for (vsize i = l; i < r; i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
@@ -246,14 +224,15 @@ spring_pointer_greater (Spring const *const a, Spring const *const b)
 }
 
 Simple_spacer::Solution
-Simple_spacer::compress_line (Real line_len, Real max_block_force_len,
+Simple_spacer::compress_line (vsize l, vsize r, Real line_len,
+                              Real max_block_force_len,
                               Real max_block_force) const
 {
   /* just because we are in compress_line () doesn't mean that the line
      will actually be compressed (as in, a negative force) because
      we start out with a stretched line. Here, we check whether we
      will be compressed or stretched (so we know which spring constant to use) */
-  double neutral_length = configuration_length (0.0);
+  double neutral_length = range_len (l, r, 0.0);
   bool compressed = (neutral_length > line_len);
 
   Simple_spacer::Solution cur;
@@ -262,8 +241,8 @@ Simple_spacer::compress_line (Real line_len, Real max_block_force_len,
   Real cur_len = compressed ? neutral_length : max_block_force_len;
 
   vector<const Spring *> sorted_springs;
-  sorted_springs.reserve (springs_.size ());
-  for (vsize i = 0; i < springs_.size (); i++)
+  sorted_springs.reserve (r - l);
+  for (vsize i = l; i < r; i++)
     sorted_springs.push_back (&springs_[i]);
 
   sort (sorted_springs.begin (), sorted_springs.end (), spring_pointer_greater);
