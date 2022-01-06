@@ -71,7 +71,7 @@ using std::vector;
   positive force = expanding, negative force = compressing.
 */
 
-Simple_spacer::Simple_spacer () { min_force_ = 0; }
+Simple_spacer::Simple_spacer () {}
 
 /*
    Heuristically try to calculate the force that will get us as close to the
@@ -149,7 +149,6 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
         }
       return;
     }
-  min_force_ = std::max (min_force_, block_force);
   for (vsize i = l; i < r; i++)
     springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
 }
@@ -189,19 +188,30 @@ Simple_spacer::configuration_length (Real force) const
   return range_len (0, springs_.size (), force);
 }
 
+Real
+Simple_spacer::range_max_block_force (vsize l, vsize r) const
+{
+  Real result = 0.0;
+  for (vsize i = l; i < r; i++)
+    result = std::max (result, springs_[i].blocking_force ());
+
+  return result;
+}
+
 Simple_spacer::Solution
 Simple_spacer::solve (Real line_len, bool ragged) const
 {
-  Real conf = configuration_length (min_force_);
+  Real max_block_force = range_max_block_force (0, springs_.size ());
+  Real conf = configuration_length (max_block_force);
 
   Solution sol;
   if (conf < line_len)
-    sol = expand_line (line_len);
+    sol = expand_line (line_len, max_block_force);
   else if (conf > line_len)
-    sol = compress_line (line_len);
+    sol = compress_line (line_len, max_block_force);
   else
     {
-      sol.force_ = min_force_;
+      sol.force_ = max_block_force;
       sol.fits_ = true;
     }
 
@@ -212,10 +222,10 @@ Simple_spacer::solve (Real line_len, bool ragged) const
 }
 
 Simple_spacer::Solution
-Simple_spacer::expand_line (Real line_len) const
+Simple_spacer::expand_line (Real line_len, Real max_block_force) const
 {
   double inv_hooke = 0;
-  double cur_len = configuration_length (min_force_);
+  double cur_len = configuration_length (max_block_force);
 
   for (vsize i = 0; i < springs_.size (); i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
@@ -227,13 +237,13 @@ Simple_spacer::expand_line (Real line_len) const
     programming_error ("misuse of expand_line");
 
   Solution sol;
-  sol.force_ = (line_len - cur_len) / inv_hooke + min_force_;
+  sol.force_ = (line_len - cur_len) / inv_hooke + max_block_force;
   sol.fits_ = true;
   return sol;
 }
 
 Simple_spacer::Solution
-Simple_spacer::compress_line (Real line_len) const
+Simple_spacer::compress_line (Real line_len, Real max_block_force) const
 {
   /* just because we are in compress_line () doesn't mean that the line
      will actually be compressed (as in, a negative force) because
@@ -243,10 +253,10 @@ Simple_spacer::compress_line (Real line_len) const
   bool compressed = (neutral_length > line_len);
 
   Simple_spacer::Solution cur;
-  cur.force_ = compressed ? 0.0 : min_force_;
+  cur.force_ = compressed ? 0.0 : max_block_force;
   cur.fits_ = true;
   Real cur_len
-    = compressed ? neutral_length : configuration_length (min_force_);
+    = compressed ? neutral_length : configuration_length (max_block_force);
 
   if (line_len > (1 + 1e-6) * cur_len)
     programming_error ("misuse of compress_line");
@@ -297,7 +307,6 @@ Simple_spacer::compress_line (Real line_len) const
 void
 Simple_spacer::add_spring (Spring const &sp)
 {
-  min_force_ = std::max (min_force_, sp.blocking_force ());
   springs_.push_back (sp);
 }
 

@@ -48,14 +48,13 @@ private:
   Real range_len (vsize l, vsize r, Real force) const;
   Real range_ideal_len (vsize l, vsize r) const;
   Real range_stiffness (vsize l, vsize r, bool stretch) const;
-  Solution expand_line (Real line_len) const;
-  Solution compress_line (Real line_len) const;
+  Solution expand_line (Real line_len, Real max_block_force) const;
+  Solution compress_line (Real line_len, Real max_block_force) const;
   Real heuristic_rod_force (vsize l, vsize r, Real dist) const;
+  // Maximum force that causes any spring to block.
+  Real range_max_block_force (vsize l, vsize r) const;
 
   std::vector<Spring> springs_;
-
-  // minimum positive force such that all springs are free.
-  Real min_force_;
 };
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
