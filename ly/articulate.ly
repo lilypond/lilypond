@@ -137,9 +137,7 @@
 
 \version "2.23.2"
 
-#(use-modules (srfi srfi-1))
 #(use-modules (srfi srfi-11))
-#(use-modules (ice-9 debug))
 #(use-modules (lily display-lily))
 
 % PARAMETERS
