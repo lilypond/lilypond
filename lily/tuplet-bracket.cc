@@ -101,46 +101,30 @@ flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
 /*
   Return beam that encompasses the span of the tuplet bracket.
 */
-Grob *
-Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob *> const &cols,
-                               bool *equally_long)
+Spanner *
+Tuplet_bracket::parallel_beam (Spanner *me, vector<Grob *> const &cols)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
-
   Item *left = me->get_bound (LEFT);
   Item *right = me->get_bound (RIGHT);
   if (!left || left->break_status_dir ()
       || !right || right->break_status_dir ())
     return 0;
 
-  Drul_array<Grob *> stems (Note_column::get_stem (cols[0]),
+  Drul_array<Item *> stems (Note_column::get_stem (cols.front ()),
                             Note_column::get_stem (cols.back ()));
 
   if (!stems[RIGHT]
       || !stems[LEFT]
-      || (dynamic_cast<Item *> (stems[RIGHT])->get_column ()
-          != me->get_bound (RIGHT)->get_column ()))
+      || (stems[RIGHT]->get_column () != right->get_column ()))
     return 0;
 
-  Drul_array<Grob *> beams;
+  Drul_array<Spanner *> beams;
   for (const auto d : {LEFT, RIGHT})
     beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
 
-  *equally_long = false;
-  if (! (beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
+  if (!beams[LEFT] || beams[LEFT] != beams[RIGHT] || me->is_broken ())
     return 0;
 
-  extract_grob_set (beams[LEFT], "stems", beam_stems);
-  if (beam_stems.size () == 0)
-    {
-      programming_error ("beam under tuplet bracket has no stems");
-      *equally_long = 0;
-      return 0;
-    }
-
-  *equally_long
-    = (beam_stems[0] == stems[LEFT]
-       && beam_stems.back () == stems[RIGHT]);
   return beams[LEFT];
 }
 
@@ -304,6 +288,15 @@ make_tuplet_slur (Grob *me, Offset left_cp, Offset right_cp,
   return mol;
 }
 
+bool equal_bounds (Spanner *s1, Spanner *s2)
+{
+  return (s1 && s2
+          && s1->get_bound (LEFT)->get_column ()
+             == s2->get_bound (LEFT)->get_column ()
+          && s1->get_bound (RIGHT)->get_column ()
+             == s2->get_bound (RIGHT)->get_column ());
+}
+
 /*
   TODO:
 
@@ -320,8 +313,8 @@ Tuplet_bracket::print (SCM smob)
   bool tuplet_slur = ly_scm2bool (get_property (me, "tuplet-slur"));
 
   extract_grob_set (me, "note-columns", columns);
-  bool equally_long = false;
-  Grob *par_beam = parallel_beam (me, columns, &equally_long);
+  Spanner *par_beam = parallel_beam (me, columns);
+  bool equally_long = equal_bounds (par_beam, me);
 
   bool bracket_visibility = !(par_beam && equally_long); // Flag, print/don't print tuplet bracket.
   /*
@@ -533,8 +526,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
   Direction dir = get_grob_direction (me);
 
-  bool equally_long = false;
-  Grob *par_beam = parallel_beam (me, columns, &equally_long);
+  Grob *par_beam = parallel_beam (me, columns);
 
   Item *lgr = get_x_bound_item (me, LEFT, dir);
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
@@ -812,7 +804,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
 SCM
 Tuplet_bracket::calc_cross_staff (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "tuplets", tuplets);
 
@@ -823,8 +815,7 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   if (me->check_cross_staff (commony))
     return SCM_BOOL_T;
 
-  bool equally_long = false;
-  Grob *par_beam = parallel_beam (me, cols, &equally_long);
+  Grob *par_beam = parallel_beam (me, cols);
 
   if (par_beam && from_scm<bool> (get_property (par_beam, "cross-staff")))
     return SCM_BOOL_T;

@@ -41,8 +41,7 @@ public:
   static void add_column (Grob *me, Item *);
   static void add_script (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);
-  static Grob *parallel_beam (Grob *me, std::vector<Grob *> const &cols,
-                              bool *equally_long);
+  static Spanner *parallel_beam (Spanner *me, std::vector<Grob *> const &cols);
   static void calc_position_and_height (Grob *, Real *, Real *dy);
   static Direction get_default_dir (Grob *);
 };
