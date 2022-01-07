@@ -78,7 +78,6 @@ Context_handle::set_context (Context *trans)
 Context *
 Context_handle::get_context () const
 {
-
   return context_;
 }
 
