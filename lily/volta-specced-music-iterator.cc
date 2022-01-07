@@ -32,7 +32,7 @@ public:
   Volta_specced_music_iterator () = default;
 
 protected:
-  Music *create_event (Direction d);
+  SCM create_event (Direction d);
   void process (Moment) override;
 
 private:
@@ -42,7 +42,7 @@ private:
   bool stopped_ = false;
 };
 
-Music *
+SCM
 Volta_specced_music_iterator::create_event (Direction d)
 {
   SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("VoltaSpanEvent"),
@@ -54,7 +54,9 @@ Volta_specced_music_iterator::create_event (Direction d)
   set_property (ev, "volta-depth", to_scm (volta_depth_));
   set_property (ev, "volta-numbers", get_property (mus, "volta-numbers"));
   // TODO: tweaks? (see Tuplet_iterator)
-  return ev;
+
+  // must return a SCM to ensure the object is kept alive.
+  return ev_scm;
 }
 
 void
@@ -96,7 +98,9 @@ Volta_specced_music_iterator::process (Moment m)
       if (auto *c = get_context ())
         {
           event_handler_.set_context (c);
-          create_event (START)->send_to_context (c);
+          SCM ev = create_event (START);
+          unsmob<Music> (ev)->send_to_context (c);
+          scm_remember_upto_here_1 (ev);
         }
     }
 
@@ -107,7 +111,9 @@ Volta_specced_music_iterator::process (Moment m)
       stopped_ = true;
       if (auto *c = event_handler_.get_context ())
         {
-          create_event (STOP)->send_to_context (c);
+          SCM ev = create_event (STOP);
+          unsmob<Music> (ev)->send_to_context (c);
+          scm_remember_upto_here_1 (ev);
         }
     }
 }
