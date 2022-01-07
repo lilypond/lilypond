@@ -180,7 +180,7 @@ init_func_doc ()
   ly_add_type_predicate (scm_is_integer, "integer");
   ly_add_type_predicate (scm_is_number, "number");
   ly_add_type_predicate (scm_is_pair, "pair");
-  ly_add_type_predicate (scm_is_rational, "rational");
+  ly_add_type_predicate (is_scm<Rational>, "rational");
   ly_add_type_predicate (scm_is_real, "real number");
   ly_add_type_predicate (scm_is_string, "string");
   ly_add_type_predicate (scm_is_vector, "vector");

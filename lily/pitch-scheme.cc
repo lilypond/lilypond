@@ -47,7 +47,7 @@ tones for alteration.
   LY_ASSERT_TYPE (scm_is_integer, note, 2);
   if (SCM_UNBNDP (alter))
     alter = SCM_INUM0;
-  LY_ASSERT_TYPE (scm_is_rational, alter, 3);
+  LY_ASSERT_TYPE (is_scm<Rational>, alter, 3);
 
   Pitch p (scm_to_int (octave), scm_to_int (note),
            from_scm<Rational> (alter));

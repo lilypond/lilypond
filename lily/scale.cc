@@ -45,7 +45,7 @@ represents the number of 200-cent tones of a pitch above the tonic.
       for (vsize i = 0; i < len; i++)
         {
           SCM step = scm_c_vector_ref (steps, i);
-          type_ok = type_ok && scm_is_rational (step);
+          type_ok = type_ok && is_scm<Rational> (step);
           if (type_ok)
             {
               Rational from_c (scm_to_int (scm_numerator (step)),
