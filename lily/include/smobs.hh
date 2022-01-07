@@ -293,6 +293,13 @@ std::string calc_smob_name ()
 template <class T>
 inline T *unsmob (SCM s)
 {
+  /* Any reference to a freed cell is a programming error.
+
+     This is a bit clumsy, but works across GUILE 1.8 to 3.0
+   */
+  const unsigned int FREED_SMOB = 0;
+  assert (!(SCM_NIMP(s) && SCM_TYP7(s) == scm_tc7_smob && SCM_SMOBNUM(s) == FREED_SMOB));
+
   return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
 
