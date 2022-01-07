@@ -1603,33 +1603,18 @@ to work on them, please ask for help.
 @node Translating the documentation
 @section Translating the documentation
 
-The mailing list @code{translations@@lilynet.net} is dedicated to
-LilyPond web site and documentation translation; on this list, you will
-get support from the Translations Meister and experienced translators,
-and we regularly discuss translation issues common to all languages.
-All people interested in LilyPond translations are invited to subscribe
-to this list regardless of the amount of their contribution, by sending
-an email to @code{translations-request@@lilynet.net} with subject
-@code{subscribe} and an empty message body.  Unless mentioned explicitly,
-or except if a translations coordinator contacts you privately, you
-should send questions, remarks and patches to the list
-@code{translations@@lilynet.net}.  Please note that traffic is high
-on the English-speaking list @code{lilypond-user@@gnu.org}, so it may
-take some time before your request or contribution is handled.
-
 @menu
 * Getting started with documentation translation::
 * Documentation translation details::
 * Documentation translation maintenance::
-* Translations management policies::
 * Technical background::
 @end menu
 
 @node Getting started with documentation translation
 @subsection Getting started with documentation translation
 
-First, get the sources of branch @code{translation} from the
-Git repository, see @ref{Working with source code}.
+First, get the sources from the Git repository, see
+@ref{Working with source code}.
 
 @menu
 * Translation requirements::
@@ -1717,7 +1702,7 @@ where @var{MY-LANGUAGE} is the ISO 639 language code.
 Finally, add a language definition for your language in
 @file{python/langdefs.py},
 @file{Documentation/lilypond-texi2html-lang.init} and
-@file{Documentation/web/server/lilypond.org.htaccess}.
+@file{Documentation/webserver/lilypond.org.htaccess}.
 Add this language definition and the corresponding section in
 @file{Documentation/lilypond-texi2html.init} and
 @file{scripts/build/create-weblinks-itexi.py}.
@@ -1853,7 +1838,7 @@ where it appears in PDF and/or HTML output as visible text.  This piece
 of advice is especially useful for translating @file{macros.itexi}.
 
 Please keep verbatim copies of music snippets (in @code{@@lilypond}
-blocs).  However, some music snippets containing text that shows in
+blocks).  However, some music snippets containing text that shows in
 the rendered music, and sometimes translating this text really helps
 the user to understand the documentation; in this case, and only in
 this case, you may as an exception translate text in the music
@@ -1900,9 +1885,8 @@ names, file names and comments should be translated.
 Finally, please carefully apply every rule exposed in @ref{Texinfo
 introduction and usage policy}, and @ref{Documentation policy}.  If one
 of these rules conflicts with a rule specific to your language, please
-ask the Translation meister on @email{translations@@lilynet.net} list
-and/or the Documentation Editors on @email{lilypond-devel@@gnu.org}
-list.
+ask the Translation meister and/or the Documentation Editors on
+@email{lilypond-devel@@gnu.org} list.
 
 
 @node Adding a Texinfo manual
@@ -1914,8 +1898,8 @@ your language directory and translate them.
 For example, if you want to translate the first chapter of the Learning Manual:
 
 @example
-cp Documentation/learning.tely Documentation/@var{LANG}/learning.tely
-cp Documentation/learning/tutorial.itely Documentation/@var{LANG}/tutorial.itely
+cp Documentation/en/learning.tely Documentation/@var{LANG}/learning.tely
+cp Documentation/en/learning/tutorial.itely Documentation/@var{LANG}/tutorial.itely
 @end example
 
 
@@ -1929,7 +1913,7 @@ version control system used for LilyPond development.
 You should use them whenever you would like to update the translation in
 your language, which you may do at the frequency that fits your and your
 cotranslators' respective available times.  In the case your translation
-is up-do-date (which you can discover in the first subsection below), it
+is up-to-date (which you can discover in the first subsection below), it
 is enough to check its state every one or two weeks.  If you feel
 overwhelmed by the quantity of documentation to be updated, see
 @ref{Maintaining without updating translations}.
@@ -1938,6 +1922,7 @@ overwhelmed by the quantity of documentation to be updated, see
 * Check state of translation::
 * Updating documentation translation::
 * Updating translation committishes::
+* Maintaining without updating translations::
 @end menu
 
 @macro seeCommittishesUpdate{}
@@ -1947,6 +1932,9 @@ completely updated, see @ref{Updating translation committishes}.}
 
 @node Check state of translation
 @unnumberedsubsubsec Check state of translation
+
+@warning{Translation helper scripts will work only if you've configured
+lilypond to be built in-tree, as explained in @ref{Running ./autogen.sh}.}
 
 First pull from Git -- see @ref{Git cheat sheet}, but DO NOT rebase
 unless you are sure to master the translation state checking and
@@ -1960,8 +1948,15 @@ make ISOLANG=@var{MY_LANGUAGE} check-translation
 
 @noindent
 This presents a diff of the original files since the most recent
-revision of the translation.  To check a single file, cd into
-@file{Documentation/} and run
+revision of the translation and prints it to terminal output.
+Usually you'll want to pass this output to a terminal pager
+like @command{less} in order to scroll the diff up and down:
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} check-translation | less -R
+@end example
+
+To check a single file, cd into @file{Documentation/} and run
 
 @example
 make TRANSLATION_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translation
@@ -1975,8 +1970,12 @@ translation, you should specify both old and new file names, e.g.
 To see only which files need to be updated, do
 
 @example
-make ISOLANG=@var{MY_LANGUAGE} check-translation | grep 'diff --git'
+make ISOLANG=@var{MY_LANGUAGE} check-translation | grep -n 'diff --git'
 @end example
+
+The @code{-n} option of @command{grep} will print the line number of each
+occurrence, which can be used to have an idea of the length of each diff
+and the amount of work required.
 
 To avoid printing terminal colors control characters, which is often
 desirable when you redirect output to a file, run
@@ -1992,7 +1991,7 @@ to make your translation up to date.
 @seeCommittishesUpdate
 
 Global state of the translation is recorded in
-@file{Documentation/translations.itexi}, which is used to generate
+@file{Documentation/LANG/translations.itexi}, which is used to generate
 Translations status page.  To update that page, do from
 @file{Documentation/}
 
@@ -2113,29 +2112,15 @@ sed -i -r 's/[0-9a-z]@{40@}/NEW-COMMITTISH/' *.texidoc
 @ref{LSR work}.
 @endmorerefs
 
-@node Translations management policies
-@subsection Translations management policies
-
-These policies show the general intent of how the translations should
-be managed, they aim at helping translators, developers and
-coordinators work efficiently.
-
-@menu
-* Maintaining without updating translations::
-* Managing documentation translation with Git::
-@end menu
 
 @node Maintaining without updating translations
 @unnumberedsubsubsec Maintaining without updating translations
 
 Keeping translations up to date under heavy changes in the documentation
-in English may be almost impossible, especially as during the former
-Grand Documentation Project (GDP) or the Grand Organization Project
-(GOP) when a lot of contributors brings changes.  In addition,
-translators may be --- and that is a very good thing --- involved in
-these projects too.
+in English may be almost impossible, especially when a lot of
+contributors brings changes.
 
-it is possible --- and even recommended --- to perform some maintenance
+It is possible --- and even recommended --- to perform some maintenance
 that keeps translated documentation usable and eases future translation
 updating.  The rationale below the tasks list motivates this plan.
 
@@ -2270,53 +2255,6 @@ this now, as it will be more complicated (but still possible) to do
 step 3 in all languages when documentation is compiled with
 @command{texi2html} and node names are directly translated in source
 files.
-@end itemize
-
-
-@node Managing documentation translation with Git
-@unnumberedsubsubsec Managing documentation translation with Git
-
-This policy explains how to manage Git branches and commit
-translations to Git.
-
-@itemize
-@item Translation work is made on
-@code{translation} branch.  This branch is merged on
-@code{master} once a week, approximately.  Then,
-@code{master} branch is merged on
-@code{translation}, where the check-translation script (see
-@ref{Check state of translation}) shows changes in English docs which
-should be translated, and the cycle starts again.
-
-@item Translations may be merged directly to
-@code{master} only if they do not break compilation of LilyPond and
-its documentation.  Those changes could be pushed to
-@code{translation} too, or alternatively translators could wait until
-they come from
-@code{master} the next time it is merged on
-@code{translation}.  Similarly, changes matching
-@code{stable/X.Y} are preferably made on
-@code{X.Ytranslation}.
-
-@item @code{translation} Git branch may be merged into
-@code{master} branch only if LilyPond (@command{make all}) and
-documentation (@command{make doc}) compile successfully.
-
-@item @command{make} and @command{make doc} are usually successful in
-@code{master} Git branch because those tests should have already
-succeeded when merging the contained commits.
-@code{master} branch may be merged into
-@code{translation} when significant changes had been made in
-documentation in English in
-@code{master} branch.
-
-@item General maintenance may be done by anybody who knows what he does
-in documentation in all languages, without informing translators
-first.  General maintenance include simple text substitutions
-(e.g. automated by sed), compilation fixes, updating Texinfo or
-lilypond-book commands, updating macros, updating ly code, fixing
-cross-references, and operations described in
-@ref{Maintaining without updating translations}.
 @end itemize
 
 

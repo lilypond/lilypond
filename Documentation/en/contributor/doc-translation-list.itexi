@@ -2,7 +2,7 @@
 
 @c Word counts are updated automatically by translations-status.py
 
-Translation of @file{Documentation/foo/bar} should be
+Translation of @file{Documentation/en/foo/bar} should be
 @file{Documentation/@var{LANG}/foo/bar}.  Unmentioned files should not
 be translated.
 

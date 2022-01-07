@@ -714,6 +714,11 @@ cd build/
 We heavily recommend building lilypond inside a separate directory
 with this method.
 
+Only translators are required to build lilypond @q{in-tree} -- that
+is, running @command{./configure} and @command{make} commands in the
+top source directory instead of @file{build/} -- otherwise
+the translation helper scripts won't work.
+
 
 @node Running ../configure
 @subsection Running @command{../configure}
