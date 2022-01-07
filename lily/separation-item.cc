@@ -81,7 +81,7 @@ Separation_item::is_empty (Grob *me)
 Skyline
 Separation_item::conditional_skyline (Grob *me, Grob *left)
 {
-  vector<Box> bs = boxes (me, left);
+  vector<Box> const &bs = boxes (me, left);
   return Skyline (bs, Y_AXIS, LEFT);
 }
 
@@ -90,7 +90,7 @@ SCM
 Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob<Item> (smob);
-  vector<Box> bs = boxes (me, 0);
+  vector<Box> const &bs = boxes (me, 0);
   Skyline_pair sp (bs, Y_AXIS);
   /*
     TODO: We need to decide if padding is 'intrinsic'
