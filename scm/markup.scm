@@ -16,23 +16,28 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (defmacro*-public markup (#:rest body)
-  "The `markup' macro provides a lilypond-like syntax for building markups.
+  "The @code{markup} macro provides a LilyPond-like syntax for building
+markups using Scheme keywords, replacing @code{\\@var{command}} with
+@code{#:@var{command}}.  For example, this:
 
- - #:COMMAND is used instead of \\COMMAND
- - #:line ( ... ) is used instead of \\line { ... }
- - etc.
+@example
+\\markup @{ foo
+          \\raise #0.2 \\hbracket \\bold bar
+          \\override #'(baseline-skip . 4)
+          \\bracket \\column @{ baz bazr bla @}
+@}
+@end example
 
-Example:
-  \\markup { foo
-            \\raise #0.2 \\hbracket \\bold bar
-            \\override #'(baseline-skip . 4)
-            \\bracket \\column { baz bazr bla }
-  }
-         <==>
-  (markup \"foo\"
-          #:raise 0.2 #:hbracket #:bold \"bar\"
-          #:override '(baseline-skip . 4)
-          #:bracket #:column (\"baz\" \"bazr\" \"bla\"))"
+@noindent
+translates to this:
+
+@example
+(markup \"foo\"
+        #:raise 0.2 #:hbracket #:bold \"bar\"
+        #:override '(baseline-skip . 4)
+        #:bracket #:column (\"baz\" \"bazr\" \"bla\"))
+@end example
+"
 
   (car (compile-all-markup-expressions `(#:line ,body))))
 

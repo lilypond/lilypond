@@ -1236,19 +1236,16 @@ actually fully cloned."
                                                       (ly:music-deep-copy ,stop))))))
 
 (defmacro-public define-syntax-function (type args signature . body)
-  "Helper macro for `ly:make-music-function'.
-Syntax:
-  (define-syntax-function result-type? (arg1 arg2 ...) (arg1-type arg2-type ...)
-    ...function body...)
+  "Helper macro for @code{ly:make-music-function}.  Syntax:
 
-argX-type can take one of the forms @code{predicate?} for mandatory
-arguments satisfying the predicate, @code{(predicate?)} for optional
-parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
-value)}} for optional parameters with a specified default
-value (evaluated at definition time).  An optional parameter can be
-omitted in a call only when it can't get confused with a following
-parameter of different type.
+@example
+(define-syntax-function @var{result-type?}
+                        (@var{arg1} @var{arg2} @dots{})
+                        (@var{type1?} @var{type2?} @dots{})
+  @var{function-body})
+@end example
 
+See @code{define-music-function} for information on type predicates.
 @code{result-type?} can specify a default in the same manner as
 predicates, to be used in case of a type error in arguments or
 result."
@@ -1298,69 +1295,45 @@ result."
       ,(currying-lambda args docstring (if docstring (cdr body) body)))))
 
 (defmacro-public define-music-function rest
-  "Defining macro returning music functions.
-Syntax:
-  (define-music-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
-    ...function body...)
+  "Define and return a music function.  Syntax:
 
-argX-type can take one of the forms @code{predicate?} for mandatory
-arguments satisfying the predicate, @code{(predicate?)} for optional
-parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
-value)}} for optional parameters with a specified default
-value (evaluated at definition time).  An optional parameter can be
-omitted in a call only when it can't get confused with a following
-parameter of different type.
+@example
+(define-music-function (@var{arg1} @var{arg2} @dots{})
+                       (@var{type1?} @var{type2?} @dots{})
+    @var{function-body})
+@end example
 
-Must return a music expression.  The @code{origin} is automatically
-set to the @code{location} parameter."
+@var{type1?}, @var{type2?}, etc. can take one of the forms
+@code{predicate?} for mandatory arguments satisfying the predicate,
+@code{(predicate?)} for optional parameters of that type defaulting to
+@code{#f}, @code{(predicate? value)} for optional parameters with a
+specified default value (evaluated at definition time).  An optional
+parameter can be omitted in a call only when it cannot get confused
+with a following parameter of different type.
+
+A music function must return a music expression."
 
   `(define-syntax-function (ly:music? (make-music 'Music 'void #t)) ,@rest))
 
 
 (defmacro-public define-scheme-function rest
-  "Defining macro returning Scheme functions.
-Syntax:
-  (define-scheme-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
-    ...function body...)
-
-argX-type can take one of the forms @code{predicate?} for mandatory
-arguments satisfying the predicate, @code{(predicate?)} for optional
-parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
-value)}} for optional parameters with a specified default
-value (evaluated at definition time).  An optional parameter can be
-omitted in a call only when it can't get confused with a following
-parameter of different type.
-
-Can return arbitrary expressions.  If a music expression is returned,
-its @code{origin} is automatically set to the @code{location}
-parameter."
+  "Like @code{define-music-function}, but the return type is not
+restricted to music."
 
   `(define-syntax-function scheme? ,@rest))
 
 (defmacro-public define-void-function rest
-  "This defines a Scheme function like @code{define-scheme-function} with
-void return value (i.e., what most Guile functions with `unspecified'
-value return).  Use this when defining functions for executing actions
-rather than returning values, to keep Lilypond from trying to interpret
-the return value."
+  "Like @code{define-music-function}, but the return value must be the
+special @samp{*unspecified*} value (i.e., what most Guile functions
+with @qq{unspecified} value return).  Use this when defining functions
+for executing actions rather than returning values, to keep LilyPond
+from trying to interpret the return value."
+
   `(define-syntax-function (void? *unspecified*) ,@rest *unspecified*))
 
 (defmacro-public define-event-function rest
-  "Defining macro returning event functions.
-Syntax:
-  (define-event-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
-    ...function body...)
-
-argX-type can take one of the forms @code{predicate?} for mandatory
-arguments satisfying the predicate, @code{(predicate?)} for optional
-parameters of that type defaulting to @code{#f}, @code{@w{(predicate?
-value)}} for optional parameters with a specified default
-value (evaluated at definition time).  An optional parameter can be
-omitted in a call only when it can't get confused with a following
-parameter of different type.
-
-Must return an event expression.  The @code{origin} is automatically
-set to the @code{location} parameter."
+  "Like @code{define-music-function}, but the return value must be a
+post-event."
 
   `(define-syntax-function (ly:event? (make-music 'Event 'void #t)) ,@rest))
 
