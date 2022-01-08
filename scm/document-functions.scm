@@ -38,13 +38,13 @@
 ;; If there is `::` in the function name, insert a breakpoint to avoid
 ;; overlong index entries that would otherwise stick out to the right
 ;; in the two-column output of the PDF documentation.
-(define (document-function name arguments doc-string)
-  (string-append
-   "@defun " (regexp-substitute/global #f "::" (symbol->string name)
-                                       'pre "::@/" 'post)
-   " " arguments "\n"
-   (string-trim-both doc-string)
-   "\n@end defun\n\n"))
+(define (document-function name arguments doc-string is-macro)
+  (let* ((cmd (if is-macro "defmac" "defun"))
+         (str-name (symbol->string name))
+         (prettier-name
+          (regexp-substitute/global #f "::" str-name 'pre "::@/" 'post)))
+    (format #f "@~a ~a ~a\n~a\n@end ~a\n\n"
+            cmd prettier-name arguments doc-string cmd)))
 
 ;; Map function names (as strings) to full documentation entries
 ;; including signature and doc-string.
@@ -54,7 +54,8 @@
       (cons (symbol->string name)
             (document-function name
                               (format-c-header (car header-doc-string-pair))
-                              (cdr header-doc-string-pair))))
+                              (cdr header-doc-string-pair)
+                              #f)))
     (ly:get-all-function-documentation)))
 
 ;; Guile 1.9 broke procedure-source, Guile 2 introduced
@@ -106,8 +107,12 @@
          (alist (ly:module->alist iface)))
     (filter-map
       (lambda (entry)
-        (let ((name (car entry))
-              (value (cdr entry)))
+        (let* ((name (car entry))
+               (raw-value (cdr entry))
+               (is-macro (macro? raw-value))
+               (value (if is-macro
+                          (macro-transformer raw-value)
+                          raw-value)))
           (if (and (procedure? value)
                    ;; Exclude functions that are documented through the
                    ;; C++ infrastructure (all-primitive-function-docs-alist
@@ -129,8 +134,13 @@
                 (if doc-string
                     (cons (symbol->string name)
                           (document-function name
-                                             (format-scheme-signature value)
-                                             doc-string))
+                                             (if is-macro
+                                                 ;; Guile doesn't give us meaningful
+                                                 ;; signatures for macros.
+                                                 "@dots{}"
+                                                 (format-scheme-signature value))
+                                             doc-string
+                                             is-macro))
                   #f))
               #f)))
       alist)))
