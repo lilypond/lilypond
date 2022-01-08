@@ -96,7 +96,7 @@
                    (without-lparen (string-drop formatted-signature 1))
                    (without-both-parens (string-drop-right without-lparen 1)))
               without-both-parens)
-            '(...))))))
+            "@dots{}")))))
 
 ;; Same format as all-primitive-function-docs-alist.
 (define all-scheme-function-docs-alist
