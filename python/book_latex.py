@@ -320,9 +320,7 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
         try:
             input_fullname = subprocess.run(['kpsewhich', input_filename],
                                             check=True,
-                                            encoding='utf-8',
-                                            stdout=subprocess.PIPE,
-                                            universal_newlines=True).stdout
+                                            stdout=subprocess.PIPE).stdout.decode('utf-8')
 
             input_fullname = input_fullname.strip("\n")
 
