@@ -152,15 +152,10 @@ environment."
 (define (interface-name name)
   name)
 
-(define* (ref-ify x #:optional title)
+(define (ref-ify x)
   "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
-  (string-append "@iref{"
-                 x
-                 (if title
-                     (string-append "," title)
-                     "")
-                 "}"))
+  (string-append "@iref{" x "}"))
 
 (define* (human-listify lst #:key (last-word "and"))
   "Produce a textual enumeration from LST, a list of strings"

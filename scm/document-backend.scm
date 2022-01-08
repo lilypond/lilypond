@@ -169,13 +169,6 @@ node."
                                   (assoc-get class class-specific-interfaces))
                                 classes))
          (two-or-more (pair? (cdr classes)))
-         (class-list (map
-                       (lambda (class ifaces)
-                         (ref-ify
-                           (symbol->string (car ifaces))
-                           (symbol->string class)))
-                       classes
-                       class-interfaces))
          (engravers (filter
                      (lambda (x) (engraver-makes-grob? name x))
                      all-engravers-list))
@@ -212,12 +205,25 @@ node."
             (append ifaces (car class-interfaces))))
        ".\n\n"
        (if two-or-more
-           (format #f
-                   "This object can be of either of the following classes: ~a.
+           (format #f "This object can be of either of the following classes: ~a.
 It supports the following interfaces conditionally depending on the class: ~a."
-                   (human-listify class-list #:last-word "or")
-                   (list-symbols (apply append class-interfaces)))
-           (format #f "This object is of class ~a." (car class-list)))
+                   (human-listify
+                    (map
+                     (lambda (class ifaces)
+                       (format #f "~a (characterized by ~a)"
+                               class
+                               (human-listify (map symbol->string ifaces))))
+                     classes
+                     class-interfaces)
+                    #:last-word "or")
+                   ;; No sorting here, let's keep in same order as the
+                   ;; parenthesized "characterized by" indications.
+                   (human-listify
+                    (map ref-ify
+                         (map symbol->string (apply append class-interfaces)))))
+           (format #f "This object is of class ~a (characterized by ~a)."
+                   (car classes)
+                   (ref-ify (symbol->string (caar class-interfaces)))))
        "\n\n@endRaggedRight"))))
 
 (define (all-grobs-doc)
