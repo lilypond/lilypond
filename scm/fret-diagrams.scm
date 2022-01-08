@@ -1131,6 +1131,7 @@ indications per string.
   (string?) ; argument type
   #:category instrument-specific-markup ; markup category
   #:properties (fret-diagram-verbose-markup) ; properties and defaults
+  #:as-string ""
   "Make a (guitar) fret diagram.  For example, say
 
 @example
@@ -1210,6 +1211,7 @@ Note: There is no limit to the number of fret indications per string.
   (string?) ; argument type
   #:category instrument-specific-markup ; markup category
   #:properties (fret-diagram-verbose-markup) ; properties
+  #:as-string ""
   "Make a fret diagram markup using terse string-based syntax.
 
 Here is an example

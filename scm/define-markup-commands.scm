@@ -2749,9 +2749,15 @@ of its own.
 ;; files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (safe-file-content name)
+  (if (ly:get-option 'safe)
+      "verbatim-file disabled in safe mode"
+      (ly:gulp-file name)))
+
 (define-markup-command (verbatim-file layout props name)
   (string?)
   #:category other
+  #:as-string (safe-file-content name)
   "Read the contents of file @var{name}, and include it verbatim.
 
 @lilypond[verbatim,quote]
@@ -2760,12 +2766,10 @@ of its own.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (if  (ly:get-option 'safe)
-                         "verbatim-file disabled in safe mode"
-                         (let* ((str (ly:gulp-file name))
-                                (lines (string-split str #\nl)))
-                           (make-typewriter-markup
-                            (make-column-markup lines))))))
+                    (make-typewriter-markup
+                     (make-column-markup
+                      (string-split (safe-file-content name)
+                                    #\nl)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fonts.
@@ -3287,6 +3291,7 @@ normal text font, no matter what font was used earlier.
 (define-markup-command (musicglyph layout props glyph-name)
   (string?)
   #:category music
+  ;; TODO: as-string?
   "@var{glyph-name} is converted to a musical symbol; for example,
 @code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
 the music font.  See @ruser{The Emmentaler font} for a complete listing of
