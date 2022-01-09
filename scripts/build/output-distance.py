@@ -44,7 +44,7 @@ me_path = os.path.abspath(os.path.split(sys.argv[0])[0])
 sys.path.insert(0, me_path + '/../../python/')
 
 # Keep our includes after adapting sys.path above.
-import midi
+import midi # type: ignore
 
 X_AXIS = 0
 Y_AXIS = 1
