@@ -82,125 +82,56 @@ following stencil.  Stencils with empty y@tie{}extent are not given
 ;; TODO:
 ;; - we would be interested in the computed result of `replace-markup' and
 ;;   `first-visible-markup', don't know how to get this, though
+
 ;;   For now all (not computed) arguments are caught.
 ;; - Other markup-commands to ignore?
-(define markup-commands-to-ignore
-  '(page-ref-markup))
-
-(define-public (markup->string m . argscopes)
-  (let* ((scopes (if (pair? argscopes) (car argscopes) '())))
-
-    (define all-relevant-markup-commands
-      ;; Returns a list containing the names of all markup-commands and
-      ;; markup-list-commands with predicate @code{cheap-markup?} or
-      ;; @code{markup-list?} in their @code{markup-command-signature}.
-      ;; @code{table-of-contents} is not caught, same for user-defined commands.
-      ;; markup-commands from @code{markup-commands-to-ignore} are removed.
-      (lset-difference eq?
-                       (map car
-                            (filter
-                             (lambda (x)
-                               (let* ((predicates (markup-command-signature (cdr x))))
-                                 (and predicates
-                                      (not
-                                       (null?
-                                        (lset-intersection eq?
-                                                           '(cheap-markup? markup-list?)
-                                                           (map procedure-name predicates)))))))
-                             (ly:module->alist (resolve-module '(lily)))))
-                       markup-commands-to-ignore))
-
-    ;; helper functions to handle string cons like string lists
-    (define (markup-cons->string-cons c scopes)
-      (if (not (pair? c)) (markup->string c scopes)
-          (cons
-           (markup->string (car c) scopes)
-           (markup-cons->string-cons (cdr c) scopes))))
-    (define (string-cons-join c)
-      (if (not (pair? c)) c
-          (string-join (list (car c) (string-cons-join (cdr c))) "")))
-
-    ;; We let the following line in for future debugging
-    ;; (display-scheme-music (sort all-relevant-markup-commands symbol<?))
 
 
-    ;;;; Remark: below only works, if markup?- or markup-list? arguments are the
-    ;;;;         last listed arguments in the commands definition
-    ;;;; TODO: which other markup-(list)-commands should be special cased or
-    ;;;;       completely excluded?
-    (cond
-     ((string? m) m)
-     ((null? m) "")
-     ((not (pair? m)) "")
+(define-public (markup-default-to-string-method layout props . args)
+  "The default @code{markup->string} handler for markups, used when
+@code{markup->string} encounters a markup that has no special
+@code{as-string} expression defined.  This applies
+@code{markup->string} on all markup arguments and joins the results,
+separating them with spaces."
+  (string-join
+   ;; Don't add extra spaces for arguments not giving
+   ;; a representation.
+   (remove
+    string-null?
+    (map
+     (lambda (arg)
+       (markup->string arg #:layout layout #:props props))
+     args))
+   " "))
 
-     ;; TODO: Let \box enclose text in square brackets?  Implementing
-     ;; this would affect how rehearsal marks are rendered in MIDI
-     ;; files when the chosen formatter uses \box.
+(define*-public (markup->string m #:key (layout #f) (props '()))
+  "Convert a markup or markup list to an approximate string
+representation.  This is useful for, e.g., PDF metadata and MIDI
+markers.
 
-     ;; TODO: Let \circle enclose text in parentheses?  That would
-     ;; follow the convention of using "(C)" in copyright notices when
-     ;; a true circled C is not available.  Also, \circle <digit> and
-     ;; \circle <english_letter> could be transformed to U+2460 etc.,
-     ;; but there are a limited number of them, so it would create
-     ;; inconsistencies when things outside the set are used.
-     ;;
-     ;; Implementing this would affect how rehearsal marks are
-     ;; rendered in MIDI files when the formatter uses \circle.
-
-     ;; \coda to Unicode
-     ((and (pair? m) (equal? (car m) coda-markup))
-      (markup->string (ly:wide-char->utf-8 #x1d10c) scopes))
-
-     ;; handle \concat (string-join without spaces)
-     ;; TODO: Do we really want a string-joined return-value?
-     ;; \overlay or \combine will return a string with spaces.
-     ((and (pair? m) (equal? (car m) concat-markup))
-      (string-cons-join (markup-cons->string-cons (cadr m) scopes)))
-
-     ;; handle \fill-with-pattern (ignore the filling markup)
-     ((and (pair? m) (equal? (car m) fill-with-pattern-markup))
-      (markup->string (take-right m 2) scopes))
-
-     ;; fromproperty-markup reads property values from the header block:
-     ((equal? (car m) fromproperty-markup)
-      (let* ((varname (symbol->string (cadr m)))
-             ;; cut off the header: prefix from the variable name:
-             (newvarname (if (string-prefix? "header:" varname)
-                             (substring varname 7)
-                             varname))
-             (var (string->symbol newvarname))
-             (mod (make-module 1)))
-        ;; Prevent loops by temporarily clearing the variable we have just looked up
-        (module-define! mod var "")
-        (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
-
-     ;; handle \put-adjacent (string-join without spaces)
-     ;; TODO: Do we really want a string-joined return-value?
-     ;; \overlay or \combine will return a string with spaces.
-     ((and (pair? m) (equal? (car m) put-adjacent-markup))
-      (string-cons-join (markup-cons->string-cons (take-right m 2) scopes)))
-
-     ;; \segno to Unicode
-     ((and (pair? m) (equal? (car m) segno-markup))
-      (markup->string (ly:wide-char->utf-8 #x1d10b) scopes))
-
-     ;; \varcoda to Unicode coda sign
-     ((and (pair? m) (equal? (car m) varcoda-markup))
-      (markup->string (ly:wide-char->utf-8 #x1d10c) scopes))
-
-     ((member (car m)
-              (primitive-eval (cons 'list all-relevant-markup-commands)))
-      (markup->string
-       (if (> (length (last-pair m)) 1)
-           (last-pair m)
-           (car (last-pair m)))
-       scopes))
-
-     ;; ignore all other markup functions
-     ((markup-function? (car m)) "")
-
-     ;; handle markup lists
-     ((list? m)
-      (string-join (map (lambda (mm) (markup->string mm scopes)) m) " "))
-
-     (else "ERROR, unable to extract string from markup"))))
+The optional named @var{layout} and @var{props} argument are an output
+definition and a property alist chain, like the ones that are used
+when interpreting markups."
+  (cond
+   ((string? m)
+    m)
+   ((pair? m)
+    (let ((first-elt (car m)))
+      (cond
+        ((or (markup-function? first-elt)
+             (markup-list-function? first-elt))
+         ;; m is a markup, or the application of a markup list command.
+         ;; Look up the as-string handler of a command.
+         (let ((handler (or (markup-function-as-string-method first-elt)
+                            markup-default-to-string-method)))
+           (apply handler layout props (cdr m))))
+        ((markup-list? m)
+         ;; A markup list that is not the result of a markup list
+         ;; command.  This must be a list of markups or markup lists.
+         ;; Join results by spaces.
+         (apply markup-default-to-string-method layout props m))
+        (else
+         ;; Can occur if one argument to a markup function is a
+         ;; list of anything.
+         ""))))
+   (else "")))

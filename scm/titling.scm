@@ -21,6 +21,23 @@
                                   layout 'line-width)))
                 (ly:output-def-lookup layout 'text-font-defaults))))
 
+(define-public (headers-property-alist-chain headers)
+  "Take a list of @code{\\header} blocks (Guile modules).  Return an
+alist chain containing all of their bindings where the names have been
+prefixed with @code{header:}.  This alist chain is suitable for
+interpreting a markup in the context of these headers."
+  (map
+   (lambda (module)
+     (map
+      (lambda (entry)
+        (cons
+         (string->symbol
+          (string-append "header:"
+                         (symbol->string (car entry))))
+         (cdr entry)))
+      (ly:module->alist module)))
+   headers))
+
 ;;;;;;;;;;;;;;;;;;
 
 (define ((marked-up-headfoot what-odd what-even)
@@ -36,18 +53,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
 
   (define (interpret-in-page-env potential-markup)
     (if (markup? potential-markup)
-        (let* ((alists (map ly:module->alist scopes))
-               (prefixed-alists
-                (map (lambda (alist)
-                       (map (lambda (entry)
-                              (cons
-                               (string->symbol
-                                (string-append
-                                 "header:"
-                                 (symbol->string (car entry))))
-                               (cdr entry)))
-                            alist))
-                     alists))
+        (let* ((prefixed-alists (headers-property-alist-chain scopes))
                (number-type (get 'page-number-type))
                (pgnum-alist
                 (list
@@ -84,19 +90,8 @@ with `header:'."
     (let ((x (ly:modules-lookup scopes sym)))
       (if (markup? x) x #f)))
 
-  (let* ((alists (map ly:module->alist scopes))
-         (prefixed-alist
-          (map (lambda (alist)
-                 (map (lambda (entry)
-                        (cons
-                         (string->symbol
-                          (string-append
-                           "header:"
-                           (symbol->string (car entry))))
-                         (cdr entry)))
-                      alist))
-               alists))
-         (props (append prefixed-alist
+  (let* ((prefixed-alists (headers-property-alist-chain scopes))
+         (props (append prefixed-alists
                         (layout-extract-page-properties layout)))
 
          (title-markup (ly:output-def-lookup layout what)))

@@ -29,6 +29,7 @@
 ;;;   args-signature
 ;;;   [ #:category category ]
 ;;;   [ #:properties property-bindings ]
+;;;   [ #:as-string expression ]
 ;;;   documentation-string
 ;;;   ..body..)
 ;;;
@@ -95,6 +96,11 @@
 ;;;     default values used by `A'.  In that case, add `A-markup' to the
 ;;;     property-bindings of B.  (This is used when generating
 ;;;     documentation, but won't create bindings.)
+;;;
+;;;   as-string
+;;;     If given, this is an expression evaluated by markup->string for
+;;;     lossily converting markups to strings.  See define-markup-command's
+;;;     docstring for details.
 ;;;
 ;;;   documentation-string
 ;;;     the command documentation string (used to generate manuals)
@@ -519,6 +525,11 @@ A triangle, either filled or empty.
   #:properties ((thickness 1)
                 (font-size 0)
                 (circle-padding 0.2))
+  ;; \circle <digit> and \circle <english_letter> could be transformed
+  ;; to U+2460 etc., but there are a limited number of them, so it
+  ;; would create inconsistencies when things outside the set are used.
+  #:as-string (format #f "(~a)"
+                      (markup->string arg #:layout layout #:props props))
   "
 @cindex circling text
 
@@ -574,6 +585,8 @@ line thickness and padding around the markup.
                 (font-size 0)
                 (x-padding 0.75)
                 (y-padding 0.75))
+  #:as-string (format #f "(~a)"
+                      (markup->string arg #:layout layout #:props props))
   "
 @cindex drawing oval, around text
 
@@ -598,6 +611,9 @@ line thickness and padding around the markup.
 (define-markup-command (with-url layout props url arg)
   (string? markup?)
   #:category graphic
+  #:as-string (format #f "~a [~a]"
+                      (markup->string arg #:layout layout #:props props)
+                      url)
   "
 @cindex inserting URL link, into text
 
@@ -724,6 +740,7 @@ Create a beam with the specified parameters.
   (markup?)
   #:category font
   #:properties ((thickness 1) (offset 2) (underline-shift 0) (underline-skip 2))
+  ;; TODO: should we add a #:as-string handler formatting as _arg_?
   "
 @cindex underlining text
 
@@ -885,6 +902,8 @@ Overtie @var{arg}.
   #:properties ((thickness 1)
                 (font-size 0)
                 (box-padding 0.2))
+  #:as-string (format #f "[~a]"
+                      (markup->string arg #:layout layout #:props props))
   "
 @cindex enclosing text within a box
 
@@ -941,6 +960,8 @@ circle of diameter@tie{}0 (i.e., sharp corners).
                 (corner-radius 1)
                 (font-size 0)
                 (box-padding 0.5))
+  #:as-string (format #f "[~a]"
+                      (markup->string arg #:layout layout #:props props))
   "@cindex enclosing text in box, with rounded corners
    @cindex drawing box, with rounded corners, around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
@@ -1150,6 +1171,7 @@ present."
 (define-markup-command (epsfile layout props axis size file-name)
   (number? number? string?)
   #:category graphic
+  #:as-string ""
   "
 @cindex inlining an Encapsulated PostScript image
 
@@ -1172,6 +1194,7 @@ Inline an EPS image.  The image is scaled along @var{axis} to
 (define-markup-command (postscript layout props str)
   (string?)
   #:category graphic
+  #:as-string ""
   "
 @cindex inserting PostScript directly, into text
 This inserts @var{str} directly into the output as a PostScript
@@ -1464,6 +1487,7 @@ the use of @code{\\simple} is unnecessary.
 (define-markup-command (first-visible layout props args)
   (markup-list?)
   #:category other
+  #:as-string "" ;; TODO: should we do something here?
   "Use the first markup in @var{args} that yields a non-empty stencil
 and ignore the rest.
 
@@ -1662,6 +1686,13 @@ space.  If there are no arguments, return an empty stencil.
 (define-markup-command (concat layout props args)
   (markup-list?)
   #:category align
+  ;; TODO: do we really want no spaces?  \overlay or \combine will
+  ;; return a string with spaces.
+  #:as-string (apply
+               string-append
+               (map (lambda (m)
+                      (markup->string m #:layout layout #:props props))
+                    args))
   "
 @cindex concatenating text
 @cindex ligature, in text
@@ -1939,6 +1970,9 @@ and @code{\\wordwrap-string}."
 (define-markup-command (wordwrap-field layout props symbol)
   (symbol?)
   #:category align
+  #:as-string (markup->string (chain-assoc-get symbol props)
+                              #:layout layout
+                              #:props props)
   "Wordwrap the data which has been assigned to @var{symbol}.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
@@ -1973,6 +2007,9 @@ and @code{\\wordwrap-string}."
 (define-markup-command (justify-field layout props symbol)
   (symbol?)
   #:category align
+  #:as-string (markup->string (chain-assoc-get symbol props)
+                              #:layout layout
+                              #:props props)
   "Justify the data which has been assigned to @var{symbol}.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
@@ -2358,6 +2395,7 @@ and@tie{}@var{y}."
 (define-markup-command (with-outline layout props outline arg)
   (markup? markup?)
   #:category other
+  #:as-string (markup->string arg #:layout layout #:props props)
   "
 Print @var{arg} with the outline and dimensions of @var{outline}. The outline
 is used by skylines to resolve collisions (not for whiteout)."
@@ -2367,6 +2405,7 @@ is used by skylines to resolve collisions (not for whiteout)."
 (define-markup-command (with-dimensions-from layout props arg1 arg2)
   (markup? markup?)
   #:category other
+  #:as-string (markup->string arg2 #:layout layout #:props props)
   "
 Print @var{arg2} with the horizontal and vertical dimensions of @var{arg1}."
   (let* ((stil1 (interpret-markup layout props arg1))
@@ -2429,6 +2468,11 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
 (define-markup-command (put-adjacent layout props axis dir arg1 arg2)
   (integer? ly:dir? markup? markup?)
   #:category align
+  ;; TODO: Do we really want no spaces?  \overlay or \combine
+  ;; will return a string with spaces.
+  #:as-string (string-append
+               (markup->string arg1 #:layout layout #:props props)
+               (markup->string arg2 #:layout layout #:props props))
   "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
   (let ((m1 (interpret-markup layout props arg1))
         (m2 (interpret-markup layout props arg2)))
@@ -2437,6 +2481,13 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
 (define-markup-command (transparent layout props arg)
   (markup?)
   #:category other
+  ;; It's not obvious how this should translate into strings.
+  ;; This gives as many spaces as the string representation
+  ;; of the argument.
+  #:as-string (make-string
+               (string-length
+                (markup->string arg #:layout layout #:props props))
+               #\space)
   "Make @var{arg} transparent.
 
 @lilypond[verbatim,quote]
@@ -2507,6 +2558,10 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
 (define-markup-command (property-recursive layout props symbol)
   (symbol?)
   #:category other
+  #:as-string (begin
+                (ly:warning (_ "Recursive definition of property ~a detected!")
+                            symbol)
+                "")
   "Print out a warning when a header field markup contains some recursive
 markup definition."
   (ly:warning (_ "Recursive definition of property ~a detected!") symbol)
@@ -2515,6 +2570,13 @@ markup definition."
 (define-markup-command (fromproperty layout props symbol)
   (symbol?)
   #:category other
+  #:as-string (markup->string
+               (chain-assoc-get symbol props)
+               #:layout layout
+               #:props (prepend-alist-chain
+                        symbol
+                        (make-property-recursive-markup symbol)
+                        props))
   "Read the @var{symbol} from property settings, and produce a stencil
 from the markup contained within.  If @var{symbol} is not defined, it
 returns an empty markup.
@@ -2554,6 +2616,9 @@ and returns a stencil."
 (define-markup-command (footnote layout props mkup note)
   (markup? markup?)
   #:category other
+  #:as-string (format #f "~a [~a]"
+                      (markup->string mkup #:layout layout #:props props)
+                      (markup->string note #:layout layout #:props props))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
 @lilypond[verbatim,quote]
@@ -2579,6 +2644,9 @@ The footnote will not be annotated automatically."
   #:category other
   #:properties ((raise 0.5)
                 (padding 0.0))
+  #:as-string (format #f "~a [~a]"
+                      (markup->string mkup #:layout layout #:props props)
+                      (markup->string note #:layout layout #:props props))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
 @lilypond[verbatim,quote]
@@ -2640,9 +2708,19 @@ The footnote will be annotated automatically."
       '(0 . 0)
       '(0 . 0)))))
 
+(define (prepend-props new-prop props)
+  (cons
+   (if (pair? (car new-prop))
+       new-prop
+       (list new-prop))
+   props))
+
 (define-markup-command (override layout props new-prop arg)
   (pair? markup?)
   #:category other
+  #:as-string (markup->string arg
+                              #:layout layout
+                              #:props (prepend-props new-prop props))
   "
 @cindex overriding property within text markup
 
@@ -2664,8 +2742,7 @@ of its own.
 }
 @end lilypond"
   (interpret-markup layout
-                    (cons (if (pair? (car new-prop)) new-prop (list new-prop))
-                          props)
+                    (prepend-props new-prop props)
                     arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3236,6 +3313,9 @@ the possible glyphs.
 (define-markup-command (coda layout props)
   ()
   #:category music
+  ;; TODO: make more general, in \musicglyph?
+  #:as-string
+  (ly:wide-char->utf-8 #x1d10c)
   "Draw a coda sign.
 
 @lilypond[verbatim,quote]
@@ -3254,6 +3334,8 @@ the possible glyphs.
 (define-markup-command (varcoda layout props)
   ()
   #:category music
+  #:as-string
+  (ly:wide-char->utf-8 #x1d10c)
   "Draw a varcoda sign.
 
 @lilypond[verbatim,quote]
@@ -3272,6 +3354,8 @@ the possible glyphs.
 (define-markup-command (segno layout props)
   ()
   #:category music
+  #:as-string
+  (ly:wide-char->utf-8 #x1d10b)
   "Draw a segno symbol.
 
 @lilypond[verbatim,quote]
@@ -3429,6 +3513,9 @@ rational number.
 (define-markup-command (with-color layout props color arg)
   (color? markup?)
   #:category other
+  ;; Needed because a color can be a string and the default
+  ;; behavior would include it in the result.
+  #:as-string (markup->string arg #:layout layout #:props props)
   "
 @cindex coloring text
 
@@ -3558,6 +3645,7 @@ Use the filled head if @var{filled} is specified.
 (define-markup-command (char layout props num)
   (integer?)
   #:category other
+  #:as-string (ly:wide-char->utf-8 num)
   "Produce a single character.  Characters encoded in hexadecimal
 format require the prefix @code{#x}.
 
@@ -3590,6 +3678,7 @@ format require the prefix @code{#x}.
 (define-markup-command (markletter layout props num)
   (integer?)
   #:category other
+  #:as-string (markgeneric-string num 'alphabet-omit-i 'combine)
   "Make a markup letter for @var{num}.  The letters start with A
 to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
 
@@ -3606,6 +3695,7 @@ to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
 (define-markup-command (markalphabet layout props num)
   (integer?)
   #:category other
+  #:as-string (markgeneric-string num 'alphabet 'combine)
   "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
 and continue with double letters.
 
@@ -3683,6 +3773,7 @@ and continue with double letters.
 (define-markup-command (slashed-digit layout props num)
   (integer?)
   #:category other
+  ;; TODO: as-string?
   #:properties ((font-size 0)
                 (thickness 1.6))
   "
@@ -3705,6 +3796,7 @@ figured bass notation.
   #:category other
   #:properties ((font-size 0)
                 (thickness 1.6))
+  ;; TODO: as-string?
   "
 @cindex backslashed digit
 
@@ -3747,6 +3839,7 @@ figured bass notation.
 (define-markup-command (eyeglasses layout props)
   ()
   #:category other
+  ;; TODO: as-string?
   "Prints out eyeglasses, indicating strongly to look at the conductor.
 @lilypond[verbatim,quote]
 \\markup { \\eyeglasses }
@@ -3758,6 +3851,7 @@ figured bass notation.
 (define-markup-command (left-brace layout props size)
   (number?)
   #:category other
+  #:as-string "{"
   "
 A feta brace in point size @var{size}.
 
@@ -3800,6 +3894,7 @@ A feta brace in point size @var{size}.
 (define-markup-command (right-brace layout props size)
   (number?)
   #:category other
+  #:as-string "}"
   "
 A feta brace in point size @var{size}, rotated 180 degrees.
 
@@ -3827,6 +3922,7 @@ A feta brace in point size @var{size}, rotated 180 degrees.
                 (flag-style '())
                 (dots-direction 0)
                 (style '()))
+  ;; TODO: as-string?
   "
 @cindex note, within text, by @code{log} and @code{dot-count}
 
@@ -4073,6 +4169,7 @@ mensural-flags.  Both are supplied for convenience.
   (ly:duration? number?)
   #:category music
   #:properties (note-by-number-markup)
+  ;; TODO: as-string?
   "
 @cindex note, within text, by duration
 
@@ -4104,6 +4201,7 @@ a shortened down stem.
   #:properties ((font-size 0)
                 (ledgers '(-1 0 1))
                 (style '()))
+  ;; TODO: as-string?
   "
 @cindex rest, within text, by @code{log} and @code{dot-count}
 
@@ -4231,6 +4329,7 @@ ledger lines are selected.
                 (expand-limit 10)
                 (width 8)
                 (multi-measure-rest-number #t))
+  ;; TODO: as-string?
   "
 @cindex multi-measure rest, within text, by @code{duration-scale}
 
@@ -4400,7 +4499,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
   #:category music
   #:properties (rest-by-number-markup
                 multi-measure-rest-by-number-markup)
-
+  ;; TODO: as-string?
 "
 @cindex rest, within text, by duration
 @cindex multi-measure rest, within text, by duration
@@ -4446,6 +4545,10 @@ disregarded.
 (define-markup-command (fermata layout props) ()
   #:category music
   #:properties ((direction UP))
+  #:as-string (ly:wide-char->utf-8
+               (if (eqv? direction UP)
+                   #x1d110
+                   #x1d111))
   "Create a fermata glyph.  When @var{direction} is @code{DOWN}, use
 an inverted glyph.  Note that within music, one would usually use the
 @code{\\fermata} articulation instead of a markup.
@@ -4546,6 +4649,9 @@ and/or @code{extra-offset} properties.
   (markup? markup?)
   #:category other
   #:properties ((font-size 0))
+  #:as-string (format #f "~a/~a"
+                      (markup->string arg1 #:layout layout #:props props)
+                      (markup->string arg2 #:layout layout #:props props))
   "
 @cindex creating text fraction
 
@@ -4748,6 +4854,8 @@ Draw vertical brackets around @var{arg}.
                 (thickness 1)
                 (line-thickness 0.1)
                 (width 0.25))
+  #:as-string (format #f "(~a)"
+                      (markup->string arg #:layout layout #:props props))
   "
 @cindex placing parentheses, around text
 
@@ -4788,6 +4896,7 @@ a column containing several lines of text.
 (define-markup-command (page-ref layout props label gauge default)
   (symbol? markup? markup?)
   #:category other
+  #:as-string ""
   "
 @cindex referencing page number, in text
 
@@ -4878,6 +4987,11 @@ Negative values may be used to produce mirror images.
 (define-markup-command (pattern layout props count axis space pattern)
   (index? index? number? markup?)
   #:category other
+  #:as-string (string-join (make-list count
+                                      (markup->string pattern
+                                                      #:layout layout
+                                                      #:props props))
+                           " ")
   "
 Prints @var{count} times a @var{pattern} markup.
 Patterns are spaced apart by @var{space} (defined as for
@@ -4903,6 +5017,9 @@ Patterns are distributed on @var{axis}.
   #:category align
   #:properties ((word-space)
                 (line-width))
+  #:as-string (markup->string (list left right)
+                              #:layout layout
+                              #:props props)
   "
 Put @var{left} and @var{right} in a horizontal line of width @code{line-width}
 with a line of markups @var{pattern} in between.
@@ -4958,6 +5075,7 @@ Patterns are aligned to the @var{dir} markup.
   (list? markup?)
   #:category font
   #:properties ((replacement-alist))
+  ;; TODO: is there something we can do for #:as-string?
   "
 Used to automatically replace a string by another in the markup @var{arg}.
 Each pair of the alist @var{replacements} specifies what should be replaced.

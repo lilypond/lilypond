@@ -751,6 +751,7 @@ New markup commands can be defined using the
     (@var{arg1-type?} @var{arg2-type?} @dots{})
     [ #:properties ((@var{property1} @var{default-value1})
                     @dots{}) ]
+    [ #:as-string @var{expression} ]
   @dots{}command body@dots{})
 @end lisp
 
@@ -1055,6 +1056,109 @@ stencils are combined using @code{ly:stencil-add}:
 \markup \my-draw-line #'(4 . 3)
 \markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
 @end lilypond
+
+
+@unnumberedsubsubsec Converting markups to strings
+
+@cindex markup, to string
+@funindex markup->string
+
+Markups are occasionally converted to plain strings, such as when
+outputting PDF metadata based on the @code{title} header field or
+for converting lyrics to MIDI.  This conversion is inherently
+lossy, but tries to as accurate as feasible.  The function used
+for this is @code{markup->string}.
+
+@lilypond[verbatim,quote]
+composerName = \markup \box "Arnold Schönberg"
+
+\markup \composerName
+
+\markup \typewriter #(markup->string composerName)
+@end lilypond
+
+For custom markup commands, the default behavior is to convert all
+markup or markup list arguments first, and join the results by
+spaces.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   (interpret-markup layout props
+    #{
+      \markup \fill-line { \box #authorA and \box #authorB }
+    #}))
+
+defaultBehavior = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \defaultBehavior
+
+\markup \typewriter #(markup->string defaultBehavior)
+@end lilypond
+
+@code{markup->string} can also receive the named arguments
+@code{#:layout @var{layout}} and @code{#:props @var{props}}, with
+the same meaning as in the definition of a markup command.
+However, they are optional because they cannot always be provided
+(such as the @code{layout} argument when converting to MIDI).
+
+To support special conversions in custom markup commands, the
+@code{#:as-string} parameter can be given to
+@code{define-markup-command}.  It expects an expression, which is
+evaluated by @code{markup->string} in order to yield the string
+result.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   #:as-string (format #f "~a and ~a"
+                       (markup->string authorA #:layout layout #:props props)
+                       (markup->string authorB #:layout layout #:props props))
+   (interpret-markup layout props
+    #{
+      \markup \fill-line { \box #authorA and \box #authorB }
+    #}))
+
+customized = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \customized
+
+\markup \typewriter #(markup->string customized)
+@end lilypond
+
+Within the expression, the same bindings are available as in the
+main markup command body, namely @code{layout} and @code{props},
+the command argument, and optionally the properties.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   #:properties ((author-separator " and "))
+   #:as-string (format #f "~a~a~a"
+                       (markup->string authorA #:layout layout #:props props)
+                       (markup->string author-separator #:layout layout #:props props)
+                       (markup->string authorB #:layout layout #:props props))
+   (interpret-markup layout props
+    #{
+      \markup { \box #authorA #author-separator \box #authorB }
+    #}))
+
+customized = \markup \override #'(author-separator . ", ")
+                     \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \customized
+
+\markup \typewriter #(markup->string customized)
+@end lilypond
+
+Most often, a custom handler only needs to call
+@code{markup->string} recursively on certain arguments, as
+demonstrated above.  However, it can also make use of the
+@code{layout} and @code{props} directly, in the same way as in the
+main body.  Care must be taken that the @code{layout} argument is
+@code{#f} if no @code{#:layout} has been given to
+@code{markup->string}.  The @code{props} argument defaults to the
+empty list.
 
 
 @node New markup list command definition
