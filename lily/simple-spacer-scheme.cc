@@ -75,11 +75,11 @@ by @var{spring-count}+1 positions of the objects.
       spacer.add_rod (l, r, distance);
     }
 
-  spacer.solve (scm_to_double (length), is_ragged);
+  Simple_spacer::Solution sol = spacer.solve (scm_to_double (length), is_ragged);
 
-  vector<Real> posns = spacer.spring_positions ();
+  vector<Real> posns = spacer.spring_positions (sol.force_, is_ragged);
 
-  SCM force_return = spacer.fits () ? to_scm (spacer.force ()) : SCM_BOOL_F;
+  SCM force_return = sol.fits_ ? to_scm (sol.force_) : SCM_BOOL_F;
 
   SCM retval = SCM_EOL;
   for (vsize i = posns.size (); i--;)

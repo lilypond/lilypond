@@ -71,25 +71,7 @@ using std::vector;
   positive force = expanding, negative force = compressing.
 */
 
-Simple_spacer::Simple_spacer ()
-{
-  line_len_ = 0.0;
-  force_ = 0.0;
-  fits_ = true;
-  ragged_ = true;
-}
-
-Real
-Simple_spacer::force () const
-{
-  return force_;
-}
-
-bool
-Simple_spacer::fits () const
-{
-  return fits_;
-}
+Simple_spacer::Simple_spacer () { min_force_ = 0; }
 
 /*
    Heuristically try to calculate the force that will get us as close to the
@@ -167,7 +149,7 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
         }
       return;
     }
-  force_ = std::max (force_, block_force);
+  min_force_ = std::max (min_force_, block_force);
   for (vsize i = l; i < r; i++)
     springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
 }
@@ -207,68 +189,66 @@ Simple_spacer::configuration_length (Real force) const
   return range_len (0, springs_.size (), force);
 }
 
-void
-Simple_spacer::set_force (Real force)
+Simple_spacer::Solution
+Simple_spacer::solve (Real line_len, bool ragged) const
 {
-  force_ = force;
+  Real conf = configuration_length (min_force_);
+
+  Solution sol;
+  if (conf < line_len)
+    sol = expand_line (line_len);
+  else if (conf > line_len)
+    sol = compress_line (line_len);
+  else
+    {
+      sol.force_ = min_force_;
+      sol.fits_ = true;
+    }
+
+  if (ragged && sol.force_ < 0)
+    sol.fits_ = false;
+
+  return sol;
 }
 
-void
-Simple_spacer::solve (Real line_len, bool ragged)
-{
-  Real conf = configuration_length (force_);
-
-  ragged_ = ragged;
-  line_len_ = line_len;
-  if (conf < line_len_)
-    force_ = expand_line ();
-  else if (conf > line_len_)
-    force_ = compress_line ();
-
-  if (ragged && force_ < 0)
-    fits_ = false;
-}
-
-Real
-Simple_spacer::expand_line ()
+Simple_spacer::Solution
+Simple_spacer::expand_line (Real line_len) const
 {
   double inv_hooke = 0;
-  double cur_len = configuration_length (force_);
+  double cur_len = configuration_length (min_force_);
 
-  fits_ = true;
   for (vsize i = 0; i < springs_.size (); i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
     inv_hooke = 1e-6;   /* then report a very large stretching force */
 
-  if (cur_len > (1 + 1e-6) * line_len_)
+  if (cur_len > (1 + 1e-6) * line_len)
     programming_error ("misuse of expand_line");
-  return (line_len_ - cur_len) / inv_hooke + force_;
+
+  Solution sol;
+  sol.force_ = (line_len - cur_len) / inv_hooke + min_force_;
+  sol.fits_ = true;
+  return sol;
 }
 
-Real
-Simple_spacer::compress_line ()
+Simple_spacer::Solution
+Simple_spacer::compress_line (Real line_len) const
 {
-  double cur_len = configuration_length (force_);
-  double cur_force = force_;
-  bool compressed = false;
-
   /* just because we are in compress_line () doesn't mean that the line
      will actually be compressed (as in, a negative force) because
      we start out with a stretched line. Here, we check whether we
      will be compressed or stretched (so we know which spring constant to use) */
   double neutral_length = configuration_length (0.0);
-  if (neutral_length > line_len_)
-    {
-      cur_force = 0.0;
-      cur_len = neutral_length;
-      compressed = true;
-    }
+  bool compressed = (neutral_length > line_len);
 
-  fits_ = true;
+  Simple_spacer::Solution cur;
+  cur.force_ = compressed ? 0.0 : min_force_;
+  cur.fits_ = true;
+  Real cur_len
+    = compressed ? neutral_length : configuration_length (min_force_);
 
-  if (line_len_ > (1 + 1e-6) * cur_len)
+  if (line_len > (1 + 1e-6) * cur_len)
     programming_error ("misuse of compress_line");
   vector<Spring> sorted_springs = springs_;
   sort (sorted_springs.begin (), sorted_springs.end (), std::greater<Spring> ());
@@ -276,7 +256,7 @@ Simple_spacer::compress_line ()
   /* inv_hooke is the total flexibility of currently-active springs */
   double inv_hooke = 0;
   vsize i = sorted_springs.size ();
-  for (; i && sorted_springs[i - 1].blocking_force () < cur_force; i--)
+  for (; i && sorted_springs[i - 1].blocking_force () < cur.force_; i--)
     inv_hooke += compressed
                  ? sorted_springs[i - 1].inverse_compress_strength ()
                  : sorted_springs[i - 1].inverse_stretch_strength ();
@@ -288,60 +268,63 @@ Simple_spacer::compress_line ()
       if (std::isinf (sp.blocking_force ()))
         break;
 
-      double block_dist = (cur_force - sp.blocking_force ()) * inv_hooke;
-      if (cur_len - block_dist < line_len_)
+      double block_dist = (cur.force_ - sp.blocking_force ()) * inv_hooke;
+      if (cur_len - block_dist < line_len)
         {
-          cur_force += (line_len_ - cur_len) / inv_hooke;
-          cur_len = line_len_;
+          cur.force_ += (line_len - cur_len) / inv_hooke;
+          cur_len = line_len;
 
           /*
             Paranoia check.
           */
-          if (fabs (configuration_length (cur_force) - cur_len) > 1e-6 * cur_len)
+          if (fabs (configuration_length (cur.force_) - cur_len)
+              > 1e-6 * cur_len)
             programming_error (to_string ("mis-predicted force, %.6f ~= %.6f",
-                                          cur_len, configuration_length (cur_force)));
-          return cur_force;
+                                          cur_len,
+                                          configuration_length (cur.force_)));
+          return cur;
         }
 
       cur_len -= block_dist;
       inv_hooke -= compressed ? sp.inverse_compress_strength () : sp.inverse_stretch_strength ();
-      cur_force = sp.blocking_force ();
+      cur.force_ = sp.blocking_force ();
     }
 
-  fits_ = false;
-  return cur_force;
+  cur.fits_ = false;
+  return cur;
 }
 
 void
 Simple_spacer::add_spring (Spring const &sp)
 {
-  force_ = std::max (force_, sp.blocking_force ());
+  min_force_ = std::max (min_force_, sp.blocking_force ());
   springs_.push_back (sp);
 }
 
 vector<Real>
-Simple_spacer::spring_positions () const
+Simple_spacer::spring_positions (Real force, bool ragged) const
 {
   vector<Real> ret;
   ret.push_back (0.);
 
   for (vsize i = 0; i < springs_.size (); i++)
-    ret.push_back (ret.back () + springs_[i].length (ragged_ && force_ > 0 ? 0.0 : force_));
+    ret.push_back (ret.back ()
+                   + springs_[i].length (ragged && force > 0 ? 0.0 : force));
 
   return ret;
 }
 
 Real
-Simple_spacer::force_penalty (bool ragged) const
+Simple_spacer::force_penalty (Real line_len, Real force, bool ragged) const
 {
   /* If we are ragged-right, we don't want to penalise according to the force,
      but according to the amount of whitespace that is present after the end
      of the line. */
   if (ragged)
-    return std::max (0.0, line_len_ - configuration_length (0.0));
+    return std::max (0.0, line_len - configuration_length (0.0));
 
   /* Use a convex compression penalty. */
-  Real f = force_;
+  Real f = force;
   return f - (f < 0 ? f * f * f * f * 2 : 0);
 }
 
@@ -526,10 +509,12 @@ get_line_forces (vector<Paper_column *> const &columns,
                   spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
                 }
             }
-          spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-          force[b * breaks.size () + c] = spacer.force_penalty (ragged);
+          Simple_spacer::Solution sol
+            = spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
+          force[b * breaks.size () + c]
+            = spacer.force_penalty (line_len, sol.force_, ragged);
 
-          if (!spacer.fits ())
+          if (!sol.fits_)
             {
               if (c == b + 1)
                 force[b * breaks.size () + c] = -200000;
@@ -583,14 +568,13 @@ get_line_configuration (vector<Paper_column *> const &columns,
         }
     }
 
-  spacer.solve (line_len, ragged);
-  ret.force_ = spacer.force_penalty (ragged);
-
-  ret.config_ = spacer.spring_positions ();
+  Simple_spacer::Solution sol = spacer.solve (line_len, ragged);
+  ret.force_ = spacer.force_penalty (line_len, sol.force_, ragged);
+  ret.config_ = spacer.spring_positions (sol.force_, ragged);
   for (vsize i = 0; i < ret.config_.size (); i++)
     ret.config_[i] += indent;
 
-  ret.satisfies_constraints_ = spacer.fits ();
+  ret.satisfies_constraints_ = sol.fits_;
 
   /*
     Check if breaking constraints are met.

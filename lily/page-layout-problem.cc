@@ -729,25 +729,28 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
   for (vsize i = 0; i < springs_.size (); ++i)
     spacer.add_spring (springs_[i]);
 
+  Simple_spacer::Solution sol;
   if (ragged && !std::isinf (fixed_force))
     {
       // We need to tell the spacer it isn't ragged.  Otherwise, it will
       // refuse to stretch.
-      spacer.solve (page_height_, false);
+      sol = spacer.solve (page_height_, false);
 
       if (spacer.configuration_length (fixed_force) <= page_height_)
-        spacer.set_force (fixed_force);
+        sol.force_ = fixed_force;
+
+      solution_ = spacer.spring_positions (sol.force_, false);
     }
   else
-    spacer.solve (page_height_, ragged);
-
-  solution_ = spacer.spring_positions ();
-  force_ = spacer.force ();
-
-  if (!spacer.fits ())
     {
-      Real overflow = spacer.configuration_length (spacer.force ())
-                      - page_height_;
+      sol = spacer.solve (page_height_, ragged);
+      force_ = sol.force_;
+      solution_ = spacer.spring_positions (sol.force_, ragged);
+    }
+
+  if (!sol.fits_)
+    {
+      Real overflow = spacer.configuration_length (sol.force_) - page_height_;
       if (ragged && overflow < 1e-6)
         warning (_ ("ragged-bottom was specified, but page must be compressed"));
       else
@@ -960,9 +963,10 @@ Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
     }
 
   // Remember: offsets are decreasing, since we're going from UP to DOWN!
-  spacer.solve (first_translation - last_translation, false);
+  Simple_spacer::Solution sol
+    = spacer.solve (first_translation - last_translation, false);
 
-  vector<Real> solution = spacer.spring_positions ();
+  vector<Real> solution = spacer.spring_positions (sol.force_, false);
   for (vsize i = 1; i + 1 < solution.size (); ++i)
     if (loose_lines[i])
       {

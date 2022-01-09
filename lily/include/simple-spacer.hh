@@ -30,31 +30,32 @@ class Simple_spacer : public Simple_smob<Simple_spacer>
 {
 public:
   Simple_spacer ();
-
-  void solve (Real line_len, bool ragged);
+  /* construct */
   void add_rod (vsize l, vsize r, Real dist);
   void add_spring (Spring const &spring);
-  std::vector<Real> spring_positions () const;
 
-  void set_force (Real force);
-  Real force () const;
-  Real force_penalty (bool ragged) const;
-  bool fits () const;
+  /* solve */
+  struct Solution {
+    Real force_;
+    bool fits_;
+  };
+  Solution solve (Real line_len, bool ragged) const;
+  std::vector<Real> spring_positions (Real force, bool ragged) const;
+  Real force_penalty (Real line_len, Real force, bool ragged) const;
   Real configuration_length (Real force) const;
 
 private:
   Real range_len (vsize l, vsize r, Real force) const;
   Real range_ideal_len (vsize l, vsize r) const;
   Real range_stiffness (vsize l, vsize r, bool stretch) const;
-  Real expand_line ();
-  Real compress_line ();
+  Solution expand_line (Real line_len) const;
+  Solution compress_line (Real line_len) const;
   Real heuristic_rod_force (vsize l, vsize r, Real dist) const;
 
   std::vector<Spring> springs_;
-  Real line_len_;
-  Real force_;
-  bool ragged_;
-  bool fits_;
+
+  // minimum positive force such that all springs are free.
+  Real min_force_;
 };
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
