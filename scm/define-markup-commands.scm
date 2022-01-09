@@ -2535,7 +2535,12 @@ returns an empty markup.
   (let ((m (chain-assoc-get symbol props)))
     (if (markup? m)
         ;; prevent infinite loops by clearing the interpreted property:
-        (interpret-markup layout (cons (list (cons symbol `(,property-recursive-markup ,symbol))) props) m)
+        (interpret-markup layout
+                          (prepend-alist-chain
+                           symbol
+                           (make-property-recursive-markup symbol)
+                           props)
+                          m)
         empty-stencil)))
 
 (define-markup-command (on-the-fly layout props procedure arg)
