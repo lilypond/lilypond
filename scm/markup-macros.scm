@@ -125,6 +125,7 @@ Some object properties are attached to the resulting
 the definition: @code{markup-command-signature},
 @code{markup-function-category}, @code{markup-function-properties}.
 "
+  ;; DOCME/obscure
   (let* ((command (if (pair? command-and-args)
                       (car command-and-args)
                       command-and-args))
@@ -150,12 +151,17 @@ the definition: @code{markup-command-signature},
   "Defines and returns an anonymous markup command.  Other than not
 registering the markup command, this is identical to
 @code{define-markup-command}."
+  ;; In Guile's optional argument handling, named arguments
+  ;; remain in the "rest" argument.
   (while (and (pair? body) (keyword? (car body)))
          (set! body (cddr body)))
   ;; define the COMMAND-markup function
   (let* ((documentation
           (format #f "~a\n~a" (cddr args)
                   (if (string? (car body)) (car body) "")))
+         ;; We are going to wrap everything in a let.  If there
+         ;; is a docstring, we have to move it out or it will not
+         ;; be recognized.
          (real-body (if (or (not (string? (car body)))
                             (null? (cdr body)))
                         body (cdr body)))
