@@ -1,4 +1,5 @@
 .SUFFIXES: .po .pot .mo
 
-$(outdir)/%.mo: %.po
+$(outdir)/%/LC_MESSAGES/lilypond.mo: %.po
+	mkdir -p $(dir $@)
 	$(MSGFMT) -o $@ $<

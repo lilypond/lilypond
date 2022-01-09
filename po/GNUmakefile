@@ -22,7 +22,7 @@ po-replace: po-update
 local-install: $(MO_FILES)
 	for i in $(CATALOGS); do \
 	  $(INSTALLPY) -d $(DESTDIR)$(localedir)/$$i/LC_MESSAGES; \
-	  $(INSTALLPY) -m 644 $(outdir)/$$i.mo \
+	  $(INSTALLPY) -m 644 $(outdir)/$$i/LC_MESSAGES/lilypond.mo \
                        $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/lilypond.mo; \
 	done
 

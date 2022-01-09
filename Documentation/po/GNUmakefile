@@ -16,9 +16,8 @@ messages: $(outdir)/messages
 $(outdir)/messages: $(MO_FILES)
 	$(call ly_progress,Making,$@,(hard links))
 	for i in $(CATALOGS); do \
-	  rm -rf $(doc-localedir)/$$i/LC_MESSAGES; \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \
-	  $(LN) $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/lilypond-doc.mo; \
+	  $(LN) -f $(outdir)/$$i/LC_MESSAGES/lilypond.mo $(doc-localedir)/$$i/LC_MESSAGES/lilypond-doc.mo; \
 	done
 	touch $@
 
