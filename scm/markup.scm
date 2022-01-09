@@ -62,7 +62,10 @@ translates to this:
    markup-list))
 
 (define-public (prepend-alist-chain key val chain)
-  (cons (acons key val (car chain)) (cdr chain)))
+  "Convenience to make a new alist chain from @var{chain} by
+prepending a binding of @var{key} to @var{val}.  This is similar to
+@code{acons}, for alist chains (lists of alists)."
+  `(((,key . ,val)) . ,chain))
 
 (define-public (stack-stencil-line space stencils)
   "Adjoin a list of @var{stencils} along the x@tie{}axis, leaving
