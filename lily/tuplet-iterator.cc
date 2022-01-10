@@ -41,10 +41,9 @@ public:
 protected:
   void process (Moment m) override;
   void create_contexts () override;
-  void derived_mark () const override;
   Moment pending_moment () const override;
 
-  Music *create_event (Direction d);
+  SCM create_event (Direction d);
 
 private:
 
@@ -54,13 +53,10 @@ private:
   /* next time to add a stop/start pair */
   Moment next_split_mom_;
 
-  /* Recycle start/stop events if tupletSpannerDuration is set. */
-  SCM synthesized_events_ = SCM_EOL;
-
   Context_handle tuplet_handler_;
 };
 
-Music *
+SCM
 Tuplet_iterator::create_event (Direction d)
 {
   SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("TupletSpanEvent"),
@@ -78,8 +74,7 @@ Tuplet_iterator::create_event (Direction d)
       set_property (ev, "length", spanner_duration_.smobbed_copy ());
     }
 
-  synthesized_events_ = scm_cons (ev_scm, synthesized_events_);
-  return ev;
+  return ev_scm;
 }
 
 Moment
@@ -116,14 +111,20 @@ Tuplet_iterator::process (Moment m)
       && Moment (m.main_part_) == next_split_mom_)
     {
       if (tuplet_handler_.get_context ())
-        create_event (STOP)->send_to_context (tuplet_handler_.get_context ());
+        {
+          SCM ev = create_event (STOP);
+          unsmob<Music> (ev)->send_to_context (tuplet_handler_.get_context ());
+          scm_remember_upto_here_1 (ev);
+        }
 
       if (m.main_part_ < music_get_length ().main_part_)
         {
           spanner_duration_
             = std::min (music_get_length () - next_split_mom_, spanner_duration_);
           tuplet_handler_.set_context (get_context ());
-          report_event (create_event (START));
+          SCM ev = create_event (START);
+          report_event (unsmob<Music> (ev));
+          scm_remember_upto_here_1 (ev);
 
           next_split_mom_ += spanner_duration_;
         }
@@ -146,13 +147,6 @@ Tuplet_iterator::create_contexts ()
   auto *child = get_child ();
   if (child && child->ok ())
     descend_to_child (child->get_context ());
-}
-
-void
-Tuplet_iterator::derived_mark () const
-{
-  scm_gc_mark (synthesized_events_);
-  Music_wrapper_iterator::derived_mark ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Tuplet_iterator);
