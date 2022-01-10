@@ -44,6 +44,7 @@ Repeat_styler::report_alternative_event (Music *element,
   set_property (ev, "volta-depth", to_scm (volta_depth));
   set_property (ev, "volta-numbers", volta_nums);
   ev->send_to_context (owner ()->get_context ());
+  scm_remember_upto_here_1 (ev_scm);
 }
 
 class Null_repeat_styler final : public Repeat_styler
@@ -85,6 +86,7 @@ private:
     if (auto *const origin = music->origin ())
       ev->set_spot (*origin);
     ev->send_to_context (owner ()->get_context ());
+    scm_remember_upto_here_1 (ev_scm);
   }
 
 public:
@@ -167,6 +169,7 @@ public:
                   to_scm (spanned_time ().left ()));
 
     ev->send_to_context (owner ()->get_context ());
+    scm_remember_upto_here_1 (ev_scm);
   }
 
   void derived_report_alternative_group_end (Music *element,
