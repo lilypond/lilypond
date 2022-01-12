@@ -104,7 +104,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  vector<Grob *> elems = ordered_elements (me);
+  vector<Grob *> const &elems = ordered_elements (me);
   vector<Interval> extents;
 
   for (vsize i = 0; i < elems.size (); i++)
