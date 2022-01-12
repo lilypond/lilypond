@@ -96,6 +96,8 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
   Align_interface::add_element (me, toadd);
 }
 
+/* Main routine to space breakable items in one column
+   according to space-alist specifications. */
 MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
@@ -105,22 +107,16 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   set_property (me, "positioning-done", SCM_BOOL_T);
 
   vector<Grob *> const &elems = ordered_elements (me);
-  vector<Interval> extents;
 
-  for (vsize i = 0; i < elems.size (); i++)
-    {
-      Interval y = elems[i]->extent (elems[i], X_AXIS);
-      extents.push_back (y);
-    }
+  vector<Interval> extents;
+  for (Grob *g : elems)
+    extents.push_back (g->extent (g, X_AXIS));
 
   vsize idx = 0;
   while (idx < extents.size () && extents[idx].is_empty ())
     idx++;
 
-  vector<Real> offsets;
-  offsets.resize (elems.size ());
-  for (vsize i = 0; i < offsets.size (); i++)
-    offsets[i] = 0.0;
+  vector<Real> offsets (elems.size (), 0.0);
 
   Real extra_right_space = 0.0;
   vsize edge_idx = VPOS;
@@ -132,7 +128,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
         next_idx++;
 
       Grob *l = elems[idx];
-      Grob *r = 0;
+      Grob *r = nullptr;
 
       if (next_idx < elems.size ())
         r = elems[next_idx];
@@ -209,7 +205,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
         {
           entry = scm_cdr (entry);
 
-          distance = scm_to_double (scm_cdr (entry));
+          distance = from_scm<Real> (scm_cdr (entry));
           type = scm_car (entry);
         }
 
