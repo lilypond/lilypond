@@ -36,7 +36,7 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
 
 Syntax: @code{\\jump} @var{markup}
 
-Example: @code{\\jump \"D.C. Gavotte I\"}")
+Example: @code{\\jump \"Gavotte I D.C.\"}")
         (types . (ad-hoc-jump-event event))
         ))
 

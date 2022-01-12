@@ -1035,10 +1035,10 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
-@cindex @q{coda} sign
-@cindex @q{segno} sign
-@cindex sign, coda
-@cindex sign, segno
+@cindex @q{coda} sign, manual
+@cindex @q{segno} sign, manual
+@cindex sign, coda, manual
+@cindex sign, segno, manual
 @funindex \codaMark
 @funindex \inStaffSegno
 @funindex \segnoMark
@@ -1104,6 +1104,30 @@ as a bar line.
 For more information on changing the appearance of segno and coda
 marks, @pxref{Segno repeat appearance}.
 
+@cindex D.C., manual
+@cindex D.S., manual
+@cindex da capo, manual
+@cindex dal segno, manual
+@cindex repeat, D.C., manual
+@cindex repeat, D.S., manual
+@cindex repeat, da capo, manual
+@cindex repeat, dal segno, manual
+@funindex \jump
+
+To create arbitrary jump instructions, use the @code{\jump}
+command.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \time 2/4
+  f4 a
+  b4 c'8 d'
+  c'4 c
+  \jump "Gavotte I D.C."
+  \section
+}
+@end lilypond
+
 @morerefs
 Notation Reference:
 @ref{Bar lines},
@@ -1116,6 +1140,8 @@ Snippets:
 
 Internals Reference:
 @rinternals{CodaMark},
+@rinternals{Jump_engraver},
+@rinternals{JumpScript},
 @rinternals{Mark_engraver},
 @rinternals{SegnoMark},
 @rinternals{SegnoRepeatedMusic},

@@ -702,7 +702,7 @@ invertChords =
 
 jump =
 #(define-music-function (text) (markup?)
-   "Mark a point of departure, e.g. @q{D.C. Gavotte I}."
+   "Mark a point of departure, e.g. @q{Gavotte I D.C.}."
    (make-music 'AdHocJumpEvent 'text text))
 
 
