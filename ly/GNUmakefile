@@ -29,6 +29,17 @@ welcome_svg: Welcome_to_LilyPond.ly
 
 WELCOME_FILES = welcome_ps welcome_svg
 
+welcome_cairo: Welcome_to_LilyPond.ly
+	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
+	$(buildscript-dir)/run-and-check.sh \
+	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=svg,ps,pdf,png -dbackend=cairo -o $(outdir)/$@ $<" \
+	    "$(outdir)/$@.log"
+
+ifneq ($(CAIRO_CFLAGS),)
+WELCOME_FILES += welcome_cairo
+endif
+
+
 local-test: $(WELCOME_FILES)
 
 .PHONY: welcome_svg welcome_ps
