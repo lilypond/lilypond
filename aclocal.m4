@@ -634,7 +634,7 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     STEPMAKE_PROGS(TAR, tar, REQUIRED)
 
-    STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
+    STEPMAKE_PYTHON(REQUIRED, 3.6, 3.99)
 
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
         $MAKE -v 2> /dev/null | grep GNU > /dev/null
@@ -734,10 +734,11 @@ AC_DEFUN(STEPMAKE_PYTHON, [
     python="python"
     found="no"
     for r in $PYTHON python python3 \
+             python3.10 \
+             python3.9 \
              python3.8 \
              python3.7 \
-             python3.6 \
-             python3.5; do
+             python3.6; do
         exe=`STEPMAKE_GET_EXECUTABLE($r)`
         if ! $exe -V > /dev/null 2>&1 ; then
             continue

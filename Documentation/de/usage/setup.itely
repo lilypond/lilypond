@@ -45,7 +45,7 @@ Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssyst
 @subsubheading Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4
 
 Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
-Verfügung, aber Python 3.5 oder höher wird benötigt, um
+Verfügung, aber Python 3.6 oder höher wird benötigt, um
 Skripte wie @command{convert-ly} zu benutzen.  Wenn Sie MaxOS
 10.3 oder 10.4 besitzen, müssen Sie eine neuere Python-Version
 von @uref{http://python.org/download/} installieren und dann
