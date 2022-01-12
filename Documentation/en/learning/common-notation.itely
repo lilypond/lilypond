@@ -28,9 +28,9 @@ Tutorial guidelines:  (different from policy.txt!)
 @node Common notation
 @chapter Common notation
 
-This chapter explains how to create beautiful printed music
-containing common musical notation, following the material in
-@ref{Tutorial}.
+This chapter explains how to create beautifully printed music
+containing common musical notation.  For the most basic steps,
+@pxref{Tutorial}.
 
 @menu
 * Single staff notation::
@@ -68,30 +68,28 @@ on one staff.
 @unnumberedsubsubsec Bar lines
 
 
-Single bar lines are automatically placed in the music so
-there is no need to add them manually.  Other types of bar
-lines are added using @code{\bar}, for example
-@code{\bar "||"} for a double bar line, or @code{\bar "|."}
-for an ending bar line.  For a full list of bar lines see
-the @ruser{Bar lines}.
+Single bar lines are automatically placed in the music so there is
+no need to add them manually.  Other types of bar lines are added
+using @code{\bar}, for example @code{\bar "||"} for a double bar
+line, or @code{\bar "|."}  for an ending bar line.  For a full
+list of bar lines see @ruser{Bar lines}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
+
 @node Bar checks
 @unnumberedsubsubsec Bar checks
 
+Though not strictly necessary, @emph{bar checks} should be used in
+the input code to show where bar lines are expected to fall.  They
+are entered using the bar symbol, @samp{|}.  With bar checks, the
+program can verify that you have input durations where each
+measure adds up to the correct length.  Bar checks also make your
+input code easier to read, since they help keep things organized.
 
-Though not strictly necessary, @emph{bar checks} should be
-used in the input code to show where bar lines are expected
-to fall.  They are entered using the bar symbol, @code{|}.
-With bar checks, the program can verify that you've entered
-durations that make each measure add up to the correct
-length.  Bar checks also make your input code easier to
-read, since they help to keep things organized.
-
-@c This example deliberately produces a warning
+@c This example deliberately produces a warning.
 @lilypond[verbatim,quote]
 \relative {
   g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
@@ -107,9 +105,11 @@ warning: barcheck failed at: 1/2
                    | g4 c g e | c4 r r2 |
 @end example
 
-Although the missing duration is clear in the musical output in this
-simple example, the warning in the console output is far more
-effective in drawing attention to the missing @code{4} in bar 3.
+@noindent
+Although the missing duration is clear in the musical output in
+this simple example, the warning in the console output is far more
+effective in drawing attention to the missing @samp{4} in
+bar@tie{}3.
 
 @morerefs
 Notation Reference:
@@ -127,11 +127,11 @@ Notation Reference:
 @end menu
 
 @warning{New users often misunderstand how LilyPond uses the key
-signature -- please read the warning at the bottom of this page.}
+signature -- please read the warning at the end of this section.}
+
 
 @node Pitch alterations
 @unnumberedsubsubsec Pitch alterations
-
 
 @cindex accidentals
 @cindex natural
@@ -150,38 +150,36 @@ signature -- please read the warning at the bottom of this page.}
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
-Note-names in LilyPond identify pitches.  For example, @code{c}
-always means C-natural, regardless of the key signature.
+@notation{Note names} in LilyPond identify pitches.  For example,
+@samp{c} always means C-natural, regardless of the key signature.
 
-In many languages, a note name consists of a base name
-refering to the diatonic steps of the C major / a minor
-scale, e.g. @code{d}, and a suffix, which indicates
-@notation{alteration} of this base pitch.
-The default input language for note names is
-nederlands (Dutch). A @notation{sharp} pitch is made by adding
-@code{is} to the name, and a @notation{flat} pitch by adding @code{es}.
-As you might expect, a @notation{double sharp} or @notation{double flat}
-is made by adding @code{isis} or @code{eses}.  This syntax is derived
+In many languages, a note name consists of a base name referring
+to the diatonic steps of the C@tie{}major/@/a@tie{}minor scale
+(for example, @samp{d}) and a suffix, which indicates
+@notation{alteration} of this base pitch.  The default input
+language for note names is @q{nederlands} (Dutch).  A
+@notation{sharp} pitch is made by adding @samp{is} to the name,
+and a @notation{flat} pitch by adding @samp{es}.  As you might
+expect, a @notation{double sharp} or @notation{double flat} is
+made by adding @samp{isis} or @samp{eses}.  This syntax is derived
 from note naming conventions in Nordic and Germanic languages,
-like German and Dutch.  To use other naming schemes for
-@notation{note names}, see @ruser{Note names in other languages}.
+like German and Dutch.  To use other naming schemes for note
+names, see @ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
 @end lilypond
 
-@cindex key signature, setting
 
 @node Key signatures
 @unnumberedsubsubsec Key signatures
-
 
 @cindex key signature
 @cindex major
 @cindex minor
 @cindex accidentals and key signature
-@cindex content vs. layout
-@cindex layout vs. content
+@cindex content vs.@: layout
+@cindex layout vs.@: content
 
 @funindex \key
 @funindex \major
@@ -204,28 +202,27 @@ followed by a pitch and @code{\major} or @code{\minor}.
 
 @smallspace
 
+
 @node Warning key signatures and pitches
 @unnumberedsubsubsec Warning: key signatures and pitches
-
 
 Music Glossary: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}, @rglos{Pitch names}.
 
-LilyPond makes a distinction between musical content and
-its printed representation.  Input such as @code{d4 e fis2}
-defines the pitches and durations of notes, which is musical
-content.  The @notation{key signature} is part of the printed
-representation.  The key signature also sets rules for the
-printed representations of notes.  LilyPond compares each input
-pitch to the key signature to determine whether to print an
-@notation{accidental}.
+LilyPond makes a distinction between musical content and its
+printed representation.  Input such as @samp{d4 e fis2} defines
+the pitches and durations of notes, which is musical content.  The
+@notation{key signature} is part of the printed representation.
+The key signature also sets rules for the printed representations
+of notes.  LilyPond compares each input pitch to the key signature
+to determine whether to print an @notation{accidental}.
 
 The command @code{\key} sets the @notation{key signature}, which
-affects the printed representation, but does @emph{not} change
-the pitch assigned to a note such as @code{c} in the input.
+affects the printed representation, but does @emph{not} change the
+pitch assigned to a note such as @samp{c} in the input.
 
-In this example:
+Consider this example.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -235,12 +232,12 @@ In this example:
 @end lilypond
 
 @noindent
-No note has a printed accidental, but you must still add
-@code{is} and type @code{cis} and @code{fis} in the input file.
+No note has a printed accidental, but you must still add @samp{is}
+and type @samp{cis} and @samp{fis} in the input file.
 
-The code @code{b} does not mean @qq{print a black dot just on
-the middle line of the staff.}  Rather, it means @qq{there is a
-note with pitch B-natural.}  In the key of A-flat major, it
+The code @samp{b} does not mean @qq{print a thick black dot just
+on the middle line of the staff}.  Rather, it means @qq{there is a
+note with pitch B-natural}.  In the key of A-flat major, it
 @emph{does} get an accidental:
 
 @lilypond[verbatim,quote]
@@ -250,8 +247,9 @@ note with pitch B-natural.}  In the key of A-flat major, it
 }
 @end lilypond
 
-Whenever you enter a pitch that is a black key on the piano, you
-@emph{must} add @w{@code{-is}} or @w{@code{-es}} to the note name.
+To say it differently: Whenever you enter a pitch that is a black
+key on the piano, you @emph{must} add @samp{is} or @samp{es} to
+the note name.
 
 Adding all alterations explicitly might require a little more
 effort when typing, but the advantage is that
@@ -259,7 +257,6 @@ effort when typing, but the advantage is that
 according to different conventions.  For some examples of how
 accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
-
 
 @morerefs
 Notation Reference:
@@ -290,12 +287,13 @@ Notation Reference:
 * Warnings slurs vs. ties::
 @end menu
 
+
 @node Ties
 @unnumberedsubsubsec Ties
 
 Music Glossary: @rglos{tie}.
 
-A @notation{tie} is created by appending a tilde @code{~} to the
+A @notation{tie} is created by appending a tilde @samp{~} to the
 first of the two notes being tied.
 
 @lilypond[verbatim,quote]
@@ -312,36 +310,37 @@ subsequent pitches may be omitted, specifying just the bare duration:
 \relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
-This shorthand may be useful in other places where the rhythm changes
-with an unchanging pitch, but remember that a bare pitch followed by a
-space and a bare duration will be interpreted as a single note. In
-other words, @code{c4 a 8 8} would be interpreted as @code{c4 a8 a8},
-not as @code{c4 a4 a8 a8}.  Write instead @code{c4 a4 8 8 }.
+This shorthand may be useful in other places where the rhythm
+changes with an unchanging pitch, but remember that a bare pitch
+followed by a space and a bare duration will be interpreted as a
+single note.  In other words, @samp{c4 a 8 8} would be interpreted
+as @samp{c4 a8 a8}, not as @samp{c4 a4 a8 a8}.  Write @samp{c4 a4
+8 8} instead.
+
 
 @node Slurs
 @unnumberedsubsubsec Slurs
 
-
 Music Glossary: @rglos{slur}.
 
 A @notation{slur} is a curve drawn across many notes.  The
-starting note and ending note are marked with @code{(} and
-@code{)} respectively. Note that the @code{(} comes after
-the first note of the slur.
+starting note and ending note are marked with @samp{(} and
+@samp{)}, respectively.  Note that @samp{(} comes after the first
+note of the slur.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
+
 @node Phrasing slurs
 @unnumberedsubsubsec Phrasing slurs
-
 
 Music Glossary: @rglos{slur}, @rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
-@code{\(} and @code{\)}.  You can have both @notation{slurs} and
-phrasing slurs at the same time.
+@code{\(} and @code{\)}.  You can have both slurs and phrasing
+slurs at the same time.
 
 @lilypond[verbatim,quote]
 \relative { g'4\( g8( a) b( c) b4\) }
@@ -349,24 +348,23 @@ phrasing slurs at the same time.
 
 @smallspace
 
-@cindex slurs versus ties
 
 @node Warnings slurs vs. ties
-@unnumberedsubsubsec Warnings: slurs vs. ties
+@unnumberedsubsubsec Warnings: slurs vs.@: ties
 
+@cindex slurs versus ties
 
 Music Glossary: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
-A @notation{slur} looks like a @notation{tie}, but it has a
-different meaning.  A tie simply makes the first note longer, and
-can only be used on pairs of notes with the same pitch.  Slurs
-indicate the @notation{articulation} of notes, and can be used on
-larger groups of notes.  Slurs and ties can be nested.
+A slur looks like a tie, but it has a different meaning.  A tie
+simply makes the first note longer, and can only be used on pairs
+of notes with the same pitch.  Slurs indicate the
+@notation{articulation} of notes, and can be used on larger groups
+of notes.  Slurs and ties can be nested.
 
 @lilypond[verbatim,quote]
 \relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
-
 
 @morerefs
 Notation Reference:
@@ -375,11 +373,12 @@ Notation Reference:
 @ruser{Phrasing slurs}.
 @endmorerefs
 
+
 @node Articulations and dynamics
 @subsection Articulations and dynamics
 
 Articulations and dynamics are indicated by adding special codes
-after the notes to which they apply,
+after the notes to which they apply.
 
 @menu
 * Articulations::
@@ -387,9 +386,9 @@ after the notes to which they apply,
 * Dynamics::
 @end menu
 
+
 @node Articulations
 @unnumberedsubsubsec Articulations
-
 
 @cindex articulation
 @cindex accent
@@ -398,7 +397,7 @@ after the notes to which they apply,
 Music Glossary: @rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
-dash @code{-} and a single character:
+dash (@samp{-}) and a single character.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -407,9 +406,9 @@ dash @code{-} and a single character:
 }
 @end lilypond
 
+
 @node Fingerings
 @unnumberedsubsubsec Fingerings
-
 
 @cindex fingering
 
@@ -419,15 +418,15 @@ dash @code{-} and a single character:
 Music Glossary: @rglos{fingering}.
 
 Similarly, @notation{fingering} indications can be added to a note
-using a dash (@code{-}) and the digit to be printed:
+using a dash (@samp{-}) and the digit to be printed:
 
 @lilypond[verbatim,quote]
 \relative { c''4-3 e-5 b-2 a-1 }
 @end lilypond
 
 Articulations and fingerings are usually placed automatically, but
-you can specify a direction by replacing the dash (@code{-}) with
-@code{^} (up) or @code{_} (down).  You can also use multiple
+you can specify a direction by replacing the dash (@samp{-}) with
+@samp{^} (up) or @samp{_} (down).  You can also use multiple
 articulations on the same note.  However, in most cases it is best
 to let LilyPond determine the articulation directions.
 
@@ -435,9 +434,9 @@ to let LilyPond determine the articulation directions.
 \relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
+
 @node Dynamics
 @unnumberedsubsubsec Dynamics
-
 
 @cindex dynamics
 @cindex decrescendo
@@ -460,19 +459,17 @@ Music Glossary: @rglos{dynamics}, @rglos{crescendo},
 backslash) to the note:
 
 @lilypond[verbatim,quote]
-\relative { c''4\ff c\mf c\p c\pp }
+\relative { c''2\ff c\mf c\p c\pp }
 @end lilypond
-
 
 @notation{Crescendi} and @notation{decrescendi} are started with
 the commands @code{\<} and @code{\>}.  The next dynamics sign, for
-example @code{\f}, will end the (de)crescendo, or the command
+example @code{\f}, ends the (de)crescendo, or the command
 @code{\!} can be used:
 
 @lilypond[verbatim,quote]
-\relative { c''4\< c\ff\> c c\! }
+\relative { c''2\< c | c4\ff\> c c c\! }
 @end lilypond
-
 
 @morerefs
 Notation Reference:
@@ -493,19 +490,19 @@ Notation Reference:
 
 Text may be added to your scores:
 
-@lilypond[verbatim,quote,fragment]
-c''2^"espr" a'_"legato"
+@lilypond[verbatim,quote]
+\relative { c''2^"espr" a_"legato" }
 @end lilypond
 
 Extra formatting may be added with the @code{\markup} command:
 
-@lilypond[verbatim,quote,fragment]
-c''2^\markup { \bold espr }
-a'2_\markup {
-  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+@lilypond[verbatim,quote]
+\relative {
+  c''2^\markup { \bold espr }
+  a2_\markup {
+    \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
 }
 @end lilypond
-
 
 @morerefs
 Notation Reference:
@@ -539,8 +536,8 @@ All @notation{beams} are drawn automatically:
 
 If you do not like the automatic beams, they may be overridden
 manually.  To correct just an occasional beam mark the first note
-to be beamed with @code{[} and the last one with @code{]}.
-Note that @code{[} comes after the first beamed note.
+to be beamed with @samp{[} and the last one with @samp{]}.  Note
+that @samp{[} comes after the first beamed note.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
@@ -560,7 +557,6 @@ on again.
 }
 @end lilypond
 
-
 @morerefs
 Notation Reference:
 @ruser{Automatic beams},
@@ -577,9 +573,9 @@ Notation Reference:
 * Grace notes::
 @end menu
 
+
 @node Partial measure
 @unnumberedsubsubsec Partial measure
-
 
 @cindex pickup
 @cindex anacrusis
@@ -590,8 +586,8 @@ Notation Reference:
 Music Glossary: @rglos{anacrusis}.
 
 A pickup (or @notation{anacrusis}) is entered with the keyword
-@code{\partial}.  It is followed by a duration: @code{\partial 4}
-is a quarter note pickup and @code{\partial 8} an eighth note.
+@code{\partial}.  It is followed by a duration: @samp{\partial 4}
+is a quarter note pickup and @samp{\partial 8} an eighth note.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -600,9 +596,9 @@ is a quarter note pickup and @code{\partial 8} an eighth note.
 }
 @end lilypond
 
+
 @node Tuplets
 @unnumberedsubsubsec Tuplets
-
 
 @cindex tuplets
 @cindex triplets
@@ -627,9 +623,9 @@ For triplets, there are three notes instead of two, so
 }
 @end lilypond
 
+
 @node Grace notes
 @unnumberedsubsubsec Grace notes
-
 
 @cindex grace notes
 @cindex acciaccatura
@@ -655,7 +651,6 @@ with the keyword @code{\appoggiatura} or @code{\acciaccatura}:
 }
 @end lilypond
 
-
 @morerefs
 Notation Reference:
 @ruser{Grace notes},
@@ -667,9 +662,9 @@ Notation Reference:
 @node Multiple notes at once
 @section Multiple notes at once
 
-This section introduces having more than one note at the same
-time: multiple instruments, multiple staves for a single
-instrument (i.e. piano), and chords.
+This section introduces notation having more than one note at the
+same time: multiple instruments, multiple staves for a single
+instrument (i.e., piano), and chords.
 
 Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
@@ -705,7 +700,7 @@ expressions}.  A single note is a music expression:
 a'4
 @end lilypond
 
-Enclosing a note in braces creates a @emph{compound music
+Enclosing music in braces creates a @emph{compound music
 expression}.  Here we have created a compound music expression
 with two notes:
 
@@ -713,37 +708,35 @@ with two notes:
 \relative { a'4 g4 }
 @end lilypond
 
-Putting a group of music expressions (e.g. notes) in braces means
-that they are in sequence (i.e. each one follows the previous
+Putting a group of music expressions (e.g., notes) in braces means
+that they are in sequence (i.e., each one follows the previous
 one).  The result is another music expression:
 
 @lilypond[verbatim,quote]
 \relative { { a'4 g } f4 g }
 @end lilypond
 
+
 @node Analogy mathematical expressions
 @unnumberedsubsubsec Analogy: mathematical expressions
-
 
 This mechanism is similar to mathematical formulas: a big formula
 is created by composing small formulas.  Such formulas are called
 expressions, and they can contain other expressions, so you can
 make arbitrarily complex and large expressions.  For example,
 
-@example
-1
+@display
+@math{1}
+@math{1 + 2}
+@math{(1 + 2) * 3}
+@math{((1 + 2) * 3) / (4 * 5)}
+@end display
 
-1 + 2
-
-(1 + 2) * 3
-
-((1 + 2) * 3) / (4 * 5)
-@end example
-
+@noindent
 This is a sequence of expressions, where each expression is
 contained in the next (larger) one.  The simplest expressions are
 numbers, and larger ones are made by combining expressions with
-operators (like @code{+}, @code{*} and @code{/}) and parentheses.
+operators (like @math{+}, @math{*}, and @math{/}) and parentheses.
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, which is necessary for complex music like
 polyphonic scores.
@@ -751,7 +744,6 @@ polyphonic scores.
 
 @node Simultaneous music expressions multiple staves
 @unnumberedsubsubsec Simultaneous music expressions: multiple staves
-
 
 @cindex multiple staves
 @cindex staves, multiple
@@ -787,19 +779,19 @@ notes) are combined simultaneously:
 >>
 @end lilypond
 
+@noindent
 Note that we have indented each level of the input with a
 different amount of space.  LilyPond does not care how much (or
 little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
-@warning{each note is relative to the previous note in the input,
-only the first is relative to the @code{c''} in the initial
-@code{\relative} command.}
+@warning{Each note is relative to the previous note in the input;
+the first one in a @code{\relative} block is relative to @samp{c}
+(one octave below the middle@tie{}C).}
 
 
 @node Simultaneous music expressions single staff
 @unnumberedsubsubsec Simultaneous music expressions: single staff
-
 
 To determine the number of staves in a piece, LilyPond looks at
 the beginning of the first expression.  If there is a single note,
@@ -814,6 +806,7 @@ out on a single staff.
   << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
+
 
 @node Multiple staves
 @subsection Multiple staves
@@ -832,11 +825,11 @@ out on a single staff.
 @funindex Lyrics
 @funindex ChordNames
 
-LilyPond input files are constructed out of music expressions, as
-we saw in @ref{Music expressions explained}.  If the score begins
-with simultaneous music expressions, LilyPond creates multiples
-staves.  However, it is easier to see what happens if we create
-each staff explicitly.
+LilyPond input files are constructed out of music expressions
+(@pxref{Music expressions explained}).  If the score begins with
+simultaneous music expressions, LilyPond creates multiples staves.
+However, it is easier to see what happens if we create each staff
+explicitly.
 
 To print more than one staff, each piece of music that makes up a
 staff is marked by adding @code{\new Staff} before it.  These
@@ -845,12 +838,12 @@ and @code{>>}:
 
 @lilypond[verbatim,quote]
 <<
-  \new Staff { \clef "treble" c''4 }
-  \new Staff { \clef "bass" c4 }
+  \new Staff { \clef treble c''4 }
+  \new Staff { \clef bass c4 }
 >>
 @end lilypond
 
-The command @code{\new} introduces a @q{notation context.}  A
+The command @code{\new} introduces a @q{notation context}.  A
 notation context is an environment in which musical events (like
 notes or @code{\clef} commands) are interpreted.  For simple
 pieces, such notation contexts are created automatically.  For
@@ -873,10 +866,11 @@ than polyrhythmic scores.
 
 @lilypond[verbatim,quote]
 <<
-  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-  \new Staff { \clef "bass" c4 }
+  \new Staff { \clef treble \key d \major \time 3/4 c''4 }
+  \new Staff { \clef bass c4 }
 >>
 @end lilypond
+
 
 @node Staff groups
 @subsection Staff groups
@@ -899,10 +893,9 @@ Music Glossary:
 @rglos{system}.
 
 Piano music is typeset in two staves connected by a
-@notation{brace}.
-Printing such a staff is similar to the polyphonic example in
-@ref{Multiple staves}.  However, now this entire expression is
-inserted inside a @code{PianoStaff}:
+@notation{brace}.  Printing such a staff is similar to polyphonic
+music in multiple staves (@pxref{Multiple staves}).  However, now
+this entire expression is inserted into a @code{PianoStaff}:
 
 @example
 \new PianoStaff <<
@@ -911,21 +904,20 @@ inserted inside a @code{PianoStaff}:
 >>
 @end example
 
-Here is a small example:
+Here is a small example.
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff \relative { \time 2/4 c''4 e | g g, | }
-  \new Staff \relative { \clef "bass" c4 c' | e c | }
+  \new Staff \relative { \clef bass c4 c' | e c | }
 >>
 @end lilypond
 
 Other staff groupings are introduced with @code{\new GrandStaff},
-suitable for orchestral scores, and @w{@code{\new ChoirStaff}},
+suitable for orchestral scores, and @code{\new ChoirStaff},
 suitable for vocal scores.  These staff groups each form another
-type of context, one that generates the brace at the left end of
+type of context, one that generates the brace at the left side of
 every system and also controls the extent of bar lines.
-
 
 @morerefs
 Notation Reference:
@@ -937,7 +929,7 @@ Notation Reference:
 @node Combining notes into chords
 @subsection Combining notes into chords
 
-Music Glossary: @rglos{chord}
+Music Glossary: @rglos{chord}.
 
 @cindex chords
 @cindex note durations in chords
@@ -945,31 +937,44 @@ Music Glossary: @rglos{chord}
 @funindex <
 @funindex >
 @funindex < ... >
+@funindex q
 
-We saw earlier how notes can be combined into @notation{chords} by
-indicating they are simultaneous by enclosing them in double angle
-brackets.  However, the normal way of indicating a chord is to
-surround the pitches with @emph{single} angle brackets.  Note that
-all the notes in a chord must have the same duration, and that the
-duration is placed after the closing bracket.
+We saw earlier how notes can be combined into @notation{chords}:
+by enclosing them in double angle brackets we indicated that they
+are simultaneous.  However, the normal way of producing a chord is
+to surround the pitches with @emph{single} angle brackets.  Note
+that all notes in a chord must have the same duration, and that
+the duration is placed @emph{after} the closing bracket.
 
 @lilypond[verbatim,quote]
 \relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
-Think of chords as almost equivalent to single notes:
-almost everything you can attach to a single note can be attached
-to a chord, and everything must go @emph{outside} the angle
-brackets.  For example, you can combine markings like beams and
-ties with chords.  They must be placed outside the angle brackets.
+Think of chords as almost equivalent to single notes: virtually
+everything you can attach to a single note can be attached to a
+chord, and usually these attachments must be put @emph{outside}
+the angle brackets.  For example, you can combine markings like
+beams and ties with chords.
 
 @lilypond[verbatim,quote]
 \relative {
   r4 <c'' e g>~ <c f a>2 |
   <c e g>8[ <c f a> <c e g> <c f a>]
-    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
-  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+    <c e g>8\>[ <c f a> q q]\! |
+  r4 <c e g>8.\p q16( q4-. <c f a>) |
 }
+@end lilypond
+
+@cindex chord repetition
+@cindex repetition, of chords
+
+@noindent
+The above example also demonstrates a very useful feature: a chord
+can be repeated by using the symbol @samp{q}.  This even works
+with interspersed single notes.
+
+@lilypond[verbatim,quote]
+\relative { c'8 <e g>8 q q g, q q q }
 @end lilypond
 
 @morerefs
@@ -993,10 +998,10 @@ Notation Reference:
 @funindex \\
 @funindex >>
 
-Polyphonic music in lilypond, while not difficult, uses concepts
-that we haven't discussed yet, so we're not going to introduce
-them here.  Instead, the following sections introduce these concepts
-and explain them thoroughly.
+Polyphonic music in LilyPond, while not difficult, uses concepts
+that we have not discussed yet, so we are not going to introduce
+them here.  Instead, the following sections establish the basics
+of these concepts and explain them thoroughly.
 
 @morerefs
 Learning Manual:
@@ -1029,8 +1034,8 @@ This section introduces vocal music and simple song sheets.
 
 Music Glossary: @rglos{lyrics}.
 
-Here is the start of the melody to a nursery
-rhyme, @notation{Girls and boys come out to play}:
+Here is the start of the melody to a nursery rhyme, @emph{Girls
+and boys come out to play}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1057,9 +1062,11 @@ separating each syllable with a space.
 >>
 @end lilypond
 
-Note the double angle brackets @w{@code{<<@dots{}>>}} around the
-whole piece to show that the music and lyrics are to occur at the
-same time.
+@noindent
+Note the double angle brackets @code{<<@tie{}@dots{}@tie{}>>}
+around the whole piece to show that the music and lyrics are to
+occur at the same time.
+
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
@@ -1075,8 +1082,8 @@ same time.
 
 Music Glossary: @rglos{melisma}, @rglos{extender line}.
 
-The next line in the nursery rhyme is @notation{The moon doth
-shine as bright as day}.  Let's extend it:
+The next line in the nursery rhyme is @emph{The moon doth shine as
+bright as day}.  Let's extend it:
 
 @lilypond[verbatim,quote]
 <<
@@ -1094,11 +1101,11 @@ shine as bright as day}.  Let's extend it:
 @end lilypond
 
 Looking at the music, we see that the extra lyrics do not align
-properly with the notes.  The word @notation{shine} should be sung
-on two notes, not one.  This is called a @notation{melisma}, a
-single syllable sung to more than one note.  There are several
-ways to spread a syllable over multiple notes, the simplest being
-to add a slur across them, for details, see @ref{Ties and slurs}:
+properly with the notes.  The word @emph{shine} should be sung on
+two notes, not one.  This is called a @notation{melisma}, a single
+syllable sung to more than one note.  There are several ways to
+spread a syllable over multiple notes, the simplest being to add a
+slur across them.  @xref{Ties and slurs}, for more information.
 
 @lilypond[verbatim,quote]
 <<
@@ -1116,10 +1123,10 @@ to add a slur across them, for details, see @ref{Ties and slurs}:
 @end lilypond
 
 The words now line up correctly with the notes, but the automatic
-beaming for the notes above @notation{shine as} does not look right.
-We can correct this by inserting manual beaming commands to override
-the automatic beaming here, for details, see @ref{Automatic and
-manual beams}.
+beaming for the notes above @emph{shine as} does not look right.
+We can correct this by inserting manual beaming commands to
+override the automatic beaming here.  @xref{Automatic and manual
+beams}, for more information.
 
 @lilypond[verbatim,quote]
 <<
@@ -1136,9 +1143,9 @@ manual beams}.
 >>
 @end lilypond
 
-As an alternative to using slurs, the melismata may be indicated
-in just the lyrics by using an underscore @code{_} for each note
-that should be included in the melisma:
+As an alternative to using slurs, melismata may be indicated in
+just the lyrics by using an underscore @samp{_} for each note that
+should be included in the melisma.
 
 @lilypond[verbatim,quote]
 <<
@@ -1158,11 +1165,15 @@ that should be included in the melisma:
 If a syllable extends over several notes or a single very long
 note an @notation{extender line} is usually drawn from the
 syllable extending under all the notes for that syllable.  It is
-entered as two underscores @code{__}.  Here is an example from the
-first three bars of @notation{Dido's Lament}, from Purcell's
-@notation{Dido and Æneas}:
+entered as two underscores (@code{__}).  It is important that the
+underscores are separated with one or more spaces from the
+preceding (and following) syllable.
 
-@lilypond[verbatim,quote]
+Here is an example from the first three bars of @emph{Dido's
+Lament}, from Purcell's opera @emph{Dido and Æneas}:
+
+@c no ragged-right here to get less dense formatting
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
     \key g \minor
@@ -1180,7 +1191,11 @@ first three bars of @notation{Dido's Lament}, from Purcell's
 None of the examples so far have involved words containing more
 than one syllable.  Such words are usually split one syllable to a
 note, with hyphens between syllables.  Such hyphens are entered as
-two dashes, resulting in a centered hyphen between the syllables.
+two consecutive dashes (@code{--}), resulting in a centered hyphen
+between the syllables.  It is important that the dashes are
+separated with one or more spaces from the preceding and following
+syllable.
+
 Here is an example showing this and everything we have learned so
 far about aligning lyrics to notes.
 
@@ -1203,19 +1218,20 @@ far about aligning lyrics to notes.
 @end lilypond
 
 Some lyrics, especially those in Italian, require the opposite:
-setting more than one syllable to a single note.  This is
-achieved by linking the syllables together with a single
-underscore @code{_} (with no spaces), or enclosing them in quotes.
-Here's an example from Rossini's @notation{Figaro}, where
-@notation{al} has to be sung on the same note as the @notation{go} of
-@notation{Largo} in Figaro's aria @notation{Largo al factotum}:
+setting more than one syllable to a single note.  This is achieved
+by linking the syllables together with a single underscore
+(@samp{_}, with no spaces), or enclosing them in quotes.  Here is
+an example from Rossini's opera @notation{Il barbiere di
+Siviglia}, where @emph{al} has to be sung on the same note as the
+@emph{go} of @emph{Largo} in Figaro's aria @notation{Largo al
+factotum}:
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
-    \clef "bass"
+    \clef bass
     \key c \major
     \time 6/8
     c'4.~ 8 d b | c8([ d]) b c d b | c8
@@ -1225,7 +1241,6 @@ Here's an example from Rossini's @notation{Figaro}, where
   }
 >>
 @end lilypond
-
 
 @morerefs
 Notation Reference:
@@ -1240,10 +1255,11 @@ Notation Reference:
 @cindex multiple staves and lyrics
 
 The simple approach using @code{\addlyrics} can be used for
-placing lyrics under more than one staff.  Here is an
-example from Handel's @notation{Judas Maccabæus}:
+placing lyrics under more than one staff.  Here is an example from
+Handel's oratorio @emph{Judas Maccabæus}.
 
-@lilypond[verbatim,quote]
+@c no ragged-right here to make hyphens more prominent.
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
     \key f \major
@@ -1268,9 +1284,8 @@ example from Handel's @notation{Judas Maccabæus}:
 
 Scores any more complex than this simple example are better
 produced by separating out the score structure from the notes and
-lyrics with variables.  These are discussed in @ref{Organizing
-pieces with variables}.
-
+lyrics with variables.  @xref{Organizing pieces with variables},
+for an introduction.
 
 @morerefs
 Notation Reference:
@@ -1323,7 +1338,7 @@ namedMusic = @{ @dots{} @}
 
 The contents of the music expression @code{namedMusic} can be used
 later by placing a backslash in front of the name
-(@code{\namedMusic}, just like a normal LilyPond command).
+(@code{\namedMusic}), just like a normal LilyPond command.
 
 @lilypond[verbatim,quote]
 violin = \new Staff {
@@ -1334,7 +1349,7 @@ violin = \new Staff {
 
 cello = \new Staff {
   \relative {
-    \clef "bass"
+    \clef bass
     e2 d
   }
 }
@@ -1347,9 +1362,8 @@ cello = \new Staff {
 }
 @end lilypond
 
-@noindent
-By convention, variable names consist of alphabetic characters only.
-For detailed information, see @ruser{File structure}.
+By convention, variable names consist of alphabetic characters
+only.  For detailed information, see @ruser{File structure}.
 
 Variables must be defined @emph{before} the main music
 expression, but may be used as many times as required anywhere after
@@ -1368,7 +1382,8 @@ Variables may be used for many other types of objects in
 the input.  For example,
 
 @example
-myWidth = 60      % a number to pass to a \paper variable (the unit is millimeter)
+myWidth = 60      % a number to pass to a \paper variable
+                  % (the unit is millimeter)
 myName = "Wendy"  % a string to pass to a markup
 aFivePaper = \paper @{ #(set-paper-size "a5") @}
 @end example
@@ -1416,6 +1431,7 @@ underneath the version number.
 @}
 @end example
 
+@noindent
 When the file is processed, the title and composer are printed
 above the music.  More information on titling can be found in
 @ruser{Creating titles headers and footers}.
@@ -1435,21 +1451,21 @@ So far we have used @code{\relative} to define pitches.
 This is usually the fastest way to enter most music.  Without
 @code{\relative}, pitches are interpreted in absolute mode.
 
-In this mode, LilyPond treats all pitches as absolute values.  A
-@code{c'} will always mean middle@tie{}C, a @code{b} will always mean
-the note one step below middle@tie{}C, and a @code{g,} will always mean
-the note on the bottom staff of the bass clef.
+In this mode, LilyPond treats all pitches as absolute values: a
+@samp{c'} always means middle@tie{}C, a @samp{b} always means the
+note one step below middle@tie{}C, and a @samp{g,} always means
+the note on the bottom line of a staff with a bass clef.
 
 @lilypond[verbatim,quote]
 {
-  \clef "bass"
+  \clef bass
   c'4 b g, g, |
   g,4 f, f c' |
 }
 @end lilypond
 
-Writing a melody in the treble clef involves a lot
-of quote @code{'} marks.  Consider this fragment from Mozart:
+Writing a melody in the treble clef involves a lot of quote
+@samp{'} marks.  Consider this fragment from Mozart:
 
 @lilypond[verbatim,quote]
 {
@@ -1461,6 +1477,7 @@ of quote @code{'} marks.  Consider this fragment from Mozart:
 @end lilypond
 
 @funindex \fixed
+
 Common octave marks can be indicated just once, using the command
 @code{\fixed} followed by a reference pitch:
 
@@ -1485,16 +1502,16 @@ because this melody moves in steps no larger than three staff positions:
 }
 @end lilypond
 
-If you make a mistake with an octave mark (@code{'} or @code{,})
+If you make a mistake with an octave mark (@samp{'} or @samp{,})
 while working in @code{\relative} mode, it is very obvious -- many
 notes will be in the wrong octave.  When working in absolute mode,
 a single mistake will not be as visible, and will not be as easy
 to find.
 
-However, absolute mode is useful for music which has large
-intervals, and is extremely useful for computer-generated LilyPond
-files.  When cutting and pasting melody fragments, absolute mode
-preserves the original octave.
+However, absolute mode is useful for music with large intervals,
+and is extremely useful for computer-generated LilyPond files.
+When cutting and pasting melody fragments, absolute mode preserves
+the original octave.
 
 Sometimes music is arranged in more complex ways.  If you are
 using @code{\relative} inside of @code{\relative}, the outer and
@@ -1505,8 +1522,8 @@ inner relative sections are independent:
 @end lilypond
 
 To use absolute mode inside of @code{\relative}, put the absolute
-music inside @code{\fixed c @{ @dots{} @}} and the absolute pitches
-will not affect the octaves of the relative music:
+music inside @code{\fixed c @{ @dots{}@tie{}@}} and the absolute
+pitches will not affect the octaves of the relative music:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1515,30 +1532,31 @@ will not affect the octaves of the relative music:
 }
 @end lilypond
 
+
 @node After the tutorial
 @subsection After the tutorial
 
 After finishing the tutorial, you should probably try writing a
-piece or two.  Start by adding notes to one of the
-@ref{Templates}.  If you need any notation that was not covered in
-the tutorial, look at the Notation Reference, starting with
-@ruser{Musical notation}.  If you want to write for an instrument
-ensemble that is not covered in the templates, take a look at
-@ref{Extending the templates}.
+piece or two.  Start by adding notes to one of the templates
+(@pxref{Templates}).  If you need any notation that was not
+covered in the tutorial, look at the Notation Reference, starting
+with @ruser{Musical notation}.  If you want to write for an
+instrument ensemble that is not covered in the templates,
+@pxref{Extending the templates}.
 
 Once you have written a few short pieces, read the rest of the
-Learning Manual (chapters 3-5).  There's nothing wrong with
+Learning Manual (chapters 3--5).  There's nothing wrong with
 reading it now, of course!  However, the rest of the Learning
 Manual assumes that you are familiar with LilyPond input.  You may
 wish to skim these chapters right now, and come back to them after
 you have more experience.
 
-In this tutorial and in the rest of the Learning Manual, there is a
-paragraph @strong{See also} at the end of each section, which contains
-cross-references to other sections: you should not follow these
-cross-references at first reading; when you have read all of the
-Learning Manual, you may want to read some sections again and follow
-cross-references for further reading.
+In this tutorial and in the rest of the Learning Manual, there is
+a paragraph @strong{See also} at the end of each section, which
+contains cross references to other sections: you should not follow
+these cross references at first reading; when you have read all of
+the Learning Manual, you may want to read some sections again and
+follow cross references for further reading.
 
 If you have not done so already, @emph{please} read @ref{Overview
 of manuals}.  There is a lot of information about LilyPond, so
