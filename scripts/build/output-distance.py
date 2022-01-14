@@ -95,7 +95,9 @@ def read_pipe(c: str) -> str:
 
 
 def system(c: str, cwd=None):
-    log_verbose('system %s' % c)
+    if not cwd:
+        cwd = os.getcwd()
+    log_verbose('system %s (cwd=%s)' % (c, cwd))
     # explicitly use bash, so we don't get dash on Ubuntu.
     subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True, cwd=cwd)
 
