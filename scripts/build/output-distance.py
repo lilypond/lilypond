@@ -664,7 +664,7 @@ def eps_to_png(fn: str,  dest_dir: str) -> str:
 
     data_option = ''
     if options.local_data_dir:
-        data_option = ('-slilypond-datadir=%s/share/lilypond/current '
+        data_option = ('-slilypond-datadir=%s/share/lilypond/current'
                        % os.path.abspath(dir))
 
     driver = open(os.path.join(dir, 'batch.ps'), 'w', encoding='utf-8')
@@ -678,7 +678,8 @@ def eps_to_png(fn: str,  dest_dir: str) -> str:
         ''' % (outfile, base))
     driver.close()
     cmd = ('gs '
-           ' -dNOSAFER'
+           + data_option
+           + ' -dNOSAFER'
            ' -dEPSCrop'
            ' -q'
            ' -dNOPAUSE'
