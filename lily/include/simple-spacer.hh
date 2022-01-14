@@ -31,7 +31,7 @@ class Simple_spacer : public Simple_smob<Simple_spacer>
 public:
   Simple_spacer ();
   /* construct */
-  void add_rod (vsize l, vsize r, Real dist);
+  void add_rod (vsize left, vsize right, Real dist);
   void add_spring (Spring const &spring);
 
   /* solve */
@@ -45,15 +45,15 @@ public:
   Real configuration_length (Real force) const;
 
 private:
-  Solution range_solve (vsize l, vsize r, Real line_len, bool ragged) const;
-  Real range_len (vsize l, vsize r, Real force) const;
-  Real range_ideal_len (vsize l, vsize r) const;
-  Real range_stiffness (vsize l, vsize r, bool stretch) const;
-  Solution expand_line (vsize l, vsize r, Real line_len, Real max_block_force_len, Real max_block_force) const;
-  Solution compress_line (vsize l, vsize r, Real line_len, Real max_block_force_len, Real max_block_force) const;
-  Real rod_force (vsize l, vsize r, Real dist) const;
- // Maximum force that causes any spring to block.
-  Real range_max_block_force (vsize l, vsize r) const;
+  Solution range_solve (vsize left, vsize right, Real line_len, bool ragged) const;
+  Real range_len (vsize left, vsize right, Real force) const;
+  Real range_ideal_len (vsize left, vsize right) const;
+  Real range_stiffness (vsize left, vsize right, bool stretch) const;
+  Solution expand_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Solution compress_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Real rod_force (vsize left, vsize right, Real dist) const;
+  // Maximum force that causes any spring to block.  
+  Real range_max_block_force (vsize left, vsize right) const;
 
   std::vector<Spring> springs_;
 };

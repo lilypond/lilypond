@@ -74,20 +74,20 @@ using std::vector;
 Simple_spacer::Simple_spacer () {}
 
 Real
-Simple_spacer::rod_force (vsize l, vsize r, Real dist) const
+Simple_spacer::rod_force (vsize left, vsize right, Real dist) const
 {
-  Real ideal_length = range_ideal_len (l, r);
-  Real stiffness = range_stiffness (l, r, dist > ideal_length);
+  Real ideal_length = range_ideal_len (left, right);
+  Real stiffness = range_stiffness (left, right, dist > ideal_length);
 
   if (std::isinf (stiffness)) // nothing we can do here
     return stiffness;
 
-  Solution sol = range_solve (l, r, dist, false);
+  Solution sol = range_solve (left, right, dist, false);
   return sol.force_;
 }
 
 void
-Simple_spacer::add_rod (vsize l, vsize r, Real dist)
+Simple_spacer::add_rod (vsize left, vsize right, Real dist)
 {
   if (!std::isfinite (dist))
     {
@@ -95,22 +95,21 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
       return;
     }
 
-  if (range_len (l, r, -infinity_f) > dist)
+  if (range_len (left, right, -infinity_f) > dist)
     {
       return;
     }
 
-  Real block_force = rod_force (l, r, dist);
-
+  Real block_force = rod_force (left, right, dist);
   if (std::isinf (block_force))
     {
-      Real spring_dist = range_ideal_len (l, r);
+      Real spring_dist = range_ideal_len (left, right);
       if (spring_dist < dist)
         {
-          Real factor = spring_dist > 0.0 ? dist / spring_dist
-                                          : dist / static_cast<Real> (r - l);
+          Real factor = spring_dist ? dist / spring_dist
+                                    : dist / static_cast<Real> (right - left);
 
-          for (vsize i = l; i < r; i++)
+          for (vsize i = left; i < right; i++)
             {
               if (spring_dist > 0)
                 springs_[i].set_ideal_distance (springs_[i].ideal_distance ()
@@ -121,33 +120,33 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
         }
       return;
     }
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
 }
 
 Real
-Simple_spacer::range_len (vsize l, vsize r, Real force) const
+Simple_spacer::range_len (vsize left, vsize right, Real force) const
 {
   Real d = 0.;
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     d += springs_[i].length (force);
   return d;
 }
 
 Real
-Simple_spacer::range_ideal_len (vsize l, vsize r) const
+Simple_spacer::range_ideal_len (vsize left, vsize right) const
 {
   Real d = 0.;
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     d += springs_[i].ideal_distance ();
   return d;
 }
 
 Real
-Simple_spacer::range_stiffness (vsize l, vsize r, bool stretch) const
+Simple_spacer::range_stiffness (vsize left, vsize right, bool stretch) const
 {
   Real den = 0.0;
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     den += stretch ? springs_[i].inverse_stretch_strength ()
            : springs_[i].inverse_compress_strength ();
 
@@ -161,10 +160,10 @@ Simple_spacer::configuration_length (Real force) const
 }
 
 Real
-Simple_spacer::range_max_block_force (vsize l, vsize r) const
+Simple_spacer::range_max_block_force (vsize left, vsize right) const
 {
   Real result = 0.0;
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     result = std::max (result, springs_[i].blocking_force ());
 
   return result;
@@ -177,16 +176,19 @@ Simple_spacer::solve (Real line_len, bool ragged) const
 }
 
 Simple_spacer::Solution
-Simple_spacer::range_solve (vsize l, vsize r, Real line_len, bool ragged) const
+Simple_spacer::range_solve (vsize left, vsize right, Real line_len,
+                            bool ragged) const
 {
-  Real max_block_force = range_max_block_force (l, r);
-  Real max_block_force_len = range_len (l, r, max_block_force);
+  Real max_block_force = range_max_block_force (left, right);
+  Real max_block_force_len = range_len (left, right, max_block_force);
 
   Solution sol;
   if (max_block_force_len < line_len)
-    sol = expand_line (l, r, line_len, max_block_force_len, max_block_force);
+    sol = expand_line (left, right, line_len, max_block_force_len,
+                       max_block_force);
   else if (max_block_force_len > line_len)
-    sol = compress_line (l, r, line_len, max_block_force_len, max_block_force);
+    sol = compress_line (left, right, line_len, max_block_force_len,
+                         max_block_force);
   else
     {
       sol.force_ = max_block_force;
@@ -200,12 +202,12 @@ Simple_spacer::range_solve (vsize l, vsize r, Real line_len, bool ragged) const
 }
 
 Simple_spacer::Solution
-Simple_spacer::expand_line (vsize l, vsize r, Real line_len,
+Simple_spacer::expand_line (vsize left, vsize right, Real line_len,
                             Real max_block_force_len,
                             Real max_block_force) const
 {
   double inv_hooke = 0;
-  for (vsize i = l; i < r; i++)
+  for (vsize i = left; i < right; i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
@@ -224,7 +226,7 @@ spring_pointer_greater (Spring const *const a, Spring const *const b)
 }
 
 Simple_spacer::Solution
-Simple_spacer::compress_line (vsize l, vsize r, Real line_len,
+Simple_spacer::compress_line (vsize left, vsize right, Real line_len,
                               Real max_block_force_len,
                               Real max_block_force) const
 {
@@ -232,7 +234,7 @@ Simple_spacer::compress_line (vsize l, vsize r, Real line_len,
      will actually be compressed (as in, a negative force) because
      we start out with a stretched line. Here, we check whether we
      will be compressed or stretched (so we know which spring constant to use) */
-  double neutral_length = range_len (l, r, 0.0);
+  double neutral_length = range_len (left, right, 0.0);
   bool compressed = (neutral_length > line_len);
 
   Simple_spacer::Solution cur;
@@ -241,8 +243,8 @@ Simple_spacer::compress_line (vsize l, vsize r, Real line_len,
   Real cur_len = compressed ? neutral_length : max_block_force_len;
 
   vector<const Spring *> sorted_springs;
-  sorted_springs.reserve (r - l);
-  for (vsize i = l; i < r; i++)
+  sorted_springs.reserve (right - left);
+  for (vsize i = left; i < right; i++)
     sorted_springs.push_back (&springs_[i]);
 
   sort (sorted_springs.begin (), sorted_springs.end (), spring_pointer_greater);
@@ -317,23 +319,20 @@ Simple_spacer::force_penalty (Real line_len, Real force, bool ragged) const
 
 struct Rod_description
 {
-  vsize r_;
+  vsize right_;
   Real dist_;
 
-  bool operator < (const Rod_description r)
-  {
-    return r_ < r.r_;
-  }
+  bool operator< (const Rod_description right) { return right_ < right.right_; }
 
   Rod_description ()
   {
-    r_ = 0;
+    right_ = 0;
     dist_ = 0;
   }
 
-  Rod_description (vsize r, Real d)
+  Rod_description (vsize right, Real d)
   {
-    r_ = r;
+    right_ = right;
     dist_ = d;
   }
 };
@@ -482,12 +481,14 @@ get_line_forces (vector<Paper_column *> const &columns,
 
           for (vsize i = breaks[b]; i < end; i++)
             {
-              for (vsize r = 0; r < cols[i].rods_.size (); r++)
-                if (cols[i].rods_[r].r_ < end)
-                  spacer.add_rod (i - st, cols[i].rods_[r].r_ - st, cols[i].rods_[r].dist_);
-              for (vsize r = 0; r < cols[i].end_rods_.size (); r++)
-                if (cols[i].end_rods_[r].r_ == end)
-                  spacer.add_rod (i - st, end - st, cols[i].end_rods_[r].dist_);
+              for (vsize right = 0; right < cols[i].rods_.size (); right++)
+                if (cols[i].rods_[right].right_ < end)
+                  spacer.add_rod (i - st, cols[i].rods_[right].right_ - st,
+                                  cols[i].rods_[right].dist_);
+              for (vsize right = 0; right < cols[i].end_rods_.size (); right++)
+                if (cols[i].end_rods_[right].right_ == end)
+                  spacer.add_rod (i - st, end - st,
+                                  cols[i].end_rods_[right].dist_);
               if (!cols[i].keep_inside_line_.is_empty ())
                 {
                   spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
@@ -543,8 +544,9 @@ get_line_configuration (vector<Paper_column *> const &columns,
     }
   for (vsize i = 0; i < cols.size (); i++)
     {
-      for (vsize r = 0; r < cols[i].rods_.size (); r++)
-        spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
+      for (vsize right = 0; right < cols[i].rods_.size (); right++)
+        spacer.add_rod (i, cols[i].rods_[right].right_,
+                        cols[i].rods_[right].dist_);
 
       if (!cols[i].keep_inside_line_.is_empty ())
         {
