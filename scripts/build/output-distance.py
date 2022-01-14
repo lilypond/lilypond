@@ -76,11 +76,6 @@ def get_temp_dir() -> str:
     return temp_dir
 
 
-def read_pipe(c: str) -> str:
-    log_verbose('pipe %s' % c)
-    return os.popen(c).read()
-
-
 def system(c: str, cwd=None):
     if not cwd:
         cwd = os.getcwd()
@@ -111,20 +106,22 @@ def max_distance(x1: Vec, x2: Vec) -> float:
     return dist
 
 
-def compare_png_images(old: str, new: str, dest_dir: str):
-    def png_dims(f: str) -> Tuple[int, int]:
-        dims = read_pipe("identify -ping -format '%w %h' " + f).split(' ')
-        tup = tuple(map(int, dims))
-        return (tup[0], tup[1])
+def png_dims(fn: str) -> Tuple[int, int]:
+    """Reads width/height from PNG file."""
 
+    # avoid subprocessing, as subprocessing is relatively expensive,
+    # and we run this for each image we handle
+    with open(fn, 'rb') as f:
+        header = f.read(32)
+        w = int.from_bytes(header[16:20], 'big', signed=False)
+        h = int.from_bytes(header[20:24], 'big', signed=False)
+        return (w, h)
+
+
+def compare_png_images(old: str, new: str, dest_dir: str):
     dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
-    try:
-        dims1 = png_dims(old)
-        dims2 = png_dims(new)
-    except AttributeError:
-        # hmmm. what to do?
-        system('touch %(dest)s' % locals())
-        return
+    dims1 = png_dims(old)
+    dims2 = png_dims(new)
 
     dims = (min(dims1[0], dims2[0]),
             min(dims1[1], dims2[1]))
