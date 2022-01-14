@@ -1232,13 +1232,13 @@ td:empty {
 
 def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float):
     """Compare a list of directories."""
+    shutil.rmtree(dest_dir, ignore_errors=True)
+
     data = ComparisonData()
     for dir1, dir2 in tree_pairs:
         data.compare_trees(dir1, dir2)
 
     data.read_sources()
-
-    shutil.rmtree(dest_dir, ignore_errors=True)
 
     data.write_changed(dest_dir, threshold)
     data.create_html_result_page(dest_dir, threshold)
