@@ -247,9 +247,6 @@ Paper_column_engraver::stop_translation_timestep ()
 void
 Paper_column_engraver::finalize ()
 {
-  if (! (breaks_ % 8))
-    progress_indication ("[" + std::to_string (breaks_) + "]");
-
   // At the end of the score, allow page breaks and turns by default, but...
   set_property (command_column_,
                 "page-break-permission", ly_symbol2scm ("allow"));
