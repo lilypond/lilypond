@@ -95,15 +95,6 @@
                 slots*)))))
 (export defstruct)
 
-(define-public (compose . functions)
-  (let ((functions* (drop-right functions 1))
-        (last-function (last functions)))
-    (letrec ((reduce (lambda (x functions)
-                       (if (null? functions)
-                           x
-                           (reduce ((car functions) x) (cdr functions))))))
-      (lambda args (reduce (apply (last functions) args) (reverse functions*))))))
-
 (define-macro (push! object list-var)
   ;; The same as in Common Lisp
   `(set! ,list-var (cons ,object ,list-var)))

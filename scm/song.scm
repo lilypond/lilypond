@@ -844,10 +844,11 @@
                                     (warning (car rests) "Rests in a slur: ~a" slur)
                                     (set! slur (remove rest? slur)))))
                             (map function slur))
-                          slur-list))))
+                          slur-list)))
+        (note-festival-pitch (lambda (n) (festival-pitch (note-pitch n)))))
     (format port "<DURATION BEATS=\"~@?\"><PITCH NOTE=\"~@?\">~a</PITCH></DURATION>~%"
             fmt (transform note-duration)
-            fmt (transform (compose festival-pitch note-pitch))
+            fmt (transform note-festival-pitch)
             text)))
 
 (define (write-rest-element port duration)
