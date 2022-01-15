@@ -219,4 +219,5 @@ A breathing sign.
                /* properties */
                R"(
 direction
+thickness
                )");
