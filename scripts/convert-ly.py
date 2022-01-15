@@ -22,6 +22,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 import gettext
+import io
 import os
 import re
 import shutil
@@ -279,6 +280,12 @@ def do_one_file(infile_name):
         except UnicodeError:
             ly.progress(_("Attempting conversion from `latin1'..."))
             input = original.decode('latin1')
+
+        # Convert platform-dependent newline character sequences
+        # to `\n`. This is default behaviour when opening files in
+        # text mode, which does not work for us, though, since we do not
+        # know the encoding in advance.
+        input = io.StringIO(input, newline=None).read()
     else:
         input = sys.stdin.read()
 
