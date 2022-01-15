@@ -259,13 +259,15 @@ is not used within the routine."
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
-  (let* ((half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
-         (staff-line-thickness (ly:staff-symbol-line-thickness grob))
+  (let* ((line-thickness (layout-line-thickness grob))
+         (thickness (* (ly:grob-property grob 'hair-thickness 1)
+                       line-thickness))
+         (half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
          (height (interval-end extent)))
     (bar-line::draw-filled-box
-     (cons 0 staff-line-thickness)
-     (cons (- height half-staff) (+ height half-staff))
-     staff-line-thickness
+     (cons 0 thickness) ; x
+     (coord-translate (symmetric-interval half-staff) height) ; y
+     thickness
      extent
      grob)))
 
