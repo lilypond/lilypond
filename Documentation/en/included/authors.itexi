@@ -186,14 +186,23 @@ Core developer
 
 @c use commas not colons
 
+Erlend E. Aasland,
 Kevin Barry,
+Tim Burgess,
+Thibaut Cuvelier,
+Jefferson Felix,
 David Stephen Grant,
 Masamichi Hosoda,
 Martin Joerg,
 Michael Käppler,
 Thomas Morley,
+Lukas-Fabian Moser,
+Martin Neubauer,
 Knut Petersen,
-Pete Siddall
+Valentin Petzel,
+Pete Siddall,
+Alen Šiljak,
+Timofey
 
 @c no comma for last entry
 
@@ -219,7 +228,8 @@ Owen Lamb
 @c use commas not colons
 
 Michael Käppler,
-Thomas Morley
+Thomas Morley,
+John Wheeler
 
 @c no comma for last entry
 
@@ -233,6 +243,7 @@ Thomas Morley
 
 Federico Bruni,
 Dénes Harmath,
+Guyutongxue,
 Chengrui Li,
 Jean-Charles Malahieude
 
