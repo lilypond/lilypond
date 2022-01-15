@@ -10,6 +10,7 @@ within composite bar lines."
 bars = {
   s1 \bar "!"
   s1 \bar "'"
+  s1 \bar ","
   s1 \bar ";"
   s1 \bar "S"
   s1 \bar ".|:"

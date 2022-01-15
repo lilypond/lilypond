@@ -90,9 +90,8 @@ Pad the string with @code{annotation-char}s to the length of the
 
     line-count))
 
-(define (staff-symbol-line-span grob)
-  (let ((line-pos (ly:grob-property grob 'line-positions '()))
-        (iv (cons 0.0 0.0)))
+(define (staff-symbol-y-extent-from-line-positions line-pos)
+  (let ((iv (cons 0.0 0.0)))
 
     (if (pair? line-pos)
         (begin
@@ -107,6 +106,10 @@ Pad the string with @code{annotation-char}s to the length of the
           (set! iv (cons (- 1 line-count)
                          (- line-count 1)))))
     iv))
+
+(define (staff-symbol-line-span grob)
+  (staff-symbol-y-extent-from-line-positions
+   (staff-symbol-line-positions grob)))
 
 (define (staff-symbol-line-positions grob)
   "Get or compute the @code{'line-positions} list from @var{grob}."
@@ -256,6 +259,34 @@ is not used within the routine."
      thickness
      extent
      grob)))
+
+(define (make-short-bar-line grob extent)
+  "Draw a short bar line."
+  (let* ((normal-height (interval-length extent))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (normal-height-spaces (/ normal-height staff-space))
+         ;; Use half the height of the staff, rounded up to an integer
+         ;; number of staff spaces.
+         (short-height-spaces (truncate (/ (1+ normal-height-spaces) 2)))
+         (center (interval-center extent))
+         (line-thickness (layout-line-thickness grob))
+         (thickness (* (ly:grob-property grob 'hair-thickness 1)
+                       line-thickness)))
+
+    ;; If the normal bar lines are quite short, short bar lines will
+    ;; be hard to distinguish or hard to see.  Render them like
+    ;; anti-ticks.
+    (if (< normal-height-spaces 2)
+        (begin
+          (set! short-height-spaces 1)
+          (set! center (interval-start extent))))
+
+    (ly:round-filled-box
+     (cons 0 thickness) ; x
+     (coord-translate
+      (symmetric-interval (/ (* short-height-spaces staff-space) 2))
+      center) ; y
+     (bar-line::calc-blot thickness extent grob))))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
@@ -1007,6 +1038,7 @@ of the volta brackets relative to the bar lines."
 (add-bar-glyph-print-procedure "." make-thick-bar-line)
 (add-bar-glyph-print-procedure "!" make-dashed-bar-line)
 (add-bar-glyph-print-procedure "'" make-tick-bar-line)
+(add-bar-glyph-print-procedure "," make-short-bar-line)
 (add-bar-glyph-print-procedure ":" make-colon-bar-line)
 (add-bar-glyph-print-procedure ";" make-dotted-bar-line)
 (add-bar-glyph-print-procedure "k" make-kievan-bar-line)
@@ -1053,6 +1085,7 @@ of the volta brackets relative to the bar lines."
 (define-bar-line "!" "!" #f "!")
 (define-bar-line ";" ";" #f ";")
 (define-bar-line "'" "'" #f #f)
+(define-bar-line "," "," #f #f)
 
 ;; repeats
 (define-bar-line ":|.:" ":|." ".|:"  " |.")

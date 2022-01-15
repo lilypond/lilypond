@@ -1220,9 +1220,14 @@ Internals Reference:
 @node Divisiones
 @unnumberedsubsubsec Divisiones
 
+@cindex bar line, in Gregorian chant
+@cindex bar line, short, in Gregorian chant
+@cindex bar line, tick, in Gregorian chant
 @cindex divisio
 @cindex divisiones
 @cindex finalis
+@cindex short bar line, in Gregorian chant
+@cindex tick bar line, in Gregorian chant
 
 There are no rests in Gregorian chant notation; instead, it uses
 @ref{Divisiones}.

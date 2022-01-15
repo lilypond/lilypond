@@ -2942,13 +2942,20 @@ and nine types of repeat bar lines:
 }
 @end lilypond
 
-Additionally, a bar line can be printed as a simple tick:
+@cindex bar line, short
+@cindex bar line, tick
+@cindex short bar line
+@cindex tick bar line
+
+Ticks and short bar lines are also available; however, in the
+context of Gregorian chant, using @code{\divisioMinima} and
+@code{\divisioMaior} is preferable (@pxref{Divisiones}).
+
 @lilypond[quote,fragment,verbatim]
-f'1 \bar "'" g'1
+f'1 \bar "'"
+g1 \bar ","
+a1
 @end lilypond
-However, as such ticks are typically used in Gregorian chant, it is
-preferable to use @code{\divisioMinima} there instead, described in
-the section @ref{Divisiones} in Gregorian chant.
 
 LilyPond supports kievan notation and provides a special kievan
 bar line:

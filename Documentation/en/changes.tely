@@ -66,6 +66,19 @@ which scares away people.
 @end ignore
 
 @item
+@code{\bar ","} creates a short bar line.
+
+@lilypond
+\new Staff \with {
+  \omit Clef
+  \omit TimeSignature
+} \fixed c' {
+  \cadenzaOn
+  e2 f g a g \bar "," f g f d e\breve
+}
+@end lilypond
+
+@item
 The new @code{show-horizontal-skylines} and
 @code{show-vertical-skylines} properties allow to display an
 object's skylines.  This is more flexible than the already

@@ -13,7 +13,11 @@ with e.g. \bar \"|.\"
 A tick bar line is a short line of the same length as a staff
 space, centered on the top-most bar line.
 
-" }
+A short bar line has a height of half the height of the staff, rounded
+up to an integer number of staff spaces.  It is usually centered
+vertically, but on short staves, it is shifted down to distinguish it
+from a normal bar line."
+}
 
 bars = {
   s2 \bar "!" s
@@ -23,10 +27,14 @@ bars = {
   s2 \bar "." s
   s1
   s2 \bar "'" s
+  s1
+  s2 \bar "," s
 }
 
 music = \fixed c' {
   \clef "alto"
+  c2 c
+  s1
   c2 c
   s1
   c2 c
