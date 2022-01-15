@@ -90,7 +90,6 @@ extern Variable f_location;
 extern Variable lookup_font;
 extern Variable lookup_markup_command;
 extern Variable lookup_markup_list_command;
-extern Variable ly_context_find;
 extern Variable ly_context_set_property_x;
 extern Variable ly_event_p;
 extern Variable ly_make_event_class;

@@ -81,7 +81,6 @@ Variable f_location ("%location");
 Variable lookup_font ("lookup-font");
 Variable lookup_markup_command ("lookup-markup-command");
 Variable lookup_markup_list_command ("lookup-markup-list-command");
-Variable ly_context_find ("ly:context-find");
 Variable ly_context_set_property_x ("ly:context-set-property!");
 Variable ly_event_p ("ly:event?");
 Variable ly_make_event_class ("ly:make-event-class");

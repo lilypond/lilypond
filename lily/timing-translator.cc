@@ -137,11 +137,11 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-  Context *timing = unsmob<Context>
-                    (Lily::ly_context_find (context ()->self_scm (), ly_symbol2scm ("Timing")));
+  SCM timing_context_name = ly_symbol2scm ("Timing");
+  auto *timing = find_context_above (context (), timing_context_name);
   if (timing != context ())
     {
-      context ()->add_alias (ly_symbol2scm ("Timing"));
+      context ()->add_alias (timing_context_name);
 
       if (!timing)
         {
