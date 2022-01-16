@@ -5,7 +5,7 @@
 \header {
   texidoc="@code{\\section} creates a section bar line whether or not
 it is aligned on a measure boundary, except at the start of the piece.
-This test should show a thick bar line after each of the three notes."
+This test should show a double bar line after each of the three notes."
 }
 
 \layout {
