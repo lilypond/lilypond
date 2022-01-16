@@ -15,58 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM ubuntu:18.04 as build
-RUN apt-get update && apt-get install --no-install-recommends -y \
-        ca-certificates \
-        wget \
-    && true
-# Download and extract urw-base35-fonts - we cannot use the available package
-# fonts-urw-base35 which comes without the *.otf files. Do this in a build
-# container to not distribute the whole archive, only the *.otf files.
-# Do not use ADD which doesn't cache the downloaded archive. Once released, it
-# will never change.
-RUN wget -q https://github.com/ArtifexSoftware/urw-base35-fonts/archive/20170801.1.tar.gz \
-    && mkdir -p /usr/share/fonts/otf/ && tar -C /usr/share/fonts/otf/ \
-        -xf /20170801.1.tar.gz --strip-components=2 --wildcards '*/fonts/*.otf'
-
-FROM ubuntu:18.04
-COPY --from=build /usr/share/fonts/otf/ /usr/share/fonts/otf/
-RUN apt-get update && apt-get --no-install-recommends install -y \
-        autoconf \
-        bison \
-        ca-certificates \
-        flex \
-        fontconfig \
-        fontforge \
-        fonts-texgyre \
-        g++ \
-        gettext \
-        ghostscript \
-        git \
-        guile-2.2-dev \
-        imagemagick \
-        libfl-dev \
-        libfontconfig1-dev \
-        libfreetype6-dev \
-        libglib2.0-dev \
-        libgs-dev \
-        libpango1.0-dev \
-        make \
-        perl \
-        pkg-config \
-        python3 \
-        rsync \
-        texi2html \
-        texinfo \
-        texlive-binaries \
-        texlive-fonts-recommended \
-        texlive-lang-cyrillic \
-        texlive-metapost \
-        texlive-plain-generic \
-        wget \
-        zip \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /usr/share/doc /usr/share/man
+FROM registry.gitlab.com/lilypond/lilypond/base/ubuntu-18.04:20220116
 
 # Drop root user inside the container.
 USER nobody

@@ -88,7 +88,7 @@ build:
 
 build-guile2:
   extends: build
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20210621
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
   rules:
     - <<: *if-default-branch
       when: manual
@@ -120,7 +120,7 @@ test:
 
 test-guile2:
   extends: test
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20210621
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
   rules:
     - <<: *if-default-branch
       when: manual
@@ -170,7 +170,7 @@ check:
 
 check-guile2:
   extends: check
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20210621
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
   rules:
     - <<: *if-mr-to-default
       when: manual
@@ -200,7 +200,7 @@ doc:
 
 doc-guile2:
   extends: doc
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20210621
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
   rules:
     - <<: *if-default-branch
       when: manual
