@@ -1493,11 +1493,6 @@ def main():
         "output-distance - compare LilyPond formatting runs")
     p.usage = 'output-distance.py [options] tree1 tree2 [tree3 tree4]...'
 
-    p.add_option('', '--test-self',
-                 dest="run_test",
-                 action="store_true",
-                 help='run test method')
-
     p.add_option('--max-count',
                  dest="max_count",
                  metavar="COUNT",
@@ -1505,13 +1500,6 @@ def main():
                  default=0,
                  action="store",
                  help='only analyze COUNT signature pairs')
-
-    p.add_option('', '--threshold',
-                 dest="threshold",
-                 default=0.3,
-                 action="store",
-                 type="float",
-                 help='threshold for geometric distance')
 
     p.add_option('--local-datadir',
                  dest="local_data_dir",
@@ -1525,6 +1513,18 @@ def main():
                  action="store",
                  type="string",
                  help='where to put the test results [tree2/compare-tree1tree2]')
+
+    p.add_option('', '--test-self',
+                 dest="run_test",
+                 action="store_true",
+                 help='run test method')
+
+    p.add_option('', '--threshold',
+                 dest="threshold",
+                 default=0.3,
+                 action="store",
+                 type="float",
+                 help='threshold for geometric distance')
 
     p.add_option('-v', '--verbose',
                  dest="verbose",
