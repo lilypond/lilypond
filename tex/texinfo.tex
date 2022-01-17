@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2021-09-26.10}
+\def\texinfoversion{2022-01-16.13}
 %
 % Copyright 1985, 1986, 1988, 1990-2021 Free Software Foundation, Inc.
 %
@@ -3171,16 +3171,8 @@ end
 % Default is `distinct'.
 \kbdinputstyle distinct
 
-% @kbd is like @code, except that if the argument is just one @key command,
-% then @kbd has no effect.
-\def\kbd#1{{\def\look{#1}\expandafter\kbdsub\look??\par}}
-
-\def\xkey{\key}
-\def\kbdsub#1#2#3\par{%
-  \def\one{#1}\def\three{#3}\def\threex{??}%
-  \ifx\one\xkey\ifx\threex\three \key{#2}%
-  \else{\tclose{\kbdfont\setcodequotes\look}}\fi
-  \else{\tclose{\kbdfont\setcodequotes\look}}\fi
+\def\kbd#1{%
+  \tclose{\kbdfont\setcodequotes#1}%
 }
 
 % definition of @key that produces a lozenge.  Doesn't adjust to text size.
@@ -3193,14 +3185,9 @@ end
 %    \kern-0.4pt\hrule}%
 %  \kern-.06em\raise0.4pt\hbox{\angleright}}}}
 
-% definition of @key with no lozenge.  If the current font is already
-% monospace, don't change it; that way, we respect @kbdinputstyle.  But
-% if it isn't monospace, then use \tt.
+% definition of @key with no lozenge.
 %
-\def\key#1{{\setregularquotes
-  \nohyphenation
-  \ifmonospace\else\tt\fi
-  #1}\null}
+\def\key#1{{\setregularquotes \nohyphenation \tt #1}\null}
 
 % @clicksequence{File @click{} Open ...}
 \def\clicksequence#1{\begingroup #1\endgroup}
@@ -3613,6 +3600,9 @@ $$%
 \def\guilsinglright{{\ecfont \char"0F}}
 \def\quotedblbase{{\ecfont \char"12}}
 \def\quotesinglbase{{\ecfont \char"0D}}
+%
+\def\L{{\ecfont \char"8A}} % L with stroke
+\def\l{{\ecfont \char"AA}} % l with stroke
 %
 % This positioning is not perfect (see the ogonek LaTeX package), but
 % we have the precomposed glyphs for the most common cases.  We put the
@@ -10900,6 +10890,9 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{1EF8}{\~Y}%
   \DeclareUnicodeCharacter{1EF9}{\~y}%
   %
+  % Exotic spaces
+  \DeclareUnicodeCharacter{2007}{\hphantom{0}}%
+  %
   % Punctuation
   \DeclareUnicodeCharacter{2013}{--}%
   \DeclareUnicodeCharacter{2014}{---}%
@@ -11243,23 +11236,6 @@ directory should work if nowhere else does.}
   \tolerance = 700
   \contentsrightmargin = 0pt
   \defbodyindent = .5cm
-}}
-
-% Use @smallerbook to reset parameters for 6x9 trim size.
-% (Just testing, parameters still in flux.)
-\def\smallerbook{{\globaldefs = 1
-  \parskip = 1.5pt plus 1pt
-  \textleading = 12pt
-  %
-  \internalpagesizes{7.4in}{4.8in}%
-                    {-.2in}{-.4in}%
-                    {0pt}{14pt}%
-                    {9in}{6in}%
-  %
-  \lispnarrowing = 0.25in
-  \tolerance = 700
-  \contentsrightmargin = 0pt
-  \defbodyindent = .4cm
 }}
 
 % Use @afourpaper to print on European A4 paper.
