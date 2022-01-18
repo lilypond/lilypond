@@ -66,27 +66,14 @@ def log_verbose(s: str):
 
 ################################################################
 # system interface.
-temp_dir = None
-
-
-class TempDirectory:
-    def __init__(self):
-        self.dir = tempfile.mkdtemp()
-        log_verbose('dir is %s' % self.dir)
-
-    def __del__(self):
-        log_verbose('rm -rf %s' % self.dir)
-        shutil.rmtree(self.dir)
-
-    def __call__(self):
-        return self.dir
+temp_dir = ''
 
 
 def get_temp_dir() -> str:
     global temp_dir
     if not temp_dir:
-        temp_dir = TempDirectory()
-    return temp_dir()
+        temp_dir = tempfile.mkdtemp()
+    return temp_dir
 
 
 def read_pipe(c: str) -> str:
@@ -1553,7 +1540,7 @@ def main():
 
     if options.run_test:
         run_tests()
-        sys.exit(0)
+        return
 
     if len(args) % 2 == 1:
         p.print_usage()
@@ -1570,3 +1557,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    if temp_dir:
+        shutil.rmtree(temp_dir)
