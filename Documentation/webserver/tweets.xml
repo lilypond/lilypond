@@ -1,12 +1,5 @@
 <tweets>
   <tweet>
-    The LilyPond Blog is up and running &lt;a
-    href="http://www.lilypondblog.org"&gt;here&lt;/a&gt;! Anyone can
-    follow and leave comments on the blog. To contribute,
-    contact &lt;a
-    href="mailto:ul@openlilylib.org"&gt;Urs Liska&lt;/a&gt;.
-  </tweet>
-  <tweet>
     Adam Spiers has built a web site which uses LilyPond to dynamically
     generate images of chords and scales called &lt;a
     href="http://scalematcher.adamspiers.org/"&gt;Scale matcher&lt;/a&gt;.
