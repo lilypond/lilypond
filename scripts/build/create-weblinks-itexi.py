@@ -29,7 +29,7 @@ import sys
 
 # Force encoding for stdout, Python up to version 3.7 falls back to
 # ASCII with LANG=C (which the build system exports).
-sys.stdout = codecs.getwriter('utf8')(sys.stdout.detach())
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
 
 # translation data -- shouldn't be here; see issue
 # https://sourceforge.net/p/testlilyissues/issues/1050/

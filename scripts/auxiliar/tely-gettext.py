@@ -71,7 +71,7 @@ def menu_entry_gettext(m):
 
 def process_file(filename, master_file_dir='.', included=False):
     print("Processing %s" % filename)
-    f = open(filename, 'r', encoding='utf8')
+    f = open(filename, 'r', encoding='utf-8')
     page = f.read()
     f.close()
     page = ref_re.sub(ref_gettext, page)
@@ -84,7 +84,7 @@ def process_file(filename, master_file_dir='.', included=False):
     page = page.replace('UNTRANSLATED NODE: IGNORE ME', '@untranslated')
     page = untranslated_node_re.sub('\\1 @c external\\2', page)
     includes = include_re.findall(page)
-    f = open(filename, 'w', encoding='utf8')
+    f = open(filename, 'w', encoding='utf-8')
     f.write(page)
     f.close()
     dir = os.path.dirname(filename)

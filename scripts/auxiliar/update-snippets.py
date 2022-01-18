@@ -93,13 +93,13 @@ for pattern in file_patterns:
             sys.stderr.write(
                 "Warning: %s: no such file.\nReference file for %s not found.\n" % (ref_file, file))
             continue
-        f = open(file, 'r', encoding='utf8')
+        f = open(file, 'r', encoding='utf-8')
         target_source = comment_re.split(f.read())
         f.close()
         if reduce(lambda x, y: x or y, ['-- SKELETON FILE --' in s for s in target_source]):
             sys.stderr.write("Skipping skeleton file %s\n" % file)
             continue
-        g = open(ref_file, 'r', encoding='utf8')
+        g = open(ref_file, 'r', encoding='utf-8')
         ref_source = comment_re.split(g.read())
         target_source = snippet_split(target_source)
         ref_source = snippet_split(ref_source)
@@ -122,7 +122,7 @@ Update translation by at least adding a @lilypond block where necessary, then re
                     target_source[j] = ref_source[k]
                     c += 1
                     changed_snippets_count += 1
-        f = open(file, 'w', encoding='utf8')
+        f = open(file, 'w', encoding='utf-8')
         f.write(''.join(target_source))
         sys.stderr.write('%s: %d/%d snippets updated\n' %
                          (file, c, snippet_count))

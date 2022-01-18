@@ -128,7 +128,7 @@ for opt in options:
     elif o == '--prefix':
         prefix = a
     elif o == '--template':
-        template = open(a, 'r', encoding='utf8').read()
+        template = open(a, 'r', encoding='utf-8').read()
     else:
         raise Exception('unknown option: ' + o)
 
@@ -184,7 +184,7 @@ def name2line(n):
 if glob_input:
     files = glob.glob(glob_input)
 elif input_filename:
-    files = open(input_filename, encoding='utf8').read().split()
+    files = open(input_filename, encoding='utf-8').read().split()
 
 if files:
     dir = os.path.dirname(name) or "."

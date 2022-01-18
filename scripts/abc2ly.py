@@ -1374,7 +1374,7 @@ happy_count = 100
 
 
 def parse_file(fn):
-    f = open(fn, encoding='utf8')
+    f = open(fn, encoding='utf-8')
     ls = f.readlines()
     ls = [re.sub("\r$", '', x) for x in ls]
 
@@ -1497,7 +1497,7 @@ for f in files:
     if not global_options.quiet:
         sys.stderr.write('lilypond output to: `%s\'...' %
                          global_options.output)
-    outf = open(global_options.output, 'w', encoding='utf8')
+    outf = open(global_options.output, 'w', encoding='utf-8')
 
 # don't substitute @VERSION@. We want this to reflect
 # the last version that was verified to work.

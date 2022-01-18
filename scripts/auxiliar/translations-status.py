@@ -369,7 +369,7 @@ class TelyDocument (object):
         self.filename = filename
         self.contents = 'GIT committish: 0'
         if os.path.exists(filename):
-            self.contents = open(filename, encoding='utf8').read()
+            self.contents = open(filename, encoding='utf-8').read()
         # record title and sectionning level of first Texinfo section
         self.sectioning = 'unnumbered'
         self.title = 'Untitled'
@@ -804,7 +804,7 @@ main_status_body = markup.paragraph(
 main_status_body += '\n'.join([doc.texi_status(markup) for doc in master_docs])
 main_status_page = markup.texi(main_status_body)
 
-open('en/translations.itexi', 'w', encoding='utf8').write(main_status_page)
+open('en/translations.itexi', 'w', encoding='utf-8').write(main_status_page)
 
 for l in enabled_languages:
     date_time = buildlib.read_pipe('LANG=%s date -u' % l)[0]
@@ -814,7 +814,7 @@ for l in enabled_languages:
                              for doc in master_docs
                              if l in doc.translations])
     lang_status_page = markup.texi(updated + texi_status)
-    open(os.path.join(l, 'translations.itexi'), 'w', encoding='utf8').write(lang_status_page)
+    open(os.path.join(l, 'translations.itexi'), 'w', encoding='utf-8').write(lang_status_page)
 
 main_status_txt = '''Documentation translations status
 Generated %s
@@ -830,25 +830,25 @@ os.makedirs("out", exist_ok=True)
 
 status_txt_file = 'out/translations-status.txt'
 progress("Writing %s..." % status_txt_file)
-open(status_txt_file, 'w', encoding='utf8').write(main_status_txt)
+open(status_txt_file, 'w', encoding='utf-8').write(main_status_txt)
 
 translation_instructions_file = 'en/contributor/doc-translation-list.itexi'
 progress("Updating %s..." % translation_instructions_file)
-translation_instructions = open(translation_instructions_file, encoding='utf8').read()
+translation_instructions = open(translation_instructions_file, encoding='utf-8').read()
 
 for doc in master_docs:
     translation_instructions = doc.update_word_counts(translation_instructions)
 
 for html_file in re.findall(r'(?m)^\d+ *(\S+?\.html\S*?)(?: |$)',
                             translation_instructions):
-    word_count = sgml_word_count(open(html_file, encoding='utf8').read())
+    word_count = sgml_word_count(open(html_file, encoding='utf-8').read())
     translation_instructions = update_word_count(translation_instructions,
                                                  html_file,
                                                  word_count)
 
 for po_file in re.findall(r'(?m)^\d+ *(\S+?\.po\S*?)(?: |$)',
                           translation_instructions):
-    word_count = po_word_count(open(po_file, encoding='utf8').read())
+    word_count = po_word_count(open(po_file, encoding='utf-8').read())
     translation_instructions = update_word_count(translation_instructions,
                                                  po_file,
                                                  word_count)
@@ -857,5 +857,5 @@ translation_instructions = \
     update_category_word_counts_re.sub(update_category_word_counts_sub,
                                        translation_instructions)
 
-open(translation_instructions_file, 'w', encoding='utf8').write(translation_instructions)
+open(translation_instructions_file, 'w', encoding='utf-8').write(translation_instructions)
 sys.exit(exit_code)

@@ -114,11 +114,11 @@ if out_words or out_el:
     outstring += ''.join([w + '\n' for w in note_names])
 
 if out_words:
-    f = open(os.path.join(outdir, 'lilypond-words'), 'w', encoding='utf8')
+    f = open(os.path.join(outdir, 'lilypond-words'), 'w', encoding='utf-8')
     f.write(outstring)
 
 if out_el:
-    f = open(os.path.join(outdir, 'lilypond-words.el'), 'w', encoding='utf8')
+    f = open(os.path.join(outdir, 'lilypond-words.el'), 'w', encoding='utf-8')
     f.write(outstring)
 
     # the menu in lilypond-mode.el
@@ -148,7 +148,7 @@ if out_el:
     f.write('\n'.join([line.replace('/', '\\') for line in elisp_menu]))
 
 if out_vim:
-    f = open(os.path.join(outdir, 'lilypond-words.vim'), 'w', encoding='utf8')
+    f = open(os.path.join(outdir, 'lilypond-words.vim'), 'w', encoding='utf-8')
     f.write('syn match lilyKeyword \"[-_^]\\?\\\\\\(')
     f.write(''.join([w + '\\|' for w in keywords]))
     f.write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')

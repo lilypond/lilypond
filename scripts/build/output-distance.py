@@ -382,7 +382,7 @@ def read_signature_file(name: str):
     log_verbose('reading %s' % name)
 
     try:
-        f = open(name, encoding='utf8')
+        f = open(name, encoding='utf-8')
     except IOError as e:
         if e.errno == errno.ENOENT:
             return None
@@ -665,7 +665,7 @@ def eps_to_png(fn: str,  dest_dir: str) -> str:
         data_option = ('-slilypond-datadir=%s/share/lilypond/current '
                        % os.path.abspath(dir))
 
-    driver = open(os.path.join(dir, 'batch.ps'), 'w', encoding='utf8')
+    driver = open(os.path.join(dir, 'batch.ps'), 'w', encoding='utf-8')
     outfile = os.path.join(out_dir, base).replace('.eps', '.png')
     driver.write('''
         mark /OutputFile (%s)
@@ -1389,7 +1389,7 @@ def test_basic_compare():
              ]
 
     for d in dicts:
-        open(d['name'] + '.ly', 'w', encoding='utf8').write(ly_template % d)
+        open(d['name'] + '.ly', 'w', encoding='utf-8').write(ly_template % d)
 
     simple_names = [d['name'] for d in dicts]
 
@@ -1405,11 +1405,11 @@ def test_basic_compare():
     }
     '''
 
-    open('20multipage.ly', 'w', encoding='utf8').write(multipage_str.replace('c1', 'd1'))
-    open('19multipage.ly', 'w', encoding='utf8').write(
+    open('20multipage.ly', 'w', encoding='utf-8').write(multipage_str.replace('c1', 'd1'))
+    open('19multipage.ly', 'w', encoding='utf-8').write(
         '#(set-global-staff-size 19.5)\n' + multipage_str)
 
-    open('added.ly', 'w', encoding='utf8').write(
+    open('added.ly', 'w', encoding='utf-8').write(
         r"""
 #(define default-toplevel-book-handler
   print-book-with-defaults-as-systems )
@@ -1419,7 +1419,7 @@ def test_basic_compare():
 \sourcefilename "added.ly"
 { a'4 }
 """)
-    open('removed.ly', 'w', encoding='utf8').write(
+    open('removed.ly', 'w', encoding='utf-8').write(
         r"""
 #(define default-toplevel-book-handler
   print-book-with-defaults-as-systems )

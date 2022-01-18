@@ -214,7 +214,7 @@ def is_commented_out(start, end, comments_boundaries):
 
 
 def read_file(f, d):
-    s = open(f, encoding='utf8').read()
+    s = open(f, encoding='utf-8').read()
     base = os.path.basename(f)
     dir = os.path.dirname(f)
 
@@ -541,7 +541,7 @@ try:
             s = ref_re.sub(lambda m: check_ref(key, file, m),
                            manuals[key]['contents'][file])
             if s != manuals[key]['contents'][file]:
-                open(file, 'w', encoding='utf8').write(s)
+                open(file, 'w', encoding='utf-8').write(s)
 except KeyboardInterrupt:
     log.write("Operation interrupted, exiting.\n")
     sys.exit(2)

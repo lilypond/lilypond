@@ -215,7 +215,7 @@ def get_texinfo_width_indent(source, global_options):
     (handle, tmpfile) = tempfile.mkstemp('.texi')
     outfile = os.path.splitext(tmpfile)[0] + '.pdf'
 
-    tmp_handle = open(handle, 'w', encoding='utf8')
+    tmp_handle = open(handle, 'w', encoding='utf-8')
     tmp_handle.write(texinfo_document)
     tmp_handle.close()
 

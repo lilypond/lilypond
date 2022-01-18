@@ -23,9 +23,9 @@ import optparse
 import os
 import sys
 
-sys.stdin = codecs.getreader('utf8')(sys.stdin.detach())
-sys.stdout = codecs.getwriter('utf8')(sys.stdout.detach())
-sys.stderr = codecs.getwriter('utf8')(sys.stderr.detach())
+sys.stdin = codecs.getreader('utf-8')(sys.stdin.detach())
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
 
 # Lilylib globals.
 program_name = os.path.basename(sys.argv[0])

@@ -127,7 +127,7 @@ class File:
 
         skip = False
         try:
-            myfile = open(self.fullFileName, 'r', encoding='utf8')
+            myfile = open(self.fullFileName, 'r', encoding='utf-8')
         except IOError:
             print("File ", self.fullFileName, " referenced in ",
                   File.CurrentManualName, " but not found")

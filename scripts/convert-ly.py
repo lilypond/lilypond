@@ -333,7 +333,7 @@ def do_one_file(infile_name):
 
     if global_options.edit:
         backup = back_up(infile_name, global_options.backup_numbered)
-        outfile = open(infile_name, 'w', encoding='utf8')
+        outfile = open(infile_name, 'w', encoding='utf-8')
     else:
         outfile = sys.stdout
 
