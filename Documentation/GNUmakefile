@@ -246,6 +246,12 @@ $(outdir)/%.pdf: \
    < /dev/null" \
 \
 	    "$(outdir)/$*.texi2pdf.log"
+# A surprisingly large number of options (the ones containing 'Image' in
+# their names together with `ColorConversionStrategy`) is necessary to
+# change ghostscript's default behaviour of converting PNG images to JPEG,
+# which would cause ugly artifacts in our screenshots.
+#
+# Option `Printed=false` makes ghostscript preserve hyperlinks.
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	  $(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	  $(GS920) \
@@ -256,6 +262,14 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
 	    -sDEVICE=pdfwrite \
 	    -dAutoRotatePages=/None \
 	    -dPrinted=false \
+	    -dColorConversionStrategy=/LeaveColorUnchanged \
+	    -dDownsampleMonoImages=false \
+	    -dDownsampleGrayImages=false \
+	    -dDownsampleColorImages=false \
+	    -dAutoFilterColorImages=false \
+	    -dAutoFilterGrayImages=false \
+	    -dColorImageFilter=/FlateEncode \
+	    -dGrayImageFilter=/FlateEncode \
 	    -sOutputFile=$@ \
 	    -c "30000000 setvmthreshold" \
 	    -I $(top-build-dir)/out-fonts \
