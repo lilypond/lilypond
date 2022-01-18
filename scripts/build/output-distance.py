@@ -120,26 +120,40 @@ def png_dims(fn: str) -> Tuple[int, int]:
 
 def compare_png_images(old: str, new: str, dest_dir: str):
     dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
-    dims1 = png_dims(old)
-    dims2 = png_dims(new)
 
-    dims = (min(dims1[0], dims2[0]),
-            min(dims1[1], dims2[1]))
+    file_dims = {}
+    for fn in [old, new]:
+        if os.path.exists(fn):
+            file_dims[fn] = png_dims(fn)
+    
+    maxdims: Tuple = tuple(map(max, zip(*file_dims.values())))
+    temp_dir = get_temp_dir()
 
-    dir = get_temp_dir()
-    # Removing the ICC profile with -strip suppresses the warning
-    # "RGB color space not permitted on grayscale PNG."
-    system('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' %
-           (dims + (old, dir)))
-    system('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' %
-           (dims + (new, dir)))
-
+    for (new_name, input_name) in [('crop1', old), ('crop2', new)]:
+        dest_file = os.path.join(temp_dir, new_name + '.png')
+        if maxdims == file_dims[input_name]:
+            # Avoid spawning subprocess if we can
+            if options.verbose:
+                print('cp %s %s' % (input_name, dest_file))
+            shutil.copy(input_name, dest_file)
+            continue
+        
+        # Uses PNG32:filename to generate cropped image in color (most
+        # input images are grayscale, but we don't want a grayscale
+        # cropX.png). We need -flatten to extend the size beyond its
+        # current size.
+        args = ['convert', '-crop', '%dx%d+0+0!' % maxdims,
+                '-background', 'white', '-flatten', input_name, 'PNG32:%s' % dest_file]
+        if options.verbose:
+            print('running %s' % ' '.join(args))
+        subprocess.run(args, check=True)
+ 
     system_allow_exit1(
-        'compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals())
+        'compare -depth 8 -dissimilarity-threshold 1 %(temp_dir)s/crop1.png %(temp_dir)s/crop2.png %(temp_dir)s/diff.png' % locals())
 
-    system("convert -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity' %(dir)s/matte.png" % locals())
+    system('convert -depth 8 %(temp_dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx intensity %(temp_dir)s/matte.png' % locals())
 
-    system("composite -compose atop -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals())
+    system('composite -compose atop -quality 65 %(temp_dir)s/matte.png %(new)s %(dest)s' % locals())
 
 
 ################################################################
