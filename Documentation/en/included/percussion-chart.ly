@@ -116,18 +116,6 @@ myBreak = { \bar " " \break }
       trim^\markup { \center-align "mutetriangle: trim" }
       tri _\markup { \center-align "triangle: tri" }
       trio^\markup { \center-align "opentriangle: trio" } \myBreak
-
-      ua^\markup { \center-align "oneup: ua" }
-      ub_\markup { \center-align "twoup: ub" }
-      uc^\markup { \center-align "threeup: uc" }
-      ud_\markup { \center-align "fourup: ud" }
-      ue^\markup { \center-align "fiveup: ue" } \myBreak
-
-      da^\markup { \center-align "onedown: da" }
-      db_\markup { \center-align "twodown: db" }
-      dc^\markup { \center-align "threedown: dc" }
-      dd_\markup { \center-align "fourdown: dd" }
-      de^\markup { \center-align "fivedown: de" } \myBreak
     }
   }
 

@@ -3004,60 +3004,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 \drums { trim4 trim1 }
 @end lilypond
 
-@item
-@code{oneup @* ua @*}
-@lilypond[notime,ragged-right]
-\drums { ua4 ua1 }
-@end lilypond
-@tab
-@code{twoup @* ub @*}
-@lilypond[notime,ragged-right]
-\drums { ub4 ub1 }
-@end lilypond
-@tab
-@code{threeup @* uc @*}
-@lilypond[notime,ragged-right]
-\drums { uc4 uc1 }
-@end lilypond
-@tab
-@code{fourup @* ud @*}
-@lilypond[notime,ragged-right]
-\drums { ud4 ud1 }
-@end lilypond
-
-@item
-@code{fiveup @* ue @*}
-@lilypond[notime,ragged-right]
-\drums { ue4 ue1 }
-@end lilypond
-@tab
-@code{onedown @* da @*}
-@lilypond[notime,ragged-right]
-\drums { da4 da1 }
-@end lilypond
-@tab
-@code{twodown @* db @*}
-@lilypond[notime,ragged-right]
-\drums { db4 db1 }
-@end lilypond
-@tab
-@code{threedown @* dc @*}
-@lilypond[notime,ragged-right]
-\drums { dc4 dc1 }
-@end lilypond
-
-@item
-@code{fourdown @* dd @*}
-@lilypond[notime,ragged-right]
-\drums { dd4 dd1 }
-@end lilypond
-@tab
-@code{fivedown @* de @*}
-@lilypond[notime,ragged-right]
-\drums { de4 de1 }
-@end lilypond
-
-
 @end multitable
 
 
