@@ -262,11 +262,25 @@ is not used within the routine."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
+         (staff-symbol (get-staff-symbol grob))
+         (line-pos (staff-symbol-line-positions staff-symbol))
+         (line-count (length line-pos))
          (half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
-         (height (interval-end extent)))
+         (center (interval-end extent)))
+
+    ;; The provided extent is for normal bar lines, which do not
+    ;; necessarily end at the top staff line: they are expected to be
+    ;; extended if the staff is vertically short, and it is always
+    ;; possible for BarLine.bar-extent to be overridden.  The tick is
+    ;; expected to cross the top staff line, so we must find it.  If
+    ;; there are fewer than two lines, we allow floating ticks so that
+    ;; they are not confused with short bar lines.
+    (if (>= line-count 2)
+        (set! center (* (apply max line-pos) half-staff)))
+
     (bar-line::draw-filled-box
      (cons 0 thickness) ; x
-     (coord-translate (symmetric-interval half-staff) height) ; y
+     (coord-translate (symmetric-interval half-staff) center) ; y
      thickness
      extent
      grob)))
@@ -521,11 +535,12 @@ drawn by the procedure associated with glyph @var{glyph}."
           (if (zero? staff-space)
               (set! staff-space 1.0))
 
-          (if (< (interval-length staff-extent) staff-space)
-              ;; staff is too small (perhaps consists of a single line);
-              ;; extend the bar line to make it visible
-              (set! staff-extent
-                    (interval-widen staff-extent staff-space))
+          (if (< (interval-length staff-extent) (* staff-space 2))
+              ;; Avoid bar lines shorter than two staff spaces.
+              ;; (Gould seems to use 4 spaces, judging from her
+              ;; examples.)  Cope by extending the bar line by one
+              ;; staff space in each direction.
+              (set! staff-extent (interval-widen staff-extent staff-space))
               ;; Due to rounding problems, bar lines extending to the outermost edges
               ;; of the staff lines appear wrongly in on-screen display
               ;; (and, to a lesser extent, in print) - they stick out a pixel.
