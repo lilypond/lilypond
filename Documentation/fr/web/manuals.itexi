@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 92e46a9470eee535bffb627ca3ab51a1b13fe6c6
+   Translation of GIT committish: c0e1dfd2f33fe67290b9341ba4a72f4926c6e2ff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -152,6 +152,11 @@ collection d'exemples, trucs et astuces élaborés par des utilisateurs.
 @uref{https://bit.ly/LearnLilyPond, Tutoriels vidéo} : Ben Lemon,
 utilisateur de LilyPond, a mis en ligne sur son @emph{blog} plusieurs
 tutoriels destinés aux nouveaux utilisateurs.
+
+@item
+@uref{https://extending-lilypond.readthedocs.io,Guide d'extension} : une
+ressource externe de documentation en anglais sur l'utilisation de
+Scheme pour étendre les fonctionnalités de LilyPond.
 
 @item
 @ref{Développement} :
