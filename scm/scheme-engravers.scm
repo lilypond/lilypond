@@ -1013,6 +1013,26 @@ If a spanner has the @code{sticky-grob-interface}, the engraver tracks the
 spanner contained in its @code{sticky-host} object.  When the host ends,
 the sticky spanner attached to it has its end announced too.")))
 
+(define (Skip_typesetting_engraver context)
+  (let ((was-skipping? #f))
+    (make-engraver
+
+     ((process-music engraver)
+      (if was-skipping?
+          (ly:engraver-make-grob engraver 'StaffEllipsis '())))
+
+     ((stop-translation-timestep engraver)
+      (set! was-skipping? (ly:context-property context 'skipTypesetting #f))))))
+
+(ly:register-translator
+ Skip_typesetting_engraver 'Skip_typesetting_engraver
+ '((grobs-created . (StaffEllipsis))
+   (events-accepted . ())
+   (properties-read . (skipTypesetting))
+   (properties-written . ())
+   (description . "Create a @code{StaffEllipsis} when
+@code{skipTypesetting} is used.")))
+
 (define (Show_control_points_engraver context)
   ;; The usual ties and slurs are spanners, but semi-ties
   ;; (laissez vibrer and repeat ties) are items.  We create

@@ -521,6 +521,7 @@
         (break-align-orders . ;; end of line
                             #((
                                left-edge
+                               staff-ellipsis
                                cue-end-clef
                                ambitus
                                breathing-sign
@@ -535,6 +536,7 @@
                               ;; unbroken
                               (
                                left-edge
+                               staff-ellipsis
                                cue-end-clef
                                ambitus
                                breathing-sign
@@ -549,6 +551,7 @@
                               ;; begin of line
                               (
                                left-edge
+                               staff-ellipsis
                                ambitus
                                breathing-sign
                                clef
@@ -1609,6 +1612,7 @@
                         (clef . (extra-space . 0.8))
                         (cue-clef . (extra-space . 0.8))
                         (staff-bar . (extra-space . 0.0))
+                        (staff-ellipsis . (extra-space . 0.0))
                         (key-cancellation . (extra-space . 0.0))
                         (key-signature . (extra-space . 0.8))
                         (time-signature . (extra-space . 1.0))
@@ -2453,6 +2457,38 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (pure-from-neighbor-interface))))))
+
+    (StaffEllipsis ; indicates a cut made by skipTypesetting = ##t
+     . (
+        (break-align-symbol . staff-ellipsis)
+        (break-visibility . ,all-visible)
+        (layer . 1)
+        (non-musical . #t)
+        (space-alist . (
+                        (ambitus . (extra-space . 1.0))
+                        (breathing-sign . (extra-space . 1.0))
+                        (custos . (extra-space . 1.0))
+                        (key-signature . (extra-space . 1.0))
+                        (time-signature . (extra-space . 1.0))
+                        (staff-bar . (extra-space . 1.0))
+                        (clef . (extra-space . 1.0))
+                        (cue-clef . (extra-space . 1.0))
+                        (cue-end-clef . (extra-space . 1.0))
+                        (first-note . (extra-space . 1.0))
+                        (right-edge . (fixed-space . 0))))
+        (text . ,(make-line-markup (list
+                                    (make-null-markup)
+                                    (make-musicglyph-markup "dots.dot")
+                                    (make-musicglyph-markup "dots.dot")
+                                    (make-musicglyph-markup "dots.dot")
+                                    (make-null-markup))))
+        (stencil . ,staff-ellipsis::print)
+        (whiteout . #t)
+        (Y-extent . ,staff-ellipsis::calc-y-extent)
+        (meta . ((class . Item)
+                 (interfaces . (break-aligned-interface
+                                font-interface
+                                text-interface))))))
 
     (StaffGrouper
      . (

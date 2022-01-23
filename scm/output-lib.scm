@@ -358,6 +358,27 @@
 	  rval))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; staff ellipsis
+
+(define-public (staff-ellipsis::calc-y-extent grob)
+  "Callback for @code{StaffEllipsis} grob, which is used with
+@code{skipTypesetting}."
+  (let* ((staff-symbol (get-staff-symbol grob))
+         (staff-extent (if (ly:grob? staff-symbol)
+                           (ly:grob-extent staff-symbol staff-symbol Y)
+                           (cons 0 0))))
+    ;; widen slightly to cover the outer staff lines even with rounding error
+    (interval-widen staff-extent 1/32)))
+
+(define-public (staff-ellipsis::print grob)
+  "Callback for @code{StaffEllipsis} grob, which is used with
+@code{skipTypesetting}."
+  (let ((text-sten (grob-interpret-markup grob (ly:grob-property grob 'text))))
+     (ly:make-stencil (ly:stencil-expr text-sten)
+                      (ly:stencil-extent text-sten X)
+                      (ly:grob-extent grob grob Y))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
 
 (define-public staff-symbol-referencer::callback

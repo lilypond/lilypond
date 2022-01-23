@@ -57,6 +57,7 @@
   \name "Staff"
 
   \consists "Output_property_engraver"
+  \consists "Skip_typesetting_engraver"
   \consists "Bar_engraver"
   \consists "Pure_from_neighbor_engraver"
   %% Bar_engraver must be first so default bars aren't overwritten

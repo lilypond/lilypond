@@ -1458,19 +1458,24 @@ then revert skipTypesetting."
                         'Score))))
 
 (define (skip-as-needed music)
-  "Replace MUSIC by
+  "Replace @var{music} by
 @example
- << @{  \\set skipTypesetting = ##f
- LENGTHOF(\\showFirstLength)
- \\set skipTypesetting = ##t
- LENGTHOF(\\showLastLength) @}
- MUSIC >>
+<<
+  @{
+    \\set skipTypesetting = ##f
+    \\skip %@{ length of \\showFirstLength %@}
+    \\set skipTypesetting = ##t
+    \\skip %@{ length of music not to be typeset @}
+    \\set skipTypesetting = ##f
+  @}
+  @var{music}
+>>
 @end example
- if appropriate.
+@noindent
+if appropriate.
 
- When only @code{showFirstLength} is set,
- the @code{length} property of the music is
- overridden to speed up compiling."
+When only @code{showFirstLength} is set, the @code{length} property of
+the music is overridden to speed up compiling."
   (let*
       ((show-last (ly:parser-lookup 'showLastLength))
        (show-first (ly:parser-lookup 'showFirstLength))
@@ -1491,12 +1496,7 @@ then revert skipTypesetting."
           ((skip-length (ly:moment-sub orig-length show-last-length)))
         (make-simultaneous-music
          (list
-          (make-sequential-music
-           (list
-            (make-skipped skip-length #t)
-            ;; let's draw a separator between the beginning and the end
-            (context-spec-music (make-property-set 'whichBar "||")
-                                'Timing)))
+          (make-skipped skip-length #t)
           (make-skipped show-first-length #f)
           music))))
 
@@ -1514,9 +1514,25 @@ then revert skipTypesetting."
      (show-first-length
       ;; the first length must not exceed the original length.
       (if (ly:moment<? show-first-length orig-length)
+          ;; ugh: setting a length inconsistent with the elements is
+          ;; crude and fragile
           (set! (ly:music-property music 'length)
                 show-first-length))
-      music)
+      (make-simultaneous-music
+       (list
+        (make-sequential-music
+         (list
+          (make-music 'SkippedMusic 'element show-first)
+          ;; Continue slightly beyond the requested point to allow
+          ;; Skip_typesetting_engraver to observe a t->f transition in
+          ;; skipTypesetting and create a StaffEllipsis.
+          (context-spec-music (make-property-set 'skipTypesetting #t) 'Score)
+          (make-grace-music
+           (make-music 'SkipMusic 'duration (ly:make-duration -10 0)))
+          (context-spec-music (make-property-set 'skipTypesetting #f) 'Score)
+          ))
+        music
+        )))
 
      (else music))))
 
