@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
   texidocfr = "
 Le fragment de code Scheme ci-dessous génère aléatoirement 24 notes
 (ou autant que nécessaire), à partir de l'heure courante (ou un nombre
