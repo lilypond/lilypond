@@ -68,7 +68,12 @@ is a string which specifies the kind of bar line to print.
 The list of allowed glyphs and predefined bar lines can be
 found in @file{scm/bar-line.scm}.
 
-@code{gap} is used for the gaps in dashed bar lines."
+@code{gap} is used for the gaps in dashed bar lines.
+
+Full-height bar lines are normally squared to meet the
+outer staff lines, but their ends may be rounded by
+setting the @code{rounded} property.  The ends of short
+and tick bars are always rounded."
  '(allow-span-bar
    bar-extent
    gap

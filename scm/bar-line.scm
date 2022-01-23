@@ -28,28 +28,23 @@
 ;; helper functions for staff and layout properties
 
 (define (bar-line::calc-blot thickness extent grob)
-  "Calculate the blot diameter by taking @code{'rounded}
-and the dimensions of the extent into account."
-  (let* ((rounded (ly:grob-property grob 'rounded #f))
-         (blot (if rounded
-                   (let ((blot-diameter (layout-blot-diameter grob))
-                         (height (interval-length extent)))
+  "Calculate the blot diameter for a rounded box, taking the extent
+into account."
+  (let ((blot-diameter (layout-blot-diameter grob))
+        (height (interval-length extent)))
 
-                     (cond ((< thickness blot-diameter) thickness)
-                           ((< height blot-diameter) height)
-                           (else blot-diameter)))
-                   0)))
-    blot))
+    (cond ((< thickness blot-diameter) thickness)
+          ((< height blot-diameter) height)
+          (else blot-diameter))))
 
 (define-public (bar-line::draw-filled-box x-ext y-ext thickness extent grob)
-  "Return a straight bar line created by @code{ly:round-filled-box} looking at
-@var{x-ext}, @var{y-ext}, @var{thickness}.  The blot is calculated by
-@code{bar-line::calc-blot}, which needs @var{extent} and @var{grob}.
-@var{y-ext} is not necessarily of same value as @var{extent}."
-  (ly:round-filled-box
-   x-ext
-   y-ext
-   (bar-line::calc-blot thickness extent grob)))
+  "Return a straight bar line created by @code{ly:round-@/filled-box}
+looking at @var{x-ext}, @var{y-ext}, and @var{thickness}.  The blot is
+calculated from @var{extent} and @var{grob}.  @var{y-ext} is not
+necessarily equal to @var{extent}."
+  (let* ((rounded (ly:grob-property grob 'rounded #f))
+         (blot (if rounded (bar-line::calc-blot thickness extent grob) 0)))
+    (ly:round-filled-box x-ext y-ext blot)))
 
 (define (get-span-glyph bar-glyph)
   "Get the corresponding span glyph from the @code{span-glyph-bar-alist}.
@@ -255,12 +250,13 @@ is not used within the routine."
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
          (short-extent (ly:grob-property grob 'short-bar-extent extent)))
-    (bar-line::draw-filled-box
-     (cons 0 thickness)
-     short-extent
-     thickness
-     short-extent
-     grob)))
+    ;; Bypass bar-line::draw-filled-box to ignore the 'roundness property.
+    ;; Full-height bar lines are squared off to meet the edge of the outer staff
+    ;; lines, but that is not a concern for shorter bar lines.
+    (ly:round-filled-box
+     (cons 0 thickness) ; x
+     short-extent ; y
+     (bar-line::calc-blot thickness short-extent grob))))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
@@ -283,12 +279,13 @@ is not used within the routine."
     (if (>= line-count 2)
         (set! center (* (apply max line-pos) half-staff)))
 
-    (bar-line::draw-filled-box
+    ;; Bypass bar-line::draw-filled-box to ignore the 'roundness property.
+    ;; Full-height bar lines are squared off to meet the edge of the outer staff
+    ;; lines, but that is not a concern for ticks.
+    (ly:round-filled-box
      (cons 0 thickness) ; x
      (coord-translate (symmetric-interval half-staff) center) ; y
-     thickness
-     extent
-     grob)))
+     (bar-line::calc-blot thickness extent grob))))
 
 (define (make-colon-bar-line grob extent)
   "Draw repeat dots."
