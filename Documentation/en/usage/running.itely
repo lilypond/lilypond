@@ -74,6 +74,9 @@ When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
+@warning{On Windows prior to Windows 10 1903, LilyPond cannot handle Unicode
+file names.}
+
 When @file{filename.ly} is processed it produces
 @file{filename.pdf} as output by default.  Several files can be specified;
 they are each processed independently.@footnote{The status of
