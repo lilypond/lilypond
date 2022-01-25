@@ -26,15 +26,15 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
-class Grace_engraver : public Engraver
+class Grace_engraver final : public Engraver
 {
-  Moment last_moment_;
-  SCM grace_settings_;
+  Moment last_moment_ = -Moment::infinity ();
+  SCM grace_settings_ = SCM_EOL;
   void consider_change_grace_settings ();
-protected:
+
   void derived_mark () const override;
-  virtual void process_music ();
-  virtual void start_translation_timestep ();
+  void process_music ();
+  void initialize () override;
   void finalize () override;
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
@@ -44,8 +44,6 @@ protected:
 Grace_engraver::Grace_engraver (Context *c)
   : Engraver (c)
 {
-  grace_settings_ = SCM_EOL;
-  last_moment_ = -1;
 }
 
 // The iterator should usually come before process_music
@@ -66,11 +64,13 @@ Grace_engraver::grace_change (SCM)
 // different stem directions.
 
 void
-Grace_engraver::start_translation_timestep ()
+Grace_engraver::initialize ()
 {
-  // Only on startup
-  if (last_moment_ == -1)
-    consider_change_grace_settings ();
+  consider_change_grace_settings ();
+
+  Dispatcher *d = context ()->event_source ();
+  d->add_listener (GET_LISTENER (this, grace_change),
+                   ly_symbol2scm ("GraceChange"));
 }
 
 // If the grace iterator has moved off to some other context, we might
@@ -133,22 +133,15 @@ Grace_engraver::consider_change_grace_settings ()
                                + ly_symbol2string (context_name));
         }
     }
-  if (last_moment_ == -1)
-    {
-      Dispatcher *d = context ()->event_source ();
-      d->add_listener (GET_LISTENER (this, grace_change), ly_symbol2scm ("GraceChange"));
-    }
   last_moment_ = now;
 }
 
 void
 Grace_engraver::finalize ()
 {
-  if (last_moment_ != -1)
-    {
-      Dispatcher *d = context ()->event_source ();
-      d->remove_listener (GET_LISTENER (this, grace_change), ly_symbol2scm ("GraceChange"));
-    }
+  Dispatcher *d = context ()->event_source ();
+  d->remove_listener (GET_LISTENER (this, grace_change),
+                      ly_symbol2scm ("GraceChange"));
 }
 
 void
