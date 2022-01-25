@@ -35,9 +35,9 @@ import tempfile
 import time
 from typing import Dict, List, Tuple, Optional
 
-Vec = Tuple[float,float]
-Interval = Tuple[float,float]
-Bbox = Tuple[Interval,Interval]
+Vec = Tuple[float, float]
+Interval = Tuple[float, float]
+Bbox = Tuple[Interval, Interval]
 
 # so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath(os.path.split(sys.argv[0])[0])
@@ -285,15 +285,17 @@ class SystemLink:
         self.system1 = system1
         self.system2 = system2
 
-        self.link_list_dict: Dict[Optional[GrobSignature], List[GrobSignature]] = {}
+        self.link_list_dict: Dict[Optional[GrobSignature],
+                                  List[GrobSignature]] = {}
 
         # pairs
         self.orphans = []
 
         # pair -> distance
-        self.geo_distances: Dict[Tuple[GrobSignature,GrobSignature], float] = {}
+        self.geo_distances: Dict[Tuple[GrobSignature,
+                                       GrobSignature], float] = {}
 
-        self._geometric_distance:Optional[float] = None
+        self._geometric_distance: Optional[float] = None
         self._expression_change_count = None
 
         # maps GrobSignature in system1 to its hopefully existing twin in system2.
@@ -309,7 +311,7 @@ class SystemLink:
                     continue
 
                 closest = system2.closest(g.name, g.centroid)
-                
+
                 self.link_list_dict.setdefault(closest, [])
                 self.link_list_dict[closest].append(g)
                 if closest is not None:
@@ -688,6 +690,7 @@ def eps_to_png(fn: str,  dest_dir: str) -> str:
     system(cmd, cwd=dir)
     return outfile
 
+
 class SignatureFileLink (FileLink):
     def __init__(self, f1, f2):
         FileLink.__init__(self, f1, f2)
@@ -733,14 +736,14 @@ class SignatureFileLink (FileLink):
         for oldnew in (0, 1):
             fn = self.base_names[oldnew] + '.eps'
             if os.path.exists(fn):
-                outputs[oldnew] = eps_to_png (fn, dest_dir) 
+                outputs[oldnew] = eps_to_png(fn, dest_dir)
 
         return (outputs[0], outputs[1])
 
     def link_files_for_html(self, dest_dir: str):
         FileLink.link_files_for_html(self, dest_dir)
-        old, new  = self.create_images(dest_dir)
-        if old and new: 
+        old, new = self.create_images(dest_dir)
+        if old and new:
             compare_png_images(old, new, dest_dir)
 
     def get_cell(self, oldnew):
@@ -909,7 +912,8 @@ class ComparisonData:
             pass
 
         if not (dir1_ok or dir2_ok):
-            sys.stderr.write('Failed to walk through %s and %s; please check that they exist.\n' % (dir1, dir2))
+            sys.stderr.write(
+                'Failed to walk through %s and %s; please check that they exist.\n' % (dir1, dir2))
             sys.exit(1)
 
         for d in sorted(set(dirs1 + dirs2)):
@@ -1327,7 +1331,6 @@ def test_compare_tree_pairs():
     system('cp 19multipage.log dir1/log-differ.log')
     system('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-
     compare_tree_pairs([('dir1', 'dir2')],
                        'compare-dir1dir2', options.threshold)
 
@@ -1405,7 +1408,8 @@ def test_basic_compare():
     }
     '''
 
-    open('20multipage.ly', 'w', encoding='utf-8').write(multipage_str.replace('c1', 'd1'))
+    open('20multipage.ly', 'w',
+         encoding='utf-8').write(multipage_str.replace('c1', 'd1'))
     open('19multipage.ly', 'w', encoding='utf-8').write(
         '#(set-global-staff-size 19.5)\n' + multipage_str)
 
@@ -1430,7 +1434,8 @@ def test_basic_compare():
 { e'4 }
 """)
 
-    names = simple_names + ["20multipage", "19multipage"] + ['added', 'removed']
+    names = simple_names + ["20multipage",
+                            "19multipage"] + ['added', 'removed']
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
     system('%s -dseparate-page-formats=ps -daux-files -dtall-page-formats=ps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
     test_compare_signatures(simple_names)
