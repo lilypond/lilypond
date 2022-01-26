@@ -84,7 +84,7 @@ Spanner::do_break_processing ()
       for (const auto a : {X_AXIS, Y_AXIS})
         {
           if (auto *parent = dynamic_cast<Spanner *> (get_parent (a)))
-            parent_rank_slice.intersect (parent->spanned_rank_interval ());
+            parent_rank_slice.intersect (parent->spanned_column_rank_interval ());
         }
 
       for (vsize i = 1; i < break_points.size (); i++)
@@ -183,7 +183,7 @@ Spanner::set_my_columns ()
 }
 
 Interval_t<int>
-Spanner::spanned_rank_interval () const
+Spanner::spanned_column_rank_interval () const
 {
   Interval_t<int> iv (0, 0);
   for (const auto d : {LEFT, RIGHT})

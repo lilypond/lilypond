@@ -257,7 +257,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
   for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
       Grob *at_bat = footnote_grobs[i];
-      int pos = at_bat->spanned_rank_interval ()[LEFT];
+      int pos = at_bat->spanned_column_rank_interval ()[LEFT];
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *> (at_bat))
         {
@@ -265,11 +265,11 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
-          pos = s->spanned_rank_interval ()[spanner_placement];
+          pos = s->spanned_column_rank_interval ()[spanner_placement];
           if (Spanner *orig = s->original ())
             {
               at_bat = spanner_placement == LEFT ? orig->broken_intos_[0] : orig->broken_intos_.back ();
-              pos = at_bat->spanned_rank_interval ()[RIGHT];
+              pos = at_bat->spanned_column_rank_interval ()[RIGHT];
             }
         }
 
@@ -373,7 +373,7 @@ grob_2D_less (Grob *g1, Grob *g2)
 
   for (int i = 0; i < 2; i++)
     {
-      sri[i] = gs[i]->spanned_rank_interval ()[LEFT];
+      sri[i] = gs[i]->spanned_column_rank_interval ()[LEFT];
       if (Spanner *s = dynamic_cast<Spanner *> (gs[i]))
         {
           if (!s->broken_intos_.empty ())
@@ -387,7 +387,7 @@ grob_2D_less (Grob *g1, Grob *g2)
             }
           gs[i] = s;
           if (from_scm<double> (get_property (s, "X-offset"), 0.0) > 0)
-            sri[i] = s->spanned_rank_interval ()[RIGHT];
+            sri[i] = s->spanned_column_rank_interval ()[RIGHT];
         }
     }
 
@@ -419,7 +419,7 @@ System::footnotes_after_line_breaking (SCM smob)
 {
   Spanner *sys_span = unsmob<Spanner> (smob);
   System *sys = dynamic_cast<System *> (sys_span);
-  Interval_t<int> sri = sys->spanned_rank_interval ();
+  Interval_t<int> sri = sys->spanned_column_rank_interval ();
   vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   std::sort (footnote_grobs.begin (), footnote_grobs.end (), grob_2D_less);
 
@@ -824,7 +824,7 @@ System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interva
       if (has_interface<Hara_kiri_group_spanner> (elts[i]))
         Hara_kiri_group_spanner::consider_suicide (elts[i]);
 
-      bounds.intersect (elts[i]->spanned_rank_interval ());
+      bounds.intersect (elts[i]->spanned_column_rank_interval ());
       if (elts[i]->is_live () && !bounds.is_empty ())
         out = elts[i];
     }

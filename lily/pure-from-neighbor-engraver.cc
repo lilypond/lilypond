@@ -62,12 +62,12 @@ Pure_from_neighbor_engraver::acknowledge_item (Grob_info_t<Item> info)
 bool
 in_same_column (Grob *g1, Grob *g2)
 {
-  return (g1->spanned_rank_interval ()[LEFT]
-          == g2->spanned_rank_interval ()[LEFT])
-         && (g1->spanned_rank_interval ()[RIGHT]
-             == g2->spanned_rank_interval ()[RIGHT])
-         && (g1->spanned_rank_interval ()[LEFT]
-             == g1->spanned_rank_interval ()[RIGHT]);
+  return (g1->spanned_column_rank_interval ()[LEFT]
+          == g2->spanned_column_rank_interval ()[LEFT])
+         && (g1->spanned_column_rank_interval ()[RIGHT]
+             == g2->spanned_column_rank_interval ()[RIGHT])
+         && (g1->spanned_column_rank_interval ()[LEFT]
+             == g1->spanned_column_rank_interval ()[RIGHT]);
 }
 
 void
@@ -94,9 +94,9 @@ Pure_from_neighbor_engraver::finalize ()
       for (;
            (l < need_pure_heights_from_neighbors_.size () - 1
             && ((need_pure_heights_from_neighbors_[l]
-                 ->spanned_rank_interval ()[LEFT])
+                 ->spanned_column_rank_interval ()[LEFT])
                 == (need_pure_heights_from_neighbors_[l + 1]
-                    ->spanned_rank_interval ()[LEFT])));
+                    ->spanned_column_rank_interval ()[LEFT])));
            l++)
         temp.push_back (need_pure_heights_from_neighbors_[l + 1]);
       need_pure_heights_from_neighbors.push_back (temp);
@@ -113,9 +113,9 @@ Pure_from_neighbor_engraver::finalize ()
   for (const auto &pure_relevant : pure_relevants_)
     {
       while (pos[1] < need_pure_heights_from_neighbors.size ()
-             && (pure_relevant->spanned_rank_interval ()[LEFT]
+             && (pure_relevant->spanned_column_rank_interval ()[LEFT]
                  > (need_pure_heights_from_neighbors[pos[1]][0]
-                    ->spanned_rank_interval ()[LEFT])))
+                    ->spanned_column_rank_interval ()[LEFT])))
         {
           pos[0] = pos[1];
           pos[1]++;

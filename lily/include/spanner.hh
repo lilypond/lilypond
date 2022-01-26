@@ -72,7 +72,7 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
 
   Interval_t<Moment> spanned_time () const;
-  Interval_t<int> spanned_rank_interval () const override;
+  Interval_t<int> spanned_column_rank_interval () const override;
 
   void set_bound (Direction d, Grob *);
   // accepts_as_bound_...() are used in the implementation of set_bound ().

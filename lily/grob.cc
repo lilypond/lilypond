@@ -548,7 +548,7 @@ Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, vsize start, vsize end)
 bool
 Grob::less (Grob *g1, Grob *g2)
 {
-  return g1->spanned_rank_interval ()[LEFT] < g2->spanned_rank_interval ()[LEFT];
+  return g1->spanned_column_rank_interval ()[LEFT] < g2->spanned_column_rank_interval ()[LEFT];
 }
 
 /****************************************************************

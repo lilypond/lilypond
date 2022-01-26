@@ -4444,6 +4444,7 @@ make-articulation "X" -> make-articulation 'X
 'articulation-type "X" -> 'articulation-type 'X
 dashX = "Y" -> dashX = #(make-articulation 'Y)
 markup->string 2nd argument change
+ly:grob-spanned-rank-interval -> ly:grob-spanned-column-rank-interval
 """)
 # It would be nicer to do
 # dashX = "Y" -> dashX = \Y
@@ -4468,6 +4469,7 @@ def conv(s):
     s = re.sub(r'(dash(%s)\s+)=(\s+)"(\w+)"' % "|".join(dash_abbreviations),
                r"\1=\3#(make-articulation '\4)", s)
     s = re.sub(r"markup->string", markup2string_replacement, s)
+    s = s.replace("ly:grob-spanned-rank-interval", "ly:grob-spanned-column-rank-interval")
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

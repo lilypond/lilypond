@@ -122,7 +122,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end
 
       for (vsize i = 0; i < worth.size (); i++)
         {
-          Interval_t<int> iv = worth[i]->spanned_rank_interval ();
+          Interval_t<int> iv = worth[i]->spanned_column_rank_interval ();
           for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
             ranks.push_back (j);
         }

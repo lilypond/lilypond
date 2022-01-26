@@ -67,7 +67,7 @@ public:
   System *get_system () const override;
   virtual Paper_column *get_column () const;
   void handle_prebroken_dependencies () override;
-  Interval_t<int> spanned_rank_interval () const override;
+  Interval_t<int> spanned_column_rank_interval () const override;
   Interval pure_y_extent (Grob *ref, vsize start, vsize end) override;
   virtual void cache_pure_height (Interval height);
   bool internal_set_as_bound_of_spanner (Spanner *, Direction) override;

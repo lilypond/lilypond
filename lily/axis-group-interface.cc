@@ -165,7 +165,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
       if (!g)
         continue;
 
-      Interval_t<int> rank_span = g->spanned_rank_interval ();
+      Interval_t<int> rank_span = g->spanned_column_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
           && !(from_scm<bool> (get_property (g, "cross-staff"))
                && has_interface<Stem> (g)))
@@ -410,7 +410,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       Direction d = from_scm<Direction> (get_property_data (g, "direction"));
       d = (d == CENTER) ? UP : d;
 
-      Interval_t<vsize> rank_span (g->spanned_rank_interval ());
+      Interval_t<vsize> rank_span (g->spanned_column_rank_interval ());
       auto first_break
         = std::lower_bound (ranks.begin (), ranks.end (), rank_span[LEFT]);
       if (first_break != ranks.begin ())

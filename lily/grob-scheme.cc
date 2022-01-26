@@ -461,7 +461,7 @@ Get the index of the vertical axis group the grob @var{grob} belongs to; return
   return to_scm (Grob::get_vertical_axis_group_index (gr));
 }
 
-LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
+LY_DEFINE (ly_grob_spanned_column_rank_interval, "ly:grob-spanned-column-rank-interval",
            1, 0, 0, (SCM grob),
            R"(
 Return a pair with the @code{rank} of the furthest left column and the
@@ -470,7 +470,7 @@ Return a pair with the @code{rank} of the furthest left column and the
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
 
-  Interval_t<int> iv = gr->spanned_rank_interval ();
+  Interval_t<int> iv = gr->spanned_column_rank_interval ();
 
   return scm_cons (to_scm (iv[LEFT]), to_scm (iv[RIGHT]));
 }

@@ -175,7 +175,7 @@ Item::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 }
 
 Interval_t<int>
-Item::spanned_rank_interval () const
+Item::spanned_column_rank_interval () const
 {
   int c = get_column ()->get_rank ();
   return Interval_t<int> (c, c);

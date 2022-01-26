@@ -191,7 +191,7 @@ public:
   static int get_vertical_axis_group_index (Grob *g);
 
   /* skylines */
-  virtual Interval_t<int> spanned_rank_interval () const = 0;
+  virtual Interval_t<int> spanned_column_rank_interval () const = 0;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);
