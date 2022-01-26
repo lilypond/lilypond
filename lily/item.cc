@@ -181,6 +181,23 @@ Item::spanned_column_rank_interval () const
   return Interval_t<int> (c, c);
 }
 
+System_rank_interval
+Item::spanned_system_rank_interval () const
+{
+  if (System *st = get_system ())
+    return System_rank_interval (st->get_rank (), st->get_rank ());
+
+  System_rank_interval sr;
+  for (const auto d : {LEFT, RIGHT})
+    {
+      Item *bi = find_prebroken_piece (d);
+      if (bi && bi->get_system ())
+        sr.add_point (bi->get_system ()->get_rank ());
+    }
+
+  return sr;
+}
+
 Interval_t<Moment>
 spanned_time_interval (Item *l, Item *r)
 {

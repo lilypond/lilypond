@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "spanner.hh"
+
 #include "engraver.hh"
 #include "moment.hh"
 #include "paper-column.hh"
@@ -194,6 +196,26 @@ Spanner::spanned_column_rank_interval () const
     }
   return iv;
 }
+
+
+System_rank_interval
+Spanner::spanned_system_rank_interval () const
+{
+  System_rank_interval rv;
+
+  if (System *st = get_system ())
+    rv = System_rank_interval (st->get_rank (), st->get_rank ());
+  else
+    {
+      if (!broken_intos_.empty ())
+        {
+          rv = System_rank_interval (broken_intos_.front ()->get_system ()->get_rank (),
+                             broken_intos_.back ()->get_system ()->get_rank ());
+        }
+    }
+  return rv;
+}
+
 
 Interval_t<Moment>
 Spanner::spanned_time () const

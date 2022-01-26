@@ -148,7 +148,9 @@ Beam_collision_engraver::finalize ()
             continue;
           Context const *covered_grob_context = covered_grobs_[j].context_;
 
-          Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_column_rank_interval ();
+          Interval_t<int> covered_grob_spanned_rank
+            = covered_grob->spanned_column_rank_interval ();
+
           if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank[RIGHT])
             break;
           /*

@@ -17,16 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "grob.hh"
 #include "item.hh"
 #include "system.hh"
 #include "grob-array.hh"
 
 using std::vector;
-
-// TODO: int is wider than necessary.  Consider changing it to
-// System::rank_type.  For now, the decision is not to introduce a new
-// instantiation of Interval_t<>.
-typedef Interval_t<int> System_rank_interval;
 
 /*
   Perform the substitution for a single grob.
@@ -194,42 +190,6 @@ again:
   moz-k498-p1, before 24.10, after: 19.790s, Increase of 18%
 */
 
-System_rank_interval
-spanner_system_range (Spanner *sp)
-{
-  System_rank_interval rv;
-
-  if (System *st = sp->get_system ())
-    rv = System_rank_interval (st->get_rank (), st->get_rank ());
-  else
-    {
-      vector<Spanner *> const &bs = sp->broken_intos_;
-      if (!bs.empty ())
-        {
-          rv = System_rank_interval (bs.front ()->get_system ()->get_rank (),
-                             bs.back ()->get_system ()->get_rank ());
-        }
-    }
-  return rv;
-}
-
-System_rank_interval
-item_system_range (Item *it)
-{
-  if (System *st = it->get_system ())
-    return System_rank_interval (st->get_rank (), st->get_rank ());
-
-  System_rank_interval sr;
-  for (const auto d : {LEFT, RIGHT})
-    {
-      Item *bi = it->find_prebroken_piece (d);
-      if (bi && bi->get_system ())
-        sr.add_point (bi->get_system ()->get_rank ());
-    }
-
-  return sr;
-}
-
 struct Substitution_entry
 {
   Grob *grob_;
@@ -280,7 +240,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
   if (grob_array->size () < 15)
     return false;
 
-  const auto system_range = spanner_system_range (this);
+  const auto system_range = spanned_system_rank_interval ();
 
   std::vector<Substitution_entry> items;
   std::vector<Grob *> spanners;
@@ -288,7 +248,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
     {
       if (auto *it = dynamic_cast<Item *> (g))
         {
-          auto sr = item_system_range (it);
+          auto sr = it->spanned_system_rank_interval ();
           sr.intersect (system_range);
           sr -= system_range[LEFT];
           items.emplace_back (g, sr);

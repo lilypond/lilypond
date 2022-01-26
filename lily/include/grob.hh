@@ -30,6 +30,11 @@
 #include <set>
 #include <vector>
 
+// TODO: int is wider than necessary.  Consider changing it to
+// System::rank_type.  For now, the decision is not to introduce a new
+// instantiation of Interval_t<>.
+typedef Interval_t<int> System_rank_interval;
+
 class Grob : public Smob<Grob>, public Diagnostics
 {
 public:
@@ -192,6 +197,7 @@ public:
 
   /* skylines */
   virtual Interval_t<int> spanned_column_rank_interval () const = 0;
+  virtual System_rank_interval spanned_system_rank_interval () const = 0;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);
