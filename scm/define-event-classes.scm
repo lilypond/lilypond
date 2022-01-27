@@ -28,7 +28,9 @@
                   OneTimeStep Finish GraceChange))
     (music-event . (ad-hoc-jump-event
                     annotate-output-event
-                    footnote-event arpeggio-event breathing-event
+                    footnote-event arpeggio-event
+                    bar-event
+                    breathing-event
                     coda-mark-event
                     dal-segno-event
                     extender-event span-event rhythmic-event dynamic-event

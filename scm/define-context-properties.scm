@@ -754,19 +754,9 @@ This can be used to shrink the length of brackets in the situation
 where one alternative is very large.")
 
 
-     (whichBar ,string? "This property is read to determine what type
-of bar line to create.
-
-Example:
-
-@example
-\\set Staff.whichBar = \".|:\"
-@end example
-
-@noindent
-This will create a start-repeat bar in this staff only.  Valid values
-are described in @file{scm/bar-line.scm}.")
-     )))
+     (whichBar ,string? "The current bar line type, or @code{'()} if
+there is no bar line.  Setting this explicitly in user code is
+deprecated.  Use @code{\\bar} or related commands to set it."))))
 
 
 (define-public all-internal-translation-properties
@@ -783,6 +773,8 @@ are described in @file{scm/bar-line.scm}.")
 
      (barCheckLastFail ,ly:moment? "Where in the measure did the last
 barcheck fail?")
+     (barForced ,boolean? "Set to @code{#t} in @code{Timing} context
+when @code{Timing@/.whichBar} has been set with @code{\\bar}.")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
 @var{grob})} cons cells.  This is for internal (C++) use only.  This

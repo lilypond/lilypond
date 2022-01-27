@@ -114,6 +114,28 @@
 
 \context {
   \Staff
+  \name "InternalGregorianStaff"
+  \denies "Voice" % derived contexts will accept specific voices
+
+  \description "An internal @code{Staff} type with settings shared by
+multiple ancient notation schemes."
+
+  %% Eliminate measure bar lines.  Let \section and \fine produce a
+  %% bar line resembling the finalis sign.
+  measureBarType = ""
+  sectionBarType = "||"
+  fineBarType = "||"
+
+  %% Delimit repeated sections with bar lines that look like the
+  %% finalis sign.  Repetition is indicated with roman numerals in the
+  %% text, e.g. "ij" for twice and "iij" for thrice.
+  startRepeatBarType = "||" %% TODO: research break visibility
+  doubleRepeatBarType = "||" %% TODO: research break visibility
+  endRepeatBarType = "||"
+}
+
+\context {
+  \Staff
   \type "Engraver_group"
   \name "DrumStaff"
   \alias "Staff"
@@ -1016,10 +1038,9 @@ of Editio Vaticana."
 }
 
 \context {
-  \Staff
+  \InternalGregorianStaff
   \name "VaticanaStaff"
   \alias "Staff"
-  \denies "Voice"
   \accepts "VaticanaVoice"
   \defaultchild "VaticanaVoice"
 
@@ -1030,12 +1051,10 @@ of Editio Vaticana."
   \remove "Time_signature_engraver"
   \consists "Custos_engraver"
 
-  %% Eliminate measure bar lines.
-  measureBarType = ""
-
-  %% Make both \bar "||" and \bar "|." look like the finalis sign.
+  %% Mark bar lines a little thinner to match the breathing signs.
+  %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
   \override BarLine.hair-thickness = #0.6
-  \override BarLine.thick-thickness = #0.6
+  \override BarLine.thick-thickness = #1.8
 
   \override StaffSymbol.line-count = #4
   \override StaffSymbol.thickness = #0.6
@@ -1079,19 +1098,11 @@ of Editio Vaticana."
 }
 
 \context {
-  \Staff
+  \InternalGregorianStaff
   \name "GregorianTranscriptionStaff"
   \alias "Staff"
-  \denies "Voice"
   \accepts "GregorianTranscriptionVoice"
   \defaultchild "GregorianTranscriptionVoice"
-
-  %% Eliminate measure bar lines.
-  measureBarType = ""
-
-  %% Make both \bar "||" and \bar "|." look like the finalis sign.
-  \override BarLine.hair-thickness = #1.9
-  \override BarLine.thick-thickness = #1.9
 }
 
 \context {
@@ -1115,10 +1126,9 @@ accommodated for typesetting a piece in mensural style."
 }
 
 \context {
-  \Staff
+  \InternalGregorianStaff
   \name "MensuralStaff"
   \alias "Staff"
-  \denies "Voice"
   \defaultchild "MensuralVoice"
   \accepts "MensuralVoice"
   \description "Same as @code{Staff} context, except that it is
@@ -1126,12 +1136,10 @@ accommodated for typesetting a piece in mensural style."
 
   \consists "Custos_engraver"
 
-  %% Eliminate measure bar lines.
-  measureBarType = ""
-
-  %% Make both \bar "||" and \bar "|." look like the finalis sign.
+  %% Mark bar lines a little thinner to match the breathing signs.
+  %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
   \override BarLine.hair-thickness = #0.6
-  \override BarLine.thick-thickness = #0.6
+  \override BarLine.thick-thickness = #1.8
 
   \override StaffSymbol.thickness = #0.6
 
@@ -1194,6 +1202,49 @@ accommodated for typesetting a piece in Petrucci style."
 
   \consists "Custos_engraver"
 
+  %% Eliminate measure bar lines.
+  measureBarType = ""
+
+  %% Both single and double bar lines appear at section breaks in
+  %% Harmonice Musices Odhecaton.  It is not clear that there is any
+  %% semantic difference.  Likewise, there does not seem to be any
+  %% difference between section and final double bar lines.  The line
+  %% thickness does vary noticeably throughout (even between lines of
+  %% the same double bar) and we use that as an excuse to preserve our
+  %% modern distinctions in these defaults.
+  sectionBarType = "||"
+  fineBarType = "|."
+
+  %% TODO: Harmonice Musices Odhecaton has notation for repeated
+  %% sections that our current bar line infrastructure can not quite
+  %% achieve.  See "Bergerette Savoyene" (folio 13) and "Le corps"
+  %% (folio 73).
+  %%
+  %% We could do it with the addition of a fineEndRepeatBarType
+  %% context property (and some new bar types), but it might be better
+  %% to add a SignumRepetitionis grob which can appear in addition to
+  %% a bar line.  That idea raises the question of also reimplementing
+  %% in-staff segno with multiple grobs: conceptually,
+  %% doubleRepeatSegnoBarType = endRepeatBarType + segnoBarType +
+  %% startRepeatBarType.
+  %%
+  %% Modern repeat bar lines remain enabled as placeholders.
+
+  %% Match BarLine.hair-thickness to stems:
+  %% BarLine.hair-thickness = Stem.thickness * StaffSymbol.thickness
+  %% Set kern and thick-thickness relatively, based on scans.
+  \override BarLine.hair-thickness = #2.21
+  \override BarLine.kern = #2.9
+  \override BarLine.thick-thickness = #2.9
+
+  %% In Harmonice Musices Odhecaton, double bar lines extend about
+  %% half a staff space from the top and bottom bar lines, and single
+  %% bar lines seem to extend about a space.  We lack the
+  %% infrastructure to do both.
+  \override BarLine.bar-extent = #'(-2.5 . 2.5)
+  %% Because the ends will be visible, round the corners.
+  \override BarLine.rounded = ##t
+
   \override StaffSymbol.thickness = #1.3
 
   %% Choose Petrucci g clef on 2nd line as default.
@@ -1255,6 +1306,16 @@ accommodated for typesetting a piece in Kievan style."
 
   \remove "Time_signature_engraver"
 
+  %% Eliminate measure bar lines.
+  measureBarType = ""
+  %% A single bar line delimits phrases; let \section fall back to that.
+  sectionBarType = "|"
+  %% Kievan notation has a unique final bar line.
+  fineBarType = "k"
+
+  %% TODO: Research repetition in Kievan notation.
+  %% Modern repeat bar lines remain enabled as placeholders.
+
   %% Choose Kievan tsefaut clef
   clefGlyph = "clefs.kievan.do"
   middleCClefPosition = #0
@@ -1268,7 +1329,6 @@ accommodated for typesetting a piece in Kievan style."
                              ,neo-modern-accidental-rule)
   autoCautionaries = #'()
   printKeyCancellation = ##f
-
 }
 
 %% Keep the old definitions in here for compatibility (they erase previous

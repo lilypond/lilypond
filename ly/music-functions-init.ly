@@ -269,10 +269,9 @@ balloonText =
 
 bar =
 #(define-music-function (type) (string?)
-   (_i "Insert a bar line of type @var{type}")
-   (context-spec-music
-    (make-property-set 'whichBar type)
-    'Timing))
+   (_i "Insert a bar line of type @var{type}, overriding any automatic
+bar lines.")
+   (make-music 'BarEvent 'bar-type type))
 
 barNumberCheck =
 #(define-music-function (n) (integer?)

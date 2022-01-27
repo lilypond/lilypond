@@ -77,15 +77,40 @@ Bar_engraver::process_acknowledged ()
       auto *const wbc = where_defined (context (), "whichBar", &wb);
       if (scm_is_string (wb))
         {
-          // Map the measure bar type from its value in the same context in
-          // which "whichBar" is defined to the value visible in this
-          // engraver's context.  This allows removing measure bar lines in
-          // Staff contexts designed for ancient notation.  \omit and \hide
-          // have side effects that make them unsuitable for this purpose.
-          if ((wbc != context ()) && wbc)
+          // Unless the bar type has been forced, map these bar types from
+          // their values in the same context in which "whichBar" is defined to
+          // the values visible in this engraver's context.  This is inelegant,
+          // but it does the trick to support ancient staves without disabling
+          // these bar lines in a broader context than necessary.
+          //
+          // If we can remove enough dependencies on whichBar, we might be able
+          // to move the logic of Repeat_acknowledge_engraver into Bar_engraver
+          // and not have to perform this mapping.
+          if ((wbc != context ())
+              && wbc
+              && !from_scm<bool> (get_property (wbc, "barForced")))
             {
               if (ly_is_equal (wb, get_property (wbc, "measureBarType")))
                 wb = get_property (this, "measureBarType");
+              else if (ly_is_equal (wb, get_property (wbc, "sectionBarType")))
+                wb = get_property (this, "sectionBarType");
+              else if (ly_is_equal (wb, get_property (wbc, "fineBarType")))
+                wb = get_property (this, "fineBarType");
+              else if (ly_is_equal (wb,
+                                    get_property (wbc, "startRepeatBarType")))
+                {
+                  wb = get_property (this, "startRepeatBarType");
+                }
+              else if (ly_is_equal (wb,
+                                    get_property (wbc, "doubleRepeatBarType")))
+                {
+                  wb = get_property (this, "doubleRepeatBarType");
+                }
+              else if (ly_is_equal (wb,
+                                    get_property (wbc, "endRepeatBarType")))
+                {
+                  wb = get_property (this, "endRepeatBarType");
+                }
             }
 
           if (scm_is_string (wb))

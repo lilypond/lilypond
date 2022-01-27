@@ -1059,16 +1059,10 @@ Otherwise, return @code{#f}."
                                          (else (list "_" (- 1 ?clef-transposition))))
                                    (new-line->lily-string))))))
 
-;;; \bar
-(define-extra-display-method ContextSpeccedMusic (expr)
-  "If `expr' is a bar, return \"\\bar ...\".
-Otherwise, return #f."
-  (with-music-match (expr (music 'ContextSpeccedMusic
-                                 context-type 'Timing
-                                 element (music 'PropertySet
-                                                value ?bar-type
-                                                symbol 'whichBar)))
-                    (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
+(define-display-method BarEvent (expr)
+  (format #f "\\bar \"~a\"~a"
+          (ly:music-property expr 'bar-type)
+          (new-line->lily-string)))
 
 (define-display-method FineEvent (expr)
   "\\fine")

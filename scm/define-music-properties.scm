@@ -51,6 +51,7 @@ numbered?")
      (autosplit-end ,boolean? "Duration of event was truncated by automatic
 splitting in @code{Completion_heads_engraver}.")
 
+     (bar-type ,string? "The type of bar line to create, e.g., @code{\"|\"}")
      (bass ,boolean? "Set if this note is a bass note in a chord.")
      (beat-structure ,list? "A beatStructure to be used in autobeaming.")
      (bracket-start ,boolean? "Start a bracket here.

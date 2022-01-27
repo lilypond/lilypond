@@ -50,6 +50,19 @@ Timing_translator::listen_alternative (Stream_event *ev)
 }
 
 void
+Timing_translator::listen_bar (Stream_event *ev)
+{
+  // To mimic the previous implementation, we always set whichBar.
+  set_property (context (), "whichBar", get_property (ev, "bar-type"));
+
+  if (!bar_forced_)
+    {
+      bar_forced_ = true;
+      set_property (context (), "barForced", SCM_BOOL_T);
+    }
+}
+
+void
 Timing_translator::process_music ()
 {
   if (alt_event_)
@@ -298,6 +311,23 @@ Timing_translator::start_translation_timestep ()
 
   set_property (context (), "measurePosition",
                 Moment (mp, now.grace_part_).smobbed_copy ());
+
+  // We set whichBar at each timestep because the user manuals used to suggest
+  // using \set Timing.whichBar = ... rather than \once \set Timing.whichBar =
+  // ..., so we might need to erase the user's value from the previous
+  // timestep.
+  //
+  // It might be nice to set up a convert-ly rule to change user code to use
+  // \once \set ... and then change this to the internal equivalent of \once
+  // \set too.  Other engravers that set whichBar would need to handle it
+  // similarly.
+  set_property (context (), "whichBar", SCM_EOL);
+
+  if (bar_forced_) // keep barForced synchronized with whichBar
+    {
+      bar_forced_ = false;
+      set_property (context (), "barForced", SCM_EOL);
+    }
 }
 
 #include "translator.icc"
@@ -306,6 +336,7 @@ void
 Timing_translator::boot ()
 {
   ADD_LISTENER (Timing_translator, alternative);
+  ADD_LISTENER (Timing_translator, bar);
 }
 
 ADD_TRANSLATOR (Timing_translator,

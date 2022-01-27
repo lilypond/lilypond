@@ -98,6 +98,15 @@ See the Notation Reference for details.")
         (types . (post-event event articulation-event script-event))
         ))
 
+    (BarEvent
+     . ((description . "Force a bar line.
+
+Syntax: @code{\\bar @var{type}}
+
+Example: @code{\\bar \"!\"}")
+        (types . (bar-event event))
+        ))
+
     (BarCheck
      . ((description . "Check whether this music coincides with
 the start of the measure.")
