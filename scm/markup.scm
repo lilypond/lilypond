@@ -76,17 +76,6 @@ following stencil.  Stencils with empty y@tie{}extent are not given
 
 ;;;; convert a full markup object to an approximate pure string representation
 
-;; We ignore `page-ref-markup', because we don't want to get the
-;; `gauge'- and `default'-string
-;;
-;; TODO:
-;; - we would be interested in the computed result of `replace-markup' and
-;;   `first-visible-markup', don't know how to get this, though
-
-;;   For now all (not computed) arguments are caught.
-;; - Other markup-commands to ignore?
-
-
 (define-public (markup-default-to-string-method layout props . args)
   "The default @code{markup->string} handler for markups, used when
 @code{markup->string} encounters a markup that has no special
