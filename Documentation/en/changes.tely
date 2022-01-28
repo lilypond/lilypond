@@ -66,6 +66,19 @@ which scares away people.
 @end ignore
 
 @item
+The @code{markup->string} function converts a markup into an
+approximate string representation; it is used for outputting PDF
+metadata as well as MIDI lyrics and markers.  Markup commands can
+now define a custom method to convert markups created using them
+into strings, for use by @code{markup->string}.  For example:
+
+@example
+#(define-markup-command (upcase layout props arg) (string?)
+   #:as-string (string-upcase arg)
+   (interpret-markup layout props (string-upcase arg)))
+@end example
+
+@item
 @code{\bar ","} creates a short bar line.
 
 @lilypond
