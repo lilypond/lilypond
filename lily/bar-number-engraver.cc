@@ -42,7 +42,9 @@ protected:
   // A centered bar number.
   Spanner *span_ = nullptr;
   bool considered_numbering_ = false;
-  bool must_consider_numbering_ = false;
+  // There is no bar line at the beginning of the piece,
+  // but we want to allow a bar number nevertheless.
+  bool must_consider_numbering_ = true;
 
 protected:
   void stop_translation_timestep ();

@@ -66,6 +66,26 @@ which scares away people.
 @end ignore
 
 @item
+@code{\bar ""} is no longer necessary to print the first bar
+number.  It now suffices to set @code{barNumberVisibility} to
+@code{all-@/bar-@/numbers-@/visible}, or one of the other
+visibility settings where the first bar number is visible.
+
+Note that this is a change in behavior for scores that set
+@code{barNumberVisibility} to @code{all-@/bar-@/numbers-@/visible}
+or such and @code{BarNumber@/.break-@/visibility} to @code{#t}
+without having @code{\bar ""}.  Now, a bar number is printed at
+the beginning.  This is just the expected behavior (@emph{all} bar
+numbers should be visible), but due to slightly unclear
+documentation, users may have used these settings to print bar
+numbers in the middle of systems except for the first bar number.
+In such cases, simply remove
+@code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
+since @code{\override BarNumber@/.break-@/visibility = ##t} does
+the relevant setting alone.
+
+
+@item
 The @code{markup->string} function converts a markup into an
 approximate string representation; it is used for outputting PDF
 metadata as well as MIDI lyrics and markers.  Markup commands can
@@ -77,6 +97,7 @@ into strings, for use by @code{markup->string}.  For example:
    #:as-string (string-upcase arg)
    (interpret-markup layout props (string-upcase arg)))
 @end example
+
 
 @item
 @code{\bar ","} creates a short bar line.

@@ -3388,29 +3388,24 @@ automatically for every measure.  It may also be set manually:
 @funindex barNumberVisibility
 @funindex BarNumber
 
-Bar numbers can be typeset at regular intervals instead of just at the
-beginning of every line.  To do this the default behavior must be
-overridden to permit bar numbers to be printed at places other than the
-start of a line.  This is controlled by the @code{break-visibility}
-property of @code{BarNumber}.  This takes three values which may be set
-to @code{#t} or @code{#f} to specify whether the corresponding bar
-number is visible or not.  The order of the three values is
-@code{end of line visible}, @code{middle of line visible},
-@code{beginning of line visible}.  In the following example bar numbers
-are printed at all possible places:
+The default behavior of only printing bar numbers at the start of
+every line can be changed through the @code{break-visibility}
+property of @code{BarNumber}.  This takes three values which may
+be set to @code{#t} or @code{#f} to specify whether the
+corresponding bar number is visible or not.  The order of the
+three values is @code{end of line visible}, @code{middle of line
+visible}, @code{beginning of line visible}.  In the following
+example bar numbers are printed at all possible places:
 
 @lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
   \set Score.currentBarNumber = #11
-  % Permit first bar number to be printed
-  \bar ""
   c1 | c | c | c |
   \break
   c1 | c | c | c |
 }
 @end lilypond
-
 
 @snippets
 

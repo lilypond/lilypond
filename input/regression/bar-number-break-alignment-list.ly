@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.6"
 
 \header {
   texidoc = "Alignments for breakable items can have different values set
@@ -19,7 +19,6 @@
 {
   \omit Staff.TimeSignature
   \override Score.BarNumber.self-alignment-X = #(break-alignment-list RIGHT CENTER LEFT)
-  \bar ""
   c'1 c'1
 
   \break

@@ -4436,6 +4436,28 @@ markup2string_replacement = """
       (markup->string m)))
 """
 
+bar_numbers_warning = _(r"""
+Warning:
+
+Your score contains a setting of barNumberVisibility to
+#all-bar-numbers-visible and a setting of BarNumber.break-visibility,
+but not \bar "" command.  This likely means that you have
+been using
+
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+  \override Score.BarNumber.break-visibility = #end-of-line-invisible
+
+in order to print bar numbers in the middle of systems
+in addition to bar numbers at the beginning of systems.
+In 2.23.6 and later, this will print the first bar number
+too, which has always been the intended effect of
+#all-bar-numbers-visible, but did not work without \bar ""
+for technical reasons.  If you do not want the first
+bar number, remove the command
+
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+""")
+
 @rule((2, 23, 6), r"""
 defaultBarType -> measureBarType
 markFormatter -> rehearsalMarkFormatter
@@ -4445,6 +4467,7 @@ make-articulation "X" -> make-articulation 'X
 dashX = "Y" -> dashX = #(make-articulation 'Y)
 markup->string 2nd argument change
 ly:grob-spanned-rank-interval -> ly:grob-spanned-column-rank-interval
+all-bar-numbers-visible + BarNumber.break-visibility + no \bar "" -> warning
 """)
 # It would be nicer to do
 # dashX = "Y" -> dashX = \Y
@@ -4470,6 +4493,12 @@ def conv(s):
                r"\1=\3#(make-articulation '\4)", s)
     s = re.sub(r"markup->string", markup2string_replacement, s)
     s = s.replace("ly:grob-spanned-rank-interval", "ly:grob-spanned-column-rank-interval")
+    if (
+        "all-bar-numbers-visible" in s
+        and "BarNumber.break-visibility" in s
+        and r'\bar ""' not in s
+    ):
+        stderr_write(bar_numbers_warning)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

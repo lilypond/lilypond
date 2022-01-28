@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.23.6"
 
 \header {
   lsrtags = "tweaks-and-overrides"
@@ -29,7 +29,6 @@ numbers are boxed and placed below the staves.
 
 \new StaffGroup <<
   \new Staff \relative c' {
-    \bar ""
     d4-. f8( e d4) bes'-> |
     d,-. f8( e d4) cis'-> |
     g-. f8( d e4) g-> |
