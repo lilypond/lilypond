@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 1010f574a85b40fb70e0b31136e7eb788e4946be
+  texidocca = "
+Quan es produeix un canvi de clau, el símbol de clau s'imprimeix a
+una mida més petita que la clau inicial.  Això es pot ajustar amb
+@code{full-size-change}.
+
+"
+  doctitleca = "Mantenir la mida del símbol en els canvis de clau"

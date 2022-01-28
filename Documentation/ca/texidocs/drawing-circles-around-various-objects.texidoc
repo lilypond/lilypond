@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+L'ordre de marcatge @code{\\circle} traça circumferències al
+voltant de diversos objectes, per exemple les indicacions de
+digitació.  Per a d'altres objectes es poden requerir ajustament
+específics: aquest exemple mostra dues estratègies per a
+lletres d'assaig i els números de compàs.
+
+"
+  doctitleca = "Rodejar diversos objectes amb una circumferència"

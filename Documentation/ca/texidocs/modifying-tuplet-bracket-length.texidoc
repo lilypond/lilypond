@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 703dca1fd6b202716cbfdc650c604dd835795b01
+  texidoceca = "
+Es poden fer que els corxets de grup de valoració especial, com
+els tresets, incloguin música anterior al propi grup o incloguin
+la nota següent.  Els corxets predeterminats finalitzen a l'extrem
+dret de l'última nota del grup; el corxet d'un grup de duració
+completa s'estén més a la dreta, bé perquè cobreixi tota la
+notació no rítmica fins la nota següent, o bé perquè cobreixi sols
+l'espai buit que hi ha abans de l'element següent de notació,
+sigui aquest element una clau, una indicació de compàs o una altra
+nota.  L'exemple mostra com activar el mode de duració completa
+dels grups de valoració especial i com canviar la part de música
+que cobreixen.
+
+"
+  doctitleca = "Modificació de la longitud del corxet de grup especial"

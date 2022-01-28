@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot usar el context @code{NoteNames} per imprimir el valor textual
+de les notes.  La propietat @code{printOctaveNames} activa o desactiva
+la representació de l'octava de les notes.
+
+"
+  doctitleca = "Impressió dels noms de les notes amb o sense indicació de l'octava"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 9c379d799d81429fff6392c639dffef526bd5db9
+  texidocca = "
+Es poden usar diversos sistemes d'escriptura per a textos (com ara
+títols o la lletra de les cançons) si s'introdueixen amb la
+codificació UTF-8, i utilitzant un motor basat en el
+Pango. Depenent dels tipus de lletra instal·lats, aquest fragment
+compon textos en búlgar (ciríl·lic), hebreu, japonès i portuguès.
+
+"
+  doctitleca = "UTF-8"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot usar @code{shiftDurations} per canviar la longitud de les
+notes d'una peça musical.  Agafa dos arguments: El factor
+d'escalat com una potència de dos, i el nombre de puntets a afegir
+com un enter positiu.
+
+"
+  doctitleca = "Modificar duracions automàticament"

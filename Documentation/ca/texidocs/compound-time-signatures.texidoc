@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Indicacions de compassos compostos"
+  texidocca = "
+Les indicacions de compàs poc freqüents com \"5/8\" es poden executar
+com a compassos compostos (per exemple \"3/8 + 2/8\"), que combinen
+dos o més metres diferents.  El LilyPond pot fer la música d'aquest
+tipus fàcil de llegir e interpretar, imprimint explícitament les
+indicacions de compàs compost i adaptant el comportament automàtic de
+les barres (també es poden afegir indicacions gràfiques de l'agrupació
+de compassos; vegeu el fragment de codi apropiat en la base de dades).
+
+"

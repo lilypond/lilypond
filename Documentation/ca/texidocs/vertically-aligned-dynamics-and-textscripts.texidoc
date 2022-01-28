@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+Tots els objectes @code{DynamicLineSpanner} (reguladors i
+indicacions dinàmiques de text) se situen amb la seva línia de
+referència a una distància d'almenys @code{'staff-padding} del
+pentagrama, a no ser que d'altres elements de notació els forci a
+col·locar-se a més distància.  Si s'ajusta @code{'staff-padding}
+a un valor suficientment gran, les indicacions dinàmiques quedaran
+alineades.
+
+S'usa una idea semblant junt a \\textLengthOn per alinear les
+inscripcions de text al llarg de la seva línia de base.
+
+"
+  doctitleca = "Indicacions dinàmiques i textuals alineades verticalment"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Aquesta plantilla mostra l'ús de contextos @code{StaffGroup} i
+@code{GrandStaff} niuats per sub-agrupar instruments del mateix
+tipus, i una forma d'usar @code{\\transpose} de manera que unes
+variables continguin la música per a instruments transpositors en
+afinació de concert.
+
+"
+  doctitleca = "Plantilla d'orquestra amb cor i piano"

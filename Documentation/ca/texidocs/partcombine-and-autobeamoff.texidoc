@@ -1,0 +1,29 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Pot ser difícil entendre la funció de @code{\\autoBeamOff} quan s'usa
+amb @code{\\partcombine}.
+
+Pot ser preferible usar
+
+
+@code{\\set Staff.autoBeaming = ##f}
+
+en el seu lloc, per assegurar-se que el barrat automàtic es desactiva
+per a tot el pentagrama.
+
+@code{\\partcombine} funciona aparentement amb tres veus: plica amunt
+quan hi ha una sola veu, plica avall amb l'altra, i plica amunt quan
+està combinada.
+
+Una crida a @code{\\autoBeamOff} en el primer argument de partcombine
+s'aplica a la veu que està activa en el moment en el qual es processa
+la crida, ja sigui veu única amb la plica cap amunt, cap avall o
+combinades.  Una crida a @code{\\autoBeamOff} en el segon argument
+s'aplica a la veu que estigui sola amb la aplica avall.
+
+Per poder usar @code{\\autoBeamOff} amb l'objectiu de detenir tot el
+barrat automàtic quan s'usa amb @code{\\partcombine}, cal fer tres
+crides a @code{\\autoBeamOff}.
+
+"
+  doctitleca = "Partcombine i autoBeamOff"

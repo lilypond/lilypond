@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+S'insereixen automàticament barres en angle quan es detecta un
+interval molt gran entre les notes.  Es pot fer un ajustament fi
+d'aquest comportament mitjançant de la propietat @code{auto-knee-gap}.
+Es traça una barra doblada si el salt és més gran que el valor de
+@code{auto-knee-gap} més l'amplada de l'objecte barra (que depèn de la
+duració de les notes i de la inclinació de la barra).  De forma
+predeterminada @code{auto-knee-gap} està establerta a 5.5 espais de
+pentagrama.
+
+"
+  doctitleca = "Canviar el salt de les barres en angle"

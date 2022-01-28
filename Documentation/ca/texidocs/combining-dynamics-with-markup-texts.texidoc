@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Certes indicacions dinàmiques poden portar textos (com @qq{più
+forte} o @qq{piano subito}). Es poden produir usant un bloc
+@code{\\markup}.
+
+"
+  doctitleca = "Combinar indicacions dinàmiques amb marcatges textuals"

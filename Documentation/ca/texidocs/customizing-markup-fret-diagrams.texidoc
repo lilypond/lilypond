@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Es poden establir les propietats dels diagrames de posicions a
+través de @code{'fret-diagram-details}.  Per als diagrames de
+posicions de marcatge, es poden aplicar overrides
+(sobreescriptures) a l'objecte @code{Voice.TextScript} o
+directament a l'element de marcatge.
+
+"
+  doctitleca = "Personalitzar diagrames de posicions de marcatge"

@@ -1,0 +1,20 @@
+%% Translation of GIT committish: f91c9533a7217e9d19eccc3c192ea9222efdbfc4
+  texidocca = "
+Les barres de semicorxera, o de figures més breus, no es subdivideixen
+de forma predeterminada.  És a dir, les tres (o més) barres s'amplien
+sense trencar-se sobre grups complets de notes.  Aquest comportament
+es pot modificar per subdividir les barres en subgrups mitjançant
+l'establiment de la propietat @code{subdivideBeams}.  Quan està
+activada, les barres es subdivideixen a intervals definits pel
+valor actual de @code{baseMoment} mitjançant la reducció de les
+barres repetides a una sola entre els subgrups.  Observeu que el
+valor predeterminat de @code{baseMoment} és un més que el
+denominador del tipus de compàs actual, si no es fixa explícitament.
+S'ha d'ajustar a una fracció que dóna la duració del subgrup de
+barres utilitzant la funció @code{ly:make-moment}, como es veu en
+aquest fragment de codi.  Així mateix, quan es modifica
+@code{baseMoment}, s'hauria de canviar també @code{beatStructure}
+perquè correspongui al @code{baseMoment} nou:
+
+"
+  doctitleca = "Subdivisió de barres"

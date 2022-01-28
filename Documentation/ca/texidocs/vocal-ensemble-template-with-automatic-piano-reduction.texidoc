@@ -1,0 +1,12 @@
+%% Translation of GIT committish: db22ad98af264b424e36b161c23fed43111b5c8a
+  texidocca = "
+Aquesta plantilla afegeix una reducció de piano automàtica a la
+partitura vocal SATB estàndard que es va mostrar a la
+@qq{Plantilla de conjunt vocal}.  Això presenta un dels punts
+forts del LilyPond: podem usar una definició de música més d'un
+cop.  Si es fa qualsevol canvi a les notes de la part vocal
+(diguem @code{tenorMusic}), aleshores els canvis s'aplicaran també
+a la reducció de piano.
+
+"
+  doctitleca = "Plantilla de conjunt vocal amb reducció de piano automàtica"

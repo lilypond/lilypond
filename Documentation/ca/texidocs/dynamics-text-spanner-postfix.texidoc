@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els objectes d'extensió \cresc, \dim i \decresc ara es poden
+redefinir com a operadors postfix i produir un sols objecte
+d'extensió de text.  La definició d'extensores personalitzats
+també és fàcil.  Es poden barrejar amb facilitat els crescendi
+textuals i en forma de reguladors.  \< i \> produeixen reguladors
+gràfics de forma predeterminada, \cresc etc. produeixen elements
+extensors de text de forma predeterminada.
+
+"
+  doctitleca = "Objectes extensors de text postfix per a dinàmica"

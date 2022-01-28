@@ -1,0 +1,11 @@
+%% Translation of GIT committish: c174139b36102ad0e0997bbcce20175dec772a71
+  doctitleca = "Canviar el número del grup especial"
+  texidocca = "
+De forma predeterminada sols s'imprimeix sobre la clau de grup el
+numerador del grup especial, és a dir, el numerador de l'argument de l'odre
+@code{\\tuplet}.
+
+De forma alternativa, es pot imprimir una fracció en la forma
+numerador:denominador del número de del grup, o eliminar el número.
+
+"

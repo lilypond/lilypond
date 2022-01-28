@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+És possible acolorir el cap de les notes depenent de la seva alçada
+i/o del seu nom: la funció que s'usa en aquest exemple fa possible
+fins i tot distingir els harmònics.
+
+"
+  doctitleca = "Acolorir les notes segons la seva alçada"

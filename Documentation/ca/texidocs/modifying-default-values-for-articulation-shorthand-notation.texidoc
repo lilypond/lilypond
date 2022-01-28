@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les abreviatures es troben definides dins del fitxer
+@file{ly/script-init.ly}, on les variables@code{dashHat},
+@code{dashPlus}, @code{dashDash}, @code{dashBar}, @code{dashLarger},
+@code{dashDot} i @code{dashUnderscore} reben valors
+predeterminats.  Es poden modificar aquests valors predeterminats
+per a les abreviatures.  Per exemple, per associar l'abraviatura
+@code{-+} (@code{dashPlus}) amb el símbol de semitrí en cmptes del
+símbol predeterminat +, assigneu el valor @code{trill} a la variable
+@code{dashPlus}:
+
+"
+  doctitleca = "Modificació dels valors predeterminats per a la notació abreviada de les articulacions"

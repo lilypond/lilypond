@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les ordres @code{\\startTextSpan} i @code{\\stopTextSpan}
+permeten la creació d'elements d'extensió textuals tan
+fàcilment com indicacions de pedal o octavacions.  Sobreescrivim
+certes propietats de l'object @code{TextSpanner} per modificar
+la seva sortida.
+
+"
+  doctitleca = "Crear elements de extensió textuals"

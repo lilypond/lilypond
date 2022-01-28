@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Les marques de respiració estan disponibles per diversos gustos:
+coma (la predeterminada), ratlla curta, v baixa i @qq{vies del
+  tren} (cesura).
+
+"
+  doctitleca = "Marques de respiració"

@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 46821fda434ae17eccc778bd1a0276e785fffdf6
+  texidocca = "
+Aquest exemple proporciona una funció per escriure un regulador
+amb text a sota, com @qq{molto} o @qq{poco}.  El text afegit
+canvia la direcció d'acord amb la del regulador.  L'objecte
+hairpin està alineat amb DynamicText.
+
+L'exemple il·lustra també com modificar la manera en la qual 
+s'imprimeix normalment un object, utilitzat codi de l'Scheme.
+
+"
+  doctitleca = "Centrar text a sota d'un regulador"

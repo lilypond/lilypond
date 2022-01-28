@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Quan s'alinien els números de compàs, poden aparèixer problemes de
+superposició amb les claus de sistema.  Aquest fragment de codi ho
+resoleu deixant alineats a la dreta els números de compàs després
+d'un salt de línia.
+
+"
+  doctitleca = "Números de compàs alineats a l'esquerra de forma consistent"
+

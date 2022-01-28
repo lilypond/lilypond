@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 2ba2ca2073f389842aa87f85b6c740b8488f0125
+  doctitleca = "Posicionar els silencis multicompàs"
+  texidocca = "
+A diferència dels silencis normals, no existeix una ordre predefinida
+per modificar la posició predeterminada d'un símbol de silenci
+multicompàs sobre el pentagrama, adjuntant-lo a una nota,
+independentment de quin sigui la seva forma.  No obstant, en la música
+polifònica els silencis multicompàs de les veus de numeració parell i
+imparell estan separats verticalment.  La col·locació dels silencis
+multicompàs es pot controlar com es ve a continuació:
+
+"

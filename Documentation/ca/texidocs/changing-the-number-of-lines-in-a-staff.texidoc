@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+El nombre de línies d'una pauta es pot modificar sobreescrivint la
+propietat @code{line-count} de l'objecte @code{StaffSymbol}.
+
+"
+  doctitleca = "Canvi del nombre de línies d'una pauta"

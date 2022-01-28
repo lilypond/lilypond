@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquesta plantilla és, bàsicament, la mateixa que la senzilla plantilla
+@qq{Conjunt vocal}, excepte que aquí totes les línies de lletra es
+col·loquen utilitzant @code{alignAboveContext} i @code{alignBelowContext}.
+
+"
+  doctitleca = "Plantilla per a conjunt amb lletres alineades a sobre i a sota dels pentagrames"

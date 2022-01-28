@@ -1,0 +1,45 @@
+%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+  texidocca = "
+Plantilla per escriure una partitura per a acordió diatònic.
+
+- Hi ha una pauta horitzontal que indica si l'acordió s'ha de tancar
+(línia gruixuda) o obrir (línia prima).
+
+- Hi ha una pauta rítmica petita amb lletra que descriu els botons que
+cal polsar en el baix.  Les barres de compàs estan fetes a partir de
+línies de reixeta.
+
+- La pauta del tabulador per acordions diatònics mostra la posició
+geogràfica dels botons i no (com a d'altres instruments) l'alçada
+de les notes; les claus sobre el costat de la melodia de l'acordió
+es posen en tres columnes i unes dotze files.
+
+A la notació de la pauta del tabulador, la columna més externa es
+descriu amb notes entre línies, la columna més interna es descriu
+amb notes entre línies i unes aspes com a alteració accidental, i la
+columna central es descriu amb notes sobre una línia, mentre que la
+fila del mig es representa sobre la línia central del pentagrama.
+
+A continuació algunes notes sobre la forma de transcriure notes de
+piano a acordió diatònic:
+
+1. Tot acordió diatònic està construït sols per a un cert conjunt de
+tonalitats (per exemple, per a les tonalitats de Do major i Fa major),
+per la qual cosa és important transportar una melodia de piano que
+correspongui exactament a una d'aquestes tonalitats.  Transporteu el
+codi font, no sols la sortida perquè aquest codi cal després per
+traduir-lo de nou a la pauta del tabulador.  Això es pot fer amb
+l'ordre @code{displayLilyMusic}.
+
+2. Hem d'alterar les direccions d'obrir i de tancar el fuelle de
+forma regular.  Si l'intèrpret té un període d'obrir el fuelle
+excessivament llarg, l'acordió pot trencar-se.  Per una altra banda,
+algunes harmonies sols estan disponibles en una direcció.  Tenint
+això en compte, hem de decidir quines parts de la melodia són
+les parts de tancar i quines les d'obrir.
+
+3. Per a cada una de les parts d'obrir i tancar, transcriviu les notes
+del piano a la representació de tabulatura corresponent.
+
+"
+  doctitleca = "Partitura per acordió diatònic"

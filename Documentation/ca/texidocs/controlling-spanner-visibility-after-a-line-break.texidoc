@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La visibilitat dels objectes d'extensió que acaben a la primera
+nota després d'un salt de línia està controlada per la funció de
+crida de @code{after-line-breaking}
+  @code{ly:spanner::kill-zero-spanned-time}.
+
+Per als objectes com els glissandos i els reguladors, el
+comportament predeterminat és ocultar l'objecte d'extensió després
+del salt; la inhabilitació de la funció de callblack fa que
+l'object d'extensió trencat per l'esquerra pot mostrar-se.
+
+De forma inversa, els objectes d'extensió que són visibles
+normalment, com els objectes d'extensió de text, es poden ocultar
+habilitant la funció de callback.
+"
+  doctitleca = "Controlar la visibilitat dels objectes d'extensió després d'un salt de línia"

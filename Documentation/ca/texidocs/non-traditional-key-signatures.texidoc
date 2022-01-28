@@ -1,0 +1,24 @@
+%% Translation of GIT committish: 01cf27b0b2ef4625b7b7f023848df87bb1e4e382
+  doctitleca = "Armadures de tonalitat no tradicional"
+  texidocca = "
+La molt utilitzada ordre @code{\\key} estableix la propietat
+@code{keyAlterations}, dins del context @code{Staff}.
+
+Per crear armadures de tonalitat no estàndard, ajusteu aquesta
+propietat directament.  El format d'aquesta ordre és una llista:
+
+@code{\\set Staff.keyAlterations = #`(((octava . pas) . alteració)}
+on, per cada element dins de la llista @code{octava} especifica
+l'octava (sent@tie{}zero l'octava des del Do@tie{}central fins al
+Si per sobre), @code{pas} especifica la nota dins de l'octava
+(zero@tie{}significa@tie{}Do i 6@tie{}significa@tie{}Si), i
+@code{alteració} és @code{,SHARP ,FLAT ,DOUBLE-SHARP}
+etc. (observeu la coma precedent).
+
+De forma alternativa, per a cada element de la llista l'ús del
+format més concís @code{(pas. alteració)} especifica que la
+mateixa alteració ha d'estar en totes les octaves.
+
+Vet aquí un exemple d'una possible armadura per generar una escala
+exàtona:
+"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Forçar el desplaçament horitzontal de les notes"
+  texidocca = "
+Quan el motor de gravat no és capaç de tot, es pot usar la sintaxi
+següent per sobreescriure les decisions de tipografia.  Les
+unitats de mesura que s'usen aquí són espais de pentagrama.
+
+"

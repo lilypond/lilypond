@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Per canviar el tempo a la sortida MIDI sense imprimir res, fem
+invisible la indicació metronòmica:
+
+"
+  doctitleca = "Canviar el tempo sense indicació metronòmica"

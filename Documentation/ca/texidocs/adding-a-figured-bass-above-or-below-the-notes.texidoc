@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En escriure un baix xifrat, podem ubicar les xifres a sobre a o a
+sota de les notes del baix, mitjançant la definició de la propietat
+@code{BassFigureAlignmentPositioning #'direction} (exclusivament
+dins d'un context @code{Staff}). es pot escollir entre @code{#UP}
+(o @code{#1}, a sobre), @code{#CENTER} (o @code{#0}, centraat) i
+@code{#DOWN} (o @w{@code{#-1}}, a sota).
+
+Aquesta propietat es pot canviar tantes vegades com volem.  Utilitzeu
+@code{\\once \\override} si no voleu que la sobreescriptura s'apliqui
+a tota la partitura.
+"
+  doctitleca = "Afegir un baix xifrat a sobre o a sota de les notes"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si la nota que acaba un regulador cau sobre la primera part d'un
+compàs, el regulador s'atura en la línia divisòria immediatament
+precedent.  Es pot controlar aquest comportament sobreescrivint la
+propietat @code{'to-barline}.
+
+"
+  doctitleca = "Establir el comportament dels reguladors a les barres de compàs"

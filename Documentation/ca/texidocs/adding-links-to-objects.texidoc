@@ -1,0 +1,14 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Per afegir un enllaç al segell d'un objecte gràfic, podem usar
+@code{add-link} tal i com es defineix aquí.  Funciona amb
+@code{\\override} i amb @code{\\tweak}.  Inconvenient:
+@code{point-and-click} (apuntar i clicar) quedarà obstaculitzat
+pels objectes gràfics enllaçats.
+
+Limitació: funciona sols per a PDF.
+
+Els objectes enllaçats s'acoloreixen amb una ordre a part.
+
+"
+  doctitleca = "Afegir enllaços als objectes"

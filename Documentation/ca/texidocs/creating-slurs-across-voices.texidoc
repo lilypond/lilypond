@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En determinades situacions cal crear lligadures d'expressió entre
+notes que estan a veus diferents.
+
+La solució és afegir notes invisible a una de les veus utilitzant
+@code{\\hideNotes}.
+
+Aquest exemple és el compàs 235 de la Chacona de la segona Partita
+per a violí sol, BMW 1004, de Bach.
+
+"
+  doctitleca = "Fer lligadures entre veus diferents"

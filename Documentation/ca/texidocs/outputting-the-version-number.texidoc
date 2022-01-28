@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Introduint la sortida de @code{lilypond-version} en la lletra d'una
+cançó, és possible imprimir el número de versió del LilyPond dins
+d'una partitura, o en un document generat amb @code{lilypond-book}.
+Una altra possibilitat és afegir el número de versió al final de la 
+doc-string, d'aquesta forma:
+
+"
+  doctitleca = "Imprimir el número de versió"

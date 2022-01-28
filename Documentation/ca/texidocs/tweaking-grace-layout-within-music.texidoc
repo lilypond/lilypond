@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La disposició de les expressions d'adorn es pot canviar al llarg
+de tota la música usant les funcions @code{add-grace-property} i
+@code{remove-grace-property}.  L'exemple següent esborra la
+definició de la direcció de la plica per a aquest nota d'adorn, de
+manera que les pliques no sempre apunten cap a dalt, i canvia la
+forma predeterminada dels caps a aspes.
+
+"
+  doctitleca = "Ajustament de la disposició de les notes d'adorn dins de la música"

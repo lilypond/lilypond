@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Aquest fragment de codi ha quedat obsolet per les ordres de marcatge
+predefinides, vegeu @q{Registres d'acordió} en la Referència de la
+notació.  Tanmateix, encara és útil com a demostració senzila de la
+forma de combinar símbols: la col·locació dels símbols afegits amb
+@code{\\markup} es pot ajustar modificant els arguments de
+@code{\\translate-scaled}.  Aquí s'usa @code{\\translate-scaled} en
+lloc de @code{\\translate} perquè el posicionament de les parts de
+símbols s'adapti als canvis de @code{font-size}.
+
+"
+  doctitleca = "Símbols d'acordió discanto"

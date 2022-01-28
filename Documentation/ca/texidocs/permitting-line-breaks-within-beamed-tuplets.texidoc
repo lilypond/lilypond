@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Permetre salts de línia dins de grups especials amb barra"
+  texidocca = "
+Aquest exemple artificial mostra com es poden permetre tant els salts
+de línia manuals com els automàtics dins d'un grup de valoració
+especial unit per una barra.  Observeu que aquests grups sincopats
+s'han de barrar manualment.
+
+"

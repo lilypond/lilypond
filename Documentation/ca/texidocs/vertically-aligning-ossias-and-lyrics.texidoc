@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquest fragment de codi mostra l'ús de les propietats de context
+@code{alignBelowContext} i @code{alignAboveContext} per a
+controlar la posició de la lletra i els compassos d'ossia.
+
+"
+  doctitleca = "Alineació vertical de la lletra i els compassos d'ossia"

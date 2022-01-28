@@ -1,0 +1,20 @@
+%% Translation of GIT committish: f0c956e3cda548bde3c7b8ca01bcd081ee07feae
+  texidocca = "
+Es pot imprimir qualsevol objecte gràfic sobre un fons blanc per
+ocultar part dels objectes que estan a sota.  Això pot ser útil
+per millorar l'aspecte de les col·lisions en situaciones complexes
+quan no es pràctic tornar a col·locar els objectes.  Cal establir
+explícitament la propietat de capa (@code{layer}) per controlar
+quins objectes resulten ocultats pel fons blanc.
+
+En aquest exemple, la col·lisió de la lligadura d'unió amb la
+indicació de compàs resulta millorada ocultant la part de la
+lligadura que creua la indicació de compàs mitjançant
+l'establiment de la propietat @code{whiteout} de
+@code{TimeSignature}.  per fer això, es mou @code{TimeSignature} a
+una capa per sobre de @code{Tie}, que es deixa a la capa
+predeterminada d'1, i @code{StaffSymbol} es mou a una capa per
+sobre de @code{TimeSignature} de manera que no resulti ocultada.
+
+"
+  doctitleca = "Ús de la propietat whiteout"

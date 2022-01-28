@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 01cf27b0b2ef4625b7b7f023848df87bb1e4e382
+  texidocca = "
+Si s'ajusta la propietat @code{transparent} d'un objecte,
+s'imprimeix en @qq{tinta invisible}: l'objecte no s'imprimeix però
+es retenen tots els seus altres comportaments.  L'objecte encara
+ocupa espai, participa en les col·lisions i se li poden afegir
+lligadures d'expressió, lligadures d'unió i barres de corxera.
+
+Aquest fragment de codi mostra com connectar diferents veus usant
+lligadures d'únió.  Normalment les lligadures d'unió sols
+connecten dues notes que estiguin a la mateixa veu.  Mitjançant la
+introducció d'una lligadura en una veu diferent i pintant de color
+blanc la primera plica cap a amunt dins d'aquesta veu, la
+lligadura sembla creuar d'una veu a l'altra.
+
+"
+  doctitleca = "Fer invisible un objecte amb la propietat 'transparent"

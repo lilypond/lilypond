@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En afegir una marca d'assaig @code{mark} al final pot succeir que es
+perdi una indicació de grup especial col·locat al final.  Es pot
+solucionar establint @code{TupletBracket #'full-length-to-extent}
+al valor @code{false}.
+
+"
+  doctitleca = "Evitar que una marca de assaig final suprimeixi el corxet d'un grup de valoració especial"

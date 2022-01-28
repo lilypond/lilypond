@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Normalment estan prohibits els salts de línia si les barres
+travessen les línies divisòries.  Es pot canviar aquest
+comportament com es mostra aquí:
+
+"
+  doctitleca = "Barres que travessen salts de línia"

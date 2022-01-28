@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+El corxet d'arpegis @code{arpeggioBracket} es pot usar per indicar
+la divisió de veus quan no hi ha pliques que puguin oferir aquesta
+informació. Se sol trobar a la múśica coral.
+
+"
+  doctitleca = "Ús de arpeggioBracket per fer més visible un divisi"

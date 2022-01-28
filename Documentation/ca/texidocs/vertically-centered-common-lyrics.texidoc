@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+A una peça vocal en la qual hi ha diverses línies de lletra (dues, quatre
+o més) i hi ha lletres comunes a totes les veus en algun punt, es
+pot fer que les lletres comunes se centrin verticalment com es
+mostra a l'exemple següent:
+
+"
+  doctitleca = "Lletra comuna centrada verticalment"

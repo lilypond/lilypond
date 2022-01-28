@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidoceca = "
+Es pot establir el separador entre les diferents parts del nom d'un
+acord perquè sigui qualsevol element del marcatge.
+
+"
+  doctitleca = "Modificació del separador d'acords"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, les síl·labes de la lletra que comencen
+un melisma s'alineen a l'esquerra sobre la seva nota corresponent.
+Es pot alterar l'alineació usant la propietat
+@code{lyricMelismaAlignment}.
+
+"
+  doctitleca = "Alineació de síl·labes amb melisma"

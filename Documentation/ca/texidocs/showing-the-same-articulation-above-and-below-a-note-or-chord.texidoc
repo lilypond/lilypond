@@ -1,0 +1,21 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, el LilyPond no permet posar la mateixa
+articulació (per exemple un accent, un calderó, un cercle d'harmònic,
+etc.) a sobre i a sota de la nota.  Per exemple, c4_\\fermata^\\fermata
+imprimeix sols el calderó inferior.  El calderó superior senzillament
+s'ignora.  No obstant, es poden adjuntar inscripcions (de igual forma
+que les digitacions) dins d'un acord, soca que significa que és
+possible tenir tantes articulacions com es vulgui.  Aquest enfocament
+té l'avantatge que ignora la plica i posiciona l'articulació de
+forma relativa al cap de la nota.  Pot veure's això en el cas dels
+flageolets (indicacions d'harmònic)) que apareixen en el fragment
+de codi.  Per recrear el comportament de les inscripcions fora de
+l'acord, es requereix 'add-stem-support.  D'aquesta manera la
+solució consisteix en escriure la nota com un acord i afegir les
+articulacions dins dels parèntesis en angle <...>.  La direcció
+sempre serà cap a dalt, però podem retocar això per mitjà d'una
+ordre \\tweak: @code{<c-\\tweak direcció #DOWN-\\fermata^\\fermata>}
+
+"
+  doctitleca = "Impressió de la mateixa articulació a sobre i a sota de la mateixa nota o acord"

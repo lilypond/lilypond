@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+L'ordre @code{\\markup} és molt versàtil.  En aquest fragment de
+codi, hi ha un bloc @code{\\score} amb una partitura completa en
+comptes de textos o altra marcatge.
+
+"
+  doctitleca = "Inserir fragments de partitures a sobre del pentagrama com elements de marcatge"

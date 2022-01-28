@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Si volem col·locar un símbol de segno de sortida i afegir text com
+@qq{D.S.  al Coda} al costat on normalment estan les línies del
+pentagrama, podem usar aquest codi.  La coda continua en una línia
+nova.  Hi ha una variant documentada en el fragment de codi, on la
+coda es manté en la mateixa línia.
+
+"
+  doctitleca = "Posicionar els símbols de repetició segno i coda (amb salts de línia)"

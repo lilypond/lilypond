@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Sovint, les partitures d'obres per a conjunts grnas tenen els
+nombres de compàs a sota del sistems i centrats horitzontalment
+sobre l'amplada del compàs.  Aquest fragment de codi mostra com
+pot usar-se el gravador @code{Measure_counter_engraver} per simular
+aquesta pràctica de notació.  Aquí hem afegit el gravador a un
+context @code{Dynamics}.
+
+"
+  doctitleca = "Nombres de compàs centrats"

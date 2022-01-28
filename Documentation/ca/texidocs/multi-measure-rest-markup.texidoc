@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 2ba2ca2073f389842aa87f85b6c740b8488f0125
+  texidocca = "
+Els elements de marcatge aplicats a un silenci multicompàs se
+centren a sobre o a sota del silenci.  Els elements de marcatge
+extensos que s'adjunten a silencis multicompàs no produeixen
+l'expansió del comàs.  Per expandir un silenci multicompàs de
+forma que càpiga tot el marcatge, utilitzeu un acord buit amb un
+marcatge aplicat abans del silenci multicompàs.
+
+El text aplicat a un silenci separador d'aquesta forma s'alinea
+per l'esquerra a la posició en la qual la nota estaria situada
+dins del compàs, però si la longitud del compàs està determinada
+per la longitud del text, el text apareixerà centrat.
+
+"
+  doctitleca = "Marcatge de silencis multicompàs"

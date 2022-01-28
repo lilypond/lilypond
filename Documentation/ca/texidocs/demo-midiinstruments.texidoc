@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Problema: com saber quin instrument MIDI @code{midiInstrument} va
+millor per a la nostra composició?  Solució: un fitxer de demostració
+del Lilygpond.
+
+"
+  doctitleca = "Demo de MidiInstruments"

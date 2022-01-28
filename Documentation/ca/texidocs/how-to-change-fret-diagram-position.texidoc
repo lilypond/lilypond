@@ -1,0 +1,20 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Si volem moure un diagrama de posicions d'acord, per exemple, per
+  evitar una col·lisió, o situar-lo entre dues notes, tenim
+  diverses possibilitats:
+
+1) modificar els valors de farciment #'padding o del desplaçament
+addicional #'extra-offset (como es mostra en el primer exemple)
+
+2) podem afegir una veu invisible i adjuntar els diagrames de
+posicions a les notes invisibles d'aquesta veu (com es veu en el
+segon exemple).
+
+Si hem de moure el diagrama segons una posició rítmica dins del
+compàs (a l'exemple, la tercera part del compàs) és millor el
+segon exemple, perquè el diagrama s'alinea amb la tercera pulsació
+per si sol
+
+"
+  doctitleca = "Com canviar la posició d'un diagrama de posicions"

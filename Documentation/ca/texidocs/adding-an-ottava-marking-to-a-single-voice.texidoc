@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si teniu més d'una veu al mateix pentagrama, el canvi d'octavació
+d'una veu transportarà la posició de les notes en totes les veus
+mentre duri la clau de l'octava.  Si l'octavació es vol aplicar
+sols a una veu, s'han d'ajustar explícitament la middleCPosition i
+la clau d'octava.  En aquest fragment de codi el valor de
+middleCPosition per a la clau de Fa és normalment 6, sis posicions
+per sobre de la línia del Do central, de manera que en la porció
+de 8va el valor de middleCPosition és encara 7 posicions (una
+octava) més alta.
+
+"
+  doctitleca = "Afegir una indicació d'octava alta a una sola veu"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden seleccionar dos mètodes alternatius per a la numeració de
+compassos, especials quan hi ha repeticions.
+
+"
+  doctitleca = "Numeració de compassos alternativa"

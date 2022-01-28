@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+El glif de la marca de respiració es pot ajustar sobreescrivint la
+propietat de text de l'objecte de presentació @code{BreathingSign},
+amb qualsevol altre text de marcatge.
+
+"
+  doctitleca = "Canviar el símbol de la marca de respiració"

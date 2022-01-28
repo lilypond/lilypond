@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+L'eina de combinació de parts (ordre @code{\\partcombine}) permet la
+combinació de diverses parts diferents sobre el mateix pentagrama.
+Les indicacions textuals com ara @qq{solo} o @qq{a2} s'afegeixen de
+forma predeterminada; per treure-les, senzillament heu d'establir la
+propietat @code{printPartCombineTexts} al valor @qq{fals}.  Per a
+partitures vocals (com himnes), no cal afegir els textos @qq{solo}
+o @qq{a2}, per la qual cosa s'han de deshabilitar.  No obstant, podria
+ser millor no usar-lo si hi ha solos, perquè no s'indicaran.  En
+aquests casos podria ser preferible la notació polifònica estàndard.
+
+Aquest fragment de codi presenta les tres formes en las quals es poden
+imprimir dues parts sobre un sol pentagrama: polifonia estàndard,
+@code{\\partcombine} sense textos, i @code{\\partcombine} amb
+texts.
+
+"
+  doctitleca = "Combinar dues parts sobre el mateix pentagrama"

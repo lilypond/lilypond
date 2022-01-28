@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 43e591c72387cd624d98ed48f63cfc063d857359
+  texidocca = "
+Aquest exemple mostra com pot definir-se el gravador d'àmbit o
+tessitura  a l'espai de l'usuari, com un gravador de l'Scheme.
+
+Això és bàsicament una reescriptura en l'Scheme del codi de
+@file{lily/ambitus-engraver.cc}.
+
+"
+  doctitleca = "Definir un gravador en l'Scheme: gravador d'àmbit o tessitura"

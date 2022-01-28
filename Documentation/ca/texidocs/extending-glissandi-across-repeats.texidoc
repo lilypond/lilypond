@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+Es pot simular un glissando que s'estén fins a l'interior de diversos
+blocs @code{\alternative} de primera i segona vegada mitjançant
+l'addició d'una nota d'adorn oculta amb un glissando al començament de
+cada bloc @code{\alternative}.  La nota d'adorn ha d'estar a la
+mateixa alçada que la nota que dona inici al primer glissando.,  Això
+s'implementa aquí amb una funció musical que agafa com a argument
+l'altura de la nota d'adorn.
+
+Observeu que a la música polifònica la nota d'adorn ha de coincidir amb
+les notes d'adorn corresponents en totes les altres veus.
+
+"
+  doctitleca = "Estendre glissandos sobre repeticions"

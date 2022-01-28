@@ -1,0 +1,22 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidoca = "
+Aquest codi mostra com retallar (extraure) fragments a partir d'una
+partitura completa.
+
+Aquest fitxer s'ha de processar de forma separada amb l'opció
+@option{-dclip-systems}; la pàgina de fragments de codi podria no
+mostrar el resultat adequadament.
+
+La sortida consisteix en fitxers amb els noms
+@samp{base-from-inici-to-final[-número].eps}.
+
+Si s'inclouen els començament i finals dels sistemes, inclouen les
+dimensions del grob del sistema, per exemple els noms d'instrument.
+
+Les notes d'adorn en el punt final de la regió no s'inclouen.
+
+Les regions poden abastar diversos sistemes.  En aquest cas, es
+generen diversos fitxers EPS.
+
+"
+  doctitleca = "Retallada de sistemes"

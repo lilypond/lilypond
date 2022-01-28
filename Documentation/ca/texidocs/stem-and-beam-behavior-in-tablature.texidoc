@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La direcció de les pliques es controla de la mateixa forma a la
+tabulatura que en la notació tradicional.  Les barres es poden
+posar horitzontals, com es mostra en aquest exemple.
+
+"
+  doctitleca = "Comportament de les pliques i les barres de corxera en tabulatures"

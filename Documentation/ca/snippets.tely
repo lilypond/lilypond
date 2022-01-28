@@ -1,0 +1,149 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: 69f0ec479a6ade46d0a227755bb02562112c6743
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Walter Garcia-Fontes
+
+@setfilename lilypond-snippets.info
+@settitle Fragments del LilyPond
+@documentencoding UTF-8
+@documentlanguage ca
+@afourpaper
+
+@macro manualIntro
+
+Aquest document mostra un conjunt seleccionat de fragments del
+Lilypond del
+@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  Està en el domini públic.
+
+Voldríem donar moltes gràcies a Sebastiano Vigna per mantenir la
+pàgina web i la base de dades LSR, i a la Universitat de Milà per
+allotjar LSR.
+
+Si us plau noteu que aquest document no és un subconjunt exacte
+del LSR: alguns fragments provenen del directory de codi Lilypond
+@file{input/new}, i els fragments del LSR es converteixen mitjançant
+@command{convert-ly}, atès que el LSR es basa en una versió
+estable del LilyPond, i aquest document és per a la versió @version{}.
+
+Els fragments estan agrupats per etiquetes; les etiquetes
+llistades a la taula de continguts concorden amb una secció del
+manual de notació del LilyPond.  Els fragments poden tenir moltes
+etiquetes, i no totes les etiquetes del LSR poden aparèixer en
+aquest document.
+
+A la versió HTML d'aquest document podeu clicar sobre el nom del
+fitxer o figura per a cada exemple per veure el fitxer d'entrada
+corresponent.
+
+@end macro
+
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2021 pels autors.
+@end macro
+
+@c This disables @lydoctitle definition in common-macros.itexi
+@set snippets-sections
+
+@include es/macros.itexi
+
+@ifnothtml
+@macro nodeprefix{PRE}
+@end macro
+@macro lydoctitle{TEXT}
+@unnumberedsec \TEXT\
+@end macro
+@end ifnothtml
+
+@ifhtml
+@macro nodeprefix{PRE}
+@unmacro lydoctitle
+@macro lydoctitle{TEXT}
+@unnumberedsec \\TEXT\\
+@end macro
+@end macro
+@end ifhtml
+
+
+@lilyTitlePage{Fragments}
+
+
+@c maybe generate/update @menu and @includes automatically? --jm
+@ifnottex
+@menu
+Notació musical
+* Pitches::                Altures
+* Rhythms::                Ritmes
+* Expressive marks::       Marques expressives
+* Repeats::                Repeticions
+* Simultaneous notes::     Notes simultànies
+* Staff notation::         Notació de pentagrama
+* Editorial annotations::  Notació editorial
+* Text::                   Text
+
+Notació especialitzada
+* Vocal music::            Música vocal
+* Chords::                 Acords
+* Keyboards::              Teclats
+* Percussion::             Percussió
+* Fretted strings::        Cordes amb trastos
+* Unfretted strings::      Cordes sense trastos
+* Winds::                  Vent
+* Ancient notation::       Notació antiga
+* World music::            Música del món
+
+Altres col·leccions
+* Contexts and engravers:: Contextos i gravadors
+* Tweaks and overrides::   Ajustos i sobreescriptures
+* Paper and layout::       Paper i disposició
+* Titles::                 Títols
+* Spacing::                Espaiat
+* MIDI::                   MIDI
+* Templates::              Plantilles
+@end menu
+
+@docMain
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c Please take care of naming every .itely
+@c with an existing tag name.
+
+@include snippets/pitches.itely
+@include snippets/rhythms.itely
+@include snippets/expressive-marks.itely
+@include snippets/repeats.itely
+@include snippets/simultaneous-notes.itely
+@include snippets/staff-notation.itely
+@include snippets/editorial-annotations.itely
+@include snippets/text.itely
+
+@include snippets/vocal-music.itely
+@include snippets/chords.itely
+@include snippets/keyboards.itely
+@include snippets/percussion.itely
+@include snippets/fretted-strings.itely
+@include snippets/unfretted-strings.itely
+@include snippets/winds.itely
+@include snippets/ancient-notation.itely
+@include snippets/world-music.itely
+
+@include snippets/contexts-and-engravers.itely
+@include snippets/tweaks-and-overrides.itely
+@include snippets/paper-and-layout.itely
+@include snippets/titles.itely
+@include snippets/spacing.itely
+@include snippets/midi.itely
+@include snippets/template.itely
+
+@bye

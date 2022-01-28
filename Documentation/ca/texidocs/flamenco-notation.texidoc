@@ -1,0 +1,34 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Per a la guitarra flamenca s'utilitzen certs elements de notació especials:
+
+@itemize
+
+@item un símbol per indicar un cop sobre la caixa de la guitarra
+amb l'artell del dit anular
+
+@item una fletxa per indicar la direcció dels rasguejos
+
+@item diferents lletres per a les digitacions (@qq{p}: polze, @qq{i}:
+índex @qq{m}: mig, @qq{a}: anular y @qq{x}: petit)
+
+@item Rasguejos de 3 i quatre dits: cap amunt amb tots els dits
+i acabant amb amunt i avall amb l'índex
+
+@item ventalls: rasguejos en sèrie amb el polze, cap avall i el
+petit i l'índex cap amunt (hi ha també un ventall 2 en el qual
+els dits mig i anular s'usen enlloc del petit)
+
+@item alça pua: pulsacions ràpides amb el polze
+
+@end itemize
+
+Gairebé totes les figures utilitzen fletxes combinades amb
+digitacions; amb els ventalls i els rasguejos, les notes
+s'imprimeixen amb cap sol al primer acord.
+
+Aquest fragment de codi conté codi de tipus capçalera que es pot
+copiar com @file{flamenco.ly} i incloure's en els documents font.
+
+"
+  doctitleca = "Notació del flamenco"

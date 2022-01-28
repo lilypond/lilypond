@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Quan una nota amb puntet a la veu superior es mou per evitar la
+col·lisió amb una nota de una altra veu, el comportament
+predeterminat és desplaçar la nota superior a la dreta.  Es pot
+canviar usant la propietat @code{prefer-dotted-right} de
+@code{NoteCollision}.
+
+"
+  doctitleca = "Desplaçament de les notes amb puntet en polifonia"

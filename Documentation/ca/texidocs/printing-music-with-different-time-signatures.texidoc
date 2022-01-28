@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En el següent fragment de codi, dues parts diferents tenen un compàs
+completament diferent i malgrat això es mantenen sincronitzades.  Les
+barres de compàs ja no es poden imprimir en el nivell de @code{Score};
+per permetre barres de compàs independents en cada part es tralladen
+els gravadores @code{Default_barline_engraver} i
+@code{Timing_translator} des del context de partitura @code{Score}
+fins el context de pentagrama @code{Staff}.
+
+Si calen nombres de compàs, el gravador de nombres de compàs
+@code{Bar_number_engraver} també s'ha de traslladar, ja que descansa
+en propietat fixades pel @code{Timing_translator}; es pot usar un bloc
+@code{\\with} per afegir nombres de compàs al pentagrama apropiat.
+
+"
+  doctitleca = "Impressió de música que tingui compassos en cada pentagrama"

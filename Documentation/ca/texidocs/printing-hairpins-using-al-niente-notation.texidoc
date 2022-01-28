@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden imprimir reguladores amb un cercle en la punta (notació 
+«al niente») establint la propietat @code{circled-tip} de l'objecte
+@code{Hairpin} al valor @code{#t}.
+
+"
+  doctitleca = "Impressió de reguladors utilitzant la notació «al niente»"

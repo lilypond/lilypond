@@ -1,0 +1,18 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Per fer invisibles parts d'un regulador de crescendo, s'usa el
+mètode de dibuixar un rectangle blanc a sobre de la respectiva
+del regulador, tapant-la.  El rectangle es defineix com codi de
+postscript dins d'un element de marcatge de text.
+
+L'ordre de marcatge @code{with-dimensions} indica al LilyPond que
+consideri sols l'extrem inferior del rectangle quan realitzi
+l'espaiat d'aquest rectangle frente al regulador.  La propietat
+@code{staff-padding} evita que el rectangle càpiga entre el regulador
+i el pentagrama.
+
+Assegureu-vos que el regulador està a una capa més baixa que l'element
+de marcatge de text per traçar el rectangle a sobre del regulador.
+
+"
+  doctitleca = "Regulador interromput"

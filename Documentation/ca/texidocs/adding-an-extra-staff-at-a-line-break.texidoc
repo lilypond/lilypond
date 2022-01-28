@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En afegir un pentagrama nou a un salt de línia, per desgràcia
+s'afegeix un espai addicional al final de la línia abans del
+salt (reservat per fer lloc a un canvi d'armadura que de totes
+formes no s'imprimirà). La solució alternativa és afegir un
+ajustament per a @code{Staff.explicitKeySignatureVisibility}
+com es mostra a l'exemple.
+
+"
+  doctitleca = "Afegir un pentagrama addicional a un salt de línia"

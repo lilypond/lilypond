@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els temps que se salten a glissandos molt llargs s'indiquen a vegades
+mitjançant marques de temps, que sovint consisteixen en figures sense
+cap.  Aquestes pliques es poden usar també per allotjar indicacions
+expressives intermèdies.
+
+Si les pliques no queden ben alineades amb el glissando, podria caldre
+recol·locar-les lleugerament.
+
+"
+  doctitleca = "Afegir marques de temps a glissandos llargs"

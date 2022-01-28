@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada se suprimeix el nombre de compàs del primer
+compàs d'una partitura si és més petit o igual a @q{1}.  En establir
+el valor de @code{barNumberVisibility} a
+@code{all-bar-numbers-visible}, es pot imprimir qualsevol nombre de
+compàs per al primer compàs i tots els següents.  Observeu que, perquè
+això funcioni, s'ha d'inserir una línia divisòria buida abans de la
+primera nota.
+
+"
+  doctitleca = "Impressió del nombre de compàs al primer compàs"

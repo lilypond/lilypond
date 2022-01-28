@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+A diferència de les inscripcions de text, les lletres d'assaig no
+es poden apilar en un punt concret de la partitura: sols es crea
+un objecte @code{RehearsalMark}.  Utilitzant un compàs i una línia
+divisòria invisibles es pot crear una nova marca d'assaig, donant
+l'aparença de dues marques a la mateixa columna.
+
+Aquest mètode també pot resultar útil per col·locar marques
+d'assaig tant al final d'un sistema com al començament del sistema
+següent.
+
+"
+  doctitleca = "Creació de marques d'assaig simultànies"

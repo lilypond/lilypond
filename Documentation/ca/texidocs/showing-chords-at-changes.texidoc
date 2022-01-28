@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden imprimir els acords exclusivament al començament de les
+línies i quan canvia l'acord.
+
+"
+  doctitleca = "Imprimir els acords quan es produeix un canvi"

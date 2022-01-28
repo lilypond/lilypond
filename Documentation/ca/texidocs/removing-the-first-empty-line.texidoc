@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+El primer pentagrama buit també es pot suprimir de la partitura
+establint la propietat @code{remove-first} de
+@code{VerticalAxisGroup}.  Això es pot fer globalment dins del bloc
+@code{\\layout}, o localment dins del pentagrama concret que es vol
+suprimir.  En aquest últim cas, hem d'especificar el contex
+(@code{Staff} s'aplica sols al pentagrama actual) davant de la
+propietat.
+
+El pentagrama inferior del segon grup no s'elimina, perquè
+l'ajustament sols s'aplica al pentagraa concret dins del que
+s'escriu.
+
+"
+  doctitleca = "Supressió de la primera línia buida"

@@ -1,0 +1,6 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Per afegir digitacions a les tabulatures, utilitzeu una combinació de
+@code{\\markup} i @code{\\finger}.
+"
+  doctitleca = "Afegir digitacions a les tabulatures"

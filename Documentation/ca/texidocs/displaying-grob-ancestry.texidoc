@@ -1,0 +1,50 @@
+%% Translation of GIT committish: 66944d2d921889a3c45ef0db23171a9f48a46825
+  texidocca = "
+En treballar amb les crides d'un grob, pot ser de molta utilitat
+entendre  l'arbre genealògic d'un grob.  La major part dels grobs
+tenen pares que influeixen en el posicionament del grob.  Els
+pares X i Y influeixen en les posisions horitzontal i vertical del
+grob, respectivament.  A més, cada pare pot tenir al seu cop pares.
+
+Desafortunadament, hi ha diversos aspectes de la geneaologia d'un
+grob que pot portar a confusió:
+
+* Els tipus de pare que té un grob poden dependre del context.
+
+* Per a certs grobs, els pares X i Y són el mateix.
+
+* Un \"ancestre\" concret pot estar relacionat amb un grob de més
+d'una manera.
+
+* El concepte de \"generacions\" és enganyós.
+
+
+Por exemple, el grob @code{System} pot ser tant un pare (sobre la
+vorfa Y) com un avi (dues vegades a la vora X) d'un grob
+@code{VerticalAlignment}.
+
+
+Aquest macro imprimeix, en la consola, una representació textual
+de la genealogia d'un grob.
+
+Quan es crida d'aquesta forma:
+
+@code{@{ \\once \\override NoteHead.before-line-breaking =
+#display-ancestry c @}}
+
+Es general la sortida següent:
+
+
+@code{NoteHead X,Y: NoteColumn
+     X: PaperColumn
+        X,Y: System
+     Y: VerticalAxisGroup
+        X: NonMusicalPaperColumn
+           X,Y: System
+        Y: VerticalAlignment
+           X: NonMusicalPaperColumn
+              X,Y: System
+           Y: System}
+
+"
+  doctitleca = "Imprimir l'arbre genealògic d'un grob"

@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La propietat @code{measureLength}, junt amb
+@code{measurePosition}, determina quan cal dibuixar una línia
+divisòria.  No obstant, en utilitzar @code{\\scaleDurations},
+l'escalat proporcional de les duracions fa difícil introduir
+canvis de compàs.  En aquest cas s'ha d'establir manualment el
+valor de @code{measureLength} utilitzant la funció
+@code{ly:make-moment}.  El segon argument ha de ser el mateix que
+el segon artgument de @code{\\scaleDurations}.
+
+"
+  doctitleca = "Modificar el compàs d'una secció polimètrica utilitzant @code{\\scaleDurations}"

@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+L'orden vertical que ocupen les inscripcions gràfiques està
+controlat amb la propietat @code{'script-priority}. Quant més baix
+és aquest número, més a prop de la nota es col·locarà.  En aquest
+exemple, el @code{TextScript} (el sostingut) té primer la
+prioritat més baixa, per la qual cosa se situa en la posició més
+baixa al primer exemple.  En el segon, el semitrí (el
+@code{Script}) és el que la té més baixa, per la qual cosa se
+situa en la part interior.  Quan dos objectes tenen la mateixa
+prioritat, l'ordre en el qual s'introdueixen determina quin serà
+el que apareix en primer lloc.
+
+"
+  doctitleca = "Controlar l'ordenació vertical de les inscripcions"

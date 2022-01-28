@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden imprimir marques al final de la línia actual, en comptes de
+al principi de la línia següent.  En aquests casos, pot ser preferible
+alinear la vora dreta de la marca amb la línia divisòria.
+
+"
+  doctitleca = "Impressió de marques al final de la línia"

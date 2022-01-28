@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden moure les línies de lletra verticalment per imprimir-les dins
+del pentagrama.  Les lletres es mouen amb @code{\\override
+  LyricText.extra-offset = #'(0 . dy)} i hi ha instruccions per
+moure les línies d'extensió i els guions.  El desplaçament necessari
+s'estableix mitjançant un procés d'assaig i error.
+
+"
+  doctitleca = "Posar lletra dins del pentagrama"
+

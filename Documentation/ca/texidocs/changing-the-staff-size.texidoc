@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Tot i que la manera més senzilla de redimensionar els pentagrames és
+usar @code{#(set-global-staff-size xx)}, la mida d'una pauta
+individual es pot canviar escalant les propietats de
+@code{'staff-space}  i de @code{fontSize}.
+
+"
+  doctitleca = "Modificar la mida de la pauta"

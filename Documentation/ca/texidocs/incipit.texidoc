@@ -1,0 +1,13 @@
+%% Translation of GIT committish: c4b122bf88e2aff20df5f85130e67aab73f7c5bf
+  texidocca = "
+
+En transcriure música mensural, és útil posar un incipit al
+començament de la peça per indicar la tonalitat i el compàs
+originals.  Actualment els músics estan acostumats a les línies
+del pentagrama, però en el període de la música mensural encara no
+s'utilitzaven.  Com a compromís, amb freqüència s'imprimeixen
+línies divisòries entre els pentagrames, un estil de disseny
+conegut com mensurstriche.
+
+"
+  doctitleca = "Incipit"

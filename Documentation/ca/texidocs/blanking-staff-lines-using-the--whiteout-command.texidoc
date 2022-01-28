@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 85559b2545524db25e44ef7360aff31cbc85e191
+  texidocca = "
+L'ordre @code{\\whiteout} intercala un rectangle blanc a sota
+d'un element de marcatge.  Aquest rectangle blanc no tapa a cap
+altre objecte gràfic, atès que les línies del pentagrama
+estan en una capa inferior a la de la major part dels altres
+objectes.
+
+"
+  doctitleca = "Posar en blanc les línies del utilitzant l'ordre \\whiteout"

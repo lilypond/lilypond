@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 1010f574a85b40fb70e0b31136e7eb788e4946be
+  texidocca = "
+Quan ja s'ha imprimit la clau i encara no s'ha canviat a una
+diferent, el LilyPond ignorarà la repetició de l'ordre
+@code{\\clef}, ja que no constitueix un canvi de clau.  És
+possible forçar la reimpressió de la clau usant l'ordre @code{\\set
+Staff.forceClef = ##t}.
+
+"
+  doctitleca = "Forçar la impressió de la clau"

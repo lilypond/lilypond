@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Aquesta plantilla mostra un quartet de corda normal.  També utilitza
+una secció @code{\\global} per al compàs i l'armadura.
+
+"
+  doctitleca = "Plantilla de quartet de cordas (senzilla)"

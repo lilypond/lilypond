@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+Es poden fer que les barres secundàries apuntin en la direcció del
+pols o fracció a que pertanyen.  La primera barra evita els corxets
+aïllats (que és el comportament predeterminat); la segona barra
+segueix el pols o fracció estrictament.
+
+"
+  doctitleca = "Barres que respecten el pols estrictament"

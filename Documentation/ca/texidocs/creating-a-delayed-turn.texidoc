@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La creació d'un grupet circular d'anticipació entre dues notes, on
+la nota inferior del grupet utilitza una alteració, requereix
+diverses sobreescriptures de propietats.  La propietat
+@code{outside-staff-priority} es pot establir al valor @code{#f},
+atès que en aquest cas tindria prioritat sobre la propietat
+@code{avoid-slur property}.  Canviant les fraccions @code{2/3} i
+@code{1/3} pot ajustar-se la posició horitzontal.
+
+"
+  doctitleca = "Crear un grupet d'anticipació"

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En establir la propietat @code{'strict-grace-spacing} fem que les
+columnes musicals per a les notes d'adorn siguin @q{flotants}, és a
+dir, desacoblades de les notes que no són d'adorn: primer s'aplica
+l'espaiat de les notes normals, i després es posen les columnes
+musicals de les notes d'adorn a l'esquerra de les columnes musicals de
+les notes principals.
+
+"
+  doctitleca = "Posicionament de les notes d'adorn amb espai flotant"

@@ -1,0 +1,25 @@
+%% Translation of GIT committish: db22ad98af264b424e36b161c23fed43111b5c8a
+  doctitleca = "Ajustament de les propietats de clau"
+  texidocca = "
+La modificació del glif de la clau, la seva posició o octava, no
+canvien 'per se' la posició de les notes següents del
+pentagrama. Per aconseguir armadures adequades de tonalitat sobre
+les línies del pentagrama, s'ha d'especificar també
+@code{middleCClefPosition}, amb valor positius o negatius que
+moguin @code{Do central} cap amunt o cap avall, respectivament, en
+relació amb la línia central del pentagrama (usualment la
+tercera).
+
+Per exemple, l'ordre @code{\\clef \"treble_8\"} equival a un
+ajustament de @code{clefGlyph}, @code{clefPosition} (que controla
+la posició vertical de la clau sobre el pentagrama),
+@code{middleCPosition} i @code{clefTransposition}.  Se imprimeix
+la clau cada cop que es modifica qualsevol de les propietats
+excepte @code{middleCPosition}.
+
+Els exemple següents mostren les possibilitats quan s'ajusten
+aquestes propietats manualment.  En la primera línia, els canvis
+manuals preserven la posició relativa estàndard de les clau i les
+notes, però no ho fan a la segona línia.
+
+"

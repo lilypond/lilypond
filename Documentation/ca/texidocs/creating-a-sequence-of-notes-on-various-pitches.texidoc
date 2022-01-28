@@ -1,0 +1,12 @@
+%% Translation of GIT committish: e115f1949f9f63d5faee3369fbf2094c54966f9f
+  texidocca = "
+En una música que tingui moltes aparicions de la mateixa seqüència
+de notes a diferents altures, podria ser d'utilitat la següent
+funció musical.  Admet una nota, de la qual sols s'utilitza la
+seva alçada.  Les funcions de suport a l'Scheme s'han agafat
+prestades del document de \"Consells i ajustament\" de la versió
+2.10 del manual.  Aquest exemple crea les duracions rítmiques que
+s'usen a tot el llarg de «Mart», de «Els Planetes» de Gustav Holst.
+
+"
+  doctitleca = "Crear una seqüència de notes a diferents alçades"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0bed3bc9d8ad506e51c02faf95715e584e4bc335
+  texidocca = "
+Aquest fragment de codi defineix les ordres
+@code{\\splitStaffBarLine}, @code{convUpStaffBarLine} i
+@code{convDownStaffBarLine}, que afegeix una fletxa doble a
+l'últim compàs d'un pentagrama, indicant que les diverses veus
+disposaran d'un pentagrama propi a la línia següent.
+
+"
+  doctitleca = "Afegir indicadors als pentagrames que es divideixen després d'un salt de línia"

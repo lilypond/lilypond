@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot fer que els diagrames de posicions es mostren sols quan l'acord
+canvia o al començament d'una nova línia.
+
+"
+  doctitleca = "Canvis d'acord de posicions de trastos"

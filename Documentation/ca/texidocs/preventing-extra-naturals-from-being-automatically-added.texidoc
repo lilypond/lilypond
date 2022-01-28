@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Evitar que s'afegeixen becaires addicionals automàticament"
+  texidocca = "
+Segons les regles tradicionals de composició tipogràfica, s'imprimeix
+un becaire abans d'un sostingut o un bemoll quan s'ha de cancel·lar
+un doble sostingut o un doble bemoll anterior en la mateixa nota.  Per
+modificar aquest comportament a la pràctica actual establiu el valor
+de la propietat @code{extraNatural} a @code{##f} (fals) dins del
+context de @code{Staff}.
+
+"

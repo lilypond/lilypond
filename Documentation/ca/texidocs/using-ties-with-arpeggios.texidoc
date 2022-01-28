@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Ús de les lligadures als arpegis"
+  texidocca = "
+Algunes vegades s'usen lligadures d'unió per escriure els
+arpegis. En aquest cas, les dues notes lligades no han de ser
+consecutives.  Això es pot aconseguir establint la propietat
+@code{tieWaitForNote} al valor @code{#t}.  La mateixa
+funcionalitat és d'utilitat, per exemple, per lligar un tremol a
+un acord, però en principi també es pot usar per a notes normals
+consecutives.
+l
+"

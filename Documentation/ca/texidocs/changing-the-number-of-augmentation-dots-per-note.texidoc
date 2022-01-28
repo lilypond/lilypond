@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La quantitat de puntets d'una nota es pot modificar
+independentment dels puntets que s'escriuen després d'una nota.
+
+"
+  doctitleca = "Modificar el nombre de puntets d'una nota"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+És possible exercir un control més gran sobre la col·locació de les
+digitacions de la mà dreta establint el valor d'una propietat
+específica, com es mostra a l'exemple següent.  Nota: s'ha d'usar una
+construcció d'acord.
+
+"
+  doctitleca = "Posicionament de digitacions de mà dreta"

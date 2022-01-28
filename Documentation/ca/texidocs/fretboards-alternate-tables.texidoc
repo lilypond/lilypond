@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden crear taules alternatives de diagrames de posicions.
+S'utilitzarien per tenir diagrames alternatius per un acord donat.
+
+Per usar una taula alternativa de diagrames de posicions, s'ha de
+crear primer la taula.  Després s'afegeixen els diagrames a la taula.
+
+La taula de diagrames de posicions que es crea pot estar buida o es
+pot copiar a partir d'una taula existent.
+
+La taula a usar en la impressió dels diagrames predefinits se
+selecciona per mitjà de la propietat @code{\\predefinedDiagramTable}.
+
+"
+  doctitleca = "Taules alternatives de diagrames de posicions"

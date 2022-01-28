@@ -1,0 +1,18 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+Als fulls guia d'acords o fulls guia @qq{senzilles}, a vegades no
+s'imprimeix realment cap nota, i en el seu lloc es fa una notació
+que té sols @qq{patrons rítmics} i acords a sobre dels compassos,
+donant l'estructura de la cançó. Aquesta funcionalitat és útil, per
+exemple, en crear o transcriure l'estructura d'una cançó i també
+si es volen compartir els fulls guia amb guitarristes o músics de
+jazz.  La forma estàndard en la qual hi ha suport per a aquesta
+modalitat usant @code{\\repeat percent} no és adequada aquí perquè
+el primer compàs hauria de ser una nota o silenci normals.  Aquest
+exemple mostra dues solucions al problema, redefinint els silencis
+normals perquè s'imprimeixin com a barres inclinades (si la duració
+de cada pols no és una negra, substituirem el @code{r4} que apareix
+a les definicions amb un silenci de la duració adequada).
+
+"
+  doctitleca = "Barres rítmiques"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquesta plantilla senzilla prepara un pentagrama amb notes,
+adequat per a un instrument solista o un fragment
+melòdic. Talleu-lo i pegueu-lo a un fitxer, escriviu les notes,
+i ja està!
+
+"
+  doctitleca = "Plantilla d'un sol pentagrama, amb notes únicament"

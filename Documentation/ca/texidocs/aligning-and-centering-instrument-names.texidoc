@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+L'alineació horitzontal dels noms d'instruments es pot ajustar
+modificant la propietat @code{Staff.InstrumentName #'self-alignment-X}.
+Les variables de @code{\\layout}, @code{indent} i @code{short-indent}
+defineixen l'espai en el qual s'alineen els noms d'instrument abans
+del primer sistema i dels següents, respectivament.
+
+"
+  doctitleca = "Alinear i centrar els noms dels instruments"

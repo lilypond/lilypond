@@ -1,0 +1,22 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Aplicar estils de cap segons la nota de l'escala"
+  texidocca = "
+La propietat @code{shapeNoteStyles} es pot usar per definir diversos
+estils de caps de nota per a cada grau de l'escala (segons estigui
+establert per l'armadura o per la propietat @code{tonic}).  Aquesta
+propietat requereix un conjunt de símbols, que poden ser purament
+arbitraris (es permeten expressions geomètriques com @code{triangle},
+triangle, @code{cross}, aspes, i @code{xcircle}, cercle amb aspes) o
+basats en una antiga tradició americana de gravat (també es permeten
+certs noms de nota llatins).
+
+Dit això, per imitar antics cançoners americans, hi ha diversos
+estils predefinits de caps de nota disponibles mitjançant ordres
+d'abreviatura com @code{\\aikenHeads} o @code{\\sacredHarpHeads}.
+
+Aquest exemple mostra diferents formes d'obtenir caps de nota amb
+forma i mostra la capacitat de transportar una melodia sense perdre
+la correspondència entre les funcions harmòniques i els estils de
+caps de nota.
+
+"

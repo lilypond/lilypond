@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Quan el cap d'una nota amb una forma especial no es pot generar
+fàcilment mitjançant elements de marcatge gràfic, es pot usar codi
+de Postscript per generar la forma.  Aquest exemple mostra com es
+genera un cap en forma de paral·lelogram.
+
+"
+  doctitleca = "Ús del llenguatge PostSript per generar caps de nota de formes especials"

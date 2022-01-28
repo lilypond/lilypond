@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot modificar el text empleat per als crescendos i decrescendos
+modificant les propietats de context @code{crescendoText} i
+@code{decrescendoText}.
+
+L'estil de la línia d'extensió es pot canviar modificant la propietat
+@code{'style} de @code{DynamicTextSpanner}.  El valor predeterminat és
+@code{'dashed-line} (línia discontínua), i entre d'altres valors
+possibles es troben @code{'line} (línia), @code{'dotted-line} (línia
+de punts) i @code{'none} (res):
+
+"
+  doctitleca = "Canviar el text i els estils d'objecte d'extensió per a les indicacions dinàmiques textuals"

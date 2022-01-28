@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden traçar línies verticals normals entre pentagrames per
+mostrar la relació entre notes; malgrat això, en cas de música
+monofònica, podem fer invisible el segon pentagrama, i que les
+línies siguin més curtes, com en aquest fragment de codi.
+
+"
+  doctitleca = "Línies de reixeta: destacar ritmes i la relació temporal entre notes"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+  texidocca = "
+L'exemple següent mostra com crear un marcatge dinàmic, que no està
+inclòs a llista predeterminada, i assignar-lo a un valor específic
+de manera que es pugui usar per afectar la sortida MIDI.
+
+A la marca dinàmica @code{\\rfz} se li assigna un valor de @code{0.9}.
+
+"
+  doctitleca = "Creació de marques dinàmiques a la sortida MIDI"

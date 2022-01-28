@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquest fragment de codi basat en l'Scheme genera 24 notes aleatòries
+(o tantes com calguin), basant-se en l'hora actual (o en qualsevol
+nombre pseudo-aleatori que s'especifiqui en el seu lloc, per obtenir
+les mateixes notes aleatòries cada cop): és a dir, per obtenir
+diferents patrons de notes, sols ha de modificar aquest número.
+"
+  doctitleca = "Generació de notes aleatòries"

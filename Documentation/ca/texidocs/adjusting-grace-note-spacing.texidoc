@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden ajustar la separació entre les notes d'adorn utilitzant
+la propietat @code{spacing-increment} de @code{Score.GraceSpacing}.
+
+"
+  doctitleca = "Ajustament d'espaiat de les notes d'adorn"

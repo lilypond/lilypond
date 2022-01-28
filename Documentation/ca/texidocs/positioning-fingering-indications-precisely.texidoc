@@ -1,0 +1,10 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Generalment, les opcions disponibles per a la digitació dels acords
+funciona bé de forma predeterminada, però si una de les indicacions
+precisa col·locar-se de forma més exacta pot usar-se l'ajustament
+següent.  Això és especialment útil per corregir el posicionat quan
+hi ha intervals de segona.
+
+"
+  doctitleca = "Posicionament precís d'indicacions de digitació"

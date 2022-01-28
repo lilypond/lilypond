@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+   Aquest exemple mostra una forma de simplificar l'addició de
+moltes notes guia orquestrals a la reducció de piano a una partitura vocal.
+La funció musical @code{\\cueWhile} agafa quatre arguments: la
+música de la qual es pren la citació, com ve definida per
+@code{\\addQuote},  el nom a inserir abans de la notes guia, i
+després @code{#UP} o @code{#DOWN} per especificar @code{\\voiceOne}
+amb el nom a sobre del pentagrama o bé @code{\\voiceTwo} amb el  nom
+a sota del pentagrama, i finalment la música de piano amb la qual les
+notes guia han d'aparèixer en paral·lel.  El nom de l'instrument
+citat es posiciona a l'esquerra de les notes guia.   Es poden
+citar molts passatges com a guia, però no es poden superposar en
+el temps entre ells.
+
+"
+  doctitleca = "Afegir notes guia orquestrals a una partitura vocal"

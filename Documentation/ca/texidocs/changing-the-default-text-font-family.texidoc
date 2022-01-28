@@ -1,0 +1,7 @@
+%% Translation of GIT committish: c4c1512a79d84d8d1acffa663c588b617a4dead8
+  texidocca = "
+Les famílies de tipus de lletra per al text es poden sobreescriure amb
+@code{make-pango-font-tree}.
+
+"
+  doctitleca = "Canviar la família de tipus de lletra predeterminada per al text"

@@ -1,0 +1,30 @@
+%% Translation of GIT committish: ca342a542bee6a28662c88b497819c86f904fb40
+  doctitleca = "Transposició de la música amb el menor nombre d'alteracions"
+  texidocca = "
+Aquest exemple utilitza codi de l'Scheme per forçar les
+modificacions enharmòniques de les notes, i així tenir el menor
+nombre d'alteracions accidentals.  En aquest cas s'apliquen les
+regles següents:
+
+@itemize
+@item
+Es treuen les alteracions dobles
+
+@item
+Si sostingut -> Do
+
+@item
+Mi sostingut -> Fa
+
+@item
+Do bemoll -> Si
+
+@item
+Fa bemoll -> Mi
+
+@end itemize
+
+D'aquesta forma se selecciona el major nombre de notes
+enharmòniques naturals.
+
+"

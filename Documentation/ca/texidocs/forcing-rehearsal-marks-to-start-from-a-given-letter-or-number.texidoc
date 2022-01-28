@@ -1,0 +1,8 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Aquest fragment de codi mostra com obtenir marques d'assaig
+ordenades automàticament, però partint de la lletra o nombre
+desitjat.
+
+"
+  doctitleca = "Forçar que les marques d'assaig comencin en una lletra o nombre donats"

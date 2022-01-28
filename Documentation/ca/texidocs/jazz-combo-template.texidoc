@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Això és una plantilla força avançada, per a un conjunt de jazz.
+Observeu que la notació de tots els instruments està a
+@code{\\key c \\major} (Do major). Això es refereix al to de
+concert; l'armadura es transporta automàticament si la música està
+dins d'una secció @code{\\transpose}.
+
+"
+  doctitleca = "Plantilla per a combo de jazz"

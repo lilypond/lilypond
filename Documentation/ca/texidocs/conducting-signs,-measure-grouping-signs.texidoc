@@ -1,0 +1,27 @@
+%% Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+  texidocca = "
+L'agrupació de pulsacions dins d'un compàs està controlada per la
+propietat de context @code{beatStructure}.  Hi ha establerts valors de
+@code{beatStructure} per a molts tipus de compassos a
+@code{scm/time-signature-settings.scm}.  Els valors de
+@code{beatStructure} es poden canviar o establir amb @code{\\set}. Com
+alternativa, es pot usar @code{\\time} per establir tant el compàs com
+l'estructura de pulsacions.  Per això, especifiquem l'agrupació
+interna de les pulsacions del compàs com una llista de nombres (en la
+sintaxi de l'Scheme) abans de la indicació del compàs.
+
+@code{\\time} s'aplica al context @code{Timing}, per la qual cosa no
+restableix els valors de @code{beatStructure} ni de @code{baseMoment}
+que s'estableixen en altres contextos de nivell inferior, com
+@code{Voice}.
+
+Si el gravador @code{Measure_grouping_engraver} està inclòs en un dels
+contextos de presentació, s'imprimiran signes d'agrupació de
+pulsacions.  Aquests símbols faciliten la lectura de música moderna
+rítmicament complexa.  En aquest exemple, el compàs de 9/8 s'agrupa
+segons dos patrons diferents utilitzant els dos mètodes, mentre que el
+compàs de 5/8 s'agrup d'acord amb l'ajustament predeterminat que està
+a @code{scm/time-signature-settings.scm}:
+
+"
+  doctitleca = "Símbols de direcció y símbols d'agrupació de compàs"

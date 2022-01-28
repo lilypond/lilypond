@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+No hi ha de forma nativa els símbols gràfics per a instruments de
+percussió; no obstant, és possible incloure aquests símbols, ja sigui
+com un fitxer EPS extern o com a codi PostScript incrustat dins d'un
+element de marcatge, com es mostra en aquest exemple.
+
+"
+  doctitleca = "Símbols de cops de percussió"

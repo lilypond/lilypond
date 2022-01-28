@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+S'usa @code{staffLineLayoutFunction} per canviar la posició de les
+notes.  Aquest fragment de codi mostra com ajustar el seu valor al de
+@code{ly:pitch-semitones} per produir una escala cromàtica amb la
+distància entre cada espai i línia del pentagrama igual a un semitò.
+
+"
+  doctitleca = "Canviar l'interval de les línies de la pauta"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot usar @code{Staff.pedalSustainStrings} per fixar el text de les
+indicacions de pisar pedal i aixecar pedal.  Observeu que les úniques
+cadenes vàlides són les que estan a la llista de glifs de pedal: els
+valors que apareixen en aquest fragment de codi són una relació
+exhaustiva.
+
+"
+  doctitleca = "Modificar el text de las indicacions de pedal"

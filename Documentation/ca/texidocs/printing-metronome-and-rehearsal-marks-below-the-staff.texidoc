@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, les indicacions de metrònom i les lletres
+d'assaig s'imprimeixen a sobre del pentagrama.  Per col·locar-les a
+sota del pentagrama, simplement ajustem adequadament la propietat
+@code{direction} de @code{MetronomeMark} o de @code{RehearsalMark}.
+
+"
+  doctitleca = "Impressió d'indicacions de metrònom i lletres d'assaig a sota del pentagrama"

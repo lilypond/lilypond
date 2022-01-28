@@ -1,0 +1,10 @@
+%% Translation of GIT committish: f5fdeccc43889b77f9907d6b80d334921ca89fbc
+  texidocca = "
+Vet aquí una partitura vocal estàndard per a quatre veus SATB.  Amb
+grups més grans, sol ser útil incloure una secció que aparegui a
+totes les parts.  Per exemple, el compàs i l'armadura gairebé sempre
+son els mateixos per a totes.  Com a la plantilla @qq{Himne}, les
+quatre veus es reagrupen en sols dos pentagrames.
+
+"
+  doctitleca = "Plantilla de conjunt vocal"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+La propietat @code{stencil} del grob @code{Flag} (l'objecte gràfic
+claudàtor) es pot fixar a un funció de l'Scheme personalitzat que
+genera el glif del claudàtor.
+
+"
+  doctitleca = "Generar claudàtors personalitzats"

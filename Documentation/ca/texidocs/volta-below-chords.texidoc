@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Mitjançant l'addició del gravador @code{Volta_engraver} al pentagrama
+pertinent, es poden posar els corxets de primera i segona veu a
+sota dels acords.
+
+"
+  doctitleca = "Corxets de primera i segona vegada a sota dels acords"

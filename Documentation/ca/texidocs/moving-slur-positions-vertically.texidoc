@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot ajustar la posició vertical d'una lligadura d'expressió
+utilitzant la propietat @code{positions} de l'objecte
+@code{Slur}.  La propietat de dos paràmetres, on el primer es
+refereix a l'extrem esquerre de la lligadura i el segon al dret.
+Els valors dels paràmetres no s'utilitzen per part del LilyPond
+per produir un desplaçament exacte de la lligadura: més bé
+selecciona la col·locació que té un aspecte millor, tenint en
+compte els valors dels paràmetres.  Els valors positius desplacen
+la lligadura cap amunt, i són adequats a notes que tenen les
+pliques cap avall.  Els valors negatius desplacen les lligadures
+baixes encara més cap avall.
+
+"
+  doctitleca = "Desplaçament de les lligadures d'expressió verticalment"

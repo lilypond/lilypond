@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot variar la longitud de les pliques de les figures unides per
+una barra mitjançant la sobreescriptura de la propietat
+@code{beamed-lengths} dels detalls (@code{details}) de l'objecte
+@code{Stem}.  Si s'utilitza un sol valor com argument, la longitud
+s'aplica a totes les pliques.  Si s'usen diversos arguments, el
+primer s'aplica a les corxeres, el segon a les semicorxeres, i
+així successivament.  L'últim argument també s'aplica a totes les
+figures que són més curtes que la longitud de la figura de l'últim
+argument.  També es poden usar arguments no enters.
+
+"
+  doctitleca = "Alterar la longitud de les pliques unides per una barra"

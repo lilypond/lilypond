@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 1f7e785d25b62afbf2ed3119a9874010e79b9b12
+  texidocca = "
+El motor d'espaiat vertical va canviar a la versió 2.14.  Això pot
+fer que s'alteri l'espaiat de la lletra de les cançons.  És
+possible fixar propietats per als contextos @code{Lyric} i
+@code{Staff} de forma que el motor d'espaiat es comporti com ho
+feia a la versió 2.12.
+
+"
+  doctitleca = "Aconseguir l'espaiat de la lletra de la versió 2.12 en versions més recent"

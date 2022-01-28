@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+A diferència dels glissandos, els @q{slides} o lligadures poden
+partir d'un punt imprecís del màstil fins un trast específic. Una
+bona forma de fer-ho es afegir una nota de mordent oculta abans de
+la nota real, com es mostra a l'exemple següent.
+
+"
+  doctitleca = "Lligadures de guitarra"

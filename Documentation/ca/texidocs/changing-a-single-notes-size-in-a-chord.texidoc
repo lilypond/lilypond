@@ -1,0 +1,12 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Es poden modificar notes individuals d'un acord amb l'ordre
+@code{\\tweak}, alterant la propietat @code{font-size}.
+
+Dins d'un acord (entre angles simples @code{< >}), abans de la nota
+que volem alterar, situem l'ordre @code{\\tweak} seguida per
+@code{#'font-size} i definim la mida adequada com  @code{#-2} 
+(un cap petit).
+
+"
+  doctitleca = "Modificar la mida d'una nota solta d'una acord"

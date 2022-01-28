@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Afegir un àmbit per veu"
+  texidocca = "
+Es pot afegir un àmbit per cada veu.  En aquest cas, l'àmbit s'ha
+de desplaçar manualment per evitar col·lisions.
+
+"

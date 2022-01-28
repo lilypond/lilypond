@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Mitjançant la utilització de les potents eines preconfigurades com
+la funció @code{\\drummode} i el context @code{DrumStaff}, la
+introducció de parts per a percussió és molt fàcil: les percussions
+se situen en les seves pròpies posicions de pentagrama (amb una
+clau especial) i tenen els caps corresponents a l'instrument.  És
+possible afegir un símbol addicional a la percussió o reduir el
+nombre de línies.
+
+"
+  doctitleca = "Escriptura de parts de percussió"

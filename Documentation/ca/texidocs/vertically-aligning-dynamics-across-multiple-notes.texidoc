@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les expressions dinàmiques que es comencen, acaben o es produeixen
+a la mateixa nota, s'alineen verticalment.  Per assegurar que les
+expressions dinàmiques s'alineen quan no es produeixen sobre la
+mateixa nota, incrementeu la propietat @code{staff-padding} de
+l'objecte @code{DynamicLineSpanner}.
+
+"
+  doctitleca = "Alinear verticalment expressions dinàmiques que abasten diverses notes"

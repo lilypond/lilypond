@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els canvis de dinàmica amb estil de text (com cresc. i dim.) es
+graven amb una línia intermitent que mostra el seu abast.  Aquesta
+línia es pot suprimir de la manera següent:
+
+"
+  doctitleca = "Ocultar la línia d'extensió de les expressions textuals de dinàmica"

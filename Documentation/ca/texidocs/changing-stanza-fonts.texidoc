@@ -1,0 +1,7 @@
+%% Translation of GIT committish: c4c1512a79d84d8d1acffa663c588b617a4dead8
+  texidocca = "
+Es poden canviar els tipus de lletra de forma independent per a cada
+estrofa, inclosa la font que s'usa per imprimir el número d'estrofa.
+
+"
+  doctitleca = "Modificar el tipus de lletra per a cada estrofa"

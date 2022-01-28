@@ -1,0 +1,21 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En certes convencions de notació es permet que les barres s'estenguin
+per sobre dels silencis.  Depenent de les nostre preferències,
+aquestes barres poden presentar petites pliques perquè l'ull
+apreciï més fàcilment el ritme, i en alguns casos de música moderna
+el propi silenci s'omet i romanen sols les petites pliques sense
+cap.
+
+Aquest fragment de codi mostra un progressió a partir de la notació
+tradicional, passant per barres sobre silencis i pliques sobre els
+silencis, fins les pliques sols.  Les petites pliques o Stemlets
+es generen sobreescrivint la propietat @code{'stemlet-length}
+de l'objecte @code{Stem}, mentre que els silencis queden ocults
+establint @code{'transparent = ##t}.
+
+Alguns elements de @code{\\markup} s'inclouen en la font per
+imprimir títols sobre cada estil de notació.
+
+"
+  doctitleca = "Stemlets (pliques de mida reduïda)"

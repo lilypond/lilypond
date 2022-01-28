@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+Tot i que la manera més fàcil d'afegir parèntesis a una indicació
+de dinàmica és utilitzar un bloc @code{\\markup}, aquest mètode té
+un inconvenient: els objectes que es creen es comportaran com
+elements de marcatge de text i no com indicacions dinàmiques.
+
+No obstant, és possible crear un objecte utilitzant el codi de
+l'Scheme equivalent (com s'explica a la Referència de la notació),
+en combinació amb la funció @code{make-dynamic-script}. D'aquesta
+forma l'element de marcatge es tractarà com una indicació
+dinàmica, i per tant seguirà sent compatible amb ordre com ara
+@code{\\dynamicUp} o @code{\\dynamicDown}.
+
+"
+  doctitleca = "Crear indicacions dinàmiques \"vertaderes\" entre parèntesis"

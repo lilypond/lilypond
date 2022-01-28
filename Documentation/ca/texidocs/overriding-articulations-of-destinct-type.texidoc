@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+A vegades volem modificar un sol temps d'articulació.  Tot i que
+sempre és possible usar l'ordre @code{\\tweak}, podria fer-se tediós
+fer-lo per a tots i cada un dels símbols d'una partitura completa.
+L'exemple mostra com ajustar articulacions amb una llista
+d'ajustaments personalitzats.  Un cas seria la creació d'un full d'estils.
+
+Amb 2.16.2 és possible introduir la funció proposada,
+@code{\\customScripts}, en un bloc @code{\\layout}.
+
+"
+  doctitleca = "Modificació d'articulacions de diversos tipus"

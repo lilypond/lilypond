@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 942f957aae58fdc7252d6bc2b548a28e9fadc666
+  texidocca = "
+El LilyPond pot alterar la direcció de la plica de les notes que
+van en la tercera línia d'un pentagrama de forma que segueixi la
+melodia, mitjançant l'addició del gravador @code{Melody_engraver}
+al context Voice i sobreescrivint el valor de
+  @code{neutral-direction} per a l'objecte Stem (plica).
+
+"
+  doctitleca = "Canviar la direcció de la plica de les notes de tercera línia automàticament, basat en la melodia"

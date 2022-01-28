@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Tot i que les caselles de repetició s'especifiquen de forma òptima
+usant @code{\\repeat volta}, s'ha d'usar la propietat de context
+@code{repeatCommands} en cas que el text de la casella requereixi
+un format més avançat amb @code{\\markup}.
+
+Atès que @code{repeatCommands} admet una llista, el mètode més senzill
+d'incloure elements de marcatge és usar un identificador per al
+text i inserir-lo a la llista d'ordres usant la sintaxi de l'Scheme
+@code{#(list (list 'volta textIdentifier))}.  Les ordres de principi
+i fi de repetició es poden afegir com elements de llista independents:
+
+"
+  doctitleca = "Elements de marcatge per al text de les caselles de repetició usant repeatCommands"

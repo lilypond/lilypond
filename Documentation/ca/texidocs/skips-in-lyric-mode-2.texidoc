@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Tot i que no es poden usar els silencis de separació @code{s} dins
+de @code{\\lyricmode} (s'agafen com una @qq{s}, literal, no com un
+espai), sí hi ha disponibles les comtes dobles (@code{\"\"}) i la
+barra baixa (@code{_}).  Així com per exemple:
+
+"
+  doctitleca = "Silencis de separació en mode de lletra (2)"

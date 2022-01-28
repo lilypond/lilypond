@@ -1,0 +1,9 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Els lliscaments per a acords s'indiquen per omissió tant al context
+@code{Staff} com a @code{TabStaff}.  Els nombres de corda són
+necessaris per a TabStaff perquè els càlculs de corda automàtics són
+diferents per als acords i per a les notes soltes.
+
+"
+  doctitleca = "Glissando d'acords en tabulatura"

@@ -1,0 +1,34 @@
+%% Translation of GIT committish: 703dca1fd6b202716cbfdc650c604dd835795b01
+  texidocca = "
+Són possibles tant els claudàtors rectes sobre notes soltes com
+extrems de barra separats en figures unides, amb una combinació de
+@code{stemLeftBeamCount}, @code{stemRightBeamCount} i indicadors de
+barra @code{[]} emparellats.
+
+Per a claudàtors rectes que apunten a la dreta sobre notes soltes,
+useu indicadors de barra emparellats @code{[]} y establiu
+@code{stemLeftBeamCount} a zero (vegeu l'exemple 1).
+
+Per a claudàtors rectes que apunten a l'esquerra, establiu en
+canvi @code{stemRightBeamCount} (exemple 2).
+
+Per a extrems separats que apunten a la dreta al final d'un
+conjunt de notes unides, establiu @code{stemRightBeamCount} a un
+valor positiu.  I per a extrems separats que apunten a l'esquerra
+al principi d'un conjunt de notes unides, establiu
+@code{stemLeftBeamCount} en canvi (exemple 3).
+
+A vegades per a una nota separada rodejada de silencis té sentit
+que porti els dos extrems separats del claudàtor pla, apuntant a
+la dreta i a l'esquerra.  Feu-lo sols amb indicadors de barra
+emparellats @code{[ ]} (exemple 4).
+
+Observeu que @code{\\set stemLeftBeamCount} sempre equival a
+@code{\\once \\set}.  En altres paraules, els ajustaments de la
+quantitat de barres no es recorden, i per això el parell de
+claudàtors plans aplicats a la nota Do semicorxera @code{c'16[]}
+de l'últim exemple no té res a veure amb el @code{\\set} de dues
+notes per darrera.
+
+"
+  doctitleca = "Claudàtors rectes i extrems de barra separats"

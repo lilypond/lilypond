@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La sintaxi del LilyPond pot implicar moltes col·locacions poc
+comunes per als parèntesis, claus, etc., que a vegades s'han
+d'intercalar. Per exemple, en introduir una barra manual, la
+clau esquerra d'apertura s'ha d'escriure després de la nota
+inicial i de la seva duració, no abans. De forma semblant, la
+clau dreta de tancament ha de seguir immediatament a la nota
+que es vol ubicar al final del barrat, fins i tot si aquesta
+nota resulta estar dins d'un grup de valoració especial. Aquest
+fragment de codi mostra com combinar el barrat manual, les
+lligadures d'expressió i d'unió i les lligadures de fraseig,
+amb seccions de valoració especial (tancades entre claus).
+
+"
+  doctitleca = "Afegir barres, lligadures d'expressió i d'unió, etc., quan s'usen ritmes amb i sense grups de valoració especial."

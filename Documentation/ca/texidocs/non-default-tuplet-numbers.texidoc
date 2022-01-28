@@ -1,0 +1,6 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "El LilyPond també proporciona funcions de format per imprimir números de grup especial diferents a la pròpia fracció, així com
+per afegir una figura al número o a la fracció de l'agrupació.
+
+"
+  doctitleca = "Nombres d'agrupació especial diferents o els predeterminats"

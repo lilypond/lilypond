@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Es pot inserir codi PostScript directament dins d'un bloc
+@code{\\markup}.
+
+"
+  doctitleca = "Inserir PostScript nadiu dins d'un bloc \\markup"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquest fragment de codi mostra l'ús del gravador
+@code{Span_stem_engraver} i de @code{\crossStaff} per connectar
+automàticament pliques d'un pentagrama a un altre.  No cal
+especificar la longitud de la plica perquè la distància variable
+entre els caps de les notes i els pentagrames es calcula automàticament.
+
+"
+  doctitleca = "Pliques de pentagrama creuat"

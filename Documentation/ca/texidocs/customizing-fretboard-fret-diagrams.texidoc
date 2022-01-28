@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden establir les propietats dels diagrames de posicions
+d'acords per mitjà de @code{'fret-diagram-details}.  Per als
+diagrames de posicions de FretBoard, s'apliquen els
+overrides (sobreescriptures) a l'objecte
+@code{FretBoards.FretBoard}. Com @code{Voice}, @code{FretBoards}
+és un context del nivell inferior, i per tant es pot ometre el seu
+nom a la sobreescriptura de propietats.
+
+"
+  doctitleca = "Personalitzar els diagrames de posicions"

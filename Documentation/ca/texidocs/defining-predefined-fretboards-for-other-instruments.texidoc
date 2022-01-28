@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden afegir diagrames de posicions predefinides per a
+instruments nous a més dels estàndard que s'usen per a la
+guitarra.  Aquest fitxer mostra com es fa, definint una afinació
+nova i unes quantes posicions per al cuatro veneçolà.
+
+Aquest fitxer també mostra com es poden incloure les digitacions
+als acords que s'usen com punts de referència per a la cerca
+d'acords a la taula, i mostrar-se al diagrama de posiciones i la
+tabulatura @code{TabStaff}, però no a la música.
+
+Aquestes posicions no es poden transportar perquè contenen
+informació de les cordes.  Hi ha plans per corregir això en un futur.
+
+"
+  doctitleca = "Definició de posicions predefinides per a d'altres instruments"

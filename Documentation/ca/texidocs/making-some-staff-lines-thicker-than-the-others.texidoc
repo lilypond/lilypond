@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot fer una línia de pentagrama més gruixuda amb fins
+pedagògics (per exemple la tercera línia o la de la clau de sol).
+Això es pot aconseguir afegint més línies molt a prop de la línia
+que es vol destacar, utilitzant la propietat @code{line-positions}
+de l'objecte @code{StaffSymbol}.
+
+"
+  doctitleca = "Fer unes línies del pentagrama més gruixudes que les altres"

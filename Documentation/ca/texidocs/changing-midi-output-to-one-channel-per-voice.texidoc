@@ -1,0 +1,18 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+En produir una sortida MIDI, el comportament predeterminat és que cada
+pentagrama representa un canal MIDI, amb totes les veus d'aquest
+pentagrama barrejades.  Això redueix al mínim el risc que s'esgoti el
+nombre de canals MIDI disponibles, atès que hi ha un màxim de 16
+canals per cada port MIDI, i la majoria dels dispositius sols tenen un
+port.
+
+No obstant, quan es trasllada l'interpretador @code{Staff_performer}
+al context @code{Voice}, cada veu d'un pentagrama pot tenir el seu
+propi canal MIDI, com es mostra a l'exemple següent: malgrat d'estar
+sobre el mateix pentagrama, es creen dos canals MIDI, cadascú amb un
+@code{midiInstrument} diferent.
+
+"
+  doctitleca = "Modificar la sortida MIDI perquè tingui un canal per a cada veu"
+

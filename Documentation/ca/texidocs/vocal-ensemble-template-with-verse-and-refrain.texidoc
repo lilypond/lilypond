@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquesta plantilla crea una partitura que comença amb una estrofa
+per a solista i continua amb una tornada a dues veus.  També mostra
+l'ús de silencis de separació dins de la variable @code{\global}
+per definit canvis de compàs (i altres exemple que són comuns a
+totes les parts) al llarg de tota la partitura.
+
+"
+  doctitleca = "Estrofa per a solista i tornada a dues veus"

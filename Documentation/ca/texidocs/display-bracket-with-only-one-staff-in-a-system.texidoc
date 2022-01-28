@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si hi ha un sols pentagrama en un dels tipus de sistema
+@code{ChoirStaff} o @code{StaffGroup}, el comportament
+predeterminat és que no s'imprimeixi el claudàtor a la barra inicial. Això
+es pot canviar sobreescrivint @code{collapse-height} per fixar el seu
+valor de manera que sigui menor que el nombre de línies a la pauta.
+
+Observeu que en contextos com @code{PianoStaff} i
+@code{GrandStaff} en els quals els sistemes comencen amb una clau en
+comptes d'un claudàtor, s'ha d'establir el valor d'una propietat
+diferent, com es veu al segon sistema de l'exemple.
+
+"
+  doctitleca = "Mostrar claudàtor o clau en grups d'un sol pentagrama"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden crear arpegis que es creuen entre pentagrames dins de
+  contextos diferents a @code{GrandStaff}, @code{PianoStaff} i
+@code{Span_arpeggio_engraver} en el context de @code{Score}.
+
+"
+  doctitleca = "Creació d'arpegis que es creuen entre pentagrames dins d'altres contextos"
+

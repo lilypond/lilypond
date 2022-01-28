@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+Funcions postfix per a la creació d'objectes d'extensió de text
+personalitzats.  Els objectes d'extensió han de començar en la
+primera nota del compàs.  Cal utilitzar -\mycresc, en cas contrari
+el començament de l'objecte d'extensió s'assignarà a la nota següent.
+
+"
+ doctitleca = "Objecte personalitzat d'extensió de text de matisos dinàmics, postfix"

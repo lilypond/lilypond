@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Quan es col·loquen figures sobre línies addicionals, les seves barres
+se situen generalment en mig del pentagrama.  La barra de les notes
+d'adorn és més curta i les notes d'adorn sobre les línies addicionals
+podrien tenir la barra fora del pentagrama.  Podem corregir aquest
+barrat per a les notes d'adorn.
+
+"
+  doctitleca = "Col·locar les barres de les notes d'adorn a la mateixa alçada que les barres de notes normals"
+

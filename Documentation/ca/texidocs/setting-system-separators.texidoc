@@ -1,0 +1,8 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Es poden inserir separadors de sistema entre els sistemes d'una pàgina.
+Es pot usar qualsevol element de marcatge, però hi ha
+@code{\\slashSeparator} com una elecció predeterminada adequada.
+
+"
+  doctitleca = "Fixació d'un separador entre els sistemes"

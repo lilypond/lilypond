@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Els passatges citats tenen en compte la trasnposició de la font tant
+com la del destí.  En aquest exemple, tots els instruments interpreten
+una nota amb el so de Do central; el destí d'un instrument
+transpositor en Fa.  La part de destí es pot transportar utilitzant
+@code{\\transpose}.  En aquest cas les notes citades romanen sense
+canvis.
+
+"
+  doctitleca = "Citació d'una altra veu amb transposició"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot incloure un índex general (taula de continguts) mitjançant
+ús de @code{\\markuplines \\table-of-contents}.  Els elements de la
+taula de continguts s'afageixen amb l'ordre @code{\\tocItem}.
+
+"
+  doctitleca = "Índex general (taul de continguts)"

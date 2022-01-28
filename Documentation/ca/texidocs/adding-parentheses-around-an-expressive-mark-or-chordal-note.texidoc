@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+La funció @code{\\parenthesize} és un ajustament especial que envolta
+objectes entre parèntesis.  EL grob associat és @code{ParenthesesItem}.
+
+"
+  doctitleca = "Envoltar entre parèntesis una marca expressiva o una nota d'un acord"

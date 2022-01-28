@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+El fragment de codi @qq{Plantilla de quartet de corda} produeix un
+resultat satisfactori per al quartet, però, i si hem d'imprimir
+les particel·les?  Aquesta nova plantilla mostra com usar la
+funcionalitat @code{\\tag} (etiqueta) per dividir fàcilment una
+peça en particel·les individuals.
+
+Hem de dividir aquesta plantilla en fitxers independents; els noms
+de fitxer estan dins dels comentaris al principi de cada fitxer.
+@file{piece.ly} conté totes les definicions de música. Els altres
+fitxers (@file{score.ly}, @file{vn1.ly}, @file{vn2.ly},
+@file{vla.ly} i @file{vlc.ly}) produeixen la particel·la corresponent.
+
+No oblideu treure els comentaris que hem especificat quan useu els
+fitxers independents!
+
+"
+  doctitleca = "Plantilla de quartet de corda amb particel·les independents"

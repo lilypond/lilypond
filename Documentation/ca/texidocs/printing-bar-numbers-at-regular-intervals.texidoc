@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden imprimir els nombre de compàs a intervals regulars mitjançant
+l'establiment de la propietat @code{barNumberVisibility}.  Aquí els
+números de compàs s'imprimeixen cada dos compassos excepte al final de
+la línia.
+
+"
+  doctitleca = "Imprimir números de compàs a intervals regulars"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+  texidocca = "
+El LilyPond accepta armadures personalitzades. En aquest exemple, 
+es mostra l'armadura de re menor amb una rang estès de bemolls.
+
+"
+  doctitleca = "Creació d'armadures personalitzades"

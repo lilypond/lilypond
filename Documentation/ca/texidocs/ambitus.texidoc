@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les indicacions d'àmbit o tessitura indiquen rangs d'altures per
+a les veus.
+
+Les alteracions accidentals sols es mostren si no formen part de
+l'armadura de tonalitat. Els objectes gràfics @code{AmbitusNoteHead}
+també tenen línies addicionals.
+
+"
+  doctitleca = "Indicacions de tessitura"

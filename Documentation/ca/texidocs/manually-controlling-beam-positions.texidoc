@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es poden controlar manualment les posicions de les barres de
+corxera sobreescrivint el valor del paràmetre @code{positions} de
+l'objecte gràfic @code{Beam}.
+
+"
+  doctitleca = "Control manual de les posicions de les barres"

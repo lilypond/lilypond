@@ -1,0 +1,9 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+La disposició «mensurstriche» en els quals les línies divisòries
+no estan dibuixades sobre els pentagrames, sinó entre ells, es pot
+aconseguir amb un @code{StaffGroup} en comptes d'un @code{ChoirStaff}.
+La línia divisòria sobre els pentagrames s'esborra usant @code{\\hide}.
+
+"
+  doctitleca = "Disposició Mensurstriche (línies divisòries entre pentagrames)"

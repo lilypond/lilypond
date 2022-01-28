@@ -1,0 +1,18 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+A vegades, a les partitures orquestrals es deixen en silenci
+instruments individuals o grups d'ells durant un període de temps, i
+els seus pentagrames corresponents es poden suprimir durant aquest
+temps (amb @code{\\removeEmptyStaves}).
+
+Quan tornen a sonar, sovint es prefereix mostrar tots els instruments
+del grup.  Això es pot fer afegint el gravador
+@code{Keep_alive_together_engraver} en el context agrupador (per
+exemple: un GrandStaff o un StaffGroup)
+
+En aquest exemple, els violins estan en silenci durant els sistemes
+segon i tercer.  Sols el violí primer sona a l'últim compàs, però es
+mostra també el pentagrama del violí segon.
+
+"
+  doctitleca = "Mostrar un sistema GrandStaff complet si segueix amb vida un sol dels seus pentagrames"

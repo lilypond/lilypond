@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+És possible ajustar la separació predeterminada entre les notes de la
+indicació de tessitura i la línia que les uneix.
+
+"
+  doctitleca = "Modificació de la separació en les indicacions de tessitura"

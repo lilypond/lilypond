@@ -1,0 +1,28 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+Aquest mètode imprimeix dues lletres d'assaig, una a sobre de
+l'altra, desplaça la marca inferior a una posició a sota del
+pentagrama i després afegeix un farciment sobre ella de forma que
+la marca superior se situï a sobre del pentagrama.
+
+Ajustant els valors d'extra-offset i de baseline-skip podem
+augmentar o disminuir l'espai total entre la marca d'assaig i el
+pentagrama.
+
+Considerant que pot fer-se que pràcticament qualsevol tipus de
+glif o cadena de caràcters es comporti com una marca d'assaig, és
+possible centrar-les a sobre i a sota d'una barra de compàs.
+
+Afegint la propietat 'break visibility' (visibilitat en cas de
+salt) adequada com es mostra a l'exemple número 1, podem també
+posicionar les dues marques al final d'una línia.
+
+Nota: el mètode 1 és menys complex que mètode 2 però realment no
+permet un ajustament fi de la col·locació d'una de les marques
+d'assaig sense afectar a l'altre.  També poden donar-se alguns
+problemes amb l'espaiat vertical, perquè l'ús de
+@code{extra-offset} no canvia la caixa que l'envolta de la lletra
+d'assaig des del seu valor original.
+
+"
+  doctitleca = "Com imprimir dues lletres d'assaig a sobre i a sota de la mateixa línia divisòria (mètode 1)"

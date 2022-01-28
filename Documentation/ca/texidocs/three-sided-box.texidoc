@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 79c17e0eaedca79e5f7605f5b9f92db27c68e679
+  texidocca = "
+Aquest exemple mostra com afegir una ordre de marcatge per obtenir
+un rectangle de tres segments visibles rodejant un element de text
+(o un altre element de marcatge).
+
+"
+  doctitleca = "Rectangle de tres segments visibles"

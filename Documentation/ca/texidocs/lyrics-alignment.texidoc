@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+L'alineació horitzontal de la lletra es pot ajustar sobreescrivint
+la propietat @code{self-alignment-X} de l'objecte @code{LyricText}.
+@code{#-1} és esquerra, @code{#0} és centrat @code{#1} es dreta;
+tanmateix, podem usar també @code{#LEFT}, @code{#CENTER} i
+@code{#RIGHT}.
+
+"
+  doctitleca = "Alineació de la lletra"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les alteracions i els signes «més» poden aparèixer abans o després
+dels nombres, segon el valor de ls propietats
+@code{figuredBassAlterationDirection} i
+@code{figuredBassPlusDirection}.
+
+"
+  doctitleca = "Canviar les posicions de les alteracions de baix xifrat"

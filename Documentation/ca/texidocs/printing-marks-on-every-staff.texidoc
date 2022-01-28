@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Tot i que normalment les marques d'assaig textuals sols s'imprimeixen
+sobre el pentagrama superior, també es poden imprimir en un altra
+pentagrama qualsevol.
+
+"
+  doctitleca = "Impressió de marques d'assaig en qualsevol pentagrama"

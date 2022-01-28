@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els números de compàs s'alineen de forma predeterminada per la
+dreta amb el seu objecte pare.  Aquest objecte és pel general
+la vora esquerra, d'una línia o, si els números s'imprimeixen
+dins de la línia, la vora esquerra d'una línia divisòria.  Els
+números també es poden situar directament sobre la barra de
+compàs o alineats per l'esquerra amb ella.
+"
+  doctitleca = "Alineació dels números de compàs"

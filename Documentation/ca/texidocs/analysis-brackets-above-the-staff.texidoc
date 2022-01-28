@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada s'afegeixen claus d'anàlisis senzills
+a sota del pentagrama.  L'exemple següent mostra una manera de
+col·locar-los a sobre.
+
+"
+  doctitleca = "Claus d'anàlisis a sobre del pentagrama"

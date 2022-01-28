@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, les alteracions accidentals que s'usen
+per a les cancel·lacions a les armadures es col·loquen adjacents
+a les que s'usen per als canvis de tonalitat.  Aquest comportament
+es pot canviar sobreescrivint la propietat @code{'break-align-orders}
+de l'objecte gràfic @code{BreakAlignment}.
+
+El valor de @code{'break-align-orders} és un vector de longitud 3, amb
+llistes entre cometes els elements de les quals són objectes que
+es poden dividir en un salt.  Aquest exemple sols modifica la
+segona llista, movent @code{key-cancellation} abans de @code{staff-bar};
+modificant la segona llista, el comportament d'alineació dels
+salts canvia en la meitat d'un sistema, no al principi ni al final.
+
+"
+  doctitleca = "Separar les cancel·lacions de tonalitat dels canvis d'armadura"

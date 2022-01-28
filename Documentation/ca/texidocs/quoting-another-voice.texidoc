@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+La propietat @code{quotedEventTypes} determina els tipus
+d'esdeveniments musicals que resulten citats.  El valor predeterminat
+és @code{(note-event rest-event tie-event beam-event
+  tuplet-span-event)}, que significa que sols apareixen en l'expressió
+@code{\\quoteDuring} les notes, silencis, lligadures, barres i grups
+especials.  A l'exemple següent, el silenci de semicorxera no apareix
+en el fragment citat perquè @code{rest-event} no està dins
+@code{quotedEventTypes}. 
+
+Per veure una llista dels tipus d'esdeveniment, consulteu la secció
+@qq{Music classes} de la Referència de funcionament intern.
+
+"
+  doctitleca = "Citació d'una altra veu"

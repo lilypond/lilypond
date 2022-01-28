@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot canviar la mida i el gruix de les línies dels diagrames de
+posicions per a instruments de vent fusta.
+
+"
+  doctitleca = "Modificar la mida dels diagrames de vent fusta"

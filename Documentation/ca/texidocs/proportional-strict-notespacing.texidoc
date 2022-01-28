@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si s'ha establert @code{strict-note-spacing}, l'espaiat de les notes
+no es veu influït pels compassos o claus que pugui haver-hi dins d'un
+sistema.  En comptes d'això, es col·loquen just abans de la nota que
+té lloc en el mateix moment temporal. Això pot produir col·lisions.
+
+"
+  doctitleca = "Espaiat de les notes estrictament proporcional"

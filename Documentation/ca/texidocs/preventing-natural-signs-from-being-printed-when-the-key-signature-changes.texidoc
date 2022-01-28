@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  doctitleca = "Evitar que se impriman becuadros cuando cambia la armadura"
+  texidocca = "
+Quan es canvia l'armadura de la tonalitat, s'imprimeixen becaires
+automàticament per cancel·lar les alteracions de les armadures
+anteriors.  Això es pot evitar establint al valor @qq{falso} la
+propietat @code{printKeyCancellation} del context @code{Staff}.
+
+"

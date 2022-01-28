@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, els corxets de primera i segona vegada es
+tracen a sobre els finals alternatius complets, però és possible
+fer-los més curts establint un valor cer per a
+@code{voltaSpannerDuration}.  A l'exemple següent, el corxet sols
+dura un compàs, que correspon a una duració de 3/4.
+
+"
+  doctitleca = "Fer més curts els corxets de primer i segona vegada"

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot usar @code{\\bookpart} per dividir un llibre en diverses
+parts.  L'última pàgina de cada part pot quedar afectada pel valor
+de @code{ragged-last-bottom}.  Els elements de marcatge
+d'encapçalament i peu de pàgina pot detectar que estiguin en la
+ultima pàgina d'una part, i presentar diferències amb l'última
+pàgina del llibre.
+
+"
+  doctitleca = "Parts de llibre"

@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si la duració total d'un trèmol és menor d'una negra, o exactament
+d'una blanca, normalment es grava amb totes les barres de corxera
+tocant les pliques.  Certs estils de notació de partitures composen
+algunes d'aquestes barres com a barres flotants centrades que no
+toquen les pliques de les figures.  El nombre de barres flotants en
+aquest tipus de trèmol està controlat per la propietat
+@code{'gap-count } del l'objecte @code{Beam} i la separació
+entre les barres i les pliques es fixa amb la propietat @code{'gap}.
+
+"
+  doctitleca = "Trèmols amb barres flotants"

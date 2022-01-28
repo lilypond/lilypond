@@ -1,0 +1,46 @@
+%% Translation of GIT committish: 3f57efa0cde39bf0642fb6fb3672a19262ceda83
+  texidocca = "
+Algunes expressions de matís dinàmic porten text addicional, com
+\"sempre pp\".  Considerant que els matisos solen anar centrats
+sota la nota, el \\p s'imprimiria molt després de la nota a la
+qual s'aplica el matís.
+
+Per alinear correctament el \"sempre pp\" en sentit horitzontal,
+de manera que s'alineï com si estigués solament el \\pp, hi h a
+diversos enfocaments:
+
+* Senzillament usar @code{\\once\\override DynamicText.X-offset =
+#-9.2} abans de la nota que porta el matís, per desplaçar-lo
+manualment a la posició correcta.  Inconvenient: cal fer-ho
+manualment cada cop que usem aquesta indicació dinàmica.
+
+* Afegir una mica de farciment (@code{#:hspace 7.1}) dins de la
+definició de la nostra indicació dinàmica personalitzada, de forma
+que després que el LilyPond l'hagi centrat, ja estigui alineada
+correctament.  Inconvenient: el farciment realment ocupa aquest
+espai i no permet que es gravi cap altre element de marcatge o
+matís dinàmic en aquesta posició.
+
+* Desplaçar la inscripció dinàmica @code{\\once\\override ... .X-offset = ..}.
+Inconvenient: ¡cal @code{\\once\\override} per a cada una de les invocacions!
+
+* Fixar les dimensions del text addicional a zero (usant
+@code{#:with-dimensions '(0 . 0) '(0 . 0)}).  Inconvenient: per al
+LilyPond \"sempre\" no té dimensions, per la qual cosa podria
+gravar altres elements en el seu mateix lloc i produir col·lisions
+(que no serien advertides pel mecanisme de detecció de
+col·lisions).  Així mateix, aparentment hi ha algun espai, i per
+tant no és exactament la mateixa alineació que sense el text addicional.
+
+* Afegir un desplaçament explicit directament dins de la funció de
+l'Scheme que produeix l'element dynamic-script.
+
+* Fixar una alineació explícita dins del dynamic-script.  De forma
+predeterminada, això no tindria cap efecte, a no ser que fixéssim
+un valor per a X-offset.  Inconvenient: hem de donar un valor a
+@code{DynamicText.X-offset} que s'aplicaria a tots els textos de
+dinàmica. A més a més, s'alinea amb l'extrem dret del text
+addicional, no amb el centre del pp.
+
+"
+  doctitleca = "Alinear horitzontalment indicacions dinàmiques personalitzades (per exemple \"sempre pp\"\"piu f\"\"subito p\")"

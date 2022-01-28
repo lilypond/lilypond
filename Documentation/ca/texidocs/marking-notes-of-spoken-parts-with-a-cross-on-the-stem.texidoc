@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquest exemple mostra com afegir aspes sobres les pliques.
+Marquem el començament d'una secció parlada amb la paraula clau
+@code{\\speakOn}, i la finalitzem amb la paraula clau @code{\\speakOff}.
+
+"
+  doctitleca = "Marcat de notes de les partes parlades amb unes aspes a la plica"

@@ -1,0 +1,16 @@
+%% Translation of GIT committish: db22ad98af264b424e36b161c23fed43111b5c8a
+  texidocca = "
+Si es col·loquen sobre la mateixa posició notes de dues veus diferents
+amb les pliques en la mateixa direcció, i cap de les veus té un
+desplaçament o ambdues tenen el mateix desplaçament, apareix el
+missatge d'error @samp{advertiment: massa columnes de notes en
+col·lisió, s'ignora} en compilar el fitxer del LilyPond.  Aquest
+missatge es pot evitar fixant la propietat @code{'ignore-collision}
+de l'objecte @code{NoteColumn} al valor @code{#t}.  Observeu que
+això no elimina sols els advertiments, sinó que fa que el LilyPond
+deixi d'intentar resoldre les col·lisions en absolut, per la qual
+cosa poden obtenir-se resultats diferents dels esperats si no
+s'usa amb prudència.
+
+"
+  doctitleca = "Evitar els advertiments sobre columnes de notes  que xoquen"

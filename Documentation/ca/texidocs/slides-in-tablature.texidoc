@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els lliscats es poden gravar tant als contextos de @code{Staff}
+como en los de @code{TabStaff}:
+
+"
+  doctitleca = "Lliscats en tabulatura"

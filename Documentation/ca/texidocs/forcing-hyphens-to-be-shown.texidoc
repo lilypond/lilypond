@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Si el LilyPond considera que no hi ha lloc suficient per a un
+guionet separador de síl·labes, l'ometrà.  Es pot sobreescriure
+aquest comportament amb la propietat @code{minimum-distance} de
+@code{LyricHyphen}.
+
+"
+  doctitleca = "Forçar la visibilitat dels guions separadors de síl·labes"

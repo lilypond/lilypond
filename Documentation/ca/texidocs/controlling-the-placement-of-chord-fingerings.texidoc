@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot controlar amb precisió la col·locació dels números de
+digitació.  Perquè es tingui en compte l'orientació de les
+digitacions, es pot utilitzar una construcció d'acord <> tot i
+que siguin una sola nota.
+
+"
+  doctitleca = "Controlar la col·locación de les digitacions d'acords"

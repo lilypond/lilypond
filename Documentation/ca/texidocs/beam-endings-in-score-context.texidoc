@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+  texidocca = "
+Les regles de final de barra especificades en el context
+@code{Score} s'apliquen a tots els pentagrames, però es poden
+modificar tant en els nivells de @code{Staff} como de
+@code{Voice}:
+
+"
+  doctitleca = "Finals de barra en el context Score"

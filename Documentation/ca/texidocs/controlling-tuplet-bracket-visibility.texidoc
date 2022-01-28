@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+El comportament predeterminat de la visibilitat dels corxets de
+grup de valoració especial és imprimir el corxet a no ser que hi
+hagi una barra de la mateixa longitud que el grup especial.  Per
+controlas la visibilitat dels corxets de grup, establiu la propietat
+@code{'bracket-visibility} a @code{#t} (sempre imprimir el corxet).
+@code{#f} (no imprimir-lo mai) o @code{#'if-no-beam} (imprimir el
+corxet sols si no hi ha barra).
+
+"
+  doctitleca = "Control de la visibilitat dels corxets de grup especial"

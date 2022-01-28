@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Els diagrames de posicions d'acords es poden orientar de tres formes.
+De manera predeterminada, s'alinea la corda o trast superior en les
+diferents alineacions.
+
+"
+  doctitleca = "Modificar l'orientació dels trastos"
+

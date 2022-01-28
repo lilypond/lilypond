@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Atès que @code{\\repeat tremolo} espera exactament dos arguments
+musicals per als trèmolos d'acord, la nota o acord que canvia de
+pentagrama a un trèmolo que creua el pentagrama s'ha de col·locar
+dins de claus corbes junt a la seva ordre @code{\\change Staff}.
+
+"
+  doctitleca = "Trèmolos de pentagrama creuat"

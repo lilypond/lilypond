@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+Els valors predeterminats per a les notes d'adorn estan emmagatzemats
+en els identificadors @code{startGraceMusic}, @code{stopGraceMusic},
+@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
+@code{startAppoggiaturaMusic} i @code{stopAppoggiaturaMusic}, que
+estan definits al fitxer @file{ly/grace-init.ly}.  Redefinint-los es
+poden obtenir altres efectes.
+
+"
+  doctitleca = "Redefinició dels valors globals predeterminats per a notes d'adorn"

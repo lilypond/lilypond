@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot utilitzar la propietat
+@code{systemStartDelimiterHierarchy} per crear grups de
+pentagrames niuats de forma més complexa.  L'ordre
+@code{\\set StaffGroup.systemStartDelimiterHierarchy} pren una
+llista alfabètic del nombre de pentagrames produïts.  Es pot
+proporcionar abans de cada pentagrama un delimitador de
+començament del sistema.  Es pot envoltar entre corxets i admetre
+tants pentagrames com envoltin els corxets. Es poden ometre els
+elements de la llista, però el primer corxet sempre abasta tots
+els pentagrames.  Les possibilitat són @code{SystemStartBar},
+@code{SystemStartBracket}, @code{SystemStartBrace}
+@code{SystemStartSquare}.
+
+"
+  doctitleca = "Niuat de grups de pentagrames"

@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Aquest mètode grava dues lletres d'assaig: una sobre el pentagrama
+i l'altra a sota, creant dues veus, afegint el gravador Rehearsal
+Mark a cada una de les veus (sense això, no s'imprimeix cap marca
+d'assaig) i després posant cada marca d'assaig en les posicions UP
+i DOWN a cada veu respectivament.
+
+Aquest mètode (a diferència del mètode 1) és més complex, però
+permet més flexibilitat i caldria per ajustar cada lletra d'assaig
+independentment de la resta.
+
+"
+  doctitleca = "Com imprimir dues lletres d'assaig a sobre i a sota de la mateixa línia divisòria (mètode 2)"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les xifres de digitació orientades verticalment es col·loquen de
+forma predeterminada fora del pentagrama.  Malgrat això, aquest
+comportament es pot desactivar.  Nota: s'ha d'usar una construcció
+d'acord <>, tot i que sigui una sola nota.
+
+"
+  doctitleca = "Permetre que les digitacions s'imprimeixen del pentagrama"

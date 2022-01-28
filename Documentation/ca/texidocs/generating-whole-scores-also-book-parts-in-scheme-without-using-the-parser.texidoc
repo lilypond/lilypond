@@ -1,0 +1,32 @@
+%% Translation of GIT committish: 7f48cb638958a728209577caa41bbaca8a2e4ef2
+  texidocca = "
+Internament, una partitura del LilyPond no és més que una expressió de
+l'Scheme, generada per l'analitzador sintàctic del LilyPond.  Usant
+l'Scheme, també podem generar automàticament una partitura sense cap
+fitxer d'entrada.  Si tenim l'expressió musical en l'Scheme, es pot
+generar la partitura simplement cridant a (scorify-music music parser)
+sobre la música.  Així es genera un objecte partitura, per al que
+podem aleshores fixar un bloc layout personalitzat amb
+(let* ((layout (ly:output-def-clone $defaultlayout))) ; modificam el
+layout aquí, i després l'assignem: (ly:score-add-output-def! score
+layout) )
+
+Finalment, tot el que hem de fer és passar aquesta partitur al
+LilyPond perquè realitzi la composició tipogràfic.  Aquest fragment de
+codi defineix les funcions @code{(add-score parser score)},
+@code{(add-text parser text)} i @code{(add-music parser music)} per
+passar una partitura completa, elements de marcatge o quelcom de
+música al LilyPond per a la seva composició tipogràfic.
+
+Aquest fragment de codi també funciona per a la tipografia de
+partitures dins d'un bloc @code{\\book @{...@}}, així com partitures
+normals del nivell superior jeràrquic.  Per aconseguir-lo, cada una de
+les partitures destinades al seu gravat s'afegeixen al final d'una
+llista de partitures del nivell superior jeràrquic i es modifica el
+toplevel-book-handler (que és una funció de l'Scheme que es crida per
+processar un llibre un cop que s'ha tancat el bloc
+@code{\\book@{..@}}) per inserir totes les partitures així
+coleccionades al llibre.
+
+"
+  doctitleca = "Generació de partitures completes i parts del libre a l'Scheme sense usar l'analitzador sintàctic"

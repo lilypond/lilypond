@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 2ba2ca2073f389842aa87f85b6c740b8488f0125
+  texidocca = "
+De forma predeterminada, les indicacions metronòmiques no
+influeixen l'espaiat horitzontal.  Això es pot resoldre per mitjà
+d'una senzilla sobreescriptura, com pot veure's a la segona meitat
+de l'exemple.
+
+"
+  doctitleca = "Forçar l'amplada dels compassos perquè s'adaptin a l'amplada de les indicacions metronòmiques"
+

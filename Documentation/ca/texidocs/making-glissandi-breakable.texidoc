@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+  texidocca = "
+Si s'ajusta la propietat @code{breakable} al valor @code{#t} en
+combinació amb @code{after-line-breaking}, podem fer que un
+glissando es divideixi en el salt de línia:
+
+"
+  doctitlca = "Fer que els glissandos es puguin dividir en el salt de línia"

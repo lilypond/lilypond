@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 7b3d43f2b604e8ccdc24315fa0c094e04dcfcbaf
+  texidocca = "
+L'ordre @code{\\applyOutput} fa possible l'ajustament fi de
+qualsevol objecte de presentació, en qualsevol context.  Requereix
+una funció de l'Scheme amb tres arguments
+
+"
+  doctitleca = "Modificació de propietats per a objetes gràfics individuals"

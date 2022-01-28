@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Al lloc on s'utilitzin línies extensores per al baix xifrat mitjançant
+l'establiment de @code{useBassFigureExtenders} al valor vertader, les
+parelles de línies extensores congruents se centren verticalment
+si el valor de @code{figuredBassCenterContinuations} té el valor
+vertader.
+
+"
+  doctitleca = "Centrat vertical de les línies de baix xifrat emparellades"

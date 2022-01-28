@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+  texidocca = "
+Es poden subdividir les barres automàticament.  Establint la
+propietat @code{subdivideBeams}, les barres se subdivideixen en
+posiciones de pols (tal i com s'especifica a @code{beatLength}).
+
+"
+  doctitleca = "Subdivisions de barra automàtiques"

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+El gravador @code{Volta_engraver} resideix de forma predeterminada
+dins del context de @code{Score}, i les claus de repetició`s'imprimeixen
+així normalment sols a sobre el pentagrama superior.  Aixo es pot
+ajustar afegint el gravador @code{Volta_engraver} al context de
+@code{Staff} el el qual han d'aparèixer les claus; vegeu també
+el fragment de codi @qq{Volta multi staff}.
+
+"
+  doctitleca = "Afegir claus de repetició i segona vegada a més pentagrames"

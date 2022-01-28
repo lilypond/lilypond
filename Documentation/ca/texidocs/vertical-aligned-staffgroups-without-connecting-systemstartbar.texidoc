@@ -1,0 +1,9 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocca = "
+Aquest fragment de codi mostra com obtenir grups de pentagrames
+StaffGroups alineats verticalment amb una barra d'inici de sistema
+SystemStartBar per cada StaffGroup, però sense connectar-los
+entre sí.
+
+"
+  doctitleca = "Grups de pentagrames alineats verticalment sense una barra SystemStartBar que els interconnecti"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+De forma predeterminada, l'ordre @code{\\mark} centra els objectes
+sobre la barra de compàs.  Aquest comportament es pot modificar
+perquè l'alineació es faci a la dreta o a l'esquerra.
+
+"
+  doctitleca = "Alineació d'objectes creats amb l'ordre \\mark "

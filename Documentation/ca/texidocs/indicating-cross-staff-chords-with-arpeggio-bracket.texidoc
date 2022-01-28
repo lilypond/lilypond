@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Un claudàtor d'arpegi pot indicar que s'han de tocar amb la
+mateixa mà notes que estan en dos pentagrames diferents.  Per
+fer-ho, el @code{PianoStaff} s'ha de configurar perquè accepti
+símbols d'arpegi de pentagrama creuat i els símbols d'arpegi s'han
+de configurar a la forma de claudàtor en el context de @code{PianoStaff}.
+
+(Debussy, Les collines d’Anacapri, m. 65)
+
+"
+  doctitleca = "Indicar acords de pentagrama creuat amb claudàtors d'arpegi"

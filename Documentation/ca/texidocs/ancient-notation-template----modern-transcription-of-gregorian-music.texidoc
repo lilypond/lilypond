@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+ texidocca = "
+Aquest exemple mostra com fer una transcripció moderna de cant
+gregorià.  El cant gregorià no té compàs ni pliques; utilitza
+sols caps de nota de blanca i de negra, i unes marques especials
+que indiquen silencis de diferents longituds.
+
+"
+  doctitleca = "Plantilla per a notació de música antiga (transcripció moderna de cant gregorià)"

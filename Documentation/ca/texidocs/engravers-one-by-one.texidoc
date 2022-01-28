@@ -1,0 +1,26 @@
+%% Translation of GIT committish: 7c5fcff15f69f2e758d346bea43f226218c4da70
+  texidocca = "
+Del problema central de la notació, és a dir, crear un determinat
+símbol, s'encarreguen els «plugins» o complements afegits.  Cada
+un dels complements es coneix com un gravador.  A aquest exemple els
+gravadors es van activant un per un, a l'ordre següent:
+
+- cap de les notes,
+
+- el símbol del pentagrama,
+
+- clau,
+
+- pliques,
+
+- barres, lligadures d'expressió, accents,
+
+- alteracions, línies divisòries, indicació del compàs, i armadura.
+
+Els gravadors es troben agrupats.  Per exemple, els caps de nota, les
+lligadures d'expressió, les barres de corxera, etc., formen un context
+de veu @code{Voice}. Els gravadors de l'armadura, alteracions línies
+de compàs, etc., formen un context de pentagrama @code{Staff}.
+
+"
+  doctitleca = "Els gravadors, un per un"

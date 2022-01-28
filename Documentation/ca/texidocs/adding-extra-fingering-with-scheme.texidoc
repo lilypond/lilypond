@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 98ac53591234404cd70c5eebd370a598ec74095b
+  texidocca = "
+Es poden afegir elements addicionals a les notes usant
+@code{map-some-music}.  En aquest exemple s'adjunta una inscripció
+addicional a una nota.
+
+En general s'ha d'efectuar un @code{\\displayMusic} de la música que
+volem crear, i després escriure una funció que faci la feina sobre
+les parts adequades de la música en comptes de nosaltres.
+
+"
+  doctitleca = "Incloure digitacions addicionals amb l'Scheme"

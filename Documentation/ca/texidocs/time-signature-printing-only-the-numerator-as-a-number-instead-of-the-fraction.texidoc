@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+A vegades, la indicació de compàs no ha d'imprimir la fracció
+completa (per exemple 7/4), sinó sols el numerador (7 en aquest
+cas).  Això es pot fer fàcilment utilitzant @code{\\override
+Staff.TimeSignature.style = #'single-digit} per canviar l'estil
+permanentment.  Usant @code{\\revert Staff.TimeSignature.style},
+es pot revertir el canvi.  Per aplicar l'estil d'un dígit únic a
+una sola indicació de compàs, utilitzeu l'ordre @code{\\override}
+i anteposeu l'ordre @code{\\once}.
+
+"
+  doctitleca = "Indicació de compàs imprimint sols el numerador (en lloc de la fracció)"

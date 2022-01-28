@@ -1,0 +1,21 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Les lligadures d'expressió es poden construir amb patrons de
+discontinuïtat complexos mitjançant la definició de la propietat
+@code{dash-definition}.  @code{dash-definition} és una llista de
+paràmetres que defineixen el comportament de discontinuïtat d'un
+segment de la lligadura d'expressió.
+
+La lligadura es defineix en termes del paràmetre de bezier t el
+rang del qual va de 0 a l'esquerra de la lligadura fins a 1 a
+l'extrem dret de la lligadura. cada @code{element de
+discontinuïtat} és una llista @code{(t-inici t-final
+fracció-discontinuïtat període-discontinuitat)}.  La regió de la
+lligadura des de @code{t-inici} fins a  @code{t-final} tindrà una
+fracció @code{fracció-discontinuitat} de cada
+@code{període-discontinuïtat} de color negre.
+@code{període-discontinuïtat} es defineix en termes d'espais de
+pentagrama.  @code{fracció-discontinuïtat} s'estableix al valor
+d'1 per a una lligadura contïnua.
+"
+  doctitleca = "Fer lligadures d'expressió amb estructura complexa de discontinuïtat"

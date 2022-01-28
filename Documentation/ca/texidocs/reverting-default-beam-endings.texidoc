@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+  texidocca = "
+Per gravar les barres agrupades en la forma @code{3-4-3-2} sóls cal
+modificar l'estructura de polsos.
+
+"
+  doctitleca = "Alteració dels finals de barra predeterminats"

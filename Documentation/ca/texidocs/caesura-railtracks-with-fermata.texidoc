@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+En ocasions es denota una «cesura» mitjançant una doble marca de
+respiració semblant a les vies d'un tren, amb un calderó a sobre.
+Aquest fragment de codi presenta una combinació visualment
+satisfactòria d'aquestes dues marques.
+
+"
+  doctitleca = "Cesura tipus \"vies del tren\" amb calderó"

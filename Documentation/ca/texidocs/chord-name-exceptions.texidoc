@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot usar la propietat @code{chordNameExceptions} per a emmagatzemar
+una llista de notacions espacials per a acords específics.
+
+"
+  doctitleca = "Excepcions per als noms d'acord"

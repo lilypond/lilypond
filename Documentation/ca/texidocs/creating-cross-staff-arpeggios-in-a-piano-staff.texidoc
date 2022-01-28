@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Dins d'un @code{PianoStaff}, és possible fer que un arpegi creuï
+entre els pentagrames ajustant la propietat
+@code{PianoStaff.connectArpeggios}.
+
+"
+  doctitleca = "Crear arpegis que es creuen entre pentagrames dins d'un sistema de piano"
+

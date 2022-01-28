@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+  texidocca = "
+Les marques de cesura es poden crear sobreescrivint la propietat
+@code{'text} de l'objecte @code{BreathingSign}.  També està
+disponible una marca de cesura corba.
+
+"
+  doctitleca = "Inserir una cesura"

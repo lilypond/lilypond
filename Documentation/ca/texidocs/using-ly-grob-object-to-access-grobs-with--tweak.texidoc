@@ -1,0 +1,31 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Es pot accedir \"lateralment\" a alguns grobs des de dins de la
+funció de callbak d'un altre grob.  Aquests es troben relacionats
+normalment com \"layout objects\" (objectes de presentació) en la
+secció \"Internal properties\" (propietats internes) d'una
+interfície de grob.  S'usa la funció ly:grob-object per a
+accedir a aquests grobs.
+
+Es presenten més avall com a exemple algunes formes d'accedir a
+grobs des de dins d'una funció de callblack de NoteHead, però la
+tècnica no es limita als caps de nota.  No obstant, la funció de
+callblack de NoteHead és especialment important, perquè és la
+funció de callback implícita que utilitza l'ordre @code{\\tweak}.
+
+La funció d'exemple que es defineix sota (\"display-grobs\") no és
+probablement tan útil, però mostra que s'està accedint
+efectivament als grobs.
+
+Sortida d'exemple de la consola:
+
+
+@example
+--------------------
+#-Grob Accidental -
+#-Grob Arpeggio -
+#-Grob Stem -
+@end example
+
+"
+  doctitleca = "Utilitzar ly:grob-object per accedir als grobs amb \\tweak"

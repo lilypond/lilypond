@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidoceca = "
+Per a les improvisacions o @emph{taqasim} que són lliures durant uns
+moments, es pot ometre la indicació de compàs i es pot usar
+@code{\cadenzaOn}.  Podria caldre ajustar l'estil d'alteracions
+accidentals, perquè l'absència de línies divisòries farà que
+l'alteració aparegui un sop cop.  Vet aquí un exemple de com podria
+ser el començament d'una improvisació @emph{hijaz}:
+
+"
+  doctitleca = "Improvisació de música àrab"

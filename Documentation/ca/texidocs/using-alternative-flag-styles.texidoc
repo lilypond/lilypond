@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 1010f574a85b40fb70e0b31136e7eb788e4946be
+  texidocca = "
+Es poden imprimir estils alternatius del corxet o ganxo de les
+corxeres i figures menors, mitjançant la sobreescriptura de la
+propietat @code{stencil} de l'objecte @code{Flag}.  Són valors
+vàlids @code{modern-straight-flag}, @code{old-straight-flag} i
+@code{flat-flag}.
+
+"
+  doctitleca = "Ús d'estils alternatius per als corxets"

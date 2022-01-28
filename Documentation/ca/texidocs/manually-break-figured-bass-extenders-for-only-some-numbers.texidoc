@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocca = "
+Sovint, el baix figurat usa línies d'extensió per indicar la
+continuació de l'element corresponent dins de l'acord.  No
+obstant, en aquest cas el LilyPond està en mode @qq{modo voraç} i
+usa els extensors quan és possible  Per dividir els extensors
+individuals, podem senzillament usar el modificador \\! per a un
+número, cosa que trenca qualsevol línia d'extensió atribuïda a
+aquest número just abans del número.
+
+"
+  doctitleca = "Dividir manualment les línies d'extensió del baix xifrat per certs números solament"
