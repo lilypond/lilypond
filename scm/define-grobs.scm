@@ -3520,6 +3520,7 @@ trill.  See also @iref{TrillPitchGroup}.")))))
         (staff-padding . 1.0)
         (stencil . ,ly:line-spanner::print)
         (style . trill)
+        (to-barline . #t)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
