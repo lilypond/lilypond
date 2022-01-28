@@ -277,6 +277,12 @@ To get back to the last commit, @emph{discarding all changes}:
 git reset --hard HEAD
 @end example
 
+If the commit to edit is not the top one, you need to perform an
+@emph{interactive rebase} with @code{git rebase -i $(git
+merge-base master HEAD)}.  The full functionality of @code{git
+rebase -i} is not covered here; please try it and follow Git's
+instructions or read any tutorial on the Web.
+
 
 @unnumberedsubsec Uploading your branch for review
 
@@ -293,6 +299,31 @@ git push
 @end example
 
 The next section covers how to create a merge request from your branch.
+
+In response to review comments, you may need to amend your
+changes.  Do @emph{not} close your merge request and open a new
+one; instead, amend your commits, which can be done with @code{git
+commit --amend} or @code{git rebase -i} as explained above.  Note
+that Git will by default refuse a push when you have amended your
+commits.  This is because this kind of push is a destructive
+operation: once it is done, the old commits are no longer
+available on the remote branch.  Git prevents this as a safety
+measure against deleting commits added by someone else without you
+realizing it.  Do not follow Git's advice to do @code{git pull}
+(which would try to integrate the remote changes into the local
+ones); instead, just force it with
+
+@example
+git push --force-with-lease
+@end example
+
+Also note that due to the way GitLab compares successive revisions
+of a merge request, it is preferable if you do not mix catching up
+with @code{master} and changing your commits.  In other words, use
+@code{git rebase -i $(git merge-base master HEAD)} rather than
+@code{git rebase -i master}.  Alternatively, first rebase on
+@code{master} and push, then do the interactive rebase and push
+again.
 
 
 @unnumberedsubsec Deleting branches
