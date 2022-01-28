@@ -54,3 +54,37 @@ contexts that also accept @var{from}.")
 					   (ly:context-def-modify cdef cmod))))))))
 	  module)
 	 (ly:parser-error (_ "Not in an output definition")))))
+
+enablePolymeter =
+#(define-void-function () ()
+  (_i "For use within an output definition.  Enables polymetry, moving
+timing management from @code{Score} to @code{Staff}-like contexts.
+This is done by removing the @code{Timing_@/translator} and the
+@code{Default_@/bar_@/line_@/engraver} from @code{Score}, and adding
+them in all contexts having the @code{Staff} alias.")
+  (let ((module (current-module))
+        (cmod-remove (ly:make-context-mod))
+        (cmod-consists (ly:make-context-mod)))
+   (if (not (output-module? module))
+       (ly:parser-error (_ "Not in an output definition")))
+   (ly:add-context-mod cmod-remove (list 'remove 'Timing_translator))
+   (ly:add-context-mod cmod-remove (list 'remove 'Default_bar_line_engraver))
+   (ly:add-context-mod cmod-consists (list 'consists 'Timing_translator))
+   (ly:add-context-mod cmod-consists (list 'consists 'Default_bar_line_engraver))
+   ;; FIXME: any chance to use ly:output-find-context-def here?  The
+   ;; problem is that we don't have access to the context def, just
+   ;; its scope (module).
+   (module-map
+    (lambda (_sym var)
+     (if (variable-bound? var)
+         (let ((cdef (variable-ref var)))
+           (if (ly:context-def? cdef)
+               (let* ((context-name (ly:context-def-lookup cdef 'context-name))
+                      (aliases (ly:context-def-lookup cdef 'aliases))
+                      (all-names (cons context-name aliases)))
+                 (cond
+                  ((memq 'Score all-names)
+                   (variable-set! var (ly:context-def-modify cdef cmod-remove)))
+                  ((memq 'Staff all-names)
+                   (variable-set! var (ly:context-def-modify cdef cmod-consists)))))))))
+    module)))

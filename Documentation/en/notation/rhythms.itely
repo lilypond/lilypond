@@ -1262,10 +1262,9 @@ to the original values:
 }
 @end lilypond
 
-Different values of default time signature properties can be established
-for different staves by moving the @code{Timing_translator} and the
-@code{Default_bar_line_engraver} from the @code{Score} context to the
-@code{Staff} context.
+Different values of default time signature properties can be
+established for different staves by enabling polymetric notation
+(@pxref{Polymetric notation}).
 
 @lilypond[quote, verbatim]
 \score {
@@ -1290,16 +1289,7 @@ for different staves by moving the @code{Timing_translator} and the
      }
   >>
   \layout {
-    \context {
-      \Score
-      \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
-    }
-    \context {
-      \Staff
-      \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
-    }
+    \enablePolymeter
   }
 }
 @end lilypond
@@ -1327,6 +1317,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Mensural time signatures},
+@ref{Polymetric notation},
 @ref{Setting automatic beam behavior},
 @ref{Time administration}.
 
@@ -1785,22 +1776,12 @@ affect the autobeaming rules.
 
 @subsubsubheading Different time signatures with unequal-length measures
 
-Each staff can be given its own independent time signature by
-moving the @code{Timing_translator} and the
-@code{Default_bar_line_engraver} to the @code{Staff} context.
+Each staff can be given its own independent time signature as soon
+as @code{\enablePolymeter} is placed in the @code{\layout} block.
 
 @lilypond[quote,verbatim]
 \layout {
-  \context {
-    \Score
-    \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
-  }
-  \context {
-    \Staff
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  }
+  \enablePolymeter
 }
 
 % Now each staff has its own time signature.
@@ -1826,6 +1807,72 @@ moving the @code{Timing_translator} and the
   }
 >>
 @end lilypond
+
+To have just one polymetric score, include @code{\enablePolymeter}
+in a @code{\layout} block inside the @code{\score} block.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff { c''1 1 }
+    \new Staff { c'2 d' g'2~ 2 }
+  >>
+}
+
+\score {
+  \layout {
+    \enablePolymeter
+  }
+  <<
+    \new Staff { \time 4/4 c''1 1 }
+    \new Staff { \time 2/4 c'2 d' g'2~ 2 }
+  >>
+}
+@end lilypond
+
+When using polymeter, all staves should include a @code{\time}
+command if their meter is not the default 4/4.  This is true even
+for special staves without actual staff lines, such as
+@code{Dynamics} contexts, since the placement of certain spanners
+like hairpins is synchronized with bar lines.
+
+@c no verbatim on purpose
+@lilypond[quote]
+\layout {
+  \enablePolymeter
+}
+
+upper = { c'1 | d' | f' }
+lower = { c'4 4 8 8 | 4 2 | 2 4 | 4 4 4 }
+dynamics = { s2. s2.\p\< s\> s\! }
+
+<<
+ \new Staff { \time 4/4 \upper }
+  \new PianoStaff <<
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"No \\time" \dynamics }
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"With \\time" \time 3/4 \dynamics }
+    \new Staff { \time 3/4 \lower }
+  >>
+>>
+@end lilypond
+
+In order to use this feature with MIDI output, also include
+@code{\enablePolymeter} in a @code{\midi} block.
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+
+\midi {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
+
 
 @funindex \compoundMeter
 @cindex compound time signature
@@ -1893,24 +1940,6 @@ Although notes that occur at the same moment in each of the different
 staves will be placed at the same horizontal location, bar lines (in
 each staff) may cause inconsistent spacing within each of the different
 time signatures.
-
-Using a @code{midi} block with polymetric notation may cause unexpected
-barcheck warnings.  In this case move the @code{Timing_translator} from
-the @code{Score} context to the @code{Staff} context within the
-@code{midi}block.
-
-@lilypond[verbatim]
-\midi {
-  \context {
-    \Score
-    \remove "Timing_translator"
-  }
-  \context {
-     \Staff
-     \consists "Timing_translator"
-  }
-}
-@end lilypond
 
 
 @node Automatic note splitting

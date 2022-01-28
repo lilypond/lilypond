@@ -752,46 +752,6 @@ the entire staff.  This method also influences the spacing, which may or
 may not be desirable.  More sophisticated methods of blanking objects
 are shown in @rlearning{Visibility and color of objects}.
 
-The next example shows a practical application.  Bar lines and time
-signatures are normally synchronized across the score.  This is done
-by the @code{Timing_translator} and @code{Default_bar_line_engraver}.
-This plug-in keeps an administration of time signature, location
-within the measure, etc.  By moving these engraver from @code{Score} to
-@code{Staff} context, we can have a score where each staff has its own
-time signature.
-
-@cindex polymetric score
-@cindex time signature, multiple
-
-@lilypond[quote,verbatim]
-\score {
-  <<
-    \new Staff \with {
-      \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
-    }
-    \relative {
-        \time 3/4
-        c''4 c c c c c
-    }
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  }
-  \relative {
-      \time 2/4
-      c''4 c c c c c
-  }
->>
-\layout {
-  \context {
-    \Score
-    \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
-    }
-  }
-}
-@end lilypond
 
 @knownissues
 

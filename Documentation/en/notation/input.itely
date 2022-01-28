@@ -3589,24 +3589,6 @@ staves sharing (but not overwriting) the same MIDI channel.  This may be
 a problem if the sharing staves have conflicting, channel-based, MIDI
 properties -- such as different MIDI instruments -- set.
 
-Using a @code{midi} block with polymetric notation may cause unexpected
-barcheck warnings.  In this case move the @code{Timing_translator} from
-the @code{Score} context to the @code{Staff} context within the
-@code{midi}block.
-
-@lilypond[verbatim]
-\midi {
-  \context {
-    \Score
-    \remove "Timing_translator"
-  }
-  \context {
-     \Staff
-     \consists "Timing_translator"
-  }
-}
-@end lilypond
-
 
 @node Controlling MIDI dynamics
 @subsection Controlling MIDI dynamics
