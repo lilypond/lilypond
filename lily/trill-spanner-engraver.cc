@@ -49,9 +49,9 @@ protected:
   void process_music ();
 
 private:
-  Spanner *span_;
-  Spanner *finished_;
-  Stream_event *current_event_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_ = nullptr;
+  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
   void typeset_all ();
 };
@@ -59,9 +59,6 @@ private:
 Trill_spanner_engraver::Trill_spanner_engraver (Context *c)
   : Engraver (c)
 {
-  finished_ = 0;
-  current_event_ = 0;
-  span_ = 0;
 }
 
 void
@@ -102,8 +99,8 @@ Trill_spanner_engraver::process_music ()
         ender = event_drul_[START];
       finished_ = span_;
       announce_end_grob (finished_, ender->self_scm ());
-      span_ = 0;
-      current_event_ = 0;
+      span_ = nullptr;
+      current_event_ = nullptr;
     }
 
   if (event_drul_[START])
@@ -124,7 +121,7 @@ Trill_spanner_engraver::typeset_all ()
           Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
           finished_->set_bound (RIGHT, e);
         }
-      finished_ = 0;
+      finished_ = nullptr;
     }
 }
 
