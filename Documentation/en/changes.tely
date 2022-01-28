@@ -66,6 +66,23 @@ which scares away people.
 @end ignore
 
 @item
+The default appearance of trill spanners has changed to better
+match classical engraving conventions.  They now end before the
+next note, not over it.  If the next note has an accidental, they
+stop before it.  If the next note is the first note of a measure,
+they stop over the bar line instead.
+
+@lilypond
+{
+  \override Score.SpacingSpanner.spacing-increment = 2.1
+  d''2\startTrillSpan 2\stopTrillSpan
+  2\startTrillSpan deses''2\stopTrillSpan
+  d''1\startTrillSpan 1\stopTrillSpan
+}
+@end lilypond
+
+
+@item
 The new context property @code{breathMarkType} selects the mark
 that @code{\breathe} produces from several predefined types.
 
@@ -205,6 +222,7 @@ into strings, for use by @code{markup->string}.  For example:
   e2 f g a g \bar "," f g f d e\breve
 }
 @end lilypond
+
 
 @item
 The new @code{show-horizontal-skylines} and
