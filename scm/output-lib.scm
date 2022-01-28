@@ -2681,7 +2681,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
     ;;;;
     ;;;; adjust or Arpeggio of right NoteColumn
     ;;;;
-         (adjust-for-arpeggio
+    ;;;; TODO: build this into the line-spanner-interface, allowing it
+    ;;;; to be used on other line spanners.
+         (arpeggio-start
           (if end-on-arpeggio?
               (let* ((conditional-elements
                       (ly:grob-object right-bound 'conditional-elements #f))
@@ -2695,33 +2697,12 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
                          (grob::has-interface g 'arpeggio-interface))
                        cond-elts-list)))
                 (if (and (pair? arpeggio-ls) (ly:grob? (car arpeggio-ls)))
-                    (+
-                     (cdr (ly:grob-property (car arpeggio-ls) 'X-extent))
-                     (ly:grob-property (car arpeggio-ls) 'padding))
-                    0))
-              0))
-    ;;;;
-    ;;;; adjust for AccidentalPlacement of right NoteColumn
-    ;;;;
-         (acc-placement (ly:note-column-accidentals right-bound))
-         (adjust-for-accidentals
-          ;; Calculate it, if:
-          ;; Accidentals are present and
-          ;;   Arpeggio is present and `end-on-arpeggio' is enabled
-          ;;   or
-          ;;   `end-on-accidental' is enabled
-          (if (and (ly:grob? acc-placement)
-                   (or (and (not (zero? adjust-for-arpeggio))
-                            end-on-arpeggio?)
-                       end-on-accidental?))
-              (let* ((acc-X-extent
-                      (ly:grob-property acc-placement 'X-extent))
-                     (acc-right-padding
-                      (ly:grob-property acc-placement 'right-padding)))
-                (+
-                 (- (cdr acc-X-extent) (car acc-X-extent))
-                 (* 2 acc-right-padding)))
-              0))
+                    (interval-start (ly:grob-extent (car arpeggio-ls)
+                                                    (ly:grob-system grob)
+                                                    X))
+                    #f))
+              #f))
+
     ;;;;
     ;;;; adjust for arrow
     ;;;;
@@ -2739,12 +2720,10 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           (assoc-get 'X right-bound-details 0))
          ;; Repect padding and other possible items.
          (right-end
-          (- right-info-X
+          (- (or arpeggio-start right-info-X)
              left-X
              right-padding
-             adjust-for-arrow
-             adjust-for-accidentals
-             adjust-for-arpeggio))
+             adjust-for-arrow))
 
     ;; TODO find a method to accept user-generated line-ending stencils
 

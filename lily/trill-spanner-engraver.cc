@@ -78,7 +78,7 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
       if (!span_->get_bound (LEFT))
         add_bound_item (span_, info.grob ());
     }
-  else if (finished_)
+  if (finished_)
     {
       Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
                                          info.grob ());

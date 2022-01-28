@@ -158,7 +158,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
                                    CENTER);
 
       Grob *bound_grob = bound_item;
-      if (from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
+      SCM end_note = ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F);
+      if (from_scm<bool> (end_note)
           && unfinished_at_bound)
         {
           extract_grob_set (me, "note-columns", columns);
@@ -173,9 +174,27 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
                       ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 
-      Grob *acc = Note_column::accidentals (bound_grob->get_x_parent ());
-      if (acc && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
-        x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
+      SCM end_acc = ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F);
+      if (from_scm<bool> (end_acc))
+        {
+          Grob *maybe_note_column = nullptr;
+          // If the bound is already a note column, use it.
+          if (has_interface<Note_column> (bound_grob))
+            maybe_note_column = bound_grob;
+          else
+            {
+              /* Our bound may be a note head or rest, so try the parent
+                 axis group. */
+              Grob *ag = unsmob<Grob> (get_object (bound_grob, "axis-group-parent-Y"));
+              if (has_interface<Note_column> (ag))
+                maybe_note_column = ag;
+            }
+          if (maybe_note_column)
+            {
+              if (Grob *acc_placement = Note_column::accidentals (maybe_note_column))
+                x_coord = robust_relative_extent (acc_placement, commonx, X_AXIS).linear_combination (attach);
+            }
+        }
 
       Grob *dot = unsmob<Grob> (get_object (bound_grob, "dot"));
       if (dot && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
