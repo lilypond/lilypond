@@ -661,6 +661,10 @@ right (@var{dir}=@code{+1})."
 (define-public (interval-empty? iv)
   (> (car iv) (cdr iv)))
 
+(define-public (interval-contains? iv x)
+  ;; TODO: This deals with a point x.  We could also deal with an interval.
+  (and (<= (car iv) x) (<= x (cdr iv))))
+
 (define-public (interval-union i1 i2)
   (cons
    (min (car i1) (car i2))

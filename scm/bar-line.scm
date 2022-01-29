@@ -393,28 +393,104 @@ is not used within the routine."
 
 (define (make-dotted-bar-line grob extent)
   "Draw a dotted bar line."
-  (let* ((position (round (* (interval-end extent) 2)))
-         (correction (if (even? position) 0.5 0.0))
-         (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot"))
-         (i (round (+ (interval-start extent)
-                      (- 0.5 correction))))
-         (e (round (+ (interval-end extent)
-                      (- 0.5 correction))))
-         (counting (interval-length (cons i e)))
-         (stil-list (map
-                     (lambda (x)
-                       (ly:stencil-translate-axis
-                        dot (+ x correction) Y))
-                     (iota counting i 1))))
+  (let* (;; Heuristic: In a call to create a staff bar line, the
+         ;; extent will likely cross the center of the staff, and in a
+         ;; call to create a span bar line, it likely will not.
+         (making-span-bar? (not (interval-contains? extent 0)))
+         (top-pos (round (* (interval-end extent) 2)))
+         (bottom-pos (round (* (interval-start extent) 2)))
+         (dots-pos '())
+         (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot")))
 
-    (define (add-stencils! stil l)
-      (if (null? l)
-          stil
-          (if (null? (cdr l))
-              (ly:stencil-add stil (car l))
-              (add-stencils! (ly:stencil-add stil (car l)) (cdr l)))))
+    (define (calc-dot-positions dot-position-interval)
+      (if (not (interval-empty? dot-position-interval))
+          (iota (1+ (/ (interval-length dot-position-interval) 2))
+                (interval-start dot-position-interval)
+                2)
+          '()))
 
-    (add-stencils! empty-stencil stil-list)))
+    (if making-span-bar?
+        (begin
+          ;; If a dot is out of bounds due to rounding, bring it in.
+          (if (>= top-pos (* 2 (interval-end extent)))
+              (set! top-pos (- top-pos 1)))
+          (if (<= bottom-pos (* 2 (interval-start extent)))
+              (set! bottom-pos (1+ bottom-pos)))
+
+          ;; Span an integer number of staff spaces (2 positions per space).
+          (if (not (equal? (even? top-pos) (even? bottom-pos)))
+              (set! bottom-pos (1+ bottom-pos)))
+
+          (set! dots-pos (calc-dot-positions (cons bottom-pos top-pos)))))
+
+    (if (not making-span-bar?)
+        (begin
+          ;; Narrow the extent by half a dot on each end; if the
+          ;; center of a dot is within the reduced interval, then the
+          ;; whole dot is within the original interval.
+          (let ((extent-less-dot
+                 (interval-widen
+                  extent
+                  (/ (interval-length (ly:stencil-extent dot Y)) -2))))
+
+            ;; If a dot is out of bounds due to rounding, bring it in.
+            (if (> top-pos (* 2 (interval-end extent-less-dot)))
+                (set! top-pos (- top-pos 1)))
+            (if (< bottom-pos (* 2 (interval-start extent-less-dot)))
+                (set! bottom-pos (1+ bottom-pos))))
+
+          ;; The dots will be separated by one staff space center to
+          ;; center, so they will be placed all in even or all in odd
+          ;; positions.  Choose the alternative with more dots not
+          ;; colliding with staff lines.
+          (let* ((staff-symbol (get-staff-symbol grob))
+                 (lines-pos (if (ly:grob? staff-symbol)
+                               (staff-symbol-line-positions staff-symbol)
+                               '()))
+                 (even-interval (cons
+                                 (if (even? bottom-pos)
+                                     bottom-pos
+                                     (1+ bottom-pos))
+                                 (if (even? top-pos)
+                                     top-pos
+                                     (- top-pos 1))))
+                 (even-dots-pos (calc-dot-positions even-interval))
+                 (even-score (length (lset-difference
+                                      = even-dots-pos lines-pos)))
+                 (odd-interval (cons
+                                (if (odd? bottom-pos)
+                                    bottom-pos
+                                    (1+ bottom-pos))
+                                (if (odd? top-pos)
+                                    top-pos
+                                    (- top-pos 1))))
+                 (odd-dots-pos (calc-dot-positions odd-interval))
+                 (odd-score (length (lset-difference
+                                     = odd-dots-pos lines-pos))))
+            ;; choose the even or the odd configuration
+            (if (= even-score odd-score)
+                ;; break ties by choosing more dots
+                (if (> (length odd-dots-pos) (length even-dots-pos))
+                    (set! dots-pos odd-dots-pos)
+                    (set! dots-pos even-dots-pos))
+                ;; usually, take the config with more dots in spaces
+                (if (> odd-score even-score)
+                    (set! dots-pos odd-dots-pos)
+                    (set! dots-pos even-dots-pos))))))
+
+    (let* ((stil-list (map
+                       (lambda (pos)
+                         (ly:stencil-translate-axis dot (/ pos 2) Y))
+                       dots-pos)))
+
+      (define (add-stencils! stil l)
+        (if (null? l)
+            stil
+            (if (null? (cdr l))
+                (ly:stencil-add stil (car l))
+                (add-stencils! (ly:stencil-add stil (car l)) (cdr l)))))
+
+      (add-stencils! empty-stencil stil-list))))
 
 (define (make-dashed-bar-line grob extent)
   "Draw a dashed bar line."
