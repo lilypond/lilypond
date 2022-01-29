@@ -416,6 +416,8 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \name "Dynamics"
   \alias "Voice"
   \consists "Output_property_engraver"
+  %% The bar lines are invisible, but allow the to-barline
+  %% property to work.
   \consists "Bar_engraver"
   \consists "Piano_pedal_engraver"
   \consists "Script_engraver"
