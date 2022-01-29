@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6a22f5d3f7ff1bb202301c5e686767a937a26649
+   Translation of GIT committish: 841d34f966d10a0bf185fb545c5f1c97bb683b56
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -84,6 +84,10 @@ Lorsque le fichier est fourni sans extension, LilyPond présume qu'il
 s'agit de @file{.ly}.  Pour interpréter directement l'entrée standard
 (@emph{stdin}), fournissez un tiret (@code{-}) en lieu et place de
 @var{fichier}.
+
+@warning{En ce qui concerne les versions de Windows antérieures à
+Windows 10 1903, LilyPond est incapable de gérer les noms de
+fichier Unicode.}
 
 Le traitement de @file{monfichier.ly} produira @file{monfichier.pdf} par
 défaut.  Vous pouvez spécifier plusieurs fichiers à la fois ; ils seront
