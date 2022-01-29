@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -33,7 +33,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @translationof Common notation
 
 Suite au premier contact avec le @ref{Tutoriel}, voyons comment
-créer de belles partitions utilisant une notation musicale courante
+créer de belles partitions utilisant une notation musicale courante.
 
 @menu
 * Notation sur une seule portée::
@@ -92,15 +92,15 @@ différents styles de barre de mesure, voir
 @translationof Bar checks
 
 Les contrôles de barre de mesure -- @emph{bar checks} en anglais -- ne
-sont à priori pas strictement nécessaires.  Ils permettent cependant
+sont à priori pas strictement nécessaires. Ils permettent cependant
 d'indiquer directement dans le code saisi -- à l'aide d'une barre
-verticale @code{|} -- l'emplacement des barres de mesure.  Grâce à ces
+verticale @samp{|} -- l'emplacement des barres de mesure. Grâce à ces
 contrôleurs, LilyPond sera capable de déterminer si le cumul de la durée
 que vous avez attribuée aux notes correspond bien à longueur de la
-mesure qui les contient.  Les contrôles de mesure apportent aussi clarté
+mesure qui les contient. Les contrôles de mesure apportent aussi clarté
 et organisation à votre code.
 
-@c This example deliberately produces a warning
+@c This example deliberately produces a warning.
 @lilypond[verbatim,quote]
 \relative {
 g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
@@ -118,7 +118,7 @@ Avertissement : échec du contrôle de mesure (barcheck) à 1/2
 
 Si la durée manquante est évitente au vu du rendu musical de cet exemple
 minimaliste, l'avertissement émis en console ne manquera pas de porter à
-votre attention l'absence du @code{4} à la troisième mesure.
+votre attention l'absence du @samp{4} à la troisième mesure.
 
 @morerefs
 Manuel de notation :
@@ -139,7 +139,7 @@ Manuel de notation :
 
 @warning{Si, comme nombre de nouveaux utilisateurs, vous avez du mal à
 appréhender la notion de tonalité et d'armure dans LilyPond, consultez
-la note à la fin de cette page.}
+la note à la fin de cette section.}
 
 @node Altérations
 @unnumberedsubsubsec Altérations
@@ -165,17 +165,20 @@ Glossaire musicologique :
 @rglosnamed{double sharp,double dièse},
 @rglosnamed{double flat,double bémol}, @rglosnamed{accidental,altération}.
 
-LilyPond identifie le nom d'une note par sa hauteur.  Par exemple, un
-@code{c} signifiera toujours @notation{do naturel}, quelle que soit la
-tonalité ou l'armure.
+LilyPond identifie le @notation{nom d'une note} par sa hauteur. Par
+exemple, un @code{c} signifiera toujours @notation{do naturel}, quelle
+que soit la tonalité ou l'armure.
 
-Dans la notation par défaut, on obtient un @notation{dièse} en
-ajoutant @code{is} au nom de la note, et un @notation{bémol} en
-ajoutant @code{es}.  Comme vous pouvez vous y attendre, un double
-dièse ou double bémol s'obtiennent en ajoutant @code{isis} ou
-@code{eses}.  Cette syntaxe est dérivée de la convention de
-dénomination des notes dans les langues nordiques et germaniques,
-comme l'allemand ou le hollandais.
+Dans de nombreuses langues, un nom de note est constitué d'un nom de
+base correspondant à son degré diatonique dans la gamme de do majeur ou
+mineur (par exemple ré) et d'un qualificatif (ou suffixe) indiquant
+l'@notation{altération} de cette hauteur de base. Dans la notation par
+défaut, on obtient un @notation{dièse} en ajoutant @code{is} au nom de
+la note, et un @notation{bémol} en ajoutant @code{es}. Comme vous pouvez
+vous y attendre, un double dièse ou double bémol s'obtiennent en
+ajoutant @code{isis} ou @code{eses}. Cette syntaxe est dérivée de la
+convention de dénomination des notes dans les langues nordiques et
+germaniques, comme l'allemand ou le hollandais.
 
 @c DIV specific
 Cependant, si vous utilisez la commande @code{\language "italiano"} pour
@@ -201,6 +204,8 @@ autres langues disponibles, consultez
 @cindex altérations à l'armure
 @cindex majeur
 @cindex mineur
+@cindex présentation et contenu
+@cindex contenu et présentation
 
 @funindex \key
 @funindex \major
@@ -258,12 +263,12 @@ Dans cet exemple,
 
 @noindent
 aucune note n'a d'altération accidentelle, et pourtant vous devrez
-entrer le @code{is} pour les notes @code{cis} et @code{fis}.
+entrer le @samp{is} pour les notes @samp{cis} et @samp{fis}.
 
-Le code @code{b} ne veut pas dire @qq{Imprimez-moi un point noir sur
+Le code @samp{b} ne veut pas dire @qq{Imprimez-moi un point noir sur
 la troisième ligne de la portée.}  Cela signifie plutôt : @qq{Ici se
 trouve une note dont la hauteur est un si naturel.}  Avec une armure
-de la bémol majeur, ce @code{si} est flanqué d'un bécarre
+de la bémol majeur, ce @samp{si} est flanqué d'un bécarre
 accidentel :
 
 @lilypond[verbatim,quote]
@@ -275,7 +280,7 @@ accidentel :
 
 Prenons un autre exemple : imaginez-vous devant un piano ; dès
 lors que vous voulez enfoncer l'une des touches noires, il vous faudra
-@strong{ajouter} un @code{is} ou un @code{es} au nom de la note.
+@strong{ajouter} un @samp{is} ou un @samp{es} au nom de la note.
 
 Ajouter explicitement toutes les altérations demande un peu plus
 d'effort dans la phase de saisie, mais cela facilite grandement la
@@ -324,7 +329,7 @@ Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
 
 Pour créer une liaison de prolongation -- parfois aussi appelée
-liaison de tenue --, on ajoute un tilde @code{~} à la première note
+liaison de tenue --, on ajoute un tilde @samp{~} à la première note
 liée.
 
 @lilypond[verbatim,quote]
@@ -345,9 +350,9 @@ seules les durées successives seront mentionnées :
 Ce raccourci se révèle fort utile lors d'une succession de rythmes
 appliqués à une même hauteur.  Notez bien qu'une espace entre une
 hauteur isolée et une durée isolée aura pour effet de ne produire qu'une
-seule note.  Autrement dit, @code{c4 a 8 8} sera interprété comme
-@code{c4 a8 a8}, non comme @code{c4 a4 a8 a8} ; écrivez plutôt
-@code{c4 a4 8 8}.
+seule note.  Autrement dit, @samp{c4 a 8 8} sera interprété comme
+@samp{c4 a8 a8}, non comme @samp{c4 a4 a8 a8} ; écrivez plutôt
+@samp{c4 a4 8 8}.
 
 
 @node Liaisons d'articulation
@@ -369,7 +374,7 @@ Glossaire musicologique :
 
 Une liaison d'articulation ou @emph{legato} peut englober
 plusieurs notes.  Les notes de départ et d'arrivée sont suivies
-respectivement d'un signe @code{(} et @code{)}.
+respectivement d'un signe @samp{(} et @samp{)}.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -447,7 +452,7 @@ Glossaire musicologique :
 @rglos{articulation}.
 
 Des @notation{articulations} peuvent être ajoutées à une note, au moyen
-d'un tiret @code{-} suivi d'un caractère :
+d'un tiret (@samp{-}) suivi d'un caractère :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -477,8 +482,8 @@ utilisant un tiret (@samp{-}) et le chiffre à écrire :
 @end lilypond
 
 Articulations et doigtés sont habituellement placés automatiquement,
-mais vous pouvez spécifier leur positionnement en utilisant @code{^} (en
-haut) ou @code{_} (en bas).  Vous pouvez aussi utiliser plusieurs
+mais vous pouvez spécifier leur positionnement en utilisant @samp{^} (en
+haut) ou @samp{_} (en bas).  Vous pouvez aussi utiliser plusieurs
 articulations sur la même note.  Dans la plupart des cas, cependant,
 il est bon de laisser LilyPond déterminer l'emplacement de
 l'articulation.
@@ -515,7 +520,7 @@ On obtient un signe de @notation{nuance} en ajoutant à la note les
 lettres du signe, précédées d'un anti-slash @code{\} :
 
 @lilypond[verbatim,quote]
-\relative { c''4\ff c\mf c\p c\pp }
+\relative { c''2\ff c\mf c\p c\pp }
 @end lilypond
 
 @cindex nuances
@@ -531,7 +536,7 @@ nuance d'arrivée, par exemple @code{\f}, soit par la commande
 @code{\!} :
 
 @lilypond[verbatim,quote]
-\relative { c''4\< c\ff\> c c\! }
+\relative { c''2\< c\ff\> c c\! }
 @end lilypond
 
 @morerefs
@@ -554,16 +559,17 @@ Manuel de notation :
 
 On peut ajouter du texte à une partition :
 
-@lilypond[verbatim,quote,fragment]
-c''2^"espr" a'_"legato"
+@lilypond[verbatim,quote]
+\relative { c''2^"espr" a'_"legato" }
 @end lilypond
 
 Pour mettre en forme du texte, on utilise la commande @code{\markup} :
 
-@lilypond[verbatim,quote,fragment]
-c''2^\markup { \bold espr }
-a'2_\markup {
-  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+@lilypond[verbatim,quote]
+\relative {
+  c''2^\markup { \bold espr }
+  a2_\markup {
+    \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
 }
 @end lilypond
 
@@ -601,8 +607,8 @@ Toutes les barres de ligature sont dessinées automatiquement :
 @noindent
 Lorsqu'on n'aime pas la manière dont les notes sont automatiquement
 groupées, il est possible de les ligaturer manuellement, en marquant la
-première note à attacher d'un crochet ouvrant @code{[} et la dernière
-d'un crochet fermant @code{]}.  Notez bien que le @code{[} vient après
+première note à attacher d'un crochet ouvrant @samp{[} et la dernière
+d'un crochet fermant @samp{]}.  Notez bien que le @samp{[} vient après
 la première note ligaturée.
 @c close it ]
 
@@ -654,8 +660,8 @@ Manuel de notation :
 Glossaire musicologique : @rglosnamed{anacrusis,anacrouse}.
 
 On crée une levée (ou anacrouse) avec la commande @code{\partial},
-suivie d'une durée : @code{\partial 4} produit une levée d'une
-noire et @code{\partial 8} d'une croche.
+suivie d'une durée : @samp{\partial 4} produit une levée d'une
+noire et @samp{\partial 8} d'une croche.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -806,20 +812,18 @@ formules sont appelées expressions, elles ont une définition
 récursive, de telle sorte que vous pouvez fabriquer des expressions
 arbitrairement longues et complexes.  Par exemple :
 
-@example
-1
+@display
+@math{1}
+@math{1 + 2}
+@math{(1 + 2) * 3}
+@math{((1 + 2) * 3) / (4 * 5)}
+@end display
 
-1 + 2
-
-(1 + 2) * 3
-
-((1 + 2) * 3) / (4 * 5)
-@end example
-
+@noindent
 Ceci est une suite d'expressions, où chacune est contenue dans la
 suivante.  Les expressions les plus simples sont les nombres, et de
 plus grandes expressions sont produites en combinant des expressions
-avec des opérateurs -- comme @code{+}, @code{*} et @code{/} -- et
+avec des opérateurs -- comme @math{+}, @math{*} et @math{/} -- et
 des parenthèses.  Tout comme les expressions mathématiques, les
 expressions musicales peuvent être imbriquées avec une profondeur
 arbitraire, ce qui est nécessaire pour des partitions complexes comme
@@ -863,6 +867,7 @@ chacune deux notes distinctes) sont combinées simultanément.
 >>
 @end lilypond
 
+@noindent
 Notez que nous avons ici indenté chaque niveau du fichier d'entrée
 avec un nombre d'espaces différent.  LilyPond se moque -- ou presque
 -- de l'espace qu'il peut y avoir ou non au début d'une ligne, mais
@@ -870,7 +875,8 @@ un code bien indenté est bien plus lisible par des humains.
 
 @warning{La hauteur de chaque note saisie est relative à la précédente ;
 seule la première première note verra sa hauteur déterminée relativement
-au au @code{c''} de la commande @code{\relative} de départ.}
+au au @samp{c} (une octave sous le do médium) de la commande
+@code{\relative} de départ.}
 
 
 @node Expressions musicales simultanées -- une seule portée
@@ -924,8 +930,8 @@ chaque partie de la musique constituant une portée.  Ces éléments
 
 @lilypond[verbatim,quote]
 <<
-  \new Staff { \clef "treble" c''4 }
-  \new Staff { \clef "bass" c4 }
+  \new Staff { \clef treble c''4 }
+  \new Staff { \clef bass c4 }
 >>
 @end lilypond
 
@@ -956,8 +962,8 @@ fréquente que la musique polyrythmique.
 
 @lilypond[verbatim,quote]
 <<
-  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-  \new Staff { \clef "bass" c4 }
+  \new Staff { \clef treble \key d \major \time 3/4 c''4 }
+  \new Staff { \clef bass c4 }
 >>
 @end lilypond
 
@@ -998,12 +1004,12 @@ maintenant cette expression entière est interprétée dans un contexte
 >>
 @end example
 
-Voici un bref exemple :
+Voici un bref exemple.
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff \relative { \time 2/4 c''4 e | g g, | }
-  \new Staff \relative { \clef "bass" c4 c' | e c | }
+  \new Staff \relative { \clef bass c4 c' | e c | }
 >>
 @end lilypond
 
@@ -1032,10 +1038,11 @@ Manuel de notation :
 @funindex <
 @funindex >
 @funindex < ... >
+@funindex q
 
 Glossaire musicologique : @rglosnamed{chord,accord}.
 
-Nous avons vu précédemment comment combiner des notes simultanément,
+Nous avons vu précédemment comment combiner des notes simultanément :
 en les encadrant par des chevrons doubles @code{<<} et @code{>>}.  Pour
 produire des accords simples, c'est-à-dire une superposition de notes
 de même durée, on encadre les hauteurs de notes par des chevrons simples
@@ -1055,9 +1062,22 @@ durée, donc @emph{à l'extérieur} des chevrons.
 \relative {
   r4 <c'' e g>~ <c f a>2 |
   <c e g>8[ <c f a> <c e g> <c f a>]
-    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
-  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+     <c e g>8\>[ <c f a> q q]\! |
+  r4 <c e g>8.\p q16( q4-. <c f a>) |
 }
+@end lilypond
+
+@cindex accord, répétition
+@cindex répétition d'accord
+
+@noindent
+Cet exemple illustre par ailleurs une fonctionnalité fort intéressante :
+un accord peut se répéter à l'aide du symbole @samp{q}. Et ceci est
+opèrationnel même lorsque des notes isolées viennent s'insérer dans la
+séquence.
+
+@lilypond[verbatim,quote]
+\relative { c'8 <e g>8 q q g, q q q }
 @end lilypond
 
 @morerefs
@@ -1148,6 +1168,7 @@ séparant chaque syllable par une espace :
 >>
 @end lilypond
 
+@noindent
 Notez les doubles chevrons @code{<< @dots{} >>} encadrant toute la
 pièce ; ils indiquent simplement que la musique et les paroles se
 produisent en même temps.
@@ -1230,7 +1251,7 @@ manuels ; pour ceci consultez
 @end lilypond
 
 Au lieu d'utiliser une liaison, on peut indiquer le mélisme dans les
-paroles en insérant un caractère souligné @code{_} pour chaque note du
+paroles en insérant un caractère souligné @samp{_} pour chaque note du
 mélisme sauf la première.
 
 @lilypond[verbatim,quote]
@@ -1250,11 +1271,13 @@ mélisme sauf la première.
 
 Si une syllabe s'étend sur un grand nombre de notes ou une note très
 longue, on représente souvent le mélisme par un @notation{trait de
-prolongation}, qu'on entre avec double caractère souligné @code{__}.
+prolongation}, qu'on entre avec double caractère souligné @code{__}. Il
+est important de séparer ce double souligné des syllabes environnantes.
 L'exemple suivant montre les trois premières mesures de la plainte de
-Didon, extraite de @notation{Didon et Énée} de Purcell.
+Didon, extraite de @emph{Didon et Énée} de Purcell.
 
-@lilypond[verbatim,quote]
+@c no ragged-right here to get less dense formatting
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
     \key g \minor
@@ -1269,10 +1292,12 @@ Didon, extraite de @notation{Didon et Énée} de Purcell.
 >>
 @end lilypond
 
-Aucun exemple jusqu'à présent n'a utilisé de mots de plus d'une
-syllabe.  Dans des paroles, de tels mots sont écrits en syllabes
-séparées par des traits d'union.  Avec LilyPond, on utilise deux
-tirets pour produire un trait d'union centré entre deux syllabes.
+Aucun exemple jusqu'à présent n'a utilisé de mots de plus d'une syllabe.
+Dans des paroles, de tels mots sont écrits en syllabes séparées par des
+traits d'union. Avec LilyPond, on utilise deux tirets (@code{--}) pour
+produire un trait d'union centré entre deux syllabes. Il est important
+de séparer ce double tiret des syllabes environnantes.
+
 L'exemple suivant montre tout ce que nous avons vu jusqu'à maintenant
 sur l'alignement de paroles à une mélodie.
 
@@ -1296,11 +1321,12 @@ sur l'alignement de paroles à une mélodie.
 
 Avec certaines paroles, en particulier en italien, il se produit la
 situation inverse : il peut y avoir plusieurs syllabes sur une seule
-note.  On réalise ceci avec LilyPond grâce à un caractère souligné
-@code{_} sans espace entre les syllabes, ou alors en groupant les
-syllabes avec des guillemets.  L'exemple suivant est extrait de l'air de
-Figaro @emph{Largo al factotum}, dans @notation{Figaro} de Rossini, où
-la syllabe @emph{al} est chantée sur la même note que @emph{go}.
+note. On réalise ceci avec LilyPond grâce à un caractère souligné
+@samp{_} sans espace entre les syllabes, ou alors en groupant les
+syllabes avec des guillemets. L'exemple suivant est extrait de l'air de
+Figaro @emph{Largo al factotum}, dans @emph{Le barbier de Séville} de
+Rossini, où la syllabe @emph{al} est chantée sur la même note que
+@emph{go}.
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
@@ -1335,7 +1361,8 @@ La méthode simple d'ajout de paroles avec @code{\addlyrics} peut être
 également utilisée pour placer des paroles sous plusieurs portées.
 L'exemple suivant est extrait de @emph{Judas Macchabée} de Händel.
 
-@lilypond[verbatim,quote]
+@c no ragged-right here to make hyphens more prominent.
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
     \key f \major
@@ -1444,7 +1471,6 @@ cello = \new Staff {
 }
 @end lilypond
 
-@noindent
 Par convention, un nom de variable ne comporte que des caractères
 alphabétiques non accentués, aucun nombre ni tiret. Pour de plus amples
 informations, voir @ruser{Structure de fichier}.
@@ -1466,7 +1492,8 @@ barA = { \tripletA \tripletA \tripletA \tripletA }
 Il est possible d'utiliser des variables de types variés.  Par exemple,
 
 @example
-maLargeur = 60   % un nombre transmis à une variable \paper (unité = millimètre)
+maLargeur = 60   % un nombre transmis à une variable \paper
+                 % (unité = millimètre)
 monNom = "Wendy" % une chaîne transmise à un markup
 aCinqPapier = \paper @{ #(set-paper-size "a5") @}
 @end example
@@ -1517,6 +1544,7 @@ en début de fichier, après le numéro de version.
 @}
 @end example
 
+@noindent
 Quand LilyPond traite le fichier, le titre et le compositeur sont
 imprimés au début de la partition.  Vous trouverez plus d'informations
 sur les titres à la section
@@ -1539,14 +1567,14 @@ la musique au clavier, il existe une autre façon de procéder : le mode
 de hauteurs absolues.
 
 Si vous omettez la commande @code{\relative}, LilyPond considérera
-toutes les hauteurs comme des hauteurs absolues.  Un @code{c'} désigne
-toujours le do central, un @code{b} se situe une seconde en dessous
-du do central, et un @code{g,} est situé sur la première ligne de
+toutes les hauteurs comme des hauteurs absolues : un @samp{c'} désigne
+toujours le do central, un @samp{b} se situe une seconde en dessous
+du do central, et un @samp{g,} est situé sur la première ligne de
 la portée en clé de fa.
 
 @lilypond[verbatim,quote]
 {
-  \clef "bass"
+  \clef bass
   c'4 b g, g, |
   g,4 f, f c' |
 }

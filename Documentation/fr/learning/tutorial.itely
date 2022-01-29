@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -13,7 +13,7 @@
 @c \version "2.19.21"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
-@c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
+@c Translation checkers: J.-C. Malahieude, Valentin Villenave, John Mandereau
 @c Translation status: post-GDP
 
 @node Tutoriel
@@ -81,7 +81,7 @@ Voici un premier exemple simple de fichier source LilyPond.
 La compilation de ce fichier donnera quelque chose de sembable à
 l'image ci-dessous.
 
-@c  in this case we don't want verbatim
+@c No 'verbatim' option here.
 @lilypond[quote]
 {
   c' e' g' e'
@@ -108,7 +108,7 @@ documentation, consultez @ref{Bien lire le manuel}.}
 
 De plus, LilyPond est @strong{sensible à la casse} : le code
 @w{@samp{@{ c d e @}}} est valide, alors que @w{@samp{@{ C D E @}}}
-produira un message d'erreur.
+produit un message d'erreur.
 
 @smallspace
 
@@ -128,19 +128,24 @@ comment voir ou imprimer le résultat produit par LilyPond.
 @itemize
 
 @item
+@ifhtml
 @ref{MacOS X, @sourceimage{logo-macosx,,}}
+@end ifhtml
 @ref{MacOS X, MacOS X} (graphique)
 
 @item
+@ifhtml
 @ref{Windows, @sourceimage{logo-windows,,}}
+@end ifhtml
 @ref{Windows, Microsoft Windows} (graphique)
 
 @item
+@ifhtml
 @ref{Ligne de commande, @sourceimage{logo-linux,,}
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
+@sourceimage{logo-windows,,}}
+@end ifhtml
 @ref{Ligne de commande, Tous systèmes} (ligne de commande)
 
 @end itemize
@@ -173,7 +178,7 @@ en principe plus rapidement lors des exécutions suivantes.}
 
 @node Ligne de commande
 @subsection Ligne de commande
-@translationof Command-line
+@translationof Command line
 
 @cindex lancer LilyPond sous Unix
 @cindex Unix, lancer LilyPond
@@ -253,15 +258,16 @@ Glossaire musicologique :
 
 LilyPond utilise des lettres minuscules pour indiquer les hauteurs.
 Dans les exemples des manuels de LilyPond est utilisée la nomenclature
-batave. Néanmoins, LilyPond prend en charge d'autres dénomination des
+batave. Néanmoins, LilyPond prend en charge d'autres dénominations des
 hauteurs -- voir @ruser{Nom des notes dans d'autres langues}.
 Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
-basse -- celle sous le @notation{do medium}.  Leur adjoindre un @code{'}
-ou un @code{,} indique une octave supérieure ou inférieure.  Voici une
+basse -- celle sous le @notation{do medium}.  Leur adjoindre un @samp{'}
+ou un @samp{,} indique une octave supérieure ou inférieure.  Voici une
 gamme commençant sur le @notation{do médium} ainsi qu'un arpège :
 
 @lilypond[verbatim,quote]
-{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+{ c' d' e' f' g' a' b' c''
+  g c' e' g' c'' e'' g'' c''' }
 @end lilypond
 
 Le moyen le plus simple d'entrer des notes est d'utiliser le mode
@@ -279,9 +285,10 @@ gamme.
 }
 @end lilypond
 
+@noindent
 La note de départ est le @notation{do central}, indiqué par @code{c'}.
 Chacune des notes qui suivent est placée à l'octave la plus proche de la
-note précédente -- en d'autres termes, le premier @code{c} est le do
+note précédente -- en d'autres termes, le premier @samp{c} est le do
 central, entre la clef de sol et la clef de fa, puis est suivi par le
 @notation{ré} le plus proche, et ainsi de suite.  On peut bien sûr créer
 des mélodies avec de plus grands intervalles, toujours avec le mode
@@ -295,7 +302,7 @@ des mélodies avec de plus grands intervalles, toujours avec le mode
 @end lilypond
 
 @noindent
-La première note de cet exemple -- le @code{d'} avec une seule
+La première note de cet exemple -- le @samp{d'} avec une seule
 apostrophe -- est le ré de l'octave commençant par le do central.
 
 L'ajout (ou la suppression) d'apostrophes ou de virgules à la première
@@ -332,8 +339,8 @@ Notez que le calcul des octaves relatives @strong{ne tient pas compte
 des altérations} des notes, dièse bémol ou bécarre.
 
 Pour obtenir des intervalles supérieurs à une quarte, on peut ajouter
-des apostrophes @code{'} -- qui font chacune monter la hauteur d'une
-octave -- ou des virgules @code{,} -- qui font chacune descendre la
+des apostrophes @samp{'} -- qui font chacune monter la hauteur d'une
+octave -- ou des virgules @samp{,} -- qui font chacune descendre la
 hauteur d'une octave -- au nom de la note.
 
 @lilypond[verbatim,quote]
@@ -345,9 +352,9 @@ hauteur d'une octave -- au nom de la note.
 
 @noindent
 Pour déplacer une note deux octaves (ou davantage !) plus haut ou plus
-bas, il suffit de mettre deux (ou davantage) @code{'} ou @code{,} --
+bas, il suffit de mettre deux (ou davantage) @samp{'} ou @samp{,} --
 attention cependant à bien mettre deux apostrophes @code{''}, et non
-un guillemet @code{"} !  C'est de cette même manière que l'on
+un guillemet @samp{"} !  C'est de cette même manière que l'on
 peut modifier la valeur de départ de @w{@code{\relative c'}}.
 @c " - keeps quotes in order for context-sensitive editor -td
 
@@ -374,8 +381,8 @@ Glossaire musicologique :
 @rglosnamed{dotted note,note pointée}.
 
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
-hauteur : @code{1} pour une @notation{ronde}, @code{2} pour une
-@notation{blanche}, @code{4} pour une @notation{noire} et ainsi de
+hauteur : @samp{1} pour une @notation{ronde}, @samp{2} pour une
+@notation{blanche}, @samp{4} pour une @notation{noire} et ainsi de
 suite.  Les @notation{crochets} et @notation{liens} (ou ligaturess)
 sont ajoutés automatiquement.
 
@@ -391,7 +398,7 @@ est une noire.
 }
 @end lilypond
 
-Une @notation{note pointée} s'obtient en ajoutant un point @code{.}  à
+Une @notation{note pointée} s'obtient en ajoutant un point (@samp{.})  à
 la valeur rythmique.  Le point doit être précédé d'un nombre spécifiant
 la durée de base.
 
@@ -414,7 +421,7 @@ Glossaire musicologique :
 @rglosnamed{rest,silence}.
 
 On saisit un @notation{silence} tout comme une note, mais avec la
-lettre @code{r} (pour @emph{rest}).
+lettre @samp{r} (pour @emph{rest}).
 
 @lilypond[verbatim,quote]
 \relative {
@@ -502,13 +509,13 @@ La @notation{clef} peut être définie à l'aide de la commande
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef "treble"
+  \clef treble
   c'1
-  \clef "alto"
+  \clef alto
   c1
-  \clef "tenor"
+  \clef tenor
   c1
-  \clef "bass"
+  \clef bass
   c1
 }
 @end lilypond
@@ -523,7 +530,7 @@ déjà vus :
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef "bass"
+  \clef bass
   \time 3/4
   c,2 e8 c'
   g'2.
@@ -569,8 +576,8 @@ Le traitement des fichiers source de LilyPond est semblable à celui du
 code de nombreux langages de programmation.  La casse est prise
 en compte, et les caractères considérés comme espaces ont généralement
 peu d'importance.  Les expressions sont délimitées par des accolades
-@code{@{ @}}, et les commentaires par @code{%} ou
-@w{@code{%@{ @dots{} @}}} .
+@code{@{ @}}, et les commentaires par @samp{%} ou
+@w{@samp{%@{ @dots{} @}}} .
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas !
 Expliquons tous ces termes :
@@ -584,7 +591,7 @@ mention prend la forme d'une ligne décrivant le numéro de la version
 utilisée lors de la confection du fichier en question, comme ici :
 
 @example
-\version "@w{@version{}}"
+\version "@version{}"
 @end example
 
 Il est d'usage de porter cette mention au tout début du fichier
@@ -603,15 +610,28 @@ la compilation.
 @strong{La casse} :
 LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
 n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
-exemple, doivent être entrées en minuscule : @w{@code{@{ c d e @}}} est
-un code valide, alors que @w{@code{@{ C D E @}}} produira un message
+exemple, doivent être entrées en minuscule : @w{@samp{@{ c d e @}}} est
+un code valide, alors que @w{@samp{@{ C D E @}}} produira un message
 d'erreur.
 
 @item
 @strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, de tabulations ou de
-retours à la ligne.  @w{@code{@{ c d e @}}} a le même sens que
-@w{@code{@{ c     d   e @}}} ou que
+retours à la ligne.
+
+@example
+@{ c4 d e@}
+@end example
+
+@noindent
+a le même sens que
+
+@example
+@{ c4       d e @}
+@end example
+
+@noindent
+ou que
 
 @example
 @{ c4                       d
@@ -645,7 +665,7 @@ tout comme les parenthèses @code{()} en mathématiques.  Pour éviter
 toute ambiguïté, il est préférable d'entourer ces accolades d'espaces ou
 de retours à la ligne.
 
-Un appel de fonction -- @w{@code{\relative @{ @dots{} @}}} par
+Un appel de fonction -- @samp{\relative @{ @dots{} @}} par
 exemple -- compte également comme une seule expression musicale.
 
 @item
@@ -654,14 +674,14 @@ Un commentaire est une indication pour tout lecteur humain d'un
 fichier source de musique ; il est ignoré lors de la compilation et
 n'a donc aucun effet sur la partition imprimée.  On distingue deux types
 de commentaires.  Le commentaire de fin de ligne, introduit par le
-symbole @code{%} : tout ce qui suit ce symbole sur la même ligne sera
+symbole @samp{%} : tout ce qui suit ce symbole sur la même ligne sera
 ignoré.  Par convention, un commentaire qui occupe une ligne entière
 se place juste @emph{au-dessus} de la ligne à laquelle il fait
 référence.
 
 @example
 a4 a a a
-% ce commentaire fait référence aux si
+% ce commentaire fait référence aux deux si ci-dessous
 b2 b
 @end example
 
@@ -676,7 +696,7 @@ quelques usages possibles des commentaires :
 
 @example
 % voici les notes de "ah vous dirai-je maman"
- c4 c g' g a a g2
+c4 c g' g a a g2
 
 %@{
    Ces lignes et les notes qui suivent
@@ -799,6 +819,7 @@ Essayez sur cette image :
 }
 @end lilypond
 
+@noindent
 En copiant-collant le code à partir du commentaire « ly snippet »
 vers un fichier test, vous aurez un modèle de base pour faire vos
 expériences.  Pour obtenir une gravure à l'identique, copiez tout le

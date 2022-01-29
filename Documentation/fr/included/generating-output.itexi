@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 17eb780fca1f9452a5e57ee6ed943c6e8e7b92ec
+    Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,6 +14,7 @@
 @c source code.
 
 @macro lilypadOSX
+
 @warning{Les instructions qui suivent concernent ceux qui utilisent
 le lanceur LilyPond.  Si vous utilisez l'un des programmes mentionnés
 au chapitre @rweb{Facilités d'édition}, référez-vous à leur
@@ -25,16 +26,16 @@ documentation respective en cas de problème.}
 Lorsque vous faites un double clic sur @command{LilyPond.app}, un
 fichier exemple s'ouvre.
 
-@sourceimage{Learning_Macos_welcome,,}
+@center @sourceimage{Learning_Macos_welcome,10cm,}
 
 Dans le menu, en haut et à gauche de la fenêtre, sélectionnez
 @w{@code{Fichier > Enregistrer}}.
 
-@sourceimage{Learning_Macos_Save_menu,,}
+@center @sourceimage{Learning_Macos_Save_menu,8cm,}
 
 Attribuez un nom à votre fichier, par exemple @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,}
+@center @sourceimage{Learning_Macos_Save_file_with_name,10cm,}
 
 
 @subsubheading Étape 2. Compilation (avec LilyPad)
@@ -42,12 +43,12 @@ Attribuez un nom à votre fichier, par exemple @file{test.ly}.
 Dans le menu, sélectionnez
 @w{@code{Compiler > Typeset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,}
+@center @sourceimage{Learning_Macos_Typeset_menu,8cm,}
 
 Une nouvelle fenêtre s'ouvre dans laquelle s'affiche le journal de
 compilation du fichier que vous venez de sauvegarder.
 
-@sourceimage{Learning_Macos_Compiling_log,,}
+@center @sourceimage{Learning_Macos_Compiling_log,10cm,}
 
 
 @subsubheading Étape 3. Visualisation du résultat
@@ -56,7 +57,7 @@ La compilation s'achève par la création d'un fichier PDF portant le même
 nom que le fichier source ; ce nouveau fichier sera automatiquement
 ouvert par votre lecteur PDF par défaut et affiché à l'écran.
 
-@sourceimage{Learning_Macos_pdf_output,,}
+@center @sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Autres commandes
@@ -64,12 +65,13 @@ ouvert par votre lecteur PDF par défaut et affiché à l'écran.
 Pour créer de nouveaux fichiers pour LilyPond, sélectionnez
 @w{@code{Fichier > Nouveau}}
 
-@sourceimage{Learning_Macos_New_menu,,}
+@center @sourceimage{Learning_Macos_New_menu,8cm,}
 
+@noindent
 ou @w{@code{Fichier > Ouvrir}} pour reprendre un fichier précédemment
 enregistré.
 
-@sourceimage{Learning_Macos_Open_menu,,}
+@center @sourceimage{Learning_Macos_Open_menu,8cm,}
 
 Pensez à toujours enregistrer votre travail avant de lancer l'option
 @w{@code{Compile > Tyepset}} du menu.  Si le PDF n'apparaît pas,
@@ -78,13 +80,13 @@ vérifiez que la fenêtre @qq{log} ne comporte pas d'erreur.
 Si vous n'utilisez pas le lecteur de PDF par défaut de Mac OS et
 qu'un fichier résultant d'une précédente compilation est encore ouvert
 dans votre lecteur, la régénération de ce PDF peut bloquer tant que vous
-ne fermez pas le fichier ouvert.
+ne fermez pas le fichier PDF ouvert.
 
-
-@end macro
+@end macro @c lilypadOSX
 
 
 @macro lilypadWindows
+
 @warning{Les instructions qui suivent partent du principe que vous
 utilisez l'éditeur LilyPad fourni.  Si vous utilisez l'un des programmes
 répertoriés dans @rweb{Facilités d'édition}, référez-vous à leur
@@ -96,19 +98,18 @@ documentation respective en cas de problème.}
 Double-cliquez sur l'icone LilyPond qui se trouve sur le bureau.
 S'ouvre alors un fichier d'exemple.
 
-@sourceimage{LilyPad,,}
+@center @sourceimage{LilyPad,,}
 
 Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}
 (@emph{Save as@dots{}}).  Ne prenez pas l'option @w{@code{Fichier >
 Enregistrer}} (@emph{Save}) pour ce fichier exemple : LilyPond attend un
 nom de fichier valide.
 
-
-@sourceimage{FileSave,,}
+@center @sourceimage{FileSave,,}
 
 Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 
-@sourceimage{SaveAs,,}
+@center @sourceimage{SaveAs,,}
 
 
 @subsubheading Étape 2. Compilation
@@ -116,22 +117,22 @@ Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 La transformation d'un fichier LilyPond en partition s'obtient par
 compilation.  Celle-ci peut se lancer de différentes manières :
 par glisser-déposer, par un clic de droite, par un double clic ou
-encore en ligne de commande (dans une fenêtre d'interpréteur DOS).
+encore en ligne de commande (dans une fenêtre d'interpréteur).
 Nous examinerons ici les trois premières options.
 
 1. Faire glisser puis déposer le fichier sur l'icone LilyPond
 
-@sourceimage{DragDrop,,}
+@center @sourceimage{DragDrop,,}
 
-
+@noindent
 Bien qu'il ne semble pas se passer grand chose, deux fichiers --
 @file{test.log} et @file{test.pdf} -- devraient apparaître après
 quelques instants sur votre bureau.
 
 2. Ouvrir le menu contextuel par un clic-droit, puis en prendre
-l'option @w{@code{Generate PDF @dots{} }} (@emph{Générer le PDF}).
+l'option @w{@code{Generate PDF@dots{} }} (@emph{Générer le PDF}).
 
-@sourceimage{GenPDF,,}
+@center @sourceimage{GenPDF,,}
 
 3. Faire un double-clic sur le fichier @file{test.ly}.
 
@@ -141,7 +142,7 @@ l'option @w{@code{Generate PDF @dots{} }} (@emph{Générer le PDF}).
 @file{test.pdf} contient la gravure de votre fichier @file{test.ly}.  Un
 double-clic sur son icône devrait l'ouvrir dans votre lecteur PDF :
 
-@sourceimage{PDFRead,,}
+@center @sourceimage{PDFRead,,}
 
 
 @subsubheading Autres commandes
@@ -153,7 +154,7 @@ modification d'un fichier existant est aussi accessible à partir de
 l'option @w{@code{Edit source}} (@emph{Éditer la source}) du menu
 contextuel.
 
-@sourceimage{EditFile,,}
+@center @sourceimage{EditFile,,}
 
 Pensez à toujours enregistrer votre travail avant de compiler votre
 fichier.  Si LilyPond ne crée pas de PDF ou que le résultat ne
@@ -161,17 +162,21 @@ correspond pas à vos attentes, consultez le fichier de journalisation --
 généré au fil du processus de compilation -- et vérifiez qu'il ne
 comporte pas d'erreur.
 
-@sourceimage{BadLog,,}
+@center @sourceimage{BadLog,,}
 
+@noindent
 Ce fichier journal est remplacé à chaque compilation de votre fichier
 LilyPond.
 
 Pensez à fermer le fichier dans votre lecteur de PDF à chaque fois que
 vous relancez la compilation, afin d'être sûr que celle-ci arrive à son
-terme.
+terme. Ceci est particulièrement vrai pour Acrobat Reader d'Adobe.
+D'autres programmes, tel que le lecteur de PDF FoxIt, ne rencontrent pas
+ce problème.
 
+@center @sourceimage{BadLog2,,}
 
-@end macro
+@end macro @c lilypadWindows
 
 
 @c not lilypad at all, but I ran out of names.  :(
@@ -184,13 +189,13 @@ documentation respective en cas de problème.}
 
 @subsubheading Étape 1. Création d'un fichier @file{.ly}
 
-Créez un fichier texte du nom de @file{test.ly} et saisissez :
+Créez un fichier texte du nom de @file{test.ly} dont le contenu sera :
 
 @c double \\ required because this is inside a macro!
 @example
-\\version "@w{@versionStable{}}"
+\\version "@versionStable{}"
 @{
-@ @ c' e' g' e'
+  c' e' g' e'
 @}
 @end example
 
@@ -208,7 +213,7 @@ lilypond test.ly
 Vous verrez alors quelque chose qui ressemblera à :
 
 @example
-GNU LilyPond @w{@versionStable{}}
+GNU LilyPond @versionStable{}
 Traitement de « test.ly »
 Analyse...
 Interprétation en cours de la musique...
@@ -231,4 +236,4 @@ non.
 
 Vous pouvez à présent visualiser ou imprimer @file{test.pdf}.
 
-@end macro
+@end macro @c lilypondCommandLine

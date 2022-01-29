@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ba16b79953926c51fcc8fba9101bfdf15fb7adde
+   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.22"
 
 @c Translators: Valentin Villenave, Nicolas Klutchnikoff, Damien Heurtebise
-@c Translation checkers: Jean-Charles Malahieude, John Mandereau
+@c Translation checkers: J.-C. Malahieude, John Mandereau
 @c Translation status: post-GDP
 
 @node Retouche de partition
@@ -176,23 +176,23 @@ présentent.
   @tab Convention de nommage
   @tab Exemples
 @item Contextes
-  @tab Aaaa ou AaaaAaaaAaaa
-  @tab Staff, GrandStaff
+  @tab @code{Aaaa} ou @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
 @item Objets de rendu
-  @tab Aaaa ou AaaaAaaaAaaa
-  @tab Slur, NoteHead
+  @tab @code{Aaaa} ou @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
 @item Graveurs
-  @tab Aaaa_aaa_engraver
-  @tab Clef_engraver, Note_heads_engraver
+  @tab @code{Aaaa_aaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
 @item Interfaces
-  @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
 @item Propriétés de contexte
-  @tab aaa ou aaaAaaaAaaa
-  @tab alignAboveContext, skipBars
+  @tab @code{aaa} ou @code{aaaAaaaAaaa}
+  @tab @code{alignAboveContext}, @code{skipBars}
 @item Propriétés d'objet de rendu
-  @tab aaa ou aaa-aaa-aaa
-  @tab direction, beam-thickness
+  @tab @code{aaa} ou @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
 @end multitable
 
 Comme nous le verrons bientôt, les propriétés des différents types
@@ -202,6 +202,7 @@ fonction de son nom.
 
 @morerefs
 Manuel de notation :
+@ruser{Conventions de nommage},
 @ruser{Modification de propriétés}.
 @endmorerefs
 

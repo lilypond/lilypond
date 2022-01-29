@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ba16b79953926c51fcc8fba9101bfdf15fb7adde
+   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1892,21 +1892,6 @@ dans le contexte de voix.  Puisque LilyPond n'ira pas chercher une telle
 propriété dans le contexte @code{Voice}, celle-ci ne sera pas
 interprétée.  Il ne s'agit pas d'une erreur, aucun message d'erreur ne
 sera ni émis ni enregistré.
-
-De la même manière, une faute d'orthographe dans le nom de la propriété
-ne générera aucun message d'erreur et l'action escomptée ne se produira
-pas.  Vous pourriez déterminer par la commande @code{\set} n'importe
-quelle @qq{propriété}, même fictive, à partir de n'importe quel nom et
-dans n'importe lequel des contextes disponibles.  Mais tant que ce nom
-est inconnu de LilyPond, rien ne se passera.  Certains éditeurs de texte
-disposent d'une prise en charge spécifique aux fichiers source LilyPond,
-à l'instar de LilyPondTool couplé à JEdit et qui documente les noms des
-propriétés dans une infobulle lorsque vous les survolez à la souris, ou
-les souligne différemment s'ils sont inconnus, comme ConTEXT.  Dans le
-cas où votre éditeur ne dispose pas de ces fonctionnalités, nous vous
-recommandons de vérifier le nom des propriétés que vous manipulez dans
-la Référence des propriétés internes -- voir
-@rinternals{Tunable context properties}, ou @rinternals{Contexts}.
 
 La propriété @code{clefGlyph} ne sera prise en compte que si elle
 est définie dans un contexte @code{Staff} ; d'autres propriétés
