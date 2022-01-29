@@ -129,9 +129,9 @@ Beam_collision_engraver::finalize ()
         }
       Context const *beam_context = beams_[i].context_;
 
-      Interval_t<int> beam_spanned_rank_ = beam_grob->spanned_rank_interval ();
+      Interval_t<int> beam_spanned_rank = beam_grob->spanned_rank_interval ();
       // Start considering grobs at the first grob whose end falls at or after the beam's beginning.
-      while (covered_grobs_[start].grob_->spanned_rank_interval ()[RIGHT] < beam_spanned_rank_[LEFT])
+      while (covered_grobs_[start].grob_->spanned_rank_interval ()[RIGHT] < beam_spanned_rank[LEFT])
         start++;
 
       // Stop when the grob's beginning comes after the beam's end.
@@ -144,7 +144,7 @@ Beam_collision_engraver::finalize ()
           Context const *covered_grob_context = covered_grobs_[j].context_;
 
           Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_rank_interval ();
-          if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT])
+          if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank[RIGHT])
             break;
           /*
              Only consider grobs whose end falls at or after the beam's beginning.
@@ -152,11 +152,11 @@ Beam_collision_engraver::finalize ()
              Also, if the user wants to check for collisions only in the beam's voice,
              then make sure the beam and the covered_grob are in the same voice.
           */
-          if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank_[LEFT])
+          if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank[LEFT])
               && !(from_scm<bool> (get_property (beam_grob, "collision-voice-only"))
                    && (covered_grob_context != beam_context))
               && !(has_interface<Beam> (covered_grob)
-                   && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT]))
+                   && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank[LEFT]))
               && covered_grob_has_interface (covered_grob, beam_grob))
             {
               // Do not consider note heads attached to the beam.
