@@ -384,5 +384,6 @@
   \type "Performer_group"
   \name Dynamics
   \alias Voice
+  \alias Staff
   \consists "Piano_pedal_performer"
 }

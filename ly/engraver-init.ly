@@ -415,6 +415,7 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \type "Engraver_group"
   \name "Dynamics"
   \alias "Voice"
+  \alias "Staff"
   \consists "Output_property_engraver"
   %% The bar lines are invisible, but allow the to-barline
   %% property to work.
