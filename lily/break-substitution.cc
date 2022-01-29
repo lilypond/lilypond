@@ -26,7 +26,7 @@ using std::vector;
 // TODO: int is wider than necessary.  Consider changing it to
 // System::rank_type.  For now, the decision is not to introduce a new
 // instantiation of Interval_t<>.
-typedef Interval_t<int> System_range;
+typedef Interval_t<int> System_rank_interval;
 
 /*
   Perform the substitution for a single grob.
@@ -194,32 +194,32 @@ again:
   moz-k498-p1, before 24.10, after: 19.790s, Increase of 18%
 */
 
-System_range
+System_rank_interval
 spanner_system_range (Spanner *sp)
 {
-  System_range rv;
+  System_rank_interval rv;
 
   if (System *st = sp->get_system ())
-    rv = System_range (st->get_rank (), st->get_rank ());
+    rv = System_rank_interval (st->get_rank (), st->get_rank ());
   else
     {
       vector<Spanner *> const &bs = sp->broken_intos_;
       if (!bs.empty ())
         {
-          rv = System_range (bs.front ()->get_system ()->get_rank (),
+          rv = System_rank_interval (bs.front ()->get_system ()->get_rank (),
                              bs.back ()->get_system ()->get_rank ());
         }
     }
   return rv;
 }
 
-System_range
+System_rank_interval
 item_system_range (Item *it)
 {
   if (System *st = it->get_system ())
-    return System_range (st->get_rank (), st->get_rank ());
+    return System_rank_interval (st->get_rank (), st->get_rank ());
 
-  System_range sr;
+  System_rank_interval sr;
   for (const auto d : {LEFT, RIGHT})
     {
       Item *bi = it->find_prebroken_piece (d);
@@ -241,7 +241,7 @@ struct Substitution_entry
   System::rank_type left_;
   System::rank_type right_;
 
-  Substitution_entry (Grob *g, const System_range &sr)
+  Substitution_entry (Grob *g, const System_rank_interval &sr)
   {
     grob_ = g;
     /*
