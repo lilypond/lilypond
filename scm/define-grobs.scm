@@ -20,7 +20,12 @@
 ;;;; staff-space (distances)
 
 ;;;; WARNING: the meta field should be the last one.
-;;;; WARNING: don't use anonymous functions for initialization.
+
+;;;; WARNING: Don't use anonymous functions for initialization.  They
+;;;; won't have a useful representation in the Internals Reference.
+;;;; They will also make the doc build unreproducible because Guile >=
+;;;; 2 includes raw memory addresses in a function's displayed
+;;;; representation.
 
 ;; TODO: junk the meta field in favor of something more compact?
 
@@ -126,6 +131,7 @@ in @dfn{musica ficta}.  Normally positioned above a note.")))))
                         (clef . (extra-space . 1.15))
                         (cue-clef . (extra-space . 0.5))
                         (key-signature . (extra-space . 1.15))
+                        (signum-repetitionis . (extra-space . 1.15))
                         (staff-bar . (extra-space . 1.15))
                         (time-signature . (extra-space . 1.15))
                         (right-edge . (extra-space . 0.5))
@@ -580,6 +586,7 @@ See also @iref{BreakAlignment}.")))))
                                cue-end-clef
                                ambitus
                                breathing-sign
+                               signum-repetitionis
                                clef
                                cue-clef
                                staff-bar
@@ -595,6 +602,7 @@ See also @iref{BreakAlignment}.")))))
                                cue-end-clef
                                ambitus
                                breathing-sign
+                               signum-repetitionis
                                clef
                                cue-clef
                                staff-bar
@@ -609,6 +617,7 @@ See also @iref{BreakAlignment}.")))))
                                staff-ellipsis
                                ambitus
                                breathing-sign
+                               signum-repetitionis
                                clef
                                key-cancellation
                                key-signature
@@ -639,6 +648,7 @@ time signature follows or precedes a bar line).")))))
                         (custos . (minimum-space . 1.0))
                         (key-signature . (minimum-space . 1.5))
                         (time-signature . (minimum-space . 1.5))
+                        (signum-repetitionis . (minimum-space . 1.5))
                         (staff-bar . (minimum-space . 1.5))
                         (clef . (minimum-space . 2.0))
                         (cue-clef . (minimum-space . 2.0))
@@ -730,6 +740,7 @@ vertical baseline to align @iref{CenteredBarNumber} grobs.")))))
         (glyph-name . ,ly:clef::calc-glyph-name)
         (non-musical . #t)
         (space-alist . ((cue-clef . (extra-space . 2.0))
+                        (signum-repetitionis . (extra-space . 0.7))
                         (staff-bar . (extra-space . 0.7))
                         (ambitus . (extra-space . 1.15))
                         (key-cancellation . (minimum-space . 3.5))
@@ -925,7 +936,8 @@ properties if automatic part combining is active.")))))
         (glyph-name . ,ly:clef::calc-glyph-name)
         (non-musical . #t)
         (full-size-change . #t)
-        (space-alist . ((staff-bar . (minimum-space . 2.7))
+        (space-alist . ((signum-repetitionis . (minimum-space . 2.7))
+                        (staff-bar . (minimum-space . 2.7))
                         (key-cancellation . (minimum-space . 3.5))
                         (key-signature . (minimum-space . 3.5))
                         (time-signature . (minimum-space . 4.2))
@@ -961,6 +973,7 @@ properties if automatic part combining is active.")))))
         (full-size-change . #t)
         (space-alist . ((clef . (extra-space . 0.7))
                         (cue-clef . (extra-space . 0.7))
+                        (signum-repetitionis . (extra-space . 0.7))
                         (staff-bar . (extra-space . 0.7))
                         (key-cancellation . (minimum-space . 3.5))
                         (key-signature . (minimum-space . 3.5))
@@ -1651,6 +1664,7 @@ departure} like @emph{D.C. al fine}.")))))
         (sharp-positions . (4 5 4 2 3 2 3))
         (space-alist . (
                         (time-signature . (extra-space . 1.25))
+                        (signum-repetitionis . (extra-space . 0.6))
                         (staff-bar . (extra-space . 0.6))
                         (key-signature . (extra-space . 0.5))
                         (cue-clef . (extra-space . 0.5))
@@ -1690,6 +1704,7 @@ before a @iref{KeySignature} grob if the key changes.")))))
         (space-alist . (
                         (ambitus . (extra-space . 1.15))
                         (time-signature . (extra-space . 1.15))
+                        (signum-repetitionis . (extra-space . 1.1))
                         (staff-bar . (extra-space . 1.1))
                         (cue-clef . (extra-space . 0.5))
                         (right-edge . (extra-space . 0.5))
@@ -1787,6 +1802,7 @@ ledger lines of a whole staff.")))))
                         (cue-end-clef . (extra-space . 0.8))
                         (clef . (extra-space . 0.8))
                         (cue-clef . (extra-space . 0.8))
+                        (signum-repetitionis . (extra-space . 0.0))
                         (staff-bar . (extra-space . 0.0))
                         (staff-ellipsis . (extra-space . 0.0))
                         (key-cancellation . (extra-space . 0.0))
@@ -2669,6 +2685,50 @@ horizontally align stacked @iref{Script} grobs.")))))
                  (description . "A segno mark (created with
 @code{\\repeat segno}, not with @code{\\segno}).")))))
 
+    ;; Ancient end-repeat sign.  This isn't a bar line, but it shares
+    ;; much of the BarLine implementation.
+    (SignumRepetitionis
+     . (
+        (bar-extent . ,ly:bar-line::calc-bar-extent)
+        (break-align-anchor . ,ly:bar-line::calc-anchor)
+        (break-align-symbol . signum-repetitionis)
+        (break-visibility . ,begin-of-line-invisible)
+        (extra-spacing-height . ,pure-from-neighbor-interface::account-for-span-bar)
+        (gap . 0.4)
+        ;; The engraver should set a glyph based on the repeat count.
+        ;; If it doesn't, we signal it with this modern-looking placeholder.
+        (glyph . ":|.")
+        ;; Bypass BarLine's start-/middle-/end-of-line distinctions.
+        (glyph-name . ,(grob::relay-other-property 'glyph))
+        (kern . 3.0)
+        (segno-kern . 3.0)
+        (hair-thickness . 1.9)
+        (thick-thickness . 6.0)
+
+        (layer . 0)
+        (non-musical . #t)
+        (rounded . #f)
+        (space-alist . ((ambitus . (extra-space . 1.0))
+                        (time-signature . (extra-space . 0.75))
+                        (custos . (minimum-space . 2.0))
+                        (clef . (extra-space . 1.0))
+                        (key-signature . (extra-space . 1.0))
+                        (key-cancellation . (extra-space . 1.0))
+                        (first-note . (extra-space . 0.5))
+                        (next-note . (semi-fixed-space . 0.9))
+                        (signum-repetitionis . (extra-space . 0.5))
+                        (staff-bar . (extra-space . 0.5))
+                        (right-edge . (extra-space . 0.0))))
+        (stencil . ,ly:bar-line::print)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (interfaces . (break-aligned-interface
+                                font-interface
+                                pure-from-neighbor-interface
+                                signum-repetitionis-interface))))))
+
     (Slur
      . (
         (avoid-slur . inside)
@@ -2805,6 +2865,7 @@ space.")))))
                         (custos . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
                         (time-signature . (extra-space . 1.0))
+                        (signum-repetitionis . (extra-space . 1.0))
                         (staff-bar . (extra-space . 1.0))
                         (clef . (extra-space . 1.0))
                         (cue-clef . (extra-space . 1.0))
@@ -3337,6 +3398,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
                         (cue-clef . (extra-space . 1.5))
                         (first-note . (fixed-space . 2.0))
                         (right-edge . (extra-space . 0.5))
+                        (signum-repetitionis . (extra-space . 1.0))
                         (staff-bar . (extra-space . 1.0))))
         (stencil . ,ly:time-signature::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)

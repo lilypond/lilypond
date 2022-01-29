@@ -1003,6 +1003,53 @@ vertical position.")))
 @code{accidental-switch-interface} to the value of the context's
 @code{alterationGlyphs} property, when defined.")))
 
+(define (Signum_repetitionis_engraver context)
+  (let ((end-event '()))
+    (make-engraver
+     (listeners
+      ((volta-repeat-end-event engraver event)
+       ;; TODO: warn if multiple events have conflicting parameters
+       (set! end-event event)))
+
+     ((process-music engraver)
+      (if (ly:stream-event? end-event)
+          (if (= 0 (ly:event-property end-event 'alternative-number 0))
+              ;; Simple repeat: Indicate the repeat count with 1 to 4
+              ;; strokes.  (Thanks to Dr. Ross W. Duffin for
+              ;; explaining this in his Notation Manual at
+              ;; https://casfaculty.case.edu/ross-duffin/.)
+              (let ((n (ly:event-property end-event 'repeat-count 0)))
+                (if (positive? n)
+                    (let ((grob (ly:engraver-make-grob
+                                 engraver 'SignumRepetitionis end-event))
+                          (glyph (case n
+                                   ((1) ":,:")
+                                   ((2) ":,,:")
+                                   ((3) ":,,,:")
+                                   ((4) ":,,,,:")
+                                   (else #f))))
+                      (if (string? glyph)
+                          (ly:grob-set-property! grob 'glyph glyph)))))
+              ;; Alternative ending: This is not a use case for this
+              ;; ancient notation.  Just create a grob with the
+              ;; default glyph if there is a return.
+              (let ((n (ly:event-property end-event 'return-count 0)))
+                (if (positive? n)
+                    (ly:engraver-make-grob
+                     engraver 'SignumRepetitionis end-event))))))
+
+     ((stop-translation-timestep engraver)
+      (set! end-event '())))))
+
+(ly:register-translator
+ Signum_repetitionis_engraver 'Signum_repetitionis_engraver
+ '((grobs-created . (SignumRepetitionis))
+   (events-accepted . (volta-repeat-end-event))
+   (properties-read . ())
+   (properties-written . ())
+   (description . "Create a @code{SignumRepetitionis} at the end of
+a @code{\\repeat volta} section.")))
+
 (define (Spanner_tracking_engraver context)
   ;; Naming note: "spanner" is the grob we take care of
   ;; (e.g., a footnote) and "host" is the grob that

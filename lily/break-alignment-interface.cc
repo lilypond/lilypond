@@ -447,6 +447,7 @@ custos
 key-cancellation
 key-signature
 left-edge
+signum-repetitionis
 staff-bar
 staff-ellipsis
 time-signature

@@ -462,6 +462,22 @@ interesting enough to maintain a hara-kiri staff."
  '())
 
 (ly:add-interface
+ 'signum-repetitionis-interface
+  "An ancient repeat sign.  It is printed with the same infrastructure
+as bar lines, but it is not a bar line."
+ '(allow-span-bar
+   bar-extent
+   gap
+   glyph
+   glyph-name
+   hair-thickness
+   has-span-bar
+   kern
+   rounded
+   segno-kern
+   thick-thickness))
+
+(ly:add-interface
  'spacing-options-interface
  "Supports setting of spacing variables."
  '(spacing-increment

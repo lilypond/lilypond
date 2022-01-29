@@ -1359,6 +1359,12 @@ parent or the parent has no setting."
      (else '()))))
 (export grob::inherit-parent-property)
 
+(define ((grob::relay-other-property property) grob)
+  "@var{grob} callback generator for returning the value of another
+property, which is identified by the symbol @var{property}."
+  (ly:grob-property grob property))
+(export grob::relay-other-property)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; balloons
 

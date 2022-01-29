@@ -1213,6 +1213,7 @@ accommodated for typesetting a piece in Petrucci style."
 accommodated for typesetting a piece in Petrucci style."
 
   \consists "Custos_engraver"
+  \consists "Signum_repetitionis_engraver"
 
   %% Eliminate measure bar lines.
   measureBarType = ""
@@ -1227,20 +1228,25 @@ accommodated for typesetting a piece in Petrucci style."
   sectionBarType = "||"
   fineBarType = "|."
 
-  %% TODO: Harmonice Musices Odhecaton has notation for repeated
-  %% sections that our current bar line infrastructure can not quite
-  %% achieve.  See "Bergerette Savoyene" (folio 13) and "Le corps"
-  %% (folio 73).
+  %% Harmonice Musices Odhecaton has notation for repeated sections.
   %%
-  %% We could do it with the addition of a fineEndRepeatBarType
-  %% context property (and some new bar types), but it might be better
-  %% to add a SignumRepetitionis grob which can appear in addition to
-  %% a bar line.  That idea raises the question of also reimplementing
-  %% in-staff segno with multiple grobs: conceptually,
-  %% doubleRepeatSegnoBarType = endRepeatBarType + segnoBarType +
-  %% startRepeatBarType.
+  %% See "Bergerette savoyene" (f. 12v-13r) for an example of a repeat
+  %% to the beginning of the piece.  As in modern notation, there is
+  %% no bar line at the beginning.
   %%
-  %% Modern repeat bar lines remain enabled as placeholders.
+  %% See the tenor part of "Amours amours amours" (f. 25v) for (maybe)
+  %% a repeat back to a previous double bar line which is at the end
+  %% of a line.  That is why we leave start-repeat double bar lines
+  %% with the visibility of a modern double bar line rather than make
+  %% them visible at the beginning of the line.
+  %%
+  %% See "Le corps" (f. 72v-73r) for an example of the repeat sign
+  %% appearing along with the final double bar line.  That is why we
+  %% have implemented the repeat sign as its own grob.
+  doubleRepeatBarType = ""
+  endRepeatBarType = ""
+  startRepeatBarType = "||"
+  underlyingRepeatBarType = ""
 
   %% Match BarLine.hair-thickness to stems:
   %% BarLine.hair-thickness = Stem.thickness * StaffSymbol.thickness
@@ -1256,6 +1262,13 @@ accommodated for typesetting a piece in Petrucci style."
   \override BarLine.bar-extent = #'(-2.5 . 2.5)
   %% Because the ends will be visible, round the corners.
   \override BarLine.rounded = ##t
+
+  %% same settings for SignumRepetitionis (repeat sign) as for BarLine
+  \override SignumRepetitionis.hair-thickness = #2.21
+  \override SignumRepetitionis.kern = #2.9
+  \override SignumRepetitionis.thick-thickness = #2.9
+  \override SignumRepetitionis.bar-extent = #'(-2.5 . 2.5)
+  \override SignumRepetitionis.rounded = ##t
 
   \override StaffSymbol.thickness = #1.3
 
