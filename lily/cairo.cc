@@ -30,6 +30,7 @@
 #include "freetype.hh"
 #include "grob.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
@@ -44,6 +45,7 @@
 #include "stencil-interpret.hh"
 #include "stream-event.hh"
 #include "string-convert.hh"
+#include "text-interface.hh"
 
 #include <cairo-ft.h>
 #include <cairo-pdf.h>
@@ -1251,6 +1253,11 @@ Cairo_outputter::handle_metadata (SCM module)
       SCM val = SCM_BOOL_F;
       if (scm_is_true (var))
         val = scm_variable_ref (var);
+
+      if (Text_interface::is_markup (val))
+        {
+          val = Lily::markup_to_string (val);
+        }
 
       if (scm_is_string (val))
         metadata (k, ly_scm2string (val), true);
