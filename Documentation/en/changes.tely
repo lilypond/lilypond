@@ -81,7 +81,7 @@ into strings, for use by @code{markup->string}.  For example:
 @item
 @code{\bar ","} creates a short bar line.
 
-@lilypond
+@lilypond[quote]
 \new Staff \with {
   \omit Clef
   \omit TimeSignature
@@ -100,7 +100,7 @@ grobs.  While primarily meant for debugging LilyPond, this can be
 useful when trying to understand spacing decisions or overriding
 stencils in Scheme.
 
-@lilypond
+@lilypond[quote]
 #(set-global-staff-size 40)
 
 {
@@ -114,7 +114,7 @@ stencils in Scheme.
 @item
 Balloons now have changeable formatting.
 
-@lilypond
+@lilypond[quote]
 \new Score \with {
   \consists Balloon_engraver
   \override SpacingSpanner.spacing-increment = 5
@@ -170,7 +170,7 @@ The new @code{\section} command inserts a double bar line that
 interacts gracefully with repeat bar lines.  A passage can be
 named with the new @code{\sectionLabel} command.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=9\cm]
 \fixed c' {
   f1
   \break
@@ -192,7 +192,7 @@ Support for Persian classical music is now available.  For this, two
 accidental glyphs, @emph{sori} and @emph{koron}, have been added to
 LilyPond.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\cm]
 \include "persian.ly"
 
 \relative c' {
@@ -268,7 +268,7 @@ The syntax for conditions in markups was made more flexible and
 user-friendly.  It uses the new markup commands @code{\if} and
 @code{\unless}.  Here are example replacements:
 
-@multitable {@code{\on-the-fly #not-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
+@multitable {@code{\on-the-fly #not-part-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
 @headitem 2.22 syntax @tab 2.24 syntax
 @item @code{\on-the-fly #first-page @dots{}}
 @tab @code{\if \on-first-page @code{} @dots{}}
@@ -281,7 +281,7 @@ user-friendly.  It uses the new markup commands @code{\if} and
 @item
 In figured bass, brackets can now also be added around accidentals.
 
-@lilypond
+@lilypond[quote]
 \figures {
   <7 [5 3[+]]> <5[!]> <[5!]>
 }
@@ -296,7 +296,7 @@ context), thus matching the behavior of @code{\time}.
 Parenthesizing chords is supported.  Currently, the font size of the
 parentheses has to be adjusted manually.
 
-@lilypond
+@lilypond[quote]
 \new Voice {
   \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
   <<
@@ -310,7 +310,7 @@ parentheses has to be adjusted manually.
 @item
 Parenthesizing spanners is supported.
 
-@lilypond
+@lilypond[quote]
 {
   c'\parenthesize\< d'2.\!
   \parenthesize R1
@@ -345,9 +345,9 @@ and @code{BalloonTextItem} are unified into @code{BalloonText}.
 
 When the grob definition does not mandate a class, engravers should
 choose what class to create a grob with.  For authors of Scheme
-engravers, this means using either @code{ly:engraver-make-item} or
-@code{ly:engraver-make-spanner}.  The utility function
-@code{ly:engraver-make-sticky} is provided to support the
+engravers, this means using either @code{ly:@/engraver-@/make-@/item} or
+@code{ly:@/engraver-@/make-@/spanner}.  The utility function
+@code{ly:@/engraver-@/make-@/sticky} is provided to support the
 frequent case of @emph{sticky} grobs, such as footnotes and balloons.
 It creates a grob with the same class as another grob and
 administrates parents and bounds.
@@ -366,10 +366,7 @@ Support for alternate accidentals was improved.  Through the
 accidental glyphs may be set for all grobs at once
 (refer to @ruser{Alternate accidental glyphs}).
 
-@lilypond
-% Avoid unfortunate cropping of the arrow-sharp glyph...
-\markup \vspace #0.5
-
+@lilypond[quote]
 \layout {
   \context {
     \Staff
@@ -411,7 +408,7 @@ staff.  This used to require workarounds.
 @}
 @end example
 
-@lilypond
+@lilypond[quote]
 \layout {
   \context {
     \Staff
@@ -443,7 +440,7 @@ staff.  This used to require workarounds.
 Measure counts now take compressed multi-measure rests and
 alternatives into account.
 
-@lilypond
+@lilypond[quote,line-width=15\cm]
 \new Score \with {
   \consists Measure_counter_engraver
   \override MeasureCounter.font-encoding = #'latin1
@@ -518,7 +515,7 @@ out of the box to change the stem direction of the middle note according
 to the melody.  Previously, this required an additional override to
 @code{Stem.neutral-direction}.
 
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists Melody_engraver
 }
@@ -536,8 +533,8 @@ to turn off this behavior temporarily, as
 @item
 In the Emmentaler font, identical-looking noteheads whose only difference was
 stem direction have been consolidated into a single glyph.  For instance,
-the glyphs @code{noteheads.u2triangle} and @code{noteheads.d2triangle} have
-been replaced by a single glyph, @code{noteheads.s2triangle}.  Notehead pairs
+the glyphs @code{noteheads@/.u2triangle} and @code{noteheads@/.d2triangle} have
+been replaced by a single glyph, @code{noteheads@/.s2triangle}.  Notehead pairs
 that look visually different depending on the direction remain distinct.
 
 In addition, the @code{stem-attachment} property of @code{NoteHead} grobs now
