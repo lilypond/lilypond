@@ -810,7 +810,7 @@ a hyphen is needed before the @code{\parenthesize} command.
 When @code{\parenthesize} applies to a chord, all of its notes
 are enclosed in the parentheses.
 
-@lilypond
+@lilypond[verbatim,quote]
 \relative c' {
   \parenthesize <e f>
 }
@@ -819,7 +819,7 @@ are enclosed in the parentheses.
 To parenthesize only certain notes in a chord, use a parallel music
 construct @code{<< @dots{} >>}.
 
-@lilypond
+@lilypond[verbatim,quote]
 \new Voice \relative c {
   <<
     { \tweak Parentheses.font-size 0 \parenthesize <ces des> }

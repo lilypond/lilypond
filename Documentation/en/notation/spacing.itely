@@ -3259,12 +3259,11 @@ Layout objects that have a horizontally fixed position are called
 of horizontal spacing, are grouped into @emph{columns}.  Note
 heads and rests, forming the main musical material, together with
 those objects that are logically linked to them -- accidentals,
-articulations, stems, dots, etc. -- are all part of @emph{musical
+articulations, stems, dots, etc. -- are all part of @q{musical
 column}.  Prefatory items, such as clefs, time signatures and bar
-lines, are grouped into @q{non-musical columns}.
-
-In the following example, musical items are colored red, while
-non-musical items are blue.
+lines, are grouped into @q{non-musical columns}.  In the following
+example, musical items are colored red, while non-musical items
+are blue.
 
 @lilypond
 musical =
@@ -3409,14 +3408,15 @@ Contrary to spacing within one column, spacing between adjacent
 columns is flexible and stretches or compresses according to the
 density of music on the line.  By default, columns may even
 overlap in some situations.  The following example shows three
-cases.  The first accidental slides behind the bar line, while the
-third one overlaps with the clef.  Also, the tempo marking
-@emph{Presto} spans several columns.  Observe how the second
+cases.  The second accidental slides behind the bar line, while
+the third one overlaps with the clef.  Also, the tempo marking
+@emph{Presto} spans several columns.  Observe how the first
 accidental, which remains within the vertical extent of the bar
 line on its left, is placed further apart.
 
 @lilypond
 {
+  R1
   cis'4 r2.
   \tempo Presto
   fis16 8 16 4 \clef alto cis4 fis4
@@ -3431,8 +3431,8 @@ the width and height that an object takes in horizontal spacing.
 The relevant properties are @code{extra-@/spacing-@/width} and
 @code{extra-@/spacing-@/height}.  When unset, an object takes as
 much space in horizontal spacing as its @code{X-extent} and
-@code{Y-extent} properties allow, and are accurate values of its
-dimensions.  The @code{extra-@/spacing-@/width} and
+@code{Y-extent} properties allow.  These are accurate values of
+its dimensions.  The @code{extra-@/spacing-@/width} and
 @code{extra-@/spacing-@/height} properties make an object larger
 or smaller for computation of horizontal spacing between columns
 only, but preserve its dimensions for other spacing types.
