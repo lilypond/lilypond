@@ -49,6 +49,10 @@
 @email{jean@@abou-samra.fr},
 Factotum
 
+@item Colin Campbell:
+@email{cpkc.music@@shaw.ca},
+Patch Meister
+
 @item Dan Eble:
 @email{nine.fierce.ballads@@gmail.com},
 Core developer
@@ -72,16 +76,13 @@ swamp drainage.
 @email{wl@@gnu.org},
 Fonts, bug squasher
 
-@item James Lowe:
-Patch meister
-
 @item Han-Wen Nienhuys:
 @email{hanwen@@xs4all.nl},
 @uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
 @item Francisco Vila:
-Translation meister
+Translation Meister
 
 @end itemize
 @end macro
@@ -108,7 +109,7 @@ Core developer, font designer
 Assistant documentation editor
 
 @item Colin Hall:
-Bug meister
+Bug Meister
 
 @item Ian Hulin:
 Core developer
@@ -119,10 +120,13 @@ Core developer
 Core developer, Music2xml wrangler
 
 @item Pedro Kroeger:
-Build meister
+Build Meister
 
 @item Jonathan Kulp:
 Assistant documentation editor
+
+@item James Lowe:
+Documentation, Patch Meister
 
 @item Joe Neeman:
 Core developer
@@ -135,14 +139,14 @@ Main author
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
-Translation meister
+Translation Meister
 
 @item Patrick McCarty:
 SVG guru, bug squad member, bug squasher, text handling
 
 @item Graham Percival:
 @uref{http://percival-music.ca},
-Bug meister, Grand Documentation Project leader
+Bug Meister, Grand Documentation Project leader
 
 @item Mark Polesky:
 Documentation, Code cleanup
@@ -157,10 +161,10 @@ Ancient notation
 
 @item Mike Solomon:
 @email{mike@@mikesolomon.org},
-Core developer, Frog meister
+Core developer, Frog Meister
 
 @item Erik Sandberg:
-Bug meister
+Bug Meister
 
 @item Nicolas Sceaux:
 Core developer, Schemer extraordinaire
@@ -318,7 +322,6 @@ Patrice Levesque,
 Vincent Le Ligeour,
 Jonatan Liljedahl,
 Urs Liska,
-James Lowe,
 Peter Lutek,
 Kieren MacMillan,
 Andrew Main,
@@ -418,7 +421,6 @@ Bernhard Bloechl,
 Alard de Boer,
 Frédéric Bron,
 Federico Bruni,
-Colin Campbell,
 Torsten Hämmerle,
 Jay Hamilton,
 Joseph Harfouch,
@@ -432,7 +434,6 @@ Michael Käppler,
 Kurtis Kroon,
 Davide Liessi,
 Urs Liska,
-James Lowe,
 Dave Luttinen,
 Kieren MacMillan,
 Jean-Charles Malahieude,
@@ -476,13 +477,11 @@ Rodolfo Zitellini
 Simon Albrecht,
 James E. Bailey,
 Federico Bruni,
-Colin Campbell,
 Eluze,
 Phil Holmes,
 Derek Klinge,
 Marek Klein,
 Urs Liska,
-James Lowe,
 Kieren MacMillan,
 Ralph Palmer,
 Dmytro O. Redchuk
@@ -495,7 +494,6 @@ Dmytro O. Redchuk
 @c use commas not colons
 
 Simon Albrecht,
-Colin Campbell,
 Eluze,
 Anthony Fok,
 Christian Hitz,
