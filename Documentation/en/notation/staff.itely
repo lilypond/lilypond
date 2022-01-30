@@ -458,7 +458,7 @@ the normal center line, and the normal line positions are
 printed for every value entered so that the number of staff lines,
 as well as their position, can be changed with a single override
 (thus, the @code{line-count} property is disregarded if
-@code{line-positions is set}).
+@code{line-positions} is set).
 
 @lilypond[verbatim,quote]
 \relative {

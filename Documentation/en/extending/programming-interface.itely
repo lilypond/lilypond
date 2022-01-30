@@ -738,6 +738,7 @@ This section discusses the definition of new markup commands.
 * On properties::
 * A complete example::
 * Adapting builtin commands::
+* Converting markups to strings::
 @end menu
 
 @node Markup command definition syntax
@@ -1058,6 +1059,7 @@ stencils are combined using @code{ly:stencil-add}:
 @end lilypond
 
 
+@node Converting markups to strings
 @unnumberedsubsubsec Converting markups to strings
 
 @cindex markup, to string
