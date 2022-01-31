@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 218ab325bb3f893a596ab05b999119be346d1688
+   Translation of GIT committish: dd5afe2f34d1383c6835db39e41663096734123c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -30,6 +30,7 @@ connaissez rien de Scheme, vous en aurez un aperçu au travers de notre
 * Fonctions pour markups::
 * Contextes pour programmeurs::
 * Fonctions de rappel::
+* Conteneurs requalifiants::
 * Retouches complexes::
 @end menu
 
@@ -824,6 +825,7 @@ commande de @emph{markup}.
 * Attribution de propriétés::
 * Exemple commenté::
 * Adaptation d'une commande incorporée::
+* Conversion de markups en chaînes::
 @end menu
 
 
@@ -839,6 +841,7 @@ macro Scheme @code{define-markup-command}, placée en tête de fichier.
     (@var{arg1-type?} @var{arg2-type?}@dots{})
     [ #:properties ((@var{propriété1} @var{valeur-par-défaut1})
                     @dots{}) ]
+    [ #:as-string @var{expression} ]
   @dots{}corps de la commande@dots{})
 @end lisp
 
@@ -1172,6 +1175,113 @@ regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 \markup \my-draw-line #'(4 . 3)
 \markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
 @end lilypond
+
+
+@node Conversion de markups en chaînes
+@unnumberedsubsubsec Conversion de @emph{markups} en chaînes
+@translationof Converting markups to strings
+
+@cindex @emph{markup}, conversion en chaîne
+@funindex markup->string
+
+Les @emph{markups} sont parfois convertis en chaînes littérales, ce qui
+est les cas pour générer une métadonnée PDF basée sur le champ d'entête
+@code{title} ou pour convertir des paroles en MIDI. Cette conversion
+n'est pas parfaite, mais elle est aussi fidèle que possible. La fonction
+dévolue à cette opération est @code{markup->string}.
+
+@lilypond[verbatim,quote]
+composerName = \markup \box "Arnold Schönberg"
+
+\markup \composerName
+
+\markup \typewriter #(markup->string composerName)
+@end lilypond
+
+Dans le cas de commandes de @emph{markup} presonnanlisées, le
+comportement par défaut consiste à convertir dans un premier temps tous
+les @emph{markups} ou les arguments de la liste de @emph{markups}, puis
+de joindre les résultats par des espaces.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   (interpret-markup layout props
+    #{
+      \markup \fill-line { \box #authorA and \box #authorB }
+    #}))
+
+defaultBehavior = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \defaultBehavior
+
+\markup \typewriter #(markup->string defaultBehavior)
+@end lilypond
+
+@code{markup->string} peut aussi recevoir les argument nommés
+@code{#:layout @var{layout}} et @code{#:props @var{props}}, avec la même
+signification que lorsqu'ils apparaissent dans la définition d'une
+commande de @emph{markup}. Ils sont toutefois optionnels dans la mesure
+où ils peuvent ne pas être pourvus -- cas typique de l'argument
+@code{layout} pour convertir en MIDI.
+
+Afin d'être éligible dans le cadre de commandes de @emph{markup}
+personnalisées, on peut fournir le paramètre @code{#:as-string} à
+@code{define-markup-command}. Il attend une expression, évaluée par
+@code{markup->string}, afin de produire la chaîne.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   #:as-string (format #f "~a and ~a"
+                       (markup->string authorA #:layout layout #:props props)
+                       (markup->string authorB #:layout layout #:props props))
+   (interpret-markup layout props
+    #{
+      \markup \fill-line { \box #authorA and \box #authorB }
+    #}))
+
+customized = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \customized
+
+\markup \typewriter #(markup->string customized)
+@end lilypond
+
+Au sein de l'expression sont disponibles les mêmes relations que dans le
+corps de la commande de @emph{markup}, à savoir les argument de la
+commande -- @code{layout} et @code{props} -- et les éventuelles
+propriétés.
+
+@lilypond[verbatim,quote]
+#(define-markup-command (authors-and layout props authorA authorB)
+                        (markup? markup?)
+   #:properties ((author-separator " and "))
+   #:as-string (format #f "~a~a~a"
+                       (markup->string authorA #:layout layout #:props props)
+                       (markup->string author-separator #:layout layout #:props props)
+                       (markup->string authorB #:layout layout #:props props))
+   (interpret-markup layout props
+    #{
+      \markup { \box #authorA #author-separator \box #authorB }
+    #}))
+
+customized = \markup \override #'(author-separator . ", ")
+                     \authors-and "Bertolt Brecht" "Kurt Weill"
+
+\markup \customized
+
+\markup \typewriter #(markup->string customized)
+@end lilypond
+
+La plupart du temps, il suffira au gestionnaire personnalisé d'un appel
+récursif à @code{markup->string} sur certains arguments, comme illustré
+ci-dessus. Néanmoins, on peut toujours recourir directement à
+@code{layout} et @code{props} comme si l'on était dans le corps
+principal. Une attention particulière doit être portée au fait que, dès
+lors que @code{#:layout} n'est pas passé à @code{markup->string},
+l'argument @code{layout} égale @code{#f}. L'argument @code{props} est
+par défaut une liste vide.
 
 
 @node Définition d'une nouvelle commande de liste de markups
@@ -1590,6 +1700,134 @@ est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
 finale de @samp{m} lui-même.
 
 @end ignore
+
+
+@node Conteneurs requalifiants
+@section Conteneurs requalifiants
+@translationof Unpure-pure containers
+
+@c See issue #3512.
+@warning{Bien que cette rubrique reflète la situation actuelle,
+l'exemple qui suit est discutable et ne met rien en évidence.}
+
+@cindex Scheme, @emph{pure container}
+@cindex Scheme, @emph{unpure container}
+@cindex @emph{pure containers}, Scheme
+@cindex @emph{unpure containers}, Scheme
+@cindex espacement horizontal, affinage
+
+Les conteneurs requalifiants permettent de faciliter le calcul des
+espacements en cas de modification du @emph{Y-axis} -- plus
+particulièrement les composantes @code{Y-offset} et @code{Y-extent} -- à
+l'aide d'une fonction Scheme en lieu et place de valeurs.
+
+L'envergure verticale (@code{Y-extent}) de certains objets dépend de la
+propriété @code{stencil} ; jouer sur leur stencil requiert alors une
+intervention supplémentaire au niveau du @code{Y-extent} à l'aide d'un
+conteneur transitoire.  Lorsqu'une fonction affecte un @code{Y-offset} ou
+un @code{Y-extent}, cela déclenche la détermination des sauts de ligne
+de manière anticipée dans la séquence des traitements.  Il en résulte
+que cette opération n'est en fait pas exécutée ; elle renvoie
+habituellement @samp{0} ou @samp{'(0 . 0)}, ce qui peut engendrer des
+collisions.  Une fonction « pure » évitera d'avorter la construction
+des propriétés ou objets, qui de ce fait verront leurs arguments liés à
+la verticalité (@code{Y-axis}) correctement évalués.
+
+Il existe actuellement une trentaine de fonctions que l'on peut
+qualifier de « pures ».  Le recours à un conteneur transitoire permet
+de requalifier une fonction de telle sorte qu'elle soit reconnue comme
+« pure » et soit donc évaluée @strong{avant} détermination des sauts de
+ligne -- l'espacement horizontal sera de fait ajusté en temps et en heure.
+La fonction « impure » sera ensuite évaluée @strong{après} le
+positionnement des sauts de ligne.
+
+@warning{Il n'est pas toujours facile d'avoir l'assurance qu'une
+fonction soit qualifiée de « pure » ; aussi nous vous recommandons
+d'éviter d'utiliser les objets @code{Beam} ou @code{VerticalAlignment}
+lorsque vous désirez en créer une.}
+
+Un conteneur requalifiant se construit selon la syntaxe
+
+@example
+(ly:make-unpure-pure-container f0 f1)
+@end example
+
+@noindent
+où @code{f0} est une fonction prenant @var{n} arguments (@var{n_>=_1}),
+le premier devant être l'objet en question ; il s'agit de la fonction
+dont le résultat sera réutilisé.  @var{f1} est la fonction qui sera
+qualifiée de « pure ».  Elle prend @var{n_+_2} arguments, le premier
+devant être lui aussi l'objet en question, et les second et troisième
+étant respectivement les « point de départ » (@var{start}) et « point
+d'arrivée » (@var{end}).
+
+@var{start} et @var{end} sont dans tous les cas des valeurs fictives qui
+trouveront leur utilité dans le cas d'objets de type @code{Spanner},
+tels les soufflets (@code{Hairpin}) ou barres de ligature (@code{Beam}),
+en retournant les différentes estimations de hauteur basées sur leurs
+début et fin d'extension.
+
+Viennent ensuite les autres arguments de la fonction initiale @code{f0}
+-- autrement dit aucun si @var{n_=_1}.
+
+Les résultats de la deuxième fonction (@code{f1}) permettent une
+approximation des valeurs qui seront ensuite utilisées par la fonction
+initiale aux fins d'ajustement lors des phases ultérieures d'espacement.
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause)
+                                 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead.stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead.Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces disis d
+  \smartSquareLineCircleSpace
+  cis4 ces disis d
+}
+@end lilypond
+
+@noindent
+La première mesure de l'exemple ci-dessus ne fait pas appel à un
+conteneur requalifiant ; le moteur d'espacement n'a donc aucune
+connaissance de la largeur des têtes de note et ne peut empêcher
+qu'elles chevauchent les altérations.  Dans la deuxième mesure, par
+contre, le recours à un conteneur requalifiant informe le moteur
+d'espacement de la largeur des têtes de note ; les collisions sont alors
+évitées du fait de l'espace réservé à chacune des têtes.
+
+Lorsqu'il s'agit de calculs simples, les fonctions, tant pour la partie
+« pure » que pour la partie « impure », peuvent être identiques au
+détail près du nombre d'arguments utilisés ou du domaine d'intervention.
+Ce cas de figure étant relativement répandu,
+@code{ly:make-unpure-pure-container} construira d'elle même cette
+deuxième lorsqu'il ne sera fait appel qu'à une seule fonction en
+argument.
+
+@warning{Le fait de qualifier une fonction de « pure » alors qu'elle ne
+l'est pas peut générer des résultats imprévisibles.}
 
 
 @node Retouches complexes
