@@ -193,6 +193,16 @@ Repeat_acknowledge_engraver::process_music ()
       forced_bar_type = ly_is_equal (wb, get_property (this, "measureBarType"))
                         ? BarType::DEFAULT
                         : BarType::OTHER;
+      if (ly_is_equal (wb, get_property (this, "measureBarType"))
+          && !from_scm<bool> (get_property (this, "barForced")))
+        {
+          // whichBar was set to a measure bar line by something other than
+          // \bar.  We assume it was set by Default_bar_line_engraver, though
+          // it is possible that it was set with \set or some other way.
+          forced_bar_type = BarType::DEFAULT;
+        }
+      else
+        forced_bar_type = BarType::OTHER;
     }
 
   /*
