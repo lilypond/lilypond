@@ -118,7 +118,7 @@ freetype = FreeType()
 
 class UtilLinux(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
-        return not c.is_mingw()
+        return not c.is_macos() and not c.is_mingw()
 
     @property
     def version(self) -> str:
@@ -188,16 +188,17 @@ class Fontconfig(ConfigurePackage):
 
         self.patch_file(c, "Makefile.in", patch_makefile)
 
-        def patch_uuid_header(content: str) -> str:
-            return content.replace("uuid/uuid.h", "uuid.h")
+        if not c.is_macos():
+            def patch_uuid_header(content: str) -> str:
+                return content.replace("uuid/uuid.h", "uuid.h")
 
-        self.patch_file(c, "configure", patch_uuid_header)
-        self.patch_file(c, os.path.join("src", "fccache.c"), patch_uuid_header)
-        self.patch_file(c, os.path.join("src", "fchash.c"), patch_uuid_header)
+            self.patch_file(c, "configure", patch_uuid_header)
+            self.patch_file(c, os.path.join("src", "fccache.c"), patch_uuid_header)
+            self.patch_file(c, os.path.join("src", "fchash.c"), patch_uuid_header)
 
     def dependencies(self, c: Config) -> List[Package]:
         util_linux_dep = []
-        if not c.is_mingw():
+        if not c.is_macos() or not c.is_mingw():
             util_linux_dep = [util_linux]
         return [expat, freetype] + util_linux_dep
 
