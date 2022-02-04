@@ -84,13 +84,6 @@ def system(c: str, cwd=None):
     subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True, cwd=cwd)
 
 
-def system_allow_exit1(x: str):
-    log_verbose('invoking %s' % x)
-    stat = os.system(x)
-    # This return value convention is sick.
-    assert (stat == 0) or (stat == 256)
-
-
 def shorten_string(s: str, threshold: int = 15) -> str:
     if len(s) > 2*threshold:
         s = s[:threshold] + '..' + s[-threshold:]
@@ -118,9 +111,7 @@ def png_dims(fn: str) -> Tuple[int, int]:
         return (w, h)
 
 
-def compare_png_images(old: str, new: str, dest_dir: str):
-    dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
-
+def compare_png_images(old: str, new: str, dest_dir: str) -> float:
     file_dims = {}
     for fn in [old, new]:
         if os.path.exists(fn):
@@ -148,13 +139,45 @@ def compare_png_images(old: str, new: str, dest_dir: str):
             print('running %s' % ' '.join(args))
         subprocess.run(args, check=True)
  
-    system_allow_exit1(
-        'compare -depth 8 -dissimilarity-threshold 1 %(temp_dir)s/crop1.png %(temp_dir)s/crop2.png %(temp_dir)s/diff.png' % locals())
+    diff_dest = os.path.join(temp_dir, 'diff.png')
 
+    # MAE = Mean Absolute Error, a metric where smaller means more
+    # similar.  We avoid per-pixel metrics (eg. AE), as they make
+    # larger/higher-res images have a bigger weight.
+    args = ['compare', '-verbose', '-metric', 'mae', '-depth', '8',
+            '-dissimilarity-threshold', '1', os.path.join(temp_dir, 'crop1.png'),
+            os.path.join(temp_dir, 'crop2.png'), diff_dest]
+    if options.verbose:
+        print('running %s' % ' '.join(args))
+    proc = subprocess.Popen(args,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
+    out, err = proc.communicate()
+    err_str = err.decode('utf-8')
+    if not os.path.exists(diff_dest):
+        out_str = out.decode('utf-8')
+        print('missing path %s' % diff_dest)
+        print(err_str)
+        print(out_str)
+        raise SystemExit
+
+    dist: float = -1.0
+    for line in err_str.split('\n'):
+        m = re.search(r'all: [0-9.e-]+ \(([0-9.e-]+)\)', line)
+        if m:
+            dist = float(m.group(1)) * 100.0
+            break
+    else:
+        print('missing distance marker: ')
+        print(err_str)
+        raise SystemExit
+        
     system('convert -depth 8 %(temp_dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx intensity %(temp_dir)s/matte.png' % locals())
 
-    system('composite -compose atop -quality 65 %(temp_dir)s/matte.png %(new)s %(dest)s' % locals())
-
+    dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
+    system('composite -compose atop -quality 65 %(temp_dir)s/matte.png %(temp_dir)s/crop2.png %(dest)s' % locals())
+        
+    return dist
 
 ################################################################
 # interval/bbox arithmetic.
@@ -1350,6 +1373,34 @@ def test_compare_tree_pairs():
     assert "added.log" in html
 
 
+def test_compare_png_images():
+    # Compare 2 images looking like "xx." and "x.". The second image
+    # should be scaled up to match the first so we compare "xx." and
+    # "x..", 
+    open('p1.xpm', 'wb').write(rb'''/* XPM */
+static char * XFACE[] = {
+"3 1 2 1",
+"a c #ffffff",
+"b c #000000",
+"bba",
+};
+''')
+    open('p2.xpm', 'wb').write(rb'''/* XPM */
+static char * XFACE[] = {
+"2 1 2 1",
+"a c #ffffff",
+"b c #000000",
+"ba",
+};
+''')
+    system('convert p1.xpm p1.png')
+    system('convert p2.xpm p2.png')
+    dist = compare_png_images('p1.png', 'p2.png', './')
+
+    # 1 pixel out of 3 differing = 33% error
+    assert math.fabs(dist - 100.0/3) < 1e-4
+
+
 def test_basic_compare():
     ly_template = r"""
 
@@ -1497,6 +1548,7 @@ def run_tests():
     system('mkdir ' + testdir)
     os.chdir(testdir)
 
+    test_compare_png_images()
     test_basic_compare()
     test_compare_tree_pairs()
     shutil.rmtree(testdir, ignore_errors=True)
