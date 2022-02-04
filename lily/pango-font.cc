@@ -231,12 +231,109 @@ Pango_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
   ly_FT_add_outline_to_skyline (lazy, transform, face, signed_idx);
 }
 
-Stencil
-Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
+SCM
+Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
+                            Box const &scaled_glyph_extent,
+                            std::string const &file_name, FT_Face ftface,
+                            bool *cid_keyed) const
 {
+  PangoGlyph pg = pgi.glyph;
+  PangoGlyphGeometry ggeo = pgi.geometry;
+  bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
+  bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
+
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
 
+  /*
+    Zero-width characters are valid Unicode characters,
+    but glyph lookups need to be skipped.
+  */
+  if (!(pg ^ PANGO_GLYPH_EMPTY))
+    return SCM_BOOL_F;
+
+  if (pg & PANGO_GLYPH_UNKNOWN_FLAG)
+    {
+      warning (_f ("no glyph for character U+%04X in font `%s'",
+                   pg & ~PANGO_GLYPH_UNKNOWN_FLAG, file_name.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  glyph_name[0] = '\0';
+  if (has_glyph_names)
+    {
+      FT_Error errorcode
+        = FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
+      if (errorcode)
+        programming_error (_f ("FT_Get_Glyph_Name () error: %s",
+                               freetype_error_string (errorcode).c_str ()));
+    }
+
+  SCM char_id = SCM_EOL;
+  if (glyph_name[0] == '\0' && is_ttf)
+    {
+      Index_to_charcode_map const *cmap = 0;
+      if (!has_glyph_names)
+        cmap = all_fonts_global->get_index_to_charcode_map (
+          file_name, static_cast<int> (ftface->face_index), ftface);
+
+      if (cmap && cmap->find (pg) != cmap->end ())
+        {
+          FT_ULong char_code = cmap->find (pg)->second;
+          get_unicode_name (glyph_name, char_code);
+        }
+    }
+
+  if (glyph_name[0] == '\0' && has_glyph_names)
+    {
+      programming_error (
+        _f ("Glyph has no name, but font supports glyph naming.\n"
+            "Skipping glyph U+%04X, file %s",
+            pg, file_name.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  if (glyph_name == string (".notdef") && is_ttf)
+    glyph_name[0] = '\0';
+
+  if (glyph_name[0] == '\0' && is_ttf)
+    // Access by glyph index directly.
+    get_glyph_index_name (glyph_name, pg);
+
+  if (glyph_name[0] == '\0')
+    {
+      *cid_keyed = true;
+      // We extract the raw CFF from the SFNT and write it to the PS
+      // output.  If this font is CID-keyed we have to map the SFNT
+      // `char_id` to the raw CFF's glyph ID (which corresponds to the
+      // CID key).  Note that `FT_Get_CID_From_Glyph_Index` is a no-op
+      // otherwise.
+      FT_UInt cid_id;
+      FT_Error errorcode = FT_Get_CID_From_Glyph_Index (ftface, pg, &cid_id);
+      if (errorcode)
+        {
+          programming_error (_f ("FT_Get_CID_From_Glyph_Index () error: %s\n"
+                                 "Skipping glyph U+%04X, file %s",
+                                 freetype_error_string (errorcode).c_str (), pg,
+                                 file_name.c_str ()));
+          return SCM_BOOL_F;
+        }
+      char_id = scm_from_uint32 (cid_id);
+    }
+  else
+    char_id = scm_from_utf8_string (glyph_name);
+
+  return scm_list_5 (to_scm (scaled_glyph_extent[X_AXIS][RIGHT]
+                             - scaled_glyph_extent[X_AXIS][LEFT]),
+                     scm_cons (to_scm (scaled_glyph_extent[Y_AXIS][DOWN]),
+                               to_scm (scaled_glyph_extent[Y_AXIS][UP])),
+                     to_scm (ggeo.x_offset * scale_),
+                     to_scm (-ggeo.y_offset * scale_), char_id);
+}
+
+Stencil
+Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
+{
   PangoAnalysis const *pa = &(glyph_item->item->analysis);
   PangoGlyphString *pgs = glyph_item->glyphs;
 
@@ -247,20 +344,17 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   PangoFcFont *fcfont = PANGO_FC_FONT (pa->font);
   FTFace_accessor ftface (fcfont);
 
-  Box b (Interval (PANGO_LBEARING (logical_rect),
-                   PANGO_RBEARING (logical_rect)),
-         Interval (-PANGO_DESCENT (ink_rect),
-                   PANGO_ASCENT (ink_rect)));
+  Box string_extent (
+    Interval (PANGO_LBEARING (logical_rect), PANGO_RBEARING (logical_rect)),
+    Interval (-PANGO_DESCENT (ink_rect), PANGO_ASCENT (ink_rect)));
 
-  b.scale (scale_);
+  string_extent.scale (scale_);
 
   const string ps_name_str0 = get_postscript_name (ftface);
   FcPattern *fcpat = fcfont->font_pattern;
 
   FcChar8 *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, &file_name_as_ptr);
-
-  int face_index = static_cast<int> (ftface->face_index);
 
   string file_name;
   if (file_name_as_ptr)
@@ -273,100 +367,15 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
 
-  Index_to_charcode_map const *cmap = 0;
-  bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
-  if (!has_glyph_names)
-    cmap = all_fonts_global->get_index_to_charcode_map (file_name, face_index, ftface);
-
-  bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
   bool cid_keyed = false;
 
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
-      PangoGlyphInfo *pgi = pgs->glyphs + i;
-
-      PangoGlyph pg = pgi->glyph;
-      PangoGlyphGeometry ggeo = pgi->geometry;
-
-      /*
-        Zero-width characters are valid Unicode characters,
-        but glyph lookups need to be skipped.
-      */
-      if (!(pg ^ PANGO_GLYPH_EMPTY))
-        continue;
-
-      if (pg & PANGO_GLYPH_UNKNOWN_FLAG)
-        {
-          warning (_f ("no glyph for character U+%04X in font `%s'",
-                       pg & ~PANGO_GLYPH_UNKNOWN_FLAG, file_name.c_str ()));
-          continue;
-        }
-
-      glyph_name[0] = '\0';
-      if (has_glyph_names)
-        {
-          FT_Error errorcode = FT_Get_Glyph_Name (ftface, pg, glyph_name,
-                                                  GLYPH_NAME_LEN);
-          if (errorcode)
-            programming_error (_f ("FT_Get_Glyph_Name () error: %s",
-                                   freetype_error_string (errorcode).c_str ()));
-        }
-
-      SCM char_id = SCM_EOL;
-      if (glyph_name[0] == '\0'
-          && cmap
-          && is_ttf
-          && cmap->find (pg) != cmap->end ())
-        {
-          FT_ULong char_code = cmap->find (pg)->second;
-          get_unicode_name (glyph_name, char_code);
-        }
-
-      if (glyph_name[0] == '\0' && has_glyph_names)
-        {
-          programming_error (_f ("Glyph has no name, but font supports glyph naming.\n"
-                                 "Skipping glyph U+%04X, file %s",
-                                 pg, file_name.c_str ()));
-          continue;
-        }
-
-      if (glyph_name == string (".notdef") && is_ttf)
-        glyph_name[0] = '\0';
-
-      if (glyph_name[0] == '\0' && is_ttf)
-        // Access by glyph index directly.
-        get_glyph_index_name (glyph_name, pg);
-
-      if (glyph_name[0] == '\0')
-        {
-          cid_keyed = true;
-          // We extract the raw CFF from the SFNT and write it to the PS
-          // output.  If this font is CID-keyed we have to map the SFNT
-          // `char_id` to the raw CFF's glyph ID (which corresponds to the
-          // CID key).  Note that `FT_Get_CID_From_Glyph_Index` is a no-op
-          // otherwise.
-          FT_UInt cid_id;
-          FT_Error errorcode = FT_Get_CID_From_Glyph_Index (ftface, pg,
-                                                            &cid_id);
-          if (errorcode)
-            {
-              programming_error
-              (_f ("FT_Get_CID_From_Glyph_Index () error: %s\n"
-                   "Skipping glyph U+%04X, file %s",
-                   freetype_error_string (errorcode).c_str (),
-                   pg,
-                   file_name.c_str ()));
-              continue;
-            }
-          char_id = scm_from_uint32 (cid_id);
-        }
-      else
-        char_id = scm_from_utf8_string (glyph_name);
-
       PangoRectangle logical_sub_rect;
       PangoRectangle ink_sub_rect;
 
-      pango_glyph_string_extents_range (pgs, i, i + 1, pa->font, &ink_sub_rect, &logical_sub_rect);
+      pango_glyph_string_extents_range (pgs, i, i + 1, pa->font, &ink_sub_rect,
+                                        &logical_sub_rect);
       Box b_sub (Interval (PANGO_LBEARING (logical_sub_rect),
                            PANGO_RBEARING (logical_sub_rect)),
                  Interval (-PANGO_DESCENT (ink_sub_rect),
@@ -374,13 +383,13 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
       b_sub.scale (scale_);
 
-      *tail = scm_cons (scm_list_5 (to_scm (b_sub[X_AXIS][RIGHT] - b_sub[X_AXIS][LEFT]),
-                                    scm_cons (to_scm (b_sub[Y_AXIS][DOWN]),
-                                              to_scm (b_sub[Y_AXIS][UP])),
-                                    to_scm (ggeo.x_offset * scale_),
-                                    to_scm (- ggeo.y_offset * scale_),
-                                    char_id),
-                        SCM_EOL);
+      SCM glyph_desc
+        = get_glyph_desc (pgs->glyphs[i], b_sub, file_name, ftface, &cid_keyed);
+
+      if (scm_is_false (glyph_desc))
+        continue;
+
+      *tail = scm_cons (glyph_desc, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -425,6 +434,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
   if (ps_name.length ())
     {
+      int face_index = static_cast<int> (ftface->face_index);
       // Hm.  Is register_font_file() const or is it not?
       {
         auto me = const_cast<Pango_font *> (this);
@@ -435,7 +445,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
                              to_scm (size), scm_from_bool (cid_keyed), glyph_exprs,
                              ly_string2scm (file_name), to_scm (face_index), SCM_UNDEFINED);
 
-      return Stencil (b, expr);
+      return Stencil (string_extent, expr);
     }
 
   warning (_ ("FreeType face has no PostScript font name"));

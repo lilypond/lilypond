@@ -39,6 +39,12 @@ class Pango_font : Preinit_Pango_font, public Font_metric
   PangoFontDescription *pango_description_;
   Real scale_;
 
+  SCM get_glyph_desc (PangoGlyphInfo const &pgi,
+                      Box const &scaled_extent,
+                      std::string const &file_name,
+                      FT_Face ftface,
+                      bool *cid_keyed) const;
+  
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
