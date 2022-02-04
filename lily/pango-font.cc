@@ -260,11 +260,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   FcChar8 *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, &file_name_as_ptr);
 
-  // due to a bug in FreeType 2.3.7 and earlier we can't use
-  // ftface->face_index; it is always zero for some font formats,
-  // in particular TTCs which we are interested in
-  int face_index = 0;
-  FcPatternGetInteger (fcpat, FC_INDEX, 0, &face_index);
+  int face_index = static_cast<int> (ftface->face_index);
 
   string file_name;
   if (file_name_as_ptr)
