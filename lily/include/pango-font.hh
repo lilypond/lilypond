@@ -63,7 +63,7 @@ public:
   Box get_unscaled_indexed_char_dimensions (size_t) const;
   Box get_scaled_indexed_char_dimensions (size_t) const;
 
-  Stencil pango_item_string_stencil (PangoGlyphItem const *) const;
+  Stencil pango_item_string_stencil (PangoGlyphItem const *, std::string const &text) const;
 
   Stencil text_stencil (Output_def *output_state,
                         const std::string &text,

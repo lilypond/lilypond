@@ -284,7 +284,8 @@ class Cairo_outputter : public Stencil_sink
 
   // drawing routines:
   void show_named_glyph (SCM scaledname, SCM glyphname);
-  void print_glyphs (SCM size, SCM glyphs, SCM filename, SCM index);
+  void print_glyphs (SCM size, SCM glyphs, SCM filename, SCM index, SCM text,
+                     SCM clusters);
   void path (SCM thickness, SCM exps, SCM cap, SCM join, SCM filled);
   void moveto (SCM varx, SCM vary);
   void setrgbacolor (SCM varr, SCM varg, SCM varb, SCM vara);
@@ -422,7 +423,7 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
 
 void
 Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
-                               SCM face_index)
+                               SCM face_index, SCM text, SCM clusters)
 {
   Real sumw = 0.0;
 
@@ -1293,7 +1294,7 @@ Cairo_outputter::output (SCM expr)
   else if (head == ly_symbol2scm ("ellipse"))
     draw_ellipse (arg[0], arg[1], arg[2], arg[3]);
   else if (head == ly_symbol2scm ("glyph-string"))
-    print_glyphs (arg[2], arg[4], arg[5], arg[6]);
+    print_glyphs (arg[2], arg[4], arg[5], arg[6], arg[7], arg[8]);
   else if (head == ly_symbol2scm ("grob-cause"))
     grob_cause (arg[0], arg[1]);
   else if (head == ly_symbol2scm ("settranslation"))

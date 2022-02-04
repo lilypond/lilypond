@@ -436,7 +436,9 @@
   (set! next-horiz-adv 0.0)
   path)
 
-(define (woff-glyph-string pango-font font-name size cid? w-h-x-y-named-glyphs file-name face-index)
+(define (woff-glyph-string pango-font font-name size cid?
+                           w-h-x-y-named-glyphs file-name face-index
+                           text clusters)
   (let* ((name-style (font-name-style font-name))
          (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
                                          font-name))

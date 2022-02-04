@@ -332,7 +332,8 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
+Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
+                                       std::string const &text) const
 {
   PangoAnalysis const *pa = &(glyph_item->item->analysis);
   PangoGlyphString *pgs = glyph_item->glyphs;
@@ -364,9 +365,25 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       file_name = File_name (cstr).to_string ();
     }
 
+  PangoGlyphItemIter cluster_iter;
+  SCM clusters = SCM_EOL;
+  SCM *clusters_tail = &clusters;
+  for (gboolean have_cluster = pango_glyph_item_iter_init_start (
+         &cluster_iter, const_cast<PangoGlyphItem *> (glyph_item),
+         text.c_str ());
+       have_cluster;
+       have_cluster = pango_glyph_item_iter_next_cluster (&cluster_iter))
+    {
+      int idx_delta = cluster_iter.end_index - cluster_iter.start_index;
+      int gl_delta = cluster_iter.end_glyph - cluster_iter.start_glyph;
+
+      *clusters_tail
+        = scm_cons (scm_cons (to_scm (idx_delta), to_scm (gl_delta)), SCM_EOL);
+      clusters_tail = SCM_CDRLOC (*clusters_tail);
+    }
+
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
-
   bool cid_keyed = false;
 
   for (int i = 0; i < pgs->num_glyphs; i++)
@@ -387,7 +404,13 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
         = get_glyph_desc (pgs->glyphs[i], b_sub, file_name, ftface, &cid_keyed);
 
       if (scm_is_false (glyph_desc))
-        continue;
+        {
+          // If we skip a glyph, the UTF-8 text, glyph list and cluster
+          // list will go out of sync. In this case, give up on
+          // copy&paste from PDFs.
+          clusters = SCM_BOOL_F;
+          continue;
+        }
 
       *tail = scm_cons (glyph_desc, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
@@ -441,9 +464,13 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
         me->register_font_file (file_name, ps_name, face_index);
       }
 
-      SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"), self_scm (), ly_string2scm (ps_name),
-                             to_scm (size), scm_from_bool (cid_keyed), glyph_exprs,
-                             ly_string2scm (file_name), to_scm (face_index), SCM_UNDEFINED);
+      std::string substr
+        = text.substr (glyph_item->item->offset, glyph_item->item->length);
+      SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"), self_scm (),
+                             ly_string2scm (ps_name), to_scm (size),
+                             scm_from_bool (cid_keyed), glyph_exprs,
+                             ly_string2scm (file_name), to_scm (face_index),
+                             ly_string2scm (substr), clusters, SCM_UNDEFINED);
 
       return Stencil (string_extent, expr);
     }
@@ -488,7 +515,7 @@ Pango_font::text_stencil (Output_def * /* state */,
 #endif
     }
 
-  pango_layout_set_text (layout, str.c_str (), -1);
+  pango_layout_set_text (layout, str.c_str (), static_cast<int> (str.size ()));
   GSList *lines = pango_layout_get_lines (layout);
 
   Stencil dest;
@@ -496,13 +523,16 @@ Pango_font::text_stencil (Output_def * /* state */,
 
   for (GSList *l = lines; l; l = l->next)
     {
+      /* Maybe the individual lines should be offset by Y? It's hard
+         to tell, as we we never encounter this situation in the
+         regtest. */
       auto *const line = static_cast<PangoLayoutLine *> (l->data);
       GSList *layout_runs = line->runs;
-
+      std::string line_text = str.substr (line->start_index, line->length);
       for (GSList *p = layout_runs; p; p = p->next)
         {
           auto *const item = static_cast<PangoGlyphItem *> (p->data);
-          Stencil item_stencil = pango_item_string_stencil (item);
+          Stencil item_stencil = pango_item_string_stencil (item, line_text);
 
           item_stencil.translate_axis (last_x, X_AXIS);
           last_x = item_stencil.extent (X_AXIS)[RIGHT];
