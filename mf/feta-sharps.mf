@@ -334,7 +334,7 @@ fet_beginchar ("1/2 sharp (1 beam)", "sharp.slash.stem");
   half_height# := .5 onestemmed_height#;
   define_pixels (half_height);
 
-  outer_space# := .5 (.7 staff_space# - stem_thickness#);
+  outer_space# := .5 (.95 staff_space# - stem_thickness#);
   define_whole_pixels (outer_space);
 
   width# := 2 outer_space# + stem_thickness#;
