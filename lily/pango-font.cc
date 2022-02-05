@@ -496,18 +496,6 @@ Pango_font::text_stencil (Output_def * /* state */,
 
           item_stencil.translate_axis (last_x, X_AXIS);
           last_x = item_stencil.extent (X_AXIS)[RIGHT];
-
-#if 0 // Check extents.
-          if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
-            {
-              Stencil frame = Lookup::frame (item_stencil.extent_box (), 0.1, 0.1);
-              Box empty;
-              empty.set_empty ();
-              Stencil dimless_frame (empty, frame.expr ());
-              dest.add_stencil (frame);
-            }
-#endif
-
           dest.add_stencil (item_stencil);
         }
     }
