@@ -654,7 +654,7 @@ $(outdir)/snippets/dep: $(SNIPPET_LY_FILES)
 	mkdir -p out
 	touch $@
 
-$(outdir)/en/internals.texi:
+$(outdir)/en/internals.texi: $(top-src-dir)/ly/generate-documentation.ly
 	$(call ly_progress,Making,$@,)
 	mkdir -p $(dir $@)
 	cd $(dir $@) \
@@ -662,7 +662,7 @@ $(outdir)/en/internals.texi:
 \
 "$(LILYPOND_BINARY) \
    --verbose \
-   $(top-src-dir)/ly/generate-documentation" \
+   $<" \
 \
 	       generate-documentation.log
 
