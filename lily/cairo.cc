@@ -513,8 +513,31 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   assert (cairo_glyphs.empty () || utf8.empty ());
   if (!cairo_glyphs.empty ())
     {
-      cairo_show_glyphs (context (), cairo_glyphs.data (),
-                         int (cairo_glyphs.size ()));
+      std::string text_str = ly_scm2string (text);
+      if (scm_is_false (clusters))
+        {
+          cairo_show_glyphs (context (), cairo_glyphs.data (),
+                             int (cairo_glyphs.size ()));
+        }
+      else
+        {
+          std::vector<cairo_text_cluster_t> cluster_array;
+          for (SCM c = clusters; scm_is_pair (c); c = scm_cdr (c))
+            {
+              cairo_text_cluster_t entry = {
+                .num_bytes = std::abs (from_scm<int> (scm_caar (c))),
+                .num_glyphs = std::abs (from_scm<int> (scm_cdar (c))),
+              };
+
+              cluster_array.push_back (entry);
+            }
+          auto flags = static_cast<cairo_text_cluster_flags_t> (0);
+          cairo_show_text_glyphs (
+            context (), text_str.c_str (), static_cast<int> (text_str.size ()),
+            cairo_glyphs.data (), static_cast<int> (cairo_glyphs.size ()),
+            cluster_array.data (), static_cast<int> (cluster_array.size ()),
+            flags);
+        }
     }
   else if (!utf8.empty ())
     {
