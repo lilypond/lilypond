@@ -416,6 +416,9 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
       tail = SCM_CDRLOC (*tail);
     }
 
+  if (!scm_is_pair (glyph_exprs))
+    return Stencil (string_extent, SCM_EOL);
+
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
               / (static_cast<Real> (PANGO_SCALE));
@@ -542,7 +545,7 @@ Pango_font::text_stencil (Output_def * /* state */,
 
   g_object_unref (layout);
 
-  if (!music_string || !music_strings_to_paths)
+  if (!scm_is_null (dest.expr ()) && (!music_string || !music_strings_to_paths))
     {
       // Encapsulate to allow a short-cut for backends that also use
       // Pango for rendering.
