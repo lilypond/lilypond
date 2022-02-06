@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -55,8 +55,6 @@ symboles, en Scheme.}
 * En quoi consiste la référence des propriétés internes::
 * Modification de propriétés::
 * Propriétés et contextes utiles::
-* Retouches avancées::
-* Utilisation de fonctions musicales::
 @end menu
 
 
@@ -1564,8 +1562,12 @@ Fichiers d'initialisation :
 * Navigation dans les références du programme::
 * Interfaces de rendu::
 * Détermination de la propriété d'un objet graphique (grob)::
-* Conventions de nommage::
 @end menu
+
+@morerefs
+Manuel de notation :
+@ref{Conventions de nommage}.
+@endmorerefs
 
 
 @node Navigation dans les références du programme
@@ -1906,57 +1908,9 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{}
 @end quotation
 
 
-@node Conventions de nommage
-@subsection Conventions de nommage
-@translationof Naming conventions
-
-Afin de s'y retrouver plus aisément et d'éviter les erreurs de frappe,
-voici quelques conventions en matière de nommage :
-
-@itemize
-@item fonctions scheme :
- minuscule-avec-trait-d-union (ce qui inclut les noms en mot-unique)
-
-@item fonctions scheme :
- ly:plus-style-scheme
-
-@item événements, classes et propriétés musicaux :
- identique-aux-fonctions-scheme
-
-@item interfaces d'objet graphique :
- style-scheme
-
-@item propriétés d'arrière plan :
- style-scheme (mais X et Y pour les axes)
-
-@item contextes (ainsi que MusicExpressions et grobs) :
- Capitale initiale ou Camélisation (CamelCase)
-
-@item propriétés de contexte :
- minusculeSuivieDeCamélisation
-
-@item graveurs :
- Capitale_initiale_puis_minuscules_séparées_par_un_souligné
-@end itemize
-
-Les questions que vous devez vous poser sont :
-@itemize
-@item Qu'est-ce qui relève des conventions, et qu'est-ce qui relève de
-la règle ?
-
-@item Qu'est-ce qui relève des règles du langage sous-jacent, et
-qu'est-ce qui est propre à LilyPond ?
-@end itemize
-
-
 @node Modification de propriétés
 @section Modification de propriétés
 @translationof Modifying properties
-
-@c TODO change the menu and subsection node names to use
-@c backslash once the new macro to handle the refs
-@c is available.  Need to find and change all refs at
-@c the same time. -td
 
 @menu
 * Vue d'ensemble de la modification des propriétés::
@@ -2097,12 +2051,6 @@ Référence des propriétés internes :
 @rinternals{PropertySet},
 @rinternals{RevertProperty}.
 @endmorerefs
-
-@knownissues
-La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
-très stricte.  Des références cycliques dans des valeurs Scheme peuvent
-de ce fait interrompre ou faire planter le programme -- ou bien les
-deux.
 
 
 @node La commande de fixation (set)
@@ -3163,163 +3111,45 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 @section Propriétés et contextes utiles
 @translationof Useful concepts and properties
 
+Nous allons voir, au fil des paragraphes qui suivent, différentes
+approches permettant de fignoler l'apparence d'une partition.
+
 @menu
-* Modes de saisie::
 * Direction et positionnement::
 * Distances et unités de mesure::
 * Dimensions::
-* Propriétés des symboles de la portée::
 * Extenseurs et prolongateurs::
-* Visibilité des objets::
+* Modification de bandeaux avec rupture
 * Styles de ligne::
+* Lignes de prolongation::
+* Visibilité des objets::
 * Rotation des objets::
+* Alignement des objets::
+* Modification des stencils::
+* Modification de l'allure des éléments::
 @end menu
 
+@morerefs
+Manuel d'initiation :
+@rlearning{Autres sources de documentation},
+@rlearning{Retouche de partition}.
 
-@node Modes de saisie
-@subsection Modes de saisie
-@translationof Input modes
+Manuel de notation :
+@ref{En quoi consiste la référence des propriétés internes},
+@ref{Modification de propriétés}.
 
-La manière dont sera interprétée la notation contenue dans un fichier
-source dépend du mode affecté à la saisie.  Il existe, en règle
-générale, deux façons de spécifier le mode : une forme développée -- par
-exemple @code{\chordmode} -- et une forme abrégée -- par exemple
-@code{\chords}.  La forme développée s'utilise particulièrement lorsque
-la saisie fait l'objet d'une variable ou se trouve dans un contexte
-explicitement créé.  La forme abrégée crée implicitement un contexte du
-type adéquate à la saisie et la lui transmet directement.  Cette forme
-abrégée est tout à fait indiquée aux situations simples pour lesquelles
-nul n'est besoin de créer explicitement le contexte qui prendra en
-charge la saisie.
+Manuel d'extension :
+@rextend{Interfaces pour programmeurs}.
 
+Fichiers d'initialisation :
+@file{scm/define-grobs.scm}.
 
-@subsubsubheading Mode accords
-@c VO Chord mode
+Morceaux choisis :
+@rlsrnamed{Tweaks and overrides, Affinages}.
 
-@funindex \chordmode
-@funindex \chords
-
-Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
-les saisies comme étant des accords, qui seront imprimés sous forme de
-notes sur une portée -- voir @ref{Notation des accords}.  La musique
-entrée en mode accords est rendue soit sous forme d'accords sur une
-portée pour un contexte @code{Staff}, soit sous forme de noms d'accord
-pour un contexte @code{ChordNames} ou sous forme de diagrammes pour un
-contexte @code{FretBoards}.
-
-Le mode accords s'active aussi par la commande @code{\chords}, qui
-créera implicitement un nouveau contexte @code{ChordNames}.  Le code
-saisi selon la syntaxe dévolue aux accords, sera interprété comme étant
-des accords nommés et sera alors rendu sous forme nominale dans ce
-contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
-
-
-@subsubsubheading Mode percussions
-@c VO Drum mode
-
-@funindex \drummode
-@funindex \drums
-
-Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
-les saisies comme étant de la notation pour percussions -- voir
-@ref{Notation de base pour percussions}.  Lorsqu'elle est entrée en
-mode percussions, la musique est rendue dans un contexte
-@code{DrumStaff}.
-
-Le mode percussions s'active aussi par la commande @code{\drums}, qui
-créera implicitement un nouveau contexte @code{DrumStaff}.  Le code
-saisi selon la syntaxe dévolue aux percussions, sera interprété comme
-étant de la notation pour percussions et alors rendu sous forme
-symbolique sur une portée de percussions -- voir
-@ref{Notation de base pour percussions}.
-
-
-@subsubsubheading Mode figures
-@c VO Figure mode
-
-@funindex \figuremode
-@funindex \figures
-
-Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
-les saisies comme étant de la basse chiffrée (ou figurée) -- voir
-@ref{Saisie de la basse chiffrée}.  Lorsqu'elle est entrée en mode
-figures, la musique est rendue sous forme de basse figurée dans un
-contexte @code{FiguredBass} ou dans un contexte @code{Staff}.
-
-Le mode figures s'active aussi par la commande @code{\figures}, qui
-créera implicitement un nouveau contexte @code{FiguredBass}.  Le code,
-saisi selon la syntaxe dévolue à la basse chiffrée, sera interprété
-comme étant des indication de basse chiffrée et sera alors rendu sous
-forme symbolique dans le contexte @code{FiguredBass} -- voir
-@ref{Introduction à la basse chiffrée}.
-
-
-@subsubsubheading Modes frets et tablatures
-@c VO Fret and tab modes
-
-Il n'existe pas de mode spécifique pour saisir des symboles de fret ou
-de tablature.
-
-Notes ou accords saisis en mode note puis affectés à un contexte
-@code{TabStaff} seront rendus sous forme de diagramme de tablature --
-voir @ref{Tablatures par défaut}.
-
-Des diagrammes de fret viendront se positionner en surplomb d'une portée
-dès lors que les notes ou accords auront été saisis en mode note ou
-accord puis rendus dans un contexte @code{FretBoards} -- voir
-@ref{Tablatures automatiques}.  Ils peuvent aussi se gérer sous forme de
-@emph{markups} créés par la commande @code{\fret-diagram} -- voir
-@ref{Tablatures sous forme d'étiquettes}.
-
-
-@subsubsubheading Mode paroles
-@c VO Lyrics mode
-
-@funindex \lyricmode
-@funindex \lyrics
-
-Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
-les saisies comme étant des syllabes, ayant éventuellement une durée, et
-des indications habituelles aux paroles -- voir @ref{Musique vocale}.
-Lorsqu'il est entré en mode paroles, le texte est rendu sous forme de
-syllabes dans un contexte @code{Lyrics}.
-
-Le mode paroles s'active aussi par la commande @code{\lyrics}, qui
-créera implicitement un nouveau contexte @code{Lyrics}.  Le code saisi
-sera interprété comme étant des paroles et sera alors rendu sous forme
-de syllabes dans le contexte @code{Lyrics}.
-
-Le mode paroles s'active aussi par la commande @code{\addlyrics}, qui
-créera un contexte @code{Lyrics} et ajoutera implicitement une commande
-@code{\lyricsto} afin d'associer les paroles qui suivent à la musique
-précédemment saisie -- voir @ref{Durée automatique des syllabes}.
-
-
-@subsubsubheading Mode @emph{markup}
-@c VO Markup mode
-
-@funindex \markup
-
-Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
-saisies comme étant des @emph{markups} (annotations ou étiquettes) --
-voir @ref{Commandes pour markup}.
-
-
-@subsubsubheading Mode notes
-@c VO Note mode
-
-@funindex \notemode
-
-Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
-s'activer par la commande @code{\notemode}.  Les saisies seront
-interprétées comme étant des hauteurs, durées, @emph{markups}, etc. qui
-seront rendues sous forme de notation musicale sur une portée.
-
-Nul n'est besoin de spécifier le mode notes de manière explicite, hormis
-dans certaines situations particulières, notamment lorsque vous êtes en
-mode paroles, accords, ou tout autre mode, et que vous deviez insérer
-un élément qui ne serait disponible que grâce à la syntaxe du mode
-notes.
+Référence des propriétés internes :
+@rinternalsnamed{All layout objects, Tous les objets de rendu}.
+@endmorerefs
 
 
 @node Direction et positionnement
@@ -3564,77 +3394,148 @@ Manuel de notation :
 @endmorerefs
 
 
-@node Propriétés des symboles de la portée
-@subsection Propriétés des symboles de la portée
-@translationof Staff symbol properties
-
-@cindex ajustement des symboles de portée
-@cindex dessin des symboles de portée
-@cindex symboles de portée, dessin
-
-@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
-@c      Need to think of uses for these properties.  Eg 'line-positions
-@c      is used in a snippet to thicken centre line.
-@c      If retained, add @ref to here in 1.6.2  -td
-
-L'emplacement vertical et le nombre de lignes d'une portée se
-définissent conjointement.  Comme l'illustre l'exemple suivant, le
-positionnement des notes n'est en rien influencé par le positionnement
-des lignes de la portée.
-
-@warning{La propriété @code{'line-positions} écrase la propriété
-@code{'line-count}.  Le nombre de lignes d'une portée est implicitement
-défini par le nombre d'éléments dans la liste des valeurs de
-@code{'line-positions}.}
-
-@lilypond[verbatim,quote]
-\new Staff \with {
-  \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
-}
-\relative { a4 e' f b | d1 }
-@end lilypond
-
-La largeur d'une portée, exprimée en espace de portée, peut être figée.
-L'espacement des objets inclus dans cette portée ne sera en rien affecté
-par ce réglage.
-
-@lilypond[verbatim,quote]
-\new Staff \with {
-  \override StaffSymbol.width = #23
-}
-\relative { a4 e' f b | d1 }
-@end lilypond
-
-
 @node Extenseurs et prolongateurs
 @subsection Extenseurs et prolongateurs
 @translationof Spanners
+
+@cindex bandeau @emph{(spanner)}
+@cindex @emph{spanner}, bandeau
 
 De nombreux objets de notation musicale s'étendent sur plusieurs notes,
 voire même sur plusieurs mesures.  Il en va ainsi des liaisons,
 ligatures, crochets de n-olet, crochets de reprise, crescendos, trilles
 ou glissandos.  Ces objets, que l'on englobe sous l'appellation
 « d'extenseurs », sont pourvus de propriétés spécifiques destinées à
-contrôler leur apparence et leur comportement.  Un certain nombre de ces
-propriétés sont communes à tous les extenseurs, d'autres n'affectent que
-certains d'entre eux.
-
-Tout extenseur dispose de la @code{spanner-interface}.  Quelques uns,
-tout particulièrement ceux chargés de dessiner une ligne droite entre
-deux objets, disposent aussi de la @code{line-spanner-interface}.
+contrôler leur apparence et leur comportement. Ils font aussi
+appel à des méthodes spécifiques en matière de retouches liées au
+fait que certains peuvent être rompus lors d'un saut de ligne.
 
 @menu
-* Utilisation de spanner-interface::
-* Utilisation de line-spanner-interface::
+* Modification de bandeaux avec rupture::
+* Affectation d'une longueur minimale aux extenseurs::
+* Contrôle du point d'arrêt des bandeaux::
 @end menu
 
 
-@node Utilisation de spanner-interface
-@unnumberedsubsubsec Utilisation de @code{spanner-interface}
-@translationof Using the spanner-interface
+@node Modification de bandeaux avec rupture
+@unnumberedsubsubsec Modification de bandeaux avec rupture
+@translationof Modifying broken spanners
 
-Cette interface fournit trois propriétés qui s'appliquent à certains
-extenseurs.
+@cindex extenseur, modification
+@cindex bandeau, modification
+@cindex bandeau avec rupture, modification
+@cindex extension avec rupture, modification
+@funindex \alterBroken
+
+Lorsqu'un bandeau ou l'extension d'un objet rencontre un saut de ligne
+ou une rupture, chacun de ses tronçons hérite des attributs de l'objet
+originel.  Par voie de conséquence, la modification d'une extension avec
+rupture produira les mêmes effets sur chacun de ses segments.  Dans
+l'exemple ci-dessous, la modification apportée à @code{thickness}
+s'applique aussi bien avant qu'après le saut de ligne.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \once\override Slur.thickness = 10
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+La commande @code{\alterBroken} permet de modifier indépendamment
+l'apparence de chacune des parties d'un bandeau.  Selon le cas, cette
+commande génèrera soit un @code{\override}, soit un @code{\tweak} qui
+s'appliquera à la propriété du bandeau.
+
+La commande @code{\alterBroken} répond à la syntaxe :
+
+@example
+[-]\alterBroken @var{propriété} @var{valeurs} @var{élément}
+@end example
+
+L'argument @var{valeurs} est constitué d'une liste de valeurs, une pour
+chaque tronçon. Lorsque @var{élément} est un nom d'objet graphique, tels
+@code{Slur} ou @code{Staff@/.PianoPedalBracket}, il en résulte un
+@code{\override} du type de @emph{grob} spécifié. Lorsque @var{élément}
+est une expression musicale comme « ( » ou « [ », en résulte cette même
+expression musicale à laquelle s'applique un @code{\tweak}.
+@c closing ) and ]
+
+Le tiret introduisant la commande @code{\alterBroken} est impératif dans
+le cadre d'un @code{\tweak} ; il est superflu pour un @code{\override}.
+
+@funindex \once
+@funindex \temporary
+
+Dans sa variante @code{\override}, la commande @code{\alterBroken} peut
+se préfixer d'un @code{\once} ou d'un @code{\temporary} qui seront
+annulés par un @code{\revert} suivi de la @var{propriété} -- voir
+@rextend{Fonctions de substitution intermédiaires}.
+
+Le code ci-dessous applique un @code{\override} indépendant à chacun
+des segments du phrasé de l'exemple précédent :
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \alterBroken thickness #'(10 1) Slur
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+La commande @code{\alterBroken} peut s'utiliser avec tout objet étendu,
+y compris @code{Tie}, @code{PhrasingSlur}, @code{Beam} et
+@code{TextSpanner}.  Par exemple, un éditeur préparant une édition
+critique pourrait faire ressortir l'absence d'une partie de liaison de
+phrasé dans l'une des sources, en optant pour un tracé pointillé du
+seul segment ajouté.  L'exemple ci-dessous illustre la manière de
+procéder, ici avec la variante @code{\tweak} de la commande :
+
+@lilypond[verbatim,quote,ragged-right]
+% The empty list is conveniently used below, because it is the
+% default setting of dash-definition, resulting in a solid curve.
+\relative {
+  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+  \break
+  g2 e\)
+}
+@end lilypond
+
+Il est important de considérer que @code{\alterBroken} affectera à
+chaque portion d'un bandeau interrompu la valeur correspondante de
+@var{valeurs}. Si d'aventure il y a moins de valeurs que de tronçons,
+toute portion additionnelle se verra assigner une liste vide. Ceci peut
+conduire à des résultats inattendus dans le cas où la propriété de rendu
+ne bascule pas sur une liste vide par défaut. En pareil cas, chaque
+segment devrait se voir assigner une valeur appropriée.
+
+@knownissues
+Les sauts de ligne peuvent intervenir à différents endroits pour
+répondre à des modifications de mise en forme.  Les réglages adoptés par
+@code{\alterBroken} peuvent devenir inadaptés si le bandeau n'est plus
+rompu ou est découpé en plus de segments que prévu.  L'introduction
+explicite d'un @code{\break} peut alors pallier ces situations.
+
+La commande @code{\alterBroken} est inopérante sur les propriétés d'un
+bandeau qui sont traitées avant la procédure de saut de ligne, comme
+@code{direction}.
+
+@morerefs
+Manuel d'extension :
+@rextend{Retouches complexes}.
+@endmorerefs
+
+
+@node Affectation d'une longueur minimale aux extenseurs
+@unnumberedsubsubsec Affectation d'une longueur minimale aux extenseurs
+@translationof Setting minimum lengths for spanners
+
+L'interface @code{spanner-interface} fournit trois propriétés qui
+s'appliquent à certains extenseurs.
 
 @subsubsubheading La propriété @code{minimum-length}
 
@@ -3715,7 +3616,7 @@ d'articulation ou de phrasé.
 
 Certains objets requièrent un appel explicite à la procédure
 @code{set-spacing-rods} pour que la propriété @code{minimum-length}
-produise ses effets.  La propriété @code{set-spacing-rods} doit alors
+produise ses effets. La propriété @code{set-@/spacing-@/rods} doit alors
 prendre pour valeur @code{ly:spanner::set-spacing-rods}. Par exemple, la
 longueur minimale d'un glissando ne pourra être forcée tant que la
 propriété @code{springs-and-rods} n'aura pas été définie :
@@ -3796,15 +3697,16 @@ sur @code{ly:spanner::set-spacing-rods}.
 @end lilypond
 
 
-@subsubsubheading La propriété @code{to-barline}
+@node Contrôle du point d'arrêt des bandeaux
+@unnumberedsubsubsec Contrôle du point d'arrêt des bandeaux
+@translationof Controlling spanner end points
 
-La troisième propriété fournie par la @code{spanner-interface} est
-@code{to-barline}.  Elle est activée par défaut, raison pour laquelle
-les soufflets et autres extenseurs finissant sur la première note d'une
-mesure s'arrêtent visuellement au niveau de la barre de mesure qui la
-précède.  Le fait de désactiver la propriété @code{to-barline} aura pour
-effet de prolonger l'extenseur au delà de la barre de mesure et jusqu'à
-la note qui le borne :
+La propriété @code{to-barline} fournie par la @code{spanner-interface},
+activée par défaut, permet aux soufflets et autres extenseurs finissant
+sur la première note d'une mesure de s'arrêter visuellement au niveau de
+la barre de mesure qui la précède. Le fait de désactiver la propriété
+@code{to-barline} aura pour effet de prolonger l'extenseur au delà de la
+barre de mesure et jusqu'à la note qui le borne :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3820,29 +3722,40 @@ affecter @code{#t}) dans le cas d'une liaison d'articulation ou de
 phrasé !
 
 
-@node Utilisation de line-spanner-interface
-@unnumberedsubsubsec Utilisation de @code{line-spanner-interface}
-@translationof Using the line-spanner-interface
+@node Styles de ligne
+@subsection Styles de ligne
+@translationof Line styles
 
-Un certain nombre d'objets disposent de la
-@code{line-spanner-interface}, entre autres :
+La @rinternals{line-interface} regroupe tous les objets affichant des
+lignes. Tous les objets pris en charge par cette interface peuvent
+adopter différents styles de ligne. L'exemple ci-dessous indique les
+différentes valeurs disponibles.
 
-@itemize
-@item @code{DynamicTextSpanner}
-@item @code{Glissando}
-@item @code{TextSpanner}
-@item @code{TrillSpanner}
-@item @code{VoiceFollower}
-@end itemize
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
+@end lilypond
 
-La routine en charge de dessiner le stencil de ces extenseurs est
-@code{ly:@/line-@/spanner::@/print}.  Elle va déterminer les deux points
-extrêmes et dessiner entre eux une ligne du style requis.  Bien que la
-localisation des deux bornes de l'extenseur soit calculée à la volée,
-vous pouvez cependant forcer leur ordonnée (coordonnée-Y).  Les
-propriétés que vous devrez ajuster résident au deuxième niveau dans la
-hiérarchie, mais la syntaxe de la commande @code{\override} nécessaire
-demeure relativement simple :
+Certains objets peuvent adopter d'autres styles spécifiques.
+
+
+@node Lignes de prolongation
+@subsection Lignes de prolongation
+@translationof Line spanners
+
+Certaines indications portées à l'attention de l'exécutant -- tels
+@i{rallentando}, @i{accelerando} et @i{trilles} -- apparaissent sous la
+forme d'un texte qui peut s'étendre sur plusieurs mesures à l'aide d'une
+ligne parfois pointillée ou ondulée.
 
 @lilypond[quote,fragment,verbatim]
 e''2 \glissando b'
@@ -3950,6 +3863,7 @@ chacune des têtes de note.
 
 @end table
 
+@c FIXME: this should be somewhere else --JeanAS
 @funindex \endSpanners
 
 La fonction @code{\endSpanners} permet d'interrompre l'extenseur qui
@@ -4415,64 +4329,6 @@ Manuel d'initiation :
 @endmorerefs
 
 
-@node Styles de ligne
-@subsection Styles de ligne
-@translationof Line styles
-
-Certaines indications portées à l'attention de l'exécutant -- tels
-@i{rallentando}, @i{accelerando} et @i{trilles} -- apparaissent sous la
-forme d'un texte qui peut s'étendre sur plusieurs mesures à l'aide d'une
-ligne parfois pointillée ou ondulée.
-
-En matière de dessin du texte et des lignes, ces indications font appel
-aux mêmes routines que le glissando ; leur comportement peut donc
-être affiné selon les mêmes préceptes, au moyen de la routine
-@code{ly:line-spanner::print} qui est tout spécialement chargée de
-dessiner les extenseurs.  Cette routine détermine l'emplacement exact
-des deux points extrêmes de l'extenseur, puis trace une ligne du style
-demandé entre ces deux points.
-
-L'exemple ci-dessous indique les différents styles de ligne disponibles,
-ainsi que la manière de les spécifier.
-
-@lilypond[ragged-right,verbatim,quote]
-\relative {
-  d''2 \glissando d'2
-  \once \override Glissando.style = #'dashed-line
-  d,2 \glissando d'2
-  \override Glissando.style = #'dotted-line
-  d,2 \glissando d'2
-  \override Glissando.style = #'zigzag
-  d,2 \glissando d'2
-  \override Glissando.style = #'trill
-  d,2 \glissando d'2
-}
-@end lilypond
-
-Les points d'ancrage de l'extension sont calculés à la volée pour chaque
-objet graphique, mais rien ne vous empêche de les forcer :
-
-@c TODO Complete
-@lilypond[ragged-right,verbatim,quote]
-\relative {
-  e''2 \glissando f
-  \once \override Glissando.bound-details.right.Y = #-2
-  e2 \glissando f
-}
-@end lilypond
-
-La valeur de @code{Y} est ainsi fixée à @w{@code{-2}} en ce qui concerne
-la borne droite.  Il en irait de même pour la borne gauche en spécifiant
-@code{left} (gauche) au lieu de @code{right} (droite).
-
-En l'absence de réglage du @code{Y}, celui-ci est calculé à partir de
-l'emplacement vertical des points d'attache gauche et droit de
-l'extenseur.
-
-De plus amples informations quant à l'ajustement des extenseurs font
-l'objet de la rubrique @ref{Extenseurs et prolongateurs}.
-
-
 @node Rotation des objets
 @subsection Rotation des objets
 @translationof Rotating objects
@@ -4506,7 +4362,7 @@ L'angle et les coordonnées ne peuvent se déterminer que par tâtonnement.
 
 @cindex soufflet penché
 
-Il existe assez peu de situation où faire pivoter un objet de mise en
+Il existe assez peu de situations où faire pivoter un objet de mise en
 forme soit réellement opportun ; en voici une :
 
 @lilypond[quote,fragment,verbatim]
@@ -4541,45 +4397,6 @@ b^\markup { \rotate #30 "un si" }
 des'^\markup { \rotate #30 "un ré bémol" }
 fis'^\markup { \rotate #30 "un fa dièse" }
 @end lilypond
-
-
-@node Retouches avancées
-@section Retouches avancées
-@translationof Advanced tweaks
-
-Nous allons voir, au fil des paragraphes qui suivent, différentes
-approches permettant de fignoler l'apparence d'une partition.
-
-@menu
-* Alignement des objets::
-* Regroupement vertical d'objets graphiques::
-* Modification des stencils::
-* Modification de l'allure des éléments::
-* Modification de bandeaux avec rupture::
-* Conteneurs requalifiants::
-@end menu
-
-@morerefs
-Manuel d'initiation :
-@rlearning{Autres sources de documentation},
-@rlearning{Retouche de partition}.
-
-Manuel de notation :
-@ref{En quoi consiste la référence des propriétés internes},
-@ref{Modification de propriétés}.
-
-Manuel d'extension :
-@rextend{Interfaces pour programmeurs}.
-
-Fichiers d'initialisation :
-@file{scm/define-grobs.scm}.
-
-Morceaux choisis :
-@rlsrnamed{Tweaks and overrides,Retouches}.
-
-Référence des propriétés internes :
-@rinternals{All layout objects}.
-@endmorerefs
 
 
 @node Alignement des objets
@@ -4962,22 +4779,6 @@ e'1
 @end lilypond
 
 
-@node Regroupement vertical d'objets graphiques
-@subsection Regroupement vertical d'objets graphiques
-@translationof Vertical grouping of grobs
-
-@c TODO Expand this section
-
-Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
-travaillent de concert.  Comme leur nom anglais l'indiquent,
-@code{VerticalAxisGroup} regroupe différents objets tels que les portées
-(@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ;
-puis @code{VerticalAlignment} synchronise verticalement ces différents
-groupes.  En général, il n'y a qu'un seul @code{VerticalAlignment} pour
-l'ensemble de la partition, mais chaque contexte @code{Staff},
-@code{Lyrics}, etc. possède son propre @code{VerticalAxisGroup}.
-
-
 @node Modification des stencils
 @subsection Modification des stencils
 @translationof Modifying stencils
@@ -5328,450 +5129,3 @@ néanmoins influer sur la propriété @code{tie-configuration} de l'objet
 Référence des propriétés internes :
 @rinternals{TieColumn}.
 @endmorerefs
-
-
-@node Modification de bandeaux avec rupture
-@subsection Modification de bandeaux avec rupture
-@translationof Modifying broken spanners
-
-@menu
-* Utilisation de alterBroken::
-@end menu
-
-@node Utilisation de alterBroken
-@unnumberedsubsubsec Utilisation de @code{\alterBroken}
-@translationof Using alterBroken
-
-@cindex extenseur, modification
-@cindex bandeau, modification
-@cindex bandeau avec rupture, modification
-@cindex extension avec rupture, modification
-@funindex \alterBroken
-
-Lorsqu'un bandeau ou l'extension d'un objet rencontre un saut de ligne
-ou une rupture, chacun de ses tronçons hérite des attributs de l'objet
-originel.  Par voie de conséquence, la modification d'une extension avec
-rupture produira les mêmes effets sur chacun de ses segments.  Dans
-l'exemple ci-dessous, la modification apportée à @code{thickness}
-s'applique aussi bien avant qu'après le saut de ligne.
-
-@lilypond[verbatim,quote,ragged-right]
-\relative c'' {
-  r2
-  \once\override Slur.thickness = 10
-  c8( d e f
-  \break
-  g8 f e d) r2
-}
-@end lilypond
-
-La commande @code{\alterBroken} permet de modifier indépendamment
-l'apparence de chacune des parties d'un bandeau.  Selon le cas, cette
-commande génèrera soit un @code{\override}, soit un @code{\tweak} qui
-s'appliquera à la propriété du bandeau.
-
-La commande @code{\alterBroken} répond à la syntaxe :
-
-@example
-[-]\alterBroken @var{propriété} @var{valeurs} @var{élément}
-@end example
-
-L'argument @var{valeurs} est constitué d'une liste de valeurs, une pour
-chaque tronçon.  Lorsque @var{élément} est un nom d'objet graphique,
-tels @code{Slur} ou @code{Staff.PianoPedalBracket}, il en résulte un
-@code{\override} du type de @emph{grob} spécifié.  Lorsque @var{élément}
-est une expression musicale comme « ( » ou « [ », en résulte cette même
-expression musicale à laquelle s'applique un @code{\tweak}.
-@c closing ) and ]
-
-Le tiret introduisant la commande @code{\alterBroken} est impératif dans
-le cadre d'un @code{\tweak} ; il est superflu pour un @code{\override}.
-
-@funindex \once
-@funindex \temporary
-
-Dans sa variante @code{\override}, la commande @code{\alterBroken} peut
-se préfixer d'un @code{\once} ou d'un @code{\temporary} qui seront
-annulés par un @code{\revert} suivi de la @var{propriété} -- voir
-@rextend{Fonctions de substitution intermédiaires}.
-
-Le code ci-dessous applique un @code{\override} indépendant à chacun
-des segments du phrasé de l'exemple précédent :
-
-@lilypond[verbatim,quote,ragged-right]
-\relative c'' {
-  r2
-  \alterBroken thickness #'(10 1) Slur
-  c8( d e f
-  \break
-  g8 f e d) r2
-}
-@end lilypond
-
-La commande @code{\alterBroken} peut s'utiliser avec tout objet étendu,
-y compris @code{Tie}, @code{PhrasingSlur}, @code{Beam} et
-@code{TextSpanner}.  Par exemple, un éditeur préparant une édition
-critique pourrait faire ressortir l'absence d'une partie de liaison de
-phrasé dans l'une des sources, en optant pour un tracé pointillé du
-seul segment ajouté.  L'exemple ci-dessous illustre la manière de
-procéder, ici avec la variante @code{\tweak} de la commande :
-
-@lilypond[verbatim,quote,ragged-right]
-% The empty list is conveniently used below, because it is the
-% default setting of dash-definition, resulting in a solid curve.
-\relative {
-  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
-  \break
-  g2 e\)
-}
-@end lilypond
-
-Il est important de considérer que @code{\alterBroken} affectera à
-chaque portion d'un bandeau interrompu la valeur correspondante de
-@var{valeurs}.  Si d'aventure il y a moins de valeurs que de tronçons,
-toute portion additionnelle se verra assigner une liste vide.  Ceci peut
-conduire à des résultats inattendus dans le cas où la propriété de rendu
-ne bascule pas sur une liste vide par défaut.  En pareil cas, chaque
-segment devrait se voir assigner une valeur appropriée.
-
-@knownissues
-Les sauts de ligne peuvent intervenir à différents endroits pour
-répondre à des modifications de mise en forme.  Les réglages adoptés par
-@code{\alterBroken} peuvent devenir inadaptés si le bandeau n'est plus
-rompu ou est découpé en plus de segments que prévu.  L'introduction
-explicite d'un @code{\break} peut alors pallier ces situations.
-
-La commande @code{\alterBroken} est inopérante sur les propriétés d'un
-bandeau qui sont traitées avant la procédure de saut de ligne, comme
-@code{direction}.
-
-@morerefs
-Manuel d'extension :
-@rextend{Retouches complexes}.
-@endmorerefs
-
-
-@node Conteneurs requalifiants
-@subsection Conteneurs requalifiants
-@translationof Unpure-pure containers
-
-@c See issue #3512.
-@warning{Bien que cette rubrique reflète la situation actuelle,
-l'exemple qui suit est discutable et ne met rien en évidence.}
-
-@cindex Scheme, @emph{pure container}
-@cindex Scheme, @emph{unpure container}
-@cindex @emph{pure containers}, Scheme
-@cindex @emph{unpure containers}, Scheme
-@cindex espacement horizontal, affinage
-
-Les conteneurs requalifiants permettent de faciliter le calcul des
-espacements en cas de modification du @emph{Y-axis} -- plus
-particulièrement les composantes @code{Y-offset} et @code{Y-extent} -- à
-l'aide d'une fonction scheme en lieu et place de valeurs.
-
-L'envergure verticale (@code{Y-extent}) de certains objets dépend de la
-propriété @code{stencil} ; jouer sur leur stencil requiert alors une
-intervention supplémentaire au niveau du @code{Y-extent} à l'aide d'un
-conteneur transitoire.  Lorsqu'une fonction affecte un @code{Y-offset} ou
-un @code{Y-extent}, cela déclenche la détermination des sauts de ligne
-de manière anticipée dans la séquence des traitements.  Il en résulte
-que cette opération n'est en fait pas exécutée ; elle renvoie
-habituellement @code{0} ou @code{'(0 . 0)}, ce qui peut engendrer des
-collisions.  Une fonction « pure » évitera d'avorter la construction
-des propriétés ou objets, qui de ce fait verront leurs arguments liés à
-la verticalité (@code{Y-axis}) correctement évalués.
-
-Il existe actuellement une trentaine de fonctions que l'on peut
-qualifier de « pures ».  Le recours à un conteneur transitoire permet
-de requalifier une fonction de telle sorte qu'elle soit reconnue comme
-« pure » et soit donc évaluée @strong{avant} détermination des sauts de
-ligne -- l'espacement horizontal sera de fait ajusté en temps et en heure.
-La fonction « impure » sera ensuite évaluée @strong{après} le
-positionnement des sauts de ligne.
-
-@warning{Il n'est pas toujours facile d'avoir l'assurance qu'une
-fonction soit qualifiée de « pure » ; aussi nous vous recommandons
-d'éviter d'utiliser les objets @code{Beam} ou @code{VerticalAlignment}
-lorsque vous désirez en créer une.}
-
-Un conteneur requalifiant se construit selon la syntaxe
-
-@code{(ly:make-unpure-pure-container f0 f1)}
-
-@noindent
-où @code{f0} est une fonction prenant @var{n} arguments (@var{n_>=_1}),
-le premier devant être l'objet en question ; il s'agit de la fonction
-dont le résultat sera réutilisé.  @var{f1} est la fonction qui sera
-qualifiée de « pure ».  Elle prend @var{n_+_2} arguments, le premier
-devant être lui aussi l'objet en question, et les second et troisième
-étant respectivement les « point de départ » (@var{start}) et « point
-d'arrivée » (@var{end}).
-
-@var{start} et @var{end} sont dans tous les cas des valeurs fictives qui
-trouveront leur utilité dans le cas d'objets de type @code{Spanner},
-tels les soufflets (@code{Hairpin}) ou barres de ligature (@code{Beam}),
-en retournant les différentes estimations de hauteur basées sur leurs
-début et fin d'extension.
-
-Viennent ensuite les autres arguments de la fonction initiale @code{f0}
--- autrement dit aucun si @var{n_=_1}.
-
-Les résultats de la deuxième fonction (@code{f1}) permettent une
-approximation des valeurs qui seront ensuite utilisées par la fonction
-initiale aux fins d'ajustement lors des phases ultérieures d'espacement.
-
-@c TODO: The following example supposedly showing a collision no longer
-@c 'works' since 2.18.x. Another example of a collision is needed.
-@c Issue #3512
-
-@lilypond[verbatim,quote,ragged-right]
-#(define (square-line-circle-space grob)
-(let* ((pitch (ly:event-property (ly:grob-property grob 'cause)
-                                 'pitch))
-      (notename (ly:pitch-notename pitch)))
- (if (= 0 (modulo notename 2))
-     (make-circle-stencil 0.5 0.0 #t)
-     (make-filled-box-stencil '(0 . 1.0)
-                              '(-0.5 . 0.5)))))
-
-squareLineCircleSpace = {
-  \override NoteHead.stencil = #square-line-circle-space
-}
-
-smartSquareLineCircleSpace = {
-  \squareLineCircleSpace
-  \override NoteHead.Y-extent =
-   #(ly:make-unpure-pure-container
-      ly:grob::stencil-height
-      (lambda (grob start end) (ly:grob::stencil-height grob)))
-}
-
-\new Voice \with { \remove "Stem_engraver" }
-\relative c'' {
-  \squareLineCircleSpace
-  cis4 ces disis d
-  \smartSquareLineCircleSpace
-  cis4 ces disis d
-}
-@end lilypond
-
-La première mesure de l'exemple ci-dessus ne fait pas appel à un
-conteneur requalifiant ; le moteur d'espacement n'a donc aucune
-connaissance de la largeur des têtes de note et ne peut empêcher
-qu'elles chevauchent les altérations.  Dans la deuxième mesure, par
-contre, le recours à un conteneur requalifiant informe le moteur
-d'espacement de la largeur des têtes de note ; les collisions sont alors
-évitées du fait de l'espace réservé à chacune des têtes.
-
-Lorsqu'il s'agit de calculs simples, les fonctions, tant pour la partie
-« pure » que pour la partie « impure », peuvent être identiques au
-détail près du nombre d'arguments utilisés ou du domaine d'intervention.
-Ce cas de figure étant relativement répandu,
-@code{ly:make-unpure-pure-container} construira d'elle même cette
-deuxième lorsqu'il ne sera fait appel qu'à une seule fonction en
-argument.
-
-@warning{Le fait de qualifier une fonction de « pure » alors qu'elle ne
-l'est pas peut générer des résultats imprévisibles.}
-
-
-@node Utilisation de fonctions musicales
-@section Utilisation de fonctions musicales
-@translationof Using music functions
-
-@c TODO -- add @morerefs, etc. to these subsections
-
-Une adaptation ou un affinage qui devient récurrent parce que doit
-s'appliquer à différentes expressions musicales peut faire l'objet d'une
-@emph{fonction musicale}.  Nous ne traiterons ici que des fonctions de
-@emph{substitution}, dont le but est de substituer une variable en un
-bout de code LilyPond.  D'autres fonctions, plus complexes, sont
-abordées au chapitre @rextend{Fonctions musicales}.
-
-@menu
-* Syntaxe d'une fonction de substitution::
-* Exemples de fonction de substitution::
-@end menu
-
-
-@node Syntaxe d'une fonction de substitution
-@subsection Syntaxe d'une fonction de substitution
-@translationof Substitution function syntax
-
-La rédaction d'une fonction chargée de substituer du code LilyPond à une
-variable est chose relativement aisée.  Une telle fonction est de la
-forme
-
-@example
-fonction =
-#(define-music-function
-     (@var{arg1} @var{arg2}@dots{})
-     (@var{type1?} @var{type2?}@dots{})
-   #@{
-     @var{@dots{}musique@dots{}}
-   #@})
-@end example
-
-@noindent
-où
-
-@quotation
-@multitable @columnfractions .2 .7
-@item @code{@var{argN}}
-@tab Le @var{n}ième argument.
-
-@item @code{@var{typeN?}}
-@tab Un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
-doit renvoyer @code{#t}.
-
-@item @code{@var{@dots{}musique@dots{}}}
-@tab Du code LilyPond tout ce qu'il y a de plus ordinaire, avec
-des @code{$} (là où seule une construction LilyPond est autorisée) et
-des @code{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
-fonction musicale ou de musique faisant partie d'une liste) pour
-référencer les arguments (par ex. @samp{#arg1}).
-@end multitable
-@end quotation
-
-La liste des types de prédicat est aussi obligatoire.  Voici quelques
-uns des types de prédicat les plus utilisés dans les fonctions
-musicales :
-
-@example
-boolean?
-cheap-list?  @emph{(au lieu de }« list? »@emph{, pour accélérer le traitement)}
-ly:duration?
-ly:music?
-ly:pitch?
-markup?
-number?
-pair?
-string?
-symbol?
-@end example
-
-@noindent
-Une liste plus fournie est disponible à l'annexe
-@ref{Types de prédicats prédéfinis}.  Vous pouvez par ailleurs définir
-vos propres types de prédicat.
-
-@morerefs
-Manuel de notation :
-@ref{Types de prédicats prédéfinis}.
-
-Manuel d'extension :
-@rextend{Fonctions musicales}.
-
-Fichiers d'initialisation :
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
-@endmorerefs
-
-
-@node Exemples de fonction de substitution
-@subsection Exemples de fonction de substitution
-@translationof Substitution function examples
-
-@cindex substitution, fonction
-
-La présente rubrique regroupe quelques exemples de fonction
-substitutive.  Le propos est ici d'illustrer les possibilités qu'offrent
-les fonctions de substitution simple.
-
-Dans ce premier exemple, nous définissons une fonction dans le but de
-simplifier le réglage du décalage d'une annotation (un
-@code{TextScript}).
-
-@lilypond[quote,verbatim,ragged-right]
-padText =
-#(define-music-function
-     (padding)
-     (number?)
-   #{
-     \once \override TextScript.padding = #padding
-   #})
-
-\relative {
-  c''4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" b a b
-  \padText #2.6
-  c4^"piu mosso" b a b
-}
-@end lilypond
-
-Nous pouvons utiliser autre chose que des nombres au sein d'une
-fonction, y compris une expression musicale :
-
-@lilypond[quote,verbatim,ragged-right]
-custosNote =
-#(define-music-function
-     (note)
-     (ly:music?)
-   #{
-     \tweak NoteHead.stencil #ly:text-interface::print
-     \tweak NoteHead.text
-        \markup \musicglyph "custodes.mensural.u0"
-     \tweak Stem.stencil ##f
-     #note
-   #})
-
-\relative { c'4 d e f \custosNote g }
-@end lilypond
-
-@funindex \etc
-
-Ces fonctions sont toutes deux des expressions uniques simples dans
-lesquelles seul le dernier élément d'un appel à une fonction ou une
-dérogation est absent.  Dans ce cas particulier de définition d'une
-fonction, une syntaxe alternative et plus simple autorise à se cantonner
-à écrire la partie constante de l'expression et remplacer son dernier
-élément, absent, par @code{\etc} :
-
-@lilypond[quote,verbatim,ragged-right]
-padText =
-  \once \override TextScript.padding = \etc
-
-\relative {
-  c''4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" b a b
-  \padText #2.6
-  c4^"piu mosso" b a b
-}
-@end lilypond
-
-@lilypond[quote,verbatim,ragged-right]
-custosNote =
-  \tweak NoteHead.stencil #ly:text-interface::print
-  \tweak NoteHead.text
-     \markup \musicglyph "custodes.mensural.u0"
-  \tweak Stem.stencil ##f
-  \etc
-
-\relative { c'4 d e f \custosNote g }
-@end lilypond
-
-Une fonction de substitution peut traiter plusieurs arguments :
-
-@lilypond[quote,verbatim,ragged-right]
-tempoPadded =
-#(define-music-function
-     (padding tempotext)
-     (number? markup?)
-   #{
-     \once \override Score.MetronomeMark.padding = #padding
-     \tempo \markup { \bold #tempotext }
-   #})
-
-\relative {
-  \tempo \markup { "Low tempo" }
-  c''4 d e f g1
-  \tempoPadded #4.0 "High tempo"
-  g4 f e d c1
-}
-@end lilypond
-
-@c TODO: add appropriate @@ref's here.

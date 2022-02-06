@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -23,6 +23,7 @@ mais plutôt du contenu des fichiers source et du résultat produit par
 LilyPond.
 
 @menu
+* Modes de saisie::
 * Agencement du code::
 * Titres et entêtes::
 * Travail sur des fichiers texte::
@@ -30,6 +31,152 @@ LilyPond.
 * Génération de fichiers MIDI::
 * Extraction d'informations musicales::
 @end menu
+
+
+@node Modes de saisie
+@section Modes de saisie
+@translationof Input modes
+
+La manière dont sera interprétée la notation contenue dans un fichier
+source dépend du mode affecté à la saisie.  Il existe, en règle
+générale, deux façons de spécifier le mode : une forme développée -- par
+exemple @code{\chordmode} -- et une forme abrégée -- par exemple
+@code{\chords}.  La forme développée s'utilise particulièrement lorsque
+la saisie fait l'objet d'une variable ou se trouve dans un contexte
+explicitement créé.  La forme abrégée crée implicitement un contexte du
+type adéquate à la saisie et la lui transmet directement.  Cette forme
+abrégée est tout à fait indiquée aux situations simples pour lesquelles
+nul n'est besoin de créer explicitement le contexte qui prendra en
+charge la saisie.
+
+
+@subsubsubheading Mode accords
+@translationof VO Chord mode
+
+@funindex \chordmode
+@funindex \chords
+
+Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
+les saisies comme étant des accords, qui seront imprimés sous forme de
+notes sur une portée -- voir @ref{Notation des accords}.  La musique
+entrée en mode accords est rendue soit sous forme d'accords sur une
+portée pour un contexte @code{Staff}, soit sous forme de noms d'accord
+pour un contexte @code{ChordNames} ou sous forme de diagrammes pour un
+contexte @code{FretBoards}.
+
+Le mode accords s'active aussi par la commande @code{\chords}, qui
+créera implicitement un nouveau contexte @code{ChordNames}.  Le code
+saisi selon la syntaxe dévolue aux accords, sera interprété comme étant
+des accords nommés et sera alors rendu sous forme nominale dans ce
+contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
+
+
+@subsubsubheading Mode percussions
+@translationof Drum mode
+
+@funindex \drummode
+@funindex \drums
+
+Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
+les saisies comme étant de la notation pour percussions -- voir
+@ref{Notation de base pour percussions}.  Lorsqu'elle est entrée en
+mode percussions, la musique est rendue dans un contexte
+@code{DrumStaff}.
+
+Le mode percussions s'active aussi par la commande @code{\drums}, qui
+créera implicitement un nouveau contexte @code{DrumStaff}.  Le code
+saisi selon la syntaxe dévolue aux percussions, sera interprété comme
+étant de la notation pour percussions et alors rendu sous forme
+symbolique sur une portée de percussions -- voir
+@ref{Notation de base pour percussions}.
+
+
+@subsubsubheading Mode figures
+@translationof Figure mode
+
+@funindex \figuremode
+@funindex \figures
+
+Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
+les saisies comme étant de la basse chiffrée (ou figurée) -- voir
+@ref{Saisie de la basse chiffrée}.  Lorsqu'elle est entrée en mode
+figures, la musique est rendue sous forme de basse figurée dans un
+contexte @code{FiguredBass} ou dans un contexte @code{Staff}.
+
+Le mode figures s'active aussi par la commande @code{\figures}, qui
+créera implicitement un nouveau contexte @code{FiguredBass}.  Le code,
+saisi selon la syntaxe dévolue à la basse chiffrée, sera interprété
+comme étant des indication de basse chiffrée et sera alors rendu sous
+forme symbolique dans le contexte @code{FiguredBass} -- voir
+@ref{Introduction à la basse chiffrée}.
+
+
+@subsubsubheading Modes frets et tablatures
+@translationof Fret and tab modes
+
+Il n'existe pas de mode spécifique pour saisir des symboles de fret ou
+de tablature.
+
+Notes ou accords saisis en mode note puis affectés à un contexte
+@code{TabStaff} seront rendus sous forme de diagramme de tablature --
+voir @ref{Tablatures par défaut}.
+
+Des diagrammes de fret viendront se positionner en surplomb d'une portée
+dès lors que les notes ou accords auront été saisis en mode note ou
+accord puis rendus dans un contexte @code{FretBoards} -- voir
+@ref{Tablatures automatiques}.  Ils peuvent aussi se gérer sous forme de
+@emph{markups} créés par la commande @code{\fret-diagram} -- voir
+@ref{Tablatures sous forme d'étiquettes}.
+
+
+@subsubsubheading Mode paroles
+@translationof Lyrics mode
+
+@funindex \lyricmode
+@funindex \lyrics
+
+Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
+les saisies comme étant des syllabes, ayant éventuellement une durée, et
+des indications habituelles aux paroles -- voir @ref{Musique vocale}.
+Lorsqu'il est entré en mode paroles, le texte est rendu sous forme de
+syllabes dans un contexte @code{Lyrics}.
+
+Le mode paroles s'active aussi par la commande @code{\lyrics}, qui
+créera implicitement un nouveau contexte @code{Lyrics}.  Le code saisi
+sera interprété comme étant des paroles et sera alors rendu sous forme
+de syllabes dans le contexte @code{Lyrics}.
+
+Le mode paroles s'active aussi par la commande @code{\addlyrics}, qui
+créera un contexte @code{Lyrics} et ajoutera implicitement une commande
+@code{\lyricsto} afin d'associer les paroles qui suivent à la musique
+précédemment saisie -- voir @ref{Durée automatique des syllabes}.
+
+
+@subsubsubheading Mode @emph{markup}
+@translationof Markup mode
+
+@funindex \markup
+
+Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
+saisies comme étant des @emph{markups} (annotations ou étiquettes) --
+voir @ref{Commandes pour markup}.
+
+
+@subsubsubheading Mode notes
+@translationof Note mode
+
+@funindex \notemode
+
+Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
+s'activer par la commande @code{\notemode}.  Les saisies seront
+interprétées comme étant des hauteurs, durées, @emph{markups}, etc. qui
+seront rendues sous forme de notation musicale sur une portée.
+
+Nul n'est besoin de spécifier le mode notes de manière explicite, hormis
+dans certaines situations particulières, notamment lorsque vous êtes en
+mode paroles, accords, ou tout autre mode, et que vous deviez insérer
+un élément qui ne serait disponible que grâce à la syntaxe du mode
+notes.
 
 
 @node Agencement du code
@@ -2151,6 +2298,7 @@ Fichiers d'initialisation :
 @menu
 * Insertion de fichiers LilyPond::
 * Différentes éditions à partir d'une même source::
+* Utilisation de fonctions musicales::
 * Caractères spéciaux::
 @end menu
 
@@ -2731,6 +2879,207 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Insertion de fichiers LilyPond}.
 @endmorerefs
+
+
+@node Utilisation de fonctions musicales
+@subsection Utilisation de fonctions musicales
+@translationof Using music functions
+
+@c TODO -- add @morerefs, etc. to these subsections
+
+Une adaptation ou un affinage qui devient récurrent parce que doit
+s'appliquer à différentes expressions musicales peut faire l'objet d'une
+@emph{fonction musicale}.  Nous ne traiterons ici que des fonctions de
+@emph{substitution}, dont le but est de substituer une variable en un
+bout de code LilyPond.  D'autres fonctions, plus complexes, sont
+abordées au chapitre @rextend{Fonctions musicales}.
+
+@menu
+* Syntaxe d'une fonction de substitution::
+* Exemples de fonction de substitution::
+@end menu
+
+
+@node Syntaxe d'une fonction de substitution
+@subsubsection Syntaxe d'une fonction de substitution
+@translationof Substitution function syntax
+
+La rédaction d'une fonction chargée de substituer du code LilyPond à une
+variable est chose relativement aisée.  Une telle fonction est de la
+forme
+
+@example
+fonction =
+#(define-music-function
+     (@var{arg1} @var{arg2}@dots{})
+     (@var{type1?} @var{type2?}@dots{})
+   #@{
+     @var{@dots{}musique@dots{}}
+   #@})
+@end example
+
+@noindent
+où
+
+@quotation
+@multitable @columnfractions .2 .7
+@item @code{@var{argN}}
+@tab Le @var{n}ième argument.
+
+@item @code{@var{typeN?}}
+@tab Un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
+doit renvoyer @code{#t}.
+
+@item @code{@var{@dots{}musique@dots{}}}
+@tab Du code LilyPond tout ce qu'il y a de plus ordinaire, avec
+des @code{$} (là où seule une construction LilyPond est autorisée) et
+des @code{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
+fonction musicale ou de musique faisant partie d'une liste) pour
+référencer les arguments (par ex. @samp{#arg1}).
+@end multitable
+@end quotation
+
+La liste des types de prédicat est aussi obligatoire.  Voici quelques
+uns des types de prédicat les plus utilisés dans les fonctions
+musicales :
+
+@example
+boolean?
+cheap-list?  @emph{(au lieu de }« list? »@emph{, pour accélérer le traitement)}
+ly:duration?
+ly:music?
+ly:pitch?
+markup?
+number?
+pair?
+string?
+symbol?
+@end example
+
+@noindent
+Une liste plus fournie est disponible à l'annexe
+@ref{Types de prédicats prédéfinis}.  Vous pouvez par ailleurs définir
+vos propres types de prédicat.
+
+@morerefs
+Manuel de notation :
+@ref{Types de prédicats prédéfinis}.
+
+Manuel d'extension :
+@rextend{Fonctions musicales}.
+
+Fichiers d'initialisation :
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+@endmorerefs
+
+
+@node Exemples de fonction de substitution
+@subsubsection Exemples de fonction de substitution
+@translationof Substitution function examples
+
+@cindex substitution, fonction
+
+La présente rubrique regroupe quelques exemples de fonction
+substitutive.  Le propos est ici d'illustrer les possibilités qu'offrent
+les fonctions de substitution simple.
+
+Dans ce premier exemple, nous définissons une fonction dans le but de
+simplifier le réglage du décalage d'une annotation (un
+@code{TextScript}).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function
+     (padding)
+     (number?)
+   #{
+     \once \override TextScript.padding = #padding
+   #})
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+Nous pouvons utiliser autre chose que des nombres au sein d'une
+fonction, y compris une expression musicale :
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+#(define-music-function
+     (note)
+     (ly:music?)
+   #{
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
+        \markup \musicglyph "custodes.mensural.u0"
+     \tweak Stem.stencil ##f
+     #note
+   #})
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+@funindex \etc
+
+Ces fonctions sont toutes deux des expressions uniques simples dans
+lesquelles seul le dernier élément d'un appel à une fonction ou une
+dérogation est absent.  Dans ce cas particulier de définition d'une
+fonction, une syntaxe alternative et plus simple autorise à se cantonner
+à écrire la partie constante de l'expression et remplacer son dernier
+élément, absent, par @code{\etc} :
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph "custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+Une fonction de substitution peut traiter plusieurs arguments :
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded =
+#(define-music-function
+     (padding tempotext)
+     (number? markup?)
+   #{
+     \once \override Score.MetronomeMark.padding = #padding
+     \tempo \markup { \bold #tempotext }
+   #})
+
+\relative {
+  \tempo \markup { "Low tempo" }
+  c''4 d e f g1
+  \tempoPadded #4.0 "High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+@c TODO: add appropriate @@ref's here.
 
 
 @node Caractères spéciaux

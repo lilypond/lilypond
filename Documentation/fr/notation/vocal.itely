@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2193,8 +2193,9 @@ melody = \relative {
 }
 
 text = \lyricmode {
-\set stanza = "1." À la clai- re fon- tai- ne,
-M'en al- lant pro- me- ner...
+  \set stanza = "1."
+  À la clai- re fon- tai- ne,
+  M'en al- lant pro- me- ner...
 }
 
 \score{ <<
@@ -2203,35 +2204,27 @@ M'en al- lant pro- me- ner...
 >>
   \layout { }
 }
-\markup {
-  \column {
-    \string-lines
-      "Couplet 2. \n Sous les feuilles d'un chêne \n Je me suis fait sécher..."
-  }
-}
-\markup{
-  \column {
-    \string-lines
-      "Couplet 3.
-       Chante, rossignol, chante,
-       Toi qui as le cœur gai..."
-  }
-}
-\markup {
-  \column {
+
+\markup \column \string-lines
+  "Couplet 2. \n Sous les feuilles d'un chêne \n Je me suis fait sécher..."
+
+\markup \column \string-lines
+  "Couplet 3.
+   Chante, rossignol, chante,
+   Toi qui as le cœur gai..."
+
+\markup \column {
     \line \italic { Couplet 4. }
-    \line { J'ai perdu mon ami}
+    \line { J'ai perdu mon ami }
     \line { Sans l'avoir mérité... }
-  }
 }
-\markup {
-  \wordwrap-string "
-    Couplet 5.
 
-    Je voudrais que la rose
+\markup \wordwrap-string "
+  Couplet 5.
 
-    Fût encore au rosier..."
-}
+  Je voudrais que la rose
+
+  Fût encore au rosier..."
 @end lilypond
 
 

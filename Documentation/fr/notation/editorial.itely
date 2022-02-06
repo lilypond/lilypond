@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1132,6 +1132,43 @@ peut toutefois le gérer ainsi :
 }
 @end lilypond
 
+Le comportement par défaut en matière de point d'attachement du
+trait entre l'encadrement et le texte est indiqué ci-dessous.
+
+@lilypond
+\new Voice \with {
+  \consists Balloon_engraver
+}
+{
+  \time 3/4
+  \balloonGrobText Rest #'(-1 . 1) "rest"
+  r4
+  \balloonGrobText Rest #'(0 . 1) "rest"
+  r4
+  \balloonGrobText Rest #'(1 . 1) "rest"
+  r4
+}
+@end lilypond
+
+Le calcul par défaut du point d'attachement peut se corriger à l'aide
+des propriétés @code{X-attachment} et @code{Y-attachment} qui peuvent
+prendre une valeur entre @minus{}1 et 1, valeurs qui correspondent à
+l'extrémité gauche (ou basse) et droite (ou haute) du cadre.
+L'alignement du texte se gère à l'aide de @code{text-alignment-X} et
+@code{text-alignment-Y}, de manière similaire.
+
+@lilypond[verbatim,quote]
+\new Voice \with {
+  \consists Balloon_engraver
+}
+{
+  \once \override BalloonText.Y-attachment = -0.5
+  \once \override BalloonText.text-alignment-X = 0.0
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
+}
+@end lilypond
+
 @predefined
 @code{\balloonLengthOn},
 @code{\balloonLengthOff}.
@@ -1142,6 +1179,7 @@ Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
+@rinternals{AnnotateOutputEvent},
 @rinternals{Balloon_engraver},
 @rinternals{BalloonText},
 @rinternals{balloon-interface}.

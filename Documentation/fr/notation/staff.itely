@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -474,13 +474,14 @@ Vous pouvez modifier le nombre de lignes d'une portée :
 }
 @end lilypond
 
-Le positionnement de chacune des lignes de la portée est modifiable.
-Une liste de nombres détermine le positionnement de chaque ligne.
+Le positionnement de chacune des lignes de la portée est modifiable. Une
+liste de nombres détermine le positionnement de chaque ligne.
 Le @code{0} correspond à la ligne médiane d'une portée habituelle, pour
-laquelle la liste est donc @code{(-4 -2 0 2 4)}.
-Une ligne sera donc imprimée pour chaque valeur exprimée ; le nombre de
-lignes, ainsi que leur position dans la portée, peut donc se modifier à
-l'aide d'une seule commande.
+laquelle la liste est donc @code{(-4 -2 0 2 4)}. Une ligne sera donc
+imprimée pour chaque valeur exprimée ; le nombre de lignes, ainsi que
+leur position dans la portée, peut donc se modifier à l'aide d'une seule
+commande. C'est ainsi que la propriété @code{line-count} est ignorée dès
+lors qu'est activée @code{line-positions}
 
 @lilypond[verbatim,quote]
 \relative {
@@ -578,6 +579,17 @@ lignes supplémentaires.
 } \relative {
   f'''4 d, g, e,
 }
+@end lilypond
+
+La largeur d'une portée, exprimée en espace de portée, peut être figée.
+L'espacement des objets inclus dans cette portée ne sera en rien affecté
+par ce réglage.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.width = #23
+}
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 @snippets

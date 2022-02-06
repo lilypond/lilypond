@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+    Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -244,47 +244,6 @@ pour le style @code{'beam}) ou une flêche.
   a'1\- s2 r
   \override DurationLine.details.hook-direction = #DOWN
   a'1\- s2 r
-  \bar "|."
-}
-@end lilypond
-
-@knownissues
-Lorsque l'objet @code{DurationLine} atteint la fin de la partition, son
-extrémité est absente, pour des raisons techniques. Une solution de
-contournement pourrait ressembler à :
-
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Voice
-    \consists "Duration_line_engraver"
-    \omit Stem
-    \omit Flag
-    \omit Beam
-    \override NoteHead.duration-log = 2
-  }
-}
-
-lastEndStyle =
-#(define-music-function (end-style)(symbol?)
-#{
-  \override DurationLine.stencil =
-    #(lambda (grob)
-      (let* ((orig (ly:grob-original grob))
-             (siblings (if (ly:grob? orig)
-                           (ly:spanner-broken-into orig) '()))
-             (last-grob (if (pair? siblings) (last siblings) #f)))
-        (if last-grob
-            (ly:grob-set-nested-property!
-              last-grob
-              '(bound-details right-broken end-style) end-style))
-        duration-line::print))
-#})
-
-{
-  \once \override DurationLine.bound-details.right.end-style = #'arrow
-  \lastEndStyle #'arrow
-  a'1\-
   \bar "|."
 }
 @end lilypond

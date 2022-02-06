@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+  Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -37,6 +37,7 @@
 * Glossaire technique::
 * Fonctions musicales prédéfinies::
 * Identificateurs de modification de contexte::
+* Conventions de nommage::
 * Types de prédicats prédéfinis::
 @end menu
 
@@ -758,55 +759,15 @@ documentation, basé sur un A8 à l'italienne.}
 @translationof MIDI instruments
 
 La liste suivante répertorie les différentes dénominations que vous
-pouvez affecter à la propriété @code{midiInstrument}.  L'ordre dans
-lequel ils sont rangés, par colonne, correspond aux 128 programmes du
+pouvez affecter à la propriété @code{midiInstrument}.  Est affecté à
+chaque instrument son numéro dans l'ordre des 128 programmes du
 standard @emph{General MIDI}.
 
-@example
-acoustic grand            contrabass           lead 7 (fifths)
-bright acoustic           tremolo strings      lead 8 (bass+lead)
-electric grand            pizzicato strings    pad 1 (new age)
-honky-tonk                orchestral harp      pad 2 (warm)
-electric piano 1          timpani              pad 3 (polysynth)
-electric piano 2          string ensemble 1    pad 4 (choir)
-harpsichord               string ensemble 2    pad 5 (bowed)
-clav                      synthstrings 1       pad 6 (metallic)
-celesta                   synthstrings 2       pad 7 (halo)
-glockenspiel              choir aahs           pad 8 (sweep)
-music box                 voice oohs           fx 1 (rain)
-vibraphone                synth voice          fx 2 (soundtrack)
-marimba                   orchestra hit        fx 3 (crystal)
-xylophone                 trumpet              fx 4 (atmosphere)
-tubular bells             trombone             fx 5 (brightness)
-dulcimer                  tuba                 fx 6 (goblins)
-drawbar organ             muted trumpet        fx 7 (echoes)
-percussive organ          french horn          fx 8 (sci-fi)
-rock organ                brass section        sitar
-church organ              synthbrass 1         banjo
-reed organ                synthbrass 2         shamisen
-accordion                 soprano sax          koto
-harmonica                 alto sax             kalimba
-concertina                tenor sax            bagpipe
-acoustic guitar (nylon)   baritone sax         fiddle
-acoustic guitar (steel)   oboe                 shanai
-electric guitar (jazz)    english horn         tinkle bell
-electric guitar (clean)   bassoon              agogo
-electric guitar (muted)   clarinet             steel drums
-overdriven guitar         piccolo              woodblock
-distorted guitar          flute                taiko drum
-guitar harmonics          recorder             melodic tom
-acoustic bass             pan flute            synth drum
-electric bass (finger)    blown bottle         reverse cymbal
-electric bass (pick)      shakuhachi           guitar fret noise
-fretless bass             whistle              breath noise
-slap bass 1               ocarina              seashore
-slap bass 2               lead 1 (square)      bird tweet
-synth bass 1              lead 2 (sawtooth)    telephone ring
-synth bass 2              lead 3 (calliope)    helicopter
-violin                    lead 4 (chiff)       applause
-viola                     lead 5 (charang)     gunshot
-cello                     lead 6 (voice)
-@end example
+@include en/included/midi-instruments.itexi
+
+Certains kits de percussions sont aussi disponibles.
+
+@include en/included/midi-drum-kits.itexi
 
 
 @node Liste des couleurs
@@ -2614,6 +2575,8 @@ f^\thumb e,_\thumb b'\thumb
 @unnumberedsubsec Scripts de reprise et de répétition
 @translationof Repeat sign scripts
 
+@cindex coda, signe
+@cindex segno, signe
 @cindex reprise, script
 @funindex \segno
 @funindex \coda
@@ -3127,6 +3090,7 @@ sur les listes de diffusion et dans le code source.
 * variable de l'analyseur grammatical::
 * prob (objet de propriété)::
 * smob (objet Scheme)::
+* spanner (bandeau)::
 * stencil::
 @end menu
 
@@ -3225,8 +3189,10 @@ représentés par des instances de la classe @code{grob}.
 @morerefs
 Manuel d'initiation :
 @rlearning{Objets et interfaces},
-@rlearning{Conventions de nommage des objets et propriétés},
 @rlearning{Propriétés des objets de rendu}.
+
+Manuel de notation :
+@ref{Conventions de nommage}.
 
 Référence des propriétés internes :
 @rinternals{grob-interface},
@@ -3275,10 +3241,10 @@ pour faire court.
 @morerefs
 Manuel d'initiation :
 @rlearning{Objets et interfaces},
-@rlearning{Conventions de nommage des objets et propriétés},
 @rlearning{Propriétés listées par interface}.
 
 Manuel de notation :
+@ref{Conventions de nommage},
 @ref{Interfaces de rendu}.
 
 Référence des propriétés internes :
@@ -3455,6 +3421,44 @@ amples informations sont disponibles dans les sources de LilyPond, au
 sein du fichier @file{lily/includes/smob.hh}.
 
 
+@node spanner (bandeau)
+@unnumberedsubsec spanner (bandeau)
+@translationof spanner
+
+@cindex bandeau @emph{(spanner)}
+@cindex @emph{spanner}, bandeau
+
+Les @strong{bandeaux} @emph{(spanners)} constituent une classe d'objets
+graphiques qui ne sont pas fixés horizontalement, mai s'étendent entre
+dux points. On peut citer à titre d'exemple les ligatures, les liaisons
+quel que soit leur type, les soufflets, et même les lignes de la portée.
+Contrairement aux objets n'étant pas des bandeaux et qui peuvent
+apparaître au plus deux fois à l'occasion d'un saut, comme la
+duplication d'une clef en fin de ligne et au début de la suivante, les
+bandeaux sont sectionnés en autant de tronçons que de besoin selon leur
+point de départ et leur terminaison, comme un crescendo qui s'étend sur
+trois systèmes ou les lignes de portée qui s'étendent tout au long de la
+partition.
+
+Techniquement, les bandeaux se définissent comme des objets graphiques
+disposant de la @code{spanner-@/interface} ; du côté C++ de LilyPond,
+ils constituent des instances de la sous-classe @code{Spanner} de
+@code{grob}. Leurs extrémités gauche et droite peuvent se récupérer ou
+définir respectivement à l'aide de @code{ly:spanner-@/bound} et
+@code{ly:spanner-@/set-@/bound!}. Leurs extrémités sont toujours des
+éléments. Le parent X d'un bandeau n'a que peu de sens en terme de
+musique, mais il se détermine habituellement par son extrémité gauche.
+
+@morerefs
+Manuel de notation :
+@ref{Extenseurs et prolongateurs}.
+
+Référence des propriétés internes :
+@rinternals{all-layout-objects},
+@rinternals{spanner-interface}.
+@endmorerefs
+
+
 @node stencil
 @unnumberedsubsec stencil
 @translationof stencil
@@ -3493,6 +3497,70 @@ Les commandes suivantes permettent de modifier des contextes au sein
 d'un bloc @code{\layout} ou @code{\with}.
 
 @include en/context-mod-identifiers.tely
+
+
+@node Conventions de nommage
+@appendixsec Conventions de nommage
+@translationof Naming conventions
+
+Afin de s'y retrouver plus aisément et d'éviter les erreurs de frappe,
+voici quelques conventions en matière de nommage.
+
+@c Superset of the table in the Learning Manual. --JeanAS
+@multitable @columnfractions .33 .33 .33
+@headitem Objet ou type de propriété
+  @tab Convention de nommage
+  @tab Exemples
+@item Mot-clé
+  @tab @code{aaaa}
+  @tab @code{\score}, @code{\addlyrics}
+@item Founctions musicales et racourcis
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{\time}, @code{\stemUp}
+@item Fonctions pour @emph{markups}
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{\bold}, @code{\with-dimensions}
+@item Variables de papier
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{indent}, @code{page-breaking}
+@item Expressions musicales
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{NoteEvent}, @code{SequentialMusic}
+@item Classes musicales
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{note-event}, @code{rhythmic-event}
+@item Propriétés musicales
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{force-accidental}, @code{iterator-ctor}
+@item Contextes
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
+@item Propriétés de contexte
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{stanza}, @code{instrumentName}
+@item Graveurs
+  @tab @code{Aaaa_engraver} or @code{Aaaa_aaaa_aaaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
+@item Objets de rendu
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
+@item Propriétés d'objet de rendu
+  @tab @code{aaa} or @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
+@item Interfaces
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
+@item Fonctions Scheme définies en Guile
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{map}, @code{for-each}
+@item Fonctions Scheme définies dans LilyPond
+  @tab @code{ly:aaaa} or @code{ly:aaaa-aaaa-aaaa} ou
+  @code{aaaa} ou @code{aaaa-aaaa-aaaa}
+  @footnote{Pour des raisons historiques, toutes les fonctions
+  définies dans LilyPond ne sont pas forcément préfixées d'un
+  @code{ly:}.}
+  @tab @code{ly:grob-relative-coordinate}, @code{music-map}
+@end multitable
 
 
 @node Types de prédicats prédéfinis

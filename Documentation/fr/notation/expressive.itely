@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -255,7 +255,7 @@ Pour plus d'information sur la manière d'ordonner @code{Scripts} et
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex grupetto décalé
-@cindex dacalé, grupetto
+@cindex décalé, grupetto
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
