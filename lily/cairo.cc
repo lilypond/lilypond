@@ -1364,7 +1364,6 @@ output_stencil_format (std::string const &basename, const Stencil *stc,
 
   outputter.create_surface (stc);
   interpret_stencil_expression (stc->expr (), &outputter, Offset (0, 0));
-  outputter.finish_page ();
   outputter.close ();
 }
 
