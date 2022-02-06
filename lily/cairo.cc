@@ -648,7 +648,7 @@ Cairo_outputter::create_surface (Stencil const *stencil)
 {
   filename_ = outfile_basename_ + "." + format_name (format_);
 
-  message (_f ("Output to `%s'...\n", filename_.c_str ()));
+  message (_f ("Layout output to `%s'...\n", filename_.c_str ()));
 
   Real paper_width = stencil->extent (X_AXIS).length ();
   Real paper_height = stencil->extent (Y_AXIS).length ();
