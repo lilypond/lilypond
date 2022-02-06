@@ -1092,7 +1092,7 @@ The @code{\inStaffSegno} command is equivalent to @code{\segnoMark
 as a bar line.
 
 @lilypond[verbatim,quote]
-\fixed c' {  
+\fixed c' {
   e1
   \inStaffSegno
   g1
