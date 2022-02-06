@@ -31,7 +31,8 @@ LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
 LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))
 LANG_DOCTITLE_FLAGS:=$(foreach lang,$(LANGS),--header=doctitle$(lang))
 
-LILYPOND_BOOK_LILYPOND_FLAGS=-dseparate-page-formats=ps,pdf \
+LILYPOND_BOOK_LILYPOND_FLAGS=$(LOCAL_LILYPOND_FLAGS) \
+-dseparate-page-formats=ps,pdf \
 $(LILYPOND_JOBS) \
 -dinclude-eps-fonts \
 -dgs-load-fonts \

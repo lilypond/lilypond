@@ -26,7 +26,8 @@ LY_EXAMPLES = $(call src-wildcard,ly-examples/*.ly)
 OUT_BITMAP_IMAGES += \
   $(LY_EXAMPLES:%.ly=$(outdir)/%.png) \
   $(LY_EXAMPLES:%.ly=$(outdir)/%-small.png)
-LILYPOND_PREVIEW = $(LILYPOND_BINARY) -dpreview -dresolution=150
+LILYPOND_PREVIEW = $(LILYPOND_BINARY) $(LOCAL_LILYPOND_FLAGS) \
+	-dpreview -dresolution=150
 
 ### Pictures
 
