@@ -107,6 +107,7 @@ enum Translator_precompute_index
 {
   START_TRANSLATION_TIMESTEP,
   STOP_TRANSLATION_TIMESTEP,
+  PRE_PROCESS_MUSIC,
   PROCESS_MUSIC,
   PROCESS_ACKNOWLEDGED,
   TRANSLATOR_METHOD_PRECOMPUTE_COUNT,
@@ -153,6 +154,7 @@ public:
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
+  void pre_process_music ();
   void process_music ();
   void process_acknowledged ();
 

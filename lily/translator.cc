@@ -36,9 +36,15 @@ Translator::~Translator ()
 {
 }
 
-/* The four base class methods below are never called: they don't need
+/* The five base class methods below are never called: they don't need
    to do anything, so for performance we avoid calling them by
    precomputing the list of overridden methods. */
+
+void
+Translator::pre_process_music ()
+{
+  assert (false);
+}
 
 void
 Translator::process_music ()

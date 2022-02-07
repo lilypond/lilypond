@@ -66,6 +66,14 @@ which scares away people.
 @end ignore
 
 @item
+Scheme translators can now define a new slot called
+@code{pre-process-music}.  It is called on all translators, after
+all listeners but before all @code{process-music} slots.  This can
+be used for processing that depends on all events heard but needs
+to set context properties before other translators read them.
+
+
+@item
 @code{\markup \path} now also works in SVG output even if the path
 does not begin with a @code{moveto} or @code{rmoveto} command.  Also,
 it now accepts single-letter SVG equivalents (@code{moveto} = @code{M},

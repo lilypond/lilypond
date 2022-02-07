@@ -3093,13 +3093,13 @@ literally (the @samp{car} is quoted automatically) as long as the
 unevaluated @samp{cdr} is not a pair.  This is useful if you already
 have defined your engraver functions separately.
 
-Symbols mapping to a function would be @code{initialize},
-@code{start-translation-timestep}, @code{process-music},
-@code{process-acknowledged}, @code{stop-translation-timestep}, and
-@code{finalize}.  Symbols mapping to another alist specified in the
-same manner are @code{listeners} with the subordinate symbols being
-event classes, and @code{acknowledgers} and @code{end-acknowledgers}
-with the subordinate symbols being interfaces."
+@code{start-translation-timestep}, @code{pre-process-music},
+@code{process-music}, @code{process-acknowledged},
+@code{stop-translation-timestep}, and @code{finalize}.  Symbols
+mapping to another alist specified in the same manner are
+@code{listeners} with the subordinate symbols being event classes, and
+@code{acknowledgers} and @code{end-acknowledgers} with the subordinate
+symbols being interfaces."
   (make-translator-internal form ... (is-layout . #t)))
 
 (define-syntax-rule-public (make-performer form ...)
@@ -3120,8 +3120,8 @@ unevaluated @samp{cdr} is not a pair.  This is useful if you already
 have defined your engraver functions separately.
 
 Symbols mapping to a function would be @code{initialize},
-@code{start-translation-timestep}, @code{process-music},
-@code{stop-translation-timestep}, and
+@code{start-translation-timestep}, @code{pre-process-music},
+@code{process-music}, @code{stop-translation-timestep}, and
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
 event classes."
@@ -3145,8 +3145,8 @@ unevaluated @samp{cdr} is not a pair.  This is useful if you already
 have defined your engraver functions separately.
 
 Symbols mapping to a function would be @code{initialize},
-@code{start-translation-timestep}, @code{process-music},
-@code{stop-translation-timestep}, and
+@code{start-translation-timestep}, @code{pre-process-music},
+@code{process-music}, @code{stop-translation-timestep}, and
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
 event classes."

@@ -69,6 +69,8 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
     = callable (ly_symbol2scm ("start-translation-timestep"), definition);
   precomputable_methods_[STOP_TRANSLATION_TIMESTEP]
     = callable (ly_symbol2scm ("stop-translation-timestep"), definition);
+  precomputable_methods_[PRE_PROCESS_MUSIC]
+    = callable (ly_symbol2scm ("pre-process-music"), definition);
   precomputable_methods_[PROCESS_MUSIC]
     = callable (ly_symbol2scm ("process-music"), definition);
   precomputable_methods_[PROCESS_ACKNOWLEDGED]

@@ -148,6 +148,7 @@ Score_engraver::one_time_step (SCM)
 {
   if (!from_scm<bool> (get_property (context (), "skipTypesetting")))
     {
+      precomputed_recurse_over_translators (context (), PRE_PROCESS_MUSIC, UP);
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       Engraver_group::do_announces ();
     }

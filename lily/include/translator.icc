@@ -87,6 +87,11 @@
       ? MFP_WRAP (&T::stop_translation_timestep)                        \
       : SCM_UNDEFINED;                                                  \
                                                                         \
+    ptrs[PRE_PROCESS_MUSIC] =                                           \
+      &T::pre_process_music != &Translator::pre_process_music           \
+      ? MFP_WRAP (&T::pre_process_music)                                \
+      : SCM_UNDEFINED;                                                  \
+                                                                        \
     ptrs[PROCESS_MUSIC] =                                               \
       &T::process_music != &Translator::process_music                   \
       ? MFP_WRAP (&T::process_music)                                    \

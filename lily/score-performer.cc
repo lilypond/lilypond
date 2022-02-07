@@ -171,6 +171,7 @@ Score_performer::one_time_step (SCM)
         }
 
       audio_column_->offset_when (offset_mom_);
+      precomputed_recurse_over_translators (context (), PRE_PROCESS_MUSIC, UP);
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       do_announces ();
     }

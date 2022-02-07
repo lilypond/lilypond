@@ -37,6 +37,8 @@ engraver_demo =
      ((beam-interface engraver grob source-engraver)
       (format (current-error-port) "~16a: saw end of ~a coming from ~a\n"
               (t->m engraver) grob source-engraver)))
+   ((pre-process-music translator)
+    (format (current-error-port) "~16a: (pre-process-music)\n" (t->m translator)))
    ((process-music translator)
     (format (current-error-port) "~16a: (process-music)\n" (t->m translator)))
    ((process-acknowledged translator)
