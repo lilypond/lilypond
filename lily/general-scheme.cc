@@ -269,8 +269,13 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
            )")
 {
-  return scm_c_eval_string ("\'(" MAJOR_VERSION " " MINOR_VERSION
-                            " " PATCH_LEVEL " " MY_PATCH_LEVEL ")");
+  SCM major = scm_string_to_number (ly_string2scm (MAJOR_VERSION), to_scm (10));
+  SCM minor = scm_string_to_number (ly_string2scm (MINOR_VERSION), to_scm (10));
+  SCM patch = scm_string_to_number (ly_string2scm (PATCH_LEVEL), to_scm (10));
+  if (MY_PATCH_LEVEL[0] == '\0')
+    return scm_list_3 (major, minor, patch);
+  else
+    return scm_list_4 (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
 }
 
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
