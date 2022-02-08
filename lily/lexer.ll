@@ -1320,9 +1320,6 @@ strip_trailing_white (string&s)
 
 
 
-Lilypond_version oldest_version ("2.7.38");
-
-
 bool
 is_valid_version (string s)
 {
@@ -1333,13 +1330,6 @@ is_valid_version (string s)
 	  non_fatal_error (_f ("Invalid version string \"%s\"", s));
 	  return false;
   }
-  if (ver < oldest_version)
-	{
-		non_fatal_error (_f ("file too old: %s (oldest supported: %s)", ver.to_string (), oldest_version.to_string ()));
-		non_fatal_error (_ ("consider updating the input with the convert-ly script"));
-		return false;
-	}
-
   if (ver > current)
 	{
 		non_fatal_error (_f ("program too old: %s (file requires: %s)",  current.to_string (), ver.to_string ()));
