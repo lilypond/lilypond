@@ -75,7 +75,7 @@ Variable key_p ("key?");
 Variable key_list_p ("key-list?");
 Variable key_signature_interface_alteration_positions ("key-signature-interface::alteration-positions");
 Variable layout_extract_page_properties ("layout-extract-page-properties");
-Variable lily_version_valid_p ("lily-version-valid?");
+Variable parse_and_check_version ("parse-and-check-version");
 Variable lilypond_main ("lilypond-main");
 Variable line_markup ("line-markup");
 Variable f_location ("%location");

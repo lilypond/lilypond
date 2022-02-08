@@ -53,9 +53,15 @@ $(if (ly:get-option 'include-settings)
 %% Above and below comments compensate for the parser's look-ahead.
 %%
 
-#(if (and (not version-seen)
-      (defined? 'input-file-name))
-  (version-not-seen-message input-file-name))
+#(cond
+  ;; FIXME: unclear what this is for --JeanAS
+  ((not (defined? 'input-file-name)))
+
+  ((not version-seen)
+   (version-not-seen-message input-file-name))
+
+  ((ly:parser-has-error?)
+   (suggest-convert-ly-message version-seen)))
 
 #(ly:set-option 'protected-scheme-parsing #f)
 

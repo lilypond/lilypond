@@ -931,7 +931,11 @@ numbers."
           (string->number patch)))
    (else #f)))
 
-(define (lily-version-valid? str)
+(define (parse-and-check-version str)
+  "Parse the given version string and check its validity.  If valid,
+return the parsed version as a list, else return @code{#f}.  If the
+version is greater than the running version of LilyPond, a warning is
+emitted and the version is considered invalid."
   (let ((version (parse-lily-version str)))
     (cond
      ((or (not version)
@@ -951,8 +955,55 @@ numbers."
       ;; problem.
       #f)
      (else
-      #t))))
+      version))))
 
+(define convert-ly-msg
+  (match (ly:version)
+   ((major minor . rest)
+    (format #f
+            (_ "\
+
+Note: compilation failed and \\version outdated, did you
+update input syntax with convert-ly?
+
+  https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly
+
+")
+            major
+            minor))))
+
+;; Always used with (ly:version) for lilypond-version, but it's
+;; an argument for the sake of regression testing.
+(define-public (lilypond-version-outdated? file-version lily-version)
+  "Is @var{file-version} outdated compared to @var{lily-version}?
+This is defined as a version that is from a lower release
+series (corresponding to the first two numbers of the version) or a
+version from the same @emph{unstable} release series (odd minor
+version number) with a lower patch level (third number).  A stable
+version from the same series does not count as outdated because
+compatibility is preserved."
+  (match
+   lily-version
+   ((major minor patch . _)
+    (match
+     file-version
+     ((file-major file-minor file-patch)
+      (or (> major file-major)
+          (and (eqv? major file-major)
+               (or (> minor file-minor)
+                   (and (eqv? minor file-minor)
+                        (odd? minor)
+                        (> patch file-patch))))))))))
+
+(define-public (suggest-convert-ly-message version-seen)
+  "Internally used when the file has an error, to suggest usage of
+@code{convert-ly} if the @code{\\version} statement is considered
+outdated compared to the LilyPond version that is running."
+  ;; If version-seen is #t, it means that a \version statement
+  ;; was found but the version could not be parsed.
+  (if (and (not (eq? version-seen #t))
+           (lilypond-version-outdated? version-seen (ly:version)))
+      (ly:message convert-ly-msg)))
 
 ;;;;;;;;;;;;;;;;
 ;; broken spanner

@@ -10,6 +10,9 @@
 
 @c \version "2.16.0"
 
+@c Important note: if you change this node name, be sure to update
+@c the URL in the warning printed when the file fails and the
+@c \version statement is outdated.
 
 @node Updating files with convert-ly
 @chapter Updating files with @command{convert-ly}

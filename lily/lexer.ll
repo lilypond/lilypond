@@ -246,12 +246,23 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 
 	yy_pop_state ();
 
+	SCM parsed_version = Lily::parse_and_check_version (ly_string2scm (s));
+	// from_scm<bool> would return false for a non-boolean value, which
+	// is not what we want here.
+	bool parsed_version_valid = scm_is_true (parsed_version);
+
 	if (is_main_input_ && include_stack_.size () == main_input_level_) {
 		SCM top_scope = scm_car (scm_last_pair (scopes_));
-		scm_module_define (top_scope, ly_symbol2scm ("version-seen"), SCM_BOOL_T);
+		// For version-seen, #f means no \version found, #t means
+		// that a version was found but it could not be parsed,
+		// any other value is the version found (as list).
+		SCM version_seen_value = parsed_version_valid ? parsed_version : SCM_BOOL_T;
+		scm_module_define (top_scope,
+				   ly_symbol2scm ("version-seen"),
+				   version_seen_value);
 	}
 
-	if (!from_scm<bool> (Lily::lily_version_valid_p (ly_string2scm (s)))) {
+	if (!parsed_version_valid) {
                 yylval = SCM_UNSPECIFIED;
 		return INVALID;
         }
