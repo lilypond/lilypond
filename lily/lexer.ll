@@ -59,7 +59,6 @@
 #include "lily-guile.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
-#include "lilypond-version.hh"
 #include "main.hh"
 #include "music.hh"
 #include "music-function.hh"
@@ -98,7 +97,6 @@ void strip_leading_white (string&);
 string lyric_fudge (string s);
 SCM lookup_markup_command (string s);
 SCM lookup_markup_list_command (string s);
-bool is_valid_version (string s);
 
 
 #define start_quote() do {                      \
@@ -253,7 +251,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 		scm_module_define (top_scope, ly_symbol2scm ("version-seen"), SCM_BOOL_T);
 	}
 
-	if (!is_valid_version (s)) {
+	if (!from_scm<bool> (Lily::lily_version_valid_p (ly_string2scm (s)))) {
                 yylval = SCM_UNSPECIFIED;
 		return INVALID;
         }
@@ -1318,25 +1316,6 @@ strip_trailing_white (string&s)
 	s = s.substr (0, i + 1);
 }
 
-
-
-bool
-is_valid_version (string s)
-{
-  Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
-  Lilypond_version ver (s);
-  if (!ver)
-  {
-	  non_fatal_error (_f ("Invalid version string \"%s\"", s));
-	  return false;
-  }
-  if (ver > current)
-	{
-		non_fatal_error (_f ("program too old: %s (file requires: %s)",  current.to_string (), ver.to_string ()));
-		return false;
-	}
-  return true;
-}
 
 
 /*

@@ -84,6 +84,7 @@ extern Variable key_p;
 extern Variable key_list_p;
 extern Variable key_signature_interface_alteration_positions;
 extern Variable layout_extract_page_properties;
+extern Variable lily_version_valid_p;
 extern Variable lilypond_main;
 extern Variable line_markup;
 extern Variable f_location;

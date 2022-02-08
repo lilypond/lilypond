@@ -45,6 +45,22 @@ any).
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_non_fatal_error, "ly:non-fatal-error",
+           1, 0, 1, (SCM str, SCM rest),
+           R"(
+A Scheme callable function to issue the error @var{str}.  The error is
+formatted with @code{format}; @var{rest} holds the formatting
+arguments (if any).  When using this function, some way of signalling
+the error should be employed in order for the compilation to
+eventually result in a nonzero return code.
+)")
+{
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  non_fatal_error (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_programming_error, "ly:programming-error",
            1, 0, 1, (SCM str, SCM rest),
            R"(

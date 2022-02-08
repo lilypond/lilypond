@@ -16,12 +16,12 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;; for take, drop, take-while, list-index, and find-tail:
-(use-modules (srfi srfi-1))
-
-(use-modules (lily safe-utility-defs))
-
-(use-modules (ice-9 pretty-print))
+(use-modules
+ ;; for take, drop, take-while, list-index, and find-tail:
+ (srfi srfi-1)
+ (ice-9 pretty-print)
+ (ice-9 match)
+ (lily safe-utility-defs))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -917,6 +917,42 @@ it gets applied to @var{num}."
 version with a given version @var{ver}, which is passed as a list of
 numbers."
   (lexicographic-list-compare? op (ly:version) ver))
+
+(define (parse-lily-version str)
+  (match (string-split str #\.)
+   ((major minor patch my-patch)
+    (list (string->number major)
+          (string->number minor)
+          (string->number patch)
+          (string->symbol my-patch)))
+   ((major minor patch)
+    (list (string->number major)
+          (string->number minor)
+          (string->number patch)))
+   (else #f)))
+
+(define (lily-version-valid? str)
+  (let ((version (parse-lily-version str)))
+    (cond
+     ((or (not version)
+          ;; Are the components actually numbers?
+          (not (every identity version)))
+      (ly:non-fatal-error (_ "Invalid version string \"~a\"")
+                          str)
+      #f)
+     ((ly:version? < version)
+      (ly:non-fatal-error (_ "program too old: ~a (file requires: ~a)")
+                          (lilypond-version)
+                          str)
+      ;; Must consider invalid so that the lexer will emit the error
+      ;; token necessary to set a nonzero exit code.  The usage for
+      ;; the version returned is checking if it's too old (to suggest
+      ;; convert-ly), so not recording it if it's too new is no
+      ;; problem.
+      #f)
+     (else
+      #t))))
+
 
 ;;;;;;;;;;;;;;;;
 ;; broken spanner
