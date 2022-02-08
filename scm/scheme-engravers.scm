@@ -373,15 +373,14 @@ there are at least two they are moved to the correct location as if there were
 one voice.")))
 
 (define-public (event-has-articulation? event-type stream-event)
-  "Is @var{event-type} in the @code{articulations} list of @var{stream-event}?"
+  "Is @var{event-type} in the @code{articulations} list of the music causing
+@var{stream-event}?"
   (if (ly:stream-event? stream-event)
       (any
-       (lambda (evt-type) (eq? evt-type event-type))
-       (append-map
-        (lambda (art) (ly:prob-property art 'types))
-        (ly:prob-property
-         (ly:prob-property stream-event 'music-cause)
-         'articulations)))
+       (lambda (art)
+         (memq event-type (ly:music-property art 'types)))
+       (ly:music-property (ly:event-property stream-event 'music-cause)
+                          'articulations))
       #f))
 
 (define-public (Duration_line_engraver context)
