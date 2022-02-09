@@ -73,17 +73,29 @@
   void                                                                  \
   T::fetch_precomputable_methods (SCM ptrs[])                           \
   {                                                                     \
+    /* The base Translator methods don't do anything.  By skipping them \
+       in the precomputed method lists, we avoid calling a bunch of     \
+       noop methods at every time step, which makes the process more    \
+       efficient. */                                                    \
     ptrs[START_TRANSLATION_TIMESTEP] =                                  \
-      MFP_WRAP (&T::start_translation_timestep);                        \
+      &T::start_translation_timestep != &Translator::start_translation_timestep \
+      ? MFP_WRAP (&T::start_translation_timestep)                       \
+      : SCM_UNDEFINED;                                                  \
                                                                         \
     ptrs[STOP_TRANSLATION_TIMESTEP] =                                   \
-      MFP_WRAP (&T::stop_translation_timestep);                         \
+      &T::stop_translation_timestep != &Translator::stop_translation_timestep \
+      ? MFP_WRAP (&T::stop_translation_timestep)                        \
+      : SCM_UNDEFINED;                                                  \
                                                                         \
     ptrs[PROCESS_MUSIC] =                                               \
-      MFP_WRAP (&T::process_music);                                     \
+      &T::process_music != &Translator::process_music                   \
+      ? MFP_WRAP (&T::process_music)                                    \
+      : SCM_UNDEFINED;                                                  \
                                                                         \
     ptrs[PROCESS_ACKNOWLEDGED] =                                        \
-      MFP_WRAP (&T::process_acknowledged);                              \
+      &T::process_acknowledged != &Translator::process_acknowledged     \
+      ? MFP_WRAP (&T::process_acknowledged)                             \
+      : SCM_UNDEFINED;                                                  \
   }
 
 void add_acknowledger (SCM ptr,

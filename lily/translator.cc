@@ -25,6 +25,8 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
+#include <cassert>
+
 #include "translator.icc"
 
 using std::string;
@@ -34,14 +36,37 @@ Translator::~Translator ()
 {
 }
 
+/* The four base class methods below are never called: they don't need
+   to do anything, so for performance we avoid calling them by
+   precomputing the list of overridden methods. */
+
 void
 Translator::process_music ()
 {
+  assert (false);
 }
 
 void
 Translator::process_acknowledged ()
 {
+  assert (false);
+}
+
+void
+Translator::stop_translation_timestep ()
+{
+  assert (false);
+}
+
+/*
+  this function is called once each moment, before any user
+  information enters the translators.  (i.e. no \property or event has
+  been processed yet.)
+*/
+void
+Translator::start_translation_timestep ()
+{
+  assert (false);
 }
 
 Translator::Translator (Context *c)
@@ -78,21 +103,6 @@ SCM
 Translator::internal_get_property (SCM sym) const
 {
   return context_->internal_get_property (sym);
-}
-
-void
-Translator::stop_translation_timestep ()
-{
-}
-
-/*
-  this function is called once each moment, before any user
-  information enters the translators.  (i.e. no \property or event has
-  been processed yet.)
-*/
-void
-Translator::start_translation_timestep ()
-{
 }
 
 void
