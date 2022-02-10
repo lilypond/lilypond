@@ -862,6 +862,12 @@ Syntax: @code{\\\\}")
         (types . (separator))
         ))
 
+    (VoltaRepeatEndEvent
+     . ((description . "Signal the end of a volta-style repeat.  Multiple end
+events per start event can be expected when there are alternative endings.")
+        (types . (volta-repeat-end-event event))
+        ))
+
     (VoltaRepeatedMusic
      . ((description . "Repeats with alternatives placed sequentially.")
         (iterator-ctor . ,ly:volta-repeat-iterator::constructor)
@@ -869,6 +875,11 @@ Syntax: @code{\\\\}")
         (start-callback .  ,ly:calculated-sequential-music::start)
         (length-callback . ,ly:calculated-sequential-music::length)
         (types . (volta-repeated-music folded-repeated-music repeated-music))
+        ))
+
+    (VoltaRepeatStartEvent
+     . ((description . "Signal the start of a volta-style repeat.")
+        (types . (volta-repeat-start-event event))
         ))
 
     (VoltaSpanEvent

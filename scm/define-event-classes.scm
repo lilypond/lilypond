@@ -48,6 +48,8 @@
                     spacing-section-event layout-instruction-event
                     time-signature-event
                     completize-extender-event break-span-event alternative-event
+                    volta-repeat-end-event
+                    volta-repeat-start-event
                     vowel-transition-event
                     duration-line-event fine-event))
 

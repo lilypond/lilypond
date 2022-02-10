@@ -72,7 +72,11 @@ Volta_repeat_iterator::process (Moment m)
           // This won't compute the correct lifetime inside \grace.
           const auto &start = get_context ()->now_mom ();
           const auto len = music_get_length () - music_start_mom ();
-          repeat_styler_->report_start ({start, start + len});
+
+          const auto repeat_count
+            = from_scm (get_property (get_music (), "repeat-count"), 1L);
+
+          repeat_styler_->report_start ({start, start + len}, repeat_count);
         }
       started_ = true;
     }

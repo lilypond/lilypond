@@ -57,10 +57,13 @@ public:
   bool reported_return () const { return reported_return_; }
 
   // Report that a repeat has started.  spanned_time is the lifetime of the
-  // repeat in the timeline of the score.
-  void report_start (const Interval_t<Moment> &spanned_time)
+  // repeat in the timeline of the score.  repeat_count is the number of times
+  // the section is performed from this starting point.
+  void report_start (const Interval_t<Moment> &spanned_time,
+                     long repeat_count)
   {
     spanned_time_ = spanned_time;
+    repeat_count_ = repeat_count;
     derived_report_start ();
   }
 
@@ -126,10 +129,14 @@ protected:
   explicit Repeat_styler (Music_iterator *owner) : owner_ (owner) {}
   Music_iterator *owner () const { return owner_; }
 
+  long repeat_count () const { return repeat_count_; }
+
   size_t alternative_depth () const { return alternative_depth_; }
 
   void report_alternative_event (Music *element, Direction d,
                                  size_t volta_depth, SCM volta_nums);
+  void report_end_event (SCM event_sym,
+                         long alt_num, long repeat_count, long return_count);
 
   virtual void derived_report_start () = 0;
   virtual bool derived_report_alternative_group_start (Direction start,
@@ -150,6 +157,7 @@ private:
   // have discovered, using information that is plainly communicated to them.
   Music_iterator *owner_ = nullptr;
   Interval_t<Moment> spanned_time_ {Moment::infinity (), Moment::infinity ()};
+  long repeat_count_ = 2;
   size_t alternative_depth_ = 0;
   size_t reported_return_depth_ = 0;
   bool reported_return_ = false;

@@ -28,6 +28,37 @@
 #include <string>
 
 void
+Repeat_styler::report_end_event (SCM event_sym, long alt_num,
+                                 long repeat_count, long return_count)
+{
+    SCM ev_scm = Lily::make_music (event_sym);
+    auto *const ev = unsmob<Music> (ev_scm);
+
+    if (auto *const origin = owner ()->get_music ()->origin ())
+      ev->set_spot (*origin);
+
+    if (alt_num > 0)
+      set_property (ev, "alternative-number", to_scm (alt_num));
+
+    if (repeat_count > 0)
+      set_property (ev, "repeat-count", to_scm (repeat_count));
+
+    if (return_count >= 0)
+      set_property (ev, "return-count", to_scm (return_count));
+
+    // Currently, repeat-body-start-moment helps detect conflicting jumps.  In
+    // the future, it might be used to engrave nested segno repeats in
+    // conjunction with a mark table maintained by Mark_tracking_translator.
+    // In that future, we would probably also want to report the point of the
+    // first coda mark as repeat-body-end-moment.
+    set_property (ev, "repeat-body-start-moment",
+                  to_scm (spanned_time ().left ()));
+
+    ev->send_to_context (owner ()->get_context ());
+    scm_remember_upto_here_1 (ev_scm);
+}
+
+void
 Repeat_styler::report_alternative_event (Music *element,
                                          Direction d,
                                          size_t volta_depth,
@@ -143,33 +174,21 @@ public:
 
   void derived_report_return (long alt_num, long return_count) override
   {
-    SCM ev_scm = Lily::make_music (ly_symbol2scm ("DalSegnoEvent"));
-    auto *const ev = unsmob<Music> (ev_scm);
+    auto reps = repeat_count ();
 
-    if (auto *const origin = owner ()->get_music ()->origin ())
-      ev->set_spot (*origin);
-
-    // If we have fallen back on notating alternatives with volta brackets, we
-    // want to keep redundant information out of our D.S. instructions.
     if (coda_marks_enabled_ && (alternative_depth () < 2))
+      ; // Allow a detailed D.S. al ... instruction.
+    else
       {
-        if (alt_num > 0)
-          set_property (ev, "alternative-number", to_scm (alt_num));
-
-        if (return_count > 0)
-          set_property (ev, "return-count", to_scm (return_count));
+        // We have fallen back on notating alternatives with volta brackets.
+        // Keep redundant information out of our D.S. instructions.
+        alt_num = -1;
+        reps = -1;
+        return_count = -1;
       }
 
-    // Currently, repeat-body-start-moment helps detect conflicting jumps.  In
-    // the future, it might be used to engrave nested repeats in conjunction
-    // with a mark table maintained by Mark_tracking_translator.  In that
-    // future, we would probably also want to report the point of the first
-    // coda mark as repeat-body-end-moment.
-    set_property (ev, "repeat-body-start-moment",
-                  to_scm (spanned_time ().left ()));
-
-    ev->send_to_context (owner ()->get_context ());
-    scm_remember_upto_here_1 (ev_scm);
+    report_end_event (ly_symbol2scm ("DalSegnoEvent"),
+                      alt_num, reps, return_count);
   }
 
   void derived_report_alternative_group_end (Music *element,
@@ -184,20 +203,6 @@ public:
 
 class Volta_repeat_styler final : public Repeat_styler
 {
-private:
-  void add_repeat_command (SCM new_cmd) const
-  {
-    SCM sym = ly_symbol2scm ("repeatCommands");
-    SCM cmds = SCM_EOL;
-    auto *where = where_defined (owner ()->get_context (), sym, &cmds);
-
-    if (where && ly_cheap_is_list (cmds))
-      {
-        cmds = scm_cons (new_cmd, cmds);
-        set_property (where, sym, cmds);
-      }
-  }
-
 public:
   explicit Volta_repeat_styler (Music_iterator *owner) : Repeat_styler (owner)
   {
@@ -205,7 +210,17 @@ public:
 
   void derived_report_start () override
   {
-    add_repeat_command (ly_symbol2scm ("start-repeat"));
+    SCM ev_scm = Lily::make_music (ly_symbol2scm ("VoltaRepeatStartEvent"));
+    auto *const ev = unsmob<Music> (ev_scm);
+
+    if (auto *const origin = owner ()->get_music ()->origin ())
+      ev->set_spot (*origin);
+
+    if (repeat_count () > 0)
+      set_property (ev, "repeat-count", to_scm (repeat_count ()));
+
+    ev->send_to_context (owner ()->get_context ());
+    scm_remember_upto_here_1 (ev_scm);
   }
 
   bool derived_report_alternative_group_start (Direction /*start*/,
@@ -224,9 +239,11 @@ public:
                               volta_depth, volta_nums);
   }
 
-  void derived_report_return (long /*alt_num*/, long /*return_count*/) override
+  void derived_report_return (long alt_num, long return_count) override
   {
-    add_repeat_command (ly_symbol2scm ("end-repeat"));
+    const auto reps = (alt_num < 1) ? repeat_count () : 0;
+    report_end_event (ly_symbol2scm ("VoltaRepeatEndEvent"),
+                      alt_num, reps, return_count);
   }
 
   void derived_report_alternative_group_end (Music *element,
