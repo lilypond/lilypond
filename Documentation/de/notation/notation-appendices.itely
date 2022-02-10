@@ -278,7 +278,7 @@ Große None, kleine Septime
 @item
 Dominantundezime
 @tab
-Dominantnone, perfekte Undezime
+Dominantnone, reine Undezime
 @tab
 @code{11}
 @tab
@@ -291,7 +291,7 @@ Dominantnone, perfekte Undezime
 @item
 Durundezime
 @tab
-Große None, perfekte Undezime
+Große None, reine Undezime
 @tab
 @code{maj11}
 @tab
@@ -304,7 +304,7 @@ Große None, perfekte Undezime
 @item
 Mollundezime
 @tab
-Kleine None, perfekte Undezime
+Kleine None, reine Undezime
 @tab
 @code{m11}
 @tab
@@ -369,7 +369,7 @@ Kleine Undezime, große 13
 @item
 Sekundakkord
 @tab
-große Sekunde, perfekte Quinte
+große Sekunde, reine Quinte
 @tab
 @code{sus2}
 @tab
@@ -382,7 +382,7 @@ große Sekunde, perfekte Quinte
 @item
 Quartakkord
 @tab
-perfekte Quarte, perfekte Quinte
+reine Quarte, reine Quinte
 @tab
 @code{sus4}
 @tab
