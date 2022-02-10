@@ -127,6 +127,9 @@ public:
 
   void derived_report_start () override
   {
+    if (repeat_count () < 2)
+      return;
+
     report_mark (owner ()->get_music (), 0);
   }
 
@@ -134,6 +137,9 @@ public:
                                                Direction end,
                                                bool in_order) override
   {
+    if (repeat_count () < 2)
+      return false; // disable volta brackets
+
     // Coda marks are sufficiently informative when the alternatives appear at
     // the tail of the repeated section and are performed in order.  The repeat
     // body must also not be empty.  In other cases, we fall back on volta
@@ -154,6 +160,9 @@ public:
                                          size_t volta_depth,
                                          SCM volta_nums) override
   {
+    if (repeat_count () < 2)
+      return;
+
     if (coda_marks_enabled_ && (alternative_depth () < 2))
       {
         // In general, there is no reason to mark an empty passage.
@@ -175,6 +184,8 @@ public:
   void derived_report_return (long alt_num, long return_count) override
   {
     auto reps = repeat_count ();
+    if (reps < 2)
+      return;
 
     if (coda_marks_enabled_ && (alternative_depth () < 2))
       ; // Allow a detailed D.S. al ... instruction.
@@ -194,6 +205,9 @@ public:
   void derived_report_alternative_group_end (Music *element,
                                              size_t volta_depth) override
   {
+    if (repeat_count () < 2)
+      return;
+
     if (coda_marks_enabled_ && (alternative_depth () < 2))
       ; // though marks are enabled, we don't mark the end
     else
@@ -227,7 +241,10 @@ public:
                                                Direction /*end*/,
                                                bool /*in_order*/) override
   {
-    return true; // enable volta brackets
+    if (repeat_count () < 2)
+      return false; // disable volta brackets
+
+    return true;
   }
 
   void derived_report_alternative_start (Music *element,
@@ -235,6 +252,9 @@ public:
                                          size_t volta_depth,
                                          SCM volta_nums) override
   {
+    if (repeat_count () < 2)
+      return;
+
     report_alternative_event (element, (alt_num == 1) ? START : CENTER,
                               volta_depth, volta_nums);
   }
@@ -249,6 +269,9 @@ public:
   void derived_report_alternative_group_end (Music *element,
                                              size_t volta_depth) override
   {
+    if (repeat_count () < 2)
+      return;
+
     report_alternative_event (element, STOP, volta_depth, SCM_EOL);
   }
 };

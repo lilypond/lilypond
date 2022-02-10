@@ -167,22 +167,32 @@ Repeat_acknowledge_engraver::listen_segno_mark (Stream_event *ev)
 }
 
 void
-Repeat_acknowledge_engraver::listen_volta_repeat_end (Stream_event *)
+Repeat_acknowledge_engraver::listen_volta_repeat_end (Stream_event *ev)
 {
   if (!heard_volta_repeat_end_)
     {
-      heard_volta_repeat_end_ = true;
-      add_repeat_command (ly_symbol2scm ("end-repeat"));
+      // Ignore the event if there is no repetition.
+      const auto count = from_scm (get_property (ev, "return-count"), 0L);
+      if (count > 0)
+        {
+          heard_volta_repeat_end_ = true;
+          add_repeat_command (ly_symbol2scm ("end-repeat"));
+        }
     }
 }
 
 void
-Repeat_acknowledge_engraver::listen_volta_repeat_start (Stream_event *)
+Repeat_acknowledge_engraver::listen_volta_repeat_start (Stream_event *ev)
 {
   if (!heard_volta_repeat_start_)
     {
-      heard_volta_repeat_start_ = true;
-      add_repeat_command (ly_symbol2scm ("start-repeat"));
+      // Ignore the event if there is no repetition.
+      const auto count = from_scm (get_property (ev, "repeat-count"), 0L);
+      if (count > 1)
+        {
+          heard_volta_repeat_start_ = true;
+          add_repeat_command (ly_symbol2scm ("start-repeat"));
+        }
     }
 }
 
