@@ -147,10 +147,11 @@ class note_formatter (channel_formatter):
         return pitch_names[p] + str(oct) + "(" + str(val) + ")"
 
     def velocity(self, val):
-        # 01   #10   #20   #30   #40   #50   #60   #70   #7F
-        pass
+        return str(val)
 
     def format_vals(self, val1, val2):
+        if val2 > 0:
+            return self.pitch(val1) + '@' + self.velocity(val2)
         return self.pitch(val1)
 
 
