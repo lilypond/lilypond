@@ -364,10 +364,6 @@ a collection of staves, with a bracket in front and spanning bar lines."
 
   systemStartDelimiter = #'SystemStartBrace
 
-  %% explicitly set instrument, so it is not inherited from the parent
-  instrumentName = #'()
-  shortInstrumentName = #'()
-
   localAlterations = #'()
 }
 
@@ -380,21 +376,12 @@ a collection of staves, with a bracket in front and spanning bar lines."
 together, never separately."
 
   \consists "Keep_alive_together_engraver"
-
-  %% explicitly set instrument, so it is not inherited from the parent
-  instrumentName = #'()
-  shortInstrumentName = #'()
 }
 
 \context {
   \StaffGroup
   \name "ChoirStaff"
   \remove "Span_bar_engraver"
-  %% explicitly set instrument, so it is not inherited from the parent
-  instrumentName = #'()
-  shortInstrumentName = #'()
-
-  localAlterations = #'()
 
   %% StaffGroup sets this property for the sake of span
   %% bars, but ChoirStaff does not have these.
