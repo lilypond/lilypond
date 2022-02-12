@@ -119,6 +119,8 @@ MelodyItem
 
                 /* read */
                 R"(
+suspendMelodyDecisions
+whichBar
                 )",
 
                 /* write */

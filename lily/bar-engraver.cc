@@ -178,7 +178,13 @@ BarLine
 
                 /* read */
                 R"(
+barForced
+doubleRepeatBarType
+endRepeatBarType
+fineBarType
 measureBarType
+sectionBarType
+startRepeatBarType
 whichBar
                 )",
 

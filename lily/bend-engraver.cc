@@ -159,6 +159,9 @@ BendAfter
 
                 /* read */
                 R"(
+currentCommandColumn
+currentMusicalColumn
+whichBar
                 )",
 
                 /* write */
