@@ -472,18 +472,24 @@ Volta_engraver::boot ()
 
 ADD_TRANSLATOR (Volta_engraver,
                 /* doc */
-                "Make volta brackets.",
+                R"(
+Make volta brackets.
+                )",
 
                 /* create */
-                "VoltaBracket "
-                "VoltaBracketSpanner ",
+                R"(
+VoltaBracket
+VoltaBracketSpanner
+                )",
 
                 /* read */
-                "currentCommandColumn "
-                "repeatCommands "
-                "stavesFound "
-                "voltaSpannerDuration "
-                "whichBar ",
+                R"(
+currentCommandColumn
+repeatCommands
+stavesFound
+voltaSpannerDuration
+whichBar
+                )",
 
                 /* write */
                 ""
