@@ -23,7 +23,7 @@
 #include "melody-spanner.hh"
 #include "pointer-group-interface.hh"
 
-class Melody_engraver : public Engraver
+class Melody_engraver final : public Engraver
 {
   Grob *melody_item_ = nullptr;
   Grob *next_melody_item_ = nullptr;
@@ -119,7 +119,6 @@ MelodyItem
 
                 /* read */
                 R"(
-
                 )",
 
                 /* write */

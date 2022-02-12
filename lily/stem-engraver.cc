@@ -34,16 +34,16 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <vector>
 
-class Stem_engraver : public Engraver
+class Stem_engraver final : public Engraver
 {
-  Grob *stem_;
-  Grob *tremolo_;
-  vector <Grob *> maybe_flags_;
-  Stream_event *rhythmic_ev_;
-  Stream_event *tremolo_ev_;
-  bool tuplet_start_;
+  Grob *stem_ = nullptr;
+  Grob *tremolo_ = nullptr;
+  std::vector <Item *> maybe_flags_;
+  Stream_event *rhythmic_ev_ = nullptr;
+  Stream_event *tremolo_ev_ = nullptr;
+  bool tuplet_start_ = false;
 
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
@@ -61,11 +61,6 @@ protected:
 Stem_engraver::Stem_engraver (Context *c)
   : Engraver (c)
 {
-  tremolo_ev_ = 0;
-  stem_ = 0;
-  tremolo_ = 0;
-  rhythmic_ev_ = 0;
-  tuplet_start_ = false;
 }
 
 void
@@ -176,9 +171,12 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 void
 Stem_engraver::kill_unused_flags ()
 {
-  for (vsize i = 0; i < maybe_flags_.size (); i++)
-    if (unsmob<Grob> (get_object (maybe_flags_[i]->get_x_parent (), "beam")))
-      maybe_flags_[i]->suicide ();
+  for (const auto &maybe_flag : maybe_flags_)
+    {
+      // Q. Why don't we remove pointers to killed flags from the vector?
+      if (unsmob<Grob> (get_object (maybe_flag->get_x_parent (), "beam")))
+        maybe_flag->suicide ();
+    }
 }
 
 void
@@ -193,7 +191,7 @@ Stem_engraver::stop_translation_timestep ()
   if (scm_is_string (get_property (this, "whichBar")))
     kill_unused_flags ();
 
-  tremolo_ = 0;
+  tremolo_ = nullptr;
   if (stem_)
     {
       /* FIXME: junk these properties.  */
@@ -209,10 +207,10 @@ Stem_engraver::stop_translation_timestep ()
           Stem::set_beaming (stem_, scm_to_int (prop), RIGHT);
           context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
         }
-      stem_ = 0;
+      stem_ = nullptr;
     }
   tuplet_start_ = false;
-  tremolo_ev_ = 0;
+  tremolo_ev_ = nullptr;
 }
 
 void

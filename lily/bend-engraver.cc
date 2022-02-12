@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Bend_engraver : public Engraver
+class Bend_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bend_engraver);
@@ -159,7 +159,6 @@ BendAfter
 
                 /* read */
                 R"(
-
                 )",
 
                 /* write */

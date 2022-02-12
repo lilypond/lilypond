@@ -26,12 +26,12 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <vector>
 
 /*
   generate bars. Either user ("|:"), or default (new measure)
 */
-class Bar_engraver : public Engraver
+class Bar_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bar_engraver);
@@ -44,7 +44,7 @@ protected:
 
 private:
   Item *bar_ = nullptr;
-  vector<Spanner *> spanners_;
+  std::vector<Spanner *> spanners_;
   bool considered_bar_ = false;
 };
 
