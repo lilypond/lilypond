@@ -501,4 +501,21 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
             # else: ignore
 
         with zipfile.ZipFile(archive_path, "w") as zip_archive:
-            add_to_zip(zip_archive, self.package_dir, self.lilypond.directory)
+            package_dir = self.package_dir
+            lilypond_dir = self.lilypond.directory
+            # Create an entry for the root directory.
+            zip_archive.write(package_dir, lilypond_dir)
+
+            dir_names = sorted(os.listdir(package_dir))
+            # Windows remembers if an archive was downloaded from the internet,
+            # and doesn't apply the timestamps if extracted via the Windows
+            # Explorer. This breaks Guile bytecode because the .scm files in
+            # share/ are extracted after the .go files in lib/. Move lib/ last
+            # to work around this issue.
+            dir_names = [name for name in dir_names if name != "lib"] + ["lib"]
+            for name in dir_names:
+                add_to_zip(
+                    zip_archive,
+                    os.path.join(package_dir, name),
+                    os.path.join(lilypond_dir, name),
+                )
