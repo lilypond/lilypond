@@ -92,8 +92,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  bool heard_dal_segno_ = false;
-  bool heard_fine_ = false;
+  bool should_close_end_ = false;
 };
 
 void
@@ -185,13 +184,13 @@ Volta_engraver::format_numbers (SCM volta_numbers)
 void
 Volta_engraver::listen_dal_segno (Stream_event *)
 {
-  heard_dal_segno_ = true;
+  should_close_end_ = true;
 }
 
 void
 Volta_engraver::listen_fine (Stream_event *)
 {
-  heard_fine_ = true;
+  should_close_end_ = true;
 }
 
 void
@@ -377,6 +376,22 @@ Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
       if (layer.spanner_)
         Side_position_interface::add_support (layer.spanner_, item);
     }
+
+  // Certain bar lines cause volta brackets to hook down at the end.
+  // See the function allow-volta-hook in bar-line.scm.
+  if (!should_close_end_)
+    {
+      SCM gl = get_property (item, "glyph");
+      if (scm_is_string (gl))
+        {
+          gl = Lily::bar_line_calc_glyph_name_for_direction (gl, to_scm (LEFT));
+          if (scm_is_string (gl))
+            {
+              should_close_end_ =
+                !from_scm<bool> (Lily::volta_bracket_calc_hook_visibility (gl));
+            }
+        }
+    }
 }
 
 void
@@ -385,8 +400,7 @@ Volta_engraver::start_translation_timestep ()
   for (auto &layer : layers_)
     layer.got_new_nums_this_timestep_ = false;
 
-  heard_dal_segno_ = false;
-  heard_fine_ = false;
+  should_close_end_ = false;
 }
 
 void
@@ -413,33 +427,10 @@ Volta_engraver::stop_translation_timestep ()
 
       if (layer.end_bracket_)
         {
-          // Figure out whether the right end of this bracket should be closed
-          // based on the type of bar line and other repeat information.  (If
-          // anything other than Volta_engraver ever needs to do this, consider
-          // moving this into Repeat_acknowledge_engraver and having it
-          // communicate the result to other translators via context
-          // properties.)
-          //
           // TODO: Now that we attempt to handle nested repeats, consider
           // whether there is a case in which one layer should have an end hook
           // and the other should not, and how important it is to get it right.
-          bool open = !(heard_dal_segno_ || heard_fine_);
-          if (open)
-            {
-              SCM glyph = get_property (this, "whichBar");
-              if (scm_is_string (glyph))
-                {
-                  glyph = Lily::bar_line_calc_glyph_name_for_direction
-                          (glyph, to_scm (LEFT));
-                  if (scm_is_string (glyph))
-                    {
-                      open = from_scm<bool>
-                             (Lily::volta_bracket_calc_hook_visibility (glyph));
-                    }
-                }
-            }
-
-          if (open)
+          if (!should_close_end_)
             {
               SCM eh = get_property (layer.end_bracket_, "edge-height");
               eh = scm_cons (scm_car (eh), to_scm (0));
@@ -488,7 +479,6 @@ currentCommandColumn
 repeatCommands
 stavesFound
 voltaSpannerDuration
-whichBar
                 )",
 
                 /* write */
