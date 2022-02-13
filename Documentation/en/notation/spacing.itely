@@ -3510,9 +3510,12 @@ object does not take space if it has no width.
 
 @lilypond[verbatim,quote]
 {
-  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 0)
-  \override Score.MetronomeMark.extra-spacing-height = #'(-inf.0 . +inf.0)
-  \override Accidental.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override Score.MetronomeMark.extra-spacing-width =
+    #'(0 . 0)
+  \override Score.MetronomeMark.extra-spacing-height =
+    #'(-inf.0 . +inf.0)
+  \override Accidental.extra-spacing-height =
+    #'(-inf.0 . +inf.0)
   cis'4 r2.
   \tempo Presto
   fis16 8 16 4 \clef alto cis4 fis4

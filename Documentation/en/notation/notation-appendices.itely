@@ -3266,6 +3266,7 @@ Naming conventions are used so that it is easier to keep the
 nature of an object in mind.
 
 @c Superset of the table in the Learning Manual. --JeanAS
+@raggedRight
 @multitable @columnfractions .33 .33 .33
 @headitem Object/property type
   @tab Naming convention
@@ -3317,8 +3318,9 @@ nature of an object in mind.
   @code{aaaa} or @code{aaaa-aaaa-aaaa}
   @footnote{For historical reasons, some but not all of the functions
   defined by LilyPond start with the @code{ly:} prefix.}
-  @tab @code{ly:grob-relative-coordinate}, @code{music-map}
+  @tab @code{ly:round-filled-box}, @code{music-map}
 @end multitable
+@endRaggedRight
 
 
 @node Predefined type predicates

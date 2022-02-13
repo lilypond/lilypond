@@ -699,7 +699,7 @@ Internals Reference:
 The marks and return instructions that @code{\repeat segno}
 creates are adjustable in some respects.
 
-Return instructions are formatted with the procedure specified in
+Return instructions are formatted with the Scheme procedure specified in
 the @code{dalSegnoTextFormatter} property.  There is a predefined
 alternative formatter that creates shorter instructions.
 
