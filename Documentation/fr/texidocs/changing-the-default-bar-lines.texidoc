@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+%% Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
   texidocfr = "
 Les barres de mesure par défaut peuvent se modifier grâce à leur
 redéfinition au sein d'un contexte @code{Score}.

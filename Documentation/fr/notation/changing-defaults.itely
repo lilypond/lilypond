@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -798,47 +798,6 @@ portée jusqu'à la fin de la partition.  L'espacement s'en trouve
 également affecté, ce qui peut être ou non l'effet recherché.  Une
 méthode plus sophistiquée aurait été de rendre ces objets transparents
 (voir @rlearning{Visibilité et couleur des objets}).
-
-Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
-normal, les barres de mesure et la métrique sont synchronisées
-verticalement dans toute la partition.  Les graveurs qui en sont
-responsables se nomment @code{Timing_translator} et
-@code{Default_bar_line_engraver}.  En les enlevant du contexte
-@code{Score} pour les attribuer au contexte @code{Staff}, chaque portée
-peut désormais avoir sa propre métrique.
-
-@cindex polymétrique, partition
-@cindex chiffre de mesure multiple
-
-@lilypond[quote,verbatim]
-\score {
-  <<
-    \new Staff \with {
-      \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
-    }
-    \relative {
-        \time 3/4
-        c''4 c c c c c
-    }
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  }
-  \relative {
-      \time 2/4
-      c''4 c c c c c
-  }
->>
-\layout {
-  \context {
-    \Score
-    \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
-    }
-  }
-}
-@end lilypond
 
 @knownissues
 

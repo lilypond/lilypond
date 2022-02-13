@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1311,10 +1311,9 @@ métrique :
 }
 @end lilypond
 
-Le fait de déplacer du contexte @code{Score} au contexte @code{Staff} à
-la fois le @code{Timing_translator} et le
-@code{Default_bar_line_engraver} permet d'obtenir des réglages
-particuliers pour les différentes portées d'un regroupement :
+Le fait d'autoriser une présentation polymétrique permet d'obtenir des
+réglages particuliers pour les différentes portées d'un regroupement --
+voir @ref{Notation polymétrique}.
 
 @lilypond[quote, verbatim]
 \score {
@@ -1339,16 +1338,7 @@ particuliers pour les différentes portées d'un regroupement :
      }
   >>
   \layout {
-    \context {
-      \Score
-      \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
-    }
-    \context {
-      \Staff
-      \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
-    }
+    \enablePolymeter
   }
 }
 @end lilypond
@@ -1375,7 +1365,8 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Définition des règles de ligature automatique},
 @ref{Gestion du temps},
-@ref{Métriques anciennes}.
+@ref{Métriques anciennes},
+@ref{Notation polymétrique}.
 
 Installed Files:
 @file{scm/time-signature-settings.scm}.
@@ -1836,21 +1827,12 @@ les règles de ligature automatique.
 @c VO Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
-parviendrez en déplaçant le @code{Timing_translator} et le
-@code{Default_bar_line_engraver} dans le contexte @code{Staff}.
+parviendrez en insérant l'instruction @code{\enablePolymeter} dans le
+bloc @code{\layout}.
 
 @lilypond[quote,verbatim]
 \layout {
-  \context {
-    \Score
-    \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
-  }
-  \context {
-    \Staff
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  }
+  \enablePolymeter
 }
 
 % Now each staff has its own time signature.
@@ -1876,6 +1858,73 @@ parviendrez en déplaçant le @code{Timing_translator} et le
   }
 >>
 @end lilypond
+
+Lorsqu'un seul morceau est polymétrique, l'instruction
+@code{\enablePolymeter} sera placée dans la section @code{\layout} du
+bloc @code{\score} considéré.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff { c''1 1 }
+    \new Staff { c'2 d' g'2~ 2 }
+  >>
+}
+
+\score {
+  \layout {
+    \enablePolymeter
+  }
+  <<
+    \new Staff { \time 4/4 c''1 1 }
+    \new Staff { \time 2/4 c'2 d' g'2~ 2 }
+  >>
+}
+@end lilypond
+
+Dans le cadre d'une pièce polymétrique, toutes les portées doivent
+comporter une instruction @code{\time} dès lors qu'elles n'ont pas la
+métrique par défaut de 4/4. Ceci s'applique aussi aux portées spéciales
+dépourvues de lignes de portée, tels les contextes @code{Dynamics},
+puisque le placement  de certains bandeaux comme les soufflets est
+synchronisé sur les barres de mesure.
+
+@c no verbatim on purpose
+@lilypond[quote]
+\layout {
+  \enablePolymeter
+}
+
+upper = { c'1 | d' | f' }
+lower = { c'4 4 8 8 | 4 2 | 2 4 | 4 4 4 }
+dynamics = { s2. s2.\p\< s\> s\! }
+
+<<
+ \new Staff { \time 4/4 \upper }
+  \new PianoStaff <<
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"No \\time" \dynamics }
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"With \\time" \time 3/4 \dynamics }
+    \new Staff { \time 3/4 \lower }
+  >>
+>>
+@end lilypond
+
+Cette fonctionnalité est opérationnelle dans une sortie MIDI dès lors
+qu'elle est libellée dans le bloc @code{\midi}.
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+
+\midi {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
 
 
 @subsubsubheading Métriques complexes
@@ -1947,25 +1996,6 @@ Bien que les notes de différentes portées tombant au même moment seront
 positionnées horizontalement au même endroit, les barres de mesure (dans
 chacune des portées) peuvent causer un espacement incohérent pour
 chacune des différentes métriques.
-
-L'utilisation d'un bloc @code{midi} dans le cadre de musique
-polymétrique peut entraîner des avertissements intempestifs quant au
-contrôle des barres de mesure. Il est possible de s'en prémunir en
-déplaçant, au sein du bloc @code{midi}, le @code{Timing_translator} du
-contexte @code{Score} au contexte @code{Staff}.
-
-@lilypond[verbatim]
-\midi {
-  \context {
-    \Score
-    \remove "Timing_translator"
-  }
-  \context {
-     \Staff
-     \consists "Timing_translator"
-  }
-}
-@end lilypond
 
 
 @node Découpage automatique des notes
@@ -3266,18 +3296,13 @@ les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 
 @c snippets
 
-@funindex whichBar
 @funindex measureBarType
 @funindex \bar
 @funindex bartype
 
-La commande @samp{\bar @var{type_de_barre}} sert de raccourci pour
-@samp{\set Timing.whichBar = @var{type_de_barre}}.  Dès que l'on définit
-@code{whichBar}, une barre de mesure est créée selon le style défini.
-
-Le type de barre de mesure par défaut utilisé pour l'insertion
-automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
-à @samp{\set Timing.measureBarType = @var{type_de_barre}}.
+Le type de barre de mesure utilisé pour l'insertion automatique de
+barres de mesure est @code{"|"}. Vous pouvez en changer à tout moment
+grâce à @samp{\set Timing@/.measureBarType = @var{type_de_barre}}.
 
 @morerefs
 Manuel de notation :
@@ -3296,11 +3321,6 @@ Référence des propriétés internes :
 @rinternals{SpanBar} (sur plusieurs portées),
 @rinternals{Timing_translator} (pour les propriétés liées au temps).
 @endmorerefs
-
-@knownissues
-Une commande @code{\bar} qui spécifierait la valeur courante de
-@code{measureBarType} (par défaut @samp{|}) ne viendra pas outrepasser
-les barres de mesure automatiques.
 
 
 @node Barres de mesure automatiques
@@ -3459,24 +3479,20 @@ pouvez aussi le définir de manière arbitraire :
 @funindex barNumberVisibility
 @funindex BarNumber
 
-Vous pouvez imprimer un numéro de mesure à intervalle régulier plutôt
-qu'en tête de chaque ligne.  Pour y arriver, il faudra dans un premier
-temps annuler le comportement par défaut afin que les numéros puissent
-être imprimés ailleurs qu'en début de ligne.  Tout ceci est contrôlé par
-la propriété @code{break-visibility} du @code{BarNumber}.  Elle se
+Le comportement par défaut consiste à imprimer un numéro de mesure
+uniquement en tête de chaque ligne. Il est possible d'y déroger à l'aide
+de la propriété @code{break-visibility} du @code{BarNumber}. Elle se
 compose de trois commutateurs -- définis à « vrai » (@code{#t}) ou
 « faux » (@code{#f}) -- pour spécifier si le numéro de mesure est
-visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
+visible ou non. Les valeurs sont rangées dans l'ordre suivant :
 @code{visible en fin de ligne}, @code{visible en cours de ligne} et
-@code{visible en début de ligne}.  Voici comment imprimer partout les
+@code{visible en début de ligne}. Voici comment imprimer partout les
 numéros de mesure :
 
 @lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
   \set Score.currentBarNumber = #11
-  % Permit first bar number to be printed
-  \bar ""
   c1 | c | c | c |
   \break
   c1 | c | c | c |

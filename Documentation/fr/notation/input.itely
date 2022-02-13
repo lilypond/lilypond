@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3802,25 +3802,6 @@ Dans la mesure où une partition comporte plus de 15 portées, les portées
 au-delà de la quinzième partageront un même canal MIDI, sans toutefois
 l'écraser.  Ceci peut entraîner des conflits au niveau des canaux en
 raison des propriétés MIDI, notamment l'instrument utilisé.
-
-L'utilisation d'un bloc @code{midi} dans le cadre d'une musique
-polymétrique peut engendrer des avertissements inopinés quant au
-contrôle des barres de mesure. En pareil cas, il suffit de déplacer, au
-sein du bloc @code{midi}, le @code{Timing_translator} du contexte
-@code{Score} au contexte @code{Staff}.
-
-@lilypond[verbatim]
-\midi {
-  \context {
-    \Score
-    \remove "Timing_translator"
-  }
-  \context {
-     \Staff
-     \consists "Timing_translator"
-  }
-}
-@end lilypond
 
 
 @node Gestion des nuances en MIDI

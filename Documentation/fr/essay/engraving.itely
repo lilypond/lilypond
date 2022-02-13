@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 486635a57c16e835545d2754cb212c09f3475f5f
+   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1156,16 +1156,7 @@ musique se complique :
 
 @lilypond[quote]
 \layout {
-  \context {
-    \Score
-    \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
-  }
-  \context {
-    \Staff
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  }
+  \enablePolymeter
 }
 
 \new PianoStaff <<
