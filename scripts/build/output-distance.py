@@ -1340,12 +1340,17 @@ def test_compare_tree_pairs():
     ]:
         fn = os.path.join("compare-dir1dir2", f)
         assert os.path.exists(fn), fn
-    html = open("compare-dir1dir2/index.html", encoding='utf-8').read()
+    html_fn = "compare-dir1dir2/index.html"
+    html = open(html_fn, encoding='utf-8').read()
     assert "removed.log" in html
     assert "added.log" in html
     assert "dir2/removed.compare.jpeg" not in html
 
+    tidy_bin = shutil.which('tidy')
+    if tidy_bin:
+        subprocess.run([tidy_bin, '-o', '/dev/null', '-q', html_fn], check=True)
 
+        
 def test_compare_png_images():
     # Compare 2 images looking like "xx." and "x.". The second image
     # should be scaled up to match the first so we compare "xx." and

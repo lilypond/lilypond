@@ -347,10 +347,6 @@ STEPMAKE_GUILE(REQUIRED, 1.8.2)
 # perl for help2man and for mf2pt1.pl
 STEPMAKE_PERL(REQUIRED)
 
-# tidy can be used to validate the HTML pages produced during
-# regression testing
-STEPMAKE_PATH_PROG(TIDY, tidy, OPTIONAL)
-
 ## Optional tools for building documentation, website, extra fonts.
 if test "$DOCUMENTATION" = "yes"; then
   DOCUMENTATION_REQUIRED=REQUIRED

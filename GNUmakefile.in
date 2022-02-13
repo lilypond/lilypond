@@ -361,12 +361,6 @@ local-check: local-check-pre
 		input/regression/midi/out-test-baseline input/regression/midi/out-test \
 		input/regression/musicxml/out-test-baseline input/regression/musicxml/out-test \
 		input/regression/other/out-test-baseline input/regression/other/out-test
-ifneq ($(TIDY),false)
-	find $(RESULT_DIR) -name '*.html' | while read f ; do \
-		echo "Validating $$f" ; \
-		$(TIDY) -q -o /dev/null "$$f" || exit 1 ; \
-	done
-endif
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g'
 
 test-clean: test-snippets-clean
