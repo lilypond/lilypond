@@ -187,11 +187,16 @@ node."
        "@raggedRight\n"
        "@code{"
        namestr "} objects "
-       (if (equal? engraver-list "none")
-           "are not created by any engraver"
-           (string-append
-            "are created by: "
-            engraver-list))
+       (cond
+        ((not (equal? engraver-list "none"))
+         (string-append
+          "are created by: "
+          engraver-list))
+        ((eq? name 'System)
+         "are created internally by the @code{Score_engraver} translator group.")
+        (else
+         (ly:error "no engraver declares that it creates ~a grobs" name)))
+
        "."
        "\n@endRaggedRight"
 

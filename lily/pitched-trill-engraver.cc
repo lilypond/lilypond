@@ -201,6 +201,7 @@ Print the bracketed note head after a note head with trill.
 TrillPitchHead
 TrillPitchAccidental
 TrillPitchGroup
+TrillPitchParentheses
                 )",
 
                 /* read */

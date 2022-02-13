@@ -66,6 +66,7 @@ Catch groups (staves, lyrics lines, etc.) and stack them vertically.
 
                 /* create */
                 R"(
+StaffGrouper
 VerticalAlignment
                 )",
 
