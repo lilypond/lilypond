@@ -303,7 +303,9 @@
                                 bass-figure-interface
                                 font-interface
                                 rhythmic-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A number in figured bass.  It can contain an
+alteration as well.")))))
 
     (BassFigureAlignment
      . (
@@ -319,7 +321,9 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (align-interface
                                 axis-group-interface
-                                bass-figure-alignment-interface))))))
+                                bass-figure-alignment-interface))
+                 (description . "Stack several @iref{BassFigureLine} grobs
+vertically.")))))
 
     (BassFigureAlignmentPositioning
      . (
@@ -337,7 +341,10 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "When figured bass is used in the @iref{Staff}
+context, this grob groups all of the figured bass notation and computes an
+offset from the staff via side-positioning.")))))
 
     (BassFigureBracket
      . (
@@ -365,7 +372,9 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
-                                outside-staff-axis-group-interface))))))
+                                outside-staff-axis-group-interface))
+                 (description . "Provide a baseline for bass figures that should
+be aligned vertically.")))))
 
 
     (Beam
@@ -632,7 +641,9 @@
                                 bar-number-interface
                                 centered-bar-number-line-spanner-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Provide a vertical baseline to align
+@iref{CenteredBarNumber} grobs.")))))
 
     (ChordName
      . (
@@ -1056,7 +1067,9 @@
                                 dynamic-interface
                                 dynamic-line-spanner-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Provide a vertical baseline to align successive
+dynamics.")))))
 
     (DynamicText
      . (
@@ -2413,7 +2426,9 @@
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Provide a vertical baseline to align
+consecutive @iref{SostenutoPedal} grobs.")))))
 
     (SpacingSpanner
      . (
@@ -2705,7 +2720,9 @@
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Provide a vertical baseline for aligning
+consecutive @iref{SustainPedal} grobs.")))))
 
     (System
      . (
@@ -3139,7 +3156,9 @@
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Provide a vertical baseline for aligning
+consecutive @iref{UnaCordaPedal} grobs.")))))
 
 
     (VaticanaLigature

@@ -163,6 +163,7 @@ node."
 
   (let* ((meta (assoc-get 'meta description))
          (name (assoc-get 'name meta))
+         (docstring (assoc-get 'description meta ""))
          (ifaces (assoc-get 'interfaces meta))
          (classes (assoc-get 'classes meta))
          (class-interfaces (map (lambda (class)
@@ -184,6 +185,9 @@ node."
       #:name namestr
       #:text
       (string-append
+       "\n\n"
+       docstring
+       "\n\n"
        "@raggedRight\n"
        "@code{"
        namestr "} objects "
