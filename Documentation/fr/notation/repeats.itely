@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -34,6 +34,15 @@ alternatives. Le passage répété est encadré par des barres de reprise.
 Lorsque la répétition commence au début de la pièce, aucune barre de
 reprise n'est gravée en début de partition. Les fins alternatives
 s'impriment en séquence, avec un crochet et un numéro de @emph{volta}.
+
+@item segno
+Ceci permet de gérer différentes formes de @emph{da capo} et @emph{dal
+segno}. Le fragment repris débute par une indication de segno hormis
+dans le cas où il s'agit du début du morceau. Les fins alternatives
+apparaîssent en séquence, indiquées par des marques de coda, et un
+libellé de section, tel que « Coda », peut éventuellement apparaître
+avec la dernière la dernière alternative. Le fragment répété se termine
+par une instruction telle que @emph{D.S.}
 
 @item unfold
 La musique répétée est développée dans la partition autant de fois
@@ -68,7 +77,9 @@ Cette section présente la syntaxe des répétitions longues.
 * Répétitions simples::
 * Fins alternatives::
 * Autres aspects des fragments répétés::
-* Barre de segno::
+* Reprises Al-fine::
+* Structure d'une reprise Segno::
+* Apparence d'une reprise Segno::
 * Indications de reprise manuelles::
 @end menu
 
@@ -93,15 +104,15 @@ Cette section présente la syntaxe des répétitions longues.
 
 Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
 s'affranchir de ressaisir de la musique répétitive. La syntaxe est
-identique à celle de la commande @code{\repeat volta} abordée plus
-avant.
+identique à celle des commandes @code{\repeat volta} et @code{\repeat
+segno} abordées plus avant.
 
-Aux fins d'éviter les redites, l'expansion n'est ici pas abordée en
-détail. Certains exemples des paragraphes qui suivent illustrent
-cependant des fonctionnalités à la fois des formes @code{volta} et
-@code{unfold} ainsi que de la commande @code{\unfoldRepeats} qui permet
-de convertir la forme @code{volta} en une forme @code{unfold}. Un autre
-sujet d'intérêt de la commande @code{unfoldRepeats} est abordé dans
+Afin d'éviter les redites, l'expansion n'est ici pas abordée en détail.
+Certains exemples des paragraphes qui suivent illustrent différentes
+fonctionnalités de la commande @code{\unfoldRepeats} qui permet de
+convertir les formes @code{volta} ou @code{segno} en une forme
+@code{unfold}. Un autre sujet d'intérêt de la commande
+@code{unfoldRepeats} est abordé dans
 @ref{Gestion des répétitions en MIDI}.
 
 Dans certains cas, et tout particulièrement dans un contexte
@@ -122,7 +133,8 @@ a'4 b c |
 @end example
 
 Vous pouvez facilement imbriquer plusieurs fonctions @code{\repeat
-unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta}.
+unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta} ou
+@code{\repeat segno}.
 
 @warning{L'insertion d'un @code{\relative} dans une section
 @code{\repeat} sans déclaration explicite du contexte @code{Voice}
@@ -297,6 +309,32 @@ fois.
 }
 @end lilypond
 
+Les blocs @code{\alternative} peuvent s'imbriquer.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 3 {
+    s1_"A"
+    \alternative {
+      \volta 1 { s1_"B" }
+      \volta 2,3 {
+        s1_"C"
+        \once \set Score.voltaSpannerDuration = #(ly:make-moment 1)
+        s1_"D"
+        \alternative {
+          \volta 2 { s1_"E" }
+          \volta 3 { s1_"F" }
+        }
+      }
+    }
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
 @warning{Tout élément inclus dans un bloc @code{\alternative} sera
 traîté en tant qu'alternative. Quelque chose d'aussi simple qu'un
 contrôle de mesure placé du mauvais côté d'une accolade peut générer des
@@ -306,6 +344,9 @@ résultats inattendus.}
 l'intérieur d'une section @code{\repeat} : vous aurez
 immanquablement des portées parasites.  Voir
 @rprogram{Apparition d'une portée supplémentaire}.}
+
+@warning{Lorsque la numérotation des mesures est activée au sein des
+alternatives, elle s'applique sur l'ensemble de ces alternatives.}
 
 
 @node Autres aspects des fragments répétés
@@ -329,13 +370,10 @@ alternatives -- voir @ref{Fins alternatives}.
 }
 @end lilypond
 
-La présence d'une commande @code{\volta} n'est pas réservée aux blocs
-@code{\alternative}. Elle peut s'utiliser n'importe où dans un bloc
+La présence d'une commande @code{\volta} n'est pas réservée aux éléments
+d'un bloc @code{\alternative}. Elle peut s'utiliser n'importe où dans un bloc
 @code{\repeat} pour désigner un fragment qui concerne des reprises
-particulières. Si le fragment spécifique à une reprise a une durée,
-celle-ci sera par défaut imprimée sous un crochet comme s'il s'agissait
-d'un bloc @code{\alternative} ; ce crochet peut être effacé -- voir
-@ref{Visibilité des objets} -- ou personnalisé pour répondre au besoin.
+particulières, tout en ne créant pas de crochet pour les autres cas.
 
 Lorsqu'un bloc @code{\repeat} est expansé, le fragment spécifique à une
 occurrence sera omis pour toutes celles auxquelles il ne s'applique pas.
@@ -344,9 +382,8 @@ carrément la musique.
 
 @lilypond[verbatim,quote]
 music = \repeat volta 3 {
-  \volta 1 { s1*0_\markup { \italic dolce } }
-  a''1
-  \volta #'() { \mark "3×" }
+  \volta #'() { s1*0_\markup { \bold "3×" } }
+  g''1
 }
 
 \score { \music }
@@ -363,15 +400,19 @@ l'expansion du bloc @code{\repeat} qui la contient.
 music = \fixed c' {
   \repeat volta 2 {
     c1
-    \once \override Score.VoltaBracket.text = "1st time only"
-    \once \override Score.VoltaBracket.font-name = "TeX Gyre Schola"
     <<
-      \volta 1 { g4 g g g }
-      \volta 2 { \unfolded { R1 } }
+      \volta #'() {
+        \once \override TextSpanner.bound-details.left.text =
+          "2nd time tacet"
+        s4*7\startTextSpan s4\stopTextSpan
+      }
+      \volta 1 { f4 f f f | f f f f }
+      \volta 2 { \unfolded { R1*2 } }
     >>
     c'1
     \volta 2 { \unfolded { \bar "|." } }
   }
+  \fine
 }
 
 \score { \music }
@@ -382,79 +423,427 @@ music = \fixed c' {
 respectant la répétition la plus imbriquée qui les entoure.}
 
 
-@node Barre de segno
-@unnumberedsubsubsec Barre de @emph{segno}
-@translationof In-staff segno
+@node Reprises Al-fine
+@unnumberedsubsubsec Reprises @emph{Al-fine}
+@translationof Al-fine repeats
 
+@funindex \fine
 
-@cindex reprise et @emph{segno}
-@cindex @emph{segno} et reprise
-@funindex \inStaffSegno
+La commande @code{\fine} met un point final à la musique, mais la placer
+à l'intérieur d'une forme « repliée » de reprise en suspend les effets.
+Lorsqu'une reprise contenant @code{\fine} est expansée, la commande
+@code{\fine} est déroulée avec le reste de la musique et interviendra là
+où elle doit se produire dans la musique expansée. Il est donc
+nécessaire de bien spécifier à quelle occurence le @emph{Fine} doit se
+réaliser -- voir @ref{Autres aspects des fragments répétés}.
 
-La commande @code{\inStaffSegno} permet de générer une barre de mesure
-composite par l'adjonction d'un symbole de @emph{segno} à une barre de
-reprise créée par une commande @code{\repeat volta}. Qu'il s'agisse d'un
-début, d'une fin ou d'une double reprise, le type de barre est
-automatiquement sélectionné. L'indication « D.S. » devra cependant être
-ajouté manuellement.
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    b1
+  }
+}
 
-En dehors de toute reprise :
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
 
-@lilypond[verbatim,quote]
-\relative {
-  e'1
-  \inStaffSegno
-  f2 g a b
-  c1_"D.S." \bar "|."
+Comme illustré ci-dessus, @code{\fine} crée, à la toute fin de la
+musique, une barre finale sans instruction @emph{Fine}. Il est possible
+de forcer l'impression de ce @emph{Fine} en activant la propriété de
+contexte @code{finalFineTextVisibility}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.finalFineTextVisibility = ##t
+  f1
+  \fine
 }
 @end lilypond
 
-Au début d'une reprise :
+Le texte affiché par la commande @code{\fine} est modifiable à l'aide de
+la propriété de contexte @code{fineText}.
 
-@lilypond[verbatim,quote]
-\relative {
-  e'1
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.fineText = "Fin."
   \repeat volta 2 {
-    \inStaffSegno  % start repeat
-    f2 g a b
+    f1
+    \volta 2 \fine
+    b1
   }
-  c1_"D.S." \bar "|."
 }
 @end lilypond
 
-En fin de reprise :
-
-@lilypond[verbatim,quote]
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
-    \inStaffSegno  % end repeat
-  }
-  f2 g a b
-  c1_"D.S." \bar "|."
-}
-@end lilypond
-
-Entre deux reprises :
-
-@lilypond[verbatim,quote]
-\relative {
-  e'1
-  \repeat volta 2 {
-    f2 g a b
-  }
-  \inStaffSegno  % double repeat
-  \repeat volta 2 {
-    f2 g a b
-  }
-  c1_"D.S." \bar "|."
-}
-@end lilypond
-
-Des symboles alternatifs de barre de mesure sont aussi accessibles grâce
-à différentes propriétés de contexte -- voir
+De plus amples détails concernant les interactions avec les autres
+barres de mesure et le options pour modifier leur apparence, voir
 @ref{Barres de mesure automatiques}.
+
+@morerefs
+Glossaire musicologique :
+@rglos{fine}.
+
+Manuel de notation :
+@ref{Autres aspects des fragments répétés},
+@ref{Barres de mesure automatiques},
+@ref{Division en sections}.
+
+Morceaux choisis :
+@rlsr{Repeats, Reprises}.
+
+Référence des propriétés internes :
+@rinternals{FineEvent},
+@rinternals{Jump_engraver},
+@rinternals{JumpScript}.
+@endmorerefs
+
+
+@node Structure d'une reprise Segno
+@unnumberedsubsubsec Structure d'une reprise @emph{Segno}
+@translationof Segno repeat structure
+
+@cindex @emph{Coda} et reprise
+@cindex @emph{Segno} et reprise
+@cindex reprise et @emph{Coda}
+@cindex reprise et @emph{Segno}
+@funindex \repeat segno
+
+Les commandes @code{\repeat segno} et @code{\repeat volta} ne diffèrent
+que par la notation qu'il en résultera. Si les sections précédentes
+contiennent des informations d'ordre général quant à la manière de
+saisir de la musique répétée, des alternatives et de différentes
+variations, les paragraphes qui suivent couvrent les particularités
+liées à la notation avec @emph{segno} sans reprendre tout ce qui a trait
+à la syntaxe de saisie.
+
+@code{\repeat segno} permet de noter des reprises comportant des
+instructions @emph{D.C.} ou @emph{D.S.} dans leur présentation. Il
+s'agit d'indiquer par le signe @emph{segno} le début d'un fragment
+répété lorsqu'il n'est pas en début de pièce. D'autre part, les fins
+alternatives sernot indiquées par un signe @emph{coda} en lieu et place
+des crochets d'alternative, si tant est que celles-ci soient exécutées
+en séquence -- autrement dit pas dans le cas de @code{\volta 1,3} puis
+@code{\volta 2,4}.
+
+Lorsque la numérotation des mesures est activée pour les alternatives,
+elle s'applique en présence de crochets, qu'il soient créés par
+@code{\repeat segno} ou @code{\repeat volta}, mais pas en présence
+d'indications de coda.
+
+
+Les cas habituels d'utilisation sont les suivants.
+@indentedBlock
+@table @emph
+
+@cindex al fine
+@cindex fine
+@cindex reprise @emph{al fine}
+@funindex \fine
+@item al fine
+Les instructions de reprise comportent un @emph{al Fine} si la commande
+@code{\fine} a déjà été libellée -- voir @ref{Reprises Al-fine}.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+    \volta 2 \fine
+    a1
+  }
+  \section
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@cindex al coda
+@cindex alla coda
+@cindex coda
+@cindex reprise @emph{alla coda}
+@cindex reprise @emph{e poi la coda}
+@funindex \sectionLabel
+@item alla coda
+
+Le début de chaque alternative est implicitement marqué d'un
+@code{\codaMark \default}. Les instructions de reprise des alternatives
+incluent « @emph{al@tie{}@dots{} e poi la@tie{}@dots{}} » renvoyant à la
+marque de la première alternative et au repère où se reporter. Si tant
+est que la durée de la dernière alternative est nulle, le repère
+automatique est supprimé, ce qui permet de le remplacer par un libellé
+de section.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+    \alternative {
+      \volta 1 { \repeat unfold 4 { a2 } }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
+  }
+  b1
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+L'instruction de retour peut s'abréger par la définition d'une procédure
+de mise en forme alternative -- voir @ref{Apparence d'une reprise Segno}.
+
+@cindex D.C.
+@cindex da capo
+@cindex reprise, D.C.
+@cindex reprise, da capo
+@item da capo
+Les instructions de reprise incluent @emph{D.C.} lorsque le fragment à
+répéter est en début de partition. Les cas d'emploi de @emph{da capo}
+suivent le même principe que les cas de @emph{dal segno}.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat segno 2 {
+    g1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@cindex D.S.
+@cindex dal segno
+@cindex reprise, D.S.
+@cindex reprise, dal segno
+@cindex segno
+@item dal segno
+Les instructions de reprise incluent @emph{D.S.} lorsque le fragment à
+répéter n'est pas en début de partition. Le début du fragment répété est
+implicitement marqué d'un @code{\segnoMark \default}.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  f1
+  \repeat segno 2 {
+    g1
+  }
+  c1_"D.S." \bar "|."
+  \repeat segno 2 {
+    a1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@noindent
+Il est possible de forcer une reprise @emph{dal-segno} en début de
+partition -- voir @ref{Apparence d'une reprise Segno}.
+
+@item retour multiple
+L'instructionpour une reprise qui doît être exécutée plus d'une fois
+inclue « @emph{@dots{}@tie{}V.} ». Le passage concerné devra être joué
+une fois de plus que le nombre indiqué par l'instruction.
+
+@lilypond[quote,verbatim]
+music = \fixed c' {
+  \repeat segno 3 {
+    g1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+@end table
+@endIndentedBlock
+
+@morerefs
+Glossaire musicologique :
+@rglos{da capo},
+@rglos{dal segno},
+@rglos{fine}.
+
+Manuel de notation :
+@ref{Autres aspects des fragments répétés},
+@ref{Barres de mesure automatiques},
+@ref{Division en sections},
+@ref{Fins alternatives},
+@ref{Marque de section},
+@ref{Répétitions simples},
+@ref{Reprises Al-fine}.
+
+Morceaux choisis :
+@rlsrnamed{Repeats, Répétitions et reprises}.
+
+Référence des propriétés internes :
+@rinternals{CodaMark},
+@rinternals{JumpScript},
+@rinternals{SectionLabel},
+@rinternals{SegnoMark}.
+@endmorerefs
+
+
+@node Apparence d'une reprise Segno
+@unnumberedsubsubsec Apparence d'une reprise @emph{Segno}
+@translationof Segno repeat appearance
+
+@funindex \codaMark
+@funindex \segnoMark
+@cindex @emph{segno}, signe, barre de mesure
+@cindex @emph{segno}, signe, reprises
+@cindex barre de mesure, segno
+@cindex reprise, segno
+
+Les marques et instructions de retour créées par @code{\repeat segno}
+sont bénéficier de quelques adaptations.
+
+Les instructions de retour sont formatées par la procédure spécifiée
+dans la propriété @code{dalSegnoTextFormatter}. Un formateur prédéfini
+permet d'obtenir des instructions raccourcies.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \set Score.dalSegnoTextFormatter = #format-dal-segno-text-brief
+  f1
+  \repeat segno 2 {
+    g1
+    \alternative {
+      \volta 1 { a1 }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
+  }
+  b1
+  \fine
+}
+@end lilypond
+
+@cindex D.S., forçage au début
+@cindex dal segno, forçage au début
+@cindex reprise, D.S., forçage au début
+@cindex reprise, dal segno, forçage au début
+@cindex segno, forçage au début
+
+Les numéros de séquence des marques en début de fragment répété et en
+tête de première alternative peuvent être définis explicitement sans
+pour autant interférer avec les instructions automatiques de retour --
+voir @ref{Indications de reprise manuelles}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \repeat segno 2 {
+    \volta #'() { \segnoMark 2 }
+    g1
+    \alternative {
+      \volta 1 {
+        \volta #'() { \codaMark 2 }
+        \repeat unfold 8 { a4 }
+      }
+      \volta 2 \volta #'() {
+        \section
+        \sectionLabel "Coda"
+      }
+    }
+  }
+  b1
+  \fine
+}
+@end lilypond
+
+@noindent
+Sans le @code{\segnoMark 2} explicité, ceci aurait été présenté comme
+une reprise @emph{da-capo}.
+
+Au lieu d'afficher un @emph{segno} en tant que repère surplombant la
+portée, il est possible de l'imprimer sous forme de barre de mesure en
+affectant la propriété @code{segnoStyle} à @code{bar-line}. Afin de
+lever toute ambiguité, seule la première barre de @emph{segno} sera
+dépourvue de marque.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \repeat segno 2 {
+      R1*2
+    }
+  }
+  \fine
+}
+@end lilypond
+
+Lorsqu'une barre de segno coïncide avec une autre barre spéciale, sera
+automatiquement choisie une combinaison de barres parmi un jeu
+prédéfini. Pour chaque combinaison prise en compte, la barre de mesure
+peut être personnalisée à l'aide de propriétés de contexte -- voir
+@ref{Barres de mesure automatiques}.
+
+Les marques de segno et de coda sont formatées par des procédures
+spécifiées dans les propriétés @code{segnoMarkFormatter} et
+@code{codaMarkFormatter}. Elles sont comparables aux procédures chargées
+de formater les repères -- voir @ref{Indications de repère}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.segnoMarkFormatter = #format-mark-numbers
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \repeat segno 2 {
+      R1*2
+    }
+  }
+  \fine
+}
+@end lilypond
+
+Il existe un formateur prédéfini alternatif de segno qui imprime un
+repère même sur la première barre de mesure :
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.segnoMarkFormatter = #format-segno-mark
+  \set Score.segnoStyle = #'bar-line
+  R1
+  \repeat unfold 3 {
+    \segnoMark \default
+    R1*2
+  }
+}
+@end lilypond
+
+@cindex @emph{coda}, signe, variante
+
+Il existe un formateur prédéfini alternatif de segno qui imprime des signes
+@code{\varcoda}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.codaMarkFormatter = #format-varcoda-mark
+  R1
+  \repeat unfold 3 {
+    \codaMark \default
+    R1*2
+  }
+}
+@end lilypond
 
 @snippets
 
@@ -481,6 +870,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Barres de mesure},
+@ref{Barres de mesure automatiques},
 @ref{Gestion du temps},
 @ref{Modification des greffons de contexte},
 @ref{Modification des liaisons}.
@@ -489,7 +879,7 @@ Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
 
 Morceaux choisis :
-@rlsrnamed{Repeats,Répétitions}.
+@rlsrnamed{Repeats, Répétitions et reprises}.
 
 Référence des propriétés internes :
 @rinternals{VoltaBracket},
@@ -566,7 +956,8 @@ adéquate. Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
 
 La propriété @code{repeatCommands} sert à contrôler la mise en forme des
-reprises. On la définit par une suite de commandes de reprise Scheme.
+reprises du style « volta ». On la définit par une suite de commandes de
+reprise Scheme.
 
 @table @code
 @item start-repeat
@@ -649,17 +1040,116 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
+@cindex @emph{coda}, signe, manuel
+@cindex @emph{segno}, signe, manuel
+@funindex \codaMark
+@funindex \inStaffSegno
+@funindex \segnoMark
+
+Les repères de @emph{Segno} et @emph{Coda} se créent avec les commandes
+@code{\segnoMark}, @code{\inStaffSegno} et @code{\codaMark}. La syntaxe
+consacrée est :
+
+@example
+\codaMark @var{n}
+\segnoMark @var{n}
+@end example
+
+@noindent
+où @code{@var{n}} sont des numéros de séquence, ou bien @code{\default}
+pour utiliser une numérotation a utomatique. Les indications de repère,
+de segno et de coda sont incrémentées indépendamment l'une de l'autre.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  e1
+  \segnoMark \default
+  e1
+  \segnoMark \default
+  g1
+  \codaMark \default
+  g1
+  \codaMark \default
+  b1
+  \codaMark 96
+  b1
+  \segnoMark 96
+}
+@end lilypond
+
+@cindex @emph{segno}, forçage au début
+Au commencement d'une pièce, ni @code{\segnoMark \default} ni
+@code{\codaMark \default} ne créent de marque. Spécifier @samp{1} permet
+de forcer leur apparition.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \segnoMark 1
+  f1
+}
+@end lilypond
+
+La commande @code{\inStaffSegno} est équivalente à @code{\segnoMark
+\default} à ceci près qu'elle affectera temporairement la propriété
+@code{segnoStyle} à @code{bar-line} afin de forcer son impression en
+tant que barre de mesure.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  e1
+  \inStaffSegno
+  g1
+  \segnoMark \default
+  b1
+}
+@end lilypond
+
+Pour de plus amples informations sur la manière d'affecter l'affichage
+des repères de segno ou de coda, voir
+@ref{Apparence d'une reprise Segno}.
+
+@cindex D.C., manuel
+@cindex D.S., manuel
+@cindex da capo, manuel
+@cindex dal segno, manuel
+@cindex reprise, D.C., manuel
+@cindex reprise, D.S., manuel
+@cindex reprise, da capo, manuel
+@cindex reprise, dal segno, manuel
+@funindex \jump
+
+La création d'instructions de saut arbitraires s'obtient à l'aide de la
+commande @code{\jump}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \time 2/4
+  f4 a
+  b4 c'8 d'
+  c'4 c
+  \jump "Gavotte I D.C."
+  \section
+}
+@end lilypond
+
 @morerefs
-Manuel de notation :
+Manuel de notation :
+@ref{Apparence d'une reprise Segno},
 @ref{Barres de mesure},
+@ref{Indications de repère},
 @ref{Mise en forme du texte}.
 
 Morceaux choisis :
-@rlsrnamed{Repeats,Répétitions}.
+@rlsrnamed{Repeats, Répétitions et reprises}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
+@rinternals{CodaMark},
+@rinternals{Jump_engraver},
+@rinternals{JumpScript},
+@rinternals{Mark_engraver},
+@rinternals{SegnoMark},
+@rinternals{SegnoRepeatedMusic},
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
 @endmorerefs
 
@@ -732,6 +1222,19 @@ symbole qui ressemble au symbole de pourcentage.
 \relative {
   \repeat percent 3 { c''4 d e f | c2 g' }
 }
+@end lilypond
+
+@funindex \after
+
+Notez bien le décalage dans le temps pour accéder à l'objet graphique
+@code{DoublePercentRepeat} : il s'agit de la deuxième mesure de la
+répétition. On y accède aisément à l'aide de la commande @code{\after}.
+
+@lilypond[verbatim,quote]
+\new Voice \with { \consists "Balloon_engraver" }
+  { \after 1*3
+      \balloonGrobText DoublePercentRepeat #'(-1 . 2) "repeat"
+    \repeat percent 2 { g'1 | a'1 } }
 @end lilypond
 
 Les séquences inférieures à la mesure et qui contiennent des durées

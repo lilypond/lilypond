@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2906,11 +2906,10 @@ permettent l'insertion automatique de différents types de barre selon
 l'effet attendu -- voir @ref{Barres de mesure automatiques}.
 
 Il est possible de forcer l'impression d'une barre de mesure spécifique
-à l'aide de commande @code{\bar} -- c'est d'ailleurs l'habitude en fin
-de morceau, où l'on voit une double barre :
+à l'aide de commande @code{\bar} :
 
 @lilypond[quote,verbatim]
-\relative { e'4 d c2 \bar "|." }
+\relative { e'4 d c2 \bar "!" }
 @end lilypond
 
 Rien ne s'oppose à ce que la dernière note d'une mesure ne s'arrête
@@ -2967,7 +2966,7 @@ doubles barres :
   a1 \bar ".|"
   b1 \bar ".."
   c1 \bar "|.|"
-  d1 \bar "|."
+  d1 \bar "|."     % voir \fine
   e1
 }
 @end lilypond
@@ -3001,16 +3000,16 @@ et de neuf types de barre de reprise :
 }
 @end lilypond
 
-De plus, une barre de mesure peut s'imprimer sous la forme d'une coche :
+De plus, une barre de mesure peut s'imprimer racourcie ou sous la forme
+d'une coche. Dans le dacre du chant grégorien, nous vous invitons à
+plutôt utiliser @code{\divisioMinima} et  @code{\divisioMaior} comme
+indiqué au paragraphe @ref{Divisions}.
 
 @lilypond[quote,fragment,verbatim]
-f'1 \bar "'" g'1
+f'1 \bar "'"
+g'1 \bar ","
+a1
 @end lilypond
-
-On rencontre habituellement ces signes dans le chant grégorien ; nous
-vous invitons dans ce cadre particulier à plutôt utiliser
-@code{\divisioMinima}, comme indiqué au paragraphe @ref{Divisions} du
-chapitre consacré au grégorien.
 
 LilyPond prend en charge la notation kiévienne, qui dispose d'une
 barre de mesure spécifique :
@@ -3023,6 +3022,7 @@ De plus amples détails quant à cette forme de notation sont
 fournis à la rubrique @ref{Typographie de notation kiévienne}.
 
 @cindex segno
+@cindex barre et segno
 
 L'insertion d'un @emph{segno} directement sur la portée s'obtient à
 l'aide de trois types de barre de mesure, comme indiqué ci-dessous :
@@ -3105,9 +3105,8 @@ reprise avec un @emph{segno} :
 }
 @end lilypond
 
-Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
-surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
-@code{\repeat volta} -- voir @ref{Barre de segno}.
+Nombre de ces indications peuvent s'insérer automatiquement à l'aide des
+commandes @code{\repeat} -- voir @ref{Répétitions et reprises}.
 
 @cindex barre de mesure, personnalisation
 @cindex définition d'une barre de mesure
@@ -3364,7 +3363,7 @@ S'utilise à un saut de section créé par @code{\section}.
 @cindex finale, barre de mesure
 @funindex \fine
 @item fineBarType
-S'utilise avec l'instruction @emph{Fine} créée par @code{\fine}.
+S'utilise avec l'instruction @code{\fine}.
 
 @cindex barre de mesure, reprise
 @cindex barre de mesure, @emph{segno}
@@ -3397,8 +3396,8 @@ Les propriétés dont le nom comporte @code{segno} s'utilisent pour un
 @code{segnoStyle} est réglée sur @code{bar-line}, ou encore lorsqu'ils
 sont créés par @code{\inStaffSegno}.
 
-Les propriétés dont le nom comporte @code{fine} s'utilisent pour une
-instruction @emph{Fine} créée par @code{\fine}.
+Les propriétés dont le nom comporte @code{fine} répondent à
+l'instruction @code{\fine}.
 
 Bien que ces barres automatiques possèdent la priorité la plus élévée,
 elles n'en masquent pas pour autant les autres : la barre de mesure de
@@ -3705,12 +3704,13 @@ simple, inclus dans un rectangle ou dans un cercle :
 @cindex spécification d'un repère
 @cindex repère, personnalisation
 
-Le style de repère est déterminé par la propriété @code{rehearsalMarkFormatter}.
-Il s'agit d'une fonction qui prend en arguments le repère en cours (un
-entier) ainsi que le contexte en cours, et retournera un objet de type
-@emph{markup}.  Dans l'exemple qui suit, @code{rehearsalMarkFormatter} est réglé
-pour une procédure type.  Quelques mesures plus loin, son comportement
-est modifié pour imprimer un repère encadré.
+Le style de repère est déterminé par la propriété
+@code{rehearsalMarkFormatter}. Il s'agit d'une fonction qui prend en
+arguments le repère en cours (un entier) ainsi que le contexte en cours,
+et retournera un objet de type @emph{markup}. Dans l'exemple qui suit,
+@code{rehearsalMarkFormatter} est réglé pour une procédure type.
+Quelques mesures plus loin, son comportement est modifié pour imprimer
+un repère encadré.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -3745,8 +3745,8 @@ de la séquence @code{rehearsalMark} :
 @end example
 
 @noindent
-@code{Score.rehearsalMarkFormatter} sera sans effet sur des repères ainsi
-définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
+@code{Score.rehearsalMarkFormatter} sera sans effet sur des repères
+ainsi définis. Un @code{\markup} peut néanmoins s'utiliser en argument.
 
 @example
 \mark \markup @{ \box A1 @}
@@ -3758,9 +3758,6 @@ en lui-même un repère, il peut être judicieux de chercher un commande
 qui serait plus appropriée. Quelques possibilités sont mentionnées à la
 fin de cette section.
 
-@cindex @emph{segno}
-@cindex @emph{coda}
-@cindex @emph{D.S al Fine}
 @cindex point d'orgue
 @cindex glyphe musical
 
@@ -3956,10 +3953,13 @@ Référence des propriétés internes :
 @translationof Section divisions
 
 @cindex barre de mesure double
+@cindex barre finale
+@cindex finale, barre
 @cindex barre de mesure, section
 @cindex double barre
 @cindex section, barre de mesure
 
+@funindex \fine
 @funindex \section
 
 La commande @code{\section} marque un point dans la musique où une
@@ -3967,13 +3967,14 @@ section se termine et une autre commence. Il n'y a pas nécessairement de
 musique à la suite : cela peut aussi indiquer que cette terminaison
 apparente n'est pas la fin du morceau comme lorsqu'apparaît
 l'instruction @emph{D.C.} ou lorsqu'un mouvement s'enchaîne directement
-avec le suivant.
+avec le suivant. En règle générale, @code{\section} crée une double
+barre de mesure. Ses effets peuvent aussi dépendre d'autres
+considérations, comme par exemple une barre de reprise.
 
-En règle générale, @code{\section} crée une double barre de mesure. Ses
-effets peuvent aussi dépendre d'autres considérations, comme par exemple
-une barre de reprise. Pour de plus amples détails sur les interactions
-avec d'autres types de barre et les options pour modifier leur
-apparrence, voir @ref{Barres de mesure automatiques}.
+La commande @code{\fine} indique la fin de la pièce, normalement par une
+barre finale. Son utilisation ne se limite toutefois pas à la dernière
+note : elle peut apparaître au sein d'un bloc @code{\repeat} -- voir
+@ref{Reprises Al-fine}.
 
 Une section peut être nommée à l'aide de @code{\sectionLabel} --
 voir @ref{Marque de section}).
@@ -3983,17 +3984,29 @@ voir @ref{Marque de section}).
   f1
   \section
   \sectionLabel "Refrain"
-  f1
+  g1
+  a1
+  \fine
 }
 @end lilypond
 
+De plus amples détails sur les interactions des barres de mesure
+@code{\fine} et @code{\section} avec les autres types de barre de
+mesure, ainsi que sur les manières d'en changer leur apparence sont
+répertoriées dans @ref{Barres de mesure automatiques}.
+
 @morerefs
+Glossaire musicologique :
+@rglos{fine}.
+
 Manuel de notation :
 @ref{Barres de mesure automatiques},
 @ref{Divisiones},
-@ref{Marque de section}.
+@ref{Marque de section},
+@ref{Reprises Al-fine}.
 
 Référence des propriétés internes :
+@rinternals{FineEvent},
 @rinternals{SectionEvent}.
 @endmorerefs
 
@@ -4089,7 +4102,7 @@ afterGraceFraction = 3/4
 
 @noindent
 peut être changée en début de fichier.  Elle peut aussi se définir à la
-suite de la commande @code{afterGraceFraction}.
+suite de la commande @code{afterGrace}.
 
 Dans l'exemple suivant, vous pouvez observer la différence entre le
 comportement par défaut, à @code{15/16} et enfin à la moitié de la durée
