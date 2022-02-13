@@ -1185,7 +1185,7 @@ regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 @funindex markup->string
 
 Les @emph{markups} sont parfois convertis en chaînes littérales, ce qui
-est les cas pour générer une métadonnée PDF basée sur le champ d'entête
+est le cas pour générer une métadonnée PDF basée sur le champ d'entête
 @code{title} ou pour convertir des paroles en MIDI. Cette conversion
 n'est pas parfaite, mais elle est aussi fidèle que possible. La fonction
 dévolue à cette opération est @code{markup->string}.
@@ -1198,10 +1198,10 @@ composerName = \markup \box "Arnold Schönberg"
 \markup \typewriter #(markup->string composerName)
 @end lilypond
 
-Dans le cas de commandes de @emph{markup} presonnanlisées, le
+Dans le cas de commandes de @emph{markup} personnalisées, le
 comportement par défaut consiste à convertir dans un premier temps tous
 les @emph{markups} ou les arguments de la liste de @emph{markups}, puis
-de joindre les résultats par des espaces.
+à joindre les résultats par des espaces.
 
 @lilypond[verbatim,quote]
 #(define-markup-command (authors-and layout props authorA authorB)
@@ -1222,13 +1222,14 @@ defaultBehavior = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
 @code{#:layout @var{layout}} et @code{#:props @var{props}}, avec la même
 signification que lorsqu'ils apparaissent dans la définition d'une
 commande de @emph{markup}. Ils sont toutefois optionnels dans la mesure
-où ils peuvent ne pas être pourvus -- cas typique de l'argument
+où ils peuvent ne pas toujours être pourvus -- cas typique de l'argument
 @code{layout} pour convertir en MIDI.
 
-Afin d'être éligible dans le cadre de commandes de @emph{markup}
-personnalisées, on peut fournir le paramètre @code{#:as-string} à
-@code{define-markup-command}. Il attend une expression, évaluée par
-@code{markup->string}, afin de produire la chaîne.
+Afin de définir une conversion différente du comportement par
+défaut dans une commande pour @emph{markup} personnalisée, on peut
+fournir le paramètre @code{#:as-string} à
+@code{define-markup-command}. Il attend une expression, évaluée
+par @code{markup->string}, afin de produire la chaîne.
 
 @lilypond[verbatim,quote]
 #(define-markup-command (authors-and layout props authorA authorB)
@@ -1248,9 +1249,9 @@ customized = \markup \authors-and "Bertolt Brecht" "Kurt Weill"
 \markup \typewriter #(markup->string customized)
 @end lilypond
 
-Au sein de l'expression sont disponibles les mêmes relations que dans le
+Au sein de l'expression sont disponibles les mêmes variables que dans le
 corps de la commande de @emph{markup}, à savoir les argument de la
-commande -- @code{layout} et @code{props} -- et les éventuelles
+commande, ainsi que @code{layout} et @code{props}, et les éventuelles
 propriétés.
 
 @lilypond[verbatim,quote]

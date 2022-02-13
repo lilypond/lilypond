@@ -3001,7 +3001,7 @@ et de neuf types de barre de reprise :
 @end lilypond
 
 De plus, une barre de mesure peut s'imprimer racourcie ou sous la forme
-d'une coche. Dans le dacre du chant grégorien, nous vous invitons à
+d'une coche. Dans le cadre du chant grégorien, nous vous invitons à
 plutôt utiliser @code{\divisioMinima} et  @code{\divisioMaior} comme
 indiqué au paragraphe @ref{Divisions}.
 

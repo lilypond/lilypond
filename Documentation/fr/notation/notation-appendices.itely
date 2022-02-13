@@ -3429,10 +3429,10 @@ sein du fichier @file{lily/includes/smob.hh}.
 @cindex @emph{spanner}, bandeau
 
 Les @strong{bandeaux} @emph{(spanners)} constituent une classe d'objets
-graphiques qui ne sont pas fixés horizontalement, mai s'étendent entre
-dux points. On peut citer à titre d'exemple les ligatures, les liaisons
+graphiques qui ne sont pas fixés horizontalement, mais s'étendent entre
+deux points. On peut citer à titre d'exemple les ligatures, les liaisons
 quel que soit leur type, les soufflets, et même les lignes de la portée.
-Contrairement aux objets n'étant pas des bandeaux et qui peuvent
+Contrairement aux objets ponctuels (contraire des bandeaux), qui peuvent
 apparaître au plus deux fois à l'occasion d'un saut, comme la
 duplication d'une clef en fin de ligne et au début de la suivante, les
 bandeaux sont sectionnés en autant de tronçons que de besoin selon leur
@@ -3446,7 +3446,7 @@ ils constituent des instances de la sous-classe @code{Spanner} de
 @code{grob}. Leurs extrémités gauche et droite peuvent se récupérer ou
 définir respectivement à l'aide de @code{ly:spanner-@/bound} et
 @code{ly:spanner-@/set-@/bound!}. Leurs extrémités sont toujours des
-éléments. Le parent X d'un bandeau n'a que peu de sens en terme de
+objets ponctuels. Le parent X d'un bandeau n'a que peu de sens en termes de
 musique, mais il se détermine habituellement par son extrémité gauche.
 
 @morerefs
@@ -3514,13 +3514,13 @@ voici quelques conventions en matière de nommage.
 @item Mot-clé
   @tab @code{aaaa}
   @tab @code{\score}, @code{\addlyrics}
-@item Founctions musicales et racourcis
+@item Fonctions musicales et raccourcis
   @tab @code{aaaa} or @code{aaaaAaaaAaaa}
   @tab @code{\time}, @code{\stemUp}
 @item Fonctions pour @emph{markups}
   @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
   @tab @code{\bold}, @code{\with-dimensions}
-@item Variables de papier
+@item Variables du bloc @code{\paper}
   @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
   @tab @code{indent}, @code{page-breaking}
 @item Expressions musicales
@@ -3550,7 +3550,7 @@ voici quelques conventions en matière de nommage.
 @item Interfaces
   @tab @code{aaa-aaa-interface}
   @tab @code{grob-interface}, @code{break-aligned-interface}
-@item Fonctions Scheme définies en Guile
+@item Fonctions Scheme définies par Guile
   @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
   @tab @code{map}, @code{for-each}
 @item Fonctions Scheme définies dans LilyPond

@@ -41,7 +41,7 @@ segno}. Le fragment repris débute par une indication de segno hormis
 dans le cas où il s'agit du début du morceau. Les fins alternatives
 apparaîssent en séquence, indiquées par des marques de coda, et un
 libellé de section, tel que « Coda », peut éventuellement apparaître
-avec la dernière la dernière alternative. Le fragment répété se termine
+avec la dernière alternative. Le fragment répété se termine
 par une instruction telle que @emph{D.S.}
 
 @item unfold
@@ -477,8 +477,8 @@ la propriété de contexte @code{fineText}.
 }
 @end lilypond
 
-De plus amples détails concernant les interactions avec les autres
-barres de mesure et le options pour modifier leur apparence, voir
+Pour de plus amples détails concernant les interactions avec les autres
+barres de mesure et les options pour modifier leur apparence, voir
 @ref{Barres de mesure automatiques}.
 
 @morerefs
@@ -522,7 +522,7 @@ liées à la notation avec @emph{segno} sans reprendre tout ce qui a trait
 instructions @emph{D.C.} ou @emph{D.S.} dans leur présentation. Il
 s'agit d'indiquer par le signe @emph{segno} le début d'un fragment
 répété lorsqu'il n'est pas en début de pièce. D'autre part, les fins
-alternatives sernot indiquées par un signe @emph{coda} en lieu et place
+alternatives seront indiquées par un signe @emph{coda} en lieu et place
 des crochets d'alternative, si tant est que celles-ci soient exécutées
 en séquence -- autrement dit pas dans le cas de @code{\volta 1,3} puis
 @code{\volta 2,4}.
@@ -653,7 +653,7 @@ Il est possible de forcer une reprise @emph{dal-segno} en début de
 partition -- voir @ref{Apparence d'une reprise Segno}.
 
 @item retour multiple
-L'instructionpour une reprise qui doît être exécutée plus d'une fois
+L'instruction pour une reprise qui doît être exécutée plus d'une fois
 inclue « @emph{@dots{}@tie{}V.} ». Le passage concerné devra être joué
 une fois de plus que le nombre indiqué par l'instruction.
 
@@ -709,7 +709,7 @@ Référence des propriétés internes :
 @cindex reprise, segno
 
 Les marques et instructions de retour créées par @code{\repeat segno}
-sont bénéficier de quelques adaptations.
+peuvent bénéficier de quelques adaptations.
 
 Les instructions de retour sont formatées par la procédure spécifiée
 dans la propriété @code{dalSegnoTextFormatter}. Un formateur prédéfini
@@ -1057,7 +1057,7 @@ consacrée est :
 
 @noindent
 où @code{@var{n}} sont des numéros de séquence, ou bien @code{\default}
-pour utiliser une numérotation a utomatique. Les indications de repère,
+pour utiliser une numérotation automatique. Les indications de repère,
 de segno et de coda sont incrémentées indépendamment l'une de l'autre.
 
 @lilypond[verbatim,quote]
