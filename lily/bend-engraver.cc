@@ -74,7 +74,7 @@ Bend_engraver::stop_translation_timestep ()
   if (last_fall_)
     {
       // don't cross a barline
-      SCM col_scm = scm_is_string (get_property (this, "whichBar"))
+      SCM col_scm = unsmob<Grob> (get_property (this, "currentBarLine"))
                     ? get_property (this, "currentCommandColumn")
                     : get_property (this, "currentMusicalColumn");
       if (auto *col = unsmob<Grob> (col_scm))
@@ -159,9 +159,9 @@ BendAfter
 
                 /* read */
                 R"(
+currentBarLine
 currentCommandColumn
 currentMusicalColumn
-whichBar
                 )",
 
                 /* write */

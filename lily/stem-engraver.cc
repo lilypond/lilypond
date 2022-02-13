@@ -188,7 +188,7 @@ Stem_engraver::finalize ()
 void
 Stem_engraver::stop_translation_timestep ()
 {
-  if (scm_is_string (get_property (this, "whichBar")))
+  if (unsmob<Grob> (get_property (this, "currentBarLine")))
     kill_unused_flags ();
 
   tremolo_ = nullptr;
@@ -257,9 +257,9 @@ StemTremolo
 
                 /* read */
                 R"(
+currentBarLine
 stemLeftBeamCount
 stemRightBeamCount
-whichBar
                 )",
 
                 /* write */

@@ -54,7 +54,7 @@ Melody_engraver::stop_translation_timestep ()
       // this because the Bar_engraver operates in Staff context, so this
       // engraver can't observe its grobs.
       if (!break_melody_)
-        break_melody_ = scm_is_string (get_property (this, "whichBar"));
+        break_melody_ = unsmob<Grob> (get_property (this, "currentBarLine"));
 
       if (break_melody_)
         {
@@ -119,8 +119,8 @@ MelodyItem
 
                 /* read */
                 R"(
+currentBarLine
 suspendMelodyDecisions
-whichBar
                 )",
 
                 /* write */

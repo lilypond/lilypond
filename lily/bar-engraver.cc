@@ -37,6 +37,8 @@ public:
   TRANSLATOR_DECLARATIONS (Bar_engraver);
 
 protected:
+  void initialize () override;
+  void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_acknowledged ();
 
@@ -51,6 +53,25 @@ private:
 Bar_engraver::Bar_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Bar_engraver::initialize ()
+{
+  Engraver::initialize ();
+  set_property (context (), "currentBarLine", SCM_EOL);
+}
+
+void
+Bar_engraver::start_translation_timestep ()
+{
+  // We reset currentBarLine here rather than in stop_translation_timestep ()
+  // so that other engravers can use it during stop_translation_timestep ().
+  if (bar_)
+    {
+      bar_ = nullptr;
+      set_property (context (), "currentBarLine", SCM_EOL);
+    }
 }
 
 /*
@@ -118,6 +139,8 @@ Bar_engraver::process_acknowledged ()
               bar_ = make_item ("BarLine", SCM_EOL);
               if (!ly_is_equal (wb, get_property (bar_, "glyph")))
                 set_property (bar_, "glyph", wb);
+
+              set_property (context (), "currentBarLine", to_scm (bar_));
             }
         }
     }
@@ -140,7 +163,6 @@ Bar_engraver::stop_translation_timestep ()
   if (!bar_)
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 
-  bar_ = nullptr;
   considered_bar_ = false;
 }
 
@@ -190,5 +212,6 @@ whichBar
 
                 /* write */
                 R"(
+currentBarLine
 forbidBreak
                 )");

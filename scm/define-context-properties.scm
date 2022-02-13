@@ -786,6 +786,8 @@ spanners, etc.).")
 which a coda mark appears: not set during the first timestep,
 0@tie{}up to the first coda mark, 1@tie{}from the first to the second,
 2@tie{}from the second to the third, etc.")
+     (currentBarLine ,ly:grob? "Set to the @code{BarLine} that
+@code{Bar_@/engraver} has created in the current timestep.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable (clef, key signature, etc.) items.")
      (currentMarkEvent ,ly:stream-event? "The event selected by
