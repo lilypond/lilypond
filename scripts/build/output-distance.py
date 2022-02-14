@@ -788,7 +788,7 @@ class SignatureFileLink (FileLink):
         # be created.
         num_systems = (sum(1 for x in list(self.system_links.values()) if x.system1),
                        sum(1 for x in list(self.system_links.values()) if x.system2))
-        expect_compare = num_systems[0] and oldnew
+        expect_compare = num_systems[0] and num_systems[1] and oldnew
 
         base = os.path.splitext(self.file_names[oldnew])[0]
 
@@ -1371,6 +1371,7 @@ def test_compare_tree_pairs():
     html = open("compare-dir1dir2/index.html", encoding='utf-8').read()
     assert "removed.log" in html
     assert "added.log" in html
+    assert "dir2/removed.compare.jpeg" not in html
 
 
 def test_compare_png_images():
