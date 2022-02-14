@@ -9,9 +9,8 @@ predefined color names) are used directly;
 or @code{rgba()} appropriately.
 
 This test's output should be perceivably the same as
-@file{input/regression/color.ly}. Alpha transparency
-is visible in SVG output; in PS and PDF output it is
-visible if Ghostscript 9.53+ is used.
+@file{input/regression/color.ly}; alpha transparency
+is only visible in SVG output.
 "
 }
 
@@ -61,7 +60,7 @@ darkgreen = "#080"
 \layout {
   \context {
     \Staff
-    %% Alpha transparency is enabled.
+    %% Alpha transparency is enabled in SVG output.
     \override Clef.color = "#0008"
   }
 }

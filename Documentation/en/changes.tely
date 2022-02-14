@@ -657,11 +657,6 @@ This is a very convenient way of entering additional stanzas for songs.
 @end lilypond
 
 @item
-Color transparency is supported when generating Postscript and
-PDF files.  To use this new feature, it is necessary to use
-Ghostscript version 9.53 or later.
-
-@item
 A new grob @code{FingerGlideSpanner} is now available, indicating a finger
 gliding on a string from one to another position.
 Several appearances are possible, depending on the setting of @code{style}.

@@ -229,9 +229,9 @@ grestore
 
 ;; save current color on stack and set new color
 (define* (setcolor r g b #:optional (a #f))
-  (if (and (number? a) (< a 1.0))
-      (ly:format "gsave ~4f ~4f ~4f ~4f setrgbacolor\n" r g b a)
-      (ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" r g b)))
+  ;; TODO: figure out a way to support alpha transparency
+  ;; using /SetTransparency pdfmark
+  (ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" r g b))
 
 ;; restore color from stack
 (define (resetcolor) "grestore\n")

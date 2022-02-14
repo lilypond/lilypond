@@ -5,9 +5,8 @@
 Use the @code{\\override} and @code{\\revert} expressions to set the
 @code{color} property.
 
-Colors may include an alpha channel, it is always apparent in SVG
-output. Alpha channel support for PS and PDF output requires
-Ghostscript version 9.53+.
+Colors may include an alpha channel, but that is only apparent in
+SVG output.
 "
 }
 
@@ -33,7 +32,7 @@ Ghostscript version 9.53+.
 \layout {
   \context {
     \Staff
-    %% Alpha transparency is enabled.
+    %% Alpha transparency is enabled in SVG output.
     \override Clef.color = #(rgb-color 0 0 0 0.5)
   }
 }

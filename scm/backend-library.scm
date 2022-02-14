@@ -66,7 +66,6 @@
            "-dNODISPLAY"
            ;; see function gs-safe-run below where we use .setsafe instead
            "-dNOSAFER"
-           "-dALLOWPSTRANSPARENCY"
            "-dNOPAUSE"
            "-dBATCH"
            (if (and is-eps (not fit-page)) "-dEPSCrop")
