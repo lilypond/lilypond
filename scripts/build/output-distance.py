@@ -916,43 +916,6 @@ class ComparisonData:
             else:
                 print('no source for', val.file_names[1])
 
-    def compare_trees(self, dir1: str, dir2: str):
-        self.compare_directories(dir1, dir2)
-
-        dir1_ok = False
-        try:
-            (root1, dirs1, files1) = next(os.walk(dir1))
-            dir1_ok = True
-        except StopIteration:
-            dirs1 = []
-            pass
-
-        dir2_ok = False
-        try:
-            (root2, dirs2, files2) = next(os.walk(dir2))
-            dir2_ok = True
-        except StopIteration:
-            dirs2 = []
-            pass
-
-        if not (dir1_ok or dir2_ok):
-            sys.stderr.write(
-                'Failed to walk through %s and %s; please check that they exist.\n' % (dir1, dir2))
-            sys.exit(1)
-
-        for d in sorted(set(dirs1 + dirs2)):
-            # don't walk the share folders
-            if d.startswith("share"):
-                continue
-
-            d1 = os.path.join(dir1, d)
-            d2 = os.path.join(dir2, d)
-
-            if os.path.islink(d1) or os.path.islink(d2):
-                continue
-
-            self.compare_trees(d1, d2)
-
     def compare_directories(self, dir1: str, dir2: str):
         log_terse('comparing %s' % dir1)
         log_terse('       to %s' % dir2)
@@ -1270,7 +1233,7 @@ def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float):
 
     data = ComparisonData()
     for dir1, dir2 in tree_pairs:
-        data.compare_trees(dir1, dir2)
+        data.compare_directories(dir1, dir2)
 
     data.read_sources()
 
@@ -1328,16 +1291,9 @@ def test_compare_tree_pairs():
     system('cp removed* dir1')
     system('cp added* dir2')
 
-    system('mkdir -p dir1/subdir/ dir2/subdir/')
-    system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir1/subdir/')
-    system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir2/subdir/')
-
     # Make sure we have unicode text in the HTML
     system(u'echo HEAD is 人人的乐谱软件 > dir1/tree.gittxt')
     system('echo HEAD is 2 > dir2/tree.gittxt')
-
-    # introduce differences
-    system('cp 20-1.signature dir2/subdir/19.sub-1.signature')
 
     # radical diffs.
     system('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log} dir1/')
