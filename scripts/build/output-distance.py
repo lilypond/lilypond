@@ -446,7 +446,7 @@ class FileLink:
     """Base class of files that should be compared."""
 
     def __init__(self, f1: str, f2: str):
-        self._distance = None
+        self._distance: Optional[float] = None
         self.file_names = (f1, f2)
 
     def text_record_string(self) -> str:
@@ -751,7 +751,7 @@ class SignatureFileLink (FileLink):
     def create_images(self, dest_dir: str) -> Tuple[Optional[str], Optional[str]]:
         """Returns a (OLD-FILES, NEW-FILES) tuple."""
 
-        outputs = [None, None]
+        outputs: List[Optional[str]] = [None, None]
         for oldnew in (0, 1):
             fn = self.base_names[oldnew] + '.eps'
             if os.path.exists(fn):
