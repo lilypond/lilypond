@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 12aaa30f8d02e1026c4e7c5f9a1c5bfc86fe22c3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.22"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
-
+@c Translation checkers: Jean Abou Samra
 
 @ignore
 GDP TODO list
@@ -3145,7 +3145,8 @@ Morceaux choisis :
 @menu
 * Généralités sur l'espacement horizontal::
 * Changement d'espacement en cours de partition::
-* Modification de l'espacement horizontal::
+* Modification de l'espacement horizontal global::
+* Ajustement de l'espacement horizontal de certains objets de rendu::
 * Largeur de ligne::
 * Notation proportionnelle::
 @end menu
@@ -3331,9 +3332,9 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Modification de l'espacement horizontal
-@subsection Modification de l'espacement horizontal
-@translationof Changing horizontal spacing
+@node Modification de l'espacement horizontal global
+@subsection Modification de l'espacement horizontal global
+@translationof Changing horizontal spacing globally
 
 @cindex espacement horizontal, modification
 
@@ -3429,6 +3430,320 @@ d'ornement qui pourraient apparaître :
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
+
+
+@node Ajustement de l'espacement horizontal de certains objets de rendu
+@subsection Ajustement de l'espacement horizontal de certains objets de rendu
+@translationof Adjusting horizontal spacing for specific layout objects
+
+Au-delà des paramètres d'ordre général attachés à l'algorithme
+d'espacement par défaut et s'appliquant à tous les éléments de la
+partition ou d'une section particulière, plusieurs propriétés permettent
+d'opérer des ajustements sur la base du type d'objet. On peut citer par
+exemple la gestion de l'espace entre clef et métrique sans pour autant
+modifier quoi que ce soit entre une clef et les notes en l'absence de
+métrique, ou bien l'étalement des notes en présence d'un texte de sorte
+à éviter tout chevauchement. Les retouches en pareil cas nécessitent
+d'avoir tout d'abord identifié le type d'espace dont il est question.
+
+@menu
+* Généralités sur l'ajustement de l'espacement de certains objets::
+* Espacement entre éléments adjacents non musicaux::
+* Espacement entre empilements adjacents::
+@end menu
+
+
+@node Généralités sur l'ajustement de l'espacement de certains objets
+@subsubsection Généralités sur l'ajustement de l'espacement de certains objets
+@translationof Overview of object-specific horizontal spacing tweaks
+
+@cindex colonne
+@cindex empilement
+@cindex musical, élément
+@cindex non-musical, élément
+@cindex élément musical
+@cindex élément non-musical
+@cindex préfabriqué, matériel
+
+Les objets de rendu qui ont une position horizontale fixe sont
+appelés des « éléments » (des @emph{items}), par opposition aux
+« bandeaux » (les @emph{spanners}). Pour les besoins de
+l'espacement horizontal, ils sont regroupés en empilements,
+également appelés colonnes. Têtes de note et silences, ainsi que
+les objets qui leur sont directement liés -- altérations,
+articulations, hampes, points, etc. -- font partie des
+« empilements musicaux ». Les éléments préfabriqués, tels que
+clefs, métriques et barres de mesure, sont regroupés en
+« empilements non musicaux ». Dans l'exemple ci-dessous, les
+éléments musicaux sont présentés en rouge, alors que les éléments
+non musicaux apparaissent en bleu.
+
+@lilypond
+musical =
+#(define-music-function (grob) (key-list?)
+   #{ \override $grob . color = red #})
+
+nonmusical =
+#(define-music-function (grob) (key-list?)
+   #{ \override $grob . color = blue #})
+
+\layout {
+  \context {
+    \Score
+    %% Don't interleave columns for ease of understanding in this
+    %% first example.
+    \override RehearsalMark.extra-spacing-width = #'(0 . 0)
+    \override RehearsalMark.extra-spacing-height = #'(-inf.0 . +inf.0)
+  }
+}
+
+\relative {
+  \nonmusical Staff.Clef
+  \nonmusical Staff.TimeSignature
+  \nonmusical Staff.BarLine
+  \nonmusical BreathingSign
+  \nonmusical Score.RehearsalMark
+  \musical NoteHead
+  \musical Dots
+  \musical Accidental
+  \musical Stem
+  \musical Script
+  \time 3/8
+  g'4-> 8
+  \mark \default
+  \clef alto
+  aes4.
+  \breathe
+}
+@end lilypond
+
+Cet exemple met en évidence l'alternance entre empilements
+musicaux et non musicaux. Le premier empilement non musical
+contient une clef et une métrique. Le premier empilement musical
+contient une tête de note avec sa hampe et son articulation. Le
+deuxième empilement non musical est vide ; il sera donc supprimé
+lors de la phase de mise en page. Le deuxième empilement musical
+contient à nouveau une note. Le troisième empilement non musical
+contient une clef, une barre de mesure et un repère, etc.
+
+Au sein d'un même empilement, l'espacement est fixe. Par contre, le
+volume d'espace entre deux empilements consécutifs est flexible. Comme
+nous le verrons, les méthodes d'ajustement varient selon que l'on
+s'intéresse au contenu même d'un empilement ou à ce qui se trouve entre
+des empilements.
+
+
+@node Espacement entre éléments adjacents non musicaux
+@subsubsection Espacement entre éléments adjacents non musicaux
+@translationof Spacing between adjacent non-musical items
+
+@cindex espacement horizontal, éléments non musicaux
+
+Au sein d'un empilement non musical, les éléments sont disposés dans un
+ordre spécifique. Par exemple, si l'on considère le jeu d'éléments de
+l'image ci-dessous, l'ordonnancement par défaut placera d'abord le signe
+de respiration, puis la clef, la barre de mesure, les altérations
+d'annulation et l'armure, et enfin la métrique -- ceci est contrôlé par
+la propriété @code{BreakAlignment@/.break@/-align@/-orders}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \key g \minor
+  g'1
+  \breathe
+  \clef alto
+  \time 6/8
+  \key a \major
+  aes4.
+}
+@end lilypond
+
+@cindex break align symbol
+@funindex space-alist
+
+La distance entre deux éléments successifs d'un même empilement non
+musical est contrôlée par la valeur de la propriété @code{space-alist}
+de celui de gauche. @code{space-alist} prend la forme d'une liste
+associative mettant en correspondance les éléments non musicaux
+autorisant la survenue d'un saut avec des paires
+@code{(style-@/d-@/espacement . valeur)}. Le type d'élément non musical
+est caractérisé par sa propiété @code{break-@/align-@/symbol}. Les
+possibilités standard sont listées dans
+@rinternals{break-alignment-interface}, et les styles d'espacement dans
+@rinternals{break-aligned-interface}. Parmi les options disponibles,
+seules @code{extra-space} et @code{minimum-space} sont pertinentes en
+matière de retouche de l'espacement entre des éléments non musicaux.
+Elles se distinguent par le fait que @code{extra-space} mesure
+l'espacement en partant de la droite du premier objet, alors que
+@code{minimum-space} compte dès la gauche du premier objet. L'un des
+moyens d'éloigner la barre de mesure de la clef est donc le suivant :
+
+@lilypond[verbatim,quote]
+\relative {
+  \key g \minor
+  g'1
+  \override Staff.Clef.space-alist.staff-bar = #'(extra-space . 4)
+  \breathe
+  \clef alto
+  \time 6/8
+  \key a \major
+  aes4.
+}
+@end lilypond
+
+Les réglages de @code{space-alist}, qui ne se limitent pas aux styles
+d'espacement que nous venons de voir, permettent aussi d'apporter des
+dérogations à l'espacement entre différents empilements. Cette sorte
+d'espacement est néanmoins flexible et ne dépend pas uniquement des
+types d'objet concernés mais aussi de leur galbe. Des méthodes
+spécifiques à ce cas de figure sont abordées dans la section suivante.
+
+@morerefs
+Manuel de notation :
+@ref{Utilisation de break-aligned-interface}.
+
+Manuel d'extension :
+@rextend{Listes associatives (alists)}.
+
+Référence des propriétés internes :
+@rinternals{Break_align_engraver},
+@rinternals{BreakAlignGroup},
+@rinternals{BreakAlignment},
+@rinternals{break-alignable-interface},
+@rinternals{break-aligned-interface},
+@rinternals{break-alignment-interface}.
+@endmorerefs
+
+
+@node Espacement entre empilements adjacents
+@subsubsection Espacement entre empilements adjacents
+@translationof Spacing between adjacent columns
+
+@cindex espacement horizontal, entre empilements
+
+Contrairement à l'espacement au sein d'un empilement, l'espacement entre
+des empilements adjacents est flexible ; il s'étire ou se comprime selon
+la densité de la musique présente sur la ligne. Par défaut, il arrive
+même que, dans certaines situations, des empilements se chevauchent.
+L'exemple suivant illustre trois cas. La deuxième altération se déporte
+sous la barre de mesure, et la troisième déborde sous la clef. Par
+ailleurs, l'indication de tempo @emph{Presto} s'étend sur plusieurs
+empilements. Observez comment la première altération qui, en raison de
+son positionnement vertical, viendrait chevaucher la barre de mesure si
+elle était placée aussi près que la seconde altération, en est écartée.
+
+@lilypond
+{
+  R1
+  cis'4 r2.
+  \tempo Presto
+  fis16 8 16 4 \clef alto cis4 fis4
+}
+@end lilypond
+
+@funindex extra-spacing-width
+@funindex extra-spacing-height
+
+Ces règles d'espacement peuvent se modifier. Il faut à la fois modifier
+la largeur et la hauteur qu'un objet occupe dans l'espacement
+horizontal. Les propriétés utiles en la matière sont
+@code{extra-@/spacing-@/width} et @code{extra-@/spacing-@/height}.
+Lorsqu'elles ne sont pas activées, un objet occupera autant de place
+dans l'espacement horizontal que ses propriétés @code{X-extent} et
+@code{Y-extent} le permettent. Ce sont les valeurs précises de ses
+dimensions. Les propriétés @code{extra-@/spacing-@/width} et
+@code{extra-@/spacing-@/height} rendent l'objet plus ou moins imposant
+dans le calcul de l'espacement horizontal uniquement entre les
+empilements, mais préservent ses dimensions pour les autres types
+d'espacement.
+
+@lilypond[verbatim,quote]
+{
+  \mark "Par défaut"
+  c'2 2 cis'2 2
+}
+
+{
+  \mark "X-extent modifié"
+  \override NoteHead.X-extent = #'(-2 . 2)
+  c'2 2 cis'2 2
+}
+
+{
+  \mark "extra-spacing-width modifié"
+  \override NoteHead.extra-spacing-width = #'(-2 . 2)
+  c'2 2 cis'2 2
+}
+@end lilypond
+
+Les valeurs de @code{extra-@/spacing-@/width} et
+@code{extra-@/spacing-@/height} sont des paires de nombres qui seront
+ajoutés aux dimensions dans chacun des axes. Par exemple, régler
+@code{extra-@/spacing-@/height} à @code{'(-2 . 3)} agrandira l'objet de
+trois unités vers le haut et de deux unités vers le bas (limite abaissée
+de 2). L'exemple suivant illustre comment utiliser
+@code{extra-@/spacing-@/height} pour changer la limite à partir de
+laquelle les altérations ne chevaucheront plus les barres de mesure.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \time 1/4
+  cis8 8 | dis8 8 | eis8 8 | fis8 8 |
+  gis8 8 | ais8 8 | bis8 8 | cis8 8 |
+}
+
+{
+  \music
+}
+
+{
+  \override Accidental.extra-spacing-height = #'(0 . 1.0)
+  \music
+}
+@end lilypond
+
+Affecter la valeur @code{'(+inf.0 . -inf.0)} à
+@code{extra-@/spacing-@/width} ou @code{extra-@/spacing-@/height}
+revient à supprimer la présence de l'objet.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \time 1/4
+  cis8 8 | dis8 8 | eis8 8 | fis8 8 |
+  gis8 8 | ais8 8 | bis8 8 | cis8 8 |
+}
+
+{
+  \override Accidental.extra-spacing-height = #'(+inf.0 . -inf.0)
+  \music
+}
+@end lilypond
+
+Par contre, un @code{extra-@/spacing-@/height} de valeur @code{'(-inf.0
+. +inf.0)} rend l'objet infiniment haut, ce qui lui évitera dans tous
+les cas de chevaucher un autre empilement. L'exemple suivant illustre
+cette technique pour @code{Accidental} et @code{Metronome@/Mark}. En ce
+qui concerne @code{Metronome@/Mark}, il est tout d'abord nécessaire de
+régler @code{extra-@/spacing-@/width} à @code{'(0 . 0)} dans la mesure
+où elle est par défaut à @code{'(+inf.0 . -inf.0)}, et même un objet
+infiniment haut ne prend pas de place s'il n'a pas de largeur.
+
+@lilypond[verbatim,quote]
+{
+  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 0)
+  \override Score.MetronomeMark.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override Accidental.extra-spacing-height = #'(-inf.0 . +inf.0)
+  cis'4 r2.
+  \tempo Presto
+  fis16 8 16 4 \clef alto cis4 fis4
+}
+@end lilypond
+
+@morerefs
+Référence des propriétés internes :
+@rinternals{item-interface},
+@rinternals{separation-item-interface}.
 @endmorerefs
 
 
@@ -4024,8 +4339,8 @@ peuvent être rapprochées de la portée :
 @item
 Modifier l'espacement horizontal à l'aide du @code{SpacingSpanner},
 comme indiqué à la rubrique
-@ref{Modification de l'espacement horizontal}.  Voici ce que donne
-l'espacement par défaut :
+@ref{Modification de l'espacement horizontal global}. Voici ce que
+donne l'espacement par défaut :
 
 @lilypond[verbatim,quote]
 \score {
@@ -4074,7 +4389,7 @@ s'applique à l'intégralité de la partition.
 @morerefs
 Manuel de notation :
 @ref{Mise en forme de la page},
-@ref{Modification de l'espacement horizontal}.
+@ref{Modification de l'espacement horizontal global}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
