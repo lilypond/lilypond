@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 2a3e583cb0a3d382c31bd1c9ac5c5f1e8235a847
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -840,7 +840,7 @@ doit cependant être précédée d'un tiret.
 Lorsque @code{\parenthesize} s'applique à un accord, toutes ses notes
 seront mises dans une seule paire de parenthèses.
 
-@lilypond
+@lilypond[verbatim,quote]
 \relative c' {
   \parenthesize <e f>
 }
@@ -850,7 +850,7 @@ Lorsque seulement certaines notes d'un accord doivent être mises entre
 parenthèses, est requise l'utilisation d'une contruction en parallèle
 @w{@code{<< @dots{} >>}}.
 
-@lilypond
+@lilypond[verbatim,quote]
 \new Voice \relative c {
   <<
     { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
