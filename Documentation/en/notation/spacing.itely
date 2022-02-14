@@ -3387,7 +3387,7 @@ Notation Reference:
 @ref{Using the break-alignable-interface}.
 
 Extending LilyPond:
-@rextend{Association lists}.
+@rextend{Association lists (alists)}.
 
 Internals Reference:
 @rinternals{Break_align_engraver},
