@@ -88,6 +88,7 @@ class Page_turn_engraver final : public Engraver
   Moment repeat_begin_{-1};
   Moment note_end_{0};
   Rational repeat_begin_rest_length_{0};
+  bool found_special_bar_line_{false};
 
   vector<Page_turn_event> forced_breaks_;
   vector<Page_turn_event> automatic_breaks_;
@@ -104,6 +105,7 @@ class Page_turn_engraver final : public Engraver
 
 protected:
   void listen_break (Stream_event *);
+  void acknowledge_bar_line (Grob_info_t<Item>);
   void acknowledge_note_head (Grob_info);
 
 public:
@@ -148,6 +150,29 @@ Page_turn_engraver::penalty (Rational rest_len)
                                   Moment (1)).main_part_;
 
   return (rest_len < min_turn) ? infinity_f : 0;
+}
+
+static bool
+is_bar_line_special (const string &glyph)
+{
+  // TODO: This is crude.  In a number of cases (but not when the bar line
+  // glyph was forced with the \bar command), there is at least one knowable
+  // cause for a bar line, e.g., a \section command.  Moreover, an event that
+  // might signal a good turning point doesn't necessarily cause a special bar
+  // line, e.g., a segno mark aligned on a measure boundary, or an ancient
+  // finalis sign that is rendered with BreathingSign.  Page_turn_engraver
+  // could listen to those events in addition to watching for bar lines.
+  return (glyph != "") && (glyph != "|");
+}
+
+void
+Page_turn_engraver::acknowledge_bar_line (Grob_info_t<Item> gi)
+{
+  if (!found_special_bar_line_)
+    {
+      auto glyph = robust_scm2string (get_property (gi.grob (), "glyph"), "");
+      found_special_bar_line_ = is_bar_line_special (glyph);
+    }
 }
 
 void
@@ -219,13 +244,21 @@ Page_turn_engraver::stop_translation_timestep ()
 
   if (pc)
     {
+      // In a context below where bar lines are engraved (e.g. Voice), no bar
+      // lines will be acknowledged, but if one was created above, we will find
+      // it in currentBarLine.
+      if (!found_special_bar_line_)
+        {
+          if (auto *bar = unsmob<Item> (get_property (this, "currentBarLine")))
+            {
+              auto glyph = robust_scm2string (get_property (bar, "glyph"), "");
+              found_special_bar_line_ = is_bar_line_special (glyph);
+            }
+        }
+
       breakable_columns_.push_back (pc);
       breakable_moments_.push_back (now_mom ().main_part_);
-
-      SCM bar_scm = get_property (this, "whichBar");
-      string bar = robust_scm2string (bar_scm, "");
-
-      special_barlines_.push_back (bar != "" && bar != "|");
+      special_barlines_.push_back (found_special_bar_line_);
     }
 
   /* C&P from Repeat_acknowledge_engraver */
@@ -268,6 +301,8 @@ Page_turn_engraver::stop_translation_timestep ()
       repeat_begin_rest_length_ = 0;
     }
   rest_begin_ = note_end_;
+
+  found_special_bar_line_ = false;
 }
 
 /* return the most permissive symbol (where force is the most permissive and
@@ -357,6 +392,7 @@ void
 Page_turn_engraver::boot ()
 {
   ADD_LISTENER (Page_turn_engraver, break);
+  ADD_ACKNOWLEDGER (Page_turn_engraver, bar_line);
   ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
 }
 
@@ -373,6 +409,7 @@ Decide where page turns are allowed to go.
 
                 /* read */
                 R"(
+currentBarLine
 minimumPageTurnLength
 minimumRepeatLengthForPageTurn
                 )",

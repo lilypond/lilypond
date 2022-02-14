@@ -1,15 +1,15 @@
-\version "2.19.21"
+\version "2.23.7"
 
 \header{
     texidoc="@code{Page_@/turn_@/engraver} places a page turn after a
 rest unless there is a 'special' bar line within the rest, in which
 case it places the turn at the special bar line.  In this case, the
-engraver operates in @code{Staff} context."
+engraver operates in @code{Voice} context."
 }
 
 \layout {
   \context {
-    \Staff
+    \Voice
     \consists "Page_turn_engraver"
   }
 }
