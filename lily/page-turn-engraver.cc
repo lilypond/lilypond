@@ -82,12 +82,12 @@ public:
   }
 };
 
-class Page_turn_engraver : public Engraver
+class Page_turn_engraver final : public Engraver
 {
-  Moment rest_begin_;
-  Moment repeat_begin_;
-  Moment note_end_;
-  Rational repeat_begin_rest_length_;
+  Moment rest_begin_{0};
+  Moment repeat_begin_{-1};
+  Moment note_end_{0};
+  Rational repeat_begin_rest_length_{0};
 
   vector<Page_turn_event> forced_breaks_;
   vector<Page_turn_event> automatic_breaks_;
@@ -116,10 +116,6 @@ public:
 Page_turn_engraver::Page_turn_engraver (Context *c)
   : Engraver (c)
 {
-  repeat_begin_ = Moment (-1);
-  repeat_begin_rest_length_ = 0;
-  rest_begin_ = 0;
-  note_end_ = 0;
 }
 
 Grob *
