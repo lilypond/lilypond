@@ -510,6 +510,10 @@ class Bdwgc(ConfigurePackage):
     def configure_args(self, c: Config) -> List[str]:
         return [
             "--disable-docs",
+            # Enable large config, optimizing for heap sizes larger than a few
+            # 100 MB and allowing more heap sections needed on Windows for huge
+            # scores.
+            "--enable-large-config",
             # Fix cross-compilation for mingw.
             "--with-libatomic-ops=none",
         ]
