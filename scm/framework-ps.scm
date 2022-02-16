@@ -850,7 +850,7 @@ mark {ly~a_stream} /CLOSE pdfmark
   (dump-stencil-as-EPS paper
                        stencil
                        basename
-                       #t)
+                       (ly:get-option 'include-eps-fonts))
   (postprocess-output paper framework-ps-module
                       formats
                       basename
