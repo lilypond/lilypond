@@ -139,7 +139,7 @@ def compare_png_images(old: str, new: str, dest_dir: str) -> float:
             print('running %s' % ' '.join(args))
         subprocess.run(args, check=True)
  
-    diff_dest = os.path.join(temp_dir, 'diff.png')
+    diff_dest = os.path.join(dest_dir, new.replace('.png', '.diff.png'))
 
     # MAE = Mean Absolute Error, a metric where smaller means more
     # similar.  We avoid per-pixel metrics (eg. AE), as they make
@@ -171,11 +171,6 @@ def compare_png_images(old: str, new: str, dest_dir: str) -> float:
         print('missing distance marker: ')
         print(err_str)
         raise SystemExit
-        
-    system('convert -depth 8 %(temp_dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx intensity %(temp_dir)s/matte.png' % locals())
-
-    dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
-    system('composite -compose atop -quality 65 %(temp_dir)s/matte.png %(temp_dir)s/crop2.png %(dest)s' % locals())
         
     return dist
 
@@ -780,25 +775,26 @@ class SignatureFileLink (FileLink):
 ''' % locals())
 
         def reactive_img_cell(oldimg, newimg):
-            return 'reactive_img', ('''
-<div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt=""/></a></div>
-''' % locals())
+            diffimg = newimg.replace('.png', '.diff.png')
 
+            return 'reactive_img', ('''
+ <div>
+    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
+    <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
+    <!-- add it invisibly without absolute position so the parent takes up space. -->
+    <div style="opacity: 0.0"><img alt="diff image" src="%(diffimg)s" /></div>
+</div>''' % locals())
+            
         # If we have systems, we expect that images have been or will
         # be created.
         num_systems = (sum(1 for x in list(self.system_links.values()) if x.system1),
                        sum(1 for x in list(self.system_links.values()) if x.system2))
-        expect_compare = num_systems[0] and num_systems[1] and oldnew
 
-        base = os.path.splitext(self.file_names[oldnew])[0]
-
-        if expect_compare:
-            ext = '.compare.jpeg'
-        else:
-            ext = '.png'
-
-        img = base + ext
-        if expect_compare:
+        img = os.path.splitext(self.file_names[oldnew])[0] + '.png'
+        if (num_systems[0] and num_systems[1] and oldnew
+            and [x for x in self.system_links.values() 
+                 if x.distance_tuple() != (0, 0.0)]):
             oldimg = os.path.splitext(self.file_names[0])[0] + '.png'
             return reactive_img_cell(oldimg, img)
         elif num_systems[oldnew]:
@@ -1109,8 +1105,28 @@ figure > div:first-child {
     color: black;
 }
 
-figure.reactive_img.active > div:first-child img {
-    opacity: 0;
+figure.reactive_img.active > div > div.newimg {
+    opacity: 0.0;
+}
+figure.reactive_img.active > div > div.diffimg {
+    opacity: 0.0;
+}
+figure.reactive_img.active > div > div.oldimg {
+    opacity: 1.0;
+}
+
+figure.reactive_img > div > div.newimg {
+    position: absolute;
+    opacity: 1.0;
+}
+figure.reactive_img > div > div.diffimg {
+    position: absolute;
+    opacity: 0.3;
+    filter: blur(2px);
+}
+figure.reactive_img > div > div.oldimg {
+    position: absolute;
+    opacity: 0.0;
 }
 
 figure img {
@@ -1219,7 +1235,7 @@ td:empty {
 
         dest_file = dest_dir + '/index.html'
         open_write_file(dest_file).write(html)
-
+        
         for link in changed:
             link.link_files_for_html(dest_dir)
 
@@ -1317,7 +1333,7 @@ def test_compare_tree_pairs():
             "index.html",
             "index.txt",
             "changed.txt",
-            "dir2/20grob.compare.jpeg",
+            "dir2/20grob.diff.png",
             "dir2/20grob.png",
             "dir1/20grob.png",
             "style.css",
