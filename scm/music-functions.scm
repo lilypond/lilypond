@@ -1174,27 +1174,6 @@ actually fully cloned."
 ;; setting stuff for grace context.
 ;;
 
-(define (vector-extend v x)
-  "Make a new vector consisting of V, with X added to the end."
-  (let* ((n (vector-length v))
-         (nv (make-vector (+ n 1) '())))
-    (vector-move-left! v 0 n nv 0)
-    (vector-set! nv n x)
-    nv))
-
-(define (vector-map f v)
-  "Map F over V.  This function returns nothing."
-  (do ((n (vector-length v))
-       (i 0 (+ i 1)))
-      ((>= i n))
-    (f (vector-ref v i))))
-
-(define (vector-reverse-map f v)
-  "Map F over V, N to 0 order.  This function returns nothing."
-  (do ((i (- (vector-length v) 1) (- i 1)))
-      ((< i 0))
-    (f (vector-ref v i))))
-
 (define-public (add-grace-property context-name grob sym val)
   "Set @var{sym}=@var{val} for @var{grob} in @var{context-name}."
   (define (set-prop context)
