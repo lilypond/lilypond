@@ -61,15 +61,8 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       // Empty extent doesn't mean an error - we simply don't align such grobs.
-      // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
         return - ext.linear_combination (scm_to_double (align));
-      else
-        {
-          auto *st = me->get_stencil ();
-          if (st && !st->is_empty ())
-            warning (me->name () + " has empty extent and non-empty stencil.");
-        }
     }
   return 0.0;
 }
@@ -151,28 +144,14 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   if (scm_is_number (self_align))
     {
       // Empty extent doesn't mean an error - we simply don't align such grobs.
-      // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
         x -= ext.linear_combination (scm_to_double (self_align));
-      else
-        {
-          auto *st = me->get_stencil ();
-          if (st && !st->is_empty ())
-            warning (me->name () + " has empty extent and non-empty stencil.");
-        }
     }
 
   if (scm_is_number (par_align))
     {
-      // See comment above.
       if (!he.is_empty ())
         x += he.linear_combination (scm_to_double (par_align));
-      else
-        {
-          auto *st = him->get_stencil ();
-          if (st && !st->is_empty ())
-            warning (him->name () + " has empty extent and non-empty stencil.");
-        }
     }
 
   return x;
