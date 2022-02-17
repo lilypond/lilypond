@@ -49,6 +49,10 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   Open_type_font (FT_Face);
 
   OVERRIDE_CLASS_NAME (Open_type_font);
+  
+protected:
+  void derived_mark () const override;
+  
 public:
   Real get_units_per_EM () const;
   SCM get_subfonts () const;
@@ -72,7 +76,6 @@ public:
   Box get_unscaled_indexed_char_dimensions (size_t) const;
   size_t name_to_index (std::string) const override;
   size_t index_to_charcode (size_t) const override;
-  void derived_mark () const override;
   SCM sub_fonts () const override;
   Real design_size () const override;
 };
