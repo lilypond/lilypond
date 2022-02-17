@@ -271,15 +271,17 @@
       ;; TODO: this should write destination atomically.
       (copy-file from-name to-name)))
 
-(define-public (make-tmpfile basename)
-  "Return a temporary file (as a Scheme port).  If @var{basename} is @code{#f},
+(define-public (make-tmpfile dir)
+  "Return a temporary file (as a Scheme port).  If @var{dir} is @code{#f},
 a file in the directory given by the environment variable @code{$TMPDIR} is
 created."
   (define max-try 10)
-  (define (inner basename tries)
+  (define (inner dir tries)
     (if (> tries 0)
         (let*
-            ((name (format #f "~a-tmp-~a" basename (random 10000000)))
+            ;; An all-ASCII name saves us the trouble of dealing with special
+            ;; characters in the names of temporary files.
+            ((name (format #f "~a/lilypond-tmp-~a" dir (random 10000000)))
              (port (create-file-exclusive name #o666))
              (bport #f))
 
@@ -289,30 +291,26 @@ created."
                 (close-port port)
                 bport)
 
-              (inner basename (1- tries))))
+              (inner dir (1- tries))))
 
-        (ly:error (_ "can't create temp file for ~a after ~a times") basename max-try)
+        (ly:error (_ "can't create temp file in ~a after ~a times") dir max-try)
         ))
 
-  (if (not basename)
-      (set! basename (cond
-                      ;; MINGW hack: TMP / TEMP may include
-                      ;; unusable characters (Unicode etc.).
-                      ((eq? PLATFORM 'windows) "./tmp-")
-                      ;; Cygwin can handle any characters
-                      ;; including Unicode.
-                      ((eq? PLATFORM 'cygwin) (string-append
-                                               (or (getenv "TMP")
-                                                   (getenv "TEMP"))
-                                               "/"))
-                      ;; Other platforms (POSIX platforms)
-                      ;; use TMPDIR or /tmp.
-                      (else (string-append
-                             (or (getenv "TMPDIR")
-                                 "/tmp")
-                             "/lilypond")))))
+  (if (not dir)
+      (set! dir (cond
+                 ;; MINGW hack: TMP / TEMP may include
+                 ;; unusable characters (Unicode etc.).
+                 ((eq? PLATFORM 'windows) ".")
+                 ;; Cygwin can handle any characters
+                 ;; including Unicode.
+                 ((eq? PLATFORM 'cygwin) (or (getenv "TMP")
+                                             (getenv "TEMP")))
+                 ;; Other platforms (POSIX platforms)
+                 ;; use TMPDIR or /tmp.
+                 (else (or (getenv "TMPDIR")
+                           "/tmp")))))
 
-  (inner basename max-try))
+  (inner dir max-try))
 
 
 (define-public (postprocess-output paper module formats
@@ -330,7 +328,7 @@ created."
 (define (write-lilypond-book-aux-files basename count)
   (let* ((write-file (lambda (str-port ext)
                            (let* ((name (format #f "~a-systems.~a" basename ext))
-                                  (port (make-tmpfile name)))
+                                  (port (make-tmpfile (dirname basename))))
                              (ly:message (_ "Writing ~a...") name)
                              (display (get-output-string str-port) port)
                              (close-port-rename port name))))

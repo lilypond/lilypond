@@ -1031,7 +1031,7 @@ with optional arrows of @code{max-size} on start and end controlled by
   (define system-grob
     (paper-system-system-grob paper-system))
 
-  (define output (make-tmpfile filename))
+  (define output (make-tmpfile (dirname filename)))
   (define (raw-pair expr)
     (simple-format #f "~a ~a"
                    (car expr) (cdr expr)))

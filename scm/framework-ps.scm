@@ -828,7 +828,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 
   (let* ((dest-name  (format #f "~a.eps" filename))
          (ignore (ly:message (_  "Layout output to `~a'...") dest-name))
-         (port (make-tmpfile dest-name))
+         (port (make-tmpfile (dirname filename)))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
          (port (ly:outputter-port outputter))
