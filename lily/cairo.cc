@@ -260,7 +260,7 @@ struct Pair_hash
 
 class Cairo_outputter : public Stencil_sink
 {
-  // (filename, index) => FT_Face (owned)
+  // (filename, index) => FT_Face unowned
   std::unordered_map<std::pair<std::string, int>, FT_Face, Pair_hash> ft_faces_;
   FT_Face ft_font (std::string const &file, int index);
 
@@ -348,19 +348,6 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
       cairo_font_face = cairo_ft_font_face_create_for_ft_face (face, 0);
       cairo_fonts_[face] = cairo_font_face;
 
-      // We get a mixture of fonts owned by us (text fonts) and owned
-      // externally (the music font). At the same time, Cairo holds on
-      // to an internal cache of cairo_font_face_ts and their
-      // associated FT_Face, which may live past the Cairo context and
-      // surface.  This means we can't simply discard all the owned
-      // fonts in the destructor, because Cairo may reuse them for the
-      // next document or next page, leading to odd artifacts.  We
-      // solve this by handling FT_Face lifetime with a finalizer
-      // (cairo_destroy_func_t), that is balanced with a refcount
-      // increase.  The call to open_ft_face for owned text fonts is
-      // balanced with FT_Done_Face calls in ~Cairo_outputter.
-      FT_Reference_Face (face);
-
       if (cairo_font_face_set_user_data (cairo_font_face, &ukey, face,
                                          reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
         {
@@ -396,8 +383,11 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
 
   Real font_scale_factor_ = mfm->magnification () * otf->design_size ();
 
-  cairo_set_font_face (context (),
-                       cairo_font_for_ft_font (otf->freetype_handle ()));
+  // Reload the FT_Face, to avoid Cairo settings affecting rendering
+  // of subsequent files.
+  FT_Face ft_face = ft_font (otf->filename (), 0);
+
+  cairo_set_font_face (context (), cairo_font_for_ft_font (ft_face));
   cairo_matrix_t m
   =
   {
@@ -412,11 +402,8 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
 
   Real cx, cy;
   cairo_get_current_point (context (), &cx, &cy);
-  cairo_glyph_t oneglyph
-    = {FT_Get_Name_Index (otf->freetype_handle (),
-                          const_cast<FT_String *> (g.c_str ())),
-       cx, cy
-      };
+  cairo_glyph_t oneglyph = {
+    FT_Get_Name_Index (ft_face, const_cast<FT_String *> (g.c_str ())), cx, cy};
 
   cairo_show_glyphs (context (), &oneglyph, 1);
 }
@@ -430,8 +417,6 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   Real startx, starty;
   cairo_get_current_point (context (), &startx, &starty);
 
-  // TODO - it would be nice to reuse the FT_Face instance that Pango
-  // used to create the glyph string.
   FT_Face ft_face
     = ft_font (ly_scm2string (filename), from_scm<int> (face_index));
   cairo_set_font_face (context (), cairo_font_for_ft_font (ft_face));
@@ -1239,10 +1224,6 @@ Cairo_outputter::~Cairo_outputter ()
   for (auto f : cairo_fonts_)
     {
       cairo_font_face_destroy (f.second);
-    }
-  for (auto f : ft_faces_)
-    {
-      FT_Done_Face (f.second);
     }
 }
 

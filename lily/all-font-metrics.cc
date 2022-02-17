@@ -124,16 +124,15 @@ All_font_metrics::find_otf (const string &name)
         return 0;
 
       debug_output ("[" + file_name, true); // start on a new line
-
       val = Open_type_font::make_otf (file_name);
+      Open_type_font *otf = unsmob<Open_type_font> (val);
 
       debug_output ("]", false);
 
       SCM name_string = ly_string2scm (name);
-      unsmob<Font_metric> (val)->description_ = scm_cons (name_string,
-                                                          to_scm (1.0));
+      otf->description_ = scm_cons (name_string, to_scm (1.0));
       otf_dict_->set (sname, val);
-      unsmob<Font_metric> (val)->unprotect ();
+      otf->unprotect ();
     }
 
   return unsmob<Open_type_font> (val);
