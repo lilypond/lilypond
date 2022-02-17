@@ -98,8 +98,18 @@
 
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
-  (let* ((pdf-name (format #f "~a.~a.pdf" tmp-name (random 1000000)))
-         (flush-name (string-append pdf-name ".flush"))
+  (let* ((pdf-name (format #f "~a/~a.pdf"
+                           ;; Create the file in the same directory as the
+                           ;; destination, or renaming won't work across
+                           ;; filesystems, but ...
+                           (dirname base-name)
+                           ;; make sure there are no special characters in
+                           ;; the filename to avoid problems with Ghostscript
+                           ;; on Windows.
+                           (basename tmp-name)))
+         ;; The temporary file for flushing can go next to the temporary ps file
+         ;; in /tmp.
+         (flush-name (string-append tmp-name ".flush"))
          (dest (string-append base-name ".pdf"))
          (output-file (string-join (string-split pdf-name #\%) "%%"))
          (run-strings

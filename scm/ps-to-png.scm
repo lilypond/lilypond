@@ -43,7 +43,7 @@
                                   header))))
     (if match (string->number (match:substring match 1)) 0)))
 
-(define-public (make-ps-images base-name tmp-name is-eps . rest)
+(define-public (make-ps-images base-name ps-tmp-name is-eps . rest)
   (let-keywords*
    rest #f
    ((resolution 90)
@@ -64,12 +64,21 @@
                       ((string-contains format-str "jpeg") "jpeg")
                       (else
                        (ly:error (_ "Unknown pixmap format ~a") pixmap-format))))
-          (pngn (format #f "~a-page%d.~a" tmp-name extension))
           (page-count (if is-eps
                           1
-                          (ps-page-count tmp-name)))
+                          (ps-page-count ps-tmp-name)))
           (multi-page? (> page-count 1))
 
+          (tmp-name (string-append
+                      ;; Create the file in the same directory as the
+                      ;; destination, or renaming won't work across
+                      ;; filesystems, but ...
+                      (dirname base-name)
+                      "/"
+                      ;; make sure there are no special characters in
+                      ;; the filename to avoid problems with Ghostscript
+                      ;; on Windows.
+                      (basename ps-tmp-name)))
           ;; Escape `%' (except `page%d') for ghostscript
           (base-name-gs (string-join
                          (string-split tmp-name #\%)
@@ -149,7 +158,7 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              (format #f "/PermitFileWriting (~a*) .addcontrolpath"
                         base-name-gs)
              "} if"
-             (gs-safe-run tmp-name)))))
+             (gs-safe-run ps-tmp-name)))))
 
      ;; This is a ghostscript constraint.
      (if (not (and (integer? anti-alias-factor)

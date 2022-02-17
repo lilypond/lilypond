@@ -746,7 +746,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define-public (output-stencils basename stencils header paper formats)
   (warn-formats formats)
-  (let* ((port (make-tmpfile basename))
+  (let* ((port (make-tmpfile #f))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
