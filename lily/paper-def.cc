@@ -28,6 +28,7 @@
 #include "lily-imports.hh"
 
 #include <cmath>
+#include <string>
 
 Real
 output_scale (Output_def *od)
@@ -95,8 +96,9 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   if (scm_is_pair (handle))
     return unsmob<Font_metric> (scm_cdr (handle));
 
+  std::string font_descr = ly_scm2string (descr);
   PangoFontDescription *description
-    = pango_font_description_from_string (scm_i_string_chars (descr));
+    = pango_font_description_from_string (font_descr.c_str ());
 
   double font_description_size
     = round_halfway_up (factor * pango_font_description_get_size (description));
