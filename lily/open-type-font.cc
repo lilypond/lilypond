@@ -296,7 +296,7 @@ Open_type_font::make_otf (const string &str)
 {
   FT_Face face = open_ft_face (str, 0 /* index */);
   Open_type_font *otf = new Open_type_font (face);
-
+  otf->filename_ = str;
   return otf->self_scm ();
 }
 

@@ -46,6 +46,8 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
 
   Index_to_charcode_map index_to_charcode_map_;
   mutable std::unordered_map<size_t, Box> lily_index_to_bbox_table_;
+  std::string filename_;
+
   Open_type_font (FT_Face);
 
   OVERRIDE_CLASS_NAME (Open_type_font);
@@ -59,6 +61,7 @@ public:
   SCM get_global_table () const;
   SCM get_char_table () const;
   SCM glyph_list () const;
+  std::string const &filename () const { return filename_; }
 
   /* handle to the underlying font data: callers should have shorter
      lifetime than the Open_type_font */

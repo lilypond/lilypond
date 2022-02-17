@@ -129,7 +129,6 @@ All_font_metrics::find_otf (const string &name)
 
       debug_output ("]", false);
 
-      unsmob<Font_metric> (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);
       unsmob<Font_metric> (val)->description_ = scm_cons (name_string,
                                                           to_scm (1.0));

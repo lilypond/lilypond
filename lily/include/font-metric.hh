@@ -46,7 +46,6 @@ private:
 
 public:
   SCM description_;
-  std::string file_name_;
 
   // Return stencil for given std::string. output_state may be modified to
   // record the font.
