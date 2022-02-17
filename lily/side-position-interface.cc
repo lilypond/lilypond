@@ -218,7 +218,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   if (include_staff)
     common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
 
-  Skyline my_dim;
+  Skyline my_dim (-dir);
   SCM skyp = get_maybe_pure_property (me, a == X_AXIS
                                       ? "horizontal-skylines"
                                       : "vertical-skylines",
@@ -256,8 +256,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       copy.raise (a == X_AXIS ? xc : yc);
       my_dim = copy[-dir];
     }
-  else
-    me->warning (_ ("cannot find skylines - strange alignment will follow"));
 
   vector<Box> boxes;
   vector<Skyline_pair> skyps;

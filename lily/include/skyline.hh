@@ -61,6 +61,10 @@ private:
   void normalize ();
 
 public:
+  // FIXME: the argumentless constructor is an attractive nuisance as
+  // it makes it easy to forget about setting a direction.  Ideally,
+  // we'd get rid of its use in operator[] in std::map<..., Skyline>
+  // and remove it.  Changing operator[] to at () requires some care.
   Skyline ();
   Skyline (Direction sky);
   Skyline (std::vector<Box> const &bldgs, Axis a, Direction sky);
