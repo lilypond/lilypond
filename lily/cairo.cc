@@ -270,6 +270,9 @@ class Cairo_outputter : public Stencil_sink
 
   Cairo_output_format format_;
 
+  bool use_left_margin_;
+  Real left_margin_;
+
   // Transform staff-space units to Cairo bigpoints
   Real scale_factor_;
 
@@ -330,7 +333,7 @@ class Cairo_outputter : public Stencil_sink
 
 public:
   Cairo_outputter (Cairo_output_format format, std::string const &basename,
-                   Output_def *paper);
+                   Output_def *paper, bool use_left_margin);
   ~Cairo_outputter ();
   void create_surface (Stencil const *);
   void finish_page ();
@@ -661,12 +664,16 @@ Cairo_outputter::create_surface (Stencil const *stencil)
 
   Interval x = stencil->extent (X_AXIS);
   Interval y = stencil->extent (Y_AXIS);
+  if (use_left_margin_)
+    x.add_point (left_margin_);
+
   Real paper_width = x.length ();
   Real paper_height = y.length ();
 
   paper_width *= scale_factor_;
   paper_height *= scale_factor_;
 
+  // TODO: round up paper extents to nearest bigpoint.
   if (format_ == PNG)
     {
       surface_ = new Png_surface (filename_, paper_width, paper_height);
@@ -1232,8 +1239,24 @@ Cairo_outputter::~Cairo_outputter ()
 
 Cairo_outputter::Cairo_outputter (Cairo_output_format format,
                                   std::string const &basename,
-                                  Output_def *paper)
+                                  Output_def *paper, bool use_left_margin)
 {
+  left_margin_ = 0.0;
+  use_left_margin_ = use_left_margin;
+  if (use_left_margin_)
+    {
+      SCM padding = ly_get_option (ly_symbol2scm ("eps-box-padding"));
+      if (scm_is_number (padding))
+        {
+          left_margin_ = -paper->get_dimension (ly_symbol2scm ("mm"))
+                         * from_scm<Real> (padding);
+        }
+      else
+        {
+          use_left_margin_ = false;
+        }
+    }
+
   point_and_click_ = ly_get_option (ly_symbol2scm ("point-and-click"));
   format_ = format;
   outfile_basename_ = basename;
@@ -1366,9 +1389,10 @@ parse_formats (const char *funcname, int format_arg, SCM formats)
 
 void
 output_stencil_format (std::string const &basename, const Stencil *stc,
-                       Output_def *odef, Cairo_output_format fmt)
+                       Output_def *odef, Cairo_output_format fmt,
+                       bool use_left_margin)
 {
-  Cairo_outputter outputter (fmt, basename, odef);
+  Cairo_outputter outputter (fmt, basename, odef, use_left_margin);
 
   outputter.create_surface (stc);
   interpret_stencil_expression (stc->expr (), &outputter, Offset (0, 0));
@@ -1399,12 +1423,12 @@ dump book through cairo backend
             {
               output_stencil_format (base + "-" + std::to_string (page),
                                      unsmob<const Stencil> (scm_car (p)), odef,
-                                     format);
+                                     format, false);
             }
           continue;
         }
 
-      Cairo_outputter outputter (format, base, odef);
+      Cairo_outputter outputter (format, base, odef, false);
       outputter.create_surface (unsmob<const Stencil> (scm_car (stencils)));
       outputter.handle_metadata (header);
 
@@ -1449,7 +1473,7 @@ dump a single stencil through the Cairo backend
         seen_eps = true;
 
       const Stencil *stc = unsmob<const Stencil> (stencil);
-      output_stencil_format (ly_scm2string (basename), stc, odef, f);
+      output_stencil_format (ly_scm2string (basename), stc, odef, f, true);
     }
 #else
   error ("compiled without CAIRO_BACKEND");
