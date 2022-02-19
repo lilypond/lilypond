@@ -803,6 +803,7 @@ printing diff against existing file." % filename)
             systemfile = '%s-%d' % (base, number)
             require_file(systemfile + '.eps')
             consider_file(systemfile + '.pdf')
+            consider_file(systemfile + '.png')
 
             # We can't require signatures, since books and toplevel
             # markups do not output a signature.
