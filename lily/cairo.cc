@@ -659,8 +659,10 @@ Cairo_outputter::create_surface (Stencil const *stencil)
 
   message (_f ("Layout output to `%s'...\n", filename_.c_str ()));
 
-  Real paper_width = stencil->extent (X_AXIS).length ();
-  Real paper_height = stencil->extent (Y_AXIS).length ();
+  Interval x = stencil->extent (X_AXIS);
+  Interval y = stencil->extent (Y_AXIS);
+  Real paper_width = x.length ();
+  Real paper_height = y.length ();
 
   paper_width *= scale_factor_;
   paper_height *= scale_factor_;
@@ -678,6 +680,7 @@ Cairo_outputter::create_surface (Stencil const *stencil)
   surface_->set_original_extent (Offset (stencil->extent (X_AXIS).length (),
                                          stencil->extent (Y_AXIS).length ()));
   cairo_scale (context (), scale_factor_, -scale_factor_);
+  cairo_translate (context (), -x[LEFT], -y[UP]);
 }
 
 void
