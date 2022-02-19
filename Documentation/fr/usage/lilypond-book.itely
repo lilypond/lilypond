@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6a22f5d3f7ff1bb202301c5e686767a937a26649
+    Translation of GIT committish: c4496a22ac2de006487d2003ddaef8ac8cbb6ea1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -774,8 +774,8 @@ pour les cas où les environnements @code{lilypond} ne font pas appel à
 @item papersize=@var{chaîne}
 Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
 @code{letter}) pour les fragments utilisant @code{\book}. Voir
-@rprogramnamed{Predefined paper sizes, Formats de papier prédéfinis}
-pour une liste des différentes tailles disponibles.
+@ruser{Formats de papier prédéfinis} pour une liste des différentes
+tailles disponibles.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
 feuille contenant le fragment musical -- et en aucaun cas le texte. Une
