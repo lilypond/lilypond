@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 21e1040bc80882919ed2b4243527170325c42899
+    Translation of GIT committish: 290cafa10a79f2a56f7a08c764e8fa1b49343292
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -85,10 +85,7 @@ propriété @code{alterationGlyphs} des contextes de niveau portée,
 peuvent se définir globalement les glyphes à utiliser pour tous les
 objets -- voir @ruser{Glyphes d'altération alternatifs}.
 
-@lilypond
-% Avoid unfortunate cropping of the arrow-sharp glyph...
-\markup \vspace #0.5
-
+@lilypond[quote]
 \layout {
   \context {
     \Staff
@@ -117,12 +114,11 @@ objets -- voir @ruser{Glyphes d'altération alternatifs}.
 Dans le cadre de la fonte Emmentaler, les têtes de notes dont l'aspect
 est identique et pour lesquelles la seule différence réside dans
 l'orientation de leur hampe ont été consolidées en un glyphe unique. Par
-exemple, les glyphes @code{noteheads.u2triangle} et
-@code{noteheads.d2triangle} ont été remplacés par le seul glyphe
-@code{noteheads.s2triangle}. Les paires de tête de note ayant un aspect
-différent selon l'orientation de la hampe conservent leur dictinction.
-@*
-@*
+exemple, les glyphes @code{noteheads@/.u2triangle} et
+@code{noteheads@/.d2triangle} ont été remplacés par le seul glyphe
+@code{noteheads@/.s2triangle}. Les paires de tête de note ayant un aspect
+différent selon l'orientation de la hampe conservent leur distinction.
+
 Par ailleurs, la propriété @code{stem-attachment} des objets graphiques
 @code{NoteHead} renvoie le point d'attachement réel selon l'orientation
 de hampe en lieu et place d'un hypothétique point d'attachement d'une
@@ -146,7 +142,7 @@ circonvolutions.
 @}
 @end example
 
-@lilypond
+@lilypond[quote]
 \layout {
   \context {
     \Staff
@@ -203,7 +199,7 @@ il est d'usage dans les musiques de film.
 Les compteurs de mesures prennent en considération les mesures à
 compter et les alternatives.
 
-@lilypond
+@lilypond[quote,line-width=15\cm]
 \new Score \with {
   \consists Measure_counter_engraver
   \override MeasureCounter.font-encoding = #'latin1
@@ -242,6 +238,69 @@ précisément à toutes les portées d'un même contexte @code{Timing} --
 afin de correspondre au comportement de @code{\time}.
 
 @item
+Le nouveau @code{Mark_tracking_translator} prend le pas sur le
+@code{Mark_engraver} en matière de décision quant à la création d'une
+marque. Le @code{Mark_engraver} se charge toutefois de contrôler la mise
+en forme et le positionnement vertical du repère.
+
+Par défaut, des @code{Mark_engravers} dans de multiples contextes
+créent une séquence commune de repères. Lorsque des séquences
+indépendantes sont préférables, il faut utiliser plusieurs
+@code{Mark_tracking_translator}.
+
+@item
+La commande @code{\enablePolymeter} agit comme un raccourci lors de la
+saisie pour déplacer les graveurs selon le besoin et permettre d'avoir
+différentes métriques en parallèle. Le code :
+
+@quotation
+@verbatim
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+@end verbatim
+@end quotation
+
+@noindent
+peut ainsi s'abréger en :
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
+
+@item
+L'instruction @code{\bar ","} crée une barre de mesure raccourcie.
+
+@lilypond[quote]
+\new Staff \with {
+  \omit Clef
+  \omit TimeSignature
+} \fixed c' {
+  \cadenzaOn
+  e2 f g a g \bar "," f g f d e\breve
+}
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Améliorations en matière d'expressivité
+
+@itemize
+@item
 Les événements attachés à des notes, tels que nuances ou articulations,
 peuvent être différés d'une durée arbitraire à l'aide de @code{\after}.
 Ceci permet de simplifier de nombreuses situations qui jusqu'alors
@@ -256,40 +315,6 @@ demandaient de recourir à une polypĥonie et des silences invisibles.
 }
 @end lilypond
 
-@item
-La nouvelle commande @code{\section} insère une double barre qui
-interagit de manière optimale avec les barres de reprise. Un passage
-peut être nommé à l'aide de la commande @code{\sectionLabel}.
-
-@lilypond[verbatim,quote]
-\fixed c' {
-  f1
-  \break
-  \section
-  \sectionLabel "Trio"
-  \repeat volta 2 {
-    b1
-  }
-}
-@end lilypond
-
-@item
-Le nouveau @code{Mark_tracking_translator} prend le pas sur le
-@code{Mark_engraver} en matière de désision quant à la création d'une
-marque. Le @code{Mark_engraver} se charge toutefois de contrôler la mise
-en forme et le positionnement vertical du repère.
-
-Par défaut, des @code{Mark_engravers} dans de multiples contextes
-créeent une séquence commune de repères. Lorsque des séquences
-indépendantes sont préférables, il faut utiliser plusieurs
-@code{Mark_tracking_translator}.
-
-@end itemize
-
-
-@subsubheading Améliorations en matière d'expressivité
-
-@itemize
 @item
 Les terminaisons des soufflets peuvent désormais s'aligner sur la
 gauche, au centre ou sur la droite des @emph{grobs} @code{NoteColumn} à
@@ -343,6 +368,42 @@ expansée.
 La commande @code{\unfolded} ajoute la musique lorsque la répétition est
 expansée.
 
+@item
+La nouvelle commande @code{\repeat segno} permet de gérer
+automatiquement un certain nombre de formes @emph{da-capo} et
+@emph{dal-segno}.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat segno 2 {
+    b1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@item
+La nouvelle commande @code{\fine} insère une barre de mesure finale qui
+interagit de façon optimale avec les barres de reprise. Placée à
+l'intérieur d'une reprise, elle ajoute une instruction @emph{Fine} et
+termine la musique lorsque les reprises sont expansées.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    b1
+  }
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
 @end itemize
 
 
@@ -355,7 +416,7 @@ désormais en compte le sens de la mélodie pour orienter la hampe de la
 note sur la ligne médiane. Il fallait auparavant apporter une dérogation
 spécifique à la propriété @code{Stem.neutral-direction}.
 
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists Melody_engraver
 }
@@ -370,6 +431,28 @@ La propriété de contexte @code{suspendMelodyDecisions} permet de
 désactiver temporairement ce comportement, tout comme le faisait
 @code{\override Stem.neutral-direction = #DOWN}.
 
+@item
+L'instruction @code{\bar ""} n'est plus un préalable à l'affichage du
+numéro de la première mesure. Il suffit désormais de régler la propriété
+@code{barNumberVisibility} à @code{all-@/bar-@/numbers-@/visible} ou
+l'un des autres réglages pour lesquels le premier numéro de mesure est
+visible.
+
+Notez bien qu'il s'agit d'un changement de comportement pour les
+partitions dans lesquelles @code{barNumberVisibility} est réglé à
+@code{all-@/bar-@/numbers-@/visible} ou équivalent et
+@code{BarNumber@/.break-@/visibility} activé sans avoir de
+@code{\bar ""}. Un numéro de mesure est désormais affiché au début. Il
+s'agit bien du comportement attendu (@strong{tous} les numéros devraient
+être visibles) mais, en raison d'une documentation probablement pas
+assez explicite, certains utilisateurs ont opté pour ces réglages afin
+d'afficher les numéros de mesure en cours de portée sauf pour la
+première mesure. En pareil cas, il convient de tout simplement supprimer
+la clause
+@code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
+puisque @code{\overrideBarNumber@/.break-@/visibility = ##t} est le
+réglage approprié et suffisant.
+
 @end itemize
 
 
@@ -378,10 +461,10 @@ désactiver temporairement ce comportement, tout comme le faisait
 @itemize
 @item
 Il est désormais possible de placer un accord entre parenthèses.
-Toutefois, la taille de la fonte utlisée pour les parenthèses devra être
-ajustée manuellement.
+Toutefois, la taille de la fonte utilisée pour les parenthèses devra
+être ajustée manuellement.
 
-@lilypond
+@lilypond[quote]
 \new Voice {
   \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
   <<
@@ -393,9 +476,9 @@ ajustée manuellement.
 @end lilypond
 
 @item
-Les objets étendus peuvent être mis entre parenthèses.
+Les objets étendus ou bandeaux peuvent être mis entre parenthèses.
 
-@lilypond
+@lilypond[quote]
 {
   c'\parenthesize\< d'2.\!
   \parenthesize R1
@@ -425,9 +508,28 @@ identique à @code{\footnote}.
 En matière de basse chiffrée, il est désormais possible de placer les
 altérations entre crochets.
 
-@lilypond
+@lilypond[quote]
 \figures {
   <7 [5 3[+]]> <5[!]> <[5!]>
+}
+@end lilypond
+
+@item
+La mise en forme de info-bulles est désormais modifiable.
+
+@lilypond[quote]
+\new Score \with {
+  \consists Balloon_engraver
+  \override SpacingSpanner.spacing-increment = 5
+}
+{
+  \balloonLengthOn
+  \balloonGrobText Rest #'(1 . 2) "rest"
+  r4
+  \once \override Score.BalloonText.Y-attachment = #CENTER
+  \once \override Score.BalloonText.text-alignment-X = #CENTER
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
 }
 @end lilypond
 
@@ -456,6 +558,37 @@ pour ajouter des couplets à une chanson.
      Twinkle, twinkle, little star,
      How I wonder what you are!"
 @end lilypond
+
+@item
+La nouvelle commande @code{\section} insère une double barre qui
+interagit de manière optimale avec les barres de reprise. Un passage
+peut être nommé à l'aide de la commande @code{\sectionLabel}.
+
+@lilypond[verbatim,quote,line-width=9\cm]
+\fixed c' {
+  f1
+  \break
+  \section
+  \sectionLabel "Trio"
+  \repeat volta 2 {
+    b1
+  }
+}
+@end lilypond
+
+@item
+La fonction @code{markup->string} convertit un @emph{markup} dans une
+réprésentation approximative de chaîne de caractères. Ceci est utile
+pour générer des métadonnées PDF ainsi que les paroles et repères en
+MIDI. Il est donc possible de créer des commandes pour @emph{markups}
+personnalisées afin de retraiter les chaînes converties par
+@code{markup->string}, comme par exemple
+
+@example
+#(define-markup-command (upcase layout props arg) (string?)
+   #:as-string (string-upcase arg)
+   (interpret-markup layout props (string-upcase arg)))
+@end example
 
 @end itemize
 
@@ -559,7 +692,7 @@ mus = {
 @itemize
 @item
 Ajout du style de notation pour percussions @code{weinberg-drums-style}
-basé sur les ttravaux de standardisation de Norman Weinberg.
+basé sur les travaux de standardisation de Norman Weinberg.
 
 @end itemize
 
@@ -582,7 +715,7 @@ Un
 LilyPond prend désormais en charge la musique persane. Deux glyphes
 d'altération ont été ajoutés à cet effet : @emph{sori} et @emph{koron}.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\cm]
 \include "persian.ly"
 
 \relative c' {
@@ -614,12 +747,12 @@ type @code{Footnote}. De la même manière, @code{BalloonTextSpanner} et
 Lorsque la définition du @emph{grob} ne requiert pas de classe, les
 graveurs doivent décider de la classe à utiliser pour créer le
 @emph{grob}. Pour ceux qui créent leurs propres graveurs en Scheme, cela
-signifie qu'il faudra utiliser soit @code{ly:engraver-make-item}, soit
-@code{ly:engraver-make-spanner}. La fonction utilitaire
-@code{ly:engraver-make-sticky} permet de prendre en charge le cas des
-@emph{sticky grobs} tels que notes de bas de page et infobulles. Elle
-crée un @emph{grob} de la même classe qu'un autre et gère la parenté et
-les attachements.
+signifie qu'il faudra utiliser soit @code{ly:@/engraver-@/make-@/item},
+soit @code{ly:@/engraver-@/make-@/spanner}. La fonction utilitaire
+@code{ly:@/engraver-@/make-@/sticky} permet de prendre en charge le cas
+des @emph{sticky grobs} tels que notes de bas de page et infobulles.
+Elle crée un @emph{grob} de la même classe qu'un autre et gère la
+parenté et les attachements.
 
 @end itemize
 
@@ -633,7 +766,7 @@ gagné en flexibilité et en simplicité. Elle utilise les nouvelles
 commandes de @emph{markup} @code{\if} et @code{\unless}. Voici quelques
 uns des changements apportés :
 
-@multitable {@code{\on-the-fly #not-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
+@multitable {@code{\on-the-fly #not-part-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
 @headitem Syntaxe version 2.22 @tab Syntaxe version 2.24
 @item @code{\on-the-fly #first-page @dots{}}
 @tab @code{\if \on-first-page @dots{}}
@@ -661,11 +794,6 @@ Un
 
 @itemize
 @item
-La transparence des couleurs est prise en charge lors de la génération
-de PostScript et de PDF. L'utilisation de cette fonctionnalité requiert
-une version de Ghostscript égale ou supérieure à la 9.53.
-
-@item
 @code{set-default-paper-size} et @code{set-paper-size} acceptent
 désormais des tailles de papier personnalisées.
 
@@ -685,7 +813,7 @@ La valeur par défaut de l'option @code{aux-files} est désormais fixée
 et @file{.texi}, il faut désormais specifier explicitement l'option
 @code{-daux-files}. Les formats pour les images @code{lilypond-book}
 peuvent se définir séparément selon qu'il s'agit de la page (donc une
-sorie PNG pour du format HTML) ou des images indépendantes par système
+sortie PNG pour du format HTML) ou des images indépendantes par système
 (pour des formats imprimables EPS ou PDF) à l'aide respectivement des
 sous-options @code{-dtall-page-formats} et
 @code{-dseparate-page-formats}.
@@ -773,6 +901,26 @@ ne peuvent s'utiliser de dans un @samp{\midi} se créent à l'aide de
 @code{make-performer}. Ces macros fontionnent tout comme la macro
 préexistante @code{make-engraver} qui permet de créer un graveur,
 uniquement utilisable dans un @samp{\layout}.
+
+@item
+Les nouvelles propriétés @code{show-horizontal-skylines} et
+@code{show-vertical-skylines} permettent d'afficher les lignes d'horizon
+d'un objet. Ces propriétés sont beaucoup plus flexibles que d'utiliser
+l'option @code{debug-skylines} dans la mesure où elles sont
+opérationnelles avec tous les objets graphiques. Bien que prévu à
+l'origine pour le débogage de LilyPond, ceci s'avère fort utile lorsque
+l'on tente de comprendre les décisions en matière d'espacement ou la
+modification de stencils en Scheme.
+
+@lilypond[quote]
+#(set-global-staff-size 40)
+
+{
+  \override Staff.Clef.show-vertical-skylines = ##t
+  \override Accidental.show-horizontal-skylines = ##t
+  cis'
+}
+@end lilypond
 
 @end itemize
 
