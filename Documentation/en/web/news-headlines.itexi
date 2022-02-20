@@ -11,18 +11,18 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@ref{News, LilyPond 2.22.1 released - @emph{April 25, 2021}}
+@ref{News, LilyPond 2.22.2 released - @emph{February 22, 2022}}
 
-@ref{News, LilyPond 2.23.2 released - @emph{April 11, 2021}}
+@ref{News, LilyPond 2.23.6 released - @emph{February 06, 2022}}
 
 @end ifclear
 @ifset web_version
   @c anchor links, link to individual news items by their <a> tag
 
-@uref{news.html#LilyPond-2_002e22_002e1-released-April-25_002c-2021,
-  LilyPond 2.22.1 released - @emph{April 25, 2021}}
+@uref{news.html#LilyPond-2_002e22_002e2-released-February-22_002c-2022,
+  LilyPond 2.22.2 released - @emph{February 22, 2022}}
 
-@uref{news.html#LilyPond-2_002e23_005e2-released-April-11_002c-2021,
-  LilyPond 2.23.2 released - @emph{April 11, 2021}}
+@uref{news.html#LilyPond-2_002e23_005e6-released-February-06_002c-2022,
+  LilyPond 2.23.6 released - @emph{February 06, 2021}}
 
 @end ifset

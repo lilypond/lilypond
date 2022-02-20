@@ -9,15 +9,15 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
-@subheading LilyPond 2.22.1 released!  @emph{April 25, 2021}
+@subheading LilyPond 2.22.2 released!  @emph{February 22, 2022}
 
-We are proud to announce the release of GNU LilyPond 2.22.1. LilyPond is a 
-music engraving program devoted to producing the highest-quality sheet music 
-possible. It brings the aesthetics of traditionally engraved music to computer 
-printouts.
+We are proud to announce the release of GNU LilyPond 2.22.2 on 2-22-22. LilyPond
+is a music engraving program devoted to producing the highest-quality sheet
+music possible. It brings the aesthetics of traditionally engraved music to
+computer printouts.
 
 This version includes improvements and fixes since the release of the 
-previous stable release in January 2021.
+previous stable release in April 2021.
 
 @newsEnd
 
