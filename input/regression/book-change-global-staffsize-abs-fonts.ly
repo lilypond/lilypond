@@ -27,7 +27,7 @@ testMusic = {
 
 
 #(set-global-staff-size 20)
-#(define output-suffix "1")
+#(define output-suffix "standard-size")
 \book { \score { \testMusic } }
 
 % This book will be shown in the regression tests/collated files:

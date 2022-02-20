@@ -24,7 +24,8 @@ When using Cairo, this file only works when using the PostScript format.
 \version "2.21.0"
 
 #(ly:set-option 'clip-systems)
-#(define output-suffix "1")
+#(define clip-input-suffix "clip-input")
+#(define output-suffix clip-input-suffix)
 
 origScore = \score{
     \relative {
@@ -76,7 +77,7 @@ origScore = \score{
 
 clipname = "from-2.0.1-to-4.0.1-clip.eps"
 
-clipMarkup = \markup { \epsfile #X #30.0 #(format #f "~a-1-~a" (ly:parser-output-name) clipname) }
+clipMarkup = \markup { \epsfile #X #30.0 #(format #f "~a-~a-~a" (ly:parser-output-name) clip-input-suffix clipname) }
 
 \book {
   \score { \origScore }
