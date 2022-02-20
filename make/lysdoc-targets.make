@@ -16,11 +16,12 @@ lysdoc-test:
 #       Creating collated-files.texi also produces the tested output.
 #       Removing it works around incomplete dependencies.
 	rm -f $(outdir)/collated-files.texi
-	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="$(LOCAL_LILYPOND_FLAGS) \
--dseparate-page-formats=ps $(LILYPOND_JOBS) -dseparate-log-files \
+	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="$(LILYPOND_JOBS) -dseparate-log-files \
+-dseparate-page-formats=ps \
 -dinclude-eps-fonts -dgs-load-fonts --header=texidoc \
 -I $(top-src-dir)/Documentation/included/ -dcheck-internal-types \
--ddump-signatures -danti-alias-factor=1" \
+-ddump-signatures -danti-alias-factor=1 \
+$(LOCAL_LILYPOND_FLAGS)" \
 		LILYPOND_BOOK_WARN= \
 		LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb \
 		$(outdir)/collated-files.html 
