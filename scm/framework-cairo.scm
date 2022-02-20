@@ -21,6 +21,6 @@
 
 (define-public output-stencils ly:cairo-output-stencils)
 
-;; TODO - implement output-clipped-systems 
+;; TODO - implement output-clipped-systems
 
 (define-public output-stencil ly:cairo-output-stencil)

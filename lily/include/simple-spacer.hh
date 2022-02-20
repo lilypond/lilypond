@@ -52,7 +52,7 @@ private:
   Solution expand_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
   Solution compress_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
   Real rod_force (vsize left, vsize right, Real dist) const;
-  // Maximum force that causes any spring to block.  
+  // Maximum force that causes any spring to block.
   Real range_max_block_force (vsize left, vsize right) const;
 
   std::vector<Spring> springs_;

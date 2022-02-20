@@ -199,7 +199,7 @@ session has started."
            (is-parser? (cadr p))
            (var (caddr p))
            (val (cdddr p)))
-       
+
        (variable-set! var val)
        (if is-parser?
            (module-add! (current-module) sym var)
@@ -270,7 +270,7 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
-    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes") 
+    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes")
     (debug-gc-assert-parsed-dead #f
                                  "For internal use.")
     (debug-lexer #f
@@ -414,7 +414,7 @@ a symbol containing as comma-separated
 formats")
     (use-paper-size-for-page #t "Set page stencil size to paper size defined in
 \\paper. If unset, the size of the page stencil will be
-defined by the extents of its contents.") 
+defined by the extents of its contents.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e., loglevel at least DEBUG
 (read-only).")

@@ -119,7 +119,7 @@ grestore
                       size
                       cid?
                       w-x-y-named-glyphs
-                      file-name 
+                      file-name
                       face-index
                       text clusters)
   (define (glyph-spec w h x y g) ; h not used

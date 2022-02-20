@@ -743,7 +743,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 (define (warn-formats formats)
   (if (member "svg" formats)
       (ly:warning (_ "PS backend does not support SVG format"))))
-  
+
 (define-public (output-stencils basename stencils header paper formats)
   (warn-formats formats)
   (let* ((port (make-tmpfile basename))

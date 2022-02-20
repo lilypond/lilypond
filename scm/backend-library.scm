@@ -497,7 +497,7 @@ created."
                        score-system-list))))
 
 (define (generate-system-stencils paper-book)
-  "Generate list of stencils for lilypond-book output" 
+  "Generate list of stencils for lilypond-book output"
   (let*
       ((stencils (map paper-system-stencil
                       (ly:paper-book-systems paper-book)))

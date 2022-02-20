@@ -44,7 +44,7 @@ class Pango_font : Preinit_Pango_font, public Font_metric
                       std::string const &file_name,
                       FT_Face ftface,
                       bool *cid_keyed) const;
-  
+
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,

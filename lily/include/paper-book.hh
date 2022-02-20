@@ -49,7 +49,7 @@ private:
 
   void output_stencils (SCM, SCM, SCM);
   void output_stencil (SCM, SCM, SCM);
-  
+
   Paper_book *parent_;
   Output_def *paper_;
 public:
