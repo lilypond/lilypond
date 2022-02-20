@@ -15,6 +15,8 @@ the results.
 
 The result will be files named
 @file{@var{base}-from-@var{start}-to-@var{end}[-@var{count}].eps}.
+
+When using Cairo, this file only works when using the PostScript format.
 "
 
 }
@@ -75,13 +77,6 @@ origScore = \score{
 clipname = "from-2.0.1-to-4.0.1-clip.eps"
 
 clipMarkup = \markup { \epsfile #X #30.0 #(format #f "~a-1-~a" (ly:parser-output-name) clipname) }
-
-% Not supported in the cairo backend. Allow compiling
-% input/regression/*.ly by substituting the \epsfile markup
-
-#(if (eq? (ly:get-option 'backend) 'cairo)
-  (set! clipMarkup "WARNING: clip-systems not supported under cairo"))
-
 
 \book {
   \score { \origScore }
