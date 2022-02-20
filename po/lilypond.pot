@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.22.1\n"
+"Project-Id-Version: lilypond 2.22.2\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2021-04-24 14:34+0100\n"
+"POT-Creation-Date: 2022-02-20 11:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Encountered unprocessed marker %s\n"
 msgstr ""
 
-#: abc2ly.py:1450 convert-ly.py:88 lilypond-book.py:142 midi2ly.py:1153
+#: abc2ly.py:1450 convert-ly.py:89 lilypond-book.py:142 midi2ly.py:1153
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
@@ -904,12 +904,12 @@ msgid ""
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1459 convert-ly.py:95 etf2ly.py:1233 lilypond-book.py:250
+#: abc2ly.py:1459 convert-ly.py:96 etf2ly.py:1233 lilypond-book.py:250
 #: midi2ly.py:1205 musicxml2ly.py:2912 main.cc:210
 msgid "show version number and exit"
 msgstr ""
 
-#: abc2ly.py:1462 convert-ly.py:99 etf2ly.py:1229 lilypond-book.py:162
+#: abc2ly.py:1462 convert-ly.py:100 etf2ly.py:1229 lilypond-book.py:162
 #: midi2ly.py:1172 musicxml2ly.py:2893 main.cc:165
 msgid "show this help and exit"
 msgstr ""
@@ -930,126 +930,126 @@ msgstr ""
 msgid "suppress progress messages"
 msgstr ""
 
-#: abc2ly.py:1477 convert-ly.py:161 etf2ly.py:1243 lilypond-book.py:277
+#: abc2ly.py:1477 convert-ly.py:162 etf2ly.py:1243 lilypond-book.py:277
 #: midi2ly.py:1217 musicxml2ly.py:3056
 #, python-format
 msgid "Report bugs via %s"
 msgstr ""
 
-#: convert-ly.py:47
+#: convert-ly.py:48
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
 "version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 
-#: convert-ly.py:50
+#: convert-ly.py:51
 msgid "If FILE is `-', read from standard input."
 msgstr ""
 
-#: convert-ly.py:52 lilypond-book.py:92
+#: convert-ly.py:53 lilypond-book.py:92
 msgid "Examples:"
 msgstr ""
 
-#: convert-ly.py:81 etf2ly.py:1215 lilypond-book.py:135 midi2ly.py:87
+#: convert-ly.py:82 etf2ly.py:1215 lilypond-book.py:135 midi2ly.py:87
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr ""
 
-#: convert-ly.py:83 etf2ly.py:1217 lilypond-book.py:137 midi2ly.py:89
+#: convert-ly.py:84 etf2ly.py:1217 lilypond-book.py:137 midi2ly.py:89
 msgid "Distributed under terms of the GNU General Public License."
 msgstr ""
 
-#: convert-ly.py:84 etf2ly.py:1218 lilypond-book.py:138 midi2ly.py:90
+#: convert-ly.py:85 etf2ly.py:1218 lilypond-book.py:138 midi2ly.py:90
 msgid "It comes with NO WARRANTY."
 msgstr ""
 
-#: convert-ly.py:103 convert-ly.py:145
+#: convert-ly.py:104 convert-ly.py:146
 msgid "VERSION"
 msgstr ""
 
-#: convert-ly.py:106
+#: convert-ly.py:107
 msgid "start from VERSION [default: \\version found in file]"
 msgstr ""
 
-#: convert-ly.py:109
+#: convert-ly.py:110
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:113 lilypond-book.py:197 musicxml2ly.py:2950
+#: convert-ly.py:114 lilypond-book.py:197 musicxml2ly.py:2950
 msgid ""
 "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
-#: convert-ly.py:115 lilypond-book.py:186 lilypond-book.py:199
+#: convert-ly.py:116 lilypond-book.py:186 lilypond-book.py:199
 #: musicxml2ly.py:2952 main.cc:188
 msgid "LOGLEVEL"
 msgstr ""
 
-#: convert-ly.py:121
+#: convert-ly.py:122
 msgid "do not add \\version command if missing"
 msgstr ""
 
-#: convert-ly.py:127
+#: convert-ly.py:128
 #, python-format
 msgid "force updating \\version number to %s"
 msgstr ""
 
-#: convert-ly.py:133
+#: convert-ly.py:134
 msgid "only update \\version number if file is modified"
 msgstr ""
 
-#: convert-ly.py:139
+#: convert-ly.py:140
 #, python-format
 msgid "show rules [default: -f 0, -t %s]"
 msgstr ""
 
-#: convert-ly.py:144
+#: convert-ly.py:145
 #, python-format
 msgid "convert to VERSION [default: %s]"
 msgstr ""
 
-#: convert-ly.py:151
+#: convert-ly.py:152
 msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
-#: convert-ly.py:156 etf2ly.py:1237 lilypond-book.py:253 midi2ly.py:1206
+#: convert-ly.py:157 etf2ly.py:1237 lilypond-book.py:253 midi2ly.py:1206
 #: main.cc:218
 msgid "show warranty and copyright"
 msgstr ""
 
-#: convert-ly.py:203
+#: convert-ly.py:204
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:222
+#: convert-ly.py:223
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:224
+#: convert-ly.py:225
 msgid "Stopping at last successful rule"
 msgstr ""
 
-#: convert-ly.py:269
+#: convert-ly.py:270
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:281
+#: convert-ly.py:282
 msgid "Attempting conversion from `latin1'..."
 msgstr ""
 
-#: convert-ly.py:388
+#: convert-ly.py:395
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:394
+#: convert-ly.py:401
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:397
+#: convert-ly.py:404
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1057,7 +1057,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:403
+#: convert-ly.py:410
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -3418,12 +3418,12 @@ msgstr ""
 msgid "discarding event: `%s'"
 msgstr ""
 
-#: system.cc:195
+#: system.cc:200
 #, c-format
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:529
+#: system.cc:534
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
@@ -3882,7 +3882,7 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-grobs.scm:2994
+#: define-grobs.scm:2993
 #, scheme-format
 msgid "Unknown class ~a"
 msgstr ""
@@ -4591,19 +4591,19 @@ msgstr ""
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
-#: scheme-engravers.scm:96
+#: scheme-engravers.scm:98
 msgid "measure count left unfinished"
 msgstr ""
 
-#: scheme-engravers.scm:111
+#: scheme-engravers.scm:113
 msgid "cannot find start of measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:145
+#: scheme-engravers.scm:147
 msgid "unterminated measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:541
+#: scheme-engravers.scm:543
 msgid "unterminated DurationLine"
 msgstr ""
 
