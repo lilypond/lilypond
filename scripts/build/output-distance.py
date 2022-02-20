@@ -1078,6 +1078,8 @@ def test_compare_tree_pairs():
             "dir2/20grob-1.png",
             "dir1/20grob-2.png",
             "dir2/20grob-2.png",
+            "dir2/added-1.png",
+            "dir1/removed-1.png",
             "style.css",
     ]:
         fn = os.path.join("compare-dir1dir2", f)
