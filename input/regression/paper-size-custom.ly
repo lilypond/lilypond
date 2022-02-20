@@ -9,7 +9,3 @@
   \score { c''2 }
 }
 
-\book {
-  \paper { #(set-paper-size '(cons (* 4 in) (* 70 pt)) 'landscape) }
-  \score { c''2 }
-}
