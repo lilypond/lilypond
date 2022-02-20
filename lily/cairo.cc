@@ -662,32 +662,45 @@ Cairo_outputter::create_surface (Stencil const *stencil)
 
   message (_f ("Layout output to `%s'...\n", filename_.c_str ()));
 
-  Interval x = stencil->extent (X_AXIS);
-  Interval y = stencil->extent (Y_AXIS);
+  Box b = stencil->extent_box ();
+  for (const auto a : {X_AXIS, Y_AXIS})
+    for (const auto d : {LEFT, RIGHT})
+      if (std::isinf (b[a][d]))
+        b[a][d] = 0.0;
+
   if (use_left_margin_)
-    x.add_point (left_margin_);
+    b[X_AXIS].add_point (left_margin_);
 
-  Real paper_width = x.length ();
-  Real paper_height = y.length ();
+  // Round up the size to an integral number of bigpoints (see also framework-ps.scm)
+  Box scaled_box = b;
+  scaled_box.scale (scale_factor_);
+  for (const auto a : {X_AXIS, Y_AXIS})
+    scaled_box[a][LEFT] = std::floor (scaled_box[a][LEFT]);
+  for (const auto a : {X_AXIS, Y_AXIS})
+    scaled_box[a][RIGHT]
+      = std::ceil (std::max (scaled_box[a][RIGHT],
+                             // Make sure that the box is at least 1 staff-space
+                             // in either direction.
+                             scaled_box[a][LEFT] + scale_factor_));
 
-  paper_width *= scale_factor_;
-  paper_height *= scale_factor_;
-
-  // TODO: round up paper extents to nearest bigpoint.
+  b = scaled_box;
+  b.scale (1 / scale_factor_);
   if (format_ == PNG)
     {
-      surface_ = new Png_surface (filename_, paper_width, paper_height);
+      surface_ = new Png_surface (filename_, scaled_box[X_AXIS].length (),
+                                  scaled_box[Y_AXIS].length ());
     }
   else
     {
       surface_
-        = new Vanilla_surface (format_, filename_, paper_width, paper_height);
+        = new Vanilla_surface (format_, filename_, scaled_box[X_AXIS].length (),
+                               scaled_box[Y_AXIS].length ());
     }
 
   surface_->set_original_extent (Offset (stencil->extent (X_AXIS).length (),
                                          stencil->extent (Y_AXIS).length ()));
   cairo_scale (context (), scale_factor_, -scale_factor_);
-  cairo_translate (context (), -x[LEFT], -y[UP]);
+  cairo_translate (context (), -b[X_AXIS][LEFT], -b[Y_AXIS][UP]);
 }
 
 void
