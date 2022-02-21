@@ -1860,6 +1860,38 @@ into modern notation.  See also @iref{KievanLigature},
                  (description . "A hyphen in lyrics.  See also
 @iref{VowelTransition}.")))))
 
+    (LyricRepeatCount
+     . (
+        (break-align-symbols . (staff-bar breathing-sign))
+        (break-visibility . ,begin-of-line-invisible)
+        (extra-spacing-width . (-1.0 . 1.0))
+        ;; Recede in height for purposes of note spacing,
+        ;; so notes in melismata can be freely spaced above lyrics
+        (extra-spacing-height . (0.2 . -0.2))
+        (font-series . medium)
+        (font-shape . italic)
+        (font-size . 1.0)
+        (non-musical . #t)
+        ;; To help communicate that the count describes the section
+        ;; that is ending, keep it left of center at a double repeat.
+        (parent-alignment-X . ,CENTER)
+        (self-alignment-X . ,RIGHT)
+        (stencil . ,lyric-text::print)
+        (text . ,(grob::calc-property-by-copy 'text))
+        (word-space . 0.6)
+        (skyline-horizontal-padding . 0.1)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (description . "A repeat count in lyrics.")
+                 (interfaces . (break-alignable-interface
+                                font-interface
+                                lyric-interface
+                                lyric-repeat-count-interface
+                                self-alignment-interface
+                                text-interface))))))
+
     (LyricSpace
      . (
         (minimum-distance . 0.45)

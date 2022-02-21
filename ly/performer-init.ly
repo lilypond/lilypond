@@ -178,6 +178,7 @@
   \accepts FiguredBass
   \accepts FretBoards
   \accepts GrandStaff
+  \accepts GregorianTranscriptionLyrics
   \accepts GregorianTranscriptionStaff
   \accepts KievanStaff
   \accepts Lyrics
@@ -264,6 +265,7 @@
   \accepts Dynamics
   \accepts FiguredBass
   \accepts GrandStaff
+  \accepts GregorianTranscriptionLyrics
   \accepts GregorianTranscriptionStaff
   \accepts KievanStaff
   \accepts Lyrics
@@ -337,6 +339,12 @@
 }
 
 \context {
+  \Lyrics
+  \name GregorianTranscriptionLyrics
+  \alias Lyrics
+}
+
+\context {
   \type "Performer_group"
   \consists "Staff_performer"
   \name NoteNames
@@ -360,6 +368,7 @@
   \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "FretBoards"
+  \accepts "GregorianTranscriptionLyrics"
   \accepts "GregorianTranscriptionStaff"
   \accepts "KievanStaff"
   \accepts "Lyrics"

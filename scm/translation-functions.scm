@@ -143,6 +143,15 @@ way the transposition number is displayed."
                            (make-line-markup (list "al" end-markup)))))))
     result))
 
+(define-public (make-lyric-repeat-count-formatter options)
+  ;; Appending 'medium to the options defeats the default 'bold of
+  ;; format-mark-generic while still allowing the user to request
+  ;; bold.
+  (let ((mark-formatter (format-mark-generic (append options '(medium)))))
+    (lambda (context repeat-count)
+      (if (positive? repeat-count)
+          (mark-formatter repeat-count context)))))
+
 (define-public (format-mark-generic options)
   ;; Select "alphabet", frame, font-series, letter-case and double letter behaviour
   ;; from options list; if none is given, default to first available.

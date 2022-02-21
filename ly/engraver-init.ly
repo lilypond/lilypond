@@ -336,6 +336,7 @@ multiple voices on the same staff."
   \accepts "FiguredBass"
   \accepts "FretBoards"
   \accepts "GrandStaff"
+  \accepts "GregorianTranscriptionLyrics"
   \accepts "GregorianTranscriptionStaff"
   \accepts "KievanStaff"
   \accepts "Lyrics"
@@ -399,6 +400,7 @@ contained staves are not connected vertically."
   \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "FretBoards"
+  \accepts "GregorianTranscriptionLyrics"
   \accepts "GregorianTranscriptionStaff"
   \accepts "KievanStaff"
   \accepts "Lyrics"
@@ -497,6 +499,12 @@ printing of a single line of lyrics."
   %% Bar_engraver is there.
   \override BarLine.bar-extent = #'(-0.05 . 0.05)
 
+  %% The use case for LyricRepeatCount is Gregorian chant.  In other
+  %% genres, a "Sing N times" instruction or a volta bracket over a
+  %% singleton alternative would be clearer, so we don't expect this
+  %% to be used, but we want a sane default regardless.
+  lyricRepeatCountFormatter = #(make-lyric-repeat-count-formatter
+                                '(lowercase roman-ij dot))
 }
 
 \context {
@@ -612,6 +620,7 @@ run."
   \accepts "FiguredBass"
   \accepts "FretBoards"
   \accepts "GrandStaff"
+  \accepts "GregorianTranscriptionLyrics"
   \accepts "GregorianTranscriptionStaff"
   \accepts "KievanStaff"
   \accepts "Lyrics"
@@ -1090,6 +1099,22 @@ of Editio Vaticana."
   \alias "Staff"
   \accepts "GregorianTranscriptionVoice"
   \defaultchild "GregorianTranscriptionVoice"
+
+  \description "A staff for notating Gregorian chant in modern style."
+}
+
+\context {
+  \Lyrics
+  \name "GregorianTranscriptionLyrics"
+  \alias "Lyrics"
+
+  \consists "Lyric_repeat_count_engraver"
+
+  %% Let the count use all the space under the finalis signs.
+  \override LyricRepeatCount.parent-alignment-X = #RIGHT
+
+  \description "A lyrics context for notating Gregorian chant in
+modern style."
 }
 
 \context {

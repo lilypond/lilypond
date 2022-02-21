@@ -910,6 +910,39 @@ Engraver to print a BendSpanner.")))
    (description . "\
 Engraver to print a line between two @code{Fingering} grobs.")))
 
+(define (Lyric_repeat_count_engraver context)
+  (let ((end-event '()))
+    (make-engraver
+     (listeners
+      ((volta-repeat-end-event engraver event)
+       (let ((count (ly:event-property event 'repeat-count 0)))
+         ;; TODO: warn if multiple events have conflicting parameters
+         (if (positive? count)
+             (set! end-event event)))))
+
+     ((process-music engraver)
+      (if (ly:stream-event? end-event)
+          (let* ((count (ly:event-property end-event 'repeat-count))
+                 (formatter (ly:context-property
+                             context 'lyricRepeatCountFormatter))
+                 (text (and (procedure? formatter) (formatter context count))))
+            (if (markup? text)
+                (let ((grob (ly:engraver-make-grob
+                             engraver 'LyricRepeatCount end-event)))
+                  (ly:grob-set-property! grob 'text text))))))
+
+     ((stop-translation-timestep engraver)
+      (set! end-event '())))))
+
+(ly:register-translator
+ Lyric_repeat_count_engraver 'Lyric_repeat_count_engraver
+ '((grobs-created . (LyricRepeatCount))
+   (events-accepted . (volta-repeat-end-event))
+   (properties-read . (lyricRepeatCountFormatter))
+   (properties-written . ())
+   (description . "Create repeat counts within lyrics for modern
+transcriptions of Gregorian chant.")))
+
 ; TODO: yet another engraver for alignment... Ultimately, it would be nice to
 ; merge Dynamic_align_engraver, Piano_pedal_align_engraver and
 ; Centered_bar_number_align_engraver.

@@ -452,6 +452,10 @@ denoting alteration.  For alterations, use symbols, e.g.
 
 
      (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
+     (lyricRepeatCountFormatter ,procedure? "A procedure taking as
+arguments the context and the numeric repeat count.  It should return
+the formatted repeat count as markup.  If it does not return markup,
+no grob is created.")
 
 
      (magnifyStaffValue ,positive? "The most recent value set with

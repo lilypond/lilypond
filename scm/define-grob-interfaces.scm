@@ -348,6 +348,11 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'lyric-repeat-count-interface
+ "A repeat count intended to appear in a line of lyrics."
+ '())
+
+(ly:add-interface
  'lyric-space-interface
  "An invisible object that prevents lyric words from being spaced too closely."
  '())
