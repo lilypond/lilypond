@@ -14,8 +14,8 @@ labels = {
   \time 2/4
   \skip 2 \mark "Meas."
   \skip 2
-  \skip 2
-  \skip 2
+  \repeat volta 2 \skip 2
+  \repeat volta 2 \skip 2
   \skip 2 \mark "Sec."
   \skip 2
 }
@@ -24,8 +24,8 @@ music = \fixed c' {
   \time 2/4
   c2
   d2
-  e2
-  f2
+  \repeat volta 2 e2
+  \repeat volta 2 f2
   g2
   f2
 }
