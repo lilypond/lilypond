@@ -188,11 +188,6 @@ Repeat_acknowledge_engraver::process_music ()
   SCM wb = get_property (this, "whichBar");
   if (scm_is_string (wb))
     {
-      // Note that we don't distinguish between a measure bar set by the
-      // Default_bar_line_engraver and a measure bar set by the user.
-      forced_bar_type = ly_is_equal (wb, get_property (this, "measureBarType"))
-                        ? BarType::DEFAULT
-                        : BarType::OTHER;
       if (ly_is_equal (wb, get_property (this, "measureBarType"))
           && !from_scm<bool> (get_property (this, "barForced")))
         {
