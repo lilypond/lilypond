@@ -884,14 +884,14 @@ Choices include @code{roman-lower} (the default),
 @code{roman-upper}, @code{arabic}, and @code{custom}.
 For @code{custom}, @var{custom-format} must be present;
 it gets applied to @var{num}."
-  (cond
-   ((equal? number-type 'roman-lower)
+  (case number-type
+   ((roman-lower)
     (ice9-format #f "~(~@r~)" num))
-   ((equal? number-type 'roman-upper)
+   ((roman-upper)
     (ice9-format #f "~@r" num))
-   ((equal? number-type 'arabic)
+   ((arabic)
     (ice9-format #f "~d" num))
-   ((equal? number-type 'custom)
+   ((custom)
     (ice9-format #f (car custom-format) num))
    (else (ice9-format #f "~(~@r~)" num))))
 
