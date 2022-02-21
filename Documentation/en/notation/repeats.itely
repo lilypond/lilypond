@@ -953,12 +953,27 @@ or by printing the relevant bar lines.  For more information, see
 @ref{Bar lines}.}
 
 The property @code{repeatCommands} can be used to control the
-layout of volta-style repeats.  Its value is a Scheme list of
-repeat commands.
+layout of volta-style repeats.  Its value is a Scheme list.  In
+general, each element is itself a list, @code{'(@var{command}
+@var{args@dots{}})}, but a command with no arguments may be
+abbreviated to a symbol; e.g., @code{'((start-@/repeat))} may be
+given as @code{'(start-@/repeat)}.
 
 @table @code
+@item end-repeat
+End a repeated section.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  d4 e f g
+  \set Score.repeatCommands = #'(end-repeat)
+  c1
+}
+@end lilypond
+
 @item start-repeat
-Print a @code{.|:} bar line.
+Start a repeated section.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -972,21 +987,10 @@ Print a @code{.|:} bar line.
 As per standard engraving practice, repeat signs are not printed
 at the beginning of a piece.
 
-@item end-repeat
-Print a @code{:|.} bar line:
-
-@lilypond[verbatim,quote]
-\relative {
-  c''1
-  d4 e f g
-  \set Score.repeatCommands = #'(end-repeat)
-  c1
-}
-@end lilypond
-
-@item (volta @var{number}) @dots{} (volta #f)
-Create a new volta with the specified number.  The volta bracket must
-be explicitly terminated, or it will not be printed.
+@item volta @var{text}
+If @var{text} is markup, start a volta bracket with that label; if
+@var{text} is @code{#f}, end a volta bracket.  A volta bracket
+which is not ended explicitly will not be printed.
 
 @lilypond[verbatim,quote]
 \relative {

@@ -590,9 +590,24 @@ notation.")
      (rehearsalMarkFormatter ,procedure? "A procedure taking as
 arguments the context and the sequence number of the rehearsal mark.
 It should return the formatted mark as a markup object.")
-     (repeatCommands ,list? "This property is a list of commands
-of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
-@code{#f}.  @code{'end-repeat} is also accepted as a command.")
+     (repeatCommands ,list? "A list of commands related to volta-style
+repeats.  In general, each element is a list, @code{'(@var{command}
+@var{args@dots{}})}, but a command with no arguments may be
+abbreviated to a symbol; e.g., @code{'((start-@/repeat))} may be given
+as @code{'(start-@/repeat)}.
+
+@table @code
+@item end-repeat
+End a repeated section.
+
+@item start-repeat
+Start a repeated section.
+
+@item volta @var{text}
+If @var{text} is markup, start a volta bracket with that label; if
+@var{text} is @code{#f}, end a volta bracket.
+
+@end table")
      (repeatCountVisibility ,procedure? "A procedure taking as
 arguments an integer and context, returning whether the corresponding
 percent repeat number should be printed when @code{countPercentRepeats}

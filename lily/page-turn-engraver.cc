@@ -23,6 +23,7 @@
 #include "duration.hh"
 #include "grob.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "paper-column.hh"
 #include "stream-event.hh"
 #include "warn.hh"
@@ -262,13 +263,15 @@ Page_turn_engraver::stop_translation_timestep ()
     }
 
   /* C&P from Repeat_acknowledge_engraver */
-  SCM cs = get_property (this, "repeatCommands");
   bool start = false;
   bool end = false;
 
-  for (; scm_is_pair (cs); cs = scm_cdr (cs))
+  SCM repeat_commands = get_property (this, "repeatCommands");
+  for (SCM command : as_ly_scm_list (repeat_commands))
     {
-      SCM command = scm_car (cs);
+      if (scm_is_pair (command)) // (command option...)
+        command = scm_car (command);
+
       if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
         start = true;
       else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))

@@ -20,6 +20,7 @@
 #include "context.hh"
 #include "engraver.hh"
 #include "lily-imports.hh"
+#include "ly-scm-list.hh"
 #include "translator-group.hh"
 
 #include "translator.icc"
@@ -165,18 +166,18 @@ Repeat_acknowledge_engraver::process_music ()
       if (heard_volta_span_)
         volta_found = true;
 
-      SCM cs = get_property (this, "repeatCommands");
-      while (scm_is_pair (cs))
+      SCM repeat_commands = get_property (this, "repeatCommands");
+      for (SCM command : as_ly_scm_list (repeat_commands))
         {
-          SCM command = scm_car (cs);
+          if (scm_is_pair (command)) // (command option...)
+            command = scm_car (command);
+
           if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
             start = true;
           else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
             end = true;
-          else if (scm_is_pair (command)
-                   && scm_is_eq (scm_car (command), ly_symbol2scm ("volta")))
+          else if (scm_is_eq (command, ly_symbol2scm ("volta")))
             volta_found = true;
-          cs = scm_cdr (cs);
         }
     }
 
