@@ -54,6 +54,19 @@ current stable version of LilyPond, we recommend using the 2.22.1 version.
 @newsEnd
 
 @newsItem
+@subheading LilyPond 2.22.1 released!  @emph{April 25, 2021}
+
+We are proud to announce the release of GNU LilyPond 2.22.1. LilyPond is a
+music engraving program devoted to producing the highest-quality sheet music
+possible. It brings the aesthetics of traditionally engraved music to computer
+printouts.
+
+This version includes improvements and fixes since the release of the
+previous stable release in January 2021.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.23.2 released  @emph{April 11, 2021}
 
 We are happy to announce the release of LilyPond 2.23.2. This is termed a 
