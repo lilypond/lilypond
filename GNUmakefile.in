@@ -216,16 +216,12 @@ tree-share-prefix = $(tree-share)/lilypond/current
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
-doc-clean: snippets-clean $(tree-share-prefix)/lilypond-force
+default: $(config_h) link-tree doc-messages
 
-default: $(config_h) build-dir-setup doc-messages
-
-build-dir-setup: $(tree-share-prefix)/lilypond-force
+link-tree: $(tree-prefix)/lilypond-force
 
 # Preparing LilyPond tree for build-dir exec
-link-tree: $(tree-share-prefix)/lilypond-force
-
-$(tree-share-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
+$(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
 	rm -rf $(tree-bin) $(tree-share)
 	mkdir -p $(tree-bin)
@@ -240,11 +236,11 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSIO
 	cd $(tree-share-prefix) && for i in ly ps python; do \
 		ln -s $(top-src-dir)/$$i; done
 	mkdir -p $(tree-share-prefix)/scm && ln -s $(top-src-dir)/scm $(tree-share-prefix)/scm/lily
-	touch $(tree-share-prefix)/lilypond-force
+	touch $@
 
 link-mf-tree: $(tree-share-prefix)/mf-link-tree
 
-$(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
+$(tree-share-prefix)/mf-link-tree: $(tree-prefix)/lilypond-force
 	$(call ly_progress,Making,$@,)
 	-rm -f $(tree-share-prefix)/fonts/otf/* &&  \
 	rm -f $(tree-share-prefix)/fonts/svg/* &&  \
@@ -263,7 +259,7 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.woff .
-	touch $(tree-share-prefix)/mf-link-tree
+	touch $@
 
 TAGS.make: dummy
 	$(call ly_progress,Making,$@,)
@@ -292,7 +288,7 @@ grand-replace:
 BASELINE_STAMP:=$(top-build-dir)/out-baseline/.test-baseline-done
 RESULT_DIR=$(top-build-dir)/out/test-results
 
-test-pre: $(tree-share-prefix)/lilypond-force
+test-pre: link-tree
 	$(call make_subdirs,python scripts flower lily mf,all)
 
 test: test-pre
@@ -366,6 +362,8 @@ local-check: local-check-pre
 test-clean: test-snippets-clean
 	rm -rf $(RESULT_DIR)
 	$(MAKE) -C input/regression out=test clean
+
+doc-clean: snippets-clean
 
 snippets-clean:
 	rm -rf out/lybook-db
