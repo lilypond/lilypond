@@ -1052,6 +1052,9 @@ of Editio Vaticana."
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
+  %% Match the thickness of divisiones to the staff lines.
+  \override BreathingSign.thickness = #1
+
   \override StaffSymbol.line-count = #4
   \override StaffSymbol.thickness = #0.6
 
@@ -1152,6 +1155,9 @@ accommodated for typesetting a piece in mensural style."
   %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
+
+  %% Match the thickness of divisiones to the staff lines.
+  \override BreathingSign.thickness = #1
 
   \override StaffSymbol.thickness = #0.6
 

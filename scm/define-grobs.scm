@@ -657,6 +657,10 @@ time signature follows or precedes a bar line).")))))
                         (right-edge . (extra-space . 0.1))))
         (stencil . ,ly:text-interface::print)
         (text . ,(make-musicglyph-markup "scripts.rcomma"))
+        ;; Thickness applies to Gregorian divisiones.  This default is
+        ;; the same as BarLine.hair-thickness to allow them to blend
+        ;; into modern contexts.
+        (thickness . 1.9)
         (Y-offset . ,(ly:make-unpure-pure-container ly:breathing-sign::offset-callback))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
