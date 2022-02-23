@@ -94,6 +94,13 @@ refresh-release-files:
 
 local-clean: local-clean-filelist
 
+# Guile bytecode
+bytecode: | all
+	$(MAKE) -C scm bytecode
+
+install-bytecode: | install
+	$(MAKE) -C scm install-bytecode
+
 # PO files
 
 po:
@@ -207,11 +214,13 @@ all-doc:
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
+tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
 
 # Don't put version numbers here. During development
 # they make no sense, and cause EPS files to become invalid.
 
+tree-lib-prefix = $(tree-lib)/lilypond/current
 tree-share-prefix = $(tree-share)/lilypond/current
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
@@ -223,8 +232,9 @@ link-tree: $(tree-prefix)/lilypond-force
 # Preparing LilyPond tree for build-dir exec
 $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
-	rm -rf $(tree-bin) $(tree-share)
+	rm -rf $(tree-bin) $(tree-lib) $(tree-share)
 	mkdir -p $(tree-bin)
+	mkdir -p $(tree-lib-prefix)
 	mkdir -p $(tree-share-prefix)
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -233,6 +243,8 @@ $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
+	mkdir -p $(tree-lib-prefix)/ccache && \
+		ln -s ../../../../../scm/$(outconfbase)/ $(tree-lib-prefix)/ccache/lily
 	cd $(tree-share-prefix) && for i in ly ps python; do \
 		ln -s $(top-src-dir)/$$i; done
 	mkdir -p $(tree-share-prefix)/scm && ln -s $(top-src-dir)/scm $(tree-share-prefix)/scm/lily
