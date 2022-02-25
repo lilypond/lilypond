@@ -452,7 +452,7 @@ messages into errors.")
 
 (use-modules (ice-9 regex)
              (ice-9 safe)
-             (ice-9 format)
+             ((ice-9 format) #:select ((format . ice9-format)))
              (ice-9 rdelim)
              (ice-9 optargs)
              (oop goops)
@@ -479,7 +479,6 @@ messages into errors.")
 ;; into Guile base code, like (ice-9 syncase).
 ;;
 
-(define ice9-format format)
 (define format simple-format)
 
 
