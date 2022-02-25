@@ -51,7 +51,7 @@ Entry point for the parser."
             (set! mods (cddr mods))))
       (if (pair? mods)
           (ly:parser-error
-           (format #f (_ "Spurious garbage following chord: ~A") mods)))
+           (format #f (G_ "Spurious garbage following chord: ~A") mods)))
       chord)
 
     (define (interpret-removals  chord mods)

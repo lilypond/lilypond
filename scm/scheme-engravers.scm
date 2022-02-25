@@ -124,7 +124,7 @@ longer needed."
                 (if start-event
                     (if go?
                         (ly:event-warning start-event
-                                          (_ "count not ended before another begun"))
+                                          (G_ "count not ended before another begun"))
                         (set! go? #t)))
                 ;; If count is in progress, begin a count-spanner.
                 (if go?
@@ -159,7 +159,7 @@ longer needed."
             (set! go? #f)
             (ly:grob-suicide! count-spanner)
             (set! count-spanner '())
-            (ly:warning (_ "measure count left unfinished"))))))))
+            (ly:warning (G_ "measure count left unfinished"))))))))
 
 (define-public (Measure_spanner_engraver context)
   (let ((span '())
@@ -174,7 +174,7 @@ longer needed."
      ((process-music trans)
       (if (ly:stream-event? event-stop)
           (if (null? span)
-              (ly:warning (_ "cannot find start of measure spanner"))
+              (ly:warning (G_ "cannot find start of measure spanner"))
               (begin
                 (set! finished span)
                 (ly:engraver-announce-end-grob trans finished event-start)
@@ -208,7 +208,7 @@ longer needed."
             (set! finished '())))
       (if (ly:spanner? span)
           (begin
-            (ly:warning (_ "unterminated measure spanner"))
+            (ly:warning (G_ "unterminated measure spanner"))
             (ly:grob-suicide! span)
             (set! span '())))))))
 
@@ -585,7 +585,7 @@ one voice.")))
           (begin
             (for-each
              (lambda (dur-line)
-               (ly:warning (_ "unterminated DurationLine"))
+               (ly:warning (G_ "unterminated DurationLine"))
                (ly:grob-suicide! dur-line))
              current-dur-grobs)
             (set! current-dur-grobs #f)
@@ -733,7 +733,7 @@ Engraver to print a line representing the duration of a rhythmic event like
                                (set! previous-bend-dir current-bend-dir)
                                (set! bend-spanner #f))
                              (begin
-                               (ly:warning (_ "No notes found to start from,
+                               (ly:warning (G_ "No notes found to start from,
 ignoring. If you want to bend an open string, consider to override/tweak the
 'bend-me property."))
                                (ly:grob-suicide! bend-spanner)))))
@@ -767,7 +767,7 @@ ignoring. If you want to bend an open string, consider to override/tweak the
           ;; final house-keeping
           (if bend-spanner
               (begin
-                (ly:warning (_ "Unbound BendSpanner, ignoring"))
+                (ly:warning (G_ "Unbound BendSpanner, ignoring"))
                 (ly:grob-suicide! bend-spanner)
                 (ly:context-set-property! context 'stringFretFingerList '())
                 (set! bend-spanner #f)

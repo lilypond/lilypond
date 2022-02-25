@@ -1887,7 +1887,7 @@ middle of the topmost note head of its bounding note column."
 
     (if (middle-broken-spanner? bend-spanner)
         (ly:warning
-            (_ "~a with two line-breaks is not yet supported")
+            (G_ "~a with two line-breaks is not yet supported")
             bend-spanner))
 
     (if (unbroken-or-first-broken-spanner? bend-spanner)
@@ -2206,7 +2206,7 @@ representing the amount a string is bent."
       ;; fool-proof, the user may have set a non-integer by accident
       ((not (integer? factor))
         (begin
-          (ly:warning (_ "Factor ~a needs to be an integer value." factor))
+          (ly:warning (G_ "Factor ~a needs to be an integer value." factor))
           (ly:grob-suicide! grob)))
       (else
         (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
@@ -2818,7 +2818,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
               empty-stencil)))
 
     (if (>  left-start right-end)
-        (ly:warning (_ "Please consider to increase 'minimum-length")))
+        (ly:warning (G_ "Please consider to increase 'minimum-length")))
 
     ;;;;;;;;;;;;;;;;;;;;
     ;;;; final alist

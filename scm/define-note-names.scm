@@ -1410,12 +1410,12 @@
  '((català catalan) (español espanol) (português portugues)))
 
 (define-public (note-names-language str)
-  (_ "Select note names language.")
+  (G_ "Select note names language.")
   (let ((alist (assoc-get (string->symbol str)
                           language-pitch-names
                           '())))
     (if (pair? alist)
         (begin
-          (ly:debug (_ "Using `~a' note names...") str)
+          (ly:debug (G_ "Using `~a' note names...") str)
           (ly:parser-set-note-names alist))
-        (ly:warning (_ "Could not find language `~a'.  Ignoring.") str))))
+        (ly:warning (G_ "Could not find language `~a'.  Ignoring.") str))))

@@ -340,7 +340,7 @@ bookoutput function"
                        (begin
                          (ly:music-warning
                           music
-                          (_ "Music unsuitable for context-mod"))
+                          (G_ "Music unsuitable for context-mod"))
                          (set! warn #f)))))))))
     mods))
 
@@ -348,7 +348,7 @@ bookoutput function"
   (define (checkmods mods)
     (or mods
         (begin
-          (ly:music-warning music (_ "Cannot determine contexts to modify"))
+          (ly:music-warning music (G_ "Cannot determine contexts to modify"))
           (ly:make-context-mod))))
   (let ((warn #t))
     (let loop ((m music) (mods #f))
@@ -399,7 +399,7 @@ bookoutput function"
                (if (null? defs)
                    (ly:music-warning
                     music
-                    (format #f (_ "Cannot find context-def \\~a")
+                    (format #f (G_ "Cannot find context-def \\~a")
                                (ly:music-property m 'context-type)))
                    (for-each
                     (lambda (entry)
@@ -415,7 +415,7 @@ bookoutput function"
                        (begin
                          (ly:music-warning
                           music
-                          (_ "Music unsuitable for output-def"))
+                          (G_ "Music unsuitable for output-def"))
                          (set! warn #f))))))))
       mods)))
 
@@ -941,11 +941,11 @@ emitted and the version is considered invalid."
      ((or (not version)
           ;; Are the components actually numbers?
           (not (every identity version)))
-      (ly:non-fatal-error (_ "Invalid version string \"~a\"")
+      (ly:non-fatal-error (G_ "Invalid version string \"~a\"")
                           str)
       #f)
      ((ly:version? < version)
-      (ly:non-fatal-error (_ "program too old: ~a (file requires: ~a)")
+      (ly:non-fatal-error (G_ "program too old: ~a (file requires: ~a)")
                           (lilypond-version)
                           str)
       ;; Must consider invalid so that the lexer will emit the error
@@ -961,7 +961,7 @@ emitted and the version is considered invalid."
   (match (ly:version)
    ((major minor . rest)
     (format #f
-            (_ "\
+            (G_ "\
 
 Note: compilation failed and \\version outdated, did you
 update input syntax with convert-ly?
@@ -1210,7 +1210,7 @@ print a warning and set an optional @var{default}."
   (cond
    ((equal? (ly:unit) "mm") (/ 72.0 25.4))
    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
-   (else (ly:error (_ "unknown unit: ~S") (ly:unit)))))
+   (else (ly:error (G_ "unknown unit: ~S") (ly:unit)))))
 
 (define-public lily-unit->mm-factor
   (* 25.4 (/ lily-unit->bigpoint-factor 72)))
@@ -1235,7 +1235,7 @@ print a warning and set an optional @var{default}."
 (define-public (version-not-seen-message input-file-name)
   (ly:warning-located
    (format #f "~a:1" input-file-name)
-   (_ "no \\version statement found, please add~afor future compatibility")
+   (G_ "no \\version statement found, please add~afor future compatibility")
    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
 
 (define-public (output-module? module)

@@ -24,11 +24,11 @@
              (ice-9 optargs))
 
 (define-public (ly:system command)
-  (ly:debug (_ "Invoking `~a'...") (string-join command))
+  (ly:debug (G_ "Invoking `~a'...") (string-join command))
   (let ((status (apply ly:spawn command)))
     (if (> status 0)
         (begin
-          (ly:warning (_ "`~a' failed (~a)\n") command status)
+          (ly:warning (G_ "`~a' failed (~a)\n") command status)
           ;; hmmm.  what's the best failure option?
           (throw 'ly-file-failed)))))
 
@@ -49,7 +49,7 @@
     (cond-expand
      (guile-2 (set-port-encoding! tmp "UTF-8"))
      (else))
-    (ly:debug (_ "Preparing Ghostscript command to `~a': ~a")
+    (ly:debug (G_ "Preparing Ghostscript command to `~a': ~a")
               tmp-name run-str)
     (display run-str tmp)
     (close-port tmp)
@@ -135,7 +135,7 @@
                    (gs-safe-run tmp-name)))
           ))
 
-    (ly:message (_ "Converting to `~a'...\n") dest)
+    (ly:message (G_ "Converting to `~a'...\n") dest)
     ((if (ly:get-option 'gs-api) ly:gs-api ly:gs-cli)
      (gs-cmd-args is-eps #f) (string-join run-strings " "))
 
@@ -162,7 +162,7 @@
                                 base-name tmp-name is-eps)
   ;; Do not try to guess the name of the png file,
   ;; GS produces PNG files like BASE-page%d.png.
-  (ly:message (_ "Converting to ~a...") "PNG")
+  (ly:message (G_ "Converting to ~a...") "PNG")
   ;; If option `png-width` and/or `png-height` is set, `resolution`
   ;; is ignored.
   (make-ps-images base-name tmp-name is-eps
@@ -181,7 +181,7 @@
                                  (if is-eps ".eps" ".ps"))))
     (if (not (equal? ps-name tmp-name))
         (begin
-          (ly:message (_ "Copying to `~a'...\n") ps-name)
+          (ly:message (G_ "Copying to `~a'...\n") ps-name)
           (copy-binary-file tmp-name ps-name)))))
 
 (define-public (mkdir-if-not-exist path . mode)
@@ -293,7 +293,7 @@ created."
 
               (inner dir (1- tries))))
 
-        (ly:error (_ "can't create temp file in ~a after ~a times") dir max-try)
+        (ly:error (G_ "can't create temp file in ~a after ~a times") dir max-try)
         ))
 
   (if (not dir)
@@ -329,7 +329,7 @@ created."
   (let* ((write-file (lambda (str-port ext)
                            (let* ((name (format #f "~a-systems.~a" basename ext))
                                   (port (make-tmpfile (dirname basename))))
-                             (ly:message (_ "Writing ~a...") name)
+                             (ly:message (G_ "Writing ~a...") name)
                              (display (get-output-string str-port) port)
                              (close-port-rename port name))))
          (tex-system-port (open-output-string))
@@ -374,7 +374,7 @@ created."
   (set! key (symbol->string key))
   (if (not (equal? "-" file-name))
       (set! file-name (string-append file-name "." key)))
-  (ly:message (_ "Writing header field `~a' to `~a'...")
+  (ly:message (G_ "Writing header field `~a' to `~a'...")
               key
               (if (equal? "-" file-name) "<stdout>" file-name))
   (if (equal? file-name "-")

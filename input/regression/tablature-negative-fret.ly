@@ -1,10 +1,10 @@
 \version "2.19.21"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
-#(ly:expect-warning (_ "Ignoring string request and recalculating."))
-#(ly:expect-warning (_ "Negative fret for pitch ~a on string ~a") "#<Pitch c' >" 1)
-#(ly:expect-warning (_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
-#(ly:expect-warning (_ "Ignoring note in tablature."))
+#(ly:expect-warning (G_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
+#(ly:expect-warning (G_ "Ignoring string request and recalculating."))
+#(ly:expect-warning (G_ "Negative fret for pitch ~a on string ~a") "#<Pitch c' >" 1)
+#(ly:expect-warning (G_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
+#(ly:expect-warning (G_ "Ignoring note in tablature."))
 
 
 

@@ -1,8 +1,8 @@
 \version "2.17.6"
 
-#(ly:expect-warning (_ "Cannot determine neighbors for floating column. "))
-#(ly:expect-warning (_ "Loose column does not have right side to attach to."))
-#(ly:expect-warning (_ "Loose column does not have right side to attach to."))
+#(ly:expect-warning (G_ "Cannot determine neighbors for floating column. "))
+#(ly:expect-warning (G_ "Loose column does not have right side to attach to."))
+#(ly:expect-warning (G_ "Loose column does not have right side to attach to."))
 
 \header {
 

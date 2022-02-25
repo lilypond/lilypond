@@ -1,6 +1,6 @@
 \version "2.19.21"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Bar number is ~a; expected ~a") 3 15)
+#(ly:expect-warning (G_ "Bar number is ~a; expected ~a") 3 15)
 
 \header {
 

@@ -9,8 +9,8 @@ The first tuplet number should be between stems; the second should be
 below the noteheads."
 }
 
-#(ly:expect-warning (_ "not enough space for tuplet number against beam"))
-#(ly:expect-warning (_ "not enough space for tuplet number against beam"))
+#(ly:expect-warning (G_ "not enough space for tuplet number against beam"))
+#(ly:expect-warning (G_ "not enough space for tuplet number against beam"))
 
 \layout {
   indent = 0

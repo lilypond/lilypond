@@ -75,7 +75,7 @@
             (if (pair? docstring)
                 (cadar docstring)
                 (begin
-                  (ly:warning (_ "context modification `~a' not documented.") name-sym)
+                  (ly:warning (G_ "context modification `~a' not documented.") name-sym)
                   "(undocumented; fixme)"))
             (map document-mod-list mod-list))))
 

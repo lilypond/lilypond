@@ -1357,7 +1357,7 @@ unterst__tzt werden.
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
-            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+            (ly:warning (G_ "Unable to open output file ~a for the TOC information") outfilename))
         (close-output-port outfile)))))
 
 \paper @{

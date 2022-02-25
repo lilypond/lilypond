@@ -6,6 +6,6 @@
 }
 
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "cannot create context: ~a") 'Global)
+#(ly:expect-warning (G_ "cannot create context: ~a") 'Global)
 
 \new Global s1

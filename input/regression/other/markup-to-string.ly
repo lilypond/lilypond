@@ -117,7 +117,7 @@ input/regression/markup-to-string.ly."
 \test \head \markup \bold \fromproperty #'header:undefined
       ""
 
-#(ly:expect-warning (_ "Recursive definition of property ~a detected!") 'header:circular)
+#(ly:expect-warning (G_ "Recursive definition of property ~a detected!") 'header:circular)
 \test \head \markup \bold \fromproperty #'header:circular
       ""
 

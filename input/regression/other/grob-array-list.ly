@@ -23,8 +23,8 @@ and back changes value."))))
 
 #(ly:set-option 'warning-as-error)
 
-#(ly:expect-warning (_ "ly:grob-list->grob-array expected a list"))
+#(ly:expect-warning (G_ "ly:grob-list->grob-array expected a list"))
 #(ly:grob-list->grob-array 42)
 
-#(ly:expect-warning (_ "ly:grob-list->grob-array encountered a non-grob object"))
+#(ly:expect-warning (G_ "ly:grob-list->grob-array encountered a non-grob object"))
 #(ly:grob-list->grob-array '(42))

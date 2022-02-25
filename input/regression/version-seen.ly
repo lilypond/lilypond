@@ -14,5 +14,5 @@ there."
 \include "deutsch.ly"
 
 #(ly:expect-warning
-  (_ "no \\version statement found, please add~afor future compatibility")
+  (G_ "no \\version statement found, please add~afor future compatibility")
   (format #f "\n\n\\version ~s\n\n" (lilypond-version)))

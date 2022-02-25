@@ -187,7 +187,7 @@ is then separated.
 (define (assert x)
   (if x
       #t
-      (ly:error (_ "assertion failed: ~S") x)))
+      (ly:error (G_ "assertion failed: ~S") x)))
 
 (define (re-sub re to string)
   (regexp-substitute/global #f re string 'pre to 'post))

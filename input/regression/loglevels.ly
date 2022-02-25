@@ -1,8 +1,8 @@
 \version "2.19.22"
 
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Test warning\n"))
-#(ly:expect-warning (_ "already have slur"))
+#(ly:expect-warning (G_ "Test warning\n"))
+#(ly:expect-warning (G_ "already have slur"))
 
 \header{
   texidoc="

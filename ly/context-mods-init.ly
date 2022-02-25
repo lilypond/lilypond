@@ -53,7 +53,7 @@ contexts that also accept @var{from}.")
 			    (variable-set! var
 					   (ly:context-def-modify cdef cmod))))))))
 	  module)
-	 (ly:parser-error (_ "Not in an output definition")))))
+	 (ly:parser-error (G_ "Not in an output definition")))))
 
 enablePolymeter =
 #(define-void-function () ()
@@ -66,7 +66,7 @@ them in all contexts having the @code{Staff} alias.")
         (cmod-remove (ly:make-context-mod))
         (cmod-consists (ly:make-context-mod)))
    (if (not (output-module? module))
-       (ly:parser-error (_ "Not in an output definition")))
+       (ly:parser-error (G_ "Not in an output definition")))
    (ly:add-context-mod cmod-remove (list 'remove 'Timing_translator))
    (ly:add-context-mod cmod-remove (list 'remove 'Default_bar_line_engraver))
    (ly:add-context-mod cmod-consists (list 'consists 'Timing_translator))

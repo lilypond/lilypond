@@ -147,7 +147,7 @@
                             lily-unit-length))
           (set-attribute 'text-anchor "start")
           (set-attribute 'fill "currentColor"))
-        (ly:warning (_ "cannot decypher Pango description: ~a") str))
+        (ly:warning (G_ "cannot decypher Pango description: ~a") str))
 
     (apply entity 'text expr #t (reverse! alist))))
 
@@ -227,7 +227,7 @@
          (path ""))
 
     (if (and unicode-attr? (not unicode-attr-value))
-        (ly:warning (_ "Glyph must have a unicode value")))
+        (ly:warning (G_ "Glyph must have a unicode value")))
 
     (if d-attr? (set! d-attr-value (match:substring d-attr 1)))
 
@@ -279,7 +279,7 @@
 
     (if font-file
         (cache-font font-file scaled-size glyph)
-        (ly:warning (_ "cannot find SVG font ~S") font-file))))
+        (ly:warning (G_ "cannot find SVG font ~S") font-file))))
 
 
 (define (font-smob-to-path font glyph)
@@ -289,7 +289,7 @@
 
     (if font-file
         (cache-font font-file scaled-size glyph)
-        (ly:warning (_ "cannot find SVG font ~S") font-file))))
+        (ly:warning (G_ "cannot find SVG font ~S") font-file))))
 
 (define (woff-font-smob-to-text font expr)
   (let* ((name-style (font-name-style font))
@@ -558,13 +558,13 @@
          (line-join-styles '(miter round bevel))
          (cap-style (if (not (memv cap line-cap-styles))
                         (begin
-                          (ly:warning (_ "unknown line-cap-style: ~S")
+                          (ly:warning (G_ "unknown line-cap-style: ~S")
                                       (symbol->string cap))
                           'round)
                         cap))
          (join-style (if (not (memv join line-join-styles))
                          (begin
-                           (ly:warning (_ "unknown line-join-style: ~S")
+                           (ly:warning (G_ "unknown line-join-style: ~S")
                                        (symbol->string join))
                            'round)
                          join)))

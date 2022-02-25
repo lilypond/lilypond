@@ -1,15 +1,15 @@
 \version "2.21.0"
 
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 0)
-#(ly:expect-warning (_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
-#(ly:expect-warning (_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 1)
-#(ly:expect-warning (_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
-#(ly:expect-warning (_ "Unhandled entry in harp-pedal: ~a" ) "a")
-#(ly:expect-warning (_ "Unhandled entry in harp-pedal: ~a" ) "s")
-#(ly:expect-warning (_ "Unhandled entry in harp-pedal: ~a" ) "d")
-#(ly:expect-warning (_ "Unhandled entry in harp-pedal: ~a" ) "f")
-#(ly:expect-warning (_ "Unhandled entry in harp-pedal: ~a" ) "x")
+#(ly:expect-warning (G_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 0)
+#(ly:expect-warning (G_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
+#(ly:expect-warning (G_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 1)
+#(ly:expect-warning (G_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
+#(ly:expect-warning (G_ "Unhandled entry in harp-pedal: ~a" ) "a")
+#(ly:expect-warning (G_ "Unhandled entry in harp-pedal: ~a" ) "s")
+#(ly:expect-warning (G_ "Unhandled entry in harp-pedal: ~a" ) "d")
+#(ly:expect-warning (G_ "Unhandled entry in harp-pedal: ~a" ) "f")
+#(ly:expect-warning (G_ "Unhandled entry in harp-pedal: ~a" ) "x")
 
 
 \header {

@@ -71,7 +71,9 @@
 (define-public (*parser*) (fluid-ref %parser))
 (define-public (*location*) (fluid-ref %location))
 
-(define-public _ gettext)
+;; See https://www.gnu.org/software/guile/manual/html_node/Gettext-Support.html
+;; for why we use "G_" instead of the more common convention "_".
+(define-public G_ gettext)
 
 ;; Guile 1.8 doesn't have (and doesn't need) eval-when.
 (defmacro-public eval-early (expr)
@@ -120,15 +122,15 @@
 
 (define-public (call-after-session thunk)
   (if first-session-done?
-      (ly:error (_ "call-after-session used after session start")))
+      (ly:error (G_ "call-after-session used after session start")))
   (add-hook! after-session-hook thunk #t))
 
 (define (make-session-variable name value)
   (if first-session-done?
-      (ly:error (_ "define-session used after session start")))
+      (ly:error (G_ "define-session used after session start")))
   (let ((var (module-make-local-var! (current-module) name)))
     (if (variable-bound? var)
-        (ly:error (_ "symbol ~S redefined") name))
+        (ly:error (G_ "symbol ~S redefined") name))
     (variable-set! var value)
     var))
 
@@ -467,10 +469,10 @@ messages into errors.")
 
 (cond-expand
  (guile-2
-  (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
+  (ly:debug (G_ "Using (ice-9 curried-definitions) module\n"))
   (use-modules (ice-9 curried-definitions)))
  (else
-  (ly:debug (_ "Guile 1.8\n"))))
+  (ly:debug (G_ "Guile 1.8\n"))))
 
 ;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).
@@ -502,7 +504,7 @@ messages into errors.")
          (file-name (%search-load-path full-path)))
     (ly:debug "[~A" file-name)
     (if (not file-name)
-        (ly:error (_ "cannot find: ~A") x))
+        (ly:error (G_ "cannot find: ~A") x))
     ;; FIXME: primitive-load-path may load a compiled version of the code;
     ;;        can this be detected and printed? If not, ly:load can be replaced
     ;;        by primitive-load-path right away.
@@ -837,8 +839,8 @@ PIDs or the number of the process."
       (ly:shutdown-gs))
   (if (not silently)
       (case status
-        ((0) (ly:basic-progress (_ "Success: compilation successfully completed")))
-        ((1) (ly:warning (_ "Compilation completed with warnings or errors")))
+        ((0) (ly:basic-progress (G_ "Success: compilation successfully completed")))
+        ((1) (ly:warning (G_ "Compilation completed with warnings or errors")))
         (else (ly:message ""))))
   (exit status))
 
@@ -903,14 +905,14 @@ PIDs or the number of the process."
                         (if (status:term-sig state)
                             (ly:message
                              "\n\n~a\n"
-                             (format #f (_ "job ~a terminated with signal: ~a")
+                             (format #f (G_ "job ~a terminated with signal: ~a")
                                      job (status:term-sig state)))
                             (ly:message
-                             (_ "logfile ~a (exit ~a):\n~a")
+                             (G_ "logfile ~a (exit ~a):\n~a")
                              logfile (status:exit-val state) tail))))
                     errors)
                    (if (pair? errors)
-                       (ly:error (_ "Children ~a exited with errors.")
+                       (ly:error (G_ "Children ~a exited with errors.")
                                  (map car errors)))
                    ;; must overwrite individual entries
                    (if (null? errors)
@@ -923,7 +925,7 @@ PIDs or the number of the process."
         (failed (lilypond-all files)))
     (if log-file (ly:stderr-redirect log-file))
     (if (pair? failed)
-        (begin (ly:error (_ "failed files: ~S") (string-join failed))
+        (begin (ly:error (G_ "failed files: ~S") (string-join failed))
                (ly:exit 1 #f))
         (begin
           (ly:exit 0 #f)))))
@@ -956,7 +958,7 @@ PIDs or the number of the process."
          (if ping-log
              (begin
                (ly:stderr-redirect ping-log)
-               (ly:message (_ "Processing `~a'\n") x)))
+               (ly:message (G_ "Processing `~a'\n") x)))
          (if separate-logs
              (ly:stderr-redirect (format #f "~a.log" base) "w"))
          (lilypond-file handler x)
@@ -987,14 +989,14 @@ PIDs or the number of the process."
       (let* ((base (dir-basename (car files) ".ly"))
              (log-name (string-append base ".log")))
         (if (not (ly:get-option 'gui))
-            (ly:message (_ "Redirecting output to ~a...") log-name))
+            (ly:message (G_ "Redirecting output to ~a...") log-name))
         (ly:stderr-redirect log-name "w")
         (ly:message "# -*-compilation-*-"))
       (let ((failed (lilypond-all files)))
         (if (pair? failed)
             (begin
               (system (get-editor-command log-name 0 0 0))
-              (ly:error (_ "failed files: ~S") (string-join failed))
+              (ly:error (G_ "failed files: ~S") (string-join failed))
               ;; not reached?
               (exit 1))
             (ly:exit 0 #f)))))
@@ -1004,6 +1006,6 @@ PIDs or the number of the process."
          ;; FIXME: soft-code, localize
          (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
          (cmd (get-editor-command welcome-ly 0 0 0)))
-    (ly:message (_ "Invoking `~a'...\n") cmd)
+    (ly:message (G_ "Invoking `~a'...\n") cmd)
     (system cmd)
     (ly:exit 1 #f)))

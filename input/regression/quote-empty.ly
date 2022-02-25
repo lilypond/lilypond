@@ -4,7 +4,7 @@
   texidoc = "A warning should be produced for empty quoted music."
 }
 
-#(ly:expect-warning (_ "quoted music `~a' is empty") 'test)
+#(ly:expect-warning (G_ "quoted music `~a' is empty") 'test)
 
 test = {}
 \addQuote "test" \test

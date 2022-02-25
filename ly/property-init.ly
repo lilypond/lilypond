@@ -43,7 +43,7 @@ piano styles, which use @samp{GrandStaff} as a context." )
     ((1) (set-accidental-style (car style)))
     ((2) (set-accidental-style (cadr style) (car style)))
     (else
-     (ly:parser-error (_ "not an accidental style")
+     (ly:parser-error (G_ "not an accidental style")
       (*location*))
      (make-music 'Music))))
 
@@ -134,7 +134,7 @@ defineBarLine =
      the appearance at the end of line, at the beginning of the next line,
      and the span bar, respectively." )
   (if (not (= (length glyph-list) 3))
-      (ly:error (_ "Argument list for bar '~a' must have three components.") bar)
+      (ly:error (G_ "Argument list for bar '~a' must have three components.") bar)
       (define-bar-line bar
                        (car glyph-list)
                        (cadr glyph-list)

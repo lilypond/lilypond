@@ -90,7 +90,7 @@ $(if (ly:get-option 'include-settings)
 #(if (eq? expect-error (ly:parser-has-error?))
   (ly:parser-clear-error)
   (if expect-error
-   (ly:parser-error (_ "expected error, but none found"))))
+   (ly:parser-error (G_ "expected error, but none found"))))
 
 #(if (ly:get-option 'verbose)
   (begin

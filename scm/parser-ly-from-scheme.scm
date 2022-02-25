@@ -23,7 +23,7 @@ representing embedded Scheme in LILY-STRING"
   (let* ((clone (ly:parser-clone closures (*location*)))
          (result (ly:parse-string-expression clone lily-string filename line)))
     (if (ly:parser-has-error? clone)
-        (ly:parser-error (_ "error in #{ ... #}") (*location*)))
+        (ly:parser-error (G_ "error in #{ ... #}") (*location*)))
     result))
 
 (define-public (read-lily-expression chr port)

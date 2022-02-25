@@ -995,4 +995,4 @@ the mark when there are no spanners active.
 
     (if (has-events? quote-contents)
         (hash-set! tab name (list->vector quote-contents))
-        (ly:music-warning mus (_ "quoted music `~a' is empty") name))))
+        (ly:music-warning mus (G_ "quoted music `~a' is empty") name))))

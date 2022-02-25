@@ -539,17 +539,17 @@ the current tuning?"
                                   string
                                   tuning)))
         (if (< this-fret 0)
-            (ly:warning (_ "Negative fret for pitch ~a on string ~a")
+            (ly:warning (G_ "Negative fret for pitch ~a on string ~a")
                         (car pitch-entry) string)
             (if (and
                  (not (integer? this-fret))
                  (not (ly:context-property context 'supportNonIntegerFret #f)))
-                (ly:warning (_ "Missing fret for pitch ~a on string ~a")
+                (ly:warning (G_ "Missing fret for pitch ~a on string ~a")
                             (car pitch-entry) string)))
         (if (and (= this-fret 0)
                  (and finger
                       (not (null? finger))))
-            (ly:warning (_ "Open fret on string ~a has finger of ~a")
+            (ly:warning (G_ "Open fret on string ~a has finger of ~a")
                         string finger))
         (delete-free-string string)
         (set! specified-frets (cons this-fret specified-frets))
@@ -592,7 +592,7 @@ the current tuning?"
                                 free-strings)))
                      (if fit-string
                          (set-fret! pitch-entry fit-string #f)
-                         (ly:warning (_ "No open string for pitch ~a")
+                         (ly:warning (G_ "No open string for pitch ~a")
                                      pitch)))
                    ;; here we handle assigned strings
                    (let* ((this-fret
@@ -615,10 +615,10 @@ the current tuning?"
                            ((eq? handle-negative 'recalculate)
                             (begin
                               (ly:warning
-                               (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                               (G_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
                                string
                                pitch)
-                              (ly:warning (_ "Ignoring string request and recalculating."))
+                              (ly:warning (G_ "Ignoring string request and recalculating."))
                               (list-set! string-fret-fingers
                                          (cdr pitch-entry)
                                          (if (null? finger)
@@ -627,10 +627,10 @@ the current tuning?"
                            ((eq? handle-negative 'ignore)
                             (begin
                               (ly:warning
-                               (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                               (G_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
                                string
                                pitch)
-                              (ly:warning (_ "Ignoring note in tablature."))
+                              (ly:warning (G_ "Ignoring note in tablature."))
                               (kill-note! string-fret-fingers
                                           (cdr pitch-entry))))))))))
        pitch-alist string-fret-fingers)
@@ -655,7 +655,7 @@ the current tuning?"
                    (begin
                      (ly:event-warning
                       (list-ref notes (cdr pitch-entry))
-                      (_ "No string for pitch ~a (given frets ~a)")
+                      (G_ "No string for pitch ~a (given frets ~a)")
                       pitch
                       specified-frets)
                      (kill-note! string-fret-fingers
@@ -694,7 +694,7 @@ chords.  Returns a placement-list."
   ;; TODO: Does it make sense to have additional bass strings in a fret-diagram?
   (if (and (not (null? rest))
            (not (null? (ly:context-property context 'additionalBassStrings))))
-      (ly:warning (_ "additional bass strings are not supported by FretBoards")))
+      (ly:warning (G_ "additional bass strings are not supported by FretBoards")))
 
   ;; body of determine-frets
   (let* ((predefined-fret-table
@@ -778,7 +778,7 @@ chords.  Returns a placement-list."
             (list-ref labels fret-number))
            (else
             (ly:warning
-             (_ "No label for fret ~a (on string ~a);
+             (G_ "No label for fret ~a (on string ~a);
 only ~a fret labels provided")
              fret-number string-number (length labels))
             ".")))

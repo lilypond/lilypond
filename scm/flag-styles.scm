@@ -153,7 +153,7 @@ flag stencil."
                                  tmpstencil)))
         (if (ly:stencil-empty? stroke-stencil)
             (begin
-              (ly:warning (_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
+              (ly:warning (G_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
               stencil)
             (ly:stencil-add stencil stroke-stencil)))))
 
@@ -166,7 +166,7 @@ flag stencil."
          (font-char (string-append "flags." flag-style dir dir-modifier (number->string log)))
          (flag (ly:font-get-glyph font font-char)))
     (if (ly:stencil-empty? flag)
-        (ly:warning (_ "flag ~a not found") font-char))
+        (ly:warning (G_ "flag ~a not found") font-char))
     flag))
 
 

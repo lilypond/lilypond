@@ -1,4 +1,4 @@
-#(ly:expect-warning (_ "stray UTF-8 BOM encountered"))
+#(ly:expect-warning (G_ "stray UTF-8 BOM encountered"))
 #(ly:set-option 'warning-as-error #t)
  ﻿\version "2.16.0"
 

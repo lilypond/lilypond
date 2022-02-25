@@ -1,6 +1,6 @@
 \version "2.19.21"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."))
+#(ly:expect-warning (G_ "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."))
 
 \header {
     texidoc="If there are no good places to have a page turn,

@@ -13,8 +13,8 @@ Unfolded behavior:"
 
 #(ly:set-option 'warning-as-error #t)
 %% One warning for the \repeat and one for the \alternative.
-#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
-#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
+#(ly:expect-warning (G_ "More alternatives than repeats.  Junking excess alternatives"))
+#(ly:expect-warning (G_ "More alternatives than repeats.  Junking excess alternatives"))
 
 \context Voice \relative {
   \repeat unfold 3 { c''^"3x 0a" d }

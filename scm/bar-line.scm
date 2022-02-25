@@ -142,7 +142,7 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
 
     (if (procedure? proc)
         (set! stencil (proc grob extent))
-        (ly:warning (_ "Bar glyph ~a not known. Ignoring.") glyph))
+        (ly:warning (G_ "Bar glyph ~a not known. Ignoring.") glyph))
     stencil))
 
 (define (string->string-list str)
@@ -170,7 +170,7 @@ annotation char from string @var{str}."
   (if (string? str)
       (if (string-index str annotation-char)
           (ly:warning
-           (_ "Annotation '~a' is allowed in the first argument of a bar line definition only.")
+           (G_ "Annotation '~a' is allowed in the first argument of a bar line definition only.")
            str))))
 
 (define (check-for-replacement str)
@@ -178,7 +178,7 @@ annotation char from string @var{str}."
   (if (string? str)
       (if (string-index str replacement-char)
           (ly:warning
-           (_ "Replacement '~a' is allowed in the last argument of a bar line definition only.")
+           (G_ "Replacement '~a' is allowed in the last argument of a bar line definition only.")
            str))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -216,7 +216,7 @@ is not used within the routine."
   (if (or (not (string? glyph))
           (> (string-length glyph) 1))
       (ly:warning
-       (_ "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character.")
+       (G_ "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character.")
        glyph)
       (set! bar-glyph-print-procedures
             (acons glyph proc bar-glyph-print-procedures))))
@@ -913,7 +913,7 @@ no elements."
         ;; is undefined, so we raise a warning.
         (if (eq? span-glyph 'undefined)
             (ly:warning
-             (_ "No span bar glyph defined for bar glyph '~a'; ignoring.")
+             (G_ "No span bar glyph defined for bar glyph '~a'; ignoring.")
              bar-glyph)))
     stencil))
 
@@ -1012,7 +1012,7 @@ no elements."
       (set! volta-bracket-allow-volta-hook-list
             (append volta-bracket-allow-volta-hook-list
                     (list bar-glyph)))
-      (ly:warning (_ ("Volta hook bar line must be a string; ignoring '~a'.")
+      (ly:warning (G_ ("Volta hook bar line must be a string; ignoring '~a'.")
                      bar-glyph))))
 
 (define-session volta-bracket-allow-volta-hook-list '())

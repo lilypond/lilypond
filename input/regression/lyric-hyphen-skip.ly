@@ -10,14 +10,14 @@ of skips.  It spans the entire sequence."
 \lyrics { a _ -- _ b _ _ -- c }
 
 #(ly:expect-warning
-  (_ "this hyphen or vowel transition was overridden by a later one"))
+  (G_ "this hyphen or vowel transition was overridden by a later one"))
 \lyrics { a -- _ _ \vowelTransition b }
 
 #(ly:expect-warning
-  (_ "this hyphen or vowel transition was overridden by a later one"))
+  (G_ "this hyphen or vowel transition was overridden by a later one"))
 \lyrics { a \vowelTransition _ -- _ b }
 
 #(ly:expect-warning
-  (_ "hyphen or vowel transition has no syllable to attach to on its \
+  (G_ "hyphen or vowel transition has no syllable to attach to on its \
 left; removing it"))
 \lyrics { _ -- a -- b }

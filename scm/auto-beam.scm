@@ -144,7 +144,7 @@
                     (pos (+ pos len))
                     (ass (assv len res)))
                (cond ((or (zero? len) (not (integer? (/ pos len))))
-                      (ly:warning m (_ "Beam end fits no pattern")))
+                      (ly:warning m (G_ "Beam end fits no pattern")))
                      (ass
                       (set-cdr! ass (cons (/ pos len) (cdr ass))))
                      (else

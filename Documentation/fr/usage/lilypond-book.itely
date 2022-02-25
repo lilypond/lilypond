@@ -1529,7 +1529,7 @@ comportant tous les mouvement de la partition.
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
-            (ly:warning (_ "Impossible d'ouvrir le fichier ~a contenant les informations de TdM") outfilename))
+            (ly:warning (G_ "Impossible d'ouvrir le fichier ~a contenant les informations de TdM") outfilename))
         (close-output-port outfile)))))
 
 \paper @{

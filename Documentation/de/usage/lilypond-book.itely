@@ -1355,7 +1355,7 @@ sich alle in der selben LilyPond-Datei befinden.
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
-            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+            (ly:warning (G_ "Unable to open output file ~a for the TOC information") outfilename))
         (close-output-port outfile)))))
 
 \paper @{

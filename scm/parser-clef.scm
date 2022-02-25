@@ -160,8 +160,8 @@
                        (make-apply-context ly:set-middle-C!))))
           (context-spec-music (make-sequential-music musics) 'Staff))
         (begin
-          (ly:warning (_ "unknown clef type `~a'") clef-name)
-          (ly:warning (_ "supported clefs: ~a")
+          (ly:warning (G_ "unknown clef type `~a'") clef-name)
+          (ly:warning (G_ "supported clefs: ~a")
                       (string-join
                        (sort (map car supported-clefs) string<?)))
           (make-music 'Music)))))

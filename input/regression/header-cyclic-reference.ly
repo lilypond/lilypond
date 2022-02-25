@@ -1,7 +1,7 @@
 \version "2.16.0"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Recursive definition of property ~a detected!") 'header:title)
-#(ly:expect-warning (_ "Recursive definition of property ~a detected!") 'header:composer)
+#(ly:expect-warning (G_ "Recursive definition of property ~a detected!") 'header:title)
+#(ly:expect-warning (G_ "Recursive definition of property ~a detected!") 'header:composer)
 
 \header {
   texidoc = "Cyclic references in header fields should cause a warning, but

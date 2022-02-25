@@ -1,6 +1,6 @@
 \version "2.19.21"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "unterminated tie"))
+#(ly:expect-warning (G_ "unterminated tie"))
 
 \header {
   texidoc = "When a tie is followed only by unmatching notes and the tie cannot

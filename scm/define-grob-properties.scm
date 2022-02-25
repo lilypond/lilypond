@@ -18,7 +18,7 @@
 
 (define (define-grob-property symbol type? description)
   (if (not (equal? (object-property symbol 'backend-doc) #f))
-      (ly:error (_ "symbol ~S redefined") symbol))
+      (ly:error (G_ "symbol ~S redefined") symbol))
 
   (set-object-property! symbol 'backend-type? type?)
   (set-object-property! symbol 'backend-doc description)

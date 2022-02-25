@@ -2,10 +2,10 @@
 
 #(ly:set-option 'warning-as-error #t)
 %% not sure why these warnings appear twice [dfe]
-#(ly:expect-warning (_ "default child context begins a cycle: ~a") 'Score)
-#(ly:expect-warning (_ "cannot find or create context: ~a") 'Bottom)
-#(ly:expect-warning (_ "default child context begins a cycle: ~a") 'Score)
-#(ly:expect-warning (_ "cannot find or create context: ~a") 'Bottom)
+#(ly:expect-warning (G_ "default child context begins a cycle: ~a") 'Score)
+#(ly:expect-warning (G_ "cannot find or create context: ~a") 'Bottom)
+#(ly:expect-warning (G_ "default child context begins a cycle: ~a") 'Score)
+#(ly:expect-warning (G_ "cannot find or create context: ~a") 'Bottom)
 
 \header {
   texidoc = "A @code{\\defaultchild} cycle does not induce an endless loop.

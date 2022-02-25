@@ -1663,7 +1663,7 @@
 
 (define (update-possb-list input-key possibility-list canonic-list)
   (if (null? possibility-list)
-      (ly:error (_ "woodwind markup error - invalid key or hole requested"))
+      (ly:error (G_ "woodwind markup error - invalid key or hole requested"))
       (if
        (assoc-get input-key (cdar possibility-list))
        (append
@@ -1943,7 +1943,7 @@ a diagram with all of the keys drawn but none filled, for example:
           (chosen-instrument (assoc-get instrument woodwind-data-alist))
           (chosen-instrument
            (if (not chosen-instrument)
-               (ly:error (_ "~a is not a valid woodwind instrument.")
+               (ly:error (G_ "~a is not a valid woodwind instrument.")
                          instrument)
                chosen-instrument))
           (stencil-info

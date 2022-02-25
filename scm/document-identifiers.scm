@@ -53,7 +53,7 @@
             (if (and doc (not (string-null? doc)))
                 doc
                 (begin
-                  (ly:warning (_ "music function `~a' not documented.") name-sym)
+                  (ly:warning (G_ "music function `~a' not documented.") name-sym)
                   "(undocumented; fixme)")))))
 
 

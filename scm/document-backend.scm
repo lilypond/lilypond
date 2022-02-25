@@ -271,7 +271,7 @@ It supports the following interfaces conditionally depending on the class: ~a."
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
       (ly:error (string-append "define-grob-properties.scm: "
-                               (_ "cannot find interface for property: ~S")) prop)))
+                               (G_ "cannot find interface for property: ~S")) prop)))
 
 (for-each check-dangling-properties all-backend-properties)
 
@@ -281,7 +281,7 @@ It supports the following interfaces conditionally depending on the class: ~a."
   (let* ((entry (hashq-ref (ly:all-grob-interfaces) name #f)))
     (if entry
         entry
-        (ly:error (_ "unknown Grob interface: ~S") name))))
+        (ly:error (G_ "unknown Grob interface: ~S") name))))
 
 (define (all-interfaces-doc)
   (make <texi-node>

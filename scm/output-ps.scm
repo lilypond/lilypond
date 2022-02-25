@@ -289,12 +289,12 @@ grestore
 
   (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)
                            (else (begin
-                                   (ly:warning (_ "unknown line-cap-style: ~S")
+                                   (ly:warning (G_ "unknown line-cap-style: ~S")
                                                cap)
                                    1))))
         (join-numeric (case join ((miter) 0) ((round) 1) ((bevel) 2)
                             (else (begin
-                                    (ly:warning (_ "unknown line-join-style: ~S")
+                                    (ly:warning (G_ "unknown line-join-style: ~S")
                                                 (symbol->string join))
                                     1)))))
     (ly:format

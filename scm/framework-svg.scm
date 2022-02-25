@@ -85,7 +85,7 @@ tspan { white-space: pre; }
         (begin
           (if (not (file-exists? url))
               (begin
-                (ly:message (_ "Updating font into: ~a") url)
+                (ly:message (G_ "Updating font into: ~a") url)
                 (mkdirs (string-append output-dir "/" (dirname url)) #o700)
                 (copy-file woff-file url)
                 (ly:progress "\n")))
@@ -118,7 +118,7 @@ src: url('~a');
   (let*
       ((ignored (filter (lambda (f) (not (equal? f "svg"))) formats)))
     (if (pair? ignored)
-        (ly:warning (_ "ignoring unsupported formats ~a") ignored))))
+        (ly:warning (G_ "ignoring unsupported formats ~a") ignored))))
 
 (define (output-stencil basename stencil paper formats)
   (let* ((filename (string-append basename ".svg"))

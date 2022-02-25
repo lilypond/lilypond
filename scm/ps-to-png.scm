@@ -63,7 +63,7 @@
                       ((string-contains format-str "jpg") "jpeg")
                       ((string-contains format-str "jpeg") "jpeg")
                       (else
-                       (ly:error (_ "Unknown pixmap format ~a") pixmap-format))))
+                       (ly:error (G_ "Unknown pixmap format ~a") pixmap-format))))
           (page-count (if is-eps
                           1
                           (ps-page-count ps-tmp-name)))
@@ -163,7 +163,7 @@ currentpagedevice /HWResolution get 1 get ~a mul \
      ;; This is a ghostscript constraint.
      (if (not (and (integer? anti-alias-factor)
                    (<= 1 anti-alias-factor 8)))
-         (ly:error (_ "`anti-alias-factor' must be a positive integer <= 8")))
+         (ly:error (G_ "`anti-alias-factor' must be a positive integer <= 8")))
 
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)

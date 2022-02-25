@@ -6,7 +6,7 @@ negative or zero."
 }
 
 #(ly:set-option 'warning-as-error)
-#(ly:expect-warning (_ "page-count must be positive"))
+#(ly:expect-warning (G_ "page-count must be positive"))
 
 \paper {
   page-count = 0

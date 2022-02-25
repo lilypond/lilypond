@@ -53,7 +53,7 @@
   (format port "~a (GNU LilyPond) ~a\n" PROGRAM-NAME TOPLEVEL-VERSION))
 
 (define (show-help port)
-  (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:CHAR:COLUMN
+  (format port (G_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:CHAR:COLUMN
 
 Visit a file and position the cursor.
 
@@ -100,9 +100,9 @@ Options:
               (match:substring match 3)
               (match:substring match 4))
         (begin
-          (format (current-error-port) (_ "invalid textedit URI: ~a") uri)
+          (format (current-error-port) (G_ "invalid textedit URI: ~a") uri)
           (newline (current-error-port))
-          (format (current-error-port) (_ "expect: textedit://FILE:LINE:CHAR:COLUMN"))
+          (format (current-error-port) (G_ "expect: textedit://FILE:LINE:CHAR:COLUMN"))
           (newline (current-error-port))
           (exit 1)))))
 
@@ -123,7 +123,7 @@ Options:
     (if (not (= status 0))
         (begin
           (format (current-error-port)
-                  (_ "failed to invoke editor: ~a") command)
+                  (G_ "failed to invoke editor: ~a") command)
           (exit 1)))))
 
 (define (run-browser uri)

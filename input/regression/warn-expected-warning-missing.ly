@@ -1,7 +1,7 @@
 \version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
-#(ly:expect-warning (_ "this is a warning that won't be triggered"))
+#(ly:expect-warning (G_ "this is a warning that won't be triggered"))
 
 \header {
   texidoc = "If a warning is expected, but not triggered, print out a

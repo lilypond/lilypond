@@ -100,7 +100,7 @@ depth-first through MUSIC."
           (if (not (and (integer? mult) (= (logcount mult) 1)))
               (ly:music-warning
                body
-               (format #f (_ "invalid tremolo repeat count: ~a") times)))
+               (format #f (G_ "invalid tremolo repeat count: ~a") times)))
           ;; Make each note take the full duration
           (ly:music-compress stretched (ly:make-moment 1 children))
           ;; Adjust the displayed note durations

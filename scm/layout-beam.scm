@@ -37,7 +37,7 @@
         (if (or (not (almost-equal want-l (car posns)))
                 (not (almost-equal want-r (cdr posns))))
             (begin
-              (ly:warning (_ "Error in beam quanting.  Expected (~S,~S) found ~S.")
+              (ly:warning (G_ "Error in beam quanting.  Expected (~S,~S) found ~S.")
                           want-l want-r posns)
               (set! (ly:grob-property beam 'annotation)
                     (format #f "(~S,~S)" want-l want-r))))
@@ -51,7 +51,7 @@
              (correct (comparison slope-sign 0)))
         (if (not correct)
             (begin
-              (ly:warning (_ "Error in beam quanting.  Expected ~S 0, found ~S.")
+              (ly:warning (G_ "Error in beam quanting.  Expected ~S 0, found ~S.")
                           (procedure-name comparison) slope-sign)
               (set! (ly:grob-property beam 'annotation)
                     (format #f "~S 0" (procedure-name comparison))))

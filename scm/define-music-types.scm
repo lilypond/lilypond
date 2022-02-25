@@ -937,10 +937,10 @@ to the type of the music object), are taken.
 The argument list will be interpreted left to right, so later entries
 override earlier ones."
   (if (not (symbol? name))
-      (ly:error (_ "symbol expected: ~S") name))
+      (ly:error (G_ "symbol expected: ~S") name))
   (let ((props (hashq-ref music-name-to-property-table name '())))
     (if (not (pair? props))
-        (ly:error (_ "cannot find music object: ~S") name))
+        (ly:error (G_ "cannot find music object: ~S") name))
     (let ((m (ly:make-music props)))
       (define (alist-set-props lst)
         (for-each (lambda (e)
@@ -960,6 +960,6 @@ override earlier ones."
                      (alist-set-props e)
                      (set-props mus-props))
                     (else
-                     (ly:error (_ "bad make-music argument: ~S") e))))))
+                     (ly:error (G_ "bad make-music argument: ~S") e))))))
       (set-props music-properties)
       m)))

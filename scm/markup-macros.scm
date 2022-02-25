@@ -357,18 +357,18 @@ against signature, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))
          (signature (or (markup-command-signature markup-function)
-                        (ly:error (_ "~A: Not a markup (list) function: ~S")
+                        (ly:error (G_ "~A: Not a markup (list) function: ~S")
                                   make-name markup-function)))
          (siglen (length signature))
          (error-msg (if (and (> siglen 0) (> arglen 0))
                         (markup-argument-list-error signature args 1)
                         #f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
-        (ly:error (_ "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S")
+        (ly:error (G_ "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S")
                   make-name siglen arglen args))
     (if error-msg
         (ly:error
-         (_ "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S.")
+         (G_ "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S.")
          make-name (car error-msg) (cadr error-msg)(caddr error-msg))
         (cons markup-function args))))
 
@@ -404,7 +404,7 @@ against signature, reporting MAKE-NAME as the user-invoked function.
          ;; expr === (#:COMMAND arg1 ...)
          (let ((command (symbol->string (keyword->symbol (car expr)))))
            (if (not (pair? (lookup-markup-command command)))
-               (ly:error (_ "Not a markup command: ~A") command))
+               (ly:error (G_ "Not a markup command: ~A") command))
            (let* ((sig (markup-command-signature
                         (car (lookup-markup-command command))))
                   (sig-len (length sig)))

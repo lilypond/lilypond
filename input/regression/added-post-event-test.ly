@@ -33,14 +33,14 @@ testIt =
                         (find (lambda (m) (not (contained? muse m)))
                               (extract-typed-music muse 'post-event)))))
      (cond ((not muse)
-            (ly:music-error music (_ "expected single-element sequential expression")))
+            (ly:music-error music (G_ "expected single-element sequential expression")))
            (badpost
             (if harmless
-                (ly:music-message badpost (_ "late post-event, expected"))
-                (ly:music-warning badpost (_ "late post-event, unexpected"))))
+                (ly:music-message badpost (G_ "late post-event, expected"))
+                (ly:music-warning badpost (G_ "late post-event, unexpected"))))
            (else
             (if harmless
-                (ly:music-warning muse (_ "no late post-event, unexpected")))))))
+                (ly:music-warning muse (G_ "no late post-event, unexpected")))))))
 
 pitch = c'
 note = c'4

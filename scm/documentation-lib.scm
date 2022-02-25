@@ -63,7 +63,7 @@
             (node-children node)))
 
 (define (processing name)
-  (ly:basic-progress (_ "Processing ~S...") name))
+  (ly:basic-progress (G_ "Processing ~S...") name))
 
 (define (scm->texi val)
   (let* (; always start on a new line
@@ -167,7 +167,7 @@ environment."
     ((one . rest) (string-append one ", " (human-listify rest)))))
 
 (define (writing-wip x)
-  (ly:message (_ "Writing ~S...") x))
+  (ly:message (G_ "Writing ~S...") x))
 
 (define (identifier<? a b)
   (ly:string-ci<?
@@ -179,7 +179,7 @@ environment."
 
 (define (verify-type-name where sym type)
   (if (eq? type #f)
-      (ly:error (_ "cannot find description for property `~S' (~S)")
+      (ly:error (G_ "cannot find description for property `~S' (~S)")
                 sym
                 where))
   (type-name type))
@@ -200,7 +200,7 @@ with init values from ALIST (1st optional argument)
          (init-value (assoc-get sym alist)))
 
     (if (eq? desc #f)
-        (ly:error (_ "cannot find description for property ~S (~S)") sym where))
+        (ly:error (G_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
      (string-append "@code{" name "} (" typename ")"

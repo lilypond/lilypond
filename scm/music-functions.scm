@@ -308,7 +308,7 @@ properly."
                                      ("unfold" . UnfoldedRepeatedMusic)
                                      ("percent" . PercentRepeatedMusic)
                                      ("tremolo" . TremoloRepeatedMusic)))
-                   (begin (ly:warning (_ "unknown repeat type `~S': \
+                   (begin (ly:warning (G_ "unknown repeat type `~S': \
 must be volta, unfold, percent, or tremolo") name)
                           'VoltaRepeatedMusic)))
          (alt-music
@@ -321,7 +321,7 @@ must be volta, unfold, percent, or tremolo") name)
                 ;;     \repeat volta 2 {} \alternative \alts
                 ;;
                 (if (not (music-is-of-type? alts 'sequential-alternative-music))
-                    (ly:music-warning alts (_ "alternative music expected")))
+                    (ly:music-warning alts (G_ "alternative music expected")))
                 alts)
               ;; Accept a bare element list for backward compatibility.
               (make-music 'SequentialAlternativeMusic
@@ -334,7 +334,7 @@ must be volta, unfold, percent, or tremolo") name)
       (let* ((alts (ly:music-property alt-music 'elements))
              (lalts (length alts))
              (talts (if (< times lalts)
-                        (let ((message (_ "More alternatives than repeats.  \
+                        (let ((message (G_ "More alternatives than repeats.  \
 Junking excess alternatives")))
                           ;; The \repeat and \the alternative are not
                           ;; necessarily close together in the source.
@@ -438,7 +438,7 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
                (if (ly:music? e)
                    (set! (ly:music-property music 'element)
                          (unfold-repeats types e))))
-             (ly:warning (_ "unknown repeat-type ~a, ignoring.") type))))
+             (ly:warning (G_ "unknown repeat-type ~a, ignoring.") type))))
      types-list)
     music))
 
@@ -528,7 +528,7 @@ respectively."
          res
          (begin
            (ly:parser-error
-            (format #f (_ "bad grob property path ~a")
+            (format #f (G_ "bad grob property path ~a")
                     path)
             location)
            #f)))))
@@ -552,7 +552,7 @@ error (using optionally @var{location})."
           (else #f))
         (begin
           (ly:parser-error
-           (format #f (_ "bad context property ~a")
+           (format #f (G_ "bad context property ~a")
                    path)
            location)
           #f))))
@@ -583,7 +583,7 @@ error (using optionally @var{location})."
            (else #f))
          (begin
            (ly:parser-error
-            (format #f (_ "bad music property ~a")
+            (format #f (G_ "bad music property ~a")
                     path)
             location)
            #f)))))
@@ -911,7 +911,7 @@ respective predecessor chord."
             (set! (ly:music-property music 'duration) '())
             (copy-repeat-chord last-chord music chord-repeat event-types))
            (else
-            (ly:music-warning music (_ "Bad chord repetition"))
+            (ly:music-warning music (G_ "Bad chord repetition"))
             #f)))
         (let ((elt (ly:music-property music 'element)))
           (fold loop (if (ly:music? elt) (loop elt last-chord) last-chord)
@@ -1018,7 +1018,7 @@ preceding \\\\ separator for the others)
                    (make-simultaneous-music sublist)))
             'Bottom (number->string id)))
           (else
-           (ly:music-warning loc (_ "Bad voice id: ~a") id)
+           (ly:music-warning loc (G_ "Bad voice id: ~a") id)
            (context-spec-music (make-simultaneous-music sublist) 'Bottom))))
 
   (cond ((null? lst) '())
@@ -1029,7 +1029,7 @@ preceding \\\\ separator for the others)
          (cons (voicify-sublist (car locs) (car lst) (car id))
                (voicify-list (cdr locs) (cdr lst) (cdr id))))
         ((null? id)
-         (ly:music-warning (car locs) (_ "\\voices needs more ids"))
+         (ly:music-warning (car locs) (G_ "\\voices needs more ids"))
          (voicify-list locs lst 1))))
 
 (define (voicify-chord ch id)
@@ -1048,7 +1048,7 @@ they also indicate a voice type override.  If @var{id} is just a single
 number, that's where numbering starts."
   (let loop ((m m))
     (if (not (ly:music? m))
-        (ly:error (_ "music expected: ~S") m))
+        (ly:error (G_ "music expected: ~S") m))
     (let ((es (ly:music-property m 'elements))
           (e (ly:music-property m 'element)))
 
@@ -1375,7 +1375,7 @@ post-event."
               (set! (ly:music-property music 'quoted-events) quoted-vector)
               (set! (ly:music-property music 'iterator-ctor)
                     ly:quote-iterator::constructor))
-            (ly:music-warning music (format #f (_ "cannot find quoted music: `~S'") quoted-name))))
+            (ly:music-warning music (format #f (G_ "cannot find quoted music: `~S'") quoted-name))))
     music))
 (export quote-substitute)
 
@@ -1600,8 +1600,8 @@ also get an accidental."
   (let* ((ignore-octave (cond ((equal? octaveness 'any-octave) #t)
                               ((equal? octaveness 'same-octave) #f)
                               (else
-                               (ly:warning (_ "Unknown octaveness type: ~S ") octaveness)
-                               (ly:warning (_ "Defaulting to 'any-octave."))
+                               (ly:warning (G_ "Unknown octaveness type: ~S ") octaveness)
+                               (ly:warning (G_ "Defaulting to 'any-octave."))
                                #t)))
          (key (ly:context-property context 'keyAlterations))
          (local (ly:context-property context 'localAlterations))
@@ -2006,7 +2006,7 @@ as a context."
                           (make-property-set 'autoCautionaries auto-cauts))))
            context))
         (begin
-          (ly:warning (_ "unknown accidental style: ~S") style)
+          (ly:warning (G_ "unknown accidental style: ~S") style)
           (make-sequential-music '())))))
 
 (define-public (invalidate-alterations context)
@@ -2480,7 +2480,7 @@ not found, return the first value of @var{prop}."
         (assoc-get prop alist)
         (if (member lookfor (cdr segment))
             (begin
-              (ly:grob-warning grob prop (_ "giving up on cloned grob transform"))
+              (ly:grob-warning grob prop (G_ "giving up on cloned grob transform"))
               (find-value-to-offset grob prop self (cdr segment)))
             (assoc-get prop (cdr segment))))))
 
@@ -2543,7 +2543,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
           ;; confusing to a user unaware of the default value of the
           ;; property, so issue a warning.
           (if (equal? empty-interval vals)
-              (ly:warning (_ "default '~a of ~a is ~a and can't be offset")
+              (ly:warning (G_ "default '~a of ~a is ~a and can't be offset")
                           property grob vals)
               (let* ((orig (ly:grob-original grob))
                      (siblings
@@ -2574,7 +2574,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
                     (offset-multiple-types vals (car offsets)))))
 
           (begin
-            (ly:warning (_ "the property '~a of ~a cannot be offset") property grob)
+            (ly:warning (G_ "the property '~a of ~a cannot be offset") property grob)
             vals))))
   (grob-transformer property offset-fun))
 
@@ -2799,10 +2799,10 @@ scaling, then does the equivalent of a
   "Define a tag group consisting of the given @var{tags}, a@tie{}list
 of symbols.  Returns @code{#f} if successful, and an error message if
 there is a conflicting tag group definition."
-  (cond ((not (symbol-list? tags)) (format #f (_ "not a symbol list: ~a") tags))
+  (cond ((not (symbol-list? tags)) (format #f (G_ "not a symbol list: ~a") tags))
         ((any (lambda (tag) (hashq-ref tag-groups tag)) tags)
          => (lambda (group) (and (not (lset= eq? group tags))
-                                 (format #f (_ "conflicting tag group ~a") group))))
+                                 (format #f (G_ "conflicting tag group ~a") group))))
         (else
          (for-each
           (lambda (elt) (hashq-set! tag-groups elt tags))

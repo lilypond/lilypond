@@ -246,7 +246,7 @@
    #t
    (if (null? ac:eventsBackward)
     (begin
-     (ly:warning (_ "articulation failed to steal ~a note backward at beginning of music; stealing forward instead") tosteal)
+     (ly:warning (G_ "articulation failed to steal ~a note backward at beginning of music; stealing forward instead") tosteal)
      (set! ac:stealForward (+ ac:stealForward tosteal)))
     (let*
      ((lastev (car ac:eventsBackward))
@@ -258,7 +258,7 @@
       (begin
        (if (any (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
                 (ly:music-property lastev 'elements))
-        (ly:warning (_ "stealing the entirety of a note's time")))
+        (ly:warning (G_ "stealing the entirety of a note's time")))
        (set! (ly:music-property lastev 'elements) '())
        (set! ac:eventsBackward (cdr ac:eventsBackward))
        (ac:stealTimeBackward (- tosteal levlen))))))))
@@ -519,7 +519,7 @@
           (tremdur (ly:make-duration tremtype-log 0
                     (* (/ tgt-nrep eff-nrep) (ly:duration-scale totaldur)))))
          (or (and (= eff-nrep tgt-nrep) (= (ash 1 tremtype-log) tremtype))
-          (ly:warning (_ "non-integer tremolo ~a:~a")
+          (ly:warning (G_ "non-integer tremolo ~a:~a")
            (duration->lily-string (duration-visual totaldur) #:force-duration #t #:time-scale 1)
            tremtype))
          (for-each
@@ -829,7 +829,7 @@
           (begin
            (if (any (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
                     (ly:music-property music 'elements))
-            (ly:warning (_ "stealing the entirety of a note's time")))
+            (ly:warning (G_ "stealing the entirety of a note's time")))
            (set! ac:stealForward (- steallen totallen))
            (make-sequential-music '()))
           (begin
@@ -853,7 +853,7 @@
       (let ((fev-pos (find-tail (lambda (m) (eq? m first-ev)) ac:eventsBackward)))
        (if fev-pos
         (set! ac:eventsBackward (cdr fev-pos))
-        (ly:warning (_ "articulation of grace notes has gone awry"))))))
+        (ly:warning (G_ "articulation of grace notes has gone awry"))))))
     (let*
      ((gmus (ly:music-compress (ly:music-property music 'element)
                                (ly:make-moment ac:defaultGraceFactor)))
@@ -906,7 +906,7 @@ articulate = #(define-music-function (music)
                 (lambda ()
                  (or (= ac:stealForward 0)
                   (begin
-                   (ly:warning (_ "articulation failed to steal ~a note at end of music") ac:stealForward)
+                   (ly:warning (G_ "articulation failed to steal ~a note at end of music") ac:stealForward)
                    (set! ac:stealForward 0)))
                  (set! ac:eventsBackward '()))))
 

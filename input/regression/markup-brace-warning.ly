@@ -3,8 +3,8 @@
 #(use-modules (ice-9 format))
 
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (format #f (_ "no brace found for point size ~,1f ") 10.0))
-#(ly:expect-warning (format #f (_ "defaulting to ~,1f pt") 10.5))
+#(ly:expect-warning (format #f (G_ "no brace found for point size ~,1f ") 10.0))
+#(ly:expect-warning (format #f (G_ "defaulting to ~,1f pt") 10.5))
 
 \header {
   texidoc = "If  @code{\\left-brace} or @code{\\right-brace} cannot

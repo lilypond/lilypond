@@ -1,7 +1,7 @@
 \version "2.21.0"
 
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "Cannot find glyph ~a") "UNKNOWN-GLYPH")
+#(ly:expect-warning (G_ "Cannot find glyph ~a") "UNKNOWN-GLYPH")
 
 \header {
   texidoc = "Reset fontname for musicglyph.

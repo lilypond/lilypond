@@ -7,8 +7,8 @@ various kinds of grace music.  Problems are reported on stderr."
 
 \include "testing-functions.ily"
 #(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (_ "skipping zero-duration score"))
-#(ly:expect-warning (_ "to suppress this, consider adding a spacer rest"))
+#(ly:expect-warning (G_ "skipping zero-duration score"))
+#(ly:expect-warning (G_ "to suppress this, consider adding a spacer rest"))
 
 \fixed c' <<
 

@@ -10,7 +10,7 @@ footnotes.
 #(define (make-footnote-numbering-assertion-function n)
   (lambda (x)
     (if (not (= n x))
-      (ly:error (_ "Expecting number ~a, got ~a") n x))))
+      (ly:error (G_ "Expecting number ~a, got ~a") n x))))
 
 #(define (simultaneous-footnote-numbering-assertion-function x y)
   (lambda (grob)
@@ -20,7 +20,7 @@ footnotes.
                  y)))
       (lambda (x)
         (if (not (= n x))
-          (ly:error (_ "Expecting number ~a, got ~a") n x))))))
+          (ly:error (G_ "Expecting number ~a, got ~a") n x))))))
 
 \paper {
   reset-footnotes-on-new-page = ##f

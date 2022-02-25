@@ -87,7 +87,7 @@
     (if (not lineage)
         (begin
           (if (not (null? parent))
-              (ly:warning (_ "unknown parent class `~a'") parent))
+              (ly:warning (G_ "unknown parent class `~a'") parent))
           (set! lineage '())))
     (if (symbol? class)
         (acons class lineage classlist)
@@ -121,9 +121,9 @@ previously defined event class."
   (let ((parentclass (ly:make-event-class parent)))
     (cond
      ((ly:make-event-class class)
-      (ly:error (_ "Cannot redefine event class `~S'") class))
+      (ly:error (G_ "Cannot redefine event class `~S'") class))
      ((not parentclass)
-      (ly:error (_ "Undefined parent event class `~S'") parentclass))
+      (ly:error (G_ "Undefined parent event class `~S'") parentclass))
      (else
       (hashq-set! ancestor-lookup
                   class

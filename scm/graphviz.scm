@@ -62,7 +62,7 @@
         (es (edges graph))
         (cs (clusters graph)))
     (if (file-port? out)
-      (ly:message (_ "Writing graph to `~a'...\n") (port-filename out)))
+      (ly:message (G_ "Writing graph to `~a'...\n") (port-filename out)))
     (display "digraph G {\nrankdir=\"LR\"\nnode [shape=rectangle]\n" out)
     (for-each (lambda (n) (format out "~a [label=\"~a\"]\n" (car n) (cdr n)))
               ns)

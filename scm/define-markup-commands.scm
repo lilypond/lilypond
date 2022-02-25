@@ -275,7 +275,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
             (negative? on)
             (negative? off))
         (begin
-          (ly:warning (_ "Can't print a line - setting on/off to default"))
+          (ly:warning (G_ "Can't print a line - setting on/off to default"))
           (set! on 1)
           (set! off 1)))
 
@@ -1387,7 +1387,7 @@ braces like it would be for @code{\\score}."
             Y))
          (vector->list (ly:paper-score-paper-systems output)))
         (begin
-          (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
+          (ly:warning (G_ "no systems found in \\score markup, does it have a \\layout block?"))
           '()))))
 
 (define-markup-command (score layout props score)
@@ -2559,12 +2559,12 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   (symbol?)
   #:category other
   #:as-string (begin
-                (ly:warning (_ "Recursive definition of property ~a detected!")
+                (ly:warning (G_ "Recursive definition of property ~a detected!")
                             symbol)
                 "")
   "Print out a warning when a header field markup contains some recursive
 markup definition."
-  (ly:warning (_ "Recursive definition of property ~a detected!") symbol)
+  (ly:warning (G_ "Recursive definition of property ~a detected!") symbol)
   empty-stencil)
 
 (define-markup-command (fromproperty layout props symbol)
@@ -3311,7 +3311,7 @@ the possible glyphs.
                                         props)))
          (glyph (ly:font-get-glyph font glyph-name)))
     (if (null? (ly:stencil-expr glyph))
-        (ly:warning (_ "Cannot find glyph ~a") glyph-name))
+        (ly:warning (G_ "Cannot find glyph ~a") glyph-name))
 
     glyph))
 
@@ -3394,7 +3394,7 @@ rational number.
         (or
           (assv-ref glyph-alist alteration)
           (begin
-            (ly:warning (_ "no accidental glyph found for alteration ~a")
+            (ly:warning (G_ "no accidental glyph found for alteration ~a")
                         alteration)
             "noteheads.s1cross"))))))
 
@@ -3771,7 +3771,7 @@ and continue with double letters.
           (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
           (set! number-stencil
                 (ly:stencil-add number-stencil slash-stencil)))
-        (ly:warning (_ "Unable to create slashed digit ~a") num))
+        (ly:warning (G_ "Unable to create slashed digit ~a") num))
     number-stencil))
 
 
@@ -3888,9 +3888,9 @@ A feta brace in point size @var{size}.
             (> scaled-size (interval-length
                             (ly:stencil-extent (glyph glyph-count) Y))))
         (begin
-          (ly:warning (ice9-format #f (_ "no brace found for point size ~,1f ") size))
+          (ly:warning (ice9-format #f (G_ "no brace found for point size ~,1f ") size))
           (ly:warning (ice9-format #f
-                                   (_ "defaulting to ~,1f pt")
+                                   (G_ "defaulting to ~,1f pt")
                                    (/ (* scale (interval-length
                                                 (ly:stencil-extent glyph-found Y)))
                                       (ly:pt 1))))))

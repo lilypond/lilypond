@@ -116,7 +116,7 @@ spacing after the divider).
                          ((#\o)  ; Next pedal should be circled
                           (process-pedal (cdr remaining) prev-x stencils #t space))
                          (else
-                          (ly:warning (_ "Unhandled entry in harp-pedal: ~a")
+                          (ly:warning (G_ "Unhandled entry in harp-pedal: ~a")
                                       (car remaining))
                           (process-pedal (cdr remaining)
                                          prev-x stencils circled space))))))
@@ -164,9 +164,9 @@ spacing after the divider).
   (let ((info (harp-pedal-info pedal-list)))
     ;; 7 pedals:
     (if (not (equal? (car info) 7))
-        (ly:warning (_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") (car info)))
+        (ly:warning (G_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") (car info)))
     ;; One divider after third pedal:
     (if (null? (cdr info))
-        (ly:warning (_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
+        (ly:warning (G_ "Harp pedal diagram does not contain a divider (usually after third pedal)."))
         (if (not (equal? (cdr info) '(3)))
-            (ly:warning (_ "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal.") (cdr info))))))
+            (ly:warning (G_ "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal.") (cdr info))))))

@@ -9,8 +9,8 @@ If they don't bar lines should still be shown.
 
 #(ly:set-option 'warning-as-error #t)
 %% One warning for the \repeat and one for the \alternative.
-#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
-#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
+#(ly:expect-warning (G_ "More alternatives than repeats.  Junking excess alternatives"))
+#(ly:expect-warning (G_ "More alternatives than repeats.  Junking excess alternatives"))
 
 \context Voice \relative {
   %% repeat non aligning with bar lines.

@@ -18,7 +18,7 @@
 
 (define (music-property-description symbol type? description)
   (if (not (equal? #f (object-property symbol 'music-doc)))
-      (ly:error (_ "symbol ~S redefined") symbol))
+      (ly:error (G_ "symbol ~S redefined") symbol))
   (set-object-property! symbol 'music-type? type?)
   (set-object-property! symbol 'music-doc description)
   symbol)

@@ -7,8 +7,8 @@
 
 #(ly:set-option 'warning-as-error #t)
 %% once for \context and once for \set
-#(ly:expect-warning (_ "cannot find or create context: ~a") 'Global)
-#(ly:expect-warning (_ "cannot find or create context: ~a") 'Global)
+#(ly:expect-warning (G_ "cannot find or create context: ~a") 'Global)
+#(ly:expect-warning (G_ "cannot find or create context: ~a") 'Global)
 
 \context Global {
   \set Global.instrumentName = "Global"

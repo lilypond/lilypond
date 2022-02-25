@@ -70,7 +70,7 @@ after the onset of @var{mus}.")
            (ly:moment<?
             (ly:music-length mus)
             (ly:moment-add (ly:music-length ev) (ly:duration-length delta))))
-      (ly:warning (_ "\\after expression longer than main music argument.")))
+      (ly:warning (G_ "\\after expression longer than main music argument.")))
   #{ \context Bottom << { \skip $delta <> $ev } #mus >> #})
 
 %% keep these two together
@@ -91,7 +91,7 @@ given fraction of the main note's duration has passed.  If
           (grace-music
             (make-music 'GraceMusic 'element grace)))
      (if (> factor 1)
-         (ly:warning (_ "\\afterGrace exceeds duration of main argument.")))
+         (ly:warning (G_ "\\afterGrace exceeds duration of main argument.")))
      ;;; Despite the similarity of definitions, don't reduce this to
      ;;; an application of \after. For \afterGrace, the arguments are
      ;;; input in visual order, hence they should be used in that order
@@ -129,7 +129,7 @@ form of a spanner event, @var{property} may also have the form
               (music-is-of-type? target 'tie-event))
           (tweak property (value-for-spanner-piece property arg) target)
           (begin
-            (ly:music-warning item (_ "not a spanner"))
+            (ly:music-warning item (G_ "not a spanner"))
             item))
       (propertyOverride (append target (if (symbol? property)
                                            (list property)
@@ -149,8 +149,8 @@ simultaneous music.")
            (music-is-of-type? m 'simultaneous-music))
        (if (ly:event? more)
            (begin
-             (ly:music-warning m (_ "\\appendToTag cannot append post-event"))
-             (ly:music-message m (_ "to this music")))
+             (ly:music-warning m (G_ "\\appendToTag cannot append post-event"))
+             (ly:music-message m (G_ "to this music")))
            (set! (ly:music-property m 'elements)
                  (append! (ly:music-property m 'elements) (list more)))))
       ((music-is-of-type? m 'event-chord)
@@ -165,20 +165,20 @@ simultaneous music.")
                       (lambda (elts posts)
                         (append! elts (cons more posts))))))
              (else
-              (ly:music-warning more (_ "\\appendToTag cannot append this"))
-              (ly:music-message m (_ "to this event-chord")))))
+              (ly:music-warning more (G_ "\\appendToTag cannot append this"))
+              (ly:music-message m (G_ "to this event-chord")))))
       ((music-is-of-type? m 'rhythmic-event)
        (if (ly:event? more)
            (set! (ly:music-property m 'articulations)
                  (append! (ly:music-property m 'articulations) (list more)))
            (begin
-             (ly:music-warning more (_ "\\appendToTag cannot append this music"))
-             (ly:music-message m (_ "to this rhythmic-event")))))
+             (ly:music-warning more (G_ "\\appendToTag cannot append this music"))
+             (ly:music-message m (G_ "to this rhythmic-event")))))
       ((music-is-of-type? m 'music-wrapper-music)
        (add-right (ly:music-property m 'element) more))
       (else
-       (ly:input-warning (*location*) (_ "\\appendToTag failed:"))
-       (ly:music-message m (_ "No \\appendToTag destination")))))
+       (ly:input-warning (*location*) (G_ "\\appendToTag failed:"))
+       (ly:music-message m (G_ "No \\appendToTag destination")))))
    (music-map (lambda (m)
                 (if (memq tag (ly:music-property m 'tags))
                     (add-right m more))
@@ -728,7 +728,7 @@ key =
 If both are null, just generate @code{KeyChangeEvent}.")
    (cond ((null? tonic) (make-music 'KeyChangeEvent))
          ((null? pitch-alist)
-          (ly:parser-error (_ "second argument must be pitch list")
+          (ly:parser-error (G_ "second argument must be pitch list")
                            (*location*))
           (make-music 'SequentialMusic 'void #t))
          (else
@@ -780,7 +780,7 @@ languageRestore =
        (begin
         (set! pitchnames previous-pitchnames)
         (ly:parser-set-note-names pitchnames))
-      (ly:input-warning (*location*) (_ "No other language was defined previously. Ignoring."))))
+      (ly:input-warning (*location*) (G_ "No other language was defined previously. Ignoring."))))
 
 
 magnifyMusic =
@@ -1087,7 +1087,7 @@ override and proper tweak.")
                #t)
               ((ly:duration? (ly:music-property m 'duration))
                (if (not quiet?)
-                   (ly:music-warning m (_ "Cannot apply \\once to timed music")))
+                   (ly:music-warning m (G_ "Cannot apply \\once to timed music")))
                #t)
               (else #f)))
       music))
@@ -1264,7 +1264,7 @@ change to the following voice."
                                                 (if (pair? seq)
                                                     (last seq)
                                                     (caar seqs))
-                                                (_ "Bars in parallel music don't have the same length"))))
+                                                (G_ "Bars in parallel music don't have the same length"))))
                                          seqs)))
                   voices)
            (map concatenate! voices))
@@ -1306,7 +1306,7 @@ change to the following voice."
                      (ly:parser-define! voice-id voice))
                    voice-ids voices)
          (ly:music-warning music
-                           (_ "ignoring parallel music without barchecks")))))
+                           (G_ "ignoring parallel music without barchecks")))))
 
 parenthesize =
 #(define-music-function (arg) (symbol-list-or-music?)
@@ -1448,7 +1448,7 @@ print @var{secondary-note} as a stemless note head in parentheses.")
                  (for-each (lambda (m)
                              (ly:music-set-property! m 'pitch trill-pitch)) trill-events)
                  (begin
-                   (ly:input-warning (*location*) (_ "Second argument of \\pitchedTrill should be single note: "))
+                   (ly:input-warning (*location*) (G_ "Second argument of \\pitchedTrill should be single note: "))
                    (display sec-note-events)))
 
              (if (eq? forced #t)
@@ -1581,9 +1581,9 @@ property (inside of an alist) is tweaked.")
                                elts))
                    (set! (ly:music-property item 'element) seq))
                  (begin
-                   (ly:parser-error (_ "Cannot \\propertyTweak")
+                   (ly:parser-error (G_ "Cannot \\propertyTweak")
                                     (*location*))
-                   (ly:music-message item (_ "untweakable"))))
+                   (ly:music-message item (G_ "untweakable"))))
              item)
            (tweak prop value item))
        (propertyOverride (append item (if (symbol? prop) (list prop) prop))
@@ -1617,8 +1617,8 @@ simultaneous music.")
            (music-is-of-type? m 'simultaneous-music))
        (if (ly:event? more)
            (begin
-             (ly:music-warning more (_ "\\pushToTag cannot push post-event"))
-             (ly:music-message m (_ "to this music")))
+             (ly:music-warning more (G_ "\\pushToTag cannot push post-event"))
+             (ly:music-message m (G_ "to this music")))
            (set! (ly:music-property m 'elements)
                  (cons more (ly:music-property m 'elements)))))
       ((music-is-of-type? m 'event-chord)
@@ -1633,20 +1633,20 @@ simultaneous music.")
               (set! (ly:music-property m 'elements)
                     (cons more (ly:music-property m 'elements))))
              (else
-              (ly:music-warning more (_ "\\pushToTag cannot push this"))
-              (ly:music-message m (_ "to this event-chord")))))
+              (ly:music-warning more (G_ "\\pushToTag cannot push this"))
+              (ly:music-message m (G_ "to this event-chord")))))
       ((music-is-of-type? m 'rhythmic-event)
        (if (ly:event? more)
            (set! (ly:music-property m 'articulations)
                  (cons more (ly:music-property m 'articulations)))
            (begin
-             (ly:music-warning more (_ "\\pushToTag cannot push this music"))
-             (ly:music-message m (_ "to this rhythmic-event")))))
+             (ly:music-warning more (G_ "\\pushToTag cannot push this music"))
+             (ly:music-message m (G_ "to this rhythmic-event")))))
       ((music-is-of-type? m 'music-wrapper-music)
        (add-left (ly:music-property m 'element) more))
       (else
-       (ly:input-warning (*location*) (_ "\\pushToTag failed:"))
-       (ly:music-message m (_ "No \\pushToTag destination")))))
+       (ly:input-warning (*location*) (G_ "\\pushToTag failed:"))
+       (ly:music-message m (G_ "No \\pushToTag destination")))))
    (music-map (lambda (m)
                 (if (memq tag (ly:music-property m 'tags))
                     (add-left m more))
@@ -1968,7 +1968,7 @@ property-changing music that isn't an @code{\\override}.")
              (else
               (if (not warned)
                   (begin
-                    (ly:input-warning (*location*) (_ "Cannot make ~a revertible")
+                    (ly:input-warning (*location*) (G_ "Cannot make ~a revertible")
                                       (ly:music-property m 'name))
                     (set! warned #t)))
               #t))))
@@ -2151,7 +2151,7 @@ unsets already in @var{music} cause a warning.  Non-property-related music is ig
                 (else
                  (if (not warned)
                      (begin
-                       (ly:input-warning (*location*) (_ "Cannot revert ~a")
+                       (ly:input-warning (*location*) (G_ "Cannot revert ~a")
                                          (ly:music-property m 'name))
                        (set! warned #t)))
                  overrides)))

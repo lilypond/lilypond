@@ -284,7 +284,7 @@ Typically used to construct a scale for input to
                (append! res (filter-ties! m '() 'articulations)))))))
   (let ((dangling (loop music '())))
     (for-each
-     (lambda (t) (ly:music-warning t (_ "Dangling tie in \\retrograde")))
+     (lambda (t) (ly:music-warning t (G_ "Dangling tie in \\retrograde")))
      dangling))
   music)
 

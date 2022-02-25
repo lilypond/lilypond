@@ -24,7 +24,7 @@ po: local-po
 local-po:
 	$(call ly_progress,Making po files for,*,)
 	xgettext $(XGETTEXT_OPTIONS) --output-dir=$(po-outdir) \
-	  --keyword=_ --keyword=_f --keyword=_i \
+	  --keyword=_ --keyword=_f --keyword=_i --keyword=G_ \
 	  $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
 	sed -i '1,2d' $(po-outdir)/$(package).po
 	sed -i -e 's/^\# This file is distributed.*/$(sed-header)/' $(po-outdir)/$(package).po

@@ -117,7 +117,7 @@
          (new-scope (ly:output-def-scope new-paper)))
 
     (if in-layout?
-        (ly:warning (_ "set-global-staff-size: not in toplevel scope")))
+        (ly:warning (G_ "set-global-staff-size: not in toplevel scope")))
 
     (ly:reset-all-fonts)
     (layout-set-absolute-staff-size-in-module new-scope
@@ -129,7 +129,7 @@
 
   ;; Don't use decimals with millimeters.
   ;; ISO 216 has a tolerance of +- 2mm
-  `((,(_ "ISO 216, A series")
+  `((,(G_ "ISO 216, A series")
      . (("a10" . (cons (* 26 mm) (* 37 mm)))
         ("a9" . (cons (* 37 mm) (* 52 mm)))
         ("a8" . (cons (* 52 mm) (* 74 mm)))
@@ -141,10 +141,10 @@
         ("a2" . (cons (* 420 mm) (* 594 mm)))
         ("a1" . (cons (* 594 mm) (* 841 mm)))
         ("a0" . (cons (* 841 mm) (* 1189 mm)))))
-    (,(_ "Two extended sizes as defined in DIN 476")
+    (,(G_ "Two extended sizes as defined in DIN 476")
      . (("2a0" . (cons (* 1189 mm) (* 1682 mm)))
         ("4a0" . (cons (* 1682 mm) (* 2378 mm)))))
-    (,(_ "ISO 216, B series")
+    (,(G_ "ISO 216, B series")
      . (("b10" . (cons (* 31 mm) (* 44 mm)))
         ("b9" . (cons (* 44 mm) (* 62 mm)))
         ("b8" . (cons (* 62 mm) (* 88 mm)))
@@ -156,7 +156,7 @@
         ("b2" . (cons (* 500 mm) (* 707 mm)))
         ("b1" . (cons (* 707 mm) (* 1000 mm)))
         ("b0" . (cons (* 1000 mm) (* 1414 mm)))))
-    (,(_ "ISO 269, C series")
+    (,(G_ "ISO 269, C series")
      . (("c10" . (cons (* 28 mm) (* 40 mm)))
         ("c9" . (cons (* 40 mm) (* 57 mm)))
         ("c8" . (cons (* 57 mm) (* 81 mm)))
@@ -168,7 +168,7 @@
         ("c2" . (cons (* 458 mm) (* 648 mm)))
         ("c1" . (cons (* 648 mm) (* 917 mm)))
         ("c0" . (cons (* 917 mm) (* 1297 mm)))))
-    (,(_ "North American paper sizes")
+    (,(G_ "North American paper sizes")
      . (("junior-legal" . (cons (* 5.0 in) (* 8.0 in)))
         ("legal" . (cons (* 8.5 in) (* 14.0 in)))
         ;; Ledger (17x11) is a 90 degree rotation of Tabloid
@@ -178,11 +178,11 @@
         ;; Tabloid (11x17)
         ("tabloid" . (cons (* 11.0 in) (* 17.0 in)))
         ("11x17" . (cons (* 11.0 in) (* 17.0 in)))))
-    (,(_ "Sizes by IEEE Printer Working Group, for children's writing")
+    (,(G_ "Sizes by IEEE Printer Working Group, for children's writing")
      . (("government-letter" . (cons (* 8 in) (* 10.5 in)))
         ("government-legal" . (cons (* 8.5 in) (* 13.0 in)))
         ("philippine-legal" . (cons (* 8.5 in) (* 13.0 in)))))
-    (,(_ "ANSI sizes")
+    (,(G_ "ANSI sizes")
      . (("ansi a" . (cons (* 8.5 in) (* 11.0 in)))
         ("ansi b" . (cons (* 11.0 in) (* 17.0 in)))
         ("ansi c" . (cons (* 17.0 in) (* 22.0 in)))
@@ -191,14 +191,14 @@
         ("engineering f" . (cons (* 28.0 in) (* 40.0 in)))
         ;; G and H are very rare, and the lengths are variable up to 90 inches
         ))
-    (,(_ "North American architectural sizes")
+    (,(G_ "North American architectural sizes")
      . (("arch a" . (cons (* 9.0 in) (* 12.0 in)))
         ("arch b" . (cons (* 12.0 in) (* 18.0 in)))
         ("arch c" . (cons (* 18.0 in) (* 24.0 in)))
         ("arch d" . (cons (* 24.0 in) (* 36.0 in)))
         ("arch e" . (cons (* 36.0 in) (* 48.0 in)))
         ("arch e1" . (cons (* 30.0 in) (* 42.0 in)))))
-    (,(_ "Other sizes, including antique sizes still used in the United Kingdom")
+    (,(G_ "Other sizes, including antique sizes still used in the United Kingdom")
      . (("statement" . (cons (* 5.5 in) (* 8.5 in)))
         ("half letter" . (cons (* 5.5 in) (* 8.5 in)))
         ("quarto" . (cons (* 8.0 in) (* 10.0 in)))
@@ -221,7 +221,7 @@
         ("atlas" . (cons (* 26.0 in) (* 34.0 in)))
         ("imperial" . (cons (* 22.0 in) (* 30.0 in)))
         ("antiquarian" . (cons (* 31.0 in) (* 53.0 in)))))
-    (,(_ "PA4-based sizes")
+    (,(G_ "PA4-based sizes")
      . (("pa10" . (cons (* 26 mm) (* 35 mm)))
         ("pa9" . (cons (* 35 mm) (* 52 mm)))
         ("pa8" . (cons (* 52 mm) (* 70 mm)))
@@ -233,7 +233,7 @@
         ("pa2" . (cons (* 420 mm) (* 560 mm)))
         ("pa1" . (cons (* 560 mm) (* 840 mm)))
         ("pa0" . (cons (* 840 mm) (* 1120 mm)))))
-    (,(_ "Additional format for use in Southeast Asia and Australia")
+    (,(G_ "Additional format for use in Southeast Asia and Australia")
      . (("f4" . (cons (* 210 mm) (* 330 mm)))))
     ))
 
@@ -327,7 +327,7 @@ ignoring @var{landscape?}."
          (is-paper? (module-defined? module 'is-paper)))
     (cond
      ((not is-paper?)
-      (ly:warning (_ "This is not a \\layout {} object, ~S") module))
+      (ly:warning (G_ "This is not a \\layout {} object, ~S") module))
      (entry
       (set-paper-dimensions module (car entry) (cdr entry) landscape?)
 
@@ -335,7 +335,7 @@ ignoring @var{landscape?}."
       (module-define! module 'landscape
                       (if landscape? #t #f)))
      (else
-      (ly:warning (_ "Unknown paper size: ~a") name)))))
+      (ly:warning (G_ "Unknown paper size: ~a") name)))))
 
 (define-safe-public (set-default-paper-size name . rest)
   (let* ((pap (module-ref (current-module) '$defaultpaper))
@@ -354,7 +354,7 @@ ignoring @var{landscape?}."
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
-      (ly:warning (_ "Must use #(set-paper-size .. ) within \\paper { ... }"))))
+      (ly:warning (G_ "Must use #(set-paper-size .. ) within \\paper { ... }"))))
 
 (define-public (scale-layout paper scale)
   "Return a clone of @var{paper}, scaled by the given scale factor."

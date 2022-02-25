@@ -245,19 +245,19 @@
                 (begin
                   (if (equal? args-filename-offset (cdr found-filename-offset))
                       (ly:debug
-                       (_ "CFF font `~a' already embedded, skipping.")
+                       (G_ "CFF font `~a' already embedded, skipping.")
                        name)
                       (ly:warning
-                       (_ "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded.")
+                       (G_ "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded.")
                        name))
                   "")
                 (begin
-                  (ly:debug (_ "Embedding CFF font `~a'.") name)
+                  (ly:debug (G_ "Embedding CFF font `~a'.") name)
                   (set! font-list
                         (acons name-symbol args-filename-offset font-list))
                   (ps-embed-cff (ly:otf->cff file-name font-index) name 0))))
           (begin
-            (ly:debug (_ "Initializing embedded CFF font list."))
+            (ly:debug (G_ "Initializing embedded CFF font list."))
             (set! font-list '()))))))
 
 (define (initialize-font-embedding)
@@ -279,7 +279,7 @@
     retval))
 
 (define (link-ps-resdir-font name file-name font-index)
-  (ly:debug (_ "Preparing font ~a in PostScript resource directory\
+  (ly:debug (G_ "Preparing font ~a in PostScript resource directory\
  for subfont ~a of file `~a'...")
             name font-index file-name)
   (let* ((index (if (number? font-index) font-index 0))
@@ -295,13 +295,13 @@
                                   (ly:get-option 'font-ps-resdir) name)))
              (port (create-file-exclusive newpath)))
         (if (not port)
-            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
+            (ly:debug (G_ "File `~a' already exists, skipping...") newpath)
             (begin
               (close port)
               (ly:extract-subfont-from-collection file-name index newpath)))))
      ((eq? font-format 'TrueType)
       ;; TrueType fonts (TTF) and TrueType Collection (TTC)
-      (ly:debug (_ "Font ~a is TrueType font, skipping...") name))
+      (ly:debug (G_ "Font ~a is TrueType font, skipping...") name))
      ((or (eq? font-format (string->symbol "Type 1"))
           (and (eq? font-format 'CFF)
                (ly:has-glyph-names? file-name 0)))
@@ -309,15 +309,15 @@
       (let ((newpath (format #f "~a/Font/~a"
                              (ly:get-option 'font-ps-resdir) name)))
         (if (not (symlink-or-copy-if-not-exist file-name newpath))
-            (ly:debug (_ "File `~a' already exists, skipping...") newpath))))
+            (ly:debug (G_ "File `~a' already exists, skipping...") newpath))))
      ((eq? font-format 'CFF)
       ;; CID OpenType/CFF fonts (OTF)
       (let ((newpath (format #f "~a/CIDFont/~a"
                              (ly:get-option 'font-ps-resdir) name)))
         (if (not (symlink-or-copy-if-not-exist file-name newpath))
-            (ly:debug (_ "File `~a' already exists, skipping...") newpath))))
+            (ly:debug (G_ "File `~a' already exists, skipping...") newpath))))
      (else
-      (ly:warning (_ "Font ~a cannot be used in PostScript resource directory\
+      (ly:warning (G_ "Font ~a cannot be used in PostScript resource directory\
  because it is unknown format." name))))))
 
 (define (write-preamble paper load-fonts? port)
@@ -356,19 +356,19 @@
       (cond
        ((and (number? font-index)
              (!= font-index 0))
-        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
+        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
                     name font-index)
         (load-font font-name-filename))
        ((and (string? bare-file-name)
              (eq? (ly:get-font-format bare-file-name font-index) 'CFF)
              (is-collection-font? bare-file-name))
-        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font.")
+        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font.")
                     name)
         (load-font font-name-filename))
        ((and (string? bare-file-name)
              (eq? (ly:get-font-format bare-file-name font-index) 'TrueType)
              (not (ly:has-glyph-names? bare-file-name font-index)))
-        (ly:warning (_ "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names.")
+        (ly:warning (G_ "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names.")
                     name)
         (load-font font-name-filename))
        (else
@@ -390,7 +390,7 @@
                      ((string? bare-file-name)
                       (ps-load-file file-name name))
                      (else
-                      (ly:warning (_ "cannot embed ~S=~S") name file-name)
+                      (ly:warning (G_ "cannot embed ~S=~S") name file-name)
                       "")))))))))
 
   (define (dir-join a b)
@@ -433,7 +433,7 @@
       (if (not embed)
           (begin
             (set! embed "% failed\n")
-            (ly:warning (_ "cannot extract file matching ~a from ~a")
+            (ly:warning (G_ "cannot extract file matching ~a from ~a")
                         name file-name)))
       embed))
 
@@ -454,7 +454,7 @@
         ;; OpenType/CFF fonts (OTF) and OpenType/CFF Collection (OTC)
         (check-conflict-and-embed-cff name file-name font-index))
        (else
-        (ly:warning (_ "do not know how to embed ~S=~S") name file-name)
+        (ly:warning (G_ "do not know how to embed ~S=~S") name file-name)
         ""))))
 
   (define (mac-font? bare-file-name)
@@ -486,7 +486,7 @@
                   (bare-file-name (font-file-as-ps-string
                                    name bare-file-name font-index))
                   (else
-                   (ly:warning (_ "do not know how to embed font ~s ~s ~s")
+                   (ly:warning (G_ "do not know how to embed font ~s ~s ~s")
                                name file-name font))))))
 
   (define (load-fonts paper)
@@ -540,13 +540,13 @@
       (if (not port-excl)
           (begin
             (ly:debug
-             (_ "Font file `~a' already exists, skipping...")
+             (G_ "Font file `~a' already exists, skipping...")
              filename)
             #f)
           ;; MinGW hack: need to have "b"inary for fonts
           (let ((port (open-file filename "wb")))
             (close port-excl)
-            (ly:debug (_ "Exporting font file `~a'.") filename)
+            (ly:debug (G_ "Exporting font file `~a'.") filename)
             (if (or (ly:get-option 'gs-load-fonts)
                     (ly:get-option 'gs-load-lily-fonts))
                 (begin
@@ -575,27 +575,27 @@
              (fontdir (format #f "~a/Font"
                               (ly:get-option 'font-ps-resdir))))
         (ly:debug
-         (_ "Making PostScript resource directory `~a'.") resdir)
+         (G_ "Making PostScript resource directory `~a'.") resdir)
         (if (not (mkdir-if-not-exist resdir))
             (ly:debug
-             (_ "PostScript resource directory `~a' already exists.") resdir))
+             (G_ "PostScript resource directory `~a' already exists.") resdir))
         (ly:debug
-         (_ "Making CIDFont directory `~a'.") cidfontdir)
+         (G_ "Making CIDFont directory `~a'.") cidfontdir)
         (if (not (mkdir-if-not-exist cidfontdir))
             (ly:debug
-             (_ "CIDFont directory `~a' already exists.") cidfontdir))
+             (G_ "CIDFont directory `~a' already exists.") cidfontdir))
         (ly:debug
-         (_ "Making Font directory `~a'.") fontdir)
+         (G_ "Making Font directory `~a'.") fontdir)
         (if (not (mkdir-if-not-exist fontdir))
             (ly:debug
-             (_ "Font directory `~a' already exists.") fontdir))))
+             (G_ "Font directory `~a' already exists.") fontdir))))
   (if (ly:get-option 'font-export-dir)
       (let ((dirname (format #f "~a" (ly:get-option 'font-export-dir))))
         (ly:debug
-         (_ "Making font export directory `~a'.") dirname)
+         (G_ "Making font export directory `~a'.") dirname)
         (if (not (mkdir-if-not-exist dirname))
             (ly:debug
-             (_ "Font export directory `~a' already exists.") dirname))))
+             (G_ "Font export directory `~a' already exists.") dirname))))
   (if load-fonts?
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
@@ -742,7 +742,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define (warn-formats formats)
   (if (member "svg" formats)
-      (ly:warning (_ "PS backend does not support SVG format"))))
+      (ly:warning (G_ "PS backend does not support SVG format"))))
 
 (define-public (output-stencils basename stencils header paper formats)
   (warn-formats formats)
@@ -827,7 +827,7 @@ mark {ly~a_stream} /CLOSE pdfmark
             (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling))))
 
   (let* ((dest-name  (format #f "~a.eps" filename))
-         (ignore (ly:message (_  "Layout output to `~a'...") dest-name))
+         (ignore (ly:message (G_  "Layout output to `~a'...") dest-name))
          (port (make-tmpfile (dirname filename)))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))

@@ -15,9 +15,9 @@ Micro-tones assigned to strings work nicely."
 #(ly:set-option 'warning-as-error #t)
 #(for-each
   (lambda (pitch)
-    (ly:expect-warning (_ "No string for pitch "))
-    (ly:expect-warning (_ "Requested string for pitch requires negative fret"))
-    (ly:expect-warning (_ "Ignoring string request and recalculating.")))
+    (ly:expect-warning (G_ "No string for pitch "))
+    (ly:expect-warning (G_ "Requested string for pitch requires negative fret"))
+    (ly:expect-warning (G_ "Ignoring string request and recalculating.")))
   (iota 4))
 
 \layout {

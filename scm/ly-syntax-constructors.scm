@@ -24,7 +24,7 @@
   (let* ((sigcar (car (ly:music-function-signature fun)))
          (pred? (if (pair? sigcar) (car sigcar) sigcar)))
     (ly:parser-error
-     (format #f (_ "~a function cannot return ~a")
+     (format #f (G_ "~a function cannot return ~a")
              (type-name pred?)
              (value->lily-string m))
      (*location*))
@@ -57,7 +57,7 @@
 (define-public (argument-error n pred arg)
   (ly:parser-error
    (format #f
-           (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+           (G_ "wrong type for argument ~a.  Expecting ~a, found ~s")
            n (type-name pred) (music->make-music arg))
    (*location*)))
 
@@ -111,7 +111,7 @@
   (cond ((ly:event? item) (ly:set-origin! item))
         ((markup? item) (ly:set-origin! (make-music 'TextScriptEvent 'text item)))
         (else
-         (ly:parser-error (_ "not an articulation") (*location*))
+         (ly:parser-error (G_ "not an articulation") (*location*))
          *unspecified*)))
 
 ;; We use define-syntax-function here with a slightly fishy "fallback
