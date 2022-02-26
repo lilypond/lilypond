@@ -24,6 +24,9 @@ namespace Guile_user
 Scm_module module ("guile-user");
 
 Variable apply ("apply");
+#if SCM_MAJOR_VERSION == 2
+Variable p_auto_compilation_options ("%auto-compilation-options");
+#endif
 Variable equal ("=");
 Variable less ("<");
 Variable plus ("+");
@@ -37,6 +40,29 @@ Variable module_use_x ("module-use!");
 Variable symbol_p ("symbol?");
 Variable the_root_module ("the-root-module");
 }
+
+#if SCM_MAJOR_VERSION >= 3
+namespace Compile
+{
+Scm_module module ("system base compile");
+
+Variable default_optimization_level ("default-optimization-level");
+}
+#elif SCM_MAJOR_VERSION == 2
+namespace Tree_il_optimize
+{
+Scm_module module ("language tree-il optimize");
+
+Variable tree_il_default_optimization_options ("tree-il-default-optimization-options");
+}
+
+namespace Cps_optimize
+{
+Scm_module module ("language cps optimize");
+
+Variable cps_default_optimization_options ("cps-default-optimization-options");
+}
+#endif
 
 namespace Display
 {

@@ -28,6 +28,9 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable apply;
+#if SCM_MAJOR_VERSION == 2
+extern Variable p_auto_compilation_options;
+#endif
 extern Variable equal;
 #if GUILEV2
 extern Variable f_default_port_encoding;
@@ -44,6 +47,32 @@ extern Variable module_use_x;
 extern Variable symbol_p;
 extern Variable the_root_module;
 }
+
+#if SCM_MAJOR_VERSION >= 3
+namespace Compile
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable default_optimization_level;
+}
+#elif SCM_MAJOR_VERSION == 2
+namespace Tree_il_optimize
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable tree_il_default_optimization_options;
+}
+
+namespace Cps_optimize
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable cps_default_optimization_options;
+}
+#endif
 
 namespace Display
 {

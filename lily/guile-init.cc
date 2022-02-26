@@ -22,6 +22,7 @@
 #include "international.hh"
 #include "lily-guile.hh"
 #include "lily-imports.hh"
+#include "ly-scm-list.hh"
 #include "smobs.hh"
 #include "warn.hh"
 
@@ -61,6 +62,30 @@ ly_init_ly_module ()
   for (Void_fptr f : *scm_init_funcs_)
     f ();
 
+  /*
+     Guile 2 tries to optimize code when byte-compiling.  Experimentally, this
+     makes LilyPond's speed borderline worse, not better, and the compilation
+     takes time.  This situation is further exacerbated in Guile 3.  Thus, we
+     turn off all optimizations.  Guile 3 has a nice, documented interface for
+     doing this.  In Guile 2, we have to do it by hand -- the way of building
+     the list of optimizations is modeled after module/scripts/compile.scm in
+     the sources.
+  */
+#if SCM_MAJOR_VERSION >= 3
+  Compile::default_optimization_level (to_scm (0));
+#elif SCM_MAJOR_VERSION == 2
+  SCM tree_il_opts = Tree_il_optimize::tree_il_default_optimization_options ();
+  SCM cps_opts = Cps_optimize::cps_default_optimization_options ();
+  SCM available_optimizations = scm_append (scm_list_2 (tree_il_opts, cps_opts));
+  // available_optimizations is a list that looks like
+  // '(#:precolor-calls? #t #:rotate-loops? #t ...).  Set all booleans to #f.
+  SCM no_opts = SCM_EOL;
+  for (SCM elt : as_ly_scm_list (available_optimizations))
+    if (scm_is_keyword (elt))
+      no_opts = scm_cons (elt, scm_cons (SCM_BOOL_F, no_opts));
+  Guile_user::p_auto_compilation_options = no_opts;
+#endif
+
   Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
     {
@@ -80,6 +105,12 @@ void
 ly_c_init_guile ()
 {
   Guile_user::module.import ();
+#if SCM_MAJOR_VERSION >= 3
+  Compile::module.import ();
+#elif SCM_MAJOR_VERSION == 2
+  Tree_il_optimize::module.import ();
+  Cps_optimize::module.import ();
+#endif
   Lily::module.boot (ly_init_ly_module);
   Srfi_1::module.import ();
   Syntax::module.import ();
