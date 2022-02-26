@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+  Translation of GIT committish: 3cdce08c24d3cef7f242214f2b48763242a2ead6
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -3507,6 +3507,7 @@ Afin de s'y retrouver plus aisément et d'éviter les erreurs de frappe,
 voici quelques conventions en matière de nommage.
 
 @c Superset of the table in the Learning Manual. --JeanAS
+@raggedRight
 @multitable @columnfractions .33 .33 .33
 @headitem Objet ou type de propriété
   @tab Convention de nommage
@@ -3559,8 +3560,9 @@ voici quelques conventions en matière de nommage.
   @footnote{Pour des raisons historiques, toutes les fonctions
   définies dans LilyPond ne sont pas forcément préfixées d'un
   @code{ly:}.}
-  @tab @code{ly:grob-relative-coordinate}, @code{music-map}
+  @tab @code{ly:round-filled-box}, @code{music-map}
 @end multitable
+@endRaggedRight
 
 
 @node Types de prédicats prédéfinis

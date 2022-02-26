@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 12aaa30f8d02e1026c4e7c5f9a1c5bfc86fe22c3
+   Translation of GIT committish: 3cdce08c24d3cef7f242214f2b48763242a2ead6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3731,9 +3731,12 @@ infiniment haut ne prend pas de place s'il n'a pas de largeur.
 
 @lilypond[verbatim,quote]
 {
-  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 0)
-  \override Score.MetronomeMark.extra-spacing-height = #'(-inf.0 . +inf.0)
-  \override Accidental.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override Score.MetronomeMark.extra-spacing-width =
+    #'(0 . 0)
+  \override Score.MetronomeMark.extra-spacing-height =
+    #'(-inf.0 . +inf.0)
+  \override Accidental.extra-spacing-height =
+    #'(-inf.0 . +inf.0)
   cis'4 r2.
   \tempo Presto
   fis16 8 16 4 \clef alto cis4 fis4
