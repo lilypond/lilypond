@@ -268,14 +268,14 @@ class ConfigurePackage(Package):
         # pylint: disable=no-self-use,unused-argument
         return []
 
-    @property
-    def make_args(self) -> List[str]:
+    def make_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to the make invocation"""
+        # pylint: disable=no-self-use,unused-argument
         return []
 
-    @property
-    def make_install_args(self) -> List[str]:
+    def make_install_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to make install"""
+        # pylint: disable=no-self-use,unused-argument
         return []
 
     def build(self, c: Config) -> bool:
@@ -305,12 +305,12 @@ class ConfigurePackage(Package):
                 return False
 
             # Build the package.
-            args = [c.make_command, "-j", str(c.jobs)] + self.make_args
+            args = [c.make_command, "-j", str(c.jobs)] + self.make_args(c)
             if not self.run_command(c, args, log, "make"):
                 return False
 
             # Install the package.
-            args = [c.make_command, "install"] + self.make_install_args
+            args = [c.make_command, "install"] + self.make_install_args(c)
             if not self.run_command(c, args, log, "install"):
                 return False
 

@@ -283,12 +283,10 @@ class Ghostscript(ConfigurePackage):
             "--without-x",
         ]
 
-    @property
-    def make_args(self) -> List[str]:
+    def make_args(self, c: Config) -> List[str]:
         return ["PS_FONT_DEPS=", "GS_LIB_DEFAULT="]
 
-    @property
-    def make_install_args(self) -> List[str]:
+    def make_install_args(self, c: Config) -> List[str]:
         return ["PS_FONT_DEPS="]
 
     def exe_path(self, c: Config) -> str:

@@ -164,6 +164,18 @@ class LilyPond(ConfigurePackage):
             + flexlexer
         )
 
+    def make_args(self, c: Config) -> List[str]:
+        args = []
+        if not c.is_mingw():
+            args += ["all", "bytecode"]
+        return args
+
+    def make_install_args(self, c: Config) -> List[str]:
+        args = []
+        if not c.is_mingw():
+            args += ["install-bytecode"]
+        return args
+
     def build(self, c: Config) -> bool:
         # We should not need to patch our own sources here, but applying this
         # fix would break GUB, so we can only do this once we don't care about
@@ -295,6 +307,10 @@ class LilyPondPackager:
         shutil.copytree(relocate_src, relocate_dst)
 
     def _copy_mingw_files(self):
+        # Copy compiled Guile bytecode from the native LilyPond build.
+        lilypond_install = self.lilypond.install_directory(self.c.native_config)
+        self._copy_recursive(lilypond_install, "lib", "lilypond")
+
         # Copy shared Dlls for mingw.
         gettext_install = gettext.install_directory(self.c)
         libintl_dll = os.path.join(gettext_install, "bin", "libintl-8.dll")
