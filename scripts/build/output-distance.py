@@ -139,7 +139,7 @@ def compare_png_images(old: str, new: str, dest_dir: str) -> float:
             print('running %s' % ' '.join(args))
         subprocess.run(args, check=True)
  
-    diff_dest = os.path.join(dest_dir, new.replace('.png', '.diff.png'))
+    diff_dest = new.replace('.png', '.diff.png')
 
     # MAE = Mean Absolute Error, a metric where smaller means more
     # similar.  We avoid per-pixel metrics (eg. AE), as they make
@@ -664,51 +664,71 @@ class MidiFileLink (TextFileCompareLink):
         return str
 
 
-def eps_to_png(fn: str,  dest_dir: str) -> str:
+def eps_to_png(files: Dict[str, str]):
+    """convert EPS in `files` (dict keys) to PNG files (dict values)"""
+    if not files:
+        return
+
+    start = time.time()
+
     # EPS files generated for regression tests don't contain fonts
     # to save disk space.  Instead, paths to the fonts are stored in
     # the files that are loaded by Ghostscript's `.loadfont'
     # operator later on.
-    #
-    # In gub builds, these paths get massaged to be relative to the
-    # location of the particular EPS files.  Since gs doesn't
-    # provide an option to adjust the font lookup paths for
-    # `.loadfont', we enter the directory so that the relative paths
-    # are valid.
-    (dir, base) = os.path.split(fn)
-
-    out_dir = os.path.abspath(dest_dir + '/' + dir)
-    mkdir(out_dir)
-
-    data_option = ''
+    data_option = []
     if options.local_data_dir:
-        data_option = ('-slilypond-datadir=%s/share/lilypond/current'
-                       % os.path.abspath(dir))
+        for basedir in set(os.path.dirname(f) for f in files):
+            if os.path.isdir(os.path.join(basedir, 'share')):
+                data_option = ['-slilypond-datadir=%s/share/lilypond/current'
+                               % os.path.abspath(basedir)]
+                break
 
-    driver = open(os.path.join(dir, 'batch.ps'), 'w', encoding='utf-8')
-    outfile = os.path.join(out_dir, base).replace('.eps', '.png')
-    driver.write('''
-        mark /OutputFile (%s)
-        /GraphicsAlphaBits 4 /TextAlphaBits 4
-        /HWResolution [101 101]
-        (png16m) finddevice putdeviceprops setdevice
-        (%s) run
-        ''' % (outfile, base))
+    for destdir in set(os.path.dirname(f) for f in files.values()):
+        os.makedirs(destdir, exist_ok=True)
+
+    batch = files.items()
+    driver = tempfile.NamedTemporaryFile(
+        mode="w", suffix="batch.ps", dir=get_temp_dir(), encoding="utf-8", delete=False)
+    for (input_fn, outfile) in batch:
+        verbose_print = ''
+        if options.verbose:
+            verbose_print = ' (processing %s\n) print ' % input_fn
+        driver.write('''
+            %s
+            mark /OutputFile (%s)
+            /GraphicsAlphaBits 4 /TextAlphaBits 4
+            /HWResolution [101 101]
+            (png16m) finddevice putdeviceprops setdevice
+            (%s) run
+            ''' % (verbose_print, outfile, input_fn))
+
     driver.close()
-    cmd = ('gs '
-           + data_option
-           + ' -dNOSAFER'
-           ' -dEPSCrop'
-           ' -q'
-           ' -dNOPAUSE'
-           ' -dNODISPLAY'
-           ' -dAutoRotatePages=/None'
-           ' -dPrinted=false'
-           ' batch.ps'
-           ' -c quit')
-    system(cmd, cwd=dir)
-    return outfile
+    args =['gs',
+           '-dNOSAFER',
+           '-dEPSCrop',
+           '-q',
+           '-dNOPAUSE',
+           '-dNODISPLAY',
+           '-dAutoRotatePages=/None',
+           '-dPrinted=false'] + data_option + [
+               driver.name,
+               '-c',
+               'quit'
+               ]
+    if options.verbose:
+        print('running %s' % args)
+    proc = subprocess.Popen(args)
 
+    rc = proc.wait()
+    if rc:
+        raise SystemExit('Ghostscript failed')
+
+    dt = time.time() - start
+    if options.verbose:
+        print('converted %d EPS files in %f s' % (len(files), dt))
+
+    os.unlink(driver.name)
+    
 
 class SignatureFileLink (FileLink):
     def __init__(self, f1, f2):
@@ -753,9 +773,11 @@ class SignatureFileLink (FileLink):
 
         outputs: List[Optional[str]] = [None, None]
         for oldnew in (0, 1):
-            fn = self.base_names[oldnew] + '.eps'
-            if os.path.exists(fn):
-                outputs[oldnew] = eps_to_png(fn, dest_dir)
+            eps_fn = self.base_names[oldnew] + '.eps'
+            if os.path.exists(eps_fn):
+                png_fn = os.path.join(dest_dir, eps_fn.replace('.eps', '.png'))
+                eps_to_png({eps_fn: png_fn})
+                outputs[oldnew] = png_fn
 
         return (outputs[0], outputs[1])
 
