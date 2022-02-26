@@ -52,9 +52,8 @@ bool strict_infinity_checking = false;
 
 static Protected_scm option_hash;
 
-void
-internal_set_option (SCM var,
-                     SCM val)
+static void
+internal_set_option (SCM var, SCM val)
 {
   string varstr = robust_symbol2string (var, "");
   bool valbool = from_scm<bool> (val);
@@ -139,10 +138,8 @@ ssize const SEPARATION = 5;
   Hmmm. should do in SCM / C++  ?
 */
 static string
-get_help_string ()
+get_help_string (SCM alist)
 {
-  SCM alist = ly_hash2alist (option_hash);
-
   vector<string> opts;
 
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
@@ -178,20 +175,36 @@ get_help_string ()
   return help;
 }
 
-LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 1, 0, (SCM port),
+static bool
+is_internal_option (SCM sym)
+{
+  return scm_is_true (
+    scm_object_property (sym, ly_symbol2scm ("program-option-internal?")));
+}
+
+LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 2, 0,
+           (SCM port, SCM internal),
            R"(
 Print @code{ly:set-option} usage.  Optional @var{port} argument for the
-destination defaults to current output port.
+destination defaults to current output port. Specify @var{internal} to get doc
+for internal options.
            )")
 {
-  SCM str = scm_from_locale_string (get_help_string ().c_str ());
+  SCM alist = SCM_EOL;
+  for (SCM s = ly_hash2alist (option_hash); scm_is_pair (s); s = scm_cdr (s))
+    {
+      if (is_internal_option (scm_caar (s)) == scm_is_true (internal))
+        alist = scm_cons (scm_car (s), alist);
+    }
+
+  SCM str = ly_string2scm (get_help_string (alist));
   scm_write_line (str, port);
 
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
-           (SCM sym, SCM val, SCM description),
+LY_DEFINE (ly_add_option, "ly:add-option", 4, 0, 0,
+           (SCM sym, SCM val, SCM internal, SCM description),
            R"(
 Add a program option @var{sym}.  @var{val} is the default value and
 @var{description} is a string description.
@@ -201,6 +214,9 @@ Add a program option @var{sym}.  @var{val} is the default value and
     option_hash = scm_c_make_hash_table (11);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);
+  if (scm_is_true (internal))
+    scm_set_object_property_x (sym, ly_symbol2scm ("program-option-internal?"),
+                               SCM_BOOL_T);
 
   internal_set_option (sym, val);
 

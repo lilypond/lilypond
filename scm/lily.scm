@@ -261,8 +261,6 @@ lilypond-book")
     (backend ps
              "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'svg.")
-    (check-internal-types #f
-                          "Check every property assignment for types.")
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
     (crop #f
@@ -272,25 +270,10 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
-    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes")
-    (debug-gc-assert-parsed-dead #f
-                                 "For internal use.")
-    (debug-lexer #f
-                 "Debug the flex lexer.")
-    (debug-page-breaking-scoring #f
-                                 "Dump scores for many different page breaking
-configurations.")
-    (debug-parser #f
-                  "Debug the bison parser.")
-    (debug-property-callbacks #f
-                              "Debug cyclic callback chains.")
     (debug-skylines #f
                     "Debug skylines.")
     (delete-intermediate-files #t
                                "Delete unusable, intermediate PostScript files.")
-    (deterministic #f "Suppress version and timestamps.")
-    (dump-signatures #f
-                     "Dump output signatures of each system.")
     (embed-source-code #f
                        "Embed the source files inside the generated PDF
 document.")
@@ -318,6 +301,8 @@ no other font format.")
 a log file.")
     (help #f
           "Show this help.")
+    (help-internal #f
+                   "Show help for internal options.")
     (include-book-title-preview #t
                                 "Include book titles in preview images.")
     (include-eps-fonts #t
@@ -367,15 +352,10 @@ images.")
              "Create preview images also.")
     (print-pages #t
                  "Print pages in the normal way.")
-    (profile-property-accesses #f
-                               "Keep statistics of get_property() calls.")
     (protected-scheme-parsing #t
                               "Continue when errors in inline Scheme are
 caught in the parser.  If #f, halt on errors
 and print a stack trace.")
-    (read-file-list #f
-                    "Specify name of a file which contains a list of
-input files to be processed.")
     (relative-includes #t
                        "When processing an \\include command, look for
 the included file relative to the current file\
@@ -396,9 +376,6 @@ a symbol containing as comma-separated
 formats")
     (show-available-fonts #f
                           "List available font names.")
-    (strict-infinity-checking #f
-                              "Force a crash on encountering Inf and NaN
-floating point exceptions.")
     (strip-output-dir #t
                       "Don't use directories from input files while
 constructing output file names.")
@@ -426,12 +403,44 @@ defined by the extents of its contents.")
 messages into errors.")
     ))
 
+
+(define scheme-internal-options-definitions
+  `((check-internal-types #f
+                          "Check every property assignment for types.")
+    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes")
+    (debug-gc-assert-parsed-dead #f
+                                 "For internal use.")
+    (debug-lexer #f
+                 "Debug the flex lexer.")
+    (debug-page-breaking-scoring #f
+                                 "Dump scores for many different page breaking
+configurations.")
+    (debug-parser #f
+                  "Debug the bison parser.")
+    (debug-property-callbacks #f
+                              "Debug cyclic callback chains.")
+    (deterministic #f "Suppress version and timestamps.")
+    (dump-signatures #f
+                     "Dump output signatures of each system.")
+    (profile-property-accesses #f
+                               "Keep statistics of get_property() calls.")
+    (read-file-list #f
+                    "Specify name of a file which contains a list of
+input files to be processed.")
+    (strict-infinity-checking #f
+                              "Force a crash on encountering Inf and NaN
+floating point exceptions.")
+  ))
+
 ;; Need to do this in the beginning.  Other parts of the Scheme
 ;; initialization depend on these options.
 
 (for-each (lambda (x)
-            (ly:add-option (car x) (cadr x) (caddr x)))
+            (ly:add-option (car x) (cadr x) #f (caddr x)))
           scheme-options-definitions)
+(for-each (lambda (x)
+            (ly:add-option (car x) (cadr x) #t (caddr x)))
+          scheme-internal-options-definitions)
 
 ;; 'debug-gc-object-lifetimes off by default on Guile 2
 (cond-expand
@@ -851,7 +860,10 @@ PIDs or the number of the process."
   "Entry point for LilyPond."
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
-      (begin (ly:option-usage)
+      (begin (ly:option-usage (current-output-port) #f)
+             (ly:exit 0 #t)))
+  (if (ly:get-option 'help-internal)
+      (begin (ly:option-usage (current-output-port) #t)
              (ly:exit 0 #t)))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
