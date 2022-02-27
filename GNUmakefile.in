@@ -60,7 +60,7 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 top-doc:
 	$(MAKE) -C Documentation $(foreach T,$(TOPDOC_FILES),$(outdir)/topdocs/$(T).txt)
 
-ifneq ($(shell find $(top-src-dir) -name .git),)
+ifneq ($(wildcard $(top-src-dir)/.git),)
 .gitfilelist: $(top-src-dir)/.git/index
 	$(call ly_progress,Making,$@,)
 	cd $(top-src-dir) && git ls-files >$(top-build-dir)/$@
