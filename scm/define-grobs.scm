@@ -42,7 +42,10 @@
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
                                 inline-accidental-interface
-                                font-interface))))))
+                                font-interface))
+                 (description . "An accidental.  Horizontal
+padding and configuration between accidentals is controlled
+by the @iref{AccidentalPlacement} grob.")))))
 
     (AccidentalCautionary
      . (
@@ -60,7 +63,9 @@
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
                                 inline-accidental-interface
-                                font-interface))))))
+                                font-interface))
+                 (description . "A cautionary accidental, normally
+enclosed in parentheses.")))))
 
     (AccidentalPlacement
      . (
@@ -76,7 +81,11 @@
 
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
-                 (interfaces . (accidental-placement-interface))))))
+                 (interfaces . (accidental-placement-interface))
+                 (description . "In groups of @iref{Accidental}
+grobs, this auxiliary grob controls their horizontal padding and
+configuration (which ones are placed more to left or to the
+right).")))))
 
     (AccidentalSuggestion
      . (
@@ -102,7 +111,9 @@
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "An annotational accidental as used
+in @dfn{musica ficta}.  Normally positioned above a note.")))))
 
     (Ambitus
      . (
@@ -126,7 +137,12 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (ambitus-interface
                                 axis-group-interface
-                                break-aligned-interface))))))
+                                break-aligned-interface))
+                 (description . "An ambitus, giving the range of
+pitches of a voice or instrument.  It aligns
+@iref{AmbitusAccidental}, @iref{AmbitusLine},
+and @iref{AmbitusNoteHead} horizontally and defines the
+horizontal spacing from the ambitus to other items.")))))
 
     (AmbitusAccidental
      . (
@@ -137,7 +153,9 @@
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
                                 break-aligned-interface
-                                font-interface))))))
+                                font-interface))
+                 (description . "An accidental in an
+@iref{Ambitus}.")))))
 
     (AmbitusLine
      . (
@@ -149,7 +167,9 @@
         (X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
         (meta . ((class . Item)
                  (interfaces . (ambitus-interface
-                                font-interface))))))
+                                font-interface))
+                 (description . "The vertical line in an
+@iref{Ambitus}.")))))
 
     (AmbitusNoteHead
      . (
@@ -165,7 +185,9 @@
                                 ledgered-interface
                                 note-head-interface
                                 rhythmic-head-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A note head in an
+@iref{Ambitus}.")))))
 
     (Arpeggio
      . (
@@ -188,7 +210,10 @@
                  (interfaces . (arpeggio-interface
                                 font-interface
                                 side-position-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "An arpeggio line (normally a
+vertical wiggle).")))))
+
 
     (BalloonText
      . (
@@ -214,7 +239,9 @@
                                 balloon-interface
                                 font-interface
                                 sticky-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A balloon text with a pointing
+line to visually mark and annotate another grob.")))))
 
     (BarLine
      . (
@@ -259,7 +286,8 @@
                  (interfaces . (bar-line-interface
                                 break-aligned-interface
                                 font-interface
-                                pure-from-neighbor-interface))))))
+                                pure-from-neighbor-interface))
+                 (description . "A bar line.")))))
 
     (BarNumber
      . (
@@ -292,7 +320,10 @@
                               outside-staff-interface
                               self-alignment-interface
                               side-position-interface
-                              text-interface))))))
+                              text-interface))
+               (description . "An ordinary bar number.  Centered
+bar numbers are managed separately with @iref{CenteredBarNumber}
+grobs.")))))
 
     (BassFigure
      . (
@@ -322,8 +353,8 @@ alteration as well.")))))
                  (interfaces . (align-interface
                                 axis-group-interface
                                 bass-figure-alignment-interface))
-                 (description . "Stack several @iref{BassFigureLine} grobs
-vertically.")))))
+                 (description . "An auxiliary grob to stack
+several @iref{BassFigureLine} grobs vertically.")))))
 
     (BassFigureAlignmentPositioning
      . (
@@ -342,9 +373,10 @@ vertically.")))))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 side-position-interface))
-                 (description . "When figured bass is used in the @iref{Staff}
-context, this grob groups all of the figured bass notation and computes an
-offset from the staff via side-positioning.")))))
+                 (description . "If figured bass is used in the
+@iref{Staff} context, this auxiliary grob groups all of the
+figured bass notation and computes an offset from the staff via
+side-positioning.")))))
 
     (BassFigureBracket
      . (
@@ -352,14 +384,19 @@ offset from the staff via side-positioning.")))))
         (stencil . ,ly:enclosing-bracket::print)
         (X-extent . ,ly:enclosing-bracket::width)
         (meta . ((class . Item)
-                 (interfaces . (enclosing-bracket-interface))))))
+                 (interfaces . (enclosing-bracket-interface))
+                 (description . "Brackets around a figured bass
+(or elements of it).")))))
 
     (BassFigureContinuation
      . (
         (stencil . ,ly:figured-bass-continuation::print)
         (Y-offset . ,ly:figured-bass-continuation::center-on-figures)
         (meta . ((class . Spanner)
-                 (interfaces . (figured-bass-continuation-interface))))))
+                 (interfaces . (figured-bass-continuation-interface))
+                 (description . "A horizontal line to indicate
+that a number of a previous figured bass is continued in the
+current figured bass.")))))
 
     (BassFigureLine
      . (
@@ -373,9 +410,9 @@ offset from the staff via side-positioning.")))))
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-axis-group-interface))
-                 (description . "Provide a baseline for bass figures that should
-be aligned vertically.")))))
-
+                 (description . "An auxiliary grob providing a
+baseline for bass figures that should be aligned
+vertically.")))))
 
     (Beam
      . (
@@ -452,7 +489,8 @@ be aligned vertically.")))))
                  (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))
                  (interfaces . (beam-interface
                                 staff-symbol-referencer-interface
-                                unbreakable-spanner-interface))))))
+                                unbreakable-spanner-interface))
+                 (description . "A beam.")))))
 
     (BendAfter
      . (
@@ -460,7 +498,9 @@ be aligned vertically.")))))
         (stencil . ,bend::print)
         (thickness . 2.0)
         (meta . ((class . Spanner)
-                 (interfaces . (bend-after-interface))))))
+                 (interfaces . (bend-after-interface))
+                 (description . "A grob for displaying
+@dfn{falls} and @dfn{doits}.")))))
 
     (BendSpanner
      . (
@@ -511,7 +551,9 @@ be aligned vertically.")))))
                                 line-spanner-interface
                                 outside-staff-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A string bending as used in
+tablature notation.")))))
 
     (BreakAlignGroup
      . (
@@ -522,7 +564,11 @@ be aligned vertically.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
-                                break-aligned-interface))))))
+                                break-aligned-interface))
+                 (description . "An auxiliary grob to group
+several breakable items of the same type (clefs, time signatures,
+etc.) across staves so that they will be aligned horizontally.
+See also @iref{BreakAlignment}.")))))
 
     (BreakAlignment
      . (
@@ -576,7 +622,11 @@ be aligned vertically.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
-                                break-alignment-interface))))))
+                                break-alignment-interface))
+                 (description . "An auxiliary grob that manages
+the horizontal ordering of @iref{BreakAlignGroup} grobs within a
+@iref{NonMusicalPaperColumn} grob (for example, whether the
+time signature follows or precedes a bar line).")))))
 
     (BreathingSign
      . (
@@ -604,7 +654,9 @@ be aligned vertically.")))))
                                 breathing-sign-interface
                                 font-interface
                                 outside-staff-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A breathing sign.")))))
+
 
     (CenteredBarNumber
      . (
@@ -620,7 +672,10 @@ be aligned vertically.")))))
                               centered-bar-number-interface
                               centered-text-interface
                               font-interface
-                              text-interface))))))
+                              text-interface))
+               (description . "A centered bar number; see also
+@iref{CenteredBarNumberLineSpanner}.  Ordinary bar numbers are
+managed with @iref{BarNumber} grobs.")))))
 
     (CenteredBarNumberLineSpanner
      . (
@@ -642,8 +697,8 @@ be aligned vertically.")))))
                                 centered-bar-number-line-spanner-interface
                                 outside-staff-interface
                                 side-position-interface))
-                 (description . "Provide a vertical baseline to align
-@iref{CenteredBarNumber} grobs.")))))
+                 (description . "An auxiliary grob providing a
+vertical baseline to align @iref{CenteredBarNumber} grobs.")))))
 
     (ChordName
      . (
@@ -661,7 +716,8 @@ be aligned vertically.")))))
                                 font-interface
                                 outside-staff-interface
                                 rhythmic-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A chord name.")))))
 
     (Clef
      . (
@@ -693,7 +749,9 @@ be aligned vertically.")))))
                                 clef-interface
                                 font-interface
                                 pure-from-neighbor-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A clef.  See also
+@iref{ClefModifier}, @iref{CueClef}, and @iref{CueEndClef}.")))))
 
     (ClefModifier
      . (
@@ -722,7 +780,11 @@ be aligned vertically.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob that draws the clef
+modifier (if present), in most cases the digit@tie{}8 below or
+above the clef.  See also @iref{Clef}, @iref{CueClef}, and
+@iref{CueEndClef}.")))))
 
     (ClusterSpanner
      . (
@@ -733,14 +795,20 @@ be aligned vertically.")))))
         (stencil . ,ly:cluster::print)
         (style . ramp)
         (meta . ((class . Spanner)
-                 (interfaces . (cluster-interface))))))
+                 (interfaces . (cluster-interface))
+                 (description . "A cluster spanner.  The envelope
+shape within the spanner is given by @iref{ClusterSpannerBeacon}
+grobs.")))))
 
     (ClusterSpannerBeacon
      . (
         (Y-extent . ,ly:cluster-beacon::height)
         (meta . ((class . Item)
                  (interfaces . (cluster-beacon-interface
-                                rhythmic-grob-interface))))))
+                                rhythmic-grob-interface))
+                 (description . "An auxiliary grob to specify the
+minimum and maximum pitch of a @iref{ClusterSpanner} grob at a
+given moment.")))))
 
     (CodaMark
      . (
@@ -770,7 +838,8 @@ be aligned vertically.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A coda mark.")))))
 
     (ControlPoint
      . (
@@ -789,7 +858,9 @@ be aligned vertically.")))))
         (meta . ((classes . (Item Spanner))
                  (interfaces . (control-point-interface
                                 sticky-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A visual representation of a
+Bézier control point in ties and slurs.")))))
 
     (ControlPolygon
      . (
@@ -809,7 +880,9 @@ be aligned vertically.")))))
         (meta . ((classes . (Item Spanner))
                  (interfaces . (control-polygon-interface
                                 sticky-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A visual representation of a
+Bézier control polygon as used in ties and slurs.")))))
 
     (CombineTextScript
      . (
@@ -836,7 +909,10 @@ be aligned vertically.")))))
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A grob for printing markup given
+in the @code{soloText}, @code{soloIIText}, and @code{aDueText}
+properties if automatic part combining is active.")))))
 
     (CueClef
      . (
@@ -868,7 +944,9 @@ be aligned vertically.")))))
                                 clef-interface
                                 font-interface
                                 pure-from-neighbor-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A clef starting a cue.  See also
+@iref{Clef}, @iref{ClefModifier}, and @iref{CueEndClef}.")))))
 
     (CueEndClef
      . (
@@ -900,7 +978,9 @@ be aligned vertically.")))))
                                 clef-interface
                                 font-interface
                                 pure-from-neighbor-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A clef ending a cue.  See also
+@iref{Clef}, @iref{ClefModifier}, and @iref{CueClef}.")))))
 
     (Custos
      . (
@@ -918,7 +998,10 @@ be aligned vertically.")))))
                  (interfaces  . (break-aligned-interface
                                  custos-interface
                                  font-interface
-                                 staff-symbol-referencer-interface))))))
+                                 staff-symbol-referencer-interface))
+                 (description . "A custos, mainly used in older
+notation like Gregorian chant.")))))
+
 
     (DotColumn
      . (
