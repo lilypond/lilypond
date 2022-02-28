@@ -27,7 +27,6 @@
 #include "file-path.hh"
 #include "international.hh"
 #include "lily-guile.hh"
-#include "lily-version.hh"
 #include "main.hh"
 #include "version.hh"
 #include "warn.hh"

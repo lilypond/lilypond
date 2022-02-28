@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "warn.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
+#include "lily-version.hh"
 #include "performer.hh"
 #include "string-convert.hh"
-#include "lily-version.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -81,7 +81,8 @@ Control_track_performer::initialize ()
   control_track_ = new Audio_control_track_staff;
   announce_element (Audio_element_info (control_track_, 0));
 
-  string id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
+  string id_string
+    = String_convert::pad_to ("LilyPond " + version_string (), 30);
 
   // The first audio element in the control track is a placeholder for the
   // name of the MIDI sequence.  The actual name is stored in the element

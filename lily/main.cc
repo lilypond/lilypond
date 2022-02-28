@@ -43,15 +43,15 @@
 #include "getopt-long.hh"
 #include "global-ctor.hh"
 #include "international.hh"
-#include "lily-version.hh"
+#include "lily-imports.hh"
 #include "misc.hh"
 #include "output-def.hh"
 #include "program-option.hh"
 #include "relocate.hh"
 #include "std-vector.hh"
 #include "string-convert.hh"
+#include "version.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 #if GS_API
 #include <ghostscript/iapi.h>
@@ -269,6 +269,22 @@ dir_info (FILE *out)
   env_var_info (out, "PANGO_PREFIX");
   env_var_info (out, "PATH");
   fputs ("\n", out);
+}
+
+static string
+gnu_lilypond_version_string ()
+{
+  // can't use version_string(), because GUILE hasn't started yet.
+  std::string version = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
+  std::string mpl (MY_PATCH_LEVEL);
+  if (mpl == "")
+    version += "." + mpl;
+
+  string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
+                         + std::to_string (SCM_MINOR_VERSION);
+  string str
+    = _f ("%s %s (running Guile %s)", "GNU LilyPond", version, guile_version);
+  return str;
 }
 
 static void

@@ -288,6 +288,7 @@ configurations.")
                     "Debug skylines.")
     (delete-intermediate-files #t
                                "Delete unusable, intermediate PostScript files.")
+    (deterministic #f "Suppress version and timestamps.")
     (dump-signatures #f
                      "Dump output signatures of each system.")
     (embed-source-code #f
@@ -556,12 +557,14 @@ messages into errors.")
 
 
 (define-safe-public (lilypond-version)
-  (string-join
-   (map (lambda (x) (if (symbol? x)
-                        (symbol->string x)
-                        (number->string x)))
-        (ly:version))
-   "."))
+  (if (ly:get-option 'deterministic)
+      "0.0.0"
+      (string-join
+       (map (lambda (x) (if (symbol? x)
+                            (symbol->string x)
+                            (number->string x)))
+            (ly:version))
+       ".")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; init pitch system

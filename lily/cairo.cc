@@ -1283,6 +1283,10 @@ void
 Cairo_outputter::handle_metadata (SCM module)
 {
   metadata ("creator", "LilyPond " + version_string (), false);
+  if (get_program_option ("deterministic"))
+    // Weird; Cairo suppresses the date altogether.
+    metadata ("creationDate", "D:19961006211000+02'00'", false);
+
   if (!ly_is_module (module))
     return;
 

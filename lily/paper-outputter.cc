@@ -26,7 +26,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "lily-imports.hh"
-#include "lily-version.hh"
 #include "output-def.hh"
 #include "paper-system.hh"
 #include "scm-hash.hh"

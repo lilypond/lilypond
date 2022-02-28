@@ -20,38 +20,23 @@
 #include "lily-version.hh"
 
 #include "config.hh"
-#include "version.hh"
-#include "lily-guile.hh"
 #include "international.hh"
+#include "lily-guile.hh"
+#include "program-option.hh"
+#include "version.hh"
 
 using std::string;
 
 string
 version_string ()
 {
+  if (get_program_option ("deterministic"))
+    return "0.0.0";
+
   string str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
   string mpl ("." MY_PATCH_LEVEL);
   if (mpl != ".")
     str += mpl;
-  return str;
-}
-
-string
-gnu_lilypond_string ()
-{
-  string str = "GNU LilyPond";
-  return str;
-}
-
-string
-gnu_lilypond_version_string ()
-{
-  string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
-                         + std::to_string (SCM_MINOR_VERSION);
-  string str = _f ("%s %s (running Guile %s)",
-                   gnu_lilypond_string (),
-                   version_string (),
-                   guile_version);
   return str;
 }
 
