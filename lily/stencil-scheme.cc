@@ -638,16 +638,20 @@ Return all symbols recognized as stencil expressions.
 }
 
 LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
-           3, 0, 0, (SCM stil, SCM x, SCM y),
+           2, 1, 0, (SCM stil, SCM x, SCM y),
            R"(
-Scale stencil @var{stil} using the horizontal and vertical scaling factors
-@var{x} and@tie{}@var{y}.  Negative values flip or mirror @var{stil} without
-changing its origin; this may result in collisions unless it is repositioned.
+Scale stencil @var{stil} using the horizontal and vertical scaling
+factors @var{x} and optional@tie{}@var{y} (defaulting to@tie{}@var{x}).
+Negative values flip or mirror @var{stil} without changing its origin;
+this may result in collisions unless it is repositioned.
            )")
 {
   auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, x, 2);
-  LY_ASSERT_TYPE (scm_is_number, y, 3);
+  if (SCM_UNBNDP (y))
+    y = x;
+  else
+    LY_ASSERT_TYPE (scm_is_number, y, 3);
 
   s.scale (scm_to_double (x), scm_to_double (y));
   return s.smobbed_copy ();
