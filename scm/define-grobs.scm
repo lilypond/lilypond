@@ -1012,7 +1012,9 @@ notation like Gregorian chant.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
-                                dot-column-interface))))))
+                                dot-column-interface))
+                 (description . "An auxiliary grob to align
+stacked @iref{Dots} grobs of dotted notes and chords.")))))
 
     (Dots
      . (
@@ -1026,7 +1028,9 @@ notation like Gregorian chant.")))))
         (meta . ((class . Item)
                  (interfaces . (dots-interface
                                 font-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "The dot(s) of a dotted note.
+See also @iref{DotColumn}.")))))
 
     (DoublePercentRepeat
      . (
@@ -1044,7 +1048,11 @@ notation like Gregorian chant.")))))
                  (interfaces . (break-aligned-interface
                                 font-interface
                                 percent-repeat-interface
-                                percent-repeat-item-interface))))))
+                                percent-repeat-item-interface))
+                 (description . "A double-percent symbol for
+repeating two bars.  See also @iref{DoublePercentRepeatCounter},
+@iref{PercentRepeat}, @iref{DoubleRepeatSlash}, and
+@iref{RepeatSlash}.")))))
 
     (DoublePercentRepeatCounter
      . (
@@ -1067,7 +1075,9 @@ notation like Gregorian chant.")))))
                                 percent-repeat-item-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob to print a counter for
+@iref{DoublePercentRepeat} grobs.")))))
 
     (DoubleRepeatSlash
      . (
@@ -1083,7 +1093,11 @@ notation like Gregorian chant.")))))
                                 outside-staff-interface
                                 percent-repeat-interface
                                 percent-repeat-item-interface
-                                rhythmic-grob-interface))))))
+                                rhythmic-grob-interface))
+                 (description . "A double-percent symbol for
+repeating patterns shorter than a single measure, and which
+contain mixed durations.  See also @iref{PercentRepeat},
+@iref{DoublePercentRepeat}, and @iref{RepeatSlash}.")))))
 
     (DurationLine
      . (
@@ -1126,7 +1140,9 @@ notation like Gregorian chant.")))))
                                 line-spanner-interface
                                 duration-line-interface
                                 font-interface
-                                unbreakable-spanner-interface))))))
+                                unbreakable-spanner-interface))
+                 (description . "A horizontal duration line,
+continuing rhythmic items (usually note heads).")))))
 
     (DynamicLineSpanner
      . (
@@ -1151,8 +1167,10 @@ notation like Gregorian chant.")))))
                                 dynamic-line-spanner-interface
                                 outside-staff-interface
                                 side-position-interface))
-                 (description . "Provide a vertical baseline to align successive
-dynamics.")))))
+                 (description . "An auxiliary grob providing a
+vertical baseline to align successive dynamic grobs
+(@iref{DynamicText}, @iref{DynamicTextSpanner},
+and @iref{Hairpin}) within a staff.")))))
 
     (DynamicText
      . (
@@ -1181,7 +1199,9 @@ dynamics.")))))
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A dynamic text item like @q{ff}
+or @q{mp}.  See also @iref{DynamicLineSpanner}.")))))
 
     (DynamicTextSpanner
      . (
@@ -1234,7 +1254,10 @@ dynamics.")))))
                                 ;; as their controlling element
                                 ;; so, they do not need the
                                 ;; outside-staff-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "Dynamic text like @q{cresc},
+usually followed by a (dashed) line.  See also
+@iref{DynamicLineSpanner} and @iref{TextSpanner}.")))))
 
 
     (Episema
@@ -1260,7 +1283,9 @@ dynamics.")))))
                                 horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "An @dfn{episema} line (over a
+group of notes).  Used in Gregorian chant.")))))
 
 
     (Fingering
@@ -1292,7 +1317,10 @@ dynamics.")))))
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A fingering symbol (usually a
+digit).  See also @iref{FingeringColumn} and
+@iref{StrokeFinger}.")))))
 
     (FingeringColumn
      . (
@@ -1300,7 +1328,9 @@ dynamics.")))))
         (positioning-done . ,ly:fingering-column::calc-positioning-done)
         (snap-radius . 0.3)
         (meta . ((class . Item)
-                 (interfaces . (fingering-column-interface))))))
+                 (interfaces . (fingering-column-interface))
+                 (description . "An auxiliary grob to align
+stacked @iref{Fingering} grobs.")))))
 
     (FingerGlideSpanner
      . ((bound-details . ((right . ((attach-dir .  ,LEFT)
@@ -1329,7 +1359,10 @@ dynamics.")))))
         (zigzag-width . 1)
         (meta . ((class . Spanner)
                  (interfaces . (finger-glide-interface
-                                line-spanner-interface))))))
+                                line-spanner-interface))
+                 (description . "A line connecting two
+@iref{Fingering} grobs, usually indicating a gliding finger
+for stringed instruments.")))))
 
     (Flag
      . (
@@ -1346,7 +1379,9 @@ dynamics.")))))
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (flag-interface
-                                font-interface))))))
+                                font-interface))
+                 (description . "A flag (in the musical
+sense).")))))
 
     (Footnote
      . (
@@ -1372,7 +1407,9 @@ dynamics.")))))
                                 footnote-interface
                                 font-interface
                                 sticky-grob-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A footnote mark (usually a
+number) with a pointing line attached to another grob.")))))
 
     (FretBoard
      . (
@@ -1387,7 +1424,8 @@ dynamics.")))))
                                 font-interface
                                 fret-diagram-interface
                                 outside-staff-interface
-                                rhythmic-grob-interface))))))
+                                rhythmic-grob-interface))
+                 (description . "A fretboard diagram.")))))
 
 
     (Glissando
@@ -1415,7 +1453,8 @@ dynamics.")))))
                  (interfaces . (glissando-interface
                                 line-interface
                                 line-spanner-interface
-                                unbreakable-spanner-interface))))))
+                                unbreakable-spanner-interface))
+                 (description . "A glissando line.")))))
 
     (GraceSpacing
      . (
@@ -1424,7 +1463,11 @@ dynamics.")))))
         (spacing-increment . 0.8)
         (meta . ((class . Spanner)
                  (interfaces . (grace-spacing-interface
-                                spacing-options-interface))))))
+                                spacing-options-interface))
+                 (description . "An auxiliary grob to handle
+(horizontal) spacing of grace notes.  See also
+@iref{NoteSpacing}, @iref{StaffSpacing},
+and @iref{SpacingSpanner}.")))))
 
     (GridLine
      . (
@@ -1436,14 +1479,19 @@ dynamics.")))))
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (meta . ((class . Item)
                  (interfaces . (grid-line-interface
-                                self-alignment-interface))))))
+                                self-alignment-interface))
+                 (description . "A vertical line between staves,
+indicating rhythmic synchronization.  See also
+@iref{GridPoint}.")))))
 
     (GridPoint
      . (
         (X-extent . (0 . 0))
         (Y-extent . (0 . 0))
         (meta . ((class . Item)
-                 (interfaces . (grid-point-interface))))))
+                 (interfaces . (grid-point-interface))
+                 (description . "An auxiliary grob marking a
+start or end point for a @iref{GridLine} grob.")))))
 
 
     (Hairpin
@@ -1469,7 +1517,9 @@ dynamics.")))))
                                 hairpin-interface
                                 line-interface
                                 outside-staff-interface
-                                self-alignment-interface))))))
+                                self-alignment-interface))
+                 (description . "A hairpin.  See also
+@iref{DynamicLineSpanner}.")))))
 
     (HorizontalBracket
      . (
@@ -1486,7 +1536,10 @@ dynamics.")))))
                  (interfaces . (horizontal-bracket-interface
                                 line-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "A horizontal bracket between
+notes.  See also @iref{HorizontalBracketText} and
+@iref{MeasureSpanner}.")))))
 
     (HorizontalBracketText
      . (
@@ -1506,7 +1559,10 @@ dynamics.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "Text (markup) for a
+@iref{HorizontalBracket} grob.")))))
+
 
     (InstrumentName
      . (
@@ -1523,9 +1579,10 @@ dynamics.")))))
                                 self-alignment-interface
                                 side-position-interface
                                 system-start-text-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "An instrument name, usually
+displayed to the left of a staff.")))))
 
-    ;; This grob is deprecated.
     (InstrumentSwitch
      . (
         (direction . ,UP)
@@ -1546,7 +1603,9 @@ dynamics.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "This grob is deprecated.  Do
+not use it.")))))
 
 
     ;; This is similar to a rehearsal mark, but is intended for a
@@ -1578,7 +1637,9 @@ dynamics.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob to display a @q{point of
+departure} like @emph{D.C. al fine}.")))))
 
 
     (KeyCancellation
@@ -1611,7 +1672,10 @@ dynamics.")))))
                                 key-cancellation-interface
                                 key-signature-interface
                                 pure-from-neighbor-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A key cancellation, normally
+consisting of naturals, to be displayed (if necessary) immediately
+before a @iref{KeySignature} grob if the key changes.")))))
 
     (KeySignature
      . (
@@ -1644,7 +1708,9 @@ dynamics.")))))
                                 font-interface
                                 key-signature-interface
                                 pure-from-neighbor-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A key signature.  See also
+@iref{KeyCancellation}.")))))
 
     (KievanLigature
      . (
@@ -1653,7 +1719,12 @@ dynamics.")))))
         (padding . 0.5)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
-                                kievan-ligature-interface))))))
+                                kievan-ligature-interface))
+                 (description . "An auxiliary grob to handle a
+melisma (ligature) as used in Kievan square notation.  See also
+@iref{MensuralLigature}, @iref{VaticanaLigature}, and
+@iref{LigatureBracket}.")))))
+
 
     (LaissezVibrerTie
      . (
@@ -1671,7 +1742,11 @@ dynamics.")))))
         (meta . ((class . Item)
                  (interfaces . (bezier-curve-interface
                                 semi-tie-interface
-                                tie-interface))))))
+                                tie-interface))
+                 (description . "A laissez-vibrer tie (i.e., a
+tie from a note into nothing).  See also
+@iref{LaissezVibrerTieColumn}, @iref{RepeatTie}, and
+@iref{Tie}.")))))
 
     (LaissezVibrerTieColumn
      . (
@@ -1680,7 +1755,10 @@ dynamics.")))))
         (X-extent . #f)
         (Y-extent . #f)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-column-interface))))))
+                 (interfaces . (semi-tie-column-interface))
+                 (description . "An auxiliary grob to determine
+direction and shape of stacked @iref{LaissezVibrerTie}
+grobs.")))))
 
     (LedgerLineSpanner
      . (
@@ -1693,7 +1771,9 @@ dynamics.")))))
         (X-extent . #f)
         (Y-extent . #f)
         (meta . ((class . Spanner)
-                 (interfaces . (ledger-line-spanner-interface))))))
+                 (interfaces . (ledger-line-spanner-interface))
+                 (description . "An auxiliary grob to manage
+ledger lines of a whole staff.")))))
 
     (LeftEdge
      . (
@@ -1719,7 +1799,9 @@ dynamics.")))))
         (X-extent . (0 . 0))
         (Y-extent . (0 . 0))
         (meta . ((class . Item)
-                 (interfaces . (break-aligned-interface))))))
+                 (interfaces . (break-aligned-interface))
+                 (description . "The left edge of a staff.  Useful
+as an anchor point for other grobs.")))))
 
     (LigatureBracket
      . (
@@ -1740,7 +1822,11 @@ dynamics.")))))
         (X-positions . ,ly:tuplet-bracket::calc-x-positions)
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
-                                tuplet-bracket-interface))))))
+                                tuplet-bracket-interface))
+                 (description . "A horizontal bracket over a group
+of notes, usually indicating an ancient ligature if transcribed
+into modern notation.  See also @iref{KievanLigature},
+@iref{MensuralLigature}, and @iref{VaticanaLigature}.")))))
 
     (LyricExtender
      . (
@@ -1750,7 +1836,8 @@ dynamics.")))))
         (Y-extent . (0 . 0))
         (meta . ((class . Spanner)
                  (interfaces . (lyric-extender-interface
-                                lyric-interface))))))
+                                lyric-interface))
+                 (description . "An extender line in lyrics.")))))
 
     (LyricHyphen
      . (
@@ -1769,7 +1856,9 @@ dynamics.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 lyric-hyphen-interface
-                                lyric-interface))))))
+                                lyric-interface))
+                 (description . "A hyphen in lyrics.  See also
+@iref{VowelTransition}.")))))
 
     (LyricSpace
      . (
@@ -1780,7 +1869,8 @@ dynamics.")))))
         (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (lyric-hyphen-interface
-                                lyric-space-interface))))))
+                                lyric-space-interface))
+                 (description . "A space in lyrics.")))))
 
     (LyricText
      . (
@@ -1805,7 +1895,11 @@ dynamics.")))))
                                 lyric-syllable-interface
                                 rhythmic-grob-interface
                                 self-alignment-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A chunk of text in lyrics.  See
+also @iref{LyricExtender}, @iref{LyricHyphen}, @iref{LyricSpace},
+and @iref{VowelTransition}.")))))
+
 
     (MeasureCounter
      . (
