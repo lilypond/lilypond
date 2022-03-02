@@ -15,26 +15,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (ice-9 match))
+
 (define (make-bezier-sandwich-stencil coords thick)
   (make-path-stencil
-   `(moveto
-     ,(car (list-ref coords 0))
-     ,(cdr (list-ref coords 0))
-     curveto
-     ,(car (list-ref coords 1))
-     ,(cdr (list-ref coords 1))
-     ,(car (list-ref coords 2))
-     ,(cdr (list-ref coords 2))
-     ,(car (list-ref coords 3))
-     ,(cdr (list-ref coords 3))
-     curveto
-     ,(car (list-ref coords 4))
-     ,(cdr (list-ref coords 4))
-     ,(car (list-ref coords 5))
-     ,(cdr (list-ref coords 5))
-     ,(car (list-ref coords 0))
-     ,(cdr (list-ref coords 0))
-     closepath)
+   (match coords
+    (((x1 . y1) (x2 . y2) (x3 . y3) (x4 . y4) (x5 . y5) (x6 . y6))
+    `(moveto ,x1 ,y1
+      curveto ,x2 ,y2 ,x3 ,y3 ,x4 ,y4
+      curveto ,x5 ,y5 ,x6 ,y6 ,x1 ,y1
+      closepath)))
    thick
    1
    1
