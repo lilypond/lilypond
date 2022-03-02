@@ -1928,7 +1928,9 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob to print a counter for
+measures.")))))
 
     (MeasureSpanner
      . (
@@ -1950,7 +1952,9 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A horizontal bracket between
+bar lines.  See also @iref{HorizontalBracket}.")))))
 
     (MeasureGrouping
      . (
@@ -1965,13 +1969,18 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Spanner)
                  (interfaces . (measure-grouping-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "A measure grouping or conducting
+sign.")))))
 
     (MelodyItem
      . (
         (neutral-direction . ,DOWN)
         (meta . ((class . Item)
-                 (interfaces . (melody-spanner-interface))))))
+                 (interfaces . (melody-spanner-interface))
+                 (description . "An auxiliary grob to help alter
+the stem directions of middle notes on a staff so that they
+follow the melody.")))))
 
     (MensuralLigature
      . (
@@ -1980,7 +1989,10 @@ and @iref{VowelTransition}.")))))
         (thickness . 1.3)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
-                                mensural-ligature-interface))))))
+                                mensural-ligature-interface))
+                 (description . "A grob to display a ligature as
+used in mensural notation.  See also @iref{KievanLigature},
+@iref{VaticanaLigature}, and @iref{LigatureBracket}.")))))
 
     (MetronomeMark
      . (
@@ -2008,7 +2020,11 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A metronome mark.  This is
+either a precise tempo indication like @q{quarter note = 80}, or
+an arbitrary piece of text (like @q{Allegro}), possibly followed
+by a precise indication in parentheses.")))))
 
     (MultiMeasureRest
      . (
@@ -2033,7 +2049,10 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 multi-measure-rest-interface
                                 rest-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "A multi-measure rest.  See also
+@iref{MultiMeasureRestNumber}, @iref{MultiMeasureRestText},
+@iref{MultiMeasureRestScript}, and @iref{Rest}.")))))
 
     (MultiMeasureRestNumber
      . (
@@ -2058,7 +2077,9 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob to print the length of a
+@iref{MultiMeasureRest} grob.")))))
 
     (MultiMeasureRestText
      . (
@@ -2080,7 +2101,9 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A text markup for a
+@iref{MultiMeasureRest} grob.  See also @iref{TextScript}.")))))
 
     (MultiMeasureRestScript
      . (
@@ -2101,7 +2124,11 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "An articulation (like a fermata)
+attached to a @iref{MultiMeasureRest} grob.  See also
+@iref{Script}.")))))
+
 
     (NonMusicalPaperColumn
      . (
@@ -2127,7 +2154,11 @@ and @iref{VowelTransition}.")))))
                  (interfaces . (axis-group-interface
                                 font-interface
                                 separation-item-interface
-                                spaceable-grob-interface))))))
+                                spaceable-grob-interface))
+                 (description . "An auxiliary grob grouping
+non-musical items to handle the flexible horizontal space between
+non-musical and musical columns.  Grobs that have the property
+@code{non-musical} set to @code{#t} belong to this column.")))))
 
     (NoteCollision
      . (
@@ -2142,7 +2173,10 @@ and @iref{VowelTransition}.")))))
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
-                                note-collision-interface))))))
+                                note-collision-interface))
+                 (description . "An auxiliary grob to group
+@iref{NoteColumn} grobs from several voices, mainly to handle
+note collisions.  See also @iref{RestCollision}.")))))
 
     (NoteColumn
      . (
@@ -2161,7 +2195,10 @@ and @iref{VowelTransition}.")))))
                  (interfaces . (axis-group-interface
                                 bend-interface
                                 note-column-interface
-                                separation-item-interface))))))
+                                separation-item-interface))
+                 (description . "An auxiliary grob to align
+stacked notes, stems, flags, accidentals, and other items from
+the same voice.  See also @iref{NoteCollision}.")))))
 
     (NoteHead
      . (
@@ -2188,7 +2225,9 @@ and @iref{VowelTransition}.")))))
                                 rhythmic-grob-interface
                                 rhythmic-head-interface
                                 staff-symbol-referencer-interface
-                                vaticana-ligature-interface))))))
+                                vaticana-ligature-interface))
+                 (description . "A note head.  See also
+@iref{TabNoteHead}.")))))
 
     (NoteName
      . (
@@ -2198,7 +2237,9 @@ and @iref{VowelTransition}.")))))
                  (interfaces . (accidental-switch-interface
                                 font-interface
                                 note-name-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A textual representation of a
+note name.")))))
 
     (NoteSpacing
      . (
@@ -2210,7 +2251,12 @@ and @iref{VowelTransition}.")))))
         (stem-spacing-correction . 0.5)
         (meta . ((class . Item)
                  (interfaces . (note-spacing-interface
-                                spacing-interface))))))
+                                spacing-interface))
+                 (description . "An auxiliary grob to handle
+(horizontal) spacing of notes.  See also
+@iref{GraceSpacing}, @iref{StaffSpacing}, and
+@iref{SpacingSpanner}.")))))
+
 
     (OttavaBracket
      . (
@@ -2234,7 +2280,8 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 ottava-bracket-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "An ottava bracket.")))))
 
 
     (PaperColumn
@@ -2259,7 +2306,11 @@ and @iref{VowelTransition}.")))))
                  (interfaces . (axis-group-interface
                                 font-interface
                                 separation-item-interface
-                                spaceable-grob-interface))))))
+                                spaceable-grob-interface))
+                 (description . "An auxiliary grob grouping
+musical items to handle the flexible horizontal space between
+musical and non-musical columns.  See also
+@iref{NonMusicalPaperColumn}.")))))
 
     (Parentheses
      . (
@@ -2277,7 +2328,9 @@ and @iref{VowelTransition}.")))))
         (meta . ((classes . (Item Spanner))
                  (interfaces . (font-interface
                                 parentheses-interface
-                                sticky-grob-interface))))))
+                                sticky-grob-interface))
+                 (description . "A grob to create parentheses
+around other grobs.")))))
 
     (PercentRepeat
      . (
@@ -2291,7 +2344,11 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-rest-interface
-                                percent-repeat-interface))))))
+                                percent-repeat-interface))
+                 (description . "A percent symbol for repeating
+a bar.  See also @iref{PercentRepeatCounter},
+@iref{DoublePercentRepeat}, @iref{DoubleRepeatSlash}, and
+@iref{RepeatSlash}.")))))
 
     (PercentRepeatCounter
      . (
@@ -2312,7 +2369,9 @@ and @iref{VowelTransition}.")))))
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A grob to print a counter for
+@iref{PercentRepeat} grobs.")))))
 
     (PhrasingSlur
      . (
@@ -2331,7 +2390,9 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Spanner)
                  (interfaces . (bezier-curve-interface
                                 outside-staff-interface
-                                slur-interface))))))
+                                slur-interface))
+                 (description . "A phrasing slur, indicating a
+@q{musical sentence}.  See also @iref{Slur}.")))))
 
     ;; an example of a text spanner
     (PianoPedalBracket
@@ -2348,7 +2409,11 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
                                 piano-pedal-bracket-interface
-                                piano-pedal-interface))))))
+                                piano-pedal-interface))
+                 (description . "A piano pedal bracket.  It can
+also be part of @iref{SostenutoPedal}, @iref{SustainPedal}, or
+@iref{UnaCordaPedal} grobs if they are printed in a bracketed
+style.")))))
 
 
     (RehearsalMark
@@ -2379,7 +2444,8 @@ and @iref{VowelTransition}.")))))
                                 rehearsal-mark-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A rehearsal mark.")))))
 
     (RepeatSlash
      . (
@@ -2391,7 +2457,12 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Item)
                  (interfaces . (percent-repeat-interface
                                 percent-repeat-item-interface
-                                rhythmic-grob-interface))))))
+                                rhythmic-grob-interface))
+                 (description . "A symbol consisting of one or
+more slashes for repeating patterns shorter than a single
+measure, and which contain identical durations.  See also
+@iref{PercentRepeat}, @iref{DoublePercentRepeat}, and
+@iref{DoubleRepeatSlash}.")))))
 
     (RepeatTie
      . (
@@ -2409,7 +2480,10 @@ and @iref{VowelTransition}.")))))
         (meta . ((class . Item)
                  (interfaces . (bezier-curve-interface
                                 semi-tie-interface
-                                tie-interface))))))
+                                tie-interface))
+                 (description . "A repeat tie (i.e., a tie from
+nothing to a note).  See also @iref{RepeatTieColumn},
+@iref{LaissezVibrerTie}, and @iref{Tie}.")))))
 
     (RepeatTieColumn
      . (
@@ -2418,7 +2492,9 @@ and @iref{VowelTransition}.")))))
         (X-extent . #f)
         (Y-extent . #f)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-column-interface))))))
+                 (interfaces . (semi-tie-column-interface))
+                 (description . "An auxiliary grob to determine
+direction and shape of stacked @iref{RepeatTie} grobs.")))))
 
     (Rest
      . (
@@ -2437,14 +2513,19 @@ and @iref{VowelTransition}.")))))
                                 rest-interface
                                 rhythmic-grob-interface
                                 rhythmic-head-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "An ordinary rest.  See also
+@iref{MultiMeasureRest}.")))))
 
     (RestCollision
      . (
         (minimum-distance . 0.75)
         (positioning-done . ,ly:rest-collision::calc-positioning-done)
         (meta . ((class . Item)
-                 (interfaces . (rest-collision-interface))))))
+                 (interfaces . (rest-collision-interface))
+                 (description . "An auxiliary grob to handle rest
+collisions of different voices.  See also
+@iref{NoteCollision}.")))))
 
 
     (Script
