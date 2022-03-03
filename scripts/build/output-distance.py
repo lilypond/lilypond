@@ -635,6 +635,18 @@ class TextFileCompareLink (FileCompareLink):
         return '', str
 
 
+def eps_bbox_empty(fn: str) -> bool:
+    header = open(fn, 'rb').read(1024)
+    header_line = b'\n%%BoundingBox: '
+    index = header.index(header_line)
+    assert index > 0, fn
+
+    header = header[index + len(header_line):]
+    header = header[:header.index(b'\n')]
+    llx, lly, urx, ury = tuple(map(int, header.split(b' ')))
+    return llx >= urx or lly >= ury
+
+
 class MidiFileLink (TextFileCompareLink):
     def get_content(self, name: str) -> Optional[str]:
         try:
@@ -683,6 +695,15 @@ def eps_to_png(files: Dict[str, str]):
                                % os.path.abspath(basedir)]
                 break
 
+    # Ghostscript doesn't like rendering empty pages.
+    empty_eps = tempfile.NamedTemporaryFile(
+        mode="w", suffix="empty.ps", dir=get_temp_dir(), encoding="utf-8", delete=False)
+    empty_eps.write(r'''%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 1 1
+%%EndComments
+''')
+    empty_eps.close()
+            
     for destdir in set(os.path.dirname(f) for f in files.values()):
         os.makedirs(destdir, exist_ok=True)
 
@@ -728,6 +749,7 @@ def eps_to_png(files: Dict[str, str]):
         print('converted %d EPS files in %f s' % (len(files), dt))
 
     os.unlink(driver.name)
+    os.unlink(empty_eps.name)
     
 
 class SignatureFileLink (FileLink):
@@ -1315,6 +1337,23 @@ def test_paired_files():
                        os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py'))
 
 
+def test_eps_bbox_empty():
+    non_empty = b'''%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 1 1
+%%EndComments
+'''
+    empty = b'''%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 30 0 35
+%%EndComments
+'''
+
+    open('non_empty.eps', 'wb').write(non_empty)
+    open('empty.eps', 'wb').write(empty)
+
+    assert not eps_bbox_empty ('non_empty.eps')
+    assert eps_bbox_empty ('empty.eps')
+
+    
 def test_compare_tree_pairs():
     system('rm -rf dir1 dir2')
     system('mkdir dir1 dir2')
@@ -1548,6 +1587,7 @@ def run_tests():
     system('mkdir ' + testdir)
     os.chdir(testdir)
 
+    test_eps_bbox_empty()
     test_compare_png_images()
     test_basic_compare()
     test_compare_tree_pairs()
