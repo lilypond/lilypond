@@ -170,6 +170,7 @@ init_func_doc ()
   ly_add_type_predicate (is_scm<Axis>, "axis");
   ly_add_type_predicate (is_scm<Direction>, "direction");
   ly_add_type_predicate (is_scm<Offset>, "pair of reals");
+  ly_add_type_predicate (is_scm<Bezier>, "list of four number pairs");
   ly_add_type_predicate (ly_cheap_is_list, "list");
   ly_add_type_predicate (ly_is_list, "list");
   ly_add_type_predicate (ly_is_port, "port");

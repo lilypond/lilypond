@@ -406,45 +406,11 @@ then reduce using @var{min-max}:
 (define (line-part-min-max x1 x2)
   (list (min x1 x2) (max x1 x2)))
 
-(define (bezier-part-min-max x1 x2 x3 x4)
-  ((lambda (x) (list (reduce min 10000 x) (reduce max -10000 x)))
-   (map
-    (lambda (x)
-      (+ (* x1 (expt (- 1 x) 3))
-         (+ (* 3 (* x2 (* (expt (- 1 x) 2) x)))
-            (+ (* 3 (* x3 (* (- 1 x) (expt x 2))))
-               (* x4 (expt x 3))))))
-    (if (< (+ (expt x2 2) (+ (expt x3 2) (* x1 x4)))
-           (+ (* x1 x3) (+ (* x2 x4) (* x2 x3))))
-        (list 0.0 1.0)
-        (filter
-         (lambda (x) (and (>= x 0) (<= x 1)))
-         (append
-          (list 0.0 1.0)
-          (map (lambda (op)
-                 (if (not (eqv? 0.0
-                                (exact->inexact (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2))))))
-                     ;; Zeros of the bezier curve
-                     (/ (+ (- x1 (* 2 x2))
-                           (op x3
-                               (sqrt (- (+ (expt x2 2)
-                                           (+ (expt x3 2) (* x1 x4)))
-                                        (+ (* x1 x3)
-                                           (+ (* x2 x4) (* x2 x3)))))))
-                        (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2))))
-                     ;; Apply L'hopital's rule to get the zeros if 0/0
-                     (* (op 0 1)
-                        (/ (/ (- x4 x3) 2)
-                           (sqrt (- (+ (* x2 x2)
-                                       (+ (* x3 x3) (* x1 x4)))
-                                    (+ (* x1 x3)
-                                       (+ (* x2 x4) (* x2 x3)))))))))
-               (list + -))))))))
-
 (define (bezier-min-max x1 y1 x2 y2 x3 y3 x4 y4)
-  (map (lambda (x)
-         (apply bezier-part-min-max x))
-       `((,x1 ,x2 ,x3 ,x4) (,y1 ,y2 ,y3 ,y4))))
+  (match-let* ((bezier `((,x1 . ,y2) (,x2 . ,y2) (,x3 . ,y3) (,x4 . ,y4)))
+               ((xmin . xmax) (ly:bezier-extent bezier X))
+               ((ymin . ymax) (ly:bezier-extent bezier Y)))
+    `((,xmin ,xmax) (,ymin ,ymax))))
 
 (define (line-min-max x1 y1 x2 y2)
   (map (lambda (x)
@@ -452,7 +418,6 @@ then reduce using @var{min-max}:
        `((,x1 ,x2) (,y1 ,y2))))
 
 (define (path-min-max origin pointlist)
-
   ((lambda (x)
      (list
       (reduce min +inf.0 (map caar x))

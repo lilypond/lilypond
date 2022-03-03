@@ -227,7 +227,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
 Bezier
 Slur::get_curve (Grob *me)
 {
-  return Bezier (ly_scm_list (get_property (me, "control-points")));
+  return from_scm<Bezier> (get_property (me, "control-points"));
 }
 
 void

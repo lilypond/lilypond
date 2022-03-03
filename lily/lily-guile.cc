@@ -20,10 +20,12 @@
 
 #include "lily-guile.hh"
 
+#include "bezier.hh"
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "memory.hh"
 #include "misc.hh"
@@ -397,6 +399,41 @@ bool is_scm<Rational> (SCM n)
   return (scm_is_real (n)
           && (scm_is_true (scm_exact_p (n))
               || scm_is_true (scm_inf_p (n))));
+}
+
+template <>
+bool
+is_scm<Bezier> (SCM s)
+{
+  for (int i = 0; i < 4; i++)
+    {
+      if (!scm_is_pair (s))
+        return false;
+      SCM next = scm_car (s);
+      if (!scm_is_pair (next)
+          || !is_scm<Real> (scm_car (next))
+          || !is_scm<Real> (scm_cdr (next)))
+        return false;
+      s = scm_cdr (s);
+    }
+  return scm_is_null (s);
+}
+
+template <>
+Bezier
+from_scm<Bezier> (const SCM &s)
+{
+  return Bezier (as_ly_scm_list (s));
+}
+
+template <>
+SCM
+to_scm<Bezier> (const Bezier &b)
+{
+  SCM result = SCM_EOL;
+  for (int i : {3, 2, 1, 0})
+    result = scm_cons (to_scm (b.control_[i]), result);
+  return result;
 }
 
 SCM

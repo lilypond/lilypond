@@ -47,6 +47,8 @@
 #include "interval.hh"
 #include "lily-guile-macros.hh"
 
+class Bezier;
+
 /** Conversion functions follow the GUILE naming convention, i.e.
     A ly_B2A (B b);  */
 
@@ -520,6 +522,10 @@ is_scm<Offset> (SCM s)
 
 template <> Offset from_scm<Offset> (const SCM &s);
 template <> SCM to_scm<Offset> (const Offset &i);
+
+template <> bool is_scm<Bezier> (SCM s);
+template <> Bezier from_scm<Bezier> (const SCM &s);
+template <> SCM to_scm<Bezier> (const Bezier &b);
 
 // partial function specialisation is not allowed, partially
 // specialize helper class
