@@ -2553,19 +2553,26 @@ collisions of different voices.  See also
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "An articulation (staccato,
+accent, etc.).  See also @iref{ScriptColumn},
+@iref{ScriptRow}, and @iref{MultiMeasureRestScript}.")))))
 
     (ScriptColumn
      . (
         (before-line-breaking . ,ly:script-column::before-line-breaking)
         (meta . ((class . Item)
-                 (interfaces . (script-column-interface))))))
+                 (interfaces . (script-column-interface))
+                 (description . "An auxiliary grob to
+(vertically) align stacked @iref{Script} grobs.")))))
 
     (ScriptRow
      . (
         (before-line-breaking . ,ly:script-column::row-before-line-breaking)
         (meta . ((class . Item)
-                 (interfaces . (script-column-interface))))))
+                 (interfaces . (script-column-interface))
+                 (description . "An auxiliary grob to
+horizontally align stacked @iref{Script} grobs.")))))
 
     (SectionLabel
      . (
@@ -2595,7 +2602,9 @@ collisions of different voices.  See also
                                 section-label-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A section label, for example
+@q{Trio}.")))))
 
     (SegnoMark
      . (
@@ -2624,7 +2633,9 @@ collisions of different voices.  See also
                                 segno-mark-interface
                                 self-alignment-interface
                                 side-position-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A segno mark (created with
+@code{\\repeat segno}, not with @code{\\segno}).")))))
 
     (Slur
      . (
@@ -2645,7 +2656,9 @@ collisions of different voices.  See also
         (meta . ((class . Spanner)
                  (interfaces . (bezier-curve-interface
                                 outside-staff-interface
-                                slur-interface))))))
+                                slur-interface))
+                 (description . "A slur.  See also
+@iref{PhrasingSlur}.")))))
 
     (SostenutoPedal
      . (
@@ -2663,7 +2676,10 @@ collisions of different voices.  See also
                  (interfaces . (font-interface
                                 piano-pedal-script-interface
                                 self-alignment-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A sostenuto pedal mark.  See
+also @iref{SostenutoPedalLineSpanner}, @iref{PianoPedalBracket},
+@iref{SustainPedal}, and @iref{UnaCordaPedal}.")))))
 
     (SostenutoPedalLineSpanner
      . (
@@ -2685,8 +2701,9 @@ collisions of different voices.  See also
                                 outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))
-                 (description . "Provide a vertical baseline to align
-consecutive @iref{SostenutoPedal} grobs.")))))
+                 (description . "An auxiliary grob providing a
+baseline to align consecutive @iref{SostenutoPedal} grobs
+vertically.")))))
 
     (SpacingSpanner
      . (
@@ -2698,7 +2715,13 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (springs-and-rods . ,ly:spacing-spanner::set-springs)
         (meta . ((class . Spanner)
                  (interfaces . (spacing-options-interface
-                                spacing-spanner-interface))))))
+                                spacing-spanner-interface))
+                 (description . "An auxiliary grob to set all
+horizontal spacing constraints across a score.  There is normally
+one such grob for the whole score, but there can be several if
+@code{\\newSpacingSection} is used.  See also
+@iref{GraceSpacing}, @iref{NoteSpacing}, and
+@iref{StaffSpacing}.")))))
 
     (SpanBar
      . (
@@ -2716,7 +2739,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (meta . ((class . Item)
                  (interfaces . (bar-line-interface
                                 font-interface
-                                span-bar-interface))))))
+                                span-bar-interface))
+                 (description . "A span bar, i.e., the parts of
+a multi-staff bar line that are outside of staves.  See also
+@iref{SpanBarStub}.")))))
 
     (SpanBarStub
      . (
@@ -2729,7 +2755,11 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
-                 (interfaces . (pure-from-neighbor-interface))))))
+                 (interfaces . (pure-from-neighbor-interface))
+                 (description . "An auxiliary grob, acting like a
+fake @iref{SpanBar} grob in contexts such as @iref{Lyrics} that
+are crossed by a span bar, to keep span bars taking horizontal
+space.")))))
 
     (StaffEllipsis ; indicates a cut made by skipTypesetting = ##t
      . (
@@ -2761,7 +2791,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
                                 font-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A visual marker (usually three
+consecutive dots) to indicate that typesetting of music is
+skipped.")))))
 
     (StaffGrouper
      . (
@@ -2774,7 +2807,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                                      (padding . 1)
                                      (stretchability . 9)))
         (meta . ((class . Spanner)
-                 (interfaces . (staff-grouper-interface))))))
+                 (interfaces . (staff-grouper-interface))
+                 (description . "An auxiliary grob to manage
+vertical spacing of staff groups.  See also
+@iref{VerticalAlignment} and @iref{VerticalAxisGroup}.")))))
 
     (StaffSpacing
      . (
@@ -2782,7 +2818,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (stem-spacing-correction . 0.4)
         (meta . ((class . Item)
                  (interfaces . (spacing-interface
-                                staff-spacing-interface))))))
+                                staff-spacing-interface))
+                 (description . "An auxiliary grob to handle
+spacing within a staff.  See also @iref{NoteSpacing},
+@iref{GraceSpacing}, and @iref{SpacingSpanner}.")))))
 
     (StaffSymbol
      . (
@@ -2793,7 +2832,9 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (stencil . ,ly:staff-symbol::print)
         (Y-extent . ,(ly:make-unpure-pure-container ly:staff-symbol::height))
         (meta . ((class . Spanner)
-                 (interfaces . (staff-symbol-interface))))))
+                 (interfaces . (staff-symbol-interface))
+                 (description . "A staff symbol, usually
+five horizontal lines.")))))
 
     (StanzaNumber
      . (
@@ -2808,7 +2849,9 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                  (interfaces . (font-interface
                                 side-position-interface
                                 stanza-number-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A stanza number (or markup) for
+lyrics.")))))
 
     (Stem
      . (
@@ -2863,7 +2906,9 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (Y-extent . ,(ly:make-unpure-pure-container ly:stem::height ly:stem::pure-height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
-                 (interfaces . (stem-interface))))))
+                 (interfaces . (stem-interface))
+                 (description . "A stem.  See also
+@iref{StemStub}.")))))
 
     (StemStub
      . (
@@ -2871,7 +2916,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (extra-spacing-height . ,stem-stub::extra-spacing-height)
         (Y-extent . ,(ly:make-unpure-pure-container #f stem-stub::pure-height))
         (meta . ((class . Item)
-                 (interfaces . ())))))
+                 (interfaces . ())
+                 (description . "An auxiliary grob that prevents
+cross-staff @iref{Stem} grobs from colliding with
+articulations.")))))
 
     (StemTremolo
      . (
@@ -2889,7 +2937,8 @@ consecutive @iref{SostenutoPedal} grobs.")))))
         (Y-offset . ,(ly:make-unpure-pure-container ly:stem-tremolo::calc-y-offset ly:stem-tremolo::pure-calc-y-offset))
         (meta . ((class . Item)
                  (interfaces . (self-alignment-interface
-                                stem-tremolo-interface))))))
+                                stem-tremolo-interface))
+                 (description . "A stem tremolo.")))))
 
     (StringNumber
      . (
@@ -2916,7 +2965,9 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                                 number-interface
                                 string-number-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A markup (by default a digit in
+a circle) to name a string.")))))
 
     (StrokeFinger
      . (
@@ -2940,7 +2991,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                                 side-position-interface
                                 stroke-finger-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A markup (usually a lowercase
+letter) to indicate right-hand fingering.  See also
+@iref{Fingering}.")))))
 
     (SustainPedal
      . (
@@ -2957,7 +3011,10 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                                 piano-pedal-interface
                                 piano-pedal-script-interface
                                 self-alignment-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "A sustain pedal mark.  See also
+@iref{SustainPedalLineSpanner}, @iref{PianoPedalBracket},
+@iref{SostenutoPedal}, and @iref{UnaCordaPedal}.")))))
 
     (SustainPedalLineSpanner
      . (
@@ -2979,8 +3036,9 @@ consecutive @iref{SostenutoPedal} grobs.")))))
                                 outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))
-                 (description . "Provide a vertical baseline for aligning
-consecutive @iref{SustainPedal} grobs.")))))
+                 (description . "An auxiliary grob providing a
+baseline to align consecutive @iref{SustainPedal} grobs
+vertically.")))))
 
     (System
      . (
@@ -3000,7 +3058,9 @@ consecutive @iref{SustainPedal} grobs.")))))
                                       (vertical-skyline-elements . ,ly:system::vertical-skyline-elements)
                                       (vertical-alignment . ,ly:system::get-vertical-alignment)))
                  (interfaces . (axis-group-interface
-                                outside-staff-axis-group-interface))))))
+                                outside-staff-axis-group-interface))
+                 (description . "The top-level grob of a score.
+All other grobs are descendants of it.")))))
 
     (SystemStartBar
      . (
@@ -3015,7 +3075,9 @@ consecutive @iref{SustainPedal} grobs.")))))
         (X-offset . ,ly:side-position-interface::x-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (side-position-interface
-                                system-start-delimiter-interface))))))
+                                system-start-delimiter-interface))
+                 (description . "A bar line as a system start
+delimiter.")))))
 
     (SystemStartBrace
      . (
@@ -3029,7 +3091,9 @@ consecutive @iref{SustainPedal} grobs.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
-                                system-start-delimiter-interface))))))
+                                system-start-delimiter-interface))
+                 (description . "A brace as a system start
+delimiter.")))))
 
     (SystemStartBracket
      . (
@@ -3043,7 +3107,9 @@ consecutive @iref{SustainPedal} grobs.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
-                                system-start-delimiter-interface))))))
+                                system-start-delimiter-interface))
+                 (description . "A bracket as a system start
+delimiter.")))))
 
     (SystemStartSquare
      . (
@@ -3056,7 +3122,9 @@ consecutive @iref{SustainPedal} grobs.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
-                                system-start-delimiter-interface))))))
+                                system-start-delimiter-interface))
+                 (description . "A rectangle-like bracket as a
+start delimiter.")))))
 
 
     (TabNoteHead
