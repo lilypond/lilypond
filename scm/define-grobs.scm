@@ -3164,7 +3164,9 @@ start delimiter.")))))
                                  rhythmic-head-interface
                                  staff-symbol-referencer-interface
                                  tab-note-head-interface
-                                 text-interface))))))
+                                 text-interface))
+                 (description . "A @q{note head} (usually a
+digit) in a tablature.  See also @iref{NoteHead}.")))))
 
     (TextScript
      . (
@@ -3199,7 +3201,9 @@ start delimiter.")))))
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface
-                                text-script-interface))))))
+                                text-script-interface))
+                 (description . "A markup attached to a grob like
+a note head.  See also @iref{MultiMeasureRestText}.")))))
 
     (TextSpanner
      . (
@@ -3229,7 +3233,10 @@ start delimiter.")))))
                                 line-interface
                                 line-spanner-interface
                                 outside-staff-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "Text like @q{rit}, usually
+followed by a (dashed) line.  See also
+@iref{DynamicTextSpanner}.")))))
 
     (Tie
      . (
@@ -3266,7 +3273,10 @@ start delimiter.")))))
         (thickness . 1.2)
         (meta . ((class . Spanner)
                  (interfaces . (bezier-curve-interface
-                                tie-interface))))))
+                                tie-interface))
+                 (description . "A tie.  See also
+@iref{TieColumn}, @iref{LaissezVibrerTie}, and
+@iref{RepeatTie}.")))))
 
     (TieColumn
      . (
@@ -3275,7 +3285,9 @@ start delimiter.")))))
         (X-extent . #f)
         (Y-extent . #f)
         (meta . ((class . Spanner)
-                 (interfaces . (tie-column-interface))))))
+                 (interfaces . (tie-column-interface))
+                 (description . "An auxiliary grob to determine
+direction and shape of stacked @iref{Tie} grobs.")))))
 
     (TimeSignature
      . (
@@ -3303,7 +3315,8 @@ start delimiter.")))))
                  (interfaces . (break-aligned-interface
                                 font-interface
                                 pure-from-neighbor-interface
-                                time-signature-interface))))))
+                                time-signature-interface))
+                 (description . "A time signature.")))))
 
     (TrillPitchAccidental
      . (
@@ -3320,7 +3333,9 @@ start delimiter.")))))
                                 font-interface
                                 inline-accidental-interface
                                 side-position-interface
-                                trill-pitch-accidental-interface))))))
+                                trill-pitch-accidental-interface))
+                 (description . "The accidental of a pitched
+trill.  See also @iref{TrillPitchGroup}.")))))
 
     (TrillPitchGroup
      . (
@@ -3338,7 +3353,11 @@ start delimiter.")))))
                        trill-pitch-group::pure-height))
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
-                                side-position-interface))))))
+                                side-position-interface))
+                 (description . "An auxiliary grob to construct
+a pitched trill, aligning @iref{TrillPitchAccidental},
+@iref{TrillPitchParentheses}, and @iref{TrillPitchHead}
+horizontally.  See also @iref{TrillSpanner}.")))))
 
     (TrillPitchHead
      . (
@@ -3353,7 +3372,9 @@ start delimiter.")))))
                                 ledgered-interface
                                 pitched-trill-interface
                                 rhythmic-head-interface
-                                staff-symbol-referencer-interface))))))
+                                staff-symbol-referencer-interface))
+                 (description . "The note head of a pitched
+trill.  See also @iref{TrillPitchGroup}.")))))
 
     (TrillPitchParentheses
      . (
@@ -3371,7 +3392,9 @@ start delimiter.")))))
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 parentheses-interface
-                                pitched-trill-interface))))))
+                                pitched-trill-interface))
+                 (description . "The parentheses of a pitched
+trill.  See also @iref{TrillPitchGroup}.")))))
 
     (TrillSpanner
      . (
@@ -3401,7 +3424,10 @@ start delimiter.")))))
                                 line-spanner-interface
                                 outside-staff-interface
                                 side-position-interface
-                                trill-spanner-interface))))))
+                                trill-spanner-interface))
+                 (description . "A continued trill with a wiggly
+line (created with @code{\\startTrillSpan}, not with
+@code{\\trill}).  See also @iref{TrillPitchGroup}.")))))
 
     (TupletBracket
      . (
@@ -3424,7 +3450,9 @@ start delimiter.")))))
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
                                 outside-staff-interface
-                                tuplet-bracket-interface))))))
+                                tuplet-bracket-interface))
+                 (description . "A tuplet bracket.  See also
+@iref{TupletNumber}.")))))
 
     (TupletNumber
      . (
@@ -3442,7 +3470,9 @@ start delimiter.")))))
                  (interfaces . (font-interface
                                 outside-staff-interface
                                 text-interface
-                                tuplet-number-interface))))))
+                                tuplet-number-interface))
+                 (description . "A tuplet number.  See also
+@iref{TupletBracket}.")))))
 
 
     (UnaCordaPedal
@@ -3461,7 +3491,10 @@ start delimiter.")))))
                  (interfaces . (font-interface
                                 piano-pedal-script-interface
                                 self-alignment-interface
-                                text-interface))))))
+                                text-interface))
+                 (description . "An una corda pedal mark.  See
+also @iref{UnaCordaPedalLineSpanner}, @iref{SostenutoPedal},
+@iref{SustainPedal}, and @iref{PianoPedalBracket}.")))))
 
     (UnaCordaPedalLineSpanner
      . (
@@ -3483,8 +3516,9 @@ start delimiter.")))))
                                 outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))
-                 (description . "Provide a vertical baseline for aligning
-consecutive @iref{UnaCordaPedal} grobs.")))))
+                 (description . "An auxiliary grob providing a
+baseline to align consecutive @iref{UnaCordaPedal} grobs
+vertically.")))))
 
 
     (VaticanaLigature
@@ -3494,7 +3528,11 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
         (thickness . 0.6)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
-                                vaticana-ligature-interface))))))
+                                vaticana-ligature-interface))
+                 (description . "A grob to display a melisma
+(ligature) as used in Gregorian chant.  See also
+@iref{KievanLigature}, @iref{MensuralLigature}, and
+@iref{LigatureBracket}.")))))
 
     (VerticalAlignment
      . (
@@ -3509,7 +3547,10 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
                                       (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
                  (interfaces . (align-interface
-                                axis-group-interface))))))
+                                axis-group-interface))
+                 (description . "A top-level auxiliary grob to
+stack groups (staves, lyrics lines, etc.).  See also
+@iref{StaffGrouper} and @iref{VerticalAxisGroup}.")))))
 
     (VerticalAxisGroup
      . (
@@ -3535,7 +3576,11 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
 
                  (interfaces . (axis-group-interface
                                 hara-kiri-group-spanner-interface
-                                outside-staff-axis-group-interface))))))
+                                outside-staff-axis-group-interface))
+                 (description . "An auxiliary grob to group
+everything contained in a context like @iref{Staff},
+@iref{Lyrics}, @iref{Dynamics}, etc.  See also @iref{StaffGrouper}
+and @iref{VerticalAlignment}.")))))
 
     (VoiceFollower
      . (
@@ -3556,7 +3601,9 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
         (style . line)
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
-                                line-spanner-interface))))))
+                                line-spanner-interface))
+                 (description . "A line to indicate staff changes
+of a voice.")))))
 
     (VoltaBracket
      . (
@@ -3578,7 +3625,9 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
                                 side-position-interface
                                 text-interface
                                 volta-bracket-interface
-                                volta-interface))))))
+                                volta-interface))
+                 (description . "A volta bracket.  See also
+@iref{VoltaBracketSpanner}.")))))
 
     (VoltaBracketSpanner
      . (
@@ -3598,7 +3647,10 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 side-position-interface
-                                volta-interface))))))
+                                volta-interface))
+                 (description . "An auxiliary grob providing a
+baseline to align consecutive @iref{VoltaBracket} grobs
+vertically.")))))
 
     (VowelTransition
      . (
@@ -3626,7 +3678,9 @@ consecutive @iref{UnaCordaPedal} grobs.")))))
                  (interfaces . (horizontal-line-spanner-interface
                                 line-interface
                                 line-spanner-interface
-                                lyric-interface))))))
+                                lyric-interface))
+                 (description . "A vowel transition in
+lyrics.  See also @iref{LyricHyphen}.")))))
 
     ))
 
