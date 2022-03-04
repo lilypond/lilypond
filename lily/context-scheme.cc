@@ -103,20 +103,6 @@ This undoes a particular @code{\override}, @code{\once \override} or
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_property, "ly:context-property",
-           2, 1, 0, (SCM context, SCM sym, SCM def),
-           R"(
-Return the value for property @var{sym} in @var{context}. If @var{def} is
-given, and property value is @code{'()}, return @var{def}.
-           )")
-{
-  auto *const t = LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-
-  SCM result = get_property (t, sym);
-  return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
-}
-
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
            3, 0, 0, (SCM context, SCM name, SCM val),
            R"(
@@ -129,6 +115,21 @@ Set value of property @var{name} in context @var{context} to @var{val}.
   set_property (tr, name, val);
 
   return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
+                       ly_context_set_property_x,
+                       2, 1, 0, (SCM context, SCM sym, SCM def),
+                       R"(
+Return the value for property @var{sym} in @var{context}. If @var{def} is
+given, and property value is @code{'()}, return @var{def}.
+                       )")
+{
+  auto *const t = LY_ASSERT_SMOB (Context, context, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+
+  SCM result = get_property (t, sym);
+  return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
 LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",

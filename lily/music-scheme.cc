@@ -36,17 +36,6 @@ object.
   return to_scm (sc->get_length ());
 }
 
-LY_DEFINE (ly_music_property, "ly:music-property",
-           2, 1, 0, (SCM mus, SCM sym, SCM val),
-           R"(
-Return the value for property @var{sym} of music expression @var{mus}.  If no
-value is found, return @var{val} or @code{'()} if @var{val} is not specified.
-           )")
-{
-  LY_ASSERT_SMOB (Music, mus, 1);
-  return ly_prob_property (mus, sym, val);
-}
-
 LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
            3, 0, 0, (SCM mus, SCM sym, SCM val),
            R"(
@@ -56,6 +45,18 @@ Set property @var{sym} in music expression @var{mus} to @var{val}.
   LY_ASSERT_SMOB (Music, mus, 1);
 
   return ly_prob_set_property_x (mus, sym, val);
+}
+
+LY_DEFINE_WITH_SETTER (ly_music_property, "ly:music-property",
+                       ly_music_set_property_x,
+                       2, 1, 0, (SCM mus, SCM sym, SCM val),
+                       R"(
+Return the value for property @var{sym} of music expression @var{mus}.  If no
+value is found, return @var{val} or @code{'()} if @var{val} is not specified.
+                       )")
+{
+  LY_ASSERT_SMOB (Music, mus, 1);
+  return ly_prob_property (mus, sym, val);
 }
 
 LY_DEFINE (ly_music_start, "ly:music-start",

@@ -21,15 +21,6 @@
 (use-modules (ice-9 optargs))
 (use-modules (srfi srfi-11))
 
-;;; ly:music-property with setter
-;;; (ly:music-property my-music 'elements)
-;;;   ==> the 'elements property
-;;; (set! (ly:music-property my-music 'elements) value)
-;;;   ==> set the 'elements property and return it
-(define-public ly:music-property
-  (make-procedure-with-setter ly:music-property
-                              ly:music-set-property!))
-
 (define-safe-public (music-is-of-type? mus type)
   "Does @var{mus} belong to the music class @var{type}?"
   (memq type (ly:music-property mus 'types)))
@@ -42,27 +33,6 @@ music to have one of the types listed in @var{types}."
        (lambda (m)
          (any (lambda (t) (music-is-of-type? m t)) types))
        (lambda (m) (music-is-of-type? m types)))))
-
-;; TODO move this
-(define-public ly:grob-property
-  (make-procedure-with-setter ly:grob-property
-                              ly:grob-set-property!))
-
-(define-public ly:grob-object
-  (make-procedure-with-setter ly:grob-object
-                              ly:grob-set-object!))
-
-(define-public ly:grob-parent
-  (make-procedure-with-setter ly:grob-parent
-                              ly:grob-set-parent!))
-
-(define-public ly:prob-property
-  (make-procedure-with-setter ly:prob-property
-                              ly:prob-set-property!))
-
-(define-public ly:context-property
-  (make-procedure-with-setter ly:context-property
-                              ly:context-set-property!))
 
 (define-public (music-selective-map descend? function music)
   "Apply @var{function} recursively to @var{music}, but refrain

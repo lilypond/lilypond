@@ -44,12 +44,13 @@ Is boolean prop @var{sym} of @var{obj} set?
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
 
-LY_DEFINE (ly_prob_property, "ly:prob-property",
-           2, 1, 0, (SCM prob, SCM sym, SCM val),
-           R"(
+LY_DEFINE_WITH_SETTER (ly_prob_property, "ly:prob-property",
+                       ly_prob_set_property_x,
+                       2, 1, 0, (SCM prob, SCM sym, SCM val),
+                       R"(
 Return the value for property @var{sym} of Prob object @var{prob}.  If no value
 is found, return @var{val} or @code{'()} if @var{val} is not specified.
-           )")
+                       )")
 {
   auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -117,4 +118,3 @@ Retrieve an alist of immutable properties.
   auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   return ps->get_property_alist (false);
 }
-

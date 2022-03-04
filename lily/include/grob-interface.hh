@@ -68,4 +68,3 @@ template <class Interface>
 Protected_scm Grob_interface<Interface>::interface_symbol_;
 
 #endif /* INTERFACE_HH */
-

@@ -221,6 +221,40 @@ void ly_check_name (const char *cxx, const char *fname);
   LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
                           VAR, ARGLIST, DOCSTRING)
 
+/* LY_DEFINE_WITH_SETTER is like LY_DEFINE, but adding a setter procedure.
+   Adding, for example, ly:music-set-property! as setter to ly:music-property
+   means one can write
+     (set! (ly:music-property m 'property) ...)
+   equivalently to
+     (ly:music-set-property! m 'property ...)
+   For this to work, the setter must be defined before the getter, and
+   within the same compilation unit (so the init function adding it is
+   guaranteed to be defined first). */
+#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME,                            \
+                              REQ, OPT, VAR,                                          \
+                              ARGLIST, DOCSTRING)                                     \
+  SCM FNAME ARGLIST;                                                                  \
+  SCM FNAME ## _proc_without_setter;                                                  \
+  SCM FNAME ## _proc;                                                                 \
+  void                                                                                \
+  FNAME ## init ()                                                                    \
+  {                                                                                   \
+    FNAME ## _proc_without_setter =                                                   \
+      scm_c_make_gsubr (PRIMNAME, REQ, OPT, VAR,                                      \
+                          reinterpret_cast<scm_t_subr> (FNAME));                      \
+    ly_check_name (#FNAME, PRIMNAME);                                                 \
+    FNAME ## _proc =                                                                  \
+      scm_make_procedure_with_setter (FNAME ## _proc_without_setter,                  \
+                                      SETTERNAME ## _proc);                           \
+    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST, DOCSTRING);    \
+    scm_c_define (PRIMNAME, FNAME ## _proc);                                          \
+    scm_c_export (PRIMNAME, NULL);                                                    \
+  }                                                                                   \
+  ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);                     \
+  SCM                                                                                 \
+  FNAME ARGLIST
+
+
 #define get_property(p,x) (p)->internal_get_property (ly_symbol2scm (x))
 #define get_pure_property(p,x,y,z)                      \
   (p)->internal_get_pure_property (ly_symbol2scm (x), y, z)

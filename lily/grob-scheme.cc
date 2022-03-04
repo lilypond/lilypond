@@ -58,6 +58,26 @@ Set @var{sym} in grob @var{grob} to value @var{val}.
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE_WITH_SETTER (ly_grob_property, "ly:grob-property",
+                       ly_grob_set_property_x,
+                       2, 1, 0, (SCM grob, SCM sym, SCM val),
+                       R"(
+Return the value for property @var{sym} of @var{grob}.  If no value is found,
+return @var{val} or @code{'()} if @var{val} is not specified.
+                       )")
+{
+  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+  if (SCM_UNBNDP (val))
+    val = SCM_EOL;
+
+  SCM retval = get_property (sc, sym);
+  if (scm_is_null (retval))
+    retval = val;
+
+  return retval;
+}
+
 LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
            3, 0, 0, (SCM grob, SCM symlist, SCM val),
            R"(
@@ -121,25 +141,6 @@ found, return @var{val} or @code{'()} if @var{val} is not specified.
   return to_scm (retval);
 }
 
-LY_DEFINE (ly_grob_property, "ly:grob-property",
-           2, 1, 0, (SCM grob, SCM sym, SCM val),
-           R"(
-Return the value for property @var{sym} of @var{grob}.  If no value is found,
-return @var{val} or @code{'()} if @var{val} is not specified.
-           )")
-{
-  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-  if (SCM_UNBNDP (val))
-    val = SCM_EOL;
-
-  SCM retval = get_property (sc, sym);
-  if (scm_is_null (retval))
-    retval = val;
-
-  return retval;
-}
-
 LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
            1, 0, 0, (SCM grob),
            R"(
@@ -149,28 +150,6 @@ Return the interfaces list of grob @var{grob}.
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
   return sc->interfaces ();
-}
-
-LY_DEFINE (ly_grob_object, "ly:grob-object",
-           2, 1, 0, (SCM grob, SCM sym, SCM val),
-           R"(
-Return the value of a pointer in grob @var{grob} of property @var{sym}.  When
-@var{sym} is undefined in @var{grob}, it returns @var{val} if specified or
-@code{'()} (end-of-list) otherwise.  The kind of properties this taps into
-differs from regular properties.  It is used to store links between grobs,
-either grobs or grob arrays.  For instance, a note head has a @code{stem}
-property, the stem grob it belongs to.  Just after line breaking, all those
-grobs are scanned and replaced by their relevant broken versions when
-applicable.
-           )")
-{
-  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-
-  SCM object = sc->internal_get_object (sym);
-  if (scm_is_null (object))
-    return SCM_UNBNDP (val) ? SCM_EOL : val;
-  return object;
 }
 
 LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
@@ -184,6 +163,29 @@ Set @var{sym} in grob @var{grob} to value @var{val}.
 
   set_object (sc, sym, val);
   return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE_WITH_SETTER (ly_grob_object, "ly:grob-object",
+                       ly_grob_set_object_x,
+                       2, 1, 0, (SCM grob, SCM sym, SCM val),
+                       R"(
+Return the value of a pointer in grob @var{grob} of property @var{sym}.  When
+@var{sym} is undefined in @var{grob}, it returns @var{val} if specified or
+@code{'()} (end-of-list) otherwise.  The kind of properties this taps into
+differs from regular properties.  It is used to store links between grobs,
+either grobs or grob arrays.  For instance, a note head has a @code{stem}
+property, the stem grob it belongs to.  Just after line breaking, all those
+grobs are scanned and replaced by their relevant broken versions when
+applicable.
+                       )")
+{
+  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+
+  SCM object = sc->internal_get_object (sym);
+  if (scm_is_null (object))
+    return SCM_UNBNDP (val) ? SCM_EOL : val;
+  return object;
 }
 
 /* TODO: make difference between scaled and unscaled variable in
@@ -283,20 +285,6 @@ Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
   return to_scm (sc->relative_coordinate (ref, a));
 }
 
-LY_DEFINE (ly_grob_parent, "ly:grob-parent",
-           2, 0, 0, (SCM grob, SCM axis),
-           R"(
-Get the parent of @var{grob}.  @var{axis} is @code{0} for the x@tie{}axis,
-@code{1}@tie{}for the y@tie{}axis.
-           )")
-{
-  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
-
-  Grob *par = sc->get_parent (from_scm<Axis> (axis));
-  return par ? par->self_scm () : SCM_EOL;
-}
-
 LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
            3, 0, 0, (SCM grob, SCM axis, SCM parent_grob),
            R"(
@@ -309,6 +297,21 @@ Set @var{parent-grob} as the parent of grob @var{grob} in axis @var{axis}.
 
   gr->set_parent (parent, from_scm<Axis> (axis));
   return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE_WITH_SETTER (ly_grob_parent, "ly:grob-parent",
+                       ly_grob_set_parent_x,
+                       2, 0, 0, (SCM grob, SCM axis),
+                       R"(
+Get the parent of @var{grob}.  @var{axis} is @code{0} for the x@tie{}axis,
+@code{1}@tie{}for the y@tie{}axis.
+                       )")
+{
+  auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+
+  Grob *par = sc->get_parent (from_scm<Axis> (axis));
+  return par ? par->self_scm () : SCM_EOL;
 }
 
 LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
