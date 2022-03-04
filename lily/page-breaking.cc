@@ -677,7 +677,10 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
 
   // TODO: previously, the following loop caused the systems to be
   // drawn.  Now that we no longer draw anything in Page_breaking,
-  // it is safe to merge these two loops.
+  // it is safe to merge these two loops.  However, the merged loop
+  // should iterate over page numbers backwards (as in the second
+  // loop).  If page numbers are iterated forwards (as in the first
+  // loop), the order of pages is reversed.
   int page_num = first_page_number + static_cast<int> (page_count) - 1;
   for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -699,18 +702,21 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
           else if (Prob *prob = unsmob<Prob> (scm_car (l)))
             labels = get_property (prob, "labels");
 
+          SCM table = SCM_EOL;
           for (SCM lbls = labels; scm_is_pair (lbls); lbls = scm_cdr (lbls))
-            label_page_table = scm_cons (scm_cons (scm_car (lbls), page_num_scm),
-                                         label_page_table);
+            table = scm_cons (scm_cons (scm_car (lbls), page_num_scm),
+                              table);
+
+          label_page_table = scm_reverse_x (table, label_page_table);
         }
 
       ret = scm_cons (page, ret);
       --page_num;
     }
 
-  // By reversing the table, we ensure that duplicated labels (eg. those
+  // By reversing the table, we ensure that duplicated labels (e.g. those
   // straddling a page turn) will appear in the table with their last
-  // occurence first.
+  // occurrence first.
   label_page_table = scm_reverse_x (label_page_table, SCM_EOL);
   book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
   return ret;

@@ -717,9 +717,9 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define (dump-pdf-bookmarks toc-alist page-numbers port)
   (let* ((sorted-page-numbers
-          (sort (reverse page-numbers)
-                (lambda (pairA pairB)
-                  (< (cdr pairA) (cdr pairB)))))
+          (stable-sort page-numbers
+                       (lambda (pairA pairB)
+                         (< (cdr pairA) (cdr pairB)))))
          (remaining (map car sorted-page-numbers)))
     ;; TODO -- properly handle non-linear parent-children
     ;; relationships (within the format's limitations) -vv
