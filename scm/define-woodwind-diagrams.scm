@@ -76,7 +76,7 @@ are provided in @var{function-list}.  Example:
 
 (define (bezier-head-for-stencil bezier cut-point)
   "Prepares a split-bezier to be used in a connected path stencil."
-  (list-tail (flatten-list (car (split-bezier bezier cut-point))) 2))
+  (list-tail (flatten-list (ly:bezier-extract bezier 0 cut-point)) 2))
 
 ;; Translators for keys
 
@@ -607,15 +607,15 @@ are provided in @var{function-list}.  Example:
        (y 0.4)
        (scaling-factor 1.7)
        (up-part
-        (car
-         (split-bezier
-          `((0.0 . 0.0) (0.0 . ,y) (,x . ,y) (,x . 0.0))
-          0.8)))
+        (ly:bezier-extract
+         `((0.0 . 0.0) (0.0 . ,y) (,x . ,y) (,x . 0.0))
+         0
+         0.8))
        (down-part
-        (cdr
-         (split-bezier
-          `((,x . 0.0) (,x . ,(- y)) (0.0 . ,(- y)) (0.0 . 0.0))
-          0.2))))
+        (ly:bezier-extract
+         `((,x . 0.0) (,x . ,(- y)) (0.0 . ,(- y)) (0.0 . 0.0))
+         0.2
+         1)))
     (if gis?
         (standard-path-stencil
          (append
@@ -984,23 +984,23 @@ are provided in @var{function-list}.  Example:
   (let* (
          (first-bezier
           (flatten-list
-           (car
-            (split-bezier
-             `((0.0 . ,(+ height gap))
-               (0.0 . ,(+ height (+ gap 1.0)))
-               (1.0 . ,(+ height (+ gap 2.0)))
-               (2.0 . ,(+ height (+ gap 2.0))))
-             cut))))
+           (ly:bezier-extract
+            `((0.0 . ,(+ height gap))
+              (0.0 . ,(+ height (+ gap 1.0)))
+              (1.0 . ,(+ height (+ gap 2.0)))
+              (2.0 . ,(+ height (+ gap 2.0))))
+            0
+            cut)))
          (second-bezier
           (flatten-list
            (reverse
-            (car
-             (split-bezier
-              `((1.0 . ,height)
-                (1.0 . ,(+ 0.5 height))
-                (1.5 . ,(+ 1.0 height))
-                (2.0 . ,(+ 1.0 height)))
-              cut)))))
+            (ly:bezier-extract
+             `((1.0 . ,height)
+               (1.0 . ,(+ 0.5 height))
+               (1.5 . ,(+ 1.0 height))
+               (2.0 . ,(+ 1.0 height)))
+             0
+             cut))))
          (slope-offset1
           (get-slope-offset
            `(,(list-ref first-bezier 4) . ,(list-ref first-bezier 5))

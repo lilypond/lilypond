@@ -34,3 +34,22 @@ along @var{axis}.
   Interval extent = b.extent(a);
   return to_scm (extent);
 }
+
+LY_DEFINE (ly_bezier_extract, "ly:bezier-extract",
+           3, 0, 0, (SCM control_points, SCM t_min, SCM t_max),
+           R"(
+Return a sub-curve of the Bézier curve defined by
+@var{control-points}.  The sub-curve is delimited by the curve points
+indexed by @var{t-min} and @var{t-max} (between 0 and 1, 0 = first
+control point, 1 = last control point).  A sub-curve of a Bézier curve
+is in turn a Bézier curve.
+           )")
+{
+  LY_ASSERT_TYPE (is_scm<Bezier>, control_points, 1);
+  LY_ASSERT_TYPE (is_scm<Real>, t_min, 2);
+  LY_ASSERT_TYPE (is_scm<Real>, t_max, 3);
+  Bezier b = from_scm<Bezier> (control_points);
+  Real t_min_cpp = from_scm<Real> (t_min);
+  Real t_max_cpp = from_scm<Real> (t_max);
+  return to_scm (b.extract (t_min_cpp, t_max_cpp));
+}
