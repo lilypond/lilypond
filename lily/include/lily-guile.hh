@@ -50,7 +50,6 @@
 /** Conversion functions follow the GUILE naming convention, i.e.
     A ly_B2A (B b);  */
 
-SCM ly_last (SCM list);
 std::string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 
