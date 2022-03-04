@@ -608,7 +608,6 @@ messages into errors.")
     "time-signature-settings"
     "auto-beam"
     "chord-name"
-    "bezier-tools"
 
     "define-context-properties"
     "translation-functions"
