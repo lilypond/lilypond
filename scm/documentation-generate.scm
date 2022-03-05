@@ -112,6 +112,7 @@
 
 @iftex
 @afourpaper
+@tableindent=@itemindent
 @end iftex
 
 @finalout
