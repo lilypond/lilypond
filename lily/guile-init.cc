@@ -43,7 +43,8 @@ using std::vector;
 typedef void (*Void_fptr) ();
 vector<Void_fptr> *scm_init_funcs_;
 
-void add_scm_init_func (void (*f) ())
+void
+add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
     scm_init_funcs_ = new vector<Void_fptr>;
@@ -56,8 +57,9 @@ ly_init_ly_module ()
 {
   // Start up type system first.
   Scm_init::init ();
-  for (vsize i = scm_init_funcs_->size (); i--;)
-    (scm_init_funcs_->at (i)) ();
+
+  for (Void_fptr f : *scm_init_funcs_)
+    f ();
 
   Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
