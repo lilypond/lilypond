@@ -44,7 +44,7 @@ bytecode: $(outdir)/bytecode.dummy
 # source files changes.
 $(outdir)/bytecode-default.dummy: $(SCM_FILES)
 	[ ! -f $(outdir)/lily.go ] || \
-		echo "*** Changes in source .scm file detected, purigng all compiled bytecode!"
+		echo "*** Changes in source .scm file detected, purging all compiled bytecode!"
 	$(MAKE) clean
 	mkdir -p $(outdir)
 	touch $@

@@ -208,7 +208,7 @@ Macro definitions that contain translatable text belong to file
 @end ifnothtml
 
 @c We introduce an additional cross-reference command `@iref`
-@c specifically taylored for the PDF version of the Internals
+@c specifically tailored for the PDF version of the Internals
 @c Reference, making
 @c
 @c   @iref{foo}
