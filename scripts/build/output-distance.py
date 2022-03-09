@@ -111,42 +111,35 @@ def png_dims(fn: str) -> Tuple[int, int]:
         return (w, h)
 
 
-def compare_png_images(old: str, new: str, dest_dir: str) -> float:
+def compare_png_images(old: str, new: str) -> float:
     file_dims = {}
     for fn in [old, new]:
         if os.path.exists(fn):
             file_dims[fn] = png_dims(fn)
     
     maxdims: Tuple = tuple(map(max, zip(*file_dims.values())))
-    temp_dir = get_temp_dir()
-
-    for (new_name, input_name) in [('crop1', old), ('crop2', new)]:
-        dest_file = os.path.join(temp_dir, new_name + '.png')
+    for input_name in [old, new]:
         if maxdims == file_dims[input_name]:
-            # Avoid spawning subprocess if we can
-            if options.verbose:
-                print('cp %s %s' % (input_name, dest_file))
-            shutil.copy(input_name, dest_file)
             continue
         
         # Uses PNG32:filename to generate cropped image in color (most
         # input images are grayscale, but we don't want a grayscale
-        # cropX.png). We need -flatten to extend the size beyond its
+        # cropped image). We need -flatten to extend the size beyond its
         # current size.
+        resize_fn = input_name + '.resize.png'
         args = ['convert', '-crop', '%dx%d+0+0!' % maxdims,
-                '-background', 'white', '-flatten', input_name, 'PNG32:%s' % dest_file]
+                '-background', 'white', '-flatten', input_name, 'PNG32:%s' % resize_fn]
         if options.verbose:
             print('running %s' % ' '.join(args))
         subprocess.run(args, check=True)
- 
+        os.rename(resize_fn, input_name)
     diff_dest = new.replace('.png', '.diff.png')
 
     # MAE = Mean Absolute Error, a metric where smaller means more
     # similar.  We avoid per-pixel metrics (eg. AE), as they make
     # larger/higher-res images have a bigger weight.
     args = ['compare', '-verbose', '-metric', 'mae', '-depth', '8',
-            '-dissimilarity-threshold', '1', os.path.join(temp_dir, 'crop1.png'),
-            os.path.join(temp_dir, 'crop2.png'), diff_dest]
+            '-dissimilarity-threshold', '1', old, new, diff_dest]
     if options.verbose:
         print('running %s' % ' '.join(args))
     proc = subprocess.Popen(args,
@@ -807,7 +800,7 @@ class SignatureFileLink (FileLink):
         FileLink.link_files_for_html(self, dest_dir)
         old, new = self.create_images(dest_dir)
         if old and new:
-            compare_png_images(old, new, dest_dir)
+            compare_png_images(old, new)
 
     def get_cell(self, oldnew):
         def empty_cell():
@@ -1434,7 +1427,7 @@ static char * XFACE[] = {
 ''')
     system('convert p1.xpm p1.png')
     system('convert p2.xpm p2.png')
-    dist = compare_png_images('p1.png', 'p2.png', './')
+    dist = compare_png_images('p1.png', 'p2.png')
 
     # 1 pixel out of 3 differing = 33% error
     assert math.fabs(dist - 100.0/3) < 1e-4
