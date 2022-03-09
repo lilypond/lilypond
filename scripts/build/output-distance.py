@@ -66,14 +66,6 @@ def log_verbose(s: str):
 
 ################################################################
 # system interface.
-temp_dir = ''
-
-
-def get_temp_dir() -> str:
-    global temp_dir
-    if not temp_dir:
-        temp_dir = tempfile.mkdtemp()
-    return temp_dir
 
 
 def system(c: str, cwd=None):
@@ -690,7 +682,7 @@ def eps_to_png(files: Dict[str, str]):
 
     # Ghostscript doesn't like rendering empty pages.
     empty_eps = tempfile.NamedTemporaryFile(
-        mode="w", suffix="empty.ps", dir=get_temp_dir(), encoding="utf-8", delete=False)
+        mode="w", suffix="empty.ps", encoding="utf-8", delete=False)
     empty_eps.write(r'''%!PS-Adobe-3.0 EPSF-3.0
 %%BoundingBox: 0 0 1 1
 %%EndComments
@@ -702,7 +694,7 @@ def eps_to_png(files: Dict[str, str]):
 
     batch = files.items()
     driver = tempfile.NamedTemporaryFile(
-        mode="w", suffix="batch.ps", dir=get_temp_dir(), encoding="utf-8", delete=False)
+        mode="w", suffix="batch.ps", encoding="utf-8", delete=False)
     for (input_fn, outfile) in batch:
         verbose_print = ''
         if options.verbose:
@@ -1653,5 +1645,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    if temp_dir:
-        shutil.rmtree(temp_dir)
