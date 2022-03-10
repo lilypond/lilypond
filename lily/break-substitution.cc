@@ -93,8 +93,6 @@ template <class Crit>
 static SCM
 do_break_substitution (Crit break_criterion, SCM src)
 {
-again:
-
   if (auto *og = unsmob<Grob> (src))
     {
       auto *g = substitute_grob (break_criterion, og);
@@ -113,29 +111,25 @@ again:
     }
   else if (scm_is_pair (src))
     {
-      /*
-        UGH! breaks on circular lists.
-      */
-      SCM newcar = do_break_substitution (break_criterion, scm_car (src));
-      SCM oldcdr = scm_cdr (src);
-
-      if (scm_is_eq (newcar, SCM_UNSPECIFIED)
-          && (scm_is_pair (oldcdr) || scm_is_null (oldcdr)))
+      SCM dest = SCM_EOL;
+      SCM *tail = &dest;
+      /* If it's a pair, src could be just any kind of nested data structure.
+         However, typical Scheme patterns (lists) have potentially large data in
+         the cdr and not the car.  Thus we recurse in the car and keep stack
+         depth constant for the cdr (think of it as tail recursion).  This why
+         this loop looks like a list traversal even though src is not
+         necessarily a list. */
+      do
         {
-          /*
-            This is tail-recursion, ie.
-
-            return do_break_substution (cdr);
-
-            We don't want to rely on the compiler to do this.  Without
-            tail-recursion, this easily crashes with a stack overflow.  */
-          src = oldcdr;
-          goto again;
+          SCM new_car = do_break_substitution (break_criterion, scm_car (src));
+          *tail = scm_cons (new_car, SCM_EOL);
+          tail = SCM_CDRLOC (*tail);
+          src = scm_cdr (src);
         }
-
-      return scm_cons (newcar, do_break_substitution (break_criterion, oldcdr));
+      while (scm_is_pair (src));
+      *tail = do_break_substitution (break_criterion, src);
+      return dest;
     }
-
   return src;
 }
 
