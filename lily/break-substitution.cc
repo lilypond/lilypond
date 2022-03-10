@@ -98,12 +98,12 @@ again:
   if (auto *og = unsmob<Grob> (src))
     {
       auto *g = substitute_grob (break_criterion, og);
-      return g ? g->self_scm () : SCM_UNDEFINED;
+      return g ? g->self_scm () : SCM_UNSPECIFIED;
     }
   else if (scm_is_vector (src))
     {
       size_t len = scm_c_vector_length (src);
-      SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
+      SCM nv = scm_c_make_vector (len, SCM_UNSPECIFIED);
       for (size_t i = 0; i < len; i++)
         {
           scm_c_vector_set_x (nv, i,
@@ -119,7 +119,7 @@ again:
       SCM newcar = do_break_substitution (break_criterion, scm_car (src));
       SCM oldcdr = scm_cdr (src);
 
-      if (SCM_UNBNDP (newcar)
+      if (scm_is_eq (newcar, SCM_UNSPECIFIED)
           && (scm_is_pair (oldcdr) || scm_is_null (oldcdr)))
         {
           /*
@@ -347,12 +347,11 @@ substitute_object_alist (Crit break_criterion, SCM alist, SCM *dest)
       else
         val = do_break_substitution (break_criterion, val);
 
-      if (!SCM_UNBNDP (val))
+      // Don't even set the property if there is no equivalent of
+      // the grob satisfying the criterion.  This is legacy, but for
+      // now the choice is to not risk breakage.
+      if (!scm_is_eq (val, SCM_UNSPECIFIED))
         {
-          /*
-            for ly:grob? properties, SCM_UNDEFINED could leak out
-            through ly:grob-property
-          */
           *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
           tail = SCM_CDRLOC (*tail);
         }
