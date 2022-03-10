@@ -109,6 +109,7 @@ again:
           scm_c_vector_set_x (nv, i,
                               do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
         }
+      return nv;
     }
   else if (scm_is_pair (src))
     {
@@ -134,8 +135,6 @@ again:
 
       return scm_cons (newcar, do_break_substitution (break_criterion, oldcdr));
     }
-  else
-    return src;
 
   return src;
 }
