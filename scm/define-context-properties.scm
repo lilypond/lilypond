@@ -296,12 +296,12 @@ non-hairpin decrescendo, i.e., @samp{dim.}.")
      (defaultStrings ,list? "A list of strings to use in calculating
 frets for tablatures and fretboards if no strings are provided in
 the notes for the current moment.")
-     (doubleRepeatBarType ,string? "Value for @code{whichBar} where
-the end of one @code{\\repeat volta} coincides with the start of
-another.  The default is @samp{:..:}.")
-     (doubleRepeatSegnoBarType ,string? "Value for @code{whichBar}
-where an in-staff segno coincides with the end of one @code{\\repeat
-volta} and the beginning of another.  The default is @samp{:|.S.|:}.")
+     (doubleRepeatBarType ,string? "Bar line to insert where the end
+of one @code{\\repeat volta} coincides with the start of another.  The
+default is @samp{:..:}.")
+     (doubleRepeatSegnoBarType ,string? "Bar line to insert where an
+in-staff segno coincides with the end of one @code{\\repeat volta} and
+the beginning of another.  The default is @samp{:|.S.|:}.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
 slurred note, one above and one below the chord.")
      (drumPitchTable ,hash-table? "A table mapping percussion
@@ -318,11 +318,11 @@ values.")
 
 
      (endAtSkip ,boolean? "End @code{DurationLine} grob on @code{skip-event}")
-     (endRepeatBarType ,string? "Value for @code{whichBar} at the end
-of a @code{\\repeat volta}.  The default is @samp{:|.}.")
-     (endRepeatSegnoBarType ,string? "Value for @code{whichBar} where
-an in-staff segno coincides with the end of a @code{\\repeat volta}.
-The default is @samp{:|.S}.")
+     (endRepeatBarType ,string? "Bar line to insert at the end of a
+@code{\\repeat volta}.  The default is @samp{:|.}.")
+     (endRepeatSegnoBarType ,string? "Bar line to insert where an in-staff
+segno coincides with the end of a @code{\\repeat volta}.  The default is
+@samp{:|.S}.")
      (explicitClefVisibility ,vector? "@samp{break-visibility}
 function for clef changes.")
      (explicitCueClefVisibility ,vector? "@samp{break-visibility}
@@ -348,16 +348,15 @@ for a bass figure.")
 relative to the main figure.")
      (finalFineTextVisibility ,boolean? "Whether @code{\\fine} at the
 written end of the music should create a @emph{Fine} instruction.")
-     (fineBarType ,string? "Value for @code{whichBar} at
-@code{\\fine}.  Where there is also a repeat bar line, the repeat bar
-line takes precedence and this value is appended to it as an
-annotation.  The default is @samp{|.}.")
-     (fineSegnoBarType ,string? "Value for @code{whichBar} where an
-in-staff segno coincides with @code{\\fine}.  The default is
-@samp{|.S}.")
-     (fineStartRepeatSegnoBarType ,string? "Value for @code{whichBar}
-where an in-staff segno coincides with @code{\\fine} and the start of
-a @code{\\repeat volta}.  The default is @samp{|.S.|:}.")
+     (fineBarType ,string? "Bar line to insert at @code{\\fine}.
+Where there is also a repeat bar line, the repeat bar line takes
+precedence and this value is appended to it as an annotation.  The
+default is @samp{|.}.")
+     (fineSegnoBarType ,string? "Bar line to insert where an in-staff
+segno coincides with @code{\\fine}.  The default is @samp{|.S}.")
+     (fineStartRepeatSegnoBarType ,string? "Bar line to insert where
+an in-staff segno coincides with @code{\\fine} and the start of a
+@code{\\repeat volta}.  The default is @samp{|.S.|:}.")
      (fineText ,markup? "The text to print at @code{\\fine}.")
      (fingeringOrientations ,list? "A list of symbols, containing
 @samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
@@ -464,8 +463,7 @@ no grob is created.")
 in a chord name?")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
-     (measureBarType ,string? "Value for @code{whichBar} at a measure
-boundary.")
+     (measureBarType ,string? "Bar line to insert at a measure boundary.")
      (measureLength ,ly:moment? "Length of one measure in the current
 time signature.")
      (measurePosition ,ly:moment? "How much of the current measure have
@@ -626,12 +624,12 @@ automatic fret calculator.")
      (searchForVoice ,boolean? "Signal whether a search should be made
 of all contexts in the context hierarchy for a voice to provide rhythms
 for the lyrics.")
-     (sectionBarType ,string? "Value for @code{whichBar} at
-@code{\\section}.  Where there is also a repeat bar line, the repeat
-bar line takes precedence and this value is appended to it as an
-annotation.  The default is @samp{||}.")
-     (segnoBarType ,string? "Value for @code{whichBar} at an in-staff
-segno.  The default is @samp{S}.")
+     (sectionBarType ,string? "Bar line to insert at @code{\\section}.
+Where there is also a repeat bar line, the repeat bar line takes
+precedence and this value is appended to it as an annotation.  The
+default is @samp{||}.")
+     (segnoBarType ,string? "Bar line to insert at an in-staff segno.
+The default is @samp{S}.")
      (segnoMarkFormatter ,procedure? "A procedure that creates a
 segno (which conventionally indicates the start of a repeated
 section), taking as arguments the mark sequence number and the
@@ -676,11 +674,11 @@ verse.  Use in @code{Lyrics} context.")
 @code{NoteColumn}.")
      (startAtSkip ,boolean? "Start @code{DurationLine} grob at
 @code{skip-event}.")
-     (startRepeatBarType ,string? "Value for @code{whichBar} at the
-start of a @code{\\repeat volta}.  The default is @samp{.|:}.")
-     (startRepeatSegnoBarType ,string? "Value for @code{whichBar}
-where an in-staff segno coincides with the start of a @code{\\repeat
-volta}.  The default is @samp{S.|:}.")
+     (startRepeatBarType ,string? "Bar line to insert at the start of
+a @code{\\repeat volta}.  The default is @samp{.|:}.")
+     (startRepeatSegnoBarType ,string? "Bar line to insert where an
+in-staff segno coincides with the start of a @code{\\repeat volta}.
+The default is @samp{S.|:}.")
      (stemLeftBeamCount ,integer? "Specify the number of beams to draw
 on the left side of the next note.  Overrides automatic beaming.  The
 value is only used once, and then it is erased.")
@@ -756,10 +754,10 @@ setting this property, you can make brackets last shorter.
 @end example")
 
 
-     (underlyingRepeatBarType ,string? "Value for @code{whichBar} at
-points of repetition or departure where no bar line would normally
-appear, for example at the end of a system broken in mid measure where
-the next system begins with a segno.  Where there is also a repeat bar
+     (underlyingRepeatBarType ,string? "Bar line to insert at points
+of repetition or departure where no bar line would normally appear,
+for example at the end of a system broken in mid measure where the
+next system begins with a segno.  Where there is also a repeat bar
 line, the repeat bar line takes precedence and this value is appended
 to it as an annotation.  The default is @samp{||}.")
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
@@ -792,8 +790,6 @@ deprecated.  Use @code{\\bar} or related commands to set it."))))
 
      (barCheckLastFail ,ly:moment? "Where in the measure did the last
 barcheck fail?")
-     (barForced ,boolean? "Set to @code{#t} in @code{Timing} context
-when @code{Timing@/.whichBar} has been set with @code{\\bar}.")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
 @var{grob})} cons cells.  This is for internal (C++) use only.  This

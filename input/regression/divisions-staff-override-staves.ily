@@ -43,11 +43,11 @@ staffE = \new PetrucciStaff << \divisions \music >>
 staffF = \new VaticanaStaff << \divisions \music >>
 
 staffGroup = \new StaffGroup \with { \unset systemStartDelimiter } <<
-  %% placing the divisions and labels in only one staff is intentional
+  %% placing the labels in only one staff is intentional
   \new Staff << \divisions \labels \music >>
-  \new GregorianTranscriptionStaff \music
-  \new KievanStaff \music
-  \new MensuralStaff \music
-  \new PetrucciStaff \music
-  \new VaticanaStaff \music
+  \new GregorianTranscriptionStaff << \divisions \music >>
+  \new KievanStaff << \divisions \music >>
+  \new MensuralStaff << \divisions \music >>
+  \new PetrucciStaff << \divisions \music >>
+  \new VaticanaStaff << \divisions \music >>
 >>

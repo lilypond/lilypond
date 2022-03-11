@@ -464,16 +464,15 @@ Auto_beam_engraver::process_acknowledged ()
         end_beam ();
     }
 
-  // This engraver can't observe bar lines with acknowledge_bar_line () because
-  // the Bar_engraver operates in Staff context.  Instead, we check the
-  // whichBar property, which also controls the Bar_engraver.
-  // process_acknowledged () can be called more than once, but whichBar won't
-  // change.
+  // This engraver can't observe bar lines with acknowledge_bar_line ()
+  // because the Bar_engraver operates in Staff context.
+  // process_acknowledged () can be called more than once, but
+  // currentBarLine won't change.
   if (!considered_bar_)
     {
       considered_bar_ = true;
 
-      if (busy () && scm_is_string (get_property (this, "whichBar")))
+      if (busy () && unsmob<Grob> (get_property (this, "currentBarLine")))
         {
           consider_end (measure_position (context ()), shortest_dur_);
           junk_beam ();

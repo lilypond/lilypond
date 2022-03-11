@@ -54,12 +54,6 @@ Timing_translator::listen_bar (Stream_event *ev)
 {
   // To mimic the previous implementation, we always set whichBar.
   set_property (context (), "whichBar", get_property (ev, "bar-type"));
-
-  if (!bar_forced_)
-    {
-      bar_forced_ = true;
-      set_property (context (), "barForced", SCM_BOOL_T);
-    }
 }
 
 void
@@ -318,16 +312,8 @@ Timing_translator::start_translation_timestep ()
   // timestep.
   //
   // It might be nice to set up a convert-ly rule to change user code to use
-  // \once \set ... and then change this to the internal equivalent of \once
-  // \set too.  Other engravers that set whichBar would need to handle it
-  // similarly.
+  // \bar and redocument whichBar as internal.
   set_property (context (), "whichBar", SCM_EOL);
-
-  if (bar_forced_) // keep barForced synchronized with whichBar
-    {
-      bar_forced_ = false;
-      set_property (context (), "barForced", SCM_EOL);
-    }
 }
 
 #include "translator.icc"

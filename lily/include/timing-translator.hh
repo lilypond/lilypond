@@ -48,8 +48,6 @@ private:
   long alt_number_ = 0;
   long alt_number_increment_ = 0;
   bool alt_reset_enabled_ = false;
-
-  bool bar_forced_ = false;
 };
 
 #endif // TIMING_TRANSLATOR_HH
