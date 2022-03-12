@@ -22,7 +22,7 @@ stages:
   - website
 
 default:
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:20210502
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
   interruptible: true
 
 # Conditionally include a file to add the tag 'lilypond' to all jobs so that
@@ -86,20 +86,6 @@ build:
       - "build/out/lybook-db/**"
     expire_in: 1 week
 
-build-guile2:
-  extends: build
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
-  rules:
-    - <<: *if-default-branch
-      when: manual
-      allow_failure: true
-    - <<: *if-mr-to-default
-      when: manual
-      allow_failure: true
-    - <<: *if-schedule-or-web
-      when: manual
-      allow_failure: true
-
 test:
   stage: test
   rules:
@@ -117,19 +103,6 @@ test:
     expire_in: 1 week
     paths:
       - "**/*.fail.log"
-
-test-guile2:
-  extends: test
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
-  rules:
-    - <<: *if-default-branch
-      when: manual
-      allow_failure: true
-    - <<: *if-schedule-or-web
-      when: manual
-      allow_failure: true
-  dependencies: [ "build-guile2" ]
-  needs: [ "build-guile2" ]
 
 test-baseline:
   stage: test
@@ -168,16 +141,6 @@ check:
       - "test-results/**"
       - "**/*.fail.log"
 
-check-guile2:
-  extends: check
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
-  rules:
-    - <<: *if-mr-to-default
-      when: manual
-      allow_failure: true
-  dependencies: [ "build-guile2" ]
-  needs: [ "build-guile2" ]
-
 doc:
   stage: documentation
   rules:
@@ -197,22 +160,6 @@ doc:
     expire_in: 1 week
     paths:
       - "**/*.fail.log"
-
-doc-guile2:
-  extends: doc
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
-  rules:
-    - <<: *if-default-branch
-      when: manual
-      allow_failure: true
-    - <<: *if-mr-to-default
-      when: manual
-      allow_failure: true
-    - <<: *if-schedule-or-web
-      when: manual
-      allow_failure: true
-  dependencies: [ "build-guile2" ]
-  needs: [ "build-guile2" ]
 
 website:
   stage: website
