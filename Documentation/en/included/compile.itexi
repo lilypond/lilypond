@@ -85,10 +85,8 @@ Use version 9.03 or newer.
 
 @item
 @uref{https://www.gnu.org/software/guile/guile.html, Guile}@*
-Use version 1.8.8.  It is possible to build LilyPond with
-version 2.@var{x} of Guile and most features will work, but this
-is not officially supported (yet).  In particular, performance and
-especially the startup time will be worse.
+Use version 2.2.  Newer versions, such as Guile 3.0, may work but
+are not officially supported (yet).
 
 @item
 @uref{https://www.pango.org, Pango}@*

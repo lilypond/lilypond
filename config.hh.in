@@ -53,9 +53,6 @@
 /* define if Guile has type scm_t_subr */
 #define HAVE_GUILE_SUBR_TYPE 0
 
-/* define if you have libguile18.h */
-#define HAVE_LIBGUILE18_H 0
-
 /* define if cxxabi.h has workable demangler */
 #define HAVE_CXA_DEMANGLE 0
 

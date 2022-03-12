@@ -62,11 +62,7 @@
 # define SCM_IMPORT 1
 #endif
 
-# if HAVE_LIBGUILE18_H
-#  include <libguile18.h>
-# else
-#  include <libguile.h>
-# endif
+# include <libguile.h>
 
 # undef CHAR
 # ifdef LILY_CHAR

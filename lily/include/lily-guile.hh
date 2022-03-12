@@ -26,11 +26,7 @@
 #include "mingw-compatibility.hh"
 #endif
 
-#if HAVE_LIBGUILE18_H
-# include <libguile18.h>
-#else
-# include <libguile.h>
-#endif
+#include <libguile.h>
 #include <limits>
 #include <string.h>
 

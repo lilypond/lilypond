@@ -191,25 +191,14 @@ STEPMAKE_GUILE_DEVEL(REQUIRED)
 
 save_CPPFLAGS="$CPPFLAGS"
 CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
-# Some distributions like MacPorts allow guile 1.8 to co-exist with
-# guile >= 2; they rename 'libguile.h' to 'libguile18.h'.
-AC_CHECK_HEADERS([libguile18.h])
 
 # check for 3 typedefs added in Guile 1.9
 AC_CHECK_TYPES([scm_t_hash_fold_fn],
                [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
-               [[#if HAVE_LIBGUILE18_H
-# include <libguile18.h>
-#else
-# include <libguile.h>
-#endif]])
+               [[#include <libguile.h>]])
 AC_CHECK_TYPES([scm_t_subr],
                [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
-               [[#if HAVE_LIBGUILE18_H
-# include <libguile18.h>
-#else
-# include <libguile.h>
-#endif]])
+               [[#include <libguile.h>]])
 CPPFLAGS="$save_CPPFLAGS"
 
 # Check if the compiler understands -Werror=unknown-warning-option.
