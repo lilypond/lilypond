@@ -154,6 +154,16 @@ utilisateur de LilyPond, a mis en ligne sur son @emph{blog} plusieurs
 tutoriels destinés aux nouveaux utilisateurs.
 
 @item
+@uref{https://scheme-book.ursliska.de/introduction/index.html,
+LilyPond's Scheme} : un tutoriel externe en anglais pour se
+familiariser avec Scheme, le langage qui permet de programmer
+LilyPond.
+
+@item
+@uref{https://tutoriel-scheme.readthedocs.io,Apprendre Scheme pour
+LilyPond} : un autre tutoriel, celui-ci en français.
+
+@item
 @uref{https://extending-lilypond.readthedocs.io,Guide d'extension} : une
 ressource externe de documentation en anglais sur l'utilisation de
 Scheme pour étendre les fonctionnalités de LilyPond.
