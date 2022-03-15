@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.7"
 
 \header {
   texidoc = "A book can be split into several parts with different paper settings,
@@ -21,7 +21,7 @@ Page labels are also collected into the top-level paper."
       left-margin = 20\mm
       right-margin = 20\mm
       line-width = 65\mm
-      page-number-type = #'roman-upper
+      page-number-type = #'roman-ij-lower
       evenHeaderMarkup = \markup \fill-line {
         \fromproperty #'page:page-number-string
         "SECOND PART"

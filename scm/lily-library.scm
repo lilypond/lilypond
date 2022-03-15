@@ -880,10 +880,12 @@ Handy for debugging, possibly turned off."
 
 (define-public (number-format number-type num . custom-format)
   "Print @var{num} according to the requested @var{number-type}.
-Choices include @code{roman-lower} (the default),
-@code{roman-upper}, @code{arabic}, and @code{custom}.
-For @code{custom}, @var{custom-format} must be present;
-it gets applied to @var{num}."
+Choices include @code{arabic}, @code{custom}, @code{roman-ij-lower},
+@code{roman-ij-upper}, @code{roman-lower} (the default), and
+@code{roman-upper}.
+
+For @code{custom}, @var{custom-format} must be present; it gets
+applied to @var{num}."
   (case number-type
    ((roman-lower)
     (ice9-format #f "~(~@r~)" num))
@@ -893,6 +895,18 @@ it gets applied to @var{num}."
     (ice9-format #f "~d" num))
    ((custom)
     (ice9-format #f (car custom-format) num))
+   ((roman-ij-lower)
+    (let* ((text (ice9-format #f "~(~@r~)" num))
+           (text (string-regexp-substitute "i$" "j" text))
+           (text (string-regexp-substitute
+                  "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
+      text))
+   ((roman-ij-upper)
+    (let* ((text (ice9-format #f "~@r" num))
+           (text (string-regexp-substitute "I$" "J" text))
+           (text (string-regexp-substitute
+                  "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
+      text))
    (else (ice9-format #f "~(~@r~)" num))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1034,8 +1034,9 @@ If set to false, page numbers are not printed.
 @funindex page-number-type
 
 The type of numerals used for page numbers.  Choices include
-@code{roman-lower}, @code{roman-upper} and @code{arabic}.
-Default: @code{'arabic}.
+@code{arabic}, @code{roman-ij-lower}, @code{roman-ij-upper},
+@code{roman-lower}, and @code{roman-upper}.  Default:
+@code{'arabic}.
 
 @end table
 

@@ -146,18 +146,20 @@ way the transposition number is displayed."
 (define-public (format-mark-generic options)
   ;; Select "alphabet", frame, font-series, letter-case and double letter behaviour
   ;; from options list; if none is given, default to first available.
-  (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman)))
+  (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman roman-ij)))
         (fr (select-option options '(noframe box circle oval)))
         (fs (select-option options '(bold medium)))
         (lc (select-option options '(uppercase lowercase mixedcase)))
         (dl (select-option options '(combine repeat)))
+        (dot (select-option options '(nodot dot)))
         (sign (select-option options '(nosign coda segno varcoda))))
     (lambda (number context)
       (let* ((the-string
               (case ab
                 ((barnumbers) (number->string (ly:context-property context 'currentBarNumber)))
                 ((numbers) (number->string number))
-                ((roman) (ice9-format #f "~@r" number))
+                ((roman) (number-format 'roman-upper number))
+                ((roman-ij) (number-format 'roman-ij-upper number))
                 (else (markgeneric-string number ab dl))))
              (the-cased-string
               (case lc
@@ -166,15 +168,19 @@ way the transposition number is displayed."
                 ((uppercase)                    the-string)
                 ((mixedcase) (string-capitalize the-string))
                 ((lowercase) (string-downcase   the-string))))
+             (the-dotted-string
+              (case dot
+                ((dot) (string-append the-cased-string "."))
+                (else the-cased-string)))
              (the-flanked-string
               (case sign
                 ((coda) (format-sign-with-number
-                         number (make-coda-markup) the-cased-string))
+                         number (make-coda-markup) the-dotted-string))
                 ((segno) (format-sign-with-number
-                          number (make-segno-markup) the-cased-string))
+                          number (make-segno-markup) the-dotted-string))
                 ((varcoda) (format-sign-with-number
-                            number (make-varcoda-markup) the-cased-string))
-                (else the-cased-string)))
+                            number (make-varcoda-markup) the-dotted-string))
+                (else the-dotted-string)))
              (the-framed-string
               (case fr
                 ((box)    (make-box-markup    the-flanked-string))

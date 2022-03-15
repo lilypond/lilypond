@@ -1,12 +1,11 @@
-\version "2.23.6"
+\version "2.23.7"
 
 \header {
   texidoc = "
 Comparison of rehearsalMarkFormatter functions.
 
-The marks should read H, K, I, K, 93, XCIV, 7, AB, CC, Dd, xcvi,
-boxed A, circled B, ovalled C, medium font D.
-"
+The marks should read H, K, I, K, 93, XCVI, XCVJ, 8, AB, CC, Dd,
+xcvi, xcvj, iij., boxed A, circled B, ovalled C, medium font D."
 }
 
 {
@@ -19,7 +18,9 @@ boxed A, circled B, ovalled C, medium font D.
   \set Score.rehearsalMarkFormatter = #format-mark-numbers
   \mark 93 R
   \set Score.rehearsalMarkFormatter = #(format-mark-generic '(roman))
-  \mark 94 R
+  \mark 96 R
+  \set Score.rehearsalMarkFormatter = #(format-mark-generic '(roman-ij))
+  \mark 96 R
   \set Score.rehearsalMarkFormatter = #format-mark-barnumbers
   \mark 111 R
   % empty list (default values) = #format-mark-letters
@@ -31,6 +32,12 @@ boxed A, circled B, ovalled C, medium font D.
   \mark 29 R
   \set Score.rehearsalMarkFormatter = #(format-mark-generic '(roman lowercase))
   \mark 96 R
+  \set Score.rehearsalMarkFormatter = #(format-mark-generic
+                                        '(roman-ij lowercase))
+  \mark 96 R
+  \set Score.rehearsalMarkFormatter = #(format-mark-generic
+                                        '(roman-ij lowercase dot))
+  \mark 3 R
   \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   \mark 1 R
   \set Score.rehearsalMarkFormatter = #format-mark-circle-alphabet

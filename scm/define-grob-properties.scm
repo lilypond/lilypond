@@ -417,9 +417,10 @@ Default@tie{}0.05.
 string.  Default @code{\"x\"}.
 @item
 @code{number-type} -- Type of numbers to use in fret label.  Choices
-include @code{roman-lower}, @code{roman-upper}, @code{arabic} and
-@code{custom}.  In the later case, the format string is supplied by
-the @code{fret-label-custom-format} property.
+include @code{arabic}, @code{roman-ij-lower}, @code{roman-ij-upper},
+@code{roman-lower}, @code{roman-upper}, @code{arabic} and
+@code{custom}.  In the last case, the format string is supplied by the
+@code{fret-label-custom-format} property.
 Default @code{roman-lower}.
 @item
 @code{open-string} -- Character string to be used to indicate open
@@ -739,8 +740,9 @@ different voices. Default value@tie{}1.")
      (number-range-separator ,markup? "For a measure counter extending over
 several measures (like with compressed multi-measure rests), this is
 the separator between the two printed numbers.")
-     (number-type ,symbol? "Numbering style. Choices include
-@code{roman-lower}, @code{roman-upper} and @code{arabic}.")
+     (number-type ,symbol? "Numbering style.  Choices include
+@code{arabic}, @code{roman-ij-lower}, @code{roman-ij-upper},
+@code{roman-lower}, and @code{roman-upper}.")
 
 
 ;;;
