@@ -33,7 +33,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Any
 
 Vec = Tuple[float, float]
 Interval = Tuple[float, float]
@@ -46,11 +46,7 @@ sys.path.insert(0, me_path + '/../../python/')
 # Keep our includes after adapting sys.path above.
 import midi # type: ignore
 
-X_AXIS = 0
-Y_AXIS = 1
-INFTY = 1e6
 
-ORPHAN_GROB_PENALTY = 1
 options: optparse.Values
 
 
@@ -80,15 +76,6 @@ def shorten_string(s: str, threshold: int = 15) -> str:
     if len(s) > 2*threshold:
         s = s[:threshold] + '..' + s[-threshold:]
     return s
-
-
-def max_distance(x1: Vec, x2: Vec) -> float:
-    dist = 0.0
-
-    for (p, q) in zip(x1, x2):
-        dist = max(abs(p-q), dist)
-
-    return dist
 
 
 def png_dims(fn: str) -> Tuple[int, int]:
@@ -154,279 +141,21 @@ def compare_png_images(old: str, new: str) -> float:
     for line in err_str.split('\n'):
         m = re.search(r'all: [0-9.e-]+ \(([0-9.e-]+)\)', line)
         if m:
-            dist = float(m.group(1)) * 100.0
+            dist = float(m.group(1)) * MAX_DISTANCE
             break
     else:
         print('missing distance marker: ')
         print(err_str)
         raise SystemExit
-        
+
+    if options.verbose:
+        print('distance: %f' % dist)
     return dist
 
 ################################################################
-# interval/bbox arithmetic.
 
-empty_interval = (INFTY, -INFTY)
-empty_bbox = (empty_interval, empty_interval)
 
-
-def interval_is_empty(i: Interval):
-    return i[0] > i[1]
-
-
-def interval_length(i: Interval):
-    return max(i[1]-i[0], 0)
-
-
-def interval_union(i1: Interval, i2: Interval) -> Interval:
-    return (min(i1[0], i2[0]),
-            max(i1[1], i2[1]))
-
-
-def interval_intersect(i1: Interval, i2: Interval) -> Interval:
-    return (max(i1[0], i2[0]),
-            min(i1[1], i2[1]))
-
-
-def bbox_is_empty(b) -> bool:
-    return (interval_is_empty(b[0])
-            or interval_is_empty(b[1]))
-
-
-def bbox_union(b1: Bbox, b2: Bbox) -> Bbox:
-    return (interval_union(b1[X_AXIS], b2[X_AXIS]),
-            interval_union(b1[Y_AXIS], b2[Y_AXIS]))
-
-
-def bbox_intersection(b1: Bbox, b2: Bbox) -> Bbox:
-    return (interval_intersect(b1[X_AXIS], b2[X_AXIS]),
-            interval_intersect(b1[Y_AXIS], b2[Y_AXIS]))
-
-
-def bbox_area(b: Bbox) -> float:
-    return interval_length(b[X_AXIS]) * interval_length(b[Y_AXIS])
-
-
-def bbox_diameter(b: Bbox) -> float:
-    return max(interval_length(b[X_AXIS]),
-               interval_length(b[Y_AXIS]))
-
-
-def difference_area(a: Bbox, b: Bbox) -> float:
-    return bbox_area(a) - bbox_area(bbox_intersection(a, b))
-
-
-class GrobSignature:
-    """A (grob-name, bbox) tuple"""
-
-    def __init__(self, exp_list):
-        (self.name, bbox_x, bbox_y) = tuple(exp_list)
-
-        self.bbox = (bbox_x, bbox_y)
-        self.centroid = ((bbox_x[0] + bbox_x[1])/2.0,
-                         (bbox_y[0] + bbox_y[1])/2.0)
-
-    def __repr__(self):
-        return '%s: (%.2f,%.2f), (%.2f,%.2f)\n' % (self.name,
-                                                   self.bbox[0][0],
-                                                   self.bbox[0][1],
-                                                   self.bbox[1][0],
-                                                   self.bbox[1][1])
-
-    def centroid_distance(self, other, scale: float) -> float:
-        return max_distance(self.centroid, other.centroid) / scale
-
-    def bbox_distance(self, other) -> float:
-        divisor = bbox_area(self.bbox) + bbox_area(other.bbox)
-
-        if divisor:
-            return (difference_area(self.bbox, other.bbox) +
-                    difference_area(other.bbox, self.bbox)) / divisor
-        else:
-            return 0.0
-
-
-class SystemSignature:
-    """Signature for a single System.
-
-    Abstracts away from the precise appearance to a list of grob-type => list<GrobSignature>.
-    """
-
-    def __init__(self, grob_sigs: List[GrobSignature]):
-        d: Dict[str, List[GrobSignature]] = {}
-        for g in grob_sigs:
-            val = d.setdefault(g.name, [])
-            val += [g]
-
-        self.grob_dict = d
-        self.bbox = empty_bbox
-        for g in grob_sigs:
-            self.bbox = bbox_union(g.bbox, self.bbox)
-
-    def closest(self, grob_name: str, centroid: Vec) -> Optional[GrobSignature]:
-        min_d = INFTY
-        min_g = None
-        try:
-            grobs = self.grob_dict[grob_name]
-
-            for g in grobs:
-                d = max_distance(g.centroid, centroid)
-                if d < min_d:
-                    min_d = d
-                    min_g = g
-
-            return min_g
-        except KeyError:
-            return None
-
-    def grobs(self):
-        return functools.reduce(lambda x, y: x+y, list(self.grob_dict.values()), [])
-
-
-class SystemLink:
-    """Compares two Systems through their SystemSignatures."""
-
-    def __init__(self, system1: SystemSignature, system2: SystemSignature):
-        """Init from two SystemSignature instances"""
-
-        self.system1 = system1
-        self.system2 = system2
-
-        self.link_list_dict: Dict[Optional[GrobSignature],
-                                  List[GrobSignature]] = {}
-
-        # pairs
-        self.orphans = []
-
-        # pair -> distance
-        self.geo_distances: Dict[Tuple[GrobSignature,
-                                       GrobSignature], float] = {}
-
-        self._geometric_distance: Optional[float] = None
-        self._expression_change_count = None
-
-        # maps GrobSignature in system1 to its hopefully existing twin in system2.
-        self.back_link_dict = {}
-        if self.system1 and self.system2:
-            # This is quadratic, because closest() has no geometric
-            # structure to speed up searching. For small snippets,
-            # this is acceptable.
-            for g in system1.grobs():
-
-                # skip empty bboxes.
-                if bbox_is_empty(g.bbox):
-                    continue
-
-                closest = system2.closest(g.name, g.centroid)
-
-                self.link_list_dict.setdefault(closest, [])
-                self.link_list_dict[closest].append(g)
-                if closest is not None:
-                    self.back_link_dict[g] = closest
-                else:
-                    self.orphans.append((g, None))
-
-            # find grobs in system2 but not in system1
-            for g in system2.grobs():
-
-                if bbox_is_empty(g.bbox):
-                    continue
-
-                if g not in self.link_list_dict:
-                    closest = system1.closest(g.name, g.centroid)
-                    if closest is not None:
-                        self.link_list_dict[g] = [closest]
-                        self.back_link_dict[closest] = g
-                    else:
-                        self.orphans.append((None, g))
-
-    def calc_geometric_distance(self):
-        if self.system1 and self.system2:
-            total = 0.0
-        else:
-            total = 100.0 * (self.system1 != self.system2)
-
-        for (g1, g2) in list(self.back_link_dict.items()):
-            d = g1.bbox_distance(g2)
-            if d:
-                self.geo_distances[(g1, g2)] = d
-
-            total += d
-
-        self._geometric_distance = total
-
-    def geo_details_string(self) -> str:
-        results = [(d, g1, g2)
-                   for ((g1, g2), d) in list(self.geo_distances.items())]
-        # Only compare distances.
-        results.sort(key=lambda x: -x[0])
-
-        return ', '.join(['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
-
-    def orphan_details_string(self) -> str:
-        return ', '.join(['%s' % g1.name for (g1, g2) in self.orphans if g2 is None])
-
-    def geometric_distance(self) -> float:
-        if self._geometric_distance is None:
-            self.calc_geometric_distance()
-        assert self._geometric_distance is not None
-        return self._geometric_distance
-
-    def orphan_count(self) -> int:
-        return len(self.orphans)
-
-    def distance_tuple(self) -> Tuple[int, float]:
-        return (self.orphan_count(),
-                self.geometric_distance())
-
-
-def scheme_float(s: str) -> float:
-    if ('nan' in s) or ('inf' in s):
-        s = s.split('.')[0]
-    return float(s)
-
-
-def read_signature_file(name: str):
-    """Returns SystemSignature or None if file doesn't exist."""
-    log_verbose('reading %s' % name)
-
-    try:
-        f = open(name, encoding='utf-8')
-    except IOError as e:
-        if e.errno == errno.ENOENT:
-            return None
-        else:
-            raise
-
-    entries = f.read().split('\n')
-
-    def string_to_tup(s):
-        return tuple(map(scheme_float, s.split(' ')))
-
-    def string_to_entry(s):
-        fields = s.split('@')
-
-        # Backward compatibility; remove this once we stop comparing
-        # againsts older versions
-        if len(fields) == 5:
-            fields = (fields[0], string_to_tup(
-                fields[2]), string_to_tup(fields[3]))
-        else:
-            fields[1] = string_to_tup(fields[1])
-            fields[2] = string_to_tup(fields[2])
-
-        return tuple(fields)
-
-    entries = [string_to_entry(e) for e in entries
-               if e and not e.startswith('#')]
-
-    grob_sigs = [GrobSignature(e) for e in entries]
-    sig = SystemSignature(grob_sigs)
-    return sig
-
-
-################################################################
-# different systems of a .ly file.
+MAX_DISTANCE = 100
 
 hash_to_original_name: Dict[str, str] = {}
 
@@ -486,37 +215,22 @@ class FileLink:
         for f in self.file_names:
             link_file(f, os.path.join(dest_dir, f))
 
-    def get_distance_details(self, dest_file) -> str:
+    def get_cell(self, oldnew: int) -> str:
         return ''
-
-    def get_cell(self, oldnew: int) -> Tuple[str, str]:
-        return '', ''
 
     def get_file(self, oldnew: int) -> str:
         return self.file_names[oldnew]
 
     def html_record_string(self, dest_dir: str) -> str:
         dist = self.distance()
-
-        details = self.get_distance_details(self.file_names[1])
-        if details:
-            details_base = os.path.splitext(self.file_names[1])[0]
-            details_base += '.details.html'
-            fn = dest_dir + '/' + details_base
-            open_write_file(fn).write(details)
-
-            details = '<br>(<a href="%(details_base)s">details</a>)' % locals()
-
         name = self.name() + self.extension()
 
         cells = ['', '']
         for oldnew in [0, 1]:
             file = self.get_file(oldnew)
-            class_attr, cell = self.get_cell(oldnew)
-            if class_attr:
-                class_attr = ' class="%s"' % class_attr
+            cell = self.get_cell(oldnew)
             if cell or os.path.exists(file):
-                cells[oldnew] = '''<figure%(class_attr)s>
+                cells[oldnew] = '''<figure>
 %(cell)s
 <figcaption><a href="%(file)s">%(name)s</a></figcaption>
 </figure>''' % locals()
@@ -527,7 +241,6 @@ class FileLink:
         return '''<tr>
 <td>
 %(dist)f
-%(details)s
 </td>
 <td>%(cell1)s</td>
 <td>%(cell2)s</td>
@@ -544,7 +257,7 @@ class FileCompareLink (FileLink):
         if self.contents[0] == self.contents[1]:
             return 0.0
         else:
-            return 100.0
+            return MAX_DISTANCE
 
     def get_content(self, name: str) -> Optional[str]:
         log_verbose('reading %s' % name)
@@ -570,7 +283,7 @@ class GitFileCompareLink (FileCompareLink):
 
         if not str:
             str = ''
-        return '', str
+        return str
 
     def calc_distance(self):
         if self.contents[0] == self.contents[1]:
@@ -592,7 +305,7 @@ class TextFileCompareLink (FileCompareLink):
             # Just one side available.  Don't show a diff.  If the user
             # wants to see the content, they can click through the link.
             self.diff_lines = []
-            return 100
+            return MAX_DISTANCE
 
         # Extract the old and the new hashed snippet names from the log file
         # and replace the old by the new, so file name changes don't show
@@ -615,13 +328,111 @@ class TextFileCompareLink (FileCompareLink):
 
         return math.sqrt(float(len([l for l in self.diff_lines if l[0] in '-+'])))
 
-    def get_cell(self, oldnew: int) -> Tuple[str, str]:
+    def get_cell(self, oldnew: int) -> str:
         str = ''
         if oldnew == 1:
             str = '\n'.join([d.replace('\n', '') for d in self.diff_lines])
         if str:
             str = '<pre>%s</pre>' % html.escape(str)
-        return '', str
+        return str
+
+
+class ImageLink (FileLink):
+    """Comparison of a pair of images (either PNG or EPS)"""
+
+    def __init__(self, dest_dir: str, f1: str, f2: str):
+        FileLink.__init__(self, f1, f2)
+        self.dest_dir = dest_dir
+        self.image_exists = tuple(os.path.exists(f) for f in self.file_names)
+
+    def calc_distance(self) -> float:
+        pngs = list(self.file_names)
+        for oldnew in [0, 1]:
+            file_name = self.file_names[oldnew]
+            if file_name.endswith('.eps') and self.image_exists[oldnew]:
+                dest = os.path.join(self.dest_dir, file_name).replace('.eps','.png')
+                eps_to_png({file_name: dest})
+                pngs[oldnew] = dest
+        self.file_names = (pngs[0], pngs[1])
+            
+        if not self.image_exists[0] or not self.image_exists[1]:
+            return MAX_DISTANCE
+
+        if read_file(self.file_names[0]) == read_file(self.file_names[1]):
+            return 0
+
+        dist = compare_png_images(self.file_names[0],
+                                  self.file_names[1])
+        return dist
+
+    def get_cell_html(self, name: str, oldnew: int) -> str:
+        base = os.path.splitext(self.file_names[oldnew])[0]
+
+        if self.image_exists[0] and self.image_exists[1] and oldnew == 1:
+            newimg = self.file_names[oldnew]
+            oldimg = self.file_names[0]
+            diffimg = os.path.splitext(newimg)[0] + '.diff.png'
+
+            oldimg = os.path.relpath(oldimg, self.dest_dir)
+            newimg = os.path.relpath(newimg, self.dest_dir)
+            diffimg = os.path.relpath(diffimg, self.dest_dir)
+            return '''
+<figure class="reactive_img">
+  <div>
+    <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
+    <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
+    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <!-- add it invisibly without absolute position so the parent takes up space. -->
+    <div style="opacity: 0.0"><img alt="diff image" src="%(diffimg)s" /></div>
+  </div>
+  <figcaption>%(name)s</figcaption>
+</figure>
+''' % locals()
+        elif self.image_exists[oldnew]:
+            img = self.file_names[oldnew]
+            img = os.path.relpath(img, self.dest_dir)
+            return ('''
+<div><a href="%s"><img alt="image of music" src="%s"/></a></div>
+''' % (img, img))
+
+        return ''
+
+
+class ImagesLink (FileLink):
+    """Comparison of a sequence of images"""
+
+    def __init__(self, f1: str, f2: str):
+        FileLink.__init__(self, f1, f2)
+        self.image_links: Dict[int, ImageLink] = {}
+
+    def add_image_pair(self, dest_dir: str, f1: str, f2: str):
+        system_index = []
+
+        def note_system_index(m):
+            system_index.append(int(m.group(1)))
+            return ''
+
+        self.base_names = [os.path.normpath(
+            re.sub('-([0-9]+).eps', note_system_index, f)) for f in [f1, f2]]
+
+        assert system_index[0] == system_index[1]
+        self.image_links[system_index[0]] = ImageLink(dest_dir, f1, f2)
+
+    def calc_distance(self) -> float:
+        return max(l.distance() for l in self.image_links.values())
+
+    def get_cell(self, oldnew) -> str:
+        htmls = []
+
+        # TODO: should also print non-differing images?
+        differing_links = [(key, link) for (key, link) in self.image_links.items()
+                           if link.distance() > options.threshold]
+        for key, link in differing_links:
+            html = link.get_cell_html('image %d' % key, oldnew)
+            if html:
+                htmls.append(html)
+
+        return '<br>'.join(htmls)
 
 
 def eps_bbox_empty(fn: str) -> bool:
@@ -740,157 +551,8 @@ def eps_to_png(files: Dict[str, str]):
     os.unlink(empty_eps.name)
     
 
-class SignatureFileLink (FileLink):
-    def __init__(self, f1, f2):
-        FileLink.__init__(self, f1, f2)
-        self.system_links: Dict[int, SystemLink] = {}
-
-    def add_system_link(self, link: SystemLink, number: int):
-        self.system_links[number] = link
-
-    def calc_distance(self):
-        d = 0.0
-
-        orphan_distance = 0.0
-        for l in list(self.system_links.values()):
-            d = max(d, l.geometric_distance())
-            orphan_distance += l.orphan_count()
-
-        return d + orphan_distance
-
-    def add_file_compare(self, f1: str, f2: str):
-        system_index = []
-
-        def note_system_index(m):
-            system_index.append(int(m.group(1)))
-            return ''
-
-        base1 = re.sub("-([0-9]+).signature", note_system_index, f1)
-        base2 = re.sub("-([0-9]+).signature", note_system_index, f2)
-
-        self.base_names = (os.path.normpath(base1),
-                           os.path.normpath(base2))
-
-        s1 = read_signature_file(f1)
-        s2 = read_signature_file(f2)
-
-        link = SystemLink(s1, s2)
-
-        self.add_system_link(link, system_index[0])
-
-    def create_images(self, dest_dir: str) -> Tuple[Optional[str], Optional[str]]:
-        """Returns a (OLD-FILES, NEW-FILES) tuple."""
-
-        outputs: List[Optional[str]] = [None, None]
-        for oldnew in (0, 1):
-            eps_fn = self.base_names[oldnew] + '.eps'
-            if os.path.exists(eps_fn):
-                png_fn = os.path.join(dest_dir, eps_fn.replace('.eps', '.png'))
-                eps_to_png({eps_fn: png_fn})
-                outputs[oldnew] = png_fn
-
-        return (outputs[0], outputs[1])
-
-    def link_files_for_html(self, dest_dir: str):
-        FileLink.link_files_for_html(self, dest_dir)
-        old, new = self.create_images(dest_dir)
-        if old and new:
-            compare_png_images(old, new)
-
-    def get_cell(self, oldnew):
-        def empty_cell():
-            return '', ''
-
-        def static_img_cell(img):
-            return '', ('''
-<div><a href="%(img)s"><img src="%(img)s" alt=""/></a></div>
-''' % locals())
-
-        def reactive_img_cell(oldimg, newimg):
-            diffimg = newimg.replace('.png', '.diff.png')
-
-            return 'reactive_img', ('''
- <div>
-    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
-    <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
-    <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
-    <!-- add it invisibly without absolute position so the parent takes up space. -->
-    <div style="opacity: 0.0"><img alt="diff image" src="%(diffimg)s" /></div>
-</div>''' % locals())
-            
-        # If we have systems, we expect that images have been or will
-        # be created.
-        num_systems = (sum(1 for x in list(self.system_links.values()) if x.system1),
-                       sum(1 for x in list(self.system_links.values()) if x.system2))
-
-        img = os.path.splitext(self.file_names[oldnew])[0] + '.png'
-        if (num_systems[0] and num_systems[1] and oldnew
-            and [x for x in self.system_links.values() 
-                 if x.distance_tuple() != (0, 0.0)]):
-            oldimg = os.path.splitext(self.file_names[0])[0] + '.png'
-            return reactive_img_cell(oldimg, img)
-        elif num_systems[oldnew]:
-            return static_img_cell(img)
-        else:
-            return empty_cell()
-
-    def get_distance_details(self, dest_file: str) -> str:
-        systems = sorted(self.system_links.items())
-
-        rel_top = os.path.relpath(os.path.curdir, os.path.dirname(dest_file))
-        style_href = os.path.join(rel_top, 'style.css')
-
-        html = ""
-        for (c, link) in systems:
-            e = '<td>%d</td>' % c
-            for d in link.distance_tuple():
-                e += '<td>%f</td>' % d
-
-            e = '<tr>%s</tr>' % e
-
-            html += e
-
-            e = '<td>%d</td>' % c
-            for s in (link.orphan_details_string(),
-                      link.geo_details_string()):
-                e += "<td>%s</td>" % s
-
-            e = '<tr>%s</tr>' % e
-            html += e
-
-        original = self.name()
-        html = '''<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>comparison details for %(original)s</title>
-<link rel="stylesheet" type="text/css" href="%(style_href)s"/>
-<meta charset="UTF-8">
-</head>
-<body>
-<table>
-<tr>
-<th>system</th>
-<th>orphan</th>
-<th>geo</th>
-</tr>
-
-%(html)s
-</table>
-
-</body>
-</html>
-''' % locals()
-        return html
-
-
 ################################################################
 # Files/directories
-
-def compare_signature_files(f1: str, f2: str) -> Tuple[int, float]:
-    s1 = read_signature_file(f1)
-    s2 = read_signature_file(f2)
-
-    return SystemLink(s1, s2).distance_tuple()
 
 
 def paired_files(dir1: str, dir2: str, pattern: str) -> Tuple[List[str], List[str], List[str]]:
@@ -921,11 +583,11 @@ def paired_files(dir1: str, dir2: str, pattern: str) -> Tuple[List[str], List[st
 class ComparisonData:
     """All the comparison data; may span several directories"""
 
-    def __init__(self):
-        self.result_dict = {}
-        self.missing = []
-        self.added = []
-        self.file_links = {}
+    def __init__(self, dest_dir: str):
+        self.dest_dir = dest_dir
+        self.missing: List[Tuple[str, str]] = []
+        self.added: List[Tuple[str, str]] = []
+        self.file_links: Dict[str, FileLink] = {}
 
     def read_sources(self):
 
@@ -949,7 +611,7 @@ class ComparisonData:
         log_terse('       to %s' % dir2)
 
         total_compared = 0
-        for ext in ['signature',
+        for ext in ['eps',
                     'midi',
                     'log',
                     'gittxt']:
@@ -968,7 +630,6 @@ class ComparisonData:
                 if (options.max_count
                         and len(self.file_links) > options.max_count):
                     continue
-
                 f2 = dir2 + '/' + p
                 f1 = dir1 + '/' + p
                 self.compare_files(f1, f2)
@@ -976,8 +637,8 @@ class ComparisonData:
         log_terse('%6d total' % total_compared)
 
     def compare_files(self, f1: str, f2: str):
-        if f1.endswith('signature'):
-            self.compare_signature_files(f1, f2)
+        if f1.endswith('.eps'):
+            self.compare_image_files(f1, f2)
         else:
             ext = os.path.splitext(f1)[1]
             klasses = {
@@ -997,22 +658,25 @@ class ComparisonData:
         file_link = klass(f1, f2)
         self.file_links[name] = file_link
 
-    def compare_signature_files(self, f1: str, f2: str):
+    def compare_image_files(self, f1: str, f2: str):
         prefix = os.path.commonprefix([f1, f2])
         name = os.path.split(f1)[1]
-        name = re.sub('-[0-9]+.signature', '', name)
-        name = os.path.join(prefix, name)
 
-        file_link = None
+        stripped = re.sub('-[0-9]+.eps', '', name)
+        if name == stripped:
+            return
+        name = os.path.join(prefix, stripped)
+
+        file_link: Any = None
         try:
             file_link = self.file_links[name]
         except KeyError:
-            generic_f1 = re.sub('-[0-9]+.signature', '.ly', f1)
-            generic_f2 = re.sub('-[0-9]+.signature', '.ly', f2)
-            file_link = SignatureFileLink(generic_f1, generic_f2)
+            generic_f1 = re.sub('-[0-9]+.eps', '.ly', f1)
+            generic_f2 = re.sub('-[0-9]+.eps', '.ly', f2)
+            file_link = ImagesLink(generic_f1, generic_f2)
             self.file_links[name] = file_link
 
-        file_link.add_file_compare(f1, f2)
+        file_link.add_image_pair(self.dest_dir, f1, f2)
 
     def write_changed(self, dest_dir: str, threshold: float):
         (changed, below, unchanged) = self.thresholded_results(threshold)
@@ -1248,7 +912,6 @@ td:empty {
 <p>
   click to filter rows by type:
   <a href="#" onClick="showOnlyMatchingRows('.ly')">ly</a> /
-  <a href="#" onClick="showOnlyMatchingRows('.signature')">signature</a> /
   <a href="#" onClick="showOnlyMatchingRows('.midi')">midi</a> /
   <a href="#" onClick="showOnlyMatchingRows('.log')">log</a> /
   <a href="#" onClick="showOnlyMatchingRows('.gittxt')">gittxt</a> /
@@ -1275,11 +938,13 @@ td:empty {
         self.write_text_result_page('', threshold)
 
 
-def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float):
-    """Compare a list of directories."""
-    shutil.rmtree(dest_dir, ignore_errors=True)
+def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float) -> ComparisonData:
+    """Compare a list of directories.
 
-    data = ComparisonData()
+    Returns ComparisonData
+    """
+    shutil.rmtree(dest_dir, ignore_errors=True)
+    data = ComparisonData(dest_dir)
     for dir1, dir2 in tree_pairs:
         data.compare_directories(dir1, dir2)
 
@@ -1289,6 +954,7 @@ def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float):
     data.create_html_result_page(dest_dir, threshold)
     data.create_text_result_page(dest_dir, threshold)
     data.print_results(threshold)
+    return data
 
 
 ################################################################
@@ -1345,7 +1011,6 @@ def test_eps_bbox_empty():
 def test_compare_tree_pairs():
     system('rm -rf dir1 dir2')
     system('mkdir dir1 dir2')
-    system('cp 19-1.signature 19.sub-1.signature')
     system('cp 19.ly 19.sub.ly')
     system('cp 19.log 19.sub.log')
     system('cp 19-1.eps 19.sub-1.eps')
@@ -1361,9 +1026,7 @@ def test_compare_tree_pairs():
     system('echo HEAD is 2 > dir2/tree.gittxt')
 
     # radical diffs.
-    system('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log} dir1/')
-    system('cp 19-1.signature dir2/20grob-1.signature')
-    system('cp 19-1.signature dir2/20grob-2.signature')
+    system('cp 20grob{.ly,.eps,-?.eps,.log} dir1/')
     system('cp 19-1.eps dir2/20grob-1.eps')
     system('cp 19-1.eps dir2/20grob-2.eps')
     system('cp 19.ly dir2/20grob.ly')
@@ -1375,16 +1038,17 @@ def test_compare_tree_pairs():
     system('cp 19multipage.log dir1/log-differ.log')
     system('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    compare_tree_pairs([('dir1', 'dir2')],
-                       'compare-dir1dir2', options.threshold)
+    data = compare_tree_pairs([('dir1', 'dir2')],
+                              'compare-dir1dir2', options.threshold)
 
     for f in [
             "index.html",
             "index.txt",
             "changed.txt",
-            "dir2/20grob.diff.png",
-            "dir2/20grob.png",
-            "dir1/20grob.png",
+            "dir1/20grob-1.png",
+            "dir2/20grob-1.png",
+            "dir1/20grob-2.png",
+            "dir2/20grob-2.png",
             "style.css",
     ]:
         fn = os.path.join("compare-dir1dir2", f)
@@ -1398,6 +1062,18 @@ def test_compare_tree_pairs():
     tidy_bin = shutil.which('tidy')
     if tidy_bin:
         subprocess.run([tidy_bin, '-o', '/dev/null', '-q', html_fn], check=True)
+        
+    images_link = data.file_links['dir/20grob']
+    assert images_link.distance() > 0
+    assert len(images_link.image_links) == 2
+    first_link = images_link.image_links[1]
+    assert first_link.image_exists == (True, True)
+    assert first_link.distance() > 0
+
+    second_link = images_link.image_links[2]
+    assert second_link.image_exists == (True, True)
+    assert second_link.distance() > 0
+
 
         
 def test_compare_png_images():
@@ -1515,56 +1191,10 @@ def test_basic_compare():
     names = simple_names + ["20multipage",
                             "19multipage"] + ['added', 'removed']
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
-    system('%s -dseparate-page-formats=ps -daux-files -dtall-page-formats=ps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
-    test_compare_signatures(simple_names)
-
-
-def test_compare_signatures(names, timing=False):
-    times = 1
-    if timing:
-        times = 100
-
-    t0 = time.time()
-
-    count = 0
-    for t in range(0, times):
-        sigs = dict((n, read_signature_file('%s-1.signature' % n))
-                    for n in names)
-        count += 1
-
-    if timing:
-        print('elapsed', (time.clock() - t0)/count)
-
-    t0 = time.time()
-    count = 0
-    combinations = {}
-    links = {}
-    for (n1, s1) in list(sigs.items()):
-        for (n2, s2) in list(sigs.items()):
-            key = '%s-%s' % (n1, n2)
-            link = SystemLink(s1, s2)
-            links[key] = link
-            combinations[key] = link.distance_tuple()
-            count += 1
-
-    if timing:
-        print('elapsed', (time.clock() - t0)/count)
-
-    results = sorted(combinations.items())
-
-    if options.verbose:
-        for k, v in results:
-            print('%-20s' % k, v)
-
-    oc_forward = links["20grob-20"].orphan_count()
-    oc_reverse = links["20-20grob"].orphan_count()
-    assert oc_forward == oc_reverse
-    assert oc_forward > 0
-
-    assert combinations['20-20'] == (0.0, 0.0)
-    assert combinations['20-19'][1] < 10.0
-    assert combinations['20-19'][1] > 0.0
-    assert combinations['20grob-20'][0] > 0
+    args = [binary, '-dseparate-page-formats=ps', '-daux-files', '-dtall-page-formats=ps',
+           '--formats=ps', '-dseparate-log-files', '-dinclude-eps-fonts', '-dgs-load-fonts',
+           '--header=texidoc', '-dcheck-internal-types', '-danti-alias-factor=1'] + names
+    system(' '.join(args))
 
 
 def run_tests():
@@ -1618,7 +1248,7 @@ def main():
                  default=0.3,
                  action="store",
                  type="float",
-                 help='threshold for geometric distance')
+                 help='threshold for distance')
 
     p.add_option('-v', '--verbose',
                  dest="verbose",
