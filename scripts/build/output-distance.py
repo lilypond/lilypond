@@ -96,13 +96,17 @@ def png_dims(fn: str) -> Tuple[int, int]:
 
     # avoid subprocessing, as subprocessing is relatively expensive,
     # and we run this for each image we handle
+    header = read_file(fn, 32)
+    w = int.from_bytes(header[16:20], 'big', signed=False)
+    h = int.from_bytes(header[20:24], 'big', signed=False)
+    return (w, h)
+
+
+def read_file(fn: str, n: int =-1) -> bytes:
     with open(fn, 'rb') as f:
-        header = f.read(32)
-        w = int.from_bytes(header[16:20], 'big', signed=False)
-        h = int.from_bytes(header[20:24], 'big', signed=False)
-        return (w, h)
+        return f.read(n)
 
-
+    
 def compare_png_images(old: str, new: str) -> float:
     file_dims = {}
     for fn in [old, new]:
@@ -545,7 +549,7 @@ class FileCompareLink (FileLink):
     def get_content(self, name: str) -> Optional[str]:
         log_verbose('reading %s' % name)
         try:
-            return open(name, 'r', encoding='utf-8').read()
+            return read_file(name).decode()
         except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
@@ -621,7 +625,7 @@ class TextFileCompareLink (FileCompareLink):
 
 
 def eps_bbox_empty(fn: str) -> bool:
-    header = open(fn, 'rb').read(1024)
+    header = read_file(fn, 1024)
     header_line = b'\n%%BoundingBox: '
     index = header.index(header_line)
     assert index > 0, fn
@@ -635,14 +639,13 @@ def eps_bbox_empty(fn: str) -> bool:
 class MidiFileLink (TextFileCompareLink):
     def get_content(self, name: str) -> Optional[str]:
         try:
-            f = open(name, 'rb')
+            data = read_file(name)
         except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
             else:
                 raise
 
-        data = f.read()
         midi_data = midi.parse(data)
         tracks = midi_data[1]
 
@@ -937,7 +940,7 @@ class ComparisonData:
             sf = val.source_file()
             if sf:
                 re.sub(r'\\sourcefilename "([^"]+)"',
-                       note_original, open(sf, 'r', encoding='utf-8').read())
+                       note_original, read_file(sf).decode())
             else:
                 print('no source for', val.file_names[1])
 
@@ -1387,7 +1390,7 @@ def test_compare_tree_pairs():
         fn = os.path.join("compare-dir1dir2", f)
         assert os.path.exists(fn), fn
     html_fn = "compare-dir1dir2/index.html"
-    html = open(html_fn, encoding='utf-8').read()
+    html = read_file(html_fn).decode()
     assert "removed.log" in html
     assert "added.log" in html
     assert "dir2/removed.compare.jpeg" not in html
