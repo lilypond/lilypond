@@ -48,7 +48,7 @@ for file in reversed(get_files(args.version)):
 
 release = {
     "name": f"LilyPond {args.version}",
-    "tag_name": f"release/{args.version}-1",
+    "tag_name": f"v{args.version}",
     "milestones": [args.version],
     "assets": {"links": links},
 }
