@@ -595,17 +595,11 @@ pruebas querrán descargar el último archivo binario:
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
+@downloadDevelDarwin
 
-@downloadDevelDarwinNormal
-
-@c file name is unpredictable, linking to main page
-@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
-Mac OS X x86 64-bit (no oficial)}
-
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource-es
 

@@ -473,13 +473,11 @@ binární balíčky:
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
+@downloadDevelDarwin
 
-@downloadDevelDarwinNormal
-
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource
 
