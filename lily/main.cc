@@ -277,7 +277,7 @@ gnu_lilypond_version_string ()
   // can't use version_string(), because GUILE hasn't started yet.
   std::string version = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
   std::string mpl (MY_PATCH_LEVEL);
-  if (mpl == "")
+  if (mpl != "")
     version += "." + mpl;
 
   string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
