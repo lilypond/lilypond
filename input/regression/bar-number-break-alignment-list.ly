@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.7"
 
 \header {
   texidoc = "Alignments for breakable items can have different values set
