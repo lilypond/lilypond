@@ -348,21 +348,6 @@ Align_interface::add_element (Grob *me, Grob *element)
   Axis_group_interface::add_element (me, element);
 }
 
-void
-Align_interface::set_ordered (Grob *me)
-{
-  SCM ga_scm = get_object (me, "elements");
-  Grob_array *ga = unsmob<Grob_array> (ga_scm);
-  if (!ga)
-    {
-      ga_scm = Grob_array::make_array ();
-      ga = unsmob<Grob_array> (ga_scm);
-      set_object (me, "elements", ga_scm);
-    }
-
-  ga->set_ordered (true);
-}
-
 ADD_INTERFACE (Align_interface,
                R"(
 Order grobs from top to bottom, left to right, right to left or bottom to top.

@@ -123,7 +123,6 @@ Vertical_align_engraver::process_music ()
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       valign_->set_bound (LEFT, col);
-      Align_interface::set_ordered (valign_);
     }
 }
 

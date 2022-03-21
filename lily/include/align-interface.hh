@@ -37,7 +37,6 @@ public:
   static std::vector<Real>
   get_pure_minimum_translations (Grob *, std::vector<Grob *> const &,
                                  Axis a, vsize start, vsize end);
-  static void set_ordered (Grob *);
   static Axis axis (Grob *);
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
@@ -54,4 +53,3 @@ protected:
 };
 
 #endif /* ALIGN_INTERFACE_HH */
-
