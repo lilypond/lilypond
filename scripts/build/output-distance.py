@@ -349,11 +349,19 @@ class ImageLink (FileLink):
         if self.image_exists[0] and self.image_exists[1]:
             self._file_data_equal = read_file(self.file_names[0]) == read_file(self.file_names[1])
 
-        self.images_to_convert: Tuple[List[str], List[str]] = ([], [])
+    def images_to_convert(self, only_changed=True) -> Tuple[List[str],List[str]]:
+        images: Tuple[List[str], List[str]] = ([], [])
         for oldnew in [0, 1]:
-            if self.image_exists[oldnew] and not self._file_data_equal:
-                self.images_to_convert[oldnew].append(self.file_names[oldnew])
-
+            file_name  = self.file_names[oldnew]
+            if not file_name.endswith('.eps'):
+                continue
+            
+            if (self.image_exists[oldnew] and (not self._file_data_equal or
+                                              # for unchanged images, we only render the new file.
+                                            (oldnew==1 and not only_changed))):
+                images[oldnew].append(file_name)
+        return images
+    
     def update_images(self, pngs: Dict[str, str]):
         updated = []
         for fn in self.file_names:
@@ -370,12 +378,11 @@ class ImageLink (FileLink):
         dist = compare_png_images(self.file_names[0],
                                   self.file_names[1])
         return dist
-
     
     def get_cell_html(self, name: str, oldnew: int) -> str:
         base = os.path.splitext(self.file_names[oldnew])[0]
 
-        if self.image_exists[0] and self.image_exists[1] and oldnew == 1:
+        if self.image_exists[0] and self.image_exists[1] and oldnew == 1 and self.distance() > 0:
             newimg = os.path.relpath(self.file_names[oldnew], self.dest_dir)
             oldimg = os.path.relpath(self.file_names[0], self.dest_dir)
             diffimg = os.path.splitext(newimg)[0] + '.diff.png'
@@ -389,13 +396,19 @@ class ImageLink (FileLink):
     <!-- add it invisibly without absolute position so the parent takes up space. -->
     <div style="opacity: 0.0"><img alt="diff image" src="%(diffimg)s" /></div>
   </div>
-  <figcaption>%(name)s</figcaption>
+  <figcaption><span>&nbsp;</span></figcaption>
 </figure>
 ''' % locals()
-        elif self.image_exists[oldnew]:
-            img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
-            return ('''
-<div><a href="%s"><img alt="image of music" src="%s"/></a></div>
+        else:
+            if self.distance() == 0:
+                # if the images are the same, we only have to render
+                # one of the pair, in this case the new one.
+                oldnew = 1
+                
+            if self.image_exists[oldnew]:
+                img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
+                return ('''
+<div><a href="%s"><img alt="image of music" src="%s" /></a></div>
 ''' % (img, img))
 
         return ''
@@ -421,27 +434,26 @@ class ImagesLink (FileLink):
         assert system_index[0] == system_index[1]
         self.image_links[system_index[0]] = ImageLink(dest_dir, f1, f2)
 
-    def get_images_to_convert(self) -> Tuple[List[str], List[str]]:
+    def get_images_to_convert(self, only_changed=True) -> Tuple[List[str], List[str]]:
         result: Tuple[List[str], List[str]] = ([], [])
         for link in self.image_links.values():
-            for oldnew in [0,1]:
-                result[oldnew].extend(link.images_to_convert[oldnew])
+            if only_changed or link.distance() == 0.0:
+                images = link.images_to_convert(only_changed=only_changed)
+                for oldnew in [0, 1]:
+                    result[oldnew].extend(images[oldnew])
         return result
-    
+
     def calc_distance(self) -> float:
         return max(l.distance() for l in self.image_links.values())
 
     def update_images(self, pngs: Dict[str, str]):
         for links in self.image_links.values():
             links.update_images(pngs)
-            
+
     def get_cell(self, oldnew: int) -> str:
         htmls = []
 
-        # TODO: should also print non-differing images?
-        differing_links = [(key, link) for (key, link) in self.image_links.items()
-                           if link.distance() > options.threshold]
-        for key, link in differing_links:
+        for (key, link) in self.image_links.items():
             html = link.get_cell_html('image %d' % key, oldnew)
             if html:
                 htmls.append(html)
@@ -605,9 +617,7 @@ class ComparisonData:
         self.file_links: Dict[str, FileLink] = {}
 
     def read_sources(self):
-        images_to_convert = ([], [])
-        
-        for (key, val) in self.file_links.items():
+        for val in self.file_links.values():
             def note_original(match, ln=val):
                 key = ln.name()
                 hash_to_original_name[key] = match.group(1)
@@ -619,10 +629,15 @@ class ComparisonData:
                        note_original, read_file(sf).decode())
             else:
                 print('no source for', val.file_names[1])
- 
+        self._convert_images_changed()
+
+    def _convert_images_changed(self):
+        images_to_convert = ([], [])
+        
+        for val in self.file_links.values():
             if isinstance(val, ImagesLink):
                 as_imagelink: Any = val
-                oldnew_images = as_imagelink.get_images_to_convert()
+                oldnew_images = as_imagelink.get_images_to_convert(only_changed=True)
                 for oldnew in [0, 1]:
                     images_to_convert[oldnew].extend(oldnew_images[oldnew])
                     
@@ -730,8 +745,29 @@ class ComparisonData:
         changed = [r for (d, r) in results if d > threshold]
         assert len(results) == len(unchanged) + len(below) + len(changed)
 
+        todo = []
+        for c in changed:
+            if isinstance(c, ImagesLink):
+                todo.append(c)
+
+        self._render_unchanged(todo)
         return (changed, below, unchanged)
 
+    def _render_unchanged(self, images_links):
+        todo = ([], [])
+
+        # We only render the right side for unchanged images.
+        oldnew = 1 
+        for link in images_links:
+            oldnew_images = link.get_images_to_convert(only_changed=False)
+            todo[oldnew].extend(oldnew_images[oldnew])
+
+        pngs = dict((k, os.path.join(self.dest_dir, k).replace('.eps','.png'))
+                                    for k in todo[oldnew])
+        eps_to_png(pngs)
+        for link in images_links:
+            link.update_images(pngs)
+                
     def write_text_result_page(self, filename: str, threshold: float):
         verbose = True
         out = sys.stdout
@@ -813,7 +849,7 @@ figcaption {
 }
 
 figcaption button {
-    float: right;
+    float: left;
 }
 
 figure {
@@ -1058,6 +1094,13 @@ def test_compare_tree_pairs():
     system('cp 20grob{.ly,.eps,-?.eps,.log} dir1/')
     system('cp 19-1.eps dir2/20grob-1.eps')
     system('cp 19-1.eps dir2/20grob-2.eps')
+
+    # Test context diffs.
+    system('cp 20grob-1.eps dir1/context-1.eps')
+    system('cp 20grob-2.eps dir1/context-2.eps')
+    system('cp 20grob-1.eps dir2/context-1.eps')
+    system('cp 20grob-1.eps dir2/context-2.eps')
+    
     system('cp 19.ly dir2/20grob.ly')
     system('cp 19.eps dir2/20grob.eps')
     system('cp 19.log dir2/20grob.log')
