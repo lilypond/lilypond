@@ -397,11 +397,6 @@ accidentals)."
  '(number-type))
 
 (ly:add-interface
- 'only-prebreak-interface
- "Kill this grob after the line breaking process."
- '())
-
-(ly:add-interface
  'outside-staff-axis-group-interface
  "A vertical axis group on which outside-staff skyline calculations are done."
  '(outside-staff-placement-directive vertical-skyline-elements))

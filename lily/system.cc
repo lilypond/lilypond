@@ -144,23 +144,7 @@ System::do_break_substitution_and_fixup_refpoints ()
 {
   std::vector<Grob *> &all_elts = all_elements ()->array_reference ();
   for (Grob *g : all_elts)
-    {
-      if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
-        {
-          /*
-            Kill no longer needed grobs.
-          */
-          Item *it = dynamic_cast<Item *> (g);
-          if (it && Item::is_non_musical (it))
-            {
-              it->find_prebroken_piece (LEFT)->suicide ();
-              it->find_prebroken_piece (RIGHT)->suicide ();
-            }
-          g->suicide ();
-        }
-      else
-        g->do_break_processing ();
-    }
+    g->do_break_processing ();
 
   /*
     fixups must be done in broken line_of_scores, because new elements
