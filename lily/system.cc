@@ -182,6 +182,7 @@ System::do_break_substitution_and_fixup_refpoints ()
     {
       Grob_array *all_elts_ga = static_cast<System *> (child)->all_elements ();
       all_elts_ga->remove_duplicates ();
+      (void) get_property (child, "after-line-breaking");
       for (Grob *g : all_elts_ga->array_reference ())
         {
           (void) get_property (g, "after-line-breaking");
@@ -540,11 +541,13 @@ System::pre_processing ()
 
   fixup_refpoints (all->array ());
 
+  get_property (this, "before-line-breaking");
   for (Grob *g : all->array_reference ())
     {
       (void) get_property (g, "before-line-breaking");
     }
 
+  get_property (this, "springs-and-rods");
   for (Grob *g : all->array_reference ())
     {
       (void) get_property (g, "springs-and-rods");
