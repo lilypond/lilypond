@@ -150,12 +150,10 @@ System::do_break_substitution_and_fixup_refpoints ()
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
   vsize count = 0;
-  for (vsize i = 0; i < broken_intos_.size (); i++)
+  for (Grob *child : broken_intos_)
     {
-      Grob *se = broken_intos_[i];
-
       const std::vector<Grob *> &all_elts
-        = static_cast<System *> (se)->all_elements ()->array_reference ();
+        = static_cast<System *> (child)->all_elements ()->array_reference ();
 
       for (Grob *g : all_elts)
         {
@@ -180,11 +178,9 @@ System::do_break_substitution_and_fixup_refpoints ()
      items in all-elements.  Strictly speaking this is harmless, but
      it leads to duplicated symbols in the output.  uniq makes sure
      that no duplicates are in the list.  */
-  for (vsize i = 0; i < broken_intos_.size (); i++)
+  for (Grob *child : broken_intos_)
     {
-      System *child = dynamic_cast<System *> (broken_intos_[i]);
-
-      Grob_array *all_elts_ga = child->all_elements ();
+      Grob_array *all_elts_ga = static_cast<System *> (child)->all_elements ();
       all_elts_ga->remove_duplicates ();
       for (Grob *g : all_elts_ga->array_reference ())
         {
