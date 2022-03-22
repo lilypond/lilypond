@@ -107,6 +107,19 @@ do_break_substitution (Crit break_criterion, SCM src)
       auto *g = substitute_grob (break_criterion, og);
       return g ? g->self_scm () : SCM_UNSPECIFIED;
     }
+  else if (auto *ga = unsmob<Grob_array> (src))
+    {
+      Grob_array *new_arr = unsmob<Grob_array> (Grob_array::make_array ());
+      // The new array is ordered iff the original is.  That way,
+      // when doing the second break substitution (with systems),
+      // we'll also use the optimization available for unordered arrays
+      // for arrays created by the first substitution (with directions).
+      new_arr->set_ordered (ga->ordered ());
+      for (Grob *og : ga->array_reference ())
+        if (Grob *g = substitute_grob (break_criterion, og))
+          new_arr->add (g);
+      return new_arr->smobbed_copy ();
+    }
   else if (scm_is_vector (src))
     {
       size_t len = scm_c_vector_length (src);
@@ -315,7 +328,6 @@ template <class Crit>
 static void
 substitute_object_alist (Crit break_criterion, SCM alist, SCM *dest)
 {
-  SCM old = *dest;
   *dest = SCM_EOL;
   SCM *tail = dest;
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
@@ -323,22 +335,7 @@ substitute_object_alist (Crit break_criterion, SCM alist, SCM *dest)
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
 
-      if (Grob_array *orig = unsmob<Grob_array> (val))
-        {
-          SCM handle = scm_assq (sym, old);
-          SCM newval
-            = (scm_is_pair (handle))
-              ? scm_cdr (handle)
-              : Grob_array::make_array ();
-
-          Grob_array *new_arr = unsmob<Grob_array> (newval);
-          // TODO: What if new_arr is null?
-          new_arr->filter_map_assign (*orig, substitute_grob<Crit>,
-                                      break_criterion);
-          val = newval;
-        }
-      else
-        val = do_break_substitution (break_criterion, val);
+      val = do_break_substitution (break_criterion, val);
 
       // Don't even set the property if there is no equivalent of
       // the grob satisfying the criterion.  This is legacy, but for
@@ -364,24 +361,8 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
     {
       auto *system = sc->get_system ();
 
-      if (grob_array)
-        {
-          SCM newval = sc->internal_get_object (sym);
-          auto *new_arr = unsmob<Grob_array> (newval);
-          if (!new_arr)
-            {
-              newval = Grob_array::make_array ();
-              set_object (sc, sym, newval);
-              new_arr = unsmob<Grob_array> (newval);
-            }
-          new_arr->filter_map_assign (*grob_array, substitute_grob<System *>,
-                                      system);
-        }
-      else
-        {
-          SCM newval = do_break_substitution (system, val);
-          set_object (sc, sym, newval);
-        }
+      SCM newval = do_break_substitution (system, val);
+      set_object (sc, sym, newval);
     }
 }
 
