@@ -105,7 +105,7 @@ do_break_substitution (Crit break_criterion, SCM src)
       /* If it's a pair, src could be just any kind of nested data structure.
          However, typical Scheme patterns (lists) have potentially large data in
          the cdr and not the car.  Thus we recurse in the car and keep stack
-         depth constant for the cdr (think of it as tail recursion).  This why
+         depth constant for the cdr (think of it as tail recursion).  This is why
          this loop looks like a list traversal even though src is not
          necessarily a list. */
       do
