@@ -1441,7 +1441,7 @@ lower staves.  By defining the temporary lyrics context with
 the (named) lyrics context containing the first verse.
 
 Examples showing this repositioning of temporary contexts can be
-found elsewhere --- see @rlearning{Nesting music expressions},
+found elsewhere -- see @rlearning{Nesting music expressions},
 @ref{Modifying single staves} and @ref{Techniques specific to lyrics}.
 
 @morerefs
@@ -2500,7 +2500,7 @@ list the type of data characteristic to each property.  It is immaterial
 whether the default setting is a function.
 
 @item
-The property cannot be a @q{subproperty}---a property residing within
+The property cannot be a @q{subproperty} -- a property residing within
 another property.
 
 @item
@@ -2521,13 +2521,13 @@ criteria outlined above.
 
 This property is not a subproperty, and it is listed at
 @rinternals{Hairpin}.  For a value, it takes @q{dimension, in staff
-space} set to @code{0.6666}---clearly a non-infinite @code{number}.
+space} set to @code{0.6666} -- clearly a non-infinite @code{number}.
 
 @item @code{Arpeggio.positions}
 
 The page @rinternals{Arpeggio} lists a @code{positions} property which
 accepts a @q{pair of numbers}.  It defaults to
-@code{ly:arpeggio::positions}---a callback which will be evaluated
+@code{ly:arpeggio::positions} -- a callback which will be evaluated
 during the typesetting phase to yield a pair of numbers for any given
 @code{Arpeggio} object.
 
@@ -4730,7 +4730,7 @@ that the slur continues over the line break:
 @end lilypond
 
 If an S-shaped curve is required the control points must always be
-adjusted manually --- LilyPond will never select such shapes
+adjusted manually -- LilyPond will never select such shapes
 automatically.
 
 @lilypond[verbatim,quote]
