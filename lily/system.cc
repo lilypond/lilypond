@@ -132,13 +132,6 @@ System::derived_mark () const
   Spanner::derived_mark ();
 }
 
-static void
-fixup_refpoints (vector<Grob *> const &grobs)
-{
-  for (vsize i = grobs.size (); i--;)
-    grobs[i]->fixup_refpoint ();
-}
-
 void
 System::do_break_substitution_and_fixup_refpoints ()
 {
@@ -164,7 +157,8 @@ System::do_break_substitution_and_fixup_refpoints ()
   /*
     needed for doing items.
   */
-  fixup_refpoints (all_elts);
+  for (Grob *g : all_elts)
+    g->fixup_refpoint ();
 
   for (Grob *g : all_elts)
     g->handle_broken_dependencies ();
@@ -537,7 +531,8 @@ System::pre_processing ()
   for (vsize i = all->size (); i--;)
     all->grob (i)->handle_prebroken_dependencies ();
 
-  fixup_refpoints (all->array ());
+  for (Grob *g : all->array_reference ())
+    g->fixup_refpoint ();
 
   get_property (this, "before-line-breaking");
   for (Grob *g : all->array_reference ())
