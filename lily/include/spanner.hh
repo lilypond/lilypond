@@ -115,7 +115,7 @@ protected:
   void set_my_columns ();
   Spanner *clone () const override { return new Spanner (*this); }
   void do_break_processing () override;
-  bool fast_substitute_grob_array (SCM sym, Grob_array const *);
+  void fast_substitute_grob_array (SCM sym, Grob_array const *);
 };
 
 void add_bound_item (Spanner *, Grob *);
