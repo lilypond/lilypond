@@ -524,7 +524,7 @@ bend-styles = {
 @end lilypond
 
 Open strings are usually not bent.  To have them bent as well set the
-property @code{'bend-me} to @code{#t}.  To exclude other notes from being bent
+property @code{bend-me} to @code{#t}.  To exclude other notes from being bent
 set it to @code{#f}.
 
 @lilypond[verbatim,quote]

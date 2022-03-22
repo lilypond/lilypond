@@ -2879,7 +2879,7 @@ notation of the original.
 
 To avoid that syllables of different width (such as @qq{-ri} and
 @qq{-rum}) spread the syllable note groups unevenly apart, the
-@code{'X-extent} property of the @code{LyricText} object may be
+@code{X-extent} property of the @code{LyricText} object may be
 set to a fixed value.  Another, more cumbersome way would be to
 add the syllables as @code{\markup} elements.  If further
 adjustments are necessary, this can be easily done with

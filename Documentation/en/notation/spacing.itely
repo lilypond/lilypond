@@ -1034,8 +1034,8 @@ If set to false, page numbers are not printed.
 @funindex page-number-type
 
 The type of numerals used for page numbers.  Choices include
-@code{arabic}, @code{roman-ij-lower}, @code{roman-ij-upper},
-@code{roman-lower}, and @code{roman-upper}.  Default:
+@code{'arabic}, @code{'roman-ij-lower}, @code{'roman-ij-upper},
+@code{'roman-lower}, and @code{'roman-upper}.  Default:
 @code{'arabic}.
 
 @end table
@@ -1222,9 +1222,9 @@ For example, if this block:
 @}
 @end example
 
-is placed after the one from the preceding example the @code{'padding}
-and @code{'color} overrides for @code{TextScript} are combined, but
-the later @code{'thickness} override for @code{Glissando} replaces
+is placed after the one from the preceding example the @code{padding}
+and @code{color} overrides for @code{TextScript} are combined, but
+the later @code{thickness} override for @code{Glissando} replaces
 (or hides) the earlier one.
 
 @code{\layout} blocks may be assigned to variables for reuse later,

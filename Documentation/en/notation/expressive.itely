@@ -1379,7 +1379,7 @@ Different types of arpeggios may be written.
 @end lilypond
 
 These predefined commands internally modify the 
-@code{'arpeggio-direction} property; see their full
+@code{arpeggio-direction} property; see their full
 definition in the @file{ly/property-init.ly} file.
 
 @cindex arpeggio symbol, special
@@ -1410,13 +1410,12 @@ Special @emph{bracketed} arpeggio symbols can be created:
 @end lilypond
 
 These predefined commands internally override the @code{Arpeggio}
-object's @code{'stencil} property, and may also adapt its
-@code{'X-extent} (that is, the horizontal dimension it takes
+object's @code{stencil} property, and may also adapt its
+@code{X-extent} (that is, the horizontal dimension it takes
 not to collide with other objects).
 
 The dash properties of the parenthesis arpeggio are controlled
-with the @code{'dash-definition} property, which is described at
-@ref{Slurs}.
+with the @code{dash-definition} property (@pxref{Slurs}).
 
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.
