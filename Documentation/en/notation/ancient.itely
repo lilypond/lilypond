@@ -183,14 +183,9 @@ voice and staff contexts available, which set all the various
 notation signs to values suitable for these styles.  If one is
 satisfied with these defaults, one can proceed directly with note
 entry without worrying about the details on how to customize a
-context.  See one of the  pre-defined contexts
-@code{VaticanaVoice}, @code{VaticanaStaff}, @code{MensuralVoice},
-and @code{MensuralStaff}.  See further
-
-@itemize
-@item @ref{Gregorian chant contexts},
-@item @ref{Mensural contexts}.
-@end itemize
+context.  See one of the predefined contexts @code{VaticanaVoice},
+@code{VaticanaStaff}, @code{MensuralVoice}, @code{MensuralStaff},
+@code{KievanVoice}, and @code{KievanStaff}.
 
 @morerefs
 Music Glossary:
@@ -198,7 +193,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Gregorian chant contexts},
-@ref{Mensural contexts}.
+@ref{Mensural contexts},
+@ref{Kievan contexts}.
 @endmorerefs
 
 
@@ -233,14 +229,15 @@ above the ligature.
 }
 @end lilypond
 
-Two other ligature styles are available: the Vaticana for
-Gregorian chant, and the Mensural for mensural music (only white
+Three other ligature styles are available: @q{Vaticana} for
+Gregorian chant, @q{Mensural} for mensural music (only white
 mensural ligatures are supported for mensural music, and with
-certain limitations).  To use any of these styles, the default
-@code{Ligature_bracket_engraver} has to be replaced with one of the
-specialized ligature engravers in the @code{Voice} context,
-as explained in @ref{White mensural ligatures} and
-@ref{Gregorian square neume ligatures}.
+certain limitations), and @q{Kievan} for Kievan melismata.  To use
+any of these styles, the default
+@code{Ligature_@/bracket_@/engraver} has to be replaced with one of
+the specialized ligature engravers in the @code{Voice} context.
+For more information, @pxref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}, and @ref{Kievan melismata}.
 
 @morerefs
 Music Glossary:
