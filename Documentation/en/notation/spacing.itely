@@ -3807,26 +3807,29 @@ Our two-staff example now spaces exactly, our rhythmic
 relationships are visually clear, and we can include a measured
 timeline or graphic if we want.
 
-Note that the LilyPond's proportional notation package expects
-that all proportional scores set the SpacingSpanner's
-'uniform-stretching attribute to ##t.  Setting
-proportionalNotationDuration without also setting the
-SpacingSpanner's 'uniform-stretching attribute to ##t will, for
-example, cause Skips to consume an incorrect amount of horizontal
-space.
+Note that the LilyPond's proportional notation package expects that
+all proportional scores set the @code{SpacingSpanner}'s
+@code{uniform-@/stretching} attribute to @code{#t}.  Setting
+@code{proportional@/Notation@/Duration} without also setting the
+@code{SpacingSpanner}'s @code{uniform-stretching} attribute to
+@code{#t} will, for example, cause skips to consume an incorrect
+amount of horizontal space.
 
-The SpacingSpanner is an abstract grob that lives in the Score
-context.  As with our settings of proportionalNotationDuration,
-overrides to the SpacingSpanner can occur in any of three
-different places in our input file -- in the Score \with block, in
-a Score \context block, or in note entry directly.
+The @code{SpacingSpanner} is an abstract grob that lives in the
+@code{Score} context.  As with our settings of
+@code{proportional@/Notation@/Duration}, overrides to the
+@code{SpacingSpanner} can occur in any of three different places in
+our input file -- in the @code{Score}'s @code{\with} block, in a
+@code{Score}'s @code{\context} block, or in note entry directly.
 
-There is by default only one @code{SpacingSpanner} per @code{Score}.  This
-means that, by default, @code{uniform-stretching} is either turned on for the
-entire score or turned off for the entire score.  We can, however,
+There is by default only one @code{SpacingSpanner} per
+@code{Score}.  This means that, by default,
+@code{uniform-@/stretching} is either turned on for the entire
+score or turned off for the entire score.  We can, however,
 override this behavior and turn on different spacing features at
 different places in the score.  We do this with the command
-@code{\newSpacingSection}.  See @ref{New spacing section}, for more info.
+@code{\newSpacingSection}.  @xref{New spacing section}, for more
+info.
 
 Next we examine the effects of the @code{Separating_line_group_engraver} and
 see why proportional scores frequently remove this engraver.  The following
