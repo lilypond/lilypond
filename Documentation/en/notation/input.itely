@@ -954,7 +954,7 @@ The instrument name will be repeated on every page.
 @item
 Only @code{piece} and @code{opus} are printed in a @code{\score}
 when the paper variable @code{print-all-headers} is set to
-@code{##f} (the default).
+@code{#f} (the default).
 
 @item
 @c Is the bit about \null markups true? -mp
@@ -1070,7 +1070,7 @@ The default LilyPond footer text can be changed by adding a
 @end lilypond
 
 To remove the default LilyPond footer text, the @code{tagline} can be
-set to @code{##f}.
+set to @code{#f}.
 
 
 @node Custom titles headers and footers

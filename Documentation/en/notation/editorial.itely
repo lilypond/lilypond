@@ -985,7 +985,7 @@ should be printed or not is determined through the
  @code{printAccidentalNames} property.
 
 By setting both that property to a symbol and
-@code{printOctaveNames} to @code{##t}, note names can be
+@code{printOctaveNames} to @code{#t}, note names can be
 obtained that closely resemble LilyPond entry syntax.
 If a more generalistic result is desired, @q{scientific}
 octave names may also be obtained.

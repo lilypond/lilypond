@@ -1010,8 +1010,8 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 }
 @end lilypond
 
-Setting the context property @code{suspendRestMerging} to @code{##t} allows for
-turning off rest merging temporarily.
+Setting the context property @code{suspendRestMerging} to @code{#t}
+allows for turning off rest merging temporarily.
 
 @node Automatic part combining
 @unnumberedsubsubsec Automatic part combining

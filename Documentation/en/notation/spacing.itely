@@ -1877,7 +1877,7 @@ it spans the height of the tallest score plus the @code{top-margin} and
 @code{bottom-margin}.
 
 Note that the @code{top-system-spacing} setting will affect the
-vertical position of the music.  Set it to @code{##f} in a paper block
+vertical position of the music.  Set it to @code{#f} in a paper block
 to simply place the music between the top and bottom margins.
 
 
