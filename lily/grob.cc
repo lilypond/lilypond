@@ -265,6 +265,20 @@ void
 Grob::handle_broken_dependencies ()
 {
   Spanner *sp = dynamic_cast<Spanner *> (this);
+
+  /* Skipping break substitution in case sp is lacking a bound
+     allows not to have to care about this corner case in the
+     algorithm.  TODO: emit a programming_error; this requires
+     going through the spanner engravers to ensure that they
+     give a bound to the grobs they create even if unterminated
+     (we don't want duplicated warnings).
+   */
+  if (sp && !(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+    {
+      suicide ();
+      return;
+    }
+
   if (original () && sp)
     return;
 
