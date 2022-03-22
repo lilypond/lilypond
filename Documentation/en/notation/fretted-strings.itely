@@ -1159,11 +1159,11 @@ Fret-diagrams may be printed left-handed
   }
 @end lilypond
 
-@cindex fret-diagram-terse markup
+@cindex @code{\fret-diagram-terse} markup
 
 @funindex \fret-diagram-terse
 
-The fret-diagram-terse markup string omits string numbers; the string
+The @code{\fret-diagram-terse} markup string omits string numbers; the string
 number is implied by the presence of semicolons.  There is one semicolon
 for each string in the diagram.  The first semicolon corresponds to the
 highest string number and the last semicolon corresponds to the first string.
@@ -1188,7 +1188,8 @@ Mute strings, open strings, and fret numbers can be indicated.
 >>
 @end lilypond
 
-Barre indicators can be included in the fret-diagram-terse markup string.
+Barre indicators can be included in the @code{\fret-diagram-terse}
+markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -1235,19 +1236,21 @@ markup string.
 @end lilypond
 
 Other fret diagram properties must be adjusted using
-@code{\override} when using the fret-diagram-terse markup.
+@code{\override} when using the @code{\fret-diagram-terse} markup.
 
-Only one indication per string can be included in a fret-diagram-terse
-markup.  To have multiple indications per string use a fret diagram
-or fret-diagram-verbose markup.
+Only one indication per string can be included in a
+@code{\fret-diagram-terse} markup.  To have multiple indications
+per string use a fret diagram or @code{\fret-diagram-verbose}
+markup.
 
-@cindex fret-diagram-verbose markup
+@cindex @code{\fret-diagram-verbose} markup
 @cindex capo
 
 @funindex \fret-diagram-verbose
 
-The fret-diagram-verbose markup string is in the format of a Scheme list.  Each
-element of the list indicates an item to be placed on the fret diagram.
+The @code{\fret-diagram-verbose} markup string is in the format of
+a Scheme list.  Each element of the list indicates an item to be
+placed on the fret diagram.
 
 @lilypond[quote, verbatim]
 <<
@@ -1283,8 +1286,8 @@ element of the list indicates an item to be placed on the fret diagram.
 @end lilypond
 
 Fingering indications and barres can be included in a
-fret-diagram-verbose markup string.  Unique to the
-fret-diagram-verbose interface is a capo indication that
+@code{\fret-diagram-verbose} markup string.  Unique to the
+@code{\fret-diagram-verbose} interface is a capo indication that
 can be placed on the fret diagram.  The capo indication is
 a thick bar that covers all strings.  The fret with the
 capo will be the lowest fret in the fret diagram.
@@ -1369,7 +1372,7 @@ Markups can be placed into the dots as well.
 @end lilypond
 
 All other fret diagram properties must be adjusted using
-@code{\override} when using the fret-diagram-verbose markup.
+@code{\override} when using the @code{\fret-diagram-verbose} markup.
 
 @ignore
 The following example shows the three fret diagram markup
@@ -1614,8 +1617,8 @@ you must specify the hash table for the diagram, the chord for the
 diagram, the tuning to be used, and
 a definition for the diagram.  Normally, the hash table will be
 @var{default-fret-table}.  The diagram definition can be either a
-fret-diagram-terse definition string or a fret-diagram-verbose
-marking list.
+@code{\fret-diagram-terse} definition string or a
+@code{\fret-diagram-verbose} marking list.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1673,15 +1676,15 @@ mychords = \chordmode {
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
 
-In addition to fret diagrams, LilyPond stores an internal list of chord
-shapes.  The chord shapes are fret diagrams that can be shifted along
-the neck to different positions to provide different chords.  Chord
-shapes can be added to the internal list and then used to define
-predefined fret diagrams.  Because they can be moved to various
-positions on the neck, chord shapes will normally not contain
-any open strings.  Like fret diagrams, chord shapes can be
-entered as either fret-diagram-terse strings or fret-diagram-verbose
-marking lists.
+In addition to fret diagrams, LilyPond stores an internal list of
+chord shapes.  The chord shapes are fret diagrams that can be
+shifted along the neck to different positions to provide different
+chords.  Chord shapes can be added to the internal list and then
+used to define predefined fret diagrams.  Because they can be moved
+to various positions on the neck, chord shapes will normally not
+contain any open strings.  Like fret diagrams, chord shapes can be
+entered as either @code{\fret-diagram-terse} strings or
+@code{\fret-diagram-verbose} marking lists.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
