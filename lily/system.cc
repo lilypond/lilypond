@@ -152,15 +152,13 @@ System::do_break_substitution_and_fixup_refpoints ()
   vsize count = 0;
   for (Grob *child : broken_intos_)
     {
-      const std::vector<Grob *> &all_elts
+      const std::vector<Grob *> &child_elts
         = static_cast<System *> (child)->all_elements ()->array_reference ();
 
-      for (Grob *g : all_elts)
-        {
-          g->fixup_refpoint ();
-        }
+      for (Grob *g : child_elts)
+        g->fixup_refpoint ();
 
-      count += all_elts.size ();
+      count += child_elts.size ();
     }
 
   /*
