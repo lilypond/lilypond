@@ -29,6 +29,8 @@
 #include "moment.hh"
 #include "engraver.hh"
 
+#include <cassert>
+
 Item::Item (SCM s)
   : Grob (s)
 {
@@ -106,6 +108,7 @@ Item::is_broken () const
 Item *
 Item::find_broken_piece (System *l) const
 {
+  assert (l);
   if (get_system () == l)
     return const_cast<Item *> (this);
 

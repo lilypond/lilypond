@@ -29,6 +29,7 @@
 #include "warn.hh"
 
 #include <algorithm>
+#include <cassert>
 #include <vector>
 
 using std::vector;
@@ -349,6 +350,7 @@ Spanner::get_system () const
 Spanner *
 Spanner::find_broken_piece (System *l) const
 {
+  assert (l);
   if (broken_intos_.empty ())
     return nullptr;
   auto l_rank = static_cast<int> (l->get_rank ());
