@@ -22,6 +22,8 @@
 #include "system.hh"
 #include "grob-array.hh"
 
+#include <cassert>
+
 using std::vector;
 
 /*
@@ -48,30 +50,17 @@ template <>
 Grob *
 substitute_grob (System *line, Grob *sc)
 {
+  assert (sc);
+  assert (line);
+  // Note and FIXME: sc->get_system () may be nullptr.
   if (sc->get_system () != line)
     sc = sc->find_broken_piece (line);
-
-  /* now: !sc || (sc && sc->get_system () == line) */
-  if (sc)
-    {
-      /* now: sc && sc->get_system () == line */
-      if (!line)
-        return sc;
-
-      /*
-        We don't return SCM_UNDEFINED for
-        suicided grobs, for two reasons
-
-        - it doesn't work (strange disappearing objects)
-
-        - it forces us to mark the parents of a grob, leading to
-        a huge recursion in the GC routine.
-      */
-      if (sc->common_refpoint (line, X_AXIS)
-          && sc->common_refpoint (line, Y_AXIS))
-        return sc;
-    }
-
+  // This grob has no broken piece for this system.
+  if (!sc)
+    return nullptr;
+  // TODO: consider returning nullptr if sc is dead
+  if (sc->has_in_ancestry (line, X_AXIS) && sc->has_in_ancestry (line, Y_AXIS))
+    return sc;
   return nullptr;
 }
 
