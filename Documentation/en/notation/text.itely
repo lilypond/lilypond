@@ -74,7 +74,7 @@ introduced with the @code{\mark} or @code{\tempo} keywords;
 see @ref{Text marks};
 
 @item
-as standalone text blocks, entered at the top level outside of any
+as stand-alone text blocks, entered at the top level outside of any
 @code{\score} block (in this specific case the @code{\markup} or
 @code{\markuplist} command is mandatory, and cannot be omitted in
 favor of a simple text string between double quotes); see
@@ -497,10 +497,10 @@ Internals Reference:
 
 @cindex separate text
 @cindex text, separate
-@cindex standalone text
+@cindex stand-alone text
 @cindex top-level text
 @cindex text, top-level
-@cindex text, standalone
+@cindex text, stand-alone
 
 @funindex \markup
 
@@ -897,7 +897,7 @@ global staff size.
 }
 @end lilypond
 
-It can also be set to a fixed point-size, regardless of the global staff
+It can also be set to a fixed point size, regardless of the global staff
 size.
 
 @lilypond[quote,verbatim]

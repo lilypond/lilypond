@@ -248,7 +248,7 @@ symbols = {
 @funindex restrainOpenStrings
 
 By default pitches are assigned to the lowest playing position on the
-fret-board (first position).  Open strings are automatically preferred.
+fretboard (first position).  Open strings are automatically preferred.
 If you would like a certain pitch to be played on a specific string you
 can add a string number indication to the pitch name.  If you don't want
 to have string number indications appear in traditional notation, you
@@ -927,11 +927,11 @@ A modern tab clef can also be used.
 The modern tab clef supports tablatures from 4 to 7 strings.
 
 @cindex microtone, tab
-@cindex quarter-tone, tab
+@cindex quarter tone, tab
 @cindex tab microtones
-@cindex tab quarter-tones
+@cindex tab quarter tones
 
-@code{TabStaff} may support microtones like quarter-tones, which
+@code{TabStaff} may support microtones like quarter tones, which
 can be played using bendings.
 @code{supportNonIntegerFret = ##t} needs to be set in
 Score-context.  However, microtones are not supported in @code{FretBoards}.
@@ -1935,8 +1935,8 @@ with non-monotonic tunings.
 @unnumberedsubsubsec Right-hand fingerings
 
 @cindex fretted instrument, right-hand fingering
-@cindex fingering, right hand, for fretted instrument
-@cindex right-hand fingering, for fretted instrument
+@cindex fingering, right-hand, for fretted instruments
+@cindex right-hand fingering, for fretted instruments
 
 @funindex \rightHandFinger
 

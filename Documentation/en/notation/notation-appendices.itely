@@ -734,7 +734,7 @@ Where N is in the range 0-100.
 @cindex Parmesan font
 @cindex font, Parmesan
 
-The Emmentaler font consists of two @emph{sub-sets} of glyphs.
+The Emmentaler font consists of two @emph{subsets} of glyphs.
 @qq{Feta}, used for classical notation and @qq{Parmesan}, used for
 Ancient notation.
 
@@ -2913,7 +2913,7 @@ which associates a value with a key: @w{@code{(key . value)}}.  For
 example, in @file{scm/lily.scm}, the alist
 @w{@qq{type-p-name-alist}} associates certain type predicates
 (e.g., @code{ly:music?}) with names (e.g., @qq{music}) so
-that type-check failures can be reported with a console message that
+that type check failures can be reported with a console message that
 includes the name of the expected type predicate.
 
 @node callback
@@ -3205,7 +3205,7 @@ staff lines, which always span the whole score).
 
 Technically, spanners are defined as grobs having the
 @code{spanner-@/interface}; on the C++ side of LilyPond, they are
-instances of the @code{Spanner} sub-class of @code{Grob}.  The
+instances of the @code{Spanner} subclass of @code{Grob}.  The
 left and right bounds of a spanner can be retrieved and set using
 @code{ly:spanner-@/bound} and @code{ly:spanner-@/set-@/bound!},
 respectively.  The bounds are always items.  The X@tie{}parent of

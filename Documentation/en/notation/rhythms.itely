@@ -1512,7 +1512,7 @@ Internals Reference:
 @funindex measurePosition
 @funindex \partial
 
-Partial or pick-up measures, such as an @emph{anacrusis} or an
+Partial or pickup measures, such as an @emph{anacrusis} or an
 @emph{upbeat}, are entered using the @code{\partial} command:
 
 @example
@@ -1994,7 +1994,7 @@ the split notes.
 @end lilypond
 
 These engravers split notes with scaled duration, such as those in tuplets,
-into notes with the same scale-factor as in the input note.
+into notes with the same scale factor as in the input note.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
@@ -2254,7 +2254,7 @@ Internals Reference:
 
 @knownissues
 The properties of a beam are determined at the @emph{start} of its
-construction and any additional beam-property changes that occur before
+construction and any additional beam property changes that occur before
 the beam has been completed will not take effect until the @emph{next},
 new beam starts.
 
@@ -2317,7 +2317,7 @@ to the time signature that is currently in force, hence those changes
 must be placed after the @code{\time} command which starts a new time
 signature section, not before it.  New values given to a particular
 time signature are retained and reinstated whenever that time signature
-is re-established.
+is reestablished.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2530,13 +2530,13 @@ If a manual beam is specified with @code{[@dots{}]} set the beam
 as specified, otherwise
 
 @item
-if a beam-ending rule is defined in @code{beamExceptions}
-for the beam-type, use it to determine the valid places where
+if a beam ending rule is defined in @code{beamExceptions}
+for the beam type, use it to determine the valid places where
 beams may end, otherwise
 
 @item
-if a beam-ending rule is defined in @code{beamExceptions}
-for a longer beam-type, use it to determine the valid places
+if a beam ending rule is defined in @code{beamExceptions}
+for a longer beam type, use it to determine the valid places
 where beams may end, otherwise
 
 @item
@@ -2546,7 +2546,7 @@ end beams at the end of beats.
 
 @end itemize
 
-In the rules above, the @emph{beam-type} is the duration of the
+In the rules above, the @emph{beam type} is the duration of the
 shortest note in the beamed group.
 
 The default beaming rules can be found in
@@ -2573,7 +2573,7 @@ The default beaming rules can be found in
 @cindex measure grouping
 @cindex beat, grouping
 @cindex grouping beats
-@cindex measure sub-grouping
+@cindex measure subgrouping
 @cindex conducting signs
 @cindex sign, conducting
 @funindex Measure_grouping_engraver
@@ -3134,7 +3134,7 @@ There are currently ten bar line elements available:
 @end lilypond
 
 The @code{"="} bar line provides the double span bar line, used
-in combination with the segno sign.  Using it as a standalone
+in combination with the segno sign.  Using it as a stand-alone
 double thin bar line is not recommended; in most cases,
 @code{\bar} @var{"||"} is preferred.
 
@@ -3269,7 +3269,7 @@ Internals Reference:
 Various commands other than @code{\bar} can also create bar lines
 as part of their effect.  The bar lines created in these cases can
 be changed by setting context properties.  Bar line types must be
-selected from the pre-defined types or types previously defined
+selected from the predefined types or types previously defined
 with the @code{\defineBarLine} command (@pxref{Bar lines}).
 
 Multiple reasons for creating different automatic bar lines may
@@ -3669,7 +3669,7 @@ hollow circle).
 The style is defined by the property @code{rehearsalMarkFormatter}.  It is
 a function taking the current mark (an integer) and the current
 context as argument.  It should return a markup object.  In the
-following example, @code{rehearsalMarkFormatter} is set to a pre-defined
+following example, @code{rehearsalMarkFormatter} is set to a predefined
 procedure.  After a few measures, it is set to a procedure that
 produces a boxed number.
 

@@ -104,7 +104,7 @@ guitar tuning.  For details, see @ref{Default tablatures}.
 
 There are two staff contexts specific for the notation of ancient
 music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
-described in @ref{Pre-defined contexts}.
+described in @ref{Predefined contexts}.
 
 The @code{GregorianTranscriptionStaff} context creates a staff to
 notate modern Gregorian chant.  It does not show bar lines.
@@ -126,7 +126,7 @@ Notation Reference:
 @ref{Percussion staves},
 @ref{Showing melody rhythms},
 @ref{Default tablatures},
-@ref{Pre-defined contexts},
+@ref{Predefined contexts},
 @ref{Staff symbol},
 @ref{Gregorian chant contexts},
 @ref{Mensural contexts},
@@ -835,7 +835,7 @@ only be hidden when both of its staves are empty.
 Similarly, a common engraving practice in orchestral
 scores is to remove empty groups of staves rather than individual
 staves; that can be achieved by adding the
-@code{Keep_alive_together_engraver} to the relevant staff-grouping
+@code{Keep_alive_together_engraver} to the relevant staff grouping
 context, as explained @ref{Modifying context plug-ins} (see
 @ref{Grouping staves} for the context names).
 
@@ -1309,7 +1309,7 @@ Internals Reference:
 It is very common for one voice to use the same notes as those from
 another voice.  For example, first and second violins playing the same
 phrase during a particular passage of the music.  This is done by
-letting one voice @emph{quote} the other, without having to re-enter the
+letting one voice @emph{quote} the other, without having to reenter the
 music all over again for the second voice.
 
 The @code{\addQuote} command, used in the top level scope, defines a
@@ -1340,7 +1340,7 @@ oboeNotes = \relative {
 @end lilypond
 
 If the music expression used in @code{\quoteDuring} contains notes
-instead of spacer or multimeasure rests then the quote will appear as
+instead of spacer or multi-measure rests then the quote will appear as
 polyphony and may produce unexpected results.
 
 @lilypond[verbatim,quote]

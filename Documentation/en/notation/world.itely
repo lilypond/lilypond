@@ -52,7 +52,7 @@ standard, classical notation.
 
 Standard notation is still used but with pitch differences being
 implicit.  For example, @notation{Arabic music} is notated with semi and
-quarter-tone accidentals but with precise pitch alterations being
+quarter tone accidentals but with precise pitch alterations being
 determined by context.  In the case of @notation{Arabic music}, the init
 file @file{arabic.ly} provides a suitable set of macros and definitions
 that extend the standard notation using Italian note names.  For more
@@ -207,7 +207,7 @@ used instead.  This is a @code{rast} scale using @file{arabic.ly};
 @end lilypond
 
 @noindent
-@qq{Rast} is a heptatonic scale that uses quarter-tone intervals and is
+@qq{Rast} is a heptatonic scale that uses quarter tone intervals and is
 considered the most important and central scale of the
 @qq{Arabic Maqamat}.  For the full list of supported Arabic scales
 please refer to either the @file{hel-arabic.ly} or @file{arabic.ly}
@@ -729,9 +729,9 @@ The following suffixes to English note names are provided.
 @multitable @columnfractions .03 .77
 @item @code{ff} @tab double-flat
 @item @code{f}  @tab flat
-@item @code{k}  @tab koron (about quarter-flat, -3/10 of whole
+@item @code{k}  @tab koron (about quarter flat, -3/10 of whole
                      tone, 60@tie{}cents)
-@item @code{o}  @tab sori (about quarter-sharp, 2/10 of whole
+@item @code{o}  @tab sori (about quarter sharp, 2/10 of whole
                      tone, 40@tie{}cents)
 @item @code{s}  @tab sharp
 @item @code{x}  @tab double-sharp

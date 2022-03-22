@@ -37,7 +37,7 @@ Support for ancient notation includes features for mensural
 notation, Gregorian chant notation, and Kievan square notation.
 These features can be accessed either by modifying style
 properties of graphical objects such as note heads and rests,
-or by using one of the pre-defined contexts for these styles.
+or by using one of the predefined contexts for these styles.
 
 Many graphical objects, such as note heads and flags, accidentals,
 time signatures, and rests, provide a @code{style} property, which
@@ -169,16 +169,16 @@ Music Glossary:
 @subsection Ancient notation---common features
 
 @menu
-* Pre-defined contexts::
+* Predefined contexts::
 * Ligatures::
 * Custodes::
 @end menu
 
 
-@node Pre-defined contexts
-@unnumberedsubsubsec Pre-defined contexts
+@node Predefined contexts
+@unnumberedsubsubsec Predefined contexts
 
-For Gregorian chant and mensural notation, there are pre-defined
+For Gregorian chant and mensural notation, there are predefined
 voice and staff contexts available, which set all the various
 notation signs to values suitable for these styles.  If one is
 satisfied with these defaults, one can proceed directly with note

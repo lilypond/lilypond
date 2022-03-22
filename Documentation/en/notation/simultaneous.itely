@@ -147,7 +147,7 @@ Snippets:
 
 @knownissues
 Chords containing more than two pitches within a staff space,
-such as @samp{<e f! fis!>}, create overlapping noteheads.
+such as @samp{<e f! fis!>}, create overlapping note heads.
 Depending on the situation, better representations might involve
 
 @itemize

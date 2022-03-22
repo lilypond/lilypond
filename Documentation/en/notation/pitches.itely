@@ -476,12 +476,12 @@ Internals Reference:
 @rinternals{accidental-interface}.
 @endmorerefs
 
-@cindex accidental, quarter-tone
-@cindex quarter-tone accidental
+@cindex accidental, quarter tone
+@cindex quarter tone accidental
 
 @knownissues
 There are no generally accepted standards for denoting
-quarter-tone accidentals, so LilyPond's symbols do not conform to
+quarter tone accidentals, so LilyPond's symbols do not conform to
 any standard.
 
 
@@ -598,7 +598,7 @@ form @code{asas} for @code{ases}.
 
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The following table lists note name suffixes
-for quarter-tone accidentals; here the prefixes @notation{semi-} and
+for quarter tone accidentals; here the prefixes @notation{semi-} and
 @notation{sesqui-} respectively mean @q{half} and @q{one and a half}.
 
 @quotation
@@ -912,7 +912,7 @@ operation with:
 \inversion @var{around-pitch} @var{to-pitch} @var{musicexpr}
 @end example
 
-The @code{@var{musicexpr}} is inverted interval-by-interval around
+The @code{@var{musicexpr}} is inverted interval by interval around
 @code{@var{around-pitch}}, and then transposed so that
 @code{@var{around-pitch}} is mapped to @code{@var{to-pitch}}.
 
@@ -1095,7 +1095,7 @@ motive = \relative { c' c g' c, }
 @end lilypond
 
 The combined operation of inversion and retrograde produce the
-retrograde-inversion:
+retrograde inversion:
 
 @lilypond[verbatim,quote]
 octatonicScale = \relative { ees' f fis gis a b c d }
@@ -1261,7 +1261,7 @@ This @emph{warning} clef can be suppressed.
 @end lilypond
 
 By default, a clef that has previously been printed will not be
-re-printed if the same @code{\clef} command is issued again and
+reprinted if the same @code{\clef} command is issued again and
 will be ignored.  The command
 @code{\set Staff.forceClef = ##t} changes this behaviour.
 
@@ -1281,7 +1281,7 @@ To be more precise, it is not the @code{\clef} command itself that
 prints a clef.  Instead, it sets or changes a property of the
 @code{Clef_engraver}, which then decides by its own whether to
 display a clef or not in the current staff.  The @code{forceClef}
-property overrides this decision locally to re-print a clef once.
+property overrides this decision locally to reprint a clef once.
 
 When there is a manual clef change, the glyph of the changed clef
 will be smaller than normal.  This behaviour can be overridden.
@@ -1429,7 +1429,7 @@ Accidentals in the key signature may be printed in octaves other
 than their traditional positions, or in multiple octaves, by
 using the @code{flat-positions} and @code{sharp-positions}
 properties of @code{KeySignature}.  Entries in these properties
-specify the range of staff-positions where accidentals will be
+specify the range of staff positions where accidentals will be
 printed.  If a single position is specified in an entry, the
 accidentals are placed within the octave ending at that staff
 position.
@@ -3071,7 +3071,7 @@ sign:
 }
 @end lilypond
 
-The following work-around can be used: define a function that locally changes
+The following workaround can be used: define a function that locally changes
 the accidental style to @code{forget}:
 
 @lilypond[verbatim,quote]

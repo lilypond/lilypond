@@ -104,7 +104,7 @@ within that bookpart.
 A @code{\paper} block cannot be placed within a @code{\score} block.
 
 The values of the fields filter down this hierarchy, with the values
-set higher in the hierarchy persisting unless they are over-ridden
+set higher in the hierarchy persisting unless they are overridden
 by a value set lower in the hierarchy.
 
 Several @code{\paper} blocks can appear at each of the levels, for
@@ -271,7 +271,7 @@ and wider line widths are set accordingly.
 
 Swapping the paper dimensions @emph{without} having the print rotated
 (like when printing to postcard size, or creating graphics for inclusion
-rather than a standalone document) can be achieved by appending
+rather than a stand-alone document) can be achieved by appending
 @samp{landscape} to the name of the paper size itself:
 
 @example
@@ -398,7 +398,7 @@ The titles (from the @code{\header} block) are treated as a
 system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
 add space between the titles and the first system of the score.
 
-Explicitly defined paper-sizes will override any user-defined top or
+Explicitly defined paper sizes will override any user-defined top or
 bottom margin settings.
 
 
@@ -435,7 +435,7 @@ an alist (association list) containing four @emph{keys}:
 
 @item
 @code{basic-distance} -- the vertical distance, measured in
-staff-spaces, between the @emph{reference points} of the two
+staff spaces, between the @emph{reference points} of the two
 items, when no collisions would result, and no stretching or
 compressing is in effect.  The reference point of a (title or
 top-level) markup is its highest point, and the reference point of
@@ -448,7 +448,7 @@ either @code{padding} or @code{minimum-distance}.
 
 @item
 @code{minimum-distance} -- the smallest allowable vertical
-distance, measured in staff-spaces, between the reference points
+distance, measured in staff spaces, between the reference points
 of the two items, when compressing is in effect.  Values for
 @code{minimum-distance} that are less than @code{padding} are not
 meaningful, since the resulting distance will never be less than
@@ -459,7 +459,7 @@ meaningful, since the resulting distance will never be less than
 @item
 @code{padding} -- the minimum required amount of unobstructed
 vertical whitespace between the bounding boxes (or skylines) of
-the two items, measured in staff-spaces.
+the two items, measured in staff spaces.
 
 @item
 @code{stretchability} -- a unitless measure of the dimension's
@@ -503,7 +503,7 @@ enough space for that.
 Specific methods for modifying alists are discussed in
 @ref{Modifying alists}.  The following example demonstrates the
 two ways these alists can be modified.  The first declaration
-updates one key-value individually, and the second completely
+updates one key value individually, and the second completely
 redefines the variable:
 
 @example
@@ -530,7 +530,7 @@ variable names, the term @q{@code{markup}} refers to both
 @emph{title markups} (@code{bookTitleMarkup} or
 @code{scoreTitleMarkup}) and @emph{top-level markups} (see
 @ref{File structure}).  All distances are measured in
-staff-spaces.
+staff spaces.
 
 Default settings are defined in @file{ly/paper-defaults-init.ly}.
 
@@ -723,7 +723,7 @@ Installed Files:
 @endmorerefs
 
 @knownissues
-Explicitly defined paper-sizes will override any user-defined left or
+Explicitly defined paper sizes will override any user-defined left or
 right margin settings.
 
 
@@ -896,7 +896,7 @@ Default values not listed here are defined in
 @item page-breaking
 @funindex page-breaking
 
-The page-breaking algorithm to use.  Choices are
+The page breaking algorithm to use.  Choices are
 @code{ly:@/minimal-@/breaking}, @code{ly:@/page-@/turn-@/breaking},
 @code{ly:@/one-@/page-@/breaking}, @code{ly:@/one-@/line-@/breaking},
 @code{ly:@/one-@/line-@/auto-@/height-@/breaking}, and @code{ly:@/optimal-@/breaking}.
@@ -910,7 +910,7 @@ Tricks the page breaker into thinking that
 it really is.  For example, if
 @code{page-@/breaking-@/system-@/system-@/spacing.padding} is set to something
 substantially larger than @code{system-@/system-@/spacing.padding}, then the
-page-breaker will put fewer systems on each page.  Default: unset.
+page breaker will put fewer systems on each page.  Default: unset.
 
 @item page-count
 @funindex page-count
@@ -1697,7 +1697,7 @@ The default page breaking may be overridden by inserting
 @code{\pageBreak} or @code{\noPageBreak} commands.  These commands
 are analogous to @code{\break} and @code{\noBreak}.  They should
 be inserted at a bar line.  These commands force and forbid a
-page-break from happening at that bar line.  Of course, the
+page break from happening at that bar line.  Of course, the
 @code{\pageBreak} command also forces a line break.
 
 The @code{\pageBreak} and @code{\noPageBreak} commands may also be
@@ -2020,7 +2020,7 @@ within systems, one for each of the following categories:
 @emph{ungrouped staves},
 
 @item
-@emph{grouped staves} (staves within a staff-group such as
+@emph{grouped staves} (staves within a staff group such as
 @code{ChoirStaff}, etc.), and
 
 @item
@@ -2072,7 +2072,7 @@ The within-system vertical spacing mechanisms are controlled by
 two sets of grob properties.  The first set is associated with the
 @code{VerticalAxisGroup} grob, which is created by all staves and
 non-staff lines.  The second set is associated with the
-@code{StaffGrouper} grob, which can be created by staff-groups,
+@code{StaffGrouper} grob, which can be created by staff groups,
 but only if explicitly called.  These properties are described
 individually at the end of this section.
 
@@ -2182,8 +2182,8 @@ a @code{\score} or @code{\layout} block, and not inside a
 @code{\paper} block.
 
 The following example demonstrates the two ways these alists can
-be modified.  The first declaration updates one key-value
-individually, and the second completely re-defines the property:
+be modified.  The first declaration updates one key value
+individually, and the second completely redefines the property:
 
 @example
 \new Staff \with @{
@@ -2306,12 +2306,12 @@ example, to require a minimum amount of padding between a
 @table @code
 @item staff-staff-spacing
 The distance between consecutive staves within the current
-staff-group.  The @code{staff-staff-spacing} property of an
+staff group.  The @code{staff-staff-spacing} property of an
 individual staff's @code{VerticalAxisGroup} grob can be
 overriden with different spacing settings for that staff.
 
 @item staffgroup-staff-spacing
-The distance between the last staff of the current staff-group and
+The distance between the last staff of the current staff group and
 the staff just below it in the same system, even if one or more
 non-staff lines (such as @code{Lyrics}) exist between the two
 staves.  Does not apply to the bottom staff of a system.  The
@@ -2358,7 +2358,7 @@ These grob properties are described individually above; see
 @ref{Within-system spacing properties}.
 
 Additional properties are involved for staves that are part of a
-staff-group; see @ref{Spacing of grouped staves}.
+staff group; see @ref{Spacing of grouped staves}.
 
 The following example shows how the @code{default-staff-staff-spacing}
 property can affect the spacing of ungrouped staves.
@@ -2424,7 +2424,7 @@ etc.) are contexts that can contain one or more staves
 simultaneously.
 
 The following properties affect the spacing of staves inside
-staff-groups:
+staff groups:
 
 @itemize
 @item @code{VerticalAxisGroup} properties:
@@ -2647,7 +2647,7 @@ by looking at an example that includes no overrides at all.
 }
 @end lilypond
 
-This score isolates both line-breaking and page-breaking information in
+This score isolates both line breaking and page breaking information in
 a dedicated voice.  This technique of creating a breaks voice will help
 keep layout separate from music entry as our example becomes more
 complicated.  Also see @ref{Breaks}.
@@ -3063,14 +3063,14 @@ Internals Reference:
 
 @knownissues
 There is no convenient mechanism to manually override spacing.  The
-following work-around may be used to insert extra space into a score,
+following workaround may be used to insert extra space into a score,
 adjusting the padding value as necessary.
 
 @example
  \override Score.NonMusicalPaperColumn.padding = #10
 @end example
 
-No work-around exists for decreasing the amount of space.
+No workaround exists for decreasing the amount of space.
 
 
 @node New spacing section
@@ -3916,7 +3916,7 @@ that frequently appear in proportional scores.  These include:
 @end itemize
 
 These settings space grace notes strictly, extend tuplet brackets to
-mark both rhythmic start- and stop-points, and allow spanning elements
+mark both rhythmic start and stop points, and allow spanning elements
 to break across systems and pages.  See the respective parts of the manual
 for these related settings.
 
@@ -3967,18 +3967,18 @@ that may be altered for page formatting, set
 
 
 @noindent
-All layout dimensions are displayed in staff-spaces, regardless
+All layout dimensions are displayed in staff spaces, regardless
 of the units specified in the @code{\paper} or @code{\layout} block.
 In the above example, @code{paper-height} has a value of 59.75
 @code{staff-spaces}, and the @code{staff-size} is 20 points (the
 default value).  Note that:
 
-@multitable {1 staff-space} {= (@code{staff-size})/4 * (25.4/72.27) mm}
+@multitable {1 staff space} {= (@code{staff-size})/4 * (25.4/72.27) mm}
 
 @item 1 point
 @tab = (25.4/72.27) mm
 
-@item 1 staff-space
+@item 1 staff space
 @tab = (@code{staff-size})/4 pts
 @item
 @tab = (@code{staff-size})/4 * (25.4/72.27) mm

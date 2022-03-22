@@ -202,7 +202,7 @@ The scheme function @code{magstep} does the opposite: it converts
 a @code{font-size} value into a magnification factor.
 
 The @code{fontSize} property will only affect notational elements
-that are drawn with glyphs, such as noteheads, accidentals,
+that are drawn with glyphs, such as note heads, accidentals,
 scripts, etc.  It will not affect the size of the staff itself,
 nor will it scale stems, beams, or horizontal spacing.  To scale
 stems, beams, and horizontal spacing along with the notation size

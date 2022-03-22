@@ -166,7 +166,7 @@ Installed Files:
 This is the top level notation context.  No other context can
 contain a Score context.  By default the Score context handles
 the administration of time signatures and makes sure that items
-such as clefs, time signatures, and key-signatures are aligned
+such as clefs, time signatures, and key signatures are aligned
 across staves.
 
 A Score context is instantiated implicitly when a
@@ -243,7 +243,7 @@ explicitly.
 @strong{@emph{Voice}}
 
 Corresponds to a voice on a staff.  This context handles the
-conversion of dynamic signs, stems, beams, super- and sub-scripts,
+conversion of dynamic signs, stems, beams, super- and subscripts,
 slurs, ties, and rests.  You have to instantiate this explicitly
 if you require multiple voices on the same staff.
 
@@ -1916,7 +1916,7 @@ change value over time while interpreting a piece of music;
 @code{measurePosition} is an obvious example of
 this.  Context properties are modified with @code{\set}.
 
-For example, multimeasure rests will be combined into a single bar
+For example, multi-measure rests will be combined into a single bar
 (as explained in @ref{Compressing empty measures})
 if the context property @code{skipBars} is set to @code{#t}:
 
@@ -1945,7 +1945,7 @@ set in the current bottom context (typically @code{ChordNames},
 The change is applied @q{on-the-fly}, during the music, so that the
 setting only affects the second group of eighth notes.
 
-Note that the bottom-most context does not always contain the property
+Note that the bottommost context does not always contain the property
 that you wish to change -- for example, attempting to set the
 @code{skipBars} property of the default bottom context, in this case
 @code{Voice}, will have no effect, because skipBars is a property of
@@ -2003,7 +2003,7 @@ are equivalent if the current bottom context is @code{Voice}.
 
 @funindex \once
 Preceding a @code{\set} or @code{\unset} command by @code{\once}
-makes the setting apply to only a single time-step:
+makes the setting apply to only a single time step:
 
 @lilypond[quote,fragment,verbatim]
 c''4
@@ -2214,7 +2214,7 @@ The @code{\tweak} command applies to the music object that immediately
 follows @var{value} in the music stream.
 
 @ignore
-In some cases, it is possible to take a short-cut for tuning
+In some cases, it is possible to take a shortcut for tuning
 graphical objects.  For objects that are created directly from
 an item in the input file, you can use the @code{\tweak} command.
 For example:
@@ -2410,7 +2410,7 @@ properties, grob definitions are subdivided into @emph{grob properties}.
 
 Also, in contrast to normal context properties, grob definitions have
 their own internal @q{bookkeeping} used to keep track of their own
-individual grob properties and any sub-properties.  This means that it
+individual grob properties and any subproperties.  This means that it
 is possible to define those parts within different contexts and yet
 still have the overall grob definition at the time of grob creation from
 all the pieces provided amongst the current context and its parent(s).
@@ -2560,7 +2560,7 @@ support for @q{nested properties}.
 
 If @var{item} is a grob name like @code{Arpeggio} or
 @code{Staff.OttavaBracket}, the result is an @code{\override} of the
-specified grob-type.
+specified grob type.
 
 @example
 \offset @var{property} @var{offsets} [@var{context}.]@var{GrobName}
@@ -2572,10 +2572,10 @@ form, just as it is never used with the @code{\override} command itself.
 The following example uses the @q{override} form to lengthen the
 default arpeggios shown in the first measure to cover the extent of
 the chords more fully.  The arpeggios are stretched by a half
-staff-space to top and bottom.  Also shown is the same operation done on
+staff space to top and bottom.  Also shown is the same operation done on
 the first chord with an ordinary override of the @code{positions}
 property.  This method is not at all expressive of the task of
-@q{stretching by a half staff-space}, as the endpoints must be specified
+@q{stretching by a half staff space}, as the endpoints must be specified
 with absolute rather than relative coordinates.  Furthermore, individual
 overrides would be needed for the other chords, as they vary in size and
 position.
@@ -2670,7 +2670,7 @@ position of the @code{BreathingSign} object.  Compare this with the
 ordinary @code{\tweak} command also demonstrated.  The syntax is
 equivalent; however, the output of @code{\tweak} is less intuitive,
 since @code{BreathingSign.Y-offset} is calculated from the middle
-staff-line.  It is not necessary to know how @code{Y-offset} is
+staff line.  It is not necessary to know how @code{Y-offset} is
 calculated when using @code{\offset}.
 
 @lilypond[quote,verbatim]
@@ -2693,7 +2693,7 @@ include the grob's name.  This is the same as for the @code{\tweak}
 command.
 
 In the following example, the @code{Beam} object is lowered two
-staff-spaces by applying @code{\offset} to the @code{positions}
+staff spaces by applying @code{\offset} to the @code{positions}
 property.
 
 The first application of @code{\offset} requires that the grob's name
@@ -2730,7 +2730,7 @@ takes a @code{number}, @var{offsets} is provided with a list of
 @code{number}s to account for the two segments created by the line
 break.  The bracket piece on the first line is effectively untouched
 since @code{0} is added to its default value of @code{staff-padding}.
-The segment on the second line is raised three staff-spaces from its
+The segment on the second line is raised three staff spaces from its
 default height.  The default height happens to be @code{2}, though it is
 not necessary to know this to achieve the desired positioning.
 
@@ -2780,7 +2780,7 @@ If an alist is a grob property or @code{\paper} variable, its keys
 can be modified individually without affecting other keys.
 
 For example, to reduce the space between adjacent staves in a
-staff-group, use the @code{staff-staff-spacing} property of the
+staff group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
 keys: @code{basic-distance}, @code{minimum-distance},
 @code{padding}, and @code{stretchability}.  The standard settings
@@ -2824,7 +2824,7 @@ Now suppose we want the staves to be as close as possible without
 overlapping.  The simplest way to do this is to set all four alist
 keys to zero.  However, it is not necessary to enter four nested
 declarations, one for each key.  Instead, the property can be
-completely re-defined with one declaration, as an alist:
+completely redefined with one declaration, as an alist:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
@@ -2841,7 +2841,7 @@ completely re-defined with one declaration, as an alist:
 
 Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
-case of @code{staff-staff-spacing}, any unset key-values would be
+case of @code{staff-staff-spacing}, any unset key values would be
 reset to zero (except @code{stretchability}, which takes the value
 of @code{basic-distance} when unset).  Thus the following two
 declarations are equivalent:
@@ -2864,14 +2864,14 @@ the standard settings for @code{padding} and
 @code{minimum-distance} (defined in @file{scm/define-grobs.scm})
 are reset to their default-when-unset values (zero for both keys).
 Defining a property or variable as an alist (of any size) will
-always reset all unset key-values to their default-when-unset
+always reset all unset key values to their default-when-unset
 values.  Unless this is the intended result, it is safer to update
-key-values individually with a nested declaration.
+key values individually with a nested declaration.
 
 @warning{Nested declarations will not work for context property
 alists (such as @code{beamExceptions}, @code{keyAlterations},
 @code{timeSignatureSettings}, etc.).  These properties can only be
-modified by completely re-defining them as alists.}
+modified by completely redefining them as alists.}
 
 
 @node Useful concepts and properties
@@ -3073,8 +3073,8 @@ units (see the following paragraph) by appending
 @code{\staff-space} to the quantity.  Page layout is described in
 detail in @ref{Page layout}.
 
-Scaled distances are always specified in units of the staff-space
-or, rarely, the half staff-space.  The staff-space is the distance
+Scaled distances are always specified in units of the staff space
+or, rarely, the half staff space.  The staff space is the distance
 between two adjacent staff lines.  The default value can be changed
 globally by setting the global staff size, or it can be overridden
 locally by changing the @code{staff-space} property of
@@ -3117,7 +3117,7 @@ Notation Reference:
 The dimensions of a graphical object specify the positions of the left
 and right edges and the bottom and top edges of the objects' bounding
 box as distances from the objects' reference point in units of
-staff-spaces.  These positions are usually coded as two Scheme pairs.
+staff spaces.  These positions are usually coded as two Scheme pairs.
 For example, the text markup command @code{\with-dimensions} takes
 three arguments, the first two of which are a Scheme pair giving the
 left and right edge positions and a Scheme pair giving the bottom and
@@ -3130,7 +3130,7 @@ top edge positions:
 This specifies a bounding box for @var{arg} with its left edge at -5,
 its right edge at 10, its bottom edge at -3 and its top edge at 15,
 all measured from the objects' reference point in units of
-staff-spaces.
+staff spaces.
 
 @morerefs
 Notation Reference:
@@ -3259,7 +3259,7 @@ segments than before.  Explicit use of @code{\break} can guard
 against this situation.
 
 The @code{\alterBroken} command is ineffective for spanner
-properties accessed before line-breaking such as
+properties accessed before line breaking such as
 @code{direction}.
 
 @morerefs
@@ -3510,7 +3510,7 @@ position of the corresponding attachment point of the spanner.
 
 In case of a line break, the values for the end points are
 specified by the @code{left-broken} and @code{right-broken}
-sub-lists of @code{bound-details}.  For example:
+sublists of @code{bound-details}.  For example:
 
 @lilypond[ragged-right,fragment,verbatim,quote]
 \override Glissando.breakable = ##t
@@ -3546,7 +3546,7 @@ computed on the fly, and overriding it has little useful effect.
 
 @item stencil
 Line spanners may have symbols at the beginning or end, which is
-contained in this sub-property.  This is for internal use; it is
+contained in this subproperty.  This is for internal use; it is
 recommended that @code{text} be used instead.
 
 @item text
@@ -3562,8 +3562,8 @@ to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
 @item stencil-align-dir-y
 @item stencil-offset
 Without setting one of these, the stencil is simply put at the
-end-point, centered on the line, as defined by the @code{X} and
-@code{Y} sub-properties.  Setting either @code{stencil-align-dir-y}
+end point, centered on the line, as defined by the @code{X} and
+@code{Y} subproperties.  Setting either @code{stencil-align-dir-y}
 or @code{stencil-offset} will move the symbol at the edge vertically
 relative to the end point of the line:
 
@@ -3586,11 +3586,11 @@ the spanner line.  A value of @code{1} or @code{UP} aligns
 the top edge of the text with the spanner line.
 
 @item arrow
-Setting this sub-property to @code{#t} produces an arrowhead at the
-end-points of the line.
+Setting this subproperty to @code{#t} produces an arrowhead at the
+end points of the line.
 
 @item padding
-This sub-property controls the space between the specified
+This subproperty controls the space between the specified
 end point of the line and the actual end.  Without padding, a
 glissando would start and end in the center of each note head.
 
@@ -3797,7 +3797,7 @@ beginning of a line.  Or to be more precise, before a line break,
 where there is no line break, or after a line break.
 
 Alternatively, these eight combinations may be specified
-by pre-defined functions, defined in @file{scm/output-lib.scm},
+by predefined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
@@ -4065,7 +4065,7 @@ list of three items: the angle of rotation counter-clockwise,
 and the x and y coordinates of the point relative to the object's
 reference point about which the rotation is to be performed.  The
 angle of rotation is specified in degrees and the coordinates in
-staff-spaces.
+staff spaces.
 
 The angle of rotation and the coordinates of the rotation point must
 be determined by trial and error.
@@ -4439,12 +4439,12 @@ e'1
 @end lilypond
 
 The rehearsal mark can also be offset to the right or left of the left
-edge by an arbitrary amount.  The units are staff-spaces:
+edge by an arbitrary amount.  The units are staff spaces:
 
 @lilypond[verbatim,quote,fragment]
 % The RehearsalMark will be aligned
 % with the left edge of the Key Signature
-% and then shifted right by 3.5 staff-spaces
+% and then shifted right by 3.5 staff spaces
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
@@ -4453,7 +4453,7 @@ edge by an arbitrary amount.  The units are staff-spaces:
 e'1
 % The RehearsalMark will be aligned
 % with the left edge of the Key Signature
-% and then shifted left by 2 staff-spaces
+% and then shifted left by 2 staff spaces
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
@@ -4619,11 +4619,11 @@ The syntax of @code{\shape} is
 [-]\shape @var{displacements} @var{item}
 @end example
 
-This will reposition the control-points of @var{item} by the amounts
+This will reposition the control points of @var{item} by the amounts
 given by @var{displacements}.  The @var{displacements} argument is a
 list of number pairs or a list of such lists.  Each element of a pair
 represents the displacement of one of the coordinates of a
-control-point.  If @var{item} is a string, the result is
+control point.  If @var{item} is a string, the result is
 @code{\once\override} for the specified grob type.  If @var{item} is
 a music expression, the result is the same music expression with an
 appropriate tweak applied.
@@ -4633,14 +4633,14 @@ In other words, the @code{\shape} function can act as either a
 on whether the @var{item} argument is a grob name, like @qq{Slur},
 or a music expression, like @qq{(}.  The @var{displacements} argument
 specifies the displacements of the four control points as a list of
-four pairs of (dx . dy) values in units of staff-spaces (or a list
+four pairs of (dx . dy) values in units of staff spaces (or a list
 of such lists if the curve has more than one segment).
 
 The leading hyphen is required if and only if the @code{\tweak} form
 is being used.
 
 So, using the same example as above and the @code{\once\override}
-form of @code{\shape}, this will raise the tie by half a staff-space:
+form of @code{\shape}, this will raise the tie by half a staff space:
 
 @lilypond[verbatim,quote]
 <<
@@ -4745,7 +4745,7 @@ automatically.
 @subsubsubheading Specifying control points explicitly
 
 The coordinates of the Bézier control points are specified in units
-of staff-spaces.  The X@tie{}coordinate is relative to the reference
+of staff spaces.  The X@tie{}coordinate is relative to the reference
 point of the note to which the tie or slur is attached, and the
 Y@tie{}coordinate is relative to the staff center line.  The
 coordinates are specified as a list of four pairs of decimal numbers

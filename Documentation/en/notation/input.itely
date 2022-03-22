@@ -369,7 +369,7 @@ It does this by adding a suffix to the output name for each
 @code{\book} which uses the default output file name derived from the
 input source file.
 
-The default behaviour is to append a version-number suffix for each
+The default behaviour is to append a version number suffix for each
 name which may clash, so
 
 @example
@@ -407,9 +407,9 @@ as output files.
 @funindex \bookOutputName
 
 LilyPond provides facilities to allow you to control what file names
-are used by the various back-ends when producing output files.
+are used by the various backends when producing output files.
 
-In the previous section, we saw how LilyPond prevents name-clashes when
+In the previous section, we saw how LilyPond prevents name clashes when
 producing several outputs from a single source file.  You also have the
 ability to specify your own suffixes for each @code{\book} block, so
 for example you can produce files called
@@ -751,7 +751,7 @@ Within a @code{\score} block.
 @end itemize
 
 The values of the fields filter down this hierarchy, with the values
-set higher in the hierarchy persisting unless they are over-ridden
+set higher in the hierarchy persisting unless they are overridden
 by a value set lower in the hierarchy, so:
 
 @itemize
@@ -834,7 +834,7 @@ suitable, as here:
 
 More complicated arrangements are possible.  For example, text
 fields from the @code{\header} block in a book can be displayed in
-all Score Titles, with some fields over-ridden and some manually
+all Score Titles, with some fields overridden and some manually
 suppressed:
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
@@ -1500,7 +1500,7 @@ containing a footnote.
 
 @item offset
 is a number pair such as @samp{#(2 . 1)} specifying the X and
-Y@tie{}offsets in units of staff-spaces from the boundary of the
+Y@tie{}offsets in units of staff spaces from the boundary of the
 object where the mark should be placed.  Positive values of the
 offsets are taken from the right/top edge, negative values from the
 left/bottom edge and zero implies the mark is centered on the edge.
@@ -1662,7 +1662,7 @@ footnotes are numbered from the higher to the lower elements as they
 appear in the printed output, not in the order in which they are
 written in the input stream.}
 
-Layout objects like clefs and key-change signatures are mostly caused
+Layout objects like clefs and key change signatures are mostly caused
 as a consequence of changed properties rather than actual events.
 Others, like bar lines and bar numbers, are a direct consequence of
 timing.  For this reason, footnotes on such objects have to be based
@@ -1966,7 +1966,7 @@ of the preceeding labeled items, thus making the score's structure
 apparent in the table of contents.
 
 Markups used for formatting the table of contents are defined in the
-@code{\paper} block.  There are three @q{pre-defined} markups already
+@code{\paper} block.  There are three @q{predefined} markups already
 available;
 
 @itemize
@@ -2034,7 +2034,7 @@ Here is an example translating the table of contents' title into French:
   }
 @end verbatim
 
-Here is an example changing the font-size of the elements in the table
+Here is an example changing the font size of the elements in the table
 of contents:
 
 @verbatim
@@ -2231,7 +2231,7 @@ statements of their own.  These second-level
 @code{\include} statements are then interpreted relatively
 to the path of the file containing that command, which is
 convenient for multiple files located in the same subdirectory.
-For example, a general library, libA, may itself use sub-files which
+For example, a general library, libA, may itself use subfiles which
 are @code{\include}d by the entry file of that library, like this:
 
 @example
@@ -2684,7 +2684,7 @@ the octave relations to change, as only the pitches actually
 remaining in the filtered expression will be considered.  Applying
 @code{\relative} first, before @code{\keepWithTag} or
 @code{\removeWithTag}, avoids this danger as @code{\relative} then
-acts on all the pitches as-input.
+acts on all the pitches as input.
 
 
 @node Using global settings
@@ -2940,7 +2940,7 @@ the mapping of a subset of the Unicode code points to glyphs.
 LilyPond uses the Pango library to layout and render multi-lingual
 texts.
 
-LilyPond does not perform any input-encoding conversions.  This
+LilyPond does not perform any input encoding conversions.  This
 means that any text, be it title, lyric text, or musical
 instruction containing non-ASCII characters, must be encoded in
 UTF-8.  The easiest way to enter such text is by using a
@@ -3145,8 +3145,8 @@ option;
 
 @noindent
 This example will extract a single fragment of the input file
-@emph{starting} after a half-note duration in fifth measure
-(@code{5 1 2}) and @emph{ending} after the third quarter-note in the
+@emph{starting} after a half note duration in fifth measure
+(@code{5 1 2}) and @emph{ending} after the third quarter note in the
 seventh measure (@code{7 3 4}).
 
 Additional fragments can be extracted by adding more pairs of
@@ -3772,7 +3772,7 @@ definitions or code that sets the values of certain properties.
 @}
 @end example
 
-Here the tempo is set to 72 quarter-note beats per minute.  The tempo
+Here the tempo is set to 72 quarter note beats per minute.  The tempo
 mark in the @code{\midi} block will not appear in the printed score.
 Although any other @code{\tempo} indications specified within the
 @code{\score} block will also be reflected in the MIDI output.
