@@ -24,6 +24,26 @@
 
 #include <cassert>
 
+/*
+  Grobs contain internal links to other grobs.  For instance,
+  every script contains an array of grobs it takes into account
+  for positioning.  After a line breaking configuration has been
+  picked, spanners and breakable items are broken in as many
+  systems as they span.  Break substitution is the process of
+  making the systems independent by substituting grobs in the
+  internal links with broken grobs living on the same system as
+  the grob where the substitution happens.
+
+  There is a little more to it, however.  Breaking breakable items
+  is actually done before line breaking (the broken pieces are
+  used during pure calculations and line breaking).  Therefore,
+  there is a first pass of break substitution before line breaking,
+  only applying to the items contained in links held by items.
+  Here, the criterion for finding the right broken piece is not
+  being on the same system but having the same break direction.
+*/
+
+
 using std::vector;
 
 /*
