@@ -2621,13 +2621,25 @@ and returns a stencil."
                       (markup->string note #:layout layout #:props props))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
-@lilypond[verbatim,quote]
-\\markup {
-  \\auto-footnote a b
+@c we don't want to display \\book
+@example
+\\markup @{
+  \\footnote a b
   \\override #'(padding . 0.2)
-  \\auto-footnote c d
+  \\footnote c d
+@}
+@end example
+@lilypond[quote,ragged-right,papersize=a8]
+\\book {
+  \\header { tagline = ##f }
+  \\markup {
+    \\footnote a b
+    \\override #'(padding . 0.2)
+    \\footnote c d
+  }
 }
 @end lilypond
+
 The footnote will not be annotated automatically."
   (ly:stencil-combine-at-edge
    (interpret-markup layout props mkup)
@@ -2649,13 +2661,25 @@ The footnote will not be annotated automatically."
                       (markup->string note #:layout layout #:props props))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
-@lilypond[verbatim,quote]
-\\markup {
+@c we don't want to display \\book
+@example
+\\markup @{
   \\auto-footnote a b
   \\override #'(padding . 0.2)
   \\auto-footnote c d
+@}
+@end example
+@lilypond[quote,ragged-right,papersize=a8]
+\\book {
+  \\header { tagline = ##f }
+  \\markup {
+    \\auto-footnote a b
+    \\override #'(padding . 0.2)
+    \\auto-footnote c d
+  }
 }
 @end lilypond
+
 The footnote will be annotated automatically."
   (let* ((markup-stencil (interpret-markup layout props mkup))
          (footnote-hash (gensym "footnote"))

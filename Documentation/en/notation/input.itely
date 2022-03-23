@@ -1737,20 +1737,18 @@ created in different ways.
 The syntax of a footnote in stand-alone text with automatic marks is
 
 @example
-\markup @{ @dots{} \footnote @var{text} @var{footnote} @dots{} @}
+\markup @{ @dots{} \auto-footnote @var{text} @var{footnote} @dots{} @}
 @end example
 
 The elements are:
 
 @table @var
-
 @item text
-is the markup or string to be marked.
+the markup or string to be marked,
 
 @item footnote
-is the markup or string specifying the footnote text to use at the bottom
+the markup or string specifying the footnote text to use at the bottom
 of the page.
-
 @end table
 
 For example:
@@ -1760,9 +1758,9 @@ For example:
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \footnote "tune" \italic " By me"
+    \auto-footnote "tune" \italic " By me"
     "is shown below.  It is a"
-    \footnote "recent" \italic " Aug 2012"
+    \auto-footnote "recent" \italic " Aug 2012"
     "composition."
   }
   \relative {
