@@ -294,7 +294,7 @@ will normally be typeset in the form of a single output file.
 @}
 @end example
 
-One important exception is within lilypond-book documents,
+One important exception is within @command{lilypond-book} documents,
 where you explicitly have to add a @code{\book} block, otherwise only
 the first @code{\score} or @code{\markup} will appear in the output.
 
@@ -523,7 +523,7 @@ for each @code{\book} block, in which all corresponding movements
 are concatenated.  The only reason to explicitly specify
 @code{\book} blocks in a @file{.ly} file is if you wish to create
 multiple output files from a single input file.  One exception is
-within lilypond-book documents, where you explicitly have to add
+within @command{lilypond-book} documents, where you explicitly have to add
 a @code{\book} block if you want more than a single @code{\score}
 or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
@@ -1470,7 +1470,7 @@ root cause of a stem or flag is undefined.  So for annotating those,
 time-based footnotes are preferable as well.
 
 A time-based footnote allows such layout objects to be annotated
-without referring to an event.  The general form for Time-based
+without referring to an event.  The general form for time-based
 footnotes is:
 
 @example
@@ -1486,8 +1486,8 @@ The elements for both forms are:
 @item direction
 If (and only if) the @code{\footnote} is being applied to a
 post-event or articulation, it must be preceded with a direction
-indicator (@code{-, _, ^}) in order to attach @var{music} (with
-a footnote mark) to the preceding note or rest.
+indicator (@samp{-}, @samp{_}, @samp{^}) in order to attach
+@var{music} (with a footnote mark) to the preceding note or rest.
 
 @item mark
 @funindexpost \default
@@ -1567,11 +1567,11 @@ notes @emph{inside} of the chord can be marked:
 
 If the footnote is to be attached to a post-event or articulation
 the @code{\footnote} command @emph{must} be preceded by a direction
-indicator, @code{-, _, ^}, and followed by the post-event or
-articulation to be annotated as the @var{music} argument.  In this
-form the @code{\footnote} can be considered to be simply a copy of
-its last argument with a footnote mark attached to it.  The syntax
-is:
+indicator (@samp{-}, @samp{_}, @samp{^}), and followed by the
+post-event or articulation to be annotated as the @var{music}
+argument.  In this form the @code{\footnote} can be considered to
+be simply a copy of its last argument with a footnote mark attached
+to it.  The syntax is:
 
 @example
 @var{direction} \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
@@ -1613,8 +1613,8 @@ is required after the footnote text instead of @var{music}:
 }
 @end lilypond
 
-Note, however, that when a GrobName is specified, a footnote
-will be attached to all grobs of that type at the current time step:
+Note, however, that when a @var{GrobName} is specified, a footnote
+is attached to all grobs of that type at the current time step:
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
@@ -1792,9 +1792,9 @@ bottom of the page, preceded by the @var{mark}.
 
 @end table
 
-Any easy-to-type character such as * or + may be used as a mark, as
-shown in @ref{Footnotes in music expressions}.  Alteratively, ASCII
-aliases may be used (see @ref{ASCII aliases}):
+Any easy to type character such as @samp{*} or @samp{+} may be used
+as a mark, as shown in @ref{Footnotes in music expressions}.
+Alteratively, ASCII aliases may be used (@pxref{ASCII aliases}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1960,7 +1960,7 @@ inside a music expression.
 Optionally, a label can be associated with a particular item, or a
 hierarchical list of existing labels, finishing with that item's
 label.  That latter case allows to mark the item as a @q{child}
-of the preceeding labeled items, thus making the score's structure
+of the preceding labeled items, thus making the score's structure
 apparent in the table of contents.
 
 Markups used for formatting the table of contents are defined in the

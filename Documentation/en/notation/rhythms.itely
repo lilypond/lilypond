@@ -2408,11 +2408,11 @@ compatible with the new value of @code{baseMoment}.
 @code{baseMoment} is a @dfn{moment}; a unit of musical duration.  A
 quantity of type @q{moment} is created by the Scheme function
 @code{ly:make-moment}.  For more information about this function,
-see @ref{Time administration}.
+@pxref{Time administration}.
 
 By default @code{baseMoment} is set to one over the denominator of
-the time signature. Any exceptions to this default can be found in
-@file{scm/time-signature-settings.scm}.
+the time signature.  Any exceptions to this default can be found in
+@file{scm/time-@/signature-@/settings.scm}.
 
 @subsubsubheading Beaming based on @code{beamExceptions}
 
@@ -2422,7 +2422,7 @@ are defined in the @code{beamExceptions} property.
 The value for @code{beamExceptions}, a somewhat complex Scheme
 data structure, is easiest generated with the
 @code{\beamExceptions} function.  This function is given one or
-more manually beamed measure-length rhythmic patterns (measures
+more manually beamed measure-long rhythmic patterns (measures
 have to be separated by a bar check@tie{}@code{|} since the
 function has no other way to discern the measure length).  Here is
 a simple example:
@@ -4293,6 +4293,8 @@ Snippets:
 @funindex currentBarNumber
 @funindex measurePosition
 @funindex measureLength
+
+@funindex Timing
 
 Time is administered by the @code{Timing_translator}, which by
 default is to be found in the @code{Score} context.  An alias,

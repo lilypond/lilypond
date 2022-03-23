@@ -1581,9 +1581,10 @@ mychordlist = {
 @end lilypond
 
 
-The predefined fret diagram table for guitar contains eight chords (major, minor,
-augmented, diminished, dominant seventh, major seventh, minor seventh, dominant ninth)
-for each of 17 keys.
+The predefined fret diagram table for guitar contains eight chords
+(major, minor, augmented, diminished, dominant seventh, major
+seventh, minor seventh, dominant ninth) for each of 17@tie{}keys.
+
 The predefined fret diagram table for ukulele contains these chords
 plus an additional three chords (major sixth, suspended second, and
 suspended fourth).
@@ -1614,10 +1615,10 @@ mychords = \chordmode {
 @cindex custom fret diagram, adding
 @cindex adding custom fret diagram
 
-Fret diagrams can be added to the fret diagram table.  To add a diagram,
-you must specify the hash table for the diagram, the chord for the
-diagram, the tuning to be used, and
-a definition for the diagram.  Normally, the hash table will be
+Fret diagrams can be added to the fret diagram table.  To add a
+diagram, you must specify the hash table for the diagram, the chord
+for the diagram, the tuning to be used, and a definition for the
+diagram.  Normally, the hash table will be
 @var{default-fret-table}.  The diagram definition can be either a
 @code{\fret-diagram-terse} definition string or a
 @code{\fret-diagram-verbose} marking list.

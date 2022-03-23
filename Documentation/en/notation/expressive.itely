@@ -243,7 +243,7 @@ R1\fermata
 @end lilypond
 
 In addition to articulations, text and markups can be attached to
-notes.  See @ref{Text scripts}.
+notes.  @xref{Text scripts}.
 
 For more information about the ordering of @code{Script} and
 @code{TextScript} grobs that are attached to notes, see
@@ -1419,7 +1419,7 @@ The dash properties of the parenthesis arpeggio are controlled
 with the @code{dash-definition} property (@pxref{Slurs}).
 
 Arpeggios can be explicitly written out with ties.  For more
-information, see @ref{Ties}.
+information, @pxref{Ties}.
 
 
 @predefined

@@ -1918,7 +1918,7 @@ The following commands can all be used with @code{\markuplist}:
 @appendixsec List of special characters
 
 The following special characters references can be used;
-for more details, see @ref{ASCII aliases}.
+for more details, @pxref{ASCII aliases}.
 
 The HTML syntax is used and most of these references are the same as HTML.
 The rest of them are inspired by @LaTeX{}.

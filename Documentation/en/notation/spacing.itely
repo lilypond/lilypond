@@ -51,7 +51,7 @@ to be the same for all scores in a book or bookpart, such as the
 paper height, or whether to print page numbers, etc.  See
 @ref{Page layout}.  The @code{\layout} block contains score layout
 settings, such as the number of systems to use, or the space
-between staff-groups, etc.  See @ref{Score layout}.
+between staff groups, etc.  @xref{Score layout}.
 
 @menu
 * Page layout::
@@ -1047,8 +1047,8 @@ Installed Files:
 
 @knownissues
 Odd page numbers are always on the right.  If you want the
-music to start on page 1 there must be a blank page on the back
-of the cover page so that page 1 is on the right hand side.
+music to start on page@tie{}1 there must be a blank page on the back
+of the cover page so that page@tie{}1 is on the right-hand side.
 
 
 @node paper variables concerning headers and markups

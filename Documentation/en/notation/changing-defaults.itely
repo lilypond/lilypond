@@ -3499,7 +3499,7 @@ e''2 \glissando b'
 e''2 \glissando b'
 @end lilypond
 
-The units for the @code{Y} property are @code{staff-space}s,
+The units for the @code{Y} property are @dfn{staff spaces},
 with the center line of the staff being the zero point.
 For the glissando, this is the value for @code{Y} at the
 X-coordinate corresponding to the center point of each note head,

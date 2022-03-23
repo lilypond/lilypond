@@ -2837,7 +2837,7 @@ chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
   \hide Stem
-  c'\breve \hide NoteHead  c c c c c
+  c'\breve \hide NoteHead c c c c c
   \undo \hide NoteHead
   \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior

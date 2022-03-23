@@ -673,7 +673,7 @@ g'8 \huge r4 a'16 f'
 If that color code includes an alpha channel for semi-transparency,
 by using an eight-character code @var{"#RRGGBBAA"} or its
 shorthand form @var{"#RGBA"}, it will be used in SVG output
-but not in PostScript/PDF output.  In the previous example,
+but not in PostScript/@/PDF output.  In the previous example,
 the rest can be seen through only if the code is compiled with
 the SVG backend, as explained in
 @ref{Alternative output formats}.
