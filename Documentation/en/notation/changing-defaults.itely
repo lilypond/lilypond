@@ -4331,17 +4331,19 @@ example shows the difference:
 @funindex break-align-symbols
 
 Rehearsal marks and bar numbers may be aligned with notation
-objects other than bar lines.  These objects include @code{ambitus},
-@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
-@code{left-edge}, @code{key-cancellation}, @code{key-signature}, and
-@code{time-signature}.
+objects other than bar lines.  To be more precise, breakable items
+have a @code{break-@/align-@/symbol} property, providing symbols
+that can be used as @q{anchor points} for other objects via the
+@code{break-@/align-@/symbols} property.  See
+@rinternals{break-alignment-interface}, for a complete list of
+available symbols.
 
 Each type of object has its own default reference point, to which
 rehearsal marks are aligned:
 
 @lilypond[verbatim,quote,fragment]
 % The rehearsal mark will be aligned
-% to the right edge of the Clef
+% to the right edge of the clef
 \override Score.RehearsalMark.break-align-symbols =
             #'(clef)
 \key a \major
@@ -4349,7 +4351,7 @@ rehearsal marks are aligned:
 \mark "↓"
 e'1
 % The rehearsal mark will be aligned
-% to the left edge of the Time Signature
+% to the left edge of the time signature
 \override Score.RehearsalMark.break-align-symbols =
             #'(time-signature)
 \key a \major
@@ -4358,7 +4360,7 @@ e'1
 \mark "↓"
 e'2.
 % The rehearsal mark will be centered
-% above the Breath Mark
+% above the breathing mark
 \override Score.RehearsalMark.break-align-symbols =
             #'(breathing-sign)
 \key a \major
@@ -4380,7 +4382,7 @@ line would be.
 
 @lilypond[verbatim,quote,fragment]
 % The rehearsal mark will be aligned
-% to the right edge of the Key Signature
+% to the right edge of the key signature
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
@@ -4388,7 +4390,7 @@ line would be.
 \mark "↓"
 e'1
 % The rehearsal mark will be aligned
-% to the right edge of the Clef
+% to the right edge of the clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature clef)
@@ -4397,7 +4399,7 @@ e'1
 \mark "↓"
 gis,1
 % The rehearsal mark will be centered
-% above the Bar Line
+% above the bar line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols =
@@ -4413,8 +4415,8 @@ can be changed, as shown in the following example.  In a score with
 multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned
-% with the right edge of the Key Signature
+% The rehearsal mark will be aligned
+% with the right edge of the key signature
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature)
 \key a \major
@@ -4422,15 +4424,15 @@ multiple staves, this setting should be done for all the staves.
 \time 4/4
 \mark "↓"
 e'1
-% The RehearsalMark will be centered
-% above the Key Signature
+% The rehearsal mark will be centered
+% above the key signature
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #CENTER
 \mark "↓"
 \key a \major
 e'1
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
+% The rehearsal mark will be aligned
+% with the left edge of the key signature
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #LEFT
 \key a \major
@@ -4442,8 +4444,8 @@ The rehearsal mark can also be offset to the right or left of the left
 edge by an arbitrary amount.  The units are staff spaces:
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
+% The rehearsal mark will be aligned
+% with the left edge of the key signature
 % and then shifted right by 3.5 staff spaces
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature)
@@ -4451,8 +4453,8 @@ edge by an arbitrary amount.  The units are staff spaces:
 \key a \major
 \mark "↓"
 e'1
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
+% The rehearsal mark will be aligned
+% with the left edge of the key signature
 % and then shifted left by 2 staff spaces
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major

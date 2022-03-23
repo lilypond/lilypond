@@ -448,6 +448,7 @@ key-cancellation
 key-signature
 left-edge
 staff-bar
+staff-ellipsis
 time-signature
 @end example
                )",
