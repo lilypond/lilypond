@@ -3482,8 +3482,8 @@ Some objects may support specific additional styles.
 @node Line spanners
 @subsection Line spanners
 
-Some performance indications, e.g., @i{rallentando} and
-@i{accelerando} and trills are written as text and are extended
+Some performance indications, e.g., @emph{rallentando} and
+@emph{accelerando} and trills are written as text and are extended
 over many measures with lines, sometimes dotted or wavy.
 
 The locations of the two end points of the spanner are computed on
@@ -3551,7 +3551,7 @@ recommended that @code{text} be used instead.
 
 @item text
 This is a markup that is evaluated to yield the stencil.  It is used
-to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
+to put @emph{cresc.}, @emph{tr}, and other text on horizontal spanners.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text

@@ -133,8 +133,8 @@ cadenza-like passages or in cases such as the above examples.
 Setting the @code{\magnifyMusic} value to 0.63 duplicates the
 dimensions of the @code{CueVoice} context.
 
-@warning{The @code{\magnifyMusic} command should @i{not} be
-used when also resizing the staff.  See @ref{Setting the staff
+@warning{The @code{\magnifyMusic} command should @emph{not} be
+used when also resizing the staff.  @xref{Setting the staff
 size}.}
 
 
@@ -210,8 +210,8 @@ stems, beams, and horizontal spacing along with the notation size
 command discussed above.  To scale everything, including the staff
 size, see @ref{Setting the staff size}.
 
-Whenever the @code{fontSize} @i{context property} is set, its
-value is added to the value of the @code{font-size} @i{grob
+Whenever the @code{fontSize} @emph{context property} is set, its
+value is added to the value of the @code{font-size} @emph{grob
 property} for individual layout objects, before any glyphs are
 printed.  This can cause confusion when setting individual
 @code{font-size} properties while @code{fontSize} is already set:

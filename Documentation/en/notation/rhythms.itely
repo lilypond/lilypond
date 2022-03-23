@@ -2405,8 +2405,8 @@ compatible with the new value of @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} is a @i{moment}; a unit of musical duration.  A
-quantity of type @i{moment} is created by the scheme function
+@code{baseMoment} is a @dfn{moment}; a unit of musical duration.  A
+quantity of type @q{moment} is created by the Scheme function
 @code{ly:make-moment}.  For more information about this function,
 see @ref{Time administration}.
 
@@ -4172,9 +4172,9 @@ Internals Reference:
 @cindex multi-note acciaccatura
 @cindex grace note, synchronization
 
-A multi-note beamed @i{acciaccatura} is printed without a slash,
+A multi-note beamed @dfn{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
-@i{appoggiatura}.
+@dfn{appoggiatura}.
 
 @c TODO Add link to LSR snippet to add slash when available
 
