@@ -761,9 +761,9 @@ For more information see @ref{Formatting text}.
 * Time Signature glyphs::
 * Number glyphs::
 * Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
+* Default note head glyphs::
+* Special note head glyphs::
+* Note head glyphs for shape notes::
 * Rest glyphs::
 * Flag glyphs::
 * Dot glyphs::
@@ -825,8 +825,8 @@ For more information see @ref{Formatting text}.
 @end lilypond
 
 
-@node Default Notehead glyphs
-@unnumberedsubsec Default Notehead glyphs
+@node Default note head glyphs
+@unnumberedsubsec Default note head glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -835,8 +835,8 @@ For more information see @ref{Formatting text}.
 @end lilypond
 
 
-@node Special Notehead glyphs
-@unnumberedsubsec Special Notehead glyphs
+@node Special note head glyphs
+@unnumberedsubsec Special note head glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -845,8 +845,8 @@ For more information see @ref{Formatting text}.
 @end lilypond
 
 
-@node Shape-note Notehead glyphs
-@unnumberedsubsec Shape-note Notehead glyphs
+@node Note head glyphs for shape notes
+@unnumberedsubsec Note head glyphs for shape notes
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
