@@ -506,7 +506,7 @@ class FileLink:
         name = self.name() + self.extension()
 
         cells = ['', '']
-        for oldnew in (0, 1):
+        for oldnew in [0, 1]:
             file = self.get_file(oldnew)
             class_attr, cell = self.get_cell(oldnew)
             if class_attr:
