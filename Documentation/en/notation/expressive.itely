@@ -245,8 +245,9 @@ R1\fermata
 In addition to articulations, text and markups can be attached to
 notes.  See @ref{Text scripts}.
 
-For more information about the ordering of Scripts and TextScripts that
-are attached to the notes, see @rlearning{Placement of objects}.
+For more information about the ordering of @code{Script} and
+@code{TextScript} grobs that are attached to notes, see
+@rlearning{Placement of objects}.
 
 
 @snippets

@@ -234,7 +234,7 @@ a piece in mensural style.
 @node Bottom-level contexts -- voices
 @unnumberedsubsubsec Bottom-level contexts -- voices
 
-Voice-level contexts initialise certain properties and start
+@code{Voice}-level contexts initialise certain properties and start
 appropriate engravers.  A bottom-level context is one without
 @code{defaultchild}.  While it is possible to let it
 accept/@/contain subcontexts, they can only be created and entered
@@ -3521,13 +3521,13 @@ f''1
 
 
 A number of further properties of the @code{left} and
-@code{right} sub-lists of the @code{bound-details} property
+@code{right} sublists of the @code{bound-details} property
 may be modified in the same way as @code{Y}:
 
 @table @code
 @item Y
-This sets the Y-coordinate of the end point, in @code{staff-space}s
-offset from the staff center line.  By default, it is the center of
+This sets the Y-coordinate of the end point, measured in staff
+spaces from the staff center line.  By default, it is the center of
 the bound object, so a glissando points to the vertical center of
 the note head.
 
@@ -3763,7 +3763,7 @@ a'1
 {snippets/using-the-whiteout-property.ly}
 
 @node Using break-visibility
-@unnumberedsubsubsec Using break-visibility
+@unnumberedsubsubsec Using @code{break-visibility}
 
 @c TODO Add making other objects breakable
 

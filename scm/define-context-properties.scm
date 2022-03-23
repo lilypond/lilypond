@@ -831,8 +831,8 @@ should be manipulated through the @code{add-grace-property} function.")
 
      (hasAxisGroup ,boolean? "True if the current context is contained
 in an axis group.")
-     (hasStaffSpacing ,boolean? "True if the current
-@code{CommandColumn} contains items that will affect spacing.")
+     (hasStaffSpacing ,boolean? "True if @code{currentCommandColumn}
+contains items that will affect spacing.")
 
 
      (lastChord ,markup? "Last chord, used for detecting chord changes.")

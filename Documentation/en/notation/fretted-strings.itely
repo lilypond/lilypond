@@ -894,8 +894,8 @@ LilyPond automatically calculates the number of lines in the
 calculated @code{FretBoard} as the number of elements
 in @code{stringTunings}.
 
-To let all TabStaff contexts use the same custom tuning by default,
-you can use
+To let all @code{TabStaff} contexts use the same custom tuning
+by default, you can use
 
 @example
 \layout @{
@@ -934,7 +934,8 @@ The modern tab clef supports tablatures from 4 to 7 strings.
 @code{TabStaff} may support microtones like quarter tones, which
 can be played using bendings.
 @code{supportNonIntegerFret = ##t} needs to be set in
-Score-context.  However, microtones are not supported in @code{FretBoards}.
+@code{Score} context.  However, microtones are not supported in
+@code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
@@ -1586,11 +1587,12 @@ for each of 17 keys.
 The predefined fret diagram table for ukulele contains these chords
 plus an additional three chords (major sixth, suspended second, and
 suspended fourth).
-A complete list of the predefined fret diagrams is
-shown in @ref{Predefined fretboard diagrams}.  If there is no entry in
-the table for a chord, the FretBoards engraver will calculate a
-fret diagram using the automatic fret diagram functionality described in
-@ref{Automatic fret diagrams}.
+
+@xref{Predefined fretboard diagrams}, for a complete list of the
+predefined fret diagrams.  If there is no entry in the table for a
+chord, the @code{FretBoards} engraver calculates a fret diagram
+using the automatic fret diagram functionality, @pxref{Automatic
+fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1853,7 +1855,7 @@ the notes will then be placed appropriately by the
 @cindex fret diagram, adding fingering
 @cindex fingering, adding to fret diagram
 
-Fingerings can be added to FretBoard fret diagrams.
+Fingerings can be added to @code{FretBoard} fret diagrams.
 
 @lilypond[quote, verbatim]
 <<
@@ -1877,7 +1879,7 @@ Fingerings can be added to FretBoard fret diagrams.
 @funindex minimumFret
 
 The minimum fret to be used in calculating strings and frets for
-the FretBoard context can be set with the @code{minimumFret}
+the @code{FretBoard} context can be set with the @code{minimumFret}
 property.
 
 @lilypond[quote, verbatim]
@@ -1902,7 +1904,7 @@ property.
 
 The strings and frets for the @code{FretBoards} context depend
 on the @code{stringTunings} property, which has the same meaning
-as in the TabStaff context.  See @ref{Custom tablatures} for
+as in the @code{TabStaff} context.  @xref{Custom tablatures}, for
 information on the @code{stringTunings} property.
 
 The graphical layout of a fret diagram can be customized according to

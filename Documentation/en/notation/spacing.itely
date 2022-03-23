@@ -3973,7 +3973,7 @@ that may be altered for page formatting, set
 All layout dimensions are displayed in staff spaces, regardless
 of the units specified in the @code{\paper} or @code{\layout} block.
 In the above example, @code{paper-height} has a value of 59.75
-@code{staff-spaces}, and the @code{staff-size} is 20 points (the
+staff spaces, and the @code{staff-size} is 20 points (the
 default value).  Note that:
 
 @multitable {1 staff space} {= (@code{staff-size})/4 * (25.4/72.27) mm}
@@ -3989,9 +3989,9 @@ default value).  Note that:
 @end multitable
 
 @noindent
-In this case, one @code{staff-space} is approximately equal to
+In this case, one staff space is approximately equal to
 1.757mm.  Thus the @code{paper-height} measurement of 59.75
-@code{staff-spaces} is equivalent to 105 millimeters, the height
+staff spaces is equivalent to 105 millimeters, the height
 of @code{a6} paper in landscape orientation.  The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower
 edge and @var{b} the upper edge of the interval.
