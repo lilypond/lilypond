@@ -99,12 +99,12 @@ def compare_png_images(old: str, new: str) -> float:
     for fn in [old, new]:
         if os.path.exists(fn):
             file_dims[fn] = png_dims(fn)
-    
+
     maxdims: Tuple = tuple(map(max, zip(*file_dims.values())))
     for input_name in [old, new]:
         if maxdims == file_dims[input_name]:
             continue
-        
+
         # Uses PNG32:filename to generate cropped image in color (most
         # input images are grayscale, but we don't want a grayscale
         # cropped image). We need -flatten to extend the size beyond its
@@ -221,7 +221,7 @@ class FileLink:
     def get_file(self, oldnew: int) -> str:
         return self.file_names[oldnew]
 
-    def html_record_string(self, dest_dir: str) -> str:
+    def html_record_string(self) -> str:
         dist = self.distance()
         name = self.name() + self.extension()
 
@@ -344,38 +344,42 @@ class ImageLink (FileLink):
         FileLink.__init__(self, f1, f2)
         self.dest_dir = dest_dir
         self.image_exists = tuple(os.path.exists(f) for f in self.file_names)
+        self._file_data_equal = False
 
-    def calc_distance(self) -> float:
-        pngs = list(self.file_names)
+        if self.image_exists[0] and self.image_exists[1]:
+            self._file_data_equal = read_file(self.file_names[0]) == read_file(self.file_names[1])
+
+        self.images_to_convert: Tuple[List[str], List[str]] = ([], [])
         for oldnew in [0, 1]:
-            file_name = self.file_names[oldnew]
-            if file_name.endswith('.eps') and self.image_exists[oldnew]:
-                dest = os.path.join(self.dest_dir, file_name).replace('.eps','.png')
-                eps_to_png({file_name: dest})
-                pngs[oldnew] = dest
-        self.file_names = (pngs[0], pngs[1])
+            if self.image_exists[oldnew] and not self._file_data_equal:
+                self.images_to_convert[oldnew].append(self.file_names[oldnew])
+
+    def update_images(self, pngs: Dict[str, str]):
+        updated = []
+        for fn in self.file_names:
+            updated.append(pngs.get(fn, fn))
             
+        self.file_names = (updated[0], updated[1])
+        
+    def calc_distance(self) -> float:
+        if self._file_data_equal:
+            return 0
         if not self.image_exists[0] or not self.image_exists[1]:
             return MAX_DISTANCE
-
-        if read_file(self.file_names[0]) == read_file(self.file_names[1]):
-            return 0
-
+        
         dist = compare_png_images(self.file_names[0],
                                   self.file_names[1])
         return dist
 
+    
     def get_cell_html(self, name: str, oldnew: int) -> str:
         base = os.path.splitext(self.file_names[oldnew])[0]
 
         if self.image_exists[0] and self.image_exists[1] and oldnew == 1:
-            newimg = self.file_names[oldnew]
-            oldimg = self.file_names[0]
+            newimg = os.path.relpath(self.file_names[oldnew], self.dest_dir)
+            oldimg = os.path.relpath(self.file_names[0], self.dest_dir)
             diffimg = os.path.splitext(newimg)[0] + '.diff.png'
 
-            oldimg = os.path.relpath(oldimg, self.dest_dir)
-            newimg = os.path.relpath(newimg, self.dest_dir)
-            diffimg = os.path.relpath(diffimg, self.dest_dir)
             return '''
 <figure class="reactive_img">
   <div>
@@ -389,8 +393,7 @@ class ImageLink (FileLink):
 </figure>
 ''' % locals()
         elif self.image_exists[oldnew]:
-            img = self.file_names[oldnew]
-            img = os.path.relpath(img, self.dest_dir)
+            img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
             return ('''
 <div><a href="%s"><img alt="image of music" src="%s"/></a></div>
 ''' % (img, img))
@@ -418,10 +421,21 @@ class ImagesLink (FileLink):
         assert system_index[0] == system_index[1]
         self.image_links[system_index[0]] = ImageLink(dest_dir, f1, f2)
 
+    def get_images_to_convert(self) -> Tuple[List[str], List[str]]:
+        result: Tuple[List[str], List[str]] = ([], [])
+        for link in self.image_links.values():
+            for oldnew in [0,1]:
+                result[oldnew].extend(link.images_to_convert[oldnew])
+        return result
+    
     def calc_distance(self) -> float:
         return max(l.distance() for l in self.image_links.values())
 
-    def get_cell(self, oldnew) -> str:
+    def update_images(self, pngs: Dict[str, str]):
+        for links in self.image_links.values():
+            links.update_images(pngs)
+            
+    def get_cell(self, oldnew: int) -> str:
         htmls = []
 
         # TODO: should also print non-differing images?
@@ -481,7 +495,8 @@ def eps_to_png(files: Dict[str, str]):
         return
 
     start = time.time()
-
+    print('converting %d EPS files' % len(files))
+    
     # EPS files generated for regression tests don't contain fonts
     # to save disk space.  Instead, paths to the fonts are stored in
     # the files that are loaded by Ghostscript's `.loadfont'
@@ -590,10 +605,9 @@ class ComparisonData:
         self.file_links: Dict[str, FileLink] = {}
 
     def read_sources(self):
-
-        # ugh: drop the .ly.txt
-        for (key, val) in list(self.file_links.items()):
-
+        images_to_convert = ([], [])
+        
+        for (key, val) in self.file_links.items():
             def note_original(match, ln=val):
                 key = ln.name()
                 hash_to_original_name[key] = match.group(1)
@@ -605,6 +619,21 @@ class ComparisonData:
                        note_original, read_file(sf).decode())
             else:
                 print('no source for', val.file_names[1])
+ 
+            if isinstance(val, ImagesLink):
+                as_imagelink: Any = val
+                oldnew_images = as_imagelink.get_images_to_convert()
+                for oldnew in [0, 1]:
+                    images_to_convert[oldnew].extend(oldnew_images[oldnew])
+                    
+        png_images = {}
+        for oldnew in [0,1]:
+            png_map = dict((k, os.path.join(self.dest_dir, k.replace('.eps', '.png')))
+                           for k in images_to_convert[oldnew])
+            eps_to_png(png_map)
+            for (key, val) in list(self.file_links.items()):
+                if isinstance(val, ImagesLink):
+                    val.update_images(png_map)
 
     def compare_directories(self, dir1: str, dir2: str):
         log_terse('comparing %s' % dir1)
@@ -742,7 +771,7 @@ class ComparisonData:
 '''
 
         for link in changed:
-            table_rows += link.html_record_string(dest_dir)
+            table_rows += link.html_record_string()
 
         def make_row(label, value):
             return '<tr><td>%d</td><td>%s</td></tr>' % (value, label)
