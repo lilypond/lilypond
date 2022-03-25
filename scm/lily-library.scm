@@ -933,17 +933,46 @@ numbers."
   (lexicographic-list-compare? op (ly:version) ver))
 
 (define (parse-lily-version str)
-  (match (string-split str #\.)
-   ((major minor patch my-patch)
-    (list (string->number major)
-          (string->number minor)
-          (string->number patch)
-          (string->symbol my-patch)))
-   ((major minor patch)
-    (list (string->number major)
-          (string->number minor)
-          (string->number patch)))
-   (else #f)))
+  (let* ((warned #f)
+         (output
+          (match (string-split str #\.)
+           ((major minor patch my-patch)
+            (list (string->number major)
+                  (string->number minor)
+                  (string->number patch)
+                  (string->symbol my-patch)))
+           ((major minor patch)
+            (list (string->number major)
+                  (string->number minor)
+                  (string->number patch)))
+           ((major minor)
+            ;; Accept \version "x.y" without third component, but only
+            ;; if y is even, i.e. it's a stable release series.  Within
+            ;; a development release series, syntax changes with point
+            ;; releases so convert-ly needs the specific one.
+            (let ((major-int (string->number major))
+                  (minor-int (string->number minor)))
+              (cond
+               ((not (and major-int minor-int))
+                #f)
+               ((odd? minor-int)
+                (ly:non-fatal-error (G_ "version with third number omitted is only allowed for stable releases \
+(when the second number is even)"))
+                (set! warned #t)
+                #f)
+               (else
+                (list major-int minor-int)))))
+           (else #f))))
+    (cond
+     (warned
+      #f)
+     ((or (not output)
+          ;; Are the number components actually numbers?
+          (not (every identity output)))
+      (ly:non-fatal-error (G_ "Invalid version string \"~a\"")
+                          str)
+      #f)
+     (else output))))
 
 (define (parse-and-check-version str)
   "Parse the given version string and check its validity.  If valid,
@@ -952,11 +981,7 @@ version is greater than the running version of LilyPond, a warning is
 emitted and the version is considered invalid."
   (let ((version (parse-lily-version str)))
     (cond
-     ((or (not version)
-          ;; Are the components actually numbers?
-          (not (every identity version)))
-      (ly:non-fatal-error (G_ "Invalid version string \"~a\"")
-                          str)
+     ((not version)
       #f)
      ((ly:version? < version)
       (ly:non-fatal-error (G_ "program too old: ~a (file requires: ~a)")
@@ -1001,13 +1026,15 @@ compatibility is preserved."
    ((major minor patch . _)
     (match
      file-version
-     ((file-major file-minor file-patch)
+     ((file-major file-minor . rest)
       (or (> major file-major)
           (and (eqv? major file-major)
                (or (> minor file-minor)
                    (and (eqv? minor file-minor)
                         (odd? minor)
-                        (> patch file-patch))))))))))
+                        (match rest
+                         (() #f)
+                         ((file-patch . _) (> patch file-patch))))))))))))
 
 (define-public (suggest-convert-ly-message version-seen)
   "Internally used when the file has an error, to suggest usage of

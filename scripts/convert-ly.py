@@ -41,7 +41,7 @@ import lilylib as ly
 lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'
 lilypond_version_re = re.compile(lilypond_version_re_str)
 
-lilypond_version_strict_re_str = '\\\\version *\"([0-9]+[.][0-9]+[.][0-9]+)"'
+lilypond_version_strict_re_str = '\\\\version *\"([0-9]+(?:[.]([0-9]+))([.][0-9]+)?)"'
 lilypond_version_strict_re = re.compile(lilypond_version_strict_re_str)
 
 help_summary = (
@@ -170,19 +170,6 @@ def str_to_tuple(s):
 def tup_to_str(t):
     return '.'.join(['%s' % x for x in t])
 
-def version_cmp(t1, t2):
-    for x in [0, 1, 2]:
-        if t1[x] - t2[x]:
-            return t1[x] - t2[x]
-    return 0
-
-
-def get_conversions(from_version, to_version):
-    def is_applicable(v, f=from_version, t=to_version):
-        return version_cmp(v[0], f) > 0 and version_cmp(v[0], t) <= 0
-    return list(filter(is_applicable, convertrules.conversions))
-
-
 def latest_version():
     return convertrules.conversions[-1][0]
 
@@ -198,7 +185,7 @@ def do_conversion(s, from_version, to_version):
 tuple (LAST,LASTCHANGED,STR,ERRORS), with the last applied conversion,
 the last conversion resulting in a change, the resulting
 string and the number of errors."""
-    conv_list = get_conversions(from_version, to_version)
+    conv_list = [conv for conv in convertrules.conversions if from_version < conv[0] <= to_version]
 
     ly.progress(_("Applying conversion: "), newline=False)
 
@@ -229,7 +216,10 @@ string and the number of errors."""
 
 def guess_lilypond_version(input):
     m = lilypond_version_strict_re.search(input)
-    if m:
+    # Accept a missing third component if the second component
+    # is even.  That works because we don't have conversion rules
+    # within stable releases, as the syntax doesn't change.
+    if m and (m.group(3) is not None or int(m.group(2))%2 == 0):
         return m.group(1)
     m = lilypond_version_re.search(input)
     if m:
@@ -301,9 +291,6 @@ def do_one_file(infile_name):
         to_version = global_options.to_version
     else:
         to_version = latest_version()
-
-    if len(from_version) != 3:
-        raise InvalidVersion(".".join([str(n) for n in from_version]))
 
     (last, last_change, result, errors) = \
         do_conversion(input, from_version, to_version)
