@@ -2382,6 +2382,7 @@ alignment accordingly.
 (define-markup-command (with-dimensions layout props x y arg)
   (number-pair? number-pair? markup?)
   #:category other
+  #:as-string (markup->string arg #:layout layout #:props props)
   "
 @cindex setting extent of text object
 
@@ -2391,12 +2392,32 @@ and@tie{}@var{y}."
    (interpret-markup layout props arg)
    (make-filled-box-stencil x y)))
 
+(define-markup-command (with-dimension layout props axis val arg)
+  (integer? number-pair? markup?)
+  #:category other
+  #:as-string (markup->string arg #:layout layout #:props props)
+  "
+@cindex setting extent of text object
+
+Set the horizontal dimension of @var{arg} to @var{val} if @var{axis}
+is equal to@tie{}@code{X}.  If @var{axis} is equal to@tie{}@code{Y},
+set the vertical dimension of @var{arg} to @var{val} instead."
+  (let* ((stil (interpret-markup layout props arg))
+         (x-orig (ly:stencil-extent stil X))
+         (y-orig (ly:stencil-extent stil Y)))
+    (ly:stencil-outline
+     stil
+     (if (= axis X)
+         (make-filled-box-stencil val y-orig)
+         (make-filled-box-stencil x-orig val)))))
 
 (define-markup-command (with-outline layout props outline arg)
   (markup? markup?)
   #:category other
   #:as-string (markup->string arg #:layout layout #:props props)
   "
+@cindex setting extent of text object
+
 Print @var{arg} with the outline and dimensions of @var{outline}. The outline
 is used by skylines to resolve collisions (not for whiteout)."
   (ly:stencil-outline (interpret-markup layout props arg)
@@ -2407,10 +2428,29 @@ is used by skylines to resolve collisions (not for whiteout)."
   #:category other
   #:as-string (markup->string arg2 #:layout layout #:props props)
   "
+@cindex setting extent of text object
+
 Print @var{arg2} with the horizontal and vertical dimensions of @var{arg1}."
   (let* ((stil1 (interpret-markup layout props arg1))
          (x (ly:stencil-extent stil1 0))
          (y (ly:stencil-extent stil1 1)))
+    (interpret-markup layout props (make-with-dimensions-markup x y arg2))))
+
+(define-markup-command (with-dimension-from layout props axis arg1 arg2)
+  (integer? markup? markup?)
+  #:category other
+  #:as-string (markup->string arg2 #:layout layout #:props props)
+  "
+@cindex setting extent of text object
+
+Print @var{arg2} but replace the horizontal dimension with the one
+from @var{arg1} if @var{axis} is set to@tie{}@code{X}.  If @var{axis}
+is set to@tie{}@code{Y}, replace the vertical dimension with the one
+from @var{arg1} instead."
+  (let* ((stil1 (interpret-markup layout props arg1))
+         (stil2 (interpret-markup layout props arg2))
+         (x (ly:stencil-extent (if (= axis X) stil1 stil2) X))
+         (y (ly:stencil-extent (if (= axis X) stil2 stil1) Y)))
     (interpret-markup layout props (make-with-dimensions-markup x y arg2))))
 
 (define-markup-command (pad-around layout props amount arg)

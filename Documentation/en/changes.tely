@@ -66,6 +66,13 @@ which scares away people.
 @end ignore
 
 @item
+Two new markup functions @code{\with-dimension} and
+@code{\with-dimension-from} are available.  They are similar to
+@code{\with-dimensions} and @code{\with-dimensions-from},
+respectively, modifying only a single dimension (instead of both).
+
+
+@item
 The @code{\enablePolymeter} command is now provided as an input
 shorthand for moving engravers as is necessary to allow different
 time signatures in parallel.  The code:
