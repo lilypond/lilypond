@@ -595,13 +595,11 @@ voldran descarregar l'últim fitxer binari:
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
+@downloadDevelDarwin
 
-@downloadDevelDarwinNormal
-
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource-ca
 

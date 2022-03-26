@@ -563,20 +563,14 @@ LilyPond 开发者可能在 lilypond 邮件列表不停地宣传它们的服务�
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
-
-@downloadDevelDarwinNormal
-
-@c file name is unpredictable, linking to main page
-@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
-Mac OS X x86 64-bit (unofficial)}
+@downloadDevelDarwin
 
 @uref{https://ports.macports.org/port/lilypond-devel/summary,
 MacPorts package}
 
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource
 

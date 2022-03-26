@@ -633,20 +633,14 @@ travailler à partir des binaires les plus à jour :
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
-
-@downloadDevelDarwinNormal
-
-@c file name is unpredictable, linking to main page
-@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
-Mac OS X x86 64-bit (non officiel)}
+@downloadDevelDarwin
 
 @uref{https://ports.macports.org/port/lilypond-devel/summary,
 paquetage MacPorts}
 
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource
 

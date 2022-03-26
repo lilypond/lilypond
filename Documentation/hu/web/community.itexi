@@ -518,13 +518,11 @@ fejlesztői verziót ajánljuk:
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
+@downloadDevelDarwin
 
-@downloadDevelDarwinNormal
-
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource
 

@@ -10,6 +10,16 @@
 
 
 @newsItem
+@subheading LilyPond 2.23.7 released  @emph{March 26, 2022}
+
+We are happy to announce the release of LilyPond 2.23.7. This is termed a
+development release, but these are usually reliable. If you want to use the
+current stable version of LilyPond, we recommend using the 2.22.2 version.
+
+@newsEnd
+
+
+@newsItem
 @subheading LilyPond 2.22.2 released!  @emph{February 22, 2022}
 
 We are proud to announce the release of GNU LilyPond 2.22.2 on 2-22-22. LilyPond
@@ -19,15 +29,5 @@ computer printouts.
 
 This version includes improvements and fixes since the release of the
 previous stable release in April 2021.
-
-@newsEnd
-
-
-@newsItem
-@subheading LilyPond 2.23.6 released  @emph{February 06, 2022}
-
-We are happy to announce the release of LilyPond 2.23.6. This is termed a
-development release, but these are usually reliable. If you want to use the
-current stable version of LilyPond, we recommend using the 2.22.1 version.
 
 @newsEnd

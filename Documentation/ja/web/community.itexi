@@ -585,16 +585,11 @@ git とコンパイルについての説明は貢献者向けガイドにあり�
 
 @quotation
 
-@downloadDevelLinuxNormal
+@downloadDevelLinux
 
-@downloadDevelLinuxBig
+@downloadDevelDarwin
 
-@downloadDevelDarwinNormal
-
-@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
-Mac OS X x86 64-bit (unofficial)}
-
-@downloadDevelWindows
+@downloadDevelMingw
 
 @downloadDevelSource
 
