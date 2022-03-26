@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+Alterations in figured bass are now printed with a larger size for
+better readability; their vertical positioning is improved, too.
+
+
+@item
 Two new markup functions @code{\with-dimension} and
 @code{\with-dimension-from} are available.  They are similar to
 @code{\with-dimensions} and @code{\with-dimensions-from},

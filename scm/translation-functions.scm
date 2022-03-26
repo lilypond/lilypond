@@ -270,24 +270,23 @@ segni to avoid ambiguity."
 
 (define-public (format-bass-figure figure event context)
   (let* ((fig (ly:event-property event 'figure))
-         (fig-markup (if (number? figure)
-
-                         ;; this is not very elegant, but center-aligning
-                         ;; all digits is problematic with other markups,
-                         ;; and shows problems in the (lack of) overshoot
-                         ;; of feta-alphabet glyphs.
-                         ((if (<= 10 figure)
-                              (lambda (y) (make-translate-scaled-markup
-                                           (cons -0.7 0) y))
-                              identity)
-
-                          (cond
-                           ((eq? #t (ly:event-property event 'diminished))
-                            (make-slashed-digit-markup figure))
-                           ((eq? #t (ly:event-property event 'augmented-slash))
-                            (make-backslashed-digit-markup figure))
-                           (else (make-number-markup (number->string figure 10)))))
-                         #f))
+         (fig-markup
+          (if (number? figure)
+              ;; this is not very elegant, but center-aligning
+              ;; all digits is problematic with other markups,
+              ;; and shows problems in the (lack of) overshoot
+              ;; of feta-alphabet glyphs.
+              ((if (<= 10 figure)
+                   (lambda (y) (make-translate-scaled-markup
+                                (cons -0.7 0) y))
+                   identity)
+               (cond
+                ((eq? #t (ly:event-property event 'diminished))
+                 (make-slashed-digit-markup figure))
+                ((eq? #t (ly:event-property event 'augmented-slash))
+                 (make-backslashed-digit-markup figure))
+                (else (make-number-markup (number->string figure 10)))))
+              #f))
 
          (alt (ly:event-property event 'alteration))
          (alt-bracket (ly:event-property event 'alteration-bracket #f))
@@ -295,22 +294,36 @@ segni to avoid ambiguity."
           (if (number? alt)
               ((if alt-bracket make-bracket-markup identity)
                (make-general-align-markup
-                Y DOWN
+                ;; flats must be positioned higher than sharps,
+                ;; and double sharps even more
+                Y (cond ((< alt 0) -1)
+                        ((= alt DOUBLE-SHARP) -1.8)
+                        (else -0.8))
                 (make-fontsize-markup
                  (if (not (= alt DOUBLE-SHARP))
-                     -2 2)
-                 (alteration->text-accidental-markup alt))))
+                     -2 0)
+                 (make-accidental-markup alt))))
               #f))
 
          (plus-markup (if (eq? #t (ly:event-property event 'augmented))
                           (make-number-markup "+")
                           #f))
 
-         (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
-         (plus-dir (ly:context-property context 'figuredBassPlusDirection)))
+         (alt-dir (ly:context-property context
+                                       'figuredBassAlterationDirection))
+         (plus-dir (ly:context-property context
+                                        'figuredBassPlusDirection)))
+
+    (if alt-markup
+        ;; set height of alteration markup to the height of a figure
+        ;; to ensure good vertical alignment
+        (set! alt-markup
+              (make-with-dimension-from-markup
+               Y (make-number-markup "1") alt-markup)))
 
     (if (and (not alt-markup) alt-bracket)
-        (ly:programming-error "Cannot put brackets around non-existent bass figure alteration."))
+        (ly:programming-error
+         "Cannot put brackets around non-existent bass figure alteration."))
 
     (if (and (not fig-markup) alt-markup)
         (begin
@@ -318,7 +331,7 @@ segni to avoid ambiguity."
                 (make-translate-markup
                   (cons (if alt-bracket -0.5 0) 0)
                   (make-left-align-markup
-                    (make-pad-around-markup 0.3 alt-markup))))
+                    (make-pad-x-markup 0.3 alt-markup))))
           (set! alt-markup #f)))
 
     ;; hmm, how to get figures centered between note, and
@@ -352,7 +365,6 @@ segni to avoid ambiguity."
     (if (markup? fig-markup)
         (make-fontsize-markup -2 fig-markup)
         empty-markup)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret diagrams
