@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.23.5"
 
 \header {
   texidoc = "Music functions can be called directly from Scheme."
