@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.7"
 
 \header {
   texidoc = "The @code{\enablePolymeter} command turns on polymetric
