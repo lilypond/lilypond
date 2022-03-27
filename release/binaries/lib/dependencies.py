@@ -768,6 +768,14 @@ class Guile(ConfigurePackage):
         unistd_in_h = os.path.join("lib", "unistd.in.h")
         self.patch_file(c, unistd_in_h, patch_gethostname)
 
+        # Fix conversion of large long values.
+        def patch_conversion(content: str) -> str:
+            return content.replace("SIZEOF_TYPE < SIZEOF_SCM_T_BITS",
+                                   "SIZEOF_TYPE < SIZEOF_LONG")
+
+        for conv in ["conv-integer.i.c", "conv-uinteger.i.c"]:
+            self.patch_file(c, os.path.join("libguile", conv), patch_conversion)
+
         # Fix headers so compilation of LilyPond works.
         def patch_iselect(content: str) -> str:
             return content.replace("sys/select.h", "winsock2.h")
