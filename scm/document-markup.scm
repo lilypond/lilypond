@@ -46,7 +46,6 @@
                         (with-input-from-string (match:string match-args) read)
                         (circular-list "arg")))
          (doc-str (if match-args (match:suffix match-args) full-doc))
-         (c-name (regexp-substitute/global #f "-markup(-list)?$" f-name  'pre "" 'post))
          (sig (markup-command-signature func))
          (sig-type-names (map type-name sig))
          (signature-str
@@ -57,8 +56,8 @@
            " " )))
 
     (string-append
-     "\n\n@item @code{\\" c-name "} " signature-str
-     "\n@funindex \\" c-name "\n"
+     "\n\n@item @code{\\" f-name "} " signature-str
+     "\n@funindex \\" f-name "\n"
      (if (string? doc-str)
          doc-str
          "")
@@ -77,14 +76,19 @@
 
 (for-each
  (lambda (m)
-   (module-for-each (lambda (sym var)
-                      (let ((val (variable-ref var)))
+   (module-for-each (lambda (name var)
+                      (let* ((str-name (symbol->string name))
+                             (fixed-str-name
+                              (regexp-substitute/global
+                               #f "-markup(-list)?" str-name 'pre "" 'post))
+                             (fixed-name (string->symbol fixed-str-name))
+                             (val (variable-ref var)))
                         (cond ((markup-function? val)
                                (set! all-markup-commands
-                                     (acons sym val all-markup-commands)))
+                                     (acons fixed-name val all-markup-commands)))
                               ((markup-list-function? val)
                                (set! all-markup-list-commands
-                                     (acons sym val all-markup-list-commands))))))
+                                     (acons fixed-name val all-markup-list-commands))))))
                     (module-public-interface m)))
  (cons (current-module) (map resolve-module '((lily) (lily accreg)))))
 
