@@ -533,48 +533,61 @@ def eps_to_png(files: Dict[str, str]):
     for destdir in set(os.path.dirname(f) for f in files.values()):
         os.makedirs(destdir, exist_ok=True)
 
-    batch = files.items()
-    driver = tempfile.NamedTemporaryFile(
-        mode="w", suffix="batch.ps", encoding="utf-8", delete=False)
-    for (input_fn, outfile) in batch:
-        verbose_print = ''
+    job_count = min(options.job_count, len(files))
+    batches = [[] for j in range(0, job_count)]
+    j = 0
+    for item in sorted(files.items()):
+        batches[j].append(item)
+        j = (j+1) % job_count
+
+    drivers = []
+    procs = []
+    for batch in batches:
+        driver = tempfile.NamedTemporaryFile(
+            mode="w", suffix="batch.ps", encoding="utf-8", delete=False)
+        for (input_fn, outfile) in batch:
+            verbose_print = ''
+            if options.verbose:
+                verbose_print = ' (processing %s\n) print ' % input_fn
+            driver.write('''
+                %s
+                mark /OutputFile (%s)
+                /GraphicsAlphaBits 4 /TextAlphaBits 4
+                /HWResolution [101 101]
+                (png16m) finddevice putdeviceprops setdevice
+                (%s) run
+                ''' % (verbose_print, outfile, input_fn))
+
+        driver.close()
+        drivers.append(driver)
+        args =['gs',
+               '-dNOSAFER',
+               '-dEPSCrop',
+               '-q',
+               '-dNOPAUSE',
+               '-dNODISPLAY',
+               '-dAutoRotatePages=/None',
+               '-dPrinted=false'] + data_option + [
+                   driver.name,
+                   '-c',
+                   'quit'
+                   ]
         if options.verbose:
-            verbose_print = ' (processing %s\n) print ' % input_fn
-        driver.write('''
-            %s
-            mark /OutputFile (%s)
-            /GraphicsAlphaBits 4 /TextAlphaBits 4
-            /HWResolution [101 101]
-            (png16m) finddevice putdeviceprops setdevice
-            (%s) run
-            ''' % (verbose_print, outfile, input_fn))
-
-    driver.close()
-    args =['gs',
-           '-dNOSAFER',
-           '-dEPSCrop',
-           '-q',
-           '-dNOPAUSE',
-           '-dNODISPLAY',
-           '-dAutoRotatePages=/None',
-           '-dPrinted=false'] + data_option + [
-               driver.name,
-               '-c',
-               'quit'
-               ]
-    if options.verbose:
-        print('running %s' % args)
-    proc = subprocess.Popen(args)
-
-    rc = proc.wait()
-    if rc:
-        raise SystemExit('Ghostscript failed')
+            print('running %s' % args)
+        proc = subprocess.Popen(args)
+        procs.append(proc)
+        
+    for proc in procs:
+      rc = proc.wait()
+      if rc:
+          raise SystemExit('Ghostscript failed')
 
     dt = time.time() - start
     if options.verbose:
         print('converted %d EPS files in %f s' % (len(files), dt))
 
-    os.unlink(driver.name)
+    for driver in drivers:
+        os.unlink(driver.name)
     os.unlink(empty_eps.name)
     
 
@@ -1298,6 +1311,14 @@ def main():
                  default=0,
                  action="store",
                  help='only analyze COUNT signature pairs')
+    
+    p.add_option('--job-count',
+                 dest='job_count',
+                 metavar='COUNT',
+                 type='int',
+                 default=1,
+                 action='store',
+                 help='parallelism for PS to PNG conversion')
 
     p.add_option('--local-datadir',
                  dest="local_data_dir",

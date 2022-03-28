@@ -363,6 +363,7 @@ local-check: local-check-pre
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(PYTHON) $(buildscript-dir)/output-distance.py $(if $(VERBOSE),-v) \
+		$(if $(CPU_COUNT),--job-count=$(CPU_COUNT),) \
 		--local-datadir --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/abc2ly/out-test-baseline input/regression/abc2ly/out-test \
