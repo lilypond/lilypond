@@ -243,10 +243,18 @@ struct Substitution_entry
   }
 };
 
-void
+bool
 Spanner::fast_substitute_grob_array (SCM sym,
                                      Grob_array const *grob_array)
 {
+  if (grob_array->ordered ())
+    return false;
+
+  // TODO: Was this chosen after profiling in 2005?  Maybe it should be
+  // revisited.
+  if (grob_array->size () < 15)
+    return false;
+
   const auto system_range = spanned_system_rank_interval ();
 
   std::vector<Substitution_entry> items;
@@ -309,6 +317,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
             new_array->add (g);
         }
     }
+
+  return true;
 }
 
 /*
@@ -352,11 +362,9 @@ void
 Spanner::substitute_one_mutable_property (SCM sym, SCM val)
 {
   Grob_array *grob_array = unsmob<Grob_array> (val);
-  if (grob_array && !grob_array->ordered ())
-    {
-      fast_substitute_grob_array (sym, grob_array);
-      return;
-    }
+  if (grob_array && fast_substitute_grob_array (sym, grob_array))
+    return;
+
   for (auto *sc : broken_intos_)
     {
       auto *system = sc->get_system ();
