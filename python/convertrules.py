@@ -4506,6 +4506,15 @@ def conv(s):
         stderr_write(bar_numbers_warning)
     return s
 
+@rule((2, 23, 8), r"""
+scripts.augmentum -> dots.dotvaticana
+scripts.trillelement -> scripts.trill_element
+""")
+def conv(s):
+    s = re.sub(r"scripts\.augmentum", r"dots.dotvaticana", s)
+    s = re.sub(r"scripts\.trillelement", r"scripts.trill_element", s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

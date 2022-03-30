@@ -152,22 +152,6 @@ fet_beginchar ("circle", "circulus");
 fet_endchar;
 
 
-fet_beginchar ("augmentum", "augmentum");
-  save diameter;
-
-  diameter# = 0.25 staff_space#;
-
-  define_pixels (diameter);
-
-  pickup pencircle scaled diameter;
-
-  drawdot (0, 0);
-
-  set_char_box (diameter# / 2, diameter# / 2,
-                diameter# / 2, diameter# / 2);
-fet_endchar;
-
-
 def draw_signum_congruentiae =
   set_char_box (0.50 staff_space# + 1.5 linethickness#,
                 0.50 staff_space# + 1.5 linethickness#,

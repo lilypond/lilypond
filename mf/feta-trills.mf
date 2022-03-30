@@ -106,15 +106,6 @@ def draw_trillelement (expr offset, ending) =
 enddef;
 
 
-fet_beginchar ("trillelement", "trillelement");
-  set_char_box (.5 trill_width#, .5 trill_width#,
-                trill_height#, trill_height#);
-
-  draw_trillelement (0, 0);
-  labels (1, 2, 3, 3', 4, 5, 5');
-fet_endchar;
-
-
 fet_beginchar ("prall", "prall");
   set_char_box (trill_width#, trill_width#,
                 trill_height#, trill_height#);

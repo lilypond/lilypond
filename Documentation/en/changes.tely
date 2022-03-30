@@ -66,6 +66,12 @@ which scares away people.
 @end ignore
 
 @item
+Two redundant glyphs in the Emmentaler font have been removed:
+@code{scripts.trillelement} (use @code{scripts.trill_element} instead) and
+@code{scripts.augmentum} (use @code{dots.dotvaticana} instead).
+
+
+@item
 Alterations in figured bass are now printed with a larger size for
 better readability; their vertical positioning is improved, too.
 
