@@ -43,7 +43,6 @@ way the transposition number is displayed."
         (dur (ly:event-property event 'tempo-unit))
         (count (ly:event-property event 'metronome-count)))
     (metronome-markup text dur count hide-note)))
-(export format-metronome-markup)
 
 (define (metronome-markup text dur count hide-note)
   (let* ((note-mark
@@ -881,19 +880,16 @@ only ~a fret labels provided")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers
 
-(define ((every-nth-bar-number-visible n) barnum mp)
+(define-public ((every-nth-bar-number-visible n) barnum mp)
   (= 0 (modulo barnum n)))
-(export every-nth-bar-number-visible)
 
-(define ((modulo-bar-number-visible n m) barnum mp)
+(define-public ((modulo-bar-number-visible n m) barnum mp)
   (and (> barnum 1) (= m (modulo barnum n))))
-(export modulo-bar-number-visible)
 
-(define ((set-bar-number-visibility n) tr)
+(define-public ((set-bar-number-visibility n) tr)
   (let ((bn (ly:context-property tr 'currentBarNumber)))
     (ly:context-set-property! tr 'barNumberVisibility
                               (modulo-bar-number-visible n (modulo bn n)))))
-(export set-bar-number-visibility)
 
 (define-public (first-bar-number-invisible barnum mp)
   (> barnum 1))
@@ -938,9 +934,8 @@ only ~a fret labels provided")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; percent repeat counters
 
-(define ((every-nth-repeat-count-visible n) count context)
+(define-public ((every-nth-repeat-count-visible n) count context)
   (= 0 (modulo count n)))
-(export every-nth-repeat-count-visible)
 
 (define-public (all-repeat-counts-visible count context) #t)
 
@@ -998,7 +993,7 @@ returned."
         (and val
              (ly:pitch-transpose val (ly:make-pitch oct 0)))))))
 
-(define ((shift-semitone->pitch key semitone->pitch) semitone)
+(define-public ((shift-semitone->pitch key semitone->pitch) semitone)
   "Given a function @var{semitone->pitch} converting a semitone number
 into a note value for a lookup table created in relation to@tie{}C,
 returns a corresponding function in relation to @var{key}.  The note
@@ -1007,7 +1002,6 @@ original @var{semitone->pitch} function."
   (ly:pitch-transpose (semitone->pitch (- semitone (* 2 (ly:pitch-tones key))))
                       key))
 
-(export shift-semitone->pitch)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

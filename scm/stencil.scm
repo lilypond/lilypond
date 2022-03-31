@@ -108,7 +108,7 @@ Limitation: s-curves are currently not supported.
            moved-coord-list
            (min (* 2 thickness) line-width))))))
 
-(define* (make-tie-stencil
+(define*-public (make-tie-stencil
           start stop thickness orientation
           #:optional (height-limit 1.0)(ratio 0.33)(angularity 0.5))
   (let* (;; taken from bezier-bow.cc
@@ -119,7 +119,6 @@ Limitation: s-curves are currently not supported.
          (width (abs (- (car start) (car stop))))
          (height (slur-height width height-limit ratio)))
     (make-bow-stencil start stop thickness angularity height orientation)))
-(export make-tie-stencil)
 
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using

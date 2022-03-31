@@ -153,7 +153,7 @@ note names are capitalized."
            (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
            (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
-(define ((chord-name->italian-markup french?) pitch lowercase?)
+(define-public ((chord-name->italian-markup french?) pitch lowercase?)
   "Return pitch markup for @var{pitch}, using Italian/@/French note names.
 If @var{french?} is set to @code{#t}, french `ré' is returned for
 pitch@tie{}D instead of `re'."
@@ -166,8 +166,6 @@ pitch@tie{}D instead of `re'."
       (make-simple-markup
        (conditional-string-capitalize name lowercase?))
       (accidental->markup-italian alt)))))
-
-(export chord-name->italian-markup)
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the default should also be reversed --hwn

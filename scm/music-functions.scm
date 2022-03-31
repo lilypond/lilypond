@@ -1039,19 +1039,17 @@ number, that's where numbering starts."
   (lambda (elt)
     (grob::has-interface elt symbol)))
 
-(define ((outputproperty-compatibility func sym val) grob g-context ao-context)
+(define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
   (if (func grob)
       (set! (ly:grob-property grob sym) val)))
-(export outputproperty-compatibility)
 
 
-(define ((set-output-property grob-name symbol val)  grob grob-c context)
+(define-public ((set-output-property grob-name symbol val)  grob grob-c context)
   "Usage example:
 @code{\\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))}"
   (let ((meta (ly:grob-property grob 'meta)))
     (if (equal? (assoc-get 'name meta) grob-name)
         (set! (ly:grob-property grob symbol) val))))
-(export set-output-property)
 
 
 (define-public (skip->rest mus)
@@ -1333,7 +1331,7 @@ post-event."
                  (and clef (make-cue-clef-unset))))))
       quote-music))
 
-(define ((quote-substitute quote-tab) music)
+(define-public ((quote-substitute quote-tab) music)
   (let* ((quoted-name (ly:music-property music 'quoted-music-name))
          (quoted-vector (and (string? quoted-name)
                              (hash-ref quote-tab quoted-name #f))))
@@ -1347,7 +1345,6 @@ post-event."
                     ly:quote-iterator::constructor))
             (ly:music-warning music (format #f (G_ "cannot find quoted music: `~S'") quoted-name))))
     music))
-(export quote-substitute)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1634,7 +1631,7 @@ also get an accidental."
 
     (cons need-restore need-accidental)))
 
-(define ((make-accidental-rule octaveness laziness) context pitch barnum)
+(define-public ((make-accidental-rule octaveness laziness) context pitch barnum)
   "Create an accidental rule that makes its decision based on the octave of
 the note and a laziness value.
 
@@ -1652,14 +1649,12 @@ accidental lasts over that many bar lines.  @w{@code{-1}} is `forget
 immediately', that is, only look at key signature.  @code{#t} is `forever'."
 
   (check-pitch-against-signature context pitch barnum laziness octaveness #f))
-(export make-accidental-rule)
 
-(define ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum)
+(define-public ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum)
   "Variation on function make-accidental-rule that creates an dodecaphonic
 accidental rule."
 
   (check-pitch-against-signature context pitch barnum laziness octaveness #t))
-(export make-accidental-dodecaphonic-rule)
 
 (define (key-entry-notename entry)
   "Return the pitch of an @var{entry} in @code{localAlterations}.
@@ -2415,7 +2410,7 @@ other stems just because of that."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following is used by the alterBroken function.
 
-(define ((value-for-spanner-piece property arg) grob)
+(define-public ((value-for-spanner-piece property arg) grob)
   "Associate a piece of broken spanner @var{grob} with an element
 of list @var{arg}."
   (if (ly:spanner? grob)
@@ -2435,7 +2430,6 @@ of list @var{arg}."
       (ly:grob-warning grob
                        property
                        "this grob is not a spanner")))
-(export value-for-spanner-piece)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function

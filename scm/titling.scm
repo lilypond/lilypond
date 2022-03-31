@@ -40,7 +40,7 @@ interpreting a markup in the context of these headers."
 
 ;;;;;;;;;;;;;;;;;;
 
-(define ((marked-up-headfoot what-odd what-even)
+(define-public ((marked-up-headfoot what-odd what-even)
          layout scopes page-number is-last-bookpart is-bookpart-last-page)
   "Read variables @var{what-odd}, @var{what-even} from @var{layout},
 and interpret them as markup.  The @var{props} argument will include
@@ -79,9 +79,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
        (get what-even)
        (get what-odd))))
 
-(export marked-up-headfoot)
-
-(define ((marked-up-title what) layout scopes)
+(define-public ((marked-up-title what) layout scopes)
   "Read variables @var{what} from @var{scopes}, and interpret it as markup.
 The @var{props} argument will include variables set in @var{scopes} (prefixed
 with `header:'."
@@ -99,4 +97,3 @@ with `header:'."
     (if (markup? title-markup)
         (interpret-markup layout props title-markup)
         empty-stencil)))
-(export marked-up-title)
