@@ -174,6 +174,19 @@ public:
         surface_ = cairo_ps_surface_create (filename.c_str (), paper_width,
                                             paper_height);
         cairo_ps_surface_set_eps (surface_, format == EPS);
+        if (format == EPS)
+          {
+            std::string bbox = String_convert::form_string (
+              "0 0 %d %d", static_cast<int> (round (paper_width)),
+              static_cast<int> (round (paper_height)));
+
+            cairo_ps_surface_dsc_comment (surface_,
+                                          ("%%BoundingBox: " + bbox).c_str ());
+            cairo_ps_surface_dsc_begin_page_setup (surface_);
+            cairo_ps_surface_dsc_comment (
+              surface_, ("%%PageBoundingBox: " + bbox).c_str ());
+          }
+
         break;
       default:
         abort ();
