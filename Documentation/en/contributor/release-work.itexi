@@ -112,10 +112,11 @@ released
 
 @end itemize
 
-This requires a system which has the release/unstable
+@c FIXME: unclear
+This requires a system which has the @code{release/unstable}
 branch.  If you get a warning saying you are in @code{detached HEAD}
-state, then you should create a release/unstable branch with
-@code{git checkout release/unstable}.
+state, then you should create a @code{release/unstable} branch with
+@code{git switch release/unstable}.
 
 Check the environment variables are set as in
 @ref{Environment variables}.
@@ -126,7 +127,7 @@ checkout displays modified files, you might want to run
 
 @example
 git fetch
-git checkout release/unstable
+git switch release/unstable
 git merge origin/master
 make -C $LILYPOND_BUILD_DIR po-replace
 mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
@@ -164,7 +165,7 @@ git commit -m "PO: update template." po/lilypond.pot
 git commit -m "Release: update news." Documentation/en/web/
 git commit -m "Release: bump Welcome versions." ly/Wel*.ly
 git push origin HEAD:release/unstable
-git checkout master
+git switch master
 @end example
 
 @item
@@ -261,7 +262,7 @@ Update the current @code{master} branch with the current news:
 
 @example
 git fetch
-git checkout origin/master
+git switch origin/master
 git merge origin/release/unstable
 @end example
 

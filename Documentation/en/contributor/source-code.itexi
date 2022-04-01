@@ -191,14 +191,16 @@ git branch cg-add-branches
 
 @unnumberedsubsec Switching branches
 
-Switching branches is somehow like @qq{loading a file}, although in
-this case it is really @qq{loading a directory and subdirectories
-full of files}.  The command to use is @code{git checkout}.
+Switching branches is somehow like @qq{loading a file}, although in this
+case it is really @qq{loading a directory and subdirectories full of
+files}.  The command to use is @code{git switch}@footnote{If you are
+using an outdated version of Git (older than 2.23), you need to use
+@code{git checkout} instead.}
 
 @example
-git checkout master
-git checkout cg-add-branches
-git checkout origin/release/unstable
+git switch master
+git switch cg-add-branches
+git switch origin/release/unstable
 @end example
 
 Branches that begin with @code{origin/} are part of the remote
@@ -265,10 +267,12 @@ git commit --amend
 
 This also works for rephrasing the commit message.
 
-To revert changes to a file that has not been committed yet:
+To revert changes to a file that has not been committed yet, use
+@code{git restore}@footnote{If you are using an outdated version of Git
+(older than 2.23), you need to use @code{git checkout} instead.}:
 
 @example
-git checkout @var{filename}
+git restore @var{filename}
 @end example
 
 To get back to the last commit, @emph{discarding all changes}:
@@ -333,7 +337,7 @@ After the merge request has passed testing and was merged to
 local branch.
 
 @example
-git checkout master
+git switch master
 git branch -d cg-add-branches
 @end example
 
@@ -546,7 +550,7 @@ assumes no pending changes in the local @code{master} branch and
 merges the @code{translation} branch:
 
 @example
-git checkout master
+git switch master
 git pull
 git merge translation
 git push origin HEAD:translation

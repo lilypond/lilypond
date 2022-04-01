@@ -975,7 +975,7 @@ wrapped with an appropriate texinfo code-highlighting command
 @code{@@command}, etc.).  For example:
 @samp{@@code@{@@var@{foo@}@}},
 @samp{@@file@{@@var@{myfile.ly@}@}},
-@w{@samp{@@samp@{git checkout @@var@{branch@}@}}}, etc.  This
+@w{@samp{@@samp@{git switch @@var@{branch@}@}}}, etc.  This
 improves readability in the PDF and HTML output.
 
 @item
