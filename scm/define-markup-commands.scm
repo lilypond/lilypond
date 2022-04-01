@@ -2382,7 +2382,6 @@ alignment accordingly.
 (define-markup-command (with-dimensions layout props x y arg)
   (number-pair? number-pair? markup?)
   #:category other
-  #:as-string (markup->string arg #:layout layout #:props props)
   "
 @cindex setting extent of text object
 
@@ -2395,7 +2394,6 @@ and@tie{}@var{y}."
 (define-markup-command (with-dimension layout props axis val arg)
   (integer? number-pair? markup?)
   #:category other
-  #:as-string (markup->string arg #:layout layout #:props props)
   "
 @cindex setting extent of text object
 
