@@ -70,7 +70,7 @@ def help(text):
 
 name = "ly-doc"
 title = "Ly Doc"
-author = "Han-Wen Nienhuys and Jan Nieuwenhuizen"
+author = "The LilyPond development team"
 input_filename = ""
 glob_input = ""
 template = r'''\input texinfo
@@ -83,20 +83,21 @@ template = r'''\input texinfo
 @settitle %%(title)s
 
 @documentencoding UTF-8
-@iftex
 @afourpaper
-@end iftex
 
 @finalout @c we do not want black boxes.
 
-@c fool ls-latex
-@ignore
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{%%(title)s}
 @author %%(author)s
-@title %%(title)s
-@end ignore
+@end titlepage
 
-@node Top, , , (dir)
+@ifnottex
+@node Top
 @top %%(title)s
+@end ifnottex
 
 %s
 
