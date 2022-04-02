@@ -41,19 +41,21 @@ help_text = r"""Usage: %(program_name)s [OPTIONS]... LY-FILE...
 Construct tely doc from LY-FILEs.
 
 Options:
- -h, --help                     print this help
- -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
-   options
- -o, --output=NAME              write tely doc to NAME
-     --prefix=PREFIX            prefix filenames with PREFIX
- -i, --input-filenames=NAME     read list of files from a file instead of stdin
- -g, --glob-input=GLOB          a string which will be passed to glob.glob(GLOB)
- -t, --title=TITLE              set tely doc title TITLE
- -a, --author=AUTHOR            set tely author AUTHOR
-     --template=TEMPLATE        use TEMPLATE as Texinfo template file,
-   instead of standard template; TEMPLATE should contain a command
-   '%(include_snippets)s' to tell where to insert LY-FILEs.  When this
-   option is used, NAME and TITLE are ignored.
+ -h, --help                  print this help
+ -f, --fragment-options=OPTIONS
+                             use OPTIONS as lilypond-book fragment options
+ -o, --output=OUTPUT         write tely doc to OUTPUT
+ -n, --name=NAME             use NAME for info file name
+     --prefix=PREFIX         prefix filenames with PREFIX
+ -i, --input-filenames=NAME  read list of files from a file instead of stdin
+ -g, --glob-input=GLOB       a string which will be passed to glob.glob(GLOB)
+ -t, --title=TITLE           set tely doc title to TITLE
+ -a, --author=AUTHOR         set tely author to AUTHOR
+     --template=TEMPLATE     use TEMPLATE as texinfo template file instead of
+                               standard template; TEMPLATE should contain a
+                               marker '%(include_snippets)s' to indicate
+                               where to insert LY-FILEs.  When this option is
+                               used, NAME and TITLE are ignored
 """
 
 
@@ -66,9 +68,10 @@ def help(text):
                                  ['fragment-options=', 'help', 'name=',
                                   'title=', 'author=', 'template=',
                                   'input-filenames=', 'glob-input=',
-                                  'prefix='])
+                                  'prefix=', 'output='])
 
-name = "ly-doc"
+name = "ly-doc.info"
+output = "ly-doc.tely"
 title = "Ly Doc"
 author = "The LilyPond development team"
 input_filename = ""
@@ -79,7 +82,7 @@ template = r'''\input texinfo
 @c     from: %s
 @c     by:   %s
 
-@setfilename %%(name)s.info
+@setfilename %%(name)s
 @settitle %%(title)s
 
 @documentencoding UTF-8
@@ -116,6 +119,8 @@ for opt in options:
         help(help_text % vars())
     elif o == '-n' or o == '--name':
         name = a
+    elif o == '-o' or o == '--output':
+        output = a
     elif o == '-t' or o == '--title':
         title = a
     elif o == '-a' or o == '--author':
@@ -188,15 +193,10 @@ elif input_filename:
     files = open(input_filename, encoding='utf-8').read().split()
 
 if files:
-    dir = os.path.dirname(name) or "."
-# don't strip .tely extension, Documentation/snippets uses .itely
-    name = os.path.basename(name)
     template = template % vars()
-
     s = "\n".join(map(name2line, files))
     s = template.replace(include_snippets, s, 1)
-    f = "%s/%s" % (dir, name)
-    h = open(f, "w", encoding="utf8")
+    h = open(output, "w", encoding="utf8")
     h.write(s)
     h.close()
 else:

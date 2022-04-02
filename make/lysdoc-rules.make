@@ -18,7 +18,11 @@ $(outdir)/collated-files.list: $(COLLATED_FILES)
 
 $(outdir)/collated-files.tely: $(outdir)/collated-files.list
 	$(call ly_progress,Making,$@,)
-	$(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" --input-filename=$^
+	$(LYS_TO_TELY) --output=$(outdir)/collated-files.tely \
+	               --name=collated-files.info \
+	               --title="$(TITLE)" \
+	               --author="$(AUTHOR)" \
+	               --input-filename=$^
 
 # This tells make that $(COLLATED_FILES) must exist in order to build
 # this target, i.e. they can't be treated as intermediates.

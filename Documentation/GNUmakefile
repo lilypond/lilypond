@@ -643,7 +643,7 @@ $(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	xargs $(LYS_TO_TELY) \
 	  --prefix=snippets/ \
 	  -f doctitle,texidoc,verbatim \
-	  --name=$@ \
+	  --output=$@ \
 	  --template=$< \
 	  < $(filter %.snippet-list, $^)
 
