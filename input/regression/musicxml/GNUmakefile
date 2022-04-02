@@ -12,8 +12,6 @@ MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
 OUT_LY_FILES = $(sort ${MUSICXML_FILES:%.xml=$(outdir)/%.ly} ${MUSICMXL_FILES:%.mxl=$(outdir)/%.ly})
 OUT_FILES = $(OUT_LY_FILES)
 
-TITLE=Unofficial MusicXML test suite
-AUTHOR=Reinhold Kainhofer
 TEST_SUITE_VERSION=0.1
 
 
@@ -39,3 +37,7 @@ zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip
 $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip: $(MUSICXML_FILES) $(MUSICMXL_FILES) LICENSE
 	$(call ly_progress,Making,$@,)
 	$(ZIP) -q -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES)) LICENSE
+
+
+TITLE=Unofficial MusicXML test suite
+AUTHOR=Reinhold Kainhofer
