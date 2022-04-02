@@ -142,18 +142,20 @@ TexInfo_output = {
 @end html
 ''',
 
-    # URGH: The empty line after `</a>` is necessary for texi2html 1.82,
-    #       which swallows the last newline of the `@ifhtml` region.  The
-    #       `@html` environment should be replaced with `@inlineraw` for
-    #       recent `texi2any` versions.
+    # TODO: The `@html` environment should be replaced with `@inlineraw`
+    #       for recent `texi2any` versions.
+    #
+    # There must be an empty line at the end to ensure that the following
+    # images are typeset in vertical mode (and not in inline mode).
     book_snippets.PRINTFILENAME: '''@html
 <a href="%(base)s%(ext)s">
 @end html
 @file{%(filename)s}
 @html
 </a>
+@end html
 
-@end html''',
+''',
 
     book_snippets.QUOTE: r'''@quotation
 %(str)s
