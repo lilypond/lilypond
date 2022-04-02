@@ -397,7 +397,10 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             for t in [translated_texidoc, texidoc]:
                 fullpath = find(t)
                 if fullpath:
-                    s += '@include %s\n\n' % t
+                    # We need two empty lines to enforce a new paragraph
+                    # in case the included file doesn't end with a newline
+                    # character.
+                    s += '@include %s\n\n\n' % t
                     break
 
         s += self.output_print_filename(basename, snippet)
