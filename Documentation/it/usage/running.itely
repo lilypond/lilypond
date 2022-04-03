@@ -572,11 +572,6 @@ in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
 
 @end table
 
-@item @code{check-internal-types}
-@var{bool}
-Se @var{bool} è @code{t}, controlla l'assegnazione di ogni proprietà per
-i tipi.  Predefinito: @code{#f}.
-
 @item @code{clip-systems}
 @var{bool}
 Se @var{bool} è @code{#t}, estrae frammenti musicali da una partitura.  Per
@@ -594,26 +589,6 @@ margini, in file di output di una sola pagina.  Predefinito: @code{#f}.
 @item @code{datadir}
 Prefisso per i file di dati.  Questa è un'opzione di sola lettura; la sua
 impostazione non ha effetto.
-
-@item @code{debug-lexer}
-@var{bool}
-Se @var{bool} è @code{#t}, fa il debug dell'analizzatore lessicale flex.
-Predefinito: @code{#f}.
-
-@item @code{debug-page-breaking-scoring}
-@var{bool}
-Se @var{bool} è @code{#t}, crea le partiture per diverse configurazioni di
-interruzione di pagina.  Predefinito: @code{#f}.
-
-@item @code{debug-parser}
-@var{bool}
-Se @var{bool} è @code{#t}, fa il debug dell'analizzatore bison.
-Predefinito: @code{#f}.
-
-@item @code{debug-property-callbacks}
-@var{bool}
-Se @var{bool} è @code{#t}, fa il debug delle catene cicliche di callback.
-Predefinito: @code{#f}.
 
 @item @code{debug-skylines}
 @var{bool}
@@ -838,20 +813,11 @@ Predefinito: @code{#t}.
 L'opzione @option{-dno-print-pages} è utile in combinazione con
 @option{-dpreview} o @option{-dcrop}.
 
-@item @code{profile-property-accesses} @var{bool}
-Se @var{bool} è @code{#t}, mantiene una statistica delle chiamate di funzione
-@code{get_property()}.  Predefinito: @code{#f}.
-
 @item @code{protected-scheme-parsing} @var{bool}
 Se @var{bool} è @code{#t}, continua finché l'analizzatore non coglie degli
 errori nel codice Scheme interno al file di input. Se impostato su @code{#f},
 in caso di errore si ferma e mostra la traccia di stack.
 Predefinito: @code{#t}.
-
-@item @code{read-file-list} @var{stringa}
-Usa il file @var{stringa} che contiene un elenco di file di input da
-elaborare.
-Predefinito: @code{#f} (ovvero nessun file con l'elenco di input).
 
 @item @code{relative-includes}
 @var{bool}
@@ -917,12 +883,6 @@ Predefinito: @code{#f}.
 Se @var{bool} è @code{#t}, elenca i nomi di font disponibili così come li
 consegna la libreria fontconfig.  In fondo a questo elenco LilyPond mostra
 le impostazioni di configurazione di fontconfig.
-Predefinito: @code{#f}.
-
-@item @code{strict-infinity-checking}
-@var{bool}
-Se @var{bool} è @code{#t}, forza il blocco di @command{lilypond} quando si
-incontrano eccezioni @code{Inf} e @code{NaN} sui numeri in virgola mobile.
 Predefinito: @code{#f}.
 
 @item @code{strip-output-dir}

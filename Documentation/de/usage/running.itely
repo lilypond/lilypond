@@ -443,10 +443,6 @@ Unter UNIX kann man einfach die Schriftartdateien aus dem LilyPond-Verzeichnis
 oder -Editoren kompatibel sein.  Es gibt auch die Option @code{svg-woff}
 (siehe unten) um woff-Schriftarten im SVG-Backend zu benützen.
 
-@item @code{check-internal-types}
-@tab @code{#f}
-@tab Überprüfe jede Eigenschaftszuweisung für Typen.
-
 @item @code{clip-systems}
 @tab @code{#f}
 @tab Erstelle ausgeschnittene Schnipsel einer Partitur.
@@ -454,23 +450,6 @@ oder -Editoren kompatibel sein.  Es gibt auch die Option @code{svg-woff}
 @item @code{datadir}
 @tab
 @tab Präfix für Datendateien (read-only).
-
-@item @code{debug-lexer}
-@tab @code{#f}
-@tab Debugging des Flex-lexer.
-
-@item @code{debug-page-breaking-scoring}
-@tab @code{#f}
-@tab Gebe viele unterschiedliche Seitenumbruchsituationen für Partituren
-aus.
-
-@item @code{debug-parser}
-@tab @code{#f}
-@tab Debugging des Bison-Parsers.
-
-@item @code{debug-property-callbacks}
-@tab @code{#f}
-@tab Debugging von zyklischen Callback-Ketten.
 
 @item @code{debug-skylines}
 @tab @code{#f}
@@ -592,20 +571,11 @@ oder @option{-dno-print-pages} eingesetzt werden.
 @tab Erstelle vollständige Seiten, der Standard.  @option{-dno-print-pages} ist
 hilfreich im Zusammenhang mit @option{-dpreview}.
 
-@item @code{profile-property-accesses}
-@tab @code{#f}
-@tab Speichere Statistiken von @code{get_property()}-Funktionsaufrufen.
-
 @item @code{protected-scheme-parsing}
 @tab @code{#t}
 @tab Fahre fort, wenn Fehler in eingefügtem Scheme-Code im Parser bemerkt
 werden.  Wenn auf @code{#f} gesetzt, halte an Fehlern an und gebe einen
 Stacktrace aus.
-
-@item @code{read-file-list}
-@tab @code{#f [file]}
-@tab Gibt den Dateinamen einer Datei an, die eine Liste mit Eingabedateien
-enthält, die kompiliert werden sollen.
 
 @item @code{relative-includes}
 @tab @code{#f}
@@ -670,11 +640,6 @@ Log-Daten in die Dateien @code{Datei1.log}, @code{Datei2.log} ... schreiben.
 @item @code{show-available-fonts}
 @tab @code{#f}
 @tab Eine Liste der verfügbaren Schriftarten.
-
-@item @code{strict-infinity-checking}
-@tab @code{#f}
-@tab Erzwinge einen Programmabsturz wenn @code{Inf} und @code{NaN}
-Fließkommaausnahmen gefunden werden.
 
 @item @code{strip-output-dir}
 @tab @code{#t}

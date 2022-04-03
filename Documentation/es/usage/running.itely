@@ -624,10 +624,6 @@ opción @code{-dsvg-woff}
 
 @end table
 
-@item @code{check-internal-types} @var{bool}
-Si @var{bool} es @code{#t}, comprobar que el tipo de cada
-asignación de propiedades es correcto.  Predeterminado: @code{#f}.
-
 @item @code{clip-systems} @var{bool}
 Si @var{bool} es @code{#t}, extraer fragmentos de música de la
 partitura.  Requiere que la función @code{clip-regions} esté
@@ -644,23 +640,6 @@ de @q{una sola página}. Predeterminado: @code{#f}.
 @item @code{datadir}
 Prefijo de los archivos de datos.  Esta opción es de solo lectura;
 su establecimiento no tiene ningún efecto.
-
-@item @code{debug-lexer} @var{bool}
-Si @var{bool} es @code{#t}, efectuar una depuración del analizador
-léxico flex.  Predeterminado: @code{#f}.
-
-@item @code{debug-page-breaking-scoring} @var{bool}
-Si @var{bool} es @code{#t}, volcar las partituras para muchas
-configuraciones de saltos de página diferentes.  Predeterminado:
-@code{#f}.
-
-@item @code{debug-parser} @var{bool}
-Si @var{bool} es @code{#t}, efectuar una depuración del analizador
-sintáctico bison.  Predeterminado: @code{#f}.
-
-@item @code{debug-property-callbacks} @var{bool}
-Si @var{bool} es @code{#t}, efectuar una depuración de las cadenas
-cíclicas de funciones de callback.  Predeterminado: @code{#f}.
 
 @item @code{debug-skylines} @var{bool}
 Si @var{bool} es @code{#t}, efectuar una depuración de las líneas
@@ -866,21 +845,12 @@ Predeterminado: @code{#t}.
 La opción @option{-dno-print-pages} es útil en combinación con las
 opciones @option{-dpreview} o @option{-dcrop}.
 
-@item @code{profile-property-accesses} @var{bool}
-Si @var{bool} es @code{#t}, recabar estadísticas de las llamadas de
-función @code{get_property()}.  Predeterminado: @code{#f}.
-
 @item @code{protected-scheme-parsing} @var{bool}
 Si @var{bool} es @code{#t}, continuar cuando se interceptan
 errores en el código empotrado de Scheme dentro del analizador
 sintáctico.  Si se establece al valor @code{#f}, detenerse cuando
 se produzca algún error e imprimir una traza de la pila.
 Predeterminado: @code{#t}.
-
-@item @code{read-file-list} @var{cadena}
-Usar el archivo @file{@var{cadena}} que contiene una lista de
-archivos de entrada que procesar.  Predeterminado: @code{#f} (que
-significa ningún archivo de lista de entrada).
 
 @item @code{relative-includes} @var{bool}
 Cuando se procesa una instrucción @code{\include}, buscar el
@@ -945,11 +915,6 @@ fuente tipográfica disponibles tal y como los proporciona la
 biblioteca fontconfig.  Al final de esta lista, LilyPond presenta
 los ajustes de configuración del propio fontconfig.
 Predeterminado: @code{#f}.
-
-@item @code{strict-infinity-checking} @var{bool}
-Si @var{bool} es @code{#t}, hacer que la instrucción
-@command{lilypond} aborte al encontrar las excepciones de coma
-flotante @code{Inf} y @code{NaN}.  Predeterminado: @code{#f}.
 
 @item @code{strip-output-dir} @var{bool}
 Si @var{bool} es @code{#t}, no utilizar la parte del directorio

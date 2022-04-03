@@ -606,11 +606,6 @@ SVG ビュアーが対応していないことがあるので、@c
 
 @end table
 
-@item @code{check-internal-types} @var{bool}
-@var{bool} が @code{#t} なら、@c
-全てのプロパティ代入について型チェックを行います。@c
-デフォルト: @code{#f}。
-
 @item @code{clip-systems} @var{bool}
 @var{bool} が @code{#t} なら、@c
 楽譜から断片を取り出します。これを使用するには、
@@ -626,26 +621,6 @@ SVG ビュアーが対応していないことがあるので、@c
 
 @item @code{datadir}
 データファイル パスの接頭辞です。読み取り専用で、設定しても効果がありません。
-
-@item @code{debug-lexer} @var{bool}
-@var{bool} が @code{#t} なら、@c
-Flex 文法解析ソフトウェアをデバッグします。@c
-デフォルト: @code{#f}。
-
-@item @code{debug-page-breaking-scoring} @var{bool}
-@var{bool} が @code{#t} なら、@c
-多くの改ページ設定に関するスコアを吐き出します。@c
-デフォルト: @code{#f}。
-
-@item @code{debug-parser} @var{bool}
-@var{bool} が @code{#t} なら、@c
-Bison パーサをデバッグします。@c
-デフォルト: @code{#f}。
-
-@item @code{debug-property-callbacks} @var{bool}
-@var{bool} が @code{#t} なら、@c
-コールバック循環をデバッグします。@c
-デフォルト: @code{#f}。
 
 @item @code{debug-skylines} @var{bool}
 @var{bool} が @code{#t} なら、@c
@@ -849,22 +824,12 @@ PDF と SVG 出力に @q{ポイント＆クリック} リンクを付け加え�
 @option{-dpreview} や @option{-dcrop}
 を使う場合は @option{-dno-print-pages} を組み合わせると有用です。
 
-@item @code{profile-property-accesses} @var{bool}
-@var{bool} が @code{#t} なら、@c
-@code{get_property()} 関数呼び出しの統計を取ります。@c
-デフォルト: @code{#t}。
-
 @item @code{protected-scheme-parsing} @var{bool}
 @var{bool} が @code{#t} なら、@c
 パーサでインライン Scheme のエラーが発生しても処理を続けます。@c
 @code{#f} に設定されている場合、エラー終了して、スタック トレースを表示@c
 します。@c
 デフォルト: @code{#t}。
-
-@item @code{read-file-list} @var{string}
-@file{@var{string}} を処理する入力ファイルのリストを保持するファイル@c
-として指定します。@c
-デフォルト: @code{#f} （入力ファイルのリスト無しを意味します）。
 
 @item @code{relative-includes} @var{bool}
 @var{bool} が @code{#t} なら、@c
@@ -931,12 +896,6 @@ CPU とメモリ使用を制限すべきです。
 @var{bool} が @code{#t} なら、@c
 使用可能なフォント名をリスト アップします。@c
 加えて LilyPond は fontconfig の設定そのものを表示します。@c
-デフォルト: @code{#f}。
-
-@item @code{strict-infinity-checking} @var{bool}
-@var{bool} が @code{#t} なら、@c
-浮動小数点の例外 @code{Inf} と @code{NaN} に遭遇した時、@c
-強制終了します。@c
 デフォルト: @code{#f}。
 
 @item @code{strip-output-dir} @var{bool}

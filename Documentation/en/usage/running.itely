@@ -569,10 +569,6 @@ in case an SVG viewer is unable to handle them.  When using
 
 @end table
 
-@item @code{check-internal-types} @var{bool}
-If @var{bool} is @code{#t}, check every property assignment for
-types.  Default: @code{#f}.
-
 @item @code{clip-systems} @var{bool}
 If @var{bool} is @code{#t}, extract music fragments out of a score.
 This requires that the @code{clip-regions} function has been defined
@@ -603,28 +599,6 @@ effect.
 If @var{bool} is @code{#t}, use the debugging Scheme evaluator,
 which prints backtraces with line numbers on errors.
 Default: @code{#f}, or @code{#t} when using @code{--verbose}.
-
-@item @code{debug-gc-object-lifetimes} @var{limit}
-Ensure that all references to parsed objects are dead after
-finishing a file, printing a maximum of @var{limit} warnings, or
-no maximum for code @code{#t}.  Default: @code{5}.
-
-@item @code{debug-lexer} @var{bool}
-If @var{bool} is @code{#t}, debug the flex lexer.
-Default: @code{#f}.
-
-@item @code{debug-page-breaking-scoring} @var{bool}
-If @var{bool} is @code{#t}, dump scores for many different page
-breaking configurations.
-Default: @code{#f}.
-
-@item @code{debug-parser} @var{bool}
-If @var{bool} is @code{#t}, debug the bison parser.
-Default: @code{#f}.
-
-@item @code{debug-property-callbacks} @var{bool}
-If @var{bool} is @code{#t}, debug cyclic callback chains.
-Default: @code{#f}.
 
 @item @code{debug-skylines} @var{bool}
 If @var{bool} is @code{#t}, debug skylines.
@@ -831,21 +805,11 @@ Default: @code{#t}.
 Option @option{-dno-print-pages} is useful in combination with
 @option{-dpreview} or @option{-dcrop}.
 
-@item @code{profile-property-accesses} @var{bool}
-If @var{bool} is @code{#t}, keep statistics of @code{get_property()}
-function calls.
-Default: @code{#f}.
-
 @item @code{protected-scheme-parsing} @var{bool}
 If @var{bool} is @code{#t}, continue when errors in inline Scheme
 code are caught in the parser.  If set to @code{#f}, halt on errors
 and print a stack trace.
 Default: @code{#t}.
-
-@item @code{read-file-list} @var{string}
-Use file @file{@var{string}} that contains a list of input files to be
-processed.
-Default: @code{#f} (meaning no input list file).
 
 @item @code{relative-includes} @var{bool}
 When processing an @code{\include} command, look for the included
@@ -909,11 +873,6 @@ images in @code{lilypond-book}.
 If @var{bool} is @code{#t}, list available font names as delivered by
 the fontconfig library.  Appended to this list LilyPond displays the
 configuration settings of fontconfig itself.
-Default: @code{#f}.
-
-@item @code{strict-infinity-checking} @var{bool}
-If @var{bool} is @code{#t}, make @command{lilypond} abort on
-encountering @code{Inf} and @code{NaN} floating point exceptions.
 Default: @code{#f}.
 
 @item @code{strip-output-dir} @var{bool}

@@ -602,10 +602,6 @@ Format}) avec le moteur @code{svg}.
 
 @end table
 
-@item @code{check-internal-types} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, vérifie qu'à chaque propriété
-est bien affecté un type. La valeur par défaut est @code{#f}.
-
 @item @code{clip-systems} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, extrait des fragments musicaux
 d'une partition.  Ceci requiert que la fonction @code{clip-regions} a
@@ -637,28 +633,6 @@ Si @var{bool} est déterminé à @code{#t}, LilyPond utilisera le
 l'évaluateur de déboguage Scheme qui affichera les traçage et les
 numéros de ligne en cas d'erreur. La valeur par défaut est @code{#f}, mais
 @code{#t} lorsque @code{--verbose} est utilisé.
-
-@item @code{debug-gc-object-lifetimes} @var{limite}
-Cette option permet de s'assurer que toutes les références aux objets
-analysés sont éliminées après la fin d'un fichier, affichant un maximum
-d'avertissments fixé à @var{limite}, ou sans maximum si déterminé
-à @code{#t}. La valeur par défaut est de @code{5}.
-
-@item @code{debug-lexer} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, permet le débogage de
-l'analyseur lexical @emph{flex}. La valeur par défaut est @code{#f}.
-
-@item @code{debug-page-breaking-scoring} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, purge les calculs des
-configurations de saut de page. La valeur par défaut est @code{#f}.
-
-@item @code{debug-parser} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, permet le débogage de
-l'analyseur @emph{bison}. La valeur par défaut est @code{#f}.
-
-@item @code{debug-property-callbacks} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, permet le débogage des chaînes
-de @emph{callback} cycliques. La valeur par défaut est @code{#f}.
 
 @item @code{debug-skylines} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, permet le débogage des lignes
@@ -876,21 +850,11 @@ L'option @option{-dno-print-pages} est particulièrement
 utile lorsqu'utilisée conjointement avec les options @option{-dpreview}
 et @option{-dcrop}.
 
-@item @code{profile-property-accesses} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, enregistre des statistiques des
-appels à la fonction @code{get_property()}. La valeur par défaut est
-@code{#f}.
-
 @item @code{protected-scheme-parsing} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, continue en dépit des erreurs
 que l'analyseur syntaxique détecterait dans du code Scheme inclus.
 Lorsque basculé sur @code{#f}, stoppe le traitement s'il y a erreur et
 affiche une trace de la pile. La valeur par défaut est @code{#t}.
-
-@item @code{read-file-list} @var{chaîne}
-Spécifie un fichier @file{@var{chaîne}} listant les différents fichiers
-sources à traiter. La valeur par défaut est @code{#f}, autrement dit
-absence de fichier de liste.
 
 @item @code{relative-includes} @var{bool}
 Face à une instruction @code{\include}, recherche les fichiers à inclure
@@ -960,11 +924,6 @@ Si @var{bool} est déterminé à @code{#t}, liste le nom des fontes
 disponibles tel que le ressort la bibliothèque fontconfig. LilyPond
 ajoute à cette liste les réglages et la configuration de fontconfig. La
 valeur par défaut est @code{#t}.
-
-@item @code{strict-infinity-checking} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, force le crash en présence des
-points d'exception de virgule flottante @code{Inf} ou @code{NaN} --
-infini ou non-nombre. La valeur par défaut est @code{#f}.
 
 @item @code{strip-output-dir} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, supprime, lors du nommage des

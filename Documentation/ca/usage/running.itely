@@ -430,10 +430,6 @@ ser compatible amb qualsevol editor o client de SVG.  També hi ha
 una opció @code{svg-woff} (vegeu més avall) per usar els fitxers
 de tipus de lletra woff al @q{rerefons} SVG.
 
-@item @code{check-internal-types}
-@tab @code{#f}
-@tab Comprova el tipus de cada assignació de propietats.
-
 @item @code{clip-systems} (retalla els sistemes de pentagrames)
 @tab @code{#f}
 @tab Genera framents d'imatge retallats d'una partitura.
@@ -441,23 +437,6 @@ de tipus de lletra woff al @q{rerefons} SVG.
 @item @code{datadir} (directori de dades)
 @tab
 @tab Prefix dels fitxers de dades (sols lectura).
-
-@item @code{debug-lexer}
-@tab @code{#f}
-@tab Depuració de l'analitzador lèxic flex.
-
-@item @code{debug-page-breaking-scoring}
-@tab @code{#f}
-@tab Bolca les partitures per a moltes configuracions de salts de
-pàgina diferents.
-
-@item @code{debug-parser}
-@tab @code{#f}
-f@tab Depuració de l'analitzador sintàctic bison.
-
-@item @code{debug-property-callbacks}
-@tab @code{#f}
-@tab Depuració de les cadenes cícliues de funcions de callback.
 
 @item @code{debug-skylines}
 @tab @code{#f}
@@ -583,21 +562,11 @@ vostres necessitats.
 @tab Genera pàgines completes (és l'opció predeterminada).  És útil
 @option{-dno-print-pages} en combinació amb @option{-dpreview}.
 
-@item @code{profile-property-accesses}
-@tab @code{#f}
-@tab Conserva les estadístiques de les crides de funció
-@code{get_property()}.
-
 @item @code{protected-scheme-parsing}
 @tab @code{#t}
 @tab Continua quan es capten a l'analitzador sintàctic errors del
 Scheme encastat.  Si es fixa a @code{#f}, detenir-se quan hi hagi
 errors i imprimir un registre de traça de pila.
-
-@item @code{read-file-list}
-@tab @code{#f [fitxer]}
-@tab Especifica el nom d'un fitxer que conté una llista de fitxers
-d'entrada per processar.
 
 @item @code{relative-includes}
 @tab @code{#f}
@@ -666,11 +635,6 @@ fitxers @code{FITXER1.log}, @code{FITXER2.log}@dots{}
 @tab @code{#f}
 @tab Llista tots els noms dels tipus tipogràfics de lletra
 disponibles.
-
-@item @code{strict-infinity-checking}
-@tab @code{#f}
-@tab Força una terminació abrupta si es troben les excepcions de
-punt flotant @code{Inf} i @code{NaN}.
 
 @item @code{strip-output-dir}
 @tab @code{#t}
