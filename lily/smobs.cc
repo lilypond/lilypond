@@ -21,9 +21,7 @@
 
 #include <atomic>
 
-#if (GUILEV2)
 #include <gc/gc.h>
-#endif
 
 /* Guile runs finalization on a separate thread, so use atomics to
    keep track of counts safely. */
@@ -40,7 +38,6 @@ Smob_core::Smob_core () : self_scm_ (SCM_UNDEFINED)
 void
 Smob_core::maybe_grow_heap ()
 {
-#if (GUILEV2)
   /*
     BDWGC has a special case for objects with finalizers
 
@@ -77,7 +74,6 @@ Smob_core::maybe_grow_heap ()
     {
       GC_expand_hp (want_heap - size);
     }
-#endif
 }
 
 /*

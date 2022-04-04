@@ -31,9 +31,7 @@ Variable equal ("=");
 Variable less ("<");
 Variable plus ("+");
 Variable make_module ("make-module");
-#if GUILEV2
 Variable module_export_all_x ("module-export-all!");
-#endif
 Variable module_export_x ("module-export!");
 Variable module_public_interface ("module-public-interface");
 Variable module_use_x ("module-use!");
@@ -123,9 +121,6 @@ Variable markup_list_function_p ("markup-list-function?");
 Variable markup_list_p ("markup-list?");
 Variable markup_to_string ("markup->string");
 Variable midi_program ("midi-program");
-#if !GUILEV2
-Variable module_export_all_x ("module-export-all!");
-#endif
 Variable f_parser ("%parser");
 Variable output_scopes ("output-scopes");
 Variable percussion_p ("percussion?");

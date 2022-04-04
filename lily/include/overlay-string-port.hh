@@ -34,20 +34,14 @@
 */
 class Overlay_string_port
 {
-#if GUILEV2
   typedef scm_t_off guile_off_t;
   typedef scm_t_port_type *guile_port_t;
-#else
-  typedef scm_t_bits guile_port_t;
-  typedef off_t guile_off_t;
-#endif
   static guile_port_t type_;
 
   const char *data_;
   ssize_t pos_;
   ssize_t len_;
 
-#if GUILEV2
   size_t read (SCM dest, size_t dest_off, size_t n)
   {
     if (pos_ >= len_)
@@ -108,51 +102,6 @@ public:
                                           ly_symbol2scm ("error"),
                                           reinterpret_cast<scm_t_bits> (this));
   }
-#else
-  static int fill_buffer_scm (SCM port)
-  {
-    scm_t_port *pt = SCM_PTAB_ENTRY (port);
-    if (pt->read_pos >= pt->read_end)
-      return EOF;
-    else
-      return scm_return_first_int (*pt->read_pos, port);
-  }
-
-  static guile_off_t seek_scm (SCM port, guile_off_t /* offset */, int whence)
-  {
-    assert (whence == SEEK_CUR);
-    scm_t_port *pt = SCM_PTAB_ENTRY (port);
-    if (pt->read_buf == pt->putback_buf)
-      {
-        return pt->saved_read_pos - pt->saved_read_buf
-               - (pt->read_end - pt->read_pos);
-      }
-    return pt->read_pos - pt->read_buf;
-  }
-
-public:
-  SCM as_port ()
-  {
-    // Avoid compiler-warning because of unused private field.
-    static_cast<void> (pos_);
-
-    // strports.c in GUILE 1.8 has ominous comments about locking to
-    // protect the global port table. We assume LilyPond doesn't use
-    // threads; we have no access to the lock anyway.
-    SCM port = scm_new_port_table_entry (type_);
-    SCM_SET_CELL_TYPE (port, type_ | SCM_RDNG | SCM_OPN);
-    SCM_SETSTREAM (port, this);
-
-    scm_t_port *pt = SCM_PTAB_ENTRY (port);
-
-    pt->read_buf
-      = reinterpret_cast<unsigned char *> (const_cast<char *> (data_));
-    pt->read_pos = pt->read_buf;
-    pt->read_buf_size = len_;
-    pt->read_end = pt->read_buf + len_;
-    return port;
-  }
-#endif
 
 public:
   Overlay_string_port (const char *data, ssize_t len) : data_ (data),
@@ -164,11 +113,7 @@ public:
   {
     // TODO: GUILE should take const char * for the name.
     char *name = const_cast<char *> ("Overlay_string_port");
-#if GUILEV2
     type_ = scm_make_port_type (name, &read_scm, NULL);
-#else
-    type_ = scm_make_port_type (name, &fill_buffer_scm, NULL);
-#endif
     scm_set_port_seek (type_, &seek_scm);
   }
 };

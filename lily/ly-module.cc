@@ -30,25 +30,8 @@ ly_make_module (bool safe)
   if (!safe)
     {
       /* Look up (evaluate) Scheme make-module function and call it */
-
       mod = Guile_user::make_module ();
-      /*
-        Look up and call Guile module-export-all! or, when using
-        Guile V1.8, the compatible shim defined in lily.scm.
-      */
-#if GUILEV2
       Guile_user::module_export_all_x (mod);
-#else
-      Lily::module_export_all_x (mod);
-#endif
-
-      /*
-        Evaluate Guile module "the-root-module",
-        and ensure we inherit definitions from it and the "lily" module
-        N.B. this used to be "the-scm-module" and is deprecated in
-        Guile V1.9/2.0
-      */
-
       ly_use_module (mod, Guile_user::the_root_module);
       ly_use_module (mod, Lily::module);
     }

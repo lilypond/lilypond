@@ -17,7 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ly-module.hh" // pulls in lily-guile.hh and guile-compatibility.hh
+#include "ly-module.hh"
+#include "lily-guile.hh"
 #include "warn.hh"
 #include "std-string.hh"
 

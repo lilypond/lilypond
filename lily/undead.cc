@@ -44,7 +44,7 @@ parsed_dead::readout ()
           SCM elt = elements[i]->readout_one ();
           if (SCM_UNBNDP (elt))
             break;
-#if GUILEV2
+
           // Guile puts the garbage collector into "Java finalization" mode.
           // This means to-be-finalized objects are marked to keep dependent
           // objects around until the next collection, in case the finalizer
@@ -52,7 +52,7 @@ parsed_dead::readout ()
           // ignore these cases since the smob is gone from our point of view.
           if (SCM_SMOBNUM (elt) == 0)
             continue;
-#endif
+
           result = scm_cons (elt, result);
         }
     }

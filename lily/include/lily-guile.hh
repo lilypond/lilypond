@@ -39,7 +39,6 @@
 
 #include "axis.hh"
 #include "memory.hh"
-#include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"
 

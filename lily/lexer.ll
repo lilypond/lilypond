@@ -1138,22 +1138,11 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 
 	if (extra_token && SCM_VALUESP (sval))
 	{
-#if GUILEV2
 		size_t nvals = scm_c_nvalues (sval);
 
 		if (nvals > 0) {
 			while (--nvals) {
 				SCM v = scm_c_value_ref (sval, nvals);
-#else
-		sval = scm_struct_ref (sval, SCM_INUM0);
-
-		if (scm_is_pair (sval)) {
-			for (SCM p = scm_reverse (scm_cdr (sval));
-			     scm_is_pair (p);
-			     p = scm_cdr (p))
-			{
-				SCM v = scm_car (p);
-#endif
 				if (Music *m = unsmob<Music> (v))
 				{
 					if (!unsmob<Input> (get_property (m, "origin")))
@@ -1174,11 +1163,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 					break;
 				}
 			}
-#if GUILEV2
 			sval = scm_c_value_ref (sval, 0);
-#else
-			sval = scm_car (sval);
-#endif
 		} else
 			sval = SCM_UNSPECIFIED;
 	}

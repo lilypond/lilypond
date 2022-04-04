@@ -32,15 +32,11 @@ extern Variable apply;
 extern Variable p_auto_compilation_options;
 #endif
 extern Variable equal;
-#if GUILEV2
 extern Variable f_default_port_encoding;
-#endif
 extern Variable less;
 extern Variable plus;
 extern Variable make_module;
-#if GUILEV2
 extern Variable module_export_all_x;
-#endif
 extern Variable module_export_x;
 extern Variable module_public_interface;
 extern Variable module_use_x;
@@ -135,9 +131,6 @@ extern Variable markup_list_function_p;
 extern Variable markup_list_p;
 extern Variable markup_to_string;
 extern Variable midi_program;
-#if !GUILEV2
-extern Variable module_export_all_x;
-#endif
 extern Variable f_parser;
 extern Variable output_scopes;
 extern Variable percussion_p;

@@ -99,11 +99,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
       string contents (reinterpret_cast<char const *> (buffer.get ()), length);
       contents = "(quote (" + contents + "))";
 
-#if GUILEV2
       tab = scm_eval_string (scm_from_utf8_string (contents.c_str ()));
-#else
-      tab = scm_c_eval_string (contents.c_str ());
-#endif
     }
   return tab;
 }

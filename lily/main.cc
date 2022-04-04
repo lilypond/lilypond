@@ -513,10 +513,8 @@ main_with_guile (void *, int, char **)
   string scm_pct_load_path = "%load-path";
   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
-#if GUILEV2
   string scm_pct_load_compiled_path = "%load-compiled-path";
   prepend_scheme_list (lilypond_libdir + "/ccache", scm_pct_load_compiled_path);
-#endif
 
   if (is_loglevel (LOG_DEBUG))
     dir_info (stderr);
@@ -770,43 +768,8 @@ parse_argv (int argc, char **argv)
     }
 }
 
-/*
-  T1686 Add two new routines called by setup_guile_env
-*/
-
-void
-setup_guile_gc_env ()
-/*
- * Set up environment variables relevant to the
- * Garbage Collector
- */
-{
-  char const *yield = getenv ("LILYPOND_GC_YIELD");
-  bool overwrite = true;
-  if (!yield)
-    {
-      yield = "65";
-      overwrite = false;
-    }
-
-  sane_putenv ("GUILE_MIN_YIELD_1", yield, overwrite);
-  sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
-  sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
-
-  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1",
-               "10485760", overwrite);
-  sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
-               "104857600", overwrite);
-}
-
-#if (GUILEV2)
-
-void
-setup_guile_v2_env ()
-/*
- * Set up environment variables relevant to compiling
- * Scheme files for Guile V2.
- */
+static void
+setup_guile_env ()
 {
   sane_putenv ("GUILE_AUTO_COMPILE", "0", false); // disable auto-compile
   sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
@@ -839,20 +802,6 @@ setup_guile_v2_env ()
 
   // Use less CPU for GC, at the expense of memory.
   sane_putenv ("GC_FREE_SPACE_DIVISOR", "1", false);
-}
-#endif
-
-void
-setup_guile_env ()
-/*
- * Set up environment variables relevant to Scheme
- */
-{
-#if (GUILEV2)
-  setup_guile_v2_env ();  // configure Guile V2 behaviour
-#else
-  setup_guile_gc_env ();  // configure garbage collector
-#endif
 }
 
 int
