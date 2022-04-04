@@ -18,8 +18,9 @@
 
 (use-modules (lily safe-utility-defs))
 
-(use-modules (ice-9 optargs))
-(use-modules (srfi srfi-11))
+(use-modules (ice-9 optargs)
+             (ice-9 match)
+             (srfi srfi-11))
 
 (define-safe-public (music-is-of-type? mus type)
   "Does @var{mus} belong to the music class @var{type}?"
@@ -1172,76 +1173,127 @@ actually fully cloned."
   (make-apply-context delete-prop))
 
 
-(defmacro-public def-grace-function (start stop . docstring)
-  "Helper macro for defining grace music"
-  `(define-music-function (music) (ly:music?)
-     ,@docstring
-     (make-music 'GraceMusic
-                 'element (make-music 'SequentialMusic
-                                      'elements (list (ly:music-deep-copy ,start)
-                                                      music
-                                                      (ly:music-deep-copy ,stop))))))
+(define-syntax-public def-grace-function
+  (syntax-rules ()
+    ((_ start stop docstring)
+     (define-music-function (music) (ly:music?)
+       docstring
+       (make-music 'GraceMusic
+                   'element (make-music 'SequentialMusic
+                                        'elements (list (ly:music-deep-copy start)
+                                                        music
+                                                        (ly:music-deep-copy stop))))))
+    ((_ start stop)
+     (def-grace-function start stop ""))))
 
-(defmacro-public define-syntax-function (type args signature . body)
-  "Helper macro for @code{ly:make-music-function}.  Syntax:
+(define-syntax-public define-syntax-function
+  (lambda (syntaks)
+    "Helper macro for @code{ly:make-music-function}.  Syntax:
 
-@example
-(define-syntax-function @var{result-type?}
-                        (@var{arg1} @var{arg2} @dots{})
-                        (@var{type1?} @var{type2?} @dots{})
-  @var{function-body})
-@end example
+  @example
+  (define-syntax-function @var{result-type?}
+                          (@var{arg1} @var{arg2} @dots{})
+                          (@var{type1?} @var{type2?} @dots{})
+    @var{function-body})
+  @end example
 
-See @code{define-music-function} for information on type predicates.
-@code{result-type?} can specify a default in the same manner as
-predicates, to be used in case of a type error in arguments or
-result."
+  See @code{define-music-function} for information on type predicates.
+  @code{result-type?} can specify a default in the same manner as
+  predicates, to be used in case of a type error in arguments or
+  result."
 
-  (define (has-parser/location? arg where)
-    (let loop ((arg arg))
-      (if (list? arg)
-          (any loop arg)
-          (memq arg where))))
-  (define (currying-lambda args doc-string? body)
-    (if (and (pair? args)
-             (pair? (car args)))
-        (currying-lambda (car args) doc-string?
-                         `((lambda ,(cdr args) ,@body)))
-        (let* ((compatibility? (if (list? args)
-                                   (= (length args) (+ 2 (length signature)))
-                                   (and (pair? args) (pair? (cdr args))
-                                        (eq? (car args) 'parser))))
-               (realargs (if compatibility? (cddr args) args)))
-          `(lambda ,realargs
-             ,(format #f "~a\n~a" realargs (or doc-string? ""))
-             ,@(if (and compatibility?
-                        (has-parser/location? body (take args 2)))
-                   `((let ((,(car args) (*parser*)) (,(cadr args) (*location*)))
-                       ,@body))
-                   body)))))
+  (define (format-docstring docstring args)
+    (format #f "~a\n~a"
+            (syntax->datum args)
+            (syntax->datum docstring)))
 
-  (let ((docstring
-         (and (pair? body) (pair? (cdr body))
-              (if (string? (car body))
-                  (car body)
-                  (and (pair? (car body))
-                       (eq? '_i (caar body))
-                       (pair? (cdar body))
-                       (string? (cadar body))
-                       (null? (cddar body))
-                       (cadar body))))))
-    ;; When the music function definition contains an i10n doc string,
-    ;; (_i "doc string"), keep the literal string only
-    `(ly:make-music-function
-      (list ,@(map (lambda (pred)
-                     (if (pair? pred)
-                         `(cons ,(car pred)
-                                ,(and (pair? (cdr pred)) (cadr pred)))
-                         pred))
-                   (cons type signature)))
-      ,(currying-lambda args docstring (if docstring (cdr body) body)))))
+  (define (take-body-docstring body)
+    (syntax-case body (_i)
+      ;; A string and nothing else in the function is not the docstring
+      ;; but the return value.
+      (((_i doc) b . b*)
+       (string? (syntax->datum #'doc))
+       ;; If the body starts with (_i "literal string"), strip the _i so that
+       ;; the docstring will be recognized on the lambda.
+       (values #'doc #'(b . b*)))
+      ((doc b . b*)
+       (string? (syntax->datum #'doc))
+       (values #'doc #'(b . b*)))
+      (else
+       (values "" body))))
 
-(defmacro-public define-music-function rest
+  (define (final-lambda compatibility docstring args fixed-body)
+    (let ((fixed-docstring (format-docstring docstring args)))
+      (match compatibility
+        ((parser-arg location-arg)
+         #`(lambda #,args
+             #,fixed-docstring
+             (let ((#,parser-arg (*parser*))
+                   (#,location-arg (*location*)))
+               . #,fixed-body)))
+        (#f
+         #`(lambda #,args
+             #,fixed-docstring
+             . #,fixed-body)))))
+
+  (define (currying-lambda args docstring body signature-length)
+    (syntax-case args ()
+      (((head . head-rest) . rest)
+       (currying-lambda #'(head . head-rest)
+                        ;; Keep moving docstring to outermost lambda.
+                        docstring
+                        #`((lambda rest . #,body))
+                        signature-length))
+      ;; Backwards compatibility heuristic: if the arguments contain 2 more
+      ;; elements than the signature, assume they're parser and location.
+      ((parser-arg location-arg other-arg ...)
+       (eqv? signature-length (length #'(other-arg ...)))
+       (final-lambda (list #'parser-arg #'location-arg)
+                     docstring
+                     #'(other-arg ...)
+                     body))
+      ((arg ...)
+       (final-lambda #f
+                     docstring
+                     args
+                     body))
+      ;; If the arguments do not form a list, as with fancy stuff like
+      ;; #(define-music-function (arg1 . rest) (integer? (integer? 5) string?) ...),
+      ;; fall back to a poorer heuristic: the beginning is list-like
+      ;; and it starts with an argument called "parser".
+      ((parser-arg location-arg . rest)
+       (eq? 'parser (syntax->datum #'parser-arg))
+       (final-lambda (list #'parser-arg #'location-arg)
+                     docstring
+                     #'rest
+                     body))
+      (else
+       (final-lambda #f
+                     docstring
+                     args
+                     body))))
+
+    ;; Argument types can be specified as (predicate? default), where `default`
+    ;; gets used when the respective argument is skipped.
+    (define (maybe-default s)
+      (syntax-case s ()
+        ((elt default) #'(cons elt default))
+        ((elt) #'(cons elt #f))
+        (elt #'elt)))
+
+    (with-syntax (((_ type args (sig ...) . body) syntaks))
+      (let-values (((docstring fixed-body)
+                    (take-body-docstring #'body)))
+        #`(ly:make-music-function
+           (list #,(maybe-default #'type)
+                 #,@(map maybe-default #'(sig ...)))
+            #,(currying-lambda
+               #'args
+               docstring
+               fixed-body
+               (length #'(sig ...))))))))
+
+(define-syntax-rule-public (define-music-function elt ...)
   "Define and return a music function.  Syntax:
 
 @example
@@ -1259,30 +1311,26 @@ parameter can be omitted in a call only when it cannot get confused
 with a following parameter of different type.
 
 A music function must return a music expression."
+  (define-syntax-function (ly:music? (make-music 'Music 'void #t)) elt ...))
 
-  `(define-syntax-function (ly:music? (make-music 'Music 'void #t)) ,@rest))
 
-
-(defmacro-public define-scheme-function rest
+(define-syntax-rule-public (define-scheme-function elt ...)
   "Like @code{define-music-function}, but the return type is not
 restricted to music."
+  (define-syntax-function scheme? elt ...))
 
-  `(define-syntax-function scheme? ,@rest))
-
-(defmacro-public define-void-function rest
+(define-syntax-rule-public (define-void-function elt ...)
   "Like @code{define-music-function}, but the return value must be the
 special @samp{*unspecified*} value (i.e., what most Guile functions
 with @qq{unspecified} value return).  Use this when defining functions
 for executing actions rather than returning values, to keep LilyPond
 from trying to interpret the return value."
+  (define-syntax-function (void? *unspecified*) elt ... *unspecified*))
 
-  `(define-syntax-function (void? *unspecified*) ,@rest *unspecified*))
-
-(defmacro-public define-event-function rest
+(define-syntax-rule-public (define-event-function elt ...)
   "Like @code{define-music-function}, but the return value must be a
 post-event."
-
-  `(define-syntax-function (ly:event? (make-music 'Event 'void #t)) ,@rest))
+  (define-syntax-function (ly:event? (make-music 'Event 'void #t)) elt ...))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
