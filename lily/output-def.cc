@@ -111,7 +111,7 @@ Output_def::get_dimension (SCM s) const
 SCM
 Output_def::lookup_variable (SCM sym) const
 {
-  SCM var = ly_module_lookup (scope_, sym);
+  SCM var = scm_module_variable (scope_, sym);
   if (SCM_VARIABLEP (var) && !SCM_UNBNDP (SCM_VARIABLE_REF (var)))
     return SCM_VARIABLE_REF (var);
 

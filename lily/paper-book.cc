@@ -338,7 +338,7 @@ Paper_book::output_stencil (SCM out_name, SCM stencil, SCM formats)
   string mod_nm = "lily framework-" + get_output_backend_name ();
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
 
-  SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
+  SCM framework = scm_module_variable (mod, ly_symbol2scm ("output-stencil"));
   if (scm_is_false (framework))
     {
       warning (_f ("program option -dclip-systems/-dcrop/-dpreview not "
@@ -485,7 +485,7 @@ set_system_penalty (SCM sys, SCM header)
 {
   if (ly_is_module (header))
     {
-      SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
+      SCM force = scm_module_variable (header, ly_symbol2scm ("breakbefore"));
       if (SCM_VARIABLEP (force)
           && scm_is_bool (SCM_VARIABLE_REF (force)))
         {

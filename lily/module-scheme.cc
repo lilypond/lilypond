@@ -52,32 +52,6 @@ Copy all bindings from module @var{src} into @var{dest}.
   return SCM_UNSPECIFIED;
 }
 
-/* Lookup SYM, but don't give error when it is not defined.
-   N.B. this is only needed when running with Guile versions
-   prior to V2.0.3, when calls to ly_module_lookup can be replaced
-   with direct calls to the Guile API scm_module_variable in the
-   LilyPond codebase.
-*/
-SCM
-ly_module_lookup (SCM module, SCM sym)
-{
-#define FUNC_NAME __FUNCTION__
-  SCM_VALIDATE_MODULE (1, module);
-  /*
-    Issue 2758:
-      Guile V2 onward has a scm_module_variable API module.
-      Guile V1.8.7 only has a (module-variable) REPL function and we
-      can't import this via Scm_variable since that needs
-      ly_module_lookup itself.
-   */
-#if GUILEV1
-  return scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
-#else
-  return scm_module_variable (module, sym);
-#endif
-#undef FUNC_NAME
-}
-
 /* Lookup SYM in a list of modules, which do not have to be related.
    Return the first instance. */
 LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
@@ -91,7 +65,7 @@ If not found, return @var{def} or @code{#f} if @var{def} isn't specified.
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM mod = scm_car (s);
-      SCM v = ly_module_lookup (mod, sym);
+      SCM v = scm_module_variable (mod, sym);
       if (SCM_VARIABLEP (v) && !SCM_UNBNDP (SCM_VARIABLE_REF (v)))
         return scm_variable_ref (v);
     }
