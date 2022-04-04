@@ -45,10 +45,6 @@
 #define scm_to_utf8_stringn scm_to_locale_stringn
 #endif
 
-#ifndef SMOB_FREE_RETURN_VAL
-#define SMOB_FREE_RETURN_VAL(CL) 0
-#endif
-
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
