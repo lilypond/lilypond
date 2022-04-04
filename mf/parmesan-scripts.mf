@@ -22,7 +22,7 @@ fet_begingroup ("scripts");
 fet_beginchar ("ictus", "ictus");
   save ht, wd;
   ht# = .35 staff_space#;
-  wd# = linethickness#;
+  wd# = 1.5 linethickness#;
 
   define_pixels (wd, ht);
 
