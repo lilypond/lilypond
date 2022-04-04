@@ -34,21 +34,16 @@
 (define safe-objects
   (list))
 
-(define (get-symbol arg)
-  (if (pair? arg)
-      (get-symbol (car arg))
-      arg))
-
-
-(define-macro (define-safe-public arglist . body)
-  "Define a variable, export it, and mark it as safe, i.e. usable in
+(define-syntax define-safe-public
+  (lambda (syntaks)
+    "Define a variable, export it, and mark it as safe, i.e. usable in
 LilyPond safe mode.  The syntax is the same as `define*-public'."
-
-  (let ((safe-symbol (get-symbol arglist)))
-    `(begin
-       (define* ,arglist
-         ,@body)
-       (set! safe-objects (cons (cons ',safe-symbol ,safe-symbol)
-                                safe-objects))
-       (export ,safe-symbol)
-       ,safe-symbol)))
+    (syntax-case syntaks ()
+      ((_ binding form ...)
+       (let ((name (let loop ((b #'binding))
+                     (syntax-case b ()
+                       ((head . rest) (loop #'head))
+                       (x #'x)))))
+         #`(begin
+             (define*-public binding form ...)
+             (set! safe-objects (acons '#,name #,name safe-objects))))))))
