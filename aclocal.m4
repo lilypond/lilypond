@@ -570,16 +570,9 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
         ])
     fi
 
-    case "$GUILE_FLAVOR" in
-        guile-2.0|guile-2.2|guile-3.0)
-            GUILEv2=yes
-            ;;
-        guile-1.8)
-            ;;
-        *)
-            STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 2.2"])
-            ;;
-    esac
+    if test "$GUILE_FLAVOR" = "missing"; then
+        STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 2.2"])
+    fi
 ])
 
 

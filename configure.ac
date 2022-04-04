@@ -229,26 +229,9 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
                   [AC_MSG_RESULT([no])
                    CXXFLAGS="$save_CXXFLAGS"])
 
-# -Wsequence-point in GCC version 7 has become very noisy for the
-# Guile 1.8 interface, so disable it.
-# g++ -Wno-whatever may compile even when the compiler does not
-# support the warning, so we have to check for the warning itself.
-if test "$GUILEv2" != "yes"; then
-    AC_MSG_CHECKING([whether $CXX supports -Wsequence-point])
-    save_CXXFLAGS="$CXXFLAGS"
-    CXXFLAGS="$test_CXXFLAGS -Wsequence-point"
-    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-                      [AC_MSG_RESULT([yes])
-                       CXXFLAGS="$save_CXXFLAGS -Wno-sequence-point"],
-                      [AC_MSG_RESULT([no])
-                       CXXFLAGS="$save_CXXFLAGS"])
-fi
-
-if test "$GUILEv2" = "yes"; then
-    PKG_CHECK_MODULES(BDWGC, bdw-gc, true,
-    STEPMAKE_ADD_ENTRY(REQUIRED, libgc-devel))
-    GUILE_CFLAGS="${GUILE_CFLAGS} ${BDWGC_CFLAGS}"
-fi
+PKG_CHECK_MODULES(BDWGC, bdw-gc, true,
+STEPMAKE_ADD_ENTRY(REQUIRED, libgc-devel))
+GUILE_CFLAGS="${GUILE_CFLAGS} ${BDWGC_CFLAGS}"
 
 # GCC versions 5 and up support expecting the use of the C++11 keyword
 # "override" when a derived class overrides a virtual method.  This
