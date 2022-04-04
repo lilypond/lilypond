@@ -16,18 +16,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;; Internationalisation: (_i "to be translated") gets an entry in the
-;; POT file; (gettext ...) must be invoked explicitly to do the actual
-;; "translation".
-;;
-;; (define-macro (_i x) x)
-;; (define-macro-public _i (x) x)
-;; (define-public-macro _i (x) x)
-;; Abbrv-PWR!
-
 (define-module (lily))
-
-(defmacro-public _i (x) x)
 
 ;; GUILE defaults to fixed seed.
 (define-public (randomize-rand-seed)
@@ -53,6 +42,24 @@
   (string->symbol
    (string-downcase
     (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
+
+;; Convenience macros to define syntax and export, like define-public.
+(define-syntax-rule (define-syntax-public name . rest)
+  (begin
+    (define-syntax name . rest)
+    (export name)))
+(export define-syntax-public)
+
+(define-syntax-rule (define-syntax-rule-public (name . args) . rest)
+  (begin
+    (define-syntax-rule (name . args) . rest)
+    (export name)))
+(export define-syntax-rule-public)
+
+;; Internationalisation: (_i "to be translated") gets an entry in the
+;; POT file; (gettext ...) must be invoked explicitly to do the actual
+;; "translation".
+(define-syntax-rule-public (_i x) x)
 
 ;; We don't use (srfi srfi-39) (parameter objects) here because that
 ;; does not give us a name/handle to the underlying fluids themselves.
@@ -120,14 +127,7 @@
     (variable-set! var value)
     var))
 
-(define (define-session-internal name value)
-  ;; work function for define-session
-  (set! lilypond-declarations
-        (cons (cons* name #f (make-session-variable name value) value)
-              lilypond-declarations)))
-
-
-(defmacro define-session (name value)
+(define-syntax-rule (define-session name value)
   "This defines a variable @var{name} with the starting value
 @var{value} that is reinitialized at the start of each session.
 A@tie{}session basically corresponds to one LilyPond file on the
@@ -140,23 +140,21 @@ this manner should be changed within a session only be adding material
 to their front or replacing them altogether, not by modifying parts of
 them.  It is an error to call @code{define-session} after the first
 session has started."
-  `(define-session-internal ',name ,value))
+  (set! lilypond-declarations
+        (cons (cons* 'name #f (make-session-variable 'name value) value)
+              lilypond-declarations)))
 
-(define (define-session-public-internal name value)
-  ;; work function for define-session-public
-  (set! lilypond-exports
-        (acons name (make-session-variable name value) lilypond-exports)))
-
-(defmacro define-session-public (name value)
+(define-syntax-rule (define-session-public name value)
   "Like @code{define-session}, but also exports @var{name} into parser modules."
-  `(begin
-     ;; this is a bit icky: we place the variable right into every
-     ;; parser module so that both set! and define will affect the
-     ;; original variable in the (lily) module.  However, we _also_
-     ;; export it normally from (lily) for the sake of other modules
-     ;; not sharing the name space of the parser.
-     (define-session-public-internal ',name ,value)
-     (export ,name)))
+  (begin
+    ;; this is a bit icky: we place the variable right into every
+    ;; parser module so that both set! and define will affect the
+    ;; original variable in the (lily) module.  However, we _also_
+    ;; export it normally from (lily) for the sake of other modules
+    ;; not sharing the name space of the parser.
+    (set! lilypond-exports
+          (acons 'name (make-session-variable 'name value) lilypond-exports))
+    (export name)))
 
 (define (session-terminate)
   ;; Restore the modules recorded during (session-init) and remove any

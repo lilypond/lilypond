@@ -36,42 +36,44 @@
 ;;;
 
 
-(define-macro (define-display-method music-type vars . body)
+(define-syntax-rule (define-display-method music-type (param) form ...)
   "Define a display method for a music type and store it in the
 `display-methods' property of the music type entry found in the
 `music-name-to-property-table' hash table.  Print methods previously
 defined for that music type are lost.
 Syntax: (define-display-method MusicType (expression)
           ...body...))"
-  `(let ((type-props (hashq-ref music-name-to-property-table
-                                ',music-type '()))
-         (method (lambda ,vars
-                   ,@body)))
+  (let ((type-props (hashq-ref music-name-to-property-table
+                               'music-type '()))
+        (method (lambda (param)
+                  form
+                  ...)))
      (set! type-props
            (assoc-set! type-props 'display-methods (list method)))
      (hashq-set! music-name-to-property-table
-                 ',music-type
+                 'music-type
                  type-props)
      method))
 
-(define-macro (define-extra-display-method music-type vars . body)
+(define-syntax-rule (define-extra-display-method music-type (param) form ...)
   "Add a display method for a music type.  A primary display method
 is supposed to have been previously defined with `define-display-method'.
 This new method should return a string or #f.  If #f is returned, the next
 display method will be called."
-  `(let* ((type-props (hashq-ref music-name-to-property-table
-                                 ',music-type '()))
-          (methods (assoc-ref type-props 'display-methods))
-          (new-method (lambda ,vars
-                        ,@body)))
-     (set! type-props
-           (assoc-set! type-props
-                       'display-methods
-                       (cons new-method methods)))
-     (hashq-set! music-name-to-property-table
-                 ',music-type
-                 type-props)
-     new-method))
+  (let* ((type-props (hashq-ref music-name-to-property-table
+                                'music-type '()))
+         (methods (assoc-ref type-props 'display-methods))
+         (new-method (lambda (param)
+                       form
+                       ...)))
+    (set! type-props
+          (assoc-set! type-props
+                      'display-methods
+                      (cons new-method methods)))
+    (hashq-set! music-name-to-property-table
+                'music-type
+                type-props)
+    new-method))
 
 (define* (tag->lily-string expr #:optional (post-event? #f))
   (format #f "~{~a ~}"

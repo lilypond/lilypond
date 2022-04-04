@@ -134,19 +134,19 @@ expression."
           ((= DOWN direction) "_")
           (else ""))))
 
-(define-macro (define-post-event-display-method type vars direction-required str)
-  `(define-display-method ,type ,vars
-     (format #f "~a~a"
-             (event-direction->lily-string ,(car vars) ,direction-required)
-             ,str)))
+(define-syntax-rule (define-post-event-display-method type (param) direction-required str)
+  (define-display-method type (param)
+    (format #f "~a~a"
+            (event-direction->lily-string param direction-required)
+            str)))
 
-(define-macro (define-span-event-display-method type vars direction-required str-start str-stop)
-  `(define-display-method ,type ,vars
-     (format #f "~a~a"
-             (event-direction->lily-string ,(car vars) ,direction-required)
-             (if (= START (ly:music-property ,(car vars) 'span-direction))
-                 ,str-start
-                 ,str-stop))))
+(define-syntax-rule (define-span-event-display-method type (param) direction-required str-start str-stop)
+  (define-display-method type (param)
+    (format #f "~a~a"
+            (event-direction->lily-string param direction-required)
+            (if (= START (ly:music-property param 'span-direction))
+                str-start
+                str-stop))))
 
 (define-display-method HyphenEvent (event)
   " --")

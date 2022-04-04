@@ -33,58 +33,68 @@
 
 (use-modules (lily) (srfi srfi-1) (ice-9 optargs))
 
-(defmacro* define-register-set (set-symbol doc #:optional definition)
-  "Defines markup command named with @var{set-symbol} for creating
+;; It would be nice to generate the documentation string
+;; automatically containing all possible registrations but this
+;; is a hen-and-egg problem.  When the macro is being executed,
+;; the register definition has not yet been evaluated.  It
+;; would be feasible to not ever evaluate it and consider it
+;; final.  But that seems like a somewhat unfriendly interface.
+(define-syntax define-register-set
+  (lambda (syntaks)
+    "Defines markup command named with @var{set-symbol} for creating
 accordion register markups as well as a music function of the same
 name.
 
 @var{doc} is the optional documentation string followed by the actual
 @var{definition}.  See existing definitions in @file{scm/accreg.scm}
 for examples."
-  `(begin
-     (define-markup-command (,set-symbol layout props name) (string?)
-       #:properties (translate-scaled-markup)
-       #:category accordion-registers
-       ;; It would be nice to generate the documentation string
-       ;; automatically containing all possible registrations but this
-       ;; is a hen-and-egg problem.  When the macro is being executed,
-       ;; the register definition has not yet been evaluated.  It
-       ;; would be feasible to not ever evaluate it and consider it
-       ;; final.  But that seems like a somewhat unfriendly interface.
-       ,(if definition doc "Undocumented.")
-       (let* ((instrument ,(or definition doc))
-              (register
-               (ly:assoc-get name (ly:assoc-get 'register instrument)))
-              (reedbanks (ly:assoc-get 'reedbank instrument)))
-         (interpret-markup
-          layout props
-          (make-general-align-markup
-           Y DOWN
-           (fold (lambda (d m)
-                   (make-combine-markup
-                    m (make-translate-scaled-markup
-                       d (make-musicglyph-markup "accordion.dot"))))
-                 (make-musicglyph-markup
-                  (ly:assoc-get 'glyph instrument))
-                 (or (ly:assoc-get 'dots register)
-                     (append-map (lambda (x)
-                                   (ly:assoc-get 'dots
-                                                 (ly:assoc-get x reedbanks)))
-                                 (ly:assoc-get 'reedbanks register))))))))
+    (syntax-case syntaks ()
+      ((_ set-symbol doc definition)
+       #`(begin
+           (define-markup-command (set-symbol layout props name) (string?)
+             #:properties (translate-scaled-markup)
+             #:category accordion-registers
+             doc
+             (let* ((instrument definition)
+                    (register
+                     (ly:assoc-get name (ly:assoc-get 'register instrument)))
+                    (reedbanks (ly:assoc-get 'reedbank instrument)))
+               (interpret-markup
+                layout props
+                (make-general-align-markup
+                 Y DOWN
+                 (fold (lambda (d m)
+                         (make-combine-markup
+                          m (make-translate-scaled-markup
+                             d (make-musicglyph-markup "accordion.dot"))))
+                       (make-musicglyph-markup
+                        (ly:assoc-get 'glyph instrument))
+                       (or (ly:assoc-get 'dots register)
+                           (append-map (lambda (x)
+                                         (ly:assoc-get 'dots
+                                                       (ly:assoc-get x reedbanks)))
+                                       (ly:assoc-get 'reedbanks register))))))))
 
-     (define-public ,set-symbol
-       (define-music-function (register)
-         (string?)
-         ,(format #f "Equivalent to @code{<>^\\markup \\~a@var{REGISTER}}."
-                  set-symbol)
-         (make-event-chord
-          (list
-           (make-music
-            'TextScriptEvent
-            'direction
-            1
-            'text
-            (,(string->symbol (format #f "make-~a-markup" set-symbol)) register))))))))
+           (define-public set-symbol
+             (define-music-function (register)
+               (string?)
+               #,(format #f "Equivalent to @code{<>^\\markup \\~a@var{REGISTER}}."
+                         #'set-symbol)
+               (make-event-chord
+                (list
+                 (make-music
+                  'TextScriptEvent
+                  'direction
+                  1
+                  'text
+                  (#,(datum->syntax
+                      syntaks
+                      (string->symbol
+                       (format #f "make-~a-markup"
+                               (syntax->datum #'set-symbol))))
+                   register))))))))
+      ((_ set-symbol definition)
+       #'(define-register-set set-symbol "Undocumented." definition)))))
 
 
 (define-register-set discant
