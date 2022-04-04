@@ -46,7 +46,7 @@ tar -xf $archive
 echo "Configuring build..."
 mkdir build
 cd build
-../$dir/configure
+../$dir/configure --prefix=/
 
 echo "Building LilyPond..."
 make -j$jobs
@@ -58,8 +58,12 @@ echo "Building documentation..."
 make -j$jobs CPU_COUNT=$jobs all-doc
 
 echo ""
+echo "Installing documentation for $doc_ball..."
+make install-doc install-help2man DESTDIR=/install
+
+echo ""
 echo "Creating $doc_ball..."
-tar -C out-www/offline-root -cJf /$doc_ball .
+tar -C /install -cJf /$doc_ball .
 echo "Creating $web_ball..."
 tar -C out-www/online-root -cJf /$web_ball .
 EOF
