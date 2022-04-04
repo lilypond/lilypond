@@ -3019,21 +3019,26 @@ which is the default."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
-(define (make-translator-internal forms)
-  ;; An alist pair of @code{(is-midi . #t)} specifies possible use as a
-  ;; performer, @code{(is-layout . #t)} as an engraver.  If neither is
-  ;; specified, engraver-only use is assumed."
-  (let recurse ((forms forms))
-    (if (or (null? forms) (pair? forms))
-        `(list
-          ,@(map (lambda (form)
-                   (if (pair? (car form))
-                       `(cons ',(caar form) (lambda ,(cdar form) ,@(cdr form)))
-                       `(cons ',(car form) ,(recurse (cdr form)))))
-                 forms))
-        forms)))
+;; An alist pair of @code{(is-midi . #t)} specifies possible use as a
+;; performer, @code{(is-layout . #t)} as an engraver.  If neither is
+;; specified, engraver-only use is assumed.
+(define-syntax make-translator-component
+  (syntax-rules ()
+    ;; Example: ((process-music engraver) ...) => (lambda (engraver) ...)
+    ((_ ((name . args) body ...))
+     (cons 'name (lambda args body ...)))
+    ;; Example: (listeners ...) => (list 'listeners ...)
+    ((_ (name thing ...))
+     (cons 'name (make-translator-internal thing ...)))
+    ;; Examples: (is-midi . #t) => (cons 'is-midi #t)
+    ;;           (process-music . func) => (cons 'process-music func)
+    ((_ (name . value))
+     (cons 'name value))))
 
-(defmacro-public make-engraver forms
+(define-syntax-rule (make-translator-internal thing ...)
+  (list (make-translator-component thing) ...))
+
+(define-syntax-rule-public (make-engraver form ...)
   "Helper macro for creating Scheme engravers usable in
 @samp{\\layout}.
 
@@ -3057,9 +3062,9 @@ Symbols mapping to a function would be @code{initialize},
 same manner are @code{listeners} with the subordinate symbols being
 event classes, and @code{acknowledgers} and @code{end-acknowledgers}
 with the subordinate symbols being interfaces."
-  (make-translator-internal (append forms '((is-layout . #t)))))
+  (make-translator-internal form ... (is-layout . #t)))
 
-(defmacro-public make-performer forms
+(define-syntax-rule-public (make-performer form ...)
   "Helper macro for creating Scheme performers usable in
 @samp{\\midi}.
 
@@ -3082,9 +3087,9 @@ Symbols mapping to a function would be @code{initialize},
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
 event classes."
-  (make-translator-internal (append forms '((is-midi . #t)))))
+  (make-translator-internal form ... (is-midi . #t)))
 
-(defmacro-public make-translator forms
+(define-syntax-rule-public (make-translator form ...)
   "Helper macro for creating Scheme translators usable in
 both @samp{\\midi} and @samp{\\layout}.
 
@@ -3107,4 +3112,4 @@ Symbols mapping to a function would be @code{initialize},
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
 event classes."
-  (make-translator-internal (append forms '((is-layout . #t) (is-midi . #t)))))
+  (make-translator-internal form ... (is-layout . #t) (is-midi . #t)))
