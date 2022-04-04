@@ -132,6 +132,13 @@ multiple ancient notation schemes."
   startRepeatBarType = "||" %% TODO: research break visibility
   doubleRepeatBarType = "||" %% TODO: research break visibility
   endRepeatBarType = "||"
+
+  %% Accidentals are valid only once (same as
+  %% \accidentalStyle forget)
+  extraNatural = ##f
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
+  autoCautionaries = #'()
+  printKeyCancellation = ##f
 }
 
 \context {
@@ -1177,13 +1184,6 @@ accommodated for typesetting a piece in mensural style."
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
-
-  %% Accidentals are valid only once (same as
-  %% \accidentalStyle forget)
-  extraNatural = ##f
-  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
-  autoCautionaries = #'()
-  printKeyCancellation = ##f
 }
 
 \context {
