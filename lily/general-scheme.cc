@@ -295,34 +295,6 @@ numbers.
   return scm_number_p (d);
 }
 
-/*
-  Debugging mem leaks:
-*/
-LY_DEFINE (ly_protects, "ly:protects",
-           0, 0, 0, (),
-           R"(
-Return hash of protected objects.
-           )")
-{
-  //scm_protects is available only in Guile versions before 2.1.
-#if SCM_MAJOR_VERSION < 2 || SCM_MAJOR_VERSION == 2 && SCM_MINOR_VERSION < 1
-  return scm_protects;
-#else
-  programming_error ("ly:protects is not supported in Guile 2.1");
-  return SCM_EOL;
-#endif
-}
-
-LY_DEFINE (ly_gettext, "ly:gettext",
-           1, 0, 0, (SCM original),
-           R"(
-A Scheme wrapper function for @code{gettext} (to translate messages).
-           )")
-{
-  LY_ASSERT_TYPE (scm_is_string, original, 1);
-  return ly_string2scm (_ (ly_scm2string (original).c_str ()));
-}
-
 // TODO: When we drop Guile 1 support, remove this function
 // and simply use either escape sequences (\u, \U) and/or
 // integer->char.
