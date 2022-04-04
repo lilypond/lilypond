@@ -209,32 +209,14 @@ struct Substitution_entry
 {
   Grob *grob_;
 
-  /* The all-elements array inside the System is large. To save
-     memory, we assume there will not be more than 32k systems, and use
-     int16 for the indices, to save some space.
-  */
-  System::rank_type left_;
-  System::rank_type right_;
+  vsize left_;
+  vsize right_;
 
   Substitution_entry (Grob *g, const System_rank_interval &sr)
   {
     grob_ = g;
-    /*
-      duh, don't support scores with more than 32000 systems.
-    */
-    if (sr.is_empty ())
-      {
-        /*
-          overflow if we don't treat this specially.
-        */
-        left_ = 1;
-        right_ = -1;
-      }
-    else
-      {
-        left_ = static_cast<System::rank_type> (sr[LEFT]);
-        right_ = static_cast<System::rank_type> (sr[RIGHT]);
-      }
+    left_ = sr[LEFT];
+    right_ = sr[RIGHT];
   }
 
   bool operator <(Substitution_entry const &other) const

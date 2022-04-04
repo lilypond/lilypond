@@ -442,12 +442,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       system->unprotect ();
 
       // set rank
-      {
-        vsize rank = broken_intos_.size ();
-        if (rank >= std::numeric_limits<rank_type>::max ())
-          programming_error ("too many systems");
-        system->rank_ = static_cast<rank_type> (rank);
-      }
+      system->rank_ = broken_intos_.size ();
 
       vector<Paper_column *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);

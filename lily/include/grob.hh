@@ -30,10 +30,7 @@
 #include <set>
 #include <vector>
 
-// TODO: int is wider than necessary.  Consider changing it to
-// System::rank_type.  For now, the decision is not to introduce a new
-// instantiation of Interval_t<>.
-typedef Interval_t<int> System_rank_interval;
+typedef Interval_t<vsize> System_rank_interval;
 
 class Grob : public Smob<Grob>, public Diagnostics
 {

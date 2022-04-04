@@ -478,7 +478,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
           Spring spring (0, 0);
           Real padding = 0.0;
           Real indent = line_dimension_interval (sys->paper_score ()->layout (),
-                                                 static_cast<vsize> (sys->get_rank ()))[LEFT];
+                                                 sys->get_rank ())[LEFT];
           alter_spring_from_spacing_spec (spec, &spring);
           read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 

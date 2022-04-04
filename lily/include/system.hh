@@ -47,11 +47,9 @@ class System : private Preinit_System, public Spanner
 {
 public:
   OVERRIDE_CLASS_NAME (System);
-  // See Substitution_entry.
-  typedef int16_t rank_type;
 
 private:
-  rank_type rank_ = 0;
+  vsize rank_ = 0;
   Grob_array *all_elements ();
   Grob_array const *all_elements () const;
   void init_elements ();
@@ -70,7 +68,7 @@ public:
   Paper_column *get_pure_bound (Direction dir, vsize start, vsize end);
   Paper_column *get_maybe_pure_bound (Direction dir, bool pure,
                                       vsize start, vsize end);
-  rank_type get_rank () const { return rank_; }
+  vsize get_rank () const { return rank_; }
   std::vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   std::vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
   std::vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
