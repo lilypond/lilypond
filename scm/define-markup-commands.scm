@@ -126,7 +126,7 @@
 ;; markup macro since \markup { a b c } -> \markup \line { a b c }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-early
+(eval-when (expand load eval)
  (define-markup-command (line layout props args)
    (markup-list?)
    #:category align

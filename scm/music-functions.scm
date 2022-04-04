@@ -25,7 +25,7 @@
   "Does @var{mus} belong to the music class @var{type}?"
   (memq type (ly:music-property mus 'types)))
 
-(eval-early
+(eval-when (expand load eval)
  (define-safe-public (music-type-predicate types)
    "Return a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
