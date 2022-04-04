@@ -17,13 +17,9 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-modules
- (ice-9 regex))
-
-(cond-expand
-  (guile-2
-    (use-modules (ice-9 session)
-                 (ice-9 curried-definitions)))
-  (else))
+ (ice-9 curried-definitions)
+ (ice-9 regex)
+ (ice-9 session))
 
 (define (dashify-underscores str)
   (regexp-substitute/global #f "_" str 'pre "-" 'post))
@@ -58,46 +54,31 @@
                               #f)))
     (ly:get-all-function-documentation)))
 
-;; Guile 1.9 broke procedure-source, Guile 2 introduced
-;; procedure-arguments (in (ice-9 session)).
-(cond-expand
-  (guile-2
-    (define (format-scheme-signature proc)
-      (let* ((signature (procedure-arguments proc))
-             (required (assq-ref signature 'required))
-             (optional (assq-ref signature 'optional))
-             (keyword (assq-ref signature 'keyword))
-             (rest (assq-ref signature 'rest)))
-        (string-join
-          (append
-            (map
-              (lambda (sym)
-                (format #f "~a" sym))
-              required)
-            (map
-              (lambda (sym)
-                (format #f "[~a]" sym))
-              optional)
-            (map
-              (lambda (pair)
-                (format #f "#:~a" (car pair)))
-              keyword)
-            (if rest
-                (list
-                  (format #f ". ~a" rest))
-                '()))
-          " "))))
-  (else
-    (define (format-scheme-signature proc)
-      ;; Format as "(a b . c)" and trim parentheses.
-      (let ((source (procedure-source proc)))
-        (if source
-            (let* ((signature (cadr source))
-                   (formatted-signature (format #f "~a" signature))
-                   (without-lparen (string-drop formatted-signature 1))
-                   (without-both-parens (string-drop-right without-lparen 1)))
-              without-both-parens)
-            "@dots{}")))))
+(define (format-scheme-signature proc)
+  (let* ((signature (procedure-arguments proc))
+         (required (assq-ref signature 'required))
+         (optional (assq-ref signature 'optional))
+         (keyword (assq-ref signature 'keyword))
+         (rest (assq-ref signature 'rest)))
+    (string-join
+      (append
+        (map
+          (lambda (sym)
+            (format #f "~a" sym))
+          required)
+        (map
+          (lambda (sym)
+            (format #f "[~a]" sym))
+          optional)
+        (map
+          (lambda (pair)
+            (format #f "#:~a" (car pair)))
+          keyword)
+        (if rest
+            (list
+              (format #f ". ~a" rest))
+            '()))
+      " ")))
 
 ;; Same format as all-primitive-function-docs-alist.
 (define all-scheme-function-docs-alist

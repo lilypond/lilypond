@@ -123,9 +123,7 @@ src: url('~a');
 (define (output-stencil basename stencil paper formats)
   (let* ((filename (string-append basename ".svg"))
          (outputter (ly:make-paper-outputter
-                     (cond-expand
-                      (guile-2 (open-output-file filename #:encoding "UTF-8"))
-                      (else (open-file filename "wb")))
+                     (open-output-file filename #:encoding "UTF-8")
                      stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))

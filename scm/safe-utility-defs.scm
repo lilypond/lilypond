@@ -21,13 +21,11 @@
 ;;;
 
 (define-module (lily safe-utility-defs)
+  #:use-module (ice-9 curried-definitions)
   #:use-module (ice-9 optargs)
   #:export (safe-objects)
   #:export-syntax (define-safe-public)
   #:re-export-syntax (define*))
-
-(if (string>? (version) "1.9.10")
-    (use-modules (ice-9 curried-definitions)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -752,9 +752,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length stencils)))
-    (cond-expand
-     (guile-2 (set-port-encoding! port "Latin1"))
-     (else))
+    (set-port-encoding! port "Latin1")
     (initialize-font-embedding)
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4

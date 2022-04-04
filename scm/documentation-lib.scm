@@ -19,11 +19,8 @@
 (use-modules (oop goops)
              (srfi srfi-13)
              (srfi srfi-1)
+             (ice-9 curried-definitions)
              (ice-9 match))
-
-(cond-expand
- (guile-2 (use-modules (ice-9 curried-definitions)))
- (else (use-modules (ice-9 optargs))))
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)

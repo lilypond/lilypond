@@ -46,16 +46,8 @@
 
 (randomize-rand-seed)
 
-(cond-expand
- (guile-2
-  (begin
-   ;; By default, we don't want scary backtraces.
-   (debug-disable 'backtrace)))
- (else
-  (begin
-   (read-enable 'positions)
-   (debug-enable 'debug))
-  ))
+;; By default, we don't want scary backtraces.
+(debug-disable 'backtrace)
 
 (define-public PLATFORM
   (string->symbol
@@ -167,24 +159,18 @@ session has started."
      (export ,name)))
 
 (define (session-terminate)
-  ;; For GUILE 2.x, restore the modules recorded during (session-init)
-  ;; and remove any additional modules so that they can be collected.
-  (cond-expand
-   (guile-2
-    (set-module-submodules! root-module
-                            (alist->hash-table session-modules)))
-   (else))
+  ;; Restore the modules recorded during (session-init) and remove any
+  ;; additional modules so that they can be collected.
+  (set-module-submodules! root-module
+                          (alist->hash-table session-modules))
   (for-each
    (lambda (p) (variable-set! (caddr p) (cdddr p)))
    lilypond-declarations)
   (run-hook after-session-hook))
 
 (define lilypond-interfaces #f)
-(cond-expand
- (guile-2
-  (define root-module (resolve-module '() #f))
-  (define session-modules #f))
- (else))
+(define root-module (resolve-module '() #f))
+(define session-modules #f)
 (define first-session-done? #f)
 
 (define-public (session-replay)
@@ -212,10 +198,7 @@ session has started."
                 (module-uses (current-module))))
   ;; Create a copy of the hash-table as an alist. We construct a new
   ;; hash-table after processing each file.
-  (cond-expand
-   (guile-2
-    (set! session-modules (hash-map->list cons (module-submodules root-module))))
-   (else))
+  (set! session-modules (hash-map->list cons (module-submodules root-module)))
 
   ;; Extract changes made to variables after defining them
   (set! lilypond-declarations
@@ -401,7 +384,7 @@ messages into errors.")
 (define scheme-internal-options-definitions
   `((check-internal-types #f
                           "Check every property assignment for types.")
-    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes")
+    (debug-gc-object-lifetimes #f "Sanity check object lifetimes")
     (debug-gc-assert-parsed-dead #f
                                  "For internal use.")
     (debug-lexer #f
@@ -436,12 +419,6 @@ floating point exceptions.")
             (ly:add-option (car x) (cadr x) #t (caddr x)))
           scheme-internal-options-definitions)
 
-;; 'debug-gc-object-lifetimes off by default on Guile 2
-(cond-expand
- (guile-2
-  (ly:set-option 'debug-gc-object-lifetimes #f))
- (else))
-
 (for-each (lambda (x)
             (ly:set-option (car x) (cdr x)))
           (with-input-from-string (ly:command-line-options) read))
@@ -458,29 +435,13 @@ floating point exceptions.")
              ((ice-9 format) #:select ((format . ice9-format)))
              (ice-9 rdelim)
              (ice-9 optargs)
+             (ice-9 curried-definitions)
              (oop goops)
              (srfi srfi-1)
              (srfi srfi-13)
              (srfi srfi-14)
              (lily clip-region)
              (lily safe-utility-defs))
-
-;;; There are new modules defined in Guile V2.0 which we need to use.
-;;
-;;  Modules and scheme files loaded by lily.scm use currying
-;;  in Guile V2 this needs a module which is not present in Guile V1.8
-;;
-
-(cond-expand
- (guile-2
-  (ly:debug (G_ "Using (ice-9 curried-definitions) module\n"))
-  (use-modules (ice-9 curried-definitions)))
- (else
-  (ly:debug (G_ "Guile 1.8\n"))))
-
-;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
-;; into Guile base code, like (ice-9 syncase).
-;;
 
 (define format simple-format)
 
@@ -541,22 +502,6 @@ floating point exceptions.")
                      (eq? (string-ref file-name 2) #\/)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n
-(cond-expand
- (guile-2 #f)
- (else
-  (define (module-export-all! mod)
-    (define (fresh-interface!)
-      (let ((iface (make-module)))
-        (set-module-name! iface (module-name mod))
-        ;; for guile 2: (set-module-version! iface (module-version mod))
-        (set-module-kind! iface 'interface)
-        (set-module-public-interface! mod iface)
-        iface))
-    (let ((iface (or (module-public-interface mod)
-                     (fresh-interface!))))
-      (set-module-obarray! iface (module-obarray mod))))))
-
 
 (define-safe-public (lilypond-version)
   (if (ly:get-option 'deterministic)
@@ -873,9 +818,7 @@ PIDs or the number of the process."
                     (append-map
                      (lambda (f)
                        (string-split
-                        (cond-expand
-                         (guile-2 (string-delete #\cr (ly:gulp-file f)))
-                         (else (string-delete (ly:gulp-file f) #\cr)))
+                        (string-delete #\cr (ly:gulp-file f))
                         #\nl))
                      files))))
   (if (and (number? (ly:get-option 'job-count))
