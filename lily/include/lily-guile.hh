@@ -168,11 +168,6 @@ inline SCM
 ly_scm_hash_fold (SCM (*fn) (void *closure, SCM key, SCM val, SCM result),
                   void *closure, SCM init, SCM table)
 {
-#if !HAVE_GUILE_HASH_FUNC
-  // For backward compatibility with Guile 1.8
-  typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
-#endif
-
   return scm_internal_hash_fold (reinterpret_cast<scm_t_hash_fold_fn> (fn),
                                  closure, init, table);
 }

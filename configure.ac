@@ -189,18 +189,6 @@ STEPMAKE_TEXMF_DIRS(REQUIRED)
 
 STEPMAKE_GUILE_DEVEL(REQUIRED)
 
-save_CPPFLAGS="$CPPFLAGS"
-CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
-
-# check for 3 typedefs added in Guile 1.9
-AC_CHECK_TYPES([scm_t_hash_fold_fn],
-               [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
-               [[#include <libguile.h>]])
-AC_CHECK_TYPES([scm_t_subr],
-               [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
-               [[#include <libguile.h>]])
-CPPFLAGS="$save_CPPFLAGS"
-
 # Check if the compiler understands -Werror=unknown-warning-option.
 # This is important for Clang which otherwise just warns about unknown
 # options.  GCC doesn't need this option and always returns an error.

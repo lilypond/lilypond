@@ -49,11 +49,6 @@
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
 
-/* For backward compatibility with Guile 1.8 */
-#if !HAVE_GUILE_SUBR_TYPE
-typedef SCM (*scm_t_subr) (GUILE_ELLIPSIS);
-#endif
-
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
