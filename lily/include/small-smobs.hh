@@ -22,16 +22,6 @@
 
 #include "smobs.hh"
 
-#if GUILEV2
-// Fix the APIs of GUILE2.x, broken in 2009--2014
-#undef SCM_SMOB_OBJECT_LOC
-#undef SCM_SMOB_OBJECT_2_LOC
-#undef SCM_SMOB_OBJECT_3_LOC
-#define SCM_SMOB_OBJECT_LOC(x)          (SCM_SMOB_OBJECT_N_LOC ((x), 1))
-#define SCM_SMOB_OBJECT_2_LOC(x)        (SCM_SMOB_OBJECT_N_LOC ((x), 2))
-#define SCM_SMOB_OBJECT_3_LOC(x)        (SCM_SMOB_OBJECT_N_LOC ((x), 3))
-#endif
-
 // This is tricky: the small smobs contain all the data in the smob
 // itself.  Any derived classes must _not_ contain any data members or
 // be polymorphic (contain a virtual table pointer) as there is no
