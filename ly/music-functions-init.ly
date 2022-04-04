@@ -1664,7 +1664,7 @@ usually contains spacers or multi-measure rests.")
                'quoted-music-name what))
 
 raiseNote =
-#(define-music-function (parser location num music) (integer? ly:music?)
+#(define-music-function (num music) (integer? ly:music?)
    (_i "Raise a note of any chords in @var{music}, in @var{num}
 position from below.")
    (music-map (move-chord-note (1- num) UP) music))
