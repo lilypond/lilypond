@@ -149,7 +149,7 @@ Translator::event_class_symbol (const char *ev_class)
   name = replace_all (&name, '_', '-');
   name += "-event";
 
-  return scm_from_ascii_symbol (name.c_str ());
+  return scm_from_latin1_symbol (name.c_str ());
 }
 
 /*

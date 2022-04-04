@@ -24,27 +24,6 @@
 
 #include <string>
 
-#if GUILEV2
-// if Guile's internal representation switches to utf8, this should be
-// changed accordingly for efficiency's sake.  This is used for
-// strings known to be in ASCII entirely, including any std::string
-// constants in the C code.
-#define scm_from_ascii_string scm_from_latin1_string
-#define scm_from_ascii_stringn scm_from_latin1_stringn
-#define scm_from_ascii_symbol scm_from_latin1_symbol
-#else
-#define scm_from_ascii_string scm_from_locale_string
-#define scm_from_ascii_stringn scm_from_locale_stringn
-#define scm_from_ascii_symbol scm_from_locale_symbol
-#define scm_from_latin1_string scm_from_locale_string
-#define scm_from_latin1_stringn scm_from_locale_stringn
-#define scm_from_utf8_string scm_from_locale_string
-#define scm_from_utf8_stringn scm_from_locale_stringn
-#define scm_from_utf8_symbol scm_from_locale_symbol
-#define scm_to_utf8_string scm_to_locale_string
-#define scm_to_utf8_stringn scm_to_locale_stringn
-#endif
-
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM

@@ -35,7 +35,7 @@
   {                                                                     \
     T::boot ();                                                         \
     add_translator_creator (Translator_creator::alloc<T>()->unprotect (), \
-                            scm_from_ascii_symbol (#T),                 \
+                            scm_from_latin1_symbol (#T),                \
                             T::static_translator_description ());       \
   }                                                                     \
   ADD_GLOBAL_CTOR (_ ## T ## _adder);                                   \

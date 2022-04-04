@@ -97,7 +97,7 @@ ly_init_ly_module ()
       debug_output ("]\n", false);
     }
 
-  scm_primitive_load_path (scm_from_ascii_string ("lily/lily"));
+  scm_primitive_load_path (scm_from_latin1_string ("lily/lily"));
   debug_output (_f ("(primitive-load-path lily): %.2f seconds", timer.read ()));
 }
 

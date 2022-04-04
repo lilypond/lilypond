@@ -182,7 +182,7 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
     }
 
   face = open_ft_face (file_name, i);
-  SCM asscm = scm_from_ascii_symbol (FT_Get_Font_Format (face));
+  SCM asscm = scm_from_latin1_symbol (FT_Get_Font_Format (face));
   FT_Done_Face (face);
 
   return asscm;

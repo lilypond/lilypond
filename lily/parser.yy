@@ -3439,25 +3439,25 @@ fingering:
 
 script_abbreviation:
 	'^'		{
-		$$ = scm_from_ascii_string ("Hat");
+		$$ = scm_from_latin1_string ("Hat");
 	}
 	| '+'		{
-		$$ = scm_from_ascii_string ("Plus");
+		$$ = scm_from_latin1_string ("Plus");
 	}
 	| '-' 		{
-		$$ = scm_from_ascii_string ("Dash");
+		$$ = scm_from_latin1_string ("Dash");
 	}
  	| '!'		{
-		$$ = scm_from_ascii_string ("Bang");
+		$$ = scm_from_latin1_string ("Bang");
 	}
 	| ANGLE_CLOSE	{
-		$$ = scm_from_ascii_string ("Larger");
+		$$ = scm_from_latin1_string ("Larger");
 	}
 	| '.' 		{
-		$$ = scm_from_ascii_string ("Dot");
+		$$ = scm_from_latin1_string ("Dot");
 	}
 	| '_' {
-		$$ = scm_from_ascii_string ("Underscore");
+		$$ = scm_from_latin1_string ("Underscore");
 	}
 	;
 

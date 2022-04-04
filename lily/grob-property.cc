@@ -125,7 +125,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
                  scm_list_n (self_scm (),
                              scm_from_locale_string (file),
                              to_scm (line),
-                             scm_from_ascii_string (fun),
+                             scm_from_latin1_string (fun),
                              sym, v, SCM_UNDEFINED));
 #else
   (void) file;

@@ -392,7 +392,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 <chords,notes,figures>{RESTNAME}/[-_]	|  // pseudo backup rule
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval = scm_from_ascii_string (s);
+	yylval = scm_from_latin1_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>q/[-_]	| // pseudo backup rule
@@ -496,7 +496,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 		return E_BACKSLASH;
 	}
 	{FIG_ALT_EXPR}|(\[{FIG_ALT_EXPR}\])		{
-		yylval = scm_from_ascii_string (YYText ());
+		yylval = scm_from_latin1_string (YYText ());
 		return FIGURE_ALTERATION_EXPR;
 	}
 	[][]	{
@@ -539,7 +539,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 <quote,commandquote>{
 	\\{ESCAPED}	{
                 char c = escaped_char (YYText ()[1]);
-		yylval = scm_cons (scm_from_ascii_stringn (&c, 1),
+		yylval = scm_cons (scm_from_latin1_stringn (&c, 1),
                                    yylval);
 	}
 	[^\\""]+	{
@@ -564,7 +564,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 		return STRING;
 	}
 	\\	{
-                yylval = scm_cons (scm_from_ascii_string (YYText ()),
+                yylval = scm_cons (scm_from_latin1_string (YYText ()),
                                    yylval);
 	}
 }

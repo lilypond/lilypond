@@ -542,7 +542,7 @@ Open_type_font::glyph_list () const
         warning (_f ("FT_Get_Glyph_Name () error: %s",
                      freetype_error_string (code).c_str ()));
 
-      *tail = scm_cons (scm_from_ascii_string (name), SCM_EOL);
+      *tail = scm_cons (scm_from_latin1_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 

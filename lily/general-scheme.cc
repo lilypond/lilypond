@@ -261,7 +261,7 @@ Convert @var{s} to a string without generating many decimals.
   else
     snprintf (str, sizeof (str), "%lld", from_scm<long long> (s));
 
-  return scm_from_ascii_string (str);
+  return scm_from_latin1_string (str);
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
@@ -283,7 +283,7 @@ LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 Return the unit used for lengths as a string.
            )")
 {
-  return scm_from_ascii_string (INTERNAL_UNIT);
+  return scm_from_latin1_string (INTERNAL_UNIT);
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
@@ -516,7 +516,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     return (ly_symbol2string (arg));
   else
     {
-      ly_progress (scm_from_ascii_string ("\nUnsupported SCM value for format: ~a"),
+      ly_progress (scm_from_latin1_string ("\nUnsupported SCM value for format: ~a"),
                    scm_list_1 (arg));
     }
 
