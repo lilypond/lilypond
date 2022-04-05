@@ -1162,8 +1162,9 @@ def epiphonus_char (expr verbose_name, internal_name,
 
     labels (1, 2, 3, 4, 5, 6);
 
-    save dirs;
+    save dirs, out_p;
     pair dirs[];
+    path out_p;
 
     dirs12 := direction (0 + epsilon) of p;
     dirs21 := direction (1 - epsilon) of p;
@@ -1174,30 +1175,31 @@ def epiphonus_char (expr verbose_name, internal_name,
     dirs56 := direction (4 + epsilon) of p;
     dirs65 := direction (5 - epsilon) of p;
 
-    fill get_subpath (circle, down, dirs12, z1)
-         .. get_subpath (circle, dirs21, dirs23, z2)
-         .. get_subpath (circle, dirs32, up, z3)
-         -- get_subpath (circle, up, dirs45, z4)
-         .. get_subpath (circle, dirs54, dirs56, z5)
-         .. get_subpath (circle, dirs65, down, z6)
-         -- cycle;
+    out_p = get_subpath (circle, dirs21, dirs23, z2)
+            .. get_subpath (circle, dirs32, up, z3)
+            -- get_subpath (circle, up, dirs45, z4)
+            .. get_subpath (circle, dirs54, dirs56, z5)
+            .. get_subpath (circle, dirs65, down, z6);
 
     save stem_bt;
 
     if left_stem:
-      pickup pencircle scaled 0.6 linethickness;
-
-      lft x11 = x1 - linethickness / 2;
+      x11 = x1;
       bot y11 = yoffs - 1.1 ht - linethickness / 2;
-      x12 = x11;
-      y12 = y1;
 
-      draw_rounded_block (bot lft z11, top rt z12,
-                          0.6 linethickness);
+      fill out_p
+           -- get_subpath (circle, down, up, z11)
+           -- get_subpath (circle, up, dirs12, z1)
+           .. cycle;
+
       stem_bt# = yoffs# - 1.1 ht#;
 
-      labels (11, 12);
+      labels (11);
     else:
+      fill out_p
+           -- get_subpath(circle, down, dirs12, z1)
+           .. cycle;
+
       stem_bt# = 0;
     fi;
 
