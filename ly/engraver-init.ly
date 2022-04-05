@@ -1032,6 +1032,12 @@ of Editio Vaticana."
   %% Set default head for notes outside of \[ \].
   \override NoteHead.style = #'vaticana.punctum
 
+  %% Compensate for thinner staff lines set in `VaticanaStaff`.
+  \override Episema.thickness = #1.6
+  %% Compensate for roundedness of the line.
+  \override Episema.bound-details.left.padding = #0.05
+  \override Episema.bound-details.right.padding = #0.05
+
   %% Put some space before and after divisiones.
   %% FIXME: This does not seem to show any effect.
   \override Script.padding = #0.5
@@ -1065,6 +1071,9 @@ of Editio Vaticana."
   \override StaffSymbol.line-count = #4
   \override StaffSymbol.thickness = #0.6
 
+  \override LedgerLineSpanner.length-fraction = #0.9
+  \override StaffSymbol.ledger-line-thickness = #'(1 . 0)
+
   %% FIXME: unit on StaffSymbol's width should be \linewidth.
   %% \override StaffSymbol.width = #60.0
 
@@ -1081,6 +1090,11 @@ of Editio Vaticana."
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
   \override Dots.style = #'vaticana
+
+  \override Clef.space-alist.first-note = #'(minimum-fixed-space . 1.4)
+  \override LeftEdge.space-alist.clef = #'(extra-space . 0)
+  \override BarLine.space-alist.custos = #'(minimum-space . 0.7)
+  \override Custos.space-alist.right-edge = #'(extra-space . 0)
 }
 
 \context {
