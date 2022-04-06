@@ -157,7 +157,6 @@ extern Variable symbol_list_p;
 extern Variable type_name;
 extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
-extern Variable write_system_signature;
 extern Variable write_lilypond_book_aux_files;
 }
 

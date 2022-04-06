@@ -669,11 +669,6 @@ Si @var{bool} est déterminé à @code{#t}, supprime les fichiers
 @file{.ps} inutiles créés lors de la compilation. La valeur par défaut
 est @code{#t}.
 
-@item @code{dump-signatures} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, génère une copie des signatures
-de chaque système.  Cette option est utilisée pour les tests de
-régression. La valeur par défaut est @code{#f}.
-
 @item @code{embed-source-code} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, intègre les fichiers source
 LilyPond au document PDF généré. La valeur par défaut est @code{#f}.

@@ -659,11 +659,6 @@ Bison パーサをデバッグします。@c
 削除します。@c
 デフォルト: @code{#t}。
 
-@item @code{dump-signatures} @var{bool}
-@var{bool} が @code{#t} なら、@c
-システムごとに出力情報を吐き出します。回帰テストに用いられます。@c
-デフォルト: @code{#f}。
-
 @item @code{embed-source-code} @var{bool}
 @var{bool} が @code{#t} なら、@c
 出力される PDF ドキュメントに LilyPond ソースファイルを埋め込みます。@c

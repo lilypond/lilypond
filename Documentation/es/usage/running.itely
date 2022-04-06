@@ -671,11 +671,6 @@ Si @var{bool} es @code{#t}, eliminar los archivos intermedios
 @code{.ps} inútiles que se crean durante la compilación.
 Predeterminado: @code{#t}.
 
-@item @code{dump-signatures} @var{bool}
-Si @var{bool} es @code{#t}, volcar las firmas de salida de cada
-sistema.  Usado para las pruebas de regresión.  Predeterminado:
-@code{#f}.
-
 @item @code{embed-source-code} @var{bool}
 Si @var{bool} es @code{#t}, empotrar los archivos de entrada en
 código de LilyPond dentro del documento PDF generado.

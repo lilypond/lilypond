@@ -636,11 +636,6 @@ If @var{bool} is @code{#t}, delete the unusable, intermediate
 compilation.
 Default: @code{#t}.
 
-@item @code{dump-signatures} @var{bool}
-If @var{bool} is @code{#t}, dump output signatures of each system.
-Used for regression testing.
-Default: @code{#f}.
-
 @item @code{embed-source-code} @var{bool}
 If @var{bool} is @code{#t}, embed the LilyPond source files inside
 the generated PDF document.

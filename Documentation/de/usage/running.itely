@@ -481,11 +481,6 @@ aus.
 @tab Entferne unbenutzbare, zwischenzeitliche @code{.ps}-Dateien, die während
 der Kompilations erstellt werden.
 
-@item @code{dump-signatures}
-@tab @code{#f}
-@tab Gebe Ausgabesignaturen für jedes System aus.  Wird für das Prüfen
-der Regressionsteste eingesetzt.
-
 @item @code{eps-box-padding}
 @tab @code{#f}
 @tab Verschiebe die linke Ecke der ausgegebenen EPS-Boundingbox um die

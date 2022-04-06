@@ -21,7 +21,7 @@ lysdoc-test:
 -ddeterministic \
 -dinclude-eps-fonts -dgs-load-fonts --header=texidoc \
 -I $(top-src-dir)/Documentation/included/ -dcheck-internal-types \
--ddump-signatures -danti-alias-factor=1 \
+-danti-alias-factor=1 \
 $(LOCAL_LILYPOND_FLAGS)" \
 		LILYPOND_BOOK_WARN= \
 		LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb \

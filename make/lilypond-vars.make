@@ -41,7 +41,6 @@ $(LANG_DOCTITLE_FLAGS) \
 --header=texidoc \
 $(LANG_TEXIDOC_FLAGS) \
 -dcheck-internal-types \
--ddump-signatures \
 -danti-alias-factor=$(ANTI_ALIAS_FACTOR)
 
 ifeq ($(USE_EXTRACTPDFMARK),yes)

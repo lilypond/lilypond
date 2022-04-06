@@ -468,11 +468,6 @@ f@tab Depuració de l'analitzador sintàctic bison.
 @tab Elimina els fitxers intermedis @code{.ps} inútils que es
 creen durant la compilació.
 
-@item @code{dump-signatures}
-@tab @code{#f}
-@tab Bolca les signatures de sortida de cada sistema.  Usat per a
-les proves de regressió.
-
 @item @code{eps-box-padding}
 @tab @code{#f}
 @tab Omple la vora esquerra de la capsa contenidora de l'EPS de

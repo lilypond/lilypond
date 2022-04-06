@@ -805,11 +805,6 @@ printing diff against existing file." % filename)
             consider_file(systemfile + '.pdf')
             consider_file(systemfile + '.png')
 
-            # We can't require signatures, since books and toplevel
-            # markups do not output a signature.
-            if 'ddump-signature' in self.global_options.process_cmd:
-                consider_file(systemfile + '.signature')
-
         for f in  self.additional_files_to_consider(base, full):
             consider_file(f)
 

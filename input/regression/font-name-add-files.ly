@@ -17,12 +17,6 @@ and 'GFDL') should be printed, rather than letter glyphs."
 %% regression test suite is run, so further explanation would help.
 #(ly:set-option 'font-export-dir #f)
 
-%% output-distance.py can't deal with the unusual things done with
-%% fonts in this test.  Disabling .signature files for this case
-%% should prevent output-distance.py from noticing it as a case
-%% deserving a visual diff.
-#(ly:set-option 'dump-signatures #f)
-
 %% We want the logo font embedded into output, so we the test result
 %% is self-contained.
 #(ly:set-option 'gs-load-fonts #f)

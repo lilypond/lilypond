@@ -625,11 +625,6 @@ Predefinito: @code{#f}.
 Se @var{bool} è @code{#t}, cancella i file @file{.ps} intermedi e
 inutilizzabili creati durante la compilazione.  Predefinito: @code{#t}.
 
-@item @code{dump-signatures}
-@var{bool}
-Se @var{bool} è @code{#t}, scarica le firme dell'output di ogni sistema.  Usato
-per testare le regressioni.  Predefinito: @code{#f}.
-
 @item @code{embed-source-code}
 @var{bool}
 Se @var{bool} è @code{#t}, incorpora i file sorgente LilyPond nel documento

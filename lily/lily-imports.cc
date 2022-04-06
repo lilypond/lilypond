@@ -143,7 +143,6 @@ Variable symbol_list_p ("symbol-list?");
 Variable type_name ("type-name");
 Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
 Variable write_performances_midis ("write-performances-midis");
-Variable write_system_signature ("write-system-signature");
 Variable write_lilypond_book_aux_files ("write-lilypond-book-aux-files");
 }
 

@@ -239,7 +239,6 @@ Paper_book::output (SCM output_channel)
     return;
 
   dump_header_fields (output_channel, false);
-  dump_signatures (output_channel);
 
   SCM formats = ly_output_formats ();
 
@@ -320,29 +319,11 @@ Paper_book::dump_header_fields (SCM basename, bool classic)
 }
 
 void
-Paper_book::dump_signatures (SCM basename)
-{
-  if (!scm_is_true (ly_get_option (ly_symbol2scm ("dump-signatures"))))
-    return;
-
-  int page = 1;
-  for (SCM s = systems (); scm_is_pair (s); s = scm_cdr (s))
-    {
-      std::string name = String_convert::form_string ("%s-%d.signature", ly_scm2string (basename).c_str (), page);
-
-      message (String_convert::form_string ("Writing %s", name.c_str ()), true);
-      Lily::write_system_signature (ly_string2scm (name), scm_car (s));
-      page++;
-    }
-}
-
-void
 Paper_book::classic_output (SCM output)
 {
   long first_performance_number = 0;
   classic_output_aux (output, &first_performance_number);
   dump_header_fields (output, true);
-  dump_signatures (output);
 
   output_stencils (output, Lily::generate_system_stencils (self_scm ()),
                    ly_output_formats ());
