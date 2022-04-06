@@ -93,6 +93,7 @@ Variable generate_system_stencils ("generate-system-stencils");
 Variable grob_compose_function ("grob::compose-function");
 Variable grob_offset_function ("grob::offset-function");
 Variable hash_table_to_alist ("hash-table->alist");
+Variable headers_property_alist_chain ("headers-property-alist-chain");
 Variable interpret_markup_list ("interpret-markup-list");
 Variable invalidate_alterations ("invalidate-alterations");
 Variable key_p ("key?");

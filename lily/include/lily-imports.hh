@@ -103,6 +103,7 @@ extern Variable generate_system_stencils;
 extern Variable grob_compose_function;
 extern Variable grob_offset_function;
 extern Variable hash_table_to_alist;
+extern Variable headers_property_alist_chain;
 extern Variable interpret_markup_list;
 extern Variable invalidate_alterations;
 extern Variable key_p;
