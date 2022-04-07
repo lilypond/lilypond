@@ -22,7 +22,7 @@ stages:
   - website
 
 default:
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04.guile2:20220116
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:20220407
   interruptible: true
 
 # Conditionally include a file to add the tag 'lilypond' to all jobs so that

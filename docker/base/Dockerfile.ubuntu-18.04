@@ -51,6 +51,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         libglib2.0-dev \
         libgs-dev \
         libpango1.0-dev \
+        lmodern \
         make \
         perl \
         pkg-config \
@@ -60,6 +61,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         texinfo \
         texlive-binaries \
         texlive-fonts-recommended \
+        texlive-font-utils \
         texlive-lang-cyrillic \
         texlive-metapost \
         texlive-plain-generic \
