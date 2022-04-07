@@ -19,6 +19,5 @@ Combinations of `$container` and `$dockerfile` are:
 | `$container` | `$dockerfile` | Comment |
 | --- | --- | --- |
 | `base/ubuntu-18.04` | `base/Dockerfile.ubuntu-18.04` | The "base" image |
-| `ci/ubuntu-18.04` | `ci/Dockerfile.ubuntu-18.04` | The image for CI testing with Guile 1.8 |
-| `ci/ubuntu-18.04.guile2` | `ci/Dockerfile.ubuntu-18.04.guile2` | The image for CI testing with Guile 2.2 |
+| `ci/ubuntu-18.04` | `ci/Dockerfile.ubuntu-18.04` | The image for CI testing |
 | `doc/ubuntu-18.04` | `doc/Dockerfile.ubuntu-18.04` | The image for building the official documentation |
