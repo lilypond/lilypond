@@ -68,8 +68,10 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 
           if (has_interface<Separation_item> (g) && g->get_column () == columns[d])
             {
-              SCM sky_scm = get_property (g, "horizontal-skylines");
-              Skyline_pair *sky = unsmob<Skyline_pair> (sky_scm);
+              SCM skyp_scm = get_property (g, "horizontal-skylines");
+              if (!is_scm<Skyline_pair> (skyp_scm))
+                programming_error ("separation item has no skyline");
+              const Skyline_pair &skyp = from_scm<Skyline_pair> (skyp_scm);
 
               extract_grob_set (g, "elements", elts);
               Grob *ycommon = common_refpoint_of_array (elts, g, Y_AXIS);
@@ -77,10 +79,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 
               skylines[d].shift (-shift);
 
-              if (sky)
-                skylines[d].merge ((*sky)[-d]);
-              else
-                programming_error ("separation item has no skyline");
+              skylines[d].merge (skyp[-d]);
 
               if (d == RIGHT && items[LEFT].size ())
                 skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));

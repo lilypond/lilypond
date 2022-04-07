@@ -31,6 +31,8 @@
 #include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
+#include "skyline.hh"
+#include "skyline-pair.hh"
 #include "std-vector.hh"
 #include "string-convert.hh"
 #include "source-file.hh"
@@ -435,6 +437,55 @@ to_scm<Bezier> (const Bezier &b)
     result = scm_cons (to_scm (b.control_[i]), result);
   return result;
 }
+
+template <>
+bool
+is_scm<Skyline_pair> (SCM s)
+{
+  return scm_is_pair (s)
+         && unsmob<Skyline> (scm_car (s))
+         && unsmob<Skyline> (scm_cdr (s));
+}
+
+template <>
+Skyline_pair
+from_scm<Skyline_pair> (const SCM &s)
+{
+  if (!scm_is_pair (s))
+    return Skyline_pair ();
+  Skyline *left = unsmob<Skyline> (scm_car (s));
+  if (!left)
+    return Skyline_pair ();
+  Skyline *right = unsmob<Skyline> (scm_cdr (s));
+  if (!right)
+    return Skyline_pair ();
+  if (left->sky () != DOWN)
+    {
+      scm_misc_error (
+        __FUNCTION__,
+        "direction of first skyline in skyline pair must be DOWN/LEFT",
+        SCM_EOL
+      );
+    }
+  if (right->sky () != UP)
+    {
+      scm_misc_error (
+        __FUNCTION__,
+        "direction of second skyline in skyline pair must be UP/RIGHT",
+        SCM_EOL
+      );
+    }
+  return Skyline_pair (*left, *right);
+}
+
+template <>
+SCM
+to_scm<Skyline_pair> (const Skyline_pair &skyp)
+{
+  return scm_cons (skyp[LEFT].smobbed_copy (),
+                   skyp[RIGHT].smobbed_copy ());
+}
+
 
 SCM
 alist_to_hashq (SCM alist)

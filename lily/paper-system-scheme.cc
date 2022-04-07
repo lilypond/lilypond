@@ -42,11 +42,14 @@ their extents otherwise.
   Real ret = 0;
   Prob *p1 = unsmob<Prob> (sys1);
   Prob *p2 = unsmob<Prob> (sys2);
-  Skyline_pair *sky1 = unsmob<Skyline_pair> (get_property (p1, "vertical-skylines"));
-  Skyline_pair *sky2 = unsmob<Skyline_pair> (get_property (p2, "vertical-skylines"));
-
-  if (sky1 && sky2)
-    ret = (*sky1)[DOWN].distance ((*sky2)[UP]);
+  SCM sky1_scm = get_property (p1, "vertical-skylines");
+  SCM sky2_scm = get_property (p2, "vertical-skylines");
+  if (is_scm<Skyline_pair> (sky1_scm) && is_scm<Skyline_pair> (sky2_scm))
+    {
+      const Skyline_pair &sky1 = from_scm<Skyline_pair> (sky1_scm);
+      const Skyline_pair &sky2 = from_scm<Skyline_pair> (sky2_scm);
+      ret = sky1[DOWN].distance (sky2[UP]);
+    }
   else
     {
       auto *s1 = unsmob<const Stencil> (get_property (p1, "stencil"));

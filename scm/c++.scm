@@ -129,8 +129,12 @@
         ((ly:moment? x) (ly:moment-main x))
         (else #f)))
 
-(define-public (scheme? x) #t)
+(define-public (ly:skyline-pair? x)
+  (and (pair? x)
+       (ly:skyline? (car x))
+       (ly:skyline? (cdr x))))
 
+(define-public (scheme? x) #t)
 
 (define-public (void? x)
   (unspecified? x))

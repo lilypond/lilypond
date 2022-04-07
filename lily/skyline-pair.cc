@@ -51,6 +51,11 @@ Skyline_pair::Skyline_pair (Box const &b, Axis a)
 {
 }
 
+Skyline_pair::Skyline_pair (Skyline sky1, Skyline sky2)
+  : skylines_ (sky1, sky2)
+{
+}
+
 void
 Skyline_pair::raise (Real r)
 {
@@ -124,22 +129,4 @@ Skyline const &
 Skyline_pair::operator [] (Direction d) const
 {
   return skylines_[d];
-}
-
-const char *const Skyline_pair::type_p_name_ = "ly:skyline-pair?";
-
-MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);
-SCM
-Skyline_pair::skyline (SCM smob, SCM dir_scm)
-{
-  Skyline_pair *sp = unsmob<Skyline_pair> (smob);
-  Direction dir = from_scm (dir_scm, UP);
-
-  if (dir == CENTER)
-    {
-      warning (_f ("direction must not be CENTER in ly:skyline-pair::skyline"));
-      dir = UP;
-    }
-
-  return (*sp)[dir].smobbed_copy ();
 }

@@ -473,7 +473,7 @@ Axis_group_interface::calc_skylines (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Skyline_pair skylines = skyline_spacing (me);
-  return skylines.smobbed_copy ();
+  return to_scm (skylines);
 }
 
 /* whereas calc_skylines calculates skylines for axis-groups with a lot of
@@ -497,17 +497,17 @@ Axis_group_interface::combine_skylines (SCM smob)
   Skyline_pair ret;
   for (vsize i = 0; i < elements.size (); i++)
     {
-      SCM skyline_scm = get_property (elements[i], "vertical-skylines");
-      if (unsmob<Skyline_pair> (skyline_scm))
+      SCM skyp_scm = get_property (elements[i], "vertical-skylines");
+      if (is_scm<Skyline_pair> (skyp_scm))
         {
           Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
-          Skyline_pair other = *unsmob<Skyline_pair> (skyline_scm);
-          other.raise (offset);
-          other.shift (elements[i]->relative_coordinate (x_common, X_AXIS));
-          ret.merge (other);
+          Skyline_pair skyp = from_scm<Skyline_pair> (skyp_scm);
+          skyp.raise (offset);
+          skyp.shift (elements[i]->relative_coordinate (x_common, X_AXIS));
+          ret.merge (skyp);
         }
     }
-  return ret.smobbed_copy ();
+  return to_scm (ret);
 }
 
 struct Grob_with_priority
@@ -754,10 +754,12 @@ add_grobs_of_one_priority (Grob *me,
             }
           last_end[dir] = x_extent[RIGHT];
 
-          Skyline_pair *v_orig = unsmob<Skyline_pair> (get_property (elt, "vertical-skylines"));
-          if (!v_orig || v_orig->is_empty ())
+          SCM orig_skyp = get_property (elt, "vertical-skylines");
+          if (!is_scm<Skyline_pair> (orig_skyp))
             continue;
-
+          Skyline_pair v_skylines = from_scm<Skyline_pair> (orig_skyp);
+          if (v_skylines.is_empty ())
+            continue;
           // Find the riders associated with this grob, and merge their
           // skylines with elt's skyline.
           typedef multimap<Grob *, Grob *>::const_iterator GrobMapIterator;
@@ -766,16 +768,15 @@ add_grobs_of_one_priority (Grob *me,
           for (GrobMapIterator j = range.first; j != range.second; j++)
             {
               Grob *rider = j->second;
-              Skyline_pair *v_rider = unsmob<Skyline_pair> (get_property (rider, "vertical-skylines"));
-              if (v_rider)
+              SCM v_rider_scm = get_property (rider, "vertical-skylines");
+              if (is_scm<Skyline_pair> (v_rider_scm))
                 {
-                  Skyline_pair copy (*v_rider);
-                  copy.shift (rider->relative_coordinate (x_common, X_AXIS));
-                  copy.raise (rider->relative_coordinate (y_common, Y_AXIS));
-                  rider_v_skylines.push_back (copy);
+                  Skyline_pair v_rider = from_scm<Skyline_pair> (v_rider_scm);
+                  v_rider.shift (rider->relative_coordinate (x_common, X_AXIS));
+                  v_rider.raise (rider->relative_coordinate (y_common, Y_AXIS));
+                  rider_v_skylines.push_back (v_rider);
                 }
             }
-          Skyline_pair v_skylines (*v_orig);
           v_skylines.shift (elt->relative_coordinate (x_common, X_AXIS));
           v_skylines.raise (elt->relative_coordinate (y_common, Y_AXIS));
           v_skylines.merge (Skyline_pair (rider_v_skylines));
@@ -902,13 +903,13 @@ Axis_group_interface::skyline_spacing (Grob *me)
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
       else if (!from_scm<bool> (get_property (elt, "cross-staff")))
         {
-          Skyline_pair *maybe_pair
-            = unsmob<Skyline_pair> (get_property (elt, "vertical-skylines"));
-          if (!maybe_pair)
+          SCM maybe_pair = get_property (elt, "vertical-skylines");
+          if (!is_scm<Skyline_pair> (maybe_pair))
             continue;
-          if (maybe_pair->is_empty ())
+          const Skyline_pair &skyp = from_scm<Skyline_pair> (maybe_pair);
+          if (skyp.is_empty ())
             continue;
-          inside_staff_skylines.push_back (*maybe_pair);
+          inside_staff_skylines.push_back (skyp);
           inside_staff_skylines.back ().shift (elt->relative_coordinate (x_common, X_AXIS));
           inside_staff_skylines.back ().raise (elt->relative_coordinate (y_common, Y_AXIS));
         }

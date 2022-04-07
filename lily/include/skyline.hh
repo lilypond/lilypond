@@ -72,6 +72,7 @@ public:
   Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 
+  Direction sky () { return sky_; }
   void raise (Real);
   void shift (Real);
   void clear ();

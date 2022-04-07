@@ -205,11 +205,12 @@ Grob::get_print_stencil () const
 
     }
   auto &&add_skylines = [&retval] (Axis a, SCM skyp_scm) {
-    if (Skyline_pair *skyp = unsmob<Skyline_pair> (skyp_scm))
+    const Skyline_pair &skyp = from_scm<Skyline_pair> (skyp_scm);
+    if (!skyp.is_empty ())
       {
         for (Direction d : {LEFT, RIGHT})
           {
-            const vector<Offset> &points = (*skyp)[d].to_points (other_axis (a));
+            const vector<Offset> &points = skyp[d].to_points (other_axis (a));
             Stencil sky_stil = Lookup::points_to_line_stencil (0.1, points);
             Stencil colored_stil;
             if (a == X_AXIS && d == LEFT)

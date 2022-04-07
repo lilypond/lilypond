@@ -153,9 +153,12 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 
   for (const auto d : {LEFT, RIGHT})
     {
-      Skyline_pair *sp = unsmob<Skyline_pair> (get_property (cols[d], "horizontal-skylines"));
-      if (sp)
-        skys[d] = (*sp)[-d];
+      SCM sp_scm = get_property (cols[d], "horizontal-skylines");
+      if (is_scm<Skyline_pair> (sp_scm))
+        {
+          const Skyline_pair &sp = from_scm<Skyline_pair> (sp_scm);
+          skys[d] = sp[-d];
+        }
     }
 
   skys[RIGHT].merge (Separation_item::conditional_skyline (right, left));

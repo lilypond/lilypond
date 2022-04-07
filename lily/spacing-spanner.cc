@@ -241,14 +241,16 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
         continue;
 
-      Skyline_pair *skys = unsmob<Skyline_pair> (get_property (r, "horizontal-skylines"));
-      overhangs[i] = skys ? (*skys)[RIGHT].max_height () : 0.0;
+      SCM skyp_scm = get_property (r, "horizontal-skylines");
+      bool skyp_ok = is_scm<Skyline_pair> (skyp_scm);
+      const Skyline_pair &skyp = from_scm<Skyline_pair> (skyp_scm);
+      overhangs[i] = skyp_ok ? skyp[RIGHT].max_height () : 0.0;
 
       if (0 == i) continue;
 
       /* min rather than max because stickout will be negative if the right-hand column
          sticks out a lot to the left */
-      Real stickout = std::min (skys ? (*skys)[LEFT].max_height () : 0.0,
+      Real stickout = std::min (skyp_ok ? skyp[LEFT].max_height () : 0.0,
                                 Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
       Real prev_distances = 0.0;

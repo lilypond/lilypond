@@ -54,11 +54,11 @@ Accidental_interface::horizontal_skylines (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (!me->is_live ())
-    return Skyline_pair ().smobbed_copy ();
+    return to_scm (Skyline_pair ());
 
   auto *my_stencil = unsmob<const Stencil> (get_property (me, "stencil"));
   if (!my_stencil)
-    return Skyline_pair ().smobbed_copy ();
+    return to_scm (Skyline_pair ());
 
   Skyline_pair sky (skylines_from_stencil (my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
@@ -86,7 +86,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
       Skyline merge_with_me (boxes, Y_AXIS, RIGHT);
       sky[RIGHT].merge (merge_with_me);
     }
-  return sky.smobbed_copy ();
+  return to_scm (sky);
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);

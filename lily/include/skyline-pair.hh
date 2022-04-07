@@ -24,10 +24,8 @@
 
 #include <vector>
 
-class Skyline_pair : public Simple_smob<Skyline_pair>
+class Skyline_pair
 {
-public:
-  static const char *const type_p_name_;
 private:
   Drul_array<Skyline> skylines_;
 
@@ -37,6 +35,7 @@ public:
   Skyline_pair (std::vector<Drul_array<Offset> > const &buildings, Axis a);
   Skyline_pair (std::vector<Skyline_pair> const &skypairs);
   Skyline_pair (Box const &, Axis a);
+  Skyline_pair (Skyline, Skyline);
 
   Real left () const;
   Real right () const;

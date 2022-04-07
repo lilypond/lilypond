@@ -294,13 +294,10 @@ set_ape_skylines (Accidental_placement_entry *ape,
           offset -= a->extent (a, X_AXIS).length () + padding;
         }
 
-      if (Skyline_pair *sky = unsmob<Skyline_pair> (get_property (a, "horizontal-skylines")))
-        {
-          Skyline_pair copy (*sky);
-          copy.raise (a->relative_coordinate (common[X_AXIS], X_AXIS));
-          copy.shift (a->relative_coordinate (common[Y_AXIS], Y_AXIS));
-          ape->horizontal_skylines_.merge (copy);
-        }
+      Skyline_pair skyps = from_scm<Skyline_pair> (get_property (a, "horizontal-skylines"));
+      skyps.raise (a->relative_coordinate (common[X_AXIS], X_AXIS));
+      skyps.shift (a->relative_coordinate (common[Y_AXIS], Y_AXIS));
+      ape->horizontal_skylines_.merge (skyps);
 
       last_octave = p->get_octave ();
       last_alteration = p->get_alteration ();

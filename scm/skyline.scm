@@ -16,8 +16,8 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-public (skyline-pair::empty? skyp)
-  (and (ly:skyline-empty? (ly:skyline-pair::skyline skyp UP))
-       (ly:skyline-empty? (ly:skyline-pair::skyline skyp DOWN))))
+  (and (ly:skyline-empty? (car skyp))
+       (ly:skyline-empty? (cdr skyp))))
 
 ;; checks if the pair is not null, and then if not empty
 (define-public (skyline-pair-and-non-empty? skyp)

@@ -48,12 +48,14 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair *> lines (unsmob<Skyline_pair> (get_property (l, "horizontal-skylines")),
-                                    unsmob<Skyline_pair> (get_property (r, "horizontal-skylines")));
+  Drul_array<Skyline_pair> lines (
+    from_scm<Skyline_pair> (get_property (l, "horizontal-skylines")),
+    from_scm<Skyline_pair> (get_property (r, "horizontal-skylines"))
+  );
   Skyline right = conditional_skyline (r, l);
-  right.merge ((*lines[RIGHT])[LEFT]);
+  right.merge (lines[RIGHT][LEFT]);
 
-  Real dist = padding + (*lines[LEFT])[RIGHT].distance (right);
+  Real dist = padding + lines[LEFT][RIGHT].distance (right);
   if (dist > 0)
     {
       Rod rod;
@@ -70,8 +72,9 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
 bool
 Separation_item::is_empty (Grob *me)
 {
-  Skyline_pair *sky = unsmob<Skyline_pair> (get_property (me, "horizontal-skylines"));
-  return (!sky || sky->is_empty ());
+  const Skyline_pair &sky
+    = from_scm<Skyline_pair> (get_property (me, "horizontal-skylines"));
+  return (sky.is_empty ());
 }
 
 /*
@@ -103,7 +106,7 @@ Separation_item::calc_skylines (SCM smob)
   Real vp = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
   sp[LEFT] = sp[LEFT].padded (vp);
   sp[RIGHT] = sp[RIGHT].padded (vp);
-  return sp.smobbed_copy ();
+  return to_scm (sp);
 }
 
 /*

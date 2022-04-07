@@ -89,9 +89,9 @@
   "Y-ext and next-Y-ext are either skyline-pairs or extents."
   (let* ((eps 0.001)
          (skyline (and (ly:skyline-pair? Y-ext)
-                       (ly:skyline-pair::skyline Y-ext DOWN)))
+                       (car Y-ext)))
          (next-skyline (and (ly:skyline-pair? next-Y-ext)
-                            (ly:skyline-pair::skyline next-Y-ext UP)))
+                            (cdr next-Y-ext)))
          (annotation-X (cond
                         ((and skyline next-skyline)
                          (-

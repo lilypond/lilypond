@@ -796,10 +796,10 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool p
                  : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
 
   if (xex.is_empty () || yex.is_empty ())
-    return Skyline_pair ().smobbed_copy ();
+    return to_scm (Skyline_pair ());
 
   boxes.push_back (Box (xex, yex));
-  return Skyline_pair (boxes, a).smobbed_copy ();
+  return to_scm (Skyline_pair (boxes, a));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents, 3);
@@ -883,7 +883,7 @@ Grob::vertical_skylines_from_stencil (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Skyline_pair p (skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
   p.pad (from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
-  return p.smobbed_copy ();
+  return to_scm (p);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_stencil, 1);
@@ -893,7 +893,7 @@ Grob::horizontal_skylines_from_stencil (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Skyline_pair p = skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
   p.pad (from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
-  return p.smobbed_copy ();
+  return to_scm (p);
 }
 
 SCM
@@ -915,26 +915,25 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = unsmob<Skyline_pair> (get_maybe_pure_property (elts[i], a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
-      if (skyp)
+      SCM sym = ((a == X_AXIS)
+                 ? ly_symbol2scm ("vertical-skylines")
+                 : ly_symbol2scm ("horizontal-skylines"));
+      SCM skyp_scm = get_maybe_pure_property (elts[i], sym, pure, beg, end);
+      if (is_scm<Skyline_pair> (skyp_scm))
         {
-          /*
-            Here, copying is essential.  Otherwise, the skyline pair will
-            get doubly shifted!
-          */
-          Skyline_pair copy (*skyp);
+          Skyline_pair skyp = from_scm<Skyline_pair> (skyp_scm);
           /*
             It took Mike about 6 months of his life to flip the
             coordinates below.  This is what was causing the problems
             in the shifting with all of the tests. RIP 6 months!
           */
           Offset off (x_pos[i] - my_x, y_pos[i] - my_y);
-          copy.shift (off[a]);
-          copy.raise (off[other_axis (a)]);
-          res.merge (copy);
+          skyp.shift (off[a]);
+          skyp.raise (off[other_axis (a)]);
+          res.merge (skyp);
         }
     }
-  return res.smobbed_copy ();
+  return to_scm (res);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_element_stencils, 1);

@@ -72,14 +72,14 @@ get_skylines (Grob *g,
 {
   if (!pure)
     {
-      Skyline_pair *skys = unsmob<Skyline_pair> (get_property (g, a == Y_AXIS
-                                                               ? "vertical-skylines"
-                                                               : "horizontal-skylines"));
+      SCM sym = (a == Y_AXIS)
+                ? ly_symbol2scm ("vertical-skylines")
+                : ly_symbol2scm ("horizonta-skylines");
+      SCM skyp_scm = get_property (g, sym);
       Skyline_pair skylines;
-      if (skys)
+      if (is_scm<Skyline_pair> (skyp_scm))
         {
-          skylines = *skys;
-
+          skylines = from_scm<Skyline_pair> (skyp_scm);
           /* This skyline was calculated relative to the grob g. In order to compare it to
           skylines belonging to other grobs, we need to shift it so that it is relative
           to the common reference. */

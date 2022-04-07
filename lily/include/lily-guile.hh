@@ -43,6 +43,8 @@
 #include "lily-guile-macros.hh"
 
 class Bezier;
+class Skyline;
+class Skyline_pair;
 
 /** Conversion functions follow the GUILE naming convention, i.e.
     A ly_B2A (B b);  */
@@ -516,6 +518,10 @@ template <> SCM to_scm<Offset> (const Offset &i);
 template <> bool is_scm<Bezier> (SCM s);
 template <> Bezier from_scm<Bezier> (const SCM &s);
 template <> SCM to_scm<Bezier> (const Bezier &b);
+
+template <> bool is_scm<Skyline_pair> (SCM s);
+template <> Skyline_pair from_scm<Skyline_pair> (const SCM &s);
+template <> SCM to_scm<Skyline_pair> (const Skyline_pair &skyp);
 
 // partial function specialisation is not allowed, partially
 // specialize helper class

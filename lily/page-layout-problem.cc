@@ -593,9 +593,9 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
       // store the minimum distance, considering relative indents,
       // for a loose line
       Skyline first_skyline (UP);
-      Skyline_pair *sky = unsmob<Skyline_pair> (get_property (elts[0], "vertical-skylines"));
-      if (sky)
-        first_skyline.merge ((*sky)[UP]);
+      SCM sky_scm = get_property (elts[0], "vertical-skylines");
+      const Skyline_pair &sky = from_scm<Skyline_pair> (sky_scm);
+      first_skyline.merge (sky[UP]);
       first_skyline.shift (indent);
       minimum_distance = first_skyline.distance (bottom_skyline_) - bottom_loose_baseline_;
     }
@@ -680,15 +680,16 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 void
 Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding)
 {
-  Skyline_pair *sky = unsmob<Skyline_pair> (get_property (prob, "vertical-skylines"));
+  SCM sky_scm = get_property (prob, "vertical-skylines");
   Real minimum_distance = 0;
   bool tight_spacing = from_scm<bool> (get_property (prob, "tight-spacing"));
 
-  if (sky)
+  if (is_scm<Skyline_pair> (sky_scm))
     {
-      minimum_distance = std::max ((*sky)[UP].distance (bottom_skyline_),
+      const Skyline_pair &sky = from_scm<Skyline_pair> (sky_scm);
+      minimum_distance = std::max (sky[UP].distance (bottom_skyline_),
                                    bottom_loose_baseline_);
-      bottom_skyline_ = (*sky)[DOWN];
+      bottom_skyline_ = sky[DOWN];
     }
   else if (auto *sten = unsmob<const Stencil> (get_property (prob, "stencil")))
     {
@@ -1017,15 +1018,16 @@ Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
     {
       Real dy = minimum_translations[i] - first_translation;
       Grob *g = staves[i];
-      Skyline_pair *sky = unsmob<Skyline_pair> (get_property (g, "vertical-skylines"));
-      if (sky)
+      SCM sky_scm = get_property (g, "vertical-skylines");
+      if (is_scm<Skyline_pair> (sky_scm))
         {
+          const Skyline_pair &sky = from_scm<Skyline_pair> (sky_scm);
           up->raise (-dy);
-          up->merge ((*sky)[UP]);
+          up->merge (sky[UP]);
           up->raise (dy);
 
           down->raise (-dy);
-          down->merge ((*sky)[DOWN]);
+          down->merge (sky[DOWN]);
           down->raise (dy);
         }
       if (is_spaceable (staves[i]))
