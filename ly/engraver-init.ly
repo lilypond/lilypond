@@ -356,6 +356,7 @@ multiple voices on the same staff."
   \accepts "Staff"
   \accepts "StaffGroup"
   \accepts "TabStaff"
+  \accepts "VaticanaLyrics"
   \accepts "VaticanaStaff"
 
   localAlterations = #'()
@@ -417,6 +418,7 @@ contained staves are not connected vertically."
   \accepts "RhythmicStaff"
   \accepts "Staff"
   \accepts "TabStaff"
+  \accepts "VaticanaLyrics"
   \accepts "VaticanaStaff"
   \defaultchild "Staff"
   \consists "Axis_group_engraver"
@@ -640,6 +642,7 @@ run."
   \accepts "Staff"
   \accepts "StaffGroup"
   \accepts "TabStaff"
+  \accepts "VaticanaLyrics"
   \accepts "VaticanaStaff"
 
   noteToFretFunction = #determine-frets
@@ -1095,6 +1098,25 @@ of Editio Vaticana."
   \override LeftEdge.space-alist.clef = #'(extra-space . 0)
   \override BarLine.space-alist.custos = #'(minimum-space . 0.7)
   \override Custos.space-alist.right-edge = #'(extra-space . 0)
+}
+
+\context {
+  \Lyrics
+  \name "VaticanaLyrics"
+  \alias "Lyrics"
+
+  \override LyricText.font-size = #-4
+  %% TODO: Implement Editio Vaticana style for aligning syllables to notes
+  %%       (essentially, align with a syllable's vowel).  The GregorioTeX
+  %%       documentation contains all the necessary details.
+
+  \override LyricHyphen.stencil = #lyric-hyphen::vaticana-style
+  \override LyricHyphen.font-series = #'medium
+  \override LyricHyphen.font-size = #-4
+
+  \description "Same as @code{Lyrics} context, except that it
+provides a hyphenation style (a single, flush-left hyphen between
+two syllables) as used in the notational style of Editio Vaticana."
 }
 
 \context {

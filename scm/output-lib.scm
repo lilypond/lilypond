@@ -1337,6 +1337,44 @@ and draws the stencil based on its coordinates.
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
 
+(define-public (lyric-hyphen::vaticana-style grob)
+  "Draw a @code{LyricHyphen} grob as needed for Gregorian chant in
+Editio Vaticana style, that is, apply it once, flush-left.  If the
+@code{text} property of @code{LyricHyphen} is set, print this markup.
+If the property is not set, use a hyphen character."
+
+  (define (span-point side common dir)
+    (let ((iv (ly:grob-robust-relative-extent side common X)))
+      (interval-bound iv dir)))
+
+  (define (get-text-stencil grob)
+    (grob-interpret-markup
+     grob
+     (ly:grob-property grob 'text "-")))
+
+  (let* ((left-bound (ly:spanner-bound grob LEFT))
+         (right-bound (ly:spanner-bound grob RIGHT))
+         (common (ly:grob-common-refpoint left-bound right-bound X))
+         (left-span (span-point left-bound common RIGHT))
+         (right-span (span-point right-bound common LEFT))
+         (span-length (- right-span left-span))
+         (padding (ly:grob-property grob 'padding 0.1))
+         (dash-sten (get-text-stencil grob))
+         (dash-extent (ly:stencil-extent dash-sten X))
+         (dash-length (interval-length dash-extent))
+         (usable-length
+          (- span-length
+             (if (zero? (ly:item-break-dir left-bound)) padding 0)
+             (if (zero? (ly:item-break-dir right-bound)) padding 0)))
+         (offset
+          (+ (- left-span (ly:grob-relative-coordinate grob common X))
+             (if (zero? (ly:item-break-dir left-bound)) padding 0))))
+
+    (if (or (< dash-length usable-length)
+            (negative? (ly:item-break-dir right-bound)))
+        (ly:stencil-translate-axis
+         dash-sten offset X))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general inheritance
 

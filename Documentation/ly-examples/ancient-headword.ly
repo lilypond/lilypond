@@ -1,7 +1,7 @@
-\version "2.16.0"
+\version "2.23.8"
 \include "example-header.ily"
 
-#(set-global-staff-size 15)
+#(set-global-staff-size 23)
 
 \include "gregorian.ly"
 
@@ -98,26 +98,20 @@
       \[ e\melisma \flexa d\melismaEnd \]
       \finalis
     }
-    \new Lyrics \lyricsto "cantus" {
-      Sal- ve, Re- gí- na, ma- ter mi- se- ri- cór- di- ae:
-      % Vi- ta, dul- cé- do, et spes no- stra, sal- ve.
-      Ad te cla- má- mus, éx- su- les, fi- li- i He- vae.
-      Ad te su- spi- rá- mus, ge- mén- tes et flen- tes in hac la- cri- má- rum
-      val- le.
-      E- ia er- go, Ad- vo- cá- ta no- stra, il- los tu- os mi- se- ri- cór- des
-      ó- cu- los ad nos con- vér- te.
-      Et Je- sum, be- ne- díc- tum fruc- tum ven- tris tu- i, no- bis post hoc
-      ex- sí- li- um os- tén- de.
-      O cle- mens:
-      O pi- a:
-      O dul- cis Vir- go Ma- rí- a.
+    \new VaticanaLyrics \lyricsto "cantus" {
+      Sal -- ve, Re -- gí -- na, ma -- ter mi -- se -- ri -- cór -- di -- ae:
+      % Vi -- ta, dul -- cé -- do, et spes no -- stra, sal -- ve.
+      Ad te cla -- má -- mus, éx -- su -- les, fi -- li -- i He -- vae.
+      Ad te su -- spi -- rá -- mus, ge -- mén -- tes et flen -- tes
+        in hac la -- cri -- má -- rum val -- le.
+      E -- ia er -- go, Ad -- vo -- cá -- ta no -- stra,
+        il -- los tu -- os mi -- se -- ri -- cór -- des
+        ó -- cu -- los ad nos con -- vér -- te.
+      Et Je -- sum, be -- ne -- díc -- tum fruc -- tum ven -- tris tu -- i,
+        no -- bis post hoc ex -- sí -- li -- um os -- tén -- de.
+      O cle -- mens:
+      O pi -- a:
+      O dul -- cis Vir -- go Ma -- rí -- a.
     }
   >>
-}
-
-\layout {
-  \context {
-    \Staff
-    \consists "Custos_engraver"
-  }
 }
