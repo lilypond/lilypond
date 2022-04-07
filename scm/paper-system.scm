@@ -95,22 +95,22 @@
          (annotation-X (cond
                         ((and skyline next-skyline)
                          (-
-                          (ly:skyline::get-touching-point skyline next-skyline horizon-padding)
+                          (ly:skyline-touching-point skyline next-skyline horizon-padding)
                           horizon-padding))
                         (skyline
-                         (ly:skyline::get-max-height-position skyline))
+                         (ly:skyline-max-height-position skyline))
                         (next-skyline
-                         (ly:skyline::get-max-height-position next-skyline))
+                         (ly:skyline-max-height-position next-skyline))
                         (else
                          (max (cdr X-ext)
                               (cdr next-X-ext)))))
          (annotation-Y (if skyline
-                           (ly:skyline::get-height skyline annotation-X)
+                           (ly:skyline-height skyline annotation-X)
                            (car Y-ext)))
          (next-annotation-Y (if next-skyline
-                                (- (+ (ly:skyline::get-height next-skyline
-                                                              (- (+ annotation-X system-X)
-                                                                 next-system-X))
+                                (- (+ (ly:skyline-height next-skyline
+                                                         (- (+ annotation-X system-X)
+                                                            next-system-X))
                                       next-system-Y)
                                    system-Y)
                                 (cdr next-Y-ext)))

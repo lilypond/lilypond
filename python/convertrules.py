@@ -4509,10 +4509,20 @@ def conv(s):
 @rule((2, 23, 8), r"""
 scripts.augmentum -> dots.dotvaticana
 scripts.trillelement -> scripts.trill_element
+ly:skyline::get-touching-point -> ly:skyline-touching-point
+ly:skyline::get-distance -> ly:skyline-distance
+ly:skyline::get-max-height -> ly:skyline-max-height
+ly:skyline::get-max-height-position -> ly:skyline-max-height-position
+ly:skyline::get-height -> ly:skyline-height
 """)
 def conv(s):
     s = re.sub(r"scripts\.augmentum", r"dots.dotvaticana", s)
     s = re.sub(r"scripts\.trillelement", r"scripts.trill_element", s)
+    s = re.sub(r"ly:skyline::get-touching-point", "ly:skyline-touching-point", s)
+    s = re.sub(r"ly:skyline::get-distance", "ly:skyline-distance", s)
+    s = re.sub(r"ly:skyline::get-max-height", "ly:skyline-max-height", s)
+    s = re.sub(r"ly:skyline::get-max-height-position", "ly:skyline-max-height-position", s)
+    s = re.sub(r"ly:skyline::get-height", "ly:skyline-height", s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

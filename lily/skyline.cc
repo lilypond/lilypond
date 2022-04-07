@@ -70,6 +70,8 @@ using std::vector;
    Alert to these considerations, we now accept buildings of zero-width.
 */
 
+const char *const Skyline::type_p_name_ = "ly:skyline?";
+
 static void
 print_buildings (vector<Building> const &b)
 {
@@ -739,74 +741,4 @@ Skyline::clear ()
 {
   buildings_.clear ();
   empty_skyline (&buildings_);
-}
-
-/****************************************************************/
-
-const char *const Skyline::type_p_name_ = "ly:skyline?";
-
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_touching_point, 3, 1, "")
-SCM
-Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
-{
-  auto *const other_skyline = LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
-
-  Real horizon_padding = 0;
-  if (!SCM_UNBNDP (horizon_padding_scm))
-    {
-      LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
-      horizon_padding = scm_to_double (horizon_padding_scm);
-    }
-
-  Skyline *skyline = unsmob<Skyline> (skyline_scm);
-  return to_scm (skyline->touching_point (*other_skyline, horizon_padding));
-}
-
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_distance, 3, 1, "")
-SCM
-Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
-{
-  auto *const other_skyline = LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
-
-  Real horizon_padding = 0;
-  if (!SCM_UNBNDP (horizon_padding_scm))
-    {
-      LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
-      horizon_padding = scm_to_double (horizon_padding_scm);
-    }
-
-  Skyline *skyline = unsmob<Skyline> (skyline_scm);
-  return to_scm (skyline->distance (*other_skyline, horizon_padding));
-}
-
-MAKE_SCHEME_CALLBACK (Skyline, get_max_height, 1)
-SCM
-Skyline::get_max_height (SCM skyline_scm)
-{
-  return to_scm (unsmob<Skyline> (skyline_scm)->max_height ());
-}
-
-MAKE_SCHEME_CALLBACK (Skyline, get_max_height_position, 1)
-SCM
-Skyline::get_max_height_position (SCM skyline_scm)
-{
-  return to_scm (unsmob<Skyline> (skyline_scm)->max_height_position ());
-}
-
-MAKE_SCHEME_CALLBACK (Skyline, get_height, 2)
-SCM
-Skyline::get_height (SCM skyline_scm, SCM x_scm)
-{
-  Real x = from_scm<double> (x_scm, 0.0);
-  return to_scm (unsmob<Skyline> (skyline_scm)->height (x));
-}
-
-LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
-           1, 0, 0, (SCM sky),
-           R"(
-Return whether skyline @var{sky} is empty.
-           )")
-{
-  auto *const s = LY_ASSERT_SMOB (Skyline, sky, 1);
-  return scm_from_bool (s->is_empty ());
 }
