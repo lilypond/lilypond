@@ -66,6 +66,12 @@ which scares away people.
 @end ignore
 
 @item
+A new context @code{VaticanaLyrics} is available.  It is similar to
+@code{Lyrics}, providing a hyphenation style (a single, flush-left hyphen
+between two syllables) as used in the notational style of Editio Vaticana.
+
+
+@item
 Two redundant glyphs in the Emmentaler font have been removed:
 @code{scripts.trillelement} (use @code{scripts.trill_element} instead) and
 @code{scripts.augmentum} (use @code{dots.dotvaticana} instead).

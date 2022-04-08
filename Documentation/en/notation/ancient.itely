@@ -983,14 +983,14 @@ Notation Reference:
 @funindex VaticanaVoice
 @funindex VaticanaStaff
 
-The predefined @code{VaticanaVoice} and
-@code{VaticanaStaff} can be used to engrave a piece of
-Gregorian chant in the style of the Editio Vaticana.  These contexts
-initialize all relevant context properties and grob properties to
-proper values, so you can immediately go ahead entering the chant, as
-the following excerpt demonstrates:
+The predefined contexts @code{VaticanaVoice},
+@code{VaticanaStaff}, and @code{VaticanaLyrics} can be used to
+engrave a piece of Gregorian chant in the style of the Editio
+Vaticana.  These contexts initialize all relevant context and grob
+properties to proper values; you can immediately go ahead entering
+the chant, as the following excerpt demonstrates.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   <<
@@ -1003,8 +1003,8 @@ the following excerpt demonstrates:
       \[ c'\melisma c' \flexa a \]
       \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
     }
-    \new Lyrics \lyricsto "cantus" {
-      San- ctus, San- ctus, San- ctus
+    \new VaticanaLyrics \lyricsto "cantus" {
+      San -- ctus, San -- ctus, San -- ctus
     }
   >>
 }
@@ -1065,6 +1065,8 @@ Editio Vaticana style fa clef
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
+  \override Staff.LedgerLineSpanner.length-fraction = #0.9
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
@@ -1096,6 +1098,8 @@ Editio Medicaea style fa clef
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
+  \override Staff.LedgerLineSpanner.length-fraction = #0.9
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
@@ -1127,6 +1131,7 @@ hufnagel style fa clef
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
@@ -1247,34 +1252,32 @@ and @code{\finalis} at proper places in the input.  Some editions use
 Therefore, @file{gregorian.ly} also defines @code{\virgula} and
 @code{\caesura}
 
-@lilypond[quote,ragged-right]
+@lilypond[quote,ragged-right,staffsize=23]
 \include "gregorian.ly"
 \score {
-  <<
-    \context VaticanaVoice {
-      \override TextScript.padding = #3
-      g a g
-      s^\markup { "divisio minima" }
-      \divisioMinima
-      g a g
-      s^\markup { "divisio maior" }
-      \divisioMaior
-      g a g
-      s^\markup { "divisio maxima" }
-      \divisioMaxima
-      \break
-      g a g
-      s^\markup { "finalis" }
-      \finalis
-      g a g
-      s^\markup { "virgula" }
-      \virgula
-      g a g
-      s^\markup { "caesura" }
-      \caesura
-      g a g
-    }
-  >>
+  \new VaticanaVoice {
+    \override TextScript.padding = #3
+    g a g
+    s^\markup { "divisio minima" }
+    \divisioMinima
+    g a g
+    s^\markup { "divisio maior" }
+    \divisioMaior
+    g a g
+    s^\markup { "divisio maxima" }
+    \divisioMaxima
+    \break
+    g a g
+    s^\markup { "finalis" }
+    \finalis
+    g a g
+    s^\markup { "virgula" }
+    \virgula
+    g a g
+    s^\markup { "caesura" }
+    \caesura
+    g a g
+  }
 }
 @end lilypond
 
@@ -1343,12 +1346,10 @@ specifically designed for use with notation in
 @cindex Gregorian articulation, semicirculus
 @cindex articulation, Gregorian, semicirculus
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   \new VaticanaVoice {
-    \override TextScript.font-family = #'typewriter
-    \override TextScript.font-shape = #'upright
     \override Script.padding = #-0.1
     a\ictus_"ictus " \bar "" \break
     a\circulus_"circulus " \bar "" \break
@@ -1393,7 +1394,7 @@ applies to the immediately following music expression only.  That is,
 note that you can say @code{\augmentum @{a g@}} as a shortcut for
 @code{\augmentum a \augmentum g}.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   \new VaticanaVoice {
