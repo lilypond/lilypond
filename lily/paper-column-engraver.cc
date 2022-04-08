@@ -42,29 +42,19 @@ Paper_column_engraver::Paper_column_engraver (Context *c)
 }
 
 void
-Paper_column_engraver::finalize ()
+Paper_column_engraver::set_columns (Paper_column *new_command,
+                                    Paper_column *new_musical)
 {
-  if (! (breaks_ % 8))
-    progress_indication ("[" + std::to_string (breaks_) + "]");
+  command_column_ = new_command;
+  musical_column_ = new_musical;
+  if (new_command)
+    set_property (context (), "currentCommandColumn", new_command->self_scm ());
 
-  // At the end of the score, allow page breaks and turns by default, but...
-  set_property (command_column_,
-                "page-break-permission", ly_symbol2scm ("allow"));
-  set_property (command_column_,
-                "page-turn-permission", ly_symbol2scm ("allow"));
+  if (new_musical)
+    set_property (context (), "currentMusicalColumn", new_musical->self_scm ());
 
-  // ...allow the user to override them.
-  handle_manual_breaks (true);
-
-  // On the other hand, line breaks are always allowed at the end of a score,
-  // even if they try to stop us.
-  if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
-    {
-      set_property (command_column_,
-                    "line-break-permission", ly_symbol2scm ("allow"));
-    }
-
-  system_->set_bound (RIGHT, command_column_);
+  system_->add_column (command_column_);
+  system_->add_column (musical_column_);
 }
 
 void
@@ -86,41 +76,11 @@ Paper_column_engraver::initialize ()
 }
 
 void
-Paper_column_engraver::acknowledge_item (Grob_info_t<Item> gi)
+Paper_column_engraver::start_translation_timestep ()
 {
-  items_.push_back (gi.grob ());
-}
-
-void
-Paper_column_engraver::acknowledge_staff_spacing (Grob_info gi)
-{
-  Pointer_group_interface::add_grob (command_column_,
-                                     ly_symbol2scm ("spacing-wishes"),
-                                     gi.grob ());
-}
-
-void
-Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
-{
-  Pointer_group_interface::add_grob (musical_column_,
-                                     ly_symbol2scm ("spacing-wishes"),
-                                     gi.grob ());
-}
-
-void
-Paper_column_engraver::set_columns (Paper_column *new_command,
-                                    Paper_column *new_musical)
-{
-  command_column_ = new_command;
-  musical_column_ = new_musical;
-  if (new_command)
-    set_property (context (), "currentCommandColumn", new_command->self_scm ());
-
-  if (new_musical)
-    set_property (context (), "currentMusicalColumn", new_musical->self_scm ());
-
-  system_->add_column (command_column_);
-  system_->add_column (musical_column_);
+  break_events_.clear ();
+  if (!from_scm<bool> (get_property (this, "skipTypesetting")))
+    make_columns ();
 }
 
 void
@@ -198,6 +158,28 @@ Paper_column_engraver::process_music ()
 }
 
 void
+Paper_column_engraver::acknowledge_item (Grob_info_t<Item> gi)
+{
+  items_.push_back (gi.grob ());
+}
+
+void
+Paper_column_engraver::acknowledge_staff_spacing (Grob_info gi)
+{
+  Pointer_group_interface::add_grob (command_column_,
+                                     ly_symbol2scm ("spacing-wishes"),
+                                     gi.grob ());
+}
+
+void
+Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
+{
+  Pointer_group_interface::add_grob (musical_column_,
+                                     ly_symbol2scm ("spacing-wishes"),
+                                     gi.grob ());
+}
+
+void
 Paper_column_engraver::stop_translation_timestep ()
 {
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
@@ -266,11 +248,29 @@ Paper_column_engraver::stop_translation_timestep ()
 }
 
 void
-Paper_column_engraver::start_translation_timestep ()
+Paper_column_engraver::finalize ()
 {
-  break_events_.clear ();
-  if (!from_scm<bool> (get_property (this, "skipTypesetting")))
-    make_columns ();
+  if (! (breaks_ % 8))
+    progress_indication ("[" + std::to_string (breaks_) + "]");
+
+  // At the end of the score, allow page breaks and turns by default, but...
+  set_property (command_column_,
+                "page-break-permission", ly_symbol2scm ("allow"));
+  set_property (command_column_,
+                "page-turn-permission", ly_symbol2scm ("allow"));
+
+  // ...allow the user to override them.
+  handle_manual_breaks (true);
+
+  // On the other hand, line breaks are always allowed at the end of a score,
+  // even if they try to stop us.
+  if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
+    {
+      set_property (command_column_,
+                    "line-break-permission", ly_symbol2scm ("allow"));
+    }
+
+  system_->set_bound (RIGHT, command_column_);
 }
 
 void
