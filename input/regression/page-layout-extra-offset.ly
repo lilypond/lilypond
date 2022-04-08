@@ -1,4 +1,4 @@
-\version "2.19.60"
+\version "2.23.8"
 
 \header {
   texidoc = "By setting @code{extra-offset} within the
@@ -23,18 +23,18 @@ printable area of the page or the absolute position specified by
 \book {
   \score {
     {
-      \overrideProperty
-      Score.NonMusicalPaperColumn.line-break-system-details
+      \once \override
+      Score.NonMusicalPaperColumn.line-break-system-details =
       #'((extra-offset . (8.0 . 0.0)))
       c1 c1 \break
 
-      \overrideProperty
-      Score.NonMusicalPaperColumn.line-break-system-details
+      \once \override
+      Score.NonMusicalPaperColumn.line-break-system-details =
       #'((extra-offset . (12.0 . 8.0)))
       c1 c1 \break
 
-      \overrideProperty
-      Score.NonMusicalPaperColumn.line-break-system-details
+      \once \override
+      Score.NonMusicalPaperColumn.line-break-system-details =
       #'((X-offset . 8.0)
          (Y-offset . 36.0)
          (extra-offset . (-8.0 . 30.0))

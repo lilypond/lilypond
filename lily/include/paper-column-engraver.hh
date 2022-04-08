@@ -28,8 +28,6 @@
 
 class Paper_column_engraver : public Engraver
 {
-  void make_columns ();
-  void set_columns (Paper_column *, Paper_column *);
   TRANSLATOR_DECLARATIONS (Paper_column_engraver);
 
   Paper_column *find_turnable_column (Moment after_this);
@@ -38,6 +36,7 @@ class Paper_column_engraver : public Engraver
 protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
+  void pre_process_music ();
   void process_music ();
   void handle_manual_breaks (bool);
   void initialize () override;
@@ -58,6 +57,7 @@ private:
   Paper_column *command_column_ = nullptr;
   Paper_column *musical_column_ = nullptr;
   std::vector<Item *> items_;
+  bool skiptypesetting_at_start_of_timestep_ = false;
 };
 
 #endif /* PAPER_COLUMN_ENGRAVER_HH */

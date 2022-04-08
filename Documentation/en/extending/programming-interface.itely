@@ -1753,23 +1753,18 @@ should also be called.
 
 
 @item
-Some objects cannot be changed with @code{\override} for
-technical reasons.  Examples of those are @code{NonMusicalPaperColumn}
-and @code{PaperColumn}.  They can be changed with the
-@code{\overrideProperty} function, which works similar to @code{\once
-\override}, but uses a different syntax.
+Some objects cannot be changed with @code{\override} for technical
+reasons.  They can be changed with the @code{\overrideProperty}
+function, which works similar to @code{\once \override}, but uses
+a different syntax.@footnote{Over time, @code{\overrideProperty}
+is being replaced with the more usual @code{\once \override}
+command.  If you still find yourself needing @code{\overrideProperty},
+a bug report would be appreciated.}
 
 @example
-\overrideProperty
-Score.NonMusicalPaperColumn       % Grob name
-  . line-break-system-details     % Property name
-  . next-padding                  % Optional subproperty name
-  #20                             % Value
+\overrideProperty [@var{ContextName}].@var{GrobName}.@var{property-name}[.@var{subproperty-name}] @var{value}
 @end example
 
-Note, however, that @code{\override}, applied to
-@code{NonMusicalPaperColumn} and @code{PaperColumn}, still works as
-expected within @code{\context} blocks.
 
 @end itemize
 

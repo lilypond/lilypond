@@ -146,9 +146,15 @@ Score_engraver::finalize ()
 void
 Score_engraver::one_time_step (SCM)
 {
+  /* Do pre-process-music even in skipTypesetting mode:
+  start/stop-translation-timestep + listeners happen too, and some
+  engravers need paper columns (created during pre-process-music) in
+  stop-translation-timestep.  pre-process-music is not used to create
+  grobs (except paper columns), so that's not a problem. */
+  precomputed_recurse_over_translators (context (), PRE_PROCESS_MUSIC, UP);
+
   if (!from_scm<bool> (get_property (context (), "skipTypesetting")))
     {
-      precomputed_recurse_over_translators (context (), PRE_PROCESS_MUSIC, UP);
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       Engraver_group::do_announces ();
     }

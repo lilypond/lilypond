@@ -66,6 +66,13 @@ which scares away people.
 @end ignore
 
 @item
+Properties of @code{PaperColumn} and @code{NonMusicalPaperColumn}
+(such as @code{NonMusicalPaperColumn.line-break-system-details})
+can now be overridden mid-music with the usual command @code{\once
+\override}.  They used to be a special case requiring the
+@code{\overrideProperty} command.
+
+@item
 Scheme translators can now define a new slot called
 @code{pre-process-music}.  It is called on all translators, after
 all listeners but before all @code{process-music} slots.  This can

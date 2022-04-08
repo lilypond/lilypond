@@ -386,18 +386,25 @@ kievanOff = {
 
 %% line and page breaking controls
 
-autoLineBreaksOff = {
-  \overrideProperty Score.NonMusicalPaperColumn.line-break-permission ##f
+autoLineBreaksOff =
   \override Score.NonMusicalPaperColumn.line-break-permission = ##f
-}
-autoLineBreaksOn = {
-  \overrideProperty Score.NonMusicalPaperColumn.line-break-permission #'allow
+
+autoLineBreaksOn =
   \override Score.NonMusicalPaperColumn.line-break-permission = #'allow
-}
-autoPageBreaksOff =
+
+autoPageBreaksOff = {
   \override Score.NonMusicalPaperColumn.page-break-permission = ##f
-autoPageBreaksOn =
+  % For unclear reasons, \autoPageBreaks{Off,On} do not affect the column
+  % at the point they are placed, only the following columns.  FIXME:
+  % this is inconsistent.  Should it be changed? --JeanAS
+  \once \revert Score.NonMusicalPaperColumn.page-break-permission
+}
+
+autoPageBreaksOn = {
   \override Score.NonMusicalPaperColumn.page-break-permission = #'allow
+  \once \revert Score.NonMusicalPaperColumn.page-break-permission
+}
+
 autoBreaksOff = { \autoLineBreaksOff \autoPageBreaksOff }
 autoBreaksOn = { \autoLineBreaksOn \autoPageBreaksOn }
 

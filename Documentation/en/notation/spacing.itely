@@ -2582,38 +2582,21 @@ an associative list of four different settings:
 @item @code{alignment-distances}
 @end itemize
 
-Grob overrides, including the overrides for @code{NonMusicalPaperColumn}
-below, can occur in any of three different places in an input file:
-
-@itemize
-@item in the middle of note entry directly
-@item in a @code{\context} block
-@item in the @code{\with} block
-@end itemize
-
-When we override @code{NonMusicalPaperColumn}, we use the usual
-@code{\override} command in @code{\context} blocks and in the
-@code{\with} block.  On the other hand, when we override
-@code{NonMusicalPaperColumn} in the middle of note entry,
-use the special @code{\overrideProperty} command.  Here are some
-example @code{NonMusicalPaperColumn} overrides with the special
-@code{\overrideProperty} command:
-
 @example
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20)
      (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20)
      (Y-offset . 40)
      (alignment-distances . (15)))
@@ -2666,17 +2649,17 @@ of the @code{NonMusicalPaperColumn} grob:
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty
+          \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details #'((Y-offset . 0))
+                 .line-break-system-details = #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details #'((Y-offset . 40))
+                 .line-break-system-details = #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details #'((Y-offset . 60))
+                 .line-break-system-details = #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2712,15 +2695,15 @@ Y-axis.
       \new Staff <<
         \new Voice {
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
-            .line-break-system-details #'((extra-offset . (0 . 10)))
+            .line-break-system-details = #'((extra-offset . (0 . 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
-            .line-break-system-details #'((extra-offset . (0 . 10)))
+            .line-break-system-details = #'((extra-offset . (0 . 10)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2746,25 +2729,25 @@ subproperty of @code{line-break-system-details}.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 20)
+            = #'((Y-offset . 20)
                  (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 60)
+            = #'((Y-offset . 60)
                  (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 85)
+            = #'((Y-offset . 85)
                  (alignment-distances . (20)))
           s1*5 \break
         }
@@ -2796,25 +2779,25 @@ specifies the vertical positioning of staves but not of staff groups.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 0)
+            = #'((Y-offset . 0)
                  (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 60)
+            = #'((Y-offset . 60)
                  (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 100)
+            = #'((Y-offset . 100)
                  (alignment-distances . (10 30)))
           s1*5 \break
         }

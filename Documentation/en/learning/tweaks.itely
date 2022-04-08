@@ -197,7 +197,6 @@ Notation Reference:
 * The override command::
 * The revert command::
 * The once prefix::
-* The overrideProperty command::
 * The tweak command::
 * The single prefix::
 @end menu
@@ -354,19 +353,6 @@ predefined commands to limit their effect to one musical moment:
   b( c) |
 }
 @end lilypond
-
-@node The overrideProperty command
-@unnumberedsubsubsec The @code{\overrideProperty} command
-
-@cindex overrideProperty command
-
-@funindex \overrideProperty
-
-There is another form of the override command,
-@code{\overrideProperty}, which is occasionally required.
-We mention it here for completeness, but for details see
-@rextend{Difficult tweaks}.
-@c Maybe explain in a later iteration  -td
 
 
 @node The tweak command

@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.23.8"
 
 \header {
   texidoc = "@var{alignment-distances} applies to the toplevel
@@ -9,7 +9,9 @@ the bass figure line should be directly below the 6."
 \score {
  <<
    \new Staff {
-     \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
+     \once \override
+       Score.NonMusicalPaperColumn.line-break-system-details
+         = #'((alignment-distances . (15)))
      c'4
    }
    \new Staff <<

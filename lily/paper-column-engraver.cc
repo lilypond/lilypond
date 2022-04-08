@@ -42,45 +42,17 @@ Paper_column_engraver::Paper_column_engraver (Context *c)
 }
 
 void
-Paper_column_engraver::set_columns (Paper_column *new_command,
-                                    Paper_column *new_musical)
-{
-  command_column_ = new_command;
-  musical_column_ = new_musical;
-  if (new_command)
-    set_property (context (), "currentCommandColumn", new_command->self_scm ());
-
-  if (new_musical)
-    set_property (context (), "currentMusicalColumn", new_musical->self_scm ());
-
-  system_->add_column (command_column_);
-  system_->add_column (musical_column_);
-}
-
-void
-Paper_column_engraver::make_columns ()
-{
-  Paper_column *p1 = make_paper_column ("NonMusicalPaperColumn");
-  Paper_column *p2 = make_paper_column ("PaperColumn");
-  set_columns (p1, p2);
-}
-
-void
 Paper_column_engraver::initialize ()
 {
   system_ = unsmob<System> (get_property (this, "rootSystem"));
-  make_columns ();
-
-  system_->set_bound (LEFT, command_column_);
-  set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
 }
 
 void
 Paper_column_engraver::start_translation_timestep ()
 {
   break_events_.clear ();
-  if (!from_scm<bool> (get_property (this, "skipTypesetting")))
-    make_columns ();
+  skiptypesetting_at_start_of_timestep_
+    = from_scm<bool> (get_property (context (), "skipTypesetting"));
 }
 
 void
@@ -93,6 +65,31 @@ void
 Paper_column_engraver::listen_label (Stream_event *ev)
 {
   label_events_.push_back (ev);
+}
+
+void
+Paper_column_engraver::pre_process_music ()
+{
+  /* Use the value of skipTypesetting at the start of this time step.
+     The effect is that columns are created at the beginning of a
+     skipped section, and when music stops being skipped, the columns
+     used are those created at the beginning of the skipped section.
+     DOCME: why is this necessary? */
+  if (!skiptypesetting_at_start_of_timestep_)
+    {
+      command_column_ = make_paper_column ("NonMusicalPaperColumn");
+      set_property (context (), "currentCommandColumn", command_column_->self_scm ());
+      system_->add_column (command_column_);
+      musical_column_ = make_paper_column ("PaperColumn");
+      set_property (context (), "currentMusicalColumn", musical_column_->self_scm ());
+      system_->add_column (musical_column_);
+
+      if (!system_->get_bound (LEFT)) // first time step
+        {
+          system_->set_bound (LEFT, command_column_);
+          set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
+        }
+    }
 }
 
 void
