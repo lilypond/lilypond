@@ -40,11 +40,7 @@ Staff_symbol_referencer::on_staff_line (Grob *me, int pos)
 Grob *
 Staff_symbol_referencer::get_staff_symbol (Grob *me)
 {
-  if (has_interface<Staff_symbol> (me))
-    return me;
-
-  SCM st = get_object (me, "staff-symbol");
-  return unsmob<Grob> (st);
+  return unsmob<Grob> (get_object (me, "staff-symbol"));
 }
 
 Real

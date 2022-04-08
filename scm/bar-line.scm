@@ -64,12 +64,6 @@ Pad the string with @code{annotation-char}s to the length of the
                           replacement-char)))
     span-glyph))
 
-(define (get-staff-symbol grob)
-  "Return the staff symbol corresponding to Grob @var{grob}."
-  (if (grob::has-interface grob 'staff-symbol-interface)
-      grob
-      (ly:grob-object grob 'staff-symbol)))
-
 (define (layout-blot-diameter grob)
   "Get the blot diameter of the @var{grob}'s corresponding layout."
   (let* ((layout (ly:grob-layout grob))
@@ -293,7 +287,7 @@ is not used within the routine."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
-         (staff-symbol (get-staff-symbol grob))
+         (staff-symbol (ly:grob-object grob 'staff-symbol))
          (line-pos (staff-symbol-line-positions staff-symbol))
          (line-count (length line-pos))
          (half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
@@ -340,7 +334,7 @@ is not used within the routine."
     (if (> staff-space 0)
         (begin
           (set! dist (/ dist staff-space))
-          (let ((staff-symbol (get-staff-symbol grob)))
+          (let ((staff-symbol (ly:grob-object grob 'staff-symbol)))
 
             (if (ly:grob? staff-symbol)
                 (let ((line-pos (staff-symbol-line-positions staff-symbol)))
@@ -443,7 +437,7 @@ is not used within the routine."
           ;; center, so they will be placed all in even or all in odd
           ;; positions.  Choose the alternative with more dots not
           ;; colliding with staff lines.
-          (let* ((staff-symbol (get-staff-symbol grob))
+          (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
                  (lines-pos (if (ly:grob? staff-symbol)
                                (staff-symbol-line-positions staff-symbol)
                                '()))
@@ -495,7 +489,7 @@ is not used within the routine."
 (define (make-dashed-bar-line grob extent)
   "Draw a dashed bar line."
   (let* ((height (interval-length extent))
-         (staff-symbol (get-staff-symbol grob))
+         (staff-symbol (ly:grob-object grob 'staff-symbol grob))
          (staff-space (ly:staff-symbol-staff-space grob))
          (line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
@@ -628,7 +622,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 ;; bar line callbacks
 
 (define-public (ly:bar-line::calc-bar-extent grob)
-  (let ((staff-symbol (get-staff-symbol grob))
+  (let ((staff-symbol (ly:grob-object grob 'staff-symbol))
         (staff-extent (cons 0 0)))
 
     (if (ly:grob? staff-symbol)
@@ -669,7 +663,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 ;; this may confuse the drawing functions for dashed and dotted bar lines.
 (define-public (bar-line::widen-bar-extent-on-span grob extent)
   "Widen the bar line @var{extent} towards span bars adjacent to grob @var{grob}."
-  (let ((staff-symbol (get-staff-symbol grob))
+  (let ((staff-symbol (ly:grob-object grob 'staff-symbol))
         (has-span-bar (ly:grob-object grob 'has-span-bar)))
 
     (if (and (ly:grob? staff-symbol)

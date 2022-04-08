@@ -363,7 +363,7 @@
 (define-public (staff-ellipsis::calc-y-extent grob)
   "Callback for @code{StaffEllipsis} grob, which is used with
 @code{skipTypesetting}."
-  (let* ((staff-symbol (get-staff-symbol grob))
+  (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
          (staff-extent (if (ly:grob? staff-symbol)
                            (ly:grob-extent staff-symbol staff-symbol Y)
                            (cons 0 0))))

@@ -110,6 +110,8 @@ Staff_symbol_engraver::start_spanner ()
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       span_->set_bound (LEFT, col);
+      // A StaffSymbol's staff symbol is itself.
+      set_object (span_, "staff-symbol", span_->self_scm ());
     }
 }
 
