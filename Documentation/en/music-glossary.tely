@@ -138,6 +138,7 @@ Languages in this order.
 * cent::
 * central C::
 * chord::
+* chord grid::
 * chromatic scale::
 * chromaticism::
 * church mode::
@@ -1709,6 +1710,29 @@ minor.
 @morerefs
 @ref{functional harmony}, @ref{interval}, @ref{inversion}, @ref{quality},
 @ref{third}.
+@endmorerefs
+
+
+@node chord grid
+@section chord grid
+
+F: grille d'accords.
+
+Chord grids notate chords in a visual way by placing them in
+squares.  They are used for jazz music, mainly in France.
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  g2:7+ bes4:m7 ees:7
+  \repeat percent 2 {
+    a2:m7 b2:7.11+
+  }
+  e4:m7 e4:m7/d a4:7/cis c4:m7
+}
+@end lilypond
+
+@morerefs
+@ref{chord}.
 @endmorerefs
 
 

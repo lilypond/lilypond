@@ -192,6 +192,13 @@ italianChords = {
   \set chordPrefixSpacer = #0.4
 }
 
+medianChordGridStyle = {
+  \override ChordSquare.measure-division-chord-placement-alist =
+    #median-measure-division-chord-placement-alist
+  \override ChordSquare.measure-division-lines-alist =
+    #median-measure-division-lines-alist
+}
+
 %% compressEmptyMeasures
 
 compressEmptyMeasures = \set Score.skipBars = ##t

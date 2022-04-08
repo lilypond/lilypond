@@ -24,6 +24,7 @@
   \name Global
 
   \accepts Score
+  \accepts ChordGridScore
 
   \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Usually not meant
@@ -838,8 +839,98 @@ run."
   suspendMelodyDecisions = ##f
 }
 
+%{
+Some TODOs on chord grids:
 
+* Basically every score has to use
 
+  \paper {
+    indent = 0
+    system-system-spacing.padding = 2.5 % or some similar value
+  }
+
+  We should arrange for these properties to become settable in
+  context defs and give them more sensible defaults for ChordGridScore.
+
+* At different staff sizes, not all thicknesses are properly
+  scaled yet.  The current implementation of \magnifyStaff is
+  also weird and buggy.  See
+  https://gitlab.com/lilypond/lilypond/-/merge_requests/1294#note_907159523
+
+* Support chordChanges property, probably printing a horizontal line
+  in the square.
+
+* A bass note could be printed differently (cf. Baudoin).
+
+* According to Baudoin, rhythmic breaks can be notated with
+  parentheses.  \parenthesize works on chord names, but there is no
+  provision to parenthesize several chord names at the same time.
+  See also https://lsr.di.unimi.it/LSR/Item?id=902
+
+* Detect anticipated chords and bring them on beat so that the same
+  music variable can be used for outputting a chord grid and for a
+  more realistic MIDI performance.
+
+* The repeat bar lines "[|:", ":|]" and ":|][|:" are apparently
+  standard in jazz.  It would be nice to use them by default.  Sadly,
+  they don't look good due to the increased height.  This likely needs
+  a good way to reduce the hair-thickness for those bar lines only
+  while preserving it for normal bar lines.
+
+* If there were a property to let \repeat volta print a ".|:" bar even
+  at the beginning of the piece, it could be switched on by default in
+  ChordGrid, since this is standard practice for jazz.
+
+* It's a little odd that the vertical lines separating squares are
+  drawn by SystemStartBar at the beginning of the line but BarLine
+  elsewhere.  The problem here is that no bar line is created by
+  default at the beginning of the piece.  Also, it would be easy to
+  create a "|-|" bar type printing "|" at the beginning of a line
+  (unlike "|" which doesn't print anything), but it would require
+  similarly declaring an annotated bar type for a number of other bar
+  lines, like "||".
+
+--JeanAS
+%}
+
+\context {
+  \Score
+  \name ChordGridScore
+  \alias Score
+  \description "Top-level context replacing @code{Score} in chord grid notation.
+Compared to @code{Score}, it uses proportional notation, and has a few other
+settings like removing bar numbers."
+  \accepts ChordGrid
+  \remove Bar_number_engraver
+  \remove System_start_delimiter_engraver
+  proportionalNotationDuration = #(ly:make-moment 1/4)
+}
+
+\context {
+  \name ChordGrid
+  \type Engraver_group
+  \alias Staff
+  \description "Creates chord grid notation.  This context is always part of
+a @code{ChordGridScore} context."
+  \consists Output_property_engraver
+  \consists Current_chord_text_engraver
+  \consists Grid_chord_name_engraver
+  \consists Chord_square_engraver
+  \consists Axis_group_engraver
+  \consists Alteration_glyph_engraver
+  \consists Bar_engraver
+  \consists Staff_symbol_engraver
+  \consists Percent_repeat_engraver
+  \consists Double_percent_repeat_engraver
+  \consists System_start_delimiter_engraver
+
+  \override StaffSymbol.line-positions = #'(-13.5 13.5)
+  \override SystemStartBar.thickness = 2
+  \override StaffSymbol.thickness = 2
+  \override BarLine.hair-thickness = 2
+  \override BarLine.font-size = 3
+  \override BarLine.kern = 5
+}
 
 \context {
   \type Engraver_group

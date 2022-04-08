@@ -172,6 +172,14 @@ vertical position."
    spacing-pair))
 
 (ly:add-interface
+ 'chord-square-interface
+ "A chord square in a chord grid."
+ '(chord-names
+   measure-division
+   measure-division-chord-placement-alist
+   measure-division-lines-alist))
+
+(ly:add-interface
  'clef-modifier-interface
  "The number describing transposition of the clef, placed below
 or above clef sign. Usually this is 8 (octave transposition)
@@ -300,6 +308,11 @@ setting of @code{details.bow-direction}.
  "Keep track of durations in a run of grace notes."
  '(columns
    common-shortest-duration))
+
+(ly:add-interface
+ 'grid-chord-name-interface
+ "A chord name in a chord grid."
+ '(index))
 
 (ly:add-interface
  'horizontal-bracket-text-interface

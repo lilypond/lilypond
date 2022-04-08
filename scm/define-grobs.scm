@@ -269,6 +269,8 @@ line to visually mark and annotate another grob.")))))
         (kern . 3.0)
         (segno-kern . 3.0)
         (hair-thickness . 1.9)
+        ;; For chord squares to determine the ending of inner lines.
+        (horizontal-skylines . ,grob::always-horizontal-skylines-from-stencil)
         (thick-thickness . 6.0)
 
         (layer . 0)
@@ -734,7 +736,28 @@ vertical baseline to align @iref{CenteredBarNumber} grobs.")))))
                                 outside-staff-interface
                                 rhythmic-grob-interface
                                 text-interface))
-                 (description . "A chord name.")))))
+                 (description . "A stand-alone chord name.  For chord
+names in chord grids, see @iref{GridChordName}.")))))
+
+    ;; About chord square notation, see: Philippe Baudoin, "Jazz, mode d'emploi
+    ;; / Petite encyclopédie des données techniques de base".
+    (ChordSquare
+     . ((measure-division-chord-placement-alist
+         . ,default-measure-division-chord-placement-alist)
+        (measure-division-lines-alist
+         . ,default-measure-division-lines-alist)
+        (stencil . ,chord-square::print)
+        ;; The default extent-based skylines are fine: the stencil's
+        ;; skylines are a rectangle anyway.
+        (X-extent . ,chord-square::width)
+        (Y-extent . ,(ly:make-unpure-pure-container chord-square::height))
+        (meta . ((class . Spanner)
+                 (interfaces . (chord-square-interface
+                                line-interface))
+                 (description . "In a chord grid, this grob represents one chord
+square.  It helps place @iref{GridChordName} grobs, and draws lines to separate
+them. Note that this grob only draws the diagonal lines in a square.  The borders
+of the square are drawn by @iref{StaffSymbol} and @iref{BarLine}.")))))
 
     (Clef
      . (
@@ -1491,6 +1514,24 @@ number) with a pointing line attached to another grob.")))))
 (horizontal) spacing of grace notes.  See also
 @iref{NoteSpacing}, @iref{StaffSpacing},
 and @iref{SpacingSpanner}.")))))
+
+    ;; We could reuse ChordName and make it spanner in ChordGrid and item
+    ;; elsewhere, but the defaults seem sufficiently different to warrant
+    ;; a separate grob.
+    (GridChordName
+     . (
+        (font-family . sans)
+        (font-size . 1.5)
+        (stencil . ,ly:text-interface::print)
+        (word-space . 0.0)
+        (X-offset . ,grid-chord-name::calc-X-offset)
+        (Y-offset . ,grid-chord-name::calc-Y-offset)
+        (meta . ((class . Spanner)
+                 (interfaces . (accidental-switch-interface
+                                grid-chord-name-interface
+                                font-interface
+                                text-interface))
+                 (description . "A chord name in a chord grid.")))))
 
     (GridLine
      . (

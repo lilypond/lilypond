@@ -646,6 +646,18 @@ property.")
 symbols making up a church rest.")
      (measure-count ,integer? "The number of measures for a
 multi-measure rest.")
+     (measure-division ,number-list? "A list representing what fraction
+of the measure length each chord name takes in a chord square.  The list
+is made of exact numbers between 0 and@tie{}1, which should add up to@tie{}1.
+Example: a measure @code{c2 g4 g4} results in @code{'(1/2 1/4 1/4)}.")
+     (measure-division-chord-placement-alist ,alist? "An alist mapping
+measure divisions (see the @code{measure-division} property) to lists
+of coordinates (number pairs) applied to the chord names of a chord
+square.  Coordinates are normalized between -1 and@tie{}1 within the square.")
+     (measure-division-lines-alist ,alist? "An alist mapping measure
+divisions (see the @code{measure-division} property) to lists of lines
+to draw in the square, given as 4-element lists:
+@code{(@var{x-start} @var{y-start} @var{x-end} @var{y-end})}.")
      (measure-length ,ly:moment? "Length of a measure.  Used in some
 spacing situations.")
      (merge-differently-dotted ,boolean? "Merge note heads in
@@ -1331,6 +1343,7 @@ bounds are spaced.")
 
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
+     (chord-names ,ly:grob-array? "Array of chord names.")
      (columns ,ly:grob-array? "An array of grobs, typically containing
 @code{PaperColumn} or @code{NoteColumn} objects.")
      (concurrent-hairpins ,ly:grob-array? "All concurrent hairpins.")

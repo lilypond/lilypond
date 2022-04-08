@@ -119,3 +119,16 @@ and vertical skylines with @var{axis} =@tie{}@code{Y}.
   a = other_axis (a);
   return to_scm (skylines_from_stencil (stencil, SCM_EOL, a));
 }
+
+LY_DEFINE (ly_skyline_pad, "ly:skyline-pad",
+           2, 0, 0, (SCM skyline, SCM horizon_padding),
+           R"(
+Return a version of @var{skyline} padded by @var{horizon-padding}
+along the horizon.
+           )")
+{
+  auto *const sky = LY_ASSERT_SMOB (Skyline, skyline, 1);
+  LY_ASSERT_TYPE (scm_is_real, horizon_padding, 2);
+  Real hp = from_scm<Real> (horizon_padding);
+  return sky->padded (hp).smobbed_copy ();
+}

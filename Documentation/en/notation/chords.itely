@@ -441,6 +441,7 @@ as notes on a staff.
 @menu
 * Printing chord names::
 * Customizing chord names::
+* Chord grids::
 @end menu
 
 @node Printing chord names
@@ -830,6 +831,158 @@ myChords = \relative c' {
   \new Staff { \myChords }
 >>
 @end lilypond
+
+
+@node Chord grids
+@unnumberedsubsubsec Chord grids
+
+@cindex chord grid
+@funindex ChordGrid
+
+In some European countries, particularly France, jazz musicians
+use so-called @q{chord grids}, which notate chords visually by
+placing them in squares.
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  g2:7+ bes4:m7 ees:7
+  \repeat percent 2 {
+    a2:m7 b2:7.11+
+  }
+  e4:m7 e4:m7/d a4:7/cis c4:m7
+}
+@end lilypond
+
+Although they are omitted in the rest of this section for brevity,
+it is recommended to use the following @code{\paper} settings for
+chord grids:
+
+@example
+\paper @{
+  indent = 0
+  ragged-right = ##f
+@}
+@end example
+
+@code{indent = 0} ensures that the first line is not indented as
+it would normally be (@pxref{paper variables for shifts and
+indents}).  @code{ragged-right = ##f} is necessary for single-line
+grids to ensure they span the whole page; @pxref{paper variables
+for widths and margins}.
+
+In order to create a chord grid, instantiate a @code{ChordGrid} context.
+
+@lilypond[verbatim,quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode { c1 d1:m e1:7 f1:7+ }
+@end lilypond
+
+Each square is automatically subdivided.
+
+@lilypond[verbatim,quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  c1
+  d2 c2
+  e2. c4
+}
+@end lilypond
+
+Chords spanning a complete measure are centered within their
+square.  Chords lasting half a measure take half the square, and
+those lasting a quarter of a measure take a quarter of the square.
+This summary picture shows the default rules for subdividing the
+square:
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  \override GridChordName.stencil =
+    #(lambda (grob)
+       (let* ((ev (event-cause grob))
+              (mus (ly:event-property ev 'music-cause))
+              (dur (ly:music-property mus 'duration))
+              (num (number->string (1+ (ly:grob-property grob 'index)))))
+       (grob-interpret-markup
+        grob
+        #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
+  r1
+  r2 r2
+  r4 r4 r2
+  r2 r4 r4
+  \break
+  r4 r4 r4 r4
+  r2. r4
+  r4 r2.
+  \stopStaff
+  s1
+}
+@end lilypond
+
+The @code{\medianChordGridStyle} changes the default display of
+squares with four chords of equal length to use the style
+recommended by Philippe Baudoin in his book @emph{Jazz, mode
+d'emploi} (@qq{Jazz, user instructions}).
+
+@example
+\layout @{
+  \context @{
+    \ChordGrid
+    \medianChordGridStyle
+  @}
+@}
+@end example
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  \override GridChordName.stencil =
+    #(lambda (grob)
+       (let* ((ev (event-cause grob))
+              (mus (ly:event-property ev 'music-cause))
+              (dur (ly:music-property mus 'duration))
+              (num (number->string (1+ (ly:grob-property grob 'index)))))
+       (grob-interpret-markup
+        grob
+        #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
+  \override Score.RehearsalMark.self-alignment-X = #LEFT
+  \mark \markup default
+  r4 r4 r4 r4
+  \stopStaff
+  s1
+  \startStaff
+  \mark \markup \typewriter "\\medianChordGridStyle"
+  \medianChordGridStyle
+  r4 r4 r4 r4
+  \stopStaff
+  s1*2
+}
+@end lilypond
+
+In chord grids, rests cause the @code{noChordSymbol} to be
+printed, just like in a regular @code{ChordNames} context
+(@pxref{Printing chord names}).
+
+@lilypond[verbatim,quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode { c1 r2 c2 R1 }
+@end lilypond
+
+Skips cause blank space.  They can occupy part of a square.
+
+@lilypond[verbatim,quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode { c1 s2 c2 s1 }
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/customizing-the-chord-grid-style.ly}
+
+
+@morerefs
+Music Glossary: @rglos{chord grid}.
+
+Internals Reference: @rinternals{ChordGrid},
+@rinternals{ChordGridScore}, @rinternals{GridChordName},
+@rinternals{ChordSquare}, @rinternals{Grid_chord_name_engraver},
+@rinternals{Chord_square_engraver}.
+@endmorerefs
 
 
 @node Figured bass

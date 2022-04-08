@@ -65,6 +65,18 @@ which scares away people.
 
 @end ignore
 
+@item
+Support for chord grids has been added.
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  g2:7+ bes4:m7 ees:7
+  \repeat percent 2 {
+    a2:m7 b2:7.11+
+  }
+  e4:m7 e4:m7/d a4:7/cis c4:m7
+}
+@end lilypond
 
 @item
 Formatting of figured bass has been improved.  In particular, the

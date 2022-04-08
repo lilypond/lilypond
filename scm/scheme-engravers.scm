@@ -15,6 +15,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (ice-9 match))
+
 (define-public (ly:make-listener callback)
   "This is a compatibility wrapper for creating a @q{listener} for use
 with @code{ly:add-listener} from a @var{callback} taking a single
@@ -1229,6 +1231,7 @@ the sticky spanner attached to it has its end announced too.")))
    (description . "Create grobs to visualize control points of Bézier
 curves (ties and slurs) for ease of tweaking.")))
 
+
 (define (Current_chord_text_engraver context)
   (let ((note-events '())
         (rest-event #f))
@@ -1333,3 +1336,178 @@ creating a chord name grob is left to other engravers.")))
    (properties-read . (currentChordCause currentChordText chordChanges lastChord))
    (properties-written . (lastChord))
    (description . "Read @code{currentChordText} to create chord names.")))
+
+
+(define (Grid_chord_name_engraver context)
+  (let (;; Maintained as the left bound for newly created GridChordName grobs.
+        ;; This is the currentCommandColumn at the start of the piece, and the
+        ;; latest BarLine afterwards.
+        (left-bound #f)
+        ;; Was a bar line found in this time step?  Reset after each
+        ;; timestep, unlike left-bound.
+        (bar-found #f)
+        ;; GridChordName being created.
+        (chord-name #f)
+        ;; All grid chord names from the current measure, to be ended at the
+        ;; next bar line.
+        (accumulated-chord-names '()))
+    (make-engraver
+     ((process-music engraver)
+      (when (not left-bound) ; first timestep
+        (set! left-bound (ly:context-property context 'currentCommandColumn)))
+      (let ((text (ly:context-property context 'currentChordText #f)))
+        (when text
+          (let ((cause (ly:context-property context 'currentChordCause)))
+            (set! chord-name (ly:engraver-make-grob engraver 'GridChordName cause))
+            ;; This logic is similar to Chord_name_engraver.
+            (let* ((grob-text (ly:grob-property chord-name 'text #f))
+                   (final-text (or grob-text text)))
+              (ly:grob-set-property! chord-name 'text final-text))))))
+     (acknowledgers
+      ((bar-line-interface engraver grob source-engraver)
+       (set! left-bound grob)
+       (set! bar-found grob)))
+     ((stop-translation-timestep engraver)
+      (when bar-found
+        (for-each
+         (lambda (c)
+           (ly:spanner-set-bound! c RIGHT bar-found))
+         accumulated-chord-names)
+        (set! accumulated-chord-names '())
+        (set! bar-found #f))
+      (when chord-name
+        (ly:spanner-set-bound! chord-name LEFT left-bound)
+        (set! accumulated-chord-names (cons chord-name accumulated-chord-names))
+        (set! chord-name #f)))
+     ((finalize engraver)
+      ;; Maybe the piece ended without a bar line.
+      (let ((column (ly:context-property context 'currentCommandColumn)))
+        (for-each
+         (lambda (c)
+           (ly:spanner-set-bound! c RIGHT column))
+         accumulated-chord-names))))))
+
+(ly:register-translator
+ Grid_chord_name_engraver 'Grid_chord_name_engraver
+ '((grobs-created . (GridChordName))
+   (events-accepted . ())
+   (properties-read . (currentChordText currentChordCause currentCommandColumn))
+   (properties-written . ())
+   (description . "Read @code{currentChordText} to create chord names
+adapted for typesetting within a chord grid.")))
+
+
+(define (Chord_square_engraver context)
+  (let (;; Current ChordSquare grob.
+        (square #f)
+        ;; List of moments at which the measure is split (triggered by chords or
+        ;; rests or skips).  Used to determine measure-division property.
+        (moms '())
+        ;; Whether this is the first timestep.
+        (first-timestep #t)
+        ;; Chord name found.  Expect only one chord name per time step.
+        (chord-name #f)
+        ;; Whether we are in a skip.
+        (in-skip #f)
+        ;; Moment at which the latest chord stops playing.
+        (chord-end-mom (ly:make-moment -inf.0))
+        ;; Whether the ChordSquare was created at this timestep.
+        (new-square-created #f)
+        ;; Index for the next chord name we will find.  Reset after terminating
+        ;; a ChordSquare.
+        (index 0))
+    (define (set-square-measure-division!)
+      (let* ((now-mom (ly:context-current-moment context))
+             (extended-moms (cons now-mom moms))
+             (mom-deltas (let loop ((remaining extended-moms)
+                                    (acc '()))
+                           (match remaining
+                             ((_)
+                              acc)
+                             ((m1 m2 . rest)
+                              (loop (cons m2 rest)
+                                    (cons (ly:moment-sub m1 m2)
+                                          acc))))))
+             (total-span (ly:moment-sub now-mom (last extended-moms)))
+             (fracs (map (lambda (delta)
+                           ;; Don't care about grace chord names.
+                           (ly:moment-main (ly:moment-div delta total-span)))
+                         mom-deltas)))
+        (ly:grob-set-property! square 'measure-division fracs)))
+    (make-engraver
+     ((start-translation-timestep engraver)
+      ;; Can't be done in stop-translation-timestep since the value
+      ;; needs to be known in finalize.
+      (set! new-square-created #f))
+     ((process-music engraver)
+      (when first-timestep
+        (let ((column (ly:context-property context 'currentCommandColumn)))
+          (set! square (ly:engraver-make-grob engraver 'ChordSquare '()))
+          (ly:spanner-set-bound! square LEFT column))
+        (set! new-square-created #t)))
+     (acknowledgers
+      ((bar-line-interface engraver grob source-engraver)
+       (when (not first-timestep) ; don't duplicate if there's a bar line at the beginning
+         (let ((column (ly:context-property context 'currentCommandColumn)))
+           (ly:spanner-set-bound! square RIGHT grob)
+           (set-square-measure-division!)
+           (set! moms '())
+           ;; Reset so skips in the next measure count as a new part of a square.
+           (set! in-skip #f)
+           (ly:engraver-announce-end-grob engraver square grob)
+           (set! square (ly:engraver-make-grob engraver 'ChordSquare '()))
+           (ly:spanner-set-bound! square LEFT grob)
+           (set! new-square-created #t)
+           (set! index 0))))
+      ((grid-chord-name-interface engraver grob source-engraver)
+       (set! chord-name grob)))
+     ((stop-translation-timestep engraver)
+      (let ((mom (ly:context-current-moment context)))
+        (cond
+         ;; Chord name found: register it.
+         (chord-name
+          (set! moms (cons mom moms))
+          (ly:pointer-group-interface::add-grob square 'chord-names chord-name)
+          (ly:grob-set-property! chord-name 'index index)
+          (ly:grob-set-parent! chord-name X square)
+          (ly:grob-set-parent! chord-name Y square)
+          (set! index (1+ index))
+          (let* ((ev (event-cause chord-name))
+                 (length (ly:event-property ev 'length))
+                 (now (ly:context-current-moment context)))
+            (set! chord-end-mom (ly:moment-add now length)))
+          (set! chord-name #f)
+          (set! in-skip #f))
+         ;; No chord name found and previous chord name no longer active.  This
+         ;; is a skip or something similar.  Record the moment where the skip
+         ;; started -- unless it already started earlier, in which case it is
+         ;; merged with the previous one (also happens if another voice has
+         ;; material that causes timesteps in the middle of the skip in the
+         ;; chord grid).
+         ((and (or (not chord-end-mom)
+                   (let ((now (ly:context-current-moment context)))
+                     (moment<=? chord-end-mom now)))
+               (not in-skip))
+          (set! moms (cons mom moms))
+          (set! in-skip #t)
+          (set! index (1+ index)))))
+      (set! first-timestep #f))
+     ((finalize engraver)
+      ;; Avoid a dangling ChordSquare at the end.  If it was created in this
+      ;; timestep, the music ends on a bar line, as most music does, or perhaps
+      ;; the music has zero length.  In that case, kill it silently.  Else, we
+      ;; have an unterminated measure, so warn about it.
+      (when (not new-square-created)
+        (ly:warning (G_ "unterminated measure for chord square")))
+      (let ((chord-names (ly:grob-object square 'chord-names #f)))
+        (when chord-names
+          (for-each ly:grob-suicide! (ly:grob-array->list chord-names))))
+      (ly:grob-suicide! square)))))
+
+(ly:register-translator
+ Chord_square_engraver 'Chord_square_engraver
+ '((events-accepted . ())
+   (grobs-created . (ChordSquare))
+   (properties-read . (currentCommandColumn))
+   (properties-written . ())
+   (description . "Engrave chord squares in chord grids.")))

@@ -16,6 +16,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (ice-9 match))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
@@ -2964,3 +2965,192 @@ which is the default."
          ;; It would be crazy to make this nonzero, but anyway.
          (my-pure-coord (ly:grob-pure-property grob 'Y-offset 0 0 0.0)))
     (coord-translate pure-group-extent (- my-pure-coord))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; chord grids
+
+(define-public (chord-square::width grob)
+  ;; The BarLine's X-extent is not necessarily the right measure of where to
+  ;; start and stop.  For a chord square at the left of a repeat bar line ":|.",
+  ;; you want to extent the square to the '|' glyph, not the ':' one.  This uses
+  ;; a simple approach to determine the correct point: take a skyline of the bar
+  ;; line, pad it a bit (mainly to protect against rounding errors), and take
+  ;; the height at the Y positions of the two horizontal lines of the square.
+  (match-let* (((low . high) (ly:grob-extent grob grob Y))
+               (common (ly:grob-system grob))
+               (my-coord (ly:grob-relative-coordinate grob common X)))
+    (define (x-position-for-bound dir)
+      (let* ((bound (ly:spanner-bound grob dir))
+             (bound-coord (ly:grob-relative-coordinate bound common X))
+             (basic-position (- bound-coord my-coord)))
+        (if (grob::has-interface bound 'bar-line-interface)
+          (let* ((skyline-pair (ly:grob-property bound 'horizontal-skylines))
+                 (skyline (index-cell skyline-pair (- dir)))
+                 (padded (ly:skyline-pad skyline 0.05))
+                 (correction
+                  ((if (eqv? dir LEFT)
+                       max
+                       min)
+                   (ly:skyline-height padded low)
+                   (ly:skyline-height padded high))))
+            (+ basic-position correction))
+          ;; If it's not a bar line, the bound is probably the
+          ;; NonMusicalPaperColumn at the beginning of the piece; there is no
+          ;; bar line there but system start delimiters (unless the original bar
+          ;; line is a repeat bar line, since those *are* printed at the start
+          ;; of the piece).  It's unclear what breakable items one could have
+          ;; there (there are never any clefs or such in chord grids), so we
+          ;; just assume that column has zero width.
+          basic-position)))
+    (pair-map x-position-for-bound (cons LEFT RIGHT))))
+
+(define-public (chord-square::height grob)
+  ;; If the chord square is in a \stopStaff passage, kill it.
+  (let* (;; Use ly:grob-object on `grob` here since the left bound might be a
+         ;; paper column, which was not created in ChordGrid (but in
+         ;; ChordGridScore) and consequently doesn't have 'staff-symbol set.
+         (left-staff-symbol (ly:grob-object grob 'staff-symbol #f))
+         ;; On the other hand, the right bound is always a BarLine.
+         (right-staff-symbol
+          (let ((right (ly:spanner-bound grob RIGHT)))
+            (when (not (grob::has-interface right 'bar-line-interface))
+              (ly:programming-error
+               "right bound of ChordSquare should be bar line, found ~a" right))
+            (ly:grob-object right 'staff-symbol #f)))
+         ;; The ChordSquare needs either of the two staff symbols spanning it
+         ;; entirely.
+         (bound-column-when
+          (lambda (spanner direction)
+            (let* ((bound (ly:spanner-bound spanner direction))
+                   (column (ly:item-get-column bound)))
+              (ly:grob-property column 'when))))
+         (staff-symbol-spans-square?
+          (lambda (staff-symbol direction)
+            (let ((staff-symbol-when (bound-column-when staff-symbol direction))
+                  (square-when (bound-column-when grob direction)))
+              ((if (eqv? direction LEFT)
+                   moment<=?
+                   (lambda (a b)
+                     (moment<=? b a)))
+               staff-symbol-when
+               square-when))))
+         (staff-symbol-to-use
+          (cond
+           ((and left-staff-symbol
+                 (staff-symbol-spans-square? left-staff-symbol RIGHT))
+            left-staff-symbol)
+           ((and right-staff-symbol
+                 (staff-symbol-spans-square? right-staff-symbol LEFT))
+            right-staff-symbol)
+           (else
+            #f))))
+    (if staff-symbol-to-use
+        (interval-widen (ly:grob-extent staff-symbol-to-use staff-symbol-to-use Y)
+                        (- (ly:staff-symbol-line-thickness staff-symbol-to-use)))
+        (begin
+          (let ((chord-names (ly:grob-object grob 'chord-names #f)))
+            (when chord-names
+              (ly:warning
+               "removing chord names on chord square because no staff symbol was found")
+              (for-each ly:grob-suicide!
+                        (ly:grob-array->list chord-names))))
+          (ly:grob-suicide! grob)))))
+
+(define (check-division-alist grob prop-name)
+  (let ((alist (ly:grob-property grob prop-name)))
+    ;; Assume `alist` is an alist, which is checked by the alist? predicate on
+    ;; the property.
+    (for-each
+     (lambda (entry)
+       (let ((key (car entry)))
+         (cond
+          ((not (number-list? key))
+           (ly:warning "key in ~a should be numer list: ~a"
+                       prop-name
+                       key))
+          ;; Also checks for exactness since (eqv? 1 1.0) => #f
+          ;; (unlike (= 1 1.0) => #t).
+          ((not (eqv? 1 (apply + key)))
+           (ly:warning "key in ~a should contain exact numbers adding up to 1: ~a"
+                       prop-name
+                       key)))))
+     alist)
+    alist))
+
+(define-public (chord-square::print grob)
+  (let* ((division (ly:grob-property grob 'measure-division))
+         (lines-alist (check-division-alist grob 'measure-division-lines-alist))
+         (lines (or (assoc-get division lines-alist)
+                    (begin
+                      (ly:warning
+                       (G_ "no entry in measure-division-lines-alist for measure division ~a")
+                       division)
+                      '())))
+         (X-ext (ly:grob-extent grob grob X))
+         (Y-ext (ly:grob-extent grob grob Y)))
+    (apply ly:stencil-add
+           (map
+            (match-lambda
+             ((x1 y1 x2 y2)
+              (let ((scaled-x1 (interval-index X-ext x1))
+                    (scaled-y1 (interval-index Y-ext y1))
+                    (scaled-x2 (interval-index X-ext x2))
+                    (scaled-y2 (interval-index Y-ext y2)))
+                (ly:line-interface::line grob scaled-x1 scaled-y1 scaled-x2 scaled-y2))))
+            lines))))
+
+(define-public ((grid-chord-name::calc-offset-on-axis axis) grob)
+  (let* ((square (ly:grob-parent grob X))
+         (division (ly:grob-property square 'measure-division))
+         (placement-alist
+          (check-division-alist square 'measure-division-chord-placement-alist))
+         (placement (or (assoc-get division placement-alist)
+                        (begin
+                          (ly:warning
+                           (G_ "no entry in measure-division-chord-placement-alist \
+for measure division ~a")
+                           division)
+                          (circular-list '(0 . 0)))))
+         (index (ly:grob-property grob 'index))
+         (coords (list-ref placement index))
+         (coord (coord-axis coords axis))
+         (extent (ly:grob-extent square square axis))
+         (scaled-coord (interval-index extent coord))
+         (stencil (ly:grob-property grob 'stencil))
+         (stencil-extent (ly:stencil-extent stencil axis))
+         ;; TODO is configurability (self-alignment-{X,Y}?) called for?
+         (center (interval-center stencil-extent)))
+    (- scaled-coord center)))
+
+(define-public grid-chord-name::calc-X-offset (grid-chord-name::calc-offset-on-axis X))
+(define-public grid-chord-name::calc-Y-offset (grid-chord-name::calc-offset-on-axis Y))
+
+(define-public default-measure-division-lines-alist
+  '(((1) . ())
+    ((1/2 1/2) . ((-1 -1 1 1)))
+    ((1/2 1/4 1/4) . ((-1 -1 1 1) (0 0 1 -1)))
+    ((1/4 1/4 1/2) . ((-1 -1 1 1) (-1 1 0 0)))
+    ((1/4 1/4 1/4 1/4) . ((-1 -1 1 1) (-1 1 1 -1)))
+    ((1/4 3/4) . ((-1 -1 0 0) (-1 1 0 0)))
+    ((3/4 1/4) . ((0 0 1 -1) (0 0 1 1)))))
+
+(define-public default-measure-division-chord-placement-alist
+  '(((1) . ((0 . 0)))
+    ((1/2 1/2) . ((-0.4 . 0.4) (0.4 . -0.4)))
+    ((1/2 1/4 1/4) . ((-0.4 . 0.4) (0 . -0.65) (0.63 . 0)))
+    ((1/4 1/4 1/2) . ((-0.63 . 0) (0 . 0.65) (0.4 . -0.4)))
+    ((1/4 1/4 1/4 1/4) . ((-0.63 . 0) (0 . 0.7) (0 . -0.65) (0.63 . 0)))
+    ((1/4 3/4) . ((-0.63 . 0) (0.38 . 0)))
+    ((3/4 1/4) . ((-0.38 . 0) (0.63 . 0)))))
+
+(define-public median-measure-division-lines-alist
+  (assoc-set!
+   (alist-copy default-measure-division-lines-alist)
+   '(1/4 1/4 1/4 1/4)
+   '((0 -1 0 1) (-1 0 1 0))))
+
+(define-public median-measure-division-chord-placement-alist
+  (assoc-set!
+   (alist-copy default-measure-division-chord-placement-alist)
+   '(1/4 1/4 1/4 1/4)
+   '((-0.5 . 0.5) (0.5 . 0.5) (-0.5 . -0.5) (0.5 . -0.5))))
