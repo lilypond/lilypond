@@ -42,7 +42,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.4.1"
+        return "2.4.8"
 
     @property
     def directory(self) -> str:
@@ -80,7 +80,7 @@ expat = Expat()
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.11.0"
+        return "2.12.0"
 
     @property
     def directory(self) -> str:
@@ -116,59 +116,10 @@ class FreeType(ConfigurePackage):
 freetype = FreeType()
 
 
-class UtilLinux(ConfigurePackage):
-    def enabled(self, c: Config) -> bool:
-        return not c.is_macos() and not c.is_mingw()
-
-    @property
-    def version(self) -> str:
-        return "2.37.1"
-
-    @property
-    def directory(self) -> str:
-        return f"util-linux-{self.version}"
-
-    @property
-    def archive(self) -> str:
-        return f"{self.directory}.tar.xz"
-
-    @property
-    def download_url(self) -> str:
-        major_version = ".".join(self.version.split(".")[0:2])
-        return f"https://www.kernel.org/pub/linux/utils/util-linux/v{major_version}/{self.archive}"
-
-    def configure_args(self, c: Config) -> List[str]:
-        return [
-            # Enable only libuuid.
-            "--disable-all-programs",
-            "--enable-libuuid",
-            # Fix build with GCC 4.8.5 on CentOS 7.
-            "CFLAGS=-std=c99 -O2",
-        ]
-
-    @property
-    def license_files(self) -> List[str]:
-        return [os.path.join("Documentation", "licenses", "COPYING.BSD-3-Clause")]
-
-    def copy_license_files(self, destination: str, c: Config):
-        super().copy_license_files(destination, c)
-
-        # Copy manually to prepend "libuuid".
-        src = os.path.join(self.src_directory(c), "libuuid", "COPYING")
-        dst = os.path.join(destination, f"{self.directory}.libuuid.COPYING")
-        shutil.copy(src, dst)
-
-    def __str__(self) -> str:
-        return f"util-linux {self.version}"
-
-
-util_linux = UtilLinux()
-
-
 class Fontconfig(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.13.1"
+        return "2.14.0"
 
     @property
     def directory(self) -> str:
@@ -176,31 +127,14 @@ class Fontconfig(ConfigurePackage):
 
     @property
     def archive(self) -> str:
-        return f"{self.directory}.tar.bz2"
+        return f"{self.directory}.tar.xz"
 
     @property
     def download_url(self) -> str:
         return f"https://www.freedesktop.org/software/fontconfig/release/{self.archive}"
 
-    def apply_patches(self, c: Config):
-        def patch_makefile(content: str) -> str:
-            return content.replace("po-conf test", "po-conf")
-
-        self.patch_file(c, "Makefile.in", patch_makefile)
-
-        if not c.is_macos():
-            def patch_uuid_header(content: str) -> str:
-                return content.replace("uuid/uuid.h", "uuid.h")
-
-            self.patch_file(c, "configure", patch_uuid_header)
-            self.patch_file(c, os.path.join("src", "fccache.c"), patch_uuid_header)
-            self.patch_file(c, os.path.join("src", "fchash.c"), patch_uuid_header)
-
     def dependencies(self, c: Config) -> List[Package]:
-        util_linux_dep = []
-        if not c.is_macos() or not c.is_mingw():
-            util_linux_dep = [util_linux]
-        return [expat, freetype] + util_linux_dep
+        return [expat, freetype]
 
     def configure_args(self, c: Config) -> List[str]:
         return ["--disable-docs"]
@@ -219,7 +153,7 @@ fontconfig = Fontconfig()
 class Ghostscript(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "9.54.0"
+        return "9.56.1"
 
     @property
     def directory(self) -> str:
@@ -245,14 +179,6 @@ class Ghostscript(ConfigurePackage):
         for unused in dirs:
             shutil.rmtree(os.path.join(self.src_directory(c), unused))
 
-        def patch_gp_unix(content: str) -> str:
-            return content.replace(
-                "gp_local_arg_encoding_get_codepoint(FILE",
-                "gp_local_arg_encoding_get_codepoint(gp_file",
-            )
-
-        self.patch_file(c, os.path.join("base", "gp_unix.c"), patch_gp_unix)
-
     def dependencies(self, c: Config) -> List[Package]:
         return [freetype]
 
@@ -271,10 +197,8 @@ class Ghostscript(ConfigurePackage):
             "--disable-dbus",
             "--disable-fontconfig",
             "--disable-gtk",
-            "--disable-openjpeg",
             "--without-cal",
             "--without-ijs",
-            "--without-jbig2dec",
             "--without-libidn",
             "--without-libpaper",
             "--without-libtiff",
@@ -443,7 +367,7 @@ pcre = PCRE()
 class Zlib(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.2.11"
+        return "1.2.12"
 
     @property
     def directory(self) -> str:
@@ -491,7 +415,7 @@ zlib = Zlib()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.70.0"
+        return "2.72.0"
 
     @property
     def directory(self) -> str:
@@ -547,7 +471,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.0.6"
+        return "8.2.0"
 
     @property
     def directory(self) -> str:
@@ -649,7 +573,7 @@ libiconv = Libiconv()
 class Libtool(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.4.6"
+        return "2.4.7"
 
     @property
     def directory(self) -> str:
@@ -677,7 +601,7 @@ libtool = Libtool()
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "0.9.10"
+        return "1.0"
 
     @property
     def directory(self) -> str:
@@ -900,7 +824,9 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.8.2"
+        # Don't update to 3.1.0 and beyond which requires full C++11 type_traits
+        # support that isn't available on CentOS 7 (without Developer Toolsets).
+        return "3.0.0"
 
     @property
     def directory(self) -> str:
@@ -939,7 +865,7 @@ harfbuzz = HarfBuzz()
 class FriBidi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.0.10"
+        return "1.0.11"
 
     @property
     def directory(self) -> str:
@@ -968,7 +894,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.48.7"
+        return "1.50.6"
 
     @property
     def directory(self) -> str:
@@ -981,7 +907,7 @@ class Pango(MesonPackage):
     @property
     def download_url(self) -> str:
         major_version = ".".join(self.version.split(".")[0:2])
-        return f"http://ftp.gnome.org/pub/GNOME/sources/pango/{major_version}/{self.archive}"
+        return f"https://download.gnome.org/sources/pango/{major_version}/{self.archive}"
 
     def apply_patches(self, c: Config):
         # Disable tests, fail to build on FreeBSD.
@@ -1004,6 +930,8 @@ class Pango(MesonPackage):
 
     def meson_args(self, c: Config) -> List[str]:
         return [
+            # Disable Cairo, which is enabled by default since 1.50.3.
+            "-Dcairo=disabled",
             # Enable Fontconfig and FreeType.
             "-Dfontconfig=enabled",
             "-Dfreetype=enabled",
@@ -1020,7 +948,7 @@ class Pango(MesonPackage):
 pango = Pango()
 
 
-PYTHON_VERSION = "3.9.6"
+PYTHON_VERSION = "3.10.4"
 
 
 class Python(ConfigurePackage):
@@ -1189,7 +1117,6 @@ embeddable_python = EmbeddablePython()
 all_dependencies: List[Package] = [
     expat,
     freetype,
-    util_linux,
     fontconfig,
     ghostscript,
     gettext,
