@@ -323,7 +323,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftp.gnu.org/gnu/gettext/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gnu/gettext/{self.archive}"
 
     def apply_patches(self, c: Config):
         # localcharset.c defines locale_charset, which is also provided by
@@ -633,7 +633,7 @@ class Libiconv(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftp.gnu.org/gnu/libiconv/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gnu/libiconv/{self.archive}"
 
     @property
     def license_files(self) -> List[str]:
@@ -661,7 +661,7 @@ class Libtool(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftp.gnu.org/gnu/libtool/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gnu/libtool/{self.archive}"
 
     @property
     def license_files(self) -> List[str]:
@@ -689,7 +689,7 @@ class Libunistring(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftp.gnu.org/gnu/libunistring/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gnu/libunistring/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
         libiconv_dep = []
@@ -745,7 +745,7 @@ class Guile(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftp.gnu.org/gnu/guile/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gnu/guile/{self.archive}"
 
     def _apply_patches_mingw(self, c: Config):
         # Fix the build.
