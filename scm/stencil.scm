@@ -435,8 +435,10 @@ then reduce using @var{min-max}:
 (define-public (make-path-stencil path thickness x-scale y-scale fill)
   "Make a stencil based on the path described by the list @var{path}, with
 thickness @var{thickness}, and scaled by @var{x-scale} in the x@tie{}direction
-and @var{y-scale} in the y@tie{}direction.  @var{fill} is a boolean argument
-that specifies whether the path should be filled.  Valid path commands are
+and @var{y-scale} in the y@tie{}direction (the difference with scaling the
+resulting stencil using @code{ly:stencil-scale} is that this scaling does not
+change the thickness).  @var{fill} is a boolean argument that specifies whether
+the path should be filled.  Valid path commands are
 
 @example
 moveto rmoveto lineto rlineto curveto rcurveto closepath
