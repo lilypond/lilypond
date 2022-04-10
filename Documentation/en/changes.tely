@@ -66,6 +66,13 @@ which scares away people.
 @end ignore
 
 @item
+@code{\markup \path} now also works in SVG output even if the path
+does not begin with a @code{moveto} or @code{rmoveto} command.  Also,
+it now accepts single-letter SVG equivalents (@code{moveto} = @code{M},
+etc.).
+
+
+@item
 A new context @code{VaticanaLyrics} is available.  It is similar to
 @code{Lyrics}, providing a hyphenation style (a single, flush-left hyphen
 between two syllables) as used in the notational style of Editio Vaticana.

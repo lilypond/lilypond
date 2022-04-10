@@ -7,13 +7,13 @@ their bounding box using @code{flip-stencil}."
 
 square =
 #(make-path-stencil
-  '(moveto 0 0 lineto 0 2 lineto 2 2 lineto 2 0 closepath)
+  '(lineto 0 2 lineto 2 2 lineto 2 0 closepath)
   0.1 1 1 #f)
 
 triangle =
 #(stencil-with-color
   (make-path-stencil
-   '(moveto 0 0 lineto 2 2 lineto 2 0 closepath)
+   '(lineto 2 2 lineto 2 0 closepath)
    0.3 1 1 #f)
   blue)
 

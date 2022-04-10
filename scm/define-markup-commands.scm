@@ -1249,7 +1249,12 @@ There are seven commands available to use in the list
 @code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
 @code{rlineto}, @code{curveto}, @code{rcurveto}, and
 @code{closepath}.  Note that the commands that begin with @emph{r}
-are the relative variants of the other three commands.
+are the relative variants of the other three commands.  You may also
+use the standard SVG single-letter equivalents: @code{moveto} = @code{M},
+@code{lineto} = @code{L}, @code{curveto} = @code{C},
+@code{closepath} = @code{Z}.  The relative commands are written
+lowercase: @code{rmoveto} = @code{r}, @code{rlineto} = @code{l},
+@code{rcurveto} = @code{c}.
 
 The commands @code{moveto}, @code{rmoveto}, @code{lineto}, and
 @code{rlineto} take 2 arguments; they are the X and Y coordinates
@@ -1264,9 +1269,6 @@ are the X and Y coordinates for the destination point.
 The @code{closepath} command takes zero arguments and closes the
 current subpath in the active path.
 
-Note that a sequence of commands @emph{must} begin with a
-@code{moveto} or @code{rmoveto} to work with the SVG output.
-
 Line-cap styles and line-join styles may be customized by
 overriding the @code{line-cap-style} and @code{line-join-style}
 properties, respectively.  Available line-cap styles are
@@ -1279,8 +1281,7 @@ filled with color.
 
 @lilypond[verbatim,quote]
 samplePath =
-  #'((moveto 0 0)
-     (lineto -1 1)
+  #'((lineto -1 1)
      (lineto 1 1)
      (lineto 1 -1)
      (curveto -5 -5 -5 5 -1 0)
@@ -1296,78 +1297,15 @@ samplePath =
   \\path #0.25 #samplePath
 }
 @end lilypond"
-  (let* ((half-thickness (/ thickness 2))
-         (current-point '(0 . 0))
-         (set-point (lambda (lst) (set! current-point lst)))
-         (relative? (lambda (x)
-                      (string-prefix? "r" (symbol->string (car x)))))
-         ;; For calculating extents, we want to modify the command
-         ;; list so that all coordinates are absolute.
-         (new-commands (map (lambda (x)
-                              (cond
-                               ;; for rmoveto, rlineto
-                               ((and (relative? x) (= 3 (length x)))
-                                (let ((cp (cons
-                                           (+ (car current-point)
-                                              (second x))
-                                           (+ (cdr current-point)
-                                              (third x)))))
-                                  (set-point cp)
-                                  (list (car cp)
-                                        (cdr cp))))
-                               ;; for rcurveto
-                               ((and (relative? x) (= 7 (length x)))
-                                (let* ((old-cp current-point)
-                                       (cp (cons
-                                            (+ (car old-cp)
-                                               (sixth x))
-                                            (+ (cdr old-cp)
-                                               (seventh x)))))
-                                  (set-point cp)
-                                  (list (+ (car old-cp) (second x))
-                                        (+ (cdr old-cp) (third x))
-                                        (+ (car old-cp) (fourth x))
-                                        (+ (cdr old-cp) (fifth x))
-                                        (car cp)
-                                        (cdr cp))))
-                               ;; for moveto, lineto
-                               ((= 3 (length x))
-                                (set-point (cons (second x)
-                                                 (third x)))
-                                (drop x 1))
-                               ;; for curveto
-                               ((= 7 (length x))
-                                (set-point (cons (sixth x)
-                                                 (seventh x)))
-                                (drop x 1))
-                               ;; keep closepath for filtering;
-                               ;; see `without-closepath'.
-                               (else x)))
-                            commands))
-         ;; path-min-max does not accept 0-arg lists,
-         ;; and since closepath does not affect extents, filter
-         ;; out those commands here.
-         (without-closepath (filter (lambda (x)
-                                      (not (equal? 'closepath (car x))))
-                                    new-commands))
-         (extents (path-min-max
-                   ;; set the origin to the first moveto
-                   (list (list-ref (car without-closepath) 0)
-                         (list-ref (car without-closepath) 1))
-                   without-closepath))
-         (X-extent (cons (list-ref extents 0) (list-ref extents 1)))
-         (Y-extent (cons (list-ref extents 2) (list-ref extents 3)))
-         (command-list (fold-right append '() commands)))
-
-    ;; account for line thickness
-    (set! X-extent (interval-widen X-extent half-thickness))
-    (set! Y-extent (interval-widen Y-extent half-thickness))
-
-    (ly:make-stencil
-     `(path ,thickness ,command-list
-            ,line-cap-style ,line-join-style ,filled)
-     X-extent
-     Y-extent)))
+  ;; FIXME: discrepancy between nested lists '((moveto x y) (lineto z t) ...)
+  ;; in \path and flat lists '(moveto x y lineto z t ...) in make-path-stencil.
+  (make-path-stencil (apply append commands)
+                     thickness
+                     1
+                     1
+                     filled
+                     #:line-cap-style line-cap-style
+                     #:line-join-style line-join-style))
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)

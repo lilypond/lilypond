@@ -432,7 +432,9 @@ then reduce using @var{min-max}:
              (append (list origin)
                      (reverse (cdr (reverse pointlist)))) pointlist))))
 
-(define-public (make-path-stencil path thickness x-scale y-scale fill)
+(define*-public (make-path-stencil path thickness x-scale y-scale fill
+                                   #:key (line-cap-style 'round)
+                                         (line-join-style 'round))
   "Make a stencil based on the path described by the list @var{path}, with
 thickness @var{thickness}, and scaled by @var{x-scale} in the x@tie{}direction
 and @var{y-scale} in the y@tie{}direction (the difference with scaling the
@@ -521,8 +523,8 @@ coordinates for the previous point in the path."
     (ly:make-stencil
      `(path ,thickness
             ,(concatenate path-final)
-            round
-            round
+            ,line-cap-style
+            ,line-join-style
             ,(if fill #t #f))
      (coord-translate
       ((if (< x-scale 0) reverse-interval identity)

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.8"
 
 \header {
   texidoc = "
@@ -8,8 +8,7 @@ The @code{\\path} markup command supports the
 "
 }
 
-myPath =
-#'((moveto 0 0) (rlineto 2 5) (rlineto 2 -5))
+myPath = #'((rlineto 2 5) (rlineto 2 -5))
 
 \markup {
   \column {
