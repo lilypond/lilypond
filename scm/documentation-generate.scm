@@ -171,10 +171,12 @@ This is the Internals Reference (IR) for version "
        #:appendix #t
        #:name "Indices"
        #:text "
+@node Concept index
 @appendixsec Concept index
 
 @printindex cp
 
+@node Function index
 @appendixsec Function index
 
 @printindex fn
