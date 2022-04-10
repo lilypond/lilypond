@@ -126,7 +126,7 @@ void
 Key_engraver::listen_key_change (Stream_event *ev)
 {
   /* do this only once, just to be on the safe side.  */
-  if (ASSIGN_EVENT_ONCE (key_event_, ev))
+  if (assign_event_once (key_event_, ev))
     read_event (key_event_);
 }
 

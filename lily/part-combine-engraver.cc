@@ -54,7 +54,7 @@ private:
 void
 Part_combine_engraver::listen_part_combine (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (new_event_, ev);
+  assign_event_once (new_event_, ev);
   // If two events occur at the same moment, discard the second as the
   // warning indicates:
   waiting_event_ = new_event_;

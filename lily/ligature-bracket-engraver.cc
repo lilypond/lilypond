@@ -50,7 +50,7 @@ void
 Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
 {
   Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  ASSIGN_EVENT_ONCE (events_drul_[d], ev);
+  assign_event_once (events_drul_[d], ev);
 }
 
 Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)

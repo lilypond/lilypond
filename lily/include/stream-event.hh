@@ -55,7 +55,7 @@ void warn_reassign_event_ptr (Stream_event &old_ev, Stream_event *new_ev);
 // Assign to old_ev at most once, returning true when it happens, and warning
 // (with some exceptions) about attempted reassignments.
 inline bool
-assign_event_ptr_once (Stream_event *&old_ev, Stream_event *new_ev)
+assign_event_once (Stream_event *&old_ev, Stream_event *new_ev)
 {
   if (!old_ev)
     {
@@ -68,9 +68,5 @@ assign_event_ptr_once (Stream_event *&old_ev, Stream_event *new_ev)
       return false;
     }
 }
-
-// This macro is no longer necessary.
-// If you have time to eliminate it, go ahead.
-#define ASSIGN_EVENT_ONCE(o,n) assign_event_ptr_once (o, n)
 
 #endif /* STREAM_EVENT_HH */

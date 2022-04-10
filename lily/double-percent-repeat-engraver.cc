@@ -60,7 +60,7 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
       percent_event_ = ev;
     }
   else
-    ASSIGN_EVENT_ONCE (percent_event_, ev);
+    assign_event_once (percent_event_, ev);
 }
 
 void

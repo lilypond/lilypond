@@ -109,7 +109,7 @@ Tie_engraver::listen_tie (Stream_event *ev)
 {
   if (!from_scm<bool> (get_property (this, "skipTypesetting")))
     {
-      ASSIGN_EVENT_ONCE (event_, ev);
+      assign_event_once (event_, ev);
     }
 }
 

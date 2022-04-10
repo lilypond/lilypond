@@ -64,7 +64,7 @@ Metronome_mark_engraver::Metronome_mark_engraver (Context *c)
 void
 Metronome_mark_engraver::listen_tempo_change (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (tempo_ev_, ev);
+  assign_event_once (tempo_ev_, ev);
 }
 
 static bool

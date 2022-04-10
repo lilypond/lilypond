@@ -48,7 +48,7 @@ Slash_repeat_engraver::Slash_repeat_engraver (Context *c)
 void
 Slash_repeat_engraver::listen_repeat_slash (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (slash_, ev);
+  assign_event_once (slash_, ev);
 }
 
 void

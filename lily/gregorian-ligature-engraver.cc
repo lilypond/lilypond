@@ -28,7 +28,7 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
-/* ASSIGN_EVENT_ONCE */
+/* assign_event_once */
 #include "translator.icc"
 
 using std::vector;
@@ -53,7 +53,7 @@ Gregorian_ligature_engraver::Gregorian_ligature_engraver (Context *c)
 void
 Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (pes_or_flexa_req_, ev);
+  assign_event_once (pes_or_flexa_req_, ev);
 }
 
 void fix_prefix (char const *name, int mask,

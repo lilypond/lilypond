@@ -467,7 +467,7 @@ void
 Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
   Direction d = from_scm<Direction> (get_property (r, "span-direction"));
-  if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
+  if (assign_event_once (span_events_[d], r) && (d == START))
     next_grow_dir_ = SMALLER;
 }
 
@@ -475,14 +475,14 @@ void
 Dynamic_performer::listen_crescendo (Stream_event *r)
 {
   Direction d = from_scm<Direction> (get_property (r, "span-direction"));
-  if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
+  if (assign_event_once (span_events_[d], r) && (d == START))
     next_grow_dir_ = BIGGER;
 }
 
 void
 Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 {
-  ASSIGN_EVENT_ONCE (script_event_, r);
+  assign_event_once (script_event_, r);
 }
 
 void

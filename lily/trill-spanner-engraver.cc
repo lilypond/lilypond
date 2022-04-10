@@ -68,7 +68,7 @@ void
 Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 {
   Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  ASSIGN_EVENT_ONCE (event_drul_[d], ev);
+  assign_event_once (event_drul_[d], ev);
 }
 
 void

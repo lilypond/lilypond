@@ -229,7 +229,7 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
 void
 Stem_engraver::listen_tremolo (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
+  assign_event_once (tremolo_ev_, ev);
 }
 
 void

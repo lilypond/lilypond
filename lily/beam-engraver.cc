@@ -128,14 +128,14 @@ Beam_engraver::listen_beam (Stream_event *ev)
 
   if (d == START && valid_start_point ())
     {
-      ASSIGN_EVENT_ONCE (start_ev_, ev);
+      assign_event_once (start_ev_, ev);
 
       Direction updown = from_scm<Direction> (get_property (ev, "direction"));
       if (updown)
         forced_direction_ = updown;
     }
   else if (d == STOP && valid_end_point ())
-    ASSIGN_EVENT_ONCE (stop_ev_, ev);
+    assign_event_once (stop_ev_, ev);
 }
 
 void

@@ -100,7 +100,7 @@ Spacing_engraver::Spacing_engraver (Context *c)
 void
 Spacing_engraver::listen_spacing_section (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (start_section_, ev);
+  assign_event_once (start_section_, ev);
 }
 
 void

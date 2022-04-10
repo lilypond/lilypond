@@ -63,7 +63,7 @@ void
 Episema_engraver::listen_episema (Stream_event *ev)
 {
   Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  // Must not ASSIGN_EVENT_ONCE here, since episema
+  // Must not assign_event_once here, since episema
   // can be typeset over a single neume
   event_drul_[d] = ev;
 }

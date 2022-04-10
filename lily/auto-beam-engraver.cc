@@ -133,7 +133,7 @@ Auto_beam_engraver::Auto_beam_engraver (Context *c)
 void
 Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (forbid_, ev);
+  assign_event_once (forbid_, ev);
   force_end_ = true;
 }
 

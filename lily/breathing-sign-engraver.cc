@@ -55,7 +55,7 @@ Breathing_sign_engraver::Breathing_sign_engraver (Context *c)
 void
 Breathing_sign_engraver::listen_breathing (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (breathing_sign_event_, ev);
+  assign_event_once (breathing_sign_event_, ev);
 }
 
 void

@@ -80,7 +80,7 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
   Direction span_dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (span_dir == START)
     {
-      ASSIGN_EVENT_ONCE (repeat_, ev);
+      assign_event_once (repeat_, ev);
     }
   else if (span_dir == STOP)
     {

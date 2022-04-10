@@ -67,7 +67,7 @@ Glissando_engraver::Glissando_engraver (Context *c)
 void
 Glissando_engraver::listen_glissando (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  assign_event_once (event_, ev);
 }
 
 void

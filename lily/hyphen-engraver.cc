@@ -78,13 +78,13 @@ Hyphen_engraver::Hyphen_engraver (Context *c)
 void
 Hyphen_engraver::listen_hyphen (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (ev_, ev);
+  assign_event_once (ev_, ev);
 }
 
 void
 Hyphen_engraver::listen_vowel_transition (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (ev_, ev);
+  assign_event_once (ev_, ev);
 }
 
 void

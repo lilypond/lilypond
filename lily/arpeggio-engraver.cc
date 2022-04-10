@@ -58,7 +58,7 @@ Arpeggio_engraver::Arpeggio_engraver (Context *c)
 
 void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (arpeggio_event_, ev);
+  assign_event_once (arpeggio_event_, ev);
 }
 
 void

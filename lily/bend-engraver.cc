@@ -125,7 +125,7 @@ Bend_engraver::Bend_engraver (Context *c)
 void
 Bend_engraver::listen_bend_after (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (fall_event_, ev);
+  assign_event_once (fall_event_, ev);
 }
 
 void

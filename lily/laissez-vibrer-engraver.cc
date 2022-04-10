@@ -44,7 +44,7 @@ Laissez_vibrer_engraver::stop_translation_timestep ()
 void
 Laissez_vibrer_engraver::listen_laissez_vibrer (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  assign_event_once (event_, ev);
 }
 
 bool

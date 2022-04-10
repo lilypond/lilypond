@@ -64,7 +64,7 @@ Extender_engraver::Extender_engraver (Context *c)
 void
 Extender_engraver::listen_extender (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (ev_, ev);
+  assign_event_once (ev_, ev);
 }
 
 /*

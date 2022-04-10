@@ -155,7 +155,7 @@ Chord_name_engraver::listen_note (Stream_event *ev)
 void
 Chord_name_engraver::listen_rest (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (rest_event_, ev);
+  assign_event_once (rest_event_, ev);
 }
 
 void

@@ -122,7 +122,7 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
         print a warning: no assignment happens because
         percent_event_ != 0
       */
-      ASSIGN_EVENT_ONCE (percent_event_, ev);
+      assign_event_once (percent_event_, ev);
     }
 }
 

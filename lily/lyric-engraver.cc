@@ -62,7 +62,7 @@ Lyric_engraver::Lyric_engraver (Context *c)
 void
 Lyric_engraver::listen_lyric (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  assign_event_once (event_, ev);
 }
 
 void

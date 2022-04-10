@@ -66,19 +66,19 @@ Jump_engraver::Jump_engraver (Context *c)
 void
 Jump_engraver::listen_ad_hoc_jump (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (ad_hoc_jump_ev_, ev);
+  assign_event_once (ad_hoc_jump_ev_, ev);
 }
 
 void
 Jump_engraver::listen_dal_segno (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (ds_ev_, ev);
+  assign_event_once (ds_ev_, ev);
 }
 
 void
 Jump_engraver::listen_fine (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (fine_ev_, ev);
+  assign_event_once (fine_ev_, ev);
 }
 
 void

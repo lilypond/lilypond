@@ -53,7 +53,7 @@ Mark_tracking_translator::set_event (Event_type type, Stream_event *ev)
 bool
 Mark_tracking_translator::set_event_once (Event_type type, Stream_event *ev)
 {
-  if (!ASSIGN_EVENT_ONCE (event_, ev))
+  if (!assign_event_once (event_, ev))
     return false;
   set_event (type, ev);
   return true;
