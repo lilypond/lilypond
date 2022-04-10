@@ -46,6 +46,10 @@ protected:
   Spanner *percent_ = nullptr;
   Spanner *percent_counter_ = nullptr;
 
+  /* If the measure starts with grace notes, the percent event
+     occurs on the first non-grace note, but we want the spanner's
+     left bound to be the non-musical column that was current at
+     the time of the first grace note. */
   Grob *first_command_column_ = nullptr;
   Moment command_moment_ {-1};
 
