@@ -38,8 +38,6 @@ public:
 protected:
   Stream_event *percent_event_ = nullptr;
 
-  // moment (global time) where percent started
-  Moment start_mom_;
   // moment (global time) where percent should end
   Moment stop_mom_;
 
@@ -53,14 +51,10 @@ protected:
   Grob *first_command_column_ = nullptr;
   Moment command_moment_ {-1};
 
-  void initialize () override;
-  void finalize () override;
   void listen_percent (Stream_event *);
-
-  void maybe_start ();
-  void start_translation_timestep ();
-  void stop_translation_timestep ();
   void process_music ();
+  void stop_translation_timestep ();
+  void finalize () override;
 };
 
 Percent_repeat_engraver::Percent_repeat_engraver (Context *c)
@@ -69,31 +63,16 @@ Percent_repeat_engraver::Percent_repeat_engraver (Context *c)
 }
 
 void
-Percent_repeat_engraver::initialize ()
+Percent_repeat_engraver::listen_percent (Stream_event *ev)
 {
-  if (now_mom ().main_part_ >= 0)
-    {
-      // This is happening during a timestep, so we might (or always will?)
-      // miss the start announcement that our state machine requires.
-      //
-      // TODO: Investigate whether this could be solved more generally, with
-      // the translator framework guaranteeing that start_translation_timestep
-      // () is called exactly once per timestep in any case.
-      maybe_start ();
-    }
+  assign_event_once (percent_event_, ev);
 }
 
 void
-Percent_repeat_engraver::start_translation_timestep ()
+Percent_repeat_engraver::process_music ()
 {
-  maybe_start ();
-}
-
-// The "maybe" part of this is that the developers are not sure whether it is
-// possible for it to be called more than once in a given timestep.
-void
-Percent_repeat_engraver::maybe_start ()
-{
+  // Maintain first_command_column_ as the first non-musical column
+  // in the grace group.
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
       first_command_column_
@@ -101,48 +80,36 @@ Percent_repeat_engraver::maybe_start ()
       command_moment_ = now_mom ();
     }
 
-  if (stop_mom_.main_part_ == now_mom ().main_part_)
+  // Stop running percent if it has reached completion.
+  if (percent_ && stop_mom_.main_part_ == now_mom ().main_part_)
     {
-      if (percent_)
-        typeset_perc ();
-      percent_event_ = nullptr;
+      percent_->set_bound (RIGHT, first_command_column_);
+      percent_ = nullptr;
+      if (percent_counter_)
+        {
+          percent_counter_->set_bound (RIGHT, first_command_column_);
+          percent_counter_ = nullptr;
+        }
     }
-}
-
-void
-Percent_repeat_engraver::listen_percent (Stream_event *ev)
-{
-  if (!percent_event_)
+  else if (percent_ && percent_event_)
     {
-      auto body_length = get_event_length (ev);
-      start_mom_ = now_mom ();
-      stop_mom_ = now_mom () + body_length;
+      percent_event_->warning (_ ("percent repeat started while another already in progress"));
+      percent_->suicide ();
+      percent_ = nullptr;
+      if (percent_counter_)
+        {
+          percent_counter_->suicide ();
+          percent_counter_ = nullptr;
+        }
+    }
+
+  // Start a new percent if requested.
+  if (percent_event_)
+    {
+      stop_mom_ = now_mom () + get_event_length (percent_event_);
       find_global_context ()->add_moment_to_process (stop_mom_);
-      percent_event_ = ev;
-    }
-  else
-    {
-      /*
-        print a warning: no assignment happens because
-        percent_event_ != 0
-      */
-      assign_event_once (percent_event_, ev);
-    }
-}
-
-void
-Percent_repeat_engraver::process_music ()
-{
-  if (percent_event_
-      && now_mom ().main_part_ == start_mom_.main_part_)
-    {
-      if (percent_)
-        typeset_perc ();
-
       percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
-
-      Grob *col = first_command_column_;
-      percent_->set_bound (LEFT, col);
+      percent_->set_bound (LEFT, first_command_column_);
 
       SCM count = get_property (percent_event_, "repeat-count");
       if (!scm_is_null (count) && from_scm<bool> (get_property (this, "countPercentRepeats"))
@@ -153,7 +120,7 @@ Percent_repeat_engraver::process_music ()
 
           SCM text = scm_number_to_string (count, to_scm (10));
           set_property (percent_counter_, "text", text);
-          percent_counter_->set_bound (LEFT, col);
+          percent_counter_->set_bound (LEFT, first_command_column_);
           Side_position_interface::add_support (percent_counter_, percent_);
           percent_counter_->set_y_parent (percent_);
           percent_counter_->set_x_parent (percent_);
@@ -176,21 +143,9 @@ Percent_repeat_engraver::finalize ()
 }
 
 void
-Percent_repeat_engraver::typeset_perc ()
-{
-  Grob *col = first_command_column_;
-
-  percent_->set_bound (RIGHT, col);
-  percent_ = nullptr;
-
-  if (percent_counter_)
-    percent_counter_->set_bound (RIGHT, col);
-  percent_counter_ = nullptr;
-}
-
-void
 Percent_repeat_engraver::stop_translation_timestep ()
 {
+  percent_event_ = nullptr;
 }
 
 void
