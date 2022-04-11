@@ -137,25 +137,6 @@ gedit VERSION
 gedit ly/Wel*.ly
 @end example
 
-Editing the @file{news-headlines.itexi} file is a bit tricky, since it contains
-URLs with escaped characters.  An example of what is needed is that releasing
-@code{2.19.50} after the release of @code{2.19.49} needed the line:
-
-@example
-@@uref@{news.html#LilyPond-2_002e19_002e49-released-October-16_002c-2016,
-  LilyPond 2.19.49 released - @@emph@{October 16, 2016@}@}
-@end example
-
-to be changed to:
-
-@example
-@@uref@{news.html#LilyPond-2_002e19_002e50-released-November-6_002c-2016,
-  LilyPond 2.19.50 released - @@emph@{November 6, 2016@}@}
-@end example
-
-Don't forget to update the entry above that line to show the latest release
-version.
-
 @item
 Commit, push, switch back to master (or wherever else):
 
