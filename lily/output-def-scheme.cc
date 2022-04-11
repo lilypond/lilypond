@@ -136,8 +136,7 @@ Return an alist of all context defs (matching @var{context-name} if given) in
   return ell;
 }
 
-const char
-*const Output_def::type_p_name_ = "ly:output-def?";
+const char *const Output_def::type_p_name_ = "ly:output-def?";
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
            1, 0, 0, (SCM def),
