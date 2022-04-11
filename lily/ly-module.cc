@@ -29,7 +29,6 @@ ly_make_module (bool safe)
   SCM mod = SCM_EOL;
   if (!safe)
     {
-      /* Look up (evaluate) Scheme make-module function and call it */
       mod = Guile_user::make_module ();
       Guile_user::module_export_all_x (mod);
       ly_use_module (mod, Guile_user::the_root_module);
@@ -37,7 +36,6 @@ ly_make_module (bool safe)
     }
   else
     {
-      /* Evaluate and call make-safe-lilypond-module */
       mod = Lily::make_safe_lilypond_module ();
     }
 
@@ -47,15 +45,6 @@ ly_make_module (bool safe)
 SCM
 ly_use_module (SCM mod, SCM used)
 {
-  /*
-    Pick up the module's interface definition.
-    TODO - Replace inline evaluations (interpreted)
-    with guile API calls if these become available.
-  */
-  /*
-    Set up to interpret
-    '(module_use! <mod> (module-public-interface <used>))'
-  */
   return Guile_user::module_use_x (mod,
                                    Guile_user::module_public_interface (used));
 }
