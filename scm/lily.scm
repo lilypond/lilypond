@@ -206,7 +206,7 @@ session has started."
   (module-for-each
    (lambda (sym var)
      (let ((val (variable-ref var)))
-       (if (and (not (eq? sym '%module-public-interface)) (not (ly:lily-parser? val)))
+       (if (not (ly:lily-parser? val))
            (set! lilypond-declarations
                  (cons
                   (cons* sym #t var val)

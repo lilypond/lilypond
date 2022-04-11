@@ -49,18 +49,6 @@ ly_use_module (SCM mod, SCM used)
                                    Guile_user::module_public_interface (used));
 }
 
-bool
-is_module_internal_symbol (SCM key)
-{
-  // The public interface of a module is another module stored under
-  // the symbol %module-public-interface. Copying its binding about
-  // leads to sharing of public interfaces, with confusing
-  // consequences. For example, exporting 'sym from one module, will
-  // export it from other modules too (with potentially the same
-  // value!)
-  return scm_is_eq (key, ly_symbol2scm ("%module-public-interface"));
-}
-
 #define FUNC_NAME __FUNCTION__
 
 SCM
@@ -69,14 +57,7 @@ ly_module_symbols (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
 
   SCM obarr = SCM_MODULE_OBARRAY (mod);
-  SCM syms = ly_hash_table_keys (obarr);
-  SCM filtered = SCM_EOL;
-  for (SCM s = syms; scm_is_pair (s); s = scm_cdr (s))
-    {
-      if (!is_module_internal_symbol (scm_car (s)))
-        filtered = scm_cons (scm_car (s), filtered);
-    }
-  return filtered;
+  return ly_hash_table_keys (obarr);
 }
 
 LY_DEFINE (ly_module_2_alist, "ly:module->alist",
