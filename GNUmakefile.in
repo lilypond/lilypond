@@ -35,8 +35,8 @@ include $(depth)/make/stepmake.make
 
 .PHONY: test info website
 
-dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
-	@if ! test -d  $(top-src-dir)/.git ; \
+dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
+	@if ! test -e  $(top-src-dir)/.git ; \
 	  then echo "***   dist needs a git repository" \
 	    exit 1 ;  \
 	  fi
@@ -48,8 +48,8 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 	rm -rf $(distdir)
 	mkdir -p  $(distdir)
 	$(LN) $(RELEASE_OUT_FILES) $(TOPDOC_TXT_FILES) $(distdir)
-	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
-	cd $(top-src-dir) && xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(distdir) <$(top-build-dir)/.gitfilelist
+	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) $(distdir)
+	cd $(top-src-dir) && git ls-files | xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(distdir)
 	chmod -R a+r $(distdir)
 	chmod  a+x `find $(distdir) -type d -print`
 	(cd $(outdir); \
@@ -59,19 +59,6 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 
 top-doc:
 	$(MAKE) -C Documentation $(foreach T,$(TOPDOC_FILES),$(outdir)/topdocs/$(T).txt)
-
-ifneq ($(wildcard $(top-src-dir)/.git),)
-.gitfilelist: $(top-src-dir)/.git/index
-	$(call ly_progress,Making,$@,)
-	cd $(top-src-dir) && git ls-files >$(top-build-dir)/$@
-local-clean-filelist:
-	rm -f .gitfilelist
-else
-.gitfilelist: $(src-dir)/.gitfilelist
-	$(call ly_progress,Making,$@,(copy))
-	cp $< $@
-local-clean-filelist:
-endif
 
 all: $(outdir)/VERSION
 
@@ -85,14 +72,13 @@ $(outdir)/RELEASE-COMMIT:
 	git --git-dir=$(top-src-dir)/.git show --no-patch HEAD > $@
 
 refresh-release-files:
-	@if ! test -d  $(top-src-dir)/.git ; \
+	@if ! test -e  $(top-src-dir)/.git ; \
 	  then echo "***   dist needs a git repository" \
 	    exit 1 ;  \
 	  fi
 	rm -f $(RELEASE_OUT_FILES)
 	$(MAKE) $(RELEASE_OUT_FILES)
 
-local-clean: local-clean-filelist
 
 # Guile bytecode
 bytecode: | all

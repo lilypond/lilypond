@@ -82,6 +82,5 @@ Documentation/lilypond
 semantic.cache
 .lock-wscript
 /build/
-.gitfilelist
 input/regression/**/*.pdf
 Documentation/snippets/**/*.pdf
