@@ -22,6 +22,7 @@
 #include "context.hh" // for nested_property_alist
 #include "international.hh"
 #include "interval.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "moment.hh"
 #include "parser.hh"
@@ -162,8 +163,8 @@ Lily_lexer::add_scope (SCM module)
   else
     ly_reexport_module (scm_current_module ());
 
-  for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
-    ly_use_module (module, scm_car (s));
+  for (SCM scope : as_ly_scm_list (scopes_))
+    ly_use_module (module, scope);
   scopes_ = scm_cons (module, scopes_);
 
   set_current_scope ();
