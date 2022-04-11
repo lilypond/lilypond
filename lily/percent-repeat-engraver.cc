@@ -168,9 +168,10 @@ Percent_repeat_engraver::finalize ()
 {
   if (percent_)
     {
-      percent_event_->warning (_ ("unterminated percent repeat"));
+      percent_->programming_error ("percent end moment should have been processed");
       percent_->suicide ();
-      percent_counter_->suicide ();
+      if (percent_counter_)
+        percent_counter_->suicide ();
     }
 }
 
