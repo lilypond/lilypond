@@ -19,6 +19,7 @@
 #include "engraver.hh"
 
 #include "articulations.hh"
+#include "ly-smob-list.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 #include "context.hh"
@@ -43,25 +44,23 @@ articulation_list (vector<Stream_event *> note_events,
   SCM articulations = SCM_EOL;
   vsize j = 0;
 
-  for (vsize i = 0; i < note_events.size (); i++)
+  for (auto *event : note_events)
     {
-
-      Stream_event *event = note_events[i];
-
-      Stream_event *articulation_event = 0;
+      Stream_event *articulation_event = nullptr;
 
       /*
         For notes inside a chord construct, string indications are
         stored as articulations on the note, so we check through
         the notes
       */
-      for (SCM s = get_property (event, "articulations");
-           !articulation_event && scm_is_pair (s); s = scm_cdr (s))
+      for (auto * art
+           : ly_smob_list<Stream_event> (get_property (event, "articulations")))
         {
-          Stream_event *art = unsmob<Stream_event> (scm_car (s));
-
-          if (art->in_event_class (articulation_name))
-            articulation_event = art;
+          if (art && art->in_event_class (articulation_name))
+            {
+              articulation_event = art;
+              break;
+            }
         }
 
       /*
