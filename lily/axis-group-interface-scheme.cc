@@ -33,20 +33,13 @@ Determine the extent of @var{elements} relative to @var{common} in the
 {
   Grob_array *ga = unsmob<Grob_array> (elements);
 
-  SCM_ASSERT_TYPE (ga || scm_is_pair (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
+  SCM_ASSERT_TYPE (ga || ly_is_list (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
   auto *const com = LY_ASSERT_SMOB (Grob, common, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
-
-  vector<Grob *> elts;
+  Axis a = from_scm<Axis> (axis);
   if (!ga)
-    {
-      for (SCM s = elements; scm_is_pair (s); s = scm_cdr (s))
-        elts.push_back (unsmob<Grob> (scm_car (s)));
-    }
-
-  Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
-                                                              com,
-                                                              from_scm<Axis> (axis));
+    ga = unsmob<Grob_array> (grob_list_to_grob_array (elements));
+  Interval ext = Axis_group_interface::relative_group_extent (ga->array (), com, a);
   return to_scm (ext);
 }
 
