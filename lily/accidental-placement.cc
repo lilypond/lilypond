@@ -21,6 +21,8 @@
 
 #include "accidental-interface.hh"
 #include "item.hh"
+#include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "music.hh"
 #include "note-collision.hh"
 #include "note-column.hh"
@@ -90,12 +92,9 @@ Accidental_placement::split_accidentals (Grob *accs,
                                          vector<Grob *> *break_reminder,
                                          vector<Grob *> *real_acc)
 {
-  for (SCM acs = get_object (accs, "accidental-grobs"); scm_is_pair (acs);
-       acs = scm_cdr (acs))
-    for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM entry : ly_scm_list (get_object (accs, "accidental-grobs")))
+    for (auto *a : ly_smob_list<Grob> (scm_cdr (entry)))
       {
-        Grob *a = unsmob<Grob> (scm_car (s));
-
         if (unsmob<Grob> (get_object (a, "tie"))
             && !from_scm<bool> (get_property (a, "forced")))
           break_reminder->push_back (a);
@@ -240,13 +239,13 @@ static vector<unique_ptr<Accidental_placement_entry>>
                                                    build_apes (SCM accs)
 {
   vector<unique_ptr<Accidental_placement_entry>> apes;
-  for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM entry : as_ly_scm_list (accs))
     {
       unique_ptr<Accidental_placement_entry>
       ape (new Accidental_placement_entry);
 
-      for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
-        ape->grobs_.push_back (unsmob<Grob> (scm_car (t)));
+      for (auto *g : ly_smob_list<Grob> (scm_cdr (entry)))
+        ape->grobs_.push_back (g);
 
       apes.push_back (std::move (ape));
     }
