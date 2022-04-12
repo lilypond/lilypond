@@ -420,7 +420,8 @@
 (define (embedded-svg string)
   string)
 
-(define (embedded-glyph-string pango-font font size cid glyphs file-name face-index)
+(define (embedded-glyph-string pango-font font size cid glyphs
+                               xfile-name face-index text clusters)
   (define path "")
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
