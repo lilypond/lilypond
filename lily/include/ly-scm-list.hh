@@ -219,6 +219,12 @@ private:
 public:
   ly_scm_list_t () = default;
 
+  // This conversion is deleted for clarity.  We don't want someone with a
+  // named SCM variable to create a ly_scm_list_t from it and be surprised that
+  // certain modifications to the ly_scm_list_t are not visible via the
+  // original SCM.  To use a SCM in loco, cast it with as_ly_scm_list_t().
+  explicit ly_scm_list_t (const SCM &) = delete;
+
   explicit ly_scm_list_t (SCM &&s) : head_ (scm_is_pair (s) ? s : SCM_EOL) {}
 
   // Like std::list, moving leaves the source list in an unspecified state.
@@ -229,7 +235,6 @@ public:
   ly_scm_list_t &operator = (ly_scm_list_t &&) = default;
 
   // Copying is not implemented.
-  // For non-copying conversion from SCM &, see as_ly_scm_list_t ().
   ly_scm_list_t (const ly_scm_list_t &) = delete;
   ly_scm_list_t &operator = (const ly_scm_list_t &) = delete;
 
@@ -322,6 +327,15 @@ as_ly_scm_list_t (SCM &s)
   return const_cast<ly_scm_list_t<T> &> (as_ly_scm_list_t<T> (cs));
 }
 
+// Disallow casting an rvalue.
+//
+// If you get a compiler error because you're trying to pass a temporary value
+// (e.g. the result of a function call) to this function, construct a list
+// instead: ly_scm_list_t<T> (s).
+template <class T>
+inline const ly_scm_list_t<T> &
+as_ly_scm_list_t (const SCM &&s) = delete;
+
 using ly_scm_list = ly_scm_list_t<SCM>;
 
 // Refer to a SCM as a ly_scm_list, maintaining constness.
@@ -337,5 +351,13 @@ as_ly_scm_list (SCM &s)
 {
   return as_ly_scm_list_t<SCM> (s);
 }
+
+// Disallow casting an rvalue.
+//
+// If you get a compiler error because you're trying to pass a temporary value
+// (e.g. the result of a function call) to this function, construct a list
+// instead: ly_scm_list (s).
+inline const ly_scm_list &
+as_ly_scm_list (const SCM &&s) = delete;
 
 #endif /* LY_SCM_LIST_HH */
