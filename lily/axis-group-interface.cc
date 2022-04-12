@@ -25,6 +25,7 @@
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "interval-set.hh"
+#include "ly-scm-list.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
@@ -57,14 +58,12 @@ Axis_group_interface::get_default_outside_staff_padding ()
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
 {
-  SCM axes = get_property (me, "axes");
-  if (!scm_is_pair (axes))
+  ly_scm_list_t<Axis> axes (get_property (me, "axes"));
+  if (axes.empty ())
     programming_error ("axes should be nonempty");
 
-  for (SCM ax = axes; scm_is_pair (ax); ax = scm_cdr (ax))
+  for (auto a : axes)
     {
-      const auto a = from_scm<Axis> (scm_car (ax));
-
       if (!e->get_parent (a))
         e->set_parent (me, a);
 
@@ -127,8 +126,8 @@ Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
   SCM interfaces = get_property (me, "bound-alignment-interfaces");
 
   for (vsize i = 0; i < elts.size (); i++)
-    for (SCM l = interfaces; scm_is_pair (l); l = scm_cdr (l))
-      if (elts[i]->internal_has_interface (scm_car (l)))
+    for (SCM interface : as_ly_scm_list (interfaces))
+      if (elts[i]->internal_has_interface (interface))
         new_elts.push_back (elts[i]);
 
   if (!new_elts.size ())
