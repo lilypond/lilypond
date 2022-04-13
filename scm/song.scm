@@ -48,7 +48,7 @@
 ;; (define *base-octave-shift* -2)
 (define *base-octave-shift* (make-parameter 0))
 
-;; The coeficient by which the notes just before \breath are shortened.
+;; The coefficient by which the notes just before \breathe are shortened.
 (define-public *breathe-shortage* (make-parameter 0.8))
 
 
