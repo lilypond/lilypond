@@ -9,7 +9,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.24"
+@c \version "2.23.8"
 
 @c Translators: Till Paala
 
@@ -1140,12 +1140,10 @@ Beispiel heranzieht:
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
  }
 }
 

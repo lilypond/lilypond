@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.8"
 
 \header {
   texidoc = "@code{\\partial} works with polymetric staves."
@@ -22,12 +22,10 @@
     \context {
       \Score
       \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
     }
     \context {
       \Staff
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
   }
 }

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.24"
+@c \version "2.23.8"
 
 @node Grabado musical
 @chapter Grabado musical
@@ -1141,12 +1141,10 @@ aparente si tenemos en cuenta un ejemplo musical más complejo:
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
 }
 

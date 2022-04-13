@@ -1,12 +1,10 @@
-\version "2.19.40"
+\version "2.23.8"
 
 \header {
-  texidoc = "
-Default values for time signature settings can vary by staff if the
-@code{Timing_translator} and @code{Default_bar_line_engraver} are
-moved from @code{Score} to @code{Staff}.  In this case, the upper staff
-should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
-"
+  texidoc = "Default values for time signature settings can vary by
+staff if the @code{Timing_translator} is moved from @code{Score} to
+@code{Staff}.  In this case, the upper staff should be beamed 3/4,
+1/4.  The lower staff should be beamed 1/4, 3/4."
 }
 
 \score {
@@ -34,12 +32,10 @@ should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
     \context {
       \Score
       \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
     }
     \context {
       \Staff
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
   }
 }

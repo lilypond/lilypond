@@ -5,7 +5,7 @@
 
   }
 
-\version "2.23.6"
+\version "2.23.8"
 
 showFirstLength = R1*1
 showLastLength = R1*2
@@ -17,13 +17,11 @@ showLastLength = R1*2
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
     \remove "Repeat_acknowledge_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
     \consists "Repeat_acknowledge_engraver"
   }
 }

@@ -8,7 +8,7 @@ Translation of GIT committish: 8f9929ddd50f9229bc1c6c38011bb5284601bc44
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.8"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -782,7 +782,6 @@ independiente.
   <<
     \new Staff \with {
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
     \relative {
         \time 3/4
@@ -790,7 +789,6 @@ independiente.
     }
   \new Staff \with {
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
   \relative {
       \time 2/4
@@ -801,7 +799,6 @@ independiente.
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
     }
   }
 }

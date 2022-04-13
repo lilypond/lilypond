@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.8"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -1295,12 +1295,10 @@ R1\fermata
     \context {
       \Score
       \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
     }
     \context {
       \Staff
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
   }
 }
@@ -1781,12 +1779,10 @@ R1\fermata
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
 }
 
@@ -1870,7 +1866,6 @@ R1\fermata
 内部リファレンス:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
-@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}
 
 @knownissues

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.8"
 
 @c Translators: Till Paala
 
@@ -655,14 +655,12 @@ jedes System eine unterschiedliche Taktart hat:
   <<
     \new Staff \with {
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     } {
         \time 3/4
         c4 c c c c c
     }
   \new Staff \with {
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   } {
       \time 2/4
       c4 c c c c c
@@ -672,7 +670,6 @@ jedes System eine unterschiedliche Taktart hat:
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
     }
   }
 }

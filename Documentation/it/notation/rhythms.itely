@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.8"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1272,12 +1272,10 @@ di tempo per righi diversi spostando @code{Timing_translator} e
     \context {
       \Score
       \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
     }
     \context {
       \Staff
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
   }
 }
@@ -1750,12 +1748,10 @@ Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
 }
 
@@ -1840,7 +1836,6 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
-@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
 @knownissues

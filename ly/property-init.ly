@@ -339,10 +339,6 @@ incipit =
                 ragged-right = ##f
                 ragged-last = ##f
                 system-count = 1
-                \context {
-                  \Score
-                  \remove "Default_bar_line_engraver"
-                }
               }
             }
             }

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.8"
 
 @c Translators: Till Paala
 
@@ -1248,12 +1248,10 @@ Notensysteme können eingerichtet werden, indem man den
     \context {
       \Score
       \remove "Timing_translator"
-      \remove "Default_bar_line_engraver"
     }
     \context {
       \Staff
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
   }
 }
@@ -1708,12 +1706,10 @@ verschoben werden.
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
   }
   \context {
     \Staff
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
 }
 
@@ -1799,7 +1795,6 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
-@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
 @knownissues

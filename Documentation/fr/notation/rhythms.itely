@@ -1987,7 +1987,6 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
-@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 @endmorerefs
 
@@ -3445,7 +3444,6 @@ Morceaux choisis :
 @rlsrnamed{Rhythms, Rythmes}.
 
 Référence des propriétés internes :
-@rinternals{Default_bar_line_engraver},
 @rinternals{Repeat_acknowledge_engraver}.
 
 @endmorerefs

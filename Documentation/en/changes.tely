@@ -129,6 +129,9 @@ can thus be shortened as:
 @end verbatim
 @end quotation
 
+Independent of this, @code{Default_@/bar_@/line_@/engraver} has
+been removed.
+
 
 @item
 @code{\bar ""} is no longer necessary to print the first bar

@@ -4514,6 +4514,7 @@ ly:skyline::get-distance -> ly:skyline-distance
 ly:skyline::get-max-height -> ly:skyline-max-height
 ly:skyline::get-max-height-position -> ly:skyline-max-height-position
 ly:skyline::get-height -> ly:skyline-height
+Remove Default_bar_line_engraver
 """)
 def conv(s):
     s = re.sub(r"scripts\.augmentum", r"dots.dotvaticana", s)
@@ -4523,6 +4524,8 @@ def conv(s):
     s = re.sub(r"ly:skyline::get-max-height", "ly:skyline-max-height", s)
     s = re.sub(r"ly:skyline::get-max-height-position", "ly:skyline-max-height-position", s)
     s = re.sub(r"ly:skyline::get-height", "ly:skyline-height", s)
+    s = re.sub(r'[\t ]*\\(consists|remove)\s*"?Default_bar_line_engraver"?[\t ]*\n?',
+               r'', s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

@@ -11,7 +11,7 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@c \version "2.21.0"
+@c \version "2.23.8"
 
 @node Modifica delle impostazioni predefinite
 @chapter Modifica delle impostazioni predefinite
@@ -733,7 +733,6 @@ ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
   <<
     \new Staff \with {
       \consists "Timing_translator"
-      \consists "Default_bar_line_engraver"
     }
     \relative {
         \time 3/4
@@ -741,7 +740,6 @@ ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
     }
   \new Staff \with {
     \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
   }
   \relative {
       \time 2/4
@@ -752,7 +750,6 @@ ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
     }
   }
 }

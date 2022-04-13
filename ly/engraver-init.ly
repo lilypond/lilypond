@@ -597,7 +597,6 @@ run."
 
   %% timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
-  \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
   \consists "Tweak_engraver"
   \consists "Spanner_tracking_engraver"

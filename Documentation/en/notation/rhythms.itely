@@ -1931,7 +1931,6 @@ Snippets:
 Internals Reference:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
-@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 @endmorerefs
 
@@ -3382,7 +3381,6 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
-@rinternals{Default_bar_line_engraver},
 @rinternals{Repeat_acknowledge_engraver}.
 
 @endmorerefs
