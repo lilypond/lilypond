@@ -23,6 +23,7 @@
 #include "grob.hh"
 #include "grob-interface.hh"
 #include "item.hh"
+#include "lily-imports.hh"
 #include "lily-proto.hh"
 #include "line-interface.hh"
 #include "note-column.hh"
@@ -106,7 +107,7 @@ offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 {
-  Spanner *me = unsmob<Spanner> (smob);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 0);
 
   Item *bound_item = me->get_bound (dir);
 
@@ -116,7 +117,14 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
                               ? ly_symbol2scm ("left")
                               : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
 
-  if (bound_item->break_status_dir ())
+  // Don't use bound_item->break_status_dir (): a spanner running to the end of
+  // the piece has a broken right bound, but should not get details from
+  // right-broken.
+  Lily::Variable checker = ((dir == LEFT)
+                            ? Lily::unbroken_or_first_broken_spanner_p
+                            : Lily::unbroken_or_last_broken_spanner_p);
+  bool unfinished_at_bound = !from_scm<bool> (checker (smob));
+  if (unfinished_at_bound)
     {
       SCM extra = ly_assoc_get ((dir == LEFT)
                                 ? ly_symbol2scm ("left-broken")
@@ -151,7 +159,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
       Grob *bound_grob = bound_item;
       if (from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
-          && bound_item->break_status_dir ())
+          && unfinished_at_bound)
         {
           extract_grob_set (me, "note-columns", columns);
           if (!columns.empty ())
@@ -194,7 +202,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
       // value is always relative to the spanner itself.
       Real y = 0.0;
 
-      if (bound_item->break_status_dir ())
+      if (unfinished_at_bound)
         {
           /*
             We want to compute the slope of something like a glissando
@@ -413,7 +421,7 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob, bool horizontal)
 
   SCM text = get_property (me, "text");
   if (Text_interface::is_markup (text)
-      && me->get_bound (LEFT)->break_status_dir () == CENTER
+      && from_scm<bool> (Lily::unbroken_or_first_broken_spanner_p (smob))
       && scm_is_false (ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
     {
       Output_def *layout = me->layout ();

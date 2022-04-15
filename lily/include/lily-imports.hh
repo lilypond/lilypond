@@ -149,6 +149,8 @@ extern Variable stencil_whiteout;
 extern Variable stencil_whiteout_box;
 extern Variable symbol_list_p;
 extern Variable type_name;
+extern Variable unbroken_or_first_broken_spanner_p;
+extern Variable unbroken_or_last_broken_spanner_p;
 extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
 extern Variable write_lilypond_book_aux_files;
