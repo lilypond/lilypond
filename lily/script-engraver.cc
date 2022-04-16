@@ -23,6 +23,7 @@
 #include "directional-element-interface.hh"
 #include "international.hh"
 #include "item.hh"
+#include "ly-scm-list.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "rhythmic-head.hh"
@@ -36,7 +37,8 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <string>
+#include <vector>
 
 struct Script_tuple
 {
@@ -51,7 +53,7 @@ struct Script_tuple
 
 class Script_engraver : public Engraver
 {
-  vector<Script_tuple> scripts_;
+  std::vector<Script_tuple> scripts_;
 
 protected:
   void stop_translation_timestep ();
@@ -90,17 +92,6 @@ Script_engraver::listen_articulation (Stream_event *ev)
   scripts_.push_back (t);
 }
 
-void
-copy_property (Grob *g, SCM sym, SCM alist)
-{
-  if (scm_is_null (get_property (g, sym)))
-    {
-      SCM entry = ly_assoc (sym, alist);
-      if (scm_is_pair (entry))
-        set_property (g, sym, scm_cdr (entry));
-    }
-}
-
 /* Add the properties, one by one for each Script.  A little memory
    could be saved by tacking the props onto the Script grob (i.e. make
    ScriptStaccato , ScriptMarcato, etc. ).
@@ -109,16 +100,19 @@ void
 make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
   if (!scm_is_symbol (art_type))
-    programming_error (_f ("articulation-type must be symbol since 2.23.6: %s",
-                           ly_scm_write_string (art_type)));
+    {
+      std::string msg ("articulation-type must be a symbol since 2.23.6: ");
+      msg += ly_scm_write_string (art_type);
+      p->programming_error (msg);
+    }
 
   SCM alist = get_property (tg, "scriptDefinitions");
   SCM art = scm_assq (art_type, alist);
 
   if (scm_is_false (art))
     {
-      warning (_f ("do not know how to interpret articulation: %s",
-                   ly_scm_write_string (art_type)));
+      p->warning (_f ("do not know how to interpret articulation: %s",
+                      ly_scm_write_string (art_type)));
       return;
     }
 
@@ -126,14 +120,19 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 
   bool priority_found = false;
 
-  for (SCM s = art; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM prop_pair : as_ly_scm_list (art))
     {
-      SCM sym = scm_caar (s);
+      SCM sym = scm_car (prop_pair);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_is_procedure (type))
-        continue;
+        {
+          std::string msg ("invalid grob property name in script definition: ");
+          msg += ly_scm_write_string (sym);
+          p->programming_error (msg);
+          continue;
+        }
 
-      SCM val = scm_cdar (s);
+      SCM val = scm_cdr (prop_pair);
 
       if (scm_is_eq (sym, ly_symbol2scm ("script-priority")))
         {
