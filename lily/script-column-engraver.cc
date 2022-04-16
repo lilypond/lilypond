@@ -24,15 +24,15 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <vector>
 
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */
 class Script_column_engraver : public Engraver
 {
-  Grob *script_column_ = nullptr;
-  vector<Grob *> scripts_;
+  Item *script_column_ = nullptr;
+  std::vector<Item *> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
@@ -52,23 +52,25 @@ Script_column_engraver::stop_translation_timestep ()
 {
   if (script_column_)
     {
-      for (vsize i = 0; i < scripts_.size (); i++)
-        if (Side_position_interface::is_on_y_axis (scripts_[i]))
-          Script_column::add_side_positioned (script_column_, scripts_[i]);
+      for (auto *scr : scripts_)
+        {
+          if (Side_position_interface::is_on_y_axis (scr))
+            Script_column::add_side_positioned (script_column_, scr);
+        }
+
+      script_column_ = nullptr;
     }
 
-  script_column_ = nullptr;
   scripts_.clear ();
 }
 
 void
 Script_column_engraver::acknowledge_side_position (Grob_info inf)
 {
-  Item *thing = dynamic_cast<Item *> (inf.grob ());
-  if (thing)
+  if (auto *it = dynamic_cast<Item *> (inf.grob ()))
     {
-      if (!Item::is_non_musical (thing))
-        scripts_.push_back (thing);
+      if (!Item::is_non_musical (it))
+        scripts_.push_back (it);
     }
 }
 
@@ -76,7 +78,7 @@ void
 Script_column_engraver::process_acknowledged ()
 {
   if (!script_column_ && scripts_.size () > 1)
-    script_column_ = make_item ("ScriptColumn", SCM_EOL);
+    script_column_ = make_item ("ScriptColumn", to_scm (scripts_[0]));
 }
 
 void

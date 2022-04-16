@@ -27,7 +27,7 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <vector>
 
 /**
    Find potentially colliding scripts, and put them in a
@@ -35,13 +35,13 @@ using std::vector;
 */
 class Script_row_engraver : public Engraver
 {
-  Grob *script_row_;
-  vector<Grob *> scripts_;
+  Item *script_row_ = nullptr;
+  std::vector<Item *> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Script_row_engraver);
 protected:
-  void acknowledge_accidental_placement (Grob_info);
+  void acknowledge_accidental_placement (Grob_info_t<Item>);
   void acknowledge_side_position (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
@@ -50,7 +50,6 @@ protected:
 Script_row_engraver::Script_row_engraver (Context *c)
   : Engraver (c)
 {
-  script_row_ = 0;
 }
 
 void
@@ -58,29 +57,33 @@ Script_row_engraver::stop_translation_timestep ()
 {
   if (script_row_)
     {
-      for (vsize i = 0; i < scripts_.size (); i++)
-        if (has_interface<Accidental_placement> (scripts_[i])
-            || Side_position_interface::is_on_x_axis (scripts_[i]))
-          Script_column::add_side_positioned (script_row_, scripts_[i]);
+      for (auto *scr : scripts_)
+        {
+          if (has_interface<Accidental_placement> (scr)
+              || Side_position_interface::is_on_x_axis (scr))
+            {
+              Script_column::add_side_positioned (script_row_, scr);
+            }
+        }
+
+      script_row_ = nullptr;
     }
 
   scripts_.clear ();
-  script_row_ = 0;
 }
 
 void
 Script_row_engraver::acknowledge_side_position (Grob_info inf)
 {
-  Item *thing = dynamic_cast<Item *> (inf.grob ());
-  if (thing)
+  if (auto *it = dynamic_cast<Item *> (inf.grob ()))
     {
-      if (!Item::is_non_musical (thing))
-        scripts_.push_back (thing);
+      if (!Item::is_non_musical (it))
+        scripts_.push_back (it);
     }
 }
 
 void
-Script_row_engraver::acknowledge_accidental_placement (Grob_info inf)
+Script_row_engraver::acknowledge_accidental_placement (Grob_info_t<Item> inf)
 {
   scripts_.push_back (inf.grob ());
 }
@@ -89,7 +92,7 @@ void
 Script_row_engraver::process_acknowledged ()
 {
   if (!script_row_ && scripts_.size () > 1)
-    script_row_ = make_item ("ScriptRow", SCM_EOL);
+    script_row_ = make_item ("ScriptRow", to_scm (scripts_[0]));
 }
 
 void
