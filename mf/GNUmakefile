@@ -38,9 +38,10 @@ $(outdir)/%.pfb: \
   %.mf \
   $(outdir)/mf2pt1.mem invoke-mf2pt1.sh
 	$(call ly_progress,Making,$(outdir)/$*.pfb,< mf)
-	$(src-dir)/invoke-mf2pt1.sh \
-	  "$(PERL) $(buildscript-dir)/mf2pt1.pl" \
-	  $< $(outdir)/$*.pfb $(METAFONT_QUIET)
+	FONTFORGE="$(FONTFORGE) $(FONTFORGE_QUIET)" \
+	  $(src-dir)/invoke-mf2pt1.sh \
+	    "$(PERL) $(buildscript-dir)/mf2pt1.pl" \
+	    $< $(outdir)/$*.pfb $(METAFONT_QUIET)
 
 # Since recent mpost versions no longer use a mem file, we create a dummy
 # file to satisfy the dependency (which gets overwritten in case an older
@@ -54,8 +55,10 @@ $(outdir)/mf2pt1.mem: mf2pt1.mp
 
 ifndef VERBOSE
   METAFONT_QUIET = >/dev/null
+  FONTFORGE_QUIET = $(FONTFORGE_QUIET_OPTION)
 else
   METAFONT_QUIET =
+  FONTFORGE_QUIET =
 endif
 
 $(outdir)/emmentaler-brace.subfonts:
@@ -127,6 +130,7 @@ $(outdir)/emmentaler-%.otf: \
   $(outdir)/feta-alphabet%.tfm
 	$(call ly_progress,Making,$@,)
 	$(FONTFORGE) \
+	  $(FONTFORGE_QUIET) \
 	  -lang=py \
 	  -script $< \
 	  --version=$(VERSION) \
@@ -139,6 +143,7 @@ $(outdir)/emmentaler-brace.otf: \
   $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).lisp)
 	$(call ly_progress,Making,$@,)
 	$(FONTFORGE) \
+	  $(FONTFORGE_QUIET) \
 	  -lang=py \
 	  -script $< \
 	  --version $(VERSION) \

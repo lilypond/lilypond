@@ -761,6 +761,22 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 ])
 
 
+AC_DEFUN(STEPMAKE_FONTFORGE, [
+    STEPMAKE_PATH_PROG(FONTFORGE, fontforge, $1, 20110222)
+    if test $? -eq 0; then
+        min_quiet=`STEPMAKE_NUMERIC_VERSION(20220308)`
+        # `num` comes from `STEPMAKE_PATH_PROG`; we compare it with the
+        # first version that gives the `-quiet` option the expected
+        # functionality, that is, suppressing version and copyright
+        # information sent to stderr.
+        if test "$num" -ge "$min_quiet"; then
+            FONTFORGE_QUIET_OPTION=-quiet
+            AC_SUBST(FONTFORGE_QUIET_OPTION)
+        fi
+    fi
+])
+
+
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
     STEPMAKE_PROGS(KPSEWHICH, kpsewhich, $1)
 
