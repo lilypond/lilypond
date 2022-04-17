@@ -42,6 +42,10 @@
 #include <dirent.h>
 #include <sys/types.h>
 
+#if HAVE_SYS_STAT_H
+#include <sys/stat.h>
+#endif
+
 using std::string;
 using std::vector;
 
@@ -205,6 +209,22 @@ setup_paths (char const *argv0_ptr)
       if (argv0_abs.empty ())
         programming_error ("cannot find absolute argv0");
     }
+
+#ifndef __MINGW32__
+  // After finding the absolute path, look through symlinks if there is a
+  // share/lilypond directory next to actual executable. The fallback is
+  // needed for executing out/bin/lilypond during the build process.
+  char resolved_path[PATH_MAX];
+  char *res = realpath (argv0_abs.c_str (), resolved_path);
+  if (res != NULL)
+    {
+      std::string share_lilypond (dir_name (resolved_path));
+      share_lilypond += "/../share/lilypond/";
+      struct stat st;
+      if (stat (share_lilypond.c_str (), &st) == 0 && S_ISDIR (st.st_mode))
+        argv0_abs = resolved_path;
+    }
+#endif
 
   string bindir = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
   string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
