@@ -1352,19 +1352,17 @@ Beam::pure_rest_collision_callback (SCM smob,
 
   extract_grob_set (beam, "stems", stems);
   vector<Grob *> my_stems;
+  vsize idx = VPOS;
 
   for (vsize i = 0; i < stems.size (); i++)
-    if (Stem::head_count (stems[i]) || stems[i] == stem)
-      my_stems.push_back (stems[i]);
+    {
+      if (Stem::head_count (stems[i]) || stems[i] == stem)
+        my_stems.push_back (stems[i]);
 
-  vsize idx = -1;
+      if (stems[i] == stem)
+        idx = my_stems.size () - 1;
+    }
 
-  for (vsize i = 0; i < my_stems.size (); i++)
-    if (my_stems[i] == stem)
-      {
-        idx = i;
-        break;
-      }
   Grob *left;
   Grob *right;
 
