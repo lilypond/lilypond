@@ -1070,6 +1070,8 @@ of Editio Vaticana."
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
+  %% Reduce the size of caesura and virgula marks.
+  \override BreathingSign.font-size = #-2
   %% Match the thickness of divisiones to the staff lines.
   \override BreathingSign.thickness = #1
 
@@ -1201,6 +1203,8 @@ accommodated for typesetting a piece in mensural style."
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
+  %% Reduce the size of caesura and virgula marks.
+  \override BreathingSign.font-size = #-2
   %% Match the thickness of divisiones to the staff lines.
   \override BreathingSign.thickness = #1
 
