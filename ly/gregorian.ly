@@ -99,16 +99,16 @@ cavum =
 %
 virgula = {
   \once \set breathMarkType = #'comma
+  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
   \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 caesura = {
   \once \set breathMarkType = #'varcomma
+  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
   \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe

@@ -1043,10 +1043,6 @@ of Editio Vaticana."
   \override Episema.bound-details.left.padding = #0.05
   \override Episema.bound-details.right.padding = #0.05
 
-  %% Put some space before and after divisiones.
-  %% FIXME: This does not seem to show any effect.
-  \override Script.padding = #0.5
-
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
 }
@@ -1134,10 +1130,6 @@ two syllables) as used in the notational style of Editio Vaticana."
   %% warning for every "\[" and "\]".  Therefore, we make the grob
   %% transparent instead.
   \override LigatureBracket.transparent = ##t
-
-  %% Put some space before and after divisiones.
-  %% FIXME: This does not seem to show any effect.
-  \override Script.padding = #0.5
 
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f

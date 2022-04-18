@@ -22,25 +22,25 @@
         (text . ,(make-musicglyph-markup "scripts.caesura.straight"))))
     (chantdoublebar
      . (
-        (minimum-X-extent . (-1.0 . 0.0))
+        (extra-spacing-width . (-1.0 . 0.0))
         (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::finalis)
         (Y-offset . 0.0)))
     (chantfullbar
      . (
-        (minimum-X-extent . (-1.0 . 0.0))
+        (extra-spacing-width . (-1.0 . 0.0))
         (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-maxima)
         (Y-offset . 0.0)))
     (chanthalfbar
      . (
-        (minimum-X-extent . (-1.0 . 0.0))
+        (extra-spacing-width . (-1.0 . 0.0))
         (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-maior)
         (Y-offset . 0.0)))
     (chantquarterbar
      . (
-        (minimum-X-extent . (-1.0 . 0.0))
+        (extra-spacing-width . (-1.0 . 0.0))
         (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-minima)))
     (comma
