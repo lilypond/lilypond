@@ -29,6 +29,7 @@
 * Text markup list commands::
 * List of special characters::
 * List of articulations::
+* List of breath marks::
 * Percussion notes::
 * Default values for outside-staff-priority::
 * Technical glossary::
@@ -2464,6 +2465,80 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 
 @end multitable
+
+
+@node List of breath marks
+@appendixsec List of breath marks
+
+@cindex breath mark symbol, list of
+
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{'chantquarterbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantquarterbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chanthalfbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chanthalfbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantfullbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantfullbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantdoublebar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantdoublebar
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'comma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'comma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'varcomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'varcomma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'caesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'caesura
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'curvedcaesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'curvedcaesura
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'tickmark}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'tickmark
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'spacer}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'spacer
+b4 4 \breathe 4
+@end lilypond
+
+@end multitable
+
 
 @node Percussion notes
 @appendixsec Percussion notes

@@ -191,6 +191,8 @@ halfway through the measure in triple time, which could look like 6/8.")
 @samp{Beat_performer} at the start of each beat.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
+     (breathMarkType ,symbol? "The type of @code{BreathingSign} to create at
+@code{\\breathe}.")
 
 
      (centerBarNumbers ,boolean? "Whether to center bar numbers in
@@ -791,6 +793,9 @@ deprecated.  Use @code{\\bar} or related commands to set it."))))
      (barCheckLastFail ,ly:moment? "Where in the measure did the last
 barcheck fail?")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
+     (breathMarkDefinitions ,list? "The description of breath marks.
+This is used by the @code{Breathing_@/sign_@/engraver}.  See
+@file{scm/@/breath.scm} for more information.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
 @var{grob})} cons cells.  This is for internal (C++) use only.  This
 property contains the grobs which are still busy (e.g. note heads,

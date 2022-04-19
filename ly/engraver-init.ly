@@ -705,6 +705,9 @@ run."
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
 
+  breathMarkDefinitions = #default-breath-alist
+  breathMarkType = #'comma
+
   completionFactor = #unity-if-multimeasure
 
   scriptDefinitions = #default-script-alist

@@ -20,16 +20,68 @@
 
 #include "breathing-sign.hh"
 
+#include "context.hh"
 #include "dimensions.hh"
 #include "direction.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "grob.hh"
+#include "international.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
 #include "output-def.hh"
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
+
+MAKE_SCHEME_CALLBACK (Breathing_sign, set_breath_properties, 3);
+SCM
+Breathing_sign::set_breath_properties (SCM smob, SCM context, SCM breath_type)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 2);
+  set_breath_properties (me, ctx, breath_type);
+  return SCM_UNSPECIFIED;
+}
+
+void
+Breathing_sign::set_breath_properties (Grob *me, Context *ctx, SCM breath_type)
+{
+  LY_ASSERT_TYPE (ly_is_symbol, breath_type, 3);
+
+  // This is modeled on similar (but more complicated) code in Script_engraver.
+  // A change here might warrant a change there.
+
+  SCM alist = get_property (ctx, "breathMarkDefinitions");
+  SCM s = scm_assq (breath_type, alist);
+
+  if (scm_is_false (s))
+    {
+      me->warning (_f ("do not know how to interpret breath type: %s",
+                       ly_symbol2string (breath_type)));
+      return;
+    }
+
+  s = scm_cdr (s);
+  for (SCM prop_pair : as_ly_scm_list (s))
+    {
+      SCM sym = scm_car (prop_pair);
+      SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
+      if (!ly_is_procedure (type))
+        {
+          std::string msg ("invalid grob property name in breath definition: ");
+          msg += ly_scm_write_string (sym);
+          me->programming_error (msg);
+          continue;
+        }
+
+      SCM val = scm_cdr (prop_pair);
+
+      SCM preset = get_property_data (me, sym);
+      if (scm_is_null (val) || scm_is_false (scm_call_1 (type, preset)))
+        set_property (me, sym, val);
+    }
+}
 
 /*
   UGH : this is full of C&P code. Consolidate!  --hwn

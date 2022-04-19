@@ -22,7 +22,7 @@
   $Id$
 %}
 
-\version "2.19.22"
+\version "2.23.8"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -98,7 +98,7 @@ cavum =
 % Declare divisiones shortcuts.
 %
 virgula = {
-  \once \override BreathingSign.text = #(make-musicglyph-markup "scripts.rcomma")
+  \once \set breathMarkType = #'comma
   \once \override BreathingSign.font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -108,7 +108,7 @@ virgula = {
   \breathe
 }
 caesura = {
-  \once \override BreathingSign.text = #(make-musicglyph-markup "scripts.rvarcomma")
+  \once \set breathMarkType = #'varcomma
   \once \override BreathingSign.font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -118,42 +118,19 @@ caesura = {
   \breathe
 }
 divisioMinima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
-
-  % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
-  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
-
+  \once \set breathMarkType = #'chantquarterbar
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign.Y-offset = #0
-
-  % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
-  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
-
+  \once \set breathMarkType = #'chanthalfbar
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign.Y-offset = #0
-
-  % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
-  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
-
+  \once \set breathMarkType = #'chantfullbar
   \breathe
 }
 finalis = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign.Y-offset = #0
-
-  % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
-  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
-
+  \once \set breathMarkType = #'chantdoublebar
   \breathe
 }
 

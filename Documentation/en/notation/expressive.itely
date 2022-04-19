@@ -1135,15 +1135,28 @@ expressive marks which are attached to the preceding note, any square
 brackets indicating manual beams, and any brackets indicating slurs
 and phrasing slurs must be placed before @code{\breathe}.
 
-A breath mark will end an automatic beam; to override this behavior, see
-@ref{Manual beams}.
+A breath mark will end an automatic beam; to override this behavior,
+@pxref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \relative { c''8 \breathe d e f g2 }
 @end lilypond
 
+@cindex check mark
+@cindex tick mark
+The @code{breathMarkType} context property controls which of
+several predefined breath marks the @code{\breathe} command
+creates.  @xref{List of breath marks}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set breathMarkType = #'tickmark
+  c2 \breathe d2
+}
+@end lilypond
+
 Musical indicators for breath marks in ancient notation,
-divisiones, are supported.  For details, see @ref{Divisiones}.
+divisiones, are supported.  For details, @pxref{Divisiones}.
 
 
 @snippets
@@ -1154,10 +1167,6 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-breath-mark-symbol.ly}
-
-@cindex tick mark
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex caesura
 @cindex railroad tracks

@@ -99,6 +99,9 @@ Script_engraver::listen_articulation (Stream_event *ev)
 void
 make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
+  // Breathing_sign has similar (but simpler) code.  A change here might
+  // warrant a change there.
+
   if (!scm_is_symbol (art_type))
     {
       std::string msg ("articulation-type must be a symbol since 2.23.6: ");

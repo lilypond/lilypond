@@ -551,6 +551,7 @@ floating point exceptions.")
 
     "define-context-properties"
     "translation-functions"
+    "breath"
     "script"
     "midi"
     "layout-beam"

@@ -22,6 +22,33 @@ argument.  Since listeners are equivalent to callbacks, this is no
 longer needed."
   callback)
 
+(define-public (Breathing_sign_engraver context)
+  (let ((breathing-event #f))
+    (make-engraver
+     (listeners
+      ((breathing-event engraver event)
+       (set! breathing-event event)))
+
+      ((process-music engraver)
+       (if (ly:stream-event? breathing-event)
+           (let ((b-type (ly:context-property context 'breathMarkType)))
+             (if (symbol? b-type)
+                 (let ((grob (ly:engraver-make-grob
+                              engraver 'BreathingSign breathing-event)))
+                   (ly:breathing-sign::set-breath-properties
+                    grob context b-type))))))
+
+      ((stop-translation-timestep engraver)
+       (set! breathing-event #f)))))
+
+(ly:register-translator
+ Breathing_sign_engraver 'Breathing_sign_engraver
+ '((grobs-created . (BreathingSign))
+   (events-accepted . (breathing-event))
+   (properties-read . (breathMarkType))
+   (properties-written . ())
+   (description . "Notate breath marks.")))
+
 (define (set-counter-text! grob
                            property
                            number

@@ -146,7 +146,7 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
         (types . (post-event bend-after-event event))))
 
     (BreathingEvent
-     . ((description . "Create a @q{breath mark} or @q{comma}.
+     . ((description . "A short span of silence that shortens the previous note.
 
 Syntax: @var{note}@code{\\breathe}")
 

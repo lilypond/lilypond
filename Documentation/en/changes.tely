@@ -66,6 +66,17 @@ which scares away people.
 @end ignore
 
 @item
+The new context property @code{breathMarkType} selects the mark
+that @code{\breathe} produces from several predefined types.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set breathMarkType = #'tickmark
+  c2 \breathe d2
+}
+@end lilypond
+
+@item
 Properties of @code{PaperColumn} and @code{NonMusicalPaperColumn}
 (such as @code{NonMusicalPaperColumn.line-break-system-details})
 can now be overridden mid-music with the usual command @code{\once
