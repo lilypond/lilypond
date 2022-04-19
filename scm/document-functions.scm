@@ -18,6 +18,7 @@
 
 (use-modules
  (ice-9 curried-definitions)
+ (ice-9 match)
  (ice-9 regex)
  (ice-9 session))
 
@@ -59,29 +60,43 @@
 
 (define (format-scheme-signature proc)
   (let* ((signature (procedure-arguments proc))
-         (required (assq-ref signature 'required))
-         (optional (assq-ref signature 'optional))
-         (keyword (assq-ref signature 'keyword))
-         (rest (assq-ref signature 'rest)))
+         (required-args (assq-ref signature 'required))
+         (optional-args (assq-ref signature 'optional))
+         (keyword-args (assq-ref signature 'keyword))
+         (rest-arg (assq-ref signature 'rest)))
+    ;; Example formatted signature:
+    ;; (define* (f arg1 arg2 #:optional opt1 opt2 #:key kw1 (kw2 default2) . rest)
+    ;;   ...)
+    ;; => f arg1 arg2 [opt1 [opt2]] #:kw1 kw1 #:kw2 kw2 rest ...
+    ;; It would be nicer to use [#:kw2=default2] when there is a default,
+    ;; but sadly, Guile doesn't seem to make it available (or Jean has not
+    ;; found it).  We don't even know whether the keyword argument has a
+    ;; default (and is thus optional) or not.
     (string-join
      (append
-      (map
-       (lambda (sym)
-         (format #f "~a" sym))
-       required)
-      (map
-       (lambda (sym)
-         (format #f "[~a]" sym))
-       optional)
-      (map
-       (lambda (pair)
-         (format #f "#:~a" (car pair)))
-       keyword)
-      (if rest
+      (map symbol->string required-args)
+      (match optional-args
+        (()
+         '())
+        ((opts ... last-opt)
+         (list
+          (fold-right
+           (lambda (next-arg args-so-far)
+             (format #f "[~a ~a]" next-arg args-so-far))
+           (format #f "[~a]" last-opt)
+           opts))))
+      (map (lambda (pair)
+             (let ((kw (car pair)))
+              (format #f "~a ~a"
+                      kw
+                      (keyword->symbol kw))))
+           keyword-args)
+      (if rest-arg
           (list
-           (format #f ". ~a" rest))
+           (format #f "~a @dots{}" rest-arg))
           '()))
      " ")))
+
 
 ;; Same format as all-primitive-function-docs-alist.
 (define all-scheme-function-docs-alist
