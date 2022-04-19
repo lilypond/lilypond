@@ -1667,7 +1667,7 @@ property, which is identified by the symbol @var{property}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Centered text.
 
-; TODO: could the same callback be used for other grobs that read spacing-pair?
+;; TODO: could the same callback be used for other grobs that read spacing-pair?
 (define-public (centered-text-interface::print grob)
   "Print some text between two non-musical columns according to the
 @code{spacing-pair} property."
@@ -1688,10 +1688,10 @@ property, which is identified by the symbol @var{property}."
          (ext-R (ly:paper-column::break-align-width right-bound
                                                     (cdr spacing-pair)))
          (R-start (interval-start ext-R))
-         ; Amount of translation from our basic position to
-         ; the right of our left bound.
+         ;; Amount of translation from our basic position to
+         ;; the right of our left bound.
          (to-left-bound (- L-end X-base-position))
-         ; From that to the middle between left and right bound.
+         ;; From that to the middle between left and right bound.
          (to-middle (* 0.5 (- R-start L-end))))
     (ly:stencil-translate-axis
       aligned-stencil

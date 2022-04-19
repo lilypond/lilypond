@@ -676,7 +676,7 @@ time signature follows or precedes a bar line).")))))
      . (
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-family . roman)
-        ; This is intentionally bigger than BarNumber.
+        ;; This is intentionally bigger than BarNumber.
         (font-size . 0)
         (self-alignment-X . ,CENTER)
         (stencil . ,centered-text-interface::print)

@@ -510,7 +510,7 @@ A triangle, either filled or empty.
   (let ((ex (* (magstep font-size) 1.8)))
     (interpret-markup
       layout
-      ; TODO: make 'filled' a property rather than a parameter?
+      ;; TODO: make 'filled' a property rather than a parameter?
       (cons `((filled . ,filled))
              props)
       (make-polygon-markup

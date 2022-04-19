@@ -28,7 +28,7 @@ longer needed."
                            alternative-number
                            measure-pos
                            context)
-  ; FIXME: slight code duplication with Bar_number_engraver
+  ;; FIXME: slight code duplication with Bar_number_engraver
   (let* ((style (ly:context-property context 'alternativeNumberingStyle))
          (number-alternatives (eq? style 'numbers-with-letters))
          (final-alt-number (if number-alternatives alternative-number 0))
@@ -48,8 +48,8 @@ longer needed."
         (stop-event #f)
         (last-measure-seen 0)
         (last-alternative-number #f)
-        ; Acknowledge bar lines and start a new count when there
-        ; is one.  This is similar to the Bar_number_engraver.
+        ;; Acknowledge bar lines and start a new count when there
+        ;; is one.  This is similar to the Bar_number_engraver.
         (first-time-step #t)
         (now-is-bar-line #t)
         (done-in-time-step #f)
@@ -82,10 +82,10 @@ longer needed."
           ;; Each measure of a count receives a new spanner, which is bounded
           ;; by the first "command column" of that measure and the following one.
           (if (or (eq? #t (ly:context-property context 'measureStartNow))
-                  ; measureStartNow is unset at start of piece.  This
-                  ; first-time-step criterion also applies for a Staff
-                  ; created mid-piece; starting a measure counter
-                  ; mid-measure is not meaningful anyway.
+                  ;; measureStartNow is unset at start of piece.  This
+                  ;; first-time-step criterion also applies for a Staff
+                  ;; created mid-piece; starting a measure counter
+                  ;; mid-measure is not meaningful anyway.
                   first-time-step)
               (begin
                 ;; Finish the previous count-spanner if there is one.
@@ -95,7 +95,7 @@ longer needed."
                       (ly:pointer-group-interface::add-grob count-spanner 'columns col)
                       (ly:engraver-announce-end-grob trans count-spanner col)
                       (if (> current-bar (1+ last-measure-seen))
-                          ; Measure counter spanning over a compressed MM rest.
+                          ;; Measure counter spanning over a compressed MM rest.
                           (let* ((counter (ly:grob-property count-spanner 'count-from))
                                  (right-number
                                    (1- (+ counter
@@ -104,17 +104,17 @@ longer needed."
                               count-spanner
                               'right-number-text
                               right-number
-                              ; Edge case of compressed MM rests in alternatives.
-                              ; It would be wrong to take the context's
-                              ; alternativeNumber here, because we are
-                              ; looking behind at the last measure before
-                              ; this one.  Actually, a compressed MM rest
-                              ; is one single time step, so there is no
-                              ; right time where we could look up the property.
-                              ; Fortunately, MM rests from different alternatives
-                              ; cannot be compressed together, so we can just take
-                              ; the alternative number that was current at the
-                              ; time of the start of this measure counter.
+                              ;; Edge case of compressed MM rests in alternatives.
+                              ;; It would be wrong to take the context's
+                              ;; alternativeNumber here, because we are
+                              ;; looking behind at the last measure before
+                              ;; this one.  Actually, a compressed MM rest
+                              ;; is one single time step, so there is no
+                              ;; right time where we could look up the property.
+                              ;; Fortunately, MM rests from different alternatives
+                              ;; cannot be compressed together, so we can just take
+                              ;; the alternative number that was current at the
+                              ;; time of the start of this measure counter.
                               last-alternative-number
                               measure-pos
                               context)))
@@ -943,17 +943,17 @@ Engraver to print a line between two @code{Fingering} grobs.")))
    (description . "Create repeat counts within lyrics for modern
 transcriptions of Gregorian chant.")))
 
-; TODO: yet another engraver for alignment... Ultimately, it would be nice to
-; merge Dynamic_align_engraver, Piano_pedal_align_engraver and
-; Centered_bar_number_align_engraver.
+;; TODO: yet another engraver for alignment... Ultimately, it would be nice to
+;; merge Dynamic_align_engraver, Piano_pedal_align_engraver and
+;; Centered_bar_number_align_engraver.
 (define-public (Centered_bar_number_align_engraver context)
   (let ((support-line #f))
     (make-engraver
       (acknowledgers
         ((centered-bar-number-interface engraver grob source-engraver)
-           ; Create the support spanner on the fly when we meet a first
-           ; centered bar number, to avoid an extra grob in the most
-           ; common case.
+           ;; Create the support spanner on the fly when we meet a first
+           ;; centered bar number, to avoid an extra grob in the most
+           ;; common case.
            (if (not support-line)
                (begin
                  (set! support-line
