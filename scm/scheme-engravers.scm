@@ -73,8 +73,8 @@ longer needed."
           (set! now-is-bar-line #t)))
 
      ((process-acknowledged trans)
-      (if (and now-is-bar-line
-               (not done-in-time-step))
+      (when (and now-is-bar-line
+                 (not done-in-time-step))
         (let ((col (ly:context-property context 'currentCommandColumn))
               (measure-pos (ly:context-property context 'measurePosition))
               (current-bar (ly:context-property context 'currentBarNumber)))
