@@ -2589,14 +2589,13 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
                  (or (grob::has-interface x 'note-head-interface)
                      (grob::has-interface x 'rest-interface)))))
          (staff-space (ly:staff-symbol-staff-space grob))
-         (staff-line-thickness (ly:staff-symbol-line-thickness grob))
          (grob-layout (ly:grob-layout grob))
+         (layout-thick (layout-line-thickness grob))
          (blot-diameter
           (ly:output-def-lookup grob-layout 'blot-diameter))
          (style (ly:grob-property grob 'style 'beam))
-         (thickness
-          (ly:grob-property grob 'thickness 2))
-         (used-thick (* thickness staff-line-thickness))
+         (details (ly:grob-property grob 'details))
+         (thickness (ly:grob-property grob 'thickness 4))
          (left-bound-details
           (ly:grob-property grob 'left-bound-info))
          (right-bound-details
@@ -2629,7 +2628,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (dot-column (ly:note-column-dot-column left-column))
          (adjust-for-dot-column
           (if (and start-at-dot? (ly:grob? dot-column))
-              (assoc-get 'extra-dot-padding (ly:grob-property grob 'details))
+              (assoc-get 'extra-dot-padding details)
               0))
          ;; `left-X' is line-starting X-coordinate relative to grob's system
          ;; NB the final line-stencil will start at left-bound not at `left-X'
@@ -2755,8 +2754,15 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (arrow-stil
           (if (and (not (eq? style 'none))
                    (eq? right-end-style 'arrow))
-              (arrow-stencil
-               right-end left-Y staff-line-thickness staff-space grob)
+              (begin
+               ;; For 1/3 see remark in `arrow-stencil' above
+               (if (> (* 1/3  staff-space (ly:grob-property grob 'arrow-length))
+                      (- right-end left-start))
+                   (ly:warning
+                     (G_ "Not enough space to print a nice arrow.
+Please consider to increase 'minimum-length or decrease 'arrow-length.")))
+               (arrow-stencil
+                right-end left-Y layout-thick staff-space grob))
               empty-stencil))
     ;;;;;;;;
     ;;;; hook
@@ -2765,7 +2771,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           ;; hooks are currently implemented for beam-style only
           (if (and (eq? style 'beam) (eq? right-end-style 'hook))
               (hook-stencil
-               right-end left-Y staff-space used-thick blot-diameter grob)
+               right-end left-Y staff-space thickness blot-diameter grob)
               empty-stencil)))
 
     (if (> left-start right-end)
@@ -2782,7 +2788,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
      (cons 'staff-space staff-space)
      (cons 'blot blot-diameter)
      (cons 'style style)
-     (cons 'thick used-thick)
+     (cons 'thick thickness)
      (cons 'arrow arrow-stil)
      (cons 'hook hook-stil))))
 
@@ -2795,15 +2801,16 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (left-Y (assoc-get 'y vals))
          (staff-space (assoc-get 'staff-space vals))
          (blot-diameter (assoc-get 'blot vals))
-         (used-thick (assoc-get 'thick vals))
+         (thick (assoc-get 'thick vals))
          (hook-stil (assoc-get 'hook vals))
          (arrow-stil (assoc-get 'arrow vals)))
+
     (if (eq? style 'beam)
         (ly:stencil-add
          (ly:round-filled-box
           (cons left-start right-end)
           (coord-translate
-           (cons (/ used-thick -2) (/ used-thick 2))
+           (cons (/ thick -2) (/ thick 2))
            (* left-Y staff-space))
           blot-diameter)
          hook-stil

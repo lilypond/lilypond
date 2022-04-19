@@ -410,11 +410,29 @@ one voice.")))
                           'articulations))
       #f))
 
+(define-public (duration-line::calc-thickness grob)
+  ;; The visible thickness of DurationLine follows staff space.
+  ;; Though, if ly:line-interface::line is used in the stencil, it looks at
+  ;; grob.thickness not staff space. Thus we recalculate grob.thickness here.
+  (let ((style (ly:grob-property grob 'style))
+        (grob-thickness (ly:grob-property grob 'thickness))
+        (layout-line-thick (layout-line-thickness grob))
+        (staff-space (ly:staff-symbol-staff-space grob))
+        (staff-line-thickness
+         (ly:staff-symbol-line-thickness grob)))
+
+    (* staff-space
+       (if (eq? style 'beam)
+           (* grob-thickness layout-line-thick)
+           (* grob-thickness
+              (/  layout-line-thick staff-line-thickness))))))
+
 (define-public (Duration_line_engraver context)
   (let ((dur-event #f)
         (start-duration-line #f)
         (stop-duration-line #f)
         (current-dur-grobs #f)
+        (created '())
         (rhyth-event #f)
         (mmr-event #f)
         (skip #f)
@@ -463,6 +481,7 @@ one voice.")))
                            dur-event)))
                      (ly:spanner-set-bound! dur-line LEFT
                                             (ly:context-property context 'currentMusicalColumn))
+                     (set! created (cons dur-line created))
                      (list dur-line)))
              (set! mmr-event #f)
              (set! dur-event #f))))
@@ -502,6 +521,7 @@ one voice.")))
                                'DurationLine
                                dur-event)))
                          (ly:spanner-set-bound! dur-line LEFT grob)
+                         (set! created (cons dur-line created))
                          (list dur-line)))
                       ;; get DurationLines for every NoteHead
                       ((pair? note-heads)
@@ -513,6 +533,7 @@ one voice.")))
                                   'DurationLine
                                   dur-event)))
                             (ly:spanner-set-bound! dur-line LEFT nhd)
+                            (set! created (cons dur-line created))
                             dur-line))
                         note-heads))
                       ;; get DurationLine for Rest
@@ -523,13 +544,11 @@ one voice.")))
                                'DurationLine
                                dur-event)))
                          (ly:spanner-set-bound! dur-line LEFT nc-rest)
+                         (set! created (cons dur-line created))
                          (list dur-line)))))
                (set! dur-event #f))))))
 
      ((process-music this-engraver)
-      ;; Needed?
-                                        ;(if (ly:stream-event? dur-event)
-                                        ;    (set! start-duration-line #t))
       ;; If 'endAtSkip is set #t, DurationLine may end at skips.
       ;; In this case set right bound to PaperColumn
       (if (and (pair? current-dur-grobs)
@@ -570,6 +589,7 @@ one voice.")))
                     (ly:grob-set-property! dur-line 'to-barline #f)
                     (ly:spanner-set-bound! dur-line LEFT
                                            (ly:context-property context 'currentMusicalColumn))
+                    (set! created (cons dur-line created))
                     (list dur-line)))
             (set! skip #f)
             (set! dur-event #f))))
@@ -605,8 +625,18 @@ one voice.")))
                   (set! stop-duration-line #f)
                   (set! current-dur-grobs #f)
                   (set! rhyth-event #f))))))
-
      ((finalize this-engraver)
+      ;; All created DurationLines were cumulated in `created'.
+      ;; Their 'thickness needs to be adjusted to follow staff space, not staff
+      ;; symbol thickness, which ly:line-interface::line does.
+      ;; We do it here to avoid multiple resetting DurationLine.thickness for
+      ;; broken ones. Furthermore 'staff-symbol is not always available at
+      ;; earlier steps.
+      (for-each
+       (lambda (dur-line)
+        (ly:grob-set-property! dur-line 'thickness
+         (duration-line::calc-thickness dur-line)))
+       created)
       ;; likely unneeded, better be paranoid
       (if (pair? current-dur-grobs)
           (begin
@@ -619,6 +649,7 @@ one voice.")))
             (set! stop-duration-line #f)))
 
       ;; house-keeping
+      (set! created '())
       (set! rhyth-event #f)
       (set! skip #f)
       (set! mmr-event #f)))))
