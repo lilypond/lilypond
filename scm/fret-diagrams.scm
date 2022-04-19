@@ -565,29 +565,29 @@ fret-diagram overall parameters."
                              (and (eq? default-dot-color 'white) (not inverted))))
                         (what-color
                          (cond
-                           ;; If no colors are set return #f
-                           ;; This makes a general override of Grob.color affect
-                           ;; dot-color as well
-                           ((and (not (dot-has-color dot-sublist))
-                                 (not (assoc-get default-dot-color x11-color-list)))
-                             #f)
-                           ((and inverted
-                                 (not (dot-has-color dot-sublist))
-                                 (not (eq? default-dot-color 'white)))
-                            (x11-color (or default-dot-color 'black)))
-                           (dot-color-is-white?
-                            (x11-color
-                             (or (dot-has-color dot-sublist) 'black)))
-                           ;; Other dots are colored with (in descending
-                           ;; priority order)
-                           ;;  - dot-color
-                           ;;  - general default-dot-color
-                           ;;  - black as fallback
-                           (else
-                            (x11-color
-                             (or (dot-has-color dot-sublist)
-                                 default-dot-color
-                                 'black)))))
+                          ;; If no colors are set return #f
+                          ;; This makes a general override of Grob.color affect
+                          ;; dot-color as well
+                          ((and (not (dot-has-color dot-sublist))
+                                (not (assoc-get default-dot-color x11-color-list)))
+                           #f)
+                          ((and inverted
+                                (not (dot-has-color dot-sublist))
+                                (not (eq? default-dot-color 'white)))
+                           (x11-color (or default-dot-color 'black)))
+                          (dot-color-is-white?
+                           (x11-color
+                            (or (dot-has-color dot-sublist) 'black)))
+                          ;; Other dots are colored with (in descending
+                          ;; priority order)
+                          ;;  - dot-color
+                          ;;  - general default-dot-color
+                          ;;  - black as fallback
+                          (else
+                           (x11-color
+                            (or (dot-has-color dot-sublist)
+                                default-dot-color
+                                'black)))))
                         (inverted-stil
                          (lambda (color)
                            (ly:stencil-add

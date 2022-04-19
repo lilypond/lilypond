@@ -39,8 +39,8 @@
 
 (define (char font i)
   (format #f "~a (\\~,8f) show\n"
-             (ps-font-command font)
-             i))
+          (ps-font-command font)
+          i))
 
 (define (circle radius thick fill)
   (ly:format

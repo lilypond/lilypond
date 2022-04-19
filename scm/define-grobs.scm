@@ -227,9 +227,9 @@ vertical wiggle).")))))
         (annotation-balloon . #t)
         (annotation-line . #t)
         (break-visibility . ,(sticky-grob-interface::inherit-property
-                               'break-visibility))
+                              'break-visibility))
         (cross-staff . ,(sticky-grob-interface::inherit-property
-                          'cross-staff))
+                         'cross-staff))
         (extra-spacing-width . (+inf.0 . -inf.0))
         (spanner-placement . ,LEFT)
         (stencil . ,ly:balloon-interface::print)
@@ -1412,7 +1412,7 @@ sense).")))))
         (annotation-line . #t)
         (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
         (break-visibility . ,(sticky-grob-interface::inherit-property
-                               'break-visibility))
+                              'break-visibility))
         (cross-staff . ,(sticky-grob-interface::inherit-property
                          'cross-staff))
         (footnote . #t)
@@ -2372,7 +2372,7 @@ musical and non-musical columns.  See also
     (Parentheses
      . (
         (break-visibility . ,(sticky-grob-interface::inherit-property
-                               'break-visibility))
+                              'break-visibility))
         (font-size . -6)
         (padding . 0.2)
         (stencil . ,parentheses-interface::print)
@@ -3452,8 +3452,8 @@ trill.  See also @iref{TrillPitchGroup}.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
         (Y-extent . ,(ly:make-unpure-pure-container
-                       ly:axis-group-interface::height
-                       trill-pitch-group::pure-height))
+                      ly:axis-group-interface::height
+                      trill-pitch-group::pure-height))
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
                                 side-position-interface))

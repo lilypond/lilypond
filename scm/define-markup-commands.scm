@@ -127,12 +127,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (eval-when (expand load eval)
- (define-markup-command (line layout props args)
-   (markup-list?)
-   #:category align
-   #:properties ((word-space)
-                 (text-direction RIGHT))
-   "Put @var{args} in a horizontal line.  The property @code{word-space}
+  (define-markup-command (line layout props args)
+    (markup-list?)
+    #:category align
+    #:properties ((word-space)
+                  (text-direction RIGHT))
+    "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between markups in @var{args}.
 
 @lilypond[verbatim,quote]
@@ -142,10 +142,10 @@ determines the space between markups in @var{args}.
   }
 }
 @end lilypond"
-   (let ((stencils (interpret-markup-list layout props args)))
-     (if (= text-direction LEFT)
-         (set! stencils (reverse stencils)))
-     (stack-stencil-line word-space stencils))))
+    (let ((stencils (interpret-markup-list layout props args)))
+      (if (= text-direction LEFT)
+          (set! stencils (reverse stencils)))
+      (stack-stencil-line word-space stencils))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
@@ -481,10 +481,10 @@ regularPentagon =
 }
 @end lilypond"
   (ly:round-polygon
-    points
-    (* thickness (ly:output-def-lookup layout 'line-thickness))
-    extroversion
-    filled))
+   points
+   (* thickness (ly:output-def-lookup layout 'line-thickness))
+   extroversion
+   filled))
 
 (define-markup-command (triangle layout props filled)
   (boolean?)
@@ -509,15 +509,15 @@ A triangle, either filled or empty.
   ;; and font-size were both close to their default values)
   (let ((ex (* (magstep font-size) 1.8)))
     (interpret-markup
-      layout
-      ;; TODO: make 'filled' a property rather than a parameter?
-      (cons `((filled . ,filled))
-             props)
-      (make-polygon-markup
-        (list
-          (cons 0.0 0.0)
-          (cons ex 0.0)
-          (cons (* 0.5 ex) (* 0.86 ex)))))))
+     layout
+     ;; TODO: make 'filled' a property rather than a parameter?
+     (cons `((filled . ,filled))
+           props)
+     (make-polygon-markup
+      (list
+       (cons 0.0 0.0)
+       (cons ex 0.0)
+       (cons (* 0.5 ex) (* 0.86 ex)))))))
 
 (define-markup-command (circle layout props arg)
   (markup?)
@@ -3329,9 +3329,9 @@ the possible glyphs.
 }
 @end lilypond"
   (let ((coda (ly:stencil-scale
-                (interpret-markup
-                 layout props
-                 (make-musicglyph-markup "scripts.coda")) 0.8 0.8)))
+               (interpret-markup
+                layout props
+                (make-musicglyph-markup "scripts.coda")) 0.8 0.8)))
     (ly:stencil-translate-axis
      coda
      (/ (interval-length (ly:stencil-extent coda Y)) 2.7) Y)))
@@ -3349,9 +3349,9 @@ the possible glyphs.
 }
 @end lilypond"
   (let ((coda (ly:stencil-scale
-                (interpret-markup
-                 layout props
-                 (make-musicglyph-markup "scripts.varcoda")) 0.8 0.8)))
+               (interpret-markup
+                layout props
+                (make-musicglyph-markup "scripts.varcoda")) 0.8 0.8)))
     (ly:stencil-translate-axis
      coda
      (/ (interval-length (ly:stencil-extent coda Y)) 2.7) Y)))
@@ -3390,13 +3390,13 @@ rational number.
          (glyph-alist (or alteration-glyph-name-alist
                           (assq-ref defs 'alteration-glyph-name-alist))))
     (interpret-markup layout props
-      (make-musicglyph-markup
-        (or
-          (assv-ref glyph-alist alteration)
-          (begin
-            (ly:warning (G_ "no accidental glyph found for alteration ~a")
-                        alteration)
-            "noteheads.s1cross"))))))
+                      (make-musicglyph-markup
+                       (or
+                        (assv-ref glyph-alist alteration)
+                        (begin
+                          (ly:warning (G_ "no accidental glyph found for alteration ~a")
+                                      alteration)
+                          "noteheads.s1cross"))))))
 
 (define-markup-command (doublesharp layout props)
   ()
@@ -3409,7 +3409,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup 1)))
+                    (make-accidental-markup 1)))
 
 (define-markup-command (sesquisharp layout props)
   ()
@@ -3422,7 +3422,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup 3/4)))
+                    (make-accidental-markup 3/4)))
 
 (define-markup-command (sharp layout props)
   ()
@@ -3435,7 +3435,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup 1/2)))
+                    (make-accidental-markup 1/2)))
 
 (define-markup-command (semisharp layout props)
   ()
@@ -3448,7 +3448,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup 1/4)))
+                    (make-accidental-markup 1/4)))
 
 (define-markup-command (natural layout props)
   ()
@@ -3461,7 +3461,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup 0)))
+                    (make-accidental-markup 0)))
 
 (define-markup-command (semiflat layout props)
   ()
@@ -3474,7 +3474,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup -1/4)))
+                    (make-accidental-markup -1/4)))
 
 (define-markup-command (flat layout props)
   ()
@@ -3487,7 +3487,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup -1/2)))
+                    (make-accidental-markup -1/2)))
 
 (define-markup-command (sesquiflat layout props)
   ()
@@ -3500,7 +3500,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup -3/4)))
+                    (make-accidental-markup -3/4)))
 
 (define-markup-command (doubleflat layout props)
   ()
@@ -3513,7 +3513,7 @@ rational number.
 }
 @end lilypond"
   (interpret-markup layout props
-    (make-accidental-markup -1)))
+                    (make-accidental-markup -1)))
 
 (define-markup-command (with-color layout props color arg)
   (color? markup?)
@@ -3538,7 +3538,7 @@ Draw @var{arg} in color specified by @var{color}.
   blue
 }
 @end lilypond"
-    (stencil-with-color (interpret-markup layout props arg) color))
+  (stencil-with-color (interpret-markup layout props arg) color))
 
 (define-markup-command (tied-lyric layout props str)
   (string?)
@@ -4035,9 +4035,9 @@ mensural-flags.  Both are supplied for convenience.
          (blot (ly:output-def-lookup layout 'blot-diameter))
          (layout-output-scale (ly:output-def-lookup layout 'output-scale))
          (paper-output-scale
-           (ly:output-def-lookup
-            (ly:parser-lookup '$defaultpaper)
-            'output-scale))
+          (ly:output-def-lookup
+           (ly:parser-lookup '$defaultpaper)
+           'output-scale))
          (staff-space (ly:output-def-lookup layout 'staff-space))
          ;; While `layout-set-staff-size', applied in a score-layout, changes
          ;; staff-space, it does not change staff-space while applied in \paper
@@ -4045,10 +4045,10 @@ mensural-flags.  Both are supplied for convenience.
          ;; Thus we compare the actual staff-space with the values of
          ;; output-scale from current layout and $defaultpaper
          (size-factor
-           (if (eqv? (/ layout-output-scale paper-output-scale) staff-space)
-               (magstep font-size)
-               (/ (* paper-output-scale staff-space (magstep font-size))
-                  layout-output-scale)))
+          (if (eqv? (/ layout-output-scale paper-output-scale) staff-space)
+              (magstep font-size)
+              (/ (* paper-output-scale staff-space (magstep font-size))
+                 layout-output-scale)))
          (head-glyph-name
           (let ((result (get-glyph-name font
                                         (get-glyph-name-candidates
@@ -4247,7 +4247,7 @@ ledger lines are selected.
             (if (and (or (list? style)
                          (not (member style
                                       '(neomensural mensural petrucci))))
-                     ;(or (= log -1) (= log 0) (= log 1))
+                                        ;(or (= log -1) (= log 0) (= log 1))
                      (member log ledgers)
                      )
                 "o"
@@ -4276,9 +4276,9 @@ ledger lines are selected.
               ;; If even for default style no rest can be found, warn and return
               ;; an empty string.
               (let* ((default-candidate
-                      (get-glyph-name-candidates log 'default))
+                       (get-glyph-name-candidates log 'default))
                      (default-glyph
-                      (get-glyph-name font default-candidate)))
+                       (get-glyph-name font default-candidate)))
                 (if (string-null? default-glyph)
                     (ly:warning "Cannot find glyph ~a" default-candidate))
                 default-glyph)
@@ -4378,14 +4378,14 @@ special-cased to return @code{'mensural}.  If @var{style} is @code{'()} or
 font.  In this case it gets replaced by a glyph with @var{style] set to
 @code{'default} in a different procedure later on."
     (let* ((style-strg
-             (cond ((eq? style 'petrucci) 'mensural)
-                   ((and (symbol? style) (not (eq? style 'default)))
-                    style)
-                   (else ""))))
+            (cond ((eq? style 'petrucci) 'mensural)
+                  ((and (symbol? style) (not (eq? style 'default)))
+                   style)
+                  (else ""))))
       (format #f "rests.~a~a~a"
-                 (if (zero? dur-log) "" "M")
-                 dur-log
-                 style-strg)))
+              (if (zero? dur-log) "" "M")
+              dur-log
+              style-strg)))
 
   (let ((mmr-stil empty-stencil)
         (staff-space (ly:output-def-lookup layout 'staff-space)))
@@ -4400,19 +4400,19 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                (hair-thick (* hair-thickness line-thickness))
                (half-hair-thick (/ hair-thick 2)))
           (set! mmr-stil
-            (ly:stencil-add
-              (ly:round-filled-box
-                (cons 0 width)
-                (cons (- half-thick-thick) half-thick-thick)
-                blot)
-              (ly:round-filled-box
-                (cons (- half-hair-thick) half-hair-thick)
-                (cons (- staff-space) staff-space)
-                blot)
-              (ly:round-filled-box
-                (cons (- width half-hair-thick) (+ width half-hair-thick))
-                (cons (- staff-space) staff-space)
-                blot))))
+                (ly:stencil-add
+                 (ly:round-filled-box
+                  (cons 0 width)
+                  (cons (- half-thick-thick) half-thick-thick)
+                  blot)
+                 (ly:round-filled-box
+                  (cons (- half-hair-thick) half-hair-thick)
+                  (cons (- staff-space) staff-space)
+                  blot)
+                 (ly:round-filled-box
+                  (cons (- width half-hair-thick) (+ width half-hair-thick))
+                  (cons (- staff-space) staff-space)
+                  blot))))
         (let* (;; get a list containing the multipliers of the needed glyphs for
                ;; 8-, 4-, 2-, 1-measure.
                (counted-glyphs-list (mmr-numbers duration-scale))
@@ -4421,82 +4421,82 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                ;; the sublist may contain multiple entries if needed
                ;; example: for a 16-bar MMR it returns '((3 3) () () ())
                (dur-log-amounts
-                 ;; (iota 4 3 -1) is the list of possible duration-logs for MMRs
-                 (map make-list counted-glyphs-list (iota 4 3 -1)))
+                ;; (iota 4 3 -1) is the list of possible duration-logs for MMRs
+                (map make-list counted-glyphs-list (iota 4 3 -1)))
                ;; get a flat list of found MMR-glyphs-candidates
                (glyph-string-list
-                 (append-map
-                   (lambda (x)
-                     (if (null? x)
-                         (list "")
-                         (map
-                           (lambda (y) (get-glyph-name-candidates y style))
-                           x)))
-                   dur-log-amounts))
+                (append-map
+                 (lambda (x)
+                   (if (null? x)
+                       (list "")
+                       (map
+                        (lambda (y) (get-glyph-name-candidates y style))
+                        x)))
+                 dur-log-amounts))
                ;; ensure current font is 'fetaMusic, deny any font-name setting
                ;; from elsewhere
                (font
-                 (ly:paper-get-font
-                   layout
-                   (cons '((font-encoding . fetaMusic)
-                           (font-name . #f))
-                         props)))
+                (ly:paper-get-font
+                 layout
+                 (cons '((font-encoding . fetaMusic)
+                         (font-name . #f))
+                       props)))
                ;; get a list of glyph-stencils, ready to build the final MMR
                (glyph-stils
-                 (map
-                   (lambda (count cand)
-                     ;; examine the glyph-candidate:
-                     ;; if not found in current font replace it with a
-                     ;; default-style glyph
-                     (let* ((stil-cand (ly:font-get-glyph font cand))
-                            (stil
-                              (if (ly:stencil-empty? stil-cand)
-                                  (ly:font-get-glyph
-                                    font
-                                    (get-glyph-name-candidates count 'default))
-                                  stil-cand)))
-                       ;; Return false for a string-null-candidate, will be
-                       ;; filtered lateron.
-                       ;; If duration-log of the MMR-glyph is zero move it up by
-                       ;; one staff-space
-                       (if (string-null? cand)
-                           #f
-                           (ly:stencil-translate-axis
-                             stil
-                             (if (zero? count) staff-space 0)
-                             Y))))
-                   (iota 4 3 -1)
-                   glyph-string-list)))
-              ;; `stack-stencil-line` removes non-stencils
-              (set! mmr-stil (stack-stencil-line word-space glyph-stils))))
+                (map
+                 (lambda (count cand)
+                   ;; examine the glyph-candidate:
+                   ;; if not found in current font replace it with a
+                   ;; default-style glyph
+                   (let* ((stil-cand (ly:font-get-glyph font cand))
+                          (stil
+                           (if (ly:stencil-empty? stil-cand)
+                               (ly:font-get-glyph
+                                font
+                                (get-glyph-name-candidates count 'default))
+                               stil-cand)))
+                     ;; Return false for a string-null-candidate, will be
+                     ;; filtered lateron.
+                     ;; If duration-log of the MMR-glyph is zero move it up by
+                     ;; one staff-space
+                     (if (string-null? cand)
+                         #f
+                         (ly:stencil-translate-axis
+                          stil
+                          (if (zero? count) staff-space 0)
+                          Y))))
+                 (iota 4 3 -1)
+                 glyph-string-list)))
+          ;; `stack-stencil-line` removes non-stencils
+          (set! mmr-stil (stack-stencil-line word-space glyph-stils))))
 
     ;; Print the number above a multi-measure-rest.
     ;; Depends on duration, style and multi-measure-rest-number set #t
     (if (or (> duration-scale expand-limit)
             (and multi-measure-rest-number
-                (> duration-scale 1)
-                (not (member style '(neomensural mensural petrucci)))))
+                 (> duration-scale 1)
+                 (not (member style '(neomensural mensural petrucci)))))
         (let* ((mmr-stil-x-center
-                 (interval-center (ly:stencil-extent mmr-stil X)))
+                (interval-center (ly:stencil-extent mmr-stil X)))
                (duration-markup
-                 (make-fontsize-markup -2
-                   (make-override-markup '(font-encoding . fetaText)
-                     (number->string duration-scale))))
+                (make-fontsize-markup -2
+                                      (make-override-markup '(font-encoding . fetaText)
+                                                            (number->string duration-scale))))
                (mmr-number-stil
-                 (interpret-markup layout props duration-markup))
+                (interpret-markup layout props duration-markup))
                (mmr-number-stil-x-center
-                 (interval-center (ly:stencil-extent mmr-number-stil X))))
+                (interval-center (ly:stencil-extent mmr-number-stil X))))
 
           (set! mmr-stil
                 (ly:stencil-combine-at-edge
-                  mmr-stil
-                  Y UP
-                  (ly:stencil-translate-axis
-                    mmr-number-stil
-                    (- mmr-stil-x-center mmr-number-stil-x-center)
-                    X)
-                  ;; Ugh, hardcoded
-                  (if (> duration-scale expand-limit) 0 0.8)))))
+                 mmr-stil
+                 Y UP
+                 (ly:stencil-translate-axis
+                  mmr-number-stil
+                  (- mmr-stil-x-center mmr-number-stil-x-center)
+                  X)
+                 ;; Ugh, hardcoded
+                 (if (> duration-scale expand-limit) 0 0.8)))))
     mmr-stil))
 
 (define-markup-command (rest layout props duration)
@@ -4505,7 +4505,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
   #:properties (rest-by-number-markup
                 multi-measure-rest-by-number-markup)
   ;; TODO: as-string?
-"
+  "
 @cindex rest, within text, by duration
 @cindex multi-measure rest, within text, by duration
 
@@ -5092,8 +5092,8 @@ The @code{key} is the string to be replaced by the @code{value} string.
   (interpret-markup
    layout
    (prepend-alist-chain 'replacement-alist
-    (append replacement-alist replacements)
-    props)
+                        (append replacement-alist replacements)
+                        props)
    arg))
 
 
@@ -5392,7 +5392,7 @@ list commands like @code{\\column}, @code{\\line}, etc.
 }
 @end lilypond"
   (interpret-markup-list layout props
-    (map string-trim-both (string-split strg split-char))))
+                         (map string-trim-both (string-split strg split-char))))
 
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)

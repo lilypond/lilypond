@@ -328,9 +328,9 @@ segni to avoid ambiguity."
         (begin
           (set! fig-markup
                 (make-translate-markup
-                  (cons (if alt-bracket -0.5 0) 0)
-                  (make-left-align-markup
-                    (make-pad-x-markup 0.3 alt-markup))))
+                 (cons (if alt-bracket -0.5 0) 0)
+                 (make-left-align-markup
+                  (make-pad-x-markup 0.3 alt-markup))))
           (set! alt-markup #f)))
 
     ;; hmm, how to get figures centered between note, and
@@ -777,12 +777,12 @@ chords.  Returns a placement-list."
 
 (define-public
   (determine-frets context notes specified-info . rest)
-    (let ((string-fret-finger-list
-            (determine-string-fret-finger context notes specified-info rest)))
-      (if (list? string-fret-finger-list)
-          (ly:context-set-property!
-            context 'stringFretFingerList string-fret-finger-list))
-      string-fret-finger-list))
+  (let ((string-fret-finger-list
+         (determine-string-fret-finger context notes specified-info rest)))
+    (if (list? string-fret-finger-list)
+        (ly:context-set-property!
+         context 'stringFretFingerList string-fret-finger-list))
+    string-fret-finger-list))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tablature

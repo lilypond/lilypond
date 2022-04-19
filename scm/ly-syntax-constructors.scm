@@ -362,13 +362,13 @@ into a @code{MultiMeasureTextEvent}."
                               (mods (cdr mus+mods))
                               (loc (ly:music-property mus 'origin))
                               (el (make-lyric-combine voice-name voice-type mus)))
-                        (ly:set-origin! el loc)
-                        (ly:set-origin! (make-music 'ContextSpeccedMusic
-                                                    'create-new #t
-                                                    'context-type 'Lyrics
-                                                    'property-operations mods
-                                                    'element el)
-                                        loc)
-                        ))
+                         (ly:set-origin! el loc)
+                         (ly:set-origin! (make-music 'ContextSpeccedMusic
+                                                     'create-new #t
+                                                     'context-type 'Lyrics
+                                                     'property-operations mods
+                                                     'element el)
+                                         loc)
+                         ))
                      addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))

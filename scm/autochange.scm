@@ -61,12 +61,12 @@ the direction of subsequent notes is seen.
                                     'change-to-type 'Staff
                                     'change-to-id (if (< dir 0) "down" "up"))))
                 (generate-change-music-list now
-                                     dir
-                                     #f
-                                     (cdr event-list)
-                                     (cons change-music
-                                           (cons skip-music
-                                                 acc))))
+                                            dir
+                                            #f
+                                            (cdr event-list)
+                                            (cons change-music
+                                                  (cons skip-music
+                                                        acc))))
               (generate-change-music-list
                prev-change-mom
                prev-dir

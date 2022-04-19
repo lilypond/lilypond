@@ -48,12 +48,12 @@ Syntax: (define-display-method MusicType (expression)
         (method (lambda (param)
                   form
                   ...)))
-     (set! type-props
-           (assoc-set! type-props 'display-methods (list method)))
-     (hashq-set! music-name-to-property-table
-                 'music-type
-                 type-props)
-     method))
+    (set! type-props
+          (assoc-set! type-props 'display-methods (list method)))
+    (hashq-set! music-name-to-property-table
+                'music-type
+                type-props)
+    method))
 
 (define-syntax-rule (define-extra-display-method music-type (param) form ...)
   "Add a display method for a music type.  A primary display method

@@ -400,7 +400,7 @@ bookoutput function"
                    (ly:music-warning
                     music
                     (format #f (G_ "Cannot find context-def \\~a")
-                               (ly:music-property m 'context-type)))
+                            (ly:music-property m 'context-type)))
                    (for-each
                     (lambda (entry)
                       (ly:output-def-set-variable!
@@ -885,27 +885,27 @@ Choices include @code{arabic}, @code{custom}, @code{roman-ij-lower},
 For @code{custom}, @var{custom-format} must be present; it gets
 applied to @var{num}."
   (case number-type
-   ((roman-lower)
-    (ice9-format #f "~(~@r~)" num))
-   ((roman-upper)
-    (ice9-format #f "~@r" num))
-   ((arabic)
-    (ice9-format #f "~d" num))
-   ((custom)
-    (ice9-format #f (car custom-format) num))
-   ((roman-ij-lower)
-    (let* ((text (ice9-format #f "~(~@r~)" num))
-           (text (string-regexp-substitute "i$" "j" text))
-           (text (string-regexp-substitute
-                  "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
-      text))
-   ((roman-ij-upper)
-    (let* ((text (ice9-format #f "~@r" num))
-           (text (string-regexp-substitute "I$" "J" text))
-           (text (string-regexp-substitute
-                  "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
-      text))
-   (else (ice9-format #f "~(~@r~)" num))))
+    ((roman-lower)
+     (ice9-format #f "~(~@r~)" num))
+    ((roman-upper)
+     (ice9-format #f "~@r" num))
+    ((arabic)
+     (ice9-format #f "~d" num))
+    ((custom)
+     (ice9-format #f (car custom-format) num))
+    ((roman-ij-lower)
+     (let* ((text (ice9-format #f "~(~@r~)" num))
+            (text (string-regexp-substitute "i$" "j" text))
+            (text (string-regexp-substitute
+                   "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
+       text))
+    ((roman-ij-upper)
+     (let* ((text (ice9-format #f "~@r" num))
+            (text (string-regexp-substitute "I$" "J" text))
+            (text (string-regexp-substitute
+                   "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
+       text))
+    (else (ice9-format #f "~(~@r~)" num))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lilypond version
@@ -934,33 +934,33 @@ numbers."
   (let* ((warned #f)
          (output
           (match (string-split str #\.)
-           ((major minor patch my-patch)
-            (list (string->number major)
-                  (string->number minor)
-                  (string->number patch)
-                  (string->symbol my-patch)))
-           ((major minor patch)
-            (list (string->number major)
-                  (string->number minor)
-                  (string->number patch)))
-           ((major minor)
-            ;; Accept \version "x.y" without third component, but only
-            ;; if y is even, i.e. it's a stable release series.  Within
-            ;; a development release series, syntax changes with point
-            ;; releases so convert-ly needs the specific one.
-            (let ((major-int (string->number major))
-                  (minor-int (string->number minor)))
-              (cond
-               ((not (and major-int minor-int))
-                #f)
-               ((odd? minor-int)
-                (ly:non-fatal-error (G_ "version with third number omitted is only allowed for stable releases \
+            ((major minor patch my-patch)
+             (list (string->number major)
+                   (string->number minor)
+                   (string->number patch)
+                   (string->symbol my-patch)))
+            ((major minor patch)
+             (list (string->number major)
+                   (string->number minor)
+                   (string->number patch)))
+            ((major minor)
+             ;; Accept \version "x.y" without third component, but only
+             ;; if y is even, i.e. it's a stable release series.  Within
+             ;; a development release series, syntax changes with point
+             ;; releases so convert-ly needs the specific one.
+             (let ((major-int (string->number major))
+                   (minor-int (string->number minor)))
+               (cond
+                ((not (and major-int minor-int))
+                 #f)
+                ((odd? minor-int)
+                 (ly:non-fatal-error (G_ "version with third number omitted is only allowed for stable releases \
 (when the second number is even)"))
-                (set! warned #t)
-                #f)
-               (else
-                (list major-int minor-int)))))
-           (else #f))))
+                 (set! warned #t)
+                 #f)
+                (else
+                 (list major-int minor-int)))))
+            (else #f))))
     (cond
      (warned
       #f)
@@ -996,9 +996,9 @@ emitted and the version is considered invalid."
 
 (define convert-ly-msg
   (match (ly:version)
-   ((major minor . rest)
-    (format #f
-            (G_ "\
+    ((major minor . rest)
+     (format #f
+             (G_ "\
 
 Note: compilation failed and \\version outdated, did you
 update input syntax with convert-ly?
@@ -1006,8 +1006,8 @@ update input syntax with convert-ly?
   https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly
 
 ")
-            major
-            minor))))
+             major
+             minor))))
 
 ;; Always used with (ly:version) for lilypond-version, but it's
 ;; an argument for the sake of regression testing.
@@ -1020,19 +1020,19 @@ version number) with a lower patch level (third number).  A stable
 version from the same series does not count as outdated because
 compatibility is preserved."
   (match
-   lily-version
-   ((major minor patch . _)
-    (match
-     file-version
-     ((file-major file-minor . rest)
-      (or (> major file-major)
-          (and (eqv? major file-major)
-               (or (> minor file-minor)
-                   (and (eqv? minor file-minor)
-                        (odd? minor)
-                        (match rest
-                         (() #f)
-                         ((file-patch . _) (> patch file-patch))))))))))))
+      lily-version
+    ((major minor patch . _)
+     (match
+         file-version
+       ((file-major file-minor . rest)
+        (or (> major file-major)
+            (and (eqv? major file-major)
+                 (or (> minor file-minor)
+                     (and (eqv? minor file-minor)
+                          (odd? minor)
+                          (match rest
+                            (() #f)
+                            ((file-patch . _) (> patch file-patch))))))))))))
 
 (define-public (suggest-convert-ly-message version-seen)
   "Internally used when the file has an error, to suggest usage of

@@ -405,7 +405,7 @@ input files to be processed.")
     (strict-infinity-checking #f
                               "Force a crash on encountering Inf and NaN
 floating point exceptions.")
-  ))
+    ))
 
 ;; Need to do this in the beginning.  Other parts of the Scheme
 ;; initialization depend on these options.
@@ -875,10 +875,10 @@ PIDs or the number of the process."
 
 (define-public (session-start-record)
   (for-each (lambda (v)
-	    ;; import all public session variables natively into parser
-	    ;; module.  That makes them behave identically under define/set!
-	    (module-add! (current-module) (car v) (cdr v)))
-  lilypond-exports))
+              ;; import all public session variables natively into parser
+              ;; module.  That makes them behave identically under define/set!
+              (module-add! (current-module) (car v) (cdr v)))
+            lilypond-exports))
 
 (define-public (lilypond-all files)
   ;; Do this relatively late (after forking for multiple jobs), so Pango

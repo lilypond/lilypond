@@ -19,39 +19,39 @@
   (define (closest-beat ctx mp)
     ;; return the first on-beat measure position not before mp
     (let* ((mp (ly:moment-main mp))
-	   (tf (ly:context-property ctx 'timeSignatureFraction '(4 . 4)))
-	   (bmm (ly:context-property ctx 'baseMoment))
-	   (bm (if (ly:moment? bmm)
-		   (ly:moment-main bmm)
-		   (/ (cdr tf))))
-	   (bs (ly:context-property ctx 'beatStructure)))
+           (tf (ly:context-property ctx 'timeSignatureFraction '(4 . 4)))
+           (bmm (ly:context-property ctx 'baseMoment))
+           (bm (if (ly:moment? bmm)
+                   (ly:moment-main bmm)
+                   (/ (cdr tf))))
+           (bs (ly:context-property ctx 'beatStructure)))
       (let loop ((pos 0) (bs bs))
-	(cond ((>= pos mp) (ly:make-moment pos))
-	      ((pair? bs)
-	       (loop (+ pos (* bm (car bs))) (cdr bs)))
-	      (else
-	       ;; pos is an integral multiple of baseMoment and
-	       ;; still smaller than measurePosition, so after
-	       ;; having exhausted any possible beatStructure
-	       ;; without passing measurePosition, just rounding
-	       ;; measurePosition up to the next multiple of
-	       ;; baseMoment will be the correct answer without
-	       ;; requiring us to loop or to even consider the
-	       ;; iteration variable pos
-	       (ly:make-moment (* bm (ceiling (/ mp bm)))))))))
+        (cond ((>= pos mp) (ly:make-moment pos))
+              ((pair? bs)
+               (loop (+ pos (* bm (car bs))) (cdr bs)))
+              (else
+               ;; pos is an integral multiple of baseMoment and
+               ;; still smaller than measurePosition, so after
+               ;; having exhausted any possible beatStructure
+               ;; without passing measurePosition, just rounding
+               ;; measurePosition up to the next multiple of
+               ;; baseMoment will be the correct answer without
+               ;; requiring us to loop or to even consider the
+               ;; iteration variable pos
+               (ly:make-moment (* bm (ceiling (/ mp bm)))))))))
   (define fired #f)
   (define timeout #f)
   (define (emit ctx strong?)
     (set! fired
-	  (ly:make-stream-event
-	   (ly:make-event-class 'articulation-event)
-	   `(
-	     ;; We differentiate the "visuals" of the generated
-	     ;; events for debugging purposes: the performer is not
-	     ;; intended to be used while typesetting, but a
-	     ;; wrapper may add an "is-layout" property
-	     (articulation-type . ,(if strong? 'marcato 'accent))
-	     (midi-extra-velocity
+          (ly:make-stream-event
+           (ly:make-event-class 'articulation-event)
+           `(
+             ;; We differentiate the "visuals" of the generated
+             ;; events for debugging purposes: the performer is not
+             ;; intended to be used while typesetting, but a
+             ;; wrapper may add an "is-layout" property
+             (articulation-type . ,(if strong? 'marcato 'accent))
+             (midi-extra-velocity
               . ,(+ (or (ly:context-property ctx 'beatExtraVelocity 15) 0)
                     (or (and strong? (ly:context-property ctx 'barExtraVelocity 10))
                         0))))))
@@ -62,28 +62,28 @@
    ((process-music performer)
     ;; No syncope tracking across cadenze
     (and timeout (not (ly:context-property context 'timing))
-	 (set! timeout #f)))
+         (set! timeout #f)))
    (listeners
     ;; we have a listener for explicit articulation events in order
     ;; to let syncopated accents silence the next "regular" stress
     ((articulation-event performer event)
-     (cond ((eq? fired event))	; ignore our own events
-	   ((memq (ly:event-property event 'articulation-type)
-		    '(accent marcato))
-	    (let ((mp (ly:context-property context
-					   'measurePosition ZERO-MOMENT))
-		  (now (ly:context-current-moment context)))
-	      (set! timeout (ly:moment-add (closest-beat context mp)
-					   (ly:moment-sub now mp)))))))
+     (cond ((eq? fired event))  ; ignore our own events
+           ((memq (ly:event-property event 'articulation-type)
+                  '(accent marcato))
+            (let ((mp (ly:context-property context
+                                           'measurePosition ZERO-MOMENT))
+                  (now (ly:context-current-moment context)))
+              (set! timeout (ly:moment-add (closest-beat context mp)
+                                           (ly:moment-sub now mp)))))))
     ;; Listener for note events.
     ((note-event performer event)
      (and (not fired)
-	  (ly:context-property context 'timing)
-	  (not (and timeout (moment<=? (ly:context-current-moment context)
-				       timeout)))
-	  (let ((mp (ly:context-property context 'measurePosition ZERO-MOMENT)))
-	    (if (equal? mp (closest-beat context mp))
-		(emit context (equal? mp ZERO-MOMENT)))))))))
+          (ly:context-property context 'timing)
+          (not (and timeout (moment<=? (ly:context-current-moment context)
+                                       timeout)))
+          (let ((mp (ly:context-property context 'measurePosition ZERO-MOMENT)))
+            (if (equal? mp (closest-beat context mp))
+                (emit context (equal? mp ZERO-MOMENT)))))))))
 
 (ly:register-translator
  Beat_performer 'Beat_performer

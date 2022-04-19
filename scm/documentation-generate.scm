@@ -100,11 +100,11 @@
 
 (display
  (string-append
-   "\\input texinfo @c -*-texinfo-*-\n"
-   "@setfilename " file-name ".info\n"
-   "@documentlanguage en\n"
-   "@documentencoding UTF-8\n"
-   "
+  "\\input texinfo @c -*-texinfo-*-\n"
+  "@setfilename " file-name ".info\n"
+  "@documentlanguage en\n"
+  "@documentencoding UTF-8\n"
+  "
 
 @include en/macros.itexi
 

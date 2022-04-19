@@ -49,13 +49,13 @@
 ;; including signature and doc-string.
 (define all-primitive-function-docs-alist
   (hash-map->list
-    (lambda (name header-doc-string-pair)
-      (cons (symbol->string name)
-            (document-function name
+   (lambda (name header-doc-string-pair)
+     (cons (symbol->string name)
+           (document-function name
                               (format-c-header (car header-doc-string-pair))
                               (cdr header-doc-string-pair)
                               #f)))
-    (ly:get-all-function-documentation)))
+   (ly:get-all-function-documentation)))
 
 (define (format-scheme-signature proc)
   (let* ((signature (procedure-arguments proc))
@@ -64,24 +64,24 @@
          (keyword (assq-ref signature 'keyword))
          (rest (assq-ref signature 'rest)))
     (string-join
-      (append
-        (map
-          (lambda (sym)
-            (format #f "~a" sym))
-          required)
-        (map
-          (lambda (sym)
-            (format #f "[~a]" sym))
-          optional)
-        (map
-          (lambda (pair)
-            (format #f "#:~a" (car pair)))
-          keyword)
-        (if rest
-            (list
-              (format #f ". ~a" rest))
-            '()))
-      " ")))
+     (append
+      (map
+       (lambda (sym)
+         (format #f "~a" sym))
+       required)
+      (map
+       (lambda (sym)
+         (format #f "[~a]" sym))
+       optional)
+      (map
+       (lambda (pair)
+         (format #f "#:~a" (car pair)))
+       keyword)
+      (if rest
+          (list
+           (format #f ". ~a" rest))
+          '()))
+     " ")))
 
 ;; Same format as all-primitive-function-docs-alist.
 (define all-scheme-function-docs-alist
@@ -90,44 +90,44 @@
          (iface (module-public-interface module))
          (alist (ly:module->alist iface)))
     (filter-map
-      (lambda (entry)
-        (let* ((name (car entry))
-               (raw-value (cdr entry))
-               (is-macro (macro? raw-value))
-               (value (if is-macro
-                          (macro-transformer raw-value)
-                          raw-value)))
-          (if (and (procedure? value)
-                   ;; Exclude functions that are documented through the
-                   ;; C++ infrastructure (all-primitive-function-docs-alist
-                   ;; above).
-                   (not (hashq-get-handle (ly:get-all-function-documentation)
-                                          name))
-                   ;; Exclude xxx-markup functions, they are documented in NR.
-                   ;; Note that make-xxx-markup is excluded by the documentation
-                   ;; check (those don't have doc-strings).
-                   (not (or (markup-function? value)
-                            (markup-list-function? value))))
-              (let* ((doc-string (procedure-documentation value)))
-                ;; Many functions are publicly defined but do not need
-                ;; documentation, like all Scheme-defined callbacks,
-                ;; which are often self-telling and present in individual
-                ;; grobs' pages.  We only retain functions that have
-                ;; doc-strings.  If your pet function doesn't appear in
-                ;; the internals, please give it a doc-string!
-                (if doc-string
-                    (cons (symbol->string name)
-                          (document-function name
-                                             (if is-macro
-                                                 ;; Guile doesn't give us meaningful
-                                                 ;; signatures for macros.
-                                                 "@dots{}"
-                                                 (format-scheme-signature value))
-                                             doc-string
-                                             is-macro))
-                  #f))
-              #f)))
-      alist)))
+     (lambda (entry)
+       (let* ((name (car entry))
+              (raw-value (cdr entry))
+              (is-macro (macro? raw-value))
+              (value (if is-macro
+                         (macro-transformer raw-value)
+                         raw-value)))
+         (if (and (procedure? value)
+                  ;; Exclude functions that are documented through the
+                  ;; C++ infrastructure (all-primitive-function-docs-alist
+                  ;; above).
+                  (not (hashq-get-handle (ly:get-all-function-documentation)
+                                         name))
+                  ;; Exclude xxx-markup functions, they are documented in NR.
+                  ;; Note that make-xxx-markup is excluded by the documentation
+                  ;; check (those don't have doc-strings).
+                  (not (or (markup-function? value)
+                           (markup-list-function? value))))
+             (let* ((doc-string (procedure-documentation value)))
+               ;; Many functions are publicly defined but do not need
+               ;; documentation, like all Scheme-defined callbacks,
+               ;; which are often self-telling and present in individual
+               ;; grobs' pages.  We only retain functions that have
+               ;; doc-strings.  If your pet function doesn't appear in
+               ;; the internals, please give it a doc-string!
+               (if doc-string
+                   (cons (symbol->string name)
+                         (document-function name
+                                            (if is-macro
+                                                ;; Guile doesn't give us meaningful
+                                                ;; signatures for macros.
+                                                "@dots{}"
+                                                (format-scheme-signature value))
+                                            doc-string
+                                            is-macro))
+                   #f))
+             #f)))
+     alist)))
 
 ;; We want to sort without taking the ly: prefix into account.
 (define (no-ly-prefix-key name-doc-alist-entry)
@@ -138,14 +138,14 @@
 
 (define (all-functions-doc)
   (let* ((all-function-doc-alists
-           (append
-             all-primitive-function-docs-alist
-             all-scheme-function-docs-alist))
+          (append
+           all-primitive-function-docs-alist
+           all-scheme-function-docs-alist))
          (sorted-alist
-           (sort all-function-doc-alists
-                 (comparator-from-key no-ly-prefix-key ly:string-ci<?)))
+          (sort all-function-doc-alists
+                (comparator-from-key no-ly-prefix-key ly:string-ci<?)))
          (formatted-docs
-           (map cdr sorted-alist)))
+          (map cdr sorted-alist)))
     (make <texi-node>
       #:name "Scheme functions"
       #:desc "Functions exported by LilyPond."

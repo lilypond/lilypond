@@ -439,8 +439,8 @@ is not used within the routine."
           ;; colliding with staff lines.
           (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
                  (lines-pos (if (ly:grob? staff-symbol)
-                               (staff-symbol-line-positions staff-symbol)
-                               '()))
+                                (staff-symbol-line-positions staff-symbol)
+                                '()))
                  (even-interval (cons
                                  (if (even? bottom-pos)
                                      bottom-pos
@@ -1007,7 +1007,7 @@ no elements."
             (append volta-bracket-allow-volta-hook-list
                     (list bar-glyph)))
       (ly:warning (G_ ("Volta hook bar line must be a string; ignoring '~a'.")
-                     bar-glyph))))
+                      bar-glyph))))
 
 (define-session volta-bracket-allow-volta-hook-list '())
 

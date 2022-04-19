@@ -26,9 +26,9 @@
            (ly:inch 1)))
       (define (in->mm in)
         (inexact->exact
-          (round
-            (/ (ly:inch in)
-               (ly:mm 1)))))
+         (round
+          (/ (ly:inch in)
+             (ly:mm 1)))))
       (format #f
               "
 @noindent

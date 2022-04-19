@@ -326,11 +326,11 @@ created."
 
 (define (write-lilypond-book-aux-files basename count)
   (let* ((write-file (lambda (str-port ext)
-                           (let* ((name (format #f "~a-systems.~a" basename ext))
-                                  (port (make-tmpfile (dirname basename))))
-                             (ly:message (G_ "Writing ~a...") name)
-                             (display (get-output-string str-port) port)
-                             (close-port-rename port name))))
+                       (let* ((name (format #f "~a-systems.~a" basename ext))
+                              (port (make-tmpfile (dirname basename))))
+                         (ly:message (G_ "Writing ~a...") name)
+                         (display (get-output-string str-port) port)
+                         (close-port-rename port name))))
          (tex-system-port (open-output-string))
          (texi-system-port (open-output-string))
          (count-system-port (open-output-string)))
@@ -427,9 +427,9 @@ created."
 (define-public (generate-crop-stencil paper-book)
   "Returns a stencil for the cropped output of the given Paper_book"
   (let* ((systems (relevant-book-systems paper-book)))
-     (stack-stencils Y DOWN 0.0
-                     (map paper-system-stencil
-                          (reverse (reverse systems))))))
+    (stack-stencils Y DOWN 0.0
+                    (map paper-system-stencil
+                         (reverse (reverse systems))))))
 
 (define (clip-systems-to-region-stencils basename systems region)
   "Returns NAME . STENCIL alist"
@@ -466,14 +466,14 @@ created."
         ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
          (regions (ly:output-def-lookup layout 'clip-regions)))
       (apply append (map
-       (lambda (region)
-         (clip-systems-to-region-stencils
-          (format #f "~a-from-~a-to-~a-clip"
-                  basename
-                  (rhythmic-location->file-string (car region))
-                  (rhythmic-location->file-string (cdr region)))
-          systems region))
-       regions))))
+                     (lambda (region)
+                       (clip-systems-to-region-stencils
+                        (format #f "~a-from-~a-to-~a-clip"
+                                basename
+                                (rhythmic-location->file-string (car region))
+                                (rhythmic-location->file-string (cdr region)))
+                        systems region))
+                     regions))))
 
   ;; partition in system lists sharing their layout blocks
   (let* ((count 0)
@@ -492,13 +492,13 @@ created."
      systems)
 
     (apply append (map (lambda (system-list)
-                ;; filter out headers and top-level markup
-                (if (pair? system-list)
-                    (clip-score-systems-stencils
-                     (if (> count 0)
-                         (format #f "~a-~a" basename count)
-                         basename)
-                     system-list)))
+                         ;; filter out headers and top-level markup
+                         (if (pair? system-list)
+                             (clip-score-systems-stencils
+                              (if (> count 0)
+                                  (format #f "~a-~a" basename count)
+                                  basename)
+                              system-list)))
                        score-system-list))))
 
 (define (generate-system-stencils paper-book)
@@ -517,13 +517,13 @@ created."
                              stencils))
                  0.0)))
 
-  (map (lambda (stil)
-         (ly:make-stencil
-          (ly:stencil-expr stil)
-          (cons left
-                (cdr (ly:stencil-extent stil X)))
-          (ly:stencil-extent stil Y)))
-       stencils)))
+    (map (lambda (stil)
+           (ly:make-stencil
+            (ly:stencil-expr stil)
+            (cons left
+                  (cdr (ly:stencil-extent stil X)))
+            (ly:stencil-extent stil Y)))
+         stencils)))
 
 (define-public (font-name-split font-name)
   "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}

@@ -90,14 +90,14 @@ tspan { white-space: pre; }
                 (copy-file woff-file url)
                 (ly:progress "\n")))
           (format #f
-           "@font-face {
+                  "@font-face {
 font-family: '~a';
 font-weight: normal;
 font-style: normal;
 src: url('~a');
 }
 "
-           font-name url))
+                  font-name url))
         "")))
 
 (define (style-defs-end)
@@ -170,5 +170,3 @@ src: url('~a');
                               (file-suffix page-number)))
        (output-stencil filename page paper '("svg")))
      stencils)))
-
-

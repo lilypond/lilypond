@@ -27,13 +27,13 @@
   (memq type (ly:music-property mus 'types)))
 
 (eval-when (expand load eval)
- (define-safe-public (music-type-predicate types)
-   "Return a predicate function that can be used for checking
+  (define-safe-public (music-type-predicate types)
+    "Return a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
-   (if (cheap-list? types)
-       (lambda (m)
-         (any (lambda (t) (music-is-of-type? m t)) types))
-       (lambda (m) (music-is-of-type? m types)))))
+    (if (cheap-list? types)
+        (lambda (m)
+          (any (lambda (t) (music-is-of-type? m t)) types))
+        (lambda (m) (music-is-of-type? m types)))))
 
 (define-public (music-selective-map descend? function music)
   "Apply @var{function} recursively to @var{music}, but refrain
@@ -728,15 +728,15 @@ making it possible to @code{\\revert} to any previous value afterwards."
               'symbol sym))
 
 (define-safe-public (make-articulation name . properties)
-;; -----------------------------------------------------------------
-;; obsoletion handling, may be removed at some point (e.g. for 2.26)
+  ;; -----------------------------------------------------------------
+  ;; obsoletion handling, may be removed at some point (e.g. for 2.26)
   (if (string? name)
       (begin
-       (ly:warning "articulation types should be symbols instead of \
+        (ly:warning "articulation types should be symbols instead of \
 strings since 2.23.6. Please replace (make-articulation \"~a\" ...) \
 by (make-articulation '~a ...) or run convert-ly." name name)
-       (set! name (string->symbol name))))
-;; -----------------------------------------------------------------
+        (set! name (string->symbol name))))
+  ;; -----------------------------------------------------------------
   (apply make-music 'ArticulationEvent
          'articulation-type name
          properties))
@@ -1202,76 +1202,76 @@ actually fully cloned."
   predicates, to be used in case of a type error in arguments or
   result."
 
-  (define (format-docstring docstring args)
-    (format #f "~a\n~a"
-            (syntax->datum args)
-            (syntax->datum docstring)))
+    (define (format-docstring docstring args)
+      (format #f "~a\n~a"
+              (syntax->datum args)
+              (syntax->datum docstring)))
 
-  (define (take-body-docstring body)
-    (syntax-case body (_i)
-      ;; A string and nothing else in the function is not the docstring
-      ;; but the return value.
-      (((_i doc) b . b*)
-       (string? (syntax->datum #'doc))
-       ;; If the body starts with (_i "literal string"), strip the _i so that
-       ;; the docstring will be recognized on the lambda.
-       (values #'doc #'(b . b*)))
-      ((doc b . b*)
-       (string? (syntax->datum #'doc))
-       (values #'doc #'(b . b*)))
-      (else
-       (values "" body))))
+    (define (take-body-docstring body)
+      (syntax-case body (_i)
+        ;; A string and nothing else in the function is not the docstring
+        ;; but the return value.
+        (((_i doc) b . b*)
+         (string? (syntax->datum #'doc))
+         ;; If the body starts with (_i "literal string"), strip the _i so that
+         ;; the docstring will be recognized on the lambda.
+         (values #'doc #'(b . b*)))
+        ((doc b . b*)
+         (string? (syntax->datum #'doc))
+         (values #'doc #'(b . b*)))
+        (else
+         (values "" body))))
 
-  (define (final-lambda compatibility docstring args fixed-body)
-    (let ((fixed-docstring (format-docstring docstring args)))
-      (match compatibility
-        ((parser-arg location-arg)
-         #`(lambda #,args
-             #,fixed-docstring
-             (let ((#,parser-arg (*parser*))
-                   (#,location-arg (*location*)))
-               . #,fixed-body)))
-        (#f
-         #`(lambda #,args
-             #,fixed-docstring
-             . #,fixed-body)))))
+    (define (final-lambda compatibility docstring args fixed-body)
+      (let ((fixed-docstring (format-docstring docstring args)))
+        (match compatibility
+          ((parser-arg location-arg)
+           #`(lambda #,args
+               #,fixed-docstring
+               (let ((#,parser-arg (*parser*))
+                     (#,location-arg (*location*)))
+                 . #,fixed-body)))
+          (#f
+           #`(lambda #,args
+               #,fixed-docstring
+               . #,fixed-body)))))
 
-  (define (currying-lambda args docstring body signature-length)
-    (syntax-case args ()
-      (((head . head-rest) . rest)
-       (currying-lambda #'(head . head-rest)
-                        ;; Keep moving docstring to outermost lambda.
-                        docstring
-                        #`((lambda rest . #,body))
-                        signature-length))
-      ;; Backwards compatibility heuristic: if the arguments contain 2 more
-      ;; elements than the signature, assume they're parser and location.
-      ((parser-arg location-arg other-arg ...)
-       (eqv? signature-length (length #'(other-arg ...)))
-       (final-lambda (list #'parser-arg #'location-arg)
-                     docstring
-                     #'(other-arg ...)
-                     body))
-      ((arg ...)
-       (final-lambda #f
-                     docstring
-                     args
-                     body))
-      ;; If the arguments do not form a list, as with fancy stuff like
-      ;; #(define-music-function (arg1 . rest) (integer? (integer? 5) string?) ...),
-      ;; fall back to a poorer heuristic: the beginning is list-like
-      ;; and it starts with an argument called "parser".
-      ((parser-arg location-arg . rest)
-       (eq? 'parser (syntax->datum #'parser-arg))
-       (final-lambda (list #'parser-arg #'location-arg)
-                     docstring
-                     #'rest
-                     body))
-      (else
-       (final-lambda #f
-                     docstring
-                     args
-                     body))))
+    (define (currying-lambda args docstring body signature-length)
+      (syntax-case args ()
+        (((head . head-rest) . rest)
+         (currying-lambda #'(head . head-rest)
+                          ;; Keep moving docstring to outermost lambda.
+                          docstring
+                          #`((lambda rest . #,body))
+                          signature-length))
+        ;; Backwards compatibility heuristic: if the arguments contain 2 more
+        ;; elements than the signature, assume they're parser and location.
+        ((parser-arg location-arg other-arg ...)
+         (eqv? signature-length (length #'(other-arg ...)))
+         (final-lambda (list #'parser-arg #'location-arg)
+                       docstring
+                       #'(other-arg ...)
+                       body))
+        ((arg ...)
+         (final-lambda #f
+                       docstring
+                       args
+                       body))
+        ;; If the arguments do not form a list, as with fancy stuff like
+        ;; #(define-music-function (arg1 . rest) (integer? (integer? 5) string?) ...),
+        ;; fall back to a poorer heuristic: the beginning is list-like
+        ;; and it starts with an argument called "parser".
+        ((parser-arg location-arg . rest)
+         (eq? 'parser (syntax->datum #'parser-arg))
+         (final-lambda (list #'parser-arg #'location-arg)
+                       docstring
+                       #'rest
+                       body))
+        (else
+         (final-lambda #f
+                       docstring
+                       args
+                       body))))
 
     ;; Argument types can be specified as (predicate? default), where `default`
     ;; gets used when the respective argument is skipped.
@@ -1287,11 +1287,11 @@ actually fully cloned."
         #`(ly:make-music-function
            (list #,(maybe-default #'type)
                  #,@(map maybe-default #'(sig ...)))
-            #,(currying-lambda
-               #'args
-               docstring
-               fixed-body
-               (length #'(sig ...))))))))
+           #,(currying-lambda
+              #'args
+              docstring
+              fixed-body
+              (length #'(sig ...))))))))
 
 (define-syntax-rule-public (define-music-function elt ...)
   "Define and return a music function.  Syntax:

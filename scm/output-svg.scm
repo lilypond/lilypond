@@ -508,14 +508,14 @@
 
                 (set! have-grob-cause? #t)
                 (format #f "<a style=\"color:inherit;\" xlink:href=\"textedit://~a:~a:~a:~a\">\n"
-                           ;; Backslashes are not valid
-                           ;; file URI path separators.
-                           (ly:string-percent-encode
-                            (ly:string-substitute "\\" "/" file))
+                        ;; Backslashes are not valid
+                        ;; file URI path separators.
+                        (ly:string-percent-encode
+                         (ly:string-substitute "\\" "/" file))
 
-                           (cadr location)
-                           (caddr location)
-                           (1+ (cadddr location))))))
+                        (cadr location)
+                        (caddr location)
+                        (1+ (cadddr location))))))
        "")))
 
 (define (no-origin)
@@ -613,11 +613,11 @@
 (define* (setcolor r g b #:optional (a #f))
   (string-append
    "<g color=\""
-       (if (and (number? a) (< a 1.0))
-           (ly:format "rgba(~4f%, ~4f%, ~4f%, ~4f%)"
-                      (* 100 r) (* 100 g) (* 100 b) (* 100 a))
-           (ly:format "rgb(~4f%, ~4f%, ~4f%)"
-                      (* 100 r) (* 100 g) (* 100 b)))
+   (if (and (number? a) (< a 1.0))
+       (ly:format "rgba(~4f%, ~4f%, ~4f%, ~4f%)"
+                  (* 100 r) (* 100 g) (* 100 b) (* 100 a))
+       (ly:format "rgb(~4f%, ~4f%, ~4f%)"
+                  (* 100 r) (* 100 g) (* 100 b)))
    "\">\n"))
 
 ;; rotate around given point

@@ -69,8 +69,8 @@ longer needed."
          (set! stop-event event)))))
 
      (acknowledgers
-       ((bar-line-interface engraver grob source-engraver)
-          (set! now-is-bar-line #t)))
+      ((bar-line-interface engraver grob source-engraver)
+       (set! now-is-bar-line #t)))
 
      ((process-acknowledged trans)
       (when (and now-is-bar-line
@@ -98,26 +98,26 @@ longer needed."
                           ;; Measure counter spanning over a compressed MM rest.
                           (let* ((counter (ly:grob-property count-spanner 'count-from))
                                  (right-number
-                                   (1- (+ counter
-                                          (- current-bar first-measure-in-count)))))
+                                  (1- (+ counter
+                                         (- current-bar first-measure-in-count)))))
                             (set-counter-text!
-                              count-spanner
-                              'right-number-text
-                              right-number
-                              ;; Edge case of compressed MM rests in alternatives.
-                              ;; It would be wrong to take the context's
-                              ;; alternativeNumber here, because we are
-                              ;; looking behind at the last measure before
-                              ;; this one.  Actually, a compressed MM rest
-                              ;; is one single time step, so there is no
-                              ;; right time where we could look up the property.
-                              ;; Fortunately, MM rests from different alternatives
-                              ;; cannot be compressed together, so we can just take
-                              ;; the alternative number that was current at the
-                              ;; time of the start of this measure counter.
-                              last-alternative-number
-                              measure-pos
-                              context)))
+                             count-spanner
+                             'right-number-text
+                             right-number
+                             ;; Edge case of compressed MM rests in alternatives.
+                             ;; It would be wrong to take the context's
+                             ;; alternativeNumber here, because we are
+                             ;; looking behind at the last measure before
+                             ;; this one.  Actually, a compressed MM rest
+                             ;; is one single time step, so there is no
+                             ;; right time where we could look up the property.
+                             ;; Fortunately, MM rests from different alternatives
+                             ;; cannot be compressed together, so we can just take
+                             ;; the alternative number that was current at the
+                             ;; time of the start of this measure counter.
+                             last-alternative-number
+                             measure-pos
+                             context)))
                       (set! count-spanner '())))
                 (if stop-event
                     (set! go? #f))
@@ -131,9 +131,9 @@ longer needed."
                     (let* ((c (ly:engraver-make-grob trans 'MeasureCounter col))
                            (counter (ly:grob-property c 'count-from))
                            (left-number
-                             (+ counter (- current-bar first-measure-in-count)))
+                            (+ counter (- current-bar first-measure-in-count)))
                            (alternative-number
-                             (ly:context-property context 'alternativeNumber 0)))
+                            (ly:context-property context 'alternativeNumber 0)))
                       (ly:spanner-set-bound! c LEFT col)
                       (ly:pointer-group-interface::add-grob c 'columns col)
                       (set-counter-text! c
@@ -613,15 +613,15 @@ Engraver to print a line representing the duration of a rhythmic event like
 
 
 (define-public Bend_spanner_engraver
-;; Creates a BendSpanner, sets its bounds, keeps track and sets
-;; details.successive-level in order to nest consecutive bends accordingly.
-;;
-;; Sets the property 'bend-me to decide which strings should be bent.
-;; Per default open strings should not be bent unless the user forces it.
-;; To know which note will be done on open strings we need to know the result
-;; of the 'noteToFretFunction'.
-;; User-specified StringNumbers are respected.
-;; Fingerings are not needed for setting 'bend-me, thus we disregard them.
+  ;; Creates a BendSpanner, sets its bounds, keeps track and sets
+  ;; details.successive-level in order to nest consecutive bends accordingly.
+  ;;
+  ;; Sets the property 'bend-me to decide which strings should be bent.
+  ;; Per default open strings should not be bent unless the user forces it.
+  ;; To know which note will be done on open strings we need to know the result
+  ;; of the 'noteToFretFunction'.
+  ;; User-specified StringNumbers are respected.
+  ;; Fingerings are not needed for setting 'bend-me, thus we disregard them.
   (lambda (context)
     (let ((bend-spanner #f)
           (bend-start #f)
@@ -631,149 +631,149 @@ Engraver to print a line representing the duration of a rhythmic event like
           (successive-lvl #f)
           (tab-note-heads '()))
       (make-engraver
-        ((initialize this-engraver)
-          ;; Set 'supportNonIntegerFret #t, if unspecified
-          (ly:context-set-property! context 'supportNonIntegerFret
-            (ly:context-property context 'supportNonIntegerFret #t)))
-        ((start-translation-timestep trans)
-          ;; Clear 'tab-note-heads' in order not to confuse 'excluding notes
-          ;; further below
-          (set! tab-note-heads '())
-          ;; Set 'bend-spanner' left-bound
-          ;; We do it in start-translation-timestep, because here we have access
-          ;; to the 'style-property
-          (if (and bend-spanner nc-start)
-              (begin
-                (ly:spanner-set-bound! bend-spanner LEFT nc-start)
-                ;; For consecutive BendSpanners, i.e. 'previous-bend-dir' is
-                ;; not #f, in/decrease details.successive-level with
-                ;;'previous-bend-dir' unless 'bend-style' is 'hold
-                (if (and previous-bend-dir successive-lvl)
-                    (let* ((hold-style?
-                             (eq? (ly:grob-property bend-spanner 'style) 'hold))
-                           (increase-lvl
-                             (if hold-style? 0 previous-bend-dir)))
-                      (ly:grob-set-nested-property!
-                        bend-spanner
-                        '(details successive-level)
-                        (+ successive-lvl increase-lvl))
+       ((initialize this-engraver)
+        ;; Set 'supportNonIntegerFret #t, if unspecified
+        (ly:context-set-property! context 'supportNonIntegerFret
+                                  (ly:context-property context 'supportNonIntegerFret #t)))
+       ((start-translation-timestep trans)
+        ;; Clear 'tab-note-heads' in order not to confuse 'excluding notes
+        ;; further below
+        (set! tab-note-heads '())
+        ;; Set 'bend-spanner' left-bound
+        ;; We do it in start-translation-timestep, because here we have access
+        ;; to the 'style-property
+        (if (and bend-spanner nc-start)
+            (begin
+              (ly:spanner-set-bound! bend-spanner LEFT nc-start)
+              ;; For consecutive BendSpanners, i.e. 'previous-bend-dir' is
+              ;; not #f, in/decrease details.successive-level with
+              ;;'previous-bend-dir' unless 'bend-style' is 'hold
+              (if (and previous-bend-dir successive-lvl)
+                  (let* ((hold-style?
+                          (eq? (ly:grob-property bend-spanner 'style) 'hold))
+                         (increase-lvl
+                          (if hold-style? 0 previous-bend-dir)))
+                    (ly:grob-set-nested-property!
+                     bend-spanner
+                     '(details successive-level)
+                     (+ successive-lvl increase-lvl))
                     (set! nc-start #f))))))
-        (listeners
-          ((bend-span-event this-engraver event)
-            (set! bend-start event)))
-        (acknowledgers
-          ((note-column-interface this-engraver grob source-engraver)
-            ;; Set the 'bend-me property for notes to be played on open strings
-            ;; Per default it will be set #f
-            ;; Relies on context-property stringFretFingerList.
-            ;;
-            ;; Needs to be done here in acknowledgers for note-column-interface,
-            ;; otherwise the calculation of bend-dir (relying only on notes
-            ;; actually prepares for bending, i.e. 'bend-me should not be #f)
-            ;; may cause wrong results.
-            (for-each
-              (lambda (tnh strg-frt-fngr)
-                (if (eq? 0 (cadr strg-frt-fngr))
-                    (ly:grob-set-property! tnh 'bend-me
-                      (ly:grob-property tnh 'bend-me #f))))
-              (reverse tab-note-heads)
-              (ly:context-property context 'stringFretFingerList))
+       (listeners
+        ((bend-span-event this-engraver event)
+         (set! bend-start event)))
+       (acknowledgers
+        ((note-column-interface this-engraver grob source-engraver)
+         ;; Set the 'bend-me property for notes to be played on open strings
+         ;; Per default it will be set #f
+         ;; Relies on context-property stringFretFingerList.
+         ;;
+         ;; Needs to be done here in acknowledgers for note-column-interface,
+         ;; otherwise the calculation of bend-dir (relying only on notes
+         ;; actually prepares for bending, i.e. 'bend-me should not be #f)
+         ;; may cause wrong results.
+         (for-each
+          (lambda (tnh strg-frt-fngr)
+            (if (eq? 0 (cadr strg-frt-fngr))
+                (ly:grob-set-property! tnh 'bend-me
+                                       (ly:grob-property tnh 'bend-me #f))))
+          (reverse tab-note-heads)
+          (ly:context-property context 'stringFretFingerList))
 
             ;;;;
-            ;; End the bend-spanner, if found NoteColumn is suitable
+         ;; End the bend-spanner, if found NoteColumn is suitable
             ;;;;
-            (if (and bend-stop
-                     (ly:spanner? bend-spanner)
-                     (ly:grob-property grob 'bend-me #t)
-                     (not (ly:grob? (ly:spanner-bound bend-spanner RIGHT))))
-                (let* ((nhds-array (ly:grob-object grob 'note-heads))
-                       (nhds
-                         (if (ly:grob-array? nhds-array)
-                             (ly:grob-array->list nhds-array)
-                             #f))
-                       (style (ly:grob-property bend-spanner 'style 'default))
-                       (boundable?
-                         (and nhds
-                              (or
-                                 (eq? style 'pre-bend)
-                                 (ly:grob-property grob 'bend-me #t)))))
-                  (if boundable?
-                      (begin
-                        (ly:spanner-set-bound! bend-spanner RIGHT grob)
-                        (set! bend-stop #f)
-                        ;; Keep track of 'successive-level, to place
-                        ;; consecutive BendSpanners nicely and
-                        ;; in/decrease with 'previous-bend-dir'
-                        (let* ((details
-                                 (ly:grob-property bend-spanner 'details))
-                               (successive-level
-                                 (assoc-get 'successive-level details))
-                               (span-bound-pitches
-                                 (bounding-note-heads-pitches bend-spanner)))
-                         (if (and (pair? (car span-bound-pitches))
-                                  (pair? (cdr span-bound-pitches)))
-                             (let* ((quarter-diffs
-                                      (get-quarter-diffs span-bound-pitches))
-                                    (current-bend-dir
-                                      (if (negative? quarter-diffs) DOWN UP))
-                                    (consecutive-bend?
-                                      (and previous-bend-dir
-                                           (not (eqv? previous-bend-dir
-                                                      current-bend-dir)))))
-                               (set! successive-lvl successive-level)
-                               (if consecutive-bend?
-                                   (begin
-                                     (ly:grob-set-nested-property!
-                                       bend-spanner
-                                       '(details successive-level)
-                                       (+ successive-lvl current-bend-dir))
-                                     (set! successive-lvl
-                                           (+ successive-lvl
-                                              current-bend-dir))))
-                               (set! previous-bend-dir current-bend-dir)
-                               (set! bend-spanner #f))
-                             (begin
-                               (ly:warning (G_ "No notes found to start from,
+         (if (and bend-stop
+                  (ly:spanner? bend-spanner)
+                  (ly:grob-property grob 'bend-me #t)
+                  (not (ly:grob? (ly:spanner-bound bend-spanner RIGHT))))
+             (let* ((nhds-array (ly:grob-object grob 'note-heads))
+                    (nhds
+                     (if (ly:grob-array? nhds-array)
+                         (ly:grob-array->list nhds-array)
+                         #f))
+                    (style (ly:grob-property bend-spanner 'style 'default))
+                    (boundable?
+                     (and nhds
+                          (or
+                           (eq? style 'pre-bend)
+                           (ly:grob-property grob 'bend-me #t)))))
+               (if boundable?
+                   (begin
+                     (ly:spanner-set-bound! bend-spanner RIGHT grob)
+                     (set! bend-stop #f)
+                     ;; Keep track of 'successive-level, to place
+                     ;; consecutive BendSpanners nicely and
+                     ;; in/decrease with 'previous-bend-dir'
+                     (let* ((details
+                             (ly:grob-property bend-spanner 'details))
+                            (successive-level
+                             (assoc-get 'successive-level details))
+                            (span-bound-pitches
+                             (bounding-note-heads-pitches bend-spanner)))
+                       (if (and (pair? (car span-bound-pitches))
+                                (pair? (cdr span-bound-pitches)))
+                           (let* ((quarter-diffs
+                                   (get-quarter-diffs span-bound-pitches))
+                                  (current-bend-dir
+                                   (if (negative? quarter-diffs) DOWN UP))
+                                  (consecutive-bend?
+                                   (and previous-bend-dir
+                                        (not (eqv? previous-bend-dir
+                                                   current-bend-dir)))))
+                             (set! successive-lvl successive-level)
+                             (if consecutive-bend?
+                                 (begin
+                                   (ly:grob-set-nested-property!
+                                    bend-spanner
+                                    '(details successive-level)
+                                    (+ successive-lvl current-bend-dir))
+                                   (set! successive-lvl
+                                         (+ successive-lvl
+                                            current-bend-dir))))
+                             (set! previous-bend-dir current-bend-dir)
+                             (set! bend-spanner #f))
+                           (begin
+                             (ly:warning (G_ "No notes found to start from,
 ignoring. If you want to bend an open string, consider to override/tweak the
 'bend-me property."))
-                               (ly:grob-suicide! bend-spanner)))))
+                             (ly:grob-suicide! bend-spanner)))))
 
-                      (begin
-                        (set! successive-lvl #f)
-                        (set! previous-bend-dir #f)))))
+                   (begin
+                     (set! successive-lvl #f)
+                     (set! previous-bend-dir #f)))))
 
             ;;;;
-            ;; Create the bend-spanner grob, if found NoteColumn is suitable
+         ;; Create the bend-spanner grob, if found NoteColumn is suitable
             ;;;;
-            (if (and (ly:stream-event? bend-start)
-                     (ly:grob-array? (ly:grob-object grob 'note-heads)))
-                (let* ((bend-grob
-                        (ly:engraver-make-grob
-                           this-engraver 'BendSpanner bend-start)))
-                  (set! bend-spanner bend-grob)
-                  (set! nc-start grob)
-                  (set! bend-start #f)
-                  (set! bend-stop #t))))
-          ((tab-note-head-interface this-engraver grob source-engraver)
-            (set! tab-note-heads (cons grob tab-note-heads))))
-        ((stop-translation-timestep this-engraver)
-          (ly:context-set-property! context 'stringFretFingerList '())
-          ;; Clear some local variables if no bend-spanner is in work
-          (if (and (not bend-start) (not bend-stop))
-              (begin
-                (set! previous-bend-dir #f)
-                (set! successive-lvl #f))))
-        ((finalize this-engraver)
-          ;; final house-keeping
-          (if bend-spanner
-              (begin
-                (ly:warning (G_ "Unbound BendSpanner, ignoring"))
-                (ly:grob-suicide! bend-spanner)
-                (ly:context-set-property! context 'stringFretFingerList '())
-                (set! bend-spanner #f)
-                (set! bend-stop #f)
-                (set! previous-bend-dir #f)
-                (set! successive-lvl #f))))))))
+         (if (and (ly:stream-event? bend-start)
+                  (ly:grob-array? (ly:grob-object grob 'note-heads)))
+             (let* ((bend-grob
+                     (ly:engraver-make-grob
+                      this-engraver 'BendSpanner bend-start)))
+               (set! bend-spanner bend-grob)
+               (set! nc-start grob)
+               (set! bend-start #f)
+               (set! bend-stop #t))))
+        ((tab-note-head-interface this-engraver grob source-engraver)
+         (set! tab-note-heads (cons grob tab-note-heads))))
+       ((stop-translation-timestep this-engraver)
+        (ly:context-set-property! context 'stringFretFingerList '())
+        ;; Clear some local variables if no bend-spanner is in work
+        (if (and (not bend-start) (not bend-stop))
+            (begin
+              (set! previous-bend-dir #f)
+              (set! successive-lvl #f))))
+       ((finalize this-engraver)
+        ;; final house-keeping
+        (if bend-spanner
+            (begin
+              (ly:warning (G_ "Unbound BendSpanner, ignoring"))
+              (ly:grob-suicide! bend-spanner)
+              (ly:context-set-property! context 'stringFretFingerList '())
+              (set! bend-spanner #f)
+              (set! bend-stop #f)
+              (set! previous-bend-dir #f)
+              (set! successive-lvl #f))))))))
 
 (ly:register-translator
  Bend_spanner_engraver 'Bend_spanner_engraver
@@ -794,112 +794,112 @@ Engraver to print a BendSpanner.")))
           (glide-grobs '())
           (glide-tweaks '()))
       (make-engraver
-        (listeners
-          ((note-event this-engraver event)
-            (let* ((music-cause (ly:event-property event 'music-cause))
-                   (arts (ly:prob-property music-cause 'articulations))
-                   (digit #f)
-                   (tweaks #f)
-                   (glide #f))
-              ;; Find 'FingeringEvent and catch its 'digit.
-              ;; Find 'FingerGlideEvent and catch its 'tweaks.
-              (for-each
-                (lambda (art)
-                  (let* ((name (ly:prob-property art 'name)))
-                    (cond ((eq? name 'FingeringEvent)
-                           (set! digit (ly:prob-property art 'digit #f)))
-                          ((eq? name 'FingerGlideEvent)
-                           (set! tweaks (ly:prob-property art 'tweaks))
-                           (set! glide #t)))))
-                arts)
-              ;; Store found tweaks in local `glide-tweaks` with digit as key.
-              ;; This is needed in order not to confuse grobs and their tweaks,
-              ;; if this engraver is consisted in Staff context.
-              (if (pair? tweaks)
-                  (set! glide-tweaks (cons (cons digit tweaks) glide-tweaks)))
-              ;; Update local `digit-glide-event`, creating an alist with digit
-              ;; being the key
-              ;; - if glide is true, create a new entry in `digit-glide-event`
-              ;;   as (list digit glide event)
-              ;; - if glide is false, set the value for the key to ##f
-              (cond ((and digit glide)
-                      (set! digit-glide-event
-                            (cons (list digit glide event) digit-glide-event)))
-                    ((and glide (not digit))
-                      (ly:warning
-                        "No finger found to start a glide, ignoring."))
-                    ((and digit (not glide))
-                      (set! digit-glide-event
-                            (assoc-set! digit-glide-event digit glide)))))))
-        (acknowledgers
-          ((finger-interface this-engraver grob source-engraver)
-            (let* ((cause (ly:grob-property grob 'cause))
-                   (digit (ly:prob-property cause 'digit))
-                   (digit-glide-evt (assoc-get digit digit-glide-event))
-                   (new-glide-grob
-                     (if digit-glide-evt
-                         (ly:engraver-make-grob
-                           this-engraver
-                           'FingerGlideSpanner
-                           (last digit-glide-evt))
-                         #f))
-                   (tweaks (assoc-get digit glide-tweaks '())))
-              ;; Respect user tweaks
-              (if (ly:grob? new-glide-grob)
-                  (for-each
-                    (lambda (tweak)
-                      (if (pair? (car tweak))
-                          (let* ((key (cdar tweak)))
-                            (ly:grob-set-nested-property!
-                              new-glide-grob key (cdr tweak)))
-                          (ly:grob-set-property!
-                            new-glide-grob (car tweak) (cdr tweak))))
-                    tweaks))
-              ;; Update local `glide-tweaks`, setting the already done tweaks
-              ;; to an empty list for current digit
-              (set! glide-tweaks
-                    (assoc-set! glide-tweaks digit '()))
-              ;; Set right bound, select the grob via its digit from
-              ;; `glide-grobs`
-              (let* ((relevant-grob (assoc-get digit glide-grobs)))
-                (cond ((and digit-glide-evt relevant-grob)
-                        (ly:spanner-set-bound! relevant-grob RIGHT grob))
-                      ((and (not digit-glide-evt) relevant-grob)
-                        (begin
-                          (ly:spanner-set-bound! relevant-grob RIGHT grob)
-                          (ly:engraver-announce-end-grob
-                            this-engraver
-                            relevant-grob
-                            grob)
-                          (set! glide-grobs
-                                (assoc-set! glide-grobs digit #f))))))
-              ;; Set left bound and store the digit with the created grob as a
-              ;; pair in local `glide-grobs`
-              (if new-glide-grob
-                  (begin
-                    (set! glide-grobs
-                          (cons
-                            (cons digit new-glide-grob)
-                            glide-grobs))
-                    (ly:spanner-set-bound! new-glide-grob LEFT grob))))))
-        ((finalize this-engraver)
-           ;; Warn for a created grob without right bound, suicide the grob.
+       (listeners
+        ((note-event this-engraver event)
+         (let* ((music-cause (ly:event-property event 'music-cause))
+                (arts (ly:prob-property music-cause 'articulations))
+                (digit #f)
+                (tweaks #f)
+                (glide #f))
+           ;; Find 'FingeringEvent and catch its 'digit.
+           ;; Find 'FingerGlideEvent and catch its 'tweaks.
            (for-each
-             (lambda (grob-entry)
-               (if (and
-                     (ly:grob? (cdr grob-entry))
-                     (not (ly:grob? (ly:spanner-bound (cdr grob-entry) RIGHT))))
-                   (begin
-                     (ly:warning
-                       "Missing target for ~a starting with finger ~a"
-                       (cdr grob-entry)
-                       (car grob-entry))
-                     (ly:grob-suicide! (cdr grob-entry)))))
-               glide-grobs)
-           ;; House keeping
-           (set! glide-grobs '())
-           (set! glide-tweaks '())
-           (set! digit-glide-event '()))))))
+            (lambda (art)
+              (let* ((name (ly:prob-property art 'name)))
+                (cond ((eq? name 'FingeringEvent)
+                       (set! digit (ly:prob-property art 'digit #f)))
+                      ((eq? name 'FingerGlideEvent)
+                       (set! tweaks (ly:prob-property art 'tweaks))
+                       (set! glide #t)))))
+            arts)
+           ;; Store found tweaks in local `glide-tweaks` with digit as key.
+           ;; This is needed in order not to confuse grobs and their tweaks,
+           ;; if this engraver is consisted in Staff context.
+           (if (pair? tweaks)
+               (set! glide-tweaks (cons (cons digit tweaks) glide-tweaks)))
+           ;; Update local `digit-glide-event`, creating an alist with digit
+           ;; being the key
+           ;; - if glide is true, create a new entry in `digit-glide-event`
+           ;;   as (list digit glide event)
+           ;; - if glide is false, set the value for the key to ##f
+           (cond ((and digit glide)
+                  (set! digit-glide-event
+                        (cons (list digit glide event) digit-glide-event)))
+                 ((and glide (not digit))
+                  (ly:warning
+                   "No finger found to start a glide, ignoring."))
+                 ((and digit (not glide))
+                  (set! digit-glide-event
+                        (assoc-set! digit-glide-event digit glide)))))))
+       (acknowledgers
+        ((finger-interface this-engraver grob source-engraver)
+         (let* ((cause (ly:grob-property grob 'cause))
+                (digit (ly:prob-property cause 'digit))
+                (digit-glide-evt (assoc-get digit digit-glide-event))
+                (new-glide-grob
+                 (if digit-glide-evt
+                     (ly:engraver-make-grob
+                      this-engraver
+                      'FingerGlideSpanner
+                      (last digit-glide-evt))
+                     #f))
+                (tweaks (assoc-get digit glide-tweaks '())))
+           ;; Respect user tweaks
+           (if (ly:grob? new-glide-grob)
+               (for-each
+                (lambda (tweak)
+                  (if (pair? (car tweak))
+                      (let* ((key (cdar tweak)))
+                        (ly:grob-set-nested-property!
+                         new-glide-grob key (cdr tweak)))
+                      (ly:grob-set-property!
+                       new-glide-grob (car tweak) (cdr tweak))))
+                tweaks))
+           ;; Update local `glide-tweaks`, setting the already done tweaks
+           ;; to an empty list for current digit
+           (set! glide-tweaks
+                 (assoc-set! glide-tweaks digit '()))
+           ;; Set right bound, select the grob via its digit from
+           ;; `glide-grobs`
+           (let* ((relevant-grob (assoc-get digit glide-grobs)))
+             (cond ((and digit-glide-evt relevant-grob)
+                    (ly:spanner-set-bound! relevant-grob RIGHT grob))
+                   ((and (not digit-glide-evt) relevant-grob)
+                    (begin
+                      (ly:spanner-set-bound! relevant-grob RIGHT grob)
+                      (ly:engraver-announce-end-grob
+                       this-engraver
+                       relevant-grob
+                       grob)
+                      (set! glide-grobs
+                            (assoc-set! glide-grobs digit #f))))))
+           ;; Set left bound and store the digit with the created grob as a
+           ;; pair in local `glide-grobs`
+           (if new-glide-grob
+               (begin
+                 (set! glide-grobs
+                       (cons
+                        (cons digit new-glide-grob)
+                        glide-grobs))
+                 (ly:spanner-set-bound! new-glide-grob LEFT grob))))))
+       ((finalize this-engraver)
+        ;; Warn for a created grob without right bound, suicide the grob.
+        (for-each
+         (lambda (grob-entry)
+           (if (and
+                (ly:grob? (cdr grob-entry))
+                (not (ly:grob? (ly:spanner-bound (cdr grob-entry) RIGHT))))
+               (begin
+                 (ly:warning
+                  "Missing target for ~a starting with finger ~a"
+                  (cdr grob-entry)
+                  (car grob-entry))
+                 (ly:grob-suicide! (cdr grob-entry)))))
+         glide-grobs)
+        ;; House keeping
+        (set! glide-grobs '())
+        (set! glide-tweaks '())
+        (set! digit-glide-event '()))))))
 
 (ly:register-translator
  Finger_glide_engraver 'Finger_glide_engraver
@@ -949,28 +949,28 @@ transcriptions of Gregorian chant.")))
 (define-public (Centered_bar_number_align_engraver context)
   (let ((support-line #f))
     (make-engraver
-      (acknowledgers
-        ((centered-bar-number-interface engraver grob source-engraver)
-           ;; Create the support spanner on the fly when we meet a first
-           ;; centered bar number, to avoid an extra grob in the most
-           ;; common case.
-           (if (not support-line)
-               (begin
-                 (set! support-line
-                       (ly:engraver-make-grob engraver
-                                              'CenteredBarNumberLineSpanner
-                                              '()))
-                 (ly:spanner-set-bound!
-                   support-line
-                   LEFT
-                   (ly:context-property context 'currentCommandColumn))))
-           (ly:axis-group-interface::add-element support-line grob)))
-      ((finalize engraver)
-        (if support-line
+     (acknowledgers
+      ((centered-bar-number-interface engraver grob source-engraver)
+       ;; Create the support spanner on the fly when we meet a first
+       ;; centered bar number, to avoid an extra grob in the most
+       ;; common case.
+       (if (not support-line)
+           (begin
+             (set! support-line
+                   (ly:engraver-make-grob engraver
+                                          'CenteredBarNumberLineSpanner
+                                          '()))
+             (ly:spanner-set-bound!
+              support-line
+              LEFT
+              (ly:context-property context 'currentCommandColumn))))
+       (ly:axis-group-interface::add-element support-line grob)))
+     ((finalize engraver)
+      (if support-line
           (ly:spanner-set-bound!
-            support-line
-            RIGHT
-            (ly:context-property context 'currentCommandColumn)))))))
+           support-line
+           RIGHT
+           (ly:context-property context 'currentCommandColumn)))))))
 
 (ly:register-translator
  Centered_bar_number_align_engraver 'Centered_bar_number_align_engraver
@@ -984,14 +984,14 @@ vertical position.")))
 
 (define (Alteration_glyph_engraver context)
   (make-engraver
-    (acknowledgers
-      ((accidental-switch-interface engraver grob source-engraver)
-         (let ((alteration-glyphs
-                 (ly:context-property context 'alterationGlyphs)))
-           (if alteration-glyphs
-               (ly:grob-set-property! grob
-                                      'alteration-glyph-name-alist
-                                      alteration-glyphs)))))))
+   (acknowledgers
+    ((accidental-switch-interface engraver grob source-engraver)
+     (let ((alteration-glyphs
+            (ly:context-property context 'alterationGlyphs)))
+       (if alteration-glyphs
+           (ly:grob-set-property! grob
+                                  'alteration-glyph-name-alist
+                                  alteration-glyphs)))))))
 
 (ly:register-translator
  Alteration_glyph_engraver 'Alteration_glyph_engraver
@@ -1060,26 +1060,26 @@ a @code{\\repeat volta} section.")))
         ;; from it rather than from this engraver.
         (table (make-hash-table)))
     (make-engraver
-      (acknowledgers
-        ((sticky-grob-interface engraver grob source-engraver)
-           (if (ly:spanner? grob)
-               (let ((host (ly:grob-object grob 'sticky-host)))
-                 (hashq-set! table
-                             host
-                             (cons (cons grob source-engraver)
-                                   (hashq-ref table host '())))))))
-      (end-acknowledgers
-        ((spanner-interface engraver host source-engraver)
-           (let ((spanners (hashq-ref table host)))
-             (if spanners
-                 (begin
-                   (for-each
-                     (lambda (spanner-engraver-pair)
-                       (let ((spanner (car spanner-engraver-pair))
-                             (source-engraver (cdr spanner-engraver-pair)))
-                         (ly:engraver-announce-end-grob source-engraver spanner host)))
-                     spanners)
-                   (hashq-remove! table host)))))))))
+     (acknowledgers
+      ((sticky-grob-interface engraver grob source-engraver)
+       (if (ly:spanner? grob)
+           (let ((host (ly:grob-object grob 'sticky-host)))
+             (hashq-set! table
+                         host
+                         (cons (cons grob source-engraver)
+                               (hashq-ref table host '())))))))
+     (end-acknowledgers
+      ((spanner-interface engraver host source-engraver)
+       (let ((spanners (hashq-ref table host)))
+         (if spanners
+             (begin
+               (for-each
+                (lambda (spanner-engraver-pair)
+                  (let ((spanner (car spanner-engraver-pair))
+                        (source-engraver (cdr spanner-engraver-pair)))
+                    (ly:engraver-announce-end-grob source-engraver spanner host)))
+                spanners)
+               (hashq-remove! table host)))))))))
 
 (ly:register-translator
  Spanner_tracking_engraver 'Spanner_tracking_engraver
@@ -1118,51 +1118,51 @@ the sticky spanner attached to it has its end announced too.")))
   ;; grobs of either class accordingly, with ly:engraver-make-sticky.
   (let ((beziers-found '()))
     (make-engraver
-      (acknowledgers
-        ;; Keep the origin engraver of each Bézier so as to
-        ;; create the control points from it.  Rationale:
-        ;; the engraver is in Score because otherwise its
-        ;; process-acknowledged slot could be called before
-        ;; the Tweak_engraver has had a chance to set
-        ;; the show-control-points property.  Having it
-        ;; in Score also makes \vshape work everywhere including
-        ;; in custom context types where (for instance) the
-        ;; Slur_engraver is consisted.  Creating the control
-        ;; points from the origin engraver allows overrides
-        ;; to be directed to the same context as slurs, and
-        ;; could be useful for a custom engraver acknowledging
-        ;; the control points.
-        ((bezier-curve-interface engraver bezier source-engraver)
-           (set! beziers-found
-                 (cons (cons bezier source-engraver)
-                       beziers-found))))
-      ((process-acknowledged engraver)
-         (for-each
-           (lambda (bezier-engraver-pair)
-             (let ((bezier (car bezier-engraver-pair))
-                   (source-engraver (cdr bezier-engraver-pair)))
-               (if (ly:grob-property bezier 'show-control-points #f)
-                   (begin
-                     ; Create control polygon.
-                     (let ((polygon
-                             (ly:engraver-make-sticky source-engraver
-                                                      'ControlPolygon
-                                                      bezier
-                                                      bezier)))
-                       (ly:grob-set-object! polygon 'bezier bezier))
-                     ; Create four control points.
-                     (for-each
-                       (lambda (i)
-                          (let ((point
-                                  (ly:engraver-make-sticky source-engraver
-                                                           'ControlPoint
-                                                           bezier
-                                                           bezier)))
-                            (ly:grob-set-property! point 'index i)
-                            (ly:grob-set-object! point 'bezier bezier)))
-                       (iota 4))))))
-           beziers-found)
-         (set! beziers-found '())))))
+     (acknowledgers
+      ;; Keep the origin engraver of each Bézier so as to
+      ;; create the control points from it.  Rationale:
+      ;; the engraver is in Score because otherwise its
+      ;; process-acknowledged slot could be called before
+      ;; the Tweak_engraver has had a chance to set
+      ;; the show-control-points property.  Having it
+      ;; in Score also makes \vshape work everywhere including
+      ;; in custom context types where (for instance) the
+      ;; Slur_engraver is consisted.  Creating the control
+      ;; points from the origin engraver allows overrides
+      ;; to be directed to the same context as slurs, and
+      ;; could be useful for a custom engraver acknowledging
+      ;; the control points.
+      ((bezier-curve-interface engraver bezier source-engraver)
+       (set! beziers-found
+             (cons (cons bezier source-engraver)
+                   beziers-found))))
+     ((process-acknowledged engraver)
+      (for-each
+       (lambda (bezier-engraver-pair)
+         (let ((bezier (car bezier-engraver-pair))
+               (source-engraver (cdr bezier-engraver-pair)))
+           (if (ly:grob-property bezier 'show-control-points #f)
+               (begin
+                                        ; Create control polygon.
+                 (let ((polygon
+                        (ly:engraver-make-sticky source-engraver
+                                                 'ControlPolygon
+                                                 bezier
+                                                 bezier)))
+                   (ly:grob-set-object! polygon 'bezier bezier))
+                                        ; Create four control points.
+                 (for-each
+                  (lambda (i)
+                    (let ((point
+                           (ly:engraver-make-sticky source-engraver
+                                                    'ControlPoint
+                                                    bezier
+                                                    bezier)))
+                      (ly:grob-set-property! point 'index i)
+                      (ly:grob-set-object! point 'bezier bezier)))
+                  (iota 4))))))
+       beziers-found)
+      (set! beziers-found '())))))
 
 (ly:register-translator
  Show_control_points_engraver 'Show_control_points_engraver

@@ -97,8 +97,8 @@ found in @file{scm/bar-line.scm}.
    thickness))
 
 (ly:add-interface
-  'bend-interface
-  "The (curved) line representing a bent string.\n
+ 'bend-interface
+ "The (curved) line representing a bent string.\n
 Available for the @code{'style} property are @code{'hold}, @code{'pre-bend} and
 @code{'pre-bend-hold}.\n
 The following properties may be set in the details list.\n
@@ -144,10 +144,10 @@ For up-pointing bends this is usually true.\n
 This numeric value determines the distance between the @code{TabStaff} and the
 arrow head of the @code{BendSpanner}.\n
 @end table\n"
-  '(details
-    style
-    direction
-    bend-me))
+ '(details
+   style
+   direction
+   bend-me))
 
 (ly:add-interface
  'bezier-curve-interface
@@ -185,9 +185,9 @@ or 15 (two octaves), but LilyPond allows any integer here."
 
 (ly:add-interface
  'control-point-interface
-  "A grob used to visualize one control point of a Bézier curve
+ "A grob used to visualize one control point of a Bézier curve
 (such as a tie or a slur), for ease of tweaking."
-  '(bezier index))
+ '(bezier index))
 
 (ly:add-interface
  'control-polygon-interface
@@ -463,7 +463,7 @@ interesting enough to maintain a hara-kiri staff."
 
 (ly:add-interface
  'signum-repetitionis-interface
-  "An ancient repeat sign.  It is printed with the same infrastructure
+ "An ancient repeat sign.  It is printed with the same infrastructure
 as bar lines, but it is not a bar line."
  '(allow-span-bar
    bar-extent

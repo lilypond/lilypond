@@ -155,13 +155,13 @@
                (ly:bp 1)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t)))
     (format #f "%%DocumentMedia: ~a ~,2f ~,2f ~a ~a ~a\n"
-               (ly:output-def-lookup paper 'papersizename)
-               (if landscape? h w)
-               (if landscape? w h)
-               80   ;; weight
-               "()" ;; color
-               "()" ;; type
-               )))
+            (ly:output-def-lookup paper 'papersizename)
+            (if landscape? h w)
+            (if landscape? w h)
+            80   ;; weight
+            "()" ;; color
+            "()" ;; type
+            )))
 
 (define (file-header paper page-count load-fonts?)
   (string-append "%!PS-Adobe-3.0\n"
@@ -802,8 +802,8 @@ mark {ly~a_stream} /CLOSE pdfmark
     (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)))
 
 (define (dump-stencil-as-EPS-with-bbox paper dump-me filename
-                                              load-fonts
-                                              bbox)
+                                       load-fonts
+                                       bbox)
   "Create an EPS file from stencil @var{dump-me} to @var{filename}.
 @var{bbox} has format @code{(left-x, lower-y, right-x, upper-y)}.  If
 @var{load-fonts} set, include fonts inline."
@@ -886,4 +886,3 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define-public (convert-to-ps paper base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
-

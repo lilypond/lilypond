@@ -20,11 +20,11 @@
 (define (make-bezier-sandwich-stencil coords thick)
   (make-path-stencil
    (match coords
-    (((x1 . y1) (x2 . y2) (x3 . y3) (x4 . y4) (x5 . y5) (x6 . y6))
-    `(moveto ,x1 ,y1
-      curveto ,x2 ,y2 ,x3 ,y3 ,x4 ,y4
-      curveto ,x5 ,y5 ,x6 ,y6 ,x1 ,y1
-      closepath)))
+     (((x1 . y1) (x2 . y2) (x3 . y3) (x4 . y4) (x5 . y5) (x6 . y6))
+      `(moveto ,x1 ,y1
+               curveto ,x2 ,y2 ,x3 ,y3 ,x4 ,y4
+               curveto ,x5 ,y5 ,x6 ,y6 ,x1 ,y1
+               closepath)))
    thick
    1
    1
@@ -109,8 +109,8 @@ Limitation: s-curves are currently not supported.
            (min (* 2 thickness) line-width))))))
 
 (define*-public (make-tie-stencil
-          start stop thickness orientation
-          #:optional (height-limit 1.0)(ratio 0.33)(angularity 0.5))
+                 start stop thickness orientation
+                 #:optional (height-limit 1.0)(ratio 0.33)(angularity 0.5))
   (let* (;; taken from bezier-bow.cc
          (F0_1
           (lambda (x) (* (/ 2 PI) (atan (* PI x 0.5)))))
@@ -434,7 +434,7 @@ then reduce using @var{min-max}:
 
 (define*-public (make-path-stencil path thickness x-scale y-scale fill
                                    #:key (line-cap-style 'round)
-                                         (line-join-style 'round))
+                                   (line-join-style 'round))
   "Make a stencil based on the path described by the list @var{path}, with
 thickness @var{thickness}, and scaled by @var{x-scale} in the x@tie{}direction
 and @var{y-scale} in the y@tie{}direction (the difference with scaling the
@@ -668,7 +668,7 @@ producing a new stencil."
                  ideal-blot))
          (inner (ly:stencil-in-color
                  (ly:round-filled-box
-                 xext yext (- ideal-blot ideal-thickness))
+                  xext yext (- ideal-blot ideal-thickness))
                  "white")))
     (ly:stencil-add outer inner stencil)))
 
@@ -892,7 +892,7 @@ with optional arrows of @code{max-size} on start and end controlled by
                                (ice9-format #f "~,2f" (interval-length extent)))
                               (else
                                (ice9-format #f "(~,2f,~,2f)"
-                                               (car extent) (cdr extent)))))))
+                                            (car extent) (cdr extent)))))))
               (arrows (ly:stencil-translate-axis
                        (dimension-arrows (cons 0 (interval-length extent)) 1.0)
                        (interval-start extent) Y)))

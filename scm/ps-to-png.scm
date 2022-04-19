@@ -70,15 +70,15 @@
           (multi-page? (> page-count 1))
 
           (tmp-name (string-append
-                      ;; Create the file in the same directory as the
-                      ;; destination, or renaming won't work across
-                      ;; filesystems, but ...
-                      (dirname base-name)
-                      "/"
-                      ;; make sure there are no special characters in
-                      ;; the filename to avoid problems with Ghostscript
-                      ;; on Windows.
-                      (basename ps-tmp-name)))
+                     ;; Create the file in the same directory as the
+                     ;; destination, or renaming won't work across
+                     ;; filesystems, but ...
+                     (dirname base-name)
+                     "/"
+                     ;; make sure there are no special characters in
+                     ;; the filename to avoid problems with Ghostscript
+                     ;; on Windows.
+                     (basename ps-tmp-name)))
           ;; Escape `%' (except `page%d') for ghostscript
           (base-name-gs (string-join
                          (string-split tmp-name #\%)
@@ -126,9 +126,9 @@
 currentpagedevice /HWResolution get 0 get ~a mul \
 currentpagedevice /HWResolution get 1 get ~a mul \
 ]"
-                            anti-alias-factor anti-alias-factor)
+                         anti-alias-factor anti-alias-factor)
                  (format #f "/HWResolution [~a ~a]"
-                            hw-resolution hw-resolution))
+                         hw-resolution hw-resolution))
              (format #f "/DownScaleFactor ~a" anti-alias-factor)
              (if (or (not is-eps) fit-page)
                  (format #f "/PageSize [~a ~a]" width height))
@@ -156,7 +156,7 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              ;; in gs_main_add_outputfile_control_path.)
              "/.addcontrolpath where { pop"
              (format #f "/PermitFileWriting (~a*) .addcontrolpath"
-                        base-name-gs)
+                     base-name-gs)
              "} if"
              (gs-safe-run ps-tmp-name)))))
 

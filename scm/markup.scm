@@ -107,20 +107,20 @@ when interpreting markups."
    ((pair? m)
     (let ((first-elt (car m)))
       (cond
-        ((or (markup-function? first-elt)
-             (markup-list-function? first-elt))
-         ;; m is a markup, or the application of a markup list command.
-         ;; Look up the as-string handler of a command.
-         (let ((handler (or (markup-function-as-string-method first-elt)
-                            markup-default-to-string-method)))
-           (apply handler layout props (cdr m))))
-        ((markup-list? m)
-         ;; A markup list that is not the result of a markup list
-         ;; command.  This must be a list of markups or markup lists.
-         ;; Join results by spaces.
-         (apply markup-default-to-string-method layout props m))
-        (else
-         ;; Can occur if one argument to a markup function is a
-         ;; list of anything.
-         ""))))
+       ((or (markup-function? first-elt)
+            (markup-list-function? first-elt))
+        ;; m is a markup, or the application of a markup list command.
+        ;; Look up the as-string handler of a command.
+        (let ((handler (or (markup-function-as-string-method first-elt)
+                           markup-default-to-string-method)))
+          (apply handler layout props (cdr m))))
+       ((markup-list? m)
+        ;; A markup list that is not the result of a markup list
+        ;; command.  This must be a list of markups or markup lists.
+        ;; Join results by spaces.
+        (apply markup-default-to-string-method layout props m))
+       (else
+        ;; Can occur if one argument to a markup function is a
+        ;; list of anything.
+        ""))))
    (else "")))

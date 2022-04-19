@@ -205,7 +205,7 @@
     ("mt-32 drums" .      ,(+ 32768 127))
     ("cm-64 kit" .        ,(+ 32768 127))
     ("cm-64 drums" .      ,(+ 32768 127))
-   ))
+    ))
 
 (define-public (percussion? instrument)
   "Return @code{#t} if the instrument should use MIDI channel 9."
