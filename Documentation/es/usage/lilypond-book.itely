@@ -215,7 +215,7 @@ composición tipográfica @TeX{}, proporcionando la tipografía de
 mejor calidad que existe.
 
 Consulte
-@uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
+@uref{https://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
 @emph{The Not So Short Introduction to @LaTeX{}}} (Introducción no tan
 breve a @LaTeX{}) para ver una panorámica sobre cómo usar @LaTeX{}.
 
@@ -1398,7 +1398,7 @@ unterst__tzt werden.
 Estas funciones ya existen en el paquete OrchestralLily:
 
 @example
-@url{http://repo.or.cz/w/orchestrallily.git}
+@url{https://repo.or.cz/w/orchestrallily.git}
 @end example
 
 Para conseguir más flexibilidad en el manejo del texto, algunos

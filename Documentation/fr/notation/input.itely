@@ -3195,7 +3195,7 @@ après un @code{\char} ; les encodages UTF-8 comprennent un bit
 supplémentaire indiquant le nombre d'octets.  Une table de
 correspondance entre les codes Unicode et le nom des caractères ainsi
 que leur code hexadécimal est disponible sur le site du consortium
-Unicode, @uref{http://www.unicode.org/}.
+Unicode, @uref{https://www.unicode.org/}.
 
 Par exemple, @code{\char ##x03BE} et @code{\char #958} correspondent
 tous deux au caractère unicode U+03BE, dénommé « Greek Small Letter
@@ -3494,7 +3494,7 @@ Gonville est une alternative au jeu de glyphes @emph{Feta} inclus dans
 la fonte Emmentaler que LilyPond utilise par défaut.  Vous pouvez la
 télécharger à partir de
 @example
-@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/, http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@uref{https://www.chiark.greenend.org.uk/~sgtatham/gonville/, http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
 
 Voici quelques mesures utilisant la police Gonville :

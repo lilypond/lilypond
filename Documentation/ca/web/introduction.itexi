@@ -191,7 +191,7 @@ Col·loqueu fragments de música dins de textos sense retallar i
 enganxeu imatges. Integreu música dins del @LaTeX{} i de l'HTML de forma
 senzilla, o afegiu música a documents de l'OpenOffice o del
 LibreOffice mitjançant
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 També hi ha connectors o complements disponibles per permetre codi
 del LilyPond dins de diversos blogs i wikis, fent possible la
 col·laboració en línia.
@@ -572,8 +572,8 @@ fracció de l'esforç individual.
 La @qq{cultura del regal}: el moviment del programari lliure ha
 creat molts projectes genials de programari, com ara
 @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox} i el joc
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Després
+@uref{https://www.getfirefox.com/, Mozilla Firefox} i el joc
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Després
 d'haver-se vist beneficiats per aquests projectes, alguns
 desenvolupadores desitgen @qq{retornar} alguna cosa a la
 comunitat.
@@ -652,7 +652,7 @@ interpretacions i actuacions per tot el mon. Alguns titulars:
 @itemize
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} va arreglar
+@uref{https://www.aurelienbello.com/,Aurélien Bello} va arreglar
 una versió del @emph{Der Rosenkavalier} de Richard Strauss per a
 quatre cantants i orquestra de cambra composta per a trenta
 instrumentistes.  La producció va ser encarregada per l'Orquestra
@@ -660,7 +660,7 @@ Filarmònica de Berlin, els membres d la qual van ser els
 intèrprets el
 @uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,2
 i el 7 d'abril} a la Festspielhaus de Baden-Baden, i el
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26
 d'abril} a la @emph{Philharmonie (großer Saal)} de Berlín.  Ens
 encanta veure músics de alta reputació tocant a partir de
 partitures fetes amb el LilyPond (i segons sembla estan molt
@@ -694,38 +694,38 @@ piano i percussió.  Es va interpreta el 2014, de nou per part de
 Una edició crítica de la sèrie d'òperes @emph{Enea nel Lazio (1760)},
 del Tommaso Traetta, amb llibret del Vittorio Amedeo Cigna-Santi,
 en quatre parts:
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primera part}
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Segona part}
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Tercera part}
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Quarta part}
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primera part}
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Segona part}
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Tercera part}
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Quarta part}
 Creada pel
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+@uref{https://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
 per a la seva tesi de doctorat.
 
 @item
 Els @emph{Quadres d'una exposició} del Mussorgsky, reorquestrats i
-dirigits per l'@uref{http://www.aurelienbello.com/,Aurélien Bello}
+dirigits per l'@uref{https://www.aurelienbello.com/,Aurélien Bello}
 amb la orquestra
 @uref{http://www.junge-philharmonie-brandenburg.de/, Junge
 Philharmonie Brandenburg} a l'octubre de 2011 i
 l'abril de 2012.
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositor
+@uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, compositor
 i director musical. Entre les seves nombroses recents estan
 @emph{Go Thy Way}, interpretada pel cor
-@uref{http://www.saltlakechoralartists.org/, Salt Lake Choral Artists}
+@uref{https://www.saltlakechoralartists.org/, Salt Lake Choral Artists}
 al març de 2012; la @emph{Just Out of Reach Suite} interpretada pel
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Duo Chrysalis} ; @emph{thrafsmata} interpretada al juliol de 2011 pel
 @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html,
 Pittsburgh New Music Ensemble}.
 
 @item
 @emph{Anonymous Student Compliment or Complaint}, del
-@uref{http://www.mikesolomon.org, Mike Solomon}, guanyador d'entre 172
+@uref{https://www.mikesolomon.org, Mike Solomon}, guanyador d'entre 172
 participants procedents de 22 països del
-@uref{http://leftcoastensemble.org, concurs de composició
+@uref{https://leftcoastensemble.org, concurs de composició
 Left Coast de 2011}.  Entre altres obres estan: Norman (age 1)
 per a clarinet sol, interpretada al festival de música electroacústica
 (FEMF) de la @uref{http://emu.music.ufl.edu/fems_concerts.html,
@@ -749,16 +749,16 @@ La interpretació de
 Extractes instrumentals de @emph{Hippolyte et Aricie} del Rameau a
 l'església de St. James a Manhattan, el 8 de maig de 2009, pel
 Frederick Renz i el seu conjunt
-@uref{http://www.earlymusicny.org/, Early Music New York}
+@uref{https://www.earlymusicny.org/, Early Music New York}
 (realització tipogràfica de
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
 @item
 @emph{Affaire Étrangère}, òpera del
-@uref{http://valentin.villenave.net/,Valentin Villenave}, amb llibret
-en francès del @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim,
+@uref{https://valentin.villenave.net/,Valentin Villenave}, amb llibret
+en francès del @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim,
 Lewis Trondheim}, estrenada l'1 de febrer de 2009 a
-@uref{http://www.opera-montpellier.com/, L'Opéra National de
+@uref{https://www.opera-montpellier.com/, L'Opéra National de
 Montpellier}, a França.
 
 @end itemize
@@ -774,7 +774,7 @@ Montpellier}, a França.
 @itemize
 
 @item
-El @uref{http://www.mutopiaproject.org/index.html, Projecte Mutopia}
+El @uref{https://www.mutopiaproject.org/index.html, Projecte Mutopia}
 inclou més de 1500 partitures de música clàssica per a la seva
 descàrrega lliure, i és el principal aparador de partitures del
 Lilypond.
@@ -835,7 +835,7 @@ de text}.
 @item
 Abril de 2011
 
-@uref{http://www.linux-magazine.com,Linux Magazine} publica un
+@uref{https://www.linux-magazine.com,Linux Magazine} publica un
 article titulat
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  És un article introductori sobre el
@@ -849,7 +849,7 @@ fàcil d'abordar.
 Maig de 2010
 
 Peter Kirn, al lloc web Create Digital Music website, publica una
-@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,revisió
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,revisió
 del LilyPond}. Aporta una mirada equilibrada sobre la utilització,
 lloa la notació d'alta qualitat del LilyPond i suggereix als
 lectors que el provin.
@@ -858,7 +858,7 @@ lectors que el provin.
 Setembre de 2009
 
 La revista LinuxUser alemanya va publicar un
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 article sobre el LilyPond}.
 
 @item
@@ -873,7 +873,7 @@ biblioteques.
 @item
 Juny de 2009
 
-A un @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article}
+A un @uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article}
 publicat a la revista anual de la @emph{Associació Nacional de
 Pares d'Alumnes de Conservatoris} de França, el compositor i
 membre del projecte LilyPond, Valentin Villenave, explica com les
@@ -895,8 +895,8 @@ edició de referència gravada a mà.
 @item
 Juny de 2006
 
-@uref{http://distrowatch.com,DistroWatch} premia al LilyPond k
-@uref{http://distrowatch.com/weekly.php?issue=20060605,escriu}
+@uref{https://distrowatch.com,DistroWatch} premia al LilyPond k
+@uref{https://distrowatch.com/weekly.php?issue=20060605,escriu}
 @qq{Dames i cavallers, ens complau anunciar que, basant-nos en la
 demanda dels lectors, la donació de DistroWatch de maig de 2006 ha
 estat concedida al LilyPond (190,00 @euro{}) i a Lua (US$250,00).}
@@ -905,7 +905,7 @@ estat concedida al LilyPond (190,00 @euro{}) i a Lua (US$250,00).}
 Desembre de 2005
 
 Linux Journal publica un article titulat
-@uref{http://www.linuxjournal.com/article/8364, Elabori fantàstics
+@uref{https://www.linuxjournal.com/article/8364, Elabori fantàstics
 gràfics de Schenker amb el GNU LilyPond}. És un article destacat,
 profund però pràctic amb atractius gràfics de LilyPond. L'autor,
 Kris Shaffer, destaca: @qq{El Gnu LilyPond genera uns gràfics
@@ -916,7 +916,7 @@ preciosos que a les alternatives comercials semblar de segona fila.}
 
 El diari belga De Standaard investiga què empeny als autors de
 programari lliure en un article titulat
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Compartir el coneixement
 sense ànim de lucre) al seu @q{DS2 bijlage}.  El LilyPond s'usa
 com a exemple i l'article està esquitxat de cites procedents d'una
@@ -927,7 +927,7 @@ aparició del LilyPond a la premsa escrita d'importància.
 Juny de 2005
 
 Un article en francès sobre el llançament del LilyPond 2.6 va
-aparèixer en @uref{http://linuxfr.org/2005/06/27/19210.html,
+aparèixer en @uref{https://linuxfr.org/2005/06/27/19210.html,
 linuxfr.org}.
 
 @item
@@ -946,8 +946,8 @@ Juliol/agost de 2004
 
 Dave Phillips va escriure un article introductori per a Linux
 Journal At the Sounding edge: Lilypond,
-@uref{http://www.linuxjournal.com/article/7657, primera} i
-@uref{http://www.linuxjournal.com/article/7719, segona} part.
+@uref{https://www.linuxjournal.com/article/7657, primera} i
+@uref{https://www.linuxjournal.com/article/7719, segona} part.
 
 @item
 Març de 2004
@@ -1032,7 +1032,7 @@ recents de @q{les editores antigues}). (@dots{})}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programador principal del projecte @uref{http://www.rosegardenmusic.com/, RoseGarden}
+@subsubheading Chris Cannam, programador principal del projecte @uref{https://www.rosegardenmusic.com/, RoseGarden}
 
 @qq{LilyPond és, obviament, el King Kong [de la tipografia
 musical] en gran.}
@@ -1084,7 +1084,7 @@ més m'agrada!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, col·laborador de @uref{http://www.mutopiaproject.org/, Mutopia}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, col·laborador de @uref{https://www.mutopiaproject.org/, Mutopia}
 
 @qq{Tenia una espècie de relació passió-odi amb el
 LilyPond. Passió perquè la primera partitura que vaig veure era
@@ -1098,7 +1098,7 @@ donar-nos el Lilypond, és realment bo.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner,Werner Lemberg}, director d'orquestra al Teatre de Koblenz,
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner,Werner Lemberg}, director d'orquestra al Teatre de Koblenz,
 Alemanya, i destacat hacker del GNU
 
 @qq{De qualsevol manera, el LilyPond fa un treball sensacional!}
@@ -1106,7 +1106,7 @@ Alemanya, i destacat hacker del GNU
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, desenvolupador del @uref{http://jackaudio.org/, JACK} i @uref{http://www.ardour.org/, Ardour}
+@subsubheading Paul Davis, desenvolupador del @uref{https://jackaudio.org/, JACK} i @uref{https://www.ardour.org/, Ardour}
 
 @qq{Crec que el [LilyPond] és un programa increïble, i produeix un
 resultat realment meravellós. Després d'haver llegit una ressenya
@@ -1125,7 +1125,7 @@ personal el difícil que pot ser aquest tipus de programari.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, DavidCameron}, Músic, tipògraf musical professional i usuari experimentat de SCORE
+@subsubheading @uref{https://camerondh.blogspot.com, DavidCameron}, Músic, tipògraf musical professional i usuari experimentat de SCORE
 
 @qq{EL meu agraïment de tot cor a tot aquell que contribueix a
 aquest projecte. Jo vaig ser usuari intensiu del SCORE per a cases
@@ -1307,7 +1307,7 @@ per veure una imatge més gran),frescobaldi-lilypond-editor,png,right}
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 El Frescobaldi és un editor de música i text lleuger tot i que
 potent, amb moltes funcions creades especialment per al LilyPond.
 Entre les seves principals possibilitats estan els enllaços per
@@ -1383,7 +1383,7 @@ conduïdes per assistents.
 
 @subsubheading Emacs
 
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 L'Emacs és un editor de text amb funcionalitats avançades per a
 molts llenguatges de programació.  L'Emacs és un editor que es pot
 expandir àmpliament i es pot usar com un entorn integrat de
@@ -1401,7 +1401,7 @@ Hi ha més informació sobre la configuració de l'Emacs a
 @rprogramnamed{Text editor support,Suport per als editors de text}.
 
 @subsubheading Vim
-@uref{http://www.vim.org} El Vim és un editor de text minimalista
+@uref{https://www.vim.org} El Vim és un editor de text minimalista
 que és una estensió de l'antic editor @command{vi} de l'Unix.
 També és es pot expandir i configurar.
 
@@ -1470,7 +1470,7 @@ particel·les, i que inclou un mode per barrejar diferents obres
 musicals a una sola partitura o particel·la.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, un seqüenciador
+@uref{https://www.rosegardenmusic.com,Rosegarden}, un seqüenciador
 MIDI i d'àudio, que  té també un editor de partitura per a edició
 d'un sol pentagrama.
 
@@ -1482,12 +1482,12 @@ d'un sol pentagrama.
 
 @item
 @uref{http://www.projectabjad.org/,Abjad}, una API de
-@uref{http://www.python.org/,Python} per al control formalitzat de
+@uref{https://www.python.org/,Python} per al control formalitzat de
 partitures, dissenyat per ajudar als compositors a construir
 fragments complexos de notació del LilyPond d'una forma iterativa i incremental.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic)
+@uref{https://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic)
 és una eina de notació musical per a compositors de música per
 ordinador.  Està escrit en al llenguatge Lisp, i s'ha provat amb
 diversos intèrprets.  També hi ha  disponible una versió traduïda
@@ -1515,7 +1515,7 @@ va ser creat amb una extensió per a l'editor de text
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} s'ha substituït per
-@uref{http://www.frescobaldi.org/,Frescobaldi}, i existeix com a
+@uref{https://www.frescobaldi.org/,Frescobaldi}, i existeix com a
 LilyKDE3 per a  KDE 3.5 i com a lilypond-KDE4 per a KDE 4.1
 solament.
 
@@ -1525,20 +1525,20 @@ gràfic d'introducció de notes, que actua com un teclat numèric que
 produeix notes del LilyPond.
 
 @item
-@uref{http://www.musescore.org,MuseScore}, un editor de
+@uref{https://www.musescore.org,MuseScore}, un editor de
 partitures.  L'exportació de codi del LilyPond es va descartar en
 la versió 2.0, però encara estan disponible versions més antigues
 per a descarregar a
-@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
+@uref{https://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, que importava
-@uref{http://www.makemusic.com/musicxml,MusicXML}, s'ha escindit a
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-i @uref{http://canorus.org,Canorus}.
+@uref{https://www.makemusic.com/musicxml,MusicXML}, s'ha escindit a
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+i @uref{https://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 una extensió de l'OpenOffice.org que converteix fitxers del
 LilyPond a imatge dins de documents de l'OpenOffice .org.  Tot i
 que ja no s'està desenvolupant de forma activa, encara sembla
@@ -1549,7 +1549,7 @@ funciona amb la versió 4.
 monofònic de MIDI al LilyPond en temps real.
 
 @item
-@uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, un
+@uref{https://sourceforge.net/projects/tuxguitar/,TuxGuitar}, un
 editor i reproductor multipista de tabulatura, que inclou un visor
 de partitura i pot exportar al LilyPond.
 

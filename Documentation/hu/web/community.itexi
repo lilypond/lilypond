@@ -98,10 +98,10 @@ Ezen a levelezőlistán a felhasználók segítséget kérhetnek egymástól és
 nyújthatnak egymásnak.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user,
 feliratkozás és információ}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 1. archívum}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 2. archívum}
@@ -147,19 +147,19 @@ amely hasznos lehet mások számára is, inkább a levelezőlistára írd.
 @subsubheading Más nyelveken
 
 @quotation
-@uref{http://groups.google.com/group/lilypond-user-hu,
+@uref{https://groups.google.com/group/lilypond-user-hu,
 Magyar LilyPond-felhasználók közössége}
 
-@uref{http://es.groups.yahoo.com/group/lilypond-es,
+@uref{https://es.groups.yahoo.com/group/lilypond-es,
 Spanyol LilyPond-felhasználók közössége}
 
 @uref{https://lilypondforum.de/,
 Német LilyPond-felhasználók közössége}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 Portugál LilyPond-felhasználók közössége}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Francia LilyPond-felhasználók közössége}
 
 @uref{http://www.lilypondforum.nl/,
@@ -175,7 +175,7 @@ Holland LilyPond-felhasználók közössége}
 @subsubheading LilyPond hírlevél
 
 Közösségi hírlevelünket olvasva nyomon követheted a program fejlődését:
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/, LilyPond hírlevél}.
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/, LilyPond hírlevél}.
 
 @subsubheading Értesítés a kiadott verziókról: @code{info-lilypond@@gnu.org}
 
@@ -183,10 +183,10 @@ Ez a levelezőlista egy alacsony forgalmú, csak olvasható lista, melyen
 értesítünk az új verziókról.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 feliratkozás és információ}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 1. archívum}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 2. archívum}
@@ -205,10 +205,10 @@ A fejlesztők itt tárgyalják meg a vitás kérdéseket, és ide kell küldeni 
 patcheket is.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 feliratkozás és információ}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 1. archívum}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 2. archívum}
@@ -220,10 +220,10 @@ feliratkozás és információ}
 A hibákat ezen a listán kell bejelenteni.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 feliratkozás és információ}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 1. archívum}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 2. archívum}
@@ -510,7 +510,7 @@ A git használatáról és a LilyPond fordításáról a közreműködőknek sz�
 útmutatóban olvashatsz.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Git repository}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, Git repository}
 @end quotation
 
 Dokumentációt író és tesztelést végző felhasználók számára a legfrissebb
@@ -832,7 +832,7 @@ kottaszedő rendszer}. Jegyzőkönyv a XIV. zenei informatikai kollokviumról
 2009. szeptember
 
 A német LinuxUser magazin írt egy
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 cikket a LilyPondról}.
 
 
@@ -851,19 +851,19 @@ szedett kiadás szolgál összehasonlítási alapul.
 2005. december
 
 A Linux Journal közzétesz egy cikket
-@uref{http://www.linuxjournal.com/article/8364,
+@uref{https://www.linuxjournal.com/article/8364,
 Schenker-diagramok készítése GNU LilyPonddal}
 címen. Ez egy gyakorlatias cikk igen szép LilyPond grafikákkal.
 A szerző, Kris Shaffer megjegyzi: @qq{A GNU LilyPond gyönyörű kottaképe után a
 kereskedelmi alternatívák másodosztályúnak tűnnek.}
-A cikk elérhető @uref{http://www.linuxjournal.com/article/8583, online}.
+A cikk elérhető @uref{https://www.linuxjournal.com/article/8583, online}.
 
 @item
 2005. augusztus 20.
 
 A belga hírlap, a De Standaard szerkesztői annak járnak utána, mi motiválja a
 szabad szoftverek fejlesztőit. Erről
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 A tudás nonprofit megosztása} című cikkben írnak. A szemléltető példa a
 LilyPond. A cikkben szerepelnek egy Jan Nieuwenhuizennel e-mailben készített
 riport részletei is. Ez a LilyPond első megjelenése a nyomtatott szakmai
@@ -873,7 +873,7 @@ sajtóban.
 2005. június
 
 A LilyPond 2.6-os verziójának kiadásáról megjelenik egy francia cikk a
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org} weboldalon.
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org} weboldalon.
 
 @item
 2004. október
@@ -897,7 +897,7 @@ Dave Phillips egy bevezető cikket ír a Linux Journalba
 
 Chris Cannam riportot készít Han-Wen Nienhuysszal és Jan Nieuwenhuizennel a
 linuxmusician.com (ma már nem létező) oldalon. A riport megjelenik a
-@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227, slashdot.org}-on
+@uref{https://slashdot.org/article.pl?sid=04/03/13/2054227, slashdot.org}-on
 is.
 
 @item

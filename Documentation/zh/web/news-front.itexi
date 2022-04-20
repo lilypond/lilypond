@@ -65,7 +65,7 @@ see for yourself how close (or how far?) are we from matching
 the quality of hand-engraved scores.
 
 Come
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/?The-LilyPond-Report-26, read
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/?The-LilyPond-Report-26, read
 LilyPond Report 26} now; comments and contributions are
 warmly encouraged!
 
@@ -90,8 +90,8 @@ candidate will be required.
 @newsItem
 @subsubheading LilyPond takes part in Google Summer of Code 2012!  @emph{April 25, 2012}
 
-Being a part of @uref{http://www.gnu.org/, GNU project}, we are participating in
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+Being a part of @uref{https://www.gnu.org/, GNU project}, we are participating in
+@uref{https://www.google-melange.com/gsoc/homepage/google/gsoc2012,
 Google Summer of Code program}, which offers students stipends for
 working on open source software.
 

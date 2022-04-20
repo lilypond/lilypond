@@ -35,7 +35,7 @@ interno}.  Questo manuale elenca tutte le variabili, le funzioni e le
 opzioni disponibili in LilyPond.  Viene fornito come un documento HTML,
 disponibile
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,on@/-line},
+@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,on@/-line},
 ed è anche incluso nel pacchetto della documentazione di LilyPond.
 
 Internamente, LilyPond usa il linguaggio Scheme (un dialetto di LISP) per

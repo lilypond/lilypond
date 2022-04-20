@@ -113,10 +113,10 @@ Esta lista de discussão é o principal local para os usuários
 discutirem e ajudarem uns aos outros.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user,
 inscrição e informação da lilypond-user}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 arquivo1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 arquivo2 da user}
@@ -133,7 +133,7 @@ trabalhos. Veja o que outras pessoas escreveram e adicione
 o seu!
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 Exemplos particularmente instrutivos do LSR estão incluídos em
@@ -178,16 +178,16 @@ das listas de discussão.
 @subsubheading Outros idiomas
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 lista de discussão em francês}
 
 @uref{https://lilypondforum.de/,
 fórum alemão}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 grupo brasileiro}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 lista de discussão em espanhol}
 @end quotation
 @divEnd
@@ -208,10 +208,10 @@ Esta lista de discussão é uma lista somente de leitura de baixo
 volume que recebe notificações de novas versões.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 inscrição e informação da info-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 arquivo1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 arquivo2 da info}
@@ -230,10 +230,10 @@ Discussões de desenvolvedor ocorrem nesta lista.
 Patches também podem ser enviados aqui.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 inscrição e informação da lilypond-devel}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 arquivo1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 arquivo2 da devel}
@@ -246,10 +246,10 @@ Relatórios de erros e discussões devem ser enviados aqui.
 Não envie patches para esta lista.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 inscrição e informação da bug-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 arquivo1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 arquivo2 da bug}
@@ -589,7 +589,7 @@ número de versão @q{menor} com números ímpares (por exemplo, 2.7,
 Instruções para git e compilação estão no guia do contribuidor.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, repositório git do lilypond}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, repositório git do lilypond}
 @end quotation
 
 Os escritores de documentação e testadores geralmente querem baixar

@@ -133,7 +133,7 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 针对非英语读者的翻译情况。
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 用户创建的例子、窍门和秘诀。
 
 @item
@@ -304,7 +304,7 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @subheading 片断 Snippets
 
 这里显示从
-@uref{http://lsr@/.di@/.unimi@/.it,
+@uref{https://lsr@/.di@/.unimi@/.it,
 LilyPond 片断库 (LilyPond Snippet Repository@comma{} LSR)}
 精选出来的一些 LilyPond 片断。所有的片断都属于公有领域。
 

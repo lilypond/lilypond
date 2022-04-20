@@ -2699,7 +2699,7 @@ portuguese = \lyricmode {
 保持しているからです。)
 任意の文字に対する 16 進のコード ポイントを調べるための、@c
 Unicode コード表と文字名インデックスは Unicode コンソーシアム Web サイト
-@uref{http://www.unicode.org/} にあります。
+@uref{https://www.unicode.org/} にあります。
 
 
 例えば、@code{\char ##x03BE} と @code{\char #958} はどちらも

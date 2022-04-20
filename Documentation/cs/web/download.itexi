@@ -196,12 +196,12 @@ nainstalování nebo aktualizaci této verze.
 
 @item
 @sourceimage{logo-fedora,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
+@uref{https://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
 Fedora: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-ubuntu,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
+@uref{https://packages.ubuntu.com/search?keywords=lilypond,
 Ubuntu: LilyPond 2.12.2}
 
 @item
@@ -211,7 +211,7 @@ Slackware: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-debian,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
+@uref{https://packages.debian.org/search?keywords=lilypond,
 Debian: LilyPond 2.12.2}
 
 @item

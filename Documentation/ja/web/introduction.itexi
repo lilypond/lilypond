@@ -198,7 +198,7 @@ LilyPond は最初から正しいフォーマットで出力します。@c
 楽譜の断片をテキストに入れることができます。@c
 @LaTeX{} や HTML に楽譜を垣根無く統合できますし、@c
 OOoLilyPond を使えば OpenOffice.org や LibreOffice に@c
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}で@c
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}で@c
 楽譜を追加することも出来ます。@c
 LilyPond のコードを様々なブログ、Wiki で使用可能にする@c
 プラグインがあり、オンラインでコラボレーションできます。@c
@@ -524,7 +524,7 @@ LilyPond を試してみる決心がついたのなら、@c
 @subheading フリー ソフトウェア
 @c Free Software
 
-@uref{http://www.gnu.org/, GNU} LilyPond は熱心な人々からなる@c
+@uref{https://www.gnu.org/, GNU} LilyPond は熱心な人々からなる@c
 コミュニティによって作成され、維持されています。@c
 LilyPond は、すべての人にプログラムの修正、変更、拡張を許可する
 @ref{GPL, GNU General Public License} と
@@ -603,8 +603,8 @@ LilyPond にはこういったこととは無縁です。@c
 @qq{与える文化}: フリー ソフトウェア運動は多くの偉大なソフトウェア
 プロジェクトを生み出してきました
 -- @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox}, それに
-@uref{http://www.wesnoth.org/, Battle for Wesnoth} など。
+@uref{https://www.getfirefox.com/, Mozilla Firefox}, それに
+@uref{https://www.wesnoth.org/, Battle for Wesnoth} など。
 これらのプロジェクトの恩恵を受けて、@c
 そのコミュニティに @qq{恩返し} をしたいと考えている開発者もいます。
 
@@ -690,12 +690,12 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 @item
 Marc Hohl は子供と若者のための楽譜を書きました。@c
 LilyPond （と LaTeX）を使用して譜刻されたフリーでドイツ語の
-@uref{http://www.singspielschmiede.de/}
+@uref{https://www.singspielschmiede.de/}
 から入手できるすべての音楽は、 Marc が働く学校のステージで演奏されました。
 
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} は Richard Strauss の
+@uref{https://www.aurelienbello.com/,Aurélien Bello} は Richard Strauss の
 @emph{Der Rosenkavalier} を4人の歌手と13人の室内オーケストラ用に編曲しました。@c
 これは Berlin Philharmonic Orchestra によって委嘱され、 2015 年に@c
 @uref{https://www.festspielhaus.de/,バーデンバーデンの祝祭劇場}と@c
@@ -744,7 +744,7 @@ Vittorio Amedeo Cigna-Santi によって歌詞が付けられた Tommaso Traetta
 
 
 @item
-作曲家・音楽監督の @uref{http://kierenmacmillan.info/, Kieren MacMillan} 。@c
+作曲家・音楽監督の @uref{https://kierenmacmillan.info/, Kieren MacMillan} 。@c
 彼の多くの作品から一部を紹介します：
 @emph{Go Thy Way} は2012年に @uref{https://www.saltlakechoralartists.org/,
 Salt Lake Choral Artists} で演奏されました。
@@ -756,7 +756,7 @@ New Music Ensemble} によって演奏されました。
 
 
 @item
-@uref{http://www.mikesolomon.org,Mike Solomon} は、
+@uref{https://www.mikesolomon.org,Mike Solomon} は、
 @emph{Anonymous Student Compliment or Complaint} という題の作品を作曲し、
 @uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
 で22カ国172の作品から最優秀作品に選ばれました。
@@ -784,12 +784,12 @@ Lully の @emph{Armide} の演奏が、2009年に行われました。
 Nicolas はまた、 2009 年に
 Rameau の @emph{Hippolyte et Aricie} の器楽演奏がニューヨークの
 St. James's Church で、 Frederick Renz と彼の楽団による演奏の譜刻をしました。
-@uref{http://www.earlymusicny.org/, Early Music New York}
+@uref{https://www.earlymusicny.org/, Early Music New York}
 をご覧ください。
 
 
 @item
-@uref{http://valentin.villenave.net/,Valentin Villenave} は
+@uref{https://valentin.villenave.net/,Valentin Villenave} は
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}
 によるオペラ @emph{Affaire étrangère} の台本を譜刻をし、
 2009年にフランスの
@@ -814,7 +814,7 @@ St. James's Church で、 Frederick Renz と彼の楽団による演奏の譜刻
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
+@uref{https://www.mutopiaproject.org/index.html, Mutopia Project},
 2000 曲を越えるクラシック音楽の楽譜を自由にダウンロードできます。@c
 LilyPond で生成された楽譜の主要なショーケースです。@c
 すべての作品には LilyPond ソースファイルがあるため、@c
@@ -829,7 +829,7 @@ LilyPond で生成された楽譜の主要なショーケースです。@c
 サブスクライバーのみが利用できます。
 
 @item
-@uref{http://partitura.org/, Partitura Organum} は@c
+@uref{https://partitura.org/, Partitura Organum} は@c
 パブリックドメインのオルガン作品の成長しているコレクションで、
 LilyPond によって組版され、@c
 クリエイティブ・コモンズ・ライセンスで配布されています。
@@ -855,7 +855,7 @@ Clairnote の表記に変換されたものです。
 Mutopia ライブラリ全作品のソースファイル。
 
 @item
-@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Web サイトの例}:
+@uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Web サイトの例}:
 @ref{例}で示した楽譜ギャラリーのソースファイル。
 
 @item
@@ -903,7 +903,7 @@ LilyPond を試してみる決心がついたのなら、@c
 @item
 2011年4月
 
-@uref{http://www.linux-magazine.com,Linux Magazine} は
+@uref{https://www.linux-magazine.com,Linux Magazine} は
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move} という題の記事を出版しました。@c
 これは MuseScore, LilyPond, Chordii の紹介記事であり、@c
@@ -916,7 +916,7 @@ LilyPond はユーザーフレンドリーで学習が簡単です。} と述べ
 2010年5月
 
 ウェブサイト Create Digital Music において Peter Kirn は、
-@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
 review} を投稿しました。使用法についての記述はバランスが取れており、
 LilyPond の高品質な記譜を賞賛し、試用することを提案しています。
 
@@ -924,7 +924,7 @@ LilyPond の高品質な記譜を賞賛し、試用することを提案して�
 2009年9月
 
 ドイツの雑誌 LinuxUser で
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 LilyPond に関する記事} が掲載されました。
 
 @item
@@ -939,7 +939,7 @@ LilyPond に関する記事} が掲載されました。
 
 フランス @emph{National Conservatory Parent Association} の@c
 年刊で出版される雑誌の
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, 記事}
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, 記事}
 において、フランス人作曲家であり LilyPond の貢献者でもある Valentin Villenave
 は、フリーなライセンスや、特に LilyPond による楽譜は、記譜された音楽を@c
 皆にアクセス可能にする手段であることを述べました。
@@ -956,8 +956,8 @@ Andrew Hawryluk は Finale と LilyPond を総括的に比較し、@c
 @item
 2006年6月
 
-@uref{http://distrowatch.com,DistroWatch} は LilyPond に寄付金を授与しました。
-@uref{http://distrowatch.com/weekly.php?issue=20060605,記事では}
+@uref{https://distrowatch.com,DistroWatch} は LilyPond に寄付金を授与しました。
+@uref{https://distrowatch.com/weekly.php?issue=20060605,記事では}
 @qq{皆様、読者のリクエストに応え、 DistroWatch の 2006年5月の寄付金を
 LilyPond (@euro{}190.00) と Lua (US$250.00) に授与したことをお知らせできて@c
 嬉しく思います。} と書かれています。
@@ -965,8 +965,8 @@ LilyPond (@euro{}190.00) と Lua (US$250.00) に授与したことをお知ら�
 @item
 2005年12月
 
-@uref{http://linuxjournal.com,Linux Journal} は
-@uref{http://www.linuxjournal.com/article/8364, Make
+@uref{https://linuxjournal.com,Linux Journal} は
+@uref{https://www.linuxjournal.com/article/8364, Make
 Stunning Schenker Graphs with GNU LilyPond} という題の記事を出版しました。
 詳細でありつつも実践的な機能について、新鮮な LilyPond の画像と共に@c
 記述されています。著者の Kris Shaffer は @qq{GNU LilyPond の生成する画像は@c
@@ -976,7 +976,7 @@ Stunning Schenker Graphs with GNU LilyPond} という題の記事を出版しま
 2005年8月20日
 
 ベルギーの新聞 De Standaard は @q{DS2 bijlage} 内で
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} （非営利の知識共有）という題で@c
 何がフリーソフトウェアの作者を駆り立てるかという調査をしました。
 LilyPond は例として使われ、記事内の至る所に Jan Nieuwenhuizen との
@@ -987,7 +987,7 @@ E メールインタビューが引用されています。主流な印刷出版
 2005年6月
 
 LilyPond 2.6 のリリースがフランスのウェブサイト
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org}
 に掲載されました。
 
 @item
@@ -1003,17 +1003,17 @@ LilyPond で生成された楽譜は並外れて綺麗で [@dots{}] ほとんど
 @item
 2004年7月, 8月
 
-Dave Phillips は @uref{http://linuxjournal.com,Linux Journal} で
+Dave Phillips は @uref{https://linuxjournal.com,Linux Journal} で
 At the sounding edge: LilyPond という紹介記事を書きました。
-@uref{http://www.linuxjournal.com/article/7657, パート 1}、@c
-@uref{http://www.linuxjournal.com/article/7719, パート 2}。
+@uref{https://www.linuxjournal.com/article/7657, パート 1}、@c
+@uref{https://www.linuxjournal.com/article/7719, パート 2}。
 
 @item
 2004年3月
 
 Chris Cannam は linuxmusician.com で（元サイトは現存せず）
 Han-Wen Nienhuys と Jan Nieuwenhuizen に
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
+@uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
 インタビュー} しました。このインタビューは
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot} で@c
 レビューされています。
@@ -1090,7 +1090,7 @@ LilyPondで得られる結果に近い物は他ではありません
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, @uref{http://www.rosegardenmusic.com/, RoseGarden} プロジェクトの主任プログラマ。
+@subsubheading Chris Cannam, @uref{https://www.rosegardenmusic.com/, RoseGarden} プロジェクトの主任プログラマ。
 
 @qq{LilyPond は明らかに [楽譜清書における] 超重量級ゴリラです。}
 @divEnd
@@ -1137,7 +1137,7 @@ LilyPond は私に素晴らしいスタート地点、直感的なインター�
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} メンバー
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} メンバー
 
 @qq{憎悪にも似た情愛を感じました。@c
 情愛の理由は、最初に見た楽譜があまりにも素晴らしかったからです！@c
@@ -1151,14 +1151,14 @@ scheme がどう使われているかを良く知るにつれ、@c
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, ドイツ Koblenz 劇場指揮者、優れた GNU ハッカー
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, ドイツ Koblenz 劇場指揮者、優れた GNU ハッカー
 
 @qq{とにかく、LilyPond は驚くほど良い仕事をする！}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, @uref{http://jackaudio.org/, JACK} と @uref{http://www.ardour.org/, Ardour} の開発者
+@subsubheading Paul Davis, @uref{https://jackaudio.org/, JACK} と @uref{https://www.ardour.org/, Ardour} の開発者
 
 @qq{[LilyPond] はすごいプログラムだと思う。実に素敵な結果が得られる。@c
 去年、これについてのインタビュー記事を読んだ後、@c
@@ -1175,7 +1175,7 @@ scheme がどう使われているかを良く知るにつれ、@c
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, 音楽家、プロ組版者、そして長期間の SCORE ユーザ
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, 音楽家、プロ組版者、そして長期間の SCORE ユーザ
 
 @qq{このプロジェクトに貢献するすべての人に心から感謝します。@c
 私は90年代に大きな組版会社で SCORE を使っていましたが、@c
@@ -1357,7 +1357,7 @@ In particular, don't link to:
 @sourceimage{logo-macosx,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 Frescobaldi は LilyPond のために追加、強化された多くの機能がある、@c
 軽量かつ強力な、音楽・テキストエディタです。@c
@@ -1464,7 +1464,7 @@ LilyPondを便利に扱うための豊富なツールキットを提供します
 @sourceimage{logo-windows,,}
 
 @subsubheading Emacs
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 Emacs は、多くのコンピュータ言語に対応する言語検出機能を持つ@c
 テキスト エディタです。@c
 Emacs には高い拡張性があり、統合開発環境として使用することができます。@c
@@ -1481,7 +1481,7 @@ Emacs をセットアップするための更なる情報が
 @rprogram{テキスト エディタ サポート} にあります。
 
 @subsubheading Vim
-@uref{http://www.vim.org}
+@uref{https://www.vim.org}
 Vim は最小限度の機能を持つテキスト エディタであり、@c
 古い Unix @command{vi} エディタの機能拡張版です。@c
 このプログラムも拡張やコンフィグレーションを行うことができます。
@@ -1494,7 +1494,7 @@ Vim をセットアップするための更なる情報が
 
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
-@uref{http://pages.uoregon.edu/koch/texshop/}
+@uref{https://pages.uoregon.edu/koch/texshop/}
 
 MacOS@tie{}X 用のエディタ TeXShop を拡張して、
 エディタから LilyPond, @command{lilypond-book} それに
@@ -1539,8 +1539,8 @@ Felipe Castro によるバージョン 4.55 体験版の .enc ファイルの研
 リバースエンジニアリングを基に作られました。
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-@uref{http://www.cairographics.org,Cairo} ライブラリをベースにした@c
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://www.cairographics.org,Cairo} ライブラリをベースにした@c
 楽譜エディタで、試験的に LilyPond へのエクスポートをサポートしています。
 
 @item
@@ -1553,7 +1553,7 @@ Felipe Castro によるバージョン 4.55 体験版の .enc ファイルの研
 総譜やパート譜を作成するモードがあります。
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}:
+@uref{https://www.rosegardenmusic.com,Rosegarden}:
 オーディオ・MIDI シーケンサであり、単一譜を扱える楽譜エディタでもあります。
 
 @end itemize
@@ -1566,18 +1566,18 @@ Felipe Castro によるバージョン 4.55 体験版の .enc ファイルの研
 @item
 @uref{http://www.projectabjad.org/,Abjad} は@c
 形式化された楽譜の制御 (Formalized Score Control) をする
-@uref{http://www.python.org/,Python} API で、@c
+@uref{https://www.python.org/,Python} API で、@c
 LilyPond による複雑な音楽を、反復型開発の手法で作成することができます。
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS} (FOrmat MUSic) は@c
+@uref{https://common-lisp.net/project/fomus/,FOMUS} (FOrmat MUSic) は@c
 アルゴリズム生成された音楽を記譜するためのツールです。@c
 Lisp言語で書かれており、多くのインタプリタで動作します。C++に移植されたものも@c
 あります。
 
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
-は @uref{http://mozart.github.io/, The Mozart Programming System} 上の環境です。
+は @uref{https://mozart.github.io/, The Mozart Programming System} 上の環境です。
 
 @end itemize
 @divEnd
@@ -1595,7 +1595,7 @@ Lisp言語で書かれており、多くのインタプリタで動作します�
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} は
-@uref{http://www.frescobaldi.org/,Frescobaldi} に置き換わり、
+@uref{https://www.frescobaldi.org/,Frescobaldi} に置き換わり、
 KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在します。
 
 @item
@@ -1603,20 +1603,20 @@ KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在しま�
 できるプログラムで、LilyPond 版のテンキーのようなものです。
 
 @item
-@uref{http://www.musescore.org,MuseScore}:
+@uref{https://www.musescore.org,MuseScore}:
 楽譜エディタです。バージョン 2.0 で LilyPond エクスポートがなくなりましたが、@c
 古いバージョンがまだ
-@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}
+@uref{https://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}
 でダウンロードできます。
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit} は@c
-@uref{http://www.musicxml.com/,MusicXML} をインポートできましたが、@c
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-と @uref{http://canorus.org,Canorus} にフォークされました。
+@uref{https://www.musicxml.com/,MusicXML} をインポートできましたが、@c
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+と @uref{https://canorus.org,Canorus} にフォークされました。
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 OpenOffice.org の拡張機能で、OpenOffice.org ドキュメント中@c
 で LilyPond ファイルを画像に変換できます。@c
 もう開発されていませんが、まだバージョン 4 で動作すると思われます。
@@ -1634,7 +1634,7 @@ LilyPond をインストールすることなく、@c
 すべてのプログラムの機能を試すことができます。
 
 @item
-@uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}:
+@uref{https://sourceforge.net/projects/tuxguitar/,TuxGuitar}:
 マルチトラックなタブ譜のエディタ・プレイヤで、楽譜ビューアを持ち、@c
 LilyPond コードのエクスポートが可能です。
 

@@ -35,7 +35,7 @@ used procedures.
 
 On UNIX systems (such as GNU/Linux, Mac OS X, FreeBSD), the easiest way
 to download and install Git is through a package manager.  Alternatively,
-you can visit the @uref{http://git-scm.com/, Git website} for downloadable
+you can visit the @uref{https://git-scm.com/, Git website} for downloadable
 installers.
 
 For convenience, you may also install a graphical front-end to Git.
@@ -820,7 +820,7 @@ well, it is not stored in our main repository.  For more info, see
 The location for the repository is:
 
 @example
-@uref{http://github.com/gperciva/gub}
+@uref{https://github.com/gperciva/gub}
 @end example
 
 

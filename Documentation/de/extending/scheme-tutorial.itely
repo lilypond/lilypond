@@ -25,16 +25,16 @@ LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil
 der Eingabesyntax als auch als internen Mechanismus, um Programmmodule
 zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über
 die Dateneingabe mit Scheme.  Wenn Sie mehr über Scheme wissen wollen,
-gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
+gehen Sie zu @uref{https://@/www@/.schemers@/.org}.
 
 LilyPond benutzt die GNU Guile-Implementation von Scheme, die auf dem
 @qq{R5RS}-Standard von Scheme basiert.  Wenn Sie Scheme lernen wollen,
 um es innerhalb von LilyPond zu benutzen, wird es nicht empfohlen,
 mit einer anderen Implementation (die sich auf einen anderen
 Standard bezieht) zu arbeiten.  Information zu Guile findet sich
-unter @uref{http://www.gnu.org/software/guile/}.  Der
+unter @uref{https://www.gnu.org/software/guile/}.  Der
 @qq{R5RS}-Standard von Scheme befindet sich unter der Adresse
-@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+@uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 
 @menu

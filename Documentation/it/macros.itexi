@@ -96,7 +96,7 @@ Questo manuale è disponibile in altri formati ed è integrato col resto
 della documentazione.  Maggiori informazioni in @rweb{Manuali}.
 
 La documentazione completa si trova all'indirizzo
-@w{@uref{http://@/lilypond@/.org/}}.
+@w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 

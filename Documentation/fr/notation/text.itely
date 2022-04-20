@@ -1950,7 +1950,7 @@ disponible à l'adresse
 @uref{https://www.microsoft.com/typography/otspec/featurelist.htm}, et
 les différents types de fonctionnalités des fontes OpenType
 sont recensés dans le message
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}.
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}.
 
 En plus de pouvoir jongler entre les différentes fontes prédéfinies,
 LilyPond vous permet d'en utiliser d'autres, ce qui fait l'objet des

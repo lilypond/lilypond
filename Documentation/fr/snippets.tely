@@ -19,7 +19,7 @@
 @macro manualIntro
 Ce document regroupe un certain nombre d'exemples, trucs et astuces pour
 LilyPond issus du
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  Il est dans le domaine public.
 
 Nous profitons de ces lignes pour adresser tous nos remerciements à

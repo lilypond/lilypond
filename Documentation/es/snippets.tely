@@ -19,7 +19,7 @@
 @macro manualIntro
 
 This document shows a selected set of LilyPond snippets from the
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  It is in the public domain.
 
 We would like to address many thanks to Sebastiano Vigna for maintaining

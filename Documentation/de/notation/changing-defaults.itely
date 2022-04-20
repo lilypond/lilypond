@@ -37,7 +37,7 @@ der Interna}.  Diese Referenz zeigt alle Variablen, Funktionen und Optionen,
 die in LilyPond möglich sind.  Es existiert als ein HTML-Dokumente, das
 sich
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,on@/-line},
+@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,on@/-line},
 aber auch lokal in das LilyPond-Dokumentationspaket integriert lesen lässt.
 
 Intern benutzt LilyPond Scheme (ein LISP-Dialekt), um eine Infrastruktur

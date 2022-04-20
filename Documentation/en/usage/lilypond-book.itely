@@ -1401,7 +1401,7 @@ unterst__tzt werden.
 These functions already exist in the OrchestralLily package:
 
 @example
-@url{http://repo.or.cz/w/orchestrallily.git}
+@url{https://repo.or.cz/w/orchestrallily.git}
 @end example
 
 For greater flexibility in text handling, some users prefer to

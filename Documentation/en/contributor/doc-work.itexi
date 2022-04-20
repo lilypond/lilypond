@@ -238,7 +238,7 @@ Thanks for your interest!
 
 The language is called Texinfo; you can see its manual here:
 
-@uref{http://www.gnu.org/software/texinfo/manual/texinfo/}
+@uref{https://www.gnu.org/software/texinfo/manual/texinfo/}
 
 However, you don't need to read those docs.  The most important
 thing to notice is that text is text.  If you see a mistake in the
@@ -1000,7 +1000,7 @@ Use for important messages.
 @item
 References must occur at the end of a sentence, for more
 information see the
-@uref{http://www.gnu.org/software/texinfo/manual/texinfo/,texinfo
+@uref{https://www.gnu.org/software/texinfo/manual/texinfo/,texinfo
 manual}.  Ideally this should also be the final sentence of a
 paragraph, but this is not required.  Any link in a doc section
 must be duplicated in the @code{@@morerefs} section at the bottom.

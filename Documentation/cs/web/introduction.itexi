@@ -374,7 +374,7 @@ LilyPond vyzkoušíte, přečtěte si nejprve o našem
 @divClass{column-center-top}
 @subheading Svobodné programy
 
-@uref{http://www.gnu.org/, GNU} LilyPond je napsán a udržován
+@uref{https://www.gnu.org/, GNU} LilyPond je napsán a udržován
 společností nadšenců.
 Je vydán pod @ref{GPL, GNU General Public License} a
 @ref{FDL, GNU Free Documentation License}, takže
@@ -460,8 +460,8 @@ jednotlivec.
 @qq{Dárková kultura}: Hnutí za svobodné programy (nebo @qq{otevřený zdrojový kód})
 stvořil mnoho velkolepých programů, například
 @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox} a
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Jako poděkování
+@uref{https://www.getfirefox.com/, Mozilla Firefox} a
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Jako poděkování
 za prospěch, který z takových projektů mají,
 chtějí někteří vývojáři dát společnosti @qq{něco
 zpět}.
@@ -532,9 +532,9 @@ Několik pozoruhodných událostí:
 
 @item
 @emph{Affaire étrangère}, Opera od
-@uref{http://valentin.villenave.net/,Valentin Villenave} s
+@uref{https://valentin.villenave.net/,Valentin Villenave} s
 francouzským libretem od
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}, byla poprvé uvedena 1. února 2009 v
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}, byla poprvé uvedena 1. února 2009 v
 @uref{http://www.orchestre-montpellier.com/, L'Opéra de Montpellier}.
 
 
@@ -547,7 +547,7 @@ Nicolase Sceauxe}).
 @item
 Ukázky nástrojů od Rameause @emph{Hippolyte et Aricie} v
 St. James Church na Manhattanu 8. května 2009  od Fredericka
-Renze a jeho souboru @uref{http://www.earlymusicny.org/,
+Renze a jeho souboru @uref{https://www.earlymusicny.org/,
 Early Music New York} (notová sazba od Nicolase Sceauxe).
 
 @end itemize
@@ -563,7 +563,7 @@ Early Music New York} (notová sazba od Nicolase Sceauxe).
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
+@uref{https://www.mutopiaproject.org/index.html, Mutopia Project},
 přes 1500 skladeb klasické hudby k volnému stažení not a
 pro LilyPond ta nejlepší reklama.
 
@@ -620,7 +620,7 @@ LilyPond vyzkoušíte, přečtěte si nejprve o našem
 Září 2009
 
 Německý časopis pro uživatele Linuxu napsal
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 Článek o LilyPondu}.
 
 @item
@@ -645,9 +645,9 @@ ručně rytým vydáním.
 @item
 Červen 2006
 
-@uref{http://distrowatch.com,DistroWatch} uděluje LilyPondu
+@uref{https://distrowatch.com,DistroWatch} uděluje LilyPondu
 cenu a
-@uref{http://distrowatch.com/weekly.php?issue=20060605,píše}
+@uref{https://distrowatch.com/weekly.php?issue=20060605,píše}
 @qq{Ladies and Gentleman, we are pleased to announce that, based
 on readers' requests, the DistroWatch May 2006 donation has been
 awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
@@ -655,9 +655,9 @@ awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
 @item
 Prosinec 2005
 
-@uref{http://linuxjournal.com,Linux Journal}  zveřejňuje
+@uref{https://linuxjournal.com,Linux Journal}  zveřejňuje
 článek pod názvem
-@uref{http://www.linuxjournal.com/article/8364, Make Stunning
+@uref{https://www.linuxjournal.com/article/8364, Make Stunning
 Schenker Graphs with GNU LilyPond}.  Jedná se o do hloubky jdoucí,
 ale velmi účelný článek s vyrytými ostrými obrázky
 LilyPondu.  Autor Kris Shaffer poznamenává:
@@ -669,7 +669,7 @@ jeví jako druhá volba.«
 
 Belgické noviny De Standaard zkoumají, co pobízí autory
 svobodných programů v článku
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Neziskové strany
 vědění) ve svém `DS2 bijlage'.  LilyPond je používán jako příklad
 a článek je rozdělen pomocí výtahů z rozhovoru vedeného elektronickou
@@ -680,7 +680,7 @@ přichází poprvé do velkého tištěného tisku.
 Červen 2005
 
 Francouzský článek o LilyPondu ve verzi 2.6 se objevuje na
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
 
 @item
 Říjen 2004
@@ -697,16 +697,16 @@ umí skoro vše.}
 Červenec, srpen 2004
 
 Dave Phillips napsal úvodní článek pro
-@uref{http://linuxjournal.com,Linux Journal}: At
+@uref{https://linuxjournal.com,Linux Journal}: At
 the sounding edge: LilyPond, díl
-@uref{http://www.linuxjournal.com/article/7657, první} a
-@uref{http://www.linuxjournal.com/article/7719, druhý}.
+@uref{https://www.linuxjournal.com/article/7657, první} a
+@uref{https://www.linuxjournal.com/article/7719, druhý}.
 
 @item
 Březen 2004
 
 Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewte}
+@uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewte}
 Han-Wen Nienhuys a Jan Nieuwenhuizen na linuxmusician.com
 (prvotní stránky už nejdou).  Rozhovor byl probírán také
 v jednom článku na @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
@@ -785,7 +785,7 @@ překvapit.}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, vedoucí programátor projektu @uref{http://www.rosegardenmusic.com/, Rosegarden}
+@subsubheading Chris Cannam, vedoucí programátor projektu @uref{https://www.rosegardenmusic.com/, Rosegarden}
 
 @qq{LilyPond je zřejmě supergorilou [notové sazby].}
 @divEnd
@@ -837,7 +837,7 @@ tím více jej mám rád!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} - spolupracovník
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} - spolupracovník
 
 @qq{Rozvíjel jsem k němu takovou nějakou nenávistnou lásku. Lásku, protože
   první list s notami, který jsem uviděl, vypadal tak dobře. Popis
@@ -851,14 +851,14 @@ tím více jej mám rád!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent v koblenzském divadle a vynikající dělník GNU
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent v koblenzském divadle a vynikající dělník GNU
 
 @qq{Celkově LilyPond dělá čistou práci!}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, vývojář @uref{http://jackaudio.org/, JACKa} a @uref{http://www.ardour.org/, Ardouru}
+@subsubheading Paul Davis, vývojář @uref{https://jackaudio.org/, JACKa} a @uref{https://www.ardour.org/, Ardouru}
 
 @qq{Myslím si, že [LilyPond]
   je mimořádný program, a že dosahuje překrásných
@@ -1045,7 +1045,7 @@ ukázat a klepnout.
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 Frescobaldi je jednoúčelový notový a textový editor pro LilyPond
 s vestavěným náhledem na soubory PDF, s mnohostrannou podporou pro
@@ -1089,7 +1089,7 @@ textovém pohledu, když se z něj tiskne.
 @sourceimage{logo-macosx,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 
 Emacs je textový editor s vlastnostmi, které pracují v závislosti
 na jazyku, pro velmi mnoho počítačových jazyků.  Emacs je
@@ -1100,7 +1100,7 @@ soubory LilyPondu.  Jeden z našich vývojářů
 napsal i hlavní režim pro Emacs, @uref{http://nicolas.sceaux.free.fr/
 +lilypond/lyqi.html,lyqi}.
 
-@uref{http://www.vim.org}
+@uref{https://www.vim.org}
 
 Vim je malý textový editor a rozšíření staršího
 unixového editoru @command{vi}.  Je rovněž rozšiřitelný a nastavitelný.
@@ -1150,11 +1150,11 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 @itemize
 @item
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, Zvukový a MIDI sekvencer,
+@uref{https://www.rosegardenmusic.com,Rosegarden}, Zvukový a MIDI sekvencer,
 který rovněž podporuje editor notového zápisu pro úpravy jednotlivých notových osnov.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 založený na knihovně @uref{http://cairographics.org, Cairo},
 má pokusnou podporu pro vyvedení LilyPondu.
 
@@ -1164,14 +1164,14 @@ přehrávač, staví vedle tabulatur také pohled na notový zápis
 a dovede vyvádět do LilyPondu.
 
 @item
-@uref{http://musescore.org,MuseScore} má neúplné vyvedení pro LilyPond,
+@uref{https://musescore.org,MuseScore} má neúplné vyvedení pro LilyPond,
 je ale činorodě vyvíjen.
 
 @item
-@uref{http://canorus.org,Canorus} také umí vyvádět do LilyPondu, je ovšem ještě ve stadiu beta.  Osoby ochotné jej zkoušet jsou vítány.
+@uref{https://canorus.org,Canorus} také umí vyvádět do LilyPondu, je ovšem ještě ve stadiu beta.  Osoby ochotné jej zkoušet jsou vítány.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
+@uref{https://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
 monofonní převodník ve skutečném čase z MIDI do LilyPondu.
 
 @end itemize
@@ -1183,7 +1183,7 @@ monofonní převodník ve skutečném čase z MIDI do LilyPondu.
 nadmíru výrazný na omezení založený systém pro skládání hudby}.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, knihovna LISP,
+@uref{https://common-lisp.net/project/fomus/,FOMUS}, knihovna LISP,
 pro vytváření hudebního zápisu z programových prostředí pro počítačovou hudbu.
 
 @end itemize
@@ -1198,15 +1198,15 @@ pro vytváření hudebního zápisu z programových prostředí pro počítačov
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} byl nahrazen
-@uref{http://www.frescobaldi.org/,Frescobaldi} a existuje pouze jako
+@uref{https://www.frescobaldi.org/,Frescobaldi} a existuje pouze jako
 LilyKDE3 pro KDE 3.5 a lilypond-KDE4 pro KDE 4.1.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, který zaváděl
 @uref{http://www.musicxml.com/xml.html,MusicXML}, se
 rozdělil a je dále vyvíjen jako
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-a @uref{http://canorus.org,Canorus}.
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+a @uref{https://canorus.org,Canorus}.
 
 
 @item

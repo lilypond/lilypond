@@ -129,7 +129,7 @@ previous stable versions and current as a compressed archive.
 translation status for non-English readers.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 user-created examples, hints and tips.
 
 @item
@@ -333,7 +333,7 @@ attempting any large projects.
 @subheading Snippets
 
 This shows a selected set of LilyPond snippets from the
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  All the snippets are in the public domain.
 
 Please note that this document is not an exact subset of LSR.  LSR

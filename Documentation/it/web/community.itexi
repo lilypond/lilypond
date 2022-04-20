@@ -108,10 +108,10 @@ Questa mailing list è il principale luogo dove gli utenti possono discutere
 e aiutarsi.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user/,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user/,
 iscrizione e informazioni su lilypond-user}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 archivio@tie{}1 della lista degli utenti}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 archivio@tie{}2}
@@ -123,19 +123,19 @@ archivio@tie{}2}
 
 @quotation
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Mailing list francese}
 
 @uref{https://lilypondforum.de/,
 Forum tedesco}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,
 Mailing list italiana}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 Gruppo portoghese}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 Mailing list spagnola}
 @end quotation
 @divEnd
@@ -150,7 +150,7 @@ usati nei tuoi lavori.  Guarda quello che hanno scritto altre persone,
 e aggiungi i tuoi esempi!
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 Esempi particolarmente istruttivi provenienti dal LSR sono inclusi nella
@@ -576,7 +576,7 @@ hanno un numero di versione @q{minore} dispari (per esempio 2.15, 2.17, 2.19).
 Le istruzioni su git e la compilazione sono nella Guida del Collaboratore.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, repository git di lilypond}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, repository git di lilypond}
 @end quotation
 
 Gli editor della Documentazione e i tester generalmente vorranno scaricare

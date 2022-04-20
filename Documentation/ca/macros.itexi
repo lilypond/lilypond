@@ -109,7 +109,7 @@ relaciona amb la resta de la documentació, o per llegir aquest
 manual en altres formats, consulteu @rweb{Manuals}.
 
 Si us falta algun manual, trobareu tota la documentació a
-@w{@uref{http://@/lilypond@/.org/}}.
+@w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
@@ -781,17 +781,17 @@ Manipulació de Imatges del GNU}.
 
 @macro logoLegalFreeBSD
 El logotip del FreeBSD és una marca registrada de
-@uref{http://www.freebsd.org/, The FreeBSD Foundation}.
+@uref{https://www.freebsd.org/, The FreeBSD Foundation}.
 
 @end macro
 
 @macro logoLegalMacOSX
 La @qq{imatge de la X} no és una marca registrada.   És obra de
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} i
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, i es
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} i
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, i es
 va posar sota la llicència de Documentació Lliure del GNU versió
 1.2 o posterior.  Trobem aquesta imatge a
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 aquesta pàgina de la Wikimedia Commons}.
 
 @end macro
@@ -799,10 +799,10 @@ aquesta pàgina de la Wikimedia Commons}.
 @macro logoLegalWindows
 La @qq{imatge dels quatre rectangles de colors} no és una marca
 registrada.  És obra de
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} i està
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} i està
 posada sota la llicència de Documentació Lliure del GNU, versió 1.2.
 Trobem aquesta imatge a
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 aquesta pàgina de la Wikimedia Commons}.
 
 @end macro

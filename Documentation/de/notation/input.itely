@@ -2247,7 +2247,7 @@ aber normalerweise werden alle vier Zeichen der hexadezimalen Notation
 notiert. (Achten Sie darauf, dass Sie @emph{nicht} UTF-8-Codepunkte
 einsetzen, weil UTF-8 zusätzliche Bits enthält, die die Nummer der Oktets bezeichnet.)  Unicode-Tabellen und ein Verzeichnis der Zeichenbezeichnungen
 mit einer hexadezimalen Verweiszahl finden sich auf der Internetseite
-des Unicode Consortiums: @uref{http://www.unicode.org/}.
+des Unicode Consortiums: @uref{https://www.unicode.org/}.
 
 Mit @code{\char ##x03BE} und @code{\char #958} wird
 beispielsweise das Unicode-Zeichen U+03BE notiert, welches die

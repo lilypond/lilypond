@@ -198,7 +198,7 @@ verschiedenen Dateiformaten detailliert erläutert werden.
 in Naturwissenschaft und Technik. Es basiert auf dem Schriftsetzer @TeX{},
 der die bestmögliche Typographie erzeugt.
 
-Siehe die @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/german/,
+Siehe die @uref{https://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/german/,
 @emph{@LaTeX{}2e-Kurzbeschreibung}} für eine Einführung in die
 Benutzung von @LaTeX{}.
 
@@ -1190,7 +1190,7 @@ lilypond-book.
 Diese Funktionen existieren schon im OrchestralLily-Paket:
 
 @example
-@url{http://repo.or.cz/w/orchestrallily.git}
+@url{https://repo.or.cz/w/orchestrallily.git}
 @end example
 
 Um den Text flexibler behandeln zu können, bevorzugen manche Benutzer es,

@@ -81,7 +81,7 @@ you can skip this section.}
 Download VirtualBox from here:
 
 @example
-@uref{http://www.virtualbox.org/wiki/Downloads}
+@uref{https://www.virtualbox.org/wiki/Downloads}
 @end example
 
 @warning{In virtualization terminology, the operating system where

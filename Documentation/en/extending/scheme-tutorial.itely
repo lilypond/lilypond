@@ -24,15 +24,15 @@ LilyPond uses the Scheme programming language, both as part of the
 input syntax, and as internal mechanism to glue modules of the program
 together.  This section is a very brief overview of entering data in
 Scheme.  If you want to know more about Scheme, see
-@uref{http://@/www@/.schemers@/.org}.
+@uref{https://@/www@/.schemers@/.org}.
 
 LilyPond uses the GNU Guile implementation of Scheme, which is
 based on the Scheme @qq{R5RS} standard.  If you are learning Scheme
 to use with LilyPond, working with a different implementation (or
 referring to a different standard) is not recommended.  Information
-on guile can be found at @uref{http://www.gnu.org/software/guile/}.
+on guile can be found at @uref{https://www.gnu.org/software/guile/}.
 The @qq{R5RS} Scheme standard is located at
-@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+@uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
 * Introduction to Scheme::
@@ -201,7 +201,7 @@ The string @code{\a said "b"} is entered as
 
 There are additional Scheme data types that are not discussed here.
 For a complete listing see the Guile reference guide,
-@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 @node Scheme compound data types
 @subsection Scheme compound data types
@@ -270,7 +270,7 @@ guile>
 
 Note:  @code{cdr} is pronounced "could-er", according Sussman and
 Abelson, see
-@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
+@uref{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
 @node Lists
 @unnumberedsubsubsec Lists

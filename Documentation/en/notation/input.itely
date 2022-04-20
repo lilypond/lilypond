@@ -3016,7 +3016,7 @@ after @code{\char}, as UTF-8 encodings contain extra bits indicating
 the number of octets.)  Unicode code charts and a character name
 index giving the code point in hexadecimal for any character can be
 found on the Unicode Consortium website,
-@uref{http://www.unicode.org/}.
+@uref{https://www.unicode.org/}.
 
 For example, @code{\char ##x03BE} and @code{\char #958} would both
 enter the Unicode U+03BE character, which has the Unicode name

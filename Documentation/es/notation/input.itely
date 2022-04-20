@@ -2836,7 +2836,7 @@ la codificación UTF-8 del punto de código Unicode después de
 adicionales que indican el número de octetos).  Hay tablas de
 códigos Unicode y un índice de nombres de caracteres que da el
 punto de código en hexadecimal para cualquier carácter en el
-portal del Consorcio Unicode, @uref{http://www.unicode.org/}.
+portal del Consorcio Unicode, @uref{https://www.unicode.org/}.
 
 Por ejemplo, tanto @code{\char ##x03BE} como @code{\char #958}
 insertan el carácter Unicode U+03BE, que tiene el nombre Unicode

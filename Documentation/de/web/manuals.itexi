@@ -136,7 +136,7 @@ vorhergehende stabile Versionen und die aktuelle Version als komprimiertes Archi
 der Übersetzungsstatus für nicht Nicht-Englischsprachige.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 
 @item
@@ -342,7 +342,7 @@ in Angriff nimmt.
 
 Hier werden ausgewählte Schnipsel an LilyPond-Code mit der produzierten
 Notation gezeigt.  Die Schnipsel stammen aus dem
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond-Schnipsel-Depot}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond-Schnipsel-Depot}
 (LSR) und stehen alle unter der Public Domain.
 
 Beachten Sie, dass dieses Dokument keine bestimmte Teilmenge von

@@ -49,8 +49,8 @@ The @q{official} LilyPond Git repository is hosted by the GNU
 Savannah software forge at @uref{https://git.sv.gnu.org}.
 The server provides two separate interfaces for viewing the
 LilyPond Git repository online:
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/, cgit} and
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, gitweb}.
+@uref{https://git.sv.gnu.org/cgit/lilypond.git/, cgit} and
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, gitweb}.
 
 However, the main development takes place at
 @uref{https://gitlab.com/lilypond/lilypond/}, which also hosts the
@@ -70,12 +70,12 @@ process, and most contributor tasks do not require it.
 Contributors can contact the developers through the
 @q{lilypond-devel} mailing list.  The mailing list archive is
 located at
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/}.  If you
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/}.  If you
 have a question for the developers, search the archives first to
 see if the issue has already been discussed.  Otherwise, send an
 email to @email{lilypond-devel@@gnu.org}.  You can subscribe to
 the developers' mailing list here:
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel}.
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel}.
 
 @warning{Contributors on Windows or MacOS X wishing to compile
 code or documentation are strongly advised to use our Debian

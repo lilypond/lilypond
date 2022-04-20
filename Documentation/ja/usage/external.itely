@@ -390,7 +390,7 @@ Emacs は @file{lilypond-mode} を持ちます。@c
 @unnumberedsubsec Vim モード
 @translationof Vim mode
 
-@uref{http://@/www@/.vim@/.org,Vim} のために
+@uref{https://@/www@/.vim@/.org,Vim} のために
 LilyPond 用のファイルタイプ プラグイン、インデント モード、@c
 それに構文ハイライト モードが用意されています。@c
 これらの機能をすべて有効にするには、@c
@@ -430,7 +430,7 @@ LilyPond をサポートするエディタは
 この章では、配布プログラムに含まれるインポート ツールについて説明します。
 LilyPond 入力を作り出すツールは他にもあります。@c
 例えば GUI シーケンスと XML コンバータです。@c
-詳細は @uref{http://@/lilypond@/.org,website} を参照してください。
+詳細は @uref{https://@/lilypond@/.org,website} を参照してください。
 
 上で述べたツールは @command{lilypond} とは別のプログラムであり、@c
 コマンド ラインで実行します。@c

@@ -71,7 +71,7 @@ translations should be in macros.itexi.
 
 @macro docMain
 @cartouche
-A teljes dokumentáció a @w{@uref{http://@/lilypond@/.org/}} honlapon
+A teljes dokumentáció a @w{@uref{https://@/lilypond@/.org/}} honlapon
 található.
 @end cartouche
 @end macro
@@ -715,30 +715,30 @@ Manipulation Program} segítségével készült.
 @end macro
 
 @macro logoLegalFreeBSD
-A FreeBSD logó a @uref{http://www.freebsd.org/, FreeBSD Alapítvány}
+A FreeBSD logó a @uref{https://www.freebsd.org/, FreeBSD Alapítvány}
 bejegyzett védjegye.
 
 @end macro
 
 @macro logoLegalMacOSX
 Az @qq{X-et ábrázoló kép} nem bejegyzett védjegy.
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} és
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull} műve,
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} és
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull} műve,
 a GNU Free Documentation License (GNU Szabad Dokumentációs Licenc) 1.2-es
 verziója vonatkozik rá.
 A kép forrása
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 ez a Wikipedia Commons oldal}.
 
 @end macro
 
 @macro logoLegalWindows
 A @qq{négyszínű ablakot ábrázoló kép} nem bejegyzett védjegy.
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} műve és
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} műve és
 a GNU Free Documentation License (GNU Szabad Dokumentációs Licenc) 1.2-es
 verziója vonatkozik rá.
 A kép forrása
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 ez a Wikipedia Commons oldal}.
 
 @end macro

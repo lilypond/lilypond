@@ -202,7 +202,7 @@ Introduisez des fragments de partition musicale sans avoir besoin de
 copier-coller manuellement des images. Intégrez de façon transparente
 des partitions dans un document @LaTeX{} ou HTML, ou bien ajoutez des
 partitions dans un document OpenOffice.org ou LibreOffice avec
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,
 OOoLilyPond}.
 
 Vous trouverez des greffons qui permettent d'insérer du code LilyPond
@@ -529,7 +529,7 @@ utiliser LilyPond, nous vous recommandons de lire d'abord
 @divClass{column-center-top}
 @subheading Un logiciel libre
 
-@uref{http://www.gnu.org/, GNU} LilyPond est développé par une
+@uref{https://www.gnu.org/, GNU} LilyPond est développé par une
 communauté de passionnés.  Ce logiciel est distribué selon la
 @ref{GPL, Licence Publique Générale GNU GPL} et la
 @ref{FDL, Licence Libre de Documentation GNU FDL}, accordant à tous la
@@ -615,8 +615,8 @@ fonctionnalités -- nous pouvons tendre bien plus vite vers ce but.
 « Culture du don » : le mouvement du logiciel libre a créé de nombreux
 grands projets logiciels tels que
 @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox} et
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Ayant bénéficié de
+@uref{https://www.getfirefox.com/, Mozilla Firefox} et
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Ayant bénéficié de
 ces projets en tant qu'utilisateurs, certains souhaitent « donner en
 retour » à la communauté en contribuant à un logiciel libre.
 
@@ -701,11 +701,11 @@ mentionnons que quelques-uns.
 @item
 Marc Hohl a écrit des partitions en allemand pour enfants et
 adolescents. Elles sont gravées avec LilyPond (et LaTeX) et disponibles
-gratuitement sur  @uref{http://www.singspielschmiede.de/} ; toute cette
+gratuitement sur  @uref{https://www.singspielschmiede.de/} ; toute cette
 musique a été donnée lors d'auditions à l'école où Marc travaille.
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} a réalisé un
+@uref{https://www.aurelienbello.com/,Aurélien Bello} a réalisé un
 arrangement du @emph{Chevalier à la rose} de Richard Strauss,
 pour quatre chanteurs et orchestre de chambre à treize interprètes.
 Après deux représentations en 2015 au @uref{https://www.festspielhaus.de/,
@@ -755,26 +755,26 @@ Tommaso Traetta, opéra sur un livret de Vittorio Amedeo Cigna-Santi, en quatre 
 @uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième partie}.
 
 @item
-@uref{http://kierenmacmillan.info/, Kieren MacMillan}, compositeur
+@uref{https://kierenmacmillan.info/, Kieren MacMillan}, compositeur
 et directeur musical. Ses travaux les plus récents incluent @emph{Go Thy
-Way}, donné par les @uref{http://www.saltlakechoralartists.org/, Salt
+Way}, donné par les @uref{https://www.saltlakechoralartists.org/, Salt
 Lake Choral Artists} en mars 2012, la @emph{Just Out of Reach Suite},
 donnée par le
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Duo Chrysalis} ainsi que @emph{thrafsmata} en juillet 2011 par le
-@uref{http://www.pnme.org/, Pittsburgh New Music Ensemble}.
+@uref{https://www.pnme.org/, Pittsburgh New Music Ensemble}.
 
 @item
 @emph{Anonymous Student Compliment or Complaint} a permis à
-@uref{http://www.mikesolomon.org, Mike Solomon} de gagner le
-@uref{http://www.leftcoastensemble.org,
+@uref{https://www.mikesolomon.org, Mike Solomon} de gagner le
+@uref{https://www.leftcoastensemble.org,
 Concours de composition de la côte Est 2011}, regroupant 172
 participants de 22 nationalités.
 
 Parmi ses autres œuvres, nous citerons
 @emph{Norman (un an)} pour clarinette solo, donnée en octobre 2010 à
 l'occasion du Festival de musique électro-acoustique (FEMF) de
-@uref{http://arts.ufl.edu/academics/music/, l'Université de Floride}.
+@uref{https://arts.ufl.edu/academics/music/, l'Université de Floride}.
 
 @item
 Une édition moderne de la @emph{Serenata Erminia} d'Alessandro
@@ -794,18 +794,18 @@ Stigliano à Naples lors des célébrations organisées pour le
 
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
-Texas, par @uref{http://www.mercuryhouston.org/, Mercury Baroque},
+Texas, par @uref{https://www.mercuryhouston.org/, Mercury Baroque},
 avec un matériel gravé par @uref{http://nicolas.sceaux.free.fr/, Nicolas
 Sceaux}.
 
 Nicolas a aussi gravé des passages instrumentaux @emph{d'Hippolyte et
 Aricie} de Rameau qui ont été joués le 8 mai 2009 en l'église
 Saint-James de Manhattan, par Frederick Renz et son ensemble
-@uref{http://www.earlymusicny.org/, Early Music New York}.
+@uref{https://www.earlymusicny.org/, Early Music New York}.
 
 @item
 @emph{Affaire Étrangère}, un opéra de
-@uref{http://valentin.villenave.net/, Valentin Villenave}, livret
+@uref{https://valentin.villenave.net/, Valentin Villenave}, livret
 de @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
 dont la première a eu lieu le
 @ifnothtml
@@ -848,7 +848,7 @@ conducteurs, parties et fichiers MIDI, sont disponibles sous licence
 Creative Commons uniquement sur souscription.
 
 @item
-@uref{http://partitura.org/, Partitura Organum} propose une collection
+@uref{https://partitura.org/, Partitura Organum} propose une collection
 grandissante de pièces pour orgue dans le domaine public, réalisées avec
 LilyPond et sous licence Creative Commons.
 
@@ -873,7 +873,7 @@ Dépôt du Projet Mutopia} :
 fichiers sources de toutes les pièces de la bibliothèque.
 
 @item
-@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples,
+@uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples,
 Exemples du site de LilyPond} :
 fichiers sources de la galerie en page @ref{Exemples}.
 
@@ -920,7 +920,7 @@ utiliser LilyPond, nous vous recommandons de lire d'abord
  @item
 Avril 2011
 
-@uref{http://www.linux-magazine.com,Linux Magazine} publie un
+@uref{https://www.linux-magazine.com,Linux Magazine} publie un
 article sur trois projets en pleine évolution,
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Dans cette présentation de MuseScore, LilyPond
@@ -933,7 +933,7 @@ fournit un exemple simple et concret.
 Mai 2010
 
 Peter Kirn publie, sur le site Create Digital Music, une
-@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/, critique de LilyPond}.
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/, critique de LilyPond}.
 Son approche reste objective et il invite à essayer LilyPond pour la
 qualité de son rendu.
 
@@ -941,7 +941,7 @@ qualité de son rendu.
 Septembre 2009
 
 Le magazine allemand LinuxUser publie un
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel, article au sujet de LilyPond}.
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel, article au sujet de LilyPond}.
 
 @item
 Août 2009
@@ -958,7 +958,7 @@ Juin 2009
 Dans la revue annuelle de la Fédération nationale des associations
 de parents d'éleves de conservatoires, le compositeur français
 Valentin Villenave, également contributeur LilyPond, consacre un
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article} aux licences
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article} aux licences
 libres, et au rôle primordial que peut jouer LilyPond afin d'ouvrir
 à tous l'accès à la musique écrite.
 
@@ -976,8 +976,8 @@ main.
 @item
 Juin 2006
 
-@uref{http://distrowatch.com,DistroWatch} récompense LilyPond et
-@uref{http://distrowatch.com/weekly.php?issue=20060605,écrit} :
+@uref{https://distrowatch.com,DistroWatch} récompense LilyPond et
+@uref{https://distrowatch.com/weekly.php?issue=20060605,écrit} :
 « Mesdames et Messieurs, nous avons l'immense plaisir de vous annoncer
 que, à la demande de nombreux lecteurs, les récompenses du DistroWatch
 de mai 2006 sont attribuées à LilyPond (190 @euro{}) et Lua
@@ -986,9 +986,9 @@ de mai 2006 sont attribuées à LilyPond (190 @euro{}) et Lua
 @item
 Décembre 2005
 
-@uref{http://linuxjournal.com, Linux Journal} publie un article sur de
+@uref{https://linuxjournal.com, Linux Journal} publie un article sur de
 stupéfiants graphiques [d'analyse Schenkerienne] avec GNU LilyPond (
-@uref{http://www.linuxjournal.com/article/8364, Stunning [Schenker]
+@uref{https://www.linuxjournal.com/article/8364, Stunning [Schenker]
 Graphics with GNU LilyPond}), cité en couverture. Il s'agit d'un article
 détaillé mais pratique, proposant des extraits musicaux édités avec
 LilyPond.  Son auteur, Kris Shaffer, note que « GNU LilyPond génère
@@ -1000,7 +1000,7 @@ commerciales. »
 
 Le journal belge De Standaard enquête sur les motivations des auteurs de
 logiciels libres dans un article intitulé
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Libre partage des connaissances)
 dans son « DS2 bijlage ».  L'exemple de LilyPond illustre cet article,
 qui cite également des extraits d'un entretien par courriel avec Jan
@@ -1011,7 +1011,7 @@ presse généraliste.
 Juin 2005
 
 Un article français sur LilyPond 2.6 est paru sur
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
 
 @item
 Octobre 2004
@@ -1027,16 +1027,16 @@ presque tout. »
 Juillet--août 2004
 
 Dave Phillips a écrit un article d'introduction à LilyPond pour le
-@uref{http://linuxjournal.com,Linux Journal} : @emph{At the
+@uref{https://linuxjournal.com,Linux Journal} : @emph{At the
 sounding edge: LilyPond},
-@uref{http://www.linuxjournal.com/article/7657, première} et
-@uref{http://www.linuxjournal.com/article/7719, deuxième} partie.
+@uref{https://www.linuxjournal.com/article/7657, première} et
+@uref{https://www.linuxjournal.com/article/7719, deuxième} partie.
 
 @item
 Mars 2004
 
 Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html, s'est entretenu avec Han-Wen Nienhuys et Jan Nieuwenhuizen} sur
+@uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html, s'est entretenu avec Han-Wen Nienhuys et Jan Nieuwenhuizen} sur
 linuxmusician.com (site aujourd'hui disparu). Cette interview a
 également été citée sur
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot story}.
@@ -1113,7 +1113,7 @@ vieilles maisons❞ [@dots{}]}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programmeur en chef du projet @uref{http://www.rosegardenmusic.com/, RoseGarden}
+@subsubheading Chris Cannam, programmeur en chef du projet @uref{https://www.rosegardenmusic.com/, RoseGarden}
 
 @qq{LilyPond est clairement le ténor brillantissime [de la gravure
 musicale de qualité].}
@@ -1163,7 +1163,7 @@ investissement !}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, contributeur au @uref{http://www.mutopiaproject.org/, projet Mutopia}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, contributeur au @uref{https://www.mutopiaproject.org/, projet Mutopia}
 
 @qq{J'avais une sorte de passion conflictuelle avec lui.  Passion parce
 que la première partition que j'en ai vu m'a vraiment émerveillé ! Le
@@ -1176,14 +1176,14 @@ grand merci de nous fournir LilyPond, c'est vraiment un bon programme.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Chef au Théâtre de Coblence (Allemagne) et éminent hacker GNU
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Chef au Théâtre de Coblence (Allemagne) et éminent hacker GNU
 
 @qq{À vrai dire, LilyPond fait un boulot des plus étonnants !}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, développeur de @uref{http://jackaudio.org/, JACK} et @uref{http://www.ardour.org/, Ardour}
+@subsubheading Paul Davis, développeur de @uref{https://jackaudio.org/, JACK} et @uref{https://www.ardour.org/, Ardour}
 
 @qq{Je considère [que LilyPond est] un programme incroyable, et qu'il
 produit des résultats vraiment merveilleux.  Après avoir lu une
@@ -1202,7 +1202,7 @@ logiciel.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, musicien, graveur professionnel et utilisateur de SCORE pendant longtemps
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, musicien, graveur professionnel et utilisateur de SCORE pendant longtemps
 
 @qq{J'adresse mes remerciements les plus chaleureux à tous ceux qui
 contribuent à ce projet.  Bien qu'utilisateur chevronné de SCORE pour
@@ -1387,7 +1387,7 @@ C'est le cas, en particulier, pour :
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 Frescobaldi est un éditeur de texte léger et puissant dédié à LilyPond.
 Il dispose d'une visionneuse PDF, d'un assistant de création de
@@ -1511,7 +1511,7 @@ commodément LilyPond.
 @sourceimage{logo-windows,,}
 
 @subsubheading Emacs
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 
 Emacs est un éditeur de texte avec des fontionnalités spécifiques pour
 un grand nombre de langages de programmation et de documents.  C'est un
@@ -1526,7 +1526,7 @@ chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 
 @subsubheading Vim
-@uref{http://www.vim.org}
+@uref{https://www.vim.org}
 
 Vim, éditeur de texte minimal, est une extension de l'ancien éditeur
 Unix @command{vi}.  Il est également extensible et configurable.
@@ -1541,7 +1541,7 @@ chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
-@uref{http://pages.uoregon.edu/koch/texshop/}
+@uref{https://pages.uoregon.edu/koch/texshop/}
 
 L'éditeur TeXShop pour MacOS X peut être muni d'une extension pour
 lancer LilyPond, @command{lilypond-book} et @command{convert-ly},
@@ -1570,7 +1570,7 @@ seraient pas correctement convertis -- en particulier le
 @emph{piobaireachd} -- sont listés par le programme.
 
 @item
-@uref{http://canorus.org,Canorus}, éditeur de partitions, peut également
+@uref{https://canorus.org,Canorus}, éditeur de partitions, peut également
 exporter vers LilyPond, mais est encore au stade de développement beta.
 Les testeurs sont les bienvenus.
 
@@ -1587,14 +1587,14 @@ fichiers @code{.enc} existant et en les chargeant avec la version de
 démonstration 4.55.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 basé sur la bibliothèque @uref{http://cairographics.org, Cairo}, dispose
 d'une fonction expérimentale d'export pour LilyPond.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY},
 programme en C#, permet de convertir une chanson écrite avec
-@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
+@c @uref{https://www.noteworthysoftware.com/,NoteWorthy}
 NoteWorthy au format LilyPond.
 
 @item
@@ -1603,7 +1603,7 @@ est un assistant à la création de conducteur et parties.  Il permet de
 mixer plusieurs parties en un conducteur.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et
+@uref{https://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et
 MIDI, comporte aussi un éditeur pour portée unique.
 
 @end itemize
@@ -1616,11 +1616,11 @@ MIDI, comporte aussi un éditeur pour portée unique.
 
 @item
 @uref{http://www.projectabjad.org/,Abjad}, API de contrôle
-formaliste de partition pour @uref{http://www.python.org/, Python},
+formaliste de partition pour @uref{https://www.python.org/, Python},
 permet aux compositeurs de gérer du code LilyPond complexe.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS} -- pour @emph{FOrmat
+@uref{https://common-lisp.net/project/fomus/,FOMUS} -- pour @emph{FOrmat
 MUSic} -- est une bibliothèque LISP qui permet aux compositeurs de
 générer de la notation.  Elle a été testée avec un certain nombre
 d'interpréteurs, et dispose d'un portage en C++.
@@ -1628,7 +1628,7 @@ d'interpréteurs, et dispose d'un portage en C++.
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
 est un système de composition musicale basé sur le
-@uref{http://mozart.github.io/, système de progammation Mozart}.
+@uref{https://mozart.github.io/, système de progammation Mozart}.
 
 @end itemize
 @divEnd
@@ -1648,7 +1648,7 @@ permettant de produire de la notation LilyPond.
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} a été remplacé par
-@uref{http://www.frescobaldi.org/,Frescobaldi}.  Il reste cependant
+@uref{https://www.frescobaldi.org/,Frescobaldi}.  Il reste cependant
 disponible en version LilyKDE3 pour KDE 3.5 et lilypond-KDE4 pour
 KDE 4.1.
 
@@ -1657,18 +1657,18 @@ KDE 4.1.
 créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 
 @item
-@uref{http://musescore.org,MuseScore} est un éditeur de partition. Il
+@uref{https://musescore.org,MuseScore} est un éditeur de partition. Il
 exporte dans une certaine mesure au format LilyPond.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit},
 qui importait
-@uref{http://www.musicxml.com/, MusicXML}, s'est scindé en
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-et @uref{http://canorus.org,Canorus}.
+@uref{https://www.musicxml.com/, MusicXML}, s'est scindé en
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+et @uref{https://canorus.org,Canorus}.
 
 @item
-@uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
+@uref{https://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
 temps-réel MIDI vers LilyPond.
 
 @item

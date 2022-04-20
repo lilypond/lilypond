@@ -374,7 +374,7 @@ al file @file{~/.emacs}
 @unnumberedsubsec Modalità di Vim
 @translationof Vim mode
 
-Per @uref{http://@/www@/.vim@/.org,Vim}, sono disponibili le seguenti funzionalità
+Per @uref{https://@/www@/.vim@/.org,Vim}, sono disponibili le seguenti funzionalità
 per LilyPond: un plugin di riconoscimento del tipo di file, una modalità di indentazione e di
 evidenziazione della sintassi.  Per abilitarle, crea (o modifica) il file
 @file{$HOME/.vimrc} in modo che contenga queste tre righe, in questo ordine:
@@ -410,7 +410,7 @@ informazioni.  Questi editor sono elencati in @rweb{Editing facilitato}.
 capitolo documenta gli strumenti inclusi nella distribuzione che svolgono
 questo compito.  Esistono altri strumenti che producono l'input di LilyPond, ad
 esempio i sequencer ad interfaccia grafica e i convertitori XML.  Per maggiori
-dettagli consulta il @uref{http://@/lilypond@/.org,sito web}.
+dettagli consulta il @uref{https://@/lilypond@/.org,sito web}.
 
 Si tratta di programmi separati da @command{lilypond}  e sono eseguiti
 dalla linea di comando; si veda @ref{Uso da linea di comando} per maggiori

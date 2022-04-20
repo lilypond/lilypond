@@ -105,7 +105,7 @@ documentação ou para ler este manual em outros formatos, consulte
 @rweb{Manuais}.
 
 Se você sentir faltando algum manual, a documentação completa
-pode ser encontrada em @w{@uref{http://@/lilypond@/.org/}}.
+pode ser encontrada em @w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
@@ -774,17 +774,17 @@ Manipulação de Imagem GNU (GIMP)}.
 
 @macro logoLegalFreeBSD
 A logo do FreeBSD é uma marca registrada da
-@uref{http://www.freebsd.org/, Fundação FreeBSD}.
+@uref{https://www.freebsd.org/, Fundação FreeBSD}.
 
 @end macro
 
 @macro logoLegalMacOSX
 A imagem @qq{X} não é uma marca registrada. Ela foi criada por
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} e
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, e
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} e
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, e
 colocada sob a Licença de Documentação Livre GNU versão 1.2 ou posterior.
 Nós encontramos a imagem
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 nesta página da Wikimedia Commons}.
 
 @end macro
@@ -792,10 +792,10 @@ nesta página da Wikimedia Commons}.
 @macro logoLegalWindows
 A @qq{image de quatro retângulos coloridos} não é uma marca registrada.
 Ela foi criada por
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} e
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} e
 colocada sob a Licença de Documentação Livre GNU versão 1.2. Nós
 encontramos a imagem
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 nessa página da Wikimedia Commons}.
 
 @end macro

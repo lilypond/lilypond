@@ -19,7 +19,7 @@
 @macro manualIntro
 
 Questo documento contiene una selezione di frammenti LilyPond tratti dal
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  I frammenti sono nel pubblico dominio.
 
 Desideriamo ringraziare Sebastiano Vigna per la gestione del sito web e

@@ -2723,7 +2723,7 @@ punt de codi Unicode després de @code{\char}, atès que la
 codificació UTF-8 conté bits addicionals que indiquen el nombre
 d'octets).  Hi ha taules de codis Unicode i un índex de noms de
 caràcters que dóna el punt de codi en hexadecimal per a qualsevol
-caràcter al portal del Consorci Unicode, @uref{http://www.unicode.org/}.
+caràcter al portal del Consorci Unicode, @uref{https://www.unicode.org/}.
 
 Per exemple, tant @code{\char ##x03BE} com @code{\char #958}
 insereixen el caràcter Unicode U+03BE, que té el nom Unicode

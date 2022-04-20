@@ -27,16 +27,16 @@ niveau de la syntaxe de saisie que des mécanismes internes chargés de
 combiner les différents modules du logiciel.  Les lignes qui suivent
 constituent un bref aperçu de la manière de saisir des données en
 Scheme.  Si vous désirez en apprendre plus sur Scheme, n'hésitez pas à
-vous rendre sur @uref{http://@/www@/.schemers@/.org}.
+vous rendre sur @uref{https://@/www@/.schemers@/.org}.
 
 Le Scheme utilisé par LilyPond repose sur l'implémentation GNU
 Guile ; celle-ci se base sur le standard Scheme « R5RS ».  Si
 votre but est d'apprendre Scheme au travers de LilyPond, sachez que
 l'utilisation d'une autre implémentation ou d'un autre standard pourrait
 être source de désagrément.  Vous trouverez plus d'information sur
-Guile à la page @uref{http://www.gnu.org/software/guile/} ; le
+Guile à la page @uref{https://www.gnu.org/software/guile/} ; le
 standard Scheme « R5RS » est quant à lui disponible à la page
-@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+@uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
 * Introduction à Scheme::
@@ -222,7 +222,7 @@ d'une oblique inverse.  La chaîne @code{\a dit "b"} se saisit donc
 Il existe bien d'autres types de données Scheme, dont nous ne parlerons
 pas ici.  Vous en trouverez une liste exhaustive dans le guide de
 référence de Guile, à la page
-@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 
 @node Types de données Scheme composites
@@ -297,7 +297,7 @@ guile>
 
 Note : @code{cdr} se prononce « couldeur », comme l'indiquent Sussman et
 Abelson -- voir
-@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
+@uref{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
 
 @node Listes

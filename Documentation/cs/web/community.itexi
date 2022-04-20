@@ -101,10 +101,10 @@ Tento poštovní seznam je tím hlavním místem, kde se spolu uživatelé baví
 si pomáhají.  Řečí seznamu je angličtina.  Na možnost pomoci v jazyce německém se podívejte níže.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://mail.gnu.org/mailman/listinfo/lilypond-user,
 lilypond-user odběr a informace}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+@uref{https://mail.gnu.org/archive/html/lilypond-user/,
 user Archiv1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 Archiv2}
@@ -122,7 +122,7 @@ dílech.  Podívejte se, co vytvořili jiní lidé a napište své vlastní
 příklady!
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 Obzvláště poučné příklady z LSR jsou zahrnuty v naší
@@ -169,13 +169,13 @@ na jednom z poštovních seznamů.
 Německé fórum pro LilyPond}
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 Španělský poštovní seznam}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 Portugalská skupina}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Francouzský poštovní seznam}
 
 @uref{http://www.lilypondforum.nl/,
@@ -194,7 +194,7 @@ Nejjednodušší cestou, jak zůstat ve spojení, je četba zpravodaje
 našeho společenství: LilyPond Reportu (v angličtině).
 
 @example
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading Poštovní seznam pro nové verze: @code{info-lilypond@@gnu.org}
@@ -203,10 +203,10 @@ Tento poštovní seznam je činný velice málo a lze jej jen číst:
 zde se provádí informování o nových verzích LilyPondu.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 info-lilypond odběr a informace}
 
-@uref{http://mail.gnu.org/archive/html/info-lilypond/,
+@uref{https://mail.gnu.org/archive/html/info-lilypond/,
 info Archiv1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 Archiv2}
@@ -225,10 +225,10 @@ Na tomto seznamu se nachází většina rozhovorů mezi
 vývojáři.  Změny se mají posílat sem.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://mail.gnu.org/mailman/listinfo/lilypond-devel,
 lilypond-devel odběr a informace}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+@uref{https://mail.gnu.org/archive/html/lilypond-devel/,
 devel Archiv1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 Archiv2}
@@ -240,10 +240,10 @@ Archiv2}
 Zde se nachází hlášení chyb a rozhovory.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://mail.gnu.org/mailman/listinfo/bug-lilypond,
 bug-lilypond odběr a informace}
 
-@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+@uref{https://mail.gnu.org/archive/html/bug-lilypond/,
 bug Archiv1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 Archiv2}
@@ -465,7 +465,7 @@ Vývojářské verze mají druhé číslo verze liché
 Návod pro git a sestavení se nachází v Contributor's Guide (jen v angličtině).
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git skladiště}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git skladiště}
 @end quotation
 
 Spisovatelé dokumentace a zkoušeči by měli stahovat nejnovější

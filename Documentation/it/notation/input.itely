@@ -2650,7 +2650,7 @@ i caratteri. (Fare attenzione al fatto che la codifica UTF-8 del codice
 contengono bit extra che indicano il numero di ottetti.) Le tabelle dei
 codici Unicode e un indice dei nomi dei caratteri col proprio codice
 esadecimale sono disponibili sul sito dell'Unicode Consortium,
-@uref{http://www.unicode.org/}.
+@uref{https://www.unicode.org/}.
 
 Per esempio, @code{\char ##x03BE} e @code{\char #958} corrispondono
 entambi al carattere Unicode U+03BE, che ha il nome Unicode

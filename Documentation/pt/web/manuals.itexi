@@ -140,11 +140,11 @@ versões estáveis anteriores e atuais como um arquivo compactado.
 status de tradução para leitores de outro idioma.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 exemplos criados por usuários, dicas e truques.
 
 @item
-@uref{http://bit.ly/LilyPondBeginners,Tutoriais em vídeo}:
+@uref{https://bit.ly/LilyPondBeginners,Tutoriais em vídeo}:
 Ben Lemon, um usuário da LilyPond, criou uma série de tutoriais
 em vídeo em seu blog e que visam novos usuários.
 
@@ -339,7 +339,7 @@ qualquer projeto grande.
 @subheading Trechos
 
 Isso mostra um conjunto selecionado de trechos de LilyPond do
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR). Todos os trechos estão em domínio público.
 
 Por favor, note que este documento não é um subconjunto exato

@@ -108,10 +108,10 @@
 该邮件列表是用户们互相讨论和帮助的主要场所。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user,
 lilypond-user 订阅和信息}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 user 存档@tie{}1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 存档@tie{}2}
@@ -122,19 +122,19 @@ user 存档@tie{}1}
 @subsubheading 其他语言
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 法语邮件列表}
 
 @uref{https://lilypondforum.de/,
 德语论坛}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,
 意大利语邮件列表}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 葡萄牙语群组}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 西班牙语邮件列表}
 @end quotation
 @divEnd
@@ -148,7 +148,7 @@ LilyPond 片段仓库是用户提交的例子的总集，
 你可以查看别人怎么写的，也可以添加你自己的片段！
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 部分来自 LSR 的指导性例子也在我们的官方文档中包含
@@ -164,10 +164,10 @@ LilyPond 片段仓库是用户提交的例子的总集，
 大多数的开发者讨论在此邮件列表进行。也可以向这里发送补丁。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 lilypond-devel 订阅和信息}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 devel 存档@tie{}1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 存档@tie{}2}
@@ -179,10 +179,10 @@ devel 存档@tie{}1}
 错误报告和讨论应当发送至此。不要将补丁发送到此邮件列表。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 bug-lilypond 订阅和信息}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 bug 存档@tie{}1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 存档@tie{}2}
@@ -201,10 +201,10 @@ bug 存档@tie{}1}
 此邮件列表是低容量、只读的列表，它只接收关于新发行版的通知。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 info-lilypond 订阅和信息}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 info 存档 1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 存档 2}
@@ -556,7 +556,7 @@ LilyPond 开发者可能在 lilypond 邮件列表不停地宣传它们的服务�
 关于 git 和编译方法，参见贡献者指南。
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, LilyPond git 仓库}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, LilyPond git 仓库}
 @end quotation
 
 文档编写者和测试人员可能想要下载最新的二进制文件：

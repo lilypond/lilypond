@@ -109,10 +109,10 @@
 このメーリング リストは、ユーザ同士で議論やヘルプを行う場所です。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user,
 lilypond-user への登録と情報}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 アーカイブ 1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 アーカイブ 2}
@@ -127,7 +127,7 @@ LilyPond コード断片リポジトリ (LSR) はユーザが投稿した例の@
 他の人が書いた楽譜を見て、あなた自身も投稿してください！
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 LSR から、@c
@@ -172,19 +172,19 @@ LSR から、@c
 @subsubheading 他の言語
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 フランス語のメーリング リスト}
 
 @uref{https://lilypondforum.de/,
 ドイツ語のフォーラム}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,
 イタリア語のメーリングリスト}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 ポルトガル語のグループ}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 スペイン語のメーリング リスト}
 @end quotation
 @divEnd
@@ -205,10 +205,10 @@ LSR から、@c
 新しいリリースが通知されます。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 info-lilypond への登録と情報}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 アーカイブ 1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 アーカイブ 2}
@@ -227,10 +227,10 @@ info-lilypond への登録と情報}
 パッチはここに送ることができます。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 lilypond-devel への登録と情報}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 アーカイブ 1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 アーカイブ 2}
@@ -243,10 +243,10 @@ lilypond-devel への登録と情報}
 このメーリングリストにパッチを送らないでください。
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 bug-lilypond への登録と情報}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 アーカイブ 1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 アーカイブ 2}
@@ -577,7 +577,7 @@ LilyPond には 2 セットのリリースがあります:
 git とコンパイルについての説明は貢献者向けガイドにあります。
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git リポジトリ}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git リポジトリ}
 @end quotation
 
 ドキュメント作成者とテスターはたいてい最新のバイナリをダウンロード@c

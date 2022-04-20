@@ -212,7 +212,7 @@ LilyPond をさまざまな出力フォーマットと統合する方法を説�
 提供します。
 
 @LaTeX{} の使い方についての概要は
-@uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
+@uref{https://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
 @emph{The Not So Short Introduction to @LaTeX{}}} を参照してください。
 
 @code{lilypond-book} は楽譜を @LaTeX{} ファイルに組み込むために以下の@c
@@ -1329,7 +1329,7 @@ unterst__tzt werden.
 この機能はすでに OrchestralLily パッケージで用意されています:
 
 @example
-@url{http://repo.or.cz/w/orchestrallily.git}
+@url{https://repo.or.cz/w/orchestrallily.git}
 @end example
 
 より自由度の高いテキスト処理をするために、lilypond から目次をエクスポート@c

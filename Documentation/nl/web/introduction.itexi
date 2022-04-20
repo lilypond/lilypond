@@ -387,7 +387,7 @@ gaan proberen, lees dan eerst over onze @ref{Tekstinvoer}.
 @divClass{column-center-top}
 @subheading Vrije Software
 
-@uref{http://www.gnu.org/, GNU} LilyPond is geschreven en
+@uref{https://www.gnu.org/, GNU} LilyPond is geschreven en
 wordt onderhouden door een groep enthousiaste liefhebbers.
 Het wordt uitgebracht onder de @ref{GPL, GNU General Public
 License} (GNU Algemene Publieke Licentie) en de @ref{FDL,
@@ -473,8 +473,8 @@ individuele inzet.
 @qq{Geef-cultuur}: de Vrije Software
 beweging heeft veel geweldige software projecten opgeleverd,
 zoals @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox}, en
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Omdat
+@uref{https://www.getfirefox.com/, Mozilla Firefox}, en
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Omdat
 ze van deze projecten geprofiteerd hebben, willen sommige
 ontwikkelaars iets @qq{terug doen} voor de community.
 
@@ -539,19 +539,19 @@ uitvoeringen.  Enkele hoogtepunten:
 @itemize
 
 Mussorgskys @emph{Schilderijententoonstelling}, geherorchestreerd en
-onder leiding van @uref{http://www.aurelienbello.com/,Aurélien Bello} met
+onder leiding van @uref{https://www.aurelienbello.com/,Aurélien Bello} met
 de @uref{http://www.junge-philharmonie-brandenburg.de/,
 Junge Philharmonie Brandenburg}
 op 10 okt 2011 en opnieuw op 15-16 apr 2012.
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, componist en
+@uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, componist en
 dirigent.  Onder zijn vele recente werken onder andere; @emph{Gaat uw weg},
-uitgevoerd door de @uref{http://www.saltlakechoralartists.org/,
+uitgevoerd door de @uref{https://www.saltlakechoralartists.org/,
 Salt Lake Choral Artists} in maart 2012; De
 @emph{Juist buiten bereik suite} uitgevoerd
 door het
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Chrysalis Duo} ; @emph{thrafsmata} uitgevoerd in juli 2011 door het
 @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
 New Music Ensemble}.
@@ -559,7 +559,7 @@ New Music Ensemble}.
 
 @item
 @emph{Anonieme student compliment of klacht}, door
-@uref{http://www.mikesolomon.org, Mike Solomon}, winnaar gekozen uit
+@uref{https://www.mikesolomon.org, Mike Solomon}, winnaar gekozen uit
 172 inzendingen uit 22 landen van de
 @uref{http://leftcoastensemble.org/contest, 2011 Linker Kust Compositie Wedstrijd}.
 Andere werken onder andere, Norman (1 jaar) voor solo klarinet, uitgevoerd op het
@@ -583,14 +583,14 @@ Baroque}s uitvoering van Lullys @emph{Armide}, 15-16 mei
 Instrumentale fragmenten van Rameaus @emph{Hippolyte et
 Aricie} in St. James's Church in Manhattan, 8 mei 2009, door
 Frederick Renz met zijn ensemble
-@uref{http://www.earlymusicny.org/, Early Music New York}
+@uref{https://www.earlymusicny.org/, Early Music New York}
 (gravure door Nicolas Sceaux).
 
 @item
 @emph{Affaire étrangère}, een opera van
-@uref{http://valentin.villenave.net/,Valentin Villenave}
+@uref{https://valentin.villenave.net/,Valentin Villenave}
 op een frans libretto van
-@uref{http://nl.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+@uref{https://nl.wikipedia.org/wiki/Lewis_Trondheim, Lewis
 Trondheim}, premiëre op 1 februari, 2009 in
 @uref{http://www.orchestre-montpellier.com/, L'Opéra National de
 Montpellier}, Frankrijk.
@@ -608,7 +608,7 @@ Montpellier}, Frankrijk.
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia
+@uref{https://www.mutopiaproject.org/index.html, Mutopia
 Project}, bladmuziek voor meer dan 1500 klassieke
 muziekstukken vrij te downloaden, de voornaamste verzameling
 van LilyPond partituren.
@@ -665,7 +665,7 @@ nu te lezen, ga dan verder naar @ref{Essay}.
 @item
 april 2011
 
-@uref{http://www.linux-magazine.com,Linux Magazine} publiceert een
+@uref{https://www.linux-magazine.com,Linux Magazine} publiceert een
 artikel getiteld
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Het is een inleiding in MuseScore,
@@ -680,7 +680,7 @@ een direct te gebruiken voorbeeld.
 mei 2010
 
 Peter Kirn, op de Create Digital Music website, publiceert een
-@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
 recentie}.  Hij neemt een
 evenwichtig standpunt in over gebruik, prijst LilyPonds
 hoge kwaliteit van notatie en stelt voor het zelf uit te proberen.
@@ -689,7 +689,7 @@ hoge kwaliteit van notatie en stelt voor het zelf uit te proberen.
 september 2009
 
 Het Duitse blad LinuxUser schrijft een
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 artikel over LilyPond}.
 
 @item
@@ -704,7 +704,7 @@ onderhouden.
 @item
 juni 2009
 
-In een @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, artikel}
+In een @uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, artikel}
 gepubliceerd in het Franse @emph{National Conservatory Parent
 Association}'s jaarblad, legt de Franse componist en LilyPond-bijdrager
 Valentin Villenave uit waarom Vrije licenties, en in het bijzonder
@@ -726,9 +726,9 @@ referentie-uitgave.
 @item
 juni 2006
 
-@uref{http://distrowatch.com,DistroWatch} complimenteert
+@uref{https://distrowatch.com,DistroWatch} complimenteert
 LilyPond en
-@uref{http://distrowatch.com/weekly.php?issue=20060605,schrijft}
+@uref{https://distrowatch.com/weekly.php?issue=20060605,schrijft}
 @qq{Dames en Heren, wij zijn blij te mogen aankondingen,
 gebaseerd op verzoeken van lezers, dat de donatie van
 DistroWatch mei 2006 is toegekent aan LilyPond
@@ -737,9 +737,9 @@ DistroWatch mei 2006 is toegekent aan LilyPond
 @item
 december 2005
 
-@uref{http://linuxjournal.com,Linux Journal} publiceert een
+@uref{https://linuxjournal.com,Linux Journal} publiceert een
 artikel getiteld
-@uref{http://www.linuxjournal.com/article/8364, Maak
+@uref{https://www.linuxjournal.com/article/8364, Maak
 verbluffende Schenker gravures met GNU LilyPond}.  Het is
 een diepgaand maar praktisch uitgelicht artikel met scherp
 gestoken LilyPond-gravures.  Auteur Kris Shaffer merkt op
@@ -751,7 +751,7 @@ commerciële alternatieven op tweede-rangs laat lijken.}
 
 Het Belgische dagblad De Standaard onderzoekt wat Free
 Software auteurs bezield in een artikel getiteld
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} in de @q{DS2-bijlage}.
 LilyPond wordt als een voorbeeld gebruikt en het artikel is
 doorlucht met citaten van een e-mail interview met Jan
@@ -762,7 +762,7 @@ mainstream gedrukte pers.
 june 2005
 
 Een Frans artikel over de LilyPond 2.6 uitgave verschijnt op
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
 
 @item
 oktober 2004
@@ -780,16 +780,16 @@ niets onmogelijk is.}
 juli, augustus 2004
 
 Dave Phillips schrijft een inleidend artikel voor
-@uref{http://linuxjournal.com,Linux Journal}: Aan
+@uref{https://linuxjournal.com,Linux Journal}: Aan
 de klinkende rand: LilyPond, delen
-@uref{http://www.linuxjournal.com/article/7657, een} en
-@uref{http://www.linuxjournal.com/article/7719, twee}.
+@uref{https://www.linuxjournal.com/article/7657, een} en
+@uref{https://www.linuxjournal.com/article/7719, twee}.
 
 @item
 maart 2004
 
 Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewt}
+@uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewt}
 Han-Wen Nienhuys en Jan Nieuwenhuizen op linuxmusician.com
 (originele site opgeheven).  Dit interview is gerecenceerd
 in een
@@ -868,7 +868,7 @@ ook!!!}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, hoofdontwikkelaar van het @uref{http://www.rosegardenmusic.com/, RoseGarden} project
+@subsubheading Chris Cannam, hoofdontwikkelaar van het @uref{https://www.rosegardenmusic.com/, RoseGarden} project
 @qq{LilyPond is overduidelijk een zwaargewicht [in de
 categorie prachtige muziek zetten].}
 @divEnd
@@ -917,7 +917,7 @@ programma leer kennen, hoe mooier ik het vind!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} bijdrager
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} bijdrager
 
 @qq{Ik had een soort haat/liefde-verhouding met LilyPond.
 Liefde omdat de eerste partituur die ik zag er zo
@@ -931,7 +931,7 @@ prachtig.}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent bij het Theater van Koblenz in Duitsland en een befaamde GNU-hacker
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent bij het Theater van Koblenz in Duitsland en een befaamde GNU-hacker
 
 @qq{Hoe dan ook, LilyPond levert een verbazingwekkend goed resultaat!}
 
@@ -939,7 +939,7 @@ prachtig.}
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, ontwikkelaar van @uref{http://jackaudio.org/, JACK} en @uref{http://www.ardour.org/, Ardour}
+@subsubheading Paul Davis, ontwikkelaar van @uref{https://jackaudio.org/, JACK} en @uref{https://www.ardour.org/, Ardour}
 
 @qq{Ik vind [LilyPond] een ongelofelijk programma, en het
 produceert prachtige, schitterende output.  Toen ik vorig
@@ -959,7 +959,7 @@ weet hoe moeilijk dit soort software kan zijn.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Muzikant, professioneel typesetter en sinds lang SCORE-gebruiker
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Muzikant, professioneel typesetter en sinds lang SCORE-gebruiker
 
 @qq{Mijn hartelijke dank aan iedereen die bijdraagt​aan dit
 project.  Ik was een power SCORE-gebruiker voor grote
@@ -1171,7 +1171,7 @@ point-and-click ondersteuning.
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 Frescobaldi is een LilyPond bladmuziek-editor.  Krachtig,
 lichtgewicht en gemakkelijk te gebruiken en met ingebouwde
@@ -1222,7 +1222,7 @@ Het heeft snelle visuele en auditieve terugkoppeling zonder
 te hoeven schakelen, en heeft veel wizard-gebaseerde
 sjablonen.
 
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 
 Emacs is een teksteditor met taalgevoelige functies voor
 veel verschillende computertalen.  Emacs is een in hoge mate
@@ -1234,7 +1234,7 @@ onze ontwikkelaars
 @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}
 geschreven, een Emacs major mode.
 
-@uref{http://www.vim.org}
+@uref{https://www.vim.org}
 
 Vim is een minimale teksteditor en is een uitbreiding van de
 oudere Unix @command{vi}-editor.  Het is uitbreidbaar en
@@ -1271,7 +1271,7 @@ van de uitbreidingen die beschikbaar zijn op:
 @itemize
 
 @item
-@uref{http://canorus.org,Canorus}, een partituur-editor, kan
+@uref{https://canorus.org,Canorus}, een partituur-editor, kan
 ook exporteren naar LilyPond, maar is nog beta-software.
 Testers zijn welkom.
 
@@ -1287,19 +1287,19 @@ Felipe Castro's onderzoek en reverse engineering door middel van het veranderen 
 en die in te laden met de 4.55 demoversie.
 
 @item
-@uref{http://musescore.org,MuseScore}, een partituur-editor,
+@uref{https://musescore.org,MuseScore}, een partituur-editor,
 heeft onvolledige LilyPond-export maar wordt actief
 ontwikkeld.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 een partituur editor gebaseerd op de @uref{http://cairographics.org, Cairo}
 bibliotheek en heeft experimentele LilyPond export.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} een a C#-programma dat een
-@uref{http://www.noteworthysoftware.com/, NoteWorthy}-lied naar
+@uref{https://www.noteworthysoftware.com/, NoteWorthy}-lied naar
 LilyPond converteert.
 
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple} is
@@ -1307,12 +1307,12 @@ een programma dat helpt bij het maken van partituren en partijen, en heeft een m
 verschillende muzikale werken in een enkele partituur of partij.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, een audio en
+@uref{https://www.rosegardenmusic.com,Rosegarden}, een audio en
 MIDI-sequencer, die tevens een partituur-editor voor het editen
 van enkelvoudige notenbalken heeft.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
+@uref{https://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
 een realtime monofonische MIDI naar LilyPond-vertaler.
 
 @item
@@ -1328,13 +1328,13 @@ partituur-beeld en tab-beeld en kan exporteren naar LilyPond.
 
 @item
 @uref{http://www.projectabjad.org/,Abjad}, een
-@uref{http://www.python.org/,Python} API voor Formalized
+@uref{https://www.python.org/,Python} API voor Formalized
 Score Control, ontworpen om componisten ingewikkelde stukken
 LilyPond-notatie op te laten bouwen op een iteratieve en
 incrementele manier.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, een
+@uref{https://common-lisp.net/project/fomus/,FOMUS}, een
 LISP-bibliotheek voor het genereren van muzieknotatie vanuit
 computermuziek softwareomgevingen.
 
@@ -1356,15 +1356,15 @@ constraint-gebaseerde programmeertaal.
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} is vervangen door
-@uref{http://www.frescobaldi.org/,Frescobaldi}, en bestaat alleen nog als
+@uref{https://www.frescobaldi.org/,Frescobaldi}, en bestaat alleen nog als
 LilyKDE3 voor KDE 3.5 en lilypond-KDE4 voor KDE 4.1.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, dat
 @uref{http://www.musicxml.com/xml.html,MusicXML} importeerde, is geforkt
 in
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-en @uref{http://canorus.org,Canorus}.
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+en @uref{https://canorus.org,Canorus}.
 
 @item
 @uref{https://lilycomp.sourceforge.net, LilyComp} is een grafisch

@@ -114,10 +114,10 @@ Diese Mailingliste ist der zentrale Ort, an dem Benutzer diskutieren
 und einander helfen.  Die Sprache der Liste ist Englisch.  Zu deutschsprachiger Hilfe, siehe unten.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://mail.gnu.org/mailman/listinfo/lilypond-user,
 lilypond-user Abonnement und Info}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+@uref{https://mail.gnu.org/archive/html/lilypond-user/,
 user Archiv1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 Archiv2}
@@ -135,7 +135,7 @@ dürfen.  Schauen Sie, was andere Leute konstruiert haben und fügen Sie ggf.
 eigene Schnipsel hinzu!
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 Besonders lehrreiche Beispiele aus dem LSR werden in unsere offizielle
@@ -183,16 +183,16 @@ Mailingliste gestellt wird.
 @uref{https://lilypondforum.de/,
 Deutsches LilyPond-Forum}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Französische Mailingliste}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,
 Italienische Mailingliste}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 Portugiesischsprachige Gruppe}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 Spanische Mailingliste}
 @end quotation
 @divEnd
@@ -213,10 +213,10 @@ Diese Mailingliste hat ein sehr geringes Mailaufkommen und kann nur gelesen werd
 der Ankündigung neuer Versionen.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 info-lilypond Abonnement und Info}
 
-@uref{http://mail.gnu.org/archive/html/info-lilypond/,
+@uref{https://mail.gnu.org/archive/html/info-lilypond/,
 info Archiv1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 Archiv2}
@@ -235,10 +235,10 @@ Diskussionen der Entwicklern finden auf dieser Liste
 statt.  Patches können ebenfalls hier hin geschickt werden.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://mail.gnu.org/mailman/listinfo/lilypond-devel,
 lilypond-devel Abonnement und Info}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+@uref{https://mail.gnu.org/archive/html/lilypond-devel/,
 devel Archiv1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 Archiv2}
@@ -251,10 +251,10 @@ Fehlermeldungen und Diskussionen finden hier statt, jedoch bitte keine Patches
 an diese Liste senden.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://mail.gnu.org/mailman/listinfo/bug-lilypond,
 bug-lilypond Abonnement und Info}
 
-@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+@uref{https://mail.gnu.org/archive/html/bug-lilypond/,
 bug Archiv1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 Archiv2}
@@ -601,7 +601,7 @@ Entwicklerversionen haben eine ungerade zweite Versionsnummer
 Anleitungen zu git und der Kompilierung finden sich im Contributor's Guide (nur auf Englisch).
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git-Repositorium}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git-Repositorium}
 @end quotation
 
 Schreiber der Dokumentation und Tester sollten die neuesten

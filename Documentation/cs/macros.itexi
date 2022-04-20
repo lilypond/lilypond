@@ -64,7 +64,7 @@ příručkami, nebo kvůli čtení této příručky v jiném formátu,
 navštivte, prosím, @rweb{Manuals}.
 
 Pokud vám příručky chybí, naleznete celou dokumentaci
-pod @w{@uref{http://@/lilypond@/.org/}}.
+pod @w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
@@ -734,17 +734,17 @@ Manipulation Program}.
 
 @macro logoLegalFreeBSD
 The FreeBSD logo is a registered trademark of
-@uref{http://www.freebsd.org/, The FreeBSD Foundation}.
+@uref{https://www.freebsd.org/, The FreeBSD Foundation}.
 
 @end macro
 
 @macro logoLegalMacOSX
 The @qq{X image} is not a registered trademark.  It was created by
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
 placed under the GNU Free Documentation License version 1.2 or later.
 We found the image on
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 this Wikipedia Commons page}.
 
 @end macro
@@ -752,10 +752,10 @@ this Wikipedia Commons page}.
 @macro logoLegalWindows
 The @qq{four colored rectangles image} is not a registered
 trademark.  It was created by
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
 placed under the GNU Free Documentation License version 1.2.  We
 found the image on
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 this Wikipedia Commons page}.
 
 @end macro

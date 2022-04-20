@@ -145,7 +145,7 @@ versions.
 état des traductions pour les lecteurs non anglophones.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository} :
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository} :
 collection d'exemples, trucs et astuces élaborés par des utilisateurs.
 
 @item
@@ -370,7 +370,7 @@ recommandée avant d'aborder de grands projets.
 
 Il s'agit d'une sélection de petits exemples montrant des trucs,
 astuces et fonctionnalités particulières de LilyPond, issus de
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  Tous ces exemples sont dans le domaine public.
 
 Notez bien que cette annexe n'est en aucune manière un miroir ou même

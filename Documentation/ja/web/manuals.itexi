@@ -137,7 +137,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 非英語圏の読者のための翻訳状況。
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 ユーザが作成した例、ヒント、それに TIPS。
 
 @item
@@ -339,7 +339,7 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 @divClass{column-left-top}
 @subheading コード断片集
 
-これは @uref{http://lsr@/.di@/.unimi@/.it,LilyPond コード断片リポジトリ}
+これは @uref{https://lsr@/.di@/.unimi@/.it,LilyPond コード断片リポジトリ}
 (LSR) から選び出した LilyPond のコード断片集です。@c
 LSR にあるすべてのコード断片はパブリック ドメインにあります
 (公開されています)。
@@ -569,7 +569,7 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals,
 LilyPond 2.18 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals,
 LilyPond 2.16 ドキュメント}
 
 @item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
@@ -620,7 +620,7 @@ GNU Free Documentation License に基づいて公開されています。@c
 このライセンスの紹介と、このライセンスを選択した理由については、@c
 @ref{自由} に記述されています。@c
 (訳者) GNU GPL, GNU FDL の日本語訳は
-@uref{http://www.opensource.jp/,Open Source Group Japan}
+@uref{https://www.opensource.jp/,Open Source Group Japan}
 を参照してください。
 
 @divEnd

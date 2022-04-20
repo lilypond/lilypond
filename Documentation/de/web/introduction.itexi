@@ -184,7 +184,7 @@ richtig gekrümmt!
 
 Sie können Notenfragmente in einen Text einfügen, ohne Bilder auszuschneiden
 und einzufügen.  Mit LilyPond lassen sich Noten in @LaTeX{} oder HTML
-nahtlos einfügen und mit @uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond} auch in OpenOffice.org und LibreOffice Dokumente
+nahtlos einfügen und mit @uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond} auch in OpenOffice.org und LibreOffice Dokumente
 integrieren.  Es gibt auch Plugins, mit denen LilyPond Code für verschiedene
 Blogs und Wikis ermöglicht wird, sodass auch eine Zusammenarbeit online
 möglich wird.
@@ -476,7 +476,7 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @divClass{column-center-top}
 @subheading Freie Software
 
-@uref{http://www.gnu.org/, GNU} LilyPond wird von einer
+@uref{https://www.gnu.org/, GNU} LilyPond wird von einer
 Gemeinschaft von Enthusiasten geschrieben und unterhalten.
 Es wird unter der @ref{GPL, GNU General Public License} und der
 @ref{FDL, GNU Free Documentation License} herausgegeben, sodass
@@ -562,8 +562,8 @@ die ein einzelner bräuchte.
 @qq{Geschenkkultur}: Die Free Software (oder @qq{Open Source})
 Bewegung hat viele großartige Programme hervorgebracht, wie etwa
 @uref{https://www.gnu.org/distros/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox} und
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Als Dank
+@uref{https://www.getfirefox.com/, Mozilla Firefox} und
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Als Dank
 für den Nutzen, den sie von solchen Projekten erhalten haben,
 wollen manche Entwickler der Gemeinschaft @qq{etwas zurück
 geben}.
@@ -649,16 +649,16 @@ Welt eingesetzt.  Einige Highlights:
 @item
 Marc Hohl hat musikalische Stücke für Kinder und Heranwachsende geschrieben.
 Gesetzt mit LilyPond (und LaTeX) und kostenfrei verfügbar von
-@uref{http://www.singspielschmiede.de/}, alle Stücke wurden an der Schule
+@uref{https://www.singspielschmiede.de/}, alle Stücke wurden an der Schule
 aufgeführt, an der Marc arbeitet.
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} hat Richard Strauss's @emph{Der Rosenkavalier}
+@uref{https://www.aurelienbello.com/,Aurélien Bello} hat Richard Strauss's @emph{Der Rosenkavalier}
 für vier Sänger und dreizehnstimmiges Kammerorchester arrangiert.  Hierbei handelt es
 sich um eine Auftragsarbeit der Berliner Philharmoniker, deren Mitglieder dieses Werk am
 @uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,2. und 6. April 2015}
 im Festspielhaus Baden-Baden sowie am
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26.April 2015}
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26.April 2015}
 in der @emph{Philharmonie (großer Saal)} Berlin zur Auführung brachten.  Wir sind hocherfreut.
 daß derart hochrangige Musiker aus mit LilyPond gesetzten Noten spielen -- uns wurde
 berichtet, sie sind mit den Noten sehr zufrieden.
@@ -698,23 +698,23 @@ Benjamin Brittens @emph{Saint Nicolas} geschrieben, welche 2011 vom
 verfasste für seine Doktorarbeit eine kritische Fassung von Tommaso Traettas
 @emph{Enea nel Lazio (1760)}, Opernzyklus in vier Teilen, Libretto von Vittorio
 Amedeo Cigna-Santi:
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Teil Eins}
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Teil Zwei}
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Teil Drei}
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Teil Vier}
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Teil Eins}
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Teil Zwei}
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Teil Drei}
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Teil Vier}
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist und
+@uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist und
 Musikdirektor von vielen Werken; @emph{Go Thy Way}, aufgeführt von den
 @uref{https://www.saltlakechoralartists.org/, Salt Lake Choral Artists}
 im Jahr 2012; die @emph{Just Out of Reach Suite}, aufgeführt vom
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Chrysalis Duo}; und @emph{thrafsmata} im Jahr 2011 aufgeführt vom
 @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
 New Music Ensemble}.
 
 @item
-@uref{http://www.mikesolomon.org,Mike Solomon} war der Gewinner von 172
+@uref{https://www.mikesolomon.org,Mike Solomon} war der Gewinner von 172
 Kompositionen aus 22 Ländern für den
 @uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
 mit seinem Werk @emph{Anonymous Student Compliment or Complaint}.
@@ -738,10 +738,10 @@ von Lullys @emph{Armide}, aufgeführt im Jahr 2009 von
 Nicolas setzte außerdem instrumentale Ausschnitte von Rameaus
 @emph{Hippolyte et Aricie}, aufgeführt von Frederick Renz und
 seinem Ensemble in der St. James Church in Manhattan im Jahr 2009. Siehe
-@uref{http://www.earlymusicny.org/, Early Music New York}
+@uref{https://www.earlymusicny.org/, Early Music New York}
 
 @item
-@uref{http://valentin.villenave.net/,Valentin Villenave} setzte ein
+@uref{https://valentin.villenave.net/,Valentin Villenave} setzte ein
 Libretto aus @emph{Affaire étrangère}, eine Oper von
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
 uraufgeführt im Jahr 2009 in der
@@ -775,7 +775,7 @@ Einzelstimmen und MIDI-Dateien, bereitgestellt unter einer Creative Commons
 Lizenz und verfügbar nur für Abonnenten.
 
 @item
-@uref{http://partitura.org/, Partitura Organum} ist eine wachsende Sammlung
+@uref{https://partitura.org/, Partitura Organum} ist eine wachsende Sammlung
 von Orgelstücken ohne Urheberschutz, gesetzt mit LilyPond und
 bereitgestellt unter einer Creative Commons Lizenz.
 
@@ -798,7 +798,7 @@ in Clairnotes eigene Notation umgewandelt worden.
 Quelldateien für alle Stücke in der Mutopia-Bibliothek.
 
 @item
-@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Webseiten-Beispiele}:
+@uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Webseiten-Beispiele}:
 Quelldateien für die Beispielgallerie in @ref{Beispiele}.
 
 @item
@@ -843,7 +843,7 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @item
 April 2011
 
-@uref{http://www.linux-magazine.com,Linux Magazine} publiziert einen
+@uref{https://www.linux-magazine.com,Linux Magazine} publiziert einen
 Atikel mit dem Titel
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}. Es es eine Einleitung zu MuseScore,
@@ -857,7 +857,7 @@ Beispiele.
 Mai 2010
 
 Peter Kirn publiziert auf der Create Digital Music-Webseite einen
-@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond-Test}.
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond-Test}.
 Er nimmt einen gerechten Standpunkt in Bezug auf die Benutzbarkeit
 ein, lobt die hohe Qualität des LilyPond-Notensatzes und fordert dazu aus, das
 Programm einmal auszuprobieren.
@@ -866,7 +866,7 @@ Programm einmal auszuprobieren.
 September 2009
 
 Die deutsche LinuxUser-Zeitschrift schrieb einen
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 Artikel über LilyPond}.
 
 @item
@@ -880,7 +880,7 @@ Software zur Unterhaltung ihrer Bibliotheken unterhalten.
  @item
 June 2009
 
-In einem @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, Artikel}
+In einem @uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, Artikel}
 in der Jahreszeitschrift der @emph{National Conservatory Parent
 Association} erklärt der französischer Komponist und LilyPond-Mitarbeiter
 Valentin Villenave wie freie Lizenzen und insbesondere mit LilyPond
@@ -901,9 +901,9 @@ handgestochenen Edition.
 @item
 Juni 2006
 
-@uref{http://distrowatch.com,DistroWatch} erteilt LilyPond einen
+@uref{https://distrowatch.com,DistroWatch} erteilt LilyPond einen
 Preis und schreibt
-@uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
+@uref{https://distrowatch.com/weekly.php?issue=20060605,writes}
 @qq{Ladies and Gentleman, we are pleased to announce that, based
 on readers' requests, the DistroWatch May 2006 donation has been
 awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
@@ -911,9 +911,9 @@ awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
 @item
 Dezember 2005
 
-@uref{http://linuxjournal.com,Linux Journal}  veröffentlicht einen
+@uref{https://linuxjournal.com,Linux Journal}  veröffentlicht einen
 Artikel unter dem Titel
-@uref{http://www.linuxjournal.com/article/8364, Make Stunning
+@uref{https://www.linuxjournal.com/article/8364, Make Stunning
 Schenker Graphs with GNU LilyPond}.  Es handelt sich um einen
 tiefgehenden, aber sehr praktischen Artikel mit gestochen
 scharfen LilyPond-Graphiken.  Der Autor Kris Shaffer merkt an:
@@ -925,7 +925,7 @@ als zweite Wahl erscheinen lassen.«
 
 Die belgische Zeitung De Standaard untersucht, was die Autoren von
 Freier Software antreibt in dem Artikel
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+@uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Non-profit-Teilen von
 Wissen) in ihrer `DS2 bijlage'.  LilyPond wird als Beispiel
 benutzt und der Artikel ist unterteilt durch Auszüge aus einem
@@ -936,7 +936,7 @@ gleichzeitig das erste Mal in der großen gedruckten Presse.
 Juni 2005
 
 Ein französischer Artikel über LilyPond Version 2.6 erscheint auf
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
 
 @item
 Oktober 2004
@@ -953,16 +953,16 @@ tun kann.}
 Juli, August 2004
 
 Dave Phillips schrieb einen Einleitungsartikel für das
-@uref{http://linuxjournal.com,Linux Journal}: At
+@uref{https://linuxjournal.com,Linux Journal}: At
 the sounding edge: LilyPond, Teil
-@uref{http://www.linuxjournal.com/article/7657, eins} und
-@uref{http://www.linuxjournal.com/article/7719, zwei}.
+@uref{https://www.linuxjournal.com/article/7657, eins} und
+@uref{https://www.linuxjournal.com/article/7719, zwei}.
 
 @item
 März 2004
 
 Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewte}
+@uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewte}
 Han-Wen Nienhuys und Jan Nieuwenhuizen auf linuxmusician.com
 (ursprüngliche Seite funktioniert nicht mehr).  Das Interview wurde
 auch in einer @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
@@ -1041,7 +1041,7 @@ Nummer CMS06.
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, Chefprogrammierer des @uref{http://www.rosegardenmusic.com/, RoseGarden}-Projekts
+@subsubheading Chris Cannam, Chefprogrammierer des @uref{https://www.rosegardenmusic.com/, RoseGarden}-Projekts
 
 @qq{LilyPond ist offensichtlich der Super-Gorilla [des Notensatzes].}
 @divEnd
@@ -1093,7 +1093,7 @@ desto mehr mag ich es!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia}-Mitarbeiter
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia}-Mitarbeiter
 
 @qq{Ich hatte so eine Hassliebe zu ihm entwickelt. Liebe, weil
   das erste Notenblatt, das ich gesehen hatte, so gut aussah. Die
@@ -1107,14 +1107,14 @@ desto mehr mag ich es!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent am Koblenzer Theater und herausragender GNU-Hacker
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent am Koblenzer Theater und herausragender GNU-Hacker
 
 @qq{Überhaupt macht LilyPond saubere Arbeit!}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, Entwickler von @uref{http://jackaudio.org/, JACK} und @uref{http://www.ardour.org/, Ardour}
+@subsubheading Paul Davis, Entwickler von @uref{https://jackaudio.org/, JACK} und @uref{https://www.ardour.org/, Ardour}
 
 @qq{Ich finde, [LilyPond ist] ein
   außerordentliches Programm, und es erreicht wunderschöne
@@ -1133,7 +1133,7 @@ Programm sein kann.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Musiker,
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Musiker,
 professioneller Notensetzer und lange Zeit Score-Benutzer
 
 @qq{Den allergrößten Dank an alle, die zu diesem Projekt beitragen.  Ich habe SCORE für einen großen Musikverlag in den 90er Jahren sehr intensiv benutzt,
@@ -1312,7 +1312,7 @@ In particular, don't link to:
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 Frescobaldi ist ein leichtgewichtiger (im Sinne von @q{installiert nur wenig zusätzliche Software}),
 aber sehr mächtiger LilyPond Musik- und Texteditor mit vielen für die Arbeit mit
@@ -1410,7 +1410,7 @@ mit einem mächtigen Toolkit zur einfachen Verwaltung von LilyPond.
 @sourceimage{logo-windows,,}
 
 @subsubheading Emacs
-@uref{http://www.gnu.org/software/emacs/}
+@uref{https://www.gnu.org/software/emacs/}
 Emacs ist ein Texteditor mit sprachensensitiven Eigenschaften
 für sehr viele Computersprachen.  Emacs ist ein sehr stark
 erweiterbarer Editor, welcher auch als Integrierte
@@ -1427,7 +1427,7 @@ Nähere Informationen zum Einrichten von Emacs finden Sie unter
 @rprogram{Unterstützung von Texteditoren}.
 
 @subsubheading Vim
-@uref{http://www.vim.org}
+@uref{https://www.vim.org}
 Vim ist ein minimaler Texteditor und eine Erweiterung des älteren
 Unix-Editors @command{vi}.  Er ist auch erweiterbar und konfigurierbar.
 
@@ -1439,7 +1439,7 @@ Nähere Informationen zum Einrichten von Vim finden SIe unter
 
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
-@uref{http://pages.uoregon.edu/koch/texshop/}
+@uref{https://pages.uoregon.edu/koch/texshop/}
 
 Der TeXShop-Editor für MacOS@tie{}X kann erweitert werden, sodass
 er LilyPond, @command{lilypond-book} und @command{convert-ly}
@@ -1467,7 +1467,7 @@ mit @q{piobaireachd} [was immer das ist -- Anm. des Übersetzers]), jedoch werde
 diese zumindest aufgeführt.
 
 @item
-@uref{http://canorus.org,Canorus} kann nach LilyPond exportieren, ist
+@uref{https://canorus.org,Canorus} kann nach LilyPond exportieren, ist
 allerdings noch im Beta-Stadium.  Tester sind willkommen.
 
 @item
@@ -1481,7 +1481,7 @@ von Felipe Castro's Forschung und @q{Reverse Engineering} geschrieben. Hierzu wu
 existierende .enc Dateien modifiziert und in die 4.55 Demo Version importiert.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 auf der @uref{http://cairographics.org, Cairo}-Bibliothek basierend,
 hat experimentelle Unterstützung für LilyPond Export.
 
@@ -1498,7 +1498,7 @@ musikalische Werke untereinander mischen und zu einer Partitur oder
 einer Stimme zusammenfügen kann.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, ein Audio- und MIDI-Sequenzierer,
+@uref{https://www.rosegardenmusic.com,Rosegarden}, ein Audio- und MIDI-Sequenzierer,
 der auch einen Noteneditor für einzelne Systeme unterstützt.
 
 @end itemize
@@ -1509,19 +1509,19 @@ der auch einen Noteneditor für einzelne Systeme unterstützt.
 
 @item
 @uref{http://www.projectabjad.org/,Abjad}, a
-@uref{http://www.python.org/,Python} API zur formalisierten Partitur Kontrolle.
+@uref{https://www.python.org/,Python} API zur formalisierten Partitur Kontrolle.
 Es wurde geschrieben um Komponisten dabei zu helfen, komplexe LilyPond
 Werke interativ und schrittweise zu erzeugen.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic) ist ein
+@uref{https://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic) ist ein
 Kompositionswerkzeug für Computermusik Komponisten.  Geschrieben in LISP
 läuft es in einer ganzen Reihe von Interpretern
 Portierung nach C++.
 
 @item
 @uref{http://strasheela.sourceforge.net, Strasheela} ist eine Umgebung
-auf Basis des @uref{http://mozart.github.io/, Mozart Programming System}.
+auf Basis des @uref{https://mozart.github.io/, Mozart Programming System}.
 
 @end itemize
 @divEnd
@@ -1538,7 +1538,7 @@ ein Plugin für den @uref{http://www.jedit.org,jEdit} Text Editor.
 
 @item
 @uref{https://lilykde.googlecode.com/,LilyKDE} wurde durch
-@uref{http://www.frescobaldi.org/,Frescobaldi} ersetzt. Es existiert
+@uref{https://www.frescobaldi.org/,Frescobaldi} ersetzt. Es existiert
 nur noch als LilyKDE3 für KDE 3.5 und lilypond-KDE4 für KDE 4.1.
 
 @item
@@ -1547,21 +1547,21 @@ Notationsprogramm, das wie ein Ziffernblock funktioniert, mit dem man
 LilyPond Notation erstellen kann.
 
 @item
-@uref{http://www.musescore.org,MuseScore}, ein Notationsprogramm.
+@uref{https://www.musescore.org,MuseScore}, ein Notationsprogramm.
 Der LilyPond Export wurde in Version 2.0 entfernt, aber frühere
 Versionen sind noch auf
-@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
+@uref{https://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
 verfügbar.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, konnte
-@uref{http://www.musicxml.com/,MusicXML} importieren.
+@uref{https://www.musicxml.com/,MusicXML} importieren.
 Ableger existieren als
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-und @uref{http://canorus.org,Canorus}.
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+und @uref{https://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 ist eine OpenOffice.org Erweiterung die LilyPond Dateien in Grafiken
 in OpenOffice.org Dokumenten umwandelt.  Es wird zwarnicht mehr weiterentwickelt,
 scheint aber noch mit Version 4 zu laufen.
@@ -1577,7 +1577,7 @@ Es erlaubt, alle Feature des Programs mit einem praktischen Webinterface
 auszuprobieren.
 
 @item
-@uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, ein Tabulator Editor
+@uref{https://sourceforge.net/projects/tuxguitar/,TuxGuitar}, ein Tabulator Editor
 und Spieler, stellt neben Tabulatur auch eine Partiturvorschau zur
 Verfügung und kann nach LilyPond exportieren.
 

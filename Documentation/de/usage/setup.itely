@@ -48,7 +48,7 @@ Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
 Verfügung, aber Python 3.6 oder höher wird benötigt, um
 Skripte wie @command{convert-ly} zu benutzen.  Wenn Sie MaxOS
 10.3 oder 10.4 besitzen, müssen Sie eine neuere Python-Version
-von @uref{http://python.org/download/} installieren und dann
+von @uref{https://python.org/download/} installieren und dann
 die erste Zeile von @command{convert-ly} und @command{lilypond-book}
 auf folgende Weise ändern: Wenn sich das installierte Python-Programm
 in Ihrem @var{PFAD} befindet, muss die erste Zeile heißen:
@@ -174,7 +174,7 @@ ihrem @var{load-path} hinzufügen, indem Sie folgende Zeile zu Ihrer
 @subsection Vim-Modus
 @translationof Vim mode
 
-Für @uref{http://@/www@/.vim@/.org,VIM} wird ein @file{vimrc} bereitgestellt,
+Für @uref{https://@/www@/.vim@/.org,VIM} wird ein @file{vimrc} bereitgestellt,
 zusammen mit Werkzeugen zur Syntaxauszeichnung. Ein Vim-Modus zur
 Noteneingabe und zum Programmaufruf befindet sich im Quellarchiv im
 @code{$VIM}-Verzeichnis.
@@ -250,12 +250,12 @@ ausführt.
 @translationof LilyKDE
 
 @uref{https://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für
-den Texteditor @uref{http://kate-editor.org/,Kate} für KDE. LilyKDE
+den Texteditor @uref{https://kate-editor.org/,Kate} für KDE. LilyKDE
 beinhaltet einen mächtigen Assistenten, mit dem sehr schnell neue
 LilyPond-Dokumente erstellt werden könne, sowie einen eingebetteten
 PDF-Betrachter.
 
-LilyKDE benutzt auch @uref{http://www.volny.cz/smilauer/rumor/,Rumor},
+LilyKDE benutzt auch @uref{https://www.volny.cz/smilauer/rumor/,Rumor},
 um Musik direkt von einem MIDI-Keyboard einzulesen.
 
 Weitere Fähigkeiten von LilyKDE sind Silbentrennung für Liedtexte oder

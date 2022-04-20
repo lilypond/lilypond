@@ -86,7 +86,7 @@ time to learn the language before attempting to modify the C++ code.
 
 The C++ code calls Scheme/GUILE through the GUILE interface, which is
 documented in the
-@uref{http://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
+@uref{https://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
   Reference Manual}.
 
 @subsection Flex
@@ -98,25 +98,25 @@ lexical analyser generator.  Resources for Flex can be found
 @subsection GNU Bison
 
 The LilyPond parser is implemented in Bison, a GNU parser generator.  The
-Bison homepage is found at @uref{http://www.gnu.org/software/bison/,
+Bison homepage is found at @uref{https://www.gnu.org/software/bison/,
 gnu.org}.  The manual (which includes both a reference and tutorial) is
-@uref{http://www.gnu.org/software/bison/manual/index.html, available} in a
+@uref{https://www.gnu.org/software/bison/manual/index.html, available} in a
 variety of formats.
 
 @subsection GNU Make
 
 GNU Make is used to control the compiling process and to build the
 documentation and the website.  GNU Make documentation is available at
-@uref{http://www.gnu.org/software/make/manual/, the GNU website}.
+@uref{https://www.gnu.org/software/make/manual/, the GNU website}.
 
 @subsection GUILE or Scheme
 
 GUILE is the dialect of Scheme that is used as LilyPond's extension language.
 Many extensions to LilyPond are written entirely in GUILE.  The
-@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+@uref{https://www.gnu.org/software/guile/manual/html_node/index.html,
 GUILE Reference Manual} is available online.
 
-@uref{http://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
+@uref{https://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
 Interpretation of Computer Programs}, a popular textbook used to teach
 programming in Scheme is available in its entirety online.
 
@@ -134,7 +134,7 @@ METAFONT tutorial page}.
 PostScript is used to generate graphical output.  A brief PostScript tutorial
 is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
 available online}.  The
-@uref{http://www.adobe.com/products/postscript/pdfs/PLRM.pdf, PostScript Language
+@uref{https://www.adobe.com/products/postscript/pdfs/PLRM.pdf, PostScript Language
 Reference} is available online in PDF format.
 
 @subsection Python
@@ -142,7 +142,7 @@ Reference} is available online in PDF format.
 Python is used for XML2ly and is used for building the documentation and the
 website.
 
-Python documentation is available at @uref{http://www.python.org/doc/,
+Python documentation is available at @uref{https://www.python.org/doc/,
 python.org}.
 
 @subsection Scalable Vector Graphics (SVG)
@@ -2271,7 +2271,7 @@ tables.
 
 Most of the C functions interfacing with Guile/Scheme used in LilyPond
 are described in the API Reference of the
-@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+@uref{https://www.gnu.org/software/guile/manual/html_node/index.html,
 GUILE Reference Manual}.
 
 The remaining functions are defined in @file{lily/lily-guile.cc},
@@ -2303,7 +2303,7 @@ and @code{SCM_BOOL_F} in C.  This will work, but it is not following
 to the API guidelines.  For further information, read this discussion:
 
 @smallexample
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00646.html}
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00646.html}
 @end smallexample
 
 There are functions in the Guile reference that returns C values
@@ -2850,7 +2850,7 @@ will work for either calling mechanism.
 @subsection Articulations on EventChord
 
 From David Kastrup's email
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/2012-02/msg00189.html}:
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2012-02/msg00189.html}:
 
 LilyPond's typesetting does not act on music expressions and music
 events.  It acts exclusively on stream events.  It is the act of

@@ -35,7 +35,7 @@ manual relaciona todas las variables, funciones y opciones que se
 encuentran disponibles en LilyPond.  Está escrito como un
 documento HTML, que se puede encontrar
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línea},
+@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línea},
 pero que también va incluido en el paquete de la documentación de
 LilyPond.
 

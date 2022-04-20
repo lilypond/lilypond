@@ -26,16 +26,16 @@ parte de la sintaxis del código de entrada, como para servir de
 mecanismo interno que une los módulos del programa entre sí.  Esta
 sección es una panorámica muy breve sobre cómo introducir datos en
 Scheme.  Si quiere saber más sobre Scheme, consulte
-@uref{http://@/www@/.schemers@/.org}.
+@uref{https://@/www@/.schemers@/.org}.
 
 LilyPond utiliza la implementación GNU Guile de Scheme, que está
 basada en el estándar @qq{R5RS} del lenguaje.  Si está aprendiendo
 Scheme para usarlo con LilyPond, no se recomienda trabajar con una
 implementación distinta (o que se refiera a un estándar
 diferente).  Hay información sobre Guile en
-@uref{http://www.gnu.org/software/guile/}.  El estándar de Scheme
+@uref{https://www.gnu.org/software/guile/}.  El estándar de Scheme
 @qq{R5RS} se encuentra en
-@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+@uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
 * Introducción a Scheme::
@@ -219,7 +219,7 @@ precediéndolas de una barra invertida.  La cadena @code{\a dijo
 Existen más tipos de datos de Scheme que no se estudian aquí.
 Para ver un listado completo, consulte la guía de referencia de
 Guile,
-@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 @node Tipos de datos compuestos de Scheme
 @subsection Tipos de datos compuestos de Scheme
@@ -294,7 +294,7 @@ guile>
 
 Nota: @code{cdr} se pronuncia "could-er", según Sussman y Abelson,
 véase
-@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
+@uref{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
 @node Listas
 @unnumberedsubsubsec Listas

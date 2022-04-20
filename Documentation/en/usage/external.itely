@@ -375,7 +375,7 @@ your @var{load-path} by appending the following line (as modified) to your
 @node Vim mode
 @unnumberedsubsec Vim mode
 
-For @uref{http://@/www@/.vim@/.org,Vim}, a filetype plugin, indent
+For @uref{https://@/www@/.vim@/.org,Vim}, a filetype plugin, indent
 mode, and syntax-highlighting mode are available to use with
 LilyPond.  To enable all of these features, create (or modify)
 your @file{$HOME/.vimrc} to contain these three lines, in order:
@@ -409,7 +409,7 @@ Music can be entered also by importing it from other formats.  This
 chapter documents the tools included in the distribution to do so.
 There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
-@uref{http://@/lilypond@/.org,website} for more details.
+@uref{https://@/lilypond@/.org,website} for more details.
 
 These are separate programs from @command{lilypond} itself, and are
 run on the command line; see @ref{Command-line usage} for more

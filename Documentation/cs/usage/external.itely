@@ -171,7 +171,7 @@ Zeile in Ihr @file{~/.emacs} kopieren:
 @unnumberedsubsec Režim Vim
 @translationof Vim mode
 
-Für @uref{http://@/www@/.vim@/.org,Vim} gibt es ein Dateiartplugin, einen
+Für @uref{https://@/www@/.vim@/.org,Vim} gibt es ein Dateiartplugin, einen
 Einzugsmodus und einen Syntaxhervorhebungsmodus für LilyPond.  Um alle diese
 Eigenschaften zu aktivieren, erstellen (oder verändern) Sie die Datei
 @file{$HOME/.vimrc}, sodass sie folgende Zeilen enthält:
@@ -207,7 +207,7 @@ Dieses Kapitel beschreibt die dazu mit LilyPond mitgelieferten
 Hilfsprogramme. Daneben existieren natürlich auch noch weitere
 Programme, die Dateien für LilyPond erstellen können, wie etwa
 graphische Sequenzierprogramme und XML-Konverter. Näheres dazu
-findet sich auf der @uref{http://@/lilypond@/.org,Homepage} von LilyPond.
+findet sich auf der @uref{https://@/lilypond@/.org,Homepage} von LilyPond.
 
 Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe

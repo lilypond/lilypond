@@ -17,7 +17,7 @@
 @section Introduction to LSR
 
 The
-@uref{http://lsr.di.unimi.it/, LilyPond Snippet Repository (LSR)}
+@uref{https://lsr.di.unimi.it/, LilyPond Snippet Repository (LSR)}
 is a collection of lilypond examples.  A subset of these examples
 are automatically imported into the documentation, making it easy
 for users to contribute to the docs without learning Git and
@@ -31,7 +31,7 @@ Texinfo.
 
 When you create (or find!) a nice snippet, if it is supported by
 the LilyPond version running on the LSR, please add it to the LSR.
-Go to @uref{http://lsr.di.unimi.it/, LSR} and log in -- if you haven't
+Go to @uref{https://lsr.di.unimi.it/, LSR} and log in -- if you haven't
 already, create an account.  Follow the instructions on the website.
 These instructions also explain how to modify existing snippets.
 
@@ -108,7 +108,7 @@ filename.
 @section Approving snippets
 
 The main task of LSR editors is approving snippets.  To find a list of
-unapproved snippets, log into @uref{http://lsr.di.unimi.it/, LSR} and
+unapproved snippets, log into @uref{https://lsr.di.unimi.it/, LSR} and
 select @qq{No} from the dropdown menu to the right of the word
 @qq{Approved} at the bottom of the interface, then click
 @qq{Enable filter}.
@@ -360,7 +360,7 @@ updating the binary running the LSR.
 
 @item
 Download the latest snippet tarball from
-@uref{http://lsr.di.unimi.it/download/} and extract it.
+@uref{https://lsr.di.unimi.it/download/} and extract it.
 The relevant files can be found in the @file{all} subdirectory.
 Make sure your shell is using an English language version, for
 example @code{LANG=en_US}, then run @command{convert-ly} on all

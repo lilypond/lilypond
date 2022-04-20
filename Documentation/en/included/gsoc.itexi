@@ -20,7 +20,7 @@ opportunity for students to gain experience with real-world software
 development and make a contribution that benefits everyone.  It brings
 new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
-of the @uref{http://www.gnu.org/, GNU project}.
+of the @uref{https://www.gnu.org/, GNU project}.
 
 We have had GSoC participants in 2012, 2015, 2016 and 2017.  This site
 is current for the 2018 program.
@@ -55,7 +55,7 @@ A full list of all the current open issues can be found
 @subsubheading Adopt the SMuFL music font encoding standard
 
 For several years now a new standard for music fonts has been around:
-@uref{http://www.smufl.org/, SMuFL}, which is also discussed as becoming part of
+@uref{https://www.smufl.org/, SMuFL}, which is also discussed as becoming part of
 a future W3C standard for music encoding.  As a FLOSS tool LilyPond should
 adhere to such an open standard instead of using an isolated solution like it
 does today.  Adopting SMuFL will help integrating LilyPond with the world of
@@ -114,7 +114,7 @@ should become more robust with regard to unconventionally organized input
 files.  Several strategies can be thought of in that regard.
 
 Significant progress in coverage has been made in a GSoC Project hosted
-by @uref{http://frescobaldi.org, Frescobaldi} in 2017, but there is
+by @uref{https://frescobaldi.org, Frescobaldi} in 2017, but there is
 still much to be done that could make a nice GSoC project.
 
 Working in this project will mainly be done in the
@@ -134,14 +134,14 @@ music.  However, despite several attempts at fixing it LilyPond still
 does not always produce correct results.  In order to properly fix this
 issue it seems necessary to rewrite the responsible code from the ground
 up.  Much work has already been done assessing the issue (see
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-11/msg00037.html,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/2017-11/msg00037.html,
 this discussion} and
 @uref{https://openlilylib.org/public/beam-subdivisions.pdf, this
 work-in-progress document}).
 
 In the course of this assessment it has been found that LilyPond's
 conception of @emph{tuplets} is somewhat flawed as well (see
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/2017-11/msg00016.html,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/2017-11/msg00016.html,
 this discussion}), and that this has to be fixed as well.
 
 @emph{Difficulty:} medium
@@ -157,7 +157,7 @@ of timing issues
 @subsubheading Frescobaldi Extensions
 
 Starting with the current release 3.1
-@uref{http://frescobaldi.org, Frescobaldi} has an extension API that
+@uref{https://frescobaldi.org, Frescobaldi} has an extension API that
 allows the easy integration of arbitrary functionality in the editing
 environment.  These could range from, say, document statistics and
 accounting functionality to fancy features like a built-in video chat
@@ -250,7 +250,7 @@ to handle scores in a system-by-system manner through partial compilation.
 This project explores one approach to achieve this and may lay the ground
 for future development towards a @qq{LilyPond server}.  It is very ambitions
 because it involves working with LilyPond's internals and optionally a
-reference user interface in @uref{http://frescobaldi.org, Frescobaldi}.
+reference user interface in @uref{https://frescobaldi.org, Frescobaldi}.
 
 The idea behind this project is the implementation of a music viewer that
 doesn't display pages but sees a scores as a continuous sequence of systems
@@ -473,7 +473,7 @@ LilyPond.
 
 For regular, cross-staff, broken and kneed beams.  Beaming should depend
 on context and neighbor notes (see section 2.2 of
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
+@uref{https://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
 this book}).  If possible also reduce beaming-computation time.
 
 @emph{Difficulty:} medium

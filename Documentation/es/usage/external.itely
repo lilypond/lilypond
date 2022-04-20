@@ -407,7 +407,7 @@ siguiente línea (modificada) a su @file{~/.emacs}
 @unnumberedsubsec Modo de Vim
 @translationof Vim mode
 
-Para @uref{http://@/www@/.vim@/.org,Vim}, se proporcionan para su
+Para @uref{https://@/www@/.vim@/.org,Vim}, se proporcionan para su
 uso con LilyPond un plug-in o complemento para el tipo de archivo,
 un modo de sangrado y un modo de resaltado de sintaxis.  Para
 habilitar todas estas posibilidades, cree (o modifique) su archivo
@@ -447,7 +447,7 @@ herramientas incluidas en la distribución que permiten hacerlo.
 Existen otras herramientas que producen código de entrada de
 LilyPond, como por ejemplo secuenciadores con interfaz gráfico y
 convertidores de XML.  Consulte el
-@uref{http://@/lilypond@/.org,website} para ver más detalles.
+@uref{https://@/lilypond@/.org,website} para ver más detalles.
 
 Son programas distintos a @command{lilypond} propiamente dicho, y
 se ejecutan desde la línea de órdenes; consulte

@@ -137,7 +137,7 @@ vorige stabiele versies en huidige als gecomprimeerd archief.
 status van de vertaling voor niet-Engelstaligen.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippers Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippers Repository}:
 voorbeelden door gebruikers, hints en tips.
 
 @item
@@ -330,7 +330,7 @@ lectuur indien je een groot project wilt beginnen.
 
 Dit toont een geselecteerde set LilyPond-snippers
 (codefragementen) uit de
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet
 Repository} (LSR).  Al deze snippers zijn publiek domein.
 
 Let op dat dit document geen exacte deelverzameling is van

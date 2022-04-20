@@ -38,7 +38,7 @@ manual fa una relació de totes les variables, funcions i opcions
 que es poden trobar al LilyPond.  Està escrit com un document
 HTML, que es pot trobar en
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línia},
+@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línia},
 però que també va inclòs al paquet de documentació del LilyPond.
 
 Internament, el LilyPond utilitza el llenguatge Scheme (un

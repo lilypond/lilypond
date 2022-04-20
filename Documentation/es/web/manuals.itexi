@@ -132,7 +132,7 @@ Versiones estables anteriores y versión actual como un archivo comprimido.
 estado del proceso de traducción para los lectores no anglófonos.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository (el almacén de fragmentos de código de LilyPond)}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository (el almacén de fragmentos de código de LilyPond)}:
 ejemplos, consejos y trucos creados por los usuarios.
 
 @item
@@ -340,7 +340,7 @@ su lectura antes de afrontar proyectos grandes.
 
 Este manual presenta un conjunto seleccionado de fragmentos de código
 de LilyPond extraídos del
-@uref{http://lsr@/.di@/.unimi@/.it,Repositorio de fragmentos de
+@uref{https://lsr@/.di@/.unimi@/.it,Repositorio de fragmentos de
 código de LilyPond} (LSR).  Todos los fragmentos se encuentran en el
 dominio público.
 

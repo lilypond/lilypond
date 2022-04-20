@@ -126,7 +126,7 @@ versioni stabili precedenti e quella attuale in un archivio compresso.
 stato delle traduzioni per i lettori di lingua non inglese.
 
 @item
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 esempi, consigli e trucchi creati dagli utenti.
 
 @item
@@ -329,7 +329,7 @@ intraprendere un progetto impegnativo.
 @subheading Frammenti
 
 Questo manuale presenta una selezione di frammenti di codice LilyPond tratti dal
-@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  Tutti i frammenti di codice sono nel pubblico dominio.
 
 Si prega di notare che questo documento non è un sottoinsieme esatto del LSR.  LSR

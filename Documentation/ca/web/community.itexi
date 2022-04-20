@@ -110,10 +110,10 @@ Summer of Code» (Estiu de Codi del Google).
 Aquesta llista de distribució de correu (en anglès) és el lloc principal que tenen els usuaris per discutir i prestar-se ajuda mútua.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user,
 subscripció i informació sobre lilypond-user}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+@uref{https://lists.gnu.org/archive/html/lilypond-user/,
 arxiu 1 de la llista de usuaris}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 arxiu 2}
@@ -129,7 +129,7 @@ usar lliurement en les seves pròpies obres. Vegeu les coses que
 han escrit els altres, i afegiu les vostres pròpies!
 
 @example
-@uref{http://lsr.di.unimi.it}
+@uref{https://lsr.di.unimi.it}
 @end example
 
 Els exemples del LSR que són especialment instructius s'inclouen a
@@ -173,16 +173,16 @@ d'enviar preferentment a una de les llistes de correu.
 @subsubheading Altres idiomes
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 llista de correu en espanyol}
 
 @uref{https://lilypondforum.de/,
 fòrum alemany}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
+@uref{https://groups.google.com/group/lilypond-brasil,
 grup de portuguès}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 llista de correu en francès}
 
 @uref{http://www.lilypondforum.nl/,
@@ -201,7 +201,7 @@ La manera més fàcil d'estar en contacte és llegir el butlletí de
 la nostra comunitat, l'Informe LilyPond:
 
 @example
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
+@uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading Llista de correu de llançaments: @code{info-lilypond@@gnu.org}
@@ -210,10 +210,10 @@ Aquesta llista de distribució de correu és una llista de sols
 lectura i baix tràfic, que envia notificacions dels últims llançaments.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 subscripció i informació sobre info-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 arxiu 1 de la llista info}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 arxiu 2}
@@ -232,10 +232,10 @@ Quasi tota la discussió entre desenvolupadors té lloc en aquesta
 llista. El pegats s'han d'enviar aquí.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 subscripció i informació sobre lilypond-devel}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 arxiu 1 de la llista devel}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 arxiu 2}
@@ -247,10 +247,10 @@ arxiu 2}
 La discussió específica sobre fallades es produeix aquí.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 subscripció i informació sobre bug-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 arxiu 1 de la llista bug}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 arxiu 2}
@@ -587,7 +587,7 @@ un número @q{menor} de versió imparell (per exemple 2.7, 2.9, 2.11).
 Les instruccions de Git i per a la compilació estan a la Guia del Col·laborador.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Dipòsit Git del LilyPond}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, Dipòsit Git del LilyPond}
 @end quotation
 
 En general els redactors de la documentació i els pilots de proves
@@ -822,7 +822,7 @@ excel·lent per trobar col·laboradors nous i animar els estudiants
 que ja participen en el desenvolupament del LilyPond a què
 s'impliquin encara més. Un dels nostre col·laboradors ha estat
 seleccionat per a l'edició del program com a part del
-@uref{http://www.gnu.org/, project GNU}; esperem poder participar
+@uref{https://www.gnu.org/, project GNU}; esperem poder participar
 també a edicions futures.
 
 @divEnd

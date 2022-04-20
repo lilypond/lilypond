@@ -321,7 +321,7 @@ LilyPondot, először olvasd el a tudnivalókat a @ref{Szöveges bevitel, szöve
 @divClass{column-center-top}
 @subheading Szabad szoftver
 
-A @uref{http://www.gnu.org/, GNU} LilyPondot lelkes, zenét és informatikát
+A @uref{https://www.gnu.org/, GNU} LilyPondot lelkes, zenét és informatikát
 kedvelő emberek írták és tartják karban. A program licence a
 @ref{GPL, GNU General Public License}, a dokumentációé pedig a
 @ref{FDL, GNU Free Documentation License}, ezáltal mindenki szabadon
@@ -399,8 +399,8 @@ belefektetendő erőfeszítés töredékével.
 @qq{Ajándék-kultúra}: a szabad szoftver- (vagy @qq{nyílt forrás-})
 mozgalom már sok nagyszerű szoftver projekttel állt elő, pl. a
 @uref{https://www.gnu.org/distros/, GNU/Linux}, a
-@uref{http://www.getfirefox.com/, Mozilla Firefox} vagy a
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}. Ezeket a projekteket
+@uref{https://www.getfirefox.com/, Mozilla Firefox} vagy a
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}. Ezeket a projekteket
 használván, bizonyos fejlesztők szeretnének @qq{visszaadni} valamit a
 közösségnek.
 
@@ -477,7 +477,7 @@ előadásában, 2009. május 15-én és 16-án, a Texas állambeli Houstonban
 @item
 Zenekari tételek Rameau @emph{Hippolyte et Aricie} c. operájából
 a manhattani St. James's Churchben, 2009. május 8-án Frederick Renz
-és együttese, az @uref{http://www.earlymusicny.org/, Early Music
+és együttese, az @uref{https://www.earlymusicny.org/, Early Music
 New York} előadásában (Nicolas Sceaux szedésével).
 
 @end itemize
@@ -493,7 +493,7 @@ New York} előadásában (Nicolas Sceaux szedésével).
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia Project}:
+@uref{https://www.mutopiaproject.org/index.html, Mutopia Project}:
 több, mint 1500 klasszikus zenemű szabadon letölthető kottájával
 a LilyPonddal szedett kották online tárháza.
 
@@ -575,7 +575,7 @@ felülmúlja az igényeimet. [...] A LilyPond módosítatlan kimenete [...] már
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://percival-music.ca, Graham Percival}, zeneszerző-palánta és csellótanár
+@subsubheading @uref{https://percival-music.ca, Graham Percival}, zeneszerző-palánta és csellótanár
 
 @qq{Itt az ideje, hogy a LilyPond a rivaldafényben álljon; már két éve
 használom az egyetemen a zeneszerzés órákon, így megspórolva többszáz
@@ -586,7 +586,7 @@ ilyen gyönyörű kottaképet kapj?"}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, a @uref{http://www.rosegardenmusic.com/, RoseGarden} projekt fő fejlesztője
+@subsubheading Chris Cannam, a @uref{https://www.rosegardenmusic.com/, RoseGarden} projekt fő fejlesztője
 
 @qq{A LilyPond egyértelműen nehézsúlyú bajnok [a professzionális
 kottaszedésben].}
@@ -613,21 +613,21 @@ jobban szeretem!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} közreműködő
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} közreműködő
 
 @qq{Ambivalens érzéseim voltak vele szemben. A pozitív érzést az jelentette, amikor megláttam az első vele készült kottát, mert egyszerűen bámulatos volt! A LilyPondot gyönyörűnek mondani enyhe kifejezés! [...] Ahogy a LilyPond egyre jobb lesz, és ahogy én egyre többet tudok meg a Scheme-ről, egyre kevesebb frusztrációt érzek vele kapcsolatban. Mindent egybevetve: köszönöm a LilyPondot, szerintem nagyon jó.}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg},  a koblenzi opera karmestere és kiváló GNU coder
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg},  a koblenzi opera karmestere és kiváló GNU coder
 
 @qq{Egyébként a LilyPond kiválóan teszi a dolgát!}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, a @uref{http://jackaudio.org/, JACK} és az @uref{http://www.ardour.org/, Ardour} fejlesztője
+@subsubheading Paul Davis, a @uref{https://jackaudio.org/, JACK} és az @uref{https://www.ardour.org/, Ardour} fejlesztője
 
 @qq{Véleményem szerint [a LilyPond] egy hihetetlen program, a kimenet
 egyszerűen csodálatos. Amikor tavaly olvastam róla egy interjúban, lelkendezve
@@ -792,7 +792,7 @@ gyors begépeléséhez.
 @sourceimage{logo-freebsd,,}
 @sourceimage{logo-windows,,}
 
-@uref{http://www.frescobaldi.org}
+@uref{https://www.frescobaldi.org}
 
 A Frescobaldi egy dedikált LilyPond-szerkesztő beépített PDF-előnézettel,
 jól konfigurálható Új kotta varázslóval és sok szerkesztési funkcióval.
@@ -862,10 +862,10 @@ szerkesztéséhez.
 
 @uref{https://lilykde.googlecode.com/}
 
-A LilyKDE a @uref{http://kate-editor.org/,Kate} KDE-s szövegszerkesztő egy
+A LilyKDE a @uref{https://kate-editor.org/,Kate} KDE-s szövegszerkesztő egy
 beépülő modulja.
 
-A @uref{http://www.volny.cz/smilauer/rumor/,Rumor}t használja,
+A @uref{https://www.volny.cz/smilauer/rumor/,Rumor}t használja,
 így a kotta bevitele MIDI-billentyűzetről is lehetséges.
 
 Hasznos funkciója többek között, hogy a KDE fájlkezelőjéből több fájlt le
@@ -914,30 +914,30 @@ TODO: change url back to full adress, to make it readable in printouts -ch
 @item
 @uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
 @item
-@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden}
+@uref{https://@/www@/.rosegardenmusic@/.com,Rosegarden}
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}
 @item
-@uref{http://musescore.org,MuseScore}
+@uref{https://musescore.org,MuseScore}
 @item
-@uref{http://canorus.org,Canorus}
+@uref{https://canorus.org,Canorus}
 @end itemize
 
 @subsubheading Parancssori eszközök:
 
 @itemize
 @item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor},
+@uref{https://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor},
 amely az egyszólamú MIDI bemenetet valós időben LilyPond bemenetté konvertálja
 @item
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, egy Emacs mód
 @item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, amely
+@uref{https://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, amely
 @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}-LilyPond konverzióra képes
 @item
-@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+@uref{https://@/common-lisp@/.net/project/fomus/,FOMUS},
 egy LISP könyvtár, amellyel kottát lehet generálni
 @end itemize
 @divEnd
