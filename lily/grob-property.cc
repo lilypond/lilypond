@@ -270,9 +270,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cons (scm_list_3 (self_scm (), sym, proc), grob_property_callback_stack);
 
-  SCM value = SCM_EOL;
-  if (ly_is_procedure (proc))
-    value = scm_call_1 (proc, self_scm ());
+  SCM value = scm_call_1 (proc, self_scm ());
 
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
@@ -317,8 +315,7 @@ Grob::internal_get_object (SCM sym) const
   if (scm_is_true (s))
     {
       SCM val = scm_cdr (s);
-      if (ly_is_procedure (val)
-          || unsmob<Unpure_pure_container> (val))
+      if (ly_is_procedure (val))
         {
           auto *me = const_cast<Grob *> (this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);
