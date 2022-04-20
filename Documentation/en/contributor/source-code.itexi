@@ -731,27 +731,20 @@ machine.
 @node Further Git documentation resources
 @section Further Git documentation resources
 
-@itemize
-@item
-In-depth tutorials: @uref{http://git-scm.com/documentation}
+The following page on the Git website provides links to the Pro
+Git book and a variety of tutorials, as well as the official man
+pages (also available with @command{man git @dots{}}).
 
-@item
-Book about Git: @uref{http://progit.org/,Pro Git}
+@example
+@uref{https://git-scm.com/doc}
+@end example
 
-@item
-GitLab user documentation: @uref{https://docs.gitlab.com/ee/user/index.html}
+The GitLab user documentation contains tutorials on using Git and
+GitLab:
 
-@item
-Github help: @uref{http://help.github.com/}
-(very highly recommended by Graham)
-
-@end itemize
-
-Finally, please remember to read the man page of every Git command you
-will find in this manual in case you want to discover alternate methods
-or just understand how it works.  The man pages can also
-@uref{http://www.kernel.org/pub/software/scm/git/docs/, be read online}.
-
+@example
+@uref{https://docs.gitlab.com/ee/tutorials/#use-git}
+@end example
 
 
 
