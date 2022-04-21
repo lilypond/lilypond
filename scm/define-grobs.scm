@@ -678,12 +678,13 @@ time signature follows or precedes a bar line).")))))
         ;; This is intentionally bigger than BarNumber.
         (font-size . 0)
         (self-alignment-X . ,CENTER)
-        (stencil . ,centered-text-interface::print)
+        (stencil . ,ly:text-interface::print)
+        (X-offset . ,centered-spanner-interface::calc-x-offset)
         (meta .
               ((class . Spanner)
                (interfaces . (bar-number-interface
                               centered-bar-number-interface
-                              centered-text-interface
+                              centered-spanner-interface
                               font-interface
                               text-interface))
                (description . "A centered bar number; see also
@@ -1970,13 +1971,14 @@ and @iref{VowelTransition}.")))))
         (side-axis . ,Y)
         (spacing-pair . (break-alignment . break-alignment))
         (staff-padding . 0.5)
-        (stencil . ,centered-text-interface::print)
+        (stencil . ,ly:text-interface::print)
         (text . ,measure-counter::text)
         ;; For the space around the number-range-separator.
         (word-space . 0.2)
+        (X-offset . ,centered-spanner-interface::calc-x-offset)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (interfaces . (centered-text-interface
+                 (interfaces . (centered-spanner-interface
                                 font-interface
                                 measure-counter-interface
                                 outside-staff-interface

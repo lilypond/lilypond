@@ -166,8 +166,8 @@ vertical position."
  '())
 
 (ly:add-interface
- 'centered-text-interface
- "A spanner that interprets a markup centered between two columns."
+ 'centered-spanner-interface
+ "A spanner that prints a symbol centered between two columns."
  '(self-alignment-X
    spacing-pair))
 

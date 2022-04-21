@@ -1665,19 +1665,19 @@ property, which is identified by the symbol @var{property}."
         '(0 . 0))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Centered text.
+;; centered-spanner-interface
 
-;; TODO: could the same callback be used for other grobs that read spacing-pair?
-(define-public (centered-text-interface::print grob)
-  "Print some text between two non-musical columns according to the
-@code{spacing-pair} property."
-  (let* ((basic-stencil (ly:text-interface::print grob))
-         (X-alignment (ly:grob-property grob 'self-alignment-X))
-         (aligned-stencil (ly:stencil-aligned-to basic-stencil X X-alignment))
-         (left-bound (ly:spanner-bound grob LEFT))
+(define-public (centered-spanner-interface::calc-x-offset grob)
+  "Compute the shift from this spanner's reference point to a point
+centered between two non-musical columns, according to the
+@code{spacing-@/pair} property.  This also takes
+@code{self-@/alignment-X} into account.  The default for
+@code{spacing-@/pair} is @code{'(break-@/alignment
+.@tie{}break-@/alignment)}."
+  (let* ((left-bound (ly:spanner-bound grob LEFT))
          (right-bound (ly:spanner-bound grob RIGHT))
          (refp (ly:grob-common-refpoint left-bound right-bound X))
-         (X-base-position (ly:grob-relative-coordinate grob refp X))
+         (base-position (ly:grob-relative-coordinate grob refp X))
          (spacing-pair
           (ly:grob-property grob
                             'spacing-pair
@@ -1690,13 +1690,13 @@ property, which is identified by the symbol @var{property}."
          (R-start (interval-start ext-R))
          ;; Amount of translation from our basic position to
          ;; the right of our left bound.
-         (to-left-bound (- L-end X-base-position))
+         (to-left-bound (- L-end base-position))
          ;; From that to the middle between left and right bound.
-         (to-middle (* 0.5 (- R-start L-end))))
-    (ly:stencil-translate-axis
-     aligned-stencil
-     (+ to-left-bound to-middle)
-     X)))
+         (to-middle (* 0.5 (- R-start L-end)))
+         ;; Correction to align according to self-alignment-X.
+         (alignment-translation
+          (ly:self-alignment-interface::x-aligned-on-self grob)))
+    (+ to-left-bound to-middle alignment-translation)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Measure counter.

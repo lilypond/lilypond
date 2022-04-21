@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.23.9"
 
 \header {
   lsrtags = "tweaks-and-overrides"
@@ -22,7 +22,7 @@ numbers are boxed and placed below the staves.
     centerBarNumbers = ##t
     barNumberVisibility = #all-bar-numbers-visible
     \override CenteredBarNumber.stencil
-      = #(make-stencil-boxer 0.1 0.25 centered-text-interface::print)
+      = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
     \override CenteredBarNumberLineSpanner.direction = #DOWN
   }
 }
