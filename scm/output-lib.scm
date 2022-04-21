@@ -2898,9 +2898,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (ly:line-interface::line
           grob
           left-start
-          left-Y
+          (* left-Y staff-space)
           right-end
-          left-Y)
+          (* left-Y staff-space))
          arrow-stil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
