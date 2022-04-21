@@ -42,7 +42,7 @@ Percent_repeat_item_interface::brew_slash (Grob *me, int count)
   for (int i = count - 1; i--;)
     m.add_at_edge (X_AXIS, RIGHT, slash, -slash_neg_kern);
 
-  m.translate_axis (-m.extent (Y_AXIS).center (), Y_AXIS);
+  m.align_to (Y_AXIS, CENTER);
   return m;
 }
 
@@ -71,7 +71,7 @@ Percent_repeat_item_interface::double_percent (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Stencil m = x_percent (me, 2);
-  m.translate_axis (-m.extent (X_AXIS).center (), X_AXIS);
+  m.align_to (X_AXIS, CENTER);
   return m.smobbed_copy ();
 }
 
