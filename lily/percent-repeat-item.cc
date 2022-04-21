@@ -22,23 +22,26 @@
 #include "item.hh"
 #include "font-interface.hh"
 #include "lookup.hh"
+#include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
 Stencil
 Percent_repeat_item_interface::brew_slash (Grob *me, int count)
 {
+  /* Scale everything by staff-space, don't scale thickness by line-thickness.
+   The reason is that line-thickness is more to control the thickness of thin
+   lines, which should not get too thin with small staff sizes.  Consequently,
+   staff-space and line-thickness are not always proportional.  However, percent
+   repeat signs should have the same proportions at all staff sizes. */
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real slope = from_scm<double> (get_property (me, "slope"), 1);
-  Real wid = 2.0 / slope;
-
-  /*
-    todo: check out if in staff-rule thickness normally.
-  */
-  Real thick = from_scm<double> (get_property (me, "thickness"), 1);
+  Real wid = 2.0 / slope * staff_space;
+  Real thick = from_scm<double> (get_property (me, "thickness"), 1) * staff_space;
   Stencil slash = Lookup::repeat_slash (wid, slope, thick);
   Stencil m = slash;
 
   Real slash_neg_kern
-    = from_scm<double> (get_property (me, "slash-negative-kern"), 1.6);
+    = from_scm<double> (get_property (me, "slash-negative-kern"), 1.6) * staff_space;
   for (int i = count - 1; i--;)
     m.add_at_edge (X_AXIS, RIGHT, slash, -slash_neg_kern);
 
@@ -49,19 +52,19 @@ Percent_repeat_item_interface::brew_slash (Grob *me, int count)
 Stencil
 Percent_repeat_item_interface::x_percent (Grob *me, int count)
 {
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Stencil m = brew_slash (me, count);
 
   Real dot_neg_kern
-    = from_scm<double> (get_property (me, "dot-negative-kern"), 0.75);
+    = from_scm<double> (get_property (me, "dot-negative-kern"), 0.75) * staff_space;
 
   Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
-  d1.translate_axis (0.5, Y_AXIS);
-  d2.translate_axis (-0.5, Y_AXIS);
+  d1.translate_axis (0.5*staff_space, Y_AXIS);
+  d2.translate_axis (-0.5*staff_space, Y_AXIS);
 
   m.add_at_edge (X_AXIS, LEFT, d1, -dot_neg_kern);
   m.add_at_edge (X_AXIS, RIGHT, d2, -dot_neg_kern);
-
   return m;
 }
 
