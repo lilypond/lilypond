@@ -1087,8 +1087,6 @@ repeating two bars.  See also @iref{DoublePercentRepeatCounter},
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 outside-staff-interface
-                                percent-repeat-interface
-                                percent-repeat-item-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))
@@ -2423,7 +2421,6 @@ a bar.  See also @iref{PercentRepeatCounter},
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
-                                percent-repeat-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
