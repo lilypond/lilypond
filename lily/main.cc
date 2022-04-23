@@ -41,7 +41,6 @@
 #include "file-name.hh"
 #include "freetype.hh"
 #include "getopt-long.hh"
-#include "global-ctor.hh"
 #include "international.hh"
 #include "lily-imports.hh"
 #include "misc.hh"
@@ -523,7 +522,6 @@ main_with_guile (void *, int, char **)
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
-  call_constructors ();
   init_fontconfig ();
 
   init_freetype ();

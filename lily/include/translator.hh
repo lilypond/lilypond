@@ -20,7 +20,6 @@
 #ifndef TRANSLATOR_HH
 #define TRANSLATOR_HH
 
-#include "global-ctor.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "callback.hh"

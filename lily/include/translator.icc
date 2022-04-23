@@ -38,7 +38,7 @@
                             scm_from_latin1_symbol (#T),                \
                             T::static_translator_description ());       \
   }                                                                     \
-  ADD_GLOBAL_CTOR (_ ## T ## _adder);                                   \
+  ADD_SCM_INIT_FUNC (_ ## T ## _adder, _ ## T ## _adder);               \
   /* end define */
 
 #define DEFINE_TRANSLATOR_LISTENER_LIST(T)                              \
