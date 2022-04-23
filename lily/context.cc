@@ -24,6 +24,7 @@
 #include "global-context.hh"
 #include "international.hh"
 #include "listener.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "profile.hh"
@@ -80,7 +81,7 @@ Context::add_context (Context *child)
   events_below_->register_as_listener (child->events_below_);
 }
 
-Context::Context ()
+Context::Context (Context_def *cdef, SCM ops)
 {
   parent_ = 0;
   aliases_ = SCM_EOL;
@@ -100,6 +101,25 @@ Context::Context ()
   event_source_->unprotect ();
   events_below_ = new Dispatcher ();
   events_below_->unprotect ();
+
+  definition_ = cdef->self_scm ();
+  definition_mods_ = ops;
+  aliases_ = cdef->get_context_aliases ();
+  acceptance_.assign_copy (cdef->get_acceptance ());
+  // TODO: Set this with "\adopts ##t" in the ly code.
+  SCM type_sym = cdef->get_translator_group_type ();
+  adopts_ = (scm_is_eq (type_sym, ly_symbol2scm ("Score_engraver"))
+             || scm_is_eq (type_sym, ly_symbol2scm ("Score_performer")));
+  for (SCM op : as_ly_scm_list (ops))
+    {
+      SCM tag = scm_car (op);
+      if (scm_is_eq (tag, ly_symbol2scm ("accepts")))
+        acceptance_.accept (scm_string_to_symbol (scm_cadr (op)));
+      else if (scm_is_eq (tag, ly_symbol2scm ("denies")))
+        acceptance_.deny (scm_string_to_symbol (scm_cadr (op)));
+      else if (scm_is_eq (tag, ly_symbol2scm ("default-child")))
+        acceptance_.accept_default (scm_string_to_symbol (scm_cadr (op)));
+    }
 }
 
 // True if this context has the given type and id.
@@ -339,7 +359,7 @@ Context::create_context_from_event (SCM sev)
     }
   Context_def *cdef = path[0];
 
-  Context *new_context = cdef->instantiate (ops);
+  Context *new_context = new Context (cdef, ops);
 
   new_context->id_string_ = id;
 

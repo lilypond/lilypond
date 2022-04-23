@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context-def.hh"
 #include "global-context.hh"
 #include "international.hh"
 #include "music-output.hh"
@@ -67,14 +68,14 @@ Set up a global interpretation context, using the output block
 {
   auto *const odef = LY_ASSERT_SMOB (Output_def, output_def, 1);
 
-  Global_context *glob = new Global_context (odef);
-
-  if (!glob)
+  SCM cdef_scm = find_context_def (odef, ly_symbol2scm ("Global"));
+  Context_def *cdef = unsmob<Context_def> (cdef_scm);
+  if (!cdef)
     {
-      programming_error ("no toplevel translator");
+      programming_error ("definition for Global context not found");
       return SCM_BOOL_F;
     }
-
+  Global_context *glob = new Global_context (odef, cdef);
   return glob->unprotect ();
 }
 

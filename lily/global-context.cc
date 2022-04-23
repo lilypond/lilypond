@@ -32,11 +32,11 @@
 
 using std::string;
 
-Global_context::Global_context (Output_def *o)
-  : Context ()
+Global_context::Global_context (Output_def *odef, Context_def *cdef)
+  : Context (cdef, SCM_EOL)
 {
-  output_def_ = o;
-  definition_ = find_context_def (o, ly_symbol2scm ("Global"));
+  output_def_ = odef;
+  definition_ = cdef->self_scm ();
 
   now_mom_.main_part_ = -Rational::infinity ();
   prev_mom_.main_part_ = -Rational::infinity ();
@@ -48,13 +48,7 @@ Global_context::Global_context (Output_def *o)
                                  ly_symbol2scm ("Prepare"));
   events_below ()->register_as_listener (event_source_);
 
-  Context_def *globaldef = unsmob<Context_def> (definition_);
-  if (!globaldef)
-    programming_error ("no `Global' context found");
-  else
-    globaldef->apply_default_property_operations (this);
-
-  acceptance_.accept_default (ly_symbol2scm ("Score"));
+  cdef->apply_default_property_operations (this);
 }
 
 void

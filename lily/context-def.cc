@@ -321,33 +321,6 @@ Context_def::get_translator_names (SCM user_mod) const
   return l1;
 }
 
-Context *
-Context_def::instantiate (SCM ops)
-{
-  Context *context = new Context ();
-
-  context->definition_ = self_scm ();
-  context->definition_mods_ = ops;
-  context->aliases_ = context_aliases_;
-  context->acceptance_.assign_copy (acceptance_);
-  // TODO: Set this with "\adopts ##t" in the ly code.
-  context->adopts_ = scm_is_eq (context_name_, ly_symbol2scm ("Score"));
-
-  Acceptance_set &acc = context->acceptance_;
-  for (SCM s = ops; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM tag = scm_caar (s);
-      if (scm_is_eq (tag, ly_symbol2scm ("accepts")))
-        acc.accept (scm_string_to_symbol (scm_cadar (s)));
-      else if (scm_is_eq (tag, ly_symbol2scm ("denies")))
-        acc.deny (scm_string_to_symbol (scm_cadar (s)));
-      else if (scm_is_eq (tag, ly_symbol2scm ("default-child")))
-        acc.accept_default (scm_string_to_symbol (scm_cadar (s)));
-    }
-
-  return context;
-}
-
 SCM
 Context_def::make_scm ()
 {

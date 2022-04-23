@@ -1397,6 +1397,49 @@ Thus, to complete the example above, the following can be added:
 This makes the @code{ImproVoice} context also work in MIDI output.
 
 
+@unnumberedsubsubsec Replacing the @code{Score} context
+
+@cindex Score context, replacing
+@cindex context, Score-level
+
+@c This can also be done with \accepts in Global.  Since Global is
+@c a very special context type, we avoid answering the question of
+@c why certain things don't work on it by not mentioning it at
+@c all.
+
+In order to write a context @code{MyScore} that acts as the
+topmost context, as the @code{Score} context usually does, use
+@code{\inherit-@/acceptability MyScore Score}.  The following
+example defines a @code{ProportionalScore} context where
+proportional notation is enabled (@pxref{Proportional notation}).
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    \name ProportionalScore
+    \alias Score
+    proportionalNotationDuration = #(ly:make-moment 1/4)
+  }
+  \inherit-acceptability ProportionalScore Score
+}
+
+\new ProportionalScore { c'1 2 4 8 16 32 64 64 }
+@end lilypond
+
+@funindex Score_engraver
+@funindex Score_performer
+Since the topmost context needs to contain a number of fundamental
+engravers, inheriting settings with @code{\Score} is easiest in
+most cases.  If you nevertheless define a score-level context from
+scratch without inheriting the @code{Score} definition, the
+argument to @code{\type} should be @code{Score_@/engraver} (or
+@code{Score_@/performer} in @code{\midi}) rather than
+@code{Engraver_@/group}.  Furthermore, giving the topmost context
+the @code{Score} alias is strongly recommended given that a number
+of engravers need to access the topmost context using its alias.
+
+
 @node Context layout order
 @subsection Context layout order
 

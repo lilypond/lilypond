@@ -31,6 +31,8 @@
 
 #include <vector>
 
+class Context_def;
+
 class Context : public Smob<Context>
 {
 public:
@@ -38,6 +40,8 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   static const char *const type_p_name_;
   virtual ~Context ();
+protected:
+  Context (Context_def *odef, SCM ops);
 private:
   void add_global_finalization (SCM x);
   Context *create_hierarchy (const std::vector<Context_def *> &path,
@@ -91,8 +95,10 @@ protected:
   SCM properties_scm_;
   SCM context_list_;
   Acceptance_set acceptance_;
-  /* When a context needs to be added to the tree, but its descent is not fully
-     specified, can this context accept it as a descendant? */
+  /* When a context needs to be added to the tree, but its descent is
+     not fully specified, can this context accept it as a descendant?
+     Currently set to true for children of the Global context, to avoid
+     duplicate Score-like contexts. */
   bool adopts_ = false;
   SCM aliases_;
   Translator_group *implementation_;
@@ -107,8 +113,6 @@ protected:
 
   // Translator_group is allowed to set implementation_.
   friend class Translator_group;
-  // Context_def::instantiate initialises some protected members.
-  friend class Context_def;
   // UGH! initialises implementation_
   friend SCM ly_make_global_translator (SCM);
 
@@ -142,7 +146,6 @@ public:
 
   Translator_group *implementation () const { return implementation_; }
   Context *get_parent () const { return parent_; }
-  Context ();
 
   /* properties:  */
   SCM internal_get_property (SCM name_sym) const;

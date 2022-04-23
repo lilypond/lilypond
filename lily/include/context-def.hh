@@ -59,6 +59,8 @@ public:
   void add_context_mod (SCM);
   SCM get_context_name () const { return context_name_; }
   SCM get_property_ops () const { return property_ops_; }
+  const Acceptance_set &get_acceptance () const { return acceptance_; }
+  SCM get_context_aliases () const { return context_aliases_; }
   SCM get_translator_names (SCM) const;
   SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
@@ -74,7 +76,6 @@ public:
 
   static std::vector<Context_def *> path_to_bottom_context (Output_def *,
                                                             SCM first_child_type_sym);
-  Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
   static SCM make_scm ();

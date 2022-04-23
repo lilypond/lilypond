@@ -37,7 +37,7 @@ class Global_context : Preinit_Global_context, public Context
 
   friend class Output_def;
 public:
-  Global_context (Output_def *);
+  Global_context (Output_def *, Context_def *);
   vsize get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
