@@ -548,7 +548,7 @@ rechteckige Blase gezeichnet wird.  Dies ist vor allem dazu da, Notation
 zu erklären.
 
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
@@ -569,7 +569,7 @@ Textblasen beeinflussen normalerweise die Positionierung der Notation,
 aber das kann geändert werden.
 
 @lilypond[verbatim,quote,relative=2]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 {
   \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
@@ -624,12 +624,12 @@ den Linien festgesetzt.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -691,7 +691,7 @@ horizontale Klammern werden von LilyPond unterstützt.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -706,7 +706,7 @@ Analyseklammern können verschachtelt sein.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

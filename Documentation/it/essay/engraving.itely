@@ -863,7 +863,7 @@ partIV = \relative {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
     \context {
       \PianoStaff
@@ -1120,11 +1120,11 @@ musicale più complesso:
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
     \Staff
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
 }
 
@@ -1212,23 +1212,23 @@ note, il @code{Note_heads_engraver}.
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \consists "Pitch_squash_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Staff_symbol_engraver
+      \consists Pitch_squash_engraver
     }
   }
 }
@@ -1245,22 +1245,22 @@ Poi il @code{Staff_symbol_engraver} aggiunge il rigo,
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \consists "Pitch_squash_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \consists Pitch_squash_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1277,20 +1277,20 @@ il @code{Clef_engraver} definisce un punto di riferimento per il rigo,
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1307,19 +1307,19 @@ e lo @code{Stem_engraver} aggiunge i gambi.
   \layout {
     \context {
       \Voice
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1618,7 +1618,7 @@ L'esempio seguente combina alcune costruzioni più esotiche.
   \layout {
     \context {
       \Staff
-      \consists "Horizontal_bracket_engraver"
+      \consists Horizontal_bracket_engraver
     }
   }
 }
@@ -1784,7 +1784,7 @@ partIV = \relative {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
     \context {
       \PianoStaff

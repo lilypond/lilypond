@@ -630,7 +630,7 @@ righi ossia.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
@@ -651,7 +651,7 @@ esempio.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
   }
@@ -687,7 +687,7 @@ su @code{\RemoveAllEmptyStaves} si trovano in @ref{Nascondere i righi}.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
     \RemoveAllEmptyStaves
@@ -765,7 +765,7 @@ si può usare @code{\stopStaff}.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond

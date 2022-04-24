@@ -45,21 +45,21 @@
       indent = 20\mm
       \context {
         \Score
-        \accepts "StaffGroupNoBar"
+        \accepts StaffGroupNoBar
         skipBars = ##t
       }
       \context {
         \StaffGroup
         \name StaffGroupNoBar
         \description "Like StaffGroup, but without spanbar"
-        \remove "Span_bar_engraver"
-        \accepts "StaffGroupNoBracket"
+        \remove Span_bar_engraver
+        \accepts StaffGroupNoBracket
       }
       \context {
         \StaffGroup
         \name StaffGroupNoBracket
         \description "Like StaffGroup, but without brackets"
-        \remove "System_start_delimiter_engraver"
+        \remove System_start_delimiter_engraver
       }
     }
 %    \midi { }

@@ -2155,7 +2155,7 @@ erstellt werden.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative {
   c'4 d
@@ -2191,7 +2191,7 @@ und zeigt ihn an:
 @lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \new Voice \with {
-    \consists "Ambitus_engraver"
+    \consists Ambitus_engraver
   } {
     \relative {
       \voiceOne
@@ -2214,7 +2214,7 @@ Stimmen in diesem Notensystem errechnet:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \consists "Ambitus_engraver"
+  \consists Ambitus_engraver
 }
 <<
   \new Voice {
@@ -2274,7 +2274,7 @@ mit vier Systemen anzeigen wollen, könnte das so aussehen:
   \layout {
     \context {
       \Staff
-      \consists "Ambitus_engraver"
+      \consists Ambitus_engraver
     }
   }
 }

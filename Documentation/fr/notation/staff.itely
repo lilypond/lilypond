@@ -661,7 +661,7 @@ lorsqu'il y a un nombre restreint d'ossias.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
@@ -683,7 +683,7 @@ procéder, bien plus que dans l'exemple suivant.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
   }
@@ -719,7 +719,7 @@ chapitre @ref{Masquage de portées}.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
     \RemoveAllEmptyStaves
@@ -792,7 +792,7 @@ Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond
@@ -867,7 +867,7 @@ considéré, comme indiqué dans
   \context @{
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   @}
 @}
 @end example
@@ -886,7 +886,7 @@ continuent de jouer.
   \context {
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   }
 }
 
@@ -1054,7 +1054,7 @@ violII = {
   \bar "|."
 }
 
-\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+\new StaffGroup \with { \consists Keep_alive_together_engraver } <<
   \new Staff \with {
     instrumentName = "Violins"
     shortInstrumentName = "V I & II"

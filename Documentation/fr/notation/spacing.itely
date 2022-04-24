@@ -1693,7 +1693,7 @@ forcés doivent être saisis au sein d'une expression polyphonique :
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove "Forbid_line_break_engraver"
+  \remove Forbid_line_break_engraver
 } \relative {
   <<
     { c''2. \tuplet 3/2 { c4 c c } c2. | }
@@ -2093,7 +2093,7 @@ défaut de @code{minimumPageTurnLength} est
 la manière suivante :
 
 @example
-\new Staff \with @{ \consists "Page_turn_engraver" @}
+\new Staff \with @{ \consists Page_turn_engraver @}
 @{
   a4 b c d |
   R1 | % une tourne peut se placer ici
@@ -3851,7 +3851,7 @@ point cette notation proportionnelle.
 
 @item @code{strict-note-spacing}
 
-@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\remove Separating_line_group_engraver}
 
 @item @code{\override PaperColumn.used = ##t}
 
@@ -4117,7 +4117,7 @@ réduire cet espace à zéro.
 }
 
 \new Staff \with {
-  \remove "Separating_line_group_engraver"
+  \remove Separating_line_group_engraver
 } {
   c'1
   \break
@@ -4177,7 +4177,7 @@ réglages en usage dans la notation proportionnelle comme, entre autres,
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver"} (dans un contexte de voix)
+@item @code{\remove Forbid_line_break_engraver} (dans un contexte de voix)
 @end itemize
 
 Ces différents réglages permettent un espacement strict des notes

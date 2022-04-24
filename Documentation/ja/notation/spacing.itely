@@ -1477,7 +1477,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove "Forbid_line_break_engraver"
+  \remove Forbid_line_break_engraver
 } \relative {
   <<
     { c''2. \tuplet 3/2 { c4 c c } c2. | }
@@ -1869,7 +1869,7 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @code{minimumPageTurnLength} に非常に大きな値をセットします。
 
 @example
-\new Staff \with @{ \consists "Page_turn_engraver" @}
+\new Staff \with @{ \consists Page_turn_engraver @}
 @{
   a4 b c d |
   R1 | % ここでページめくりが許可されます
@@ -3240,7 +3240,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 @item @code{proportionalNotationDuration}
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
-@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\remove Separating_line_group_engraver}
 @item @code{\override PaperColumn.used = ##t}
 @end itemize
 
@@ -3510,7 +3510,7 @@ OFF であるかのどちらかであるということです。@c
 }
 
 \new Staff \with {
-  \remove "Separating_line_group_engraver"
+  \remove Separating_line_group_engraver
 } {
   c'1
   \break
@@ -3569,7 +3569,7 @@ OFF であるかのどちらかであるということです。@c
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
+@item @code{\remove Forbid_line_break_engraver in the Voice context}
 @end itemize
 
 これらの設定は、装飾小音符のスペースを厳密にし、@c

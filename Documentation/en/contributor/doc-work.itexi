@@ -463,7 +463,7 @@ Use two spaces for indentation in lilypond examples (no tabs).
 All engravers should have double-quotes around them:
 
 @example
-\consists "Spans_arpeggio_engraver"
+\consists Spans_arpeggio_engraver
 @end example
 
 LilyPond does not strictly require this, but it is a useful

@@ -748,7 +748,7 @@ d'aquesta funcionalitat és l'explicació de la notació.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Sóc una plica" }
   a8
@@ -769,7 +769,7 @@ això es pot canviar:
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Sóc una plica" }
   a8
@@ -824,12 +824,12 @@ d'especificar la duració entre les línies de reixeta.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -890,7 +890,7 @@ les peces musicals.  Es permeten les claus horitzontals simples.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -905,7 +905,7 @@ Les claus d'anàlisi es poden niuar.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

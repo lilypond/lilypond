@@ -37,7 +37,7 @@ bassFigures = \figuremode {
   \new PianoStaff <<
     \new Staff {
       \context Voice = "added voice" \with {
-        \consists "Balloon_engraver"
+        \consists Balloon_engraver
       }
       \upper
     }
@@ -45,7 +45,7 @@ bassFigures = \figuremode {
     \new Staff = lower {
       <<
 %      \context Voice = "cantus firmus" \with {
-%        \consists "Balloon_engraver"
+%        \consists Balloon_engraver
 %      }
         \context Staff = lower \cf
         \new FiguredBass \bassFigures

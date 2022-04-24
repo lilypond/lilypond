@@ -3254,11 +3254,11 @@ MIDI チャンネルは 15 個が利用可能で、さらにドラムのため�
 \midi {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
      \Staff
-     \consists "Timing_translator"
+     \consists Timing_translator
   }
 }
 @end lilypond
@@ -3457,7 +3457,7 @@ MIDI での音量変化は音符の開始時にのみ適用されます。その
   \midi @{
     \context @{
       \Voice
-      \remove "Dynamic_performer"
+      \remove Dynamic_performer
     @}
   @}
 @}

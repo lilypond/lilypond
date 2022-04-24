@@ -540,11 +540,11 @@ contextes @code{Voice} pourront être reliés.
     ragged-right = ##f
     \context {
       \Voice
-      \remove "Finger_glide_engraver"
+      \remove Finger_glide_engraver
     }
     \context {
       \Staff
-      \consists "Finger_glide_engraver"
+      \consists Finger_glide_engraver
     }
   }
 }
@@ -1098,7 +1098,7 @@ notation.
 En voici un exemple :
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
   a8
@@ -1121,7 +1121,7 @@ peut toutefois le gérer ainsi :
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
   a8
@@ -1213,12 +1213,12 @@ entre chaque ligne.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" %% active les guides
+    \consists Grid_point_engraver %% active les guides
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
      %% centre les lignes guides horizontalement sous les notes
   }
 }
@@ -1280,7 +1280,7 @@ structure d'une pièce.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -1295,7 +1295,7 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

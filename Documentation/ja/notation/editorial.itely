@@ -830,7 +830,7 @@ somechords = \relative c' {
 この機能の主目的は記譜法を説明することです。
 
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
@@ -852,7 +852,7 @@ somechords = \relative c' {
 影響を与えるように変更することもできます:
 
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
@@ -904,12 +904,12 @@ somechords = \relative c' {
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -971,7 +971,7 @@ somechords = \relative c' {
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -986,7 +986,7 @@ somechords = \relative c' {
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

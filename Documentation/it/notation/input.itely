@@ -3206,11 +3206,11 @@ spostare @code{Timing_translator} dal contesto @code{Score} al contesto
 \midi {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
      \Staff
-     \consists "Timing_translator"
+     \consists Timing_translator
   }
 }
 @end lilypond
@@ -3415,7 +3415,7 @@ blocco @code{\layout};
   \midi @{
     \context @{
       \Voice
-      \remove "Dynamic_performer"
+      \remove Dynamic_performer
     @}
   @}
 @}

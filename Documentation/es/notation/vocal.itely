@@ -1273,8 +1273,8 @@ Para hacer que el texto evite también las líneas divisorias, use
 \layout @{
   \context @{
     \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
+      \consists Bar_engraver
+      \consists Separating_line_group_engraver
       \hide BarLine
   @}
 @}
@@ -3171,7 +3171,7 @@ barras:
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3184,7 +3184,7 @@ pentagrama:
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove "Bar_engraver" } {
+    \with { \remove Bar_engraver } {
       \relative {
         a'4 b c2 |
         a4 b c2 |
@@ -3284,7 +3284,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3305,9 +3305,9 @@ frecuencia omiten la clave también.
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Clef_engraver"
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
     }
   }
 }
@@ -3387,7 +3387,7 @@ global = {
         }
         \context {
           \Staff
-          \remove "Time_signature_engraver"
+          \remove Time_signature_engraver
         }
       }
     }  % End score

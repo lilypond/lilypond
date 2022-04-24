@@ -200,7 +200,7 @@ LH = {
       \RH
     }
 
-    \new Dynamics \with { \consists "Time_signature_engraver" }
+    \new Dynamics \with { \consists Time_signature_engraver }
     {
       \largeTimeSignatures
 

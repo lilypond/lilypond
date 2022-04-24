@@ -720,7 +720,7 @@ una nuvoletta quadrata.  La sua funzione principale è spiegare la notazione.
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  \new Voice \with { \consists "Balloon_engraver" }
+  \new Voice \with { \consists Balloon_engraver }
   {
     \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
     a8
@@ -743,7 +743,7 @@ ma è possibile modificare questo comportamento:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  \new Voice \with { \consists "Balloon_engraver" }
+  \new Voice \with { \consists Balloon_engraver }
   {
     \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
     a8
@@ -795,12 +795,12 @@ Le linee  si estendono a partire dalle linee centrali di ciascun rigo.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -861,7 +861,7 @@ dei brani musicali.  Sono  supportate delle semplici parentesi orizzontali.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -876,7 +876,7 @@ Le parentesi analitiche si possono annidare.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

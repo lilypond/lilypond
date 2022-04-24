@@ -147,7 +147,7 @@ snippet_options = {
  }
  \context {
    \Staff
-   \remove "Time_signature_engraver"
+   \remove Time_signature_engraver
  }''',
     },
 

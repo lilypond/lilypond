@@ -21,27 +21,27 @@
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
 \context {
-  \name "Global"
+  \name Global
 
-  \accepts "Score"
+  \accepts Score
 
-  \defaultchild "Score"
+  \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Cannot be tuned."
   \grobdescriptions #all-grob-descriptions
 }
 
 \context {
-  \type "Engraver_group"
-  \name "FretBoards"
-  \alias "Staff"
+  \type Engraver_group
+  \name FretBoards
+  \alias Staff
   \description "A context for displaying fret diagrams."
 
-  \consists "Fretboard_engraver"
-  \consists "Output_property_engraver"
-  \consists "Axis_group_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Font_size_engraver"
-  \consists "Instrument_name_engraver"
+  \consists Fretboard_engraver
+  \consists Output_property_engraver
+  \consists Axis_group_engraver
+  \consists Separating_line_group_engraver
+  \consists Font_size_engraver
+  \consists Instrument_name_engraver
 
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
@@ -53,43 +53,43 @@
 }
 
 \context {
-  \type "Engraver_group"
-  \name "Staff"
+  \type Engraver_group
+  \name Staff
 
-  \consists "Output_property_engraver"
-  \consists "Skip_typesetting_engraver"
-  \consists "Bar_engraver"
-  \consists "Pure_from_neighbor_engraver"
+  \consists Output_property_engraver
+  \consists Skip_typesetting_engraver
+  \consists Bar_engraver
+  \consists Pure_from_neighbor_engraver
   %% Bar_engraver must be first so default bars aren't overwritten
   %% with empty ones.
 
-  \consists "Font_size_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Dot_column_engraver"
-  \consists "Staff_collecting_engraver"
+  \consists Font_size_engraver
+  \consists Separating_line_group_engraver
+  \consists Dot_column_engraver
+  \consists Staff_collecting_engraver
 
   %% perhaps move to Voice context?
-  \consists "Ottava_spanner_engraver"
-  \consists "Clef_engraver"
-  \consists "Key_engraver"
-  \consists "Time_signature_engraver"
-  \consists "Ledger_line_engraver"
-  \consists "Staff_symbol_engraver"
-  \consists "Collision_engraver"
-  \consists "Grob_pq_engraver"
-  \consists "Rest_collision_engraver"
-  \consists "Accidental_engraver"
-  \consists "Piano_pedal_engraver"
-  \consists "Piano_pedal_align_engraver"
-  \consists "Instrument_name_engraver"
-  \consists "Axis_group_engraver"
-  \consists "Figured_bass_engraver"
-  \consists "Figured_bass_position_engraver"
-  \consists "Script_row_engraver"
-  \consists "Cue_clef_engraver"
-  \consists "Fingering_column_engraver"
-  \consists "Merge_mmrest_numbers_engraver"
-  \consists "Alteration_glyph_engraver"
+  \consists Ottava_spanner_engraver
+  \consists Clef_engraver
+  \consists Key_engraver
+  \consists Time_signature_engraver
+  \consists Ledger_line_engraver
+  \consists Staff_symbol_engraver
+  \consists Collision_engraver
+  \consists Grob_pq_engraver
+  \consists Rest_collision_engraver
+  \consists Accidental_engraver
+  \consists Piano_pedal_engraver
+  \consists Piano_pedal_align_engraver
+  \consists Instrument_name_engraver
+  \consists Axis_group_engraver
+  \consists Figured_bass_engraver
+  \consists Figured_bass_position_engraver
+  \consists Script_row_engraver
+  \consists Cue_clef_engraver
+  \consists Fingering_column_engraver
+  \consists Merge_mmrest_numbers_engraver
+  \consists Alteration_glyph_engraver
 
   localAlterations = #'()
   createSpacing = ##t
@@ -101,10 +101,10 @@
   instrumentName = #'()
   shortInstrumentName = #'()
 
-  \defaultchild "Voice"
-  \accepts "CueVoice"
-  \accepts "NullVoice"
-  \accepts "Voice"
+  \defaultchild Voice
+  \accepts CueVoice
+  \accepts NullVoice
+  \accepts Voice
 
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
@@ -114,8 +114,8 @@
 
 \context {
   \Staff
-  \name "InternalGregorianStaff"
-  \denies "Voice" % derived contexts will accept specific voices
+  \name InternalGregorianStaff
+  \denies Voice % derived contexts will accept specific voices
 
   \description "An internal @code{Staff} type with settings shared by
 multiple ancient notation schemes."
@@ -143,20 +143,20 @@ multiple ancient notation schemes."
 
 \context {
   \Staff
-  \type "Engraver_group"
-  \name "DrumStaff"
-  \alias "Staff"
+  \type Engraver_group
+  \name DrumStaff
+  \alias Staff
 
-  \remove "Accidental_engraver"
-  \remove "Ottava_spanner_engraver"
-  \remove "Key_engraver"
-  \remove "Piano_pedal_engraver"
+  \remove Accidental_engraver
+  \remove Ottava_spanner_engraver
+  \remove Key_engraver
+  \remove Piano_pedal_engraver
 
   \description "Handles typesetting for percussion."
 
-  \denies "Voice"
-  \accepts "DrumVoice"
-  \defaultchild "DrumVoice"
+  \denies Voice
+  \accepts DrumVoice
+  \defaultchild DrumVoice
 
   clefGlyph = "clefs.percussion"
   clefPosition = #0
@@ -164,14 +164,14 @@ multiple ancient notation schemes."
 }
 
 \context{
-  \type "Engraver_group"
+  \type Engraver_group
 
   localAlterations = #'()
   createSpacing = ##t
 
   squashedPosition = #0
-  \name "RhythmicStaff"
-  \alias "Staff"
+  \name RhythmicStaff
+  \alias Staff
 
   \override VoltaBracket.staff-padding = #3
   \override StaffSymbol.line-count = #1
@@ -179,26 +179,26 @@ multiple ancient notation schemes."
   \override Stem.neutral-direction = #UP
   \override Beam.neutral-direction = #UP
 
-  \consists "Output_property_engraver"
-  \consists "Font_size_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Dot_column_engraver"
-  \consists "Bar_engraver"
-  \consists "Staff_symbol_engraver"
-  \consists "Pitch_squash_engraver"
-  \consists "Time_signature_engraver"
-  \consists "Instrument_name_engraver"
-  \consists "Axis_group_engraver"
-  \consists "Ledger_line_engraver"
+  \consists Output_property_engraver
+  \consists Font_size_engraver
+  \consists Separating_line_group_engraver
+  \consists Dot_column_engraver
+  \consists Bar_engraver
+  \consists Staff_symbol_engraver
+  \consists Pitch_squash_engraver
+  \consists Time_signature_engraver
+  \consists Instrument_name_engraver
+  \consists Axis_group_engraver
+  \consists Ledger_line_engraver
 
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
   shortInstrumentName = #'()
 
-  \accepts "CueVoice"
-  \accepts "NullVoice"
-  \accepts "Voice"
-  \defaultchild "Voice"
+  \accepts CueVoice
+  \accepts NullVoice
+  \accepts Voice
+  \defaultchild Voice
 
   \description "A context like @code{Staff} but for printing rhythms.
 Pitches are ignored; the notes are printed on one line."
@@ -206,8 +206,8 @@ Pitches are ignored; the notes are printed on one line."
 
 
 \context {
-  \type "Engraver_group"
-  \name "Voice"
+  \type Engraver_group
+  \name Voice
 
   \description "Corresponds to a voice on a staff.  This context
 handles the conversion of dynamic signs, stems, beams, super- and
@@ -216,71 +216,71 @@ subscripts, slurs, ties, and rests.
 You have to instantiate this explicitly if you want to have
 multiple voices on the same staff."
   %% Grace_engraver sets properties, it must come first.
-  \consists "Grace_engraver"
-  \consists "Font_size_engraver"
+  \consists Grace_engraver
+  \consists Font_size_engraver
 
-  \consists "Pitched_trill_engraver"
-  \consists "Output_property_engraver"
-  \consists "Arpeggio_engraver"
-  \consists "Multi_measure_rest_engraver"
-  \consists "Text_spanner_engraver"
-  \consists "Trill_spanner_engraver"
-  \consists "Grob_pq_engraver"
-  \consists "Forbid_line_break_engraver"
-  \consists "Laissez_vibrer_engraver"
-  \consists "Repeat_tie_engraver"
-  \consists "Note_head_line_engraver"
-  \consists "Glissando_engraver"
-  \consists "Ligature_bracket_engraver"
-  \consists "Breathing_sign_engraver"
-  \consists "Note_heads_engraver"
-  \consists "Dots_engraver"
-  \consists "Rest_engraver"
+  \consists Pitched_trill_engraver
+  \consists Output_property_engraver
+  \consists Arpeggio_engraver
+  \consists Multi_measure_rest_engraver
+  \consists Text_spanner_engraver
+  \consists Trill_spanner_engraver
+  \consists Grob_pq_engraver
+  \consists Forbid_line_break_engraver
+  \consists Laissez_vibrer_engraver
+  \consists Repeat_tie_engraver
+  \consists Note_head_line_engraver
+  \consists Glissando_engraver
+  \consists Ligature_bracket_engraver
+  \consists Breathing_sign_engraver
+  \consists Note_heads_engraver
+  \consists Dots_engraver
+  \consists Rest_engraver
 
   %% switch on to make stem directions interpolate for the
   %% center line.
-  %  \consists "Melody_engraver"
+  %  \consists Melody_engraver
 
-  \consists "Stem_engraver"
-  \consists "Beam_engraver"
-  \consists "Grace_beam_engraver"
-  \consists "Auto_beam_engraver"
-  \consists "Grace_auto_beam_engraver"
+  \consists Stem_engraver
+  \consists Beam_engraver
+  \consists Grace_beam_engraver
+  \consists Auto_beam_engraver
+  \consists Grace_auto_beam_engraver
 
   %% must come before Script_column_engraver.
-  \consists "New_fingering_engraver"
+  \consists New_fingering_engraver
 
-  \consists "Chord_tremolo_engraver"
-  \consists "Double_percent_repeat_engraver"
-  \consists "Percent_repeat_engraver"
-  \consists "Slash_repeat_engraver"
-  \consists "Part_combine_engraver"
+  \consists Chord_tremolo_engraver
+  \consists Double_percent_repeat_engraver
+  \consists Percent_repeat_engraver
+  \consists Slash_repeat_engraver
+  \consists Part_combine_engraver
 
-  \consists "Text_engraver"
-  \consists "Dynamic_engraver"
-  \consists "Dynamic_align_engraver"
-  \consists "Fingering_engraver"
-  \consists "Bend_engraver"
-  \consists "Finger_glide_engraver"
+  \consists Text_engraver
+  \consists Dynamic_engraver
+  \consists Dynamic_align_engraver
+  \consists Fingering_engraver
+  \consists Bend_engraver
+  \consists Finger_glide_engraver
 
-  \consists "Script_engraver"
-  \consists "Script_column_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Note_spacing_engraver"
-  \consists "Spanner_break_forbid_engraver"
-  \consists "Phrasing_slur_engraver"
-  \consists "Cluster_spanner_engraver"
-  \consists "Slur_engraver"
-  \consists "Tie_engraver"
-  \consists "Tuplet_engraver"
-  \consists "Instrument_switch_engraver"
+  \consists Script_engraver
+  \consists Script_column_engraver
+  \consists Rhythmic_column_engraver
+  \consists Note_spacing_engraver
+  \consists Spanner_break_forbid_engraver
+  \consists Phrasing_slur_engraver
+  \consists Cluster_spanner_engraver
+  \consists Slur_engraver
+  \consists Tie_engraver
+  \consists Tuplet_engraver
+  \consists Instrument_switch_engraver
 }
 
 \context{
   \Voice
 
-  \name "CueVoice"
-  \alias "Voice"
+  \name CueVoice
+  \alias Voice
   fontSize = #-4
   \override NoteHead.ignore-ambitus = ##t
   \override Stem.length-fraction = #(magstep -4)
@@ -291,73 +291,73 @@ multiple voices on the same staff."
 
 \context {
   \Voice
-  \name "DrumVoice"
-  \alias "Voice"
+  \name DrumVoice
+  \alias Voice
 
   \description "A voice on a percussion staff."
-  \remove "Arpeggio_engraver"
-  \consists "Grob_pq_engraver"
+  \remove Arpeggio_engraver
+  \consists Grob_pq_engraver
 
-  \remove "Note_head_line_engraver"
-  \remove "Glissando_engraver"
-  \remove "Ligature_bracket_engraver"
-  \remove "Note_heads_engraver"
-  \consists "Drum_notes_engraver"
-  \remove "New_fingering_engraver"
+  \remove Note_head_line_engraver
+  \remove Glissando_engraver
+  \remove Ligature_bracket_engraver
+  \remove Note_heads_engraver
+  \consists Drum_notes_engraver
+  \remove New_fingering_engraver
 
-  \remove "Fingering_engraver"
+  \remove Fingering_engraver
 
-  \remove "Cluster_spanner_engraver"
+  \remove Cluster_spanner_engraver
 }
 
 \context {
-  \type "Engraver_group"
-  \name "StaffGroup"
+  \type Engraver_group
+  \name StaffGroup
 
-  \consists "Vertical_align_engraver"
+  \consists Vertical_align_engraver
   topLevelAlignment = ##f
 
-  \consists "Instrument_name_engraver"
-  \consists "Span_bar_engraver"
+  \consists Instrument_name_engraver
+  \consists Span_bar_engraver
   %% The default for DynamicText.extra-spacing-width causes dynamics to
   %% be placed across span bars, so switch it off:
   \override DynamicText.extra-spacing-width = ##f
-  \consists "Span_bar_stub_engraver"
-  \consists "Span_arpeggio_engraver"
-  \consists "Output_property_engraver"
+  \consists Span_bar_stub_engraver
+  \consists Span_arpeggio_engraver
+  \consists Output_property_engraver
   systemStartDelimiter = #'SystemStartBracket
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
   shortInstrumentName = #'()
 
   localAlterations = ##f
-  \consists "System_start_delimiter_engraver"
+  \consists System_start_delimiter_engraver
 
-  \defaultchild "Staff"
+  \defaultchild Staff
   % Accept all kinds of contexts also accepted by Score.
-  \accepts "ChoirStaff"
-  \accepts "ChordNames"
-  \accepts "Devnull"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "FretBoards"
-  \accepts "GrandStaff"
-  \accepts "GregorianTranscriptionLyrics"
-  \accepts "GregorianTranscriptionStaff"
-  \accepts "KievanStaff"
-  \accepts "Lyrics"
-  \accepts "MensuralStaff"
-  \accepts "NoteNames"
-  \accepts "OneStaff"
-  \accepts "PetrucciStaff"
-  \accepts "PianoStaff"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "StaffGroup"
-  \accepts "TabStaff"
-  \accepts "VaticanaLyrics"
-  \accepts "VaticanaStaff"
+  \accepts ChoirStaff
+  \accepts ChordNames
+  \accepts Devnull
+  \accepts DrumStaff
+  \accepts Dynamics
+  \accepts FiguredBass
+  \accepts FretBoards
+  \accepts GrandStaff
+  \accepts GregorianTranscriptionLyrics
+  \accepts GregorianTranscriptionStaff
+  \accepts KievanStaff
+  \accepts Lyrics
+  \accepts MensuralStaff
+  \accepts NoteNames
+  \accepts OneStaff
+  \accepts PetrucciStaff
+  \accepts PianoStaff
+  \accepts RhythmicStaff
+  \accepts Staff
+  \accepts StaffGroup
+  \accepts TabStaff
+  \accepts VaticanaLyrics
+  \accepts VaticanaStaff
 
   localAlterations = #'()
 
@@ -369,7 +369,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
 
 \context{
   \StaffGroup
-  \name "GrandStaff"
+  \name GrandStaff
 
   systemStartDelimiter = #'SystemStartBrace
 
@@ -378,19 +378,19 @@ a collection of staves, with a bracket in front and spanning bar lines."
 
 \context{
   \GrandStaff
-  \name "PianoStaff"
-  \alias "GrandStaff"
+  \name PianoStaff
+  \alias GrandStaff
 
   \description "Just like @code{GrandStaff}, but the staves are only removed
 together, never separately."
 
-  \consists "Keep_alive_together_engraver"
+  \consists Keep_alive_together_engraver
 }
 
 \context {
   \StaffGroup
-  \name "ChoirStaff"
-  \remove "Span_bar_engraver"
+  \name ChoirStaff
+  \remove Span_bar_engraver
 
   %% StaffGroup sets this property for the sake of span
   %% bars, but ChoirStaff does not have these.
@@ -401,27 +401,27 @@ contained staves are not connected vertically."
 }
 
 \context {
-  \type "Engraver_group"
-  \name "OneStaff"
-  \accepts "ChordNames"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "FretBoards"
-  \accepts "GregorianTranscriptionLyrics"
-  \accepts "GregorianTranscriptionStaff"
-  \accepts "KievanStaff"
-  \accepts "Lyrics"
-  \accepts "MensuralStaff"
-  \accepts "NoteNames"
-  \accepts "PetrucciStaff"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "TabStaff"
-  \accepts "VaticanaLyrics"
-  \accepts "VaticanaStaff"
-  \defaultchild "Staff"
-  \consists "Axis_group_engraver"
+  \type Engraver_group
+  \name OneStaff
+  \accepts ChordNames
+  \accepts DrumStaff
+  \accepts Dynamics
+  \accepts FiguredBass
+  \accepts FretBoards
+  \accepts GregorianTranscriptionLyrics
+  \accepts GregorianTranscriptionStaff
+  \accepts KievanStaff
+  \accepts Lyrics
+  \accepts MensuralStaff
+  \accepts NoteNames
+  \accepts PetrucciStaff
+  \accepts RhythmicStaff
+  \accepts Staff
+  \accepts TabStaff
+  \accepts VaticanaLyrics
+  \accepts VaticanaStaff
+  \defaultchild Staff
+  \consists Axis_group_engraver
 
   \description "Provides a common axis for the contained staves,
 making all of them appear in the same vertical space.  This can be
@@ -432,22 +432,22 @@ it with a different one.  Often used with @code{\\stopStaff} and
 }
 
 \context {
-  \type "Engraver_group"
-  \name "Dynamics"
-  \alias "Voice"
-  \alias "Staff"
-  \consists "Output_property_engraver"
+  \type Engraver_group
+  \name Dynamics
+  \alias Voice
+  \alias Staff
+  \consists Output_property_engraver
   %% The bar lines are invisible, but allow the to-barline
   %% property to work.
-  \consists "Bar_engraver"
-  \consists "Piano_pedal_engraver"
-  \consists "Script_engraver"
-  \consists "Dynamic_engraver"
-  \consists "Dynamic_align_engraver"
-  \consists "Text_engraver"
-  \consists "Text_spanner_engraver"
-  \consists "Font_size_engraver"
-  \consists "Axis_group_engraver"
+  \consists Bar_engraver
+  \consists Piano_pedal_engraver
+  \consists Script_engraver
+  \consists Dynamic_engraver
+  \consists Dynamic_align_engraver
+  \consists Text_engraver
+  \consists Text_spanner_engraver
+  \consists Font_size_engraver
+  \consists Axis_group_engraver
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
@@ -467,20 +467,20 @@ centered between the staves surrounding this context."
 
 
 \context{
-  \type "Engraver_group"
+  \type Engraver_group
 
   \description "Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics."
 
-  \name "Lyrics"
-  \consists "Lyric_engraver"
-  \consists "Extender_engraver"
-  \consists "Hyphen_engraver"
-  \consists "Stanza_number_engraver"
-  \consists "Instrument_name_engraver"
-  \consists "Font_size_engraver"
-  \consists "Axis_group_engraver"
-  \consists "Pure_from_neighbor_engraver"
+  \name Lyrics
+  \consists Lyric_engraver
+  \consists Extender_engraver
+  \consists Hyphen_engraver
+  \consists Stanza_number_engraver
+  \consists Instrument_name_engraver
+  \consists Font_size_engraver
+  \consists Axis_group_engraver
+  \consists Pure_from_neighbor_engraver
   searchForVoice = ##f
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
@@ -517,12 +517,12 @@ printing of a single line of lyrics."
 }
 
 \context {
-  \type "Engraver_group"
-  \name "NoteNames"
+  \type Engraver_group
+  \name NoteNames
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
   \description "A context for printing the names of notes."
-  \consists "Axis_group_engraver"
+  \consists Axis_group_engraver
 
   \override VerticalAxisGroup.staff-affinity = #UP
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing =
@@ -536,25 +536,25 @@ printing of a single line of lyrics."
        (stretchability . 1))
   \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = 1.5
 
-  \consists "Tie_engraver"
-  \consists "Note_name_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Alteration_glyph_engraver"
+  \consists Tie_engraver
+  \consists Note_name_engraver
+  \consists Separating_line_group_engraver
+  \consists Alteration_glyph_engraver
 }
 
 \context {
-  \type "Engraver_group"
-  \name "ChordNames"
+  \type Engraver_group
+  \name ChordNames
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
   \description "Typesets chord names."
 
-  \consists "Output_property_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Chord_name_engraver"
-  \consists "Axis_group_engraver"
-  %\consists "Note_spacing_engraver"
-  \consists "Alteration_glyph_engraver"
+  \consists Output_property_engraver
+  \consists Separating_line_group_engraver
+  \consists Chord_name_engraver
+  \consists Axis_group_engraver
+  %\consists Note_spacing_engraver
+  \consists Alteration_glyph_engraver
 
   \override VerticalAxisGroup.remove-first = ##t
   \override VerticalAxisGroup.remove-empty = ##t
@@ -565,8 +565,8 @@ printing of a single line of lyrics."
 }
 
 \context {
-  \type "Score_engraver"
-  \name "Score"
+  \type Score_engraver
+  \name Score
 
   \description "This is the top level notation context.  No
 other context can contain a @code{Score} context.  This context
@@ -588,61 +588,61 @@ provides a target for initializing @code{Timing} variables in
 layout definitions before any @code{Timing_translator} has been
 run."
 
-  \consists "Mark_tracking_translator"
-  \consists "Paper_column_engraver"
-  \consists "Repeat_acknowledge_engraver"
-  \consists "Staff_collecting_engraver"
+  \consists Mark_tracking_translator
+  \consists Paper_column_engraver
+  \consists Repeat_acknowledge_engraver
+  \consists Staff_collecting_engraver
 
-  \alias "Timing"
+  \alias Timing
 
   %% timing translator must come BEFORE bar number engraver
-  \consists "Timing_translator"
-  \consists "Output_property_engraver"
-  \consists "Tweak_engraver"
-  \consists "Spanner_tracking_engraver"
-  \consists "System_start_delimiter_engraver"
-  \consists "Mark_engraver"
-  \consists "Jump_engraver"
-  \consists "Volta_engraver"
-  \consists "Metronome_mark_engraver"
-  \consists "Break_align_engraver"
-  \consists "Spacing_engraver"
-  \consists "Grace_spacing_engraver"
-  \consists "Vertical_align_engraver"
-  \consists "Stanza_number_align_engraver"
-  \consists "Bar_number_engraver"
-  \consists "Parenthesis_engraver"
-  \consists "Concurrent_hairpin_engraver"
-  \consists "Beam_collision_engraver"
-  \consists "Footnote_engraver"
-  \consists "Centered_bar_number_align_engraver"
-  \consists "Show_control_points_engraver"
+  \consists Timing_translator
+  \consists Output_property_engraver
+  \consists Tweak_engraver
+  \consists Spanner_tracking_engraver
+  \consists System_start_delimiter_engraver
+  \consists Mark_engraver
+  \consists Jump_engraver
+  \consists Volta_engraver
+  \consists Metronome_mark_engraver
+  \consists Break_align_engraver
+  \consists Spacing_engraver
+  \consists Grace_spacing_engraver
+  \consists Vertical_align_engraver
+  \consists Stanza_number_align_engraver
+  \consists Bar_number_engraver
+  \consists Parenthesis_engraver
+  \consists Concurrent_hairpin_engraver
+  \consists Beam_collision_engraver
+  \consists Footnote_engraver
+  \consists Centered_bar_number_align_engraver
+  \consists Show_control_points_engraver
 
-  \defaultchild "Staff"
+  \defaultchild Staff
 
-  \accepts "ChoirStaff"
-  \accepts "ChordNames"
-  \accepts "Devnull"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "FretBoards"
-  \accepts "GrandStaff"
-  \accepts "GregorianTranscriptionLyrics"
-  \accepts "GregorianTranscriptionStaff"
-  \accepts "KievanStaff"
-  \accepts "Lyrics"
-  \accepts "MensuralStaff"
-  \accepts "NoteNames"
-  \accepts "OneStaff"
-  \accepts "PetrucciStaff"
-  \accepts "PianoStaff"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "StaffGroup"
-  \accepts "TabStaff"
-  \accepts "VaticanaLyrics"
-  \accepts "VaticanaStaff"
+  \accepts ChoirStaff
+  \accepts ChordNames
+  \accepts Devnull
+  \accepts DrumStaff
+  \accepts Dynamics
+  \accepts FiguredBass
+  \accepts FretBoards
+  \accepts GrandStaff
+  \accepts GregorianTranscriptionLyrics
+  \accepts GregorianTranscriptionStaff
+  \accepts KievanStaff
+  \accepts Lyrics
+  \accepts MensuralStaff
+  \accepts NoteNames
+  \accepts OneStaff
+  \accepts PetrucciStaff
+  \accepts PianoStaff
+  \accepts RhythmicStaff
+  \accepts Staff
+  \accepts StaffGroup
+  \accepts TabStaff
+  \accepts VaticanaLyrics
+  \accepts VaticanaStaff
 
   noteToFretFunction = #determine-frets
   predefinedDiagramTable = ##f
@@ -830,13 +830,13 @@ run."
 
 
 \context {
-  \type "Engraver_group"
-  \name "FiguredBass"
+  \type Engraver_group
+  \name FiguredBass
   \description "A context for printing a figured bass line."
 
-  \consists "Figured_bass_engraver"
-  \consists "Separating_line_group_engraver"
-  \consists "Axis_group_engraver"
+  \consists Figured_bass_engraver
+  \consists Separating_line_group_engraver
+  \consists Axis_group_engraver
 
   \override VerticalAxisGroup.remove-empty = ##t
   \override VerticalAxisGroup.remove-first = ##t
@@ -846,27 +846,27 @@ run."
 }
 
 \context {
-  \name "Devnull"
-  \type "Engraver_group"
+  \name Devnull
+  \type Engraver_group
 
   %% don't want to route anything out of here:
-  \alias "Staff"
-  \alias "Voice"
+  \alias Staff
+  \alias Voice
   \description "Silently discards all musical information given to this
 context."
 }
 
 \context {
-  \name "NullVoice"
-  \type "Engraver_group"
+  \name NullVoice
+  \type Engraver_group
   \description "For aligning lyrics without printing notes"
 
   %% don't route anything out of here
-  \alias "Staff"
-  \alias "Voice"
+  \alias Staff
+  \alias Voice
 
   %% provide non-printing NoteHeads with proper extents for lyric alignment
-  \consists "Note_heads_engraver"
+  \consists Note_heads_engraver
   \omit NoteHead
   \override NoteHead.X-extent = #(lambda (g)
     (ly:stencil-extent (ly:note-head::print g) X))
@@ -875,7 +875,7 @@ context."
   nullAccidentals = ##t
 
   %% keep noteheads inside the staff
-  \consists "Pitch_squash_engraver"
+  \consists Pitch_squash_engraver
   squashedPosition = 0
 
   %% generate no ledger lines, needed for staves with custom
@@ -883,46 +883,46 @@ context."
   \override NoteHead.no-ledgers = ##t
 
   %% the engravers that control the 'busy' flags for note-onsets and melismata
-  \consists "Grob_pq_engraver"
-  \consists "Tie_engraver"
+  \consists Grob_pq_engraver
+  \consists Tie_engraver
   \omit Tie
-  \consists "Beam_engraver"
+  \consists Beam_engraver
   \omit Beam
-  \consists "Slur_engraver"
+  \consists Slur_engraver
   \omit Slur
 }
 
 \context {
   \Voice
-  \name "TabVoice"
-  \alias "Voice"
-  \consists "Tab_note_heads_engraver"
-  \consists "Tab_tie_follow_engraver"
-  \consists "Bend_spanner_engraver"
+  \name TabVoice
+  \alias Voice
+  \consists Tab_note_heads_engraver
+  \consists Tab_tie_follow_engraver
+  \consists Bend_spanner_engraver
 
-  \remove "Note_heads_engraver"
-  \remove "Fingering_engraver"
-  \remove "New_fingering_engraver"
-  \remove "Pitched_trill_engraver"
+  \remove Note_heads_engraver
+  \remove Fingering_engraver
+  \remove New_fingering_engraver
+  \remove Pitched_trill_engraver
 
   \description "Context for drawing notes in a Tab staff."
 
   %% No accidental in tablature !
-  \remove "Accidental_engraver"
+  \remove Accidental_engraver
 }
 
 \context {
   \Staff
-  \alias "Staff"
-  \name "TabStaff"
-  \denies "Voice"
-  \consists "Tab_staff_symbol_engraver"
+  \alias Staff
+  \name TabStaff
+  \denies Voice
+  \consists Tab_staff_symbol_engraver
 
   \description "Context for generating tablature. It accepts only @code{TabVoice}
 contexts and handles the line spacing, the tablature clef etc. properly."
 
-  \accepts "TabVoice"
-  \defaultchild "TabVoice"
+  \accepts TabVoice
+  \defaultchild TabVoice
 
   %% 6 strings, bigger spacing
   \override StaffSymbol.staff-space = #1.5
@@ -931,10 +931,10 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override Stem.avoid-note-head = ##t
 
   %% No accidental in tablature !
-  \remove "Accidental_engraver"
-  \remove "Key_engraver"
+  \remove Accidental_engraver
+  \remove Key_engraver
 
-  \remove "Ottava_spanner_engraver"
+  \remove Ottava_spanner_engraver
   %% the clef handler
   \override Clef.stencil = #clef::print-modern-tab-if-set
   %% no time signature
@@ -1021,18 +1021,18 @@ contexts and handles the line spacing, the tablature clef etc. properly."
 
 \context {
   \Voice
-  \name "VaticanaVoice"
-  \alias "Voice"
+  \name VaticanaVoice
+  \alias Voice
   \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting Gregorian Chant in the notational style
 of Editio Vaticana."
 
-  \remove "Slur_engraver"
-  \remove "Stem_engraver"
-  \remove "Ligature_bracket_engraver"
-  \consists "Vaticana_ligature_engraver"
-  \remove "Text_spanner_engraver"
-  \consists "Episema_engraver"
+  \remove Slur_engraver
+  \remove Stem_engraver
+  \remove Ligature_bracket_engraver
+  \consists Vaticana_ligature_engraver
+  \remove Text_spanner_engraver
+  \consists Episema_engraver
 
   %% Set default head for notes outside of \[ \].
   \override NoteHead.style = #'vaticana.punctum
@@ -1053,17 +1053,17 @@ of Editio Vaticana."
 
 \context {
   \InternalGregorianStaff
-  \name "VaticanaStaff"
-  \alias "Staff"
-  \accepts "VaticanaVoice"
-  \defaultchild "VaticanaVoice"
+  \name VaticanaStaff
+  \alias Staff
+  \accepts VaticanaVoice
+  \defaultchild VaticanaVoice
 
   \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting Gregorian Chant in the notational style
 of Editio Vaticana."
 
-  \remove "Time_signature_engraver"
-  \consists "Custos_engraver"
+  \remove Time_signature_engraver
+  \consists Custos_engraver
 
   %% Mark bar lines a little thinner to match the breathing signs.
   %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
@@ -1104,8 +1104,8 @@ of Editio Vaticana."
 
 \context {
   \Lyrics
-  \name "VaticanaLyrics"
-  \alias "Lyrics"
+  \name VaticanaLyrics
+  \alias Lyrics
 
   \override LyricText.font-size = #-4
   %% TODO: Implement Editio Vaticana style for aligning syllables to notes
@@ -1123,9 +1123,9 @@ two syllables) as used in the notational style of Editio Vaticana."
 
 \context {
   \Voice
-  \name "GregorianTranscriptionVoice"
-  \alias "Voice"
-  \consists "Episema_engraver"
+  \name GregorianTranscriptionVoice
+  \alias Voice
+  \consists Episema_engraver
 
   %% Removing ligature bracket engraver without replacing it by some
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
@@ -1143,20 +1143,20 @@ two syllables) as used in the notational style of Editio Vaticana."
 
 \context {
   \InternalGregorianStaff
-  \name "GregorianTranscriptionStaff"
-  \alias "Staff"
-  \accepts "GregorianTranscriptionVoice"
-  \defaultchild "GregorianTranscriptionVoice"
+  \name GregorianTranscriptionStaff
+  \alias Staff
+  \accepts GregorianTranscriptionVoice
+  \defaultchild GregorianTranscriptionVoice
 
   \description "A staff for notating Gregorian chant in modern style."
 }
 
 \context {
   \Lyrics
-  \name "GregorianTranscriptionLyrics"
-  \alias "Lyrics"
+  \name GregorianTranscriptionLyrics
+  \alias Lyrics
 
-  \consists "Lyric_repeat_count_engraver"
+  \consists Lyric_repeat_count_engraver
 
   %% Let the count use all the space under the finalis signs.
   \override LyricRepeatCount.parent-alignment-X = #RIGHT
@@ -1167,14 +1167,14 @@ modern style."
 
 \context {
   \Voice
-  \name "MensuralVoice"
-  \alias "Voice"
+  \name MensuralVoice
+  \alias Voice
   \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting a piece in mensural style."
 
-  \remove "Slur_engraver"
-  \remove "Ligature_bracket_engraver"
-  \consists "Mensural_ligature_engraver"
+  \remove Slur_engraver
+  \remove Ligature_bracket_engraver
+  \consists Mensural_ligature_engraver
 
   %% Set default head for notes outside of \[ \].
   \override NoteHead.style = #'mensural
@@ -1187,14 +1187,14 @@ accommodated for typesetting a piece in mensural style."
 
 \context {
   \InternalGregorianStaff
-  \name "MensuralStaff"
-  \alias "Staff"
-  \defaultchild "MensuralVoice"
-  \accepts "MensuralVoice"
+  \name MensuralStaff
+  \alias Staff
+  \defaultchild MensuralVoice
+  \accepts MensuralVoice
   \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting a piece in mensural style."
 
-  \consists "Custos_engraver"
+  \consists Custos_engraver
 
   %% Mark bar lines a little thinner to match the breathing signs.
   %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
@@ -1226,13 +1226,13 @@ accommodated for typesetting a piece in mensural style."
 
 \context {
   \Voice
-  \name "PetrucciVoice"
-  \alias "Voice"
+  \name PetrucciVoice
+  \alias Voice
   \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting a piece in Petrucci style."
 
-  \remove "Ligature_bracket_engraver"
-  \consists "Mensural_ligature_engraver"
+  \remove Ligature_bracket_engraver
+  \consists Mensural_ligature_engraver
 
   %% Set glyph styles.
   \override NoteHead.style = #'petrucci
@@ -1248,16 +1248,16 @@ accommodated for typesetting a piece in Petrucci style."
 
 \context {
   \Staff
-  \name "PetrucciStaff"
-  \alias "Staff"
-  \denies "Voice"
-  \defaultchild "PetrucciVoice"
-  \accepts "PetrucciVoice"
+  \name PetrucciStaff
+  \alias Staff
+  \denies Voice
+  \defaultchild PetrucciVoice
+  \accepts PetrucciVoice
   \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting a piece in Petrucci style."
 
-  \consists "Custos_engraver"
-  \consists "Signum_repetitionis_engraver"
+  \consists Custos_engraver
+  \consists Signum_repetitionis_engraver
 
   %% Eliminate measure bar lines.
   measureBarType = ""
@@ -1337,13 +1337,13 @@ accommodated for typesetting a piece in Petrucci style."
 
 \context {
   \Voice
-  \name "KievanVoice"
-  \alias "Voice"
+  \name KievanVoice
+  \alias Voice
   \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting a piece in Kievan style."
 
-  \remove "Ligature_bracket_engraver"
-  \consists "Kievan_ligature_engraver"
+  \remove Ligature_bracket_engraver
+  \consists Kievan_ligature_engraver
 
   %% Set glyph styles.
   \override NoteHead.style = #'kievan
@@ -1365,15 +1365,15 @@ accommodated for typesetting a piece in Kievan style."
 
 \context {
   \Staff
-  \name "KievanStaff"
-  \alias "Staff"
-  \denies "Voice"
-  \defaultchild "KievanVoice"
-  \accepts "KievanVoice"
+  \name KievanStaff
+  \alias Staff
+  \denies Voice
+  \defaultchild KievanVoice
+  \accepts KievanVoice
   \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting a piece in Kievan style."
 
-  \remove "Time_signature_engraver"
+  \remove Time_signature_engraver
 
   %% Eliminate measure bar lines.
   measureBarType = ""

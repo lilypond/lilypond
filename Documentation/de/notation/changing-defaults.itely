@@ -622,8 +622,8 @@ Es folgt ein einfaches Beispiel, in dem der
     f'2 g
   }
   \new Staff \with {
-     \remove "Time_signature_engraver"
-     \remove "Clef_engraver"
+     \remove Time_signature_engraver
+     \remove Clef_engraver
   } \relative {
     f'2 g2
   }
@@ -654,13 +654,13 @@ jedes System eine unterschiedliche Taktart hat:
 \score {
   <<
     \new Staff \with {
-      \consists "Timing_translator"
+      \consists Timing_translator
     } {
         \time 3/4
         c4 c c c c c
     }
   \new Staff \with {
-    \consists "Timing_translator"
+    \consists Timing_translator
   } {
       \time 2/4
       c4 c c c c c
@@ -669,7 +669,7 @@ jedes System eine unterschiedliche Taktart hat:
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
     }
   }
 }
@@ -1044,18 +1044,18 @@ in Jazzmusik anzuzeigen.
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Text_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Rhythmic_column_engraver
+  \consists Text_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
   \alias Voice
 }
 \context { \Staff
-  \accepts "ImproVoice"
+  \accepts ImproVoice
 }}
 
 \relative {
@@ -1099,15 +1099,15 @@ Der Kontext gibt Noten und Text aus, darum müssen wir die Engraver
 hinzufügen, die für diese Aktionen zuständig sind:
 
 @example
-\consists "Note_heads_engraver"
-\consists "Text_engraver"
+\consists Note_heads_engraver
+\consists Text_engraver
 @end example
 
 @noindent
 aber die Noten sollen nur auf der mittleren Linie ausgegeben werden:
 
 @example
-\consists "Pitch_squash_engraver"
+\consists Pitch_squash_engraver
 squashedPosition = #0
 @end example
 
@@ -1128,7 +1128,7 @@ einem zusätzlichen Plugin, das mit dem Befehl @code{\type} gekennzeichnet
 werden muss.  Dieser Typ solle immer @code{Engraver_group} lauten:
 
 @example
-\type "Engraver_group"
+\type Engraver_group
 @end example
 
 Alles zusammen haben wir folgende Einstellungen:
@@ -1136,10 +1136,10 @@ Alles zusammen haben wir folgende Einstellungen:
 @example
 \context @{
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Text_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Text_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
@@ -1178,7 +1178,7 @@ werden:
   @}
   \context @{
     \Staff
-    \accepts "ImproVoice"
+    \accepts ImproVoice
   @}
 @}
 @end example
@@ -1244,7 +1244,7 @@ geführt ist.  Wenn er aber benötigt wird, kann er hinzugefügt werden:
   \layout {
     \context {
       \Staff
-      \accepts "ChordNames"
+      \accepts ChordNames
     }
   }
 }
@@ -4257,7 +4257,7 @@ smartSquareLineCircleSpace = {
       (lambda (grob start end) (ly:grob::stencil-height grob)))
 }
 
-\new Voice \with { \remove "Stem_engraver" }
+\new Voice \with { \remove Stem_engraver }
 \relative c'' {
   \squareLineCircleSpace
   cis4 ces disis d

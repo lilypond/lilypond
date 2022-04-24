@@ -12,7 +12,7 @@ myBreak = { \bar " " \break }
 
 \score {
   \new DrumStaff \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
   } \context DrumVoice {
 
 %% this stuff set up nice || bar lines to divide percussion notes
@@ -122,7 +122,7 @@ myBreak = { \bar " " \break }
   \layout {
     \context {
       \Score
-      \remove "Bar_number_engraver"
+      \remove Bar_number_engraver
     }
   }
 }

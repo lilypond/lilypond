@@ -184,7 +184,7 @@ The duration line may end with a hook (beam-style only) or an arrow.
 \layout {
   \context {
     \Voice
-    \consists "Duration_line_engraver"
+    \consists Duration_line_engraver
     \omit Stem
     \omit Flag
     \omit Beam

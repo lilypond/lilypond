@@ -1271,11 +1271,11 @@ di tempo per righi diversi spostando @code{Timing_translator} e
   \layout {
     \context {
       \Score
-      \remove "Timing_translator"
+      \remove Timing_translator
     }
     \context {
       \Staff
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
   }
 }
@@ -1747,11 +1747,11 @@ Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
     \Staff
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
 }
 
@@ -1853,11 +1853,11 @@ all'interno del blocco @code{midi}.
 \midi {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
      \Staff
-     \consists "Timing_translator"
+     \consists Timing_translator
   }
 }
 @end lilypond
@@ -1886,10 +1886,10 @@ le note sono anche connesse con legature di valore a cavallo della stanghetta.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
-  \remove "Rest_engraver"
-  \consists "Completion_rest_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
+  \remove Rest_engraver
+  \consists Completion_rest_engraver
 }
 \relative {
   c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
@@ -1906,8 +1906,8 @@ divise.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
   \set completionUnit = #(ly:make-moment 3 8)
@@ -1921,8 +1921,8 @@ della nota di input.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 2/4 r4
   \tuplet 3/2 {g'4 a b}
@@ -2014,7 +2014,7 @@ accompagnamento.  Si possono visualizzare usando l'incisore
     }
   }
   \new Voice \with {
-    \consists "Pitch_squash_engraver"
+    \consists Pitch_squash_engraver
   } \relative c'' {
     \improvisationOn
     c4 c8 c c4 c8 c

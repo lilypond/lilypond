@@ -2136,7 +2136,7 @@ lignes d'une portée sont générées par le @code{Staff_symbol_engraver}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative {
   c'4 d
@@ -2167,7 +2167,7 @@ tessiture de cette voix sera calculée :
 @lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \new Voice \with {
-    \consists "Ambitus_engraver"
+    \consists Ambitus_engraver
   } {
     \relative {
       \voiceOne
@@ -2190,7 +2190,7 @@ les notes de toutes les voix de la portée :
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \consists "Ambitus_engraver"
+  \consists Ambitus_engraver
 }
 <<
   \new Voice {
@@ -2250,7 +2250,7 @@ portées d'un système à quatre portées, il nous suffirait d'écrire :
   \layout {
     \context {
       \Staff
-      \consists "Ambitus_engraver"
+      \consists Ambitus_engraver
     }
   }
 }

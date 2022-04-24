@@ -2713,7 +2713,7 @@ Tonart definiert werden.
 \layout {
   \context {
     \Voice
-    \consists "Ambitus_engraver"
+    \consists Ambitus_engraver
   }
 }
 
@@ -3069,7 +3069,7 @@ benutzt werden:
 
 @lilypond[verbatim,quote]
 \new Voice \with {
-  \consists "Pitch_squash_engraver"
+  \consists Pitch_squash_engraver
 } \relative {
   e''8 e g a a16( bes) a8 g
   \improvisationOn

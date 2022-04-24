@@ -304,7 +304,7 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
   \layout {
     \context {
       \Staff
-      \consists "Custos_engraver"
+      \consists Custos_engraver
       \override Custos.style = #'mensural
     }
   }
@@ -495,9 +495,9 @@ c'1
   indent = 0.0
   \context {
     \Staff
-    \remove "Staff_symbol_engraver"
-    \remove "Clef_engraver"
-    \remove "Time_signature_engraver"
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
   }
 }
 {
@@ -868,8 +868,8 @@ ficta = { \once \set suggestAccidentals = ##t }
 \layout @{
   \context @{
     \Voice
-    \remove "Ligature_bracket_engraver"
-    \consists "Mensural_ligature_engraver"
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
   @}
 @}
 @end example
@@ -909,8 +909,8 @@ ficta = { \once \set suggestAccidentals = ##t }
   \layout {
     \context {
       \Voice
-      \remove "Ligature_bracket_engraver"
-      \consists "Mensural_ligature_engraver"
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
     }
   }
 }
@@ -2550,8 +2550,8 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 \layout @{
   \context @{
     \Voice
-    \remove "Ligature_bracket_engraver"
-    \consists "Kievan_ligature_engraver"
+    \remove Ligature_bracket_engraver
+    \consists Kievan_ligature_engraver
   @}
 @}
 @end example
@@ -2709,7 +2709,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
   @dots{}
   \context @{
     \Voice
-      \remove "Stem_engraver"
+      \remove Stem_engraver
   @}
 @}
 @end example
@@ -2755,12 +2755,12 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
-      \remove "Bar_engraver"
+      \remove Time_signature_engraver
+      \remove Bar_engraver
     }
     \context {
       \Voice
-      \remove "Stem_engraver"
+      \remove Stem_engraver
     }
   }
 }
@@ -2803,7 +2803,7 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \hide BarLine
     }
   }
@@ -2850,7 +2850,7 @@ spirLyr = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \override BarLine.X-extent = #'(-1 . 1)
       \hide Stem
       \hide Beam

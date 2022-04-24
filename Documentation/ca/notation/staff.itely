@@ -640,7 +640,7 @@ convenient quan calen sols alguns pentagrames d'ossia.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
@@ -662,7 +662,7 @@ llarga com a l'exemple següent.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
   }
@@ -699,7 +699,7 @@ informació sobre @code{\RemoveAllEmptyStaves}, consulteu
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
     \RemoveAllEmptyStaves
@@ -768,7 +768,7 @@ alternativa es pot utilitzar l'ordre @code{\stopStaff}.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond

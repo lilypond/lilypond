@@ -651,7 +651,7 @@ conveniente cuando se necesitan sólo algunos pentagramas de ossia.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
@@ -673,7 +673,7 @@ pieza es más larga que en ejemplo siguiente.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
   }
@@ -710,7 +710,7 @@ información sobre @code{\RemoveAllEmptyStaves}, consulte
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
     \RemoveAllEmptyStaves
@@ -785,7 +785,7 @@ alternativa se puede utilizar la instrucción @code{\stopStaff}.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond
@@ -859,7 +859,7 @@ pentagramas adecuado, como aparece explicado en
   \context @{
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   @}
 @}
 @end example
@@ -878,7 +878,7 @@ frotada, que está tocando en ese momento.
   \context {
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   }
 }
 
@@ -1049,7 +1049,7 @@ violII = {
   \bar "|."
 }
 
-\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+\new StaffGroup \with { \consists Keep_alive_together_engraver } <<
   \new Staff \with {
     instrumentName = "Violins"
     shortInstrumentName = "V I & II"

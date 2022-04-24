@@ -1259,11 +1259,11 @@ context @code{Staff}.
   \layout {
     \context {
       \Score
-      \remove "Timing_translator"
+      \remove Timing_translator
     }
     \context {
       \Staff
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
   }
 }
@@ -1734,11 +1734,11 @@ i @code{Default_bar_line_engraver} al context de @code{Staff}.
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
     \Staff
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
 }
 
@@ -1859,10 +1859,10 @@ divideixen, i a més les notes s'uneixen mitjançant una lligadura.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
-  \remove "Rest_engraver"
-  \consists "Completion_rest_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
+  \remove Rest_engraver
+  \consists Completion_rest_engraver
 }
 \relative {
   c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
@@ -1880,8 +1880,8 @@ a les notes dividides.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
   \set completionUnit = #(ly:make-moment 3 8)
@@ -1895,8 +1895,8 @@ d'escala que la nota original de l'entrada.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 2/4 r4
   \tuplet 3/2 {g'4 a b}
@@ -1985,7 +1985,7 @@ d'acompanyament.  Això es pot fer amb el gravador
     }
   }
   \new Voice \with {
-    \consists "Pitch_squash_engraver"
+    \consists Pitch_squash_engraver
   } \relative c'' {
     \improvisationOn
     c4 c8 c c4 c8 c

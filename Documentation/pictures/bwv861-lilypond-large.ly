@@ -95,7 +95,7 @@ partIV = \relative {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
     \context {
       \PianoStaff

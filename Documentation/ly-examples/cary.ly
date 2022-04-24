@@ -53,7 +53,7 @@
 			}
 
 			\new Voice \with {
-				\remove "Forbid_line_break_engraver"
+				\remove Forbid_line_break_engraver
 			} {
 
 				% measure 6
@@ -103,7 +103,7 @@
 		} <<
 
 			\new Voice \with {
-				\remove "Forbid_line_break_engraver"
+				\remove Forbid_line_break_engraver
 				\override Stem.direction = #up
 				\override Flag.stroke-style = "grace"
 				\override Stem.font-size = #-3
@@ -174,7 +174,7 @@
 			}
 
 			\new Voice \with {
-				\remove "Forbid_line_break_engraver"
+				\remove Forbid_line_break_engraver
 				\hide Stem
 				\hide Rest
 				\override Rest.staff-position = #-0.5
@@ -244,7 +244,7 @@
 			}
 
 			\new Voice \with {
-				\remove "Forbid_line_break_engraver"
+				\remove Forbid_line_break_engraver
 				\override Stem.direction = #down
 				\override Stem.font-size = #-3
 				\override Flag.stroke-style = "grace"
@@ -315,7 +315,7 @@
 			}
 
 			\new Voice \with {
-				\remove "Forbid_line_break_engraver"
+				\remove Forbid_line_break_engraver
 				\override Stem.direction = #down
 				\hide NoteHead
 				\override NoteHead.no-ledgers = ##t

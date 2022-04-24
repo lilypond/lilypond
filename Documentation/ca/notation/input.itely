@@ -3445,7 +3445,7 @@ del bloc @code{\layout}:
   \midi @{
     \context @{
       \Voice
-      \remove "Dynamic_performer"
+      \remove Dynamic_performer
     @}
   @}
 @}

@@ -1294,11 +1294,11 @@ R1\fermata
   \layout {
     \context {
       \Score
-      \remove "Timing_translator"
+      \remove Timing_translator
     }
     \context {
       \Staff
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
   }
 }
@@ -1778,11 +1778,11 @@ R1\fermata
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
     \Staff
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
 }
 
@@ -1885,11 +1885,11 @@ R1\fermata
 \midi {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
      \Staff
-     \consists "Timing_translator"
+     \consists Timing_translator
   }
 }
 @end lilypond
@@ -1919,10 +1919,10 @@ R1\fermata
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
-  \remove "Rest_engraver"
-  \consists "Completion_rest_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
+  \remove Rest_engraver
+  \consists Completion_rest_engraver
 }
 \relative {
   c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
@@ -1939,8 +1939,8 @@ R1\fermata
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
   \set completionUnit = #(ly:make-moment 3 8)
@@ -1953,8 +1953,8 @@ R1\fermata
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
 } \relative {
   \time 2/4 r4
   \tuplet 3/2 {g'4 a b}
@@ -2041,7 +2041,7 @@ R1\fermata
     }
   }
   \new Voice \with {
-    \consists "Pitch_squash_engraver"
+    \consists Pitch_squash_engraver
   } \relative c'' {
     \improvisationOn
     c4 c8 c c4 c8 c

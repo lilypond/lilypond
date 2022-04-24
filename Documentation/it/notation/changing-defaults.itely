@@ -702,8 +702,8 @@ da un contesto @code{Staff}:
     f'2 g
   }
   \new Staff \with {
-     \remove "Time_signature_engraver"
-     \remove "Clef_engraver"
+     \remove Time_signature_engraver
+     \remove Clef_engraver
   } \relative {
     f'2 g2
   }
@@ -732,14 +732,14 @@ ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
 \score {
   <<
     \new Staff \with {
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
     \relative {
         \time 3/4
         c''4 c c c c c
     }
   \new Staff \with {
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
   \relative {
       \time 2/4
@@ -749,7 +749,7 @@ ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
     }
   }
 }
@@ -1141,18 +1141,18 @@ per indicare l'improvvisazione nei brani jazz:
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Text_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Rhythmic_column_engraver
+  \consists Text_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
   \alias Voice
 }
 \context { \Staff
-  \accepts "ImproVoice"
+  \accepts ImproVoice
 }}
 
 \relative {
@@ -1196,15 +1196,15 @@ l'incisore che raggruppa in colonne le note, i gambi e le pause che
 si trovano nello stesso momento musicale:
 
 @example
-\consists "Note_heads_engraver"
-\consists "Text_engraver"
-\consists "Rhythmic_column_engraver"
+\consists Note_heads_engraver
+\consists Text_engraver
+\consists Rhythmic_column_engraver
 @end example
 
 Le teste di nota devono essere poste tutte sulla linea centrale:
 
 @example
-\consists "Pitch_squash_engraver"
+\consists Pitch_squash_engraver
 squashedPosition = #0
 @end example
 
@@ -1231,7 +1231,7 @@ del tipo.  Poiché questo esempio crea una definizione da zero, deve essere
 specificato in modo esplicito.
 
 @example
-\type "Engraver_group"
+\type Engraver_group
 @end example
 
 Mettendo tutte queste parti insieme otteniamo:
@@ -1239,11 +1239,11 @@ Mettendo tutte queste parti insieme otteniamo:
 @example
 \context @{
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Text_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Text_engraver
+  \consists Rhythmic_column_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
@@ -1386,7 +1386,7 @@ al contesto @code{GrandStaff}:
   \layout {
     \context {
       \GrandStaff
-      \accepts "StaffGroup"
+      \accepts StaffGroup
     }
   }
 }
@@ -4761,7 +4761,7 @@ smartSquareLineCircleSpace = {
       (lambda (grob start end) (ly:grob::stencil-height grob)))
 }
 
-\new Voice \with { \remove "Stem_engraver" }
+\new Voice \with { \remove Stem_engraver }
 \relative c'' {
   \squareLineCircleSpace
   cis4 ces disis d

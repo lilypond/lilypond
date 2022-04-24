@@ -2070,7 +2070,7 @@ les línies del pentagrama estan dibuixades pel gravador
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative {
   c'4 d
@@ -2101,7 +2101,7 @@ partir d'aquesta única veu:
 @lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \new Voice \with {
-    \consists "Ambitus_engraver"
+    \consists Ambitus_engraver
   } {
     \relative {
       \voiceOne
@@ -2124,7 +2124,7 @@ pentagrama:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-  \consists "Ambitus_engraver"
+  \consists Ambitus_engraver
 }
 <<
   \new Voice {
@@ -2183,7 +2183,7 @@ pautes, podem escriure
   \layout {
     \context {
       \Staff
-      \consists "Ambitus_engraver"
+      \consists Ambitus_engraver
     }
   }
 }

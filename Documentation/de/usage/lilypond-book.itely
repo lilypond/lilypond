@@ -643,8 +643,8 @@ wobei die Sprache auf @code{lilypond} gesetzt wird:
   <textobject>
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
-  \remove "Time_signature_engraver"
-  \remove "Clef_engraver"@}
+  \remove Time_signature_engraver
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>

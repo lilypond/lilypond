@@ -903,7 +903,7 @@ de esta funcionalidad es la explicación de la notación.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
@@ -924,7 +924,7 @@ esto puede cambiarse:
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
@@ -980,12 +980,12 @@ de rejilla.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -1048,7 +1048,7 @@ corchetes horizontales simples.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -1063,7 +1063,7 @@ Los corchetes de análisis se pueden anidar.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

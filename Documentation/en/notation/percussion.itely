@@ -245,8 +245,8 @@ mus = \drummode {
   cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
   << \new DrumStaff \with {
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
+       \remove Bar_engraver
+       \remove Time_signature_engraver
        \hide Stem
        \override Stem.Y-extent = ##f
      } \mus
@@ -280,8 +280,8 @@ mus = \drummode {
   cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
   << \new DrumStaff \with {
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
+       \remove Bar_engraver
+       \remove Time_signature_engraver
        \hide Stem
        \override Stem.Y-extent = ##f
        drumStyleTable = #agostini-drums-style
@@ -314,8 +314,8 @@ mus = \drummode {
   }
 \score {
   << \new DrumStaff \with {
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
+       \remove Bar_engraver
+       \remove Time_signature_engraver
        \hide Stem
        \override Stem.Y-extent = ##f
        drumStyleTable = #weinberg-drums-style
@@ -341,8 +341,8 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 
 <<
   \new DrumStaff \with {
-    \remove "Bar_engraver"
-    \remove "Time_signature_engraver"
+    \remove Bar_engraver
+    \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
     \override StaffSymbol.line-count = #2
@@ -366,8 +366,8 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 
 <<
   \new DrumStaff \with {
-    \remove "Bar_engraver"
-    \remove "Time_signature_engraver"
+    \remove Bar_engraver
+    \remove Time_signature_engraver
     drumStyleTable = #congas-style
     \override StaffSymbol.line-count = #2
 
@@ -392,8 +392,8 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 
 <<
   \new DrumStaff \with {
-    \remove "Bar_engraver"
-    \remove "Time_signature_engraver"
+    \remove Bar_engraver
+    \remove Time_signature_engraver
     \override StaffSymbol.line-count = #2
     drumStyleTable = #bongos-style
 
@@ -418,10 +418,10 @@ musI = \drummode { tri4 trio trim gui guis guil s16 }
 
 <<
   \new DrumStaff \with{
-    \remove "Bar_engraver"
+    \remove Bar_engraver
     drumStyleTable = #percussion-style
     \override StaffSymbol.line-count = #1
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
   } \musI
@@ -436,10 +436,10 @@ musII = \drummode { cb4 cl tamb cab mar hc s16 }
 
 <<
   \new DrumStaff \with{
-    \remove "Bar_engraver"
+    \remove Bar_engraver
     drumStyleTable = #percussion-style
     \override StaffSymbol.line-count = #1
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
   } \musII

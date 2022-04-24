@@ -636,7 +636,7 @@ only a few ossia staves are needed.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
@@ -658,7 +658,7 @@ example.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
   }
@@ -695,7 +695,7 @@ break.  For more information about
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = "ossia" \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     \magnifyStaff #2/3
     \RemoveAllEmptyStaves
@@ -774,7 +774,7 @@ alternative, @code{\stopStaff} may be used.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond
@@ -844,7 +844,7 @@ context, as explained @ref{Modifying context plug-ins} (see
   \context @{
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   @}
 @}
 @end example
@@ -862,7 +862,7 @@ it is part of the larger group of fretted strings, which is playing.
   \context {
     \StaffGroup
     \RemoveEmptyStaves
-    \consists "Keep_alive_together_engraver"
+    \consists Keep_alive_together_engraver
   }
 }
 
@@ -1027,7 +1027,7 @@ violII = {
   \bar "|."
 }
 
-\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+\new StaffGroup \with { \consists Keep_alive_together_engraver } <<
   \new Staff \with {
     instrumentName = "Violins"
     shortInstrumentName = "V I & II"

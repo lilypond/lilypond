@@ -22,7 +22,7 @@ scm = \chordmode {
 
 \layout {
     ragged-right = ##t 
-    \context {\ChordNames \consists "Instrument_name_engraver" }
+    \context {\ChordNames \consists Instrument_name_engraver }
 }
 
 <<

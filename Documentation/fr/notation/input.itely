@@ -4017,7 +4017,7 @@ tout point identique à celle que vous utilisez dans le bloc
   \midi @{
     \context @{
       \Voice
-      \remove "Dynamic_performer"
+      \remove Dynamic_performer
     @}
   @}
 @}

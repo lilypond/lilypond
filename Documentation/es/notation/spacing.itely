@@ -1591,7 +1591,7 @@ segunda voz:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove "Forbid_line_break_engraver"
+  \remove Forbid_line_break_engraver
 } \relative {
   <<
     { c''2. \tuplet 3/2 { c4 c c } c2. | }
@@ -2003,7 +2003,7 @@ quiere inhabilitar las vueltas de página, fíjelo a algún valor
 @q{muy grande}.
 
 @example
-\new Staff \with @{ \consists "Page_turn_engraver" @}
+\new Staff \with @{ \consists Page_turn_engraver @}
 @{
   a4 b c d |
   R1 | % aquí se permite un salto de página
@@ -3415,7 +3415,7 @@ proporcional, que se pueden usar solos o combinados:
 @item @code{proportionalNotationDuration}
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
-@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\remove Separating_line_group_engraver}
 @item @code{\override PaperColumn.used = ##t}
 @end itemize
 
@@ -3691,7 +3691,7 @@ reduce este espacio a cero.
 }
 
 \new Staff \with {
-  \remove "Separating_line_group_engraver"
+  \remove Separating_line_group_engraver
 } {
   c'1
   \break
@@ -3751,7 +3751,7 @@ frecuencia en las partituras proporcionales.  Entre ellos están:
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
+@item @code{\remove Forbid_line_break_engraver in the Voice context}
 @end itemize
 
 Estos ajustes dan a las notas de adorno un espaciado estricto,

@@ -658,7 +658,7 @@ bietet sich an, wenn nur einige Ossia-Systeme benötigt werden.
     { c4 b d c }
 
     \new Staff \with {
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       alignAboveContext = "main"
       fontSize = #-3
       \override StaffSymbol.staff-space = #(magstep -3)
@@ -683,7 +683,7 @@ Stücke setzt.
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = ossia \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
@@ -721,7 +721,7 @@ Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff = ossia \with {
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
     \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
@@ -797,7 +797,7 @@ eingesetzt werden.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \remove "Staff_symbol_engraver"
+  \remove Staff_symbol_engraver
 }
 \relative { a''8 f e16 d c b a2 }
 @end lilypond

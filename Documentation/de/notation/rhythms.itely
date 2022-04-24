@@ -1247,11 +1247,11 @@ Notensysteme können eingerichtet werden, indem man den
   \layout {
     \context {
       \Score
-      \remove "Timing_translator"
+      \remove Timing_translator
     }
     \context {
       \Staff
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
   }
 }
@@ -1705,11 +1705,11 @@ verschoben werden.
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
     \Staff
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
 }
 
@@ -1833,10 +1833,10 @@ werden auch übergebunden.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
-  \remove "Note_heads_engraver"
-  \consists "Completion_heads_engraver"
-  \remove "Rest_engraver"
-  \consists "Completion_rest_engraver"
+  \remove Note_heads_engraver
+  \consists Completion_heads_engraver
+  \remove Rest_engraver
+  \consists Completion_rest_engraver
 }
 \relative {
   c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
@@ -1932,7 +1932,7 @@ eingeschaltet wird mit @code{\improvisationOn}.
   }
 
   \new Voice \with {
-    \consists "Pitch_squash_engraver"
+    \consists Pitch_squash_engraver
   } \relative c'' {
     \improvisationOn
     c4 c8 c c4 c8 c

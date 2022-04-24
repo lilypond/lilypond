@@ -898,7 +898,7 @@ partIV = \relative {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
     \context {
       \PianoStaff
@@ -1247,23 +1247,23 @@ crée les têtes de notes :
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \consists "Pitch_squash_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Staff_symbol_engraver
+      \consists Pitch_squash_engraver
     }
   }
 }
@@ -1281,22 +1281,22 @@ représentant les lignes de portée :
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \consists "Pitch_squash_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \consists Pitch_squash_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1314,20 +1314,20 @@ la hauteur à laquelle doit être placée chaque tête de note :
   \layout {
     \context {
       \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1345,19 +1345,19 @@ et, enfin, les hampes et leurs crochets sont gérés par le
   \layout {
     \context {
       \Voice
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "New_fingering_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
     }
     \context {
       \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1660,7 +1660,7 @@ constructions@dots{}
   \layout {
     \context {
       \Staff
-      \consists "Horizontal_bracket_engraver"
+      \consists Horizontal_bracket_engraver
     }
   }
 }
@@ -1829,7 +1829,7 @@ partIV = \relative {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
     \context {
       \PianoStaff

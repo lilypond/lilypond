@@ -22,16 +22,16 @@
 %% setup for Request->Element conversion.
 %%
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name Staff
   \accepts CueVoice
   \accepts NullVoice
   \accepts Voice
   \defaultchild Voice
 
-  \consists "Staff_performer"
-  \consists "Key_performer"
-  \consists "Midi_control_change_performer"
+  \consists Staff_performer
+  \consists Key_performer
+  \consists Midi_control_change_performer
 }
 
 \context {
@@ -97,14 +97,14 @@
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name Voice
-  \consists "Dynamic_performer"
-  \consists "Tie_performer"
-  \consists "Piano_pedal_performer"
-  \consists "Note_performer"
-  \consists "Beam_performer"
-  \consists "Slur_performer"
+  \consists Dynamic_performer
+  \consists Tie_performer
+  \consists Piano_pedal_performer
+  \consists Note_performer
+  \consists Beam_performer
+  \consists Slur_performer
 }
 
 \context {
@@ -152,23 +152,23 @@
   \Voice
   \name DrumVoice
   \alias Voice
-  \remove "Note_performer"
-  \consists "Drum_note_performer"
+  \remove Note_performer
+  \consists Drum_note_performer
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name FiguredBass
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name FretBoards
   \alias Staff
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name StaffGroup
   \accepts ChoirStaff
   \accepts ChordNames
@@ -217,21 +217,21 @@
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name Devnull
   \alias Voice
   \alias Staff
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name NullVoice
   \alias Staff
   \alias Voice
   %% needed for melismata
-  \consists "Tie_performer"
-  \consists "Beam_performer"
-  \consists "Slur_performer"
+  \consists Tie_performer
+  \consists Beam_performer
+  \consists Slur_performer
 }
 
 \context {
@@ -246,7 +246,7 @@
 }
 
 \context {
-  \type "Score_performer"
+  \type Score_performer
 
   \name Score
 
@@ -281,13 +281,13 @@
   \accepts TabStaff
   \accepts VaticanaStaff
 
-  \consists "Mark_tracking_translator"
-  \consists "Time_signature_performer"
-  \consists "Control_track_performer"
-  \consists "Mark_performer"
-  \consists "Tempo_performer"
+  \consists Mark_tracking_translator
+  \consists Time_signature_performer
+  \consists Control_track_performer
+  \consists Mark_performer
+  \consists Tempo_performer
 
-  \alias "Timing"
+  \alias Timing
 
   %% An alias for Timing is established by the Timing_translator in
   %% whatever context it is initialized, and the timing variables are
@@ -312,9 +312,9 @@
   %% the Midi.  Melismata are only affected by beams when autobeaming
   %% is switched off.
 
-  \consists "Timing_translator"
+  \consists Timing_translator
 
-  \defaultchild "Staff"
+  \defaultchild Staff
 
   dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
   instrumentEqualizer = #default-instrument-equalizer
@@ -332,9 +332,9 @@
 
 
 \context {
-  \type "Performer_group"
-  \consists "Staff_performer" % Performer_group ?
-  \consists "Lyric_performer"
+  \type Performer_group
+  \consists Staff_performer % Performer_group ?
+  \consists Lyric_performer
   \name Lyrics
 }
 
@@ -345,8 +345,8 @@
 }
 
 \context {
-  \type "Performer_group"
-  \consists "Staff_performer"
+  \type Performer_group
+  \consists Staff_performer
   \name NoteNames
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
@@ -357,29 +357,29 @@
   \name ChordNames
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
-  \consists "Staff_performer"
+  \consists Staff_performer
 }
 
 \context {
-  \type "Performer_group"
-  \name "OneStaff"
-  \accepts "ChordNames"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "FretBoards"
-  \accepts "GregorianTranscriptionLyrics"
-  \accepts "GregorianTranscriptionStaff"
-  \accepts "KievanStaff"
-  \accepts "Lyrics"
-  \accepts "MensuralStaff"
-  \accepts "NoteNames"
-  \accepts "PetrucciStaff"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "TabStaff"
-  \accepts "VaticanaStaff"
-  \defaultchild "Staff"
+  \type Performer_group
+  \name OneStaff
+  \accepts ChordNames
+  \accepts DrumStaff
+  \accepts Dynamics
+  \accepts FiguredBass
+  \accepts FretBoards
+  \accepts GregorianTranscriptionLyrics
+  \accepts GregorianTranscriptionStaff
+  \accepts KievanStaff
+  \accepts Lyrics
+  \accepts MensuralStaff
+  \accepts NoteNames
+  \accepts PetrucciStaff
+  \accepts RhythmicStaff
+  \accepts Staff
+  \accepts TabStaff
+  \accepts VaticanaStaff
+  \defaultchild Staff
 }
 
 \context {
@@ -390,9 +390,9 @@
 }
 
 \context {
-  \type "Performer_group"
+  \type Performer_group
   \name Dynamics
   \alias Voice
   \alias Staff
-  \consists "Piano_pedal_performer"
+  \consists Piano_pedal_performer
 }

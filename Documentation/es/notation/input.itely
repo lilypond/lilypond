@@ -3433,11 +3433,11 @@ the @code{Score} context to the @code{Staff} context within the
 \midi {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
   }
   \context {
      \Staff
-     \consists "Timing_translator"
+     \consists Timing_translator
   }
 }
 @end lilypond
@@ -3654,7 +3654,7 @@ bloque @code{\layout}:
   \midi @{
     \context @{
       \Voice
-      \remove "Dynamic_performer"
+      \remove Dynamic_performer
     @}
   @}
 @}

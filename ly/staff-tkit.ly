@@ -109,7 +109,7 @@ make-two-voice-staff =
          <<
            \new Staff = #(string-append name "Staff")
            \with {
-             \remove "Staff_performer"
+             \remove Staff_performer
              instrumentName =
                #(if instrName
                  #{ \markup \smallCaps #instrName #}
@@ -147,7 +147,7 @@ make-two-voice-staff =
                #{
                  \new Voice = #(string-append v1name "Voice")
                  \with {
-                   \consists "Staff_performer"
+                   \consists Staff_performer
                    \dynamicUp
                    midiInstrument =
                      #(if v1midiName v1midiName "clarinet")
@@ -164,7 +164,7 @@ make-two-voice-staff =
                #{
                  \new Voice = #(string-append v2name "Voice")
                  \with {
-                   \consists "Staff_performer"
+                   \consists Staff_performer
                    \dynamicDown
                    midiInstrument =
                      #(if v2midiName v2midiName "clarinet")

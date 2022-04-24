@@ -314,7 +314,7 @@ mostra a l'exemple següent:
   \layout {
     \context {
       \Staff
-      \consists "Custos_engraver"
+      \consists Custos_engraver
       \override Custos.style = #'mensural
     }
   }
@@ -572,9 +572,9 @@ s'ha d'escollir @code{n} i @code{m} segons la taula següent:
   indent = 0.0
   \context {
     \Staff
-    \remove "Staff_symbol_engraver"
-    \remove "Clef_engraver"
-    \remove "Time_signature_engraver"
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
   }
 }
 {
@@ -951,8 +951,8 @@ disseny de pàgina reemplaci el gravador
 \layout @{
   \context @{
     \Voice
-    \remove "Ligature_bracket_engraver"
-    \consists "Mensural_ligature_engraver"
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
   @}
 @}
 @end example
@@ -996,8 +996,8 @@ Por exemple:
   \layout {
     \context {
       \Voice
-      \remove "Ligature_bracket_engraver"
-      \consists "Mensural_ligature_engraver"
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
     }
   }
 }
@@ -2639,8 +2639,8 @@ altres contextos es pot invocar substituint el gravador
 \layout @{
   \context @{
     \Voice
-    \remove "Ligature_bracket_engraver"
-    \consists "Kievan_ligature_engraver"
+    \remove Ligature_bracket_engraver
+    \consists Kievan_ligature_engraver
   @}
 @}
 @end example
@@ -2796,7 +2796,7 @@ retirant el gravador @code{Stem_engraver} del context de veu:
   @dots{}
   \context @{
     \Voice
-      \remove "Stem_engraver"
+      \remove Stem_engraver
   @}
 @}
 @end example
@@ -2847,12 +2847,12 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
-      \remove "Bar_engraver"
+      \remove Time_signature_engraver
+      \remove Bar_engraver
     }
     \context {
       \Voice
-      \remove "Stem_engraver"
+      \remove Stem_engraver
     }
   }
 }
@@ -2898,7 +2898,7 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \hide BarLine
     }
   }
@@ -2948,7 +2948,7 @@ spirLyr = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \override BarLine.X-extent = #'(-1 . 1)
       \hide Stem
       \hide Beam

@@ -518,11 +518,11 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
     ragged-right = ##f
     \context {
       \Voice
-      \remove "Finger_glide_engraver"
+      \remove Finger_glide_engraver
     }
     \context {
       \Staff
-      \consists "Finger_glide_engraver"
+      \consists Finger_glide_engraver
     }
   }
 }
@@ -1066,7 +1066,7 @@ square balloon.  The primary purpose of this feature is to explain
 notation.
 
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
@@ -1086,7 +1086,7 @@ attach text to an individual note.
 Balloon text does not influence note spacing, but this can be altered:
 
 @lilypond[verbatim,quote]
-\new Voice \with { \consists "Balloon_engraver" }
+\new Voice \with { \consists Balloon_engraver }
 \relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
@@ -1178,12 +1178,12 @@ lines.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver"
+    \consists Grid_point_engraver
     gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score
-    \consists "Grid_line_span_engraver"
+    \consists Grid_line_span_engraver
   }
 }
 
@@ -1246,7 +1246,7 @@ pieces.  Simple horizontal brackets are supported.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {
@@ -1261,7 +1261,7 @@ Analysis brackets may be nested.
 \layout {
   \context {
     \Voice
-    \consists "Horizontal_bracket_engraver"
+    \consists Horizontal_bracket_engraver
   }
 }
 \relative {

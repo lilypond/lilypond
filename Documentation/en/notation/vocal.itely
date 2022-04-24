@@ -1226,8 +1226,8 @@ To make lyrics avoid bar lines as well, use
 \layout @{
   \context @{
     \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
+      \consists Bar_engraver
+      \consists Separating_line_group_engraver
       \hide BarLine
   @}
 @}
@@ -3072,7 +3072,7 @@ all staves remove the bar line engraver completely:
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3084,7 +3084,7 @@ Bar lines can also be removed on a staff-by-staff basis:
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove "Bar_engraver" } {
+    \with { \remove Bar_engraver } {
       \relative {
         a'4 b c2 |
         a4 b c2 |
@@ -3184,7 +3184,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3204,9 +3204,9 @@ Chants usually omit the time signature and often omit the clef too.
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Clef_engraver"
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
     }
   }
 }
@@ -3285,7 +3285,7 @@ global = {
         }
         \context {
           \Staff
-          \remove "Time_signature_engraver"
+          \remove Time_signature_engraver
         }
       }
     }  % End score

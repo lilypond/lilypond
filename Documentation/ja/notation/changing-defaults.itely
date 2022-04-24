@@ -794,8 +794,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
     f'2 g
   }
   \new Staff \with {
-     \remove "Time_signature_engraver"
-     \remove "Clef_engraver"
+     \remove Time_signature_engraver
+     \remove Clef_engraver
   } \relative {
     f'2 g2
   }
@@ -825,14 +825,14 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 \score {
   <<
     \new Staff \with {
-      \consists "Timing_translator"
+      \consists Timing_translator
     }
     \relative {
         \time 3/4
         c''4 c c c c c
     }
   \new Staff \with {
-    \consists "Timing_translator"
+    \consists Timing_translator
   }
   \relative {
       \time 2/4
@@ -842,7 +842,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 \layout {
   \context {
     \Score
-    \remove "Timing_translator"
+    \remove Timing_translator
     }
   }
 }
@@ -1238,18 +1238,18 @@ StaffDefaults = \with {
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Text_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Rhythmic_column_engraver
+  \consists Text_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
   \alias Voice
 }
 \context { \Staff
-  \accepts "ImproVoice"
+  \accepts ImproVoice
 }}
 
 \relative {
@@ -1294,15 +1294,15 @@ StaffDefaults = \with {
 音符・符幹・休符を列としてグループ化するエングラーバを付加する必要があります:
 
 @example
-\consists "Note_heads_engraver"
-\consists "Text_engraver"
-\consists "Rhythmic_column_engraver"
+\consists Note_heads_engraver
+\consists Text_engraver
+\consists Rhythmic_column_engraver
 @end example
 
 符頭のスラッシュは譜の中央線上に配置される必要があります:
 
 @example
-\consists "Pitch_squash_engraver"
+\consists Pitch_squash_engraver
 squashedPosition = #0
 @end example
 
@@ -1328,7 +1328,7 @@ squashedPosition = #0
 作っているため、タイプを明示的に指定する必要があります:
 
 @example
-\type "Engraver_group"
+\type Engraver_group
 @end example
 
 まとめると、以下のようになります:
@@ -1336,11 +1336,11 @@ squashedPosition = #0
 @example
 \context @{
   \name ImproVoice
-  \type "Engraver_group"
-  \consists "Note_heads_engraver"
-  \consists "Text_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Pitch_squash_engraver"
+  \type Engraver_group
+  \consists Note_heads_engraver
+  \consists Text_engraver
+  \consists Rhythmic_column_engraver
+  \consists Pitch_squash_engraver
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \hide Stem
@@ -1485,7 +1485,7 @@ squashedPosition = #0
   \layout {
     \context {
       \GrandStaff
-      \accepts "StaffGroup"
+      \accepts StaffGroup
     }
   }
 }
@@ -5242,7 +5242,7 @@ smartSquareLineCircleSpace = {
       (lambda (grob start end) (ly:grob::stencil-height grob)))
 }
 
-\new Voice \with { \remove "Stem_engraver" }
+\new Voice \with { \remove Stem_engraver }
 \relative c'' {
   \squareLineCircleSpace
   cis4 ces disis d

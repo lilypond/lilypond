@@ -533,7 +533,7 @@ bend-styles = {
     }
     \context {
       \TabVoice
-      \consists "Bend_spanner_engraver"
+      \consists Bend_spanner_engraver
     }
   }
 }
@@ -581,7 +581,7 @@ mus = {
     }
     \context {
       \TabVoice
-      \consists "Bend_spanner_engraver"
+      \consists Bend_spanner_engraver
     }
   }
 }
@@ -621,7 +621,7 @@ mus = {
     }
     \context {
       \TabVoice
-      \consists "Bend_spanner_engraver"
+      \consists Bend_spanner_engraver
     }
   }
 }
@@ -666,7 +666,7 @@ bends-with-ties-and-skips = {
     }
     \context {
       \TabVoice
-      \consists "Bend_spanner_engraver"
+      \consists Bend_spanner_engraver
     }
   }
 }

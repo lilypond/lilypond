@@ -1490,7 +1490,7 @@ il @code{\break} nel punto giusto della seconda voce:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove "Forbid_line_break_engraver"
+  \remove Forbid_line_break_engraver
 } \relative {
   <<
     { c''2. \tuplet 3/2 { c4 c c } c2. | }
@@ -1878,7 +1878,7 @@ Il valore predefinito di @code{minimumPageTurnLength} è
 impostarla su un valore @qq{molto grande}.
 
 @example
-\new Staff \with @{ \consists "Page_turn_engraver" @}
+\new Staff \with @{ \consists Page_turn_engraver @}
 @{
   a4 b c d |
   R1 | % voltata di pagina permessa qui
@@ -3218,7 +3218,7 @@ che possono essere usate insieme o da sole:
 @item @code{proportionalNotationDuration}
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
-@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\remove Separating_line_group_engraver}
 @item @code{\override PaperColumn.used = ##t}
 @end itemize
 
@@ -3473,7 +3473,7 @@ Togliendolo lo spazio diventa zero.
 }
 
 \new Staff \with {
-  \remove "Separating_line_group_engraver"
+  \remove Separating_line_group_engraver
 } {
   c'1
   \break
@@ -3529,7 +3529,7 @@ frequentemente nelle partiture proporzionali, tra cui:
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver" nel contesto Voice}
+@item @code{\remove Forbid_line_break_engraver nel contesto Voice}
 @end itemize
 
 Queste impostazioni spaziano in modo conciso gli abbellimenti, estendono le

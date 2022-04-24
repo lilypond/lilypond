@@ -165,7 +165,7 @@ partCombineListener = \layout {
     skipTypesetting = ##t
     ignoreBarChecks = ##t
     measurePosition = #ZERO-MOMENT
-    \alias "Timing"
+    \alias Timing
   }
 }
 

@@ -2702,7 +2702,7 @@ entfernen, müssen folgende Zeilen eingefügt werden:
   ...
   \context @{
     \Voice
-    \remove "Dynamic_performer"
+    \remove Dynamic_performer
   @}
 @}
 @end example

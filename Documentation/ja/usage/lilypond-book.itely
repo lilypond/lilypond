@@ -642,8 +642,8 @@ LilyPond 断片を組み込む場合、DocBook ドキュメントとの適合を
   <textobject>
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
-  \remove "Time_signature_engraver"
-  \remove "Clef_engraver"@}
+  \remove Time_signature_engraver
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>

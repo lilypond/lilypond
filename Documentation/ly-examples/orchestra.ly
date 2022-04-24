@@ -53,7 +53,7 @@ offCr = {
   \context {
     \StaffGroup
     \name Orchestra
-    \remove "Span_bar_engraver"
+    \remove Span_bar_engraver
   }
   \context {
     \Score
@@ -83,16 +83,16 @@ offCr = {
 %% to place rehearsal marks and texts above full score
 \layout {
   \context {
-    \type "Engraver_group"
-    \name "MarkLine"
-    \consists "Output_property_engraver"
-    \consists "Axis_group_engraver"
-    \consists "Mark_engraver"
-    \consists "Metronome_mark_engraver"
-    \consists "Script_engraver"
-    \consists "Text_engraver"
-    \consists "Text_spanner_engraver"
-    \consists "Font_size_engraver"
+    \type Engraver_group
+    \name MarkLine
+    \consists Output_property_engraver
+    \consists Axis_group_engraver
+    \consists Mark_engraver
+    \consists Metronome_mark_engraver
+    \consists Script_engraver
+    \consists Text_engraver
+    \consists Text_spanner_engraver
+    \consists Font_size_engraver
     \override VerticalAxisGroup.staff-affinity = #DOWN
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #2
     \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = #5
@@ -100,15 +100,15 @@ offCr = {
   }
   \context {
     \Score
-    \accepts "MarkLine"
+    \accepts MarkLine
   }
   \context {
     \Orchestra
-    \accepts "MarkLine"
+    \accepts MarkLine
   }
   \context {
     \StaffGroup
-    \accepts "MarkLine"
+    \accepts MarkLine
   }
 }
 
@@ -117,7 +117,7 @@ offCr = {
 \layout {
   \context {
     \MarkLine
-    \name "SmallMarkLine"
+    \name SmallMarkLine
     \override MetronomeMark.outside-staff-priority = #800
     \override RehearsalMark.outside-staff-priority = #1200
   }
@@ -549,8 +549,8 @@ R2. |
     \layout {
       \context {
         \Score
-        \remove "Mark_engraver"
-        \remove "Metronome_mark_engraver"
+        \remove Mark_engraver
+        \remove Metronome_mark_engraver
       }
       \context {
         \Staff \RemoveEmptyStaves

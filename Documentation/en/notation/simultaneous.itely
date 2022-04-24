@@ -1000,7 +1000,7 @@ voiceB = \relative { fis'4 r g2 | R1 | }
     >>
     \new Staff \with {
       instrumentName = "merged"
-      \consists "Merge_rests_engraver"
+      \consists Merge_rests_engraver
     }
     <<
       \new Voice { \voiceOne \voiceA }

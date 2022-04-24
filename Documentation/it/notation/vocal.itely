@@ -1178,8 +1178,8 @@ Per far sì che il testo eviti anche le stanghette, usare
 \layout @{
   \context @{
     \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
+      \consists Bar_engraver
+      \consists Separating_line_group_engraver
       \hide BarLine
   @}
 @}
@@ -2989,7 +2989,7 @@ si disattiva l'incisore delle stanghette:
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3001,7 +3001,7 @@ Le stanghette possono anche essere tolte solo in certi righi:
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove "Bar_engraver" } {
+    \with { \remove Bar_engraver } {
       \relative {
   a'4 b c2 |
   a4 b c2 |
@@ -3098,7 +3098,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
+      \remove Bar_engraver
     }
   }
 }
@@ -3119,9 +3119,9 @@ anche la chiave.
   \layout {
     \context {
       \Staff
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Clef_engraver"
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
     }
   }
 }
@@ -3201,7 +3201,7 @@ global = {
   }
   \context {
     \Staff
-    \remove "Time_signature_engraver"
+    \remove Time_signature_engraver
   }
       }
     } % End score

@@ -314,7 +314,7 @@ folgenden Beispiel gezeigt:
   \layout {
     \context {
       \Staff
-      \consists "Custos_engraver"
+      \consists Custos_engraver
       \override Custos.style = #'mensural
     }
   }
@@ -581,9 +581,9 @@ Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte
   indent = 0.0
   \context {
     \Staff
-    \remove "Staff_symbol_engraver"
-    \remove "Clef_engraver"
-    \remove "Time_signature_engraver"
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
   }
 }
 {
@@ -966,8 +966,8 @@ setzt) entfernt werden, wie im Beispiel.
 \layout @{
   \context @{
     \Voice
-    \remove "Ligature_bracket_engraver"
-    \consists "Mensural_ligature_engraver"
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
   @}
 @}
 @end example
@@ -1019,8 +1019,8 @@ Eine Datei kann zum Beispiel so aussehen:
   \layout {
     \context {
       \Voice
-      \remove "Ligature_bracket_engraver"
-      \consists "Mensural_ligature_engraver"
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
     }
   }
 }
@@ -2770,7 +2770,7 @@ entfernt:
   ...
   \context @{
     \Voice
-      \remove "Stem_engraver"
+      \remove Stem_engraver
   @}
 @}
 @end example
@@ -2831,8 +2831,8 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
-      \remove "Bar_engraver"
+      \remove Time_signature_engraver
+      \remove Bar_engraver
       \hide Stem
     }
   }
@@ -2870,7 +2870,7 @@ verba = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \hide BarLine
       \hide Stem
     }
@@ -2923,7 +2923,7 @@ spirLyr = \lyricmode {
   \layout {
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
       \override BarLine.X-extent = #'(-1 . 1)
       \hide Stem
       \hide Beam

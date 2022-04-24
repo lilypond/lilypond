@@ -38,11 +38,11 @@ incipitTriplum = \markup{
 	  \layout {
 		%indent = 1\cm
 		  \context {\Voice
-			  \remove "Ligature_bracket_engraver"
-			  \consists "Mensural_ligature_engraver"
+			  \remove Ligature_bracket_engraver
+			  \consists Mensural_ligature_engraver
 		  }
 		  \context {\Staff
-		    \remove "Time_signature_engraver"
+		    \remove Time_signature_engraver
 		  }
 		 line-width=5\mm
 	  }
@@ -59,11 +59,11 @@ incipitMotetus = \markup{
 	  \layout {
 		%	indent = 1\cm
 		  \context {\Voice
-			  \remove "Ligature_bracket_engraver"
-			  \consists "Mensural_ligature_engraver"
+			  \remove Ligature_bracket_engraver
+			  \consists Mensural_ligature_engraver
 		  }
 		  \context {\Staff
-		    \remove "Time_signature_engraver"
+		    \remove Time_signature_engraver
 		  }
 		 line-width=5\mm
 	  }
@@ -80,11 +80,11 @@ incipitTenor = \markup{
     \layout {
 		%indent = 1\cm
 		\context {\Voice
-			\remove "Ligature_bracket_engraver"
-			\consists "Mensural_ligature_engraver"
+			\remove Ligature_bracket_engraver
+			\consists Mensural_ligature_engraver
 		}
 		\context {\Staff
-		  \remove "Time_signature_engraver"
+		  \remove Time_signature_engraver
 		}
 		 line-width=5\mm
 }
@@ -108,8 +108,8 @@ incipitBassus = \markup{
     }
     \layout {
 		  \context { \Voice
-			  \remove "Ligature_bracket_engraver"
-			  \consists "Mensural_ligature_engraver"
+			  \remove Ligature_bracket_engraver
+			  \consists Mensural_ligature_engraver
 		  }
 		 line-width=5\mm
     }
@@ -248,10 +248,10 @@ tenorNotes = \relative {
 	%\midi {}
 	\layout {
 	  %\context {
-	   % \Staff \consists "Horizontal_bracket_engraver"
+	   % \Staff \consists Horizontal_bracket_engraver
 	  %}
 		\context {
-		  \Voice \consists "Horizontal_bracket_engraver"
+		  \Voice \consists Horizontal_bracket_engraver
 	  }
 	}
 }

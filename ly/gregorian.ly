@@ -227,7 +227,7 @@ ligature = #(define-music-function
     }
     \context {
         \Score
-        \remove "Bar_number_engraver"
+        \remove Bar_number_engraver
 
         %%%
         %%% FIXME: Musicologically seen, timing should be set to #f.
@@ -274,23 +274,23 @@ ligature = #(define-music-function
 neumeDemoLayout = \layout {
     \context {
         \Score
-        \remove "Bar_number_engraver"
+        \remove Bar_number_engraver
     }
     \context {
         \Staff
-        \remove "Clef_engraver"
-        \remove "Key_engraver"
+        \remove Clef_engraver
+        \remove Key_engraver
         \hide StaffSymbol
-        \remove "Time_signature_engraver"
-        \remove "Bar_engraver"
+        \remove Time_signature_engraver
+        \remove Bar_engraver
         \override VerticalAxisGroup.staff-staff-spacing = #'()
     }
     \context {
         \Voice
-        \remove "Ligature_bracket_engraver"
-        \consists "Vaticana_ligature_engraver"
+        \remove Ligature_bracket_engraver
+        \consists Vaticana_ligature_engraver
         \override NoteHead.style = #'vaticana.punctum
-        \remove "Stem_engraver"
+        \remove Stem_engraver
     }
 }
 

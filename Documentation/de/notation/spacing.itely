@@ -1396,7 +1396,7 @@ müssen.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove "Forbid_line_break_engraver"
+  \remove Forbid_line_break_engraver
 } \relative {
   <<
     { c''2. \tuplet 3/2 { c4 c c } c2. | }
@@ -1644,7 +1644,7 @@ Seitenumbrüche zum Umblättern ausschalten wollen, können Sie
 einen sehr großen Wert angeben.
 
 @example
-\new Staff \with @{ \consists "Page_turn_engraver" @}
+\new Staff \with @{ \consists Page_turn_engraver @}
 @{
   a4 b c d |
   R1 | % Ein Seitenumbruch zum Umblättern erlaubt
@@ -3181,7 +3181,7 @@ benutzt werden können:
 @item @code{proportionalNotationDuration} (proportionale Notendauer)
 @item @code{uniform-stretching} (gleichmäßige Dehnung)
 @item @code{strict-note-spacing} (strenge Notenverteilung)
-@item @code{\remove "Separating_line_group_engraver"} (entferne Liniengruppentrennungsengraver)
+@item @code{\remove Separating_line_group_engraver} (entferne Liniengruppentrennungsengraver)
 @item @code{\override PaperColumn.used = ##t} (PapierSpalte benutzt = wahr)
 @end itemize
 
@@ -3474,7 +3474,7 @@ auch dieser zusätzliche Platz:
 }
 
 \new Staff \with {
-  \remove "Separating_line_group_engraver"
+  \remove Separating_line_group_engraver
 } {
   c'1
   \break
@@ -3542,7 +3542,7 @@ Notation benutzt werden.  Dazu gehören:
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
+@item @code{\remove Forbid_line_break_engraver in the Voice context}
 @end itemize
 
 Diese Einstellungen bewirken, dass auch Verzierungsnoten proportional

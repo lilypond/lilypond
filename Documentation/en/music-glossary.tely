@@ -1859,7 +1859,7 @@ the top line high F:
     }
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1920,7 +1920,7 @@ have been selected:
     }
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
   }
 }
@@ -1983,7 +1983,7 @@ shown below, where the notes show an arpeggio on a C major chord.
     }
     \context {
       \Staff
-      \remove "Time_signature_engraver"
+      \remove Time_signature_engraver
     }
   }
 }
@@ -2504,7 +2504,7 @@ they have survived only in special forms of musical notation such as the
   \layout {
     \context {
       \Staff
-      \consists "Custos_engraver"
+      \consists Custos_engraver
     }
   }
 }
@@ -5895,7 +5895,7 @@ theme or subject.
 }
 \layout {
 	\context {
-		\Staff \consists "Horizontal_bracket_engraver"
+		\Staff \consists Horizontal_bracket_engraver
 }}
 }
 @end lilypond

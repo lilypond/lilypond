@@ -176,7 +176,7 @@ lowerVoiceTwo = \relative {
     \context {
       \Score
       \omit TimeSignature
-      \remove "Bar_number_engraver"
+      \remove Bar_number_engraver
     }
     \context {
       \PianoStaff
