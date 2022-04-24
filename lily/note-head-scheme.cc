@@ -21,7 +21,7 @@
 #include "note-head.hh"
 #include "font-metric.hh"
 
-LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
+LY_DEFINE (ly_note_head__stem_attachment,
            2, 1, 0, (SCM font_metric, SCM glyph_name, SCM direction),
            R"(
 Get attachment in @var{font-metric} for attaching a stem to notehead

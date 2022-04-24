@@ -66,7 +66,7 @@ Grob_pq_engraver::initialize ()
   set_property (context (), "busyGrobs", SCM_EOL);
 }
 
-LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
+LY_DEFINE (ly_grob_pq_less_p,
            2, 0, 0, (SCM a, SCM b),
            R"(
 Compare two grob priority queue entries.  This is an internal function.

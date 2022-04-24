@@ -21,7 +21,7 @@
 #include "spanner.hh"
 #include "item.hh"
 
-LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
+LY_DEFINE (ly_spanner_bound,
            2, 0, 0, (SCM spanner, SCM dir),
            R"(
 Get one of the bounds of @var{spanner}.  @var{dir} is @w{@code{-1}} for left,
@@ -34,7 +34,7 @@ and @code{1} for right.
   return bound ? bound->self_scm () : SCM_EOL;
 }
 
-LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
+LY_DEFINE (ly_spanner_set_bound_x,
            3, 0, 0, (SCM spanner, SCM dir, SCM item),
            R"(
 Set grob @var{item} as bound in direction @var{dir} for @var{spanner}.
@@ -50,7 +50,7 @@ Set grob @var{item} as bound in direction @var{dir} for @var{spanner}.
 
 /* TODO: maybe we should return a vector -- random access is more
    logical for this list? */
-LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
+LY_DEFINE (ly_spanner_broken_into,
            1, 0, 0, (SCM spanner),
            R"(
 Return broken-into list for @var{spanner}.
@@ -64,7 +64,7 @@ Return broken-into list for @var{spanner}.
   return s;
 }
 
-LY_DEFINE (ly_spanner_p, "ly:spanner?",
+LY_DEFINE (ly_spanner_p,
            1, 0, 0, (SCM g),
            R"(
 Is @var{g} a spanner object?

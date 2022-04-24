@@ -98,7 +98,7 @@ display_list (FcConfig *fcc)
   return retval;
 }
 
-LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0,
+LY_DEFINE (ly_font_config_get_font_file, 1, 0, 0,
            (SCM name),
            R"(
 Get the file for font @var{name}, as found by FontConfig.
@@ -129,7 +129,7 @@ Get the file for font @var{name}, as found by FontConfig.
   return scm_result;
 }
 
-LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
+LY_DEFINE (ly_font_config_display_fonts, 0, 0, 0,
            (),
            R"(
 Dump a list of all fonts visible to FontConfig.
@@ -143,7 +143,7 @@ Dump a list of all fonts visible to FontConfig.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0,
+LY_DEFINE (ly_font_config_add_directory, 1, 0, 0,
            (SCM dir),
            R"(
 Add directory @var{dir} to FontConfig.
@@ -161,7 +161,7 @@ Add directory @var{dir} to FontConfig.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
+LY_DEFINE (ly_font_config_add_font, 1, 0, 0,
            (SCM font),
            R"(
 Add font @var{font} to FontConfig.

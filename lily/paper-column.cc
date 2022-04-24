@@ -213,7 +213,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return align->extent (p, X_AXIS);
 }
 
-LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
+LY_DEFINE (ly_paper_column__break_align_width,
            2, 0, 0, (SCM col, SCM align_syms),
            R"(
 Determine the extent along the x@tie{}axis of a grob used for break alignment

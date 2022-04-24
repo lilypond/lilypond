@@ -25,7 +25,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
+LY_DEFINE (ly_make_paper_outputter, 2, 1, 0,
            (SCM port, SCM alist, SCM default_callback),
            R"(
 Create an outputter dumping to @var{port}.  @var{alist} should map symbols to
@@ -44,7 +44,7 @@ procedures.  See file @file{output-ps.scm} for an example.  If
   return po->self_scm ();
 }
 
-LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
+LY_DEFINE (ly_outputter_dump_stencil,
            2, 0, 0, (SCM outputter, SCM stencil),
            R"(
 Dump stencil @var{expr} onto @var{outputter}.
@@ -58,7 +58,7 @@ Dump stencil @var{expr} onto @var{outputter}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
+LY_DEFINE (ly_outputter_dump_string,
            2, 0, 0, (SCM outputter, SCM str),
            R"(
 Dump @var{str} onto @var{outputter}.
@@ -70,7 +70,7 @@ Dump @var{str} onto @var{outputter}.
   return po->dump_string (str);
 }
 
-LY_DEFINE (ly_outputter_port, "ly:outputter-port",
+LY_DEFINE (ly_outputter_port,
            1, 0, 0, (SCM outputter),
            R"(
 Return output port for @var{outputter}.
@@ -81,7 +81,7 @@ Return output port for @var{outputter}.
   return po->file ();
 }
 
-LY_DEFINE (ly_outputter_close, "ly:outputter-close",
+LY_DEFINE (ly_outputter_close,
            1, 0, 0, (SCM outputter),
            R"(
 Close port of @var{outputter}.
@@ -93,7 +93,7 @@ Close port of @var{outputter}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme", 2, 0, 0,
+LY_DEFINE (ly_outputter_output_scheme, 2, 0, 0,
            (SCM outputter, SCM expr),
            R"(
 Output @var{expr} to the paper outputter.

@@ -22,7 +22,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
+LY_DEFINE (ly_input_warning, 2, 0, 1, (SCM sip, SCM msg, SCM rest),
            R"(
 Print @var{msg} as a GNU compliant warning message, pointing to the location in
 @var{sip}.  @var{msg} is interpreted similar to @code{format}'s argument, using
@@ -40,7 +40,7 @@ Print @var{msg} as a GNU compliant warning message, pointing to the location in
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
+LY_DEFINE (ly_input_message, 2, 0, 1, (SCM sip, SCM msg, SCM rest),
            R"(
 Print @var{msg} as a GNU compliant error message, pointing to the location in
 @var{sip}.  @var{msg} is interpreted similar to @code{format}'s argument, using
@@ -59,7 +59,6 @@ Print @var{msg} as a GNU compliant error message, pointing to the location in
 }
 
 LY_DEFINE (ly_input_file_line_char_column,
-           "ly:input-file-line-char-column",
            1, 0, 0, (SCM sip),
            R"(
 Return input location in @var{sip} as @code{(file-name line char column)}.
@@ -76,7 +75,6 @@ Return input location in @var{sip} as @code{(file-name line char column)}.
 }
 
 LY_DEFINE (ly_input_both_locations,
-           "ly:input-both-locations",
            1, 0, 0, (SCM sip),
            R"(
 Return input location in @var{sip} as

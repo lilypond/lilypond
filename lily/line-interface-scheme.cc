@@ -22,7 +22,7 @@
 #include "stencil.hh"
 #include "grob.hh"
 
-LY_DEFINE (ly_line_interface__line, "ly:line-interface::line",
+LY_DEFINE (ly_line_interface__line,
            5, 0, 0, (SCM grob, SCM startx, SCM starty, SCM endx, SCM endy),
            R"(
 Make a line using layout information from grob @var{grob}.

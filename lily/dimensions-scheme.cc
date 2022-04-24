@@ -21,7 +21,7 @@
 #include "dimensions.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_pt, "ly:pt",
+LY_DEFINE (ly_pt,
            1, 0, 0, (SCM num),
            R"(
 @var{num} printer points.
@@ -32,7 +32,7 @@ LY_DEFINE (ly_pt, "ly:pt",
                  * scm_to_double (num));
 }
 
-LY_DEFINE (ly_cm, "ly:cm",
+LY_DEFINE (ly_cm,
            1, 0, 0, (SCM num),
            R"(
 @var{num} cm.
@@ -43,7 +43,7 @@ LY_DEFINE (ly_cm, "ly:cm",
                  * scm_to_double (num));
 }
 
-LY_DEFINE (ly_inch, "ly:inch",
+LY_DEFINE (ly_inch,
            1, 0, 0, (SCM num),
            R"(
 @var{num} inches.
@@ -54,7 +54,7 @@ LY_DEFINE (ly_inch, "ly:inch",
                  * scm_to_double (num));
 }
 
-LY_DEFINE (ly_mm, "ly:mm",
+LY_DEFINE (ly_mm,
            1, 0, 0, (SCM num),
            R"(
 @var{num} mm.
@@ -65,7 +65,7 @@ LY_DEFINE (ly_mm, "ly:mm",
                  * scm_to_double (num));
 }
 
-LY_DEFINE (ly_bp, "ly:bp",
+LY_DEFINE (ly_bp,
            1, 0, 0, (SCM num),
            R"(
 @var{num} bigpoints (1/72th inch).

@@ -45,7 +45,7 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
   set_object (script, "script-column", me->self_scm ());
 }
 
-LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
+LY_DEFINE (ly_grob_script_priority_less,
            2, 0, 0, (SCM a, SCM b),
            R"(
 Compare two grobs by script priority.  For internal use.

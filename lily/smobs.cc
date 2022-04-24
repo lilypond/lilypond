@@ -89,7 +89,7 @@ init_smob_protection ()
 }
 ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 
-LY_DEFINE (ly_smob_protects, "ly:smob-protects",
+LY_DEFINE (ly_smob_protects,
            0, 0, 0, (),
            R"(
 Return LilyPond's internal smob protection list.

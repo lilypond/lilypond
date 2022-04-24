@@ -21,7 +21,7 @@
 
 #include "pango-font.hh"
 
-LY_DEFINE (ly_make_pango_description_string, "ly:make-pango-description-string",
+LY_DEFINE (ly_make_pango_description_string,
            2, 0, 0, (SCM chain, SCM size),
            R"(
 Make a @code{PangoFontDescription} string for the property alist @var{chain} at

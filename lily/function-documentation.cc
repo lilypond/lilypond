@@ -47,16 +47,6 @@ using std::string;
 static Protected_scm doc_hash_table;
 
 void
-ly_check_name (const char *cxx, const char *scm_name)
-{
-  string mangle = mangle_cxx_identifier (cxx);
-  if (mangle != scm_name)
-    {
-      programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", " + scm_name);
-    }
-}
-
-void
 ly_add_function_documentation (SCM func,
                                const char *fname,
                                const char *varlist,
@@ -78,7 +68,7 @@ ly_add_function_documentation (SCM func,
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 
-LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
+LY_DEFINE (ly_get_all_function_documentation,
            0, 0, 0, (),
            R"(
 Get a hash table with all LilyPond Scheme extension functions.

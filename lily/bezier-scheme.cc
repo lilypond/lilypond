@@ -20,7 +20,7 @@
 #include "bezier.hh"
 #include "lily-guile.hh"
 
-LY_DEFINE (ly_bezier_extent, "ly:bezier-extent",
+LY_DEFINE (ly_bezier_extent,
            2, 0, 0, (SCM control_points, SCM axis),
            R"(
 Compute the extent of the Bézier curve defined by @var{control-points}
@@ -35,7 +35,7 @@ along @var{axis}.
   return to_scm (extent);
 }
 
-LY_DEFINE (ly_bezier_extract, "ly:bezier-extract",
+LY_DEFINE (ly_bezier_extract,
            3, 0, 0, (SCM control_points, SCM t_min, SCM t_max),
            R"(
 Return a sub-curve of the Bézier curve defined by

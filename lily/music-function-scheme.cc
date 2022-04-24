@@ -19,7 +19,7 @@
 
 #include "music-function.hh"
 
-LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
+LY_DEFINE (ly_music_function_extract, 1, 0, 0,
            (SCM x),
            R"(
 Return the Scheme function inside@tie{}@var{x}.
@@ -30,7 +30,7 @@ Return the Scheme function inside@tie{}@var{x}.
   return fn->get_function ();
 }
 
-LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
+LY_DEFINE (ly_music_function_signature, 1, 0, 0,
            (SCM x),
            R"(
 Return the function signature inside@tie{}@var{x}.
@@ -41,7 +41,7 @@ Return the function signature inside@tie{}@var{x}.
   return fn->get_signature ();
 }
 
-LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
+LY_DEFINE (ly_make_music_function, 2, 0, 0,
            (SCM signature, SCM func),
            R"(
 Make a function to process music, to be used for the parser.  @var{func} is the

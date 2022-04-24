@@ -321,7 +321,7 @@ notice ()
   puts (_f (NOTICE, PROGRAM_NAME).c_str ());
 }
 
-LY_DEFINE (ly_usage, "ly:usage",
+LY_DEFINE (ly_usage,
            0, 0, 0, (),
            R"(
 Print usage message.

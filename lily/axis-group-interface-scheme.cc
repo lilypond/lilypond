@@ -24,7 +24,7 @@
 
 using std::vector;
 
-LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
+LY_DEFINE (ly_relative_group_extent,
            3, 0, 0, (SCM elements, SCM common, SCM axis),
            R"(
 Determine the extent of @var{elements} relative to @var{common} in the
@@ -43,7 +43,7 @@ Determine the extent of @var{elements} relative to @var{common} in the
   return to_scm (ext);
 }
 
-LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
+LY_DEFINE (ly_generic_bound_extent,
            2, 0, 0, (SCM grob, SCM common),
            R"(
 Determine the extent of @var{grob} relative to @var{common} along the
@@ -59,7 +59,7 @@ extent.
   return to_scm (ext);
 }
 
-LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
+LY_DEFINE (ly_axis_group_interface__add_element,
            2, 0, 0, (SCM grob, SCM grob_element),
            R"(
 Add @var{grob-element} to the axis group @var{grob}.  In particular, @var{grob}

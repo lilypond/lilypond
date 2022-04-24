@@ -120,9 +120,62 @@ struct ly_scm_func_of_arity<4>
   typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM);
 };
 
+
 /*
-  Make TYPE::FUNC available as a Scheme function.
+  Two main macros are provided in order to export C++ functions,
+  making them accessible to Scheme: LY_DEFINE and MAKE_SCHEME_CALLBACK.
+  LY_DEFINE is used like this:
+
+    LY_DEFINE (ly_cxx_name,
+               req, opt, var,
+               (SCM arg1, SCM arg2, [...]),
+               R"(
+    The docstring.
+               )")
+    {
+      [... function body, returning SCM ...]
+    }
+
+  For grob callbacks, you'd use:
+
+    // declaration
+    class The_interface
+    {
+      DECLARE_SCHEME_CALLBACK (cxx_name, (SCM smob, SCM other_arg1, ...);
+      [...]
+    };
+
+    // definition
+    MAKE_SCHEME_CALLBACK (The_interface, cxx_name, arg_count);
+    SCM
+    The_interface::cxx_name (SCM smob, SCM other_arg1, [...])
+    {
+      [function body, returning SCM ...]
+    }
+
+  The req, opt and var arguments of LY_DEFINE are argument counts, as
+  specified in the Guile documentation (node "Primitive procedures").
+  For MAKE_SCHEME_CALLBACK, the number of arguments is always
+  constant.
+
+  Docstrings should be written as C++11 raw strings for the sake of
+  readability and editability.
+
+  In both cases, not only is a C++ function defined (like the
+  scm_something ones from Guile), but cxx_name is automatically
+  translated into an appropriate Scheme name and a Scheme function is
+  exported with this name.  Here are the main conversion rules to know
+  about.  They mostly follow Guile's conventions.
+
+  - For LY_DEFINE, the 'ly_' prefix becomes 'ly:',
+  - The callback 'The_interface::the_callback' becomes 'ly:the-interface::the-callback',
+  - All underscores become dashes,
+  - Trailing '_p' is used for predicates and becomes a question mark '?',
+  - Trailing '_x' indicates mutation and becomes an exclamation mark '!',
+  - Conversion functions are called 'ly_a_2_b', which becomes 'ly:a->b',
+  - Comparators use 'ly_xxx_less_p', which becomes 'ly:xxx<?'.
 */
+
 #define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
   SCM TYPE ::FUNC ## _proc;                                             \
   void                                                                  \
@@ -149,7 +202,6 @@ struct ly_scm_func_of_arity<4>
   MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
 void ly_add_function_documentation (SCM proc, const char *fname, const char *varlist, const char *doc);
-void ly_check_name (const char *cxx, const char *fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)           \
   class name ## _scm_initter                    \
@@ -164,31 +216,31 @@ void ly_check_name (const char *cxx, const char *fname);
 
 /* end define */
 
-#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR, \
+#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, REQ, OPT, VAR,        \
                                ARGLIST, DOCSTRING)                      \
   SCM FNAME ## _proc;                                                   \
   void                                                                  \
   INITPREFIX ## init ()                                                 \
   {                                                                     \
-    FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,       \
+    std::string scheme_name = mangle_cxx_identifier (#FNAME);           \
+    FNAME ## _proc = scm_c_define_gsubr (scheme_name.c_str (), REQ, OPT, VAR,   \
                                          reinterpret_cast<scm_t_subr> (FNAME)); \
-    ly_check_name (#FNAME, PRIMNAME);\
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
-                                   DOCSTRING);                          \
-    scm_c_export (PRIMNAME, NULL);                                      \
+    ly_add_function_documentation (FNAME ## _proc, scheme_name.c_str (),        \
+                                   #ARGLIST, DOCSTRING);                \
+    scm_c_export (scheme_name.c_str (), NULL);                          \
   }                                                                     \
   ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init); \
   SCM                                                                   \
   FNAME ARGLIST
 
-#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)   \
+#define LY_DEFINE(FNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)             \
   SCM FNAME ARGLIST;                                                    \
-  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, \
+  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, REQ, OPT, VAR, ARGLIST,         \
                           DOCSTRING)
 
-#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, \
+#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, REQ, OPT, VAR,          \
                                   ARGLIST, DOCSTRING)                   \
-  LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
+  LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, REQ, OPT,       \
                           VAR, ARGLIST, DOCSTRING)
 
 /* LY_DEFINE_WITH_SETTER is like LY_DEFINE, but adding a setter procedure.
@@ -200,7 +252,7 @@ void ly_check_name (const char *cxx, const char *fname);
    For this to work, the setter must be defined before the getter, and
    within the same compilation unit (so the init function adding it is
    guaranteed to be defined first). */
-#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME,                            \
+#define LY_DEFINE_WITH_SETTER(FNAME, SETTERNAME,                                      \
                               REQ, OPT, VAR,                                          \
                               ARGLIST, DOCSTRING)                                     \
   SCM FNAME ARGLIST;                                                                  \
@@ -209,16 +261,17 @@ void ly_check_name (const char *cxx, const char *fname);
   void                                                                                \
   FNAME ## init ()                                                                    \
   {                                                                                   \
+    std::string scheme_name = mangle_cxx_identifier (#FNAME);                         \
     FNAME ## _proc_without_setter =                                                   \
-      scm_c_make_gsubr (PRIMNAME, REQ, OPT, VAR,                                      \
+      scm_c_make_gsubr (scheme_name.c_str (), REQ, OPT, VAR,                          \
                           reinterpret_cast<scm_t_subr> (FNAME));                      \
-    ly_check_name (#FNAME, PRIMNAME);                                                 \
     FNAME ## _proc =                                                                  \
       scm_make_procedure_with_setter (FNAME ## _proc_without_setter,                  \
                                       SETTERNAME ## _proc);                           \
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST, DOCSTRING);    \
-    scm_c_define (PRIMNAME, FNAME ## _proc);                                          \
-    scm_c_export (PRIMNAME, NULL);                                                    \
+    ly_add_function_documentation (FNAME ## _proc, scheme_name.c_str (),              \
+                                   #ARGLIST, DOCSTRING);                              \
+    scm_c_define (scheme_name.c_str (), FNAME ## _proc);                              \
+    scm_c_export (scheme_name.c_str (), NULL);                                        \
   }                                                                                   \
   ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);                     \
   SCM                                                                                 \

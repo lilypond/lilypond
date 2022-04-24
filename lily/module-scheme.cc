@@ -27,7 +27,7 @@
   definitions.
 */
 
-LY_DEFINE (ly_module_copy, "ly:module-copy",
+LY_DEFINE (ly_module_copy,
            2, 0, 0, (SCM dest, SCM src),
            R"(
 Copy all bindings from module @var{src} into @var{dest}.
@@ -54,7 +54,7 @@ Copy all bindings from module @var{src} into @var{dest}.
 
 /* Lookup SYM in a list of modules, which do not have to be related.
    Return the first instance. */
-LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
+LY_DEFINE (ly_modules_lookup,
            2, 1, 0,
            (SCM modules, SCM sym, SCM def),
            R"(

@@ -29,7 +29,7 @@ using std::vector;
 /*
   todo: put string <-> pitch here too.
 */
-LY_DEFINE (ly_make_scale, "ly:make-scale",
+LY_DEFINE (ly_make_scale,
            1, 0, 0, (SCM steps),
            R"(
 Create a scale.  The argument is a vector of rational numbers, each of which
@@ -69,7 +69,7 @@ Protected_scm default_global_scale_scm (SCM_BOOL_F);
 // changing the default scale might cause some existing pitches to
 // lose their scale's protection.
 
-LY_DEFINE (ly_default_scale, "ly:default-scale",
+LY_DEFINE (ly_default_scale,
            0, 0, 0, (),
            R"(
 Get the global default scale.
@@ -78,7 +78,7 @@ Get the global default scale.
   return default_global_scale_scm;
 }
 
-LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
+LY_DEFINE (ly_set_default_scale,
            1, 0, 0, (SCM scale),
            R"(
 Set the global default scale.  This determines the tuning of pitches with no

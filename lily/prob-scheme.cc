@@ -19,7 +19,7 @@
 
 #include "prob.hh"
 
-LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
+LY_DEFINE (ly_prob_set_property_x,
            2, 1, 0, (SCM obj, SCM sym, SCM value),
            R"(
 Set property @var{sym} of @var{obj} to @var{value}.
@@ -35,7 +35,7 @@ Set property @var{sym} of @var{obj} to @var{value}.
 /*
   Hmm, this is not orthogonal.
 */
-LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
+LY_DEFINE (ly_prob_property_p,
            2, 1, 0, (SCM obj, SCM sym),
            R"(
 Is boolean prop @var{sym} of @var{obj} set?
@@ -44,7 +44,7 @@ Is boolean prop @var{sym} of @var{obj} set?
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
 
-LY_DEFINE_WITH_SETTER (ly_prob_property, "ly:prob-property",
+LY_DEFINE_WITH_SETTER (ly_prob_property,
                        ly_prob_set_property_x,
                        2, 1, 0, (SCM prob, SCM sym, SCM val),
                        R"(
@@ -65,7 +65,7 @@ is found, return @var{val} or @code{'()} if @var{val} is not specified.
     return retval;
 }
 
-LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
+LY_DEFINE (ly_prob_type_p,
            2, 0, 0,
            (SCM obj, SCM type),
            R"(
@@ -76,7 +76,7 @@ Is @var{obj} the specified prob type?
   return scm_from_bool (prob && scm_is_eq (prob->type (), type));
 }
 
-LY_DEFINE (ly_make_prob, "ly:make-prob",
+LY_DEFINE (ly_make_prob,
            2, 0, 1,
            (SCM type, SCM init, SCM rest),
            R"(
@@ -97,7 +97,7 @@ Create a @code{Prob} object.
   return pr->unprotect ();
 }
 
-LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
+LY_DEFINE (ly_prob_mutable_properties,
            1, 0, 0,
            (SCM prob),
            R"(
@@ -108,7 +108,7 @@ Retrieve an alist of mutable properties.
   return ps->get_property_alist (true);
 }
 
-LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
+LY_DEFINE (ly_prob_immutable_properties,
            1, 0, 0,
            (SCM prob),
            R"(

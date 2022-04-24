@@ -25,7 +25,6 @@
 #include "output-def.hh"
 
 LY_DEFINE (ly_context_current_moment,
-           "ly:context-current-moment",
            1, 0, 0, (SCM context),
            R"(
 Return the current moment of @var{context}.
@@ -36,7 +35,7 @@ Return the current moment of @var{context}.
   return tr->now_mom ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_context_id, "ly:context-id",
+LY_DEFINE (ly_context_id,
            1, 0, 0, (SCM context),
            R"(
 Return the ID string of @var{context}, i.e., for @code{\context Voice = "one"
@@ -48,7 +47,7 @@ Return the ID string of @var{context}, i.e., for @code{\context Voice = "one"
   return ly_string2scm (tr->id_string ());
 }
 
-LY_DEFINE (ly_context_name, "ly:context-name",
+LY_DEFINE (ly_context_name,
            1, 0, 0, (SCM context),
            R"(
 Return the name of @var{context}, i.e., for @code{\context Voice = "one"
@@ -60,7 +59,7 @@ Return the name of @var{context}, i.e., for @code{\context Voice = "one"
   return ly_symbol2scm (tr->context_name ().c_str ());
 }
 
-LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
+LY_DEFINE (ly_context_grob_definition,
            2, 0, 0, (SCM context, SCM name),
            R"(
 Return the definition of @var{name} (a symbol) within @var{context} as an
@@ -73,7 +72,7 @@ alist.
   return Grob_property_info (tr, name).updated ();
 }
 
-LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
+LY_DEFINE (ly_context_pushpop_property,
            3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
            R"(
 Do @code{\temporary \override} or @code{\revert} operation in @var{context}.
@@ -90,7 +89,7 @@ specified) or reverted (if unspecified).
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_matched_pop_property, "ly:context-matched-pop-property",
+LY_DEFINE (ly_context_matched_pop_property,
            3, 0, 0, (SCM context, SCM grob, SCM cell),
            R"(
 This undoes a particular @code{\override}, @code{\once \override} or
@@ -103,7 +102,7 @@ This undoes a particular @code{\override}, @code{\once \override} or
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
+LY_DEFINE (ly_context_set_property_x,
            3, 0, 0, (SCM context, SCM name, SCM val),
            R"(
 Set value of property @var{name} in context @var{context} to @var{val}.
@@ -117,7 +116,7 @@ Set value of property @var{name} in context @var{context} to @var{val}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
+LY_DEFINE_WITH_SETTER (ly_context_property,
                        ly_context_set_property_x,
                        2, 1, 0, (SCM context, SCM sym, SCM def),
                        R"(
@@ -132,7 +131,7 @@ given, and property value is @code{'()}, return @var{def}.
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
-LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
+LY_DEFINE (ly_context_property_where_defined,
            2, 0, 0, (SCM context, SCM name),
            R"(
 Return the context above @var{context} where @var{name} is defined.
@@ -145,7 +144,7 @@ Return the context above @var{context} where @var{name} is defined.
   return tr ? tr->self_scm () : SCM_EOL;
 }
 
-LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
+LY_DEFINE (ly_context_unset_property, 2, 0, 0,
            (SCM context, SCM name),
            R"(
 Unset value of property @var{name} in context @var{context}.
@@ -158,7 +157,7 @@ Unset value of property @var{name} in context @var{context}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_parent, "ly:context-parent",
+LY_DEFINE (ly_context_parent,
            1, 0, 0, (SCM context),
            R"(
 Return the parent of @var{context}, @code{#f} if none.
@@ -174,7 +173,7 @@ Return the parent of @var{context}, @code{#f} if none.
 }
 
 /* FIXME: todo: should support translator IDs, and creation? */
-LY_DEFINE (ly_context_find, "ly:context-find",
+LY_DEFINE (ly_context_find,
            2, 0, 0, (SCM context, SCM name),
            R"(
 Find a parent of @var{context} that has name or alias @var{name}.  Return
@@ -188,7 +187,7 @@ Find a parent of @var{context} that has name or alias @var{name}.  Return
   return tr ? tr->self_scm () : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_context_event_source, "ly:context-event-source",
+LY_DEFINE (ly_context_event_source,
            1, 0, 0, (SCM context),
            R"(
 Return @code{event-source} of context @var{context}.
@@ -198,7 +197,7 @@ Return @code{event-source} of context @var{context}.
   return ctx->event_source ()->self_scm ();
 }
 
-LY_DEFINE (ly_context_events_below, "ly:context-events-below",
+LY_DEFINE (ly_context_events_below,
            1, 0, 0, (SCM context),
            R"(
 Return a @code{stream-distributor} that distributes all events from
@@ -209,7 +208,7 @@ Return a @code{stream-distributor} that distributes all events from
   return ctx->events_below ()->self_scm ();
 }
 
-LY_DEFINE (ly_context_output_def, "ly:context-output-def",
+LY_DEFINE (ly_context_output_def,
            1, 0, 0, (SCM context),
            R"(
 Return the output definition of @var{context}.

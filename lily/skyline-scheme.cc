@@ -20,7 +20,7 @@
 #include "lily-guile.hh"
 #include "skyline.hh"
 
-LY_DEFINE (ly_skyline_touching_point, "ly:skyline-touching-point",
+LY_DEFINE (ly_skyline_touching_point,
            2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Get the point where @var{skyline} and @var{other-skyline} (having
@@ -40,7 +40,7 @@ first.
   return to_scm (sky->touching_point (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_distance, "ly:skyline-distance",
+LY_DEFINE (ly_skyline_distance,
            2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Compute the distance between the two skylines, padding by
@@ -58,7 +58,7 @@ Compute the distance between the two skylines, padding by
   return to_scm (sky->distance (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_max_height, "ly:skyline-max-height",
+LY_DEFINE (ly_skyline_max_height,
            1, 0, 0, (SCM skyline),
            R"(
 Return the maximum height found in @var{skyline}.
@@ -68,7 +68,7 @@ Return the maximum height found in @var{skyline}.
   return to_scm (sky->max_height ());
 }
 
-LY_DEFINE (ly_skyline_max_height_position, "ly:skyline-max-height-position",
+LY_DEFINE (ly_skyline_max_height_position,
            1, 0, 0, (SCM skyline),
            R"(
 Return the position at which @var{skyline} reaches its maximum height.
@@ -78,7 +78,7 @@ Return the position at which @var{skyline} reaches its maximum height.
   return to_scm (sky->max_height_position ());
 }
 
-LY_DEFINE (ly_skyline_height, "ly:skyline-height",
+LY_DEFINE (ly_skyline_height,
            2, 0, 0, (SCM skyline, SCM x),
            R"(
 Return the height of @var{skyline} at point @var{x}.
@@ -90,7 +90,7 @@ Return the height of @var{skyline} at point @var{x}.
   return to_scm (sky->height (x_cpp));
 }
 
-LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
+LY_DEFINE (ly_skyline_empty_p,
            1, 0, 0, (SCM sky),
            R"(
 Return whether skyline @var{sky} is empty.

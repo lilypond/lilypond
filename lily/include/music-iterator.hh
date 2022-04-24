@@ -216,8 +216,7 @@ private:
 bool is_child_context (Context *me, Context *child);
 
 #define IMPLEMENT_CTOR_CALLBACK(Class)                                  \
-  LY_DEFINE_MEMBER_FUNCTION (Class, constructor, \
-                             mangle_cxx_identifier (#Class "::constructor").c_str(), \
+  LY_DEFINE_MEMBER_FUNCTION (Class, constructor,                        \
                              0, 0, 0,                                   \
                              (),                                        \
                              "")                                        \

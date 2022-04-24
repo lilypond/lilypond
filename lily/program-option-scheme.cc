@@ -182,7 +182,7 @@ is_internal_option (SCM sym)
     scm_object_property (sym, ly_symbol2scm ("program-option-internal?")));
 }
 
-LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 2, 0,
+LY_DEFINE (ly_option_usage, 0, 2, 0,
            (SCM port, SCM internal),
            R"(
 Print @code{ly:set-option} usage.  Optional @var{port} argument for the
@@ -203,7 +203,7 @@ for internal options.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_add_option, "ly:add-option", 4, 0, 0,
+LY_DEFINE (ly_add_option, 4, 0, 0,
            (SCM sym, SCM val, SCM internal, SCM description),
            R"(
 Add a program option @var{sym}.  @var{val} is the default value and
@@ -226,7 +226,7 @@ Add a program option @var{sym}.  @var{val} is the default value and
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
+LY_DEFINE (ly_set_option, 1, 1, 0, (SCM var, SCM val),
            R"(
 Set a program option.
            )")
@@ -251,7 +251,7 @@ Set a program option.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
+LY_DEFINE (ly_command_line_options, 0, 0, 0, (),
            R"(
 The Scheme options specified on the command line with option @option{-d}.
            )")
@@ -259,7 +259,7 @@ The Scheme options specified on the command line with option @option{-d}.
   return ly_string2scm (init_scheme_variables_global);
 }
 
-LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
+LY_DEFINE (ly_command_line_code, 0, 0, 0, (),
            R"(
 The Scheme code specified on the command line with option @option{-e}.
            )")
@@ -267,7 +267,7 @@ The Scheme code specified on the command line with option @option{-e}.
   return ly_string2scm (init_scheme_code_global);
 }
 
-LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
+LY_DEFINE (ly_verbose_output_p, 0, 0, 0, (),
            R"(
 Was verbose output requested, i.e., is the log level at least @code{DEBUG}?
            )")
@@ -275,7 +275,7 @@ Was verbose output requested, i.e., is the log level at least @code{DEBUG}?
   return scm_from_bool (is_loglevel (LOG_DEBUG));
 }
 
-LY_DEFINE (ly_all_options, "ly:all-options",
+LY_DEFINE (ly_all_options,
            0, 0, 0, (),
            R"(
 Get all option settings in an alist.
@@ -284,7 +284,7 @@ Get all option settings in an alist.
   return ly_hash2alist (option_hash);
 }
 
-LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
+LY_DEFINE (ly_get_option, 1, 0, 0, (SCM var),
            R"(
 Get a global option setting.
            )")

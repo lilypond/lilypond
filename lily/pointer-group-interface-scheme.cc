@@ -20,7 +20,7 @@
 #include "pointer-group-interface.hh"
 #include "grob.hh"
 
-LY_DEFINE (ly_pointer_group_interface__add_grob, "ly:pointer-group-interface::add-grob",
+LY_DEFINE (ly_pointer_group_interface__add_grob,
            3, 0, 0, (SCM grob, SCM sym, SCM grob_element),
            R"(
 Add @var{grob-element} to @var{grob}'s @var{sym} grob array.

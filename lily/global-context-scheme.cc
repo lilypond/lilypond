@@ -25,7 +25,7 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_format_output, "ly:format-output",
+LY_DEFINE (ly_format_output,
            1, 0, 0, (SCM context),
            R"(
 Given a global context in its final state, process it and return the
@@ -42,7 +42,7 @@ Given a global context in its final state, process it and return the
   return output;
 }
 
-LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
+LY_DEFINE (ly_make_global_translator,
            1, 0, 0, (SCM global),
            R"(
 Create a translator group and connect it to the global context @var{global}.
@@ -58,7 +58,7 @@ The translator group is returned.
   return tg->unprotect ();
 }
 
-LY_DEFINE (ly_make_global_context, "ly:make-global-context",
+LY_DEFINE (ly_make_global_context,
            1, 0, 0, (SCM output_def),
            R"(
 Set up a global interpretation context, using the output block
@@ -78,7 +78,7 @@ Set up a global interpretation context, using the output block
   return glob->unprotect ();
 }
 
-LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
+LY_DEFINE (ly_interpret_music_expression,
            2, 0, 0, (SCM mus, SCM ctx),
            R"(
 Interpret the music expression @var{mus} in the global context @var{ctx}.  The
@@ -91,7 +91,7 @@ context is returned in its final state.
   return ctx;
 }
 
-LY_DEFINE (ly_run_translator, "ly:run-translator",
+LY_DEFINE (ly_run_translator,
            2, 1, 0, (SCM mus, SCM output_def),
            R"(
 Process @var{mus} according to @var{output-def}.  An interpretation context is

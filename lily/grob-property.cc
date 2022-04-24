@@ -83,7 +83,7 @@ check_debug_callback (SCM cb)
 #endif
 }
 
-LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
+LY_DEFINE (ly_set_grob_modification_callback,
            1, 0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called every time LilyPond modifies a grob
@@ -99,7 +99,7 @@ the callback.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
+LY_DEFINE (ly_set_property_cache_callback,
            1, 0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called whenever LilyPond calculates a callback

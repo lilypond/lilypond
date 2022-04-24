@@ -90,7 +90,7 @@ Engraver::Engraver (Context *c)
 
 static Protected_scm creation_callback (SCM_EOL);
 
-LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
+LY_DEFINE (ly_set_grob_creation_callback,
            1, 0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called every time a new grob is created.  The
