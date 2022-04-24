@@ -109,6 +109,7 @@ block containing it.
   if (auto *g = unsmob<Global_context> (glob))
     {
       ly_make_global_translator (glob);
+      message (_ ("Interpreting music..."));
       if (!g->iterate (music, false))
         {
           music->warning (_ ("skipping zero-duration score"));
