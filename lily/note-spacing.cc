@@ -20,7 +20,7 @@
 #include "note-spacing.hh"
 
 #include "accidental-placement.hh"
-#include "bar-line.hh"
+#include "break-align-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob-array.hh"
 #include "moment.hh"
@@ -87,9 +87,10 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       && !skys[RIGHT].is_empty ()
       && from_scm<bool> (get_property (me, "space-to-barline")))
     {
-      Grob *bar = Pointer_group_interface::find_grob (right_col,
-                                                      ly_symbol2scm ("elements"),
-                                                      Bar_line::non_empty_barline);
+      Grob *bar = Pointer_group_interface::find_grob
+                  (right_col,
+                   ly_symbol2scm ("elements"),
+                   Break_aligned_interface::is_non_empty_staff_bar);
 
       if (bar)
         ideal -= bar->extent (right_col, X_AXIS)[LEFT];

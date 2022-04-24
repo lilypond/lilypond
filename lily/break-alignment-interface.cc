@@ -420,6 +420,14 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
   return ret;
 }
 
+bool Break_aligned_interface::is_non_empty_staff_bar (const Grob *me)
+{
+  return me
+         && scm_is_eq (get_property (me, "break-align-symbol"),
+                       ly_symbol2scm ("staff-bar"))
+         && !me->extent (me, X_AXIS).is_empty ();
+}
+
 ADD_INTERFACE (Break_alignment_interface,
                R"(
 The object that performs break alignment.
