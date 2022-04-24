@@ -460,16 +460,6 @@ LSR snippets are linked with:
 Use two spaces for indentation in lilypond examples (no tabs).
 
 @item
-All engravers should have double-quotes around them:
-
-@example
-\consists Spans_arpeggio_engraver
-@end example
-
-LilyPond does not strictly require this, but it is a useful
-convention to follow.
-
-@item
 Try to avoid using @code{#'} or @code{#`} when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
