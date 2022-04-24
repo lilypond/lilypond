@@ -126,8 +126,8 @@ Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
   SCM interfaces = get_property (me, "bound-alignment-interfaces");
 
   for (vsize i = 0; i < elts.size (); i++)
-    for (SCM interface : as_ly_scm_list (interfaces))
-      if (elts[i]->internal_has_interface (interface))
+    for (SCM alignment_interface : as_ly_scm_list (interfaces))
+      if (elts[i]->internal_has_interface (alignment_interface))
         new_elts.push_back (elts[i]);
 
   if (!new_elts.size ())
