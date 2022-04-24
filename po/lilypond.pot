@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.7\n"
+"Project-Id-Version: lilypond 2.23.8\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-03-26 16:08+0100\n"
+"POT-Creation-Date: 2022-04-24 10:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:242 book_texinfo.py:249
+#: book_latex.py:242 book_texinfo.py:251
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:254 book_texinfo.py:261
+#: book_latex.py:254 book_texinfo.py:263
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
@@ -92,40 +92,40 @@ msgstr ""
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:835
+#: book_snippets.py:830
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:860
+#: book_snippets.py:855
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:861
+#: book_snippets.py:856
 msgid "The ly.error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:992
+#: book_snippets.py:987
 #, python-format
 msgid "Converting MusicXML file `%s'..."
 msgstr ""
 
-#: book_snippets.py:1020
+#: book_snippets.py:1015
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:1036
+#: book_snippets.py:1031
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_texinfo.py:226
+#: book_texinfo.py:228
 #, python-format
 msgid "Running texi2pdf on file %s to detect default page settings.\n"
 msgstr ""
@@ -1051,38 +1051,38 @@ msgstr ""
 msgid "show warranty and copyright"
 msgstr ""
 
-#: convert-ly.py:203
+#: convert-ly.py:190
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:222
+#: convert-ly.py:209
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:224
+#: convert-ly.py:211
 msgid "Stopping at last successful rule"
 msgstr ""
 
-#: convert-ly.py:269
+#: convert-ly.py:259
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:281
+#: convert-ly.py:271
 msgid "Attempting conversion from `latin1'..."
 msgstr ""
 
-#: convert-ly.py:394
+#: convert-ly.py:381
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:400
+#: convert-ly.py:387
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:403
+#: convert-ly.py:390
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1090,7 +1090,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:409
+#: convert-ly.py:396
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -1817,12 +1817,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:674
+#: axis-group-interface.cc:673
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:746
+#: axis-group-interface.cc:745
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -1874,47 +1874,47 @@ msgstr ""
 msgid "Cairo surface status '%s'"
 msgstr ""
 
-#: cairo.cc:189
+#: cairo.cc:202
 #, c-format
 msgid "libpng error: '%s'"
 msgstr ""
 
-#: cairo.cc:191
+#: cairo.cc:204
 msgid "libpng error, no details given."
 msgstr ""
 
-#: cairo.cc:246
+#: cairo.cc:259
 #, c-format
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:551 cairo.cc:564
+#: cairo.cc:564 cairo.cc:577
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:663
+#: cairo.cc:676
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:930
+#: cairo.cc:943
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1006
+#: cairo.cc:1019
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1225
+#: cairo.cc:1238
 msgid "Cairo too old for PDF metadata"
 msgstr ""
 
-#: cairo.cc:1398
+#: cairo.cc:1413
 #, c-format
 msgid "unknown output format %s"
 msgstr ""
@@ -2147,47 +2147,47 @@ msgstr ""
 msgid "cannot rename `%s' to `%s'"
 msgstr ""
 
-#: general-scheme.cc:429
+#: general-scheme.cc:401
 msgid "failed redirecting stderr"
 msgstr ""
 
-#: general-scheme.cc:442
+#: general-scheme.cc:414
 #, c-format
 msgid "failed redirecting stderr to `%s'"
 msgstr ""
 
-#: general-scheme.cc:492
+#: general-scheme.cc:464
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
-#: general-scheme.cc:617
+#: general-scheme.cc:589
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
-#: general-scheme.cc:686
+#: general-scheme.cc:658
 msgid "Exiting current GhostScript instance...\n"
 msgstr ""
 
-#: general-scheme.cc:727
+#: general-scheme.cc:699
 msgid "Mismatch of GhostScript arguments!\n"
 msgstr ""
 
-#: general-scheme.cc:734
+#: general-scheme.cc:706
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
 msgstr ""
 
-#: general-scheme.cc:758
+#: general-scheme.cc:730
 msgid "Could not start GhostScript instance!"
 msgstr ""
 
-#: general-scheme.cc:768
+#: general-scheme.cc:740
 #, c-format
 msgid "Running GhostScript command: %s\n"
 msgstr ""
 
-#: general-scheme.cc:777
+#: general-scheme.cc:749
 msgid "Error when running GhostScript command!"
 msgstr ""
 
@@ -2263,7 +2263,7 @@ msgstr ""
 msgid "typecheck failed"
 msgstr ""
 
-#: grob.cc:515
+#: grob.cc:530
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2304,7 +2304,7 @@ msgstr ""
 msgid "unterminated hyphen; removing"
 msgstr ""
 
-#: includable-lexer.cc:58 lily-guile.cc:85 lily-parser-scheme.cc:111
+#: includable-lexer.cc:58 lily-guile.cc:87 lily-parser-scheme.cc:111
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr ""
@@ -2368,39 +2368,39 @@ msgstr ""
 msgid "ligature was started here"
 msgstr ""
 
-#: lily-guile.cc:89
+#: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s', cwd: `%s')"
 msgstr ""
 
-#: lily-guile.cc:278
+#: lily-guile.cc:280
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:281
+#: lily-guile.cc:283
 msgid "perhaps a typing error?"
 msgstr ""
 
-#: lily-guile.cc:288
+#: lily-guile.cc:290
 msgid "skipping assignment"
 msgstr ""
 
-#: lily-guile.cc:304
+#: lily-guile.cc:306
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:240
+#: lily-lexer.cc:241
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:267
+#: lily-lexer.cc:268
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:290 lily-lexer.cc:303
+#: lily-lexer.cc:291 lily-lexer.cc:304
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2714,7 +2714,7 @@ msgstr ""
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:654
+#: main.cc:652
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -2971,41 +2971,41 @@ msgstr ""
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:139
+#: open-type-font.cc:135
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:141
+#: open-type-font.cc:137
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:156
+#: open-type-font.cc:152
 msgid "cannot get postscript name"
 msgstr ""
 
-#: open-type-font.cc:168
+#: open-type-font.cc:164
 #, c-format
 msgid "cannot get font %s format"
 msgstr ""
 
-#: open-type-font.cc:184
+#: open-type-font.cc:180
 #, c-format
 msgid "cannot get CFF name from font %s"
 msgstr ""
 
-#: open-type-font.cc:190
+#: open-type-font.cc:186
 #, c-format
 msgid "Subsitute font name: %s => %s"
 msgstr ""
 
-#: open-type-font.cc:196
+#: open-type-font.cc:192
 #, c-format
 msgid "CFF name for font %s is the same."
 msgstr ""
 
-#: open-type-font.cc:230
+#: open-type-font.cc:226
 #, c-format
 msgid "cannot read CFF: %s"
 msgstr ""
@@ -3014,25 +3014,25 @@ msgstr ""
 #. (FreeType 2.5.5 and earlier does not have this issue.
 #. FreeType 2.6.2+ has this bug fixed.)
 #. So we need direct parsing of the 'CFF' table, in this case.
-#: open-type-font.cc:246
+#: open-type-font.cc:242
 msgid "Directly parsing 'CFF' table of font."
 msgstr ""
 
-#: open-type-font.cc:284
+#: open-type-font.cc:280
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:367
+#: open-type-font.cc:363
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:390
+#: open-type-font.cc:386
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:542 pango-font.cc:268
+#: open-type-font.cc:538 pango-font.cc:268
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -3124,16 +3124,16 @@ msgid ""
 "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr ""
 
-#: page-layout-problem.cc:755
+#: page-layout-problem.cc:756
 msgid "ragged-bottom was specified, but page must be compressed"
 msgstr ""
 
-#: page-layout-problem.cc:758
+#: page-layout-problem.cc:759
 #, c-format
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1228
+#: page-layout-problem.cc:1230
 msgid "staff-affinities should only decrease"
 msgstr ""
 
@@ -3217,24 +3217,24 @@ msgid ""
 "without feature support."
 msgstr ""
 
-#: paper-book.cc:363
+#: paper-book.cc:344
 #, c-format
 msgid ""
 "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:415
+#: paper-book.cc:396
 #, c-format
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
 
-#: paper-column-engraver.cc:251
+#: paper-column-engraver.cc:230
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
 msgstr ""
 
-#: paper-column.cc:428
+#: paper-column.cc:431
 #, c-format
 msgid ""
 "refusing to create a grob sticking to Paper_column grob %s; paper columns "
@@ -3264,8 +3264,8 @@ msgstr ""
 msgid "Conversion of string `%s' to UTF-16be failed: %s"
 msgstr ""
 
-#: percent-repeat-engraver.cc:167
-msgid "unterminated percent repeat"
+#: percent-repeat-engraver.cc:96
+msgid "percent repeat started while another already in progress"
 msgstr ""
 
 #: performance.cc:72
@@ -3313,7 +3313,7 @@ msgstr ""
 msgid "cannot find start of piano pedal"
 msgstr ""
 
-#: program-option-scheme.cc:232
+#: program-option-scheme.cc:248
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -3327,73 +3327,73 @@ msgstr ""
 msgid "Failed octave check, got: "
 msgstr ""
 
-#: relocate.cc:63
+#: relocate.cc:67
 #, c-format
 msgid "%sSetting %s to '%s'\n"
 msgstr ""
 
-#: relocate.cc:73
+#: relocate.cc:77
 #, c-format
 msgid "%s%s not overwritten\n"
 msgstr ""
 
-#: relocate.cc:84
+#: relocate.cc:88
 #, c-format
 msgid "No such file '%s' for %s"
 msgstr ""
 
-#: relocate.cc:94 relocate.cc:114
+#: relocate.cc:98 relocate.cc:118
 #, c-format
 msgid "No such directory '%s' for %s"
 msgstr ""
 
-#: relocate.cc:103
+#: relocate.cc:107
 #, c-format
 msgid "  Prepending '%s' to %s\n"
 msgstr ""
 
-#: relocate.cc:131
+#: relocate.cc:135
 #, c-format
 msgid ""
 "  Found %s environment variable,\n"
 "    setting %s to '%s'\n"
 msgstr ""
 
-#: relocate.cc:146
+#: relocate.cc:150
 #, c-format
 msgid ""
 "  Using run-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:154
+#: relocate.cc:158
 #, c-format
 msgid ""
 "  Using compile-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:165
+#: relocate.cc:169
 msgid ""
 "\n"
 "Relocation\n"
 msgstr ""
 
-#: relocate.cc:173
+#: relocate.cc:177
 #, c-format
 msgid ""
 "  LilyPond binary has absolute file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:180
+#: relocate.cc:184
 #, c-format
 msgid ""
 "  LilyPond binary has relative file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:200
+#: relocate.cc:204
 #, c-format
 msgid ""
 "  Absolute file name of LilyPond binary computed from PATH:\n"
@@ -3401,33 +3401,33 @@ msgid ""
 "    argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:217
+#: relocate.cc:237
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr ""
 
-#: relocate.cc:344
+#: relocate.cc:364
 #, c-format
 msgid "  Relocation file '%s'\n"
 msgstr ""
 
-#: relocate.cc:348
+#: relocate.cc:368
 #, c-format
 msgid "cannot open file '%s', ignored"
 msgstr ""
 
-#: relocate.cc:380
+#: relocate.cc:400
 #, c-format
 msgid "Unknown relocation command '%s'"
 msgstr ""
 
-#: relocate.cc:392
+#: relocate.cc:412
 #, c-format
 msgid ""
 "\n"
 "  Using relocation config directory '%s'\n"
 msgstr ""
 
-#: relocate.cc:403
+#: relocate.cc:423
 #, c-format
 msgid "No relocation config directory '%s'"
 msgstr ""
@@ -3516,11 +3516,7 @@ msgstr ""
 msgid "no side-axis setting found for grob %s."
 msgstr ""
 
-#: skyline-pair.cc:140
-msgid "direction must not be CENTER in ly:skyline-pair::skyline"
-msgstr ""
-
-#: skyline.cc:543
+#: skyline.cc:545
 msgid "Cannot have negative horizon padding.  Junking."
 msgstr ""
 
@@ -3628,17 +3624,17 @@ msgstr ""
 msgid "discarding event: `%s'"
 msgstr ""
 
-#: system.cc:192
+#: system.cc:184
 #, c-format
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:532
+#: system.cc:519
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
 
-#: system.cc:1026
+#: system.cc:1014
 msgid ""
 "refusing to create a grob sticking to a System grob; systems should not be "
 "created from custom engravers."
@@ -3988,7 +3984,7 @@ msgstr ""
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1298
+#: lexer.ll:1283
 msgid "non-UTF-8 input"
 msgstr ""
 
@@ -4006,69 +4002,69 @@ msgstr ""
 msgid "`~a' failed (~a)\n"
 msgstr ""
 
-#: backend-library.scm:52
+#: backend-library.scm:51
 #, scheme-format
 msgid "Preparing Ghostscript command to `~a': ~a"
 msgstr ""
 
-#: backend-library.scm:138
+#: backend-library.scm:137
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:165
+#: backend-library.scm:164
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:184
+#: backend-library.scm:183
 #, scheme-format
 msgid "Copying to `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:296
+#: backend-library.scm:295
 #, scheme-format
 msgid "can't create temp file in ~a after ~a times"
 msgstr ""
 
-#: backend-library.scm:332
+#: backend-library.scm:331
 #, scheme-format
 msgid "Writing ~a..."
 msgstr ""
 
-#: backend-library.scm:377
+#: backend-library.scm:376
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: bar-line.scm:145
+#: bar-line.scm:139
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:173
+#: bar-line.scm:167
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:181
+#: bar-line.scm:175
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:219
+#: bar-line.scm:213
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:916
+#: bar-line.scm:910
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4084,7 +4080,7 @@ msgid "Requested color '~a' is not defined!"
 msgstr ""
 
 #: define-context-properties.scm:31 define-grob-properties.scm:21
-#: define-music-properties.scm:21 lily.scm:133
+#: define-music-properties.scm:21 lily.scm:126
 #, scheme-format
 msgid "symbol ~S redefined"
 msgstr ""
@@ -4108,11 +4104,11 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1390
+#: define-markup-commands.scm:1328
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2562 define-markup-commands.scm:2567
+#: define-markup-commands.scm:2538 define-markup-commands.scm:2543
 #, scheme-format
 msgid "Recursive definition of property ~a detected!"
 msgstr ""
@@ -4205,22 +4201,22 @@ msgstr ""
 msgid "music function `~a' not documented."
 msgstr ""
 
-#: documentation-lib.scm:66
+#: documentation-lib.scm:63
 #, scheme-format
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:170
+#: documentation-lib.scm:167
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:182
+#: documentation-lib.scm:179
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:203
+#: documentation-lib.scm:200
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
@@ -4376,7 +4372,7 @@ msgstr ""
 msgid "PS backend does not support SVG format"
 msgstr ""
 
-#: framework-ps.scm:830
+#: framework-ps.scm:828
 #, scheme-format
 msgid "Layout output to `~a'..."
 msgstr ""
@@ -4455,17 +4451,23 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:958
+#: lily-library.scm:957
+msgid ""
+"version with third number omitted is only allowed for stable releases (when "
+"the second number is even)"
+msgstr ""
+
+#: lily-library.scm:970
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:962
+#: lily-library.scm:985
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:978
+#: lily-library.scm:1001
 #, scheme-format
 msgid ""
 "\n"
@@ -4477,85 +4479,77 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1126
+#: lily-library.scm:1151
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1227
+#: lily-library.scm:1252
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1252
+#: lily-library.scm:1277
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily.scm:125
+#: lily.scm:118
 msgid "call-after-session used after session start"
 msgstr ""
 
-#: lily.scm:130
+#: lily.scm:123
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:473
-msgid "Using (ice-9 curried-definitions) module\n"
-msgstr ""
-
-#: lily.scm:476
-msgid "Guile 1.8\n"
-msgstr ""
-
-#: lily.scm:507
+#: lily.scm:464
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:843
+#: lily.scm:784
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:844
+#: lily.scm:785
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:909
+#: lily.scm:851
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:912
+#: lily.scm:854
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:916
+#: lily.scm:858
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:929 lily.scm:1000
+#: lily.scm:871 lily.scm:942
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:962
+#: lily.scm:904
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
 
-#: lily.scm:993
+#: lily.scm:935
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1010
+#: lily.scm:952
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -4638,124 +4632,124 @@ msgid ""
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
 
-#: music-functions.scm:281
+#: music-functions.scm:282
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr ""
 
-#: music-functions.scm:294
+#: music-functions.scm:295
 msgid "alternative music expected"
 msgstr ""
 
-#: music-functions.scm:307
+#: music-functions.scm:308
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:411
+#: music-functions.scm:412
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
 msgstr ""
 
-#: music-functions.scm:501
+#: music-functions.scm:502
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:525
+#: music-functions.scm:526
 #, scheme-format
 msgid "bad context property ~a"
 msgstr ""
 
-#: music-functions.scm:556
+#: music-functions.scm:557
 #, scheme-format
 msgid "bad music property ~a"
 msgstr ""
 
-#: music-functions.scm:884
+#: music-functions.scm:885
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:991
+#: music-functions.scm:992
 #, scheme-format
 msgid "Bad voice id: ~a"
 msgstr ""
 
-#: music-functions.scm:1002
+#: music-functions.scm:1003
 msgid "\\voices needs more ids"
 msgstr ""
 
-#: music-functions.scm:1021
+#: music-functions.scm:1022
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1348
+#: music-functions.scm:1394
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1510
+#: music-functions.scm:1555
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1573
+#: music-functions.scm:1618
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1574
+#: music-functions.scm:1619
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1979
+#: music-functions.scm:2022
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2453
+#: music-functions.scm:2495
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2516
+#: music-functions.scm:2558
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2547
+#: music-functions.scm:2589
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2772
+#: music-functions.scm:2814
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2775
+#: music-functions.scm:2817
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: output-lib.scm:1890
+#: output-lib.scm:1926
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2209
+#: output-lib.scm:2245
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2821
+#: output-lib.scm:2772
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-ps.scm:292 output-svg.scm:561
+#: output-ps.scm:292 output-svg.scm:562
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:297 output-svg.scm:567
+#: output-ps.scm:297 output-svg.scm:568
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
@@ -4901,7 +4895,7 @@ msgstr ""
 msgid "Unbound BendSpanner, ignoring"
 msgstr ""
 
-#: stencil.scm:712
+#: stencil.scm:715
 msgid "Both angle-increments and radial-increments must be positive numbers."
 msgstr ""
 
@@ -4910,49 +4904,49 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:557
+#: translation-functions.scm:568
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:562
+#: translation-functions.scm:573
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:567
+#: translation-functions.scm:578
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:610
+#: translation-functions.scm:621
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:633 translation-functions.scm:645
+#: translation-functions.scm:644 translation-functions.scm:656
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:636
+#: translation-functions.scm:647
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:648
+#: translation-functions.scm:659
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:673
+#: translation-functions.scm:684
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:712
+#: translation-functions.scm:723
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:796
+#: translation-functions.scm:807
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
