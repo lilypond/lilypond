@@ -10,11 +10,21 @@
 
 
 @newsItem
-@subheading LilyPond 2.23.7 released  @emph{March 26, 2022}
+@subheading LilyPond 2.23.8 released  @emph{April 24, 2022}
 
-We are happy to announce the release of LilyPond 2.23.7. This is termed a
+We are happy to announce the release of LilyPond 2.23.8. This is termed a
 development release, but these are usually reliable. If you want to use the
 current stable version of LilyPond, we recommend using the 2.22.2 version.
+
+In this release, dropping Guile 1.8 support has finally become
+possible also for our sources.  We'd like to dedicate this release
+to Ian Hulin who was one of the first systematically working on
+our numerous roadblocks for Guile 2 migration after tackling a few
+other high-level problems.  In the time spans where his health
+permitted it, he was able to significantly reduce the amount of
+remaining problems for the Guile 2 migration after having started
+working on them in 2010, making the goal that we finally reached
+now more tangible for others to work on after he left us in 2015.
 
 @newsEnd
 
