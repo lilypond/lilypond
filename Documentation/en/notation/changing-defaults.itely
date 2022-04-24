@@ -1356,40 +1356,35 @@ The @qq{accepts} list of a context can be changed with the
 context to the @qq{accepts} list and @code{\denies} removes a context
 from the list.
 
-For example, a square-braced staff group is not usually found within a
-curved-braced staff with connecting staff bars, and a @code{GrandStaff}
-does not accept a @code{StaffGroup} inside it by default.
+For example, a @code{TabStaff} by default @code{\accepts}
+@code{TabVoice} contexts and @code{\denies} @code{Voice} contexts.
+If a @code{Voice} context is written within the @code{TabStaff},
+it would be set on a separate staff.
 
 @lilypond[verbatim,quote]
 \score {
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff { c'1 }
-      \new Staff { d'1 }
+  \new TabStaff <<
+    \new TabVoice { c'1 }
+    \new Voice { d'1 }
     >>
-    \new Staff { \set Staff.instrumentName = bottom f'1 }
-  >>
 }
 @end lilypond
 
-However, by using the @code{\accepts} command, @code{StaffGroup} can be
-added to the @code{GrandStaff} context:
+However, by using the @code{\accepts} command, the @code{Voice}
+context can be forced onto the @code{TabStaff}
 
 @lilypond[verbatim,quote]
 \score {
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff { c'1 }
-      \new Staff { d'1 }
+  \new TabStaff <<
+    \new TabVoice { c'1 }
+    \new Voice { d'1 }
     >>
-    \new Staff { \set Staff.instrumentName = bottom f'1 }
-  >>
-  \layout {
-    \context {
-      \GrandStaff
-      \accepts "StaffGroup"
+    \layout {
+      \context {
+        \TabStaff
+        \accepts "Voice"
+      }
     }
-  }
 }
 @end lilypond
 
