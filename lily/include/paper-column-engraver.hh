@@ -30,9 +30,6 @@ class Paper_column_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Paper_column_engraver);
 
-  Paper_column *find_turnable_column (Moment after_this);
-  void revoke_page_turns (Moment after_this, Real new_penalty);
-
 protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
