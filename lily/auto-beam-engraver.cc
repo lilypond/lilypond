@@ -89,7 +89,7 @@ private:
   Moment beam_start_moment_ = Moment::infinity ();
   Moment beam_start_location_;
   /*
-    Handle on the starting staff keeps it alive until beam is comlete
+    Handle on the starting staff keeps it alive until beam is complete
   */
   Context_handle beam_start_context_;
 

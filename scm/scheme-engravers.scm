@@ -1389,7 +1389,7 @@ creating a chord name grob is left to other engravers.")))
                (grob (ly:engraver-make-grob engraver 'ChordName cause))
                ;; Fetching ChordName.text in case it's a callback can't
                ;; be delayed anyway: it needs to be compared for the sake
-               ;; of ChordChanges.
+               ;; of chordChanges.
                (grob-text (ly:grob-property grob 'text #f))
                (final-text (or grob-text text))
                (chord-changes (ly:context-property context 'chordChanges #f)))

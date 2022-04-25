@@ -472,10 +472,10 @@ Spanner::set_spacing_rods (SCM smob)
         once for the central column (see above) and once for the left column
         (see below). As end_rods_ are never used when rods_ are used and vice
         versa, this rod will only be accessed once for each spacing
-        configuraiton before line breaking. Then, as a grob never exists in
+        configuration before line breaking. Then, as a grob never exists in
         both unbroken and broken forms after line breaking, only one of these
         two rods will be in the column vector used for spacing in
-        simple-spacer.cc get_line_confugration.
+        simple-spacer.cc get_line_configuration.
       */
       if (Item *left_pbp = sp->get_bound (RIGHT)->find_prebroken_piece (LEFT))
         {
