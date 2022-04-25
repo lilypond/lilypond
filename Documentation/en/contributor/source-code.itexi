@@ -26,6 +26,7 @@ used procedures.
 
 @menu
 * Installing Git::
+* Creating a GitLab account and setting up SSH::
 * Cloning and forking the repository::
 * Configuring Git::
 @end menu
@@ -33,7 +34,7 @@ used procedures.
 @node Installing Git
 @subsection Installing Git
 
-On UNIX systems (such as GNU/Linux, Mac OS X, FreeBSD), the easiest way
+On UNIX systems (such as GNU/Linux, macOS, FreeBSD), the easiest way
 to download and install Git is through a package manager.  Alternatively,
 you can visit the @uref{https://git-scm.com/, Git website} for downloadable
 installers.
@@ -43,6 +44,64 @@ Packaged in the installers come @code{gitk} (for browsing the history)
 and @code{git-gui} (for committing).  Git's official website provides a
 @uref{https://git-scm.com/downloads/guis/, list of GUI clients},
 including free software for various platforms.
+
+
+@node Creating a GitLab account and setting up SSH
+@subsection Creating a GitLab account and setting up SSH
+
+First of all, since the patch review happens on GitLab, you need
+to create an account there if you do not already have one.  Visit
+@uref{https://gitlab.com} and register.
+
+Second, you have to configure SSH keys for your GitLab account.
+The GitLab documentation has a
+@uref{https://docs.gitlab.com/ee/user/ssh.html,dedicated page}
+explaining the full steps.  (Although this initial setup may look
+a little tedious, it ensures that you will not need to log in with
+your GitLab credentials every time you need to create or modify a
+merge request.)
+
+Note that on the first Git operation you perform that involves
+connecting with GitLab (namely @code{git clone} if you follow the
+rest of this section in order), SSH will issue the following
+warning:
+
+@example
+The authenticity of host 'gitlab.com' can't be established.
+ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+@end example
+
+When you see this, make sure the key fingerprint displayed matches
+the one above or one of the
+@uref{https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints,
+others published by GitLab}.  If it doesn't, respond @qq{no} and
+check that you configured Git properly in the previous step.  If
+it does match, respond @qq{yes}.  SSH should then issue another
+warning:
+
+@example
+Warning: Permanently added 'gitlab.com' (ECDSA) to the list of known hosts.
+@end example
+
+The list of known hosts is stored in the file
+@file{~/.ssh/known_hosts}.
+
+You might see error messages like these:
+
+@example
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+@end example
+
+If you get the above error, you may have made a mistake when
+registering your SSH key.  If the key is properly registered
+and it still doesn't work after an hour, ask for help on the
+mailing list.
+
+If you would like to work on LilyPond from several machines,
+you may simply copy the @code{.ssh} folder contents from one to
+the other.
 
 
 @node Cloning and forking the repository
@@ -55,10 +114,9 @@ to get the source code and its history:
 git clone git@@gitlab.com:lilypond/lilypond.git
 @end example
 
-New contributors need to fork it in order to push branches.  Using a fork
-is no longer necessary (but may be convenient) when you are given
-developer access.  You need to create an account on
-@uref{https://gitlab.com/, GitLab}.  Visit
+New contributors need to fork it in order to push branches.  Using
+a fork is no longer necessary (but may be convenient) when you are
+given developer access.  Visit
 @uref{https://gitlab.com/lilypond/lilypond} and press @qq{Fork} on
 the top right.  After the fork is created, set up a new remote:
 
@@ -630,102 +688,20 @@ mailing list (@email{lilypond-devel@@gnu.org}).  Generally, only
 contributors who have already provided a number of patches which have
 been merged to the main repository will be considered for membership.
 
-If you have been approved by the Project Manager, use the following
-procedure to obtain commit access.
-
-@itemize
-@item
-Navigate to @uref{https://gitlab.com/lilypond} and @q{Request access}
-to the group.  Make sure that your account can be related to your
-activity on the mailing list.  If in doubt, please post the user name
-after requesting access.
+If you have been approved by the Project Manager, navigate to
+@uref{https://gitlab.com/lilypond} and @q{Request access} to the
+group.  Make sure that your account can be related to your
+activity on the mailing list.  If in doubt, please post the user
+name after requesting access.
 
 Note that you will not have commit access until the Project Manager
 activates your membership.  Once your membership is activated, LilyPond
 should appear under the heading @qq{Groups} on your profile page.
-
-@item
-Generate and register an SSH key pair.  Excellent instructions are provided in
-@uref{https://docs.gitlab.com/ee/ssh/, GitLab's documentation}.
-
-@item
-Configure Git to use the SSH protocol (instead of the GIT or HTTP
-protocols).  From your local Git repository, enter:
-
-@example
-git remote set-url origin git@@gitlab.com:lilypond/lilypond.git
-@end example
-
-@item
-After your membership has been activated and you've configured Git
-to use SSH, test the connection with:
-
-@example
-git pull --verbose
-@end example
-
-SSH should issue the following warning:
-
-@example
-The authenticity of host 'gitlab.com' can't be established.
-ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
-Are you sure you want to continue connecting (yes/no/[fingerprint])?
-@end example
-
-Make sure the key fingerprint displayed matches the one above or one of the
-@uref{https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints,
-others published by GitLab}.  If it doesn't, respond @qq{no} and check that
-you configured Git properly in the previous step.  If it does match, respond
-@qq{yes}.  SSH should then issue another warning:
-
-@example
-Warning: Permanently added 'gitlab.com' (ECDSA) to the list of known hosts.
-@end example
-
-The list of known hosts is stored in the file
-@file{~/.ssh/known_hosts}.
-
-At this point, you are prompted for your passphrase if you have
-one, then Git will attempt a pull.
-
-If @command{git pull --verbose} fails, you should see
-error messages like these:
-
-@example
-Permission denied (publickey).
-fatal: The remote end hung up unexpectedly
-@end example
-
-If you get the above error, you may have made a mistake when
-registering your SSH key.  If the key is properly registered
-and it still doesn't work after an hour, ask for help on the
-mailing list.
-
-If @command{git pull --verbose} succeeds, the output
-will include a @q{From} line that shows @q{ssh} as the protocol:
-
-@example
-From git@@gitlab.com:lilypond/lilypond.git
-@end example
-
-
-@item
-Test your commit access with a dry run:
+When this is done, you can test your commit access with a dry run:
 
 @example
 git push --dry-run --verbose
 @end example
-
-@item
-Repeat the steps from generating an SSH key through to testing
-your commit access, for each machine from which you will be
-making commits, or you may simply copy the files from your
-local @file{~/.ssh} folder to the same folder on the other
-machine.
-
-@end itemize
-
-
 
 
 @node Further Git documentation resources
