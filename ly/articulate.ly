@@ -534,6 +534,8 @@
       (make-sequential-music
        (list
         (make-music 'BarCheck)
+        (make-music 'EventChord
+          'elements (ly:music-property m 'articulations))
         (make-music 'SkipMusic 'duration (ly:music-property m 'duration))
         (make-music 'BarCheck))))
      (else
