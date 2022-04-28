@@ -94,6 +94,11 @@ public:
   // bounds of this Interval.  For other values, extrapolate linearly.
   T linear_combination (Real x) const;
 
+  // Find the position of the given point relative to the center of the
+  // interval in terms of the length of the interval: -1 at the left endpoint
+  // and +1 at the right.  This is the inverse of linear_combination ().
+  Real inverse_linear_combination (const T &t) const;
+
   T &right ()
   {
     return base_type::back ();
@@ -309,6 +314,13 @@ inline Real
 Interval_t<Real>::linear_combination (Real x) const
 {
   return (((1.0 - x) * left ()) + ((x + 1.0) * right ())) * 0.5;
+}
+
+template<>
+inline Real
+Interval_t<Real>::inverse_linear_combination (const Real &x) const
+{
+  return (x - center ()) / (length () * 0.5);
 }
 
 template<class T>

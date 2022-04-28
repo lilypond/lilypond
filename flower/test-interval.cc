@@ -697,3 +697,89 @@ TEST (Interval_test, convert_to_string)
     EQUAL (to_string (iv), "[-24,68]");
   }
 }
+
+TEST (Interval_test, linear_combination)
+{
+  // TODO: Cover empty_interval.linear_combination () and other weird cases.
+
+  // point
+  {
+    const Interval iv {42};
+    // TODO: Wouldn't -INFINITY would be a better result than NAN?
+    CHECK (std::isnan (iv.linear_combination (-INFINITY)));
+    EQUAL (iv.linear_combination (-2), 42);
+    EQUAL (iv.linear_combination (-1), 42);
+    EQUAL (iv.linear_combination ( 0), 42);
+    EQUAL (iv.linear_combination ( 1), 42);
+    EQUAL (iv.linear_combination ( 2), 42);
+    // TODO: Wouldn't INFINITY would be a better result than NAN?
+    CHECK (std::isnan (iv.linear_combination (INFINITY)));
+    CHECK (std::isnan (iv.linear_combination (NAN)));
+  }
+
+  {
+    const Interval iv {-1, 9};
+    EQUAL (iv.linear_combination (-INFINITY), -INFINITY);
+    EQUAL (iv.linear_combination (-2), -6);
+    EQUAL (iv.linear_combination (-1), -1);
+    EQUAL (iv.linear_combination ( 0), 4);
+    EQUAL (iv.linear_combination ( 1), 9);
+    EQUAL (iv.linear_combination ( 2), 14);
+    EQUAL (iv.linear_combination (INFINITY), INFINITY);
+    CHECK (std::isnan (iv.linear_combination (NAN)));
+  }
+}
+
+TEST (Interval_test, inverse_linear_combination)
+{
+  // point: zero length
+  {
+    const Interval iv {42};
+    // left of point -> -INFINITY
+    EQUAL (iv.inverse_linear_combination (-INFINITY), -INFINITY);
+    EQUAL (iv.inverse_linear_combination (-1), -INFINITY);
+    EQUAL (iv.inverse_linear_combination (0), -INFINITY);
+    EQUAL (iv.inverse_linear_combination (41), -INFINITY);
+    // on point
+    CHECK (std::isnan (iv.inverse_linear_combination (42)));
+    // right of point -> +INFINITY
+    EQUAL (iv.inverse_linear_combination (43), INFINITY);
+    EQUAL (iv.inverse_linear_combination (INFINITY), INFINITY);
+
+    CHECK (std::isnan (iv.inverse_linear_combination (NAN)));
+  }
+
+  {
+    const Interval iv {-1, 9};
+    EQUAL (iv.inverse_linear_combination (-INFINITY), -INFINITY);
+    EQUAL (iv.inverse_linear_combination (-6), -2);
+    EQUAL (iv.inverse_linear_combination (-1), -1);
+    EQUAL (iv.inverse_linear_combination ( 4), 0);
+    EQUAL (iv.inverse_linear_combination ( 9), 1);
+    EQUAL (iv.inverse_linear_combination (14), 2);
+    EQUAL (iv.inverse_linear_combination (INFINITY), INFINITY);
+    CHECK (std::isnan (iv.inverse_linear_combination (NAN)));
+  }
+
+  // other weird cases
+  for (const auto &iv :
+       {
+         Interval {},
+         Interval {-INFINITY, -INFINITY},
+         Interval {-INFINITY, 0},
+         Interval {-INFINITY, INFINITY},
+         Interval {0, INFINITY},
+         Interval {INFINITY, INFINITY},
+         Interval {NAN, 0},
+         Interval {0, NAN},
+         Interval {NAN, NAN},
+       })
+    {
+      CHECK (std::isnan (iv.inverse_linear_combination (-INFINITY)));
+      CHECK (std::isnan (iv.inverse_linear_combination (-1)));
+      CHECK (std::isnan (iv.inverse_linear_combination (0)));
+      CHECK (std::isnan (iv.inverse_linear_combination (1)));
+      CHECK (std::isnan (iv.inverse_linear_combination (INFINITY)));
+      CHECK (std::isnan (iv.inverse_linear_combination (NAN)));
+    }
+}
