@@ -38,6 +38,8 @@ public:
 struct Break_aligned_interface
 {
   DECLARE_SCHEME_CALLBACK (calc_average_anchor, (SCM));
+  static Real calc_average_anchor (Grob *me);
+
   DECLARE_SCHEME_CALLBACK (calc_extent_aligned_anchor, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_break_visibility, (SCM));
 

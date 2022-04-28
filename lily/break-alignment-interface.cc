@@ -328,22 +328,58 @@ SCM
 Break_aligned_interface::calc_average_anchor (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
-  Real avg = 0.0;
-  int count = 0;
+  return to_scm (calc_average_anchor (me));
+}
 
-  /* average the anchors of those children that have it set */
+Real
+Break_aligned_interface::calc_average_anchor (Grob *me)
+{
+  // the range of anchor points requested by group members
+  Interval absolute_range;
+
+  // the range of anchor points requested by group members, normalized to the
+  // extent of each member: -1 at left, 1 at right (zero-width elements are
+  // ignored)
+  Interval normalized_range;
+
   extract_grob_set (me, "elements", elts);
-  for (vsize i = 0; i < elts.size (); i++)
+  for (auto *const g : elts)
     {
-      SCM anchor = get_property (elts[i], "break-align-anchor");
-      if (scm_is_number (anchor))
+      auto anchor
+        = from_scm<Real> (get_property (g, "break-align-anchor"), NAN);
+      if (!std::isnan (anchor))
         {
-          count++;
-          avg += scm_to_double (anchor);
+          absolute_range.add_point (anchor);
+
+          const auto &extent = g->extent (g, X_AXIS);
+          auto normalized_anchor = extent.inverse_linear_combination (anchor);
+          if (std::isfinite (normalized_anchor))
+            normalized_range.add_point (normalized_anchor);
         }
     }
 
-  return to_scm (count > 0 ? avg / count : 0);
+  if (!normalized_range.is_empty ())
+    {
+      // Map the average normalized anchor point back to the extent of the
+      // group.  Our primary concern is that when there is unanimous agreement
+      // (after normalization) on LEFT, CENTER, RIGHT, or any other value, we
+      // use that value for the group.
+      const auto &extent = me->extent (me, X_AXIS);
+      auto anchor = extent.linear_combination (normalized_range.center ());
+
+      // ... however, when there isn't unanimous agreement, then it is possible
+      // that the computed anchor point is outside the range of anchor points
+      // of the particular members, making everyone unhappy; so we clamp it.
+      anchor = absolute_range.clamp (anchor);
+
+      return anchor;
+    }
+  else if (!absolute_range.is_empty ())
+    {
+      return absolute_range.center ();
+    }
+
+  return 0;
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
