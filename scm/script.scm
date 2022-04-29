@@ -331,6 +331,7 @@
         (quantize-position . #t)
         (avoid-slur . inside)
         (padding . 0.20)
+        (script-priority . -50)
         (side-relative-direction . ,DOWN)))
     (trill
      . (
