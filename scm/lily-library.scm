@@ -647,7 +647,7 @@ right (@var{dir}=@code{+1})."
 
 (define-public interval-end cdr)
 
-(define (other-axis a)
+(define-public (other-axis a)
   (remainder (+ a 1) 2))
 
 (define-public (interval-scale iv factor)

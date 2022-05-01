@@ -83,6 +83,25 @@ they stop over the bar line instead.
 
 
 @item
+
+New markup commands @code{\with-true-dimension} and
+@code{\with-true-dimensions} are available.  They give the markup
+the actual extent(s) of its printed ink, which may differ from the
+default extents for some font glyphs due to text regularity
+constraints.
+
+@lilypond
+\markup
+  \fontsize #10
+  \override #'((box-padding . 0) (thickness . 0.02))
+  \line
+  \box {
+    \musicglyph "scripts.trill"
+    \with-true-dimensions \musicglyph "scripts.trill"
+  }
+@end lilypond
+
+@item
 The new context property @code{breathMarkType} selects the mark
 that @code{\breathe} produces from several predefined types.
 

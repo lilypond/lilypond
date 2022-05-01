@@ -2389,6 +2389,65 @@ from @var{arg1} instead."
          (y (ly:stencil-extent (if (= axis X) stil2 stil1) Y)))
     (interpret-markup layout props (make-with-dimensions-markup x y arg2))))
 
+(define-markup-command (with-true-dimension layout props axis arg)
+  (integer? markup?)
+  #:category other
+  "
+@cindex extent, of actual inking
+
+Give @var{arg} its actual dimension (extent) on @var{axis}.
+Sometimes, the inking of a markup actually extends beyond its bounding
+box.  This is the case for certain glyphs, in order to ensure regular
+spacing of text.
+
+@lilypond[verbatim,quote]
+\\markup
+  \\fontsize #10
+  \\override #'((box-padding . 0) (thickness . 0.2))
+  \\box
+  \\musicglyph \"scripts.trill\"
+@end lilypond
+
+For purposes other than setting text, this behavior may not be wanted.
+You can use @code{\\with-true-dimension} in order to give the markup
+its actual printed extent.
+
+@lilypond[verbatim,quote]
+\\markup
+  \\fontsize #10
+  \\override #'((box-padding . 0) (thickness . 0.2))
+  \\box
+  \\with-true-dimension #X
+  \\musicglyph \"scripts.trill\"
+@end lilypond
+"
+  (let* ((stencil (interpret-markup layout props arg))
+         (true-ext (stencil-true-extent stencil axis))
+         ;; Don't use ly:stencil-outline like \with-dimensions et al.:
+         ;; the goal is to match the extents to the skyline, so we don't
+         ;; want to make the skyline look like a box.
+         (other-ext (ly:stencil-extent stencil (other-axis axis)))
+         (expr (ly:stencil-expr stencil)))
+    (if (eqv? axis X)
+        (ly:make-stencil expr true-ext other-ext)
+        (ly:make-stencil expr other-ext true-ext))))
+
+(define-markup-command (with-true-dimensions layout props arg)
+  (markup?)
+  #:category other
+  "@code{\\markup \\with-@/true-@/dimensions @var{arg}} is short for
+@code{\\markup \\with-@/true-@/dimension #X \\with-@/true-@/dimension #Y
+@var{arg}}, i.e., @code{\\with-@/true-@/dimensions} has the effect of
+@code{\\with-@/true-@/dimension} on both axes."
+  (interpret-markup
+   layout
+   props
+   (make-with-true-dimension-markup
+    X
+    (make-with-true-dimension-markup
+     Y
+     arg))))
+
 (define-markup-command (pad-around layout props amount arg)
   (number? markup?)
   #:category align

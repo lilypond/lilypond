@@ -17,8 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "lazy-skyline-pair.hh"
 #include "lily-guile.hh"
 #include "skyline.hh"
+#include "stencil.hh"
 
 LY_DEFINE (ly_skyline_touching_point,
            2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
@@ -98,4 +100,22 @@ Return whether skyline @var{sky} is empty.
 {
   auto *const s = LY_ASSERT_SMOB (Skyline, sky, 1);
   return to_scm (s->is_empty ());
+}
+
+LY_DEFINE (ly_skylines_for_stencil,
+           2, 0, 0, (SCM stencil, SCM axis),
+           R"(
+Return a pair of skylines representing the outline of @var{stencil}.
+This gives horizontal skylines if @var{axis} is@tie{}@code{X},
+and vertical skylines with @var{axis} =@tie{}@code{Y}.
+           )")
+{
+  LY_ASSERT_SMOB (const Stencil, stencil, 1);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+  Axis a = from_scm<Axis> (axis);
+  // For a user interface, it seems to make more sense that passing
+  // X yields what is called "horizontal skylines".  TODO: should the
+  // internals be changed to use that convention?
+  a = other_axis (a);
+  return to_scm (skylines_from_stencil (stencil, SCM_EOL, a));
 }

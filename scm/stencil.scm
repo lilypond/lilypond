@@ -979,3 +979,16 @@ with optional arrows of @code{max-size} on start and end controlled by
 
         (ly:make-stencil "" '(0 . 0) '(0 . 0)))
     ))
+
+
+(define-public (stencil-true-extent stencil axis)
+  "Return the extent of the actual printed ink of @var{stencil}
+on @var{axis}."
+  ;; Simple strategy: compute skylines, take their max height.
+  ;; If this becomes performance-critical, it can be rewritten
+  ;; to inspect the stencil expressions and compute their extents
+  ;; directly without building full skylines -- at the cost of
+  ;; a lot more code.
+  (let ((skyp (ly:skylines-for-stencil stencil axis)))
+    (cons (ly:skyline-max-height (car skyp))
+          (ly:skyline-max-height (cdr skyp)))))
