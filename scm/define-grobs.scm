@@ -3503,9 +3503,14 @@ trill.  See also @iref{TrillPitchGroup}.")))))
     (TrillSpanner
      . (
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
-        (bound-details . ((left . ((text . ,(make-musicglyph-markup "scripts.trill"))
-                                   (stencil-offset . (-0.5 . -1))
-                                   (padding . 0.5)
+        (bound-details . ((left . (
+                                   ;; Need true X extent for chained trills not to overlap.
+                                   ;; The trill glyph has a loop on its left, which sticks
+                                   ;; out of its bounding box.
+                                   (text . ,(make-with-true-dimension-markup
+                                             X
+                                             (make-musicglyph-markup "scripts.trill")))
+                                   (stencil-offset . (0 . -1))
                                    (attach-dir . ,CENTER)
                                    ))
                           (left-broken . ((end-on-note . #t)))

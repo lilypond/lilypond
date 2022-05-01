@@ -22,6 +22,7 @@
 #include "main.hh"
 #include "font-interface.hh"
 #include "grob.hh"
+#include "lazy-skyline-pair.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
@@ -70,26 +71,45 @@ Line_interface::make_trill_line (Grob *me,
 
   Stencil elt = fm->find_by_name ("scripts.trill_element");
   elt.align_to (Y_AXIS, CENTER);
-  Real elt_len = elt.extent (X_AXIS).length ();
-  if (elt_len <= 0.0)
+  Interval elt_ext = elt.extent (X_AXIS);
+  Real elt_len = elt_ext.length ();
+  // Get the real length of the trill element, so as not to exceed
+  // the allotted length for the line.  The element sticks out of
+  // its bounding box so that two elements blend when concatenated.
+  Skyline_pair const &skyp = skylines_from_stencil (elt.smobbed_copy (),
+                                                    SCM_EOL,
+                                                    Y_AXIS);
+  Interval elt_true_ext (skyp[LEFT].max_height (), skyp[RIGHT].max_height ());
+  Real elt_true_len = elt_true_ext.length ();
+  if (elt_true_len <= 0)
     {
       programming_error ("can't find scripts.trill_element");
-      return Stencil ();
+      return elt;
     }
-
-  Stencil line;
-  Real len = 0.0;
-  do
+  // Always have at least one trill element, even if the
+  // space allotted technically doesn't allow it.
+  Stencil line (elt);
+  line.translate_axis (-elt_true_ext[LEFT], X_AXIS);
+  Real total_len = elt_true_len;
+  Real delta = dz.length () - total_len;
+  if (delta > 0)
     {
-      line.add_at_edge (X_AXIS, RIGHT, elt, 0);
-      len = line.extent (X_AXIS).length ();
+      // First trill element takes true_elt_len, each further element
+      // only adds elt_len because of the overlap.
+      vsize num_extra_elements = static_cast<vsize> (delta/elt_len);
+      for (vsize i = 0; i < num_extra_elements; i++)
+        line.add_at_edge (X_AXIS, RIGHT, elt, 0);
+      total_len += static_cast<Real> (num_extra_elements)*elt_len;
     }
-  while (len + elt_len < dz.length ());
+  SCM expr = line.expr ();
+  Box b = line.extent_box ();
+  Box new_b = Box (Interval (0, total_len), b[Y_AXIS]);
+  Stencil new_line (new_b, expr);
 
-  line.rotate (dz.angle_degrees (), Offset (LEFT, CENTER));
-  line.translate (from);
+  new_line.rotate (dz.angle_degrees (), Offset (LEFT, CENTER));
+  new_line.translate (from);
 
-  return line;
+  return new_line;
 }
 
 Stencil
