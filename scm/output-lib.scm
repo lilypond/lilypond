@@ -2977,54 +2977,16 @@ which is the default."
   (list (make-translator-component thing) ...))
 
 (define-syntax-rule-public (make-engraver form ...)
-  "Helper macro for creating Scheme engravers usable in
-@samp{\\layout}.
-
-The usual form for an engraver is an association list (or alist)
-mapping symbols to either anonymous functions or to another such
-alist.
-
-@code{make-engraver} accepts forms where the first element is either
-an argument list starting with the respective symbol, followed by the
-function body (comparable to the way @code{define} is used for
-defining functions), or a single symbol followed by subordinate forms
-in the same manner.  You can also just make an alist pair
-literally (the @samp{car} is quoted automatically) as long as the
-unevaluated @samp{cdr} is not a pair.  This is useful if you already
-have defined your engraver functions separately.
-
-@code{start-translation-timestep}, @code{pre-process-music},
-@code{process-music}, @code{process-acknowledged},
-@code{stop-translation-timestep}, and @code{finalize}.  Symbols
-mapping to another alist specified in the same manner are
-@code{listeners} with the subordinate symbols being event classes, and
-@code{acknowledgers} and @code{end-acknowledgers} with the subordinate
-symbols being interfaces."
+  "Like @code{make-translator}, but create an engraver, i.e.,
+the resulting translator is only run in layout output and ignored
+in MIDI."
   (make-translator-internal form ... (is-layout . #t)))
 
 (define-syntax-rule-public (make-performer form ...)
-  "Helper macro for creating Scheme performers usable in
-@samp{\\midi}.
-
-The usual form for a performer is an association list (or alist)
-mapping symbols to either anonymous functions or to another such
-alist.
-
-@code{make-performer} accepts forms where the first element is either
-an argument list starting with the respective symbol, followed by the
-function body (comparable to the way @code{define} is used for
-defining functions), or a single symbol followed by subordinate forms
-in the same manner.  You can also just make an alist pair
-literally (the @samp{car} is quoted automatically) as long as the
-unevaluated @samp{cdr} is not a pair.  This is useful if you already
-have defined your engraver functions separately.
-
-Symbols mapping to a function would be @code{initialize},
-@code{start-translation-timestep}, @code{pre-process-music},
-@code{process-music}, @code{stop-translation-timestep}, and
-@code{finalize}.  Symbols mapping to another alist specified in the
-same manner are @code{listeners} with the subordinate symbols being
-event classes."
+  "Like @code{make-translator}, but create a performer, i.e.,
+the resulting translator is only run in MIDI and ignored in
+layout output.  Scheme performers do not support acknowledgers
+and @code{process-acknowledged}."
   (make-translator-internal form ... (is-midi . #t)))
 
 (define-syntax-rule-public (make-translator form ...)
