@@ -107,6 +107,8 @@ Trill_spanner_engraver::process_music ()
       current_event_ = event_drul_[START];
       span_ = make_spanner ("TrillSpanner", event_drul_[START]->self_scm ());
       Side_position_interface::set_axis (span_, Y_AXIS);
+      if (finished_)
+        set_object (finished_, "right-neighbor", span_->self_scm ());
     }
 }
 

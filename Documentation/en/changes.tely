@@ -83,7 +83,6 @@ they stop over the bar line instead.
 
 
 @item
-
 New markup commands @code{\with-true-dimension} and
 @code{\with-true-dimensions} are available.  They give the markup
 the actual extent(s) of its printed ink, which may differ from the

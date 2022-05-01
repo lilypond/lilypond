@@ -1377,8 +1377,8 @@ empty in a particular staff, then that staff is erased.")
 
      (left-items ,ly:grob-array? "Grobs organized on the left by a spacing
 object.")
-     (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
-for this column.")
+     (left-neighbor ,ly:grob? "A grob similar to this one, on its left.
+For columns, the right-most column that has a spacing wish for this column.")
 
      (make-dead-when ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will turn dead.")

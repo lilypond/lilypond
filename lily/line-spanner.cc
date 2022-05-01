@@ -200,6 +200,23 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
       if (dot && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (dot, commonx, X_AXIS).linear_combination (attach);
 
+      SCM adj = ly_assoc_get (ly_symbol2scm ("adjust-on-neighbor"), details, SCM_BOOL_F);
+      if (from_scm<bool> (adj))
+        {
+          SCM sym = (dir == LEFT)
+                    ? ly_symbol2scm ("left-neighbor")
+                    : ly_symbol2scm ("right-neighbor");
+          Grob *neighbor = unsmob<Grob> (get_object (me, sym));
+          if (neighbor)
+            {
+              Interval neighbor_ext = neighbor->extent (commonx, X_AXIS);
+              Real neighbor_x = neighbor_ext[-dir];
+              x_coord = (dir == LEFT)
+                        ? std::max (x_coord, neighbor_x)
+                        : std::min (x_coord, neighbor_x);
+            }
+        }
+
       details = scm_acons (ly_symbol2scm ("X"),
                            to_scm (x_coord),
                            details);
@@ -633,6 +650,27 @@ attached to.
 This is the absolute X@tie{}coordinate of the end point.  Usually
 computed on the fly.
 
+@item end-on-note
+If set to true, when the line spanner is broken, each broken piece
+only extends to the furthest note, not to the end of the staff,
+on sides where it is broken.
+
+@item end-on-accidental
+Only meaningful in @code{bound-details.right}.  If set to true,
+the line spanner stops before the accidentals if its right bound
+is a note column or a grob contained in a note column, and this
+note column has accidentals.
+
+@item start-at-dot
+Only meaningful in @code{bound-details.left}.  If true, the line
+spanner starts after dots, in a fashion similar to
+@code{end-on-accidental}.
+
+@item adjust-on-neighbor
+If true, the @code{left-neighbor} or @code{right-neighbor} object is
+read, and if it exists, the line spanner starts after it or stops
+before it.
+
 @item stencil
 Line spanners may have symbols at the beginning or end, which is
 contained in this sub-property.  For internal use.
@@ -667,8 +705,10 @@ bound-details
 extra-dy
 gap
 left-bound-info
+left-neighbor
 note-columns
 right-bound-info
+right-neighbor
 thickness
 to-barline
                )");

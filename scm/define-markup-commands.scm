@@ -2393,12 +2393,20 @@ from @var{arg1} instead."
   (integer? markup?)
   #:category other
   "
+@cindex bounding box, of glyph
+@cindex glyph, bounding box
+@cindex dimensions, of bounding box
+@cindex extent, of bounding box
 @cindex extent, of actual inking
 
-Give @var{arg} its actual dimension (extent) on @var{axis}.
-Sometimes, the inking of a markup actually extends beyond its bounding
-box.  This is the case for certain glyphs, in order to ensure regular
-spacing of text.
+Give @var{arg} its actual dimension (extent) on @var{axis}.  Sometimes, the
+extents of a markup's printed ink differs from the default extents.  The main
+case is if glyphs are involved.  By default, the extents of a glyph are based on
+the glyph's @dfn{metrics} (i.e., a default vertical and horizontal size for the
+glyph), which, for various reasons, are often not identical to its @dfn{bounding
+box} (i.e., the smallest rectangle that completely encompasses the glyph's
+outline) -- in most cases, the outline protrudes the box spanned up by the
+metrics.
 
 @lilypond[verbatim,quote]
 \\markup
