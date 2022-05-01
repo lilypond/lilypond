@@ -1288,11 +1288,35 @@ usually carrying context definitions (@code{\\midi} or
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
+(define (listener->once-listener listener)
+  (let ((last-ev #f)
+        (mom #f))
+    (lambda (translator event)
+      (let ((new-mom (ly:context-current-moment
+                      (ly:translator-context translator))))
+        (cond
+         ;; First event in time step.
+         ((not (equal? new-mom mom))
+          (set! mom new-mom)
+          (set! last-ev event)
+          (listener translator event))
+         ;; Event repeated; nothing to do.
+         ((equal? event last-ev))
+         (else
+          ;; Sync with stream-event.cc.
+          (let ((old-cls (car (ly:event-property last-ev 'class)))
+                (new-cls (car (ly:event-property event 'class))))
+            (ly:event-warning last-ev (G_ "conflict with event: `~a'") old-cls)
+            (ly:event-warning event (G_ "discarding event: `~a'") new-cls))))))))
+
 ;; An alist pair of @code{(is-midi . #t)} specifies possible use as a
 ;; performer, @code{(is-layout . #t)} as an engraver.  If neither is
 ;; specified, engraver-only use is assumed.
 (define-syntax make-translator-component
   (syntax-rules ()
+    ;; Special case of listeners.
+    ((_ ((name arg ... #:once) body ...))
+     (cons 'name (listener->once-listener (lambda (arg ...) body ...))))
     ;; Example: ((process-music engraver) ...) => (lambda (engraver) ...)
     ((_ ((name . args) body ...))
      (cons 'name (lambda args body ...)))
@@ -1342,5 +1366,44 @@ Symbols mapping to a function would be @code{initialize},
 @code{process-music}, @code{stop-translation-timestep}, and
 @code{finalize}.  Symbols mapping to another alist specified in the
 same manner are @code{listeners} with the subordinate symbols being
-event classes."
+event classes.
+
+A template for writing a translator with all methods is:
+
+@example
+(lambda (context)
+  (let (local-variables ...)
+    (make-translator
+     ((initialize translator)
+      ...)
+     ((start-translation-timestep translator)
+      ...)
+     (listeners
+      ((event-class-1 translator event)
+       ...)
+      ((event-class-2 translator event #:once)
+       ...))
+     ((process-music translator)
+      ...)
+     (acknowledgers
+      ((grob-interface-1 translator grob source-translator)
+       ...)
+      ((grob-interface-2 translator grob source-translator)
+       ...))
+     ((process-acknowledged translator)
+      ...)
+     ((stop-translation-timestep translator)
+      ...)
+     ((finalize translator)
+      ...))))
+@end example
+
+This can be used as the argument to @code{\\consists}.
+
+For @code{listeners}, a special feature is available: the argument
+list of a listener can be terminated with the keyword @code{#:once}.
+This makes for a listener that is only ever triggered once per time
+step.  If it receives several events in the same time step, it emits a
+warning, except if they are all equal (where equality is checked
+recursively, with @code{equal?})."
   (make-translator-internal form ... (is-layout . #t) (is-midi . #t)))

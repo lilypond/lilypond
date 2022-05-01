@@ -5,7 +5,7 @@
 
 }
 
-\version "2.23.8"
+\version "2.23.9"
 
 #(use-modules (ice-9 match))
 
@@ -27,7 +27,10 @@ engraver_demo =
       (let ((grob (ly:engraver-make-grob engraver 'TextScript event)))
         (ly:grob-set-property! grob 'text "hi")
         (format (current-error-port) "~16a: detected this rest event: ~a\n~16a: created this grob: ~a\n"
-                (t->m engraver) event (t->m engraver) grob))))
+                (t->m engraver) event (t->m engraver) grob)))
+     ((breathing-event engraver event #:once)
+      (format (current-error-port) "~16a: detected breathing event in #:once listener: ~a"
+              (t->m engraver) event)))
    (acknowledgers
      ((note-head-interface . args)
       (match-let (((engraver grob source-engraver) args))
@@ -56,6 +59,17 @@ engraver_demo =
   }
 }
 
+#(ly:expect-warning (G_ "conflict with event: `~a'") 'breathing-event)
+#(ly:expect-warning (G_ "discarding event: `~a'") 'breathing-event)
+
 \relative {
-  c'8[ r c]
+  c'8[
+  \breathe
+  r
+  % Equal events for #:once listener, the second just gets discarded.
+  \breathe \breathe
+  c]
+  % Unequal events trigger a warning.
+  \breathe
+  \tweak color red \breathe
 }

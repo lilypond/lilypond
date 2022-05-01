@@ -66,6 +66,20 @@ which scares away people.
 @end ignore
 
 @item
+Scheme translators can now contain listeners written as
+
+@example
+(listeners
+ ((event-class engraver event #:once)
+  ...))
+@end example
+
+These are never triggered more than once per time step.  They emit
+a warning if they receive two events in the same time step, except
+if the events are equal.
+
+
+@item
 The default appearance of trill spanners has changed to better
 match classical engraving conventions.  They now end before the
 next note, not over it.  If the next note has an accidental, they
@@ -99,6 +113,7 @@ constraints.
     \with-true-dimensions \musicglyph "scripts.trill"
   }
 @end lilypond
+
 
 @item
 The new context property @code{breathMarkType} selects the mark

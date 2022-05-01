@@ -972,9 +972,8 @@ Engraver to print a line between two @code{Fingering} grobs.")))
   (let ((end-event '()))
     (make-engraver
      (listeners
-      ((volta-repeat-end-event engraver event)
+      ((volta-repeat-end-event engraver event #:once)
        (let ((count (ly:event-property event 'repeat-count 0)))
-         ;; TODO: warn if multiple events have conflicting parameters
          (if (positive? count)
              (set! end-event event)))))
 
@@ -1065,8 +1064,7 @@ vertical position.")))
   (let ((end-event '()))
     (make-engraver
      (listeners
-      ((volta-repeat-end-event engraver event)
-       ;; TODO: warn if multiple events have conflicting parameters
+      ((volta-repeat-end-event engraver event #:once)
        (set! end-event event)))
 
      ((process-music engraver)
