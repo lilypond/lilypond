@@ -180,6 +180,7 @@ class Interval_test
     static_cast<void> (iv = iv - d);
     static_cast<void> (iv = iv.union_disjoint (iv, d, Direction::positive ()));
     static_cast<void> (iv.center () == tp);
+    static_cast<void> (iv.clamp (tp) == tp);
     static_cast<void> (iv.contains (tp));
     static_cast<void> (iv.distance (tp) == d);
     static_cast<void> (iv.intersect (iv));
@@ -323,6 +324,38 @@ protected:
       iv.add_point (pos_infinity ());
       EQUAL (iv.left (), T (10));
       EQUAL (iv.right (), pos_infinity ());
+    }
+  }
+
+  void test_clamp ()
+  {
+    // empty
+    {
+      constexpr IVT iv;
+      static_assert (iv.clamp (neg_infinity ()) == neg_infinity (), "");
+      static_assert (iv.clamp (T (0)) == T (0), "");
+      static_assert (iv.clamp (pos_infinity ()) == pos_infinity (), "");
+    }
+
+    // nonempty, nonfull
+    {
+      constexpr IVT iv {T (10), T (20)};
+      static_assert (iv.clamp (T (neg_infinity ())) == T (10), "");
+      static_assert (iv.clamp (T (9)) == T (10), "");
+      static_assert (iv.clamp (T (10)) == T (10), "");
+      static_assert (iv.clamp (T (11)) == T (11), "");
+      static_assert (iv.clamp (T (19)) == T (19), "");
+      static_assert (iv.clamp (T (20)) == T (20), "");
+      static_assert (iv.clamp (T (21)) == T (20), "");
+      static_assert (iv.clamp (T (pos_infinity ())) == T (20), "");
+    }
+
+    // full
+    {
+      constexpr IVT iv = IVT::longest ();
+      static_assert (iv.clamp (neg_infinity ()) == neg_infinity (), "");
+      static_assert (iv.clamp (T (0)) == T (0), "");
+      static_assert (iv.clamp (pos_infinity ()) == pos_infinity (), "");
     }
   }
 
@@ -511,6 +544,21 @@ TEST (Interval_math_test<vsize>, add_point_vsize)
   test_add_point ();
 }
 
+TEST (Interval_math_test<Mint>, clamp_mint)
+{
+  test_clamp ();
+}
+
+TEST (Interval_math_test<double>, clamp_double)
+{
+  test_clamp ();
+}
+
+TEST (Interval_math_test<vsize>, clamp_vsize)
+{
+  test_clamp ();
+}
+
 TEST (Interval_math_test<Mint>, empty_mint)
 {
   test_empty ();
@@ -554,6 +602,52 @@ TEST (Interval_math_test<double>, unite_double)
 TEST (Interval_math_test<vsize>, unite_vsize)
 {
   test_unite ();
+}
+
+TEST (Interval_test, clamp_double_nan)
+{
+  {
+    constexpr Interval iv; // empty
+    CHECK (std::isnan (iv.clamp (NAN)));
+    CHECK (std::isnan (iv.clamp (-NAN)));
+  }
+
+  {
+    constexpr Interval iv {17};
+    CHECK (std::isnan (iv.clamp (NAN)));
+    CHECK (std::isnan (iv.clamp (-NAN)));
+  }
+
+  {
+    constexpr Interval iv {-5, 5};
+    CHECK (std::isnan (iv.clamp (NAN)));
+    CHECK (std::isnan (iv.clamp (-NAN)));
+  }
+
+  {
+    constexpr Interval iv {-NAN, 0};
+    EQUAL (iv.clamp (-INFINITY), -INFINITY);
+    EQUAL (iv.clamp (-1), -1);
+    EQUAL (iv.clamp (0), 0);
+    EQUAL (iv.clamp (1), 0);
+    EQUAL (iv.clamp (INFINITY), 0);
+  }
+
+  {
+    constexpr Interval iv {0, NAN};
+    EQUAL (iv.clamp (-INFINITY), 0);
+    EQUAL (iv.clamp (-1), 0);
+    EQUAL (iv.clamp (0), 0);
+    EQUAL (iv.clamp (1), 1);
+    EQUAL (iv.clamp (INFINITY), INFINITY);
+  }
+
+  {
+    constexpr Interval iv {-NAN, NAN};
+    EQUAL (iv.clamp (-INFINITY), -INFINITY);
+    EQUAL (iv.clamp (0), 0);
+    EQUAL (iv.clamp (INFINITY), INFINITY);
+  }
 }
 
 TEST (Interval_test, is_empty_double_nan)

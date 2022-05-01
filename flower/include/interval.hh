@@ -80,6 +80,19 @@ public:
     return unchecked_center ();
   }
 
+  // If t lies outside this interval to the left or the right, return left ()
+  // or right () respectively; otherwise, return a reference to t.
+  constexpr T const &clamp (T const &t) const
+  {
+    return (is_empty ()
+            ? t
+            : ((t < left ())
+               ? left ()
+               : ((t > right ())
+                  ? right ()
+                  : t)));
+  }
+
   T &left ()
   {
     return base_type::front ();
