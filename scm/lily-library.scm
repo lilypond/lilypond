@@ -1283,3 +1283,64 @@ usually carrying context definitions (@code{\\midi} or
 @code{\\layout})."
   (or (module-ref module 'is-midi #f)
       (module-ref module 'is-layout #f)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; make-engraver helper macro
+
+;; An alist pair of @code{(is-midi . #t)} specifies possible use as a
+;; performer, @code{(is-layout . #t)} as an engraver.  If neither is
+;; specified, engraver-only use is assumed.
+(define-syntax make-translator-component
+  (syntax-rules ()
+    ;; Example: ((process-music engraver) ...) => (lambda (engraver) ...)
+    ((_ ((name . args) body ...))
+     (cons 'name (lambda args body ...)))
+    ;; Example: (listeners ...) => (list 'listeners ...)
+    ((_ (name thing ...))
+     (cons 'name (make-translator-internal thing ...)))
+    ;; Examples: (is-midi . #t) => (cons 'is-midi #t)
+    ;;           (process-music . func) => (cons 'process-music func)
+    ((_ (name . value))
+     (cons 'name value))))
+
+(define-syntax-rule (make-translator-internal thing ...)
+  (list (make-translator-component thing) ...))
+
+(define-syntax-rule-public (make-engraver form ...)
+  "Like @code{make-translator}, but create an engraver, i.e.,
+the resulting translator is only run in layout output and ignored
+in MIDI."
+  (make-translator-internal form ... (is-layout . #t)))
+
+(define-syntax-rule-public (make-performer form ...)
+  "Like @code{make-translator}, but create a performer, i.e.,
+the resulting translator is only run in MIDI and ignored in
+layout output.  Scheme performers do not support acknowledgers
+and @code{process-acknowledged}."
+  (make-translator-internal form ... (is-midi . #t)))
+
+(define-syntax-rule-public (make-translator form ...)
+  "Helper macro for creating Scheme translators usable in
+both @samp{\\midi} and @samp{\\layout}.
+
+The usual form for a translator is an association list (or alist)
+mapping symbols to either anonymous functions or to another such
+alist.
+
+@code{make-translator} accepts forms where the first element is either
+an argument list starting with the respective symbol, followed by the
+function body (comparable to the way @code{define} is used for
+defining functions), or a single symbol followed by subordinate forms
+in the same manner.  You can also just make an alist pair
+literally (the @samp{car} is quoted automatically) as long as the
+unevaluated @samp{cdr} is not a pair.  This is useful if you already
+have defined your engraver functions separately.
+
+Symbols mapping to a function would be @code{initialize},
+@code{start-translation-timestep}, @code{pre-process-music},
+@code{process-music}, @code{stop-translation-timestep}, and
+@code{finalize}.  Symbols mapping to another alist specified in the
+same manner are @code{listeners} with the subordinate symbols being
+event classes."
+  (make-translator-internal form ... (is-layout . #t) (is-midi . #t)))
