@@ -51,6 +51,8 @@ skipDown = \markup \column { "skip" "↓" }
   <g' c'' d''>2\- <gis' cis'' dis''>\arpeggio
   \override DurationLine.bound-details.right.end-on-accidental = ##f
   <g' c'' d''>2\- <gis' cis'' dis''>\arpeggio
+  \override DurationLine.bound-details.right.end-on-arpeggio = ##t
+  <g' c'' d''>2\- <gis' cis'' dis''>\arpeggio
   b'1\-
   \bar "|."
 }
