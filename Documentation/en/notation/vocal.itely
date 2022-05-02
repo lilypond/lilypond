@@ -3131,6 +3131,7 @@ Rests or pauses in chants can be indicated by modified bar lines.
   a4 b c2
   \bar "'"
   a4 b c2
+  \bar ","
   a4 b c2
   \bar ";"
   a4 b c2
@@ -3146,27 +3147,19 @@ modern.  This uses a modified @code{\breathe} mark:
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign.Y-offset = #0
+  \once \set breathMarkType = #'chantquarterbar
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign.Y-offset = #0
+  \once \set breathMarkType = #'chanthalfbar
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign.Y-offset = #0
+  \once \set breathMarkType = #'chantfullbar
   \breathe
 }
 finalis = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::finalis
-  \once \override BreathingSign.Y-offset = #0
+  \once \set breathMarkType = #'chantdoublebar
   \breathe
 }
 
