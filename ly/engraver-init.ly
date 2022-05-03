@@ -26,7 +26,8 @@
   \accepts Score
 
   \defaultchild Score
-  \description "Hard coded entry point for LilyPond.  Cannot be tuned."
+  \description "Hard coded entry point for LilyPond.  Usually not meant
+to be modified directly."
   \grobdescriptions #all-grob-descriptions
 }
 
