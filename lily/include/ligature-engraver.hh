@@ -35,6 +35,7 @@ protected:
   void acknowledge_rest (Grob_info);
   void acknowledge_ligature_head (Grob_info_t<Item>);
   void listen_ligature (Stream_event *ev);
+  void pre_process_music ();
   void process_music ();
 
   virtual Spanner *create_ligature_spanner () = 0;

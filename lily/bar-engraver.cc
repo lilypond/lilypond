@@ -52,9 +52,11 @@ private:
   void listen_segno_mark (Stream_event *);
   void listen_volta_span (Stream_event *);
   void process_acknowledged ();
+  void pre_process_music ();
   void process_music ();
   void start_translation_timestep ();
   void stop_translation_timestep ();
+  void derived_mark () const override;
 
   struct Observations
   {
@@ -69,6 +71,7 @@ private:
 
 private:
   Observations observations_;
+  SCM which_bar_;
   Item *bar_ = nullptr;
   std::vector<Spanner *> spanners_;
   bool first_time_ = true;
@@ -77,6 +80,12 @@ private:
 Bar_engraver::Bar_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Bar_engraver::derived_mark () const
+{
+  scm_gc_mark (which_bar_);
 }
 
 SCM
@@ -335,13 +344,13 @@ Bar_engraver::start_translation_timestep ()
 
 // At the start of a piece, we don't print any repeat bars.
 void
-Bar_engraver::process_music ()
+Bar_engraver::pre_process_music ()
 {
   // If whichBar is set, use it.  It was probably set with \bar, but it might
   // have been set with the deprecated \set Timing.whichBar or a Scheme
   // equivalent.
-  SCM wb = get_property (this, "whichBar");
-  if (!scm_is_string (wb))
+  which_bar_ = get_property (this, "whichBar");
+  if (!scm_is_string (which_bar_))
     {
       if (!first_time_)
         {
@@ -374,14 +383,25 @@ Bar_engraver::process_music ()
           observations_.underlying_repeat = true;
         }
 
-      wb = calc_bar_type ();
+      which_bar_ = calc_bar_type ();
     }
 
-  if (scm_is_string (wb))
+  // This needs to be in pre-process-music so other engravers can notice a break
+  // won't be allowed (unless forced) at process-music stage.  That allows some
+  // of them to efficiently skip processing that is only needed at potential
+  // break points.
+  if (!scm_is_string (which_bar_))
+    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+}
+
+void
+Bar_engraver::process_music ()
+{
+  if (scm_is_string (which_bar_))
     {
       bar_ = make_item ("BarLine", SCM_EOL);
-      if (!ly_is_equal (wb, get_property (bar_, "glyph")))
-        set_property (bar_, "glyph", wb);
+      if (!ly_is_equal (which_bar_, get_property (bar_, "glyph")))
+        set_property (bar_, "glyph", which_bar_);
 
       set_property (context (), "currentBarLine", to_scm (bar_));
     }
@@ -405,9 +425,7 @@ Bar_engraver::process_acknowledged ()
 void
 Bar_engraver::stop_translation_timestep ()
 {
-  if (!bar_)
-    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
-
+  which_bar_ = SCM_EOL;
   first_time_ = false;
   observations_ = {};
 }
