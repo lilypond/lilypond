@@ -1351,10 +1351,10 @@ specifically designed for use with notation in
 \score {
   \new VaticanaVoice {
     \override Script.padding = #-0.1
-    a\ictus_"ictus " \bar "" \break
-    a\circulus_"circulus " \bar "" \break
-    a\semicirculus_"semicirculus " \bar "" \break
-    a\accentus_"accentus " \bar "" \break
+    a\ictus_"ictus " \break
+    a\circulus_"circulus " \break
+    a\semicirculus_"semicirculus " \break
+    a\accentus_"accentus " \break
     \[ a_"episema" \episemInitium \pes b
        \flexa a b \episemFinis \flexa a \]
   }

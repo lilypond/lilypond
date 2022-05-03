@@ -1524,51 +1524,61 @@ To manually force a line break at a bar line, use the
 }
 @end lilypond
 
-By default, a @code{\break} command inserted in the @q{middle} of a
-measure will be ignored (and a warning message will be output during the
-compilation of the LilyPond file).  Adding an invisible bar line
--- @w{@samp{\bar ""}} -- before the @code{\break} command will force the
-issue:
+By default, breaks are only allowed at bar lines.  There are also
+a few other factors that can prevent a break from being allowed
+at a certain bar line:
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  c4 c c
-  \bar ""
-  \break
-  c |
-  c4 c c c |
-}
+@itemize
+@item
+a note head or rest continuing over the bar line,
+@item
+the presence of an @q{unbreakable} spanner, such as a beam or a
+glissando, crossing the bar line.
+@end itemize
+
+The @code{\break} command forces a break in all cases, regardless
+of the presence of a bar line or any other factor.  It is also
+possible to bypass all these factors using the @code{\allowBreak}
+command.  In the following example, breaks are allowed everywhere,
+even in the middle of a measure, and despite the presence of beams.
+
+@lilypond[verbatim,quote]
+\repeat unfold 56 { c'8 \allowBreak }
 @end lilypond
 
-A @code{\break} command that occurrs at a bar line will also ignored if
-the previous measure ends in the middle of a note (e.g., when a tuplet
-begins in one measure and ends in another).  In this case remove the
-@code{Forbid_line_break_engraver} from the @code{Voice} context and,
-use a simultaneous music construction inserting the @code{\break} at the
-appropriate place in the second @q{voice}:
+If you find yourself using @code{\allowBreak} often, you may want to
+prevent some of the factors mentioned above from disabling breaks.
 
-@lilypond[quote,ragged-right,verbatim]
+@itemize
+@item
+Note heads and rests extending over bar lines can be made not to
+suppress breaks by removing the @code{Forbid_@/line_@/break_@/engraver}
+from the @code{Voice} context.
+
+@lilypond[quote,ragged-right,line-width=50,verbatim]
 \new Voice \with {
   \remove Forbid_line_break_engraver
 } \relative {
-  <<
-    { c''2. \tuplet 3/2 { c4 c c } c2. | }
-    { s1 | \break s1 | }
-  >>
+  c''2. \tuplet 3/2 { c4 c c } c2.
 }
 @end lilypond
 
-Similarly, by default, line breaks are ignored when beams cross bar
-lines.  Use the @code{\override Beam.breakable = ##t} command to force
-this:
+@item
+The presence of beams and other unbreakable spanners over bar lines
+is ignored if their @code{breakable} property is set to true.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,line-width=50,verbatim]
 \relative c'' {
   \override Beam.breakable = ##t
-  c2. c8[ c | \break
+  c2. c8[ c |
   c8 c] c2. |
 }
 @end lilypond
+@end itemize
+
+@c Enabling breaks outside of bar lines can be done with barAlways
+@c and measureBarType = "".  This is a hack, so let's do a proper
+@c interface before documenting it. --JeanAS
 
 The @code{\noBreak} command will prevent a line break at the bar line
 where it is inserted.
@@ -1630,6 +1640,7 @@ broken every 4 measures, and only there:
 
 @predefined
 @code{\break},
+@code{\allowBreak},
 @code{\noBreak},
 @code{\autoBreaksOff},
 @code{\autoBreaksOn},

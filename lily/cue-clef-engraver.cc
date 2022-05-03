@@ -40,7 +40,6 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  void acknowledge_bar_line (Grob_info_t<Item>);
 
   void derived_mark () const override;
 private:
@@ -85,17 +84,6 @@ Cue_clef_engraver::set_glyph ()
   basic = ly_symbol2scm ("CueEndClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
   execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
-}
-
-/**
-   Generate a clef at the start of a measure. (when you see a Bar,
-   ie. a breakpoint)
-*/
-void
-Cue_clef_engraver::acknowledge_bar_line (Grob_info_t<Item>)
-{
-  if (scm_is_string (get_property (this, "cueClefGlyph")))
-    create_clef ();
 }
 
 void
@@ -162,6 +150,12 @@ void
 Cue_clef_engraver::process_music ()
 {
   inspect_clef_properties ();
+  // Efficiency: don't create a default clef if it's not going to be
+  // visible.  A default clef can only be visible at the start of the
+  // line.
+  if (scm_is_string (get_property (this, "cueClefGlyph"))
+      && break_allowed (context ()))
+    create_clef ();
 }
 
 void
@@ -213,7 +207,6 @@ Cue_clef_engraver::stop_translation_timestep ()
 void
 Cue_clef_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Cue_clef_engraver, bar_line);
 }
 
 ADD_TRANSLATOR (Cue_clef_engraver,
@@ -236,6 +229,8 @@ cueClefTransposition
 cueClefTranspositionStyle
 cueClefPosition
 explicitCueClefVisibility
+forbidBreak
+forceBreak
 middleCCuePosition
 clefTransposition
                 )",

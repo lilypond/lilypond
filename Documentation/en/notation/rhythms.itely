@@ -1673,6 +1673,42 @@ placed in just one @code{Voice} context.  To change this, move the
 @code{Timing_translator} from the @code{Score} context to the
 @code{Staff} context.  See @ref{Polymetric notation}.
 
+@cindex cadenza, line breaks
+@cindex cadenza, page breaks
+@cindex unmetered music, line breaks
+@cindex unmetered music, page breaks
+@cindex break, in unmetered music
+@cindex line break, cadenzas
+@cindex page break, cadenzas
+@cindex line break, unmetered music
+@cindex page break, unmetered music
+
+Within a cadenza section, automatic breaks are disabled: since there
+is no metric, it is not possible to determine automatically where
+they would be appropriate.  Therefore, in a long cadenza passage,
+you must insert possible break points at appropriate places using
+the @code{\allowBreak} command.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 f g c, d f g c
+  \cadenzaOn
+  c4 cis8
+  \allowBreak
+  d[ cis c cis]
+  \allowBreak
+  d[ f g a]
+  \allowBreak
+  ais[ g f g]
+  \allowBreak
+  d4 f8
+  \allowBreak
+  d[ cis] c4
+  \allowBreak
+  a8[ c] g4
+}
+@end lilypond
+
 @predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
@@ -1692,24 +1728,6 @@ Snippets:
 @rlsr{Rhythms}.
 @endmorerefs
 
-@cindex cadenza, line breaks
-@cindex cadenza, page breaks
-@cindex unmetered music, line breaks
-@cindex unmetered music, page breaks
-@cindex break, in unmetered music
-@cindex line break, cadenzas
-@cindex page break, cadenzas
-@cindex line break, unmetered music
-@cindex page break, unmetered music
-
-@knownissues
-Automatic line and page breaks are inserted only at bar lines, so
-@q{invisible} bar lines will need to be inserted manually in long
-stretches of unmetered music to permit breaking:
-
-@example
-\bar ""
-@end example
 
 
 @node Polymetric notation
@@ -2892,18 +2910,9 @@ page.}
 @cindex bar line, invisible
 @cindex measure line, invisible
 
-Line breaks are also permitted at manually inserted bar lines
-even within incomplete measures.  To allow a line break without
-printing a bar line, use the following:
-
-@example
-\bar ""
-@end example
-
-@noindent
-This will insert an invisible bar line and allow (but not
-force) a line break to occur at this point.  The bar number
-counter is not increased.  To force a line break, @pxref{Line
+Line breaks are also permitted at manually inserted bar lines even
+within incomplete measures.  To allow a line break without
+printing a bar line, use @code{\allowBreak}; @pxref{Line
 breaking}.
 
 @cindex manual bar line
@@ -3817,7 +3826,7 @@ Broken measures are numbered in parentheses.
   r4 a8 b c dis
   \startMeasureCount
   e8 b e g8. fis32 e dis8
-  e8 b e \bar "" \break g8. fis32 e dis8
+  e8 b e \break g8. fis32 e dis8
   e8 b e g8. fis32 e dis8
   \stopMeasureCount
   b'4. r

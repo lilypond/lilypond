@@ -66,8 +66,19 @@ which scares away people.
 @end ignore
 
 @item
+The @code{\break} command now always inserts a break, bypassing all
+default decisions about break points.  For example, it is no longer
+necessary to insert @code{\bar ""} to obtain a mid-measure break.
+
+The new @code{\allowBreak} command inserts a possible break point,
+without forcing it, but bypassing default decisions like @code{\break}
+does.
+
+
+@item
 In @code{ChordNames}, multi-measure rests now also cause the
 @qq{N.C.} symbol to be printed, just like normal rests.
+
 
 @item
 Scheme translators can now contain listeners written as

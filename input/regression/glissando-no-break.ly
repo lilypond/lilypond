@@ -1,21 +1,17 @@
-\version "2.19.21"
-#(ly:set-option 'warning-as-error #t)
-#(ly:expect-warning (G_ "forced break was overridden by some other event, should you be using bar checks?"))
+\version "2.23.10"
 
 \header {
 
-  texidoc = "Glissandi are not broken. Here a @code{\\break} is ineffective.
-Use @code{breakable} grob property to override."
-
+  texidoc = "Glissandi are not broken. Output of this test
+is expected to run off the page."
 }
 
 \layout {
   ragged-right = ##t
+  line-width = 10\cm
 }
-\relative {
-  c'1 
-  c1\glissando
-  \break
-  d'1
-  d1
-} 
+
+{
+  \repeat unfold 30 { c''2 c'2\glissando }
+  c'2
+}

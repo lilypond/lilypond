@@ -68,31 +68,6 @@ Paper_column_engraver::listen_label (Stream_event *ev)
 }
 
 void
-Paper_column_engraver::pre_process_music ()
-{
-  /* Use the value of skipTypesetting at the start of this time step.
-     The effect is that columns are created at the beginning of a
-     skipped section, and when music stops being skipped, the columns
-     used are those created at the beginning of the skipped section.
-     DOCME: why is this necessary? */
-  if (!skiptypesetting_at_start_of_timestep_)
-    {
-      command_column_ = make_paper_column ("NonMusicalPaperColumn");
-      set_property (context (), "currentCommandColumn", command_column_->self_scm ());
-      system_->add_column (command_column_);
-      musical_column_ = make_paper_column ("PaperColumn");
-      set_property (context (), "currentMusicalColumn", musical_column_->self_scm ());
-      system_->add_column (musical_column_);
-
-      if (!system_->get_bound (LEFT)) // first time step
-        {
-          system_->set_bound (LEFT, command_column_);
-          set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
-        }
-    }
-}
-
-void
 Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 {
   for (auto *const break_event : break_events_)
@@ -115,23 +90,56 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
       SCM cur_pen = get_property (command_column_, pen_str.c_str ());
       SCM pen = get_property (break_event, "break-penalty");
       SCM perm = get_property (break_event, "break-permission");
+      bool force_break_permission;
 
       if (!only_do_permissions && scm_is_number (pen))
         {
           Real new_pen = from_scm<double> (cur_pen, 0.0) + scm_to_double (pen);
           set_property (command_column_, pen_str.c_str (), to_scm (new_pen));
           set_property (command_column_, perm_str.c_str (), ly_symbol2scm ("allow"));
+          force_break_permission = true;
         }
       else
-        set_property (command_column_, perm_str.c_str (), perm);
+        {
+          set_property (command_column_, perm_str.c_str (), perm);
+          force_break_permission = !scm_is_null (perm);
+        }
+
+      if (force_break_permission)
+        set_property (context (), "forceBreak", SCM_BOOL_T);
     }
+}
+
+void
+Paper_column_engraver::pre_process_music ()
+{
+  /* Use the value of skipTypesetting at the start of this time step.
+     The effect is that columns are created at the beginning of a
+     skipped section, and when music stops being skipped, the columns
+     used are those created at the beginning of the skipped section.
+     DOCME: why is this necessary? */
+  if (!skiptypesetting_at_start_of_timestep_)
+    {
+      command_column_ = make_paper_column ("NonMusicalPaperColumn");
+      set_property (context (), "currentCommandColumn", command_column_->self_scm ());
+      system_->add_column (command_column_);
+      musical_column_ = make_paper_column ("PaperColumn");
+      set_property (context (), "currentMusicalColumn", musical_column_->self_scm ());
+      system_->add_column (musical_column_);
+
+      if (!system_->get_bound (LEFT)) // first time step
+        {
+          system_->set_bound (LEFT, command_column_);
+          set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
+        }
+    }
+
+  handle_manual_breaks (false);
 }
 
 void
 Paper_column_engraver::process_music ()
 {
-  handle_manual_breaks (false);
-
   for (auto *const label_event : label_events_)
     {
       SCM label = get_property (label_event, "page-label");
@@ -222,20 +230,12 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (from_scm<bool> (get_property (this, "forbidBreak"))
+  if (!break_allowed (context ())
       && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
       set_property (command_column_, "page-turn-permission", SCM_EOL);
       set_property (command_column_, "page-break-permission", SCM_EOL);
       set_property (command_column_, "line-break-permission", SCM_EOL);
-      for (auto *const break_event : break_events_)
-        {
-          SCM perm = get_property (break_event, "break-permission");
-          if (scm_is_eq (perm, ly_symbol2scm ("force"))
-              || scm_is_eq (perm, ly_symbol2scm ("allow")))
-            warning (_ ("forced break was overridden by some other event, "
-                        "should you be using bar checks?"));
-        }
     }
   else if (Paper_column::is_breakable (command_column_))
     {
@@ -245,7 +245,9 @@ Paper_column_engraver::stop_translation_timestep ()
         progress_indication ("[" + std::to_string (breaks_) + "]");
     }
 
-  find_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
+  Context *score = find_score_context ();
+  score->unset_property (ly_symbol2scm ("forbidBreak"));
+  score->unset_property (ly_symbol2scm ("forceBreak"));
 
   label_events_.clear ();
 }
@@ -311,6 +313,7 @@ forbidBreak
                 /* write */
                 R"(
 forbidBreak
+forceBreak
 currentCommandColumn
 currentMusicalColumn
                 )");

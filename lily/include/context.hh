@@ -266,6 +266,8 @@ int measure_number (Context const *context);
 
 bool check_repeat_count_visibility (Context const *context, SCM count);
 
+bool break_allowed (Context const *);
+
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */

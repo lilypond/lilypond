@@ -61,15 +61,10 @@ smaller = #-1
 bigger = #1
 center = #0
 
-%% FIXME
-%% should also set \override Beam.breakable, but how to do it "portably"? (ie. also
-%% working with lyric sections)
-%%
-%% try \once \override Score.Beam.breakable = ##t
-
 %% rather name \newline, \pageBreak ?
 break = #(make-music 'LineBreakEvent 'break-permission 'force)
 noBreak = #(make-music 'LineBreakEvent 'break-permission '())
+allowBreak = #(make-music 'LineBreakEvent 'break-permission 'allow)
 %% \pageBreak, \noPageBreak, \pageTurn, \noPageTurn, \allowPageTurn are defined
 %% as music functions
 
