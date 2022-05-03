@@ -1118,6 +1118,8 @@ Notation Reference:
 @node Defining new contexts
 @subsection Defining new contexts
 
+@unnumberedsubsubsec Context definition overview
+
 @cindex context, defining new
 @cindex engraver, including in context
 
@@ -1138,21 +1140,24 @@ The next example shows how to build a different type of
 to indicate improvisation in jazz pieces,
 
 @lilypond[quote,ragged-right]
-\layout { \context {
-  \name ImproVoice
-  \type Engraver_group
-  \consists Note_heads_engraver
-  \consists Rhythmic_column_engraver
-  \consists Text_engraver
-  \consists Pitch_squash_engraver
-  squashedPosition = #0
-  \override NoteHead.style = #'slash
-  \hide Stem
-  \alias Voice
+\layout {
+  \context {
+    \name ImproVoice
+    \type Engraver_group
+    \consists Note_heads_engraver
+    \consists Rhythmic_column_engraver
+    \consists Text_engraver
+    \consists Pitch_squash_engraver
+    squashedPosition = #0
+    \override NoteHead.style = #'slash
+    \hide Stem
+    \alias Voice
+  }
+  \context {
+    \Staff
+    \accepts ImproVoice
+  }
 }
-\context { \Staff
-  \accepts ImproVoice
-}}
 
 \relative {
   a'4 d8 bes8 \new ImproVoice { c4^"ad lib" c
@@ -1176,12 +1181,15 @@ These settings are defined within a @code{\context} block inside a
 In the following discussion, the example input shown should go in place
 of the @dots{} in the previous fragment.
 
+@funindex \name
 First it is necessary to define a name for the new context:
 
 @example
 \name ImproVoice
 @end example
 
+@cindex context, adding alias
+@funindex \alias
 Since it is similar to the @code{Voice} context, we want commands that
 work in (existing) @code{Voice} contexts to continue working.  This is
 achieved by giving the new context an alias of @code{Voice},
@@ -1190,6 +1198,7 @@ achieved by giving the new context an alias of @code{Voice},
 \alias Voice
 @end example
 
+@funindex \consists
 The context will print notes and instructive texts, so we need to add
 the engravers which provide this functionality, plus the engraver which
 groups notes, stems and rests which occur at the same musical moment
@@ -1220,15 +1229,16 @@ The notes look like a slash, and have no stem,
 \hide Stem
 @end example
 
+@funindex \type
+@funindex Engraver_group
 All these plug-ins have to communicate under the control of the
 context.  The mechanisms with which contexts communicate are
 established by declaring the context @code{\type}.  Within a
 @code{\layout} block, most contexts will be of type
-@code{Engraver_group}.  Some special contexts and contexts in
-@code{\midi} blocks use other context types.  Copying and
-modifying an existing context definition will also fill in the
-type.  Since this example creates a definition from scratch, it
-needs to be specified explicitly.
+@code{Engraver_@/group}.  Some special contexts use other context
+types.  Copying and modifying an existing context definition will
+also fill in the type.  Since this example creates a definition
+from scratch, it needs to be specified explicitly.
 
 @example
 \type Engraver_group
@@ -1283,7 +1293,7 @@ contexts also accepting @var{from}.  For example, using
 @example
 \layout @{
   @dots{}
-  \inherit-acceptability "ImproVoice" "Voice"
+  \inherit-acceptability ImproVoice Voice
 @}
 @end example
 
@@ -1304,7 +1314,7 @@ us with
     \name ImproVoice
     @dots{}
   @}
-  \inherit-acceptability "ImproVoice" "Voice"
+  \inherit-acceptability ImproVoice Voice
 @}
 @end example
 
@@ -1322,17 +1332,69 @@ Then the output at the start of this subsection can be entered as
 @}
 @end example
 
-To complete this example, changes affecting the context hierarchy
-should be repeated in a @code{\midi} block so that Midi output
-depends on the same context relations.
 
 @morerefs
 Internals Reference:
-@rinternals{Note_heads_engraver},
-@rinternals{Text_engraver},
-@rinternals{Rhythmic_column_engraver},
-@rinternals{Pitch_squash_engraver}.
+@rinternals{Contexts},
+@rinternals{Engravers and Performers}.
 @endmorerefs
+
+
+@unnumberedsubsubsec New contexts in MIDI
+
+@cindex context, defining in MIDI
+@funindex Performer_group
+
+In MIDI output, the syntax for defining new context types is the
+same, except that the @code{\context} block should be placed
+inside a @code{\midi} block, and the @code{\type} should normally
+be @code{Performer_@/group} rather than @code{Engraver_@/group}.  The
+term @qq{engraver} refers to a context plug-in that creates visual
+output.  A @qq{performer}, on the other hand, is relevant in MIDI
+output only.  When plug-ins have @qq{translator} in their name
+rather than @qq{engraver} or @qq{performer}, they are relevant for
+both graphical and audio output.  Thus, when adapting a context
+definition for the @code{\midi} block, you need to
+
+@itemize
+@item
+copy it in a @code{\midi} block,
+@item
+change @code{Engraver_@/group} to @code{Performer_@/group},
+@item
+remove @code{\consists} for engravers (they are not relevant), and
+possibly add @code{\consists} for performers.
+@end itemize
+
+Please note that, in order to maintain consistent interpretation
+between graphical and MIDI output, it is recommended to copy any
+custom context definition in a @code{\midi} block.  It should at
+the minimum include those commands that specify the context
+hierarchy, such as @code{\accepts}, @code{\defaultchild} and
+@code{\inherit-@/acceptability}. Copying aliases is advised as well.
+
+Thus, to complete the example above, the following can be added:
+
+@example
+\midi @{
+  \context @{
+    \name ImproVoice
+    \type Performer_group
+    \alias Voice
+    \consists Note_performer
+    \consists Beam_performer
+    \consists Dynamic_performer
+    \consists Tie_performer
+    \consists Slur_performer
+  @}
+  \context @{
+    \Staff
+    \accepts ImproVoice
+  @}
+@}
+@end example
+
+This makes the @code{ImproVoice} context also work in MIDI output.
 
 
 @node Context layout order
