@@ -400,6 +400,16 @@ class Zlib(ConfigurePackage):
     def configure_args_static(self, c: Config) -> List[str]:
         return ["--static"]
 
+    def get_env_variables(self, c: Config) -> Dict[str, str]:
+        """Return environment variables to make zlib available."""
+        zlib_install = self.install_directory(c)
+        return {
+            "CPATH": os.path.join(zlib_install, "include"),
+            # Cannot use LIBRARY_PATH because it is only used if GCC is built
+            # as a native compiler, so it doesn't work for mingw.
+            "LDFLAGS": "-L" + os.path.join(zlib_install, "lib"),
+        }
+
     def copy_license_files(self, destination: str, c: Config):
         readme_src = os.path.join(self.src_directory(c), "README")
         readme_dst = os.path.join(destination, f"{self.directory}.README")
@@ -1013,14 +1023,25 @@ class Python(ConfigurePackage):
                 "select",
                 # Needed for tempfile
                 "_random",
+                # Needed for xml
+                "pyexpat",
                 # Needed for zipfile
                 "binascii",
                 "_struct",
+                "zlib",
             ]:
                 content = content.replace("#" + module, module)
             return content
 
         self.patch_file(c, os.path.join("Modules", "Setup"), patch_setup)
+
+    def dependencies(self, c: Config) -> List[Package]:
+        return [zlib]
+
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
+        env.update(zlib.get_env_variables(c))
+        return env
 
     def configure_args(self, c: Config) -> str:
         return [
