@@ -356,7 +356,7 @@ kombináció szűkebb távolságot kíván, és az egész még függ a
 hangjegyek függőleges pozíciójától.
 Az alsó példa ezeket a korrektúraelveket tükrözi.
 Ellenben a felső példán a hangjegyek alsó-felső irányba váltakozása
-olyan érzetet kelt, mintha összegubancolódtak volna. 
+olyan érzetet kelt, mintha összegubancolódtak volna.
 Az alsó példa ezeket a szabályokat tükrözi. Ellenben a felső példa az olvasó
 szemében olyan érzetett kelt, mintha alul-fölül a kottafejek egy csomóban
 lennének. Egy kottaszedő mester ezt a beosztást úgy igazítaná el, hogy annak az
@@ -797,10 +797,7 @@ partIV = \relative {
 
 \score {
   <<
-    % \set Score.barNumberVisibility = #all-bar-numbers-visible
-    % required in 2.13
     \set Score.currentBarNumber = #28
-    \bar ""
     \new PianoStaff <<
       \new Staff = "RH" <<
         \global
@@ -1691,10 +1688,7 @@ partIV = \relative {
 
 \score {
   <<
-    % \set Score.barNumberVisibility = #all-bar-numbers-visible
-    % required in 2.13
     \set Score.currentBarNumber = #28
-    \bar ""
     \new PianoStaff <<
       \new Staff = "RH" <<
         \global

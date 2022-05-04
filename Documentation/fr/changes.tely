@@ -190,7 +190,7 @@ il est d'usage dans les musiques de film.
 }
 
 <<
-  { \bar "" \repeat unfold 3 { c'4 d' e' f' } }
+  { \repeat unfold 3 { c'4 d' e' f' } }
   { \repeat unfold 3 { c'4 d' e' f' } }
 >>
 @end lilypond

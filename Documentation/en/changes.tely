@@ -670,7 +670,7 @@ Bar numbers may be centered in their measure, as is common in film scores.
 }
 
 <<
-  { \bar "" \repeat unfold 3 { c'4 d' e' f' } }
+  { \repeat unfold 3 { c'4 d' e' f' } }
   { \repeat unfold 3 { c'4 d' e' f' } }
 >>
 @end lilypond
@@ -844,7 +844,7 @@ it is positioned at the beginning, the middle, or the end of a line.
 
 @lilypond[quote]
 \score {
-  { \bar "" \repeat unfold 8 c' }
+  { \repeat unfold 8 c' }
   \layout {
     \context {
       \Score

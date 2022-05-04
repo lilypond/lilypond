@@ -876,10 +876,7 @@ partIV = \relative {
 
 \score {
   <<
-    % \set Score.barNumberVisibility = #all-bar-numbers-visible
-    % required in 2.13
     \set Score.currentBarNumber = #28
-    \bar ""
     \new PianoStaff <<
       \new Staff = "RH" <<
         \global
@@ -1807,10 +1804,7 @@ partIV = \relative {
 
 \score {
   <<
-    % \set Score.barNumberVisibility = #all-bar-numbers-visible
-    % required in 2.13
     \set Score.currentBarNumber = #28
-    \bar ""
     \new PianoStaff <<
       \new Staff = "RH" <<
         \global
