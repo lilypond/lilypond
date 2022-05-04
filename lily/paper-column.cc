@@ -183,14 +183,11 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   for (; !align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
     {
       SCM align_sym = scm_car (align_syms);
-      if (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
-          || scm_is_eq (align_sym, ly_symbol2scm ("break-alignment")))
+      if (scm_is_eq (align_sym, ly_symbol2scm ("break-alignment")))
         {
           align = Pointer_group_interface::find_grob
                   (me, ly_symbol2scm ("elements"),
-                   (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
-                    ? Break_aligned_interface::is_non_empty_staff_bar
-                    : has_interface<Break_alignment_interface>));
+                   has_interface<Break_alignment_interface>);
         }
       else
         {
