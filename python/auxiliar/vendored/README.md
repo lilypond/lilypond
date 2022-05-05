@@ -8,11 +8,13 @@ import from ZIP archives.  DO NOT MAKE CHANGES HERE; instead, submit
 them upstream at https://github.com/pygments/pygments/ and update the
 archive when they are accepted.
 
-The archive can be updated from a [release on
-PyPI](https://pypi.org/project/Pygments/) or from [latest master via
-GitHub](https://github.com/pygments/pygments/archive/master.zip).  In
-the latter method, be sure to unpack and re-pack the archive.  Python
-prior to version 3.8 did not support importing from ZIP archives
-containing a comment.
+In order to keep the size of the archive minimal, it is being trimmed.
+To update it, run:
 
-The current version is 2.11.0.
+```
+python3 scripts/auxiliar/update_pygments.py <rev>
+```
+
+where `<rev>` is any reference in the Pygments Git repository (such as
+a commit, branch or tag).  The latest update was made with `<rev>` =
+`2.12.0`.
