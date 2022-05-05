@@ -214,7 +214,7 @@ def draw_neomensural_black_head (expr width, height, concaveness) =
 enddef;
 
 
-def draw_neomensural_open_head (expr width, height, concaveness)=
+def draw_neomensural_open_head (expr width, height, concaveness) =
   draw_neomensural_black_head (width, height, concaveness);
 
   save headNW, headSW, stem_width;
@@ -1080,7 +1080,7 @@ enddef;
 
 
 def epiphonus_char (expr verbose_name, internal_name,
-                    left_stem, d_up, down_shift, mag) =
+                         left_stem, d_up, down_shift, mag) =
   fet_beginchar (verbose_name, "s" & internal_name);
     save a_b, b_h, a_w;
 
@@ -1197,7 +1197,7 @@ def epiphonus_char (expr verbose_name, internal_name,
       labels (11);
     else:
       fill out_p
-           -- get_subpath(circle, down, dirs12, z1)
+           -- get_subpath (circle, down, dirs12, z1)
            .. cycle;
 
       stem_bt# = 0;
@@ -1211,7 +1211,7 @@ enddef;
 
 
 def inclinatum_char (expr verbose_name, internal_name,
-                     small, stropha, auctum) =
+                          small, stropha, auctum) =
   fet_beginchar (verbose_name, "s" & internal_name);
     save ht, alpha;
 

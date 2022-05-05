@@ -440,7 +440,7 @@ enddef;
 % The other parameters are the same as with `draw_brevis'.
 %
 def draw_double_brevis (expr exact_center, bwidth, bheight,
-                        blinethickness, shift) =
+                             blinethickness, shift) =
   save brevis_width, brevis_height, linethickness;
 
   brevis_width# = bwidth;

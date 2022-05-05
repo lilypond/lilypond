@@ -88,8 +88,8 @@ define_pixels (kuulleke);
 %
 
 def number_flare_path (expr pos, alpha, beta, line, flare,
-                 move_away_to, turn_to, taille, taille_ratio,
-                 direction) =
+                            move_away_to, turn_to, taille, taille_ratio,
+                            direction) =
   begingroup;
     save res;
     path res;
@@ -164,8 +164,8 @@ def draw_foot (expr xpos) =
     penpos3 (hair, -90);
     penpos4 (hair, 90);
 
-    z1= (xpos, foot_top);
-    z2= (x1, 0);
+    z1 = (xpos, foot_top);
+    z2 = (x1, 0);
     z3r = z2r;
     z4l = z2l;
     z5 = (x1, kuulleke);
@@ -809,7 +809,7 @@ fet_beginchar ("numeral 7", "seven");
        -- subpath (tb, length patb) of patb
        .. cycle;
 
-        penlabels (range 11 thru 16);
+  penlabels (range 11 thru 16);
 fet_endchar;
 
 

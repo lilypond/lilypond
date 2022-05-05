@@ -180,7 +180,7 @@ enddef;
 
 
 def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
-                           arrowup, arrowdown) =
+                                 arrowup, arrowdown) =
   save depth, height, breapth;
 
   % synchronized with vertical position of point z11 but with less overshoot

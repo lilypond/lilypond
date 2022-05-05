@@ -20,8 +20,8 @@ fet_begingroup ("ties");
 
 save min_width, max_width, min_height, max_height, thin, thick;
 
-min_width:= .5 staff_space#;
-max_width:= 5 staff_space#;
+min_width := .5 staff_space#;
+max_width := 5 staff_space#;
 min_height := .2 staff_space#;
 max_height := .4 staff_space#;
 thin := 1.2 linethickness;

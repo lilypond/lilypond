@@ -174,7 +174,7 @@ fet_beginchar ("sori", "sharp.sori");
        -- cycle;
 
   labels (range 0 thru 10, 1', 2', 5', 6');
-  penlabels(11', 12');
+  penlabels (11', 12');
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
@@ -287,7 +287,7 @@ fet_beginchar ("koron", "flat.koron");
   % is zero.
   vardef zz@# = (xx@#, yy@#) enddef;
 
-  vardef f(expr dist) =
+  vardef f (expr dist) =
     save xx, yy;
 
     rt xx6 = w;
@@ -301,7 +301,7 @@ fet_beginchar ("koron", "flat.koron");
   enddef;
 
   tolerance := epsilon;
-  y6 = solve f(-0.5h, 0);
+  y6 = solve f (-0.5h, 0);
   z7 = whatever[z6br, z5br] = whatever[z6tl, z1tl];
 
   z4 = whatever[z1, z5] = whatever[z6br, z5br];

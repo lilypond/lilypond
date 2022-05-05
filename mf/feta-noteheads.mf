@@ -2323,7 +2323,7 @@ def draw_Walker_re_head (expr width_factor, thickness_factor) =
 
   path_d := (z3 - p_a_start_perp){p_a_start_dir}
             .. z4 {down}
-            ..(z1 - p_a_end_perp){p_a_end_dir};
+            .. (z1 - p_a_end_perp){p_a_end_dir};
 
   save path_b, path_c;
   path path_b, path_c;

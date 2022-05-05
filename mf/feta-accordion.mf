@@ -548,7 +548,7 @@ fet_beginchar ("accordion pull", "pull");
   x2 = x1;
   top y2 = height;
 
-  lft x3= -width + linewidth;
+  lft x3 = -width + linewidth;
   y3 = y2;
 
   x4 = x3;

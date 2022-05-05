@@ -453,7 +453,7 @@ enddef;
 % radius factor: how much the bulb curves inward
 %
 
-def draw_bulb (expr turndir, zl, zr, bulb_rad, radius_factor)=
+def draw_bulb (expr turndir, zl, zr, bulb_rad, radius_factor) =
   begingroup;
     save rad, ang, pat;
     path pat;
