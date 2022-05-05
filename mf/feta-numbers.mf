@@ -186,18 +186,23 @@ def draw_foot (expr xpos) =
 enddef;
 
 
-def draw_zero =
-  set_char_box (0, 11/15 height# * widen, 0, height#);
+def draw_zero (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
+
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   penpos1 (thin, 90);
   penpos2 (thick, 180);
   penpos3 (thin,- 90);
   penpos4 (thick, 0);
 
-  z1r = (w / 2, h);
-  z2r = (0, h / 2);
-  z3r = (w / 2, 0);
-  z4r = (w, h / 2);
+  z1r = (lb + gw / 2, h);
+  z2r = (lb, h / 2);
+  z3r = (lb + gw / 2, 0);
+  z4r = (lb + gw, h / 2);
 
   fill z1r
        .. z2r
@@ -218,21 +223,23 @@ def draw_zero =
 enddef;
 
 
-def draw_one =
+def draw_one (expr advance_width, left_bearing) =
+  save lb;
   save alpha, beta, gamma;
 
   % set_char_box (0, 19/30 height# * widen, 0, height#);
-  set_char_box (0, 1/2 foot_width# + 3/2 thick# + 1/2 hair#,
-                0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  lb := hround_pixels (left_bearing);
 
   alpha = 0;
   calc_kuulleke (thick, alpha);
-  z1 = (3/2 thick, height);
+  z1 = (lb + 3/2 thick, height);
 
   penpos5 (thick, 0);
   z5 = (x1, foot_top);
 
-  z6 = (0, h / 2);
+  z6 = (lb, h / 2);
   beta = angle (z1l - z6);
 
   penpos7 (thin, beta - 90);
@@ -269,29 +276,31 @@ def draw_one =
 enddef;
 
 
-def draw_two =
+def draw_two (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
+
   save tolerance;
   save alpha, beta, gamma, theta;
-  save flare_start_distance;
   save t, pata, ta, patb, tb, bow;
 
   path pata, patb, bow;
   numeric ta, tb;
 
-  set_char_box (0, 22/30 height# * widen, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   alpha = -45 * widen;
   beta = 85;
   gamma = beta - 10;
   theta = 20 / widen;
 
-  flare_start = 0.25;
-
   penpos1 (hair, 90 + beta);
-  z1 = (0, 0) + (1/2 sqrt (2) * hair) * dir (45);
+  z1 = (lb, 0) + (1/2 sqrt (2) * hair) * dir (45);
 
   penpos3 (hair,90 + gamma);
-  z3 = (w, thick) + (1/2 sqrt (2) * hair) * dir (-135);
+  z3 = (lb + gw, thick) + (1/2 sqrt (2) * hair) * dir (-135);
 
   penpos2 (thick, 90 + alpha - 15);
   x2 - x1 = x3 - x2;
@@ -317,11 +326,11 @@ def draw_two =
           .. {dir (180 + beta)}z1l;
 
   penpos4 (thick, 0);
-  z4r = (w - thin / 2, .71 h);
+  z4r = (lb + gw - thin / 2, .71 h);
 
   penpos5 (hair, 90);
   y5r = h;
-  x5r = 9/20 w;
+  x5r = lb + 9/20 gw;
 
   penlabels (range 1 thru 6);
 
@@ -330,7 +339,7 @@ def draw_two =
   patb := z1l{dir (beta)}
           ..tension t.. z4r{up}
           .. number_flare_path (z5r, 180, 90, hair, 1.05 flare,
-                                x5r - 1/2 hair, .21 h, 0.006, 0.4, 1)
+                                x5r - 1/2 hair - lb, .21 h, 0.006, 0.4, 1)
           .. z4l{down}
           ..tension t.. {dir (180 + beta)}z1r;
 
@@ -346,38 +355,40 @@ enddef;
 % TODO: should widen a bit.  The right edge of the 3 bumps into next glyph in
 % combinations
 %
-def draw_three =
-  set_char_box (0, 2/3 height# * widen, 0, height#);
+def draw_three (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
+
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   penpos1 (hair, -90);
-
-%  flare_start = 0.25;
-
-  x1l = 36/80 w;
+  x1l = lb + 36/80 gw;
   y1l = h;
 
-%  z1l = (17/16 thick, h);
+% z1l = (17/16 thick, h);
 
   penpos2 (7/8 thick, 180);
-  x2l = w - thick / 8;
+  x2l = lb + gw - thick / 8;
   y2l = 3/4 h + thick * 3/32;
 
   penpos3 (thin, 90);
-  z3 = (w / 2, h / 2 + 1/8 thick);
+  z3 = (lb + gw / 2, h / 2 + 1/8 thick);
 
   penpos4 (thin, 90);
-  z4 = (5/8 thick + 1/2 thin, y3);
+  z4 = (lb + 5/8 thick + 1/2 thin, y3);
 
   penpos5 (thick, 0);
-  x5r = w;
+  x5r = lb + gw;
   y5r = 17/64 h + thick / 16;
 
   penpos6 (hair, -90);
-  x6r = 37/80 w;
+  x6r = lb + 37/80 gw;
   y6r = 0;
 
   penpos7 (3/2 thin, 90);
-  x7 = .83 w;
+  x7 = lb + .83 gw;
   y7 = y3;
 
   penlabels (range 1 thru 7);
@@ -387,17 +398,16 @@ def draw_three =
   t = tense;
   outer_t := 0.93;
 
-%  pickup pencircle scaled 1;
-%  draw
-  fill number_flare_path (z1l, 180, 90, hair, 7/8 flare, x1l - .5 hair,
-                          .16 h, 0.06, 1.5, -1)
+% pickup pencircle scaled 1;
+% draw
+  fill number_flare_path (z1l, 180, 90, hair, 7/8 flare,
+                          x1l - .5 hair - lb, .16 h, 0.06, 1.5, -1)
        ..tension outer_t.. z2l{down}
        ..tension outer_t.. z7r{dir (180 + alpha)}
        .. z7l{dir (-alpha)}
        ..tension outer_t.. z5r{down}
-       ..tension outer_t.. number_flare_path (z6r, 180, -90, hair,
-                                              flare, x6l, .18 h,
-                                              0.06, 1.5, 1)
+       ..tension outer_t.. number_flare_path (z6r, 180, -90, hair, flare,
+                                              x6l - lb, .18 h, 0.06, 1.5, 1)
        .. z5l{up}
        ..tension t.. z3l{left}
        .. z4l{left}
@@ -408,16 +418,20 @@ def draw_three =
 enddef;
 
 
-def draw_four =
+def draw_four (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
   save alpha, beta, gamma;
 
-  set_char_box (0, 4/5 height# * widen, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   alpha = 0;
   calc_kuulleke (3/2 thick, alpha);
 
-  z1r = (w - 3/4 thick, height);
-  z5 = (thin, 1/4 height + thin);
+  z1r = (lb + gw - 3/4 thick, height);
+  z5 = (lb + thin, 1/4 height + thin);
 
   beta = angle (z3r - z5);
 
@@ -426,7 +440,7 @@ def draw_four =
 
   penpos7 (thin, -90);
   y7 = y6;
-  x7 = w - 1/2 thin;
+  x7 = lb + gw - 1/2 thin;
 
   penpos8 (thin, -alpha);
   z8r = z5;
@@ -452,7 +466,7 @@ def draw_four =
   alpha := beta;
   calc_kuulleke (thick, alpha);
 
-  z1r = (w - 3/4 thick, height - (3/2 thin) / cosd (alpha));
+  z1r = (lb + gw - 3/4 thick, height - (3/2 thin) / cosd (alpha));
 
   penpos5 (thick, 0);
   z5 = (x1, foot_top);
@@ -474,18 +488,22 @@ def draw_four =
 enddef;
 
 
-def draw_five =
+def draw_five (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
   save alpha, beta, gamma, delta;
   save inner_t, outer_t;
   save pat;
   path pat;
 
-  set_char_box (0, 27/40 height# * widen, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   alpha = 0;
-  calc_kuulleke (w - thin, alpha);
+  calc_kuulleke (gw - thin, alpha);
 
-  z1 = (w / 2 + 1/8 thick, h);
+  z1 = (lb + gw / 2 + 1/8 thick, h);
 
   penpos5 (thin, 0);
   z5l = (x1l, h - 15/16 thick);
@@ -514,8 +532,7 @@ def draw_five =
   beta = 45;
   delta = 180 + beta + 10;
   z8r = (x7r, y7r - 1/16 thick + thin);
-  z8l = directionpoint dir (delta) of
-                subpath (6, 7) of pat;
+  z8l = directionpoint dir (delta) of subpath (6, 7) of pat;
 
   % include intersection point to improve overlap removal
   fill subpath (0, 6) of pat
@@ -524,16 +541,16 @@ def draw_five =
        .. cycle;
 
   penpos9 (thin, 90);
-  y9 = 10/16 [y5, y7];
   x9 = .36 [x8r, x10r];
+  y9 = 10/16 [y5, y7];
 
   penpos10 (thick, 0);
-  x10r = w + hair / 2;
+  x10r = lb + gw + hair / 2;
   y10r = 1/2 [y9r, y11r];
 
   penpos11 (hair, -90);
+  x11r = .7 [lb, x10l];
   y11r = 0;
-  x11r = .7 [0, x10l];
 
   penlabels (range 8 thru 12);
 
@@ -543,8 +560,8 @@ def draw_five =
   fill z8r {dir (beta)}
        .. z9r{right}
        ..tension outer_t.. z10r{down}
-       .. number_flare_path (z11r, 180, -90, hair, flare, x11l,
-                             .18 h, 0.06, 1.5, 1)
+       .. number_flare_path (z11r, 180, -90, hair, flare,
+                             x11l - lb, .18 h, 0.06, 1.5, 1)
        .. z11l{right}
        ..tension inner_t.. z10l{up}
        ..tension inner_t.. z9l{left}
@@ -553,33 +570,37 @@ def draw_five =
 enddef;
 
 
-def draw_six =
+def draw_six (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
   save outer_t, t;
   save before, after, u, v;
   path before, after;
 
-  set_char_box (0, .68 height# * widen, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   penpos2 (hair, 90);
-  z2 = (w / 2, h / 2 + thin - hair / 2);
+  z2 = (lb + gw / 2, h / 2 + thin - hair / 2);
 
   penpos3 (15/16 thick, 0);
-  x3r = w;
+  x3r = lb + gw;
   y3r = .5 [y4r, y2r];
 
   penpos4 (hair, -90);
   z4r = (x2, 0);
 
   penpos6 (hair, 90);
-  x6r = .56 w;
+  x6r = lb + .56 gw;
   y6r = h;
 
   penpos7 (thick, 180);
-  x7r = 0;
+  x7r = lb;
   y7r = .50 h;
 
   penpos10 (thick, 180);
-  z10r = (0, y3);
+  z10r = (lb, y3);
 
   penlabels (range 1 thru 10);
 
@@ -590,8 +611,8 @@ def draw_six =
             .. z2r{right};
   after := z7r{up}
            .. number_flare_path (z6r, 0, -90, hair, flare,
-                                 w - x6r - hair / 2, .16 h,
-                                 0.05, 2.5, 1)
+                                 lb + gw - x6r - hair / 2,
+                                 .16 h, 0.05, 2.5, 1)
            .. z7l{down};
   (u, v) = before intersectiontimes after;
 
@@ -610,16 +631,21 @@ def draw_six =
 enddef;
 
 
-def draw_seven =
+def draw_seven (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
   save tolerance;
   save alpha, beta, gamma, delta;
-  save pata, ta, patb, tb, bow;
-  save x_overshoot;
+  save t, pata, ta, patb, tb, bow;
+  save overshoot_x;
 
   path pata, patb, bow;
   numeric ta, tb;
 
-  set_char_box (0, 11/15 height# * widen - thin#, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
+
   overshoot_x = .75 thin;
 
   alpha = -180;
@@ -632,11 +658,11 @@ def draw_seven =
   z3 = z1r + (1/4 sqrt (2) * hair) * dir (alpha - 45);
   z4 = z1 + kuulleke * dir (alpha - 90);
 
-  z1l = (thin, 0);
+  z1l = (lb + thin, 0);
 
   beta = 55;
   penpos5 (thin, 90 + beta);
-  z5 = (w, h) + (1/2 sqrt (2) * thin) * dir (-135) + (overshoot_x, 0);
+  z5 = (lb + gw, h) + (1/2 sqrt (2) * thin) * dir (-135) + (overshoot_x, 0);
 
   gamma = angle (length (z1r - z1), 2 kuulleke);
   delta = 12;
@@ -656,7 +682,7 @@ def draw_seven =
   alpha := -45 * widen;
 
   penpos11 (1/2 thick, 90);
-  z11 = (3/2 thin, h - (thick + thin) / 2);
+  z11 = (lb + 3/2 thin, h - (thick + thin) / 2);
 
   penpos13 (thin, 90 + beta);
   z13 = z5;
@@ -666,13 +692,13 @@ def draw_seven =
   y12 = h - 15/16 thick + thin * widen;
 
   penpos14 (thin, 0);
-  z14l = (0, h - thin / 2);
+  z14l = (lb, h - thin / 2);
 
   penpos15 (thin, 0);
-  z15l = (0, h / 2 + thin / 2);
+  z15l = (lb, h / 2 + thin / 2);
 
   penpos16 (9/8 thick, 90);
-  z16r = (thin, y11r + 2/16 thick);
+  z16r = (lb + thin, y11r + 2/16 thick);
 
   tolerance := epsilon;
 
@@ -710,39 +736,43 @@ def draw_seven =
 enddef;
 
 
-def draw_eight =
+def draw_eight (expr advance_width, glyph_width, left_bearing) =
+  save gw, lb;
   save alpha, beta;
 
-  set_char_box (0, 11/15 height# * widen, 0, height#);
+  set_char_box (0, advance_width, 0, height#);
+
+  gw := hround_pixels (glyph_width);
+  lb := hround_pixels (left_bearing);
 
   alpha = 60;
   beta = alpha - 15;
 
-  z1 = (w / 2, h / 2 + thick / 8);
+  z1 = (lb + gw / 2, h / 2 + thick / 8);
 
   penpos2 (14/8 thin, 0);
-  z2 = (w / 3, h / 2 + thin);
+  z2 = (lb + gw / 3, h / 2 + thin);
 
   penpos3 (3/2 thin, 0);
-  z3l = (0, h / 4 + thin / 2);
+  z3l = (lb, h / 4 + thin / 2);
 
   penpos4 (hair, 90);
   z4l = (x1, 0);
 
   penpos5 (thick, 90 + 90 + alpha);
-  z5 = z1 + w / 4 * dir (alpha - 90);
+  z5 = z1 + gw / 4 * dir (alpha - 90);
 
   penpos6 (thick, 90 + 90 + alpha);
-  z6 = z1 + (w / 4 - thin / 2) * dir (90 + alpha);
+  z6 = z1 + (gw / 4 - thin / 2) * dir (90 + alpha);
 
   penpos7 (hair, 90);
-  z7r = (x1 + .02 w, h);
+  z7r = (x1 + .02 gw, h);
 
   penpos8 (3/2 thin, 0);
-  z8r = (w - thin / 2, 3/4 h + thin / 2);
+  z8r = (lb + gw - thin / 2, 3/4 h + thin / 2);
 
   penpos9 (13/8 thin, 0);
-  z9 = (2/3 w, h / 2);
+  z9 = (lb + 2/3 gw, h / 2);
 
   penlabels (range 1 thru 9);
 
@@ -769,12 +799,12 @@ def draw_eight =
 enddef;
 
 
-def draw_nine =
-  draw_six;
-%  xy_mirror_char;
+def draw_nine (expr advance_width, glyph_width, left_bearing) =
+  draw_six (advance_width, glyph_width, left_bearing);
 
+% xy_mirror_char;
   currentpicture := currentpicture scaled -1;
-  currentpicture := currentpicture shifted (w, h);
+  currentpicture := currentpicture shifted (2 lb + gw, h);
 enddef;
 
 
@@ -877,52 +907,92 @@ code := 47;        % 0 = 48
 
 
 fet_beginchar ("numeral 0", "zero");
-  draw_zero;
+  save width;
+
+  width# := 11/15 height# * widen;
+
+  draw_zero (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 1", "one");
-  draw_one;
+  save width;
+
+  width# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
+
+  draw_one (width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 2", "two");
-  draw_two;
+  save width;
+
+  width# := 22/30 height# * widen;
+
+  draw_two (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 3", "three");
-  draw_three;
+  save width;
+
+  width# := 2/3 height# * widen;
+
+  draw_three (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 4", "four");
-  draw_four;
+  save width;
+
+  width# := 4/5 height# * widen;
+
+  draw_four (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 5", "five");
-  draw_five;
+  save width;
+
+  width# := 27/40 height# * widen;
+
+  draw_five (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 6", "six");
-  draw_six;
+  save width;
+
+  width# := .68 height# * widen;
+
+  draw_six (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 7", "seven");
-  draw_seven;
+  save width;
+
+  width# := 11/15 height# * widen - thin#;
+
+  draw_seven (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 8", "eight");
-  draw_eight;
+  save width;
+
+  width# := 11/15 height# * widen;
+
+  draw_eight (width#, width#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 9", "nine");
-  draw_nine;
+  save width;
+
+  width# := .68 height# * widen;
+
+  draw_nine (width#, width#, 0);
 fet_endchar;
 
 
