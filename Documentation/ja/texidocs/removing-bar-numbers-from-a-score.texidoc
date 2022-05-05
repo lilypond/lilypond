@@ -1,6 +1,6 @@
 %% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
   texidocja = "
 @code{Score} コンテキストから @code{Bar_number_engraver} を削除することで、@c
-小節線を完全に削除することができます。
+小節番号を完全に削除することができます。
 "
-  doctitleja = "楽譜から小節線を削除する"
+  doctitleja = "楽譜から小節番号を削除する"
