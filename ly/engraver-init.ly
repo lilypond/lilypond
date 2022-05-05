@@ -803,7 +803,6 @@ run."
     note-head-interface
     tab-note-head-interface
     lyric-interface
-    percent-repeat-item-interface
     percent-repeat-interface
 
     ;; need this, as stanza numbers are items, and appear only once.

@@ -1058,14 +1058,13 @@ See also @iref{DotColumn}.")))))
         (non-musical . #t)
         (slash-negative-kern . 1.6)
         (slope . 1.0)
-        (stencil . ,ly:percent-repeat-item-interface::double-percent)
+        (stencil . ,ly:percent-repeat-interface::double-percent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (thickness . 0.48)
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
                                 font-interface
-                                percent-repeat-interface
-                                percent-repeat-item-interface))
+                                percent-repeat-interface))
                  (description . "A double-percent symbol for
 repeating two bars.  See also @iref{DoublePercentRepeatCounter},
 @iref{PercentRepeat}, @iref{DoubleRepeatSlash}, and
@@ -1100,14 +1099,13 @@ repeating two bars.  See also @iref{DoublePercentRepeatCounter},
         (font-encoding . fetaMusic)
         (slash-negative-kern . 1.6)
         (slope . 1.0)
-        (stencil . ,ly:percent-repeat-item-interface::beat-slash)
+        (stencil . ,ly:percent-repeat-interface::beat-slash)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (thickness . 0.48)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 outside-staff-interface
                                 percent-repeat-interface
-                                percent-repeat-item-interface
                                 rhythmic-grob-interface))
                  (description . "A double-percent symbol for
 repeating patterns shorter than a single measure, and which
@@ -2394,13 +2392,16 @@ around other grobs.")))))
      . (
         (dot-negative-kern . 0.75)
         (font-encoding . fetaMusic)
+        (self-alignment-X . ,CENTER)
         (slope . 1.0)
         (spacing-pair . (break-alignment . staff-bar))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
-        (stencil . ,ly:multi-measure-rest::percent)
+        (stencil . ,ly:percent-repeat-interface::percent)
         (thickness . 0.48)
+        (X-offset . ,centered-spanner-interface::calc-x-offset)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (centered-spanner-interface
+                                font-interface
                                 multi-measure-rest-interface
                                 percent-repeat-interface))
                  (description . "A percent symbol for repeating
@@ -2508,12 +2509,11 @@ style.")))))
      . (
         (slash-negative-kern . 0.85)
         (slope . 1.7)
-        (stencil . ,ly:percent-repeat-item-interface::beat-slash)
+        (stencil . ,ly:percent-repeat-interface::beat-slash)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (thickness . 0.48)
         (meta . ((class . Item)
                  (interfaces . (percent-repeat-interface
-                                percent-repeat-item-interface
                                 rhythmic-grob-interface))
                  (description . "A symbol consisting of one or
 more slashes for repeating patterns shorter than a single

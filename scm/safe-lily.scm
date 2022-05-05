@@ -174,14 +174,14 @@
    ly:measure-grouping::print
    ly:mensural-ligature::brew-ligature-primitive
    ly:mensural-ligature::print
-   ly:multi-measure-rest::percent
    ly:multi-measure-rest::print
    ly:multi-measure-rest::set-spacing-rods
    ly:note-head::print
    ly:ottava-bracket::print
    ly:paper-column::print
-   ly:percent-repeat-item-interface::beat-slash
-   ly:percent-repeat-item-interface::double-percent
+   ly:percent-repeat-interface::beat-slash
+   ly:percent-repeat-interface::double-percent
+   ly:percent-repeat-interface::percent
    ly:piano-pedal-bracket::print
    ly:rest::print
    ly:script-interface::print

@@ -29,7 +29,6 @@
 #include "moment.hh"
 #include "output-def.hh"
 #include "paper-column.hh" // urg
-#include "percent-repeat-item.hh"
 #include "rest.hh"
 #include "separation-item.hh"
 #include "spacing-options.hh"
@@ -58,40 +57,6 @@ Multi_measure_rest::bar_width (Spanner *me)
     }
 
   return iv;
-}
-
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, percent, 1);
-SCM
-Multi_measure_rest::percent (SCM smob)
-{
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-
-  Stencil r = Percent_repeat_item_interface::x_percent (me, 1);
-  r.align_to (X_AXIS, CENTER);
-
-  // ugh copy & paste.
-
-  Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
-                                                          X_AXIS);
-  Interval sp_iv = bar_width (sp);
-  Real x_off = 0.0;
-
-  Real rx = sp->get_bound (LEFT)->relative_coordinate (common_x, X_AXIS);
-  /*
-    we gotta stay clear of sp_iv, so move a bit to the right if
-    needed.
-  */
-  x_off += std::max (sp_iv[LEFT] - rx, 0.0);
-
-  /*
-    center between stuff.
-  */
-  x_off += sp_iv.length () / 2;
-
-  r.translate_axis (x_off, X_AXIS);
-
-  return r.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, 1);

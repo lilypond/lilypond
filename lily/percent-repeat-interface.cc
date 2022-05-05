@@ -17,16 +17,26 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "percent-repeat-item.hh"
-
-#include "item.hh"
+#include "grob-interface.hh"
 #include "font-interface.hh"
+#include "item.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
+class Percent_repeat_interface
+{
+public:
+  DECLARE_SCHEME_CALLBACK (beat_slash, (SCM));
+  DECLARE_SCHEME_CALLBACK (percent, (SCM));
+  DECLARE_SCHEME_CALLBACK (double_percent, (SCM));
+  static Stencil x_percent (Grob *, int);
+  static Stencil brew_slash (Grob *, int);
+};
+
+
 Stencil
-Percent_repeat_item_interface::brew_slash (Grob *me, int count)
+Percent_repeat_interface::brew_slash (Grob *me, int count)
 {
   /* Scale everything by staff-space, don't scale thickness by line-thickness.
    The reason is that line-thickness is more to control the thickness of thin
@@ -50,7 +60,7 @@ Percent_repeat_item_interface::brew_slash (Grob *me, int count)
 }
 
 Stencil
-Percent_repeat_item_interface::x_percent (Grob *me, int count)
+Percent_repeat_interface::x_percent (Grob *me, int count)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Stencil m = brew_slash (me, count);
@@ -68,9 +78,18 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count)
   return m;
 }
 
-MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface, double_percent, 1);
+MAKE_SCHEME_CALLBACK (Percent_repeat_interface, percent, 1);
 SCM
-Percent_repeat_item_interface::double_percent (SCM grob)
+Percent_repeat_interface::percent (SCM grob)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
+  Stencil m = x_percent (me, 1);
+  return m.smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Percent_repeat_interface, double_percent, 1);
+SCM
+Percent_repeat_interface::double_percent (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Stencil m = x_percent (me, 2);
@@ -78,9 +97,9 @@ Percent_repeat_item_interface::double_percent (SCM grob)
   return m.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface, beat_slash, 1);
+MAKE_SCHEME_CALLBACK (Percent_repeat_interface, beat_slash, 1);
 SCM
-Percent_repeat_item_interface::beat_slash (SCM grob)
+Percent_repeat_interface::beat_slash (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Stream_event *cause = me->event_cause ();
@@ -95,7 +114,7 @@ Percent_repeat_item_interface::beat_slash (SCM grob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Percent_repeat_item_interface,
+ADD_INTERFACE (Percent_repeat_interface,
                R"(
 Repeats that look like percent signs.
                )",

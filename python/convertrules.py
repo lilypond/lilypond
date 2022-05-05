@@ -4528,6 +4528,24 @@ def conv(s):
                r'', s)
     return s
 
+percent_x_off_warning = r"""
+The X-offset property of PercentRepeat is no longer relative to the
+default position (centered), but to the left of the span within
+which the object is centered.  Overrides/tweaks to PercentRepeat.X-offset
+should be updated.
+"""
+
+@rule((2, 23, 9), r"""
+ly:percent-repeat-item-interface::xxx -> ly:percent-repeat-interface::xxx
+""")
+def conv(s):
+    s = re.sub(r"ly:percent-repeat-item-interface::", "ly:percent-repeat-interface::", s)
+    if "PercentRepeat.X-offset" in s:
+        stderr_write(NOT_SMART % "PercentRepeat.X-offset")
+        stderr_write(percent_x_off_warning)
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
