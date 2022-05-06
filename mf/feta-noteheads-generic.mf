@@ -12,7 +12,7 @@ input common-modules-and-initialization;
 
 font_x_height staff_space#;
 
-fet_beginfont ("feta", design_size, "fetaMusic");
+fet_beginfont ("feta-noteheads", design_size);
   input feta-noteheads;
 
   input declare-autometric-parameters;

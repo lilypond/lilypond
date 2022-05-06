@@ -42,6 +42,6 @@ input common-modules-and-initialization;
 %
 
 fet_beginfont ("feta-braces-" & char (97 + font_count),
-               (font_count + 1) * 20, "fetaBraces");
+               (font_count + 1) * 20);
   input feta-braces;
 fet_endfont ("feta-braces");

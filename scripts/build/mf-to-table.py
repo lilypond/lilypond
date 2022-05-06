@@ -43,9 +43,6 @@ class Char_metric:
         pass
 
 
-font_family = 'feta'
-
-
 def parse_logfile(fn):
     autolines = read_log_file(fn)
     charmetrics = []
@@ -87,30 +84,7 @@ def parse_logfile(fn):
             }
             charmetrics.append(m)
         elif tags[0] == 'font':
-            global font_family
-            font_family = (tags[3])
-            # To omit 'GNU' (foundry) from font name proper:
-            # name = tags[2:]
-            # urg
-            if 0:  # testing
-                tags.append('Regular')
-
-            encoding = re.sub(' ', '-', tags[5])
-            tags = tags[:-1]
-            name = tags[1:]
             global_info['design_size'] = float(tags[4])
-            global_info['FontName'] = '-'.join(name)
-            global_info['FullName'] = ' '.join(name)
-            global_info['FamilyName'] = '-'.join(name[1:-1])
-            if True:
-                global_info['Weight'] = tags[4]
-            else:  # testing
-                global_info['Weight'] = tags[-1]
-
-            global_info['FontBBox'] = '0 0 1000 1000'
-            global_info['Ascender'] = '0'
-            global_info['Descender'] = '0'
-            global_info['EncodingScheme'] = encoding
 
         elif tags[0] == 'parameter':
             global_info[tags[1]] = tags[2]
