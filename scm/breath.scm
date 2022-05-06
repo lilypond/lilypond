@@ -23,25 +23,23 @@
     (chantdoublebar
      . (
         (extra-spacing-width . (-1.0 . 0.0))
-        (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::finalis)
         (Y-offset . 0.0)))
     (chantfullbar
      . (
         (extra-spacing-width . (-1.0 . 0.0))
-        (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-maxima)
         (Y-offset . 0.0)))
     (chanthalfbar
      . (
+        (extra-spacing-height . ,item::extra-spacing-height-including-staff)
         (extra-spacing-width . (-1.0 . 0.0))
-        (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-maior)
         (Y-offset . 0.0)))
     (chantquarterbar
      . (
+        (extra-spacing-height . ,item::extra-spacing-height-including-staff)
         (extra-spacing-width . (-1.0 . 0.0))
-        (minimum-Y-extent . (-2.5 . 2.5))
         (stencil . ,ly:breathing-sign::divisio-minima)))
     (comma
      . (
