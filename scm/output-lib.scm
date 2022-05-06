@@ -614,6 +614,21 @@ and duration log @var{log}."
 (define-public all-invisible           #(#f #f #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; a generic extra-spacing-height routine
+
+(define-public (item::extra-spacing-height-including-staff grob)
+  "Return a value for @code{extra-spacing-height} that augments the
+extent of the grob to the extent of the staff."
+  (let ((staff-symbol (ly:grob-object grob 'staff-symbol #f)))
+    (if staff-symbol
+        (let* ((common (ly:grob-common-refpoint grob staff-symbol Y))
+               (my-ext (ly:grob-extent grob common Y))
+               (staff-ext (ly:grob-extent staff-symbol common Y))
+               (to-staff (pair-map - staff-ext my-ext)))
+          (pair-map (cons min max) '(0 . 0) to-staff))
+        '(0 . 0))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines
 
 
@@ -671,13 +686,9 @@ and duration log @var{log}."
         ii)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
-  (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
-        (to-staff (pair-map -
-                            (interval-widen
-                             '(0 . 0)
-                             (ly:staff-symbol-staff-radius grob))
-                            (ly:grob::stencil-height grob))))
-    (pair-map (cons min max) esh to-staff)))
+  (pair-map (cons min max)
+   (pure-from-neighbor-interface::extra-spacing-height grob)
+   (item::extra-spacing-height-including-staff grob)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
