@@ -636,7 +636,7 @@ and duration log @var{log}."
                            grob
                            0
                            INFINITY-INT))))
-    (coord-operation - from-neighbors height)))
+    (pair-map - from-neighbors height)))
 
 ;; If there are neighbors, we place the height at their midpoint
 ;; to avoid protrusion of this pure height out of the vertical
@@ -672,12 +672,12 @@ and duration log @var{log}."
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
   (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
-        (to-staff (coord-operation -
-                                   (interval-widen
-                                    '(0 . 0)
-                                    (ly:staff-symbol-staff-radius grob))
-                                   (ly:grob::stencil-height grob))))
-    (interval-union esh to-staff)))
+        (to-staff (pair-map -
+                            (interval-widen
+                             '(0 . 0)
+                             (ly:staff-symbol-staff-radius grob))
+                            (ly:grob::stencil-height grob))))
+    (pair-map (cons min max) esh to-staff)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

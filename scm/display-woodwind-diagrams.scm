@@ -1791,8 +1791,8 @@
                     extra-offset-instructions
                     radius
                     thick
-                    (coord-apply (assoc-get 'xy-scale-function stencil-alist)
-                                 xy-stretch)
+                    (pair-map (assoc-get 'xy-scale-function stencil-alist)
+                              xy-stretch)
                     layout
                     props))
                (if (= 0 (assoc-get node draw-instructions))
@@ -1811,7 +1811,7 @@
                (if (pair? (cdr node))
                    node
                    (get-key node key-bank)))
-              (coord-apply
+              (pair-map
                (assoc-get 'xy-scale-function stencil-alist)
                xy-stretch))
              (if

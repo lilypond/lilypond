@@ -611,6 +611,33 @@ the parts (with the separators removed) as a list of lists.  Example:
             (ly:list->offsets accum (cddr coords)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pairs
+
+(define (car-or-identity x)
+  (if (pair? x)
+      (car x)
+      x))
+
+(define (cdr-or-identity x)
+  (if (pair? x)
+      (cdr x)
+      x))
+
+(define-public (ordered-cons a b)
+  (cons (min a b)
+        (max a b)))
+
+(define (pair-map procs arg1 . rest)
+  "Apply the procedures in the @code{car} and @code{cdr} of @var{procs}
+to the corresponding elements of the pair @var{arg1} and return the
+results in a pair.  Additional pair arguments are accepted as for
+@code{map}.  Any argument @var{x} which is not a pair is treated as
+@code{(@var{x} . @var{x})}."
+  (cons
+   (apply (car-or-identity procs) (map car-or-identity (cons arg1 rest)))
+   (apply (cdr-or-identity procs) (map cdr-or-identity (cons arg1 rest)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; intervals
 
 (define-public empty-interval '(+inf.0 . -inf.0))
@@ -621,10 +648,6 @@ the parts (with the separators removed) as a list of lists.  Example:
 (define-public (interval-length x)
   "Length of the number pair @var{x}, if an interval."
   (max 0 (- (cdr x) (car x))))
-
-(define-public (ordered-cons a b)
-  (cons (min a b)
-        (max a b)))
 
 (define-public (interval-bound interval dir)
   ((if (= dir RIGHT) cdr car) interval))
@@ -646,9 +669,6 @@ right (@var{dir}=@code{+1})."
 (define-public interval-start car)
 
 (define-public interval-end cdr)
-
-(define-public (other-axis a)
-  (remainder (+ a 1) 2))
 
 (define-public (interval-scale iv factor)
   (cons (* (car iv) factor)
@@ -692,33 +712,20 @@ right (@var{dir}=@code{+1})."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; coordinates
 
+(define-public (other-axis a)
+  (remainder (+ a 1) 2))
+
 (define coord-x car)
 (define coord-y cdr)
 
 (define (coord-axis coords axis)
   ((if (eqv? axis X) car cdr) coords))
 
-(define (coord-operation operator operand coordinate)
-  (if (pair? operand)
-      (cons (operator (coord-x operand) (coord-x coordinate))
-            (operator (coord-y operand) (coord-y coordinate)))
-      (cons (operator operand (coord-x coordinate))
-            (operator operand (coord-y coordinate)))))
-
-(define (coord-apply function coordinate)
-  (if (pair? function)
-      (cons
-       ((coord-x function) (coord-x coordinate))
-       ((coord-y function) (coord-y coordinate)))
-      (cons
-       (function (coord-x coordinate))
-       (function (coord-y coordinate)))))
-
 (define-public (coord-translate coordinate amount)
-  (coord-operation + amount coordinate))
+  (pair-map + amount coordinate))
 
 (define-public (coord-scale coordinate amount)
-  (coord-operation * amount coordinate))
+  (pair-map * amount coordinate))
 
 (define-public (coord-rotate coordinate angle-in-radians)
   (coord-rotated coordinate (/ angle-in-radians PI-OVER-180)))
