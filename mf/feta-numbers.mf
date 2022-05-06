@@ -418,7 +418,8 @@ def draw_three (expr advance_width, glyph_width, left_bearing) =
 enddef;
 
 
-def draw_four (expr advance_width, glyph_width, left_bearing) =
+def draw_four (expr advance_width, glyph_width, left_bearing,
+                    short_stem) =
   save gw, lb;
   save alpha, beta, gamma;
 
@@ -466,7 +467,12 @@ def draw_four (expr advance_width, glyph_width, left_bearing) =
   alpha := beta;
   calc_kuulleke (thick, alpha);
 
-  z1r = (lb + gw - 3/4 thick, height - (3/2 thin) / cosd (alpha));
+  x1r = lb + gw - 3/4 thick;
+  if short_stem:
+    y1r = height - (6/2 thin) / cosd (alpha);
+  else:
+    y1r = height - (3/2 thin) / cosd (alpha);
+  fi;
 
   penpos5 (thick, 0);
   z5 = (x1, foot_top);
@@ -631,7 +637,8 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
 enddef;
 
 
-def draw_seven (expr advance_width, glyph_width, left_bearing) =
+def draw_seven (expr advance_width, glyph_width, left_bearing,
+                     short_stem) =
   save gw, lb;
   save tolerance;
   save alpha, beta, gamma, delta;
@@ -695,7 +702,13 @@ def draw_seven (expr advance_width, glyph_width, left_bearing) =
   z14l = (lb, h - thin / 2);
 
   penpos15 (thin, 0);
-  z15l = (lb, h / 2 + thin / 2);
+  x15l = lb;
+  if short_stem:
+    y15l = y16l;
+  else:
+    y15l = h / 2 + thin / 2;
+  fi;
+
 
   penpos16 (9/8 thick, 90);
   z16r = (lb + thin, y11r + 2/16 thick);
@@ -906,93 +919,79 @@ fet_endchar;
 code := 47;        % 0 = 48
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Numerals for time signatures, multi-measure rest numbers, etc.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 fet_beginchar ("numeral 0", "zero");
-  save width;
+  width_zero# := 11/15 height# * widen;
 
-  width# := 11/15 height# * widen;
-
-  draw_zero (width#, width#, 0);
+  draw_zero (width_zero#, width_zero#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 1", "one");
-  save width;
+  width_one# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
 
-  width# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
-
-  draw_one (width#, 0);
+  draw_one (width_one#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 2", "two");
-  save width;
+  width_two# := 22/30 height# * widen;
 
-  width# := 22/30 height# * widen;
-
-  draw_two (width#, width#, 0);
+  draw_two (width_two#, width_two#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 3", "three");
-  save width;
+  width_three# := 2/3 height# * widen;
 
-  width# := 2/3 height# * widen;
-
-  draw_three (width#, width#, 0);
+  draw_three (width_three#, width_three#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 4", "four");
-  save width;
+  width_four# := 4/5 height# * widen;
 
-  width# := 4/5 height# * widen;
-
-  draw_four (width#, width#, 0);
+  draw_four (width_four#, width_four#, 0, false);
 fet_endchar;
 
 
 fet_beginchar ("numeral 5", "five");
-  save width;
+  width_five# := 27/40 height# * widen;
 
-  width# := 27/40 height# * widen;
-
-  draw_five (width#, width#, 0);
+  draw_five (width_five#, width_five#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 6", "six");
-  save width;
+  width_six# := .68 height# * widen;
 
-  width# := .68 height# * widen;
-
-  draw_six (width#, width#, 0);
+  draw_six (width_six#, width_six#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 7", "seven");
-  save width;
+  width_seven# := 11/15 height# * widen - thin#;
 
-  width# := 11/15 height# * widen - thin#;
-
-  draw_seven (width#, width#, 0);
+  draw_seven (width_seven#, width_seven#, 0, false);
 fet_endchar;
 
 
 fet_beginchar ("numeral 8", "eight");
-  save width;
+  width_eight# := 11/15 height# * widen;
 
-  width# := 11/15 height# * widen;
-
-  draw_eight (width#, width#, 0);
+  draw_eight (width_eight#, width_eight#, 0);
 fet_endchar;
 
 
 fet_beginchar ("numeral 9", "nine");
-  save width;
+  width_nine# := .68 height# * widen;
 
-  width# := .68 height# * widen;
-
-  draw_nine (width#, width#, 0);
+  draw_nine (width_nine#, width_nine#, 0);
 fet_endchar;
 
 
@@ -1002,3 +1001,157 @@ ligtable "3":
 
 ligtable "2":
   "7" kern 0.15 space#;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Digits for figured bass
+%
+% Besides the metrics, some shapes are modified for better appearance
+% at small sizes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fet_begingroup ("figbass");
+
+save digit_advance;
+
+% All digits have the same advance width.
+digit_advance# := max (width_zero#,
+                       width_one#,
+                       width_two#,
+                       width_three#,
+                       width_four#,
+                       width_five#,
+                       width_six#,
+                       width_seven#,
+                       width_eight#,
+                       width_nine#);
+
+
+fet_beginchar ("figured bass 0", "zero");
+  save width, lsb;
+
+  width# := 11/15 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_zero (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 1", "one");
+  save width, lsb;
+
+  width# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
+  lsb# := 1.2 * (digit_advance# - width#) / 2;
+
+  draw_one (digit_advance#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 2", "two");
+  save width, lsb;
+
+  width# := 22/30 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_two (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 3", "three");
+  save width, lsb;
+
+  width# := 2/3 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_three (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 4", "four");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_four (digit_advance#, width#, lsb#, true);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 5", "five");
+  save width, lsb;
+
+  width# := 27/40 height# * widen;
+  lsb# := 0.7 * (digit_advance# - width#) / 2;
+
+  draw_five (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 6", "six");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_six (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 7", "seven");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - thin#;
+  lsb# := 1.2 * (digit_advance# - width#) / 2;
+
+  draw_seven (digit_advance#, width#, lsb#, true);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 8", "eight");
+  save width, lsb;
+
+  width# := 11/15 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_eight (digit_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 9", "nine");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_nine (digit_advance#, width#, lsb#);
+fet_endchar;
+
+fet_endgroup ("figbass");
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Digits for fingering
+%
+% Two shapes are modified for better appearance at small sizes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fet_begingroup ("fingering");
+
+fet_beginchar ("fingering 4", "four");
+  width_four# := 4/5 height# * widen;
+
+  draw_four (width_four#, width_four#, 0, true);
+fet_endchar;
+
+
+fet_beginchar ("fingering 7", "seven");
+  width_seven# := 11/15 height# * widen - thin#;
+
+  draw_seven (width_seven#, width_seven#, 0, true);
+fet_endchar;
+
+fet_endgroup ("fingering");
