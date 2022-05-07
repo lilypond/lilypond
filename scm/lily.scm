@@ -639,7 +639,8 @@ floating point exceptions.")
     ))
 
 (define-public lilypond-scheme-predicates
-  `((,boolean-or-symbol? . "boolean or symbol")
+  `((,alist? . "association list (list of pairs)")
+    (,boolean-or-symbol? . "boolean or symbol")
     (,color? . "color")
     (,cheap-list? . "list")
     (,fraction? . "fraction, as pair")
@@ -672,6 +673,7 @@ floating point exceptions.")
     (,symbol-list? . "symbol list")
     (,symbol-list-or-music? . "symbol list or music")
     (,symbol-list-or-symbol? . "symbol list or symbol")
+    (,symbol-key-alist? . "alist, with symbols as keys")
     (,void? . "void")
     ))
 

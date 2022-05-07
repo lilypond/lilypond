@@ -117,6 +117,16 @@
       (every symbol? x)
       (symbol? x)))
 
+(define-public (alist? x)
+  (and (list? x)
+       (every pair? x)))
+
+(define-public (symbol-key-alist? x)
+  (and (alist? x)
+       (every (lambda (p)
+                (symbol? (car p)))
+              x)))
+
 (define-public (scale? x)
   (or (and (rational? x) (exact? x) (not (negative? x)))
       (fraction? x)

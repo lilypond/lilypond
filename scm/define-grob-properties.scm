@@ -45,7 +45,7 @@ from main spacing.")
      (allow-span-bar ,boolean? "If false, no inter-staff bar line will
 be created below this bar line.")
      (alteration ,number? "Alteration numbers for accidental.")
-     (alteration-alist ,list? "List of @code{(@var{pitch}
+     (alteration-alist ,alist? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
      (annotation-balloon ,boolean? "Print the balloon around an annotation.")
      (annotation-line ,boolean? "Print the line from an annotation to the
@@ -113,8 +113,8 @@ beamlet, as a proportion of the distance between two adjacent stems.")
 a callback function.")
      (bend-me ,boolean? "Decide whether this grob is bent.")
      (between-cols ,pair? "Where to attach a loose column to.")
-     (bound-details ,list? "An alist of properties for determining
-attachments of spanners to edges.")
+     (bound-details ,symbol-key-alist? "An alist of properties for
+determining attachments of spanners to edges.")
      (bound-padding ,number? "The amount of padding to insert around
 spanner bounds.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
@@ -179,7 +179,7 @@ on each chord to the height of the chord plus
 @code{chord-dots-limit} staff-positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
-     (clef-alignments ,list? "An alist of parent-alignments
+     (clef-alignments ,symbol-key-alist? "An alist of parent-alignments
 that should be used for clef modifiers with various clefs")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
@@ -228,9 +228,9 @@ positions.")
 and for grouped staves that do not have the relevant
 @code{StaffGrouper} property set (@code{staff-staff-spacing} or
 @code{staffgroup-staff-spacing}).")
-     (details ,list? "Alist of parameters for detailed grob behavior.
-More information on the allowed parameters for a grob can be found by
-looking at the top of the Internals Reference page for each interface
+     (details ,symbol-key-alist? "Alist of parameters for detailed grob
+behavior. More information on the allowed parameters for a grob can be found
+by looking at the top of the Internals Reference page for each interface
 having a @code{details} property.")
      (digit-names ,vector? "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
@@ -351,7 +351,7 @@ various ligature engravers.")
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")
-     (fret-diagram-details ,list? "An alist of detailed grob
+     (fret-diagram-details ,symbol-key-alist? "An alist of detailed grob
 properties for fret diagrams.  Each alist entry consists of a
 @code{(@var{property} .  @var{value})} pair.  The properties which can
 be included in @code{fret-diagram-details} include the following:
@@ -484,7 +484,7 @@ bar line appearance in ASCII form.")
 In the context of (span) bar lines, @var{glyph-name} represents
 a processed form of @code{glyph}, where decisions about line breaking
 etc. are already taken.")
-     (alteration-glyph-name-alist ,list? "An alist of key-string pairs.")
+     (alteration-glyph-name-alist ,alist? "An alist of key-string pairs.")
      (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 
@@ -496,8 +496,8 @@ etc. are already taken.")
 line, expressed as a multiple of the default staff-line
 thickness (i.e. the visual output is @emph{not} influenced by changes
 to @code{@var{Staff}.StaffSymbol.thickness}).")
-     (harp-pedal-details ,list? "An alist of detailed grob properties
-for harp pedal diagrams.  Each alist entry consists of a
+     (harp-pedal-details ,symbol-key-alist? "An alist of detailed grob
+properties for harp pedal diagrams.  Each alist entry consists of a
 @code{(@var{property} . @var{value})} pair.  The properties which can
 be included in harp-pedal-details include the following:
 
@@ -599,8 +599,8 @@ shown together.")
      (ledger-positions-function ,scheme? "A quoted Scheme procedure that
 takes a @code{StaffSymbol} grob and the vertical position of a note head
 as arguments and returns a list of ledger line positions.")
-     (left-bound-info ,list? "An alist of properties for determining
-attachments of spanners to edges.")
+     (left-bound-info ,symbol-key-alist? "An alist of properties for
+determining attachments of spanners to edges.")
      (left-number-text ,markup? "For a measure counter, this is the
 formatted measure count.  When the measure counter extends over several
 measures (like with compressed multi-measure rests), it is the text
@@ -618,8 +618,8 @@ break at a column with a negative penalty.")
      (line-break-permission ,symbol? "Instructs the line breaker on
 whether to put a line break at this column.  Can be @code{force} or
 @code{allow}.")
-     (line-break-system-details ,list? "An alist of properties to use
-if this column is the start of a system.")
+     (line-break-system-details ,symbol-key-alist? "An alist of properties to
+use if this column is the start of a system.")
      (line-count ,integer? "The number of staff lines.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "For slurs and ties, this is the
@@ -702,15 +702,15 @@ which NON-break-aligned interfaces to align this to.")
      (non-default ,boolean? "Set for manually specified clefs and keys.")
      (non-musical ,boolean? "True if the grob belongs to a
 @code{NonMusicalPaperColumn}.")
-     (nonstaff-nonstaff-spacing ,list? "The spacing alist
+     (nonstaff-nonstaff-spacing ,symbol-key-alist? "The spacing alist
 controlling the distance between the current non-staff line and
 the next non-staff line in the direction of @code{staff-affinity},
 if both are on the same side of the related staff, and
 @code{staff-affinity} is either @code{UP} or @code{DOWN}.  See
 @code{staff-staff-spacing} for a description of the alist
 structure.")
-     (nonstaff-relatedstaff-spacing ,list? "The spacing alist
-controlling the distance between the current non-staff line and
+     (nonstaff-relatedstaff-spacing ,symbol-key-alist? "The spacing
+alist controlling the distance between the current non-staff line and
 the nearest staff in the direction of @code{staff-affinity}, if
 there are no non-staff lines between the two, and
 @code{staff-affinity} is either @code{UP} or @code{DOWN}.  If
@@ -720,8 +720,8 @@ staves on @emph{both} sides, even if other non-staff lines appear
 between the current one and either of the staves.  See
 @code{staff-staff-spacing} for a description of the alist
 structure.")
-     (nonstaff-unrelatedstaff-spacing ,list? "The spacing alist
-controlling the distance between the current non-staff line and
+     (nonstaff-unrelatedstaff-spacing ,symbol-key-alist? "The spacing
+alist controlling the distance between the current non-staff line and
 the nearest staff in the opposite direction from
 @code{staff-affinity}, if there are no other non-staff lines
 between the two, and @code{staff-affinity} is either @code{UP} or
@@ -748,7 +748,7 @@ the separator between the two printed numbers.")
 ;;;
 ;;; o
 ;;;
-     (output-attributes ,list? "An alist of attributes for the grob, to
+     (output-attributes ,alist? "An alist of attributes for the grob, to
 be included in output files.  When the SVG typesetting backend is used,
 the attributes are assigned to a group (@code{<g>}) containing all of the
 stencils that comprise a given grob.  For example,
@@ -802,7 +802,7 @@ of a potential collision, the grob with the smaller
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
-     (padding-pairs ,list?  "An alist of padding pairs for key
+     (padding-pairs ,alist?  "An alist of padding pairs for key
 signatures (and key cancellations).  Each alist entry has the form
 @example
 ((@var{left-glyph-name} . @var{right-glyph-name}) . @var{dist})
@@ -881,15 +881,15 @@ The property can also be set as a symbol for common behaviors:
 @code{#'any} to keep the layer alive with any other layer in the
 group; @code{#'above} or @code{#'below} to keep the layer alive with
 the context immediately before or after it, respectively.")
-     (replacement-alist ,list? "Alist of strings.
+     (replacement-alist ,alist? "Alist of strings.
 The key is a string of the pattern to be replaced.  The value is a
 string of what should be displayed.  Useful for ligatures.")
      (restore-first ,boolean? "Print a natural before the
 accidental.")
      (rhythmic-location ,rhythmic-location? "Where (bar number,
 measure position) in the score.")
-     (right-bound-info ,list? "An alist of properties for determining
-attachments of spanners to edges.")
+     (right-bound-info ,symbol-key-alist? "An alist of properties for
+determining attachments of spanners to edges.")
      (right-padding ,ly:dimension? "Space to insert on the right side
 of an object (e.g., between note and its accidentals).")
      (right-number-text ,markup? "When the measure counter extends
@@ -983,8 +983,8 @@ elements closer together.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (snap-radius ,number? "The maximum distance between two objects that
 will cause them to snap to alignment along an axis.")
-     (space-alist ,list? "An alist that specifies distances from this
-grob to other breakable items, using the format:
+     (space-alist ,symbol-key-alist? "An alist that specifies distances from
+this grob to other breakable items, using the format:
 
 @example
 '((@var{break-align-symbol} . (@var{spacing-style} . @var{space}))
@@ -1087,15 +1087,15 @@ baselines.")
 staff spaces, counted from the middle line.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
-     (staff-staff-spacing ,list? "When applied to a staff-group's
-@code{StaffGrouper} grob, this spacing alist controls the distance
-between consecutive staves within the staff-group.  When applied
-to a staff's @code{VerticalAxisGroup} grob, it controls the
-distance between the staff and the nearest staff below it in the
-same system, replacing any settings inherited from the
-@code{StaffGrouper} grob of the containing staff-group, if there
-is one.  This property remains in effect even when non-staff lines
-appear between staves.  The alist can contain the following keys:
+     (staff-staff-spacing ,symbol-key-alist? "When applied to a
+staff-group's @code{StaffGrouper} grob, this spacing alist controls
+the distance between consecutive staves within the staff-group.  When
+applied to a staff's @code{VerticalAxisGroup} grob, it controls the
+distance between the staff and the nearest staff below it in the same
+system, replacing any settings inherited from the @code{StaffGrouper}
+grob of the containing staff-group, if there is one.  This property
+remains in effect even when non-staff lines appear between staves.
+The alist can contain the following keys:
 
 @itemize
 
@@ -1121,7 +1121,7 @@ relative propensity to stretch.  If zero, the distance will not
 stretch (unless collisions would result).
 
 @end itemize")
-     (staffgroup-staff-spacing ,list? "The spacing alist
+     (staffgroup-staff-spacing ,symbol-key-alist? "The spacing alist
 controlling the distance between the last staff of the current
 staff-group and the staff just below it in the same system, even
 if one or more non-staff lines exist between the two staves.  If
@@ -1304,7 +1304,7 @@ constructed from a whole number of squiggles.")
      ;;;;;;;;;;;;;;;;
      ;; grobs & grob arrays.  (alphabetical)
      (accidental-grob ,ly:grob? "The accidental for this note.")
-     (accidental-grobs ,list? "An alist with @code{(@var{notename} .
+     (accidental-grobs ,alist? "An alist with @code{(@var{notename} .
 @var{groblist})} entries.")
      (adjacent-spanners ,ly:grob-array? "An array of directly neighboring
 dynamic spanners.")
@@ -1385,7 +1385,7 @@ For columns, the right-most column that has a spacing wish for this column.")
      (make-dead-when ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will turn dead.")
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
-     (minimum-translations-alist ,list? "An list of translations for a given
+     (minimum-translations-alist ,alist? "An list of translations for a given
 start and end point.")
 
      (neighbors ,ly:grob-array? "The X-axis neighbors of a grob. Used by the
@@ -1494,8 +1494,8 @@ supported by this object.  It is initialized from the @code{meta} field.")
 
      (maybe-loose ,boolean? "Used to mark a breakable column that is
 loose if and only if it is in the middle of a line.")
-     (meta ,list? "Provide meta information.  It is an alist with the
-entries @code{name} and @code{interfaces}.")
+     (meta ,symbol-key-alist? "Provide meta information.  It is an alist with
+the entries @code{name} and @code{interfaces}.")
      (minimum-distances ,list? "A list of rods that have the format
 @code{(@var{obj} . @var{dist})}.")
 
