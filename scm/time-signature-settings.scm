@@ -291,8 +291,6 @@ a fresh copy of the list-head is made."
    'Timing))
 
 
-
-
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of complex/compound time signatures
 
@@ -302,7 +300,9 @@ a fresh copy of the list-head is made."
     (let join-markups ((markups (list (car ll)))
                        (remaining (cdr ll)))
       (if (pair? remaining)
-          (join-markups (cons (car remaining) (cons m markups)) (cdr remaining))
+          (join-markups (cons (car remaining)
+                              (cons m markups))
+                        (cdr remaining))
           markups))))
 
 ;;; Use a centered-column inside a left-column, because the centered column
@@ -311,11 +311,12 @@ a fresh copy of the list-head is made."
   (let* ((revargs (reverse (map number->string time-sig-fraction)))
          (den (car revargs))
          (nums (reverse (cdr revargs))))
-    (make-override-markup '(baseline-skip . 0)
-                          (make-left-column-markup
-                           (list (make-center-column-markup
-                                  (list (make-line-markup (insert-markups nums "+"))
-                                        den)))))))
+    (make-override-markup
+     '(baseline-skip . 0)
+     (make-left-column-markup
+      (list (make-center-column-markup
+             (list (make-line-markup (insert-markups nums "+"))
+                   den)))))))
 
 (define (format-time-numerator time-sig)
   (make-vcenter-markup (number->string (car time-sig))))
@@ -368,16 +369,16 @@ a fresh copy of the list-head is made."
 "
   (interpret-markup layout props (format-compound-time time-sig)))
 
-(add-simple-time-signature-style 'numbered make-compound-meter-markup)
-
-(add-simple-time-signature-style 'single-digit
-                                 (lambda (fraction) (make-compound-meter-markup (car fraction))))
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of symbolic time signatures
 
 (define-public (make-glyph-time-signature-markup style fraction)
-  "Make markup for a symbolic time signature.  If the music font does not have a glyph for the requested style and fraction, issue a warning and make a numbered time signature instead."
+  "Make markup for a symbolic time signature of the form
+@code{timesig@/.@var{<style>}@/@var{<numerator>}@/@var{<denominator>}},
+for example @samp{timesig.mensural34}.  If the music font does not
+have a glyph for the requested style and fraction, issue a warning and
+make a numbered time signature instead."
   (make-first-visible-markup
    (list (make-musicglyph-markup (string-append
                                   "timesig."
@@ -387,7 +388,7 @@ a fresh copy of the list-head is made."
          (make-compound-meter-markup fraction))))
 
 (define-public (make-c-time-signature-markup fraction)
-  "Make markup for the `C' time signature style."
+  "Make markup for the @q{C} time signature style."
   (let ((n (car fraction))
         (d (cdr fraction)))
     ;; check specific fractions to avoid warnings when no glyph exists
@@ -396,8 +397,21 @@ a fresh copy of the list-head is made."
         (make-glyph-time-signature-markup 'C fraction)
         (make-compound-meter-markup fraction))))
 
-(add-simple-time-signature-style 'C make-c-time-signature-markup)
-(add-simple-time-signature-style 'default make-c-time-signature-markup)
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Time signature styles
+
+(add-simple-time-signature-style 'numbered
+                                 make-compound-meter-markup)
+(add-simple-time-signature-style 'single-digit
+                                 (lambda (fraction)
+                                   (make-compound-meter-markup
+                                    (car fraction))))
+(add-simple-time-signature-style 'C
+                                 make-c-time-signature-markup)
+(add-simple-time-signature-style 'default
+                                 make-c-time-signature-markup)
+
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Measure length calculation of (possibly complex) compound time signatures
@@ -429,11 +443,12 @@ a fresh copy of the list-head is made."
   (apply max (map last time-sig)))
 
 (define-public (calculate-compound-base-beat time-sig)
-  (ly:make-moment 1
-                  (cond
-                   ((not (pair? time-sig)) 4)
-                   ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
-                   (else (calculate-compound-base-beat-full (list time-sig))))))
+  (ly:make-moment
+   1
+   (cond
+    ((not (pair? time-sig)) 4)
+    ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
+    (else (calculate-compound-base-beat-full (list time-sig))))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
