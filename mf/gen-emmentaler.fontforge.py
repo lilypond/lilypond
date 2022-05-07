@@ -64,6 +64,14 @@ resulting document to be covered by the GNU General Public License.
 font.version = version
 
 subfonts = []
+
+alphabet = "feta-alphabet%(design_size)d" % vars()
+font.mergeFonts(os.path.join(indir, alphabet + ".pfb"))
+# The TFM file must be imported before loading other subfonts.
+# This is FontForge bug #5008.
+font.mergeFeature(os.path.join(indir, alphabet + ".tfm"))
+subfonts.append(alphabet)
+
 for fn in ["feta%(design_size)d.pfb",
            "feta-noteheads%(design_size)d.pfb",
            "feta-flags%(design_size)d.pfb",
@@ -75,16 +83,14 @@ for fn in ["feta%(design_size)d.pfb",
     name, _ = os.path.splitext(name)
     subfonts.append(name)
 
-# Set code points to PUA (Private Use Area)
+# Set code points to PUA (Private Use Area) for all glyphs that
+# are still unassigned.
+
 i = 0
 for glyph in font.glyphs():
-    glyph.unicode = i + 0xE000
-    i += 1
-
-alphabet = "feta-alphabet%(design_size)d" % vars()
-font.mergeFonts(os.path.join(indir, alphabet + ".pfb"))
-font.mergeFeature(os.path.join(indir, alphabet + ".tfm"))
-subfonts.append(alphabet)
+    if glyph.unicode < 0:
+        glyph.unicode = i + 0xE000
+        i += 1
 
 subfonts_str = ' '.join(subfonts)
 
