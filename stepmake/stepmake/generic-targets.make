@@ -1,6 +1,6 @@
-.PHONY : all clean bin-clean default dist exe help html lib man TAGS\
+.PHONY : all clean default dist exe help html lib man TAGS\
 	 po doc WWW WWW-post local-WWW local-WWW\
-	 local-all local-clean local-bin-clean local-doc
+	 local-all local-clean local-doc
 
 all: default
 	$(LOOP)
@@ -13,16 +13,6 @@ man:
 clean: local-clean
 	-rm -rf $(outdir)
 	$(LOOP)
-
-ifeq (,$(findstring metafont,$(STEPMAKE_TEMPLATES)))
-bin-clean: local-bin-clean
-	-rm -rf $(outdir)
-	$(LOOP)
-else
-bin-clean:
-endif
-
-local-bin-clean: local-clean
 
 ifneq ($(strip $(depth)),.)
 dist:
@@ -40,7 +30,6 @@ help: generic-help local-help
 	@echo "  all          update everything except documentation with images"
 	@echo "               (same as the empty target)"
 	@echo "  clean        remove all generated stuff in $(outdir)"
-	@echo "  bin-clean    same as clean, except that mf/out is preserved"
 	@echo "  doc          update documentation with images in directory \`out-www'"
 	@echo "  doc-clean    clean \`out-www' directory"
 	@echo "  install      install programs and data (prefix=$(prefix))"
