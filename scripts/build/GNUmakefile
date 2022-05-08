@@ -1,9 +1,9 @@
 depth = ../..
 
 # need env settings to run output-distance --test
-LOCALSTEPMAKE_TEMPLATES=lilypond
+TEMPLATES=lilypond
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 local-test: output-distance.py run-and-check.sh
 	$(call ly_progress,testing,$<)

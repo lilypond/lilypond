@@ -4,10 +4,10 @@ INSTALLATION_OUT_DIR=$(vimdir)/syntax
 INSTALLATION_OUT_FILES=$(LILYPOND_WORDS)
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
-STEPMAKE_TEMPLATES=install-out
+TEMPLATES = install-out
 
 # vimdir defined in config.make
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 local-install:
 	for a in compiler ftdetect ftplugin indent syntax; do \

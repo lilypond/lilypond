@@ -1,7 +1,6 @@
 depth = ../../..
 
-STEPMAKE_TEMPLATES= texinfo
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+TEMPLATES = lilypond ly lysdoc texinfo
 
 TEXI2HTML_FLAGS += --nomenu
 
@@ -17,7 +16,7 @@ MIDI2LY_IGNORE_RES = -I 'Lily was here' -I '^\\version ' -I 'TEXT_EVENT.*GNU Lil
 DIFF = diff
 
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 $(outdir)/%.ly:  %.midi
 	$(call ly_progress,Making,$@,< midi)

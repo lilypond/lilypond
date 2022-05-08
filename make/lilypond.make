@@ -1,5 +1,3 @@
-# make/Stepmake.make
-
 # Use same configuration, but different output directory:
 #
 #     make out=www
@@ -43,7 +41,7 @@ config_h=$(top-build-dir)/config.hh
 # The outdir that was configured for: best guess to find binaries
 outconfbase=out
 
-TEMPLATES := generic $(STEPMAKE_TEMPLATES) $(LOCALSTEPMAKE_TEMPLATES)
+TEMPLATES := generic $(TEMPLATES)
 
 # "delete the target of a rule if it has changed and its recipe exits
 # with a nonzero exit status" (GNU make manual)

@@ -7,9 +7,9 @@ MODULE_LIBS=$(depth)/flower
 MODULE_INCLUDES=$(src-depth)/flower/include
 
 HELP2MAN_EXECS = lilypond
-STEPMAKE_TEMPLATES=c++ po help2man
+TEMPLATES = c++ po help2man
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 FLOWER_LIB = $(depth)/flower/$(outdir)/library.a
 LDLIBS = $(FLOWER_LIB) $(CONFIG_LIBS)

@@ -1,6 +1,6 @@
 depth=../..
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 default:
 

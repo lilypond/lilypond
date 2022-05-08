@@ -2,11 +2,11 @@ depth = ..
 
 SUBDIRS=auxiliar
 
-STEPMAKE_TEMPLATES=install-out install po
+TEMPLATES = install-out install po
 
 PY_MODULES_IN = $(filter-out %_test.py, $(call src-wildcard,*.py))
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 $(outdir)/%.pyc.dummy: %.py $(buildscript-dir)/compile.py
 	$(call ly_progress,Making,$@,(py compile))

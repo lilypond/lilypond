@@ -1,8 +1,8 @@
 depth = ..
 
-STEPMAKE_TEMPLATES= install install-out
+TEMPLATES = install install-out
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 EL_FILES := $(call src-wildcard,*.el)
 LILYPOND_WORDS = $(outdir)/lilypond-words.el

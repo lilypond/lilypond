@@ -3,9 +3,9 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES=podir
+TEMPLATES = podir
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 default: $(MO_FILES)
 

@@ -2,10 +2,7 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES = \
-  install \
-  install-out
-LOCALSTEPMAKE_TEMPLATES = lilypond
+TEMPLATES = install install-out lilypond
 
 FETA_MF_FILES = \
   $(call src-wildcard,feta[0-9]*.mf) \
@@ -18,7 +15,7 @@ FETA_MF_FILES = \
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 PFB_FILES = $(FETA_FONTS:%=$(outdir)/%.pfb)
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 # Don't remove $(outdir)/.log's.  Log files are a target!
 # We want to see botched results as well.

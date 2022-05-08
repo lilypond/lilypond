@@ -5,10 +5,9 @@ INI_FILES = $(LY_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)/ly
 INSTALLATION_FILES=$(INI_FILES)
 
-STEPMAKE_TEMPLATES=install
-LOCALSTEPMAKE_TEMPLATES=lilypond ly
+TEMPLATES = install lilypond ly
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 # The following runs a basic exercise, to make sure no backends crash
 # in their default configs. This is particularly important for gs-api=#f,

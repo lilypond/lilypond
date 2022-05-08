@@ -1,7 +1,6 @@
 depth = ../../..
 
-STEPMAKE_TEMPLATES=texinfo
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+TEMPLATES = lilypond ly lysdoc texinfo
 
 TEXI2HTML_FLAGS += --nomenu
 
@@ -18,7 +17,7 @@ TEST_SUITE_VERSION=0.1
 .SUFFIXES: .xml .mxl
 
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 $(outdir)/%.ly:  %.xml
 	$(call ly_progress,Making,$@,< xml)

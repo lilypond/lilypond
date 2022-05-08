@@ -2,13 +2,11 @@ depth = ..
 
 NAME = flower
 
-STEPMAKE_TEMPLATES= c++ po
-
 # test uses LILYPOND_DATADIR
-LOCALSTEPMAKE_TEMPLATES=lilypond
+TEMPLATES= c++ po lilypond
 export top-src-dir
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 TEST_O_FILES := $(filter $(outdir)/test%, $(O_FILES))
 O_FILES := $(filter-out $(outdir)/test%, $(O_FILES))

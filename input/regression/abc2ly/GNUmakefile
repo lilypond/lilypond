@@ -1,14 +1,13 @@
 depth = ../../..
 
-STEPMAKE_TEMPLATES=texinfo
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+TEMPLATES = lilypond ly lysdoc texinfo
 
 TEXI2HTML_FLAGS += --nomenu
 
 ABC_FILES = $(call src-wildcard,*.abc)
 OUT_LY_FILES = $(sort ${ABC_FILES:%.abc=$(outdir)/%.ly})
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 $(outdir)/%.ly: %.abc
 	$(call ly_progress,Making,$@,< abc)

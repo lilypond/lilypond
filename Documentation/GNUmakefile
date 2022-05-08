@@ -10,7 +10,7 @@ depth = ..
 NAME = documentation
 
 SUBDIRS = po
-LOCALSTEPMAKE_TEMPLATES = lilypond ly lilypond-book
+TEMPLATES = lilypond ly lilypond-book
 
 ### Extra flags
 
@@ -205,7 +205,7 @@ endif
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 ALL_INFO_FILES = $(ALL_INFO_DOCS:%=$(outdir)/%.info)
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 # Must be here, or overwritten by `lilypond-book-var`.
 OUT_HTML_FILES = \

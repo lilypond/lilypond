@@ -1,8 +1,7 @@
 depth = ../../..
 
-STEPMAKE_TEMPLATES=texinfo
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+TEMPLATES = lilypond ly lysdoc texinfo
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 TITLE=Other regression tests

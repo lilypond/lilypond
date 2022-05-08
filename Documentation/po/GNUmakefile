@@ -1,9 +1,8 @@
 depth = ../..
 
-STEPMAKE_TEMPLATES=podir
-LOCALSTEPMAKE_TEMPLATES=lilypond
+TEMPLATES = lilypond podir
 
-include $(depth)/make/stepmake.make
+include $(depth)/make/lilypond.make
 
 doc-localedir=$(outdir)
 DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \

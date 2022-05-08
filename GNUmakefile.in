@@ -26,12 +26,10 @@ RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
 GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
-# bootstrap stepmake:
-#
-STEPMAKE_TEMPLATES=install
-LOCALSTEPMAKE_TEMPLATES=lilypond
 
-include $(depth)/make/stepmake.make
+TEMPLATES = install lilypond
+
+include $(depth)/make/lilypond.make
 
 .PHONY: test info website
 
