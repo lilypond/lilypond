@@ -970,14 +970,12 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
       *cygwin* )
         LN_S='cp -r' # Cygwin symbolic links do not work for native apps.
         program_suffix=.exe
-        INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
         PLATFORM_WINDOWS=yes
         ;;
       *mingw32* )
         LN='cp -r'
         LN_S='cp -r'
         program_suffix=.exe
-        INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
         PATHSEP=';'
         PLATFORM_WINDOWS=yes
         ;;
