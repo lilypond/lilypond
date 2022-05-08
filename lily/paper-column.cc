@@ -449,22 +449,10 @@ The @code{paper-column-interface} implies the @iref{item-interface}.
 
                /* properties */
                R"(
-between-cols
 bounded-by-me
-full-measure-extra-space
-grace-spacing
 labels
-line-break-system-details
-line-break-penalty
-line-break-permission
 maybe-loose
-page-break-penalty
-page-break-permission
-page-turn-penalty
-page-turn-permission
 rhythmic-location
-shortest-playing-duration
-shortest-starter-duration
 spacing
 used
 when

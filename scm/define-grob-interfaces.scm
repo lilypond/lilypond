@@ -392,6 +392,30 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'musical-paper-column-interface
+ "A paper column that is musical.  Paper columns of this variety group
+musical items, such as note heads, stems, dots, accidentals, @dots{}"
+ '(grace-spacing
+   shortest-playing-duration
+   shortest-starter-duration
+   ))
+
+(ly:add-interface
+ 'non-musical-paper-column-interface
+ "A paper column that is non-musical.  Paper columns of this variety
+group breakable items such as clefs, bar lines, time signatures, key
+signatures, breathing signs, @dots{}"
+ '(between-cols
+   full-measure-extra-space
+   line-break-system-details
+   line-break-penalty
+   line-break-permission
+   page-break-penalty
+   page-break-permission
+   page-turn-penalty
+   page-turn-permission))
+
+(ly:add-interface
  'note-name-interface
  "Note names."
  '())

@@ -2209,6 +2209,7 @@ attached to a @iref{MultiMeasureRest} grob.  See also
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
+                                non-musical-paper-column-interface
                                 separation-item-interface
                                 spaceable-grob-interface))
                  (description . "An auxiliary grob grouping
@@ -2361,6 +2362,7 @@ note name.")))))
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
+                                musical-paper-column-interface
                                 separation-item-interface
                                 spaceable-grob-interface))
                  (description . "An auxiliary grob grouping
