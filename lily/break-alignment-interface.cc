@@ -96,6 +96,18 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
   Align_interface::add_element (me, toadd);
 }
 
+// Find the BreakAlignGroup with the given break-align-symbol (nullptr
+// if there is none).
+Grob *
+Break_alignment_interface::get_break_align_group (Grob *me, SCM break_align_sym)
+{
+  extract_grob_set (me, "elements", elts);
+  for (Grob *group : elts)
+    if (scm_is_eq (get_property (group, "break-align-symbol"), break_align_sym))
+      return group;
+  return nullptr;
+}
+
 /* Main routine to space breakable items in one column
    according to space-alist specifications. */
 MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)

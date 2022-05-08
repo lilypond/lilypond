@@ -32,6 +32,7 @@ public:
   static std::vector<Grob *> ordered_elements (Item *me);
   static void add_element (Item *me, Item *add);
   static SCM break_align_order (Item *me);
+  static Grob *get_break_align_group (Grob *me, SCM break_align_sym);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
 };
 

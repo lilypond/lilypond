@@ -177,6 +177,12 @@ Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
 }
 
 void
+Paper_column_engraver::acknowledge_break_alignment (Grob_info gi)
+{
+  set_object (command_column_, "break-alignment", gi.grob ()->self_scm ());
+}
+
+void
 Paper_column_engraver::stop_translation_timestep ()
 {
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
@@ -275,6 +281,7 @@ Paper_column_engraver::boot ()
   ADD_ACKNOWLEDGER (Paper_column_engraver, item);
   ADD_ACKNOWLEDGER (Paper_column_engraver, note_spacing);
   ADD_ACKNOWLEDGER (Paper_column_engraver, staff_spacing);
+  ADD_ACKNOWLEDGER (Paper_column_engraver, break_alignment);
 }
 
 ADD_TRANSLATOR (Paper_column_engraver,

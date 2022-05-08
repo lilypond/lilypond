@@ -406,6 +406,7 @@ musical items, such as note heads, stems, dots, accidentals, @dots{}"
 group breakable items such as clefs, bar lines, time signatures, key
 signatures, breathing signs, @dots{}"
  '(between-cols
+   break-alignment
    full-measure-extra-space
    line-break-system-details
    line-break-penalty

@@ -26,6 +26,7 @@
 #include "grob-array.hh"
 #include "international.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
 #include "moment.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
@@ -168,7 +169,8 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 Interval
 Paper_column::break_align_width (Grob *me, SCM align_syms)
 {
-  Grob *p = me->get_x_parent ();
+  Grob *sys = me->get_x_parent ();
+  Real coord = me->relative_coordinate (sys, X_AXIS);
 
   if (scm_is_symbol (align_syms))
     align_syms = scm_list_1 (align_syms);
@@ -176,48 +178,75 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   if (is_musical (me))
     {
       me->programming_error ("tried to get break-align-width of a musical column");
-      return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
+      return Interval (coord);
     }
 
-  Grob *align = 0;
-  for (; !align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
+  Grob *break_alignment = unsmob<Grob> (get_object (me, "break-alignment"));
+  if (!break_alignment)
+    return Interval (coord);
+
+  Grob *align = nullptr;
+  for (SCM align_sym : as_ly_scm_list (align_syms))
     {
-      SCM align_sym = scm_car (align_syms);
       if (scm_is_eq (align_sym, ly_symbol2scm ("break-alignment")))
         {
-          align = Pointer_group_interface::find_grob
-                  (me, ly_symbol2scm ("elements"),
-                   has_interface<Break_alignment_interface>);
+          align = break_alignment;
+          // No need for an X-extent check like below: if the whole BreakAlignment
+          // has empty extent, none of its BreakAlignGroups will have non-empty extent.
+          break;
         }
       else
         {
-          extract_grob_set (me, "elements", elts);
-          for (vsize i = 0; i < elts.size (); i++)
+          Grob *group = Break_alignment_interface::get_break_align_group
+                          (break_alignment, align_sym);
+          // The group might contain omitted items.  In this case, we try the
+          // other break align symbols.
+          if (group && !group->extent (group, X_AXIS).is_empty ())
             {
-              if (scm_is_eq (align_sym, get_property (elts[i], "break-align-symbol"))
-                  // TODO SCM: there must be a simpler way to put this.
-                  && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
-                {
-                  align = elts[i];
-                  break;
-                }
+              align = group;
+              break;
             }
         }
     }
 
   if (!align)
-    return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
+    return Interval (coord);
 
-  return align->extent (p, X_AXIS);
+  Interval ext = align->extent (me, X_AXIS);
+  if (ext.is_empty ())
+    return Interval (coord);
+
+  return ext + coord;
 }
 
 LY_DEFINE (ly_paper_column__break_align_width,
            2, 0, 0, (SCM col, SCM align_syms),
            R"(
-Determine the extent along the x@tie{}axis of a grob used for break alignment
-organized by column @var{col}.  The grob is specified by @var{align-syms},
-which contains either a single @code{break-align-symbol} or a list of such
-symbols.
+
+@var{col} should be a non-musical paper-column.  This function
+determines the horizontal extent of a break align group contained in
+this column, relative to the system.  The break align group is
+searched according to @var{align-sym}, which is either a break align
+symbol (see the @code{break-align-symbol} property), or a list of such
+symbols.  For example,
+
+@example
+(ly:paper-column::break-align-width col '(key-signature staff-bar))
+@end example
+
+@noindent
+tries to find a @code{BreakAlignGroup} of key signatures, but falls
+back on bar lines if there are no key signatures or if the extent of
+the @code{BreakAlignGroup} containing them is empty (for example, if
+they are omitted).
+
+The special symbol @code{break-alignment} means the combined extent of
+all items in the paper column.  It is useful as the last element of
+the list, for a catch-all fallback.
+
+This function never returns an empty interval.  If no matching group
+is found or the group has an empty extent, it returns a point interval
+at the coordinate of the column relative to the system.
            )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, col, 1);

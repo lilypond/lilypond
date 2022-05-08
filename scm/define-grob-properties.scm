@@ -1326,6 +1326,8 @@ column as start/@/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
      (bracket-text ,ly:grob? "The text for an analysis bracket.")
+     (break-alignment ,ly:grob? "The @iref{BreakAlignment} in a
+@iref{NonMusicalPaperColumn}.")
 
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")

@@ -45,6 +45,7 @@ protected:
   void acknowledge_item (Grob_info_t<Item>);
   void acknowledge_note_spacing (Grob_info);
   void acknowledge_staff_spacing (Grob_info);
+  void acknowledge_break_alignment (Grob_info);
 
 private:
   System *system_ = nullptr;
