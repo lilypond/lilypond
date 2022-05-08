@@ -105,6 +105,5 @@ prefix = @prefix@
 program_prefix = @program_prefix@
 program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
-stepmake = @abs_srcdir@/stepmake
 vimdir = $(lilypond_datadir)/vim
 webdir = $(lilypond_docdir)/html

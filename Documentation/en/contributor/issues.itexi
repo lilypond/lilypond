@@ -336,7 +336,7 @@ file.
 
 @item
 Build: problem or desired features in the build system.  This
-includes the makefiles, stepmake, python scripts, and GUB.
+includes the makefiles and python scripts.
 
 @item
 Scripts: problem or desired feature in the non-build-system

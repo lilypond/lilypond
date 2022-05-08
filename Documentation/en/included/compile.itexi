@@ -1381,10 +1381,6 @@ TODO: ADD
 @section Build system
 
 
-We currently use make and stepmake, which is complicated and only
-used by us.  Hopefully this will change in the future.
-
-
 @subheading Version-specific texinfo macros
 
 @itemize

@@ -97,7 +97,6 @@ LilyPond's source files.
 |   (also see SCRIPTS section above)
 |
 |-- make/                Specific make subroutine files
-|-- stepmake/            Generic make subroutine files
 |
 |
 |   REGRESSION TESTS:

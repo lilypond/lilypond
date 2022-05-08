@@ -43,11 +43,7 @@ config_h=$(top-build-dir)/config.hh
 # The outdir that was configured for: best guess to find binaries
 outconfbase=out
 
-# user package
-stepdir = $(stepmake)/stepmake
-
-STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES)
-LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)
+TEMPLATES := generic $(STEPMAKE_TEMPLATES) $(LOCALSTEPMAKE_TEMPLATES)
 
 # "delete the target of a rule if it has changed and its recipe exits
 # with a nonzero exit status" (GNU make manual)
@@ -113,13 +109,9 @@ endef
 
 all:
 
-include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
-
 # ugh. need to do this because of PATH :=$(top-src-dir)/..:$(PATH)
-include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(LOCALSTEPMAKE_TEMPLATES)))
+include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(TEMPLATES)))
 
 
-include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(LOCALSTEPMAKE_TEMPLATES)))
-include $(addprefix $(stepdir)/,$(addsuffix -rules.make, $(STEPMAKE_TEMPLATES)))
-include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(LOCALSTEPMAKE_TEMPLATES)))
-include $(addprefix $(stepdir)/,$(addsuffix -targets.make, $(STEPMAKE_TEMPLATES)))
+include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(TEMPLATES)))
+include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(TEMPLATES)))
