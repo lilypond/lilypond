@@ -29,6 +29,8 @@ longer needed."
     (make-engraver
      (listeners
       ((breathing-event engraver event)
+       (set! breathing-event event))
+      ((caesura-event engraver event)
        (set! breathing-event event)))
 
       ((process-music engraver)
@@ -46,7 +48,11 @@ longer needed."
 (ly:register-translator
  Breathing_sign_engraver 'Breathing_sign_engraver
  '((grobs-created . (BreathingSign))
-   (events-accepted . (breathing-event))
+   ;; TODO: Handling \caesura in Breathing_sign_engraver is intended
+   ;; to be temporary.  Implement Caesura_engraver for modern notation
+   ;; and Divisio_engraver for Gregorian chant.
+   (events-accepted . (breathing-event
+                       caesura-event))
    (properties-read . (breathMarkType))
    (properties-written . ())
    (description . "Notate breath marks.")))

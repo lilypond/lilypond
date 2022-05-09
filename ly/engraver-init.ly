@@ -135,6 +135,8 @@ multiple ancient notation schemes."
   doubleRepeatBarType = "||" %% TODO: research break visibility
   endRepeatBarType = "||"
 
+  breathMarkType = #'varcomma % default for \caesura
+
   %% Accidentals are valid only once (same as
   %% \accidentalStyle forget)
   extraNatural = ##f

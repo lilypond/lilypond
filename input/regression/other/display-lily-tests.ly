@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.11"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -169,7 +169,8 @@ are reported on the stderr of this run."
 \test ##[ { c4 \startStaff c4 \stopStaff } #]		% StaffSpanEvent
 \test ##[ { c4\startGroup c4\stopGroup c4^\startGroup c4^\stopGroup c4_\startGroup c4_\stopGroup } #]    % NoteGroupingEvent
 \test ##[ { c4\unaCorda c4\treCorde } #]		% UnaCordaEvent
-\test ##[ \breathe #]
+\test ##[ \breathe #]                                   % BreathingEvent
+\test "\\caesura" ##[ #(make-music 'CaesuraEvent) #]    % TODO: ##[ \caesura #]
 \test ##[ { c4 \[ c4 \] } #]				% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
 \test ##[ \- #]						% DurationLineEvent

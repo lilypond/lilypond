@@ -591,7 +591,7 @@
        ((BeamEvent) ; throw away beam events, or they'll be duplicated by turn or trill
         (loop factor newelements tail actions))
 
-       ((LineBreakEvent FingeringEvent MarkEvent BreathingEvent TieEvent SkipEvent RestEvent) ; pass through some events.
+       ((LineBreakEvent FingeringEvent MarkEvent BreathingEvent CaesuraEvent TieEvent SkipEvent RestEvent) ; pass through some events.
         (loop (cons 1 1) (cons e newelements) tail actions))
 
        ((ArticulationEvent)

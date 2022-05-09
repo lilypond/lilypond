@@ -669,6 +669,9 @@ expression."
 (define-display-method BreathingEvent (event)
   "\\breathe")
 
+(define-display-method CaesuraEvent (event)
+  "\\caesura")
+
 ;;;
 ;;; Staff switches
 ;;;

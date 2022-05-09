@@ -31,6 +31,7 @@
                     footnote-event arpeggio-event
                     bar-event
                     breathing-event
+                    caesura-event
                     coda-mark-event
                     dal-segno-event
                     extender-event span-event rhythmic-event dynamic-event

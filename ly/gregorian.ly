@@ -97,37 +97,31 @@ cavum =
 %
 % Declare divisiones shortcuts.
 %
+caesura = {
+  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
+  \once \override BreathingSign.extra-spacing-height =
+  #item::extra-spacing-height-including-staff
+  #(make-music 'CaesuraEvent)
+}
 virgula = {
   \once \set breathMarkType = #'comma
-  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
-  \once \override BreathingSign.extra-spacing-height =
-  #item::extra-spacing-height-including-staff
-
-  \breathe
-}
-caesura = {
-  \once \set breathMarkType = #'varcomma
-  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
-  \once \override BreathingSign.extra-spacing-height =
-  #item::extra-spacing-height-including-staff
-
-  \breathe
+  \caesura
 }
 divisioMinima = {
   \once \set breathMarkType = #'chantquarterbar
-  \breathe
+  \caesura
 }
 divisioMaior = {
   \once \set breathMarkType = #'chanthalfbar
-  \breathe
+  \caesura
 }
 divisioMaxima = {
   \once \set breathMarkType = #'chantfullbar
-  \breathe
+  \caesura
 }
 finalis = {
   \once \set breathMarkType = #'chantdoublebar
-  \breathe
+  \caesura
 }
 
 %

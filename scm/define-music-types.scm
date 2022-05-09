@@ -153,6 +153,14 @@ Syntax: @var{note}@code{\\breathe}")
         (types . (event breathing-event))
         (midi-length . ,breathe::midi-length)))
 
+    (CaesuraEvent
+     . ((description . "A short span of silence that does not shorten the
+previous note.
+
+Syntax: @var{note}@code{\\caesura}")
+
+        (types . (caesura-event event))))
+
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
         ;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.
