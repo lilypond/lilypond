@@ -44,7 +44,8 @@ using std::string;
   * Should look for system_start_delim to find left edge of staff.
   */
 
-MAKE_SCHEME_CALLBACK (Volta_bracket_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Volta_bracket_interface, print,
+                      "ly:volta-bracket-interface::print", 1);
 SCM
 Volta_bracket_interface::print (SCM smob)
 {

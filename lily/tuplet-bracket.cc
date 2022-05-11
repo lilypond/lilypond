@@ -128,7 +128,8 @@ Tuplet_bracket::parallel_beam (Spanner *me, vector<Grob *> const &cols)
   return beams[LEFT];
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,
+                      "ly:tuplet-bracket::calc-connect-to-neighbors", 1);
 SCM
 Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
@@ -179,7 +180,8 @@ Tuplet_bracket::get_common_x (Spanner *me)
   return commonx;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions, 1)
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions,
+                      "ly:tuplet-bracket::calc-x-positions", 1)
 SCM
 Tuplet_bracket::calc_x_positions (SCM smob)
 {
@@ -303,7 +305,7 @@ bool equal_bounds (Spanner *s1, Spanner *s2)
   in the case that there is no bracket, but there is a (single) beam,
   follow beam precisely for determining tuplet number location.
 */
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, "ly:tuplet-bracket::print", 1);
 SCM
 Tuplet_bracket::print (SCM smob)
 {
@@ -714,7 +716,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction,
+                      "ly:tuplet-bracket::calc-direction", 1);
 SCM
 Tuplet_bracket::calc_direction (SCM smob)
 {
@@ -723,7 +726,8 @@ Tuplet_bracket::calc_direction (SCM smob)
   return to_scm (dir);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions,
+                      "ly:tuplet-bracket::calc-positions", 1);
 SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
@@ -800,7 +804,8 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff,
+                      "ly:tuplet-bracket::calc-cross-staff", 1);
 SCM
 Tuplet_bracket::calc_cross_staff (SCM smob)
 {

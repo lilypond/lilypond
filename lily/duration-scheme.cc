@@ -23,7 +23,7 @@
 #include "misc.hh"
 #include "moment.hh"
 
-MAKE_SCHEME_CALLBACK (Duration, less_p, 2);
+MAKE_SCHEME_CALLBACK (Duration, less_p, "ly:duration::less?", 2);
 SCM
 Duration::less_p (SCM p1, SCM p2)
 {

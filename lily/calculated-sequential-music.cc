@@ -36,7 +36,8 @@ Calculated_sequential_music::calc_elements (Music *me)
   return SCM_EOL;
 }
 
-MAKE_SCHEME_CALLBACK (Calculated_sequential_music, length, 1);
+MAKE_SCHEME_CALLBACK (Calculated_sequential_music, length,
+                      "ly:calculated-sequential-music::length", 1);
 SCM
 Calculated_sequential_music::length (SCM m)
 {
@@ -45,7 +46,8 @@ Calculated_sequential_music::length (SCM m)
   return result.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Calculated_sequential_music, start, 1);
+MAKE_SCHEME_CALLBACK (Calculated_sequential_music, start,
+                      "ly:calculated-sequential-music::start", 1);
 SCM
 Calculated_sequential_music::start (SCM m)
 {

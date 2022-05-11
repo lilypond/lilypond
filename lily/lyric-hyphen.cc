@@ -32,7 +32,7 @@
   font.
  */
 
-MAKE_SCHEME_CALLBACK (Lyric_hyphen, print, 1);
+MAKE_SCHEME_CALLBACK (Lyric_hyphen, print, "ly:lyric-hyphen::print", 1);
 SCM
 Lyric_hyphen::print (SCM smob)
 {
@@ -127,7 +127,8 @@ Lyric_hyphen::print (SCM smob)
   return total.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Lyric_hyphen, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Lyric_hyphen, set_spacing_rods,
+                      "ly:lyric-hyphen::set-spacing-rods", 1);
 SCM
 Lyric_hyphen::set_spacing_rods (SCM smob)
 {

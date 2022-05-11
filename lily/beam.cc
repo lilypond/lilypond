@@ -161,7 +161,7 @@ Beam::get_beam_count (Grob *me)
   return m;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, "ly:beam::calc-normal-stems", 1);
 SCM
 Beam::calc_normal_stems (SCM smob)
 {
@@ -177,7 +177,7 @@ Beam::calc_normal_stems (SCM smob)
   return val;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_direction, "ly:beam::calc-direction", 1);
 SCM
 Beam::calc_direction (SCM smob)
 {
@@ -291,7 +291,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
   return best_start;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_beaming, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_beaming, "ly:beam::calc-beaming", 1)
 SCM
 Beam::calc_beaming (SCM smob)
 {
@@ -365,7 +365,7 @@ operator <(Beam_stem_segment const &a,
 
 typedef map<int, vector<Beam_stem_segment> > Position_stem_segments_map;
 
-MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, "ly:beam::calc-beam-segments", 1);
 SCM
 Beam::calc_beam_segments (SCM smob)
 {
@@ -586,7 +586,7 @@ Beam::calc_beam_segments (SCM smob)
   return segments_scm;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_x_positions, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_x_positions, "ly:beam::calc-x-positions", 1);
 SCM
 Beam::calc_x_positions (SCM smob)
 {
@@ -627,7 +627,7 @@ Beam::get_beam_segments (Grob *me)
   return segments;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, print, 1);
+MAKE_SCHEME_CALLBACK (Beam, print, "ly:beam::print", 1);
 SCM
 Beam::print (SCM grob)
 {
@@ -961,7 +961,7 @@ Beam::consider_auto_knees (Grob *me)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, "ly:beam::calc-stem-shorten", 1)
 SCM
 Beam::calc_stem_shorten (SCM smob)
 {
@@ -996,7 +996,7 @@ Beam::calc_stem_shorten (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Beam, quanting, 3);
+MAKE_SCHEME_CALLBACK (Beam, quanting, "ly:beam::quanting", 3);
 SCM
 Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 {
@@ -1066,7 +1066,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Hmm.  At this time, beam position and slope are determined.  Maybe,
   stem directions and length should set to relative to the chord's
   position of the beam.  */
-MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1);
+MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, "ly:beam::set-stem-lengths", 1);
 SCM
 Beam::set_stem_lengths (SCM smob)
 {
@@ -1235,7 +1235,8 @@ Beam::last_normal_stem (Grob *me)
 
   rest -> stem -> beam -> interpolate_y_position ()
 */
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback,
+                                   "ly:beam::rest-collision-callback", 2, 1, "");
 SCM
 Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {
@@ -1328,7 +1329,9 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Estimate the position of a rest under a beam,
   using the average position of its neighboring heads.
 */
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback, 4, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback,
+                                   "ly:beam::pure-rest-collision-callback", 4, 1,
+                                   "");
 SCM
 Beam::pure_rest_collision_callback (SCM smob,
                                     SCM, /* start */
@@ -1438,7 +1441,7 @@ Beam::is_cross_staff (Grob *me)
   return false;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_cross_staff, "ly:beam::calc-cross-staff", 1)
 SCM
 Beam::calc_cross_staff (SCM smob)
 {

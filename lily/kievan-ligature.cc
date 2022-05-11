@@ -23,7 +23,7 @@
 #include "item.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Kievan_ligature, print, 1);
+MAKE_SCHEME_CALLBACK (Kievan_ligature, print, "ly:kievan-ligature::print", 1);
 SCM
 Kievan_ligature::print (SCM)
 {

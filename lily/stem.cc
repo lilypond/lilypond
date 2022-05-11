@@ -305,7 +305,7 @@ Stem::is_normal_stem (Grob *me)
   return scm_to_int (get_property (me, "duration-log")) >= 1;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
+MAKE_SCHEME_CALLBACK (Stem, pure_height, "ly:stem::pure-height", 3)
 SCM
 Stem::pure_height (SCM smob,
                    SCM /* start */,
@@ -387,7 +387,8 @@ Stem::cache_pure_height (Grob *me, Interval iv, Interval my_iv)
   dynamic_cast<Item *> (me)->cache_pure_height (iv);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position,
+                      "ly:stem::calc-stem-end-position", 1)
 SCM
 Stem::calc_stem_end_position (SCM smob)
 {
@@ -395,7 +396,8 @@ Stem::calc_stem_end_position (SCM smob)
   return to_scm (internal_calc_stem_end_position (me, true));
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_end_position, 3)
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_end_position,
+                      "ly:stem::pure-calc-stem-end-position", 3)
 SCM
 Stem::pure_calc_stem_end_position (SCM smob,
                                    SCM, /* start */
@@ -515,7 +517,8 @@ Stem::duration_log (Grob *me)
   return (scm_is_number (s)) ? scm_to_int (s) : 2;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_positioning_done,
+                      "ly:stem::calc-positioning-done", 1);
 SCM
 Stem::calc_positioning_done (SCM smob)
 {
@@ -636,7 +639,7 @@ Stem::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_direction, "ly:stem::calc-direction", 1);
 SCM
 Stem::calc_direction (SCM smob)
 {
@@ -659,7 +662,8 @@ Stem::calc_direction (SCM smob)
   return to_scm (dir);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_default_direction, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_default_direction,
+                      "ly:stem::calc-default-direction", 1);
 SCM
 Stem::calc_default_direction (SCM smob)
 {
@@ -681,7 +685,7 @@ Stem::calc_default_direction (SCM smob)
 
 // note - height property necessary to trigger quantized beam positions
 // otherwise, we could just use Grob::stencil_height_proc
-MAKE_SCHEME_CALLBACK (Stem, height, 1);
+MAKE_SCHEME_CALLBACK (Stem, height, "ly:stem::height", 1);
 SCM
 Stem::height (SCM smob)
 {
@@ -754,7 +758,7 @@ Stem::internal_height (Grob *me, bool calc_beam)
   return stem_y;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, width, 1);
+MAKE_SCHEME_CALLBACK (Stem, width, "ly:stem::width", 1);
 SCM
 Stem::width (SCM e)
 {
@@ -780,7 +784,8 @@ Stem::thickness (Grob *me)
          * Staff_symbol_referencer::line_thickness (me);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_stem_begin_position, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_begin_position,
+                      "ly:stem::calc-stem-begin-position", 1);
 SCM
 Stem::calc_stem_begin_position (SCM smob)
 {
@@ -788,7 +793,8 @@ Stem::calc_stem_begin_position (SCM smob)
   return to_scm (internal_calc_stem_begin_position (me, true));
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_begin_position, 3);
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_begin_position,
+                      "ly:stem::pure-calc-stem-begin-position", 3);
 SCM
 Stem::pure_calc_stem_begin_position (SCM smob,
                                      SCM, /* start */
@@ -829,7 +835,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   return pos;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, "ly:stem::pure-calc-length", 3);
 SCM
 Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
 {
@@ -839,7 +845,7 @@ Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
   return to_scm (res);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_length, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_length, "ly:stem::calc-length", 1);
 SCM
 Stem::calc_length (SCM smob)
 {
@@ -874,7 +880,7 @@ Stem::is_valid_stem (Grob *me)
   return true;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, print, 1);
+MAKE_SCHEME_CALLBACK (Stem, print, "ly:stem::print", 1);
 SCM
 Stem::print (SCM smob)
 {
@@ -917,7 +923,7 @@ Stem::print (SCM smob)
 /*
   move the stem to right of the notehead if it is up.
 */
-MAKE_SCHEME_CALLBACK (Stem, offset_callback, 1);
+MAKE_SCHEME_CALLBACK (Stem, offset_callback, "ly:stem::offset-callback", 1);
 SCM
 Stem::offset_callback (SCM smob)
 {
@@ -980,7 +986,7 @@ Stem::get_stem_info (Grob *me)
   return si;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_stem_info, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_info, "ly:stem::calc-stem-info", 1);
 SCM
 Stem::calc_stem_info (SCM smob)
 {
@@ -1137,7 +1143,7 @@ Stem::is_cross_staff (Grob *stem)
   return beam && Beam::is_cross_staff (beam);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Stem, calc_cross_staff, "ly:stem::calc-cross-staff", 1)
 SCM
 Stem::calc_cross_staff (SCM smob)
 {

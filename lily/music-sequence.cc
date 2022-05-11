@@ -88,7 +88,8 @@ Music_sequence::maximum_length (SCM l)
   return (definite || !indefinite) ? dur : Moment::infinity ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, maximum_length_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_sequence, maximum_length_callback,
+                      "ly:music-sequence::maximum-length-callback", 1);
 SCM
 Music_sequence::maximum_length_callback (SCM m)
 {
@@ -96,7 +97,8 @@ Music_sequence::maximum_length_callback (SCM m)
   return maximum_length (get_property (me, "elements")).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_length_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_length_callback,
+                      "ly:music-sequence::event-chord-length-callback", 1);
 SCM
 Music_sequence::event_chord_length_callback (SCM m)
 {
@@ -111,7 +113,8 @@ Music_sequence::event_chord_length_callback (SCM m)
   return maximum_length (get_property (me, "elements")).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, cumulative_length_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_sequence, cumulative_length_callback,
+                      "ly:music-sequence::cumulative-length-callback", 1);
 SCM
 Music_sequence::cumulative_length_callback (SCM m)
 {
@@ -119,7 +122,8 @@ Music_sequence::cumulative_length_callback (SCM m)
   return cumulative_length (get_property (me, "elements")).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, minimum_start_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_sequence, minimum_start_callback,
+                      "ly:music-sequence::minimum-start-callback", 1);
 SCM
 Music_sequence::minimum_start_callback (SCM m)
 {
@@ -127,7 +131,8 @@ Music_sequence::minimum_start_callback (SCM m)
   return minimum_start (get_property (me, "elements")).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, first_start_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_sequence, first_start_callback,
+                      "ly:music-sequence::first-start-callback", 1);
 SCM
 Music_sequence::first_start_callback (SCM m)
 {
@@ -192,7 +197,8 @@ Music_sequence::first_start (SCM l)
   return accum;
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, simultaneous_relative_callback, 2);
+MAKE_SCHEME_CALLBACK (Music_sequence, simultaneous_relative_callback,
+                      "ly:music-sequence::simultaneous-relative-callback", 2);
 SCM
 Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
@@ -202,7 +208,8 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
                                  p, false).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback, 2);
+MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback,
+                      "ly:music-sequence::event-chord-relative-callback", 2);
 SCM
 Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {

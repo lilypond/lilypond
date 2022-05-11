@@ -30,7 +30,7 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Staff_symbol, print, 1);
+MAKE_SCHEME_CALLBACK (Staff_symbol, print, "ly:staff-symbol::print", 1);
 
 SCM
 Staff_symbol::print (SCM smob)
@@ -311,7 +311,7 @@ Staff_symbol::get_ledger_line_thickness (Grob *me)
   return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
 }
 
-MAKE_SCHEME_CALLBACK (Staff_symbol, height, 1);
+MAKE_SCHEME_CALLBACK (Staff_symbol, height, "ly:staff-symbol::height", 1);
 SCM
 Staff_symbol::height (SCM smob)
 {

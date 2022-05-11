@@ -256,7 +256,7 @@ Pitch::equal_p (SCM a, SCM b)
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK (Pitch, less_p, 2);
+MAKE_SCHEME_CALLBACK (Pitch, less_p, "ly:pitch::less?", 2);
 SCM
 Pitch::less_p (SCM p1, SCM p2)
 {

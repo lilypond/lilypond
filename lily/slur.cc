@@ -47,7 +47,7 @@
 using std::string;
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_direction, "ly:slur::calc-direction", 1)
 SCM
 Slur::calc_direction (SCM smob)
 {
@@ -72,7 +72,7 @@ Slur::calc_direction (SCM smob)
   return to_scm (d);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Slur, pure_height, "ly:slur::pure-height", 3);
 SCM
 Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
@@ -132,7 +132,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   return to_scm (ret);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, height, 1);
+MAKE_SCHEME_CALLBACK (Slur, height, "ly:slur::height", 1);
 SCM
 Slur::height (SCM smob)
 {
@@ -144,7 +144,7 @@ Slur::height (SCM smob)
          : to_scm (Interval ());
 }
 
-MAKE_SCHEME_CALLBACK (Slur, print, 1);
+MAKE_SCHEME_CALLBACK (Slur, print, "ly:slur::print", 1);
 SCM
 Slur::print (SCM smob)
 {
@@ -243,7 +243,9 @@ Slur::add_extra_encompass (Spanner *me, Grob *n)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback, 4, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback,
+                                   "ly:slur::pure-outside-slur-callback",
+                                   4, 1, "");
 SCM
 Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offset_scm)
 {
@@ -264,7 +266,8 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
   return to_scm (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback,
+                                   "ly:slur::outside-slur-callback", 2, 1, "");
 SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
@@ -409,7 +412,8 @@ Slur::auxiliary_acknowledge_extra_object (Grob *e,
   that any grob becomes cross-staff if it is placed 'outside or 'around a
   cross-staff slur.
 */
-MAKE_SCHEME_CALLBACK (Slur, outside_slur_cross_staff, 2)
+MAKE_SCHEME_CALLBACK (Slur, outside_slur_cross_staff,
+                      "ly:slur::outside-slur-cross-staff", 2)
 SCM
 Slur::outside_slur_cross_staff (SCM smob, SCM previous)
 {
@@ -424,7 +428,7 @@ Slur::outside_slur_cross_staff (SCM smob, SCM previous)
   return get_property (slur, "cross-staff");
 }
 
-MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, "ly:slur::calc-cross-staff", 1)
 SCM
 Slur::calc_cross_staff (SCM smob)
 {

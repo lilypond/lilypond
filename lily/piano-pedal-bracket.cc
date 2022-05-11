@@ -28,7 +28,8 @@ struct Piano_pedal_bracket
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);
+MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, "ly:piano-pedal-bracket::print",
+                      1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {

@@ -34,7 +34,8 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff,
+                      "ly:stem-tremolo::calc-cross-staff", 1)
 SCM
 Stem_tremolo::calc_cross_staff (SCM smob)
 {
@@ -43,7 +44,7 @@ Stem_tremolo::calc_cross_staff (SCM smob)
   return get_property (stem, "cross-staff");
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, "ly:stem-tremolo::calc-slope", 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)
 {
@@ -77,7 +78,7 @@ Stem_tremolo::calc_slope (SCM smob)
                    ? 0.40 : 0.25);
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, "ly:stem-tremolo::calc-width", 1)
 SCM
 Stem_tremolo::calc_width (SCM smob)
 {
@@ -91,7 +92,7 @@ Stem_tremolo::calc_width (SCM smob)
   return to_scm (((dir == UP && flag) || beam) ? 1.0 : 1.5);
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_shape, 1)
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_shape, "ly:stem-tremolo::calc-shape", 1)
 SCM
 Stem_tremolo::calc_shape (SCM smob)
 {
@@ -163,7 +164,8 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height, "ly:stem-tremolo::pure-height",
+                      3);
 SCM
 Stem_tremolo::pure_height (SCM smob, SCM, SCM)
 {
@@ -202,7 +204,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
   return to_scm (ph);
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, width, 1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, width, "ly:stem-tremolo::width", 1);
 SCM
 Stem_tremolo::width (SCM smob)
 {
@@ -242,7 +244,8 @@ Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
   return raw_stencil (me, slope, stencil_dir);
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_y_offset, 1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_y_offset,
+                      "ly:stem-tremolo::calc-y-offset", 1);
 SCM
 Stem_tremolo::calc_y_offset (SCM smob)
 {
@@ -250,7 +253,8 @@ Stem_tremolo::calc_y_offset (SCM smob)
   return to_scm (y_offset (me, false));
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_calc_y_offset, 3);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_calc_y_offset,
+                      "ly:stem-tremolo::pure-calc-y-offset", 3);
 SCM
 Stem_tremolo::pure_calc_y_offset (SCM smob,
                                   SCM, /* start */
@@ -260,7 +264,8 @@ Stem_tremolo::pure_calc_y_offset (SCM smob,
   return to_scm (y_offset (me, true));
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_direction,
+                      "ly:stem-tremolo::calc-direction", 1);
 SCM
 Stem_tremolo::calc_direction (SCM smob)
 {
@@ -359,7 +364,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
   return end_y;
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, print, "ly:stem-tremolo::print", 1);
 SCM
 Stem_tremolo::print (SCM grob)
 {

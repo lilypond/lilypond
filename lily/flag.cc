@@ -44,7 +44,7 @@ public:
   static SCM internal_calc_y_offset (SCM smob, bool pure);
 };
 
-MAKE_SCHEME_CALLBACK (Flag, width, 1);
+MAKE_SCHEME_CALLBACK (Flag, width, "ly:flag::width", 1);
 SCM
 Flag::width (SCM smob)
 {
@@ -64,7 +64,7 @@ Flag::width (SCM smob)
   return to_scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
 }
 
-MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
+MAKE_SCHEME_CALLBACK (Flag, glyph_name, "ly:flag::glyph-name", 1);
 SCM
 Flag::glyph_name (SCM smob)
 {
@@ -110,7 +110,7 @@ Flag::glyph_name (SCM smob)
   return ly_string2scm ("flags." + font_char);
 }
 
-MAKE_SCHEME_CALLBACK (Flag, print, 1);
+MAKE_SCHEME_CALLBACK (Flag, print, "ly:flag::print", 1);
 SCM
 Flag::print (SCM smob)
 {
@@ -161,7 +161,7 @@ Flag::print (SCM smob)
   return flag.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, 3);
+MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, "ly:flag::pure-calc-y-offset", 3);
 SCM
 Flag::pure_calc_y_offset (SCM smob,
                           SCM /* beg */,
@@ -170,7 +170,7 @@ Flag::pure_calc_y_offset (SCM smob,
   return internal_calc_y_offset (smob, true);
 }
 
-MAKE_SCHEME_CALLBACK (Flag, calc_y_offset, 1);
+MAKE_SCHEME_CALLBACK (Flag, calc_y_offset, "ly:flag::calc-y-offset", 1);
 SCM
 Flag::calc_y_offset (SCM smob)
 {
@@ -196,7 +196,7 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
                  : stem_extent[d] - d * blot / 2);
 }
 
-MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);
+MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, "ly:flag::calc-x-offset", 1);
 SCM
 Flag::calc_x_offset (SCM smob)
 {

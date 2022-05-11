@@ -133,7 +133,8 @@ replace_special_characters (string &str, SCM props)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_string,
+                      "ly:text-interface::interpret-string", 3);
 SCM
 Text_interface::interpret_string (SCM layout_smob,
                                   SCM props,
@@ -197,7 +198,8 @@ static size_t markup_depth = 0;
 void markup_up_depth (void *) { ++markup_depth; }
 void markup_down_depth (void *) { --markup_depth; }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup,
+                                   "ly:text-interface::interpret-markup", 3, 0,
                                    "Convert a text markup into a stencil."
                                    "  Takes three arguments, @var{layout},"
                                    "  @var{props}, and @var{markup}.\n"
@@ -281,7 +283,7 @@ Text_interface::internal_interpret_markup (Output_def *layout,
     }
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Text_interface, print, "ly:text-interface::print", 1);
 SCM
 Text_interface::print (SCM grob)
 {

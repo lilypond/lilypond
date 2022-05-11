@@ -110,7 +110,8 @@ Break_alignment_interface::get_break_align_group (Grob *me, SCM break_align_sym)
 
 /* Main routine to space breakable items in one column
    according to space-alist specifications. */
-MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done,
+                      "ly:break-alignment-interface::calc-positioning-done", 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
 {
@@ -270,7 +271,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent,
+                      "ly:break-alignable-interface::find-parent", 1)
 SCM
 Break_alignable_interface::find_parent (SCM grob)
 {
@@ -318,7 +320,8 @@ Break_alignable_interface::find_parent (Grob *me)
   return break_aligned_grob;
 }
 
-MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback,
+                      "ly:break-alignable-interface::self-align-callback", 1)
 SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
@@ -335,7 +338,8 @@ Break_alignable_interface::self_align_callback (SCM grob)
                  + anchor);
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor,
+                      "ly:break-aligned-interface::calc-average-anchor", 1)
 SCM
 Break_aligned_interface::calc_average_anchor (SCM grob)
 {
@@ -394,7 +398,9 @@ Break_aligned_interface::calc_average_anchor (Grob *me)
   return 0;
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment,
+                      "ly:break-aligned-interface::calc-joint-anchor-alignment",
+                      1)
 SCM
 Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
 {
@@ -432,7 +438,8 @@ Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
   return direction;
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor,
+                      "ly:break-aligned-interface::calc-extent-aligned-anchor", 1)
 SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
@@ -446,7 +453,8 @@ Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
   return to_scm (iv.linear_combination (alignment));
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility,
+                      "ly:break-aligned-interface::calc-break-visibility", 1)
 SCM
 Break_aligned_interface::calc_break_visibility (SCM smob)
 {

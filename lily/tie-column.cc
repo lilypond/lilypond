@@ -60,7 +60,8 @@ Tie_column::add_tie (Grob *tc, Spanner *tie)
 /*
   Extend the spanner over its Tie constituents.
 */
-MAKE_SCHEME_CALLBACK (Tie_column, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Tie_column, before_line_breaking,
+                      "ly:tie-column::before-line-breaking", 1);
 SCM
 Tie_column::before_line_breaking (SCM smob)
 {
@@ -79,7 +80,8 @@ Tie_column::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Tie_column, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Tie_column, calc_positioning_done,
+                      "ly:tie-column::calc-positioning-done", 1)
 SCM
 Tie_column::calc_positioning_done (SCM smob)
 {

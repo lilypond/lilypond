@@ -32,7 +32,8 @@ using std::vector;
 /*
   Interpolate stem directions for neutral stems.
  */
-MAKE_SCHEME_CALLBACK (Melody_spanner, calc_neutral_stem_direction, 1);
+MAKE_SCHEME_CALLBACK (Melody_spanner, calc_neutral_stem_direction,
+                      "ly:melody-spanner::calc-neutral-stem-direction", 1);
 SCM
 Melody_spanner::calc_neutral_stem_direction (SCM smob)
 {

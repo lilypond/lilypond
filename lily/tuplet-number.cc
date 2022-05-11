@@ -207,7 +207,7 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
   return true;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_number, print, "ly:tuplet-number::print", 1);
 SCM
 Tuplet_number::print (SCM smob)
 {
@@ -250,7 +250,8 @@ calc_beam_y_shift (Grob *ref_stem, Real dx)
   to the bracket associated with it, or with the beam it is placed against.
 */
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, calc_x_offset, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_x_offset,
+                      "ly:tuplet-number::calc-x-offset", 1);
 SCM
 Tuplet_number::calc_x_offset (SCM smob)
 {
@@ -321,7 +322,8 @@ Tuplet_number::calc_x_offset (SCM smob)
   return to_scm (x_offset);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset,
+                      "ly:tuplet-number::calc-y-offset", 1);
 SCM
 Tuplet_number::calc_y_offset (SCM smob)
 {
@@ -444,7 +446,8 @@ Tuplet_number::calc_y_offset (SCM smob)
   return to_scm (y_offset);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff,
+                      "ly:tuplet-number::calc-cross-staff", 1)
 SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {

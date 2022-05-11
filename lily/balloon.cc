@@ -39,7 +39,7 @@ public:
   static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Balloon_interface, print, "ly:balloon-interface::print", 1);
 SCM
 Balloon_interface::print (SCM smob)
 {
@@ -60,7 +60,7 @@ Balloon_interface::print (SCM smob)
   return internal_balloon_print (me, b, off).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, width, 1);
+MAKE_SCHEME_CALLBACK (Balloon_interface, width, "ly:balloon-interface::width", 1);
 SCM
 Balloon_interface::width (SCM smob)
 {
@@ -77,7 +77,7 @@ Balloon_interface::width (SCM smob)
   return to_scm (internal_balloon_print (me, b, Offset (off, 0)).extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, "ly:balloon-interface::pure-height", 3);
 SCM
 Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {

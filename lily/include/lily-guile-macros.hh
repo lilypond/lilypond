@@ -146,7 +146,8 @@ struct ly_scm_func_of_arity<4>
     };
 
     // definition
-    MAKE_SCHEME_CALLBACK (The_interface, cxx_name, arg_count);
+    MAKE_SCHEME_CALLBACK (The_interface, cxx_name,
+                          "ly:the-interface::scheme-name", arg_count);
     SCM
     The_interface::cxx_name (SCM smob, SCM other_arg1, [...])
     {
@@ -162,30 +163,30 @@ struct ly_scm_func_of_arity<4>
   readability and editability.
 */
 
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
+#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, OPTIONAL_COUNT, DOC) \
   SCM TYPE ::FUNC ## _proc;                                             \
   void                                                                  \
   TYPE ## _ ## FUNC ## _init_functions ()                               \
   {                                                                     \
-    std::string id = mangle_cxx_identifier (#TYPE "::" #FUNC);          \
     /* assignment selects the SCM function even if it is overloaded */ \
     ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
-    TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
+    TYPE ::FUNC ## _proc = scm_c_define_gsubr (PRIMNAME,                \
                                                (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,    \
                                                reinterpret_cast<scm_t_subr> (func)); \
-    ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
+    ly_check_name (#TYPE "::" #FUNC, PRIMNAME);                         \
+    ly_add_function_documentation (TYPE :: FUNC ## _proc, PRIMNAME, "", \
                                    DOC);                                \
-    scm_c_export (id.c_str (), NULL);                                   \
+    scm_c_export (PRIMNAME, NULL);                                      \
   }                                                                     \
                                                                         \
   ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,                    \
                      TYPE ## _ ## FUNC ## _init_functions);
 
-#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT, DOC)              \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, 0, DOC);
+#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT, DOC) \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, DOC);
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                      \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT)             \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, "");
 
 void ly_add_function_documentation (SCM proc, const char *fname, const char *varlist, const char *doc);
 void ly_check_name (const char *cxx, const char *fname);

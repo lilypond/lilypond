@@ -36,7 +36,8 @@ public:
   DECLARE_SCHEME_CALLBACK (center_on_figures, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures, 1);
+MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures,
+                      "ly:figured-bass-continuation::center-on-figures", 1);
 SCM
 Figured_bass_continuation::center_on_figures (SCM grob)
 {
@@ -52,7 +53,8 @@ Figured_bass_continuation::center_on_figures (SCM grob)
   return to_scm (ext.center () - me->relative_coordinate (common, Y_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Figured_bass_continuation, print, 1);
+MAKE_SCHEME_CALLBACK (Figured_bass_continuation, print,
+                      "ly:figured-bass-continuation::print", 1);
 SCM
 Figured_bass_continuation::print (SCM grob)
 {

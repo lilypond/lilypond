@@ -878,7 +878,7 @@ grob_stencil_extent (Grob *me, Axis a)
   return to_scm (e);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
+MAKE_SCHEME_CALLBACK (Grob, stencil_height, "ly:grob::stencil-height", 1);
 SCM
 Grob::stencil_height (SCM smob)
 {
@@ -886,7 +886,8 @@ Grob::stencil_height (SCM smob)
   return grob_stencil_extent (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, 3);
+MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, "ly:grob::pure-stencil-height",
+                      3);
 SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
@@ -898,7 +899,8 @@ Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 
 }
 
-MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);
+MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, "ly:grob::y-parent-positioning",
+                      1);
 SCM
 Grob::y_parent_positioning (SCM smob)
 {
@@ -910,7 +912,8 @@ Grob::y_parent_positioning (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
+MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, "ly:grob::x-parent-positioning",
+                      1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {
@@ -923,7 +926,7 @@ Grob::x_parent_positioning (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
+MAKE_SCHEME_CALLBACK (Grob, stencil_width, "ly:grob::stencil-width", 1);
 SCM
 Grob::stencil_width (SCM smob)
 {

@@ -363,7 +363,8 @@ check_meshing_chords (Grob *me,
   return shift_amount;
 }
 
-MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done,
+                      "ly:note-collision-interface::calc-positioning-done", 1)
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {

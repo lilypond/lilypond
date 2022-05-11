@@ -414,7 +414,8 @@ add_bound_item (Spanner *sp, Grob *it)
     sp->set_bound (RIGHT, it);
 }
 
-MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, "ly:spanner::set-spacing-rods",
+                      1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {
@@ -486,7 +487,8 @@ Spanner::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Spanner, calc_normalized_endpoints, 1);
+MAKE_SCHEME_CALLBACK (Spanner, calc_normalized_endpoints,
+                      "ly:spanner::calc-normalized-endpoints", 1);
 SCM
 Spanner::calc_normalized_endpoints (SCM smob)
 {
@@ -530,7 +532,7 @@ Spanner::calc_normalized_endpoints (SCM smob)
   return result;
 }
 
-MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);
+MAKE_SCHEME_CALLBACK (Spanner, bounds_width, "ly:spanner::bounds-width", 1);
 SCM
 Spanner::bounds_width (SCM grob)
 {
@@ -547,7 +549,8 @@ Spanner::bounds_width (SCM grob)
   return to_scm (w);
 }
 
-MAKE_SCHEME_CALLBACK (Spanner, kill_zero_spanned_time, 1);
+MAKE_SCHEME_CALLBACK (Spanner, kill_zero_spanned_time,
+                      "ly:spanner::kill-zero-spanned-time", 1);
 SCM
 Spanner::kill_zero_spanned_time (SCM grob)
 {

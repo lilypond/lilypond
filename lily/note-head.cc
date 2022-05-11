@@ -107,7 +107,7 @@ internal_print (Grob *me, string *font_char)
 /*
   TODO: make stem X-parent of notehead.
  */
-MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, 1);
+MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, "ly:note-head::stem-x-shift", 1);
 SCM
 Note_head::stem_x_shift (SCM smob)
 {
@@ -119,7 +119,7 @@ Note_head::stem_x_shift (SCM smob)
   return to_scm (0);
 }
 
-MAKE_SCHEME_CALLBACK (Note_head, print, 1);
+MAKE_SCHEME_CALLBACK (Note_head, print, "ly:note-head::print", 1);
 SCM
 Note_head::print (SCM smob)
 {
@@ -129,7 +129,8 @@ Note_head::print (SCM smob)
   return internal_print (me, &idx).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height, 1);
+MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height,
+                      "ly:note-head::include-ledger-line-height", 1);
 SCM
 Note_head::include_ledger_line_height (SCM smob)
 {
@@ -196,7 +197,8 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key,
   return att;
 }
 
-MAKE_SCHEME_CALLBACK (Note_head, calc_stem_attachment, 1);
+MAKE_SCHEME_CALLBACK (Note_head, calc_stem_attachment,
+                      "ly:note-head::calc-stem-attachment", 1);
 SCM
 Note_head::calc_stem_attachment (SCM smob)
 {
@@ -218,7 +220,8 @@ Note_head::calc_stem_attachment (SCM smob)
   Hard-coded to (0.0, 1.35) for upward stems and (0.0, -1.35) for
   downward stems.
 */
-MAKE_SCHEME_CALLBACK (Note_head, calc_tab_stem_attachment, 1);
+MAKE_SCHEME_CALLBACK (Note_head, calc_tab_stem_attachment,
+                      "ly:note-head::calc-tab-stem-attachment", 1);
 SCM
 Note_head::calc_tab_stem_attachment (SCM smob)
 {

@@ -28,7 +28,7 @@
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1);
+MAKE_SCHEME_CALLBACK (Lyric_extender, print, "ly:lyric-extender::print", 1);
 SCM
 Lyric_extender::print (SCM smob)
 {

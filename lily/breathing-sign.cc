@@ -34,7 +34,8 @@
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Breathing_sign, set_breath_properties, 3);
+MAKE_SCHEME_CALLBACK (Breathing_sign, set_breath_properties,
+                      "ly:breathing-sign::set-breath-properties", 3);
 SCM
 Breathing_sign::set_breath_properties (SCM smob, SCM context, SCM breath_type)
 {
@@ -91,7 +92,8 @@ Breathing_sign::set_breath_properties (Grob *me, Context *ctx, SCM breath_type)
   Gregorian chant divisio minima.  (Actually, this was the original
   breathing sign by Michael. -- jr)
 */
-MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_minima, 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_minima,
+                      "ly:breathing-sign::divisio-minima", 1);
 SCM
 Breathing_sign::divisio_minima (SCM smob)
 {
@@ -117,7 +119,8 @@ Breathing_sign::divisio_minima (SCM smob)
 /*
   Gregorian chant divisio maior.
 */
-MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maior, 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maior,
+                      "ly:breathing-sign::divisio-maior", 1);
 SCM
 Breathing_sign::divisio_maior (SCM smob)
 {
@@ -197,7 +200,8 @@ Breathing_sign::divisio_maior (SCM smob)
 /*
   Gregorian chant divisio maxima.
 */
-MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maxima, 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maxima,
+                      "ly:breathing-sign::divisio-maxima", 1);
 SCM
 Breathing_sign::divisio_maxima (SCM smob)
 {
@@ -220,7 +224,7 @@ Breathing_sign::divisio_maxima (SCM smob)
 /*
   Gregorian chant finalis.
 */
-MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, "ly:breathing-sign::finalis", 1);
 SCM
 Breathing_sign::finalis (SCM smob)
 {
@@ -244,7 +248,8 @@ Breathing_sign::finalis (SCM smob)
   return line1.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Breathing_sign, offset_callback, 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, offset_callback,
+                      "ly:breathing-sign::offset-callback", 1);
 SCM
 Breathing_sign::offset_callback (SCM smob)
 {

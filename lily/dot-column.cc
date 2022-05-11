@@ -42,7 +42,8 @@
 using std::set;
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done,
+                      "ly:dot-column::calc-positioning-done", 1);
 SCM
 Dot_column::calc_positioning_done (SCM smob)
 {

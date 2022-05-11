@@ -26,7 +26,8 @@ struct Clef_modifier
   DECLARE_SCHEME_CALLBACK (calc_parent_alignment, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment, 1)
+MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment,
+                      "ly:clef-modifier::calc-parent-alignment", 1)
 SCM
 Clef_modifier::calc_parent_alignment (SCM smob)
 {

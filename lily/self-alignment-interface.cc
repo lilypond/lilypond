@@ -26,7 +26,8 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self,
+                      "ly:self-alignment-interface::y-aligned-on-self", 1);
 SCM
 Self_alignment_interface::y_aligned_on_self (SCM element)
 {
@@ -34,7 +35,8 @@ Self_alignment_interface::y_aligned_on_self (SCM element)
   return to_scm (aligned_on_self (me, Y_AXIS, false, 0, 0));
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_aligned_on_self, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_aligned_on_self,
+                      "ly:self-alignment-interface::x-aligned-on-self", 1);
 SCM
 Self_alignment_interface::x_aligned_on_self (SCM element)
 {
@@ -42,7 +44,8 @@ Self_alignment_interface::x_aligned_on_self (SCM element)
   return to_scm (x_aligned_on_self (me));
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self,
+                      "ly:self-alignment-interface::pure-y-aligned-on-self", 3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
@@ -73,7 +76,8 @@ Self_alignment_interface::centered_on_self (Grob *me, Axis a)
   return robust_relative_extent (me, me, a).center ();
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent,
+                      "ly:self-alignment-interface::centered-on-x-parent", 1);
 SCM
 Self_alignment_interface::centered_on_x_parent (SCM smob)
 {
@@ -81,7 +85,8 @@ Self_alignment_interface::centered_on_x_parent (SCM smob)
   return to_scm (centered_on_self (me->get_x_parent (), X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent,
+                      "ly:self-alignment-interface::centered-on-y-parent", 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
 {
@@ -89,7 +94,8 @@ Self_alignment_interface::centered_on_y_parent (SCM smob)
   return to_scm (centered_on_self (me->get_y_parent (), Y_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent,
+                      "ly:self-alignment-interface::aligned-on-x-parent", 1);
 SCM
 Self_alignment_interface::aligned_on_x_parent (SCM smob)
 {
@@ -97,7 +103,8 @@ Self_alignment_interface::aligned_on_x_parent (SCM smob)
   return to_scm (aligned_on_parent (me, X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent, 1);
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent,
+                      "ly:self-alignment-interface::aligned-on-y-parent", 1);
 SCM
 Self_alignment_interface::aligned_on_y_parent (SCM smob)
 {

@@ -59,7 +59,8 @@ Multi_measure_rest::bar_width (Spanner *me)
   return iv;
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, 1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, "ly:multi-measure-rest::print",
+                      1);
 SCM
 Multi_measure_rest::print (SCM smob)
 {
@@ -83,7 +84,8 @@ Multi_measure_rest::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, 1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, "ly:multi-measure-rest::height",
+                      1);
 SCM
 Multi_measure_rest::height (SCM smob)
 {
@@ -374,7 +376,8 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,
+                      "ly:multi-measure-rest::set-spacing-rods", 1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
@@ -385,7 +388,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods,
+                      "ly:multi-measure-rest::set-text-rods", 1);
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {

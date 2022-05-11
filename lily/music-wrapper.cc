@@ -21,7 +21,8 @@
 
 #include "music.hh"
 
-MAKE_SCHEME_CALLBACK (Music_wrapper, start_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_wrapper, start_callback,
+                      "ly:music-wrapper::start-callback", 1);
 SCM
 Music_wrapper::start_callback (SCM m)
 {
@@ -33,7 +34,8 @@ Music_wrapper::start_callback (SCM m)
     return Moment ().smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Music_wrapper, length_callback, 1);
+MAKE_SCHEME_CALLBACK (Music_wrapper, length_callback,
+                      "ly:music-wrapper::length-callback", 1);
 SCM
 Music_wrapper::length_callback (SCM m)
 {

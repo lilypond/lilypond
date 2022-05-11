@@ -50,7 +50,8 @@ ties
 /*
   Cut & paste from tie-column.cc
  */
-MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_positioning_done,
+                      "ly:semi-tie-column::calc-positioning-done", 1);
 SCM
 Semi_tie_column::calc_positioning_done (SCM smob)
 {
@@ -87,7 +88,8 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_head_direction, 1);
+MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_head_direction,
+                      "ly:semi-tie-column::calc-head-direction", 1);
 SCM
 Semi_tie_column::calc_head_direction (SCM smob)
 {

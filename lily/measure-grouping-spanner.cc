@@ -25,7 +25,7 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK (Measure_grouping, print, 1);
+MAKE_SCHEME_CALLBACK (Measure_grouping, print, "ly:measure-grouping::print", 1);
 SCM
 Measure_grouping::print (SCM grob)
 {

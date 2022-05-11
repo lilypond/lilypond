@@ -41,7 +41,9 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest,
+                                   "ly:rest-collision::force-shift-callback-rest",
+                                   2, 1, "");
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
@@ -96,7 +98,8 @@ rest_shift_less (Grob *const &r1, Grob *const &r2)
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
 */
-MAKE_SCHEME_CALLBACK (Rest_collision, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Rest_collision, calc_positioning_done,
+                      "ly:rest-collision::calc-positioning-done", 1);
 SCM
 Rest_collision::calc_positioning_done (SCM smob)
 {

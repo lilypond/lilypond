@@ -50,7 +50,7 @@ thickness
 
 /* ugh: should make bracket interface. */
 
-MAKE_SCHEME_CALLBACK (Enclosing_bracket, width, 1);
+MAKE_SCHEME_CALLBACK (Enclosing_bracket, width, "ly:enclosing-bracket::width", 1);
 SCM
 Enclosing_bracket::width (SCM grob)
 {
@@ -83,7 +83,7 @@ Enclosing_bracket::width (SCM grob)
   return to_scm (left_br.extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Enclosing_bracket, print, 1);
+MAKE_SCHEME_CALLBACK (Enclosing_bracket, print, "ly:enclosing-bracket::print", 1);
 SCM
 Enclosing_bracket::print (SCM grob)
 {

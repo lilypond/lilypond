@@ -29,7 +29,9 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1);
+MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs,
+                      "ly:pure-from-neighbor-interface::calc-pure-relevant-grobs",
+                       1);
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {

@@ -148,7 +148,7 @@ Tie::get_default_dir (Spanner *me)
   return from_scm<Direction> (get_property (me, "neutral-direction"));
 }
 
-MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Tie, calc_direction, "ly:tie::calc-direction", 1);
 SCM
 Tie::calc_direction (SCM smob)
 {
@@ -212,7 +212,7 @@ Tie::get_control_points (Grob *me,
   return controls;
 }
 
-MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
+MAKE_SCHEME_CALLBACK (Tie, calc_control_points, "ly:tie::calc-control-points", 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
@@ -244,7 +244,7 @@ Tie::calc_control_points (SCM smob)
 /*
   TODO: merge with Slur::print.
 */
-MAKE_SCHEME_CALLBACK (Tie, print, 1);
+MAKE_SCHEME_CALLBACK (Tie, print, "ly:tie::print", 1);
 SCM
 Tie::print (SCM smob)
 {
