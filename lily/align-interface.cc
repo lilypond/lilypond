@@ -74,7 +74,7 @@ get_skylines (Grob *g,
     {
       SCM sym = (a == Y_AXIS)
                 ? ly_symbol2scm ("vertical-skylines")
-                : ly_symbol2scm ("horizonta-skylines");
+                : ly_symbol2scm ("horizontal-skylines");
       SCM skyp_scm = get_property (g, sym);
       Skyline_pair skylines;
       if (is_scm<Skyline_pair> (skyp_scm))
