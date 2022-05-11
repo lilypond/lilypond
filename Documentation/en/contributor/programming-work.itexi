@@ -533,7 +533,6 @@ by a hyphen (@q{-}):
 scheme-multiword-variable
 @end verbatim
 
-
 @node Broken code
 @subsection Broken code
 
@@ -2555,8 +2554,6 @@ Also scm_c_eval_string (), scm_eval ()
 @subheading How do C++ functions get called from Scheme procedures?
 
 Export a C++ function to Scheme with LY_DEFINE.
-
-Editor's note: see @file{lily/include/lily-guile-macros.hh} for details.
 
 @subheading What is the flow of control in the program?
 

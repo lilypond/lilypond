@@ -35,7 +35,7 @@ Translator_creator::call (SCM ctx)
 Protected_scm global_translator_dict;
 Protected_scm global_translator_dict_rev;
 
-LY_DEFINE (get_all_translators, 0, 0, 0, (),
+LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
            R"(
 Return a list of all translator objects that may be instantiated.
            )")
@@ -64,7 +64,7 @@ add_translator_creator (SCM creator, SCM name, SCM description)
   scm_hashq_set_x (global_translator_dict_rev, creator, scm_cons (name, description));
 }
 
-LY_DEFINE (ly_translator_name,
+LY_DEFINE (ly_translator_name, "ly:translator-name",
            1, 0, 0, (SCM creator),
            R"(
 Return the type name of the translator definition @var{creator}.  The name is a
@@ -79,7 +79,7 @@ symbol.
   return scm_car (res);
 }
 
-LY_DEFINE (ly_translator_description,
+LY_DEFINE (ly_translator_description, "ly:translator-description",
            1, 0, 0, (SCM creator),
            R"(
 Return an alist of properties of translator definition @var{creator}.
@@ -93,7 +93,7 @@ Return an alist of properties of translator definition @var{creator}.
   return scm_cdr (res);
 }
 
-LY_DEFINE (ly_register_translator,
+LY_DEFINE (ly_register_translator, "ly:register-translator",
            2, 1, 0, (SCM creator, SCM name, SCM description),
            R"(
 Register a translator @var{creator} (usually a descriptive alist or a

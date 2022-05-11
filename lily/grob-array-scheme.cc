@@ -21,7 +21,7 @@
 #include "grob-array.hh"
 #include "grob.hh"
 
-LY_DEFINE (ly_grob_array_length,
+LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
            1, 0, 0,
            (SCM grob_arr),
            R"(
@@ -33,7 +33,7 @@ Return the length of @var{grob-arr}.
   return to_scm (me->size ());
 }
 
-LY_DEFINE (ly_grob_array_ref,
+LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
            2, 0, 0,
            (SCM grob_arr, SCM index),
            R"(
@@ -50,7 +50,7 @@ Retrieve the @var{index}th element of @var{grob-arr}.
   return me->grob (i)->self_scm ();
 }
 
-LY_DEFINE (ly_grob_array_2_list,
+LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list",
            1, 0, 0,
            (SCM grob_arr),
            R"(
@@ -62,7 +62,7 @@ Return the elements of @var{grob-arr} as a Scheme list.
   return grob_array_to_list (me);
 }
 
-LY_DEFINE (ly_grob_list_2_grob_array,
+LY_DEFINE (ly_grob_list_2_grob_array, "ly:grob-list->grob-array",
            1, 0, 0,
            (SCM grob_list),
            R"(

@@ -1433,7 +1433,7 @@ output_stencil_format (std::string const &basename, const Stencil *stc,
 
 #endif // CAIRO_BACKEND
 
-LY_DEFINE (ly_cairo_output_stencils, 5, 0, 0,
+LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
            (SCM basename, SCM stencils, SCM header, SCM paper, SCM formats),
            R"(
 dump book through cairo backend
@@ -1484,7 +1484,7 @@ dump book through cairo backend
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_cairo_output_stencil, 4, 0, 0,
+LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 4, 0, 0,
            (SCM basename, SCM stencil, SCM paper, SCM formats),
            R"(
 dump a single stencil through the Cairo backend

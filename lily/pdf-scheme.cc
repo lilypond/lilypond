@@ -24,7 +24,7 @@
 
 #include <glib.h>
 
-LY_DEFINE (ly_encode_string_for_pdf,
+LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
            1, 0, 0, (SCM str),
            R"(
 Encode @var{str} as either Latin-1 (which is a subset of PDFDocEncoding) or, if

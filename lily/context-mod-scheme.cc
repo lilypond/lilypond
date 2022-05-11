@@ -21,7 +21,7 @@
 #include "context.hh"
 #include "context-mod.hh"
 
-LY_DEFINE (ly_get_context_mods,
+LY_DEFINE (ly_get_context_mods, "ly:get-context-mods",
            1, 0, 0, (SCM contextmod),
            R"(
 Returns the list of context modifications stored in @var{contextmod}.
@@ -31,7 +31,7 @@ Returns the list of context modifications stored in @var{contextmod}.
   return tr->get_mods ();
 }
 
-LY_DEFINE (ly_add_context_mod,
+LY_DEFINE (ly_add_context_mod, "ly:add-context-mod",
            2, 0, 0, (SCM contextmods, SCM modification),
            R"(
 Adds the given context @var{modification} to the list @var{contextmods} of
@@ -43,7 +43,7 @@ context modifications.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_make_context_mod,
+LY_DEFINE (ly_make_context_mod, "ly:make-context-mod",
            0, 1, 0, (SCM mod_list),
            R"(
 Create a context modification, optionally initialized via the list of
@@ -59,7 +59,7 @@ modifications @var{mod-list}.
     return Context_mod ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_context_mod_apply_x,
+LY_DEFINE (ly_context_mod_apply_x, "ly:context-mod-apply!",
            2, 0, 0, (SCM context, SCM mod),
            R"(
 Apply the context modification @var{mod} to @var{context}.

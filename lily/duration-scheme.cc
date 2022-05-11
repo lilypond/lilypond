@@ -36,7 +36,7 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_duration_less_p,
+LY_DEFINE (ly_duration_less_p, "ly:duration<?",
            2, 0, 0, (SCM p1, SCM p2),
            R"(
 Is @var{p1} shorter than @var{p2}?
@@ -51,7 +51,7 @@ Is @var{p1} shorter than @var{p2}?
     return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_make_duration,
+LY_DEFINE (ly_make_duration, "ly:make-duration",
            1, 3, 0, (SCM length, SCM dotcount, SCM num, SCM den),
            R"(
 Make a duration.  @var{length} is the negative logarithm (base@tie{}2) of the
@@ -99,7 +99,7 @@ of two (whole, half, quarter, etc.) and a number of augmentation dots.
   return p.smobbed_copy ();
 }
 
-LY_DEFINE (ly_duration_log,
+LY_DEFINE (ly_duration_log, "ly:duration-log",
            1, 0, 0, (SCM dur),
            R"(
 Extract the duration log from @var{dur}.
@@ -109,7 +109,7 @@ Extract the duration log from @var{dur}.
   return to_scm (a->duration_log ());
 }
 
-LY_DEFINE (ly_duration_dot_count,
+LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
            1, 0, 0, (SCM dur),
            R"(
 Extract the dot count from @var{dur}.
@@ -119,7 +119,7 @@ Extract the dot count from @var{dur}.
   return to_scm (a->dot_count ());
 }
 
-LY_DEFINE (ly_intlog2,
+LY_DEFINE (ly_intlog2, "ly:intlog2",
            1, 0, 0, (SCM d),
            R"(
 The 2-logarithm of 1/@var{d}.
@@ -130,7 +130,7 @@ The 2-logarithm of 1/@var{d}.
   return to_scm (log);
 }
 
-LY_DEFINE (ly_duration_length,
+LY_DEFINE (ly_duration_length, "ly:duration-length",
            1, 0, 0, (SCM dur),
            R"(
 The length of the duration as a @code{moment}.
@@ -140,7 +140,7 @@ The length of the duration as a @code{moment}.
   return Moment (a->get_length ()).smobbed_copy ();
 }
 
-LY_DEFINE (ly_duration_2_string,
+LY_DEFINE (ly_duration_2_string, "ly:duration->string",
            1, 0, 0, (SCM dur),
            R"(
 Convert @var{dur} to a string.
@@ -150,7 +150,7 @@ Convert @var{dur} to a string.
   return ly_string2scm (a->to_string ());
 }
 
-LY_DEFINE (ly_duration_factor,
+LY_DEFINE (ly_duration_factor, "ly:duration-factor",
            1, 0, 0, (SCM dur),
            R"(
 Extract the compression factor from @var{dur}.  Return it as a pair.
@@ -163,7 +163,7 @@ Extract the compression factor from @var{dur}.  Return it as a pair.
 
 // This is likely what ly:duration-factor should have been in the
 // first place.
-LY_DEFINE (ly_duration_scale,
+LY_DEFINE (ly_duration_scale, "ly:duration-scale",
            1, 0, 0, (SCM dur),
            R"(
 Extract the compression factor from @var{dur}.  Return it as a rational.
@@ -175,7 +175,7 @@ Extract the compression factor from @var{dur}.  Return it as a rational.
   return to_scm (r);
 }
 
-LY_DEFINE (ly_duration_compress,
+LY_DEFINE (ly_duration_compress, "ly:duration-compress",
            2, 0, 0, (SCM dur, SCM factor),
            R"(
 Compress @var{dur} by rational @var{factor}.

@@ -22,7 +22,7 @@
 #include "skyline.hh"
 #include "stencil.hh"
 
-LY_DEFINE (ly_skyline_touching_point,
+LY_DEFINE (ly_skyline_touching_point, "ly:skyline-touching-point",
            2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Get the point where @var{skyline} and @var{other-skyline} (having
@@ -42,7 +42,7 @@ first.
   return to_scm (sky->touching_point (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_distance,
+LY_DEFINE (ly_skyline_distance, "ly:skyline-distance",
            2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Compute the distance between the two skylines, padding by
@@ -60,7 +60,7 @@ Compute the distance between the two skylines, padding by
   return to_scm (sky->distance (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_max_height,
+LY_DEFINE (ly_skyline_max_height, "ly:skyline-max-height",
            1, 0, 0, (SCM skyline),
            R"(
 Return the maximum height found in @var{skyline}.
@@ -70,7 +70,7 @@ Return the maximum height found in @var{skyline}.
   return to_scm (sky->max_height ());
 }
 
-LY_DEFINE (ly_skyline_max_height_position,
+LY_DEFINE (ly_skyline_max_height_position, "ly:skyline-max-height-position",
            1, 0, 0, (SCM skyline),
            R"(
 Return the position at which @var{skyline} reaches its maximum height.
@@ -80,7 +80,7 @@ Return the position at which @var{skyline} reaches its maximum height.
   return to_scm (sky->max_height_position ());
 }
 
-LY_DEFINE (ly_skyline_height,
+LY_DEFINE (ly_skyline_height, "ly:skyline-height",
            2, 0, 0, (SCM skyline, SCM x),
            R"(
 Return the height of @var{skyline} at point @var{x}.
@@ -92,7 +92,7 @@ Return the height of @var{skyline} at point @var{x}.
   return to_scm (sky->height (x_cpp));
 }
 
-LY_DEFINE (ly_skyline_empty_p,
+LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
            1, 0, 0, (SCM sky),
            R"(
 Return whether skyline @var{sky} is empty.
@@ -102,7 +102,7 @@ Return whether skyline @var{sky} is empty.
   return to_scm (s->is_empty ());
 }
 
-LY_DEFINE (ly_skylines_for_stencil,
+LY_DEFINE (ly_skylines_for_stencil, "ly:skylines-for-stencil",
            2, 0, 0, (SCM stencil, SCM axis),
            R"(
 Return a pair of skylines representing the outline of @var{stencil}.

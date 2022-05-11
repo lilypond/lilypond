@@ -47,7 +47,7 @@ Unpure_pure_container::pure_part () const
 
 const char *const Unpure_pure_container::type_p_name_ = "ly:unpure-pure-container?";
 
-LY_DEFINE (ly_make_unpure_pure_container,
+LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container",
            1, 1, 0, (SCM unpure, SCM pure),
            R"(
 Make an unpure-pure container.  @var{unpure} should be an unpure expression,
@@ -59,7 +59,7 @@ extra arguments that are ignored for the sake of pure calculations.
   return Unpure_pure_container::make_smob (unpure, pure);
 }
 
-LY_DEFINE (ly_unpure_pure_container_unpure_part,
+LY_DEFINE (ly_unpure_pure_container_unpure_part, "ly:unpure-pure-container-unpure-part",
            1, 0, 0, (SCM pc),
            R"(
 Return the unpure part of @var{pc}.
@@ -69,7 +69,7 @@ Return the unpure part of @var{pc}.
   return upc->unpure_part ();
 }
 
-LY_DEFINE (ly_unpure_pure_container_pure_part,
+LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-part",
            1, 0, 0, (SCM pc),
            R"(
 Return the pure part of @var{pc}.
@@ -93,7 +93,7 @@ Unpure_pure_container::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
-LY_DEFINE (ly_pure_call,
+LY_DEFINE (ly_pure_call, "ly:pure-call",
            4, 0, 1, (SCM data, SCM grob, SCM start, SCM end, SCM rest),
            R"(
 Convert property @var{data} (unpure-pure container or procedure) to value in a
@@ -119,7 +119,7 @@ pure context defined by @var{grob}, @var{start}, @var{end}, and possibly
   return data;
 }
 
-LY_DEFINE (ly_unpure_call,
+LY_DEFINE (ly_unpure_call, "ly:unpure-call",
            2, 0, 1, (SCM data, SCM grob, SCM rest),
            R"(
 Convert property @var{data} (unpure-pure container or procedure) to value in an

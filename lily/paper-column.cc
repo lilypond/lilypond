@@ -219,7 +219,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return ext + coord;
 }
 
-LY_DEFINE (ly_paper_column__break_align_width,
+LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
            2, 0, 0, (SCM col, SCM align_syms),
            R"(
 

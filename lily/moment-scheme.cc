@@ -20,7 +20,7 @@
 #include "moment.hh"
 
 /* TODO: add optional factor argument. */
-LY_DEFINE (ly_make_moment,
+LY_DEFINE (ly_make_moment, "ly:make-moment",
            1, 3, 0, (SCM m, SCM g, SCM gn, SCM gd),
            R"(
 Create a moment with rational main timing @var{m}, and optional grace timing
@@ -72,7 +72,7 @@ timing.
                          Rational (grace_num, grace_den)));
 }
 
-LY_DEFINE (ly_moment_sub,
+LY_DEFINE (ly_moment_sub, "ly:moment-sub",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Subtract two moments.
@@ -84,7 +84,7 @@ Subtract two moments.
   return to_scm (*ma - *mb);
 }
 
-LY_DEFINE (ly_moment_add,
+LY_DEFINE (ly_moment_add, "ly:moment-add",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Add two moments.
@@ -96,7 +96,7 @@ Add two moments.
   return to_scm (*ma + *mb);
 }
 
-LY_DEFINE (ly_moment_mul,
+LY_DEFINE (ly_moment_mul, "ly:moment-mul",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Multiply two moments.
@@ -108,7 +108,7 @@ Multiply two moments.
   return to_scm (*ma * mb->main_part_);
 }
 
-LY_DEFINE (ly_moment_div,
+LY_DEFINE (ly_moment_div, "ly:moment-div",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Divide two moments.
@@ -120,7 +120,7 @@ Divide two moments.
   return to_scm (*ma / mb->main_part_);
 }
 
-LY_DEFINE (ly_moment_mod,
+LY_DEFINE (ly_moment_mod, "ly:moment-mod",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Modulo of two moments.
@@ -132,7 +132,7 @@ Modulo of two moments.
   return to_scm (*ma % mb->main_part_);
 }
 
-LY_DEFINE (ly_moment_grace,
+LY_DEFINE (ly_moment_grace, "ly:moment-grace",
            1, 0, 0, (SCM mom),
            R"(
 Extract grace timing as a rational number from @var{mom}.
@@ -143,7 +143,7 @@ Extract grace timing as a rational number from @var{mom}.
   return to_scm (ma->grace_part_);
 }
 
-LY_DEFINE (ly_moment_grace_numerator,
+LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
            1, 0, 0, (SCM mom),
            R"(
 Extract numerator from grace timing.
@@ -154,7 +154,7 @@ Extract numerator from grace timing.
   return to_scm (ma->grace_part_.numerator ());
 }
 
-LY_DEFINE (ly_moment_grace_denominator,
+LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
            1, 0, 0, (SCM mom),
            R"(
 Extract denominator from grace timing.
@@ -165,7 +165,7 @@ Extract denominator from grace timing.
   return to_scm (ma->grace_part_.denominator ());
 }
 
-LY_DEFINE (ly_moment_main,
+LY_DEFINE (ly_moment_main, "ly:moment-main",
            1, 0, 0, (SCM mom),
            R"(
 Extract main timing as a rational number from @var{mom}.
@@ -176,7 +176,7 @@ Extract main timing as a rational number from @var{mom}.
   return to_scm (ma->main_part_);
 }
 
-LY_DEFINE (ly_moment_main_numerator,
+LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
            1, 0, 0, (SCM mom),
            R"(
 Extract numerator from main timing.
@@ -187,7 +187,7 @@ Extract numerator from main timing.
   return to_scm (ma->main_part_.numerator ());
 }
 
-LY_DEFINE (ly_moment_main_denominator,
+LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
            1, 0, 0, (SCM mom),
            R"(
 Extract denominator from main timing.
@@ -198,7 +198,7 @@ Extract denominator from main timing.
   return to_scm (ma->main_part_.denominator ());
 }
 
-LY_DEFINE (ly_moment_less_p,
+LY_DEFINE (ly_moment_less_p, "ly:moment<?",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Compare two moments.

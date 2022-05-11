@@ -40,7 +40,7 @@ Transform::call (SCM arg)
   return to_scm<Offset> ((*this) (from_scm<Offset> (arg)));
 }
 
-LY_DEFINE (ly_make_transform,
+LY_DEFINE (ly_make_transform, "ly:make-transform",
            0, 6, 0, (SCM xx, SCM yx, SCM xy, SCM yy, SCM x0, SCM y0),
            R"(
 Create a transform.  Without options, it is the identity transform.  Given four
@@ -76,7 +76,7 @@ on points given either as complex number or real number pair.  See also
          .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_scaling,
+LY_DEFINE (ly_make_scaling, "ly:make-scaling",
            1, 1, 0, (SCM scale, SCM scaley),
            R"(
 Create a scaling transform from argument @var{scale} and optionally
@@ -108,7 +108,7 @@ y@tie{}direction like with the first calling convention.
          .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_rotation,
+LY_DEFINE (ly_make_rotation, "ly:make-rotation",
            1, 1, 0, (SCM angle, SCM center),
            R"(
 Make a transform rotating by @var{angle} in degrees.  If @var{center} is given
@@ -123,7 +123,7 @@ rotation is around @w{(0, 0)}.
          .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_translation,
+LY_DEFINE (ly_make_translation, "ly:make-translation",
            1, 1, 0, (SCM x, SCM y),
            R"(
 Make a transform translating by @var{x} and @var{y}. If only @var{x} is given,
@@ -147,7 +147,7 @@ use.
   return Transform (from_scm<Offset> (x)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_transform_2_list,
+LY_DEFINE (ly_transform_2_list, "ly:transform->list",
            1, 0, 0, (SCM transform),
            R"(
 Convert a transform matrix to a list of six values.  Values are @var{xx},

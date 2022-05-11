@@ -24,7 +24,7 @@ Protected_scm context_property_lookup_table;
 Protected_scm grob_property_lookup_table;
 Protected_scm prob_property_lookup_table;
 
-LY_DEFINE (ly_property_lookup_stats,
+LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
            1, 0, 0, (SCM sym),
            R"(
 Return hash table with a property access corresponding to @var{sym}.  Choices

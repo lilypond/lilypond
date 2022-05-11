@@ -24,7 +24,7 @@
 #include "global-context.hh"
 #include "music-output.hh"
 
-LY_DEFINE (ly_make_score,
+LY_DEFINE (ly_make_score, "ly:make-score",
            1, 0, 0,
            (SCM music),
            R"(
@@ -39,7 +39,7 @@ Return score with @var{music} encapsulated in it.
   return score->unprotect ();
 }
 
-LY_DEFINE (ly_score_output_defs,
+LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
            1, 0, 0, (SCM score),
            R"(
 All output definitions in a score.
@@ -53,7 +53,7 @@ All output definitions in a score.
   return scm_reverse_x (l, SCM_EOL);
 }
 
-LY_DEFINE (ly_score_add_output_def_x,
+LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
            2, 0, 0, (SCM score, SCM def),
            R"(
 Add an output definition @var{def} to @var{score}.
@@ -65,7 +65,7 @@ Add an output definition @var{def} to @var{score}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_score_header,
+LY_DEFINE (ly_score_header, "ly:score-header",
            1, 0, 0, (SCM score),
            R"(
 Return score header.
@@ -75,7 +75,7 @@ Return score header.
   return sc->get_header ();
 }
 
-LY_DEFINE (ly_score_set_header_x,
+LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
            2, 0, 0, (SCM score, SCM module),
            R"(
 Set the score header.
@@ -89,7 +89,7 @@ Set the score header.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_score_music,
+LY_DEFINE (ly_score_music, "ly:score-music",
            1, 0, 0, (SCM score),
            R"(
 Return score music.
@@ -99,7 +99,7 @@ Return score music.
   return sc->get_music ();
 }
 
-LY_DEFINE (ly_score_error_p,
+LY_DEFINE (ly_score_error_p, "ly:score-error?",
            1, 0, 0, (SCM score),
            R"(
 Was there an error in the score?
@@ -109,7 +109,7 @@ Was there an error in the score?
   return scm_from_bool (sc->error_found_);
 }
 
-LY_DEFINE (ly_score_embedded_format,
+LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
            2, 0, 0, (SCM score, SCM layout),
            R"(
 Run @var{score} through @var{layout} (an output definition) scaled to correct

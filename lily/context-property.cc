@@ -108,7 +108,7 @@ Grob_properties::mark_smob () const
   return cooked_from_;
 }
 
-LY_DEFINE (ly_make_grob_properties,
+LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
            1, 0, 0, (SCM alist),
            R"(
 Package the given property list @var{alist} in a grob property container stored

@@ -483,7 +483,7 @@ create_type42_font (std::ostream &stream, const string &name, int idx)
   FT_Done_Face (face);
 }
 
-LY_DEFINE (ly_ttf_ps_name,
+LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
            1, 1, 0, (SCM ttf_file_name, SCM idx),
            R"(
 Extract the PostScript name from a TrueType font.  The optional @var{idx}
@@ -532,7 +532,7 @@ index within the TTC.  The default value of @var{idx} is@tie{}0.
   return ps_name;
 }
 
-LY_DEFINE (ly_ttf_2_pfa,
+LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
            1, 1, 0, (SCM ttf_file_name, SCM idx),
            R"(
 Convert the contents of a TrueType font file to PostScript Type@tie{}42 font,

@@ -19,7 +19,7 @@
 
 #include "performance.hh"
 
-LY_DEFINE (ly_performance_headers,
+LY_DEFINE (ly_performance_headers, "ly:performance-headers",
            1, 0, 0, (SCM performance),
            R"(
 Return the list of headers with the innermost first.
@@ -30,7 +30,7 @@ Return the list of headers with the innermost first.
   return p->get_headers ();
 }
 
-LY_DEFINE (ly_performance_write,
+LY_DEFINE (ly_performance_write, "ly:performance-write",
            3, 0, 0, (SCM performance, SCM filename, SCM name),
            R"(
 Write @var{performance} to @var{filename} storing @var{name} as the name of the

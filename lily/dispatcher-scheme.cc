@@ -19,7 +19,7 @@
 
 #include "dispatcher.hh"
 
-LY_DEFINE (ly_make_dispatcher,
+LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher",
            0, 0, 0, (),
            R"(
 Return a newly created dispatcher.
@@ -28,7 +28,7 @@ Return a newly created dispatcher.
   return (new Dispatcher ())->unprotect ();
 }
 
-LY_DEFINE (ly_connect_dispatchers,
+LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
            2, 0, 0, (SCM to, SCM from),
            R"(
 Make the dispatcher @var{to} listen to events from @var{from}.
@@ -42,7 +42,7 @@ Make the dispatcher @var{to} listen to events from @var{from}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_disconnect_dispatchers,
+LY_DEFINE (ly_disconnect_dispatchers, "ly:disconnect-dispatchers",
            2, 0, 0, (SCM to, SCM from),
            R"(
 Stop the dispatcher @var{to} listening to events from @var{from}.
@@ -56,7 +56,7 @@ Stop the dispatcher @var{to} listening to events from @var{from}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_add_listener,
+LY_DEFINE (ly_add_listener, "ly:add-listener",
            2, 0, 1, (SCM callback, SCM disp, SCM cl),
            R"(
 Add the single-argument procedure @var{callback} as listener to the dispatcher
@@ -77,7 +77,7 @@ Add the single-argument procedure @var{callback} as listener to the dispatcher
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_listened_event_types,
+LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
            1, 0, 0, (SCM disp),
            R"(
 Return a list of all event types that @var{disp} listens to.
@@ -92,7 +92,7 @@ Return a list of all event types that @var{disp} listens to.
   return result;
 }
 
-LY_DEFINE (ly_listened_event_class_p,
+LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
            2, 0, 0, (SCM disp, SCM cl),
            R"(
 Does @var{disp} listen to any event type in the list @var{cl}?
@@ -108,7 +108,7 @@ Does @var{disp} listen to any event type in the list @var{cl}?
   return scm_from_bool (result);
 }
 
-LY_DEFINE (ly_broadcast,
+LY_DEFINE (ly_broadcast, "ly:broadcast",
            2, 0, 0, (SCM disp, SCM ev),
            R"(
 Send the stream event @var{ev} to the dispatcher @var{disp}.
