@@ -333,6 +333,7 @@ grobs.")))))
 
     (BassFigure
      . (
+        (font-features . ("ss01"))
         (stencil . ,ly:text-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
@@ -1074,6 +1075,7 @@ repeating two bars.  See also @iref{DoublePercentRepeatCounter},
      . (
         (direction . ,UP)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -2)
         (padding . 0.2)
         (parent-alignment-X . ,CENTER)
@@ -1315,6 +1317,7 @@ group of notes).  Used in Gregorian chant.")))))
         (cross-staff . ,script-or-side-position-cross-staff)
         (direction . ,ly:script-interface::calc-direction)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -5)                ; don't overlap when next to heads.
         (padding . 0.5)
         (parent-alignment-X . ,CENTER)
@@ -1959,6 +1962,7 @@ and @iref{VowelTransition}.")))))
         (count-from . 1)
         (direction . ,UP)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -2)
         ;; This ought to be an en dash rather than a mere dash, but it
         ;; looks way too wide with fetaText.
@@ -2113,6 +2117,7 @@ by a precise indication in parentheses.")))))
         (bound-padding  . 1.0)
         (direction . ,UP)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (padding . 0.4)
         (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
@@ -2415,6 +2420,7 @@ a bar.  See also @iref{PercentRepeatCounter},
      . (
         (direction . ,UP)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -2)
         (padding . 0.2)
         (parent-alignment-X . ,CENTER)
@@ -3050,6 +3056,7 @@ articulations.")))))
         (avoid-slur . around)
         (cross-staff . ,script-or-side-position-cross-staff)
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -5)                ; don't overlap when next to heads.
         (number-type . arabic)
         (padding . 0.5)
@@ -3724,6 +3731,7 @@ of a voice.")))))
         (direction . ,UP)
         (edge-height . (2.0 . 2.0)) ;; staff-space;
         (font-encoding . fetaText)
+        (font-features . ("ss02"))
         (font-size . -4)
         (shorten-pair . ,ly:volta-bracket::calc-shorten-pair)
         (stencil . ,ly:volta-bracket-interface::print)
