@@ -1839,6 +1839,10 @@ cases it is preferable to use the simpler syntax explained in
 @node Font features
 @unnumberedsubsubsec Font features
 
+@cindex feature, OpenType font
+@cindex font feature, OpenType
+@cindex OpenType, font feature
+
 When using OpenType fonts, font features can be
 used.@footnote{Selecting OpenType font scripts and languages is
 not supported yet.}  Note that not all OpenType fonts have all

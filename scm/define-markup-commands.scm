@@ -3013,13 +3013,46 @@ Use @code{\\fontsize} otherwise.
   (markup?)
   #:category font
   "Set font family to @code{number}, which yields the font used for
-time signatures and fingerings.  This font contains numbers and
-some punctuation; it has no letters.
+time signatures and fingerings.  This font contains numbers and some
+punctuation; it has no letters.
+
+@cindex feature, OpenType font
+@cindex font feature, OpenType
+@cindex OpenType, font feature
+
+The appearance of numbers in the Emmentaler font can be controlled
+with three OpenType features: @q{kern}, @q{ss01}, and @q{ss02}.
+
+@itemize
+@item
+If @q{kern} is active (which is the default), kerning gets applied
+between digits.
+
+@item
+Stylistic variant feature @q{ss01} (which is off by default) adds left
+and right side bearings to the digits to make them of equal width,
+which improves vertical stacking of single digits; it also changes the
+shape of digits 4 and@tie{}7.
+
+@item
+Stylistic variant feature @q{ss02} (which is off by default) only
+changes the shape of digits 4 and@tie{}7.
+@end itemize
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\number {
-    0 1 2 3 4 5 6 7 8 9 . ,
+  \\column {
+    \\line {
+      \\number 0123456789., (for time signatures)
+    }
+    \\line {
+      \\override #'(font-features . (\"ss02\"))
+        \\number 0123456789., (for fingering)
+    }
+    \\line {
+      \\override #'(font-features .(\"ss01\" \"-kern\"))
+        \\number 0123456789., (for fixed-width digits)
+    }
   }
 }
 @end lilypond"
@@ -5309,6 +5342,11 @@ row is filled up with @code{point-stencil}s.
 Overriding @code{padding} may be used to increase columns horizontal distance.
 Overriding @code{baseline-skip} to increase rows vertical distance.
 @lilypond[verbatim,quote]
+% A markup command to print a fixed-width number.
+\\markup fwnum =
+  \\markup \\override #'(font-features . (\"ss01\" \"-kern\"))
+    \\number \\etc
+
 \\markuplist {
   \\override #'(padding . 2)
   \\table
@@ -5316,10 +5354,10 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
     {
       \\underline { center-aligned right-aligned
                     center-aligned left-aligned }
-      one      \\number    1 thousandth \\number 0.001
-      eleven   \\number   11 hundredth  \\number 0.01
-      twenty   \\number   20 tenth      \\number 0.1
-      thousand \\number 1000 one        \\number 1.0
+      one      \\fwnum    1 thousandth \\fwnum 0.001
+      eleven   \\fwnum   11 hundredth  \\fwnum 0.01
+      twenty   \\fwnum   20 tenth      \\fwnum 0.1
+      thousand \\fwnum 1000 one        \\fwnum 1.0
     }
 }
 @end lilypond
