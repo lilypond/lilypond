@@ -177,23 +177,6 @@ class LilyPond(ConfigurePackage):
         return args
 
     def build(self, c: Config) -> bool:
-        # We should not need to patch our own sources here, but applying this
-        # fix would break GUB, so we can only do this once we don't care about
-        # it anymore.
-        if c.is_mingw():
-
-            def patch_makefile(content: str) -> str:
-                # First remove program_suffix everywhere...
-                content = content.replace("$(program_suffix)", "")
-                # ... then add it to EXECUTABLE so that dependencies and
-                # installation works fine.
-                content = re.sub("EXECUTABLE = .*", "\\g<0>$(program_suffix)", content)
-                content = content.replace("$(outdir)/lilypond:", "$(EXECUTABLE):")
-                return content
-
-            lily_gnumakefile = os.path.join("lily", "GNUmakefile")
-            self.patch_file(c, lily_gnumakefile, patch_makefile)
-
         # If mingw, copy FlexLexer.h from /usr/include and pass it to configure
         # because the cross-compiler would not find it.
         if c.is_mingw():

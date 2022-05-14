@@ -14,7 +14,7 @@ include $(depth)/make/lilypond.make
 FLOWER_LIB = $(depth)/flower/$(outdir)/library.a
 LDLIBS = $(FLOWER_LIB) $(CONFIG_LIBS)
 
-EXECUTABLE = $(outdir)/$(NAME)
+EXECUTABLE = $(outdir)/$(NAME)$(program_suffix)
 
 default: $(EXECUTABLE)
 
@@ -24,10 +24,10 @@ local-uninstall: uninstallexe
 
 installexe: all
 	-$(INSTALLPY) -d $(DESTDIR)$(bindir)
-	$(INSTALLPY) -m 755 $(EXECUTABLE) $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))$(program_suffix)
+	$(INSTALLPY) -m 755 $(EXECUTABLE) $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))
 
 uninstallexe:
-	rm -f $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))$(program_suffix)
+	rm -f $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))
 
 $(O_FILES): $(outdir)/config.hh
 
@@ -55,7 +55,7 @@ endif
 ifeq ($(PLATFORM_WINDOWS),yes)
 WINDRES_FLAGS += -DLilyPond=0 -DLY=1
 O_FILES += $(outdir)/lilypond.rc.o
-$(outdir)/lilypond: $(outdir)/lilypond.rc.o
+$(EXECUTABLE): $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico \
 	$(src-dir)/lilypond.manifest
@@ -77,7 +77,7 @@ $(outdir)/libstdc++.a:
 	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)
 
 ifeq ($(LINK_GXX_STATICALLY),yes)
-$(outdir)/lilypond: $(outdir)/libstdc++.a
+$(EXECUTABLE): $(outdir)/libstdc++.a
 endif
 
 # force these: Make can't know these have to be generated in advance
