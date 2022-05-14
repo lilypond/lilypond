@@ -356,7 +356,7 @@ unusual notation.  Here is an excerpt from Trevor Bača's
 @subheading Efficient, flexible creation of performance materials
 
 Various performance materials can be created from the same source
-code.  This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
+code.  This is an excerpt of @uref{https://editions-nicolas-sceaux.fr/,
 Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
 full score, piano-vocal reduction, and a violin part.
 
@@ -445,7 +445,7 @@ LilyPond's ability to provide customised output.
 
 Standard output can be modified heavily.  Here is an impressive
 Schenkerian analysis, created by Kris Schaffer, for an article
-in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+in @uref{https://www.linuxjournal.com/article/8364 , Linux Journal}.
 The colors have been added for better visibility.
 
 @exampleImage{bach-schenker}
@@ -708,8 +708,8 @@ Italy in celebration of the composer's 350th birthday.  See
 
 
 @item
-@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} engraved the work
-of Lully's @emph{Armide} which was performed by
+@uref{https://editions-nicolas-sceaux.fr/,Nicolas Sceaux} engraved
+the work of Lully's @emph{Armide} which was performed by
 @uref{https://www.mercuryhouston.org/, Mercury Baroque} in 2009.
 
 Nicolas also engraved the instrumental excerpts from Rameau's
@@ -723,7 +723,7 @@ his ensemble at St. James's Church, Manhattan, New York in 2009.  See
 libretto of @emph{Affaire étrangère}, an opera by
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
 Trondheim}, which was premiered in 2009 at the
-@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
+@uref{https://www.opera-orchestre-montpellier.fr/, L'Opéra National de
 Montpellier}, France.
 
 
@@ -823,7 +823,7 @@ April 2011
 
 @uref{https://www.linux-magazine.com,Linux Magazine} publishes an
 article titled
-@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
+@uref{https://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  It is an introductory article on MuseScore,
 LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
 driven from the command line, but don't let the lack of a GUI scare
@@ -849,7 +849,7 @@ article about LilyPond}.
 August 2009
 
 Ann Drinan, on the
-@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}
+@uref{https://iml.esm.rochester.edu/polyphonic-archive/article/the-role-of-the-orchestra-librarian-as-music-copyist/, Polyphonic.org}
 website, presents comments by two orchestra librarians who
 talk about using software to maintain their libraries.
 
@@ -1059,7 +1059,7 @@ the more I like it!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} contributor
+@subsubheading @uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} contributor
 
 @qq{I had a kind of hate-passion relationship with it.  Passion
 because the first score I saw was so amazing! The description of
