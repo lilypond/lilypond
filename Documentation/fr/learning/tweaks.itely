@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
+   Translation of GIT committish: 0b6b559902c6e825b412d22a163f17a86c7cd8e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -218,7 +218,6 @@ Manuel de notation :
 * La commande override::
 * La commande revert::
 * Le préfixe once::
-* La commande overrideProperty::
 * La commande tweak::
 * Le préfixe single::
 @end menu
@@ -386,22 +385,6 @@ musical :
   b( c) |
 }
 @end lilypond
-
-
-@node La commande overrideProperty
-@unnumberedsubsubsec La commande @code{\overrideProperty}
-@translationof The overrideProperty command
-
-@cindex overrideProperty, commande
-
-@funindex \overrideProperty
-
-Il existe une autre forme de commande @code{\override},
-@code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
-ici par souci d'exhaustivité ; pour le détail, voir
-@rextend{Retouches complexes}.
-
-@c Maybe explain in a later iteration  -td
 
 
 @node La commande tweak

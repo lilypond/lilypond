@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
+   Translation of GIT committish: 0b6b559902c6e825b412d22a163f17a86c7cd8e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1605,15 +1605,6 @@ où @var{type} correspond au nom du contexte (tels @code{Staff} ou
 @code{Voice}).  Cette commande crée un nouveau contexte, puis
 interprète l'@var{expression-musicale} contenue dans ledit
 contexte.
-
-@warning{La commande \@code{new Score} ne devrait jamais servir en
-début de partition, puisque le contexte premier que constitue
-@code{Score} est créé automatiquement par l'interprétation de
-l'@var{expression-musicale} contenue dans le bloc @code{\score}.  Les
-adaptations affectant les propriétés des différents contextes et qui
-s'appliqueront à l'ensemble de la partition trouvent leur place au sein
-d'un bloc \@code{layout}, en suivant les préceptes énoncés au
-chapitre @ref{Modification des propriétés d'un contexte}.}
 
 Nous avons déjà vu au cours des chapitres précédents de nombreux
 exemples où des contextes @code{Staff} ou @code{Voice} étaient créés au
