@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: 5e8252fc0b40f07cb68471ac9d987ea090023bcb
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -13,6 +13,9 @@
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
 
+@c Important note: if you change this node name, be sure to update
+@c the URL in the warning printed when the file fails and the
+@c \version statement is outdated.
 
 @node Mise à jour avec convert-ly
 @chapter Mise à jour avec @command{convert-ly}
