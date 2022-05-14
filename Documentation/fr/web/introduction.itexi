@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 5d34ddc0e45c6853644b01cf1a57aa80606e5977
+   Translation of GIT committish: 21d0a83199b0ce35dbfc9a7b05bce6b297290ba1
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -408,12 +408,11 @@ est extrait de @emph{Čáry}, pour flûte basse seule, de Trevor Bača.
 @divClass{column-center-middle-color2}
 @subheading Création efficace et flexible de matériels d'exécution
 
-Divers matériels d'exécution -- conducteur, parties séparées --
-peuvent être créés à partir du même code source LilyPond.  Voici un
-extrait de la gravure par
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} du @emph{Giulio
-Cesare} de Händel, avec le conducteur, une réduction à deux portées
-vocales, et une partie de violon.
+Divers matériels d'exécution -- conducteur, parties séparées -- peuvent
+être créés à partir du même code source LilyPond. Voici un extrait de la
+gravure par @uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}
+du @emph{Giulio Cesare} de Händel, avec le conducteur, une réduction à
+deux portées vocales, et une partie de violon.
 
 @exampleImage{sesto-full}
 
@@ -480,7 +479,7 @@ pédagogiques.  Voici par exemple un exercice de contrepoint.
 La notation musicale standard peut être grandement personnalisée, au
 point de créer un diagramme d'analyse schenkérienne comme celui-ci, créé
 par Kris Schaffer pour un article du
-@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.  Les
+@uref{https://www.linuxjournal.com/article/8364, Linux Journal}.  Les
 couleurs ont été ajoutés pour plus de visibilité.
 
 @exampleImage{bach-schenker}
@@ -795,8 +794,8 @@ Stigliano à Naples lors des célébrations organisées pour le
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
 Texas, par @uref{https://www.mercuryhouston.org/, Mercury Baroque},
-avec un matériel gravé par @uref{http://nicolas.sceaux.free.fr/, Nicolas
-Sceaux}.
+avec un matériel gravé par @uref{https://editions-nicolas-sceaux.fr/,
+Nicolas Sceaux}.
 
 Nicolas a aussi gravé des passages instrumentaux @emph{d'Hippolyte et
 Aricie} de Rameau qui ont été joués le 8 mai 2009 en l'église
@@ -817,7 +816,7 @@ dont la première a eu lieu le
 @end html
 @end ifhtml
  février 2009 en France à
-@uref{http://www.orchestre-montpellier.com/, l'Opéra national de
+@uref{https://www.opera-orchestre-montpellier.fr/, l'Opéra national de
 Montpellier}.
 
 @end itemize
@@ -922,7 +921,7 @@ Avril 2011
 
 @uref{https://www.linux-magazine.com,Linux Magazine} publie un
 article sur trois projets en pleine évolution,
-@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
+@uref{https://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Dans cette présentation de MuseScore, LilyPond
 et Chordii, Carla Schroder indique que « même si LilyPond se base sur
 la ligne de commande, l'absence d'interface graphique n'est en rien
@@ -947,7 +946,7 @@ Le magazine allemand LinuxUser publie un
 Août 2009
 
 Sur le site
-@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org},
+@uref{https://iml.esm.rochester.edu/polyphonic-archive/article/the-role-of-the-orchestra-librarian-as-music-copyist/, Polyphonic.org},
 Ann Drinan présente les appréciations de deux bibliothécaires
 d'orchestre qui évoquent les possibilités ouvertes par
 l'informatique pour la maintenance de leurs fonds.
@@ -1163,7 +1162,7 @@ investissement !}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, contributeur au @uref{https://www.mutopiaproject.org/, projet Mutopia}
+@subsubheading @uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}, contributeur au @uref{https://www.mutopiaproject.org/, projet Mutopia}
 
 @qq{J'avais une sorte de passion conflictuelle avec lui.  Passion parce
 que la première partition que j'en ai vu m'a vraiment émerveillé ! Le
