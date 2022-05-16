@@ -218,7 +218,7 @@ LILYPOND_BOOK_FLAGS += \
 # xref map maps section titles <> node names for translated split HTML docs.
 $(outdir)/%.xref-map: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
-	$(PYTHON) -tt $(buildscript-dir)/extract_texi_filenames.py \
+	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py \
 	  $(EXTRACT_TEXI_FILENAMES_FLAGS) \
 	  $(if $(call target_language), \
 	    --master-map-file=$(subst $(call target_language)/,en/,$@)) \
@@ -580,11 +580,11 @@ $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.ite
 
 $(outdir)/version.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) -tt $(buildscript-dir)/create-version-itexi.py > $@
+	$(PYTHON) $(buildscript-dir)/create-version-itexi.py > $@
 
 $(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) -tt $(buildscript-dir)/create-weblinks-itexi.py > $@
+	$(PYTHON) $(buildscript-dir)/create-weblinks-itexi.py > $@
 
 $(outdir)/lilypond-%.info: \
   $(outdir)/en/%.texi \
