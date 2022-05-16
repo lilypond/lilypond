@@ -22,11 +22,8 @@ import fnmatch
 import os
 import re
 import subprocess
-import sys
-#
-import pytt
 
-dry_run = False
+import pytt
 
 ignored_files = [
     # files maintained outside of LilyPond
