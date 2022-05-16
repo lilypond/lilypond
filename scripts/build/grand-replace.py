@@ -20,20 +20,12 @@
 import datetime
 import os
 import re
+import subprocess
 import sys
 #
 import pytt
 
 dry_run = False
-
-
-def read_pipe(cmd, ignore_errors=False):
-    pipe = os.popen(cmd)
-    val = pipe.read()
-    if pipe.close() and not ignore_errors:
-        raise SystemFailed('Pipe failed: %(cmd)s' % locals())
-    return val
-
 
 def filter_out(p, lst):
     return [x for x in lst if not p(x)]
@@ -88,9 +80,12 @@ copied_files = [
 
 
 def main():
+    all_files = subprocess.run(['git', 'ls-files'],
+                               capture_output=True, check=True,
+                               encoding='utf-8').stdout.splitlines()
     files = filter_out(lambda x: (os.path.basename(x) in copied_files
                                   or 'CHANGES' in x or 'ChangeLog' in x),
-                       read_pipe('git ls-files').split())
+                       all_files)
     year = datetime.datetime.now().year
     last_year = year - 1
     last_year_1d = last_year % 10
