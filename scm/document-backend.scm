@@ -177,8 +177,7 @@ node."
          (engraver-names (map symbol->string
                               (map ly:translator-name engravers)))
          (engraver-list (human-listify
-                         (map ref-ify
-                              (map engraver-name engraver-names)))))
+                         (map ref-ify engraver-names))))
 
     (make <texi-node>
       #:code-tag #t

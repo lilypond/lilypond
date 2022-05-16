@@ -135,20 +135,6 @@ environment."
      "\n@end ifhtml\n"
      "\n@end ignore\n")))
 
-(define (context-name name)
-  name)
-
-(define (engraver-name name)
-  name)
-
-(define (grob-name name)
-  (if (symbol? name)
-      (symbol->string name)
-      name))
-
-(define (interface-name name)
-  name)
-
 (define (ref-ify x)
   "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
