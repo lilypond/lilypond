@@ -21,22 +21,6 @@
 
 import re
 
-
-def string_to_number(s):
-    try:
-        return int(s)
-    except ValueError:
-        return float(s)
-
-
-def string_to_integer(s):
-    num = string_to_number(s)
-    if isinstance(num, int):
-        return num
-    else:
-        return int(num)
-
-
 def escape_ly_output_string(input_string):
     return_string = input_string
     needs_quotes = not re.match("^[a-zA-ZäöüÜÄÖßñ]*$", return_string)
