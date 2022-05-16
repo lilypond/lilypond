@@ -18,6 +18,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
+import fnmatch
 import os
 import re
 import subprocess
@@ -27,55 +28,21 @@ import pytt
 
 dry_run = False
 
-def filter_out(p, lst):
-    return [x for x in lst if not p(x)]
-
-
-copied_files = [
+ignored_files = [
     # files maintained outside of LilyPond
-    'config.guess',
-    'config.sub',
-    'fdl.itexi',
-    'gpl.itexi',
-    'help2man.pl',
-    'install-sh',
-    'mf2pt1.mp',
-    'mf2pt1.pl',
-    'texinfo-ja.tex',
-    'texinfo.tex',
-    'txi-ca.tex',
-    'txi-de.tex',
-    'txi-en.tex',
-    'txi-es.tex',
-    'txi-fr.tex',
-    'txi-hu.tex',
-    'txi-it.tex',
-    'txi-ja.tex',
-    'txi-nl.tex',
-    'txi-pt.tex',
-
+    'config/*',
+    'Documentation/en/fdl.itexi',
+    'Documentation/en/gpl.itexi',
+    'scripts/build/help2man.pl',
+    'mf/mf2pt1.mp',
+    'scripts/build/mf2pt1.pl',
+    'tex/texinfo*.tex',
+    'tex/txi-*.tex',
     # files maintained by the translation team
-    'ca.po',
-    'cs.po',
-    'da.po',
-    'de.po',
-    'el.po',
-    'eo.po',
-    'es.po',
-    'fi.po',
-    'fr.po',
-    'hu.po',
-    'it.po',
-    'ja.po',
-    'nl.po',
-    'pt.po',
-    'ru.po',
-    'sv.po',
-    'tr.po',
-    'uk.po',
-    'vi.po',
-    'zh.po',
-    'zh_TW.po',
+    'po/*.po',
+    # historical files
+    'Documentation/misc/CHANGES*',
+    'Documentation/misc/ChangeLog*',
 ]
 
 
@@ -83,9 +50,8 @@ def main():
     all_files = subprocess.run(['git', 'ls-files'],
                                capture_output=True, check=True,
                                encoding='utf-8').stdout.splitlines()
-    files = filter_out(lambda x: (os.path.basename(x) in copied_files
-                                  or 'CHANGES' in x or 'ChangeLog' in x),
-                       all_files)
+    files = [file for file in all_files
+             if not any(fnmatch.fnmatch(file, pat) for pat in ignored_files)]
     year = datetime.datetime.now().year
     last_year = year - 1
     last_year_1d = last_year % 10

@@ -1,5 +1,5 @@
 # translation of LilyPond documentation to Italian
-# Copyright (C) 2009--2020 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 2009--2022 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Federico Bruni <fedelogy@gmail.com>, 2009, 2012.
 #

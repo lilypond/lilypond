@@ -46,7 +46,7 @@ corresponent.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2021 pels autors.
+Copyright @copyright{} 1999--2022 pels autors.
 @end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi
