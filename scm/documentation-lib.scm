@@ -167,12 +167,11 @@ environment."
                 where))
   (type-name type))
 
-(define (property->texi where sym . rest)
+(define* (property->texi where sym #:optional alist)
   "Document SYM for WHERE (which can be translation, backend, music),
 with init values from ALIST (1st optional argument)
 "
   (let* ((name (symbol->string sym))
-         (alist (if (pair? rest) (car rest) '()))
          (type?-name (string->symbol
                       (string-append (symbol->string where) "-type?")))
          (doc-name (string->symbol
@@ -180,14 +179,16 @@ with init values from ALIST (1st optional argument)
          (type (object-property sym type?-name))
          (typename (verify-type-name where sym type))
          (desc (object-property sym doc-name))
-         (init-value (assoc-get sym alist)))
+         (init-value-pair (and alist (assoc sym alist))))
 
     (if (eq? desc #f)
         (ly:error (G_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
      (string-append "@code{" name "} (" typename ")"
-                    (if init-value
-                        (string-append ":" (scm->texi init-value) "\n")
+                    (if init-value-pair
+                        (string-append ":"
+                                       (scm->texi (cdr init-value-pair))
+                                       "\n")
                         ""))
      desc)))
