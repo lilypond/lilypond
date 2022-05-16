@@ -41,13 +41,12 @@
 ;; sort all grobs in the all-grob-descriptions alist
 (set! all-grob-descriptions (sort all-grob-descriptions ly:alist-ci<?))
 
-(define (interface-doc-string interface grob-description)
+(define (interface-doc-string interface)
   (let* ((name (car interface))
          (desc (string-trim-both (cadr interface)))
          (props (caddr interface))
          (docfunc (lambda (pr)
-                    (property->texi
-                     'backend pr grob-description)))
+                    (property->texi 'backend pr)))
          (iprops (filter (lambda (x) (object-property x 'backend-internal))
                          props))
          (uprops (filter
@@ -131,7 +130,7 @@
       #:code-tag #t
       #:name (symbol->string name)
       #:text (string-append
-              (interface-doc-string (cdr interface) '())
+              (interface-doc-string (cdr interface))
               "\n\n@raggedRight\n"
               "This grob interface "
               (if unconditional-grobs
