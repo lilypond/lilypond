@@ -192,3 +192,17 @@ with init values from ALIST (1st optional argument)
                                        "\n")
                         ""))
      desc)))
+
+(define* (list-xref-symbols lst #:key (sorted #t) (uniq #f))
+  "Convenience to convert a list of symbols into a human-readable list
+of cross-references.  The list is sorted, unless @code{#:sort #f}
+is passed.  If @code{#:uniq #t} is passed, duplicates are removed
+first."
+  (let* ((strings (map symbol->string lst))
+         (sorted-strings (if sorted
+                             (sort strings ly:string-ci<?)
+                             strings))
+         (uniqued (if uniq
+                      (uniq-list sorted-strings)
+                      sorted-strings)))
+    (human-listify (map ref-ify uniqued))))
