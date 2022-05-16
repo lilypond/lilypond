@@ -1542,19 +1542,6 @@ of the file.  In some cases, this will not be possible, so the
 rule will simply point out to the user that the feature needs
 manual correction.
 
-@subsubheading Updating version numbers
-
-If a development release occurs between you writing your patch and
-having it approved+pushed, you will need to update the version
-numbers in your tree.  This can be done with:
-
-@example
-scripts/auxiliar/update-patch-version old.version.number new.version.number
-@end example
-
-It will change all files in git, so use with caution and examine
-the resulting diff.
-
 
 @node Automatically update documentation
 @subsection Automatically update documentation
