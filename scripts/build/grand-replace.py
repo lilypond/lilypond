@@ -51,13 +51,13 @@ def main():
              if not any(fnmatch.fnmatch(file, pat) for pat in ignored_files)]
     year = datetime.datetime.now().year
     last_year = year - 1
-    last_year_1d = last_year % 10
+    copyright_part = r'(Copyright|\(c\)|\(C\)|@copyright\{\}[^\d-]*)'
     for f in files:
-        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s(?=[^-]|$)' % locals(),
-                  r'\1 %(last_year)s--%(year)s' % locals(),
+        pytt.pytt(copyright_part + rf'{last_year}(?!-)',
+                  rf'\1{last_year}--{year}',
                   f)
-        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*([^-]*)--(20[0-9][0-%(last_year_1d)s])' % locals(),
-                  r'\1 \2--%(year)s' % locals(),
+        pytt.pytt(copyright_part + r'(\d{4})--\d{4}',
+                  rf'\1\2--{year}',
                   f)
 
 
