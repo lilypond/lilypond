@@ -23,8 +23,6 @@ import os
 import re
 import subprocess
 
-import pytt
-
 ignored_files = [
     # files maintained outside of LilyPond
     'config/*',
@@ -52,14 +50,20 @@ def main():
     year = datetime.datetime.now().year
     last_year = year - 1
     copyright_part = r'(Copyright|\(c\)|\(C\)|@copyright\{\}[^\d-]*)'
-    for f in files:
-        pytt.pytt(copyright_part + rf'{last_year}(?!-)',
-                  rf'\1{last_year}--{year}',
-                  f)
-        pytt.pytt(copyright_part + r'(\d{4})--\d{4}',
-                  rf'\1\2--{year}',
-                  f)
-
+    for filename in files:
+        with open(filename, encoding='utf-8') as file:
+            try:
+                content = file.read()
+            except UnicodeDecodeError:
+                continue # ignore binary files
+        content = re.sub(copyright_part + rf'{last_year}(?!-)',
+                         rf'\1{last_year}--{year}',
+                         content)
+        content = re.sub(copyright_part + r'(\d{4})--\d{4}',
+                         rf'\1\2--{year}',
+                         content)
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(content)
 
 if __name__ == '__main__':
     main()
