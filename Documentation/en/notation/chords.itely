@@ -858,17 +858,16 @@ Figured bass notation can be displayed.
 @c TODO: musicological blurb about FB
 
 
-LilyPond has support for figured bass, also called thorough bass
-or basso continuo:
+LilyPond has support for figured bass, also called @dfn{thorough
+bass} or @dfn{basso continuo}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass {
     \figuremode {
-      < 6 >4 < 7\+ >8 < 6+ [_!] >
-      < 6 >4 <6 5 [3+] >
-      < _ >4 < 6 5/>4
+      <6>4 <7\+>8 <6+ [_!]> <6>4 <6 5 [3+]> |
+      <_>4 <6 5/>4
     }
   }
 >>
@@ -886,7 +885,6 @@ in @code{Staff} contexts.
 
 @code{\figures @{ @dots{} @}} is a shortcut notation for
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
-
 
 Although the support for figured bass may superficially resemble chord
 support, it is much simpler.  @code{\figuremode} mode simply
@@ -912,12 +910,12 @@ Snippets:
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
-@code{\figuremode} is used to switch the input mode to figure mode.
-More information on different input modes can be
-found at @ref{Input modes}.
+@code{\figuremode} is used to switch the input mode to figure
+mode.  @xref{Input modes}, for more information on different input
+modes.
 
-In figure mode, a group of bass figures is delimited by
-@code{<} and @code{>}.  The duration is entered after the @code{>}.
+In figure mode, a group of bass figures is delimited by @samp{<}
+and @samp{>}.  The duration is entered after the @samp{>}.
 
 @lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
@@ -928,20 +926,20 @@ In figure mode, a group of bass figures is delimited by
 @end lilypond
 
 
-Accidentals (including naturals) may be used for modifying scale steps.
-These are entered by appending @code{+} (for sharps), @code{-} (for flats)
-or @code{!} (for naturals) after the number.  For double accidentals the
-modifier is applied twice.  For the modification of the third step the
-number is often omitted, which can be achieved by using @code{_} instead
-of a number.
+Accidentals (including naturals) may be used for modifying scale
+steps.  These are entered by appending @samp{+} (for sharps),
+@samp{-} (for flats) or @samp{!} (for naturals) after the number.
+For double accidentals the modifier is applied twice.  For the
+modification of the third step the number is often omitted, which
+can be achieved by using @samp{_} instead of a number.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
+  <7! 6+ 4-> <5++> <3--> <_+> <7 _!>
 }
 @end lilypond
 
-Augmented and diminished steps can be indicated:
+Augmented and diminished steps can be indicated.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -949,8 +947,8 @@ Augmented and diminished steps can be indicated:
 }
 @end lilypond
 
-A backward slash through a figure (typically used for raised
-sixth steps) can be created:
+A backward slash through a figure (typically used for raised sixth
+steps) is also available.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -959,7 +957,7 @@ sixth steps) can be created:
 @end lilypond
 
 Brackets can be added around accidentals, figures, and consecutive
-groups of figures:
+groups of figures.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -967,7 +965,7 @@ groups of figures:
 }
 @end lilypond
 
-Any text markup can be inserted as a figure:
+Any text markup can be inserted as a figure.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -982,7 +980,7 @@ Any text markup can be inserted as a figure:
 @funindex \bassFigureExtendersOn
 @funindex \bassFigureExtendersOff
 
-Continuation lines can be used to indicate repeated figures:
+Continuation lines can be used to indicate repeated figures.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1001,8 +999,9 @@ Continuation lines can be used to indicate repeated figures:
 @end lilypond
 
 @noindent
-In this case, the extender lines replace existing figures,
-unless the continuation lines have been explicitly terminated.
+In this case, the extender lines replace existing figures, unless
+the continuation lines have been explicitly terminated with
+@code{\!}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1019,19 +1018,20 @@ unless the continuation lines have been explicitly terminated.
 
 The table below summarizes the figure modifiers available.
 
+@indentedBlock
 @multitable @columnfractions .1 .5 .4
 
-@item
-@b{Modifier}
+@headitem
+modifier
 @tab
-@b{Purpose}
+purpose
 @tab
-@b{Example}
+example
 
 @item
-+, -, !
+@code{+}, @code{-}, @code{!}
 @tab
-Accidentals
+accidentals
 @tab
 @lilypond[inline,line-width=4\cm]
 \figures {
@@ -1040,9 +1040,9 @@ Accidentals
 @end lilypond
 
 @item
-\+, /
+@code{\+}, @code{/}
 @tab
-Augmented and diminished steps
+augmented and diminished steps
 @tab
 @lilypond[inline,line-width=4\cm]
 \figures {
@@ -1051,9 +1051,9 @@ Augmented and diminished steps
 @end lilypond
 
 @item
-\\
+@code{\\}
 @tab
-Raised sixth step
+raised sixth step
 @tab
 @lilypond[inline,line-width=4\cm]
 \figures {
@@ -1062,9 +1062,9 @@ Raised sixth step
 @end lilypond
 
 @item
-\!
+@code{\!}
 @tab
-End of continuation line
+end of continuation line
 @tab
 @lilypond[inline,line-width=4\cm]
 <<
@@ -1080,6 +1080,7 @@ End of continuation line
 @end lilypond
 
 @end multitable
+@endIndentedBlock
 
 
 @predefined
@@ -1240,7 +1241,7 @@ the bass line.
   \figures {
     \bassFigureExtendersOn
     % The extenders are correct here,
-    % with the same rhythm as the bass
+    % with the same rhythm as the bass.
     \repeat unfold 4 { <6 4->16. <6 4->32 }
     <5>8. r16 <6>8 <6\! 5->
   }
@@ -1253,7 +1254,7 @@ the bass line.
   \figures {
     \bassFigureExtendersOn
     % The extenders are incorrect here,
-    % even though the timing is the same
+    % even though the timing is the same.
     <6 4->4 <6 4->4
     <5>8. r16 <6>8 <6\! 5->
   }
