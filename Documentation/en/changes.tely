@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+In @code{ChordNames}, multi-measure rests now also cause the
+@qq{N.C.} symbol to be printed, just like normal rests.
+
+@item
 Scheme translators can now contain listeners written as
 
 @example
