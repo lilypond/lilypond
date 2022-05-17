@@ -66,6 +66,20 @@ which scares away people.
 @end ignore
 
 
+@item The new markup command @code{\align-on-other} translates a
+markup as if it was aligned to another markup.
+
+@lilypond[quote]
+\markup \column {
+  1
+  12
+  \align-on-other #X #RIGHT 12
+                     #LEFT 12345
+  123
+}
+@end lilypond
+
+
 @item
 It is now possible to control the width and the shape of (some)
 Emmentaler digits using OpenType features.

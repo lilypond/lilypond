@@ -2084,7 +2084,7 @@ setting of the @code{direction} layout property.
                (interpret-markup-list layout props args)))
 
 (define (general-column align-dir baseline mols)
-  "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
+  "Stack @var{mols} vertically, aligned to @var{align-dir} horizontally."
   (let* ((aligned-mols
           (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
          (stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
@@ -2316,6 +2316,36 @@ alignment accordingly.
 @end lilypond"
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X dir)))
+
+(define-markup-command (align-on-other layout props
+                                       axis
+                                       other-dir other
+                                       self-dir self)
+  (index? number? markup? number? markup?)
+  #:category align
+  "
+Align markup @var{self} on markup @var{other} along axis @var{axis},
+using @var{self-@/dir} and @var{other-@/dir} for mutual alignment of
+@var{self} and @var{other}, respectively.  This command translates
+@var{self} as requested relative to its surroundings; @var{other} is
+not printed.
+
+@lilypond[verbatim,quote]
+\\markup \\column {
+  1
+  12
+  \\align-on-other #X #RIGHT 12
+                     #LEFT 12345
+  123
+}
+@end lilypond"
+  (let* ((self-stil (interpret-markup layout props self))
+         (self-ext (ly:stencil-extent self-stil axis))
+         (other-stil (interpret-markup layout props other))
+         (other-ext (ly:stencil-extent other-stil axis))
+         (trans (- (interval-index other-ext other-dir)
+                   (interval-index self-ext self-dir))))
+    (ly:stencil-translate-axis self-stil trans axis)))
 
 (define-markup-command (with-dimensions layout props x y arg)
   (number-pair? number-pair? markup?)
