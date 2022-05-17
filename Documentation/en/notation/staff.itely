@@ -221,6 +221,44 @@ details, see @ref{Instrument names}.
 >>
 @end lilypond
 
+@funindex OneStaff
+@cindex overlaying contexts
+@cindex contexts, overlaying
+The @code{OneStaff} is a staff group that places separate contexts
+in the same vertical alignment.  This example shows three staves
+sharing the same space.  Here, the Time_signature_engraver has
+been moved from the staves to the OneStaff context to prevent it
+from being repeated for each staff.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \OneStaff
+    \consists Time_signature_engraver
+  }
+  \context {
+    \Staff
+    \remove Time_signature_engraver
+  }
+  \context {
+    \DrumStaff
+    \remove Time_signature_engraver
+  }
+}
+
+\new OneStaff {
+  \new Staff {
+    c'4 4 d'4 4 e'2 d'
+  }
+  \drums {
+    hihat4 hh bassdrum bd
+  }
+  \new Staff {
+    c'4 4 d'4 4 e'2 d'
+  }
+}
+@end lilypond
+
 Each staff group context sets the property
 @code{systemStartDelimiter} to one of the following values:
 @code{SystemStartBar}, @code{SystemStartBrace}, or
@@ -275,6 +313,7 @@ Internals Reference:
 @rinternals{ChoirStaff},
 @rinternals{GrandStaff},
 @rinternals{PianoStaff},
+@rinternals{OneStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
