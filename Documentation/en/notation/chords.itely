@@ -1184,6 +1184,28 @@ or below the staff.
 >>
 @end lilypond
 
+The horizontal alignment of numbers in a figured bass stack that
+have more than a single digit can be controlled with the context
+property @code{figuredBassLargeNumberAlignment}.
+
+@lilypond[verbatim, ragged-right, quote]
+<<
+  \new Voice {
+    \clef bass
+    r2 d | d d | a2
+  }
+  \new FiguredBass \figuremode {
+    s2 <10+ 8> |
+    \set figuredBassLargeNumberAlignment = #RIGHT
+    <11 9>2
+    \set figuredBassLargeNumberAlignment = #LEFT
+    <10+ 9>2 |
+    <_+>2
+  }
+>>
+@end lilypond
+
+
 @predefined
 @cindex figured bass, alignment
 @code{\bassFigureStaffAlignmentDown},

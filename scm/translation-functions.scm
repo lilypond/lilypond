@@ -268,16 +268,18 @@ segni to avoid ambiguity."
 ;; Bass figures.
 
 (define-public (format-bass-figure figure event context)
-  (let* ((fig (ly:event-property event 'figure))
+  (let* ((large-number-alignment
+          (ly:context-property context
+                               'figuredBassLargeNumberAlignment CENTER))
+         (fig (ly:event-property event 'figure))
          (fig-markup
           (if (number? figure)
-              ;; this is not very elegant, but center-aligning
-              ;; all digits is problematic with other markups,
-              ;; and shows problems in the (lack of) overshoot
-              ;; of feta-alphabet glyphs.
               ((if (<= 10 figure)
-                   (lambda (y) (make-translate-scaled-markup
-                                (cons -0.7 0) y))
+                   (lambda (y)
+                     (make-align-on-other-markup
+                      X
+                      large-number-alignment (make-number-markup "1")
+                      large-number-alignment y))
                    identity)
                (cond
                 ((eq? #t (ly:event-property event 'diminished))
@@ -348,7 +350,7 @@ segni to avoid ambiguity."
                      alt-dir
                      LEFT)
                fig-markup
-               (make-pad-x-markup 0.2 alt-markup))))
+               (make-pad-x-markup 0.1 alt-markup))))
 
     (if plus-markup
         (set! fig-markup
@@ -357,8 +359,7 @@ segni to avoid ambiguity."
                    X (if (number? plus-dir)
                          plus-dir
                          LEFT)
-                   fig-markup
-                   (make-pad-x-markup 0.2 plus-markup))
+                   fig-markup plus-markup)
                   plus-markup)))
 
     (if (markup? fig-markup)

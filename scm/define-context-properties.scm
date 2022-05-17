@@ -341,6 +341,9 @@ center pairs of extender lines.  This does not work with three or more
 lines.")
      (figuredBassFormatter ,procedure? "A routine generating a markup
 for a bass figure.")
+     (figuredBassLargeNumberAlignment ,number? "Horizontal alignment
+to use for numbers in figured bass that contain more than a single
+digit.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
      (finalFineTextVisibility ,boolean? "Whether @code{\\fine} at the
