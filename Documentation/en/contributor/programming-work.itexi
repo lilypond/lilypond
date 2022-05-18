@@ -252,6 +252,30 @@ repository looking for @var{functionName}.  It also presents the results
 of the search using @code{less}, so the results are displayed one page
 at a time.
 
+
+@subsection Using TAGS support
+
+Many programs, including Emacs, ex, vi, and less, provide the
+ability to jump directly to the definition of an identifier based
+on precomputed cross-reference data.  This data is usually
+contained in files named @file{TAGS}, for Emacs, or @file{tags}, for
+vi and other programs.
+
+To generate these cross-reference data files the source code must
+be installed, but it is not necessary to compile LilyPond. Follow
+the instructions found in @rcontrib{Getting the source code}
+through @q{Checking build dependencies}.  Once the
+@command{configure} command has run successfully, invoke the
+following command in the @file{build} directory.
+
+@example
+make TAGS
+@end example
+
+This will create both @file{TAGS} and @file{tags} files in the
+source directory tree.  To enable and use tags in a particular
+program, see the associated program documentation.
+
 @subsection Searching on the git repository at GitLab and Savannah
 
 GitLab's web interface provides a built-in search.
