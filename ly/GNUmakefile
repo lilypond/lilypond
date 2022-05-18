@@ -42,3 +42,16 @@ endif
 local-test: $(WELCOME_FILES)
 
 .PHONY: welcome_svg welcome_ps
+
+LY_FILES := $(call src-wildcard,*.ly)
+TAGS_SOURCES += $(LY_FILES)
+
+regex_ =
+regex_ +=-l none
+regex_ +=--regex='/[ \t]*\\?\(\([a-zA-Z]\([a-zA-Z]\|[-_][a-zA-Z]+\)*\([.]\([a-zA-Z]\([a-zA-Z]\|[-_][a-zA-Z]+\)*\)\)*\)\)[ \t]*=/\1/m'
+regex_ +=--regex='/[ \t]*\\?\"\([^""]*\)\"[ \t]*=/\1/m'
+regex_ +=--regex='/[ \t]*\#(define[ \t\n\v]+(*\([^ \t\n\v)(]+\)/\1/m'
+regex_ +=--regex='/[ \t]*\#(define-public[ \t\n\v]+(*\([^ \t\n\v)(]+\)/\1/m'
+
+ETAGS_FLAGS += $(regex_)
+CTAGS_FLAGS += $(regex_)
