@@ -35,7 +35,7 @@
   /noteheads.d2fa /noteheads.d2faFunk /noteheads.d2faThin
   /noteheads.d2faWalker /noteheads.d2kievan /noteheads.d2reFunk
   /noteheads.d2reWalker /noteheads.d2tiFunk /noteheads.d2tiWalker
-  %0x1e
+  % 0x1e
   /noteheads.d3kievan /noteheads.dM2 /noteheads.dM2blackmensural
   /noteheads.dM2mensural /noteheads.dM2neomensural
   /noteheads.dM2semimensural /noteheads.dM3blackmensural
@@ -708,6 +708,22 @@
 
   /eight
   /f
+  /figbass.zero
+  /figbass.one
+
+  /figbass.two
+  /figbass.three
+  /figbass.four
+  /figbass.five
+
+  /figbass.six
+  /figbass.seven
+  /figbass.eight
+  /figbass.nine
+
+  % 0x60
+  /fingering.four
+  /fingering.seven
   /five
   /flags.d10
 
@@ -721,12 +737,12 @@
   /flags.d9
   /flags.dgrace
 
-  % 0x60
   /flags.mensurald03
   /flags.mensurald04
   /flags.mensurald05
   /flags.mensurald06
 
+  % 0x70
   /flags.mensurald13
   /flags.mensurald14
   /flags.mensurald15
@@ -742,12 +758,12 @@
   /flags.mensuralu05
   /flags.mensuralu06
 
-  % 0x70
   /flags.mensuralu13
   /flags.mensuralu14
   /flags.mensuralu15
   /flags.mensuralu16
 
+  % 0x80
   /flags.mensuralu23
   /flags.mensuralu24
   /flags.mensuralu25
@@ -763,12 +779,12 @@
   /flags.u8
   /flags.u9
 
-  % 0x80
   /flags.ugrace
   /four
   /hyphen
   /m
 
+  % 0x90
   /n
   /nine
   /one
@@ -784,12 +800,12 @@
   /pedal.e
   /period
 
-  % 0xA0
   /plus
   /r
   /rests.0
   /rests.0mensural
 
+  % 0xA0
   /rests.0neomensural
   /rests.0o
   /rests.1
@@ -805,12 +821,12 @@
   /rests.2neomensural
   /rests.2z
 
-  % 0xB0
   /rests.3
   /rests.3mensural
   /rests.3neomensural
   /rests.4
 
+  % 0xB0
   /rests.4mensural
   /rests.4neomensural
   /rests.5
@@ -826,12 +842,12 @@
   /rests.M1o
   /rests.M2
 
-  % 0xC0
   /rests.M2mensural
   /rests.M2neomensural
   /rests.M3
   /rests.M3mensural
 
+  % 0xC0
   /rests.M3neomensural
   /s
   /seven
@@ -847,12 +863,12 @@
   /timesig.mensural22
   /timesig.mensural24
 
-  % 0xD0
   /timesig.mensural32
   /timesig.mensural34
   /timesig.mensural44
   /timesig.mensural48
 
+  % 0xD0
   /timesig.mensural64
   /timesig.mensural68
   /timesig.mensural68alt
@@ -868,31 +884,15 @@
   /timesig.neomensural48
   /timesig.neomensural64
 
-  % 0xD0
   /timesig.neomensural68
   /timesig.neomensural68alt
   /timesig.neomensural94
   /timesig.neomensural98
 
+  % 0xE0
   /two
   /z
   /zero
-  /.notdef
-
-  /.notdef
-  /.notdef
-  /.notdef
-  /.notdef
-
-  /.notdef
-  /.notdef
-  /.notdef
-  /.notdef
-
-  % 0xE0
-  /.notdef
-  /.notdef
-  /.notdef
   /.notdef
 
   /.notdef
@@ -1044,175 +1044,191 @@
 
 /eight                                      {<54> show} def
 /f                                          {<55> show} def
-/five                                       {<56> show} def
-/flags.d10                                  {<57> show} def
+/figbass.zero                               {<56> show} def
+/figbass.one                                {<57> show} def
 
-/flags.d3                                   {<58> show} def
-/flags.d4                                   {<59> show} def
-/flags.d5                                   {<5a> show} def
-/flags.d6                                   {<5b> show} def
+/figbass.two                                {<58> show} def
+/figbass.three                              {<59> show} def
+/figbass.four                               {<5a> show} def
+/figbass.five                               {<5b> show} def
 
-/flags.d7                                   {<5c> show} def
-/flags.d8                                   {<5d> show} def
-/flags.d9                                   {<5e> show} def
-/flags.dgrace                               {<5f> show} def
+/figbass.six                                {<5c> show} def
+/figbass.seven                              {<5d> show} def
+/figbass.eight                              {<5e> show} def
+/figbass.nine                               {<5f> show} def
 
 % 0x60
-/flags.mensurald03                          {<60> show} def
-/flags.mensurald04                          {<61> show} def
-/flags.mensurald05                          {<62> show} def
-/flags.mensurald06                          {<63> show} def
+/fingering.four                             {<60> show} def
+/fingering.seven                            {<61> show} def
+/five                                       {<62> show} def
+/flags.d10                                  {<63> show} def
 
-/flags.mensurald13                          {<64> show} def
-/flags.mensurald14                          {<65> show} def
-/flags.mensurald15                          {<66> show} def
-/flags.mensurald16                          {<67> show} def
+/flags.d3                                   {<64> show} def
+/flags.d4                                   {<65> show} def
+/flags.d5                                   {<66> show} def
+/flags.d6                                   {<67> show} def
 
-/flags.mensurald23                          {<68> show} def
-/flags.mensurald24                          {<69> show} def
-/flags.mensurald25                          {<6a> show} def
-/flags.mensurald26                          {<6b> show} def
+/flags.d7                                   {<68> show} def
+/flags.d8                                   {<69> show} def
+/flags.d9                                   {<6a> show} def
+/flags.dgrace                               {<6b> show} def
 
-/flags.mensuralu03                          {<6c> show} def
-/flags.mensuralu04                          {<6d> show} def
-/flags.mensuralu05                          {<6e> show} def
-/flags.mensuralu06                          {<6f> show} def
+/flags.mensurald03                          {<6c> show} def
+/flags.mensurald04                          {<6d> show} def
+/flags.mensurald05                          {<6e> show} def
+/flags.mensurald06                          {<6f> show} def
 
 % 0x70
-/flags.mensuralu13                          {<70> show} def
-/flags.mensuralu14                          {<71> show} def
-/flags.mensuralu15                          {<72> show} def
-/flags.mensuralu16                          {<73> show} def
+/flags.mensurald13                          {<70> show} def
+/flags.mensurald14                          {<71> show} def
+/flags.mensurald15                          {<72> show} def
+/flags.mensurald16                          {<73> show} def
 
-/flags.mensuralu23                          {<74> show} def
-/flags.mensuralu24                          {<75> show} def
-/flags.mensuralu25                          {<76> show} def
-/flags.mensuralu26                          {<77> show} def
+/flags.mensurald23                          {<74> show} def
+/flags.mensurald24                          {<75> show} def
+/flags.mensurald25                          {<76> show} def
+/flags.mensurald26                          {<77> show} def
 
-/flags.u10                                  {<78> show} def
-/flags.u3                                   {<79> show} def
-/flags.u4                                   {<7a> show} def
-/flags.u5                                   {<7b> show} def
+/flags.mensuralu03                          {<78> show} def
+/flags.mensuralu04                          {<79> show} def
+/flags.mensuralu05                          {<7a> show} def
+/flags.mensuralu06                          {<7b> show} def
 
-/flags.u6                                   {<7c> show} def
-/flags.u7                                   {<7d> show} def
-/flags.u8                                   {<7e> show} def
-/flags.u9                                   {<7f> show} def
+/flags.mensuralu13                          {<7c> show} def
+/flags.mensuralu14                          {<7d> show} def
+/flags.mensuralu15                          {<7e> show} def
+/flags.mensuralu16                          {<7f> show} def
 
 % 0x80
-/flags.ugrace                               {<80> show} def
-/four                                       {<81> show} def
-/hyphen                                     {<82> show} def
-/m                                          {<83> show} def
+/flags.mensuralu23                          {<80> show} def
+/flags.mensuralu24                          {<81> show} def
+/flags.mensuralu25                          {<82> show} def
+/flags.mensuralu26                          {<83> show} def
 
-/n                                          {<84> show} def
-/nine                                       {<85> show} def
-/one                                        {<86> show} def
-/p                                          {<87> show} def
+/flags.u10                                  {<84> show} def
+/flags.u3                                   {<85> show} def
+/flags.u4                                   {<86> show} def
+/flags.u5                                   {<87> show} def
 
-/pedal.*                                    {<88> show} def
-/pedal..                                    {<89> show} def
-/pedal.M                                    {<8a> show} def
-/pedal.P                                    {<8b> show} def
+/flags.u6                                   {<88> show} def
+/flags.u7                                   {<89> show} def
+/flags.u8                                   {<8a> show} def
+/flags.u9                                   {<8b> show} def
 
-/pedal.Ped                                  {<8c> show} def
-/pedal.d                                    {<8d> show} def
-/pedal.e                                    {<8e> show} def
-/period                                     {<8f> show} def
+/flags.ugrace                               {<8c> show} def
+/four                                       {<8d> show} def
+/hyphen                                     {<8e> show} def
+/m                                          {<8f> show} def
 
 % 0x90
-/plus                                       {<90> show} def
-/r                                          {<91> show} def
-/rests.0                                    {<92> show} def
-/rests.0mensural                            {<93> show} def
+/n                                          {<90> show} def
+/nine                                       {<91> show} def
+/one                                        {<92> show} def
+/p                                          {<93> show} def
 
-/rests.0neomensural                         {<94> show} def
-/rests.0o                                   {<95> show} def
-/rests.1                                    {<96> show} def
-/rests.10                                   {<97> show} def
+/pedal.*                                    {<94> show} def
+/pedal..                                    {<95> show} def
+/pedal.M                                    {<96> show} def
+/pedal.P                                    {<97> show} def
 
-/rests.1mensural                            {<98> show} def
-/rests.1neomensural                         {<99> show} def
-/rests.1o                                   {<9a> show} def
-/rests.2                                    {<9b> show} def
+/pedal.Ped                                  {<98> show} def
+/pedal.d                                    {<99> show} def
+/pedal.e                                    {<9a> show} def
+/period                                     {<9b> show} def
 
-/rests.2classical                           {<9c> show} def
-/rests.2mensural                            {<9d> show} def
-/rests.2neomensural                         {<9e> show} def
-/rests.2z                                   {<9f> show} def
+/plus                                       {<9c> show} def
+/r                                          {<9d> show} def
+/rests.0                                    {<9e> show} def
+/rests.0mensural                            {<9f> show} def
 
 % 0xA0
-/rests.3                                    {<a0> show} def
-/rests.3mensural                            {<a1> show} def
-/rests.3neomensural                         {<a2> show} def
-/rests.4                                    {<a3> show} def
+/rests.0neomensural                         {<a0> show} def
+/rests.0o                                   {<a1> show} def
+/rests.1                                    {<a2> show} def
+/rests.10                                   {<a3> show} def
 
-/rests.4mensural                            {<a4> show} def
-/rests.4neomensural                         {<a5> show} def
-/rests.5                                    {<a6> show} def
-/rests.6                                    {<a7> show} def
+/rests.1mensural                            {<a4> show} def
+/rests.1neomensural                         {<a5> show} def
+/rests.1o                                   {<a6> show} def
+/rests.2                                    {<a7> show} def
 
-/rests.7                                    {<a8> show} def
-/rests.8                                    {<a9> show} def
-/rests.9                                    {<aa> show} def
-/rests.M1                                   {<ab> show} def
+/rests.2classical                           {<a8> show} def
+/rests.2mensural                            {<a9> show} def
+/rests.2neomensural                         {<aa> show} def
+/rests.2z                                   {<ab> show} def
 
-/rests.M1mensural                           {<ac> show} def
-/rests.M1neomensural                        {<ad> show} def
-/rests.M1o                                  {<ae> show} def
-/rests.M2                                   {<af> show} def
+/rests.3                                    {<ac> show} def
+/rests.3mensural                            {<ad> show} def
+/rests.3neomensural                         {<ae> show} def
+/rests.4                                    {<af> show} def
 
 % 0xB0
-/rests.M2mensural                           {<b0> show} def
-/rests.M2neomensural                        {<b1> show} def
-/rests.M3                                   {<b2> show} def
-/rests.M3mensural                           {<b3> show} def
+/rests.4mensural                            {<b0> show} def
+/rests.4neomensural                         {<b1> show} def
+/rests.5                                    {<b2> show} def
+/rests.6                                    {<b3> show} def
 
-/rests.M3neomensural                        {<b4> show} def
-/s                                          {<b5> show} def
-/seven                                      {<b6> show} def
-/six                                        {<b7> show} def
+/rests.7                                    {<b4> show} def
+/rests.8                                    {<b5> show} def
+/rests.9                                    {<b6> show} def
+/rests.M1                                   {<b7> show} def
 
-/space                                      {<b8> show} def
-/three                                      {<b9> show} def
-/ties.lyric.default                         {<ba> show} def
-/ties.lyric.short                           {<bb> show} def
+/rests.M1mensural                           {<b8> show} def
+/rests.M1neomensural                        {<b9> show} def
+/rests.M1o                                  {<ba> show} def
+/rests.M2                                   {<bb> show} def
 
-/timesig.C22                                {<bc> show} def
-/timesig.C44                                {<bd> show} def
-/timesig.mensural22                         {<be> show} def
-/timesig.mensural24                         {<bf> show} def
+/rests.M2mensural                           {<bc> show} def
+/rests.M2neomensural                        {<bd> show} def
+/rests.M3                                   {<be> show} def
+/rests.M3mensural                           {<bf> show} def
 
 % 0xC0
-/timesig.mensural32                         {<c0> show} def
-/timesig.mensural34                         {<c1> show} def
-/timesig.mensural44                         {<c2> show} def
-/timesig.mensural48                         {<c3> show} def
+/rests.M3neomensural                        {<c0> show} def
+/s                                          {<c1> show} def
+/seven                                      {<c2> show} def
+/six                                        {<c3> show} def
 
-/timesig.mensural64                         {<c4> show} def
-/timesig.mensural68                         {<c5> show} def
-/timesig.mensural68alt                      {<c6> show} def
-/timesig.mensural94                         {<c7> show} def
+/space                                      {<c4> show} def
+/three                                      {<c5> show} def
+/ties.lyric.default                         {<c6> show} def
+/ties.lyric.short                           {<c7> show} def
 
-/timesig.mensural98                         {<c8> show} def
-/timesig.neomensural22                      {<c9> show} def
-/timesig.neomensural24                      {<ca> show} def
-/timesig.neomensural32                      {<cb> show} def
+/timesig.C22                                {<c8> show} def
+/timesig.C44                                {<c9> show} def
+/timesig.mensural22                         {<ca> show} def
+/timesig.mensural24                         {<cb> show} def
 
-/timesig.neomensural34                      {<cc> show} def
-/timesig.neomensural44                      {<cd> show} def
-/timesig.neomensural48                      {<ce> show} def
-/timesig.neomensural64                      {<cf> show} def
+/timesig.mensural32                         {<cc> show} def
+/timesig.mensural34                         {<cd> show} def
+/timesig.mensural44                         {<ce> show} def
+/timesig.mensural48                         {<cf> show} def
 
 % 0xD0
-/timesig.neomensural68                      {<d0> show} def
-/timesig.neomensural68alt                   {<d1> show} def
-/timesig.neomensural94                      {<d2> show} def
-/timesig.neomensural98                      {<d3> show} def
+/timesig.mensural64                         {<d0> show} def
+/timesig.mensural68                         {<d1> show} def
+/timesig.mensural68alt                      {<d2> show} def
+/timesig.mensural94                         {<d3> show} def
 
-/two                                        {<d4> show} def
-/z                                          {<d5> show} def
-/zero                                       {<d6> show} def
+/timesig.mensural98                         {<d4> show} def
+/timesig.neomensural22                      {<d5> show} def
+/timesig.neomensural24                      {<d6> show} def
+/timesig.neomensural32                      {<d7> show} def
+
+/timesig.neomensural34                      {<d8> show} def
+/timesig.neomensural44                      {<d9> show} def
+/timesig.neomensural48                      {<da> show} def
+/timesig.neomensural64                      {<db> show} def
+
+/timesig.neomensural68                      {<dc> show} def
+/timesig.neomensural68alt                   {<dd> show} def
+/timesig.neomensural94                      {<de> show} def
+/timesig.neomensural98                      {<df> show} def
+
+% 0xE0
+/two                                        {<e0> show} def
+/z                                          {<e1> show} def
+/zero                                       {<e2> show} def
 
 %
 % Custom encodings and definitions for the emmentaler-brace font

@@ -65,6 +65,29 @@ which scares away people.
 
 @end ignore
 
+
+@item
+It is now possible to control the width and the shape of (some)
+Emmentaler digits using OpenType features.
+
+@lilypond[quote]
+\markuplist
+  \fontsize #6
+  \override #'((padding . 4)
+               (baseline-skip . 7))
+  \table #'(-1 -1) {
+    \number 0123456789
+          \normalsize "(time signatures)"
+    \override #'(font-features . ("ss02"))
+      \number 0123456789
+          \normalsize "(fingering)"
+    \override #'(font-features .("ss01" "-kern"))
+      \number 0123456789
+          \normalsize "(fixed-width digits)"
+  }
+@end lilypond
+
+
 @item
 The bar line type @code{"-"} has been removed.  @code{convert-ly}
 converts it to @code{""}.  There is a slight difference in

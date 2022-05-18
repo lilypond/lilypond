@@ -50,7 +50,13 @@
   (define numbers
     '("plus" "comma" "hyphen" "period"
       "zero" "one"   "two"    "three"  "four"
-      "five" "six"   "seven"  "eight"  "nine"))
+      "five" "six"   "seven"  "eight"  "nine"
+
+      "figbass.zero"  "figbass.one"  "figbass.two" "figbass.three"
+      "figbass.four"  "figbass.five" "figbass.six" "figbass.seven"
+      "figbass.eight" "figbass.nine"
+
+      "fingering.four" "fingering.seven"))
 
   (define dynamics
     '("space" "f" "m" "n" "p" "r" "s" "z"))
