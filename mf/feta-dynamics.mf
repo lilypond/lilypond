@@ -891,23 +891,6 @@ fet_beginchar ("dynamic r", "r");
 fet_endchar;
 
 
-%%% KERNING
-
-ligtable "m":
-  "p" kern 0.2 ex#,
-  "f" kern -0.1 ex#;
-
-ligtable "n":
-  "p" kern 0.2 ex#,
-  "f" kern -0.1 ex#;
-
-ligtable "f":
-  "f" kern -0.13 ex#;
-
-ligtable "r":
-  "f" kern 0.1 ex#;
-
-
 %% notes from old dyn code.
 
 % `f' obviously has a _lot_ bigger slant than `p' (see Wanske p.239).

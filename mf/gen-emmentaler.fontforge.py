@@ -24,6 +24,10 @@ import sys
 
 import fontforge
 
+from emmentaler_kerning import add_feature_kern
+from emmentaler_features import add_feature_ss01, add_feature_ss02
+
+
 (options, files) = \
     getopt.getopt(sys.argv[1:],
                   '',
@@ -63,18 +67,15 @@ resulting document to be covered by the GNU General Public License.
 """
 font.version = version
 
+
+# Merge all Feta and Parmesan subfonts into a single font.
+
 subfonts = []
 
-alphabet = "feta-alphabet%(design_size)d" % vars()
-font.mergeFonts(os.path.join(indir, alphabet + ".pfb"))
-# The TFM file must be imported before loading other subfonts.
-# This is FontForge bug #5008.
-font.mergeFeature(os.path.join(indir, alphabet + ".tfm"))
-subfonts.append(alphabet)
-
 for fn in ["feta%(design_size)d.pfb",
-           "feta-noteheads%(design_size)d.pfb",
+           "feta-alphabet%(design_size)d.pfb",
            "feta-flags%(design_size)d.pfb",
+           "feta-noteheads%(design_size)d.pfb",
            "parmesan%(design_size)d.pfb",
            "parmesan-noteheads%(design_size)d.pfb"]:
     name = fn % vars()
@@ -83,14 +84,29 @@ for fn in ["feta%(design_size)d.pfb",
     name, _ = os.path.splitext(name)
     subfonts.append(name)
 
-# Set code points to PUA (Private Use Area) for all glyphs that
-# are still unassigned.
+
+# Set code points arbitrarily to Unicode's PUA (Private Use Area) for
+# all glyphs that are still unassigned, i.e., all glyphs that have a
+# glyph name not part of the Adobe Glyph List (AGL).
+#
+# This will change to more meaningful, permanent assignments as soon
+# as we add support for the Standard Music Font Layout (SMuFL).
 
 i = 0
 for glyph in font.glyphs():
     if glyph.unicode < 0:
         glyph.unicode = i + 0xE000
         i += 1
+
+
+# Include OpenType features.
+
+add_feature_kern(font)
+add_feature_ss01(font)
+add_feature_ss02(font)
+
+
+# Include (private) SFNT tables needed by LilyPond.
 
 subfonts_str = ' '.join(subfonts)
 
@@ -103,8 +119,10 @@ font.setTableData("LILC", lisp)
 font.setTableData("LILY", open(os.path.join(
     indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read())
 
+
+# Generate font in OTF, SVG, and WOFF formats.
+
 font.generate(output)
 base, ext = os.path.splitext(output)
-
 font.generate(base + ".svg")
 font.generate(base + ".woff")

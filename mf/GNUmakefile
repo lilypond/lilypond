@@ -115,6 +115,8 @@ $(outdir)/emmentaler-%.svg \
 $(outdir)/emmentaler-%.woff \
 $(outdir)/emmentaler-%.otf: \
   gen-emmentaler.fontforge.py \
+  emmentaler_features.py \
+  emmentaler_kerning.py \
   \
   $(outdir)/feta%.pfb $(outdir)/feta%.lisp \
   $(outdir)/feta-alphabet%.pfb $(outdir)/feta-alphabet%.lisp \

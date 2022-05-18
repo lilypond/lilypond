@@ -995,14 +995,6 @@ fet_beginchar ("numeral 9", "nine");
 fet_endchar;
 
 
-ligtable "3":
-  "3" kern 0.1 space#,
-  "0" kern 0.1 space#;
-
-ligtable "2":
-  "7" kern 0.15 space#;
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Digits for figured bass
