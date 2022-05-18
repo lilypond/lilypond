@@ -2458,26 +2458,31 @@ other stems just because of that."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following is used by the alterBroken function.
 
-(define-public ((value-for-spanner-piece property arg) grob)
+(define-public (value-for-spanner-piece property args)
   "Associate a piece of broken spanner @var{grob} with an element
 of list @var{arg}."
-  (if (ly:spanner? grob)
-      (let* ((orig (ly:grob-original grob))
-             (siblings (ly:spanner-broken-into orig)))
-
-        (define (helper sibs arg)
-          (if (null? arg)
-              arg
-              (if (eq? (car sibs) grob)
-                  (car arg)
-                  (helper (cdr sibs) (cdr arg)))))
-
-        (if (>= (length siblings) 2)
-            (helper siblings arg)
-            (car arg)))
-      (ly:grob-warning grob
-                       property
-                       "this grob is not a spanner")))
+  (define ((worker caller) grob . rest)
+    (if (ly:spanner? grob)
+        (let* ((orig (ly:grob-original grob))
+               (siblings (if (eq? orig grob)
+                             (list grob)
+                             (ly:spanner-broken-into orig))))
+          (let loop ((args args) (siblings siblings))
+            (cond
+             ((null? args)
+              '())
+             ((eq? grob (car siblings))
+              (let ((val (car args)))
+                (apply caller val grob rest)))
+             (else
+              (loop (cdr args)
+                    (cdr siblings))))))
+        (ly:grob-warning grob
+                         property
+                         "this grob is not a spanner")))
+  (ly:make-unpure-pure-container
+   (worker ly:unpure-call)
+   (worker ly:pure-call)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function

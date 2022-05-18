@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.10"
 
 \header {
   texidoc = "The command @code{\\alterBroken} may be used to override the
@@ -26,16 +26,26 @@ its usage with a variety of data types."
   \break
   d d' b g)
   \alterBroken #'padding #'(1 3) Staff.OttavaBracket
-  % Spaces in spanner's name are disregarded.
-  \alterBroken #'style #'(line dashed-line) Staff.OttavaBracket
-  \ottava #1
   % It is possible to use procedures as arguments.
   c-\alterBroken Hairpin.stencil #`(
       ,ly:hairpin::print
       ,(lambda (grob)
-        (ly:stencil-rotate (ly:hairpin::print grob) -5 0 0)))
+        (ly:stencil-rotate (ly:hairpin::print grob) -10 0 0)))
     \<
-  d e
+  d e f
+  \break
+  c
+  f,
+  % It is also possible to use unpure/pure containers.  A noteworthy use
+  % case involves the unpure/pure containers returned by grob-transformer.
+  c\!-\alterBroken Hairpin.stencil #`(
+       ,(grob-transformer 'stencil
+         (lambda (grob orig)
+           orig))
+       ,(grob-transformer 'stencil
+         (lambda (grob orig)
+           (ly:stencil-rotate orig -5 0 0))))
+    \>
   % Since `NoteHead' is not the name of a spanner, the following has no
   % effect on layout.  Warnings (suppressed here) are issued.
   \once \alterBroken #'color #`(,red ,blue) NoteHead
@@ -44,11 +54,10 @@ its usage with a variety of data types."
      ((1 . 3) (2 . 4) (3 . 4) (4 . 3))
      ((3 . 3) (4 . 4) (5 . 4) (6 . 3))
     ) Tie
-  f~
+  f'~
   % Also a warning.
   \once \alterBroken #'color #`(,red ,blue) Staff.TimeSignature
   \time 2/4
   \break
   f c a f\!
-  \ottava #0
 }
