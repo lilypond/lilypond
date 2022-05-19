@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "scheme-language, symbols-and-glyphs"
@@ -19,8 +19,6 @@ shown in this snippet.
 "
   doctitle = "Customizing the position and number of dots in repeat sign bar lines"
 } % begin verbatim
-
-% \version "2.23.6"
 
 #(define ((make-custom-dot-bar-line dot-positions) grob extent)
 

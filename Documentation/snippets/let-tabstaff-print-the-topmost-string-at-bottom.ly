@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "fretted-strings, staff-notation"
@@ -19,7 +19,6 @@ this could be done in @code{layout} as well.
   doctitle = "Let TabStaff print the topmost string at bottom"
 } % begin verbatim
 
-%
 %\layout {
 %  \context {
 %    \Score
