@@ -9,5 +9,6 @@ embedding-native-postscript-in-a--markup-block.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 making-some-staff-lines-thicker-than-the-others.ly
+non-traditional-key-signatures.ly
 printing-music-with-different-time-signatures.ly
 using-postscript-to-generate-special-note-head-shapes.ly

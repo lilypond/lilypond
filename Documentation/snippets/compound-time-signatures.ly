@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
-Odd 20th century time signatures (such as \"5/8\") can often be played
-as compound time signatures (e.g. \"3/8 + 2/8\"), which combine two or
+Odd 20th century time signatures (such as @qq{5/8}) can often be played
+as compound time signatures (e.g. @qq{3/8 + 2/8}), which combine two or
 more inequal metrics.
 
 LilyPond can make such music quite easy to read and play, by explicitly

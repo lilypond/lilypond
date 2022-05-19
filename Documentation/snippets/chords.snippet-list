@@ -14,6 +14,7 @@ cross-staff-chords---beaming-problems-workaround.ly
 customizing-the-no-chord-symbol.ly
 displaying-complex-chords.ly
 manually-break-figured-bass-extenders-for-only-some-numbers.ly
+print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 showing-chords-at-changes.ly
 simple-lead-sheet.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly

@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
 Although @code{s} skips cannot be used in @code{\\lyricmode} (it is
-taken to be a literal @qq{s}, not a space), double quotes (@code{\"\"})
-or underscores (@code{_}) are available.
+taken to be a literal @qq{s}, not a space), double quotes (@code{\"\"}) or
+underscores (@code{_}) are available.
 
 So for example:
 

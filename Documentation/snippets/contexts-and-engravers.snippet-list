@@ -15,6 +15,7 @@ engravers-one-by-one.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 nesting-staves.ly
 numbering-groups-of-measures.ly
+print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 removing-bar-numbers-from-a-score.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-marklines-in-a-frenched-score.ly

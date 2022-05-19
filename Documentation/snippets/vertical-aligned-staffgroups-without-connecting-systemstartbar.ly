@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
@@ -16,8 +16,6 @@ SystemStartBar for each StaffGroup, but without connecting them.
 "
   doctitle = "Vertical aligned StaffGroups without connecting SystemStartBar"
 } % begin verbatim
-
-% by Thomas Morley
 
 #(set-global-staff-size 18)
 
