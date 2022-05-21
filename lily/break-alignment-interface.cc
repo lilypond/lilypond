@@ -96,15 +96,24 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
   Align_interface::add_element (me, toadd);
 }
 
-// Find the BreakAlignGroup with the given break-align-symbol (nullptr
-// if there is none).
+// Find the BreakAlignGroup with the given break-align-symbol.  Return nullptr
+// if there is no such group.  Also return nullptr if the group has empty
+// X-extent, which can happen if it contains only omitted items.
 Grob *
-Break_alignment_interface::get_break_align_group (Grob *me, SCM break_align_sym)
+Break_alignment_interface::find_nonempty_break_align_group (Item *me,
+                                                            SCM break_align_sym)
 {
+  SCM property_sym = ly_symbol2scm ("break-align-symbol");
+
   extract_grob_set (me, "elements", elts);
   for (Grob *group : elts)
-    if (scm_is_eq (get_property (group, "break-align-symbol"), break_align_sym))
-      return group;
+    {
+      if (scm_is_eq (get_property (group, property_sym), break_align_sym)
+          && !group->extent (group, X_AXIS).is_empty ())
+        {
+          return group;
+        }
+    }
   return nullptr;
 }
 
