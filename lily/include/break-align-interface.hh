@@ -46,9 +46,6 @@ struct Break_aligned_interface
 
   DECLARE_SCHEME_CALLBACK (calc_joint_anchor_alignment, (SCM));
   static Direction calc_joint_anchor_alignment (Grob *me);
-
-  // True if the grob is aligned as 'staff-bar and has an X extent.
-  static bool is_non_empty_staff_bar (const Grob *me);
 };
 
 struct Break_alignable_interface

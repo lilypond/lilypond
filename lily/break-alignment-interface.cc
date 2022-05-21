@@ -104,15 +104,11 @@ Break_alignment_interface::find_nonempty_break_align_group (Item *me,
                                                             SCM break_align_sym)
 {
   SCM property_sym = ly_symbol2scm ("break-align-symbol");
-
   extract_grob_set (me, "elements", elts);
   for (Grob *group : elts)
     {
-      if (scm_is_eq (get_property (group, property_sym), break_align_sym)
-          && !group->extent (group, X_AXIS).is_empty ())
-        {
-          return group;
-        }
+      if (scm_is_eq (get_property (group, property_sym), break_align_sym))
+        return !group->extent (group, X_AXIS).is_empty () ? group : nullptr;
     }
   return nullptr;
 }
@@ -483,14 +479,6 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
       scm_c_vector_set_x (ret, dir, scm_from_bool (visible));
     }
   return ret;
-}
-
-bool Break_aligned_interface::is_non_empty_staff_bar (const Grob *me)
-{
-  return me
-         && scm_is_eq (get_property (me, "break-align-symbol"),
-                       ly_symbol2scm ("staff-bar"))
-         && !me->extent (me, X_AXIS).is_empty ();
 }
 
 ADD_INTERFACE (Break_alignment_interface,
