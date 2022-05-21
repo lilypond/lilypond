@@ -1,4 +1,4 @@
-\version "2.23.9"
+\version "2.23.10"
 
 \header {
   texidoc = "By default, rests in a @code{ChordNames} context

@@ -4,8 +4,8 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-%% Note: this file works from version 2.23.9
-\version "2.23.9"
+%% Note: this file works from version 2.23.10
+\version "2.23.10"
 
 \header {
   texidoc = "By default, rests in a @code{ChordNames} context
