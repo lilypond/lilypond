@@ -4549,6 +4549,8 @@ def conv(s):
 
 @rule((2, 23, 10), r"""
 automaticBars = ##f -> measureBarType = #'()
+\\bar "-" -> \\bar ""
+BarType = "-" -> BarType = ""
 """)
 def conv(s):
     s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
@@ -4559,6 +4561,8 @@ The automaticBars property has been removed.  Instead, set
 measureBarType to #'() or a valid bar type.
 """)
         stderr_write(UPDATE_MANUALLY)
+    s = re.sub(r'\\bar\s+"-"', r'\\bar ""', s)
+    s = re.sub(r'BarType\s*=\s*"-"', r'BarType = ""', s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
