@@ -63,16 +63,7 @@ be integrated in LilyPond files.
 @subsection Scheme sandbox
 
 The LilyPond installation includes the Guile implementation of
-Scheme.  On most systems you can experiment in a Scheme sandbox by
-opening a terminal window and typing @q{guile}.  On some systems,
-notably Windows, you may need to set the environment variable
-@code{GUILE_LOAD_PATH} to the directory @code{../usr/share/guile/1.8}
-in the LilyPond installation.  For the full path to this directory
-see @rlearning{Other sources of information}.  Alternatively, Windows
-users may simply choose @q{Run} from the Start menu and enter
-@q{guile}.
-
-However, a hands-on Scheme sandbox with all of LilyPond loaded is
+Scheme. A hands-on Scheme sandbox with all of LilyPond loaded is
 available with this command line:
 @example
 lilypond scheme-sandbox
