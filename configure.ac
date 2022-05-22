@@ -341,7 +341,7 @@ AC_SUBST(GS920)
 AC_SUBST(EXTRACTPDFMARK)
 AC_SUBST(USE_EXTRACTPDFMARK)
 
-if test "x$with_extractpdfmark" == "xyes"; then
+if test "x$with_extractpdfmark" = "xyes"; then
     EXTRACTPDFMARK_REQUIRED=REQUIRED
 else
     EXTRACTPDFMARK_REQUIRED=OPTIONAL
@@ -358,12 +358,12 @@ if test "x$with_extractpdfmark" != "xno"; then
         USE_EXTRACTPDFMARK=no
     fi
 
-    if test "$EXTRACTPDFMARK" == "false"; then
+    if test "$EXTRACTPDFMARK" = "false"; then
         EXTRACTPDFMARK=
         USE_EXTRACTPDFMARK=no
     fi
 
-    if test "$EXTRACTPDFMARK_REQUIRED" == "OPTIONAL"; then
+    if test "$EXTRACTPDFMARK_REQUIRED" = "OPTIONAL"; then
         if test -z "$EXTRACTPDFMARK" || test -z "GS920"; then
             STEPMAKE_ADD_ENTRY(OPTIONAL,
                 ["(Using GhostScript >= 9.20 together with extractpdfmark"])
@@ -410,7 +410,7 @@ fi
 STEPMAKE_PROGS(PLTOTF, pltotf, $DOCUMENTATION_REQUIRED)
 AC_MSG_CHECKING(for TeX fontinst package support)
 TEX_FONTINST=`kpsewhich -format=tex fontinst.sty`
-if test "$TEX_FONTINST" == ""; then
+if test "$TEX_FONTINST" = ""; then
     AC_MSG_RESULT(not found)
     STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,
 ['fontinst CTAN package (texlive-fontinst or texlive-font-utils)'])
@@ -421,7 +421,7 @@ AC_MSG_CHECKING(for lmodern Type1 fonts)
 # We check for `lmtl10.afm` -- if this file is present, the Type1 fonts are
 # certainly installed, too.
 TEX_LM=`kpsewhich -format=afm lmtl10`
-if test "$TEX_LM" == ""; then
+if test "$TEX_LM" = ""; then
     AC_MSG_RESULT(not found)
     STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,
 ['lm CTAN package (lmodern or texlive-lm)'])
