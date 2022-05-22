@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.23.9"
 
 \header {
   texidoc = "Mid-measure time signature changes must be accompanied by
