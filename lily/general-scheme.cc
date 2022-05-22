@@ -447,7 +447,7 @@ Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
   const string in = ly_symbol2string (name_sym);
   string result = camel_case_to_lisp_identifier (in);
 
-  return ly_symbol2scm (result.c_str ());
+  return ly_symbol2scm (result);
 }
 
 string

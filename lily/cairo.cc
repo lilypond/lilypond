@@ -1307,9 +1307,9 @@ Cairo_outputter::handle_metadata (SCM module)
     {
       std::string k = it.first;
       std::string pdf_k = "pdf" + k;
-      SCM var = scm_module_variable (module, ly_symbol2scm (pdf_k.c_str ()));
+      SCM var = scm_module_variable (module, ly_symbol2scm (pdf_k));
       if (!scm_is_true (var))
-        var = scm_module_variable (module, ly_symbol2scm (k.c_str ()));
+        var = scm_module_variable (module, ly_symbol2scm (k));
 
       SCM val = SCM_BOOL_F;
       if (scm_is_true (var))

@@ -239,7 +239,7 @@ Set a program option.
   string varstr = robust_symbol2string (var, "");
   if (varstr.substr (0, 3) == string ("no-"))
     {
-      var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3).c_str ());
+      var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3));
       val = scm_from_bool (!from_scm<bool> (val));
     }
 

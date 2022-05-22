@@ -30,6 +30,12 @@ inline SCM
 scm_or_str2symbol (char const *c) { return scm_from_utf8_symbol (c); }
 
 inline SCM
+scm_or_str2symbol (const std::string &s)
+{
+  return scm_from_utf8_symbol (s.c_str ());
+}
+
+inline SCM
 scm_or_str2symbol (SCM s)
 {
   assert (scm_is_symbol (s));

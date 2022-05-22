@@ -84,7 +84,7 @@ Midi_instrument::to_string () const
   Byte program_byte = 0;
   bool found = false;
 
-  SCM program = Lily::midi_program (ly_symbol2scm (audio_->str_.c_str ()));
+  SCM program = Lily::midi_program (ly_symbol2scm (audio_->str_));
   found = (scm_is_true (program));
   if (found)
     program_byte = static_cast<Byte> (from_scm<int> (program));

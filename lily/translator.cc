@@ -253,7 +253,7 @@ add_acknowledger (SCM ptr,
   interface_name += "-interface";
 
   unsmob<Scheme_hash_table> (ack_hash)
-  ->set (ly_symbol2scm (interface_name.c_str ()), ptr);
+  ->set (ly_symbol2scm (interface_name), ptr);
 }
 
 SCM

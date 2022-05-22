@@ -3295,7 +3295,7 @@ direction_reqd_event:
 		$$ = $1;
 	}
 	| script_abbreviation {
-		SCM sym = ly_symbol2scm (("dash" + ly_scm2string ($1)).c_str());
+		SCM sym = ly_symbol2scm ("dash" + ly_scm2string ($1));
 		SCM s = parser->lexer_->lookup_identifier_symbol (sym);
 		Music *original = unsmob<Music> (s);
 		if (original && original->is_mus_type ("post-event")) {

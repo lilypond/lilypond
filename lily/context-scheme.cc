@@ -57,7 +57,7 @@ Return the name of @var{context}, i.e., for @code{\context Voice = "one"
 {
   auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
-  return ly_symbol2scm (tr->context_name ().c_str ());
+  return ly_symbol2scm (tr->context_name ());
 }
 
 LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
