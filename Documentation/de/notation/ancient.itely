@@ -991,7 +991,7 @@ Eine Datei kann zum Beispiel so aussehen:
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.measureBarType = "-"
+@c \set Score.measureBarType = ""
 @c \override NoteHead.style = #'neomensural
 @c \override Staff.TimeSignature.style = #'neomensural
 @c \clef "petrucci-g"
@@ -1004,7 +1004,7 @@ Eine Datei kann zum Beispiel so aussehen:
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.measureBarType = "-"
+    \set Score.measureBarType = ""
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -1033,7 +1033,7 @@ wie folgt ausgegeben:
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.measureBarType = "-"
+  \set Score.measureBarType = ""
   \override NoteHead.style = #'neomensural
   \override Staff.TimeSignature.style = #'neomensural
   \clef "petrucci-g"

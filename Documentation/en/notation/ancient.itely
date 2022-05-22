@@ -890,7 +890,7 @@ For example,
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.measureBarType = "-"
+    \set Score.measureBarType = ""
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -918,7 +918,7 @@ Without replacing @code{Ligature_bracket_engraver} with
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.measureBarType = "-"
+  \set Score.measureBarType = ""
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"

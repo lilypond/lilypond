@@ -19,9 +19,9 @@ start of the next non-tuplet note.  "
   \set tupletFullLength = ##t
   c''4
   \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c \bar "-" \break c] }
+  \tuplet 3/2 { c8[ c \bar "" \break c] }
   << \tuplet 3/2 { c8[ c c]  }
-     { s4*5/6 \bar "-" \break } >>
+     { s4*5/6 \bar "" \break } >>
   c4
   \tuplet 3/2 { c8[ c c] }
   

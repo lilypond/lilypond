@@ -947,7 +947,7 @@ Por ejemplo:
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.measureBarType = "-"
+    \set Score.measureBarType = ""
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -976,7 +976,7 @@ la siguiente apariencia:
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.measureBarType = "-"
+  \set Score.measureBarType = ""
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"

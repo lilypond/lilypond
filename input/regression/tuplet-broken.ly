@@ -25,10 +25,10 @@
 					  (markup #:arrow-head X RIGHT #f))
   \tuplet 19/11 {
     c''4 c4 c4 c4
-    \bar "-" \break
+    \bar "" \break
     c4 c4 c4 c4
     c4 c4 c4 c4
-    \bar "-" \break
+    \bar "" \break
     c4 c4 c4 c4
     c4 c4 c4 
   }
