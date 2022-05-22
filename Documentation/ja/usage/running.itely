@@ -722,18 +722,6 @@ Ghostscript が TrueType フォントのみを埋め込むようになり、@c
 他のフォーマットのフォントは埋め込まれません。@c
 デフォルト: @code{#f}。
 
-@item @code{gui} @var{bool}
-@var{bool} が @code{#t} なら、@c
-出力を表示せずに処理を行い、すべての出力をログ ファイルに@c
-リダイレクトします。@c
-デフォルト: @code{#f}。
-
-@strong{Windows ユーザへの注意:} @file{lilypond.exe} がデフォルトで@c
-すべての進捗情報をコマンド ウィンドウに出力するのに対して、@c
-@file{lilypond-windows.exe} は進捗情報を出力しません。@c
-@option{-dgui} オプションを用いることで、出力をログ ファイルに@c
-リダイレクトさせることができます。
-
 @item @code{help} @var{bool}
 @var{bool} が @code{#t} なら、@c
 このヘルプを表示します。@c

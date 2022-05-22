@@ -696,18 +696,6 @@ If @var{bool} is @code{#t}, make Ghostscript embed only TrueType
 fonts and no other font format.
 Default: @code{#f}.
 
-@item @code{gui} @var{bool}
-If @var{bool} is @code{#t}, make LilyPond run silently and redirect
-all output to a log file.
-Default: @code{#f}.
-
-@strong{Note to Windows users:} By default, @file{lilypond.exe} outputs
-all progress information to the command window, while
-@file{lilypond-windows.exe} does not and returns a prompt, with no
-progress information, immediately at the command line.  The
-@option{-dgui} option can be used in this case to redirect output to a
-log file.
-
 @item @code{help} @var{bool}
 If @var{bool} is @code{#t}, show this help.
 Default: @code{#f}.

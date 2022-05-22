@@ -735,18 +735,6 @@ Si @var{bool} est déterminé à @code{#t}, intime à Ghostscript
 d'embarquer les fontes uniquement au format TrueType, sans exception. La
 valeur par défaut est @code{#f}.
 
-@item @code{gui} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, travaille silencieusement, et
-redirige tout le verbiage dans un fichier journal. La valeur par défaut
-est @code{#f}.
-
-@strong{Note à l'attention des utilisateurs de Windows :} toutes
-les informations concernant le traitement apparaissent au fur et à
-mesure dans l'interpréteur de commandes lorsque vous lancez le programme
-@file{lilypond.exe}, à l'inverse de @w{@file{lilypond-windows.exe}} qui
-vous renvoie simplement la main.  L'option @option{-dgui} vous permettra
-alors de rediriger ces informations dans un fichier journal.
-
 @item @code{help} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, affiche cette aide. La valeur
 par défaut est @code{#f}.

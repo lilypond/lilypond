@@ -52,14 +52,12 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
-  if (!from_scm<bool> (ly_get_option (ly_symbol2scm ("gui")))
-      && from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
+  if (from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
     {
       out_file_name.dir_ = "";
       out_file_name.is_absolute_ = false;
     }
 
-  /* When running from gui, generate output in .ly source directory.  */
   string output_name = output_name_global;
   if (!output_name.empty ())
     {
