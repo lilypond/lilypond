@@ -195,6 +195,7 @@ class LilyPond(ConfigurePackage):
             "etf2ly",
             "lilymidi",
             "lilypond-book",
+            "lilypond-invoke-editor",
             "lilysong",
             "midi2ly",
             "musicxml2ly",
@@ -203,7 +204,7 @@ class LilyPond(ConfigurePackage):
     @property
     def guile_scripts(self) -> List[str]:
         """Return a list of all Guile scripts installed by default."""
-        return ["lilypond-invoke-editor"]
+        return []
 
     @property
     def license_files(self) -> List[str]:

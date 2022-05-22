@@ -299,11 +299,6 @@ fi
 
 STEPMAKE_WINDOWS
 
-# guile executable for lilypond-invoke-editor. We don't care about the
-# version, and it doesn't have to be sync'd with the main lilypond
-# GUILE version
-STEPMAKE_GUILE(REQUIRED, 1.8.2)
-
 # perl for help2man and for mf2pt1.pl
 STEPMAKE_PERL(REQUIRED)
 

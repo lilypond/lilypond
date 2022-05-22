@@ -513,46 +513,6 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
 ])
 
 
-# Check for guile, between minimum ($2) and maximum version ($3).
-# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
-AC_DEFUN(STEPMAKE_GUILE, [
-    AC_MSG_CHECKING([for guile])
-    guile="guile"
-    found="no"
-    for r in $GUILE guile guile2 guile2.2; do
-        exe=`STEPMAKE_GET_EXECUTABLE($r)`
-        if ! $exe --version > /dev/null 2>&1 ; then
-            continue
-        fi
-        ver=`STEPMAKE_GET_VERSION($exe)`
-        num=`STEPMAKE_NUMERIC_VERSION($ver)`
-        req=`STEPMAKE_NUMERIC_VERSION($2)`
-        sup=`STEPMAKE_NUMERIC_VERSION($3)`
-        if test -n "$2" && test "$num" -lt "$req"; then
-            guile=["$r >= $2 (installed: $ver)"]
-            continue
-        else
-            if test -n "$3" && test "$num" -ge "$sup"; then
-                guile=["$r < $3 (installed: $ver)"]
-                continue
-            else
-                guile=$r
-                found=$r
-                break
-            fi
-        fi
-    done
-    AC_MSG_RESULT([$found])
-    if test "$found" != "no"; then
-        AC_MSG_CHECKING([$guile version])
-        AC_MSG_RESULT([$ver])
-        GUILE=$found
-    else
-        STEPMAKE_ADD_ENTRY($1, $guile)
-    fi
-    STEPMAKE_PATH_PROG(GUILE, $GUILE)
-])
-
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     AC_ARG_VAR(GUILE_FLAVOR,
                AS_HELP_STRING([], [pkgconfig name for Guile, like guile-2.2.
