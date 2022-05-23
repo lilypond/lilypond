@@ -234,8 +234,8 @@ result to prevent jaggies in PNG images.")
                "Create .tex, .texi, .count files for use with
 lilypond-book")
     (backend ps
-             "Select backend.  Possible values: 'eps, 'null,
-'ps, 'scm, 'svg.")
+             "Select backend.  Possible values are 'ps and
+'svg.")
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
     (crop #f

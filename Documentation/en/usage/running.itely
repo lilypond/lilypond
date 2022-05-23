@@ -537,8 +537,8 @@ prevent @q{jaggies} in PNG images.  Default: @code{1}.
 
 @item @code{aux-files} @var{bool}
 If @var{bool} is @code{#t}, create @file{.tex}, @file{.texi}, and
-@file{.count} files when used with the @code{eps} backend option.
-Default: @code{#t}.
+@file{.count} files.  This option is mostly for use by
+@command{lilypond-book}.  Default: @code{#f}.
 
 @item @code{backend} @var{symbol}
 Use @var{symbol} as the backend for LilyPond output.  Possible values
