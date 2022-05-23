@@ -1,7 +1,8 @@
 \version "2.23.6"
 
 \header {
-  texidoc = "Test bar lines at beginning, middle, and end of line."
+  texidoc = "Test a spacer bar line at the beginning, middle, and end
+of a line."
 }
 
 \paper { ragged-right = ##t }
