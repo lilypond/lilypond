@@ -673,8 +673,20 @@ run."
   fineBarType = "|."
 
   doubleRepeatBarType = ":..:"
-  startRepeatBarType = ".|:"
   endRepeatBarType = ":|."
+  startRepeatBarType = ".|:"
+  %% At points of repetition or departure where there wouldn't
+  %% otherwise be a bar line, print a thin double bar line (Behind
+  %% Bars, p.240).
+  underlyingRepeatBarType = "||"
+
+  doubleRepeatSegnoBarType = ":|.S.|:"
+  endRepeatSegnoBarType = ":|.S"
+  fineSegnoBarType = "|.S"
+  fineStartRepeatSegnoBarType = "|.S.|:"
+  segnoBarType = "S"
+  startRepeatSegnoBarType = "S.|:"
+
   %% TODO: Add 'measureStartNow to alternativeRestores?
   %% TODO: Add 'timing to alternativeRestores?
   alternativeRestores = #'(measurePosition measureLength lastChord)
@@ -683,7 +695,6 @@ run."
   centerBarNumbers = ##f
   clefTranspositionFormatter = #clef-transposition-markup
   cueClefTranspositionFormatter = #clef-transposition-markup
-  automaticBars = ##t
 
   explicitClefVisibility = #all-visible
   explicitCueClefVisibility = #end-of-line-invisible
@@ -1255,7 +1266,9 @@ accommodated for typesetting a piece in Petrucci style."
   \consists Custos_engraver
   \consists Signum_repetitionis_engraver
 
-  %% Eliminate measure bar lines.
+  %% Eliminate measure bar lines.  Use "" rather than '() to allow a
+  %% line break at any measure boundary.  (It would be even better to
+  %% allow a line break after any note.)
   measureBarType = ""
 
   %% Both single and double bar lines appear at section breaks in
@@ -1283,10 +1296,10 @@ accommodated for typesetting a piece in Petrucci style."
   %% See "Le corps" (f. 72v-73r) for an example of the repeat sign
   %% appearing along with the final double bar line.  That is why we
   %% have implemented the repeat sign as its own grob.
-  doubleRepeatBarType = ""
-  endRepeatBarType = ""
+  doubleRepeatBarType = #'()
+  endRepeatBarType = #'()
   startRepeatBarType = "||"
-  underlyingRepeatBarType = ""
+  underlyingRepeatBarType = "" % allow a line break
 
   %% Match BarLine.hair-thickness to stems:
   %% BarLine.hair-thickness = Stem.thickness * StaffSymbol.thickness

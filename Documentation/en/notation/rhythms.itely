@@ -3276,9 +3276,10 @@ Internals Reference:
 
 Various commands other than @code{\bar} can also create bar lines
 as part of their effect.  The bar lines created in these cases can
-be changed by setting context properties.  Bar line types must be
-selected from the predefined types or types previously defined
-with the @code{\defineBarLine} command (@pxref{Bar lines}).
+be changed by setting context properties.  If a property is set to
+@code{'()} or is unset, it is ignored; otherwise, the value must
+be a predefined bar type or one previously defined with the
+@code{\defineBarLine} command (@pxref{Bar lines}).
 
 Multiple reasons for creating different automatic bar lines may
 apply at the same time.  Conflicts are resolved in part by
@@ -3286,6 +3287,12 @@ providing properties for predetermined combinations, in part by
 annotating bar types on the fly, and in part by a priority scheme.
 The table below presents the available properties in order of
 increasing priority.
+
+The highest-priority automatic bar type does not completely hide
+the others: the next-highest-priority bar type is appended as an
+annotation, provided that the resulting bar type is defined.  This
+allows the secondary bar line to become visible at line breaks if
+suitable bar types are defined (@pxref{Bar lines}).
 
 @quotation
 @table @code
@@ -3362,13 +3369,6 @@ segno, which can be created by @code{\repeat segno} or
 @code{bar-line}, or created by @code{\inStaffSegno}.
 
 Properties with @code{fine} in the name are used at @code{\fine}.
-
-Though these are the highest-priority automatic bar types, they do
-not completely hide the others: the next-highest-priority bar type
-is appended as an annotation, provided that the resulting bar type
-is defined.  This allows the secondary bar line to become visible
-at line breaks if suitable bar types are defined (@pxref{Bar
-lines}).
 
 @end table
 @end quotation

@@ -1,5 +1,7 @@
 \version "2.23.8"
 
+#(ly:set-option 'warning-as-error #t)
+
 \header {
   texidoc = "This test demonstrates an ancient repeat sign in the
 Petrucci style.  The sign consists of 1 to@tie{}4 short strokes

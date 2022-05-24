@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+@code{automaticBars} has been removed.  @code{convert-ly} converts
+@code{automaticBars = ##f} to @code{measureBarType = #'()}.
+
+
+@item
 The @code{\break} command now always inserts a break, bypassing all
 default decisions about break points.  For example, it is no longer
 necessary to insert @code{\bar ""} to obtain a mid-measure break.

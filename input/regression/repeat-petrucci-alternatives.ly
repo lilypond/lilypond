@@ -1,5 +1,7 @@
 \version "2.23.8"
 
+#(ly:set-option 'warning-as-error #t)
+
 \header {
   texidoc = "Alternative endings are not expected in ancient music.
 Here, the signum repetitionis resembles a modern repeat sign rather
