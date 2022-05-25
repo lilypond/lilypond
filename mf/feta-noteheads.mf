@@ -197,6 +197,10 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
     quanted_line_length := max (0.77, line_length);
   fi;
 
+  % If breves are aligned for intervals like a second, they overlap
+  % so that the vertical stems fall together.  To ensure this, the
+  % 'breapth' value should be the thickness of the left vertical
+  % stem.
   set_char_box (stemthick# * linecount + gap# * (linecount - 1),
                 width# + stemthick# * linecount + gap# * (linecount - 1),
                 staff_space# * quanted_line_length,

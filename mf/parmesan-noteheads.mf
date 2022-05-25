@@ -33,7 +33,12 @@ fet_begingroup ("noteheads");
 %
 % set_char_box() conventions:
 %
-% * breapth: Ignored (as far as I know).  Should be set to 0.
+% * breapth: If note heads have a vertical stem or a vertical,
+%   serif-like feature on the left side (for example, a brevis) and
+%   they are aligned for intervals like a second, they overlap so that
+%   the vertical stems fall together.  To ensure this, the 'breapth'
+%   value of such glyphs should be the thickness of the left vertical
+%   stem.  Otherwise, set it to zero.
 %
 % * width: Should match the head's width.
 %
@@ -67,22 +72,22 @@ def draw_neomensural_brevis (expr brevwid, holeheight, open, full) =
 
   head_width# := brevwid;
   head_height# := noteheight#;
-  stem_width := 1.3 linethickness;
+  stem_width# := 1.3 linethickness#;
 
-  define_pixels (head_width, head_height);
+  define_pixels (head_width, head_height, stem_width);
 
-  set_char_box (0, head_width#,
+  set_char_box (stem_width#, head_width# - stem_width#,
                 head_height# / 2, head_height# / 2);
 
   2 beamheight + holeheight = head_height;
   serif_size := blot_diameter;
   serif_protrude := .15 head_height;
 
-  z1l = (0, 0);
-  z2l = (0, - (holeheight - 2 serif_size) / 2);
+  z1r = (0, 0);
+  z2r = (0, - (holeheight - 2 serif_size) / 2);
   z3r = z2r + serif_size * (1, -1);
   y4r = y3r;
-  x4r = head_width / 2;
+  x4r = head_width / 2 - stem_width;
   z5l = z3l + (-serif_size, -serif_protrude);
 
   penpos1 (stem_width, 0);
@@ -143,7 +148,7 @@ def draw_neomensural_longa (expr wid, holeheight, direction) =
   save theta, dir;
   dir := -direction;
 
-  x7 = head_width - stem_width / 2;
+  x7r = head_width - stem_width;
   y7 = dir * y5;
   z6 - z7 = (stem_width / 2, -dir * staff_space);
   theta = dir * angle (z6 - z7) + 90;
@@ -381,7 +386,7 @@ def draw_mensural_longa (expr wid, holeheight, open, full,
   save dir;
   dir := -direction;
 
-  x6 = x7 = head_width - stem_width / 2;
+  x6r = x7r = head_width - stem_width;
   y6 = dir * y5;
   y7 = dir * y5 -1.75 dir * staff_space;
 
