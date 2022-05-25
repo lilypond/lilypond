@@ -1143,7 +1143,6 @@ of the volta brackets relative to the bar lines."
 
 ;; common bar lines
 (define-bar-line "" "" #f #f)
-(define-bar-line "-" #f #f #f)
 (define-bar-line "|" "|" #f "|")
 (define-bar-line "|-s" #f "|" "|")
 (define-bar-line "." "." #f ".")

@@ -66,6 +66,12 @@ which scares away people.
 @end ignore
 
 @item
+The bar line type @code{"-"} has been removed.  @code{convert-ly}
+converts it to @code{""}.  There is a slight difference in
+horizontal spacing at line breaks.
+
+
+@item
 @code{automaticBars} has been removed.  @code{convert-ly} converts
 @code{automaticBars = ##f} to @code{measureBarType = #'()}.
 
