@@ -103,7 +103,7 @@ $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 $(outdir)/relocate.o: $(outdir)/version.hh
 
-prefix := {c++}/[ \t]*
+pre := {c++}/[ \t]*
 second := [ \t\n\v]*([^,]*,[^""]*\"\([^""]*\)/\1/m
 third  := [ \t\n\v]*([^,]*,[^,]*,[^""]*\"\([^""]*\)/\1/m
 three-arg-calls := MAKE_SCHEME_CALLBACK_WITH_OPTARGS \
@@ -113,8 +113,8 @@ two-arg-calls := LY_DEFINE \
                  LY_DEFINE_WITH_SETTER
 
 regex_ =
-regex_ += $(foreach fname,$(two-arg-calls),--regex='$(prefix)$(fname)$(second)')
-regex_ += $(foreach fname,$(three-arg-calls),--regex='$(prefix)$(fname)$(third)')
+regex_ += $(foreach fname,$(two-arg-calls),--regex='$(pre)$(fname)$(second)')
+regex_ += $(foreach fname,$(three-arg-calls),--regex='$(pre)$(fname)$(third)')
 
 ETAGS_FLAGS += $(regex_)
 CTAGS_FLAGS += $(regex_)
