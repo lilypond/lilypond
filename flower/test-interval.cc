@@ -83,12 +83,12 @@ public:
   friend std::string to_string (M a) { return std::to_string (a.v_); }
 };
 
-}
-
 static inline std::ostream &
 operator << (std::ostream &os, Mint m) // for Yaffut
 {
   return os << to_string (m);
+}
+
 }
 
 template INTERVAL__INSTANTIATE (Mint);
