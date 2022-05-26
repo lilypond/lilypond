@@ -103,11 +103,14 @@ $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 $(outdir)/relocate.o: $(outdir)/version.hh
 
-prefix :={c++}/[ \t]*
-second :=[ \t\n\v]*([^,]*,[^""]*\"\([^""]*\)/\1/m
-third  :=[ \t\n\v]*([^,]*,[^,]*,[^""]*\"\([^""]*\)/\1/m
-three-arg-calls := MAKE_SCHEME_CALLBACK_WITH_OPTARGS MAKE_DOCUMENTED_SCHEME_CALLBACK MAKE_SCHEME_CALLBACK
-two-arg-calls := LY_DEFINE LY_DEFINE_WITH_SETTER
+prefix := {c++}/[ \t]*
+second := [ \t\n\v]*([^,]*,[^""]*\"\([^""]*\)/\1/m
+third  := [ \t\n\v]*([^,]*,[^,]*,[^""]*\"\([^""]*\)/\1/m
+three-arg-calls := MAKE_SCHEME_CALLBACK_WITH_OPTARGS \
+                   MAKE_DOCUMENTED_SCHEME_CALLBACK \
+                   MAKE_SCHEME_CALLBACK
+two-arg-calls := LY_DEFINE \
+                 LY_DEFINE_WITH_SETTER
 
 regex_ =
 regex_ += $(foreach fname,$(two-arg-calls),--regex='$(prefix)$(fname)$(second)')
