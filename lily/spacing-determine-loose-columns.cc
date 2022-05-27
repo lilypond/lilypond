@@ -118,24 +118,17 @@ is_loose_column (Paper_column *l, Paper_column *col, Paper_column *r,
   /*
     in any case, we don't want to move bar lines.
   */
-  extract_grob_set (col, "elements", elts);
-  for (auto *const g : elts)
+  if (auto *break_alignment
+      = unsmob<Item> (get_object (col, "break-alignment")))
     {
-      if (has_interface<Break_alignment_interface> (g))
+      auto *const staff_bar_group
+        = Break_alignment_interface::find_nonempty_break_align_group
+          (break_alignment, ly_symbol2scm ("staff-bar"));
+      if (staff_bar_group)
         {
-          extract_grob_set (g, "elements", gelts);
-          for (auto *const h : gelts)
+          if (staff_bar_group->extent (staff_bar_group, X_AXIS).length () > 0)
             {
-              if (h && scm_is_eq (get_property (h, "break-align-symbol"),
-                                  ly_symbol2scm ("staff-bar")))
-                {
-                  extract_grob_set (h, "elements", helts);
-                  for (auto *const bar : helts)
-                    {
-                      if (bar->extent (bar, X_AXIS).length () > 0)
-                        return false;
-                    }
-                }
+              return false;
             }
         }
     }
