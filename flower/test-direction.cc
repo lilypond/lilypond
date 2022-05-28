@@ -105,7 +105,7 @@ static_assert (ZERO * 3 == 0, "");
 static_assert (POSI * 3 == 3, "");
 
 // multiplication by a float
-// (also see run-time tests for signed zeros)
+// (but we're not covering special values like signed zero)
 
 static_assert (-4.4 * NEGA == 4.4, "");
 static_assert (-4.4 * ZERO == 0, "");
@@ -231,25 +231,4 @@ TEST (Direction_test, mul_assign)
   EQUAL (d, ZERO);
   d *= POSI;
   EQUAL (d, ZERO);
-}
-
-// Multiplication by a negative Direction inverts a signed zero just like any
-// other floating-point value.
-TEST (Direction_test, mul_signed_zero)
-{
-  EQUAL (std::signbit (-0.0 * NEGA), 0);
-  EQUAL (std::signbit (-0.0 * ZERO), 1);
-  EQUAL (std::signbit (-0.0 * POSI), 1);
-
-  EQUAL (std::signbit (NEGA * -0.0), 0);
-  EQUAL (std::signbit (ZERO * -0.0), 1);
-  EQUAL (std::signbit (POSI * -0.0), 1);
-
-  EQUAL (std::signbit (0.0 * NEGA), 1);
-  EQUAL (std::signbit (0.0 * ZERO), 0);
-  EQUAL (std::signbit (0.0 * POSI), 0);
-
-  EQUAL (std::signbit (NEGA * 0.0), 1);
-  EQUAL (std::signbit (ZERO * 0.0), 0);
-  EQUAL (std::signbit (POSI * 0.0), 0);
 }
