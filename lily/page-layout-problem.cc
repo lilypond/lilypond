@@ -1089,10 +1089,9 @@ Page_layout_problem::get_details (Element const &elt)
 }
 
 SCM
-Page_layout_problem::get_details (Grob *g)
+Page_layout_problem::get_details (Spanner *sp)
 {
-  Grob *left_bound = dynamic_cast<Spanner *> (g)->get_bound (LEFT);
-  return get_property (left_bound, "line-break-system-details");
+  return get_property (sp->get_bound (LEFT), "line-break-system-details");
 }
 
 bool
