@@ -23,12 +23,6 @@
 
 #include <cmath>
 
-// LilyPond doesn't need this, but Yaffut does, so we put it here.
-static std::ostream &operator << (std::ostream &os, Direction d)
-{
-  return os << d;
-}
-
 // shorthand for tests below
 static constexpr auto NEGA = Direction::negative ();
 static constexpr auto ZERO = Direction::zero ();
