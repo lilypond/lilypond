@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.7"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -2467,9 +2467,9 @@ valeur de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} constitue un @strong{moment}, autrement dit une unité
+@code{baseMoment} constitue un @dfn{moment}, autrement dit une unité
 de durée musicale.  La fonction Scheme @code{ly:make-moment} est tout
-particulièrement chargée de créer cette quantité de type @i{moment} --
+particulièrement chargée de créer cette quantité de type « moment » --
 voir @ref{Gestion du temps} pour plus de précisions.
 
 La pulsation -- @emph{baseMoment} en anglais -- découle directement de
@@ -2483,7 +2483,7 @@ chapitre @ref{Métrique}.
 Les règles de ligature et de subdivision spécifiques sont enregistrées
 dans la propriété @code{beamExceptions}.  Ses valeurs par défaut,
 rangées par métrique et type de règle, sont répertoriées dans le
-fichier @file{scm/time-signature-settings.scm}.
+fichier @file{scm/time-@/signature-@/settings.scm}.
 
 
 @subsubsubheading Ligature basée sur @code{beamExceptions}
@@ -2530,8 +2530,8 @@ nouveau la métrique.
 @end lilypond
 
 Les règles de ligature automatique par défaut sont répertoriées, par
-métrique, dans le fichier @file{scm/time-signature-settings.scm}.  Les
-manières de déroger à ce comportement sont abordées au chapitre
+métrique, dans le fichier @file{scm/time-@/signature-@/settings.scm}.
+Les manières de déroger à ce comportement sont abordées au chapitre
 @ref{Métrique}.
 
 De nombreuses règles de ligature automatique comportent une clé
@@ -2619,7 +2619,7 @@ Le @emph{type de ligature} correspond à la durée la plus courte dans le
 groupe.
 
 Les règles de ligature par défaut sont répertoriées dans le fichier
-@file{scm/time-signature-settings.scm}.
+@file{scm/time-@/signature-@/settings.scm}.
 
 @snippets
 
@@ -4229,8 +4229,8 @@ Référence des propriétés internes :
 @cindex note d'ornement, synchronisation
 @cindex synchronisation des notes d'ornement
 
-Un groupe de notes ligaturées constituant une @emph{acciaccatura}
-apparaîtra comme une @emph{appoggiatura}, c'est-à-dire sans trait.
+Un groupe de notes ligaturées constituant une @dfn{acciaccatura}
+apparaîtra comme une @dfn{appoggiatura}, c'est-à-dire sans trait.
 
 @c TODO Add link to LSR snippet to add slash when available
 
@@ -4355,6 +4355,7 @@ Morceaux choisis :
 @funindex currentBarNumber
 @funindex measurePosition
 @funindex measureLength
+@funindex Timing
 
 Le temps est administré par le @code{Timing_translator}, qui réside en
 principe dans le contexte @code{Score}.  Un alias, @code{Timing}, sera

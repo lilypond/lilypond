@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -176,7 +176,7 @@ Glossaire musicologique :
 
 @node Considérations communes aux musiques anciennes
 @subsection Considérations communes aux musiques anciennes
-@translationof Ancient notation---common features
+@translationof Ancient notation -- common features
 
 @menu
 * Contextes prédéfinis::
@@ -187,7 +187,7 @@ Glossaire musicologique :
 
 @node Contextes prédéfinis
 @unnumberedsubsubsec Contextes prédéfinis
-@translationof Pre-defined contexts
+@translationof Predefined contexts
 
 LilyPond dispose, en matière de musique ancienne et de grégorien, de
 contextes prédéfinis.  Ceux-ci contiennent tout ce qui est nécessaire à
@@ -200,18 +200,14 @@ notes dans un contexte @code{VaticanaVoice}, @code{VaticanaStaff},
 @code{MensuralVoice} ou @code{MensuralStaff}.  Vous trouverez des
 détails sur ces contextes aux rubriques
 
-@itemize
-@item @ref{Contextes du chant grégorien},
-@item @ref{Contextes de musique mensurale}.
-@end itemize
-
 @morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
 @ref{Contextes du chant grégorien},
-@ref{Contextes de musique mensurale}.
+@ref{Contextes de musique mensurale},
+@ref{Contextes de notation kiévienne}.
 @endmorerefs
 
 
@@ -245,14 +241,15 @@ simple crochet au dessus de la ligature :
 }
 @end lilypond
 
-Deux autres styles de ligature sont accessibles : vatican pour le
-grégorien et mensural pour la musique ancienne (seules sont disponibles
-les ligatures mensurales blanches, avec quelques limitations).  Selon le
-style de ligature désiré, il faut remplacer, dans le contexte
-@code{Voice} approprié, le graveur @code{Ligature_bracket_engraver} par
-le graveur de ligature qui convient -- voir les rubriques
-@ref{Ligatures mensurales} et @ref{Neumes et ligatures grégoriennes} à
-ce sujet.
+Trois autres styles de ligature sont accessibles : vatican pour le
+grégorien, mensural pour la musique ancienne (seules sont disponibles
+les ligatures mensurales blanches, avec quelques limitations) et
+kiévienne. Selon le style de ligature désiré, il faut remplacer, dans le
+contexte @code{Voice} approprié, le graveur
+@code{Ligature_@/bracket_@/engraver} par le graveur de ligature qui
+convient -- voir les rubriques @ref{Ligatures mensurales},
+@ref{Neumes et ligatures grégoriennes} et @ref{Mélismes kiéviens} à ce
+sujet.
 
 @morerefs
 Glossaire musicologique :
@@ -1054,14 +1051,14 @@ Manuel de notation :
 @cindex VaticanaVoice
 @cindex VaticanaStaff
 
-Les contextes prédéfinis @code{VaticanaVoice} et
-@code{VaticanaStaff} permettent de graver le chant grégorien
-dans le style des éditions vaticanes.  Ces contextes initialisent
-les propriétés de tous les autres contextes et objets graphiques à des
-valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
-lancer dans la saisie de votre chant, comme ci-dessous :
+Les contextes prédéfinis @code{VaticanaVoice}, @code{VaticanaStaff} et
+@code{VaticanaLyrics} permettent de graver le chant grégorien dans le
+style des éditions vaticanes. Ces contextes initialisent les propriétés
+de tous les autres contextes et objets graphiques à des valeurs
+adéquates, de telle sorte que vous pouvez tout de suite vous lancer dans
+la saisie de votre chant, comme ci-dessous :
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   <<
@@ -1074,8 +1071,8 @@ lancer dans la saisie de votre chant, comme ci-dessous :
       \[ c'\melisma c' \flexa a \]
       \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
     }
-    \new Lyrics \lyricsto "cantus" {
-      San- ctus, San- ctus, San- ctus
+    \new VaticanaLyrics \lyricsto "cantus" {
+      San -- ctus, San -- ctus, San -- ctus
     }
   >>
 }
@@ -1136,6 +1133,8 @@ Clef de fa, style des éditions vaticanes
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
+  \override Staff.LedgerLineSpanner.length-fraction = #0.9
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
@@ -1167,6 +1166,8 @@ Clef de fa, style Editio Medicaea
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
+  \override Staff.LedgerLineSpanner.length-fraction = #0.9
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
@@ -1198,6 +1199,8 @@ Clef de fa, style historique Hufnagel
 @lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
+  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
+  \override Staff.LedgerLineSpanner.length-fraction = #0.9
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
@@ -1317,34 +1320,32 @@ Les divisions sont disponibles après inclusion du fichier
 @emph{caesura} en lieu et place de @emph{divisio minima} ; c'est pourquoi
 @file{gregorian.ly} définit aussi @code{\virgula} et @code{\caesura}.
 
-@lilypond[quote,ragged-right]
+@lilypond[quote,ragged-right,staffsize=23]
 \include "gregorian.ly"
 \score {
-  <<
-    \context VaticanaVoice {
-      \override TextScript.padding = #3
-      g a g
-      s^\markup { "divisio minima" }
-      \divisioMinima
-      g a g
-      s^\markup { "divisio maior" }
-      \divisioMaior
-      g a g
-      s^\markup { "divisio maxima" }
-      \divisioMaxima
-      \break
-      g a g
-      s^\markup { "finalis" }
-      \finalis
-      g a g
-      s^\markup { "virgula" }
-      \virgula
-      g a g
-      s^\markup { "caesura" }
-      \caesura
-      g a g
-    }
-  >>
+  \new VaticanaVoice {
+    \override TextScript.padding = #3
+    g a g
+    s^\markup { "divisio minima" }
+    \divisioMinima
+    g a g
+    s^\markup { "divisio maior" }
+    \divisioMaior
+    g a g
+    s^\markup { "divisio maxima" }
+    \divisioMaxima
+    \break
+    g a g
+    s^\markup { "finalis" }
+    \finalis
+    g a g
+    s^\markup { "virgula" }
+    \virgula
+    g a g
+    s^\markup { "caesura" }
+    \caesura
+    g a g
+  }
 }
 @end lilypond
 
@@ -1412,12 +1413,10 @@ spécifiquement destinées au style des éditions vaticanes.
 @funindex \ictus
 @funindex \semicirculus
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   \new VaticanaVoice {
-    \override TextScript.font-family = #'typewriter
-    \override TextScript.font-shape = #'upright
     \override Script.padding = #-0.1
     a\ictus_"ictus " \bar "" \break
     a\circulus_"circulus " \bar "" \break
@@ -1463,7 +1462,7 @@ particulier.  Il faut l'utiliser avec la syntaxe
 ailleurs, l'expression @code{\augmentum @{a g@}} constitue une forme
 abrégée de @code{\augmentum a \augmentum g}.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,staffsize=23]
 \include "gregorian.ly"
 \score {
   \new VaticanaVoice {
@@ -2725,7 +2724,7 @@ L'espacement des ligatures n'est pas des meilleurs.
 
 @node Réédition de musique ancienne
 @subsection Réédition de musique ancienne
-@translationof Working with ancient music---scenarios and solutions
+@translationof Working with ancient music -- scenarios and solutions
 
 @menu
 * Des incipits::
@@ -2925,7 +2924,7 @@ chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
   \hide Stem
-  c'\breve \hide NoteHead  c c c c c
+  c'\breve \hide NoteHead c c c c c
   \undo \hide NoteHead
   \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
@@ -2967,7 +2966,7 @@ notation moderne devrait être tout à fait satisfaisante.
 
 Pour une répartition plus homogène de syllabes de longueur différente --
 telles que « -ri » et « -rum » -- selon les groupes de note, une
-solution consiste à figer la propriété @code{'X-extent} de l'objet
+solution consiste à figer la propriété @code{X-extent} de l'objet
 @code{LyricText}.  Ceci s'avère moins fastidieux que d'ajouter des
 syllabes sous forme de @emph{markup}.  Des ajustements supplémentaires
 peuvent se réaliser avec des « notes silencieuses » (@code{s}).

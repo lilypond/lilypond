@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1176,7 +1176,7 @@ les diagrammes de fret correctement.
   }
 @end lilypond
 
-@cindex fret-diagram-terse markup
+@cindex @code{fret-diagram-terse}, markup
 
 @funindex \fret-diagram-terse
 
@@ -1262,7 +1262,7 @@ Il n'est possible d'inclure qu'une seule indication par corde dans un
 plusieurs, utiliser un @emph{markup} @code{fret-diagram} ou
 @code{fret-diagram-verbose}.
 
-@cindex fret-diagram-verbose markup
+@cindex @code{fret-diagram-verbose}, markup
 @cindex capo
 
 @funindex \fret-diagram-verbose
@@ -1601,14 +1601,19 @@ mychordlist = {
 >>
 @end lilypond
 
-La table des diagrammes d'accord contient sept types d'accord (majeur,
-mineur, augmenté, diminué, septième de dominante, majeur sept, mineur
-sept) pour chacune des 17 fondamentales possibles.  Une liste complète
-des diagrammes d'accords prédéfinis se trouve à l'annexe
-@ref{Tablatures prédéfinies}.   S'il n'y a pas d'entrée dans la table
-pour un accord donné, le graveur @code{Fretboard_engraver} calculera le
-diagramme d'accord en utilisant la fonctionnalité automatique  décrite
-dans @ref{Tablatures automatiques}.
+La table des diagrammes d'accord contient huit types d'accord (majeur,
+mineur, augmenté, diminué, septième de dominante, septième majeure,
+septièime mineure, neuvième de dominante) pour chacune des 17
+fondamentales possibles.
+
+La table des diagrammes pour ukulele contient trois types d'accord
+supplémentaires : sixte majeure, seconde suspendue et quarte suspendue.
+
+Une liste complète des diagrammes d'accords prédéfinis se trouve à
+l'annexe @ref{Tablatures prédéfinies}. S'il n'y a pas d'entrée dans la
+table pour un accord donné, le graveur @code{Fretboard_engraver}
+calculera le diagramme d'accord en utilisant la fonctionnalité
+automatique décrite dans @ref{Tablatures automatiques}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"

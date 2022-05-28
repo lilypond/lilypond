@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3cdce08c24d3cef7f242214f2b48763242a2ead6
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -956,12 +956,28 @@ adéquate. Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
 
 La propriété @code{repeatCommands} sert à contrôler la mise en forme des
-reprises du style « volta ». On la définit par une suite de commandes de
-reprise Scheme.
+reprises du style « volta ». On la définit par une liste de commandes en
+Scheme. En règle générale, chaque élément est lui-même une liste de
+la forme @code{'(@var{commande} @var{args@dots{}})}, tout en sachant
+qu'une commande sans argument peut s'abrégér en un symbole -- par
+exemple, @code{'((start-@/repeat))} peut se libéller simplement en
+@code{'(start-@/repeat)}.
 
 @table @code
+@item end-repeat
+Pour terminer un fragment répété.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  d4 e f g
+  \set Score.repeatCommands = #'(end-repeat)
+  c1
+}
+@end lilypond
+
 @item start-repeat
-Pour imprimer une barre de reprise @code{.|:}
+Pour entamer un fragement répété.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -975,22 +991,12 @@ Pour imprimer une barre de reprise @code{.|:}
 Traditionnellement, on n'imprime pas de signe de reprise en début de
 morceau.
 
-@item end-repeat
-Pour imprimer une barre de reprise @code{:|.}
-
-@lilypond[verbatim,quote]
-\relative {
-  c''1
-  d4 e f g
-  \set Score.repeatCommands = #'(end-repeat)
-  c1
-}
-@end lilypond
-
-@item (volta @var{nombre}) @dots{} (volta #f)
-Pour obtenir un crochet indiquant le numéro de l'alternative. Pour que
-le crochet s'imprime effectivement, il faut spécifier explicitement
-l'endroit où il doit se terminer.
+@item volta @var{texte}
+Lorsque @var{texte} est un @emph{markup}, ouvre un crochet d'alternative
+et lui affecte le label mentionné. Le crochet prendra fin lorsque
+@var{texte} est égal à @code{#f}. Pour que le crochet s'imprime
+effectivement, il faut spécifier explicitement l'endroit où il doit se
+terminer.
 
 @lilypond[verbatim,quote]
 \relative {

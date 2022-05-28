@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3cdce08c24d3cef7f242214f2b48763242a2ead6
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1139,9 +1139,11 @@ numérotées.  La valeur par défaut est @code{#t}.
 @item page-number-type
 @funindex page-number-type
 
-Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
-(romains minuscules), @code{roman-upper} (romains majuscules) ou
-@code{arabic} (arabes).  La valeur par défaut est @code{'arabic}.
+Le type de chiffres à utiliser pour la numérotation : @code{arabic}
+(arabes), @code{'roman-ij-lower} (romains minuscules avec ligature ij),
+@code{'roman-ij-upper} (romains majuscules avec ligature IJ),
+@code{roman-lower} (romains minuscules) ou @code{roman-upper} (romains
+majuscules) . La valeur par défaut est @code{'arabic}.
 
 @end table
 
@@ -1348,9 +1350,9 @@ Par exemple, placer le bloc suivant
 
 @noindent
 après celui de l'exemple précédent aura pour effet de cumuler les
-adaptations de @code{'padding} et @code{'color} pour l'objet
+adaptations de @code{padding} et @code{color} pour l'objet
 @code{TextScript}, mais la dernière adaptation apportée à la propriété
-@code{'thickness} de @code{Glissando} remplace, ou masque, celle
+@code{thickness} de @code{Glissando} remplace, ou masque, celle
 précédemment établie.
 
 Les blocs @code{\layout} peuvent faire l'objet de variables, aux fins de
@@ -2043,7 +2045,7 @@ et @code{bottom-margin}.
 
 L'affectation d'une valeur à @code{top-system-spacing} influencera le
 positionnement vertical de la musique.  Sa désactivation -- valorisation
-à @code{##f} au sein du bloc @code{\paper} -- aura pour effet de
+à @code{#f} au sein du bloc @code{\paper} -- aura pour effet de
 simplement placer la musique entre les marges supérieure et inférieure.
 
 
@@ -2765,38 +2767,21 @@ une liste associative de quatre mises au point :
 @item @code{alignment-distances}
 @end itemize
 
-Les dérogations en matière d'objet graphique, y compris celles
-concernant les @code{NonMusicalPaperColumn} ci-dessus, peuvent se placer
-à trois différents endroits de votre fichier source :
-
-@itemize
-@item directement au beau milieu des notes
-@item au sein d'un bloc @code{\context}
-@item dans un bloc @code{\with}
-@end itemize
-
-Le réglage de @code{NonMusicalPaperColumn} s'effectue à l'aide d'une
-simple commande @code{\override} au sein d'un bloc @code{\context} ou
-@code{\with}.  Dans le cas où il est stipulé au fil des notes, c'est la
-commande spécifique @code{\overrideProperty} qui doit intervenir.  Voici
-quelques exemples de réglages de @code{NonMusicalPaperColumn} à l'aide
-de la commande @code{\overrideProperty} :
-
 @example
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20)
      (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details
+\once \override NonMusicalPaperColumn.line-break-system-details =
   #'((X-offset . 20)
      (Y-offset . 40)
      (alignment-distances . (15)))
@@ -2851,14 +2836,14 @@ de l'objet @code{NonMusicalPaperColumn} :
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn
-            .line-break-system-details #'((Y-offset . 0))
+          \once \override Score.NonMusicalPaperColumn
+            .line-break-system-details = #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            .line-break-system-details #'((Y-offset . 40))
+          \once \override Score.NonMusicalPaperColumn
+            .line-break-system-details = #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            .line-break-system-details #'((Y-offset . 60))
+          \once \override Score.NonMusicalPaperColumn
+            .line-break-system-details = #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2895,15 +2880,15 @@ vertical.
       \new Staff <<
         \new Voice {
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
-            .line-break-system-details #'((extra-offset . (0 . 10)))
+            .line-break-system-details = #'((extra-offset . (0 . 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
-            .line-break-system-details #'((extra-offset . (0 . 10)))
+            .line-break-system-details = #'((extra-offset . (0 . 10)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2929,25 +2914,25 @@ jouer sur la distance séparant les portées de chacun des systèmes, grâce
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 20)
+            = #'((Y-offset . 20)
                  (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 60)
+            = #'((Y-offset . 60)
                  (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 85)
+            = #'((Y-offset . 85)
                  (alignment-distances . (20)))
           s1*5 \break
         }
@@ -2979,25 +2964,25 @@ d'un regroupement de portées.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty
+          \once \override
             Score
               .NonMusicalPaperColumn
               .line-break-system-details
-                #'((Y-offset . 0)
+              = #'((Y-offset . 0)
                    (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 60)
+            = #'((Y-offset . 60)
                  (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty
+          \once \override
             Score
             .NonMusicalPaperColumn
             .line-break-system-details
-              #'((Y-offset . 100)
+            = #'((Y-offset . 100)
                  (alignment-distances . (10 30)))
           s1*5 \break
         }
@@ -3846,15 +3831,10 @@ point cette notation proportionnelle.
 
 @itemize
 @item @code{proportionalNotationDuration}
-
 @item @code{uniform-stretching}
-
 @item @code{strict-note-spacing}
-
 @item @code{\remove Separating_line_group_engraver}
-
 @item @code{\override PaperColumn.used = ##t}
-
 @end itemize
 
 Nous allons examiner, dans les différents exemples qui suivent, les
@@ -4067,21 +4047,21 @@ une indication temporelle ou autre graphisme selon notre envie.
 
 Notez bien que la prise en charge de la notation proportionnelle par
 LilyPond demande que, dans chaque partition, soit activée la propriété
-@code{uniform-stretching} du @code{SpacingSpanner}.  Dans le cas
-contraire, utiliser @code{proportionalNotationDuration} aura pour
+@code{uniform-@/stretching} du @code{SpacingSpanner}.  Dans le cas
+contraire, utiliser @code{proportional@/Notation@/Duration} aura pour
 conséquence, entre autres, un espacement erroné lorsque vous y aurez
 inséré des silences invisibles @emph{skip}.
 
 Le @code{SpacingSpanner} est en fait un objet graphique abstrait attaché
-au contexte @code{Score}.  Tout comme pour la propriété
-@code{proportionalNotationDuration}, les réglages du
+au contexte @code{Score}. Tout comme pour la propriété
+@code{proportional@/Notation@/Duration}, les réglages du
 @code{SpacingSpanner} peuvent se faire à trois différents endroits de
-votre fichier : dans un bloc @code{\with}, dans un bloc
-@code{\context} ou au beau milieu de la musique à l'aide de la
+votre fichier : dans un bloc @code{\with} attaché à @code{\Score}, dans
+un bloc @code{\context} ou au beau milieu de la musique à l'aide de la
 commande @code{\set}.
 
 Gardez bien à l'esprit qu'il n'y a qu'un seul @code{SpacingSpanner} par
-@code{Score}.  Il s'ensuit que @code{uniform-stretching} est soit
+@code{Score}.  Il s'ensuit que @code{uniform-@/stretching} est soit
 activé, soit désactivé, et dans tous les cas pour l'intégralité de la
 partition.  Vous pourriez toutefois avoir besoin de modifier ce
 comportement en cours de partition, et recourir alors à l'instruction
@@ -4236,14 +4216,14 @@ fonction @code{annotate-spacing} :
 @end lilypond
 
 @noindent
-Toutes les dimensions sont exprimées en espace de portée
-@emph{(staff-space)} quelle que soit l'unité mentionnée dans les blocs
-@code{\paper} ou @code{\layout}.  Dans cet exemple, la hauteur de la
-feuille (@code{paper-height}) est de 59,75 espaces de portée
-(@code{staff-spaces}) et la taille de portée (@code{staff-size}) de
-20 points -- sa valeur par défaut.  Notez que :
+Toutes les dimensions sont exprimées en espace de portée @emph{(staff
+space)} quelle que soit l'unité mentionnée dans les blocs @code{\paper}
+ou @code{\layout}. Dans cet exemple, la hauteur de la feuille
+(@code{paper-height}) est de 59,75 espaces de portée et la taille de
+portée (@code{staff-size}) de 20 points -- sa valeur par défaut. Notez
+que :
 
-@multitable {1 staff-space} {= (@code{staff-size})/4 * (25,4/72,27) mm}
+@multitable {1 staff space} {= (@code{staff-size})/4 * (25,4/72,27) mm}
 
 @item 1 point
 @tab = (25,4/72,27) mm
@@ -4256,12 +4236,12 @@ feuille (@code{paper-height}) est de 59,75 espaces de portée
 @end multitable
 
 @noindent
-Dans le cas qui nous occupe, un @code{staff-space} égale environ
-1,757 millimètres.  Les 59,75 @code{staff-spaces} de
-@code{paper-height} correspondent donc à 105 millimètres, soit la
-hauteur d'une feuille au format A6 à l'italienne.  Les paires
-@code{(@var{a},@var{b})} sont des intervalles, @var{a} en étant
-l'extrémité inférieure et @var{b} l'extrémité supérieure.
+Dans le cas qui nous occupe, un espace de porté égale environ
+1,757 millimètres. Les 59,75 espaces de portée de @code{paper-height}
+correspondent donc à 105 millimètres, soit la hauteur d'une feuille au
+format A6 à l'italienne. Les paires @code{(@var{a},@var{b})} sont des
+intervalles, @var{a} en étant l'extrémité inférieure et @var{b}
+l'extrémité supérieure.
 
 @morerefs
 Manuel de notation :

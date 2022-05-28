@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -160,7 +160,8 @@ Manuel de notation :
 
 @funindex \harmonic
 
-@strong{@i{Harmoniques naturels}}
+@noindent
+@strong{Harmoniques naturels}
 
 @cindex harmonique naturel
 @cindex naturel, harmonique
@@ -196,7 +197,8 @@ d''2^\flageolet d''_\flageolet
 Un plus petit cercle peut être créé, comme indiqué dans les exemples de
 code contenus dans @ref{Références en matière de cordes non frettées}.
 
-@strong{@i{Harmoniques artificiels}}
+@noindent
+@strong{Harmoniques artificiels}
 
 @cindex harmoniques artificiels
 @cindex artificiels, harmoniques

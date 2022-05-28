@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1184,6 +1184,10 @@ Manuel de notation :
 @subsection Définition de nouveaux contextes
 @translationof Defining new contexts
 
+
+@unnumberedsubsubsec Généralités en matière de définition d'un contexte
+@translationof Context definition overview
+
 @cindex contexte, création
 @cindex graveur, affectation à un contexte
 
@@ -1242,12 +1246,15 @@ dans le bloc @code{\layout} :
 
 En lieu et place des points (@dots{}), voici les éléments à saisir :
 
+@funindex \name
 Tout d'abord, il convient de donner un nom à notre nouveau contexte :
 
 @example
 \name ImproVoice
 @end example
 
+@cindex contexte, ajout d'un alias
+@funindex \alias
 Comme il est très semblable à un contexte @code{Voice}, nous souhaitons
 que toutes les commandes associées au @code{Voice} déjà existant restent
 valables.  D'où nécessité de la commande @code{\alias}, qui va l'associer
@@ -1257,6 +1264,7 @@ au contexte @code{Voice} :
 \alias Voice
 @end example
 
+@funindex \consists
 Ce contexte doit pouvoir imprimer des notes et des indications
 textuelles ; on ajoute donc les graveurs appropriés ainsi que celui
 dévolu au regroupement sous forme de colonne des notes, hampes et
@@ -1288,16 +1296,17 @@ hampe :
 \hide Stem
 @end example
 
-Tous ces modules doivent communiquer sous le contrôle du contexte.  Les
+@funindex \type
+@funindex Engraver_group
+Tous ces modules doivent communiquer sous le contrôle du contexte. Les
 mécanismes permettant aux contextes de communiquer sont établis dès lors
-que le mot-clé @code{\type} précède le contexte.  La plupart des
+que le mot-clé @code{\type} précède le contexte. La plupart des
 contextes mentionnés au sein d'un bloc @code{\layout} seront de type
-@code{Engraver_group}.  Certains contextes spécifiques, ainsi que ceux
-mentionnés dans les blocs @code{\midi}, reposent sur d'autres types de
-contexte.  Recopier un contexte préexistant pour en modifier la
-définition lui affecte le type adéquat.  Dans la mesure où notre exemple
-consiste à créer une définition de toute pièce, son type doit être
-explicitement spécifié.
+@code{Engraver@/_group}. Certains contextes spécifiques reposent sur
+d'autres types de contexte. Recopier un contexte préexistant pour en
+modifier la définition lui affecte le type adéquat. Dans la mesure où
+notre exemple consiste à créer une définition de toute pièce, son type
+doit être explicitement spécifié.
 
 @example
 \type Engraver_group
@@ -1335,6 +1344,33 @@ au moyen de la commande @code{\accepts} :
 @}
 @end example
 
+@funindex \inherit-acceptability
+Souvent, lorsque l'on réutilise le définition d'un contexte, le contexte
+qui en résultera devrait pouvoir s'utiliser partout où le contexte
+originel serait utile.
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{résultant} @var{originel}
+@}
+@end example
+
+@noindent
+fera en sorte que les contextes de type @var{résultant} soient acceptés
+par le contextes qui acceptent @var{originel}. Par exemple, libeller
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability ImproVoice Voice
+@}
+@end example
+
+@noindent
+aura pour effet d'ajouter un @code{\accepts} pour @code{ImproVoice} à la
+fois aux définitions de @code{Staff} et @code{RhythmicStaff}.
+
 @funindex \denies
 
 Le contraire de @code{\accepts} est @code{\denies} ; il est parfois
@@ -1370,18 +1406,119 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
 @}
 @end example
 
-Pour être tout à fait complet, les modifications apportée à la
-hiérarchie des contextes devraient être répétés au niveau du bloc
-@code{\midi} de telle sorte que la sortie Midi dépende des mêmes
-relations.
-
 @morerefs
 Référence des propriétés internes :
-@rinternals{Note_heads_engraver},
-@rinternals{Pitch_squash_engraver},
-@rinternals{Rhythmic_column_engraver},
-@rinternals{Text_engraver}.
+@rinternalsnamed{Contexts,Contextes},
+@rinternalsnamed{Engravers and Performers, Graveurs et exécutants}.
 @endmorerefs
+
+
+@unnumberedsubsubsec Création de contextes en MIDI
+@translationof New contexts in MIDI
+
+@cindex contexte, définition pour le MIDI
+@cindex MIDI, définition de contexte
+@funindex Performer_group
+
+En matière de sortie MIDI, la syntaxe permettant de définir de nouveaux
+types de contextes est identique, à ceci près que la section
+@code{\context} viendra se placer au sein du bloc @code{\midi} et le
+@code{\type} sera @code{Performer_@/group} au lieu de
+@code{Engraver_@/group}. Le terme @emph{engraver} (graveur) fait
+référence à un module de contexte chargé de générer une sotie visuelle,
+alors qu'un @emph{performer} (exécutant) est dévolu exclusivement à une
+sortie MIDI. Lorsque les noms de modules comportent @emph{translator}
+(traducteur) au lieu de @emph{engraver} ou @emph{performer}, ils sont
+alors fonctionnels tant pour des sorties graphiques qu'audio. Afin
+d'adapter une définition de contexte pour le bloc @code{\midi}, il
+faudra
+
+@itemize
+@item
+la copier dans un bloc @code{\midi},
+@item
+changer @code{Engraver_@/group} en @code{Performer_@/group},
+@item
+supprimer les @code{\consists} propres aus graveurs (ils ne sont pas
+pertinents) et éventuellement ajouter des @code{\consists} pour les
+exécutants.
+@end itemize
+
+Il faut garder à l'esprit, afin de préserver une cohérence
+d'interprétation entre les sorties imprimables et MIDI, qu'il est de bon
+ton de reporter toute définition de contexte personnalisée dans le bloc
+@code{\midi}. Cette duplication devrait au moins comporter les commandes
+spécifiant la hiérarchie du contexte, telles que @code{\accepts},
+@code{\defaultchild} et @code{\inherit-@/acceptability}. Recopier aussi
+les alias est recommandé.
+
+Ainsi, dans le but de compléter l'exemple vu plus haut, on peut y ajouter :
+
+@example
+\midi @{
+  \context @{
+    \name ImproVoice
+    \type Performer_group
+    \alias Voice
+    \consists Note_performer
+    \consists Beam_performer
+    \consists Dynamic_performer
+    \consists Tie_performer
+    \consists Slur_performer
+  @}
+  \context @{
+    \Staff
+    \accepts ImproVoice
+  @}
+@}
+@end example
+
+Le contexte @code{ImproVoice} sera alors fonctionnel pour la sortie MIDI.
+
+
+@unnumberedsubsubsec Remplacement du contexte @code{Score}
+@translationof Replacing the Score context
+
+@cindex @code{Score}, remplacement du contexte
+@cindex contexte de niveau @code{Score}
+
+@c This can also be done with \accepts in Global.  Since Global is
+@c a very special context type, we avoid answering the question of
+@c why certain things don't work on it by not mentioning it at
+@c all.
+
+Dans le but d'écrire un contexte @code{MonScore} qui agirait comme étant
+le contexte le plus haut, à l'instar de ce que fait le contexte
+@code{Score}, il faudra expliciter une instruction
+@code{\inherit-@/acceptability MonScore Score}. L'exemple suivant
+définit un contexte @code{ProportionalScore} pour lequel la notation
+proportionnelle est activée (cf. @ref{Notation proportionnelle}).
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    \name ProportionalScore
+    \alias Score
+    proportionalNotationDuration = #(ly:make-moment 1/4)
+  }
+  \inherit-acceptability ProportionalScore Score
+}
+
+\new ProportionalScore { c'1 2 4 8 16 32 64 64 }
+@end lilypond
+
+@funindex Score_engraver
+@funindex Score_performer
+Dans la mesure où le contexte sommital doit contenir certains graveurs
+fondamentaux, hériter des réglages de @code{\Score} est facile dans la
+plupart des cas. Néanmoins, la définition d'un contexte de niveau
+@code{Score} à partir de zéro requiert que l'argument à @code{\type}
+soit égal à @code{Score_@/engraver} (ou @code{Score_@/performer} dans le
+bloc @code{\midi}) en lieu et place de @code{Engraver_@/group}. Par
+ailleurs, affecter au contexte sommital l'alias @code{Score} est
+fortement recommandé dans la mesure où un certin nombre de graveurs ont
+besoin d'accéder au contexte sommital par son alias.
 
 
 @node Ordonnancement des contextes
@@ -1405,39 +1542,33 @@ La liste des « agréments » d'un contexte se gère à l'aide des
 instructions @code{\accepts} ou @code{\denies} -- @code{\accepts} pour
 ajouter un contexte à la liste, @code{\denies} pour retirer l'agrément.
 
-Par exemple, on ne trouve normalement pas de portées regroupées par un
-crochet au sein d'un groupe matérialisé par une accolade et des barres
-d'un seul tenant ; un @code{GrandStaff} n'accepte donc pas, par défaut,
-d'englober un @code{StaffGroup}.
+Par exemple, un @code{TabStaff} accepte par défaut des contextex
+@code{TabVoice} mais ne supporte pas de contextes @code{Voice}. Un
+contexte @code{Voice} apparaissant dans un @code{TabStaff} se
+verrait repositionné sur une portée séparée.
 
 @lilypond[verbatim,quote]
 \score {
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff { c'1 }
-      \new Staff { d'1 }
+  \new TabStaff <<
+    \new TabVoice { c'1 }
+    \new Voice { d'1 }
     >>
-    \new Staff { \set Staff.instrumentName = bottom f'1 }
-  >>
 }
 @end lilypond
 
-Néanmoins, et grâce à une instruction @code{\accepts}, un
-@code{StaffGroup} peut se voir ajouté au contexte @code{GrandStaff} :
+Néanmoins, et grâce à une instruction @code{\accepts}, un contexte
+@code{Voice} peut se voir ajouté au @code{TabStaff} :
 
 @lilypond[verbatim,quote]
 \score {
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff { c'1 }
-      \new Staff { d'1 }
+  \new TabStaff <<
+    \new TabVoice { c'1 }
+    \new Voice { d'1 }
     >>
-    \new Staff { \set Staff.instrumentName = bottom f'1 }
-  >>
   \layout {
     \context {
-      \GrandStaff
-      \accepts StaffGroup
+      \TabStaff
+      \accepts Voice
     }
   }
 }
@@ -3712,9 +3843,9 @@ Certains objets peuvent adopter d'autres styles spécifiques.
 @translationof Line spanners
 
 Certaines indications portées à l'attention de l'exécutant -- tels
-@i{rallentando}, @i{accelerando} et @i{trilles} -- apparaissent sous la
-forme d'un texte qui peut s'étendre sur plusieurs mesures à l'aide d'une
-ligne parfois pointillée ou ondulée.
+@emph{rallentando}, @emph{accelerando} et @emph{trilles} -- apparaissent
+sous la forme d'un texte qui peut s'étendre sur plusieurs mesures à
+l'aide d'une ligne parfois pointillée ou ondulée.
 
 @lilypond[quote,fragment,verbatim]
 e''2 \glissando b'
@@ -3723,8 +3854,8 @@ e''2 \glissando b'
 e''2 \glissando b'
 @end lilypond
 
-La propriété @code{Y} est valorisée en unités de @code{staff-space}, la
-ligne médiane de la portée correspondant au point zéro.  Pour le
+La propriété @code{Y} est valorisée en unités d'@dfn{espace de portée},
+la ligne médiane de la portée correspondant au point zéro. Pour le
 glissando qui nous occupe, il s'agit du @code{Y} à l'aplomb
 (coordonnée-X) du centre de la tête de chacune des deux notes, si tant
 est que la ligne doive s'étendre entre ces deux points.
@@ -3750,7 +3881,7 @@ disposent d'autres clés modifiables de la même manière que @code{Y} :
 @table @code
 @item Y
 Détermine l'ordonnée (coordonnée-Y) de la terminaison, avec un
-décalage en @code{staff-space} par rapport à la ligne médiane de la
+décalage en espaces de portée par rapport à la ligne médiane de la
 portée.  Il s'agit par défaut du centre de l'objet d'attachement, qui
 est le centre vertical de la tête de note pour un glissando.
 
@@ -3774,8 +3905,8 @@ interne, aussi nous vous conseillons de plutôt recourir à @code{text}.
 
 @item text
 Il s'agit d'un @emph{markup} qui se poursuivra par l'extenseur. C'est la
-sous-propriété utilisée pour ajouter @i{cresc.}, @i{tr} ou autre texte à
-un extenseur horizontal.
+sous-propriété utilisée pour ajouter @emph{cresc.}, @emph{tr} ou autre
+texte à un extenseur horizontal.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text
@@ -4000,7 +4131,7 @@ a'1
 
 
 @node Utilisation de break-visibility
-@unnumberedsubsubsec Utilisation de break-visibility
+@unnumberedsubsubsec Utilisation de @code{break-visibility}
 @translationof Using break-visibility
 
 @c TODO Add making other objects breakable
@@ -4608,25 +4739,27 @@ example shows the difference:
 @funindex break-align-symbols
 
 Indications de repère et numéros de mesure peuvent s'aligner sur des
-objets de notation autres qu'une barre de mesure.  Parmi ces objets,
-nous citerons @code{ambitus}, @code{breathing-sign}, @code{clef},
-@code{custos}, @code{staff-bar}, @code{left-edge},
-@code{key-cancellation}, @code{key-signature}, et @code{time-signature}.
+objets de notation autres qu'une barre de mesure. Pour être plus précis,
+les éléments ruptibles disposent d'une propriété
+@code{break-@/align-@/symbol} qui fournit des symboles qui pourront
+faire office de « point d'ancrage » pour d'autres objets au travers de
+cette propriété. Une liste exhaustive des symboles est disponible au
+chapitre @rinternals{break-alignment-interface}.
 
 Chaque objet possède son propre point de référence par défaut, sur
 lequel viendront s'aligner les indications de repère :
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
-% to the right edge of the Clef
+% Le repère s'alignera
+% sur la droite de la clef
 \override Score.RehearsalMark.break-align-symbols =
             #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% The rehearsal mark will be aligned
-% to the left edge of the Time Signature
+% Le repère s'alignera
+% sur la gauche de la métrique
 \override Score.RehearsalMark.break-align-symbols =
             #'(time-signature)
 \key a \major
@@ -4634,8 +4767,8 @@ e'1
 \time 3/4
 \mark "↓"
 e'2.
-% The rehearsal mark will be centered
-% above the Breath Mark
+% Le repère sera centré
+% au-dessus de la respiration
 \override Score.RehearsalMark.break-align-symbols =
             #'(breathing-sign)
 \key a \major
@@ -4656,16 +4789,16 @@ l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
 de mesure est invisible, à l'endroit même où la barre prendrait place.
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
-% to the right edge of the Key Signature
+% Le repère s'alignera
+% sur la droite de l'armure
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% The rehearsal mark will be aligned
-% to the right edge of the Clef
+% Le repère s'alignera
+% sur la droite de la clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature clef)
@@ -4673,8 +4806,8 @@ e'1
 \clef bass
 \mark "↓"
 gis,1
-% The rehearsal mark will be centered
-% above the Bar Line
+% Le repère sera centré
+% au-dessus de la barre de mesure
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols =
@@ -4690,8 +4823,8 @@ comme l'illustre l'exemple suivant.  Toutefois, si la partition comporte
 plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned
-% with the right edge of the Key Signature
+% Le repère s'alignera
+% sur la droite de l'armure
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature)
 \key a \major
@@ -4699,15 +4832,15 @@ plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 \time 4/4
 \mark "↓"
 e'1
-% The RehearsalMark will be centered
-% above the Key Signature
+% Le repère sera centré
+% au-dessus de l'armure
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #CENTER
 \mark "↓"
 \key a \major
 e'1
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
+% Le repère s'alignera
+% sur la gauche de l'armure
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #LEFT
 \key a \major
@@ -4719,18 +4852,18 @@ Le bord gauche d'un repère peut se décaler arbitrairement sur la gauche
 ou sur la droite.  La valeur est exprimée en espaces de portée.
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
-% and then shifted right by 3.5 staff-spaces
+% Le repère s'alignera
+% sur la gauche de l'armure
+% puis décalé de 3,5 espaces de portée vers la droite
 \override Score.RehearsalMark.break-align-symbols =
             #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
 e'1
-% The RehearsalMark will be aligned
-% with the left edge of the Key Signature
-% and then shifted left by 2 staff-spaces
+% Le repère s'alignera
+% sur la gauche de l'armure
+% puis sera décalé de 2 espaces de portée vers la gauche
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
+   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -329,9 +329,9 @@ résultant.
 @}
 @end example
 
-Attention cependant si vous travaillez avec lilypond-book : il vous
-faudra explicitement mentionner le bloc @code{\book}, en l'absence de
-quoi seul le premier @code{\score} ou @code{\markup} apparaîtra après
+Attention cependant si vous travaillez avec @command{lilypond-book} : il
+vous faudra explicitement mentionner le bloc @code{\book}, en l'absence
+de quoi seul le premier @code{\score} ou @code{\markup} apparaîtra après
 traitement.
 
 L'entête de chaque pièce peut se placer au sein du bloc @code{\score} ;
@@ -557,18 +557,18 @@ par défaut est défini dans le fichier d'initialisation
 @item
 Un bloc @code{\book} permet de regrouper naturellement plusieurs
 mouvements -- autrement dit plusieurs blocs @code{\score} -- dans un
-même document.  Lorsqu'il y a plusieurs @code{\score}, LilyPond génère
-un seul fichier dans lequel les mouvements sont mis les uns à la suite
-des autres, ce pour chacun des blocs @code{\book} rencontrés.  La seule
+même document. Lorsqu'il y a plusieurs @code{\score}, LilyPond génère un
+seul fichier dans lequel les mouvements sont mis les uns à la suite des
+autres, ce pour chacun des blocs @code{\book} rencontrés. La seule
 raison qui peut vous demander d'expliciter plusieurs blocs @code{\book}
 dans un fichier @file{.ly} est lorsque vous avez besoin de générer
-différents documents à partir d'une même source.  La présence explicite
+différents documents à partir d'une même source. La présence explicite
 d'un bloc @code{\book} est aussi nécessaire lorsque vous travaillez sur
-un document lilypond-book qui reprendrait plusieurs @code{\score} ou
-@code{\markup} dans un même extrait.  Vous pouvez modifier ce
-comportement à l'aide de la variable @code{toplevel-book-handler}
-placée en tête.  Le gestionnaire par défaut est défini dans le fichier
-d'initialisation @file{../scm/lily.scm}.
+un document @command{lilypond-book} qui reprendrait plusieurs
+@code{\score} ou @code{\markup} dans un même extrait. Vous pouvez
+modifier ce comportement à l'aide de la variable
+@code{toplevel-book-handler} placée en tête. Le gestionnaire par défaut
+est défini dans le fichier d'initialisation @file{../scm/lily.scm}.
 
 @item
 Un bloc @code{\bookpart}.  Un ouvrage peut se découper en plusieurs
@@ -1002,7 +1002,7 @@ Le nom de l'instrument sera répété en tête de chaque page.
 @item
 Seuls seront imprimés les champs @code{piece} et @code{opus} inclus dans
 un bloc @code{\score} dès lors que la variable @code{print-all-headers}
-reste désactivée (valeur à @code{##f}).
+reste désactivée (valeur à @code{#f}).
 
 @item
 @c Is the bit about \null markups true? -mp
@@ -1124,7 +1124,7 @@ champ @code{tagline} au niveau du bloc @code{\header} principal.
 @end lilypond
 
 Pour supprimer le @code{tagline} par défaut, il suffit de lui assigner
-la valeur @code{##f}.
+la valeur @code{#f}.
 
 
 @node Titrages personnalisés
@@ -1568,9 +1568,9 @@ définir ainsi :
 @item position
 Lorsque la commande @code{\footnote} s'applique à un élément
 d'interprétation ou un événement rattaché, et uniquement dans ces cas,
-elle doit être précédée d'un indicateur de positionnement (@code{-, _}
-ou @code{^}) de façon à rattacher @var{musique} (avec sa marque) à
-la note ou au silence qui précède.
+elle doit être précédée d'un indicateur de positionnement (@samp{-},
+@samp{_} ou @samp{^}) de façon à rattacher @var{musique} (avec sa
+marque) à la note ou au silence qui précède.
 
 @item marque
 @funindex \default
@@ -1658,12 +1658,12 @@ se voir attribuer une annotation :
 @end lilypond
 
 Lorsque l'annotation concerne un événement postérieur ou une
-articulation, la commande @code{\footnote} @strong{doit} être
-précédée d'un indicateur de position (@code{-, _} ou @code{^}) et
-suivie de l'événement postérieur ou l'articulation comme argument
-@var{musique}.  Dans ce cas, la commande @code{\footnote} peut se
-considérer comme une copie de son dernier argument auquel on
-attache une annotation.  La syntaxe consacrée est :
+articulation, la commande @code{\footnote} @strong{doit} être précédée
+d'un indicateur de position (@samp{-}, @samp{_} ou @samp{^}) et suivie
+de l'événement postérieur ou l'articulation comme argument
+@var{musique}. Dans ce cas, la commande @code{\footnote} peut se
+considérer comme une copie de son dernier argument auquel on attache une
+annotation. La syntaxe consacrée est :
 
 @example
 @var{position} \footnote [@var{marque}] @var{décalage} @var{annotation} @var{musique}
@@ -1844,7 +1844,7 @@ La syntaxe consacrée dans le cas d'une gestion automatique des appels
 de note est :
 
 @example
-\markup @{ @dots{} \footnote @var{texte} @var{annotation} @dots{} @}
+\markup @{ @dots{} \auto-footnote @var{texte} @var{annotation} @dots{} @}
 @end example
 
 Ses les éléments sont :
@@ -1868,9 +1868,9 @@ Par exemple :
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \footnote "tune" \italic " By me"
+    \auto-footnote "tune" \italic " By me"
     "is shown below.  It is a"
-    \footnote "recent" \italic " Aug 2012"
+    \auto-footnote "recent" \italic " Aug 2012"
     "composition."
   }
   \relative {
@@ -1906,7 +1906,7 @@ l'annotation qui sera reportée en bas de page, précédé de l'@var{appel}.
 
 @end table
 
-N'importe quel caractère simple tel que @code{*} ou @code{+} peut
+N'importe quel caractère simple tel que @samp{*} ou @samp{+} peut
 s'utiliser en tant qu'appel de note, comme nous l'avons vu à la rubrique
 @ref{Notes de bas de page dans une expression musicale}.  D'autres
 caractères particuliers sont accessibles sous forme de raccourci -- voir

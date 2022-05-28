@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 3cdce08c24d3cef7f242214f2b48763242a2ead6
+  Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,7 @@
 * Commandes pour liste de markups::
 * Liste des caractères spéciaux::
 * Liste des signes d'articulation::
+* Liste des marques de respiration::
 * Notes utilisées en percussion::
 * Valeurs par défaut de outside-staff-priority::
 * Glossaire technique::
@@ -1058,7 +1059,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 
 @node Glyphes de tête de note par défaut
 @unnumberedsubsec Glyphes de tête de note par défaut
-@translationof Default Notehead glyphs
+@translationof Default note head glyphs
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1069,7 +1070,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 
 @node Glyphes de tête de note spéciale
 @unnumberedsubsec Glyphes de tête de note spéciale
-@translationof Special Notehead glyphs
+@translationof Special note head glyphs
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1080,7 +1081,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 
 @node Glyphes de tête de note à forme variable
 @unnumberedsubsec Glyphes de tête de note à forme variable
-@translationof Shape-note Notehead glyphs
+@translationof Note head glyphs for shape notes
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -2652,6 +2653,80 @@ f^\varcoda e,_\varcoda b'\varcoda
   f_\signumcongruentiae s4
   b\signumcongruentiae
 }
+@end lilypond
+
+@end multitable
+
+
+@node Liste des marques de respiration
+@appendixsec Liste des marques de respiration
+@translationof List of breath marks
+
+@cindex respiration, liste des indicateurs
+
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{'chantquarterbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantquarterbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chanthalfbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chanthalfbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantfullbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantfullbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantdoublebar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantdoublebar
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'comma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'comma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'varcomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'varcomma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'caesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'caesura
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'curvedcaesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'curvedcaesura
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'tickmark}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'tickmark
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'spacer}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'spacer
+b4 4 \breathe 4
 @end lilypond
 
 @end multitable
