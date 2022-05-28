@@ -88,8 +88,9 @@ get_support_set (Grob *me)
 /*
   Position next to support, taking into account my own dimensions and padding.
 */
-SCM
-axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM current_off_scm)
+static SCM
+axis_aligned_side_helper (Grob *me, Axis a, bool pure,
+                          int start, int end, SCM current_off_scm)
 {
   Real r;
   Real *current_off_ptr = 0;
@@ -99,13 +100,13 @@ axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM c
       current_off_ptr = &r;
     }
 
-  Grob *me = unsmob<Grob> (smob);
   // We will only ever want widths of spanners after line breaking
   // so we can set pure to false
-  if (dynamic_cast<Spanner *> (me) && a == X_AXIS)
+  if ((a == X_AXIS) && dynamic_cast<Spanner *> (me))
     pure = false;
 
-  return Side_position_interface::aligned_side (me, a, pure, start, end, current_off_ptr);
+  return Side_position_interface::aligned_side (me, a, pure,
+                                                start, end, current_off_ptr);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side,
@@ -119,7 +120,8 @@ Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
   // So, we always use pure heights.  Given that horizontal skylines are
   // almost always used before line breaking anyway, this doesn't cause
   // problems.
-  return axis_aligned_side_helper (smob, X_AXIS, true, 0, 0, current_off);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return axis_aligned_side_helper (me, X_AXIS, true, 0, 0, current_off);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side,
@@ -128,7 +130,8 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side,
 SCM
 Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
 {
-  return axis_aligned_side_helper (smob, Y_AXIS, false, 0, 0, current_off);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return axis_aligned_side_helper (me, Y_AXIS, false, 0, 0, current_off);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, pure_y_aligned_side,
@@ -137,7 +140,8 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, pure_y_aligned_side,
 SCM
 Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM cur_off)
 {
-  return axis_aligned_side_helper (smob, Y_AXIS, true,
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return axis_aligned_side_helper (me, Y_AXIS, true,
                                    scm_to_int (start),
                                    scm_to_int (end),
                                    cur_off);
