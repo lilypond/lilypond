@@ -25,7 +25,7 @@
 #include "context-def.hh"
 #include "lily-parser.hh"
 
-LY_DEFINE (ly_output_def_lookup,
+LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
            2, 1, 0, (SCM def, SCM sym, SCM val),
            R"(
 Return the value of @var{sym} in output definition @var{def} (e.g.,
@@ -48,7 +48,7 @@ Return the value of @var{sym} in output definition @var{def} (e.g.,
   return answer;
 }
 
-LY_DEFINE (ly_output_def_scope,
+LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
            1, 0, 0, (SCM def),
            R"(
 Return the variable scope inside @var{def}.
@@ -58,7 +58,7 @@ Return the variable scope inside @var{def}.
   return op->scope_;
 }
 
-LY_DEFINE (ly_output_def_parent,
+LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
            1, 0, 0, (SCM def),
            R"(
 Return the parent output definition of @var{def}.
@@ -68,7 +68,7 @@ Return the parent output definition of @var{def}.
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
 }
 
-LY_DEFINE (ly_output_def_set_variable_x,
+LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
            3, 0, 0, (SCM def, SCM sym, SCM val),
            R"(
 Set an output definition @var{def} variable @var{sym} to @var{val}.
@@ -80,7 +80,7 @@ Set an output definition @var{def} variable @var{sym} to @var{val}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_output_def_clone,
+LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
            1, 0, 0, (SCM def),
            R"(
 Clone output definition @var{def}.
@@ -92,7 +92,7 @@ Clone output definition @var{def}.
   return clone->unprotect ();
 }
 
-LY_DEFINE (ly_output_description,
+LY_DEFINE (ly_output_description, "ly:output-description",
            1, 0, 0, (SCM output_def),
            R"(
 Return the description of translators in @var{output-def}.
@@ -112,7 +112,7 @@ Return the description of translators in @var{output-def}.
   return ell;
 }
 
-LY_DEFINE (ly_output_find_context_def,
+LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
            1, 1, 0, (SCM output_def, SCM context_name),
            R"(
 Return an alist of all context defs (matching @var{context-name} if given) in
@@ -138,7 +138,7 @@ Return an alist of all context defs (matching @var{context-name} if given) in
 
 const char *const Output_def::type_p_name_ = "ly:output-def?";
 
-LY_DEFINE (ly_paper_outputscale,
+LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
            1, 0, 0, (SCM def),
            R"(
 Return the @code{output-scale} for output definition @var{def}.
@@ -148,7 +148,7 @@ Return the @code{output-scale} for output definition @var{def}.
   return to_scm (output_scale (b));
 }
 
-LY_DEFINE (ly_make_output_def,
+LY_DEFINE (ly_make_output_def, "ly:make-output-def",
            0, 0, 0, (),
            R"(
 Make an output definition.
@@ -158,7 +158,7 @@ Make an output definition.
   return bp->unprotect ();
 }
 
-LY_DEFINE (ly_paper_get_font,
+LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
            2, 0, 0, (SCM def, SCM chain),
            R"(
 Find a font metric in output definition @var{def} satisfying the font
@@ -172,7 +172,7 @@ list of alists, containing grob properties.)
   return fm->self_scm ();
 }
 
-LY_DEFINE (ly_paper_get_number,
+LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
            2, 0, 0, (SCM def, SCM sym),
            R"(
 Return the value of variable @var{sym} in output definition @var{def} as a
@@ -183,7 +183,7 @@ double.
   return to_scm (layout->get_dimension (sym));
 }
 
-LY_DEFINE (ly_paper_fonts,
+LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
            1, 0, 0, (SCM def),
            R"(
 Return a list containing the fonts from output definition @var{def} (e.g.,

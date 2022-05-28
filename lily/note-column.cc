@@ -167,7 +167,8 @@ Note_column::first_head (Grob *me)
   (i.e. excluding any suspended noteheads), or extent
   of the rest (if there are no heads).
 */
-MAKE_SCHEME_CALLBACK (Note_column, calc_main_extent, 1);
+MAKE_SCHEME_CALLBACK (Note_column, calc_main_extent,
+                      "ly:note-column::calc-main-extent", 1);
 SCM
 Note_column::calc_main_extent (SCM smob)
 {

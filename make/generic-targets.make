@@ -56,9 +56,10 @@ TAGS:
 	$(LOOP)
 	$(MAKE) local-tags
 
-DEEPER_TAGS_FILES = $(shell find $(pwd) -mindepth 2 -name 'TAGS')
+DEEPER_TAGS_FILES = $(shell find $(abs-src-dir) -mindepth 2 -name 'TAGS')
 local-tags:
 	-if [ -n "$(TAGS_HEADERS)$(TAGS_SOURCES)$(DEEPER_TAGS_FILES)" ]; then \
+		cd $(abs-src-dir) ; \
 		etags $(ETAGS_FLAGS) $(DEEPER_TAGS_FILES:%=--include=%) \
 			$(TAGS_SOURCES) $(TAGS_HEADERS) $(ERROR_LOG) ; \
 		ctags $(CTAGS_FLAGS) $(TAGS_SOURCES) $(TAGS_HEADERS) \

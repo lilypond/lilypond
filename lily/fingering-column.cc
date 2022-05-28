@@ -48,7 +48,8 @@ fingering_and_offset_less (Fingering_and_offset fo0, Fingering_and_offset fo1)
   return fo0.offset_ < fo1.offset_;
 }
 
-MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done,
+                      "ly:fingering-column::calc-positioning-done", 1);
 SCM
 Fingering_column::calc_positioning_done (SCM smob)
 {

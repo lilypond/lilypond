@@ -63,8 +63,8 @@ and click.
 
 Every editor may have a different syntax to open a file in a specific line
 and column.  For user's convenience, LilyPond comes with ready commands
-for several editors, listed in @file{scm/editor.scm}.  This means that
-you can simply write the editor binary name, e.g.:
+for several editors, listed in @file{scripts/lilypond-invoke-editor.py}.
+This means that you can simply write the editor binary name, e.g.:
 
 @example
 export LYEDITOR=atom
@@ -79,7 +79,7 @@ atom %(file)s:%(line)s:%(column)s
 where @code{%(file)s}, @code{%(line)s} and @code{%(column)s} are replaced with
 the file, line and column respectively.
 
-In order to use an editor not listed in @file{scm/editor.scm}, you should
+In order to use an editor not listed in the script, you should
 find its specific syntax and assign the full command to @code{LYEDITOR}.
 Here's an example for Visual Studio Code editor:
 
@@ -92,73 +92,19 @@ add the line @code{(server-start)} to your @file{~/.emacs} file, otherwise
 every click on an object in the PDF will open a new Emacs window.}
 
 @menu
-* Using Xpdf for point and click::
-* Using GNOME 2 for point and click::
-* Using GNOME 3 for point and click::
+* Using GNOME for point and click::
 * Extra configuration for Evince::
 @end menu
 
 
-@node Using Xpdf for point and click
-@unnumberedsubsubsec Using Xpdf
+@node Using GNOME for point and click
+@unnumberedsubsubsec Using GNOME
 
-@cindex Xpdf
+@c This likely also works with KDE, no?
 
-For Xpdf on UNIX, the following should be present in
-@file{xpdfrc}.  On UNIX, this file is found either in
-@file{/etc/xpdfrc} or as @file{$HOME/.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
-
-If you are using Ubuntu, it is likely that the version of Xpdf
-installed with your system crashes on every PDF file: this state
-has been persisting for several years and is due to library
-mismatches.  Your best bet is to install a current @samp{xpdf}
-package and the corresponding @samp{libpoppler} package from
-Debian instead.  Once you have tested that this works, you might
-want to use
-
-@example
-sudo apt-mark hold xpdf
-@end example
-
-@noindent
-in order to keep Ubuntu from overwriting it with the next
-@q{update} of its crashing package.
-
-
-@node Using GNOME 2 for point and click
-@unnumberedsubsubsec Using GNOME 2
-
-For using GNOME 2 (and PDF viewers integrated with it), the magic
-invocation for telling the system about the @samp{textedit:} URI
-is;
-
-@smallexample
-gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
-gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
-gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
-@end smallexample
-
-After that invocation;
-
-@example
-gnome-open textedit:///etc/issue:1:0:0
-@end example
-
-@noindent
-should call @file{lilypond-invoke-editor} for opening files.
-
-
-@node Using GNOME 3 for point and click
-@unnumberedsubsubsec Using GNOME 3
-
-In GNOME 3, URIs are handled by the @q{gvfs} layer rather than by
-@q{gconf}.  Create a file in a local directory such as @file{/tmp}
-that is called @file{lilypond-invoke-editor.desktop} and has the
-contents;
+In GNOME, URIs are handled via @q{.desktop} files.  Create a file
+in a local directory such as @file{/tmp} that is called
+@file{lilypond-@/invoke-@/editor.desktop} and has the contents;
 
 @example
 [Desktop Entry]
@@ -182,7 +128,7 @@ xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
 After that invocation;
 
 @example
-gnome-open textedit:///etc/issue:1:0:0
+xdg-open textedit:///etc/issue:1:0:0
 @end example
 @noindent
 should call @file{lilypond-invoke-editor} for opening files.
@@ -193,7 +139,7 @@ should call @file{lilypond-invoke-editor} for opening files.
 
 @cindex Evince
 
-If @code{gnome-open} works, but Evince still refuses to open point
+If @code{xdg-open} works, but Evince still refuses to open point
 and click links due to denied permissions, you might need to
 change the Apparmor profile of Evince which controls the kind of
 actions Evince is allowed to perform.

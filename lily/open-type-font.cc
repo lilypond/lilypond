@@ -336,7 +336,7 @@ Open_type_font::derived_mark () const
 pair<Offset, bool>
 Open_type_font::attachment_point (const string &glyph_name, Direction d) const
 {
-  SCM sym = ly_symbol2scm (glyph_name.c_str ());
+  SCM sym = ly_symbol2scm (glyph_name);
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
   Offset o;

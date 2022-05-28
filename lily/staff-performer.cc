@@ -203,7 +203,7 @@ Staff_performer::set_instrument (int channel, const string &voice)
   announce_element (Audio_element_info (instrument_, 0));
   Audio_staff *audio_staff = get_audio_staff (voice);
   audio_staff->add_audio_item (instrument_);
-  SCM drums = Lily::percussion_p (ly_symbol2scm (instrument_string_.c_str ()));
+  SCM drums = Lily::percussion_p (ly_symbol2scm (instrument_string_));
   audio_staff->percussion_ = from_scm<bool> (drums);
 }
 

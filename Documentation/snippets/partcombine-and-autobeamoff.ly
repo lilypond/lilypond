@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "rhythms"
@@ -23,11 +23,11 @@ staff.
 @code{\\partCombine} apparently works with 3 voices -- stem up single,
 stem down single, stem up combined.
 
-An @code{\\autoBeamOff} call in the first argument to partcombine will
-apply to the voice that is active at the time the call is processed,
-either stem up single or stem up combined. An @code{\\autoBeamOff} call
-in the second argument will apply to the voice that is stem down
-single.
+An @code{\\autoBeamOff} call in the first argument to
+@code{\\partCombine} will apply to the voice that is active at the time
+the call is processed, either stem up single or stem up combined. An
+@code{\\autoBeamOff} call in the second argument will apply to the
+voice that is stem down single.
 
 In order to use @code{\\autoBeamOff} to stop all autobeaming when used
 with @code{\\partCombine}, it will be necessary to use @emph{three}

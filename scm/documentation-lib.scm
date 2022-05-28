@@ -135,20 +135,6 @@ environment."
      "\n@end ifhtml\n"
      "\n@end ignore\n")))
 
-(define (context-name name)
-  name)
-
-(define (engraver-name name)
-  name)
-
-(define (grob-name name)
-  (if (symbol? name)
-      (symbol->string name)
-      name))
-
-(define (interface-name name)
-  name)
-
 (define (ref-ify x)
   "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
@@ -181,12 +167,11 @@ environment."
                 where))
   (type-name type))
 
-(define (property->texi where sym . rest)
+(define* (property->texi where sym #:optional alist)
   "Document SYM for WHERE (which can be translation, backend, music),
 with init values from ALIST (1st optional argument)
 "
   (let* ((name (symbol->string sym))
-         (alist (if (pair? rest) (car rest) '()))
          (type?-name (string->symbol
                       (string-append (symbol->string where) "-type?")))
          (doc-name (string->symbol
@@ -194,14 +179,30 @@ with init values from ALIST (1st optional argument)
          (type (object-property sym type?-name))
          (typename (verify-type-name where sym type))
          (desc (object-property sym doc-name))
-         (init-value (assoc-get sym alist)))
+         (init-value-pair (and alist (assoc sym alist))))
 
     (if (eq? desc #f)
         (ly:error (G_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
      (string-append "@code{" name "} (" typename ")"
-                    (if init-value
-                        (string-append ":" (scm->texi init-value) "\n")
+                    (if init-value-pair
+                        (string-append ":"
+                                       (scm->texi (cdr init-value-pair))
+                                       "\n")
                         ""))
      desc)))
+
+(define* (list-xref-symbols lst #:key (sorted #t) (uniq #f))
+  "Convenience to convert a list of symbols into a human-readable list
+of cross-references.  The list is sorted, unless @code{#:sort #f}
+is passed.  If @code{#:uniq #t} is passed, duplicates are removed
+first."
+  (let* ((strings (map symbol->string lst))
+         (sorted-strings (if sorted
+                             (sort strings ly:string-ci<?)
+                             strings))
+         (uniqued (if uniq
+                      (uniq-list sorted-strings)
+                      sorted-strings)))
+    (human-listify (map ref-ify uniqued))))

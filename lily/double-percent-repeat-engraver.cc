@@ -37,9 +37,11 @@ protected:
 
   // moment (global time) where percent started
   Moment start_mom_;
+  bool should_print_double_percent_;
 
   void listen_double_percent (Stream_event *);
 
+  void pre_process_music ();
   void process_music ();
 };
 
@@ -64,9 +66,19 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 }
 
 void
+Double_percent_repeat_engraver::pre_process_music ()
+{
+  should_print_double_percent_ =
+    (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_);
+  // Prevent breaks over percent sign.
+  if (should_print_double_percent_)
+    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+}
+
+void
 Double_percent_repeat_engraver::process_music ()
 {
-  if (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_)
+  if (should_print_double_percent_)
     {
       Item *double_percent = make_item ("DoublePercentRepeat",
                                         percent_event_->self_scm ());
@@ -87,8 +99,6 @@ Double_percent_repeat_engraver::process_music ()
           double_percent_counter->set_y_parent (double_percent);
           double_percent_counter->set_x_parent (double_percent);
         }
-      // forbid breaks on a % line
-      set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
       percent_event_ = nullptr;
     }
 }

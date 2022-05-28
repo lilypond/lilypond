@@ -742,20 +742,6 @@ Si @var{bool} es @code{#t}, hacer que Ghostscript incruste
 solamente tipos de letra TrueType y ningún otro formato de fuente.
 Predeterminado: @code{#f}.
 
-@item @code{gui} @var{bool}
-Si @var{bool} es @code{#t}, LilyPond se ejecuta silenciosamente y
-se redirige toda la salida a un archivo de registro.
-Predeterminado: @code{#f}.
-
-@noindent
-@strong{Nota para los usuarios de Windows:} De manera
-predeterminada, @file{lilypond.exe} dirige toda la salida de la
-información de avance hacia la ventana de consola, mientras que
-@file{lilypond-windows.exe} no lo hace y devuelve un indicador del
-sistema, sin ninguna indicación del avance, inmediatamente en la
-línea de órdenes.  La opción @option{-dgui} se puede usar en este
-caso para redirigir la salida a un archivo de registro.
-
 @item @code{help} @var{bool}
 Si @var{bool} es @code{#t}, mostrar esta ayuda.
 Predeterminado: @code{#f}.

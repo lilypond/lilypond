@@ -21,7 +21,7 @@
 #include "item.hh"
 #include "paper-column.hh"
 
-LY_DEFINE (ly_item_p,
+LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
            R"(
 Is @var{g} an @code{Item} object?
@@ -30,7 +30,7 @@ Is @var{g} an @code{Item} object?
   return ly_bool2scm (unsmob<Item> (g));
 }
 
-LY_DEFINE (ly_item_break_dir,
+LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
            1, 0, 0, (SCM it),
            R"(
 The break status direction of item @var{it}.  @w{@code{-1}} means end of line,
@@ -41,7 +41,7 @@ The break status direction of item @var{it}.  @w{@code{-1}} means end of line,
   return to_scm (me->break_status_dir ());
 }
 
-LY_DEFINE (ly_item_get_column,
+LY_DEFINE (ly_item_get_column, "ly:item-get-column",
            1, 0, 0, (SCM it),
            R"(
 Return the @code{PaperColumn} or @code{NonMusicalPaperColumn} associated with

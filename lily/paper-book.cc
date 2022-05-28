@@ -100,7 +100,7 @@ dump_fields ()
   SCM fields = SCM_EOL;
   for (vsize i = dump_header_fieldnames_global.size (); i--;)
     fields
-      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()),
+      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i]),
                   fields);
   return fields;
 }
@@ -312,7 +312,7 @@ Paper_book::dump_header_fields (SCM basename, bool classic)
   SCM fields = SCM_EOL;
   for (string field : dump_header_fieldnames_global)
     {
-      fields = scm_cons (ly_symbol2scm (field.c_str ()), fields);
+      fields = scm_cons (ly_symbol2scm (field), fields);
     }
 
   scm_call_3 (Lily::output_scopes, scopes, fields, basename);

@@ -102,6 +102,13 @@ Ligature_engraver::listen_ligature (Stream_event *ev)
 }
 
 void
+Ligature_engraver::pre_process_music ()
+{
+  if (ligature_ && !events_drul_[STOP])
+    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+}
+
+void
 Ligature_engraver::process_music ()
 {
   if (events_drul_[STOP])
@@ -124,12 +131,6 @@ Ligature_engraver::process_music ()
       ligature_ = 0;
     }
   last_bound_ = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-
-  if (ligature_)
-    {
-      // TODO: maybe forbid breaks only if not transcribing
-      set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
-    }
 
   if (events_drul_[START])
     {

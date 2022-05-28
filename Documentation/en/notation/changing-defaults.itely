@@ -4104,22 +4104,6 @@ the visibility of the @code{KeyCancellation} grob instead:
 
 @c TODO Add visibility of cautionary accidentals before notes
 
-@subsubsubheading Automatic bars
-
-@funindex automaticBars
-@cindex bar line, suppressing
-
-As a special case, the printing of bar lines can also be turned off
-by setting the @code{automaticBars} property in the Score context.
-If set to @code{#f}, bar lines will not be printed automatically;
-they must be explicitly created with a @code{\bar} command.  Unlike
-the @code{\cadenzaOn} predefined command, measures are still counted.
-Bar generation will resume according to that count if this property
-is later set to @code{#t}.  When set to @code{#f}, line breaks can
-occur only at explicit @code{\bar} commands.
-
-@c TODO Add example
-
 @subsubsubheading Transposed clefs
 
 @cindex transposed clef, visibility of

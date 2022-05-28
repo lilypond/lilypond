@@ -22,7 +22,7 @@
 
 #include "skyline-pair.hh"
 
-LY_DEFINE (ly_paper_system_p,
+LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
            1, 0, 0, (SCM obj),
            R"(
 Is @var{obj} a C++ @code{Prob} object of type @code{paper-system}?
@@ -31,7 +31,7 @@ Is @var{obj} a C++ @code{Prob} object of type @code{paper-system}?
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
 }
 
-LY_DEFINE (ly_paper_system_minimum_distance,
+LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
            2, 0, 0, (SCM sys1, SCM sys2),
            R"(
 Measure the minimum distance between two paper system @code{Prob}s @var{sys1}

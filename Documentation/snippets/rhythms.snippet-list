@@ -19,6 +19,7 @@ compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 consistently-left-aligned-bar-numbers.ly
 controlling-tuplet-bracket-visibility.ly
+cow-and-ride-bell-example.ly
 creating-metronome-marks-in-markup-mode.ly
 engraving-ties-manually.ly
 engraving-tremolos-with-floating-beams.ly
@@ -28,6 +29,7 @@ forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 generating-custom-flags.ly
 guitar-strum-rhythms.ly
 heavily-customized-polymetric-time-signatures.ly
+high-and-low-woodblock-example.ly
 making-an-object-invisible-with-the-transparent-property.ly
 making-slurs-with-complex-dash-structure.ly
 manually-controlling-beam-positions.ly
@@ -65,6 +67,7 @@ stemlets.ly
 strict-beat-beaming.ly
 subdividing-beams.ly
 tam-tam-example.ly
+tambourine-example.ly
 three-sided-box.ly
 time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly

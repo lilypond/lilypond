@@ -802,7 +802,8 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool p
   return to_scm (Skyline_pair (boxes, a));
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents, 3);
+MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents,
+                      "ly:grob::pure-simple-vertical-skylines-from-extents", 3);
 SCM
 Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
@@ -814,7 +815,8 @@ Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM ends
   return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, true, false);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents, 1);
+MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents,
+                      "ly:grob::simple-vertical-skylines-from-extents", 1);
 SCM
 Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
@@ -822,7 +824,8 @@ Grob::simple_vertical_skylines_from_extents (SCM smob)
   return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0, 0, false, false);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents, 3);
+MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents,
+                      "ly:grob::pure-simple-horizontal-skylines-from-extents", 3);
 SCM
 Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
@@ -835,7 +838,8 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, from_scm<bool> (get_property (me, "cross-staff")));
 }
 
-MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
+MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents,
+                      "ly:grob::simple-horizontal-skylines-from-extents", 1);
 SCM
 Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
@@ -876,7 +880,8 @@ skylines_from_stencil (SCM sten, SCM rot, Axis a)
   return lazy.to_pair ();
 }
 
-MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_stencil, 1);
+MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_stencil,
+                      "ly:grob::vertical-skylines-from-stencil", 1);
 SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
@@ -886,7 +891,8 @@ Grob::vertical_skylines_from_stencil (SCM smob)
   return to_scm (p);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_stencil, 1);
+MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_stencil,
+                      "ly:grob::horizontal-skylines-from-stencil", 1);
 SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
@@ -936,7 +942,8 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   return to_scm (res);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_element_stencils, 1);
+MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_element_stencils,
+                      "ly:grob::vertical-skylines-from-element-stencils", 1);
 SCM
 Grob::vertical_skylines_from_element_stencils (SCM smob)
 {
@@ -944,7 +951,8 @@ Grob::vertical_skylines_from_element_stencils (SCM smob)
   return internal_skylines_from_element_stencils (me, X_AXIS, false, 0, INT_MAX);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils, 1);
+MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils,
+                      "ly:grob::horizontal-skylines-from-element-stencils", 1);
 SCM
 Grob::horizontal_skylines_from_element_stencils (SCM smob)
 {
@@ -952,7 +960,8 @@ Grob::horizontal_skylines_from_element_stencils (SCM smob)
   return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0, INT_MAX);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils, 3);
+MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils,
+                      "ly:grob::pure-vertical-skylines-from-element-stencils", 3);
 SCM
 Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {
@@ -962,7 +971,8 @@ Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM e
   return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils, 3);
+MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils,
+                      "ly:grob::pure-horizontal-skylines-from-element-stencils", 3);
 SCM
 Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {

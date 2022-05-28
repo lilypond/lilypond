@@ -38,7 +38,6 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  void acknowledge_bar_line (Grob_info_t<Item>);
 
   void derived_mark () const override;
 private:
@@ -83,16 +82,6 @@ Clef_engraver::set_glyph ()
   execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
 }
 
-/**
-   Generate a clef at the start of a measure. (when you see a Bar,
-   ie. a breakpoint)
-*/
-void
-Clef_engraver::acknowledge_bar_line (Grob_info_t<Item>)
-{
-  if (scm_is_string (get_property (this, "clefGlyph")))
-    create_clef ();
-}
 
 void
 Clef_engraver::create_clef ()
@@ -138,6 +127,11 @@ void
 Clef_engraver::process_music ()
 {
   inspect_clef_properties ();
+  // Efficiency: only create a clef at points where it might be visible,
+  // namely where a break has not been forbidden (yet).
+  if (scm_is_string (get_property (this, "clefGlyph"))
+      && break_allowed (context ()))
+    create_clef ();
 }
 
 static void apply_on_children (Context *context, SCM fun)
@@ -205,7 +199,6 @@ Clef_engraver::stop_translation_timestep ()
 void
 Clef_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Clef_engraver, bar_line);
 }
 
 ADD_TRANSLATOR (Clef_engraver,
@@ -227,6 +220,8 @@ clefTransposition
 clefTranspositionStyle
 clefPosition
 explicitClefVisibility
+forbidBreak
+forceBreak
 forceClef
                 )",
 

@@ -66,6 +66,7 @@ moving-dotted-notes-in-polyphony.ly
 moving-slur-positions-vertically.ly
 nesting-staves.ly
 overriding-articulations-by-type.ly
+overriding-articulations-of-distinct-type.ly
 percent-repeat-count-visibility.ly
 positioning-arpeggios.ly
 positioning-multi-measure-rests.ly

@@ -132,11 +132,6 @@ automatically.")
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
 case of draw, a normal accidental is typeset.")
-     (automaticBars ,boolean? "If set to false then bar lines will not
-be printed automatically; they must be explicitly created with a
-@code{\\bar} command.  Unlike the @code{\\cadenzaOn} keyword, measures
-are still counted.  Bar line generation will resume according to that
-count if this property is unset.")
 
 
      (barAlways ,boolean? "If set to true a bar line is drawn after
@@ -370,7 +365,7 @@ staff.")
 staff switches by a thin line.")
      (fontSize ,number? "The relative size of all grobs in a context.")
      (forbidBreak ,boolean? "If set to @code{#t}, prevent a line break
-at this point.")
+at this point, except if explicitly requested by the user.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
 for the full staff.")
@@ -824,7 +819,8 @@ volume of that dynamic event.")
 
      (finalizations ,list? "A list of expressions to evaluate before
 proceeding to next time step.  This is an internal variable.")
-
+     (forceBreak ,boolean? "Set to @code{#t} when an event forcing a
+line break was heard.")
 
      (graceSettings ,list? "Overrides for grace notes.  This property
 should be manipulated through the @code{add-grace-property} function.")

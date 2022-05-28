@@ -36,11 +36,11 @@ protected:
   void acknowledge_unbreakable_spanner (Grob_info_t<Spanner>);
   void acknowledge_end_unbreakable_spanner (Grob_info_t<Spanner>);
 
-  void process_music ();
+  void pre_process_music ();
 };
 
 void
-Spanner_break_forbid_engraver::process_music ()
+Spanner_break_forbid_engraver::pre_process_music ()
 {
   if (running_spanners_.size ())
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);

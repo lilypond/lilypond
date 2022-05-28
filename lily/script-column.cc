@@ -45,7 +45,7 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
   set_object (script, "script-column", me->self_scm ());
 }
 
-LY_DEFINE (ly_grob_script_priority_less,
+LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
            2, 0, 0, (SCM a, SCM b),
            R"(
 Compare two grobs by script priority.  For internal use.
@@ -60,7 +60,8 @@ Compare two grobs by script priority.  For internal use.
   return scm_to_int (p1) < scm_to_int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking,
+                      "ly:script-column::row-before-line-breaking", 1);
 SCM
 Script_column::row_before_line_breaking (SCM smob)
 {
@@ -104,7 +105,8 @@ Script_column::row_before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking,
+                      "ly:script-column::before-line-breaking", 1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {

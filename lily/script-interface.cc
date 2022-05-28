@@ -73,7 +73,8 @@ Script_interface::get_stencil (Grob *me, Direction d)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done,
+                      "ly:script-interface::calc-positioning-done", 1);
 SCM
 Script_interface::calc_positioning_done (SCM smob)
 {
@@ -107,7 +108,8 @@ Script_interface::get_direction (Grob *me)
   return CENTER;
 }
 
-MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Script_interface, calc_direction,
+                      "ly:script-interface::calc-direction", 1);
 SCM
 Script_interface::calc_direction (SCM smob)
 {
@@ -117,7 +119,8 @@ Script_interface::calc_direction (SCM smob)
   return to_scm (d);
 }
 
-MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff,
+                      "ly:script-interface::calc-cross-staff", 1);
 SCM
 Script_interface::calc_cross_staff (SCM smob)
 {
@@ -137,7 +140,7 @@ Script_interface::calc_cross_staff (SCM smob)
   return SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Script_interface, print, "ly:script-interface::print", 1);
 
 SCM
 Script_interface::print (SCM smob)

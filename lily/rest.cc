@@ -33,7 +33,7 @@
 using std::string;
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);
+MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, "ly:rest::y-offset-callback", 1);
 SCM
 Rest::y_offset_callback (SCM smob)
 {
@@ -147,7 +147,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, Direction dir)
 /* A rest might lie under a beam, in which case it should be cross-staff if
    the beam is cross-staff because the rest's position depends on the
    formatting of the beam. */
-MAKE_SCHEME_CALLBACK (Rest, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Rest, calc_cross_staff, "ly:rest::calc-cross-staff", 1);
 SCM
 Rest::calc_cross_staff (SCM smob)
 {
@@ -225,7 +225,7 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
           + actual_style);
 }
 
-MAKE_SCHEME_CALLBACK (Rest, print, 1);
+MAKE_SCHEME_CALLBACK (Rest, print, "ly:rest::print", 1);
 SCM
 Rest::brew_internal_stencil (Grob *me, bool ledgered)
 {
@@ -274,7 +274,7 @@ Rest::print (SCM smob)
   return brew_internal_stencil (unsmob<Grob> (smob), true);
 }
 
-MAKE_SCHEME_CALLBACK (Rest, width, 1);
+MAKE_SCHEME_CALLBACK (Rest, width, "ly:rest::width", 1);
 /*
   We need the callback. The real stencil has ledgers depending on
   Y-position. The Y-position is known only after line breaking.  */
@@ -284,7 +284,7 @@ Rest::width (SCM smob)
   return generic_extent_callback (unsmob<Grob> (smob), X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Rest, height, 1);
+MAKE_SCHEME_CALLBACK (Rest, height, "ly:rest::height", 1);
 SCM
 Rest::height (SCM smob)
 {
@@ -309,7 +309,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return to_scm (unsmob<const Stencil> (m)->extent (a));
 }
 
-MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Rest, pure_height, "ly:rest::pure-height", 3);
 SCM
 Rest::pure_height (SCM smob,
                    SCM /* start */,

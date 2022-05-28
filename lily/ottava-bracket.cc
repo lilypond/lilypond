@@ -44,7 +44,7 @@ struct Ottava_bracket
   8va                8va            8
   8va bassa          8ba            8
 */
-MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
+MAKE_SCHEME_CALLBACK (Ottava_bracket, print, "ly:ottava-bracket::print", 1);
 SCM
 Ottava_bracket::print (SCM smob)
 {

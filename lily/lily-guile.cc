@@ -545,7 +545,7 @@ ly_string_array_to_scm (const vector<string> &a)
     {
       const string &part = *it;
       if (!part.empty ())
-        s = scm_cons (ly_symbol2scm (part.c_str ()), s);
+        s = scm_cons (ly_symbol2scm (part), s);
     }
   return s;
 }

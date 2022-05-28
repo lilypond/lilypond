@@ -53,7 +53,8 @@ thickness
 line-thickness
                )");
 
-MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points,
+                      "ly:semi-tie::calc-control-points", 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {

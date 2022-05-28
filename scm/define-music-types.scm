@@ -374,7 +374,7 @@ spanner.")
      . ((description . "Used internally by @code{MultiMeasureRestMusic}
 to signal rests.")
         (iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
-        (types . (event rhythmic-event multi-measure-rest-event))
+        (types . (event rhythmic-event general-rest-event multi-measure-rest-event))
         ))
 
     (MultiMeasureRestMusic
@@ -561,7 +561,7 @@ Example: @code{\\mark 3}")
 
 Syntax: @code{r4} for a quarter rest.")
         (iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
-        (types . (event rhythmic-event rest-event))
+        (types . (event rhythmic-event general-rest-event rest-event))
         ))
 
     (RevertProperty

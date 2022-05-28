@@ -24,7 +24,8 @@
 #include "lookup.hh"
 #include "output-def.hh"
 
-MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Grid_line_interface, print, "ly:grid-line-interface::print",
+                      1);
 SCM
 Grid_line_interface::print (SCM smobbed_me)
 {
@@ -59,7 +60,7 @@ Grid_line_interface::print (SCM smobbed_me)
   return st.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Grid_line_interface, width, 1);
+MAKE_SCHEME_CALLBACK (Grid_line_interface, width, "ly:grid-line-interface::width", 1);
 SCM
 Grid_line_interface::width (SCM smob)
 {

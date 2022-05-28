@@ -108,7 +108,9 @@ axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM c
   return Side_position_interface::aligned_side (me, a, pure, start, end, current_off_ptr);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side,
+                                   "ly:side-position-interface::x-aligned-side",
+                                   2, 1, "");
 SCM
 Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
 {
@@ -120,14 +122,18 @@ Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
   return axis_aligned_side_helper (smob, X_AXIS, true, 0, 0, current_off);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side,
+                                   "ly:side-position-interface::y-aligned-side",
+                                   2, 1, "");
 SCM
 Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
 {
   return axis_aligned_side_helper (smob, Y_AXIS, false, 0, 0, current_off);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, pure_y_aligned_side, 4, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, pure_y_aligned_side,
+                                   "ly:side-position-interface::pure-y-aligned-side",
+                                   4, 1, "");
 SCM
 Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM cur_off)
 {
@@ -137,7 +143,8 @@ Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM 
                                    cur_off);
 }
 
-MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff,
+                      "ly:side-position-interface::calc-cross-staff", 1)
 SCM
 Side_position_interface::calc_cross_staff (SCM smob)
 {
@@ -468,7 +475,8 @@ Side_position_interface::is_on_y_axis (Grob *me)
   return is_on_axis (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff, 1);
+MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff,
+                      "ly:side-position-interface::move-to-extremal-staff", 1);
 SCM
 Side_position_interface::move_to_extremal_staff (SCM smob)
 {

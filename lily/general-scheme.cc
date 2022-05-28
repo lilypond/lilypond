@@ -55,7 +55,7 @@ using std::vector;
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
 
-LY_DEFINE (ly_find_file,
+LY_DEFINE (ly_find_file, "ly:find-file",
            1, 0, 0, (SCM name),
            R"(
 Return the absolute file name of @var{name}, or @code{#f} if not found.
@@ -71,7 +71,7 @@ Return the absolute file name of @var{name}, or @code{#f} if not found.
   return ly_string2scm (file_name);
 }
 
-LY_DEFINE (ly_rename_file,
+LY_DEFINE (ly_rename_file, "ly:rename-file",
            2, 0, 0, (SCM oldname, SCM newname),
            R"(
 Rename @var{oldname} to @var{newname}. In contrast to Guile's
@@ -95,7 +95,7 @@ cannot be deleted.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_randomize_rand_seed, 0, 0, 0, (),
+LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
            R"(
 Randomize C random generator.
            )")
@@ -111,7 +111,7 @@ Randomize C random generator.
   Ugh. Gulped file is copied twice. (maybe thrice if you count stdio
   buffering.)
 */
-LY_DEFINE (ly_gulp_file,
+LY_DEFINE (ly_gulp_file, "ly:gulp-file",
            1, 1, 0, (SCM name, SCM size),
            R"(
 Read @var{size} characters from the file @var{name}, and return its contents in
@@ -131,7 +131,7 @@ looked up using the search path.
   return scm_from_latin1_stringn (contents.c_str (), contents.length ());
 }
 
-LY_DEFINE (ly_gulp_file_utf8,
+LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8",
            1, 1, 0, (SCM name, SCM size),
            R"(
 Read @var{size} characters from the file @var{name}, and return its contents in
@@ -151,7 +151,7 @@ read.  The file is looked up using the search path.
   return scm_from_utf8_stringn (contents.c_str (), contents.length ());
 }
 
-LY_DEFINE (ly_dir_p,
+LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
            R"(
 Is @var{s} a direction?  Valid directions are @w{@code{-1}}, @code{0},
@@ -168,7 +168,7 @@ direction.
   return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_assoc_get,
+LY_DEFINE (ly_assoc_get, "ly:assoc-get",
            2, 2, 0,
            (SCM key, SCM alist, SCM default_value, SCM strict_checking),
            R"(
@@ -202,7 +202,7 @@ Return value if @var{key} in @var{alist}, else @var{default-value} (or
   return default_value;
 }
 
-LY_DEFINE (ly_string_substitute,
+LY_DEFINE (ly_string_substitute, "ly:string-substitute",
            3, 0, 0, (SCM a, SCM b, SCM s),
            R"(
 Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
@@ -219,7 +219,7 @@ Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
   return ly_string2scm (ss);
 }
 
-LY_DEFINE (ly_string_percent_encode,
+LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
            R"(
 Encode all characters in string @var{str} with hexadecimal percent escape
@@ -235,7 +235,7 @@ characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
   return ly_string2scm (new_str);
 }
 
-LY_DEFINE (ly_number_2_string,
+LY_DEFINE (ly_number_2_string, "ly:number->string",
            1, 0, 0, (SCM s),
            R"(
 Convert @var{s} to a string without generating many decimals.
@@ -264,7 +264,7 @@ Convert @var{s} to a string without generating many decimals.
   return scm_from_latin1_string (str);
 }
 
-LY_DEFINE (ly_version, 0, 0, 0, (),
+LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
            R"(
 Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
            )")
@@ -278,7 +278,7 @@ Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
     return scm_list_4 (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
 }
 
-LY_DEFINE (ly_unit, 0, 0, 0, (),
+LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
            R"(
 Return the unit used for lengths as a string.
            )")
@@ -286,7 +286,7 @@ Return the unit used for lengths as a string.
   return scm_from_latin1_string (INTERNAL_UNIT);
 }
 
-LY_DEFINE (ly_dimension_p, 1, 0, 0, (SCM d),
+LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
            R"(
 Is @var{d} a dimension?  Used to distinguish length variables from normal
 numbers.
@@ -298,7 +298,7 @@ numbers.
 // TODO: When we drop Guile 1 support, remove this function
 // and simply use either escape sequences (\u, \U) and/or
 // integer->char.
-LY_DEFINE (ly_wide_char_2_utf_8,
+LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
            1, 0, 0, (SCM wc),
            R"(
 Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
@@ -336,7 +336,7 @@ Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
   return scm_from_utf8_string (buf);
 }
 
-LY_DEFINE (ly_effective_prefix,
+LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
            0, 0, 0, (),
            R"(
 Return effective prefix.  For example, if LilyPond Scheme files are stored in
@@ -347,7 +347,7 @@ prefix is @file{/foo/bar}.
   return ly_string2scm (lilypond_datadir);
 }
 
-LY_DEFINE (ly_chain_assoc_get,
+LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
            2, 2, 0, (SCM key, SCM achain, SCM default_value, SCM strict_checking),
            R"(
 Return value for @var{key} from a list of alists @var{achain}.  If no entry is
@@ -382,7 +382,7 @@ output in such cases.
   return SCM_UNBNDP (default_value) ? SCM_BOOL_F : default_value;
 }
 
-LY_DEFINE (ly_stderr_redirect,
+LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
            1, 1, 0, (SCM fd_or_file_name, SCM mode),
            R"(
 Redirect standard error output (stderr) to file descriptor @var{fd} if the
@@ -415,7 +415,7 @@ first parameter is an integer, or to file @var{file-name}, opened with
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_hash_table_keys,
+LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
            1, 0, 0, (SCM tab),
            R"(
 Return a list of keys in @var{tab}.
@@ -432,7 +432,7 @@ Return a list of keys in @var{tab}.
   return ly_scm_hash_fold (accumulate_symbol, nullptr, SCM_EOL, tab);
 }
 
-LY_DEFINE (ly_camel_case_2_lisp_identifier,
+LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
            1, 0, 0, (SCM name_sym),
            R"(
 Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
@@ -447,7 +447,7 @@ Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
   const string in = ly_symbol2string (name_sym);
   string result = camel_case_to_lisp_identifier (in);
 
-  return ly_symbol2scm (result.c_str ());
+  return ly_symbol2scm (result);
 }
 
 string
@@ -495,7 +495,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
   return "";
 }
 
-LY_DEFINE (ly_format,
+LY_DEFINE (ly_format, "ly:format",
            1, 0, 1, (SCM str, SCM rest),
            R"(
 LilyPond specific format function, supporting @code{~a} and @code{~[0-9]f}.
@@ -596,7 +596,7 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
   return exit_status;
 }
 
-LY_DEFINE (ly_spawn,
+LY_DEFINE (ly_spawn, "ly:spawn",
            1, 0, 1, (SCM command, SCM rest),
            R"(
 Simple Scheme interface to the GLib function @code{g_spawn_sync}.  If an error
@@ -644,7 +644,7 @@ occurs, format it with @code{format} and @var{rest}.
 static void *gs_inst = NULL;
 static string gs_args;
 
-LY_DEFINE (ly_shutdown_gs, 0, 0, 0, (),
+LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
            R"(
 Shutdown GhostScript instance and flush pending writes.
            )")
@@ -668,7 +668,7 @@ Shutdown GhostScript instance and flush pending writes.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_gs_api, 2, 0, 0, (SCM args, SCM run_string),
+LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
            R"(
 Use GhostScript started with @var{args}, and run @var{run_string}
            )")

@@ -59,7 +59,8 @@ Spacing_spanner::get_columns (Spanner *me)
                                                       r_bound->get_rank () + 1);
 }
 
-MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
+MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,
+                      "ly:spacing-spanner::set-springs", 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
@@ -90,7 +91,8 @@ Spacing_spanner::set_springs (SCM smob)
   stuff, then.
 */
 
-MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
+MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration,
+                      "ly:spacing-spanner::calc-common-shortest-duration", 1);
 SCM
 Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {

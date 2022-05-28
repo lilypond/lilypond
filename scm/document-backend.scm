@@ -41,13 +41,12 @@
 ;; sort all grobs in the all-grob-descriptions alist
 (set! all-grob-descriptions (sort all-grob-descriptions ly:alist-ci<?))
 
-(define (interface-doc-string interface grob-description)
+(define (interface-doc-string interface)
   (let* ((name (car interface))
          (desc (string-trim-both (cadr interface)))
          (props (caddr interface))
          (docfunc (lambda (pr)
-                    (property->texi
-                     'backend pr grob-description)))
+                    (property->texi 'backend pr)))
          (iprops (filter (lambda (x) (object-property x 'backend-internal))
                          props))
          (uprops (filter
@@ -118,10 +117,6 @@
                classes)))
  all-grob-descriptions)
 
-(define (list-symbols lst)
-  (human-listify (map ref-ify (sort (map symbol->string lst)
-                                    ly:string-ci<?))))
-
 ;; First level Interface description
 (define (interface-doc interface)
   (let* ((name (car interface))
@@ -131,20 +126,20 @@
       #:code-tag #t
       #:name (symbol->string name)
       #:text (string-append
-              (interface-doc-string (cdr interface) '())
+              (interface-doc-string (cdr interface))
               "\n\n@raggedRight\n"
               "This grob interface "
               (if unconditional-grobs
                   (format #f
                           "is used in the following graphical object(s): ~a."
-                          (list-symbols unconditional-grobs))
+                          (list-xref-symbols unconditional-grobs))
                   "is not used in any graphical object.")
               "\n\n"
               (if conditional-grobs
                   (format #f
                           "In addition, this interface is supported conditionally
 by the following objects depending on their class: ~a."
-                          (list-symbols conditional-grobs))
+                          (list-xref-symbols  conditional-grobs))
                   "")
               "\n@endRaggedRight"))))
 
@@ -174,11 +169,7 @@ node."
                      (lambda (x) (engraver-makes-grob? name x))
                      all-engravers-list))
          (namestr (symbol->string name))
-         (engraver-names (map symbol->string
-                              (map ly:translator-name engravers)))
-         (engraver-list (human-listify
-                         (map ref-ify
-                              (map engraver-name engraver-names)))))
+         (engraver-names (map ly:translator-name engravers)))
 
     (make <texi-node>
       #:code-tag #t
@@ -192,10 +183,10 @@ node."
        "@code{"
        namestr "} objects "
        (cond
-        ((not (equal? engraver-list "none"))
+        ((not (null? engraver-names))
          (string-append
           "are created by: "
-          engraver-list))
+          (list-xref-symbols engraver-names)))
         ((eq? name 'System)
          "are created internally by the @code{Score_engraver} translator group.")
         (else
@@ -208,7 +199,7 @@ node."
        (grob-alist->texi description)
        "\n\n@raggedRight\n"
        "This object supports the following interface(s):\n"
-       (list-symbols
+       (list-xref-symbols
         (if two-or-more
             ifaces
             (append ifaces (car class-interfaces))))
@@ -227,9 +218,9 @@ It supports the following interfaces conditionally depending on the class: ~a."
                     #:last-word "or")
                    ;; No sorting here, let's keep in same order as the
                    ;; parenthesized "characterized by" indications.
-                   (human-listify
-                    (map ref-ify
-                         (map symbol->string (apply append class-interfaces)))))
+                   (list-xref-symbols
+                    (apply append class-interfaces)
+                    #:sorted #f))
            (format #f "This object is of class ~a (characterized by ~a)."
                    (car classes)
                    (ref-ify (symbol->string (caar class-interfaces)))))

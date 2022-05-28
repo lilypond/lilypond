@@ -1,0 +1,3 @@
+# Overwrite the top-level ignore of these two file types.
+!*.eps
+!*.svg

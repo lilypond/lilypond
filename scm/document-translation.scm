@@ -37,7 +37,6 @@
          (name-str (symbol->string name-sym))
          (desc (string-trim-both (assoc-get 'description (ly:translator-description engraver))))
          (grobs (engraver-grobs engraver)))
-
     (string-append
      desc
      "\n\n"
@@ -45,8 +44,7 @@
      (if (pair? accepted)
          (string-append
           "Music types accepted:\n"
-          (human-listify
-           (map ref-ify (sort (map symbol->string accepted) ly:string-ci<?))))
+          (list-xref-symbols accepted))
          "")
      "\n\n"
      (if (pair? propsr)
@@ -66,11 +64,12 @@
            (map (lambda (x) (property->texi 'translation x '()))
                 (sort propsw ly:symbol-ci<?))
            #t)))
+
      (if  (null? grobs)
           ""
           (string-append
            "\n\nThis engraver creates the following layout object(s):\n"
-           (human-listify (map ref-ify (uniq-list (sort grobs ly:string-ci<?))))
+           (list-xref-symbols grobs)
            "."))
 
      "\n\n"
@@ -94,14 +93,10 @@
                                  (if (member name-sym consists)
                                      (list context)
                                      '())))
-                             context-description-alist))
-                           (context-list (map ref-ify
-                                              (sort
-                                               (map symbol->string contexts)
-                                               ly:string-ci<?))))
-                      (if (null? context-list)
+                             context-description-alist)))
+                      (if (null? contexts)
                           '()
-                          (list (cons output-name (human-listify context-list))))))
+                          (list (cons output-name (list-xref-symbols contexts))))))
                   (list $defaultlayout $defaultmidi)
                   (list "\\layout" "\\midi"))))
            (string-append
@@ -177,14 +172,13 @@
 (define (context-doc context-desc)
   (let* ((name-sym (assoc-get 'context-name context-desc))
          (name (symbol->string name-sym))
-         (aliases (map symbol->string (assoc-get 'aliases context-desc)))
+         (aliases (assoc-get 'aliases context-desc))
          (desc (assoc-get 'description context-desc "(not documented"))
          (accepts (assoc-get 'accepts context-desc))
          (consists (assoc-get 'consists context-desc))
          (props (assoc-get 'property-ops context-desc))
          (defaultchild (assoc-get 'default-child context-desc))
-         (grobs  (context-grobs context-desc))
-         (grob-refs (map ref-ify (sort grobs ly:string-ci<?))))
+         (grobs-created (context-grobs context-desc)))
 
     (make <texi-node>
       #:code-tag #t
@@ -195,13 +189,13 @@
        (if (pair? aliases)
            (string-append
             "\n\nThis context also accepts commands for the following context(s):\n"
-            (human-listify (map ref-ify (sort aliases ly:string-ci<?)))
+            (list-xref-symbols aliases)
             ".")
            "")
 
        "\n\n@raggedRight"
        "\nThis context creates the following layout object(s):\n"
-       (human-listify (uniq-list grob-refs))
+       (list-xref-symbols grobs-created #:uniq #t)
        "."
 
        (if (and (pair? props) (not (null? props)))
@@ -231,8 +225,7 @@
             "\nContext @code{"
             name
             "} can contain\n"
-            (human-listify (map ref-ify (sort (map symbol->string accepts)
-                                              ly:string-ci<?)))
+            (list-xref-symbols accepts)
             "."
             "\n@endRaggedRight"))
 
@@ -250,7 +243,7 @@
                  grav)))
     (if (eq? eg #f)
         '()
-        (map symbol->string (assoc-get 'grobs-created (ly:translator-description eg) '())))))
+        (assoc-get 'grobs-created (ly:translator-description eg) '()))))
 
 (define (context-grobs context-desc)
   (let* ((group (assq-ref context-desc 'group-type))

@@ -537,8 +537,8 @@ prevent @q{jaggies} in PNG images.  Default: @code{1}.
 
 @item @code{aux-files} @var{bool}
 If @var{bool} is @code{#t}, create @file{.tex}, @file{.texi}, and
-@file{.count} files when used with the @code{eps} backend option.
-Default: @code{#t}.
+@file{.count} files.  This option is mostly for use by
+@command{lilypond-book}.  Default: @code{#f}.
 
 @item @code{backend} @var{symbol}
 Use @var{symbol} as the backend for LilyPond output.  Possible values
@@ -695,18 +695,6 @@ Default: @code{#f}.
 If @var{bool} is @code{#t}, make Ghostscript embed only TrueType
 fonts and no other font format.
 Default: @code{#f}.
-
-@item @code{gui} @var{bool}
-If @var{bool} is @code{#t}, make LilyPond run silently and redirect
-all output to a log file.
-Default: @code{#f}.
-
-@strong{Note to Windows users:} By default, @file{lilypond.exe} outputs
-all progress information to the command window, while
-@file{lilypond-windows.exe} does not and returns a prompt, with no
-progress information, immediately at the command line.  The
-@option{-dgui} option can be used in this case to redirect output to a
-log file.
 
 @item @code{help} @var{bool}
 If @var{bool} is @code{#t}, show this help.

@@ -60,7 +60,7 @@ ly_module_symbols (SCM mod)
   return ly_hash_table_keys (obarr);
 }
 
-LY_DEFINE (ly_module_2_alist,
+LY_DEFINE (ly_module_2_alist, "ly:module->alist",
            1, 0, 0, (SCM mod),
            R"(
 Dump the contents of module @var{mod} as an alist.

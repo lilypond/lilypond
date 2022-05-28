@@ -26,7 +26,7 @@
 
 #include <pango/pangoft2.h>
 
-LY_DEFINE (ly_pango_font_p,
+LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
            1, 0, 0,
            (SCM f),
            R"(
@@ -36,7 +36,7 @@ Is @var{f} a Pango font?
   return scm_from_bool (unsmob<Pango_font> (f));
 }
 
-LY_DEFINE (ly_pango_font_physical_fonts,
+LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
            1, 0, 0,
            (SCM f),
            R"(

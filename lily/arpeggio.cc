@@ -56,7 +56,8 @@ Arpeggio::get_common_y (Grob *me)
   return common;
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, calc_cross_staff, "ly:arpeggio::calc-cross-staff",
+                      1);
 SCM
 Arpeggio::calc_cross_staff (SCM grob)
 {
@@ -79,7 +80,7 @@ Arpeggio::calc_cross_staff (SCM grob)
   return SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, calc_positions, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, calc_positions, "ly:arpeggio::calc-positions", 1);
 SCM
 Arpeggio::calc_positions (SCM grob)
 {
@@ -112,7 +113,7 @@ Arpeggio::calc_positions (SCM grob)
   return to_scm (heads);
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, print, "ly:arpeggio::print", 1);
 SCM
 Arpeggio::print (SCM smob)
 {
@@ -180,7 +181,8 @@ Arpeggio::print (SCM smob)
 /* Draws a vertical bracket to the left of a chord
    Chris Jackson <chris@fluffhouse.org.uk> */
 
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket,
+                      "ly:arpeggio::brew-chord-bracket", 1);
 SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
@@ -201,7 +203,8 @@ Arpeggio::brew_chord_bracket (SCM smob)
   return mol.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, "ly:arpeggio::brew-chord-slur",
+                      1);
 SCM
 Arpeggio::brew_chord_slur (SCM smob)
 {
@@ -233,7 +236,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   We have to do a callback, because print () triggers a
   vertical alignment if it is cross-staff.
 */
-MAKE_SCHEME_CALLBACK (Arpeggio, width, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, width, "ly:arpeggio::width", 1);
 SCM
 Arpeggio::width (SCM smob)
 {
@@ -241,7 +244,7 @@ Arpeggio::width (SCM smob)
   return to_scm (get_squiggle (me).extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, "ly:arpeggio::pure-height", 3);
 SCM
 Arpeggio::pure_height (SCM smob, SCM, SCM)
 {

@@ -343,7 +343,7 @@ Slur_score_state::fill (Spanner *me)
     musical_dy_ = 0.0;
 }
 
-MAKE_SCHEME_CALLBACK (Slur, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_control_points, "ly:slur::calc-control-points", 1)
 SCM
 Slur::calc_control_points (SCM smob)
 {

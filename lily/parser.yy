@@ -3295,7 +3295,7 @@ direction_reqd_event:
 		$$ = $1;
 	}
 	| script_abbreviation {
-		SCM sym = ly_symbol2scm (("dash" + ly_scm2string ($1)).c_str());
+		SCM sym = ly_symbol2scm ("dash" + ly_scm2string ($1));
 		SCM s = parser->lexer_->lookup_identifier_symbol (sym);
 		Music *original = unsmob<Music> (s);
 		if (original && original->is_mus_type ("post-event")) {
@@ -4069,6 +4069,8 @@ markup_scm:
 			MYBACKUP (MARKUP_IDENTIFIER, $1, @1);
 		else if (Text_interface::is_markup_list ($1))
 			MYBACKUP (MARKUPLIST_IDENTIFIER, $1, @1);
+		else if (scm_is_eq ($1, SCM_UNSPECIFIED))
+			MYBACKUP (MARKUPLIST_IDENTIFIER, SCM_EOL, @1);
 		else {
 			parser->parser_error (@1, _ ("not a markup"));
 			MYBACKUP (MARKUP_IDENTIFIER, scm_string (SCM_EOL), @1);

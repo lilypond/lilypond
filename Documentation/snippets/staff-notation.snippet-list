@@ -35,6 +35,7 @@ nesting-staves.ly
 non-traditional-key-signatures.ly
 numbering-groups-of-measures.ly
 orchestra,-choir-and-piano-template.ly
+print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly

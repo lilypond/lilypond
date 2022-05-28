@@ -22,7 +22,7 @@
 #include "item.hh"
 #include "spanner.hh"
 
-LY_DEFINE (ly_engraver_make_grob,
+LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
            3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
            R"(
 Create a grob originating from given @var{engraver} instance, with given
@@ -41,7 +41,7 @@ music event.
                                           "scheme")->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_make_item,
+LY_DEFINE (ly_engraver_make_item, "ly:engraver-make-item",
            3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
            R"(
 Same as @code{ly:engraver-make-grob}, but always create a grob with the
@@ -60,7 +60,7 @@ create grobs of differing classes.
                                  "scheme")->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_make_spanner,
+LY_DEFINE (ly_engraver_make_spanner, "ly:engraver-make-spanner",
            3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
            R"(
 Same as @code{ly:engraver-make-grob}, but always create a grob with the
@@ -79,7 +79,7 @@ create grobs of differing classes.
                                     "scheme")->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_make_sticky,
+LY_DEFINE (ly_engraver_make_sticky, "ly:engraver-make-sticky",
            4, 0, 0, (SCM engraver, SCM grob_name, SCM host, SCM cause),
            R"(
 Utility function to create a grob sticking to another grob.  This acts like
@@ -101,7 +101,7 @@ is announced with the end of the host.
   return g->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_announce_end_grob,
+LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
            3, 0, 0, (SCM engraver, SCM grob, SCM cause),
            R"(
 Announce the end of a grob (i.e., the end of a spanner) originating from given

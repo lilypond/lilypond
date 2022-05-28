@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "headword"
@@ -13,8 +13,8 @@
 NR 1.7 Editorial annotations
 
 Beethoven, Op. 31, No. 3@*
-Piano sonata 18, Movt II, Scherzo@*
-Measures 9 - 14
+Piano sonata 18, Movt. II, Scherzo@*
+Measures 9--14
 
 "
   doctitle = "Editorial headword"

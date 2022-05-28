@@ -370,7 +370,8 @@ grob_2D_less (Grob *g1, Grob *g2)
   return sri[0] < sri[1];
 }
 
-MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking,
+                      "ly:system::footnotes-before-line-breaking", 1);
 SCM
 System::footnotes_before_line_breaking (SCM smob)
 {
@@ -386,7 +387,8 @@ System::footnotes_before_line_breaking (SCM smob)
   return grobs_scm;
 }
 
-MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking,
+                      "ly:system::footnotes-after-line-breaking", 1);
 SCM
 System::footnotes_after_line_breaking (SCM smob)
 {
@@ -401,7 +403,8 @@ System::footnotes_after_line_breaking (SCM smob)
   return grobs_scm;
 }
 
-MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements, 1);
+MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements,
+                      "ly:system::vertical-skyline-elements", 1);
 SCM
 System::vertical_skyline_elements (SCM smob)
 {
@@ -750,7 +753,8 @@ get_root_system (Grob *me)
   return dynamic_cast<System *> (system_grob);
 }
 
-MAKE_SCHEME_CALLBACK (System, get_vertical_alignment, 1);
+MAKE_SCHEME_CALLBACK (System, get_vertical_alignment,
+                      "ly:system::get-vertical-alignment", 1);
 SCM
 System::get_vertical_alignment (SCM smob)
 {
@@ -876,7 +880,8 @@ System::rest_of_line_pure_height (vsize start, vsize end)
 // This differs from Axis_group_interface::calc_pure_relevant_grobs
 // because here, we are only interested in those few elements that aren't
 // descended from VerticalAlignment (ie. things like RehearsalMark, BarLine).
-MAKE_SCHEME_CALLBACK (System, calc_pure_relevant_grobs, 1);
+MAKE_SCHEME_CALLBACK (System, calc_pure_relevant_grobs,
+                      "ly:system::calc-pure-relevant-grobs", 1);
 SCM
 System::calc_pure_relevant_grobs (SCM smob)
 {
@@ -904,14 +909,14 @@ System::calc_pure_relevant_grobs (SCM smob)
   return grobs_scm;
 }
 
-MAKE_SCHEME_CALLBACK (System, height, 1);
+MAKE_SCHEME_CALLBACK (System, height, "ly:system::height", 1);
 SCM
 System::height (SCM smob)
 {
   return Axis_group_interface::height (smob);
 }
 
-MAKE_SCHEME_CALLBACK (System, calc_pure_height, 3);
+MAKE_SCHEME_CALLBACK (System, calc_pure_height, "ly:system::calc-pure-height", 3);
 SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
@@ -985,21 +990,23 @@ get_maybe_spaceable_staves (SCM smob, int filter)
   return ret;
 }
 
-MAKE_SCHEME_CALLBACK (System, get_staves, 1)
+MAKE_SCHEME_CALLBACK (System, get_staves, "ly:system::get-staves", 1)
 SCM
 System::get_staves (SCM smob)
 {
   return get_maybe_spaceable_staves (smob, ALL_STAVES);
 }
 
-MAKE_SCHEME_CALLBACK (System, get_spaceable_staves, 1)
+MAKE_SCHEME_CALLBACK (System, get_spaceable_staves,
+                      "ly:system::get-spaceable-staves", 1)
 SCM
 System::get_spaceable_staves (SCM smob)
 {
   return get_maybe_spaceable_staves (smob, SPACEABLE_STAVES);
 }
 
-MAKE_SCHEME_CALLBACK (System, get_nonspaceable_staves, 1)
+MAKE_SCHEME_CALLBACK (System, get_nonspaceable_staves,
+                      "ly:system::get-nonspaceable-staves", 1)
 SCM
 System::get_nonspaceable_staves (SCM smob)
 {

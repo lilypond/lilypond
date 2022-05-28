@@ -177,23 +177,6 @@ class LilyPond(ConfigurePackage):
         return args
 
     def build(self, c: Config) -> bool:
-        # We should not need to patch our own sources here, but applying this
-        # fix would break GUB, so we can only do this once we don't care about
-        # it anymore.
-        if c.is_mingw():
-
-            def patch_makefile(content: str) -> str:
-                # First remove program_suffix everywhere...
-                content = content.replace("$(program_suffix)", "")
-                # ... then add it to EXECUTABLE so that dependencies and
-                # installation works fine.
-                content = re.sub("EXECUTABLE = .*", "\\g<0>$(program_suffix)", content)
-                content = content.replace("$(outdir)/lilypond:", "$(EXECUTABLE):")
-                return content
-
-            lily_gnumakefile = os.path.join("lily", "GNUmakefile")
-            self.patch_file(c, lily_gnumakefile, patch_makefile)
-
         # If mingw, copy FlexLexer.h from /usr/include and pass it to configure
         # because the cross-compiler would not find it.
         if c.is_mingw():
@@ -212,15 +195,11 @@ class LilyPond(ConfigurePackage):
             "etf2ly",
             "lilymidi",
             "lilypond-book",
+            "lilypond-invoke-editor",
             "lilysong",
             "midi2ly",
             "musicxml2ly",
         ]
-
-    @property
-    def guile_scripts(self) -> List[str]:
-        """Return a list of all Guile scripts installed by default."""
-        return ["lilypond-invoke-editor"]
 
     @property
     def license_files(self) -> List[str]:
@@ -340,11 +319,6 @@ class LilyPondPackager:
             dst = os.path.join(self.bin_dir, f"{script}.py")
             os.rename(src, dst)
 
-        for script in self.lilypond.guile_scripts:
-            src = os.path.join(self.bin_dir, script)
-            dst = os.path.join(self.bin_dir, f"{script}.scm")
-            os.rename(src, dst)
-
     def _copy_python_files(self):
         # Copy packages for Python ...
         python_install = python.install_directory(self.c)
@@ -396,20 +370,6 @@ exec "$root/libexec/{python_interpreter}" "$root/libexec/%s" "$@"
         for script in self.lilypond.python_scripts:
             self._create_wrapper(script, python_shebang, python_wrapper_template)
 
-    def _create_guile_wrappers(self):
-        guile_shebang = "#!/usr/bin/env -S guile --no-auto-compile"
-        guile_version_major = guile.major_version
-        guile_wrapper_template = f"""#!/bin/sh
-root="$(dirname $0)/.."
-export GUILE_AUTO_COMPILE=0
-export GUILE_LOAD_PATH="$root/share/guile/{guile_version_major}"
-export GUILE_LOAD_COMPILED_PATH="$root/lib/guile/{guile_version_major}/ccache"
-exec "$root/libexec/guile" "$root/libexec/%s" "$@"
-"""
-
-        for script in self.lilypond.guile_scripts:
-            self._create_wrapper(script, guile_shebang, guile_wrapper_template)
-
     def _copy_license_files(self):
         destination = os.path.join(self.package_dir, "licenses")
         os.makedirs(destination)
@@ -449,14 +409,11 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
             self._move_scripts()
         else:
             # Files needed to run the scripts.
-            self._copy_to_libexec_and_strip(guile.exe_path(self.c))
             self._copy_to_libexec_and_strip(python.exe_path(self.c))
-
             self._copy_python_files()
 
             # Move scripts to libexec, adapt their shebangs, and create wrappers.
             self._create_python_wrappers()
-            self._create_guile_wrappers()
 
         self._copy_license_files()
 

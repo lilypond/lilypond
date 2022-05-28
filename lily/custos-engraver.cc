@@ -41,7 +41,6 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   void start_translation_timestep ();
-  void acknowledge_bar_line (Grob_info_t<Item>);
   void acknowledge_note_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
@@ -49,7 +48,6 @@ public:
 
 private:
   Item *create_custos ();
-  bool custos_permitted_ = false;
   vector<Grob *> custodes_;
   vector<Pitch> pitches_;
 };
@@ -66,8 +64,6 @@ Custos_engraver::stop_translation_timestep ()
     delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
   */
   pitches_.clear ();
-
-  custos_permitted_ = false;
 }
 
 void
@@ -76,14 +72,6 @@ Custos_engraver::start_translation_timestep ()
   custodes_.clear ();
 }
 
-void
-Custos_engraver::acknowledge_bar_line (Grob_info_t<Item> /* info */)
-{
-  // Custos is visible only at the end of a line, so we save work by creating
-  // it only where a break is allowed.  Observing a BarLine tells us indirectly
-  // that a break is allowed: Bar_engraver suppresses breaks elsewhere.
-  custos_permitted_ = true;
-}
 
 void
 Custos_engraver::acknowledge_note_head (Grob_info info)
@@ -107,7 +95,9 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
 void
 Custos_engraver::process_acknowledged ()
 {
-  if (custos_permitted_)
+  // Efficiency: don't create Custos where they wouldn't be visible
+  // anyway.
+  if (break_allowed (context ()))
     {
       for (vsize i = pitches_.size (); i--;)
         {
@@ -147,7 +137,6 @@ Custos_engraver::finalize ()
 void
 Custos_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Custos_engraver, bar_line);
   ADD_ACKNOWLEDGER (Custos_engraver, note_head);
 }
 
@@ -164,7 +153,8 @@ Custos
 
                 /* read */
                 R"(
-
+forbidBreak
+forceBreak
                 )",
 
                 /* write */

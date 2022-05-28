@@ -32,7 +32,7 @@ public:
   static std::vector<Grob *> ordered_elements (Item *me);
   static void add_element (Item *me, Item *add);
   static SCM break_align_order (Item *me);
-  static Grob *get_break_align_group (Grob *me, SCM break_align_sym);
+  static Grob *find_nonempty_break_align_group (Item *me, SCM break_align_sym);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
 };
 
@@ -46,9 +46,6 @@ struct Break_aligned_interface
 
   DECLARE_SCHEME_CALLBACK (calc_joint_anchor_alignment, (SCM));
   static Direction calc_joint_anchor_alignment (Grob *me);
-
-  // True if the grob is aligned as 'staff-bar and has an X extent.
-  static bool is_non_empty_staff_bar (const Grob *me);
 };
 
 struct Break_alignable_interface

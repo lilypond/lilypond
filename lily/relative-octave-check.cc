@@ -29,7 +29,8 @@ public:
   DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Relative_octave_check, relative_callback, 2)
+MAKE_SCHEME_CALLBACK (Relative_octave_check, relative_callback,
+                      "ly:relative-octave-check::relative-callback", 2)
 SCM
 Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 {

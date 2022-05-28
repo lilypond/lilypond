@@ -21,7 +21,7 @@
 #include "grob.hh"
 #include "page-layout-problem.hh"
 
-LY_DEFINE (ly_get_spacing_spec, 2, 0, 0,
+LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,
            (SCM from_scm, SCM to_scm),
            R"(
 Return the spacing spec going between the two given grobs, @var{from-scm} and

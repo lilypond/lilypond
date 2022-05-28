@@ -421,28 +421,32 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
   return details;
 }
 
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info,
+                      "ly:line-spanner::calc-right-bound-info", 1);
 SCM
 Line_spanner::calc_right_bound_info (SCM smob)
 {
   return Line_spanner::calc_bound_info (smob, RIGHT, false);
 }
 
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info,
+                      "ly:line-spanner::calc-left-bound-info", 1);
 SCM
 Line_spanner::calc_left_bound_info (SCM smob)
 {
   return Line_spanner::calc_bound_info (smob, LEFT, false);
 }
 
-MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_right_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_right_bound_info,
+                      "ly:horizontal-line-spanner::calc-right-bound-info", 1);
 SCM
 Horizontal_line_spanner::calc_right_bound_info (SCM smob)
 {
   return Line_spanner::calc_bound_info (smob, RIGHT, true);
 }
 
-MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info,
+                      "ly:horizontal-line-spanner::calc-left-bound-info", 1);
 SCM
 Horizontal_line_spanner::calc_left_bound_info (SCM smob)
 {
@@ -471,14 +475,17 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob, bool horizontal)
   return alist;
 }
 
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info_and_text, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info_and_text,
+                      "ly:line-spanner::calc-left-bound-info-and-text", 1);
 SCM
 Line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
   return Line_spanner::calc_left_bound_info_and_text (smob, false);
 }
 
-MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info_and_text, 1);
+MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info_and_text,
+                      "ly:horizontal-line-spanner::calc-left-bound-info-and-text",
+                      1);
 SCM
 Horizontal_line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
@@ -487,7 +494,8 @@ Horizontal_line_spanner::calc_left_bound_info_and_text (SCM smob)
 
 // TODO: for horizontal line spanners, avoid looking at the
 // right bound, and never mark cross-staff.
-MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff,
+                      "ly:line-spanner::calc-cross-staff", 1);
 SCM
 Line_spanner::calc_cross_staff (SCM smob)
 {
@@ -501,7 +509,7 @@ Line_spanner::calc_cross_staff (SCM smob)
                        != Staff_symbol_referencer::get_staff_symbol (rb));
 }
 
-MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, print, "ly:line-spanner::print", 1);
 SCM
 Line_spanner::print (SCM smob)
 {

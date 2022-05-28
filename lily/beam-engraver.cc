@@ -350,7 +350,6 @@ subdivideBeams
 
                 /* write */
                 R"(
-forbidBreak
                 )");
 
 class Grace_beam_engraver : public Beam_engraver
@@ -415,4 +414,3 @@ subdivideBeams
                 R"(
 
                 )");
-

@@ -74,9 +74,6 @@ Stream_event::internal_in_event_class (SCM class_name)
   return scm_is_true (scm_c_memq (class_name, cl));
 }
 
-MAKE_SCHEME_CALLBACK (Stream_event, undump, 1);
-MAKE_SCHEME_CALLBACK (Stream_event, dump, 1);
-
 void
 Stream_event::make_transposable ()
 {
@@ -99,6 +96,7 @@ Stream_event::make_transposable ()
     }
 }
 
+MAKE_SCHEME_CALLBACK (Stream_event, dump, "ly:stream-event::dump", 1);
 SCM
 Stream_event::dump (SCM self)
 {
@@ -108,6 +106,7 @@ Stream_event::dump (SCM self)
                    scm_reverse (ev->mutable_property_alist_));
 }
 
+MAKE_SCHEME_CALLBACK (Stream_event, undump, "ly:stream-event::undump", 1);
 SCM
 Stream_event::undump (SCM data)
 {

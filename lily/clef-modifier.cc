@@ -26,7 +26,8 @@ struct Clef_modifier
   DECLARE_SCHEME_CALLBACK (calc_parent_alignment, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment, 1)
+MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment,
+                      "ly:clef-modifier::calc-parent-alignment", 1)
 SCM
 Clef_modifier::calc_parent_alignment (SCM smob)
 {
@@ -36,7 +37,7 @@ Clef_modifier::calc_parent_alignment (SCM smob)
   string clef_name = replace_all (&full_clef_name, "clefs.", "");
 
   // find entry with keyname clef_type in clef-alignments
-  SCM alist_entry = scm_assq (ly_symbol2scm (clef_name.c_str ()),
+  SCM alist_entry = scm_assq (ly_symbol2scm (clef_name),
                               get_property (me, "clef-alignments"));
 
   if (scm_is_pair (alist_entry))

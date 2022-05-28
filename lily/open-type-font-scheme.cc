@@ -35,7 +35,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_font_sub_fonts, 1, 0, 0,
+LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
            (SCM font),
            R"(
 Given the font metric @var{font} of an OpenType font, return the names of the
@@ -47,7 +47,7 @@ subfonts within @var{font}.
   return fm->sub_fonts ();
 }
 
-LY_DEFINE (ly_otf_font_glyph_info, 2, 0, 0,
+LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
            (SCM font, SCM glyph),
            R"(
 Given the font metric @var{font} of an OpenType font, return the information
@@ -67,7 +67,7 @@ about named glyph @var{glyph} (a string).
   return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
 }
 
-LY_DEFINE (ly_otf_font_table_data, 2, 0, 0,
+LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
            (SCM font, SCM tag),
            R"(
 Extract a table @var{tag} from @var{font}.  Return empty string for
@@ -93,7 +93,7 @@ non-existent @var{tag}.
   return scm_from_latin1_stringn (tab.data (), tab.length ());
 }
 
-LY_DEFINE (ly_otf_font_p, 1, 0, 0,
+LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
            (SCM font),
            R"(
 Is @var{font} an OpenType font?
@@ -108,7 +108,7 @@ Is @var{font} an OpenType font?
   return scm_from_bool (otf);
 }
 
-LY_DEFINE (ly_otf_glyph_count, 1, 0, 0,
+LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
            (SCM font),
            R"(
 Return the number of glyphs in @var{font}.
@@ -125,7 +125,7 @@ Return the number of glyphs in @var{font}.
   return to_scm (otf->count ());
 }
 
-LY_DEFINE (ly_otf_glyph_list, 1, 0, 0,
+LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
            (SCM font),
            R"(
 Return a list of glyph names for @var{font}.
@@ -142,7 +142,7 @@ Return a list of glyph names for @var{font}.
   return otf->glyph_list ();
 }
 
-LY_DEFINE (ly_get_font_format,
+LY_DEFINE (ly_get_font_format, "ly:get-font-format",
            1, 1, 0, (SCM font_file_name, SCM idx),
            R"(
 Get the font format for @var{font-file-name}, returning it as a symbol.  The
@@ -188,7 +188,7 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
   return asscm;
 }
 
-LY_DEFINE (ly_has_glyph_names_p,
+LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
            1, 1, 0, (SCM font_file_name, SCM idx),
            R"(
 Does the font for @var{font-file-name} have glyph names?  The optional
@@ -234,7 +234,7 @@ default value of @var{idx} is@tie{}0.
   return has_glyph_names ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_get_cff_offset,
+LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
            1, 1, 0, (SCM font_file_name, SCM idx),
            R"(
 Get the offset of the `CFF' table for @var{font-file-name}, returning it as an
@@ -393,6 +393,7 @@ default value of @var{idx} is@tie{}0.
 }
 
 LY_DEFINE (ly_extract_subfont_from_collection,
+           "ly:extract-subfont-from-collection",
            3, 0, 0, (SCM collection_file_name, SCM idx, SCM subfont_file_name),
            R"(
 Extract the subfont of index @var{idx} in TrueType collection (TTC) or

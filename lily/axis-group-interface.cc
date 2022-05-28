@@ -177,7 +177,8 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   return r;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, width,
+                      "ly:axis-group-interface::width", 1);
 SCM
 Axis_group_interface::width (SCM smob)
 {
@@ -185,7 +186,8 @@ Axis_group_interface::width (SCM smob)
   return generic_group_extent (me, X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, height,
+                      "ly:axis-group-interface::height", 1);
 SCM
 Axis_group_interface::height (SCM smob)
 {
@@ -193,7 +195,8 @@ Axis_group_interface::height (SCM smob)
   return generic_group_extent (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height,
+                      "ly:axis-group-interface::pure-height", 3);
 SCM
 Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
@@ -255,7 +258,8 @@ Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staf
   return relative_group_extent (new_elts, refp, ext_a);
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs,
+                      "ly:axis-group-interface::calc-pure-relevant-grobs", 1);
 SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
@@ -355,7 +359,8 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents,
 // is at the beginning of a line. The second vector stores, for each measure,
 // the combined height of the elements that are present only when the bar
 // is not at the beginning of a line.
-MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights,
+                      "ly:axis-group-interface::adjacent-pure-heights", 1)
 SCM
 Axis_group_interface::adjacent_pure_heights (SCM smob)
 {
@@ -466,7 +471,8 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   return scm_cons (begin_scm, mid_scm);
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines,
+                      "ly:axis-group-interface::calc-skylines", 1);
 SCM
 Axis_group_interface::calc_skylines (SCM smob)
 {
@@ -481,7 +487,8 @@ Axis_group_interface::calc_skylines (SCM smob)
    calculating all the skylines from scratch, we just merge the skylines
    of the children.
 */
-MAKE_SCHEME_CALLBACK (Axis_group_interface, combine_skylines, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, combine_skylines,
+                      "ly:axis-group-interface::combine-skylines", 1);
 SCM
 Axis_group_interface::combine_skylines (SCM smob)
 {
@@ -555,7 +562,8 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
   return grobs_scm;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common,
+                      "ly:axis-group-interface::calc-pure-y-common", 1);
 SCM
 Axis_group_interface::calc_pure_y_common (SCM smob)
 {
@@ -592,14 +600,16 @@ Axis_group_interface::calc_common (Grob *me, Axis axis)
   return common->self_scm ();
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common,
+                      "ly:axis-group-interface::calc-x-common", 1);
 SCM
 Axis_group_interface::calc_x_common (SCM grob)
 {
   return calc_common (unsmob<Grob> (grob), X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_y_common, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_y_common,
+                      "ly:axis-group-interface::calc-y-common", 1);
 SCM
 Axis_group_interface::calc_y_common (SCM grob)
 {
@@ -967,7 +977,8 @@ Axis_group_interface::skyline_spacing (Grob *me)
   return skylines;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing, 3)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing,
+                      "ly:axis-group-interface::calc-pure-staff-staff-spacing", 3)
 SCM
 Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
@@ -977,7 +988,8 @@ Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM en
                                               scm_to_int (end));
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing,
+                      "ly:axis-group-interface::calc-staff-staff-spacing", 1)
 SCM
 Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {

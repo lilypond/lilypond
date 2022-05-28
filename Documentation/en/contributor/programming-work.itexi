@@ -252,6 +252,30 @@ repository looking for @var{functionName}.  It also presents the results
 of the search using @code{less}, so the results are displayed one page
 at a time.
 
+
+@subsection Using TAGS support
+
+Many programs, including Emacs, ex, vi, and less, provide the
+ability to jump directly to the definition of an identifier based
+on precomputed cross-reference data.  This data is usually
+contained in files named @file{TAGS}, for Emacs, or @file{tags}, for
+vi and other programs.
+
+To generate these cross-reference data files the source code must
+be installed, but it is not necessary to compile LilyPond. Follow
+the instructions found in @rcontrib{Getting the source code}
+through @q{Checking build dependencies}.  Once the
+@command{configure} command has run successfully, invoke the
+following command in the @file{build} directory.
+
+@example
+make TAGS
+@end example
+
+This will create both @file{TAGS} and @file{tags} files in the
+source directory tree.  To enable and use tags in a particular
+program, see the associated program documentation.
+
 @subsection Searching on the git repository at GitLab and Savannah
 
 GitLab's web interface provides a built-in search.
@@ -532,7 +556,6 @@ by a hyphen (@q{-}):
 @verbatim
 scheme-multiword-variable
 @end verbatim
-
 
 @node Broken code
 @subsection Broken code
@@ -1543,19 +1566,6 @@ of the file.  In some cases, this will not be possible, so the
 rule will simply point out to the user that the feature needs
 manual correction.
 
-@subsubheading Updating version numbers
-
-If a development release occurs between you writing your patch and
-having it approved+pushed, you will need to update the version
-numbers in your tree.  This can be done with:
-
-@example
-scripts/auxiliar/update-patch-version old.version.number new.version.number
-@end example
-
-It will change all files in git, so use with caution and examine
-the resulting diff.
-
 
 @node Automatically update documentation
 @subsection Automatically update documentation
@@ -2555,8 +2565,6 @@ Also scm_c_eval_string (), scm_eval ()
 @subheading How do C++ functions get called from Scheme procedures?
 
 Export a C++ function to Scheme with LY_DEFINE.
-
-Editor's note: see @file{lily/include/lily-guile-macros.hh} for details.
 
 @subheading What is the flow of control in the program?
 

@@ -87,13 +87,17 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       && !skys[RIGHT].is_empty ()
       && from_scm<bool> (get_property (me, "space-to-barline")))
     {
-      Grob *bar = Pointer_group_interface::find_grob
-                  (right_col,
-                   ly_symbol2scm ("elements"),
-                   Break_aligned_interface::is_non_empty_staff_bar);
+      Grob *staff_bar_group = nullptr;
+      if (auto *break_alignment
+          = unsmob<Item> (get_object (right_col, "break-alignment")))
+        {
+          staff_bar_group
+            = Break_alignment_interface::find_nonempty_break_align_group
+              (break_alignment, ly_symbol2scm ("staff-bar"));
+        }
 
-      if (bar)
-        ideal -= bar->extent (right_col, X_AXIS)[LEFT];
+      if (staff_bar_group)
+        ideal -= staff_bar_group->extent (right_col, X_AXIS)[LEFT];
       else
         {
           /* Measure ideal distance to the right side of the NonMusical column

@@ -234,8 +234,8 @@ result to prevent jaggies in PNG images.")
                "Create .tex, .texi, .count files for use with
 lilypond-book")
     (backend ps
-             "Select backend.  Possible values: 'eps, 'null,
-'ps, 'scm, 'svg.")
+             "Select backend.  Possible values are 'ps and
+'svg.")
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
     (crop #f
@@ -271,9 +271,6 @@ if not available).")
     (gs-never-embed-fonts #f
                           "Make Ghostscript embed only TrueType fonts and
 no other font format.")
-    (gui #f
-         "Run LilyPond from a GUI and redirect stderr to
-a log file.")
     (help #f
           "Show this help.")
     (help-internal #f
@@ -639,7 +636,8 @@ floating point exceptions.")
     ))
 
 (define-public lilypond-scheme-predicates
-  `((,boolean-or-symbol? . "boolean or symbol")
+  `((,alist? . "association list (list of pairs)")
+    (,boolean-or-symbol? . "boolean or symbol")
     (,color? . "color")
     (,cheap-list? . "list")
     (,fraction? . "fraction, as pair")
@@ -672,6 +670,7 @@ floating point exceptions.")
     (,symbol-list? . "symbol list")
     (,symbol-list-or-music? . "symbol list or music")
     (,symbol-list-or-symbol? . "symbol list or symbol")
+    (,symbol-key-alist? . "alist, with symbols as keys")
     (,void? . "void")
     ))
 
@@ -801,8 +800,6 @@ PIDs or the number of the process."
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
              (ly:exit 0 #t)))
-  (if (ly:get-option 'gui)
-      (gui-main files))
   (if (null? files)
       (begin (ly:usage)
              (ly:exit 2 #t)))
@@ -923,33 +920,3 @@ PIDs or the number of the process."
   (catch 'ly-file-failed
          (lambda () (ly:parse-file file-name))
          (lambda (x . args) (handler x file-name))))
-
-(use-modules (lily editor))
-
-(define-public (gui-main files)
-  (if (null? files)
-      (gui-no-files-handler))
-  (if (not (string? (ly:get-option 'log-file)))
-      (let* ((base (dir-basename (car files) ".ly"))
-             (log-name (string-append base ".log")))
-        (if (not (ly:get-option 'gui))
-            (ly:message (G_ "Redirecting output to ~a...") log-name))
-        (ly:stderr-redirect log-name "w")
-        (ly:message "# -*-compilation-*-"))
-      (let ((failed (lilypond-all files)))
-        (if (pair? failed)
-            (begin
-              (system (get-editor-command log-name 0 0 0))
-              (ly:error (G_ "failed files: ~S") (string-join failed))
-              ;; not reached?
-              (exit 1))
-            (ly:exit 0 #f)))))
-
-(define (gui-no-files-handler)
-  (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
-         ;; FIXME: soft-code, localize
-         (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
-         (cmd (get-editor-command welcome-ly 0 0 0)))
-    (ly:message (G_ "Invoking `~a'...\n") cmd)
-    (system cmd)
-    (ly:exit 1 #f)))

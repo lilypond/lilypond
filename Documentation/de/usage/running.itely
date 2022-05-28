@@ -473,19 +473,6 @@ angegebene Entfernung (in mm).
 @tab @code{#f}
 @tab Lade nur die LilyPond-Schriftarten durch Ghostscript.
 
-@item @code{gui}
-@tab @code{#f}
-@tab Gibt keine Ausgabe auf der Kommandozeile aus, sondern schreibt alles in
-die Log-Datei.
-@end multitable
-
-@noindent
-@strong{Anmerkung für Windows-Benutzer:} Standardmäßig gibt @code{lilypond.exe} alle Fortschrittsinformation auf der Kommandozeile aus;
-@code{lilypond-windows.exe} gibt aber keine Fortschrittinformation aus und
-zeigt sofort den Prompt an.  Die Option @option{-dgui} kann hier benutzt
-werden, um die Ausgabe in eine Log-Datei umzuleiten.
-
-@multitable @columnfractions .33 .16 .51
 @item @code{help}
 @tab @code{#f}
 @tab Zeige die Hilfe.

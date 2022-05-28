@@ -129,7 +129,8 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Cluster, calc_cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Cluster, calc_cross_staff, "ly:cluster::calc-cross-staff",
+                      1);
 SCM
 Cluster::calc_cross_staff (SCM smob)
 {
@@ -141,7 +142,7 @@ Cluster::calc_cross_staff (SCM smob)
   return scm_from_bool (commony != me->get_y_parent ());
 }
 
-MAKE_SCHEME_CALLBACK (Cluster, print, 1);
+MAKE_SCHEME_CALLBACK (Cluster, print, "ly:cluster::print", 1);
 SCM
 Cluster::print (SCM smob)
 {
@@ -239,7 +240,7 @@ public:
   DECLARE_SCHEME_CALLBACK (height, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 1);
+MAKE_SCHEME_CALLBACK (Cluster_beacon, height, "ly:cluster-beacon::height", 1);
 SCM
 Cluster_beacon::height (SCM g)
 {

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "repeats"
@@ -18,11 +18,11 @@ be set using @code{doubleRepeatBarType}.
 } % begin verbatim
 
 \relative c'' {
-  \repeat volta 1 { c1 }
+  \repeat volta 2 { c1 }
   \set Score.doubleRepeatBarType = #":..:"
-  \repeat volta 1 { c1 }
+  \repeat volta 2 { c1 }
   \set Score.doubleRepeatBarType = #":|.|:"
-  \repeat volta 1 { c1 }
+  \repeat volta 2 { c1 }
   \set Score.doubleRepeatBarType = #":|.:"
-  \repeat volta 1 { c1 }
+  \repeat volta 2 { c1 }
 }

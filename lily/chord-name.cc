@@ -26,7 +26,8 @@
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking,
+                      "ly:chord-name::after-line-breaking", 1);
 SCM
 Chord_name::after_line_breaking (SCM smob)
 {

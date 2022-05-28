@@ -28,7 +28,8 @@
 #include "spanner.hh"
 #include "system.hh"
 
-MAKE_SCHEME_CALLBACK (Vowel_transition, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Vowel_transition, set_spacing_rods,
+                      "ly:vowel-transition::set-spacing-rods", 1);
 SCM
 Vowel_transition::set_spacing_rods (SCM smob)
 {

@@ -107,7 +107,7 @@ Sources::~Sources ()
 #include "lily-imports.hh"
 #include "fluid.hh"
 
-LY_DEFINE (ly_source_files, 0, 1, 0,
+LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
            (SCM parser_smob),
            R"(
 Return a list of input files that have been opened up to here, including the

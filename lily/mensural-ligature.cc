@@ -270,7 +270,8 @@ internal_brew_primitive (Grob *me)
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Mensural_ligature, brew_ligature_primitive, 1);
+MAKE_SCHEME_CALLBACK (Mensural_ligature, brew_ligature_primitive,
+                      "ly:mensural-ligature::brew-ligature-primitive", 1);
 SCM
 Mensural_ligature::brew_ligature_primitive (SCM smob)
 {
@@ -278,7 +279,7 @@ Mensural_ligature::brew_ligature_primitive (SCM smob)
   return internal_brew_primitive (me).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Mensural_ligature, print, 1);
+MAKE_SCHEME_CALLBACK (Mensural_ligature, print, "ly:mensural-ligature::print", 1);
 SCM
 Mensural_ligature::print (SCM)
 {

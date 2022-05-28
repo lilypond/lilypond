@@ -26,7 +26,7 @@
 
 using std::string;
 
-MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, 1);
+MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, "ly:clef::calc-glyph-name", 1);
 SCM
 Clef::calc_glyph_name (SCM smob)
 {
@@ -51,7 +51,7 @@ Clef::calc_glyph_name (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Clef, print, 1)
+MAKE_SCHEME_CALLBACK (Clef, print, "ly:clef::print", 1)
 SCM
 Clef::print (SCM smob)
 {

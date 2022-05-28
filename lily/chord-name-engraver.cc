@@ -42,7 +42,7 @@ protected:
   void process_music ();
   void finalize () override;
   void listen_note (Stream_event *);
-  void listen_rest (Stream_event *);
+  void listen_general_rest (Stream_event *);
 private:
   vector<Stream_event *> notes_;
 
@@ -153,7 +153,7 @@ Chord_name_engraver::listen_note (Stream_event *ev)
 }
 
 void
-Chord_name_engraver::listen_rest (Stream_event *ev)
+Chord_name_engraver::listen_general_rest (Stream_event *ev)
 {
   assign_event_once (rest_event_, ev);
 }
@@ -173,7 +173,7 @@ void
 Chord_name_engraver::boot ()
 {
   ADD_LISTENER (Chord_name_engraver, note);
-  ADD_LISTENER (Chord_name_engraver, rest);
+  ADD_LISTENER (Chord_name_engraver, general_rest);
 }
 
 ADD_TRANSLATOR (Chord_name_engraver,

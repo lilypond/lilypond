@@ -112,7 +112,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
 Open_type_font *
 All_font_metrics::find_otf (const string &name)
 {
-  SCM sname = ly_symbol2scm (name.c_str ());
+  SCM sname = ly_symbol2scm (name);
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {

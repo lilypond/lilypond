@@ -73,10 +73,11 @@
     (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
     (rhythmic-event . (lyric-event
-                       melodic-event multi-measure-rest-event
+                       melodic-event general-rest-event
                        double-percent-event percent-event
-                       repeat-slash-event rest-event
+                       repeat-slash-event
                        skip-event bass-figure-event))
+    (general-rest-event . (rest-event multi-measure-rest-event))
     (melodic-event . (cluster-note-event note-event))
     (() . (Announcement))
     (Announcement . (AnnounceNewContext))

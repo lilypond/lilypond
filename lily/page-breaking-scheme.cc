@@ -25,7 +25,7 @@
 #include "optimal-page-breaking.hh"
 #include "minimal-page-breaking.hh"
 
-LY_DEFINE (ly_page_turn_breaking,
+LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Optimally break (pages and lines) the @code{Paper_book} object @var{pb} such
@@ -36,7 +36,7 @@ that page turns only happen in specified places, returning its pages.
   return b.solve ();
 }
 
-LY_DEFINE (ly_optimal_breaking,
+LY_DEFINE (ly_optimal_breaking, "ly:optimal-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Optimally break (pages and lines) the @code{Paper_book} object @var{pb} to
@@ -47,7 +47,7 @@ minimize badness for both vertical and horizontal spacing.
   return b.solve ();
 }
 
-LY_DEFINE (ly_minimal_breaking,
+LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Break (pages and lines) the @code{Paper_book} object @var{pb} without looking
@@ -59,7 +59,7 @@ one.
   return b.solve ();
 }
 
-LY_DEFINE (ly_one_page_breaking,
+LY_DEFINE (ly_one_page_breaking, "ly:one-page-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Put each score on a single page.  The @code{paper-height} settings are modified
@@ -71,7 +71,7 @@ of the full score.
   return b.solve ();
 }
 
-LY_DEFINE (ly_one_line_breaking,
+LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Put each score on a single line, and put each line on its own page.  Modify the
@@ -82,7 +82,7 @@ Put each score on a single line, and put each line on its own page.  Modify the
   return b.solve ();
 }
 
-LY_DEFINE (ly_one_line_auto_height_breaking,
+LY_DEFINE (ly_one_line_auto_height_breaking, "ly:one-line-auto-height-breaking",
            1, 0, 0, (SCM pb),
            R"(
 Put each score on a single line, and put each line on its own page.  Modify the

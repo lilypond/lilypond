@@ -4537,12 +4537,27 @@ should be updated.
 
 @rule((2, 23, 9), r"""
 ly:percent-repeat-item-interface::xxx -> ly:percent-repeat-interface::xxx
+automaticBars -> measureBarType
 """)
 def conv(s):
     s = re.sub(r"ly:percent-repeat-item-interface::", "ly:percent-repeat-interface::", s)
     if "PercentRepeat.X-offset" in s:
         stderr_write(NOT_SMART % "PercentRepeat.X-offset")
         stderr_write(percent_x_off_warning)
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
+@rule((2, 23, 10), r"""
+automaticBars = ##f -> measureBarType = #'()
+""")
+def conv(s):
+    s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
+    if "automaticBars" in s:
+        stderr_write(NOT_SMART % "advanced use of automaticBars")
+        stderr_write("""
+The automaticBars property has been removed.  Instead, set
+measureBarType to #'() or a valid bar type.
+""")
         stderr_write(UPDATE_MANUALLY)
     return s
 

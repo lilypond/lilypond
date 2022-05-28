@@ -486,23 +486,22 @@ chordmusic = \relative {
 @cindex N.C. symbol
 @cindex indicating No Chord in @code{ChordNames}
 
-Rests passed to a @code{ChordNames} context will cause the
-@code{noChordSymbol} markup to be displayed.
+When passed to a @code{ChordNames} context, rests (including
+multi-measure rests) cause the text @qq{N.C.} (@emph{No Chord}) to
+be displayed.
 
 @lilypond[verbatim,quote]
+myChords = \chordmode {
+  c1
+  r1
+  g1
+  R1
+  c1
+}
+
 <<
-  \new ChordNames \chordmode {
-    c1
-    r1
-    g1
-    c1
-  }
-  \chordmode {
-    c1
-    r1
-    g1
-    c1
-  }
+  \new ChordNames \myChords
+  \new Staff \myChords
 >>
 @end lilypond
 
@@ -541,6 +540,12 @@ Rests passed to a @code{ChordNames} context will cause the
 @cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/simple-lead-sheet.ly}
+
+@funindex noChordSymbol
+@cindex no-chord symbol, customizing
+@cindex N.C. symbol, customizing
+@lilypondfile[verbatim,quote,ragged-right,texidoc, doctitle]
+{snippets/customizing-the-no-chord-symbol.ly}
 
 @morerefs
 Music Glossary:

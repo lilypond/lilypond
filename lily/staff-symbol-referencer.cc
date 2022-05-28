@@ -122,7 +122,8 @@ Staff_symbol_referencer::pure_get_rounded_position (Grob *me)
   return int (rint (pure_get_position (me)));
 }
 
-MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);
+MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback,
+                      "ly:staff-symbol-referencer::callback", 1);
 SCM
 Staff_symbol_referencer::callback (SCM smob)
 {

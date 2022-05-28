@@ -40,7 +40,7 @@ SCM add_interface (char const *cxx_name,
   if (lispy_name.substr (end) != suffix)
     lispy_name += suffix;
 
-  SCM s = ly_symbol2scm (lispy_name.c_str ());
+  SCM s = ly_symbol2scm (lispy_name);
   SCM d = scm_from_utf8_string (descr);
   SCM l = parse_symbol_list (vars);
 

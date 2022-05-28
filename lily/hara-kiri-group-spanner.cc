@@ -31,7 +31,8 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent,
+                      "ly:hara-kiri-group-spanner::y-extent", 1);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM smob)
 {
@@ -40,7 +41,8 @@ Hara_kiri_group_spanner::y_extent (SCM smob)
   return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, calc_skylines, 1);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, calc_skylines,
+                      "ly:hara-kiri-group-spanner::calc-skylines", 1);
 SCM
 Hara_kiri_group_spanner::calc_skylines (SCM smob)
 {
@@ -49,7 +51,8 @@ Hara_kiri_group_spanner::calc_skylines (SCM smob)
   return Axis_group_interface::calc_skylines (smob);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height,
+                      "ly:hara-kiri-group-spanner::pure-height", 3);
 SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
@@ -169,7 +172,8 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 1);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback,
+                      "ly:hara-kiri-group-spanner::force-hara-kiri-callback", 1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
 {
@@ -178,7 +182,9 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback, 1);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback,
+                      "ly:hara-kiri-group-spanner::force-hara-kiri-in-y-parent-callback",
+                      1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {

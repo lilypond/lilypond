@@ -42,19 +42,56 @@ protected:
   // A centered bar number.
   Spanner *span_ = nullptr;
   bool considered_numbering_ = false;
-  // There is no bar line at the beginning of the piece,
-  // but we want to allow a bar number nevertheless.
-  bool must_consider_numbering_ = true;
+  // There is no bar line at the beginning of the piece, and a break
+  // isn't allowed either, but we want to allow a bar number
+  // nevertheless, so initialize to true.
+  bool saw_bar_line_ = true;
+  // Store the value read in process-music in a local member so that
+  // we can reuse it in stop-translation-timestep.  This avoids a
+  // dependency on engraver order, since the Paper_column_engraver
+  // unsets forbidBreak in stop-translation-timestep.
+  bool break_allowed_now_;
 
 protected:
+  void process_music ();
   void stop_translation_timestep ();
   void create_bar_number (SCM);
+  void consider_creating_bar_number ();
   void acknowledge_bar_line (Grob_info_t<Item>);
   void process_acknowledged ();
-  void consider_numbering ();
   int get_alt_number ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
+
+/* Allow a bar number if any of these conditions is met:
+
+   - there is a bar line,
+   - there is a break point,
+   - we are at the start of the piece.
+
+   We must allow bar numbers at breaks without bar lines (created
+   with explicit \break or \allowBreak) so that there can be a
+   parenthesized bar number at the start of the line.  We won't know
+   breaks until way later, so we need to create a bar number now.
+   We must also allow bar numbers at bar lines without a break point
+   since \noBreak should not influence bar numbers.  However, if we
+   did nothing more, \allowBreak wouln't play well with
+
+     \set Score.barNumberVisibility = #all-bar-numbers-visible
+     \override Score.BarNumber.break-visibility = #all-visible
+
+   as that will create bar numbers at all allowed break points.  The
+   strategy here is that if a bar number was created only because a
+   break is allowed and not because of a bar line, its only reason to
+   exist is the break, so it shouldn't be printed if the break point
+   eventually doesn't end up as a break.  Thus, we set the middle
+   component of the resulting bar number's break-visibility to false
+   in this specific case.
+
+   In centerBarNumbers mode, the spanner will be automatically broken,
+   so there is no need to restart a spanner at a break point without a
+   bar line.  Nor should we do it, as it can't be suppressed with
+   break-visibility. */
 
 void
 Bar_number_engraver::create_bar_number (SCM text)
@@ -74,45 +111,53 @@ Bar_number_engraver::create_bar_number (SCM text)
 }
 
 void
-Bar_number_engraver::process_acknowledged ()
+Bar_number_engraver::consider_creating_bar_number ()
 {
-  if (!considered_numbering_ && must_consider_numbering_)
+  considered_numbering_ = true;
+
+  // Time to terminate the previous spanner if applicable.
+  if (span_)
     {
-      considered_numbering_ = true;
+      span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      announce_end_grob (span_, SCM_EOL);
+      span_ = nullptr;
+    }
 
-      // Time to terminate the previous spanner if applicable.
-      if (span_)
+  SCM vis_p = get_property (this, "barNumberVisibility");
+  if (ly_is_procedure (vis_p))
+    {
+      SCM bn = get_property (this, "currentBarNumber");
+      if (scm_is_number (bn))
         {
-          span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
-          announce_end_grob (span_, SCM_EOL);
-          span_ = nullptr;
-        }
+          const auto mp (from_scm (get_property (this, "measurePosition"),
+                                   Moment (0)));
 
-      SCM vis_p = get_property (this, "barNumberVisibility");
-      if (ly_is_procedure (vis_p))
-        {
-          SCM bn = get_property (this, "currentBarNumber");
-          if (scm_is_number (bn))
+          if (from_scm<bool> (scm_call_2 (vis_p, bn, mp.smobbed_copy ())))
             {
-              const auto mp (from_scm (get_property (this, "measurePosition"),
-                                       Moment (0)));
-
-              if (from_scm<bool> (scm_call_2 (vis_p, bn, mp.smobbed_copy ())))
+              SCM formatter = get_property (this, "barNumberFormatter");
+              SCM formatted_text = SCM_EOL;
+              if (ly_is_procedure (formatter))
                 {
-                  SCM formatter = get_property (this, "barNumberFormatter");
-                  SCM formatted_text = SCM_EOL;
-                  if (ly_is_procedure (formatter))
-                    {
-                      formatted_text = scm_call_4 (formatter,
-                                                   bn,
-                                                   mp.smobbed_copy (),
-                                                   to_scm (get_alt_number () - 1),
-                                                   context ()->self_scm ());
-                    }
-                  create_bar_number (formatted_text);
+                  formatted_text = scm_call_4 (formatter,
+                                               bn,
+                                               mp.smobbed_copy (),
+                                               to_scm (get_alt_number () - 1),
+                                               context ()->self_scm ());
                 }
+              create_bar_number (formatted_text);
             }
         }
+    }
+}
+
+void
+Bar_number_engraver::process_music ()
+{
+  break_allowed_now_ = break_allowed (context ());
+  if (break_allowed_now_
+      && scm_is_false (get_property (context (), "centerBarNumbers")))
+    {
+      consider_creating_bar_number ();
     }
 }
 
@@ -124,20 +169,47 @@ Bar_number_engraver::Bar_number_engraver (Context *c)
 void
 Bar_number_engraver::acknowledge_bar_line (Grob_info_t<Item>)
 {
-  must_consider_numbering_ = true;
+  saw_bar_line_ = true;
+}
+
+void
+Bar_number_engraver::process_acknowledged ()
+{
+  if (!considered_numbering_ && saw_bar_line_)
+    consider_creating_bar_number ();
 }
 
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
-  considered_numbering_ = false;
-  must_consider_numbering_ = false;
   if (text_)
     {
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
+
+    if (break_allowed_now_
+        && !saw_bar_line_
+        && scm_is_false (get_property (context (), "centerBarNumbers")))
+      {
+        SCM bk_vis = get_property (text_, "break-visibility");
+        if (!scm_is_vector (bk_vis))
+          {
+            // The general default for break-visibility is all-visible.
+            bk_vis = scm_c_make_vector (3, SCM_BOOL_T);
+          }
+        else
+          {
+            bk_vis = scm_vector_copy (bk_vis);
+          }
+        scm_c_vector_set_x (bk_vis, 1, SCM_BOOL_F);
+        set_property (text_, "break-visibility", bk_vis);
+      }
+
       text_ = nullptr;
     }
+
+  considered_numbering_ = false;
+  saw_bar_line_ = false;
 }
 
 int
@@ -194,6 +266,8 @@ barNumberVisibility
 centerBarNumbers
 currentBarNumber
 currentCommandColumn
+forbidBreak
+forceBreak
 measurePosition
 stavesFound
                 )",

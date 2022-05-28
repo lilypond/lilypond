@@ -96,21 +96,27 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
   Align_interface::add_element (me, toadd);
 }
 
-// Find the BreakAlignGroup with the given break-align-symbol (nullptr
-// if there is none).
+// Find the BreakAlignGroup with the given break-align-symbol.  Return nullptr
+// if there is no such group.  Also return nullptr if the group has empty
+// X-extent, which can happen if it contains only omitted items.
 Grob *
-Break_alignment_interface::get_break_align_group (Grob *me, SCM break_align_sym)
+Break_alignment_interface::find_nonempty_break_align_group (Item *me,
+                                                            SCM break_align_sym)
 {
+  SCM property_sym = ly_symbol2scm ("break-align-symbol");
   extract_grob_set (me, "elements", elts);
   for (Grob *group : elts)
-    if (scm_is_eq (get_property (group, "break-align-symbol"), break_align_sym))
-      return group;
+    {
+      if (scm_is_eq (get_property (group, property_sym), break_align_sym))
+        return !group->extent (group, X_AXIS).is_empty () ? group : nullptr;
+    }
   return nullptr;
 }
 
 /* Main routine to space breakable items in one column
    according to space-alist specifications. */
-MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done,
+                      "ly:break-alignment-interface::calc-positioning-done", 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
 {
@@ -270,7 +276,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent,
+                      "ly:break-alignable-interface::find-parent", 1)
 SCM
 Break_alignable_interface::find_parent (SCM grob)
 {
@@ -318,7 +325,8 @@ Break_alignable_interface::find_parent (Grob *me)
   return break_aligned_grob;
 }
 
-MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback,
+                      "ly:break-alignable-interface::self-align-callback", 1)
 SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
@@ -335,7 +343,8 @@ Break_alignable_interface::self_align_callback (SCM grob)
                  + anchor);
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor,
+                      "ly:break-aligned-interface::calc-average-anchor", 1)
 SCM
 Break_aligned_interface::calc_average_anchor (SCM grob)
 {
@@ -394,7 +403,9 @@ Break_aligned_interface::calc_average_anchor (Grob *me)
   return 0;
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment,
+                      "ly:break-aligned-interface::calc-joint-anchor-alignment",
+                      1)
 SCM
 Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
 {
@@ -432,7 +443,8 @@ Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
   return direction;
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor,
+                      "ly:break-aligned-interface::calc-extent-aligned-anchor", 1)
 SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
@@ -446,7 +458,8 @@ Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
   return to_scm (iv.linear_combination (alignment));
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility,
+                      "ly:break-aligned-interface::calc-break-visibility", 1)
 SCM
 Break_aligned_interface::calc_break_visibility (SCM smob)
 {
@@ -466,14 +479,6 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
       scm_c_vector_set_x (ret, dir, scm_from_bool (visible));
     }
   return ret;
-}
-
-bool Break_aligned_interface::is_non_empty_staff_bar (const Grob *me)
-{
-  return me
-         && scm_is_eq (get_property (me, "break-align-symbol"),
-                       ly_symbol2scm ("staff-bar"))
-         && !me->extent (me, X_AXIS).is_empty ();
 }
 
 ADD_INTERFACE (Break_alignment_interface,

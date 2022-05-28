@@ -73,7 +73,8 @@ Partial_iterator::process (Moment m)
 
 IMPLEMENT_CTOR_CALLBACK (Partial_iterator);
 
-MAKE_SCHEME_CALLBACK (Partial_iterator, finalization, 2);
+MAKE_SCHEME_CALLBACK (Partial_iterator, finalization,
+                      "ly:partial-iterator::finalization", 2);
 SCM
 Partial_iterator::finalization (SCM timing_scm, SCM length_scm)
 {

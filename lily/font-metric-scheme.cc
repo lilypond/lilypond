@@ -23,7 +23,7 @@
 #include "stencil.hh"
 #include "modified-font-metric.hh"
 
-LY_DEFINE (ly_font_get_glyph,
+LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
            2, 0, 0,
            (SCM font, SCM name),
            R"(
@@ -45,7 +45,7 @@ and @code{fetaBraces}, respectively.
   return m.smobbed_copy ();
 }
 
-LY_DEFINE (ly_font_glyph_name_to_index,
+LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
            2, 0, 0,
            (SCM font, SCM name),
            R"(
@@ -67,7 +67,7 @@ and @code{fetaBraces}, respectively.
     return to_scm (-1);
 }
 
-LY_DEFINE (ly_font_index_to_charcode,
+LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
            2, 0, 0,
            (SCM font, SCM index),
            R"(
@@ -88,7 +88,7 @@ and @code{fetaBraces}, respectively.
   return to_scm (charcode);
 }
 
-LY_DEFINE (ly_font_glyph_name_to_charcode,
+LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
            2, 0, 0,
            (SCM font, SCM name),
            R"(
@@ -109,7 +109,7 @@ and @code{fetaBraces}, respectively.
 /*
   TODO: when are non string retvals allowed?
  */
-LY_DEFINE (ly_font_file_name,
+LY_DEFINE (ly_font_file_name, "ly:font-file-name",
            1, 0, 0,
            (SCM font),
            R"(
@@ -123,7 +123,7 @@ Given the font metric @var{font}, return the corresponding file name.
   return name;
 }
 
-LY_DEFINE (ly_font_name,
+LY_DEFINE (ly_font_name, "ly:font-name",
            1, 0, 0,
            (SCM font),
            R"(
@@ -135,7 +135,7 @@ Given the font metric @var{font}, return the corresponding name.
   return ly_string2scm (fm->font_name ());
 }
 
-LY_DEFINE (ly_font_magnification, 1, 0, 0,
+LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
            (SCM font),
            R"(
 Given the font metric @var{font}, return the magnification, relative to the
@@ -147,7 +147,7 @@ current @code{output-scale}.
   return to_scm (fm->magnification ());
 }
 
-LY_DEFINE (ly_font_design_size, 1, 0, 0,
+LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
            (SCM font),
            R"(
 Given the font metric @var{font}, return the design size, relative to the

@@ -690,20 +690,6 @@ gli altri font sono generati normalmente.  Predefinito: @code{#f}.
 Se @var{bool} è @code{#t}, fa sì che Ghostscript incorpori solo i font TrueType
 e nessun altro formato per font.  Predefinito: @code{#f}.
 
-@item @code{gui}
-@var{bool}
-Se @var{bool} è @code{#t}, esegue LilyPond senza stampare messaggi e redirige
-tutto l'output in un file di log.
-
-Predefinito: @code{#f}.
-
-@strong{Nota per gli utenti Windows:} per impostazione predefinita,
-@file{lilypond.exe} stampa tutta l'informazione sull'avanzamento nella
-finestra dei comandi, mentre @file{lilypond-windows.exe} non lo fa e
-riporta un prompt, privo di informazioni sull'avanzamento, subito nella
-linea di comando.  L'opzione @option{-dgui} può essere usata in questo
-caso per redirigere l'output in un file di log.
-
 @item @code{help}
 @var{bool}
 Se @var{bool} è @code{#t}, mostra questo aiuto.  Predefinito: @code{#f}.

@@ -981,3 +981,12 @@ check_repeat_count_visibility (Context const *context, SCM count)
                                          count,
                                          context->self_scm ())));
 }
+
+bool
+break_allowed (Context const *ctx)
+{
+  // A break is allowed if nothing prevented it, or if the user
+  // explicitly requested it.
+  return (!from_scm<bool> (get_property (ctx, "forbidBreak"))
+          || from_scm<bool> (get_property (ctx, "forceBreak")));
+}

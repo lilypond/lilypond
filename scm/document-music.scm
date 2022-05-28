@@ -47,14 +47,12 @@
         ""))
 
 (define (music-type-doc entry)
-  (let* ((accept-list (human-listify
-                       (map ref-ify
-                            (map symbol->string
-                                 (map ly:translator-name
-                                      (filter
-                                       (lambda (x)
-                                         (engraver-accepts-music-type? (car entry) x))
-                                       all-engravers-list)))))))
+  (let* ((accept-list (list-xref-symbols
+                       (map ly:translator-name
+                            (filter
+                             (lambda (x)
+                               (engraver-accepts-music-type? (car entry) x))
+                             all-engravers-list)))))
     (make <texi-node>
       #:code-tag #t
       #:name (symbol->string (car entry))
@@ -64,9 +62,7 @@
        "\nMusic event type @code{"
        (symbol->string (car entry))
        "} is in music objects of type "
-       (human-listify
-        (map ref-ify (sort (map symbol->string (cdr entry))
-                           ly:string-ci<?)))
+       (list-xref-symbols (cdr entry))
        "."
 
        "\n\n"
@@ -92,22 +88,18 @@
          (class (ly:camel-case->lisp-identifier namesym))
          (classes (ly:make-event-class class))
          (accept-list (if classes
-                          (human-listify
-                           (map ref-ify
-                                (map symbol->string
-                                     (map ly:translator-name
-                                          (filter
-                                           (lambda (x)
-                                             (engraver-accepts-music-types? classes x))
-                                           all-engravers-list)))))
+                          (list-xref-symbols
+                           (map ly:translator-name
+                                (filter
+                                 (lambda (x)
+                                   (engraver-accepts-music-types? classes x))
+                                 all-engravers-list)))
                           ""))
          (event-texi (if classes
                          (string-append
                           "\n\n@raggedRight\n"
                           "Event classes:\n"
-                          (human-listify
-                           (map ref-ify (sort (map symbol->string classes)
-                                              ly:string-ci<?)))
+                          (list-xref-symbols classes)
                           "."
 
                           "\n\n"

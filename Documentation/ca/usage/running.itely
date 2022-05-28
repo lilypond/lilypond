@@ -461,22 +461,6 @@ sortida en la quantitat donada (en mm).
 @tab Carrega sols els tipus de lletra del LilyPond per mitjà del
 Ghostscript.
 
-@item @code{gui}
-@tab @code{#f}
-@tab S'executa silenciosament i es redirigeix tota la sortida a un
-fitxer de registre.
-@end multitable
-
-@noindent
-@strong{Nota per als usuaris del Windows:} De manera predeterminada,
-@code{lilypond.exe} dirigeix tota la sortida de la informació
-d'avenç cap a la finestra de consola, @code{lilypond-windows.exe}
-no ho fa i retorna un indicador del sistema, sense cap indicació
-d'avenç, immediatament en la línia d'ordres.  L'opció
-@option{-dgui} es pot usar en aquest cas per redirigir la sortida
-a un fitxer de registre.
-
-@multitable @columnfractions .33 .16 .51
 @item @code{help}
 @tab @code{#f}
 @tab Mostra aquesta ajuda

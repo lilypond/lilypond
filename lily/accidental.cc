@@ -48,7 +48,8 @@ parenthesize (Grob *me, Stencil m)
   return m;
 }
 
-MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines, 1);
+MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines,
+                      "ly:accidental-interface::horizontal-skylines", 1);
 SCM
 Accidental_interface::horizontal_skylines (SCM smob)
 {
@@ -89,7 +90,8 @@ Accidental_interface::horizontal_skylines (SCM smob)
   return to_scm (sky);
 }
 
-MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
+MAKE_SCHEME_CALLBACK (Accidental_interface, height,
+                      "ly:accidental-interface::height", 1);
 SCM
 Accidental_interface::height (SCM smob)
 {
@@ -104,7 +106,8 @@ Accidental_interface::height (SCM smob)
   return Grob::stencil_height (smob);
 }
 
-MAKE_SCHEME_CALLBACK (Accidental_interface, remove_tied, 1);
+MAKE_SCHEME_CALLBACK (Accidental_interface, remove_tied,
+                      "ly:accidental-interface::remove-tied", 1);
 SCM
 Accidental_interface::remove_tied (SCM smob)
 {
@@ -120,7 +123,8 @@ Accidental_interface::remove_tied (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Accidental_interface, print,
+                      "ly:accidental-interface::print", 1);
 SCM
 Accidental_interface::print (SCM smob)
 {

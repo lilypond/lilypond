@@ -34,7 +34,7 @@ internal_add_interface (SCM a, SCM b, SCM c)
   scm_hashq_set_x (all_ifaces, a, entry);
 }
 
-LY_DEFINE (ly_add_interface,
+LY_DEFINE (ly_add_interface, "ly:add-interface",
            3, 0, 0, (SCM iface, SCM desc, SCM props),
            R"(
 Add a new grob interface.  @var{iface} is the interface name, @var{desc} is the
@@ -51,7 +51,7 @@ for the interface.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_all_grob_interfaces,
+LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
            0, 0, 0, (),
            R"(
 Return the hash table with all grob interface descriptions.

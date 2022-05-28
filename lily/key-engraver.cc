@@ -48,7 +48,6 @@ protected:
 
   void listen_key_change (Stream_event *);
   void acknowledge_clef (Grob_info);
-  void acknowledge_bar_line (Grob_info_t<Item>);
 };
 
 void
@@ -139,14 +138,13 @@ Key_engraver::acknowledge_clef (Grob_info /* info */)
 }
 
 void
-Key_engraver::acknowledge_bar_line (Grob_info_t<Item> /* info */)
-{
-  create_key (true);
-}
-
-void
 Key_engraver::process_music ()
 {
+  // Efficiency: don't create a KeySignature where it would not be
+  // visible anyway.
+  if (break_allowed (context ()))
+    create_key (true);
+
   if (key_event_
       || !scm_is_eq (get_property (this, "lastKeyAlterations"),
                      get_property (this, "keyAlterations")))
@@ -219,7 +217,6 @@ Key_engraver::boot ()
 {
   ADD_LISTENER (Key_engraver, key_change);
   ADD_ACKNOWLEDGER (Key_engraver, clef);
-  ADD_ACKNOWLEDGER (Key_engraver, bar_line);
 }
 
 ADD_TRANSLATOR (Key_engraver,
@@ -239,6 +236,8 @@ KeySignature
 createKeyOnClefChange
 explicitKeySignatureVisibility
 extraNatural
+forbidBreak
+forceBreak
 keyAlterationOrder
 keyAlterations
 lastKeyAlterations

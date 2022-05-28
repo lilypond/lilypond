@@ -181,7 +181,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
       return Interval (coord);
     }
 
-  Grob *break_alignment = unsmob<Grob> (get_object (me, "break-alignment"));
+  auto *break_alignment = unsmob<Item> (get_object (me, "break-alignment"));
   if (!break_alignment)
     return Interval (coord);
 
@@ -191,17 +191,17 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
       if (scm_is_eq (align_sym, ly_symbol2scm ("break-alignment")))
         {
           align = break_alignment;
-          // No need for an X-extent check like below: if the whole BreakAlignment
-          // has empty extent, none of its BreakAlignGroups will have non-empty extent.
+          // No need for an X-extent check: if the whole BreakAlignment has
+          // empty extent, none of its BreakAlignGroups will have non-empty
+          // extent.
           break;
         }
       else
         {
-          Grob *group = Break_alignment_interface::get_break_align_group
-                          (break_alignment, align_sym);
-          // The group might contain omitted items.  In this case, we try the
-          // other break align symbols.
-          if (group && !group->extent (group, X_AXIS).is_empty ())
+          Grob *group
+            = Break_alignment_interface::find_nonempty_break_align_group
+              (break_alignment, align_sym);
+          if (group)
             {
               align = group;
               break;
@@ -219,7 +219,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return ext + coord;
 }
 
-LY_DEFINE (ly_paper_column__break_align_width,
+LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
            2, 0, 0, (SCM col, SCM align_syms),
            R"(
 
@@ -287,7 +287,7 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, "ly:paper-column::print", 1,
                                  "Optional stencil for @code{PaperColumn} or"
                                  " @code{NonMusicalPaperColumn}."
                                  "  Draws the @dfn{rank number} of each column,"

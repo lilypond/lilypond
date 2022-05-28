@@ -33,7 +33,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_parse_file,
+LY_DEFINE (ly_parse_file, "ly:parse-file",
            1, 0, 0, (SCM name),
            R"(
 Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
@@ -52,14 +52,12 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
-  if (!from_scm<bool> (ly_get_option (ly_symbol2scm ("gui")))
-      && from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
+  if (from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
     {
       out_file_name.dir_ = "";
       out_file_name.is_absolute_ = false;
     }
 
-  /* When running from gui, generate output in .ly source directory.  */
   string output_name = output_name_global;
   if (!output_name.empty ())
     {
@@ -140,7 +138,7 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parse_init, 1, 0, 0, (SCM name),
+LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
            R"(
 Parse the init file @var{name}.
            )")
@@ -171,7 +169,7 @@ Parse the init file @var{name}.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_clone,
+LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            0, 2, 0, (SCM closures, SCM location),
            R"(
 Return a clone of current parser.  An association list of port positions to
@@ -192,7 +190,7 @@ is a valid location, it becomes the source of all music expressions inside.
   return clone->unprotect ();
 }
 
-LY_DEFINE (ly_parser_define_x,
+LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
            2, 0, 0, (SCM symbol, SCM val),
            R"(
 Bind @var{symbol} to @var{val} in current parser's module.
@@ -207,7 +205,7 @@ Bind @var{symbol} to @var{val} in current parser's module.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_lookup,
+LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
            1, 0, 0, (SCM symbol),
            R"(
 Look up @var{symbol} in current parser's module.  Return @code{'()} if not
@@ -226,7 +224,7 @@ defined.
     return SCM_EOL;
 }
 
-LY_DEFINE (ly_parser_parse_string,
+LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
            2, 0, 0, (SCM parser_smob, SCM ly_code),
            R"(
 Parse the string @var{ly-code} with @var{parser-smob}.  Upon failure, throw
@@ -245,7 +243,7 @@ Parse the string @var{ly-code} with @var{parser-smob}.  Upon failure, throw
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parse_string_expression,
+LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
            2, 2, 0, (SCM parser_smob, SCM ly_code, SCM filename,
                      SCM line),
            R"(
@@ -278,7 +276,7 @@ indicators.
                                           fn, ln);
 }
 
-LY_DEFINE (ly_parser_include_string,
+LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            1, 0, 0, (SCM ly_code),
            R"(
 Include the string @var{ly-code} into the input stream for current parser.  Can
@@ -295,7 +293,7 @@ only be used in immediate Scheme expressions (@code{$} instead of @code{#}).
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_set_note_names,
+LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
            1, 0, 0, (SCM names),
            R"(
 Replace current note names in parser.  @var{names} is an alist of symbols.
@@ -315,7 +313,7 @@ This only has effect if the current mode is notes.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_output_name,
+LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
            0, 1, 0, (SCM parser),
            R"(
 Return the base name of the output file.  If @var{parser} is left off, use
@@ -330,7 +328,7 @@ currently active parser.
   return ly_string2scm (p->output_basename_);
 }
 
-LY_DEFINE (ly_parser_error,
+LY_DEFINE (ly_parser_error, "ly:parser-error",
            1, 1, 0, (SCM msg, SCM input),
            R"(
 Display an error message and make current parser fail.  Without a current
@@ -362,7 +360,7 @@ parser, trigger an ordinary error.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_clear_error,
+LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
            0, 1, 0, (SCM parser),
            R"(
 Clear error flag for @var{parser}, defaulting to current parser.
@@ -379,7 +377,7 @@ Clear error flag for @var{parser}, defaulting to current parser.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_has_error_p,
+LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
            0, 1, 0, (SCM parser),
            R"(
 Does @var{parser} (defaulting to current parser) have an error flag?

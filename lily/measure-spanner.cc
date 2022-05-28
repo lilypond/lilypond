@@ -27,7 +27,8 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 
-MAKE_SCHEME_CALLBACK (Measure_spanner, calc_connect_to_neighbors, 1);
+MAKE_SCHEME_CALLBACK (Measure_spanner, calc_connect_to_neighbors,
+                      "ly:measure-spanner::calc-connect-to-neighbors", 1);
 SCM
 Measure_spanner::calc_connect_to_neighbors (SCM smob)
 {
@@ -57,7 +58,7 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
   return SCM_EOL;
 }
 
-MAKE_SCHEME_CALLBACK (Measure_spanner, print, 1);
+MAKE_SCHEME_CALLBACK (Measure_spanner, print, "ly:measure-spanner::print", 1);
 SCM
 Measure_spanner::print (SCM smob)
 {

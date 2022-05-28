@@ -297,7 +297,8 @@ make_music_by_name (SCM sym)
   return m;
 }
 
-MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
+MAKE_SCHEME_CALLBACK (Music, duration_length_callback,
+                      "ly:music::duration-length-callback", 1);
 SCM
 Music::duration_length_callback (SCM m)
 {

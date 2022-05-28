@@ -1,0 +1,3 @@
+# Overwrite the top-level ignore in this directory to include the test
+# ottavation-markups-midi.ly, but not the generated files in in midi/.
+!/*-midi.ly

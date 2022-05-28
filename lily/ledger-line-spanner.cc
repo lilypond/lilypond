@@ -64,7 +64,8 @@ set_rods (Drul_array<Interval> const &current_extents,
     }
 }
 
-MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods,
+                      "ly:ledger-line-spanner::set-spacing-rods", 1);
 SCM
 Ledger_line_spanner::set_spacing_rods (SCM smob)
 {
@@ -182,7 +183,8 @@ typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
   TODO: ledger share a lot of info. Lots of room to optimize away
   common use of objects/variables.
 */
-MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
+MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, "ly:ledger-line-spanner::print",
+                      1);
 SCM
 Ledger_line_spanner::print (SCM smob)
 {

@@ -40,7 +40,8 @@ struct Key_signature_interface
   TODO
   - space the `natural' signs wider
 */
-MAKE_SCHEME_CALLBACK (Key_signature_interface, print, 1);
+MAKE_SCHEME_CALLBACK (Key_signature_interface, print,
+                      "ly:key-signature-interface::print", 1);
 SCM
 Key_signature_interface::print (SCM smob)
 {

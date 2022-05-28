@@ -34,7 +34,7 @@
 #include "system.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Hairpin, pure_height, "ly:hairpin::pure-height", 3);
 SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
@@ -49,7 +49,8 @@ Hairpin::pure_height (SCM smob, SCM, SCM)
   return to_scm (Interval (-height, height));
 }
 
-MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding, 1);
+MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding,
+                      "ly:hairpin::broken-bound-padding", 1);
 SCM
 Hairpin::broken_bound_padding (SCM smob)
 {
@@ -108,7 +109,7 @@ Hairpin::broken_bound_padding (SCM smob)
                  / 2.0);
 }
 
-MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
+MAKE_SCHEME_CALLBACK (Hairpin, print, "ly:hairpin::print", 1);
 SCM
 Hairpin::print (SCM smob)
 {

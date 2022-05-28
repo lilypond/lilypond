@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.6"
+\version "2.23.9"
 
 \header {
   lsrtags = "simultaneous-notes, staff-notation"
@@ -12,8 +12,8 @@
   texidoc = "
 The @code{\\partCombine} function takes two music expressions each
 containing a part, and distributes them among four @code{Voice}s named
-@qq{two} @qq{one} @qq{solo} and @qq{chords} depending on when and how the
-parts merged into a common voice.   The voices output from
+@qq{two}, @qq{one}, @qq{solo}, and @qq{chords} depending on when and how
+the parts are merged into a common voice.  The voices output from
 @code{\\partCombine} can have their layout properties adjusted in the
 usual way.  Here we define extensions of @code{\\partCombine} to make
 it easier to put four voices on a staff.

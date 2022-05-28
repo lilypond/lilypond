@@ -1,17 +1,8 @@
+# Make a path relative to the current working directory. Equivalent to
+# realpath --relative-to=. except that realpath isn't available on
+# macOS/BSD.
+
 import os
 import sys
 
-
-def relative(dir, r=os.getcwd()):
-    dir = os.path.normpath(dir) + '/'
-    r = os.path.normpath(r) + '/'
-    prefix = len(os.path.commonprefix((dir, r)))
-    if prefix == len(dir):
-        return './'
-    if prefix > 1:
-        return '../' * (len(r[prefix:].split('/')) - 1) + dir[prefix:]
-    return dir
-
-
-if __name__ == '__main__':
-    print(relative(sys.argv[1]))
+print(os.path.relpath(sys.argv[1]))

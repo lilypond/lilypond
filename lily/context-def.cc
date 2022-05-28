@@ -395,7 +395,7 @@ Context_def::is_alias (SCM sym) const
   return scm_is_true (scm_c_memq (sym, context_aliases_));
 }
 
-LY_DEFINE (ly_context_def_lookup,
+LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
            2, 1, 0, (SCM def, SCM sym, SCM val),
            R"(
 Return the value of @var{sym} in context definition @var{def} (e.g.,
@@ -421,7 +421,7 @@ Return the value of @var{sym} in context definition @var{def} (e.g.,
   return res;
 }
 
-LY_DEFINE (ly_context_def_modify,
+LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
            2, 0, 0, (SCM def, SCM mod),
            R"(
 Return the result of applying the context-mod @var{mod} to the context

@@ -18,90 +18,52 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
+import fnmatch
 import os
 import re
-import sys
-#
-import pytt
+import subprocess
 
-dry_run = False
-
-
-def read_pipe(cmd, ignore_errors=False):
-    pipe = os.popen(cmd)
-    val = pipe.read()
-    if pipe.close() and not ignore_errors:
-        raise SystemFailed('Pipe failed: %(cmd)s' % locals())
-    return val
-
-
-def filter_out(p, lst):
-    return [x for x in lst if not p(x)]
-
-
-copied_files = [
+ignored_files = [
     # files maintained outside of LilyPond
-    'config.guess',
-    'config.sub',
-    'fdl.itexi',
-    'gpl.itexi',
-    'help2man.pl',
-    'install-sh',
-    'mf2pt1.mp',
-    'mf2pt1.pl',
-    'texinfo-ja.tex',
-    'texinfo.tex',
-    'txi-ca.tex',
-    'txi-de.tex',
-    'txi-en.tex',
-    'txi-es.tex',
-    'txi-fr.tex',
-    'txi-hu.tex',
-    'txi-it.tex',
-    'txi-ja.tex',
-    'txi-nl.tex',
-    'txi-pt.tex',
-
+    'config/*',
+    'Documentation/en/fdl.itexi',
+    'Documentation/en/gpl.itexi',
+    'scripts/build/help2man.pl',
+    'mf/mf2pt1.mp',
+    'scripts/build/mf2pt1.pl',
+    'tex/texinfo*.tex',
+    'tex/txi-*.tex',
     # files maintained by the translation team
-    'ca.po',
-    'cs.po',
-    'da.po',
-    'de.po',
-    'el.po',
-    'eo.po',
-    'es.po',
-    'fi.po',
-    'fr.po',
-    'hu.po',
-    'it.po',
-    'ja.po',
-    'nl.po',
-    'pt.po',
-    'ru.po',
-    'sv.po',
-    'tr.po',
-    'uk.po',
-    'vi.po',
-    'zh.po',
-    'zh_TW.po',
+    'po/*.po',
+    # historical files
+    'Documentation/misc/CHANGES*',
+    'Documentation/misc/ChangeLog*',
 ]
 
 
 def main():
-    files = filter_out(lambda x: (os.path.basename(x) in copied_files
-                                  or 'CHANGES' in x or 'ChangeLog' in x),
-                       read_pipe('git ls-files').split())
+    all_files = subprocess.run(['git', 'ls-files'],
+                               capture_output=True, check=True,
+                               encoding='utf-8').stdout.splitlines()
+    files = [file for file in all_files
+             if not any(fnmatch.fnmatch(file, pat) for pat in ignored_files)]
     year = datetime.datetime.now().year
     last_year = year - 1
-    last_year_1d = last_year % 10
-    for f in files:
-        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s(?=[^-]|$)' % locals(),
-                  r'\1 %(last_year)s--%(year)s' % locals(),
-                  f)
-        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*([^-]*)--(20[0-9][0-%(last_year_1d)s])' % locals(),
-                  r'\1 \2--%(year)s' % locals(),
-                  f)
-
+    copyright_part = r'(Copyright|\(c\)|\(C\)|@copyright\{\}[^\d-]*)'
+    for filename in files:
+        with open(filename, encoding='utf-8') as file:
+            try:
+                content = file.read()
+            except UnicodeDecodeError:
+                continue # ignore binary files
+        content = re.sub(copyright_part + rf'{last_year}(?!-)',
+                         rf'\1{last_year}--{year}',
+                         content)
+        content = re.sub(copyright_part + r'(\d{4})--\d{4}',
+                         rf'\1\2--{year}',
+                         content)
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(content)
 
 if __name__ == '__main__':
     main()

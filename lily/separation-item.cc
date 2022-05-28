@@ -88,7 +88,8 @@ Separation_item::conditional_skyline (Grob *me, Grob *left)
   return Skyline (bs, Y_AXIS, LEFT);
 }
 
-MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines, 1);
+MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines,
+                      "ly:separation-item::calc-skylines", 1);
 SCM
 Separation_item::calc_skylines (SCM smob)
 {

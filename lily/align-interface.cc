@@ -33,7 +33,8 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
+MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances,
+                      "ly:align-interface::align-to-minimum-distances", 1);
 SCM
 Align_interface::align_to_minimum_distances (SCM smob)
 {
@@ -46,7 +47,8 @@ Align_interface::align_to_minimum_distances (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Align_interface, align_to_ideal_distances, 1);
+MAKE_SCHEME_CALLBACK (Align_interface, align_to_ideal_distances,
+                      "ly:align-interface::align-to-ideal-distances", 1);
 SCM
 Align_interface::align_to_ideal_distances (SCM smob)
 {
@@ -74,7 +76,7 @@ get_skylines (Grob *g,
     {
       SCM sym = (a == Y_AXIS)
                 ? ly_symbol2scm ("vertical-skylines")
-                : ly_symbol2scm ("horizonta-skylines");
+                : ly_symbol2scm ("horizontal-skylines");
       SCM skyp_scm = get_property (g, sym);
       Skyline_pair skylines;
       if (is_scm<Skyline_pair> (skyp_scm))
