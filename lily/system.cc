@@ -213,7 +213,8 @@ System::get_paper_systems ()
     {
       ::debug_output ("[", false);
 
-      System *system = dynamic_cast<System *> (broken_intos_[i]);
+      // static_cast is safe because Systems are broken into Systems
+      auto *const system = static_cast<System *> (broken_intos_[i]);
 
       scm_c_vector_set_x (lines, i, system->get_paper_system ());
 
@@ -392,8 +393,8 @@ MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking,
 SCM
 System::footnotes_after_line_breaking (SCM smob)
 {
-  Spanner *sys_span = unsmob<Spanner> (smob);
-  System *sys = dynamic_cast<System *> (sys_span);
+  auto *const sys = LY_ASSERT_SMOB (System, smob, 1);
+
   Interval_t<int> sri = sys->spanned_column_rank_interval ();
   vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   std::sort (footnote_grobs.begin (), footnote_grobs.end (), grob_2D_less);
@@ -408,14 +409,14 @@ MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements,
 SCM
 System::vertical_skyline_elements (SCM smob)
 {
-  auto *const me_grob = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (System, smob, 1);
+
   vector<Grob *> vertical_skyline_grobs;
-  extract_grob_set (me_grob, "elements", my_elts);
+  extract_grob_set (me, "elements", my_elts);
   for (vsize i = 0; i < my_elts.size (); i++)
     if (has_interface<System_start_delimiter> (my_elts[i]))
       vertical_skyline_grobs.push_back (my_elts[i]);
 
-  System *me = dynamic_cast<System *> (me_grob);
   Grob *align = unsmob<Grob> (get_object (me, "vertical-alignment"));
   if (!align)
     {
