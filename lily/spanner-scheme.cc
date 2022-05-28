@@ -70,8 +70,5 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
 Is @var{g} a spanner object?
            )")
 {
-  Grob *me = unsmob<Grob> (g);
-  bool b = dynamic_cast<Spanner *> (me);
-
-  return ly_bool2scm (b);
+  return ly_bool2scm (unsmob<Spanner> (g));
 }
