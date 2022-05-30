@@ -825,8 +825,11 @@ are rests from 1024th to maxima (8× whole).
 @funindex s
 @funindex \skip
 
-An invisible rest (also called a @q{spacer rest}) can be entered
-like a note with the note name@tie{}@code{s}:
+There are two forms of invisible rests: the @dfn{spacer rest}
+named@tie{}@samp{s}, and the @code{\skip} command.  The spacer
+rest is a note that does not produce output.  Like any other note
+or rest, its duration sets the default duration of following
+notes.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -835,14 +838,23 @@ like a note with the note name@tie{}@code{s}:
 }
 @end lilypond
 
+Also like other notes and rests, it implicitly causes @code{Staff}
+and @code{Voice} contexts to be created if none exist.
+
+@lilypond[quote,verbatim]
+{ s1 s s }
+@end lilypond
+
 @cindex lyrics, skip
 
 Spacer rests are available only in note mode and chord mode.  In
-other situations, for example, when entering lyrics, the
-command @code{\skip} is used to skip a musical moment.
-@code{\skip} requires an explicit duration, but this is ignored if
-the lyrics derive their durations from the notes in an associated
-melody through @code{\addlyrics} or @code{\lyricsto}.
+other situations, for example, when entering lyrics, the command
+@code{\skip} is used to skip a musical moment.  The @code{\skip}
+command accepts either an explicit duration or a piece of music as
+an argument and skips the duration of the argument.  The duration
+of the @code{\skip} is ignored if lyrics derive their durations
+from the notes in an associated melody through @code{\addlyrics}
+or @code{\lyricsto}.
 
 @lilypond[quote,verbatim]
 <<
@@ -857,32 +869,56 @@ melody through @code{\addlyrics} or @code{\lyricsto}.
 >>
 @end lilypond
 
-Because @code{\skip} is a command, it does not affect the default
-durations of following notes, unlike@tie{}@code{s}.
+When the argument to @code{\skip} is music, the default duration
+of the following note is implicitly set by the last note of the
+argument.  However, to preserve backward compatibility with the
+legacy implementation of @code{\skip}, a numeric duration argument
+does not affect the duration of the subsequent note.
 
 @lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a'4 }
+    \repeat unfold 12 { a'4 }
   }
   {
     a'4 \skip 2 a' |
+    a'4 \skip { a'8 a' a' a' } a' a' |
     s2 a'
   }
 >>
 @end lilypond
 
+The @code{\skip} command preserves the effect of an enclosing
+@code{unfoldRepeats} command, unlike the @code{skip-@/of-@/length}
+Scheme function.
 
-A spacer rest implicitly causes @code{Staff} and @code{Voice}
-contexts to be created if none exist, just like notes and rests
-do:
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
 
-@lilypond[quote,verbatim]
-{ s1 s s }
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    #(skip-of-length MyCadenza)
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
 @end lilypond
 
-@code{\skip} simply skips musical time; it creates no output of
-any kind.
+The @code{\skip} command simply skips musical time; it creates no
+output of any kind.
 
 @lilypond[quote,verbatim]
 % This is valid input, but does nothing
@@ -904,6 +940,11 @@ Internals Reference:
 @rinternals{SkipMusic}.
 @endmorerefs
 
+@knownissues
+Because duration and music arguments to the @code{\skip} command
+affect the duration of subsequent music differently, it is good
+practice to provide an explicit duration for the music immediately
+following the command.
 
 @node Full measure rests
 @unnumberedsubsubsec Full measure rests
@@ -4278,6 +4319,29 @@ MyCadenza = \relative {
     c'1
   }
 >>
+@end lilypond
+
+Another solution is to use the @code{\skip} command.
+
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
+
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
 @end lilypond
 
 @morerefs
