@@ -8,12 +8,16 @@
 \version "2.23.10"
 
 \header {
-  texidoc = "By default, rests in a @code{ChordNames} context
-cause the @qq{N.C.} symbol to be printed.  This markup can be
-customized."
-  texidoc = "Customizing the no-chord symbol"
   lsrtags = "chords"
-}
+
+  texidoc = "
+By default, rests in a @code{ChordNames} context cause the @qq{N.C.}
+symbol to be printed.  This markup can be customized.
+
+"
+  doctitle = "Customizing the no-chord symbol"
+} % begin verbatim
+
 
 <<
   \chords {
