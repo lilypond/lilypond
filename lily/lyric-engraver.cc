@@ -44,9 +44,9 @@ public:
   TRANSLATOR_DECLARATIONS (Lyric_engraver);
 
 private:
-  Stream_event *event_;
-  Item *text_;
-  Item *last_text_;
+  Stream_event *event_ = nullptr;
+  Item *text_ = nullptr;
+  Item *last_text_ = nullptr;
 
   Context *get_voice_context ();
 };
@@ -54,9 +54,6 @@ private:
 Lyric_engraver::Lyric_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  last_text_ = 0;
-  event_ = 0;
 }
 
 void
@@ -189,9 +186,9 @@ Lyric_engraver::stop_translation_timestep ()
         }
 
       last_text_ = text_;
-      text_ = 0;
+      text_ = nullptr;
     }
-  event_ = 0;
+  event_ = nullptr;
 }
 
 void
