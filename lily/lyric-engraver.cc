@@ -47,6 +47,8 @@ private:
   Stream_event *event_ = nullptr;
   Item *text_ = nullptr;
   Item *last_text_ = nullptr;
+  bool considered_melisma_ = false;
+  bool last_text_melisma_aligned_ = false;
 
   Context *get_voice_context ();
 };
@@ -65,6 +67,8 @@ Lyric_engraver::listen_lyric (Stream_event *ev)
 void
 Lyric_engraver::process_music ()
 {
+  bool align_last_text_for_melisma = false;
+
   if (event_)
     {
       SCM text = get_property (event_, "text");
@@ -72,20 +76,34 @@ Lyric_engraver::process_music ()
       if (ly_is_equal (text, scm_from_latin1_string (" ")))
         {
           if (last_text_)
-            set_property (last_text_, "self-alignment-X",
-                          get_property (this, "lyricMelismaAlignment"));
+            {
+              align_last_text_for_melisma = true;
+              considered_melisma_ = true;
+            }
         }
       else
         text_ = make_item ("LyricText", event_->self_scm ());
     }
 
-  Context *voice = get_voice_to_lyrics (context ());
-  if (last_text_
-      && voice
-      && from_scm<bool> (get_property (voice, "melismaBusy"))
-      && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
-    set_property (last_text_, "self-alignment-X",
-                  get_property (this, "lyricMelismaAlignment"));
+  if (last_text_)
+    {
+      if (!considered_melisma_)
+        {
+          Context *voice = get_voice_to_lyrics (context ());
+          if (voice
+              && from_scm<bool> (get_property (voice, "melismaBusy"))
+              && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
+            align_last_text_for_melisma = true;
+
+          considered_melisma_ = true;
+        }
+
+      if (align_last_text_for_melisma)
+        {
+          set_property (last_text_, "self-alignment-X",
+                        get_property (this, "lyricMelismaAlignment"));
+        }
+    }
 }
 
 Context *
@@ -169,24 +187,25 @@ Lyric_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Context *voice = get_voice_to_lyrics (context ());
-
-      if (voice)
-        {
-          Grob *head = get_current_note_head (voice);
-
-          if (head)
-            {
-              text_->set_x_parent (head->get_x_parent ());
-              if (melisma_busy (voice)
-                  && !from_scm<bool> (get_property (this, "ignoreMelismata")))
-                set_property (text_, "self-alignment-X",
-                              get_property (this, "lyricMelismaAlignment"));
-            }
-        }
-
       last_text_ = text_;
       text_ = nullptr;
+      considered_melisma_ = false;
+
+      if (auto *voice = get_voice_to_lyrics (context ()))
+        {
+          if (auto *head = get_current_note_head (voice))
+            {
+              last_text_->set_x_parent (head->get_x_parent ());
+
+              if (melisma_busy (voice)
+                  && !from_scm<bool> (get_property (this, "ignoreMelismata")))
+                {
+                  set_property (last_text_, "self-alignment-X",
+                                get_property (this, "lyricMelismaAlignment"));
+                  considered_melisma_ = true;
+                }
+            }
+        }
     }
   event_ = nullptr;
 }
