@@ -112,6 +112,8 @@ brew_flexa (Grob *me,
       stencil.translate_axis (interval / -4.0 * staff_space, Y_AXIS);
     }
 
+  stencil.translate_axis (-thickness, X_AXIS);
+
   return stencil;
 }
 
@@ -141,7 +143,8 @@ internal_brew_primitive (Grob *me)
   if (primitive & MLP_ANY)
     {
       thickness = from_scm<double> (get_property (me, "thickness"), .13);
-      width = from_scm<double> (get_property (me, "head-width"), staff_space);
+      width = from_scm<double> (get_property (me, "head-width"), staff_space)
+              - thickness;
     }
   if (primitive & MLP_FLEXA)
     flexa_width = from_scm<double> (get_property (me, "flexa-width"), 2.0)
@@ -217,7 +220,7 @@ internal_brew_primitive (Grob *me)
           y_top = 0.0;
         }
 
-      Interval x_extent (0, thickness);
+      Interval x_extent (-thickness, 0);
       Interval y_extent (y_bottom, y_top);
       Box join_box (x_extent, y_extent);
 
