@@ -528,8 +528,6 @@ SCM
 Paper_book::get_score_title (SCM header)
 {
   Stencil title = score_title (header);
-  if (title.is_empty ())
-    title = score_title (header_);
   if (!title.is_empty ())
     {
       /*
