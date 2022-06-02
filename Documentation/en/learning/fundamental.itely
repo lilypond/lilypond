@@ -302,7 +302,7 @@ construct would not be necessary for the Singer staff in the example
 above if it were going to contain only one sequential music
 expression, but @code{<< @dots{} >>} rather than braces is necessary if
 the music in the Staff is to contain two or more simultaneous
-expressions, e.g. two simultaneous Voices, or a Voice with lyrics.
+expressions, e.g., two simultaneous Voices, or a Voice with lyrics.
 We're going to have a voice with lyrics, so angle brackets are
 required.  We'll add some real music later; for now let's just put
 in some dummy notes and lyrics.  If you've forgotten how to add lyrics
@@ -512,7 +512,7 @@ Notation Reference:
 
 @cindex brackets, nesting
 @cindex bracket types
-@cindex brackets, enclosing vs. marking
+@cindex brackets, enclosing vs.@: marking
 
 You have already met a number of different types of bracket and
 bracket-like constructs in writing the input file to LilyPond.
@@ -609,8 +609,8 @@ of all LilyPond's concepts.
 @cindex music, simultaneous
 @cindex concurrent music
 @cindex music, concurrent
-@cindex voices vs. chords
-@cindex chords vs. voices
+@cindex voices vs.@: chords
+@cindex chords vs.@: voices
 
 The lowest, most fundamental or innermost layers in a LilyPond
 score are called @q{Voice contexts} or just @q{Voices} for short.
@@ -994,7 +994,7 @@ how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in
 @ref{Fixing overlapping notation}.
 
-@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+@warning{Lyrics, spanners (such as slurs, ties, hairpins, etc.@:) cannot be
 created @q{across} voices.}
 
 

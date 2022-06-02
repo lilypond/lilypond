@@ -247,7 +247,7 @@ imagination.
 
 As LilyPond isn't a monolithic GUI program but a command line tool it
 can be used from within other applications too. This way it is possible
-to equip tools like e.g. web applications with LilyPond's engraving
+to equip tools like, e.g., web applications with LilyPond's engraving
 power. There already exist several online tools using LilyPond.
 
 @c (TBD: Add a link to the new @ref{Applications} page.
@@ -1004,7 +1004,7 @@ needs will be fulfilled beyond my expectations using this great
 application.  [@dots{}] basically untweaked LilyPond output
 [@dots{}] looks better than most recent @q{professional}
 publications I've compared it to (q.v., just about any Warner
-Bros. score, and even many of the most recent by @q{the old
+Bros.@: score, and even many of the most recent by @q{the old
 houses}). [@dots{}]} @qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
 @divEnd
 
@@ -1291,7 +1291,7 @@ operating systems (GNU/Linux, Mac OS X and Windows).
 Denemo is a graphical editor which generates LilyPond source code,
 and also allows audio playback.  It allows users to view the
 LilyPond source code in parallel to the graphical view.  Extra
-LilyPond tweaks can be attached to notes, chords etc. and are stored
+LilyPond tweaks can be attached to notes, chords, etc., and are stored
 with the Denemo file, so that users can continue to edit graphically.
 
 Moving the cursor in the LilyPond text moves the cursor in the graphical

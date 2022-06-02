@@ -955,8 +955,8 @@ objects, we will call the latter @q{properties} and the former
 @q{variables.}  So, the stem object has a @code{thickness} property,
 while @code{twentyFour} is a variable.
 
-@cindex properties vs. variables
-@cindex variables vs. properties
+@cindex properties vs.@: variables
+@cindex variables vs.@: properties
 
 @c  todo -- here we're getting interesting.  We're now introducing
 @c  LilyPond variable types.  I think this deserves a section all

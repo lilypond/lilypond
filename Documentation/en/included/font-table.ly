@@ -18,7 +18,7 @@
   ;;;;;;;;;
 
   ;; extract ancient-music groups before extracting default
-  ;; accidentals, rests, etc. to prevent duplication
+  ;; accidentals, rests, etc., to prevent duplication
 
   ;; make sure "mensural" regexp doesn't match "neomensural"
   (define neomensural (get-group glyph-list "^.*neomensural.*$"))

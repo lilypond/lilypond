@@ -193,7 +193,7 @@ styles}, but this project aims at bringing this to a new level by creating
 a convenient extension package with support for creating, applying,
 and sharing modular style sheets.  We are looking for a hierarchical
 structure that allows to mix and match style elements for @qq{house} (e.g.,
-@qq{my-personal-style}, @qq{client-a}, @qq{client-b} etc.), score type, paper
+@qq{my-personal-style}, @qq{client-a}, @qq{client-b}, etc.@:), score type, paper
 size etc.
 
 Work can be built upon the existing
@@ -386,7 +386,7 @@ level} openLilyLib needs proper documentation.  This documentation has
 to be generated from the sources, so a system is needed that requires
 package authors to document the input files and provide additional usage
 examples, from which documentation is generated.  Ideally but not
-necessarily this is implemented as a Git hook, i.e. automatically upon
+necessarily this is implemented as a Git hook, i.e., automatically upon
 each update to the repository.  We don't prescribe the tools and
 approaches to be used, but the most widely used language in the LilyPond
 domain is Python, so there would be some bias towards that.
@@ -398,7 +398,7 @@ concepts and tools from other languages.
 The eventual output of the documentation should be a static HTML site
 that can be viewed locally and/or uploaded to a website.  But it would
 be beneficial if the tool would first generate an intermediate
-representation (e.g. a JSON file with additional media files) from which
+representation (e.g., a JSON file with additional media files) from which
 a Single Page Application could retrieve content for display on
 openLilyLib's @uref{https://openlilylib.org, website}.  Development of
 such a SPA @emph{can} be part of the GSoC project, but is optional.

@@ -466,11 +466,11 @@ Abbreviated @notation{a2} or @notation{a 2}.  In orchestral scores,
 @enumerate
 
 @item A single part notated on a single staff that normally carries parts
-for two players (e.g. first and second oboes) is to be played by both
+for two players (e.g., first and second oboes) is to be played by both
 players.
 
 @item Or conversely, that two pitches or parts notated on a staff that
-normally carries a single part (e.g. first violin) are to be played by
+normally carries a single part (e.g., first violin) are to be played by
 different players, or groups of players (@q{desks}).
 
 @end enumerate
@@ -1365,7 +1365,7 @@ Symbol at the start of a system connecting staves.
 
 Curly braces are used for connecting piano staves, and sometimes for connecting
 the staves of like instruments in an orchestral score when written on different
-staves (e.g. first and second flutes):
+staves (e.g., first and second flutes):
 
 @lilypond[quote]
 \new GrandStaff <<
@@ -5479,7 +5479,7 @@ S: taktart,
 FI: aika-arvo.
 
 The pattern of note values and accents in a composition or a section thereof.
-There are a couple ways to classify @q{traditional} meter (i.e. not polymeter):
+There are a couple ways to classify @q{traditional} meter (i.e., not polymeter):
 by grouping beats and by subdividing the primary beat.
 
 @b{By grouping beats}:
@@ -5505,7 +5505,7 @@ by grouping beats and by subdividing the primary beat.
 @end itemize
 
 Other than triple meter and its subdivided variants (see below), meters that
-feature odd groupings of beats (e.g. quintuple or septuple meter) are not
+feature odd groupings of beats (e.g., quintuple or septuple meter) are not
 frequently used prior to the 20th Century.
 
 @b{By subdividing the primary beat}:
@@ -7326,7 +7326,7 @@ second depends on the scale degrees in question.
 Note value: called @notation{whole note} in the US.
 
 The semibreve is the basis for the @notation{tactus} in mensural notation
-(i.e. music written before ca. 1600).
+(i.e., music written before ca. 1600).
 
 @morerefs
 @ref{mensural notation}, @ref{note value}.
@@ -7439,8 +7439,8 @@ S: ?,
 FI: samoin.
 
 [Italian: @q{in the same manner}] Performance direction: the music thus marked
-is to be played in the same manner (i.e. with the same articulations, dynamics,
-etc.) as the music that precedes it.
+is to be played in the same manner (i.e., with the same articulations, dynamics,
+etc.@:) as the music that precedes it.
 
 @morerefs
 TODO: Where else could I refer the reader?

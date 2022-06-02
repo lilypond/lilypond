@@ -63,7 +63,7 @@ matter how small they are.  This prevents having to remember which
 version of LilyPond the file was created with and is especially relevant
 when @ref{Updating files with convert-ly} command (which requires the
 @code{\version} statement to be present); or if sending your input files
-to other users (e.g. when asking for help on the mail lists).  Note that
+to other users (e.g., when asking for help on the mail lists).  Note that
 all of the LilyPond templates contain @code{\version} numbers.
 
 @item
@@ -176,10 +176,10 @@ variable, it is recommended that the notes are wrapped in
 
 @noindent
 (where @code{natural-pitch} is the open pitch of the instrument) so
-that the music in the variable is effectively in C. You can transpose
+that the music in the variable is effectively in C.  You can transpose
 it back again when the variable is used, if required, but you might
 not want to (e.g., when printing a score in concert pitch,
-converting a trombone part from treble to bass clef, etc.)
+converting a trombone part from treble to bass clef, etc.).
 Mistakes in transpositions are less likely if all the music in
 variables is at a consistent pitch.
 
@@ -308,7 +308,7 @@ There are times when it is a good idea to create a @code{Makefile}
 for your project, either for your own convenience or
 as a courtesy to others who might have access to your source files.
 This is true for very large projects with many included files and
-different output options (e.g. full score, parts, conductor's
+different output options (e.g., full score, parts, conductor's
 score, piano reduction, etc.), or for projects that
 require difficult commands to build them (such as
 @code{lilypond-book} projects).  Makefiles vary greatly in

@@ -1905,8 +1905,8 @@ interpreted, the page breaking has not yet occurred, so the page numbers
 are not yet known.  To work around this issue, the actual markup
 interpretation is delayed to a later time; however, the dimensions of
 the markup have to be known before, so a gauge is used to decide these
-dimensions.  If the book has between 10 and 99 pages, it may be "00",
-ie. a two digit number.
+dimensions.  If the book has between 10 and 99 pages, it may be @qq{00},
+i.e., a two digit number.
 
 
 @predefined

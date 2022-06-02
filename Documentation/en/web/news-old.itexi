@@ -4088,7 +4088,7 @@ spacing engine code.
 @newsItem
 @subheading LilyPond 2.11.26 available - @emph{June 8, 2007}
 
-Release 2.11.26 supports page markers, eg. for use in
+Release 2.11.26 supports page markers, e.g., for use in
 tables-of-contents.  In addition, it fixes a number of bugs. Enjoy!
 @*
 @bugfixes{2_11_26,},
@@ -4909,7 +4909,7 @@ Python scripts too, so you can run convert-ly and midi2ly.
 @newsItem
 @subheading LilyPond 2.7.30 is out - @emph{January 30, 2006}
 This release has a few bug fixes, like the solfa note head shape and
-collisions, the \epsfile command, and in getting No. ligature in
+collisions, the \epsfile command, and in getting No.@: ligature in
 normal words. (@ref{Changes},
 @ref{Old downloads})
 @newsEnd
@@ -5745,7 +5745,7 @@ LilyPond 2.5.1 is out. This is an experimental release,
 containing some proof-of-concept code for our graphical
 layout editor. You can add and remove things from the file,
 and the tweaks will still work, as long as the tweaked notes
-remain in the place (ie. start at the same time-wise and be
+remain in the place (i.e., start at the same time-wise and be
 part of the same context). Further attractions are: the
 gnome backend now also draws beams and slurs, updates to the
 SVG backend, support for the lmodern font set for TeX,
@@ -5912,7 +5912,7 @@ in the @uref{https://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=a
 @subheading September 20, 2004
 LilyPond 2.3.18 was released. It has further improvements in
 the slur formatting, and a small syntax change: the mode
-changing commands (`\chords', `\lyrics', etc.)  have been
+changing commands (`\chords', `\lyrics', etc.@:)  have been
 renamed to `\chordmode', `\lyricmode', etc. The command
 `\chords' is an abbreviation for \new ChordNames \chordmode
 ...  `\drums', `\lyrics', `\chords', `\figures' function

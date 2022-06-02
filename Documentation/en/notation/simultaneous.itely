@@ -635,7 +635,7 @@ When a different voice entry order is desired, the command
 @end lilypond
 
 
-@warning{Lyrics and spanners (such as slurs, ties, hairpins, etc.) cannot
+@warning{Lyrics and spanners (such as slurs, ties, hairpins, etc.@:) cannot
 be created @q{across} voices.}
 
 @subsubsubheading Identical rhythms
@@ -1249,7 +1249,7 @@ started when combining notes that have just started in the other
 @code{Voice}.  This can lead to a number of unexpected issues including
 @qq{Solo} or @qq{Unison} marks being printed incorrectly.
 
-@code{\partCombine} keeps all spanners (slurs, ties, hairpins, etc.) in
+@code{\partCombine} keeps all spanners (slurs, ties, hairpins, etc.@:) in
 the same @code{Voice} so that if any such spanners start or end in a
 different @code{Voice}, they may not be printed properly or at all.
 

@@ -95,8 +95,8 @@ Notation Reference:
 @unnumberedsubsubsec String number indications
 
 @cindex string number
-@cindex string vs. fingering number
-@cindex fingering vs. string number
+@cindex string vs.@: fingering number
+@cindex fingering vs.@: string number
 
 The string on which a note should be played may be indicated by
 appending @code{\@var{number}} to a note.
@@ -2133,7 +2133,7 @@ Notation Reference:
 
 Power chords and their symbols can be engraved in chord mode or as chord
 constructs.  As an exception, the fifth is specified in these chord
-names, whereas it is usually left out in other chords (e.g. major or minor triads).
+names, whereas it is usually left out in other chords (e.g., major or minor triads).
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {

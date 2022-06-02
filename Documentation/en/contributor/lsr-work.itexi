@@ -277,7 +277,7 @@ documentation build successfully.
 
 @item
 Determine where it comes from by looking at its first two lines,
-e.g. run
+e.g., run
 
 @example
 head -2 Documentation/snippets/@var{foo}.ly
@@ -323,7 +323,7 @@ pushed to the correct branch.
 @node Renaming a snippet
 @section Renaming a snippet
 
-Due to the potential duality of snippets (i.e. they may exist both
+Due to the potential duality of snippets (i.e., they may exist both
 in the LSR database, and in @code{Documentation/snippets/new/}),
 this process is a bit more involved than we might like.
 
@@ -398,7 +398,7 @@ an initial check for possible problems you can run the
 script at the end of this list on a copy of the @file{all} subdirectory.
 
 @item
-Copy relevant snippets (i.e. snippets whose version is equal to
+Copy relevant snippets (i.e., snippets whose version is equal to
 or less than the new version of LilyPond running on the LSR) from
 @file{Documentation/snippets/new/} into the set of files to be
 used to make the tarball.  Make sure

@@ -183,7 +183,7 @@ Please prepare a formal git patch.
 
 @subheading Contributions that contain examples using overrides
 
-Examples that use overrides, tweaks, customer Scheme functions etc. are
+Examples that use overrides, tweaks, customer Scheme functions, etc.@: are
 (with very few exceptions) not included in the main text of the manuals;
 as there would be far too many, equally useful, candidates.
 
@@ -419,12 +419,12 @@ and/or single @code{tagline}:
 @end example
 
 and can also be used to easily show features that require page breaks
-(i.e. page numbers) without taking large amounts of space within the
+(i.e., page numbers) without taking large amounts of space within the
 documentation.  Do not use the @code{quote} option with this paper size.
 
 @code{a5} or @code{a6} paper sizes are best used for examples that have
-more than two measures of music or require multiple staves (i.e. to
-illustrate cross-staff features, RH and LH parts etc.) and where
+more than two measures of music or require multiple staves (i.e., to
+illustrate cross-staff features, RH and LH parts etc.@:) and where
 @code{\book@{@}} constructions are required or where @code{a8landscape}
 produces an example that is too cramped.  Depending on the example the
 @code{quote} option may need to be omitted.
@@ -723,7 +723,7 @@ external url.  Use within an @code{@@example ... @@end example}.
 
 Use the @code{@@code@{@dots{}@}} command when referring to
 individual language-specific tokens (keywords, commands,
-engravers, scheme symbols, etc.) in the text.  Ideally, a single
+engravers, scheme symbols, etc.@:) in the text.  Ideally, a single
 @code{@@code@{@dots{}@}} block should fit within one line in the
 PDF output.
 
@@ -783,7 +783,7 @@ not use inside an @code{@@example} block.
 
 @item
 @code{@@example} --- Use for examples of program code.  Do not add
-extraneous indentation (i.e. don't start every line with
+extraneous indentation (i.e., don't start every line with
 whitespace).  Use the following layout (notice the use of blank
 lines).  Omit the @code{@@noindent} if the text following the
 example starts a new paragraph:
@@ -999,9 +999,9 @@ must be duplicated in the @code{@@morerefs} section at the bottom.
 Introducing examples must be done with
 
 @example
-. (i.e. finish the previous sentence/paragraph)
-: (i.e. `in this example:')
-, (i.e. `may add foo with the blah construct,')
+. (i.e., finish the previous sentence/paragraph)
+: (i.e., `in this example:')
+, (i.e., `may add foo with the blah construct,')
 @end example
 
 The old @qq{sentence runs directly into the example} method is not
@@ -1250,7 +1250,7 @@ make fix-xrefs
 
 Note that you have to find yourself the source files to fix
 cross-references in the generated documentation such as the
-Internals Reference; e.g. you can grep scm/ and lily/.
+Internals Reference; e.g., you can grep scm/ and lily/.
 
 
 @node General writing
@@ -1281,7 +1281,7 @@ index.  Both index commands should go in front of the actual material.
 
 @noindent
 is preferred instead of @qq{Time signature}.  Only use capital
-letters for musical terms which demand them, e.g.
+letters for musical terms which demand them, e.g.,
 @qq{D.S. al Fine}.
 
 @item
@@ -1357,7 +1357,7 @@ Avoid contractions (don't, won't, etc.).  Spell the words out completely.
 
 @item
 Avoid abbreviations, except for commonly used abbreviations of foreign
-language terms such as etc. and i.e.
+language terms such as @q{etc.@:} and @q{i.e.}.
 
 @item
 Avoid fluff (@qq{Notice that,} @qq{as you can see,}
@@ -1380,7 +1380,7 @@ time.  For each subsection,
 
 @item
 check the mundane formatting.  Are the headings (@@predefined,
-@@morerefs, etc.) in the right order?
+@@morerefs, etc.@:) in the right order?
 
 @item
 add any appropriate index entries.
@@ -1422,7 +1422,7 @@ harder than it looks.
 In general, any \set or \override commands should go in the
 @qq{select snippets} section, which means that they should go in
 LSR and not the @file{.itely} file.  For some cases, the command
-obviously belongs in the @qq{main text} (i.e. not inside
+obviously belongs in the @qq{main text} (i.e., not inside
 @@predefined or @@morerefs or whatever) -- instrument names are a
 good example of this.
 
@@ -1749,7 +1749,7 @@ The argument of @code{@@rglos} commands and the first argument of
 @code{@@rglosnamed} commands must not be translated, as it is the node
 name of an entry in Music Glossary.
 
-Every time you translate a node name in a cross-reference, i.e. the
+Every time you translate a node name in a cross-reference, i.e., the
 argument of commands @code{@@ref, @@rprogram, @@rlearning, @@rlsr,
 @@ruser} or the first argument of their @code{@var{*}named} variants,
 you should make sure the target node is defined in the correct source
@@ -1805,7 +1805,7 @@ that LilyPond community in your language is able and going to handle.
 @noindent
 In any case, please mark in your work the sections which do not result
 from the direct translation of a piece of English translation, using
-comments i.e. lines starting with @q{@code{@@c}}.
+comments i.e., lines starting with @q{@code{@@c}}.
 
 Finally, press in Emacs @key{C-c C-u C-a} to update or generate
 menus.  This process should be made easier in the future, when the helper
@@ -1869,7 +1869,7 @@ Spanish translation blah
 "
 @end example
 
-@code{@@example} blocks need not be verbatim copies, e.g. variable
+@code{@@example} blocks need not be verbatim copies, e.g., variable
 names, file names and comments should be translated.
 
 Finally, please carefully apply every rule exposed in @ref{Texinfo
@@ -2052,7 +2052,7 @@ This script overwrites music snippets in
 intact music snippets preceded with a line starting with @code{@@c
 KEEP LY}; it reports an error for each @file{.itely} that has not the
 same music snippet count in both languages.  Always use this script
-with a lot of care, i.e. run it on a clean Git working tree, and check
+with a lot of care, i.e., run it on a clean Git working tree, and check
 the changes it made with @command{git diff} before committing; if you
 don't do so, some @code{@@lilypond} snippets might be broken or make
 no sense in their context.
@@ -2150,7 +2150,7 @@ Emacs with Texinfo mode makes this step easier:
 Texinfo file in a new buffer @code{*Occur*}; to show structure of two files
 simultaneously, first split Emacs window in 4 tiles (with @key{C-x 1}
 and @key{C-x 2}), press @key{C-c C-s} to show structure of one file
-(e.g. the translated file), copy @code{*Occur*} contents into
+(e.g., the translated file), copy @code{*Occur*} contents into
 @code{*Scratch*}, then press @key{C-c C-s} for the other file.
 
 If you happen to have installed AucTeX, you can either call the macro

@@ -163,7 +163,7 @@ Download @code{texi2html 1.82} directly from:
 @uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
 
 @code{texi2html} is only required if you intend to compile LilyPond's
-own documentation (e.g. to help with any document writing).  The version
+own documentation (e.g., to help with any document writing).  The version
 available in the Fedora repositories is too new and will not work.
 Extract the files into an appropriate location and then run the
 commands;
@@ -198,7 +198,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -273,7 +273,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -332,7 +332,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -382,7 +382,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -1095,7 +1095,7 @@ so the @option{-j} @command{make} option does not significantly
 speed up the build process.  To help speed it up, the makefile
 variable @option{CPU_COUNT} may be set in @file{local.make} or on
 the command line to the number of @code{.ly} files that LilyPond
-should process simultaneously, e.g. on a dual core
+should process simultaneously, e.g., on a dual core
 machine:
 
 @example
@@ -1191,7 +1191,7 @@ input/regression, even the latest development release of LilyPond
 will fail to build the docs.
 
 You may build the manual without building all the @file{input/*} stuff
-(i.e. mostly regression tests): change directory, for example to
+(i.e., mostly regression tests): change directory, for example to
 @file{Documentation/}, issue @code{make doc}, which will build
 documentation in a subdirectory @file{out-www} from the source files in
 current directory.  In this case, if you also want to browse the

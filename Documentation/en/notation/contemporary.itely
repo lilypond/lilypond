@@ -118,7 +118,7 @@ addressed in @ref{Grouping staves}.
 @ignore
     Extended discussion of modern tuplets, including
     non-standard ratios, nested tuplets and customising
-    the appearance of tuplets (ratios, note values etc.)
+    the appearance of tuplets (ratios, note values, etc.)
     Also how to provide an ossia RhythmicStaff to help
     players break down a complicated tuplet.
 @end ignore

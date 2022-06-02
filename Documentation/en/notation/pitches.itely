@@ -3186,7 +3186,7 @@ Internals Reference:
 @cindex range of pitches
 @cindex pitch range
 
-The term @notation{ambitus} (pl. ambitus) denotes a range of
+The term @notation{ambitus} (pl.@: ambitus) denotes a range of
 pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
 Ambitus are printed on vocal parts so that performers can easily

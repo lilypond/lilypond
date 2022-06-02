@@ -114,7 +114,7 @@ is run every 2 hours, from a systemd timed job. If a newer
 Install Apache (you can use version 2, but keep in mind that the server
 hosting lilypond.org runs version 1.3).  These instructions
 assume that you also enable @code{mod_userdir}, and use
-@code{$HOME/public_html} as DocumentRoot (i.e. the root directory of
+@code{$HOME/public_html} as DocumentRoot (i.e., the root directory of
 the web server).
 
 @item

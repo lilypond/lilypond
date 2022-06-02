@@ -1306,9 +1306,9 @@ above the indicated position.
 
 Please note that diagnostics can be triggered at any point during the
 many stages of processing.  For example if there are parts of the input
-that are processed multiple times (i.e. in midi and layout output), or
+that are processed multiple times (i.e., in midi and layout output), or
 if the same music variable is used in multiple contexts the same message
-may appear several times.  Diagnostics produced at a @q{late} stage (i.e
+may appear several times.  Diagnostics produced at a @q{late} stage (i.e.,
 bar checks) might also be issued multiple times.
 
 More information about errors is given in @ref{Common errors}.
@@ -1467,7 +1467,7 @@ sequentially:
 
 @noindent
 but more likely you should be using double angle brackets so the new
-staves are introduced in parallel, i.e. simultaneously:
+staves are introduced in parallel, i.e., simultaneously:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1486,25 +1486,25 @@ occur at the same musical moment, but the voices have no
 voice-specific shifts specified, the warning message
 @samp{warning: this voice needs a \voiceXx or \shiftXx setting} will appear
 when compiling the LilyPond file.  This warning will appear even when
-the notes have no visible stems, e.g. whole notes, if the stems for
+the notes have no visible stems, e.g., whole notes, if the stems for
 shorter notes at the same pitch would be in the same direction.
 
 Remember that the stem direction depends on the position of the
 note on the staff unless the stem direction is specified, for example
 by using @code{\voiceOne}, etc.  In this case the warning will appear
-only when the stems happen to be in the same direction, i.e. when the
+only when the stems happen to be in the same direction, i.e., when the
 notes are in the same half of the staff.
 
 By placing the notes in voices with stem directions and shifts
 specified, for example by using @code{\voiceOne}, etc., these warnings
 may be avoided.
 
-Notes in higher numbered voices, @code{\voiceThree} etc., are
+Notes in higher numbered voices, @code{\voiceThree}, etc., are
 automatically shifted to avoid clashing note columns.  This causes a
 visible shift for notes with stems, but whole notes are not visibly
 shifted unless an actual clash of the note heads occurs, or when the
 voices cross over from their natural order (when @code{\voiceThree}
-is higher than @code{\voiceOne}, etc.)
+is higher than @code{\voiceOne}, etc.).
 
 @morerefs
 @rlearning{Explicitly instantiating voices},

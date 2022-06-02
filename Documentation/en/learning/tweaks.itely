@@ -2882,7 +2882,7 @@ The @code{force-hshift} property is a property of a @code{NoteColumn}
 (actually of the @code{note-column-interface}).  Changing it permits a
 note column to be moved in situations where the note columns overlap.
 Note that it has no effect on note columns that do not overlap.
-It is specified in units appropriate to a note column, viz. the note
+It is specified in units appropriate to a note column, viz.@: the note
 head width of the first voice note.  It should be used in complex
 situations where the normal @code{\shiftOn} commands (see
 @ref{Explicitly instantiating voices}) do not resolve the note
@@ -2925,7 +2925,7 @@ affecting anything else.
 This is most useful for manually adjusting the slope and height
 of beams, slurs, and tuplets.  It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
-etc. relative to the center line of the staff.  Units are
+etc., relative to the center line of the staff.  Units are
 staff-spaces.  Note, though, that slurs and phrasing slurs cannot
 be repositioned by arbitrarily large amounts.  LilyPond first
 generates a list of possible positions for the slur and by default
@@ -3128,7 +3128,7 @@ example of a collision of this type:
 @end lilypond
 
 The best solution here is to move the multimeasure rest down, since the
-rest is in voice two. The default in @code{\voiceTwo} (i.e. in the
+rest is in voice two. The default in @code{\voiceTwo} (i.e., in the
 second voice of a @code{<<@{@dots{}@} \\ @{@dots{}@}>>} construct) is
 that @code{staff-position} is set to -6 for MultiMeasureRest, so we need
 to move it, say, four half-staff spaces down to @w{@code{-10}}.
@@ -3308,7 +3308,7 @@ was left looking like this:
 @end lilypond
 
 @noindent
-The inner note of the first chord (i.e. the A-flat in the fourth
+The inner note of the first chord (i.e., the A-flat in the fourth
 Voice) need not be shifted away from the note column of the higher
 note, so we use @code{\shiftOff}.
 

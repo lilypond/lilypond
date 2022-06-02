@@ -402,7 +402,7 @@ Do @emph{not} yet add a line for 2.@var{OLD-DEVELOPMENT} because the
 search for the documentation of 2.@var{NEW-STABLE} relies on it!
 
 @item
-Update the htaccess redirections (@code{/latest/}, @code{/stable/} etc.)
+Update the htaccess redirections (@code{/latest/}, @code{/stable/}, etc.@:)
 in @file{Documentation/webserver/lilypond.org.htaccess}.
 
 @item
@@ -621,7 +621,7 @@ therefore recommended to move (not copy) @code{gub/uploads} to
 another machine/disk after each build, if space is at a premium.
 
 However, if a significant change has been made to the LilyPond
-source (e.g. added source files) the build may fail if tried on
+source (e.g., added source files) the build may fail if tried on
 top of a previous build.  If this happens, be sure to
 move/delete @code{gub/uploads} and all mentions of LilyPond
 in @code{gub/target}.  The latter can be achieved with this

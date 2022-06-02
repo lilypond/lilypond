@@ -353,7 +353,7 @@ Other: anything else.
 @item
 Regression: it used to work intentionally in the current
 stable release or the previous stable release.  If the earlier
-output was accidental (i.e. we didn't try to stop a collision,
+output was accidental (i.e., we didn't try to stop a collision,
 but it just so happened that two grobs didn't collide), then
 breaking it does not count as a regression.
 

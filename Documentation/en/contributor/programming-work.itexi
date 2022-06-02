@@ -745,7 +745,7 @@ warning (_f ("Loading default font"));
 @item
 If you must have multiple-sentence messages, use full punctuation.
 Use two spaces after end of sentence punctuation.  No punctuation
-(esp. period) is used at the end of simple messages.
+(esp.@: period) is used at the end of simple messages.
 
 @example
 _f ("Non-matching braces in text `%s', adding braces", text)
@@ -811,13 +811,13 @@ LilyPond has two different types of error and log functions:
 
 @item
 If a warning or error is caused by an identified position in the input file,
-e.g. by a grob or by a music expression, the functions of the @code{Input}
+e.g., by a grob or by a music expression, the functions of the @code{Input}
 class provide logging functionality that prints the position of the message
 in addition to the message.
 
 @item
 If a message can not be associated with a particular position in an input file,
-e.g. the output file cannot be written, then the functions in the
+e.g., the output file cannot be written, then the functions in the
 @code{flower/include/warn.hh} file will provide logging functionality that
 only prints out the message, but no location.
 
@@ -839,7 +839,7 @@ The error functions come in three different flavors: fatal error messages,
 programming error messages and normal error messages.  Errors written
 by the @code{error ()} function will cause LilyPond to exit immediately,
 errors by @code{Input::error ()} will continue the compilation, but
-return a non-zero return value of the LilyPond call (i.e. indicate an
+return a non-zero return value of the LilyPond call (i.e., indicate an
 unsuccessful program execution).  All other errors will be printed on the
 console, but not exit LilyPond or indicate an unsuccessful return code.
 Their only differences to a warnings are the displayed text and that
@@ -1593,7 +1593,7 @@ LILYPOND_BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
 @subsection Manually update documentation
 
 Where the convert-ly rule is not able to automatically update the inline
-LilyPond code in the documentation (i.e. if a NOT_SMART rule is used), the
+LilyPond code in the documentation (i.e., if a NOT_SMART rule is used), the
 documentation must be manually updated.  The inline snippets that require
 changing must be changed in the English version of the docs and all
 translated versions.  If the inline code is not changed in the
@@ -1844,7 +1844,7 @@ following methods in turn:
 
 @code{start_translation_timestep ()} is called before any user
 information enters the translators, i.e., no property operations
-(\set, \override, etc.) or events have been processed yet.
+(\set, \override, etc.@:) or events have been processed yet.
 
 @code{process_music ()} and @code{process_acknowledged ()} are called
 after all events in the current time step have been heard, or all
@@ -2089,7 +2089,7 @@ LilyPond).
 One last oddity is that purity, in LilyPond, is currently limited
 exclusively to things that have to do with Y-extent and positioning.
 There is no concept of @q{pure X} as, by design, X is always the
-independent variable (i.e. from column X1 to column X2, what will be the
+independent variable (i.e., from column X1 to column X2, what will be the
 Y height of a given grob).  Furthermore, there is no purity for
 properties like color, text, and other things for which a meaningful notion
 of estimation is either not necessary or has not yet been found.  For example,
@@ -2242,7 +2242,7 @@ instead of pure height.
 @node LilyPond scoping
 @section LilyPond scoping
 
-The LilyPond language has a concept of scoping, i.e. you can do:
+The LilyPond language has a concept of scoping, i.e., you can do:
 
 @example
 foo = 1
@@ -2444,7 +2444,7 @@ pipeline, is it not too late??
 
 Joe Neeman answered:
 
-We create lots of extra grobs (eg. a BarNumber at every bar line) but
+We create lots of extra grobs (e.g., a BarNumber at every bar line) but
 most of them are not drawn.  See the break-visibility property in
 item-interface.
 
@@ -2594,7 +2594,7 @@ During interpreting, Global_context + Music leads to a bunch of
 Contexts (see Global_translator::run_iterator_on_me ()).
 
 After interpreting, Global_context contains a Score_context (which
-contains staves, lyrics etc.) as a child.  Score_context::get_output ()
+contains staves, lyrics etc.@:) as a child.  Score_context::get_output ()
 spews a Music_output object (either a Paper_score object for notation
 or Performance object for MIDI).
 
@@ -2638,7 +2638,7 @@ to disk.
 See @file{my-lily-lexer.cc} (keywords, there aren't that many)
 and @file{ly/*.ly} (most of the other backslashed @code{/\words} are identifiers)
 
-@subheading What Contexts/Properties/Music/etc. are available when they are processed?
+@subheading What Contexts/Properties/Music/etc.@: are available when they are processed?
 
 What do you mean exactly with this question?
 

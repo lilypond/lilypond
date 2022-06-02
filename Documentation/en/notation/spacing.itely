@@ -2351,7 +2351,7 @@ Internals Reference:
 @unnumberedsubsubsec Spacing of ungrouped staves
 
 @emph{Staves} (such as @code{Staff}, @code{DrumStaff},
-@code{TabStaff}, etc.) are contexts that can contain one or more
+@code{TabStaff}, etc.@:) are contexts that can contain one or more
 voice contexts, but cannot contain any other staves.
 
 The following properties affect the spacing of @emph{ungrouped}
@@ -2431,7 +2431,7 @@ in groups.  The space between groups is typically larger than the
 space between staves of the same group.
 
 @emph{Staff-groups} (such as @code{StaffGroup}, @code{ChoirStaff},
-etc.) are contexts that can contain one or more staves
+etc.@:) are contexts that can contain one or more staves
 simultaneously.
 
 The following properties affect the spacing of staves inside
@@ -2498,7 +2498,7 @@ Internals Reference:
 @unnumberedsubsubsec Spacing of non-staff lines
 
 @emph{Non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
-etc.) are contexts whose layout objects are engraved like staves
+etc.@:) are contexts whose layout objects are engraved like staves
 (i.e., in horizontal lines within systems).  Specifically,
 non-staff lines are non-staff contexts that contain the
 @rinternals{Axis_group_engraver}.

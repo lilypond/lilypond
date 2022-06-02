@@ -665,7 +665,7 @@ valid DocBook document (with extension @file{.xml}) to be further
 processed.  If you use
 @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, it creates a
 PDF file from this document automatically.  For HTML (HTML Help,
-JavaHelp etc.) generation you can use the official DocBook XSL
+JavaHelp, etc.@:) generation you can use the official DocBook XSL
 stylesheets; however, it is possible that you have to make some
 customization for it.
 

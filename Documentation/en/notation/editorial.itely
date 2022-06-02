@@ -1118,7 +1118,7 @@ frame and the alignment of the balloon text is demonstrated below.
 The default calculation of the attachment point can be overruled
 using the @code{X-attachment} and @code{Y-attachment} properties,
 which take values between -1 and 1, with the limits corresponding
-to the left (resp. bottom) and right (resp. top) of the frame.
+to the left (resp.@: bottom) and right (resp.@: top) of the frame.
 Alignment of the text is controlled by @code{text-alignment-X} and
 @code{text-alignment-Y}, which have a similar form.
 

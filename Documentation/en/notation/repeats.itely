@@ -892,7 +892,7 @@ Internals Reference:
 @cindex glissando, and repeats
 @cindex repeat, and glissandi
 
-For repeats in @code{volta} form, spanners (slurs, etc.) that
+For repeats in @code{volta} form, spanners (slurs, etc.@:) that
 cross into alternatives work for the first alternative only.  They
 likewise cannot wrap around from the end of an alternative back to
 the beginning of the repeated section.

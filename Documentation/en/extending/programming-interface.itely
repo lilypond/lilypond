@@ -71,7 +71,7 @@ lexical environment of the LilyPond code block, so all local variables
 and function parameters available at the point the LilyPond code block
 is written may be accessed.  Variables defined in other Scheme modules,
 like the modules containing @code{\header} and @code{\layout} blocks,
-are not accessible as Scheme variables, i.e. prefixed
+are not accessible as Scheme variables, i.e., prefixed
 with@tie{}@code{#}, but they are accessible as LilyPond variables, i.e.
 prefixed with@tie{}@code{\}.
 
@@ -1018,7 +1018,7 @@ documentation, and is of no use for user-defined markup commands.
 @end lisp
 
 Then, a property for setting the gap between two lines is added, called
-@code{line-gap}, defaulting e.g. to 0.6:
+@code{line-gap}, defaulting, e.g., to 0.6:
 
 @lisp
 (define-markup-command (draw-double-line layout props dest)
@@ -1439,7 +1439,7 @@ level use these forms
 @node Callback functions
 @section Callback functions
 
-Properties (like @code{thickness}, @code{direction}, etc.) can be
+Properties (like @code{thickness}, @code{direction}, etc.@:) can be
 set at fixed values with @code{\override}, e.g.
 
 @example
