@@ -134,7 +134,7 @@ def highlight_ly(s):
     out.write('<pre class="verbatim">')
     HtmlFormatter(nowrap=True).format(tokens, out)
     out.write("</pre>\n")
-    out.write("@end html\n\n@ifnothtml\n@format\n")
+    out.write("@end html\n\n@ifnothtml\n@pygments\n")
     lines = []
     for token_type, value in tokens:
         # Escape literal "@", "{" and "}" because we're in
@@ -164,7 +164,7 @@ def highlight_ly(s):
         out.write("\n".join(formatted_parts))
     # No leading newline because our input already contains a
     # trailing newline.
-    out.write("@end format\n@end ifnothtml\n")
+    out.write("@endPygments\n@end ifnothtml\n")
     return out.getvalue()
 
 if __name__ == "__main__":

@@ -727,3 +727,25 @@ UNTRANSLATED NODE: IGNORE ME
 \arg\
 @end macro
 @end ifnottex
+
+
+@c Finally, we need a new environment `pygments`: Internally, `@format` is
+@c used instead of `@example`, but this doesn't activate straight single
+@c quotes and backquotes in PDF output.
+
+@iftex
+@macro pygments
+@format
+@setcodequotes
+@end macro
+@end iftex
+
+@ifnottex
+@macro pygments
+@format
+@end macro
+@end ifnottex
+
+@macro endPygments
+@end format
+@end macro
