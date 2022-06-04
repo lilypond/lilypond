@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.23.8"
+@c \version "2.23.10"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -2762,10 +2762,10 @@ ritardando (徐々に緩やかに) や accelerando (次第に速く) を@c
 @lilypond[verbatim,quote]
 \relative c' {
   \override Beam.grow-direction = #LEFT
-  \featherDurations #(ly:make-moment 2/1)
+  \featherDurations 2/1
   { c16[ c c c c c c c] }
   \override Beam.grow-direction = #RIGHT
-  \featherDurations #(ly:make-moment 2/3)
+  \featherDurations 2/3
   { c32[ d e f] }
   % revert to non-feathered beams
   \override Beam.grow-direction = #'()

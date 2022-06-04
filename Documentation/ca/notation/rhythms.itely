@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.8"
+@c \version "2.23.10"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -2687,10 +2687,10 @@ mentre que les últimes quatre fuses estan a un temps constant.
 @lilypond[verbatim,quote]
 \relative c' {
   \override Beam.grow-direction = #LEFT
-  \featherDurations #(ly:make-moment 2/1)
+  \featherDurations 2/1
   { c16[ c c c c c c c] }
   \override Beam.grow-direction = #RIGHT
-  \featherDurations #(ly:make-moment 2/3)
+  \featherDurations 2/3
   { c32[ d e f] }
   % retorna a barres sense ploma
   \override Beam.grow-direction = #'()

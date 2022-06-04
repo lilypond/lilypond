@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.10"
 
 \header {
     texidoc = "In French style beaming, the stems do not go between beams."
@@ -16,9 +16,9 @@
     \noBreak
     e'32[ f g a16 r]
     \override Beam.grow-direction = #LEFT
-    \featherDurations #(ly:make-moment 2/1)
+    \featherDurations 2/1
     { c,16[ c c c c c c c] }
     \override Beam.grow-direction = #RIGHT
-    \featherDurations #(ly:make-moment 2/3)
+    \featherDurations 2/3
     { d32[^1 e^2 f^3 g^4 a^5] } s64
 }

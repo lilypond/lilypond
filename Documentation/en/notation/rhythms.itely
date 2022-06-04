@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.7"
+@c \version "2.23.10"
 
 @node Rhythms
 @section Rhythms
@@ -2825,10 +2825,10 @@ the last four 32nd notes are at a constant tempo.
 @lilypond[verbatim,quote]
 \relative c' {
   \override Beam.grow-direction = #LEFT
-  \featherDurations #(ly:make-moment 2/1)
+  \featherDurations 2/1
   { c16[ c c c c c c c] }
   \override Beam.grow-direction = #RIGHT
-  \featherDurations #(ly:make-moment 2/3)
+  \featherDurations 2/3
   { c32[ d e f] }
   % revert to non-feathered beams
   \override Beam.grow-direction = #'()
