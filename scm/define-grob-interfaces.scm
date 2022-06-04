@@ -98,52 +98,52 @@ found in @file{scm/bar-line.scm}.
 
 (ly:add-interface
  'bend-interface
- "The (curved) line representing a bent string.\n
+ "The (curved) line representing a bent string.
 Available for the @code{'style} property are @code{'hold}, @code{'pre-bend} and
-@code{'pre-bend-hold}.\n
-The following properties may be set in the details list.\n
+@code{'pre-bend-hold}.
+The following properties may be set in the details list.
 
-@table @code\n
-@item arrow-stencil\n
-The stencil procedure for the @code{BendSpanner} arrow head.\n
-@item curvature-factor\n
+@table @code
+@item arrow-stencil
+The stencil procedure for the @code{BendSpanner} arrow head.
+@item curvature-factor
 Determines the horizontal part of a bend arrow as percentage of the total
-horizontal extent, usually between 0 and@tie{}1.\n
-@item bend-arrowhead-height\n
-The height of the arrow head.\n
-@item bend-arrowhead-width\n
-The width of the arrow head.\n
-@item bend-amount-strings\n
+horizontal extent, usually between 0 and@tie{}1.
+@item bend-arrowhead-height
+The height of the arrow head.
+@item bend-arrowhead-width
+The width of the arrow head.
+@item bend-amount-strings
 An alist with entries for @code{'quarter}, @code{'half}, @code{'three-quarter}
-and @code{'full}, which are used to print how much a string is bent.\n
-@item curve-x-padding-line-end\n
+and @code{'full}, which are used to print how much a string is bent.
+@item curve-x-padding-line-end
 For a broken @code{BendSpanner}, set the padding at the line end to subsequent
-objects like changed @code{Clef}, etc.\n
-@item curve-y-padding-line-end\n
+objects like changed @code{Clef}, etc.
+@item curve-y-padding-line-end
 For a broken @code{BendSpanner} started from a chord the curves don't match;
-there is a certain vertical gap specified by this value.\n
-@item dashed-line-settings\n
-List of three numeric values representing on, off and phase of a dashed line.\n
-@item head-text-break-visibility\n
+there is a certain vertical gap specified by this value.
+@item dashed-line-settings
+List of three numeric values representing on, off and phase of a dashed line.
+@item head-text-break-visibility
 A vector of three booleans to set visibility of the arrow head and the text at
 a line break.  This is important for @code{'style} set to @code{'hold},
-@code{'pre-bend} or @code{'pre-bend-hold}.\n
-@item horizontal-left-padding\n
+@code{'pre-bend} or @code{'pre-bend-hold}.
+@item horizontal-left-padding
 The amount of horizontal free space between a @code{TabNoteHead} and the
-starting @code{BendSpanner}.\n
-@item successive-level\n
+starting @code{BendSpanner}.
+@item successive-level
 An integer used as a factor determining the vertical coordinate of the starting
 @code{BendSpanner}.  If @code{successive-level} is@tie{}1, the
 @code{BendSpanner} starts at the @code{TabNoteHead}.  If consecutive
 @code{BendSpanner}s are set this value should be set to an appropriate value for
-the first one; later on, this value is maintained by the engraver.\n
-@item target-visibility\n
+the first one; later on, this value is maintained by the engraver.
+@item target-visibility
 A boolean to decide whether the target @code{TabNoteHead} should be visible.
-For up-pointing bends this is usually true.\n
-@item y-distance-from-tabstaff-to-arrow-tip\n
+For up-pointing bends this is usually true.
+@item y-distance-from-tabstaff-to-arrow-tip
 This numeric value determines the distance between the @code{TabStaff} and the
-arrow head of the @code{BendSpanner}.\n
-@end table\n"
+arrow head of the @code{BendSpanner}.
+@end table"
  '(details
    style
    direction
@@ -550,20 +550,28 @@ as bar lines, but it is not a bar line."
 
 (ly:add-interface
  'time-signature-interface
- "A time signature, in different styles.  The following values for @code{style} are are recognized:
+ "A time signature, in different styles.  The following values for
+@code{style} are are recognized:
 
- @table @code
- @item C
- 4/4 and 2/2 are typeset as C and struck C, respectively. All other time signatures are written with two digits. The value @code{default} is equivalent to @code{C}.
- @item neomensural
- 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with neo-mensural style mensuration marks.  All other time signatures are written with two digits.
- @item mensural
- 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with mensural style mensuration marks.  All other time signatures are written with two digits.
- @item single-digit
- All time signatures are typeset with a single digit, e.g., 3/2 is written as 3.
- @item numbered
- All time signatures are typeset with two digits.
- @end table"
+@table @code
+@item C
+4/4 and 2/2 are typeset as C and struck C, respectively.  All other
+time signatures are written with two digits.  The value
+@code{default} is equivalent to value @samp{C}.
+@item neomensural
+2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset
+with neo-mensural style mensuration marks.  All other time
+signatures are written with two digits.
+@item mensural
+2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset
+with mensural style mensuration marks.  All other time signatures
+are written with two digits.
+@item single-digit
+All time signatures are typeset with a single digit, e.g., 3/2 is
+written as@tie{}3.
+@item numbered
+All time signatures are typeset with two digits.
+@end table"
  '(fraction style))
 
 (ly:add-interface
