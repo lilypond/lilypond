@@ -46,7 +46,7 @@ open = #(make-articulation 'open)
 portato = #(make-articulation 'portato
             'midi-length
             (lambda (len context)
-             (ly:moment-mul len (ly:make-moment 3/4))))
+             (* len 3/4)))
 prall = #(make-articulation 'prall)
 pralldown = #(make-articulation 'pralldown)
 prallmordent = #(make-articulation 'prallmordent)
@@ -68,7 +68,7 @@ staccatissimo = #(make-articulation 'staccatissimo
 staccato = #(make-articulation 'staccato
              'midi-length
              (lambda (len context)
-               (moment-min (ly:moment-mul len (ly:make-moment 1/2))
+               (moment-min (* len 1/2)
                            (seconds->moment 1/2 context)))
              'midi-extra-velocity 4)
 stopped = #(make-articulation 'stopped)

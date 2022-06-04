@@ -69,7 +69,7 @@ after the onset of @var{mus}.")
   (if (and (not (empty-chord? mus))
            (ly:moment<?
             (ly:music-length mus)
-            (ly:moment-add (ly:music-length ev) (ly:duration-length delta))))
+            (+ (ly:music-length ev) (ly:duration-length delta))))
       (ly:warning (G_ "\\after expression longer than main music argument.")))
   #{ \context Bottom << { \skip $delta <> $ev } #mus >> #})
 
