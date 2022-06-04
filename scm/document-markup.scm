@@ -26,7 +26,7 @@
                           ;; either (prop) or (prop value)
                           (cons (if (null? (cdr prop-spec))
                                     (format #f "@item @code{~a}\n" (car prop-spec))
-                                    (format #f "@item @code{~a} (~s)\n"
+                                    (format #f "@item @code{~a} (@code{~s})\n"
                                             (car prop-spec)
                                             (cadr prop-spec)))
                                 prop-strings)
