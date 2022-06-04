@@ -550,7 +550,8 @@ determines the number of scale steps that make up an octave.  Usually the
 ;;
 ;;  - Library definitions, need to be at the head of the list
 (define init-scheme-files-lib
-  '("lily-library"
+  '("operators"
+    "lily-library"
     "output-lib"))
 ;;  - Files containing definitions used later by other files later in load
 (define init-scheme-files-used
