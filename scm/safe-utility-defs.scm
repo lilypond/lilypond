@@ -36,7 +36,7 @@
 
 (define-syntax define-safe-public
   (lambda (syntaks)
-    "Define a variable, export it, and mark it as safe, i.e. usable in
+    "Define a variable, export it, and mark it as safe, i.e., usable in
 LilyPond safe mode.  The syntax is the same as `define*-public'."
     (syntax-case syntaks ()
       ((_ binding form ...)

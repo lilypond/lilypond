@@ -273,7 +273,7 @@ ignoring @var{landscape?}."
          (if swapped? (cons (cdr entry) (car entry)) entry))))
 
 (define (set-paper-dimensions m w h landscape?)
-  "M is a module (i.e. layout->scope_ )"
+  "M is a module (i.e., layout->scope_ )"
   (let*
       ;; page layout - what to do with (printer specific!) margin settings?
       ((paper-default (or (lookup-paper-name

@@ -321,7 +321,7 @@ is not used within the routine."
          ;; middle of the staff and neither should collide with staff
          ;; lines.
          ;; the required space is measured in line positions,
-         ;; i.e. in half staff spaces.
+         ;; i.e., in half staff spaces.
 
          ;; dots are to fall into distict spaces, except when there's
          ;; only one space (and it's big enough to hold two dots and
@@ -542,9 +542,9 @@ is not used within the routine."
 
 
 (define ((make-segno-bar-line show-segno) grob extent)
-  "Draw a segno bar line. If @var{show-segno} is set to @code{#t},
+  "Draw a segno bar line.  If @var{show-segno} is set to @code{#t},
 the segno sign is drawn over the double bar line; otherwise, it
-draws the span bar variant, i.e. without the segno sign."
+draws the span bar variant, i.e., without the segno sign."
   (let* ((line-thickness (layout-line-thickness grob))
          (segno-kern (* (ly:grob-property grob 'segno-kern 1) line-thickness))
          (thin-stil (make-simple-bar-line grob extent))

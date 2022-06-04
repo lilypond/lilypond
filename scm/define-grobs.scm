@@ -574,7 +574,7 @@ tablature notation.")))))
                                 break-aligned-interface))
                  (description . "An auxiliary grob to group
 several breakable items of the same type (clefs, time signatures,
-etc.) across staves so that they will be aligned horizontally.
+etc.@:) across staves so that they will be aligned horizontally.
 See also @iref{BreakAlignment}.")))))
 
     (BreakAlignment

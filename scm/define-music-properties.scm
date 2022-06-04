@@ -189,7 +189,7 @@ If zero, signals a beat containing varying durations.")
      (span-type ,symbol? "What kind of dynamic spanner should be created?
 Options are @code{'text} and @code{'hairpin}.")
      (span-text ,markup? "The displayed text for dynamic text
-spanners (e.g., cresc.)")
+spanners (e.g., cresc.).")
      (spanner-id ,key? "Identifier to distinguish concurrent spanners.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer

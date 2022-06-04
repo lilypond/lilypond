@@ -137,7 +137,8 @@ For instance,
 ==>
   (markup #:line (#:bold (#:italic (#:simple \"hello\"))))"
   (define (proc->command-keyword proc)
-    "Return a keyword, eg. `#:bold', from the `proc' function, eg. #<procedure bold-markup (layout props arg)>"
+    "Return a keyword, e.g., `#:bold`, from the `proc` function,
+     e.g., `#<procedure bold-markup (layout props arg)>`."
     (let ((cmd-markup (symbol->string (procedure-name proc))))
       (symbol->keyword (string->symbol (substring cmd-markup 0 (- (string-length cmd-markup)
                                                                   (string-length "-markup")))))))
@@ -729,7 +730,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
 
 (define-safe-public (make-articulation name . properties)
   ;; -----------------------------------------------------------------
-  ;; obsoletion handling, may be removed at some point (e.g. for 2.26)
+  ;; obsoletion handling, may be removed at some point (e.g., for 2.26)
   (if (string? name)
       (begin
         (ly:warning "articulation types should be symbols instead of \
@@ -1302,7 +1303,7 @@ actually fully cloned."
     @var{function-body})
 @end example
 
-@var{type1?}, @var{type2?}, etc. can take one of the forms
+@var{type1?}, @var{type2?}, etc., can take one of the forms
 @code{predicate?} for mandatory arguments satisfying the predicate,
 @code{(predicate?)} for optional parameters of that type defaulting to
 @code{#f}, @code{(predicate? value)} for optional parameters with a

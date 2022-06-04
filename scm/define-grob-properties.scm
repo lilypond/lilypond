@@ -482,10 +482,10 @@ bar line appearance in ASCII form.")
      (glyph-name ,string? "The glyph name within the font.
 
 In the context of (span) bar lines, @var{glyph-name} represents
-a processed form of @code{glyph}, where decisions about line breaking
-etc. are already taken.")
+a processed form of @code{glyph}, where decisions about line breaking,
+etc., are already taken.")
      (alteration-glyph-name-alist ,alist? "An alist of key-string pairs.")
-     (graphical ,boolean? "Display in graphical (vs. text) form.")
+     (graphical ,boolean? "Display in graphical (vs.@: text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 
 
@@ -494,7 +494,7 @@ etc. are already taken.")
 ;;;
      (hair-thickness ,number? "Thickness of the thin line in a bar
 line, expressed as a multiple of the default staff-line
-thickness (i.e. the visual output is @emph{not} influenced by changes
+thickness (i.e., the visual output is @emph{not} influenced by changes
 to @code{@var{Staff}.StaffSymbol.thickness}).")
      (harp-pedal-details ,symbol-key-alist? "An alist of detailed grob
 properties for harp pedal diagrams.  Each alist entry consists of a
@@ -566,7 +566,7 @@ the output.")
 objects sticking into the margin.")
      (kern ,ly:dimension? "The space between individual elements
 in any compound bar line, expressed as a multiple of the default
-staff-line thickness (i.e. the visual output is @emph{not}
+staff-line thickness (i.e., the visual output is @emph{not}
 influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
      (knee ,boolean? "Is this beam kneed?")
@@ -625,7 +625,7 @@ use if this column is the start of a system.")
      (line-thickness ,number? "For slurs and ties, this is the
 diameter of the virtual @qq{pen} that draws the two arcs of the
 curve's outline, which intersect at the endpoints.  This property is
-expressed as a multiple of the current staff-line thickness (i.e. the
+expressed as a multiple of the current staff-line thickness (i.e., the
 visual output is influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
      (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
@@ -918,7 +918,7 @@ the user input, the sum being the overall priority.  Smaller means
 closer to the head.")
      (segno-kern ,number? "The space between the two thin lines
 of the segno bar line symbol, expressed as a multiple of the
-default staff-line thickness (i.e. the visual output is @emph{not}
+default staff-line thickness (i.e., the visual output is @emph{not}
 influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
      (self-alignment-X ,number? "Specify alignment of an object.  The
@@ -1147,7 +1147,7 @@ value.")
 normally, then grace notes are put left of the musical columns for the
 main notes.")
      (strict-note-spacing ,boolean? "If set, unbroken columns with
-non-musical material (clefs, bar lines, etc.) are not spaced
+non-musical material (clefs, bar lines, etc.@:) are not spaced
 separately, but put before musical columns.")
      (stroke-style ,string? "Set to @code{\"grace\"} to turn stroke
 through flag on.")
@@ -1168,14 +1168,14 @@ words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
 should use @code{LEFT}.")
      (thick-thickness ,number? "Thickness of the thick line in a
 bar line, expressed as a multiple of the default staff-line
-thickness (i.e. the visual output is @emph{not} influenced by
+thickness (i.e., the visual output is @emph{not} influenced by
 changes to @code{@var{Staff}.StaffSymbol.thickness}).")
      (thickness ,number? "For grobs made up of lines, this is the
 thickness of the line.  For slurs and ties, this is the distance
 between the two arcs of the curve's outline at its thickest point,
 not counting the diameter of the virtual @qq{pen} that draws the
 arcs.  This property is expressed as a multiple of the current
-staff-line thickness (i.e. the visual output is influenced by
+staff-line thickness (i.e., the visual output is influenced by
 changes to @code{@var{Staff}.StaffSymbol.thickness}).")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where

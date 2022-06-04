@@ -151,7 +151,7 @@ arrow head of the @code{BendSpanner}.
 
 (ly:add-interface
  'bezier-curve-interface
- "A Bézier curve (tie, slur, etc.)"
+ "A Bézier curve (tie, slur, etc.)."
  '(show-control-points))
 
 (ly:add-interface
@@ -308,7 +308,7 @@ setting of @code{details.bow-direction}.
 
 (ly:add-interface
  'inline-accidental-interface
- "An inlined accidental (i.e. normal accidentals, cautionary
+ "An inlined accidental (i.e., normal accidentals, cautionary
 accidentals)."
  '())
 
@@ -319,7 +319,7 @@ accidentals)."
 
 (ly:add-interface
  'jump-script-interface
- "A jump instruction, e.g. D.S."
+ "A jump instruction, e.g., @emph{D.S.}."
  '())
 
 (ly:add-interface
@@ -478,7 +478,7 @@ interesting enough to maintain a hara-kiri staff."
 
 (ly:add-interface
  'section-label-interface
- "A section label, e.g. @qq{Coda}."
+ "A section label, e.g., @qq{Coda}."
  '())
 
 (ly:add-interface

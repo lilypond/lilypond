@@ -27,7 +27,7 @@ When the markup is formatted, then FUNCTION is called as follows
 GROB is the current grob, PROPS is a list of alists, and ARG1.. are
 the rest of the arguments.
 
-The function should return a stencil (i.e. a formatted, ready to
+The function should return a stencil (i.e., a formatted, ready to
 print object).
 
 

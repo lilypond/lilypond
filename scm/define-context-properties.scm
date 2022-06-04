@@ -284,7 +284,7 @@ of the main body of the repeat, or it is a @emph{Fine} instruction.
 When it is a Fine instruction, @var{next-markup} is @code{#f}.
 
 If @var{next-markup} is not @code{#f}, it is the mark to be jumped to
-after performing the body of the repeat, e.g. Coda.")
+after performing the body of the repeat, e.g., Coda.")
      (decrescendoSpanner ,symbol? "The type of spanner to be used for
 decrescendi.  Available values are @samp{hairpin} and @samp{text}.  If
 unset, a hairpin decrescendo is used.")
@@ -446,7 +446,7 @@ for sharp.")
 containing @code{(@var{step} . @var{alter})} or
 @code{((@var{octave} . @var{step}) . @var{alter})}, where @var{step}
 is a number in the range 0 to@tie{}6 and @var{alter} a fraction,
-denoting alteration.  For alterations, use symbols, e.g.
+denoting alteration.  For alterations, use symbols, e.g.,
 @code{keyAlterations = #`((6 . ,FLAT))}.")
 
 
@@ -637,7 +637,7 @@ context.  It should return a markup object.")
      (segnoStyle ,symbol? "A symbol that indicates how to print a segno:
 @code{bar-line} or @code{mark}.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for
-each note head relative to the tonic (qv.) of the scale.")
+each note head relative to the tonic (q.v.@:) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
      (shortVocalName ,markup? "Name of a vocal line, short version.")
      (skipBars ,boolean? "If set to true, then skip the empty bars
@@ -741,7 +741,7 @@ will create a @var{VerticalAlignment}; otherwise, it will create a
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
      (tupletFullLengthNote ,boolean? "If set, end at the next note,
-otherwise end on the matter (time signatures, etc.) before the note.")
+otherwise end on the matter (time signatures, etc.@:) before the note.")
      (tupletSpannerDuration ,ly:moment? "Normally, a tuplet bracket is
 as wide as the @code{\\times} expression that gave rise to it.  By
 setting this property, you can make brackets last shorter.
@@ -796,7 +796,7 @@ This is used by the @code{Breathing_@/sign_@/engraver}.  See
 @file{scm/@/breath.scm} for more information.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
 @var{grob})} cons cells.  This is for internal (C++) use only.  This
-property contains the grobs which are still busy (e.g. note heads,
+property contains the grobs which are still busy (e.g., note heads,
 spanners, etc.).")
 
 
@@ -807,7 +807,7 @@ which a coda mark appears: not set during the first timestep,
      (currentBarLine ,ly:grob? "Set to the @code{BarLine} that
 @code{Bar_@/engraver} has created in the current timestep.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
-current breakable (clef, key signature, etc.) items.")
+current breakable items (clef, key signature, etc.).")
      (currentMarkEvent ,ly:stream-event? "The event selected by
 @code{Mark_@/tracking_@/translator} for engraving by
 @code{Mark_@/engraver}.")
