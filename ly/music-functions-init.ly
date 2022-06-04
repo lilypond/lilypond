@@ -519,23 +519,22 @@ expanding repeat chords @samp{q}.")
    (event-chord-wrap! music))
 
 featherDurations=
-#(define-music-function (factor argument) (ly:moment? ly:music?)
-   (_i "Adjust durations of music in @var{argument} by rational @var{factor}.")
+#(define-music-function (scale argument) (scale? ly:music?)
+   (_i "Adjust durations of music in @var{argument} by @var{scale}.")
    (let ((orig-duration (ly:music-length argument))
-         (multiplier (ly:make-moment 1 1)))
+         (factor (scale->factor scale))
+         (multiplier 1))
 
      (for-each
       (lambda (mus)
         (if (< 0 (ly:moment-main-denominator (ly:music-length mus)))
             (begin
               (ly:music-compress mus multiplier)
-              (set! multiplier (ly:moment-mul factor multiplier)))))
+              (set! multiplier (* factor multiplier)))))
       (extract-named-music argument '(EventChord NoteEvent RestEvent SkipEvent)))
      (ly:music-compress
       argument
-      (ly:moment-div orig-duration (ly:music-length argument)))
-
-     argument))
+      (ly:moment-div orig-duration (ly:music-length argument)))))
 
 finger =
 #(define-event-function (finger) (index-or-markup?)

@@ -4551,6 +4551,7 @@ def conv(s):
 automaticBars = ##f -> measureBarType = #'()
 \\bar "-" -> \\bar ""
 BarType = "-" -> BarType = ""
+\featherDurations #(ly:make-moment x/y) -> \featherDurations x/y
 """)
 def conv(s):
     s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
@@ -4563,6 +4564,8 @@ measureBarType to #'() or a valid bar type.
         stderr_write(UPDATE_MANUALLY)
     s = re.sub(r'\\bar\s+"-"', r'\\bar ""', s)
     s = re.sub(r'BarType\s*=\s*"-"', r'BarType = ""', s)
+    s = re.sub(r'(\\featherDurations\s+)#\(ly:make-moment\s+([0-9/]+)\)',
+               r'\1\2', s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
