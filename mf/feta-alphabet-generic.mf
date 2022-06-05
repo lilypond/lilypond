@@ -11,9 +11,6 @@
 input common-modules-and-initialization;
 
 fet_beginfont ("feta-alphabet", design_size);
-  number_design_size := design_size / 2;
-  dynamic_design_size := 14 design_size / 20;
-
   input feta-numbers;
   input feta-dynamics;
 fet_endfont ("feta-numbers");
