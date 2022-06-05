@@ -23,9 +23,6 @@ ascender# := 0.72 ex#;
 staffspace# := 1.75 / 2.0 * ex#;
 horizontal_space# := .66 ex#;
 
-font_x_height ex#;
-font_normal_space horizontal_space#;
-
 define_pixels (staffspace, linethickness, ex, descender, ascender);
 
 

@@ -10,8 +10,6 @@
 
 input common-modules-and-initialization;
 
-font_x_height staff_space#;
-
 fet_beginfont ("feta-flags", design_size);
   input feta-flags;
 

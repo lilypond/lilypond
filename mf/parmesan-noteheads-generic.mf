@@ -11,8 +11,6 @@
 input common-modules-and-initialization;
 input parmesan-macros;
 
-font_x_height staff_space#;
-
 fet_beginfont ("parmesan-noteheads", design_size);
   input parmesan-noteheads;
 fet_endfont;

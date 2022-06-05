@@ -20,9 +20,6 @@
 height# := number_design_size;
 space# := number_design_size / 2;
 
-font_x_height height#;
-font_normal_space space#;
-
 %
 % DOCME!
 %
