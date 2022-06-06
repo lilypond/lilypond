@@ -4537,7 +4537,6 @@ should be updated.
 
 @rule((2, 23, 9), r"""
 ly:percent-repeat-item-interface::xxx -> ly:percent-repeat-interface::xxx
-automaticBars -> measureBarType
 """)
 def conv(s):
     s = re.sub(r"ly:percent-repeat-item-interface::", "ly:percent-repeat-interface::", s)
