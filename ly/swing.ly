@@ -96,9 +96,7 @@
 %%% Helper functions
 
 #(define (moment-abs mom)
-   (if (ly:moment<? mom ZERO-MOMENT)
-       (ly:moment-sub ZERO-MOMENT mom)
-       mom))
+   (if (< mom ZERO-MOMENT) (- mom) mom))
 
 #(define (chord-or-with-duration? music)
    (or
@@ -108,10 +106,7 @@
 #(define (music-lengthen music add-moment)
    "Uniformly scale durations in @var{music} such that it takes
 @var{add-moment} more time in total."
-   (let* ((dur (ly:moment-main (ly:music-length music)))
-          (delta (ly:moment-main add-moment))
-          (factr (ly:make-moment (1+ (/ delta dur)))))
-     (ly:music-compress music factr)))
+   (ly:music-compress music (1+ (/ add-moment (ly:music-length music)))))
 
 #(define* (map-events-with-timing
            function
@@ -145,14 +140,12 @@ Ignore grace music. Do not unfold repeats for determining timings."
               (set! (ly:music-property mus 'element)
                     (map-events-with-timing function e start-time)))
           ;; advance time counter by total length of simultaneous music
-          (set! start-time
-                (ly:moment-add start-time (ly:music-length mus)))
+          (set! start-time (+ start-time (ly:music-length mus)))
           mus))
        ((chord-or-with-duration? mus)
         (let ((evt-time start-time))
           ;; advance time counter
-          (set! start-time
-                (ly:moment-add start-time (ly:music-length mus)))
+          (set! start-time (+ start-time (ly:music-length mus)))
           (function mus evt-time)))
        (else
         ;; if we did not handle mus above, keep recursing
@@ -217,14 +210,10 @@ notes correspond to the ratios of the numbers in wlist.
 Return an alist associating old boundary positions with required
 shifts, both given as moments."
    (let* ((n (length wlist))
-          (old-boundaries (map (lambda (i)
-                                 (ly:moment-mul swing-div
-                                   (ly:make-moment i)))
-                            (iota n 1)))
+          (old-boundaries (iota n swing-div swing-div))
           (deltas (map (lambda (ndelta)
-                         (ly:moment-mul swing-div
-                           (ly:make-moment (* n ndelta))))
-                    (calculate-normalized-deltas wlist))))
+                         (* swing-div n ndelta))
+                       (calculate-normalized-deltas wlist))))
      (map cons old-boundaries deltas)))
 
 
@@ -248,8 +237,7 @@ shifts, both given as moments."
 %%   compensated for completely.
 
 #(define (apply-swing swing-div wlist start-time music)
-   (let* ((swing-unit (ly:make-moment (* (length wlist)
-                                        (ly:moment-main swing-div))))
+   (let* ((swing-unit (* swing-div (length wlist)))
           (delta-alist (calculate-delta-alist wlist swing-div))
           (prev-lengthening ZERO-MOMENT)
           (rem-lengthening ZERO-MOMENT))
@@ -259,7 +247,7 @@ shifts, both given as moments."
         (let* ((evt-duration (ly:music-length evt))
                (grid-pos-start (ly:moment-mod evt-time swing-unit))
                (grid-pos-end (ly:moment-mod
-                              (ly:moment-add evt-time evt-duration)
+                              (+ evt-time evt-duration)
                               swing-unit)))
           (ly:debug
            "apply-swing: check ~a at ~a (gridpos ~a), length ~a, end gridpos ~a"
@@ -274,32 +262,30 @@ shifts, both given as moments."
           ;; of prev-lengthening. (Notice that the formulae must also
           ;; work for negative previous lengthening.)
           (if
-           (and (ly:moment<? ZERO-MOMENT (moment-abs rem-lengthening))
-                (ly:moment<? ZERO-MOMENT evt-duration))
-           (let* ((max-shorten (ly:moment-mul prev-lengthening
-                                 (ly:moment-div evt-duration
-                                   swing-div)))
+           (and (< ZERO-MOMENT (moment-abs rem-lengthening))
+                (< ZERO-MOMENT evt-duration))
+           (let* ((max-shorten (* prev-lengthening
+                                  (/ evt-duration swing-div)))
                   (shorten-by
-                   (if (ly:moment<? (ly:make-moment 1/1)
-                         (ly:moment-div max-shorten rem-lengthening))
+                   (if (< 1 (/ max-shorten rem-lengthening))
                        rem-lengthening
                        max-shorten)))
              (set! rem-lengthening
-                   (ly:moment-sub rem-lengthening shorten-by))
+                   (- rem-lengthening shorten-by))
              (ly:debug
               "apply-swing:       shorten by ~a (remaining: ~a out of ~a)"
               shorten-by rem-lengthening prev-lengthening)
-             (music-lengthen evt (ly:moment-sub ZERO-MOMENT shorten-by))))
+             (music-lengthen evt (- shorten-by))))
           ;; Lengthen notes that end on off-beat grid positions by the
           ;; corresponding delta, if they are long enough
           (if
            (and (assoc grid-pos-end delta-alist)
-                (not (ly:moment<? evt-duration swing-div)))
+                (not (< evt-duration swing-div)))
            (let ((delta (assoc-ref delta-alist grid-pos-end)))
              (ly:debug "apply-swing:       lengthen by ~a" delta)
              (music-lengthen evt delta)
              (set! prev-lengthening delta)
-             (set! rem-lengthening (ly:moment-add delta rem-lengthening))))
+             (set! rem-lengthening (+ delta rem-lengthening))))
           evt))
       music
       start-time)))
