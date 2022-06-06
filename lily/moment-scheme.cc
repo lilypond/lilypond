@@ -96,24 +96,32 @@ Add two moments.
 
 LY_DEFINE (ly_moment_mul, "ly:moment-mul", 2, 0, 0, (SCM a, SCM b),
            R"(
-Multiply two moments.
+Multiply moment @var{a} by a number @var{b} (or by the main part of another moment).
            )")
 {
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
-  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
+  if (auto *const mb = unsmob<Moment> (b))
+    return to_scm (*ma * mb->main_part_);
 
-  return to_scm (*ma * mb->main_part_);
+  // We make the type error call for an exact rational rather than
+  // another moment since logically that makes better sense
+  LY_ASSERT_TYPE (is_scm<Rational>, b, 2);
+  return to_scm (*ma * from_scm<Rational> (b));
 }
 
 LY_DEFINE (ly_moment_div, "ly:moment-div", 2, 0, 0, (SCM a, SCM b),
            R"(
-Divide two moments.
+Divide moment @var{a} by a number @var{b} (or by the main part of another moment).
            )")
 {
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
-  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
+  if (auto *const mb = unsmob<Moment> (b))
+    return to_scm (*ma / mb->main_part_);
 
-  return to_scm (*ma / mb->main_part_);
+  // We make the type error call for an exact rational rather than
+  // another moment since logically that makes better sense
+  LY_ASSERT_TYPE (is_scm<Rational>, b, 2);
+  return to_scm (*ma / from_scm<Rational> (b));
 }
 
 LY_DEFINE (ly_moment_mod, "ly:moment-mod", 2, 0, 0, (SCM a, SCM b),
