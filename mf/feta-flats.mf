@@ -29,7 +29,8 @@
 % TODO: document, simplify!
 %
 
-def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
+def draw_meta_flat (expr xcenter, glyph_width, crook_fatness,
+                         arrowup, arrowdown, figured_bass) =
   save crook_thinness;
   save bottom_overshoot, bot_crook_dir;
   save top_stem_thick, top_stem_thick_orig;
@@ -46,7 +47,7 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
   %
   % TODO: parameterize this
   %
-  if w >= 0.75 staff_space:
+  if glyph_width >= 0.75 staff_space:
     smaller_hole = 0.35 stafflinethickness;
   else:
     smaller_hole = 0;
@@ -121,7 +122,7 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 
   y4l - y4r = top_crook_thinness;
   y5r = .15 staff_space;
-  x5l = hround (w + xcenter);
+  x5l = hround (glyph_width + xcenter);
   y4 = staff_space / 2;
   x4r = .45 [x5r, x3r];
   y4l := vround y4l;
@@ -176,10 +177,10 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 enddef;
 
 
-def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
-                                 arrowup, arrowdown) =
-  save depth, height, breapth;
+def draw_arrowed_meta_flat (expr arrowup, arrowdown, figured_bass) =
+  save width, depth, height, breapth;
 
+  width# := 0.8 staff_space#;
   % synchronized with vertical position of point z11 but with less overshoot
   depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
   % synchronized with vertical position of point z1
@@ -202,8 +203,9 @@ def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
     breapth# := .3 staff_space#;
   fi;
 
-  set_char_box (breapth#, width, depth#, height#);
-  draw_meta_flat (xcenter, w, crook_fatness, arrowup, arrowdown);
+  set_char_box (breapth#, width#, depth#, height#);
+  draw_meta_flat (0, w, 0.31 staff_space,
+                  arrowup, arrowdown, figured_bass);
 enddef;
 
 %
@@ -211,8 +213,7 @@ enddef;
 %
 
 fet_beginchar ("flat", "flat");
-  draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-                          false, false);
+  draw_arrowed_meta_flat (false, false, false);
   penlabels (range 0 thru 16);
   labels (2a);
 
@@ -220,9 +221,15 @@ fet_beginchar ("flat", "flat");
 fet_endchar;
 
 
+fet_beginchar ("figured bass flat", "flat.figbass");
+  draw_arrowed_meta_flat (false, false, true);
+  penlabels (range 0 thru 16);
+  labels (2a);
+fet_endchar;
+
+
 fet_beginchar ("arrowed flat (arrow up)", "flat.arrowup");
-  draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-                          true, false);
+  draw_arrowed_meta_flat (true, false, false);
   penlabels (range 0 thru 23);
   labels (2a);
 
@@ -231,8 +238,7 @@ fet_endchar;
 
 
 fet_beginchar ("arrowed flat (arrow down)", "flat.arrowdown");
-  draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-                          false, true);
+  draw_arrowed_meta_flat (false, true, false);
   penlabels (range 0 thru 23);
   labels (2a);
 
@@ -241,8 +247,7 @@ fet_endchar;
 
 
 fet_beginchar ("arrowed flat (arrow up and down)", "flat.arrowboth");
-  draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-                          true, true);
+  draw_arrowed_meta_flat (true, true, false);
   penlabels (range 0 thru 23);
   labels (2a);
 
@@ -259,7 +264,7 @@ fet_beginchar ("flat (slashed)", "flat.slash");
   % use same value for breapth as for arrowed flats
   set_char_box (.3 staff_space#, .8 staff_space#, depth#, height#);
 
-  draw_meta_flat (0, w, 0.31 staff_space, false, false);
+  draw_meta_flat (0, w, 0.31 staff_space, false, false, false);
 
   clearxy;
 
@@ -301,7 +306,7 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
   % use same value for breapth as for arrowed flats
   set_char_box (.3 staff_space#, .8 staff_space#, depth#, height#);
 
-  draw_meta_flat (0, w, 0.31 staff_space, false, false);
+  draw_meta_flat (0, w, 0.31 staff_space, false, false, false);
 
   clearxy;
 
@@ -485,7 +490,7 @@ fet_beginchar ("semi flat", "mirroredflat");
 
   set_char_box (1.2 stafflinethickness#, .8 staff_space#, depth#, height#);
 
-  draw_meta_flat (0, w, 0.31 staff_space, false, false);
+  draw_meta_flat (0, w, 0.31 staff_space, false, false, false);
   currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 
   draw_staff_if_debugging (-2, 2);
@@ -500,7 +505,7 @@ fet_beginchar ("semi flat (slashed)", "mirroredflat.backslash");
 
   set_char_box (.4 staff_space#, .8 staff_space#, depth#, height#);
 
-  draw_meta_flat (0, w, 0.31 staff_space, false, false);
+  draw_meta_flat (0, w, 0.31 staff_space, false, false, false);
 
   clearxy;
 
@@ -549,12 +554,34 @@ fet_beginchar ("double flat", "flatflat");
                 (left_wid + right_wid - overlap) * staff_space#,
                 depth#, height#);
   draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
-                  false, false);
+                  false, false, false);
   draw_meta_flat (hround ((left_wid - overlap) * staff_space),
                   right_wid * staff_space, 1/3 staff_space,
-                  false, false);
+                  false, false, false);
 
   draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("figured bass double flat", "flatflat.figbass");
+  save depth, height;
+  save left_wid, overlap, right_wid;
+
+  depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
+  height# := 2 staff_space# - 1.7 stafflinethickness#;
+
+  left_wid = .7;
+  right_wid = .8;
+  overlap = .05;
+
+  set_char_box (1.2 stafflinethickness#,
+                (left_wid + right_wid - overlap) * staff_space#,
+                depth#, height#);
+  draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
+                  false, false, true);
+  draw_meta_flat (hround ((left_wid - overlap) * staff_space),
+                  right_wid * staff_space, 1/3 staff_space,
+                  false, false, true);
 fet_endchar;
 
 
@@ -573,10 +600,10 @@ fet_beginchar ("3/4 flat", "flatflat.slash");
                 (left_wid + right_wid - overlap) * staff_space#,
                 depth#, height#);
   draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
-                  false, false);
+                  false, false, false);
   draw_meta_flat (hround ((left_wid - overlap) * staff_space),
                   right_wid * staff_space, 1/3 staff_space,
-                  false, false);
+                  false, false, false);
 
   %% maybe we should clip part of the stems?
   %% or make the 1st flat smaller?

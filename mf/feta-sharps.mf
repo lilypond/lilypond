@@ -87,7 +87,7 @@ def draw_sharp_beam (expr xcenter, length, y_offset) =
 enddef;
 
 
-def draw_sharp (expr arrowup, arrowdown) =
+def draw_sharp (expr arrowup, arrowdown, figured_bass) =
   save depth, height, width;
   save dist_between_stems;
   save outer_space;
@@ -175,22 +175,27 @@ enddef;
 
 
 fet_beginchar ("sharp", "sharp");
-  draw_sharp (false, false);
+  draw_sharp (false, false, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass sharp", "sharp.figbass");
+  draw_sharp (false, false, true);
 fet_endchar;
 
 
 fet_beginchar ("arrowed sharp (arrow up)", "sharp.arrowup");
-  draw_sharp (true, false);
+  draw_sharp (true, false, false);
 fet_endchar;
 
 
 fet_beginchar ("arrowed sharp (arrow down)", "sharp.arrowdown");
-  draw_sharp (false, true);
+  draw_sharp (false, true, false);
 fet_endchar;
 
 
 fet_beginchar ("arrowed sharp (arrows up and down)", "sharp.arrowboth");
-  draw_sharp (true, true);
+  draw_sharp (true, true, false);
 fet_endchar;
 
 
@@ -411,7 +416,7 @@ fet_beginchar ("3/4 sharp", "sharp.slashslash.stemstemstem");
 fet_endchar;
 
 
-fet_beginchar ("double sharp", "doublesharp");
+def draw_double_sharp (expr figured_bass) =
   save klaverblad, klaversteel;
   save pat;
   path pat;
@@ -459,4 +464,14 @@ fet_beginchar ("double sharp", "doublesharp");
 
   labels (1, 2, 3, 4, 5);
   draw_staff_if_debugging (-2, 2);
+enddef;
+
+
+fet_beginchar ("double sharp", "doublesharp");
+  draw_double_sharp (false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass double sharp", "doublesharp.figbass");
+  draw_double_sharp (true);
 fet_endchar;

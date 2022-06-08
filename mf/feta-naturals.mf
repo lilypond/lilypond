@@ -36,7 +36,7 @@ beam_thickness := 0.485 staff_space -  stafflinethickness;
 hole_highest_point := 0.5 (staff_space - stafflinethickness);
 
 
-def draw_natural (expr arrowup, arrowdown) =
+def draw_natural (expr arrowup, arrowdown, figured_bass) =
   save depth, height, width, breapth;
   save upstem_factor, downstem_factor;
   save upstem_end_thickness, downstem_end_thickness;
@@ -184,20 +184,25 @@ enddef;
 
 
 fet_beginchar ("natural", "natural");
-  draw_natural (false, false);
+  draw_natural (false, false, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass natural", "natural.figbass");
+  draw_natural (false, false, true);
 fet_endchar;
 
 
 fet_beginchar ("arrowed natural (arrow up)", "natural.arrowup");
-  draw_natural (true, false);
+  draw_natural (true, false, false);
 fet_endchar;
 
 
 fet_beginchar ("arrowed natural (arrow down)", "natural.arrowdown");
-  draw_natural (false, true);
+  draw_natural (false, true, false);
 fet_endchar;
 
 
 fet_beginchar ("arrowed natural (arrows up and down)", "natural.arrowboth");
-  draw_natural (true, true);
+  draw_natural (true, true, false);
 fet_endchar;
