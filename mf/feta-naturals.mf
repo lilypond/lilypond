@@ -23,21 +23,20 @@
 %
 
 % general parameters:
-save full_width, full_height;
 save stem_thickness, stem_end_thickness_multiplier;
-save beam_thickness, beam_slant, hole_highest_point;
+save beam_thickness, beam_slant;
 
-full_height# := 3 staff_space#;
-full_width# := 2/3 staff_space#;
 stem_thickness# := 0.09 staff_space# + 0.5 stafflinethickness#;
 stem_end_thickness_multiplier := 10/7;
 beam_slant := 1.266 stafflinethickness;
 beam_thickness := 0.485 staff_space -  stafflinethickness;
-hole_highest_point := 0.5 (staff_space - stafflinethickness);
 
 
 def draw_natural (expr arrowup, arrowdown, figured_bass) =
   save depth, height, width, breapth;
+  save full_width, full_height;
+  save offset;
+  save hole_highest_point;
   save upstem_factor, downstem_factor;
   save upstem_end_thickness, downstem_end_thickness;
   save half_height, half_box_height;
@@ -47,13 +46,29 @@ def draw_natural (expr arrowup, arrowdown, figured_bass) =
 
   upstem_factor = downstem_factor = stem_end_thickness_multiplier;
 
+  if figured_bass:
+    full_height# := number_design_size + 2 figbass_y#;
+    full_width# := .7 figbass_width#;
+    offset# := .5 number_design_size;
+    width# := figbass_width#;
+
+    hole_highest_point := 0.2 staff_space + stafflinethickness;
+  else:
+    full_height# := 3 staff_space#;
+    full_width# := 2/3 staff_space#;
+    offset# := 0;
+    width# := full_width#;
+
+    hole_highest_point := 0.5 (staff_space - stafflinethickness);
+  fi;
+  define_pixels (offset);
+
   half_height# := 0.5 full_height#;
   define_pixels (half_height);
   define_whole_pixels (full_width);
 
-  depth# := half_height#;
-  height# := half_height#;
-  width# := full_width#;
+  depth# := half_height# - offset#;
+  height# := half_height# + offset#;
   breapth# := 0;
 
   if arrowup:
@@ -107,15 +122,15 @@ def draw_natural (expr arrowup, arrowdown, figured_bass) =
   penpos2 (stem_thickness, 0);
   penpos4 (stem_thickness, 0);
 
-  x2r = full_width;
-  x4l = 0;
+  x2r = w - (w - full_width) / 2;
+  x4l = (w - full_width) / 2;
   x3 = x2;
   x1 = x4;
 
-  y1 = half_height;
-  y3 = -half_height;
-  top y2 = vround (half_box_height);
-  y4 = -y2 + feta_space_shift;
+  y1 = half_height + offset;
+  y3 = -half_height + offset;
+  top y2 = vround (half_box_height + offset);
+  bot y4 = vround (-half_box_height + offset) + feta_space_shift;
 
   l_stem_bottom_path := z4r{z4r - z1r}
                         .. bot z4
@@ -138,7 +153,7 @@ def draw_natural (expr arrowup, arrowdown, figured_bass) =
   beam_direction = (full_width, beam_slant);
 
   z11 = z3l + whatever * (z2l - z3l);
-  y11 = vround (hole_highest_point);
+  y11 = vround (hole_highest_point + offset);
   z12 = directionpoint -beam_direction of r_stem_top_path;
   z13 = z12 + whatever * beam_direction;
   x13 = x1;
@@ -146,7 +161,7 @@ def draw_natural (expr arrowup, arrowdown, figured_bass) =
   x14 = x1;
 
   z21 = z4r + whatever * (z1r - z4r);
-  y21 = -y11 + feta_space_shift;
+  y21 = vround (-hole_highest_point + offset) + feta_space_shift;
   z22 = directionpoint -beam_direction of l_stem_bottom_path;
   z23 = z22 + whatever * beam_direction;
   x23 = x3;
