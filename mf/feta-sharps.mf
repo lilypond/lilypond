@@ -89,13 +89,10 @@ enddef;
 
 def draw_sharp (expr arrowup, arrowdown, figured_bass) =
   save depth, height, width;
-  save dist_between_stems;
+  save dist_between_stems, offset;
   save outer_space;
-  save half_height, interbeam_dist;
+  save half_height, interbeam_dist, stem_correction;
   save beam_length, beam_xcenter;
-
-  half_height# := .5 default_height#;
-  define_pixels (half_height);
 
   dist_between_stems# := 7 / 16 * default_width#;
   define_whole_pixels (dist_between_stems);
@@ -103,10 +100,36 @@ def draw_sharp (expr arrowup, arrowdown, figured_bass) =
   outer_space# := .5 (default_width# - dist_between_stems#
                       - stem_thickness#);
   define_whole_pixels (outer_space);
-
   width# := 2 outer_space# + dist_between_stems# + stem_thickness#;
-  depth# := half_height#;
-  height# := half_height#;
+
+  if figured_bass:
+    % The next two lines are global assignments; we use these values
+    % for other figured bass accidentals, too.  (This works because
+    % `draw_sharp` is called only once with `figured_bass` set to
+    % true.)
+    figbass_y# := dist_between_stems# / width#
+                  * default_beam_thickness#;
+    figbass_width# := width#;
+
+    half_height# := .5 number_design_size + figbass_y#;
+    offset# := .5 number_design_size;
+
+    % The stems for the text variant are much shorter; additionally,
+    % the top and bottom end parts of the stems are half-circles,
+    % contrary to the top and bottom parts of the natural and the flat
+    % glyph.  We thus slightly increase the stem lengths to let them
+    % stick out of the bounding box.
+    stem_correction := .5 stem_thickness;
+  else:
+    half_height# := .5 default_height#;
+    offset# := 0;
+
+    stem_correction := 0;
+  fi;
+  define_pixels (half_height, offset);
+
+  depth# := half_height# - offset#;
+  height# := half_height# + offset#;
 
   beam_length := 2 outer_space + dist_between_stems + stem_thickness;
   beam_xcenter := .5 beam_length;
@@ -123,25 +146,31 @@ def draw_sharp (expr arrowup, arrowdown, figured_bass) =
     depth# := half_height# - .5 stem_thickness#          % y5
               + .1 staff_space# + .5 stafflinethickness#
                 + .5 stem_thickness#                     % upshift
-               + .85 staff_space# + stafflinethickness#;  % htip
+              + .85 staff_space# + stafflinethickness#;  % htip
   fi;
 
   set_char_box (0, width#, depth#, height#);
   d := d - feta_space_shift;
 
-  interbeam_dist := default_interbeam_dist;
-  draw_sharp_beam (beam_xcenter, beam_length, -.5 interbeam_dist);
+  if figured_bass:
+    interbeam_dist := .9 default_interbeam_dist;
+  else:
+    interbeam_dist := default_interbeam_dist;
+  fi;
+
   draw_sharp_beam (beam_xcenter, beam_length,
-                   -.5 interbeam_dist + vround interbeam_dist);
+                   -.5 interbeam_dist + offset);
+  draw_sharp_beam (beam_xcenter, beam_length,
+                   -.5 interbeam_dist + offset + vround interbeam_dist);
 
   pickup pencircle scaled stem_thickness;
 
   lft x5 = lft x6 = outer_space;
   lft x7 = lft x8 = outer_space + dist_between_stems;
-  bot y5 = -half_height;
-  top y8 = half_height;
+  bot y5 = -(half_height + stem_correction) + offset;
+  top y8 = half_height + stem_correction + offset;
   z6 = z8 + whatever * ne_beam_dir;
-  bot y7 = -top y6 + feta_space_shift;
+  bot y7 - offset = -(top y6 - offset) + feta_space_shift;
 
   fill lft z7{down}
        .. bot z7{right}

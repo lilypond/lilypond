@@ -41,6 +41,14 @@
 
 
 fet_begingroup ("accidentals");
+  % The figured bass variants of accidentals have the same width,
+  % `figbass_width`.  The height of the sharp, natural, and flat
+  % accidentals is also the same; it is the number glyph height plus
+  % `figbass_y` (to make them slightly stick out vertically on the top
+  % and bottom).  Both values are assigned in macro `draw_sharp` (in
+  % file `feta-sharps.mf`).
+  save figbass_width, figbass_y;
+
   input feta-arrow;
   input feta-sharps;
   input feta-naturals;
