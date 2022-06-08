@@ -446,18 +446,35 @@ fet_endchar;
 
 
 def draw_double_sharp (expr figured_bass) =
+  save depth, height, width;
   save klaverblad, klaversteel;
+  save glyph_height, offset;
   save pat;
   path pat;
 
   klaversteel = 1/15 staff_space;
   klaverblad = .4 staff_space - .5 stafflinethickness;
 
-  set_char_box (0, staff_space#, .5 staff_space#, .5 staff_space#);
+  if figured_bass:
+    width# := figbass_width#;
+    offset# := .5 number_design_size;
+  else:
+    width# := staff_space#;
+    offset# := 0;
+  fi;
+  define_pixels (offset);
+
+  glyph_height# := .5 width#;
+  define_whole_vertical_blacker_pixels (glyph_height);
+
+  depth# := glyph_height# - offset#;
+  height# := glyph_height# + offset#;
+
+  set_char_box (0, width#, depth#, height#);
 
   z1 = (klaversteel, 0);
-  z2 = (w / 2 - klaverblad / 10, h - klaverblad);
-  z3 = (w / 2, h);
+  z2 = (w / 2 - klaverblad / 10, glyph_height - klaverblad);
+  z3 = (w / 2, glyph_height);
   z4 = z2 reflectedabout ((0, 0), (1, 1));
   z5 = z1 reflectedabout ((0, 0), (1, 1));
 
@@ -489,7 +506,8 @@ def draw_double_sharp (expr figured_bass) =
        -- cycle;
 
   % ugh
-  currentpicture := currentpicture shifted (hround (w / 2), 0);
+  currentpicture := currentpicture shifted (hround (w / 2),
+                                            vround (offset));
 
   labels (1, 2, 3, 4, 5);
   draw_staff_if_debugging (-2, 2);
