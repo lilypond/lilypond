@@ -36,8 +36,7 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
   save bottom_stem_thick, hair, smaller_hole;
   save top_crook_thinness;
   save zwiep;
-  save center;
-  pair center, bot_crook_dir;
+  pair bot_crook_dir;
   save clearing, clearing_orig;
 
   clearxy;
@@ -77,8 +76,6 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
   if odd (top_stem_thick_orig - bottom_stem_thick):
     top_stem_thick_orig := top_stem_thick_orig - 1;
   fi;
-
-  center = (xcenter, 0);
 
   x1l = hround (xcenter - .5 top_stem_thick);
   y1 = vround (2 staff_space - clearing);
@@ -374,8 +371,7 @@ fet_beginchar ("flatflat (mirrored)", "mirroredflat.flat");
   save top_stem_thick, bottom_stem_thick, hair, smaller_hole;
   save top_crook_thinness;
   save zwiep;
-  save center;
-  pair center, bot_crook_dir;
+  pair bot_crook_dir;
   save clearing, wid;
   save mirror_offset;
   save pat;
@@ -413,8 +409,6 @@ fet_beginchar ("flatflat (mirrored)", "mirroredflat.flat");
   else:
     mirror_offset := 0;
   fi;
-
-  center = (0, 0);
 
   x1l = hround (-.5 top_stem_thick);
   y1 = vround (2 staff_space - clearing);
