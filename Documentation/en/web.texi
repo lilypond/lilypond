@@ -64,7 +64,11 @@ License''.
 * Website: (lilypond-web).              Info version of lilypond.org.
 @end direntry
 
-@dircategory LilyPond applications
+@c The em-dash '---' in the following dircategory is used
+@c specificallly so the 'LilyPond --- applications' category will
+@c appear below the 'LilyPond -- the music typesetter' category in
+@c the info dir file.
+@dircategory LilyPond --- applications
 @direntry
 * abc2ly: (lilypond-usage)Invoking abc2ly.                    Importing ABC files.
 * convert-ly: (lilypond-usage)Updating files with convert-ly. Handling older LilyPond files.
