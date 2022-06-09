@@ -57,7 +57,7 @@ License''.
 * Extending: (lilypond-extending).      How to use Scheme in LilyPond.
 * Internals: (lilypond-internals).      Tweaking reference.
 * Learning: (lilypond-learning).        Introduction.  Start here.
-* Music Glossary: (music-glossary).     For non-English users.
+* Music Glossary: (music-glossary).     Music terms and translations.
 * Notation: (lilypond-notation).        Notation reference.
 * Snippets: (lilypond-snippets).        Tricks, tips, and examples.
 * Usage: (lilypond-usage).              How to install and use LilyPond.
