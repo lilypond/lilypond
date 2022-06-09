@@ -416,18 +416,38 @@ info: $(ALL_INFO_FILES)
 
 local-install: install-info
 
-install-info: \
-  $(INFO_FILES) \
-  install-info-images \
-  update-info-directory-file-install
+# process to install info:
+#   remove old info file dir entries
+#   remove old info files and image files
+#   install new info files and optionally image files
+#   add new info file dir entries
+
+install-info: update-info-directory-file-install \
+  install-info-images
+
+uninstall-info: uninstall-info-files uninstall-info-images
+
+update-info-directory-file-install: install-info-files
+	cd $(DESTDIR)$(infodir) ; \
+	  $(foreach f, $(INFO_DOCS), \
+	    install-info --info-dir=$(DESTDIR)$(infodir) \
+	      $(f).info &> /dev/null ; ) true
+
+install-info-files:  uninstall-info-files $(INFO_FILES)
 	$(INSTALLPY) -d $(DESTDIR)$(infodir) ; \
 	$(INSTALLPY) -c -m 644 \
 	  $(addsuffix *,$(INFO_FILES)) $(DESTDIR)$(infodir)
 
-uninstall-info: \
-  uninstall-info-images \
-  update-info-directory-file-uninstall
-	rm -f $(addprefix $(DESTDIR)$(infodir)/,$(addsuffix *,$(INFO_DOCS)))
+uninstall-info-files: update-info-directory-file-uninstall
+	rm -f $(addprefix $(DESTDIR)$(infodir)/, \
+	        $(addsuffix *,$(INFO_DOCS)))
+
+update-info-directory-file-uninstall:
+	cd $(DESTDIR)$(infodir) ; \
+	  $(foreach f, $(ALL_INFO_DOCS), \
+	    install-info --remove \
+	      --info-dir=$(DESTDIR)$(infodir) \
+	      $(f).info &> /dev/null ; ) true
 
 ifeq ($(out),www)
   UPDATE_IMAGE_SYMLINKS = \
@@ -465,43 +485,6 @@ endif # out=www
 
 uninstall-info-images:
 	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
-
-
-ifeq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-  # Installing directly into standard /usr/...
-  update-info-directory-file-install: \
-    $(ALL_INFO_FILES) \
-    update-info-directory-file-uninstall
-	  $(INSTALLPY) -d $(DESTDIR)$(infodir)
-	  install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
-
-  update-info-directory-file-uninstall:
-	  $(foreach f, \
-	            $(ALL_INFO_FILES), \
-	            install-info --remove \
-	                         --info-dir=$(infodir) \
-	                         $(f) &> /dev/null ; )true
-
-else
-  ## Installing elsewhere; probably part of a packaging step.  `install-info`
-  ## can't do all its job for binary packages' build systems.  Best we can do is
-  ## to notify the builder or packager.
-  update-info-directory-file-install: $(INFO_FILES)
-	  $(INSTALLPY) -d $(DESTDIR)$(infodir)
-	  @echo
-	  @echo "***************************************************************"
-	  @echo "Please add or update the LilyPond direntries,"
-	  @echo "do or add in the postinstall script"
-	  @echo
-	  @echo "    install-info --info-dir=$(infodir) $(DESTDIR)$(infodir)/$(MAIN_INFO_DOC).info"
-	  @echo
-
-  update-info-directory-file-uninstall:
-  # Nothing to be done: we can't remove the dir because it might have other info
-  # files.
-	  true
-endif
-
 
 ### Web targets
 
