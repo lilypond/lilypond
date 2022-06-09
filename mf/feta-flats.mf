@@ -78,8 +78,16 @@ def draw_meta_flat (expr xcenter, glyph_width, crook_fatness,
   fi;
 
   if figured_bass:
-    % center glyph horizontally in bbox
-    x_offset := (w - glyph_width) / 2 + .25 top_stem_thick;
+    % left-align
+    if xcenter = -1:
+      x_offset := hround (.5 top_stem_thick);
+    % right-align
+    elseif xcenter = 1:
+      x_offset := hround (w - glyph_width);
+    % center
+    else:
+      x_offset := hround ((w - glyph_width) / 2 + .25 top_stem_thick);
+    fi;
   else:
     x_offset := xcenter;
   fi;
@@ -591,22 +599,22 @@ fet_endchar;
 
 fet_beginchar ("figured bass double flat", "flatflat.figbass");
   save depth, height;
-  save left_wid, overlap, right_wid;
+  save left_wid, right_wid, extra_wid;
 
-  depth# := 0.5 staff_space# + 1.3 stafflinethickness#;
-  height# := 2 staff_space# - 1.7 stafflinethickness#;
+  depth# := figbass_y#;
+  height# := number_design_size + figbass_y#;
 
-  left_wid = .7;
-  right_wid = .8;
-  overlap = .05;
+  left_wid := .65;
+  right_wid := .75;
+  extra_wid := .1;
 
-  set_char_box (1.2 stafflinethickness#,
-                (left_wid + right_wid - overlap) * staff_space#,
+  define_pixels (figbass_width);
+
+  set_char_box (0, (left_wid + right_wid + extra_wid) * figbass_width#,
                 depth#, height#);
-  draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
+  draw_meta_flat (-1, left_wid * figbass_width, 1/3 staff_space,
                   false, false, true, true);
-  draw_meta_flat (hround ((left_wid - overlap) * staff_space),
-                  right_wid * staff_space, 1/3 staff_space,
+  draw_meta_flat (1, right_wid * figbass_width, 1/3 staff_space,
                   false, false, false, true);
 fet_endchar;
 
