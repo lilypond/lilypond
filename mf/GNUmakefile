@@ -115,6 +115,7 @@ $(outdir)/emmentaler-%.svg \
 $(outdir)/emmentaler-%.woff \
 $(outdir)/emmentaler-%.otf: \
   gen-emmentaler.fontforge.py \
+  emmentaler_codes.py \
   emmentaler_features.py \
   emmentaler_kerning.py \
   \

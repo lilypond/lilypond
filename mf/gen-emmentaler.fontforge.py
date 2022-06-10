@@ -24,8 +24,9 @@ import sys
 
 import fontforge
 
-from emmentaler_kerning import add_feature_kern
+from emmentaler_codes import add_code_points
 from emmentaler_features import add_feature_ss01, add_feature_ss02
+from emmentaler_kerning import add_feature_kern
 
 
 (options, files) = \
@@ -83,6 +84,11 @@ for fn in ["feta%(design_size)d.pfb",
 
     name, _ = os.path.splitext(name)
     subfonts.append(name)
+
+
+# Assign Unicode values to some glyphs.
+
+add_code_points(font)
 
 
 # Set code points arbitrarily to Unicode's PUA (Private Use Area) for

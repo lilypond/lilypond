@@ -67,12 +67,23 @@ which scares away people.
 
 
 @item
+Text variant glyphs for sharp, flat, natural, double sharp, and
+double flat are now available in the Emmentaler fonts.  In markup,
+they can be easily accessed with standard Unicode values.
+
+@lilypond[quote]
+\markup \fontsize #6 \number "1 ♯ 2 ♭ 3 ♮ 4 𝄫 5 𝄪 6"
+@end lilypond
+
+
+@item
 @code{\defineBarLine} now accepts @code{#t} in lieu of repeating
 the mid-line glyph name.
 
 
-@item The new markup command @code{\align-on-other} translates a
-markup as if it was aligned to another markup.
+@item
+The new markup command @code{\align-on-other} translates a markup
+as if it was aligned to another markup.
 
 @lilypond[quote]
 \markup \column {
