@@ -859,7 +859,7 @@ sub lilypond_print_toc_div ($)
     my $name = "search-box";
     $lang = ly_get_language ();
     open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
-        open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml" or
+        open FILE, "$ENV{TOP_SRC_DIR}/Documentation/en/$name.ihtml" or
         die "no such file: $name.ihtml: $!";
     my $search_string = decode ('UTF-8', <FILE>);
     # We depend on an external entity here, which we cannot control.  Suppose
