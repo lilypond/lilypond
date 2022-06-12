@@ -4561,7 +4561,7 @@ The automaticBars property has been removed.  Instead, set
 measureBarType to #'() or a valid bar type.
 """)
         stderr_write(UPDATE_MANUALLY)
-    s = re.sub(r'\\bar\s+"-"', r'\\bar ""', s)
+    s = re.sub(r'\\bar\s*"-"', r'\\bar ""', s)
     s = re.sub(r'BarType\s*=\s*"-"', r'BarType = ""', s)
     s = re.sub(r'(\\featherDurations\s+)#\(ly:make-moment\s+([0-9/]+)\)',
                r'\1\2', s)
