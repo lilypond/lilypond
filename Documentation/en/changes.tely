@@ -67,6 +67,12 @@ which scares away people.
 
 
 @item
+Formatting of figured bass has been improved.  In particular, the
+default size is reduced to a value used by many Urtext editions of
+Baroque music.
+
+
+@item
 Text variant glyphs for sharp, flat, natural, double sharp, and
 double flat are now available in the Emmentaler fonts.  In markup,
 they can be easily accessed with standard Unicode values.

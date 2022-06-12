@@ -267,11 +267,19 @@ segni to avoid ambiguity."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bass figures.
 
+(define figbass-accidental-alist
+  '((-1 . #x1d12b)
+    (-1/2 . #x266d)
+    (0 . #x266e)
+    (1/2 . #x266f)
+    (1 . #x1d12a)))
+
 (define-public (format-bass-figure figure event context)
   (let* ((large-number-alignment
           (ly:context-property context
                                'figuredBassLargeNumberAlignment CENTER))
          (fig (ly:event-property event 'figure))
+         ;; The digit(s), horizontally positioned, or #f.
          (fig-markup
           (if (number? figure)
               ((if (<= 10 figure)
@@ -291,19 +299,20 @@ segni to avoid ambiguity."
 
          (alt (ly:event-property event 'alteration))
          (alt-bracket (ly:event-property event 'alteration-bracket #f))
+         ;; The alteration, probably bracketed but not positioned yet,
+         ;; or #f.
          (alt-markup
           (if (number? alt)
               ((if alt-bracket make-bracket-markup identity)
-               (make-general-align-markup
-                ;; flats must be positioned higher than sharps,
-                ;; and double sharps even more
-                Y (cond ((< alt 0) -1)
-                        ((= alt DOUBLE-SHARP) -1.8)
-                        (else -0.8))
-                (make-fontsize-markup
-                 (if (not (= alt DOUBLE-SHARP))
-                     -2 0)
-                 (make-accidental-markup alt))))
+               (make-number-markup
+                (ly:wide-char->utf-8
+                 (or
+                  (assv-ref figbass-accidental-alist alt)
+                  (begin
+                    (ly:warning
+                     (G_ "no accidental glyph found for alteration ~a")
+                     alteration)
+                    #\?)))))
               #f))
 
          (plus-markup (if (eq? #t (ly:event-property event 'augmented))
@@ -315,34 +324,22 @@ segni to avoid ambiguity."
          (plus-dir (ly:context-property context
                                         'figuredBassPlusDirection)))
 
-    (if alt-markup
-        ;; set height of alteration markup to the height of a figure
-        ;; to ensure good vertical alignment
-        (set! alt-markup
-              (make-with-dimension-from-markup
-               Y (make-number-markup "1") alt-markup)))
-
     (if (and (not alt-markup) alt-bracket)
         (ly:programming-error
          "Cannot put brackets around non-existent bass figure alteration."))
 
+    ;; We treat a solitary alteration similarly to digits.
     (if (and (not fig-markup) alt-markup)
         (begin
           (set! fig-markup
-                (make-translate-markup
-                 (cons (if alt-bracket -0.5 0) 0)
-                 (make-left-align-markup
-                  (make-pad-x-markup 0.3 alt-markup))))
+                (make-align-on-other-markup
+                 X
+                 CENTER (make-number-markup "1")
+                 CENTER alt-markup))
           (set! alt-markup #f)))
 
-    ;; hmm, how to get figures centered between note, and
-    ;; lone accidentals too?
-
-    ;;    (if (markup? fig-markup)
-    ;;  (set!
-    ;;   fig-markup (markup #:translate (cons 1.0 0)
-    ;;                      #:center-align fig-markup)))
-
+    ;; The alteration gets attached either to the left or the right of
+    ;; the digit(s).
     (if alt-markup
         (set! fig-markup
               (make-put-adjacent-markup
@@ -352,6 +349,7 @@ segni to avoid ambiguity."
                fig-markup
                (make-pad-x-markup 0.1 alt-markup))))
 
+    ;; Ditto for the plus mark.
     (if plus-markup
         (set! fig-markup
               (if fig-markup
@@ -363,7 +361,7 @@ segni to avoid ambiguity."
                   plus-markup)))
 
     (if (markup? fig-markup)
-        (make-fontsize-markup -2 fig-markup)
+        (make-fontsize-markup -5 fig-markup)
         empty-markup)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
