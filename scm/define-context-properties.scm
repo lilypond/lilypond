@@ -806,6 +806,11 @@ which a coda mark appears: not set during the first timestep,
 2@tie{}from the second to the third, etc.")
      (currentBarLine ,ly:grob? "Set to the @code{BarLine} that
 @code{Bar_@/engraver} has created in the current timestep.")
+     (currentChordCause ,ly:stream-event? "Event cause of the chord
+that should be created in this time step (if any).")
+     (currentChordText ,markup? "In contexts printing chord names,
+this is at any point of time the markup that will be put in the
+chord name.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable items (clef, key signature, etc.).")
      (currentMarkEvent ,ly:stream-event? "The event selected by

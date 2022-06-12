@@ -1228,3 +1228,108 @@ the sticky spanner attached to it has its end announced too.")))
    (properties-written . ())
    (description . "Create grobs to visualize control points of Bézier
 curves (ties and slurs) for ease of tweaking.")))
+
+(define (Current_chord_text_engraver context)
+  (let ((note-events '())
+        (rest-event #f))
+    (make-engraver
+     (listeners
+      ((note-event engraver event)
+       (set! note-events (cons event note-events)))
+      ((general-rest-event engraver event #:once)
+       (set! rest-event event)))
+     ((pre-process-music engraver)
+      (cond
+       (rest-event
+        (ly:context-set-property! context 'currentChordCause rest-event)
+        (let ((symbol (ly:context-property context 'noChordSymbol)))
+          (ly:context-set-property! context 'currentChordText symbol)))
+       ((pair? note-events)
+        (ly:context-set-property! context 'currentChordCause (car note-events))
+        (let ((pitches '())
+              (bass '())
+              (inversion '()))
+          (for-each
+           (lambda (note-ev)
+             (let ((pitch (ly:event-property note-ev 'pitch)))
+               (when (ly:pitch? pitch)
+                 (let ((is-bass (ly:event-property note-ev 'bass #f))
+                       (is-inversion (ly:event-property note-ev 'inversion #f)))
+                   (if is-bass
+                       (set! bass pitch)
+                       (let* ((oct (ly:event-property note-ev 'octavation))
+                              (orig
+                               (if (integer? oct)
+                                   (let ((transp (ly:make-pitch (- oct)
+                                                                0)))
+                                     (ly:pitch-transpose pitch transp))
+                                   pitch)))
+                         (set! pitches (cons orig pitches))
+                         (when is-inversion
+                           (set! inversion pitch)
+                           (when (not (integer? oct))
+                             (ly:programming-error
+                              "inversion does not have original pitch")))))))))
+           note-events)
+          (let* ((sorted-pitches (sort pitches ly:pitch<?))
+                 (formatter (ly:context-property context 'chordNameFunction))
+                 (markup (formatter sorted-pitches bass inversion context)))
+            (ly:context-set-property! context 'currentChordText markup))))
+       (else
+        (ly:context-set-property! context 'currentChordCause #f)
+        (ly:context-set-property! context 'currentChordText #f))))
+     ((stop-translation-timestep engraver)
+      (set! note-events '())
+      (set! rest-event #f)))))
+
+(ly:register-translator
+ Current_chord_text_engraver 'Current_chord_text_engraver
+ '((events-accepted . (note-event general-rest-event))
+   (properties-read . (chordNameExceptions
+                       chordNameFunction
+                       chordRootNamer
+                       chordNoteNamer
+                       majorSevenSymbol
+                       noChordSymbol))
+   (properties-written . (currentChordCause currentChordText))
+   (description . "Catch note and rest events and generate the
+appropriate chord text using @code{chordNameFunction}.  Actually
+creating a chord name grob is left to other engravers.")))
+
+
+(define (Chord_name_engraver context)
+  (make-engraver
+   ((process-music engraver)
+    (let ((text (ly:context-property context 'currentChordText #f)))
+      ;; Note that user tweaks to ChordName.text are respected.
+      ;; However, this is only possible if the default logic would
+      ;; have given some text.  Indeed, we cannot create a ChordName
+      ;; and look at its text property to decide that we shouldn't
+      ;; have created the grob because the property is '().  Practically,
+      ;; this means you can't \override ChordName.text to get a ChordName
+      ;; if noChordSymbol is '().
+      (when (markup? text)
+        (let* ((cause (ly:context-property context 'currentChordCause))
+               (grob (ly:engraver-make-grob engraver 'ChordName cause))
+               ;; Fetching ChordName.text in case it's a callback can't
+               ;; be delayed anyway: it needs to be compared for the sake
+               ;; of ChordChanges.
+               (grob-text (ly:grob-property grob 'text #f))
+               (final-text (or grob-text text))
+               (chord-changes (ly:context-property context 'chordChanges #f)))
+          (ly:grob-set-property! grob 'text final-text)
+          (when (and chord-changes
+                     (equal? final-text (ly:context-property context 'lastChord)))
+            ;; FIXME: begin-of-line-visible is misnamed.  Setting it to #t
+            ;; doesn't make the grob more visible, but less: it means to
+            ;; suppress the chord name unless it's at the beginning of a line.
+            (ly:grob-set-property! grob 'begin-of-line-visible #t))
+          (ly:context-set-property! context 'lastChord final-text)))))))
+
+(ly:register-translator
+ Chord_name_engraver 'Chord_name_engraver
+ '((events-accepted . ())
+   (grobs-created . (ChordName))
+   (properties-read . (currentChordCause currentChordText chordChanges lastChord))
+   (properties-written . (lastChord))
+   (description . "Read @code{currentChordText} to create chord names.")))

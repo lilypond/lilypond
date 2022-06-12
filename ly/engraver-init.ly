@@ -552,6 +552,7 @@ printing of a single line of lyrics."
 
   \consists Output_property_engraver
   \consists Separating_line_group_engraver
+  \consists Current_chord_text_engraver
   \consists Chord_name_engraver
   \consists Axis_group_engraver
   %\consists Note_spacing_engraver

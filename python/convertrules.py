@@ -4551,6 +4551,9 @@ automaticBars = ##f -> measureBarType = #'()
 \\bar "-" -> \\bar ""
 BarType = "-" -> BarType = ""
 \featherDurations #(ly:make-moment x/y) -> \featherDurations x/y
+\consists Chord_name_engraver -> \consists Chord_name_engraver \consists Current_chord_text_engraver
+\remove Chord_name_engraver -> \remove Chord_name_engraver \remove Current_chord_text_engraver
+)
 """)
 def conv(s):
     s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
@@ -4565,6 +4568,9 @@ measureBarType to #'() or a valid bar type.
     s = re.sub(r'BarType\s*=\s*"-"', r'BarType = ""', s)
     s = re.sub(r'(\\featherDurations\s+)#\(ly:make-moment\s+([0-9/]+)\)',
                r'\1\2', s)
+    s = re.sub(r'\\(consists|remove) "?Chord_name_engraver"?',
+               r'\\\1 Chord_name_engraver \\\1 Current_chord_text_engraver',
+               s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
