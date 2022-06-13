@@ -287,14 +287,23 @@ class Gettext(ConfigurePackage):
             "--disable-threads",
         ]
 
+    @property
+    def macos_ldflags(self):
+        return "-Wl,-framework -Wl,CoreFoundation"
+
     def get_env_variables(self, c: Config) -> Dict[str, str]:
         """Return environment variables to make libintl available."""
         gettext_install = self.install_directory(c)
+
+        # Cannot use LIBRARY_PATH because it is only used if GCC is built
+        # as a native compiler, so it doesn't work for mingw.
+        ldflags = "-L" + os.path.join(gettext_install, "lib")
+        if c.is_macos():
+            ldflags += " " + self.macos_ldflags
+
         return {
             "CPATH": os.path.join(gettext_install, "include"),
-            # Cannot use LIBRARY_PATH because it is only used if GCC is built
-            # as a native compiler, so it doesn't work for mingw.
-            "LDFLAGS": "-L" + os.path.join(gettext_install, "lib"),
+            "LDFLAGS": ldflags,
         }
 
     @property
@@ -776,7 +785,9 @@ class Guile(ConfigurePackage):
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
         if c.is_macos():
-            env["LDFLAGS"] = "-Wl,-framework -Wl,CoreFoundation"
+            # We don't need the full get_env_variables because we can pass
+            # --with-libintl-prefix= via the arguments to configure.
+            env["LDFLAGS"] = gettext.macos_ldflags
         return env
 
     def configure_args(self, c: Config) -> str:
