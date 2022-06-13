@@ -532,7 +532,10 @@ is not used within the routine."
                                                     (cons bot-y top-y)
                                                     blot)))))
                     (iota line-count (1- line-count) (- 2)))
-          stencil)
+          (ly:stencil-translate-axis
+            stencil
+            (interval-center extent)
+            Y))
         (let* ((dashes (/ height staff-space))
                (total-dash-size (/ height dashes))
                (factor (/ (- dash-size thickness) staff-space))
