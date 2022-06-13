@@ -348,7 +348,7 @@ alteration as well.")))))
     (BassFigureAlignment
      . (
         (axes . (,Y))
-        (padding . 0.2)
+        (padding . -inf.0)
         (positioning-done . ,ly:align-interface::align-to-minimum-distances)
         (stacking-dir . ,DOWN)
         (X-extent . ,ly:axis-group-interface::width)
@@ -409,6 +409,8 @@ current figured bass.")))))
      . (
         (adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
         (axes . (,Y))
+        (staff-staff-spacing . ((minimum-distance . 1.5)
+                                (padding . 0.1)))
         (vertical-skylines . ,ly:axis-group-interface::calc-skylines)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)

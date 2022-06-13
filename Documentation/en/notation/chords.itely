@@ -1206,6 +1206,23 @@ property @code{figuredBassLargeNumberAlignment}.
 >>
 @end lilypond
 
+@cindex figured bass, vertical distance of elements
+@cindex vertical distance, figured bass elements
+
+The vertical distance of figured bass elements can be controlled
+with subproperties @code{minimum-@/distance} and @code{padding} of
+@code{staff-@/staff-@/spacing}.
+
+@lilypond[verbatim, ragged-right, quote]
+<<
+  { \clef bass g,2 c, }
+  \figures {
+    \once \override BassFigureLine
+                    .staff-staff-spacing.minimum-distance = 3
+    <7 _-> <7- _->
+  }
+>>
+@end lilypond
 
 @predefined
 @cindex figured bass, alignment
