@@ -28,6 +28,11 @@ LilyPond version @version{}.
 Copyright @copyright{} 2002--2022 by the authors.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Essay: (lilypond-essay).              The philosophy behind LilyPond.
+@end direntry
+
 @set FDL
 @include en/macros.itexi
 

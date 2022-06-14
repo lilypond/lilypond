@@ -113,6 +113,11 @@
 @tableindent=@itemindent
 @end iftex
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Internals: (lilypond-internals).    Tweaking reference.
+@end direntry
+
 @finalout
 
 @titlepage

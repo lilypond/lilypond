@@ -33,6 +33,11 @@ information about different jobs, see @rcontrib{Help us}.
 Copyright @copyright{} 2007--2022 by the authors.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Contributing: (lilypond-contributor). How to contribute to LilyPond.
+@end direntry
+
 @set FDL
 @include en/macros.itexi
 

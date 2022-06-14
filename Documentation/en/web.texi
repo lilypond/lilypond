@@ -51,32 +51,7 @@ License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory LilyPond -- the music typesetter
 @direntry
-* Changes: (lilypond-changes).          News since version 2.20.
-* Contributing: (lilypond-contributor). How to contribute to LilyPond.
-* Essay: (lilypond-essay).              The philosophy behind LilyPond.
-* Extending: (lilypond-extending).      How to use Scheme in LilyPond.
-* Internals: (lilypond-internals).      Tweaking reference.
-* Learning: (lilypond-learning).        Introduction.  Start here.
-* Music Glossary: (music-glossary).     Music terms and translations.
-* Notation: (lilypond-notation).        Notation reference.
-* Snippets: (lilypond-snippets).        Tricks, tips, and examples.
-* Usage: (lilypond-usage).              How to install and use LilyPond.
 * Website: (lilypond-web).              Info version of lilypond.org.
-@end direntry
-
-@c The em-dash '---' in the following dircategory is used
-@c specificallly so the 'LilyPond --- applications' category will
-@c appear below the 'LilyPond -- the music typesetter' category in
-@c the info dir file.
-@dircategory LilyPond --- applications
-@direntry
-* abc2ly: (lilypond-usage)Invoking abc2ly.                    Importing ABC files.
-* convert-ly: (lilypond-usage)Updating files with convert-ly. Handling older LilyPond files.
-* etf2ly: (lilypond-usage)Invoking etf2ly.                    Importing Finale files.
-* lilypond-book: (lilypond-usage)lilypond-book.               Integrating text and music.
-* lilypond: (lilypond-usage)Running lilypond.                 Invoking the LilyPond program.
-* midi2ly: (lilypond-usage)Invoking midi2ly.                  Importing MIDI files.
-* musicxml2ly: (lilypond-usage)Invoking musicxml2ly.          Importing MusicXML files.
 @end direntry
 
 

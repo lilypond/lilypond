@@ -28,6 +28,11 @@ This file provides an introduction to LilyPond version
 Copyright @copyright{} 1998--2022 by the authors.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Learning: (lilypond-learning).        Introduction.  Start here.
+@end direntry
+
 @set FDL
 @include en/macros.itexi
 

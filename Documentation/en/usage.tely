@@ -29,6 +29,27 @@ LilyPond version @version{}.  In addition, it suggests some
 Copyright @copyright{} 1999--2022 by the authors.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Usage: (lilypond-usage).              How to install and use LilyPond.
+@end direntry
+
+@c The em-dash '---' in the following dircategory is used
+@c specifically so the 'LilyPond --- applications' category will
+@c appear below the 'LilyPond -- the music typesetter' category in
+@c the info dir file list.
+@dircategory LilyPond --- applications
+@direntry
+* abc2ly: (lilypond-usage)Invoking abc2ly.                    Importing ABC files.
+* convert-ly: (lilypond-usage)Updating files with convert-ly. Handling older LilyPond files.
+* etf2ly: (lilypond-usage)Invoking etf2ly.                    Importing Finale files.
+* lilypond-book: (lilypond-usage)lilypond-book.               Integrating text and music.
+* lilypond: (lilypond-usage)Running lilypond.                 Invoking the LilyPond program.
+* midi2ly: (lilypond-usage)Invoking midi2ly.                  Importing MIDI files.
+* musicxml2ly: (lilypond-usage)Invoking musicxml2ly.          Importing MusicXML files.
+@end direntry
+
+
 @set FDL
 @include en/macros.itexi
 

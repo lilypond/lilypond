@@ -28,6 +28,11 @@ LilyPond version @version{}.
 Copyright @copyright{} 2004--2022 by the authors.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Extending: (lilypond-extending).      How to use Scheme in LilyPond.
+@end direntry
+
 @set FDL
 @include en/macros.itexi
 

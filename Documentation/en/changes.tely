@@ -2,6 +2,11 @@
 @setfilename lilypond-changes.info
 @settitle LilyPond Changes
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Changes: (lilypond-changes).          News since version 2.22.
+@end direntry
+
 @include en/macros.itexi
 
 @ifhtml

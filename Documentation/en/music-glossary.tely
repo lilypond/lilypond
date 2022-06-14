@@ -21,6 +21,10 @@ terms used in the documentation manuals for LilyPond version
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2022 by the authors
 @end macro
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Music Glossary: (music-glossary).     Music terms and translations.
+@end direntry
 
 @set FDL
 @include en/macros.itexi
