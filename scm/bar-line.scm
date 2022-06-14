@@ -235,6 +235,10 @@ is not used within the routine."
 ;; (make-...-bar-line grob extent)
 ;; even if the extent is not used.
 
+(define (make-no-bar-line grob extent)
+  "Return an empty stencil."
+  empty-stencil)
+
 (define (make-empty-bar-line grob extent)
   "Draw an empty bar line."
   (ly:make-stencil "" (cons 0 0) extent))
@@ -819,7 +823,13 @@ direction from the alist."
            (begin
              (when (!= dir CENTER)
                (set! glyph (index-cell alist-entry dir)))
+             ;; We want to ignore glyphs that do not yield a stencil.
+             ;; Checking the result of glyph->stencil would probably
+             ;; be ideal, but the difficulty is that glyph->stencil
+             ;; requires a grob, which does not exist yet.  Instead,
+             ;; we look for glyph "x" as a special case.
              (and (string? glyph)
+                  (not (equal? "x" (strip-string-annotation glyph)))
                   glyph)))))
 
   (define (find-first-glyph-name glyphs)
@@ -834,13 +844,13 @@ direction from the alist."
   (and (pair? glyphs)
        (string? (car glyphs)) ; stop at #f for \noBar
        (or (find-first-glyph-name glyphs)
-           ;; Bar line definitions can have #f in them to allow lower
-           ;; layers to show through, but weird alignment and spacing
-           ;; issues can occur when we create BarLine grobs with no
-           ;; mid-line or end-of-line stencils, so we default to "" in
-           ;; these cases.  We could investigate whether we can
-           ;; eliminate these special cases.  (It isn't clear that
-           ;; there are better alternatives.)
+           ;; Bar line definitions can have "x" and #f in them to
+           ;; allow lower layers to show through, but weird alignment
+           ;; and spacing issues can occur when we create BarLine
+           ;; grobs with no mid-line or end-of-line stencils, so we
+           ;; default to "" in these cases.  We could investigate
+           ;; whether we can eliminate these special cases.  (It isn't
+           ;; clear that there are better alternatives.)
            (if (= dir RIGHT)
                #f
                ""))))
@@ -1159,6 +1169,7 @@ of the volta brackets relative to the bar lines."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; predefined bar glyph print procedures
 
+(add-bar-glyph-print-procedure "x" make-no-bar-line)
 (add-bar-glyph-print-procedure "" make-empty-bar-line)
 (add-bar-glyph-print-procedure "|" make-simple-bar-line)
 (add-bar-glyph-print-procedure "." make-thick-bar-line)
@@ -1175,6 +1186,17 @@ of the volta brackets relative to the bar lines."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; predefined bar lines
+;;
+;; definition of bar lines goes as follows:
+;;
+;; (define-bar-line "mid-line bar[-annotation]"
+;;                  "end-of-line bar[-annotation]"
+;;                  "beginning-of-line bar[-annotation]"
+;;                  "span bar")
+;;
+;; Each argument must be a string or #f.  The string "" calls for a
+;; zero-width stencil.  The string "x" or the value #f call for no
+;; stencil.  "x" may be annotated, unlike #f.
 ;;
 ;; Convention: if two bar lines would be identical in their
 ;; unbroken bar glyph, we use annotations to make them distinct;
@@ -1201,6 +1223,11 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ";" #t #f #t)
 (define-bar-line "'" #t #f #f)
 (define-bar-line "," #t #f #f)
+
+;; end-of-line caesura
+(define-bar-line "x-|" "|" #f #f)
+(define-bar-line "x-||" "||" #f #f)
+(define-bar-line "x-." "." #f #f)
 
 ;; repeats
 (define-bar-line ":|.:" ":|." ".|:"  " |.")
