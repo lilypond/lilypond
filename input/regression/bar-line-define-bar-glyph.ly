@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.10"
 
 \header { texidoc = "New bar line glyphs can be defined in Scheme."
         }
@@ -13,7 +13,7 @@
 
 #(add-bar-glyph-print-procedure "0" make-coda-sign-bar-line)
 
-\defineBarLine "0" #'("0" "" "")
+\defineBarLine "0" #'(#t "" "")
 
 
 \relative \new StaffGroup <<

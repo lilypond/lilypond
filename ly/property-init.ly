@@ -129,10 +129,12 @@ balloonLengthOff = {
 defineBarLine =
 #(define-void-function
    (bar glyph-list) (string? list?)
-   (_i "Define bar line settings for bar line @var{bar}.
-     The list @var{glyph-list} must have three entries which define
-     the appearance at the end of line, at the beginning of the next line,
-     and the span bar, respectively." )
+   (_i "Define bar line settings for bar line @var{bar}.  The list
+     @var{glyph-list} must have three entries which define substitute
+     glyphs for the end of a line, the beginning of a line, and a span
+     bar, respectively.  The substitute glyphs may be either strings
+     or booleans: @code{#t} calls for the same value as
+     @var{bar} and @code{#f} calls for no glyph." )
   (if (not (= (length glyph-list) 3))
       (ly:error (G_ "Argument list for bar '~a' must have three components.") bar)
       (define-bar-line bar

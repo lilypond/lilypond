@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.10"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -14,7 +14,7 @@ end with a single thick bar line spanning the whole system."
 }
 
 \defineBarLine ".-test" #'("." #f "!")
-\defineBarLine "S-.-test" #'(".-test" "S" "=")
+\defineBarLine "S-.-test" #'(".-test" #t "=")
 
 staff = \new Staff \fixed c' {
   R1 \break \inStaffSegno R1

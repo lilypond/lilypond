@@ -179,9 +179,20 @@ annotation char from string @var{str}."
 ;; Line break decisions.
 
 (define-public (define-bar-line bar-glyph eol-glyph bol-glyph span-glyph)
-  "Define a bar glyph @var{bar-glyph} and its substitute at the end of
-a line (@var{eol-glyph}), at the beginning of a new line (@var{bol-glyph})
-and as a span bar (@var{span-glyph}), respectively."
+  "Define a bar glyph @var{bar-glyph} and its substitutes at the end of
+a line (@var{eol-glyph}), at the beginning of a line (@var{bol-glyph})
+and as a span bar (@var{span-glyph}).  The substitute glyphs may be
+either strings or booleans: @code{#t} calls for the same value as
+@var{bar-glyph} and @code{#f} calls for no glyph."
+
+  ;; #t means copy the mid-line glyph
+  (when (eq? eol-glyph #t)
+    (set! eol-glyph bar-glyph))
+  (when (eq? bol-glyph #t)
+    (set! bol-glyph bar-glyph))
+  (when (eq? span-glyph #t)
+    (set! span-glyph bar-glyph))
+
   ;; the last argument may not include annotations
   (check-for-annotation span-glyph)
   ;; only the last argument may call for replacements
@@ -1120,67 +1131,59 @@ of the volta brackets relative to the bar lines."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; predefined bar lines
 ;;
-;; definition of bar lines goes as follows:
-;;
-;; (define-bar-line "normal bar[-annotation]" "end of line" "start of line" "span bar")
-;;
-;; each entry has to be a string or #f.
-;; The empty string "" is allowed and yields in an invisible bar line,
-;; whereas #f reads 'no stencil'.
-;;
 ;; Convention: if two bar lines would be identical in their
 ;; unbroken bar glyph, we use annotations to make them distinct;
 ;; as a general rule of thumb the main difference in their
 ;; behavior at the end of a line is used as annotation, cf.
 ;;
-;; (define-bar-line ".|:" "|" ".|:" ".|")
-;; (define-bar-line ".|:-||" "||" ".|:" ".|")
+;; (define-bar-line ".|:" "|" #t ".|")
+;; (define-bar-line ".|:-||" "||" #t ".|")
 ;;
 ;; or
 ;;
-;; (define-bar-line "S" "|" "S" "=")
-;; (define-bar-line "S-S" "S" "" "=")
+;; (define-bar-line "S" "|" #t "=")
+;; (define-bar-line "S-S" #t #f "=")
 
 ;; common bar lines
-(define-bar-line "" "" #f #f)
-(define-bar-line "|" "|" #f "|")
-(define-bar-line "|-s" #f "|" "|")
-(define-bar-line "." "." #f ".")
-(define-bar-line ".|" "|" ".|" ".|")
-(define-bar-line "|." "|." #f "|.")
-(define-bar-line "||" "||" #f "||")
-(define-bar-line ".." ".." #f "..")
-(define-bar-line "|.|" "|.|" #f "|.|")
-(define-bar-line "!" "!" #f "!")
-(define-bar-line ";" ";" #f ";")
-(define-bar-line "'" "'" #f #f)
-(define-bar-line "," "," #f #f)
+(define-bar-line "" #t #f #f)
+(define-bar-line "|" #t #f #t)
+(define-bar-line "|-s" #f #t "|")
+(define-bar-line "." #t #f #t)
+(define-bar-line ".|" "|" #t #t)
+(define-bar-line "|." #t #f #t)
+(define-bar-line "||" #t #f #t)
+(define-bar-line ".." #t #f #t)
+(define-bar-line "|.|" #t #f #t)
+(define-bar-line "!" #t #f #t)
+(define-bar-line ";" #t #f #t)
+(define-bar-line "'" #t #f #f)
+(define-bar-line "," #t #f #f)
 
 ;; repeats
 (define-bar-line ":|.:" ":|." ".|:"  " |.")
 (define-bar-line ":..:" ":|." ".|:" " ..")
 (define-bar-line ":|.|:" ":|." ".|:" " |.|")
 (define-bar-line ":.|.:" ":|." ".|:" " .|.")
-(define-bar-line ":|." ":|." #f " |.")
-(define-bar-line ".|:" "|" ".|:" ".|")
-(define-bar-line ".|:-||" "||" ".|:" ".|")
-(define-bar-line ".|:-|." "|." ".|:" ".|")
-(define-bar-line "[|:" "|" "[|:" " |")
-(define-bar-line "[|:-||" "||" "[|:" " |")
-(define-bar-line "[|:-|." "|." "[|:" " |")
-(define-bar-line ":|]" ":|]" #f " | ")
+(define-bar-line ":|." #t #f " |.")
+(define-bar-line ".|:" "|" #t ".|")
+(define-bar-line ".|:-||" "||" #t ".|")
+(define-bar-line ".|:-|." "|." #t ".|")
+(define-bar-line "[|:" "|" #t " |")
+(define-bar-line "[|:-||" "||" #t " |")
+(define-bar-line "[|:-|." "|." #t " |")
+(define-bar-line ":|]" #t #f " | ")
 (define-bar-line ":|][|:" ":|]" "[|:" " |  |")
 
 ;; segno bar lines
-(define-bar-line "S" "|" "S" "=")
-(define-bar-line "S-||" "||" "S" "=")
-(define-bar-line "S-S" "S" #f "=")
+(define-bar-line "S" "|" #t "=")
+(define-bar-line "S-||" "||" #t "=")
+(define-bar-line "S-S" #t #f "=")
 (define-bar-line "|.S" "|." "S" "|.")
-(define-bar-line "|.S-S" "|.S" #f "|.")
+(define-bar-line "|.S-S" #t #f "|.")
 (define-bar-line ":|.S" ":|." "S" " |.")
-(define-bar-line ":|.S-S" ":|.S" #f " |.")
-(define-bar-line "S.|:" "|" "S.|:" " .|")
-(define-bar-line "S.|:-||" "||" "S.|:" " .|")
+(define-bar-line ":|.S-S" #t #f " |.")
+(define-bar-line "S.|:" "|" #t " .|")
+(define-bar-line "S.|:-||" "||" #t " .|")
 (define-bar-line "S.|:-S" "S" ".|:" " .|")
 (define-bar-line "|.S.|:" "|." "S.|:" "|. .|")
 (define-bar-line "|.S.|:-S" "|.S" ".|:" "|. .|")
@@ -1188,7 +1191,7 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":|.S.|:-S" ":|.S" ".|:" " |. .|")
 
 ;; ancient bar lines
-(define-bar-line "k" "k" #f #f) ;; kievan style
+(define-bar-line "k" #t #f #f) ;; kievan style
 
 ;; The right side of a volta bracket is closed when the corresponding
 ;; end-of-line bar line glyph would be one of the following.  Whether

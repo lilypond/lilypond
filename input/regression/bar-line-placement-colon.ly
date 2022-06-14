@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.23.10"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -8,6 +8,6 @@ element in various staff configurations."
 }
 
 %% \bar ":" isn't predefined
-\defineBarLine ":-test" #'(":" ":" ":")
+\defineBarLine ":-test" #'(#t #t ":")
 testBar = ":-test"
 \include "bar-line-placement.ily"

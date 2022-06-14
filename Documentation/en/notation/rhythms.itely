@@ -3151,23 +3151,28 @@ the @var{begin}ning of the next one.  The third given glyph is
 only relevant in multi-staff systems (see @ref{Grouping staves}),
 where it is used as @var{span} bar, printed between staves.
 
-The @code{\defineBarLine} variables can include the
-@q{empty} string @code{""}, which is equivalent to an invisible
-bar line being printed.  Or they can be set to @code{#f} which
-prints no bar line at all.
+The @code{\defineBarLine} arguments specifying replacement glyphs
+can be set to @code{#t} to copy the mid-line glyph or @code{#f} to
+create no bar line.  The empty string, @code{""}, yields a
+zero-width bar line.
 
 After the definiton, the new bar line can be used by
 @code{\bar} @var{bartype}.
 
-There are currently ten bar line elements available:
+There are several bar line elements, and there are predefined bar
+types that use most of them individually.  Some elements are
+primarily intended to be combined with others; those do not have
+predefined individual bar types.
 
 @lilypond[quote,verbatim]
-\defineBarLine ":" #'("" ":" "")
-\defineBarLine "=" #'("=" "" "")
-\defineBarLine "[" #'("" "[" "")
-\defineBarLine "]" #'("]" "" "")
+\defineBarLine ":" #'(#f #t #f)
+\defineBarLine "=" #'(#t #f #t)
+\defineBarLine "[" #'(#f #t #f)
+\defineBarLine "]" #'(#t #f #f)
 
 \new Staff {
+  s1 \bar "'"
+  s1 \bar ","
   s1 \bar "|"
   s1 \bar "."
   s1 \bar "!"
@@ -3182,10 +3187,9 @@ There are currently ten bar line elements available:
 }
 @end lilypond
 
-The @code{"="} bar line provides the double span bar line, used
-in combination with the segno sign.  Using it as a stand-alone
-double thin bar line is not recommended; in most cases,
-@code{\bar} @var{"||"} is preferred.
+The @code{"="} bar line provides a double span bar line for use in
+combination with the segno sign.  Using it as a stand-alone double
+thin bar line is not recommended; @code{\bar "||"} is preferred.
 
 The @code{"-"} sign starts annotations to bar lines which
 are useful to distinguish those with identical appearance
@@ -3194,7 +3198,7 @@ The part following the @code{"-"} sign is not used for building up
 the bar line.
 
 @lilypond[quote,verbatim]
-\defineBarLine "||-dashedSpan" #'("||" "" "!!")
+\defineBarLine "||-dashedSpan" #'(#t #f "!!")
 
 \new StaffGroup <<
   \new Staff \relative c'' {
@@ -3214,8 +3218,8 @@ Furthermore, the space character @code{" "} serves as a placeholder
 for defining span bars correctly aligned to the main bar lines:
 
 @lilypond[quote,verbatim]
-\defineBarLine ":|.-wrong" #'(":|." "" "|.")
-\defineBarLine ":|.-right" #'(":|." "" " |.")
+\defineBarLine ":|.-wrong" #'(#t #f "|.")
+\defineBarLine ":|.-right" #'(#t #f " |.")
 
 \new StaffGroup <<
   \new Staff \relative c'' {
@@ -3239,7 +3243,7 @@ system ends:
 
 @lilypond[quote,verbatim]
 \defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
-\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" "" "!!")
+\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" #f "!!")
 
 \new StaffGroup <<
   \new Staff \relative c'' {

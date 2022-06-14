@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.10"
 
 \header {
   texidoc = "A user-defined empty bar glyph behaves like the built-in
@@ -11,7 +11,7 @@ in both measures."
 }
 
 #(add-bar-glyph-print-procedure "0" (@@ (lily) make-empty-bar-line))
-\defineBarLine "0" #'("0" "0" #f)
+\defineBarLine "0" #'(#t #t #f)
 
 \new Score \fixed c' {
   \repeat unfold 3 { c4 \bar "" } c

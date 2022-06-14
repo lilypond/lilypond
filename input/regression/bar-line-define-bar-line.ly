@@ -1,12 +1,12 @@
-\version "2.19.21"
+\version "2.23.10"
 
 \header { texidoc = "New bar line styles can be defined by @code{\\defineBarLine}."
         }
 
 \paper { ragged-right = ##t }
 
-\defineBarLine "[|;" #'("|" "[|;" " |")
-\defineBarLine ";|]" #'(";|]" "" " |")
+\defineBarLine "[|;" #'("|" #t " |")
+\defineBarLine ";|]" #'(#t "" " |")
 
 \relative \new StaffGroup <<
   \new Staff {

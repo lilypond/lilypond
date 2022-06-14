@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.10"
 
 \header {
   texidoc = "A user-defined empty bar line with an annotation in the
@@ -12,7 +12,7 @@ between notes should be the same in both measures."
 
 %% This definition is intended to match the definition of "" in
 %% scm/bar-line.scm except for the annotation in the name.
-\defineBarLine "-ann" #'("" "" #f)
+\defineBarLine "-ann" #'(#t #t #f) % TODO: use #f at BOL
 
 \new Score \fixed c' {
   \repeat unfold 3 { c4 \bar "" } c

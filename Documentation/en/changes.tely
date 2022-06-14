@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 
+@item
+@code{\defineBarLine} now accepts @code{#t} in lieu of repeating
+the mid-line glyph name.
+
+
 @item The new markup command @code{\align-on-other} translates a
 markup as if it was aligned to another markup.
 
