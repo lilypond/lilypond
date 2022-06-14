@@ -279,6 +279,9 @@ class Gettext(ConfigurePackage):
 
     def configure_args(self, c: Config) -> List[str]:
         return [
+            # Disable building with libiconv in case the library is installed
+            # on the system (as is the case for FreeBSD and macOS).
+            "am_cv_func_iconv=no",
             # Disable unused features.
             "--disable-java",
             "--disable-threads",
