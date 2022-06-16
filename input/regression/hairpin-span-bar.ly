@@ -24,7 +24,8 @@
   >>
   \layout {
     \context {
-      \RemoveEmptyStaffContext
+      \Staff
+      \RemoveEmptyStaves
     }
   }
 }

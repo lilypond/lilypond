@@ -112,11 +112,6 @@ che attraversano le voci, come mostrato in @rlearning{Altri usi delle modifiche 
 
 @end itemize
 
-@c @snippets
-@c @lilypondfile[verbatim,quote,texidoc,doctitle]
-@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
-@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
-
 @morerefs
 Manuale di apprendimento:
 @rlearning{Esempio musicale},

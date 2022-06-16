@@ -1,13 +1,14 @@
 \version "2.17.6"
 
 \header {
-  texidoc = "StaffGrouper interacts correctly with \RemoveEmptyStaffContext.
+  texidoc = "StaffGrouper interacts correctly with @code{\RemoveEmptyStaves}.
 In both systems, there should be a large space between the staff groups."
 }
 
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff
+    \RemoveEmptyStaves
   }
 }
 

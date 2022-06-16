@@ -1500,34 +1500,3 @@ accommodated for typesetting a piece in Kievan style."
   autoCautionaries = #'()
   printKeyCancellation = ##f
 }
-
-%% Keep the old definitions in here for compatibility (they erase previous
-%% settings to the corresponding context!).
-%% For new scores, one should simply insert the \RemoveEmptyStaves settings
-%% into the desired context. That's just as easy, requires only one line more
-%% (the \*Staff), but preserves previous context mods.
-%% TODO: DEPRECATED_2.13.17, remove at some point in the future
-RemoveEmptyStaffContext = \context {
-  \Staff
-  \RemoveEmptyStaves
-}
-
-AncientRemoveEmptyStaffContext = \context {
-  \VaticanaStaff
-  \RemoveEmptyStaves
-}
-
-RemoveEmptyDrumStaffContext = \context {
-  \DrumStaff
-  \RemoveEmptyStaves
-}
-
-RemoveEmptyRhythmicStaffContext = \context {
-  \RhythmicStaff
-  \RemoveEmptyStaves
-}
-
-RemoveEmptyTabStaffContext = \context {
-  \TabStaff
-  \RemoveEmptyStaves
-}

@@ -1,9 +1,9 @@
-\version "2.17.6"
+\version "2.19.36"
 \header {
 
   texidoc = "
 Rests should not keep staves alive when
-@code{\\RemoveEmptyStaffContext} is active.  The
+@code{\\RemoveEmptyStaves} is active.  The
 following example should have only one staff.
 "
 
@@ -18,7 +18,10 @@ following example should have only one staff.
      \partial 16 c'16 | c'1 | c'1
    }
  >>
-
- \layout { \context { \RemoveEmptyStaffContext
-     \override VerticalAxisGroup.remove-first = ##t } }
+ \layout {
+  \context {
+   \Staff
+   \RemoveAllEmptyStaves
+  }
+ }
 }

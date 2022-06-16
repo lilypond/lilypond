@@ -4571,6 +4571,19 @@ measureBarType to #'() or a valid bar type.
     s = re.sub(r'\\(consists|remove) "?Chord_name_engraver"?',
                r'\\\1 Chord_name_engraver \\\1 Current_chord_text_engraver',
                s)
+    # This change is also in the rule for 2.13.18.  It is being
+    # replicated here because the removal was only done in 2.23.10.
+    # This ensures that a score that had previously been updated to a
+    # version between 2.13.18 and 2.23.10 without running convert-ly
+    # can still be fixed in the 2.23.10 upgrade using convert-ly.
+    # Since the change was advertised earlier, this is not part of the
+    # rule description.
+    s = re.sub(r"\\RemoveEmpty(|Drum|Rhythmic|Tab)StaffContext",
+                 r"\\\1Staff \\RemoveEmptyStaves",
+                 s)
+    s = re.sub(r"\\AncientRemoveEmptyStaffContext",
+                 r"\\VaticanaStaff \\RemoveEmptyStaves",
+                 s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

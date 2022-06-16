@@ -112,11 +112,6 @@
 
 @end itemize
 
-@c @snippets
-@c @lilypondfile[verbatim,quote,texidoc,doctitle]
-@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
-@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
-
 @morerefs
 学習マニュアル:
 @rlearning{Real music example},

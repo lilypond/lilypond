@@ -133,13 +133,6 @@ qui passent d'une voix à l'autre, comme le montre
 
 @end itemize
 
-
-@c @snippets
-@c @lilypondfile[verbatim,quote,texidoc,doctitle]
-@c {snippets/forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
-@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
-
-
 @morerefs
 Manuel d'initiation :
 @rlearning{Autres utilisations des retouches},
