@@ -239,6 +239,13 @@ expression."
 (define-span-event-display-method UnaCordaEvent (event) #f "\\unaCorda" "\\treCorde")
 
 ;;;
+;;; Void Music
+;;;
+
+(define-display-method Music (expr)
+  (format #f "##{#}"))
+
+;;;
 ;;; Graces
 ;;;
 

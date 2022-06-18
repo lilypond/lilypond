@@ -73,6 +73,10 @@ actual   = ~a"
 are reported on the stderr of this run."
 }
 
+%% Void music
+\test "##{#}" ##[ #]
+\test ##[ ##{#} #]
+
 %% Sequential music
 \test ##[ { { a4 b4 } { c4 d4 } } #]		% SequentialMusic
 \test ##[ << { a4 b4 } { c4 d4 } >> #]		% SimultaneousMusic
