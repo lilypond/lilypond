@@ -12,7 +12,7 @@ between notes should be the same in both measures."
 
 %% This definition is intended to match the definition of "" in
 %% scm/bar-line.scm except for the annotation in the name.
-\defineBarLine "-ann" #'(#t #t #f) % TODO: use #f at BOL
+\defineBarLine "-ann" #'(#t #f #f)
 
 \new Score \fixed c' {
   \repeat unfold 3 { c4 \bar "" } c

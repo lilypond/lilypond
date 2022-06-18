@@ -13,7 +13,7 @@
 
 #(add-bar-glyph-print-procedure "0" make-coda-sign-bar-line)
 
-\defineBarLine "0" #'(#t "" "")
+\defineBarLine "0" #'(#t #f "")
 
 
 \relative \new StaffGroup <<
