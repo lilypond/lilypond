@@ -15,20 +15,21 @@ This output should show two adjacent repeated sections with unusually
 ornate bar lines."
 }
 
-\layout {
-  ragged-right = ##t
-}
-
 %% For a score with span-bars, ":;|]." would need to be defined as
 %% well, but we don't need to complicate this test with that.
 \defineBarLine ".[|;:" #'("." ".[|;:" "  |") % start
 \defineBarLine ":;|]." #'(":;|]." #f "  |  ") % end
 \defineBarLine ":;|][|;:" #'(":;|]." ".[|;:" "  |  |") % double
 
-\new Score \with {
-  doubleRepeatBarType = ":;|][|;:"
-  endRepeatBarType = ":;|]."
-  startRepeatBarType = ".[|;:"
-} \new Staff \fixed c' {
-  r2. \repeat unfold 2 { \repeat volta 2 { r4 | r2. } }
+\layout {
+  \context {
+    \Score
+    doubleRepeatBarType = ":;|][|;:"
+    endRepeatBarType = ":;|]."
+    startRepeatBarType = ".[|;:"
+  }
 }
+
+testBars = ##{#}
+
+\include "bar-line-define-repeat-test.ily"

@@ -11,10 +11,6 @@ does not fall on a measure boundary, the value of
 adjacent repeated sections with unusually ornate bar lines."
 }
 
-\layout {
-  ragged-right = ##t
-}
-
 %% Notice that we define *only* the -|| versions of these.
 %%
 %% For a score with span-bars, ":;|]." would need to be defined as
@@ -23,12 +19,17 @@ adjacent repeated sections with unusually ornate bar lines."
 \defineBarLine ":;|].-||" #'(":;|]." #f "  |  ") % end
 \defineBarLine ":;|][|;:-||" #'(":;|]." ".[|;:" "  |  |") % double
 
-\new Score \with {
-  %% N.B. We don't want the -|| annotation here.  LilyPond should
-  %% append it automatically for unaligned repeats/segni.
-  doubleRepeatBarType = ":;|][|;:"
-  endRepeatBarType = ":;|]."
-  startRepeatBarType = ".[|;:"
-} \new Staff \fixed c' {
-  r2. \repeat unfold 2 { \repeat volta 2 { r4 | r2. } }
+\layout {
+  \context {
+    \Score
+    %% N.B. We don't want the -|| annotation here.  LilyPond should
+    %% append it automatically for unaligned repeats/segni.
+    doubleRepeatBarType = ":;|][|;:"
+    endRepeatBarType = ":;|]."
+    startRepeatBarType = ".[|;:"
+  }
 }
+
+testBars = ##{#}
+
+\include "bar-line-define-repeat-test.ily"

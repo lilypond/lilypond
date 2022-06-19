@@ -13,8 +13,6 @@ thick bar line without dots."
 }
 
 \layout {
-  ragged-right = ##t
-
   \context {
     \Score
     fineBarType = "..-test"
@@ -35,19 +33,6 @@ thick bar line without dots."
 \defineBarLine "::..::-..-test" #'("::..::" "::..::" "") % double repeat
 \defineBarLine "..-test" #'(".." ".." "") % fine
 
-%% It is important that these bars are not aligned to measure
-%% boundaries.  It shows that LilyPond chooses fineBarType over
-%% underlyingRepeatBarType as well as over sectionBarType.
-\new Score \fixed c' {
-  r2.
-  \repeat volta 2 {
-    \fine \section r4 | r2.
-  }
-  \repeat volta 2 {
-    \fine \section
-    r4 | r2.
-    \fine \section
-  }
-  r4 | r2.
-  \fine \section
-}
+testBars = { \fine \section }
+
+\include "bar-line-define-repeat-test.ily"
