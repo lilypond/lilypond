@@ -1092,6 +1092,22 @@ can be achieved by using @samp{_} instead of a number.
 }
 @end lilypond
 
+If used without accidental, @samp{_} creates an empty figure which
+nevertheless takes up space.  This can be used for controlling the
+stacking of bass figures.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  {
+    \clef bass
+    g2 c4
+  }
+  \figures {
+    <_ 5 4>4 <8 _ 3>8 <7>
+  }
+>>
+@end lilypond
+
 Augmented and diminished steps can be indicated.
 
 @lilypond[verbatim,quote,ragged-right]

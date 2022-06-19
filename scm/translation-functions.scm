@@ -362,7 +362,7 @@ segni to avoid ambiguity."
 
     (if (markup? fig-markup)
         (make-fontsize-markup -5 fig-markup)
-        empty-markup)))
+        (make-null-markup))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret diagrams

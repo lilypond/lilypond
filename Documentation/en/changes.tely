@@ -71,6 +71,17 @@ which scares away people.
 @end ignore
 
 @item
+In figured bass, @code{_} now creates an empty figure that still
+takes up space.
+
+@lilypond[verbatim, quote]
+\figures {
+  <8 _ 4]> <_ 5+ 3>
+}
+@end lilypond
+
+
+@item
 Support for chord grids has been added.
 
 @lilypond[quote,indent=0\cm,noragged-right]
@@ -82,6 +93,7 @@ Support for chord grids has been added.
   e4:m7 e4:m7/d a4:7/cis c4:m7
 }
 @end lilypond
+
 
 @item
 Formatting of figured bass has been improved.  In particular, the
