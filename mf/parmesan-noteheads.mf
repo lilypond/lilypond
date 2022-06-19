@@ -66,7 +66,7 @@ define_pixels (noteheight);
 %
 %
 
-def draw_neomensural_brevis (expr brevwid, holeheight, open, full) =
+def paths_neomensural_brevis (expr brevwid, holeheight, open, full) =
   save beamheight, head_width, head_height;
   save stem_width, serif_size, serif_protrude;
 
@@ -83,58 +83,87 @@ def draw_neomensural_brevis (expr brevwid, holeheight, open, full) =
   serif_size := blot_diameter;
   serif_protrude := .15 head_height;
 
-  z1r = (0, 0);
-  z2r = (0, - (holeheight - 2 serif_size) / 2);
-  z3r = z2r + serif_size * (1, -1);
-  y4r = y3r;
-  x4r = head_width / 2 - stem_width;
-  z5l = z3l + (-serif_size, -serif_protrude);
+  z1l = (-b, -(holeheight - 2 serif_size) / 2);
+  z2r = z1r + serif_size * (1, -1);
+  z3r = (w - stem_width - serif_size, y2r);
+  z4l = (w, y1l);
+
+  z5 = (x4, -y4);
+  z6 = (x3, -y3);
+  z7 = (x2, -y2);
+  z8 = (x1, -y1);
+
+  z11r = z2l + (-serif_size, -serif_protrude);
+  z12l = z3l + (serif_size, -serif_protrude);
+
+  z13 = (x12, -y12);
+  z14 = (x11, -y11);
 
   penpos1 (stem_width, 0);
-  penpos2 (stem_width, 0);
+  penpos2 (beamheight, 90);
   penpos3 (beamheight, 90);
-  penpos4 (beamheight, 90);
+  penpos4 (stem_width, 180);
+
   penpos5 (stem_width, 180);
+  penpos6 (beamheight, 270);
+  penpos7 (beamheight, 270);
+  penpos8 (stem_width, 0);
 
-  save pat_out;
-  path pat_out;
+  penpos11 (stem_width, 0);
+  penpos12 (stem_width, 0);
+  penpos13 (stem_width, 180);
+  penpos14 (stem_width, 180);
 
-  pat_out := z4l
-             -- z3l{left}
-             .. z5l{down}
-             .. z5r{up}
-             -- z1l;
-  pat_out := pat_out
-             -- reverse pat_out yscaled -1;
-  pat_out := pat_out
-             -- reverse pat_out shifted (-x4r, 0)
-                                xscaled -1
-                                shifted (x4l, 0)
+  pat_out := z14r{up}
+             .. z14l{down}
+             .. z7l{right}
+             -- z6l{right}
+             .. z13r{up}
+             .. z13l{down}
+             -- z12r{down}
+             .. z12l{up}
+             .. z3l{left}
+             -- z2l{left}
+             .. z11r{down}
+             .. z11l{up}
              -- cycle;
-  fill pat_out;
 
   if open:
-    save pat_in;
-    path pat_in;
-
-    pat_in := z4r
-              -- z3r{left}
-              .. z2r{up}
-              -- z1r;
-    pat_in := pat_in
-              -- reverse pat_in yscaled -1;
-    if full:
-      pat_in := pat_in
-                -- reverse pat_in shifted (-x4r, 0)
-                                  xscaled -1
-                                  shifted (x4l, 0);
+    if not full:
+      z67r = .5 [z6r, z7r];
+      z23r = .5 [z2r, z3r];
+      labels (23r, 67r);
     fi;
-    pat_in := pat_in
+
+    pat_in := z1r{down}
+              .. z2r{right}
+              if full:
+                -- z3r{right}
+                .. z4r{up}
+                -- z5r{up}
+                .. z6r{left}
+              else:
+                -- z23r
+                -- z67r
+              fi
+              -- z7r{left}
+              .. z8r{down}
               -- cycle;
-    unfill pat_in;
   fi;
 
-  penlabels (1, 2, 3, 4, 5);
+  penlabels (range 1 thru 14);
+enddef;
+
+
+def draw_neomensural_brevis (expr brevwid, holeheight, open, full) =
+  save pat_out, pat_in;
+  path pat_out, pat_in;
+
+  paths_neomensural_brevis (brevwid, holeheight, open, full);
+  fill pat_out;
+  if open:
+    unfill pat_in;
+  fi;
 enddef;
 
 
@@ -143,31 +172,53 @@ enddef;
 % the left, some say right.  Right wins democratically.
 %
 def draw_neomensural_longa (expr wid, holeheight, direction) =
-  draw_neomensural_brevis (wid, holeheight, true, true);
+  save pat_out, pat_in;
+  path pat_out, pat_in;
+  save theta, dir, t;
 
-  save theta, dir;
+  paths_neomensural_brevis (wid, holeheight, true, true);
+
   dir := -direction;
 
-  x7r = head_width - stem_width;
-  y7 = dir * y5;
-  z6 - z7 = (stem_width / 2, -dir * staff_space);
-  theta = dir * angle (z6 - z7) + 90;
+  x22r = head_width - stem_width;
+  if (direction = 1):
+    y22 = y13;
+  else:
+    y22 = y12;
+  fi;
+  z21 - z22 = (stem_width / 2, -dir * staff_space);
+  theta = dir * angle (z21 - z22) + 90;
 
-  penpos7 (stem_width, 0);
-  penpos6 (1.2 stem_width, dir * theta);
+  penpos21 (1.2 stem_width, dir * theta);
+  penpos22 (stem_width, 0);
 
-  z7' = find_tangent (z6l, pat_out,
-                      (x7l + 0.5 stem_width, y7l),
-                      (x7l - 0.5 stem_width, y7l));
+  t := find_tangent (z21l, pat_out,
+                     (x22l + 0.5 stem_width, y22l),
+                     (x22l - 0.5 stem_width, y22l));
 
-  fill z7r
-       .. z6r{z6 - z7}
-       .. {z7 - z6}z6l
-       -- z7'
-       -- cycle;
+  if (direction = 1):
+    fill subpath (0, t) of pat_out
+         -- z21l{z21 - z22}
+         .. z21r{z22 - z21}
+         -- subpath (floor (t + 1), length pat_out) of pat_out
+         & cycle;
 
-  penlabels (6, 7);
-  labels (7');
+    z13r' = point t of pat_out;
+    labels (13r');
+  else:
+    fill subpath (0, ceiling (t - 1)) of pat_out
+         -- z21r{z21 - z22}
+         .. z21l{z22 - z21}
+         -- subpath (t, length pat_out) of pat_out
+         & cycle;
+
+    z12l' = point t of pat_out;
+    labels (12l');
+  fi;
+
+  unfill pat_in;
+
+  penlabels (21, 22);
 enddef;
 
 
@@ -373,6 +424,12 @@ fet_endchar;
 %
 %
 
+def paths_mensural_brevis (expr wid, holeheight, open, full) =
+  % TODO.  For the moment, fall back to paths_neomensural_brevis.
+  paths_neomensural_brevis (wid, holeheight, open, full);
+enddef;
+
+
 def draw_mensural_brevis (expr wid, holeheight, open, full) =
   % TODO.  For the moment, fall back to draw_neomensural_brevis.
   draw_neomensural_brevis (wid, holeheight, open, full);
@@ -381,33 +438,55 @@ enddef;
 
 def draw_mensural_longa (expr wid, holeheight, open, full,
                               direction, ligature) =
-  draw_mensural_brevis (wid, holeheight, open, full);
+  save pat_out, pat_in;
+  path pat_out, pat_in;
+  save dir, t;
 
-  save dir;
+  paths_mensural_brevis (wid, holeheight, open, full);
+
   dir := -direction;
 
-  x6r = x7r = head_width - stem_width;
-  y6 = dir * y5;
-  y7 = dir * y5 -1.75 dir * staff_space;
-
-  z17 = (x7, y7 - dir * stem_width / 2);
-
-  penpos6 (stem_width, 0);
-  if ligature:
-    penpos7 (stem_width, 0);
+  x21r = x22r = head_width - stem_width;
+  if (direction = 1):
+    y22 = y13;
   else:
-    penpos7 (1.5 stem_width, 0);
+    y22 = y12;
+  fi;
+  y22 - y21 = 1.75 dir * staff_space;
+
+  z21' = (x21, y21 - dir * stem_width / 2);
+
+  if ligature:
+    penpos21 (stem_width, 0);
+  else:
+    penpos21 (1.5 stem_width, 0);
+  fi;
+  penpos22 (stem_width, 0);
+
+  t := xpart (pat_out intersectiontimes (z21l -- z22l));
+
+  if (direction = 1):
+    fill subpath (0, t) of pat_out
+         -- z21l
+         .. z21'
+         .. z21r
+         -- subpath (floor (t + 1), length pat_out) of pat_out
+         & cycle;
+  else:
+    fill subpath (0, ceiling (t - 1)) of pat_out
+         -- z21r
+         .. z21'
+         .. z21l
+         -- subpath (t, length pat_out) of pat_out
+         & cycle;
   fi;
 
-  fill z7l
-       -- z6l
-       -- z6r
-       -- z7r
-       .. z17
-       .. cycle;
+  if open:
+    unfill pat_in;
+  fi;
 
-  penlabels (6, 7);
-  labels (17);
+  penlabels (21, 22);
+  labels (21');
 enddef;
 
 

@@ -45,7 +45,7 @@ def find_tangent (expr p, curve, p_in, p_out) =
       fi;
     endfor;
 
-    point t_good of curve
+    t_good
   endgroup
 enddef;
 
