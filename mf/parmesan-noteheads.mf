@@ -149,7 +149,7 @@ def draw_neomensural_longa (expr wid, holeheight, direction) =
   theta = dir * angle (z6 - z7) + 90;
 
   penpos7 (stem_width, 0);
-  penpos6 (1.2 stem_width, theta);
+  penpos6 (1.2 stem_width, dir * theta);
 
   z7' = find_tangent (z6l, pat_out,
                       (x7l + 0.5 stem_width, y7l),
