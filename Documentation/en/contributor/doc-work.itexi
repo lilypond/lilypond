@@ -376,8 +376,8 @@ Nodes must be included inside a
 @end example
 
 @noindent
-construct.  These can be constructed with scripts:
-see @ref{Stripping whitespace and generating menus}.
+construct.  These can be constructed automatically:
+@pxref{Regenerating menus}.
 
 
 @node LilyPond formatting
@@ -1543,31 +1543,23 @@ corresponding default values as @code{doc-section.sh}.
 @subsection Scripts to create documentation
 
 @menu
-* Stripping whitespace and generating menus::
+* Regenerating menus::
 * Updating doc with convert-ly::
 @end menu
 
-@node Stripping whitespace and generating menus
-@unnumberedsubsubsec Stripping whitespace and generating menus
+@node Regenerating menus
+@unnumberedsubsubsec Regenerating menus
 
-@warning{This script assumes that the file conforms to our doc
-policy, in particular with regard to @ref{Sectioning commands};
-a few files still need work in this regard.}
-
-To automatically regenerate @code{@@menu} portions and strip
-whitespace, use:
+If you are using Emacs to edit Texinfo files, you can use
+@key{C-c C-u C-a} in order to regenerate @code{@@menu}
+portions automatically.  Otherwise, run
 
 @example
-scripts/auxiliar/node-menuify.py @var{FILENAME}
+scripts/auxiliar/node-menuify.sh @var{FILENAME}
 @end example
 
-If you are adding documentation that requires new menus,
-you will need to add a blank @code{@@menu} section:
-
-@example
-@@menu
-@@end menu
-@end example
+The @command{node-menuify.sh} script just drives Emacs behind
+the scenes, so it requires Emacs to be installed.
 
 
 @node Updating doc with convert-ly
