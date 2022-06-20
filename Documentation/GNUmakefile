@@ -443,11 +443,12 @@ uninstall-info-files: update-info-directory-file-uninstall
 	        $(addsuffix *,$(INFO_DOCS)))
 
 update-info-directory-file-uninstall:
-	cd $(DESTDIR)$(infodir) ; \
-	  $(foreach f, $(ALL_INFO_DOCS), \
-	    install-info --remove \
-	      --info-dir=$(DESTDIR)$(infodir) \
-	      $(f).info &> /dev/null ; ) true
+	test ! -d $(DESTDIR)$(infodir) \
+	|| ( cd $(DESTDIR)$(infodir) ; \
+	    $(foreach f, $(ALL_INFO_DOCS), \
+	      install-info --remove \
+	        --info-dir=$(DESTDIR)$(infodir) \
+	        $(f).info &> /dev/null ; ) true )
 
 ifeq ($(out),www)
   UPDATE_IMAGE_SYMLINKS = \
