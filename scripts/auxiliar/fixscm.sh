@@ -18,5 +18,6 @@ for f in "$@"; do
   # First --eval to load .dir-locals.el before file is loaded, so
   # the options take effect, then second --eval after file is loaded,
   # to process it.
-  emacs --batch --eval "${load_dir_locals}" "$f" --eval "${reformat_file}"
+  emacs --no-init-file --no-site-file \
+        --batch --eval "${load_dir_locals}" "$f" --eval "${reformat_file}"
 done
