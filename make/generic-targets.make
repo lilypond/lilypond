@@ -66,8 +66,8 @@ local-tags:
 			$(ERROR_LOG) ; \
 	fi
 
-$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(buildscript-dir)/make-version.py
-	$(PYTHON) $(buildscript-dir)/make-version.py $< > $@
+$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(buildscript-dir)/create-version-hh.py
+	$(PYTHON) $(buildscript-dir)/create-version-hh.py > $@
 
 $(outdir)/config.hh: $(config_h)
 	cp -p $< $@
