@@ -620,6 +620,7 @@ darkslategrey
 CSS color definitions differ from X color names for the following
 colors: @code{green}, @code{grey}, @code{maroon}, @code{purple}.
 
+
 @subsubheading X color names
 
 @uref{https://en.wikipedia.org/wiki/X11_color_names, X11 color names}
@@ -638,6 +639,10 @@ The word @q{grey} can always be spelled @q{gray} (e.g.,
 @item
 Some names can take a numerical suffix (e.g., @q{LightSalmon4}).
 @end itemize
+
+@funindex x11-color
+
+Use the Scheme function @code{x11-color} to access them.
 
 The following tables present all color names that may be used
 without a numerical suffix, and then the subset of these that
@@ -722,6 +727,22 @@ greyN
 
 @noindent
 Where N is in the range 0-100.
+
+
+@subsubheading Color-blind-safe colors
+
+@funindex universal-color
+@cindex color, suitable for dichromatism
+@cindex dichromatism, suitable colors
+
+The Scheme function @code{universal-@/color} provides
+@uref{https://jfly.uni-koeln.de/color, a set of eight colors}
+designed to be unambiguous to people with dichromatism.
+
+@example
+black   orange  skyblue     bluegreen
+yellow  blue    vermillion  redpurple
+@end example
 
 
 @node The Emmentaler font

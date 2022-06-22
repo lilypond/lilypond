@@ -70,6 +70,26 @@ which scares away people.
 
 @end ignore
 
+
+@item
+The new Scheme function @code{universal-@/color} provides an
+eight-element color palette designed to be unambiguous to people
+with dichromatism.
+
+@lilypond[quote]
+\markup \bold \column {
+  \with-color #(universal-color 'black) black
+  \with-color #(universal-color 'orange) orange
+  \with-color #(universal-color 'skyblue) skyblue
+  \with-color #(universal-color 'bluegreen) bluegreen
+  \with-color #(universal-color 'yellow) yellow
+  \with-color #(universal-color 'blue) blue
+  \with-color #(universal-color 'vermillion) vermillion
+  \with-color #(universal-color 'redpurple) redpurple
+}
+@end lilypond
+
+
 @item
 The following predefined bar types no longer appear as a single
 bar line at the end of a line.  Annotated bar types (e.g.,

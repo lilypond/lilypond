@@ -714,6 +714,18 @@ color returned defaults to black.
 }
 @end lilypond
 
+@cindex color blind
+@funindex universal-color
+
+LilyPond also supports a @uref{https://jfly.uni-koeln.de/color,
+set of eight color names} that is unambiguous to both color-blind
+and non-color-blind people.  Use @code{universal-@/color} to access
+them.
+
+@lilypond[verbatim,quote]
+\markup \with-color #(universal-color 'vermillion) vermillion
+@end lilypond
+
 @cindex color, rgb
 @cindex rgb color
 

@@ -702,6 +702,18 @@
      (silver 0.752941176470588 0.752941176470588 0.752941176470588)
      (teal 0 0.501960784313725 0.501960784313725))))
 
+;; a color set unambiguous to both color-blind and non-color-blind
+;; people (Okabe and Ito, https://jfly.uni-koeln.de/color)
+(define universal-color-list
+  '((black 0 0 0)
+    (orange 0.9019607843137255 0.6235294117647059 0)
+    (skyblue 0.3137254901960784 0.7058823529411765 0.9137254901960784)
+    (bluegreen 0 0.6196078431372549 0.4509803921568628)
+    (yellow 0.9411764705882353 0.8941176470588236 0.2588235294117647)
+    (blue 0 0.4470588235294118 0.6980392156862745)
+    (vermillion 0.8352941176470589 0.3686274509803922 0)
+    (redpurple 0.8 0.4745098039215686 0.6549019607843137)))
+
 (define-public (reset-stencil-colors)
   (ly:set-color-names (map (lambda (entry)
                              (cons (symbol->string (car entry))
@@ -742,3 +754,4 @@
 
 (define-safe-public x11-color (make-color-handler x11-color-list))
 (define-safe-public css-color (make-color-handler css-color-list))
+(define-safe-public universal-color (make-color-handler universal-color-list))
