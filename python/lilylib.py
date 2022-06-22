@@ -134,16 +134,8 @@ class _NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
         return description
 
 
-class _NonEmptyOptionParser (optparse.OptionParser):
-    "A subclass of OptionParser that gobbles empty string arguments."
-
-    def parse_args(self, args=None, values=None):
-        options, args = optparse.OptionParser.parse_args(self, args, values)
-        return options, [_f for _f in args if _f]
-
-
 def get_option_parser(*args, **kwargs):
-    p = _NonEmptyOptionParser(*args, **kwargs)
+    p = optparse.OptionParser(*args, **kwargs)
     p.formatter = _NonDentedHeadingFormatter()
     p.formatter.set_parser(p)
     return p
