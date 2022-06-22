@@ -17,34 +17,23 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
+import argparse
+from pathlib import Path
+import subprocess
 import tempfile
 
-base = os.path.splitext(os.path.split(sys.argv[1])[1])[0]
-input = os.path.abspath(sys.argv[1])
-output = os.path.abspath(sys.argv[2])
-program_name = os.path.split(sys.argv[0])[1]
+p = argparse.ArgumentParser(description="generate Windows icon files from xpm images")
+p.add_argument("input")
+p.add_argument("output")
+args = p.parse_args()
 
-dir = tempfile.mktemp(program_name)
-os.mkdir(dir, 0o777)
-os.chdir(dir)
-
-
-def system(c):
-    print(c)
-    if os.system(c):
-        raise Exception('The command exited with nonzero exit status!')
-
-
-outputs = []
-for sz in [48, 32, 16]:
-
-    for depth in [24, 8]:
-        out = '%(base)s-%(sz)d-%(depth)d.png' % locals()
-        system('convert -depth %(depth)d -sample %(sz)d %(input)s %(out)s' %
-               locals())
-        outputs.append(out)
-
-system('icotool --output %s --create %s' % (output, ' '.join(outputs)))
-system('rm -rf %(dir)s' % locals())
+with tempfile.TemporaryDirectory() as tempdir:
+    pngs = []
+    for size in ["16", "32", "48"]:
+        for depth in ["8", "24"]:
+            png = Path(tempdir) / f"icon-{size}-{depth}.png"
+            cmd_args = ["convert", "-depth", depth, "-sample", size, args.input, png]
+            subprocess.run(cmd_args, encoding="utf-8", check=True)
+            pngs.append(png)
+    cmd_args = ["icotool", "--output", args.output, "--create", *pngs]
+    subprocess.run(cmd_args, encoding="utf-8", check=True)
