@@ -3263,11 +3263,11 @@ are blue.
 @lilypond
 musical =
 #(define-music-function (grob) (key-list?)
-   #{ \override $grob . color = red #})
+   #{ \override $grob . color = #(universal-color 'vermillion) #})
 
 nonmusical =
 #(define-music-function (grob) (key-list?)
-   #{ \override $grob . color = blue #})
+   #{ \override $grob . color = #(universal-color 'skyblue) #})
 
 \layout {
   \context {

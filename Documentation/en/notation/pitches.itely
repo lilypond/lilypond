@@ -1342,8 +1342,8 @@ need to be applied, as a separate @code{\override}, to the
 
 @lilypond[fragment,quote,verbatim]
 \new Staff \with {
-  \override Clef.color = #blue
-  \override ClefModifier.color = #red
+  \override Clef.color = #(universal-color 'blue)
+  \override ClefModifier.color = #(universal-color 'vermillion)
 }
 
 \clef "treble_8" c'4

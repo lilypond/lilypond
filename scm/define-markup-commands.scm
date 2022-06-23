@@ -473,9 +473,9 @@ regularPentagon =
   \\override #'(filled . #f)
     \\override #'(thickness . 2)
       \\combine
-        \\with-color \"blue\"
+        \\with-color #(universal-color 'blue)
           \\polygon #regularPentagon
-        \\with-color \"red\"
+        \\with-color #(universal-color 'vermillion)
           \\override #'(extroversion . 1)
             \\polygon #regularPentagon
 }

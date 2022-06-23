@@ -236,8 +236,8 @@ well as notes.  Attaching an articulation to a multi-measure rest
 creates a @code{MultiMeasureRestScript} object.
 
 @lilypond[verbatim,quote,fragment]
-\override Script.color = #red
-\override MultiMeasureRestScript.color = #blue
+\override Script.color = #(universal-color 'vermillion)
+\override MultiMeasureRestScript.color = #(universal-color 'blue)
 a'2\fermata r\fermata
 R1\fermata
 @end lilypond

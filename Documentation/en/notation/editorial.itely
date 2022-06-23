@@ -640,7 +640,7 @@ are listed in the @ref{List of colors}.
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
 c''4 c''
-\override NoteHead.color = #(x11-color 'LimeGreen)
+\override NoteHead.color = #(x11-color 'SlateGrey)
 d''
 \override Stem.color = "deepskyblue"
 e''
@@ -696,7 +696,7 @@ color returned defaults to black.
 @lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
-    \with-color #(x11-color 'red) "Clarinet"
+    \with-color #(x11-color 'SlateGrey) "Clarinet"
     }
   }
   \relative c'' {
@@ -704,7 +704,7 @@ color returned defaults to black.
   gis8 a
   \override Beam.color = #(x11-color "medium turquoise")
   gis a
-  \override Accidental.color = #(x11-color 'DarkRed)
+  \override Accidental.color = #(x11-color 'orange)
   gis a
   \override NoteHead.color = #(x11-color "LimeGreen")
   gis a

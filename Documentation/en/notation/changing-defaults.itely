@@ -2435,8 +2435,8 @@ of the @code{\tweak} command in which the grob name is specified
 explicitly:
 
 @lilypond[fragment,verbatim,quote]
-\tweak Stem.color #red
-\tweak Beam.color #green c''8 e''
+\tweak Stem.color #(universal-color 'orange)
+\tweak Beam.color #(universal-color 'skyblue) c''8 e''
 <c'' e'' \tweak Accidental.font-size #-3 ges''>4
 @end lilypond
 
