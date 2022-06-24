@@ -7,10 +7,6 @@
 volta} by setting the @code{startRepeatBarType}, @code{endRepeatBarType},
 and @code{doubleRepeatBarType} context properties.
 
-If the user does not define variants of these bar types annotated with
-the value of @code{underlyingRepeatBarType}, LilyPond falls back on those
-that are defined.
-
 This output should show two adjacent repeated sections with unusually
 ornate bar lines."
 }

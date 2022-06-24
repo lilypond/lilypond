@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.10"
+@c \version "2.23.11"
 
 @node Rhythms
 @section Rhythms
@@ -2975,8 +2975,11 @@ placement of subsequent automatic bar lines.  When a manual bar
 line is placed where a normal bar line already exists, the effects
 of the original bar line are not altered.
 
-Two types of simple bar lines and five types of double bar lines are
-available for manual insertion:
+@c TODO: "There are N of these and M of these and ..." is material
+@c for an appendix.
+
+Various single and double bar lines are available for manual
+insertion:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -3003,7 +3006,7 @@ together with dotted and dashed bar lines:
 @end lilypond
 
 @noindent
-and nine types of repeat bar lines:
+and various repeat bar lines:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -3035,7 +3038,7 @@ g1 \bar ","
 a1
 @end lilypond
 
-LilyPond supports kievan notation and provides a special kievan
+LilyPond supports Kievan notation and provides a special Kievan
 bar line:
 @lilypond[quote,fragment,verbatim]
 f'1 \bar "k"
@@ -3048,24 +3051,28 @@ Further details of this notation are explained in
 @cindex segno bar line
 @cindex sign, segno, bar line
 
-For in-staff segno signs, there are three types of bar lines which
-differ in their behavior at line breaks:
+There are various in-staff segno signs which differ in their
+behavior at line breaks:
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
-  \bar "S-||"
-  c4 c c c \break
-  \bar "S-||"
-  c4 c c c
+\fixed c' {
+  c4 4 4 4
   \bar "S"
-  c4 c c c \break
+  d4 4 4 4 \break
   \bar "S"
-  c4 c c c
+  e4 4 4 4
+  \bar "S-|"
+  f4 4 4 4 \break
+  \bar "S-|"
+  g4 4 4 4
+  \bar "S-||"
+  a4 4 4 4 \break
+  \bar "S-||"
+  b4 4 4 4
   \bar "S-S"
-  c4 c c c \break
+  c'4 4 4 4 \break
   \bar "S-S"
-  c1
+  d'1
 }
 @end lilypond
 
@@ -3084,45 +3091,64 @@ line at the end of the line and a start repeat at the beginning of
 the next line.
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
+\fixed c' {
+  c4 4 4 4
+  \bar ".|:"
+  d4 4 4 4 \break
+  \bar ".|:"
+  e4 4 4 4
+  \bar ".|:-|"
+  f4 4 4 4 \break
+  \bar ".|:-|"
+  g4 4 4 4
   \bar ".|:-||"
-  c4 c c c \break
+  a4 4 4 4 \break
   \bar ".|:-||"
-  c4 c c c
+  b4 4 4 4
+  \bar ".|:-|."
+  c'4 4 4 4 \break
+  \bar ".|:-|."
+  d'4 4 4 4
 }
 @end lilypond
 
-For combinations of repeats with the segno sign, there are six different
-variations:
+There are various combinations of repeats with the segno sign:
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
+\fixed c' {
+  g,4 4 4 4
   \bar ":|.S"
-  c4 c c c \break
+  a,4 4 4 4 \break
   \bar ":|.S"
-  c4 c c c
+  b,4 4 4 4
   \bar ":|.S-S"
-  c4 c c c \break
+  c4 4 4 4 \break
   \bar ":|.S-S"
-  c4 c c c
+  d4 4 4 4
   \bar "S.|:-S"
-  c4 c c c \break
+  e4 4 4 4 \break
   \bar "S.|:-S"
-  c4 c c c
+  f4 4 4 4
   \bar "S.|:"
-  c4 c c c \break
+  g4 4 4 4 \break
   \bar "S.|:"
-  c4 c c c
+  a4 4 4 4
+  \bar "S.|:-|"
+  b4 4 4 4 \break
+  \bar "S.|:-|"
+  c'4 4 4 4
+  \bar "S.|:-||"
+  d'4 4 4 4 \break
+  \bar "S.|:-||"
+  e'4 4 4 4
   \bar ":|.S.|:"
-  c4 c c c \break
+  f'4 4 4 4 \break
   \bar ":|.S.|:"
-  c4 c c c
+  g'4 4 4 4
   \bar ":|.S.|:-S"
-  c4 c c c \break
+  a'4 4 4 4 \break
   \bar ":|.S.|:-S"
-  c1
+  b'1
 }
 @end lilypond
 
@@ -3328,16 +3354,9 @@ be a predefined bar type or one previously defined with the
 
 Multiple reasons for creating different automatic bar lines may
 apply at the same time.  Conflicts are resolved in part by
-providing properties for predetermined combinations, in part by
-annotating bar types on the fly, and in part by a priority scheme.
-The table below presents the available properties in order of
-increasing priority.
-
-The highest-priority automatic bar type does not completely hide
-the others: the next-highest-priority bar type is appended as an
-annotation, provided that the resulting bar type is defined.  This
-allows the secondary bar line to become visible at line breaks if
-suitable bar types are defined (@pxref{Bar lines}).
+providing properties for predetermined combinations and in part by
+a priority scheme.  The table below presents the available
+properties in order of increasing priority.
 
 @quotation
 @table @code
@@ -3417,6 +3436,19 @@ Properties with @code{fine} in the name are used at @code{\fine}.
 
 @end table
 @end quotation
+
+Priority applies independently to beginning-, middle-, and
+end-of-line bar lines, allowing a lower-priority bar line to
+appear where higher-priority bar types have no glyphs defined
+(@pxref{Bar lines}).
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  c1 \section \break
+  \repeat volta 2 d1
+}
+@end lilypond
+
 
 @snippets
 
@@ -4237,8 +4269,8 @@ staves without, for example,
 
 @lilypond[quote,verbatim]
 <<
-  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
-  \new Staff \relative { c''4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \section \grace c16 d2. }
+  \new Staff \relative { c''4 \section d2. }
 >>
 @end lilypond
 
@@ -4248,8 +4280,8 @@ durations in the other staves.  For the above example
 
 @lilypond[quote,verbatim]
 <<
-  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
-  \new Staff \relative { c''4 \bar ".|:" \grace s16 d2. }
+  \new Staff \relative { e''4 \section \grace c16 d2. }
+  \new Staff \relative { c''4 \section \grace s16 d2. }
 >>
 @end lilypond
 

@@ -4586,6 +4586,22 @@ measureBarType to #'() or a valid bar type.
                  s)
     return s
 
+@rule((2, 23, 11), r"""
+\bar "B" -> \bar "B-|" for B in { .| .|: [|: S S.|: }
+""")
+def conv(s):
+    # We convert only \bar because automatic bar lines configured with
+    # context properties layer themselves.
+    changed_bar_types = [ # bar types which had an implicit "|" at EOL
+        r'\.\|',    # .|
+        r'\.\|:',   # .|:
+        r'\[\|:',   # [|:
+        r'S',       # S
+        r'S\.\|:']  # S.|:
+    s = re.sub(r'\\bar\s*"(' + '|'.join(changed_bar_types) + ')"',
+               r'\\bar "\1-|"', s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

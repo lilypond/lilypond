@@ -54,7 +54,7 @@ public:
 
 private:
   void acknowledge_end_spanner (Grob_info_t<Spanner>);
-  SCM calc_bar_type () const;
+  ly_scm_list calc_bar_type () const;
   void initialize () override;
   void listen_ad_hoc_jump (Stream_event *);
   void listen_coda_mark (Stream_event *);
@@ -83,10 +83,13 @@ private:
 
 private:
   Observations observations_;
-  SCM which_bar_;
+  SCM glyph_ = SCM_EOL;
+  SCM glyph_left_ = SCM_EOL;
+  SCM glyph_right_ = SCM_EOL;
   Item *bar_ = nullptr;
   std::vector<Spanner *> spanners_;
   bool first_time_ = true;
+  bool has_any_glyph_ = false;
 };
 
 Bar_engraver::Bar_engraver (Context *c)
@@ -97,18 +100,21 @@ Bar_engraver::Bar_engraver (Context *c)
 void
 Bar_engraver::derived_mark () const
 {
-  scm_gc_mark (which_bar_);
+  scm_gc_mark (glyph_);
+  scm_gc_mark (glyph_left_);
+  scm_gc_mark (glyph_right_);
 }
 
-SCM
+// Returns zero or more BarLine.glyph values from highest to lowest priority.
+ly_scm_list
 Bar_engraver::calc_bar_type () const
 {
   const bool segno = observations_.segno
                      && scm_is_eq (get_property (this, "segnoStyle"),
                                    ly_symbol2scm ("bar-line"));
 
-  bool has_bar = false;
-  std::string bar;
+  ly_scm_list glyphs;
+  auto glyphs_tail = glyphs.begin ();
 
   // This order could be user-configurable, but most of the permutations are
   // probably not useful enough to be worth explaining, testing, and
@@ -239,50 +245,14 @@ Bar_engraver::calc_bar_type () const
           break;
         }
 
-      if (!has_underlying_bar)
-        continue; // found nothing to consider; check the next layer
-
-      if (!has_bar) // first we've found; record it and keep looking
+      if (has_underlying_bar)
         {
-          bar = std::move (ub);
-          has_bar = true;
-          continue;
+          glyphs_tail = glyphs.insert_before (glyphs_tail, ly_string2scm (ub));
+          ++glyphs_tail;
         }
-
-      // Once we have both a main bar and an annotation, try to combine them.
-      //
-      // TODO: This partly automates an older practice requiring the user to
-      // specify annotated bar types in particular situations.  Previously,
-      // decentralized decisions using the user-accessible whichBar context
-      // property as a contact point made it difficult to describe the bar type
-      // as more than a string.  Now, Bar_engraver consumes the output of this
-      // function directly, so we should consider ways (a) to choose the
-      // beginning-, middle-, and end-of-line glyphs independently and (b) not
-      // to require (as many?) annotated bar types to be defined.
-      {
-        constexpr auto annotation_char = '-';
-        std::string annotated_bar = bar + annotation_char + ub;
-
-        // Try to keep out of the way when a user overrides the default repeat
-        // bar types.  For example, if the user set startRepeatBarType to
-        // ".|:-||", appending the default value of underlyingRepeatBarType
-        // would make it ".|:-||-||", which isn't in the built-in set of bar
-        // lines.  Rather than setting a useless value, discard the annotation.
-        if (!scm_is_null (ly_assoc_get (ly_string2scm (annotated_bar),
-                                        Lily::bar_glyph_alist,
-                                        SCM_EOL)))
-          {
-            bar = std::move (annotated_bar);
-          }
-      }
-
-      // Whether the fully annotated bar type exists or not, stop looping.  (Is
-      // there a case for continuing to look for longer chains of annotations
-      // that are actually defined though shorter ones are not?)
-      break;
     }
 
-  return has_bar ? ly_string2scm (bar) : SCM_EOL;
+  return glyphs;
 }
 
 void
@@ -359,11 +329,17 @@ Bar_engraver::start_translation_timestep ()
 void
 Bar_engraver::pre_process_music ()
 {
+  SCM glyphs = SCM_EOL;
+
   // If whichBar is set, use it.  It was probably set with \bar, but it might
   // have been set with the deprecated \set Timing.whichBar or a Scheme
   // equivalent.
-  which_bar_ = get_property (this, "whichBar");
-  if (!scm_is_string (which_bar_))
+  SCM wb = get_property (this, "whichBar");
+  if (scm_is_string (wb))
+    {
+      glyphs = scm_list_1 (wb);
+    }
+  else // consider automatic bars
     {
       if (!first_time_)
         {
@@ -396,25 +372,43 @@ Bar_engraver::pre_process_music ()
           observations_.underlying_repeat = true;
         }
 
-      which_bar_ = calc_bar_type ();
+      glyphs = calc_bar_type ().begin_scm ();
     }
+
+  auto &calc_name = Lily::bar_line_calc_glyph_name_for_direction;
+  glyph_ = calc_name (glyphs, to_scm (CENTER));
+  glyph_left_ = calc_name (glyphs, to_scm (LEFT));
+  glyph_right_ = calc_name (glyphs, to_scm (RIGHT));
+  has_any_glyph_ = scm_is_string (glyph_)
+                   || scm_is_string (glyph_left_)
+                   || scm_is_string (glyph_right_);
 
   // This needs to be in pre-process-music so other engravers can notice a break
   // won't be allowed (unless forced) at process-music stage.  That allows some
   // of them to efficiently skip processing that is only needed at potential
   // break points.
-  if (!scm_is_string (which_bar_))
+  if (!has_any_glyph_)
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 }
 
 void
 Bar_engraver::process_music ()
 {
-  if (scm_is_string (which_bar_))
+  if (has_any_glyph_)
     {
       bar_ = make_item ("BarLine", SCM_EOL);
-      if (!ly_is_equal (which_bar_, get_property (bar_, "glyph")))
-        set_property (bar_, "glyph", which_bar_);
+
+      SCM glyph_sym = ly_symbol2scm ("glyph");
+      if (!ly_is_equal (glyph_, get_property (bar_, glyph_sym)))
+        set_property (bar_, glyph_sym, glyph_);
+
+      SCM glyph_left_sym = ly_symbol2scm ("glyph-left");
+      if (!ly_is_equal (glyph_left_, get_property (bar_, glyph_left_sym)))
+        set_property (bar_, glyph_left_sym, glyph_left_);
+
+      SCM glyph_right_sym = ly_symbol2scm ("glyph-right");
+      if (!ly_is_equal (glyph_right_, get_property (bar_, glyph_right_sym)))
+        set_property (bar_, glyph_right_sym, glyph_right_);
 
       set_property (context (), "currentBarLine", to_scm (bar_));
     }
@@ -438,8 +432,11 @@ Bar_engraver::process_acknowledged ()
 void
 Bar_engraver::stop_translation_timestep ()
 {
-  which_bar_ = SCM_EOL;
+  glyph_ = SCM_EOL;
+  glyph_left_ = SCM_EOL;
+  glyph_right_ = SCM_EOL;
   first_time_ = false;
+  has_any_glyph_ = false;
   observations_ = {};
 }
 

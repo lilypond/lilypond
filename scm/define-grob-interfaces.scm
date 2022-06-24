@@ -67,7 +67,9 @@ found in @file{scm/bar-line.scm}.
    bar-extent
    gap
    glyph
+   glyph-left
    glyph-name
+   glyph-right
    hair-thickness
    has-span-bar
    kern

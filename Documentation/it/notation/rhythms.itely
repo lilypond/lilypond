@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.10"
+@c \version "2.23.11"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -2906,20 +2906,24 @@ Per i segni di tipo segno interni al rigo, ci sono tre tipi di stanghette che
 differiscono nel comportamento quando incontrano un'interruzione di linea:
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
-  \bar "S-||"
-  c4 c c c \break
-  \bar "S-||"
-  c4 c c c
+\fixed c' {
+  c4 4 4 4
   \bar "S"
-  c4 c c c \break
+  d4 4 4 4 \break
   \bar "S"
-  c4 c c c
+  e4 4 4 4
+  \bar "S-|"
+  f4 4 4 4 \break
+  \bar "S-|"
+  g4 4 4 4
+  \bar "S-||"
+  a4 4 4 4 \break
+  \bar "S-||"
+  b4 4 4 4
   \bar "S-S"
-  c4 c c c \break
+  c'4 4 4 4 \break
   \bar "S-S"
-  c1
+  d'1
 }
 @end lilypond
 
@@ -2937,44 +2941,64 @@ crea una doppia stanghetta alla fine della linea e una stanghetta
 di inizio ripetizione all'inizio della linea successiva.
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
+\fixed c' {
+  c4 4 4 4
+  \bar ".|:"
+  d4 4 4 4 \break
+  \bar ".|:"
+  e4 4 4 4
+  \bar ".|:-|"
+  f4 4 4 4 \break
+  \bar ".|:-|"
+  g4 4 4 4
   \bar ".|:-||"
-  c4 c c c \break
+  a4 4 4 4 \break
   \bar ".|:-||"
-  c4 c c c
+  b4 4 4 4
+  \bar ".|:-|."
+  c'4 4 4 4 \break
+  \bar ".|:-|."
+  d'4 4 4 4
 }
 @end lilypond
 
 Esistono sei diverse combinazioni di ripetizioni e indicazioni di segno:
 
 @lilypond[quote,verbatim]
-\relative c'' {
-  c4 c c c
+\fixed c' {
+  g,4 4 4 4
   \bar ":|.S"
-  c4 c c c \break
+  a,4 4 4 4 \break
   \bar ":|.S"
-  c4 c c c
+  b,4 4 4 4
   \bar ":|.S-S"
-  c4 c c c \break
+  c4 4 4 4 \break
   \bar ":|.S-S"
-  c4 c c c
+  d4 4 4 4
   \bar "S.|:-S"
-  c4 c c c \break
+  e4 4 4 4 \break
   \bar "S.|:-S"
-  c4 c c c
+  f4 4 4 4
   \bar "S.|:"
-  c4 c c c \break
+  g4 4 4 4 \break
   \bar "S.|:"
-  c4 c c c
+  a4 4 4 4
+  \bar "S.|:-|"
+  b4 4 4 4 \break
+  \bar "S.|:-|"
+  c'4 4 4 4
+  \bar "S.|:-||"
+  d'4 4 4 4 \break
+  \bar "S.|:-||"
+  e'4 4 4 4
   \bar ":|.S.|:"
-  c4 c c c \break
+  f'4 4 4 4 \break
   \bar ":|.S.|:"
-  c4 c c c
+  g'4 4 4 4
   \bar ":|.S.|:-S"
-  c4 c c c \break
+  a'4 4 4 4 \break
   \bar ":|.S.|:-S"
-  c1
+  b'1
 }
 @end lilypond
 
@@ -3720,8 +3744,8 @@ righi che hanno degli abbellimenti con righi che non ne hanno.  Ad esempio
 
 @lilypond[quote,verbatim]
 <<
-  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
-  \new Staff \relative { c''4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \section \grace c16 d2. }
+  \new Staff \relative { c''4 \section d2. }
 >>
 @end lilypond
 
@@ -3731,8 +3755,8 @@ corrispondente negli altri righi.  Riprendendo l'esempio precedente
 
 @lilypond[quote,verbatim]
 <<
-  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
-  \new Staff \relative { c''4 \bar ".|:" \grace s16 d2. }
+  \new Staff \relative { e''4 \section \grace c16 d2. }
+  \new Staff \relative { c''4 \section \grace s16 d2. }
 >>
 @end lilypond
 

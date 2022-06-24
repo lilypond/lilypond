@@ -805,34 +805,61 @@ the correct placement of bar numbers, etc."
                             X)))))
     anchor))
 
-(define-public (bar-line::calc-glyph-name-for-direction glyph dir)
-  "Return the glyph name of the bar line glyph object for direction
-@var{dir} (@code{LEFT} = end of line, @code{CENTER} = middle of line,
-@code{RIGHT} = start of line)."
-  (let* ((result (assoc-get glyph bar-glyph-alist))
-         (glyph-name (if (= dir CENTER)
-                         glyph
-                         (if (and result
-                                  (string? (index-cell result dir)))
-                             (index-cell result dir)
-                             #f))))
-    glyph-name))
+(define-public (bar-line::calc-glyph-name-for-direction glyphs dir)
+  "Find the glyph name for a bar line.  @code{glyphs} is the list of
+bar-line types to consider in order.  Each must have been defined with
+@code{define-bar-line}.  @var{dir} is the break direction to consider:
+@code{LEFT} = end of line, @code{CENTER} = middle of line,
+@code{RIGHT} = start of line."
+  (define (get-glyph-name glyph)
+    "Given a particular @code{glyph} value, get the entry for the relevant
+direction from the alist."
+    (let ((alist-entry (assoc-get glyph bar-glyph-alist)))
+      (and alist-entry
+           (begin
+             (when (!= dir CENTER)
+               (set! glyph (index-cell alist-entry dir)))
+             (and (string? glyph)
+                  glyph)))))
+
+  (define (find-first-glyph-name glyphs)
+    (and (pair? glyphs)
+         (string? (car glyphs)) ; stop at #f for \noBar
+         (or (get-glyph-name (car glyphs))
+             (find-first-glyph-name (cdr glyphs)))))
+
+  ;; If we return #f regardless of direction, Bar_engraver does not
+  ;; create a BarLine.  If we don't have at least one string in the
+  ;; glyph list, we don't want to create a BarLine.
+  (and (pair? glyphs)
+       (string? (car glyphs)) ; stop at #f for \noBar
+       (or (find-first-glyph-name glyphs)
+           ;; Bar line definitions can have #f in them to allow lower
+           ;; layers to show through, but weird alignment and spacing
+           ;; issues can occur when we create BarLine grobs with no
+           ;; mid-line or end-of-line stencils, so we default to "" in
+           ;; these cases.  We could investigate whether we can
+           ;; eliminate these special cases.  (It isn't clear that
+           ;; there are better alternatives.)
+           (if (= dir RIGHT)
+               #f
+               ""))))
 
 (define-public (bar-line::calc-glyph-name grob)
-  "Return the name of the bar line glyph printed by @var{grob}.  This function
-is a wrapper for @code{bar-line::@/calc-glyph-name-@/for-direction}."
-  (let* ((glyph (ly:grob-property grob 'glyph))
-         (dir (ly:item-break-dir grob)))
-    (bar-line::calc-glyph-name-for-direction glyph dir)))
+  "Return the name of the bar line glyph printed by @var{grob} for the
+actual break direction."
+  (let ((dir (ly:item-break-dir grob)))
+    (cond
+     ((= dir LEFT) (ly:grob-property grob 'glyph-left))
+     ((= dir RIGHT) (ly:grob-property grob 'glyph-right))
+     (else (ly:grob-property grob 'glyph)))))
 
 (define-public (bar-line::calc-break-visibility grob)
   "Calculate the visibility of a bar line at line breaks."
-  (let* ((glyph (ly:grob-property grob 'glyph))
-         (result (assoc-get glyph bar-glyph-alist)))
-
-    (if result
-        (vector (string? (car result)) #t (string? (cdr result)))
-        all-invisible)))
+  (vector
+   (string? (ly:grob-property grob 'glyph-left))
+   (string? (ly:grob-property grob 'glyph))
+   (string? (ly:grob-property grob 'glyph-right))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; span bar callbacks
@@ -1137,26 +1164,24 @@ of the volta brackets relative to the bar lines."
 ;; Convention: if two bar lines would be identical in their
 ;; unbroken bar glyph, we use annotations to make them distinct;
 ;; as a general rule of thumb the main difference in their
-;; behavior at the end of a line is used as annotation, cf.
+;; behavior at the end of a line is used as annotation, e.g.,
 ;;
-;; (define-bar-line ".|:" "|" #t ".|")
-;; (define-bar-line ".|:-||" "||" #t ".|")
-;;
-;; or
-;;
-;; (define-bar-line "S" "|" #t "=")
-;; (define-bar-line "S-S" #t #f "=")
+;;   (define-bar-line "S" #f #t "=")
+;;   (define-bar-line "S-|" "|" #t "=")
+;;   (define-bar-line "S-||" "||" #t "=")
 
 ;; common bar lines
 (define-bar-line "" #t #f #f)
 (define-bar-line "|" #t #f #t)
 (define-bar-line "|-s" #f #t "|")
 (define-bar-line "." #t #f #t)
-(define-bar-line ".|" "|" #t #t)
+(define-bar-line ".|" #f #t #t)
+(define-bar-line ".|-|" "|" #t ".|")
+(define-bar-line ".|-||" "||" #t ".|")
 (define-bar-line "|." #t #f #t)
 (define-bar-line "||" #t #f #t)
 (define-bar-line ".." #t #f #t)
-(define-bar-line "|.|" #t #f #t)
+(define-bar-line "|.|" #t #f #t) ; Should this break into "|." + ".|"?
 (define-bar-line "!" #t #f #t)
 (define-bar-line ";" #t #f #t)
 (define-bar-line "'" #t #f #f)
@@ -1168,24 +1193,28 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":|.|:" ":|." ".|:" " |.|")
 (define-bar-line ":.|.:" ":|." ".|:" " .|.")
 (define-bar-line ":|." #t #f " |.")
-(define-bar-line ".|:" "|" #t ".|")
+(define-bar-line ".|:" #f #t ".|")
+(define-bar-line ".|:-|" "|" #t ".|")
 (define-bar-line ".|:-||" "||" #t ".|")
 (define-bar-line ".|:-|." "|." #t ".|")
-(define-bar-line "[|:" "|" #t " |")
+(define-bar-line "[|:" #f #t " |")
+(define-bar-line "[|:-|" "|" #t " |")
 (define-bar-line "[|:-||" "||" #t " |")
 (define-bar-line "[|:-|." "|." #t " |")
 (define-bar-line ":|]" #t #f " | ")
 (define-bar-line ":|][|:" ":|]" "[|:" " |  |")
 
 ;; segno bar lines
-(define-bar-line "S" "|" #t "=")
+(define-bar-line "S" #f #t "=")
+(define-bar-line "S-|" "|" #t "=")
 (define-bar-line "S-||" "||" #t "=")
 (define-bar-line "S-S" #t #f "=")
 (define-bar-line "|.S" "|." "S" "|.")
 (define-bar-line "|.S-S" #t #f "|.")
 (define-bar-line ":|.S" ":|." "S" " |.")
 (define-bar-line ":|.S-S" #t #f " |.")
-(define-bar-line "S.|:" "|" #t " .|")
+(define-bar-line "S.|:" #f #t " .|")
+(define-bar-line "S.|:-|" "|" #t " .|")
 (define-bar-line "S.|:-||" "||" #t " .|")
 (define-bar-line "S.|:-S" "S" ".|:" " .|")
 (define-bar-line "|.S.|:" "|." "S.|:" "|. .|")

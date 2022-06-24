@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.23.11"
 
 \header{
 texidoc="
@@ -13,7 +13,7 @@ lyrics do not collide with bar lines.
 
 \relative c'' <<
     \new Voice = "a"{
-	b1 \bar ".|:" b1 \bar ":|." b1 \bar "|."
+	b1 \bar ".|:-|" b1 \bar ":|." b1 \bar "|."
     }
     \new Lyrics \with {
 	\consists "Bar_engraver"

@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.11"
 
 \header {
   texidoc = "The @code{hair-thickness} property sets the thickness of

@@ -381,16 +381,9 @@ Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
   // See the function allow-volta-hook in bar-line.scm.
   if (!should_close_end_)
     {
-      SCM gl = get_property (item, "glyph");
-      if (scm_is_string (gl))
-        {
-          gl = Lily::bar_line_calc_glyph_name_for_direction (gl, to_scm (LEFT));
-          if (scm_is_string (gl))
-            {
-              should_close_end_ =
-                !from_scm<bool> (Lily::volta_bracket_calc_hook_visibility (gl));
-            }
-        }
+      SCM glyph = get_property (item, "glyph-left");
+      should_close_end_
+        = !from_scm<bool> (Lily::volta_bracket_calc_hook_visibility (glyph));
     }
 }
 

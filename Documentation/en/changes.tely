@@ -71,6 +71,23 @@ which scares away people.
 @end ignore
 
 @item
+The following predefined bar types no longer appear as a single
+bar line at the end of a line.  Annotated bar types (e.g.,
+@code{\bar "S-|"}) have been added for that purpose.
+
+@lilypond[quote]
+{
+  R1 \bar ".|"
+  R1 \bar ".|:"
+  R1 \bar "[|:"
+  R1 \bar "S"
+  R1 \bar "S.|:"
+  r4
+}
+@end lilypond
+
+
+@item
 In figured bass, @code{_} now creates an empty figure that still
 takes up space.
 

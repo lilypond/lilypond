@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.11"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -12,8 +12,7 @@ single thick bar line with a dashed span."
   ragged-right = ##t
 }
 
-\defineBarLine ".-test" #'(".-don't-care" #f "!")
-\defineBarLine "S-.-test" #'(".-test" "S" "=")
+\defineBarLine ".-test" #'(".-test" #f "!")
 
 staff = \new Staff \fixed c' {
   r2. \break \inStaffSegno r4

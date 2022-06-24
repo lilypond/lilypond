@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.11"
 
 \header {
   texidoc = "Test predefined bar types at the beginning, middle, and
@@ -11,10 +11,16 @@ start of a repeated section."
 testBar = ".|:"
 \include "bar-line-built-in-test.ily"
 
+testBar = ".|:-|"
+\include "bar-line-built-in-test.ily"
+
 testBar = ".|:-||"
 \include "bar-line-built-in-test.ily"
 
 testBar = "[|:"
+\include "bar-line-built-in-test.ily"
+
+testBar = "[|:-|"
 \include "bar-line-built-in-test.ily"
 
 testBar = "[|:-||"

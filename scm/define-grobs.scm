@@ -259,7 +259,9 @@ line to visually mark and annotate another grob.")))))
         (extra-spacing-height . ,pure-from-neighbor-interface::account-for-span-bar)
         (gap . 0.4)
         (glyph . "|")
+        (glyph-left . ,(grob::relay-other-property 'glyph))
         (glyph-name . ,bar-line::calc-glyph-name)
+        (glyph-right . #f)
 
         ;;
         ;; Ross. page 151 lists other values, we opt for a leaner look

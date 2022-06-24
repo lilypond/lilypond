@@ -3,21 +3,21 @@
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc="Customizing @code{measureBarType} is effective when
+  texidoc="Customizing @code{sectionBarType} is effective when
 appropriate bar lines are defined.  The system should end with a
-single thick bar line with a dashed span."
+double bar line with a thick span."
 }
 
 \layout {
   ragged-right = ##t
 }
 
-\defineBarLine ".-test" #'(#t #f "!")
+\defineBarLine "||-test" #'("||-test" #f ".")
 
 staff = \new Staff \fixed c' {
-  R1
+  R1 \section
 }
 
 piece = \new PianoStaff << \staff \staff >>
 
-\new Score \with { measureBarType = ".-test" } << \piece >>
+\new Score \with { sectionBarType = "||-test" } << \piece >>

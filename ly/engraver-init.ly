@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.6"
+\version "2.23.11"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -884,11 +884,7 @@ Some TODOs on chord grids:
 * It's a little odd that the vertical lines separating squares are
   drawn by SystemStartBar at the beginning of the line but BarLine
   elsewhere.  The problem here is that no bar line is created by
-  default at the beginning of the piece.  Also, it would be easy to
-  create a "|-|" bar type printing "|" at the beginning of a line
-  (unlike "|" which doesn't print anything), but it would require
-  similarly declaring an annotated bar type for a number of other bar
-  lines, like "||".
+  default at the beginning of the piece.
 
 --JeanAS
 %}

@@ -1,4 +1,4 @@
-\version "2.23.1"
+\version "2.23.11"
 
 \header {
   texidoc = "Test predefined bar types at the beginning, middle, and
@@ -9,6 +9,9 @@ there is an in-staff segno."
 \paper { ragged-right = ##t }
 
 testBar = "S"
+\include "bar-line-built-in-test.ily"
+
+testBar = "S-|"
 \include "bar-line-built-in-test.ily"
 
 testBar = "S-||"
