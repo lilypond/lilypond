@@ -102,21 +102,53 @@
  (string-append
   "\\input texinfo @c -*-texinfo-*-\n"
   "@setfilename " file-name ".info\n"
-  "@documentlanguage en\n"
+  "@settitle LilyPond Internals Reference\n"
   "@documentencoding UTF-8\n"
-  "
+  "@documentlanguage en\n"
+  "@afourpaper\n"
 
-@include en/macros.itexi
+  "@macro manualIntro
+This manual is a technical reference for all internal elements used
+by LilyPond and all Scheme functions it provides.  This information can
+be used to create tweaks and extensions, from simple output settings
+to advanced Scheme programming.
+@end macro
 
-@iftex
-@afourpaper
-@tableindent=@itemindent
-@end iftex
+@c `Internals Reference' was born 2000-10-21 with this commit:
+@c patch::: 1.3.96.jcn9
+@c author: Jan Nieuwenhuizen
+@c commit: 8ecd09ad7514d57630fb611d38c161f3c3c708db
+@c   file: scm/generate-documentation.scm
+
+@macro copyrightDeclare
+Copyright @copyright{} 2000--2022 by the authors
+@end macro
 
 @dircategory LilyPond -- the music typesetter
 @direntry
 * Internals: (lilypond-internals).    Tweaking reference.
 @end direntry
+
+@include en/macros.itexi
+@iftex
+@tableindent=@itemindent
+@end iftex
+
+@c   ***** Title page *****
+
+@ifnottex")
+ out-port)
+
+(define top-node
+  (make <texi-node>
+    #:name "LilyPond -- Internals Reference"
+    #:text
+    (string-append "
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@end ifnottex
 
 @finalout
 
@@ -126,28 +158,36 @@
 @titlefont{Internals Reference}
 @author The LilyPond development team
 
-@c `Internals Reference' was born 2000-10-21 with this commit:
-@c patch::: 1.3.96.jcn9
-@c author: Jan Nieuwenhuizen
-@c commit: 8ecd09ad7514d57630fb611d38c161f3c3c708db
-@c   file: scm/generate-documentation.scm
-Copyright @copyright{} 2000--2022 by the authors
+@vskip 60pt
 
-@vskip 20pt
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@vskip 40pt
+
+@docMain{}
+
+@vskip 0pt plus 1filll
+
+@copyrightDeclare
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+@end quotation
 
 For LilyPond version @version{}
 @end titlepage
 
+@ifnottex
+
+@docMain
+@end ifnottex
+
 @contents
-
-@ifnottex")
- out-port)
-
-(define top-node
-  (make <texi-node>
-    #:name "GNU LilyPond -- Internals Reference"
-    #:text
-    (string-append  "@end ifnottex
 
 @ifhtml
 @ifclear bigpage
@@ -160,11 +200,7 @@ This document is also available as a
 @uref{internals.pdf,PDF} and as a
 @uref{internals/index.html,HTML indexed multiple pages}.
 @end ifset
-@end ifhtml
-
-This is the Internals Reference (IR) for version "
-                    (lilypond-version)
-                    " of LilyPond, the GNU music typesetter.")
+@end ifhtml")
 
     #:children
     (list
