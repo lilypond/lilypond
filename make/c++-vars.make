@@ -8,6 +8,7 @@ EXTRA_CXXFLAGS = \
 	-Wextra \
 	-Wold-style-cast \
 	-Woverloaded-virtual \
+	-Wsuggest-override \
 # end
 
 o-dep-out = $(outdir)/$(subst .o,.dep,$(notdir $@))#

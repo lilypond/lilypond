@@ -215,18 +215,6 @@ PKG_CHECK_MODULES(BDWGC, bdw-gc, true,
 STEPMAKE_ADD_ENTRY(REQUIRED, libgc-devel))
 GUILE_CFLAGS="${GUILE_CFLAGS} ${BDWGC_CFLAGS}"
 
-# GCC versions 5 and up support expecting the use of the C++11 keyword
-# "override" when a derived class overrides a virtual method.  This
-# optional keyword makes the code easier to understand.
-AC_MSG_CHECKING([whether $CXX supports -Wsuggest-override])
-save_CXXFLAGS="$CXXFLAGS"
-CXXFLAGS="$test_CXXFLAGS -Wsuggest-override"
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-                  [AC_MSG_RESULT([yes])
-                   CXXFLAGS="$save_CXXFLAGS -Wsuggest-override"],
-                  [AC_MSG_RESULT([no])
-                   CXXFLAGS="$save_CXXFLAGS"])
-
 ## Check for usable cxxabi
 save_LIBS="$LIBS"
 LIBS="$LIBS $CXXABI_LIBS"

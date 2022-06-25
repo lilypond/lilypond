@@ -162,10 +162,7 @@ public:
   // Calling the robust version of from_scm () is not an option because
   // operator * takes no parameters.  TODO: It might be possible to provide a
   // uniform fallback value as a parameter of the list template.
-  //
-  // (Explicit 'this' in trailing decltype needed because of bug in GCC 4.9,
-  // see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=57543)
-  auto operator * () const->decltype (from_scm<T> (this->dereference_scm ()))
+  auto operator * () const->decltype (from_scm<T> (dereference_scm ()))
   {
     return from_scm<T> (dereference_scm ());
   }

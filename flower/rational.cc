@@ -29,22 +29,10 @@ using std::string;
 Rational::operator double () const
 {
   if (sign_ == -1 || sign_ == 1 || sign_ == 0)
-// FIXME: workaround: In GUB, g++ 4.9.4 for darwin-x86,
-// it seems that static cast from `unsigned long long` to `double`
-// by x86 SSE2 raises an internal compile error.
-// However, static cast from `signed long long` to `double`
-// does not raise the error.
-// So we use it for a workaround.
-#if defined (__i386__) && defined (__SSE2_MATH__) && __GNUC__ < 5
     {
-      I64 inum = num_;
-      I64 iden = den_;
-      return static_cast<double> (sign_) *
-             static_cast<double> (inum) / static_cast<double> (iden);
+      return static_cast<double> (sign_) * static_cast<double> (num_)
+             / static_cast<double> (den_);
     }
-#else
-    return static_cast<double> (sign_) * static_cast<double> (num_) / static_cast<double> (den_);
-#endif
   if (sign_ == -2)
     return -HUGE_VAL;
   else if (sign_ == 2)
