@@ -25,7 +25,7 @@
 
 ;; todo: naming: grob vs. layout property
 
-(use-modules (lily accreg))
+(use-modules (lily accreg) (ice-9 session))
 
 (for-each ly:load '("documentation-lib"
                     "lily-sort"
@@ -98,6 +98,28 @@
 
 (writing-wip outname)
 
+;; lilypond-main is compiled if the first arg is eq? 'files
+(define bytecode-warning
+  (if (eq? 'files
+           (cadar
+            (procedure-arguments
+             (@ (lily) lilypond-main))))
+      ""
+      "
+
+@cartouche
+
+This copy of the Internals Reference identifies function
+parameters (@pxref{Scheme functions}) only by positional names:
+@var{a}, @var{b}, @var{c}, @enddots{}
+
+For meaningful parameter names, generate bytecode before
+generating the documentation.
+
+@end cartouche
+
+"))
+
 (display
  (string-append
   "\\input texinfo @c -*-texinfo-*-\n"
@@ -112,6 +134,11 @@ This manual is a technical reference for all internal elements used
 by LilyPond and all Scheme functions it provides.  This information can
 be used to create tweaks and extensions, from simple output settings
 to advanced Scheme programming.
+@end macro
+
+@macro bytecodeWarning"
+  bytecode-warning
+  "
 @end macro
 
 @c `Internals Reference' was born 2000-10-21 with this commit:
@@ -144,9 +171,12 @@ Copyright @copyright{} 2000--2022 by the authors
     #:name "LilyPond -- Internals Reference"
     #:text
     (string-append "
+
 @cartouche
 @manualIntro{}
 @end cartouche
+
+@bytecodeWarning
 
 @end ifnottex
 
@@ -158,13 +188,17 @@ Copyright @copyright{} 2000--2022 by the authors
 @titlefont{Internals Reference}
 @author The LilyPond development team
 
-@vskip 60pt
+@vskip 40pt
 
 @cartouche
 @manualIntro{}
 @end cartouche
 
-@vskip 40pt
+@vskip 10pt
+
+@bytecodeWarning
+
+@vskip 10pt
 
 @docMain{}
 
