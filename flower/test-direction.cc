@@ -82,6 +82,19 @@ static_assert (POSI * POSI == POSI, "");
 static_assert (directed_same (POSI *POSI, POSI),
                "(Direction * Direction) should yield a Direction");
 
+static_assert ((Direction (NEGA) *= NEGA) == POSI, "");
+static_assert ((Direction (NEGA) *= ZERO) == ZERO, "");
+static_assert ((Direction (NEGA) *= POSI) == NEGA, "");
+static_assert ((Direction (ZERO) *= NEGA) == ZERO, "");
+static_assert ((Direction (ZERO) *= ZERO) == ZERO, "");
+static_assert ((Direction (ZERO) *= POSI) == ZERO, "");
+static_assert ((Direction (POSI) *= NEGA) == NEGA, "");
+static_assert ((Direction (POSI) *= ZERO) == ZERO, "");
+static_assert ((Direction (POSI) *= POSI) == POSI, "");
+
+static_assert (directed_same ((Direction (POSI) *= POSI), POSI),
+               "(Direction *= Direction) should yield a Direction");
+
 // multiplication by an int
 
 static_assert (-3 * NEGA == 3, "");
@@ -155,9 +168,29 @@ static_assert (directed_opposite (POSI, NEGA) == true, "");
 static_assert (directed_opposite (POSI, ZERO) == false, "");
 static_assert (directed_opposite (POSI, POSI) == false, "");
 
+static_assert (minmax (NEGA, 1, 2) == 1, "");
+static_assert (minmax (NEGA, 2, 1) == 1, "");
+static_assert (minmax (POSI, 1, 2) == 2, "");
+static_assert (minmax (POSI, 2, 1) == 2, "");
+
 class Direction_test
 {
 public:
+  static constexpr void test_copy_construct ()
+  {
+    const Direction D (-6);
+    const Direction d (D);
+    EQUAL (d, NEGA);
+  }
+
+  static constexpr void test_copy_assign ()
+  {
+    const Direction D (7);
+    Direction d;
+    d = D;
+    EQUAL (d, POSI);
+  }
+
   static int test_switch (Direction d)
   {
     switch (d) // the test is that this compiles
@@ -182,6 +215,10 @@ public:
   }
 };
 
+static_assert ((Direction_test::test_copy_construct (), true), "");
+
+static_assert ((Direction_test::test_copy_assign (), true), "");
+
 TEST (Direction_test, init_float)
 {
   EQUAL (Direction (-5.5), NEGA);
@@ -194,41 +231,4 @@ TEST (Direction_test, init_float)
   EQUAL (Direction (5.5), POSI);
   EQUAL (Direction (INFINITY), POSI);
   EQUAL (Direction (NAN), POSI);
-}
-
-TEST (Direction_test, copy_construct)
-{
-  constexpr Direction D (-6);
-  constexpr Direction d (D);
-  EQUAL (d, NEGA);
-}
-
-TEST (Direction_test, copy_assign)
-{
-  constexpr Direction D (7);
-  Direction d;
-  d = D;
-  EQUAL (d, POSI);
-}
-
-TEST (Direction_test, mul_assign)
-{
-  Direction d = POSI;
-
-  d *= POSI;
-  EQUAL (d, POSI);
-
-  d *= NEGA;
-  EQUAL (d, NEGA);
-  d *= POSI;
-  EQUAL (d, NEGA);
-  d *= NEGA;
-  EQUAL (d, POSI);
-
-  d *= ZERO;
-  EQUAL (d, ZERO);
-  d *= NEGA;
-  EQUAL (d, ZERO);
-  d *= POSI;
-  EQUAL (d, ZERO);
 }

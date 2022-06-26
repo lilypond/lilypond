@@ -73,7 +73,7 @@ public:
     return Direction (val_ * other.val_);
   }
 
-  Direction &operator *=(Direction other)
+  constexpr Direction &operator *=(Direction other)
   {
     return (*this = (*this) * other);
   }
@@ -104,7 +104,7 @@ constexpr bool directed_same (Direction a, Direction b)
    if d > 0: the max operator
    if d < 0: the min operator
 */
-template<class T> T minmax (Direction d, T a, T b)
+template<class T> constexpr T minmax (Direction d, T a, T b)
 {
   if (d == Direction::positive ())
     return std::max (a, b);
