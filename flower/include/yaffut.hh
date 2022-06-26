@@ -363,7 +363,8 @@ template <typename Case>
 Registrator<Case, void> Test<Case, void>::s_Registrator;
 
 template <typename Expected, typename Actual>
-void equal (const Expected &e, const Actual &a, const char *at = "", const char *expr = "")
+constexpr void equal (const Expected &e, const Actual &a, const char *at = "",
+                      const char *expr = "")
 {
   // We're checking operator==.  Don't assume equivalence with !operator!=
   if (!(e == a))
@@ -389,7 +390,7 @@ inline void equal (double e, double a, const char *at = "", const char *expr = "
 
   throw failure (e, a, at, expr);
 }
-inline void check (bool b, const char *at = "", const char *expr = "")
+constexpr void check (bool b, const char *at = "", const char *expr = "")
 {
   if (!b)
     {
@@ -398,7 +399,8 @@ inline void check (bool b, const char *at = "", const char *expr = "")
 }
 
 template <typename Expected, typename Actual>
-void unequal (const Expected &e, const Actual &a, const char *at = "", const char *expr = "")
+constexpr void unequal (const Expected &e, const Actual &a, const char *at = "",
+                        const char *expr = "")
 {
   // We're checking operator!=.  Don't assume equivalence with !operator==.
   if (!(e != a))
