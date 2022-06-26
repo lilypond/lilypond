@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.9\n"
+"Project-Id-Version: lilypond 2.23.10\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-05-20 15:34+0200\n"
+"POT-Creation-Date: 2022-06-26 13:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -869,12 +869,12 @@ msgstr ""
 msgid "Grace note with no following music: %s"
 msgstr ""
 
-#: musicexp.py:1343
+#: musicexp.py:1351
 #, python-format
 msgid "Invalid octave shift size found: %s. Using no shift."
 msgstr ""
 
-#: musicexp.py:2002
+#: musicexp.py:2010
 #, python-format
 msgid "Unable to convert alteration %s to a lilypond expression"
 msgstr ""
@@ -1328,6 +1328,21 @@ msgstr ""
 #: lilypond-book.py:720
 #, python-format
 msgid "Compiling `%s'..."
+msgstr ""
+
+#: lilypond-invoke-editor.py:39
+msgid ""
+"Usage: lilypond-invoke-editor textedit://FILE:LINE:CHAR:COLUMN\n"
+"\n"
+"Visit a file and position the cursor.\n"
+"\n"
+"Options:\n"
+"  -h, --help          show this help\n"
+"  -v, --version       show version\n"
+msgstr ""
+
+#: lilypond-invoke-editor.py:133
+msgid "failed to invoke editor:"
 msgstr ""
 
 #: midi2ly.py:906
@@ -2309,12 +2324,12 @@ msgstr ""
 msgid "unterminated hyphen; removing"
 msgstr ""
 
-#: includable-lexer.cc:58 lily-guile.cc:87 lily-parser-scheme.cc:111
+#: includable-lexer.cc:58 lily-guile.cc:87 lily-parser-scheme.cc:109
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr ""
 
-#: includable-lexer.cc:60 lily-parser-scheme.cc:103
+#: includable-lexer.cc:60 lily-parser-scheme.cc:101
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
@@ -2332,7 +2347,7 @@ msgstr ""
 msgid "unknown remove-layer value `%s'"
 msgstr ""
 
-#: key-engraver.cc:199
+#: key-engraver.cc:197
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr ""
 
@@ -2345,31 +2360,31 @@ msgstr ""
 msgid "alteration not found"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:111
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:118
 msgid "cannot find start of ligature"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:138
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:139
 msgid "already have a ligature"
 msgstr ""
 
-#: ligature-engraver.cc:116
+#: ligature-engraver.cc:123
 msgid "no right bound"
 msgstr ""
 
-#: ligature-engraver.cc:147
+#: ligature-engraver.cc:148
 msgid "no left bound"
 msgstr ""
 
-#: ligature-engraver.cc:191
+#: ligature-engraver.cc:192
 msgid "unterminated ligature"
 msgstr ""
 
-#: ligature-engraver.cc:218
+#: ligature-engraver.cc:219
 msgid "ignoring rest: ligature may not contain rest"
 msgstr ""
 
-#: ligature-engraver.cc:219
+#: ligature-engraver.cc:220
 msgid "ligature was started here"
 msgstr ""
 
@@ -2415,37 +2430,37 @@ msgstr ""
 msgid "Uninitialized variable `%s' in module (%s)"
 msgstr ""
 
-#: lily-parser-scheme.cc:83
+#: lily-parser-scheme.cc:81
 #, c-format
 msgid "Changing working directory to: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:87
+#: lily-parser-scheme.cc:85
 #, c-format
 msgid "unable to change directory to: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:102
+#: lily-parser-scheme.cc:100
 #, c-format
 msgid "cannot find init file: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:119
+#: lily-parser-scheme.cc:117
 #, c-format
 msgid "Processing `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:123
+#: lily-parser-scheme.cc:121
 msgid "Parsing..."
 msgstr ""
 
-#: lily-parser-scheme.cc:240
+#: lily-parser-scheme.cc:238
 msgid ""
 "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser-scheme.cc:272
+#: lily-parser-scheme.cc:270
 msgid ""
 "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
@@ -3138,7 +3153,7 @@ msgstr ""
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1230
+#: page-layout-problem.cc:1229
 msgid "staff-affinities should only decrease"
 msgstr ""
 
@@ -3231,12 +3246,6 @@ msgstr ""
 #: paper-book.cc:396
 #, c-format
 msgid "multi-page output not supported by backend `%s'"
-msgstr ""
-
-#: paper-column-engraver.cc:236
-msgid ""
-"forced break was overridden by some other event, should you be using bar "
-"checks?"
 msgstr ""
 
 #: paper-column.cc:458
@@ -3511,7 +3520,7 @@ msgstr ""
 msgid "music is shorter than anticipated"
 msgstr ""
 
-#: side-position-interface.cc:461
+#: side-position-interface.cc:465
 #, c-format
 msgid "no side-axis setting found for grob %s."
 msgstr ""
@@ -3629,12 +3638,12 @@ msgstr ""
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:522
+#: system.cc:523
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
 
-#: system.cc:1021
+#: system.cc:1022
 msgid ""
 "refusing to create a grob sticking to a System grob; systems should not be "
 "created from custom engravers."
@@ -3691,7 +3700,9 @@ msgstr ""
 
 #: translator-group-ctors.cc:40
 #, c-format
-msgid "fatal error.  Couldn't find type: %s"
+msgid ""
+"Couldn't find translator type %s (should be Engraver_group, Performer_group, "
+"Score_engraver or Score_performer)"
 msgstr ""
 
 #: translator-group.cc:141
@@ -3901,16 +3912,16 @@ msgstr ""
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:4073
+#: parser.yy:4075
 msgid "not a markup"
 msgstr ""
 
-#: parser.yy:4766
+#: parser.yy:4768
 #, c-format
 msgid "Unattached %s"
 msgstr ""
 
-#: parser.yy:4768
+#: parser.yy:4770
 #, c-format
 msgid "Dropping unattachable %s"
 msgstr ""
@@ -4058,13 +4069,13 @@ msgid ""
 "only."
 msgstr ""
 
-#: bar-line.scm:213
+#: bar-line.scm:224
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:910
+#: bar-line.scm:924
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4085,17 +4096,17 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:90
+#: define-event-classes.scm:91
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-event-classes.scm:124
+#: define-event-classes.scm:125
 #, scheme-format
 msgid "Cannot redefine event class `~S'"
 msgstr ""
 
-#: define-event-classes.scm:126
+#: define-event-classes.scm:127
 #, scheme-format
 msgid "Undefined parent event class `~S'"
 msgstr ""
@@ -4108,32 +4119,32 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2605 define-markup-commands.scm:2610
+#: define-markup-commands.scm:2635 define-markup-commands.scm:2640
 #, scheme-format
 msgid "Recursive definition of property ~a detected!"
 msgstr ""
 
-#: define-markup-commands.scm:3381
+#: define-markup-commands.scm:3444
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3464
+#: define-markup-commands.scm:3527 translation-functions.scm:313
 #, scheme-format
 msgid "no accidental glyph found for alteration ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3841
+#: define-markup-commands.scm:3904
 #, scheme-format
 msgid "Unable to create slashed digit ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3958
+#: define-markup-commands.scm:4021
 #, scheme-format
 msgid "no brace found for point size ~,1f "
 msgstr ""
 
-#: define-markup-commands.scm:3960
+#: define-markup-commands.scm:4023
 #, scheme-format
 msgid "defaulting to ~,1f pt"
 msgstr ""
@@ -4181,12 +4192,12 @@ msgstr ""
 msgid "~a is not a valid woodwind instrument."
 msgstr ""
 
-#: document-backend.scm:274
+#: document-backend.scm:265
 #, scheme-format
 msgid "cannot find interface for property: ~S"
 msgstr ""
 
-#: document-backend.scm:284
+#: document-backend.scm:275
 #, scheme-format
 msgid "unknown Grob interface: ~S"
 msgstr ""
@@ -4206,17 +4217,17 @@ msgstr ""
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:167
+#: documentation-lib.scm:153
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:179
+#: documentation-lib.scm:165
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:200
+#: documentation-lib.scm:185
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
@@ -4514,54 +4525,44 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:464
+#: lily.scm:461
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:785
+#: lily.scm:784
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:786
+#: lily.scm:785
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:852
+#: lily.scm:849
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:855
+#: lily.scm:852
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:859
+#: lily.scm:856
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:872 lily.scm:943
+#: lily.scm:869
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:905
+#: lily.scm:902
 #, scheme-format
 msgid "Processing `~a'\n"
-msgstr ""
-
-#: lily.scm:936
-#, scheme-format
-msgid "Redirecting output to ~a..."
-msgstr ""
-
-#: lily.scm:953
-#, scheme-format
-msgid "Invoking `~a'...\n"
 msgstr ""
 
 #: ly-syntax-constructors.scm:27
@@ -4642,122 +4643,133 @@ msgid ""
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
 
-#: music-functions.scm:282
+#: music-functions.scm:283
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr ""
 
-#: music-functions.scm:295
+#: music-functions.scm:296
 msgid "alternative music expected"
 msgstr ""
 
-#: music-functions.scm:308
+#: music-functions.scm:309
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:412
+#: music-functions.scm:413
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
 msgstr ""
 
-#: music-functions.scm:502
+#: music-functions.scm:503
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:526
+#: music-functions.scm:527
 #, scheme-format
 msgid "bad context property ~a"
 msgstr ""
 
-#: music-functions.scm:557
+#: music-functions.scm:558
 #, scheme-format
 msgid "bad music property ~a"
 msgstr ""
 
-#: music-functions.scm:885
+#: music-functions.scm:886
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:992
+#: music-functions.scm:993
 #, scheme-format
 msgid "Bad voice id: ~a"
 msgstr ""
 
-#: music-functions.scm:1003
+#: music-functions.scm:1004
 msgid "\\voices needs more ids"
 msgstr ""
 
-#: music-functions.scm:1022
+#: music-functions.scm:1023
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1394
+#: music-functions.scm:1395
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1555
+#: music-functions.scm:1556
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1618
+#: music-functions.scm:1619
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1619
+#: music-functions.scm:1620
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:2022
+#: music-functions.scm:2023
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2495
+#: music-functions.scm:2501
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2558
+#: music-functions.scm:2564
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2589
+#: music-functions.scm:2595
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2814
+#: music-functions.scm:2820
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2817
+#: music-functions.scm:2823
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: output-lib.scm:1937
+#: output-lib.scm:1938
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2256
+#: output-lib.scm:2257
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2752
+#: output-lib.scm:2753
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:2768
+#: output-lib.scm:2769
 msgid "Please consider to increase 'minimum-length"
+msgstr ""
+
+#: output-lib.scm:3086
+#, scheme-format
+msgid "no entry in measure-division-lines-alist for measure division ~a"
+msgstr ""
+
+#: output-lib.scm:3110
+#, scheme-format
+msgid ""
+"no entry in measure-division-chord-placement-alist for measure division ~a"
 msgstr ""
 
 #: output-ps.scm:292 output-svg.scm:562
@@ -4879,27 +4891,27 @@ msgstr ""
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
-#: scheme-engravers.scm:154
+#: scheme-engravers.scm:156
 msgid "count not ended before another begun"
 msgstr ""
 
-#: scheme-engravers.scm:189
+#: scheme-engravers.scm:191
 msgid "measure count left unfinished"
 msgstr ""
 
-#: scheme-engravers.scm:204
+#: scheme-engravers.scm:206
 msgid "cannot find start of measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:238
+#: scheme-engravers.scm:240
 msgid "unterminated measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:645
+#: scheme-engravers.scm:647
 msgid "unterminated DurationLine"
 msgstr ""
 
-#: scheme-engravers.scm:794
+#: scheme-engravers.scm:796
 msgid ""
 "No notes found to start from,\n"
 "ignoring. If you want to bend an open string, consider to override/tweak "
@@ -4907,8 +4919,12 @@ msgid ""
 "'bend-me property."
 msgstr ""
 
-#: scheme-engravers.scm:828
+#: scheme-engravers.scm:830
 msgid "Unbound BendSpanner, ignoring"
+msgstr ""
+
+#: scheme-engravers.scm:1501
+msgid "unterminated measure for chord square"
 msgstr ""
 
 #: stencil.scm:715
@@ -4920,49 +4936,49 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:568
+#: translation-functions.scm:567
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:573
+#: translation-functions.scm:572
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:578
+#: translation-functions.scm:577
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:621
+#: translation-functions.scm:620
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:644 translation-functions.scm:656
+#: translation-functions.scm:643 translation-functions.scm:655
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:647
+#: translation-functions.scm:646
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:659
+#: translation-functions.scm:658
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:684
+#: translation-functions.scm:683
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:723
+#: translation-functions.scm:722
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:807
+#: translation-functions.scm:806
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
