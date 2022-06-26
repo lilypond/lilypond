@@ -162,7 +162,7 @@ public:
   // Calling the robust version of from_scm () is not an option because
   // operator * takes no parameters.  TODO: It might be possible to provide a
   // uniform fallback value as a parameter of the list template.
-  auto operator * () const->decltype (from_scm<T> (dereference_scm ()))
+  decltype(auto) operator * () const
   {
     return from_scm<T> (dereference_scm ());
   }

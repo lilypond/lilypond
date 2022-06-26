@@ -44,7 +44,7 @@ sign (T x)
 
 template<class T>
 constexpr auto
-sqr (T x)->decltype (x *x)
+sqr (T x)
 {
   return x * x;
 }

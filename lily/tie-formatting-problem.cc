@@ -50,8 +50,8 @@ using std::string;
 using std::vector;
 
 template<typename Container>
-auto
-boundary (const Container &v, Direction dir, vsize i)->decltype ( *&v[0])
+auto&
+boundary (const Container &v, Direction dir, vsize i)
 {
   assert (dir);
   return v[(dir == LEFT) ? i : v.size () - 1 - i];
