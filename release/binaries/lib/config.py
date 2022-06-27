@@ -84,7 +84,10 @@ class Config:
 
         self.platform = platform or Platform.get_platform(py_platform.system())
         self.architecture = architecture or py_platform.machine()
-        self.triple = triple or sysconfig.get_config_var("HOST_GNU_TYPE")
+        if triple is None:
+            triple = sysconfig.get_config_var("HOST_GNU_TYPE")
+            assert triple is not None
+        self.triple = triple
 
         self.native_config = native_config or self
         self.program_suffix = program_suffix

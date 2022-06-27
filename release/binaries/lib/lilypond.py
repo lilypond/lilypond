@@ -60,7 +60,10 @@ class LilyPond(ConfigurePackage):
             # Assume that the first member of the archive is the directory
             # that contains all source files. Use it to determine the version
             # and do not rely on the archive name, which the user may rename.
-            directory = tar.next().name
+            info = tar.next()
+            if info is None:
+                raise ValueError("Specified archive is empty")
+            directory = info.name
             if not directory.startswith(directory_prefix):
                 raise ValueError("Specified archive has invalid structure")
 
@@ -104,10 +107,10 @@ class LilyPond(ConfigurePackage):
         raise NotImplementedError
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep = []
+        gettext_dep: List[Package] = []
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
-        python_dep = [python]
+        python_dep: List[Package] = [python]
         if c.is_mingw():
             python_dep = [embeddable_python]
         return (

@@ -453,7 +453,7 @@ class GLib(MesonPackage):
         return f"https://download.gnome.org/sources/glib/{major_version}/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep = []
+        gettext_dep: List[Package] = []
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
         return gettext_dep + [libffi, pcre, zlib]
@@ -642,7 +642,7 @@ class Libunistring(ConfigurePackage):
         return f"https://ftpmirror.gnu.org/gnu/libunistring/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
-        libiconv_dep = []
+        libiconv_dep: List[Package] = []
         if c.is_mingw():
             libiconv_dep = [libiconv]
         return libiconv_dep
@@ -778,10 +778,10 @@ class Guile(ConfigurePackage):
             self._apply_patches_mingw(c)
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep = []
+        gettext_dep: List[Package] = []
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
-        libiconv_dep = []
+        libiconv_dep: List[Package] = []
         if c.is_mingw():
             libiconv_dep = [libiconv]
         return gettext_dep + libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
@@ -794,7 +794,7 @@ class Guile(ConfigurePackage):
             env["LDFLAGS"] = gettext.macos_ldflags
         return env
 
-    def configure_args(self, c: Config) -> str:
+    def configure_args(self, c: Config) -> List[str]:
         gmp_install_dir = gmp.install_directory(c)
         libunistring_install_dir = libunistring.install_directory(c)
         libtool_install_dir = libtool.install_directory(c)
@@ -1059,7 +1059,7 @@ class Python(ConfigurePackage):
         env.update(zlib.get_env_variables(c))
         return env
 
-    def configure_args(self, c: Config) -> str:
+    def configure_args(self, c: Config) -> List[str]:
         return [
             "--with-ensurepip=no",
             # Prevent that configure searches for libcrypt.
