@@ -32,10 +32,6 @@ The standard build and install procedure (with @code{autogen.sh},
 @code{configure}, @code{make}, @code{make install}, @code{make doc}
 @dots{}) does not rely on them.
 
-In addition, for working on the website, @code{LILYPOND_WEB_MEDIA_GIT}
-should be set to the repository lilypond-extra, see
-@ref{lilypond-extra}.
-
 
 @node Performing yearly copyright update (grand-replace)
 @section Performing yearly copyright update (@qq{grand-replace})
