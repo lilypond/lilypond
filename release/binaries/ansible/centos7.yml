@@ -18,9 +18,11 @@
 - name: CentOS 7
   hosts: lily_centos7
   tasks:
-    - name: Enable EPEL repository
+    - name: Enable additional repositories
       yum:
-        name: epel-release
+        name:
+          - centos-release-scl
+          - epel-release
     - name: Upgrade all packages
       yum:
         name: '*'
@@ -29,12 +31,11 @@
       yum:
         name:
           - bison
+          - devtoolset-11-gcc
+          - devtoolset-11-gcc-c++
           - flex
           - fontforge
-          - gcc
-          - gcc-c++
           - gperf
-          - libstdc++-static
           - m4
           - ninja-build
           - perl
