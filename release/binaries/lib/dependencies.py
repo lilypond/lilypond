@@ -80,7 +80,7 @@ expat = Expat()
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.12.0"
+        return "2.12.1"
 
     @property
     def directory(self) -> str:
@@ -437,7 +437,7 @@ zlib = Zlib()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.72.0"
+        return "2.72.2"
 
     @property
     def directory(self) -> str:
@@ -571,7 +571,7 @@ class Libiconv(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "1.16"
+        return "1.17"
 
     @property
     def directory(self) -> str:
@@ -852,9 +852,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        # Don't update to 3.1.0 and beyond which requires full C++11 type_traits
-        # support that isn't available on CentOS 7 (without Developer Toolsets).
-        return "3.0.0"
+        return "4.4.0"
 
     @property
     def directory(self) -> str:
@@ -922,7 +920,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.50.6"
+        return "1.50.7"
 
     @property
     def directory(self) -> str:
@@ -976,7 +974,7 @@ class Pango(MesonPackage):
 pango = Pango()
 
 
-PYTHON_VERSION = "3.10.4"
+PYTHON_VERSION = "3.10.5"
 
 
 class Python(ConfigurePackage):
