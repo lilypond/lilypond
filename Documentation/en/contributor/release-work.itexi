@@ -4,7 +4,7 @@
 
 @menu
 * Development phases::
-* Minor release checklist::
+* Release checklist::
 * Major release checklist::
 * Notes on builds with GUB::
 @end menu
@@ -64,203 +64,268 @@ Only translation updates and important bugfixes are allowed.
 @end enumerate
 
 
-@node Minor release checklist
-@section Minor release checklist
 
-A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
+@node Release checklist
+@section Release checklist
 
-@subheading Pre-release
+A @qq{minor release} means an update of @code{@var{y}} in
+@code{2.@var{x}.@var{y}}.
+
+
+@subheading Preparing the release
 
 @enumerate
 
 @item
-Don't forget to prepare the GUB build machine by deleting and moving unneeded
-files: see @qq{Subsequent builds} in @ref{Notes on builds with GUB}.
-
-@item
-Using any system with git pull access (not necessarily the GUB
-build machine), use the commands below to do the following:
-
-@itemize
-@item
-switch to the release branch
-
-@item
-update the release branch from origin/master
-
-@item
-update the translation files
-
-@item
-create the release announcement
-
-@item
-update the build versions.
+Prepare the release branch (@code{release/unstable} for unstable
+releases or @code{stable/2.@var{x}} for stable releases).  It is
+recommended to use a separate repository for this, or at least a
+worktree.  The checked out repository must have no changes to
+tracked files.
 
 @itemize
 @item
-VERSION_DEVEL = the current development version (previous VERSION_DEVEL + 0.01)
+Pull the latest changes in the remote repository, then switch to
+and update the branch:
+@example
+git fetch origin
+git rebase origin/master release/unstable
+@end example
+(adapt as necessary for @code{stable/2.@var{x}})
 
 @item
-VERSION_STABLE = the current stable version (probably no change here)
+Remove untracked files from the repository, especially the
+@file{configure} script:
+@example
+git clean -dfx --exclude release/
+@end example
+(Keep untracked files in the @file{release/} directory, such as
+@file{release/binaries/downloads/} and local test builds.)
 
 @end itemize
 
 @item
-update the @qq{Welcome to LilyPond} version numbers to the version about to be
-released
+Generate the @file{configure} script and run it:
+@example
+./autogen.sh
+@end example
+
+@item
+Update the translation template @file{po/lilypond.pot}:
+@example
+make po-replace
+@end example
+
+@item
+Edit the news files:
+@itemize
+@item
+Copy the previous announcement from
+@file{Documentation/en/web/news-new.itexi} to
+@file{Documentation/en/web/news-old.itexi}.
+
+@item
+Create a new announcement in
+@file{Documentation/en/web/news-new.itexi}
+by adjusting the version number and the date.
+
+@item
+Adjust the headlines in
+@file{Documentation/en/web/news-headlines.itexi}
+accordingly.
 
 @end itemize
 
-@c FIXME: unclear
-This requires a system which has the @code{release/unstable}
-branch.  If you get a warning saying you are in @code{detached HEAD}
-state, then you should create a @code{release/unstable} branch with
-@code{git switch release/unstable}.
-
-Check the environment variables are set as in
-@ref{Environment variables}.
-
-You need to ensure you have a clean index and work tree.  If the
-checkout displays modified files, you might want to run
-@code{git reset --hard} before continuing.
-
-@example
-git fetch
-git switch release/unstable
-git merge origin/master
-make -C $LILYPOND_BUILD_DIR po-replace
-mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
-gedit Documentation/en/web/news-new.itexi Documentation/en/web/news-old.itexi
-gedit Documentation/en/web/news-headlines.itexi
-gedit VERSION
-gedit ly/Wel*.ly
-@end example
+@item
+Adjust the version numbers:
+@itemize
+@item
+Bump the @code{\version} statements in @file{ly/Wel*.ly} to
+the current version that is about to be released.
 
 @item
-Commit, push, switch back to master (or wherever else):
+Adjust version numbers in @file{VERSION}.  In most cases, this
+means setting @code{VERSION_DEVEL} to the current version.  Only
+change @code{VERSION_STABLE} if releasing a stable version.
 
-@example
-git commit -m "Release: bump VERSION_DEVEL." VERSION
-git commit -m "PO: update template." po/lilypond.pot
-git commit -m "Release: update news." Documentation/en/web/
-git commit -m "Release: bump Welcome versions." ly/Wel*.ly
-git push origin HEAD:release/unstable
-git switch master
-@end example
+@end itemize
 
 @item
-If you do not have the previous release test-output tarball, download
-it and put it in @code{regtests/}
-
-@item Prepare GUB environment by running:
-
+Commit the changes:
 @example
-### my-gub.sh
-# special terminal, and default PATH environment.
-# import these special environment vars:
-#   HOME, HTTP_PROXY, TERM
-env -i \
-  HOME=$HOME \
-  HTTP_PROXY=$HTTP_PROXY \
-  bash --rcfile my-bashrc
-@end example
-
-@example
-### my-bashrc
-export PS1="\[\e[1;33mGUB-ENV \w\]$ \[\e[0m\]"
-export PATH=$PATH
-export TERM=xterm
-@end example
-
-
-@item Build release on GUB by running:
-
-@example
-make LILYPOND_BRANCH=release/unstable lilypond
-@end example
-
-@noindent
-or something like:
-
-@example
-make LILYPOND_BRANCH=stable/2.16 lilypond
-@end example
-
-@item
-Check the regtest comparison in @file{uploads/webtest/} for
-any unintentional breakage.  More info in
-@ref{Precompiled regression tests}.
-
-@item
-If any work was done on GUB since the last release, upload
-binaries to a temporary location, ask for feedback, and wait a day
-or two in case there's any major problems.
-
-@warning{Always do this for a stable release.}
-
-@end enumerate
-
-
-@subheading Actual release
-
-@enumerate
-
-@item If you're not the right user on the webserver, remove the
-@code{t} from the rsync command in:
-
-@example
-test-lily/rsync-lily-doc.py
-test-lily/rsync-test.py
-@end example
-
-@item Upload GUB by running:
-
-@example
-make lilypond-upload \
-  LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git \
-  LILYPOND_BRANCH=release/unstable
-@end example
-
-@noindent
-or something like:
-
-@example
-make lilypond-upload \
-  LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git \
-  LILYPOND_BRANCH=stable/2.12
+git commit -m "po: Update template" -- po/lilypond.pot
+git commit -m "web: Update news" -- Documentation/en/web/
+git commit -m "ly: Bump Welcome versions" -- ly/Wel*.ly
+git commit -m "Bump VERSION_DEVEL" -- VERSION
 @end example
 
 @end enumerate
 
 
-@subheading Post release
+@subheading Creating the source release
 
 @enumerate
-
 @item
-Update the current @code{master} branch with the current news:
-
+Remove untracked files from the repository (see above):
 @example
-git fetch
-git switch origin/master
-git merge origin/release/unstable
+git clean -dfx --exclude release/
 @end example
 
 @item
-Update @file{VERSION} in lilypond git and upload changes:
-
+Generate the @file{configure} script and run it:
 @example
-gedit VERSION
+./autogen.sh
 @end example
+
+@item
+Create the source tarball:
+@example
+make dist
+@end example
+
+@end enumerate
+
+The last step creates @file{out/lilypond-2.@var{x}.@var{y}.tar.gz},
+which will be the @qq{single source of truth} for the following
+steps.  Put it into a directory for the final upload step.
+
+
+@subheading Building the binaries and documentation
+
+These steps can be run in any order, or in parallel.
 
 @itemize
 @item
-VERSION = what you just did +0.0.1
+Build binaries on @qq{native} platforms (Linux and macOS) with
+the scripts in @file{release/binaries/} @emph{from the tarball}:
+@example
+./build-dependencies && ./build-lilypond /path/to/lilypond-2.@var{x}.@var{y}.tar.gz
+@end example
+
+@item
+Build binaries for Windows (needs a run of the previous step on
+Linux):
+@example
+./build-dependencies --mingw && ./build-lilypond --mingw /path/to/lilypond-2.@var{x}.@var{y}.tar.gz
+@end example
+
+@item
+Build the documentation using @file{release/doc/build-doc.sh}:
+@example
+./build-doc.sh /path/to/lilypond-2.@var{x}.@var{y}.tar.gz
+@end example
+
 @end itemize
 
+Collect all created binaries (@file{.tar.gz} and @file{.zip}) and
+documentation archives (@file{.tar.xz}) in the directory next to
+the source tarball.  If possible, give them some short testing
+to make sure everything works as expected.
+
+
+@subheading Uploading the release
+
+During this step, the artifacts from the previous steps are uploaded
+to @code{lilypond.org} and GitLab for the world to see.  Make sure
+everything is ready before proceeding.
+
+@enumerate
+@item
+Create a personal access token at
+@uref{https://gitlab.com/-/profile/personal_access_tokens}.
+This can be limited to auto-expire the next day.
+
+@item
+Upload the source tarball to @code{lilypond.org}:
 @example
-git commit -m "Release: bump VERSION." VERSION
+scp lilypond-2.@var{x}.@var{y}.tar.gz graham@@gcp.lilypond.org:/var/www/lilypond/downloads/sources/v2.@var{x}/lilypond-2.@var{x}.@var{y}.tar.gz
+@end example
+
+@item
+In the directory where you collected the binaries, run the script to
+upload the files to GitLab:
+@example
+/path/to/lilypond/release/upload.py --token @var{TOKEN} 2.@var{x}.@var{y}
+@end example
+
+@item
+Extract the web documentation from
+@file{lilypond-2.@var{x}.@var{y}-webdoc.tar.xz}
+and adjust the group permissions:
+@example
+chmod -R g+w lilypond-2.@var{x}.@var{y}-webdoc
+@end example
+
+@item
+Synchronize the documentation to @code{lilypond.org}:
+@example
+rsync --delay-updates --delete --delete-after --progress -prtvuz lilypond-2.@var{x}.@var{y}-webdoc/ graham@@gcp.lilypond.org:/var/www/lilypond/doc/v2.@var{x}/
+@end example
+
+@end enumerate
+
+
+@subheading Tagging and announcing the release
+
+@enumerate
+@item
+In the repository that was used to create the release (check that
+@code{git log} has the expected commits;  @qq{Bump VERSION_DEVEL}
+should be the last one), tag the release:
+@example
+git tag -am "LilyPond 2.@var{x}.@var{y}" v2.@var{x}.@var{y}
+@end example
+
+@item
+Push the changes and the tag:
+@example
+git push origin HEAD:release/unstable v2.@var{x}.@var{y}
+@end example
+(adapt as necessary for @code{stable/2.@var{x}})
+
+@item
+Create a file @file{description.md} with a copy of the release
+announcement (may be formatted as Markdown for links).
+
+@item
+Create the release on GitLab:
+@example
+/path/to/lilypond/release/create-release.py --token @var{TOKEN} --description description.md 2.@var{x}.@var{y}
+@end example
+
+@end enumerate
+
+Creating a release on GitLab will automatically send an email to
+everbody who subscribed to release notifications.
+
+
+@subheading Post unstable release
+
+In this case, the release branch is @code{release/unstable}.
+
+@enumerate
+@item
+Update the @code{master} branch with the latest changes:
+@example
+git fetch origin
+git rebase origin/master master
+@end example
+
+@item
+Merge the release branch:
+@example
+git merge --no-ff release/unstable
+@end example
+
+@item
+Bump @code{PATCH_LEVEL} in the @file{VERSION} file and commit:
+@example
+git commit -m "Bump VERSION" -- VERSION
+@end example
+
+@item
+Push the branch to GitLab:
+@example
 git push origin HEAD:release/unstable
 @end example
 
@@ -269,12 +334,6 @@ Create a merge request from @code{release/unstable} to merge the changes
 into @code{master}.
 
 @item Update the website as described in @ref{Uploading website}.
-
-@item Email release notice to @code{info-lilypond}
-
-@item Create a new
-@uref{https://gitlab.com/lilypond/lilypond/-/releases,release at GitLab}
-by selecting the existing tag and milestone.
 
 @item Update the milestones at GitLab:
 @enumerate
@@ -288,7 +347,16 @@ release is planned) and set the start date.
 
 @end enumerate
 
+@item
+Check open merge requests and remind people to update the
+@code{\version} statement in conversion rules and regression
+tests.
+
 @end enumerate
+
+@emph{After the website update appears on @code{lilypond.org}},
+send a release notice to @code{lilypond-devel} and @code{lilypond-user}
+with the same announcement text and possibly further instructions.
 
 
 
@@ -609,7 +677,7 @@ connection will take about 4 hours to upload.
 
 In principle, building the next release of LilyPond requires
 no action other then following the instructions in
-@ref{Minor release checklist}.  Because much of the
+@ref{Release checklist}.  Because much of the
 infrastructure has already been built, it will take much less
 time - about an hour on a fast computer.
 
