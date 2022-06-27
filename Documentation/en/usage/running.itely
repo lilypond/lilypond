@@ -1055,8 +1055,7 @@ Environment variables (marked with a leading dollar sign) are
 allowed in @var{value} and get expanded before the directive is
 executed.
 
-Here are two examples of relocation file entries, taken from GUB
-(see @rcontrib{Grand Unified Builder (GUB)}).
+Here are two examples of relocation file entries.
 
 @example
 set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf

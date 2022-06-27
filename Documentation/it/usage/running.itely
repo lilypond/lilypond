@@ -1055,8 +1055,7 @@ Le variabili d'ambiente (precedute dal segno del dollaro) sono permesse
 dentro il @var{valore} e vengono espanse prima che la direttiva sia
 eseguita.
 
-Ecco due esempi di comandi di riposizionamento dei file, presi da GUB
-(vedi @rcontrib{Grand Unified Builder (GUB)}).
+Ecco due esempi di comandi di riposizionamento dei file.
 
 @example
 set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf

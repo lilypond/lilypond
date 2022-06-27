@@ -1074,7 +1074,7 @@ PS データを PDF ファイルに変換するための @command{gs} プログ�
 ディレクティブが実行される前に展開されます。
 
 以下は、GUB から取得した再配置ファイル エントリの 2 つの例です
-(@rcontrib {Grand Unified Builder (GUB)} を参照してください) 。
+を参照してください) 。
 
 @example
 set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf

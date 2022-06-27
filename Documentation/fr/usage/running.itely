@@ -1127,8 +1127,7 @@ Les variables d'environnement, identifiables au signe dollar qui les
 préfixe, sont permises en tant que @var{valeur} et seront expansées
 avant l'exécution de la directive.
 
-Voici deux exemples d'entrée d'un fichier de réadresssage, issus de GUB
-(voir @rcontrib{Grand Unified Builder (GUB)}).
+Voici deux exemples d'entrée d'un fichier de réadresssage.
 
 @example
 set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf

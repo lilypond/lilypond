@@ -23,9 +23,7 @@ not necessarily correct for different releases.}
 
 @qq{LilyDev} is a custom GNU/Linux operating system which includes all
 the necessary software and tools to compile LilyPond, the documentation
-and the website (also see @ref{Website work}).  It is also prepared
-for building the @ref{Grand Unified Builder (GUB)}, though this
-is an involved process and may require further tweaking.
+and the website (also see @ref{Website work}).
 
 While compiling LilyPond on Mac OS and Windows is possible, both
 environments are complex to set up.  LilyDev can be easily run
@@ -333,7 +331,7 @@ firefox $LILYPOND_GIT/build/out-www/offline-root/index.html
 Don't.  There is no reason to install LilyPond within LilyDev.
 All development work can (and should) stay within the
 @file{$LILYPOND_GIT} directory, and any personal composition
-or typesetting work should be done with an official GUB release.
+or typesetting work should be done with an official release.
 
 
 @subsubheading Problems and other options
