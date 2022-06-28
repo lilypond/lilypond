@@ -64,12 +64,6 @@ AC_ARG_WITH(urwotf-dir,
     [URWOTF_DIR=$withval],
     [URWOTF_DIR=""])
 
-rpath_b=no
-AC_ARG_ENABLE(rpath,
-    [AS_HELP_STRING([--enable-rpath],
-                    [hardcode runtime library path.  Default: off])],
-    [rpath_b=$enableval])
-
 LINK_GXX_STATICALLY=no
 AC_ARG_ENABLE(static-gxx,
     [AS_HELP_STRING([--enable-static-gxx],
@@ -259,14 +253,6 @@ AC_CHECK_HEADERS([grp.h pwd.h sys/stat.h])
 AC_CHECK_FUNCS([chroot gettext])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
-
-AC_MSG_CHECKING(for rpath linkage)
-if test "$rpath_b" = "yes"; then
-    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,\\\$\$ORIGIN/../lib"
-elif test "$rpath_b" != "no"; then
-    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,$rpath_b"
-fi
-AC_MSG_RESULT($rpath_b)
 
 STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE(pangoft2, OPTIONAL, 1.38.0)
 if test "$have_pangoft2_with_otf_feature" != yes ; then
