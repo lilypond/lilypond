@@ -19,8 +19,6 @@
 
 #include "config.hh"
 
-#if HAVE_FONTCONFIG
-
 #include "file-path.hh"
 #include "international.hh"
 #include "main.hh"
@@ -94,12 +92,3 @@ init_fontconfig ()
   debug_output ("\n");
 
 }
-
-#else
-
-void
-init_fontconfig ()
-{
-}
-
-#endif
