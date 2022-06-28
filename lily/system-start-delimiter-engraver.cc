@@ -134,7 +134,7 @@ Bracket_nesting_group::from_list (SCM x)
       SCM entry = scm_car (s);
       if (scm_is_pair (entry))
         {
-          unique_ptr<Bracket_nesting_group> node (new Bracket_nesting_group);
+          auto node = std::make_unique<Bracket_nesting_group> ();
           node->from_list (entry);
           children_.push_back (std::move (node));
         }
@@ -145,8 +145,8 @@ Bracket_nesting_group::from_list (SCM x)
         symbol_ = entry;
       else
         {
-          children_.push_back (unique_ptr<Bracket_nesting_staff>
-                               (new Bracket_nesting_staff (0)));
+          auto bns = std::make_unique<Bracket_nesting_staff> (nullptr);
+          children_.push_back (std::move (bns));
         }
     }
 }
@@ -227,8 +227,8 @@ System_start_delimiter_engraver::acknowledge_staff_symbol
 
   if (!succ)
     {
-      nesting_->children_.push_back (unique_ptr<Bracket_nesting_staff>
-                                     (new Bracket_nesting_staff (0)));
+      auto bns = std::make_unique<Bracket_nesting_staff> (nullptr);
+      nesting_->children_.push_back (std::move(bns));
       nesting_->add_staff (staff);
     }
 }

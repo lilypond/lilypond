@@ -474,7 +474,7 @@ std::unique_ptr<Tie_configuration>
 Tie_formatting_problem::generate_configuration (int pos, Direction dir,
                                                 Drul_array<int> columns, bool y_tune) const
 {
-  std::unique_ptr<Tie_configuration> conf (new Tie_configuration);
+  auto conf = std::make_unique<Tie_configuration> ();
   conf->position_ = pos;
   conf->dir_ = dir;
 

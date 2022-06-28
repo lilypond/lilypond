@@ -141,7 +141,7 @@ unique_ptr<Beam_configuration>
 Beam_configuration::new_config (Drul_array<Real> start,
                                 Drul_array<Real> offset)
 {
-  unique_ptr<Beam_configuration> qs (new Beam_configuration);
+  auto qs = std::make_unique<Beam_configuration> ();
   qs->y = Drul_array<Real> (int (start[LEFT]) + offset[LEFT],
                             int (start[RIGHT]) + offset[RIGHT]);
 

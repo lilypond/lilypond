@@ -550,7 +550,7 @@ Slur_configuration::done () const
 unique_ptr<Slur_configuration>
 Slur_configuration::new_config (Drul_array<Offset> const &offs, size_t idx)
 {
-  unique_ptr<Slur_configuration> conf (new Slur_configuration);
+  auto conf = std::make_unique<Slur_configuration> ();
   conf->attachment_ = offs;
   conf->index_ = idx;
   conf->next_scorer_todo = INITIAL_SCORE + 1;

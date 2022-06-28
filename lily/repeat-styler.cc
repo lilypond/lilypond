@@ -279,17 +279,17 @@ public:
 std::unique_ptr<Repeat_styler>
 Repeat_styler::create_null (Music_iterator *owner)
 {
-  return std::unique_ptr<Repeat_styler> (new Null_repeat_styler (owner));
+  return std::make_unique<Null_repeat_styler> (owner);
 }
 
 std::unique_ptr<Repeat_styler>
 Repeat_styler::create_segno (Music_iterator *owner)
 {
-  return std::unique_ptr<Repeat_styler> (new Segno_repeat_styler (owner));
+  return std::make_unique<Segno_repeat_styler> (owner);
 }
 
 std::unique_ptr<Repeat_styler>
 Repeat_styler::create_volta (Music_iterator *owner)
 {
-  return std::unique_ptr<Repeat_styler> (new Volta_repeat_styler (owner));
+  return std::make_unique<Volta_repeat_styler> (owner);
 }

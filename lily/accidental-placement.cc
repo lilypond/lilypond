@@ -241,9 +241,7 @@ static vector<unique_ptr<Accidental_placement_entry>>
   vector<unique_ptr<Accidental_placement_entry>> apes;
   for (SCM entry : as_ly_scm_list (accs))
     {
-      unique_ptr<Accidental_placement_entry>
-      ape (new Accidental_placement_entry);
-
+      auto ape = std::make_unique<Accidental_placement_entry> ();
       for (auto *g : ly_smob_list<Grob> (scm_cdr (entry)))
         ape->grobs_.push_back (g);
 
