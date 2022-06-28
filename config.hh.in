@@ -38,9 +38,6 @@
 /* define if you have sys/stat.h */
 #define HAVE_SYS_STAT_H 0
 
-/* define if you have pango FT2 binding with OpenType font feature */
-#define HAVE_PANGO_FT2_WITH_OTF_FEATURE 0
-
 /* define if cxxabi.h has workable demangler */
 #define HAVE_CXA_DEMANGLE 0
 

@@ -90,7 +90,7 @@ are not officially supported (yet).
 
 @item
 @uref{https://www.pango.org, Pango}@*
-Use version 1.36 or newer; version 1.38 or newer is recommended.
+Use version 1.40 or newer.
 
 @item
 @uref{https://www.python.org, Python}@*

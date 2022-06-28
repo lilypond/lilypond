@@ -867,34 +867,6 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
 ])
 
 
-AC_DEFUN(STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE, [
-    PKG_CHECK_MODULES(PANGO_FT2, $1 >= $3,
-        have_pangoft2_with_otf_feature=yes, true)
-    if test "$have_pangoft2_with_otf_feature" = yes; then
-        AC_DEFINE(HAVE_PANGO_FT2_WITH_OTF_FEATURE)
-        # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$CPPFLAGS $PANGO_FT2_CFLAGS"
-        LIBS="$PANGO_FT2_LIBS $LIBS"
-        AC_CHECK_HEADERS([pango/pangoft2.h])
-        AC_CHECK_FUNCS([pango_ft2_font_map_create_context])
-        AC_SUBST(PANGO_FT2_CFLAGS)
-        AC_SUBST(PANGO_FT2_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
-    else
-        # URG
-        #r="lib$1-dev or $1-devel"e
-        r="libpango1.0-dev or pango?-devel"
-        ver="`$PKG_CONFIG --modversion $1`"
-        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (It is required if you'd like "])
-        STEPMAKE_ADD_ENTRY($2, ["to use OpenType font feature. "])
-        STEPMAKE_ADD_ENTRY($2, ["installed: $ver)"])
-    fi
-])
-
-
 AC_DEFUN(STEPMAKE_FONTCONFIG, [
     PKG_CHECK_MODULES(FONTCONFIG, $1 >= $3, have_fontconfig=yes, true)
     if test "$have_fontconfig" = yes; then

@@ -254,10 +254,7 @@ AC_CHECK_FUNCS([chroot gettext])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 
-STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE(pangoft2, OPTIONAL, 1.38.0)
-if test "$have_pangoft2_with_otf_feature" != yes ; then
-    STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.36.0)
-fi
+STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.40.0)
 STEPMAKE_FONTCONFIG(fontconfig, REQUIRED, 2.4.0)
 STEPMAKE_FREETYPE2(freetype2, REQUIRED, 2.3.9)
 STEPMAKE_GLIB(glib-2.0, REQUIRED, 2.38)
