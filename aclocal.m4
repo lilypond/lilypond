@@ -111,7 +111,6 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
        && expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
         true
     else
-        ##STEPMAKE_WARN(cannot find $2. $3)
         false
     fi
 ])
@@ -587,7 +586,6 @@ AC_DEFUN(STEPMAKE_INIT, [
         $MAKE -v 2> /dev/null | grep GNU > /dev/null
         if test "$?" = 1; then
             warn='make (Please install *GNU* make)'
-            # STEPMAKE_WARN($warn)
             STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
         fi
     fi
@@ -781,12 +779,6 @@ AC_DEFUN(STEPMAKE_TEXMF, [
     rm -f mfput.*
 
     AC_SUBST(MFMODE)
-])
-
-
-AC_DEFUN(STEPMAKE_WARN, [
-    AC_MSG_WARN($1)
-    warn_b=yes
 ])
 
 

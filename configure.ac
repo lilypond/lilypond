@@ -271,9 +271,6 @@ elif test "$rpath_b" != "no"; then
 fi
 AC_MSG_RESULT($rpath_b)
 
-HOST_ARCH=`$CC -dumpmachine`
-AC_SUBST(HOST_ARCH)
-
 STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE(pangoft2, OPTIONAL, 1.38.0)
 if test "$have_pangoft2_with_otf_feature" != yes ; then
     STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.36.0)
