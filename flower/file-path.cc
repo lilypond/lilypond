@@ -102,21 +102,11 @@ workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
 bool
 is_file (const string &file_name)
 {
-#if !STAT_MACROS_BROKEN
   STRUCT_STAT sbuf;
   if (workaround_wrapper_stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return !S_ISDIR (sbuf.st_mode);
-#endif
-
-  if (FILE *f = fopen (file_name.c_str (), "r"))
-    {
-      fclose (f);
-      return true;
-    }
-
-  return false;
 }
 
 bool
@@ -127,20 +117,11 @@ is_dir (string file_name)
    */
   file_name = File_name (file_name).to_string ();
 
-#if !STAT_MACROS_BROKEN
   STRUCT_STAT sbuf;
   if (workaround_wrapper_stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return S_ISDIR (sbuf.st_mode);
-#endif
-
-  if (FILE *f = fopen (file_name.c_str (), "r"))
-    {
-      fclose (f);
-      return true;
-    }
-  return false;
 }
 
 bool
