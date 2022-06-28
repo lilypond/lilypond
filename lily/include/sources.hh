@@ -25,6 +25,8 @@
 #include <string>
 #include <vector>
 
+class File_path;
+
 /** holds a list of Source_files, which are assumed to be protected
     objects. On destruction, unprotect the objects.
  */

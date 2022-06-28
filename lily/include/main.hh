@@ -19,7 +19,7 @@
 #ifndef MAIN_HH
 #define MAIN_HH
 
-#include "flower-proto.hh" // For File_path
+#include "file-path.hh"
 
 #include <string>
 #include <vector>
