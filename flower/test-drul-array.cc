@@ -23,6 +23,29 @@
 
 class Drul_array_test
 {
+public:
+  static constexpr void test_access_const_unchecked ()
+  {
+    const Drul_array<int> arr {12, 34};
+    EQUAL (12, arr.front ());
+    EQUAL (34, arr.back ());
+  }
+
+  static constexpr void test_access_mutable_unchecked ()
+  {
+    Drul_array<int> arr {12, 34};
+
+    ++arr.front ();
+
+    EQUAL (13, arr.front ());
+    EQUAL (34, arr.back ());
+
+    --arr.back ();
+
+    EQUAL (13, arr.front ());
+    EQUAL (33, arr.back ());
+  }
+
   static void test_init_default_int ()
   {
     constexpr Drul_array<int> arr;
@@ -80,23 +103,32 @@ class Drul_array_test
     static_assert (arr.front () == 12, "");
     static_assert (arr.back () == 34, "");
   }
+
+  static constexpr void test_scaling ()
+  {
+    Drul_array<int> arr {12, 34};
+
+    scale_drul (&arr, 2);
+
+    EQUAL (24, arr.front ());
+    EQUAL (68, arr.back ());
+  }
 };
 
-TEST (Drul_array_test, const_access)
+TEST (Drul_array_test, access_const_checked)
 {
-  constexpr Drul_array<int> arr {12, 34};
+  const Drul_array<int> arr {12, 34};
 
   EQUAL (12, arr.at (LEFT));
   EQUAL (34, arr.at (RIGHT));
 
   EQUAL (12, arr[LEFT]);
   EQUAL (34, arr[RIGHT]);
-
-  EQUAL (12, arr.front ());
-  EQUAL (34, arr.back ());
 }
 
-TEST (Drul_array_test, mutable_access)
+static_assert ((Drul_array_test::test_access_const_unchecked (), true), "");
+
+TEST (Drul_array_test, access_mutable_checked)
 {
   Drul_array<int> arr {12, 34};
 
@@ -109,24 +141,8 @@ TEST (Drul_array_test, mutable_access)
 
   EQUAL (11, arr.at (LEFT));
   EQUAL (35, arr.at (RIGHT));
-
-  ++arr.front ();
-
-  EQUAL (12, arr.front ());
-  EQUAL (35, arr.back ());
-
-  --arr.back ();
-
-  EQUAL (12, arr.front ());
-  EQUAL (34, arr.back ());
 }
 
-TEST (Drul_array_test, scaling)
-{
-  Drul_array<int> arr {12, 34};
+static_assert ((Drul_array_test::test_access_mutable_unchecked (), true), "");
 
-  scale_drul (&arr, 2);
-
-  EQUAL (24, arr[LEFT]);
-  EQUAL (68, arr[RIGHT]);
-}
+static_assert ((Drul_array_test::test_scaling (), true), "");

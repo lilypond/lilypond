@@ -47,13 +47,13 @@ public:
 
   T &at (Direction d)
   {
-    assert (d);
+    assert (d); // constexpr in C++17
     return array_[d > CENTER];
   }
 
   T const &at (Direction d) const
   {
-    assert (d);
+    assert (d); // constexpr in C++17
     return array_[d > CENTER];
   }
 
@@ -67,7 +67,7 @@ public:
     return at (d);
   }
 
-  T &front () // at (Direction::negative ())
+  constexpr T &front () // at (Direction::negative ())
   {
     return array_[0];
   }
@@ -77,7 +77,7 @@ public:
     return array_[0];
   }
 
-  T &back () // at (Direction::positive ())
+  constexpr T &back () // at (Direction::positive ())
   {
     return array_[1];
   }
@@ -90,7 +90,7 @@ public:
 };
 
 template<class T1, class T2>
-void
+constexpr void
 scale_drul (Drul_array<T1> *dr, T2 x)
 {
   dr->front () *= x;
