@@ -940,7 +940,7 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_SUBST(program_suffix)
 
     AC_SUBST(PLATFORM_WINDOWS)
-    STEPMAKE_PROGS(WINDRES, $target-windres $host-windres windres, x)
+    STEPMAKE_PROGS(WINDRES, $host-windres windres, x)
     AC_SUBST(WINDRES)
 ])
 
