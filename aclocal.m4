@@ -210,12 +210,6 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
 
     if test "$optimise_b" = yes; then
         OPTIMIZE=" -O2 -finline-functions"
-        # following two lines are compatibility while Patchy has not
-        # yet learnt about --enable-checking.  But once it has, we
-        # don't want -DDEBUG twice, so we omit it here if it is going
-        # to get added anyway later.
-    elif test "$checks_b" != yes; then
-        DEFINES="$DEFINES -DDEBUG"
     fi
 
     if test "$checks_b" = yes; then
