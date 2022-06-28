@@ -21,6 +21,8 @@
 #include "beaming-pattern.hh"
 #include "misc.hh"
 
+#include <cstdint>
+
 using std::vector;
 
 /*
@@ -203,7 +205,7 @@ find_location (SCM grouping, Rational base_moment, Rational start_moment,
 
   while (*next_group_pos < *next_beat_pos)
     {
-      I64 group_count = 1;  //default -- 1 base moments in a beam
+      int64_t group_count = 1;  //default -- 1 base moments in a beam
       if (scm_is_pair (grouping))
         {
           group_count = scm_to_int (scm_car (grouping));
@@ -212,7 +214,7 @@ find_location (SCM grouping, Rational base_moment, Rational start_moment,
 
       // If we have a tuplet, the count should be determined from
       // the maximum tuplet size for beamed tuplets.
-      U64 tuplet_number = factor.den ();
+      uint64_t tuplet_number = factor.den ();
       if (tuplet_number > 1U)
         {
           // We use 1/8 as the base moment for the tuplet because it's
@@ -233,7 +235,7 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
   Rational next_group_pos;
   Rational next_beat_pos (options.base_moment_);
   Rational tuplet_start = -1;
-  I64 tuplet_number = 1;
+  int64_t tuplet_number = 1;
 
   SCM grouping = options.grouping_;
   vsize i = 0;

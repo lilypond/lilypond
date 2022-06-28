@@ -29,8 +29,6 @@ class Offset;
 class Rational;
 
 using Byte = uint8_t; // C++17 has std::byte
-using I64 = int64_t;
-using U64 = uint64_t;
 
 typedef size_t vsize;
 static constexpr vsize VPOS (-1);

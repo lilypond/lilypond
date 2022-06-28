@@ -19,6 +19,8 @@
 
 #include "moment.hh"
 
+#include <cstdint>
+
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
            1, 3, 0, (SCM m, SCM g, SCM gn, SCM gd),
@@ -60,8 +62,8 @@ timing.
   LY_ASSERT_TYPE (scm_is_integer, m, 1);
   LY_ASSERT_TYPE (scm_is_integer, g, 2);
   LY_ASSERT_TYPE (scm_is_integer, gn, 3);
-  I64 grace_num = scm_to_int64 (gn);
-  I64 grace_den = 1;
+  int64_t grace_num = scm_to_int64 (gn);
+  int64_t grace_den = 1;
   if (!SCM_UNBNDP (gd))
     {
       LY_ASSERT_TYPE (scm_is_integer, gd, 4);

@@ -21,8 +21,9 @@
 #define RATIONAL_HH
 
 #include "compare.hh"
-#include "flower-proto.hh"
 #include "std-string.hh"
+
+#include <cstdint>
 #include <limits.h>
 
 /**
@@ -39,11 +40,12 @@ class Rational
      0 if *this is zero.
   */
   int sign_;
-  U64 num_, den_;
+  uint64_t num_;
+  uint64_t den_;
 
 private:
   // n.b. can be used to intialize abnormally
-  constexpr Rational (int sign, U64 num, U64 den)
+  constexpr Rational (int sign, uint64_t num, uint64_t den)
     : sign_ (sign), num_ (num), den_ (den)
   {
   }
@@ -51,13 +53,13 @@ private:
   void normalize ();
 
 public:
-  I64 numerator () const { return sign_ * static_cast<I64> (num_); }
-  I64 denominator () const { return static_cast<I64> (den_); }
-  I64 num () const { return numerator (); }
-  I64 den () const { return denominator (); }
+  int64_t numerator () const { return sign_ * static_cast<int64_t> (num_); }
+  int64_t denominator () const { return static_cast<int64_t> (den_); }
+  int64_t num () const { return numerator (); }
+  int64_t den () const { return denominator (); }
 
   // n.b. not valid for infinities
-  I64 trunc_int () const;
+  int64_t trunc_int () const;
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;
@@ -89,7 +91,7 @@ public:
   Rational (unsigned long long);
 
   // n.b. {0, 0} is treated as zero rather than NaN
-  explicit Rational (I64, I64);
+  explicit Rational (int64_t, int64_t);
 
   explicit Rational (double);
   Rational (Rational const &r) = default;

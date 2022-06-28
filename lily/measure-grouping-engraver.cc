@@ -26,6 +26,8 @@
 
 #include "translator.icc"
 
+#include <cstdint>
+
 class Measure_grouping_engraver : public Engraver
 {
 public:
@@ -84,7 +86,7 @@ Measure_grouping_engraver::process_music ()
 
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-           where += Rational (from_scm<I64> (scm_car (s))) * base_moment,
+           where += Rational (from_scm<int64_t> (scm_car (s))) * base_moment,
            s = scm_cdr (s))
         {
           int grouplen = scm_to_int (scm_car (s));

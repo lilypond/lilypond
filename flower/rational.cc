@@ -19,9 +19,12 @@
 
 #include "rational.hh"
 
-#include <cmath>
+#include "real.hh"
+
 #include <cassert>
+#include <cmath>
 #include <cstdlib>
+#include <string>
 #include <utility>
 
 using std::string;
@@ -49,11 +52,11 @@ Rational::abs () const
   return Rational (::abs (sign_), num_, den_);
 }
 
-I64
+int64_t
 Rational::trunc_int () const
 {
-  U64 i = num_ / den_;
-  return static_cast<I64> (i) * sign_;
+  uint64_t i = num_ / den_;
+  return static_cast<int64_t> (i) * sign_;
 }
 
 Rational
@@ -64,14 +67,14 @@ Rational::trunc_rat () const
   return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }
 
-Rational::Rational (I64 n, I64 d)
+Rational::Rational (int64_t n, int64_t d)
 {
   // use sign of n when d=0
   sign_ = ::sign (n) * (std::signbit (d) ? -1 : 1);
-  num_ = static_cast<U64> (::abs (n));
+  num_ = static_cast<uint64_t> (::abs (n));
   if (n || d)
     {
-      den_ = static_cast<U64> (::abs (d));
+      den_ = static_cast<uint64_t> (::abs (d));
       normalize ();
     }
   else
@@ -86,7 +89,7 @@ Rational::Rational (I64 n, I64 d)
 Rational::Rational (long long n)
 {
   sign_ = ::sign (n);
-  num_ = static_cast<U64> (::abs (n));
+  num_ = static_cast<uint64_t> (::abs (n));
   den_ = 1;
 }
 
@@ -117,18 +120,18 @@ Rational::mod_rat (Rational div) const
 /*
   copy & paste from scm_gcd (GUILE).
  */
-static I64
-gcd (I64 u, I64 v)
+static int64_t
+gcd (int64_t u, int64_t v)
 {
-  I64 result = 0;
+  int64_t result = 0;
   if (u == 0)
     result = v;
   else if (v == 0)
     result = u;
   else
     {
-      I64 k = 1;
-      I64 t;
+      int64_t k = 1;
+      int64_t t;
       /* Determine a common factor 2^k */
       while (!(1 & (u | v)))
         {
@@ -177,7 +180,7 @@ Rational::normalize ()
         }
       else
         {
-          I64 g = gcd (num_, den_);
+          int64_t g = gcd (num_, den_);
 
           num_ /= g;
           den_ /= g;
@@ -211,8 +214,8 @@ Rational::compare (Rational const &r, Rational const &s)
   else if (r.sign_ == 0) // here s.sign_ is also zero
     return 0;
 
-  U64 left = r.num_ * s.den_;
-  U64 right = s.num_ * r.den_;
+  uint64_t left = r.num_ * s.den_;
+  uint64_t right = s.num_ * r.den_;
   if (left < right)
     {
       return -r.sign_;
@@ -251,12 +254,12 @@ Rational::operator += (Rational r)
     *this = r;
   else
     {
-      I64 lcm = (den_ / gcd (r.den_, den_)) * r.den_;
-      I64 n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
-      I64 d = lcm;
+      int64_t lcm = (den_ / gcd (r.den_, den_)) * r.den_;
+      int64_t n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
+      int64_t d = lcm;
       sign_ = ::sign (n) * ::sign (d);
-      num_ = static_cast<U64> (::abs (n));
-      den_ = static_cast<U64> (::abs (d));
+      num_ = static_cast<uint64_t> (::abs (n));
+      den_ = static_cast<uint64_t> (::abs (d));
       normalize ();
     }
   return *this;
@@ -296,8 +299,8 @@ Rational::Rational (double x)
         easily.
       */
 
-      num_ = static_cast<U64> (mantissa * FACT);
-      den_ = static_cast<U64> (FACT);
+      num_ = static_cast<uint64_t> (mantissa * FACT);
+      den_ = static_cast<uint64_t> (FACT);
       normalize ();
       if (expt < 0)
         den_ <<= -expt;
