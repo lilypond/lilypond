@@ -49,7 +49,8 @@ $(outdir)/bytecode-default.dummy: $(SCM_FILES)
 	mkdir -p $(outdir)
 	touch $@
 
-default: $(outdir)/bytecode-default.dummy
+.PHONY: no-bytecode
+no-bytecode: $(outdir)/bytecode-default.dummy
 
 bytecode_installation_dir = $(local_lilypond_libdir)/ccache/lily
 
@@ -57,3 +58,15 @@ bytecode_installation_dir = $(local_lilypond_libdir)/ccache/lily
 install-bytecode:
 	-$(INSTALLPY) -d $(DESTDIR)$(bytecode_installation_dir)
 	$(INSTALLPY) -m 644 $(wildcard $(outdir)/*.go) $(DESTDIR)$(bytecode_installation_dir)/
+
+ifeq ($(BYTECODE),yes)
+  default: bytecode
+
+  local-install: install-bytecode
+
+else
+  default: no-bytecode
+
+  local-install:
+
+endif # BYTECODE
