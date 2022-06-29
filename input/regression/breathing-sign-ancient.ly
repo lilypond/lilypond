@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.12"
 
 \header{
   texidoc="
@@ -10,8 +10,20 @@ finalis, the latter three looking similar to bar glyphs.
 
 \include "gregorian.ly"
 
-\context VaticanaStaff {
-  \relative {
+\layout {
+  \context {
+    \Staff
+    \remove Bar_engraver
+    breathMarkType = #'varcomma % Gregorian \caesura
+  }
+
+  \context {
+    \Voice
+    \remove Stem_engraver
+  }
+}
+
+ancientmus = \relative {
     % here is no \breathe
     c' g c
 
@@ -35,64 +47,30 @@ finalis, the latter three looking similar to bar glyphs.
     % this one looks almost like a "||" type bar
     \finalis
   }
+
+\context VaticanaStaff {
+  \ancientmus
 }
 
 mus = \relative {
   \clef tenor
-  c' g c
-  c \virgula g c
-  c \caesura g c
-  c \divisioMinima g c
-  c \divisioMaior g c
-  c \divisioMaxima g c
-  \finalis
+  \ancientmus
 }
 
-\new Staff \with {
-  \remove Bar_engraver
-} {
-  \context Voice \with {
-    \remove Stem_engraver
-  } {
-    \mus
-} }
+\new Staff \mus
 
 \new Staff \with {
   \override StaffSymbol.line-positions = #'(-2 0 2 4)
-  \remove Bar_engraver
-} {
-  \context Voice \with {
-    \remove Stem_engraver
-  } {
-    \mus
-} }
+} \mus
 
 \new Staff \with {
   \override StaffSymbol.line-count = #6
-  \remove Bar_engraver
-} {
-  \context Voice \with {
-    \remove Stem_engraver
-  } {
-    \mus
-} }
+} \mus
 
 \new Staff \with {
   \override StaffSymbol.line-count = #2
-  \remove Bar_engraver
-} {
-  \context Voice \with {
-    \remove Stem_engraver
-  } {
-    \mus
-} }
+} \mus
 
 \new Staff \with {
   \override StaffSymbol.line-positions = #'(-4 -2 2 5)
-  \remove Bar_engraver
-} {
-  \context Voice \with {
-    \remove Stem_engraver
-  } {
-    \mus
-} }
+} \mus

@@ -97,12 +97,6 @@ cavum =
 %
 % Declare divisiones shortcuts.
 %
-caesura = {
-  \once \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
-  \once \override BreathingSign.extra-spacing-height =
-  #item::extra-spacing-height-including-staff
-  #(make-music 'CaesuraEvent)
-}
 virgula = {
   \once \set breathMarkType = #'comma
   \caesura

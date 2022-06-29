@@ -358,6 +358,15 @@ breathe =
    (_i "Insert a breath mark.")
    (make-music 'BreathingEvent))
 
+%% \caesura is defined as a music function rather than an event identifier to
+%% ensure it gets useful input location information: as an event identifier,
+%% it would have to be wrapped in an EventChord to prevent it from being
+%% treated as a post_event by the parser
+caesura =
+#(define-music-function () ()
+   (_i "Insert a caesura.")
+   (make-music 'CaesuraEvent))
+
 clef =
 #(define-music-function (type) (string?)
    (_i "Set the current clef to @var{type}.")

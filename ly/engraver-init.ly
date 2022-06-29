@@ -135,6 +135,10 @@ multiple ancient notation schemes."
   doubleRepeatBarType = "||" %% TODO: research break visibility
   endRepeatBarType = "||"
 
+  \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
+  \override BreathingSign.extra-spacing-height =
+    #item::extra-spacing-height-including-staff
+
   breathMarkType = #'varcomma % default for \caesura
 
   %% Accidentals are valid only once (same as

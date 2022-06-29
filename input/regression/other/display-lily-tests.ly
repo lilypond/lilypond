@@ -170,7 +170,7 @@ are reported on the stderr of this run."
 \test ##[ { c4\startGroup c4\stopGroup c4^\startGroup c4^\stopGroup c4_\startGroup c4_\stopGroup } #]    % NoteGroupingEvent
 \test ##[ { c4\unaCorda c4\treCorde } #]		% UnaCordaEvent
 \test ##[ \breathe #]                                   % BreathingEvent
-\test "\\caesura" ##[ #(make-music 'CaesuraEvent) #]    % TODO: ##[ \caesura #]
+\test ##[ \caesura #]                                   % CaesuraEvent
 \test ##[ { c4 \[ c4 \] } #]				% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
 \test ##[ \- #]						% DurationLineEvent
