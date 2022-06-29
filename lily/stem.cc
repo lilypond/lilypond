@@ -576,24 +576,27 @@ Stem::calc_positioning_done (SCM smob)
         {
           if (parity)
             {
-              Real ell = heads[i]->extent (heads[i], X_AXIS).length ();
+              // Don't include the glyph's 'breapth' value.
+              Real ell = heads[i]->extent (heads[i], X_AXIS).right ();
 
               Direction d = get_grob_direction (me);
               /*
-                Reversed head should be shifted ell-thickness, but this
-                looks too crowded, so we only shift ell-0.5*thickness.
+                Reversed heads (i.e., heads on the other side of the
+                stem) should be shifted by `ell - thickness`, but this
+                looks too crowded, so we only shift by `ell -
+                0.5*thickness`.
 
-                This leads to assymetry: Normal heads overlap the
-                stem 100% whereas reversed heads only overlaps the
-                stem 50%
+                This leads to an asymmetry: Normal heads overlap the
+                stem by 100%, whereas reversed heads only overlap by
+                50%.
               */
               Real reverse_overlap = 0.5;
 
               /*
                 However, the first reverse head has to be shifted even
-                more than the full reverse overlap if it is the same
-                height as the first head or there will be a gap
-                because of the head slant (issue 346).
+                less if it has the same vertical position as the first
+                head, or there will be a gap because of the head slant
+                (issue 346).
               */
 
               if (i == 1 && dy < 0.1)
@@ -601,14 +604,32 @@ Stem::calc_positioning_done (SCM smob)
 
               if (is_invisible (me))
                 {
-                  // Semibreves and longer are tucked in considerably
-                  // to be recognizable as chorded rather than
-                  // parallel voices.  During the course of issue 346
-                  // there was a discussion to change this for unisons
-                  // (dy < 0.1) to reduce overlap but without reaching
-                  // agreement and with Gould being rather on the
-                  // overlapping front.
-                  reverse_overlap = 2;
+                  if (duration_log (me) >= 0)
+                    {
+                      /*
+                        Semibreves are positioned considerably nearer
+                        to be recognizable as part of the chord rather
+                        than being a parallel voice.  During the
+                        course of issue 346 there was a discussion to
+                        change this for unisons (i.e., dy < 0.1) to
+                        reduce overlap but without reaching agreement,
+                        and with Gould being rather on the overlapping
+                        front.
+                      */
+                      reverse_overlap = 2;
+                    }
+                  else
+                    {
+                      /*
+                        Breves and longer are offset 'exactly' so that
+                        the vertical lines to the left and right of
+                        the note heads align.  This is guaranteed by
+                        the glyphs themselves: the left vertical
+                        line(s) are in the 'breapth' area, touching
+                        the horizontal origin.
+                      */
+                      reverse_overlap = 0;
+                    }
                 }
 
               heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
