@@ -5,9 +5,20 @@ This chapter discusses miscellaneous administrative issues which
 don't fit anywhere else.
 
 @menu
+* LilyPond is GNU Software::
 * Environment variables::
 * Performing yearly copyright update (grand-replace)::
 @end menu
+
+
+@node LilyPond is GNU Software
+@section LilyPond is GNU Software
+
+LilyPond is a GNU software package.  As such, it falls under the
+requirements found in the
+@uref{https://www.gnu.org/@/prep/@/standards/,GNU Coding
+Standards}.  All suggested changes should move toward increased
+compliance with these Standards.
 
 
 @node Environment variables
