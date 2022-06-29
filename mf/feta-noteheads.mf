@@ -82,22 +82,26 @@ def draw_longa (expr up) =
   stemthick# = 2 stafflinethickness#;
   define_whole_blacker_pixels (stemthick);
 
-  % Longas of smaller design sizes should have their lines farther
-  % apart (the overlap with notehead ellipsoid should be smaller).
+  % Longae of smaller design sizes should have their lines farther
+  % apart (i.e., the overlap with the notehead ellipsoid should be
+  % smaller).
   fudge = hround (blot_diameter
-          * min (max (-0.15, (0.9 - (20 / (design_size + 4)))), 0.3));
+                  * min (max (-0.15,
+                              0.9 - (20 / (design_size + 4))),
+                         0.3));
 
+  % `draw_outside_ellipse` also sets `width#` and `width`.
   draw_outside_ellipse (1.80, 0, 0.707, 0);
   undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
   pickup pencircle scaled stemthick;
 
-  % Longas of smaller design sizes should have their lines longer.
-  line_length := min (max (0.7, (64/60 - (design_size / 60))), 0.85);
+  % Longae of smaller design sizes should have their lines longer.
+  line_length := min (max (0.7, 64/60 - (design_size / 60)), 0.85);
 
-  % Line lengths between 0.72 and 0.77 are not nice
-  % because they are neither separate nor connected
-  % when there is an interval of fourth.
+  % Line lengths between 0.72 and 0.77 are not nice because they are
+  % neither separate nor connected when there is an interval of a
+  % fourth.
   if line_length < 0.75:
     quanted_line_length := min (0.72, line_length);
   else:
@@ -120,7 +124,7 @@ def draw_longa (expr up) =
     x4 = x3;
     top y4 = h + 3.0 staff_space;
     y3 = y1;
-    boxtop# := staff_space# * (quanted_line_length + 3.0) - stemthick# ;
+    boxtop# := staff_space# * (quanted_line_length + 3.0) - stemthick#;
     boxbot# := staff_space# * quanted_line_length;
   else:
     bot y1 = -d - 3.0 staff_space;
@@ -133,7 +137,7 @@ def draw_longa (expr up) =
     y4 = y2;
     bot y3 = -final_line_length;
     boxtop# := staff_space# * quanted_line_length;
-    boxbot# := staff_space# * (quanted_line_length + 3.0) - stemthick# ;
+    boxbot# := staff_space# * (quanted_line_length + 3.0) - stemthick#;
   fi;
 
   draw_gridline (z1, z2, stemthick);
@@ -168,17 +172,20 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
   stemthick# = line_thickness_multiplier * 2 * stafflinethickness#;
   define_whole_blacker_pixels (stemthick);
 
-  % double-lined breves of smaller design sizes should have
-  % bigger gap between the lines.
+  % Double-lined breves of smaller design sizes should have a bigger
+  % gap between the lines.
   gap# := (0.95 - 0.008 * design_size) * stemthick#;
 
   % Breves of smaller design sizes should have their lines farther
-  % apart (the overlap with notehead ellipsoid should be smaller).
+  % apart (i.e., the overlap with the notehead ellipsoid should be
+  % smaller).
   fudge = hround (blot_diameter
-          * min (max (-0.15,
-                (0.8 - (20 / (design_size + 4)) + .1 linecount)),
-           0.3));
+                  * min (max (-0.15,
+                              0.8 - (20 / (design_size + 4))
+                                + .1 linecount),
+                         0.3));
 
+  % `draw_outside_ellipse` also sets `width#` and `width`.
   draw_outside_ellipse (1.80, 0, 0.707, 0);
   undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
@@ -186,21 +193,21 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
   pickup pencircle scaled stemthick;
 
   % Breves of smaller design sizes should have their lines longer.
-  line_length := min (max (0.7, (64/60 - (design_size / 60))), 0.85);
+  line_length := min (max (0.7, 64/60 - (design_size / 60)), 0.85);
 
-  % Line lengths between 0.72 and 0.77 are not nice
-  % because they are neither separate nor connected
-  % when there is an interval of fourth.
+  % Line lengths between 0.72 and 0.77 are not nice because they are
+  % neither separate nor connected when there is an interval of a
+  % fourth.
   if line_length < 0.75:
     quanted_line_length := min (0.72, line_length);
   else:
     quanted_line_length := max (0.77, line_length);
   fi;
 
-  % If breves are aligned for intervals like a second, they overlap
-  % so that the vertical stems fall together.  To ensure this, the
+  % If breves are aligned for intervals like a second, they overlap so
+  % that the vertical stems fall together.  To ensure this, the
   % 'breapth' value should be the thickness of the left vertical
-  % stem.
+  % stem(s).
   set_char_box (stemthick# * linecount + gap# * (linecount - 1),
                 width# + stemthick# * linecount + gap# * (linecount - 1),
                 staff_space# * quanted_line_length,
@@ -2046,7 +2053,7 @@ def draw_Funk_ti_head (expr width_factor, thickness_factor) =
   ne = unitvector (z2 - z1);
   se = unitvector (z4 - z1);
 
-  nw_dist = (ne rotated 90) * pen_radius ;
+  nw_dist = (ne rotated 90) * pen_radius;
   sw_dist = (se rotated -90) * pen_radius;
 
   save path_a, path_b;
@@ -2221,7 +2228,7 @@ def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
            .. cycle;
 
   charwx := scaling# * (w/2 + solfa_pen_radius);
-  charwy := scaling# * y2 ;
+  charwy := scaling# * y2;
 
   if dir = 1:
     p_in := p_in rotated 180 shifted (w,0);
@@ -2543,7 +2550,7 @@ def draw_Walker_ti_head (expr width_factor, thickness_factor) =
   ne = unitvector (z2 - z1);
   se = unitvector (z3 - z1);
 
-  nw_dist = (ne rotated 90) * pen_radius ;
+  nw_dist = (ne rotated 90) * pen_radius;
   sw_dist = (se rotated -90) * pen_radius;
 
 
