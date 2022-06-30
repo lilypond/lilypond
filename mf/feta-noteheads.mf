@@ -44,7 +44,9 @@ fet_begingroup ("noteheads");
 %
 solfa_noteheight# := staff_space# - stafflinethickness#;
 
-def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance) =
+% OFFSET is needed for breves and longae only.
+def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance,
+                                offset) =
   begingroup
     save pat;
     path pat;
@@ -65,7 +67,7 @@ def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance) =
     height# = staff_space# + stafflinethickness# - clearance;
     scaling# = height# / (2 ypart (top_point));
     define_pixels (scaling);
-    pat := pat scaled scaling shifted (w / 2, .5 (h - d));
+    pat := pat scaled scaling shifted (w / 2 + offset, .5 (h - d));
 
     if test_outlines = 1:
       draw pat;
@@ -91,8 +93,8 @@ def draw_longa (expr up) =
                          0.3));
 
   % `draw_outside_ellipse` also sets `width#` and `width`.
-  draw_outside_ellipse (1.80, 0, 0.707, 0);
-  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
+  draw_outside_ellipse (1.80, 0, 0.707, 0, 0);
+  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, 0);
 
   pickup pencircle scaled stemthick;
 
@@ -186,8 +188,8 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
                          0.3));
 
   % `draw_outside_ellipse` also sets `width#` and `width`.
-  draw_outside_ellipse (1.80, 0, 0.707, 0);
-  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
+  draw_outside_ellipse (1.80, 0, 0.707, 0, 0);
+  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, 0);
 
   define_pixels (gap);
   pickup pencircle scaled stemthick;
@@ -250,9 +252,9 @@ fet_endchar;
 
 
 fet_beginchar ("whole notehead", "s0");
-  draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
+  draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0, 0);
   undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
-                         0.68, 2 stafflinethickness#);
+                         0.68, 2 stafflinethickness#, 0);
 
   whole_notehead_width# := charwd;
 
@@ -261,8 +263,8 @@ fet_endchar;
 
 
 fet_beginchar ("half notehead", "s1");
-  draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
-  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+  draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17, 0);
+  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#, 0);
 
   half_notehead_width# := charwd;
 
@@ -280,25 +282,25 @@ fet_endchar;
 
 
 fet_beginchar ("whole diamondhead", "s0diamond");
-  draw_outside_ellipse (1.80, 0, 0.495, 0);
+  draw_outside_ellipse (1.80, 0, 0.495, 0, 0);
   undraw_inside_ellipse (1.30, 125, 0.6,
-                         .4 staff_space# + stafflinethickness#);
+                         .4 staff_space# + stafflinethickness#, 0);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("half diamondhead", "s1diamond");
-  draw_outside_ellipse (1.50, 34, 0.49, 0.17);
+  draw_outside_ellipse (1.50, 34, 0.49, 0.17, 0);
   undraw_inside_ellipse (3.5, 33, 0.80,
-                         .3 staff_space# + 1.5 stafflinethickness#);
+                         .3 staff_space# + 1.5 stafflinethickness#, 0);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("quarter diamondhead", "s2diamond");
-  draw_outside_ellipse (1.80, 35, 0.495, -0.25);
+  draw_outside_ellipse (1.80, 35, 0.495, -0.25, 0);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -1377,10 +1379,10 @@ fet_endchar;
 %       so we can't just use the standard note font.
 %
 def draw_sol_head (expr filled) =
-  draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
+  draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0, 0);
   if not filled:
     undraw_inside_ellipse (2.5 - puff_up_factor / 3.0, 31, 0.707,
-                           3.5 stafflinethickness#);
+                           3.5 stafflinethickness#, 0);
   fi
   draw_staff_if_debugging (-2, 2);
 enddef;
@@ -1964,9 +1966,9 @@ def draw_Funk_sol_head (expr filled) =
   begingroup
     save noteheight;
     noteheight# := solfa_noteheight#;
-    draw_outside_ellipse (1.2, 34, 0.71, 0.);
+    draw_outside_ellipse (1.2, 34, 0.71, 0, 0);
     if not filled:
-      undraw_inside_ellipse (1.9, 33, 0.74, 5.5 stafflinethickness#);
+      undraw_inside_ellipse (1.9, 33, 0.74, 5.5 stafflinethickness#, 0);
     fi
     draw_staff_if_debugging (-2, 2);
   endgroup
