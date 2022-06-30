@@ -34,6 +34,7 @@ include $(depth)/make/lilypond.make
 .PHONY: test info website
 
 dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
+	$(call ly_progress,Packing,$(DIST_NAME).tar.gz)
 	@if ! test -e  $(top-src-dir)/.git ; \
 	  then echo "***   dist needs a git repository" \
 	    exit 1 ;  \
@@ -47,7 +48,8 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
 	mkdir -p  $(distdir)
 	$(LN) $(RELEASE_OUT_FILES) $(TOPDOC_TXT_FILES) $(distdir)
 	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) $(distdir)
-	cd $(top-src-dir) && git ls-files | xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(distdir)
+	(cd $(top-src-dir) && git ls-files) | \
+		rsync -a --files-from=- --link-dest=$(top-src-dir) $(top-src-dir) $(distdir)
 	chmod -R a+r $(distdir)
 	chmod  a+x `find $(distdir) -type d -print`
 	(cd $(outdir); \
