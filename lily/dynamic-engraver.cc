@@ -41,8 +41,8 @@ class Dynamic_engraver : public Engraver
   void listen_break_span (Stream_event *);
 
 protected:
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
   void finalize () override;
 
 private:

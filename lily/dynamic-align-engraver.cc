@@ -44,7 +44,7 @@ class Dynamic_align_engraver : public Engraver
   void acknowledge_end_dynamic (Grob_info_t<Spanner>);
 
 protected:
-  virtual void stop_translation_timestep ();
+  void stop_translation_timestep ();
 
 private:
   void create_line_spanner (Grob *cause);

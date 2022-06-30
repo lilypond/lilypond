@@ -43,7 +43,7 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  virtual void process_music ();
+  void process_music ();
   void finalize () override;
   void derived_mark () const override;
 
@@ -557,7 +557,7 @@ private:
   // test_moment is false, last_grace_position_ not considered.
   Moment last_grace_start_ {-Rational::infinity ()};
   Moment last_grace_position_; // Measure position of same
-  void process_music () override;
+  void process_music ();
   bool is_same_grace_state (Moment, Moment) override;
   bool test_moment (Direction, Moment, Rational) override;
 };
