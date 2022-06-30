@@ -2260,13 +2260,6 @@ in the sources; WARNING only use this script once for each file, when support fo
 "makeinfo --html" has been dropped.
 @end itemize
 
-Other scripts are used in the build process, in @file{scripts/build/}:
-
-@itemize
-@item @file{mass-link.py} -- link or symlink files between English documentation
-and documentation in other languages.
-@end itemize
-
 Python modules used by scripts in @file{scripts/auxiliar/} or @file{scripts/build/} (but
 not by installed Python scripts) are located in @file{python/auxiliar/}:
 @itemize
