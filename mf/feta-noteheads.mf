@@ -87,14 +87,14 @@ def draw_longa (expr up) =
   % Longae of smaller design sizes should have their lines farther
   % apart (i.e., the overlap with the notehead ellipsoid should be
   % smaller).
-  fudge = hround (blot_diameter
-                  * min (max (-0.15,
-                              0.9 - (20 / (design_size + 4))),
-                         0.3));
+  fudge# = blot_diameter# * min (max (-0.15,
+                                      0.9 - (20 / (design_size + 4))),
+                                 0.3);
+  define_whole_pixels (fudge);
 
   % `draw_outside_ellipse` also sets `width#` and `width`.
-  draw_outside_ellipse (1.80, 0, 0.707, 0, 0);
-  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, 0);
+  draw_outside_ellipse (1.80, 0, 0.707, 0, -fudge);
+  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, -fudge);
 
   pickup pencircle scaled stemthick;
 
@@ -110,7 +110,6 @@ def draw_longa (expr up) =
     quanted_line_length := max (0.77, line_length);
   fi;
 
-
   final_line_length := quanted_line_length * staff_space;
 
   save boxtop, boxbot;
@@ -119,10 +118,10 @@ def draw_longa (expr up) =
   if up:
     bot y1 = -final_line_length;
     top y2 = final_line_length;
-    rt x1 - fudge = 0;
+    rt x1 = 0;
     x1 = x2;
 
-    fudge + lft x3 = width;
+    lft x3 = width - 2 fudge;
     x4 = x3;
     top y4 = h + 3.0 staff_space;
     y3 = y1;
@@ -131,10 +130,10 @@ def draw_longa (expr up) =
   else:
     bot y1 = -d - 3.0 staff_space;
     top y2 = final_line_length;
-    rt x1 - fudge = 0;
+    rt x1 = 0;
     x1 = x2;
 
-    fudge + lft x3 = width;
+    lft x3 = width - 2 fudge;
     x4 = x3;
     y4 = y2;
     bot y3 = -final_line_length;
@@ -146,7 +145,7 @@ def draw_longa (expr up) =
   draw_gridline (z3, z4, stemthick);
 
   set_char_box (stemthick#,
-                width# + stemthick#,
+                width# + stemthick# - 2 fudge#,
                 boxbot#,
                 boxtop#);
 
@@ -177,21 +176,21 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
   % Double-lined breves of smaller design sizes should have a bigger
   % gap between the lines.
   gap# := (0.95 - 0.008 * design_size) * stemthick#;
+  define_pixels (gap);
 
   % Breves of smaller design sizes should have their lines farther
   % apart (i.e., the overlap with the notehead ellipsoid should be
   % smaller).
-  fudge = hround (blot_diameter
-                  * min (max (-0.15,
-                              0.8 - (20 / (design_size + 4))
-                                + .1 linecount),
-                         0.3));
+  fudge# = blot_diameter# * min (max (-0.15,
+                                      0.8 - (20 / (design_size + 4))
+                                      + .1 linecount),
+                                 0.3);
+  define_whole_pixels (fudge);
 
   % `draw_outside_ellipse` also sets `width#` and `width`.
-  draw_outside_ellipse (1.80, 0, 0.707, 0, 0);
-  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, 0);
+  draw_outside_ellipse (1.80, 0, 0.707, 0, -fudge);
+  undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#, -fudge);
 
-  define_pixels (gap);
   pickup pencircle scaled stemthick;
 
   % Breves of smaller design sizes should have their lines longer.
@@ -211,16 +210,17 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
   % 'breapth' value should be the thickness of the left vertical
   % stem(s).
   set_char_box (stemthick# * linecount + gap# * (linecount - 1),
-                width# + stemthick# * linecount + gap# * (linecount - 1),
+                width# + stemthick# * linecount
+                  + gap# * (linecount - 1) - 2 fudge#,
                 staff_space# * quanted_line_length,
                 staff_space# * quanted_line_length);
 
   bot y1 = -quanted_line_length * staff_space;
   top y2 = quanted_line_length * staff_space;
-  rt x1 - fudge = 0;
+  rt x1 = 0;
   x1 = x2;
 
-  fudge + lft x3 = width;
+  lft x3 = width - 2 fudge;
   x4 = x3;
   y4 = y2;
   y3 = y1;
