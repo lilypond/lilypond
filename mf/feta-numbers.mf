@@ -550,14 +550,23 @@ def draw_four (expr advance_width, glyph_width, left_bearing,
 enddef;
 
 
-def draw_five (expr advance_width, glyph_width, left_bearing) =
+def draw_five (expr advance_width, glyph_width, left_bearing, plus) =
   save gw, lb;
   save alpha, beta, gamma, delta;
+  save poi; % point of interest
   save inner_t, outer_t;
   save pat;
   path pat;
 
-  set_char_box (0, advance_width, 0, height#);
+  if plus:
+    set_char_box (0,
+                  left_bearing + 0.95 glyph_width + 1/8 thick# % x1r
+                    + plus_size# + 0.5 thin#,
+                  0,
+                  height# + 1/2 plus_size#);
+  else:
+    set_char_box (0, advance_width, 0, height#);
+  fi;
 
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
@@ -565,41 +574,73 @@ def draw_five (expr advance_width, glyph_width, left_bearing) =
   alpha = 0;
   calc_kuulleke (0.9 gw, alpha);
 
-  z1 = (lb + gw / 2 + 1/8 thick, h);
+  z1 = (lb + gw / 2 + 1/8 thick, height);
 
   penpos5 (thin, 0);
-  z5l = (x1l, h - 15/16 thick);
+  z5l = (x1l, height - 15/16 thick);
 
   penpos6 (hair, 90 - 45);
   z6 = z5r + 1/2 hair * dir (-45);
 
   penpos7 (thin, 0);
-  z7l = (x1l, h / 2 + thin - hair);
+  z7l = (x1l, height / 2 + thin - hair);
 
   penlabels (range 1 thru 7);
 
   gamma = angle (length (z1r - z1), 2 kuulleke);
 
-  pat := z2r{dir (alpha - gamma)}
-         .. z4
-         .. {dir (alpha + gamma)}z3l
-         .. z3r{dir (-135)}
-         .. {left}z6r
-         .. {down}z6l
-         -- z7r{down}
-         .. {up}z7l
-         -- z2l{up}
-         .. cycle;
+  if plus:
+    z1'r = (x1r, y1r - thin);
+
+    penpos20 (thin, 90);
+    z20r = (x1r + plus_size, y1r);
+
+    z21 = (hround (0.5 [x1r, x20r]), vround (y20 - plus_size / 2));
+    z22 = (x21, vround (y21 + plus_size));
+
+    penlabels (20);
+    labels (1'r, 21, 22);
+
+    pickup pencircle scaled thin;
+    draw_gridline (z21, z22, thin);
+
+    pat := z2r{dir (alpha - gamma)}
+           .. z4
+           .. {dir (alpha + gamma)}z3l
+           .. {right}z1r
+           -- z20r{right}
+           .. z20l{left}
+           -- z1'r{left}
+           ..tension 1.5 and 0.8.. {left}z6r
+           .. {down}z6l
+           -- z7r{down}
+           .. {up}z7l
+           -- z2l{up}
+           .. cycle;
+    poi := 9;
+  else:
+    pat := z2r{dir (alpha - gamma)}
+           .. z4
+           .. {dir (alpha + gamma)}z3l
+           .. z3r{dir (-135)}
+           .. {left}z6r
+           .. {down}z6l
+           -- z7r{down}
+           .. {up}z7l
+           -- z2l{up}
+           .. cycle;
+    poi := 6;
+  fi;
 
   beta = 45;
   delta = 180 + beta + 10;
   z8r = (x7r, y7r - 1/16 thick + thin);
-  z8l = directionpoint dir (delta) of subpath (6, 7) of pat;
+  z8l = directionpoint dir (delta) of subpath (poi, poi + 1) of pat;
 
   % include intersection point to improve overlap removal
-  fill subpath (0, 6) of pat
+  fill subpath (0, poi) of pat
        .. z8l
-       .. subpath (7, length (pat)) of pat
+       .. subpath (poi + 1, length (pat)) of pat
        .. cycle;
 
   penpos9 (thin, 90);
@@ -623,7 +664,7 @@ def draw_five (expr advance_width, glyph_width, left_bearing) =
        .. z9r{right}
        ..tension outer_t.. z10r{down}
        .. number_flare_path (z11r, 180, -90, hair, flare,
-                             x11l - lb, .18 h, 0.06, 1.5, 1)
+                             x11l - lb, .18 height, 0.06, 1.5, 1)
        .. z11l{right}
        ..tension inner_t.. z10l{up}
        ..tension inner_t.. z9l{left}
@@ -1019,7 +1060,7 @@ fet_endchar;
 fet_beginchar ("numeral 5", "five");
   width_five# := 27/40 height# * widen;
 
-  draw_five (width_five#, width_five#, 0);
+  draw_five (width_five#, width_five#, 0, false);
 fet_endchar;
 
 
@@ -1167,7 +1208,17 @@ fet_beginchar ("figured bass 5", "five");
   width# := 27/40 height# * widen;
   lsb# := 0.7 * (digit_advance# - width#) / 2;
 
-  draw_five (digit_advance#, width#, lsb#);
+  draw_five (digit_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 5 plus", "fiveplus");
+  save width, lsb;
+
+  width# := 27/40 height# * widen;
+  lsb# := 0.7 * (digit_advance# - width#) / 2;
+
+  draw_five (digit_advance#, width#, lsb#, true);
 fet_endchar;
 
 
