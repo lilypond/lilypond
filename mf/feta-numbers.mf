@@ -673,14 +673,20 @@ def draw_five (expr advance_width, glyph_width, left_bearing, plus) =
 enddef;
 
 
-def draw_six (expr advance_width, glyph_width, left_bearing) =
+def draw_six (expr advance_width, glyph_width, left_bearing, stroke) =
   save gw, lb;
-  save outer_t, t;
+  save outer_t, t, sigma, tau;
   save before, after, u, v;
   path before, after;
 
-  set_char_box (0, advance_width, 0, height#);
+  if stroke:
+    set_char_box (0, advance_width + 0.5 thin#,
+                  0, 1.15 height# + 0.5 thin#);
+  else:
+    set_char_box (0, advance_width, 0, height#);
+  fi;
 
+  aw := hround_pixels (advance_width);
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
 
@@ -704,10 +710,6 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
   penpos4 (hair, -90);
   z4r = (x2, 0);
 
-  penpos6 (hair, 90);
-  x6r = lb + .56 gw;
-  y6r = height;
-
   penpos7 (thick, 180);
   x7r = lb;
   y7r = .5 height;
@@ -715,23 +717,50 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
   penpos10 (thick, 180);
   z10r = (lb, y3);
 
-  penlabels (range 1 thru 10);
-
   outer_t = 0.88;
   t := tense;
 
   before := z10{up}
             .. z2r{right};
-  after := z7r{up}
-           .. number_flare_path (z6r, 0, -90, hair, flare,
-                                 lb + 0.96 gw - x6r,
-                                 .16 height, 0.05, 2.5, 1)
-           .. z7l{down}
-           -- z10l;
+
+  if stroke:
+    sigma := 100;
+    penpos6 (thin, sigma);
+    z6 = (aw, 1.05 height);
+    after := z7r{up}
+             .. z6r{dir (sigma - 90)}
+             .. z6l{dir (sigma + 90)}
+             ..tension 1 and 0.75.. z7l{down}
+             -- z10l;
+
+    z11 = (x6 - 0.55 aw, y6 + 0.1 height);
+    z12 = (x6 - 0.05 aw, y6 - 0.3 height);
+    tau = angle (z12 - z11);
+    penpos11 (thin, tau + 90);
+    penpos12 (thin, tau + 90);
+
+    fill z11r{dir (tau)}
+         -- z12r{dir (tau)}
+         .. z12l{dir (tau + 180)}
+         -- z11l{dir (tau + 180)}
+         .. cycle;
+  else:
+    penpos6 (hair, 90);
+    x6r = lb + .56 gw;
+    y6r = height;
+
+    after := z7r{up}
+             .. number_flare_path (z6r, 0, -90, hair, flare,
+                                   lb + 0.96 gw - x6r,
+                                   .16 height, 0.05, 2.5, 1)
+             .. z7l{down}
+             -- z10l;
+  fi;
+
   (u, v) = before intersectiontimes after;
 
   % draw
-  fill subpath (u, infinity) of before
+  fill subpath (u, length before) of before
        ..tension outer_t.. z3r{down}
        ..tension outer_t.. z4r{left}
        .. subpath (0, v) of after
@@ -742,6 +771,8 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
          ..tension t.. z4l{left}
          ..tension t.. z10l{up}
          ..tension t.. cycle;
+
+  penlabels (range 1 thru 12);
 enddef;
 
 
@@ -921,7 +952,7 @@ enddef;
 
 
 def draw_nine (expr advance_width, glyph_width, left_bearing) =
-  draw_six (advance_width, glyph_width, left_bearing);
+  draw_six (advance_width, glyph_width, left_bearing, false);
 
 % xy_mirror_char;
   currentpicture := currentpicture scaled -1;
@@ -1078,7 +1109,7 @@ fet_endchar;
 fet_beginchar ("numeral 6", "six");
   width_six# := .68 height# * widen;
 
-  draw_six (width_six#, width_six#, 0);
+  draw_six (width_six#, width_six#, 0, false);
 fet_endchar;
 
 
@@ -1239,7 +1270,17 @@ fet_beginchar ("figured bass 6", "six");
   width# := .68 height# * widen;
   lsb# := (digit_advance# - width#) / 2;
 
-  draw_six (digit_advance#, width#, lsb#);
+  draw_six (digit_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass stroked 6", "sixstroked");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_six (digit_advance#, width#, lsb#, true);
 fet_endchar;
 
 
