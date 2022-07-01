@@ -451,11 +451,16 @@ enddef;
 
 
 def draw_four (expr advance_width, glyph_width, left_bearing,
-                    short_stem) =
+                    short_stem, plus) =
   save gw, lb;
   save alpha, beta, gamma;
 
-  set_char_box (0, advance_width, 0, height#);
+  if plus:
+    set_char_box (0, left_bearing + glyph_width + plus_size#,
+                  0, height#);
+  else:
+    set_char_box (0, advance_width, 0, height#);
+  fi;
 
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
@@ -473,12 +478,22 @@ def draw_four (expr advance_width, glyph_width, left_bearing,
 
   penpos7 (thin, -90);
   y7 = y6;
-  x7 = lb + gw - 1/2 thin;
+  if plus:
+    x7 = lb + gw - 1/2 thin + plus_size;
+
+    z11 = (hround (x7 - plus_size / 2), vround (y7 - plus_size / 2));
+    z12 = (x11, vround (y11 + plus_size));
+
+    pickup pencircle scaled thin;
+    draw_gridline (z11, z12, thin);
+  else:
+    x7 = lb + gw - 1/2 thin;
+  fi;
 
   penpos8 (thin, -alpha);
   z8r = z5;
 
-  penlabels (range 1 thru 8);
+  penlabels (range 1 thru 12);
 
   gamma = angle (length (z1r - z1), 2 kuulleke);
 
@@ -529,6 +544,7 @@ def draw_four (expr advance_width, glyph_width, left_bearing,
        .. cycle;
 
   penlabels (1, 2, 3, 4, 5);
+  labels (11, 12);
 
   draw_foot (x5);
 enddef;
@@ -996,7 +1012,7 @@ fet_endchar;
 fet_beginchar ("numeral 4", "four");
   width_four# := 4/5 height# * widen;
 
-  draw_four (width_four#, width_four#, 0, false);
+  draw_four (width_four#, width_four#, 0, false, false);
 fet_endchar;
 
 
@@ -1131,7 +1147,17 @@ fet_beginchar ("figured bass 4", "four");
   width# := 4/5 height# * widen;
   lsb# := (digit_advance# - width#) / 2;
 
-  draw_four (digit_advance#, width#, lsb#, true);
+  draw_four (digit_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 4 plus", "fourplus");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_four (digit_advance#, width#, lsb#, true, true);
 fet_endchar;
 
 
@@ -1200,7 +1226,7 @@ fet_begingroup ("fingering");
 fet_beginchar ("fingering 4", "four");
   width_four# := 4/5 height# * widen;
 
-  draw_four (width_four#, width_four#, 0, true);
+  draw_four (width_four#, width_four#, 0, true, false);
 fet_endchar;
 
 
