@@ -275,7 +275,7 @@ def draw_one (expr advance_width, left_bearing) =
 enddef;
 
 
-def draw_two (expr advance_width, glyph_width, left_bearing) =
+def draw_two (expr advance_width, glyph_width, left_bearing, plus) =
   save gw, lb;
 
   save tolerance;
@@ -285,7 +285,14 @@ def draw_two (expr advance_width, glyph_width, left_bearing) =
   path pata, patb, bow;
   numeric ta, tb;
 
-  set_char_box (0, advance_width, 0, height#);
+  if plus:
+    set_char_box (0,
+                  left_bearing + 0.95 glyph_width % x2'r
+                    + plus_size# + 0.5 thin#,
+                  1/2 plus_size# - 3/4 thin#, height#);
+  else:
+    set_char_box (0, advance_width, 0, height#);
+  fi;
 
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
@@ -298,31 +305,12 @@ def draw_two (expr advance_width, glyph_width, left_bearing) =
   penpos1 (hair, 90 + beta);
   z1 = (lb, 0) + (1/2 sqrt (2) * hair) * dir (45);
 
-  penpos3 (hair,90 + gamma);
+  penpos3 (hair, 90 + gamma);
   z3 = (lb + gw, thick) + (1/2 sqrt (2) * hair) * dir (-135);
 
   penpos2 (thick, 90 + alpha - 15);
   x2 - x1 = x3 - x2;
   y2 = 10/16 thick / widen;
-
-  tolerance := epsilon;
-
-  % Find proper tension to exactly touch the x axis.
-  % Later on we directly use `bow'.
-  vardef f (expr t) =
-    bow := z3l{dir (180 + gamma)}
-           ..tension t.. {dir (180 + alpha -5)}z2l;
-    ypart (directionpoint left of bow) < 0
-  enddef;
-
-  % the return value of `solve' is stored in a dummy variable
-  t = solve f (0.8, 1.2);
-
-  pata := subpath (0.1, 5) of z1r{dir (beta)}
-          ..tension 0.9.. {dir (alpha + 10)}z2r
-          .. {dir (gamma)}z3r
-          .. bow
-          .. {dir (180 + beta)}z1l;
 
   penpos4 (thick, 0);
   z4r = (lb + 0.95 gw, .71 h);
@@ -331,7 +319,52 @@ def draw_two (expr advance_width, glyph_width, left_bearing) =
   y5r = h;
   x5r = lb + 9/20 gw;
 
-  penlabels (range 1 thru 6);
+  tolerance := epsilon;
+
+  % Find proper tension to exactly touch the x axis.
+  % Later on we directly use `bow'.
+  vardef f (expr t) =
+    bow := z3l{dir (180 + gamma)}
+           ..tension t.. {dir (180 + alpha - 5)}z2l;
+    ypart (directionpoint left of bow) < 0
+  enddef;
+
+  % the return value of `solve' is stored in a dummy variable
+  t = solve f (0.8, 1.2);
+
+  if plus:
+    z10 = directionpoint left of bow;
+
+    penpos2' (thin, 90);
+    penpos3' (thin, 90);
+    z2'l = (x4r, 3/4 thin);
+    z3'l = (x2'l + plus_size, 3/4 thin);
+
+    pata := subpath (0.1, 8) of z1r{dir (beta)}
+            ..tension 0.9.. {dir (alpha + 10)}z2r
+            .. z2'r{right}
+            -- z3'r{right}
+            .. z3'l{left}
+            -- z2'l{left}
+            ..tension 0.8.. z10{left}
+            .. {dir (180 + alpha - 5)}z2l
+            .. {dir (180 + beta)}z1l;
+
+    z11 = (hround (0.5 [x2'r, x3'r]), vround (y3' - plus_size / 2));
+    z12 = (x11, vround (y11 + plus_size));
+
+    pickup pencircle scaled thin;
+    draw_gridline (z11, z12, thin);
+  else:
+    pata := subpath (0.1, 5) of z1r{dir (beta)}
+            ..tension 0.9.. {dir (alpha + 10)}z2r
+            .. {dir (gamma)}z3r
+            .. bow
+            .. {dir (180 + beta)}z1l;
+  fi;
+
+  penlabels (range 1 thru 5, 2', 3');
+  labels (10, 11, 12);
 
   t := tense;
 
@@ -949,7 +982,7 @@ fet_endchar;
 fet_beginchar ("numeral 2", "two");
   width_two# := 22/30 height# * widen;
 
-  draw_two (width_two#, width_two#, 0);
+  draw_two (width_two#, width_two#, 0, false);
 fet_endchar;
 
 
@@ -1017,12 +1050,14 @@ fet_begingroup ("figbass");
 % mainly used for time signatures) to increase legibility at small
 % sizes.
 
-save thin, hair;
+save thin, hair, plus_size;
 
 thin# := 1.5 (thick# / 4 * fatten + max (.1 (height# / 10 - 1), 0));
 hair# := thin# * .8;
-
 define_whole_pixels (thin, hair);
+
+plus_size# := 7/20 height#;
+define_whole_pixels (plus_size);
 
 
 save digit_advance;
@@ -1066,7 +1101,17 @@ fet_beginchar ("figured bass 2", "two");
   width# := 22/30 height# * widen;
   lsb# := (digit_advance# - width#) / 2;
 
-  draw_two (digit_advance#, width#, lsb#);
+  draw_two (digit_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass 2 plus", "twoplus");
+  save width, lsb;
+
+  width# := 22/30 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_two (digit_advance#, width#, lsb#, true);
 fet_endchar;
 
 
