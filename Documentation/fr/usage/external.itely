@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 5e8252fc0b40f07cb68471ac9d987ea090023bcb
+   Translation of GIT committish: a2f027a68c97fe9bebade2e873419c6c465bc503
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -74,14 +74,15 @@ terminal et un autre pour la fonctionnalité pointer-cliquer de LilyPond.
 Les éditeurs peuvent recourir à des syntaxes différentes pour ouvrir un
 fichier à une ligne et une colonne spécifiques. LilyPond dispose déjà
 d'un certain nombre de commandes selon les éditeurs, définies dans le
-fichier @file{scm/editor.scm}. Il suffit donc de libeller, par exemple :
+fichier @file{scripts/lilypond-invoke-editor.py}. Il suffit donc de
+libeller, par exemple :
 
 @example
 export LYEDITOR=atom
 @end example
 
 @noindent
-  pour lancer la commande
+pour lancer la commande
 @example
 atom %(file)s:%(line)s:%(column)s
 @end example
@@ -91,10 +92,10 @@ où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
 respectivement remplacés par le fichier, la ligne et la colonne
 considérés.
 
-L'utilisation d'un éditeur non répertorié dans le fichier
-@file{scm/editor.scm} recquiert d'en connaître la syntaxe spécifique et
-d'assigner la commande complète à la variable @code{LYEDITOR}. Voici par
-exemple ce qui convient à l'éditeur Visual Studio Code :
+L'utilisation d'un éditeur non répertorié dans ce fichier recquiert d'en
+connaître la syntaxe spécifique et d'assigner la commande complète à la
+variable @code{LYEDITOR}. Voici par exemple ce qui convient à l'éditeur
+Visual Studio Code :
 
 @example
 export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
@@ -106,75 +107,19 @@ fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
 d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
 
 @menu
-* Utilisation du pointer-cliquer avec Xpdf::
-* Utilisation du pointer-cliquer avec GNOME 2::
-* Utilisation du pointer-cliquer avec GNOME 3::
+* Utilisation du pointer-cliquer avec GNOME::
 * Configuration spécifique à Evince::
 @end menu
 
 
-@node Utilisation du pointer-cliquer avec Xpdf
-@unnumberedsubsubsec Utilisation avec Xpdf
-@translationof Using Xpdf for point and click
+@node Utilisation du pointer-cliquer avec GNOME
+@unnumberedsubsubsec Utilisation avec GNOME
+@translationof Using GNOME for point and click
 
-@cindex Xpdf
-
-Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans
-le fichier @file{xpdfrc} -- soit @file{/etc/xpdfrc}, soit dans votre
-répertoire personnel @file{$HOME/.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
-
-Dans un environnement Ubuntu, il est fort probable que la version de
-Xpdf installée avec le système plante à l'ouverture de tout fichier PDF
--- c'est un problème connu et persistant depuis plusieurs années et dû à
-des incohérences de bibliothèques.  La solution consiste alors à
-installer une version à jour des paquetages @samp{xpdf} et
-@samp{libpoppler} directement à partir de Debian.  Une fois assuré que
-tout fonctionne correctement, la commande
-
-@example
-sudo apt-mark hold xpdf
-@end example
-
-@noindent
-permet d'empêcher Ubuntu de le remplacer par un paquetage défectueux à
-la prochaine « mise à jour ».
-
-
-@node Utilisation du pointer-cliquer avec GNOME 2
-@unnumberedsubsubsec Utilisation avec GNOME 2
-@translationof Using GNOME 2 for point and click
-
-En ce qui concerne l'environnement GNOME 2 et les lecteur de PDF
-associés, la succession de commandes suivante permet de régler le
-système pour la gestion des URI par @samp{textedit:}
-
-@smallexample
-gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
-gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
-gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
-@end smallexample
-
-Après ces invocations,
-@example
-gnome-open textedit:///etc/issue:1:0:0
-@end example
-
-@noindent
-devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
-
-
-@node Utilisation du pointer-cliquer avec GNOME 3
-@unnumberedsubsubsec Utilisation avec GNOME 3
-@translationof Using GNOME 3 for point and click
-
-En ce qui concerne l'environnement GNOME 3, les URI sont gérés par la
-surcouche « gvfs » au lieu de « gconf ».  Il faut donc créer un fichier
-dans un répertoire local tel que @file{/tmp}, que l'on appelera
-@file{lilypond-invoke-editor.desktop}. Il devra avoir le contenu
+En ce qui concerne l'environnement GNOME, les URI sont gérés par des
+fichers « .desktop ». Il faut donc créer un fichier dans un répertoire
+local tel que @file{/tmp}, que l'on appelera
+@file{lilypond-@/invoke-@/editor.desktop}. Il devra avoir le contenu
 suivant :
 
 @example
@@ -199,7 +144,7 @@ xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
 
 Après cette invocation,
 @example
-gnome-open textedit:///etc/issue:1:0:0
+xdg-open textedit:///etc/issue:1:0:0
 @end example
 
 @noindent
@@ -212,7 +157,7 @@ devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 
 @cindex Evince
 
-Il se peut que, bien que @code{gnome-open} soit fonctionnel, Evince
+Il se peut que, bien que @code{xdg-open} soit fonctionnel, Evince
 refuse d'ouvir les liens pointer-cliquer pour des raisons
 d'autorisation. S'impose alors une modification du profil
 @code{Apparmor} d'Evince ; c'est lui qui contrôle le type d'action
