@@ -981,8 +981,16 @@ def draw_eight (expr advance_width, glyph_width, left_bearing) =
 enddef;
 
 
-def draw_nine (expr advance_width, glyph_width, left_bearing) =
-  draw_six (advance_width, glyph_width, left_bearing, false);
+def draw_nine (expr advance_width, glyph_width, left_bearing, stroke) =
+  draw_six (advance_width, glyph_width, left_bearing, stroke);
+
+  if stroke:
+    % The metrics box has some depth, and the advance width must be
+    % restored to the original, unstroked value to ensure correct
+    % vertical alignment of digit stacks.
+    set_char_box (0, advance_width,
+                  0.15 height# + 0.5 thin#, height#);
+  fi;
 
 % xy_mirror_char;
   currentpicture := currentpicture scaled -1;
@@ -1160,7 +1168,7 @@ fet_endchar;
 fet_beginchar ("numeral 9", "nine");
   width_nine# := .68 height# * widen;
 
-  draw_nine (width_nine#, width_nine#, 0);
+  draw_nine (width_nine#, width_nine#, 0, false);
 fet_endchar;
 
 
@@ -1350,7 +1358,17 @@ fet_beginchar ("figured bass 9", "nine");
   width# := .68 height# * widen;
   lsb# := (digit_advance# - width#) / 2;
 
-  draw_nine (digit_advance#, width#, lsb#);
+  draw_nine (digit_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass stroked 9", "ninestroked");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (digit_advance# - width#) / 2;
+
+  draw_nine (digit_advance#, width#, lsb#, true);
 fet_endchar;
 
 fet_endgroup ("figbass");
