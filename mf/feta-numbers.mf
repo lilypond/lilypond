@@ -140,6 +140,9 @@ def calc_kuulleke (expr w, alpha) =
 
     beta = (alpha - 90) / 2;
     gamma = (90 + alpha) / 2;
+    if (gamma < 0):
+      gamma := gamma + 180;
+    fi;
 
     penpos1 (w / cosd (alpha), alpha);
     penpos2 (hair, 90 + beta);
@@ -795,14 +798,7 @@ def draw_seven (expr advance_width, glyph_width, left_bearing,
   overshoot_x = .75 thin;
 
   alpha = -180;
-
-  penpos1 (3/2 thick, 180 + alpha);
-  penpos2 (hair, 180 + alpha - 45);
-  penpos3 (hair, 180 + alpha + 45);
-
-  z2 = z1l + (1/4 sqrt (2) * hair) * dir (alpha - 135);
-  z3 = z1r + (1/4 sqrt (2) * hair) * dir (alpha - 45);
-  z4 = z1 + kuulleke * dir (alpha - 90);
+  calc_kuulleke (3/2 thick, alpha);
 
   z1l = (lb + thin, 0);
 
