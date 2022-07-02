@@ -780,17 +780,34 @@ enddef;
 
 
 def draw_seven (expr advance_width, glyph_width, left_bearing,
-                     short_stem) =
+                     short_stem, stroke) =
   save gw, lb;
   save tolerance;
   save alpha, beta, gamma, delta;
   save t, pata, ta, patb, tb, bow;
   save overshoot_x;
 
+  save bottom_x_factor, bottom_y_factor;
+  save top_x_factor, top_y_factor;
+
   path pata, patb, bow;
   numeric ta, tb;
 
-  set_char_box (0, advance_width, 0, height#);
+  if stroke:
+    % We shorten and move the stroke to be more upright for larger
+    % design sizes.
+    %
+    %                                    design size: 11.22 -> 25.20
+    bottom_x_factor := 0.0215 design_size + 0.3592; %  0.6  ->  0.9
+    bottom_y_factor := 0.0072 design_size + 0.4197; %  0.5  ->  0.6
+    top_x_factor := -0.0072 design_size + 1.2803;   %  1.2  ->  1.1
+    top_y_factor := -0.0072 design_size + 1.2803;   %  1.2  ->  1.1
+
+    set_char_box (0, advance_width,
+                  0, height# * top_x_factor + 0.5 thin#);
+  else:
+    set_char_box (0, advance_width, 0, height#);
+  fi;
 
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
@@ -804,7 +821,8 @@ def draw_seven (expr advance_width, glyph_width, left_bearing,
 
   beta = 55;
   penpos5 (thin, 90 + beta);
-  z5 = (lb + gw, h) + (1/2 sqrt (2) * thin) * dir (-135) + (overshoot_x, 0);
+  z5 = (lb + gw, height) + (1/2 sqrt (2) * thin) * dir (-135)
+         + (overshoot_x, 0);
 
   gamma = angle (length (z1r - z1), 2 kuulleke);
   delta = 12;
@@ -822,28 +840,44 @@ def draw_seven (expr advance_width, glyph_width, left_bearing,
   penlabels (1, 2, 3, 4, 5);
 
   alpha := -45 * widen;
+  if stroke:
+    lb := 0;
+
+    z21 = (bottom_x_factor [lb, x4], bottom_y_factor * height);
+    z22 = (top_x_factor [lb, x4], top_y_factor * height);
+    tau = angle (z22 - z21);
+    penpos21 (thin, tau + 90);
+    penpos22 (thin, tau + 90);
+
+    fill z21r{dir (tau)}
+         -- z22r{dir (tau)}
+         .. z22l{dir (tau + 180)}
+         -- z21l{dir (tau + 180)}
+         .. cycle;
+
+    penlabels (21, 22);
+  fi;
 
   penpos11 (1/2 thick, 90);
-  z11 = (lb + 3/2 thin, h - (thick + thin) / 2);
+  z11 = (lb + 3/2 thin, height - (thick + thin) / 2);
 
   penpos13 (thin, 90 + beta);
   z13 = z5;
 
   penpos12 (thick, 90 + alpha);
   x12 = 1/2 [x11, x13] - 1/4 thick;
-  y12 = h - 0.6 thick - 0.1 thin * widen;
+  y12 = height - 0.6 thick - 0.1 thin * widen;
 
   penpos14 (thin, 0);
-  z14l = (lb, h - thin / 2);
+  z14l = (lb, height - thin / 2);
 
   penpos15 (thin, 0);
   x15l = lb;
   if short_stem:
     y15l = y16l;
   else:
-    y15l = h / 2 + thin / 2;
+    y15l = height / 2 + thin / 2;
   fi;
-
 
   penpos16 (9/8 thick, 90);
   z16r = (lb + thin, y11r + 2/16 thick);
@@ -855,7 +889,7 @@ def draw_seven (expr advance_width, glyph_width, left_bearing,
   vardef f (expr t) =
     bow := z11r{dir (beta)}
            ..tension t.. {dir (alpha)}z12r;
-    ypart (directionpoint right of bow) > h
+    ypart (directionpoint right of bow) > height
   enddef;
 
   % the return value of `solve' is stored in a dummy variable
@@ -1112,7 +1146,7 @@ fet_endchar;
 fet_beginchar ("numeral 7", "seven");
   width_seven# := 11/15 height# * widen - thin#;
 
-  draw_seven (width_seven#, width_seven#, 0, false);
+  draw_seven (width_seven#, width_seven#, 0, false, false);
 fet_endchar;
 
 
@@ -1286,7 +1320,17 @@ fet_beginchar ("figured bass 7", "seven");
   width# := 11/15 height# * widen - 2/3 thin#;
   lsb# := 1.2 * (digit_advance# - width#) / 2;
 
-  draw_seven (digit_advance#, width#, lsb#, true);
+  draw_seven (digit_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("figured bass stroked 7", "sevenstroked");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - thin#;
+  lsb# := 1.2 * (digit_advance# - width#) / 2;
+
+  draw_seven (digit_advance#, width#, lsb#, true, true);
 fet_endchar;
 
 
@@ -1332,7 +1376,7 @@ fet_endchar;
 fet_beginchar ("fingering 7", "seven");
   width_seven# := 11/15 height# * widen - thin#;
 
-  draw_seven (width_seven#, width_seven#, 0, true);
+  draw_seven (width_seven#, width_seven#, 0, true, false);
 fet_endchar;
 
 fet_endgroup ("fingering");
