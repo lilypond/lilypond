@@ -83,42 +83,39 @@ private:
   the wrong music_context_
  */
 void
-Lyric_combine_music_iterator::set_busy (SCM se)
+Lyric_combine_music_iterator::set_busy (SCM /*stream event*/)
 {
-  Stream_event *e = unsmob<Stream_event> (se);
-
-  if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
-      && music_context_)
-
-    busy_moment_ = std::max (music_context_->now_mom (),
-                             busy_moment_);
-
+  if (music_context_)
+    busy_moment_ = std::max (music_context_->now_mom (), busy_moment_);
 }
 
 void
 Lyric_combine_music_iterator::set_music_context (Context *to)
 {
+  SCM melodic_event_sym = ly_symbol2scm ("melodic-event");
+
   if (music_context_)
     {
-      music_context_->events_below ()->
-      remove_listener (GET_LISTENER (this, set_busy), ly_symbol2scm ("rhythmic-event"));
+      auto *const d = music_context_->events_below ();
+      d->remove_listener (GET_LISTENER (this, set_busy), melodic_event_sym);
     }
 
   music_context_ = to;
-  if (to)
+
+  if (music_context_)
     {
-      to->events_below ()->add_listener (GET_LISTENER (this, set_busy),
-                                         ly_symbol2scm ("rhythmic-event"));
+      auto *const d = music_context_->events_below ();
+      d->add_listener (GET_LISTENER (this, set_busy), melodic_event_sym);
     }
 }
 
 bool
 Lyric_combine_music_iterator::start_new_syllable () const
 {
-  if (busy_moment_ < music_context_->now_mom ())
+  if (!lyrics_context_)
     return false;
 
-  if (!lyrics_context_)
+  if (busy_moment_ < music_context_->now_mom ())
     return false;
 
   if (!from_scm<bool> (get_property (lyrics_context_, "ignoreMelismata")))
