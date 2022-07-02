@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c0e1dfd2f33fe67290b9341ba4a72f4926c6e2ff
+    Translation of GIT committish: ded73f295fd3bb08d34248833f6fabf8baf085fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,28 +53,7 @@ License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond -- le typographe de musique
 @direntry
-* Nouveautés: (lilypond-changes).                            Évolutions depuis la version 2.20.
-* Contribution: (lilypond-contributor).                      Comment contribuer à LilyPond.
-* Essai: (lilypond-essay).                                   La philosophie sous-jacente de LilyPond.
-* Extension des fonctionnalités: (lilypond-extending).       Comment utiliser Scheme dans LilyPond.
-* Glossaire musicologique: (music-glossary).                 Pour l'utilisateur non anglophone.
-* Référence des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
-* Manuel d'initiation à LilyPond: (lilypond-learning).       Les premiers pas.
-* Manuel de notation: (lilypond-notation).                   Gravure de musique avec LilyPond.
-* Morceaux choisis de LilyPond: (lilypond-snippets).         Petits trucs, astuces et exemples.
-* Manuel d'utilisation: (lilypond-usage).                    Installation et exécution des programmes.
 * LilyPond Website: (lilypond-web).                          Prévisualisation du site.
-@end direntry
-
-@dircategory LilyPond applications
-@direntry
-* abc2ly: (lilypond-usage) Lancement de abc2ly.              Import de fichier ABC.
-* convert-ly: (lilypond-usage) Mise à jour de fichiers.      Pour d'anciens fichiers LilyPond.
-* etf2ly: (lilypond-usage) Lancement de etf2ly.              Import de fichier Finale.
-* lilypond-book: (lilypond-usage) LilyPond-book.             Association musique-texte.
-* lilypond: (lilypond-usage) Lancement de lilypond.          Exécution du programme LilyPond.
-* midi2ly: (lilypond-usage) Lancement de midi2ly.            Import de fichier MIDI.
-* musicxml2ly: (lilypond-usage) Lancement de musicxml2ly.    Import de fichier MusicXML.
 @end direntry
 
 
