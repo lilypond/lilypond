@@ -1116,12 +1116,19 @@ Augmented and diminished steps can be indicated.
 }
 @end lilypond
 
-A backward slash through a figure (typically used for raised sixth
-steps) is also available.
+A backward slash through a figure is also available.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <6> <6\\>
+  <5> <5\\>
+}
+@end lilypond
+
+For some figures, special backward slash glyphs are provided.
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <8 6\\> <9 7\\> <9\\ 7>
 }
 @end lilypond
 
@@ -1138,7 +1145,7 @@ Any text markup can be inserted as a figure.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <\markup { \tiny \number 6 \super (1) } 5>
+  <\markup { \fontsize #-5 \number 6 \teeny \super (1) } 5>
 }
 @end lilypond
 
@@ -1222,11 +1229,11 @@ augmented and diminished steps
 @item
 @code{\\}
 @tab
-raised sixth step
+raised by a semitone
 @tab
 @lilypond[inline,line-width=4\cm]
 \figures {
-  <6\\>
+  <6\\> <7\\> <9\\>
 }
 @end lilypond
 
@@ -1268,6 +1275,14 @@ end of continuation line
 @funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-positions-of-figured-bass-alterations.ly}
+
+@cindex figured bass, alteration, glyphs
+@cindex alteration, figured bass, glyphs
+@cindex glyph, for figured bass alteration
+@funindex figuredBassPlusStrokedAlist
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/adjusting-figured-bass-alteration-glyphs.ly}
+
 
 @morerefs
 Snippets:

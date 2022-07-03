@@ -16,6 +16,9 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (srfi srfi-2)) ;; for `and-let*`
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clefs
 
@@ -275,10 +278,18 @@ segni to avoid ambiguity."
     (1 . #x1d12a)))
 
 (define-public (format-bass-figure figure event context)
-  (let* ((large-number-alignment
-          (ly:context-property context
-                               'figuredBassLargeNumberAlignment CENTER))
-         (fig (ly:event-property event 'figure))
+  (let* (;; User properties controlling the figured bass layout.
+         (large-number-alignment
+          (ly:context-property context 'figuredBassLargeNumberAlignment))
+         (figbass-alist
+          (ly:context-property context 'figuredBassPlusStrokedAlist))
+         (alt-dir
+          (ly:context-property context 'figuredBassAlterationDirection))
+         (plus-dir
+          (ly:context-property context 'figuredBassPlusDirection))
+
+         (augmented (ly:event-property event 'augmented))
+
          ;; The digit(s), horizontally positioned, or #f.
          (fig-markup
           (if (number? figure)
@@ -293,7 +304,19 @@ segni to avoid ambiguity."
                 ((eq? #t (ly:event-property event 'diminished))
                  (make-slashed-digit-markup figure))
                 ((eq? #t (ly:event-property event 'augmented-slash))
-                 (make-backslashed-digit-markup figure))
+                 ;; Use specially stroked digit if available and wanted.
+                 (or (and-let* (((<= 6 figure 9))
+                                (glyph (assv-ref figbass-alist figure)))
+                       (make-musicglyph-markup glyph))
+                     (make-backslashed-digit-markup figure)))
+                ((eq? #t augmented)
+                 ;; Use special digit with plus if available and wanted.
+                 (or (and-let* (((>= 5 figure 2))
+                                ((eqv? plus-dir RIGHT))
+                                (glyph (assv-ref figbass-alist figure)))
+                       (set! augmented #f)
+                       (make-musicglyph-markup glyph))
+                     (make-number-markup (number->string figure 10))))
                 (else (make-number-markup (number->string figure 10)))))
               #f))
 
@@ -315,14 +338,9 @@ segni to avoid ambiguity."
                     #\?)))))
               #f))
 
-         (plus-markup (if (eq? #t (ly:event-property event 'augmented))
+         (plus-markup (if (eq? #t augmented)
                           (make-number-markup "+")
-                          #f))
-
-         (alt-dir (ly:context-property context
-                                       'figuredBassAlterationDirection))
-         (plus-dir (ly:context-property context
-                                        'figuredBassPlusDirection)))
+                          #f)))
 
     (if (and (not alt-markup) alt-bracket)
         (ly:programming-error

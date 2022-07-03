@@ -346,6 +346,10 @@ to use for numbers in figured bass that contain more than a single
 digit.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
+     (figuredBassPlusStrokedAlist ,list? "An alist mapping figured
+bass digits to glyphs.  The default is mapping numbers 2, 4, 5, 6, 7,
+and@tie{}9 to the six glyphs @code{figbass.*plus} and
+@code{figbass.*stroked}, respectively.")
      (finalFineTextVisibility ,boolean? "Whether @code{\\fine} at the
 written end of the music should create a @emph{Fine} instruction.")
      (fineBarType ,string? "Bar line to insert at @code{\\fine}.

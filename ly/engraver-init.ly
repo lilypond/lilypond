@@ -801,8 +801,19 @@ run."
   tablatureFormat = #fret-number-tablature-format
   tabStaffLineLayoutFunction = #tablature-position-on-lines
 
-%%
   figuredBassFormatter = #format-bass-figure
+
+  figuredBassAlterationDirection = #LEFT
+  figuredBassLargeNumberAlignment = #CENTER
+  figuredBassPlusDirection = #LEFT
+  figuredBassPlusStrokedAlist = #'(
+    (2 . "figbass.twoplus")
+    (4 . "figbass.fourplus")
+    (5 . "figbass.fiveplus")
+    (6 . "figbass.sixstroked")
+    (7 . "figbass.sevenstroked")
+    (9 . "figbass.ninestroked"))
+
   metronomeMarkFormatter = #format-metronome-markup
 
   %% See also make-voice-props-set

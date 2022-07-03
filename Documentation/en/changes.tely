@@ -72,8 +72,24 @@ which scares away people.
 
 
 @item
+In figured bass, specially designed glyphs for @code{6\\},
+@code{7\\}, and @code{9\\} are now used by default.  Similarly,
+specially designed glyphs for symbols @code{2\+}, @code{4\+}, and
+@code{5\+} are used by default if plus signs appear after the
+number.
+
+@lilypond[quote]
+\figures {
+  \set figuredBassPlusDirection = #RIGHT
+  <7\\ 6 4 2\+> <4\+ _-> <3 5\+ 3 > <6\\ 4 3> <9\\>
+}
+@end lilypond
+
+
+@item
 The @code{-dembed-@/source-@/code} option now also embeds images
 added with @code{\epsfile} and files included with @code{\verbatim-file}.
+
 
 @item
 The new Scheme function @code{universal-@/color} provides an
