@@ -17,7 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "event-iterator.hh"
+#include "simple-music-iterator.hh"
 
 #include "context.hh"
 #include "global-context.hh"
@@ -25,26 +25,50 @@
 #include "moment.hh"
 #include "music.hh"
 
-class Fine_iterator final : public Event_iterator
+// It might make some sense to derive Fine_iterator from Event_iterator, but
+// there are conditions under which Fine_iterator might not send its event, and
+// it doesn't seem right to complicate Event_iterator to handle that.
+class Fine_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
+  void create_contexts () override;
   void process (Moment) override;
 };
+
+void
+Fine_iterator::create_contexts ()
+{
+  descend_to_bottom_context ();
+  Simple_music_iterator::create_contexts ();
+}
 
 void
 Fine_iterator::process (Moment m)
 {
   if (!has_started ())
     {
-      // Outside a folded repeat, stop iterating.
-      if (!find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")))
-        find_global_context (get_context ())->set_final_moment ();
+      // Ignore \fine inside LyricCombineMusic because the way the
+      // Lyric_combine_music_iterator drives the processing tends to place
+      // things at the wrong point in time.
+      const auto timing_is_accurate
+        = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
+
+      if (timing_is_accurate)
+        {
+          // Outside a folded repeat, stop iterating.
+          const auto folded
+            = find_above_by_music_type (ly_symbol2scm ("folded-repeated-music"));
+
+          if (!folded)
+            find_global_context (get_context ())->set_final_moment ();
+
+          report_event (get_music ());
+        }
     }
 
-  // In any case, report the Fine event.
-  Event_iterator::process (m);
+  Simple_music_iterator::process (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Fine_iterator);
