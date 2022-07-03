@@ -68,68 +68,6 @@ The latest development version of the regtests is found at:
 @end example
 
 
-@subheading Regression test comparison
-
-Each time a new version is released, the regtests are
-compiled and the output is automatically compared with the
-output of the previous release.  The result of these
-comparisons is archived online:
-
-@example
-@uref{https://lilypond.org/test/}
-@end example
-
-Checking these pages is a very important task for the LilyPond project.
-You are invited to report anything that looks broken, or any case
-where the output quality is not on par with the previous release,
-as described in @rweb{Bug reports}.
-
-
-@subheading What to look for
-
-The test comparison shows all of the changes that occurred between
-the current release and the prior release.  Each test that has a
-significant (noticeable) difference in output is displayed, with
-the old version on the left and the new version on the right.
-
-Some of the small changes can be ignored (slightly different slur
-shapes, small variations in note spacing), but this is not always
-the case: sometimes even the smallest change means that something
-is wrong.  To help in distinguishing these cases, we use bigger
-staff size when small differences matter.
-
-Staff size 30 generally means "pay extra attention to details".
-Staff size 40 (two times bigger than default size) or more means
-that the regtest @strong{is} about the details.
-
-Staff size smaller than default doesn't mean anything.
-
-Regression tests whose output is the same for both versions are
-not shown in the test comparison.
-
-@itemize
-@item
-Images: green blurs in the new version show the approximate
-location of elements in the old version.
-
-There are often minor adjustments in spacing which do not indicate
-any problem.
-
-@item
-Log files: show the difference in command-line output.
-
-The main thing to examine are any changes in page counts -- if a
-file used to fit on 1 page but now requires 4 or 5 pages,
-something is suspicious!
-
-@end itemize
-
-@warning{
-The automatic comparison of the regtests checks the LilyPond
-bounding boxes.  This means that Ghostscript changes and changes
-in lyrics or text are not found.
-}
-
 @node Compiling regression tests
 @section Compiling regression tests
 

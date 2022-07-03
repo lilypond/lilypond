@@ -234,38 +234,6 @@ discussions between advanced users and/or developers.
 @end ignore
 
 
-@subheading Regular maintenance
-
-After @strong{every release} (both stable and unstable):
-
-@itemize
-
-@item
-The official regression test comparison is online at:
-
-@c NOTE: leave this here.  In this case, it's worth duplicating
-@c       the link.  -gp
-@example
-@uref{https://lilypond.org/test/}
-@end example
-
-If anything has changed suspiciously,
-ask if it was deliberate.  If the text output from LilyPond (the
-logfile) changes, the differences will be displayed with a +
-before text added to the logfile and - before any text removed
-from the logfile.  This may or may not be suspicious.
-
-More information is available from in
-@ref{Precompiled regression tests}.
-
-@item
-Check for any incorrectly-classified items in the tracker.  This
-generally just means looking at the grid to see any items without
-a Type.
-
-@end itemize
-
-
 @ignore
 @c try omitting from daily tasks for now. -gp
 

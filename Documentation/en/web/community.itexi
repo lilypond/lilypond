@@ -669,17 +669,6 @@ This release's lilypond-book tests.
 @end itemize
 @end ifset
 
-
-@subsubheading All versions
-
-@itemize
-@item @uref{https://lilypond.org/test, Comparisons between regression tests}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archive of all regression tests}
-
-@end itemize
-
 @divEnd
 @divEnd
 
