@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: cfab48af379d3d4e3803d93d963d39a48d9d76d7
+   Translation of GIT committish: 45d50a875d58749615f098ec347672414f39e797
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -69,18 +69,8 @@ verrons comment ce langage peut s'intégrer à un fichier LilyPond.
 @translationof Scheme sandbox
 
 L'installation de LilyPond comprend l'implémentation Guile de Scheme.
-La plupart des systèmes disposent d'un « bac à sable » Scheme pour
-effectuer des tests ; vous y accéderez en tapant @code{guile} dans
-un terminal.  Certains systèmes, notamment Windows, nécessitent d'avoir
-auparavant créé la variable d'environnement @code{GUILE_LOAD_PATH} qui
-devra pointer vers le répertoire @code{../usr/share/guile/1.8} de
-l'installation de LilyPond -- pour connaître le chemin complet d'accès à
-ce répertoire, consultez @rlearning{Autres sources de documentation}.
-Les utilisateurs de Windows peuvent aussi prendre l'option « Exécuter »
-à partir du menu « Démarrer » puis taper @code{guile}.
-
-Néanmoins, tous les paquetages de LilyPond disposent d'un bac à sable
-Scheme, accessible par la commande :
+Tous les paquetages de LilyPond disposent d'un « bac à sable » Scheme,
+accessible par la commande :
 @example
 lilypond scheme-sandbox
 @end example
