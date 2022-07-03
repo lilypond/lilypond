@@ -10,7 +10,6 @@ miscellaneous development tasks.
 * Triaging bugs::
 * Issue classification::
 * Adding issues to the tracker::
-* Summary of project status::
 @end menu
 
 
@@ -462,75 +461,3 @@ email should contain a link to the issue you just added.
 If patches are sent to the bug list, please submit them via GitLab
 (or help the author to do so). Alternatively, if discussion is
 needed, forward the patch to @code{lilypond-devel}.
-
-
-@node Summary of project status
-@section Summary of project status
-
-@subsubheading Project overview
-
-All issues
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/issues}
-@end smallexample
-
-@subsubheading Hindering development
-
-These issues stop or slow development work:
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/issues?label_name[]=Type%3A%3AMaintainability}
-@end smallexample
-
-@subsubheading Easy tasks
-
-Issues tagged with @code{Frog} indicates a task suitable for a
-relatively new contributor.  The time given is a quick (and probably
-inaccurate) estimate of the time required for somebody who is familiar
-with material in this manual, but does not know anything else about
-LilyPond development.
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/issues?label_name[]=Frog}
-@end smallexample
-
-@subsubheading Patches currently in the Patch Review cycle
-
-Overview
-
-@example
-@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?sort=label_priority}
-@end example
-
-
-@noindent
-New patches
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name[]=Patch%3A%3Anew}
-@end smallexample
-
-
-@noindent
-Patches under Review
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Areview}
-@end smallexample
-
-
-@noindent
-Patches on final Countdown
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Acountdown}
-@end smallexample
-
-
-@noindent
-Patches that can be pushed
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Apush}
-@end smallexample
