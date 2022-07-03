@@ -782,6 +782,7 @@ For more information see @ref{Formatting text}.
 * Clef glyphs::
 * Time Signature glyphs::
 * Number glyphs::
+* Figured bass symbol glyphs::
 * Accidental glyphs::
 * Default note head glyphs::
 * Special note head glyphs::
@@ -834,6 +835,16 @@ For more information see @ref{Formatting text}.
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
+@end lilypond
+
+
+@node Figured bass symbol glyphs
+@unnumberedsubsec Figured bass symbol glyphs
+
+@lilypond[quote]
+\include "en/included/font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #figured-bass-symbols
 @end lilypond
 
 

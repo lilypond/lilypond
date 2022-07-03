@@ -58,6 +58,10 @@
 
       "fingering.four" "fingering.seven"))
 
+  (define figured-bass-symbols
+    '("figbass.twoplus"    "figbass.fourplus"     "figbass.fiveplus"
+      "figbass.sixstroked" "figbass.sevenstroked" "figbass.ninestroked"))
+
   (define dynamics
     '("space" "f" "m" "n" "p" "r" "s" "z"))
 
@@ -90,6 +94,7 @@
   (for-each
     (lambda (x) (set! glyph-list (delete x glyph-list)))
     (append numbers
+            figured-bass-symbols
             dynamics
             default-noteheads
             special-noteheads
