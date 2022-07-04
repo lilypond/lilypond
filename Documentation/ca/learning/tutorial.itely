@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include en/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -33,29 +33,10 @@ Aquest capítol ofereix una introducció bàsica al treball amb el Lilypond.
 @section Compilació d'un fitxer
 @translationof Compiling a file
 
-Aquesta secció presenta el concepte de @qq{compilació}: el
-processament dels documents d'entrada del LilyPond (escrits per
-vos mateix) per produir fitxers de sortida.
-
-@menu
-* Escriptura del codi d'entrada::
-* MacOS X::
-* Windows::
-* Línia d'ordres::
-@end menu
-
-@node Escriptura del codi d'entrada
-@subsection Escriptura del codi d'entrada
-@translationof Entering input
-
 @cindex compilació
 @cindex exemple inicial
 @cindex inicial, exemple
 @cindex majúscules, sensible a
-
-@menu
-* Generació del resultat::
-@end menu
 
 @qq{Compilació} és una paraula que significa processar un text
 d'entrada en format del LilyPond per produir un fitxers que es pot
@@ -95,73 +76,7 @@ A més, l'entrada del Lilypond és @strong{sensible a les majúscules}.
 @w{@samp{ @{ c d e @}}} és una entrada vàlida; @w{@samp{@{ C D E @}}} produeix
 un missatge d'error.
 
-@smallspace
 
-@node Generació del resultat
-@unnumberedsubsubsec Generació del resultat
-@translationof Producing output
-
-@cindex PDF, fitxer
-@cindex veure la música
-@cindex editors de text
-
-El mètode per produir un resultat imprès depèn del nostre sistema
-operatiu i del programa o programes que utilitzem.
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (gràfic)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (gràfic)
-
-@item
-@ref{Línia d'ordres, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Línia d'ordres, Tots els sistemes operatius} (consola)
-
-@end itemize
-
-Hi ha diversos altres editors de text amb un suport específic a
-l'edició de text del LilyPond.  Per veure més informació, consulteu
-@rweb{Entorns millorats}.
-
-@warning{El primer cop que executeu el LilyPond, trigarà un minut
-o dos perquè totes les tipografies del sistema han de ser
-analitzades prèviament.  Després d'això, el LilyPond serà molt més ràpid!}
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex execució del LilyPond sota el MacOS X
-@cindex MacOS X, execució del LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex execució del LilyPond sota el Windows
-@cindex Windows, execució del LilyPond
-
-@lilypadWindows
-
-
-@node Línia d'ordres
-@subsection Línia d'ordres
-@translationof Command-line
-
-@cindex execució del  LilyPond sota l'Unix
-@cindex Unix, execució del LilyPond
-
-@lilypadCommandLine
 
 @node Com escriure fitxers d'entrada
 @section Com escriure fitxers d'entrada

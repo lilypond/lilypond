@@ -35,6 +35,7 @@ Copyright @copyright{} 1999--2022 by the authors.
 @ifnottex
 
 @menu
+* Installing::                        Installing LilyPond
 * Tutorial::                          Le basi della composizione tipografica in LilyPond.
 * Notazione comunemente utilizzata::  Come si scrive la notazione più comunemente utilizzata.
 * Concetti fondamentali::             Concetti di base necessari per leggere gli altri manuali.
@@ -60,6 +61,7 @@ Appendici
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include it/learning/tutorial.itely
 @include it/learning/common-notation.itely
 @include it/learning/fundamental.itely

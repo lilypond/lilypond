@@ -1,0 +1,323 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.23.10"
+
+@node Installing
+@chapter Installing
+
+This gentle, step-by-step installation tutorial guides you through
+installing LilyPond and creating a first music score.
+
+LilyPond input files are simple text files.  You can use any raw
+text editor to edit a LilyPond file (@emph{not} a rich text editor
+such as Microsoft Word), but there are several editors tailored
+specifically for LilyPond, making the editing process very
+comfortable.  Because a choice has to be made, this tutorial uses
+@uref{https://frescobaldi.org,Frescobaldi}, which is the most
+popular among such editors right now.  However, there are several
+other options available.  For more information, see @rweb{Easier
+editing}.
+
+Please choose the tutorial according to your needs.  (If you don't
+know what the @qq{command line} is, you want the graphical setup!)
+
+@menu
+* Graphical setup under GNU/Linux::
+* Graphical setup under Windows::
+* Graphical setup under macOS::
+* Command line setup::
+@end menu
+
+@node Graphical setup under GNU/Linux
+@section Graphical setup under GNU/Linux
+
+These instructions work for the GNOME environment, for example on
+the default flavors of Ubuntu and Fedora.  In other desktop
+environments, they can likely be adapted.  For more minimal
+GNU/Linux distributions, @pxref{Command line setup}.
+
+First, find the GNOME Software app.
+
+@center @sourceimage{linux-1-search-gnome-software,10cm,}
+
+In GNOME Software, search @qq{Frescobaldi}.
+
+@center @sourceimage{linux-2-search-frescobaldi,10cm,}
+
+Install Frescobaldi.  Behind the scenes, this should also
+automatically install some version of LilyPond.
+
+@center @sourceimage{linux-3-install-frescobaldi,10cm,}
+
+Open Frescobaldi.  It starts on a new file with some pre-filled
+text that will be explained later.
+
+@center @sourceimage{linux-4-frescobaldi-start,10cm,}
+
+After the @code{\version} line, enter a new line containing exactly
+this:
+
+@example
+@{ c' @}
+@end example
+
+Now click on the LilyPond icon, or press @kbd{Control-M}.  On the
+right, a simple score appears.
+
+@center @sourceimage{linux-5-frescobaldi-simple-file,10cm,}
+
+Congratulations, you have just created your first music sheet with
+LilyPond!  If you're satisfied now, you can skip the rest of this
+section.  However, it may be that the version of LilyPond that was
+installed is not the same one as this documentation is for.  If
+you want a different LilyPond version, you can register it in
+Frescobaldi, without losing the initial one.  To do this, first
+download the archive from @rweb{Download}, and double-click to
+unpack it.
+
+@center @sourceimage{linux-6-download-and-unpack-archive,10cm,}
+
+Move the unpacked folder out of your Downloads folder to the
+folder where you want to permanently store it.  For example, put
+it in your home folder.
+
+Now, in Frescobaldi, go the Preferences.
+
+@center @sourceimage{linux-7-frescobaldi-find-preferences,15cm,}
+
+Select @qq{LilyPond Preferences}, and click @qq{Add} to register a
+new LilyPond version.
+
+@center @sourceimage{linux-8-frescobaldi-add-lilypond-version,10cm,}
+
+Click on the file explorer icon.
+
+@center @sourceimage{linux-9-frescobaldi-select-lilypond-executable,10cm,}
+
+Navigate to the folder you just extracted, then inside this
+folder, to @samp{bin} and finally @samp{lilypond}.
+
+@center @sourceimage{linux-10-navigate-to-lilypond-executable,10cm,}
+
+You're done!  You can click @samp{OK}.  You now have two versions
+of LilyPond installed.
+
+@center @sourceimage{linux-11-frescobaldi-new-version-added,10cm,}
+
+Now turn to @ref{Tutorial} to learn more about LilyPond's syntax.
+
+
+@node Graphical setup under Windows
+@section Graphical setup under Windows
+
+Download LilyPond for Windows from @rweb{Download}.  The file will
+a ZIP archive called
+@file{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64.zip} (where
+@qq{mingw} means it's for Windows). Extract this in the file
+explorer.  Place the resulting directory
+@code{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64} in a
+permanent location; the actual folder doesn't matter, you just
+need to put it somewhere you won't move it afterwards.  For
+example, you could choose your home folder.
+
+After this, download the latest release of Frescobaldi from
+@uref{https://github.com/frescobaldi/frescobaldi/releases, the
+project's download page}.  Choose the @file{.exe} file.
+
+@center @sourceimage{windows-1-frescobaldi-download-github,10cm,}
+
+Double-click on the downloaded file in the file explorer.  This
+launches the setup wizard.
+
+@center @sourceimage{windows-2-frescobaldi-installer,10cm,}
+
+Accept the license and install Frescobaldi using the wizard.  You
+will find a startup screen like this:
+
+@center @sourceimage{windows-3-frescobaldi-startup,10cm,}
+
+Navigate to the Frescobaldi preferences.
+
+@center @sourceimage{windows-4-frescobaldi-find-preferences,10cm,}
+
+Navigate to @qq{LilyPond Preferences} on the left.
+
+@center @sourceimage{windows-5-frescobaldi-find-lilypond-preferences,15cm,}
+
+Click @qq{Edit} on the right.  This leads to a dialog for choosing
+the LilyPond executable.
+
+@center @sourceimage{windows-6-frescobaldi-select-lilypond-executable,10cm,}
+
+Click on the folder icon and navigate to the
+@code{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64} folder you previously created.
+Inside this folder, open @file{lilypond-@var{x}.@var{y}.@var{z}}, then @file{bin},
+and finally select @file{lilypond}.
+
+@center @sourceimage{windows-7-frescobaldi-find-executable-from-explorer,10cm,}
+
+Now click @qq{OK}.
+
+@center @sourceimage{windows-8-frescobaldi-ok,10cm,}
+
+Click @qq{OK} again.
+
+@center @sourceimage{windows-9-frescobaldi-ok-2,10cm,}
+
+Type this simple file in the window:
+
+@example
+\version "@version{}"
+
+@{ c' @}
+@end example
+
+Compile it with @kbd{Control-M} or using the @qq{LilyPond} icon.
+A minimal score appears.
+
+@center @sourceimage{windows-10-frescobaldi-done,10cm,}
+
+Congratulations, you have just created your first music sheet with
+LilyPond!  Now continue with the @ref{Tutorial} to learn more
+about LilyPond's syntax.
+
+
+@node Graphical setup under macOS
+@section Graphical setup under macOS
+
+Download LilyPond for macOS from @rweb{Download}.  The file will
+be an archive called
+@file{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64.tar.gz}
+(where @qq{darwin} means it's for macOS).  In the Finder, extract
+this archive.  Place the resulting directory
+@code{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64} in a
+permanent location; the actual folder doesn't matter, you just
+need to put it somewhere you won't move it afterwards.  For
+example, you could choose your home folder.
+
+After this, download the latest release of Frescobaldi from
+@uref{https://github.com/frescobaldi/frescobaldi/releases, the
+project's download page}.  Choose the @file{.dmg} file.
+
+@center @sourceimage{macos-1-frescobaldi-download-github,10cm,}
+
+In the Finder, double-click on the file to run the installer.  At
+this point, you might encounter a problem:
+
+@center @sourceimage{macos-2-frescobaldi-cant-be-opened,10cm,}
+
+This is because Frescobaldi is developed independently from Apple.
+Nevertheless, it is totally secure software, but you have to tell
+Apple so.  To do this, you first need to click @qq{Cancel}.
+@emph{After having clicked @qq{Cancel}}, open the @qq{System
+Preferences} app and select @qq{Security & Privacy}.
+
+@center @sourceimage{macos-3-open-system-preferences-security,10cm,}
+
+Then click @qq{Open Anyway}.
+
+@center @sourceimage{macos-4-allow-open-anyway,10cm,}
+
+This leads to a new security warning.  This time, you have the
+option to accept.  Select @qq{Open}.  Again, do not fear:
+Frescobaldi is completely secure for your system.
+
+@center @sourceimage{macos-5-accept-security-warning,10cm,}
+
+Frescobaldi is now open.  Find the Preferences.
+
+@center @sourceimage{macos-6-frescobaldi-find-preferences,10cm,}
+
+Click on @qq{LilyPond Preferences} on the left.
+
+@center @sourceimage{macos-7-frescobaldi-find-lilypond-preferences,15cm,}
+
+Click @qq{Edit} on the right.  This opens a new window:
+
+@center @sourceimage{macos-8-frescobaldi-edit-lilypond-executable,10cm,}
+
+Click on the @q{folder} icon.  A Finder window opens.  Navigate to
+the @file{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64} folder
+you saved earlier.  Inside it, find
+@file{lilypond-@var{x}.@var{y}.@var{z}}, then @file{bin} and
+finally @file{lilypond}.
+
+@center @sourceimage{macos-9-frescobaldi-navigate-to-lilypond-executable,10cm,}
+
+When you press @qq{OK}, a new security warning about LilyPond will
+likely appear.  Again, first click @qq{Cancel}, then enable
+LilyPond in the preferences, and redo the procedure to select
+@file{lilypond} in the Finder.
+
+Now click @qq{OK} to everything until you are back to the main
+Frescobaldi window.  Enter this simple file in source view on the
+left:
+
+@example
+\version "@version{}"
+
+@{ c' @}
+@end example
+
+Click on the button with the LilyPond icon to compile the file, or
+use the @kbd{Control-M} keyboard shortcut.  For a third time, the
+system will warn you about security, this time with @qq{gs}
+(GhostScript).  Once more, go to the System Preferences to enable
+the program to be executed.
+
+Finally, the next compilation run will work and you will find a
+minimal score.
+
+@center @sourceimage{macos-10-minimal-score,15cm,}
+
+Congratulations!  You have compiled your first music sheet with
+LilyPond.  Now continue with the @ref{Tutorial} to learn more
+about LilyPond's syntax.
+
+
+
+@node Command line setup
+@section Command line setup
+
+On many GNU/Linux distributions, LilyPond can be installed from
+the package manager.  This is also the case on macOS using either
+@uref{https://www.macports.org,MacPorts} or
+@uref{https://brew.sh,Homebrew}.
+
+In any case, you can install LilyPond by downloading the archive
+from @rweb{Download} and unpacking it.  The binaries are usable
+immediately after unpacking.  You can run
+
+@example
+/@var{...}/lilypond-@var{x}.@var{y}.@var{z}/bin/lilypond file.ly
+@end example
+
+@noindent
+(on Windows, replace the slashes @samp{/} with backslashes @samp{\}).
+
+This compiles @code{file.ly}, and produces @code{file.pdf}.
+To test your setup, you can use this minimal file:
+
+@example
+\version "@version{}"
+
+@{ c' @}
+@end example
+
+This will produce this output in @file{file.pdf}:
+
+@lilypond[quote]
+{ c' }
+@end lilypond
+
+Now continue with the @ref{Tutorial} to learn more about
+LilyPond's syntax, or see @rprogram{Command-line usage} for more
+information on calling LilyPond on the command line.

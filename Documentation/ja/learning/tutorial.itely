@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include ja/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -29,34 +29,18 @@
 * このマニュアルの読み方::
 @end menu
 
-
 @node ファイルをコンパイルする
 @section ファイルをコンパイルする
 @translationof Compiling a file
 
+
 このセクションでは @qq{コンパイル}---出力ファイルを作り出すために
 (あなたが記述した) LilyPond 入力ファイルを処理すること---について説明します。
-
-@menu
-* 入力を作成する::
-* MacOS X::
-* Windows::
-* コマンド ライン::
-@end menu
-
-
-@node 入力を作成する
-@subsection 入力を作成する
-@translationof Entering input
 
 @cindex compiling (コンパイルする)
 @cindex first example (最初の例)
 @cindex example, first (最初の例)
 @cindex case sensitive (大文字と小文字を区別する)
-
-@menu
-* 出力を作り出す::
-@end menu
 
 @qq{コンパイル} は LilyPond フォーマットで書かれた入力ファイルから@c
 出力ファイルを作り出す処理を意味する用語です。@c
@@ -96,75 +80,6 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 @w{@code{@{ c d e @}}} は有効な入力ですが、@c
 @w{@code{@{ C D E @}}} はエラーになります。
 
-
-@smallspace
-
-@node 出力を作り出す
-@unnumberedsubsubsec 出力を作り出す
-@translationof Producing output
-
-@cindex PDF file (PDF ファイル)
-@cindex viewing music (楽譜を閲覧する)
-@cindex text editors (テキストエディタ)
-
-出力を作り出す方法はあなたが使用している OS とプログラムに依存します。
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (グラフィカルな方法)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (グラフィカルな方法)
-
-@item
-@ref{Command-line, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Command-line, すべての OS} (コマンドライン)
-
-@end itemize
-
-LilyPond 用のサポートを有するテキストエディタが他にもいくつかあります。@c
-更なる情報は、@rweb{より簡単な編集手段} を参照してください。
-
-@warning{あなたが初めて LilyPond を実行した場合、1, 2 分かかるかもしれません。@c
-なぜなら、まず最初にすべてのシステム フォントが分析されるからです。@c
-それから後は、LilyPond はずっと早く実行されます！}
-
-
-@node MacOS X
-@subsection MacOS X
-@translationof MacOS X
-
-@cindex running LilyPond under MacOS X (MacOS X で LilyPond を実行する)
-@cindex MacOS X, running LilyPond (MacOS X で LilyPond を実行する)
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-@translationof Windows
-
-@cindex running LilyPond under Windows (Windows で LilyPond を実行する)
-@cindex Windows, running LilyPond (Windows で LilyPond を実行する)
-
-@lilypadWindows
-
-
-@node コマンド ライン
-@subsection コマンド ライン
-@translationof Command-line
-
-@cindex running LilyPond under Unix (Unix で LilyPond を実行する)
-@cindex Unix, running LilyPond (Unix で LilyPond を実行する)
-
-@lilypadCommandLine
 
 
 @node 入力ファイルの書き方

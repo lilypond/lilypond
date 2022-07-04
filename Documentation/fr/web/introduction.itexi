@@ -1353,7 +1353,7 @@ partition.  Pour plus de détails, voir @ref{Facilités d'édition}.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes désormais prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
+Vous êtes désormais prêt(e) à @ref{Download,télécharger LilyPond}.
 Si vous n'êtes toujours pas convaincu(e), examinez les
 @ref{Facilités d'édition}.
 
@@ -1690,7 +1690,7 @@ et il peut exporter du code LilyPond.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
+Vous êtes prêt(e) à @ref{Download,télécharger LilyPond}.
 
 Vous êtes toujours incrédule ?  Beaucoup de compositeurs, musiciens et
 chefs ont appris à écrire de la musique dans notre format texte.  Des

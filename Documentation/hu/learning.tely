@@ -33,6 +33,7 @@ Copyright @copyright{} 1999--2022 a szerzők.
 @ifnottex
 
 @menu
+* Installing:: Installing LilyPond
 * Első lecke:: A LilyPond használatának alapjai.
 * Elemi kottaírás:: Kották lejegyzése a leggyakoribb kottaelemek felhasználásával.
 * Alapfogalmak:: Alapvető fogalmak, melyek a továbbiak megértéséhez szükségesek.
@@ -55,6 +56,7 @@ Függelék
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include hu/learning/tutorial.itely
 @include hu/learning/common-notation.itely
 @include hu/learning/fundamental.itely

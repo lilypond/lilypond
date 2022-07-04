@@ -11,13 +11,13 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@include nl/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
 @node Leerboek
-@translationof Tutorial
 @chapter Leerboek
+@translationof Tutorial
 
 Dit hoofdstuk is de basisinleiding voor het werken met
 LilyPond.
@@ -30,23 +30,12 @@ LilyPond.
 @end menu
 
 @node Het compileren van een bestand
-@translationof Compiling a file
 @section Het compileren van een bestand
+@translationof Compiling a file
 
 Deze paragraaf introduceert het @qq{compileren}---het
 verwerken van LilyPond-invoerbestanden (geschreven door
 jouzelf) voor het produceren van uitvoerbestanden.
-
-@menu
-* Invoer schrijven::
-* MacOS X::
-* Windows::
-* Commandoregel::
-@end menu
-
-@node Invoer schrijven
-@translationof Entering input
-@subsection Invoer schrijven
 
 @cindex compileren
 @cindex eerste voorbeeld
@@ -94,77 +83,11 @@ LilyPond-invoer is @strong{hoofdlettergevoelig}.
 @}}} zal een foutmelding geven.
 
 
-@smallspace
 
-@subheading Het produceren van uitvoer
-
-@cindex PDF-bestand
-@cindex muziek weergeven
-@cindex tekst-editors
-
-Hoe je uitvoer produceert, is afhankelijk van je operating
-systeem en van de programma's die je gebruikt.
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (grafisch)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (grafisch)
-
-@item
-@ref{Commandoregel, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Commandoregel, Alle operating systemens} (commandoregel)
-
-@end itemize
-
-Er zijn verscheidene andere tekst-editors beschikbaar met
-specifieke LilyPond-ondersteuning.  Voor meer informatie,
-zie @rweb{Eenvoudiger bewerken}.
-
-@warning{Als je LilyPond voor de allereerste keer draait,
-kan dat een minuut of twee duren omdat alle systeemfonts
-eerst moeten worden geanalyseerd.  De volgende keer draait
-LilyPond veel sneller!}
-
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex draaien van LilyPond onder MacOS X
-@cindex MacOS X, draaien van LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex draaien van LilyPond onder Windows
-@cindex Windows, draaien van LilyPond
-
-@lilypadWindows
-
-
-@node Commandoregel
-@translationof Command-line
-@subsection Commandoregel
-
-@cindex draaien van LilyPond onder Unix
-@cindex Unix, draaien van LilyPond
-
-@lilypadCommandLine
 
 @node Het schrijven van invoerbestanden
-@translationof How to write input files
 @section Het schrijven van invoerbestanden
+@translationof How to write input files
 
 Deze paragraaf introduceert de LilyPond basissyntax om je op
 weg te helpen bij het schrijven van invoerbestanden.
@@ -176,8 +99,8 @@ weg te helpen bij het schrijven van invoerbestanden.
 
 
 @node Eenvoudige notatie
-@translationof Simple notation
 @subsection Eenvoudige notatie
+@translationof Simple notation
 
 @cindex eenvoudige notatie
 @cindex notatie, eenvoudig
@@ -483,8 +406,8 @@ Notatiehandleiding: @ruser{Writing pitches},
 
 
 @node Werken met invoerbestanden
-@translationof Working on input files
 @subsection Werken met invoerbestanden
+@translationof Working on input files
 
 @cindex accolades
 @cindex haakjes, gekruld
@@ -678,8 +601,8 @@ errors}.
 
 
 @node Het lezen van de handleidingen
-@translationof How to read the manuals
 @section Het lezen van de handleidingen
+@translationof How to read the manuals
 
 Deze paragraaf laat zien hoe je de documentatie efficient
 kunt lezen, en introduceert enkele nuttige interactieve
@@ -693,8 +616,8 @@ functies die beschikbaar zijn in de online-versie.
 
 
 @node Weggelaten materiaal
-@translationof Omitted material
 @subsection Weggelaten materiaal
+@translationof Omitted material
 
 
 @cindex hoe de handleidingen te lezen
@@ -742,8 +665,8 @@ Maar je zou er een gewoonte van moeten maken ze in je
 bestanden op te nemen.
 
 @node Klikbare voorbeelden
-@translationof Clickable examples
 @subsection Klikbare voorbeelden
+@translationof Clickable examples
 
 @warning{Deze functie is uitsluitend beschikbaar in de
 HTML-handleidingen.}
@@ -784,8 +707,8 @@ We are currently working on this feature.
 @end ignore
 
 @node Overzicht van handleidingen
-@translationof Overview of manuals
 @subsection Overzicht van handleidingen
+@translationof Overview of manuals
 
 Er is veel documentatie voor LilyPond.  Nieuwe gebruikers
 weten soms niet helemaal wat ze nu wel en niet zouden moeten

@@ -54,7 +54,7 @@ License''.
 * Slovníček: (music-glossary).               Překlad pojmů z angličtiny do dalších řečí.
 * Příručka pro zápis not v LilyPondu: (lilypond-notation).                           Příručka pro zápis not v LilyPondu.
 * Úryvky LilyPondu: (lilypond-snippets).         Mnoho triků, rad a příkladů.
-* Doporučení pro vnitřní části LilyPondu: (lilypond-internals).  Vysvětlení k nastavení. 
+* Doporučení pro vnitřní části LilyPondu: (lilypond-internals).  Vysvětlení k nastavení.
 * Používání programu LilyPond: (lilypond-usage). Instalace a používání programu.
 * Internetové stránky k LilyPond: (lilypond-web).    Přehled nových internetových stránek.
 * lilypond: (lilypond-usage)spuštění LilyPondu.  Vyvolání programu LilyPond.
@@ -152,7 +152,7 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 
 @subsubheading Stálá verze
 
-@ref{Stažení, Stažení @versionStable}
+@ref{Download, Stažení @versionStable}
 
 @ref{Manuals, Manuals @versionStable}
 
@@ -171,7 +171,7 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 @divClass{hide}
 @menu
 * Úvod::     Se sázením not začněte zde.
-* Stažení::       Stažení LilyPondu.
+* Download::       Stažení LilyPondu.
 * Příručky::     Četba příruček.
 * Společenství::   Zahájit spojení s jinými uživateli.
 @end menu
@@ -291,7 +291,7 @@ please let us know by following the instructions on
 @end ifnothtml
 
 @include cs/web/introduction.itexi
-@include cs/web/download.itexi
+@include en/web/download.itexi
 @include cs/web/manuals.itexi
 @include cs/web/community.itexi
 

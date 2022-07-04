@@ -43,6 +43,7 @@ Copyright @copyright{} 1998--2022 by the authors.
 @ifnottex
 
 @menu
+* Installing::                     Installing LilyPond
 * Tutorial::                       Basics of typesetting with LilyPond.
 * Common notation::                Writing very common notation.
 * Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
@@ -68,6 +69,7 @@ Appendices
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include en/learning/tutorial.itely
 @include en/learning/common-notation.itely
 @include en/learning/fundamental.itely

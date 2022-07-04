@@ -39,6 +39,7 @@ Copyright @copyright{} 1999--2022 door de auteurs.
 @ifnottex
 
 @menu
+* Installing::                     Installing LilyPond
 * Leerboek::                       De basis van muzieknotatie met LilyPond.
 * Algemene muzieknotatie::         Het schrijven van algemene muzieknotatie.
 * Fundamentele concepten::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
@@ -66,6 +67,7 @@ Appendices
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include nl/learning/tutorial.itely
 @include nl/learning/common-notation.itely
 @include nl/learning/fundamental.itely

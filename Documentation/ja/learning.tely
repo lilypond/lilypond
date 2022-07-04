@@ -42,6 +42,7 @@ Copyright @copyright{} 1998--2022 by the authors.
 @ifnottex
 
 @menu
+* Installing::               Installing LilyPond
 * チュートリアル::              LilyPond で譜刻するための基本
 * 一般的な記譜法::              LilyPond 導入の手引き
 * 基礎となるコンセプト::        このマニュアルの残りの部分を読むために@c
@@ -69,6 +70,7 @@ Copyright @copyright{} 1998--2022 by the authors.
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include ja/learning/tutorial.itely
 @include ja/learning/common-notation.itely
 @include ja/learning/fundamental.itely

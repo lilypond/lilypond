@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include fr/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -40,27 +40,11 @@ Nous allons ici parler de la « compilation », ou comment LilyPond
 traite le fichier source que vous avez écrit, pour en faire quelque
 chose d'imprimable.
 
-@menu
-* Saisie de la musique::
-* MacOS X::
-* Windows::
-* Ligne de commande::
-@end menu
-
-
-@node Saisie de la musique
-@subsection Saisie de la musique
-@translationof Entering input
-
 @cindex compilation
 @cindex exemple, premier
 @cindex premier exemple
 @cindex casse, sensibilité à la
 @cindex sensibilité à la casse
-
-@menu
-* Production de la partition::
-@end menu
 
 Pour créer une partition avec LilyPond, on écrit un fichier texte,
 appelé fichier source, qui décrit la notation musicale. La
@@ -110,80 +94,7 @@ De plus, LilyPond est @strong{sensible à la casse} : le code
 @w{@samp{@{ c d e @}}} est valide, alors que @w{@samp{@{ C D E @}}}
 produit un message d'erreur.
 
-@smallspace
 
-@node Production de la partition
-@unnumberedsubsubsec Production de la partition
-@translationof Producing output
-
-@cindex fichier PDF
-@cindex PDF
-@cindex partition, lire
-@cindex lire la partition
-@cindex éditeurs de texte
-
-Dans cette section nous expliquerons quelles commandes exécuter et
-comment voir ou imprimer le résultat produit par LilyPond.
-
-@itemize
-
-@item
-@ifhtml
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@end ifhtml
-@ref{MacOS X, MacOS X} (graphique)
-
-@item
-@ifhtml
-@ref{Windows, @sourceimage{logo-windows,,}}
-@end ifhtml
-@ref{Windows, Microsoft Windows} (graphique)
-
-@item
-@ifhtml
-@ref{Ligne de commande, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}}
-@end ifhtml
-@ref{Ligne de commande, Tous systèmes} (ligne de commande)
-
-@end itemize
-
-Notez qu'il existe plusieurs éditeurs de texte disponibles avec un bon
-support de LilyPond ; consultez @rweb{Facilités d'édition}.
-
-@warning{Le premier démarrage de LilyPond peut prendre une minute ou
-deux, afin de générer la liste des polices du système.  LilyPond démarre
-en principe plus rapidement lors des exécutions suivantes.}
-
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex lancer LilyPond sous MacOS X
-@cindex MacOS X, lancer LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex lancer LilyPond sous Windows
-@cindex Windows, lancer LilyPond
-
-@lilypadWindows
-
-
-@node Ligne de commande
-@subsection Ligne de commande
-@translationof Command line
-
-@cindex lancer LilyPond sous Unix
-@cindex Unix, lancer LilyPond
-
-@lilypadCommandLine
 
 
 @node Composition d'un fichier source

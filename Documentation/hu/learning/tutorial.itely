@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include hu/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -30,25 +30,9 @@ hogyan kell nyomtatható kottát előállítani.
 @section Fájlok fordítása
 @translationof Compiling a file
 
-
-@menu
-* Zene bevitele::
-* Mac OS X::
-* Windows::
-* Parancssor::
-@end menu
-
-@node Zene bevitele
-@subsection Zene bevitele
-@translationof Entering input
-
 @cindex fordítás
 @cindex első példa
 @cindex kis- és nagybetűk különbsége
-
-@menu
-* Kimenet előállítása::
-@end menu
 
 A LilyPond bemeneti fájljai egyszerű szöveges állományok.
 Egy kotta létrehozásához egy bemeneti fájlban (másnéven forrásfájlban) kell
@@ -91,77 +75,7 @@ Továbbá a LilyPond bemenete @strong{érzékeny a kis- és nagybetűk különbs
 @w{@code{@{ c d e @}}} érvényes bemenet; @w{@code{@{ C D E @}}} hibát
 eredményez.
 
-@smallspace
 
-@node Kimenet előállítása
-@unnumberedsubsubsec Kimenet előállítása
-@translationof Producing output
-
-@cindex PDF fájl
-@cindex megtekintés
-@cindex szövegszerkesztők
-
-Ez a szakasz arról szól, hogy milyen parancsokat kell futtatni
-a kotta előállításához és a kimenet megtekintéséhez a felhasználó operációs
-rendszerétől függően.
-
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (graphical)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (graphical)
-
-@item
-@ref{Parancssor, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Parancssor, Minden operációs rendszr} (parancssor)
-
-@end itemize
-
-
-
-Bizonyos szövegszerkesztőkbe beépíthető LilyPond támogatás, ami hatékonyabb
-szerkesztést tesz lehetővé; erről a @rprogram{Text editor support} c.
-fejezet ír.
-
-@warning{Amikor a LilyPond első alkalommal fut, egy-két percig várni kell,
-amíg megvizsgálja a rendszer betűtípusait. Ezután természetesen sokkal
-gyorsabban fog futni!}
-
-@node Mac OS X
-@subsection Mac OS X
-@translationof MacOS X
-
-@cindex LilyPond futtatása MacOS X-en
-@cindex MacOS X, LilyPond futtatása
-
-@lilypadOSX
-
-@node Windows
-@subsection Windows
-
-@cindex LilyPond futtatása Windows-on
-@cindex Windows, LilyPond futtatása
-
-@lilypadWindows
-
-
-@node Parancssor
-@subsection Parancssor
-@translationof Command-line
-
-@cindex LilyPond futtatása Unixon
-@cindex Unix, LilyPond futtatása
-
-@lilypadCommandLine
 
 @node Bemeneti fájlok írása
 @section Bemeneti fájlok írása

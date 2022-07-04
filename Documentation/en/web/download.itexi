@@ -7,13 +7,30 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include en/included/generating-output.itexi
-
 @macro warningTextBased
+@c Can't use @ifWebLinks because it inserts an extra colon.  This
+@c needs to be repetitive because @ifset can't work inside
+@c @warning.
+@ifclear web_version
 @warning{LilyPond is a @strong{text-based} music engraver; it is
 more similar to a programming language than a graphical score
 editing program.  Before downloading LilyPond, please read about
-our @ref{Text input}.}
+our @ref{Text input}.  Once you have downloaded LilyPond, read
+the start of the
+@c I don't understand why this use of @rlearning produces "Learning Manual"
+@c and not just "Learning". --JeanAS
+@rlearningnamed{Top,Learning} for a gentle introduction on how to
+install it and use it.}
+@end ifclear
+
+@ifset web_version
+@warning{LilyPond is a @strong{text-based} music engraver; it is
+more similar to a programming language than a graphical score
+editing program.  Before downloading LilyPond, please read about
+our @ref{Text input}.  Once you have downloaded LilyPond, read the
+start of the @manualStableLearningSplitNoName manual for a gentle
+introduction on how to install it and use it.}
+@end ifset
 @end macro
 
 @node Download
@@ -133,7 +150,7 @@ See @ref{Easier editing}.
 @divEnd
 
 
-@divClass{column-left-top}
+@divClass{column-center-top}
 @subheading Generic Packages
 
 @subsubheading Download
@@ -177,15 +194,6 @@ In the shell, type:
 @example
 sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @end example
-
-@divEnd
-
-
-
-@divClass{column-right-top}
-@subheading Compiling a file
-
-@lilypadCommandLine
 
 @divEnd
 
@@ -258,8 +266,8 @@ Delete the LilyPond.app folder.
 @divClass{column-right-top}
 @subheading Running on the command-line
 
-@warning{If you are happy with the GUI instructions below, then
-please ignore these instructions.}
+@warning{If you are happy with the GUI instructions in the Learning Manual,
+then please ignore these instructions.}
 
 @subsubheading MacOS X on the command line
 
@@ -340,14 +348,6 @@ The same is true for all other scripts in that directory, such as
 @divEnd
 
 
-@divClass{column-center-top}
-@subheading Compiling a file
-
-@lilypadOSX
-
-@divEnd
-
-
 @divClass{column-center-bottom}
 @subheading Legalese
 
@@ -420,8 +420,8 @@ button when the uninstaller has completed.
 @divClass{column-right-top}
 @subheading Running on the command-line
 
-@warning{If you are happy with the GUI instructions below, then
-please ignore these instructions.}
+@warning{If you are happy with the GUI instructions in the Learning Manual,
+then please ignore these instructions.}
 
 @subsubheading Windows on the command line
 
@@ -468,14 +468,6 @@ can be run from the command-line by invoking them:
 @example
 lilypond test.ly
 @end example
-
-@divEnd
-
-
-@divClass{column-center-top}
-@subheading Compiling a file
-
-@lilypadWindows
 
 @divEnd
 

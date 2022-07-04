@@ -246,7 +246,7 @@ Venez puiser l'inspiration dans notre galerie
 @divClass{hide}
 @menu
 * Introduction::        Comment créer des partitions
-* Téléchargement::      Télécharger LilyPond
+* Download::            Télécharger LilyPond
 * Manuels::             Bibliothèque de LilyPond
 * Communauté::          Comment contacter d'autres utilisateurs
 @end menu
@@ -364,7 +364,7 @@ ici, faites le nous savoir, en suivant les instructions de la rubrique
 @end ifnothtml
 
 @include fr/web/introduction.itexi
-@include fr/web/download.itexi
+@include en/web/download.itexi
 @include fr/web/manuals.itexi
 @include fr/web/community.itexi
 

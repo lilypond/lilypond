@@ -21,7 +21,7 @@ Tento soubor poskytuje úvod pro LilyPond verze
 @macro copyrightDeclare
 Autorské právo @copyright{} 1999--2022 autoři.
 @end macro
- 
+
 @set FDL
 @include cs/macros.itexi
 
@@ -64,6 +64,7 @@ naleznete kopii tohoto a dalších souborů s dokumentací.
 
 @ifnottex
 @menu
+* Installing::                Installing LilyPond
 * Cvičení::                   Cvičení na úvod.
 * Běžný notový zápis::        Nejčastější případy notového zápisu.
 * Základní pojmy::           Základní pojmy, které jsou potřeba kvůli přečtení zbytku této příručky.
@@ -90,6 +91,7 @@ Přílohy
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include cs/learning/tutorial.itely
 @include cs/learning/common-notation.itely
 @include cs/learning/fundamental.itely

@@ -748,7 +748,7 @@ Más programok valamilyen szinten pótolják a grafikus felhasználói felülete
 @divClass{column-center-bottom}
 @subheading Hogyan tovább?
 
-Most már készen állsz a LilyPond @ref{Letöltés, letöltésére}.
+Most már készen állsz a LilyPond @ref{Download, letöltésére}.
 
 Még mindig nem vagy meggyőzve? Tudd meg, hogyan lehet @ref{Könnyebb bevitel,
 egyszerűbben szerkeszteni} a LilyPond fájlokat erre specializálódott
@@ -946,7 +946,7 @@ egy LISP könyvtár, amellyel kottát lehet generálni
 @divClass{column-center-bottom}
 @subheading Hogyan tovább?
 
-Most már készen állsz a LilyPond @ref{Letöltés, letöltésére}.
+Most már készen állsz a LilyPond @ref{Download, letöltésére}.
 
 Még mindig nem vagy meggyőzve? Számos zeneszerző, előadó és karmester könnyen
 elsajátította a LilyPond nyelvét. A tapasztalt felhasználók bizonyos esetekben

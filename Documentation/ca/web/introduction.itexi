@@ -1275,7 +1275,7 @@ directa d'una partitura gràfica.  Per veure més informació, consulteu
 @divClass{column-center-bottom}
 @subheading I ara què?
 
-Ja teniu la preparació per @ref{Descàrrega, Descarregar el LilyPond}.
+Ja teniu la preparació per @ref{Download, Descarregar el LilyPond}.
 Encara no esteu convençut? Llegiu quelcom sobre els entorns
 d'edició a
 @ref{Entorns millorats}.
@@ -1561,7 +1561,7 @@ de partitura i pot exportar al LilyPond.
 @divClass{column-center-bottom}
 @subheading I ara què?
 
-Ja teniu la preparació per @ref{Descàrrega, Descarregar el LilyPond}.
+Ja teniu la preparació per @ref{Download, Descarregar el LilyPond}.
 
 Encara no us convenç? Molts compositors, músics i directors
 d'orquestra han après a escriure música en el nostre format

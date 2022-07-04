@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include it/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -29,25 +29,10 @@ Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 @section Compilare un file
 @translationof Compiling a file
 
-@menu
-* Inserire l'input::
-* MacOS X::
-* Windows::
-* Linea di comando::
-@end menu
-
-@node Inserire l'input
-@subsection Inserire l'input
-@translationof Entering input
-
 @cindex compilazione
 @cindex esempio iniziale
 @cindex esempio, iniziale
 @cindex maiuscole, sensibile alle
-
-@menu
-* Generare l'output::
-@end menu
 
 @qq{Compilazione} è il termine usato per indicare l'elaborazione di un
 file di input in formato LilyPond per produrre uno o più file di output.  I
@@ -85,74 +70,6 @@ Inoltre, l'input di LilyPond è @strong{sensibile alle maiuscole}.
 @w{@samp{@{ c d e @}}} è un input valido; @w{@samp{@{ C D E @}}} invece
 produrrà un messaggio di errore.
 
-@smallspace
-
-@node Generare l'output
-@unnumberedsubsubsec Generare l'output
-@translationof Producing output
-
-@c TODO: move index entries
-@cindex PDF file
-@cindex vedere la musica
-@cindex editor di testo
-
-Come generare l'output di LilyPond dipende dal tuo sistema operativo e dai
-programmi che usi.
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (grafico)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (grafico)
-
-@item
-@ref{Linea di comando, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Linea di comando, Tutti i sistemi operativi} (linea di comando)
-
-@end itemize
-
-Si noti che sono disponibili molti altri editor di testo con
-un miglior supporto per LilyPond.  Per maggiori informazioni, si veda
-@rweb{Editing facilitato}.
-
-@warning{La prima volta che si esegue LilyPond la compilazione potrà richiedere
-uno o due minuti perché tutti i font di sistema devono essere prima
-analizzati.  In seguito, LilyPond sarà molto più veloce!}
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex eseguire LilyPond in MacOS X
-@cindex MacOS X, eseguire LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex eseguire LilyPond in Windows
-@cindex Windows, eseguire LilyPond
-
-@lilypadWindows
-
-
-@node Linea di comando
-@subsection Linea di comando
-@translationof Command-line
-
-@cindex eseguire LilyPond in Unix
-@cindex Unix, eseguire LilyPond
-
-@lilypadCommandLine
 
 
 @node Come scrivere i file di input
@@ -790,4 +707,3 @@ un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
 @rprogram{Consigli su come scrivere i file} del manuale di Uso del programma.
 
 @end itemize
-

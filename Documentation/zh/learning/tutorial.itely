@@ -10,7 +10,7 @@
 
 @c Translators: Chengrui Li
 
-@include en/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -34,25 +34,10 @@
 这一节介绍了 @qq{编译}---处理你写的
 LilyPond 输入文件从而生成输出文件.
 
-@menu
-* 进行输入::
-* MacOS X::
-* Windows::
-* 命令行::
-@end menu
-
-@node 进行输入
-@subsection 进行输入
-@translationof Entering input
-
 @cindex compiling (编译)
 @cindex first example (第一个例子)
 @cindex example, first (第一个例子)
 @cindex case sensitive (大小写敏感)
-
-@menu
-* 生成输出::
-@end menu
 
 @qq{编译} 说的是处理 LilyPond 格式的输入文件从而生成输出文件的过程。输出文件
 一般是 PDF 格式（用于打印或直接浏览）、MIDI 格式（用于演奏）、或 PNG 格式（用于在线使用）。LilyPond 的输入文件就是简单的文本文件。
@@ -81,72 +66,7 @@ LilyPond 输入文件从而生成输出文件.
 @w{@samp{@{ c d e @}}} is 有效输入；@w{@samp{@{ C D E @}}} 会报错。
 
 
-@smallspace
 
-@node 生成输出
-@unnumberedsubsubsec 生成输出
-@translationof Producing output
-
-@cindex PDF file (PDF 文件)
-@cindex viewing music (预览音乐)
-@cindex text editors (文本编辑器)
-
-生成输出文件的方法取决于你电脑的操作系统和你使用的程序。
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (图形化界面)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (图形化界面)
-
-@item
-@ref{Command-line, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Command-line, 任何操作系统} (命令提示行)
-
-@end itemize
-
-有很多其他的文本编辑器提供对 LilyPond 特定的支持。更多信息，见
-@rweb{Easier editing}.
-
-@warning{当你第一次运行 LilyPond 的时候，可能会花费及分成，因为要先分析你系统中所有的文字。之后 LilyPond 的运行就会快得多了！}
-
-
-@node MacOS X
-@subsection MacOS X
-@translationof MacOS X
-
-@cindex running LilyPond under MacOS X (在 Mac OS X 下运行 LilyPond)
-@cindex MacOS X, running LilyPond (在 Mac OS X 下运行 LilyPond)
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-@translationof Windows
-
-@cindex running LilyPond under Windows (在 Windows 下运行 LilyPond)
-@cindex Windows, running LilyPond (在 Windows 下运行 LilyPond)
-
-@lilypadWindows
-
-
-@node 命令行
-@subsection 命令行
-@translationof Command-line
-
-@cindex running LilyPond under Unix (在 Unix 环境下运行 LilyPond)
-@cindex Unix, running LilyPond (在 Unix 环境下运行 LilyPond)
-
-@lilypadCommandLine
 
 @node 如何写输入文件
 @section 如何写输入文件
@@ -231,7 +151,7 @@ See @ruser{Note names in other languages}.
 @end lilypond
 
 初始音符是 @notation{中央 C}，记为 @code{c'}.
-每一个后继音符都被放在与上一个音符最近的位置上 -- 换句话说，第一个 
+每一个后继音符都被放在与上一个音符最近的位置上 -- 换句话说，第一个
 @code{c} 是与中央 C 最近的 C。之后是与前面的 C 最近的 D。我们仍然可以使用 @code{\relative} 相对模式，写一段音高变化更大的旋律：
 
 @lilypond[verbatim,quote]
@@ -686,6 +606,3 @@ manual's @ref{教程} 和 @ref{Common notation}。如果你遇到了你不认识
 @strong{在做大项目之前}: 阅读用户手文档的 @rprogram{Suggestions for writing files} 部分。
 
 @end itemize
-
-
-

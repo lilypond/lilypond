@@ -218,7 +218,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{ダウンロード, ダウンロード @versionStable}
+@ref{Download, ダウンロード @versionStable}
 
 @ref{マニュアル, マニュアル @versionStable}
 
@@ -271,7 +271,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 @divClass{hide}
 @menu
 * 導入部::               ここから始めて、楽譜を作ってください。
-* ダウンロード::         LilyPond の入手方法。
+* Download::         LilyPond の入手方法。
 * マニュアル::           マニュアルを読んでください。
 * コミュニティ::         他のユーザとの交流。
 @end menu
@@ -388,7 +388,7 @@ bug-lilypond メーリング リストにメッセージを送ってお知らせ
 @end ifnothtml
 
 @include ja/web/introduction.itexi
-@include ja/web/download.itexi
+@include en/web/download.itexi
 @include ja/web/manuals.itexi
 @include ja/web/community.itexi
 

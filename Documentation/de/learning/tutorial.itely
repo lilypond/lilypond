@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include de/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 @c Translators: Till Paala, Reinhold Kainhofer, Michael Gerdau
@@ -36,17 +36,6 @@ Dieser Abschnitt führt in die @qq{Kompilation} ein -- den
 Bearbeitungsprozess von LilyPond-Eingabedateien (die Sie geschrieben
 haben) um eine Ausgabedatei zu erstellen.
 
-@menu
-* Noten eingeben::
-* MacOS X::
-* Windows::
-* Kommandozeile::
-@end menu
-
-@node Noten eingeben
-@subsection Noten eingeben
-@translationof Entering input
-
 @cindex Kompilieren
 @cindex erstes Beispiel
 @cindex Beispiel, erstes
@@ -56,9 +45,6 @@ haben) um eine Ausgabedatei zu erstellen.
 @cindex Großbuchstaben
 @cindex Kleinbuchstaben
 
-@menu
-* Ausgabe erzeugen::
-@end menu
 
 @qq{Kompilation} ist der Begriff, der benutzt wird, um eine
 LilyPond-Eingabedatei mit dem Programm LilyPond in eine
@@ -102,81 +88,6 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@samp{ @{ c d e @}}} ist zulässiger Code,
 @w{@samp{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
 
-@smallspace
-
-@node Ausgabe erzeugen
-@unnumberedsubsubsec Ausgabe erzeugen
-@translationof Producing output
-
-@cindex PDF-Datei
-@cindex Noten anzeigen
-@cindex Anzeigen der Noten
-@cindex Ansicht von Noten
-@cindex Editoren
-@cindex Texteditoren
-@cindex LilyPond unter MacOS X
-@cindex MacOS X, LilyPond starten
-@cindex Starten von LilyPond
-
-Das Erstellen der Notenausgabe hängt davon ab, welches Betriebssystem
-und welche Programme Sie benutzen.
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (graphisch)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (graphisch)
-
-@item
-@ref{Kommandozeile, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Kommandozeile, Alle Betriebssysteme} (Kommandozeile)
-
-@end itemize
-
-Beachten Sie, dass es eine Reihe an Texteditoren mit besserer
-Unterstützung für LilyPond gibt. Mehr dazu im Abschnitt
-@rweb{Leichteres Editieren}.
-
-@warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine
-Minute oder länger dauern, weil das Programm zuerst alle Schriftarten,
-die auf dem System zur Verfügung stehen, untersucht. Aber nach
-diesem ersten Mal läuft LilyPond sehr viel schneller.}
-
-
-@node MacOS X
-@subsection MacOS X
-@translationof MacOS X
-
-@cindex Starten des Programms, MacOS X
-@cindex MacOS X, LilyPond starten
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-@translationof Windows
-
-@cindex Windows, LilyPond starten
-
-@lilypadWindows
-
-
-@node Kommandozeile
-@subsection Kommandozeile
-@translationof Command-line
-
-@cindex Unix, LilyPond starten
-
-@lilypadCommandLine
 
 
 @node Wie werden Eingabe-Dateien geschrieben

@@ -328,7 +328,7 @@ please let us know by following the instructions on
 @end ifnothtml
 
 @include nl/web/introduction.itexi
-@include nl/web/download.itexi
+@include en/web/download.itexi
 @include nl/web/manuals.itexi
 @include en/web/community.itexi
 

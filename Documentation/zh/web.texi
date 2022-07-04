@@ -210,7 +210,7 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 @divClass{hide}
 @menu
 * 简介::        从这开始创建乐谱。
-* 下载::        获得 LilyPond。
+* Download::        获得 LilyPond。
 * 手册::        阅读完整的手册（RTFM）。
 * 社区::        和其他用户联络。
 @end menu
@@ -323,7 +323,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end ifnothtml
 
 @include zh/web/introduction.itexi
-@include zh/web/download.itexi
+@include en/web/download.itexi
 @include zh/web/manuals.itexi
 @include zh/web/community.itexi
 

@@ -378,7 +378,7 @@ sei pregato di farcelo sapere seguendo le istruzioni indicate in
 @end ifnothtml
 
 @include it/web/introduction.itexi
-@include it/web/download.itexi
+@include en/web/download.itexi
 @include it/web/manuals.itexi
 @include it/web/community.itexi
 

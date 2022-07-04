@@ -39,6 +39,7 @@ Copyright @copyright{} 1999--2022 pels autors.
 @ifnottex
 
 @menu
+* Installing::                     Installing LilyPond
 * Tutorial::                       Fonaments de la tipografia musical amb el LilyPond.
 * Notació corrent::                Escriptura de la notació molt comú.
 * Conceptes fonamentals::          Conceptes bàsics per llegir la resta dels manuals.
@@ -64,6 +65,7 @@ Annexos
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include ca/learning/tutorial.itely
 @include ca/learning/common-notation.itely
 @include ca/learning/fundamental.itely

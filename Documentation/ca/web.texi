@@ -208,7 +208,7 @@ Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Descàrrega, Descàrrega de @versionStable}
+@ref{Download, Descàrrega de @versionStable}
 
 @ref{Manuals, Manuals de @versionStable}
 
@@ -261,7 +261,7 @@ Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
 @divClass{hide}
 @menu
 * Introducció::      Comenceu aquí a crear partitures musicals.
-* Descàrrega::       Obtenir el LilyPond
+* Download::         Obtenir el LilyPond
 * Manuals::          Llegiu els benaurats manuals (RTFM)
 * Comunitat::        Poseu-vos en contacte amb altres usuaris.
 @end menu
@@ -381,7 +381,7 @@ instruccions que apareixin a la secció @ref{Bug reports}.
 @end ifnothtml
 
 @include ca/web/introduction.itexi
-@include ca/web/download.itexi
+@include en/web/download.itexi
 @include ca/web/manuals.itexi
 @include ca/web/community.itexi
 

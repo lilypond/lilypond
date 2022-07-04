@@ -154,7 +154,7 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Letöltés, Letöltés @versionStable}
+@ref{Download, Letöltés @versionStable}
 
 @ref{Dokumentáció, Dokumentáció @versionStable}
 
@@ -205,7 +205,7 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 @divClass{hide}
 @menu
 * Bevezetés:: Itt kezdd az olvasást!
-* Letöltés:: Szerezd meg a LilyPondot!
+* Download:: Szerezd meg a LilyPondot!
 * Dokumentáció:: Olvasd el a kézikönyveket!
 * Közösség:: Lépj kapcsolatba más felhasználókkal!
 @end menu
@@ -333,10 +333,9 @@ please let us know by following the instructions on
 @end ifnothtml
 
 @include hu/web/introduction.itexi
-@include hu/web/download.itexi
+@include en/web/download.itexi
 @include hu/web/manuals.itexi
 @include hu/web/community.itexi
 
 
 @bye
-

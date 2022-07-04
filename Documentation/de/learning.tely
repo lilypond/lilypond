@@ -71,6 +71,7 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @ifnottex
 @menu
+* Installing::                 Installing LilyPond
 * Tutorium::                   Eine Übung zur Einführung.
 * Übliche Notation::        Die häufigsten Notationsfälle.
 * Grundbegriffe::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
@@ -96,6 +97,7 @@ Anhänge
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include de/learning/tutorial.itely
 @include de/learning/common-notation.itely
 @include de/learning/fundamental.itely

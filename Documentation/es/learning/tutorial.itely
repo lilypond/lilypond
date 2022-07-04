@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include es/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 
@@ -34,25 +34,10 @@ Esta sección presenta el concepto de @qq{compilación}: el
 procesamiento de los documentos de entrada de LilyPond (escritos
 por uno mismo) para producir archivos de salida.
 
-@menu
-* Escritura del código de entrada::
-* MacOS X::
-* Windows::
-* Línea de órdenes::
-@end menu
-
-@node Escritura del código de entrada
-@subsection Escritura del código de entrada
-@translationof Entering input
-
 @cindex compilación
 @cindex ejemplo inicial
 @cindex inicial, ejemplo
 @cindex mayúsculas, sensible a
-
-@menu
-* Generar el resultado::
-@end menu
 
 @qq{Compilación} es una palabra que significa procesar un texto de
 entrada en formato de LilyPond para producir un archivo que se
@@ -91,75 +76,7 @@ Además, la entrada de LilyPond es @strong{sensible a las
 mayúsculas}.  @w{@samp{ @{ c d e @}}} es una entrada válida;
 @w{@samp{@{ C D E @}}} produce un mensaje de error.
 
-@smallspace
 
-@node Generar el resultado
-@unnumberedsubsubsec Generar el resultado
-@translationof Producing output
-
-@cindex PDF, archivo
-@cindex ver la música
-@cindex editores de texto
-
-El método para producir un resultado impreso depende de nuestro
-sistema operativo y del programa o programas que utilicemos.
-
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (gráfico)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (gráfico)
-
-@item
-@ref{Línea de órdenes, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Línea de órdenes, Todos los sistemas operativos} (consola)
-
-@end itemize
-
-Existen varios otros editores de texto con un apoyo específico a
-la edición de texto de LilyPond.  Para ver más información,
-consulte @rweb{Entornos mejorados}.
-
-@warning{La primera vez que ejecute LilyPond, tardará un minuto o
-dos porque todas las tipografías del sistema han de ser analizadas
-previamente.  ¡Después de esto, LilyPond será mucho más rápido!}
-
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex ejecución de LilyPond bajo MacOS X
-@cindex MacOS X, ejecución de LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex ejecutar LilyPond bajo Windows
-@cindex Windows, ejecutar LilyPond
-
-@lilypadWindows
-
-
-@node Línea de órdenes
-@subsection Línea de órdenes
-@translationof Command-line
-
-@cindex ejecución de  LilyPond bajo Unix
-@cindex Unix, ejecución de LilyPond
-
-@lilypadCommandLine
 
 @node Cómo escribir archivos de entrada
 @section Cómo escribir archivos de entrada

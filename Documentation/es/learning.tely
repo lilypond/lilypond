@@ -40,6 +40,7 @@ Copyright @copyright{} 1999--2022 por los autores.
 @ifnottex
 
 @menu
+* Installing::                     Installing LilyPond
 * Tutorial::                       Fundamentos de la tipografía musical con LilyPond.
 * Notación corriente::             Escribir notación muy común.
 * Conceptos fundamentales::        Conceptos básicos necesarios para leer el resto de los manuales.
@@ -65,6 +66,7 @@ Apéndices
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include es/learning/tutorial.itely
 @include es/learning/common-notation.itely
 @include es/learning/fundamental.itely

@@ -49,6 +49,7 @@ Copyright @copyright{} 1998--2022 par les auteurs.
 @ifnottex
 
 @menu
+* Installing::                     installing LilyPond
 * Tutoriel::                       introduction pratique à la gravure avec LilyPond.
 * Bases de notation musicale::     débuter avec la notation musicale courante.
 * Concepts fondamentaux::          concepts de base de LilyPond.
@@ -72,6 +73,7 @@ Annexes
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include fr/learning/tutorial.itely
 @include fr/learning/common-notation.itely
 @include fr/learning/fundamental.itely

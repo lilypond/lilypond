@@ -8,8 +8,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include en/included/generating-output.itexi
-
 @c \version "2.19.21"
 
 @node Tutorial
@@ -27,28 +25,10 @@ This chapter gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @section Compiling a file
 
-This section introduces @qq{compiling} -- the processing of
-LilyPond input files (written by you) to produce output files.
-
-@menu
-* Entering input::
-* MacOS X::
-* Windows::
-* Command line::
-@end menu
-
-
-@node Entering input
-@subsection Entering input
-
 @cindex compiling
 @cindex first example
 @cindex example, first
 @cindex case sensitive
-
-@menu
-* Producing output::
-@end menu
 
 @qq{Compiling} is the term used for processing an input file in
 LilyPond format to produce output file(s).  Output files are
@@ -85,79 +65,6 @@ examples in the manual, see @ref{How to read the manuals}.}
 In addition, LilyPond input is @strong{case sensitive}.
 @w{@samp{@{ c d e @}}} is valid input; @w{@samp{@{ C D E @}}}
 produces an error message.
-
-
-@smallspace
-
-@node Producing output
-@unnumberedsubsubsec Producing output
-
-@cindex PDF file
-@cindex viewing music
-@cindex text editors
-
-The method of producing output depends on your operating system
-and the program(s) you use.
-
-@itemize
-
-@item
-@ifhtml
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@end ifhtml
-@ref{MacOS X, MacOS X} (graphical)
-
-@item
-@ifhtml
-@ref{Windows, @sourceimage{logo-windows,,}}
-@end ifhtml
-@ref{Windows, Microsoft Windows} (graphical)
-
-@item
-@ifhtml
-@ref{Command line, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}}
-@end ifhtml
-@ref{Command line, All operating systems} (command line)
-
-@end itemize
-
-There are several other text editors available with specific
-support for LilyPond.  For more information, see
-@rweb{Easier editing}.
-
-@warning{The first time you ever run LilyPond, it may take a
-minute or two because all of the system fonts have to be analyzed
-first.  After this, LilyPond will be much faster!}
-
-
-@node MacOS X
-@subsection MacOS X
-
-@cindex running LilyPond under MacOS X
-@cindex MacOS X, running LilyPond
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-
-@cindex running LilyPond under Windows
-@cindex Windows, running LilyPond
-
-@lilypadWindows
-
-
-@node Command line
-@subsection Command line
-
-@cindex running LilyPond under Unix
-@cindex Unix, running LilyPond
-
-@lilypadCommandLine
 
 
 @node How to write input files

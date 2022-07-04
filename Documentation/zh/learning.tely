@@ -40,7 +40,8 @@ Copyright @copyright{} 1998--2022 by the authors.
 @ifnottex
 
 @menu
-* 教程::                       书写 LilyPond 的基本方法.
+* Installing::                     Installing LilyPond
+* 教程::                           书写 LilyPond 的基本方法.
 * Common notation::                常用的记谱法.
 * Fundamental concepts::           阅读这本手册所需的基本概念.
 * Tweaking output::                介绍如何修改调整输出.
@@ -65,6 +66,7 @@ Copyright @copyright{} 1998--2022 by the authors.
 
 @c INCLUDES
 
+@include en/learning/installing.itely
 @include zh/learning/tutorial.itely
 @include en/learning/common-notation.itely
 @include en/learning/fundamental.itely

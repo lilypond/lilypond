@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include en/included/generating-output.itexi
+
 
 @c \version "2.19.21"
 @c Translators: Pavel Fric
@@ -26,25 +26,9 @@ Tato kapitola čtenáři představuje základní práci s LilyPondem.
 * Jak číst příručky::
 @end menu
 
-
 @node Přeložení zdrojového souboru
 @section Přeložení zdrojového souboru
 @translationof Compiling a file
-
-Tento úryvek uvádí do @qq{sestavování} -- do procesu zpracování
-LilyPondovských vstupních souborů (napsaných vámi), který popisuje,
-aby byl vytvořen výstupní soubor.
-
-@menu
-* Zadání not::
-* MacOS X::
-* Windows::
-* Příkazový řádek::
-@end menu
-
-@node Zadání not
-@subsection Zadání not
-@translationof Entering input
 
 @cindex Sestavení
 @cindex První příklad
@@ -98,78 +82,6 @@ Dodatečně LilyPond rozlišuje @strong{Psaní velkých a malých písmen}.
 @w{@samp{ @{ C D E @}}} naproti tomu vede k chybovému hlášení.
 
 
-@smallspace
-
-@subheading Pohled na výsledky
-
-@cindex Soubor PDF
-@cindex Ukázat noty
-@cindex Ukázání not
-@cindex Pohled s notami
-@cindex Editory
-@cindex Textové editory
-@cindex LilyPond pod MacOS X
-@cindex MacOS X, spuštění LilyPondu
-@cindex Spuštění LilyPondu
-
-Tvorba notového výstupu závisí na tom, jaký operační systém
-a které programy se používají.
-
-@itemize
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X} (obrazově)
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows} (obrazově)
-
-@item
-@ref{Příkazový řádek, @sourceimage{logo-linux,,}
-@sourceimage{logo-freebsd,,}
-@sourceimage{logo-macosx,,}
-@sourceimage{logo-windows,,}
-}
-@ref{Příkazový řádek, všechny operační systémy} (Příkazový řádek)
-
-@end itemize
-
-Vezměte na vědomí, že lepší výsledky jsou u textových editorů s
-podporou pro LilyPond. Více k tomu v úryvku
-@rweb{Snadnější úpravy}.
-
-@warning{Poprvé, když použijete LilyPond, může spuštění trvat minutu
-nebo i déle, protože program nejprve vyhledává všechna písma,
-LilyPond běží o mnoho rychleji.}
-
-
-@node MacOS X
-@subsection MacOS X
-@translationof MacOS X
-
-@cindex Spuštění programu, MacOS X
-@cindex MacOS X, spuštění LilyPondu
-
-@lilypadOSX
-
-
-@node Windows
-@subsection Windows
-@translationof Windows
-
-@cindex Windows, spuštění LilyPondu
-
-@lilypadWindows
-
-
-@node Příkazový řádek
-@subsection Příkazový řádek
-@translationof Command-line
-
-@cindex Unix, spuštění LilyPondu
-
-@lilypadCommandLine
 
 @node Jak se píší vstupní soubory
 @section Jak se píší vstupní soubory
@@ -825,4 +737,3 @@ Přečtěte si @ref{Ladění výstupu,,o ladění výstupu} v příručce k uče
 v části věnované používání programu.
 
 @end itemize
-
