@@ -468,7 +468,15 @@ def draw_four (expr advance_width, glyph_width, left_bearing,
 
   x1r = lb + gw - 3/4 thick;
   if short_stem:
-    y1r = height - (6/2 thin) / cosd (alpha);
+    % We want this:
+    %
+    %   y1r = y5 + 1/2 thin + thick * tand (alpha);
+    %
+    % (i.e., `y1l`, specified indirectly via `y1r`, should be
+    % positioned `1/2 thin` higher than `y5`).  However,
+    % `calc_kuulleke` needs 'absolute' coordinates not based on a
+    % system of equations.
+    y1r = (1/4 height + thin) + 1/2 thin + thick * tand (alpha);
   else:
     y1r = height - (3/2 thin) / cosd (alpha);
   fi;
