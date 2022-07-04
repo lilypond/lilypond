@@ -684,8 +684,18 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
   gw := hround_pixels (glyph_width);
   lb := hround_pixels (left_bearing);
 
+  % The vertical distance between position `h - thin` (i.e., `y6l` for
+  % the unstroked version) and `y2r` must stay (approximately) the
+  % same so that the whitespace within the glyph doesn't shrink if the
+  % value for `thin` gets enlarged.
+  %
+  % We use a linear combination of `thick` and `height` because both
+  % values are directly derived from the number design size (`thin`
+  % would be the correct entity to use, but it contains a `max`
+  % function call in its definition, thus making the parameter
+  % unsuitable).
   penpos2 (hair, 90);
-  z2 = (lb + gw / 2, h / 2 + thin - hair / 2);
+  z2r = (lb + gw / 2, .41 height + .91 thick - thin);
 
   penpos3 (15/16 thick, 0);
   x3r = lb + gw;
@@ -710,13 +720,14 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
   outer_t = 0.88;
   t := tense;
 
-  before := z7{right}
+  before := z10{up}
             .. z2r{right};
   after := z7r{up}
            .. number_flare_path (z6r, 0, -90, hair, flare,
                                  lb + 0.96 gw - x6r,
                                  .16 height, 0.05, 2.5, 1)
-           .. z7l{down};
+           .. z7l{down}
+           -- z10l;
   (u, v) = before intersectiontimes after;
 
   % draw
