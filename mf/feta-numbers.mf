@@ -325,7 +325,7 @@ def draw_two (expr advance_width, glyph_width, left_bearing) =
           .. {dir (180 + beta)}z1l;
 
   penpos4 (thick, 0);
-  z4r = (lb + gw - thin / 2, .71 h);
+  z4r = (lb + 0.95 gw, .71 h);
 
   penpos5 (hair, 90);
   y5r = h;
@@ -338,7 +338,7 @@ def draw_two (expr advance_width, glyph_width, left_bearing) =
   patb := z1l{dir (beta)}
           ..tension t.. z4r{up}
           .. number_flare_path (z5r, 180, 90, hair, 1.05 flare,
-                                x5r - 1/2 hair - lb, .21 h, 0.006, 0.4, 1)
+                                0.92 x5r - lb, .21 h, 0.006, 0.4, 1)
           .. z4l{down}
           ..tension t.. {dir (180 + beta)}z1r;
 
@@ -400,7 +400,7 @@ def draw_three (expr advance_width, glyph_width, left_bearing) =
 % pickup pencircle scaled 1;
 % draw
   fill number_flare_path (z1l, 180, 90, hair, 7/8 flare,
-                          x1l - .5 hair - lb, .16 h, 0.06, 1.5, -1)
+                          0.91 x1l - lb, .16 h, 0.06, 1.5, -1)
        ..tension outer_t.. z2l{down}
        ..tension outer_t.. z7r{dir (180 + alpha)}
        .. z7l{dir (-alpha)}
@@ -514,7 +514,7 @@ def draw_five (expr advance_width, glyph_width, left_bearing) =
   lb := hround_pixels (left_bearing);
 
   alpha = 0;
-  calc_kuulleke (gw - thin, alpha);
+  calc_kuulleke (0.9 gw, alpha);
 
   z1 = (lb + gw / 2 + 1/8 thick, h);
 
@@ -606,11 +606,11 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
 
   penpos6 (hair, 90);
   x6r = lb + .56 gw;
-  y6r = h;
+  y6r = height;
 
   penpos7 (thick, 180);
   x7r = lb;
-  y7r = .50 h;
+  y7r = .5 height;
 
   penpos10 (thick, 180);
   z10r = (lb, y3);
@@ -624,8 +624,8 @@ def draw_six (expr advance_width, glyph_width, left_bearing) =
             .. z2r{right};
   after := z7r{up}
            .. number_flare_path (z6r, 0, -90, hair, flare,
-                                 lb + gw - x6r - hair / 2,
-                                 .16 h, 0.05, 2.5, 1)
+                                 lb + 0.96 gw - x6r,
+                                 .16 height, 0.05, 2.5, 1)
            .. z7l{down};
   (u, v) = before intersectiontimes after;
 
@@ -703,7 +703,7 @@ def draw_seven (expr advance_width, glyph_width, left_bearing,
 
   penpos12 (thick, 90 + alpha);
   x12 = 1/2 [x11, x13] - 1/4 thick;
-  y12 = h - 15/16 thick + thin * widen;
+  y12 = h - 0.6 thick - 0.1 thin * widen;
 
   penpos14 (thin, 0);
   z14l = (lb, h - thin / 2);
@@ -771,7 +771,7 @@ def draw_eight (expr advance_width, glyph_width, left_bearing) =
   z1 = (lb + gw / 2, h / 2 + thick / 8);
 
   penpos2 (14/8 thin, 0);
-  z2 = (lb + gw / 3, h / 2 + thin);
+  z2 = (lb + 0.2 gw + 1.4 thin, h / 2 + thin);
 
   penpos3 (3/2 thin, 0);
   z3l = (lb, h / 4 + thin / 2);
@@ -783,16 +783,16 @@ def draw_eight (expr advance_width, glyph_width, left_bearing) =
   z5 = z1 + gw / 4 * dir (alpha - 90);
 
   penpos6 (thick, 90 + 90 + alpha);
-  z6 = z1 + (gw / 4 - thin / 2) * dir (90 + alpha);
+  z6 = z1 + 0.2 gw * dir (90 + alpha);
 
   penpos7 (hair, 90);
   z7r = (x1 + .02 gw, h);
 
   penpos8 (3/2 thin, 0);
-  z8r = (lb + gw - thin / 2, 3/4 h + thin / 2);
+  z8r = (lb + 0.95 gw, 3/4 h + thin / 2);
 
   penpos9 (13/8 thin, 0);
-  z9 = (lb + 2/3 gw, h / 2);
+  z9 = (lb + 0.8 gw - 1.5 thin, h / 2);
 
   penlabels (range 1 thru 9);
 
@@ -1013,6 +1013,18 @@ fet_endchar;
 
 fet_begingroup ("figbass");
 
+% Make glyphs for figured bass fatter than standard digits (which are
+% mainly used for time signatures) to increase legibility at small
+% sizes.
+
+save thin, hair;
+
+thin# := 1.5 (thick# / 4 * fatten + max (.1 (height# / 10 - 1), 0));
+hair# := thin# * .8;
+
+define_whole_pixels (thin, hair);
+
+
 save digit_advance;
 
 % All digits have the same advance width.
@@ -1101,7 +1113,7 @@ fet_endchar;
 fet_beginchar ("figured bass 7", "seven");
   save width, lsb;
 
-  width# := 11/15 height# * widen - thin#;
+  width# := 11/15 height# * widen - 2/3 thin#;
   lsb# := 1.2 * (digit_advance# - width#) / 2;
 
   draw_seven (digit_advance#, width#, lsb#, true);
