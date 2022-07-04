@@ -34,6 +34,7 @@
 #endif
 
 #include "file-name.hh"
+#include "flower-proto.hh"
 #include "std-vector.hh"
 #include "warn.hh"
 

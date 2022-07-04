@@ -19,10 +19,12 @@
 
 #include "warn.hh"
 
+#include "flower-proto.hh"
 #include "international.hh"
 
-#include <cstdlib>
+#include <algorithm>
 #include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <vector>
 

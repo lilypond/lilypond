@@ -22,6 +22,7 @@
 
 #include "polynomial.hh"
 
+#include "flower-proto.hh"
 #include "warn.hh"
 
 #include <cmath>

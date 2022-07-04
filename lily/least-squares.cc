@@ -19,6 +19,7 @@
 
 #include "least-squares.hh"
 
+#include "flower-proto.hh"
 #include "warn.hh"
 
 using std::vector;
