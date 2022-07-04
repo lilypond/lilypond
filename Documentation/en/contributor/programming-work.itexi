@@ -18,6 +18,7 @@
 * Understanding pure properties::
 * LilyPond scoping::
 * Scheme->C interface::
+* Garbage collection for dummies::
 * LilyPond miscellany::
 @end menu
 
@@ -1805,7 +1806,6 @@ during the iteration phase.
 @menu
 * Useful methods for information processing::
 * Translation process::
-* Preventing garbage collection for SCM member variables::
 * Listening to music events::
 * Acknowledging grobs::
 * Engraver declaration/documentation::
@@ -1835,6 +1835,11 @@ of context properties before translation starts, whereas
 translation: for example, an unterminated spanner might be completed
 automatically or reported with a warning message.
 
+In addition, there is a @code{derived_mark} method that should be
+used to protect Scheme members from garbage collection.
+@xref{Garbage collection for dummies}.
+
+
 
 @node Translation process
 @subsection Translation process
@@ -1856,23 +1861,6 @@ within engravers.
 @code{stop_translation_timestep ()} is called after all user
 information has been processed prior to beginning the translation for
 the next timestep.
-
-
-@node Preventing garbage collection for SCM member variables
-@subsection Preventing garbage collection for SCM member variables
-
-In certain cases, an engraver might need to ensure private Scheme
-variables (with type SCM) do not get swept away by Guile's garbage
-collector: for example, a cache of the previous key signature which
-must persist between timesteps.  The method
-@code{virtual derived_mark () const} can be used in such cases:
-
-@example
-Engraver_name::derived_mark ()
-@{
-  scm_gc_mark (private_scm_member_)
-@}
-@end example
 
 
 @node Listening to music events
@@ -2405,6 +2393,285 @@ Behave the same as scm_to_[C type] would do if it existed.
 
 Behave the same as scm_to_[C type] would do if it existed.
 Return @var{d} if type verification fails.
+
+
+
+
+@node Garbage collection for dummies
+@section Garbage collection for dummies
+
+@warning{Reading this section is strongly recommended before
+attempting complex C++ programming.}
+
+Within LilyPond, interaction with Guile is ubiquitous. LilyPond is
+written in C++ and Guile Scheme.  Even in C++, most of the code
+uses Guile APIs to interface with the outside Scheme world, both
+with user and internal Scheme code.
+
+Scheme is a garbage-collected language.  This means that once in a
+while, a so-called garbage collector scans the memory for values
+that are no longer being used, and reclaims them.  This process
+ensures that the memory is given back to the computer and made
+available for other uses.  The garbage collector implementation
+used in Guile 2 and later is the Boehm-Demers-Weiser garbage
+collector (BDWGC).
+
+C++, on the other hand, usually frees values at determined points
+of time (although most of the time they remain implicit, through
+the use of the famous @qq{RAII} or @qq{scope-bound resource
+management} technique).  It has no direct support for garbage
+collection.  This can make memory management of Scheme values in
+C++ a challenge (or a headache).  Whenever you are using a value
+whose memory is managed by Guile, you @strong{must} keep an eye on
+its lifetime.
+
+To be more precise, the garbage collector works in a @emph{mark}
+phase and a @emph{sweep} phase.  During marking, the collector
+scans values that the program is currently using, then asks these
+values for containing references to other values, and continues
+following references until all reachable objects have been found.
+Objects that are unreachable can logically no longer be used in
+the program, so they are freed in the sweep phase.
+
+In Schemeland, the interpreter takes care of marking values for
+you.  For instance, if you store a list in a variable, then during
+garbage collection, this list is automatically marked, and this
+causes all elements of the list to be marked in turn, which
+ensures they remain alive.  In Cppland, you need to be very
+careful to keep values allocated on Guile's heap as visible to the
+garbage collector if they cannot be reached from the Scheme side.
+
+@subheading Understanding which values are under garbage-collected management
+
+To begin with, which values are allocated on the Guile heap?  The
+basic Guile API type is the SCM type, which represents a value
+boxed for usage in Scheme.  The SCM type is pointer-sized piece of
+data.  It is either a pointer to Scheme data structures
+(e.g. pair, double pair, etc.) -- in this case, the pointer is
+64-bit aligned and has its lower bits set to 0 --, or it is an
+immediate value (short integer, boolean, @code{'()}, etc.) -- in
+which case the lower order bits are non-zero.  Smobs, vectors,
+strings and many other Scheme data structures are represented as
+pairs, where the car holds a tag value (non-aligned, lower order
+bits set) and the cdr holds the pointer to data.  From the scheme
+side, the fact that these types are represented using pairs is
+invisible.
+
+Thus, for immediate SCM values, all the value is contained in the
+SCM itself.  There is no concept of freeing these values, as they
+are never heap-allocated: they just keep being copied around, and
+dropped by normal C++ lifetime mechanisms when done (such as
+dropping local variables of a function when it returns).  On the
+other hand, all other values point to memory allocated on the
+Guile heap.  It is the lifetime of this memory that you need to
+care about.
+
+LilyPond adds its own object types to Guile as well.  They as
+called @qq{smobs}, which depending on sources means @qq{Scheme
+objects} or @qq{small objects}.  Smobs come in two flavors:
+
+@qq{Simple smobs} are objects that can be passed around by copy
+without changing the meaning.  Their classes derive from
+@code{Simple_smob}.  @code{Pitch} and @code{Duration} are good
+examples.  The usual way to create them is just like a normal C++
+object (e.g., @code{Smob_type variable (constructor
+parameters);}).  When created in this way, simple smobs are
+allocated on the stack like any other C++ automatic variable, and
+dropped in the same way too.  When you need to send a simple smob
+to Schemeland, you should call the member function
+@code{smobbed_copy ()}.  This calls the smob's copy constructor to
+make a copy under garbage collection control, packed in an SCM
+value.
+
+@qq{Complex smobs} are objects with an identity, such as
+@code{Music}, @code{Context} and @code{Grob}.  Their classes
+derive from @code{Smob}.  They are always created via the C++
+@code{new} operator.  After allocating, their memory is put under
+the control of the garbage collector.  A complex smob has a field
+containing its SCM identity, which points back to itself.  You can
+access this field using the member function @code{self_scm ()}.
+
+The function to convert a SCM value back into the C++ smob type is
+@code{unsmob<Smob_type *> (value)} (which returns a null pointer
+if the SCM was not a value of the smob type in question).  Because
+of the dual nature of simple smobs, you need to be mindful that if
+@code{Smob_type} derives from @code{Simple_smob}, the memory
+referred to by the result of @code{unsmob<Smob_type>} (if
+non-null) may either be on the stack or on the Guile heap, even
+though most of the time it will be on the Guile heap.  On the
+other hand, for a complex smob, it will systematically be on the
+Guile heap.
+
+
+@subheading How values are protected
+
+When the garbage collector starts a collection, it first scans all
+memory being used by the program at the current point of time.
+This is called the root set.  For Scheme, it includes all global
+variables of all modules and local variables of the function being
+executed.  C++ adds everything that is on the stack and in
+registers (FIXME: investigate global variables).  The dependencies
+of these values are then marked, etc.
+
+
+@subsubheading Marking roots
+
+The marking of the C++ function stack is very simple: scan the
+stack and treat every value as a possible pointer.  This principle
+is called @qq{conservative garbage collection}, and has a few
+consequences.  One is that there may be some false positives, if
+random values on the stack happen to look the same as pointers to
+memory in the Guile heap.  These values will be held longer than
+necessary, which is harmless.
+
+Another, much more nasty consequence is that values are
+@emph{only} kept alive while they have an SCM presence on the
+stack.  Here is an example of what @emph{not} to do:
+
+@quotation
+@verbatim
+Complex_smob_type *
+func ()
+{
+  Complex_smob_type *object = new Complex_smob_type ();
+  object->unprotect ();
+  return object;
+}
+@end verbatim
+@end quotation
+
+When the caller of this function receives the object pointer,
+there is no reason for the object's SCM identity (what would be
+returned by its @code{self_scm ()} method) to be present on the
+stack or in registers.  Only the pointer to the C++ object is.
+This does not work to protect the object from garbage collection.
+The object could be freed if a GC pass occurs.  The fix is to
+unprotect later if possible, at a point where the object's
+@code{self_scm ()} is placed in a long-lived reachable Scheme data
+structure.  Alternatively, if this is impractical, return an SCM
+to keep the object protected.  The @code{unprotect ()} method
+actually returns the SCM for convenience.
+
+@quotation
+@verbatim
+SCM
+func ()
+{
+  Complex_smob_type *object = new Complex_smob_type ();
+  return object->unprotect ();
+}
+@end verbatim
+@end quotation
+
+A different, even nastier trap can be illustrated with this
+example:
+
+@quotation
+@verbatim
+LY_DEFINE (ly_func, "ly:func",
+           1, 0, 0, (SCM param),
+           R"(
+Doc
+           )")
+{
+  Smob_type *object = unsmob<Smob_type> (param);
+  // do some stuff here, including
+  scm_cons (a, b)
+  // ...
+  return to_scm (object->some_field_);
+}
+@end verbatim
+@end quotation
+
+At first glance, this looks fine.  The SCM value @code{param}
+should remain on the stack until the end of the function, keeping
+the smob protected.  This is not always true, however.  If the
+compiler does a clever optimization, it might reuse the memory of
+the @code{param} variable for something else.  If this happens,
+the object is unprotected while the memory of the cons cell is
+being allocated, which could cause the smob to be collected.  The
+access @code{object->some_field_} is then use-after-free.
+
+The solution to this is to use @code{scm_remember_upto_here},
+which allows to forcefully keep the object alive:
+
+@quotation
+@verbatim
+LY_DEFINE (ly_func, "ly:func",
+           1, 0, 0, (SCM param),
+           R"(
+Doc
+           )")
+{
+  Smob_type *object = unsmob<Smob_type> (param);
+  // do some stuff here, including
+  scm_cons (a, b)
+  // ...
+  SCM field = to_scm (object->some_field_);
+  scm_remember_upto_here (param);
+  return field;
+}
+@end verbatim
+@end quotation
+
+
+@subsubheading GC marking for smobs
+
+Guile automatically marks the elements contained in compound
+values of the types it provides, like lists and vectors.
+LilyPond's smobs must do the same in order to keep elements they
+refer to alive while they are themselves alive.  This is done by
+implementing the member function @code{SCM mark_smob () const}.
+This function must call @code{scm_gc_mark} on every Scheme value
+that needs to be kept alive with the object.  It can return an SCM
+value, which is marked in the same way. (This dates back to Guile
+1, which used the C++ function stack to mark objects.  It was
+necessary to keep the stack depth constant when marking objects
+such as lists, or stack overflows would have easily ensued.  It is
+no longer very relevant in Guile 2.)
+
+For many smob types, @code{mark_smob} needs to add marking to the
+implementation of the superclass.  This is usually done using a
+@code{derived_mark} method.  This is the case for translators, for
+example.  The child class should thus just implement
+@code{derived_mark} and not override @code{mark_smob}.
+
+For simple smobs allocated as automatic variables, i.e., outside
+of Guile's control, @code{mark_smob} is @emph{not} called during
+garbage collection.  In this case, the only marking that the
+object receives is conservative scanning of the stack.  This has
+the strong implication that a simple smob must contain all SCM
+values it refers to in its memory image on the stack.  Anything
+that needs more complex marking behavior should be a complex smob.
+For example, it's not OK for a simple smob to contain an
+@code{std::vector<SCM>}.  On the other hand, that would be OK for
+a complex smob as long as its @code{mark_smob} function iterates
+over the vector to mark each element.  The simplest solution is
+storing a Guile vector, of SCM type, which @emph{is} OK even in
+simple smobs because the memory image on the stack is an SCM
+vector value, which during marking causes the marking of all
+vector elements, unlike an @code{std::vector<SCM>}.
+
+
+@subsubheading Initial protection for complex smobs
+
+When you create a complex smob, it receives an initial GC
+protection, which should be removed with its @code{unprotect ()}
+method once the complex smob enters an area where it is protected
+by other means.
+
+There is no such protection for a @code{smobbed_copy ()} of a
+simple smob because those tend to be more short-lived and are
+often just returned to Scheme after being created.
+
+TODO: expand on smob constructors, especially the need for Preinit
+classes.  See @file{lily/include/smobs.hh}.
+
+
+
+TODO: explain the quirks of finalization (non-)ordering.
+See commit @code{6555b3841a}.
+
 
 
 @node LilyPond miscellany
