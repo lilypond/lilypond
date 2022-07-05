@@ -511,7 +511,7 @@ $(outdir)/webdoc/dep: \
 	       webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
 	touch $@
 
-local-WWW: $(outdir)/webdoc/dep
+local-WWW: info $(outdir)/webdoc/dep
 
 WEB_HTML_TARGETS = \
   $(foreach L, \
