@@ -100,9 +100,6 @@ zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 
-if os.getenv("MAKEWEB") == '1':
-    LANGUAGES = WEB_LANGUAGES
-
 LANGDICT = {l.code: l for l in LANGUAGES}
 
 non_english_enabled_langs = [
