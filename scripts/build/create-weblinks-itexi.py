@@ -385,21 +385,7 @@ translations = {
 
 # actual program
 
-try:
-    topDir = sys.argv[1]
-except IndexError:
-    myDir = os.path.dirname(sys.argv[0])
-    # use two abspaths to work around some windows python bug
-    topDir = os.path.join(os.path.abspath(
-        myDir)+os.sep+'..'+os.sep+'..'+os.sep)
-    topDir = os.path.abspath(topDir)
-
-# TODO: this might be useful for other scripts; can we make it available?
-manuals = [os.path.splitext(x)[0] for x in list(map(os.path.basename,
-                                                    glob.glob(os.path.join(topDir, 'Documentation', 'en', '*.te??'))))]
-#manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
-manuals.append('internals')
-
+manuals = sys.argv[1:] # get manual names from the command line
 
 def getTrans(text, lang):
     if not lang:

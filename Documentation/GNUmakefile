@@ -568,7 +568,7 @@ $(outdir)/version.itexi: $(top-src-dir)/VERSION
 
 $(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) $(buildscript-dir)/create-weblinks-itexi.py > $@
+	$(PYTHON) $(buildscript-dir)/create-weblinks-itexi.py $(DOC_BASENAMES) > $@
 
 $(outdir)/lilypond-%.info: \
   $(outdir)/en/%.texi \
