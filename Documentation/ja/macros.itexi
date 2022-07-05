@@ -190,6 +190,10 @@ LilyPond バージョン @version{} 用
 @indent
 @end macro
 
+@macro endmorerefs
+@c TODO: Do the same as with the English version of this macro.
+@end macro
+
 
 @macro knownissues
 @subsubheading 既知の問題と警告

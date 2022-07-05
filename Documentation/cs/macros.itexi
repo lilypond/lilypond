@@ -90,7 +90,7 @@ pouze anglická verze.}
 
 @quotation
 Tento dokument je dovoleno rozšiřovat, kopírovat, a/nebo
-upravovat za podmínek licence GNU Free Documentation, verze 1.1 nebo jakékoli pozdější, 
+upravovat za podmínek licence GNU Free Documentation, verze 1.1 nebo jakékoli pozdější,
 ve verzi zveřejněné Free Software Foundation; s žádnými neměnnými částmi.
 Kopie licence je zahrnuta v oddíle nazvaném GNU
 Free Documentation License.
@@ -177,6 +177,10 @@ Pro LilyPond ve verzi @version{}
 @macro morerefs
 @subsubheading Podívejte se také na
 @indent
+@end macro
+
+@macro endmorerefs
+@c TODO: Do the same as with the English version of this macro.
 @end macro
 
 
@@ -771,4 +775,3 @@ this Wikipedia Commons page}.
 Tato část ještě nebyla přeložena.  Čtěte, prosím,
 úryvek v anglické uživatelské příručce.
 @end macro
-

@@ -221,6 +221,10 @@ Voor LilyPond versie @version{}
 @indent
 @end macro
 
+@macro endmorerefs
+@c TODO: Do the same as with the English version of this macro.
+@end macro
+
 
 @macro knownissues
 @subsubheading Bekende problemen en waarschuwingen
@@ -818,4 +822,3 @@ this Wikipedia Commons page}.
 Deze alinea is nog niet vertaald.  Leest u alstublieft de engelse
 handleiding.
 @end macro
-
