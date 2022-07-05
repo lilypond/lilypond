@@ -403,18 +403,10 @@ manuals = [os.path.splitext(x)[0] for x in list(map(os.path.basename,
 manuals.append('internals')
 
 
-def _(string, lang):
-    return translations.get(lang.split('_')[0], {}).get(string, None)
-
-
-getTrans = _
-# let's not barf, but print a warning when something's missing
-
-
 def getTrans(text, lang):
     if not lang:
         return text
-    trans = _(text, lang)
+    trans = translations.get(lang.split('_')[0], {}).get(text, None)
     if not trans:
         trans = text
         sys.stderr.write(
@@ -436,27 +428,18 @@ def make_macro(name, string):
 
 
 def make_download(name, osA, osB, version, revision, text):
-    string = "@uref{https://lilypond.org/download/binaries/"
-    string += osA + "lilypond-"
-    string += version + "-" + revision
-    string += "." + osB + ",\n"
-    string += text
-    string += ": LilyPond "
-    string += version + "-" + revision
-    string += "}"
+    string = f"""\
+@uref{{https://lilypond.org/download/binaries/{osA}lilypond-{version}-{revision}.{osB},
+{text}: LilyPond {version}-{revision}}}"""
     make_macro(name, string)
 
 
 def make_download_source(name, version, lang):
     assert "." in version
     vstring = "v%s.%s" % tuple(version.split(".", 2)[0:2])
-    string = "@uref{https://lilypond.org/download/sources/"
-    string += vstring + "/"
-    string += "lilypond-" + version + ".tar.gz"
-    string += ", "
-    string += getTrans("Source", lang)
-    string += ": lilypond-" + version + ".tar.gz"
-    string += "}"
+    string = f"""\
+@uref{{https://lilypond.org/download/sources/{vstring}/lilypond-{version}.tar.gz, \
+{getTrans("Source", lang)}: lilypond-{version}.tar.gz}}"""
     make_macro(macroLang(name, lang), string)
 
 
@@ -474,13 +457,10 @@ def make_all_downloads(macroName, version):
 
 
 def make_gitlab_download(name, version, download, text):
-    string = "@uref{https://gitlab.com/lilypond/lilypond/-/releases/"
-    string += "v" + version + "/downloads/"
-    string += "lilypond-" + version + "-" + download + ",\n"
-    string += text
-    string += ": LilyPond "
-    string += version
-    string += "}"
+    string = f"""\
+@uref{{https://gitlab.com/lilypond/lilypond/-/releases/\
+v{version}/downloads/lilypond-{version}-{download},
+{text}: LilyPond {version}}}"""
     make_macro(name, string)
 
 
@@ -494,12 +474,7 @@ def make_all_gitlab_downloads(macroName, version):
 
 
 def make_ver_link(macroname, url, linktext):
-    string = "@uref{"
-    string += url
-    string += ","
-    string += linktext
-    string += "}"
-    make_macro(macroname, string)
+    make_macro(macroname, f"@uref{{{url},{linktext}}}")
 
 # TODO: this kind of thing should really be in a central place for
 # lilypond python build scripts
