@@ -18,8 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-""" when being called on lilypond.org, pass it the location of the
-top source dir on the command-line. """
 
 import codecs
 import glob
