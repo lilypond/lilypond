@@ -936,6 +936,32 @@ re-install.  See @ref{Configuring target directories}.
 @node Generating documentation
 @subsection Generating documentation
 
+Three levels of documentation are available for installation.  The
+following table lists them in order of increasing complexity,
+along with the command sequence to install each.
+
+@indentedBlock
+@multitable @columnfractions .2 .1 .1 .55
+@headitem Level @tab Images @tab Web @tab Command
+@item Reduced Info
+  @tab no
+  @tab no
+  @tab make && make install
+@item Full Info
+  @tab Yes
+  @tab no
+  @tab make && make info && make install-info
+@item Web
+  @tab yes
+  @tab yes
+  @tab make && make doc && make install-doc
+@end multitable
+@endIndentedBlock
+
+The web documentation includes all info files, images, and web
+documents.  The reduced info option omits images and info files
+that are either highly dependent upon images, or discuss technical
+program details.
 
 @menu
 * Documentation editor's edit/compile cycle::
