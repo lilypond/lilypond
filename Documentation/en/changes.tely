@@ -72,6 +72,10 @@ which scares away people.
 
 
 @item
+The @code{-dembed-@/source-@/code} option now also embeds images
+added with @code{\epsfile} and files included with @code{\verbatim-file}.
+
+@item
 The new Scheme function @code{universal-@/color} provides an
 eight-element color palette designed to be unambiguous to people
 with dichromatism.

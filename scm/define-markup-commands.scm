@@ -2849,7 +2849,9 @@ of its own.
 (define (safe-file-content name)
   (if (ly:get-option 'safe)
       "verbatim-file disabled in safe mode"
-      (ly:gulp-file name)))
+      (begin
+        (ly:note-extra-source-file name)
+        (ly:gulp-file name))))
 
 (define-markup-command (verbatim-file layout props name)
   (string?)

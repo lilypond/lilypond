@@ -129,3 +129,20 @@ optionally be specified.
     }
   return scm_reverse_x (lst, SCM_EOL);
 }
+
+LY_DEFINE (ly_note_extra_source_file, "ly:note-extra-source-file",
+           1, 1, 0,
+           (SCM filename, SCM parser),
+           R"(
+Register a file, e.g., an image file, as being needed to compile the
+current file.  This is used for the @code{-dembed-@/source-@/code} option.
+A parser may optionally be specified.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, filename, 1);
+  if (SCM_UNBNDP (parser))
+    parser = scm_fluid_ref (Lily::f_parser);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 2);
+  p->lexer_->file_name_strings_.push_back (ly_scm2string (filename));
+  return SCM_UNSPECIFIED;
+}

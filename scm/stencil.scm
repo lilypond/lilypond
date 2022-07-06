@@ -951,6 +951,7 @@ with optional arrows of @code{max-size} on start and end controlled by
                          (ly:stencil-add min-annotation extra-annotation))))))
 
 (define-public (eps-file->stencil axis size file-name)
+  (ly:note-extra-source-file file-name)
   (let*
       ((contents (ly:gulp-file file-name))
        (bbox (get-postscript-bbox (car (string-split contents #\nul))))
