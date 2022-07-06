@@ -1382,6 +1382,79 @@ baseline.
   (stack-stencils Y DOWN baseline-skip
                   (score-lines-markup-list layout props score)))
 
+(define-markup-command (rhythm layout props music)
+  (ly:music?)
+  #:category music
+  #:properties ((font-size -2))
+  "
+@cindex rhythm, in text
+@cindex markup, rhythm
+@cindex swing
+@cindex tempo, with rhythm
+
+An embedded rhythmic pattern.
+
+@lilypond[verbatim,quote]
+\\relative {
+  \\tempo \\markup {
+    Swing
+    \\hspace #0.4
+    \\rhythm { 8[ 8] } = \\rhythm { \\tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+Within @code{\\rhythm}, there is no time signature and no division in measures
+(as with @code{\\cadenzaOn}, @pxref{Unmetered music}).  Beaming must
+be added explicitly with the syntax explained in @ref{Manual beams}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  The rhythmic pattern \\rhythm { 16[ 8 16] } is
+  a type of syncopation.
+}
+@end lilypond
+
+@code{\\stemDown} can be used to flip the stems.
+
+@lilypond[verbatim,quote]
+\\markup \\rhythm { \\stemDown 8 16 8 }
+@end lilypond
+
+@code{\\rhythm} works by creating a @code{StandaloneRhythmVoice}
+context.  The parents of this context are @code{StandaloneRhythmStaff}
+and @code{StandaloneRhythmScore}.  It is possible to apply global
+tweaks to the output by using a @code{\\layout} block.
+
+@lilypond[verbatim,quote]
+\\layout {
+  \\context {
+    \\StandaloneRhythmVoice
+    \\xNotesOn
+  }
+}
+
+\\markup \\rhythm { 8 16 8 }
+@end lilypond
+
+@warning{@code{\\rhythm} does not work when its argument is a single
+duration, e.g., @code{\\rhythm @{ 8 @}}.  Use extra braces:
+@code{\\rhythm @{ @{ 8 @} @}}.}
+"
+  (let* ((mkup
+          #{
+            \markup \score {
+              \new StandaloneRhythmVoice \with {
+                \magnifyStaff #(magstep font-size)
+              }
+              { #music }
+            }
+          #})
+         (stil (interpret-markup layout props mkup)))
+    (ly:stencil-aligned-to stil X LEFT)))
+
+
 (define-markup-command (null layout props)
   ()
   #:category other

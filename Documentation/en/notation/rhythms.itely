@@ -1460,6 +1460,21 @@ In general, the text can be any markup object:
 }
 @end lilypond
 
+A particularly useful markup command is @code{\rhythm}, which
+prints a rhythmic pattern.  @xref{Music}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+
 A parenthesized metronome mark with no textual indication may be
 written by including an empty string in the input:
 

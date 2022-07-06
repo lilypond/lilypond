@@ -70,6 +70,22 @@ which scares away people.
 
 @end ignore
 
+@item
+The @code{\rhythm} markup command has been added.  It is a simple
+way to enter rhythms mixed with text, such as in @qq{swing}
+indications.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
 
 @item
 In figured bass, specially designed glyphs for @code{6\\},

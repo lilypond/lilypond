@@ -25,6 +25,7 @@
 
   \accepts Score
   \accepts ChordGridScore
+  \accepts StandaloneRhythmScore
 
   \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Usually not meant
@@ -1508,4 +1509,50 @@ accommodated for typesetting a piece in Kievan style."
                              ,neo-modern-accidental-rule)
   autoCautionaries = #'()
   printKeyCancellation = ##f
+}
+
+\context {
+  \Score
+  \name StandaloneRhythmScore
+  \description "A @code{Score}-level context for use by
+@code{\\markup \\rhythm}."
+  \alias Score
+  %% We want to avoid a notion of a measure in \markup \rhythm.  For
+  %% example, it can be used to notate 8 8 = \tuplet 3/2 { 4 8 },
+  %% (swing indication), and this doesn't mean anything on the time
+  %% signature of the score itself.  By design, beaming is manual
+  %% within \rhythm.
+  \cadenzaOn
+  \accepts StandaloneRhythmStaff
+  \defaultchild StandaloneRhythmStaff
+  %% Ensure consistent horizontal spacing across \rhythm snippets,
+  %% which is particularly needed for the typical "Swing" indications.
+  \override SpacingSpanner.common-shortest-duration =
+    #(ly:make-moment 1/10)
+}
+
+\context {
+  \RhythmicStaff
+  \name StandaloneRhythmStaff
+  \description "A @code{Staff}-level context for use by
+@code{\\markup \\rhythm}."
+  \alias Staff
+  \accepts StandaloneRhythmVoice
+  \defaultchild StandaloneRhythmVoice
+  \remove Time_signature_engraver
+  \override StaffSymbol.line-count = 0
+  %% The squashed position is 1, i.e. c'', so that the bottom of the
+  %% note heads is exactly on the baseline.
+  squashedPosition = 1
+}
+
+\context {
+  \Voice
+  \name StandaloneRhythmVoice
+  \description "A @code{Voice}-level context for use by
+@code{\\markup \\rhythm}."
+  \alias Voice
+  %% Force direction of stems, since they would be down by default
+  %% for c''.
+  \stemUp
 }
