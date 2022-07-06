@@ -128,15 +128,6 @@ public:
   }
 
   template <class T, void (T::*callback) (SCM)>
-  static SCM trampoline (SCM target, SCM ev)
-  {
-    auto *const t = LY_ASSERT_SMOB (T, target, 1);
-
-    (t->*callback) (ev);
-    return SCM_UNSPECIFIED;
-  }
-
-  template <class T, void (T::*callback) (SCM)>
   static Listener
   get (SCM instance)
   {
