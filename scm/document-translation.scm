@@ -16,6 +16,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (ice-9 match))
+
 (define (engraver-makes-grob? name-symbol grav)
   (memq name-symbol (assoc-get 'grobs-created (ly:translator-description grav) '())))
 
@@ -143,30 +145,33 @@
           (engraver-doc-string eg #f))))
 
 (define (document-property-operation op)
-  (let ((tag (car op))
-        (context-sym (cadr op))
-        (args (cddr op))
-        )
-
-    (cond
-     ((equal?  tag 'push)
-      (let*
-          ((value (car args))
-           (path (cdr args)))
-
-        (string-append
-         (format #f "@item Set grob property @code{~{~a~^.~}} " path)
-         (format #f "in @iref{~a} to" context-sym)
-         (if (pretty-printable? value)
-             (format #f ":~a\n" (scm->texi value))
-             (format #f " ~a.\n" (scm->texi value))))))
-     ((equal? (object-property context-sym 'is-grob?) #t) "")
-     ((equal? tag 'assign)
-      (string-append
-       (format #f "@item Set translator property @code{~a} to" context-sym)
-       (if (pretty-printable? (car args))
-           (format #f ":~a\n" (scm->texi (car args)))
-           (format #f " ~a.\n" (scm->texi (car args)))))))))
+  (match op
+    (('assign property (? ly:grob-properties?))
+     ;; Ignore definitions of grobs in Global.
+     "")
+    (('assign property value)
+     (format #f "@item Set context property @code{~a} to~a"
+             property
+            (if (pretty-printable? value)
+                (format #f ":~a\n" (scm->texi value))
+                (format #f " ~a.\n" (scm->texi value)))))
+    (('push grob value . path)
+     (format #f "@item Set grob property @code{~{~a~^.~}} in @iref{~a} to ~a"
+             path
+             grob
+            (if (pretty-printable? value)
+                (format #f ":~a\n" (scm->texi value))
+                (format #f " ~a.\n" (scm->texi value)))))
+    (('unset property)
+     (format #f "@item Unset context property @code{~a}\n"
+             property))
+    (('pop grob . path)
+     (format #f "@item Revert grob property @code{~{~a~^.~}} in @iref{~a}\n"
+             path
+             grob))
+    (('apply proc)
+     (format #f "@item Apply procedure @code{~a}\n"
+             (scm->texi proc)))))
 
 
 (define (context-doc context-desc)
