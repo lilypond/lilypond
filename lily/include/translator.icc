@@ -133,10 +133,8 @@ void add_acknowledger (SCM ptr,
   a static member of the translator class.
  */
 #define ADD_LISTENER_FOR(cl, m, ev)                                     \
-  listener_list_ = scm_acons                                            \
-    (event_class_symbol (#ev),                                          \
-     MFP_WRAP (&cl::listen_ ## m),                                      \
-     listener_list_)
+  add_listener (event_class_symbol (#ev),                               \
+                MFP_WRAP (&cl::listen_ ## m))
 
 #define ADD_LISTENER(cl, m) ADD_LISTENER_FOR (cl, m, m)
 

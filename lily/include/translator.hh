@@ -100,6 +100,12 @@ public:                                                                 \
   {                                                                     \
     return listener_list_;                                              \
   }                                                                     \
+private:                                                                \
+  static void add_listener (SCM event_class_sym, SCM proc)              \
+  {                                                                     \
+    listener_list_ = scm_acons (event_class_sym, proc, listener_list_); \
+  }                                                                     \
+public:
   /* end #define */
 
 enum Translator_precompute_index
