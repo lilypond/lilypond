@@ -65,7 +65,9 @@ foot_width# := 9/4 thick#;
 % glyph.
 %
 
-define_pixels (height, thick, thick, thin, hair, flare);
+define_whole_vertical_pixels (height);
+define_whole_pixels (thick, thin, hair);
+define_pixels (flare);
 define_pixels (foot_top, foot_width);
 define_pixels (kuulleke);
 
