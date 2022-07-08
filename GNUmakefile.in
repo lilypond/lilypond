@@ -5,7 +5,7 @@ depth = .
 SUBDIRS = python scripts \
 	flower lily \
 	mf ly \
-	tex ps scm \
+	ps scm \
 	po \
 	elisp vim \
 	input \

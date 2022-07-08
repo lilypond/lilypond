@@ -63,7 +63,8 @@ LilyPond's source files.
 |   |-- po/              Translated build/maintenance scripts
 |   |-- snippets/        Auto-generated from the LSR and from ./new/
 |   |   `-- new/         Snippets too new for the LSR
-|   `-- topdocs/         AUTHORS, INSTALL
+|   |-- topdocs/         AUTHORS, INSTALL
+|   `-- tex/             TeX and texinfo library files
 |
 |
 |   C++ SOURCES:
@@ -80,7 +81,6 @@ LilyPond's source files.
 |-- mf/                  MetaFont sources for Emmentaler fonts
 |-- ps/                  PostScript library files
 |-- scm/                 Scheme sources for LilyPond and subroutine files
-|-- tex/                 TeX and texinfo library files
 |
 |
 |   SCRIPTS:

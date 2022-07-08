@@ -1,4 +1,4 @@
-##
+#
 ## settings to run LilyPond
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
 
@@ -83,10 +83,10 @@ endif
 #    TEXFONTMAPS  font map files (suffix `.map`)
 #    ENCFONTS     PostScript encoding files (suffix `.enc`)
 #
-export TEXINPUTS=$(top-src-dir)/tex/:
-export TFMFONTS=$(top-build-dir)/tex/$(outdir);
-export TEXFONTMAPS=$(top-build-dir)/tex/$(outdir);
-export ENCFONTS=$(top-build-dir)/tex/$(outdir);
+export TEXINPUTS=$(top-src-dir)/Documentation/tex/:
+export TFMFONTS=$(top-build-dir)/Documentation/tex/$(outdir);
+export TEXFONTMAPS=$(top-build-dir)/Documentation/tex/$(outdir);
+export ENCFONTS=$(top-build-dir)/Documentation/tex/$(outdir);
 
 export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 

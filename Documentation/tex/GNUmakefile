@@ -1,4 +1,4 @@
-depth = ..
+depth = ../..
 
 include $(depth)/make/lilypond.make
 

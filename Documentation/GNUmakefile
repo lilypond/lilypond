@@ -290,6 +290,7 @@ endif
 # cause problems in parallel make jobs.  For this reason we make TeX Live
 # generate the needed TFM files in advance.
 pre-pdf:
+	$(MAKE) out=www -C tex local-WWW
 	$(call ly_info,Making latt1095.tfm in TeX Live (mktextfm))
 	$(buildscript-dir)/run-and-check.sh \
 	  "mktextfm latt1095" "$(outdir)/latt1095.mktextfm.log"
