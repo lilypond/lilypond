@@ -83,6 +83,8 @@ Translator_creator::allocate (Context *ctx)
 */
 
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
+  private:                                                              \
+  using self_type = NAME; /* no decltype(*this) in static methods */    \
   public:                                                               \
   TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                 \
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \

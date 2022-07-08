@@ -107,35 +107,49 @@ void add_acknowledger (SCM ptr,
                        char const *func_name,
                        SCM &ack_hash);
 
-#define ADD_ACKNOWLEDGER_FOR(CLASS, NAME, GROB)                         \
-  add_acknowledger (MFP_WRAP (&CLASS::acknowledge_ ## NAME),            \
-                    #GROB, acknowledge_static_array_drul_[START])
+// Register `self_type::function` to acknowledge grobs of type `grob`.
+//
+// Where possible, to help maintain consistency, please use ADD_ACKNOWLEDGER
+// instead.
+#define ADD_ACKNOWLEDGER_FOR(function, grob)                            \
+  add_acknowledger (MFP_WRAP (&self_type::function),                    \
+                    #grob, acknowledge_static_array_drul_[START])
 
-#define ADD_ACKNOWLEDGER(CLASS, NAME) ADD_ACKNOWLEDGER_FOR (CLASS, NAME, NAME)
+// Short form of ADD_ACKNOWLEDGER_FOR using conventional names:
+// Handle grobs of type `grob` with `self_type::acknowledge_grob`.
+//
+// TODO: remove unused `class` argument
+#define ADD_ACKNOWLEDGER(class, grob) \
+  ADD_ACKNOWLEDGER_FOR (acknowledge_ ## grob, grob)
 
-// ADD_END_ACKNOWLEDGER_FOR requires your NAME to actually be
-// end_whatever if you are utilizing acknowledge_end_whatever as a
-// different end acknowledger.
-#define ADD_END_ACKNOWLEDGER_FOR(CLASS, NAME, GROB)                     \
-  add_acknowledger (MFP_WRAP (&CLASS::acknowledge_ ## NAME),            \
-                    #GROB, acknowledge_static_array_drul_[STOP])
+// Register `self_type::function` to acknowledge end grobs of type `grob`.
+//
+// Where possible, to help maintain consistency, please use
+// ADD_END_ACKNOWLEDGER instead.
+#define ADD_END_ACKNOWLEDGER_FOR(function, grob)                        \
+  add_acknowledger (MFP_WRAP (&self_type::function),                    \
+                    #grob, acknowledge_static_array_drul_[STOP])
 
-#define ADD_END_ACKNOWLEDGER(CLASS, NAME)               \
-  ADD_END_ACKNOWLEDGER_FOR (CLASS, end_ ## NAME, NAME)
+// Short form of ADD_END_ACKNOWLEDGER_FOR using conventional names:
+// Handle grobs of type `grob` with `self_type::acknowledge_end_grob`.
 
-/*
-  Implement the method cl::listen_##m, and make it listen to stream
-  events of class m.
+// TODO: remove unused `class` argument
+#define ADD_END_ACKNOWLEDGER(class, grob)                               \
+  ADD_END_ACKNOWLEDGER_FOR (acknowledge_end_ ## grob, grob)
 
-  At macro call time, neither creator instances (which are anonymous
-  and only accessible via the translator registry) nor translator
-  instances exist, so the only named place where we can store it is in
-  a static member of the translator class.
- */
-#define ADD_LISTENER_FOR(cl, m, ev)                                     \
-  add_listener (event_class_symbol (#ev),                               \
-                MFP_WRAP (&cl::listen_ ## m))
+// Register `self_type::function` to handle events of type `event`.
+//
+// Where possible, to help maintain consistency, please use ADD_LISTENER
+// instead.
+#define ADD_LISTENER_FOR(function, event)                               \
+  add_listener (event_class_symbol (#event),                            \
+                MFP_WRAP (&self_type::function))
 
-#define ADD_LISTENER(cl, m) ADD_LISTENER_FOR (cl, m, m)
+// Short form of ADD_LISTENER_FOR using conventional names:
+// Handle events of type `event` by calling `self_type::listen_event`.
+//
+// TODO: remove unused `class` argument
+#define ADD_LISTENER(class, event)                                      \
+  ADD_LISTENER_FOR (listen_ ## event, event)
 
 #endif /* TRANSLATOR_ICC */

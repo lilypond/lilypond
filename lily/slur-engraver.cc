@@ -70,14 +70,14 @@ Slur_engraver::boot ()
 {
   ADD_LISTENER (Slur_engraver, slur);
   ADD_LISTENER (Slur_engraver, note);
-  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, inline_accidental);
-  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, fingering);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, inline_accidental);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, fingering);
   ADD_ACKNOWLEDGER (Slur_engraver, note_column);
   ADD_ACKNOWLEDGER (Slur_engraver, script);
-  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, text_script);
-  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, dots);
-  ADD_END_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, tie);
-  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, tuplet_number);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, text_script);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, dots);
+  ADD_END_ACKNOWLEDGER_FOR (acknowledge_extra_object, tie);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, tuplet_number);
 }
 
 ADD_TRANSLATOR (Slur_engraver,

@@ -62,7 +62,7 @@ Repeat_tie_engraver::make_my_column (SCM cause)
 void
 Repeat_tie_engraver::boot ()
 {
-  ADD_LISTENER_FOR (Repeat_tie_engraver, laissez_vibrer, repeat_tie);
+  ADD_LISTENER_FOR (listen_laissez_vibrer, repeat_tie);
   ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
 }
 
