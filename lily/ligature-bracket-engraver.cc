@@ -41,9 +41,9 @@ public:
 
 private:
   Drul_array<Stream_event *> events_drul_;
-  Spanner *finished_ligature_;
-  Spanner *ligature_;
-  Stream_event *previous_start_event_;
+  Spanner *finished_ligature_ = nullptr;
+  Spanner *ligature_ = nullptr;
+  Stream_event *previous_start_event_ = nullptr;
 };
 
 void
@@ -56,10 +56,6 @@ Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
 Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
   : Engraver (c)
 {
-  ligature_ = 0;
-  finished_ligature_ = 0;
-  events_drul_[LEFT] = events_drul_[RIGHT] = 0;
-  previous_start_event_ = 0;
 }
 
 void
@@ -74,8 +70,8 @@ Ligature_bracket_engraver::process_music ()
         }
 
       finished_ligature_ = ligature_;
-      ligature_ = 0;
-      previous_start_event_ = 0;
+      ligature_ = nullptr;
+      previous_start_event_ = nullptr;
     }
 
   if (events_drul_[START])
@@ -114,9 +110,8 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 void
 Ligature_bracket_engraver::stop_translation_timestep ()
 {
-  events_drul_[LEFT]
-    = events_drul_[RIGHT] = 0;
-  finished_ligature_ = 0;
+  events_drul_ = {};
+  finished_ligature_ = nullptr;
 }
 
 void

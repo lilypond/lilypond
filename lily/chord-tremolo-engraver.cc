@@ -52,12 +52,12 @@ class Chord_tremolo_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
-  Stream_event *repeat_;
+  Stream_event *repeat_ = nullptr;
 
-  Spanner *beam_;
+  Spanner *beam_ = nullptr;
   // Store the pointer to the previous stem, so we can create a beam if
   // necessary and end the spanner
-  Grob *previous_stem_;
+  Grob *previous_stem_ = nullptr;
 
 protected:
   void finalize () override;
@@ -69,9 +69,6 @@ protected:
 Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
   : Engraver (c)
 {
-  beam_ = 0;
-  repeat_ = 0;
-  previous_stem_ = 0;
 }
 
 void
@@ -86,9 +83,9 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
     {
       if (!repeat_)
         ev->warning (_ ("No tremolo to end"));
-      repeat_ = 0;
-      beam_ = 0;
-      previous_stem_ = 0;
+      repeat_ = nullptr;
+      beam_ = nullptr;
+      previous_stem_ = nullptr;
     }
 }
 

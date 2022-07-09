@@ -43,9 +43,9 @@ protected:
   void process_music ();
 
 private:
-  Spanner *span_;
-  Spanner *finished_;
-  Stream_event *current_event_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_ = nullptr;
+  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
   vector<Item *> note_columns_;
   void typeset_all ();
@@ -54,9 +54,6 @@ private:
 Episema_engraver::Episema_engraver (Context *c)
   : Engraver (c)
 {
-  finished_ = 0;
-  current_event_ = 0;
-  span_ = 0;
 }
 
 void
@@ -80,7 +77,7 @@ Episema_engraver::process_music ()
           current_event_ = event_drul_[START];
           span_ = make_spanner ("Episema", event_drul_[START]->self_scm ());
 
-          event_drul_[START] = 0;
+          event_drul_[START] = nullptr;
         }
     }
   if (event_drul_[STOP])
@@ -91,8 +88,8 @@ Episema_engraver::process_music ()
         {
           finished_ = span_;
           announce_end_grob (finished_, SCM_EOL);
-          span_ = 0;
-          current_event_ = 0;
+          span_ = nullptr;
+          current_event_ = nullptr;
           note_columns_.clear ();
         }
     }
@@ -111,7 +108,7 @@ Episema_engraver::typeset_all ()
                                                      "currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
-      finished_ = 0;
+      finished_ = nullptr;
     }
 }
 
@@ -139,7 +136,7 @@ Episema_engraver::finalize ()
     {
       current_event_->warning (_ ("unterminated episema"));
       span_->suicide ();
-      span_ = 0;
+      span_ = nullptr;
     }
 }
 

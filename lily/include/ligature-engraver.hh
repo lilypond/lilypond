@@ -46,7 +46,7 @@ protected:
 
   virtual Spanner *current_ligature ();
 
-  SCM brew_ligature_primitive_proc;
+  SCM brew_ligature_primitive_proc = SCM_EOL;
 
 public:
   // no TRANSLATOR_DECLARATIONS (Ligature_engraver) needed since this
@@ -55,18 +55,18 @@ public:
 private:
   Drul_array<Stream_event *> events_drul_;
 
-  Spanner *ligature_;
+  Spanner *ligature_ = nullptr;
   std::vector<Item *> primitives_;
 
-  Spanner *finished_ligature_;
+  Spanner *finished_ligature_ = nullptr;
   std::vector<Item *> finished_primitives_;
 
-  Stream_event *prev_start_event_;
+  Stream_event *prev_start_event_ = nullptr;
 
   // moment where ligature started.
   Moment ligature_start_mom_;
 
-  Grob *last_bound_;
+  Grob *last_bound_ = nullptr;
 };
 
 #endif // LIGATURE_ENGRAVER_HH

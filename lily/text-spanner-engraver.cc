@@ -41,9 +41,9 @@ protected:
   void process_music ();
 
 private:
-  Spanner *span_;
-  Spanner *finished_;
-  Stream_event *current_event_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_ = nullptr;
+  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
   void typeset_all ();
 };
@@ -51,9 +51,6 @@ private:
 Text_spanner_engraver::Text_spanner_engraver (Context *c)
   : Engraver (c)
 {
-  finished_ = 0;
-  current_event_ = 0;
-  span_ = 0;
 }
 
 void
@@ -74,8 +71,8 @@ Text_spanner_engraver::process_music ()
         {
           finished_ = span_;
           announce_end_grob (finished_, SCM_EOL);
-          span_ = 0;
-          current_event_ = 0;
+          span_ = nullptr;
+          current_event_ = nullptr;
         }
     }
 
@@ -91,7 +88,7 @@ Text_spanner_engraver::process_music ()
             set_property (span_, "direction", to_scm (d));
 
           Side_position_interface::set_axis (span_, Y_AXIS);
-          event_drul_[START] = 0;
+          event_drul_[START] = nullptr;
         }
     }
 }
@@ -106,7 +103,7 @@ Text_spanner_engraver::typeset_all ()
           Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
           finished_->set_bound (RIGHT, e);
         }
-      finished_ = 0;
+      finished_ = nullptr;
     }
 }
 
@@ -131,7 +128,7 @@ Text_spanner_engraver::finalize ()
     {
       current_event_->warning (_ ("unterminated text spanner"));
       span_->suicide ();
-      span_ = 0;
+      span_ = nullptr;
     }
 }
 

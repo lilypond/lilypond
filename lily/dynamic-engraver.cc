@@ -51,24 +51,18 @@ private:
   string get_spanner_type (Stream_event *ev);
 
   Drul_array<Stream_event *> accepted_spanevents_drul_;
-  Spanner *current_spanner_;
-  Spanner *finished_spanner_;
+  Spanner *current_spanner_ = nullptr;
+  Spanner *finished_spanner_ = nullptr;
 
-  Item *script_;
-  Stream_event *script_event_;
-  Stream_event *current_span_event_;
-  bool end_new_spanner_;
+  Item *script_ = nullptr;
+  Stream_event *script_event_ = nullptr;
+  Stream_event *current_span_event_ = nullptr;
+  bool end_new_spanner_ = false;
 };
 
 Dynamic_engraver::Dynamic_engraver (Context *c)
   : Engraver (c)
 {
-  script_event_ = 0;
-  current_span_event_ = 0;
-  script_ = 0;
-  finished_spanner_ = 0;
-  current_spanner_ = 0;
-  end_new_spanner_ = false;
 }
 
 void
@@ -128,8 +122,8 @@ Dynamic_engraver::process_music ()
 
       finished_spanner_ = current_spanner_;
       announce_end_grob (finished_spanner_, ender->self_scm ());
-      current_spanner_ = 0;
-      current_span_event_ = 0;
+      current_spanner_ = nullptr;
+      current_span_event_ = nullptr;
     }
 
   if (accepted_spanevents_drul_[START])
@@ -215,10 +209,10 @@ Dynamic_engraver::stop_translation_timestep ()
     current_spanner_
     ->set_bound (LEFT,
                  unsmob<Grob> (get_property (this, "currentMusicalColumn")));
-  script_ = 0;
-  script_event_ = 0;
+  script_ = nullptr;
+  script_event_ = nullptr;
   accepted_spanevents_drul_ = {};
-  finished_spanner_ = 0;
+  finished_spanner_ = nullptr;
   end_new_spanner_ = false;
 }
 
@@ -227,14 +221,14 @@ Dynamic_engraver::finalize ()
 {
   if (current_spanner_
       && !current_spanner_->is_live ())
-    current_spanner_ = 0;
+    current_spanner_ = nullptr;
   if (current_spanner_)
     {
       current_span_event_
       ->warning (_f ("unterminated %s",
                      get_spanner_type (current_span_event_).c_str ()));
       current_spanner_->suicide ();
-      current_spanner_ = 0;
+      current_spanner_ = nullptr;
     }
 }
 

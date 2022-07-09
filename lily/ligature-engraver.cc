@@ -86,12 +86,6 @@
 Ligature_engraver::Ligature_engraver (Context *c)
   : Engraver (c)
 {
-  ligature_ = 0;
-  finished_ligature_ = 0;
-  events_drul_[LEFT] = events_drul_[RIGHT] = 0;
-  prev_start_event_ = 0;
-  last_bound_ = 0;
-  brew_ligature_primitive_proc = SCM_EOL;
 }
 
 void
@@ -124,11 +118,11 @@ Ligature_engraver::process_music ()
       else
         ligature_->set_bound (RIGHT, last_bound_);
 
-      prev_start_event_ = 0;
+      prev_start_event_ = nullptr;
       finished_primitives_ = primitives_;
       finished_ligature_ = ligature_;
       primitives_.clear ();
-      ligature_ = 0;
+      ligature_ = nullptr;
     }
   last_bound_ = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
 
@@ -171,11 +165,10 @@ Ligature_engraver::stop_translation_timestep ()
           typeset_ligature (finished_ligature_, finished_primitives_);
           finished_primitives_.clear ();
         }
-      finished_ligature_ = 0;
+      finished_ligature_ = nullptr;
     }
 
-  events_drul_[START] = 0;
-  events_drul_[STOP] = 0;
+  events_drul_ = {};
 }
 
 void
@@ -185,7 +178,7 @@ Ligature_engraver::finalize ()
     {
       typeset_ligature (finished_ligature_, finished_primitives_);
       finished_primitives_.clear ();
-      finished_ligature_ = 0;
+      finished_ligature_ = nullptr;
     }
   if (ligature_)
     {
