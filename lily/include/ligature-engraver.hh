@@ -61,8 +61,6 @@ private:
   Spanner *finished_ligature_ = nullptr;
   std::vector<Item *> finished_primitives_;
 
-  Stream_event *prev_start_event_ = nullptr;
-
   // moment where ligature started.
   Moment ligature_start_mom_;
 

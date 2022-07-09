@@ -43,7 +43,6 @@ protected:
 private:
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
   void typeset_all ();
 };
@@ -63,32 +62,35 @@ Text_spanner_engraver::listen_text_span (Stream_event *ev)
 void
 Text_spanner_engraver::process_music ()
 {
-  if (event_drul_[STOP])
+  if (auto *const ender = event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]->warning (_ ("cannot find start of text spanner"));
+        ender->warning (_ ("cannot find start of text spanner"));
       else
         {
           finished_ = span_;
           announce_end_grob (finished_, SCM_EOL);
           span_ = nullptr;
-          current_event_ = nullptr;
         }
     }
 
-  if (event_drul_[START])
+  if (auto *const starter = event_drul_[START])
     {
-      if (current_event_)
-        event_drul_[START]->warning (_ ("already have a text spanner"));
+      if (span_)
+        {
+          starter->warning (_ ("already have a text spanner"));
+          span_->warning (_ ("text spanner was started here"));
+        }
       else
         {
-          current_event_ = event_drul_[START];
-          span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
-          if (Direction d = from_scm<Direction> (get_property (current_event_, "direction")))
-            set_property (span_, "direction", to_scm (d));
+          span_ = make_spanner ("TextSpanner", starter->self_scm ());
+
+          SCM direction_sym = ly_symbol2scm ("direction");
+          SCM d_scm = get_property (starter, direction_sym);
+          if (auto d = from_scm<Direction> (d_scm))
+            set_property (span_, direction_sym, d_scm);
 
           Side_position_interface::set_axis (span_, Y_AXIS);
-          event_drul_[START] = nullptr;
         }
     }
 }
@@ -126,7 +128,7 @@ Text_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->warning (_ ("unterminated text spanner"));
+      span_->warning (_ ("unterminated text spanner"));
       span_->suicide ();
       span_ = nullptr;
     }

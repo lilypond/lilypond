@@ -51,7 +51,6 @@ protected:
 private:
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
 };
 
@@ -90,22 +89,23 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Trill_spanner_engraver::process_music ()
 {
-  if (span_
-      && (event_drul_[STOP] || event_drul_[START]))
+  if (span_)
     {
-      Stream_event *ender = event_drul_[STOP];
+      auto *ender = event_drul_[STOP];
       if (!ender)
         ender = event_drul_[START];
-      finished_ = span_;
-      announce_end_grob (finished_, ender->self_scm ());
-      span_ = nullptr;
-      current_event_ = nullptr;
+
+      if (ender)
+        {
+          finished_ = span_;
+          announce_end_grob (finished_, ender->self_scm ());
+          span_ = nullptr;
+        }
     }
 
-  if (event_drul_[START])
+  if (auto *const starter = event_drul_[START])
     {
-      current_event_ = event_drul_[START];
-      span_ = make_spanner ("TrillSpanner", event_drul_[START]->self_scm ());
+      span_ = make_spanner ("TrillSpanner", starter->self_scm ());
       Side_position_interface::set_axis (span_, Y_AXIS);
       if (finished_)
         set_object (finished_, "right-neighbor", span_->self_scm ());

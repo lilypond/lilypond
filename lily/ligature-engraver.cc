@@ -105,20 +105,19 @@ Ligature_engraver::pre_process_music ()
 void
 Ligature_engraver::process_music ()
 {
-  if (events_drul_[STOP])
+  if (auto *const ender = events_drul_[STOP])
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->warning (_ ("cannot find start of ligature"));
+          ender->warning (_ ("cannot find start of ligature"));
           return;
         }
 
       if (!last_bound_)
-        events_drul_[STOP]->warning (_ ("no right bound"));
+        ender->warning (_ ("no right bound"));
       else
         ligature_->set_bound (RIGHT, last_bound_);
 
-      prev_start_event_ = nullptr;
       finished_primitives_ = primitives_;
       finished_ligature_ = ligature_;
       primitives_.clear ();
@@ -126,27 +125,27 @@ Ligature_engraver::process_music ()
     }
   last_bound_ = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
 
-  if (events_drul_[START])
+  if (auto *const starter = events_drul_[START])
     {
       if (ligature_)
         {
-          events_drul_[START]->warning (_ ("already have a ligature"));
+          starter->warning (_ ("already have a ligature"));
+          ligature_->warning (_ ("ligature was started here"));
           return;
         }
 
-      prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
 
       Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       if (!bound)
-        events_drul_[START]->warning (_ ("no left bound"));
+        starter->warning (_ ("no left bound"));
       else
         ligature_->set_bound (LEFT, bound);
 
       ligature_start_mom_ = now_mom ();
 
       // TODO: dump cause into make_item/spanner.
-      // announce_grob (ligature_, events_drul_[START]->self_scm ());
+      // announce_grob (ligature_, starter->self_scm ());
     }
 }
 
@@ -182,7 +181,7 @@ Ligature_engraver::finalize ()
     }
   if (ligature_)
     {
-      prev_start_event_->warning (_ ("unterminated ligature"));
+      ligature_->warning (_ ("unterminated ligature"));
       ligature_->suicide ();
     }
 }
@@ -210,7 +209,7 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
   if (ligature_)
     {
       info.event_cause ()->warning (_ ("ignoring rest: ligature may not contain rest"));
-      prev_start_event_->warning (_ ("ligature was started here"));
+      ligature_->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?
     }

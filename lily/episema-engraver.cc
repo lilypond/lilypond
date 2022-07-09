@@ -45,7 +45,6 @@ protected:
 private:
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Stream_event *current_event_ = nullptr;
   Drul_array<Stream_event *> event_drul_;
   vector<Item *> note_columns_;
   void typeset_all ();
@@ -68,28 +67,28 @@ Episema_engraver::listen_episema (Stream_event *ev)
 void
 Episema_engraver::process_music ()
 {
-  if (event_drul_[START])
+  if (auto *const starter = event_drul_[START])
     {
-      if (current_event_)
-        event_drul_[START]->warning (_ ("already have an episema"));
+      if (span_)
+        {
+          starter->warning (_ ("already have an episema"));
+          span_->warning (_ ("episema was started here"));
+        }
       else
         {
-          current_event_ = event_drul_[START];
-          span_ = make_spanner ("Episema", event_drul_[START]->self_scm ());
-
-          event_drul_[START] = nullptr;
+          span_ = make_spanner ("Episema", starter->self_scm ());
         }
     }
-  if (event_drul_[STOP])
+
+  if (auto *const ender = event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]->warning (_ ("cannot find start of episema"));
+        ender->warning (_ ("cannot find start of episema"));
       else
         {
           finished_ = span_;
           announce_end_grob (finished_, SCM_EOL);
           span_ = nullptr;
-          current_event_ = nullptr;
           note_columns_.clear ();
         }
     }
@@ -134,7 +133,7 @@ Episema_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->warning (_ ("unterminated episema"));
+      span_->warning (_ ("unterminated episema"));
       span_->suicide ();
       span_ = nullptr;
     }

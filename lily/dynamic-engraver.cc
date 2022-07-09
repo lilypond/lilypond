@@ -56,7 +56,6 @@ private:
 
   Item *script_ = nullptr;
   Stream_event *script_event_ = nullptr;
-  Stream_event *current_span_event_ = nullptr;
   bool end_new_spanner_ = false;
 };
 
@@ -108,39 +107,34 @@ Dynamic_engraver::get_property_setting (Stream_event *evt,
 void
 Dynamic_engraver::process_music ()
 {
-  if (current_spanner_
-      && (accepted_spanevents_drul_[STOP]
-          || script_event_
-          || accepted_spanevents_drul_[START]))
+  if (current_spanner_)
     {
-      Stream_event *ender = accepted_spanevents_drul_[STOP];
+      auto *ender = accepted_spanevents_drul_[STOP];
       if (!ender)
         ender = script_event_;
-
       if (!ender)
         ender = accepted_spanevents_drul_[START];
 
-      finished_spanner_ = current_spanner_;
-      announce_end_grob (finished_spanner_, ender->self_scm ());
-      current_spanner_ = nullptr;
-      current_span_event_ = nullptr;
+      if (ender)
+        {
+          finished_spanner_ = current_spanner_;
+          announce_end_grob (finished_spanner_, ender->self_scm ());
+          current_spanner_ = nullptr;
+        }
     }
 
-  if (accepted_spanevents_drul_[START])
+  if (auto *const starter = accepted_spanevents_drul_[START])
     {
-      current_span_event_ = accepted_spanevents_drul_[START];
-
-      string start_type = get_spanner_type (current_span_event_);
-      SCM cresc_type = get_property_setting (current_span_event_, "span-type",
+      string start_type = get_spanner_type (starter);
+      SCM cresc_type = get_property_setting (starter, "span-type",
                                              (start_type + "Spanner").c_str ());
 
       if (scm_is_eq (cresc_type, ly_symbol2scm ("text")))
         {
           current_spanner_
-            = make_spanner ("DynamicTextSpanner",
-                            accepted_spanevents_drul_[START]->self_scm ());
+            = make_spanner ("DynamicTextSpanner", starter->self_scm ());
 
-          SCM text = get_property_setting (current_span_event_, "span-text",
+          SCM text = get_property_setting (starter, "span-text",
                                            (start_type + "Text").c_str ());
           if (Text_interface::is_markup (text))
             set_property (current_spanner_, "text", text);
@@ -158,12 +152,11 @@ Dynamic_engraver::process_music ()
           if (!scm_is_eq (cresc_type, ly_symbol2scm ("hairpin")))
             {
               string as_string = ly_scm_write_string (cresc_type);
-              current_span_event_
+              starter
               ->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.",
                              as_string.c_str ()));
             }
-          current_spanner_ = make_spanner ("Hairpin",
-                                           current_span_event_->self_scm ());
+          current_spanner_ = make_spanner ("Hairpin", starter->self_scm ());
         }
       // if we have a break-dynamic-span event right after the start dynamic, break the new spanner immediately
       if (end_new_spanner_)
@@ -219,14 +212,14 @@ Dynamic_engraver::stop_translation_timestep ()
 void
 Dynamic_engraver::finalize ()
 {
-  if (current_spanner_
-      && !current_spanner_->is_live ())
+  if (current_spanner_ && !current_spanner_->is_live ())
     current_spanner_ = nullptr;
+
   if (current_spanner_)
     {
-      current_span_event_
-      ->warning (_f ("unterminated %s",
-                     get_spanner_type (current_span_event_).c_str ()));
+      auto *const event = current_spanner_->event_cause ();
+      current_spanner_->warning (_f ("unterminated %s",
+                                     get_spanner_type (event).c_str ()));
       current_spanner_->suicide ();
       current_spanner_ = nullptr;
     }

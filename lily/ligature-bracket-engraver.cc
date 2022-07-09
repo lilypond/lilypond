@@ -41,9 +41,7 @@ public:
 
 private:
   Drul_array<Stream_event *> events_drul_;
-  Spanner *finished_ligature_ = nullptr;
   Spanner *ligature_ = nullptr;
-  Stream_event *previous_start_event_ = nullptr;
 };
 
 void
@@ -61,29 +59,27 @@ Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
 void
 Ligature_bracket_engraver::process_music ()
 {
-  if (events_drul_[STOP])
+  if (auto *const ender = events_drul_[STOP])
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->warning (_ ("cannot find start of ligature"));
+          ender->warning (_ ("cannot find start of ligature"));
           return;
         }
 
-      finished_ligature_ = ligature_;
       ligature_ = nullptr;
-      previous_start_event_ = nullptr;
     }
 
-  if (events_drul_[START])
+  if (auto *const starter = events_drul_[START])
     {
       if (ligature_)
         {
-          events_drul_[START]->warning (_ ("already have a ligature"));
+          starter->warning (_ ("already have a ligature"));
+          ligature_->warning (_ ("ligature was started here"));
           return;
         }
 
-      previous_start_event_ = events_drul_[START];
-      ligature_ = make_spanner ("LigatureBracket", events_drul_[START]->self_scm ());
+      ligature_ = make_spanner ("LigatureBracket", starter->self_scm ());
     }
 }
 
@@ -111,7 +107,6 @@ void
 Ligature_bracket_engraver::stop_translation_timestep ()
 {
   events_drul_ = {};
-  finished_ligature_ = nullptr;
 }
 
 void
