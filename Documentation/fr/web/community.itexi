@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 21d0a83199b0ce35dbfc9a7b05bce6b297290ba1
+   Translation of GIT committish: c82ad115534d79e0f8bff8e92285a80b6e9954b0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -731,18 +731,6 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 @end itemize
 @end ifset
 
-
-@subsubheading Toutes versions
-@c VO All versions
-
-@itemize
-@item @uref{https://lilypond.org/test,
-Comparaison entre différentes versions}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archive de tous les tests de régression}
-
-@end itemize
 
 @divEnd
 @divEnd
