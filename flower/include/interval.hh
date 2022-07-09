@@ -84,13 +84,16 @@ public:
   // or right () respectively; otherwise, return a reference to t.
   constexpr T const &clamp (T const &t) const
   {
-    return (is_empty ()
-            ? t
-            : ((t < left ())
-               ? left ()
-               : ((t > right ())
-                  ? right ()
-                  : t)));
+    if (!is_empty ())
+      {
+        if (t < left ())
+          return left ();
+
+        if (t > right ())
+          return right ();
+      }
+
+    return t;
   }
 
   T &left ()
