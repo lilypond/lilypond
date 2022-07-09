@@ -38,7 +38,7 @@ class Dynamic_engraver : public Engraver
   void acknowledge_note_column (Grob_info_t<Item>);
   void listen_absolute_dynamic (Stream_event *);
   void listen_span_dynamic (Stream_event *);
-  void listen_break_span (Stream_event *);
+  void listen_break_dynamic_span (Stream_event *);
 
 protected:
   void process_music ();
@@ -79,18 +79,15 @@ Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 }
 
 void
-Dynamic_engraver::listen_break_span (Stream_event *event)
+Dynamic_engraver::listen_break_dynamic_span (Stream_event *)
 {
-  if (event->in_event_class ("break-dynamic-span-event"))
-    {
-      // Case 1: Already have a start dynamic event -> break applies to new
-      //         spanner (created later) -> set a flag
-      // Case 2: no new spanner, but spanner already active -> break it now
-      if (accepted_spanevents_drul_[START])
-        end_new_spanner_ = true;
-      else if (current_spanner_)
-        set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
-    }
+  // Case 1: Already have a start dynamic event -> break applies to new
+  //         spanner (created later) -> set a flag
+  // Case 2: no new spanner, but spanner already active -> break it now
+  if (accepted_spanevents_drul_[START])
+    end_new_spanner_ = true;
+  else if (current_spanner_)
+    set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
 }
 
 SCM
@@ -268,8 +265,8 @@ void
 Dynamic_engraver::boot ()
 {
   ADD_LISTENER (absolute_dynamic);
+  ADD_LISTENER (break_dynamic_span);
   ADD_LISTENER (span_dynamic);
-  ADD_LISTENER (break_span);
   ADD_ACKNOWLEDGER (note_column);
 }
 
