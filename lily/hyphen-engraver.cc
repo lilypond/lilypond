@@ -203,9 +203,9 @@ Hyphen_engraver::finalize ()
 void
 Hyphen_engraver::boot ()
 {
-  ADD_LISTENER (Hyphen_engraver, hyphen);
-  ADD_LISTENER (Hyphen_engraver, vowel_transition);
-  ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
+  ADD_LISTENER (hyphen);
+  ADD_LISTENER (vowel_transition);
+  ADD_ACKNOWLEDGER (lyric_syllable);
 }
 
 ADD_TRANSLATOR (Hyphen_engraver,

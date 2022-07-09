@@ -274,9 +274,9 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 void
 Multi_measure_rest_engraver::boot ()
 {
-  ADD_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
-  ADD_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
-  ADD_LISTENER (Multi_measure_rest_engraver, multi_measure_articulation);
+  ADD_LISTENER (multi_measure_rest);
+  ADD_LISTENER (multi_measure_text);
+  ADD_LISTENER (multi_measure_articulation);
 }
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,

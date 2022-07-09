@@ -321,8 +321,8 @@ Timing_translator::start_translation_timestep ()
 void
 Timing_translator::boot ()
 {
-  ADD_LISTENER (Timing_translator, alternative);
-  ADD_LISTENER (Timing_translator, bar);
+  ADD_LISTENER (alternative);
+  ADD_LISTENER (bar);
 }
 
 ADD_TRANSLATOR (Timing_translator,

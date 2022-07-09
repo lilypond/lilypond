@@ -63,7 +63,7 @@ void
 Repeat_tie_engraver::boot ()
 {
   ADD_LISTENER_FOR (listen_laissez_vibrer, repeat_tie);
-  ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Repeat_tie_engraver,

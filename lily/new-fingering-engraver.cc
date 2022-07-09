@@ -414,10 +414,10 @@ New_fingering_engraver::New_fingering_engraver (Context *c)
 void
 New_fingering_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
-  ADD_ACKNOWLEDGER (New_fingering_engraver, note_column);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (inline_accidental);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (New_fingering_engraver,

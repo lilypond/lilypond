@@ -511,11 +511,11 @@ Auto_beam_engraver::process_acknowledged ()
 void
 Auto_beam_engraver::boot ()
 {
-  ADD_LISTENER (Auto_beam_engraver, beam_forbid);
-  ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
-  ADD_ACKNOWLEDGER (Auto_beam_engraver, breathing_sign);
-  ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
+  ADD_LISTENER (beam_forbid);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (beam);
+  ADD_ACKNOWLEDGER (breathing_sign);
+  ADD_ACKNOWLEDGER (rest);
 }
 
 ADD_TRANSLATOR (Auto_beam_engraver,
@@ -609,11 +609,11 @@ Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational)
 void
 Grace_auto_beam_engraver::boot ()
 {
-  ADD_LISTENER (Grace_auto_beam_engraver, beam_forbid);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, beam);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, breathing_sign);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, rest);
+  ADD_LISTENER (beam_forbid);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (beam);
+  ADD_ACKNOWLEDGER (breathing_sign);
+  ADD_ACKNOWLEDGER (rest);
 }
 
 ADD_TRANSLATOR (Grace_auto_beam_engraver,

@@ -106,7 +106,7 @@ Double_percent_repeat_engraver::process_music ()
 void
 Double_percent_repeat_engraver::boot ()
 {
-  ADD_LISTENER (Double_percent_repeat_engraver, double_percent);
+  ADD_LISTENER (double_percent);
 }
 
 ADD_TRANSLATOR (Double_percent_repeat_engraver,

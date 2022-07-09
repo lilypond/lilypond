@@ -138,10 +138,10 @@ Part_combine_engraver::stop_translation_timestep ()
 void
 Part_combine_engraver::boot ()
 {
-  ADD_LISTENER (Part_combine_engraver, part_combine);
-  ADD_LISTENER (Part_combine_engraver, note);
-  ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
-  ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
+  ADD_LISTENER (part_combine);
+  ADD_LISTENER (note);
+  ADD_ACKNOWLEDGER (note_head);
+  ADD_ACKNOWLEDGER (stem);
 }
 
 ADD_TRANSLATOR (Part_combine_engraver,

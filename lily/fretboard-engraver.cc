@@ -130,9 +130,9 @@ Fretboard_engraver::stop_translation_timestep ()
 void
 Fretboard_engraver::boot ()
 {
-  ADD_LISTENER (Fretboard_engraver, note);
-  ADD_LISTENER (Fretboard_engraver, string_number);
-  ADD_LISTENER (Fretboard_engraver, fingering);
+  ADD_LISTENER (note);
+  ADD_LISTENER (string_number);
+  ADD_LISTENER (fingering);
 }
 
 ADD_TRANSLATOR (Fretboard_engraver,

@@ -130,8 +130,8 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 void
 Span_arpeggio_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
-  ADD_ACKNOWLEDGER (Span_arpeggio_engraver, note_column);
+  ADD_ACKNOWLEDGER (arpeggio);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Span_arpeggio_engraver,

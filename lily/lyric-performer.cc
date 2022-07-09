@@ -69,7 +69,7 @@ Lyric_performer::listen_lyric (Stream_event *event)
 void
 Lyric_performer::boot ()
 {
-  ADD_LISTENER (Lyric_performer, lyric);
+  ADD_LISTENER (lyric);
 }
 
 ADD_TRANSLATOR (Lyric_performer,

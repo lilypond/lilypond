@@ -159,8 +159,8 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Text_spanner_engraver::boot ()
 {
-  ADD_LISTENER (Text_spanner_engraver, text_span);
-  ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
+  ADD_LISTENER (text_span);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Text_spanner_engraver,

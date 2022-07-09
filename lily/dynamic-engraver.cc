@@ -280,10 +280,10 @@ Dynamic_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Dynamic_engraver::boot ()
 {
-  ADD_LISTENER (Dynamic_engraver, absolute_dynamic);
-  ADD_LISTENER (Dynamic_engraver, span_dynamic);
-  ADD_LISTENER (Dynamic_engraver, break_span);
-  ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
+  ADD_LISTENER (absolute_dynamic);
+  ADD_LISTENER (span_dynamic);
+  ADD_LISTENER (break_span);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Dynamic_engraver,

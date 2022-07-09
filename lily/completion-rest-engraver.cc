@@ -287,7 +287,7 @@ Completion_rest_engraver::Completion_rest_engraver (Context *c)
 void
 Completion_rest_engraver::boot ()
 {
-  ADD_LISTENER (Completion_rest_engraver, rest);
+  ADD_LISTENER (rest);
 }
 
 ADD_TRANSLATOR (Completion_rest_engraver,

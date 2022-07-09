@@ -54,8 +54,8 @@ protected:
 void
 Vertical_align_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Vertical_align_engraver, hara_kiri_group_spanner);
-  ADD_ACKNOWLEDGER (Vertical_align_engraver, outside_staff);
+  ADD_ACKNOWLEDGER (hara_kiri_group_spanner);
+  ADD_ACKNOWLEDGER (outside_staff);
 }
 
 ADD_TRANSLATOR (Vertical_align_engraver,

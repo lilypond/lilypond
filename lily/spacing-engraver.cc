@@ -265,11 +265,11 @@ Spacing_engraver::start_translation_timestep ()
 void
 Spacing_engraver::boot ()
 {
-  ADD_LISTENER (Spacing_engraver, spacing_section);
-  ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
-  ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
-  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
+  ADD_LISTENER (spacing_section);
+  ADD_ACKNOWLEDGER (staff_spacing);
+  ADD_ACKNOWLEDGER (note_spacing);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (rhythmic_grob);
 }
 
 ADD_TRANSLATOR (Spacing_engraver,

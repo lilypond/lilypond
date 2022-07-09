@@ -95,7 +95,7 @@ Beam_performer::listen_beam (Stream_event *ev)
 void
 Beam_performer::boot ()
 {
-  ADD_LISTENER (Beam_performer, beam);
+  ADD_LISTENER (beam);
 }
 
 ADD_TRANSLATOR (Beam_performer,

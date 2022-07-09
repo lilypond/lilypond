@@ -156,8 +156,8 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 void
 Chord_tremolo_engraver::boot ()
 {
-  ADD_LISTENER (Chord_tremolo_engraver, tremolo_span);
-  ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
+  ADD_LISTENER (tremolo_span);
+  ADD_ACKNOWLEDGER (stem);
 }
 
 ADD_TRANSLATOR (Chord_tremolo_engraver,

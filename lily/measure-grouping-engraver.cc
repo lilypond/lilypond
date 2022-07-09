@@ -129,7 +129,7 @@ Measure_grouping_engraver::Measure_grouping_engraver (Context *c)
 void
 Measure_grouping_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Measure_grouping_engraver, note_column);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Measure_grouping_engraver,

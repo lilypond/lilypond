@@ -125,8 +125,8 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 void
 Ledger_line_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
-  ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
+  ADD_ACKNOWLEDGER (ledgered);
+  ADD_ACKNOWLEDGER (staff_symbol);
 }
 
 ADD_TRANSLATOR (Ledger_line_engraver,

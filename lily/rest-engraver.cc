@@ -90,7 +90,7 @@ Rest_engraver::listen_rest (Stream_event *ev)
 void
 Rest_engraver::boot ()
 {
-  ADD_LISTENER (Rest_engraver, rest);
+  ADD_LISTENER (rest);
 }
 
 ADD_TRANSLATOR (Rest_engraver,

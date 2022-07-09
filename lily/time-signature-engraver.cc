@@ -120,7 +120,7 @@ Time_signature_engraver::stop_translation_timestep ()
 void
 Time_signature_engraver::boot ()
 {
-  ADD_LISTENER (Time_signature_engraver, time_signature);
+  ADD_LISTENER (time_signature);
 }
 
 ADD_TRANSLATOR (Time_signature_engraver,

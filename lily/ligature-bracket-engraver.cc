@@ -122,9 +122,9 @@ Ligature_bracket_engraver::stop_translation_timestep ()
 void
 Ligature_bracket_engraver::boot ()
 {
-  ADD_LISTENER (Ligature_bracket_engraver, ligature);
-  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
-  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+  ADD_LISTENER (ligature);
+  ADD_ACKNOWLEDGER (rest);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,

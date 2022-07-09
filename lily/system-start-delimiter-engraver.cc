@@ -242,8 +242,8 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
 void
 System_start_delimiter_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
-  ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
+  ADD_ACKNOWLEDGER (staff_symbol);
+  ADD_ACKNOWLEDGER (system_start_delimiter);
 }
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,

@@ -496,9 +496,9 @@ Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 void
 Dynamic_performer::boot ()
 {
-  ADD_LISTENER (Dynamic_performer, decrescendo);
-  ADD_LISTENER (Dynamic_performer, crescendo);
-  ADD_LISTENER (Dynamic_performer, absolute_dynamic);
+  ADD_LISTENER (decrescendo);
+  ADD_LISTENER (crescendo);
+  ADD_LISTENER (absolute_dynamic);
 }
 
 ADD_TRANSLATOR (Dynamic_performer,

@@ -98,8 +98,8 @@ Script_row_engraver::process_acknowledged ()
 void
 Script_row_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Script_row_engraver, accidental_placement);
-  ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
+  ADD_ACKNOWLEDGER (accidental_placement);
+  ADD_ACKNOWLEDGER (side_position);
 }
 
 ADD_TRANSLATOR (Script_row_engraver,

@@ -112,7 +112,7 @@ Parenthesis_engraver::stop_translation_timestep ()
 void
 Parenthesis_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Parenthesis_engraver, grob);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Parenthesis_engraver,

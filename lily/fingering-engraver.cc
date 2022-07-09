@@ -141,11 +141,11 @@ Fingering_engraver::Fingering_engraver (Context *c)
 void
 Fingering_engraver::boot ()
 {
-  ADD_LISTENER (Fingering_engraver, fingering);
-  ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (Fingering_engraver, stem);
-  ADD_ACKNOWLEDGER (Fingering_engraver, flag);
-  ADD_ACKNOWLEDGER (Fingering_engraver, note_column);
+  ADD_LISTENER (fingering);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (flag);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Fingering_engraver,

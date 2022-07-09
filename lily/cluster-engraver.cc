@@ -147,8 +147,8 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info_t<Item>)
 void
 Cluster_spanner_engraver::boot ()
 {
-  ADD_LISTENER (Cluster_spanner_engraver, cluster_note);
-  ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
+  ADD_LISTENER (cluster_note);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Cluster_spanner_engraver,

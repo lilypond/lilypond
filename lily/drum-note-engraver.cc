@@ -150,9 +150,9 @@ Drum_notes_engraver::stop_translation_timestep ()
 void
 Drum_notes_engraver::boot ()
 {
-  ADD_LISTENER (Drum_notes_engraver, note);
-  ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
-  ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
+  ADD_LISTENER (note);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Drum_notes_engraver,

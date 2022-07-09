@@ -110,7 +110,7 @@ Note_head_line_engraver::stop_translation_timestep ()
 void
 Note_head_line_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Note_head_line_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (rhythmic_head);
 }
 
 ADD_TRANSLATOR (Note_head_line_engraver,

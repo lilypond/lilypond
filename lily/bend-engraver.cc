@@ -142,8 +142,8 @@ Bend_engraver::process_music ()
 void
 Bend_engraver::boot ()
 {
-  ADD_LISTENER (Bend_engraver, bend_after);
-  ADD_ACKNOWLEDGER (Bend_engraver, note_head);
+  ADD_LISTENER (bend_after);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Bend_engraver,

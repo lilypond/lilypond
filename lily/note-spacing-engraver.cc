@@ -141,8 +141,8 @@ Note_spacing_engraver::stop_translation_timestep ()
 void
 Note_spacing_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Note_spacing_engraver, note_column);
-  ADD_ACKNOWLEDGER (Note_spacing_engraver, rhythmic_grob);
+  ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (rhythmic_grob);
 }
 
 ADD_TRANSLATOR (Note_spacing_engraver,

@@ -154,9 +154,9 @@ Piano_pedal_performer::listen_una_corda (Stream_event *r)
 void
 Piano_pedal_performer::boot ()
 {
-  ADD_LISTENER (Piano_pedal_performer, sostenuto);
-  ADD_LISTENER (Piano_pedal_performer, sustain);
-  ADD_LISTENER (Piano_pedal_performer, una_corda);
+  ADD_LISTENER (sostenuto);
+  ADD_LISTENER (sustain);
+  ADD_LISTENER (una_corda);
 }
 
 ADD_TRANSLATOR (Piano_pedal_performer,

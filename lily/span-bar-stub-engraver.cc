@@ -183,8 +183,8 @@ Span_bar_stub_engraver::stop_translation_timestep ()
 void
 Span_bar_stub_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
-  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
+  ADD_ACKNOWLEDGER (span_bar);
+  ADD_ACKNOWLEDGER (hara_kiri_group_spanner);
 }
 
 ADD_TRANSLATOR (Span_bar_stub_engraver,

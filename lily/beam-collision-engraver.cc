@@ -244,15 +244,15 @@ Beam_collision_engraver::acknowledge_beam (Grob_info i)
 void
 Beam_collision_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, note_head);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, stem);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, clef_modifier);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, flag);
-  ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
+  ADD_ACKNOWLEDGER (note_head);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (accidental);
+  ADD_ACKNOWLEDGER (clef);
+  ADD_ACKNOWLEDGER (key_signature);
+  ADD_ACKNOWLEDGER (time_signature);
+  ADD_ACKNOWLEDGER (clef_modifier);
+  ADD_ACKNOWLEDGER (flag);
+  ADD_ACKNOWLEDGER (beam);
 }
 
 ADD_TRANSLATOR (Beam_collision_engraver,

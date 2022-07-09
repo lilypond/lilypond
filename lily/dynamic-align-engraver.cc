@@ -236,11 +236,11 @@ Dynamic_align_engraver::stop_translation_timestep ()
 void
 Dynamic_align_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
-  ADD_ACKNOWLEDGER (Dynamic_align_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (Dynamic_align_engraver, stem);
-  ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
-  ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
+  ADD_ACKNOWLEDGER (dynamic);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (footnote_spanner);
+  ADD_END_ACKNOWLEDGER (dynamic);
 }
 
 ADD_TRANSLATOR (Dynamic_align_engraver,

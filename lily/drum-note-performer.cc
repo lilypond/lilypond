@@ -127,9 +127,9 @@ Drum_note_performer::listen_articulation (Stream_event *ev)
 void
 Drum_note_performer::boot ()
 {
-  ADD_LISTENER (Drum_note_performer, note);
-  ADD_LISTENER (Drum_note_performer, tie);
-  ADD_LISTENER (Drum_note_performer, articulation);
+  ADD_LISTENER (note);
+  ADD_LISTENER (tie);
+  ADD_LISTENER (articulation);
 }
 
 ADD_TRANSLATOR (Drum_note_performer,

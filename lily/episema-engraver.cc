@@ -167,9 +167,9 @@ Episema_engraver::acknowledge_note_head (Grob_info info)
 void
 Episema_engraver::boot ()
 {
-  ADD_LISTENER (Episema_engraver, episema);
-  ADD_ACKNOWLEDGER (Episema_engraver, note_column);
-  ADD_ACKNOWLEDGER (Episema_engraver, note_head);
+  ADD_LISTENER (episema);
+  ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Episema_engraver,

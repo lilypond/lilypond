@@ -112,8 +112,8 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 void
 Laissez_vibrer_engraver::boot ()
 {
-  ADD_LISTENER (Laissez_vibrer_engraver, laissez_vibrer);
-  ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
+  ADD_LISTENER (laissez_vibrer);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Laissez_vibrer_engraver,

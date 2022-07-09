@@ -176,8 +176,8 @@ Glissando_engraver::finalize ()
 void
 Glissando_engraver::boot ()
 {
-  ADD_LISTENER (Glissando_engraver, glissando);
-  ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
+  ADD_LISTENER (glissando);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Glissando_engraver,

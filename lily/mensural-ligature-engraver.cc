@@ -486,9 +486,9 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 void
 Mensural_ligature_engraver::boot ()
 {
-  ADD_LISTENER (Mensural_ligature_engraver, ligature);
-  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
-  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, ligature_head);
+  ADD_LISTENER (ligature);
+  ADD_ACKNOWLEDGER (rest);
+  ADD_ACKNOWLEDGER (ligature_head);
 }
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,

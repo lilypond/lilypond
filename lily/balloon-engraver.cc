@@ -82,8 +82,8 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 void
 Balloon_engraver::boot ()
 {
-  ADD_LISTENER (Balloon_engraver, annotate_output);
-  ADD_ACKNOWLEDGER (Balloon_engraver, grob);
+  ADD_LISTENER (annotate_output);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Balloon_engraver,

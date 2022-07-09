@@ -95,7 +95,7 @@ Key_performer::listen_key_change (Stream_event *ev)
 void
 Key_performer::boot ()
 {
-  ADD_LISTENER (Key_performer, key_change);
+  ADD_LISTENER (key_change);
 }
 
 ADD_TRANSLATOR (Key_performer,

@@ -164,10 +164,10 @@ Metronome_mark_engraver::process_music ()
 void
 Metronome_mark_engraver::boot ()
 {
-  ADD_LISTENER (Metronome_mark_engraver, tempo_change);
-  ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
-  ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
-  ADD_ACKNOWLEDGER (Metronome_mark_engraver, grob);
+  ADD_LISTENER (tempo_change);
+  ADD_ACKNOWLEDGER (break_aligned);
+  ADD_ACKNOWLEDGER (break_alignment);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Metronome_mark_engraver,

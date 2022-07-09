@@ -65,7 +65,7 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
 void
 Font_size_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Font_size_engraver, font);
+  ADD_ACKNOWLEDGER (font);
 }
 
 ADD_TRANSLATOR (Font_size_engraver,

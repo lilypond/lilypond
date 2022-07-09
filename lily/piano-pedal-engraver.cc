@@ -484,9 +484,9 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 void
 Piano_pedal_engraver::boot ()
 {
-  ADD_LISTENER (Piano_pedal_engraver, sostenuto);
-  ADD_LISTENER (Piano_pedal_engraver, sustain);
-  ADD_LISTENER (Piano_pedal_engraver, una_corda);
+  ADD_LISTENER (sostenuto);
+  ADD_LISTENER (sustain);
+  ADD_LISTENER (una_corda);
 }
 
 ADD_TRANSLATOR (Piano_pedal_engraver,

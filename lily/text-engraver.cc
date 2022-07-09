@@ -114,8 +114,8 @@ Text_engraver::Text_engraver (Context *c)
 void
 Text_engraver::boot ()
 {
-  ADD_LISTENER (Text_engraver, text_script);
-  ADD_ACKNOWLEDGER (Text_engraver, note_column);
+  ADD_LISTENER (text_script);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Text_engraver,

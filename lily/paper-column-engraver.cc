@@ -278,12 +278,12 @@ Paper_column_engraver::finalize ()
 void
 Paper_column_engraver::boot ()
 {
-  ADD_LISTENER (Paper_column_engraver, break);
-  ADD_LISTENER (Paper_column_engraver, label);
-  ADD_ACKNOWLEDGER (Paper_column_engraver, item);
-  ADD_ACKNOWLEDGER (Paper_column_engraver, note_spacing);
-  ADD_ACKNOWLEDGER (Paper_column_engraver, staff_spacing);
-  ADD_ACKNOWLEDGER (Paper_column_engraver, break_alignment);
+  ADD_LISTENER (break);
+  ADD_LISTENER (label);
+  ADD_ACKNOWLEDGER (item);
+  ADD_ACKNOWLEDGER (note_spacing);
+  ADD_ACKNOWLEDGER (staff_spacing);
+  ADD_ACKNOWLEDGER (break_alignment);
 }
 
 ADD_TRANSLATOR (Paper_column_engraver,

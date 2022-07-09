@@ -92,7 +92,7 @@ Note_name_engraver::Note_name_engraver (Context *c)
 void
 Note_name_engraver::boot ()
 {
-  ADD_LISTENER (Note_name_engraver, note);
+  ADD_LISTENER (note);
 }
 
 ADD_TRANSLATOR (Note_name_engraver,

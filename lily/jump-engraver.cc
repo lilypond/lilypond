@@ -225,9 +225,9 @@ Jump_engraver::stop_translation_timestep ()
 void
 Jump_engraver::boot ()
 {
-  ADD_LISTENER (Jump_engraver, ad_hoc_jump);
-  ADD_LISTENER (Jump_engraver, dal_segno);
-  ADD_LISTENER (Jump_engraver, fine);
+  ADD_LISTENER (ad_hoc_jump);
+  ADD_LISTENER (dal_segno);
+  ADD_LISTENER (fine);
 }
 
 ADD_TRANSLATOR (Jump_engraver,

@@ -170,7 +170,7 @@ Instrument_name_engraver::stop_spanner ()
 void
 Instrument_name_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Instrument_name_engraver, hara_kiri_group_spanner);
+  ADD_ACKNOWLEDGER (hara_kiri_group_spanner);
 }
 
 ADD_TRANSLATOR (Instrument_name_engraver,

@@ -182,9 +182,9 @@ Extender_engraver::finalize ()
 void
 Extender_engraver::boot ()
 {
-  ADD_LISTENER (Extender_engraver, extender);
-  ADD_LISTENER (Extender_engraver, completize_extender);
-  ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
+  ADD_LISTENER (extender);
+  ADD_LISTENER (completize_extender);
+  ADD_ACKNOWLEDGER (lyric_syllable);
 }
 
 ADD_TRANSLATOR (Extender_engraver,

@@ -137,7 +137,7 @@ Custos_engraver::finalize ()
 void
 Custos_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Custos_engraver, note_head);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Custos_engraver,

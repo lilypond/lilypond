@@ -147,8 +147,8 @@ Trill_spanner_engraver::finalize ()
 void
 Trill_spanner_engraver::boot ()
 {
-  ADD_LISTENER (Trill_spanner_engraver, trill_span);
-  ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
+  ADD_LISTENER (trill_span);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Trill_spanner_engraver,

@@ -174,7 +174,7 @@ Axis_group_engraver::add_element (Grob *e)
 void
 Axis_group_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Axis_group_engraver,

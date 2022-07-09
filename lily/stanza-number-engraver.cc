@@ -87,7 +87,7 @@ Stanza_number_engraver::stop_translation_timestep ()
 void
 Stanza_number_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
+  ADD_ACKNOWLEDGER (lyric_syllable);
 }
 
 ADD_TRANSLATOR (Stanza_number_engraver,

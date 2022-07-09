@@ -118,8 +118,8 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
-  ADD_LISTENER (Repeat_acknowledge_engraver, volta_repeat_end);
-  ADD_LISTENER (Repeat_acknowledge_engraver, volta_repeat_start);
+  ADD_LISTENER (volta_repeat_end);
+  ADD_LISTENER (volta_repeat_start);
 }
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,

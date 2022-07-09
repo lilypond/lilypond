@@ -48,7 +48,7 @@ Pitch_squash_engraver::Pitch_squash_engraver (Context *c)
 void
 Pitch_squash_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Pitch_squash_engraver, note_head);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Pitch_squash_engraver,

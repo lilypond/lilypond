@@ -73,12 +73,12 @@ void
 Phrasing_slur_engraver::boot ()
 {
   ADD_LISTENER_FOR (listen_slur, phrasing_slur);
-  ADD_LISTENER (Phrasing_slur_engraver, note);
+  ADD_LISTENER (note);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, inline_accidental);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, fingering);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (note_column);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, slur);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
+  ADD_ACKNOWLEDGER (script);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, dots);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, text_script);
   ADD_END_ACKNOWLEDGER_FOR (acknowledge_extra_object, tie);

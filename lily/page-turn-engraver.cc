@@ -394,9 +394,9 @@ Page_turn_engraver::finalize ()
 void
 Page_turn_engraver::boot ()
 {
-  ADD_LISTENER (Page_turn_engraver, break);
-  ADD_ACKNOWLEDGER (Page_turn_engraver, bar_line);
-  ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
+  ADD_LISTENER (break);
+  ADD_ACKNOWLEDGER (bar_line);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Page_turn_engraver,

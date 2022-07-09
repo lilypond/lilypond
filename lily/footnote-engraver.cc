@@ -65,7 +65,7 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 void
 Footnote_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Footnote_engraver, grob);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Footnote_engraver,

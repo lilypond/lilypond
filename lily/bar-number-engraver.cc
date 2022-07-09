@@ -236,7 +236,7 @@ Bar_number_engraver::get_alt_number ()
 void
 Bar_number_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Bar_number_engraver, bar_line);
+  ADD_ACKNOWLEDGER (bar_line);
 }
 
 ADD_TRANSLATOR (Bar_number_engraver,

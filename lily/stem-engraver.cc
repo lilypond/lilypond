@@ -235,9 +235,9 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
 void
 Stem_engraver::boot ()
 {
-  ADD_LISTENER (Stem_engraver, tuplet_span);
-  ADD_LISTENER (Stem_engraver, tremolo);
-  ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+  ADD_LISTENER (tuplet_span);
+  ADD_LISTENER (tremolo);
+  ADD_ACKNOWLEDGER (rhythmic_head);
 }
 
 ADD_TRANSLATOR (Stem_engraver,

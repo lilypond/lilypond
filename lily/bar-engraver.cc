@@ -454,14 +454,14 @@ Bar_engraver::acknowledge_end_spanner (Grob_info_t<Spanner> gi)
 void
 Bar_engraver::boot ()
 {
-  ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
-  ADD_LISTENER (Bar_engraver, ad_hoc_jump);
-  ADD_LISTENER (Bar_engraver, coda_mark);
-  ADD_LISTENER (Bar_engraver, dal_segno);
-  ADD_LISTENER (Bar_engraver, fine);
-  ADD_LISTENER (Bar_engraver, section);
-  ADD_LISTENER (Bar_engraver, segno_mark);
-  ADD_LISTENER (Bar_engraver, volta_span);
+  ADD_END_ACKNOWLEDGER (spanner);
+  ADD_LISTENER (ad_hoc_jump);
+  ADD_LISTENER (coda_mark);
+  ADD_LISTENER (dal_segno);
+  ADD_LISTENER (fine);
+  ADD_LISTENER (section);
+  ADD_LISTENER (segno_mark);
+  ADD_LISTENER (volta_span);
 }
 
 ADD_TRANSLATOR (Bar_engraver,

@@ -183,11 +183,11 @@ Pitched_trill_engraver::stop_translation_timestep ()
 void
 Pitched_trill_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
-  ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
-  ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
-  ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
-  ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
+  ADD_ACKNOWLEDGER (note_head);
+  ADD_ACKNOWLEDGER (dots);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (flag);
+  ADD_ACKNOWLEDGER (trill_spanner);
 }
 
 ADD_TRANSLATOR (Pitched_trill_engraver,

@@ -112,10 +112,10 @@ Arpeggio_engraver::stop_translation_timestep ()
 void
 Arpeggio_engraver::boot ()
 {
-  ADD_LISTENER (Arpeggio_engraver, arpeggio);
-  ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
-  ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
+  ADD_LISTENER (arpeggio);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Arpeggio_engraver,

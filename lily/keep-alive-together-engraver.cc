@@ -126,7 +126,7 @@ Keep_alive_together_engraver::finalize ()
 void
 Keep_alive_together_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Keep_alive_together_engraver, hara_kiri_group_spanner);
+  ADD_ACKNOWLEDGER (hara_kiri_group_spanner);
 }
 
 ADD_TRANSLATOR (Keep_alive_together_engraver,

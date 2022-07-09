@@ -147,7 +147,7 @@ Pure_from_neighbor_engraver::finalize ()
 void
 Pure_from_neighbor_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, item);
+  ADD_ACKNOWLEDGER (item);
 }
 
 ADD_TRANSLATOR (Pure_from_neighbor_engraver,

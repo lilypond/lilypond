@@ -448,10 +448,10 @@ Volta_engraver::stop_translation_timestep ()
 void
 Volta_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
-  ADD_LISTENER (Volta_engraver, dal_segno);
-  ADD_LISTENER (Volta_engraver, fine);
-  ADD_LISTENER (Volta_engraver, volta_span);
+  ADD_ACKNOWLEDGER (bar_line);
+  ADD_LISTENER (dal_segno);
+  ADD_LISTENER (fine);
+  ADD_LISTENER (volta_span);
 }
 
 ADD_TRANSLATOR (Volta_engraver,

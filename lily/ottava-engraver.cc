@@ -186,8 +186,8 @@ Ottava_spanner_engraver::finalize ()
 void
 Ottava_spanner_engraver::boot ()
 {
-  ADD_LISTENER (Ottava_spanner_engraver, ottava);
-  ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
+  ADD_LISTENER (ottava);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,

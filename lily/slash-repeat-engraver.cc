@@ -68,7 +68,7 @@ Slash_repeat_engraver::process_music ()
 void
 Slash_repeat_engraver::boot ()
 {
-  ADD_LISTENER (Slash_repeat_engraver, repeat_slash);
+  ADD_LISTENER (repeat_slash);
 }
 
 ADD_TRANSLATOR (Slash_repeat_engraver,

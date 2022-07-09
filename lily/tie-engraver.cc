@@ -380,8 +380,8 @@ Tie_engraver::typeset_tie (Spanner *her)
 void
 Tie_engraver::boot ()
 {
-  ADD_LISTENER (Tie_engraver, tie);
-  ADD_ACKNOWLEDGER (Tie_engraver, note_head);
+  ADD_LISTENER (tie);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Tie_engraver,

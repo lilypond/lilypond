@@ -82,8 +82,8 @@ Output_property_engraver::Output_property_engraver (Context *c)
 void
 Output_property_engraver::boot ()
 {
-  ADD_LISTENER (Output_property_engraver, apply_output);
-  ADD_ACKNOWLEDGER (Output_property_engraver, grob);
+  ADD_LISTENER (apply_output);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Output_property_engraver,

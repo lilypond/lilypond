@@ -160,8 +160,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 void
 Separating_line_group_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
-  ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
+  ADD_ACKNOWLEDGER (item);
+  ADD_ACKNOWLEDGER (break_aligned);
 }
 
 ADD_TRANSLATOR (Separating_line_group_engraver,

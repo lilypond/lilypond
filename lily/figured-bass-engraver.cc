@@ -512,8 +512,8 @@ Figured_bass_engraver::add_brackets ()
 void
 Figured_bass_engraver::boot ()
 {
-  ADD_LISTENER (Figured_bass_engraver, rest);
-  ADD_LISTENER (Figured_bass_engraver, bass_figure);
+  ADD_LISTENER (rest);
+  ADD_LISTENER (bass_figure);
 }
 
 ADD_TRANSLATOR (Figured_bass_engraver,

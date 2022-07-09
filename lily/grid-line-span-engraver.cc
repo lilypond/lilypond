@@ -71,7 +71,7 @@ Grid_line_span_engraver::stop_translation_timestep ()
 void
 Grid_line_span_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
+  ADD_ACKNOWLEDGER (grid_point);
 }
 
 ADD_TRANSLATOR (Grid_line_span_engraver,

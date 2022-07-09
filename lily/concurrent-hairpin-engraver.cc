@@ -106,8 +106,8 @@ Concurrent_hairpin_engraver::finalize ()
 void
 Concurrent_hairpin_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
-  ADD_END_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
+  ADD_ACKNOWLEDGER (hairpin);
+  ADD_END_ACKNOWLEDGER (hairpin);
 }
 
 ADD_TRANSLATOR (Concurrent_hairpin_engraver,

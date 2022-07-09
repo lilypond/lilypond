@@ -143,9 +143,9 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 void
 Tab_note_heads_engraver::boot ()
 {
-  ADD_LISTENER (Tab_note_heads_engraver, note);
-  ADD_LISTENER (Tab_note_heads_engraver, string_number);
-  ADD_LISTENER (Tab_note_heads_engraver, fingering);
+  ADD_LISTENER (note);
+  ADD_LISTENER (string_number);
+  ADD_LISTENER (fingering);
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,

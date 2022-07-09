@@ -283,11 +283,11 @@ Mark_tracking_translator::listen_segno_mark (Stream_event *ev)
 void
 Mark_tracking_translator::boot ()
 {
-  ADD_LISTENER (Mark_tracking_translator, ad_hoc_mark);
-  ADD_LISTENER (Mark_tracking_translator, coda_mark);
-  ADD_LISTENER (Mark_tracking_translator, rehearsal_mark);
-  ADD_LISTENER (Mark_tracking_translator, section_label);
-  ADD_LISTENER (Mark_tracking_translator, segno_mark);
+  ADD_LISTENER (ad_hoc_mark);
+  ADD_LISTENER (coda_mark);
+  ADD_LISTENER (rehearsal_mark);
+  ADD_LISTENER (section_label);
+  ADD_LISTENER (segno_mark);
 }
 
 ADD_TRANSLATOR (Mark_tracking_translator,

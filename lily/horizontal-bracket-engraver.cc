@@ -136,8 +136,8 @@ Horizontal_bracket_engraver::stop_translation_timestep ()
 void
 Horizontal_bracket_engraver::boot ()
 {
-  ADD_LISTENER (Horizontal_bracket_engraver, note_grouping);
-  ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
+  ADD_LISTENER (note_grouping);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Horizontal_bracket_engraver,

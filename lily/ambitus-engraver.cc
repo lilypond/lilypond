@@ -240,7 +240,7 @@ Ambitus_engraver::finalize ()
 void
 Ambitus_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
+  ADD_ACKNOWLEDGER (note_head);
 }
 
 ADD_TRANSLATOR (Ambitus_engraver,

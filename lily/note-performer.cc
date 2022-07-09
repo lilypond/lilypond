@@ -178,10 +178,10 @@ Note_performer::listen_breathing (Stream_event *ev)
 void
 Note_performer::boot ()
 {
-  ADD_LISTENER (Note_performer, note);
-  ADD_LISTENER (Note_performer, breathing);
-  ADD_LISTENER (Note_performer, tie);
-  ADD_LISTENER (Note_performer, articulation);
+  ADD_LISTENER (note);
+  ADD_LISTENER (breathing);
+  ADD_LISTENER (tie);
+  ADD_LISTENER (articulation);
 }
 
 ADD_TRANSLATOR (Note_performer,

@@ -170,8 +170,8 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 void
 Staff_symbol_engraver::boot ()
 {
-  ADD_LISTENER (Staff_symbol_engraver, staff_span);
-  ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
+  ADD_LISTENER (staff_span);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Staff_symbol_engraver,

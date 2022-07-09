@@ -99,7 +99,7 @@ Span_bar_engraver::stop_translation_timestep ()
 void
 Span_bar_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
+  ADD_ACKNOWLEDGER (bar_line);
 }
 
 ADD_TRANSLATOR (Span_bar_engraver,

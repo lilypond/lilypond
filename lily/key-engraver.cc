@@ -215,8 +215,8 @@ Key_engraver::initialize ()
 void
 Key_engraver::boot ()
 {
-  ADD_LISTENER (Key_engraver, key_change);
-  ADD_ACKNOWLEDGER (Key_engraver, clef);
+  ADD_LISTENER (key_change);
+  ADD_ACKNOWLEDGER (clef);
 }
 
 ADD_TRANSLATOR (Key_engraver,

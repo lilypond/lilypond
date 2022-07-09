@@ -72,8 +72,8 @@ Spanner_break_forbid_engraver::Spanner_break_forbid_engraver (Context *c)
 void
 Spanner_break_forbid_engraver::boot ()
 {
-  ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
-  ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+  ADD_END_ACKNOWLEDGER (unbreakable_spanner);
+  ADD_ACKNOWLEDGER (unbreakable_spanner);
 }
 
 ADD_TRANSLATOR (Spanner_break_forbid_engraver,

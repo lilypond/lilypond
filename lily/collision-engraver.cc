@@ -83,7 +83,7 @@ Collision_engraver::Collision_engraver (Context *c)
 void
 Collision_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Collision_engraver, note_column);
+  ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Collision_engraver,

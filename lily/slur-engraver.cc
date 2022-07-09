@@ -68,12 +68,12 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::boot ()
 {
-  ADD_LISTENER (Slur_engraver, slur);
-  ADD_LISTENER (Slur_engraver, note);
+  ADD_LISTENER (slur);
+  ADD_LISTENER (note);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, inline_accidental);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, fingering);
-  ADD_ACKNOWLEDGER (Slur_engraver, note_column);
-  ADD_ACKNOWLEDGER (Slur_engraver, script);
+  ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (script);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, text_script);
   ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, dots);
   ADD_END_ACKNOWLEDGER_FOR (acknowledge_extra_object, tie);

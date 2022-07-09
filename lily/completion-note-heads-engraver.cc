@@ -330,7 +330,7 @@ Completion_heads_engraver::Completion_heads_engraver (Context *c)
 void
 Completion_heads_engraver::boot ()
 {
-  ADD_LISTENER (Completion_heads_engraver, note);
+  ADD_LISTENER (note);
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,

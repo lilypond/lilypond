@@ -213,7 +213,7 @@ Lyric_engraver::stop_translation_timestep ()
 void
 Lyric_engraver::boot ()
 {
-  ADD_LISTENER (Lyric_engraver, lyric);
+  ADD_LISTENER (lyric);
 }
 
 ADD_TRANSLATOR (Lyric_engraver,

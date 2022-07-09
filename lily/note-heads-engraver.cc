@@ -125,7 +125,7 @@ Note_heads_engraver::stop_translation_timestep ()
 void
 Note_heads_engraver::boot ()
 {
-  ADD_LISTENER (Note_heads_engraver, note);
+  ADD_LISTENER (note);
 }
 
 ADD_TRANSLATOR (Note_heads_engraver,

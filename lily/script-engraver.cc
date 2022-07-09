@@ -278,14 +278,14 @@ Script_engraver::stop_translation_timestep ()
 void
 Script_engraver::boot ()
 {
-  ADD_LISTENER (Script_engraver, articulation);
-  ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
-  ADD_ACKNOWLEDGER (Script_engraver, stem);
-  ADD_ACKNOWLEDGER (Script_engraver, tie);
-  ADD_END_ACKNOWLEDGER (Script_engraver, tie);
-  ADD_ACKNOWLEDGER (Script_engraver, note_column);
-  ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
-  ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
+  ADD_LISTENER (articulation);
+  ADD_ACKNOWLEDGER (rhythmic_head);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (tie);
+  ADD_END_ACKNOWLEDGER (tie);
+  ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (stem_tremolo);
+  ADD_ACKNOWLEDGER (inline_accidental);
 }
 
 ADD_TRANSLATOR (Script_engraver,

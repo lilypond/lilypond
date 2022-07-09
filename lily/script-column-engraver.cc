@@ -84,7 +84,7 @@ Script_column_engraver::process_acknowledged ()
 void
 Script_column_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
+  ADD_ACKNOWLEDGER (side_position);
 }
 
 ADD_TRANSLATOR (Script_column_engraver,

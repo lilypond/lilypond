@@ -102,8 +102,8 @@ Melody_engraver::acknowledge_stem (Grob_info info)
 void
 Melody_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Melody_engraver, stem);
-  ADD_ACKNOWLEDGER (Melody_engraver, slur);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (slur);
 }
 
 ADD_TRANSLATOR (Melody_engraver,

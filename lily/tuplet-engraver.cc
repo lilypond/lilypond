@@ -279,11 +279,11 @@ Tuplet_engraver::Tuplet_engraver (Context *c)
 void
 Tuplet_engraver::boot ()
 {
-  ADD_LISTENER (Tuplet_engraver, tuplet_span);
-  ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
-  ADD_ACKNOWLEDGER (Tuplet_engraver, script);
-  ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
-  ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
+  ADD_LISTENER (tuplet_span);
+  ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (script);
+  ADD_ACKNOWLEDGER (finger);
+  ADD_ACKNOWLEDGER (string_number);
 }
 
 ADD_TRANSLATOR (Tuplet_engraver,

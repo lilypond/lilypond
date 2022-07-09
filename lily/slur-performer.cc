@@ -98,7 +98,7 @@ Slur_performer::listen_slur (Stream_event *ev)
 void
 Slur_performer::boot ()
 {
-  ADD_LISTENER (Slur_performer, slur);
+  ADD_LISTENER (slur);
 }
 
 ADD_TRANSLATOR (Slur_performer,

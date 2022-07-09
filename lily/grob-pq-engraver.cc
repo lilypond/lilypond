@@ -149,7 +149,7 @@ Grob_pq_engraver::start_translation_timestep ()
 void
 Grob_pq_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Grob_pq_engraver,

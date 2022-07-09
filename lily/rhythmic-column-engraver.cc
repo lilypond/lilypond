@@ -141,9 +141,9 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 void
 Rhythmic_column_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
-  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
-  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (flag);
+  ADD_ACKNOWLEDGER (rhythmic_head);
 }
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,

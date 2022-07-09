@@ -323,9 +323,9 @@ Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
 void
 Beam_engraver::boot ()
 {
-  ADD_LISTENER (Beam_engraver, beam);
-  ADD_ACKNOWLEDGER (Beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Beam_engraver, rest);
+  ADD_LISTENER (beam);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (rest);
 }
 
 ADD_TRANSLATOR (Beam_engraver,
@@ -384,9 +384,9 @@ Grace_beam_engraver::valid_end_point ()
 void
 Grace_beam_engraver::boot ()
 {
-  ADD_LISTENER (Grace_beam_engraver, beam);
-  ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
+  ADD_LISTENER (beam);
+  ADD_ACKNOWLEDGER (stem);
+  ADD_ACKNOWLEDGER (rest);
 }
 
 ADD_TRANSLATOR (Grace_beam_engraver,

@@ -60,7 +60,7 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
 void
 Dots_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Dots_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (rhythmic_head);
 }
 
 ADD_TRANSLATOR (Dots_engraver,

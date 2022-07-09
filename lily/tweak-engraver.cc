@@ -85,7 +85,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
 void
 Tweak_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Tweak_engraver, grob);
+  ADD_ACKNOWLEDGER (grob);
 }
 
 ADD_TRANSLATOR (Tweak_engraver,

@@ -187,7 +187,7 @@ Tie_performer::stop_translation_timestep ()
 void
 Tie_performer::boot ()
 {
-  ADD_LISTENER (Tie_performer, tie);
+  ADD_LISTENER (tie);
 }
 
 ADD_TRANSLATOR (Tie_performer,

@@ -117,9 +117,7 @@ void add_acknowledger (SCM ptr,
 
 // Short form of ADD_ACKNOWLEDGER_FOR using conventional names:
 // Handle grobs of type `grob` with `self_type::acknowledge_grob`.
-//
-// TODO: remove unused `class` argument
-#define ADD_ACKNOWLEDGER(class, grob) \
+#define ADD_ACKNOWLEDGER(grob)                                          \
   ADD_ACKNOWLEDGER_FOR (acknowledge_ ## grob, grob)
 
 // Register `self_type::function` to acknowledge end grobs of type `grob`.
@@ -132,9 +130,7 @@ void add_acknowledger (SCM ptr,
 
 // Short form of ADD_END_ACKNOWLEDGER_FOR using conventional names:
 // Handle grobs of type `grob` with `self_type::acknowledge_end_grob`.
-
-// TODO: remove unused `class` argument
-#define ADD_END_ACKNOWLEDGER(class, grob)                               \
+#define ADD_END_ACKNOWLEDGER(grob)                                      \
   ADD_END_ACKNOWLEDGER_FOR (acknowledge_end_ ## grob, grob)
 
 // Register `self_type::function` to handle events of type `event`.
@@ -147,9 +143,7 @@ void add_acknowledger (SCM ptr,
 
 // Short form of ADD_LISTENER_FOR using conventional names:
 // Handle events of type `event` by calling `self_type::listen_event`.
-//
-// TODO: remove unused `class` argument
-#define ADD_LISTENER(class, event)                                      \
+#define ADD_LISTENER(event)                                             \
   ADD_LISTENER_FOR (listen_ ## event, event)
 
 #endif /* TRANSLATOR_ICC */
