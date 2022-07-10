@@ -402,35 +402,6 @@ then reduce using @var{min-max}:
      (cons (min-max-crawler min cddr possible-extrema)
            (min-max-crawler max cddr possible-extrema)))))
 
-(define (line-part-min-max x1 x2)
-  (list (min x1 x2) (max x1 x2)))
-
-(define (bezier-min-max x1 y1 x2 y2 x3 y3 x4 y4)
-  (match-let* ((bezier `((,x1 . ,y2) (,x2 . ,y2) (,x3 . ,y3) (,x4 . ,y4)))
-               ((xmin . xmax) (ly:bezier-extent bezier X))
-               ((ymin . ymax) (ly:bezier-extent bezier Y)))
-    `((,xmin ,xmax) (,ymin ,ymax))))
-
-(define (line-min-max x1 y1 x2 y2)
-  (map (lambda (x)
-         (apply line-part-min-max x))
-       `((,x1 ,x2) (,y1 ,y2))))
-
-(define (path-min-max origin pointlist)
-  ((lambda (x)
-     (list
-      (reduce min +inf.0 (map caar x))
-      (reduce max -inf.0 (map cadar x))
-      (reduce min +inf.0 (map caadr x))
-      (reduce max -inf.0 (map cadadr x))))
-   (map (lambda (x)
-          (if (= (length x) 8)
-              (apply bezier-min-max x)
-              (apply line-min-max x)))
-        (map (lambda (x y)
-               (append (list (cadr (reverse x)) (car (reverse x))) y))
-             (append (list origin)
-                     (reverse (cdr (reverse pointlist)))) pointlist))))
 
 (define*-public (make-path-stencil path thickness x-scale y-scale fill
                                    #:key (line-cap-style 'round)
@@ -451,93 +422,125 @@ and their standard SVG single-letter equivalents
 @example
 M m L l C c Z z
 @end example"
-
-  (define (convert-path path origin previous-point)
-    "Recursive function to standardize command names and
-convert any relative path expressions (in @var{path}) to absolute
-values.  Returns a list of lists.  @var{origin} is a pair of x and y
-coordinates for the origin point of the path (used for closepath and
-reset by moveto commands).  @var{previous-point} is a pair of x and y
-coordinates for the previous point in the path."
-    (if (pair? path)
-        (let*
-            ((head-raw (car path))
-             (rest (cdr path))
-             (head (cond
-                    ((memq head-raw '(rmoveto M m)) 'moveto)
-                    ((memq head-raw '(rlineto L l)) 'lineto)
-                    ((memq head-raw '(rcurveto C c)) 'curveto)
-                    ((memq head-raw '(Z z)) 'closepath)
-                    (else head-raw)))
-             (arity (cond
-                     ((memq head '(lineto moveto)) 2)
-                     ((eq? head 'curveto) 6)
-                     (else 0)))
-             (coordinates-raw (take rest arity))
-             (is-absolute (if (memq head-raw
-                                    '(rmoveto m rlineto l rcurveto c)) #f #t))
-             (coordinates (if is-absolute
-                              coordinates-raw
-                              ;; convert relative coordinates to absolute by
-                              ;; adding them to previous point values
-                              (map (lambda (c n)
-                                     (if (even? n)
-                                         (+ c (car previous-point))
-                                         (+ c (cdr previous-point))))
-                                   coordinates-raw
-                                   (iota arity))))
-             (new-point (if (eq? head 'closepath)
-                            origin
-                            (cons
-                             (list-ref coordinates (- arity 2))
-                             (list-ref coordinates (- arity 1)))))
-             (new-origin (if (eq? head 'moveto)
-                             new-point
-                             origin)))
-          (cons (cons head coordinates)
-                (convert-path (drop rest arity) new-origin new-point)))
-        '()))
-
-  (let* ((path-absolute (convert-path path (cons 0 0) (cons 0 0)))
-         ;; scale coordinates
-         (path-scaled (if (and (= 1 x-scale) (= 1 y-scale))
-                          path-absolute
-                          (map (lambda (path-unit)
-                                 (map (lambda (c n)
-                                        (cond
-                                         ((= 0 n) c)
-                                         ((odd? n) (* c x-scale))
-                                         (else (* c y-scale))))
-                                      path-unit
-                                      (iota (length path-unit))))
-                               path-absolute)))
-         ;; a path must begin with a 'moveto'
-         (path-final (if (eq? 'moveto (car (car path-scaled)))
-                         path-scaled
-                         (append (list (list 'moveto 0 0)) path-scaled)))
-         ;; remove all commands in order to calculate bounds
-         (path-headless (map cdr (delete (list 'closepath) path-final)))
-         (bound-list (path-min-max
-                      (car path-headless)
-                      (cdr path-headless))))
-    (ly:make-stencil
-     `(path ,thickness
-            ,(concatenate path-final)
-            ,line-cap-style
-            ,line-join-style
-            ,(if fill #t #f))
-     (coord-translate
-      ((if (< x-scale 0) reverse-interval identity)
-       (cons
-        (list-ref bound-list 0)
-        (list-ref bound-list 1)))
-      `(,(/ thickness -2) . ,(/ thickness 2)))
-     (coord-translate
-      ((if (< y-scale 0) reverse-interval identity)
-       (cons
-        (list-ref bound-list 2)
-        (list-ref bound-list 3)))
-      `(,(/ thickness -2) . ,(/ thickness 2))))))
+  ;; Convert coordinates to absolute, so we can compute the extents.  We leave
+  ;; them as absolute in the result (TODO: this probably means some bits of code
+  ;; can be removed in the output backends.)
+  (let loop ((path
+              ;; A path must begin with a moveto.
+              (match path
+                ((moveto . _)
+                 path)
+                (_
+                 (cons* 'moveto 0 0 path))))
+             ;; The start of the current path.  Changed by moveto commands, used
+             ;; for closepath.
+             (origin-x 0)
+             (origin-y 0)
+             ;; The point at which the previous command left us.
+             (previous-x 0)
+             (previous-y 0)
+             ;; Extents of the path so far.
+             (X-extent empty-interval)
+             (Y-extent empty-interval)
+             ;; Absolute path.
+             (acc '()))
+    (define (handle-moveto x y rest)
+      (loop rest
+            ;; Reset origin.
+            x
+            y
+            ;; Also reset previous point.
+            x
+            y
+            ;; Extents are unchanged.
+            X-extent
+            Y-extent
+            (cons `(moveto ,x ,y)
+                  acc)))
+    (define (handle-lineto x y rest)
+      (loop rest
+            origin-x
+            origin-y
+            ;; End point of the line becomes the new previous point.
+            x y
+            ;; Account for the line's extents.
+            (interval-union X-extent (ordered-cons previous-x x))
+            (interval-union Y-extent (ordered-cons previous-y y))
+            (cons `(lineto ,x ,y)
+                  acc)))
+    (define (handle-curveto x2 y2 x3 y3 x4 y4 rest)
+      (let ((bezier `((,previous-x . ,previous-y) (,x2 . ,y2) (,x3 . ,y3) (,x4 . ,y4))))
+        (loop rest
+              origin-x
+              origin-y
+              ;; End point of the curve becomes the new previous point.
+              x4
+              y4
+              ;; Account for the curve's extents.
+              (interval-union X-extent (ly:bezier-extent bezier X))
+              (interval-union Y-extent (ly:bezier-extent bezier Y))
+              (cons `(curveto ,x2 ,y2 ,x3 ,y3 ,x4 ,y4)
+                    acc))))
+    (define (handle-closepath rest)
+      (loop rest
+            origin-x
+            origin-y
+            ;; Origin becomes the new previous point again.
+            origin-x
+            origin-y
+            ;; Account for the line's extents.
+            (interval-union X-extent (ordered-cons previous-x origin-x))
+            (interval-union Y-extent (ordered-cons previous-y origin-y))
+            (cons '(closepath)
+                  acc)))
+    (match path
+      (((or 'moveto 'M) x y . rest)
+       (handle-moveto (* x x-scale)
+                      (* y y-scale)
+                      rest))
+      (((or 'rmoveto 'm) x y . rest)
+       (handle-moveto (+ previous-x (* x x-scale))
+                      (+ previous-y (* y y-scale))
+                      rest))
+      (((or 'lineto 'L) x y . rest)
+       (handle-lineto (* x x-scale)
+                      (* y y-scale)
+                      rest))
+      (((or 'rlineto 'l) x y . rest)
+       (handle-lineto (+ previous-x (* x x-scale))
+                      (+ previous-y (* y y-scale))
+                      rest))
+      (((or 'curveto 'C) x2 y2 x3 y3 x4 y4 . rest)
+       ;; Conceptually, x1 and y1 are the current point.
+       (handle-curveto (* x2 x-scale)
+                       (* y2 y-scale)
+                       (* x3 x-scale)
+                       (* y3 y-scale)
+                       (* x4 x-scale)
+                       (* y4 y-scale)
+                       rest))
+      (((or 'rcurveto 'c) x2 y2 x3 y3 x4 y4 . rest)
+       (handle-curveto (+ previous-x (* x2 x-scale))
+                       (+ previous-y (* y2 y-scale))
+                       (+ previous-x (* x3 x-scale))
+                       (+ previous-y (* y3 y-scale))
+                       (+ previous-x (* x4 x-scale))
+                       (+ previous-y (* y4 y-scale))
+                       rest))
+      (((or 'closepath 'Z 'z) . rest)
+       (handle-closepath rest))
+      (()
+       (let ((half-thickness (/ thickness 2)))
+         (ly:make-stencil
+          `(path ,thickness
+                 ;; TODO: a nested internal representation '((moveto x y) (lineto x y))
+                 ;; might be better than this flat representation '(moveto x y lineto x y).
+                 ,(apply append (reverse! acc))
+                 ,line-cap-style
+                 ,line-join-style
+                 ,fill)
+          (interval-widen X-extent half-thickness)
+          (interval-widen Y-extent half-thickness)))))))
 
 (define-public (make-connected-path-stencil pointlist thickness
                                             x-scale y-scale connect fill)
