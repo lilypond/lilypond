@@ -235,7 +235,9 @@ SCM make_reverse_key_list (SCM keys);
 SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
 SCM post_event_cons (SCM ev, SCM tail);
+void property_path_dot_warning (Input loc, SCM lst);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
+
 
 // generated code may trigger conversion warnings
 #pragma GCC diagnostic ignored "-Wconversion"
@@ -2813,6 +2815,7 @@ revert_arg_part:
 	| revert_arg_backup BACKUP SCM_ARG symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($4, $3));
+		property_path_dot_warning (@4, scm_reverse ($$));
 	}
 	;
 
@@ -2854,21 +2857,10 @@ context_mod:
 	}
 	;
 
-// If defined, at least two members.
 grob_prop_spec:
 	symbol_list_rev
 	{
-		SCM l = scm_reverse_x ($1, SCM_EOL);
-		if (scm_is_pair (l)
-		    && from_scm<bool>
-		    (scm_object_property (scm_car (l),
-					  ly_symbol2scm ("is-grob?"))))
-			l = scm_cons (ly_symbol2scm ("Bottom"), l);
-		if (scm_is_null (l) || scm_is_null (scm_cdr (l))) {
-			parser->parser_error (@1, _ ("bad grob property path"));
-			l = SCM_UNDEFINED;
-		}
-		$$ = l;
+		$$ = scm_reverse_x ($1, SCM_EOL);
 	}
 	;
 
@@ -2876,7 +2868,14 @@ grob_prop_spec:
 grob_prop_path:
 	grob_prop_spec
 	{
-		if (!SCM_UNBNDP ($1) && scm_is_null (scm_cddr ($1)))
+		if (scm_is_pair ($1)
+		    && from_scm<bool>
+		    (scm_object_property (scm_car ($1),
+					  ly_symbol2scm ("is-grob?"))))
+			$$ = scm_cons (ly_symbol2scm ("Bottom"), $1);
+		if (!scm_is_pair ($$)
+		    || !scm_is_pair (scm_cdr ($$))
+		    || !scm_is_pair (scm_cddr ($$)))
 		{
 			parser->parser_error (@1, _ ("bad grob property path"));
 			$$ = SCM_UNDEFINED;
@@ -2884,14 +2883,22 @@ grob_prop_path:
 	}
 	| grob_prop_spec property_path
 	{
-		if (!SCM_UNBNDP ($1)) {
-			$$ = scm_append_x (scm_list_2 ($1, $2));
-			if (scm_is_null (scm_cddr ($$))) {
-				parser->parser_error (@$, _ ("bad grob property path"));
-				$$ = SCM_UNDEFINED;
-			}
+		if (scm_is_pair ($1)
+		    && from_scm<bool>
+		    (scm_object_property (scm_car ($1),
+					  ly_symbol2scm ("is-grob?"))))
+			$$ = scm_cons (ly_symbol2scm ("Bottom"), $1);
+		if (!scm_is_pair ($$)
+		    || !scm_is_pair (scm_cdr ($$))
+		    || scm_is_pair (scm_cddr ($$))
+		    || !scm_is_pair ($2))
+		{
+			parser->parser_error (@1, _ ("bad grob property path"));
+			$$ = SCM_UNDEFINED;
+		} else {
+			property_path_dot_warning (@2, ly_append2 ($1, $2));
+			$$ = scm_append_x (scm_list_2 ($$, $2));
 		}
-
 	}
 	;
 
@@ -4820,6 +4827,20 @@ SCM post_event_cons (SCM post_event, SCM tail)
 	}
 	return ly_append2 (elts, tail);
 }
+
+void property_path_dot_warning (Input loc, SCM lst)
+{
+	// if lst is empty, don't even venture a guess...
+	if (scm_is_pair (lst)) {
+		std::string out = ly_symbol2string (scm_car (lst));
+		for (lst = scm_cdr (lst); scm_is_pair (lst); lst = scm_cdr (lst)) {
+			out += ".";
+			out += ly_symbol2string (scm_car (lst));
+		}
+		loc.warning (_f ("deprecated: missing `.' in property path %s", out));
+	}
+}
+
 
 int
 yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
