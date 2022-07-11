@@ -140,8 +140,6 @@ class LilyPond(ConfigurePackage):
         return env
 
     def configure_args(self, c: Config) -> List[str]:
-        texgyre_install = texgyre.install_directory(c)
-        urwbase35_install = urwbase35.install_directory(c)
         static = []
         if not c.is_macos():
             static = [
@@ -159,10 +157,6 @@ class LilyPond(ConfigurePackage):
             + [
                 # Disable the documentation.
                 "--disable-documentation",
-                # Ideally LilyPond's configure should not know about fonts, and the
-                # build system should not copy the .otf files without their license.
-                f"--with-texgyre-dir={texgyre_install}",
-                f"--with-urwotf-dir={urwbase35_install}",
             ]
             + flexlexer
         )

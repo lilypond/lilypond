@@ -96,6 +96,27 @@ Use version 1.40 or newer.
 @uref{https://www.python.org, Python}@*
 Use version 3.6 or newer.
 
+@item
+Text fonts@*
+By default, LilyPond attempts to use the following text fonts,
+in descending order:
+
+@itemize
+@item
+The families C059, Nimbus Mono PS, and Nimbus Sans of the
+URW++ package.
+
+@item
+The families Cursor, Heros, and Schola of the TeX Gyre package.
+
+@end itemize
+
+LilyPond requires the OTF files, which some distributions do
+not provide.  If they are missing, download and manually extract
+the OTF files to your local @file{~/.fonts/} directory.
+
+For more details on text fonts, please see @ruser{Fonts}.
+
 @end itemize
 
 
@@ -471,36 +492,6 @@ Use version 6.1 or newer.
 utilities}@*
 We need @command{t1asm}.  Use version 1.33 or newer.
 
-@item
-TeX Gyre font packages in OTF format.  Also see @ruser{Fonts}.
-
-Some distributions do not provide OTF files in its TeX Gyre
-packages.  Use the command
-@example
-fc-list | grep texgyre
-@end example
-to list the fonts available to your system and check whether the
-appropriate @file{*.otf} files are reported.  If they are missing,
-download and manually extract the OTF files to either your local
-@file{~/.fonts/} directory or use LilyPond's @command{configure}
-command and the @option{--with-texgyre-dir=@//path/to/otf-files}
-option.
-
-The following font families are required:
-
-@c no https links
-@itemize @w{}
-@item
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/schola,
-Schola}
-@item
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/heros,
-Heros}
-@item
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/cursor,
-Cursor}
-@end itemize
-
 @end itemize
 
 
@@ -558,24 +549,12 @@ texi2html --version
 on the command line.
 
 @item
-The following URW++ font families (consisting of Roman, Bold,
-Italic, and Bold Italic styles, in OTF format) are optional but
-highly recommended.  If they cannot be found by FontConfig at
-configuration time, use the @command{configure} option
-@option{--with-urwotf-dir} to specify their location.
-
-@itemize @w{}
-@item C059
-@item Nimbus Mono PS
-@item Nimbus Sans
-@end itemize
-
-@item
 To get reproducible documentation builds (this is, PDF
 documentation files contain the same fonts regardless of the build
 platform), the following font families should be installed.
 
 @itemize @w{}
+@item URW++ and TeX Gyre, as described before
 @item Bitstream Vera Sans
 @item Bitstream Charter
 @item DejaVu Sans

@@ -245,11 +245,7 @@ $(tree-share-prefix)/mf-link-tree: $(tree-prefix)/lilypond-force
 	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
 	cd $(tree-share-prefix)/fonts/otf && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.otf . && \
-		$(foreach i,$(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES)), \
-			ln -s $i . && ) true && \
-		$(foreach i,$(addprefix $(URWOTF_DIR)/,$(URWOTF_FILES)), \
-			ln -s $i . && ) true
+		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
 	-cd $(tree-share-prefix)/fonts && \
 		ln -s ../../../../../mf/$(outconfbase)/00-lilypond-fonts.conf . && \
 		ln -s ../../../../../mf/$(outconfbase)/99-lilypond-fonts.conf .

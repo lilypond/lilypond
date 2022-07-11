@@ -52,18 +52,6 @@ AC_ARG_WITH(flexlexer-dir,
     [FLEXLEXER_DIR=$withval],
     [FLEXLEXER_DIR=""])
 
-AC_ARG_WITH(texgyre-dir,
-    [AS_HELP_STRING([--with-texgyre-dir=DIR],
-                    [location of TeX Gyre fonts.])],
-    [TEXGYRE_DIR=$withval],
-    [TEXGYRE_DIR=""])
-
-AC_ARG_WITH(urwotf-dir,
-    [AS_HELP_STRING([--with-urwotf-dir=DIR],
-                    [location of URW++ OTF fonts.])],
-    [URWOTF_DIR=$withval],
-    [URWOTF_DIR=""])
-
 LINK_GXX_STATICALLY=no
 AC_ARG_ENABLE(static-gxx,
     [AS_HELP_STRING([--enable-static-gxx],
@@ -73,98 +61,6 @@ AC_SUBST(LINK_GXX_STATICALLY)
 
 # must come before any header checks
 STEPMAKE_COMPILE
-
-AC_CHECK_PROG(FCLIST, fc-list, fc-list)
-AC_MSG_CHECKING([for TeX Gyre fonts OTF files])
-AC_SUBST(TEXGYRE_DIR)
-AC_SUBST(TEXGYRE_FILES)
-if test "$TEXGYRE_DIR" = ""; then
-  if test "$FCLIST" != ""; then
-    TEXGYRE_FILE=`$FCLIST "TeX Gyre Schola:fontformat=CFF" file | head -n 1`
-    if test "$TEXGYRE_FILE" != ""; then
-      TEXGYRE_FILE=`echo $TEXGYRE_FILE | sed 's/\(:.*\)$//g'`
-      TEXGYRE_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $TEXGYRE_FILE`
-      TEXGYRE_DIR=`AS_DIRNAME($TEXGYRE_FILE)`
-    fi
-  fi
-fi
-if test "$TEXGYRE_DIR" != "" ;  then
-  for f in texgyreschola-regular.otf texgyreschola-italic.otf \
-           texgyreschola-bold.otf texgyreschola-bolditalic.otf \
-           texgyreheros-regular.otf texgyreheros-italic.otf \
-           texgyreheros-bold.otf texgyreheros-bolditalic.otf \
-           texgyrecursor-regular.otf texgyrecursor-italic.otf \
-           texgyrecursor-bold.otf texgyrecursor-bolditalic.otf; do
-    if test ! -f "$TEXGYRE_DIR/$f"; then
-      MISSING_TEXGYRE_FILES="$MISSING_TEXGYRE_FILES $f"
-    else
-      TEXGYRE_FILES="$TEXGYRE_FILES $f"
-    fi
-  done
-fi
-if test "$TEXGYRE_DIR" = "" -o "$MISSING_TEXGYRE_FILES" != ""; then
-  AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(REQUIRED,TeX Gyre fonts OTF)
-  if test "$TEXGYRE_DIR" = ""; then
-    if test "$FCLIST" = ""; then
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-texgyre-dir)')
-    else
-      STEPMAKE_ADD_ENTRY(REQUIRED,"(make sure the fc-list utility can see them, e.g. 'sudo apt-get install fonts-texgyre', or use --with-texgyre-dir)")
-    fi
-  else
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_TEXGYRE_FILES)')
-  fi
-else
-  AC_MSG_RESULT(yes)
-fi
-AC_MSG_CHECKING([for URW++ OTF files])
-AC_SUBST(URWOTF_DIR)
-AC_SUBST(URWOTF_FILES)
-if test "$URWOTF_DIR" = ""; then
-  if test "$FCLIST" != ""; then
-    URWOTF_FILE=`$FCLIST "C059:fontformat=CFF" file | head -n 1`
-    if test "$URWOTF_FILE" != ""; then
-      URWOTF_FILE=`echo $URWOTF_FILE | sed 's/\(:.*\)$//g'`
-      URWOTF_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $URWOTF_FILE`
-      URWOTF_DIR=`AS_DIRNAME($URWOTF_FILE)`
-    fi
-  fi
-fi
-if test "$URWOTF_DIR" != "" ;  then
-  for f in C059-BdIta.otf C059-Bold.otf \
-           C059-Italic.otf C059-Roman.otf \
-           NimbusMonoPS-Bold.otf NimbusMonoPS-BoldItalic.otf \
-           NimbusMonoPS-Italic.otf NimbusMonoPS-Regular.otf \
-           NimbusSans-Bold.otf NimbusSans-BoldItalic.otf \
-           NimbusSans-Italic.otf NimbusSans-Regular.otf; do
-    if test ! -f "$URWOTF_DIR/$f"; then
-      MISSING_URWOTF_FILES="$MISSING_URWOTF_FILES $f"
-    else
-      URWOTF_FILES="$URWOTF_FILES $f"
-    fi
-  done
-fi
-if test "$MISSING_URWOTF_FILES"="NimbusSans-BoldItalic.otf NimbusSans-Italic.otf" && \
-   test -f "$URWOTF_DIR/NimbusSans-BoldOblique.otf" && \
-   test -f "$URWOTF_DIR/NimbusSans-Oblique.otf"; then
-  MISSING_URWOTF_FILES=""
-  URWOTF_FILES="$URWOTF_FILES NimbusSans-BoldOblique.otf NimbusSans-Oblique.otf"
-fi
-if test "$URWOTF_DIR" = "" -o "$MISSING_URWOTF_FILES" != ""; then
-  AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(OPTIONAL,URW++ OTF fonts)
-  if test "$URWOTF_DIR" = ""; then
-    if test "$FCLIST" = ""; then
-      STEPMAKE_ADD_ENTRY(OPTIONAL,'(install the fc-list utility from FontConfig, or use --with-urwotf-dir)')
-    else
-      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=tree;hb=91edd6ece36e84a1c6d63a1cf63a1a6d84bd443a' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
-    fi
-  else
-    STEPMAKE_ADD_ENTRY(OPTIONAL,'(these files are missing: $MISSING_URWOTF_FILES)')
-  fi
-else
-  AC_MSG_RESULT(yes)
-fi
 
 AC_LANG([C++])
 
