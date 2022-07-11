@@ -417,7 +417,7 @@ def staff_attributes_to_lily_staff(mxl_attr):
         # TODO: Handle case with lines != 5!
         if lines != 5:
             staff.add_context_modification(
-                "\\override StaffSymbol #'line-count = #%s" % lines)
+                "\\override StaffSymbol.line-count = #%s" % lines)
 
     return staff
 

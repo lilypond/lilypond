@@ -722,13 +722,13 @@ def try_parse_header_line(ln, state):
                 if not state.common_time:
                     state.common_time = 1
                     voices_append(
-                        " \\override Staff.TimeSignature #'style = #'C\n")
+                        " \\override Staff.TimeSignature.style = #'C\n")
                 a = '4/4'
             if a == 'C|':
                 if not state.common_time:
                     state.common_time = 1
                     voices_append(
-                        "\\override Staff.TimeSignature #'style = #'C\n")
+                        "\\override Staff.TimeSignature.style = #'C\n")
                 a = '2/2'
             if not length_specified:
                 set_default_len_from_time_sig(a)
