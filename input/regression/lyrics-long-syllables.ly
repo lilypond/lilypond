@@ -11,7 +11,7 @@
 \new Staff <<
   { r4 a a2 a4 a2 }
   \addlyrics {
-    \override LyricText #'X-offset = #0
+    \override LyricText.X-offset = #0
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"  a a a
   }
 >>

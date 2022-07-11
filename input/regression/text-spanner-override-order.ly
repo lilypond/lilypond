@@ -13,7 +13,7 @@ sample = \relative {
 }
 
 << {
-  \override TextSpanner.bound-details.left-broken #' text =
+  \override TextSpanner.bound-details.left-broken.text =
     \markup { \large "BROKEN" }
   \override TextSpanner.bound-details.left.text =
     \markup { "text" }
@@ -21,7 +21,7 @@ sample = \relative {
 } \\ {
   \override TextSpanner.bound-details.left.text =
     \markup { "text" }
-  \override TextSpanner.bound-details.left-broken #' text =
+  \override TextSpanner.bound-details.left-broken.text =
     \markup { \large "BROKEN" }
   \sample
 } >>
