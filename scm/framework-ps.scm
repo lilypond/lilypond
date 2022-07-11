@@ -740,7 +740,8 @@ mark {ly~a_stream} /CLOSE pdfmark
  /View [/XYZ null null 0] /Subtype /Link /OUT pdfmark\n"
               page-number
               (pdf-encode (markup->string (assoc-get 'text alist)))
-              (length (assoc-get 'children alist))))))
+              (hash-count (const #t)
+                          (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
 (define (warn-formats formats)

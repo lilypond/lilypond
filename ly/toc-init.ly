@@ -19,91 +19,105 @@
 
 \version "2.21.2"
 
+#(use-modules (ice-9 match))
+
 %% defined later, in a closure
 #(define-public (add-toc-item! markup-symbol text)
   #f)
 #(define-public (toc-items)
   #f)
 
-#(define (assoc-prop-get val prop ls)
-   (do ((ls ls (cdr ls)) (result '() result))
-     ((null? ls) result)
-     (if (and (car ls) (eq? val (assoc-get prop (cdar ls))))
-         (set! result (cons (car ls) result)))))
+%% TODO: this should be per-book, issue #4227
 
-#(define (assoc-name-get name ls)
-   (assoc-prop-get name 'name ls))
-
-#(define (check-parent-props me parent-entry big-alist)
-   (let* ((my-id (car me))
-          (my-alist (cdr me))
-          (my-name (assoc-get 'name my-alist))
-          (my-level (assoc-get 'level my-alist))
-          (parent-alist (cdr parent-entry))
-          (parent-id (car parent-entry))
-          (parent-level (assoc-get 'level parent-alist))
-          (siblings (assoc-get 'children parent-alist)))
-     (assoc-set!
-      big-alist parent-id
-      (assoc-set! parent-alist 'children
-                  (cons my-name (or siblings '()))))
-     (if (< my-level (1+ parent-level))
-         (assoc-set! big-alist my-id
-                     (assoc-set! my-alist 'level
-                                 (1+ parent-level))))))
-
-#(define (setup-toc-hierarchy toc-ls)
-   (map (lambda (entry)
-          (let* ((parents (assoc-get 'parents (cdr entry)))
-                 (direct-parent (if (null? parents) #f
-                                    (car parents))))
-            (if direct-parent
-                (let ((found-parents
-                       (assoc-name-get direct-parent toc-ls)))
-                  (map (lambda (parent)
-                         (check-parent-props
-                          entry parent toc-ls))
-                       found-parents)))))
-        toc-ls)
-   (reverse toc-ls))
-
-#(let ((toc-item-list (list)))
-   (call-after-session (lambda () (set! toc-item-list '())))
+#(let (;; Maps TOC item IDs (symbols) to alists
+       (toc-hashtab (make-hash-table))
+       ;; Same, in alist form.  This is what we eventually want to return, but a
+       ;; hash table avoids quadratic algorithms while constructing the TOC tree.
+       (toc-alist '())
+       ;; Map names, i.e. terminal symbols of the paths
+       ;; (\tocItem foo.bar.baz ... has the name 'baz) to
+       ;; TOC IDs.
+       (toc-name-id-hashtab (make-hash-table)))
+   (call-after-session (lambda ()
+                         (hash-clear! toc-hashtab)
+                         (set! toc-alist '())
+                         (hash-clear! toc-name-id-hashtab)))
    (set! add-toc-item!
-         (lambda* (markup-symbol text #:optional label)
+         (lambda* (markup-symbol text #:optional raw-path)
            (let* ((id (gensym "toc"))
                   (path (cond
-                         ((symbol? label) (list label))
-                         ((or (not label) (null? label)) (list id))
-                         ((list? label) (reverse label))
+                         ((symbol? raw-path) (list raw-path))
+                         ;; Without a raw-path, we add an entry at the toplevel, which
+                         ;; is the same as a one-element raw-path.
+                         ((or (not raw-path) (null? raw-path)) (list id))
+                         ((list? raw-path) raw-path)
                          (else (begin
                                 (ly:warning (_i "Invalid toc label: ~a")
-                                            label))
+                                            raw-path))
                                (list id))))
-                  (name (car path))
-                  (parents (cdr path)))
-             (set! toc-item-list
-                   (acons id `((name . ,name)
-                               (text . ,text)
-                               (toc-markup . ,markup-symbol)
-                               (parents . ,parents)
-                               (children . ())
-                               (level . ,(length parents)))
-                          toc-item-list))
-             #{ \label $id #})))
+                  (level
+                   ;; Find which existing TOC entry, if any, to attach this entry to.
+                   ;; The principle is that the first element of path is interpreted specially:
+                   ;; it can refer to a previously defined nested node, as with
+                   ;; \tocItem foo.bar "x"
+                   ;; \tocItem bar.baz "y"
+                   ;; This attaches bar as a subtree of foo, which can be handy in
+                   ;; large nested TOCs. If there are several possibilities (foo.bar
+                   ;; and baz.bar), we choose the one that added last.  This is
+                   ;; achieved by simply overwriting any existing entry in
+                   ;; toc-name-id-hashtab when doing the hashq-set!.
+                   (match path
+                     ((single)
+                      (hashq-set! toc-name-id-hashtab single id)
+                      0)
+                     ((head . tail)
+                      (let* ((node-id (hashq-ref toc-name-id-hashtab head))
+                             (entry (and node-id (hashq-ref toc-hashtab node-id))))
+                        (let loop ((path path)
+                                   ;; entry corresponds to the entry for the first element
+                                   ;; in the path.  path still contains its name so a warning
+                                   ;; can be emitted if entry is #f.
+                                   (entry entry)
+                                   (level (and entry (1+ (assq-ref entry 'level)))))
+                          (if entry
+                              (let ((children (assq-ref entry 'children)))
+                                (match path
+                                  ((head name)
+                                   ;; The last component is a newly created node.
+                                   (hashq-set! children name id)
+                                   (hashq-set! toc-name-id-hashtab name id)
+                                   level)
+                                  ((head . (and remaining (child . rest)))
+                                   (loop remaining
+                                         (let ((child-id (hashq-ref children child)))
+                                           (and child-id (hashq-ref toc-hashtab child-id)))
+                                         (1+ level)))))
+                              (begin
+                               (ly:warning (G_ "TOC node ~a not defined")
+                                           (car path))
+                               ;; Insert the node on the toplevel.
+                               (let ((final-name (last path)))
+                                 (hashq-set! toc-name-id-hashtab final-name id))
+                               0)))))))
+                  (alist
+                   `((text . ,text)
+                     (toc-markup . ,markup-symbol)
+                     (children . ,(make-hash-table))
+                     (level . ,level))))
+             ;; Register the new entry.
+             (hashq-set! toc-hashtab id alist)
+             (set! toc-alist (acons id alist toc-alist))
+             (label id))))
    (set! toc-items (lambda ()
-                     (setup-toc-hierarchy toc-item-list))))
+                     (reverse toc-alist))))
 
-#(define* (format-toc-toplevel layout props arg #:optional only-if-multiple-levels?)
+#(define* (format-toc-toplevel layout props arg #:optional)
   (_i "Print top level markups in bold.")
-  (let* ((proc (chain-assoc-get 'toc:toplevel-formatter props))
-         (alist (ly:output-def-lookup layout 'label-alist-table))
-         (levels (assoc-prop-get 1 'level alist)))
+  (let ((proc (chain-assoc-get 'toc:toplevel-formatter props)))
     (interpret-markup layout props
-     (if (and
-          (= 0 (chain-assoc-get 'toc:level props))
-          (or (not only-if-multiple-levels?) (null? levels)))
-         (proc arg) arg))))
+     (if (zero? (chain-assoc-get 'toc:level props))
+         (proc arg)
+         arg))))
 
 \paper {
   tocTitleMarkup = \markup \huge \column {
