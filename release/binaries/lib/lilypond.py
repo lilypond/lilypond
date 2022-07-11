@@ -275,6 +275,33 @@ class LilyPondPackager:
         fontconfig_install = fontconfig.install_directory(self.c)
         self._copy_recursive(fontconfig_install, "etc", "fonts")
 
+    def _copy_font_files(self):
+        share_lilypond = os.path.join(self.package_dir, "share", "lilypond")
+        share_lilypond = os.path.join(share_lilypond, self.lilypond.version)
+        fonts_otf = os.path.join(share_lilypond, "fonts", "otf")
+
+        texgyre_install = texgyre.install_directory(self.c)
+        for family in ["cursor", "heros", "schola"]:
+            for style in ["regular", "bold", "bolditalic", "italic"]:
+                otf = f"texgyre{family}-{style}.otf"
+                src = os.path.join(texgyre_install, otf)
+                dst = os.path.join(fonts_otf, otf)
+                shutil.copy(src, dst)
+
+        urwbase35_install = urwbase35.install_directory(self.c)
+        for style in ["Roman", "BdIta", "Bold", "Italic"]:
+            otf = f"C059-{style}.otf"
+            src = os.path.join(urwbase35_install, otf)
+            dst = os.path.join(fonts_otf, otf)
+            shutil.copy(src, dst)
+
+        for family in ["NimbusMonoPS", "NimbusSans"]:
+            for style in ["Regular", "Bold", "BoldItalic", "Italic"]:
+                otf = f"{family}-{style}.otf"
+                src = os.path.join(urwbase35_install, otf)
+                dst = os.path.join(fonts_otf, otf)
+                shutil.copy(src, dst)
+
     def _copy_relocation_files(self):
         # Copy files for relocation.
         root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -393,6 +420,7 @@ exec "$root/libexec/{python_interpreter}" "$root/libexec/%s" "$@"
         # Files needed to run core LilyPond.
         self._copy_guile_files()
         self._copy_fontconfig_files()
+        self._copy_font_files()
         self._copy_relocation_files()
         if self.c.is_mingw():
             self._copy_mingw_files()
