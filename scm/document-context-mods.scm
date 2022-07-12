@@ -44,7 +44,7 @@
       ((assign)
        (string-append
         (format #f "@item Sets translator property @code{~a} to" name-sym)
-        (if (pretty-printable? value)
+        (if (pretty-printable? (car args))
             (format #f ":~a\n" (scm->texi (car args)))
             (format #f " ~a.\n" (scm->texi (car args))))))
       ((unset)
