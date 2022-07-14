@@ -322,7 +322,7 @@ def add_feature_kern(font):
     #                  width
     #       |-------------------------|
     #         fixed-width digit width
-    
+
     # The left side bearing factors are taken from `feta-numbers.mf`.
     lsb_factors = {
         "zero": 1.0,
@@ -375,14 +375,14 @@ def add_feature_kern(font):
             else:
                 kern_val = 0
 
-                correction = rsb(left) + lsb(right)
-                figbass_kern = kern_val - correction
-                if (figbass_kern == 0.0):
-                    continue
+            correction = rsb(left) + lsb(right)
+            figbass_kern = kern_val - correction
+            if (figbass_kern == 0.0):
+                continue
 
-                left_prefix = "figbass." if lsb_factors[left] else ""
-                right_prefix = "figbass." if lsb_factors[right] else ""
+            left_prefix = "figbass." if lsb_factors[left] else ""
+            right_prefix = "figbass." if lsb_factors[right] else ""
 
-                kern(left_prefix + left, right_prefix + right, figbass_kern)
+            kern(left_prefix + left, right_prefix + right, figbass_kern)
 
 # eof
