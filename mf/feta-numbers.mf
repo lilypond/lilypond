@@ -1088,8 +1088,42 @@ fet_endchar;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Numerals
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Numerals in LilyPond are intended to be controlled by the following
+% OpenType font features, which can be arbitrarily combined.
 %
-% Numerals for time signatures, multi-measure rest numbers, etc.
+%   'cv47' (character variant 47)
+%     If on, glyphs 'four' and 'seven' have shorter strokes.  Default
+%     is off.
+%
+%   'tnum' (tabular figures)
+%     If off (which is the default), glyphs 'zero' to 'nine' have no
+%     left and right side bearings.  If on, the glyphs all have the
+%     same advance width by making the bearings non-zero.
+%
+%   'ss01' (stylistic set 1)
+%     If on, glyphs 'zero' to 'nine' have a fatter design, making them
+%     more readable at small sizes.  Default is off.
+%
+%   'kern' (kerning)
+%     If on (which is the default), glyphs 'zero' to 'nine' and the
+%     punctuation glyphs 'plus', 'comma', 'hyphen', and 'period' have
+%     pairwise kerning.
+%
+% This file provides the necessary glyphs for 'cv47', 'tnum', and
+% 'ss01' ('kern' gets implemented later in the font generation chain).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Standard digits
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1128,6 +1162,13 @@ fet_beginchar ("numeral 4", "four");
 fet_endchar;
 
 
+fet_beginchar ("numeral 4 alternative", "four.alt");
+  width_four# := 4/5 height# * widen;
+
+  draw_four (width_four#, width_four#, 0, true, false);
+fet_endchar;
+
+
 fet_beginchar ("numeral 5", "five");
   width_five# := 27/40 height# * widen;
 
@@ -1149,6 +1190,13 @@ fet_beginchar ("numeral 7", "seven");
 fet_endchar;
 
 
+fet_beginchar ("numeral 7 alternative", "seven.alt");
+  width_seven# := 11/15 height# * widen - thin#;
+
+  draw_seven (width_seven#, width_seven#, 0, true, false);
+fet_endchar;
+
+
 fet_beginchar ("numeral 8", "eight");
   width_eight# := 11/15 height# * widen;
 
@@ -1163,20 +1211,155 @@ fet_beginchar ("numeral 9", "nine");
 fet_endchar;
 
 
+fixed_width_advance# := max (width_zero#,
+                             width_one#,
+                             width_two#,
+                             width_three#,
+                             width_four#,
+                             width_five#,
+                             width_six#,
+                             width_seven#,
+                             width_eight#,
+                             width_nine#);
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Digits for figured bass
-%
-% Besides the metrics, some shapes are modified for better appearance
-% at small sizes.
+% Fixed-width digits
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-fet_begingroup ("figbass");
+fet_begingroup ("fixedwidth");
 
-% Make glyphs for figured bass fatter than standard digits (which are
-% mainly used for time signatures) to increase legibility at small
-% sizes.
+fet_beginchar ("fixed-width 0", "zero");
+  save width, lsb;
+
+  width# := 11/15 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_zero (fixed_width_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 1", "one");
+  save width, lsb;
+
+  width# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
+
+  draw_one (fixed_width_advance#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 2", "two");
+  save width, lsb;
+
+  width# := 22/30 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_two (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 3", "three");
+  save width, lsb;
+
+  width# := 2/3 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_three (fixed_width_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 4", "four");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_four (fixed_width_advance#, width#, lsb#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 4 alternative", "four.alt");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_four (fixed_width_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 5", "five");
+  save width, lsb;
+
+  width# := 27/40 height# * widen;
+  lsb# := 0.7 * (fixed_width_advance# - width#) / 2;
+
+  draw_five (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 6", "six");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_six (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 7", "seven");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - 2/3 thin#;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
+
+  draw_seven (fixed_width_advance#, width#, lsb#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 7 alternative", "seven.alt");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - 2/3 thin#;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
+
+  draw_seven (fixed_width_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 8", "eight");
+  save width, lsb;
+
+  width# := 11/15 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_eight (fixed_width_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fixed-width 9", "nine");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_nine (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+fet_endgroup ("figbass");
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Fattened digits
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fet_begingroup ("fattened");
 
 save thin, hair, plus_size;
 
@@ -1188,78 +1371,257 @@ plus_size# := 7/20 height#;
 define_whole_pixels (plus_size);
 
 
-save digit_advance;
+fet_beginchar ("fattened 0", "zero");
+  width_zero# := 11/15 height# * widen;
 
-% All digits have the same advance width.
-digit_advance# := max (width_zero#,
-                       width_one#,
-                       width_two#,
-                       width_three#,
-                       width_four#,
-                       width_five#,
-                       width_six#,
-                       width_seven#,
-                       width_eight#,
-                       width_nine#);
+  draw_zero (width_zero#, width_zero#, 0);
+fet_endchar;
 
 
-fet_beginchar ("figured bass 0", "zero");
+fet_beginchar ("fattened 1", "one");
+  width_one# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
+
+  draw_one (width_one#, 0);
+fet_endchar;
+
+
+fet_beginchar ("fattened 2", "two");
+  width_two# := 22/30 height# * widen;
+
+  draw_two (width_two#, width_two#, 0, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 3", "three");
+  width_three# := 2/3 height# * widen;
+
+  draw_three (width_three#, width_three#, 0);
+fet_endchar;
+
+
+fet_beginchar ("fattened 4", "four");
+  width_four# := 4/5 height# * widen;
+
+  draw_four (width_four#, width_four#, 0, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 4 alternative", "four.alt");
+  width_four# := 4/5 height# * widen;
+
+  draw_four (width_four#, width_four#, 0, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 5", "five");
+  width_five# := 27/40 height# * widen;
+
+  draw_five (width_five#, width_five#, 0, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 6", "six");
+  width_six# := .68 height# * widen;
+
+  draw_six (width_six#, width_six#, 0, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 7", "seven");
+  width_seven# := 11/15 height# * widen - thin#;
+
+  draw_seven (width_seven#, width_seven#, 0, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 7 alternative", "seven.alt");
+  width_seven# := 11/15 height# * widen - thin#;
+
+  draw_seven (width_seven#, width_seven#, 0, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened 8", "eight");
+  width_eight# := 11/15 height# * widen;
+
+  draw_eight (width_eight#, width_eight#, 0);
+fet_endchar;
+
+
+fet_beginchar ("fattened 9", "nine");
+  width_nine# := .68 height# * widen;
+
+  draw_nine (width_nine#, width_nine#, 0, false);
+fet_endchar;
+
+fet_endgroup ("fattened");
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Fattened, fixed-width digits
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fet_begingroup ("fattened.fixedwidth");
+
+save thin, hair, plus_size;
+
+thin# := 1.5 (thick# / 4 * fatten + max (.1 (height# / 10 - 1), 0));
+hair# := thin# * .8;
+define_whole_pixels (thin, hair);
+
+plus_size# := 7/20 height#;
+define_whole_pixels (plus_size);
+
+
+fet_beginchar ("fattened, fixed-width 0", "zero");
   save width, lsb;
 
   width# := 11/15 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_zero (digit_advance#, width#, lsb#);
+  draw_zero (fixed_width_advance#, width#, lsb#);
 fet_endchar;
 
 
-fet_beginchar ("figured bass 1", "one");
+fet_beginchar ("fattened, fixed-width 1", "one");
   save width, lsb;
 
   width# := 1/2 foot_width# + 3/2 thick# + 1/2 hair#;
-  lsb# := 1.2 * (digit_advance# - width#) / 2;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
 
-  draw_one (digit_advance#, lsb#);
+  draw_one (fixed_width_advance#, lsb#);
 fet_endchar;
 
 
-fet_beginchar ("figured bass 2", "two");
+fet_beginchar ("fattened, fixed-width 2", "two");
   save width, lsb;
 
   width# := 22/30 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_two (digit_advance#, width#, lsb#, false);
+  draw_two (fixed_width_advance#, width#, lsb#, false);
 fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 3", "three");
+  save width, lsb;
+
+  width# := 2/3 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_three (fixed_width_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 4", "four");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_four (fixed_width_advance#, width#, lsb#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 4 alternative", "four.alt");
+  save width, lsb;
+
+  width# := 4/5 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_four (fixed_width_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 5", "five");
+  save width, lsb;
+
+  width# := 27/40 height# * widen;
+  lsb# := 0.7 * (fixed_width_advance# - width#) / 2;
+
+  draw_five (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 6", "six");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_six (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 7", "seven");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - 2/3 thin#;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
+
+  draw_seven (fixed_width_advance#, width#, lsb#, false, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 7 alternative", "seven.alt");
+  save width, lsb;
+
+  width# := 11/15 height# * widen - 2/3 thin#;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
+
+  draw_seven (fixed_width_advance#, width#, lsb#, true, false);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 8", "eight");
+  save width, lsb;
+
+  width# := 11/15 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_eight (fixed_width_advance#, width#, lsb#);
+fet_endchar;
+
+
+fet_beginchar ("fattened, fixed-width 9", "nine");
+  save width, lsb;
+
+  width# := .68 height# * widen;
+  lsb# := (fixed_width_advance# - width#) / 2;
+
+  draw_nine (fixed_width_advance#, width#, lsb#, false);
+fet_endchar;
+
+fet_endgroup ("fattened.fixedwidth");
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Additional symbols for figured bass
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fet_begingroup ("figbass");
+
+save thin, hair, plus_size;
+
+thin# := 1.5 (thick# / 4 * fatten + max (.1 (height# / 10 - 1), 0));
+hair# := thin# * .8;
+define_whole_pixels (thin, hair);
+
+plus_size# := 7/20 height#;
+define_whole_pixels (plus_size);
 
 
 fet_beginchar ("figured bass 2 plus", "twoplus");
   save width, lsb;
 
   width# := 22/30 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_two (digit_advance#, width#, lsb#, true);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 3", "three");
-  save width, lsb;
-
-  width# := 2/3 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
-
-  draw_three (digit_advance#, width#, lsb#);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 4", "four");
-  save width, lsb;
-
-  width# := 4/5 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
-
-  draw_four (digit_advance#, width#, lsb#, true, false);
+  draw_two (fixed_width_advance#, width#, lsb#, true);
 fet_endchar;
 
 
@@ -1267,19 +1629,9 @@ fet_beginchar ("figured bass 4 plus", "fourplus");
   save width, lsb;
 
   width# := 4/5 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_four (digit_advance#, width#, lsb#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 5", "five");
-  save width, lsb;
-
-  width# := 27/40 height# * widen;
-  lsb# := 0.7 * (digit_advance# - width#) / 2;
-
-  draw_five (digit_advance#, width#, lsb#, false);
+  draw_four (fixed_width_advance#, width#, lsb#, true, true);
 fet_endchar;
 
 
@@ -1287,19 +1639,9 @@ fet_beginchar ("figured bass 5 plus", "fiveplus");
   save width, lsb;
 
   width# := 27/40 height# * widen;
-  lsb# := 0.7 * (digit_advance# - width#) / 2;
+  lsb# := 0.7 * (fixed_width_advance# - width#) / 2;
 
-  draw_five (digit_advance#, width#, lsb#, true);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 6", "six");
-  save width, lsb;
-
-  width# := .68 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
-
-  draw_six (digit_advance#, width#, lsb#, false);
+  draw_five (fixed_width_advance#, width#, lsb#, true);
 fet_endchar;
 
 
@@ -1307,19 +1649,9 @@ fet_beginchar ("figured bass stroked 6", "sixstroked");
   save width, lsb;
 
   width# := .68 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_six (digit_advance#, width#, lsb#, true);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 7", "seven");
-  save width, lsb;
-
-  width# := 11/15 height# * widen - 2/3 thin#;
-  lsb# := 1.2 * (digit_advance# - width#) / 2;
-
-  draw_seven (digit_advance#, width#, lsb#, true, false);
+  draw_six (fixed_width_advance#, width#, lsb#, true);
 fet_endchar;
 
 
@@ -1327,29 +1659,9 @@ fet_beginchar ("figured bass stroked 7", "sevenstroked");
   save width, lsb;
 
   width# := 11/15 height# * widen - thin#;
-  lsb# := 1.2 * (digit_advance# - width#) / 2;
+  lsb# := 1.2 * (fixed_width_advance# - width#) / 2;
 
-  draw_seven (digit_advance#, width#, lsb#, true, true);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 8", "eight");
-  save width, lsb;
-
-  width# := 11/15 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
-
-  draw_eight (digit_advance#, width#, lsb#);
-fet_endchar;
-
-
-fet_beginchar ("figured bass 9", "nine");
-  save width, lsb;
-
-  width# := .68 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
-
-  draw_nine (digit_advance#, width#, lsb#, false);
+  draw_seven (fixed_width_advance#, width#, lsb#, true, true);
 fet_endchar;
 
 
@@ -1357,35 +1669,9 @@ fet_beginchar ("figured bass stroked 9", "ninestroked");
   save width, lsb;
 
   width# := .68 height# * widen;
-  lsb# := (digit_advance# - width#) / 2;
+  lsb# := (fixed_width_advance# - width#) / 2;
 
-  draw_nine (digit_advance#, width#, lsb#, true);
+  draw_nine (fixed_width_advance#, width#, lsb#, true);
 fet_endchar;
 
 fet_endgroup ("figbass");
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Digits for fingering
-%
-% Two shapes are modified for better appearance at small sizes.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-fet_begingroup ("fingering");
-
-fet_beginchar ("fingering 4", "four");
-  width_four# := 4/5 height# * widen;
-
-  draw_four (width_four#, width_four#, 0, true, false);
-fet_endchar;
-
-
-fet_beginchar ("fingering 7", "seven");
-  width_seven# := 11/15 height# * widen - thin#;
-
-  draw_seven (width_seven#, width_seven#, 0, true, false);
-fet_endchar;
-
-fet_endgroup ("fingering");
