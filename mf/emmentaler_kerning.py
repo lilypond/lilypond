@@ -127,11 +127,38 @@ def add_feature_kern(font):
                        ("dflt")), )), ))
     font.addLookupSubtable("kern", "kern")
 
+    # The left side bearing factors are taken from `feta-numbers.mf`.
+    lsb_factors = {
+        "zero": 1.0,
+        "one": 1.2,
+        "two": 1.0,
+        "three": 1.0,
+        "four": 1.0,
+        "four.alt": 1.0, # same value as 'four'
+        "five": 0.7,
+        "six": 1.0,
+        "seven": 1.2,
+        "seven.alt": 1.2, # same value as 'seven'
+        "eight": 1.0,
+        "nine": 1.0,
+
+        # A zero lsb factor indicates zero lsb and rsb values.  We
+        # also use this to distinguish between digits and non-digits
+        # in this dictionary.
+        "hyphen": 0.0,
+        "plus": 0.0,
+        "period": 0.0,
+        "comma": 0.0
+    }
+
+    lsb_factors_keys = sorted(lsb_factors.keys())
+
     def kern(left, right, val):
         v = int(round(val))
         kerning[(left, right)] = v
         font[left].addPosSub("kern", right, 0, 0, v, 0, 0, 0, 0, 0)
 
+    # First, the standard kerning pairs for digits and punctuation.
     kern("zero", "zero", 0.15 * NKU)
     kern("zero", "one", 0.1 * NKU)
     kern("zero", "five", 0.05 * NKU)
@@ -271,45 +298,45 @@ def add_feature_kern(font):
     kern("comma", "period", 0.15 * NKU)
     kern("comma", "comma", 0.15 * NKU)
 
+    # Kerning for alternative digits forms; they are identical to the
+    # standard glyphs.
+    for left in lsb_factors_keys:
+        for right in lsb_factors_keys:
+            if (not (lsb_factors[left] or lsb_factors[right])):
+                continue
 
-    kern("f", "f", -0.13 * DKU)
-    kern("m", "p", 0.2 * DKU)
-    kern("m", "f", -0.1 * DKU)
-    kern("n", "p", 0.2 * DKU)
-    kern("n", "f", -0.1 * DKU)
-    kern("r", "f", 0.1 * DKU)
+            if (not (left == "four" or left == "seven"
+                     or right == "four" or right == "seven")):
+                continue
 
-    # Kerning for 'fingering' digits.
+            if (left, right) in kerning:
+                kern_val = kerning[(left, right)]
 
-    kern("zero", "fingering.seven", 0.1 * NKU)
-    kern("one", "fingering.four", -0.1 * NKU)
-    kern("two", "fingering.seven", 0.15 * NKU)
-    kern("three", "fingering.seven", 0.1 * NKU)
-    kern("fingering.four", "hyphen", 0.1 * NKU)
-    kern("fingering.four", "period", 0.1 * NKU)
-    kern("fingering.four", "comma", 0.1 * NKU)
-    kern("five", "fingering.four", 0.1 * NKU)
-    kern("five", "fingering.seven", 0.15 * NKU)
-    kern("six", "fingering.seven", 0.1 * NKU)
-    kern("fingering.seven", "fingering.four", -0.2 * NKU)
-    kern("fingering.seven", "five", 0.1 * NKU)
-    kern("fingering.seven", "fingering.seven", 0.15 * NKU)
-    kern("fingering.seven", "nine", 0.1 * NKU)
-    kern("fingering.seven", "nine", 0.1 * NKU)
-    kern("fingering.seven", "hyphen", -0.05 * NKU)
-    kern("fingering.seven", "period", -0.1 * NKU)
-    kern("fingering.seven", "comma", -0.1 * NKU)
-    kern("eight", "fingering.four", 0.05 * NKU)
-    kern("eight", "fingering.seven", 0.1 * NKU)
-    kern("nine", "fingering.seven", 0.1 * NKU)
-    kern("hyphen", "fingering.four", 0.1 * NKU)
-    kern("hyphen", "fingering.seven", 0.1 * NKU)
-    kern("period", "fingering.seven", 0.05 * NKU)
-    kern("comma", "fingering.seven", 0.05 * NKU)
+                left_suffix = ".alt" \
+                    if (left == "four" or left == "seven") else ""
+                right_suffix = ".alt" \
+                    if (right == "four" or right == "seven") else ""
 
-    # Compute kern values for 'figbass' digits.  The goal is to make
-    # all such digit pairs have the same horizontal distance as normal
-    # digits if the 'kern' feature is active.
+                kern(left + left_suffix, right + right_suffix, kern_val)
+
+    # Compute kern values for 'fattened' digits.  They are the same
+    # as for normal digits.
+    for left in lsb_factors_keys:
+        for right in lsb_factors_keys:
+            if (not (lsb_factors[left] or lsb_factors[right])):
+                continue
+
+            if (left, right) in kerning:
+                kern_val = kerning[(left, right)]
+
+                left_prefix = "fattened." if lsb_factors[left] else ""
+                right_prefix = "fattened." if lsb_factors[right] else ""
+
+                kern(left_prefix + left, right_prefix + right, kern_val)
+
+    # For fixed-width digits (both normal and fattened) the goal is to
+    # make all such digit pairs have the same horizontal distance as
+    # non-fixed-width digits if the 'kern' feature is active.
     #
     #               +---------+
     #               |         |
@@ -322,28 +349,6 @@ def add_feature_kern(font):
     #                  width
     #       |-------------------------|
     #         fixed-width digit width
-
-    # The left side bearing factors are taken from `feta-numbers.mf`.
-    lsb_factors = {
-        "zero": 1.0,
-        "one": 1.2,
-        "two": 1.0,
-        "three": 1.0,
-        "four": 1.0,
-        "five": 0.7,
-        "six": 1.0,
-        "seven": 1.2,
-        "eight": 1.0,
-        "nine": 1.0,
-
-        # A zero lsb factor indicates zero lsb and rsb values.  We
-        # also use this to distinguish between digits and non-digits
-        # in this dictionary.
-        "hyphen": 0.0,
-        "plus": 0.0,
-        "period": 0.0,
-        "comma": 0.0
-    }
 
     fixed_width_digit_width = font["four"].width
 
@@ -363,8 +368,6 @@ def add_feature_kern(font):
 
         return fixed_width_digit_width - width - lsb(glyph)
 
-    lsb_factors_keys = sorted(lsb_factors.keys())
-
     for left in lsb_factors_keys:
         for right in lsb_factors_keys:
             if (not (lsb_factors[left] or lsb_factors[right])):
@@ -380,9 +383,20 @@ def add_feature_kern(font):
             if (figbass_kern == 0.0):
                 continue
 
-            left_prefix = "figbass." if lsb_factors[left] else ""
-            right_prefix = "figbass." if lsb_factors[right] else ""
-
+            left_prefix = "fixedwidth." if lsb_factors[left] else ""
+            right_prefix = "fixedwidth." if lsb_factors[right] else ""
             kern(left_prefix + left, right_prefix + right, figbass_kern)
+
+            left_prefix = "fattened.fixedwidth." if lsb_factors[left] else ""
+            right_prefix = "fattened.fixedwidth." if lsb_factors[right] else ""
+            kern(left_prefix + left, right_prefix + right, figbass_kern)
+
+    # Finally, the kerning for the few letters.
+    kern("f", "f", -0.13 * DKU)
+    kern("m", "p", 0.2 * DKU)
+    kern("m", "f", -0.1 * DKU)
+    kern("n", "p", 0.2 * DKU)
+    kern("n", "f", -0.1 * DKU)
+    kern("r", "f", 0.1 * DKU)
 
 # eof
