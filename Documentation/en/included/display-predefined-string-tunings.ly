@@ -3,7 +3,7 @@
 #(define (filter-instrument instrument-name tuning-alist)
    (filter (lambda (entry)
              (string-prefix? instrument-name
-                            (symbol->string (car entry))))
+                             (symbol->string (car entry))))
            tuning-alist))
 
 #(define (chord-display tuning-alist-entry)
@@ -21,55 +21,74 @@
 			    pitches)))))
 
 displayInstrumentDefaultTunings =
-#(define-music-function (instrument) (string?)
-   (let* ((filtered-instruments (filter-instrument instrument defaultStringTunings))
-          (display-elements (map chord-display filtered-instruments)))
-     (make-music 'SequentialMusic 'elements display-elements)))
+  #(define-music-function (instrument) (string?)
+     (let* ((filtered-instruments
+             (filter-instrument instrument defaultStringTunings))
+            (display-elements (map chord-display filtered-instruments)))
+       (make-music 'SequentialMusic 'elements display-elements)))
 
 
-\score {
-  {
-    \new Staff {
-      \textLengthOn
-      \override Score.RehearsalMark.self-alignment-X = #LEFT
+{
+  \mark \markup \huge \bold "Guitar tunings"
+  \clef "treble_8"
+  \displayInstrumentDefaultTunings "guitar"
+}
 
-      \mark \markup {\left-align "Guitar tunings"}
-      \clef "treble_8"
-      \displayInstrumentDefaultTunings "guitar"
-      \break
+{
+  \mark \markup \huge \bold "Bass tunings"
+  \clef "bass_8"
+  \displayInstrumentDefaultTunings "bass"
+}
 
-      \mark \markup {\left-align "Bass tunings"}
-      \clef "bass_8"
-      \displayInstrumentDefaultTunings "bass"
-      \break
+{
+  \mark \markup \huge \bold "Mandolin tunings"
+  \displayInstrumentDefaultTunings "mandolin"
+}
 
-      \mark \markup {\left-align "Mandolin tunings"}
-      \clef "treble"
-      \displayInstrumentDefaultTunings "mandolin"
-      \break
+{
+  \mark \markup \huge \bold "Banjo tunings"
+  \clef "treble_8"
+  \displayInstrumentDefaultTunings "banjo"
+}
 
-      \mark \markup {\left-align "Banjo tunings"}
-      \clef "treble_8"
-      \displayInstrumentDefaultTunings "banjo"
-      \break
+{
+  \mark \markup \huge \bold "Ukulele tunings"
+  \clef treble
+  \displayInstrumentDefaultTunings "ukulele"
+  \clef alto
+  \displayInstrumentDefaultTunings "tenor-ukulele"
+  \displayInstrumentDefaultTunings "baritone-ukulele"
+}
 
-      \mark \markup {\left-align "Ukulele tunings"}
-      \clef "treble"
-      \displayInstrumentDefaultTunings "ukulele"
-      \clef "alto"
-      \displayInstrumentDefaultTunings "tenor-ukulele"
-      \displayInstrumentDefaultTunings "baritone-ukulele"
-      \break
+{
+  \mark \markup \huge \bold "Orchestral string tunings"
+  \clef treble
+  \displayInstrumentDefaultTunings "violin"
+  \clef alto
+  \displayInstrumentDefaultTunings "viola"
+  \clef bass
+  \displayInstrumentDefaultTunings "cello"
+  \clef "bass_8"
+  \displayInstrumentDefaultTunings "double-bass"
+}
 
-      \mark \markup {\left-align "Orchestral string tunings"}
-      \clef "treble"
-      \displayInstrumentDefaultTunings "violin"
-      \clef "alto"
-      \displayInstrumentDefaultTunings "viola"
-      \clef "bass"
-      \displayInstrumentDefaultTunings "cello"
-      \clef "bass_8"
-      \displayInstrumentDefaultTunings "double-bass"
-    }
+
+\layout {
+  \context {
+    \Score
+    \omit BarNumber
+    \override RehearsalMark.break-align-symbols = #'(left-edge)
+    \override RehearsalMark.self-alignment-X = #LEFT
+    \override RehearsalMark.padding = #4
   }
+
+  \context {
+    \Voice
+    \textLengthOn
+  }
+}
+
+
+\paper {
+  ragged-right = ##t
 }
