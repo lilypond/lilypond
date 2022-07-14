@@ -808,6 +808,18 @@ For more information see @ref{Formatting text}.
 @end menu
 
 
+@c `texinfo.tex` inserts `\medskip` between images, which is far
+@c too much vertical distance for the glyph listings.  We thus
+@c set it to zero temporarily.
+
+@iftex
+@tex
+\global\let\medskipold = \medskip
+\global\let\medskip = \relax
+@end tex
+@end iftex
+
+
 @node Clef glyphs
 @unnumberedsubsec Clef glyphs
 
@@ -1065,6 +1077,15 @@ For more information see @ref{Formatting text}.
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
+
+
+@c Undo local change to `\medskip`.
+
+@iftex
+@tex
+\global\let\medskip = \medskipold
+@end tex
+@end iftex
 
 
 @node Note head styles
