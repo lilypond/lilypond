@@ -48,53 +48,48 @@ class error (Exception):
 # class warning (Exception): pass
 
 
-def _add_constants():
-    channelVoiceMessages = (
-        (0x80, "NOTE_OFF"),
-        (0x90, "NOTE_ON"),
-        (0xA0, "POLYPHONIC_KEY_PRESSURE"),
-        (0xB0, "CONTROLLER_CHANGE"),
-        (0xC0, "PROGRAM_CHANGE"),
-        (0xD0, "CHANNEL_KEY_PRESSURE"),
-        (0xE0, "PITCH_BEND"),
-    )
-    channelModeMessages = (
-        (0x78, "ALL_SOUND_OFF"),
-        (0x79, "RESET_ALL_CONTROLLERS"),
-        (0x7A, "LOCAL_CONTROL"),
-        (0x7B, "ALL_NOTES_OFF"),
-        (0x7C, "OMNI_MODE_OFF"),
-        (0x7D, "OMNI_MODE_ON"),
-        (0x7E, "MONO_MODE_ON"),
-        (0x7F, "POLY_MODE_ON"),
-    )
-    metaEvents = (
-        (0x00, "SEQUENCE_NUMBER"),
-        (0x01, "TEXT_EVENT"),
-        (0x02, "COPYRIGHT_NOTICE"),
-        (0x03, "SEQUENCE_TRACK_NAME"),
-        (0x04, "INSTRUMENT_NAME"),
-        (0x05, "LYRIC"),  # renamed LYRIC_DISPLAY MIDI RP-26
-        (0x06, "MARKER"),
-        (0x07, "CUE_POINT"),
-        (0x08, "PROGRAM_NAME"),  # added MIDI RP-19
-        (0X09, "DEVICE_NAME"),  # added MIDI RP-19
-        (0x20, "MIDI_CHANNEL_PREFIX"),
-        (0x21, "MIDI_PORT"),
-        (0x2F, "END_OF_TRACK"),
-        (0x51, "SET_TEMPO"),
-        (0x54, "SMTPE_OFFSET"),
-        (0x58, "TIME_SIGNATURE"),
-        (0x59, "KEY_SIGNATURE"),
-        (0x60, "XMF_PATCH_TYPE_PREFIX"),  # added MIDI RP-32
-        (0x7F, "SEQUENCER_SPECIFIC_META_EVENT"),
-        (0xFF, "META_EVENT"),
-    )
-    globals().update((desc, msg) for msg, desc in
-                     channelVoiceMessages + channelModeMessages + metaEvents)
+# TODO: should use enum?
 
+# Channel voice messages
+NOTE_OFF = 0x80
+NOTE_ON = 0x90
+POLYPHONIC_KEY_PRESSURE = 0xa0
+CONTROLLER_CHANGE = 0xb0
+PROGRAM_CHANGE = 0xc0
+CHANNEL_KEY_PRESSURE = 0xd0
+PITCH_BEND = 0xe0
 
-_add_constants()
+# Channel mode messages
+ALL_SOUND_OFF = 0x78
+RESET_ALL_CONTROLLERS = 0x79
+LOCAL_CONTROL = 0x7a
+ALL_NOTES_OFF = 0x7b
+OMNI_MODE_OFF = 0x7c
+OMNI_MODE_ON = 0x7d
+MONO_MODE_ON = 0x7e
+POLY_MODE_ON = 0x7f
+
+# Meta events
+SEQUENCE_NUMBER = 0x0
+TEXT_EVENT = 0x1
+COPYRIGHT_NOTICE = 0x2
+SEQUENCE_TRACK_NAME = 0x3
+INSTRUMENT_NAME = 0x4
+LYRIC = 0x5
+MARKER = 0x6
+CUE_POINT = 0x7
+PROGRAM_NAME = 0x8
+DEVICE_NAME = 0x9
+MIDI_CHANNEL_PREFIX = 0x20
+MIDI_PORT = 0x21
+END_OF_TRACK = 0x2f
+SET_TEMPO = 0x51
+SMTPE_OFFSET = 0x54
+TIME_SIGNATURE = 0x58
+KEY_SIGNATURE = 0x59
+XMF_PATCH_TYPE_PREFIX = 0x60
+SEQUENCER_SPECIFIC_META_EVENT = 0x7f
+META_EVENT = 0xff
 
 
 def _get_variable_length_number(nextbyte, getbyte):
