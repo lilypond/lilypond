@@ -1064,6 +1064,13 @@ in the output.  Normally only the @code{piece} and @code{opus}
 header variables are printed.  For use cases see @ref{Titles and
 headers}.  Default: @code{#f}.
 
+@item reset-footnotes-on-new-page
+@funindex reset-footnotes-on-new-page
+
+If set to true, footnote numbers are reset on each page break.
+For footnotes numbered consecutively across page breaks, set to
+@code{#f}. Default: @code{#t}.
+
 @item system-separator-markup
 @funindex system-separator-markup
 

@@ -1491,12 +1491,16 @@ indicator (@samp{-}, @samp{_}, @samp{^}) in order to attach
 
 @item mark
 @funindexpost \default
-is a markup or string specifying the footnote mark which is used for
-marking both the reference point and the footnote itself at the
-bottom of the page.  It may be omitted (or equivalently replaced with
-@code{\default}) in which case a number in sequence will be generated
-automatically.  Such numerical sequences restart on each page
-containing a footnote.
+is a markup or string specifying the footnote mark which is used
+for marking both the reference point and the footnote itself at
+the bottom of the page.  It may be omitted (or equivalently
+replaced with @code{\default}) in which case a number in sequence
+will be generated automatically.  By default, such numerical
+sequences restart on each page containing a footnote.  Footnotes
+may be numbered consecutively across page beaks by setting the
+variable @code{reset-@/footnotes-@/on-@/new-@/page} to @code{#f},
+@pxref{paper variables concerning headers and markups}.
+
 
 @item offset
 is a number pair such as @samp{#(2 . 1)} specifying the X and
