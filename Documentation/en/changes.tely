@@ -71,6 +71,34 @@ which scares away people.
 @end ignore
 
 @item
+Due to changes in the internals of @code{\bar}, it is no longer
+supported to use it before creating lower contexts with
+@code{\new}.  Such uses will now create an extra staff.  This is
+similar to what happens with commands such as @code{\override
+Staff@dots{}} (see @rprogram{An extra staff appears}).
+
+@lilypond[verbatim,quote]
+{
+  \bar ".|:"
+  <<
+    \new Staff { c' }
+    \new Staff { c' }
+  >>
+}
+@end lilypond
+
+The solution is to place @code{\bar} inside the music for each
+staff, as is usual with most commands.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { \bar ".|:" c' }
+  \new Staff { \bar ".|:" c' }
+>>
+@end lilypond
+
+
+@item
 The @code{\rhythm} markup command has been added.  It is a simple
 way to enter rhythms mixed with text, such as in @qq{swing}
 indications.
