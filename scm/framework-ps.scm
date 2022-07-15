@@ -20,6 +20,7 @@
 ;;; this is still too big a mess.
 
 (use-modules (ice-9 string-fun)
+             ((ice-9 iconv) #:select (bytevector->string string->bytevector))
              (guile)
              (lily page)
              (lily paper-system)
@@ -641,21 +642,23 @@
      (#\nul "\\000") (#\cr "\\015") (#\newline "\\012")
      (#\( "\\(") (#\) "\\)"))))
 
+(define (pdf-encode str)
+  ;; The PDF standard specifies that two encodings can be used for
+  ;; PDF metadata fields, PDFDocEncoding or Big Endian UTF-16 with
+  ;; BOM.  Since the former isn't supported by Guile and can't even
+  ;; encode all Unicode characters, we use the latter by encoding
+  ;; the string in UTF-16BE and adding the BOM by hand.  Then we
+  ;; decode in latin1 as that's what the PS output port uses; this
+  ;; is safe because latin1 can decode all possible bytes.  Finally,
+  ;; we escape PS special characters.
+  (let* ((bom-string (bytevector->string #vu8(#xFE #xFF) "latin1"))
+         (encoded-bytes (string->bytevector str "UTF-16BE"))
+         (decoded-bytes (bytevector->string encoded-bytes "latin1")))
+    (ps-quote (string-append bom-string decoded-bytes))))
+
 ;;; Create DOCINFO pdfmark containing metadata
 ;;; header fields with pdf prefix override those without the prefix
 (define (handle-metadata header port)
-  (define (metadata-encode val)
-    ;; First, call ly:encode-string-for-pdf to encode the string (latin1 or
-    ;; utf-16be), then escape all parentheses and backslashes
-    ;;
-    ;; NOTE: with guile-2.0+ ly:encode-string-for-pdf is not really needed and
-    ;; could be replaced with the following code:
-    ;;
-    ;;    (let* ((utf16be-bom #vu8(#xFE #xFF)))
-    ;;      (string-append (bytevector->string utf16be-bom "ISO-8859-1")
-    ;;                     (bytevector->string (string->utf16 val 'big) "ISO-8859-1")))
-    ;;
-    (ps-quote (ly:encode-string-for-pdf val)))
   (define (metadata-lookup-output overridevar fallbackvar field)
     (let* ((overrideval (ly:modules-lookup (list header) overridevar))
            (fallbackval (ly:modules-lookup (list header) fallbackvar))
@@ -664,7 +667,7 @@
           (format port
                   "/~a (~a)\n"
                   field
-                  (metadata-encode
+                  (pdf-encode
                    (markup->string val
                                    #:props (headers-property-alist-chain
                                             (list header))))))))
