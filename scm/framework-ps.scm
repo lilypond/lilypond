@@ -65,6 +65,10 @@
        "/" (ps-font-command font) "-O"
        " { /" font-name "-O"
        " " (ly:number->string scaling) " output-scale div selectfont }"
+       " bind def\n"
+       "/" (ps-font-command font) "-P"
+       " { /" font-name "-P"
+       " " (ly:number->string scaling) " output-scale div selectfont }"
        " bind def\n")
       (string-append
        "/" (ps-font-command font)

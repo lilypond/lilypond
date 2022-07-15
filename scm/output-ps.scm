@@ -136,8 +136,10 @@ grestore
        (string-join (map (lambda (x) (apply glyph-spec x))
                          (reverse w-x-y-named-glyphs)) "\n")
        (length w-x-y-named-glyphs))
-      (if (and (ly:get-option 'music-font-encodings) (string-startswith postscript-font-name "Emmentaler"))
-          (ly:format "/~a-O ~a output-scale div selectfont\n~a\n"
+      (if (and (ly:get-option 'music-font-encodings)
+               (string-startswith postscript-font-name "Emmentaler"))
+          ;; The 'P' font encoding is for communication with Pango.
+          (ly:format "/~a-P ~a output-scale div selectfont\n~a\n"
                      postscript-font-name size
                      (string-join (map (lambda (x) (apply emglyph-spec x))
                                        w-x-y-named-glyphs) "\n"))
@@ -191,18 +193,15 @@ grestore
       ""))
 
 (define (named-glyph font glyph)
-  (if (and (ly:get-option 'music-font-encodings) (string-startswith (ly:font-file-name font) "emmentaler"))
-      (if (string-endswith (ly:font-file-name font)"-brace")
-          (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
-              (format #f "~a-N ~a\n" (ps-font-command font) glyph)
-              (if (or (string-startswith glyph "brace3") (string-startswith glyph "brace4"))
-                  (format #f "~a-S ~a\n" (ps-font-command font) glyph)
-                  (format #f "~a-O ~a\n" (ps-font-command font) glyph)))
-          (if (string-startswith glyph "noteheads")
-              (format #f "~a-N ~a\n" (ps-font-command font) glyph)
-              (if (or (string-startswith glyph "scripts") (string-startswith glyph "clefs"))
-                  (format #f "~a-S ~a\n" (ps-font-command font) glyph)
-                  (format #f "~a-O ~a\n" (ps-font-command font) glyph))))
+  (if (and (ly:get-option 'music-font-encodings)
+           (string-startswith (ly:font-file-name font) "emmentaler"))
+      (format #f "~a-~a ~a\n"
+              (ps-font-command font)
+              (hash-ref
+               (if (string-endswith (ly:font-file-name font) "-brace")
+                   brace-encoding-table
+                   glyph-encoding-table) glyph)
+              glyph)
       (format #f "~a /~a glyphshow\n" (ps-font-command font) glyph)))
 
 (define (no-origin)

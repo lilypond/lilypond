@@ -223,6 +223,7 @@ $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	mkdir -p $(tree-lib-prefix)
 	mkdir -p $(tree-share-prefix)
 	mkdir -p $(tree-share-prefix)/fonts
+	mkdir -p $(tree-share-prefix)/scm
 	cd $(tree-bin) && \
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
@@ -237,9 +238,12 @@ $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	cd $(tree-share-prefix)/fonts && \
 		for i in otf svg; do \
 			ln -s ../../../../../mf/$(outconfbase) $$i; done
-	cd $(tree-share-prefix) && for i in ly ps python; do \
+	cd $(tree-share-prefix) && for i in ly python; do \
 		ln -s $(top-src-dir)/$$i; done
-	mkdir -p $(tree-share-prefix)/scm && ln -s $(top-src-dir)/scm $(tree-share-prefix)/scm/lily
+	cd $(tree-share-prefix) && \
+		ln -s ../../../../ps/$(outconfbase) ps
+	cd $(tree-share-prefix)/scm && \
+		ln -s ../../../../../scm/$(outconfbase) lily
 	touch $@
 
 TAGS.make: dummy

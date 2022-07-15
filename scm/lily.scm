@@ -556,6 +556,7 @@ floating point exceptions.")
     "parser-clef"
     "layout-slur"
     "font"
+    "font-encodings"
 
     "bar-line"
     "flag-styles"
