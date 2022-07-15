@@ -236,14 +236,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-;;; Adapted from the handle-metadata function in framework-ps.scm
 (define (performance-name-from-headers headers)
-  (define (metadata-lookup-output overridevar fallbackvar)
-    (let* ((overrideval (ly:modules-lookup headers overridevar))
-           (fallbackval (ly:modules-lookup headers fallbackvar))
-           (val (if overrideval overrideval fallbackval)))
-      (if val (ly:encode-string-for-pdf (markup->string val)) "")))
-  (metadata-lookup-output 'midititle 'title))
+  (markup->string (or (ly:modules-lookup headers 'midititle)
+                      (ly:modules-lookup headers 'title)
+                      "")))
 
 (define-public (write-performances-midis performances basename . rest)
   (let ((midi-ext (ly:get-option 'midi-extension)))
