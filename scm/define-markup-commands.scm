@@ -3111,49 +3111,63 @@ Use @code{\\fontsize} otherwise.
 (define-markup-command (number layout props arg)
   (markup?)
   #:category font
-  "Set font family to @code{number}, which yields the font used for
-time signatures and fingerings.  This font contains numbers and some
-punctuation; it has no letters.
+  "Set font family to @code{number}, which yields the font used for digits.
+This font also contains some punctuation; it has no letters.
 
 @cindex feature, OpenType font
 @cindex font feature, OpenType
 @cindex OpenType, font feature
 
-The appearance of numbers in the Emmentaler font can be controlled
-with three OpenType features: @q{kern}, @q{ss01}, and @q{ss02}.
+The appearance of digits in the Emmentaler font can be controlled with
+four OpenType features: @q{tnum}, @q{cv47}, @q{ss01}, and @q{kern},
+which can be arbitrarily combined.
 
-@itemize
-@item
-If @q{kern} is active (which is the default), kerning gets applied
-between digits.
+@indentedBlock
+@table @asis
+@item tnum
+If off (which is the default), glyphs @q{zero} to @q{nine} have no
+left and right side bearings.  If on, the glyphs all have the same
+advance width by making the bearings non-zero.
 
-@item
-Stylistic variant feature @q{ss01} (which is off by default) adds left
-and right side bearings to the digits to make them of equal width,
-which improves vertical stacking of single digits; it also changes the
-shape of digits 4 and@tie{}7.
+@item cv47
+If on, glyphs @q{four} and @q{seven} have shorter vertical strokes.
+Default is off.
 
-@item
-Stylistic variant feature @q{ss02} (which is off by default) only
-changes the shape of digits 4 and@tie{}7.
-@end itemize
+@item ss01
+If on, glyphs @q{zero} to @q{nine} have a fatter design, making them
+more readable at small sizes.  Default is off.
+
+@item kern
+If on (which is the default), provide pairwise kerning between (most)
+glyphs.
+
+@end table
+@endIndentedBlock
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\column {
-    \\line {
-      \\number 0123456789., (for time signatures)
-    }
-    \\line {
-      \\override #'(font-features . (\"ss02\"))
-        \\number 0123456789., (for fingering)
-    }
-    \\line {
-      \\override #'(font-features .(\"ss01\" \"-kern\"))
-        \\number 0123456789., (for fixed-width digits)
-    }
+\\markuplist
+  \\number
+  \\fontsize #5
+  \\override #'((padding . 2)
+               (baseline-skip . 4)
+               (box-padding . 0)
+               (thickness . 0.1))
+  \\table #'(-1 -1 -1 -1) {
+      0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 }
+    \\normal-text \\normalsize \"(time signatures)\"
+    \\override #'(font-features .(\"cv47\")) {
+      0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 } }
+    \\normal-text \\normalsize \"(alternatives)\"
+    \\override #'(font-features .(\"tnum\" \"cv47\" \"-kern\")) {
+      0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 } }
+    \\normal-text \\normalsize \"(fixed-width)\"
+    \\override #'(font-features . (\"tnum\" \"cv47\" \"ss01\")) {
+      0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 } }
+    \\normal-text \\normalsize \"(figured bass)\"
+    \\override #'(font-features . (\"cv47\" \"ss01\")) {
+      0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 } }
+    \\normal-text \\normalsize \"(fingering)\"
   }
-}
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaText props) arg))
 

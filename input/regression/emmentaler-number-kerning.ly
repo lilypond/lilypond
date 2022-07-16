@@ -31,14 +31,10 @@
 
 $(test-kerning "time-signatures:" '(""))
 \pageBreak
-$(test-kerning "time signatures without kern:" '("-kern"))
+$(test-kerning "figured bass (tnum, cv47, ss01):" '("tnum" "cv47" "ss01"))
 \pageBreak
-$(test-kerning "figured bass (ss01):" '("ss01"))
+$(test-kerning "fingering (cv47, ss01):" '("cv47" "ss01"))
 \pageBreak
-$(test-kerning "figured bass (ss01) without kern:" '("ss01" "-kern"))
-\pageBreak
-$(test-kerning "fingering (ss02):" '("ss02"))
-\pageBreak
-$(test-kerning "fingering (ss02) without kern:" '("ss02" "-kern"))
+$(test-kerning "fixed-width (tnum, cv47, -kern):" '("tnum" "cv47" "-kern"))
 
 \paper { print-page-number = ##f }
