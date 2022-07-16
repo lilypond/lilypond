@@ -735,18 +735,6 @@ emmentaler_glyphsets = [
         ## text-mode glyphs
         ##
 
-        # digits
-        "zero",
-        "one",
-        "two",
-        "three",
-        "four",
-        "five",
-        "six",
-        "seven",
-        "eight",
-        "nine",
-
         # letters
         "space",
         "f",
@@ -763,21 +751,61 @@ emmentaler_glyphsets = [
         "period",
         "plus",
 
-        # digits for figured bass
-        "figbass.zero",
-        "figbass.one",
-        "figbass.two",
-        "figbass.three",
-        "figbass.four",
-        "figbass.five",
-        "figbass.six",
-        "figbass.seven",
-        "figbass.eight",
-        "figbass.nine",
+        # digits
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "four.alt",
+        "five",
+        "six",
+        "seven",
+        "seven.alt",
+        "eight",
+        "nine",
 
-        # digits for fingering
-        "fingering.four",
-        "fingering.seven",
+        # fixed-width digits
+        "fixedwidth.zero",
+        "fixedwidth.one",
+        "fixedwidth.two",
+        "fixedwidth.three",
+        "fixedwidth.four",
+        "fixedwidth.four.alt",
+        "fixedwidth.five",
+        "fixedwidth.six",
+        "fixedwidth.seven",
+        "fixedwidth.seven.alt",
+        "fixedwidth.eight",
+        "fixedwidth.nine",
+
+        # fattened digits
+        "fattened.zero",
+        "fattened.one",
+        "fattened.two",
+        "fattened.three",
+        "fattened.four",
+        "fattened.four.alt",
+        "fattened.five",
+        "fattened.six",
+        "fattened.seven",
+        "fattened.seven.alt",
+        "fattened.eight",
+        "fattened.nine",
+
+        # fattened, fixed-width digits
+        "fattened.fixedwidth.zero",
+        "fattened.fixedwidth.one",
+        "fattened.fixedwidth.two",
+        "fattened.fixedwidth.three",
+        "fattened.fixedwidth.four",
+        "fattened.fixedwidth.four.alt",
+        "fattened.fixedwidth.five",
+        "fattened.fixedwidth.six",
+        "fattened.fixedwidth.seven",
+        "fattened.fixedwidth.seven.alt",
+        "fattened.fixedwidth.eight",
+        "fattened.fixedwidth.nine",
 
         ##
         ## other symbols

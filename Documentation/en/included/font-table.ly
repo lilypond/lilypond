@@ -49,14 +49,26 @@
   ;; define all remaining groups
   (define numbers
     '("plus" "comma" "hyphen" "period"
-      "zero" "one"   "two"    "three"  "four"
-      "five" "six"   "seven"  "eight"  "nine"
 
-      "figbass.zero"  "figbass.one"  "figbass.two" "figbass.three"
-      "figbass.four"  "figbass.five" "figbass.six" "figbass.seven"
-      "figbass.eight" "figbass.nine"
+      "zero" "one" "two"   "three"     "four"  "four.alt"
+      "five" "six" "seven" "seven.alt" "eight" "nine"
 
-      "fingering.four" "fingering.seven"))
+      "fixedwidth.zero"      "fixedwidth.one"   "fixedwidth.two"
+      "fixedwidth.three"     "fixedwidth.four"  "fixedwidth.four.alt"
+      "fixedwidth.five"      "fixedwidth.six"   "fixedwidth.seven"
+      "fixedwidth.seven.alt" "fixedwidth.eight" "fixedwidth.nine"
+
+      "fattened.zero"      "fattened.one"   "fattened.two"
+      "fattened.three"     "fattened.four"  "fattened.four.alt"
+      "fattened.five"      "fattened.six"   "fattened.seven"
+      "fattened.seven.alt" "fattened.eight" "fattened.nine"
+
+      "fattened.fixedwidth.zero"  "fattened.fixedwidth.one"
+      "fattened.fixedwidth.two"   "fattened.fixedwidth.three"
+      "fattened.fixedwidth.four"  "fattened.fixedwidth.four.alt"
+      "fattened.fixedwidth.five"  "fattened.fixedwidth.six"
+      "fattened.fixedwidth.seven" "fattened.fixedwidth.seven.alt"
+      "fattened.fixedwidth.eight" "fattened.fixedwidth.nine"))
 
   (define figured-bass-symbols
     '("figbass.twoplus"    "figbass.fourplus"     "figbass.fiveplus"
