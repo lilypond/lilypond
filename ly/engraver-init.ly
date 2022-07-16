@@ -123,9 +123,8 @@ to be modified directly."
   \description "An internal @code{Staff} type with settings shared by
 multiple ancient notation schemes."
 
-  %% Eliminate measure bar lines.  Let \section and \fine produce a
-  %% bar line resembling the finalis sign.
-  measureBarType = ""
+  %% Let \section and \fine produce a bar line resembling the finalis
+  %% sign.
   sectionBarType = "||"
   fineBarType = "||"
 
@@ -1176,6 +1175,10 @@ of Editio Vaticana."
   \remove Time_signature_engraver
   \consists Custos_engraver
 
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
+
   %% Mark bar lines a little thinner to match the breathing signs.
   %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
   \override BarLine.hair-thickness = #0.6
@@ -1258,6 +1261,12 @@ two syllables) as used in the notational style of Editio Vaticana."
   \defaultchild GregorianTranscriptionVoice
 
   \description "A staff for notating Gregorian chant in modern style."
+
+  %% Idea: Implement and use a measureBarType that adds mensurstriche
+  %% (span bars that do not cross into the staves) automatically in
+  %% scores with appropriately-grouped staves.  It could be named
+  %% something like "-mensurstrich" or "-span|".
+  measureBarType = ""
 }
 
 \context {
@@ -1304,6 +1313,10 @@ accommodated for typesetting a piece in mensural style."
 accommodated for typesetting a piece in mensural style."
 
   \consists Custos_engraver
+
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
 
   %% Mark bar lines a little thinner to match the breathing signs.
   %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
@@ -1370,10 +1383,9 @@ accommodated for typesetting a piece in Petrucci style."
   \consists Custos_engraver
   \consists Signum_repetitionis_engraver
 
-  %% Eliminate measure bar lines.  Use "" rather than '() to allow a
-  %% line break at any measure boundary.  (It would be even better to
-  %% allow a line break after any note.)
-  measureBarType = ""
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
 
   %% Both single and double bar lines appear at section breaks in
   %% Harmonice Musices Odhecaton.  It is not clear that there is any
@@ -1403,7 +1415,7 @@ accommodated for typesetting a piece in Petrucci style."
   doubleRepeatBarType = #'()
   endRepeatBarType = #'()
   startRepeatBarType = "||"
-  underlyingRepeatBarType = "" % allow a line break
+  underlyingRepeatBarType = #'()
 
   %% Match BarLine.hair-thickness to stems:
   %% BarLine.hair-thickness = Stem.thickness * StaffSymbol.thickness
@@ -1488,8 +1500,10 @@ accommodated for typesetting a piece in Kievan style."
 
   \remove Time_signature_engraver
 
-  %% Eliminate measure bar lines.
-  measureBarType = ""
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
+
   %% A single bar line delimits phrases; let \section fall back to that.
   sectionBarType = "|"
   %% Kievan notation has a unique final bar line.

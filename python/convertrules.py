@@ -4632,6 +4632,14 @@ def conv(s):
                r'\\bar "\1-|"', s)
     return s
 
+@rule((2, 23, 12), r"""
+barAlways = ##t -> forbidBreakBetweenBarLines = ##f
+""")
+def conv(s):
+    s = re.sub(r'barAlways\s*=\s*##t', r'forbidBreakBetweenBarLines = ##f', s)
+    s = re.sub(r'barAlways\s*=\s*##f', r'forbidBreakBetweenBarLines = ##t', s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

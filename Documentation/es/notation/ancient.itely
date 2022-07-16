@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.11"
 
 
 @node Notación antigua
@@ -538,7 +538,7 @@ la instrucción @code{\time n/m}, se tienen que escoger @code{n} y
 }
 {
   \set Score.timing = ##f
-  \set Score.barAlways = ##t
+  \set Score.forbidBreakBetweenBarLines = ##f
   \textLengthOn
   s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 "timesig.neomensural44" }

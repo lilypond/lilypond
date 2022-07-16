@@ -1601,10 +1601,6 @@ is ignored if their @code{breakable} property is set to true.
 @end lilypond
 @end itemize
 
-@c Enabling breaks outside of bar lines can be done with barAlways
-@c and measureBarType = "".  This is a hack, so let's do a proper
-@c interface before documenting it. --JeanAS
-
 The @code{\noBreak} command will prevent a line break at the bar line
 where it is inserted.
 

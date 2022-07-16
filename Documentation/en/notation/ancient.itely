@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.11"
 
 
 @node Ancient notation
@@ -504,7 +504,7 @@ to particular time fractions.  In other words, to get a particular mensuration s
 }
 {
   \set Score.timing = ##f
-  \set Score.barAlways = ##t
+  \set Score.forbidBreakBetweenBarLines = ##f
   \textLengthOn
   s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 "timesig.neomensural44" }
@@ -890,7 +890,7 @@ For example,
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.measureBarType = ""
+    \set Score.measureBarType = #'()
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -918,7 +918,7 @@ Without replacing @code{Ligature_bracket_engraver} with
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.measureBarType = ""
+  \set Score.measureBarType = #'()
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"
@@ -2774,13 +2774,19 @@ transparent, will leave an empty space in the score, since the
 invisible signature will still take up space.
 
 In many cases, @code{\set Score.timing = ##f} will give good
-results.  Another alternative is to use @code{\cadenzaOn} and
+results.  An alternative is to use @code{\cadenzaOn} and
 @code{\cadenzaOff}.
 
-To remove the bar lines, the radical approach is to @code{\remove}
-the Bar_engraver from the Staff context.  Again, one may want to
-use @code{\hide BarLine} instead, if an
-occasional bar line is wanted.
+The predefined staff contexts for ancient music do not create
+measure bar lines.  You can extend this behavior to all other
+contexts with @code{\set Score@/.measureBarType = #'()} or to
+particular staves with @code{\set Staff@/.measureBarType = #'()}.
+
+The predefined staff contexts for ancient music allow line breaks
+without bar lines.  You can extend this behavior to all other
+contexts with @code{\set Score@/.forbidBreakBetweenBarLines = ##f}
+or to particular staves with @code{\set
+Staff@/.forbidBreakBetweenBarLines = ##f}.
 
 A common type of transcription is recitativic chant where the
 repeated notes are indicated with a single breve.  The text to

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.23.11"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -579,7 +579,7 @@ s'ha d'escollir @code{n} i @code{m} segons la taula següent:
 }
 {
   \set Score.timing = ##f
-  \set Score.barAlways = ##t
+  \set Score.forbidBreakBetweenBarLines = ##f
   \textLengthOn
   s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 "timesig.neomensural44" }

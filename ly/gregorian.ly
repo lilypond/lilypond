@@ -219,22 +219,12 @@ ligature = #(define-music-function
         \Score
         \remove Bar_number_engraver
 
-        %%%
         %%% FIXME: Musicologically seen, timing should be set to #f.
-        %%% Unfortunately, setting it to #f will result in no
-        %%% line-breakable items being created, such that the whole
-        %%% music will end up in a single line.  Therefore, we
-        %%% currently set it to #t, until the ligature code is fixed
-        %%% to automatically insert breakable items.
-        %%%
-        timing = ##t
-
-        %%%
-        %%% FIXME: Setting barAlways to #t would fix the above
-        %%% "timing = ##t" problem, but, surprisingly, it increases
-        %%% the space between ligatures.  Hence, we set it to #f.
-        %%%
-        barAlways = ##f
+        %%% The question is how disruptive this change would be.
+%{
+        timing = ##f
+        forbidBreakBetweenBarLines = ##f
+%}
 
         \override SpacingSpanner.packed-spacing = ##t
 
