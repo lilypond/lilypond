@@ -788,7 +788,9 @@ Grob::name () const
   SCM meta = get_property (this, "meta");
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
-  return scm_is_symbol (nm) ? ly_symbol2string (nm) : class_name ();
+  return scm_is_symbol (nm)
+    ? ly_symbol2string (nm)
+    : string ("dead ").append (class_name ());
 }
 
 ADD_INTERFACE (Grob,
