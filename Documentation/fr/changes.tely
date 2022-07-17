@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5d99257511788e163859dfd06656c802cf42f1e9
+    Translation of GIT committish: 17db7e7b09f24aed3b39e37a2961bf01527bbeef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -648,6 +648,23 @@ La mise en forme de info-bulles est désormais modifiable.
 
 @itemize
 @item
+La commande de @emph{markup} @code{\rhythm} fait son apparition. Il
+s'agit dun moyen simple de mélanger du texte et du rythme comme, par
+exemple, pour afficher une indication de « swing ».
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+
+@item
 Sont maintenant disponibles les commandes de @emph{markup}
 @code{\with-true-dimension} et @code{\with-true-dimensions}. Elles
 procurent l'étendue réelle de la surface encrée, qui peut êtrre quelque
@@ -901,6 +918,20 @@ La mise en forme de la basse chiffrée s'est améliorée. En particulier,
 sa taille par défaut est réduite à une valeur que l'on retrouve dans
 nombre d'éditions @emph{Urtext} de musique baroque.
 
+@item
+La basse chiffrée utilise désormais par défaut des glyphes dessinés
+spécifiquement dans ce cadre, à savoir les @code{6\\}, @code{7\\} et
+@code{9\\}. De même, des glyphes spécifiques seront utilisés par défaut
+en présence d'un signe plus après le chiffre pour les symboles
+@code{2\+}, @code{4\+} et @code{5\+}.
+
+@lilypond[quote]
+\figures {
+  \set figuredBassPlusDirection = #RIGHT
+  <7\\ 6 4 2\+> <4\+ _-> <3 5\+ 3 > <6\\ 4 3> <9\\>
+}
+@end lilypond
+
 @end itemize
 
 
@@ -1000,6 +1031,11 @@ Un
 @subsubheading Améliorations pour les fichiers résultants
 
 @itemize
+@item
+L'option @code{-dembed-@/source-@/code} permet maintenant d'embarquer
+également les images ajoutées par @code{\epsfile} ainsi que les fichiers
+inclus par @code{\verbatim-file}.
+
 @item
 @code{set-default-paper-size} et @code{set-paper-size} acceptent
 désormais des tailles de papier personnalisées.
