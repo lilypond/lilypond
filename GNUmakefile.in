@@ -223,36 +223,23 @@ $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	mkdir -p $(tree-lib-prefix)
 	mkdir -p $(tree-share-prefix)
 	mkdir -p $(tree-share-prefix)/fonts
-	mkdir -p $(tree-share-prefix)/fonts/otf
-	mkdir -p $(tree-share-prefix)/fonts/svg
 	cd $(tree-bin) && \
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
 	mkdir -p $(tree-lib-prefix)/ccache && \
 		ln -s ../../../../../scm/$(outconfbase)/ $(tree-lib-prefix)/ccache/lily
+	cd $(tree-share-prefix)/fonts && \
+		for i in 00-lilypond-fonts.conf 99-lilypond-fonts.conf; do \
+			ln -s $(top-src-dir)/mf/$$i .; done
+	# Just link the entire directory, even if it puts the "wrong" files into the
+	# "wrong" directory, such as *.otf into svg/.
+	cd $(tree-share-prefix)/fonts && \
+		for i in otf svg; do \
+			ln -s ../../../../../mf/$(outconfbase) $$i; done
 	cd $(tree-share-prefix) && for i in ly ps python; do \
 		ln -s $(top-src-dir)/$$i; done
 	mkdir -p $(tree-share-prefix)/scm && ln -s $(top-src-dir)/scm $(tree-share-prefix)/scm/lily
-	touch $@
-
-link-mf-tree: $(tree-share-prefix)/mf-link-tree
-
-$(tree-share-prefix)/mf-link-tree: $(tree-prefix)/lilypond-force
-	$(call ly_progress,Making,$@,)
-	-rm -f $(tree-share-prefix)/fonts/otf/* &&  \
-	rm -f $(tree-share-prefix)/fonts/svg/* &&  \
-	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
-	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
-	cd $(tree-share-prefix)/fonts/otf && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
-	-cd $(tree-share-prefix)/fonts && \
-		ln -s ../../../../../mf/$(outconfbase)/00-lilypond-fonts.conf . && \
-		ln -s ../../../../../mf/$(outconfbase)/99-lilypond-fonts.conf .
-	-cd $(tree-share-prefix)/fonts/svg && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
-	-cd $(tree-share-prefix)/fonts/svg && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.woff .
 	touch $@
 
 TAGS.make: dummy

@@ -71,22 +71,24 @@ OTF_FILES = \
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
-LILYPOND_FONTS_CONF = \
-  $(outdir)/00-lilypond-fonts.conf \
-  $(outdir)/99-lilypond-fonts.conf
-
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 
 ALL_GEN_FILES = \
   $(OTF_FILES) \
   $(SVG_FILES) \
-  $(WOFF_FILES) \
-  $(LILYPOND_FONTS_CONF)
+  $(WOFF_FILES)
+
+default: $(ALL_GEN_FILES)
+
+INSTALLATION_SUFFIXES = 1
 
 INSTALLATION_DIR = $(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES = $(call src-wildcard,*.mf)
 
-INSTALLATION_OUT_SUFFIXES = 1 2 3
+INSTALLATION_DIR1 = $(local_lilypond_datadir)/fonts
+INSTALLATION_FILES1 = $(call src-wildcard,*.conf)
+
+INSTALLATION_OUT_SUFFIXES = 1 2
 
 INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES)
@@ -96,9 +98,6 @@ INSTALLATION_OUT_FILES2 = \
   $(SVG_FILES) \
   $(WOFF_FILES)
 
-INSTALLATION_OUT_DIR3 = $(local_lilypond_datadir)/fonts
-INSTALLATION_OUT_FILES3 = \
-  $(LILYPOND_FONTS_CONF)
 
 $(outdir)/%.global-lisp \
 $(outdir)/%.lisp: $(outdir)/%.log
@@ -151,14 +150,3 @@ $(outdir)/emmentaler-brace.otf: \
 $(outdir)/emmentaler-brace.woff \
 $(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.otf
 	@true
-
-default: tree-regen
-
-.PHONY: tree-regen
-
-tree-regen: $(ALL_GEN_FILES)
-	${MAKE} -C $(top-build-dir) link-mf-tree
-
-$(outdir)/%.conf: %.conf
-	$(call ly_progress,Copying,$@,)
-	cp $< $@
