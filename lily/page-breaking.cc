@@ -131,6 +131,7 @@
 
 #include "international.hh"
 #include "item.hh"
+#include "lily-imports.hh"
 #include "line-interface.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
@@ -489,17 +490,13 @@ Page_breaking::make_page (int page_num, bool last) const
 {
   bool last_part
     = ly_scm2bool (book_->paper ()->c_variable ("is-last-bookpart"));
-  SCM mod = scm_c_resolve_module ("lily page");
-  SCM make_page_scm = scm_c_module_lookup (mod, "make-page");
-
-  make_page_scm = scm_variable_ref (make_page_scm);
-
-  return scm_apply_0 (make_page_scm,
-                      scm_list_n (book_->self_scm (),
-                                  ly_symbol2scm ("page-number"), to_scm (page_num),
-                                  ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
-                                  ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
-                                  SCM_UNDEFINED));
+  return Page::make_page (book_->self_scm (),
+                          ly_symbol2scm ("page-number"),
+                          to_scm (page_num),
+                          ly_symbol2scm ("is-last-bookpart"),
+                          scm_from_bool (last_part),
+                          ly_symbol2scm ("is-bookpart-last-page"),
+                          scm_from_bool (last));
 }
 
 // Returns the total height of the paper, including margins and
@@ -526,12 +523,8 @@ Page_breaking::page_height (int page_num, bool last) const
     return cache[page_num];
   else
     {
-      SCM mod = scm_c_resolve_module ("lily page");
       SCM page = make_page (page_num, last);
-      SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
-      calc_height = scm_variable_ref (calc_height);
-
-      SCM height_scm = scm_apply_1 (calc_height, page, SCM_EOL);
+      SCM height_scm = Page::calc_printable_height (page);
       Real height = scm_to_double (height_scm);
 
       if (page_num >= 0)

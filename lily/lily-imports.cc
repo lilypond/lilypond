@@ -144,6 +144,15 @@ Variable write_performances_midis ("write-performances-midis");
 Variable write_lilypond_book_aux_files ("write-lilypond-book-aux-files");
 }
 
+namespace Page
+{
+Scm_module module ("lily page");
+
+Variable calc_printable_height ("calc-printable-height");
+Variable make_page ("make-page");
+Variable page_stencil ("page-stencil");
+}
+
 namespace Srfi_1
 {
 Scm_module module ("srfi srfi-1");

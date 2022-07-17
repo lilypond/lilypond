@@ -17,7 +17,8 @@
 
 (define-module (lily page)
 
-  #:export (make-page
+  #:export (calc-printable-height
+            make-page
             page-property
             page-set-property!
             page-prev

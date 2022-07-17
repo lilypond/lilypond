@@ -156,6 +156,16 @@ extern Variable write_performances_midis;
 extern Variable write_lilypond_book_aux_files;
 }
 
+namespace Page
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable calc_printable_height;
+extern Variable make_page;
+extern Variable page_stencil;
+}
+
 namespace Srfi_1
 {
 extern Scm_module module;

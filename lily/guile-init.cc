@@ -112,6 +112,7 @@ ly_c_init_guile ()
   Cps_optimize::module.import ();
 #endif
   Lily::module.boot (ly_init_ly_module);
+  Page::module.import ();
   Srfi_1::module.import ();
   Syntax::module.import ();
   Display::module.import ();

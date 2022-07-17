@@ -88,6 +88,18 @@ public:
   {
     return scm_call_4 (*this, arg1, arg2, arg3, arg4);
   }
+  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5)
+  {
+    return scm_call_5 (*this, arg1, arg2, arg3, arg4, arg5);
+  }
+  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5, SCM arg6)
+  {
+    return scm_call_6 (*this, arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5, SCM arg6, SCM arg7)
+  {
+    return scm_call_7 (*this, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  }
   Scm_variable (Scm_module &m, const char *name, SCM value = SCM_UNDEFINED);
 };
 

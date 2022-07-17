@@ -779,11 +779,8 @@ Paper_book::pages ()
       pages_ = scm_call_1 (page_breaking, self_scm ());
 
       // Create all the page stencils.
-      SCM page_module = scm_c_resolve_module ("lily page");
-      SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
-      page_stencil = scm_variable_ref (page_stencil);
       for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
-        scm_call_1 (page_stencil, scm_car (pages));
+        Page::page_stencil (scm_car (pages));
 
       // Perform any user-supplied post-processing.
       SCM post_process = paper_->c_variable ("page-post-process");
