@@ -343,7 +343,8 @@ Return the system grob of @var{grob}.
 LY_DEFINE (ly_grob_original, "ly:grob-original",
            1, 0, 0, (SCM grob),
            R"(
-Return the unbroken original grob of @var{grob}.
+Return the unbroken original grob of @var{grob}, @var{grob} may be an item or
+spanner.
            )")
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
