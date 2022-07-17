@@ -133,6 +133,7 @@
 #include "item.hh"
 #include "lily-imports.hh"
 #include "line-interface.hh"
+#include "ly-scm-list.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
 #include "page-spacing.hh"
@@ -601,15 +602,18 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
   if (scm_is_null (systems))
     return SCM_EOL;
 
-  int first_page_number
-    = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
-  SCM ret = SCM_EOL;
-  bool reset_footnotes_on_new_page = from_scm<bool> (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
+  // Note that the order in which pages are iterated matters for
+  // building this table.  For a label straddling at a page break, we
+  // want to choose the last occurrence.
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
   if (SCM_UNBNDP (label_page_table))
     label_page_table = SCM_EOL;
 
-  // Build a list of (systems configuration . footnote-count) triples.
+  int first_page_number
+    = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
+  SCM ret = SCM_EOL;
+  bool reset_footnotes_on_new_page = from_scm<bool> (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
+
   // Note that we lay out the staves and find the configurations,
   // but we do not draw anything in this function.  It is important
   // that all staves are laid out vertically before any are drawn; some
@@ -617,7 +621,6 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
   // themselves.  If this happens before the neighbouring staves have
   // been laid out, bad side-effects could happen (in particular,
   // Align_interface::align_to_ideal_distances might be called).
-  SCM systems_configs_fncounts = SCM_EOL;
   vsize footnote_count = 0;
   Real last_page_force = 0;
 
@@ -663,56 +666,35 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       else
         last_page_force = layout.force ();
 
-      systems_configs_fncounts = scm_cons (scm_cons (lines, config), systems_configs_fncounts);
-      footnote_count += fn_lines;
-      systems = scm_list_tail (systems, line_count);
-    }
-
-  // TODO: previously, the following loop caused the systems to be
-  // drawn.  Now that we no longer draw anything in Page_breaking,
-  // it is safe to merge these two loops.  However, the merged loop
-  // should iterate over page numbers backwards (as in the second
-  // loop).  If page numbers are iterated forwards (as in the first
-  // loop), the order of pages is reversed.
-  int page_num = first_page_number + static_cast<int> (page_count) - 1;
-  for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM lines = scm_caar (s);
-      SCM config = scm_cdar (s);
-
-      bool bookpart_last_page = scm_is_eq (s, systems_configs_fncounts);
       SCM page = draw_page (lines, config, page_num, bookpart_last_page);
+
       /* collect labels */
       SCM page_num_scm = to_scm (page_num);
-      for (SCM l = lines; scm_is_pair (l); l = scm_cdr (l))
+      for (SCM line : as_ly_scm_list (lines))
         {
           SCM labels = SCM_EOL;
-          if (Grob *line = unsmob<Grob> (scm_car (l)))
+          if (System *sys = unsmob<System> (line))
             {
-              System *system = dynamic_cast<System *> (line);
-              labels = get_property (system, "labels");
+              labels = get_property (sys, "labels");
             }
-          else if (Prob *prob = unsmob<Prob> (scm_car (l)))
+          else if (Prob *prob = unsmob<Prob> (line))
             labels = get_property (prob, "labels");
 
           SCM table = SCM_EOL;
-          for (SCM lbls = labels; scm_is_pair (lbls); lbls = scm_cdr (lbls))
-            table = scm_cons (scm_cons (scm_car (lbls), page_num_scm),
-                              table);
+          for (SCM label : as_ly_scm_list (labels))
+            table = scm_acons (label, page_num_scm, table);
 
           label_page_table = scm_reverse_x (table, label_page_table);
         }
 
       ret = scm_cons (page, ret);
-      --page_num;
+
+      footnote_count += fn_lines;
+      systems = scm_list_tail (systems, line_count);
     }
 
-  // By reversing the table, we ensure that duplicated labels (e.g. those
-  // straddling a page turn) will appear in the table with their last
-  // occurrence first.
-  label_page_table = scm_reverse_x (label_page_table, SCM_EOL);
   book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
-  return ret;
+  return scm_reverse_x (ret, SCM_EOL);
 }
 
 void
