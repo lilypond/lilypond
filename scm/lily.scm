@@ -535,6 +535,7 @@ floating point exceptions.")
     "markup"
     "define-markup-commands"
     "stencil"
+    "text-replacements"
     "modal-transforms"
     "chord-ignatzek-names"
     "music-functions"

@@ -3287,6 +3287,31 @@ Note: @code{\\fontCaps} requires the installation and selection of
 fonts which support the @code{caps} font shape."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
+(define-markup-command (with-string-transformer layout props transformer arg)
+  (procedure? markup?)
+  #:category font
+  "Interpret the markup @var{arg} with a string transformer installed.
+Whenever a string is interpreted inside @var{arg}, the transformer
+is first called, and it is the result that is interpreted.  The arguments
+passed to the transformer are the output definition, the property alist
+chain, and the string.  See @rextend{New markup command definition}
+about the two first arguments.
+
+@lilypond[verbatim,quote]
+\\markup \\with-string-transformer
+  #(lambda (layout props str)
+     (string-upcase str))
+  \"abc\"
+@end lilypond
+"
+  (interpret-markup
+   layout
+   (prepend-alist-chain 'string-transformers
+                        (cons transformer
+                              (chain-assoc-get 'string-transformers props))
+                        props)
+   arg))
+
 ;; Poor man's caps
 (define-markup-command (smallCaps layout props arg)
   (markup?)
@@ -3309,31 +3334,35 @@ Note: @code{\\smallCaps} does not support accented characters.
       (if lower
           (make-fontsize-markup -2 final-string)
           final-string)))
-  (define (make-small-caps rest-chars currents current-is-lower prev-result)
-    (if (null? rest-chars)
-        (make-concat-markup
-         (reverse! (cons (char-list->markup currents current-is-lower)
-                         prev-result)))
-        (let* ((ch (car rest-chars))
-               (is-lower (char-lower-case? ch)))
-          (if (or (and current-is-lower is-lower)
-                  (and (not current-is-lower) (not is-lower)))
-              (make-small-caps (cdr rest-chars)
-                               (cons ch currents)
-                               is-lower
-                               prev-result)
-              (make-small-caps (cdr rest-chars)
-                               (list ch)
-                               is-lower
-                               (if (null? currents)
-                                   prev-result
-                                   (cons (char-list->markup
-                                          currents current-is-lower)
-                                         prev-result)))))))
+  (define (make-small-caps _layout _props str)
+    (let loop ((rest-chars (string->list str))
+               (currents '())
+               (current-is-lower #f)
+               (prev-result '()))
+      (if (null? rest-chars)
+          (make-concat-markup
+           (reverse! (cons (char-list->markup currents current-is-lower)
+                           prev-result)))
+          (let* ((ch (car rest-chars))
+                 (is-lower (char-lower-case? ch)))
+            (if (or (and current-is-lower is-lower)
+                    (and (not current-is-lower) (not is-lower)))
+                (loop (cdr rest-chars)
+                      (cons ch currents)
+                      is-lower
+                      prev-result)
+                (loop (cdr rest-chars)
+                      (list ch)
+                      is-lower
+                      (if (null? currents)
+                          prev-result
+                          (cons (char-list->markup
+                                 currents current-is-lower)
+                                prev-result))))))))
   (interpret-markup layout props
-                    (if (string? arg)
-                        (make-small-caps (string->list arg) (list) #f (list))
-                        arg)))
+                    (make-with-string-transformer-markup
+                     make-small-caps
+                     arg)))
 
 (define-markup-command (caps layout props arg)
   (markup?)
@@ -5289,10 +5318,17 @@ Patterns are aligned to the @var{dir} markup.
   "
 Used to automatically replace a string by another in the markup @var{arg}.
 Each pair of the alist @var{replacements} specifies what should be replaced.
-The @code{key} is the string to be replaced by the @code{value} string.
+The @code{key} is the string to be replaced by the @code{value} markup.
+Note the quasiquoting syntax with a backquote in the second example.
 
 @lilypond[verbatim,quote]
-\\markup \\replace #'((\"thx\" . \"Thanks!\")) thx
+\\markup \\replace #'((\"2nd\" . \"Second\"))
+  \"2nd time\"
+\\markup \\replace #`((\"2nd\" . ,#{ \\markup \\concat { 2 \\super nd } #}))
+  \\center-column {
+    \\line { Play only }
+    \\line { the 2nd time }
+  }
 @end lilypond"
   (interpret-markup
    layout

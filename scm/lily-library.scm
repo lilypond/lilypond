@@ -499,9 +499,23 @@ in list @var{keys}.  Example:
 (define-public (hash-table->alist t)
   (hash-fold acons '() t))
 
-;; todo: code dup with C++.
+;; UGH! Guile provides a module (ice-9 hash-table), containing an
+;; alist->hash-table function, but it's not the same one! Guile is consistent in
+;; its naming Scheme, providing alist->hashq-table, alist->hashv-table and
+;; alist->hash-table.  This alist->hash-table is actually its
+;; alist->hashq-table. Meaning that we can't easily get rid of this definition
+;; and import (ice-9 hash-table), because this alist->hash-table is used in user
+;; scores, and hashq-ref and friends give inconsistent results on an alist
+;; created with alist->hash-table: it would be an ugly backwards compatibility
+;; leaving users with files that compile but strangely give wrong results. So
+;; we're stuck with a function that will be confusing forever. --JeanAS
 (define-safe-public (alist->hash-table lst)
-  "Convert alist @var{lst} to a table."
+  "Convert alist @var{lst} to a table.
+
+@strong{Warning:} The resulting hash table is hashed by identity.
+This actually corresponds to the @code{alist->hashq-table} function
+of Guile's @code{(ice-9 hash-table)} module, @strong{not}
+@code{alist->hash-table}."
   (let ((m (make-hash-table (length lst))))
     ;; first association wins.
     (for-each (lambda (k-v) (hashq-create-handle! m (car k-v) (cdr k-v))) lst)

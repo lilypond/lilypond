@@ -73,9 +73,32 @@ which scares away people.
 @end ignore
 
 @item
+@code{\smallCaps} now works on any markup, not just on a bare
+string.
+
+
+@item
+Text replacements can now replace strings with any markup, not
+just with a string.
+
+@lilypond[verbatim,quote]
+\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
+@end lilypond
+
+
+@item
+A new markup command @code{\with-string-transformer} is available.
+It interprets a markup with a @qq{string transformer} installed;
+the transformer is called when the interpretation of the markup
+requires interpreting a string, and allows to perform modifications
+on this string, such as changing case.
+
+
+@item
 @code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff},
 and @code{VaticanaStaff} now allow line breaks anywhere, and they
 no longer create @code{""} measure bar lines.
+
 
 @item
 @code{Bar_@/engraver} used to forbid line breaks between bar lines

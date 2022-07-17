@@ -3101,6 +3101,15 @@ or locally:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
+The replacement is not necessarily a string; it can be an arbitrary
+markup.  On the syntax level, this requires using Scheme quasi-quoting
+syntax, with a backtick @samp{`} instead of a quote @samp{'} to write
+the alist.
+
+@lilypond[quote,verbatim]
+\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
+@end lilypond
+
 Aliases themselves are not further processed for replacements.
 
 @morerefs

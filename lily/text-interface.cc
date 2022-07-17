@@ -31,107 +31,11 @@
 #include "pango-font.hh"
 #include "program-option.hh"
 #include "international.hh"
+#include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
 
-#include <map>
-
 using std::string;
-
-// This is a little bit ugly, but the replacement alist is setup in
-// the layout block so it'll be the same across invocations.
-
-std::map<string, string> replacement_cache;
-vsize replacement_max;
-Protected_scm replacement_cache_alist_key;
-
-static void
-populate_cache (SCM alist)
-{
-  if (scm_is_eq (alist, static_cast<SCM> (replacement_cache_alist_key)))
-    return;
-
-  replacement_cache.clear ();
-  replacement_max = 0;
-  replacement_cache_alist_key = alist;
-  for (SCM h = alist; scm_is_pair (h); h = scm_cdr (h))
-    {
-      SCM k = scm_caar (h);
-      SCM v = scm_cdar (h);
-      if (!scm_is_string (k) || !scm_is_string (v))
-        continue;
-
-      string orig = ly_scm2string (k);
-      if (orig.empty ())
-        continue;
-
-      string dest = ly_scm2string (v);
-
-      // If an alist has duplicate key entries, only the first must be
-      // considered.
-      if (replacement_cache.insert ({orig, dest}).second)
-        replacement_max = std::max (replacement_max, orig.size ());
-    }
-}
-
-static void
-replace_special_characters (string &str, SCM props)
-{
-  for (vsize i = 0; i < str.size (); i++)
-    if (isspace (str[i]))
-      str[i] = ' ';
-
-  SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
-                                              props,
-                                              SCM_EOL);
-
-  if (scm_is_null (replacement_alist) || str.empty ())
-    return;
-
-  populate_cache (replacement_alist);
-
-  for (vsize i = 0; i < str.size (); i++)
-    {
-      do
-        {
-          // replacement loop while consecutive replacements happen
-          // We break out when this is not the case
-
-          /* Don't match in mid-UTF-8 */
-          if ((str[i] & 0xc0) == 0x80)
-            break;
-
-          // Using a C++17 string_view here instead of substr would
-          // obviate the need for maintaining replacement_max in order
-          // to keep complexity from becoming quadratic in string
-          // length.
-          auto it = replacement_cache.upper_bound (str.substr (i, replacement_max));
-          if (it == replacement_cache.begin ())
-            break;
-
-          --it;
-          // The iterator it now points to largest key smaller or equal
-          // to string tail.  In the case of several keys matching for
-          // their respective entire length, the longest matching key
-          // will be taken, being the lexicographically largest one.
-
-          const string &key = it->first;
-          vsize j = key.length ();
-          // Make sure that entire key is present in the source string
-          if (str.compare (i, j, key) != 0)
-            break;
-
-          const string &replacement = it->second;
-          str.replace (i, j, replacement);
-          // Stop doing replacements at this position and advance in the
-          // string up to just after the text we replaced with. This
-          // ensures that the result of a replacement is never processed
-          // itself for replacements.
-          i += replacement.length ();
-        }
-      while (i < str.size ());
-    }
-}
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string,
                       "ly:text-interface::interpret-string", 3);
@@ -144,9 +48,39 @@ Text_interface::interpret_string (SCM layout_smob,
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
   string str = ly_scm2string (markup);
+
+  /* For now, we hardwire this and don't do it in a user-settable way via
+     string-transformers, since there are errors downstream if the string
+     contains newlines.  We do it on every recursive call, so the result
+     of a string transformer is also modified this way. */
+  for (auto &ch : str)
+    if (isspace (ch))
+      ch = ' ';
+
   Font_metric *fm = select_encoded_font (layout, props);
 
-  replace_special_characters (str, props);
+  SCM transformers = ly_chain_assoc_get (ly_symbol2scm ("string-transformers"),
+                                         props,
+                                         SCM_EOL);
+  if (scm_is_pair (transformers))
+    {
+      // Apply transformers outermost to innermost.  Each yields a
+      // markup list, to which \concat is applied before applying the
+      // next transform.
+
+      // Quadratic in the number of transformers, but we only expect a
+      // handful of them.
+      SCM rev_transformers = scm_reverse (transformers);
+      SCM outer_transformer = scm_car (rev_transformers);
+      SCM inner_transformers = scm_reverse (scm_cdr (rev_transformers));
+      SCM transformed = scm_call_3 (outer_transformer, layout_smob, props, ly_string2scm (str));
+      SCM props_no_outer_transform
+        = scm_cons (scm_acons (ly_symbol2scm ("string-transformers"),
+                               inner_transformers,
+                               SCM_EOL),
+                    props);
+      return interpret_markup (layout_smob, props_no_outer_transform, transformed);
+    }
 
   /*
     We want to filter strings with a music font that pass through
