@@ -673,6 +673,8 @@ run."
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
 
+  forbidBreakBetweenBarLines = ##t % where Bar_engraver is present
+
   measureBarType = "|"
   sectionBarType = "||"
   fineBarType = "|."

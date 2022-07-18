@@ -1558,6 +1558,24 @@ prevent some of the factors mentioned above from disabling breaks.
 
 @itemize
 @item
+@code{Bar_@/engraver} forbids breaks between bar lines when
+@code{forbidBreakBetweenBarLines} is set to true.  To inhibit
+this, set the property to false.
+
+@lilypond[quote,ragged-right,line-width=50,verbatim]
+\layout {
+  \context {
+    \Score
+    forbidBreakBetweenBarLines = ##f
+  }
+}
+
+\fixed c' {
+  c4 d
+}
+@end lilypond
+
+@item
 Note heads and rests extending over bar lines can be made not to
 suppress breaks by removing the @code{Forbid_@/line_@/break_@/engraver}
 from the @code{Voice} context.

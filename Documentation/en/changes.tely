@@ -57,6 +57,8 @@ HINTS
 
 * add new items at the top
 
+* leave two blank lines between items
+
 * only show verbatim input for syntax/input changes
 
 * try to be as brief possible in those cases
@@ -69,6 +71,13 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+@code{Bar_@/engraver} used to forbid line breaks between bar lines
+in all cases, but now it only does so when the
+@code{forbidBreakBetweenBarLines} context property is set to
+@code{#t}, which is the default.
+
 
 @item
 Due to changes in the internals of @code{\bar}, it is no longer

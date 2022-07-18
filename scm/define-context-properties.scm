@@ -373,6 +373,8 @@ staff switches by a thin line.")
      (fontSize ,number? "The relative size of all grobs in a context.")
      (forbidBreak ,boolean? "If set to @code{#t}, prevent a line break
 at this point, except if explicitly requested by the user.")
+     (forbidBreakBetweenBarLines ,boolean? "If set to true,
+@code{Bar_@/engraver} forbids line breaks where there is no bar line.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
 for the full staff.")

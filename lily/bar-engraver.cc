@@ -214,7 +214,8 @@ Bar_engraver::calc_bar_type () const
 
         case BarType::MEASURE:
           // TODO: barAlways seems to be a hack to allow a line break anywhere.
-          // Improve.
+          // The newer property forbidBreakBetweenBarLines is better for that.
+          // Provide feedback that barAlways is deprecated.
           if (from_scm<bool> (get_property (this, "measureStartNow"))
               || from_scm<bool> (get_property (this, "barAlways")))
             {
@@ -387,8 +388,11 @@ Bar_engraver::pre_process_music ()
   // won't be allowed (unless forced) at process-music stage.  That allows some
   // of them to efficiently skip processing that is only needed at potential
   // break points.
-  if (!has_any_glyph_)
-    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+  if (!has_any_glyph_
+      && from_scm<bool> (get_property (this, "forbidBreakBetweenBarLines")))
+    {
+      set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+    }
 }
 
 void
@@ -467,10 +471,10 @@ Bar_engraver::boot ()
 ADD_TRANSLATOR (Bar_engraver,
                 /* doc */
                 R"(
-Create barlines.  This engraver is controlled through the @code{whichBar}
-property.  If it has no bar line to create, it will forbid a linebreak at this
-point.  This engraver is required to trigger the creation of clefs at the start
-of systems.
+Create bar lines for various commands, including @code{\\bar}.
+
+If @code{forbidBreakBetweenBarLines} is true, allow line breaks at bar lines
+only.
                 )",
 
                 /* create */
@@ -487,6 +491,7 @@ endRepeatSegnoBarType
 fineBarType
 fineSegnoBarType
 fineStartRepeatSegnoBarType
+forbidBreakBetweenBarLines
 measureBarType
 repeatCommands
 sectionBarType
