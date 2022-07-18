@@ -81,10 +81,10 @@ refresh-release-files:
 
 
 # Guile bytecode
-bytecode: | all
+bytecode: all
 	$(MAKE) -C scm bytecode
 
-install-bytecode: | install
+install-bytecode: install
 	$(MAKE) -C scm install-bytecode
 
 # PO files
