@@ -1464,7 +1464,11 @@ adapted for typesetting within a chord grid.")))
            (set! square (ly:engraver-make-grob engraver 'ChordSquare '()))
            (ly:spanner-set-bound! square LEFT grob)
            (set! new-square-created #t)
-           (set! index 0))))
+           (set! index 0)))
+       (when first-timestep
+         ;; If we do have a bar line at the beginning, make it the bound of the
+         ;; already created chord square.
+         (ly:spanner-set-bound! square LEFT grob)))
       ((grid-chord-name-interface engraver grob source-engraver)
        (set! chord-name grob)))
      ((stop-translation-timestep engraver)
