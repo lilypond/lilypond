@@ -145,18 +145,6 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION, [
 ### Macros to build configure.ac
 
 
-AC_DEFUN(STEPMAKE_BIBTEX2HTML, [
-    STEPMAKE_PROGS(BIBTEX2HTML, bibtex2html bib2html, $1)
-    if test "$BIBTEX2HTML" = "bib2html"; then
-        BIBTEX2HTML_FLAGS='$< $(@)'
-    else
-        BIBTEX2HTML_FLAGS='-o $(@D)/$(*F) $<'
-    fi
-    AC_SUBST(BIBTEX2HTML)
-    AC_SUBST(BIBTEX2HTML_FLAGS)
-])
-
-
 AC_DEFUN(STEPMAKE_BISON, [
     STEPMAKE_PROGS(BISON, bison, $1)
 
