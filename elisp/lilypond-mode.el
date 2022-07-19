@@ -329,7 +329,7 @@ in LilyPond-include-path."
 
 
 ;; If non-nil, LilyPond-command-query will return the value of this
-;; variable instead of quering the user.
+;; variable instead of querying the user.
 (defvar LilyPond-command-force nil)
 
 (defcustom LilyPond-lilypond-command "lilypond"
