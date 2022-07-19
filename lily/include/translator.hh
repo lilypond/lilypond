@@ -41,10 +41,11 @@
 
 class Translator_creator : public Smob<Translator_creator>
 {
-  Translator_creator (Translator_creator const &); // don't define
+  // no need to copy
+  Translator_creator (Translator_creator const &) = delete;
+  Translator_creator &operator = (Translator_creator const &) = delete;
+
   Translator *(*allocate_) (Context *);
-  template <class T>
-  static Translator *allocate (Context *ctx);
 
   Translator_creator (Translator * (*allocate) (Context *))
     : allocate_ (allocate)
@@ -57,17 +58,15 @@ public:
   template <class T>
   static Translator_creator *alloc ()
   {
-    return new Translator_creator (&allocate<T>);
+    auto allocate = [] (Context * ctx)->Translator *
+    {
+      return new T (ctx);
+    };
+    return new Translator_creator (allocate);
   }
   SCM call (SCM ctx);
   LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
 };
-
-template <class T> Translator *
-Translator_creator::allocate (Context *ctx)
-{
-  return new T (ctx);
-}
 
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
@@ -108,7 +107,7 @@ private:                                                                \
     listener_list_ = scm_acons (event_class_sym, proc, listener_list_); \
   }                                                                     \
 public:
-  /* end #define */
+/* end #define */
 
 enum Translator_precompute_index
 {
