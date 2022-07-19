@@ -1087,7 +1087,7 @@ The Insert Tag -menu is split into parts if it is long enough."
     (message "%s" "LilyPond-imenu already exists.")))
 (put 'LilyPond-add-imenu-menu 'menu-enable '(not LilyPond-imenu))
 
-(defun LilyPond-mode ()
+(define-derived-mode LilyPond-mode prog-mode "LilyPond-mode"
   "Major mode for editing LilyPond music files.
 
 This mode knows about LilyPond keywords and line comments, not about
@@ -1099,7 +1099,6 @@ COMMANDS
 VARIABLES
 
 LilyPond-command-alist\t\talist from name to command"
-  (interactive)
   ;; set up local variables
   (kill-all-local-variables)
 
