@@ -1,6 +1,6 @@
 ;;;; lilypond-mode.el -- Major mode for editing GNU LilyPond music scores
 ;;;; This file is part of LilyPond, the GNU music typesetter.
-;;;;  
+;;;;
 ;;;; Copyright (C) 1999--2022 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
 ;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
@@ -55,7 +55,7 @@
 
 (defvar LilyPond-command-history nil
   "Command history list.")
-	
+
 (defvar LilyPond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
@@ -77,7 +77,7 @@ Finds file lilypond-words.el from load-path."
 	(words-file "lilypond-words.el"))
     (while (and (> (length lp) 0) (not fn))
       (setq fn (concat (car lp) "/" words-file))
-      (if (not (file-readable-p fn)) 
+      (if (not (file-readable-p fn))
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     (if (not fn)
 	(progn (message "Warning: `lilypond-words.el' not found in `load-path'. See `lilypond-init.el'.")
@@ -115,7 +115,7 @@ Finds file lilypond-words.el from load-path."
 (defvar LilyPond-insert-tag-current ""
   "The last command selected from the LilyPond-Insert -menu.")
 
-(defconst LilyPond-menu-keywords 
+(defconst LilyPond-menu-keywords
   (let ((wordlist '())
 	(co (all-completions "" (LilyPond-add-dictionary-word ())))
 	(currword ""))
@@ -153,7 +153,7 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond \\keywords")
 
-(defconst LilyPond-identifiers 
+(defconst LilyPond-identifiers
   (let ((wordlist '("\\voiceOne"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
@@ -172,7 +172,7 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond \\Identifiers")
 
-(defconst LilyPond-Capitalized-Reserved-Words 
+(defconst LilyPond-Capitalized-Reserved-Words
   (let ((wordlist '("StaffContext"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
@@ -246,7 +246,7 @@ in LilyPond-include-path."
 	(running nil))
     (while (setq process-name (pop process-names))
       (setq process (get-process process-name))
-      (if (and process 
+      (if (and process
 	       (eq (process-status process) 'run))
 	  (push process-name running)))
     running)) ; return the running jobs
@@ -257,7 +257,7 @@ in LilyPond-include-path."
 	(running nil))
     (while (setq process-name (pop process-names))
       (setq process (get-process process-name))
-      (if (and process 
+      (if (and process
 	       (eq (process-status process) 'run))
 	  (push process-name running)))
     running)) ; return the running jobs
@@ -329,7 +329,7 @@ in LilyPond-include-path."
 
 
 ;; If non-nil, LilyPond-command-query will return the value of this
-;; variable instead of quering the user. 
+;; variable instead of quering the user.
 (defvar LilyPond-command-force nil)
 
 (defcustom LilyPond-lilypond-command "lilypond"
@@ -377,7 +377,7 @@ in LilyPond-include-path."
     (if (stringp result)
 	(string-to-number result)
       result)))
-    
+
 (defun count-rexp (start end rexp)
   "Print number of found regular expressions in the region."
   (interactive "r")
@@ -392,13 +392,13 @@ in LilyPond-include-path."
   (if (eq LilyPond-command-current 'LilyPond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point-max) "\\\\midi")))
- 
+
 (defun count-midi-words-backwards ()
   "Check number of midi-scores before the curser."
   (if (eq LilyPond-command-current 'LilyPond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point) "\\\\midi")))
- 
+
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
@@ -445,7 +445,7 @@ in LilyPond-include-path."
 
     ;; The following are refreshed in LilyPond-command:
     ;; - current-midi depends on cursor position and
-    ("Midi" . ("")) ; 
+    ("Midi" . ("")) ;
     ;; - all-midi depends on number of midi-score.
     ("MidiAll" . (""))
     )
@@ -472,7 +472,7 @@ LilyPond-expand-list.
   :type 'string)
 
 
-(defcustom LilyPond-expand-alist 
+(defcustom LilyPond-expand-alist
   '(
     ("%s" . ".ly")
     ("%t" . ".tex")
@@ -483,12 +483,12 @@ LilyPond-expand-list.
     ("%x" . ".tely")
     ("%m" . ".midi")
     )
-    
+
   "Alist of expansion strings for LilyPond command names."
   :group 'LilyPond
   :type '(repeat (cons :tag "Alist item"
 		  (string :tag "Symbol")
-		  (string :tag "Expansion")))) 
+		  (string :tag "Expansion"))))
 
 
 (defcustom LilyPond-command-Show "View"
@@ -533,7 +533,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	      (LilyPond-save-buffer)))
 	((y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
 	 (revert-buffer t t)))
-    
+
   (let* ((default (LilyPond-find-required-command LilyPond-command-next name))
 	 (completion-ignore-case t)
 	 (answer (or LilyPond-command-force
@@ -651,10 +651,10 @@ Must be the car of an entry in `LilyPond-command-alist'."
     (switch-to-buffer-other-window buffer)
     ;; If we empty the buffer don't see messages scroll by.
     ;; (erase-buffer)
-    
+
     (start-process-shell-command name buffer command)
     (switch-to-buffer-other-window old)))
-  
+
 
 (defun LilyPond-command (name file)
   "Run command NAME on the file you get by calling FILE.
@@ -724,10 +724,10 @@ command."
 			   (next-command (nth 3 (cdr entry))))
 		      (or next-command
 			  LilyPond-command-default)))
-	      
+
 	      (if (string-equal job-string "no jobs")
 		  (LilyPond-compile-file command name))))))))
-	  
+
 (defun LilyPond-mark-active ()
   "Check if there is an active mark."
   (and transient-mark-mode
@@ -793,7 +793,7 @@ command."
 (defun LilyPond-quick-insert-mode ()
   "Insert notes with fewer key strokes by using a simple keyboard piano."
   (interactive)
-  (progn 
+  (progn
     (message "Invoke (C-c q) from keyboard. If you still see this message,") (sit-for 5 0)
     (message "then you have not installed LilyPond Quick Insert Mode (lyqi).") (sit-for 5 0)
     (message "Download lyqi from http://nicolas.sceaux.free.fr/lilypond/lyqi.html,") (sit-for 5 0)
@@ -802,7 +802,7 @@ command."
     (message "Download eieio from http://cedet.sourceforge.net/eieio.shtml,") (sit-for 5 0)
     (message "see installation instructions from eieio's INSTALL -file.") (sit-for 5 0)
     (message "")
-    ))    
+    ))
 
 (defun LilyPond-pre-word-search ()
   "Fetch the alphabetic characters and \\ in front of the cursor."
@@ -848,19 +848,19 @@ command."
 	    (progn
 	      (delete-region (point) (+ (point) (length post)))
 	      (font-lock-fontify-buffer))) ; only inserting fontifies
-	
+
 	(setq complist (all-completions pre (LilyPond-add-dictionary-word ())))
 	(while (> (length complist) 0)
 	  (setq compsstr (concat compsstr "\"" (car complist) "\" "))
 	  (setq complist (cdr complist)))
-	(message compsstr) 
+	(message compsstr)
 	(sit-for 0 100)))))
 
 (defun LilyPond-info ()
   "Launch Info for lilypond."
   (interactive)
   (info "lilypond-notation"))
-  
+
 (defun LilyPond-music-glossary-info ()
   "Launch Info for music-glossary."
   (interactive)
@@ -870,12 +870,12 @@ command."
   "Launch Info for lilypond-internals."
   (interactive)
   (info "lilypond-internals"))
-  
+
 (defun LilyPond-info-index-search ()
   "In `*info*'-buffer, launch `info lilypond --index-search word-under-cursor'"
   (interactive)
   (let ((str (concat (LilyPond-pre-word-search) (LilyPond-post-word-search))))
-    (if (and (> (length str) 0) 
+    (if (and (> (length str) 0)
 	     (string-equal (substring str 0 1) "\\"))
 	(setq str (substring str 1 nil)))
     (LilyPond-info)
@@ -911,26 +911,26 @@ command."
    (if found (insert word))
    (if (> (get-buffer-size b) (marker-position m))
        (setq copy (car (copy-alist (list (eval (symbol-name (read m))))))))
-   (if (not (string-equal "-" copy)) 
+   (if (not (string-equal "-" copy))
        (setq found nil))
    (while (and found (> (get-buffer-size b) (marker-position m)))
     ;; find next symbol
     (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
     ;; check whether it is the word, or the word has been found
-    (cond 
+    (cond
      ((string-equal "-" copy) (setq found nil))
      ((string-equal "%" copy) (insert " " (read-string "Give Arguments: ")))
-     ((string-equal "_" copy) 
-      (progn 
+     ((string-equal "_" copy)
+      (progn
        (setq p (point))
        (goto-char (+ p distance))))
      ((string-equal "\?" copy) (setq query t))
      ((string-equal "\!" copy) (setq query nil))
-     ((string-equal "\\n" copy) 
+     ((string-equal "\\n" copy)
       (if (not query)
        (progn (LilyPond-indent-line) (insert "\n") (LilyPond-indent-line))))
-     ((string-equal "{" copy) 
-      (if (not query) 
+     ((string-equal "{" copy)
+      (if (not query)
 	  (progn (insert " { "))))
      ((string-equal "}" copy)
       (if (not query)
@@ -996,7 +996,7 @@ command."
   (vector arg (list 'LilyPond-insert-tag-current arg) :style 'radio :selected (list 'eq 'LilyPond-insert-tag-current arg)))
 
 (defun LilyPond-menu-keywords ()
-  "Make Insert Tag menu. 
+  "Make Insert Tag menu.
 
 The Insert Tag -menu is split into parts if it is long enough."
 
@@ -1006,11 +1006,11 @@ The Insert Tag -menu is split into parts if it is long enough."
 	(imin 0) imax lw rw)
     (while (< imin (length LilyPond-menu-keywords))
       (setq imax (- (min (+ imin w) (length LilyPond-menu-keywords)) 1))
-      (setq lw (nth imin LilyPond-menu-keywords)) 
+      (setq lw (nth imin LilyPond-menu-keywords))
       (setq rw (nth imax LilyPond-menu-keywords))
       (add-to-list 'split
-         (let ((l (list (concat (substring lw 0 (min 7 (length lw))) 
-				" ... " 
+         (let ((l (list (concat (substring lw 0 (min 7 (length lw)))
+				" ... "
 				(substring rw 0 (min 7 (length rw)))))))
 	   (while (<= imin imax)
 	     (add-to-list 'l (nth imin li))
@@ -1024,8 +1024,8 @@ The Insert Tag -menu is split into parts if it is long enough."
   "Menu used in LilyPond mode."
   (append '("LilyPond")
 	  '(["Add index menu" LilyPond-add-imenu-menu])
-	  (list (cons "Insert tag" 
-                (cons ["Previously selected" LilyPond-insert-tag-current t] 
+	  (list (cons "Insert tag"
+                (cons ["Previously selected" LilyPond-insert-tag-current t]
                 (cons "-----"
 		      (LilyPond-menu-keywords)))))
 	  '(("Miscellaneous"
@@ -1112,8 +1112,8 @@ LilyPond-command-alist\t\talist from name to command"
 
   ;; Multi-line font-locking needs Emacs 21.1 or newer.
   ;; For older versions there is hotkey "C-c f".
-  (make-local-variable 'font-lock-multiline) 
-  (setq font-lock-multiline t) 
+  (make-local-variable 'font-lock-multiline)
+  (setq font-lock-multiline t)
 
   (make-local-variable 'paragraph-separate)
   (setq paragraph-separate "^[ \t]*$")
@@ -1133,7 +1133,7 @@ LilyPond-command-alist\t\talist from name to command"
   (make-local-variable 'block-comment-start)
   (setq block-comment-start "%{")
 
-  (make-local-variable 'block-comment-end)  
+  (make-local-variable 'block-comment-end)
   (setq block-comment-end   "%}")
 
   (make-local-variable 'indent-line-function)
@@ -1203,4 +1203,3 @@ LilyPond-command-alist\t\talist from name to command"
 
 (provide 'lilypond-mode)
 ;;; lilypond-mode.el ends here
-
