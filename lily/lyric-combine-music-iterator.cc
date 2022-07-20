@@ -19,7 +19,6 @@
 
 #include "context.hh"
 #include "dispatcher.hh"
-#include "global-context.hh"
 #include "grob.hh"
 #include "input.hh"
 #include "international.hh"
@@ -125,9 +124,6 @@ Lyric_combine_music_iterator::start_new_syllable () const
       if (m)
         return false;
     }
-
-  if (find_global_context (get_context ())->is_at_final_moment ()) // \fine
-    return false;
 
   return true;
 }
