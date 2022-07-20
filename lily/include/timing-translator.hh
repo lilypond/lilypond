@@ -31,7 +31,6 @@ public:
   TRANSLATOR_DECLARATIONS (Timing_translator);
 
 protected:
-  void derived_mark () const override;
   void initialize () override;
   void listen_alternative (Stream_event *);
   void listen_bar (Stream_event *);

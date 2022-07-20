@@ -26,13 +26,6 @@
 #include "lily-imports.hh"
 
 void
-Timing_translator::derived_mark () const
-{
-  if (alt_event_)
-    scm_gc_mark (alt_event_->self_scm ());
-}
-
-void
 Timing_translator::listen_alternative (Stream_event *ev)
 {
   // Use alternative bar numbers for the outermost volta brackets.

@@ -26,7 +26,7 @@ class Time_signature_performer : public Performer
 {
   Audio_time_signature *audio_ = nullptr;
   SCM last_time_fraction_ = SCM_BOOL_F;
-  SCM time_cause_ = SCM_EOL;
+  Stream_event *event_ = nullptr;
 
 protected:
   void derived_mark () const override;
@@ -41,7 +41,6 @@ void
 Time_signature_performer::derived_mark () const
 {
   scm_gc_mark (last_time_fraction_);
-  scm_gc_mark (time_cause_);
 }
 
 Time_signature_performer::Time_signature_performer (Context *c)
@@ -52,7 +51,7 @@ Time_signature_performer::Time_signature_performer (Context *c)
 void
 Time_signature_performer::listen_time_signature (Stream_event *ev)
 {
-  time_cause_ = ev->self_scm ();
+  event_ = ev;
 }
 
 void
@@ -70,8 +69,7 @@ Time_signature_performer::process_music ()
   // get reemitted at the start of the next bar in order to have MIDI
   // devices resynchronise to the meter.  \partial has no viable
   // representation in Midi.
-  if (scm_is_pair (fr) && (unsmob<Stream_event> (time_cause_)
-                           || !ly_is_equal (fr, last_time_fraction_)))
+  if (scm_is_pair (fr) && (event_ || !ly_is_equal (fr, last_time_fraction_)))
     {
       last_time_fraction_ = fr;
       int b = scm_to_int (scm_car (fr));
@@ -89,10 +87,13 @@ Time_signature_performer::process_music ()
           || base_moment_clocks.numerator () < 1
           || base_moment_clocks.numerator () > 255)
         {
-          if (Stream_event *cause = unsmob<Stream_event> (time_cause_))
-            cause->warning (_ ("bad baseMoment/beatStructure for MIDI time signature"));
+          const auto &msg = _ ("bad baseMoment/beatStructure"
+                               " for MIDI time signature");
+          if (event_)
+            event_->warning (msg);
           else
-            warning (_ ("bad baseMoment/beatStructure for MIDI time signature"));
+            warning (msg);
+
           // Use a quarter note, 24 MIDI clocks
           base_moment_clocks = 24;
         }
@@ -107,7 +108,7 @@ void
 Time_signature_performer::stop_translation_timestep ()
 {
   audio_ = nullptr;
-  time_cause_ = SCM_EOL;
+  event_ = nullptr;
 }
 
 #include "translator.icc"

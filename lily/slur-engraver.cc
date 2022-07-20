@@ -103,23 +103,6 @@ doubleSlurs
                 )");
 
 void
-Slur_engraver::derived_mark () const
-{
-  for (vsize i = start_events_.size (); i--;)
-    {
-      scm_gc_mark (start_events_[i].slur_->self_scm ());
-      if (start_events_[i].note_)
-        scm_gc_mark (start_events_[i].note_->self_scm ());
-    }
-  for (vsize i = stop_events_.size (); i--;)
-    {
-      scm_gc_mark (stop_events_[i].slur_->self_scm ());
-      if (stop_events_[i].note_)
-        scm_gc_mark (stop_events_[i].note_->self_scm ());
-    }
-}
-
-void
 Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
 {
   Direction d = from_scm<Direction> (get_property (ev, "span-direction"));

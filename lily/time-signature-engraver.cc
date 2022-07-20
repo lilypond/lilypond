@@ -35,7 +35,7 @@ class Time_signature_engraver : public Engraver
 {
   Item *time_signature_ = nullptr;
   SCM last_time_fraction_ = SCM_BOOL_F;
-  SCM time_cause_ = SCM_EOL;
+  Stream_event *event_ = nullptr;
 
 protected:
   void derived_mark () const override;
@@ -50,7 +50,6 @@ void
 Time_signature_engraver::derived_mark () const
 {
   scm_gc_mark (last_time_fraction_);
-  scm_gc_mark (time_cause_);
 }
 
 Time_signature_engraver::Time_signature_engraver (Context *c)
@@ -61,7 +60,7 @@ Time_signature_engraver::Time_signature_engraver (Context *c)
 void
 Time_signature_engraver::listen_time_signature (Stream_event *ev)
 {
-  time_cause_ = ev->self_scm ();
+  event_ = ev;
 }
 
 void
@@ -73,7 +72,8 @@ Time_signature_engraver::process_music ()
   SCM fr = get_property (this, "timeSignatureFraction");
   if (!scm_is_eq (last_time_fraction_, fr) && scm_is_pair (fr))
     {
-      time_signature_ = make_item ("TimeSignature", time_cause_);
+      time_signature_ = make_item ("TimeSignature",
+                                   event_ ? to_scm (event_) : SCM_EOL);
       set_property (time_signature_, "fraction", fr);
 
       if (scm_is_false (last_time_fraction_))
@@ -100,7 +100,7 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
-  if (time_signature_ && !scm_is_null (time_cause_))
+  if (time_signature_ && event_)
     {
       // Avoid measure_position (context ()) here because its result is
       // normalized to be >= 0 always.
@@ -111,7 +111,7 @@ Time_signature_engraver::stop_translation_timestep ()
     }
 
   time_signature_ = nullptr;
-  time_cause_ = SCM_EOL;
+  event_ = nullptr;
 }
 
 void

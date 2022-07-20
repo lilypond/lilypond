@@ -74,7 +74,6 @@ protected:
 
   virtual void set_melisma (bool);
   void finalize () override;
-  void derived_mark () const override;
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);

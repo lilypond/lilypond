@@ -46,18 +46,7 @@ protected:
   void listen_staff_span (Stream_event *);
   void finalize () override;
   void process_music ();
-  void derived_mark () const override;
 };
-
-void
-Staff_symbol_engraver::derived_mark () const
-{
-  for (const auto d : {LEFT, RIGHT})
-    {
-      if (span_events_[d])
-        scm_gc_mark (span_events_[d]->self_scm ());
-    }
-}
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
