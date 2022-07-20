@@ -198,8 +198,8 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 
   // Handle no-continuation here, don't even add it to the already existing
   // spanner... This fixes some layout issues (figure will be placed separately)
-  bool no_continuation = from_scm<bool> (get_property (ev, "no-continuation"));
-  if (from_scm<bool> (get_property (this, "useBassFigureExtenders")) && !no_continuation)
+  if (from_scm<bool> (get_property (this, "useBassFigureExtenders"))
+      && !from_scm<bool> (get_property (ev, "no-continuation")))
     {
       for (vsize i = 0; i < groups_.size (); i++)
         {
@@ -294,9 +294,9 @@ Figured_bass_engraver::process_music ()
     clear_spanners ();
 
   // If we have a rest, or we have no new or continued events, clear all spanners
-  bool ignore_rest = from_scm<bool> (get_property (this, "ignoreFiguredBassRest"));
-  if ((ignore_rest && have_rest_)
-      || (!continuation_ && new_events_.empty ()))
+  if ((!continuation_ && new_events_.empty ())
+      || (have_rest_
+          && from_scm<bool> (get_property (this, "ignoreFiguredBassRest"))))
     {
       clear_spanners ();
       groups_.clear ();
