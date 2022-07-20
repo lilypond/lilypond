@@ -18,9 +18,7 @@
 */
 
 #include "performer.hh"
-
 #include "audio-item.hh"
-#include "global-context.hh"
 #include "stream-event.hh"
 #include "international.hh"
 
@@ -410,15 +408,9 @@ Dynamic_performer::process_music ()
       volume = equalize_volume (Audio_span_dynamic::DEFAULT_VOLUME);
     }
 
-  // End the current span at relevant points.
-  //
-  // Explicitly ending the span at the final moment avoids breaking an
-  // invariant when a note begins there (possible with c1*0, e.g.): no note is
-  // ever associated with the endpoint of a non-empty dynamic span; instead, it
-  // is associated with the start of the next dynamic span.
+  // end the current span at relevant points
   if (open_span_.dynamic_
-      && (span_events_[START] || span_events_[STOP] || script_event_
-          || find_global_context ()->is_at_final_moment ()))
+      && (span_events_[START] || span_events_[STOP] || script_event_))
     {
       close_and_enqueue_span ();
       if (script_event_)
