@@ -44,13 +44,11 @@ protected:
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;
-  bool slur_;
 };
 
 Slur_performer::Slur_performer (Context *c)
   : Performer (c)
 {
-  slur_ = false;
   start_ev_ = 0;
   now_stop_ev_ = 0;
 }
@@ -58,23 +56,16 @@ Slur_performer::Slur_performer (Context *c)
 void
 Slur_performer::process_music ()
 {
-  if (now_stop_ev_)
-    {
-      slur_ = false;
-      set_melisma (false);
-    }
-
   if (start_ev_)
-    {
-      slur_ = true;
-      set_melisma (true);
-    }
+    set_melisma (true);
+  else if (now_stop_ev_)
+    set_melisma (false);
 }
 
 void
 Slur_performer::set_melisma (bool ml)
 {
-  set_property (context (), "slurMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
+  set_property (context (), "slurMelismaBusy", to_scm (ml));
 }
 
 void

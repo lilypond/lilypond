@@ -39,13 +39,11 @@ protected:
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;
-  bool beam_;
 };
 
 Beam_performer::Beam_performer (Context *c)
   : Performer (c)
 {
-  beam_ = false;
   start_ev_ = 0;
   now_stop_ev_ = 0;
 }
@@ -53,25 +51,17 @@ Beam_performer::Beam_performer (Context *c)
 void
 Beam_performer::process_music ()
 {
-  if (now_stop_ev_)
-    {
-      beam_ = false;
-      set_melisma (false);
-    }
-
   if (start_ev_)
-    {
-      beam_ = true;
-      set_melisma (true);
-    }
+    set_melisma (true);
+  else if (now_stop_ev_)
+    set_melisma (false);
 }
 
 void
 Beam_performer::set_melisma (bool ml)
 {
-  SCM b = get_property (this, "autoBeaming");
-  if (!from_scm<bool> (b))
-    set_property (context (), "beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
+  if (!from_scm<bool> (get_property (this, "autoBeaming")))
+    set_property (context (), "beamMelismaBusy", to_scm (ml));
 }
 
 void
