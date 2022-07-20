@@ -16,7 +16,38 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.6"
+\version "2.23.12"
+
+EnableGregorianDivisiones = \with
+{
+  \description "Configure division commands such as @code{\\section}
+to create @code{Divisio} grobs rather than @code{BarLine} grobs.  This
+does not affect measure bar lines or the properties of the grobs
+themselves."
+
+  caesuraTypeTransform = #caesura-to-divisio
+
+  %% The caesuraTypeTransform procedure will create finalis signs for
+  %% \section, \fine, and \repeat volta, so we don't need visible bar
+  %% lines.
+  %%
+  %% This is most likely to be used when forbidBreakBetweenBarLines is
+  %% false, but to support the other case, we set "" to allow line
+  %% breaks.
+  doubleRepeatBarType = #'()
+  endRepeatBarType = #'()
+  fineBarType = ""
+  sectionBarType = ""
+  startRepeatBarType = #'()
+  underlyingRepeatBarType = ""
+  %% It does not seem likely that anyone will use in-staff segno, but ...
+  doubleRepeatSegnoBarType = "S-||"
+  endRepeatSegnoBarType = "S-||"
+  fineSegnoBarType = "S-||"
+  fineStartRepeatSegnoBarType = "S-||"
+  segnoBarType = "S-||"
+  startRepeatSegnoBarType = "S-||"
+}
 
 RemoveEmptyStaves = \with {
   \override VerticalAxisGroup.remove-empty = ##t

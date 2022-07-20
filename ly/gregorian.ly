@@ -98,25 +98,20 @@ cavum =
 % Declare divisiones shortcuts.
 %
 virgula = {
-  \once \set breathMarkType = #'comma
+  \once \set Staff.caesuraType = #'((breath . comma))
   \caesura
 }
 divisioMinima = {
-  \once \set breathMarkType = #'chantquarterbar
+  \once \set Staff.caesuraType = #'((breath . chantquarterbar))
   \caesura
 }
 divisioMaior = {
-  \once \set breathMarkType = #'chanthalfbar
-  \caesura
+  \caesura \shortfermata
 }
 divisioMaxima = {
-  \once \set breathMarkType = #'chantfullbar
-  \caesura
+  \caesura \fermata
 }
-finalis = {
-  \once \set breathMarkType = #'chantdoublebar
-  \caesura
-}
+finalis = \section
 
 %
 % Declare articulation shortcuts.

@@ -3935,6 +3935,7 @@ default setting of this property:
 @item @code{BreathingSign}       @tab @code{Voice}          @tab @code{begin-of-line-invisible}
 @item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
+@item @code{Divisio}             @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
 @item @code{KeyCancellation}     @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}

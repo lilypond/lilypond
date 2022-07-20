@@ -73,6 +73,31 @@ which scares away people.
 @end ignore
 
 @item
+The predefined commands for Gregorian divisiones are no longer
+variations on @code{\breathe}.  @code{\divisioMinima},
+@code{\divisioMaior}, @code{\divisioMaxima}, and @code{\virgula}
+are variations on the basic @code{\caesura}.  @code{\finalis} is
+equivalent to @code{\section}.
+
+@c Note: Once Bar_engraver is capable of interpreting \caesura, I
+@c expect to switch GregorianTranscriptionStaff to use it rather
+@c than Divisio_engraver. [DE]
+@code{GregorianTranscriptionStaff}, @code{MensuralStaff} and
+@code{VaticanaStaff} use @code{Divisio_@/engraver} to interpret
+the above commands as well as @code{\repeat volta} and
+@code{\fine}.
+
+@lilypond[verbatim,quote]
+\new MensuralStaff \fixed c' {
+  \repeat volta 2 { f2 f }
+  g1
+  a1 \section
+  b1 \fine
+}
+@end lilypond
+
+
+@item
 The bar type @code{"-span|"} creates a @notation{mensurstrich}.
 
 @lilypond[quote]

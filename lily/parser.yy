@@ -4685,7 +4685,8 @@ add_post_events (Music *m, SCM events)
 		return false;	// successfully added -- nothing
 
 	while (m) {
-		if (m->is_mus_type ("rhythmic-event")) {
+		if (m->is_mus_type ("rhythmic-event")
+		    || m->is_mus_type ("caesura-event")) {
 			set_property
 				(m, "articulations",
 				 scm_append_x (scm_list_2

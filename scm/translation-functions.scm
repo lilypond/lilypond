@@ -20,6 +20,26 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; caesura
+
+(define-public (caesura-to-divisio context caesura-type observations)
+  "@code{caesuraTypeTransform} callback to print articulated caesurae as
+chant breath marks."
+  ;; TODO: When updating Bar_engraver to handle \caesura, add
+  ;; (bar-line . "") here to allow a line break at \caesura even when
+  ;; forbidBreakBetweenBarLines is true.
+  (let ((arts (assq-ref caesura-type 'articulations)))
+    (cond
+     ((memq 'fermata arts)
+      `((articulations . ,(delq 'fermata arts))
+        (breath . chantfullbar)))
+     ((memq 'shortfermata arts)
+      `((articulations . ,(delq 'shortfermata arts))
+        (breath . chanthalfbar)))
+     (else
+      caesura-type))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clefs
 
 (define-public (clef-transposition-markup oct style)

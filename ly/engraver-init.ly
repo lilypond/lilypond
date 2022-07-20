@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.11"
+\version "2.23.12"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -123,23 +123,38 @@ to be modified directly."
   \description "An internal @code{Staff} type with settings shared by
 multiple ancient notation schemes."
 
-  %% Let \section and \fine produce a bar line resembling the finalis
-  %% sign.
-  sectionBarType = "||"
-  fineBarType = "||"
+  \consists Divisio_engraver
 
-  %% Delimit repeated sections with bar lines that look like the
-  %% finalis sign.  Repetition is indicated with roman numerals in the
-  %% text, e.g. "ij" for twice and "iij" for thrice.
-  startRepeatBarType = "||" %% TODO: research break visibility
-  doubleRepeatBarType = "||" %% TODO: research break visibility
+  caesuraType = #'((breath . varcomma))
+  %% TODO: Make Bar_engraver capable of creating BarLine analogs of
+  %% Divisio grobs at \caesura, enable it something like this,
+  %%
+  %%   caesuraTypeTransform = #caesura-to-bar-line-or-divisio
+  %%
+  %% and fix up GregorianTranscriptionStaff to rely on this mode
+  %% rather than enabling all Divisio grobs.
+
+  %% The chosen caesuraTypeTransform prefers BarLine over Divisio.
+  %% Also create bar lines for \section, \fine, and \repeat volta.
+  doubleRepeatBarType = "||"
   endRepeatBarType = "||"
+  fineBarType = "||"
+  sectionBarType = "||"
+  startRepeatBarType = "||"
+  underlyingRepeatBarType = "||"
+  %% It does not seem likely that anyone will use in-staff segno, but ...
+  doubleRepeatSegnoBarType = "S-||"
+  endRepeatSegnoBarType = "S-||"
+  fineSegnoBarType = "S-||"
+  fineStartRepeatSegnoBarType = "S-||"
+  segnoBarType = "S-||"
+  startRepeatSegnoBarType = "S-||"
 
+  %% Maintain these BreathingSign settings in case someone follows old
+  %% documentation or examples that use \breathe rather than \caesura.
   \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
   \override BreathingSign.extra-spacing-height =
     #item::extra-spacing-height-including-staff
-
-  breathMarkType = #'varcomma % default for \caesura
 
   %% Accidentals are valid only once (same as
   %% \accidentalStyle forget)
@@ -730,6 +745,8 @@ run."
   breathMarkDefinitions = #default-breath-alist
   breathMarkType = #'comma
 
+  caesuraType = #'((breath . caesura))
+
   completionFactor = #unity-if-multimeasure
 
   scriptDefinitions = #default-script-alist
@@ -1183,15 +1200,22 @@ of Editio Vaticana."
   forbidBreakBetweenBarLines = ##f
   measureBarType = #'()
 
-  %% Mark bar lines a little thinner to match the breathing signs.
-  %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
+  \EnableGregorianDivisiones
+
+  %% Mark bar lines a little thinner to match the divisiones.
+  %% BarLine.hair-thickness = StaffSymbol.thickness * Divisio.thickness
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
-  %% Reduce the size of caesura and virgula marks.
+  %% Match BreathingSign to Divisio in case someone follows old
+  %% documentation or examples that use \breathe.
   \override BreathingSign.font-size = #-2
-  %% Match the thickness of divisiones to the staff lines.
   \override BreathingSign.thickness = #1
+
+  %% Reduce the size of caesura and virgula marks.
+  \override Divisio.font-size = #-2
+  %% Match the thickness of divisiones to the staff lines.
+  \override Divisio.thickness = #1
 
   \override StaffSymbol.line-count = #4
   \override StaffSymbol.thickness = #0.6
@@ -1270,6 +1294,11 @@ two syllables) as used in the notational style of Editio Vaticana."
   %% is supposed to be "modern style", so we break lines on measure
   %% boundaries.
   measureBarType = ""
+
+  %% TODO: Make Bar_engraver capable of creating BarLine analogs of
+  %% Divisio grobs at \caesura, enable it in InternalGregorianStaff,
+  %% and remove this line.
+  \EnableGregorianDivisiones
 }
 
 \context {
@@ -1321,15 +1350,22 @@ accommodated for typesetting a piece in mensural style."
   forbidBreakBetweenBarLines = ##f
   measureBarType = #'()
 
-  %% Mark bar lines a little thinner to match the breathing signs.
-  %% BarLine.hair-thickness = StaffSymbol.thickness * BreathingSign.thickness
+  \EnableGregorianDivisiones
+
+  %% Mark bar lines a little thinner to match the divisiones.
+  %% BarLine.hair-thickness = StaffSymbol.thickness * Divisio.thickness
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
-  %% Reduce the size of caesura and virgula marks.
+  %% Match BreathingSign to Divisio in case someone follows old
+  %% documentation or examples that use \breathe.
   \override BreathingSign.font-size = #-2
-  %% Match the thickness of divisiones to the staff lines.
   \override BreathingSign.thickness = #1
+
+  %% Reduce the size of caesura and virgula marks.
+  \override Divisio.font-size = #-2
+  %% Match the thickness of divisiones to the staff lines.
+  \override Divisio.thickness = #1
 
   \override StaffSymbol.thickness = #0.6
 

@@ -14,7 +14,9 @@ finalis, the latter three looking similar to bar glyphs.
   \context {
     \Staff
     \remove Bar_engraver
-    breathMarkType = #'varcomma % Gregorian \caesura
+    \consists Divisio_engraver
+    caesuraType = #'((breath . varcomma))
+    caesuraTypeTransform = #caesura-to-divisio
   }
 
   \context {

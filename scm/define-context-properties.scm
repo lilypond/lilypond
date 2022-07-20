@@ -190,6 +190,31 @@ to make beats.")
 @code{\\breathe}.")
 
 
+     ;; TODO: When Bar_engraver is updated to handle \caesura,
+     ;; caesuraType will have an entry specifying the type of bar line
+     ;; to create.
+     ;;
+     ;; TODO: When there is a Caesura_engraver for modern notation,
+     ;; caesuraType will have an entry specifying scripts which,
+     ;; rather than being modifiers, are integral to the caesura
+     ;; (e.g. a fermata over a bar line).
+     (caesuraType ,list? "An alist @code{((breath . @var{breath-type}))}
+specifying the type of breath mark to create at @code{\\caesura}.")
+     (caesuraTypeTransform ,procedure? "An engraver callback taking
+three arguments and returning an alist of the same kind as
+@code{caesuraType}.
+
+The first argument is the context.
+
+The second argument is the value of @code{caesuraType} with an
+additional entry @code{(articulations . @var{symbol-list})}, where
+@var{symbol-list} identifies each articulation attached to the
+caesura.  If the transform function returns this second argument
+unmodified, it is as if no transform function were set; the function
+is free to return a different value.
+
+The third argument is a list of certain things the engraver has
+observed.  It is currently unused.")
      (centerBarNumbers ,boolean? "Whether to center bar numbers in
 their measure instead of aligning them on the bar line.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")

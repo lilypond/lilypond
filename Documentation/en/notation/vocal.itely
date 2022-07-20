@@ -3143,25 +3143,13 @@ Rests or pauses in chants can be indicated by modified bar lines.
 
 Alternatively, the notation used in Gregorian chant for pauses or
 rests is sometimes used even though the rest of the notation is
-modern.  This uses a modified @code{\breathe} mark:
+modern.
 
 @lilypond[verbatim,quote]
-divisioMinima = {
-  \once \set breathMarkType = #'chantquarterbar
-  \breathe
-}
-divisioMaior = {
-  \once \set breathMarkType = #'chanthalfbar
-  \breathe
-}
-divisioMaxima = {
-  \once \set breathMarkType = #'chantfullbar
-  \breathe
-}
-finalis = {
-  \once \set breathMarkType = #'chantdoublebar
-  \breathe
-}
+divisioMinima = \caesura
+divisioMaior = { \caesura \shortfermata }
+divisioMaxima = { \caesura \fermata }
+finalis = \section
 
 \score {
   \relative {
@@ -3178,6 +3166,8 @@ finalis = {
     \context {
       \Staff
       \remove Bar_engraver
+      \consists Divisio_engraver
+      caesuraType = #'((breath . chantquarterbar))
     }
   }
 }

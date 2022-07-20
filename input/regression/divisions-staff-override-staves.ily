@@ -1,6 +1,13 @@
-\version "2.23.6"
+\version "2.23.12"
 
 \layout {
+  %% Color the Divisio grobs because it is otherwise hard to tell some
+  %% of them apart from BarLine grobs.
+  \context {
+    \Score
+    \override Divisio.color = #(universal-color 'blue)
+  }
+
   %% identify each staff in the margin
   \context {
     \Staff

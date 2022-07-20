@@ -1048,6 +1048,42 @@ properties if automatic part combining is active.")))))
 notation like Gregorian chant.")))))
 
 
+    ;; Divisio grew out of BreathingSign but is break-aligned like
+    ;; BarLine, so it is similar to and different from both of them.
+    (Divisio
+     . (
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor-alignment . ,CENTER)
+        (break-align-symbol . staff-bar)
+        (break-visibility . ,begin-of-line-invisible)
+        (direction . ,UP)
+        (extra-spacing-height . ,item::extra-spacing-height-including-staff)
+        (extra-spacing-width . (-1.0 . 0.0))
+        (non-musical . #t)
+        (space-alist . (
+                        (ambitus . (extra-space . 1.0))
+                        (time-signature . (extra-space . 0.75))
+                        (custos . (minimum-space . 2.0))
+                        (clef . (extra-space . 1.0))
+                        (key-signature . (extra-space . 1.0))
+                        (key-cancellation . (extra-space . 1.0))
+                        (first-note . (fixed-space . 1.3))
+                        (next-note . (semi-fixed-space . 0.9))
+                        (right-edge . (extra-space . 0.0))))
+        (stencil . ,ly:text-interface::print)
+        (thickness . 1.9)
+        (Y-offset . ,(ly:make-unpure-pure-container ly:breathing-sign::offset-callback))
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (break-aligned-interface
+                                breathing-sign-interface
+                                font-interface
+                                outside-staff-interface
+                                text-interface))
+                 (description . "A structural divider in a chant,
+often calling for a breath or caesura.")))))
+
     (DotColumn
      . (
         (axes . (,X))
