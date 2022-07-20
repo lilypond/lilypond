@@ -35,6 +35,8 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include <utility>
+
 // Templated work class to Callbacks
 
 template <typename ... Args>
@@ -132,6 +134,11 @@ public:
   template <class T, void (T::*p) (Stream_event *)>
   static SCM trampoline (SCM target, SCM ev);
 
+  template <class Target, class Owner, class Delegate,
+            Delegate Owner::*delegate,
+            void (Delegate::*method) (Stream_event *) = &Delegate::operator ()>
+  static SCM trampoline (SCM owner, SCM ev);
+
   // Acknowledger trampolines
   template <class T, void (T::*callback) (Grob_info_t<Grob>)>
   static SCM trampoline (SCM target, SCM grob, SCM source_engraver);
@@ -170,6 +177,23 @@ public:
     = typename ly_remove_pointer<decltype (strip_mfp (static_cast<T> (nullptr)))>::type;
 };
 
+// Tool class for member object pointer base class identification in
+// spirit akin to the <type_traits> include file classes.
+//
+// If T is a member object pointer type, mop_baseclass<T>::type is
+// the type of its underlying base class.
+
+template <typename T>
+class mop_baseclass
+{
+  // We cannot make the return type U since it can be an abstract base class
+  template <typename U, typename V>
+  static U *strip_mop (V U::*);
+public:
+  using type
+    = typename ly_remove_pointer<decltype (strip_mop (static_cast<T> (nullptr)))>::type;
+};
+
 // Build a member function pointer given a pointer to the class and
 // the unqualified name of a member function
 #define MFP_CREATE(ptr, proc)                   \
@@ -185,6 +209,27 @@ public:
 // Wrapper macro for member function pointers
 
 #define MFP_WRAP(mfp) Callbacks::make_smob<Callbacks::trampoline <MFP_ARGS (mfp)>> ()
+
+// Wrap a member object's member function.  The resulting procedure expects to
+// be called with the owning object as the first argument, and it will forward
+// the remaining arguments to the member object's method.
+//
+// The member object pointed to by `&target::delegate` may be inherited from a
+// base class, which we call the "owner" in this context.
+//
+// The function to be called is `delegate.method ()`.
+#define MOMF_WRAP(target, delegate, method)                             \
+  [] ()                                                                 \
+    {                                                                   \
+      using Delegate = decltype(std::declval<target> ().delegate);      \
+      using Owner = typename mop_baseclass<decltype(&target::delegate)>::type; \
+      return Callbacks::make_smob<Callbacks::trampoline<                \
+        target,                                                         \
+        Owner,                                                          \
+        Delegate,                                                       \
+        &target::delegate,                                              \
+        &Delegate::method>> ();                                         \
+    } ()
 
 // The following will usually be used unsmobbified, relying on its
 // constituents being protected independently.

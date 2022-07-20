@@ -175,7 +175,13 @@ private:
 
 protected:
   void protect_event (SCM ev);
+
   template <class T, void (T::*callback) (Stream_event *)>
+  friend SCM Callbacks::trampoline (SCM, SCM);
+
+  template <class Target, class Owner, class Delegate,
+            Delegate Owner::*member,
+            void (Delegate::*method) (Stream_event *)>
   friend SCM Callbacks::trampoline (SCM, SCM);
 
   virtual void derived_mark () const;
@@ -198,6 +204,21 @@ SCM Callbacks::trampoline (SCM target, SCM event)
 
   t->protect_event (event);
   (t->*callback) (ev);
+  return SCM_UNSPECIFIED;
+}
+
+template <class Target, // receives the callback
+          class Owner,  // has the delegate object as a member
+          class Delegate,
+          Delegate Owner::*delegate,
+          void (Delegate::*method) (Stream_event *)>
+SCM Callbacks::trampoline (SCM target, SCM event)
+{
+  auto *const t = LY_ASSERT_SMOB (Target, target, 1);
+  auto *const ev = LY_ASSERT_SMOB (Stream_event, event, 2);
+
+  t->protect_event (event);
+  ((t->*delegate).*method) (ev);
   return SCM_UNSPECIFIED;
 }
 

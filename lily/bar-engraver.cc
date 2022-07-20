@@ -26,6 +26,7 @@
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
 #include "score-engraver.hh"
+#include "simple-event-listener.hh"
 #include "spanner.hh"
 #include "warn.hh"
 
@@ -56,13 +57,7 @@ private:
   void acknowledge_end_spanner (Grob_info_t<Spanner>);
   ly_scm_list calc_bar_type () const;
   void initialize () override;
-  void listen_ad_hoc_jump (Stream_event *);
-  void listen_coda_mark (Stream_event *);
-  void listen_dal_segno (Stream_event *);
-  void listen_fine (Stream_event *);
-  void listen_section (Stream_event *);
   void listen_segno_mark (Stream_event *);
-  void listen_volta_span (Stream_event *);
   void process_acknowledged ();
   void pre_process_music ();
   void process_music ();
@@ -72,16 +67,17 @@ private:
 
   struct Observations
   {
-    bool fine = false;
     bool repeat_end = false;
     bool repeat_start = false;
-    bool section = false;
     bool segno = false;
-    bool underlying_repeat = false;
-    bool volta_span = false;
   };
 
 private:
+  Boolean_event_listener fine_listener_;
+  Boolean_event_listener section_listener_;
+  Boolean_event_listener underlying_repeat_listener_;
+  Boolean_event_listener volta_span_listener_;
+
   Observations observations_;
   SCM glyph_ = SCM_EOL;
   SCM glyph_left_ = SCM_EOL;
@@ -163,7 +159,7 @@ Bar_engraver::calc_bar_type () const
                 {
                   if (observations_.repeat_end)
                     read_bar (ly_symbol2scm ("doubleRepeatSegnoBarType"));
-                  else if (observations_.fine)
+                  else if (fine_listener_.heard ())
                     read_bar (ly_symbol2scm ("fineStartRepeatSegnoBarType"));
                   else
                     read_bar (ly_symbol2scm ("startRepeatSegnoBarType"));
@@ -174,7 +170,7 @@ Bar_engraver::calc_bar_type () const
                 }
               else // no repeat
                 {
-                  if (observations_.fine)
+                  if (fine_listener_.heard ())
                     read_bar (ly_symbol2scm ("fineSegnoBarType"));
                   else
                     read_bar (ly_symbol2scm ("segnoBarType"));
@@ -197,7 +193,7 @@ Bar_engraver::calc_bar_type () const
           break;
 
         case BarType::FINE:
-          if (observations_.fine)
+          if (fine_listener_.heard ())
             read_bar (ly_symbol2scm ("fineBarType"));
           break;
 
@@ -208,7 +204,7 @@ Bar_engraver::calc_bar_type () const
           // as a default, we avoid it on the grounds that the input is
           // possibly not a finished work, and it is easy for the user to add a
           // \section command at the end when it is.
-          if (observations_.section)
+          if (section_listener_.heard ())
             read_bar (ly_symbol2scm ("sectionBarType"));
           break;
 
@@ -224,12 +220,12 @@ Bar_engraver::calc_bar_type () const
           break;
 
         case BarType::UNDERLYING_REPEAT:
-          if (observations_.underlying_repeat)
+          if (underlying_repeat_listener_.heard ())
             read_bar (ly_symbol2scm ("underlyingRepeatBarType"));
           break;
 
         case BarType::EMPTY:
-          if (observations_.volta_span)
+          if (volta_span_listener_.heard ())
             {
               // Volta brackets align on bar lines, so create an empty bar
               // line where there isn't already a bar line.
@@ -257,36 +253,6 @@ Bar_engraver::calc_bar_type () const
 }
 
 void
-Bar_engraver::listen_ad_hoc_jump (Stream_event *)
-{
-  observations_.underlying_repeat = true;
-}
-
-void
-Bar_engraver::listen_coda_mark (Stream_event *)
-{
-  observations_.underlying_repeat = true;
-}
-
-void
-Bar_engraver::listen_dal_segno (Stream_event *)
-{
-  observations_.underlying_repeat = true;
-}
-
-void
-Bar_engraver::listen_fine (Stream_event *)
-{
-  observations_.fine = true;
-}
-
-void
-Bar_engraver::listen_section (Stream_event *)
-{
-  observations_.section = true;
-}
-
-void
 Bar_engraver::listen_segno_mark (Stream_event *ev)
 {
   // Ignore a default segno at the beginning of a piece, just like
@@ -299,12 +265,6 @@ Bar_engraver::listen_segno_mark (Stream_event *ev)
     }
 
   observations_.segno = true;
-}
-
-void
-Bar_engraver::listen_volta_span (Stream_event *)
-{
-  observations_.volta_span = true;
 }
 
 void
@@ -355,22 +315,22 @@ Bar_engraver::pre_process_music ()
               else if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
                 observations_.repeat_start = true;
               else if (scm_is_eq (command, ly_symbol2scm ("volta")))
-                observations_.volta_span = true;
+                volta_span_listener_.set_heard ();
             }
         }
       else
         {
           observations_.repeat_end = false;
           observations_.repeat_start = false;
-          observations_.underlying_repeat = false;
-          observations_.volta_span = false;
+          underlying_repeat_listener_.reset ();
+          volta_span_listener_.reset ();
         }
 
       if (observations_.repeat_start
           || observations_.repeat_end
           || observations_.segno)
         {
-          observations_.underlying_repeat = true;
+          underlying_repeat_listener_.set_heard ();
         }
 
       glyphs = calc_bar_type ().begin_scm ();
@@ -400,6 +360,8 @@ Bar_engraver::process_music ()
 {
   if (has_any_glyph_)
     {
+      // TODO: We have events in most cases (not for manual repeats), so it
+      // would be nice to provide a cause here.
       bar_ = make_item ("BarLine", SCM_EOL);
 
       SCM glyph_sym = ly_symbol2scm ("glyph");
@@ -442,6 +404,11 @@ Bar_engraver::stop_translation_timestep ()
   first_time_ = false;
   has_any_glyph_ = false;
   observations_ = {};
+
+  fine_listener_.reset ();
+  section_listener_.reset ();
+  underlying_repeat_listener_.reset ();
+  volta_span_listener_.reset ();
 }
 
 void
@@ -459,13 +426,15 @@ void
 Bar_engraver::boot ()
 {
   ADD_END_ACKNOWLEDGER (spanner);
-  ADD_LISTENER (ad_hoc_jump);
-  ADD_LISTENER (coda_mark);
-  ADD_LISTENER (dal_segno);
-  ADD_LISTENER (fine);
-  ADD_LISTENER (section);
+
   ADD_LISTENER (segno_mark);
-  ADD_LISTENER (volta_span);
+
+  ADD_DELEGATE_LISTENER (fine);
+  ADD_DELEGATE_LISTENER (section);
+  ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, ad_hoc_jump);
+  ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, coda_mark);
+  ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, dal_segno);
+  ADD_DELEGATE_LISTENER (volta_span);
 }
 
 ADD_TRANSLATOR (Bar_engraver,

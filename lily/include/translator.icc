@@ -133,6 +133,20 @@ void add_acknowledger (SCM ptr,
 #define ADD_END_ACKNOWLEDGER(grob)                                      \
   ADD_END_ACKNOWLEDGER_FOR (acknowledge_end_ ## grob, grob)
 
+// Delegate handling events of type `event` to member function `function` of
+// object `self_type::delegate`.
+//
+// Where possible, to help maintain consistency, please use
+// ADD_DELEGATE_LISTENER instead.
+#define ADD_DELEGATE_LISTENER_FOR(delegate, function, event)            \
+  add_listener (event_class_symbol (#event),                            \
+                MOMF_WRAP(self_type, delegate, function))
+
+// Short form of ADD_DELEGATE_LISTENER_FOR using conventional names: Handle
+// events of type `event` by calling `self_type::event_listener_::listen`.
+#define ADD_DELEGATE_LISTENER(event)                                    \
+  ADD_DELEGATE_LISTENER_FOR (event ## _listener_, listen, event)
+
 // Register `self_type::function` to handle events of type `event`.
 //
 // Where possible, to help maintain consistency, please use ADD_LISTENER

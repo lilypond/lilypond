@@ -27,6 +27,7 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
+#include "simple-event-listener.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
 
@@ -122,9 +123,8 @@ protected:
   bool new_event_found_;
 
   Moment stop_moment_;
-  bool have_rest_;
+  Boolean_event_listener rest_listener_;
 
-  void listen_rest (Stream_event *);
   void listen_bass_figure (Stream_event *);
 
   void derived_mark () const override;
@@ -139,7 +139,6 @@ Figured_bass_engraver::Figured_bass_engraver (Context *c)
 {
   alignment_ = 0;
   continuation_ = false;
-  have_rest_ = 0;
   new_event_found_ = false;
 }
 
@@ -159,7 +158,7 @@ Figured_bass_engraver::start_translation_timestep ()
       || now_mom ().grace_part_ < Rational (0))
     return;
 
-  have_rest_ = 0;
+  rest_listener_.reset ();
   new_events_.clear ();
   for (vsize i = 0; i < groups_.size (); i++)
     groups_[i].current_event_ = 0;
@@ -181,12 +180,6 @@ Figured_bass_engraver::stop_translation_timestep ()
 
   if (!found)
     clear_spanners ();
-}
-
-void
-Figured_bass_engraver::listen_rest (Stream_event *)
-{
-  have_rest_ = true;
 }
 
 void
@@ -295,7 +288,7 @@ Figured_bass_engraver::process_music ()
 
   // If we have a rest, or we have no new or continued events, clear all spanners
   if ((!continuation_ && new_events_.empty ())
-      || (have_rest_
+      || (rest_listener_.heard ()
           && from_scm<bool> (get_property (this, "ignoreFiguredBassRest"))))
     {
       clear_spanners ();
@@ -512,7 +505,7 @@ Figured_bass_engraver::add_brackets ()
 void
 Figured_bass_engraver::boot ()
 {
-  ADD_LISTENER (rest);
+  ADD_DELEGATE_LISTENER (rest);
   ADD_LISTENER (bass_figure);
 }
 

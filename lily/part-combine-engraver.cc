@@ -22,6 +22,7 @@
 #include "engraver.hh"
 #include "note-head.hh"
 #include "side-position-interface.hh"
+#include "simple-event-listener.hh"
 #include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
@@ -38,7 +39,6 @@ protected:
   void acknowledge_stem (Grob_info);
 
   void listen_part_combine (Stream_event *);
-  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
   void create_item (Stream_event *ev);
@@ -46,7 +46,7 @@ protected:
 private:
   Item *text_;
   Stream_event *new_event_; // Event happened at this moment
-  bool note_found_;
+  Boolean_event_listener note_listener_;
   // Event possibly from an earlier moment waiting to create a text:
   Stream_event *waiting_event_;
 };
@@ -60,19 +60,12 @@ Part_combine_engraver::listen_part_combine (Stream_event *ev)
   waiting_event_ = new_event_;
 }
 
-void
-Part_combine_engraver::listen_note (Stream_event *)
-{
-  note_found_ = true;
-}
-
 Part_combine_engraver::Part_combine_engraver (Context *c)
   : Engraver (c)
 {
   text_ = 0;
   new_event_ = 0;
   waiting_event_ = 0;
-  note_found_ = false;
 }
 
 void
@@ -100,7 +93,8 @@ Part_combine_engraver::process_music ()
   if (waiting_event_
       && from_scm<bool> (get_property (this, "printPartCombineTexts")))
     {
-      if (note_found_ || !from_scm<bool> (get_property (this, "partCombineTextsOnNote")))
+      if (note_listener_.heard ()
+          || !from_scm<bool> (get_property (this, "partCombineTextsOnNote")))
         {
           create_item (waiting_event_);
           waiting_event_ = 0;
@@ -132,14 +126,14 @@ Part_combine_engraver::stop_translation_timestep ()
 {
   text_ = 0;
   new_event_ = 0;
-  note_found_ = false;
+  note_listener_.reset ();
 }
 
 void
 Part_combine_engraver::boot ()
 {
   ADD_LISTENER (part_combine);
-  ADD_LISTENER (note);
+  ADD_DELEGATE_LISTENER (note);
   ADD_ACKNOWLEDGER (note_head);
   ADD_ACKNOWLEDGER (stem);
 }
