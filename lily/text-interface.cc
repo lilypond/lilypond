@@ -274,11 +274,10 @@ Text_interface::internal_interpret_markup (Output_def *layout,
     }
   else
     {
-      programming_error ("Object is not a markup.");
-      scm_puts ("This object should be a markup: ", scm_current_error_port ());
-      scm_display (markup, scm_current_error_port ());
-      scm_puts ("\n", scm_current_error_port ());
-
+      programming_error (
+        String_convert::form_string (
+          "Trying to interpret a non-markup object: %s",
+          ly_scm_write_string (markup).c_str ()));
       return Stencil ().smobbed_copy ();
     }
 }
