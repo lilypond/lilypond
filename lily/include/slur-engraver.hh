@@ -30,7 +30,7 @@ class Item;
 
 class Slur_engraver : public Engraver
 {
-protected:
+private:
   struct Event_info
   {
     Stream_event *slur_, *note_;
@@ -38,7 +38,7 @@ protected:
       : slur_ (slur), note_ (note)
     { }
   };
-  // protected so that subclasses can see them
+
   std::vector<Event_info> start_events_;
   std::vector<Event_info> stop_events_;
 
@@ -50,6 +50,7 @@ protected:
   // objects that we need for formatting, eg. scripts and ties.
   std::vector<Grob *> objects_to_acknowledge_;
 
+protected:
   virtual SCM event_symbol () const;
   virtual bool double_property () const;
   virtual SCM grob_symbol () const;
