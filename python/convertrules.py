@@ -4204,6 +4204,44 @@ def conv(s):
 matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
                + paren_matcher(10) + r"\))")
 
+string_duration_re = (r'(?P<startquote>#?")'
+                      r'(?P<dur>1|2|4|8|16|32|64|128|256|breve|longa|maxima)'
+                      r'(?P<ws>\s*)'
+                      r'(?P<dots>[.]*)'
+                      r'(?P<endquote>")')
+
+def to_ly_duration(match):
+    # Take a match against string_duration_re, possibly embedded in a
+    # larger regex.  Return the corresponding duration in LilyPond
+    # syntax with braces, like "{4.}" or "{\longa}".
+    if match.group("dur") in (r"breve", r"longa", r"maxima"):
+        new_dur = '\\' + match.group("dur")
+    else:
+        new_dur = match.group("dur")
+    return (match.group()[:match.start("startquote")-match.start()]
+            + '{' + new_dur
+            + match.group("dots") + '}'
+            + match.group()[match.end("endquote")-match.start():])
+
+def to_scm_duration(match):
+    # Same as string_to_ly_duration, with result in Scheme syntax.
+    # "4." => (ly:make-duration 2 1)
+    # "longa" => (ly:make-duration -2 0)
+    dur_log = {"1": 0, "2": 1, "4": 2, "8": 3, "16": 4,
+               "32": 5, "64": 6, "128": 7, "256": 8,
+               "breve": -1, "longa": -2, "maxima": -4}[match.group("dur")]
+    dot_count = len(match.group("dots"))
+    new = f"(ly:make-duration {dur_log} {dot_count})"
+    return (match.group()[:match.start("startquote")-match.start()]
+            + new
+            + match.group()[match.end("endquote")-match.start():])
+
+# \note #"4." => \note {4.}  in 2.21.0
+# \rest #"4." => \rest {4.} in 2.23.1
+def convert_string_to_duration_for_command(markup_command, s):
+    s = re.sub(rf'\\{markup_command}\s*{string_duration_re}', to_ly_duration, s)
+    s = re.sub(rf'#:{markup_command}\s+{string_duration_re}', to_scm_duration, s)
+    return s
 
 @rule((2, 21, 0), r"""\note #"4." -> \note {4.}
 \markup-command #" -> \markup-command "
@@ -4214,38 +4252,11 @@ remove \\powerChords, deprecate banter-chord-names and jazz-chord-names
 \compressFullBarRests  -> \compressEmptyMeasures
 """)
 def conv(s):
-    def repl1ly(m):
-        if m.group(2)[0] in "blm":
-            return m.group(1) + "{\\" + m.group(2) + "}"
-        return m.group(1) + "{" + m.group(2) + "}"
-
-    def repl1scm(m):
-        return ("%s(ly:make-duration %d %d)" %
-                (m.group(1),
-                 {"1": 0, "2": 1, "4": 2, "8": 3, "16": 4,
-                  "32": 5, "64": 6, "128": 7, "256": 8,
-                  "breve": -1, "longa": -2, "maxima": -4}[m.group(2)],
-                 m.end(3) - m.start(3)))
-
-    def replly(m):
-        return re.sub(r'(\\note\s*)#?"((?:1|2|4|8|16|32|64|128|256'
-                      r'|breve|longa|maxima)\s*\.*)"',
-                      repl1ly, m.group(0))
-
-    def replscm(m):
-        return re.sub(r'"()(1|2|4|8|16|32|64|128|256'
-                      r'|breve|longa|maxima)\s*(\.*)"',
-                      repl1scm, m.group(0))
-
-    def replmarkup(m):
-        return re.sub(r'(#:note\s+)"(1|2|4|8|16|32|64|128|256'
-                      r'|breve|longa|maxima)\s*(\.*)"',
-                      repl1scm, m.group(0))
-    s = re.sub(matchfullmarkup, replly, s)
+    s = convert_string_to_duration_for_command("note", s)
     s = re.sub(r"\(tuplet-number::(?:fraction-with-notes|non-default-fraction-with-notes|append-note-wrapper)\s" +
-                 paren_matcher(20) + r"\)", replscm, s)
-    s = re.sub(r'\(markup\s' + paren_matcher(20) + r'\)',
-                 replmarkup, s)
+                 paren_matcher(20) + r"\)",
+               lambda match: re.sub(string_duration_re, to_scm_duration, match.group()),
+               s)
     s = re.sub(r'(\\(?:fret-diagram(?:-terse)?|harp-pedal|justify-string'
                  r'|lookup|musicglyph|postscript|simple|tied-lyric|verbatim-file'
                  r'|with-url|wordwrap-string'
@@ -4275,6 +4286,7 @@ def conv(s):
 combine u/d variants of triangle, do, re, and ti noteheads
 rename bar line "S" to "S-||"
 rename bar line "S-|" to "S"
+\rest "4." -> \rest {4.}
 """)
 def conv(s):
     s = re.sub(r'"noteheads\.[ud](1|2)(triangle|(?:do|re|ti)(?:Thin)?)"',
@@ -4283,6 +4295,24 @@ def conv(s):
     s = re.sub(r'\\bar(\s+)"S-\|"', r'\\bar\1"S"', s)
     s = re.sub(r'segnoType(\s+=\s+)#?"S"', r'segnoType\1"S-||"', s)
     s = re.sub(r'segnoType(\s+=\s+)#?"S-\|"', r'segnoType\1"S"', s)
+    s = convert_string_to_duration_for_command("rest", s)
+    # Be more general than \override #'(multi-measure-rest . #t),
+    # there's also \override #'((something . else) (multi-measure-rest . #t))
+    if "#'(multi-measure-rest . #t)" in s and r"\rest-by-number" in s:
+        # Don't convert blindly since it may also be use of \rest-by-number
+        # for a normal rest and \rest with \override #'(multi-measure-rest . #t)
+        # somewhere else.
+        stderr_write(NOT_SMART % r"\override #'(multi-measure-rest . #t) \rest-by-number")
+        stderr_write(r"""
+Instead of (for example)
+  \markup \override #'(multi-measure-rest . #t) \rest-by-number #0 #0
+use
+  \markup \multi-measure-rest-by-number #1
+
+The argument of \multi-measure-rest-by-number is the number of measures
+the multi-measure rest lasts.
+""")
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 
