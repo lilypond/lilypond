@@ -33,9 +33,9 @@
 */
 class Time_signature_engraver : public Engraver
 {
-  Item *time_signature_;
-  SCM last_time_fraction_;
-  SCM time_cause_;
+  Item *time_signature_ = nullptr;
+  SCM last_time_fraction_ = SCM_BOOL_F;
+  SCM time_cause_ = SCM_EOL;
 
 protected:
   void derived_mark () const override;
@@ -56,9 +56,6 @@ Time_signature_engraver::derived_mark () const
 Time_signature_engraver::Time_signature_engraver (Context *c)
   : Engraver (c)
 {
-  time_signature_ = 0;
-  time_cause_ = SCM_EOL;
-  last_time_fraction_ = SCM_BOOL_F;
 }
 
 void
@@ -113,7 +110,7 @@ Time_signature_engraver::stop_translation_timestep ()
         time_signature_->warning (_ ("mid-measure time signature without \\partial"));
     }
 
-  time_signature_ = 0;
+  time_signature_ = nullptr;
   time_cause_ = SCM_EOL;
 }
 

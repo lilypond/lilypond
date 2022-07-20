@@ -24,9 +24,9 @@
 
 class Time_signature_performer : public Performer
 {
-  Audio_time_signature *audio_;
-  SCM last_time_fraction_;
-  SCM time_cause_;
+  Audio_time_signature *audio_ = nullptr;
+  SCM last_time_fraction_ = SCM_BOOL_F;
+  SCM time_cause_ = SCM_EOL;
 
 protected:
   void derived_mark () const override;
@@ -47,9 +47,6 @@ Time_signature_performer::derived_mark () const
 Time_signature_performer::Time_signature_performer (Context *c)
   : Performer (c)
 {
-  audio_ = 0;
-  time_cause_ = SCM_EOL;
-  last_time_fraction_ = SCM_BOOL_F;
 }
 
 void
@@ -109,7 +106,7 @@ Time_signature_performer::process_music ()
 void
 Time_signature_performer::stop_translation_timestep ()
 {
-  audio_ = 0;
+  audio_ = nullptr;
   time_cause_ = SCM_EOL;
 }
 
