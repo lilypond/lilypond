@@ -89,23 +89,16 @@ Ligature_engraver::Ligature_engraver (Context *c)
 }
 
 void
-Ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  assign_event_once (events_drul_[d], ev);
-}
-
-void
 Ligature_engraver::pre_process_music ()
 {
-  if (ligature_ && !events_drul_[STOP])
+  if (ligature_ && !ligature_listener_.get_stop ())
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 }
 
 void
 Ligature_engraver::process_music ()
 {
-  if (auto *const ender = events_drul_[STOP])
+  if (auto *const ender = ligature_listener_.get_stop ())
     {
       if (!ligature_)
         {
@@ -125,7 +118,7 @@ Ligature_engraver::process_music ()
     }
   last_bound_ = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
 
-  if (auto *const starter = events_drul_[START])
+  if (auto *const starter = ligature_listener_.get_start ())
     {
       if (ligature_)
         {
@@ -167,7 +160,7 @@ Ligature_engraver::stop_translation_timestep ()
       finished_ligature_ = nullptr;
     }
 
-  events_drul_ = {};
+  ligature_listener_.reset ();
 }
 
 void

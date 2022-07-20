@@ -21,7 +21,9 @@
 #define LIGATURE_ENGRAVER_HH
 
 #include "engraver.hh"
+
 #include "moment.hh"
+#include "span-event-listener.hh"
 
 #include <vector>
 
@@ -34,7 +36,6 @@ protected:
 
   void acknowledge_rest (Grob_info);
   void acknowledge_ligature_head (Grob_info_t<Item>);
-  void listen_ligature (Stream_event *ev);
   void pre_process_music ();
   void process_music ();
 
@@ -52,9 +53,10 @@ public:
   // no TRANSLATOR_DECLARATIONS (Ligature_engraver) needed since this
   // class is abstract
 
-private:
-  Drul_array<Stream_event *> events_drul_;
+protected: // meh: the concrete derived classes register listeners
+  Unique_span_event_listener ligature_listener_;
 
+private:
   Spanner *ligature_ = nullptr;
   std::vector<Item *> primitives_;
 

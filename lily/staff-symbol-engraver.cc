@@ -20,6 +20,7 @@
 #include "engraver.hh"
 #include "international.hh"
 #include "spanner.hh"
+#include "span-event-listener.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -31,7 +32,7 @@ public:
   TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
 
 protected:
-  Drul_array<Stream_event *> span_events_;
+  Unique_span_event_listener staff_span_listener_;
   Spanner *span_;
   Spanner *finished_span_;
   bool first_start_;
@@ -43,7 +44,6 @@ protected:
   void stop_translation_timestep ();
   virtual ~Staff_symbol_engraver ();
   void acknowledge_grob (Grob_info) override;
-  void listen_staff_span (Stream_event *);
   void finalize () override;
   void process_music ();
 };
@@ -66,19 +66,9 @@ Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
 }
 
 void
-Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  if (d)
-    assign_event_once (span_events_[d], ev);
-  else
-    programming_error ("staff-span event has no direction");
-}
-
-void
 Staff_symbol_engraver::process_music ()
 {
-  if (span_events_[STOP])
+  if (staff_span_listener_.get_stop ())
     {
       finished_span_ = span_;
       span_ = 0;
@@ -86,8 +76,8 @@ Staff_symbol_engraver::process_music ()
         first_start_ = false;
     }
 
-  if (span_events_[START]
-      || (first_start_ && !span_events_[STOP]))
+  if (staff_span_listener_.get_start ()
+      || (first_start_ && !staff_span_listener_.get_stop ()))
     start_spanner ();
 }
 
@@ -117,8 +107,8 @@ Staff_symbol_engraver::stop_spanner ()
     }
 
   announce_end_grob (finished_span_,
-                     span_events_[STOP]
-                     ? span_events_[STOP]->self_scm ()
+                     staff_span_listener_.get_stop ()
+                     ? staff_span_listener_.get_stop ()->self_scm ()
                      : SCM_EOL);
 
   finished_span_ = 0;
@@ -127,11 +117,11 @@ Staff_symbol_engraver::stop_spanner ()
 void
 Staff_symbol_engraver::stop_translation_timestep ()
 {
-  if ((span_events_[START] || first_start_)
+  if ((staff_span_listener_.get_start () || first_start_)
       && span_)
     first_start_ = false;
 
-  span_events_ = {};
+  staff_span_listener_.reset ();
   stop_spanner ();
 }
 
@@ -159,7 +149,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 void
 Staff_symbol_engraver::boot ()
 {
-  ADD_LISTENER (staff_span);
+  ADD_DELEGATE_LISTENER (staff_span);
   ADD_ACKNOWLEDGER (grob);
 }
 

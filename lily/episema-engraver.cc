@@ -23,6 +23,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
+#include "span-event-listener.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 
@@ -43,9 +44,11 @@ protected:
   void process_music ();
 
 private:
+  // Must not use Unique_span_event_listener since episema can be typeset over a
+  // single neume.
+  Last_span_event_listener episema_listener_;
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Drul_array<Stream_event *> event_drul_;
   vector<Item *> note_columns_;
   void typeset_all ();
 };
@@ -56,18 +59,9 @@ Episema_engraver::Episema_engraver (Context *c)
 }
 
 void
-Episema_engraver::listen_episema (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  // Must not assign_event_once here, since episema
-  // can be typeset over a single neume
-  event_drul_[d] = ev;
-}
-
-void
 Episema_engraver::process_music ()
 {
-  if (auto *const starter = event_drul_[START])
+  if (auto *const starter = episema_listener_.get_start ())
     {
       if (span_)
         {
@@ -80,7 +74,7 @@ Episema_engraver::process_music ()
         }
     }
 
-  if (auto *const ender = event_drul_[STOP])
+  if (auto *const ender = episema_listener_.get_stop ())
     {
       if (!span_)
         ender->warning (_ ("cannot find start of episema"));
@@ -124,7 +118,7 @@ Episema_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  event_drul_ = {};
+  episema_listener_.reset ();
 }
 
 void
@@ -163,7 +157,7 @@ Episema_engraver::acknowledge_note_head (Grob_info info)
 void
 Episema_engraver::boot ()
 {
-  ADD_LISTENER (episema);
+  ADD_DELEGATE_LISTENER (episema);
   ADD_ACKNOWLEDGER (note_column);
   ADD_ACKNOWLEDGER (note_head);
 }

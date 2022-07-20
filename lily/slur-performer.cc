@@ -21,6 +21,7 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
+#include "span-event-listener.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -40,25 +41,21 @@ protected:
   void process_music ();
   void set_melisma (bool);
 
-  void listen_slur (Stream_event *);
 private:
-  Stream_event *start_ev_;
-  Stream_event *now_stop_ev_;
+  Last_span_event_listener slur_listener_;
 };
 
 Slur_performer::Slur_performer (Context *c)
   : Performer (c)
 {
-  start_ev_ = 0;
-  now_stop_ev_ = 0;
 }
 
 void
 Slur_performer::process_music ()
 {
-  if (start_ev_)
+  if (slur_listener_.get_start ())
     set_melisma (true);
-  else if (now_stop_ev_)
+  else if (slur_listener_.get_stop ())
     set_melisma (false);
 }
 
@@ -71,25 +68,13 @@ Slur_performer::set_melisma (bool ml)
 void
 Slur_performer::start_translation_timestep ()
 {
-  start_ev_ = 0;
-  now_stop_ev_ = 0;
-}
-
-void
-Slur_performer::listen_slur (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-
-  if (d == START)
-    start_ev_ = ev;
-  else if (d == STOP)
-    now_stop_ev_ = ev;
+  slur_listener_.reset ();
 }
 
 void
 Slur_performer::boot ()
 {
-  ADD_LISTENER (slur);
+  ADD_DELEGATE_LISTENER (slur);
 }
 
 ADD_TRANSLATOR (Slur_performer,

@@ -31,6 +31,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
+#include "span-event-listener.hh"
 #include "stream-event.hh"
 #include "spanner.hh"
 
@@ -42,28 +43,20 @@ public:
   TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
 protected:
   void finalize () override;
-  void listen_trill_span (Stream_event *);
   void acknowledge_note_column (Grob_info_t<Item>);
 
   void stop_translation_timestep ();
   void process_music ();
 
 private:
+  Unique_span_event_listener trill_span_listener_;
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Drul_array<Stream_event *> event_drul_;
 };
 
 Trill_spanner_engraver::Trill_spanner_engraver (Context *c)
   : Engraver (c)
 {
-}
-
-void
-Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  assign_event_once (event_drul_[d], ev);
 }
 
 void
@@ -91,11 +84,7 @@ Trill_spanner_engraver::process_music ()
 {
   if (span_)
     {
-      auto *ender = event_drul_[STOP];
-      if (!ender)
-        ender = event_drul_[START];
-
-      if (ender)
+      if (auto *const ender = trill_span_listener_.get_stop_or_start ())
         {
           finished_ = span_;
           announce_end_grob (finished_, ender->self_scm ());
@@ -103,7 +92,7 @@ Trill_spanner_engraver::process_music ()
         }
     }
 
-  if (auto *const starter = event_drul_[START])
+  if (auto *const starter = trill_span_listener_.get_start ())
     {
       span_ = make_spanner ("TrillSpanner", starter->self_scm ());
       Side_position_interface::set_axis (span_, Y_AXIS);
@@ -131,7 +120,7 @@ Trill_spanner_engraver::stop_translation_timestep ()
       finished_ = nullptr;
     }
 
-  event_drul_ = {};
+  trill_span_listener_.reset ();
 }
 
 void
@@ -147,7 +136,7 @@ Trill_spanner_engraver::finalize ()
 void
 Trill_spanner_engraver::boot ()
 {
-  ADD_LISTENER (trill_span);
+  ADD_DELEGATE_LISTENER (trill_span);
   ADD_ACKNOWLEDGER (note_column);
 }
 

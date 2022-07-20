@@ -24,6 +24,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
+#include "span-event-listener.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 
@@ -41,9 +42,9 @@ protected:
   void process_music ();
 
 private:
+  Unique_span_event_listener text_span_listener_;
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  Drul_array<Stream_event *> event_drul_;
   void typeset_all ();
 };
 
@@ -53,16 +54,9 @@ Text_spanner_engraver::Text_spanner_engraver (Context *c)
 }
 
 void
-Text_spanner_engraver::listen_text_span (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  assign_event_once (event_drul_[d], ev);
-}
-
-void
 Text_spanner_engraver::process_music ()
 {
-  if (auto *const ender = event_drul_[STOP])
+  if (auto *const ender = text_span_listener_.get_stop ())
     {
       if (!span_)
         ender->warning (_ ("cannot find start of text spanner"));
@@ -74,7 +68,7 @@ Text_spanner_engraver::process_music ()
         }
     }
 
-  if (auto *const starter = event_drul_[START])
+  if (auto *const starter = text_span_listener_.get_start ())
     {
       if (span_)
         {
@@ -119,7 +113,7 @@ Text_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  event_drul_ = {};
+  text_span_listener_.reset ();
 }
 
 void
@@ -158,7 +152,7 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Text_spanner_engraver::boot ()
 {
-  ADD_LISTENER (text_span);
+  ADD_DELEGATE_LISTENER (text_span);
   ADD_ACKNOWLEDGER (note_column);
 }
 

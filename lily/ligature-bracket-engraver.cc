@@ -22,6 +22,7 @@
 #include "engraver.hh"
 #include "note-column.hh"
 #include "tuplet-bracket.hh"
+#include "span-event-listener.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "item.hh"
@@ -40,16 +41,9 @@ public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 
 private:
-  Drul_array<Stream_event *> events_drul_;
+  Unique_span_event_listener ligature_listener_;
   Spanner *ligature_ = nullptr;
 };
-
-void
-Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-  assign_event_once (events_drul_[d], ev);
-}
 
 Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
   : Engraver (c)
@@ -59,7 +53,7 @@ Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
 void
 Ligature_bracket_engraver::process_music ()
 {
-  if (auto *const ender = events_drul_[STOP])
+  if (auto *const ender = ligature_listener_.get_stop ())
     {
       if (!ligature_)
         {
@@ -70,7 +64,7 @@ Ligature_bracket_engraver::process_music ()
       ligature_ = nullptr;
     }
 
-  if (auto *const starter = events_drul_[START])
+  if (auto *const starter = ligature_listener_.get_start ())
     {
       if (ligature_)
         {
@@ -106,13 +100,13 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 void
 Ligature_bracket_engraver::stop_translation_timestep ()
 {
-  events_drul_ = {};
+  ligature_listener_.reset ();
 }
 
 void
 Ligature_bracket_engraver::boot ()
 {
-  ADD_LISTENER (ligature);
+  ADD_DELEGATE_LISTENER (ligature);
   ADD_ACKNOWLEDGER (rest);
   ADD_ACKNOWLEDGER (note_column);
 }

@@ -24,6 +24,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "self-alignment-interface.hh"
+#include "span-event-listener.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
@@ -37,7 +38,6 @@ class Dynamic_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
   void acknowledge_note_column (Grob_info_t<Item>);
   void listen_absolute_dynamic (Stream_event *);
-  void listen_span_dynamic (Stream_event *);
   void listen_break_dynamic_span (Stream_event *);
 
 protected:
@@ -46,11 +46,12 @@ protected:
   void finalize () override;
 
 private:
-  SCM get_property_setting (Stream_event *evt, char const *evprop,
+  SCM get_property_setting (Stream_event const *evt, char const *evprop,
                             char const *ctxprop);
-  string get_spanner_type (Stream_event *ev);
+  string get_spanner_type (Stream_event const *ev);
 
-  Drul_array<Stream_event *> accepted_spanevents_drul_;
+private:
+  Unique_span_event_listener span_dynamic_listener_;
   Spanner *current_spanner_ = nullptr;
   Spanner *finished_spanner_ = nullptr;
 
@@ -71,27 +72,19 @@ Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 }
 
 void
-Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
-{
-  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
-
-  assign_event_once (accepted_spanevents_drul_[d], ev);
-}
-
-void
 Dynamic_engraver::listen_break_dynamic_span (Stream_event *)
 {
   // Case 1: Already have a start dynamic event -> break applies to new
   //         spanner (created later) -> set a flag
   // Case 2: no new spanner, but spanner already active -> break it now
-  if (accepted_spanevents_drul_[START])
+  if (span_dynamic_listener_.get_start ())
     end_new_spanner_ = true;
   else if (current_spanner_)
     set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
 }
 
 SCM
-Dynamic_engraver::get_property_setting (Stream_event *evt,
+Dynamic_engraver::get_property_setting (Stream_event const *evt,
                                         char const *evprop,
                                         char const *ctxprop)
 {
@@ -106,11 +99,11 @@ Dynamic_engraver::process_music ()
 {
   if (current_spanner_)
     {
-      auto *ender = accepted_spanevents_drul_[STOP];
+      auto *ender = span_dynamic_listener_.get_stop ();
       if (!ender)
         ender = script_event_;
       if (!ender)
-        ender = accepted_spanevents_drul_[START];
+        ender = span_dynamic_listener_.get_start ();
 
       if (ender)
         {
@@ -120,7 +113,7 @@ Dynamic_engraver::process_music ()
         }
     }
 
-  if (auto *const starter = accepted_spanevents_drul_[START])
+  if (auto *const starter = span_dynamic_listener_.get_start ())
     {
       string start_type = get_spanner_type (starter);
       SCM cresc_type = get_property_setting (starter, "span-type",
@@ -201,7 +194,7 @@ Dynamic_engraver::stop_translation_timestep ()
                  unsmob<Grob> (get_property (this, "currentMusicalColumn")));
   script_ = nullptr;
   script_event_ = nullptr;
-  accepted_spanevents_drul_ = {};
+  span_dynamic_listener_.reset ();
   finished_spanner_ = nullptr;
   end_new_spanner_ = false;
 }
@@ -223,7 +216,7 @@ Dynamic_engraver::finalize ()
 }
 
 string
-Dynamic_engraver::get_spanner_type (Stream_event *ev)
+Dynamic_engraver::get_spanner_type (Stream_event const *ev)
 {
   string type;
   SCM start_sym = scm_car (get_property (ev, "class"));
@@ -266,7 +259,7 @@ Dynamic_engraver::boot ()
 {
   ADD_LISTENER (absolute_dynamic);
   ADD_LISTENER (break_dynamic_span);
-  ADD_LISTENER (span_dynamic);
+  ADD_DELEGATE_LISTENER (span_dynamic);
   ADD_ACKNOWLEDGER (note_column);
 }
 
