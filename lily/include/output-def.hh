@@ -34,16 +34,7 @@
 
   The data structure is set up as recursive: the definitions not
   supplied in layout are looked up in paper. This is done through
-  the parent_ field of Output_def. However, such nesting is limited to
-  two levels,
-
-  * first because the parser hard-codes the different types
-  of output block.
-
-  * Second, because the prime benefit of multiple levels
-  (eg. paper containing layout for a score, containing layout of a
-  \score embedded in \markup) requires scaling the Stencils (eg. the
-  one coming from score at markup level)
+  the parent_ field of Output_def.
 
  */
 class Output_def : public Smob<Output_def>
