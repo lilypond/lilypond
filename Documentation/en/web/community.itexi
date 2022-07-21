@@ -593,6 +593,18 @@ MacPorts package}
 
 @end quotation
 
+@c Can't use @ifWebLinks because it inserts an extra colon.
+If you are unsure about how to install these binaries, please
+read the start of the
+@ifclear web_version
+@c I don't understand why this use of @rlearning produces "Learning Manual"
+@c and not just "Learning". --JeanAS
+@rlearningnamed{Top,Learning}.
+@end ifclear
+@ifset web_version
+@manualDevelLearningSplitNoName manual.
+@end ifset
+
 @divEnd
 
 
