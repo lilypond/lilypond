@@ -40,15 +40,22 @@
 layout elements (title, header, footer) are markups and must be interpreted in context
 of layout settings just like markups inside the music"
   (let*
-      ((p (apply ly:make-prob (append
-                               (list 'page (layout->page-init (ly:paper-book-paper paper-book))
-                                     'paper-book paper-book)
-                               args))))
-
-    (page-set-property! p 'head-stencil (page-header p))
-    (page-set-property! p 'foot-stencil (page-footer p))
-
-    p))
+      ((page (apply ly:make-prob
+                    'page (layout->page-init (ly:paper-book-paper paper-book))
+                    'paper-book paper-book
+                    args))
+       (paper (ly:paper-book-paper paper-book))
+       (header-proc (ly:output-def-lookup paper 'make-header))
+       (head-stencil (if (procedure? header-proc)
+                         (header-proc page)
+                         empty-stencil))
+       (footer-proc (ly:output-def-lookup paper 'make-footer))
+       (foot-stencil (if (procedure? footer-proc)
+                         (footer-proc page)
+                         empty-stencil)))
+    (page-set-property! page 'head-stencil head-stencil)
+    (page-set-property! page 'foot-stencil foot-stencil)
+    page))
 
 (define page-property ly:prob-property)
 (define page-set-property! ly:prob-set-property!)
@@ -134,32 +141,6 @@ of layout settings just like markups inside the music"
     (set! arrow (ly:stencil-translate-axis arrow 8 X))
 
     arrow))
-
-
-(define (page-header-or-footer page dir)
-  "Call make-{header,footer} depending on DIR for PAGE."
-  (let*
-      ((paper-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper paper-book))
-       (scopes (ly:paper-book-scopes paper-book))
-       (number (page-property page 'page-number))
-       (is-last-bookpart (page-property page 'is-last-bookpart))
-       (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
-       (sym (if (= dir UP)
-                'make-header
-                'make-footer))
-       (header-proc (ly:output-def-lookup layout sym)))
-
-    (if (procedure? header-proc)
-        (header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
-        #f)))
-
-
-(define (page-header page)
-  (page-header-or-footer page UP))
-
-(define (page-footer page)
-  (page-header-or-footer page DOWN))
 
 (define (layout->page-init layout)
   "Alist of settings for page layout"

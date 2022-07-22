@@ -16,6 +16,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (lily page))
+
 (define-public (layout-extract-page-properties layout)
   (list (append `((line-width . ,(ly:paper-get-number
                                   layout 'line-width)))
@@ -40,50 +42,50 @@ interpreting a markup in the context of these headers."
 
 ;;;;;;;;;;;;;;;;;;
 
-(define-public ((marked-up-headfoot what-odd what-even)
-                layout scopes page-number is-last-bookpart is-bookpart-last-page)
+(define-public ((marked-up-headfoot what-odd what-even) page)
   "Read variables @var{what-odd}, @var{what-even} from @var{layout},
 and interpret them as markup.  The @var{props} argument will include
 variables set in @var{scopes} and @code{page:is-bookpart-last-page},
 @code{page:is-last-bookpart}, @code{page:page-number-string}, and
 @code{page:page-number}. Returns a stencil."
-
-  (define (get sym)
-    (ly:output-def-lookup layout sym))
-
-  (define (interpret-in-page-env potential-markup)
-    (if (markup? potential-markup)
-        (let* ((prefixed-alists (headers-property-alist-chain scopes))
-               (number-type (get 'page-number-type))
-               (pgnum-alist
-                (list
-                 (cons 'header:tagline
-                       (ly:modules-lookup scopes 'tagline
-                                          (ly:output-def-lookup layout 'tagline)))
-                 (cons 'page:is-last-bookpart is-last-bookpart)
-                 (cons 'page:is-bookpart-last-page is-bookpart-last-page)
-                 (cons 'page:page-number-string
-                       (number-format number-type page-number))
-                 (cons 'page:page-number page-number)))
-               (props (append
-                       (list pgnum-alist)
-                       prefixed-alists
-                       (layout-extract-page-properties layout))))
-          (interpret-markup layout props potential-markup))
-
-        empty-stencil))
-
-  (interpret-in-page-env
-   (if (and (even? page-number)
-            (markup? (get what-even)))
-       (get what-even)
-       (get what-odd))))
+  (let* ((paper-book (page-property page 'paper-book))
+         (layout (ly:paper-book-paper paper-book))
+         (page-number (page-property page 'page-number))
+         (even-mkup (ly:output-def-lookup layout what-even))
+         (odd-mkup (ly:output-def-lookup layout what-odd))
+         ;; what-even default to what-odd if not defined.
+         (header-mkup (cond
+                       ((and (even? page-number)
+                             (markup? even-mkup))
+                        even-mkup)
+                       ((markup? odd-mkup)
+                        odd-mkup)
+                       (else #f))))
+    (if header-mkup
+         (let* ((scopes (ly:paper-book-scopes paper-book))
+                (is-last-bookpart (page-property page 'is-last-bookpart))
+                (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
+                (number-type (ly:output-def-lookup layout 'page-number-type))
+                ;; Support tagline in \paper
+                (tagline (ly:modules-lookup scopes
+                                            'tagline
+                                            (ly:output-def-lookup layout 'tagline)))
+                (basic-props (layout-extract-page-properties layout))
+                (header-props (headers-property-alist-chain scopes))
+                (extra-properties
+                 `((page:is-last-bookpart . ,is-last-bookpart)
+                   (page:is-bookpart-last-page . ,is-bookpart-last-page)
+                   (page:page-number . ,page-number)
+                   (page:page-number-string . ,(number-format number-type page-number))
+                   (header:tagline . ,tagline)))
+                (props (cons extra-properties (append header-props basic-props))))
+           (interpret-markup layout props header-mkup))
+         empty-stencil)))
 
 (define-public ((marked-up-title what) layout scopes)
-  "Read variables @var{what} from @var{scopes}, and interpret it as markup.
-The @var{props} argument will include variables set in @var{scopes} (prefixed
-with `header:'."
-
+  "Read variables @var{what-odd} and @var{what-even} from the page's
+layout.  Interpret either of them as markup, with properties
+reflecting the variables in the page's layout and header modules."
   (define (get sym)
     (let ((x (ly:modules-lookup scopes sym)))
       (if (markup? x) x #f)))
