@@ -613,7 +613,7 @@ available.
 
 In general, developers compile LilyPond from within a local Git
 repository.  Setting up a local Git repository is explained in
-@rcontrib{Starting with Git}.
+@rcontrib{Setting up}.
 
 
 @subheading Downloading a source tarball
@@ -641,20 +641,19 @@ Download the tarball to your @file{~/src/} directory, or some
 other appropriate place.
 
 @warning{Be careful where you unpack the tarball!  Any
-subdirectories of the current folder named @file{lilypond/} or
-@file{lilypond-@var{x.y.z}/} (where @var{x.y.z} is the release
-number) will be overwritten if there is a name clash with the
-tarball.}
+subdirectories of the current folder named
+@file{lilypond-@version{}/} are overwritten if there is a name
+clash with the tarball.}
 
 Unpack the tarball with this command:
 
 @example
-tar -xzf lilypond-@var{x.y.z}.tar.gz
+tar -xzf lilypond-@version{}.tar.gz
 @end example
 
 This creates a subdirectory within the current directory called
-@file{lilypond-@var{x.y.z}/}.  Once unpacked, the source files
-occupy about 40 MB of disk space.
+@file{lilypond-@version{}/}.  Once unpacked, the source files
+occupy about 66@dmn{MB} of disk space.
 
 Windows users wanting to look at the source code may have to
 download and install the free-software
@@ -664,50 +663,96 @@ download and install the free-software
 @node Configuring make
 @section Configuring @command{make}
 
-
 @menu
-* Running ./autogen.sh::
-* Running ../configure::
+* Build modes::
+* Running autogen.sh::
+* Running configure::
 @end menu
 
 
-@node Running ./autogen.sh
-@subsection Running @command{./autogen.sh}
+@need 800
+@node Build modes
+@subsection Build modes
 
-After you unpack the tarball (or download the Git repository), the
-contents of your top source directory should be similar to the
-current source tree listed at
+LilyPond supports two build modes to prepare the execution of the
+@command{make} command.
+
+@itemize
+@item
+@q{In-tree} compilation.  This is the classical build mode of
+projects that use a @command{configure} script.  The main
+disadvantage, however, is cluttering the source directory with
+generated files.  We thus don't recommend it except for special
+purposes@footnote{For example, translators are required to build
+LilyPond in-tree, otherwise the translation helper scripts won't
+work.} that we don't cover here.
+
+@item
+Compilation using a build directory.  A common name and location
+is a directory called @file{build/} in the top-level source
+directory; the following instructions expect exactly that.
+@end itemize
+
+
+@node Running autogen.sh
+@subsection Running @command{autogen.sh}
+
+(If you use a tarball, follow the instructions in this subsection
+but don't actually run the @file{autogen.sh} script -- the tarball
+already comes with a @file{configure} script.)
+
+After cloning the Git repository or downloading and unpacking a
+Git snapshot, the contents of your top source directory should be
+similar to the current source tree listed at
 @uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git;a=tree}.
 
-Next, you need to create the generated files; enter the following
-command from your top source directory:
+Note that the top-level source directory is called
+@file{lilypond-@version{}/} if you use the tarball.  It is called
+@file{lilypond-HEAD-@var{ID}/} if you use a Git snapshot, with
+@var{ID} being a hexadecimal, seven-digit number (for example,
+@file{lilypond-HEAD-80113f7/}).  It is simply called
+@file{lilypond/} if you directly use the Git clone, and we use
+this in the following instructions.
+
+Start with changing to the source directory, creating a build
+directory, and changing into it.
 
 @example
-./autogen.sh --noconfigure
-@end example
-
-This will generate a number of files and directories to aid
-configuration, such as @file{configure}, @file{README.txt}, etc.
-
-Next, create the build directory with:
-
-@example
+cd lilypond/
 mkdir build/
 cd build/
 @end example
 
-We heavily recommend building lilypond inside a separate directory
-with this method.
+Because there are no generated files in the repository, you have
+to generate the @file{configure} script first.  There are two
+possibilities to do that.
 
-Only translators are required to build lilypond @q{in-tree} -- that
-is, running @command{./configure} and @command{make} commands in the
-top source directory instead of @file{build/} -- otherwise
-the translation helper scripts won't work.
+@itemize
+@item
+Generate the @file{configure} script in the top-level source
+directory.  This is what the instructions below do.
+
+@item
+Using @file{autogen.sh}'s @option{--currdir} option it is possible
+to generate the @file{configure} script in the build directory.
+We don't cover this slightly more complicated setup here.
+@end itemize
+
+(If you omit the @option{--noconfigure} option, @file{autogen.sh}
+not only creates the @file{configure} script but also executes it,
+forwarding all given command line options.  This is a convenient
+shorthand for experienced users.  For clarity, however, we explain
+the process in two separate steps.)
+
+Execute the @file{autogen.sh} script now.
+
+@example
+../autogen.sh --noconfigure
+@end example
 
 
-@node Running ../configure
-@subsection Running @command{../configure}
-
+@node Running configure
+@subsection Running @command{configure}
 
 @menu
 * Configuration options::
@@ -716,6 +761,7 @@ the translation helper scripts won't work.
 @end menu
 
 
+@need 800
 @node Configuration options
 @unnumberedsubsubsec Configuration options
 
@@ -723,8 +769,8 @@ the translation helper scripts won't work.
 of your source tree.}
 
 The @command{../configure} command (generated by
-@command{./autogen.sh}) provides many options for configuring
-@command{make}.  To see them all, run:
+@command{../autogen.sh}) provides many options for configuring
+@command{make}.  To see them all, run
 
 @example
 ../configure --help
@@ -737,35 +783,35 @@ The @command{../configure} command (generated by
 @warning{make sure that you are in the @file{build/} subdirectory
 of your source tree.}
 
-When @command{../configure} is run without any arguments, it will
-check to make sure your system has everything required for
-compilation:
+When @command{../configure} is run without any arguments, it
+checks whether your system has everything required for
+compilation.
 
 @example
 ../configure
 @end example
 
-If any build dependency is missing, @command{../configure} will
-return with:
+If any build dependency is missing, @command{../configure} returns
+with
 
 @example
 ERROR: Please install required programs:  @var{foo}
 @end example
 
 The following message is issued if you are missing programs that
-are only needed for building the documentation:
+are only needed for building the documentation.
 
 @example
 WARNING: Please consider installing optional programs:  @var{bar}
 @end example
 
-If you intend to build the documentation locally, you will need to
+If you intend to build the documentation locally, you need to
 install or update these programs accordingly.
 
 @warning{@command{../configure} may fail to issue warnings for
 certain documentation build requirements that are not met.  If you
 experience problems when building the documentation, you may need
-to do a manual check of @ref{Requirements for building
+to do a manual check; @pxref{Requirements for building
 documentation}.}
 
 
@@ -776,40 +822,40 @@ documentation}.}
 of your source tree.}
 
 If you intend to use your local build to install a local copy of
-the program, you will probably want to configure the installation
+the program, you probably want to configure the installation
 directory.  Here are the relevant lines taken from the output of
-@command{../configure@tie{}--help}:
+@command{../configure --help}:
 
 @quotation
-By default, `@command{make@tie{}install}' will install all the
-files in @file{/usr/local/bin}, @file{/usr/local/lib} etc.  You
-can specify an installation prefix other than @file{/usr/local}
-using `@option{--prefix}', for instance `@option{--prefix=$HOME}'.
+By default, @command{make install} will install all the files in
+@file{/usr/@/local/@/bin}, @file{/usr/@/local/@/lib} etc.  You can
+specify an installation prefix other than @file{/usr/@/local}
+using @option{--prefix}, for instance @option{--prefix=@/$HOME}.
 @end quotation
 
-A typical installation prefix is @file{$HOME/usr}:
+A typical installation prefix is @file{$HOME/usr}.
 
 @example
 ../configure --prefix=$HOME/usr
 @end example
 
 Note that if you plan to install a local build on a system where
-you do not have root privileges, you will need to do something
-like this anyway---@command{make@tie{}install} will only succeed
-if the installation prefix points to a directory where you have
-write permission (such as your home directory).  The installation
-directory will be automatically created if necessary.
+you do not have root privileges, you need to do something like
+this anyway -- @command{make install} only succeeds if the
+installation prefix points to a directory where you have write
+permission (such as your home directory).  The installation
+directory is automatically created if necessary.
 
 The location of the @command{lilypond} command installed by this
-process will be @file{@var{prefix}/bin/lilypond}; you may want to
-add @file{@var{prefix}/bin/} to your @code{$PATH} if it is not
+process is @file{@var{prefix}/@/bin/@/lilypond}; you may want to
+add @file{@var{prefix}/@/bin/} to your @code{$PATH} if it is not
 already included.
 
 It is also possible to specify separate installation directories
 for different types of program files.  See the full output of
-@command{../configure@tie{}--help} for more information.
+@command{../configure --help} for more information.
 
-If you encounter any problems, please see @ref{Problems}.
+@xref{Problems}, if you encounter any problems.
 
 
 @node Compiling LilyPond

@@ -1916,7 +1916,7 @@ completely updated, see @ref{Updating translation committishes}.}
 @unnumberedsubsubsec Check state of translation
 
 @warning{Translation helper scripts will work only if you've configured
-lilypond to be built in-tree, as explained in @ref{Running ./autogen.sh}.}
+lilypond to be built in-tree, as explained in @ref{Running autogen.sh}.}
 
 First pull from Git -- see @ref{Git cheat sheet}, but DO NOT rebase
 unless you are sure to master the translation state checking and
