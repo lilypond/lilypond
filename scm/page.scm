@@ -344,7 +344,7 @@ of layout settings just like markups inside the music"
   (page-property page 'stencil))
 
 (define (calc-printable-height page)
-  "Printable area for music and titles; matches default-page-make-stencil."
+  "Printable area for music and titles."
   (let*
       ((paper-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper paper-book))
