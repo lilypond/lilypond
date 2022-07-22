@@ -22,16 +22,13 @@
             page-property
             page-set-property!
             page-prev
-            page-printable-height
             layout->page-init
             page-force
             page-configuration
             page-lines
             page-page-number
-            page-system-numbers
             page-stencil
             page-free-height
-            page?
             ))
 
 (use-modules (lily)
@@ -41,7 +38,6 @@
 
 (define (annotate? layout)
   (eq? #t (ly:output-def-lookup layout 'annotate-spacing)))
-
 
 (define page-module (current-module))
 
@@ -62,9 +58,6 @@ of layout settings just like markups inside the music"
 
 (define page-property ly:prob-property)
 (define page-set-property! ly:prob-set-property!)
-(define (page-property? page sym)
-  (eq? #t (page-property page sym)))
-(define (page? x)  (ly:prob-type? x 'page))
 
 
 ;; define accessors.
@@ -77,10 +70,6 @@ of layout settings just like markups inside the music"
       (page-property pg j))))
 
  '(page-number prev lines force penalty lines))
-
-(define (page-system-numbers page)
-  (map (lambda (ps) (ly:prob-property ps 'number))
-       (page-lines page)))
 
 (define (page-translate-systems page)
   (for-each
@@ -372,12 +361,4 @@ of layout settings just like markups inside the music"
            (if (ly:stencil? foot)
                (interval-length (ly:stencil-extent foot Y))
                0))))
-
-    ;; (display (list "\n available" available head foot))
     available))
-
-(define (page-printable-height page)
-  (if (not (number? (page-property page 'printable-height)))
-      (page-set-property! page 'printable-height (calc-printable-height page)))
-
-  (page-property page 'printable-height))
