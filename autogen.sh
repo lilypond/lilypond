@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 # Run this to generate configure and initial GNUmakefiles
 
 # This file is part of LilyPond, the GNU music typesetter.
@@ -19,39 +20,89 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-srcdir=`dirname $0`
+srcdir=`dirname -- $0`
 
-case $1 in
-    --ci)
-        CI=true
-        shift
-        ;;
+# Canonicalize paths.
+srcdir=`cd "$srcdir"; pwd`
+builddir=`pwd`
 
-    --noconf*)
-        NOCONFIGURE=true
-        shift
-        ;;
-esac
+for arg; do
+    case $arg in
+        --ci)
+            CI=true
+            shift
+            ;;
 
-if test -w "$srcdir"; then
-  configure="$srcdir/configure"
-  (
-      cd "$srcdir"
-      echo "Running autoconf ..."
-      autoconf || exit 1
-  )
-else
-  configure=./configure
-  conf_flags="--srcdir $srcdir $conf_flags"
-  echo "Running autoconf for read-only source directory ..."
-  SRCDIR="$srcdir" autoconf -I "$srcdir" -o "$configure" "$srcdir/configure.ac" || exit 1
+        --currdir)
+            CURRDIR=true
+            shift
+            ;;
+
+        --help)
+            exec echo "\
+Usage: $0 [OPTION]... [CONFIGURE-OPTION]...
+Generate LilyPond's 'configure' script, then execute it
+with CONFIGURE-OPTION arguments.
+
+  --ci           also set 'configure' flags for gitlab's CI
+  --currdir      generate 'configure' script in current directory
+                   instead of the location of 'autogen.sh'
+  --help         display this help and exit
+  --noconfigure  don't execute generated 'configure' script"
+            exit 0
+            ;;
+
+        --noconf*)
+            NOCONFIGURE=true
+            shift
+            ;;
+
+        *)
+            break
+            ;;
+    esac
+done
+
+if test ! -w "$srcdir"; then
+    echo "Directory '$srcdir' is write-only, assuming option '--currdir'"
+    CURRDIR=true
 fi
-# Autoconf automatically checks its own minimum required
-# version, and it aborts when the check fails.
-test "$?" -eq 1 && exit 1
+
+if test -n "$CURRDIR" && test ! -w "$builddir"; then
+    echo >&2 "$0: Directory '$builddir' is write-only, can't proceed"
+    exit 1
+fi
+
+parent=`dirname "$builddir"`
+if test "$srcdir" = "$builddir"; then
+    prefix=.
+elif test "$srcdir" = "$parent"; then
+    prefix=..
+else
+    prefix="$srcdir"
+fi
+
+if test -n "$CURRDIR"; then
+    configure=./configure
+    if test "$prefix" != . && test "$prefix" != ..; then
+        suffix=" --srcdir $srcdir"
+    fi
+
+    echo "Running autoconf in '$builddir' ..."
+    SRCDIR="$srcdir" \
+          autoconf -I "$srcdir" -o configure "$srcdir/configure.ac" \
+        || exit 1
+else
+    configure="$prefix/configure"
+    (
+        cd "$srcdir"
+        echo "Running autoconf in '$srcdir' ..."
+        autoconf || exit 1
+    )
+fi
 
 if test -n "$NOCONFIGURE"; then
-    echo Skipping configure process.
+    echo "You can now run '$configure$suffix [...]'"
     exit 0
 fi
 
@@ -66,13 +117,13 @@ fi
 
 if test -z "${conf_flags}$*"; then
     cat <<EOF
-    Warning: about to run \`configure' without arguments.
-    arguments on the \`$0' command line
-    will be passed to \`configure'.
+    Warning: about to run the 'configure' script without arguments.
+    Add arguments to the '$0' command line
+    to pass them to 'configure'.
 
-    Invoke with --noconfigure to skip configure step.
+    Invoke with '--noconfigure' to skip execution of 'configure'.
 EOF
 fi
 
-echo Running $configure $conf_flags "$@" ...
-exec "$configure" $conf_flags "$@"
+echo Running $configure$suffix $conf_flags "$@" ...
+exec "$configure" $suffix $conf_flags "$@"
