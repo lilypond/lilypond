@@ -151,6 +151,7 @@ public:
   int orphan_penalty () const;
 
 protected:
+  // This naming sounds weird, shouldn't this be paper_book_?
   Paper_book *book_;
 
   vsize next_system (Break_position const &break_pos) const;
@@ -245,7 +246,6 @@ private:
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate, Prob_break_predicate);
-  SCM make_page (int page_num, bool last) const;
   SCM get_page_configuration (SCM systems, int page_num, bool ragged, bool last);
   SCM draw_page (SCM systems, SCM config, int page_num, bool last);
 };

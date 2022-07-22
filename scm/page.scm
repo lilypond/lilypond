@@ -35,24 +35,26 @@
 (define (annotate? layout)
   (eq? #t (ly:output-def-lookup layout 'annotate-spacing)))
 
-(define (make-page paper-book  . args)
+(define (make-page paper-book page-number is-bookpart-last-page)
   "A page is a prob (Property object). This is because the non-music
 layout elements (title, header, footer) are markups and must be interpreted in context
-of layout settings just like markups inside the music"
-  (let*
-      ((page (apply ly:make-prob
-                    'page (layout->page-init (ly:paper-book-paper paper-book))
-                    'paper-book paper-book
-                    args))
-       (paper (ly:paper-book-paper paper-book))
-       (header-proc (ly:output-def-lookup paper 'make-header))
-       (head-stencil (if (procedure? header-proc)
-                         (header-proc page)
-                         empty-stencil))
-       (footer-proc (ly:output-def-lookup paper 'make-footer))
-       (foot-stencil (if (procedure? footer-proc)
-                         (footer-proc page)
-                         empty-stencil)))
+of layout settings just like markups inside the music."
+  (let* ((paper (ly:paper-book-paper paper-book))
+         (page (ly:make-prob
+                'page
+                (layout->page-init paper)
+                'paper-book paper-book
+                'page-number page-number
+                'is-last-bookpart (ly:output-def-lookup paper 'is-last-bookpart)
+                'is-bookpart-last-page is-bookpart-last-page))
+         (header-proc (ly:output-def-lookup paper 'make-header))
+         (head-stencil (if (procedure? header-proc)
+                           (header-proc page)
+                           empty-stencil))
+         (footer-proc (ly:output-def-lookup paper 'make-footer))
+         (foot-stencil (if (procedure? footer-proc)
+                           (footer-proc page)
+                           empty-stencil)))
     (page-set-property! page 'head-stencil head-stencil)
     (page-set-property! page 'foot-stencil foot-stencil)
     page))

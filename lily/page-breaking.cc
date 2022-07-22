@@ -485,21 +485,6 @@ Page_breaking::systems ()
   return scm_append (scm_reverse_x (ret, SCM_EOL));
 }
 
-/* returns a Prob for the page */
-SCM
-Page_breaking::make_page (int page_num, bool last) const
-{
-  bool last_part
-    = ly_scm2bool (book_->paper ()->c_variable ("is-last-bookpart"));
-  return Page::make_page (book_->self_scm (),
-                          ly_symbol2scm ("page-number"),
-                          to_scm (page_num),
-                          ly_symbol2scm ("is-last-bookpart"),
-                          scm_from_bool (last_part),
-                          ly_symbol2scm ("is-bookpart-last-page"),
-                          scm_from_bool (last));
-}
-
 // Returns the total height of the paper, including margins and
 // space for the header/footer.  This is an upper bound on
 // page_height, and it doesn't depend on the current page.
@@ -524,7 +509,7 @@ Page_breaking::page_height (int page_num, bool last) const
     return cache[page_num];
   else
     {
-      SCM page = make_page (page_num, last);
+      SCM page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
       SCM height_scm = Page::calc_printable_height (page);
       Real height = scm_to_double (height_scm);
 
@@ -553,7 +538,7 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 SCM
 Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, bool last)
 {
-  SCM dummy_page = make_page (page_num, last);
+  SCM dummy_page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
   Page_layout_problem layout (book_, dummy_page, systems);
   return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
 }
@@ -578,7 +563,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   paper_systems = scm_reverse_x (paper_systems, SCM_EOL);
 
   // Create the page and draw it.
-  SCM page = make_page (page_num, last);
+  SCM page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
 
   Prob *p = unsmob<Prob> (page);
   set_property (p, "lines", paper_systems);
@@ -649,7 +634,9 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
       SCM config = SCM_EOL;
-      SCM dummy_page = make_page (page_num, bookpart_last_page);
+      SCM dummy_page = Page::make_page (book_->self_scm (),
+                                        to_scm (page_num),
+                                        to_scm (bookpart_last_page));
       Page_layout_problem layout (book_, dummy_page, lines);
       if (!scm_is_pair (systems))
         config = SCM_EOL;

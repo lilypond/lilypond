@@ -43,11 +43,9 @@ interpreting a markup in the context of these headers."
 ;;;;;;;;;;;;;;;;;;
 
 (define-public ((marked-up-headfoot what-odd what-even) page)
-  "Read variables @var{what-odd}, @var{what-even} from @var{layout},
-and interpret them as markup.  The @var{props} argument will include
-variables set in @var{scopes} and @code{page:is-bookpart-last-page},
-@code{page:is-last-bookpart}, @code{page:page-number-string}, and
-@code{page:page-number}. Returns a stencil."
+  "Read variables @var{what-odd} and @var{what-even} from the page's
+layout.  Interpret either of them as markup, with properties
+reflecting the variables in the page's layout and header modules."
   (let* ((paper-book (page-property page 'paper-book))
          (layout (ly:paper-book-paper paper-book))
          (page-number (page-property page 'page-number))
