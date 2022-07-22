@@ -1303,15 +1303,6 @@ the text view when printed from there.
 @divClass{column-center-top}
 @subheading Browser-based editors
 
-@subsubheading LilyBin
-@uref{http://lilybin.com/}
-
-A web-based LilyPond editor where you can typeset your scores directly
-online without needing to install LilyPond.  Code snippets are kept available
-with a unique URL, like on so-called @q{pastebin} websites.  Its code
-is made freely available under the MIT license; it may be found on its
-@uref{https://github.com/LilyBin/LilyBin,development page}.
-
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
@@ -1326,14 +1317,6 @@ on its own @uref{https://github.com/hacklily/hacklily,development page}.
 Since 2010, Online Music Editing Tools (OMET) offers a ready-to-use
 LilyPond service with a specifically-tailored web interface.
 Registration is required but free of charge.
-
-@subsubheading WebLily.net
-@uref{https://www.weblily.net/}
-
-Initiated in 2009, WebLily.net is one of the first web services based
-on LilyPond, and has been regularly updated since then.
-It is free of use (although registration is required), and includes
-a clickable version of LilyPond's documentation.
 
 @divEnd
 
@@ -1496,6 +1479,20 @@ an environment built on top of the
 @subheading Other programs no longer being actively developed
 
 @itemize
+
+@item
+@uref{https://github.com/LilyBin/LilyBin,LilyBin} is a web-based
+LilyPond editor where you can typeset your scores directly online
+without needing to install LilyPond.  Code snippets are kept
+available with a unique URL, like on so-called @q{pastebin}
+websites.  Although @uref{https://lilybin.com}, where it used to
+be hosted, has been discontinued, its source code continues to be
+freely available under the MIT license; it may be found on its
+@uref{https://github.com/LilyBin/LilyBin,GitHub page}.
+
+@item
+@uref{https://www.weblily.net/,WebLily} was one of the first web
+services based on LilyPond.
 
 @item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} was
