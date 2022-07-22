@@ -94,6 +94,8 @@ a sequential iterator.  Takes a single music parameter.")
                   "If true, a parsing error was found in this expression.")
 
      (figure ,integer? "A bass figure.")
+     (fine-folded ,boolean? "True in a @code{fine-event} that is
+issued from within a folded repeat (segno or volta).")
      (footnote-text ,markup? "Text to appear in a footnote.")
      (force-accidental ,boolean? "If set, a cautionary accidental should
 always be printed on this note.")

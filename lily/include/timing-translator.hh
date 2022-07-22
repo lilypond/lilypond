@@ -34,6 +34,7 @@ protected:
   void initialize () override;
   void listen_alternative (Stream_event *);
   void listen_bar (Stream_event *);
+  void listen_fine (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -47,6 +48,8 @@ private:
   long alt_number_ = 0;
   long alt_number_increment_ = 0;
   bool alt_reset_enabled_ = false;
+
+  Stream_event *fine_event_ = nullptr;
 };
 
 #endif // TIMING_TRANSLATOR_HH

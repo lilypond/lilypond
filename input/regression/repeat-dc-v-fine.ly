@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.12"
 
 \header {
   texidoc="When events creating @emph{Fine} and @emph{D.C.} occur
@@ -8,6 +8,7 @@ and difference detection."
 }
 
 #(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (G_ "found music after \\fine"))
 
 piece = \new Voice \fixed c' {
   \repeat segno 2 {

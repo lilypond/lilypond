@@ -19,11 +19,12 @@
 
 #include "timing-translator.hh"
 
-#include "warn.hh"
-#include "translator-group.hh"
 #include "global-context.hh"
-#include "moment.hh"
+#include "international.hh"
 #include "lily-imports.hh"
+#include "moment.hh"
+#include "translator-group.hh"
+#include "warn.hh"
 
 void
 Timing_translator::listen_alternative (Stream_event *ev)
@@ -47,6 +48,12 @@ Timing_translator::listen_bar (Stream_event *ev)
 {
   // To mimic the previous implementation, we always set whichBar.
   set_property (context (), "whichBar", get_property (ev, "bar-type"));
+}
+
+void
+Timing_translator::listen_fine (Stream_event *ev)
+{
+  assign_event_once (fine_event_, ev);
 }
 
 void
@@ -246,6 +253,14 @@ Timing_translator::start_translation_timestep ()
   if (!dt)
     return;
 
+  if (fine_event_)
+    {
+      if (!from_scm<bool> (get_property (fine_event_, "fine-folded")))
+        fine_event_->warning (_ ("found music after \\fine"));
+
+      fine_event_ = nullptr;
+    }
+
   Rational mp;
   {
     auto mom = from_scm (get_property (this, "measurePosition"), now);
@@ -316,6 +331,7 @@ Timing_translator::boot ()
 {
   ADD_LISTENER (alternative);
   ADD_LISTENER (bar);
+  ADD_LISTENER (fine);
 }
 
 ADD_TRANSLATOR (Timing_translator,

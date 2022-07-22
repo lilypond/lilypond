@@ -55,7 +55,14 @@ Fine_iterator::process (Moment m)
         = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
 
       if (timing_is_accurate)
-        report_event (get_music ());
+        {
+          auto *m = get_music ()->clone ();
+          const auto folded
+            = find_above_by_music_type (ly_symbol2scm ("folded-repeated-music"));
+          set_property (m, "fine-folded", to_scm (static_cast<bool> (folded)));
+          report_event (m);
+          m->unprotect ();
+        }
     }
 
   Simple_music_iterator::process (m);

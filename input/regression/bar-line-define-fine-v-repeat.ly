@@ -1,6 +1,7 @@
-\version "2.23.11"
+\version "2.23.12"
 
 #(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (G_ "found music after \\fine"))
 
 \header {
   texidoc="At @code{\\fine} without @code{\\inStaffSegno},
