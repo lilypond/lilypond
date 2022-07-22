@@ -373,7 +373,7 @@ $(outdir)/%.itexi: bib/%.bib
 	$(call ly_progress,Making,$@,< bib)
 	BSTINPUTS=$(src-dir)/essay \
 	  $(PYTHON) $(buildscript-dir)/bib2texi.py \
-	    -s $(top-src-dir)/Documentation/lily-bib -o $@ -q $<
+	    -s $(top-src-dir)/Documentation/lily-bib -o $@ $<
 
 $(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 
