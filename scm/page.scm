@@ -21,12 +21,8 @@
             make-page
             page-property
             page-set-property!
-            page-prev
             layout->page-init
-            page-force
             page-configuration
-            page-lines
-            page-page-number
             page-stencil
             page-free-height
             ))
@@ -38,8 +34,6 @@
 
 (define (annotate? layout)
   (eq? #t (ly:output-def-lookup layout 'annotate-spacing)))
-
-(define page-module (current-module))
 
 (define (make-page paper-book  . args)
   "A page is a prob (Property object). This is because the non-music
@@ -58,18 +52,6 @@ of layout settings just like markups inside the music"
 
 (define page-property ly:prob-property)
 (define page-set-property! ly:prob-set-property!)
-
-
-;; define accessors.
-(for-each
- (lambda (j)
-   (module-define!
-    page-module
-    (string->symbol (format #f "page-~a" j))
-    (lambda (pg)
-      (page-property pg j))))
-
- '(page-number prev lines force penalty lines))
 
 (define (page-translate-systems page)
   (for-each
@@ -160,7 +142,7 @@ of layout settings just like markups inside the music"
       ((paper-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper paper-book))
        (scopes (ly:paper-book-scopes paper-book))
-       (number (page-page-number page))
+       (number (page-property page 'page-number))
        (is-last-bookpart (page-property page 'is-last-bookpart))
        (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
        (sym (if (= dir UP)
@@ -207,8 +189,8 @@ of layout settings just like markups inside the music"
       ((paper-book (page-property page 'paper-book))
        (prop (lambda (sym) (page-property page sym)))
        (layout (ly:paper-book-paper paper-book))
-       (lines (page-lines page))
-       (number (page-page-number page))
+       (lines (page-property page 'lines))
+       (number (page-property page 'page-number))
 
        ;; TODO: naming paper-height/paper-width not analogous to TeX.
 
