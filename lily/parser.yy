@@ -480,12 +480,12 @@ toplevel_expression:
 			ly_call (proc, $1);
 		} else if (Output_def * od = unsmob<Output_def> ($1)) {
 			SCM id = SCM_EOL;
-
-			if (from_scm<bool> (od->c_variable ("is-paper")))
+			SCM kind = od->c_variable ("output-def-kind");
+			if (scm_is_eq (kind, ly_symbol2scm ("paper")))
 				id = ly_symbol2scm ("$defaultpaper");
-			else if (from_scm<bool> (od->c_variable ("is-midi")))
+			else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
 				id = ly_symbol2scm ("$defaultmidi");
-			else if (from_scm<bool> (od->c_variable ("is-layout")))
+			else if (scm_is_eq (kind, ly_symbol2scm ("layout")))
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $1);
@@ -501,12 +501,12 @@ toplevel_expression:
 	| output_def {
 		SCM id = SCM_EOL;
 		Output_def * od = unsmob<Output_def> ($1);
-
-		if (from_scm<bool> (od->c_variable ("is-paper")))
+		SCM kind = od->c_variable ("output-def-kind");
+		if (scm_is_eq (kind, ly_symbol2scm ("paper")))
 			id = ly_symbol2scm ("$defaultpaper");
-		else if (from_scm<bool> (od->c_variable ("is-midi")))
+		else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
 			id = ly_symbol2scm ("$defaultmidi");
-		else if (from_scm<bool> (od->c_variable ("is-layout")))
+		else if (scm_is_eq (kind, ly_symbol2scm ("layout")))
 			id = ly_symbol2scm ("$defaultlayout");
 
 		parser->lexer_->set_identifier (id, $1);
@@ -1044,7 +1044,8 @@ book_body:
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+			if (scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
+				       ly_symbol2scm ("paper"))) {
 				unsmob<Book> ($1)->paper_ = od;
 				set_paper (parser, od);
 			} else {
@@ -1124,7 +1125,8 @@ bookpart_body:
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+			if (scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
+				       ly_symbol2scm ("paper"))) {
 				unsmob<Book> ($1)->paper_ = od;
 			} else {
 				parser->parser_error (@2, _ ("need \\paper for paper block"));
@@ -1196,7 +1198,8 @@ score_items:
 	{
 		Output_def *od = unsmob<Output_def> ($2);
 		if (od) {
-			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper"))))
+			if (scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
+				       ly_symbol2scm ("paper")))
 			{
 				parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
 				od = 0;
@@ -1277,7 +1280,8 @@ paper_block:
 	output_def {
                 Output_def *od = unsmob<Output_def> ($1);
 
-		if (!from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper"))))
+		if (!scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
+				ly_symbol2scm ("paper")))
 		{
 			parser->parser_error (@1, _ ("need \\paper for paper block"));
 			$$ = get_paper (parser)->unprotect ();

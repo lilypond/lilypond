@@ -1,4 +1,4 @@
-\version "2.23.5"
+\version "2.23.12"
 
 \header {
   texidoc = "Let @code{ly:context-output-def} access some output
@@ -17,8 +17,7 @@ showvar =
 
 music =
 {
-  \showvar is-layout
-  \showvar is-midi
+  \showvar output-def-kind
   \showvar flag
   c'1
 }

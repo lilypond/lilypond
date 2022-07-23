@@ -104,8 +104,7 @@
   "Set the default staff size, where @var{sz} is thought to be in points."
   (let* ((current-mod (current-module))
          (pap (ly:parser-lookup '$defaultpaper))
-         (in-layout? (or (module-defined? current-mod 'is-paper)
-                         (module-defined? current-mod 'is-layout)))
+         (in-output-def? (module-defined? current-mod 'output-def-kind))
 
          ;; maybe not necessary.
          ;; but let's be paranoid. Maybe someone still refers to the
@@ -114,7 +113,7 @@
 
          (new-scope (ly:output-def-scope new-paper)))
 
-    (if in-layout?
+    (if in-output-def?
         (ly:warning (G_ "set-global-staff-size: not in toplevel scope")))
 
     (ly:reset-all-fonts)
@@ -260,7 +259,7 @@ ignoring @var{landscape?}."
                        (string-trim-right (string-drop-right name 8)))
                  #f)
                 (else landscape?)))
-         (is-paper? (module-defined? module 'is-paper))
+         (is-paper? (eq? 'paper (module-ref module 'output-def-kind #f)))
          (entry (and is-paper?
                      (eval-carefully (if (pair? name)
                                          name
@@ -322,7 +321,7 @@ ignoring @var{landscape?}."
 
 (define (internal-set-paper-size module name landscape?)
   (let* ((entry (lookup-paper-name module name landscape?))
-         (is-paper? (module-defined? module 'is-paper)))
+         (is-paper? (eq? 'paper (module-ref module 'output-def-kind #f))))
     (cond
      ((not is-paper?)
       (ly:warning (G_ "This is not a \\layout {} object, ~S") module))
@@ -346,7 +345,7 @@ ignoring @var{landscape?}."
     (module-set! (current-module) '$defaultpaper new-paper)))
 
 (define-public (set-paper-size name . rest)
-  (if (module-defined? (current-module) 'is-paper)
+  (if (eq? 'paper (module-ref (current-module) 'output-def-kind #f))
       (internal-set-paper-size (current-module) name
                                (memq 'landscape rest))
 

@@ -127,8 +127,11 @@ Run @var{score} through @var{layout} (an output definition) scaled to correct
   /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
   for (vsize i = 0; !score_def && i < sc->defs_.size (); i++)
-    if (from_scm<bool> (sc->defs_[i]->c_variable ("is-layout")))
-      score_def = sc->defs_[i];
+    if (scm_is_eq (sc->defs_[i]->c_variable ("output-def-kind"),
+                   ly_symbol2scm ("layout")))
+      {
+        score_def = sc->defs_[i];
+      }
 
   if (!score_def)
     return SCM_BOOL_F;

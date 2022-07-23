@@ -1301,8 +1301,9 @@ print a warning and set an optional @var{default}."
   "Return @code{#t} if @var{module} belongs to an output module
 usually carrying context definitions (@code{\\midi} or
 @code{\\layout})."
-  (or (module-ref module 'is-midi #f)
-      (module-ref module 'is-layout #f)))
+  (let ((kind (module-ref module 'output-def-kind #f)))
+    (or (eq? kind 'midi)
+        (eq? kind 'layout))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

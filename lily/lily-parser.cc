@@ -202,7 +202,10 @@ get_layout (Lily_parser *parser)
   SCM id = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultlayout"));
   Output_def *layout = unsmob<Output_def> (id);
   layout = layout ? layout->clone () : new Output_def;
-  layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
+  // TODO: use a member in the Output_def. Can't do that for now,
+  // because the current paper code uses the output def module, not
+  // the output def itself.
+  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("layout"));
 
   return layout;
 }
@@ -214,7 +217,7 @@ get_midi (Lily_parser *parser)
     = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultmidi"));
   Output_def *layout = unsmob<Output_def> (id);
   layout = layout ? layout->clone () : new Output_def;
-  layout->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
+  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("midi"));
   return layout;
 }
 
@@ -230,7 +233,7 @@ get_paper (Lily_parser *parser)
   SCM default_paper = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultpaper"));
   layout = layout ? layout : unsmob<Output_def> (default_paper);
   layout = layout ? layout->clone () : new Output_def;
-  layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
+  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("paper"));
   return layout;
 }
 
