@@ -1,13 +1,12 @@
-%% Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Bien qu'ayant des métriques bien différentes, les deux parties
 ci-dessous présentées restent synchrones.
 
 Les barres de mesure ne peuvent plus être gérées au niveau du contexte
-@code{Score} ; les @code{Default_barline_engraver} et
-@code{Timing_translator} doivent être déplacés du contexte @code{Score}
-au contexte @code{Staff} afin de permettre des barres de mesure
-individualisées.
+@code{Score} ; le @code{Timing_translator} doit être déplacé du contexte
+@code{Score} au contexte @code{Staff} afin de permettre des barres de
+mesure individualisées.
 
 Le @code{Bar_number_engraver} devra lui aussi être déplacé, puisqu'il
 dépend de propriétés attachées au @code{Timing_translator}, afin de

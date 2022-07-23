@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Le code ci-dessous permet de réaliser des découpes à l'emporte pièce,
 autrement dit d'extraire des fragments, au sein d'une partition.
@@ -8,7 +8,7 @@ des plus évidents, nous vous conseillons de traiter ce fichier
 individuellement, avec l'option @code{-dclip-systems}.
 
 Les fichiers résultants sont de la forme
-@samp{base-from-début-to-fin[-compteur].eps}.
+@samp{@emph{base}-from-@emph{début}-to-@emph{fin}[-@emph{compteur}].eps}.
 
 
 Lorsque sont inclus le début ou la fin d'un système, l'extraction

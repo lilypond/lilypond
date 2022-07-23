@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 46617a27756b20d0667b0be863d4d35390f90940
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Lorsque le reste de la division du numéro de la mesure courante par le
 premier argument de @code{modulo-bar-number-visible} égale le deuxième

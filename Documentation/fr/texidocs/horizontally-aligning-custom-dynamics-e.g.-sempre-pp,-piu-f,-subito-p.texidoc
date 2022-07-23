@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Certaines indications de nuance requièrent un complément textuel, comme
 « sempre pp ».  Dans la mesure où les nuances sont habituellement
@@ -8,39 +8,47 @@ note à laquelle il s'applique.
 Différentes approches permettent de correctement aligner horizontalement
 ce « sempre pp » :
 
--- Un simple @code{\\once \\override DynamicText.X-offset = #-9.2}
-   avant la note considérée de telle sorte que la nuance soit décalée
-   manuellement à la bonne place.  Inconvénient : il faut le faire
-   manuellement à chaque fois qu'intervient ce @emph{markup}.
+@itemize
+@item
+Un simple @code{\\once \\override DynamicText.X-offset = #-9.2} avant la
+note considérée de telle sorte que la nuance soit décalée manuellement à
+la bonne place. Inconvénient : il faut le faire manuellement à chaque
+fois qu'intervient ce @emph{markup}.
 
--- L'intégration d'un rembourrage (@code{#:hspace 7.1}) à la définition
-   de cette nuance personnalisée afin qu'une fois centrée par LilyPond
-   elle soit correctement alignée.  Inconvénient : le rembourrage
-   occupera exactement cet espace et ne permettra à aucun autre
-   @emph{markup} ou nuance d'apparaître à cet endroit.
+@item
+L'intégration d'un rembourrage (@code{#:hspace 7.1}) à la définition de
+cette nuance personnalisée afin qu'une fois centrée par LilyPond elle
+soit correctement alignée. Inconvénient : le rembourrage occupera
+exactement cet espace et ne permettra à aucun autre @emph{markup} ou
+nuance d'apparaître à cet endroit.
 
--- L'application d'un décalage au script de nuance
-   @code{\\once \\override @dots{} X-offset = @dots{}}.
-   Inconvénient : là aussi il faut le faire à chaque fois.
+@item
+L'application d'un décalage au script de nuance
+@code{\\once \\override @dots{} X-offset = @dots{}}. Inconvénient : là
+aussi il faut le faire à chaque fois.
 
--- L'attribution arbitraire d'une dimension à 0 du texte additionnel à
-   l'aide d'un @code{#:with-dimensions '(0 . 0) '(0 . 0)}.
-   Inconvénient : LilyPond considère que « sempre » n'occupe pas
-   d'espace, et donc pourra mettre à cet endroit d'autres éléments, ce
-   qui pourrait générer des collisions qui ne seront pas détectées par
-   les routines @emph{ad hoc}.  D'autre part, il semble persister un
-   espacement, ce qui laisse l'impression d'un alignement différent en
-   l'absence de texte additionnel.
+@item
+L'attribution arbitraire d'une dimension à 0 du texte additionnel à
+l'aide d'un @code{#:with-dimensions '(0 . 0) '(0 . 0)}. Inconvénient :
+LilyPond considère que « sempre » n'occupe pas d'espace, et donc pourra
+mettre à cet endroit d'autres éléments, ce qui pourrait générer des
+collisions qui ne seront pas détectées par les routines @emph{ad hoc}.
+D'autre part, il semble persister un espacement, ce qui laisse
+l'impression d'un alignement différent en l'absence de texte
+additionnel.
 
--- L'ajout, explicite, du décalage directement dans la fonction Scheme
-   du script de nuance.
+@item
+L'ajout, explicite, du décalage directement dans la fonction Scheme du
+script de nuance.
 
--- La définition d'un alignement explicite au sein du script de nuance.
-   Ceci ne sera suivi d'effet, par défaut, qu'en jouant sur
-   @code{X-offset}.  Inconvénient : il faut définir
-   @code{DynamicText.X-offset}, ce qui s'appliquera à toutes les
-   nuances textuelles.  Par ailleurs, l'alignement sera réalisé sur le
-   bord droit du texte additionnel, non sur le milieu de @emph{pp}.
+@item
+La définition d'un alignement explicite au sein du script de nuance.
+Ceci ne sera suivi d'effet, par défaut, qu'en jouant sur
+@code{X-offset}. Inconvénient : il faut définir
+@code{DynamicText.X-offset}, ce qui s'appliquera à toutes les nuances
+textuelles. Par ailleurs, l'alignement sera réalisé sur le bord droit du
+texte additionnel, non sur le milieu de @emph{pp}.
+@end itemize
 
 "
   doctitlefr = "Alignement de nuances personnalisées comme « sempre pp », « più f » ou « subito p »"

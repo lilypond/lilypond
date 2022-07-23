@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
+   Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -26,12 +26,12 @@ Nous profitons de ces lignes pour adresser tous nos remerciements à
 Sebastiano Vigna, qui assure la maintenance du site LSR et de la base de
 données qu'il contient, ainsi qu'à l'université de Milan qui l'héberge.
 
-Notez bien que cet ouvrage n'est pas une simple copie du LSR.  D'une
+Notez bien que cet ouvrage n'est pas une simple copie du LSR. D'une
 part, certains exemples proviennent directement des sources de LilyPond
--- plus précisément le répertoire @file{input/new} -- et, d'autre part,
-ce qui provient du LSR est mis à jour à l'aide de @command{convert-ly}
--- le LSR repose sur une version stable de LilyPond, alors que ce manuel
-correspond à la version @version{}.
+-- plus précisément le répertoire @file{Documentation/snippets/new/} --
+et, d'autre part, ce qui provient du LSR est mis à jour à l'aide de
+@command{convert-ly} -- le LSR repose sur une version stable de
+LilyPond, alors que ce manuel correspond à la version @version{}.
 
 Les extraits sont regroupés par catégorie, correspondant au découpage du
 manuel de notation de LilyPond.  Un même extrait peut se voir attribuer
@@ -46,6 +46,9 @@ fichier ou sur l'image vous affichera le code sous-jacent.
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2022 par les auteurs.
 @end macro
+
+@c no dircategory nor direntry in  French
+@c since info is not translated. -JCM
 
 @c This disables @lydoctitle definition in common-macros.itexi
 @set snippets-sections

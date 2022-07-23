@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Le recours à des contextes @code{MarkLine} (tel qu'indiqué dans le
-@uref{http://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010}) dans une
+@uref{https://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010}) dans une
 partition « à la française » peut s'avérer problématique lorsque toutes
 les portées entre deux contextes @code{Markline} sont absentes d'un
 système. La présence du @code{Keep_alive_together_engraver} au sein de

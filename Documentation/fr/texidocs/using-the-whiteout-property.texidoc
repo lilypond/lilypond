@@ -1,20 +1,18 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Tout objet graphique peut s'imprimer sur un fond blanc afin de masquer
-une partie des objets qu'il recouvre.  Ceci trouve toute son utilité
-pour améliorer certaines collisions, notamment dans des situations où un
-repositionnement d'objets est irréaliste.  Il faut alors explicitement
+une partie des objets qu'il recouvre. Ceci trouve toute son utilité pour
+améliorer certaines collisions, notamment dans des situations où un
+repositionnement d'objets est irréaliste. Il faut alors explicitement
 définir la propriété @code{layer} afin de contrôler quels objets seront
-masqués par le fond blanc.
-
-Dans l'exemple ci-dessous, la liaison est en collision avec la
-métrique ; la situation est améliorée dès lors que la portion de liaison
-qui traverse la métrique est masquée par l'affectation de la propriété
-@code{whiteout} à l'objet @code{TimeSignature}.  Pour ce faire,
-@code{TimeSignature} est déplacé sur un calque au-dessus de celui de
-@code{Tie} -- il reste sur le calque par défaut (1) --, puis le
-@code{StaffSymbol} est placé sur un calque supérieur à celui de
-@code{TimeSignature} pour ne pas être masqué.
+masqués par le fond blanc. Dans l'exemple ci-dessous, la liaison est en
+collision avec la métrique ; la situation est améliorée dès lors que la
+portion de liaison qui traverse la métrique est masquée par
+l'affectation de la propriété @code{whiteout} à l'objet
+@code{TimeSignature}. Pour ce faire, @code{TimeSignature} est déplacé
+sur un calque au-dessus de celui de @code{Tie} -- il reste sur le calque
+par défaut (1) --, puis le @code{StaffSymbol} est placé sur un calque
+supérieur à celui de @code{TimeSignature} pour ne pas être masqué.
 
 "
   doctitlefr = "Utilisation de la propriété @code{whiteout}"

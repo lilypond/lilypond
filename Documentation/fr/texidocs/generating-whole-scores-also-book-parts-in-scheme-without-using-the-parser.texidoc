@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
 expression Scheme générée par l'analyseur syntaxique de LilyPond. Il est
@@ -20,10 +20,10 @@ appliqué un bloc @code{layout} comportant la fonction
   )
 @end verbatim
 
-Il suffit alors de transmettre ce @code{score} à lilypond pour qu'il le
+Il suffit alors de transmettre ce @code{score} à LilyPond pour qu'il le
 grave.  Les trois fonctions -- @code{(add-score score)},
 @code{(add-text text)} et @code{(add-music music)} -- définies dans le
-code ci-dessous permettent de transmettre à lilypond, aux fins de les
+code ci-dessous permettent de transmettre à LilyPond, aux fins de les
 graver, une partition complète, un @emph{markup} ou simplement de la
 musique.
 

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
   texidocfr = "
 En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des
 paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et
@@ -23,7 +23,7 @@ montre qu'il suffit d'adjoindre à cette note un @code{[]}.
 (Notez bien que @code{\\set stemLeftBeamCount} sera toujours
 synonyme de @code{\\once \\set}.  Autrement dit, la détermination
 des ligatures n'est pas « permanente » ; c'est la raison pour
-laquelle les crochets du @code{16[]} isolé du dernier exemple n'ont
+laquelle les crochets du @code{c'16[]} isolé du dernier exemple n'ont
 rien à voir avec le @code{\\set} indiqué deux notes auparavant.)
 
 "
