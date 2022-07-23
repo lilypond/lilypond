@@ -194,7 +194,6 @@ horizontal spacing from the ambitus to other items.")))))
                                 font-interface
                                 ledgered-interface
                                 note-head-interface
-                                rhythmic-head-interface
                                 staff-symbol-referencer-interface))
                  (description . "A note head in an
 @iref{Ambitus}.")))))

@@ -52,6 +52,8 @@ Rhythmic_head::set_dots (Grob *me, Item *dot)
   set_object (me, "dot", dot->self_scm ());
 }
 
+// TODO: shouldn't this be in note-head-interface?  It also
+// declares duration-log in its properties.
 int
 Rhythmic_head::duration_log (Grob *me)
 {
