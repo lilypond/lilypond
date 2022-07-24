@@ -42,18 +42,38 @@ scm_or_str2symbol (SCM s)
   return s;
 }
 
-/* Using this trick we cache the value of scm_from_utf8_symbol ("fooo")
+/* Same, with keywords */
+inline SCM
+scm_or_str2keyword (char const *c) { return scm_from_utf8_keyword (c); }
+
+inline SCM
+scm_or_str2keyword (const std::string &s)
+{
+  return scm_from_utf8_keyword (s.c_str ());
+}
+
+inline SCM
+scm_or_str2keyword (SCM s)
+{
+  assert (scm_is_keyword (s));
+  return s;
+}
+
+/* Using this trick we cache the value of scm_from_utf8_{symbol,keyword} ("fooo")
    where "fooo" is a constant char *. This is done at the cost of one
-   static variable per ly_symbol2scm() use, and the cost of C++'s
+   static variable per ly_{symbol,keyword}2scm() use, and the cost of C++'s
    mechanism to ensure a static variable is only initialized once.
  */
-#define ly_symbol2scm(x)                                                \
+#define ly_internal_symbol_or_keyword2scm(converter, x)                 \
   (__builtin_constant_p (x)                                             \
    ? [&] {                                                              \
-     static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
+     static SCM cached = scm_gc_protect_object (converter (x));         \
      return cached;                                                     \
    } ()                                                                 \
-   : scm_or_str2symbol (x))
+   : converter (x))
+
+#define ly_symbol2scm(x) ly_internal_symbol_or_keyword2scm(scm_or_str2symbol, x)
+#define ly_keyword2scm(x) ly_internal_symbol_or_keyword2scm(scm_or_str2keyword, x)
 
 /*
   Adds the NAME as a Scheme function, and a variable to store the SCM
