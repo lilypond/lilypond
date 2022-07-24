@@ -31,6 +31,7 @@ extern Variable apply;
 #if SCM_MAJOR_VERSION == 2
 extern Variable p_auto_compilation_options;
 #endif
+extern Variable debug_options;
 extern Variable equal;
 extern Variable f_default_port_encoding;
 extern Variable less;

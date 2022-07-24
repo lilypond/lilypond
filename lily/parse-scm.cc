@@ -26,8 +26,10 @@
 #include "overlay-string-port.hh"
 #include "program-option.hh"
 #include "source-file.hh"
+#include "sources.hh"
 
 #include <cstdio>
+#include <cstdlib>
 
 // Catch stack traces on error.
 bool parse_protect_global = true;
@@ -51,26 +53,164 @@ struct Parse_start
   {
   }
 
-  static SCM handle_error (void *data, SCM /*tag*/, SCM args)
+  // The pre-unwind handler, which prints the Scheme error.
+  static SCM handle_error_before_unwinding (void *data, SCM tag, SCM args)
   {
     const auto *const ps = reinterpret_cast<Parse_start *> (data);
 
-    ps->start_.non_fatal_error
-    (_ ("GUILE signaled an error for the expression beginning here"));
+    // Capture the call stack.
+    SCM call_stack = scm_make_stack (SCM_BOOL_T, SCM_EOL);
+    SCM error_source = SCM_BOOL_F;
 
-    if (scm_ilength (args) > 2)
-      scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
+    // Try to find back the cause of the error in the user's Scheme code.  If
+    // user code called a function defined by Guile or LilyPond and this errors
+    // out deep in the call stack, we'll report the error in the procedure where
+    // the failure occurred, but the error message will be attached to the
+    // initial call in the LilyPond file if possible.  We do this by walking
+    // back in the call stack and finding the first frame that has one of the
+    // LilyPond source files as its file name.
+    SCM top_frame = SCM_BOOL_F;
+    // It would be surprising if the stack were empty, but let's play it safe.
+    if (from_scm<int> (scm_stack_length (call_stack)) == 0)
+      {
+        programming_error ("call stack empty while handling Guile error");
+      }
+    else
+      {
+        // Use scm_stack_ref to get the first frame, but not the following ones
+        // because that would be quadratic (scm_stack_ref is linear in its
+        // second argument like list-ref).
+        top_frame = scm_stack_ref (call_stack, to_scm (0));
+        SCM search_frame = top_frame;
+        SCM source_files = ly_source_files (/* parser */ SCM_UNDEFINED);
+        while (true)
+          {
+            SCM source = scm_frame_source (search_frame);
+            if (scm_is_pair (source))
+              {
+                SCM filename = scm_cadr (source);
+                // This catches user .ly files, but not init files.
+                if (scm_is_true (scm_member (filename, source_files))
+                    // ugh
+                    && !ly_is_equal (filename, ly_string2scm ("<included string>"))
+                    // ly:parser-include-string uses "<included string>" but
+                    // ly:parser-parse-string uses "<string>" (should this be
+                    // harmonized?).
+                    && !ly_is_equal (filename, ly_string2scm ("<string>")))
+                  {
+                    error_source = source;
+                    break;
+                  }
+              }
+            search_frame = scm_frame_previous (search_frame);
+            if (scm_is_false (search_frame)) // end of stack
+              break;
+          }
+      }
 
+    if (scm_is_false (error_source))
+      {
+        // No location found.  This can happen for syntax errors.  Use the start
+        // of the Scheme expression where the error was raised.
+        ps->start_.non_fatal_error
+          (_ ("Guile signaled an error for the expression beginning here"));
+      }
+    else
+      {
+        SCM filename = scm_cadr (error_source);
+        SCM line = scm_caddr (error_source);
+        SCM column = scm_cdddr (error_source);
+        // We need to find back the line in the .ly file.  This may look a bit
+        // clumsy, but it turns out to be the easiest way not to use the
+        // Source_file infrastructure here, because the parser is oriented
+        // towards getting line/column info from the current char* position (to
+        // work with Flex), whereas here we have the line/column and we want to
+        // get the line from them.
+        SCM port = scm_open_file_with_encoding (filename,
+                                                ly_string2scm ("r"),
+                                                SCM_BOOL_F, // don't guess encoding
+                                                ly_string2scm ("UTF8"));
+        // Wait until the relevant line
+        while (!ly_is_eqv (scm_port_line (port), line))
+          (void) scm_read_line (port);
+        // It looks like we could just use scm_substring, but we can't, because
+        // of tab expansion, which Guile does on port columns and thus factors
+        // into the column that the error gets.  We do it in a way that
+        // guarantees correctness without having to do the expansion ourselves.
+        SCM before_chars = SCM_EOL;
+        while (!ly_is_eqv (scm_port_column (port), column))
+          before_chars = scm_cons (scm_read_char (port), before_chars);
+        SCM before_substring = scm_string (scm_reverse_x (before_chars, SCM_EOL));
+        SCM after_substring = scm_car (scm_read_line (port));
+        static SCM space = scm_integer_to_char (to_scm (32));
+        // Note that we get the "cutting point" right wrt. tab expansion, but we
+        // don't care to make the "before" and "after" part align at the cutting
+        // point, which is not really possible anyway because there is no
+        // universal tab width.
+        SCM context = scm_make_string (column, space);
+        non_fatal_error (_ ("Guile signaled an error for the expression beginning here")
+                         + "\n" + ly_scm2string (before_substring)
+                         + "\n" + ly_scm2string (context)
+                         + ly_scm2string (after_substring),
+                         ly_scm2string (filename) + ":"
+                         + ly_scm_write_string (scm_oneplus (line)) + ":"
+                         + ly_scm_write_string (scm_oneplus (column)));
+      }
+
+    // If enabled, print a backtrace.  "enabled" means that Guile would print a
+    // backtrace if the error were not handled.  This can be turned on with
+    // #(debug-enable 'backtrace) or by running with -ddebug-eval.
+    if (scm_is_true (
+         scm_memq (ly_symbol2scm ("backtrace"), Guile_user::debug_options ())))
+      {
+        // Use scm_display_backtrace and not the scm_backtrace convenience
+        // wrapper because the latter outputs to stdout whereas we want stderr.
+        scm_display_backtrace (call_stack,
+                               scm_current_error_port (),
+                               SCM_BOOL_F, // don't cut inner frames
+                               SCM_BOOL_F // don't cut outer frames
+                               );
+      }
+
+    // Now let Guile tell us what the error is about.  We pass #f for the
+    // "frame" argument here since we already showed where the error was
+    // ourselves.
+    scm_print_exception (scm_current_error_port (), SCM_BOOL_F, tag, args);
+
+    // In -dno-protected-scheme-parsing mode, we abort compilation entirely.
+    // Note that even in this mode, we do error handling and don't just "run the
+    // code without catch", because we still want more helpful backtraces for
+    // any errors, e.g., the error location in the LilyPond file and not on the
+    // line of code in one of LilyPond's .scm files that the Scheme code in the
+    // .ly file called.
+    if (!parse_protect_global)
+      exit (1);
+
+    // This *unspecified* is unimportant.
+    return SCM_UNSPECIFIED;
+  }
+
+  // The outer handler, which just specifies that any Scheme expression whose
+  // evaluation resulted in an error is evaluated as *unspecified* in order to
+  // be able to continue compiling the main LilyPond file.  (Unreachable in
+  // -dno-protected-scheme-parsing.)
+  static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/, SCM /*args*/)
+  {
+    // This *unspecified* is important, it's the value returned to LilyPond.
     return SCM_UNSPECIFIED;
   }
 };
+
+// PARSING
 
 // Pass string to scm parser, reading one expression.  Return result
 // value. Parse_start::location_ is adjusted to cover the entire
 // expression.
 SCM
-internal_parse_embedded_scheme (Parse_start *ps)
+internal_parse_embedded_scheme (void *p)
 {
+  Parse_start *ps = static_cast<Parse_start *> (p);
+
   // start_ is the first byte of the Scheme expression, ie. in
   // "... #(bla)", it is the offset of the '('
   const Input &start = ps->start_;
@@ -116,22 +256,6 @@ internal_parse_embedded_scheme (Parse_start *ps)
   return form;
 }
 
-SCM
-parse_embedded_scheme_void (void *p)
-{
-  return internal_parse_embedded_scheme (static_cast<Parse_start *> (p));
-}
-
-SCM
-protected_parse_embedded_scheme (Parse_start *ps)
-{
-  // Catch #t : catch all Scheme level errors.
-  return scm_internal_catch (SCM_BOOL_T,
-                             parse_embedded_scheme_void,
-                             ps,
-                             &Parse_start::handle_error, ps);
-}
-
 // Try parsing.  Upon failure return SCM_UNDEFINED. Upon success, set
 // parsed_output to the cover the entire form. parsed_output may not
 // be null.
@@ -140,9 +264,11 @@ parse_embedded_scheme (const Input &start, Lily_parser *parser, Input *parsed_ou
 {
   Parse_start ps (SCM_UNDEFINED, start, parser);
 
-  SCM result = parse_protect_global
-               ? protected_parse_embedded_scheme (&ps)
-               : internal_parse_embedded_scheme (&ps);
+  // Catch #t : catch all Scheme level errors.
+  SCM result = scm_c_catch (SCM_BOOL_T,
+                            internal_parse_embedded_scheme, &ps,
+                            &Parse_start::handle_error_after_unwinding, &ps,
+                            &Parse_start::handle_error_before_unwinding, &ps);
 
   *parsed_output = ps.parsed_;
   return result;
@@ -151,7 +277,7 @@ parse_embedded_scheme (const Input &start, Lily_parser *parser, Input *parsed_ou
 // EVALUATION
 
 SCM
-evaluate_scheme_form_void (void *p)
+internal_evaluate_embedded_scheme (void *p)
 {
   Parse_start *ps = static_cast<Parse_start *> (p);
   // If ps->form_ is a procedure, it's a thunk returning the value(s)
@@ -216,7 +342,7 @@ evaluate_scheme_form_void (void *p)
   SCM port = scm_current_warning_port ();
   static SCM devnull = scm_sys_make_void_port (ly_string2scm ("w"));
   scm_set_current_warning_port (devnull);
-  #if SCM_MAJOR_VERSION >= 3
+#if SCM_MAJOR_VERSION >= 3
   SCM bytecode =
     Compile::compile (
       ps->form_,
@@ -225,7 +351,7 @@ evaluate_scheme_form_void (void *p)
       // Turn off optimizations, they make for very slow compilation.
       ly_keyword2scm ("optimization-level"), to_scm (0)
     );
-  #elif SCM_MAJOR_VERSION == 2
+#else
   SCM bytecode =
     Compile::compile (
       ps->form_,
@@ -235,22 +361,10 @@ evaluate_scheme_form_void (void *p)
       // uses when compiling its own .scm files.
       ly_keyword2scm ("opts"), Guile_user::p_auto_compilation_options
     );
-  #endif
+#endif
   scm_set_current_warning_port (port);
   SCM thunk = Loader::load_thunk_from_memory (bytecode);
   return ly_call (thunk);
-}
-
-SCM
-protected_evaluate_scheme_form (void *ps)
-{
-  /*
-    Catch #t : catch all Scheme level errors.
-   */
-  return scm_internal_catch (SCM_BOOL_T,
-                             evaluate_scheme_form_void,
-                             ps,
-                             &Parse_start::handle_error, ps);
 }
 
 SCM
@@ -258,15 +372,18 @@ evaluate_embedded_scheme (SCM form, Input const &start, Lily_parser *parser)
 {
   Parse_start ps (form, start, parser);
 
-  // Establish the quasi-parameter (*location*) by using the location
-  // `start` covering the input of the Scheme form during its
-  // evaluation
-  SCM ans = scm_c_with_fluid
-            (Lily::f_location,
-             start.smobbed_copy (),
-             parse_protect_global ? protected_evaluate_scheme_form
-             : evaluate_scheme_form_void, &ps);
+  // Establish the quasi-parameter (*location*) by using the location `start`
+  // covering the input of the Scheme form during its evaluation
+  scm_dynwind_begin (SCM_F_DYNWIND_REWINDABLE);
+  scm_dynwind_fluid (Lily::f_location, start.smobbed_copy ());
+
+  SCM result = scm_c_catch (SCM_BOOL_T,
+                            internal_evaluate_embedded_scheme, &ps,
+                            &Parse_start::handle_error_after_unwinding, &ps,
+                            &Parse_start::handle_error_before_unwinding, &ps);
+
+  scm_dynwind_end ();
 
   scm_remember_upto_here_1 (form);
-  return ans;
+  return result;
 }

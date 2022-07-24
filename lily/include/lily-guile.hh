@@ -115,6 +115,11 @@ inline bool ly_is_equal (SCM x, SCM y)
   return scm_is_true (scm_equal_p (x, y));
 }
 
+inline bool ly_is_eqv (SCM x, SCM y)
+{
+  return scm_is_true (scm_eqv_p (x, y));
+}
+
 /*
   display and print newline.
 */

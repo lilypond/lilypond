@@ -20,6 +20,7 @@
 #ifndef SOURCES_HH
 #define SOURCES_HH
 
+#include "lily-guile.hh"
 #include "lily-proto.hh"
 
 #include <string>
@@ -48,5 +49,7 @@ public:
   std::string search_path () const;
   void set_path (File_path *);
 };
+
+SCM ly_source_files (SCM parser_smob);
 
 #endif /* SOURCE_HH */

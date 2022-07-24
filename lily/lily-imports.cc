@@ -27,6 +27,7 @@ Variable apply ("apply");
 #if SCM_MAJOR_VERSION == 2
 Variable p_auto_compilation_options ("%auto-compilation-options");
 #endif
+Variable debug_options ("debug-options");
 Variable equal ("=");
 Variable less ("<");
 Variable plus ("+");
