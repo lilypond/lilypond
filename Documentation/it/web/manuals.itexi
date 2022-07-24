@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 4af03433c5701ea48b34506cc7587409fbb2ad3d
+    Translation of GIT committish: 759c5cb27a14a050a089747935bda5e5ba7e62bb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -134,6 +134,15 @@ esempi, consigli e trucchi creati dagli utenti.
 Ben Lemon, un utente di LilyPond, ha creato una serie di video tutorial sul
 suo blog rivolti ai nuovi utenti.
 
+@item
+@uref{https://scheme-book.ursliska.de/introduction/index.html,
+LilyPond's Scheme}: un tutorial esterno per imparare Scheme, il
+linguaggio usato per programmare LilyPond.
+
+@item
+@uref{https://extending-lilypond.readthedocs.io,Extending Guide}:
+una risorsa esterna di documentazione su come estendere LilyPond in
+Scheme.
 
 @item @ref{Sviluppo}:
 manuali per la versione non stabile.

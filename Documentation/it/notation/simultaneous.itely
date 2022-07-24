@@ -149,6 +149,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 @knownissues
 Gli accordi che contengono più di due altezze in uno spazio del rigo,
@@ -269,6 +270,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/chord-repetition-init.ly}.
+@endmorerefs
 
 
 @node Espressioni simultanee
@@ -380,6 +382,7 @@ Guida al funzionamento interno:
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+@endmorerefs
 
 @knownissues
 I cluster hanno un buon aspetto solo se durano almeno per due accordi; altrimenti
@@ -638,6 +641,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 
 @node Stili di voce
@@ -687,6 +691,7 @@ Manuale d'apprendimento:
 
 Frammenti:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 
 @node Risoluzione delle collisioni
@@ -918,6 +923,7 @@ Guida al funzionamento interno:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+@endmorerefs
 
 @cindex collisione,ignorare
 
@@ -1191,6 +1197,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Tutte le funzioni @code{\partCombine@dots{}} possono accettare soltanto due
@@ -1341,3 +1348,4 @@ Manuale d'apprendimento:
 
 Frammenti:
 @rlsr{Simultaneous notes}.
+@endmorerefs

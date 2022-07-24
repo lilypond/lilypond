@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 8271826c75227ce0d61001449c23d95a69eb8879
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -146,6 +146,103 @@ sono trattate in @ref{Raggruppare i righi}.
 @node Notazione grafica
 @subsection Notazione grafica
 @translationof Graphical notation
+
+@cindex linea di durata
+@cindex durata, linea
+@cindex nota, continuazione
+@cindex continuazione di una nota
+@cindex linea, per indicare la durata
+
+@funindex \-
+
+Gli elementi ritmici possono essere continuati da una linea di durata, che è
+rappresentata dal grob @code{DurationLine}.
+Gli stili possibili sono @code{'beam} (raggio), @code{'line} (linea),
+@code{'dashed-line} (linea tratteggiata), @code{'dotted-line} (linea punteggiata),
+@code{'zigzag}, @code{'trill} e @code{'none} (nessuno).
+La linea di durata può terminare con un gancio (solo nello stile a raggio) o
+con una freccia.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@knownissues
+Se un grob @code{DurationLine} arriva alla fine di una partitura, per motivi
+tecnici gli elementi al termine della linea non appaiono.
+Un modo per aggirare il problema potrebbe essere:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+lastEndStyle =
+#(define-music-function (end-style)(symbol?)
+#{
+  \override DurationLine.stencil =
+    #(lambda (grob)
+      (let* ((orig (ly:grob-original grob))
+             (siblings (if (ly:grob? orig)
+                           (ly:spanner-broken-into orig) '()))
+             (last-grob (if (pair? siblings) (last siblings) #f)))
+        (if last-grob
+            (ly:grob-set-nested-property!
+              last-grob
+              '(bound-details right-broken end-style) end-style))
+        duration-line::print))
+#})
+
+{
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  \lastEndStyle #'arrow
+  a'1\-
+  \bar "|."
+}
+@end lilypond
 
 
 @node Tecniche di arrangiamento contemporaneo

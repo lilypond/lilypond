@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: fa9d87071c06d7bd6894e3115d24a7eab725d924
+    Translation of GIT committish: ce4c350e72494ba446f2afa491b36e811eaa879c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@
 @item @code{1 2 8 16}
 @tab durate
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \set Staff.autoBeaming = ##f
 \override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
@@ -34,7 +34,7 @@ c1 c2 c8 c16
 @item @code{c4. c4..}
 @tab punti di aumentazione
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \override Staff.Clef.break-visibility = #all-invisible
 c4. c4..
 @end lilypond
@@ -42,21 +42,21 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scala
 @tab
-@lilypond[relative=1,notime]
+@lilypond[inline,relative=1,notime]
 c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
 @tab alterazione
 @tab
-@lilypond[relative=1,notime]
+@lilypond[inline,relative=1,notime]
 fis bes
 @end lilypond
 
 @item @code{\clef treble \clef bass }
 @tab chiavi
 @tab
-@lilypond[relative=1,notime]
+@lilypond[inline,relative=1,notime]
 \clef treble
 s4_" "
 \clef bass
@@ -66,7 +66,7 @@ s4_" "
 @item @code{\time 3/4 \time 4/4 }
 @tab indicazione di tempo
 @tab
-@lilypond[relative=1]
+@lilypond[inline,relative=1]
 \override Staff.Clef.stencil = #empty-stencil
 \time 3/4
 s4_" "
@@ -78,7 +78,7 @@ s16_" "
 @item @code{r4 r8}
 @tab pausa
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \override Staff.Clef.break-visibility = #all-invisible
 r4 r8
 @end lilypond
@@ -86,7 +86,7 @@ r4 r8
 @item @code{d ~ d}
 @tab legatura di valore
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 d ~ d
@@ -95,7 +95,7 @@ d ~ d
 @item @code{\key es \major }
 @tab armatura di chiave
 @tab
-@lilypond[notime,relative=1]
+@lilypond[inline,notime,relative=1]
 \clef treble
 \key es \major
 \hideNotes
@@ -105,7 +105,7 @@ c128
 @item @var{note}@code{'}
 @tab alzare l'ottava
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 a a'
@@ -114,7 +114,7 @@ a a'
 @item @var{note}@code{,}
 @tab abbassare l'ottava
 @tab
-@lilypond[relative=2,notime]
+@lilypond[inline,relative=2,notime]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 c c,
@@ -124,7 +124,7 @@ c c,
 @item @code{c( d e)}
 @tab legatura di portamento
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Score.timing = ##f
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
@@ -135,7 +135,7 @@ c( d e)
 @item @code{c\( c( d) e\)}
 @tab legatura di frase
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Score.timing = ##f
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
@@ -146,7 +146,7 @@ c\( c( d) e\)
 @item @code{a8[ b]}
 @tab travatura
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Score.timing = ##f
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
@@ -157,7 +157,7 @@ a8-[ b-]
 @item @code{<< \new Staff @dots{} >>}
 @tab più righi
 @tab
-@lilypond[relative=1]
+@lilypond[inline,relative=1]
 << \new Staff {
      \set Staff.initialTimeSignatureVisibility = #all-invisible
      c1
@@ -172,7 +172,7 @@ a8-[ b-]
 @item @code{c-> c-.}
 @tab articolazioni
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 c-> c-.
 @end lilypond
@@ -181,7 +181,7 @@ c-> c-.
 @item @code{c2\mf c\sfz}
 @tab dinamiche
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 c2\mf c\sfz
 @end lilypond
@@ -190,7 +190,7 @@ c2\mf c\sfz
 @item @code{a\< a a\!}
 @tab crescendo
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Score.timing = ##f
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
@@ -200,7 +200,7 @@ a\< a a\!
 @item @code{a\> a a\!}
 @tab decrescendo
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Score.timing = ##f
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
@@ -211,7 +211,7 @@ a\> a a\!
 @item @code{< >}
 @tab accordo
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 <c e>
 @end lilypond
@@ -220,7 +220,7 @@ a\> a a\!
 @item @code{\partial 8}
 @tab anacrusi
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \partial 8
 f8 c2 d e
 @end lilypond
@@ -229,7 +229,7 @@ f8 c2 d e
 @item @code{\tuplet 3/2 @{f g a@}}
 @tab terzine
 @tab
-@lilypond[relative=1]
+@lilypond[inline,relative=1]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \tuplet 3/2 { f8 g a }
 @end lilypond
@@ -238,7 +238,7 @@ f8 c2 d e
 @item @code{\grace}
 @tab abbellimenti
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \context Voice { \grace b16 c4 }
 @end lilypond
@@ -252,14 +252,14 @@ twinkle
 @item @code{\new Lyrics}
 @tab stampa del testo vocale
 @tab
-@lilypond[relative=1]
+@lilypond[inline,relative=1]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
 
 @item @code{twin -- kle}
 @tab trattino nel testo vocale
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 <<
    { g'1 g }
@@ -270,7 +270,7 @@ twinkle
 @item @code{\chordmode @{ c:dim f:maj7 @}}
 @tab accordi
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \chordmode { c:dim f:maj7 }
 @end lilypond
@@ -278,14 +278,14 @@ twinkle
 @item @code{\new ChordNames}
 @tab mostrare i nomi degli accordi
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\ @{c d@}>>}
 @tab polifonia
 @tab
-@lilypond[relative=2]
+@lilypond[inline,relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond

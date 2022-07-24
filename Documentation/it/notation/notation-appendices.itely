@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: e616eb7201d700166fe7be20fe8507d9ff31160f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,15 +24,19 @@
 * Elenco dei colori::
 * Il font Emmentaler::
 * Stili delle teste di nota::
+* Gruppi di glifi di alterazione::
 * Stili della chiave::
 * Comandi per markup::
 * Comandi per una lista di markup::
 * Elenco dei caratteri speciali::
 * Elenco delle articolazioni::
+* Elenco dei respiri::
 * Note percussive::
+* Valori predefiniti di outside-staff-priority::
 * Glossario tecnico::
 * Funzioni musicali disponibili::
 * Identificatori delle modifiche di contesto::
+* Convenzioni per i nomi::
 * Tipi di predicati predefiniti::
 @end menu
 
@@ -42,8 +46,12 @@
 @appendixsec Grafico dei nomi degli accordi
 @translationof Chord name chart
 
-Il grafico seguente mostra due sistemi standard di rappresentazione dei
-nomi degli accordi, insieme alle altezze che li compongono.
+Il grafico seguente mostra il sistema standard di LilyPond di rappresentazione
+dei nomi degli accordi, insieme alle altezze che li compongono.  Ulteriori
+sistemi di nomi (non supportati) sono illustrati nel frammento
+@qq{Chord names alternative} in @rlsr{Chords}, compresa la notazione ispirata
+da Harald Banter (1982) che fu usata come predefinita nelle prime versioni di
+LilyPond (fino alla versione 1.7).
 
 @c Il testo in texidoc="" non appare nell'output, dunque non è
 @c necessario tradurlo. - fb
@@ -56,7 +64,7 @@ nomi degli accordi, insieme alle altezze che li compongono.
 La tabella seguente mostra i modificatori degli accordi che possono essere
 usati per generare gli accordi comuni.
 
-@multitable @columnfractions .2 .25 .2 .15 .2
+@multitable @columnfractions .2 .25 .18 .17 .2
 
 @item
 @b{Tipo}
@@ -79,7 +87,7 @@ Terza maggiore, @*quinta perfetta
 @tab
 @code{c1:5}
 @tab
-@lilypond[line-width=2.1\cm,notime]
+@lilypond[inline,line-width=2.1\cm,notime]
 <<
   \chords { c1:5 }
   \chordmode { c1:5 }
@@ -95,7 +103,7 @@ Terza minore, @*quinta perfetta
 @tab
 @code{c1:m}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m }
   \chordmode { c1:m }
@@ -111,7 +119,7 @@ Terza maggiore, @*quinta aumentata
 @tab
 @code{c1:aug}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:aug }
   \chordmode { c1:aug }
@@ -127,7 +135,7 @@ Terza minore, @*quinta diminuita
 @tab
 @code{c1:dim}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:dim }
   \chordmode { c1:dim }
@@ -143,7 +151,7 @@ Triade maggiore, @*settima minore
 @tab
 @code{c1:7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:7 }
   \chordmode { c1:7 }
@@ -159,7 +167,7 @@ Triade maggiore, @*settima maggiore
 @tab
 @code{c1:maj7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj7 }
   \chordmode { c1:maj7 }
@@ -175,7 +183,7 @@ Triade minore, @*settima minore
 @tab
 @code{c1:m7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7 }
   \chordmode { c1:m7 }
@@ -183,7 +191,7 @@ Triade minore, @*settima minore
 @end lilypond
 
 @item
-Settima diminuita
+Settima @*diminuita
 @tab
 Triade diminuita, @*settima diminuita
 @tab
@@ -191,7 +199,7 @@ Triade diminuita, @*settima diminuita
 @tab
 @code{c1:dim7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:dim7}
   \chordmode { c1:dim7 }
@@ -199,7 +207,7 @@ Triade diminuita, @*settima diminuita
 @end lilypond
 
 @item
-Settima aumentata
+Settima @*aumentata
 @tab
 Triade aumentata, @*settima minore
 @tab
@@ -207,7 +215,7 @@ Triade aumentata, @*settima minore
 @tab
 @code{c1:aug7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:aug7 }
   \chordmode { c1:aug7 }
@@ -215,7 +223,7 @@ Triade aumentata, @*settima minore
 @end lilypond
 
 @item
-Settima semidiminuita
+Settima @*semidiminuita
 @tab
 Triade diminuita, @*settima minore
 @tab
@@ -223,7 +231,7 @@ Triade diminuita, @*settima minore
 @tab
 @code{c1:m7.5-}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7.5- }
   \chordmode { c1:m7.5- }
@@ -239,7 +247,7 @@ Triade minore, @*settima maggiore
 @tab
 @code{c1:m7+}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7+ }
   \chordmode { c1:m7+ }
@@ -255,7 +263,7 @@ Triade maggiore, @*sesta
 @tab
 @code{c1:6}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:6 }
   \chordmode { c1:6 }
@@ -271,7 +279,7 @@ Triade minore, @*sesta
 @tab
 @code{c1:m6}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m6 }
   \chordmode { c1:m6 }
@@ -287,7 +295,7 @@ Settima dominante, @*nona maggiore
 @tab
 @code{c1:9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:9 }
   \chordmode { c1:9 }
@@ -303,7 +311,7 @@ Settima maggiore, @*nona maggiore
 @tab
 @code{c1:maj9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj9 }
   \chordmode { c1:maj9 }
@@ -319,7 +327,7 @@ Settima minore, @*nona maggiore
 @tab
 @code{c1:m9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m9 }
   \chordmode { c1:m9 }
@@ -335,7 +343,7 @@ Nona dominante, @*undicesima perfetta
 @tab
 @code{c1:11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:11 }
   \chordmode { c1:11 }
@@ -351,7 +359,7 @@ Nona maggiore, @*undicesima perfetta
 @tab
 @code{c1:maj11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj11 }
   \chordmode { c1:maj11 }
@@ -367,7 +375,7 @@ Nona minore, @*undicesima perfetta
 @tab
 @code{c1:m11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m11 }
   \chordmode { c1:m11 }
@@ -375,7 +383,7 @@ Nona minore, @*undicesima perfetta
 @end lilypond
 
 @item
-Tredicesima dominante
+Tredicesima @*dominante
 @tab
 Nona dominante, @*tredicesima maggiore
 @tab
@@ -383,7 +391,7 @@ Nona dominante, @*tredicesima maggiore
 @tab
 @code{c1:13}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:13 }
   \chordmode { c1:13 }
@@ -399,7 +407,7 @@ Undicesima dominante, @*tredicesima maggiore
 @tab
 @code{c1:13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords{ c1:13.11 }
   \chordmode { c1:13.11 }
@@ -415,7 +423,7 @@ Undicesima maggiore, @*tredicesima maggiore
 @tab
 @code{c1:maj13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj13.11 }
   \chordmode { c1:maj13.11 }
@@ -431,7 +439,7 @@ Undicesima minore, @*tredicesima maggiore
 @tab
 @code{c1:m13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m13.11 }
   \chordmode { c1:m13.11 }
@@ -447,7 +455,7 @@ Seconda maggiore, @*quinta perfetta
 @tab
 @code{c1:sus2}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:sus2 }
   \chordmode { c1:sus2 }
@@ -463,7 +471,7 @@ Quarta perfetta, @*quinta perfetta
 @tab
 @code{c1:sus4}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:sus4 }
   \chordmode { c1:sus4 }
@@ -479,7 +487,7 @@ Quinta perfetta
 @tab
 @code{c1:5}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 \chordmode { c1:5 }
 @end lilypond
 
@@ -492,7 +500,7 @@ Quinta perfetta, @*ottava
 @tab
 @code{c1:5.8}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
   \chordmode { c1:5.8 }
 @end lilypond
 
@@ -539,253 +547,9 @@ Il grafico seguente mostra le accordature predefinite degli strumenti a corda.
 @appendixsec Formati carta predefiniti
 @translationof Predefined paper sizes
 
-I formati carta sono definiti in @file{scm/paper.scm}
+I formati carta sono definiti nel file @file{scm/paper.scm}.
 
-@noindent
-@strong{La serie A dell'@qq{ISO 216}}
-@table @code
-@item "a10"
-(26 x 37 mm)
-@item "a9"
-(37 x 52 mm)
-@item "a8"
-(52 x 74 mm)
-@item "a7"
-(74 x 105 mm)
-@item "a6"
-(105 x 148 mm)
-@item "a5"
-(148 x 210 mm)
-@item "a4"
-(210 x 297 mm)
-@item "a3"
-(297 x 420 mm)
-@item "a2"
-(420 x 594 mm)
-@item "a1"
-(594 x 841 mm)
-@item "a0"
-(841 x 1189 mm)
-@end table
-
-@noindent
-@strong{La serie B dell'@qq{ISO 216}}
-@table @code
-@item "b10"
-(31 x 44 mm)
-@item "b9"
-(44 x 62 mm)
-@item "b8"
-(62 x 88 mm)
-@item "b7"
-(88 x 125 mm)
-@item "b6"
-(125 x 176 mm)
-@item "b5"
-(176 x 250 mm)
-@item "b4"
-(250 x 353 mm)
-@item "b3"
-(353 x 500 mm)
-@item "b2"
-(500 x 707 mm)
-@item "b1"
-(707 x 1000 mm)
-@item "b0"
-(1000 x 1414 mm)
-@end table
-
-@noindent
-@strong{Due formati estesi, definiti nel @qq{DIN 476}}
-@table @code
-@item "4a0"
-(1682 x 2378 mm)
-@item "2a0"
-(1189 x 1682 mm)
-@end table
-
-@noindent
-@strong{La serie C standard dell'@qq{ISO 269}}
-@table @code
-@item "c10"
-(28 x 40 mm)
-@item "c9"
-(40 x 57 mm)
-@item "c8"
-(57 x 81 mm)
-@item "c7"
-(81 x 114 mm)
-@item "c6"
-(114 x 162 mm)
-@item "c5"
-(162 x 229 mm)
-@item "c4"
-(229 x 324 mm)
-@item "c3"
-(324 x 458 mm)
-@item "c2"
-(458 x 648 mm)
-@item "c1"
-(648 x 917 mm)
-@item "c0"
-(917 x 1297 mm)
-@end table
-
-@noindent
-@strong{Formati carta nordamericani}
-@table @code
-@item "junior-legal"
-(8.0 x 5.0 in)
-@item "legal"
-(8.5 x 14.0 in)
-@item "ledger"
-(17.0 x 11.0 in)
-@item "letter"
-(8.5 x 11.0 in)
-@item "tabloid"
-(11.0 x 17.0 in)
-@item "11x17"
-(11.0 x 17.0 in)
-@item "17x11"
-(17.0 x 11.0 in)
-@end table
-
-@noindent
-@strong{Government-letter dell'IEEE Printer Working Group, per la scrittura
-dei bambini}
-@table @code
-@item "government-letter"
-(8 x 10.5 in)
-@item "government-legal"
-(8.5 x 13.0 in)
-@item "philippine-legal"
-(8.5 x 13.0 in)
-@end table
-
-@noindent
-@strong{Formati ANSI}
-@table @code
-@item "ansi a"
-(8.5 x 11.0 in)
-@item "ansi b"
-(17.0 x 11.0 in)
-@item "ansi c"
-(17.0 x 22.0 in)
-@item "ansi d"
-(22.0 x 34.0 in)
-@item "ansi e"
-(34.0 x 44.0 in)
-@item "engineering f"
-(28.0 x 40.0 in)
-@end table
-
-@noindent
-@strong{Formati nordamericani per l'architettura}
-@table @code
-@item "arch a"
-(9.0 x 12.0 in)
-@item "arch b"
-(12.0 x 18.0 in)
-@item "arch c"
-(18.0 x 24.0 in)
-@item "arch d"
-(24.0 x 36.0 in)
-@item "arch e"
-(36.0 x 48.0 in)
-@item "arch e1"
-(30.0 x 42.0 in)
-@end table
-
-@noindent
-@strong{Formati antichi ancora in uso nel Regno Unito}
-@table @code
-@item "statement"
-(5.5 x 8.5 in)
-@item "half letter"
-(5.5 x 8.5 in)
-@item "quarto"
-(8.0 x 10.0 in)
-@item "octavo"
-(6.75 x 10.5 in)
-@item "executive"
-(7.25 x 10.5 in)
-@item "monarch"
-(7.25 x 10.5 in)
-@item "foolscap"
-(8.27 x 13.0 in)
-@item "folio"
-(8.27 x 13.0 in)
-@item "super-b"
-(13.0 x 19.0 in)
-@item "post"
-(15.5 x 19.5 in)
-@item "crown"
-(15.0 x 20.0 in)
-@item "large post"
-(16.5 x 21.0 in)
-@item "demy"
-(17.5 x 22.5 in)
-@item "medium"
-(18.0 x 23.0 in)
-@item "broadsheet"
-(18.0 x 24.0 in)
-@item "royal"
-(20.0 x 25.0 in)
-@item "elephant"
-(23.0 x 28.0 in)
-@item "double demy"
-(22.5 x 35.0 in)
-@item "quad demy"
-(35.0 x 45.0 in)
-@item "atlas"
-(26.0 x 34.0 in)
-@item "imperial"
-(22.0 x 30.0 in)
-@item "antiquarian"
-(31.0 x 53.0 in)
-@end table
-
-@noindent
-@strong{Formati basati su PA4}
-@table @code
-@item "pa0"
-(840 x 1120 mm)
-@item "pa1"
-(560 x 840 mm)
-@item "pa2"
-(420 x 560 mm)
-@item "pa3"
-(280 x 420 mm)
-@item "pa4"
-(210 x 280 mm)
-@item "pa5"
-(140 x 210 mm)
-@item "pa6"
-(105 x 140 mm)
-@item "pa7"
-(70 x 105 mm)
-@item "pa8"
-(52 x 70 mm)
-@item "pa9"
-(35 x 52 mm)
-@item "pa10"
-(26 x 35 mm)
-@end table
-
-@noindent
-@strong{Formato usato nel Sudest asiatico e in Australia}
-@table @code
-@item "f4"
-(210 x 330 mm)
-@end table
-
-@noindent
-@strong{Formato usato in esempi @code{@@lilypond} molto piccoli
-della documentazione, basato sul formato a8 landscape.}
-@table @code
-@item "a8landscape"
-(74 x 52 mm)
-@end table
+@include en/paper-sizes.tely
 
 
 @node Strumenti MIDI
@@ -793,55 +557,15 @@ della documentazione, basato sul formato a8 landscape.}
 @translationof MIDI instruments
 
 Di seguito un elenco dei nomi che possono essere usati per la
-proprietà @code{midiInstrument}.  L'ordine degli strumenti, a
-partire dalla colonna sinistra e proseguendo in basso, corrisponde
-ai 128 @qq{numeri di programma} dello standard General MIDI.
+proprietà @code{midiInstrument}.  Ciascuno viene presentato
+col suo numero preso dai 128 @qq{numeri di programma} dello
+standard General MIDI.
 
-@example
-acoustic grand            contrabass           lead 7 (fifths)
-bright acoustic           tremolo strings      lead 8 (bass+lead)
-electric grand            pizzicato strings    pad 1 (new age)
-honky-tonk                orchestral harp      pad 2 (warm)
-electric piano 1          timpani              pad 3 (polysynth)
-electric piano 2          string ensemble 1    pad 4 (choir)
-harpsichord               string ensemble 2    pad 5 (bowed)
-clav                      synthstrings 1       pad 6 (metallic)
-celesta                   synthstrings 2       pad 7 (halo)
-glockenspiel              choir aahs           pad 8 (sweep)
-music box                 voice oohs           fx 1 (rain)
-vibraphone                synth voice          fx 2 (soundtrack)
-marimba                   orchestra hit        fx 3 (crystal)
-xylophone                 trumpet              fx 4 (atmosphere)
-tubular bells             trombone             fx 5 (brightness)
-dulcimer                  tuba                 fx 6 (goblins)
-drawbar organ             muted trumpet        fx 7 (echoes)
-percussive organ          french horn          fx 8 (sci-fi)
-rock organ                brass section        sitar
-church organ              synthbrass 1         banjo
-reed organ                synthbrass 2         shamisen
-accordion                 soprano sax          koto
-harmonica                 alto sax             kalimba
-concertina                tenor sax            bagpipe
-acoustic guitar (nylon)   baritone sax         fiddle
-acoustic guitar (steel)   oboe                 shanai
-electric guitar (jazz)    english horn         tinkle bell
-electric guitar (clean)   bassoon              agogo
-electric guitar (muted)   clarinet             steel drums
-overdriven guitar         piccolo              woodblock
-distorted guitar          flute                taiko drum
-guitar harmonics          recorder             melodic tom
-acoustic bass             pan flute            synth drum
-electric bass (finger)    blown bottle         reverse cymbal
-electric bass (pick)      shakuhachi           guitar fret noise
-fretless bass             whistle              breath noise
-slap bass 1               ocarina              seashore
-slap bass 2               lead 1 (square)      bird tweet
-synth bass 1              lead 2 (sawtooth)    telephone ring
-synth bass 2              lead 3 (calliope)    helicopter
-violin                    lead 4 (chiff)       applause
-viola                     lead 5 (charang)     gunshot
-cello                     lead 6 (voice)
-@end example
+@include en/included/midi-instruments.itexi
+
+Sono disponibili anche le batterie elencate sotto.
+
+@include en/included/midi-drum-kits.itexi
 
 
 @node Elenco dei colori
@@ -855,96 +579,478 @@ La sintassi è descritta in @ref{Colorare gli oggetti}.
 @cindex elenco dei colori
 @cindex colori, elenco dei
 
-@verbatim
-black       white          red         green
-blue        cyan           magenta     yellow
-grey        darkred        darkgreen   darkblue
-darkcyan    darkmagenta    darkyellow
-@end verbatim
+@indentedBlock
+@multitable {@code{darkcyan}} {@code{darkmagenta}} {@code{darkyellow}} {@code{darkblue}}
+@item @code{black}
+  @tab @code{white}
+  @tab @code{red}
+  @tab @code{green}
+@item @code{blue}
+  @tab @code{cyan}
+  @tab @code{magenta}
+  @tab @code{yellow}
+@item @code{grey}
+  @tab @code{darkred}
+  @tab @code{darkgreen}
+  @tab @code{darkblue}
+@item @code{darkcyan}
+  @tab @code{darkmagenta}
+  @tab @code{darkyellow}
+@end multitable
+@endIndentedBlock
+
+@subsubheading CSS color names
+
+CSS color names may be used as-is in string arguments.
+
+@indentedBlock
+@multitable {@code{blanchedalmond}} {@code{lightgoldenrodyellow}} {@code{mediumspringgreen}} {@code{rebeccapurple}}
+@item @code{aliceblue}
+  @tab @code{darkturquoise}
+  @tab @code{lightsalmon}
+  @tab @code{papayawhip}
+@item @code{antiquewhite}
+  @tab @code{darkviolet}
+  @tab @code{lightseagreen}
+  @tab @code{peachpuff}
+@item @code{aqua}
+  @tab @code{deeppink}
+  @tab @code{lightskyblue}
+  @tab @code{peru}
+@item @code{aquamarine}
+  @tab @code{deepskyblue}
+  @tab @code{lightslategray}
+  @tab @code{pink}
+@item @code{azure}
+  @tab @code{dimgray}
+  @tab @code{lightslategrey}
+  @tab @code{plum}
+@item @code{beige}
+  @tab @code{dimgrey}
+  @tab @code{lightsteelblue}
+  @tab @code{powderblue}
+@item @code{bisque}
+  @tab @code{dodgerblue}
+  @tab @code{lightyellow}
+  @tab @code{purple}
+@item @code{black}
+  @tab @code{firebrick}
+  @tab @code{lime}
+  @tab @code{rebeccapurple}
+@item @code{blanchedalmond}
+  @tab @code{floralwhite}
+  @tab @code{limegreen}
+  @tab @code{red}
+@item @code{blue}
+  @tab @code{forestgreen}
+  @tab @code{linen}
+  @tab @code{rosybrown}
+@item @code{blueviolet}
+  @tab @code{fuchsia}
+  @tab @code{magenta}
+  @tab @code{royalblue}
+@item @code{brown}
+  @tab @code{gainsboro}
+  @tab @code{maroon}
+  @tab @code{saddlebrown}
+@item @code{burlywood}
+  @tab @code{ghostwhite}
+  @tab @code{mediumaquamarine}
+  @tab @code{salmon}
+@item @code{cadetblue}
+  @tab @code{gold}
+  @tab @code{mediumblue}
+  @tab @code{sandybrown}
+@item @code{chartreuse}
+  @tab @code{goldenrod}
+  @tab @code{mediumorchid}
+  @tab @code{seagreen}
+@item @code{chocolate}
+  @tab @code{gray}
+  @tab @code{mediumpurple}
+  @tab @code{seashell}
+@item @code{coral}
+  @tab @code{green}
+  @tab @code{mediumseagreen}
+  @tab @code{sienna}
+@item @code{cornflowerblue}
+  @tab @code{greenyellow}
+  @tab @code{mediumslateblue}
+  @tab @code{silver}
+@item @code{cornsilk}
+  @tab @code{grey}
+  @tab @code{mediumspringgreen}
+  @tab @code{skyblue}
+@item @code{crimson}
+  @tab @code{honeydew}
+  @tab @code{mediumturquoise}
+  @tab @code{slateblue}
+@item @code{cyan}
+  @tab @code{hotpink}
+  @tab @code{mediumvioletred}
+  @tab @code{slategray}
+@item @code{darkblue}
+  @tab @code{indianred}
+  @tab @code{midnightblue}
+  @tab @code{slategrey}
+@item @code{darkcyan}
+  @tab @code{indigo}
+  @tab @code{mintcream}
+  @tab @code{snow}
+@item @code{darkgoldenrod}
+  @tab @code{ivory}
+  @tab @code{mistyrose}
+  @tab @code{springgreen}
+@item @code{darkgray}
+  @tab @code{khaki}
+  @tab @code{moccasin}
+  @tab @code{steelblue}
+@item @code{darkgreen}
+  @tab @code{lavender}
+  @tab @code{navajowhite}
+  @tab @code{tan}
+@item @code{darkgrey}
+  @tab @code{lavenderblush}
+  @tab @code{navy}
+  @tab @code{teal}
+@item @code{darkkhaki}
+  @tab @code{lawngreen}
+  @tab @code{oldlace}
+  @tab @code{thistle}
+@item @code{darkmagenta}
+  @tab @code{lemonchiffon}
+  @tab @code{olive}
+  @tab @code{tomato}
+@item @code{darkolivegreen}
+  @tab @code{lightblue}
+  @tab @code{olivedrab}
+  @tab @code{turquoise}
+@item @code{darkorange}
+  @tab @code{lightcoral}
+  @tab @code{orange}
+  @tab @code{violet}
+@item @code{darkorchid}
+  @tab @code{lightcyan}
+  @tab @code{orangered}
+  @tab @code{wheat}
+@item @code{darkred}
+  @tab @code{lightgoldenrodyellow}
+  @tab @code{orchid}
+  @tab @code{white}
+@item @code{darksalmon}
+  @tab @code{lightgray}
+  @tab @code{palegoldenrod}
+  @tab @code{whitesmoke}
+@item @code{darkseagreen}
+  @tab @code{lightgreen}
+  @tab @code{palegreen}
+  @tab @code{yellow}
+@item @code{darkslateblue}
+  @tab @code{lightgrey}
+  @tab @code{paleturquoise}
+  @tab @code{yellowgreen}
+@item @code{darkslategray}
+  @tab @code{lightpink}
+  @tab @code{palevioletred}
+@item @code{darkslategrey}
+@end multitable
+@endIndentedBlock
+
+Le definizioni di colore CSS differiscono dai nomi di colore X per i seguenti
+colori: @code{green}, @code{grey}, @code{maroon}, @code{purple}.
 
 
 @subsubheading Nomi di colore X
 
-I nomi di colore X hanno diverse varianti:
+I @uref{https://en.wikipedia.org/wiki/X11_color_names, nomi di colore X11}
+offrono una scelta più ampia dei nomi CSS. Hanno diverse varianti:
 
+@itemize @bullet
+@item
 Qualsiasi nome scritto come un'unica parola con lettere iniziali maiuscole
 (es: @q{LightSlateBlue}) può essere scritto anche con parole separate da
-spazio e senza maiuscola (es: @q{light slate blue}).
+spazio e con o senza maiuscola (es: @q{light slate blue}).
 
-La parola @q{grey} può essere sempre scritta come @q{gray} (es: @q{DarkSlateGray}).
+@item
+La parola @q{grey} può essere sempre scritta come @q{gray} (es: @q{DarkSlateGray}),
+senza alcuna differenza nell'output.
 
+@item
 Alcuni nomi possono avere un suffisso numerico (es: @q{LightSalmon4}).
+@end itemize
 
+@funindex x11-color
+
+Usare la funzione Scheme @code{x11-color} per aver accesso ad essi.
+
+Le tabelle seguenti presentano tutti i nomi di colore che possono essere usati
+senza un suffisso numerico, e poi il sottoinsieme di questi che possono essere
+usati con tale suffisso.
 
 @subsubheading Nomi di colori senza un suffisso numerico
 
-@verbatim
-snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
-OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
-bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
-ivory		LemonChiffon	seashell	honeydew	MintCream
-azure		AliceBlue	lavender	LavenderBlush	MistyRose
-white		black		DarkSlateGrey	DimGrey		SlateGrey
-LightSlateGrey	grey		LightGrey	MidnightBlue	navy
-NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
-LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
-DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
-LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
-turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
-aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
-MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
-green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
-YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
-PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
-LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
-SaddleBrown	sienna		peru		burlywood	beige
-wheat		SandyBrown	tan		chocolate	firebrick
-brown		DarkSalmon	salmon		LightSalmon	orange
-DarkOrange	coral		LightCoral	tomato		OrangeRed
-red		HotPink		DeepPink	pink		LightPink
-PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
-violet		plum		orchid		MediumOrchid	DarkOrchid
-DarkViolet	BlueViolet	purple		MediumPurple	thistle
-DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
-LightGreen
-@end verbatim
+@indentedBlock
+@multitable {@code{BlanchedAlmond}} {@code{LightGoldenrodYellow}} {@code{PaleGoldenrod}} {@code{firebrick}}
+@item @code{AliceBlue}
+  @tab @code{LawnGreen}
+  @tab @code{OrangeRed}
+  @tab @code{firebrick}
+@item @code{AntiqueWhite}
+  @tab @code{LemonChiffon}
+  @tab @code{PaleGoldenrod}
+  @tab @code{gainsboro}
+@item @code{BlanchedAlmond}
+  @tab @code{LightBlue}
+  @tab @code{PaleGreen}
+  @tab @code{gold}
+@item @code{BlueViolet}
+  @tab @code{LightCoral}
+  @tab @code{PaleTurquoise}
+  @tab @code{goldenrod}
+@item @code{CadetBlue}
+  @tab @code{LightCyan}
+  @tab @code{PaleVioletRed}
+  @tab @code{green}
+@item @code{CornflowerBlue}
+  @tab @code{LightGoldenrod}
+  @tab @code{PapayaWhip}
+  @tab @code{grey}
+@item @code{DarkBlue}
+  @tab @code{LightGoldenrodYellow}
+  @tab @code{PeachPuff}
+  @tab @code{honeydew}
+@item @code{DarkCyan}
+  @tab @code{LightGreen}
+  @tab @code{PowderBlue}
+  @tab @code{ivory}
+@item @code{DarkGoldenrod}
+  @tab @code{LightGrey}
+  @tab @code{RosyBrown}
+  @tab @code{khaki}
+@item @code{DarkGreen}
+  @tab @code{LightPink}
+  @tab @code{RoyalBlue}
+  @tab @code{lavender}
+@item @code{DarkGrey}
+  @tab @code{LightSalmon}
+  @tab @code{SaddleBrown}
+  @tab @code{linen}
+@item @code{DarkKhaki}
+  @tab @code{LightSeaGreen}
+  @tab @code{SandyBrown}
+  @tab @code{magenta}
+@item @code{DarkMagenta}
+  @tab @code{LightSkyBlue}
+  @tab @code{SeaGreen}
+  @tab @code{maroon}
+@item @code{DarkOliveGreen}
+  @tab @code{LightSlateBlue}
+  @tab @code{SkyBlue}
+  @tab @code{moccasin}
+@item @code{DarkOrange}
+  @tab @code{LightSlateGrey}
+  @tab @code{SlateBlue}
+  @tab @code{navy}
+@item @code{DarkOrchid}
+  @tab @code{LightSteelBlue}
+  @tab @code{SlateGrey}
+  @tab @code{orange}
+@item @code{DarkRed}
+  @tab @code{LightYellow}
+  @tab @code{SpringGreen}
+  @tab @code{orchid}
+@item @code{DarkSalmon}
+  @tab @code{LimeGreen}
+  @tab @code{SteelBlue}
+  @tab @code{peru}
+@item @code{DarkSeaGreen}
+  @tab @code{MediumAquamarine}
+  @tab @code{VioletRed}
+  @tab @code{pink}
+@item @code{DarkSlateBlue}
+  @tab @code{MediumBlue}
+  @tab @code{WhiteSmoke}
+  @tab @code{plum}
+@item @code{DarkSlateGrey}
+  @tab @code{MediumOrchid}
+  @tab @code{YellowGreen}
+  @tab @code{purple}
+@item @code{DarkTurquoise}
+  @tab @code{MediumPurple}
+  @tab @code{aquamarine}
+  @tab @code{red}
+@item @code{DarkViolet}
+  @tab @code{MediumSeaGreen}
+  @tab @code{azure}
+  @tab @code{salmon}
+@item @code{DeepPink}
+  @tab @code{MediumSlateBlue}
+  @tab @code{beige}
+  @tab @code{seashell}
+@item @code{DeepSkyBlue}
+  @tab @code{MediumSpringGreen}
+  @tab @code{bisque}
+  @tab @code{sienna}
+@item @code{DimGrey}
+  @tab @code{MediumTurquoise}
+  @tab @code{black}
+  @tab @code{snow}
+@item @code{DodgerBlue}
+  @tab @code{MediumVioletRed}
+  @tab @code{blue}
+  @tab @code{tan}
+@item @code{FloralWhite}
+  @tab @code{MidnightBlue}
+  @tab @code{brown}
+  @tab @code{thistle}
+@item @code{ForestGreen}
+  @tab @code{MintCream}
+  @tab @code{burlywood}
+  @tab @code{tomato}
+@item @code{GhostWhite}
+  @tab @code{MistyRose}
+  @tab @code{chartreuse}
+  @tab @code{turquoise}
+@item @code{GreenYellow}
+  @tab @code{NavajoWhite}
+  @tab @code{chocolate}
+  @tab @code{violet}
+@item @code{HotPink}
+  @tab @code{NavyBlue}
+  @tab @code{coral}
+  @tab @code{wheat}
+@item @code{IndianRed}
+  @tab @code{OldLace}
+  @tab @code{cornsilk}
+  @tab @code{white}
+@item @code{LavenderBlush}
+  @tab @code{OliveDrab}
+  @tab @code{cyan}
+  @tab @code{yellow}
+@end multitable
+@endIndentedBlock
 
 
 @subsubheading Nomi di colori con un suffisso numerico
 
-Nei seguenti nomi il suffisso N può essere un numero compreso
-tra 1 e 4:
+Nei seguenti nomi il suffisso@tie{}@var{N} può essere un numero intero
+compreso tra 1 e@tie{}4, dalle tonalità più chiare a quelle più scure:
 
-@verbatim
-snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
-NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
-LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
-blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
-LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
-CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
-SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
-OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
-yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
-IndianRedN	siennaN		burlywoodN	wheatN		tanN
-chocolateN	firebrickN	brownN		salmonN		LightSalmonN
-orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
-redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
-PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
-plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
-thistleN
-@end verbatim
+@indentedBlock
+@multitable {@code{DarkOliveGreen@var{N}}} {@code{LightSteelBlue@var{N}}} {@code{aquamarine@var{N}}} {@code{turquoise@var{N}}}
+@item @code{AntiqueWhite@var{N}}
+  @tab @code{LightSkyBlue@var{N}}
+  @tab @code{SteelBlue@var{N}}
+  @tab @code{khaki@var{N}}
+@item @code{CadetBlue@var{N}}
+  @tab @code{LightSteelBlue@var{N}}
+  @tab @code{VioletRed@var{N}}
+  @tab @code{magenta@var{N}}
+@item @code{DarkGoldenrod@var{N}}
+  @tab @code{LightYellow@var{N}}
+  @tab @code{aquamarine@var{N}}
+  @tab @code{maroon@var{N}}
+@item @code{DarkOliveGreen@var{N}}
+  @tab @code{MediumOrchid@var{N}}
+  @tab @code{azure@var{N}}
+  @tab @code{orange@var{N}}
+@item @code{DarkOrange@var{N}}
+  @tab @code{MediumPurple@var{N}}
+  @tab @code{bisque@var{N}}
+  @tab @code{orchid@var{N}}
+@item @code{DarkOrchid@var{N}}
+  @tab @code{MistyRose@var{N}}
+  @tab @code{blue@var{N}}
+  @tab @code{pink@var{N}}
+@item @code{DarkSeaGreen@var{N}}
+  @tab @code{NavajoWhite@var{N}}
+  @tab @code{brown@var{N}}
+  @tab @code{plum@var{N}}
+@item @code{DeepPink@var{N}}
+  @tab @code{OliveDrab@var{N}}
+  @tab @code{burlywood@var{N}}
+  @tab @code{purple@var{N}}
+@item @code{DeepSkyBlue@var{N}}
+  @tab @code{OrangeRed@var{N}}
+  @tab @code{chartreuse@var{N}}
+  @tab @code{red@var{N}}
+@item @code{DodgerBlue@var{N}}
+  @tab @code{PaleGreen@var{N}}
+  @tab @code{chocolate@var{N}}
+  @tab @code{salmon@var{N}}
+@item @code{HotPink@var{N}}
+  @tab @code{PaleTurquoise@var{N}}
+  @tab @code{coral@var{N}}
+  @tab @code{seashell@var{N}}
+@item @code{IndianRed@var{N}}
+  @tab @code{PaleVioletRed@var{N}}
+  @tab @code{cornsilk@var{N}}
+  @tab @code{sienna@var{N}}
+@item @code{LavenderBlush@var{N}}
+  @tab @code{PeachPuff@var{N}}
+  @tab @code{cyan@var{N}}
+  @tab @code{snow@var{N}}
+@item @code{LemonChiffon@var{N}}
+  @tab @code{RosyBrown@var{N}}
+  @tab @code{firebrick@var{N}}
+  @tab @code{tan@var{N}}
+@item @code{LightBlue@var{N}}
+  @tab @code{RoyalBlue@var{N}}
+  @tab @code{gold@var{N}}
+  @tab @code{thistle@var{N}}
+@item @code{LightCyan@var{N}}
+  @tab @code{SeaGreen@var{N}}
+  @tab @code{goldenrod@var{N}}
+  @tab @code{tomato@var{N}}
+@item @code{LightGoldenrod@var{N}}
+  @tab @code{SkyBlue@var{N}}
+  @tab @code{green@var{N}}
+  @tab @code{turquoise@var{N}}
+@item @code{LightPink@var{N}}
+  @tab @code{SlateBlue@var{N}}
+  @tab @code{honeydew@var{N}}
+  @tab @code{wheat@var{N}}
+@item @code{LightSalmon@var{N}}
+  @tab @code{SpringGreen@var{N}}
+  @tab @code{ivory@var{N}}
+  @tab @code{yellow@var{N}}
+@end multitable
+@endIndentedBlock
 
 
 @subsubheading Scala di grigi
 
 Una scala di grigi si ottiene con:
 
-@example
-greyN
-@end example
+@display
+@code{grey@var{N}}
+@end display
 
 @noindent
-dove N è un numero compreso tra 0 e 100.
+dove @var{N} è un numero compreso tra 0 e 100.
+
+@subsubheading Color-blind-safe colors
+
+@funindex universal-color
+@cindex color, suitable for dichromatism
+@cindex dichromatism, suitable colors
+
+La funzione Scheme @code{universal-@/color} fornisce
+@uref{https://jfly.uni-koeln.de/color, un insieme di otto colori}
+progettati per essere non ambigui per le persone affette da bicromatismo.
+
+@indentedBlock
+@multitable {@code{yellow}} {@code{orange}} {@code{vermillion}} {@code{bluegreen}}
+@item @code{black}
+  @tab @code{orange}
+  @tab @code{skyblue}
+  @tab @code{bluegreen}
+@item @code{yellow}
+  @tab @code{blue}
+  @tab @code{vermillion}
+  @tab @code{redpurple}
+@end multitable
+@endIndentedBlock
 
 
 @node Il font Emmentaler
@@ -985,6 +1091,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 * Glifi della chiave::
 * Glifi delle indicazioni di tempo::
 * Glifi dei numeri::
+* Glifi del simbolo di basso numerato::
 * Glifi delle alterazioni::
 * Glifi delle teste di nota predefinite::
 * Glifi delle teste di nota speciali::
@@ -1008,6 +1115,18 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 * Glifi Solesmes::
 * Glifi della notazione di Kiev::
 @end menu
+
+
+@c `texinfo.tex` inserts `\medskip` between images, which is far
+@c too much vertical distance for the glyph listings.  We thus
+@c set it to zero temporarily.
+
+@iftex
+@tex
+\global\let\medskipold = \medskip
+\global\let\medskip = \relax
+@end tex
+@end iftex
 
 
 @node Glifi della chiave
@@ -1040,6 +1159,17 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
+@end lilypond
+
+
+@node Glifi del simbolo di basso numerato
+@unnumberedsubsec Glifi del simbolo di basso numerato
+@translationof Figured bass symbol glyphs
+
+@lilypond[quote]
+\include "en/included/font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #figured-bass-symbols
 @end lilypond
 
 
@@ -1284,6 +1414,15 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @end lilypond
 
 
+@c Undo local change to `\medskip`.
+
+@iftex
+@tex
+\global\let\medskip = \medskipold
+@end tex
+@end iftex
+
+
 @node Stili delle teste di nota
 @appendixsec Stili delle teste di nota
 @translationof Note head styles
@@ -1294,6 +1433,18 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 Si possono usare i seguenti stili per le teste di nota.
 
 @lilypondfile[noindent]{en/included/note-head-style.ly}
+
+
+@node Gruppi di glifi di alterazione
+@appendixsec Gruppi di glifi di alterazione
+@translationof Accidental glyph sets
+
+@cindex glifi, gruppi, alterazioni
+@cindex alterazioni, gruppi di glifi
+
+Sono disponibili le seguenti serie di glifi di alterazione.
+
+@lilypondfile[noindent]{en/included/accidental-glyph-set.ly}
 
 
 @node Stili della chiave
@@ -1352,7 +1503,7 @@ seconda della chiave).
 @translationof Standard clefs
 
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -1367,14 +1518,14 @@ Output
 @item
 @code{\clef G}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef G c1
 @end lilypond
 
 @tab
 @code{\clef "G2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef "G2"
 c1
 @end lilypond
@@ -1382,7 +1533,7 @@ c1
 @item
 @code{\clef treble}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef treble
 c1
 @end lilypond
@@ -1390,7 +1541,7 @@ c1
 @tab
 @code{\clef violin}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef violin
 c1
 @end lilypond
@@ -1398,7 +1549,7 @@ c1
 @item
 @code{\clef french}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef french
 c1
 @end lilypond
@@ -1406,7 +1557,7 @@ c1
 @tab
 @code{\clef GG}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef GG
 c1
 @end lilypond
@@ -1414,7 +1565,7 @@ c1
 @item
 @code{\clef tenorG}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenorG
 c1
 @end lilypond
@@ -1424,7 +1575,7 @@ c1
 @item
 @code{\clef soprano}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef soprano
 c1
 @end lilypond
@@ -1432,7 +1583,7 @@ c1
 @tab
 @code{\clef mezzosoprano}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef mezzosoprano
 c1
 @end lilypond
@@ -1440,7 +1591,7 @@ c1
 @item
 @code{\clef C}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef C
 c1
 @end lilypond
@@ -1448,7 +1599,7 @@ c1
 @tab
 @code{\clef alto}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef alto
 c1
 @end lilypond
@@ -1456,7 +1607,7 @@ c1
 @item
 @code{\clef tenor}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenor
 c1
 @end lilypond
@@ -1464,7 +1615,7 @@ c1
 @tab
 @code{\clef baritone}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritone
 c1
 @end lilypond
@@ -1474,7 +1625,7 @@ c1
 @item
 @code{\clef varC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varC
 c1
 @end lilypond
@@ -1482,7 +1633,7 @@ c1
 @tab
 @code{\clef altovarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef altovarC
 c1
 @end lilypond
@@ -1490,7 +1641,7 @@ c1
 @item
 @code{\clef tenorvarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenorvarC
 c1
 @end lilypond
@@ -1498,7 +1649,7 @@ c1
 @tab
 @code{\clef baritonevarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritonevarC
 c1
 @end lilypond
@@ -1508,7 +1659,7 @@ c1
 @item
 @code{\clef varbaritone}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varbaritone
 c1
 @end lilypond
@@ -1516,7 +1667,7 @@ c1
 @tab
 @code{\clef baritonevarF}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritonevarF
 c1
 @end lilypond
@@ -1524,7 +1675,7 @@ c1
 @item
 @code{\clef F}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef F
 c1
 @end lilypond
@@ -1532,7 +1683,7 @@ c1
 @tab
 @code{\clef bass}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef bass
 c1
 @end lilypond
@@ -1540,7 +1691,7 @@ c1
 @item
 @code{\clef subbass}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef subbass
 c1
 @end lilypond
@@ -1552,7 +1703,7 @@ c1
 @unnumberedsubsec Chiave del rigo della percussione
 @translationof Percussion staff clef
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -1566,7 +1717,7 @@ Output
 @item
 @code{\clef percussion}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef percussion
 c1
 @end lilypond
@@ -1574,7 +1725,7 @@ c1
 @tab
 @code{\clef varpercussion}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varpercussion
 c1
 @end lilypond
@@ -1586,7 +1737,7 @@ c1
 @unnumberedsubsec Chiavi del rigo dell'intavolatura
 @translationof Tab staff clefs
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -1606,7 +1757,7 @@ Output
 @}
 }
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \new TabStaff {
   \clef tab
   c1
@@ -1621,7 +1772,7 @@ Output
 @}
 }
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \new TabStaff {
   \clef moderntab
   c1
@@ -1637,7 +1788,7 @@ Output
 
 @strong{Gregoriane}
 
-@multitable @columnfractions .30 .20 .30 .20
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -1651,7 +1802,7 @@ Output
 @item
 @code{\clef "vaticana-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do1"
@@ -1661,7 +1812,7 @@ Output
 @tab
 @code{\clef "vaticana-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do2"
@@ -1671,7 +1822,7 @@ Output
 @item
 @code{\clef "vaticana-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do3"
@@ -1681,7 +1832,7 @@ Output
 @tab
 @code{\clef "vaticana-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-fa1"
@@ -1692,7 +1843,7 @@ Output
 @item
 @code{\clef "vaticana-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-fa2"
@@ -1704,7 +1855,7 @@ Output
 @item
 @code{\clef "medicaea-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do1"
@@ -1714,7 +1865,7 @@ Output
 @tab
 @code{\clef "medicaea-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do2"
@@ -1725,7 +1876,7 @@ Output
 @item
 @code{\clef "medicaea-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do3"
@@ -1735,7 +1886,7 @@ Output
 @tab
 @code{\clef "medicaea-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-fa1"
@@ -1745,7 +1896,7 @@ Output
 @item
 @code{\clef "medicaea-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-fa2"
@@ -1758,7 +1909,7 @@ Output
 @item
 @code{\clef "hufnagel-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do1"
@@ -1768,7 +1919,7 @@ Output
 @tab
 @code{\clef "hufnagel-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do2"
@@ -1778,7 +1929,7 @@ Output
 @item
 @code{\clef "hufnagel-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do3"
@@ -1788,7 +1939,7 @@ Output
 @tab
 @code{\clef "hufnagel-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-fa1"
@@ -1799,7 +1950,7 @@ Output
 @item
 @code{\clef "hufnagel-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-fa2"
@@ -1809,7 +1960,7 @@ Output
 @tab
 @code{\clef @* "hufnagel-do-fa"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #5
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do-fa"
@@ -1818,9 +1969,9 @@ Output
 @end lilypond
 
 @end multitable
-@strong{Mensurali}
+@unnumberedsubsubsec Mensurali
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -1834,7 +1985,7 @@ Output
 @item
 @code{\clef "mensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c1"
   \override NoteHead.style = #'mensural
   c1
@@ -1842,7 +1993,7 @@ Output
 @tab
 @code{\clef "mensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
   c1
@@ -1851,7 +2002,7 @@ Output
 @item
 @code{\clef "mensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c3"
   \override NoteHead.style = #'mensural
   c1
@@ -1859,7 +2010,7 @@ Output
 @tab
 @code{\clef "mensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c4"
   \override NoteHead.style = #'mensural
   c1
@@ -1867,7 +2018,7 @@ Output
 @item
 @code{\clef "mensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c5"
   \override NoteHead.style = #'mensural
   c1
@@ -1878,7 +2029,7 @@ Output
 @item
 @code{\clef "mensural-f"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
   c1
@@ -1886,7 +2037,7 @@ Output
 @tab
 @code{\clef "mensural-g"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
   c1
@@ -1897,7 +2048,7 @@ Output
 @item
 @code{\clef "blackmensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c1"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1905,7 +2056,7 @@ Output
 @tab
 @code{\clef "blackmensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c2"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1913,7 +2064,7 @@ Output
 @item
 @code{\clef "blackmensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c3"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1921,7 +2072,7 @@ Output
 @tab
 @code{\clef "blackmensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c4"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1930,7 +2081,7 @@ Output
 @item
 @code{\clef "blackmensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c5"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1941,7 +2092,7 @@ Output
 @item
 @code{\clef "neomensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c1"
   \override NoteHead.style = #'neomensural
   c1
@@ -1949,7 +2100,7 @@ Output
 @tab
 @code{\clef "neomensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c2"
   \override NoteHead.style = #'neomensural
   c1
@@ -1957,7 +2108,7 @@ Output
 @item
 @code{\clef "neomensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c3"
   \override NoteHead.style = #'neomensural
   c1
@@ -1965,7 +2116,7 @@ Output
 @tab
 @code{\clef "neomensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c4"
   \override NoteHead.style = #'neomensural
   c1
@@ -1974,7 +2125,7 @@ Output
 @item
 @code{\clef "neomensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c5"
   \override NoteHead.style = #'neomensural
   c1
@@ -1985,7 +2136,7 @@ Output
 @item
 @code{\clef "petrucci-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c1"
   \override NoteHead.style = #'petrucci
   c1
@@ -1993,7 +2144,7 @@ Output
 @tab
 @code{\clef "petrucci-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2002,7 +2153,7 @@ Output
 @item
 @code{\clef "petrucci-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c3"
   \override NoteHead.style = #'petrucci
   c1
@@ -2010,7 +2161,7 @@ Output
 @tab
 @code{\clef "petrucci-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c4"
   \override NoteHead.style = #'petrucci
   c1
@@ -2019,7 +2170,7 @@ Output
 @item
 @code{\clef "petrucci-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c5"
   \override NoteHead.style = #'petrucci
   c1
@@ -2030,7 +2181,7 @@ Output
 @item
 @code{\clef "petrucci-f"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f"
   \override NoteHead.style = #'petrucci
   c1
@@ -2038,7 +2189,7 @@ Output
 @tab
 @code{\clef "petrucci-f2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2047,7 +2198,7 @@ Output
 @item
 @code{\clef "petrucci-f3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f3"
   \override NoteHead.style = #'petrucci
   c1
@@ -2055,7 +2206,7 @@ Output
 @tab
 @code{\clef "petrucci-f4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f4"
   \override NoteHead.style = #'petrucci
   c1
@@ -2064,7 +2215,7 @@ Output
 @item
 @code{\clef "petrucci-f5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f5"
   \override NoteHead.style = #'petrucci
   c1
@@ -2075,7 +2226,7 @@ Output
 @item
 @code{\clef "petrucci-g1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g1"
   \override NoteHead.style = #'petrucci
   c1
@@ -2083,7 +2234,7 @@ Output
 @tab
 @code{\clef "petrucci-g2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2092,7 +2243,7 @@ Output
 @item
 @code{\clef "petrucci-g"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g"
   \override NoteHead.style = #'petrucci
   c1
@@ -2101,9 +2252,9 @@ Output
 @end multitable
 
 
-@strong{Kievane}
+@unnumberedsubsubsec Kievan
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Esempio
@@ -2118,7 +2269,7 @@ Output
 @item
 @code{\clef "kievan-do"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "kievan-do"
   \override NoteHead.style = #'kievan
   c1
@@ -2156,7 +2307,7 @@ Tutti i comandi seguenti possono essere usati all'interno di @code{\markuplist}:
 @translationof List of special characters
 
 Si possono usare i seguenti riferimenti per i caratteri speciali;
-maggiori informazioni in @ref{Alias ASCII}.
+maggiori informazioni in @pxref{Alias ASCII}.
 
 Si usa la sintassi HTML. Di questi riferimenti molti sono
 identici a quelli HTML, alcuni sono ispirati a @LaTeX{}.
@@ -2174,10 +2325,26 @@ e il riquadro per migliorare la leggibilità.
 @appendixsec Elenco delle articolazioni
 @translationof List of articulations
 
-Le liste seguenti mostrano tutti i segni del tipo di carattere Feta
-che possono essere attaccati alle note (es: @samp{f\accent} o
-@samp{f->}).  Ogni esempio mostra il segno nelle posizioni
-@emph{up}, @emph{down} e @emph{neutral}.
+@cindex articolazioni
+@cindex post-events
+@cindex script
+
+Nella logica interna di LilyPond, un'@qq{articolazione} è un qualsiasi oggetto
+(diverso dalle dinamiche) che possa essere attaccato direttamente dopo un
+evento ritmico: note, accordi; perfino i silenzi e i salti, o il costrutto
+dell'accordo vuoto @code{<>} (vedi @rlearning{Struttura dell'inserimento note}).
+Anche le legature di portamento, le diteggiature e le scritte testuali, tecnicamente,
+sono articolazioni, sebbene non siano mostrate qui.
+
+Le liste seguenti comprendono quindi non solo i segni di articolazione, ma anche
+tutti gli altri segni del tipo di carattere Emmentaler che possono essere attaccati
+alle note (il modo in cui un accento è inserito come @samp{c'\accent} o
+@samp{c'->}).  Ogni esempio mostra il segno nelle sue due possibili posizioni
+verticali: rispettivamente @emph{up} and @emph{down}, così come la sua posizione
+predefinita (@emph{neutral}).  Vedi anche @ref{Glifi dei segni} per un elenco di
+glifi più esaustivo, da usare col comando markup @code{\musicglyph} come è
+spiegato in @ref{Notazione musicale nel blocco markup}.
+
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -2219,17 +2386,30 @@ columns - JL
 @funindex -.
 @funindex \tenuto
 @funindex --
-@cindex pollice
+@cindex @q{accent}, articolazione
+@cindex articolazione, accent
+@cindex @q{espressivo}, articolazione
+@cindex articolazione, espressivo
+@cindex @q{marcato}, articolazione
+@cindex articolazione, marcato
+@cindex @q{portato}, articolazione
+@cindex articolazione, portato
+@cindex @q{staccatissimo}, articolazione
+@cindex articolazione, staccatissimo
+@cindex @q{staccato}, articolazione
+@cindex articolazione, staccato
+@cindex @q{tenuto}, articolazione
+@cindex articolazione, tenuto
 
 
 @node Articolazioni
 @unnumberedsubsec Articolazioni
 @translationof Articulation scripts
 
-@multitable @columnfractions .22 .25 .25 .25
+@multitable @columnfractions .25 .25 .25 .25
 
 @item
-@code{\accent} or @code{->}
+@code{\accent} o @code{->}
 @lilypond[notime,relative=2]
 f^\accent e,_\accent b'\accent
 @end lilypond
@@ -2239,7 +2419,7 @@ f^\accent e,_\accent b'\accent
 f^\espressivo e,_\espressivo b'\espressivo
 @end lilypond
 @tab
-@code{\marcato} or @code{-^}
+@code{\marcato} o @code{-^}
 @lilypond[notime,relative=2]
 f^\marcato e,_\marcato b'\marcato
 @end lilypond
@@ -2250,17 +2430,21 @@ f^\portato e,_\portato b'\portato
 @end lilypond
 
 @item
-@code{\staccatissimo} @* or @code{-!}
+@code{\staccatissimo}@tie{}o@tie{}@code{-!}
 @lilypond[notime,relative=2]
 f^\staccatissimo e,_\staccatissimo b'\staccatissimo
 @end lilypond
 @tab
-@code{\staccato} or @code{-.}
+
+@c These additional spaces improve the PDF version,
+@c without affecting the HTML rendering. -vv
+
+@code{\staccato} o @code{-.}
 @lilypond[notime,relative=2]
 f^\staccato e,_\staccato b'\staccato
 @end lilypond
 @tab
-@code{\tenuto} or @code{--}
+@code{\tenuto} o @code{--}
 @lilypond[notime,relative=2]
 f^\tenuto e,_\tenuto b'\tenuto
 @end lilypond
@@ -2281,6 +2465,40 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \trill
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
+@cindex @q{pralltriller}, ornamento
+@cindex ornamento, pralltriller
+@cindex @q{mordent}, ornamento
+@cindex ornamento, mordent
+@cindex @q{pralltriller, long}, ornamento
+@cindex ornamento, pralltriller, long
+@cindex @q{mordent, upper}, ornamento
+@cindex ornamento, mordent, upper
+@cindex @q{mordent, lower}, ornamento
+@cindex ornamento, mordent, lower
+@cindex @q{upper mordent}, ornamento
+@cindex ornamento, upper mordent
+@cindex @q{lower mordent}, ornamento
+@cindex ornamento, lower mordent
+@cindex @q{pralltriller, down}, ornamento
+@cindex ornamento, pralltriller, down
+@cindex @q{pralltriller, up}, ornamento
+@cindex ornamento, pralltriller, up
+@cindex @q{up pralltriller}, ornamento
+@cindex ornamento, up pralltriller
+@cindex @q{down pralltriller}, ornamento
+@cindex ornamento, down pralltriller
+@cindex @q{trill}, ornamento
+@cindex ornamento, trill
+@cindex @q{turn}, ornamento
+@cindex ornamento, turn
+@cindex @q{reverse turn}, ornamento
+@cindex ornamento, reverse turn
+@cindex @q{slash turn}, ornamento
+@cindex ornamento, slash turn
+@cindex @q{Haydn turn}, ornamento
+@cindex ornamento, Haydn turn
 
 
 @node Ornamenti
@@ -2362,13 +2580,32 @@ f^\turn e,_\turn b'\reverseturn
 @lilypond[notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
 @end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
+@end lilypond
 
 @end multitable
 
 @funindex \fermata
 @funindex \shortfermata
 @funindex \longfermata
+@funindex \veryshortfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
+@cindex corona
+@cindex punto coronato
+@cindex corona breve
+@cindex corona lunga
+@cindex corona Henze
+@cindex Henze, corona
 
 
 @node Punti coronati
@@ -2378,6 +2615,11 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
+@end lilypond
+@tab
 @code{\shortfermata}
 @lilypond[notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
@@ -2392,10 +2634,21 @@ f^\fermata e,_\fermata b'\fermata
 @lilypond[notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
-@tab
+
+@item
 @code{\verylongfermata}
 @lilypond[notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
+@end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end lilypond
 
 @end multitable
@@ -2412,6 +2665,30 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @funindex \snappizzicato
 @funindex \stopped
 @funindex -+
+@cindex @q{up-bow}, indicazione di arcata
+@cindex arcata, sù
+@cindex @q{down-bow}, indicazione di arcata
+@cindex arcata, giù
+@cindex @q{flageolet}, armonici
+@cindex armonici, flageolet
+@cindex @q{open}, articolazione
+@cindex articolazione aperta
+@cindex @q{half open}, articolazione
+@cindex articolazione semiaperta
+@cindex pedale, segno
+@cindex organo, segno del pedale
+@cindex pedale, segno, organo
+@cindex @q{heel}, segno di pedale
+@cindex pedale, segno, heel
+@cindex @q{toe}, segno del pedale
+@cindex pedale, segno, toe
+@cindex @q{stopped}, articolazione
+@cindex articolazione, stopped
+@cindex @q{snappizzicato}, segno
+@cindex segno, snappizzicato
+@cindex @q{thumb}, diteggiatura
+@cindex diteggiatura, pollice
+@cindex pollice, diteggiatura
 
 
 @node Segni specifici per strumento
@@ -2477,12 +2754,24 @@ f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
+@tab
+@code{\thumb}
+@lilypond[notime,relative=2]
+f^\thumb e,_\thumb b'\thumb
+@end lilypond
 
 @end multitable
 
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@cindex @q{segno}, segno
+@cindex @q{coda}, segno
+@cindex @q{coda}, segno, variante
+@cindex segno, coda
+@cindex variante, @q{coda}, segno
+@cindex segno, variante coda
+@cindex segno, coda, variante
 
 
 @node Segni di ripetizione
@@ -2514,6 +2803,21 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \ictus
 @funindex \semicirculus
 @funindex \signumcongruentiae
+@cindex @q{accentus}, articolazione Gregoriana
+@cindex Gregoriana, articolazione, accentus
+@cindex articolazione Gregoriana, accentus
+@cindex @q{circulus}, articolazione Gregoriana
+@cindex Gregoriana, articolazione, circulus
+@cindex articolazione Gregoriana, circulus
+@cindex @q{ictus}, articolazione Gregoriana
+@cindex Gregoriana, articolazione, ictus
+@cindex articolazione Gregoriana, ictus
+@cindex @q{semicirculus}, articolazione Gregoriana
+@cindex Gregoriana, articolazione, semicirculus
+@cindex articolazione Gregoriana, semicirculus
+@cindex @q{signum congruentiae}, notazione mensurale
+@cindex mensurale, notazione, signum congruentiae
+
 
 @node Segni antichi
 @unnumberedsubsec Segni antichi
@@ -2561,6 +2865,85 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
+
+@node Elenco dei respiri
+@appendixsec Elenco dei respiri
+@translationof List of breath marks
+
+@cindex respiro, simbolo, elenco di
+
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{'chantquarterbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantquarterbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chanthalfbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chanthalfbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantfullbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantfullbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantdoublebar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantdoublebar
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'comma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'comma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'varcomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'varcomma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'caesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'caesura
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'curvedcaesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'curvedcaesura
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'tickmark}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'tickmark
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'spacer}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'spacer
+b4 4 \breathe 4
+@end lilypond
+
+@end multitable
+
+
+@node Note percussive
+@appendixsec Note percussive
+@translationof Percussion notes
+
 @cindex percussioni, varie
 @cindex basso acustico
 @cindex basso
@@ -2578,8 +2961,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex sidestick
 @cindex high hat
 @cindex pedal high hat
+@cindex high hat, pedale
 @cindex open high hat
+@cindex high hat, open
 @cindex half-open high hat
+@cindex high hat, half-open
 @cindex piatti, vari
 @cindex piatto crash
 @cindex piatto ride
@@ -2613,9 +2999,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex cuica
 @cindex triangolo
 
-@node Note percussive
-@appendixsec Note percussive
-@translationof Percussion notes
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2960,6 +3343,17 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
+@node Valori predefiniti di outside-staff-priority
+@appendixsec Valori predefiniti di outside-staff-priority
+@translationof Default values for @code{outside-staff-priority}
+
+La tabella seguente mostra il valore predefinito di @code{outside-staff-priority}
+per tutti i grob fuori dal rigo.  Gli oggetti con valori più bassi vengono
+posti più vicini al rigo.
+
+@include en/outside-staff-priorities.tely
+
+
 @node Glossario tecnico
 @appendixsec Glossario tecnico
 @translationof Technical glossary
@@ -2983,6 +3377,7 @@ nel codice sorgente.
 * parser variable::
 * prob::
 * smob::
+* spanner::
 * stencil::
 @end menu
 
@@ -3055,6 +3450,7 @@ dimensioni costituiscono una famiglia di caratteri tipografici.
 Guida alla notazione:
 @ref{Tipi di carattere},
 @ref{Caratteri speciali}.
+@endmorerefs
 
 
 @node grob
@@ -3074,12 +3470,15 @@ rappresentati da istanze della classe @code{Grob}.
 @morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti e interfacce},
-@rlearning{Convenzioni per i nomi di oggetti e proprietà},
 @rlearning{Proprietà degli oggetti di formattazione}.
+
+Guida alla notazione:
+@ref{Convenzioni per i nomi}.
 
 Guida al funzionamento interno:
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
+@endmorerefs
 
 
 @node immutable
@@ -3104,6 +3503,7 @@ modificate con @code{\override} e @code{\revert}.
 @morerefs
 Guida alla notazione:
 @ref{mutable}.
+@endmorerefs
 
 
 @node interface
@@ -3120,14 +3520,15 @@ in un oggetto chiamato @code{grob-interface} o semplicemente
 @morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti e interfacce},
-@rlearning{Convenzioni per i nomi di oggetti e proprietà},
 @rlearning{Proprietà presenti nelle interfacce}.
 
 Guida alla notazione:
+@ref{Convenzioni per i nomi},
 @ref{Interfacce di formattazione}.
 
 Guida al funzionamento interno:
 @rinternals{Graphical Object Interfaces}.
+@endmorerefs
 
 
 @node lexer
@@ -3136,15 +3537,15 @@ Guida al funzionamento interno:
 @cindex lexer
 @cindex Flex
 
-A @strong{lexer} is a program which converts a sequence of
-characters into a sequence of tokens, a process called lexical
-analysis.  The LilyPond lexer converts the stream obtained from an
-input @file{.ly} file into a tokenized stream more suited to the
-next stage of processing - parsing, for which see @ref{parser}.
-The LilyPond lexer is built with Flex from the lexer file
-@file{lily/lexer.ll} which contains the lexical rules.  This file
-is part of the source code and is not included in the LilyPond
-binary installation.
+Un @strong{lexer} è un programma che converte una sequenza di caratteri
+in una sequenza di @qq{token}, un processo chiamato @dfn{analisi
+lessicale}.  Il lexer di LilyPond converte il flusso ottenuto da un
+file di input @file{.ly} in un flusso @qq{tokenizzato} più adatto al
+passo successivo di elaborazione -- il parsing (@pxref{parser}).
+Il lexer LilyPond viene costruito con Flex dal file lexer
+@file{lily/lexer.ll}, che contiene le regole lessicali.  Questo file
+fa parte del codice sorgente e non è incluso nell'installazione dei
+binari diLilyPond.
 
 
 @node mutable
@@ -3167,6 +3568,7 @@ calcoli sono salvati in proprietà variabili.
 @morerefs
 Guida alla notazione:
 @ref{immutable}.
+@endmorerefs
 
 
 @node output-def
@@ -3280,6 +3682,42 @@ oggetti invariabili semplici come i numeri; e smob complessi, usati per
 oggetti aventi delle identità. Maggiori informazioni si trovano nei
 sorgenti di LilyPond e precisamente nel file @file{lily/includes/smob.hh}.
 
+
+@node spanner
+@unnumberedsubsec spanner
+
+@cindex spanner
+
+Gli @strong{spanner} sono una classe di grob che non sono fissi orizzontalmente
+in un punto della partitura ma si estendono da un punto a un altro.
+Per esempio, le travature, le legature di valore e di portamento, così
+come le forcelle e le linee del rigo.  Mentre i non-spanner possono solo
+dividersi al massimo in due pezzi visibili (per esempio, una chiave
+duplicata alla fine di un rigo e all'inizio di quello successivo),
+gli spanner si dividono in tanti pezzi quanti sono richiesti dalle
+loro estremità iniziale e finale (come i lunghi crescendo che si
+estendono su tre sistemi o le linee del rigo che si estendono
+sempre per l'intera partitura).
+
+Tecnicamente, gli spanner sono definiti come dei grob aventi l'interfaccia
+@code{spanner-@/interface}; nella parte C++ di LilyPond, sono istanze
+della sottoclasse @code{Spanner} di @code{Grob}.  I confini sinistro e
+destro di uno spanner possono essere recuperati e impostati usando
+@code{ly:spanner-@/bound} e @code{ly:spanner-@/set-@/bound!},
+rispettivamente.  I confini sono sempre degli elementi.  Il genitore@tie{}X di
+uno spanner ha poco senso musicale, ma viene solitamente impostato sul
+confine sinistro.
+
+@morerefs
+Guida alla notazione:
+@ref{Estensori}.
+
+Guida al funzionamento interno:
+@rinternals{all-layout-objects},
+@rinternals{spanner-interface}.
+@endmorerefs
+
+
 @node stencil
 @unnumberedsubsec stencil
 
@@ -3300,6 +3738,7 @@ La proprietà @code{stencil}, che connette un grob al suo stencil,
 @morerefs
 Guida al funzionamento interno:
 @rinternals{grob-interface}.
+@endmorerefs
 
 
 @node Funzioni musicali disponibili
@@ -3316,6 +3755,72 @@ I seguenti comandi possono essere usati come modificatori di contesto
 all'interno di un blocco @code{\layout} o @code{\with}.
 
 @include en/context-mod-identifiers.tely
+
+
+@node Convenzioni per i nomi
+@appendixsec Convenzioni per i nomi
+@translationof Naming conventions
+
+Si usano delle convenzioni per i nomi in modo che sia più facile avere in
+mente la natura di un oggetto.
+
+@c Superset of the table in the Learning Manual. --JeanAS
+@raggedRight
+@multitable @columnfractions .33 .33 .33
+@headitem Object/property type
+  @tab Convenzione del nome
+  @tab Esempi
+@item Parole chiave
+  @tab @code{aaaa}
+  @tab @code{\score}, @code{\addlyrics}
+@item Funzioni musicali e scorciatoie
+  @tab @code{aaaa} o @code{aaaaAaaaAaaa}
+  @tab @code{\time}, @code{\stemUp}
+@item Funzioni di markup
+  @tab @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @tab @code{\bold}, @code{\with-dimensions}
+@item Variabili del foglio
+  @tab @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @tab @code{indent}, @code{page-breaking}
+@item Espressioni musicali
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{NoteEvent}, @code{SequentialMusic}
+@item Classi musicali
+  @tab @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @tab @code{note-event}, @code{rhythmic-event}
+@item Proprietà musicali
+  @tab @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @tab @code{force-accidental}, @code{iterator-ctor}
+@item Contesti
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
+@item Proprietà di contesto
+  @tab @code{aaaa} o @code{aaaaAaaaAaaa}
+  @tab @code{stanza}, @code{instrumentName}
+@item Incisori
+  @tab @code{Aaaa_engraver} o @code{Aaaa_aaaa_aaaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
+@item Oggetti di formattazione
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
+@item Proprietà degli oggetti di formattazione
+  @tab @code{aaa} o @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
+@item Interfacce
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
+@item Funzioni Scheme definite in Guile
+  @tab @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @tab @code{map}, @code{for-each}
+@item Funzioni Scheme definite in LilyPond
+  @tab @code{ly:aaaa} o @code{ly:aaaa-aaaa-aaaa} o
+  @code{aaaa} o @code{aaaa-aaaa-aaaa}
+  @footnote{Per ragioni storiche, alcune ma non tutte le funzioni
+  definite da LilyPond iniziano col prefisso @code{ly:}.}
+  @tab @code{ly:round-filled-box}, @code{music-map}
+@end multitable
+@endRaggedRight
+
 
 @node Tipi di predicati predefiniti
 @appendixsec Tipi di predicati predefiniti

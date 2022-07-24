@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 81069a4f47ec2ab1da4c740110fb00c5419c3116
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -111,6 +111,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Diteggiature
@@ -125,8 +126,14 @@ Si possono creare diagrammi per i legni, descritti in @ref{Diagrammi per legni}.
 
 @snippets
 
+@funindex \stopped
+@funindex \open
 @cindex diteggiatura, simboli per legni
 @cindex legni, simboli di diteggiatura
+@cindex @q{chiusa}, articolazione
+@cindex articolazione chiusa
+@cindex @q{aperta}, articolazione
+@cindex articolazione aperta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fingering-symbols-for-wind-instruments.ly}
 
@@ -141,6 +148,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Cornamusa
@@ -205,6 +213,7 @@ Analogamente, il Sol alto del @qq{piobaireachd} può essere scritto come
 @morerefs
 Frammenti:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Esempio per cornamusa
@@ -258,6 +267,7 @@ cornamusa.
 @morerefs
 Frammenti:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Legni
@@ -419,8 +429,8 @@ appariranno nell'output.
 
 È possibile creare nuovi diagrammi, ma è richiesta una conoscenza di Scheme
 e dunque tale possibilità non è a disposizione di tutti gli utenti.  I modelli
-dei diagrammi si trovano in @file{scm/define-woodwind-diagrams.scm} e
-@file{scm/display-woodwind-diagrams.scm}.
+dei diagrammi si trovano nei file @file{scm/define-@/woodwind-@/diagrams.scm} e
+@file{scm/display-@/woodwind-@/diagrams.scm}.
 
 @predefined
 @endpredefined
@@ -455,3 +465,4 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{TextScript},
 @rinternals{instrument-specific-markup-interface}.
+@endmorerefs

@@ -119,6 +119,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 @cindex testo, fuori dal margine
 @cindex margine, testo che va oltre
@@ -212,6 +213,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextSpanner}.
+@endmorerefs
 
 
 @node Indicazioni testuali
@@ -325,6 +327,7 @@ Guida al funzionamento interno:
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Testo separato
@@ -399,6 +402,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Formattazione del testo
@@ -521,6 +525,7 @@ Frammenti:
 
 File installati:
 @file{scm/markup.scm}.
+@endmorerefs
 
 @knownissues
 I messaggi di errore di sintassi relativi alla modalità markup possono
@@ -732,6 +737,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 L'uso dei comandi di dimensionamento dei caratteri @code{\teeny}, @code{\tiny},
@@ -987,6 +993,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Notazione grafica nel blocco markup
@@ -1152,6 +1159,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Notazione musicale nel blocco markup
@@ -1286,6 +1294,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 La spaziatura verticale di un blocco @code{\score} interno a un oggetto markup
@@ -1358,6 +1367,7 @@ Guida al funzionamento interno:
 @predefined
 @code{\markuplist}.
 @endpredefined
+@endmorerefs
 
 
 @node Tipi di carattere
@@ -1560,6 +1570,7 @@ Guida alla notazione:
 @ref{Rotazione degli oggetti},
 @ref{Scelta del tipo di carattere e della dimensione},
 @ref{Font}.
+@endmorerefs
 
 
 @node Tipi di carattere per singolo oggetto
@@ -1607,6 +1618,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Text}.
+@endmorerefs
 
 @c A source file gets never installed...
 @c Installed Files:
@@ -1735,3 +1747,4 @@ Guida alla notazione:
 @ref{Scelta del tipo di carattere e della dimensione},
 @ref{Font},
 @ref{Cambiare il tipo di carattere della notazione}.
+@endmorerefs

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 97db0bc6c59a7041a2edc6e8ba187b70fbdc9a3a
+    Translation of GIT committish: f3acf7de3221ce55f1d20e81cdc0e2b32d2734f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,23 +157,23 @@ normalmente.
   @tab Convenzione per il nome
   @tab Esempi
 @item Contesti
-  @tab Aaaa o AaaaAaaaAaaa
-  @tab Staff, GrandStaff
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
 @item Oggetti di formattazione
-  @tab Aaaa o AaaaAaaaAaaa
-  @tab Slur, NoteHead
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
 @item Incisori
-  @tab Aaaa_aaa_engraver
-  @tab Clef_engraver, Note_heads_engraver
+  @tab @code{Aaaa_aaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
 @item Interfacce
-  @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
 @item Proprietà del contesto
-  @tab aaa o aaaAaaaAaaa
-  @tab alignAboveContext, skipBars
+  @tab @code{aaa} o @code{aaaAaaaAaaa}
+  @tab @code{alignAboveContext}, @code{skipBars}
 @item Proprietà degli oggetti di formattazione
-  @tab aaa o aaa-aaa-aaa
-  @tab direction, beam-thickness
+  @tab @code{aaa} o @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
 @end multitable
 
 Come vedremo tra poco, ogni tipo di oggetto richiede un comando diverso
@@ -182,7 +182,9 @@ di oggetti e proprietà dai loro nomi.
 
 @morerefs
 Guida alla notazione:
+@ruser{Convenzioni per i nomi},
 @ruser{Modifica delle proprietà}.
+@endmorerefs
 
 
 @node Metodi di modifica
@@ -196,7 +198,6 @@ Guida alla notazione:
 * Il comando override::
 * Il comando revert::
 * Il prefisso once::
-* Il comando overrideProperty::
 * Il comando di ritocco tweak::
 * Il prefisso single::
 @end menu
@@ -354,20 +355,6 @@ comandi predefiniti per limitare il loro effetto a un momento musicale:
 }
 @end lilypond
 
-
-@node Il comando overrideProperty
-@unnumberedsubsubsec Il comando @code{\overrideProperty}
-@translationof The overrideProperty command
-
-@cindex overrideProperty, comando
-
-@funindex \overrideProperty
-
-Esiste un'altra forma di comando di sovrascrittura,
-@code{\overrideProperty}, che si rende necessario raramente.
-Lo menzioniamo qui per completezza, ma per approfondire l'argomento
-si veda @rextend{Difficult tweaks}.
-@c Maybe explain in a later iteration  -td
 
 @c http://lists.gnu.org/archive/html/bug-lilypond/2014-12/msg00041.html
 @c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
@@ -547,6 +534,7 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 @morerefs
 Guida alla Notazione:
 @ruser{Il comando tweak}.
+@endmorerefs
 
 
 @node Il prefisso single
@@ -604,6 +592,7 @@ proprietà di @code{\tweak}.
 Manuale di apprendimento:
 @ref{Il comando di ritocco tweak},
 @ref{Uso delle variabili per modificare la formattazione}.
+@endmorerefs
 
 
 @node Manuale del Funzionamento interno
@@ -781,7 +770,7 @@ Interno relativa a «Slur», dove dice @q{Slur objects are created by: Slur
 engraver}.  Significa che le legature di portamento sono create nel contesto
 in cui si trova l'incisore @code{Slur_engraver}.  Segui il link alla pagina
 @code{Slur_engraver}.  In fondo dice che lo @code{Slur_engraver} fa parte di
-vari contesti Voice, incluso il contesto standard della voce, @code{Voice}.
+otto contesti Voice, incluso il contesto standard della voce, @code{Voice}.
 Dunque la nostra supposizione era corretta.  E dato che @code{Voice} è uno dei
 contesti che si trovano al livello più basso, come è sottinteso senza ambiguità
 dal fatto che stiamo inserendo delle note, in questo caso possiamo ometterlo.
@@ -1012,6 +1001,7 @@ sillaba e la parentesi graffa che chiude il blocco.}
 
 @morerefs
 Estendere: @rextend{Scheme tutorial}.
+@endmorerefs
 
 
 @node Tipi di proprietà
@@ -1088,6 +1078,7 @@ preceduto da un apostrofo
 
 @morerefs
 Estendere: @rextend{Scheme tutorial}.
+@endmorerefs
 
 
 @node Aspetto degli oggetti
@@ -1463,7 +1454,7 @@ che abbiamo appena saltato.
 
 @code{x11-color} associa i nomi di colore predefiniti a valori interni -- ma
 offre molte più scelta dei nomi CSS, come si può vedere in
-@ruser{Elenco di colori}.  Per esempio, l'insieme di colori X11 include
+@ruser{Elenco dei colori}.  Per esempio, l'insieme di colori X11 include
 un'ampia scala di grigi, i cui nomi vanno dal nero, @code{'grey0},
 al bianco, @code{'grey100}, con cadenza di@tie{}1.  Ecco un
 esempio in cui tutti gli oggetti di formattazione sono
@@ -2230,9 +2221,8 @@ basta per evitare collisioni.  La proprietà @code{outside-staff-priority} è
 definita nell'interfaccia @code{grob-interface} ed è quindi una proprietà di
 tutti gli oggetti di formattazione.  Il valore predefinito è @code{#f} per
 tutti gli oggetti interni al rigo e un valore numerico appropriato, determinato
-al momento della creazione dell'oggetto, per ogni oggetto esterno al rigo.  La
-seguente tabella mostra i valori numerici predefiniti di alcuni dei più comuni
-oggetti esterni al rigo.
+al momento della creazione dell'oggetto, per ogni oggetto esterno al rigo.
+Si veda la tabella dettagliata in @ruser{Valori prefefiniti di outside-staff-priority}.
 
 @cindex estensori (spanner)
 @cindex spanner
@@ -2248,63 +2238,6 @@ la proprietà @code{outside-staff-priority} dell'oggetto associato
 @code{DynamicLineSpanner}.  Questa sovrascrittura deve essere posta
 all'inizio dell'estensore, che potrebbe includere più forcelle e indicazioni dinamiche
 tra loro collegate.
-
-@multitable @columnfractions .3 .15 .45
-@headitem Oggetto di formattazione
-  @tab Priorità
-  @tab Controlla la posizione di:
-@item @code{RehearsalMark}
-  @tab @code{1500}
-  @tab Numeri di chiamata (e oggetti di testo analoghi)
-@item @code{MetronomeMark}
-  @tab @code{1000}
-  @tab Indicazioni metronomiche
-@item @code{SostenutoPedalLineSpanner}
-  @tab @code{1000}
-  @tab Indicazione del pedale
-@item @code{SustainPedalLineSpanner}
-  @tab @code{1000}
-  @tab
-@item @code{UnaCordaPedalLineSpanner}
-  @tab @code{1000}
-  @tab
-@item @code{MeasureCounter}
-  @tab @code{750}
-  @tab Numero della misura
-@item @code{VoltaBracketSpanner}
-  @tab @code{600}
-  @tab Delimitatori dei finali alternativi delle ripetizioni
-@item @code{InstrumentSwitch}
-  @tab @code{500}
-  @tab Testo per il cambio di strumento
-@item @code{TextScript}
-  @tab @code{450}
-  @tab Oggetti di testo
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Testi sopra pause multiple
-@item @code{CombineTextScript}
-  @tab @code{450}
-  @tab Testo per il combinatore delle parti
-@item @code{OttavaBracket}
-  @tab @code{400}
-  @tab Estensioni del segno d'ottava
-@item @code{TextSpanner}
-  @tab @code{350}
-  @tab Estensori del testo
-@item @code{DynamicLineSpanner}
-  @tab @code{250}
-  @tab Tutte le indicazioni dinamiche
-@item @code{BarNumber}
-  @tab @code{100}
-  @tab Numeri di battuta
-@item @code{TrillSpanner}
-  @tab @code{50}
-  @tab Linee ondulate del trillo
-@item @code{AccidentalSuggestion}
-  @tab @code{0}
-  @tab Alterazioni con nota
-@end multitable
 
 Ecco un esempio che mostra il posizionamento predefinito di alcuni di
 questi oggetti.
@@ -2360,8 +2293,9 @@ Se i valori predefiniti di @code{outside-staff-priority} non producono
 il posizionamento desiderato, è possibile sovrascrivere la priorità di
 qualsiasi oggetto.  Immaginiamo di voler posizionare l'estensione del segno d'ottava
 sotto l'estensore del testo nell'esempio precedente.  Basta controllare la
-priorità dell'oggetto @code{OttavaBracket} nella guida al Funzionamento interno
-o nella tabella precedente e ridurla a un valore inferiore di quello di un
+priorità dell'oggetto @code{OttavaBracket} nella tabella in
+@ruser{Valori predefiniti di outside-staff-priority} o nella Guida al
+funzionamento interno e ridurla a un valore inferiore a quello di un
 oggetto @code{TextSpanner}, ricordando che @code{OttavaBracket} è creato
 nel contesto @code{Staff}:
 
@@ -4090,6 +4024,7 @@ attraversare le voci:
 Manuale di apprendimento:
 @ref{Il prefisso once},
 @ref{La proprietà stencil}.
+@endmorerefs
 
 
 @node Simulare una corona nel MIDI
@@ -4169,6 +4104,8 @@ viene tolto lo stampo (@emph{stencil}), ciò non accade.
 @morerefs
 Glossario musicale:
 @rglosnamed{system,sistema}.
+@endmorerefs
+
 
 @node Uso delle variabili per modificare la formattazione
 @subsection Uso delle variabili per modificare la formattazione

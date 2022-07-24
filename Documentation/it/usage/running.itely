@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 90f806cf32b0c4a1cff204d343e1f0ff6aaeedd4
+    Translation of GIT committish: 6bd05cb24212c72adb5614d06997db7eaa07e92a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -78,6 +78,9 @@ lilypond [@var{opzione}]@dots{} @var{file}@dots{}
 Se invocato con un nome di file senza estensione, viene tentata per prima
 l'estensione @file{.ly}.  Per leggere l'input da stdin, usare un
 trattino (@code{-}) al posto di @var{file}.
+
+@warning{Nelle versioni di Windows precedenti a Windows 10 1903, LilyPond non sa
+gestire i nomi file Unicode.}
 
 Quando @file{file.ly} viene elaborato, lilypond crea @file{file.pdf} come
 output predefinito.  Possono essere specificati molti file, ognuno dei
@@ -221,8 +224,7 @@ in cima al file @file{.ly}.
 @item @code{-E}, @code{--eps}
 Genera file EPS.
 
-Questa opzione equivale a impostare le opzioni a linea di comando di LilyPond
-@code{--ps} e @code{-dlilypond-book-output}.
+Questa opzione è simile a @code{-dseparate-page-formats=ps}.
 
 @cindex output, formato
 @cindex formato, output
@@ -540,8 +542,9 @@ evitare gli @qq{artefatti} nelle immagini PNG.  Predefinito: @code{1}.
 
 @item @code{aux-files}
 @var{bool}
-Se @var{bool} è @code{#t}, crea i file @file{.tex}, @file{.texi} e @file{.count}
-se usata con l'opzione del backend @code{eps}.  Predefinito: @code{#t}.
+Se @var{bool} è @code{#t}, crea i file @file{.tex}, @file{.texi} e @file{.count}.
+Questa opzione viene usata principalmente da @command{lilypond-book}.
+Predefinito: @code{#f}.
 
 @item @code{backend} @var{simbolo}
 Usa @var{simbolo} come backend per l'output di LilyPond.  I valori possibili
@@ -572,8 +575,8 @@ in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
 
 @end table
 
-@item @code{clip-systems}
-@var{bool}
+
+@item @code{clip-systems} @var{bool}
 Se @var{bool} è @code{#t}, estrae frammenti musicali da una partitura.  Per
 far ciò è necessario che sia stata definita la funzione @code{clip-regions}
 all'interno del blocco @code{\layout}.  Maggiori informazioni in
@@ -581,37 +584,47 @@ all'interno del blocco @code{\layout}.  Maggiori informazioni in
 Nessun frammento verrà estratto se questa opzione è usata insieme
 all'opzione @option{-dno-print-pages}.  Predefinito: @code{#f}.
 
-@item @code{crop}
-@var{bool}
-Se @var{bool} è @code{#t}, comprime tutta la musica e le intestazioni, senza
-margini, in file di output di una sola pagina.  Predefinito: @code{#f}.
+@item @code{crop} @var{bool}
+
+Se @var{bool} è @code{#t}, viene creato un secondo file PDF (con estensione
+@file{.cropped.pdf}), insieme a un'immagine (con estensione @file{.cropped.png}).
+Questo file di output comprime tutta la musica e le intestazioni, senza
+margini, in una sola pagina, possibilmente alta.
+Se è impostata l'opzione @option{--svg}, viene prodotto invece un ulteriore
+file SVG (con estensione @file{.cropped.svg}).  Se è impostata l'opzione
+@option{--eps} o @option{--ps}, al posto di un file PDF ritagliato viene
+prodotto invece un EPS ritagliato (con estensione @file{.cropped.eps}).
+Predefinito: @code{#f}.
+
+Si noti che attualmente questa opzione non è adatta all'output con molti
+sistemi perché viene tolto lo spazio verticale tra i sistemi.
 
 @item @code{datadir}
 Prefisso per i file di dati.  Questa è un'opzione di sola lettura; la sua
 impostazione non ha effetto.
 
-@item @code{debug-skylines}
-@var{bool}
+@item @code{debug-eval} @var{bool}
+Se @var{bool} è @code{#t}, usa l'analizzatore di debug Scheme, che in caso
+di errori mostra le @emph{backtrace} con i numeri di linea.
+Predefinito: @code{#f}, o @code{#t} quando si usa @code{--verbose}.
+
+@item @code{debug-skylines} @var{bool}
 Se @var{bool} è @code{#t}, fa il debug dei profili (@qq{skyline}).
 Predefinito: @code{#f}.
 
-@item @code{delete-intermediate-files}
-@var{bool}
+@item @code{delete-intermediate-files} @var{bool}
 Se @var{bool} è @code{#t}, cancella i file @file{.ps} intermedi e
 inutilizzabili creati durante la compilazione.  Predefinito: @code{#t}.
 
-@item @code{embed-source-code}
-@var{bool}
+@item @code{embed-source-code} @var{bool}
 Se @var{bool} è @code{#t}, incorpora i file sorgente LilyPond nel documento
 PDF generato.  Predefinito: @code{#f}.
 
-@item @code{eps-box-padding}
-@var{num}
+@item @code{eps-box-padding} @var{num}
 Sposta il margine sinistro della cornice EPS dell'output di @var{num}
 millimetri.  Predefinito: @code{f} (ovvero nessuna cornice).
 
-@item @code{font-export-dir}
-@var{stringa}
+@item @code{font-export-dir} @var{stringa}
 Imposta la directory per esportare i font come file PostScript su @var{stringa}.
 È utile quando si desidera creare prima un PDF senza font incorporati e poi
 incorporarli con Ghostscript come mostrato sotto.
@@ -864,6 +877,11 @@ log nei file @file{file1.log}, @file{file2.log}, @dots{}, se @var{bool} è
 @code{#t}.
 Predefinito: @code{#f}.
 
+@item @code{separate-page-formats} @var{simbolo}
+Elenco separato da virgola di formati (@code{svg}, @code{pdf},
+@code{png} o @code{eps}) da usare per le immagini di pagini separate
+in @code{lilypond-book}.
+
 @item @code{show-available-fonts}
 @var{bool}
 Se @var{bool} è @code{#t}, elenca i nomi di font disponibili così come li
@@ -900,6 +918,17 @@ per rendere in modo adeguato il testo.  Si raccomanda di non usare gli
 @qq{alias} o le @qq{liste} dei tipi di carattere se il lettore SVG non è
 in grado di gestirli.
 Predefinito: @code{#f}.
+
+@item @code{tall-page-formats} @var{simbolo}
+Elenco separato da virgola di formati (@code{svg}, @code{pdf},
+@code{png} o @code{eps}) da usare per l'immagine `tall page' (pagina
+alta) in @code{lilypond-book}.
+
+@item @code{use-paper-size-for-page} @var{bool}
+Se @var{bool} è @code{#t} (predefinito), ogni pagina è impostata sulla
+dimensione del foglio, forse tagliando le parti che vanno oltre
+il foglio. Impostandolo su @code{#f} la pagina verrà ridimensionata per
+racchiudere il contenuto a seconda delle necessità.
 
 @item @code{verbose}
 Livello di verbosità.  Questa è un'opzione di sola lettura; la sua impostazione
@@ -1512,16 +1541,17 @@ Si possono evitare questi avvisi mettendo le note in voci in cui siano
 indicate le direzioni dei gambi e gli spostamenti, per esempio usando
 @code{\voiceOne}, etc.
 
-Le note delle voci con un numero maggiore di due, @code{\voiceThree} etc., sono
+Le note delle voci con un numero maggiore di due, @code{\voiceThree}, etc., sono
 spostate automaticamente per avitare la collisione tra colonne di note.  Ciò
 causa uno spostamento visibile delle note con gambo, mentre le semibrevi
 non sono spostate visibilmente, a meno che non si verifichi una reale collisione
 tra teste di nota oppure quando le voci si incrociano rispetto al loro ordine
 naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
-@code{\voiceOne}, etc.)
+@code{\voiceOne}, etc.).
 
 @morerefs
 @rlearning{Definire esplicitamente le voci},
 @rlearning{Esempio musicale},
 @ruser{Polifonia su un solo rigo},
 @ruser{Risoluzione delle collisioni}.
+@endmorerefs

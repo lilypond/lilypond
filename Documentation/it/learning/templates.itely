@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7f15e250266c3d43d73749ffcb3da002b2df72e0
+    Translation of GIT committish: 81069a4f47ec2ab1da4c740110fb00c5419c3116
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -214,6 +214,7 @@ Manuale di apprendimento:
 @ref{Modelli per gruppi vocali},
 @ref{Estendere i modelli},
 @ref{Altre fonti di informazione}.
+@endmorerefs
 
 @knownissues
 L'impostazione della variabile @code{TwoVoicesPerStaff} è attiva per
@@ -230,7 +231,7 @@ utilizzando questo semplice modello integrato.
 
 Tutte le variabili definite nel modello SATB, con l'eccezione delle
 variabili @code{VerseXxx}, sono disponibili anche nel modello SSAATTBB,
-vedi @ref{SATB template}.  In più, la musica e il testo per le prime e
+vedi @ref{Modello SATB}.  In più, la musica e il testo per le prime e
 seconde voci di una o tutte le quattro parti possono essere specificati
 fornendo i valori di @code{SopranoOneMusic}, @code{SopranoTwoMusic},
 etc, col testo in @code{SopranoOneLyrics} e @code{SopranoTwoLyrics},
@@ -331,6 +332,7 @@ Manuale di apprendimento:
 @ref{Modelli per gruppi vocali},
 @ref{Estendere i modelli},
 @ref{Altre fonti di informazione}.
+@endmorerefs
 
 @knownissues
 L'impostazione delle variabili @code{...TwoVoicesPerStaff} è attiva per

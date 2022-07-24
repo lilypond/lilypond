@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 05a9d4aa29a8b28f126ff7a1ca7bdc12ac62e98f
+    Translation of GIT committish: 77be8d3a4a3af2c429fe9ee7958f52218b17b671
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -597,6 +597,19 @@ MacPorts package}
 
 @end quotation
 
+@c Can't use @ifWebLinks because it inserts an extra colon.
+Se non sei sicuro su come installare questi binari, leggi
+l'inizio del manuale di
+@ifclear web_version
+@c I don't understand why this use of @rlearning produces "Learning Manual"
+@c and not just "Learning". --JeanAS
+@rlearningnamed{Top,Apprendimento}.
+@end ifclear
+@ifset web_version
+@manualDevelLearningSplitNoName.
+@end ifset
+
+
 @divEnd
 
 
@@ -671,16 +684,6 @@ I collaudi lilypond-book per questa versione.
 @item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 @end ifset
-
-@subsubheading Tutte le versioni
-
-@itemize
-@item @uref{https://lilypond.org/test, Confronto tra i collaudi di regressione}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archivio di tutti i collaudi di regressione}
-
-@end itemize
 
 @divEnd
 @divEnd

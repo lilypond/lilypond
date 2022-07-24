@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 02423a9ada1a9015e579fc5f8d06cf3d1c68e840
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -88,6 +88,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{Contexts},
 @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Tutto sui contesti
@@ -97,17 +98,17 @@ Guida al funzionamento interno:
 I contesti sono organizzati in modo gerarchico:
 
 @menu
-* Definizioni di output - gerarchia dei contesti::
-* Score - il padre di tutti i contesti::
-* Contesti del livello superiore - contenitori di righi::
-* Contesti del livello intermedio - righi::
-* Contesti del livello inferiore - voci::
+* Definizioni di output -- gerarchia dei contesti::
+* Score -- il padre di tutti i contesti::
+* Contesti del livello superiore -- contenitori di righi::
+* Contesti del livello intermedio -- righi::
+* Contesti del livello inferiore -- voci::
 @end menu
 
 @c blueprint letteralmente indica la cianografia architettonica
-@node Definizioni di output - gerarchia dei contesti
-@unnumberedsubsubsec Definizioni di output - gerarchia dei contesti
-@translationof Output definitions - blueprints for contexts
+@node Definizioni di output -- gerarchia dei contesti
+@unnumberedsubsubsec Definizioni di output -- gerarchia dei contesti
+@translationof Output definitions -- blueprints for contexts
 
 Questa sezione spiega la rilevanza delle definizioni di output quando
 si lavora coi contesti.  Esempi di vere definizioni di output sono
@@ -149,10 +150,12 @@ musica andranno fuori sincrono nel Midi.
 File installati:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
+@endmorerefs
 
-@node Score - il padre di tutti i contesti
-@unnumberedsubsubsec Score - il padre di tutti i contesti
-@translationof Score - the master of all contexts
+
+@node Score -- il padre di tutti i contesti
+@unnumberedsubsubsec Score -- il padre di tutti i contesti
+@translationof Score -- the master of all contexts
 
 Questo è il contesto del livello superiore.  Nessun altro contesto può
 contenere un contesto Score.  Per impostazione predefinita, il contesto
@@ -163,9 +166,9 @@ siano allineate da rigo a rigo.
 Un contesto Score viene istanziato implicitamente quando viene elaborato
 un blocco @code{\score @{@dots{}@}}.
 
-@node Contesti del livello superiore - contenitori di righi
-@unnumberedsubsubsec Contesti del livello superiore - contenitori di righi
-@translationof Top-level contexts - staff containers
+@node Contesti del livello superiore -- contenitori di righi
+@unnumberedsubsubsec Contesti del livello superiore -- contenitori di righi
+@translationof Top-level contexts -- staff containers
 
 @strong{@emph{StaffGroup}}
 
@@ -190,9 +193,9 @@ connessi verticalmente.
 Identico a @code{GrandStaff}, ma con il supporto ai nomi degli strumenti a
 sinistra di ogni sistema.
 
-@node Contesti del livello intermedio - righi
-@unnumberedsubsubsec Contesti del livello intermedio - righi
-@translationof Intermediate-level contexts - staves
+@node Contesti del livello intermedio -- righi
+@unnumberedsubsubsec Contesti del livello intermedio -- righi
+@translationof Intermediate-level contexts -- staves
 
 @strong{@emph{Staff}}
 
@@ -223,9 +226,9 @@ un brano in stile gregoriano.
 Identico a @code{Staff}, a parte il fatto che è progettato per rappresentare
 un brano in stile mensurale.
 
-@node Contesti del livello inferiore - voci
-@unnumberedsubsubsec Contesti del livello inferiore - voci
-@translationof Bottom-level contexts - voices
+@node Contesti del livello inferiore -- voci
+@unnumberedsubsubsec Contesti del livello inferiore -- voci
+@translationof Bottom-level contexts -- voices
 
 I contesti al livello della voce inizializzano alcune proprietà e avviano
 gli incisori adatti.  Un contesto del livello inferiore è privo di
@@ -372,8 +375,13 @@ stessa gerarchia di contesto.  Altrimenti sarà preso come riferimento
 per quel contesto precedentemente creato, e la sua espressione musicale
 verrà passata a quel contesto per la sua interpretazione.
 
-Una possibile applicazione dei contesti con nome è la separazione di
-formattazione della partitura e contenuto musicale.  Le seguenti due
+I contesti con nome possono essere utili in casi particolari come il
+testo vocale o il basso continuo, come è spiegato in
+@ref{Lavorare con testo e variabili} e @rlearning{Modelli per gruppi vocali}
+per il primo e in @ref{Visualizzazione del basso continuo} per il secondo.
+
+In generale, una possibile applicazione dei contesti con nome è la separazione
+di formattazione della partitura e contenuto musicale.  Le seguenti due
 forme sono entrambe valide:
 
 @lilypond[quote,verbatim]
@@ -486,6 +494,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Modifica di un solo contesto specifico},
 @ref{Durate automatiche delle sillabe}.
+@endmorerefs
 
 
 @node Conservazione di un contesto
@@ -690,7 +699,7 @@ avvia un nuovo contesto con @code{\new} o @code{\context} e si modifica:
 @end example
 
 @noindent
-dove @dots{} deve essere sostituito dal nome dell'incisore.  Il comando
+dove ogni @dots{} deve essere sostituito dal nome di un incisore.  Il comando
 @code{\remove} toglie l'incisore, mentre @code{\consists} lo mantiene.
 Ecco un semplice esempio che toglie l'incisore dell'indicazione di tempo
 (@code{Time_signature_engraver}) e quello della chiave (@code{Clef_engraver})
@@ -783,6 +792,7 @@ l'incisore @code{New_fingering_engraver} deve precedere l'incisore
 @morerefs
 File installati:
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node Modifica delle impostazioni predefinite di un contesto
@@ -824,7 +834,7 @@ essere specificate in un blocco @code{\context} compreso in un qualsiasi
 blocco @code{\layout}.
 
 Le impostazioni per l'output Midi invece devono essere specificate separatamente
-in blocchi @code{\midi} (vedi @ref{Definizioni di output - gerarchia dei contesti}).
+in blocchi @code{\midi} (vedi @ref{Definizioni di output -- gerarchia dei contesti}).
 
 Il blocco @code{\layout} deve trovarsi all'interno del blocco @code{\score}
 al quale si vuole applicare, dopo la musica.
@@ -937,8 +947,8 @@ I comandi che impostano una proprietà possono essere posti in un blocco
 facendo si ottiene lo stesso risultato che si otterrebbe se si includessero
 gli stessi comandi all'inizio di ogni contesto del tipo specificato.  Se non
 è specificato alcun contesto, avranno effetto su @emph{qualsiasi} contesto
-di basso livello, vedi @ref{Contesti del livello inferiore - voci}.  La sintassi di
-un comando di impostazione della proprietà in un blocco @code{\layout} è
+di basso livello (@pxref{Contesti del livello inferiore -- voci}).  La sintassi
+di un comando di impostazione della proprietà in un blocco @code{\layout} è
 identico a quello che si userebbe in mezzo alle note.
 
 @lilypond[quote,verbatim]
@@ -1077,6 +1087,7 @@ Un comando predefinito come @code{\dynamicUp}
 @morerefs
 Guida alla notazione:
 @ref{Modalità di inserimento}
+@endmorerefs
 
 
 @node Ordine di precedenza
@@ -1109,10 +1120,11 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Tutto sui contesti},
-@ref{Contesti del livello inferiore - voci},
+@ref{Contesti del livello inferiore -- voci},
 @ref{Il comando set},
 @ref{Il comando override},
 @ref{Il blocco layout}.
+@endmorerefs
 
 
 @node Definizione di nuovi contesti
@@ -1332,6 +1344,7 @@ Guida al funzionamento interno:
 @rinternals{Text_engraver},
 @rinternals{Rhythmic_column_engraver},
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
 @node Ordine di disposizione dei contesti
@@ -1456,6 +1469,7 @@ Utilizzo:
 
 File installati:
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node Come funziona la Guida al funzionamento interno
@@ -1791,6 +1805,7 @@ Guida al funzionamento interno:
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
 @rinternals{PropertySet}.
+@endmorerefs
 
 @knownissues
 Il backend non è molto severo nel controllo del tipo delle proprietà di un
@@ -1828,6 +1843,7 @@ cambiare nel tempo nel corso dell'interpretazione di un brano musicale;
 si modificano con @code{\set}.
 
 Per esempio, le pause multiple sono combinate in una singola battuta
+(come è spiegato in @ref{Compressing empty measures})
 se la proprietà di contesto @code{skipBars} viene impostata su @code{#t}:
 
 @lilypond[quote,fragment,verbatim]
@@ -1935,6 +1951,7 @@ Translation @expansion{} Tunable context properties.
 @morerefs
 Guida al funzionamento interno:
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node Il comando override
@@ -2065,6 +2082,7 @@ per agire solo sul momento corrente:
 @morerefs
 Guida al funzionamento interno:
 @rinternals{Backend}
+@endmorerefs
 
 
 @node Il comando tweak
@@ -2185,6 +2203,7 @@ Manuale di apprendimento:
 
 Estendere LilyPond:
 @rextend{Displaying music expressions}.
+@endmorerefs
 
 @knownissues
 
@@ -2284,7 +2303,7 @@ come un @code{\tweak} o come un @code{\override}.  Le variazioni d'uso
 sono trattate dopo aver considerato le proprietà del grob che possono
 essere usate con @code{\offset}.
 
-@subsubsubheading{Proprietà che possono essere spostate con offset}
+@subsubsubheading Proprietà che possono essere spostate con offset
 
 Molte, ma non tutte, le proprietà dei grob possono essere spostate con
 offset.  Se la @var{proprietà} non può essere spostata con offset, l'oggetto
@@ -2370,7 +2389,7 @@ non sono supportate le @q{proprietà annidate}.
 
 @end itemize
 
-@subsubsubheading{\offset come override}
+@subsubsubheading \offset come override
 
 Se @var{elemento} è un nome di grob come @code{Arpeggio} o
 @code{Staff.OttavaBracket}, il risultato è un @code{\override} del tipo
@@ -2465,7 +2484,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{\offset come tweak}
+@subsubsubheading \offset come tweak
 
 Se @var{elemento} è un'espressione musicale come @code{(} o
 @code{\arpeggio}, il risultato è la stessa espressione musicale
@@ -2524,7 +2543,7 @@ a entrambi i membri di una coppia di numeri.)
 }
 @end lilypond
 
-@subsubsubheading{\offset con estensori spezzati}
+@subsubsubheading \offset con estensori spezzati
 
 È anche possibile modificare in modo indipendente i segmenti di un estensore
 che va oltre una o più interruzioni di linea.  In questo caso, @var{offset}
@@ -2862,6 +2881,22 @@ o gli accenti).
 
 @c TODO Add table showing these
 
+@cindex direzione verticale dei grob forzata
+@cindex verticale, direzione forzata, dei grob
+@cindex grob, direzione verticale forzata predefinita
+@cindex posizione verticale dei grob
+@cindex grob, posizione verticale
+@cindex direzione, sù (@code{^})
+@cindex direzione, giù (@code{_})
+@cindex direzione, predefinita (@code{-})
+@cindex sù, direzione (@code{^})
+@cindex giù, direzione (@code{_})
+@cindex direzione verticale predefinita (@code{-})
+
+@funindex -
+@funindex ^
+@funindex _
+
 L'azione predefinita può essere modificata anteponendo all'articolazione
 un @emph{indicatore di direzione}.  Sono disponbibili tre indicatori
 di direzione: @code{^} (ovvero @qq{su}), @code{_} (ovvero @qq{giù})
@@ -2949,6 +2984,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Più voci}.
+@endmorerefs
 
 
 @node Distanze e misurazioni
@@ -3010,6 +3046,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Formattazione della pagina},
 @ref{Impostare la dimensione del rigo}.
+@endmorerefs
 
 
 @node Dimensioni
@@ -3040,6 +3077,7 @@ oggetti in unità di spazi rigo.
 @morerefs
 Guida alla notazione:
 @ref{Distanze e misurazioni}.
+@endmorerefs
 
 
 @node Proprietà del simbolo del rigo
@@ -3102,7 +3140,7 @@ anche l'interfaccia @code{line-spanner-interface}.
 @unnumberedsubsubsec Uso di @code{spanner-interface}
 @translationof Using the spanner-interface
 
-Questa interfaccia fornisce due proprietà che si applicano a vari estensori.
+Questa interfaccia fornisce tre proprietà che si applicano a vari estensori.
 
 @subsubsubheading La proprietà @code{minimum-length}
 
@@ -3192,9 +3230,53 @@ e'8 e' e' e'
 e'8 e' e' e'
 @end lilypond
 
+@subsubsubheading La proprietà @code{minimum-length-after-break}
+
+La proprietà @code{minimum-length-after-break} può essere usata per
+allungare stensori spezzati dopo un a capo.
+Come per la proprietà @code{minimum-length}, viene spesso usata per impostare
+la proprietà @code{springs-and-rods} su @code{ly:spanner::set-spacing-rods}.
+
+@lilypond[verbatim,quote,ragged-right]
+{
+  \once \override Tie.minimum-length-after-break = 20
+  a1~
+  \break
+  a1
+
+  \once \override Slur.minimum-length-after-break = 20
+  a1(
+  \break
+  d'1)
+
+  \once \override TextSpanner.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override TextSpanner.minimum-length-after-break = 20
+  a1\startTextSpan
+  \break
+  a1\stopTextSpan
+
+  \once \override Hairpin.after-line-breaking = ##t
+  \once \override Hairpin.to-barline = ##f
+  \once \override Hairpin.minimum-length-after-break = 20
+  a1\<
+  \break
+  a1\!
+
+  \once \override Glissando.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override Glissando.breakable = ##t
+  \once \override Glissando.after-line-breaking = ##t
+  \once \override Glissando.minimum-length-after-break = 20
+  a1\glissando
+  \break
+  d'1
+}
+@end lilypond
+
 @subsubsubheading La proprietà @code{to-barline}
 
-La seconda proprietà utile di @code{spanner-interface} è
+La terza proprietà utile di @code{spanner-interface} è
 @code{to-barline}.  Il valore predefinito (vero) fa sì che le forcelle e
 gli altri estensori che terminano sulla prima nota di una misura si estendano
 invece fino alla stanghetta immediatamente precedente.  Se impostata su falso,
@@ -3229,7 +3311,7 @@ Gli oggetti che supportano l'interfaccia @code{line-spanner-interface} comprendo
 @end itemize
 
 La routine responsabile del disegno di questi estensori è
-@code{ly:line-spanner::print}.  Essa determina la posizione esatta
+@code{ly:@/line-@/spanner::@/print}.  Essa determina la posizione esatta
 delle due estremità e disegna una linea tra di esse, nello stile
 richiesto.  Le posizioni delle due estremità dell'estensore sono
 calcolate al volo, ma è possibile  sovrascrivere le loro coordinate
@@ -3366,6 +3448,7 @@ Guida al funzionamento interno:
 @rinternals{VoiceFollower},
 @rinternals{TrillSpanner},
 @rinternals{line-spanner-interface}.
+@endmorerefs
 
 
 @node Visibilità degli oggetti
@@ -3468,6 +3551,8 @@ a' a'
 @cindex sovrascrivere un oggetto
 @cindex oggetto, sovrascrivere
 @cindex grob, sovrascrivere
+@cindex whiteout
+@cindex grob e whiteout
 
 Tutti gli oggetti della formattazione hanno una proprietà del colore il cui
 valore predefinito è @code{black} (nero).  Se questa viene sovrascritta con
@@ -3506,6 +3591,11 @@ venga disegnato prima:
 a'1
 @end lilypond
 
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/using-the-whiteout-property.ly}
+
+
 @node Uso di break-visibility
 @unnumberedsubsubsec Uso di break-visibility
 @translationof Using break-visibility
@@ -3542,6 +3632,7 @@ funzioni predefinite, definite in @file{scm/output-lib.scm},
 dove le ultime tre colonne indicano se gli oggetti della formattazione
 saranno visibili nelle posizioni mostrate nell'intestazione delle colonne:
 
+@quotation
 @multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {Prima} {Senza} {Dopo}
 @headitem Funzione                   @tab Forma                  @tab Prima di      @tab Senza           @tab Dopo
 @headitem                            @tab vettoriale             @tab interruzione  @tab interruzione    @tab interruzione
@@ -3555,14 +3646,15 @@ saranno visibili nelle posizioni mostrate nell'intestazione delle colonne:
 @item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no            @tab sì              @tab sì
 @item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no            @tab no              @tab no
 @end multitable
+@end quotation
 
 Le impostazioni predefinite di @code{break-visibility} dipendono dall'oggetto
 della formattazione.  La tabella seguente mostra tutti gli oggetti rilevanti
 che sono influenzati da @code{break-visibility} e l'impostazione predefinita
 di questa proprietà:
 
-@multitable @columnfractions .3 .3 .4
-
+@quotation
+@multitable {@code{DoublePercentRepeat}} {@b{Usual context}} {@code{begin-of-line-invisible}}
 @headitem Oggetto formattazione   @tab Contesto abituale  @tab Impostazione predefinita
 
 @c omit Ambitus as it appears not to be affected by break-visibility -td
@@ -3584,6 +3676,7 @@ di questa proprietà:
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
 @end multitable
+@end quotation
 
 L'esempio successivo mostra l'uso della forma vettoriale per regolare la
 visibilità delle stanghette:
@@ -3616,8 +3709,8 @@ linea a meno che non sia impostato per essere diverso da @code{1}.
 
 @item Le ripetizioni percentuali doppie sono o @emph{tutte stampate} o
 @emph{tutte soppresse}.
-Usare @code{begin-of-line-invisible} per stampare e @code{all-invisible} per
-sopprimere.
+Usare @code{begin-@/of-@/line-@/invisible} per stampare e
+@code{all-@/invisible} per sopprimere.
 
 @item Key signature -- vedi la sezione successiva.
 
@@ -3778,6 +3871,7 @@ ad esso associato.
 @morerefs
 Manuale di apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
+@endmorerefs
 
 
 @node Stili della linea
@@ -3936,6 +4030,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{All layout objects}.
+@endmorerefs
 
 
 @node Allineamento degli oggetti
@@ -3943,7 +4038,7 @@ Guida al funzionamento interno:
 @translationof Aligning objects
 
 Gli oggetti grafici che supportano l'interfaccia @code{self-alignment-interface}
-e/o l'interfaccia @code{side-position-interface} possono essere allineati a un
+e/o l'interfaccia @code{side-@/position-@/interface} possono essere allineati a un
 oggetto disposto precedentemente in vari modi.  L'elenco di questi oggetti è
 consultabile in @rinternals{self-alignment-interface} e
 @rinternals{side-position-interface}.
@@ -3986,6 +4081,7 @@ Guida alla notazione:
 
 Estendere LilyPond:
 @rextend{Callback functions}.
+@endmorerefs
 
 @menu
 * Impostazione diretta di X-offset e Y-offset::
@@ -4034,9 +4130,9 @@ dove l'oggetto deve essere posizionato, in questo modo:
 
 @c TODO add an example of each to the table
 
-@multitable @columnfractions .3 .3 .3
-@headitem @code{side-axis}  @tab @code{direction}  @tab
-@headitem proprietà         @tab proprietà         @tab Posizionamento
+@quotation
+@multitable {@b{Proprietà @code{side-axis}}} {@b{Proprietà @code{direction}}} {@b{Posizionamento}}
+@headitem Proprietà @code{side-axis}  @tab Proprietà @code{direction}  @tab Posizionamento
 
 @item     @code{0}          @tab @code{-1}         @tab sinistra
 @item     @code{0}          @tab @code{1}          @tab destra
@@ -4044,15 +4140,16 @@ dove l'oggetto deve essere posizionato, in questo modo:
 @item     @code{1}          @tab @code{1}          @tab sopra
 
 @end multitable
+@end quotation
 
 Quando @code{side-axis} è @code{0}, @code{X-offset} deve essere impostato
-sulla procedura @code{ly:side-position-interface::x-aligned-side}.
+sulla procedura @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.
 Questa procedura restituirà il valore corretto di @code{X-offset} per
 porre l'oggetto al lato sinistro o destro dell'oggetto genitore in base
 al valore di @code{direction}.
 
 Quando @code{side-axis} è @code{1}, @code{Y-offset} deve essere impostato
-sulla procedura @code{ly:side-position-interface::y-aligned-side}.
+sulla procedura @code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}.
 Questa procedura restituirà il valore corretto di @code{Y-offset} per
 porre l'oggetto sopra o sotto l'oggetto genitore in base al valore di
 @code{direction}.
@@ -4320,6 +4417,7 @@ Guida alla notazione:
 @ref{Comandi per markup},
 @ref{Il font Emmentaler},
 @ref{Graphic}.
+@endmorerefs
 
 
 @node Modifica delle forme
@@ -4367,11 +4465,31 @@ Le curve Bézier di terzo ordine o cubiche sono definite da quattro punti
 di controllo.  Il primo e il quarto punto di controllo sono esattamente
 i punti di inizio e fine della curva.  I due punti intermedi definiscono
 la forma.  Sul web si trovano delle animazioni che mostrano come viene
-disegnata la curva, ma la seguente descrizione può comunque essere utile.
+disegnata la curva, ma la seguente descrizione e immagine può comunque essere utile.
 La curva inizia dal primo punto di controllo e si dirige verso il secondo,
 piegandosi gradualmente per arrivare al terzo e poi al quarto, arrivando
 lì direttamente dal terzo punto di controllo.  La curva è contenuta
 interamente nel quadrilatero definito dai quattro punti di controllo.
+
+@lilypond
+\markup \pad-around #0.5
+\score {
+  \new Staff \with {
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
+  }
+  \new Voice \with {
+    \hide NoteHead
+    \omit Stem
+  }
+  {
+    \vshape #'((-2 . 0) (-1 . 2) (1 . 1.5) (2 . -2)) Slur
+    c( c)
+  }
+}
+@end lilypond
+
 Traslazioni, rotazioni e ridimensionamenti dei punti di controllo risultano
 tutti esattamente nelle stesse operazioni sulla curva.
 
@@ -4448,15 +4566,34 @@ la forma alternativa @code{\tweak}:
 >>
 @end lilypond
 
-Le modifiche alle posizioni orizzontali dei punti di controllo funzionano
-nello stesso modo.  Si possono ridefinire anche due curve diverse che
-iniziano nello stesso momento musicale:
+Per facilitare il processo di modifica viene fornita la funzione @code{\vshape}.
+Il suo nome vuol dire @emph{visual shape} (forma visiva): si comporta esattamente
+come @code{\shape}, con la differenza che vengono mostrati anche i punti di
+controllo e il poligono.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) e4 gis a\)
+  \vshape #'((0 . -0.3) (0.5 . -0.2)
+             (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
+  c8(\( a) e4 gis a\)
+}
+@end lilypond
+
+Si consiglia di cominciare con @code{\vshape} e aggiustare i valori finché
+non si ottiene una curva soddisfacente, quindi si può semplicemente togliere
+la lettera @qq{v} in @code{\vshape}.
+
+Si possono ridefinire anche due curve diverse che iniziano nello stesso
+momento musicale:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {
   c''8(\( a) a'4 e c\)
-  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
-  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  \shape #'((0.7 . -0.4) (0.5 . -0.4)
+            (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5)
+            (0 . 0.5) (0 . 0)) PhrasingSlur
   c8(\( a) a'4 e c\)
 }
 @end lilypond
@@ -4528,15 +4665,15 @@ si estende nelle sezioni alternative di una volta.
   c''1
   \repeat volta 3 { c4 d( e f }
   \alternative {
-    { g2) d }
-    {
+    \volta 1 { g2) d }
+    \volta 2 {
       g2
       % crea una legatura di portamento e spostala in una nuova posizione
       % il <> è solamente un accordo vuoto che serve a terminare la legatura
       -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
       f,
     }
-    {
+    \volta 3 {
       e'2
       % crea una legatura di portamento e spostala in una nuova posizione
       -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
@@ -4557,6 +4694,7 @@ e la direzione come desiderato.
 @morerefs
 Guida al funzionamento interno:
 @rinternals{TieColumn}.
+@endmorerefs
 
 
 @node Modifica degli estensori spezzati
@@ -4672,11 +4810,16 @@ a cui si accede prima di line-breaking, come @code{direction}.
 @morerefs
 Estendere LilyPond:
 @rextend{Difficult tweaks}.
+@endmorerefs
 
 
 @node Contenitori unpure-pure
 @subsection Contenitori unpure-pure
 @translationof Unpure-pure containers
+
+@c See issue #3512.
+@warning{Sebbene questa sottosezione rifletta lo stato corrente, l'esempio
+dato è discutibile e non mostra alcun effetto.}
 
 @cindex Scheme, contenitore puro
 @cindex Scheme, contenitore impuro
@@ -4685,8 +4828,8 @@ Estendere LilyPond:
 @cindex spaziatura orizzontale, sovrascrivere la
 
 I contenitori unpure-pure (impuri-puri) sono utili per sovrascrivere i calcoli
-di spaziatura dell'@emph{asse Y} - in particolare @code{Y-offset} e
-@code{Y-extent} - tramite una funzione Scheme invece che con un numero o una
+di spaziatura dell'@emph{asse Y} -- in particolare @code{Y-offset} e
+@code{Y-extent} -- tramite una funzione Scheme invece che con un numero o una
 coppia di numeri.
 
 Per alcuni grob, il cui @code{Y-extent} è basato sulla proprietà @code{stencil},
@@ -4825,20 +4968,22 @@ funzione =
 @noindent
 dove
 
-@multitable @columnfractions .33 .66
+@quotation
+@multitable @columnfractions .2 .7
 @item @code{@var{argN}}
-@tab @var{n}esimo argomento
+@tab L'@var{n}esimo argomento.
 
 @item @code{@var{tipoN?}}
-@tab un @emph{tipo di predicato} Scheme per il quale @code{@var{argN}}
+@tab Un @emph{tipo di predicato} Scheme per il quale @code{@var{argN}}
 deve ritornare @code{#t}.
 
 @item @code{@var{@dots{}musica@dots{}}}
-@tab il normale input LilyPond, usando @code{$} (nei punti in cui sono
+@tab Il normale input LilyPond, usando @code{$} (nei punti in cui sono
 consentiti solo i costrutti LilyPond) o @code{#} (per usarlo come un valore
 Scheme o come argomento di una funzione musicale o come musica all'interno
 di liste di musica) per riferirsi agli argomenti (es: @samp{#arg1}).
 @end multitable
+@end quotation
 
 La lista del tipo di predicati è obbligatoria.  Alcuni dei tipi di predicati
 più comuni usati nelle funzioni musicali sono:
@@ -4872,6 +5017,7 @@ File installati:
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+@endmorerefs
 
 
 @node Esempi della funzione di sostituzione

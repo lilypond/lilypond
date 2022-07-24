@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: d0d1577ff00603bd5f2fa2329b413e0e620e9442
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,6 +62,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Notazione di base per percussioni
@@ -129,6 +130,7 @@ File installati:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Rulli di tamburo
@@ -172,6 +174,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Percussioni a suono determinato
@@ -188,6 +191,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Righi delle percussioni
@@ -304,6 +308,40 @@ mus = \drummode {
 }
 @end lilypond
 
+@item weinberg-drums-style
+Basato sul lavoro di Norman Weinberg, pubblicato nel suo
+@emph{Guidelines for Drumset Notation}.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb }
+mus = \drummode {
+  bd bda hh hhc hho hhp \break
+  ss sn tommh tomh tomml toml tomfh tomfl \break
+  cymc cymr rb cymra cymch cb
+  }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #weinberg-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
 @item timbales-style
 Questo stile rappresenta i timbales su un rigo di due linee:
 
@@ -385,8 +423,8 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 Per rappresentare qualsiasi tipo di percussione semplice su righi di una linea:
 
 @lilypond[quote,ragged-right]
-nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+namI = \lyricmode { tri4 trio trim gui guis guil }
+musI = \drummode { tri4 trio trim gui guis guil }
 
 <<
   \new DrumStaff \with{
@@ -396,10 +434,28 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
-  } \mus
+  } \musI
   \new Lyrics {
     \override LyricText.font-family = #'typewriter
-    \nam
+    \namI
+  }
+>>
+
+namII = \lyricmode { cb4 cl tamb cab mar hc }
+musII = \drummode { cb4 cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove "Bar_engraver"
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = #1
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \musII
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \namII
   }
 >>
 @end lilypond
@@ -420,6 +476,7 @@ File installati:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Righi delle percussioni personalizzati
@@ -437,6 +494,14 @@ un nome, lo stile della testa di nota (o @code{default}), un segno di
 articolazione se necessario (o @code{#f} se non lo è), e la posizione
 della testa di nota sul rigo.  Questa lista deve poi essere convertita
 in una tabella hash Scheme, usando la funzione @code{alist->hash-table}.
+
+@funindex \halfopen
+@funindex \stopped
+@cindex high hat semiaperto
+@cindex charleston semiaperto
+@cindex pedale high hat (charleston)
+@cindex high hat, pedale
+@cindex charleston, pedale
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -551,6 +616,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{DrumStaff},
 @rinternals{DrumVoice}.
+@endmorerefs
 
 
 @node Ghost note
@@ -574,8 +640,8 @@ possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parente
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
 <<
-  \context DrumVoice  = "1" { s1 }
-  \context DrumVoice  = "2" { s1 }
+  \new DrumVoice  = "1" { s1 }
+  \new DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {
@@ -597,3 +663,4 @@ Guida alla Notazione:
 
 Frammenti:
 @rlsr{Percussion}.
+@endmorerefs

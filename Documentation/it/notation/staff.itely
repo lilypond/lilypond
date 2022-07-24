@@ -149,6 +149,7 @@ Guida al funzionamento interno:
 @rinternals{MensuralStaff},
 @rinternals{VaticanaStaff},
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Raggruppare i righi
@@ -281,6 +282,7 @@ Guida al funzionamento interno:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+@endmorerefs
 
 
 @node Gruppi di righi annidati
@@ -339,6 +341,7 @@ Guida al funzionamento interno:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+@endmorerefs
 
 
 @node Separare i sistemi
@@ -391,6 +394,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Staff notation}.
+@endmorerefs
 
 
 @node Modificare singoli righi
@@ -583,6 +587,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
+@endmorerefs
 
 
 @node Righi ossia
@@ -738,6 +743,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Nascondere i righi
@@ -841,6 +847,7 @@ Guida al funzionamento interno:
 @rinternals{Staff},
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
+@endmorerefs
 
 @knownissues
 Se si toglie l'incisore @code{Staff_symbol_engraver} vengono nascoste
@@ -870,6 +877,7 @@ e come formattare le citazioni in corpo più piccolo.
 * Nomi degli strumenti::
 * Citare altre voci::
 * Formattazione delle notine::
+* Compressione delle misure vuote::
 @end menu
 
 @node Nomi degli strumenti
@@ -1027,6 +1035,7 @@ Guida al funzionamento interno:
 @rinternals{InstrumentName},
 @rinternals{PianoStaff},
 @rinternals{Staff}.
+@endmorerefs
 
 
 @node Citare altre voci
@@ -1215,6 +1224,7 @@ Guida al funzionamento interno:
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Solo il contenuto della prima voce in un comando @code{\addQuote}
@@ -1523,6 +1533,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{CueVoice},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Quando si usa @code{\cueDuring}, si possono verificare delle collisioni tra
@@ -1531,5 +1542,9 @@ le pause nel contesto @code{Voice} e quelle in @code{CueVoice}.  Quando si usa
 richiesto da entrambi deve venire dopo la citazione e la direzione.
 
 
-@c  LocalWords:  fluteNotes oboeNotes clarinetNotes bassoonNotes
-@c  LocalWords:  piccoloNotes bassClarinetNotes
+@node Compressione delle misure vuote
+@unnumberedsubsubsec Compressione delle misure vuote
+@translationof Compressing empty measures
+
+@c empty on purpose: I added this node only to get a successful build - fb
+

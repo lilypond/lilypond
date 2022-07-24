@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: af17eb761cea84b564d72c3fed4c0a6868e5ad28
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,6 +43,7 @@ struttura dell'accordo invece delle altezze dell'accordo.
 * Panoramica sulla modalità accordo::
 * Accordi comuni::
 * Accordi estesi e alterati::
+* Inversioni di accordo e voicing::
 @end menu
 
 @node Panoramica sulla modalità accordo
@@ -96,6 +97,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Le scorciatoie predefinite per le articolazioni e gli ornamenti non possono
@@ -134,7 +136,7 @@ Si possono creare accordi di settima:
 @end lilypond
 
 @funindex aug
-@funindex @sortas{dimA} dim
+@funindex dim
 @funindex maj
 @funindex m
 
@@ -160,7 +162,7 @@ Nessuno
 @tab
 L'azione predefinita; produce una triade maggiore.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline, line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1
@@ -172,7 +174,7 @@ m, m7
 @tab
 L'accordo minore.  Questo modificatore abbassa il 3° grado.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline, line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:m c:m7
@@ -186,7 +188,7 @@ dim, dim7
 L'accordo diminuito.  Questo modificatore abbassa il 3°, il 5° e (se
 presente) il 7° grado.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline, line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:dim c:dim7
@@ -198,7 +200,7 @@ aug
 @tab
 L'accordo aumentato.  Questo modificatore alza il 5° grado.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline, line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:aug
@@ -212,7 +214,7 @@ L'accordo di settima maggiore.  Questo modificatore aggiunge un 7° grado alzato
 Il @code{7} che segue @code{maj} è opzionale.  Non usare questo modificatore
 per creare una triade maggiore.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline, line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:maj c:maj7
@@ -228,6 +230,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Si può usare un solo modificatore della qualità per accordo, solitamente
@@ -344,12 +347,10 @@ dal 4° grado, è equivalente a @code{^3}, altrimenti a @code{sus4}, ovvero
 @end lilypond
 
 @funindex /
-@cindex inversioni degli accordi
-@cindex accordi, inversioni
 @cindex nota di basso, per accordi
 
-Le inversioni (ovvero l'inserimento di un'altezza diversa dalla fondamentale
-come nota più bassa dell'accordo) e le note di basso possono essere specificate
+Le note di basso aggiunte (ovvero l'inserimento di un'altezza diversa dalla
+fondamentale come nota più bassa dell'accordo) possono essere specificate
 aggiungendo @code{/}@var{altezza} all'accordo.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -360,8 +361,11 @@ aggiungendo @code{/}@var{altezza} all'accordo.
 
 @funindex /+
 
-Una nota di basso che fa parte dell'accordo può essere aggiunta, invece di
-essere spostata come in un'inversione, usando @code{/+}@var{altezza}.
+Se l'altezza aggiunta fa già parte dell'accordo, questa può essere usata
+per mostrare l'inversione di accordo, nel qual caso l'altezza non viene
+aggiunta ma semplicemente spostata in fondo all'accordo.
+È comunque possibile trattarla come una nota aggiunta (facendola quindi
+apparire due volte) usando la sintassi @code{/+}@var{altezza}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -369,15 +373,20 @@ essere spostata come in un'inversione, usando @code{/+}@var{altezza}.
 }
 @end lilypond
 
+Le inversioni degli accordi automatiche e le voicing sono spiegate in
+@ref{Inversioni di accordo e voicing}.
+
 I modificatori degli accordi che possono essere usati per produrre i vari
 accordi standard sono elencati in @ref{Modificatori degli accordi comuni}.
 
 @morerefs
 Guida alla notazione:
+@ref{Inversioni di accordo e voicing},
 @ref{Modificatori degli accordi comuni}.
 
 Frammenti:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Ogni grado può essere presente in un accordo una volta sola.  L'esempio
@@ -387,6 +396,47 @@ per ultimo.
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
+
+@node Inversioni di accordo e voicing
+@unnumberedsubsubsec Inversioni di accordo e voicing
+@translationof Chord inversions and specific voicings
+
+@cindex accordo, inversione
+@cindex inversione di accordo
+@cindex accordo, voicing
+@funindex \invertChords
+@funindex \dropNote
+@funindex \raiseNote
+
+Oltre ai modificatori degli accordi e alle note di basso aggiunte, si
+possono usare varie funzioni per far sì che gli accordi appaiano
+automaticamente in una certa inversione o @emph{voicing} -- per esempio,
+la voicing cosiddetta @q{drop@tie{}2} (abbassamento) usata comunemente
+nella musica jazz.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+Diversamente dalle note di basso aggiunte mostrate in @ref{Accordi estesi e alterati},
+questo ha effetto solo sul modo in cui gli accordi appaiono sul rigo,
+e non sui nomi degli accordi scritti in lettere.  Inoltre queste funzioni
+possono essere usate non solo in modalità accordo ma anche coi costrutti
+per accordo @code{<...>} spiegati in @ref{Note in un accordo}.
+
+@morerefs
+Guida alla notazione:
+@ref{Accordi estesi e alterati},
+@ref{Note in un accordo}.
+
+Frammenti:
+@rlsr{Chords}.
+@endmorerefs
 
 
 @node Visualizzazione accordi
@@ -519,6 +569,7 @@ Guida al funzionamento interno:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+@endmorerefs
 
 @knownissues
 Gli accordi che contengono inversioni o note di basso alterate non avranno
@@ -768,6 +819,7 @@ File installati:
 
 Frammenti:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 I nomi degli accordi sono determinati sia dalle altezze presenti nell'accordo
@@ -792,8 +844,8 @@ myChords = \relative c' {
 @subsection Basso continuo
 @translationof Figured bass
 
-@c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
+@c Indent hack because of instrument names
+@lilypondfile[quote,staffsize=18,indent=2\cm]{snippets/figured-bass-headword.ly}
 
 La notazione del basso continuo è supportata.
 
@@ -858,6 +910,7 @@ Glossario musicale:
 
 Frammenti:
 @rlsr{Chords}.
+@endmorerefs
 
 
 @node Inserimento del basso continuo
@@ -909,11 +962,12 @@ i sesti gradi alzati):
 }
 @end lilypond
 
-I numeri possono essere racchiusi da parentesi:
+Si possono aggiungere parentesi quadre intorno a alterazioni, numeri di basso
+continuo e gruppi consecutivi di numeri di basso continuo:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <[12] 8 [6  4]>
+  <9[-] 8 [7-] 5 [4[!] 2+]>
 }
 @end lilypond
 
@@ -983,7 +1037,7 @@ La seguente tabella riassume i modificatori del numero disponibili.
 @tab
 Alterazioni
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -994,7 +1048,7 @@ Alterazioni
 @tab
 Gradi aumentati e diminuiti
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -1005,7 +1059,7 @@ Gradi aumentati e diminuiti
 @tab
 Sesto grado alzato
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\\>
 }
@@ -1016,7 +1070,7 @@ Sesto grado alzato
 @tab
 Fine della linea di continuazione
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 <<
   \figures {
     \bassFigureExtendersOn
@@ -1060,6 +1114,7 @@ Guida al funzionamento interno:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 
 @node Visualizzazione del basso continuo
@@ -1154,6 +1209,7 @@ Guida al funzionamento interno:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 @knownissues
 Per assicurarsi che le linee di continuazione funzionino correttamente, è più

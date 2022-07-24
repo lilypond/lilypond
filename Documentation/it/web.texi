@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 4af03433c5701ea48b34506cc7587409fbb2ad3d
+    Translation of GIT committish: b36beddf06e2a19272064356f5f75a49d3946f7d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,29 +54,9 @@ License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory LilyPond -- il compositore tipografico di musica
 @direntry
-* Cambiamenti: (lilypond-changes).                        Novità dalla versione 2.20.
-* Contribuire: (lilypond-contributor).                    Come contribuire a LilyPond.
-* Saggio: (lilypond-essay).                               La filosofia dietro LilyPond.
-* Estensione delle funzionalità: (lilypond-extending).    Come usare Scheme in LilyPond.
-* Funzionamento interno: (lilypond-internals).            Guida alle modifiche.
-* Apprendimento: (lilypond-learning).                     Introduzione.  Iniziare da qui.
-* Glossario musicale: (music-glossary).                   Per gli utenti non anglofoni.
-* Notazione: (lilypond-notation).                         Guida alla notazione.
-* Frammenti: (lilypond-snippets).                         Trucchi, suggerimenti e esempi.
-* Utilizzo: (lilypond-usage).                             Come installare e usare LilyPond.
 * Sito web: (lilypond-web).                               Versione di lilypond.org in formato info.
 @end direntry
 
-@dircategory Applicazioni di LilyPond
-@direntry
-* abc2ly: (lilypond-usage) Lanciare abc2ly.                     Importare file ABC.
-* convert-ly: (lilypond-usage) Aggiornare file con convert-ly.  Gestire i file LilyPond più vecchi.
-* etf2ly: (lilypond-usage) Lanciare etf2ly.                     Importare file di Finale.
-* lilypond-book: (lilypond-usage)lilypond-book.                 Integrare testo e musica.
-* lilypond: (lilypond-usage) Eseguire lilypond.                 Lanciare il programma LilyPond.
-* midi2ly: (lilypond-usage) Lanciare midi2ly.                   Importare file MIDI.
-* musicxml2ly: (lilypond-usage) Lanciare musicxml2ly.           Importare file MusicXML.
-@end direntry
 
 @c TITLE PAGE
 @ifnottex

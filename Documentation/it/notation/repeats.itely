@@ -378,6 +378,7 @@ Guida al funzionamento interno:
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 @knownissues
 @cindex ripetizione, ambigua
@@ -554,6 +555,7 @@ Guida al funzionamento interno:
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
+@endmorerefs
 
 
 @node Ripetizioni ricopiate
@@ -681,6 +683,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 
 @node Ripetizioni brevi
@@ -801,6 +804,7 @@ Guida al funzionamento interno:
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
+@endmorerefs
 
 @knownissues
 Le ripetizioni con percentuale non contengono nient'altro che il segno
@@ -896,4 +900,5 @@ usato l'ultimo valore:
 @morerefs
 Frammenti:
 @rlsr{Repeats}.
+@endmorerefs
 

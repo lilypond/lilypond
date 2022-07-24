@@ -207,6 +207,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{Dots},
 @rinternals{DotColumn}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -357,6 +358,7 @@ Guida al funzionamento interno:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+@endmorerefs
 
 
 @node Scalare le durate
@@ -435,6 +437,7 @@ Guida alla notazione:
 
 Frammenti di codice:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 Il calcolo della posizione in una misura deve considerare tutti i
@@ -664,6 +667,7 @@ Guida al funzionamento interno:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+@endmorerefs
 
 @knownissues
 Cambiare rigo mentre una legatura di valore è attiva non produce una legatura
@@ -763,6 +767,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{Rest}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -859,6 +864,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{SkipMusic}.
+@endmorerefs
 
 
 @node Pause d'intero
@@ -1041,6 +1047,7 @@ Guida al funzionamento interno:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
+@endmorerefs
 
 @cindex diteggiatura, e pausa multipla
 @cindex pausa multipla, e diteggiature
@@ -1314,6 +1321,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Indicazioni metronomiche
@@ -1449,6 +1457,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{MetronomeMark}.
+@endmorerefs
 
 
 @node Anacrusi
@@ -1533,6 +1542,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Musica in tempo libero
@@ -1652,6 +1662,7 @@ Guida alla notazione:
 
 Frammenti di codice:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @cindex cadenza, interruzioni di linea
 @cindex cadenza, interruzioni di pagina
@@ -1837,6 +1848,7 @@ Guida al funzionamento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
 @rinternals{Staff}.
+@endmorerefs
 
 @knownissues
 Sebbene le note che si presentano nello stesso momento in ciascuno dei
@@ -1951,6 +1963,7 @@ Guida al funzionamento interno:
 @rinternals{Rest_engraver},
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
+@endmorerefs
 
 @knownissues
 In accordo col comportamento precedente, note e pause la cui durata è
@@ -2066,6 +2079,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
 @node Travature
@@ -2175,6 +2189,7 @@ Guida al funzionamento interno:
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+@endmorerefs
 
 @knownissues
 Le proprietà di una travatura sono determinate all'@emph{inizio} della sua
@@ -2522,6 +2537,7 @@ Guida al funzionamento interno:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
+@endmorerefs
 
 @knownissues
 Se una partitura finisce prima del termine di una travatura automatica, cui
@@ -2689,6 +2705,7 @@ Guida al funzionamento interno:
 @rinternals{Beam_engraver},
 @rinternals{beam-interface},
 @rinternals{Stem_engraver}.
+@endmorerefs
 
 
 @node Travature a raggiera
@@ -2751,6 +2768,7 @@ modo approssimato, mentre il tempo nel file MIDI è esatto.
 @morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 Il comando @code{\featherDurations} funziona solamente con frammenti di
@@ -3150,6 +3168,7 @@ Guida al funzionamento interno:
 @rinternals{BarLine} (creata al livello @code{Staff}),
 @rinternals{SpanBar} (tra i righi),
 @rinternals{Timing_translator} (per le proprietà di Timing).
+@endmorerefs
 
 
 @node Numeri di battuta
@@ -3249,6 +3268,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
+@endmorerefs
 
 @cindex numero di battuta, collisione
 @cindex collisione, numero di battuta
@@ -3352,6 +3372,7 @@ nel momento in cui viene elaborato.
 @morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Segni di chiamata
@@ -3522,6 +3543,7 @@ Guida al funzionamento interno:
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Questioni ritmiche particolari
@@ -3724,6 +3746,7 @@ Guida al funzionamento interno:
 @rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
+@endmorerefs
 
 
 @knownissues
@@ -3841,6 +3864,7 @@ Glossario musicale:
 
 Frammenti di codice:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Gestione del tempo
@@ -3928,5 +3952,4 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{Timing_translator},
 @rinternals{Score}.
-
-@c  LocalWords:  accMusic MyCadenza
+@endmorerefs

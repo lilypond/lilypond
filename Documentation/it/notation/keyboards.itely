@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: dc04b87d9e2e93f623a21249c2f40808c8fa3b6a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -134,6 +134,7 @@ Guida al funzionamento interno:
 
 Frammenti:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Modifica manuale del rigo
@@ -269,6 +270,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{Beam},
 @rinternals{ContextChange}.
+@endmorerefs
 
 @knownissues
 Non è possibile evitare la collisione delle travature per le travature
@@ -326,8 +328,8 @@ music = {
 \autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex musica relativa, e @code{autochange}
-@cindex @code{autochange}, e musica relativa
+@cindex musica relativa, e @code{autoChange}
+@cindex @code{autoChange}, e musica relativa
 
 @funindex \relative
 
@@ -372,6 +374,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{AutoChangeMusic}.
+@endmorerefs
 
 
 @knownissues
@@ -457,6 +460,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
+@endmorerefs
 
 
 @snippets
@@ -479,10 +483,6 @@ Guida al funzionamento interno:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-Per il momento, questo incisore non può essere specificato scrivendo il
-suo nome tra virgolette doppie.  A causa del modo in cui è implementato,
-il suo nome deve essere preceduto dal simbolo di cancelletto @code{#}.
-
 @cindex parentesi dell'arpeggio trasversale ai righi
 @cindex trasversale ai righi, parentesi dell'arpeggio
 @cindex arpeggio, parentesi, trasversale ai righi
@@ -495,6 +495,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Stem}.
+@endmorerefs
 
 
 @node Pianoforte
@@ -557,7 +558,8 @@ I pedali di risonanza si trovano anche nei vibrafoni e nelle celeste.
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex @sortas{bracketA} bracket
+@c `@funindex \bracket' is auto-generated
+@funindexpre bracket
 @funindex text
 
 Ci sono tre stili per indicare i pedali: @code{text} (testo),
@@ -605,6 +607,7 @@ Guida al funzionamento interno:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+@endmorerefs
 
 
 @node Fisarmonica
@@ -647,6 +650,7 @@ trova in @ref{Accordion Registers}.
 @morerefs
 Frammenti:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Arpa
@@ -690,6 +694,7 @@ Guida alla notazione:
 @ref{Glissando},
 @ref{Arpeggio},
 @ref{Armonici}.
+@endmorerefs
 
 
 @node Pedali dell'arpa
@@ -738,3 +743,4 @@ Guida alla notazione:
 @c Questo nodo porta a una sezione dell'appendice che è generata dai
 @c sorgenti durante la compilazione, dunque non può essere tradotto.
 @ref{Instrument Specific Markup}.
+@endmorerefs

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 256cf3e4639cdb2be3f00e67254376f77cd26456
+    Translation of GIT committish: f3acf7de3221ce55f1d20e81cdc0e2b32d2734f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1115,14 +1115,7 @@ musicale più complesso:
 
 @lilypond[quote]
 \layout {
-  \context {
-    \Score
-    \remove Timing_translator
-  }
-  \context {
-    \Staff
-    \consists Timing_translator
-  }
+  \enablePolymeter
 }
 
 \new PianoStaff <<
@@ -1372,6 +1365,7 @@ livello massimo.
 @morerefs
 Internals Reference:
 @rinternalsnamed{Contexts, Contesti}.
+@endmorerefs
 
 @node Architettura flessibile
 @unnumberedsubsec Architettura flessibile

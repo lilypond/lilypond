@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+   Translation of GIT committish: 1b92bf647d14c1f2785f47568e78e4bfa7dfcb45
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,6 +121,7 @@ Glossario musicale:
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
+@endmorerefs
 
 
 @node Ottava relativa
@@ -335,6 +336,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{RelativeOctaveMusic}.
+@endmorerefs
 
 @cindex ottava relativa, e trasposizione
 @cindex trasposizione, e ottava relativa
@@ -414,7 +416,7 @@ con altezza crescente:
 @cindex alterazione tra parentesi
 
 @funindex ?
-@funindex @sortas{!A} !
+@funindex !
 
 
 Di norma le alterazioni vengono mostrate automaticamente, ma è
@@ -480,8 +482,9 @@ Guida al funzionamento interno:
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
+@endmorerefs
 
-@cindex alterazione, quarto di tono
+@cindex quarto di tono, alterazione
 @cindex alterazione di un quarto di tono
 
 @knownissues
@@ -603,12 +606,12 @@ In tedesco e finlandese, LilyPond fornisce anche la forma più frequente
 
 In alcune forme musicali vengono usati i microtoni, le cui alterazioni sono
 frazioni di un @q{normale} diesis o bemolle.  La seguente tabella elenca i
-nomi delle note per le alterazioni di un quarto di tono in tutte le lingue; i
+nomi delle note per le alterazioni di un quarto di tono; i
 prefissi @notation{semi-} e @notation{sesqui-} significano rispettivamente
 @q{metà} e @q{uno e mezzo}.
 
 @quotation
-@multitable {@w{@code{português} o}} {@b{semi-diesis}} {@b{semi-bemolle}} {@b{sesqui-diesis}} {@b{sesqui-bemolle}}
+@multitable {@w{@code{português} o}} {@b{semi-diesis}} {@b{semi-bemolle}} {@b{sesqui-diesis}} {@code{esseh/@code{eseh}}}
 @headitem Lingua
   @tab semi-diesis @tab semi-bemolle @tab sesqui-diesis @tab sesqui-bemolle
 @item @code{nederlands}
@@ -668,6 +671,7 @@ File installati:
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
+@endmorerefs
 
 
 @node Modifica di più altezze
@@ -693,7 +697,8 @@ Questa sezione tratta il modo di modificare le altezze delle note.
 @cindex ottava, controllo
 @cindex controllo delle altezze
 
-@funindex @sortas{=A} =
+@c `@funindex \=' is auto-generated
+@funindexpre =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -709,7 +714,7 @@ dopo il simbolo@tie{}@code{=}.  Questo esempio genererà un avviso
 
 @lilypond[verbatim,quote]
 \relative {
-  c''2 d='4 d
+  c''2 d='
   e2 f
 }
 @end lilypond
@@ -754,6 +759,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{RelativeOctaveCheck}.
+@endmorerefs
 
 
 @node Trasposizione
@@ -886,6 +892,7 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{TransposedMusic}.
+@endmorerefs
 
 @funindex \transpose
 @funindex \chordmode
@@ -941,6 +948,7 @@ Guida alla notazione:
 @ref{Trasposizioni modali},
 @ref{Retrogradazione},
 @ref{Trasposizione}.
+@endmorerefs
 
 
 @node Retrogradazione
@@ -979,6 +987,7 @@ Guida alla notazione:
 @ref{Inversione},
 @ref{Trasposizioni modali},
 @ref{Trasposizione}.
+@endmorerefs
 
 
 @node Trasposizioni modali
@@ -1120,6 +1129,7 @@ Guida alla notazione:
 @ref{Inversione},
 @ref{Retrogradazione},
 @ref{Trasposizione}.
+@endmorerefs
 
 
 @node Aspetto delle altezze
@@ -1134,6 +1144,7 @@ Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 * Segni di ottavazione::
 * Trasporto strumentale::
 * Alterazioni automatiche::
+* Glifi di alterazione alternativi::
 * Ambitus::
 @end menu
 
@@ -1335,6 +1346,7 @@ Guida al funzionamento interno:
 @rinternals{Clef},
 @rinternals{ClefModifier},
 @rinternals{clef-interface}.
+@endmorerefs
 
 @knownissues
 I numeri di ottavazione assegnati alle chiavi sono trattati come oggetti grafici
@@ -1343,8 +1355,8 @@ applicato, con un altro @code{\override}, all'oggetto @var{ClefModifier}.
 
 @lilypond[fragment,quote,verbatim]
 \new Staff \with {
-  \override Clef.color = #blue
-  \override ClefModifier.color = #red
+  \override Clef.color = #(universal-color 'blue)
+  \override ClefModifier.color = #(universal-color 'vermillion)
 }
 
 \clef "treble_8" c'4
@@ -1477,6 +1489,7 @@ Guida al funzionamento interno:
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
 @rinternals{key-signature-interface}.
+@endmorerefs
 
 
 @node Segni di ottavazione
@@ -1490,14 +1503,13 @@ Guida al funzionamento interno:
 @cindex 8vb
 @cindex ottavazione
 
-@funindex set-octavation
 @funindex \ottava
 
 I @notation{segni di ottavazione} introducono un'ulteriore trasposizione di
 ottava nel rigo:
 
 @lilypond[verbatim,quote]
-\relative a' {
+\relative c'' {
   a2 b
   \ottava #-2
   a2 b
@@ -1512,8 +1524,54 @@ ottava nel rigo:
 }
 @end lilypond
 
+@funindex ottavationMarkups
+@funindex ottavation-ordinals
+@funindex ottavation-simple-ordinals
+@funindex ottavation-numbers
+
+Per impostazione predefinita, viene stampato solo un numero all'inizio della
+parentesi.  Questa impostazione può essere cambiata in modo che includa un
+numero ordinale abbreviato, come apice o come lettere normali (le ultime
+venivano un tempo usate come predefinite); si può cambiare anche il peso
+del font grassetto predefinito, come è spiegato in
+@ref{Scelta del tipo di carattere e della dimensione}.
+
+L'esempio seguente mostra varie opzioni, e anche come ritornare al
+comportamento predefinito corrente:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \override Staff.OttavaBracket.font-series = #'medium
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \revert Staff.OttavaBracket.font-series
+  \set Staff.ottavationMarkups = #ottavation-numbers
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
+
+
 @snippets
 
+@funindex ottavation
 @cindex testo dell'ottava
 @cindex ottava, testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1533,6 +1591,9 @@ ottava nel rigo:
 Glossario musicale:
 @rglosnamed{octavation,ottavazione}.
 
+Guida alla notazione:
+@ref{Scelta del tipo di carattere e della dimensione}.
+
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
@@ -1540,6 +1601,7 @@ Guida al funzionamento interno:
 @rinternals{Ottava_spanner_engraver},
 @rinternals{OttavaBracket},
 @rinternals{ottava-bracket-interface}.
+@endmorerefs
 
 
 @node Trasporto strumentale
@@ -1644,6 +1706,7 @@ Guida alla notazione:
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
+@endmorerefs
 
 
 @node Alterazioni automatiche
@@ -1657,7 +1720,7 @@ Frammenti di codice:
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex @sortas{defaultA} default
+@funindex default
 
 Esistono diverse convenzioni sul modo di scrivere le
 alterazioni.  LilyPond ha una funzione per specificare
@@ -1672,7 +1735,7 @@ richiamata nel modo seguente:
 @end example
 
 La gestione delle alterazioni si applica di norma all'attuale @code{Staff} (con
-l'eccezione degli stili @code{piano} e @code{piano-cautionary}, che sono
+l'eccezione degli stili @code{choral} @code{piano} e @code{piano-cautionary}, che sono
 spiegati dopo).  Questa funzione accetta un secondo argomento opzionale che
 determina in quale ambito debba essere cambiato lo stile.  Ad esempio, per
 usare lo stesso stile in tutti i righi dell'attuale @code{StaffGroup}, si usa:
@@ -1720,11 +1783,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1738,12 +1801,12 @@ seguente frammento, se si vuole usare lo stesso stile in entrambi i righi.
 @example
 \new PianoStaff @{
   <<
-    \context Staff = "up" @{
+    \new Staff = "up" @{
       %%% change the next line as desired:
       \accidentalStyle Score.default
       \musicA
     @}
-    \context Staff = "down" @{
+    \new Staff = "down" @{
       \musicB
     @}
   >>
@@ -1752,12 +1815,13 @@ seguente frammento, se si vuole usare lo stesso stile in entrambi i righi.
 
 
 @c don't use verbatim in this table.
+@c See regression test accidental-styles.ly.
 @table @code
 @item default
 
 @cindex stile delle alterazioni @emph{default}
 
-@funindex @sortas{defaultA} default
+@funindex default
 
 Questo è il comportamento predefinito del compositore tipografico.  Corrisponde
 alla pratica comunemente impiegata dal diciottesimo secolo: le alterazioni
@@ -1801,11 +1865,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1873,11 +1937,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle voice
       \musicB
     }
@@ -1938,11 +2002,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern
       \musicB
     }
@@ -1997,11 +2061,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-cautionary
       \musicB
     }
@@ -2062,11 +2126,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice
       \musicB
     }
@@ -2122,11 +2186,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice-cautionary
       \musicB
     }
@@ -2147,7 +2211,8 @@ in questo caso le alterazioni vengono annullate in tutti i righi che
 si trovano nello stesso @code{GrandStaff} o @code{PianoStaff}, dunque tutte
 gli annullamenti delle note finali.
 
-È lo stile predefinito per gli attuali @code{GrandStaff} e @code{PianoStaff}.
+È lo stile che si applica agli attuali @code{GrandStaff} e @code{PianoStaff}
+a meno che non sia qualificato con un secondo argomento.
 
 @lilypond[quote]
 musicA = {
@@ -2184,11 +2249,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2240,11 +2305,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2264,8 +2329,8 @@ Mostra tutte le alterazioni richieste dai cantanti che seguono solo la propria
 voce, e mostra anche le ulteriori alterazioni per tutti i lettori che seguono
 tutte le voci di un intero @code{ChoirStaff} contemporaneamente.
 
-Questo stile di alterazioni si applica al @code{ChoirStaff} corrente per
-impostazione predefinita.
+Questo stile di alterazioni si applica al @code{ChoirStaff} corrente a meno che
+non sia qualificato con un secondo argomento.
 
 @lilypond[quote]
 musicA = {
@@ -2302,11 +2367,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2359,11 +2424,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2418,11 +2483,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern
       \musicB
     }
@@ -2477,11 +2542,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-cautionary
       \musicB
     }
@@ -2538,11 +2603,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice
       \musicB
     }
@@ -2595,11 +2660,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicB
     }
@@ -2655,11 +2720,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic
       \musicB
     }
@@ -2713,11 +2778,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicB
     }
@@ -2773,11 +2838,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-first
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-first
       \musicB
     }
@@ -2834,12 +2899,12 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \key fis \minor
       \accidentalStyle teaching
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \key fis \minor
       \accidentalStyle teaching
       \musicB
@@ -2895,11 +2960,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle no-reset
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle no-reset
       \musicB
     }
@@ -2954,11 +3019,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle forget
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle forget
       \musicB
     }
@@ -2980,6 +3045,7 @@ Guida al funzionamento interno:
 @rinternals{AccidentalSuggestion},
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
+@endmorerefs
 
 @cindex alterazione, e note simultanee
 @cindex note simultanee e alterazioni
@@ -2993,10 +3059,8 @@ le note precedenti e l'armatura di chiave.  Se la stessa nota
 occorre simultaneamente con alterazioni diverse, può essere necessario
 forzare le alterazioni con@tie{}@code{!} o@tie{}@code{?}: @samp{<f! fis!>}.
 
-L'annullamento di precauzione delle alterazioni avviene in relazione alla
-misura precedente.  Tuttavia, nel blocco @code{\alternative} che segue
-una sezione @code{\repeat volta N}, è auspicabile che l'annullamento sia
-calcolato in base alla precedente misura @emph{eseguita}, non alla precedente
+Nei finali alternativi, l'annullamento di precauzione dovrebbe basarsi
+sulla precedente misura @emph{eseguita}, ma si basa sulla precedente
 misura @emph{stampata}.  Nell'esempio seguente il Do naturale della seconda
 volta non richiede il segno di bequadro:
 
@@ -3008,8 +3072,8 @@ volta non richiede il segno di bequadro:
     c'2
   }
   \alternative {
-     cis'
-     c'
+     \volta 1 { cis' }
+     \volta 2 { c' }
   }
 }
 @end lilypond
@@ -3030,11 +3094,98 @@ forget = #(define-music-function (music) (ly:music?) #{
     c'2
   }
   \alternative {
-     cis'
-     \forget c'
+     \volta 1 { cis' }
+     \volta 2 { \forget c' }
   }
 }
 @end lilypond
+
+
+@node Glifi di alterazione alternativi
+@unnumberedsubsubsec Glifi di alterazione alternativi
+@translationof Alternate accidental glyphs
+
+@cindex alterazioni, glifi alternativi
+@cindex glifi di alterazione alternativi
+
+I sistemi di notazione non occidentali e antici hanno le loro alterazioni.
+I glifi sono regolati dalla proprietà @code{alterationGlyphs} del
+contesto @code{Staff} e da tipi di contesto simili.
+I valori predefiniti di questa proprietà sono elencati in
+@ref{Accidental glyph sets}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs = #alteration-vaticana-glyph-name-alist
+  }
+}
+
+{ ces' c' cis' }
+@end lilypond
+
+La proprietà può essere impostata anche su una lista associativa
+personalizzata che associa le alterazioni ai nomi dei glifi.
+Le alterazioni si specificano come frazioni in toni.
+I glifi sono elencati in @ref{Accidental glyphs}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+  }
+}
+
+{ ces' c' cis' }
+@end lilypond
+
+La proprietà @code{padding-pairs} degli oggetti @code{KeySignature} e
+@code{KeyCancellation} è una lista associativa che mappa coppie di
+glifi al padding che deve essere aggiunto tra questi glifi nelle
+armature di chiave.
+
+@lilypond[verbatim]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+    \override KeySignature.padding-pairs =
+      #'((("accidentals.sharp.arrowup" . "accidentals.sharp.arrowup")
+            . 0.25)
+         (("accidentals.flat.arrowdown" . "accidentals.flat.arrowdown")
+            . 0.3))
+    \override KeyCancellation.padding-pairs =
+      #'((("accidentals.natural.arrowup" . "accidentals.natural.arrowup")
+            . 0.7))
+  }
+}
+
+{
+  \key cis \major
+  ces' c'
+  \key ces \major
+  cis'
+}
+@end lilypond
+
+@morerefs
+Guida alla notazione:
+@ref{Accidental glyph sets},
+@ref{Accidental glyphs}.
+
+Guida al funzionamento interno:
+@rinternals{accidental-switch-interface},
+@rinternals{Alteration_glyph_engraver},
+@rinternals{key-signature-interface}.
+@endmorerefs
 
 
 @node Ambitus
@@ -3045,7 +3196,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex ambito delle altezze
 @cindex estensione
 
-Il termine @notation{ambitus} (pl. ambitus) indica l'ambito di
+Il termine @notation{ambitus} (pl.@: ambitus) indica l'ambito di
 altezze di una determinata voce all'interno di una composizione
 musicale.  Può indicare anche l'estensione di uno strumento
 musicale, ovvero l'intera gamma di suoni che può produrre.
@@ -3089,6 +3240,11 @@ di chiave.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-ambitus-gap.ly}
 
+@cindex ambitus, posizionamento
+@funindex ambitusAfter
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/ambitus-after-key-signature.ly}
+
 @morerefs
 Glossario musicale:
 @rglos{ambitus}.
@@ -3105,6 +3261,7 @@ Guida al funzionamento interno:
 @rinternals{AmbitusLine},
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
+@endmorerefs
 
 @knownissues
 Le collisioni non vengono gestite in presenza di un ambitus multiplo su
@@ -3236,6 +3393,7 @@ Guida al funzionamento interno:
 @rinternals{LedgerLineSpanner},
 @rinternals{note-head-interface},
 @rinternals{ledger-line-spanner-interface}.
+@endmorerefs
 
 
 @node Testa di nota con nome della nota
@@ -3295,6 +3453,7 @@ Guida al funzionamento interno:
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Teste di nota a forma variabile
@@ -3319,6 +3478,7 @@ Guida al funzionamento interno:
 @cindex testa di nota, Walker
 
 @funindex \aikenHeads
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex \funkHeads
@@ -3334,6 +3494,8 @@ Funk (Harmonia Sacra), Walker e Aiken (Christian Harmony):
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3347,6 +3509,7 @@ Funk (Harmonia Sacra), Walker e Aiken (Christian Harmony):
 
 @funindex \key
 @funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
 @funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
@@ -3364,6 +3527,8 @@ in base alla relativa maggiore:
   a b c d e2 f g1 a \break
   \aikenHeadsMinor
   a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
   \sacredHarpHeadsMinor
   a,2 b c d \break
   \southernHarmonyHeadsMinor
@@ -3379,6 +3544,8 @@ in base alla relativa maggiore:
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
@@ -3391,6 +3558,11 @@ in base alla relativa maggiore:
 
 
 @snippets
+
+@cindex note head, Aiken, thin variant
+@cindex Aiken shape note head, thin variant
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
@@ -3409,6 +3581,7 @@ Guida al funzionamento interno:
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Improvvisazione
@@ -3454,5 +3627,4 @@ Guida al funzionamento interno:
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
-
-@c  LocalWords:  musicA musicB dis' gis
+@endmorerefs

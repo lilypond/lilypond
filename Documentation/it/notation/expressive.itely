@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: a381f2cbd939153c7a0560b48449be4ab784bb41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,36 +46,91 @@ Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 @unnumberedsubsubsec Articolazioni e abbellimenti
 @translationof Articulations and ornamentations
 
-@cindex articolazione
+@cindex @qq{accento}, articolazione
+@cindex articolazione, accento
 @cindex abbellimento
-@cindex script
-@cindex espressivo
-@cindex corona
-@cindex arcata in su
-@cindex arcata in giù
+@cindex @qq{marcato}, articolazione
+@cindex articolazione, marcato
+@cindex @qq{staccatissimo}, articolazione
+@cindex articolazione, staccatissimo
+@cindex @qq{espressivo}, articolazione
+@cindex articolazione, espressivo
+@cindex @qq{staccato}, articolazione
+@cindex articolazione, staccato
+@cindex @qq{tenuto}, articolazione
+@cindex articolazione, tenuto
+@cindex @qq{portato}, articolazione
+@cindex articolazione, portato
+@cindex @qq{arcata in sù}, indicazione di arcata
+@cindex indicazione di arcata, in sù
+@cindex @qq{arcata in giù}, indicazione di arcata
+@cindex indicazione di arcata, in giù
+@cindex @qq{flageolet}, armonici
+@cindex armonici, flageolet
+@cindex @qq{pollice}, diteggiatura
+@cindex diteggiatura, pollice
 @cindex segno del pedale
 @cindex segno del pedale dell'organo
 @cindex organo, segno del pedale
 @cindex pedale, segno
-@cindex gruppetto
-@cindex aperto
-@cindex chiuso
-@cindex armonico
-@cindex gruppetto rovesciato
-@cindex trillo
-@cindex mordente inverso
-@cindex mordente inverso lungo
-@cindex mordente
-@cindex mordente inverso, sù
-@cindex mordente inverso, giù
-@cindex mordente superiore
-@cindex mordente inferiore
-@cindex segno del pollice
-@cindex pollice, segno del
-@cindex segno
-@cindex coda
+@cindex @qq{tallone}, segno del pedale
+@cindex segno del pedale, tallone
+@cindex @qq{dito del piede}, segno del pedale
+@cindex segno del pedale, dito del piede
+@cindex @qq{aperto}, articolazione
+@cindex articolazione, aperto
+@cindex aperto, high hat (charleston)
+@cindex high hat, aperto
+@cindex charleston, aperto
+@cindex @qq{semiaperto}, articolazione
+@cindex articolazione, semiaperto
+@cindex semiaperto, high hat (charleston)
+@cindex high hat, semiaperto
+@cindex charleston, semiaperto
+@cindex @qq{chiuso}, articolazione
+@cindex articolazione, chiuso
+@cindex high hat, pedale
+@cindex charleston, pedale
+@cindex pedale, high hat (charleston)
+@cindex @qq{snappizzicato}, segno
+@cindex segno, snappizzicato
+@cindex @qq{gruppetto}, ornamento
+@cindex ornamento, gruppetto
+@cindex @qq{gruppetto rovesciato}, ornamento
+@cindex ornamento, gruppetto rovesciato
+@cindex @qq{gruppetto barrato}, ornamento
+@cindex ornamento, gruppetto barrato
+@cindex @qq{gruppetto Haydn}, ornamento
+@cindex ornamento, gruppetto Haydn
+@cindex @qq{trillo}, ornamento
+@cindex ornamento, trillo
+@cindex @qq{mordente}, ornamento
+@cindex ornamento, mordente
+@cindex @qq{mordente superiore}, ornamento
+@cindex ornamento, mordente superiore
+@cindex @qq{mordente inferiore}, ornamento
+@cindex ornamento, mordente inferiore
+@c pralltriller equivale a mordente inverso
+@cindex @qq{mordente inverso}, ornamento
+@cindex ornamento, mordente inverso
+@cindex @qq{mordente inverso lungo}, ornamento
+@cindex ornamento, mordente inverso lungo
+@cindex @qq{mordente inverso superiore}, ornamento
+@cindex ornamento, mordente inverso, superiore
+@cindex @qq{mordente inverso inferiore}, ornamento
+@cindex ornamento, mordente inverso inferiore
+@cindex @q{signum congruentiae}, ornamento
+@cindex ornamento, signum congruentiae
+@cindex corona
+@cindex corona breve
+@cindex corona lunga
+@cindex corona Henze
+@cindex @qq{segno}, segno
+@cindex @qq{coda}, segno
+@cindex segno, coda
 @cindex segno di coda, variante
-@cindex variante del segno di coda
+@cindex variante del segno di @qq{coda}
+@cindex coda, variante di, segno
 
 @funindex \accent
 @funindex \marcato
@@ -98,6 +153,8 @@ Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 @funindex \snappizzicato
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 @funindex \trill
 @funindex \prall
 @funindex \mordent
@@ -111,10 +168,13 @@ Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 @funindex \prallup
 @funindex \lineprall
 @funindex \signumcongruentiae
+@funindex \veryshortfermata
 @funindex \shortfermata
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -170,16 +230,9 @@ essere posizionati manualmente sopra o sotto il rigo; si veda
 Le articolazioni sono oggetti @code{Script}.  Le loro proprietà sono
 descritte in dettaglio in @rinternals{Script}.
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Articulations and ornamentations'
-@c in the English documentation.
-
-Le articolazioni possono essere attaccate alle pause e alle note ma
-non alle pause multiple.  Esiste un comando speciale predefinito,
-@code{\fermata}, che permette di attaccare un segno di corona
-a una pausa multipla (e soltanto ad essa).  Questo crea un oggetto
-@code{MultiMeasureRestText}.
+Le articolazioni possono essere attaccate alle pause normali, alle pause
+multiple e alle note.  Attaccando un'articolazione a una pausa multipla
+si crea un oggetto @code{MultiMeasureRestScript}.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
@@ -187,7 +240,6 @@ a una pausa multipla (e soltanto ad essa).  Questo crea un oggetto
 a'2\fermata r\fermata
 R1\fermata
 @end lilypond
-@end ignore
 
 Oltre alle articolazioni, si può attaccare alle note anche un testo,
 posto tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Scritte}.
@@ -245,6 +297,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{Script},
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Dinamiche
@@ -273,13 +326,14 @@ Guida al funzionamento interno:
 @funindex \spp
 @funindex \sfz
 @funindex \rfz
+@funindex \n
 
 Le indicazioni dinamiche assolute si indicano con un comando che segue una
 nota, come ad esempio @code{c4\ff}.  Le indicazioni dinamiche disponibili
 sono @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz} e @code{\rfz}.  Le indicazioni
+@code{\sp}, @code{\spp}, @code{\sfz}, @code{\rfz} e @code{\n}.  Le indicazioni
 dinamiche possono essere posizionate manualmente sopra o sotto il
 rigo, come è spiegato in dettaglio in @ref{Direzione e posizionamento}.
 
@@ -296,9 +350,9 @@ rigo, come è spiegato in dettaglio in @ref{Direzione e posizionamento}.
 @cindex decrescendo
 @cindex diminuendo
 
-@funindex @sortas{<B} \<
-@funindex @sortas{>B} \>
-@funindex @sortas{!B} \!
+@funindexpost \<
+@funindexpost \>
+@funindexpost \!
 @funindex \cr
 @funindex \decr
 @funindex \endcr
@@ -355,15 +409,54 @@ forcella precedente.
 
 @cindex indicazioni dinamiche multiple, su una nota
 @cindex indicazione dinamica, più di un segno su una nota
+@funindex \after
+Segni come @notation{crescendo} o @notation{decrescendo} devono spesso
+iniziare o terminare nel corso di una nota sostenuta. Lo si può fare
+con @code{\after}, che può essere usato anche per creare articolazioni
+o scritte testuali differite:
 
-Occorre usare le pause spaziatrici per attaccare più di un'indicazione a
-una nota.  Questo è utile soprattutto quando si aggiunge un
-@notation{crescendo} e un @notation{decrescendo} alla stessa nota:
+@lilypond[verbatim,quote]
+<<
+  \relative {
+    \after 2 \< c'1
+    d4\f\> e f g
+    \after 2. \pp c,1
+    \after 2. \fermata e
+    \after 2. ^"Fine." f
+  }
+  \relative {
+    \repeat unfold 12 c'4
+    c c c c\fermata
+    c c c c
+  }
+>>
+@end lilypond
+
+
+Si può usare ripetutamente @code{\after} per attaccare più di un'indicazione a
+una nota.  Questo è utile soprattutto quando si aggiungono un crescendo e un
+decrescendo alla stessa nota:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4\< c\! d\> e\!
-  << f1 { s4 s4\< s4\> s4\! } >>
+  c''4\< d\! e\> c\!
+  \after 4 \< \after 2\> \after 2. \! f1
+  \textLengthOn
+  \after 4 \> \after 2. ^"hush!" c1
+  g4\pp
+}
+@end lilypond
+
+@cindex accordo vuoto
+Se il primo di tale sequenza di segni su una nota coincide con l'attacco
+della nota, conviene attaccarlo a un accordo vuoto @code{<>}. In questo
+modo tutti i segni possono essere inseriti nel loro ordine visivo naturale:
+
+@lilypond[verbatim,quote]
+{
+  <>\< \after 4 \> \after 2 \! c'1
+  % più facile da leggere e scrivere di:
+  \after 4 \> \after 2 \! c'1\<
 }
 @end lilypond
 
@@ -372,20 +465,21 @@ una nota.  Questo è utile soprattutto quando si aggiunge un
 
 @funindex \espressivo
 
-Il comando @code{\espressivo} permette di indicare un crescendo e
-un decrescendo sulla stessa nota.  Tuttavia, si tenga presente che
+Il comando @code{\espressivo} può essere usato anche per indicare un crescendo
+e un decrescendo sulla stessa nota.  Tuttavia, si tenga presente che
 viene implementato come articolazione, non come dinamica.
 
 @lilypond[verbatim,quote]
 \relative {
   c''2 b4 a
   g1\espressivo
+  \after 2. \espressivo c
 }
 @end lilypond
 
 @funindex \cresc
 @funindex \decresc
-@funindex @sortas{dimB} \dim
+@funindexpost \dim
 
 Le indicazioni di crescendo testuali iniziano con @code{\cresc}, quelle di
 decrescendo con @code{\decresc} o @code{\dim}.
@@ -489,6 +583,10 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/setting-the-minimum-length-of-hairpins.ly}
 
+@cindex forcella, allineare le estremità alle direzioni di @code{NoteColumn}
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-the-ends-of-hairpins-to-notecolumn-directions.ly}
+
 @cindex forcella, spostarre le estremità della
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/moving-the-ends-of-hairpins.ly}
@@ -554,6 +652,7 @@ Guida al funzionamento interno:
 @rinternals{Hairpin},
 @rinternals{DynamicLineSpanner},
 @rinternals{Dynamics}.
+@endmorerefs
 
 
 @node Nuove indicazioni dinamiche
@@ -680,6 +779,7 @@ Extending LilyPond:
 
 Frammenti:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Indicazioni espressive curvilinee
@@ -703,8 +803,8 @@ indeterminati discendenti (cadute) o ascendenti.
 
 @cindex legatura di portamento
 
-@funindex @sortas{(A} (
-@funindex @sortas{)A} )
+@funindex (
+@funindex )
 Le @notation{legature di portamento} si inseriscono con delle parentesi:
 
 @warning{Nella musica polifonica, una legatura di portamento deve
@@ -732,6 +832,9 @@ sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 @cindex legatura di portamento simultanea
 @cindex multipla, legatura di portamento
 @cindex simultanea, legatura di portamento
+
+@c some entries for `\=' are auto-generated; don't use @funindexpost
+@funindex \=
 
 Tracciare due legature di portamento simultanee o sovrapposte richiede una
 particolare attenzione.  Di solito le legature di portamento più esterne
@@ -864,6 +967,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Slur}.
+@endmorerefs
 
 
 @node Legature di frase
@@ -872,8 +976,8 @@ Guida al funzionamento interno:
 
 @cindex legatura di frase
 @cindex frase, legatura di
-@funindex @sortas{(B} \(
-@funindex @sortas{)B} \)
+@funindexpost \(
+@funindexpost \)
 
 Le @notation{legature di frase}, che indicano una frase musicale, si
 scrivono con i comandi @code{\(} e @code{\)}:
@@ -996,6 +1100,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{PhrasingSlur}.
+@endmorerefs
 
 
 @node Respiri
@@ -1064,6 +1169,7 @@ Guida al funzionamento interno:
 @rinternals{BreathingEvent},
 @rinternals{BreathingSign},
 @rinternals{Breathing_sign_engraver}.
+@endmorerefs
 
 
 @node Portamenti indeterminati discendenti (cadute) e ascendenti
@@ -1101,6 +1207,7 @@ Glossario Musicale:
 
 Frammenti:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Indicazioni espressive lineari
@@ -1155,29 +1262,29 @@ Un glissando può collegare note appartenenti a righi diversi:
 
 Un glissando può collegare le note negli accordi.  Se è necessario qualcosa
 di diverso dal normale abbinamento uno a uno delle note, si possono definire
-le connessioni tra le note attraverso @code{\glissandoMap}, dove le note
-di un accordo sono numerate a partire da zero nell'ordine in cui appaiono
-nel file di input @file{.ly}.
+le connessioni tra le note impostando @code{\glissandoMap} su una lista Scheme.
+Gli elementi sono coppie di numeri interi; ciascuna coppia @var{(x . y)} crea
+una linea di glissando dalla nota @var{x} del primo accordo alla nota @var{y}
+del secondo accordo.  Le note sono numerate a partire da zero nell'ordine
+in cui appaiono nel file di input @file{.ly}.  Non tutte le note devono
+far parte di un glissando.
 
 @lilypond[verbatim,quote]
 \relative {
-  <c' e>1\glissando g' |
-  <c, e>1\glissando |
-  <g' b> |
+  <c' e>2\glissando g'
+  <c, e>\glissando <g' b>
   \break
   \set glissandoMap = #'((0 . 1) (1 . 0))
-  <c, g'>1\glissando |
-  <d a'> |
+  <c, g'>\glissando <d a'>
   \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
-  c1\glissando |
-  <d f a> |
-  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
-  <f d a'>1\glissando |
-  <c c'> |
+  c\glissando <d f a>
+  \set glissandoMap = #'((2 . 2) (0 . 0))
+  <f d a'>\glissando <c f c'>
 }
 @end lilypond
 
-Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili della linea}.
+Si possono adottare diversi stili di glissando.  Maggiori dettagli
+in @ref{Stili della linea}.
 
 
 @snippets
@@ -1197,6 +1304,7 @@ Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-glissandi-breakable.ly}
 
+@anchor{Estendere i glissandi sulle volte delle ripetizioni}
 @cindex glissando, attraverso le ripetizioni
 @cindex ripetizione e glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1214,9 +1322,11 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Glissando}.
+@endmorerefs
 
 @knownissues
-Non è supportato il testo lungo la linea del glissando (ad esempio @notation{gliss.}).
+Non è supportato il testo lungo la linea del glissando (ad esempio
+@notation{gliss.})@:.
 
 
 @node Arpeggio
@@ -1230,6 +1340,7 @@ Non è supportato il testo lungo la linea del glissando (ad esempio @notation{gl
 @funindex \arpeggioArrowUp
 @funindex \arpeggioArrowDown
 @funindex \arpeggioNormal
+@funindex arpeggio-direction
 
 Un @notation{arpeggio} su un accordo (detto anche accordo spezzato)
 si ottiene aggiungendo @code{\arpeggio} all'accordo:
@@ -1255,6 +1366,9 @@ Si possono scrivere vari tipi di arpeggio.
   <c e g c>2\arpeggio
 }
 @end lilypond
+
+Questi comandi predefiniti modificano la proprietà @code{'arpeggio-direction};
+si può leggere la loro completa definizione nel file @file{ly/property-init.ly}.
 
 @cindex arpeggio, simbolo speciale
 @cindex simbolo speciale di arpeggio
@@ -1282,6 +1396,11 @@ Si possono creare simboli di arpeggio speciali @emph{in forma di parentesi}:
   <c e g c>2\arpeggio
 }
 @end lilypond
+
+Questi comandi predefiniti sovrascrivono la proprietà @code{'stencil}
+dell'oggetto @code{Arpeggio} e possono anche adattare il suo
+@code{'X-extent} (ovvero, la dimensione orizzontale necessaria
+per non entrare in collisione con altri oggetti).
 
 Le proprietà del tratteggio della parentesi dell'arpeggio sono regolate
 dalla proprietà @code{'dash-definition}, descritta in @ref{Legature di portamento}.
@@ -1322,6 +1441,9 @@ Guida alla notazione:
 @ref{Legature di portamento},
 @ref{Legature di valore}.
 
+File installati:
+@file{ly/property-init.ly}.
+
 Frammenti:
 @rlsr{Expressive marks}.
 
@@ -1329,8 +1451,35 @@ Guida al funzionamento interno:
 @rinternals{Arpeggio},
 @rinternals{Slur},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 @knownissues
+I comandi predefiniti come @code{\arpeggioArrowUp} si applicano soltanto
+al contesto corrente e dunque non hanno effetto sugli arpeggi che
+attraversano varie voci o righi.  In tali casi questi comandi devono
+essere usati in un blocco @code{\context} all'interno di @code{\layout} o
+in un blocco @code{\with}, come è spiegato in
+@ref{Modifica delle impostazioni predefinite di un contesto}.
+Altrimenti, invece di usare i comandi predefiniti, potrebbe convenire
+sovrascrivere direttamente le proprietà interessate per l'oggetto
+@code{Arpeggio} nel contesto appropriato, per esempio:
+
+@example
+\override Staff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+@end example
+
+@noindent
+per far sì che le parentesi dell'arpeggio attraversino le voci al livello
+del rigo (@code{Staff}), oppure
+
+@example
+\override PianoStaff.Arpeggio.arpeggio-direction = #UP
+@end example
+
+@noindent
+per ottenere arpeggi che attraversano il rigo e con la freccia che punta in sù
+in un contesto @code{PianoStaff}.
+
 @cindex arpeggio attraverso il rigo, stile della parentesi
 @cindex parentesi, stile nell'arpeggio attraverso il rigo
 
@@ -1481,4 +1630,10 @@ Frammenti:
 @rlsr{Expressive marks}.
 
 Guida al funzionamento interno:
-@rinternals{TrillSpanner}.
+@rinternals{TrillSpanner},
+@rinternals{TrillPitchHead},
+@rinternals{TrillPitchAccidental},
+@rinternals{TrillPitchParentheses},
+@rinternals{TrillPitchGroup},
+@rinternals{Pitched_trill_engraver}.
+@endmorerefs

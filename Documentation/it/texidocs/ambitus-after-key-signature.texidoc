@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 2f3474d9af596d677ed5b7ce720ae4d0954a6b51
+  texidocit = "
+Per impostazione predefinita, gli ambitus sono posizionati a sinistra della chiave.  La
+funzione @code{\\ambitusAfter} permette di cambiare questo posizionamento.
+La sintassi è @code{\\ambitusAfter grob-interface} (vedi
+@uref{http://lilypond.org/doc/v2.22/Documentation/internals/graphical-object-interfaces,Graphical
+Object Interfaces} per un elenco dei possibili valori per
+@code{grob-interface}.)
+
+Un caso d'uso comune è il posizionamento dell'ambitus tra l'armatura di chiave e
+l'indicazione di tempo.
+
+"
+  doctitleit = "Ambitus dopo armatura di chiave"

@@ -98,6 +98,7 @@ Guida alla notazione:
 @ref{Nomi delle note in altre lingue},
 @ref{Musica araba},
 @ref{Musica classica turca}.
+@endmorerefs
 
 
 @node Musica araba
@@ -170,6 +171,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Nomi delle note in arabo
@@ -227,6 +229,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Armature di chiave arabe
@@ -353,6 +356,7 @@ Guida al funzionamento interno:
 Frammenti:
 @rlsr{World music},
 @rlsr{Pitches}.
+@endmorerefs
 
 
 @node Indicazioni di tempo arabe
@@ -397,6 +401,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Esempio di musica araba
@@ -438,6 +443,7 @@ inusuali discussi in questa sezione.
 @morerefs
 Frammenti:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Letture complementari sulla musica araba
@@ -598,4 +604,5 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Notazione comune per la musica non occidentale}.
+@endmorerefs
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 1d41e22bfaca4a1b05089d5eea99f59b81322864
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,6 +15,10 @@
 
 Questo capitolo spiega come creare la notazione musicale per particolari
 tipi di strumento o per stili specifici.
+
+La musica d'orchestra e di insieme non è trattata in una sezione separata,
+ma si possono trovare varie nozioni usate comunemente nelle partiture
+orchestrali in @ref{Riferimenti per opera e musical}.
 
 @menu
 * Musica vocale::

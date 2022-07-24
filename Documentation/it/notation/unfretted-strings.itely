@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 81069a4f47ec2ab1da4c740110fb00c5419c3116
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,6 +62,9 @@ come testo semplice, vedi @ref{Scritte}.
 @item Le diteggiature, incluse le indicazioni per il pollice, sono descritte
 in @ref{Indicazioni di diteggiatura}.
 
+@item I numeri di corda si inseriscono (generalmente in numeri romani per gli
+strumenti ad arco) come è spiegato in @ref{Indicazioni di numero di corda}.
+
 @item La doppia corda viene normalmente indicata scrivendo un accordo,
 vedi @ref{Note in un accordo}.  Si possono inserire delle direttive su
 come eseguire gli accordi, vedi @ref{Arpeggio}.
@@ -83,6 +86,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Unfretted strings}.
+@endmorerefs
 
 
 @node Indicazioni di arcata
@@ -141,6 +145,7 @@ Guida alla notazione:
 @ref{Articolazioni e abbellimenti},
 @ref{Indicazioni di numero di corda},
 @ref{Legature di portamento}.
+@endmorerefs
 
 
 @node Armonici
@@ -212,6 +217,7 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Teste di nota speciali},
 @ref{Riferimenti per archi senza tasti}.
+@endmorerefs
 
 
 @node Pizzicato alla Bartok

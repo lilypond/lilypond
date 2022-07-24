@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 81069a4f47ec2ab1da4c740110fb00c5419c3116
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,6 +50,7 @@ delle tipologie di musica vocale.
 * Più sillabe in una nota::
 * Più note in una sillaba::
 * Estensori e trattini::
+* Cambi graduali di vocale::
 @end menu
 
 
@@ -98,6 +99,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Inserimento del testo vocale
@@ -223,6 +225,7 @@ Guida al funzionamento interno:
 
 Frammenti:
 @rlsr{Text}.
+@endmorerefs
 
 
 @node Allineamento del testo alla melodia
@@ -352,6 +355,7 @@ Guida alla notazione:
 
 Guida al funzionamento interno:
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Durate automatiche delle sillabe
@@ -517,6 +521,7 @@ Guida alla notazione:
 @ref{Estensori e trattini},
 @ref{Conservazione di un contesto},
 @ref{Posizionamento verticale del testo}.
+@endmorerefs
 
 
 @node Durate manuali delle sillabe
@@ -597,6 +602,7 @@ Guida alla notazione:
 Guida al funzionamento interno:
 @rinternals{Lyrics},
 @rinternals{Voice}.
+@endmorerefs
 
 
 @node Più sillabe in una nota
@@ -621,7 +627,8 @@ tilde (@code{~}) per ottenere una legatura di valore per il testo.
   }
   \addlyrics
   {
-    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    % Assicurarsi che i trattini siano visibili
+    \override LyricHyphen.minimum-distance = #1.0
     Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
   }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
@@ -632,6 +639,7 @@ tilde (@code{~}) per ottenere una legatura di valore per il testo.
 @morerefs
 Guida al funzionamento interno:
 @rinternals{LyricCombineMusic}.
+@endmorerefs
 
 
 @node Più note in una sillaba
@@ -827,6 +835,7 @@ Guida alla notazione:
 
 Guida al funzionamento interno:
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 @knownissues
 Le linee di estensione sotto i melismi non vengono creati automaticamente;
@@ -870,10 +879,61 @@ Questo comportamento è controllato da due proprietà di @code{LyricHyphen}:
 @code{minimum-distance} (distanza minima tra le due sillabe) e
 @code{minimum-length} (soglia sotto la quale i trattini vengono rimossi).
 
+Per impostazione predefinita, un trattino non viene ripetuto dopo un a capo
+quando la linea successiva inizia con una nuova sillaba. Per far sì che il
+trattino appaia in tali situazioni si deve impostare la proprietà
+@code{after-line-breaking} su @code{#t}.
+
 @morerefs
 Guida al funzionamento interno:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
+@endmorerefs
+
+
+@node Cambi graduali di vocale
+@unnumberedsubsubsec Cambi graduali di vocale
+@translationof Gradual changes of vowel
+
+@cindex vocale, transizione
+@cindex transizione delle vocali
+
+Le transizioni vocali (cambi graduali delle vocali o consonante
+sostenuta), che possono essere indicate da frecce tra le sillabe,
+si inseriscono col comando @code{\vowelTransition} (vedi
+Gould pp. 452--453).  La freccia indica la lunghezza della
+transizione, e per impostazione predefinita viene sempre disegnata
+(viene aggiunto dello spazio se necessario).  Le legature di valore
+tra note di altezza invariata o le legature di portamento mostrano
+che non ci sono nuove articolazioni, nonostante un cambio di vocale.
+La lunghezza minima delle frecce si può regolare con la proprietà
+@code{minimum-length} di @code{VowelTransition}.
+
+@lilypond[verbatim,quote]
+{
+  c'2 c'
+  \set melismaBusyProperties = #'()
+  c'2 ~ c'
+  \time 3/2
+  d'4( e' f' e' f'2
+  e'2.)
+}
+\addlyrics
+{
+  Ah \vowelTransition oh,
+  ah \vowelTransition oh,
+  ah \vowelTransition _ _ _ _
+  oh.
+}
+@end lilypond
+
+@morerefs
+Glossario musicale:
+@rglos{vowel transition}.
+
+Guida al funzionamento interno:
+@rinternals{VowelTransition}.
+@endmorerefs
 
 
 @node Tecniche specifiche per il testo vocale
@@ -972,6 +1032,7 @@ Guida alla notazione:
 Guida al funzionamento interno:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Posizionamento verticale del testo
@@ -1103,6 +1164,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Ordine di disposizione dei contesti},
 @ref{Creazione e citazione di un contesto}.
+@endmorerefs
 
 
 @node Posizionamento orizzontale delle sillabe
@@ -1406,15 +1468,21 @@ per il testo che per la musica.  Ciò comporta il vantaggio che
   \relative {
     a'4 a a a
     \repeat volta 2 { b4 b }
-    \alternative { { b b } { b c } }
+    \alternative {
+      \volta 1 { b b }
+      \volta 2 { b c }
+    }
   }
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
-  Non ri -- petu -- to.
-  \repeat volta 2 { Ripe -- tu -- }
-  \alternative { { to due. } { to due. } }
+        Non ri -- petu -- to.
+        \repeat volta 2 { Ripe -- tu -- }
+        \alternative {
+          \volta 1 { to due. }
+          \volta 2 { to due. }
+        }
       }
     }
   >>
@@ -1449,7 +1517,10 @@ numero che segue.}
       \new Voice = "melody" {
   \relative {
     \repeat volta 2 { b'4 b }
-    \alternative { { b b } { b c } }
+    \alternative {
+      \volta 1 { b b }
+      \volta 2 { b c }
+    }
     c4 c
   }
       }
@@ -1497,7 +1568,10 @@ e inserire dei salti manuali.
   \relative {
     \set melismaBusyProperties = #'()
     \repeat volta 2 { b'4 b ~}
-    \alternative { { b b } { b \repeatTie c } }
+    \alternative {
+      \volta 1 { b b }
+      \volta 2 { b \repeatTie c }
+    }
     \unset melismaBusyProperties
     c4 c
   }
@@ -1507,8 +1581,8 @@ e inserire dei salti manuali.
       \lyricsto "melody" {
   \repeat volta 2 { Ecco una __ }
   \alternative {
-    { \skip 1 strofa }
-    { \skip 1 sec }
+    \volta 1 { \skip 1 strofa }
+    \volta 2 { \skip 1 sec }
   }
   onda strofa.
       }
@@ -1533,7 +1607,10 @@ comandi @code{\skip}, come si è visto prima.
       \new Voice = "melody" {
   \relative {
     \repeat volta 2 { b'4 b ~}
-    \alternative { { b b } { b \repeatTie c } }
+    \alternative {
+      \volta 1 { b b }
+      \volta 2 { b \repeatTie c }
+    }
     c4 c
   }
       }
@@ -1566,7 +1643,10 @@ un finale alternativo, questi vanno inseriti a mano.
       \new Voice = "melody" {
   \relative {
     \repeat volta 2 { b'4 b ~}
-    \alternative { { b b } { b \repeatTie c } }
+    \alternative {
+      \volta 1 { b b }
+      \volta 2 { b \repeatTie c }
+    }
     c4 c
   }
       }
@@ -1592,6 +1672,8 @@ un finale alternativo, questi vanno inseriti a mano.
 Guida alla notazione:
 @ref{Conservazione di un contesto},
 @ref{Ripetizioni}.
+@endmorerefs
+
 
 @c non sono affatto sicuro di questa traduzione -- fb
 @node Testi alternati
@@ -1971,8 +2053,9 @@ con @code{\grace}) non sono assegnati alle sillabe quando si usa
 @knownissues
 Come per @code{associatedVoice}, @code{includeGraceNotes} deve essere
 impostato al più tardi una sillaba prima di quella da mettere sotto
-un abbellimento. Per il caso di un abbellimento proprio all'inizio
-di un brano, meglio usare un blocco @code{\with} o @code{\context}:
+un abbellimento. In caso di un abbellimento proprio all'inizio
+di un brano, si consiglia di usare un blocco @code{\with} o un blocco
+@code{\context} all'interno di @code{\layout}:
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -2069,8 +2152,13 @@ Talvolta si allinea una sola strofa alla musica e le strofe
 rimanenti appaiono in forma di versi alla fine del brano.
 Per ottenere ciò si aggiungono le strofe ulteriori in un
 blocco @code{\markup} esterno al blocco della partitura.
-Nell'esempio seguente si possono notare due modi di forzare
-le interruzioni di linea in un blocco @code{\markup}.
+Esistono vari modi di forzare le interruzioni di linea in
+un blocco @code{\markup}.  Per inserire una stringa intera
+si può usare @code{\string-lines} con @code{\n} inseriti
+manualmente oppure interruzioni di linea automatiche così
+come si scrivono oppure @code{\wordwrap-string}.  Se si
+usa la formattazione all'interno, è consigliata una combinazione
+di @code{\line} e @code{\column}.
 
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative {
@@ -2091,15 +2179,29 @@ its fleece was white as snow.
   \layout { }
 }
 \markup {
-  \column{
-    \line { Verse 2. }
-    \line { All the children laughed and played }
-    \line { To see a lamb at school. }
+  \column {
+    \string-lines
+      "Verse 2. \n Everywhere that Mary went \n The lamb was sure to go."
+  }
+}
+\markup {
+  \column {
+    \string-lines
+      "Verse 3.
+       All the children laughed and played,
+       To see a lamb at school."
+  }
+}
+\markup {
+  \column {
+    \line \italic { Verse 4. }
+    \line { And so the teacher turned it out, }
+    \line { But still it lingered near. }
   }
 }
 \markup {
   \wordwrap-string "
-  Verse 3.
+  Verse 5.
 
   Mary took it home again,
 
@@ -2138,41 +2240,46 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % sposta la colonna in avanti rispetto al margine sinistro;
+     % sposta la colonna in avanti rispetto al margine sinistro;
      % può essere tolto se lo spazio nella pagina è stretto
+     \hspace #0.1
      \column {
-      \line { \bold "2."
-  \column {
-    "This is verse two."
-    "It has two lines."
-  }
-      }
-      \combine \null \vspace #0.1 % aggiunge spazio verticale tra le strofe
+       \line { \bold "2."
+         \column {
+           "This is verse two."
+           "It has two lines."
+         }
+        }
+      % aggiunge spazio verticale tra le strofe
+      \combine \null \vspace #0.1
       \line { \bold "3."
-  \column {
-    "This is verse three."
-    "It has two lines."
-  }
+        \column {
+          "This is verse three."
+          "It has two lines."
+        }
       }
     }
-    \hspace #0.1 % aggiunge spazio orizzontale tra le colonne;
+    % aggiunge spazio orizzontale tra le colonne
+    \hspace #0.1
     \column {
       \line { \bold "4."
-  \column {
-    "This is verse four."
-    "It has two lines."
-  }
+        \column {
+          "This is verse four."
+          "It has two lines."
+        }
       }
-      \combine \null \vspace #0.1 % aggiunge spazio verticale tra le strofe
+      % aggiunge spazio verticale tra le strofe
+      \combine \null \vspace #0.1
       \line { \bold "5."
-  \column {
-    "This is verse five."
-    "It has two lines."
-  }
+        \column {
+          "This is verse five."
+          "It has two lines."
+        }
       }
     }
-  \hspace #0.1 % dà ulteriore spazio sul margine destro;
+  % dà ulteriore spazio sul margine destro
   % può essere tolto se lo spazio nella pagina è stretto
+  \hspace #0.1
   }
 }
 @end lilypond
@@ -2182,6 +2289,7 @@ text = \lyricmode {
 Guida al funzionamento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
+@endmorerefs
 
 
 @node Canzoni
@@ -2251,6 +2359,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Canzonieri
@@ -2268,6 +2377,7 @@ spiegata in @ref{Notazione per accordi}.
 @morerefs
 Guida alla notazione:
 @ref{Notazione per accordi}.
+@endmorerefs
 
 
 @node Musica corale
@@ -2363,6 +2473,7 @@ Guida al funzionamento interno:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 
 @node Struttura di una partitura corale
@@ -2455,6 +2566,7 @@ Guida alla notazione:
 Guida al funzionamento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @snippets
@@ -2469,11 +2581,17 @@ Guida al funzionamento interno:
 @morerefs
 Guida alla notazione:
 @ref{Indicazioni espressive lineari}.
+@endmorerefs
 
 
 @node Opera e musical
 @subsection Opera e musical
 @translationof Opera and stage musicals
+
+@cindex opera
+@cindex partitura vocale
+@cindex partitura completa
+@cindex musical, teatro
 
 La musica, il testo cantato e i dialoghi delle opere e dei musical
 sono di solito impostati in una o più delle seguenti forme:
@@ -2527,6 +2645,15 @@ che sono peculiari per le partiture di opera e musical.
 @node Riferimenti per opera e musical
 @unnumberedsubsubsec Riferimenti per opera e musical
 @translationof References for opera and stage musicals
+
+@cindex musica orchestrale
+@cindex orchestra, musica
+@cindex musica di insieme
+@cindex orchestra, notazione per
+@cindex partitura completa
+
+Oltre che ai gruppi vocali e teatrali, la maggior parte delle seguenti
+nozioni si applica a quasi qualsiasi musica d'orchestra e di insieme:
 
 @itemize
 
@@ -2584,6 +2711,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Nomi dei personaggi
@@ -2678,6 +2806,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Testo},
 @ref{Comandi per markup}.
+@endmorerefs
 
 
 @node Suggerimenti musicali
@@ -2799,6 +2928,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{CueVoice}.
+@endmorerefs
 
 @knownissues
 @code{\cueDuring} inserisce automaticamente un contesto @code{CueVoice} e
@@ -2904,6 +3034,7 @@ Guida alla notazione:
 
 Internal Reference:
 @rinternals{LyricText}.
+@endmorerefs
 
 
 @node Canti salmi e inni
@@ -2940,6 +3071,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Impostare un canto
@@ -3245,6 +3377,8 @@ Guida alla notazione:
 @ref{Scrivere il canto gregoriano},
 @ref{Musica in tempo libero},
 @ref{Visibilità degli oggetti}.
+@endmorerefs
+
 
 @c esiste già un nodo con lo stesso nome: @rlearning{Salmi}
 @node Salmi
@@ -3407,6 +3541,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Tipi di carattere},
 @ref{Formattazione del testo}.
+@endmorerefs
 
 
 @node Misure parziali nei motivi degli inni
@@ -3441,3 +3576,4 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @morerefs
 Guida alla notazione:
 @ref{Notazione antica}.
+@endmorerefs

@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 2f3474d9af596d677ed5b7ce720ae4d0954a6b51
+  texidocit = "
+Le estremità delle forcelle possono essere allineate alle direzioni @code{LEFT},
+@code{CENTER} o @code{RIGHT} dei grob @code{NoteColumn} modificando la
+proprietà @code{endpoint-alignments}, che è costituita da una coppia di
+numeri che rappresentano le estremità sinistra e destra della forcella.
+@code{endpoint-alignments} devono essere direzioni (-1, 0 o@tie{}1).  Valori
+diversi verranno trasformati emettendo un avviso.  Non ha effetto quando
+l'estremità destra di una forcella termina su una pausa; in questo caso termina
+sempre sul margine sinistro della pausa.
+
+"
+  doctitleit = "Allineare le estremità delle forcelle alle direzioni di NoteColumn"

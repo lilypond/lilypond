@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 1222079e16735f1c93d512c3b0a1dfde3ead6c5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -100,6 +100,7 @@ Guida alla notazione:
 @ref{Elenco delle articolazioni},
 @ref{Chiave},
 @ref{Trasporto strumentale}.
+@endmorerefs
 
 
 @node Indicazioni di numero di corda
@@ -155,11 +156,10 @@ g1\4
 
 @snippets
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/controlling-the-placement-of-chord-fingerings.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
+La maggior parte dei comportamenti relativi alle indicazioni di numero
+di corda (oggetto @code{StringNumber}), incluso il loro posizionamento,
+possono essere impostati nello stesso modo valido per le diteggiature:
+vedi @ref{Indicazioni di diteggiatura}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -176,6 +176,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{StringNumber},
 @rinternals{Fingering}.
+@endmorerefs
 
 
 @node Intavolature predefinite
@@ -344,8 +345,8 @@ ties = \relative {
     2 g2~
   }
   \alternative {
-     { g4 f2. }
-     { g4\repeatTie c,2. }
+     \volta 1 { g4 f2. }
+     \volta 2 { g4\repeatTie c,2. }
   }
   b1~
   \break
@@ -383,8 +384,8 @@ ties = \relative {
     e'2. f4~
     2 g2~ }
   \alternative {
-    { g4 f2. }
-    { g4\repeatTie c,2. }
+    \volta 1 { g4 f2. }
+    \volta 2 { g4\repeatTie c,2. }
   }
   b1~
   \break
@@ -487,6 +488,208 @@ ratioHarmonics = {
 }
 @end lilypond
 
+@cindex bending, nella notazione per intavolatura
+@cindex intavolatura, e bending
+@cindex tablatura, e bending
+@cindex corda, bending, intavolatura
+@funindex \preBend
+@funindex \bendHold
+@funindex \preBendHold
+@funindex \bendStartLevel
+
+I @qq{bending} degli strumenti a corda sono supportati nell'intavolatura.
+Un bending -- letteralmente, @qq{piegatura} -- viene introdotto aggiungendo
+@code{\^} alla nota o accordo da piegare; termina automaticamente alla nota
+o accordo successivi.
+Sono disponibili i seguenti stili: quello predefinito produce una curva con
+una punta di freccia rivolta verso l'alto o verso il basso, @code{'hold}
+una linea orizzontale tratteggiata, @code{'pre-bend} una linea verticale
+con una punta di freccia e @code{'pre-bend-hold} una linea verticale con
+una punta di freccia seguita da una linea tratteggiata.
+
+@lilypond[verbatim,quote]
+bend-styles = {
+  <>^"predefinito"
+  f'4\^ g'4\^ f'2
+
+  <>^"'hold"
+  \grace f'4\^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend"
+  \grace f'4\preBend \^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend-hold"
+  \grace f'4\preBendHold \^ g'1\bendHold \^ g'1\^ f'
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \bend-styles
+    }
+    \new TabStaff \bend-styles
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #5
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+I bending generalmente non si applicano alle corde vuote.  Per piegarle occorre
+impostare la proprietà @code{'bend-me} su @code{#t}.  Per evitare che altre
+note siano piegate impostarla su @code{#f}.
+
+@lilypond[verbatim,quote]
+mus = {
+  <>^"predefinito"
+  <a b f'>4\^
+  <ais b fis'>\^
+  <a b f'>2
+
+  <>^"piega le corde vuote"
+  <a \tweak bend-me ##t b f'>4\^
+  <ais \tweak bend-me ##t bis fis'>\^
+  <a b f'>2
+
+  <>^"escludi altre corde"
+  <g \tweak bend-me ##f b\3 d'>4\^
+  <a e'\2 >\^
+  <g \tweak bend-me ##f b\3 d'>2
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Per i bending consecutivi il bending iniziale potrebbe aver bisogno di
+un'impostazione appropriata per @code{details.successive-level}.  Per
+comodità c'è la funzione @code{bendStartLevel}, che prende un numero
+intero.
+
+@lilypond[verbatim,quote]
+printNext = -\tweak details.target-visibility ##t \etc
+
+mus = {
+  c'4\3\^ cis'\3 \^ d'2\3
+
+  \grace bes4\3\preBendHold \bendStartLevel 2 \printNext \^
+  d'4\3\bendHold \^ d'2\3\^ des'4\3 \^ c'1\3
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Per impostazione predefinita l'oggetto @code{BendSpanner} termina alla nota o
+accordo successivi anche se connesso con legatura di valore alla nota o
+accordo iniziali.  Si può saltare una singola @qq{colonna di note}
+(@code{NoteColumn}) tramite @code{\skipNC}.  Si può saltare anche un gruppo
+di oggetti @code{NoteColumn} usando @code{\skipNCs} all'inizio e
+@code{\endSkipNCs} alla fine.
+
+
+@lilypond[verbatim,quote]
+bends-with-ties-and-skips = {
+  a'4~\^ \skipNC a'4~ \skipNC a'4 b'4
+  a'4~ a'4~\^ \skipNC a'4 b'4
+  a'4~ a'4~ a'4\^ b'4
+  c'2\^ d'~ \bendHold \^ \skipNC d'~ d'\^ c'
+  \grace { c'8-\preBendHold \^ }
+  \skipNCs d'2~ d'2~ \endSkipNCs d'\^ c'2
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \clef "G_8"
+      \bends-with-ties-and-skips
+    }
+    \new TabVoice \bends-with-ties-and-skips
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #3
+      restrainOpenStrings = ##t
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+@predefined
+@code{\skipNCs},
+@code{\skipNC},
+@code{\endSkipNCs}.
+@endpredefined
+
 @snippets
 
 @cindex gambo, in intavolatura
@@ -562,6 +765,7 @@ Guida al funzionamento interno:
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}.
+@endmorerefs
 
 @knownissues
 Gli accordi non sono gestiti in un modo specifico, dunque il selettore
@@ -653,10 +857,10 @@ suona un'ottava più bassa di come è scritto.
 @end lilypond
 
 L'accordatura predefinita è @code{guitar-tuning}, ovvero
-l'accordatura standard EADGBE.  Altre accordature predefinite
-sono @code{guitar-open-g-tuning}, @code{mandolin-tuning} e
-@code{banjo-open-g-tuning}.  Tutte le accordature predefinite
-si trovano in @file{ly/string-tunings-init.ly}.
+l'accordatura standard @w{EADGBE}.  Altre accordature predefinite
+sono @code{guitar-@/open-g-@/tuning}, @code{mandolin-@/tuning} e
+@code{banjo-@/open-g-@/tuning}.  Tutte le accordature predefinite
+si trovano in @file{ly/string-@/tunings-@/init.ly}.
 
 @funindex \stringTuning
 @cindex tablatura, accordature personalizzate
@@ -732,7 +936,7 @@ più alta a quella più bassa, con l'eccezione di alcuni strumenti
 
 Un'altezza in una lista per accordatura, nella terminologia di
 LilyPond, è un oggetto altezza, creato dalla funzione Scheme
-@code{ly:make-pitch} (vedi @rinternals{Funzioni Scheme}).
+@code{ly:make-pitch} (vedi @rinternals{Scheme functions}).
 
 @code{\stringTuning} crea tale oggetto a partire da un accordo.
 
@@ -830,7 +1034,8 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Tab_note_heads_engraver},
-@rinternals{Funzioni Scheme}.
+@rinternals{Scheme functions}.
+@endmorerefs
 
 @knownissues
 I calcoli automatici dell'intavolatura non funzionano correttamente
@@ -1009,6 +1214,21 @@ tasto (modificatore @code{p:}).
     }
   }
 >>
+@end lilypond
+
+@cindex diagramma dei tasti per mancini
+@cindex mancino, diagramma dei tasti
+
+I diagrammi dei tasti possono essere adattati per i mancini
+
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
 @end lilypond
 
 @cindex fret-diagram-terse, diagramma dei tasti conciso
@@ -1199,7 +1419,7 @@ Si può anche inserire del testo di tipo markup dentro i punti.
       )
     }
     \override Voice.TextScript.size = 1.5
-    <b, fis b dis' fis'>1^\markup {
+    <b, fis b dis' fis'>1^\markup
       \override #'(fret-diagram-details . ((finger-code . in-dot)))
       \fret-diagram-verbose #`(
         (place-fret 5 2 1)
@@ -1215,7 +1435,6 @@ Si può anche inserire del testo di tipo markup dentro i punti.
           red)
         (place-fret 1 2 1)
       )
-    }
   }
 >>
 @end lilypond
@@ -1254,6 +1473,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{fret-diagram-interface}.
+@endmorerefs
 
 
 @node Diagrammi dei tasti predefiniti
@@ -1282,15 +1502,15 @@ mostrerà i diagrammi dei tasti salvati in una tabella dati:
 @end lilypond
 
 I diagrammi dei tasti predefiniti sono contenuti nel file
-@file{predefined-guitar-fretboards.ly}.  Si basano sulle altezze
+@file{predefined-@/guitar-@/fretboards.ly}.  Si basano sulle altezze
 di un accordo e sul valore di @code{stringTunings} in uso.
-@file{predefined-guitar-fretboards.ly} contiene i diagrammi dei tasti
-predefiniti solo per l'accordatura standard per chitarra (@code{guitar-tuning}).
+@file{predefined-@/guitar-@/fretboards.ly} contiene i diagrammi dei tasti
+predefiniti solo per l'accordatura standard per chitarra (@code{guitar-@/tuning}).
 Si possono aggiungere diagrammi predefiniti per altri strumenti o accordature
-seguendo l'esempio in @file{predefined-guitar-fretboards.ly}.
+seguendo l'esempio in @file{predefined-@/guitar-@/fretboards.ly}.
 
-I diagrammi dei tasti per ukulele sono contenuti nel file @*
-@file{predefined-ukulele-fretboards.ly}.
+I diagrammi dei tasti per ukulele sono contenuti nel file
+@file{predefined-@/ukulele-@/fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -1571,6 +1791,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals {fret-diagram-interface}.
+@endmorerefs
 
 
 @node Diagrammi dei tasti automatici
@@ -1728,6 +1949,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals {fret-diagram-interface}.
+@endmorerefs
 
 @knownissues
 I calcoli automatici dei tasti non funzionano correttamente per gli strumenti
@@ -1761,12 +1983,16 @@ c'\rightHandFinger #4
 @end lilypond
 
 Per comodità, si può abbreviare @code{\rightHandFinger} in un comando più
-breve, per esempio @code{RH},
+breve, per esempio @code{RH}, aggiungendo la definizione nel livello più
+alto del file sorgente:
 
 @example
-RH=#rightHandFinger
+RH = \rightHandFinger \etc
 @end example
 
+La maggior parte dei comportamenti delle diteggiature della mano destra (oggetto
+@code{StrokeFinger}) si impostano nello stesso modo delle normali diteggiature:
+vedi @ref{Indicazioni di diteggiatura}.
 
 @snippets
 
@@ -1781,11 +2007,15 @@ RH=#rightHandFinger
 {snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
+Guida alla notazione:
+@ref{Indicazioni di diteggiatura}.
+
 Frammenti:
 @rlsr{Fretted strings}.
 
 Guida al funzionamento interno:
 @rinternals{StrokeFinger}.
+@endmorerefs
 
 
 @node Chitarra
@@ -1837,6 +2067,7 @@ Guida alla notazione:
 Frammenti:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Indicazione di armonici e note smorzate
@@ -1916,6 +2147,7 @@ Frammenti:
 Guida alla notazione:
 @ref{Teste di nota speciali},
 @ref{Stili delle teste di nota}.
+@endmorerefs
 
 
 @node Indicazione di power chord
@@ -1925,22 +2157,25 @@ Guida alla notazione:
 @cindex power chord
 @cindex accordo, power chord
 
-I power chord e i loro simboli possono essere inseriti in modalità accordo o
-come costrutti di accordo:
+I @qq{power chord} e i loro simboli possono essere inseriti in modalità accordo
+o come costrutti di accordo.  In via eccezionale, nei nomi di questi accordi
+viene specificato il quinto grado, che è solitamente omesso negli altri
+accordi (per esempio, le triadi maggiori o minori:
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
   \chordmode {
-    
     e,,1:5
-    a,,1:5.8
+    a,,:5.8
+    \set TabStaff.restrainOpenStrings = ##t
     \set minimumFret = #8
-    c,1:5
-    f,1:5.8
+    c,:5
+    f,:5.8
   }
-  \set minimumFret = #5
-  <a, e>1
-  <g d' g'>1
+  \set minimumFret = #2
+  \set restrainOpenStrings = ##f
+  <a, e> <a cis' e'>
+  <g d' g'>
 }
 \score {
   <<
@@ -1958,33 +2193,6 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-I simboli del power chord vengono automaticamente disabilitati appena si usa
-uno degli altri comuni modificatori degli accordi:
-
-@lilypond[quote,ragged-right,verbatim]
-mixedChords = \chordmode {
-  c,1
-  
-  b,,1:5
-  fis,,1:5.8
-  g,,1:m
-}
-\score {
-  <<
-    \new ChordNames {
-      \mixedChords
-    }
-    \new Staff {
-      \clef "treble_8"
-      \mixedChords
-    }
-    \new TabStaff {
-      \mixedChords
-    }
-  >>
-}
-@end lilypond
-
 @morerefs
 Glossario musicale:
 @rglos{power chord}.
@@ -1995,6 +2203,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Fretted strings}.
+@endmorerefs
 
 
 @node Banjo
@@ -2038,16 +2247,21 @@ music = {
 @cindex banjo, accordatura
 @cindex accordatura per banjo
 
+@funindex banjo-open-g-tuning
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
 @funindex banjo-open-d-tuning
 @funindex banjo-open-dm-tuning
+@funindex banjo-double-c-tuning
+@funindex banjo-double-d-tuning
 @funindex four-string-banjo
 
 Sono disponibili varie accordature comuni per banjo a cinque corde:
-@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
-@code{banjo-open-d-tuning} (aDF#AD) e @code{banjo-open-dm-tuning}
-(aDFAD).
+@code{banjo-@/open-g-@/tuning} @w{(gDGBD)}, @code{banjo-@/c-tuning}
+@w{(gCGBD)}, @code{banjo-@/modal-@/tuning} @w{(gDGCD)},
+@code{banjo-@/open-d-@/tuning} @w{(aDF#AD)}, @code{banjo-@/open-dm-@/tuning}
+@w{(aDFAD)}, @code{banjo-@/double-c-@/tuning} @w{(gCGCD)} e
+@code{banjo-@/double-d-@/tuning} @w{(aDGDE)}.
 
 Queste possono essere convertite in accordature a quattro corde usando
 la funzione @code{four-string-banjo}:
@@ -2062,6 +2276,7 @@ File installati:
 
 Frammenti:
 @rlsr{Fretted strings}.
+@endmorerefs
 
 
 @node Liuto
@@ -2087,7 +2302,7 @@ impostano le altezze di queste corde. Appariranno sotto la linea più bassa
 come: a, /a, //a, ///a, 4, 5, etc.
 
 Occorre assegnare @code{fret-letter-tablature-format} a @code{tablatureFormat}
-e probabilmente usare @code{fretLabels} per ulteriori personalizzazioni.
+e probabilmente usare anche @code{fretLabels} per ulteriori personalizzazioni.
 
 @lilypond[quote,ragged-right,verbatim]
 m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }

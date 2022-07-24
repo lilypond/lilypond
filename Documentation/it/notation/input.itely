@@ -131,6 +131,7 @@ Manuale di apprendimento:
 @rlearning{Lavorare sui file di input},
 @rlearning{Espressioni musicali},
 @rlearning{La partitura è una (singola) espressione musicale composta}.
+@endmorerefs
 
 
 @node Molteplici partiture in un libro
@@ -555,6 +556,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Come funzionano i titoli},
 @ref{Il blocco layout}.
+@endmorerefs
 
 
 @node Titoli e intestazioni
@@ -761,6 +763,7 @@ Guida alla notazione:
 @ref{Struttura del file},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani},
 @ref{Formattazione personalizzata dei titoli}.
+@endmorerefs
 
 
 @node Formattazione predefinita dei titoli delle parti e dei brani
@@ -883,6 +886,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/titling-init.ly}.
+@endmorerefs
 
 
 @node Formattazione predefinita delle intestazioni e dei piè di pagina
@@ -977,6 +981,7 @@ intestazione, piè di pagina e titolo di un blocco @code{\header}.
 @morerefs
 Guida alla notazione:
 @ref{Formattazione del testo}.
+@endmorerefs
 
 
 @node Formattazione personalizzata dei titoli
@@ -1133,6 +1138,7 @@ ad esso nella definizione di markup.
 @morerefs
 Guida alla notazione:
 @ref{Come funzionano i titoli}.
+@endmorerefs
 
 
 @node Formattazione personalizzata di intestazioni e piè di pagina
@@ -1243,6 +1249,8 @@ Guida alla notazione:
 
 File installati:
 @file{../ly/titling-init.ly}.
+@endmorerefs
+
 
 @node Creazione di metadati per i file di output
 @subsection Creazione di metadati per i file di output
@@ -1750,6 +1758,7 @@ Guida al funzionamento interno:
 @rinternals{FootnoteEvent},
 @rinternals{Footnote},
 @rinternals{Footnote_engraver}.
+@endmorerefs
 
 @knownissues
 Varie note a piè di pagina sulla stessa pagina possono essere messe
@@ -2000,6 +2009,7 @@ un indice:
 @morerefs
 File installati:
 @file{ly/toc-init.ly}.
+@endmorerefs
 
 @predefined
 @funindex \table-of-contents
@@ -2166,6 +2176,7 @@ Alcuni semplici esempi d'uso di @code{\include} si trovano in
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione},
 @rlearning{Partiture e parti}.
+@endmorerefs
 
 @knownissues
 Se a un file incluso viene assegnato un nome identico a uno dei file di
@@ -2499,6 +2510,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Combinazione automatica delle parti},
 @ref{Inclusione di file LilyPond}.
+@endmorerefs
 
 @knownissues
 Se si usa @code{\relative} prima di un'espressione musicale ottenuta
@@ -2538,6 +2550,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Inclusione di file LilyPond}.
+@endmorerefs
 
 
 @node Caratteri speciali
@@ -2740,6 +2753,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/text-replacements.ly}.
+@endmorerefs
 
 
 @node Controllo dell'output
@@ -2798,7 +2812,7 @@ Guida alla notazione:
 
 Utilizzo:
 @rprogram{Uso da linea di comando}.
-
+@endmorerefs
 
 
 @node Saltare la musica già corretta
@@ -2984,6 +2998,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Il font Emmentaler},
 @ref{Tipi di carattere per l'intero documento}.
+@endmorerefs
 
 @knownissues
 Gonville non può essere usato per scrivere notazione in @q{musica antica}
@@ -3188,6 +3203,7 @@ Guida alla notazione:
 
 File installati:
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 Sono disponibili quindici canali MIDI e un canale ulteriore (#10) per
@@ -3364,6 +3380,7 @@ Guida alla notazione:
 
 Guida al funzionamento interno:
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 @cindex MIDI, modificare l'equalizzazione predefinita di uno strumento
 @cindex stumento, equalizzazione nel MIDI, cambiare predefinita
@@ -3440,6 +3457,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 @knownissues
 Alcuni lettori MIDI non sempre gestiscono correttamente i cambi di tempo.
@@ -3490,6 +3508,7 @@ Guida alla notazione:
 
 File installati:
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 Gli strumenti percussivi che sono scritti in un contesto @code{DrumStaff}
@@ -3553,6 +3572,7 @@ ricopiate per generare un output MIDI corretto.
 @morerefs
 Guida alla notazione:
 @ref{Ripetizioni}.
+@endmorerefs
 
 
 @node Mappatura dei canali MIDI
@@ -3834,6 +3854,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/articulate.ly}.
+@endmorerefs
 
 @warning{Lo script @file{articulate} potrebbe accorciare la durata degli
 accordi, cosa che potrebbe non essere appropriata per alcuni tipi di

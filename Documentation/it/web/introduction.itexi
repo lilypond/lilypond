@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 1222079e16735f1c93d512c3b0a1dfde3ead6c5d
+    Translation of GIT committish: 9a72f02f0db27588432ee8d9b13f531ebe71007d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1008,7 +1008,7 @@ LilyPond -- sono assolutamente sicuro che le mie necessità nel campo
 dell'editoria musicale saranno soddisfatte oltre ogni aspettativa usando
 questo fantastico programma.  [@dots{}] l'output predefinito di LilyPond [@dots{}] ha
 un aspetto migliore delle recenti pubblicazioni @q{professionali} con cui
-l'ho confrontato (ovvero quasi qualsiasi spartito della Warner Bros, e anche molti
+l'ho confrontato (ovvero quasi qualsiasi spartito della Warner Bros.@:, e anche molti
 dei più recenti delle @q{vecchie case editrici}). [@dots{}]}
 
 @qq{Li batte tutti, Finale/Sibelius/Igor/, qualsiasi cosa!!!}
@@ -1298,7 +1298,7 @@ sistemi operativi (Linux, Mac OS X e Windows).
 Denemo è un editor grafico che genera codice sorgente LilyPond
 e permette anche la riproduzione audio.  Consente agli utenti di vedere
 il codice sorgente LilyPond in parallelo alla visualizzazione grafica.  Modifiche
-manuali del codice possono essere attaccate a note, accordi etc. e vengono
+manuali del codice possono essere attaccate a note, accordi, etc. e vengono
 salvate nel file di Denemo, così che gli utenti possano continuare a
 modificare il documento tramite l'interfaccia grafica.
 
@@ -1312,17 +1312,6 @@ quando elaborato da lì.
 
 @divClass{column-center-top}
 @subheading Editor online su browser
-
-@subsubheading LilyBin
-@uref{http://lilybin.com/}
-
-Un editor LilyPond che si usa nel browser e permette di scrivere una
-partitura direttamente senza dover installare LilyPond, purché si sia
-connessi a Internet.  I frammenti di codice rimangono disponibili con
-un'URL unico, come nei cosiddetti siti @qq{pastebin}.  Il suo codice
-sorgente, liberamente disponibile secondo i termini della licenza MIT,
-si trova alla sua
-@uref{https://github.com/LilyBin/LilyBin,pagina per sviluppatori}.
 
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
@@ -1339,14 +1328,6 @@ rilasciato con licenza AGPL, è disponibile alla sua
 Dal 2010, Online Music Editing Tools (OMET) offre un servizio LilyPond
 pronto all'uso con un'interfaccia web adattabile.  La registrazione è
 obbligatoria ma il servizio è gratuito.
-
-@subsubheading WebLily.net
-@uref{https://www.weblily.net/}
-
-Avviato nel 2009, WebLily.net è uno dei primi servizi web basati su
-LilyPond ed è stato aggiornato regolarmente da allora.
-È gratuito (ma è richiesta la registrazione) e include una versione
-cliccabile della documentazione di LilyPond.
 
 @divEnd
 
@@ -1530,6 +1511,21 @@ ambiente costruito sul
 @subheading Altri programmi che non sono più sviluppati attivamente
 
 @itemize
+
+@item
+@uref{https://github.com/LilyBin/LilyBin,LilyBin} è un editor LilyPond
+che si usa nel browser e permette di scrivere una partitura direttamente
+senza dover installare LilyPond, purché si sia connessi a Internet.
+I frammenti di codice rimangono disponibili con
+un'URL unico, come nei cosiddetti siti @qq{pastebin}.  Sebbene
+@uref{https://lilybin.com}, dove era ospitato, sia stato dismesso, il
+suo codice sorgente continua ad essere liberamente disponibile secondo
+i termini della licenza MIT; si trova alla sua
+@uref{https://github.com/LilyBin/LilyBin,pagina Github}.
+
+@item
+@uref{https://www.weblily.net/,WebLily} è stato uno dei primi servizi web
+basati su LilyPond.
 
 @item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} è stato

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: a9e674ad821d3f9d3fa61ee792661e30a65fd32b
+    Translation of GIT committish: f3acf7de3221ce55f1d20e81cdc0e2b32d2734f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -243,6 +243,7 @@ dettagliatamente in @ruser{Struttura del file}.
 @morerefs
 Per una definizione completa del formato di input, si veda
 @ruser{Struttura del file}.
+@endmorerefs
 
 
 @node La partitura è una (singola) espressione musicale composta
@@ -388,6 +389,7 @@ di testo si trovi nella stessa posizione orizzontale.
 
 @morerefs
 Guida alla notazione: @ruser{Struttura di una partitura}.
+@endmorerefs
 
 
 @node Annidare le espressioni musicali
@@ -459,7 +461,7 @@ Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
 comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
 e @ruser{Righi ossia}.
-
+@endmorerefs
 
 
 @node Struttura dell'inserimento note
@@ -504,6 +506,7 @@ Guida alla notazione:
 @ruser{Altezze},
 @ruser{Ritmi},
 @ruser{Segni di espressione}.
+@endmorerefs
 
 
 @node Sul non annidamento di parentesi e legature di valore
@@ -512,7 +515,7 @@ Guida alla notazione:
 
 @cindex parentesi, annidare
 @cindex tipi di parentesi
-@cindex parentesi, racchiudere vs. contrassegnare
+@cindex parentesi, racchiudere vs.@: contrassegnare
 
 Abbiamo già incontrato vari tipi di parentesi e di costrutti che fanno
 uso di parentesi mentre scrivevamo il file di input di LilyPond.  Ognuna obbedisce a
@@ -610,8 +613,8 @@ contenuta nelle Voci -- il più importante concetto di LilyPond.
 @cindex simultanea, musica
 @cindex musica sincrona
 @cindex sincrona, musica
-@cindex voci vs. accordi
-@cindex accordi vs. voci
+@cindex voci vs.@: accordi
+@cindex accordi vs.@: voci
 
 I livelli più profondi, più interni e più importanti di uno spartito di LilyPond
 sono chiamati @q{Voice contexts} («Contesti della voce») o semplicemente @q{Voices}
@@ -986,11 +989,12 @@ prossima sezione -- si veda la proprietà @code{force-hshift} in
 @ref{Correggere elementi della notazione sovrapposti}.
 
 @warning{Il testo e gli estensori, @emph{spanner} nella terminologia di LilyPond,
-(come le legature di portamento e di valore, le forcelle, etc.) non possono
+(come le legature di portamento e di valore, le forcelle, etc.@:) non possono
 essere creati @q{attraverso} le voci.}
 
 @morerefs
 Guida alla notazione: @ruser{Più voci}.
+@endmorerefs
 
 
 @node Definire esplicitamente le voci
@@ -1259,6 +1263,7 @@ Manuale di apprendimento:
 @ref{Spostare gli oggetti}.
 
 Guida alla notazione: @ruser{Più voci}.
+@endmorerefs
 
 
 @node Voci e musica vocale
@@ -1423,6 +1428,7 @@ VerseFour  =
 
 @morerefs
 Guida alla notazione: @ruser{Musica vocale}.
+@endmorerefs
 
 
 @node Contesti e incisori
@@ -1514,6 +1520,7 @@ maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 @morerefs
 Guida alla notazione: @ruser{Tutto sui contesti}.
+@endmorerefs
 
 
 @node Creare i contesti
@@ -1557,13 +1564,6 @@ di contesto, predefiniti per tutto lo spartito..  Le informazioni su come
 usare i blocchi @code{\with} si trovano sotto il titolo
 @qq{Impostare le proprietà di contesto con @code{\\with}} in
 @ref{Modificare le proprietà di contesto}.)
-
-@warning{\@code{new Score} non dovrebbe essere usato perché il fondamentale
-contesto di livello superiore @code{Score} viene creato automaticamente quando
-l'espressione musicale all'interno del blocco \@code{score} viene
-interpretata.  I valori predefiniti delle proprietà di contesto validi per tutta
-la partitura possono essere modificati nel blocco \@code{layout}.  Vedi
-@ref{Modificare le proprietà di contesto}}
 
 Nelle sezioni precedenti hai già visto molti esempi pratici della creazione
 di nuovi contesti @code{Staff} e @code{Voice}, ma per ricordarti
@@ -1642,6 +1642,7 @@ nella sezione sul testo, si veda @ref{Voci e musica vocale}.
 
 @morerefs
 Guida alla notazione: @ruser{Creazione e citazione di un contesto}.
+@endmorerefs
 
 
 @node Gli incisori
@@ -1727,6 +1728,7 @@ modificando il comportamento degli incisori.
 
 @morerefs
 Guida al funzionamento interno: @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Modificare le proprietà di contesto
@@ -1835,19 +1837,6 @@ contesto @code{Voice} col valore @qq{clefs.F}, ma dato che LilyPond non trova
 tale proprietà nel contesto @code{Voice}, non ha avuto luogo
 alcuna altra azione.  Questo non è un errore, e nessun messaggio di
 errore viene riportato nel file di log.
-
-Analogamente, se il nome della proprietà è stato scritto male, non viene
-generato alcun messaggio di errore, e ovviamente l'azione desiderata non può essere
-eseguita.  Infatti, col comando @code{\set} puoi impostare qualsiasi @q{proprietà}
-(anche inventata) usando qualsiasi nome che ti piaccia in qualsiasi contesto
-esistente.  Ma se LilyPond non conosce il nome, allora non verrà intrapresa
-alcuna azione.  Alcuni editor di testo che hanno uno speciale supporto per i file
-di input di LilyPond presentano i nomi delle proprietà con una lista scorrevole
-al passaggio del mouse, come JEdit col plugin LilyPondTool, oppure
-evidenziano in modo diverso i nomi delle proprietà non conosciuti, come fa ConTEXT.
-Se non usi un editor con queste funzionalità, è consigliabile controllare il nome
-delle proprietà nella Guida al funzionamento interno: si veda
-@rinternals{Tunable context properties}, o @rinternals{Contexts}.
 
 La proprietà @code{clefGlyph} funzionerà soltanto se inserita nel contesto
 @code{Staff}, ma alcune proprietà possono essere collocate in più di un contesto.
@@ -2047,6 +2036,7 @@ Guida alla notazione:
 Guida al funzionamento interno:
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node Aggiungere e togliere gli incisori
@@ -2205,6 +2195,7 @@ per tutti i contesti di un particolare tipo includendo il comando
 @morerefs
 Guida alla notazione: @ruser{Modifica dei componenti aggiuntivi di un contesto},
 @ruser{Modifica delle impostazioni predefinite di un contesto}.
+@endmorerefs
 
 @knownissues
 Gli incisori @code{Stem_engraver} e @code{Beam_engraver} fissano i propri
@@ -2421,6 +2412,7 @@ musicaVioloncello = \relative {
 @morerefs
 I modelli da cui partire si trovano nell'appendice @q{Modelli},
 si veda @ref{Modelli per rigo singolo}.
+@endmorerefs
 
 
 @node Partitura vocale a quattro parti SATB
@@ -3083,6 +3075,8 @@ PedalOrganMusic = \relative {
 @morerefs
 Glossario musicale:
 @rglosnamed{system,sistema}.
+@endmorerefs
+
 
 @node Ridurre l'input grazie a variabili e funzioni
 @subsection Ridurre l'input grazie a variabili e funzioni
@@ -3366,3 +3360,4 @@ Guida alla notazione:
 @ruser{Scrittura delle parti},
 @ruser{Pause d'intero},
 @ruser{Inclusione di file LilyPond}.
+@endmorerefs

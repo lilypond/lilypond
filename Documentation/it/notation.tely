@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: bea1f4bcd14689967f56ee01e5b3dcf09cb8e1ad
+    Translation of GIT committish: b36beddf06e2a19272064356f5f75a49d3946f7d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,10 @@ presuppone che il lettore conosca il materiale esposto nel
 Copyright @copyright{} 1999--2022 degli autori.
 @end macro
 
+@dircategory LilyPond -- il compositore tipografico musicale
+@direntry
+* Notazione: (lilypond-notation).        Guida alla notazione.
+@end direntry
 
 @set FDL
 @include it/macros.itexi

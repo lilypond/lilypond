@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 97db0bc6c59a7041a2edc6e8ba187b70fbdc9a3a
+    Translation of GIT committish: 4c4cff796e86152e97321aa7934ff785f6c5012d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,8 +31,8 @@ Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 
 @cindex compilazione
 @cindex esempio iniziale
-@cindex esempio, iniziale
 @cindex maiuscole, sensibile alle
+@cindex sensibile alle maiuscole
 
 @qq{Compilazione} è il termine usato per indicare l'elaborazione di un
 file di input in formato LilyPond per produrre uno o più file di output.  I
@@ -49,9 +49,10 @@ Questo esempio mostra un semplice file di input:
 @}
 @end example
 
+@noindent
 L'output grafico è:
 
-@c  in this case we don't want verbatim
+@c No 'verbatim' option here.
 @lilypond[quote]
 {
   c' e' g' e'
@@ -68,7 +69,7 @@ nel manuale, si veda @ref{Come leggere i manuali}.}
 
 Inoltre, l'input di LilyPond è @strong{sensibile alle maiuscole}.
 @w{@samp{@{ c d e @}}} è un input valido; @w{@samp{@{ C D E @}}} invece
-produrrà un messaggio di errore.
+produce un messaggio di errore.
 
 
 
@@ -101,7 +102,7 @@ di aiutarti ad iniziare a scrivere i file di input.
 * Tutto insieme::
 @end menu
 
-LilyPond aggiungerà automaticamente alcuni elementi della notazione.  Nell'esempio
+LilyPond aggiunge automaticamente alcuni elementi della notazione.  Nell'esempio
 seguente, abbiamo specificato soltanto quattro note, ma LilyPond
 ha aggiunto una chiave, il tempo e le durate.
 
@@ -135,15 +136,14 @@ Glossario musicale: @rglosnamed{pitch,altezza}, @rglosnamed{interval,intervallo}
 @rglosnamed{scale,scala}, @rglosnamed{middle C,Do centrale}, @rglosnamed{octave,ottava},
 @rglosnamed{accidental,alterazione}.
 
-LilyPond usa lettere minuscole per indicare le altezze.
-I nomi delle note in tutti gli esempi di questa sezione usano il sistema di
-denominazione olandese (tasti bianchi del pianoforte sono c-b).  Tuttavia
-LilyPond supporta molti schemi di denominazione diversi come l'inglese e
-o il @q{Do fisso} (do-re-mi-...).
-Vedi @ruser{Nomi delle note in altre lingue}.
-Le lettere da @code{c} a@tie{}@code{b} denotano le altezze nella
-@q{piccola ottava} sotto il @notation{Do centrale}.  L'aggiunta dei
-suffissi @code{'} o@tie{}@code{,} indica ottave più alte o più basse.
+LilyPond usa lettere minuscole per indicare le altezze. I nomi delle note
+in tutti gli esempi di questa sezione usano il sistema di denominazione
+olandese (tasti bianchi del pianoforte sono c, d, e, f, g, a,@tie{}b).  Tuttavia
+LilyPond supporta molti schemi di denominazione diversi come l'@qq{inglese}
+o il @qq{Do fisso} (do, re, mi, @dots{}).  Vedi @ruser{Nomi delle note in altre lingue}.
+Le lettere da @samp{c} a@tie{}@samp{b} denotano le altezze nella
+@qq{piccola ottava} sotto il @notation{Do centrale}.  L'aggiunta dei
+suffissi @samp{'} o @samp{,} indica ottave più alte o più basse.
 Ecco una scala che inizia con un @notation{Do centrale}, e un arpeggio:
 
 @lilypond[verbatim,quote]
@@ -167,9 +167,9 @@ si trova entro una distanza di appena uno spazio di pentagramma dalla nota prece
 
 La nota iniziale è un @notation{Do centrale}, specificato da @code{c'}.  Ogni
 nota successiva viene posta il più vicino possibile alla nota precedente -- in
-altre parole, la prima @code{c} è il Do più vicino al Do centrale.  Questo è
+altre parole, la prima @samp{c} è il Do più vicino al Do@tie{}centrale.  Questo è
 seguito dal Re più vicino alla nota precedente.  Possiamo creare melodie che
-hanno intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
+hanno intervalli più ampi, sempre usando soltanto il modo relativo:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -179,10 +179,10 @@ hanno intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
 @end lilypond
 
 @noindent
-Nell'esempio precedente, la prima nota -- il @code{d'} con un segno @code{'} -- è
+Nell'esempio precedente, la prima nota -- il @code{d'} con un segno @samp{'} -- è
 il Re nell'ottava che inizia dal Do centrale e va su fino al Si.
 
-Se si aggiungono (o si rimuovono) apostrofi @code{'} o virgole @code{,} dalla
+Se si aggiungono (o si rimuovono) apostrofi (@samp{'}) o virgole (@samp{,}) dalla
 prima nota, possiamo cambiare l'ottava di partenza:
 
 @lilypond[verbatim,quote]
@@ -219,8 +219,8 @@ una nota in una qualsiasi altra posizione sul pentagramma.
 
 Per inserire intervalli che sono più ampi di tre spazi di pentagramma, si può
 alzare l'@notation{ottava} aggiungendo al nome della nota una virgoletta
-ad apice singolo @code{'} (o apostrofo).  Si può abbassare l'ottava
-aggiungendo al nome della nota una virgola @code{,}.
+ad apice singolo @samp{'} (o apostrofo).  Si può abbassare l'ottava
+aggiungendo al nome della nota una virgola @samp{,}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -232,7 +232,7 @@ aggiungendo al nome della nota una virgola @code{,}.
 @noindent
 Per cambiare una nota di due (o più!) ottave, si usano multipli di
 @code{''} o @code{,,} -- ma stai attento a usare due virgolette ad
-apici semplici @code{''} e non quelle a doppi apici @code{"}@tie{}!
+apici semplici @code{''} e non quelle a doppi apici @samp{"}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
 @node Durate (ritmi)
@@ -253,8 +253,8 @@ Glossario musicale: @rglosnamed{beam,coda}, @rglosnamed{duration,durata},
 @rglosnamed{dotted note,nota puntata}.
 
 La @notation{durata} di una nota viene indicata da un numero che segue
-il nome della nota:  @code{1} per una @notation{semibreve}, @code{2} per
-una @notation{minima}, @code{4} per una @notation{semiminima} e
+il nome della nota:  @samp{1} per una @notation{semibreve}, @samp{2} per
+una @notation{minima}, @samp{4} per una @notation{semiminima} e
 così via.  Le @notation{code} vengono aggiunte in automatico.
 
 Se non si specifica una durata, si usa la durata precedente anche
@@ -269,7 +269,7 @@ quarto.
 }
 @end lilypond
 
-Per creare @notation{note puntate}, aggiungere un punto @code{.} al
+Per creare @notation{note puntate}, aggiungere un punto @samp{.} al
 numero di durata.  La durata di una nota puntata deve essere dichiarata
 esplicitamente (cioè con un numero).
 
@@ -291,7 +291,7 @@ esplicitamente (cioè con un numero).
 Glossario musicale: @rglosnamed{rest,pausa}.
 
 Una @notation{pausa} viene inserita proprio come una nota ma col nome
-@code{r}@tie{}:
+@samp{r}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -392,7 +392,7 @@ Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef "bass"
+  \clef bass
   \time 3/4
   \tempo "Andante" 4 = 120
   c,2 e8 c'
@@ -407,6 +407,7 @@ Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 Guida alla notazione: @ruser{Inserimento delle altezze},
 @ruser{Inserimento delle durate}, @ruser{Inserimento delle pause},
 @ruser{Indicazione di tempo}, @ruser{Chiave}.
+@endmorerefs
 
 
 @node Lavorare sui file di input
@@ -436,10 +437,10 @@ I file di input di LilyPond sono simili ai file sorgenti di molti comuni
 linguaggi di programmazione.  Contengono una dichiarazione di versione, sono
 sensibili alle maiuscole, e in generale gli spazi bianchi vengono ignorati.  Le
 espressioni musicali si formano con parentesi graffe @w{@code{@{ @}}}, e i commenti
-sono indicati con @code{%} o @w{@code{%@{ @dots{} %@}}}@tie{}.
+sono indicati con @samp{%} o @w{@samp{%@{ @dots{} %@}}}.
 
-Se le frasi precedenti ti sembrano assurde, non preoccuparti!  Spiegheremo
-cosa significano tutti questi termini:
+Se le frasi precedenti ti sembrano assurde, non preoccuparti!  Ora spieghiamo
+cosa significano tutti questi termini.
 
 @itemize
 
@@ -450,7 +451,7 @@ dichiarazione di versione è una linea che indica la versione di LilyPond per la
 quale il file è stato scritto, come nel seguente esempio:
 
 @example
-\version "@w{@version{}}"
+\version "@version{}"
 @end example
 
 Per convenzione, la dichiarazione di versione viene posta all'inizio del file
@@ -467,15 +468,29 @@ un avvertimento durante la compilazione del file.
 @item
 @strong{Sensibile alle maiuscole}:
 distingue tra lettere in minuscolo (es:
-@w{@code{a, b, s, t}}) o in maiuscolo (es:  @w{@code{A, B, S, T}}).
-Le note sono in minuscolo: @w{@code{@{ c d e @}}} è un input valido;
-@w{@code{@{ C D E @}}} causerà un messaggio di errore.
+@samp{a}, @samp{b}, @samp{s}, @samp{t}) o in maiuscolo (es: @samp{A},
+@samp{B}, @samp{S}, @samp{T}).
+Le note sono in minuscolo: @samp{@{@tie{}c d e@tie{}@}} è un input valido;
+@samp{@{@tie{}C D E@tie{}@}} produce un messaggio di errore.
 
 @item
 @strong{Insensibile agli spazi}:
 non importa quanti spazi (o tabulazioni o nuove linee) aggiungi.
-@w{@samp{@{ c4 d e @}}} ha lo stesso significato di
-@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} e:
+
+@example
+@{ c4 d e@}
+@end example
+
+@noindent
+
+ha lo stesso significato di
+
+@example
+@{ c4       d e @}
+@end example
+
+@noindent
+o
 
 @example
 @{ c4                       d
@@ -501,14 +516,14 @@ ad esempio, prima e dopo ogni parentesi graffa.
 
 @item
 @strong{Espressioni}:
-ogni parte dell'input di LilyPond deve avere @strong{@{@tie{}parentesi@tie{}graffe@tie{}@}}
+ogni parte dell'input di LilyPond deve avere @strong{@{@tie{}parentesi graffe@tie{}@}}
 intorno.  Queste parentesi dicono a LilyPond che l'input costituisce
-un'espressione musicale singola, proprio come le parentesi @code{()} in
+un'espressione musicale singola, proprio come le parentesi @qq{()} in
 matematica.  Per evitare ambiguità, le parentesi dovrebbero essere
 racchiuse tra spazi, a meno che non si trovino all'inizio o alla fine di una linea.
 
 Anche un comando di LilyPond seguito da un'espressione semplice in
-parentesi (come @qq{@w{@code{\relative c' @{ @dots{} @}}}}) conta come
+parentesi (come @samp{\relative @{ @dots{}@tie{}@}}) conta come
 un'espressione musicale singola.
 
 @cindex commenti
@@ -519,13 +534,13 @@ un'espressione musicale singola.
 un commento è un appunto per il lettore umano dell'input musicale; viene
 ignorato quando l'input viene analizzato, dunque non ha alcun effetto
 sull'output finale.  Ci sono due tipi di commenti.  Il simbolo di percentuale
-@code{%} introduce un commento di linea; tutto quello che sta dopo @code{%}
+@samp{%} introduce un commento di linea; tutto quello che sta dopo @samp{%}
 su quella linea verrà ignorato.  Per convenzione, un commento di linea viene
 posto @emph{sopra} il codice a cui si riferisce.
 
 @example
 a4 a a a
-% questo commento si riferisce ai Si
+% questo commento si riferisce alla prossima riga coi due Si (b)
 b2 b
 @end example
 
@@ -534,7 +549,7 @@ Tutto ciò che è compreso tra @code{%@{} e @code{%@}} viene ignorato.
 Tuttavia, i commenti di blocco non si @qq{annidano}.  Ovvero non si può
 inserire un commento di blocco dentro a un altro commento di blocco.  Se
 si prova, il primo @code{%@}} interromperà @emph{entrambi} i commenti di
-blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
+blocco.  Il seguente frammento mostra gli usi possibili per i commenti.
 
 @example
 % ecco le note di "Ah! Vous dirai-je, Maman"
@@ -618,12 +633,11 @@ nella versione online della documentazione.
 @cindex costruire i file, consigli
 @cindex file, consigli per costruirli
 
-L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
-@w{@code{\relative @{ @dots{} @}}}, come abbiamo visto in
-@ref{Lavorare sui file di input}.  Nel resto di questo manuale alcuni
-esempi brevi ometteranno questi segni.  Per replicare questi esempi, puoi
-copiare l'input mostrato e incollarlo tra @code{@{} e @code{@}} nel tuo
-file di input:
+L'input di LilyPond deve essere compreso dai segni @code{@{@tie{}@}} o da
+@q{@code{\relative @{ @dots{}@tie{}@}}} (@pxref{Lavorare sui file di input}).
+Nel resto di questo manuale alcuni esempi brevi omettono questi segni.  Per
+replicare questi esempi, puoi copiare l'input mostrato e incollarlo tra @samp{@{}
+e @samp{@}} nel tuo file di input:
 
 @example
 @{
@@ -655,6 +669,7 @@ questa immagine:
 }
 @end lilypond
 
+@noindent
 Tagliando e copiando quel che si trova nella sezione @qq{ly snippet},
 puoi ricavare un modello di partenza per sperimentare.  Per vedere esattamente
 lo stesso output (larghezza della linea e tutto il resto), copia tutto da @qq{Start
@@ -689,18 +704,19 @@ comprendere le sezioni successive.}
 @itemize
 
 @item
-@strong{Prima di fare @emph{qualsiasi} tentativo}: leggi il @ref{Tutorial}
-e la @ref{Notazione comunemente utilizzata} del Manuale di apprendimento.  Se
-ti imbatti in termini musicali che non conosci, cercali nel @rglosnamed{Top, Glossario}.
+@strong{Prima di fare @emph{qualsiasi} tentativo}: @pxref{Tutorial}
+e @ref{Notazione comunemente utilizzata} di questo manuale.  Se
+ti imbatti in termini musicali che non conosci, cercali nel
+@rglosnamed{Top, Glossario}.
 
 @item
-@strong{Prima di tentare di scrivere un pezzo musicale completo}: leggi
-i @ref{Concetti fondamentali} del Manuale di apprendimento.  Dopo puoi dare
+@strong{Prima di tentare di scrivere un pezzo musicale completo}:
+i @pxref{Concetti fondamentali} di questo manuale.  Dopo puoi dare
 un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
 
 @item
-@strong{Prima di cercare di cambiare l'output predefinito}: leggi
-@ref{Modifica dell'output} del Manuale di apprendimento.
+@strong{Prima di cercare di cambiare l'output predefinito}:
+@pxref{Modifica dell'output} in questo manuale.
 
 @item
 @strong{Prima di iniziare un grande progetto}: leggi il documento

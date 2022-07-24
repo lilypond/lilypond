@@ -194,6 +194,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Formato carta e ridimensionamento automatico
@@ -308,6 +309,7 @@ Guida alla notazione:
 
 File installati:
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Ridimensionamento automatico al formato carta
@@ -350,6 +352,7 @@ Guida alla notazione:
 File installati:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Variabili paper della spaziatura verticale fissa
@@ -410,6 +413,7 @@ File installati:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 I titoli (definiti nel blocco @code{\header}) sono considerati
@@ -622,6 +626,7 @@ File installati:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Variabili paper della spaziatura orizzontale
@@ -749,6 +754,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 Formati carta definiti esplicitamente sovrascriveranno qualsiasi margine
@@ -807,6 +813,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Variabili paper per spostamenti e indentazioni
@@ -857,6 +864,7 @@ File installati:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Altre variabili di paper
@@ -910,6 +918,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 @morerefs
 Guida alla notazione:
 @ref{Interruzioni di linea}.
+@endmorerefs
 
 
 @node Variabili di paper per l'interruzione di pagina
@@ -1014,6 +1023,7 @@ Guida alla notazione:
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Variabili di paper per la numerazione delle pagine
@@ -1066,6 +1076,7 @@ Valore predefinito: @code{'arabic}.
 @morerefs
 File installati:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 I numeri di pagina dispari sono sempre sulla destra.  Se la musica
@@ -1128,6 +1139,7 @@ File installati:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 L'intestazione di pagina predefinita pone sulla stessa linea il numero di
@@ -1313,6 +1325,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Impostare la dimensione del rigo
@@ -1427,6 +1440,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Interruzioni
@@ -1600,6 +1614,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{LineBreakEvent}.
+@endmorerefs
 
 @knownissues
 
@@ -1723,6 +1738,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 
@@ -1749,6 +1765,7 @@ considerazione le voltate di pagina.
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Interruzione di pagina minimale
@@ -1774,6 +1791,7 @@ memoria, o con molto testo.  Si abilita con:
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Interruzione di pagina di una pagina
@@ -1920,6 +1938,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 Usare soltanto un incisore @code{Page_turn_engraver} per partitura.  Se ce
@@ -1932,6 +1951,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Spaziatura verticale
@@ -2283,6 +2303,7 @@ Guida al funzionamento interno:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Spaziatura dei righi non raggruppati
@@ -2359,6 +2380,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Spaziatura dei righi raggruppati
@@ -2427,6 +2449,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Spaziatura delle linee che non sono righi
@@ -2500,6 +2523,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Posizionamento esplicito di righi e sistemi
@@ -2771,6 +2795,7 @@ evitato assegnando valori ragionevoli a queste diverse impostazioni.
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Elusione delle collisioni verticali
@@ -2857,6 +2882,7 @@ in su il testo per impedire che si avvicini troppo ai tagli addizionali.
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Spaziatura orizzontale
@@ -2978,6 +3004,7 @@ Guida al funzionamento interno:
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
+@endmorerefs
 
 @knownissues
 Non esiste un modo semplice per modificare manualmente la spaziatura.  Per
@@ -3049,6 +3076,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{SpacingSpanner}.
+@endmorerefs
 
 
 @node Modifica della spaziatura orizzontale
@@ -3142,6 +3170,7 @@ conto di chiavi, stanghette e abbellimenti:
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Larghezza della linea
@@ -3196,6 +3225,7 @@ In un paragrafo l'ultima linea occupa la sua naturale lunghezza orizzontale.
 @morerefs
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Notazione proporzionale
@@ -3544,6 +3574,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Riduzione del numero di pagine di una partitura
@@ -3618,6 +3649,7 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Modificare la spaziatura
@@ -3742,4 +3774,5 @@ Guida alla notazione:
 
 Frammenti:
 @rlsr{Spacing}.
+@endmorerefs
 

@@ -1,0 +1,20 @@
+%% Translation of GIT committish: 2f3474d9af596d677ed5b7ce720ae4d0954a6b51
+  texidocit = "
+Qualsiasi oggetto grafico può essere posizionato sopra uno sfondo
+bianco per mascherare parti degli oggetti che si trovano sotto.
+Ciò può essere utile per migliorare l'aspetto delle collisioni in
+situazioni complesse in cui il riposizionamento degli oggetti è
+troppo difficile. Bisogna impostare esplicitamente la proprietà
+@code{layer} (livello) per controllare quali oggetti debbano essere
+mascherati dallo sfondo bianco.
+
+In questo esempio la collisione della legatura di valore con l'indicazione
+di tempo viene migliorata mascherando la parte della legatura che incrocia
+l'indicazione di tempo impostando la proprietà @code{whiteout} di
+@code{TimeSignature}. Per farlo si sposta @code{TimeSignature} su un
+livello superiore a @code{Tie}, che viene lasciato al livello predefinito 1;
+e @code{StaffSymbol} viene spostato su un livello superiore a @code{TimeSignature}
+in modo che non venga mascherato.
+
+"
+  doctitleit = "Uso della proprietà whiteout"
