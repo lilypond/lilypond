@@ -1,13 +1,9 @@
-%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
+%% Translation of GIT committish: 2f3474d9af596d677ed5b7ce720ae4d0954a6b51
   texidocit = "
 Se il rigo ha più di una voce, l'ottavazione in una voce trasporrà
 la posizione delle note in tutte le voci per la durata della parentesi
 dell'ottava.  Se si intende applicare l'ottavazione a una sola voce,
-si possono impostare esplicitamente middleCPosition e la parentesi
-di ottava.  In questo frammento, la chiave di basso ha di norma il
-MiddleCPosition impostato su 6, ovvero sei posizioni sopra la linea
-centrale, dunque nella porzione con l'ottava il MiddleCPosition è
-più alto di sette posizioni (un'ottava).
-
+occorre spostare l'incisore @code{Ottava_spanner_engraver} nel
+contesto @code{Voice}.
 "
   doctitleit = "Aggiungere un segno di ottava a una sola voce"
