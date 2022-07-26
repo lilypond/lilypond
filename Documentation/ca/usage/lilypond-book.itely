@@ -1,0 +1,1476 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 31a7a1eb0078a93718248b442568d045113837ab
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.22"
+
+@c Note: keep this node named so that `info lilypond-book' brings you here.
+@node lilypond-book
+@chapter Execució de @command{lilypond-book}
+@translationof lilypond-book
+
+Si voleu afegir imatges de música a un document, ho podeu fer
+simplement de la mateixa manera que ho faríeu amb altres tipus
+d'imatges.  Les imatges es creen per separat, donant com a
+resultat una sortida PostScript o imatges PNG, i després
+s'inclouen al document de @LaTeX{} o de HTML.
+
+@command{lilypond-book} ofereix una manera d'automatitzar aquest
+procés: aquest programa extrau els fragments de música del
+document, executa @command{lilypond} sobre cadascú d'ells, i
+retorna com a sortida el document amb la música substituïda per
+les imatges.  Les definicions d'amplada de línia i mida de la
+lletra de la música s'ajusten de forma que coincideixin amb la
+configuració del vostre document.
+
+És un programa diferent a @command{lilypond} pròpiament dit, i
+s'executa sobre la línia d'ordre; per veure més informació,
+consulteu @ref{Utilització des de la línia d'ordres}.  Si
+experimenteu algun problema en executar @code{lilypond-book} sobre
+Windows o Mac OS X utilitzant la línia d'ordres, consulteu
+@rweb{Windows} o @rweb{MacOS X}.
+
+Aquest procediment es pot aplicar a documents de @LaTeX{}, HTML,
+Texinfo o DocBook.
+
+@cindex texinfo
+@cindex LaTeX
+@cindex texinfo
+@cindex texi
+@cindex HTML
+@cindex docbook
+@cindex documents, inserir música en
+@cindex HTML, inserir música en
+@cindex Texinfo, inserir música en
+@cindex DocBook, inserir música en
+@cindex LaTeX, inserir música en
+
+@menu
+* Un exemple de document musicològic::
+* Integració de música i text::
+* Opcions de fragments de música::
+* Invocació de lilypond-book::
+* Extensions de noms de fitxer::
+* Plantilles de lilypond-book::
+* Compartir l'índex general::
+* Mètodes alternatius per barrejar text i música::
+@end menu
+
+
+@node Un exemple de document musicològic
+@section Un exemple de document musicològic
+@translationof An example of a musicological document
+
+@cindex musicologia
+Certs texts contenen exemples musicals.  Per exemple els tractats
+musicals, cançoners o manuals com aquest mateix.  Aquests textos es
+poden fer a mà, important simplement una imatge en format PostScript a
+l'editor de textos.  Malgrat això, hi ha un procediment automàtic per
+reduir la càrrega de treball que això implica amb documents HTML,
+@LaTeX{}, Texinfo i DocBook.
+Un guió executable anomenat @code{lilypond-book} extrau els fragments de
+música, els dóna format i torna a posar en el seu lloc la partitura
+resultant.  A continuació presentem un petit exemple de la seva
+utilització amb @LaTeX{}.  L'exemple conté també text explicatiu, per la
+qual cosa no el comentarem posteriorment.
+
+
+@subheading Entrada
+
+@quotation
+@verbatim
+\documentclass[a4paper]{article}
+
+\begin{document}
+
+Els document per a \verb+lilypond-book+ poden barrejar lliurement música
+i text.  Per exemple:
+
+\begin{lilypond}
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
+}
+\end{lilypond}
+
+Les opcions s'escriuen entre claus.
+
+\begin{lilypond}[fragment,quote,staffsize=26,verbatim]
+  c'4 f16
+\end{lilypond}
+
+Els exemples grans es poden gravar en fitxers separats i incloure'ls amb
+\verb+\lilypondfile+.
+
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
+
+(Si cal, substituïu @file{screech-and-boink.ly} per qualsevol fitxer
+@file{.ly} ubicat al mateix directori que aquest fitxer.)
+
+\end{document}
+@end verbatim
+@end quotation
+
+@subheading Processat
+
+Deseu el codi anterior a un fitxer anomenat @file{lilybook.lytex}, i
+després executeu a una terminal:
+
+@c keep space after @version{} so TeX doesn't choke
+@example
+lilypond-book --output=out --pdf lilybook.lytex
+@emph{lilypond-book (GNU LilyPond) @version{} }
+@emph{Llegint lilybook.lytex...}
+@emph{@dots{}molts missatges suprimits@dots{}}
+@emph{Compilant lilybook.tex@dots{}}
+cd out
+pdflatex lilybook
+@emph{@dots{}molts missatges suprimits@dots{}}
+xpdf lilybook
+@emph{(substituïu @command{xpdf} pel vostre visualitzador favorit de PDF)}
+@end example
+
+L'execució de @command{lilypond-book} i @command{latex} crea un gran
+nombre de fitxers temporals, que podrien omplir el directori de
+treball.  Per solucionar això, utilitzeu l'opció
+@option{--output=@var{directori}}.  Crearà els fitxers a un subdirectori
+a part @file{directori}.
+
+Finalment el resultat de l'exemple de @LaTeX{} que acabem de
+mostrar@footnote{Aquest tutorial es processa amb Texinfo, per la qual
+cosa l'exemple presenta un resultat en la disposició lleugerament
+diferent.}. Així acaba la secció del tutorial.
+
+@page
+
+@subheading Sortida
+
+Els documents per @command{lilypond-book} poden barrejar lliurement
+música i text.  Per exemple:
+
+@lilypond
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
+}
+@end lilypond
+
+Les opcions s'escriuen entre claus.
+
+@lilypond[fragment,quote,staffsize=26,verbatim]
+c'4 f16
+@end lilypond
+
+Els exempes grans es poden gravar en fitxers separats i introduir-se amb
+@code{\lilypondfile}.
+
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
+
+Si es requereix un camp @code{tagline}, ja sigui predeterminat o
+personalitzat, aleshores el fragment complet s'ha d'incloure dins d'una
+construcció @code{\book @{ @}}.
+
+@c KEEP LY
+@lilypond[papersize=a7,verbatim]
+\book{
+  \header{
+    title = "Una escala al LilyPond"
+  }
+
+  \relative {
+    c' d e f g a b c
+  }
+}
+@end lilypond
+
+@page
+
+@node Integració de música i text
+@section Integració de música i text
+@translationof Integrating music and text
+
+Aquí explicarem com integrar el LilyPond amb alguns altres formats de
+sortida.
+
+@menu
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
+@end menu
+
+@node LaTeX
+@subsection @LaTeX{}
+@translationof LaTeX
+
+El @LaTeX{} és l'estàndard de facto per a la publicació al món de les
+ciències exactes.  Està construït a sobre del motor de composició
+tipogràfica @TeX{}, proporcionant el format tipogràfica de la millor
+qualitat que existeix.
+
+Consulteu
+@uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
+@emph{The Not So Short Introduction to @LaTeX{}}} (Introducció no tan
+breu al @LaTeX{}) per veure una panoràmica de l'ús del @LaTeX{}.
+
+@code{lilypond-book} aporta les ordres i els enrons per incloure música
+dins de fitxers del @LaTeX{}:
+
+@itemize
+
+@item
+l'ordre @code{\lilypond@{@dots{}@}}, on podem escriure directament
+fragments curs de codi del LilyPond
+
+@item
+l'entorn @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}, on podem
+introduir directament blocs més llargs de codi del Lilypond
+
+@item
+l'ordre @code{\lilypondfile@{@dots{}@}} per inserir un fitxer del
+LilyPond
+
+@item
+l'ordre @code{\musicxmlfile@{@dots{}@}} para inserir un fitxer del
+MusicXML, que es processa per part de @code{musicxml2ly} i
+@code{lilypond}.
+
+@end itemize
+
+Al fitxer d'entrada, especifica la música amb qualsevol de les ordres
+següents:
+
+@example
+\begin@{lilypond@}[las,opciones,van,aquí]
+  EL CODI DEL LILYPOND
+\end@{lilypond@}
+
+\lilypond[le,opcions,van,aquí]@{ EL CODI DEL LILYPOND @}
+
+\lilypondfile[les,opcions,van,aquí]@{@var{fitxer}@}
+
+\musicxmlfile[les,opcions,van,aquí]@{@var{fitxer}@}
+@end example
+
+
+@noindent
+
+De forma addicional, @code{\lilypondversion} imprimeix la versió
+actual del lilypond.
+
+L'execució de @command{lilypond-book} deixa com a resultat un fitxer que
+es pot processar posteriorment amb el @LaTeX{}.
+
+A continuació mostrem alguns exemples.  L'entorn @code{lilypond}
+
+@example
+\begin@{lilypond@}[quote,fragment,staffsize=26]
+  c' d' e' f' g'2 g'2
+\end@{lilypond@}
+@end example
+
+produeix
+
+@lilypond[quote,fragment,staffsize=26]
+c' d' e' f' g'2 g'2
+@end lilypond
+
+La versió curta
+
+@example
+\lilypond[quote,fragment,staffsize=11]@{<c' e' g'>@}
+@end example
+
+@noindent
+produeix
+
+@lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
+
+@noindent
+Pel moment no és possible incloure claus @code{@{} o @code{@}} dins de
+@code{\lilypond@{@}}, per tant aquesta ordre sols es útil amb l'opció
+@code{fragment}.
+
+L'amplada predeterminada de les línies de música s'ajusta mitjançant
+l'examen de les ordres del preàmbul del document, la part del document
+que està abans de @code{\begin@{document@}}.  L'ordre
+@command{lilypond-book} els envia al @LaTeX{} per esbrinar l'amplada del
+text.  L'amplada de la línia per als fragments de música s'ajusta
+aleshores a l'amplada del text.  Observeu que aquest algoritme heurístic
+pot fàcilment fallar; en aquests casos cal usar l'opció
+@code{line-width} del fragment de música.
+
+@cindex títols i lilypond-book
+@cindex \header dins de documents @LaTeX{}
+
+Cada fragment executarà els macros següents si han estat definits per
+l'usuari:
+
+@itemize @bullet
+@item @code{\preLilyPondExample} que es crida abans de la música,
+
+@item @code{\postLilyPondExample} que es crida després de la música,
+
+@item @code{\betweenLilyPondSystem[1]} es crida entre els sistemes si
+@code{lilypond-book} ha dividit el fragment en diversos fitxers
+PostScript.  S'ha de definir de forma que agafi un paràmetre i rebrà el
+nombre de fitxers ja inclosos dins del fragment actual.  L'acció
+predeterminada és simplement inserir un @code{\linebreak}.
+@end itemize
+
+@ignore
+Broken stuff.  :(
+
+@cindex Latex, feta symbols
+@cindex fetachar
+
+Per incloure símbols feta (tal com bemoll, segon, etc) a un document
+LaTeX, useu @code{\input@{titledefs@}}
+
+@example
+\documentclass[a4paper]@{article@}
+
+\input@{titledefs@}
+
+\begin@{document@}
+
+\fetachar\fetasharp
+
+\end@{document@}
+@end example
+
+Els noms dels símbols del tipus de lletra  estan definits al fitxer
+feta20.tex; per trobar la ubicació en aquest fitxer, useu l'ordre
+
+@example
+kpsewhich feta20.tex
+@end example
+
+@end ignore
+
+@snippets
+
+A vegades és útil mostrar elements de música (com lligadures) com si
+continuessin més enllà del final del fragment.  Això es pot fer dividint
+el pentagrama i suprimint la inclusió de la resta de la sortida del
+LilyPond.
+
+Al @LaTeX{}, definiu @code{\betweenLilyPondSystem} de tal forma que la
+inclusió d'altres sistemes es doni per acabada un cop que s'ha arribat
+al nombre desitjat de sistemes requerits.  Atès que
+@code{\betweenLilyPondSystem} es crida en primer cop @emph{després} del
+primer sistema, incloure solament el primer sistema és quelcom trivial.
+
+@example
+\def\betweenLilyPondSystem#1@{\endinput@}
+
+\begin[fragment]@{lilypond@}
+  c'1\( e'( c'~ \break c' d) e f\)
+\end@{lilypond@}
+@end example
+
+Si cal un major nombre de sistemes, s'ha d'usar un condicional de
+@TeX{} abans del @code{\endinput}.  En aquest exemple, substituïu el
+@q{2} pel nombre de sistemes que voleu en la sortida:
+
+@example
+\def\betweenLilyPondSystem#1@{
+    \ifnum#1<2\else\expandafter\endinput\fi
+@}
+@end example
+
+@noindent
+(Atès que @code{\endinput} atura immediatament el processament del
+fitxer d'entrada actual, ens cal @code{\expandafter} per a postposar la
+crida de @code{\endinput} després d'executar @code{\fi} de manera que la
+clàusula @code{\if}-@code{\fi} estigui equilibrada.)
+
+Recordeu que la definició de @code{\betweenLilyPondSystem} és efectiva
+fins que @TeX{} abandona el grup actual (com l'entorn @LaTeX{}) o se
+sobreescriu per una altra definició (cosa que és gairebé sempre per a la
+resta del document).  Per reposar la definició escriviu:
+
+@example
+\let\betweenLilyPondSystem\undefined
+@end example
+
+@noindent
+dins de la font de @LaTeX{}.
+
+Es pot simplificar això definint un macro de @TeX{}:
+
+@example
+\def\onlyFirstNSystems#1@{
+    \def\betweenLilyPondSystem##1@{\ifnum##1<#1\else\endinput\fi@}
+@}
+@end example
+
+@noindent
+i després indicant sols quants sistemes voleu abans de cada fragment:
+
+@example
+\onlyFirstNSystems@{3@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
+\onlyFirstNSystems@{1@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
+@end example
+
+
+@morerefs
+Hi ha opcions de línia d'ordres específiques de @command{lilypond-book} i
+altres detalls que s'han de conèixer per processar documents de@LaTeX{}
+vegeu @ref{Invocació de  lilypond-book}.
+
+
+@node Texinfo
+@subsection Texinfo
+@translationof Texinfo
+
+Texinfo és el format estàndard per a la documentació del projecte GNU.
+Aquest mateix manual és un exemple de document Texinfo.  Les versions
+HTML, PDF i Info del manual es fan a partir del document Texinfo.
+
+@code{lilypond-book} aporta les següents ordres i entorns per incloure
+música dins de fitxers de Texinfo:
+
+@itemize
+
+@item
+l'ordre @code{@@lilypond@{@dots{}@}}, on podem introduir directament
+fragments curts de codi del LilyPond
+
+@item
+l'entorn @code{@@lilypond@dots{}@@end lilypond}, on podem escriure
+directament blocs més estesos de codi del LilyPond
+
+@item
+l'ordre @code{@@lilypondfile@{@dots{}@}} para inserir un fitxer del
+LilyPond
+
+
+@item
+l'ordre @code{@@musicxmlfile@{@dots{}@}} para inserir un fitxer de
+MusicXML, que es processa després per part de @code{musicxml2ly} i de
+@code{lilypond}.
+
+@end itemize
+
+En el fitxer d'entrada, la música s'especifica amb qualsevol de les
+ordres següents:
+
+@example
+@@lilypond[les,opcions,van,aquí]
+  EL CODI DEL LILYPOND
+@@end lilypond
+
+@@lilypond[les,opcions,van,aquí]@{ EL CODI DEL LILYPOND @}
+
+@@lilypondfile[les,opcions,van,aquí]@{@var{fitxer}@}
+
+@@musicxmlfile[les,opcions,van,aquí]@{@var{fitxer}@}
+@end example
+
+De forma addicional, @code{@@lilypondversion} imprimeix la versió
+actual del lilypond.
+
+Quan s'executa @command{lilypond-book} sobre el fitxer, s'obté com a
+resultat un fitxer Texinfo (amb l'extensió @file{.texi}) que conté
+etiquetes @code{@@image} per a l'HTML, Info i la sortida impresa.
+@command{lilypond-book} genera imatges de la música en formats EPS i PDF
+per usar-los en la sortida impresa, i en format PNG per usar-los a les
+sortides HTML i Info.
+
+Aquí podem veure dos exemples senzills.  Un entorn
+@code{lilypond}
+
+@example
+@@lilypond[fragment]
+c' d' e' f' g'2 g'
+@@end lilypond
+@end example
+
+@noindent
+produeix
+
+@lilypond[fragment]
+c' d' e' f' g'2 g'
+@end lilypond
+
+La versió curta
+
+@example
+@@lilypond[fragment,staffsize=11]@{<c' e' g'>@}
+@end example
+
+@noindent
+produeix
+
+@lilypond[fragment,staffsize=11]{<c' e' g'>}
+
+A diferència del @LaTeX{}, @code{@@lilypond@{@dots{}@}} no genera una
+imatge en línia.  Sempre consisteix en un paràgraf per a ella sola.
+
+@node HTML
+@subsection HTML
+@translationof HTML
+
+@code{lilypond-book} aporta les següents ordres i entorns per incloure
+música dins de fitxers HTML:
+
+@itemize
+
+@item
+l'ordre @code{<lilypond @dots{} />}, on podem introduir directament
+fragments curts de codi del LilyPond
+
+@item
+l'entorn @code{<lilyond>@dots{}</lilypond>}, on podem escriure
+directament blocs més extensos de codi del LilyPond
+
+@item
+l'ordre @code{<lilypondfile>@dots{}</lilypondfile>} per inserir un
+fitxer del LilyPond
+
+@item
+l'ordre @code{<musicxmlfile>@dots{}</musicxmlfile>} per inserir un
+fitxer del MusicXML, que es processa després per part de
+@code{musicxml2ly} i de @code{lilypond}.
+
+@end itemize
+
+En el fitxer d'entrada, la música s'especifica amb qualsevol de les
+ordres següents:
+
+@example
+<lilypond les opcions van aquí>
+  EL CODI DEL LILYPOND
+</lilypond>
+
+<lilypond les opcions van aquí: EL CODI DEL LILYPOND />
+
+<lilypondfile les opcions van aquí>@var{fitxer}</lilypondfile>
+
+<musicxmlfile les opcions van aquí>@var{fitxer}</musicxmlfile>
+@end example
+
+Per exemple, podem escriure
+@example
+<lilypond fragment relative=2>
+\key c \minor c4 es g2
+</lilypond>
+@end example
+
+@noindent
+@command{lilypond-book} aleshores produeix un fitxer HTML amb les
+etiquetes d'imatge adequades per als fragments de musica:
+
+@lilypond[fragment,relative=2]
+\key c \minor c4 es g2
+@end lilypond
+
+Per imatges en línia, utilitzeu @code{<lilypond @dots{} />}, on les
+opcions estan separades de la música pel símbol de dos punts, per
+exemple
+
+@example
+Quelcom de música dins de <lilypond relative=2: a b c/> una línia de
+text.
+@end example
+
+Per incloure fitxers externs, escriviu
+
+@example
+<lilypondfile @var{opció1} @var{opció2} @dots{}>@var{fitxer}</lilypondfile>
+@end example
+
+@code{<musicxmlfile>} useu la mateixa sintaxi que
+@code{<lilypondfile>}, però senzillament referència un fitxer MusicXML
+en comptes d'un fitxer del LilyPond.
+
+Per veure una llista de les opcions que utilitzeu amb les etiquetes
+@code{lilypond} o @code{lilypondfile}, vegeu @ref{Opcions de
+fragments de música}.
+
+@cindex títols en  HTML
+@cindex vista prèvia, imatge
+@cindex miniatura
+
+@node DocBook
+@subsection DocBook
+@translationof DocBook
+
+Per inserir fragments del LilyPond convé intentar mantenir la
+conformitat del document del DocBook, permetent d'aquesta manera
+l'ús d'editors del DocBook, validació, etc.  Així doncs, no usem
+etiquetes personalitzades, sols especifiquem una convenció basada
+en els elements estàndard del DocBook.
+
+@subheading Convencions usuals
+
+Per inserir tota classe de fragments utilitzem els elements
+@code{mediaobject} i @code{inlinemediaobject}, de forma que
+els nostres fragments poden formatar-se en línia o fora de
+línia.  Les opcions de format del fragment s'escriuen sempre
+dins de la propietat @code{role} de l'element més intern (vegeu
+les seccions següents).  Les etiquetes s'escullen de forma que
+permetin als editors del DocBook formatar el contingut
+satisfactòriament.  Els fitxers del Docbook que es processaran amb
+@command{lilypond-book} han de tenir l'extensió @file{.lyxml}.
+
+@subheading Inclusió d'un fitxer del LilyPond
+
+Aquest és el cas més senzill.  Hem d'usar l'extensió
+@file{.ly} per al fitxer inclòs, i inserir-lo com un
+@code{imageobject} estàndard, amb l'estructura següent:
+
+@example
+<mediaobject>
+  <imageobject>
+    <imagedata fileref="music1.ly" role="printfilename" />
+  </imageobject>
+</mediaobject>
+@end example
+
+Observeu que podeu usar mediaobject o inlinemediaobject com
+l'element més extern, a la vostra elecció.
+
+@subheading Inclusió de codi del LilyPond
+
+Es pot incloure codi del LilyPond mitjançant la utilització d'un
+element @code{programlisting}, en el qual el llenguatge
+s'estableix com @code{lilypond} amb l'estructura següent:
+
+@example
+<inlinemediaobject>
+  <textobject>
+    <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
+\context Staff \with @{
+  \remove "Time_signature_engraver"
+  \remove "Clef_engraver"@}
+  @{ c4( fis) @}
+    </programlisting>
+  </textobject>
+</inlinemediaobject>
+@end example
+
+Com es pot veure, l'element més extern és un @code{mediaobject} o
+un @code{inlinemediaobject}, i hi ha un element @code{textobject}
+que porta el @code{programlisting} en el seu interior.
+
+@subheading Processament del document de Docbook
+
+En executar @command{lilypond-book} sobre el fitxer @file{.lyxml}
+es crearà un document de DocBook vàlid que es pot processar
+posteriorment amb l'extensió @file{.xml}.  Si useu
+@uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, crearà un
+fitxer PDF automàticament a partir d'aquest document.  Per a la
+generació d'HTML (HTML Help, JavaHelp, etc.) podeu usar les fulles
+d'estil oicial de DocBook, tot i que és possible que haureu
+d'aplicar-les algun tipus de personalització.
+
+@node Opcions de fragments de música
+@section Opcions de fragments de música
+@translationof Music fragment options
+
+Durant els pròxims paràgrafs, una @q{ordre del LilyPond} es
+refereix a qualsevol ordre descrita en les seccions anteriors que
+es fa amb @command{lilypond-book} perquè produeixi un fragment de
+música.  Per simplicitat, les ordres del LilyPond sols es mostren
+en la sintaxi del @LaTeX{}.
+
+Observeu que la cadena d'opcions s'analitza d'esquerra a dreta; si
+una opció apareix diverses vegades, s'agafa sols l'última.
+
+Per a les ordres del Lilypond, hi ha disponibles les següents
+opcions:
+
+@table @code
+@item staffsize=@var{alçada}
+Estableix l'alçada del pentagrama com @var{alçada}, mesurada
+en punts.
+
+@item ragged-right
+Produeix línies no justificades per la dreta i amb espaiat
+natural, és a dir, s'afegeix @code{ragged-right = ##t} al fragment
+del LilyPond.  Els fragments d'una sola línia sempre es graven de
+forma predeterminada sense justificació per la dreta, a no ser que
+s'usi explícitament l'opció @code{noragged-right}.
+
+@item noragged-right
+Per a fragments d'una sola línia, permet que la longitud del
+pentagrama s'amplii fins igualar l'amplada de la línia, és a dir,
+s'afegeix @code{ragged-right = ##f} al fragment del LilyPond.
+
+@item line-width
+@itemx line-width=@var{mida}\@var{unitats}
+Estableix l'amplada de línia com a @var{mida}, utilitzant
+@var{unitats} com a unitat. @var{unitats} és una de les cadenes
+següents: @code{cm}, @code{mm}, @code{in} o @code{pt}.
+Aquesta opció afecta a la sortida del LilyPond (és a dir, a la
+longitud del pentagrama del fragment musical), no al format del
+text.
+
+Si s'usa sense cap argument, s'estableix l'amplada de la línia a
+un valor predeterminat (calculat amb un algoritme heurístic).
+
+Si no es dóna cap opció @code{line-width}, @command{lilypond-book}
+intenta endevinar un valor predeterminat per als entorn
+@code{lilypond} que no usen l'opció @code{ragged-right}.
+
+@item papersize=@var{cadena}
+On @var{cadena} és una mida del paper definit al fitxer
+@file{scm/paper.scm}, es a dir, @code{a5}, @code{quarto},
+@code{11x17}, etc.
+
+Els valors no definits al fitxer @file{scm/paper.scm} s'ignoren,
+s'emet un advertiment i el fragment s'imprimeix utilitzant la mida
+predeterminada @code{a4}.
+
+@item notime
+No s'imprimeix la indicació de compàs, i es desactiven les
+indicacions temporals de la música (indicació del compàs i línies
+divisòries).
+
+@item fragment
+Fa que @command{lilypond-book} afegeixi alguns codis necessaris
+perquè podem escriure simplement, per exemple,
+
+@example
+c'4
+@end example
+
+@noindent
+sense @code{\layout}, @code{\score}, etc.
+
+@item nofragment
+No incloure el codi addicional que completa la sintaxi del
+LilyPond als fragments de música.  En ser l'opció predeterminada,
+@code{nofragment} normalment és redundant.
+
+@item indent=@var{mida}\@var{unitats}
+Estableix el sagnat del primer sistema de pentagrames com
+@var{mida}, utilitzant @var{unitats} com
+unitat. @var{unitats} és una de les cadenes següents:
+@code{cm}, @code{mm}, @code{in} o @code{pt}.  Aquesta opció afecta
+al Lilypond, no al format del text.  Atès que el valor
+predeterminat és que no hi hagi cap sagnat, @code{noindent}
+normalment es redundant.
+
+@item quote
+Redueix la longitud de la línia d'un fragment musical en
+@math{2*0.4}@dmn{in} (polzades) i col·loca la sortida dins d'un
+bloc de cita (quotation).  El valor de @q{0.4@dmn{in}} es pot
+controlar amb l'opció @code{exampleindent}.
+
+@item exampleindent
+Estableix la longitud del sagnat que l'opció @code{quote} aplica
+al fragment musical.
+
+@item relative
+@itemx relative=@var{n}
+Fa usar el mode d'octava relativa.  De forma predeterminada, les
+notes s'especifiquen amb relació al Do@tie{}central.  L'argument
+sencer opcional especific l'octava de la nota inicial, on el valor
+predeterminat @code{1} és el Do central.  L'opció @code{relative}
+sols funciona quan està establert l'opció @code{fragment}, de
+manera que @code{fragment} es defineix automàticament per
+@code{relative}, independentment de la presència de
+@code{fragment} o de @code{nofragment} en la font.
+
+@end table
+
+El LilyPond utilitza també @command{lilypond-book} per produir la
+seva pròpia documentació.  Per fer-ho, hi ha certes opcions
+quelcom esotèriques per als fragments musicals.
+
+@table @code
+@item verbatim
+L'argument d'una ordre del LilyPond es copia al fitxer de sortida
+i s'inclou dins d'un bloc «verbatim» o reformatat, seguit del
+text que s'escrigui amb l'opció @code{intertext} (que encara no
+funciona); després s'imprimeix la música mateixa.  Aquesta opció
+no funciona bé amb @code{\lilypond@{@}} si forma part d'un
+paràgraf.
+
+Si s'una l'opció @code{verbatim} dins d'una ordre
+@code{lilypondfile}, és possible incloure amb estile preformatejat
+sols una part del fitxer font.  Si el fitxer de codi font conté un
+comentari que conté @samp{begin verbatim} (sense les cometes), la
+cita del bloc d'estil preformatejat començarà després de l'última
+vegada que aparegui aquest comentari; de forma semblant, la cita
+del bloc preformatejat es detindrà just abans de la primera vegada
+que aparegui un comentari que contingui @samp{end verbatim}, si
+n'hi ha.  Al següent exemple de cori font, la música s'interpreta
+en el mode relatiu, però la cita formatada prèviament no presentarà el
+bloc @code{relative}, es  dir
+
+@example
+\relative @{ % begin verbatim
+  c'4 e2 g4
+  f2 e % end verbatim
+@}
+@end example
+
+@noindent
+s'imprimeix com un bloc formatat prèviament com
+
+@example
+  c4 e2 g4
+  f2 e
+@end example
+
+@noindent
+Si volem traduir els comentaris i els noms de variable a la
+sortida literal però no en el codi font, podem establir el valor
+de la variable d'entorn @code{LYDOC_LOCALEDIR} a la ruta d'un
+directori; aquest directori ha de contenir un arbre de catàlegs de
+missatges @file{.mo} amb @code{lilypond-doc} com a domini.
+
+@item texidoc
+(Sols per a la sortida del Texinfo). Si es crida a
+@command{lilypond} amb l'opció @option{--header=@/texidoc}, i el
+fitxer que es processa es diu @file{pepet.ly}, es crea un fitxer
+@file{pepet.texidoc} si existeix un camp @code{texidoc} dins del
+bloc @code{\header} de capçalera. L'opció @code{texidoc} fa que
+@command{lilypond-book} inclogui aquests fitxers, afegint el seu
+contingut com un bloc de documentació immediatament abans del
+fragment musical (però fora de l'entorn immediatament abans del
+fragment musical (però fora de l'entorn @code{example} generat per
+l'opció @code{quote}).
+
+Suposant que el fitxer @file{pepet.ly} conté
+
+@example
+\header @{
+  texidoc = "Aquest fitxer és un exemple d'una sola nota."
+@}
+@{ c'4 @}
+@end example
+
+@noindent
+i que tenim el següent al nostre document de Texinfo
+@file{prova.texinfo}
+
+@example
+@@lilypondfile[texidoc]@{pepet.ly@}
+@end example
+
+@noindent
+l'ordre següent dóna com a sortira el resultat esperat:
+
+@example
+lilypond-book --pdf --process="lilypond \
+  --header=texidoc" prova.texinfo
+@end example
+
+La majoria dels documents de prova del LilyPond (al directori
+@file{input} de la distribució) són petits fitxers @file{.ly} que
+contenent exactament aquest aspecte.
+
+Per motius de localització d'idioma, si el document de Texinfo
+conté @code{@@documentlanguage @var{LANG}} i la capçalera de
+@file{loquesea.ly} conté un camp @code{texidoc@var{LANG}}, i
+@command{lilypond} s'executa amb
+@option{--header=@/texidoc@var{LANG}}, aleshores s'inclourà
+@file{loquesea.texidoc@var{LANG}} enlloc de
+@file{loquesea.texidoc}.
+
+@item doctitle
+(Sols per a la sortida de Texinfo.) Aquesta opció funciona de
+forma semblada a l'opció @code{texidoc}: si @command{lilypond} es
+crida amb l'opció @option{--header=@/doctitle}, y el fitxer a
+processar es diu @file{elquesigui.ly} i conté un camp
+@code{doctitle} al bloc @code{\header}, es crea un fitxer
+@file{elquesigui.doctitle}.  Quan s'usa l'opció @code{doctitle},
+el contingut de @file{elquesigui.doctitle}, que hauria de ser una
+línia única de @var{text}, s'insereix en el document de Texinfo com
+@code{@@lydoctitle @var{text}}. @code{@@lydoctitle} ha de ser un
+macro definit en el document de Texinfo.  La mateixa indicació
+referida al processat de @code{texidoc} amb llengües localitzades
+s'aplica a @code{doctitle}.
+
+@item nogettext
+(Sols per a la sortida de Texinfo.) No traduïu els comentaris i
+noms de variable en el fragment de codi literal citat.
+
+@item printfilename
+Si un fitxer d'entrada del LilyPond s'inclou amb
+@code{\lilypondfile}, imprimeix el nom del fitxer immediatament
+abans del fragment musical. Per a la sortida HTML, això és un
+enllaç.  Sols s'imprimeix el nom del base del fitxer, és a dir,
+s'elimina la part del directori de la ruta del fitxer.
+
+@end table
+
+
+@node Invocació de lilypond-book
+@section Invocació @command{lilypond-book}
+@translationof Invoking lilypond-book
+
+@command{lilypond-book} produeix un fitxer amb una de les
+extensions següents: @file{.tex}, @file{.texi}, @file{.html} o
+@file{.xml}, depenent del format de sortida.  A tots els fitxers
+@file{.tex}, @file{.texi} i @file{.xml} els cal un processat
+posterior.
+
+@subheading Instruccions específiques de format
+
+@subsubheading @LaTeX{}
+
+Hi ha dues formes de processar el document en @LaTeX{} per a la
+seva impressió o publicació: fer un fitxer PDF directament amb
+PDF@LaTeX{}, o generar un fitxer PostScript amb @LaTeX{}
+mitjançant un traductor de DVI a Postscript com @command{dvips}.
+La primera forma és senzilla i és la que es
+recomana@footnote{Observeu que PDF@LaTeX{} i @LaTeX{} podrien no
+poder-se usar per compilar algun document @LaTeX{}, i per això
+expliquem les dues formes.}, i qualsevol que sigui el mètode que
+utilitzeu, podreu convertir fàcilment entre PostScript i PDF amb
+eines com @command{ps2pdf} i @command{pdf2ps} que venen incloses
+amb Ghostscript.
+
+Per produir un fitxer PDF mitjançant PDF@LaTeX{}, utilitzeu:
+
+@example
+lilypond-book --pdf elmeufitxer.pdftex
+pdflatex elmeufitxer.tex
+@end example
+
+@cindex tipus de lletra de outline
+@cindex type1, tipus de lletra
+@cindex dvips
+@cindex invocació de dvips
+
+Per produir una sortida PDF per mitjà de
+@LaTeX{}/@command{dvips}/@command{ps2pdf}:
+
+@example
+lilypond-book elmefitxer.lytex
+latex elmeufitxer.tex
+dvips -Ppdf elmeufitxer.dvi
+ps2pdf elmeufitxer.ps
+@end example
+
+@noindent
+El fitxer @file{.dvi} creat per aquest procés no conté els caps de
+les notes.  Això és normal; si segueix les instruccions, els caps
+apareixeran als fitxers @file{.ps} i @file{.pdf}.
+
+El fitxer @file(.dvi) creat per aquest procés no conté els caps de
+les notes.  Això és normal; si seguiu les instruccions, els caps
+apareixeran als fitxers @file{.ps} i @file{.pdf}.
+
+L'execució de @command{dvips} pot donar com a resultat alguns
+advertiments sobre els tipus de lletra; són innocus i es poden
+ignorar. Si esteu executant @command{latex} en mode de dos
+columnes, recordeu afegir @option{-t landscape} a les opcions de
+@command{dvips}.
+
+Entorns como ara:
+
+@example
+\begin@{lilypond@} @dots{} \end@{lilypond@}
+@end example
+
+@noindent
+no s'interpreten per part de @LaTeX{}.  En canvi, el programa
+@code{lilypond-book} extrau aquests @q{entorns} com fitxers
+independents i executa el LilyPond sobre ells.  Després, agafa les
+imatges resultants i crea un fitxer @file{.tex} en el qual les
+macros @code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} se
+substitueixen per ordres de @q{inserció de gràfics}.  A
+continuació, s'executa @LaTeX{} (tot i que @LaTeX{} se ha executat
+anteriorment, ho haurà fet sobre un fitxer @q{buit} per calcular
+coses com ara el @code{\linewidth}).
+
+@knownissues
+
+L'ordre @code{\pageBreak} no funciona dins d'un entorn
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+
+Moltes variables del bloc @code{\paper} tampoc funcionen dins d'un
+entorn @code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+Useu @code{\newcommand} amb @code{\betweenLilyPondSystem} al
+preàmbul:
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
+
+@subsubheading Texinfo
+
+Per produir un document de Texinfo (en qualsevol format de
+sortida), seguiu el procediment normal per a Texinfo, això és: o
+bé crideu a @command{texi2pdf} o a @command{texi2dvi} o a
+@command{makeinfo}, segons el format de la sortida que voleu
+crear.
+@ifinfo
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, i
+@ref{Creating an Info File, , , texinfo, GNU Texinfo}.
+@end ifinfo
+@ifnotinfo
+Consulteu la documentació de Texinfo per veure més detalls.
+@end ifnotinfo
+
+
+@subheading Opcions de la línia d'ordres
+
+@command{lilypond-book} accepta les opcions següents de la línia
+d'ordres:
+
+@table @code
+@item -f @var{formato}
+@itemx --format=@var{formato}
+Especificació del tipus de document que es processarà:
+@code{html}, @code{latex}, @code{texi} (predeterminat) o
+@code{docbook}.  Si falta aquesta opció, @command{lilypond-book}
+intentarà detectar el format automàticament, vegeu
+@ref{Extensions de noms de fitxer}. Per ara,
+@code{texi} és el mateix que @code{texi-html}.
+
+@c This complicated detail is not implemented, comment it out -jm
+@ignore
+The @code{texi} document type produces a Texinfo file with music
+fragments in the printed output only.  For getting images in the HTML
+version, the format @code{texi-html} must be used instead.
+@end ignore
+
+@item -F @var{filtro}
+@itemx --filter=@var{filtro}
+Conducció de fragments a través de @var{filter} per mitjà d'una
+canonada.  @code{lilypond-book} no obeirà --filter i --process
+al mateix temps.  Per exemple,
+
+@example
+lilypond-book --filter='convert-ly --from=2.0.0 -' el-meu-llibre.tely
+@end example
+
+@item -h
+@itemx --help
+Impressió d'un breu missatge d'ajuda.
+
+@item -I @var{directori}
+@itemx --include=@var{directori}
+Afegir @var{directori} a la ruta d'inclusió.
+@command{lilypond-book} busca també els fragments compilats a la
+ruta d'inclusió, i no els torna a escriure al directori de
+sortida, de manera que en certs casos cal invocar ordres de
+processat posteriors com ara @command{makeinfo} o @command{latex}
+amb les mateixes opcions @option{-I @var{directori}}.
+
+@item -l @var{nivell_de_registre}
+@itemx --loglevel=@var{nivel_de_registre}
+Fixació del nivell en el qual la sortida és neta, al valor
+@var{nivell_de_registre}. Els valors possibles són 
+@code{NONE} (res), @code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{PROGRESS} (avanç; predeterminat) y @code{DEBUG}
+(depuració). Si aquesta opció no es fa servir, i està establerta la variable
+d'entorn @code{LILYPOND_BOOK_LOGLEVEL}, s'usa el seu valor com a
+nivell de registre.
+
+@item -o @var{directori}
+@itemx --output=@var{directori}
+Col·locació dels fitxers generats al @var{directori}.  L'execució
+de @command{lilypond-book} genera un munt de petits fitxers que
+després processarà el Lilypond. Per evitar tots aquests fitxers al
+mateix directori que el codi font, feu servir l'opció
+@option{--output}, i canvieu a aquest directori abans d'executar
+@command{latex} o @command{makeinfo}.
+
+@example
+lilypond-book --output=out elmeufitxer.lytex
+cd out
+@dots{}
+@end example
+
+@item --skip-lily-check
+Obviar la fallada si no es troba cap sortida del lilypond. Es fa
+servir per a la documentació del Lilypond en format info sense
+imatges.
+
+@item --skip-png-check
+Obviar la fallada si no es troben les imatges PNG dels fitxers
+EPS.  S'usa per a la documentació del Liypond en format info sense
+imatges.
+
+@item --lily-output-dir=@var{directorio}
+Escriptura de fitxers lily-XXX al directori @var{directori},
+enllaç al directori de @option{--output}.  Useu aquesta opció per
+estalviar temps de construcció per a documents de diferents
+directoris que comparteixen molts fragments idèntics de codi.
+
+@item --lily-loglevel=@var{nivell de registre}
+Establiment del nivell en el qual la sortida és neta per a les
+crides de l'ordre invocat @command{lilypond}, al valor
+@var{nivell _de_registre}.  Els valors possibles són@code{NONE}
+(res), @code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{BASIC_PROGRESS} (avanç bàsic), @code{PROGRESS} (avanç),
+@code{INFO} (informació; predeterminat) i @code{DEBUG}
+(depuració). Si no es fa servi aquesta opció i la variable d'entorn
+@code{LILYPOND_LOGLEVEL} està establerta, el seu valor es fa
+servir com a nivell de registre.
+
+@item --info-images-dir=@var{directori}
+Formatat de la sortida del Texinfo de manera que info busqui les
+imatges de música a @var{directorio}.
+
+@item --latex-program=@var{prog}
+Execució del programa @command{prog} en comptes de @command{latex}.
+Això és útil si el nostre document es processa amb
+@command{xelatex}, per exemple.
+
+@item --left-padding=@var{quantitat}
+Ompliment el voltant de les caixes EPS per la quantitat donada. 
+@var{quantitat} es mesura en mil·límetres, amb 3.0 com a valor
+predeterminat. Aquesta opció s'ha d'usar si les línies de música
+estan massa pegades al marge dret.
+
+L'amplada d'un sistema que està molt ajustat dins del seu
+rectangle pot variar, a causa dels elements de notació que estan
+pegats al marge esquerre, com ara els nombres de compàs i el nom
+de l'instrument.  Aquesta opció fa més curts totes les línies i
+les mou a la dreta en la mateixa mesura.
+
+@item -P @var{instrucció}
+@itemx --process=@var{instrucció}
+Processament dels fragments del Lilypond utilitzant @var{ordre}.
+L'ordre predeterminada és @code{lilypond}.
+@code{lilypond-book} no obeirà a @option{--filter} i a
+@option{--process} al mateix temps.
+
+@item --pdf
+Creació de fitxers PDF per al seu ús amb PDF@LaTeX{}.
+
+@item --redirect-lilypond-output
+De forma predeterminada, la sortida s'imprimeix per la consola.
+Aquesta opció redirigeix tota la sortida cap a fitxers de registre
+ubicats al  mateix directori que els fitxers font.
+
+@item --use-source-file-names
+Escriptura dels fitxers de sortida dels fragments de música amb el
+mateix nom de base que el seu fitxer font.  Aquesta opció sols
+funciona per a fragments inclosos amb @code{lilypondfile} i sols
+si els directoris determinats per les opcions
+@option{--output-dir} i @option{--lily-output-dir} són diferents.
+
+@item -V
+@itemx --verbose
+Sigues net.  Qeuival a @code{--loglevel=DEBUG}.
+
+@item -v
+@itemx --version
+Impressió de la informació de la versió.
+@end table
+
+@knownissues
+L'ordre del Texinfo @code{@@pagesizes} no s'interpreta.  De
+manera semblant, s'ignoren les ordre del @LaTeX{} que canvien els
+marges i amplades de línia després del preàmbul.
+
+Sols es processa el primer @code{\score} d'un bloc Lilypond.
+
+@node Extensions de noms de fitxer
+@section Extensions de noms de fitxer
+@translationof Filename extensions
+
+Podeu fer servir qualsevol extensió per al nom del fitxer
+d'entrada, però si no useu l'extensió recomanada per a un format
+en particular, haureu d'especificar manualment el format de
+sortida; per veure més detalls, consulteu 
+@ref{Invocació de lilypond-book}.  En cas contrari, @command{lilypond-book}
+selecciona automàticament el format de sortida basant-se en
+l'extensió del nom del fitxer d'entrada.
+
+@quotation
+@multitable @columnfractions .2 .5
+@item @strong{extensió} @tab @strong{format de sortida}
+@item
+@item @file{.html} @tab HTML
+@item @file{.htmly} @tab HTML
+@item @file{.itely} @tab Texinfo
+@item @file{.latex} @tab @LaTeX{}
+@item @file{.lytex} @tab @LaTeX{}
+@item @file{.lyxml} @tab DocBook
+@item @file{.tely} @tab Texinfo
+@item @file{.tex} @tab @LaTeX{}
+@item @file{.texi} @tab Texinfo
+@item @file{.texinfo} @tab Texinfo
+@item @file{.xml} @tab HTML
+@end multitable
+@end quotation
+
+Si useu la mateixa extensió per al fitxer d'entrada que la que usa
+el  @command{lilypond-book} per al fitxer de sortida, i si el
+fitxer d'entrada està al mateix directori que el directori de
+treball de @command{lilypond-book}, heu d'usar l'opció
+@option{--output} perquè funcioni @command{lilypond-book}, atès
+que en cas contrari s'emetrà un missatge d'error com per exemple
+@qq{La sortida sobreescriurà el fitxer d'entrada}.
+
+@node Plantilles de lilypond-book
+@section Plantilles de lilypond-book
+@translationof lilypond-book templates
+
+Aquestes plantilles s'usen per a @code{lilypond-book}.  Si no
+esteu familiaritzat amb aquest programa, consulteu
+@rprogram{lilypond-book}.
+
+@subsection LaTeX
+
+Podem inserir fragments del LilyPond dins d'un document del LaTeX.
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Text normal en LaTeX.
+
+\begin@{lilypond@}
+\relative @{
+  a'4 b c d
+@}
+\end@{lilypond@}
+
+Més text en LaTeX, i les opcions dins de les claus.
+
+\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
+d4 c b a
+\end@{lilypond@}
+\end@{document@}
+@end example
+
+@subsection Texinfo
+
+Podem inserir fragments del LilyPond dins del Texinfo; de fet, tot
+aquest manual està escrit en Texinfo.
+
+@example
+\input texinfo @c -*-texinfo-*-
+@@node Top
+@@top
+
+Text en Texinfo
+
+@@lilypond
+\relative @{
+  a4 b c d
+@}
+@@end lilypond
+
+Més text en Texinfo, i les opcions dins de les claus.
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
+@subsection html
+
+@example
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<body>
+
+<p>
+El documents per al lilypond-book poden barrejar música i text
+lliurement.  Per exemple,
+<lilypond>
+\relative @{
+  a'4 b c d
+@}
+</lilypond>
+</p>
+
+<p>
+Una mica més de LilyPond, aquest cop amb opcions:
+
+<lilypond fragment quote staffsize=26 verbatim>
+a4 b c d
+</lilypond>
+</p>
+
+</body>
+</html>
+
+
+@end example
+
+@subsection xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%material específic xetex
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%Això es pot deixar buit si no farem servir pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Aquí inserim tots els paquets que el pdftex també entén
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Un document breu amb el LilyPond i xelatex}
+\maketitle
+
+Les ordres \textbf{font} normals dins del \emph{text}
+funcionen, perquè \textsf{tenen suport al \LaTeX{} i
+el XeTeX.}  Si volem usar ordres específiques com ara
+\verb+\XeTeX+, hem d'incloure-les de nou dins d'un entorn
+\verb+\ifxetex+.  Podem utilitzar això per imprimir l'ordre
+\ifxetex \XeTeX{} \else XeTeX \fi que no està inclosa al
+\LaTeX\ normal.
+
+Dins del text normal podem utilitzar ordres del LilyPond
+fàcilment, d'aquesta forma:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+i així successivament.
+
+El tipus de lletra dels fragments, establerta amb el LilyPond,
+haurà d'establir-se de dins el fragment.  Per això podeu llegir la
+part del lilypond-book al manual d'utilització.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: __ ______, wenn sie von der Schriftart
+unterst__tzt werden.
+\end{document}
+@end verbatim
+
+
+@node Compartir l'índex general
+@section Compartir l'índex general
+@translationof Sharing the table of contents
+
+Aquestes funcions ja existeixen al paquet OrchestralLily:
+
+@example
+@url{http://repo.or.cz/w/orchestrallily.git}
+@end example
+
+Per aconseguir més flexibilitat en el processament del text,
+alguns usuaris prefereixen exporta l'índex general o taula de
+continguts des del Lilypond i llegir-lo dins del @LaTeX{}.
+
+@subsubheading Exportació de l'index general des del LilyPond
+
+Això suposa que la nostra partitura té diversos moviments dins del
+mateix fitxer de sortida del LilyPond.
+
+@smallexample
+#(define (oly:create-toc-file layout pages)
+  (let* ((label-table (ly:output-def-lookup layout 'label-page-table)))
+    (if (not (null? label-table))
+      (let* ((format-line (lambda (toc-item)
+             (let* ((label (car toc-item))
+                    (text  (caddr toc-item))
+                    (label-page (and (list? label-table)
+                                     (assoc label label-table)))
+                    (page (and label-page (cdr label-page))))
+               (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
+             (formatted-toc-items (map format-line (toc-items)))
+             (whole-string (string-join formatted-toc-items ",\n"))
+             (output-name (ly:parser-output-name))
+             (outfilename (format #f "~a.toc" output-name))
+             (outfile (open-output-file outfilename)))
+        (if (output-port? outfile)
+            (display whole-string outfile)
+            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+        (close-output-port outfile)))))
+
+\paper @{
+  #(define (page-post-process layout pages) (oly:create-toc-file layout pages))
+@}
+@end smallexample
+
+@subsubheading Importació de l'índex general dins del LaTeX
+
+Al LaTeX, la capçalera ha d'incloure el següent:
+
+@c no, this doesn't require the smallexample, but since the other
+@c two blocks on this page use it, I figured I might as well
+@c user it here as well, for consistency. -gp
+@smallexample
+\usepackage@{pdfpages@}
+\includescore@{nombredelapartitura@}
+@end smallexample
+
+@noindent
+donde @code{\includescore} està definit com:
+
+@smallexample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includescore@{PossibleExtension@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Llegir els budells de l'índex genera per a un fitxer PDF
+% a partir del fitxer .toc corresponent.
+% Això requereix de força ajustaments del LaTeX, perquè no és
+% fàcil llegir coses d'un fitxer i inserir-les dins dels arguments
+% d'un macro.
+
+% Solució del Patrick Fimml en el canal #latex el 18 d'abril de 2009:
+% \readfile@{filename@}@{\variable@}
+% llegeix el contingut del fitxer en \variable (no definida si el
+% fitxer no existeix)
+\newread\readfile@@f
+\def\readfile@@line#1@{%
+@{\catcode`\^^M=10\global\read\readfile@@f to \readfile@@tmp@}%
+\edef\do@{\noexpand\g@@addto@@macro@{\noexpand#1@}@{\readfile@@tmp@}@}\do%
+\ifeof\readfile@@f\else%
+\readfile@@line@{#1@}%
+\fi%
+@}
+\def\readfile#1#2@{%
+\openin\readfile@@f=#1 %
+\ifeof\readfile@@f%
+\typeout@{No TOC file #1 available!@}%
+\else%
+\gdef#2@{@}%
+\readfile@@line@{#2@}%
+\fi
+\closein\readfile@@f%
+@}%
+
+
+\newcommand@{\includescore@}[1]@{
+\def\oly@@fname@{\oly@@basename\@@ifmtarg@{#1@}@{@}@{_#1@}@}
+\let\oly@@addtotoc\undefined
+\readfile@{\oly@@xxxxxxxxx@}@{\oly@@addtotoc@}
+\ifx\oly@@addtotoc\undefined
+\includepdf[pages=-]@{\oly@@fname@}
+\else
+\edef\includeit@{\noexpand\includepdf[pages=-,addtotoc=@{\oly@@addtotoc@}]
+@{\oly@@fname@}@}\includeit
+\fi
+@}
+@end smallexample
+
+@node Mètodes alternatius per barrejar text i música
+@section Mètodes alternatius per barrejar text i música
+@translationof Alternate methods of mixing text and music
+
+Altres formes de barrejar text i música (sense
+@command{lilypond-book}) s'estudien a @rprogramnamed{Other programs,Altres programes}.
