@@ -21,7 +21,6 @@
 
 #include "axis-group-interface.hh"
 #include "context.hh"
-#include "global-context.hh"
 #include "grob-array.hh"
 #include "international.hh"
 #include "item.hh"
@@ -39,6 +38,7 @@ class Jump_engraver final : public Engraver
 {
   bool first_time_ = true;
   bool printed_fine_ = false;
+  bool final_fine_text_visibility_ = false;
   Item *ad_hoc_jump_text_ = nullptr;
   Item *ds_text_ = nullptr;
   Item *fine_text_ = nullptr;
@@ -50,8 +50,10 @@ public:
   TRANSLATOR_DECLARATIONS (Jump_engraver);
 
 protected:
+  void start_translation_timestep ();
   void process_music ();
   void stop_translation_timestep ();
+  void finalize () override;
 
   void listen_ad_hoc_jump (Stream_event *);
   void listen_dal_segno (Stream_event *);
@@ -61,6 +63,12 @@ protected:
 Jump_engraver::Jump_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Jump_engraver::start_translation_timestep ()
+{
+  fine_text_ = nullptr;
 }
 
 void
@@ -170,27 +178,18 @@ Jump_engraver::process_music ()
 
   if (fine_ev_)
     {
-      // By default, avoid printing "Fine" at the written end of the music.
-      // These cases are noteworthy:
-      //
-      // * Repeats have been unfolded.  No other repeat notation remains, so
-      //   leaving "Fine" would look strange.
-      //
-      // * It is more convenient to code an optionally unfoldable piece as
-      //       \repeat volta 2 { ... } \fine
-      //   than
-      //       \repeat volta 2 { ... \volta 2 \unfolded \bar "|." }
-      if (!find_global_context ()->is_at_final_moment ()
-          || from_scm<bool> (get_property (this, "finalFineTextVisibility")))
-        {
-          fine_text_ = make_item ("JumpScript", fine_ev_->self_scm ());
+      fine_text_ = make_item ("JumpScript", fine_ev_->self_scm ());
 
-          SCM m = get_property (this, "fineText");
-          if (Text_interface::is_markup (m))
-            set_property (fine_text_, "text", m);
-          else
-            fine_ev_->warning (_ ("jump text must be a markup object"));
-        }
+      SCM m = get_property (this, "fineText");
+      if (Text_interface::is_markup (m))
+        set_property (fine_text_, "text", m);
+      else
+        fine_ev_->warning (_ ("jump text must be a markup object"));
+
+      // We don't know yet whether this is the last timestep, but if it is, we
+      // will need to honor finalFineTextVisibility.
+      final_fine_text_visibility_
+        = from_scm<bool> (get_property (this, "finalFineTextVisibility"));
     }
 }
 
@@ -216,10 +215,29 @@ Jump_engraver::stop_translation_timestep ()
   ds_ev_ = nullptr;
   ds_text_ = nullptr;
   fine_ev_ = nullptr;
-  fine_text_ = nullptr;
   first_time_ = false;
   ad_hoc_jump_ev_ = nullptr;
   ad_hoc_jump_text_ = nullptr;
+}
+
+void
+Jump_engraver::finalize ()
+{
+  // By default, avoid printing "Fine" at the written end of the music.
+  // These cases are noteworthy:
+  //
+  // * Repeats have been unfolded.  No other repeat notation remains, so
+  //   leaving "Fine" would look strange.
+  //
+  // * It is more convenient to code an optionally unfoldable piece as
+  //       \repeat volta 2 { ... } \fine
+  //   than
+  //       \repeat volta 2 { ... \volta 2 \unfolded \bar "|." }
+  if (fine_text_ && !final_fine_text_visibility_)
+    {
+      fine_text_->suicide ();
+      fine_text_ = nullptr;
+    }
 }
 
 void

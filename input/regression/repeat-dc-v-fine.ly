@@ -14,7 +14,7 @@ piece = \new Voice \fixed c' {
     s1
     \volta 2 \fine
   }
-  s1
+  s1 % so that \fine creates text
 }
 
 \score { \piece }

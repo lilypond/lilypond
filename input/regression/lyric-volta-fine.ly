@@ -7,8 +7,18 @@ first measure."
 }
 
 music = {
-  \repeat volta 2 { c'1 \volta 2 \fine r1 d'1 }
-  \addlyrics { \repeat volta 2 { cee \volta 2 \fine dee } }
+  \repeat volta 2 {
+    c'1
+    \volta 2 \fine
+    \volta 1 { r1 d'1 }
+  }
+  \addlyrics {
+    \repeat volta 2 {
+      cee
+      \volta 2 \fine
+      \volta 1 dee
+    }
+  }
 }
 
 \score { \music }

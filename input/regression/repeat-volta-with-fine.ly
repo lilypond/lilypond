@@ -11,7 +11,7 @@ piece = \new Voice \fixed c' {
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 

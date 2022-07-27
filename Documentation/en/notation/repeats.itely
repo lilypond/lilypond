@@ -418,20 +418,20 @@ function with respect to the innermost repeat enclosing them.}
 
 @funindex \fine
 
-The @code{\fine} command ends the music, but placing it inside a
-folded repeat suspends its effect.  When a repeat containing
-@code{\fine} is unfolded, the @code{\fine} command is unfolded
-like any other music and is performed wherever it first appears in
-the unfolded music.  Therefore, it is necessary to specify the
-volta in which the @emph{Fine} should be performed (@pxref{Other
-variation in repeated sections}).
+The @code{\fine} command marks the end of the music but does not
+enforce it.  When a repeat containing @code{\fine} is unfolded,
+the @code{\fine} command is unfolded like any other music.  For
+correct unfolding, it is necessary to specify the volta in which
+the @emph{Fine} should be performed and the volte in which any
+following music should be performed (@pxref{Other variation in
+repeated sections}).
 
 @lilypond[quote,verbatim]
 music = \fixed c' {
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 
@@ -461,7 +461,7 @@ To change the text that @code{\fine} prints, set the
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 @end lilypond
@@ -536,7 +536,7 @@ music = \fixed c' {
   \repeat segno 2 {
     g1
     \volta 2 \fine
-    a1
+    \volta 1 a1
   }
   \section
 }

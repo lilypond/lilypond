@@ -4632,12 +4632,24 @@ def conv(s):
                r'\\bar "\1-|"', s)
     return s
 
+fine_iteration_warning = _(r"""
+Warning: \fine no longer enforces the end of the music.  If your piece
+has music following \fine that you want to exclude when it is
+unfolded, use \volta to exclude it.
+""")
+
 @rule((2, 23, 12), r"""
 barAlways = ##t -> forbidBreakBetweenBarLines = ##f
+\fine no longer stops iteration
 """)
 def conv(s):
     s = re.sub(r'barAlways\s*=\s*##t', r'forbidBreakBetweenBarLines = ##f', s)
     s = re.sub(r'barAlways\s*=\s*##f', r'forbidBreakBetweenBarLines = ##t', s)
+    if ('\\fine' in s) and (('\\repeat segno' in s) or
+                            ('\\repeat volta' in s)):
+        stderr_write(NOT_SMART % "music following \\fine")
+        stderr_write(fine_iteration_warning)
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

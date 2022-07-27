@@ -20,7 +20,6 @@
 #include "simple-music-iterator.hh"
 
 #include "context.hh"
-#include "global-context.hh"
 #include "lily-guile.hh"
 #include "moment.hh"
 #include "music.hh"
@@ -56,16 +55,7 @@ Fine_iterator::process (Moment m)
         = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
 
       if (timing_is_accurate)
-        {
-          // Outside a folded repeat, stop iterating.
-          const auto folded
-            = find_above_by_music_type (ly_symbol2scm ("folded-repeated-music"));
-
-          if (!folded)
-            find_global_context (get_context ())->set_final_moment ();
-
-          report_event (get_music ());
-        }
+        report_event (get_music ());
     }
 
   Simple_music_iterator::process (m);

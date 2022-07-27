@@ -10,7 +10,7 @@ piece = \new Voice \fixed c' {
   \repeat segno 2 {
     a1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 
