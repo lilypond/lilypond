@@ -75,7 +75,6 @@ Span_bar_engraver::process_acknowledged ()
     {
       spanbar_ = make_item ("SpanBar", SCM_EOL);
 
-      spanbar_->set_x_parent (bars_[0]);
       for (vsize i = 0; i < bars_.size (); i++)
         Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"), bars_[i]);
       make_spanbar_ = false;

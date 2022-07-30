@@ -864,37 +864,62 @@ actual break direction."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; span bar callbacks
 
+(define-public (ly:span-bar::calc-anchor grob)
+  "Calculate the anchor position of the @code{SpanBar}. The anchor is
+used for the correct placement of bar numbers, etc."
+  (interval-center (ly:span-bar::width grob)))
+
 (define-public (ly:span-bar::calc-glyph-name grob)
   "Return the @code{'glyph-name} of the corresponding @code{BarLine} grob.
 The corresponding @code{SpanBar} glyph is computed within
 @code{span-bar::@/compound-bar-line}."
-  (let* ((elts (ly:grob-object grob 'elements))
-         (pos (1- (ly:grob-array-length elts)))
-         (glyph-name '()))
+  (let ((model-bar (ly:span-bar::choose-model-bar-line grob)))
+    (if (grob::is-live? grob)
+        (ly:grob-property model-bar 'glyph-name)
+        ;; avoid recursion: model-bar is a dead span bar
+        '())))
 
-    (while (and (eq? glyph-name '())
-                (> pos -1))
-           (begin (set! glyph-name
-                        (ly:grob-property (ly:grob-array-ref elts pos)
-                                          'glyph-name))
-                  (set! pos (1- pos))))
-    (if (eq? glyph-name '())
-        (begin (ly:grob-suicide! grob)
-               (set! glyph-name "")))
-    glyph-name))
+(define (ly:span-bar::choose-model-bar-line grob)
+  "Choose one of the bar lines to use as a template for the span bar.
+Ideally, this chooses the same bar line whether it is called from
+ly:span-bar::width, ly:span-bar::print, etc.
+
+N.B. If no model bar line is found, this function kills the span bar
+and returns the dead span bar."
+
+  (define (bar-acceptable? bar)
+    "return bar if it is acceptable, otherwise return #f"
+    (let ((staff-symbol (ly:grob-object bar 'staff-symbol #f)))
+      (and staff-symbol
+           (let* ((refp (ly:grob-common-refpoint bar staff-symbol Y))
+                  (ext (interval-union
+                        (bar-line::bar-y-extent bar refp)
+                        (ly:grob-extent staff-symbol refp Y))))
+             (and (positive? (interval-length ext)) bar)))))
+
+  (let ((model-bar
+         (find bar-acceptable?
+               (ly:grob-array->list (ly:grob-object grob 'elements)))))
+    (if model-bar
+        model-bar
+        (begin
+          (ly:grob-suicide! grob)
+          grob))))
 
 (define-public (ly:span-bar::width grob)
   "Compute the width of the @code{SpanBar} stencil."
-  (let ((width (cons 0 0)))
-
-    (if (grob::is-live? grob)
-        (let* ((glyph-name (ly:grob-property grob 'glyph-name))
-               (stencil (span-bar::compound-bar-line grob
-                                                     glyph-name
-                                                     dummy-extent)))
-
-          (set! width (ly:stencil-extent stencil X))))
-    width))
+  ;; We don't use the grob's actual stencil because it would trigger
+  ;; Y-axis calculations.
+  (let ((model-bar (ly:span-bar::choose-model-bar-line grob))
+        ;; note: choose-model-bar-line might have killed the span bar
+        (glyph-name (ly:grob-property grob 'glyph-name)))
+    (if (string? glyph-name)
+        (let ((stencil (span-bar::compound-bar-line
+                        model-bar
+                        glyph-name
+                        dummy-extent)))
+          (ly:stencil-extent stencil X))
+        empty-interval)))
 
 (define-public (ly:span-bar::before-line-breaking grob)
   "A dummy callback that kills the @code{Grob} @var{grob} if it contains
@@ -961,24 +986,23 @@ no elements."
 ;; bulky side. Rewritten by Han-Wen. Ported from c++ to Scheme by Marc Hohl.
 (define-public (ly:span-bar::print grob)
   "The print routine for span bars."
-  (let* ((elts-array (ly:grob-object grob 'elements))
-         (refp (ly:grob-common-refpoint-of-array grob elts-array Y))
-         (elts (reverse (sort (ly:grob-array->list elts-array)
-                              ly:grob-vertical<?)))
-         ;; Elements must be ordered according to their y coordinates
-         ;; relative to their common axis group parent.
-         ;; Otherwise, the computation goes mad.
-         (bar-glyph (ly:grob-property grob 'glyph-name))
-         (span-bar empty-stencil))
-
+  (let ((span-bar empty-stencil)
+        (model-bar (ly:span-bar::choose-model-bar-line grob))
+        ;; note: choose-model-bar-line might have killed the span bar
+        (bar-glyph (ly:grob-property grob 'glyph-name)))
     (when (string? bar-glyph)
-      (let ((extents '())
-            (make-span-bars '())
-            (model-bar #f))
+      (let* ((elts-array (ly:grob-object grob 'elements))
+             (refp (ly:grob-common-refpoint-of-array grob elts-array Y))
+             (elts (reverse (sort (ly:grob-array->list elts-array)
+                                  ly:grob-vertical<?)))
+             ;; Elements must be ordered according to their y coordinates
+             ;; relative to their common axis group parent.
+             ;; Otherwise, the computation goes mad.
+             (extents '())
+             (make-span-bars '()))
 
         ;; we compute the extents of each system and store them
         ;; in a list; dito for the 'allow-span-bar property.
-        ;; model-bar takes the bar grob, if given.
         (for-each
          (lambda (bar)
            (let ((staff-symbol (ly:grob-object bar 'staff-symbol #f)))
@@ -988,7 +1012,6 @@ no elements."
                            (ly:grob-extent staff-symbol refp Y))))
                  (when (positive? (interval-length ext))
                    (set! extents (append extents (list ext)))
-                   (set! model-bar bar)
                    (set! make-span-bars
                          (append make-span-bars
                                  (list (ly:grob-property
@@ -996,9 +1019,6 @@ no elements."
                                         'allow-span-bar
                                         #t)))))))))
          elts)
-        ;; if there is no bar grob, we use the callback argument
-        (when (not model-bar)
-          (set! model-bar grob))
         ;; we discard the first entry in make-span-bars,
         ;; because its corresponding bar line is the
         ;; uppermost and therefore not connected to

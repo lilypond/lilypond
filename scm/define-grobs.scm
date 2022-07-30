@@ -2882,8 +2882,8 @@ one such grob for the whole score, but there can be several if
         (allow-span-bar . #t)
         (bar-extent . ,axis-group-interface::height)
         (before-line-breaking . ,ly:span-bar::before-line-breaking)
+        (break-align-anchor . ,ly:span-bar::calc-anchor)
         (break-align-symbol . staff-bar)
-        (cross-staff . #t)
         (glyph-name . ,ly:span-bar::calc-glyph-name)
         (layer . 0)
         (non-musical . #t)
@@ -2892,6 +2892,7 @@ one such grob for the whole score, but there can be several if
         (Y-extent . (+inf.0 . -inf.0))
         (meta . ((class . Item)
                  (interfaces . (bar-line-interface
+                                break-aligned-interface
                                 font-interface
                                 span-bar-interface))
                  (description . "A span bar, i.e., the parts of
