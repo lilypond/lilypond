@@ -54,7 +54,11 @@ init_fontconfig ()
   /* fontconfig's default conf file */
   {
     FcChar8 *default_conf = FcConfigFilename (nullptr);
-    confs.emplace_back (reinterpret_cast<char *> (default_conf));
+    /* emplace_back only if default conf exists */
+    if (default_conf)
+      confs.emplace_back (reinterpret_cast<char *> (default_conf));
+    else
+      warning (_ ("cannot find fontconfig default config, skipping."));
     FcStrFree (default_conf);
   }
 
