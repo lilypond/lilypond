@@ -82,6 +82,7 @@ The bar type @code{"-span|"} creates a @notation{mensurstrich}.
 >>
 @end lilypond
 
+
 @item
 @code{\smallCaps} now works on any markup, not just on a bare
 string.
@@ -102,6 +103,19 @@ It interprets a markup with a @qq{string transformer} installed;
 the transformer is called when the interpretation of the markup
 requires interpreting a string, and allows to perform modifications
 on this string, such as changing case.
+
+
+@item
+Broken hairpins now have some left padding by default. This is in
+line with published scores and it fixes some cases where broken 
+hairpins were vertically displaced by the key signature.
+
+@lilypond[verbatim,quote]
+\relative {
+  \key a \major
+  c''4^\< c c c \break c c c c\! |
+}
+@end lilypond 
 
 
 @item

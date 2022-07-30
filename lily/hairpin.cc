@@ -189,7 +189,7 @@ Hairpin::print (SCM smob)
       if (broken [d])
         {
           if (d == LEFT)
-            x_points[d] = e[-d];
+            x_points[d] = e[-d] + padding;
           else
             {
               Real broken_bound_padding
