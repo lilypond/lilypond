@@ -110,6 +110,10 @@ test-baseline:
     - <<: *if-default-branch
   dependencies: [ "build" ]
   script:
+    # Needed to work around the fact that gitlab-runner changes the mode of link
+    # targets until a proper fix is merged and released:
+    # https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/3547
+    - git reset --hard
     - cd build
     - *touch-build
     - make $MAKE_FLAGS test-baseline
