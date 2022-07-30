@@ -71,17 +71,12 @@ OTF_FILES = \
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
-LILYPOND_FONTS_CONF = \
-  $(outdir)/00-lilypond-fonts.conf \
-  $(outdir)/99-lilypond-fonts.conf
-
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 
 ALL_GEN_FILES = \
   $(OTF_FILES) \
   $(SVG_FILES) \
-  $(WOFF_FILES) \
-  $(LILYPOND_FONTS_CONF)
+  $(WOFF_FILES)
 
 default: $(ALL_GEN_FILES)
 
@@ -155,7 +150,3 @@ $(outdir)/emmentaler-brace.otf: \
 $(outdir)/emmentaler-brace.woff \
 $(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.otf
 	@true
-
-$(outdir)/%.conf: %.conf
-	$(call ly_progress,Copying,$@,)
-	cp $< $@
