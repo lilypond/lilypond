@@ -7,6 +7,7 @@ divisions = {
   \skip 2 \bar "'"
   \skip 2 \bar ","
   \skip 2 \bar "|"
+  \skip 2 \bar "-span|"
   \skip 2 \bar "||"
   \skip 2 \bar "|."
 }
@@ -18,6 +19,7 @@ labels = {
   \skip 2 \mark "'"
   \skip 2 \mark ","
   \skip 2 \mark "|"
+  \skip 2 \mark \markup \tiny "-span|"
   \skip 2 \mark "||"
   \skip 2 \mark "|."
 }
@@ -27,6 +29,7 @@ music = \fixed c' {
   c2
   d2
   e2
+  f2
   f2
   e2
   d2
