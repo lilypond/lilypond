@@ -1003,8 +1003,6 @@ dot_diam# = 7/8 flare#;
 define_pixels (dot_diam);
 
 
-code := 42;         % , 43
-
 fet_beginchar ("plus", "plus");
   set_char_box (0, .5 height#, -0.25 height#, 0.75 height#);
 
@@ -1032,8 +1030,6 @@ fet_beginchar ("plus", "plus");
                       vthick);
 fet_endchar;
 
-
-code := 43;        % , = 44
 
 fet_beginchar ("numeral comma", "comma");
   save pat, pos;
@@ -1089,11 +1085,6 @@ fet_beginchar ("numeral dot", "period");
 
   drawdot (dot_diam / 2, dot_diam / 2);
 fet_endchar;
-
-
-% skip slash
-
-code := 47;        % 0 = 48
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

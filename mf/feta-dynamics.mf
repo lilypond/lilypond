@@ -39,8 +39,6 @@ med_thick = round (1.5 linethickness);
 bottom_blot = 1.3 serif_thick;
 
 
-code := 32;
-
 fet_beginchar ("space", "space");
   set_char_box (0, horizontal_space#, 0, ex#);
 fet_endchar;
@@ -50,8 +48,6 @@ fet_endchar;
 % Couldn't find many z examples.  This one is losely inspired
 % by a sfz from Mueller Etuden fuer Horn (Edition Hofmeister).
 %
-
-code := 121;
 
 fet_beginchar ("dynamic z", "z");
   save thin_thick, top_narrow, over_shoot;
@@ -142,7 +138,6 @@ fet_endchar;
 %
 
 slant_angle = 20;
-code := 101;
 
 fet_beginchar ("dynamic f", "f");
   save left_angle, right_angle;
@@ -248,8 +243,6 @@ fet_endchar;
 % - Less heavy than the `f' and `p' signs.
 %
 
-code := 114;
-
 fet_beginchar ("dynamic s", "s");
   save left_angle, right_angle;
   save s_thick, s_thin;
@@ -353,8 +346,6 @@ slant := ypart (dir (slant_angle));
 %
 % * Corners are filled up.
 %
-
-code := 111;
 
 fet_beginchar ("dynamic p", "p")
   % TODO: w really is 13/12 ex
@@ -524,8 +515,6 @@ fet_endchar;
 % a macro.
 %
 
-code := 108;
-
 fet_beginchar ("dynamic m", "m");
   save i_thick, i_angle, i_twiddle_thick;
   save i_twiddle_start_angle, i_twiddle_start_y;
@@ -690,8 +679,6 @@ fet_endchar;
 % * This is mostly copied from dynamic m (see above)
 %
 
-code := 109;
-
 fet_beginchar ("dynamic n", "n");
   save i_thick, i_angle, i_twiddle_thick;
   save i_twiddle_start_angle, i_twiddle_start_y;
@@ -805,8 +792,6 @@ fet_beginchar ("dynamic n", "n");
 
   penlabels (range 1 thru 8);
 fet_endchar;
-
-code := 113;
 
 fet_beginchar ("dynamic r", "r");
   save base_point, stem_thick, bulb_diam;

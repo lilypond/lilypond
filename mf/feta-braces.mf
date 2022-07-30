@@ -22,8 +22,7 @@
 % doesn't jack up the resolution too highly for the longer braces.
 %
 
-save code, braces_per_font;
-code := 64;
+save braces_per_font;
 braces_per_font := 64;
 
 def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =

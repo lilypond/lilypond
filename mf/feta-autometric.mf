@@ -218,10 +218,7 @@ def no_dimen_beginchar (expr c) =
 enddef;
 
 
-%
-% we leave the ctrl characters alone
-%
-code := 32;
+code := 0;
 
 
 % starts just as plain mf's beginchar:
