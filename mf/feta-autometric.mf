@@ -25,7 +25,7 @@
 message "**********************************************************************";
 message "Using feta Autometric macros.";
 message "Order of glyph parameters:";
-message "  name charcode bp wd dp ht charwx charwy chardwx chardwy idstr";
+message "  name bp wd dp ht charwx charwy chardwx chardwy idstr";
 message "**********************************************************************";
 message "";
 
@@ -78,7 +78,6 @@ enddef;
 
 def autometric_output_char =
   message "@{char@:" & charnamestr
-          & "@:" & decimal charcode
           & "@:" & decimal charbp
           & "@:" & decimal charwd
           & "@:" & decimal chardp

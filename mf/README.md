@@ -193,8 +193,7 @@ follows.
 
   --------------  -----------------------------------------------------------
   *charnamestr*   (Metafont/Metapost glyph description)
-  *charcode*      (Metafont/Metapost glyph index)
-  *charbp*        (the glyph `breapth', i.e., the extent left of the glyph's
+  *charbp*        (the glyph 'breapth', i.e., the extent left of the glyph's
                   origin)
   *charwd*        (the glyph width)
   *chardp*        (the glyph depth)
