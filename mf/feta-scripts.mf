@@ -559,10 +559,6 @@ fet_beginchar ("thumb", "thumb");
 fet_endchar;
 
 
-%
-% `\accent' is TeX reserved.
-%
-
 def draw_accent (expr bottom_left, top_right, thickness, diminish) =
   save thinning_start;
   thinning_start = 0.4;
@@ -581,12 +577,14 @@ def draw_accent (expr bottom_left, top_right, thickness, diminish) =
 
   penpos1 (thickness, angle (z3 - z1) + 90);
   penpos3 (thickness, angle (z3 - z1) + 90);
-  penpos4 (thickness, 90);
+  penpos4 (thickness, angle (z3 - z1) + 90);
+  penpos4' (thickness, angle (z6 - z5) + 90);
   penpos5 (thickness, angle (z6 - z5) + 90);
   penpos6 (thickness, angle (z6 - z5) + 90);
 
   x4 - x7 = diminish * thickness;
   y7 = y4;
+  z4' = z4;
 
   fill z1l
        -- z3l
@@ -594,13 +592,13 @@ def draw_accent (expr bottom_left, top_right, thickness, diminish) =
        -- z5l
        -- z6l
        .. lft z6{down}
-       .. bot z6
+       .. bot z6{right}
        .. z6r
-       -- z4l
-       ..tension 0.8.. rt z4
-       ..tension 0.8.. z4r
+       -- z4'r
+       .. rt z4{up}
+       .. z4r
        -- z1r
-       .. top z1
+       .. top z1{left}
        .. lft z1{down}
        .. cycle;
 enddef;
@@ -612,7 +610,7 @@ fet_beginchar ("wedge accent", "sforzato");
 
   draw_accent ((-w, -d), (w, h),
                0.05 staff_space + linethickness, 0.7);
-  penlabels (1, 3, 4, 5, 6);
+  penlabels (1, 3, 4, 4', 5, 6);
   labels (7);
 fet_endchar;
 
@@ -981,7 +979,7 @@ def draw_turn (expr height_factor, thicker_center) =
   thick = 3 darkness;
   thin = darkness;
   ball_nib_thick = 2.7 darkness;
-  ball_diam = ball_nib_thick + (h - ball_nib_thick) / 10;
+  ball_diam = ball_nib_thick + (h / height_factor - ball_nib_thick) / 10;
 
   x3l = w;
   y3 = 0;
@@ -1005,7 +1003,7 @@ def draw_turn (expr height_factor, thicker_center) =
   path pata, patb, swoosh;
   numeric ta, tb;
   pata := z1l{curl 0}
-          .. z2l
+          .. z2l{right}
           .. z3l{up}
           .. {left}z4l
           .. z5l
@@ -1446,8 +1444,8 @@ fet_beginchar ("segno", "segno");
   path pata, patb, swoosh;
   numeric ta, tb;
 
-  pata := z1l{curl 0}
-          .. z2l
+  pata := z1l{dir (2 thick_nibangle + 90)}
+          ..tension 0.95.. z2l{up}
           .. z3l{right}
           .. {down}z4l
           .. z5l
