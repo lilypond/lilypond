@@ -73,6 +73,16 @@ which scares away people.
 @end ignore
 
 @item
+The bar type @code{"-span|"} creates a @notation{mensurstrich}.
+
+@lilypond[quote]
+\new StaffGroup \with { measureBarType = "-span|" } <<
+  \new Staff \fixed c'' { c4 d e f e d }
+  \new Staff \fixed c' { a2 f2. g4 }
+>>
+@end lilypond
+
+@item
 @code{\smallCaps} now works on any markup, not just on a bare
 string.
 

@@ -1266,10 +1266,9 @@ two syllables) as used in the notational style of Editio Vaticana."
 
   \description "A staff for notating Gregorian chant in modern style."
 
-  %% Idea: Implement and use a measureBarType that adds mensurstriche
-  %% (span bars that do not cross into the staves) automatically in
-  %% scores with appropriately-grouped staves.  It could be named
-  %% something like "-mensurstrich" or "-span|".
+  %% This staff has no bar lines, but it has time signatures, and it
+  %% is supposed to be "modern style", so we break lines on measure
+  %% boundaries.
   measureBarType = ""
 }
 

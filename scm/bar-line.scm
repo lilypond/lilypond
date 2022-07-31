@@ -1224,6 +1224,7 @@ of the volta brackets relative to the bar lines."
 
 ;; ancient bar lines
 (define-bar-line "k" #t #f #f) ;; kievan style
+(define-bar-line "-span|" #t #f "|") ; mensurstrich
 
 ;; The right side of a volta bracket is closed when the corresponding
 ;; end-of-line bar line glyph would be one of the following.  Whether

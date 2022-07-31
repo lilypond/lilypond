@@ -286,6 +286,7 @@ Languages in this order.
 * melodic cadence::
 * mensural notation::
 * mensuration sign::
+* mensurstrich::
 * meter::
 * metronome::
 * metronome mark::
@@ -5492,6 +5493,27 @@ for @notation{cut time} (essentially, it has not lost its original meaning).
 @ref{diminution}, @ref{proportion}, @ref{time signature}.
 @endmorerefs
 @c TODO: more cross-references?
+
+
+@node mensurstrich
+@section mensurstrich
+
+@c TODO: add languages
+
+ES: ?,
+I: ?,
+F: ?,
+D: Mensurstrich,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A bar line drawn between staves.
+
+@morerefs
+@ref{mensural notation}.
+@endmorerefs
 
 
 @node meter
