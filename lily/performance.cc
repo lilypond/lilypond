@@ -129,7 +129,7 @@ Performance::write_output (string out, const string &performance_name) const
 
   SCM after_writing = midi_->c_variable ("after-writing");
   if (ly_is_procedure (after_writing))
-    scm_call_2 (after_writing, self_scm (), ly_string2scm (out));
+    ly_call (after_writing, self_scm (), ly_string2scm (out));
 }
 
 void

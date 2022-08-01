@@ -173,9 +173,9 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
         {
           SCM assertion_function = get_property (fn_grobs[i], "numbering-assertion-function");
           if (ly_is_procedure (assertion_function))
-            (void) scm_call_1 (assertion_function, to_scm (counter));
+            (void) ly_call (assertion_function, to_scm (counter));
         }
-      SCM markup = scm_call_1 (numbering_function, to_scm (counter));
+      SCM markup = ly_call (numbering_function, to_scm (counter));
       SCM stencil = Text_interface::interpret_markup (layout, props, markup);
       auto *st = unsmob<const Stencil> (stencil);
       if (!st)

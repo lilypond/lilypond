@@ -557,9 +557,9 @@ main_with_guile (void *, int, char **)
   // scm_c_use_module ("system repl repl");
   // SCM err_handling_mod = scm_c_resolve_module ("system repl error-handling");
   // SCM call_with_error_handling = scm_c_module_lookup (err_handling_mod, "call-with-error-handling");
-  // SCM result = scm_call_1 (
+  // SCM result = ly_call (
   //                       scm_variable_ref (call_with_error_handling),
-  //                       scm_call_1 (ly_lily_module_constant ("lilypond-main"), files));
+  //                       ly_call (ly_lily_module_constant ("lilypond-main"), files));
 
   Lily::lilypond_main (files);
 

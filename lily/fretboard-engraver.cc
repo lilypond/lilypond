@@ -104,11 +104,11 @@ Fretboard_engraver::process_music ()
   SCM fret_notes = to_scm_list (note_events_);
   SCM proc = get_property (this, "noteToFretFunction");
   if (ly_is_procedure (proc))
-    scm_call_4 (proc,
-                context ()->self_scm (),
-                fret_notes,
-                scm_list_2 (tab_strings, fingers),
-                fret_board_->self_scm ());
+    ly_call (proc,
+             context ()->self_scm (),
+             fret_notes,
+             scm_list_2 (tab_strings, fingers),
+             fret_board_->self_scm ());
   SCM changes = get_property (this, "chordChanges");
   SCM placements = get_property (fret_board_, "dot-placement-list");
   if (from_scm<bool> (changes)

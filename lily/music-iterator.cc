@@ -59,7 +59,7 @@ Music_iterator::create_iterator (Music_iterator *parent, Music *m)
   SCM iter = SCM_EOL;
   if (ly_is_procedure (ctor))
     {
-      iter = scm_call_0 (ctor);
+      iter = ly_call (ctor);
       p = unsmob<Music_iterator> (iter);
     }
   else

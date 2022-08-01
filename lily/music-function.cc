@@ -97,7 +97,7 @@ Music_function::call (SCM rest)
       if (!scm_is_pair (pred))
         {
           // non-optional argument
-          if (scm_is_false (scm_call_1 (pred, arg)))
+          if (scm_is_false (ly_call (pred, arg)))
             {
               Syntax::argument_error (scm_oneplus (scm_length (args)),
                                       pred, arg);
@@ -114,7 +114,7 @@ Music_function::call (SCM rest)
       //
       // Fall through to default argument processing when optional
       // argument predicate matches
-      else if (scm_is_false (scm_call_1 (scm_car (pred), arg)))
+      else if (scm_is_false (ly_call (scm_car (pred), arg)))
         {
           // optional argument, non-match
           // *unspecified* is the same as an explicit \default: skip it
@@ -167,7 +167,7 @@ Music_function::call (SCM rest)
   if (scm_is_pair (pred))
     pred = scm_car (pred);
 
-  if (scm_is_true (scm_call_1 (pred, res)))
+  if (scm_is_true (ly_call (pred, res)))
     return with_loc (res, location, false);
 
   return Syntax::music_function_call_error (self_scm (), res);

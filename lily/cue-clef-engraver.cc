@@ -101,7 +101,7 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
                                       to_scm (10));
 
       if (ly_is_procedure (formatter))
-        set_property (g, "text", scm_call_2 (formatter, txt, style));
+        set_property (g, "text", ly_call (formatter, txt, style));
 
       Side_position_interface::add_support (g, clef_);
 

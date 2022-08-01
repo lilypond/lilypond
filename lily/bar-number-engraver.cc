@@ -132,17 +132,17 @@ Bar_number_engraver::consider_creating_bar_number ()
           const auto mp (from_scm (get_property (this, "measurePosition"),
                                    Moment (0)));
 
-          if (from_scm<bool> (scm_call_2 (vis_p, bn, mp.smobbed_copy ())))
+          if (from_scm<bool> (ly_call (vis_p, bn, mp.smobbed_copy ())))
             {
               SCM formatter = get_property (this, "barNumberFormatter");
               SCM formatted_text = SCM_EOL;
               if (ly_is_procedure (formatter))
                 {
-                  formatted_text = scm_call_4 (formatter,
-                                               bn,
-                                               mp.smobbed_copy (),
-                                               to_scm (get_alt_number () - 1),
-                                               context ()->self_scm ());
+                  formatted_text = ly_call (formatter,
+                                            bn,
+                                            mp.smobbed_copy (),
+                                            to_scm (get_alt_number () - 1),
+                                            context ()->self_scm ());
                 }
               create_bar_number (formatted_text);
             }

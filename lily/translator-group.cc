@@ -42,7 +42,7 @@ void
 translator_each (SCM list, SCM method)
 {
   for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
-    scm_call_1 (method, scm_car (p));
+    ly_call (method, scm_car (p));
 }
 
 void
@@ -132,7 +132,7 @@ Translator_group::create_child_translator (SCM sev)
       if (ly_is_symbol (trans))
         trans = get_translator_creator (trans);
       if (ly_is_procedure (trans))
-        trans = scm_call_1 (trans, cs);
+        trans = ly_call (trans, cs);
       if (ly_cheap_is_list (trans))
         trans = (new Scheme_engraver (trans, new_context))->unprotect ();
       Translator *instance = unsmob<Translator> (trans);
@@ -210,7 +210,7 @@ recurse_over_translators (Context *c, SCM ptr,
 
   if (tg && dir == DOWN)
     {
-      scm_call_1 (tg_ptr, tg_scm);
+      ly_call (tg_ptr, tg_scm);
       translator_each (tg->get_simple_trans_list (), ptr);
     }
 
@@ -223,7 +223,7 @@ recurse_over_translators (Context *c, SCM ptr,
       translator_each (tg->get_simple_trans_list (),
                        ptr);
 
-      scm_call_1 (tg_ptr, tg_scm);
+      ly_call (tg_ptr, tg_scm);
     }
 }
 

@@ -189,8 +189,8 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
       SCM rule = scm_car (rules);
       if (ly_is_procedure (rule))
         {
-          SCM rule_result_scm = scm_call_3 (rule, origin->self_scm (),
-                                            pitch_scm, barnum_scm);
+          SCM rule_result_scm = ly_call (rule, origin->self_scm (),
+                                         pitch_scm, barnum_scm);
           Accidental_result rule_result (rule_result_scm);
 
           result.need_acc |= rule_result.need_acc;

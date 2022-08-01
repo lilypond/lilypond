@@ -300,7 +300,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   if (!scm_is_null (val)
       && ly_is_procedure (type)
-      && scm_is_false (scm_call_1 (type, val)))
+      && scm_is_false (ly_call (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
@@ -500,7 +500,6 @@ to_scm<Skyline_pair> (const Skyline_pair &skyp)
   return scm_cons (skyp[LEFT].smobbed_copy (),
                    skyp[RIGHT].smobbed_copy ());
 }
-
 
 SCM
 alist_to_hashq (SCM alist)

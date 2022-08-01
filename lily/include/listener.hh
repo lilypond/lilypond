@@ -105,7 +105,7 @@ public:
   LY_DECLARE_SMOB_PROC (&Listener::listen, 1, 0, 0)
   SCM listen (SCM ev)
   {
-    scm_call_2 (callback_, target_, ev);
+    ly_call (callback_, target_, ev);
     return SCM_UNSPECIFIED;
   }
 

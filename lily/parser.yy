@@ -429,11 +429,11 @@ toplevel_expression:
 	}
 	| book_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| BOOK_IDENTIFIER {
 		SCM sym = unsmob<Book>($1)->paper_
@@ -441,23 +441,23 @@ toplevel_expression:
 			: ly_symbol2scm ("toplevel-bookpart-handler");
 
 		SCM proc = parser->lexer_->lookup_identifier_symbol (sym);
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-music-handler");
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_1 (proc, scm_list_1 ($1));
+		ly_call (proc, scm_list_1 ($1));
 	}
 	| full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_1 (proc, $1);
+		ly_call (proc, $1);
 	}
 	| SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
@@ -473,11 +473,11 @@ toplevel_expression:
 		if (scm_is_pair (out))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-			scm_call_1 (proc, out);
+			ly_call (proc, out);
 		} else if (unsmob<Score> ($1))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
-			scm_call_1 (proc, $1);
+			ly_call (proc, $1);
 		} else if (Output_def * od = unsmob<Output_def> ($1)) {
 			SCM id = SCM_EOL;
 
@@ -960,7 +960,7 @@ context_def_spec_body:
 			}
 			if (unsmob<Music> ($2)) {
 				SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-				$2 = scm_call_1 (proc, $2);
+				$2 = ly_call (proc, $2);
 			}
 			if (Context_mod *cm = unsmob<Context_mod> ($2)) {
 				for (SCM m = cm->get_mods (); scm_is_pair (m); m = scm_cdr (m)) {
@@ -1006,23 +1006,23 @@ book_body:
 	}
 	| book_body bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| book_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| book_body composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("book-music-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| book_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
-		scm_call_2 (proc, $1, scm_list_1 ($2));
+		ly_call (proc, $1, scm_list_1 ($2));
 	}
 	| book_body full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| book_body SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
@@ -1038,11 +1038,11 @@ book_body:
 		if (scm_is_pair (out))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
-			scm_call_2 (proc, $1, out);
+			ly_call (proc, $1, out);
 		} else if (unsmob<Score> ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
-			scm_call_2 (proc, $1, $2);
+			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
 			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
 				unsmob<Book> ($1)->paper_ = od;
@@ -1090,19 +1090,19 @@ bookpart_body:
 	}
 	| bookpart_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| bookpart_body composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-music-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| bookpart_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
-		scm_call_2 (proc, $1, scm_list_1 ($2));
+		ly_call (proc, $1, scm_list_1 ($2));
 	}
 	| bookpart_body full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
-		scm_call_2 (proc, $1, $2);
+		ly_call (proc, $1, $2);
 	}
 	| bookpart_body SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
@@ -1118,11 +1118,11 @@ bookpart_body:
 		if (scm_is_pair (out))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
-			scm_call_2 (proc, $1, out);
+			ly_call (proc, $1, out);
 		} else if (unsmob<Score> ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
-			scm_call_2 (proc, $1, $2);
+			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
 			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
 				unsmob<Book> ($1)->paper_ = od;
@@ -1368,7 +1368,7 @@ output_def_body:
 		else if (unsmob<Music> ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
-			scm_call_2 (proc, $1, $2);
+			ly_call (proc, $1, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 		$$ = $1;
@@ -1392,7 +1392,7 @@ output_def_body:
 		else {
 
 			SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
-			scm_call_2 (proc, $1, $3);
+			ly_call (proc, $1, $3);
 		}
 		$$ = $1;
 	}
@@ -1566,7 +1566,7 @@ context_modification:
 	{
 		if (unsmob<Music> ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-			$2 = scm_call_1 (proc, $2);
+			$2 = ly_call (proc, $2);
 		}
 		if (unsmob<Context_mod> ($2))
 			$$ = $2;
@@ -1630,7 +1630,7 @@ context_mod_list:
 	| context_mod_list context_mod_arg {
 		if (unsmob<Music> ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-			$2 = scm_call_1 (proc, $2);
+			$2 = ly_call (proc, $2);
 		}
 		if (unsmob<Context_mod> ($2))
 			unsmob<Context_mod> ($$)->add_context_mods
@@ -1857,7 +1857,7 @@ function_arglist_nonbackup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($2, n)))
+		if (scm_is_true (ly_call ($2, n)))
 			$$ = scm_cons (n, $3);
 		else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
@@ -1880,7 +1880,7 @@ function_arglist_nonbackup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else
 			$$ = check_scheme_arg (parser, @4,
@@ -1894,7 +1894,7 @@ function_arglist_nonbackup:
 	}
 	| function_arglist_nonbackup_reparse REPARSE pitch_or_music
 	{
-		if (scm_is_true (scm_call_1 ($2, $3)))
+		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
 		else
 			$$ = check_scheme_arg (parser, @3,
@@ -1954,7 +1954,7 @@ function_arglist_nonbackup_reparse:
 			else
 				MYREPARSE (@4, $2, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, STRING, $4);
@@ -1965,7 +1965,7 @@ function_arglist_nonbackup_reparse:
 	{
 		$$ = $3;
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($2, make_music_from_simple
 		      (parser, @4, $4))))
 			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
@@ -1976,7 +1976,7 @@ function_arglist_nonbackup_reparse:
 	{
 		$$ = $3;
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($2, make_music_from_simple
 		      (parser, @4, $4))))
 			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
@@ -1993,7 +1993,7 @@ function_arglist_nonbackup_reparse:
 			else
 				MYREPARSE (@4, $2, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, STRING, $4);
@@ -2010,7 +2010,7 @@ function_arglist_nonbackup_reparse:
 			else
 				MYREPARSE (@4, $2, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, STRING, $4);
@@ -2020,10 +2020,10 @@ function_arglist_nonbackup_reparse:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup full_markup
 	{
 		$$ = $3;
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, STRING, $4);
@@ -2033,18 +2033,18 @@ function_arglist_nonbackup_reparse:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup UNSIGNED
 	{
 		$$ = $3;
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+		else if (scm_is_true (ly_call ($2, scm_list_1 ($4))))
 			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
-				if (scm_is_true (scm_call_1 ($2, d)))
+				if (scm_is_true (ly_call ($2, d)))
 					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
 				else if (scm_is_true
-					 (scm_call_1
+					 (ly_call
 					  ($2, make_music_from_simple (parser, @4, d))))
 					MYREPARSE (@4, $2, DURATION_ARG, d);
 				else
@@ -2056,10 +2056,10 @@ function_arglist_nonbackup_reparse:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER
 	{
 		$$ = $3;
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple (parser, @4, $4))))
 			MYREPARSE (@4, $2, DURATION_ARG, $4);
 		else
@@ -2074,11 +2074,11 @@ function_arglist_backup:
 	function_arglist_common
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
 			$$ = make_music_from_simple (parser, @4, $4);
-			if (scm_is_true (scm_call_1 ($2, $$)))
+			if (scm_is_true (ly_call ($2, $$)))
 				$$ = scm_cons ($$, $3);
 			else
 			{
@@ -2089,7 +2089,7 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
@@ -2100,13 +2100,13 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup pitch
 	{
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($2, make_music_from_simple
 		      (parser, @4, $4))))
 		{
 			$$ = $3;
 			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
-		} else if (scm_is_true (scm_call_1 ($2, $4)))
+		} else if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
 			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
@@ -2116,13 +2116,13 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup steno_tonic_pitch
 	{
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($2, make_music_from_simple
 		      (parser, @4, $4))))
 		{
 			$$ = $3;
 			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
-		} else if (scm_is_true (scm_call_1 ($2, $4)))
+		} else if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
 			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
@@ -2131,7 +2131,7 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup full_markup
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
 			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
@@ -2141,18 +2141,18 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
 	{
 		$$ = $3;
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+		else if (scm_is_true (ly_call ($2, scm_list_1 ($4))))
 			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
-				if (scm_is_true (scm_call_1 ($2, d)))
+				if (scm_is_true (ly_call ($2, d)))
 					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
 				else if (scm_is_true
-					 (scm_call_1
+					 (ly_call
 					  ($2, make_music_from_simple (parser, @4, d))))
 					MYREPARSE (@4, $2, DURATION_ARG, d);
 				else {
@@ -2167,7 +2167,7 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup REAL
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 		{
 			$$ = $3;
 			MYREPARSE (@4, $2, REAL, $4);
@@ -2178,7 +2178,7 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NUMBER_IDENTIFIER
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
@@ -2189,14 +2189,14 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($2, n))) {
+		if (scm_is_true (ly_call ($2, n))) {
 			$$ = $3;
 			MYREPARSE (@5, $2, REAL, n);
 		} else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
 			set_property (t, "digit", $5);
 			$$ = t->unprotect ();
-			if (scm_is_true (scm_call_1 ($2, $$)))
+			if (scm_is_true (ly_call ($2, $$)))
 				$$ = scm_cons ($$, $3);
 			else {
 				$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
@@ -2208,7 +2208,7 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' REAL
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($2, n))) {
+		if (scm_is_true (ly_call ($2, n))) {
 			MYREPARSE (@5, $2, REAL, n);
 			$$ = $3;
 		} else {
@@ -2219,7 +2219,7 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($2, n))) {
+		if (scm_is_true (ly_call ($2, n))) {
 			$$ = scm_cons (n, $3);
 		} else {
 			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
@@ -2229,10 +2229,10 @@ function_arglist_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
 	{
 		$$ = $3;
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		if (scm_is_true (ly_call ($2, $4)))
 			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($2, make_music_from_simple (parser, @4, $4))))
 			MYREPARSE (@4, $2, DURATION_ARG, $4);
 		else {
@@ -2287,7 +2287,7 @@ function_arglist_backup:
 	}
 	| function_arglist_backup REPARSE pitch_or_music
 	{
-		if (scm_is_true (scm_call_1 ($2, $3)))
+		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
 		else
 			$$ = check_scheme_arg (parser, @3,
@@ -2388,7 +2388,7 @@ function_arglist_common:
 	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		if (scm_is_true (scm_call_1 ($1, $3)))
+		if (scm_is_true (ly_call ($1, $3)))
 			$$ = scm_cons ($3, $2);
 		else
 			$$ = check_scheme_arg (parser, @3,
@@ -2423,7 +2423,7 @@ function_arglist_common:
 	}
 	| function_arglist_common_reparse REPARSE pitch_or_music
 	{
-		if (scm_is_true (scm_call_1 ($2, $3)))
+		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
 		else
 			$$ = check_scheme_arg (parser, @3,
@@ -2463,7 +2463,7 @@ function_arglist_common_reparse:
 			else
 				MYREPARSE (@3, $1, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		else
@@ -2475,7 +2475,7 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($1, make_music_from_simple
 		      (parser, @3, $3))))
 			MYREPARSE (@3, $1, PITCH_IDENTIFIER, $3);
@@ -2486,7 +2486,7 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		if (scm_is_true
-		    (scm_call_1
+		    (ly_call
 		     ($1, make_music_from_simple
 		      (parser, @3, $3))))
 			MYREPARSE (@3, $1, TONICNAME_PITCH, $3);
@@ -2503,7 +2503,7 @@ function_arglist_common_reparse:
 			else
 				MYREPARSE (@3, $1, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		else
@@ -2521,7 +2521,7 @@ function_arglist_common_reparse:
 			else
 				MYREPARSE (@3, $1, SCM_ARG, res);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		else
@@ -2532,10 +2532,10 @@ function_arglist_common_reparse:
 	| EXPECT_SCM function_arglist_optional full_markup
 	{
 		$$ = $2;
-		if (scm_is_true (scm_call_1 ($1, $3)))
+		if (scm_is_true (ly_call ($1, $3)))
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		else
@@ -2546,18 +2546,18 @@ function_arglist_common_reparse:
 	| EXPECT_SCM function_arglist_optional UNSIGNED
 	{
 		$$ = $2;
-		if (scm_is_true (scm_call_1 ($1, $3)))
+		if (scm_is_true (ly_call ($1, $3)))
 			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
-		else if (scm_is_true (scm_call_1 ($1, scm_list_1 ($3))))
+		else if (scm_is_true (ly_call ($1, scm_list_1 ($3))))
 			MYREPARSE (@3, $1, SYMBOL_LIST, scm_list_1 ($3));
 		else {
 			SCM d = make_duration ($3);
 			if (!SCM_UNBNDP (d)) {
-				if (scm_is_true (scm_call_1 ($1, d)))
+				if (scm_is_true (ly_call ($1, d)))
 					MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
 				else if (scm_is_true
-					 (scm_call_1
+					 (ly_call
 					  ($1, make_music_from_simple (parser, @3, d))))
 					MYREPARSE (@3, $1, DURATION_ARG, d);
 				else
@@ -2569,10 +2569,10 @@ function_arglist_common_reparse:
 	| EXPECT_SCM function_arglist_optional DURATION_IDENTIFIER
 	{
 		$$ = $2;
-		if (scm_is_true (scm_call_1 ($1, $3)))
+		if (scm_is_true (ly_call ($1, $3)))
 			MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
 		else if (scm_is_true
-			 (scm_call_1
+			 (ly_call
 			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, DURATION_ARG, $3);
 		else
@@ -2582,13 +2582,13 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($1, n)))
+		if (scm_is_true (ly_call ($1, n)))
 			MYREPARSE (@4, $1, REAL, n);
 		else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @4);
 			set_property (t, "digit", $4);
 			SCM m = t->unprotect ();
-			if (scm_is_true (scm_call_1 ($1, m)))
+			if (scm_is_true (ly_call ($1, m)))
 				MYREPARSE (@4, $1, SCM_ARG, m);
 			else
 				MYREPARSE (@4, $1, SCM_ARG, $4);
@@ -4384,7 +4384,7 @@ SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		args = scm_cons (disp, args);
 	else {
 		args = scm_cons (arg, args);
-		if (scm_is_true (scm_call_1 (pred, arg)))
+		if (scm_is_true (ly_call (pred, arg)))
 			return args;
 	}
 	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
@@ -4459,12 +4459,12 @@ SCM
 try_string_variants (SCM pred, SCM str)
 {
 	// a matching predicate is always ok
-	if (scm_is_true (scm_call_1 (pred, str)))
+	if (scm_is_true (ly_call (pred, str)))
 		return str;
 	// a key may be interpreted as a list of keys if it helps
 	if (scm_is_true (Lily::key_p (str))) {
 		str = scm_list_1 (str);
-		if (scm_is_true (scm_call_1 (pred, str)))
+		if (scm_is_true (ly_call (pred, str)))
 			return str;
 		return SCM_UNDEFINED;
 	}
@@ -4478,12 +4478,12 @@ try_string_variants (SCM pred, SCM str)
 
 	SCM lst = scm_list_1 (str);
 
-	if (scm_is_true (scm_call_1 (pred, lst)))
+	if (scm_is_true (ly_call (pred, lst)))
 		return lst;
 
 	// Try the single symbol interpretation
 
-	if (scm_is_true (scm_call_1 (pred, str)))
+	if (scm_is_true (ly_call (pred, str)))
 		return str;
 
 	return SCM_UNDEFINED;
@@ -4494,7 +4494,7 @@ try_word_variants (SCM pred, SCM str)
 {
 	// str is always a string when we come here
 
-	if (scm_is_true (scm_call_1 (pred, str)))
+	if (scm_is_true (ly_call (pred, str)))
 		return str;
 
 	// If this cannot be a string representation of a symbol list,
@@ -4512,7 +4512,7 @@ try_word_variants (SCM pred, SCM str)
 
 	// Let's attempt the symbol list interpretation first.
 
-	if (scm_is_true (scm_call_1 (pred, str)))
+	if (scm_is_true (ly_call (pred, str)))
 		return str;
 
 	// If there is just one symbol in the list, we might interpret
@@ -4521,7 +4521,7 @@ try_word_variants (SCM pred, SCM str)
 	if (scm_is_null (scm_cdr (str)))
 	{
 		str = scm_car (str);
-		if (scm_is_true (scm_call_1 (pred, str)))
+		if (scm_is_true (ly_call (pred, str)))
 			return str;
 	}
 

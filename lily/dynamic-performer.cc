@@ -357,7 +357,7 @@ Dynamic_performer::equalize_volume (Real volume)
 
       SCM eq = get_property (this, "instrumentEqualizer");
       if (ly_is_procedure (eq))
-        s = scm_call_1 (eq, s);
+        s = ly_call (eq, s);
 
       if (is_number_pair (s))
         {
@@ -385,7 +385,7 @@ Dynamic_performer::look_up_absolute_volume (SCM dynamicString,
 
   SCM svolume = SCM_EOL;
   if (ly_is_procedure (proc))
-    svolume = scm_call_1 (proc, dynamicString);
+    svolume = ly_call (proc, dynamicString);
 
   return from_scm<double> (svolume, defaultValue);
 }

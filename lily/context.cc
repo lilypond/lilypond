@@ -977,9 +977,9 @@ check_repeat_count_visibility (Context const *context, SCM count)
 {
   SCM proc = get_property (context, "repeatCountVisibility");
   return (ly_is_procedure (proc)
-          && from_scm<bool> (scm_call_2 (proc,
-                                         count,
-                                         context->self_scm ())));
+          && from_scm<bool> (ly_call (proc,
+                                      count,
+                                      context->self_scm ())));
 }
 
 bool

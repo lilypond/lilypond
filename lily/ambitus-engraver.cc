@@ -182,7 +182,7 @@ Ambitus_engraver::finalize ()
 
           int pos;
           if (ly_is_procedure (layout_proc))
-            pos = scm_to_int (scm_call_1 (layout_proc, p.smobbed_copy ()));
+            pos = scm_to_int (ly_call (layout_proc, p.smobbed_copy ()));
           else
             pos = p.steps ();
 

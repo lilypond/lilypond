@@ -153,9 +153,9 @@ Metronome_mark_engraver::process_music ()
       text_ = make_item ("MetronomeMark", tempo_ev_->self_scm ());
 
       SCM proc = get_property (this, "metronomeMarkFormatter");
-      SCM result = scm_call_2 (proc,
-                               tempo_ev_->self_scm (),
-                               context ()->self_scm ());
+      SCM result = ly_call (proc,
+                            tempo_ev_->self_scm (),
+                            context ()->self_scm ());
 
       set_property (text_, "text", result);
     }

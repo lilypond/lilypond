@@ -154,7 +154,7 @@ Dispatcher::dispatch (SCM sev)
           last_priority = lists[0].prio;
 
           SCM l = scm_cdar (lists[0].list);
-          scm_call_1 (l, ev->self_scm ());
+          ly_call (l, ev->self_scm ());
         }
       // go to the next listener; bubble-sort the class list.
       SCM next = scm_cdr (lists[0].list);

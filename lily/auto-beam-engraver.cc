@@ -140,11 +140,11 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational dur)
 {
-  return scm_is_true (scm_call_4 (get_property (this, "autoBeamCheck"),
-                                  context ()->self_scm (),
-                                  to_scm (dir),
-                                  test_mom.smobbed_copy (),
-                                  Moment (dur).smobbed_copy ()));
+  return scm_is_true (ly_call (get_property (this, "autoBeamCheck"),
+                               context ()->self_scm (),
+                               to_scm (dir),
+                               test_mom.smobbed_copy (),
+                               Moment (dur).smobbed_copy ()));
 }
 
 void

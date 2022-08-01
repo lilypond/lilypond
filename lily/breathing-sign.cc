@@ -79,7 +79,7 @@ Breathing_sign::set_breath_properties (Grob *me, Context *ctx, SCM breath_type)
       SCM val = scm_cdr (prop_pair);
 
       SCM preset = get_property_data (me, sym);
-      if (scm_is_null (val) || scm_is_false (scm_call_1 (type, preset)))
+      if (scm_is_null (val) || scm_is_false (ly_call (type, preset)))
         set_property (me, sym, val);
     }
 }

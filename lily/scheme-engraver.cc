@@ -156,14 +156,14 @@ void
 Scheme_engraver::initialize ()
 {
   if (!SCM_UNBNDP (initialize_function_))
-    scm_call_1 (initialize_function_, self_scm ());
+    ly_call (initialize_function_, self_scm ());
 }
 
 void
 Scheme_engraver::finalize ()
 {
   if (!SCM_UNBNDP (finalize_function_))
-    scm_call_1 (finalize_function_, self_scm ());
+    ly_call (finalize_function_, self_scm ());
 }
 
 void

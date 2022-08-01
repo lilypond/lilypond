@@ -270,20 +270,20 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cons (scm_list_3 (self_scm (), sym, proc), grob_property_callback_stack);
 
-  SCM value = scm_call_1 (proc, self_scm ());
+  SCM value = ly_call (proc, self_scm ());
 
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 
 #ifdef DEBUG
-   if (ly_is_procedure (cache_callback))
-     scm_call_4 (cache_callback,
-                 self_scm (),
-                 sym,
-                 proc,
-                 value);
+  if (ly_is_procedure (cache_callback))
+    ly_call (cache_callback,
+             self_scm (),
+             sym,
+             proc,
+             value);
 #endif
-    internal_set_value_on_alist (alist, sym, value);
+  internal_set_value_on_alist (alist, sym, value);
 
   return value;
 }

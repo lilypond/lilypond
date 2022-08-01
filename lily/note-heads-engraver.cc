@@ -83,7 +83,7 @@ Note_heads_engraver::process_music ()
       else if (ly_is_procedure (layout_proc))
         {
           SCM pitch = get_property (ev, "pitch");
-          pos = scm_to_int (scm_call_1 (layout_proc, pitch));
+          pos = scm_to_int (ly_call (layout_proc, pitch));
         }
       else
         pos = pit->steps ();

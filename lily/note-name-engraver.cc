@@ -64,7 +64,7 @@ Note_name_engraver::process_music ()
 
       if (ly_is_procedure (proc))
         {
-          SCM pitch_name = scm_call_2 (proc, pitch, context ()->self_scm ());
+          SCM pitch_name = ly_call (proc, pitch, context ()->self_scm ());
           markup_list = scm_append (scm_list_2 (scm_list_1 (pitch_name), markup_list));
         }
       else

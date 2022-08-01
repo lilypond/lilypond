@@ -89,7 +89,7 @@ Paper_outputter::output_scheme (SCM expr)
     }
   else if (scm_is_true (default_callback_))
     {
-      result = scm_call_1 (default_callback_, expr);
+      result = ly_call (default_callback_, expr);
       if (scm_is_string (result))
         dump_string (result);
     }

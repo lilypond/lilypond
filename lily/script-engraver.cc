@@ -148,7 +148,7 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 
       SCM preset = get_property_data (p, sym);
       if (scm_is_null (val)
-          || scm_is_false (scm_call_1 (type, preset)))
+          || scm_is_false (ly_call (type, preset)))
         set_property (p, sym, val);
     }
 

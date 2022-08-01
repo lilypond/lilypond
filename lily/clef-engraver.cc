@@ -82,7 +82,6 @@ Clef_engraver::set_glyph ()
   execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
 }
 
-
 void
 Clef_engraver::create_clef ()
 {
@@ -112,7 +111,7 @@ Clef_engraver::create_clef ()
 
           SCM formatter = get_property (this, "clefTranspositionFormatter");
           if (ly_is_procedure (formatter))
-            set_property (g, "text", scm_call_2 (formatter, txt, style));
+            set_property (g, "text", ly_call (formatter, txt, style));
 
           Side_position_interface::add_support (g, clef_);
 
@@ -136,7 +135,7 @@ Clef_engraver::process_music ()
 
 static void apply_on_children (Context *context, SCM fun)
 {
-  scm_call_1 (fun, context->self_scm ());
+  ly_call (fun, context->self_scm ());
   for (SCM s = context->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     apply_on_children (unsmob<Context> (scm_car (s)), fun);

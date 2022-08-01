@@ -189,9 +189,9 @@ Engraver::internal_make_grob (SCM symbol,
 
 #ifdef DEBUG
   if (ly_is_procedure (creation_callback))
-    scm_call_4 (creation_callback,
-                grob->self_scm (), scm_from_utf8_string (file),
-                to_scm (line), scm_from_latin1_string (fun));
+    ly_call (creation_callback,
+             grob->self_scm (), scm_from_utf8_string (file),
+             to_scm (line), scm_from_latin1_string (fun));
 #endif
 
   return grob;

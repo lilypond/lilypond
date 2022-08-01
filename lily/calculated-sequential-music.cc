@@ -29,7 +29,7 @@ Calculated_sequential_music::calc_elements (Music *me)
 {
   SCM proc = get_property (me, "elements-callback");
   if (ly_is_procedure (proc))
-    return scm_call_1 (proc, to_scm (me));
+    return ly_call (proc, to_scm (me));
 
   programming_error ("calculated sequential music "
                      "cannot find elements-callback");

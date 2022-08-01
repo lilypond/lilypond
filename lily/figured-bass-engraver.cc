@@ -441,8 +441,8 @@ Figured_bass_engraver::create_grobs ()
           if (!Text_interface::is_markup (text)
               && ly_is_procedure (proc))
             {
-              text = scm_call_3 (proc, group.number_, group.current_event_->self_scm (),
-                                 context ()->self_scm ());
+              text = ly_call (proc, group.number_, group.current_event_->self_scm (),
+                              context ()->self_scm ());
             }
 
           set_property (item, "text", text);

@@ -216,9 +216,9 @@ Completion_heads_engraver::process_music ()
       note_dur = *orig;
       SCM factor = get_property (this, "completionFactor");
       if (ly_is_procedure (factor))
-        factor = scm_call_2 (factor,
-                             context ()->self_scm (),
-                             note_dur.smobbed_copy ());
+        factor = ly_call (factor,
+                          context ()->self_scm (),
+                          note_dur.smobbed_copy ());
       factor_ = from_scm<Rational> (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
     }

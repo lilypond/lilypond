@@ -315,7 +315,7 @@ Paper_book::dump_header_fields (SCM basename, bool classic)
       fields = scm_cons (ly_symbol2scm (field), fields);
     }
 
-  scm_call_3 (Lily::output_scopes, scopes, fields, basename);
+  ly_call (Lily::output_scopes, scopes, fields, basename);
 }
 
 void
@@ -348,7 +348,7 @@ Paper_book::output_stencil (SCM out_name, SCM stencil, SCM formats)
     }
 
   SCM func = scm_variable_ref (framework);
-  scm_call_4 (func, out_name, stencil, paper_->self_scm (), formats);
+  ly_call (func, out_name, stencil, paper_->self_scm (), formats);
 }
 
 void
@@ -417,9 +417,9 @@ Paper_book::book_title ()
 
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
-    tit = scm_call_2 (title_func,
-                      paper_->self_scm (),
-                      scopes);
+    tit = ly_call (title_func,
+                   paper_->self_scm (),
+                   scopes);
 
   if (auto *st = unsmob<const Stencil> (tit))
     title = *st;
@@ -446,9 +446,9 @@ Paper_book::score_title (SCM header)
 
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
-    tit = scm_call_2 (title_func,
-                      paper_->self_scm (),
-                      scopes);
+    tit = ly_call (title_func,
+                   paper_->self_scm (),
+                   scopes);
 
   if (auto *st = unsmob<const Stencil> (tit))
     title = *st;
@@ -776,7 +776,7 @@ Paper_book::pages ()
   else if (scm_is_pair (print_elements_))
     {
       SCM page_breaking = paper_->c_variable ("page-breaking");
-      pages_ = scm_call_1 (page_breaking, self_scm ());
+      pages_ = ly_call (page_breaking, self_scm ());
 
       // Create all the page stencils.
       for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
@@ -785,7 +785,7 @@ Paper_book::pages ()
       // Perform any user-supplied post-processing.
       SCM post_process = paper_->c_variable ("page-post-process");
       if (ly_is_procedure (post_process))
-        scm_call_2 (post_process, paper_->self_scm (), pages_);
+        ly_call (post_process, paper_->self_scm (), pages_);
 
       /* set systems_ from the pages */
       if (scm_is_false (systems_))

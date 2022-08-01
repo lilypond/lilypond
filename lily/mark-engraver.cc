@@ -111,7 +111,7 @@ Mark_engraver::get_current_mark (Context *ctx,
         {
           SCM proc = get_property (ctx, "codaMarkFormatter");
           if (ly_is_procedure (proc))
-            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+            *text = ly_call (proc, to_scm (label), ctx->self_scm ());
         }
     }
   else if (ev->in_event_class ("rehearsal-mark-event"))
@@ -124,7 +124,7 @@ Mark_engraver::get_current_mark (Context *ctx,
         {
           SCM proc = get_property (ctx, "rehearsalMarkFormatter");
           if (ly_is_procedure (proc))
-            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+            *text = ly_call (proc, to_scm (label), ctx->self_scm ());
         }
     }
   else if (ev->in_event_class ("section-label-event"))
@@ -143,7 +143,7 @@ Mark_engraver::get_current_mark (Context *ctx,
         {
           SCM proc = get_property (ctx, "segnoMarkFormatter");
           if (ly_is_procedure (proc))
-            *text = scm_call_2 (proc, to_scm (label), ctx->self_scm ());
+            *text = ly_call (proc, to_scm (label), ctx->self_scm ());
         }
     }
   else // ad-hoc-mark-event

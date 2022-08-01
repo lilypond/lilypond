@@ -73,7 +73,7 @@ Text_interface::interpret_string (SCM layout_smob,
       SCM rev_transformers = scm_reverse (transformers);
       SCM outer_transformer = scm_car (rev_transformers);
       SCM inner_transformers = scm_reverse (scm_cdr (rev_transformers));
-      SCM transformed = scm_call_3 (outer_transformer, layout_smob, props, ly_string2scm (str));
+      SCM transformed = ly_call (outer_transformer, layout_smob, props, ly_string2scm (str));
       SCM props_no_outer_transform
         = scm_cons (scm_acons (ly_symbol2scm ("string-transformers"),
                                inner_transformers,
