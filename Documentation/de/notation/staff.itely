@@ -117,7 +117,7 @@ erklärt in
 
 Das @code{GregorianTranscriptionStaff} (System zur Transkription des
 Gregorianischen Chorals) erstellt ein Notensystem, um modernen
-Gregorianischen Choral zu notieren.  Es hat keine Notenlinien.
+Gregorianischen Choral zu notieren.  Es hat keine Taktstriche.
 
 @lilypond[verbatim,quote]
 \new GregorianTranscriptionStaff \relative { c''4 d e f e d }
