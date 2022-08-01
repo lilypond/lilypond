@@ -20,6 +20,7 @@
 #include "input.hh"
 
 #include "international.hh"
+#include "lily-guile.hh"
 #include "lily-imports.hh"
 #include "program-option.hh"
 #include "source-file.hh"
@@ -27,6 +28,7 @@
 #include "warn.hh"
 
 #include <cstdio>
+#include <functional>
 
 using std::string;
 
@@ -196,103 +198,13 @@ Input::get_source_file () const
   return source_file_;
 }
 
-static SCM
-with_location_hook_0 (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_call_0 (args[0]);
-}
-
 SCM
-with_location (SCM loc, SCM proc)
+with_location_n (SCM loc, SCM proc, SCM *argv, size_t nargs)
 {
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_0,
-                           static_cast <void *> (&proc));
-}
-
-static SCM
-with_location_hook_1 (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_call_1 (args[0], args[1]);
-}
-
-SCM
-with_location (SCM loc, SCM proc, SCM arg1)
-{
-  SCM args[] = { proc, arg1 };
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_1,
-                           static_cast <void *> (&args));
-}
-
-static SCM
-with_location_hook_2 (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_call_2 (args[0], args[1], args[2]);
-}
-
-SCM
-with_location (SCM loc, SCM proc, SCM arg1, SCM arg2)
-{
-  SCM args[] = { proc, arg1, arg2 };
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_2,
-                           static_cast <void *> (&args));
-}
-
-static SCM
-with_location_hook_3 (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_call_3 (args[0], args[1], args[2], args[3]);
-}
-
-SCM
-with_location (SCM loc, SCM proc, SCM arg1, SCM arg2, SCM arg3)
-{
-  SCM args[] = { proc, arg1, arg2, arg3 };
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_3,
-                           static_cast <void *> (&args));
-}
-
-static SCM
-with_location_hook_4 (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_call_4 (args[0], args[1], args[2], args[3], args[4]);
-}
-
-SCM
-with_location (SCM loc, SCM proc, SCM arg1, SCM arg2, SCM arg3, SCM arg4)
-{
-  SCM args[] = { proc, arg1, arg2, arg3, arg4 };
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_4,
-                           static_cast <void *> (&args));
-}
-
-static SCM
-with_location_hook_n (void *it)
-{
-  SCM *args = static_cast <SCM *> (it);
-  return scm_apply_0 (args[0], args[1]);
-}
-
-SCM
-with_location (SCM loc, SCM proc, SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5)
-{
-  SCM args[] = { proc, scm_list_5 (arg1, arg2, arg3, arg4, arg5) };
-  return scm_c_with_fluid (Lily::f_location,
-                           unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                           with_location_hook_n,
-                           static_cast <void *> (&args));
+  return ly_with_fluid (Lily::f_location,
+                        unsmob<Input> (loc) ? loc : SCM_BOOL_F,
+                        [proc, argv, nargs] ()
+                        {
+                          return scm_call_n (proc, argv, nargs);
+                        });
 }

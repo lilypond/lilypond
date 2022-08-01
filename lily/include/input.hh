@@ -23,6 +23,9 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include <functional>
+#include <utility>
+
 /**
    Base class for anything that records its position in the parse file.
 */
@@ -77,12 +80,15 @@ protected:
 
 extern Input dummy_input_global;
 
-// The parser calls syntax functions with a lot of arguments
-SCM with_location (SCM loc, SCM proc);
-SCM with_location (SCM loc, SCM proc, SCM);
-SCM with_location (SCM loc, SCM proc, SCM, SCM);
-SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM);
-SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM, SCM);
-SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM, SCM, SCM);
+SCM
+with_location_n (SCM loc, SCM proc, SCM *argv, size_t nargs);
+
+template <typename ...Args>
+inline SCM
+with_location (SCM loc, SCM proc, Args &&...args)
+{
+  SCM argv[] = {std::forward<Args> (args)...};
+  return with_location_n (loc, proc, argv, sizeof... (args));
+}
 
 #endif // INPUT_HH

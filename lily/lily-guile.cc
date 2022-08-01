@@ -43,6 +43,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring> /* strdup, strchr */
+#include <functional>
 
 using std::string;
 using std::vector;
@@ -351,6 +352,20 @@ int_list_to_slice (SCM l)
     if (scm_is_number (scm_car (l)))
       s.add_point (scm_to_int (scm_car (l)));
   return s;
+}
+
+SCM
+ly_with_fluid (SCM fluid, SCM val, std::function<SCM()> const &fn)
+{
+  using Fn = std::function<SCM()>;
+
+  auto trampoline = [] (void *vp_fn)
+  {
+    auto &fn = *static_cast<Fn const *> (vp_fn);
+    return fn ();
+  };
+
+  return scm_c_with_fluid (fluid, val, trampoline, const_cast<Fn *> (&fn));
 }
 
 string

@@ -42,6 +42,8 @@
 #include "interval.hh"
 #include "lily-guile-macros.hh"
 
+#include <functional>
+
 class Bezier;
 class Skyline;
 class Skyline_pair;
@@ -172,6 +174,9 @@ ly_scm_hash_fold (SCM (*fn) (void *closure, SCM key, SCM val, SCM result),
   return scm_internal_hash_fold (reinterpret_cast<scm_t_hash_fold_fn> (fn),
                                  closure, init, table);
 }
+
+// C++ version of scm_with_fluid
+SCM ly_with_fluid (SCM fluid, SCM val, std::function<SCM()> const &);
 
 // These are patterns for conversion functions.  We currently use them to
 // predict the return types of overloaded functions before they are defined,
