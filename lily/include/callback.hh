@@ -252,17 +252,10 @@ public:
   { }
   SCM method () const { return method_; }
   SCM instance () const { return instance_; }
-  SCM operator () () const
+  template <typename ...Args>
+  SCM operator () (Args &&...args) const
   {
-    return scm_call_1 (method_, instance_);
-  }
-  SCM operator () (SCM arg) const
-  {
-    return scm_call_2 (method_, instance_, arg);
-  }
-  SCM operator () (SCM arg1, SCM arg2) const
-  {
-    return scm_call_3 (method_, instance_, arg1, arg2);
+    return ly_call (method_, instance_, std::forward<Args> (args)...);
   }
   SCM mark_smob () const
   {

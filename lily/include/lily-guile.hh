@@ -43,6 +43,7 @@
 #include "lily-guile-macros.hh"
 
 #include <functional>
+#include <utility>
 
 class Bezier;
 class Skyline;
@@ -164,6 +165,15 @@ void add_scm_init_func (void ( *) ());
 inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
+
+// Wrap scm_call_... so that we don't have to count arguments.
+template <typename ...Args>
+inline SCM
+ly_call (SCM proc, Args &&...args)
+{
+  SCM argv[] = {std::forward<Args> (args)...};
+  return scm_call_n (proc, argv, sizeof... (args));
+}
 
 // Wrap scm_internal_hash_fold() to reduce the number of places we need to use
 // reinterpret_cast.

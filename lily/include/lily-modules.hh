@@ -22,6 +22,8 @@
 
 #include "lily-guile.hh"
 
+#include <utility>
+
 class Scm_variable;
 
 class Scm_module
@@ -68,37 +70,10 @@ public:
   {
     *SCM_VARIABLE_LOC (var_) = k;
   }
-  SCM operator () ()
+  template <typename ...Args>
+  SCM operator () (Args &&...args)
   {
-    return scm_call_0 (*this);
-  }
-  SCM operator () (SCM arg1)
-  {
-    return scm_call_1 (*this, arg1);
-  }
-  SCM operator () (SCM arg1, SCM arg2)
-  {
-    return scm_call_2 (*this, arg1, arg2);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3)
-  {
-    return scm_call_3 (*this, arg1, arg2, arg3);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4)
-  {
-    return scm_call_4 (*this, arg1, arg2, arg3, arg4);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5)
-  {
-    return scm_call_5 (*this, arg1, arg2, arg3, arg4, arg5);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5, SCM arg6)
-  {
-    return scm_call_6 (*this, arg1, arg2, arg3, arg4, arg5, arg6);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4, SCM arg5, SCM arg6, SCM arg7)
-  {
-    return scm_call_7 (*this, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+    return ly_call (*this, std::forward<Args> (args)...);
   }
   Scm_variable (Scm_module &m, const char *name, SCM value = SCM_UNDEFINED);
 };
