@@ -971,71 +971,66 @@ no elements."
          (bar-glyph (ly:grob-property grob 'glyph-name))
          (span-bar empty-stencil))
 
-    (if (string? bar-glyph)
-        (let ((extents '())
-              (make-span-bars '())
-              (model-bar #f))
+    (when (string? bar-glyph)
+      (let ((extents '())
+            (make-span-bars '())
+            (model-bar #f))
 
-          ;; we compute the extents of each system and store them
-          ;; in a list; dito for the 'allow-span-bar property.
-          ;; model-bar takes the bar grob, if given.
-          (for-each (lambda (bar)
-                      (let ((ext (bar-line::bar-y-extent bar refp))
-                            (staff-symbol (ly:grob-object bar 'staff-symbol #f)))
+        ;; we compute the extents of each system and store them
+        ;; in a list; dito for the 'allow-span-bar property.
+        ;; model-bar takes the bar grob, if given.
+        (for-each
+         (lambda (bar)
+           (let ((staff-symbol (ly:grob-object bar 'staff-symbol #f)))
+             (when staff-symbol
+               (let ((ext (interval-union
+                           (bar-line::bar-y-extent bar refp)
+                           (ly:grob-extent staff-symbol refp Y))))
+                 (when (positive? (interval-length ext))
+                   (set! extents (append extents (list ext)))
+                   (set! model-bar bar)
+                   (set! make-span-bars
+                         (append make-span-bars
+                                 (list (ly:grob-property
+                                        bar
+                                        'allow-span-bar
+                                        #t)))))))))
+         elts)
+        ;; if there is no bar grob, we use the callback argument
+        (when (not model-bar)
+          (set! model-bar grob))
+        ;; we discard the first entry in make-span-bars,
+        ;; because its corresponding bar line is the
+        ;; uppermost and therefore not connected to
+        ;; another bar line
+        (when (pair? make-span-bars)
+          (set! make-span-bars (cdr make-span-bars)))
+        ;; the span bar reaches from the lower end of the upper staff
+        ;; to the upper end of the lower staff - when allow-span-bar is #t
+        (reduce (lambda (curr prev)
+                  (let ((span-extent (cons 0 0))
+                        (allow-span-bar (car make-span-bars)))
 
-                        (if staff-symbol
-                            (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
-
-                              (set! ext (interval-union ext refp-extent))
-
-                              (if (> (interval-length ext) 0)
-                                  (begin
-                                    (set! extents (append extents (list ext)))
-                                    (set! model-bar bar)
-                                    (set! make-span-bars
-                                          (append make-span-bars
-                                                  (list (ly:grob-property
-                                                         bar
-                                                         'allow-span-bar
-                                                         #t))))))))))
-                    elts)
-          ;; if there is no bar grob, we use the callback argument
-          (if (not model-bar)
-              (set! model-bar grob))
-          ;; we discard the first entry in make-span-bars,
-          ;; because its corresponding bar line is the
-          ;; uppermost and therefore not connected to
-          ;; another bar line
-          (if (pair? make-span-bars)
-              (set! make-span-bars (cdr make-span-bars)))
-          ;; the span bar reaches from the lower end of the upper staff
-          ;; to the upper end of the lower staff - when allow-span-bar is #t
-          (reduce (lambda (curr prev)
-                    (let ((span-extent (cons 0 0))
-                          (allow-span-bar (car make-span-bars)))
-
-                      (set! make-span-bars (cdr make-span-bars))
-                      (if (> (interval-length prev) 0)
-                          (begin
-                            (set! span-extent (cons (cdr prev)
-                                                    (car curr)))
-                            ;; draw the span bar only when the staff lines
-                            ;; don't overlap and allow-span-bar is #t:
-                            (and (> (interval-length span-extent) 0)
-                                 allow-span-bar
-                                 (set! span-bar
-                                       (ly:stencil-add
-                                        span-bar
-                                        (span-bar::compound-bar-line
-                                         model-bar
-                                         bar-glyph
-                                         span-extent))))))
-                      curr))
-                  "" extents)
-          (set! span-bar (ly:stencil-translate-axis
-                          span-bar
-                          (- (ly:grob-relative-coordinate grob refp Y))
-                          Y))))
+                    (set! make-span-bars (cdr make-span-bars))
+                    (when (positive? (interval-length prev))
+                      (set! span-extent (cons (cdr prev) (car curr)))
+                      ;; draw the span bar only when the staff lines
+                      ;; don't overlap and allow-span-bar is #t:
+                      (and (> (interval-length span-extent) 0)
+                           allow-span-bar
+                           (set! span-bar
+                                 (ly:stencil-add
+                                  span-bar
+                                  (span-bar::compound-bar-line
+                                   model-bar
+                                   bar-glyph
+                                   span-extent)))))
+                    curr))
+                "" extents)
+        (set! span-bar (ly:stencil-translate-axis
+                        span-bar
+                        (- (ly:grob-relative-coordinate grob refp Y))
+                        Y))))
     span-bar))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
