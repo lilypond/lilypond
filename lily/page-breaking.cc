@@ -545,8 +545,32 @@ Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, b
 
 /* Return a Prob as SCM value encompassing the given systems. */
 SCM
-Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool last)
+Page_breaking::draw_page (SCM systems, int page_num, bool last, Real &last_page_force)
 {
+  // Create the page
+  SCM page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
+
+  // Run page layout
+  bool rag = ragged () || (last && ragged_last ());
+  SCM config = SCM_EOL;
+  Page_layout_problem layout (book_, page, systems);
+  if (!scm_is_pair (systems))
+    config = SCM_EOL;
+  else if (rag && !ragged ())
+    // If we're ragged-last but not ragged, make the last page
+    // have the same force as the previous page.
+    config = layout.fixed_force_solution (last_page_force);
+  else
+    config = layout.solution (rag);
+
+  if ((ragged () && layout.force () < 0.0)
+      || std::isinf (layout.force ()))
+    {
+      warning (_f ("page %d has been compressed", page_num));
+    }
+  else
+    last_page_force = layout.force ();
+
   // Create a stencil for each system.
   SCM paper_systems = SCM_EOL;
   for (SCM s = systems; scm_is_pair (s); s = scm_cdr (s))
@@ -562,12 +586,9 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
     }
   paper_systems = scm_reverse_x (paper_systems, SCM_EOL);
 
-  // Create the page and draw it.
-  SCM page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
-
   Prob *p = unsmob<Prob> (page);
   set_property (p, "lines", paper_systems);
-  set_property (p, "configuration", configuration);
+  set_property (p, "configuration", config);
 
   auto *foot_p = unsmob<const Stencil> (get_property (p, "foot-stencil"));
   Stencil foot = foot_p ? *foot_p : Stencil ();
@@ -614,7 +635,6 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
     {
       int page_num = first_page_number + static_cast<int> (i);
       bool bookpart_last_page = (i == page_count - 1);
-      bool rag = ragged () || (bookpart_last_page && ragged_last ());
       SCM line_count = to_scm (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
 
@@ -633,27 +653,7 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       vsize fn_lines = Page_layout_problem::get_footnote_count (lines);
       Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
-      SCM config = SCM_EOL;
-      SCM dummy_page = Page::make_page (book_->self_scm (),
-                                        to_scm (page_num),
-                                        to_scm (bookpart_last_page));
-      Page_layout_problem layout (book_, dummy_page, lines);
-      if (!scm_is_pair (systems))
-        config = SCM_EOL;
-      else if (rag && !ragged ())
-        // If we're ragged-last but not ragged, make the last page
-        // have the same force as the previous page.
-        config = layout.fixed_force_solution (last_page_force);
-      else
-        config = layout.solution (rag);
-
-      if ((ragged () && layout.force () < 0.0)
-          || std::isinf (layout.force ()))
-        warning (_f ("page %d has been compressed", page_num));
-      else
-        last_page_force = layout.force ();
-
-      SCM page = draw_page (lines, config, page_num, bookpart_last_page);
+      SCM page = draw_page (lines, page_num, bookpart_last_page, last_page_force);
 
       /* collect labels */
       SCM page_num_scm = to_scm (page_num);
