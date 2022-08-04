@@ -233,18 +233,6 @@ Lily_lexer::start_main_input ()
                      ly_string2scm (main_input_name_));
 }
 
-void
-Lily_lexer::new_input (const string &str, Sources *ss)
-{
-  if (is_main_input_ && be_safe_global)
-    {
-      LexerError (_ ("include files are not allowed in safe mode").c_str ());
-      return;
-    }
-
-  Includable_lexer::new_input (str, ss);
-}
-
 // PATH is either a single symbol (or string) or a list of symbols
 // giving the path to a nested property.  A symbol is treated the same
 // as a list of length 1.

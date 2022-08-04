@@ -48,7 +48,7 @@ public:
   std::vector<std::string> file_name_strings_;
 
   Source_file *get_source_file () const;
-  virtual void new_input (const std::string &s, Sources *);
+  void new_input (const std::string &s, Sources *);
 
   void new_input (const std::string &name, std::string data, Sources *);
 

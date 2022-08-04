@@ -90,9 +90,6 @@ public:
 
   void start_main_input ();
 
-  void new_input (const std::string &s, Sources *) override;
-  using Includable_lexer::new_input;
-
   bool top_input () { return include_stack_.size () < 2; }
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (Input const &where,
