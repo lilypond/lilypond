@@ -415,7 +415,6 @@ floating point exceptions.")
 (debug-set! stack 0)
 
 (use-modules (ice-9 regex)
-             (ice-9 safe)
              ((ice-9 format) #:select ((format . ice9-format)))
              (ice-9 rdelim)
              (ice-9 optargs)
@@ -571,18 +570,14 @@ floating point exceptions.")
     "paper"
     "backend-library"
     "color"))
-;;  - Files to be loaded last
-(define init-scheme-files-tail
-  ;;  - must be after everything has been defined
-  '("safe-lily"))
+
 ;;
 ;; Now construct the load list
 ;;
 (define init-scheme-files
   (append init-scheme-files-lib
           init-scheme-files-used
-          init-scheme-files-body
-          init-scheme-files-tail))
+          init-scheme-files-body))
 
 (for-each ly:load init-scheme-files)
 

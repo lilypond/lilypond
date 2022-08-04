@@ -123,7 +123,6 @@ extern Variable ly_make_event_class;
 extern Variable ly_music_p;
 extern Variable make_concat_markup;
 extern Variable make_music;
-extern Variable make_safe_lilypond_module;
 extern Variable make_span_event;
 extern Variable markup_p;
 extern Variable markup_command_signature;
