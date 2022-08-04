@@ -92,12 +92,6 @@
 ;;  LilyPond.  It is not proof against in-place modification of data
 ;;  structures (as they are just reinitialized with the original
 ;;  identities), and it is not proof against tampering with internals.
-;;
-;;  As a consequence, session management is not sufficient for
-;;  separating multiple independent .ly files in "-dsafe" mode: you
-;;  should give each its own LilyPond process when reliable separation
-;;  is mandatory.
-;;
 ;;  For standard tasks and programming practices, multiple sessions in
 ;;  the same LilyPond job should work reasonably independently and
 ;;  without "bleed-over" while still loading and compiling the
