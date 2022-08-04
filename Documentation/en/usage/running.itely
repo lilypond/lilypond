@@ -289,18 +289,31 @@ path.}
 
 Run @command{lilypond} in a chroot jail.
 
-The @option{--jail} option provides a more flexible alternative to
-@option{-dsafe}, when LilyPond formatting is being provided via a web
-server, or whenever LilyPond executes commands sent by external sources
-(see @ref{Advanced command line options for LilyPond}).
+The @option{--jail} option can be used for security when LilyPond
+formatting is being provided via a web server, or whenever LilyPond executes
+commands sent by external sources (see @ref{Advanced command
+line options for LilyPond}).  Because LilyPond provides the ability
+to run Guile programs, it is essential in such scenarios to run it
+in a sandboxed way so that the file being compiled does not wreak
+havoc on the system, for example with
 
-It works by changing the root of @command{lilypond} to @var{jail} just
-before starting the actual compilation process.  The user and group are
-then changed to match those provided, and the current directory is
-changed to @var{dir}.  This setup guarantees that it is not possible (at
-least in theory) to escape from the jail.  Note that for @option{--jail}
-to work, @command{lilypond} must be run as root, which is usually
-accomplished in a safe way using @command{sudo}.
+@example
+% too dangerous to write correctly
+#(s ystem "rm -rf /")
+% malicious but not destructive
+@{ c4^$(ly:gulp-file "/etc/passwd") @}
+@end example
+
+@option{--jail} is one way to achieve sandboxing.  Another one is
+running LilyPond in a Docker container.
+
+The @option{--jail} option works by changing the root of @command{lilypond}
+to @var{jail} just before starting the actual compilation process.
+The user and group are then changed to match those provided, and the
+current directory is changed to @var{dir}.  This setup guarantees that
+it is not possible (at least in theory) to escape from the jail.
+Note that for @option{--jail} to work, @command{lilypond} must be run
+as root, which is usually accomplished in a safe way using @command{sudo}.
 
 Setting up a jail can be a relatively complex matter, as we must be sure
 that LilyPond is able to find whatever it needs to compile the source
@@ -808,43 +821,6 @@ Default: @code{#t}.
 @item @code{resolution} @var{num}
 Set resolution for generating @code{PNG} pixmaps to @var{num} dpi.
 Default: @code{101}.
-
-@item @code{safe} @var{bool}
-If @var{bool} is @code{#t}, do not trust the @file{.ly} input.
-Default: @code{#f}.
-
-When LilyPond formatting is available through a web server, either
-the @code{-dsafe} or the @option{--jail} option @b{MUST} be passed.
-The @code{-dsafe} option prevents inline Scheme code from wreaking
-havoc, e.g.,
-
-@example
-% too dangerous to write correctly
-#(s ystem "rm -rf /")
-% malicious but not destructive
-@{ c4^$(ly:gulp-file "/etc/passwd") @}
-@end example
-
-The @option{-dsafe} option works by evaluating in-line Scheme
-expressions in a special safe module.  This is derived from GUILE's
-@file{safe-r5rs} module, but also adds a number of functions of the
-LilyPond API which are listed in @file{scm/safe-lily.scm}.
-
-In addition, safe mode disallows @code{\include} directives and
-disables the use of backslashes in @TeX{} strings.  It is also not
-possible to import LilyPond variables into Scheme while in safe mode.
-
-Option @option{-dsafe} does @emph{not} detect resource overuse, so it is still
-possible to make the program hang indefinitely, for example by feeding
-cyclic data structures into the backend.  Therefore, if using LilyPond
-on a publicly accessible webserver, the process should be limited in
-both CPU and memory usage.
-
-Safe mode will prevent many useful LilyPond snippets from being
-compiled.
-
-Option @option{--jail} is an even more secure alternative, but requires
-more work to set up.  See @ref{Basic command line options for LilyPond}.
 
 @item @code{separate-log-files} @var{bool}
 For input files @file{file1.ly}, @file{file2.ly}, @dots{}, output log

@@ -921,11 +921,6 @@ If you need it to be executed at a later point of time, check out
 @{ c'4 @}
 @end example
 
-@knownissues
-
-Mixing Scheme and LilyPond variables is not possible with the
-@option{--safe} option.
-
 
 @node Object properties
 @subsection Object properties
