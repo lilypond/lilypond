@@ -74,8 +74,7 @@ from LSR_SNIPPETS_DIR run through convert-ly or from
 TOP_SOURCE_DIR/%(new_lys)s; if a snippet is present in both
 directories, the one from TOP_SOURCE_DIR/%(new_lys)s is preferred.
 All written snippets are copied in LY_OUTPUT
-with appending translations from .texidoc files and are tested with
-lilypond with flags %(lilypond_flags)s
+with appending translations from .texidoc files.
 
 ''' % vars())
 
@@ -141,26 +140,6 @@ if not os.path.isdir(new_lys):
     sys.exit(3)
 
 
-def find_or_create_temp_dir(requested_dir):
-    if os.path.isdir(requested_dir):
-        return requested_dir
-    if os.path.exists(requested_dir):  # maybe a typo; play it safe
-        sys.stderr.write("Error: %s: not a directory\n" % requested_dir)
-        sys.exit(3)
-    try:
-        os.makedirs(requested_dir)
-        return requested_dir
-    except Exception as e:
-        sys.stderr.write("Warning: could not create directory: %s\n" % e)
-    dir = tempfile.gettempdir()
-    sys.stderr.write("Warning: could not use or create directory %s, using default %s\n" % (
-        requested_dir, dir))
-    return dir
-
-
-ly_output = find_or_create_temp_dir(options.ly_output)
-
-
 def exit_with_usage(n=0):
     options_parser.print_help(sys.stderr)
     sys.exit(n)
@@ -188,16 +167,8 @@ else:
 if not os.path.exists(convert_ly):
     sys.stderr.write("Warning: %s: no such file\n" % convert_ly)
     convert_ly = "convert-ly"
-if options.lilypond_bin == "LY_PATH/lilypond":
-    lilypond_bin = os.path.join(options.bin_path, "lilypond")
-else:
-    lilypond_bin = options.lilypond_bin
-if not os.path.exists(lilypond_bin):
-    sys.stderr.write("Warning: %s: no such file\n" % lilypond_bin)
-    lilypond_bin = "lilypond"
-sys.stderr.write("Using %s, %s\n" % (convert_ly, lilypond_bin))
+sys.stderr.write("Using %s\n" % convert_ly)
 
-unsafe = []
 unconverted = []
 notags_files = []
 
@@ -258,7 +229,6 @@ def escape_backslashes_in_header(snippet):
 
 
 def copy_ly(srcdir, name, tags):
-    global unsafe
     global unconverted
     dest = os.path.join(lys_from_lsr, name)
     tags = ', '.join(tags)
@@ -286,13 +256,6 @@ def copy_ly(srcdir, name, tags):
         unconverted.append(dest)
     if os.path.exists(dest + '~'):
         os.remove(dest + '~')
-    # no need to check snippets from Documentation/snippets/new
-    if not "new" in srcdir:
-        e = os.system(
-            "%s %s -o %s '%s'" %
-            (lilypond_bin, lilypond_flags, ly_output, dest))
-        if e:
-            unsafe.append(dest)
 
 
 def read_source_with_dirs(src):
@@ -373,12 +336,3 @@ if unconverted:
 if notags_files:
     sys.stderr.write('No tags could be found in these files:\n')
     sys.stderr.write('\n'.join(notags_files) + '\n\n')
-if unsafe:
-    dump_file_list('lsr-unsafe.txt', unsafe)
-    sys.stderr.write('''
-
-Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
-  git add %(lys_from_lsr)s/*.ly
-  xargs git diff HEAD < lsr-unsafe.txt
-
-''' % vars())

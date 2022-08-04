@@ -219,40 +219,6 @@ this do
 scripts/auxiliar/makelsr.py --help
 @end smallexample
 
-@item
-Follow the instructions printed on the console to manually check for
-unsafe files.  These are:
-
-@example
-Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
-  git add Documentation/snippets/*.ly
-  xargs git diff HEAD < lsr-unsafe.txt
-@end example
-
-First, it's important to check for any added files and add them to
-the files git is tracking.  Run @code{git status} and look
-carefully to see if files have been added.  If so, add them with
-@code{git add}.
-
-As the console says, @command{makelsr} creates a list of possibly
-unsafe files in @file{lsr-unsafe.txt} by running @code{lilypond}
-against each snippet using the @code{-dsafe} switch.  This list can be
-quite long.  However, by using the command @code{xargs git diff HEAD <
-lsr-unsafe.txt} git will take that list and check whether any of the
-snippets are different from the snippet already in master.  If any is
-different it must be checked manually VERY CAREFULLY.
-
-@warning{Somebody could sneak a @code{#'(system "rm -rf /")}
-command into our source tree if you do not do this!  Take this
-step @strong{VERY SERIOUSLY}.}
-
-If there is any doubt about any of the files, you are strongly
-advised to submit a merge request to get review.
-
-@item
-If a review is not needed, merge to @code{master} after the changes
-passed automatic testing.
-
 @end enumerate
 
 Note that whenever there is a snippet in
@@ -510,4 +476,3 @@ done
 
 Output from LilyPond is in @file{filename.txt} and convert-ly in
 @file{filename.con.txt}.
-
