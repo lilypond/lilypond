@@ -20,38 +20,37 @@
  ;; for take, drop, take-while, list-index, and find-tail:
  (srfi srfi-1)
  (ice-9 pretty-print)
- (ice-9 match)
- (lily safe-utility-defs))
+ (ice-9 match))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
 
-(define-safe-public X 0)
-(define-safe-public Y 1)
-(define-safe-public START -1)
-(define-safe-public STOP 1)
-(define-safe-public LEFT -1)
-(define-safe-public RIGHT 1)
-(define-safe-public UP 1)
-(define-safe-public DOWN -1)
-(define-safe-public CENTER 0)
+(define-public X 0)
+(define-public Y 1)
+(define-public START -1)
+(define-public STOP 1)
+(define-public LEFT -1)
+(define-public RIGHT 1)
+(define-public UP 1)
+(define-public DOWN -1)
+(define-public CENTER 0)
 
-(define-safe-public DOUBLE-FLAT  -1)
-(define-safe-public THREE-Q-FLAT -3/4)
-(define-safe-public FLAT -1/2)
-(define-safe-public SEMI-FLAT -1/4)
-(define-safe-public NATURAL 0)
-(define-safe-public SEMI-SHARP 1/4)
-(define-safe-public SHARP 1/2)
-(define-safe-public THREE-Q-SHARP 3/4)
-(define-safe-public DOUBLE-SHARP 1)
-(define-safe-public SEMI-TONE 1/2)
-(define-safe-public FIVE-HALF-FLAT -5/2)
-(define-safe-public SEVEN-HALF-FLAT -7/2)
-(define-safe-public FIVE-HALF-SHARP 5/2)
-(define-safe-public SEVEN-HALF-SHARP 7/2)
+(define-public DOUBLE-FLAT  -1)
+(define-public THREE-Q-FLAT -3/4)
+(define-public FLAT -1/2)
+(define-public SEMI-FLAT -1/4)
+(define-public NATURAL 0)
+(define-public SEMI-SHARP 1/4)
+(define-public SHARP 1/2)
+(define-public THREE-Q-SHARP 3/4)
+(define-public DOUBLE-SHARP 1)
+(define-public SEMI-TONE 1/2)
+(define-public FIVE-HALF-FLAT -5/2)
+(define-public SEVEN-HALF-FLAT -7/2)
+(define-public FIVE-HALF-SHARP 5/2)
+(define-public SEVEN-HALF-SHARP 7/2)
 
-(define-safe-public INFINITY-INT 1000000)
+(define-public INFINITY-INT 1000000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
@@ -509,7 +508,7 @@ in list @var{keys}.  Example:
 ;; created with alist->hash-table: it would be an ugly backwards compatibility
 ;; leaving users with files that compile but strangely give wrong results. So
 ;; we're stuck with a function that will be confusing forever. --JeanAS
-(define-safe-public (alist->hash-table lst)
+(define-public (alist->hash-table lst)
   "Convert alist @var{lst} to a table.
 
 @strong{Warning:} The resulting hash table is hashed by identity.

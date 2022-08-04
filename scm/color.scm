@@ -752,6 +752,6 @@
               (hashq-create-handle! color-table arg-sym temp)
               temp))))))
 
-(define-safe-public x11-color (make-color-handler x11-color-list))
-(define-safe-public css-color (make-color-handler css-color-list))
-(define-safe-public universal-color (make-color-handler universal-color-list))
+(define-public x11-color (make-color-handler x11-color-list))
+(define-public css-color (make-color-handler css-color-list))
+(define-public universal-color (make-color-handler universal-color-list))

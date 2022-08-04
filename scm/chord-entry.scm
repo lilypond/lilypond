@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (lily safe-utility-defs) (ice-9 receive))
+(use-modules (ice-9 receive))
 
 (define-public (construct-chord-elements root duration modifications)
   "Build a chord on @var{root} using modifiers in @var{modifications}.
@@ -248,7 +248,7 @@ non-inverted note."
 (define (sus-modifier pitches)
   (remove-step (pitch-step (ly:make-pitch 0 2 0)) pitches))
 
-(define-safe-public default-chord-modifier-list
+(define-public default-chord-modifier-list
   `((m . ,minor-modifier)
     (min . ,minor-modifier)
     (aug . , aug-modifier)

@@ -453,8 +453,7 @@ syn keyword schemeSyntax define-method define-class
 
 " Additional LilyPond-specific 'forms'
 syn keyword schemeSyntax define-markup-command define-markup-list-command
-syn keyword schemeSyntax define-safe-public define-music-function
-syn keyword schemeSyntax def-grace-function
+syn keyword schemeSyntax define-music-function def-grace-function
 
 " All of the above should influence indenting too
 setlocal lw+=define-public,define*-public
@@ -464,8 +463,7 @@ setlocal lw+=defmacro-public,defmacro*-public
 setlocal lw+=use-modules,define-module
 setlocal lw+=define-method,define-class
 setlocal lw+=define-markup-command,define-markup-list-command
-setlocal lw+=define-safe-public,define-music-function
-setlocal lw+=def-grace-function
+setlocal lw+=define-music-function,def-grace-function
 
 " These forms should not influence indenting
 setlocal lw-=if

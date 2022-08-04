@@ -15,8 +15,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (lily safe-utility-defs))
-
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
                   '(binding-offset
@@ -102,7 +100,7 @@
 
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 
-(define-safe-public (set-global-staff-size sz)
+(define-public (set-global-staff-size sz)
   "Set the default staff size, where @var{sz} is thought to be in points."
   (let* ((current-mod (current-module))
          (pap (ly:parser-lookup '$defaultpaper))
@@ -337,7 +335,7 @@ ignoring @var{landscape?}."
      (else
       (ly:warning (G_ "Unknown paper size: ~a") name)))))
 
-(define-safe-public (set-default-paper-size name . rest)
+(define-public (set-default-paper-size name . rest)
   (let* ((pap (module-ref (current-module) '$defaultpaper))
          (new-paper (ly:output-def-clone pap))
          (new-scope (ly:output-def-scope new-paper)))

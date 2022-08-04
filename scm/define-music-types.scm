@@ -16,8 +16,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (lily safe-utility-defs))
-
 ;; TODO: should link back into user manual.
 
 (define-public music-descriptions
@@ -925,7 +923,7 @@ brackets start and stop.")
           (cons (car x) lst)))
       music-descriptions))
 
-(define-safe-public (make-music name . music-properties)
+(define-public (make-music name . music-properties)
   "Create a music object of given name, and set its properties
 according to @code{music-properties}, a list of alternating property symbols
 and values.  Example:

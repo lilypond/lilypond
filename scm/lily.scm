@@ -423,8 +423,7 @@ floating point exceptions.")
              (srfi srfi-1)
              (srfi srfi-13)
              (srfi srfi-14)
-             (lily clip-region)
-             (lily safe-utility-defs))
+             (lily clip-region))
 
 (define format simple-format)
 
@@ -486,7 +485,7 @@ floating point exceptions.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-safe-public (lilypond-version)
+(define-public (lilypond-version)
   (if (ly:get-option 'deterministic)
       "0.0.0"
       (string-join

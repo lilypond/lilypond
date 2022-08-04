@@ -16,18 +16,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (lily safe-utility-defs))
-
 (use-modules (ice-9 optargs)
              (ice-9 match)
              (srfi srfi-11))
 
-(define-safe-public (music-is-of-type? mus type)
+(define-public (music-is-of-type? mus type)
   "Does @var{mus} belong to the music class @var{type}?"
   (memq type (ly:music-property mus 'types)))
 
 (eval-when (expand load eval)
-  (define-safe-public (music-type-predicate types)
+  (define-public (music-type-predicate types)
     "Return a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
     (if (cheap-list? types)
@@ -265,7 +263,7 @@ The number of dots in the shifted music may not be less than zero."
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
              music))
 
-(define-safe-public (volta-spec-music number-list music)
+(define-public (volta-spec-music number-list music)
   "Add \\volta @var{number-list} to @var{music}."
   (make-music 'VoltaSpeccedMusic
               'element music
@@ -428,7 +426,7 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
 
 ;; Can't use define* behavior since Guile-1.8 has a bug when combining
 ;; #:optional with #:key and leaving optional args off.
-(define-safe-public (check-grob-path path . rest)
+(define-public (check-grob-path path . rest)
   "Check a grob path specification @var{path}, a symbol list (or a
 single symbol), for validity and possibly complete it.  Returns the
 completed specification, or @code{#f} if invalid, optionally using
@@ -505,7 +503,7 @@ respectively."
             location)
            #f)))))
 
-(define-safe-public (check-context-path path #:optional location)
+(define*-public (check-context-path path #:optional location)
   "Check a context property path specification @var{path}, a symbol
 list (or a single symbol), for validity and possibly complete it.
 Returns the completed specification, or @code{#f} when rising an
@@ -531,7 +529,7 @@ error (using optionally @var{location})."
 
 ;; Cannot use #:optional and #:key at the same time because of Guile
 ;; bug in version 1.8
-(define-safe-public (check-music-path path . rest)
+(define-public (check-music-path path . rest)
   "Check a music property path specification @var{path}, a symbol
 list (or a single symbol), for validity and possibly complete it.
 Returns the completed specification, or @code{#f} when rising an
@@ -629,12 +627,12 @@ making it possible to @code{\\revert} to any previous value afterwards."
 ;; Getting a unique context id name
 
 (define-session unique-counter -1)
-(define-safe-public (get-next-unique-voice-name)
+(define-public (get-next-unique-voice-name)
   (set! unique-counter (1+ unique-counter))
   (format #f "uniqueContext~s" unique-counter))
 
 
-(define-safe-public (make-voice-props-set n)
+(define-public (make-voice-props-set n)
   (make-sequential-music
    (append
     (map (lambda (x) (make-grob-property-set x 'direction
@@ -644,7 +642,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
      (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))))))
 
-(define-safe-public (make-voice-props-override n)
+(define-public (make-voice-props-override n)
   (make-sequential-music
    (append
     (map (lambda (x) (make-grob-property-override x 'direction
@@ -654,7 +652,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
      (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))))))
 
-(define-safe-public (make-voice-props-revert)
+(define-public (make-voice-props-revert)
   (make-sequential-music
    (append
     (map (lambda (x) (make-grob-property-revert x 'direction))
@@ -663,7 +661,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
           (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
 
 
-(define-safe-public (context-spec-music m context #:optional id mods)
+(define*-public (context-spec-music m context #:optional id mods)
   "Add @code{\\context @var{context} = @var{id} \\with @var{mods}} to @var{m}."
   (let ((cm (make-music 'ContextSpeccedMusic
                         'element m
@@ -677,7 +675,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
                   mods)))
     cm))
 
-(define-safe-public (descend-to-context m context #:optional id mods)
+(define*-public (descend-to-context m context #:optional id mods)
   "Like @code{context-spec-music}, but only descending."
   (let ((cm (context-spec-music m context id mods)))
     (ly:music-set-property! cm 'search-direction DOWN)
@@ -699,7 +697,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
   (make-music 'SimultaneousMusic
               'elements elts))
 
-(define-safe-public (make-event-chord elts)
+(define-public (make-event-chord elts)
   (make-music 'EventChord
               'elements elts))
 
@@ -728,7 +726,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
   (make-music 'PropertyUnset
               'symbol sym))
 
-(define-safe-public (make-articulation name . properties)
+(define-public (make-articulation name . properties)
   ;; -----------------------------------------------------------------
   ;; obsoletion handling, may be removed at some point (e.g., for 2.26)
   (if (string? name)
@@ -747,7 +745,7 @@ by (make-articulation '~a ...) or run convert-ly." name name)
               'duration duration
               'text string))
 
-(define-safe-public (make-span-event type span-dir)
+(define-public (make-span-event type span-dir)
   (make-music type
               'span-direction span-dir))
 

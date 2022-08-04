@@ -117,7 +117,7 @@ note names are capitalized."
 (define (pitch-alteration-semitones pitch)
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
-(define-safe-public ((chord-name->german-markup B-instead-of-Bb)
+(define-public ((chord-name->german-markup B-instead-of-Bb)
                      pitch lowercase?)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
@@ -137,7 +137,7 @@ note names are capitalized."
         lowercase?))
       (accidental->markup (/ (cdr n-a) 2))))))
 
-(define-safe-public (note-name->german-markup pitch lowercase?)
+(define-public (note-name->german-markup pitch lowercase?)
   ;; TODO: rewrite using note-name->lily-string.
   ;; FIXME: lowercase? is ignored.
   (let* ((name (ly:pitch-notename pitch))
@@ -169,7 +169,7 @@ pitch@tie{}D instead of `re'."
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the default should also be reversed --hwn
-(define-safe-public (sequential-music-to-chord-exceptions seq . rest)
+(define-public (sequential-music-to-chord-exceptions seq . rest)
   "Transform sequential music @var{seq} of type
 
 @example
