@@ -1186,10 +1186,7 @@ Inline an EPS image.  The image is scaled along @var{axis} to
   }
 }
 @end lilypond"
-  (if (ly:get-option 'safe)
-      (interpret-markup layout props "not allowed in safe")
-      (eps-file->stencil axis size file-name)
-      ))
+  (eps-file->stencil axis size file-name))
 
 (define-markup-command (postscript layout props str)
   (string?)
@@ -2919,17 +2916,13 @@ of its own.
 ;; files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (safe-file-content name)
-  (if (ly:get-option 'safe)
-      "verbatim-file disabled in safe mode"
-      (begin
-        (ly:note-extra-source-file name)
-        (ly:gulp-file name))))
-
 (define-markup-command (verbatim-file layout props name)
   (string?)
   #:category other
-  #:as-string (safe-file-content name)
+  #:as-string
+    (begin
+      (ly:note-extra-source-file name)
+      (ly:gulp-file name))
   "Read the contents of file @var{name}, and include it verbatim.
 
 @lilypond[verbatim,quote]
@@ -2937,10 +2930,11 @@ of its own.
   \\verbatim-file #\"en/included/simple.ly\"
 }
 @end lilypond"
+  (ly:note-extra-source-file name)
   (interpret-markup layout props
                     (make-typewriter-markup
                      (make-column-markup
-                      (string-split (safe-file-content name)
+                      (string-split (ly:gulp-file name)
                                     #\nl)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
