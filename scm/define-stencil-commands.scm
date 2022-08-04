@@ -21,42 +21,37 @@
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
 defined in the output modules (in files @file{output-*.scm})."
-  (let*
-      ((commands '(blank
-                   char
-                   circle
-                   dashed-line
-                   draw-line
-                   ellipse
-                   end-group-node
-                   eps-file
-                   glyph-string
-                   grob-cause
-                   named-glyph
-                   no-origin
-                   page-link
-                   path
-                   partial-ellipse
-                   placebox
-                   polygon
-                   resetcolor
-                   resetrotation
-                   resetscale
-                   round-filled-box
-                   setcolor
-                   setrotation
-                   setscale
-                   start-group-node
-                   text
-                   unknown
-                   url-link
-                   utf-8-string
-                   )))
-
-    (if (ly:get-option 'safe)
-        commands
-        (append '(embedded-ps embedded-svg)
-                commands))
+  '(blank
+    char
+    circle
+    dashed-line
+    draw-line
+    ellipse
+    embedded-ps
+    embedded-svg
+    end-group-node
+    eps-file
+    glyph-string
+    grob-cause
+    named-glyph
+    no-origin
+    page-link
+    path
+    partial-ellipse
+    placebox
+    polygon
+    resetcolor
+    resetrotation
+    resetscale
+    round-filled-box
+    setcolor
+    setrotation
+    setscale
+    start-group-node
+    text
+    unknown
+    url-link
+    utf-8-string
     ))
 
 ;; TODO:
