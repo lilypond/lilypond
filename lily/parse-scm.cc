@@ -43,11 +43,10 @@ struct Parse_start
 
   // Output: full extent of the parsed form.
   Input parsed_;
-  bool safe_;
   Lily_parser *parser_;
 
-  Parse_start (SCM form, const Input &start, bool safe, Lily_parser *parser)
-    : form_ (form), start_ (start), safe_ (safe), parser_ (parser)
+  Parse_start (SCM form, const Input &start, Lily_parser *parser)
+    : form_ (form), start_ (start), parser_ (parser)
   {
   }
 
@@ -137,9 +136,9 @@ protected_parse_embedded_scheme (Parse_start *ps)
 // parsed_output to the cover the entire form. parsed_output may not
 // be null.
 SCM
-parse_embedded_scheme (const Input &start, bool safe, Lily_parser *parser, Input *parsed_output)
+parse_embedded_scheme (const Input &start, Lily_parser *parser, Input *parsed_output)
 {
-  Parse_start ps (SCM_UNDEFINED, start, safe, parser);
+  Parse_start ps (SCM_UNDEFINED, start, parser);
 
   SCM result = parse_protect_global
                ? protected_parse_embedded_scheme (&ps)
@@ -152,25 +151,10 @@ parse_embedded_scheme (const Input &start, bool safe, Lily_parser *parser, Input
 // EVALUATION
 
 SCM
-evaluate_scheme_form (Parse_start *ps)
-{
-  if (ps->safe_)
-    {
-      static SCM module = SCM_BOOL_F;
-      if (scm_is_false (module))
-        {
-          module = scm_gc_protect_object (Lily::make_safe_lilypond_module ());
-        }
-
-      return scm_eval (ps->form_, module);
-    }
-  return scm_primitive_eval (ps->form_);
-}
-
-SCM
 evaluate_scheme_form_void (void *p)
 {
-  return evaluate_scheme_form (static_cast<Parse_start *> (p));
+  Parse_start *ps = static_cast<Parse_start *> (p);
+  return scm_primitive_eval (ps->form_);
 }
 
 SCM
@@ -186,9 +170,9 @@ protected_evaluate_scheme_form (void *ps)
 }
 
 SCM
-evaluate_embedded_scheme (SCM form, Input const &start, bool safe, Lily_parser *parser)
+evaluate_embedded_scheme (SCM form, Input const &start, Lily_parser *parser)
 {
-  Parse_start ps (form, start, safe, parser);
+  Parse_start ps (form, start, parser);
 
   // Establish the quasi-parameter (*location*) by using the location
   // `start` covering the input of the Scheme form during its

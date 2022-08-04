@@ -361,7 +361,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	start.step_forward ();
 
 	Input parsed;
-	SCM sval = parse_embedded_scheme (start, be_safe_global && is_main_input_, parser_, &parsed);
+	SCM sval = parse_embedded_scheme (start, parser_, &parsed);
 	sval = eval_scm (sval, start);
 	skip_chars (parsed.size ());
 
@@ -410,7 +410,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	Input hi = here_input();
 	hi.step_forward ();
 	Input parsed;
-	SCM sval = parse_embedded_scheme (hi, be_safe_global && is_main_input_, parser_, &parsed);
+	SCM sval = parse_embedded_scheme (hi, parser_, &parsed);
 
 	if (SCM_UNBNDP (sval))
 		error_level_ = 1;
@@ -426,7 +426,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	hi.step_forward ();
 
 	Input parsed;
-	SCM sval = parse_embedded_scheme (hi, be_safe_global && is_main_input_, parser_, &parsed);
+	SCM sval = parse_embedded_scheme (hi, parser_, &parsed);
 	skip_chars (parsed.size ());
 	sval = eval_scm (sval, hi, '$');
 
@@ -1126,7 +1126,6 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 	{
 		sval = evaluate_embedded_scheme (readerdata,
 				    location,
-				    be_safe_global && is_main_input_,
 				    parser_);
 	}
 
