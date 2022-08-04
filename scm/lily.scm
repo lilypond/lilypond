@@ -330,7 +330,8 @@ the included file relative to the current file\
                 "Set resolution for generating PNG pixmaps to
 given value (in dpi).")
     (safe #f
-          "Run in safer mode.")
+          "Safe mode has been removed; using this option results
+in an error.")
     (separate-log-files #f
                         "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
@@ -780,6 +781,16 @@ PIDs or the number of the process."
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
+  ;; Keep this as a fatal error: we don't want someone to
+  ;; turn a vulnerable system into a completely unsafe one
+  ;; during a careless upgrade to LilyPond >= 2.23.12.
+  (when (ly:get-option 'safe)
+    (ly:error
+"Due to security vulnerabilities deemed unfixable
+by the developers, LilyPond's safe mode was removed in
+version 2.23.12 in order not to provide a false sense of
+security.  If you need to compile an untrusted .ly file, please
+use an external tool to run LilyPond in a sandbox."))
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage (current-output-port) #f)
