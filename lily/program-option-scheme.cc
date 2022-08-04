@@ -80,11 +80,6 @@ internal_set_option (SCM var, SCM val)
       parsed_objects_should_be_dead = valbool;
       val = val_scm_bool;
     }
-  else if (varstr == "safe")
-    {
-      be_safe_global = valbool;
-      val = val_scm_bool;
-    }
   else if (varstr == "strict-infinity-checking")
     {
       strict_infinity_checking = valbool;

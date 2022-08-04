@@ -29,7 +29,6 @@ extern std::string init_name_global;
 /* options */
 extern std::vector<std::string> dump_header_fieldnames_global;
 extern std::string output_name_global;
-extern bool be_safe_global;
 extern bool do_internal_type_checking_global;
 extern std::string lilypond_datadir;
 extern std::string lilypond_libdir;

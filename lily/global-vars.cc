@@ -38,9 +38,6 @@ vector<string> output_formats_global;
 /* Current output name. */
 string output_name_global;
 
-/* Run in safe mode? */
-bool be_safe_global = false;
-
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
 string init_scheme_code_global;
