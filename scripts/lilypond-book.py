@@ -233,7 +233,7 @@ def get_option_parser():
                  default=False)
 
     p.add_option('-s', '--safe',
-                 help=_("compile snippets in safe mode"),
+                 help=_("removed; using this option results in an error"),
                  action="store_true",
                  dest="safe_mode",
                  default=False)
@@ -583,6 +583,14 @@ def do_options():
     opt_parser = get_option_parser()
     (global_options, args) = opt_parser.parse_args()
 
+    if global_options.safe_mode:
+        error("""Due to security vulnerabilities deemed unfixable
+by the developers, LilyPond's safe mode was removed in
+version 2.23.12 in order not to provide a false sense of
+security.  If you need to compile an untrusted .ly file, please
+use an external tool to run LilyPond in a sandbox.""")
+        raise SystemExit
+
     global_options.information = {
         'program_version': program_version, 'program_name': ly.program_name}
 
@@ -674,7 +682,7 @@ def main():
     global_options.process_cmd += (
         ' '.join([' -I %s' % mkarg(p) for p in global_options.include_path])
         + ' -daux-files ')
-    
+
     global_options.formatter.process_options(global_options)
 
     if global_options.lily_loglevel:
