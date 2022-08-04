@@ -126,7 +126,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   if (!keytable_.is_bound ())
     keytable_ = make_keytable ();
 
-  add_scope (ly_make_module (false));
+  add_scope (ly_make_module ());
   push_note_state ();
   chordmodifier_tab_ = scm_make_vector (to_scm (1), SCM_EOL);
 }

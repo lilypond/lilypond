@@ -1132,7 +1132,7 @@ bookpart_body:
 		} else if (ly_is_module ($2)) {
 			Book *book = unsmob<Book> ($1);
 			if (!ly_is_module (book->header_))
-				book->header_ = ly_make_module (false);
+				book->header_ = ly_make_module ();
 			ly_module_copy (book->header_, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
@@ -1141,7 +1141,7 @@ bookpart_body:
 	{
                 Book *book = unsmob<Book> ($1);
 		if (!ly_is_module (book->header_))
-			book->header_ = ly_make_module (false);
+			book->header_ = ly_make_module ();
 		parser->lexer_->add_scope (book->header_);
 	} lilypond_header
 	| bookpart_body error {
@@ -1238,13 +1238,13 @@ score_items:
 				module = score->get_header ();
 				if (!ly_is_module (module))
 				{
-					module = ly_make_module (false);
+					module = ly_make_module ();
 					score->set_header (module);
 				}
 			} else if (scm_is_pair ($$) && ly_is_module (scm_car ($$)))
 				module = scm_car ($$);
 			else {
-				module = ly_make_module (false);
+				module = ly_make_module ();
 				$$ = scm_cons (module, $$);
 			}
 			ly_module_copy (module, $2);
@@ -1255,11 +1255,11 @@ score_items:
 	{
 		if (Score *score = unsmob<Score> ($1)) {
 			if (!ly_is_module (score->get_header ()))
-				score->set_header (ly_make_module (false));
+				score->set_header (ly_make_module ());
 			parser->lexer_->add_scope (score->get_header ());
 		} else {
 			if (!scm_is_pair ($1) || !ly_is_module (scm_car ($1)))
-				$1 = scm_cons (ly_make_module (false), $1);
+				$1 = scm_cons (ly_make_module (), $1);
 			parser->lexer_->add_scope (scm_car ($1));
 		}
 	} lilypond_header

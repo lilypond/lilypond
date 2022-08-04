@@ -93,7 +93,7 @@ Score::Score (Score const &s)
       defs_.push_back (copy);
       copy->unprotect ();
     }
-  header_ = ly_make_module (false);
+  header_ = ly_make_module ();
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
 }

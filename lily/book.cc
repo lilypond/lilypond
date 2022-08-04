@@ -63,7 +63,7 @@ Book::Book (Book const &s)
 
   input_location_ = s.origin ()->smobbed_copy ();
 
-  header_ = ly_make_module (false);
+  header_ = ly_make_module ();
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
   SCM *t = &scores_;
@@ -134,7 +134,7 @@ Book::set_parent (Book *parent)
   /* Copy the header block of the parent */
   if (ly_is_module (parent->header_))
     {
-      SCM tmp_header = ly_make_module (false);
+      SCM tmp_header = ly_make_module ();
       ly_module_copy (tmp_header, parent->header_);
       if (ly_is_module (header_))
         ly_module_copy (tmp_header, header_);

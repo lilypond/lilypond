@@ -68,8 +68,6 @@ public:
   // The following is called as yyerror
   static void parser_error (Input const *i, Lily_parser *parser, SCM *, const std::string &s);
   void set_yydebug (bool);
-
-  SCM make_scope () const;
 };
 
 Output_def *get_layout (Lily_parser *parser);

@@ -24,21 +24,12 @@
 #include "lily-imports.hh"
 
 SCM
-ly_make_module (bool safe)
+ly_make_module ()
 {
-  SCM mod = SCM_EOL;
-  if (!safe)
-    {
-      mod = Guile_user::make_module ();
-      Guile_user::module_export_all_x (mod);
-      ly_use_module (mod, Guile_user::the_root_module);
-      ly_use_module (mod, Lily::module);
-    }
-  else
-    {
-      mod = Lily::make_safe_lilypond_module ();
-    }
-
+  SCM mod = Guile_user::make_module ();
+  Guile_user::module_export_all_x (mod);
+  ly_use_module (mod, Guile_user::the_root_module);
+  ly_use_module (mod, Lily::module);
   return mod;
 }
 

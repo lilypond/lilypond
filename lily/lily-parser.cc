@@ -271,10 +271,10 @@ get_header (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultheader"));
   if (!ly_is_module (id))
-    id = parser->make_scope ();
+    id = ly_make_module ();
   else
     {
-      SCM nid = parser->make_scope ();
+      SCM nid = ly_make_module ();
       ly_module_copy (nid, id);
       id = nid;
     }
@@ -282,9 +282,3 @@ get_header (Lily_parser *parser)
   return id;
 }
 
-SCM
-Lily_parser::make_scope () const
-{
-  SCM module = ly_make_module (be_safe_global);
-  return module;
-}

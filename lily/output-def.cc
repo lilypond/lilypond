@@ -40,7 +40,7 @@ Output_def::Output_def ()
 
   smobify_self ();
 
-  scope_ = ly_make_module (false);
+  scope_ = ly_make_module ();
 }
 
 Output_def::Output_def (Output_def const &s)
@@ -51,7 +51,7 @@ Output_def::Output_def (Output_def const &s)
   smobify_self ();
 
   input_origin_ = s.input_origin_;
-  scope_ = ly_make_module (false);
+  scope_ = ly_make_module ();
   if (ly_is_module (s.scope_))
     ly_module_copy (scope_, s.scope_);
 }
