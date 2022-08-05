@@ -135,7 +135,9 @@ Text replacements can now replace strings with any markup, not
 just with a string.
 
 @lilypond[verbatim,quote]
-\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
+\markup
+  \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #}))
+  "2nd time"
 @end lilypond
 
 
@@ -404,7 +406,7 @@ next note, not over it.  If the next note has an accidental, they
 stop before it.  If the next note is the first note of a measure,
 they stop over the bar line instead.
 
-@lilypond
+@lilypond[quote]
 {
   \override Score.SpacingSpanner.spacing-increment = 2.1
   d''2\startTrillSpan 2\stopTrillSpan
@@ -421,7 +423,7 @@ the actual extent(s) of its printed ink, which may differ from the
 default extents for some font glyphs due to text regularity
 constraints.
 
-@lilypond
+@lilypond[quote]
 \markup
   \fontsize #10
   \override #'((box-padding . 0) (thickness . 0.02))
@@ -444,12 +446,14 @@ that @code{\breathe} produces from several predefined types.
 }
 @end lilypond
 
+
 @item
 Properties of @code{PaperColumn} and @code{NonMusicalPaperColumn}
 (such as @code{NonMusicalPaperColumn.line-break-system-details})
 can now be overridden mid-music with the usual command @code{\once
 \override}.  They used to be a special case requiring the
 @code{\overrideProperty} command.
+
 
 @item
 Scheme translators can now define a new slot called
@@ -609,6 +613,7 @@ Balloons now have changeable formatting.
 }
 @end lilypond
 
+
 @item
 The new @code{\repeat segno} command automatically notates a
 variety of @emph{da-capo} and @emph{dal-segno} forms.
@@ -624,6 +629,7 @@ music = \fixed c' {
 \score { \music }
 \score { \unfoldRepeats \music }
 @end lilypond
+
 
 @item
 The new @code{\fine} command inserts a final bar line that
@@ -644,6 +650,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
+
 @item
 The new @code{\section} command inserts a double bar line that
 interacts gracefully with repeat bar lines.  A passage can be
@@ -660,6 +667,7 @@ named with the new @code{\sectionLabel} command.
   }
 }
 @end lilypond
+
 
 @item
 The drum notation style @code{weinberg-drums-style} was added.
@@ -681,9 +689,11 @@ LilyPond.
 }
 @end lilypond
 
+
 @item
 The new @code{Mark_performer} creates MIDI Marker events like
 @code{Mark_engraver} creates printed marks.
+
 
 @item
 The new @code{Mark_tracking_translator} takes over from
@@ -694,6 +704,7 @@ placement.
 By default, @code{Mark_engravers} in multiple contexts create a
 common sequence of marks.  If independent sequences are desired,
 multiple @code{Mark_tracking_translators} must be used.
+
 
 @item
 The default of the @code{aux-files} program option changed to
@@ -722,9 +733,11 @@ and spacer rests.
 }
 @end lilypond
 
+
 @item
 @command{lilypond-book} supports two new music fragment options
 @option{paper-width} and @option{paper-height} to set a custom paper size.
+
 
 @item
 @code{set-default-paper-size} and @code{set-paper-size} now accept
@@ -734,6 +747,7 @@ a custom paper size.
 #(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
 @end example
 
+
 @item
 Scheme-defined translators usable in both @samp{\layout} and
 @samp{\midi} can now be created with @code{make-translator}.
@@ -741,6 +755,7 @@ Scheme-defined performers usable only in @samp{\midi} can now be
 created with @code{make-performer}.  Those macros work strictly like
 the previously existing macro @code{make-engraver} for creating
 engravers only usable in @samp{\layout}.
+
 
 @item
 The syntax for conditions in markups was made more flexible and
@@ -757,6 +772,7 @@ user-friendly.  It uses the new markup commands @code{\if} and
 @tab @code{\if \on-page #@var{n} @dots{}}
 @end multitable
 
+
 @item
 In figured bass, brackets can now also be added around accidentals.
 
@@ -766,10 +782,12 @@ In figured bass, brackets can now also be added around accidentals.
 }
 @end lilypond
 
+
 @item
 @code{\numericTimeSignature} and @code{\defaultTimeSignature} now act on
 all staves at once (more precisely, on all staves in the same @code{Timing}
 context), thus matching the behavior of @code{\time}.
+
 
 @item
 Parenthesizing chords is supported.  Currently, the font size of the
@@ -786,6 +804,7 @@ parentheses has to be adjusted manually.
 }
 @end lilypond
 
+
 @item
 Parenthesizing spanners is supported.
 
@@ -795,6 +814,7 @@ Parenthesizing spanners is supported.
   \parenthesize R1
 }
 @end lilypond
+
 
 @item
 A @qq{time-based} version of the @code{\parenthesize} command was
@@ -814,6 +834,7 @@ similar to @code{\footnote}.
 }
 @end lilypond
 
+
 @item
 The same grob definition can now be used to create grobs of
 different classes (@code{Item}, @code{Spanner}, @code{Paper_column},
@@ -831,6 +852,7 @@ frequent case of @emph{sticky} grobs, such as footnotes and balloons.
 It creates a grob with the same class as another grob and
 administrates parents and bounds.
 
+
 @item
 The new command @code{\vshape} is like @code{\shape}, but also shows
 the control points and polygon for easier tweaking.
@@ -838,6 +860,7 @@ the control points and polygon for easier tweaking.
 @lilypond[verbatim,quote]
 { a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
 @end lilypond
+
 
 @item
 Support for alternate accidentals was improved.  Through the
@@ -869,6 +892,7 @@ accidental glyphs may be set for all grobs at once
   fis''
 }
 @end lilypond
+
 
 @item
 Ottava brackets may apply to a single voice instead of the entire
@@ -915,6 +939,7 @@ staff.  This used to require workarounds.
 }
 @end lilypond
 
+
 @item
 Measure counts now take compressed multi-measure rests and
 alternatives into account.
@@ -951,9 +976,11 @@ alternatives into account.
 }
 @end lilypond
 
+
 @item
 The string tunings @code{banjo-double-c} and @code{banjo-double-d}
 were added.
+
 
 @item
 @command{lilypond-book} now appends the current directory as the last
@@ -962,6 +989,7 @@ list of specified include paths.  This allows include directories to
 shadow files from the current directory, and will only be noticed if
 there are files with the same name in both.
 
+
 @item
 @command{lilypond-book} supports a new snippet option @option{inline} for
 inline music, that is, music snippets like
@@ -969,6 +997,7 @@ inline music, that is, music snippets like
   { \time 2/4 r8 g'[ g' g'] | es'2 }
 }
 that appear within a paragraph of text.
+
 
 @item
 Bar numbers may be centered in their measure, as is common in film scores.
@@ -987,6 +1016,7 @@ Bar numbers may be centered in their measure, as is common in film scores.
   { \repeat unfold 3 { c'4 d' e' f' } }
 >>
 @end lilypond
+
 
 @item
 Adding the @code{Melody_engraver} to the @code{Voice} context now works
@@ -1009,6 +1039,7 @@ The @code{suspendMelodyDecisions} context property may be used
 to turn off this behavior temporarily, as
 @code{\override Stem.neutral-direction = #DOWN} used to do.
 
+
 @item
 In the Emmentaler font, identical-looking noteheads whose only difference was
 stem direction have been consolidated into a single glyph.  For instance,
@@ -1020,12 +1051,14 @@ In addition, the @code{stem-attachment} property of @code{NoteHead} grobs now
 returns its actual, direction-dependent stem attachment point instead of a
 hypothetical upwards-stem attachment point.
 
+
 @item
 Repeat alternatives may appear within the repeated section.
 
 @lilypond[verbatim,quote]
 \repeat volta 3 { c'1 \alternative { d' e' } f' }
 @end lilypond
+
 
 @item
 The volta numbers for repeat alternatives may be set with the
@@ -1035,11 +1068,14 @@ The volta numbers for repeat alternatives may be set with the
 \repeat volta 3 c'1 \alternative { \volta 1 d' \volta 2,3 e' }
 @end lilypond
 
+
 @item
 The @code{\volta} command removes music when a repeat is unfolded.
 
+
 @item
 The @code{\unfolded} command adds music when a repeat is unfolded.
+
 
 @item
 The ends of hairpins may now be aligned to the @code{LEFT}, @code{CENTER}
@@ -1056,10 +1092,12 @@ or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
 }
 @end lilypond
 
+
 @item
 The @command{lilypond-book} script now allows braces in the argument of
 the commands @code{\lilypond} (for LaTeX) and @code{@@lilypond} (for
 Texinfo).
+
 
 @item
 With the new markup list command @code{string-lines} it is now possible to
@@ -1079,6 +1117,7 @@ This is a very convenient way of entering additional stanzas for songs.
      Twinkle, twinkle, little star,
      How I wonder what you are!"
 @end lilypond
+
 
 @item
 A new grob @code{FingerGlideSpanner} is now available, indicating a finger
@@ -1149,6 +1188,7 @@ mus = {
 }
 @end lilypond
 
+
 @item
 A new grob callback function @code{break-alignment-list} is now available for
 returning different values depending on a grob's break direction.  As an
@@ -1169,6 +1209,7 @@ it is positioned at the beginning, the middle, or the end of a line.
   }
 }
 @end lilypond
+
 
 @item
 The alignment of bar numbers appearing in the middle or end of a system
