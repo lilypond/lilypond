@@ -605,8 +605,8 @@ enddef;
 
 
 fet_beginchar ("wedge accent", "sforzato");
-  set_char_box (.9 staff_space#, .9 staff_space#,
-                .5 staff_space#, .5 staff_space#);
+  set_char_box (0.75 staff_space#, 0.75 staff_space#,
+                0.42 staff_space#, 0.42 staff_space#);
 
   draw_accent ((-w, -d), (w, h),
                0.05 staff_space + linethickness, 0.7);

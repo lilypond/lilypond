@@ -72,6 +72,16 @@ which scares away people.
 
 @end ignore
 
+@item
+The accent glyph is now a bit smaller.  This fixes some cases where a natural
+sign would vertically displace accents.
+
+@lilypond[quote]
+{
+  f'!8[-> f'-> f'-> f'->]
+}
+@end lilypond
+
 
 @item
 The direction of a trill spanner can now be set with direction
@@ -139,7 +149,7 @@ on this string, such as changing case.
 
 @item
 Broken hairpins now have some left padding by default. This is in
-line with published scores and it fixes some cases where broken 
+line with published scores and it fixes some cases where broken
 hairpins were vertically displaced by the key signature.
 
 @lilypond[verbatim,quote]
@@ -147,7 +157,7 @@ hairpins were vertically displaced by the key signature.
   \key a \major
   c''4^\< c c c \break c c c c\! |
 }
-@end lilypond 
+@end lilypond
 
 
 @item
