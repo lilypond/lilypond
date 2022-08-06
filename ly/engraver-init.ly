@@ -1539,17 +1539,27 @@ accommodated for typesetting a piece in Kievan style."
 
   \remove Time_signature_engraver
 
+  %% Sample: Обиход нотного пения употребительных церковных роспевов.
+  %% http://seminaria.ru/toporiki
+
   %% Eliminate measure bar lines and allow line breaks anywhere.
   forbidBreakBetweenBarLines = ##f
   measureBarType = #'()
 
-  %% A single bar line delimits phrases; let \section fall back to that.
-  sectionBarType = "|"
-  %% Kievan notation has a unique final bar line.
+  %% TODO: A single thick bar line delimits phrases.  Use \caesura for
+  %% that once it is implemented.
+
+  %% The "k" bar is consistently used as a final bar line, but is
+  %% sometimes used in mid line, seemingly between sections.
+  sectionBarType = "k"
   fineBarType = "k"
 
-  %% TODO: Research repetition in Kievan notation.
-  %% Modern repeat bar lines remain enabled as placeholders.
+  %% I see no obvious notation for repeated sections, so I have used
+  %% the section bar for them. [DE]
+  doubleRepeatBarType = "k"
+  endRepeatBarType = "k"
+  startRepeatBarType = "k"
+  underlyingRepeatBarType = "k"
 
   %% Choose Kievan tsefaut clef
   clefGlyph = "clefs.kievan.do"

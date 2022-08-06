@@ -1238,7 +1238,7 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":|.S.|:-S" ":|.S" ".|:" " |. .|")
 
 ;; ancient bar lines
-(define-bar-line "k" #t #f #f) ;; kievan style
+(define-bar-line "k" #t #f #f) ;; kievan section/final bar line
 (define-bar-line "-span|" #t #f "|") ; mensurstrich
 
 ;; The right side of a volta bracket is closed when the corresponding
@@ -1260,6 +1260,5 @@ of the volta brackets relative to the bar lines."
 (allow-volta-hook ":|.S")
 (allow-volta-hook ":|]")
 ;; end of piece
-(allow-volta-hook "k")
 (allow-volta-hook "|.")
 (allow-volta-hook "|.S")
