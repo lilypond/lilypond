@@ -1548,8 +1548,15 @@ accommodated for typesetting a piece in Kievan style."
   forbidBreakBetweenBarLines = ##f
   measureBarType = #'()
 
-  %% TODO: A single thick bar line delimits phrases.  Use \caesura for
-  %% that once it is implemented.
+  %% A single bar line delimits phrases.  A width of about 3x the
+  %% staff line makes it hard to decide whether to use a thinner thick
+  %% bar or a thicker thin bar.  The decision is "." to avoid
+  %% thickening other bar types that might be used editorially.
+  %%
+  %% Preserving articulations on \caesura is a conscious choice, but
+  %% is not carefully considered.  They should possibly be stripped.
+  caesuraType = #'((bar-line . "."))
+  \override BarLine.thick-thickness = 3
 
   %% The "k" bar is consistently used as a final bar line, but is
   %% sometimes used in mid line, seemingly between sections.
