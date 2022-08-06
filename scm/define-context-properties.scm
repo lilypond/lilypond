@@ -190,16 +190,25 @@ to make beats.")
 @code{\\breathe}.")
 
 
-     ;; TODO: When Bar_engraver is updated to handle \caesura,
-     ;; caesuraType will have an entry specifying the type of bar line
-     ;; to create.
-     ;;
      ;; TODO: When there is a Caesura_engraver for modern notation,
      ;; caesuraType will have an entry specifying scripts which,
      ;; rather than being modifiers, are integral to the caesura
      ;; (e.g. a fermata over a bar line).
-     (caesuraType ,list? "An alist @code{((breath . @var{breath-type}))}
-specifying the type of breath mark to create at @code{\\caesura}.")
+     (caesuraType ,list? "An alist
+
+@example
+((bar-line . @var{bar-type})
+ (breath . @var{breath-type})
+ (underlying-bar-line . @var{bar-type}))
+@end example
+
+@noindent
+specifying which breath mark and bar line to create at
+@code{\\caesura}.  All entries are optional.
+
+@code{bar-@/line} has higher priority than a measure bar line and
+@code{underlying-@/bar-@/line} has lower priority than a measure bar
+line.")
      (caesuraTypeTransform ,procedure? "An engraver callback taking
 three arguments and returning an alist of the same kind as
 @code{caesuraType}.
@@ -207,11 +216,11 @@ three arguments and returning an alist of the same kind as
 The first argument is the context.
 
 The second argument is the value of @code{caesuraType} with an
-additional entry @code{(articulations . @var{symbol-list})}, where
-@var{symbol-list} identifies each articulation attached to the
-caesura.  If the transform function returns this second argument
-unmodified, it is as if no transform function were set; the function
-is free to return a different value.
+additional entry @code{(articulations . @var{symbol-@/list})}
+identifying the articulations attached to the caesura in the music.
+If the transform function returns this second argument unmodified, it
+is as if no transform function were set; the function is free to
+return a different value.
 
 The third argument is a list of certain things the engraver has
 observed.  It is currently unused.")

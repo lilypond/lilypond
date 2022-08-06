@@ -25,19 +25,47 @@
 (define-public (caesura-to-divisio context caesura-type observations)
   "@code{caesuraTypeTransform} callback to print articulated caesurae as
 chant breath marks."
-  ;; TODO: When updating Bar_engraver to handle \caesura, add
-  ;; (bar-line . "") here to allow a line break at \caesura even when
-  ;; forbidBreakBetweenBarLines is true.
   (let ((arts (assq-ref caesura-type 'articulations)))
-    (cond
-     ((memq 'fermata arts)
-      `((articulations . ,(delq 'fermata arts))
-        (breath . chantfullbar)))
-     ((memq 'shortfermata arts)
-      `((articulations . ,(delq 'shortfermata arts))
-        (breath . chanthalfbar)))
-     (else
-      caesura-type))))
+    (set! caesura-type
+          (cond
+           ((memq 'fermata arts)
+            `((articulations . ,(delq 'fermata arts))
+              (breath . chantfullbar)))
+           ((memq 'shortfermata arts)
+            `((articulations . ,(delq 'shortfermata arts))
+              (breath . chanthalfbar)))
+           (else
+            caesura-type))))
+  ;; TODO: This transformation is most likely to be used when
+  ;; forbidBreakBetweenBarLines is false, but to improve the other
+  ;; case, we could set (underlying-bar-line . "") here to allow a
+  ;; break at any caesura.  This trick would not be suitable for
+  ;; contexts where an an underlying repeat bar might need to appear
+  ;; -- the caesura bar would take precedence -- but that shouldn't be
+  ;; a problem in the ancient contexts for which this was written.
+  caesura-type)
+
+(define-public (caesura-to-bar-line-or-divisio
+                context caesura-type observations)
+  "@code{caesuraTypeTransform} callback to print articulated caesurae as
+chant breath marks using the infrastructure for modern bar lines when
+possible."
+  (set! caesura-type (caesura-to-divisio context caesura-type observations))
+  (let ((arts (assq-ref caesura-type 'articulations)))
+    (case (assq-ref caesura-type 'breath)
+      ((chantdoublebar)
+       `((articulations . ,arts)
+         (bar-line . "||")))
+      ((chantfullbar)
+       `((articulations . ,arts)
+         (bar-line . "|")))
+      ((chanthalfbar)
+       `((articulations . ,arts)
+         (bar-line . ",")))
+      ((chantquarterbar)
+       `((articulations . ,arts)
+         (bar-line . "'")))
+      (else caesura-type))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clefs

@@ -3393,6 +3393,14 @@ aligned to measures.  Several commands employ this bar type:
 @code{\codaMark}, @code{\inStaffSegno}, @code{\repeat segno},
 @code{\repeat volta}, and @code{\segnoMark}.
 
+@cindex bar line, caesura
+@cindex bar line, phrase
+@cindex caesura bar line
+@cindex phrase bar line
+@funindex \caesura
+@item caesuraType.underlying-bar-line
+Used at @code{\caesura}.
+
 @cindex bar line, default
 @cindex bar line, measure
 @cindex bar line, single
@@ -3401,6 +3409,14 @@ aligned to measures.  Several commands employ this bar type:
 @cindex single bar line
 @item measureBarType
 Used at a measure boundary.
+
+@cindex bar line, caesura
+@cindex bar line, phrase
+@cindex caesura bar line
+@cindex phrase bar line
+@funindex \caesura
+@item caesuraType.bar-line
+Used at @code{\caesura}.
 
 @cindex bar line, double
 @cindex bar line, section

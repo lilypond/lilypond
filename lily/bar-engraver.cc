@@ -25,6 +25,7 @@
 #include "item.hh"
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "score-engraver.hh"
 #include "simple-event-listener.hh"
 #include "spanner.hh"
@@ -42,7 +43,9 @@ enum class BarType
   NONE = 0,
   EMPTY,
   UNDERLYING_REPEAT,
+  UNDERLYING_CAESURA,
   MEASURE,
+  CAESURA,
   SECTION,
   FINE,
   REPEAT
@@ -57,6 +60,7 @@ private:
   void acknowledge_end_spanner (Grob_info_t<Spanner>);
   ly_scm_list calc_bar_type () const;
   void initialize () override;
+  void listen_caesura (Stream_event *);
   void listen_segno_mark (Stream_event *);
   void process_acknowledged ();
   void pre_process_music ();
@@ -73,6 +77,7 @@ private:
   };
 
 private:
+  Stream_event *caesura_ev_ = nullptr;
   Boolean_event_listener fine_listener_;
   Boolean_event_listener section_listener_;
   Boolean_event_listener underlying_repeat_listener_;
@@ -105,6 +110,44 @@ Bar_engraver::derived_mark () const
 ly_scm_list
 Bar_engraver::calc_bar_type () const
 {
+  // Read caesuraType and pass it through caesuraTypeTransform.
+  // TODO: Caesura_engraver and Divisio_engraver also do this stuff.
+  // Refactor to reduce repetition and ensure consistency.
+  auto get_caesura_type = [] (Context * ctx, Stream_event * ev)
+  {
+    SCM caesura_type = get_property (ctx, "caesuraType");
+
+    // Form a symbol list describing the user-provided articulations.
+    SCM user_artic_types = SCM_EOL;
+    SCM articulations_sym = ly_symbol2scm ("articulations");
+    ly_smob_list<Stream_event> arts (get_property (ev, articulations_sym));
+    for (auto *art : arts)
+      {
+        SCM a_type = get_property (art, "articulation-type");
+        if (scm_is_symbol (a_type))
+          user_artic_types = scm_cons (a_type, user_artic_types);
+      }
+
+    user_artic_types = scm_reverse_x (user_artic_types, SCM_EOL);
+
+    // Add the user's articulations to the caesuraType value.
+    caesura_type = scm_acons (ly_symbol2scm ("articulations"), user_artic_types,
+                              caesura_type);
+    // Pass caesuraType through the transform function, if it is set.
+    SCM transform = get_property (ctx, "caesuraTypeTransform");
+    if (ly_is_procedure (transform))
+      {
+        caesura_type = ly_call (transform, to_scm (ctx), caesura_type,
+                                SCM_EOL /*observations*/);
+      }
+
+    return caesura_type;
+  };
+
+  SCM caesura_type = caesura_ev_
+                     ? get_caesura_type (context (), caesura_ev_)
+                     : SCM_EOL;
+
   const bool segno = observations_.segno
                      && scm_is_eq (get_property (this, "segnoStyle"),
                                    ly_symbol2scm ("bar-line"));
@@ -115,15 +158,15 @@ Bar_engraver::calc_bar_type () const
   // This order could be user-configurable, but most of the permutations are
   // probably not useful enough to be worth explaining, testing, and
   // maintaining.  Varying the position of a caesura/phrase bar might be a good
-  // reason to do it, but it might also be done with two layers (as noted).
-  constexpr std::array<BarType, 6> types_by_priority
+  // reason to do it, but that is easy enough to do with two layers (as seen).
+  constexpr std::array<BarType, 8> types_by_priority
   {
     BarType::REPEAT,
     BarType::FINE,
     BarType::SECTION,
-    // TODO: caesura/phrase bar
+    BarType::CAESURA,
     BarType::MEASURE,
-    // TODO: underlying caesura/phrase bar
+    BarType::UNDERLYING_CAESURA,
     BarType::UNDERLYING_REPEAT,
     BarType::EMPTY
   };
@@ -137,6 +180,19 @@ Bar_engraver::calc_bar_type () const
       auto read_bar = [this, &has_underlying_bar, &ub] (SCM context_prop_sym)
       {
         SCM s = get_property (this, context_prop_sym);
+        if (scm_is_string (s))
+          {
+            ub = ly_scm2string (s);
+            has_underlying_bar = true;
+          }
+      };
+
+      // Get the requested bar subproperty ('bar-line or 'underlying-bar-line)
+      // from the caesura properties.
+      auto read_caesura_bar
+        = [this, &caesura_type, &has_underlying_bar, &ub] (SCM subprop_sym)
+      {
+        SCM s = scm_assq_ref (caesura_type, subprop_sym);
         if (scm_is_string (s))
           {
             ub = ly_scm2string (s);
@@ -208,6 +264,11 @@ Bar_engraver::calc_bar_type () const
             read_bar (ly_symbol2scm ("sectionBarType"));
           break;
 
+        case BarType::CAESURA:
+          if (caesura_ev_)
+            read_caesura_bar (ly_symbol2scm ("bar-line"));
+          break;
+
         case BarType::MEASURE:
           // TODO: barAlways seems to be a hack to allow a line break anywhere.
           // The newer property forbidBreakBetweenBarLines is better for that.
@@ -217,6 +278,11 @@ Bar_engraver::calc_bar_type () const
             {
               read_bar (ly_symbol2scm ("measureBarType"));
             }
+          break;
+
+        case BarType::UNDERLYING_CAESURA:
+          if (caesura_ev_)
+            read_caesura_bar (ly_symbol2scm ("underlying-bar-line"));
           break;
 
         case BarType::UNDERLYING_REPEAT:
@@ -250,6 +316,12 @@ Bar_engraver::calc_bar_type () const
     }
 
   return glyphs;
+}
+
+void
+Bar_engraver::listen_caesura (Stream_event *ev)
+{
+  assign_event_once (caesura_ev_, ev);
 }
 
 void
@@ -405,6 +477,7 @@ Bar_engraver::stop_translation_timestep ()
   has_any_glyph_ = false;
   observations_ = {};
 
+  caesura_ev_ = nullptr;
   fine_listener_.reset ();
   section_listener_.reset ();
   underlying_repeat_listener_.reset ();
@@ -427,6 +500,7 @@ Bar_engraver::boot ()
 {
   ADD_END_ACKNOWLEDGER (spanner);
 
+  ADD_LISTENER (caesura);
   ADD_LISTENER (segno_mark);
 
   ADD_DELEGATE_LISTENER (fine);
@@ -453,6 +527,8 @@ BarLine
 
                 /* read */
                 R"(
+caesuraType
+caesuraTypeTransform
 doubleRepeatBarType
 doubleRepeatSegnoBarType
 endRepeatBarType
