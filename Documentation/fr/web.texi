@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ded73f295fd3bb08d34248833f6fabf8baf085fe
+    Translation of GIT committish: 8c653ad3f274c68b09bc48c29417e331454ef236
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,7 +53,7 @@ License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond -- le typographe de musique
 @direntry
-* LilyPond Website: (lilypond-web).                          Prévisualisation du site.
+* LilyPond Website: (lilypond-web).        Prévisualisation du site.
 @end direntry
 
 
@@ -193,15 +193,15 @@ Venez puiser l'inspiration dans notre galerie
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Téléchargemement de @versionStable}
+@ref{Téléchargement, Téléchargemement de @versionStable}
 
-@ref{Manuals, Manuels de @versionStable}
+@ref{Manuels, Manuels de @versionStable}
 
 @subheading Branche de développement
 
-@ref{Development, Téléchargement de @versionDevel}
+@ref{Développement, Téléchargement de @versionDevel}
 
-@ref{Development, Manuels de @versionDevel}
+@ref{Développement, Manuels de @versionDevel}
 
 @subheading Dépêches
 @c VO Pondings
@@ -246,7 +246,7 @@ Venez puiser l'inspiration dans notre galerie
 @divClass{hide}
 @menu
 * Introduction::        Comment créer des partitions
-* Download::            Télécharger LilyPond
+* Téléchargement::      Télécharger LilyPond
 * Manuels::             Bibliothèque de LilyPond
 * Communauté::          Comment contacter d'autres utilisateurs
 @end menu
@@ -364,7 +364,7 @@ ici, faites le nous savoir, en suivant les instructions de la rubrique
 @end ifnothtml
 
 @include fr/web/introduction.itexi
-@include en/web/download.itexi
+@include fr/web/download.itexi
 @include fr/web/manuals.itexi
 @include fr/web/community.itexi
 

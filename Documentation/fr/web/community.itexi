@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: c82ad115534d79e0f8bff8e92285a80b6e9954b0
+   Translation of GIT committish: 8c653ad3f274c68b09bc48c29417e331454ef236
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -597,7 +597,7 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @warning{Il s'agit des versions @emph{instables et de développement}.
 Si vous avez le moindre doute quant à l'utilisation ou l'installation de
 LilyPond, nous vous enjoignons à utiliser le
-@ref{Download, téléchargement de la version stable} et la
+@ref{Téléchargement, téléchargement de la version stable} et la
 lecture des @ref{Manuels, manuels pour la version stable}.}
 
 @divEnd
@@ -645,6 +645,18 @@ paquetage MacPorts}
 @downloadDevelSource
 
 @end quotation
+
+@c Can't use @ifWebLinks because it inserts an extra colon.
+Si vous ne savez pas trop comment installer ces binaires, consultez le
+début du
+@ifclear web_version
+@c I don't understand why this use of @rlearning produces "Learning Manual"
+@c and not just "Learning". --JeanAS
+@rlearningnamed{Top, Manuel d'initiation}.
+@end ifclear
+@ifset web_version
+@manualDevelLearningSplitNoName.
+@end ifset
 
 @divEnd
 

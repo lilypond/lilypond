@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: ded73f295fd3bb08d34248833f6fabf8baf085fe
+   Translation of GIT committish: 8c653ad3f274c68b09bc48c29417e331454ef236
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1353,7 +1353,7 @@ partition.  Pour plus de détails, voir @ref{Facilités d'édition}.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes désormais prêt(e) à @ref{Download,télécharger LilyPond}.
+Vous êtes désormais prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
 Si vous n'êtes toujours pas convaincu(e), examinez les
 @ref{Facilités d'édition}.
 
@@ -1426,15 +1426,6 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 @subheading Éditeurs basés sur un navigateur
 @c VO Browser-based editors
 
-@subsubheading LilyBin
-@uref{http://lilybin.com/}
-
-LilyBin vous permet de saisir en ligne vos partitions sans avoir
-préalablement installé LilyPond sur votre oridnateur. Les lignes de code
-sont disponibles par une URL unique, à l'instar des sites « pastebin ».
-Son code est disponible sous licence MIT et se trouve sur la
-@uref{https://github.com/LilyBin/LilyBin, page de développement}.
-
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
@@ -1450,14 +1441,6 @@ propre @uref{https://github.com/hacklily/hacklily,page de développement}.
 Online Music Editing Tools (OMET) offre, depuis 2010, un service
 LilyPond prêt à l'emploi grâce à une interface spécifique. Bien qu'il
 soit nécessaire de s'enregistrer, son utilisation est gratuite.
-
-@subsubheading WebLily.net
-@uref{https://www.weblily.net/}
-
-Initié en 2009, WebLily.net est l'un des premiers services internet
-basés sur LilyPond et a été régulièrement mis à jour depuis. Son
-utilisation est gratuite même si elle requiert de s'enregistrer. Une
-version cliquable de la documentation de LilyPond y est disponible.
 
 @divEnd
 
@@ -1652,6 +1635,18 @@ disponible en version LilyKDE3 pour KDE 3.5 et lilypond-KDE4 pour
 KDE 4.1.
 
 @item
+@uref{http://lilybin.com/; LilyBin} vous permet de saisir en ligne vos
+partitions sans avoir préalablement installé LilyPond sur votre
+oridnateur. Les lignes de code sont disponibles par une URL unique, à
+l'instar des sites « pastebin ». Son code est disponible sous licence
+MIT et se trouve sur la @uref{https://github.com/LilyBin/LilyBin, page
+de développement}.
+
+@item
+Initié en 2009, @uref{https://www.weblily.net/,WebLily} est l'un des
+premiers services internet basés sur LilyPond.
+
+@item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} a été
 créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 
@@ -1690,7 +1685,7 @@ et il peut exporter du code LilyPond.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes prêt(e) à @ref{Download,télécharger LilyPond}.
+Vous êtes prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
 
 Vous êtes toujours incrédule ?  Beaucoup de compositeurs, musiciens et
 chefs ont appris à écrire de la musique dans notre format texte.  Des
