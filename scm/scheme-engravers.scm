@@ -1584,3 +1584,71 @@ adapted for typesetting within a chord grid.")))
    (properties-read . (currentCommandColumn))
    (properties-written . ())
    (description . "Engrave chord squares in chord grids.")))
+
+
+(define (Trill_spanner_engraver context)
+  (let ((start-event #f)
+        (stop-event #f)
+        (trill #f)
+        (ended-trill #f))
+    (make-engraver
+     (listeners
+      ((trill-span-event engraver event)
+       (if (eqv? START (ly:event-property event 'span-direction))
+           (set! start-event event)
+           (set! stop-event event))))
+     ((process-music engraver)
+      (let ((ender (or stop-event start-event)))
+        (when (and ender trill)
+          (set! ended-trill trill)
+          (ly:engraver-announce-end-grob engraver ended-trill ender)
+          (set! trill #f)))
+      (when start-event
+        (set! trill (ly:engraver-make-grob engraver 'TrillSpanner start-event))
+        (ly:side-position-interface::set-axis! trill Y)
+        (when ended-trill
+          (ly:grob-set-object! ended-trill 'right-neighbor trill))))
+     (acknowledgers
+      ((note-column-interface engraver grob source-engraver)
+        ;; If we find a note column, use it for the left bound of the
+        ;; newly created trill and the right bound of the trill that
+        ;; ended here.
+       (when trill
+         (ly:pointer-group-interface::add-grob trill 'note-columns grob)
+         (when start-event
+           (ly:spanner-set-bound! trill LEFT grob)))
+       (when ended-trill
+         (ly:pointer-group-interface::add-grob ended-trill 'note-columns grob)
+         (when (null? (ly:spanner-bound ended-trill RIGHT)) ; respect to-barline
+           (ly:spanner-set-bound! ended-trill RIGHT grob)))))
+     ((stop-translation-timestep engraver)
+      ;; Absent any note column, fall back on the musical paper column.
+      (when (and trill
+                 ;; A bound already set is a note column, added above.
+                 (null? (ly:spanner-bound trill LEFT)))
+        (let ((col (ly:context-property context 'currentMusicalColumn)))
+          (ly:spanner-set-bound! trill LEFT col)))
+      (when (and ended-trill
+                 ;; A bound already set is either a note column, added
+                 ;; above, or a BarLine due to to-barline.
+                 (null? (ly:spanner-bound ended-trill RIGHT)))
+        (let ((col (ly:context-property context 'currentMusicalColumn)))
+          (ly:spanner-set-bound! ended-trill RIGHT col))
+        (set! ended-trill #f))
+      (set! start-event #f)
+      (set! stop-event #f))
+     ((finalize engraver)
+      (when trill
+        ;; Fix the bound of a trill extending to the end of the piece:
+        ;; the musical column is past the end of the score.  Use the
+        ;; non-musical column instead.
+        (let ((col (ly:context-property context 'currentCommandColumn)))
+          (ly:spanner-set-bound! trill RIGHT col)))))))
+
+(ly:register-translator
+ Trill_spanner_engraver 'Trill_spanner_engraver
+ '((events-accepted . (trill-span-event))
+   (grobs-created . (TrillSpanner))
+   (properties-read . (currentCommandColumn currentMusicalColumn))
+   (properties-written . ())
+   (description . "Create trill spanners.")))

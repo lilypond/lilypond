@@ -454,6 +454,18 @@ Side_position_interface::set_axis (Grob *me, Axis a)
     }
 }
 
+MAKE_SCHEME_CALLBACK (Side_position_interface, set_axis_x,
+                      "ly:side-position-interface::set-axis!", 2);
+SCM
+Side_position_interface::set_axis_x (SCM grob, SCM axis)
+{
+  auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+  Axis a = from_scm<Axis> (axis);
+  set_axis (g, a);
+  return SCM_UNSPECIFIED;
+}
+
 static bool
 is_on_axis (Grob *me, Axis a)
 {
