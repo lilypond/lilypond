@@ -72,6 +72,13 @@ which scares away people.
 
 @end ignore
 
+
+@item
+The direction of a trill spanner can now be set with direction
+indicators like other articulations, i.e. with
+@code{_\startTrillSpan} or @code{^\startTrillSpan}.
+
+
 @item
 The predefined commands for Gregorian divisiones are no longer
 variations on @code{\breathe}.  @code{\divisioMinima},

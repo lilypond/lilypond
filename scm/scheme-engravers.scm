@@ -1606,6 +1606,9 @@ adapted for typesetting within a chord grid.")))
       (when start-event
         (set! trill (ly:engraver-make-grob engraver 'TrillSpanner start-event))
         (ly:side-position-interface::set-axis! trill Y)
+        (let ((direction (ly:event-property start-event 'direction)))
+          (when (ly:dir? direction)
+            (ly:grob-set-property! trill 'direction direction)))
         (when ended-trill
           (ly:grob-set-object! ended-trill 'right-neighbor trill))))
      (acknowledgers
