@@ -1615,10 +1615,12 @@ adapted for typesetting within a chord grid.")))
         ;; ended here.
        (when trill
          (ly:pointer-group-interface::add-grob trill 'note-columns grob)
+         (ly:pointer-group-interface::add-grob trill 'side-support-elements grob)
          (when start-event
            (ly:spanner-set-bound! trill LEFT grob)))
        (when ended-trill
          (ly:pointer-group-interface::add-grob ended-trill 'note-columns grob)
+         (ly:pointer-group-interface::add-grob ended-trill 'side-support-elements grob)
          (when (null? (ly:spanner-bound ended-trill RIGHT)) ; respect to-barline
            (ly:spanner-set-bound! ended-trill RIGHT grob)))))
      ((stop-translation-timestep engraver)
