@@ -34,8 +34,7 @@
 (define-public (grob::rhythmic-location grob)
   "Return a pair consisting of the measure number and moment within
    the measure of grob @var{grob}."
-  (let* (; all grobs support either spanner- or item-interface
-         (item (if (grob::has-interface grob 'spanner-interface)
+  (let* ((item (if (ly:spanner? grob)
                    (ly:spanner-bound grob LEFT)
                    grob))
          (col (ly:item-get-column item)))
@@ -45,8 +44,7 @@
 
 (define-public (grob::when grob)
   "Return the global timestep (a @code{Moment}) of grob @var{grob}."
-  (let* (; all grobs support either spanner- or item-interface
-         (item (if (grob::has-interface grob 'spanner-interface)
+  (let* ((item (if (ly:spanner? grob)
                    (ly:spanner-bound grob LEFT)
                    grob))
          (col (ly:item-get-column item)))
