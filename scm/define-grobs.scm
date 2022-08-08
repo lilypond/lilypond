@@ -3613,12 +3613,10 @@ trill.  See also @iref{TrillPitchGroup}.")))))
         (outside-staff-priority . 50)
         (padding . 0.5)
         (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
-        (side-axis . ,Y)
         (staff-padding . 1.0)
         (stencil . ,ly:line-spanner::print)
         (style . trill)
         (to-barline . #t)
-        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 horizontal-line-spanner-interface
