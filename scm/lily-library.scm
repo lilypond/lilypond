@@ -904,28 +904,46 @@ Choices include @code{arabic}, @code{custom}, @code{roman-ij-lower},
 
 For @code{custom}, @var{custom-format} must be present; it gets
 applied to @var{num}."
+  ;; Be foolproof: avoid an error if trying to format zero or a
+  ;; negative number in roman numbers; use arabic numbers in that
+  ;; case.
   (case number-type
     ((roman-lower)
-     (ice9-format #f "~(~@r~)" num))
+     (if (positive? num)
+         (ice9-format #f "~(~@r~)" num)
+         (ice9-format #f "~d" num)))
     ((roman-upper)
-     (ice9-format #f "~@r" num))
+     (if (positive? num)
+         (ice9-format #f "~@r" num)
+         (ice9-format #f "~d" num)))
     ((arabic)
      (ice9-format #f "~d" num))
+    ;; Too bad that we can't make this work with out-of-range numbers and such.
+    ;; Guile prints information about the error before raising it.  Maybe we
+    ;; should change from accepting 'custom plus a format string to accepting a
+    ;; procedure that does the work itself?
     ((custom)
      (ice9-format #f (car custom-format) num))
     ((roman-ij-lower)
-     (let* ((text (ice9-format #f "~(~@r~)" num))
-            (text (string-regexp-substitute "i$" "j" text))
-            (text (string-regexp-substitute
-                   "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
-       text))
+     (if (positive? num)
+         (let* ((text (ice9-format #f "~(~@r~)" num))
+                (text (string-regexp-substitute "i$" "j" text))
+                (text (string-regexp-substitute
+                       "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
+           text)
+         (ice9-format #f "~d" num)))
     ((roman-ij-upper)
-     (let* ((text (ice9-format #f "~@r" num))
-            (text (string-regexp-substitute "I$" "J" text))
-            (text (string-regexp-substitute
-                   "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
-       text))
-    (else (ice9-format #f "~(~@r~)" num))))
+     (if (positive? num)
+         (let* ((text (ice9-format #f "~@r" num))
+                (text (string-regexp-substitute "I$" "J" text))
+                (text (string-regexp-substitute
+                       "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
+           text)
+         (ice9-format #f "~d" num)))
+    (else
+     (if (positive? num)
+         (ice9-format #f "~(~@r~)" num)
+         (ice9-format #f "~d" num)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lilypond version

@@ -39,6 +39,8 @@
   "A page is a prob (Property object). This is because the non-music
 layout elements (title, header, footer) are markups and must be interpreted in context
 of layout settings just like markups inside the music."
+  ;; FIXME: the page breaker sometimes passes page-number as 0.  Is
+  ;; that expected?
   (let* ((paper (ly:paper-book-paper paper-book))
          (page (ly:make-prob
                 'page
