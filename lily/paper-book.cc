@@ -161,13 +161,22 @@ Paper_book::output_aux (SCM output_channel,
     {
       if (scm_is_null (print_elements_))
         return 0;
-      paper_->set_variable (ly_symbol2scm ("first-page-number"),
-                            to_scm (*first_page_number));
+      bool pgnums_per_bookpart = from_scm<bool> (
+                                  paper_->lookup_variable (
+                                    ly_symbol2scm ("bookpart-level-page-numbering")));
+      if (!pgnums_per_bookpart)
+        {
+          paper_->set_variable (ly_symbol2scm ("first-page-number"),
+                                to_scm (*first_page_number));
+        }
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
                             ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
       page_number = scm_ilength (pages ());
-      *first_page_number += page_number;
+      if (!pgnums_per_bookpart)
+        {
+          *first_page_number += page_number;
+        }
     }
   return page_number;
 }

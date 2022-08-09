@@ -74,6 +74,17 @@ which scares away people.
 
 
 @item
+Using @code{\paper @{ bookpart-level-page-numbering = ##t@}}, it
+is now possible to make bookparts independent with respect to page
+numbering.  If this is used for all bookparts, each bookpart has
+its own numbering sequence, starting at 1 by default.  It can also
+be used in an individual bookpart, which is useful to achieve the
+standard practice of numbers pages in an analytical introduction
+independently and in roman numerals (the latter is achieved using
+@code{page-number-type = #'roman-lower}).
+
+
+@item
 Additional display details of a @code{\woodwind-diagram} can now be specified including
 the angle of partially-covered-keys and the display of non-graphical trill keys.
 

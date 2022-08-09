@@ -1038,6 +1038,36 @@ The type of numerals used for page numbers.  Choices include
 @code{'roman-lower}, and @code{'roman-upper}.  Default:
 @code{'arabic}.
 
+@cindex page numbers, per bookpart
+@cindex page numbers, independent for introduction
+@item bookpart-level-page-numbering
+@funindex bookpart-level-page-numbering
+
+If set to true, each bookpart has its indepdendent sequence of
+page numbers, starting at @code{first-page-number} (1 by default).
+
+This may also be used for one bookpart only.  The typical use case
+is numbering pages of the first bookpart independently and in
+roman numerals, as may be wished for an analytical introduction to
+the work being published.
+
+@example
+\book @{
+  \bookpart @{
+    \paper @{
+      bookpart-level-page-numbering = ##t
+      page-number-type = #'roman-lower
+    @}
+    \markuplist \wordwrap-lines @{
+      Lorem ipsum dolor sit amet.
+    @}
+  @}
+  \bookpart @{
+    @dots{}
+  @}
+@}
+@end example
+
 @end table
 
 @morerefs
