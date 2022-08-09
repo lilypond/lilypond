@@ -77,6 +77,64 @@ class Expat(ConfigurePackage):
 expat = Expat()
 
 
+class Zlib(ConfigurePackage):
+    @property
+    def version(self) -> str:
+        return "1.2.12"
+
+    @property
+    def directory(self) -> str:
+        return f"zlib-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.xz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://www.zlib.net/{self.archive}"
+
+    def apply_patches(self, c: Config):
+        def patch_configure(content: str) -> str:
+            return content.replace("leave 1", "")
+
+        self.patch_file(c, "configure", patch_configure)
+
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
+        if c.is_mingw():
+            env["CHOST"] = c.triple
+        return env
+
+    def configure_args_triples(self, c: Config) -> List[str]:
+        # Cross-compilation is enabled via the CHOST environment variable.
+        return []
+
+    def configure_args_static(self, c: Config) -> List[str]:
+        return ["--static"]
+
+    def get_env_variables(self, c: Config) -> Dict[str, str]:
+        """Return environment variables to make zlib available."""
+        zlib_install = self.install_directory(c)
+        return {
+            "CPATH": os.path.join(zlib_install, "include"),
+            # Cannot use LIBRARY_PATH because it is only used if GCC is built
+            # as a native compiler, so it doesn't work for mingw.
+            "LDFLAGS": "-L" + os.path.join(zlib_install, "lib"),
+        }
+
+    def copy_license_files(self, destination: str, c: Config):
+        readme_src = os.path.join(self.src_directory(c), "README")
+        readme_dst = os.path.join(destination, f"{self.directory}.README")
+        copy_slice(readme_src, readme_dst, slice(-38, None))
+
+    def __str__(self) -> str:
+        return f"zlib {self.version}"
+
+
+zlib = Zlib()
+
+
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
@@ -94,10 +152,12 @@ class FreeType(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://download.savannah.gnu.org/releases/freetype/{self.archive}"
 
+    def dependencies(self, c: Config) -> List[Package]:
+        return [zlib]
+
     def configure_args(self, c: Config) -> List[str]:
         return [
-            # Disable compression options.
-            "--with-zlib=no",
+            "--with-zlib=yes",
             "--with-bzip2=no",
             "--with-png=no",
             "--with-brotli=no",
@@ -375,64 +435,6 @@ class PCRE(ConfigurePackage):
 
 
 pcre = PCRE()
-
-
-class Zlib(ConfigurePackage):
-    @property
-    def version(self) -> str:
-        return "1.2.12"
-
-    @property
-    def directory(self) -> str:
-        return f"zlib-{self.version}"
-
-    @property
-    def archive(self) -> str:
-        return f"{self.directory}.tar.xz"
-
-    @property
-    def download_url(self) -> str:
-        return f"https://www.zlib.net/{self.archive}"
-
-    def apply_patches(self, c: Config):
-        def patch_configure(content: str) -> str:
-            return content.replace("leave 1", "")
-
-        self.patch_file(c, "configure", patch_configure)
-
-    def build_env_extra(self, c: Config) -> Dict[str, str]:
-        env = super().build_env_extra(c)
-        if c.is_mingw():
-            env["CHOST"] = c.triple
-        return env
-
-    def configure_args_triples(self, c: Config) -> List[str]:
-        # Cross-compilation is enabled via the CHOST environment variable.
-        return []
-
-    def configure_args_static(self, c: Config) -> List[str]:
-        return ["--static"]
-
-    def get_env_variables(self, c: Config) -> Dict[str, str]:
-        """Return environment variables to make zlib available."""
-        zlib_install = self.install_directory(c)
-        return {
-            "CPATH": os.path.join(zlib_install, "include"),
-            # Cannot use LIBRARY_PATH because it is only used if GCC is built
-            # as a native compiler, so it doesn't work for mingw.
-            "LDFLAGS": "-L" + os.path.join(zlib_install, "lib"),
-        }
-
-    def copy_license_files(self, destination: str, c: Config):
-        readme_src = os.path.join(self.src_directory(c), "README")
-        readme_dst = os.path.join(destination, f"{self.directory}.README")
-        copy_slice(readme_src, readme_dst, slice(-38, None))
-
-    def __str__(self) -> str:
-        return f"zlib {self.version}"
-
-
-zlib = Zlib()
 
 
 class GLib(MesonPackage):
@@ -1157,13 +1159,13 @@ embeddable_python = EmbeddablePython()
 
 all_dependencies: List[Package] = [
     expat,
+    zlib,
     freetype,
     fontconfig,
     ghostscript,
     gettext,
     libffi,
     pcre,
-    zlib,
     glib,
     bdwgc,
     gmp,
