@@ -2289,7 +2289,24 @@ retaining only the chord articulations.  Returns the modified music."
                    m)))))
    music))
 
-(defmacro-public make-relative (variables reference music)
+(define ((make-relative::to-relative-callback variables music-call ref-call)
+         music pitch)
+  (let* ((ref-vars (map (lambda (v)
+                          (if (ly:pitch? v)
+                              (make-music 'NoteEvent 'pitch v)
+                              (ly:music-deep-copy v)))
+                        variables))
+         (after-pitch (ly:make-music-relative! (apply ref-call ref-vars) pitch))
+         (actual-vars (map (lambda (v r)
+                             (if (ly:pitch? v)
+                                 (ly:music-property r 'pitch)
+                                 r))
+                           variables ref-vars))
+         (rel-music (apply music-call actual-vars)))
+    (set! (ly:music-property music 'element) rel-music)
+    after-pitch))
+
+(define-syntax-rule-public (make-relative (variables ...) reference music)
   "The list of pitch or music variables in @var{variables} is used as
 a sequence for creating relativable music from @var{music}.
 
@@ -2341,29 +2358,15 @@ relativization is being stored.
   ;; properties, and it might make sense to create a music type of its
   ;; own for this kind of construct rather than using
   ;; RelativeOctaveMusic
-  (define ((make-relative::to-relative-callback variables music-call ref-call)
-           music pitch)
-    (let* ((ref-vars (map (lambda (v)
-                            (if (ly:pitch? v)
-                                (make-music 'NoteEvent 'pitch v)
-                                (ly:music-deep-copy v)))
-                          variables))
-           (after-pitch (ly:make-music-relative! (apply ref-call ref-vars) pitch))
-           (actual-vars (map (lambda (v r)
-                               (if (ly:pitch? v)
-                                   (ly:music-property r 'pitch)
-                                   r))
-                             variables ref-vars))
-           (rel-music (apply music-call actual-vars)))
-      (set! (ly:music-property music 'element) rel-music)
-      after-pitch))
-  `(make-music 'RelativeOctaveMusic
-               'to-relative-callback
-               (,make-relative::to-relative-callback
-                (list ,@variables)
-                (lambda ,variables ,music)
-                (lambda ,variables ,reference))
-               'element ,music))
+  (make-music 'RelativeOctaveMusic
+              'to-relative-callback
+              (make-relative::to-relative-callback
+               (list variables ...)
+               (lambda (variables ...)
+                 music)
+               (lambda (variables ...)
+                 reference))
+              'element music))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following functions are all associated with the crossStaff
