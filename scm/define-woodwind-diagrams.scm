@@ -245,7 +245,7 @@ are provided in @var{function-list}.  Example:
                     (make-abs-fontsize-markup
                      font-size
                      (make-raise-markup
-                      1
+                      (/ font-size 12)
                       (make-fontsize-markup
                        -2
                        (if (eqv? (cdr y) 1)
