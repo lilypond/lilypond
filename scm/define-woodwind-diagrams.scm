@@ -223,20 +223,24 @@ are provided in @var{function-list}.  Example:
 
 ;;; Commands for text layout
 
-;; Draws a circle around markup if (= trigger 0.5)
+;; Distinguish a markup if (= trigger 0.5) - either with a circle or in grey
 (define-markup-command
-  (conditional-circle-markup layout props trigger in-markup)
+  (conditional-trill-markup layout props trigger in-markup)
   (number? markup?)
-  (interpret-markup layout props
-                    (if (eqv? trigger 0.5)
-                        (make-circle-markup in-markup)
-                        in-markup)))
+  (let* ((wwd-details (chain-assoc-get 'woodwind-diagram-details props '()))
+         (text-trill-circled (assoc-get 'text-trill-circled wwd-details #t)))
+    (interpret-markup layout props
+                      (if (eqv? trigger 0.5)
+                          (if text-trill-circled
+                              (make-circle-markup in-markup)
+                              (make-with-color-markup grey in-markup))
+                          in-markup))))
 
 ;; Makes a list of named-keys
 (define (make-name-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-             (make-conditional-circle-markup-markup
+             (make-conditional-trill-markup-markup
               x
               (make-concat-markup
                (list
@@ -259,7 +263,7 @@ are provided in @var{function-list}.  Example:
 (define (make-number-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-             (make-conditional-circle-markup-markup
+             (make-conditional-trill-markup-markup
               x
               (make-abs-fontsize-markup font-size (make-number-markup y)))
              (make-null-markup)))

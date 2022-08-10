@@ -1269,6 +1269,10 @@ be included in woodwind-diagram-details include the following:
 @item
 @code{fill-angle} -- Rotation angle of a partially filled key from
 horizontal. Default value@tie{}0.
+@item
+@code{text-trill-circled} -- In non-graphical mode, for keys shown as
+text, indicate a trill by circling the text if true, or by shading the
+text if false.  Default value@tie{}#t.
 @end itemize")
      (word-space ,ly:dimension? "Space to insert between words in
 texts.")

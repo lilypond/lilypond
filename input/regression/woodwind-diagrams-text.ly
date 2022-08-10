@@ -10,7 +10,15 @@
   #'clarinet
   #'((cc . ())
      (lh . (ees))
-     (rh . (one fis)))
+     (rh . (one fisT)))
+
+  \override #'(woodwind-diagram-details . ((text-trill-circled . #f)))
+  \override #'(graphical . #f)
+  \woodwind-diagram
+  #'clarinet
+  #'((cc . ())
+     (lh . (ees))
+     (rh . (one fisT)))
 
   \override #'(font-size . -4)
   \override #'(graphical . #f)
@@ -18,7 +26,7 @@
   #'clarinet
   #'((cc . ())
      (lh . (ees))
-     (rh . (one fis)))
+     (rh . (one fisT)))
 
   \override #'(size . 0.5)
   \override #'(graphical . #f)
@@ -26,5 +34,5 @@
   #'clarinet
   #'((cc . ())
      (lh . (ees))
-     (rh . (one fis)))
+     (rh . (one fisT)))
 }
