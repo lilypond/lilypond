@@ -458,14 +458,13 @@ are provided in @var{function-list}.  Example:
         radius
         thick
         (if
-         (true-entry?
-          (list-head fill-list (position-true-endpoint fill-list #t)))
+         (= 2 (n-true-entries fill-list)) ; trill between empty and partially full
          (expt (assoc-get 'F HOLE-FILL-LIST) 2)
          (assoc-get 'F HOLE-FILL-LIST))
         layout
         props)
        (if
-        (= 2 (n-true-entries (list-tail fill-list 1))) ; trill?
+        (= 2 (n-true-entries (list-tail fill-list 1))) ; trill between two partially full states
         ((rich-pe-stencil
           1.0
           1.0
