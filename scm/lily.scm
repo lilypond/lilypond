@@ -232,6 +232,12 @@ lilypond-book")
 'svg.")
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
+    (compile-scheme-code #f "Use the Guile byte-compiler to run Scheme code,
+instead of the evaluator.  This makes for better
+diagnostics. On the other hand, due to a
+limitation in the Guile compiler, this option
+produces an error if there are more than a few
+thousand Scheme expressions in the file.")
     (crop #f
           "Generate additional, possibly tall
 single-page output file(s) with cropped margins.")

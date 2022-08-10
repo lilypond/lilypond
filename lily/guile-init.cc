@@ -69,8 +69,8 @@ ly_init_ly_module ()
      turn off all optimizations.  Guile 3 has a nice, documented interface for
      doing this.  In Guile 2, we have to do it by hand -- the way of building
      the list of optimizations is modeled after module/scripts/compile.scm in
-     the sources.
-  */
+     the sources.  This is also used when compiling Scheme code in user .ly
+     files. */
 #if SCM_MAJOR_VERSION >= 3
   Compile::default_optimization_level (to_scm (0));
 #elif SCM_MAJOR_VERSION == 2
@@ -105,13 +105,13 @@ void
 ly_c_init_guile ()
 {
   Guile_user::module.import ();
-#if SCM_MAJOR_VERSION >= 3
   Compile::module.import ();
-#elif SCM_MAJOR_VERSION == 2
+#if SCM_MAJOR_VERSION == 2
   Tree_il_optimize::module.import ();
   Cps_optimize::module.import ();
 #endif
   Lily::module.boot (ly_init_ly_module);
+  Loader::module.import ();
   Page::module.import ();
   Srfi_1::module.import ();
   Syntax::module.import ();

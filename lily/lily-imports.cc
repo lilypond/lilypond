@@ -39,14 +39,17 @@ Variable symbol_p ("symbol?");
 Variable the_root_module ("the-root-module");
 }
 
-#if SCM_MAJOR_VERSION >= 3
 namespace Compile
 {
 Scm_module module ("system base compile");
 
+Variable compile ("compile");
+#if SCM_MAJOR_VERSION >= 3
 Variable default_optimization_level ("default-optimization-level");
+#endif
 }
-#elif SCM_MAJOR_VERSION == 2
+
+#if SCM_MAJOR_VERSION == 2
 namespace Tree_il_optimize
 {
 Scm_module module ("language tree-il optimize");
@@ -142,6 +145,13 @@ Variable unbroken_or_last_broken_spanner_p ("unbroken-or-last-broken-spanner?");
 Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
 Variable write_performances_midis ("write-performances-midis");
 Variable write_lilypond_book_aux_files ("write-lilypond-book-aux-files");
+}
+
+namespace Loader
+{
+Scm_module module ("system vm loader");
+
+Variable load_thunk_from_memory ("load-thunk-from-memory");
 }
 
 namespace Page

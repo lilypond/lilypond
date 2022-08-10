@@ -24,6 +24,7 @@
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
 #include "overlay-string-port.hh"
+#include "program-option.hh"
 #include "source-file.hh"
 
 #include <cstdio>
@@ -157,7 +158,87 @@ evaluate_scheme_form_void (void *p)
   // for a Scheme expression inside #{ #}.
   if (ly_is_procedure (ps->form_))
     return ly_call (ps->form_);
-  return scm_primitive_eval (ps->form_);
+  // Else, it's a Scheme form.  Run it.  Guile 2+ has two methods for turning
+  // Scheme forms into values, evaluation via eval, or compilation via compile.
+  // Compiling yields faster code, but the compilation process itself is slower,
+  // so for running a one-off Scheme form, eval would be faster.  However, there
+  // is an additional consideration at play: eval yields horrible error
+  // messages.  For this reason, code coming from the user can be optionally
+  // compiled using the -dcompile-scheme-code option.  It is not turned on by
+  // default due to a limitation in the byte-compiler that prevents compiling
+  // more than a few thousand expressions, which stops us from using in make
+  // check.  See
+  // https://lists.gnu.org/archive/html/guile-devel/2022-08/msg00033.html.  For
+  // the same reason, we don't compile code from the init files for now, only
+  // code from the user.
+  bool compile = (from_scm<bool> (ly_get_option (ly_symbol2scm ("compile-scheme-code")))
+                  && ps->parser_->lexer_->is_main_input_
+                  // Avoid compilation overhead for trivial expressions.
+                  && !scm_is_number (ps->form_)
+                  && !scm_is_string (ps->form_)
+                  && !scm_is_bool (ps->form_)
+                  && !scm_is_keyword (ps->form_)
+                  && !(scm_is_pair (ps->form_)
+                       && scm_is_eq (scm_car (ps->form_), ly_symbol2scm ("quote"))));
+  if (!compile)
+    {
+      // The simple case: evaluation.
+      return scm_primitive_eval (ps->form_);
+    }
+  // The complex case: compilation.  We have to do something a bit
+  // awkward here.  This should really be
+  //
+  //   return Compile::compile (form, options ...)
+  //
+  // but compile has a bug: it discards multiple values, as happens
+  // for example if #@ or $@ is used.  This is
+  // https://debbugs.gnu.org/cgi/bugreport.cgi?bug=57123.  For this
+  // reason, we need to mimic its implementation in a way that is
+  // multiple-values-proof: instead of
+  //
+  //  (compile form options ...)
+  //
+  // we do
+  //
+  //  ((load-thunk-from-memory (compile form #:to 'bytecode options ...)))
+  //
+  // Namely, we only compile to bytecode, and do the conversion from
+  // bytecode to value ourselves by loading the thunk from bytecode
+  // and calling it.  (We would have to use save-module-excursion
+  // while calling if we needed to compile in a module other than the
+  // current module, but this is not the case.)
+  //
+  // Furthermore, Guile's warning handling is unfortunately buggy as
+  // well, https://debbugs.gnu.org/cgi/bugreport.cgi?bug=57119.  For
+  // this reason, we rebind the warning port while compiling to ensure
+  // no compilation warning ever reaches us. (Guile's compilation
+  // warnings are usually noise.)
+  SCM port = scm_current_warning_port ();
+  static SCM devnull = scm_sys_make_void_port (ly_string2scm ("w"));
+  scm_set_current_warning_port (devnull);
+  #if SCM_MAJOR_VERSION >= 3
+  SCM bytecode =
+    Compile::compile (
+      ps->form_,
+      ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
+      ly_keyword2scm ("env"), scm_current_module (),
+      // Turn off optimizations, they make for very slow compilation.
+      ly_keyword2scm ("optimization-level"), to_scm (0)
+    );
+  #elif SCM_MAJOR_VERSION == 2
+  SCM bytecode =
+    Compile::compile (
+      ps->form_,
+      ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
+      ly_keyword2scm ("env"), scm_current_module (),
+      // To turn off optimizations, reuse the options that LilyPond
+      // uses when compiling its own .scm files.
+      ly_keyword2scm ("opts"), Guile_user::p_auto_compilation_options
+    );
+  #endif
+  scm_set_current_warning_port (port);
+  SCM thunk = Loader::load_thunk_from_memory (bytecode);
+  return ly_call (thunk);
 }
 
 SCM

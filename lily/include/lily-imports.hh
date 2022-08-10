@@ -44,15 +44,18 @@ extern Variable symbol_p;
 extern Variable the_root_module;
 }
 
-#if SCM_MAJOR_VERSION >= 3
 namespace Compile
 {
 extern Scm_module module;
 typedef Module_variable<module> Variable;
 
+extern Variable compile;
+#if SCM_MAJOR_VERSION >= 3
 extern Variable default_optimization_level;
+#endif
 }
-#elif SCM_MAJOR_VERSION == 2
+
+#if SCM_MAJOR_VERSION == 2
 namespace Tree_il_optimize
 {
 extern Scm_module module;
@@ -154,6 +157,14 @@ extern Variable unbroken_or_last_broken_spanner_p;
 extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
 extern Variable write_lilypond_book_aux_files;
+}
+
+namespace Loader
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable load_thunk_from_memory;
 }
 
 namespace Page
