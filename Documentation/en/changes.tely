@@ -72,6 +72,23 @@ which scares away people.
 
 @end ignore
 
+
+@item
+Additional display details of a @code{\woodwind-diagram} can now be specified including
+the angle of partially-covered-keys and the display of non-graphical trill keys.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((fill-angle . 90)
+                                           (text-trill-circled . #f)))
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                               (lh . ())
+                               (rh . (besT)))
+}
+@end lilypond
+
+
 @item
 The accent glyph is now a bit smaller.  This fixes some cases where a natural
 sign would vertically displace accents.

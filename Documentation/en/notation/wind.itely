@@ -298,7 +298,8 @@ c''1^\markup {
 }
 @end lilypond
 
-Keys can be open, partially-covered, ring-depressed, or fully covered:
+Keys can be open, partially-covered, ring-depressed, or fully
+covered. The angle of partially-covered keys can be specified:
 
 @lilypond[verbatim,quote,fragment]
 \textLengthOn
@@ -346,16 +347,46 @@ c''1^\markup {
                                  (rh . ()))
   }
 }
+
+c''1^\markup {
+  \center-column {
+    "one half, vertical"
+    \override #'(woodwind-diagram-details . ((fill-angle . 90)))
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
 @end lilypond
 
-Trills are indicated as shaded keys:
+Trills are indicated as shaded keys, or in non-graphical mode,
+as either circled (the default) or shaded text:
+
 
 @lilypond[verbatim,quote,fragment]
+\textLengthOn
 c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
                        (rh . (b fis)))
+}
+
+c''1^\markup {
+  \override #'(graphical . #f)
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fisT)))
+}
+
+c''1^\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((text-trill-circled . #f)))
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fisT)))
 }
 @end lilypond
 
