@@ -429,7 +429,9 @@ are provided in @var{function-list}.  Example:
 ;; I think this is the clearest way to write it, though...
 
 (define (column-circle-stencil radius thick fill layout props)
-  (let* ((fill-list (process-fill-value fill)))
+  (let* ((fill-list (process-fill-value fill))
+         (wwd-details (chain-assoc-get 'woodwind-diagram-details props '()))
+         (fill-angle (assoc-get 'fill-angle wwd-details 0)))
     (cond
      ((and
        (list-ref fill-list 0)
@@ -456,8 +458,8 @@ are provided in @var{function-list}.  Example:
        ((rich-pe-stencil
          1.0
          1.0
-         (degree-first-true fill-list #t #t)
-         (degree-first-true fill-list #f #t)
+         (+ fill-angle (degree-first-true fill-list #t #t))
+         (+ fill-angle (degree-first-true fill-list #f #t))
          identity)
         radius
         thick
@@ -472,8 +474,8 @@ are provided in @var{function-list}.  Example:
         ((rich-pe-stencil
           1.0
           1.0
-          (degree-first-true fill-list #t #f)
-          (degree-first-true fill-list #f #f)
+          (+ fill-angle (degree-first-true fill-list #t #f))
+          (+ fill-angle (degree-first-true fill-list #f #f))
           identity)
          radius
          thick

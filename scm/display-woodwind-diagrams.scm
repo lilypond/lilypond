@@ -1855,7 +1855,8 @@
   #:properties ((size 1)
                 (thickness 0.1)
                 (graphical #t)
-                (font-size 0))
+                (font-size 0)
+                (woodwind-diagram-details '()))
   "Make a woodwind-instrument diagram.  For example, say
 
 @example

@@ -1260,6 +1260,16 @@ white background extends beyond the bounding box in multiples of
 exception: Use @code{'special} for @code{LyricHyphen}.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
+     (woodwind-diagram-details ,symbol-key-alist? "An alist of detailed
+grob properties for woodwind diagrams.  Each alist entry consists of a
+@code{(@var{property} . @var{value})} pair.  The properties which can
+be included in woodwind-diagram-details include the following:
+
+@itemize @bullet
+@item
+@code{fill-angle} -- Rotation angle of a partially filled key from
+horizontal. Default value@tie{}0.
+@end itemize")
      (word-space ,ly:dimension? "Space to insert between words in
 texts.")
 
