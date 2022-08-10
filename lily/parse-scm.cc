@@ -107,8 +107,7 @@ internal_parse_embedded_scheme (Parse_start *ps)
       SCM c = scm_assv_ref (ps->parser_->closures_,
                             scm_from_ssize_t (byte_offset));
       if (scm_is_true (c))
-        // Replace form with a call to previously compiled closure
-        form = scm_list_1 (c);
+        return c;
     }
 
   if (multiple)
@@ -154,6 +153,10 @@ SCM
 evaluate_scheme_form_void (void *p)
 {
   Parse_start *ps = static_cast<Parse_start *> (p);
+  // If ps->form_ is a procedure, it's a thunk returning the value(s)
+  // for a Scheme expression inside #{ #}.
+  if (ly_is_procedure (ps->form_))
+    return ly_call (ps->form_);
   return scm_primitive_eval (ps->form_);
 }
 
