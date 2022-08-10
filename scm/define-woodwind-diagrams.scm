@@ -279,7 +279,9 @@ are provided in @var{function-list}.  Example:
        (make-name-keylist
         (map text-fill-translate fill-list)
         key-name-list
-        (* 12 radius)))))))
+        (* 12 radius
+           (magstep
+            (chain-assoc-get 'font-size props 0)))))))))
 
 (define number-column-stencil
   (lambda (key-name-list radius fill-list layout props)
@@ -298,7 +300,9 @@ are provided in @var{function-list}.  Example:
          (make-number-keylist
           (map text-fill-translate fill-list)
           key-name-list
-          (* radius 8)))))))))
+          (* radius 8
+             (magstep
+              (chain-assoc-get 'font-size props 0)))))))))))
 
 ;; Utility function for the left-hand keys
 (define lh-woodwind-text-stencil
@@ -567,7 +571,9 @@ are provided in @var{function-list}.  Example:
      (make-name-keylist
       `(,(text-fill-translate fill))
       '(("X" . #f))
-      (* 9 radius))))))
+      (* 9 radius
+         (magstep
+          (chain-assoc-get 'font-size props 0))))))))
 
 (define flute-lower-row-stretch 1.4)
 
@@ -975,7 +981,9 @@ are provided in @var{function-list}.  Example:
      (make-name-keylist
       `(,(text-fill-translate fill))
       '(("lowA" . #f))
-      (* 9 radius))))))
+      (* 9 radius
+         (magstep
+          (chain-assoc-get 'font-size props 0))))))))
 
 ;;; Bassoon family stencils
 

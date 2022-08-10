@@ -1854,7 +1854,8 @@
   #:category instrument-specific-markup ; markup category
   #:properties ((size 1)
                 (thickness 0.1)
-                (graphical #t))
+                (graphical #t)
+                (font-size 0))
   "Make a woodwind-instrument diagram.  For example, say
 
 @example
