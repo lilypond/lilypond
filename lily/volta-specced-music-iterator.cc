@@ -114,6 +114,7 @@ Volta_specced_music_iterator::process (Moment m)
           SCM ev = create_event (STOP);
           unsmob<Music> (ev)->send_to_context (c);
           scm_remember_upto_here_1 (ev);
+          event_handler_.set_context (nullptr);
         }
     }
 }
