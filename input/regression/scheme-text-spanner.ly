@@ -8,54 +8,42 @@ in scheme."
 
 #(define-event-class 'scheme-text-span-event 'span-event)
 
-#(define (add-grob-definition grob-name grob-entry)
-   (let* ((meta-entry   (assoc-get 'meta grob-entry))
-          (class        (assoc-get 'class meta-entry #f))
-          (ifaces-entry (assoc-get 'interfaces meta-entry)))
-     (set-object-property! grob-name 'translation-type? ly:grob-properties?)
-     (set-object-property! grob-name 'is-grob? #t)
-     (set! ifaces-entry (uniq-list (sort ifaces-entry symbol<?)))
-     (set! ifaces-entry (cons 'grob-interface ifaces-entry))
-     (if class
-         (set! meta-entry (assoc-set! meta-entry 'classes (list class))))
-     (set! meta-entry (assoc-set! meta-entry 'name grob-name))
-     (set! meta-entry (assoc-set! meta-entry 'interfaces
-                                  ifaces-entry))
-     (set! grob-entry (assoc-set! grob-entry 'meta meta-entry))
-     (set! all-grob-descriptions
-           (cons (cons grob-name grob-entry)
-                 all-grob-descriptions))))
+#(define (add-grob-definition grob-entry)
+   (set! all-grob-descriptions
+         (cons
+          ((@@ (lily) completize-grob-entry)
+           grob-entry)
+          all-grob-descriptions)))
 
 #(add-grob-definition
-  'SchemeTextSpanner
-  `(
-    (bound-details . ((left . ((Y . 0)
-                               (padding . 0.25)
-                               (attach-dir . ,LEFT)
-                               ))
-                      (left-broken . ((end-on-note . #t)))
-                      (right . ((Y . 0)
-                                (padding . 0.25)
-                                ))
-                      ))
-    (dash-fraction . 0.2)
-    (dash-period . 3.0)
-    (direction . ,UP)
-    (font-shape . italic)
-    (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
-    (outside-staff-priority . 350)
-    (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
-    (staff-padding . 0.8)
-    (stencil . ,ly:line-spanner::print)
-    (style . dashed-line)
+  `(SchemeTextSpanner
+    . ((bound-details . ((left . ((Y . 0)
+                                 (padding . 0.25)
+                                 (attach-dir . ,LEFT)
+                                 ))
+                        (left-broken . ((end-on-note . #t)))
+                        (right . ((Y . 0)
+                                  (padding . 0.25)
+                                  ))
+                       ))
+       (dash-fraction . 0.2)
+       (dash-period . 3.0)
+       (direction . ,UP)
+       (font-shape . italic)
+       (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
+       (outside-staff-priority . 350)
+       (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
+       (staff-padding . 0.8)
+       (stencil . ,ly:line-spanner::print)
+       (style . dashed-line)
 
-    (meta . ((class . Spanner)
-             (interfaces . (font-interface
-                            horizontal-line-spanner-interface
-                            line-interface
-                            line-spanner-interface
-                            outside-staff-interface
-                            side-position-interface))))))
+       (meta . ((class . Spanner)
+                (interfaces . (font-interface
+                               horizontal-line-spanner-interface
+                               line-interface
+                               line-spanner-interface
+                               outside-staff-interface
+                               side-position-interface)))))))
 
 #(define scheme-event-spanner-types
    '(
