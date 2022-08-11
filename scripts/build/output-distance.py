@@ -54,7 +54,6 @@ def log_terse(s: str):
     if not options.verbose:
         print(s)
 
-
 def log_verbose(s: str):
     if options.verbose:
         print(s)
@@ -93,7 +92,7 @@ def read_file(fn: str, n: int =-1) -> bytes:
     with open(fn, 'rb') as f:
         return f.read(n)
 
-    
+
 def compare_png_images(old: str, new: str) -> float:
     file_dims = {}
     for fn in [old, new]:
@@ -355,30 +354,30 @@ class ImageLink (FileLink):
             file_name  = self.file_names[oldnew]
             if not file_name.endswith('.eps'):
                 continue
-            
+
             if (self.image_exists[oldnew] and (not self._file_data_equal or
                                               # for unchanged images, we only render the new file.
                                             (oldnew==1 and not only_changed))):
                 images[oldnew].append(file_name)
         return images
-    
+
     def update_images(self, pngs: Dict[str, str]):
         updated = []
         for fn in self.file_names:
             updated.append(pngs.get(fn, fn))
-            
+
         self.file_names = (updated[0], updated[1])
-        
+
     def calc_distance(self) -> float:
         if self._file_data_equal:
             return 0
         if not self.image_exists[0] or not self.image_exists[1]:
             return MAX_DISTANCE
-        
+
         dist = compare_png_images(self.file_names[0],
                                   self.file_names[1])
         return dist
-    
+
     def get_cell_html(self, name: str, oldnew: int) -> str:
         base = os.path.splitext(self.file_names[oldnew])[0]
 
@@ -404,7 +403,7 @@ class ImageLink (FileLink):
                 # if the images are the same, we only have to render
                 # one of the pair, in this case the new one.
                 oldnew = 1
-                
+
             if self.image_exists[oldnew]:
                 img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
                 return ('''
@@ -508,7 +507,7 @@ def eps_to_png(files: Dict[str, str]):
 
     start = time.time()
     print('converting %d EPS files' % len(files))
-    
+
     # EPS files generated for regression tests don't contain fonts
     # to save disk space.  Instead, paths to the fonts are stored in
     # the files that are loaded by Ghostscript's `.loadfont'
@@ -529,7 +528,7 @@ def eps_to_png(files: Dict[str, str]):
 %%EndComments
 ''')
     empty_eps.close()
-            
+
     for destdir in set(os.path.dirname(f) for f in files.values()):
         os.makedirs(destdir, exist_ok=True)
 
@@ -576,7 +575,7 @@ def eps_to_png(files: Dict[str, str]):
             print('running %s' % args)
         proc = subprocess.Popen(args)
         procs.append(proc)
-        
+
     for proc in procs:
       rc = proc.wait()
       if rc:
@@ -589,7 +588,7 @@ def eps_to_png(files: Dict[str, str]):
     for driver in drivers:
         os.unlink(driver.name)
     os.unlink(empty_eps.name)
-    
+
 
 ################################################################
 # Files/directories
@@ -646,14 +645,14 @@ class ComparisonData:
 
     def _convert_images_changed(self):
         images_to_convert = ([], [])
-        
+
         for val in self.file_links.values():
             if isinstance(val, ImagesLink):
                 as_imagelink: Any = val
                 oldnew_images = as_imagelink.get_images_to_convert(only_changed=True)
                 for oldnew in [0, 1]:
                     images_to_convert[oldnew].extend(oldnew_images[oldnew])
-                    
+
         png_images = {}
         for oldnew in [0,1]:
             png_map = dict((k, os.path.join(self.dest_dir, k.replace('.eps', '.png')))
@@ -770,7 +769,7 @@ class ComparisonData:
         todo = ([], [])
 
         # We only render the right side for unchanged images.
-        oldnew = 1 
+        oldnew = 1
         for link in images_links:
             oldnew_images = link.get_images_to_convert(only_changed=False)
             todo[oldnew].extend(oldnew_images[oldnew])
@@ -780,7 +779,7 @@ class ComparisonData:
         eps_to_png(pngs)
         for link in images_links:
             link.update_images(pngs)
-                
+
     def write_text_result_page(self, filename: str, threshold: float):
         verbose = True
         out = sys.stdout
@@ -1008,7 +1007,7 @@ td:empty {
 
         dest_file = dest_dir + '/index.html'
         open_write_file(dest_file).write(html)
-        
+
         for link in changed:
             link.link_files_for_html(dest_dir)
 
@@ -1085,7 +1084,7 @@ def test_eps_bbox_empty():
     assert not eps_bbox_empty ('non_empty.eps')
     assert eps_bbox_empty ('empty.eps')
 
-    
+
 def test_compare_tree_pairs():
     system('rm -rf dir1 dir2')
     system('mkdir dir1 dir2')
@@ -1113,7 +1112,7 @@ def test_compare_tree_pairs():
     system('cp 20grob-2.eps dir1/context-2.eps')
     system('cp 20grob-1.eps dir2/context-1.eps')
     system('cp 20grob-1.eps dir2/context-2.eps')
-    
+
     system('cp 19.ly dir2/20grob.ly')
     system('cp 19.eps dir2/20grob.eps')
     system('cp 19.log dir2/20grob.log')
@@ -1151,7 +1150,7 @@ def test_compare_tree_pairs():
     tidy_bin = shutil.which('tidy')
     if tidy_bin:
         subprocess.run([tidy_bin, '-o', '/dev/null', '-q', html_fn], check=True)
-        
+
     images_link = data.file_links['dir/20grob']
     assert images_link.distance() > 0
     assert len(images_link.image_links) == 2
@@ -1164,11 +1163,11 @@ def test_compare_tree_pairs():
     assert second_link.distance() > 0
 
 
-        
+
 def test_compare_png_images():
     # Compare 2 images looking like "xx." and "x.". The second image
     # should be scaled up to match the first so we compare "xx." and
-    # "x..", 
+    # "x..",
     open('p1.xpm', 'wb').write(rb'''/* XPM */
 static char * XFACE[] = {
 "3 1 2 1",
@@ -1326,7 +1325,7 @@ def main():
                  default=0,
                  action="store",
                  help='only analyze COUNT signature pairs')
-    
+
     p.add_option('--job-count',
                  dest='job_count',
                  metavar='COUNT',
