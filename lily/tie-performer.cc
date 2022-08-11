@@ -145,7 +145,7 @@ void
 Tie_performer::start_translation_timestep ()
 {
   set_property (context (), "tieMelismaBusy",
-                ly_bool2scm (heads_to_tie_.size ()));
+                to_scm (!heads_to_tie_.empty ()));
 }
 
 // a predicate implemented as a class, used to delete all tied notes with end

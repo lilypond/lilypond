@@ -276,7 +276,7 @@ Completion_rest_engraver::start_translation_timestep ()
       rest_events_.clear ();
     }
   set_property (context (), "restCompletionBusy",
-                ly_bool2scm (rest_events_.size ()));
+                to_scm (!rest_events_.empty ()));
 }
 
 Completion_rest_engraver::Completion_rest_engraver (Context *c)

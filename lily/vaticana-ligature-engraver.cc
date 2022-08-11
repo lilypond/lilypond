@@ -318,8 +318,7 @@ Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
             }
           else
             {
-              set_property (prev_primitive, "add-join",
-                            ly_bool2scm (true));
+              set_property (prev_primitive, "add-join", SCM_BOOL_T);
 
               /*
                * Create a small overlap of adjacent heads so that the join
@@ -524,7 +523,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       if (prefix_set & VIRGA)
         {
           glyph_name = "vaticana.punctum";
-          set_property (primitive, "add-stem", ly_bool2scm (true));
+          set_property (primitive, "add-stem", SCM_BOOL_T);
         }
       else if (prefix_set & QUILISMA)
         glyph_name = "vaticana.quilisma";
@@ -591,8 +590,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
                    * Therefore, the following line of code should be
                    * placed somewhere else.
                    */
-                  set_property (prev_primitive, "add-cauda",
-                                ly_bool2scm (false));
+                  set_property (prev_primitive, "add-cauda", SCM_BOOL_F);
                 }
               if (prev_delta_pitch < - 1)
                 glyph_name = "vaticana.reverse.plica";
@@ -633,7 +631,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        */
       if ((context_info & FLEXA_LEFT) && ! (context_info & PES_UPPER))
         if (glyph_name == "vaticana.punctum")
-          set_property (primitive, "add-cauda", ly_bool2scm (true));
+          set_property (primitive, "add-cauda", SCM_BOOL_T);
 
       /*
        * Execptional rule for porrectus:
@@ -651,8 +649,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
           set_property (prev_primitive, "flexa-width",
                         to_scm (flexa_width));
           bool add_cauda = !(prev_prefix_set & PES_OR_FLEXA);
-          set_property (prev_primitive, "add-cauda",
-                        ly_bool2scm (add_cauda));
+          set_property (prev_primitive, "add-cauda", to_scm (add_cauda));
           check_for_prefix_loss (primitive);
           glyph_name = "";
           set_property (primitive, "flexa-width",

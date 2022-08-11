@@ -57,7 +57,7 @@ internal_set_option (SCM var, SCM val)
 {
   string varstr = robust_symbol2string (var, "");
   bool valbool = from_scm<bool> (val);
-  SCM val_scm_bool = scm_from_bool (valbool);
+  SCM val_scm_bool = to_scm (valbool); // could be scm_is_eq (val, SCM_BOOL_T)
   if (0)
     ;
   else if (varstr == "profile-property-accesses")
@@ -235,7 +235,7 @@ Set a program option.
   if (varstr.substr (0, 3) == string ("no-"))
     {
       var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3));
-      val = scm_from_bool (!from_scm<bool> (val));
+      val = to_scm (!from_scm<bool> (val));
     }
 
   SCM handle = scm_hashq_get_handle (option_hash, var);
@@ -267,7 +267,7 @@ LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
 Was verbose output requested, i.e., is the log level at least @code{DEBUG}?
            )")
 {
-  return scm_from_bool (is_loglevel (LOG_DEBUG));
+  return to_scm (is_loglevel (LOG_DEBUG));
 }
 
 LY_DEFINE (ly_all_options, "ly:all-options",

@@ -105,7 +105,7 @@ Does @var{disp} listen to any event type in the list @var{cl}?
 
   scm_remember_upto_here_1 (disp);
 
-  return scm_from_bool (result);
+  return to_scm (result);
 }
 
 LY_DEFINE (ly_broadcast, "ly:broadcast",

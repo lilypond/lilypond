@@ -125,7 +125,7 @@ Lookup::circle (Real rad, Real thick, bool filled)
   return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
                                  to_scm (rad),
                                  to_scm (thick),
-                                 scm_from_bool (filled)));
+                                 to_scm (filled)));
 }
 
 Stencil

@@ -303,7 +303,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
 
       // join_primitives replacement
       if (!(at_beginning || make_flexa))
-        set_property (prev_primitive, "add-join", ly_bool2scm (true));
+        set_property (prev_primitive, "add-join", SCM_BOOL_T);
 
       at_beginning = false;
       prev_primitive = primitive;

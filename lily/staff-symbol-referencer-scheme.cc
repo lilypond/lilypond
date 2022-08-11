@@ -53,7 +53,7 @@ Return whether @var{spos} is on a line of the staff associated with the grob
   Grob *st = Staff_symbol_referencer::get_staff_symbol (g);
   int pos = scm_to_int (spos);
   bool on_line = st ? Staff_symbol::on_line (g, pos) : false;
-  return scm_from_bool (on_line);
+  return to_scm (on_line);
 }
 
 LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",

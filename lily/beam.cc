@@ -1409,7 +1409,7 @@ Beam::is_knee (Grob *me)
 {
   SCM k = get_property (me, "knee");
   if (scm_is_bool (k))
-    return ly_scm2bool (k);
+    return scm_is_true (k);
 
   bool knee = false;
   auto d = CENTER;
@@ -1425,7 +1425,7 @@ Beam::is_knee (Grob *me)
       d = dir;
     }
 
-  set_property (me, "knee", ly_bool2scm (knee));
+  set_property (me, "knee", to_scm (knee));
 
   return knee;
 }
@@ -1445,7 +1445,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_cross_staff, "ly:beam::calc-cross-staff", 1)
 SCM
 Beam::calc_cross_staff (SCM smob)
 {
-  return scm_from_bool (is_cross_staff (unsmob<Grob> (smob)));
+  return to_scm (is_cross_staff (unsmob<Grob> (smob)));
 }
 
 int

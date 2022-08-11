@@ -70,5 +70,5 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
 Is @var{g} a spanner object?
            )")
 {
-  return ly_bool2scm (unsmob<Spanner> (g));
+  return to_scm (static_cast<bool> (unsmob<Spanner> (g)));
 }

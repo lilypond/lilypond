@@ -115,9 +115,7 @@ inline bool ly_is_equal (SCM x, SCM y)
   return scm_is_true (scm_equal_p (x, y));
 }
 
-inline bool ly_scm2bool (SCM x) { return scm_is_true (x); }
 inline char ly_scm2char (SCM x) { return (char)SCM_CHAR (x); }
-inline SCM ly_bool2scm (bool x) { return scm_from_bool (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2)
 {

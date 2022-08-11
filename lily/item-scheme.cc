@@ -27,7 +27,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
 Is @var{g} an @code{Item} object?
            )")
 {
-  return ly_bool2scm (unsmob<Item> (g));
+  return to_scm (static_cast<bool> (unsmob<Item> (g)));
 }
 
 LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",

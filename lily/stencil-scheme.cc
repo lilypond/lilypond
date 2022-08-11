@@ -181,9 +181,9 @@ emptiness check is restricted to that axis.
 {
   auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   if (SCM_UNBNDP (axis))
-    return scm_from_bool (s->is_empty ());
+    return to_scm (s->is_empty ());
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
-  return scm_from_bool (s->is_empty (from_scm<Axis> (axis)));
+  return to_scm (s->is_empty (from_scm<Axis> (axis)));
 }
 
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",

@@ -33,7 +33,7 @@ LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
 Is @var{f} a Pango font?
            )")
 {
-  return scm_from_bool (unsmob<Pango_font> (f));
+  return to_scm (static_cast<bool> (unsmob<Pango_font> (f)));
 }
 
 LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",

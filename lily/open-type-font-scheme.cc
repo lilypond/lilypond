@@ -105,7 +105,7 @@ Is @var{font} an OpenType font?
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
                         : unsmob<Open_type_font> (font);
 
-  return scm_from_bool (otf);
+  return to_scm (static_cast<bool> (otf));
 }
 
 LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,

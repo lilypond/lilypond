@@ -454,7 +454,7 @@ Slur::calc_cross_staff (SCM smob)
   Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);
   common = common_refpoint_of_array (non_sep_extras, common, Y_AXIS);
 
-  return scm_from_bool (common != me->get_y_parent ());
+  return to_scm (common != me->get_y_parent ());
 }
 
 ADD_INTERFACE (Slur,

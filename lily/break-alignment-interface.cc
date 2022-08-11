@@ -476,7 +476,7 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
           if (scm_is_vector (vis) && from_scm<bool> (scm_c_vector_ref (vis, dir)))
             visible = true;
         }
-      scm_c_vector_set_x (ret, dir, scm_from_bool (visible));
+      scm_c_vector_set_x (ret, dir, to_scm (visible));
     }
   return ret;
 }

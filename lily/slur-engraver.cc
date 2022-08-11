@@ -62,7 +62,7 @@ Slur_engraver::Slur_engraver (Context *c)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  set_property (context (), "slurMelismaBusy", ly_bool2scm (m));
+  set_property (context (), "slurMelismaBusy", to_scm (m));
 }
 
 void

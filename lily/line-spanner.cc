@@ -505,8 +505,8 @@ Line_spanner::calc_cross_staff (SCM smob)
 
   auto *const lb = me->get_bound (LEFT);
   auto *const rb = me->get_bound (RIGHT);
-  return to_scm<bool> (Staff_symbol_referencer::get_staff_symbol (lb)
-                       != Staff_symbol_referencer::get_staff_symbol (rb));
+  return to_scm (Staff_symbol_referencer::get_staff_symbol (lb)
+                 != Staff_symbol_referencer::get_staff_symbol (rb));
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, print, "ly:line-spanner::print", 1);

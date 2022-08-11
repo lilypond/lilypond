@@ -106,7 +106,7 @@ Was there an error in the score?
            )")
 {
   auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
-  return scm_from_bool (sc->error_found_);
+  return to_scm (sc->error_found_);
 }
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",

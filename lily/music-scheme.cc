@@ -90,7 +90,7 @@ LY_DEFINE (ly_music_p, "ly:music?",
 Is @var{obj} a @code{Music} object?
            )")
 {
-  return ly_bool2scm (unsmob<Music> (obj));
+  return to_scm (static_cast<bool> (unsmob<Music> (obj)));
 }
 
 LY_DEFINE (ly_event_p, "ly:event?",
@@ -101,7 +101,7 @@ Is @var{obj} a proper (non-rhythmic) @code{Event} object?
 {
   if (Music *m = unsmob<Music> (obj))
     {
-      return scm_from_bool (m->is_mus_type ("post-event"));
+      return to_scm (m->is_mus_type ("post-event"));
     }
   return SCM_BOOL_F;
 }

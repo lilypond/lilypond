@@ -73,7 +73,7 @@ Is @var{obj} the specified prob type?
            )")
 {
   auto *prob = unsmob<Prob> (obj);
-  return scm_from_bool (prob && scm_is_eq (prob->type (), type));
+  return to_scm (prob && scm_is_eq (prob->type (), type));
 }
 
 LY_DEFINE (ly_make_prob, "ly:make-prob",

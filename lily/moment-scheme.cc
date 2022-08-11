@@ -209,6 +209,5 @@ Compare two moments.
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
-  return ly_bool2scm (*ma < *mb);
+  return to_scm (*ma < *mb);
 }
-

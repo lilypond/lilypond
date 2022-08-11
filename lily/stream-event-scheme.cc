@@ -25,7 +25,7 @@ LY_DEFINE (ly_stream_event_p, "ly:stream-event?",
 Is @var{obj} a @code{Stream_event} object?
            )")
 {
-  return scm_from_bool (unsmob<Stream_event> (obj));
+  return to_scm (static_cast<bool> (unsmob<Stream_event> (obj)));
 }
 
 LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",

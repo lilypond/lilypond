@@ -162,8 +162,8 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
     }
 
   if (connect_to_other[LEFT] || connect_to_other[RIGHT])
-    return scm_cons (scm_from_bool (connect_to_other[LEFT]),
-                     scm_from_bool (connect_to_other[RIGHT]));
+    return scm_cons (to_scm (connect_to_other[LEFT]),
+                     to_scm (connect_to_other[RIGHT]));
 
   return SCM_EOL;
 }
@@ -312,7 +312,7 @@ Tuplet_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Stencil mol;
 
-  bool tuplet_slur = ly_scm2bool (get_property (me, "tuplet-slur"));
+  bool tuplet_slur = scm_is_true (get_property (me, "tuplet-slur"));
 
   extract_grob_set (me, "note-columns", columns);
   Spanner *par_beam = parallel_beam (me, columns);
@@ -323,7 +323,7 @@ Tuplet_bracket::print (SCM smob)
     FIXME: The type of this prop is sucky.
   */
   SCM bracket_vis_prop = get_property (me, "bracket-visibility");
-  bool bracket_prop = ly_scm2bool (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
+  bool bracket_prop = scm_is_true (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
   bool bracket = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
   if (scm_is_bool (bracket_vis_prop))
     bracket_visibility = bracket_prop;

@@ -387,5 +387,5 @@ Does @var{parser} (defaulting to current parser) have an error flag?
     parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
-  return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
+  return to_scm (p->error_level_ || p->lexer_->error_level_);
 }

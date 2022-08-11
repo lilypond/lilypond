@@ -450,7 +450,7 @@ Does @var{a} lie above @var{b} on the page?
   auto *const ga = LY_ASSERT_SMOB (Grob, a, 1);
   auto *const gb = LY_ASSERT_SMOB (Grob, b, 2);
 
-  return ly_bool2scm (Grob::vertical_less (ga, gb));
+  return to_scm (Grob::vertical_less (ga, gb));
 }
 
 LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-group-index",

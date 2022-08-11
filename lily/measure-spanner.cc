@@ -52,8 +52,8 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
     }
 
   if (connect_to_other[LEFT] || connect_to_other[RIGHT])
-    return scm_cons (scm_from_bool (connect_to_other[LEFT]),
-                     scm_from_bool (connect_to_other[RIGHT]));
+    return scm_cons (to_scm (connect_to_other[LEFT]),
+                     to_scm (connect_to_other[RIGHT]));
 
   return SCM_EOL;
 }
@@ -104,7 +104,7 @@ Measure_spanner::print (SCM smob)
       gap_iv.widen (0.6);
     }
 
-  if (ly_scm2bool (visible))
+  if (scm_is_true (visible))
     brack = Bracket::make_axis_constrained_bracket (me, x_points[RIGHT] - x_points[LEFT], X_AXIS,
                                                     get_grob_direction (me), gap_iv);
 

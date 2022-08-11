@@ -151,7 +151,7 @@ Hairpin::print (SCM smob)
   /*
     Use the height and thickness of the hairpin when making a circled tip
   */
-  bool circled_tip = ly_scm2bool (get_property (me, "circled-tip"));
+  bool circled_tip = scm_is_true (get_property (me, "circled-tip"));
   Real height = from_scm<double> (get_property (me, "height"), 0.2)
                 * Staff_symbol_referencer::staff_space (me);
   /*

@@ -1168,7 +1168,7 @@ MAKE_SCHEME_CALLBACK (Stem, calc_cross_staff, "ly:stem::calc-cross-staff", 1)
 SCM
 Stem::calc_cross_staff (SCM smob)
 {
-  return scm_from_bool (is_cross_staff (unsmob<Grob> (smob)));
+  return to_scm (is_cross_staff (unsmob<Grob> (smob)));
 }
 
 Grob *
