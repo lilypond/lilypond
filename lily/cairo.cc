@@ -1444,6 +1444,8 @@ dump book through cairo backend
 
 #if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
+
+  long int page_count = scm_ilength (stencils);
   for (auto const format
        : parse_formats ("ly:cairo-output-stencils", 5, formats))
     {
@@ -1453,7 +1455,16 @@ dump book through cairo backend
           int page = 1;
           for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p), page++)
             {
-              output_stencil_format (base + "-" + std::to_string (page),
+              std::string suffix;
+              if (format == PNG)
+                {
+                  if (page_count > 1)
+                    suffix = "-page" + std::to_string (page);
+                }
+              else
+                suffix = "-" + std::to_string (page);
+
+              output_stencil_format (base + suffix,
                                      unsmob<const Stencil> (scm_car (p)), odef,
                                      format, false);
             }
