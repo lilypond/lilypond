@@ -4694,11 +4694,21 @@ def conv(s):
          stderr_write(UPDATE_MANUALLY)
     return s
 
+remove_bar_always_warning = _(r"""
+The barAlways property has been removed.  Instead, use
+forbidBreakBetweenBarLines.
+""")
+
 @rule((2, 23, 13), r"""
 filtered-map -> filter-map
+Remove barAlways
 """)
 def conv(s):
     s = re.sub(r"filtered-map", "(@ (srfi srfi-1) filter-map)", s)
+    if "barAlways" in s:
+        stderr_write(NOT_SMART % "advanced use of barAlways")
+        stderr_write(remove_bar_always_warning)
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

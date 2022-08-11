@@ -74,6 +74,15 @@ which scares away people.
 
 
 @item
+@code{Bar_@/engraver} used to forbid line breaks between bar lines
+in all cases, but now it only does so when the
+@code{forbidBreakBetweenBarLines} context property is set to
+@code{#t}, which is the default.  The @code{barAlways} context
+property, which previously worked around the lack of
+@code{forbidBreakBetweenBarLines}, has been removed.
+
+
+@item
 The @q{big point} unit (1@dmn{bp} = 1/72@dmn{in}) is now available
 by appending @code{\bp} to length values.
 
@@ -272,13 +281,6 @@ hairpins were vertically displaced by the key signature.
 @code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff},
 and @code{VaticanaStaff} now allow line breaks anywhere, and they
 no longer create @code{""} measure bar lines.
-
-
-@item
-@code{Bar_@/engraver} used to forbid line breaks between bar lines
-in all cases, but now it only does so when the
-@code{forbidBreakBetweenBarLines} context property is set to
-@code{#t}, which is the default.
 
 
 @item

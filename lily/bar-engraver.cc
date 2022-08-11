@@ -270,14 +270,8 @@ Bar_engraver::calc_bar_type () const
           break;
 
         case BarType::MEASURE:
-          // TODO: barAlways seems to be a hack to allow a line break anywhere.
-          // The newer property forbidBreakBetweenBarLines is better for that.
-          // Provide feedback that barAlways is deprecated.
-          if (from_scm<bool> (get_property (this, "measureStartNow"))
-              || from_scm<bool> (get_property (this, "barAlways")))
-            {
-              read_bar (ly_symbol2scm ("measureBarType"));
-            }
+          if (from_scm<bool> (get_property (this, "measureStartNow")))
+            read_bar (ly_symbol2scm ("measureBarType"));
           break;
 
         case BarType::UNDERLYING_CAESURA:

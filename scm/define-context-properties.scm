@@ -134,8 +134,6 @@ lists are tried, and the one giving the most accidentals wins.  In
 case of draw, a normal accidental is typeset.")
 
 
-     (barAlways ,boolean? "If set to true a bar line is drawn after
-each note.")
      (barCheckSynchronize ,boolean? "If true then reset
 @code{measurePosition} when finding a bar check.")
      (barExtraVelocity ,integer? "Extra MIDI velocity added by the
