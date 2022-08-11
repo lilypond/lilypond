@@ -66,13 +66,6 @@ def system(c: str, cwd=None):
     # explicitly use bash, so we don't get dash on Ubuntu.
     subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True, cwd=cwd)
 
-
-def shorten_string(s: str, threshold: int = 15) -> str:
-    if len(s) > 2*threshold:
-        s = s[:threshold] + '..' + s[-threshold:]
-    return s
-
-
 def png_dims(fn: str) -> Tuple[int, int]:
     """Reads width/height from PNG file."""
 
@@ -1334,6 +1327,7 @@ def main():
 
     p.add_argument('-o', '--output-dir',
                    type=str,
+                   required=True,
                    help='where to put the test results [tree2/compare-tree1tree2]')
 
     p.add_argument('--test-self',
@@ -1364,13 +1358,8 @@ def main():
         p.print_usage()
         sys.exit(2)
 
-    out = options.output_dir
-    if not out:
-        out = options.dirs[0].replace('/', '')
-        out = os.path.join(options.dirs[1], 'compare-' + shorten_string(out))
-
     compare_tree_pairs(
-        list(zip(options.dirs[0::2], options.dirs[1::2])), out, options.threshold)
+        list(zip(options.dirs[0::2], options.dirs[1::2])), options.output_dir, options.threshold)
 
 
 if __name__ == '__main__':
