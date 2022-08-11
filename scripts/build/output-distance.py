@@ -19,13 +19,13 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import argparse
 import difflib
 import errno
 import functools
 import glob
 import html
 import math
-import optparse
 import os
 import re
 import shutil
@@ -45,10 +45,6 @@ sys.path.insert(0, me_path + '/../../python/')
 
 # Keep our includes after adapting sys.path above.
 import midi # type: ignore
-
-
-options: optparse.Values
-
 
 def log_terse(s: str):
     if not options.verbose:
@@ -513,7 +509,7 @@ def eps_to_png(files: Dict[str, str]):
     # the files that are loaded by Ghostscript's `.loadfont'
     # operator later on.
     data_option = []
-    if options.local_data_dir:
+    if options.local_datadir:
         for basedir in set(os.path.dirname(f) for f in files):
             if os.path.isdir(os.path.join(basedir, 'share')):
                 data_option = ['-slilypond-datadir=%s/share/lilypond/current'
@@ -1312,77 +1308,69 @@ def run_tests():
     test_compare_tree_pairs()
     shutil.rmtree(testdir, ignore_errors=True)
 
+options : argparse.Namespace
 
 def main():
-    p = optparse.OptionParser(
-        "output-distance - compare LilyPond formatting runs")
-    p.usage = 'output-distance.py [options] tree1 tree2 [tree3 tree4]...'
+    p = argparse.ArgumentParser(
+        description="output-distance - compare LilyPond formatting runs",
+        usage = 'output-distance.py [options] tree1 tree2 [tree3 tree4]...',
+    )
 
-    p.add_option('--max-count',
-                 dest="max_count",
-                 metavar="COUNT",
-                 type="int",
-                 default=0,
-                 action="store",
-                 help='only analyze COUNT signature pairs')
+    p.add_argument('--max-count',
+                   metavar="COUNT",
+                   type=int,
+                   default=0,
+                   help='only analyze COUNT signature pairs')
 
-    p.add_option('--job-count',
-                 dest='job_count',
-                 metavar='COUNT',
-                 type='int',
-                 default=1,
-                 action='store',
-                 help='parallelism for PS to PNG conversion')
+    p.add_argument('--job-count',
+                   metavar='COUNT',
+                   type=int,
+                   default=1,
+                   help='parallelism for PS to PNG conversion')
 
-    p.add_option('--local-datadir',
-                 dest="local_data_dir",
-                 default=False,
-                 action="store_true",
-                 help='whether to use the share/lilypond/ directory in the test directory')
+    p.add_argument('--local-datadir',
+                   action="store_true",
+                   help='whether to use the share/lilypond/ directory in the test directory')
 
-    p.add_option('-o', '--output-dir',
-                 dest="output_dir",
-                 default=None,
-                 action="store",
-                 type="string",
-                 help='where to put the test results [tree2/compare-tree1tree2]')
+    p.add_argument('-o', '--output-dir',
+                   type=str,
+                   help='where to put the test results [tree2/compare-tree1tree2]')
 
-    p.add_option('', '--test-self',
-                 dest="run_test",
-                 action="store_true",
-                 help='run test method')
+    p.add_argument('--test-self',
+                   action='store_true',
+                   help='run test method')
 
-    p.add_option('', '--threshold',
-                 dest="threshold",
-                 default=0.3,
-                 action="store",
-                 type="float",
-                 help='threshold for distance')
+    p.add_argument('--threshold',
+                   dest="threshold",
+                   default=0.3,
+                   type=float,
+                   help='threshold for distance')
 
-    p.add_option('-v', '--verbose',
-                 dest="verbose",
-                 default=False,
-                 action="store_true",
-                 help='log progress verbosely')
+    p.add_argument('-v', '--verbose',
+                   action="store_true",
+                   help='log progress verbosely')
 
+    p.add_argument('dirs',
+                   nargs='*',
+                   help='directories to compare')
     global options
-    (options, args) = p.parse_args()
+    options = p.parse_args()
 
-    if options.run_test:
+    if options.test_self:
         run_tests()
         return
 
-    if len(args) % 2 == 1:
+    if len(options.dirs) % 2 == 1:
         p.print_usage()
         sys.exit(2)
 
     out = options.output_dir
     if not out:
-        out = args[0].replace('/', '')
-        out = os.path.join(args[1], 'compare-' + shorten_string(out))
+        out = options.dirs[0].replace('/', '')
+        out = os.path.join(options.dirs[1], 'compare-' + shorten_string(out))
 
     compare_tree_pairs(
-        list(zip(args[0::2], args[1::2])), out, options.threshold)
+        list(zip(options.dirs[0::2], options.dirs[1::2])), out, options.threshold)
 
 
 if __name__ == '__main__':
