@@ -115,8 +115,6 @@ inline bool ly_is_equal (SCM x, SCM y)
   return scm_is_true (scm_equal_p (x, y));
 }
 
-inline char ly_scm2char (SCM x) { return (char)SCM_CHAR (x); }
-
 inline SCM ly_append2 (SCM x1, SCM x2)
 {
   return scm_append (scm_list_2 (x1, x2));
