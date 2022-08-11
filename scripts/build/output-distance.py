@@ -533,7 +533,7 @@ def eps_to_png(files: Dict[str, str]):
         os.makedirs(destdir, exist_ok=True)
 
     job_count = min(options.job_count, len(files))
-    batches = [[] for j in range(0, job_count)]
+    batches : List[List[Tuple[str, str]]] = [[] for j in range(0, job_count)]
     j = 0
     for item in sorted(files.items()):
         batches[j].append(item)
