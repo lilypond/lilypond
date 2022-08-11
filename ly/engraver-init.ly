@@ -127,13 +127,7 @@ multiple ancient notation schemes."
   \consists Divisio_engraver
 
   caesuraType = #'((breath . varcomma))
-  %% TODO: Make Bar_engraver capable of creating BarLine analogs of
-  %% Divisio grobs at \caesura, enable it something like this,
-  %%
-  %%   caesuraTypeTransform = #caesura-to-bar-line-or-divisio
-  %%
-  %% and fix up GregorianTranscriptionStaff to rely on this mode
-  %% rather than enabling all Divisio grobs.
+  caesuraTypeTransform = #caesura-to-bar-line-or-divisio
 
   %% The chosen caesuraTypeTransform prefers BarLine over Divisio.
   %% Also create bar lines for \section, \fine, and \repeat volta.
@@ -1296,11 +1290,6 @@ two syllables) as used in the notational style of Editio Vaticana."
   %% is supposed to be "modern style", so we break lines on measure
   %% boundaries.
   measureBarType = ""
-
-  %% TODO: Make Bar_engraver capable of creating BarLine analogs of
-  %% Divisio grobs at \caesura, enable it in InternalGregorianStaff,
-  %% and remove this line.
-  \EnableGregorianDivisiones
 }
 
 \context {

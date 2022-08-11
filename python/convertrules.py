@@ -4638,9 +4638,9 @@ has music following \fine that you want to exclude when it is
 unfolded, use \volta to exclude it.
 """)
 
-new_divisio_grob_warning = r"""
-GregorianTranscriptionStaff, MensuralStaff, and VaticanaStaff now use
-Divisio_engraver to engrave divisiones as Divisio grobs.
+new_ancient_divisio_grob_warning = _(r"""
+MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave
+divisiones as Divisio grobs.
 
 Previously, the respective Voice-aliased contexts used
 Breathing_sign_engraver to engrave divisiones as BreathingSign grobs.
@@ -4649,7 +4649,25 @@ adjustments for the old scheme are not effective for the new.
 
 If you are not content with the new default layout, deal with Divisio
 and Divisio_engraver in the appropriate Staff-aliased context.
-"""
+""")
+
+new_modern_divisio_grob_warning = _(r"""
+GregorianTranscriptionStaff now engraves \divisioMinima,
+\divisioMaior, and \divisioMaxima as BarLine grobs using Bar_engraver,
+and engraves \caesura and \virgula as Divisio grobs using
+Divisio_engraver.
+
+Previously, GregorianTranscriptionVoice used Breathing_sign_engraver
+to engrave these as BreathingSign grobs.  Because of the new names and
+the move from Voice to Staff, layout adjustments for the old scheme
+are not effective for the new.
+
+If you are not content with the new default layout, deal with BarLine,
+Bar_engraver, Divisio, and Divisio_engraver in
+GregorianTranscriptionStaff context.  \EnableGregorianDivisiones may
+also be used to switch to engraving Divisio grobs instead of BarLine
+grobs.
+""")
 
 @rule((2, 23, 12), r"""
 barAlways = ##t -> forbidBreakBetweenBarLines = ##f
@@ -4664,10 +4682,15 @@ def conv(s):
         stderr_write(NOT_SMART % "music following \\fine")
         stderr_write(fine_iteration_warning)
         stderr_write(UPDATE_MANUALLY)
-    if re.search(r"(GregorianTranscription|Mensural|Vaticana)(Staff|Voice)",                 s) and \
+    if re.search(r"GregorianTranscription(Staff|Voice)", s) and \
+        (("BreathingSign" in s) or ("Breathing_sign_engraver" in s)):
+         stderr_write(NOT_SMART % "BreathingSign to BarLine or Divisio")
+         stderr_write(new_modern_divisio_grob_warning)
+         stderr_write(UPDATE_MANUALLY)
+    if re.search(r"(Mensural|Vaticana)(Staff|Voice)", s) and \
         (("BreathingSign" in s) or ("Breathing_sign_engraver" in s)):
          stderr_write(NOT_SMART % "BreathingSign to Divisio")
-         stderr_write(new_divisio_grob_warning)
+         stderr_write(new_ancient_divisio_grob_warning)
          stderr_write(UPDATE_MANUALLY)
     return s
 

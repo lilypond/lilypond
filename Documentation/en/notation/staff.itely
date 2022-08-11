@@ -107,7 +107,8 @@ music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
 described in @ref{Predefined contexts}.
 
 The @code{GregorianTranscriptionStaff} context creates a staff to
-notate modern Gregorian chant.  It does not show bar lines.
+notate modern Gregorian chant.  It engraves @notation{divisiones}
+as bar lines, but it does not show measure bar lines.
 
 @lilypond[verbatim,quote]
 \new GregorianTranscriptionStaff \relative { c''4 d e f e d }

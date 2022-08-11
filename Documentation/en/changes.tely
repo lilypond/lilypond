@@ -74,6 +74,12 @@ which scares away people.
 
 
 @item
+In @code{GregorianTranscriptionStaff}, divisiones are now engraved
+as @code{BarLine} grobs by default.  To change them to
+@code{Divisio} grobs, use @code{\EnableGregorianDivisiones}.
+
+
+@item
 Using @code{\paper @{ bookpart-level-page-numbering = ##t@}}, it
 is now possible to make bookparts independent with respect to page
 numbering.  If this is used for all bookparts, each bookpart has
@@ -140,13 +146,9 @@ variations on @code{\breathe}.  @code{\divisioMinima},
 are variations on the basic @code{\caesura}.  @code{\finalis} is
 equivalent to @code{\section}.
 
-@c Note: Once Bar_engraver is capable of interpreting \caesura, I
-@c expect to switch GregorianTranscriptionStaff to use it rather
-@c than Divisio_engraver. [DE]
-@code{GregorianTranscriptionStaff}, @code{MensuralStaff} and
-@code{VaticanaStaff} use @code{Divisio_@/engraver} to interpret
-the above commands as well as @code{\repeat volta} and
-@code{\fine}.
+@code{MensuralStaff} and @code{VaticanaStaff} use
+@code{Divisio_@/engraver} to interpret the above commands as well
+as @code{\repeat volta} and @code{\fine}.
 
 @lilypond[verbatim,quote]
 \new MensuralStaff \fixed c' {
