@@ -2,9 +2,12 @@
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, 1, 2, then 4
-to@tie{}9."
+  texidoc = "LilyPond issues warnings when @code{\\mark \\default}
+conflicts with certain other simultaneous marks, and engraves only the
+first.
+
+Rehearsal marks 1, 2, and@tie{}4 should appear alone.  Rehearsal marks
+5 to@tie{}9 should appear with various performance marks."
 }
 
 \layout {
@@ -32,38 +35,23 @@ to@tie{}9."
 
   R1 \mark \default |
   R1 \segnoMark \default |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
+  %% no warning
 
   R1 \mark \default |
   R1 \segnoMark 2 |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "segno-mark-event")
+  %% no warning
 
   R1 \mark \default |
   R1 \codaMark \default |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "coda-mark-event")
+  %% no warning
 
   R1 \mark \default |
   R1 \codaMark 2 |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "coda-mark-event")
+  %% no warning
 
   R1 \mark \default |
   R1 \sectionLabel "Coda" |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "rehearsal-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "section-label-event")
+  %% no warning
 
   R1 |
   R1 |

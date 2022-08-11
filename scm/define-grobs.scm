@@ -865,7 +865,7 @@ given moment.")))))
         (non-musical . #t)
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-padding . 0.4)
-        (outside-staff-priority . 1500) ; same as RehearsalMark
+        (outside-staff-priority . 1400) ; inside RehearsalMark
         (padding . 0.4)
         (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)
@@ -1724,7 +1724,7 @@ not use it.")))))
         (font-shape . italic)
         (non-musical . #t)
         (outside-staff-horizontal-padding . 0.2)
-        (outside-staff-priority . 1450) ; slightly lower than RehearsalMark
+        (outside-staff-priority . 1350) ; slightly lower than SegnoMark,CodaMark
         (padding . 0.8)
         (self-alignment-X . ,RIGHT)
         (stencil . ,ly:text-interface::print)
@@ -2733,7 +2733,15 @@ horizontally align stacked @iref{Script} grobs.")))))
         (font-size . 1.5)
         (non-musical . #t)
         (outside-staff-horizontal-padding . 0.2)
-        (outside-staff-priority . 1550) ; slightly higher than RehearsalMark
+        ;; SectionLabel was developed as an optional substitute for an
+        ;; automatic CodaMark, so they are unlikely to be
+        ;; simultaneous, but if a long SectionLabel overlaps a later
+        ;; SegnoMark or CodaMark, it looks better to place the
+        ;; SectionLabel outside.
+        ;;
+        ;; We keep RehearsalMarks outside by default because their
+        ;; nominal function is outside of the music.
+        (outside-staff-priority . 1450)
         (padding . 0.8)
         (self-alignment-X . ,LEFT)
         (stencil . ,ly:text-interface::print)
@@ -2750,7 +2758,7 @@ horizontally align stacked @iref{Script} grobs.")))))
                                 side-position-interface
                                 text-interface))
                  (description . "A section label, for example
-@q{Trio}.")))))
+@q{Coda}.")))))
 
     (SegnoMark
      . (
@@ -2763,7 +2771,7 @@ horizontally align stacked @iref{Script} grobs.")))))
         (font-size . 2)
         (non-musical . #t)
         (outside-staff-horizontal-padding . 0.2)
-        (outside-staff-priority . 1500) ; same as RehearsalMark
+        (outside-staff-priority . 1400) ; inside RehearsalMark
         (padding . 0.8)
         (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)

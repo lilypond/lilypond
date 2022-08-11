@@ -844,11 +844,15 @@ this is at any point of time the markup that will be put in the
 chord name.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable items (clef, key signature, etc.).")
-     (currentMarkEvent ,ly:stream-event? "The event selected by
-@code{Mark_@/tracking_@/translator} for engraving by
-@code{Mark_@/engraver}.")
      (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all
 non-breakable items (note heads, lyrics, etc.).")
+     (currentPerformanceMarkEvent ,ly:stream-event? "The coda,
+section, or segno mark event selected by
+@code{Mark_@/tracking_@/translator} for engraving by
+@code{Mark_@/engraver}.")
+     (currentRehearsalMarkEvent ,ly:stream-event? "The ad-hoc or
+rehearsal mark event selected by @code{Mark_@/tracking_@/translator}
+for engraving by @code{Mark_@/engraver}.")
 
 
      (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes

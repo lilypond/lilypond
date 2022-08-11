@@ -41,15 +41,24 @@ Mark_performer::Mark_performer (Context *c)
 void
 Mark_performer::process_music ()
 {
-  SCM text = Mark_engraver::get_current_mark_text (context ());
-  if (!scm_is_null (text))
-    {
-      // We could change get_current_mark_text () to give us this event too,
-      // since it has to look it up internally.  It's not a big deal.
-      SCM ev_scm = get_property (context (), "currentMarkEvent");
-      auto *const ev = unsmob<Stream_event> (ev_scm);
-      announce<Audio_text> (ev, Audio_text::MARKER, text);
-    }
+  auto process_mark = [this] (auto get_text, SCM property_sym)
+  {
+    SCM text = get_text (context ());
+    if (!scm_is_null (text))
+      {
+        // We could change the Mark_engraver's getter to give us this event
+        // too, since it has to look it up internally.  It's not a big deal.
+        SCM ev_scm = get_property (context (), property_sym);
+        auto *const ev = unsmob<Stream_event> (ev_scm);
+        announce<Audio_text> (ev, Audio_text::MARKER, text);
+      }
+  };
+
+  process_mark (Mark_engraver::get_current_rehearsal_mark_text,
+                ly_symbol2scm ("currentRehearsalMarkEvent"));
+
+  process_mark (Mark_engraver::get_current_performance_mark_text,
+                ly_symbol2scm ("currentPerformanceMarkEvent"));
 }
 
 void
@@ -60,9 +69,9 @@ Mark_performer::boot ()
 ADD_TRANSLATOR (Mark_performer,
                 /* doc */
                 R"(
-This performer emits MIDI markers for rehearsal, segno, and coda marks, and
-section labels.  The MIDI markers are derived from markup that is generated as
-in the @code{Mark_@/engraver}.
+This performer emits MIDI markers for rehearsal marks, segno and coda marks,
+and section labels.  The MIDI markers are derived from markup that is generated
+as in the @code{Mark_@/engraver}.
                 )",
 
                 /* create */
@@ -72,7 +81,8 @@ in the @code{Mark_@/engraver}.
 
                 /* read */
                 R"(
-currentMarkEvent
+currentPerformanceMarkEvent
+currentRehearsalMarkEvent
                 )",
 
                 /* write */

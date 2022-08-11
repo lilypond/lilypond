@@ -43,8 +43,14 @@ private:
 public:
   TRANSLATOR_DECLARATIONS (Mark_tracking_translator);
 private:
-  Stream_event *event_ = nullptr;
-  Event_type event_type_ = Event_type::none;
+  // Rehearsal marks, ad-hoc marks
+  Stream_event *rehearsal_ev_ = nullptr;
+  Event_type rehearsal_ev_type_ = Event_type::none;
+
+  // Coda marks, section labels, segno marks
+  Stream_event *performance_ev_ = nullptr;
+  Event_type performance_ev_type_ = Event_type::none;
+
   bool first_time_ = true;
 
 public:
@@ -71,9 +77,13 @@ protected:
   void listen_segno_mark (Stream_event *);
 
 private:
-  void set_event (Event_type, Stream_event *);
-  bool set_event_once (Event_type, Stream_event *);
-  void clear_event ();
+  void set_performance_event (Event_type, Stream_event *);
+  void set_rehearsal_event (Event_type, Stream_event *);
+
+  bool set_performance_event_once (Event_type, Stream_event *);
+  bool set_rehearsal_event_once (Event_type, Stream_event *);
+
+  void clear_events ();
 };
 
 #endif /* MARK_TRACKING_TRANSLATOR_HH */

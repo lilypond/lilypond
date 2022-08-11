@@ -141,9 +141,10 @@ Jump_engraver::process_music ()
                                          context ()->self_scm ());
             }
 
-          next_markup = Mark_engraver::get_current_mark_text (context ());
-          // get_current_mark_text () may return SCM_EOL like a failed property
-          // lookup, but our formatter expects either markup or SCM_BOOL_F.
+          next_markup
+            = Mark_engraver::get_current_performance_mark_text (context ());
+          // Mark_engraver may return SCM_EOL like a failed property lookup,
+          // but our formatter expects either markup or SCM_BOOL_F.
           if (scm_is_null (next_markup))
             next_markup = SCM_BOOL_F;
         }

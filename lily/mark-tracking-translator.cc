@@ -32,30 +32,58 @@ Mark_tracking_translator::Mark_tracking_translator (Context *c)
 }
 
 void
-Mark_tracking_translator::clear_event ()
+Mark_tracking_translator::clear_events ()
 {
-  if (event_type_ != Event_type::none)
+  if (performance_ev_type_ != Event_type::none)
     {
-      event_ = nullptr;
-      event_type_ = Event_type::none;
-      context ()->unset_property (ly_symbol2scm ("currentMarkEvent"));
+      performance_ev_ = nullptr;
+      performance_ev_type_ = Event_type::none;
+      context ()->unset_property (ly_symbol2scm ("currentPerformanceMarkEvent"));
+    }
+
+  if (rehearsal_ev_type_ != Event_type::none)
+    {
+      rehearsal_ev_ = nullptr;
+      rehearsal_ev_type_ = Event_type::none;
+      context ()->unset_property (ly_symbol2scm ("currentRehearsalMarkEvent"));
     }
 }
 
 void
-Mark_tracking_translator::set_event (Event_type type, Stream_event *ev)
+Mark_tracking_translator::set_performance_event (Event_type type,
+                                                 Stream_event *ev)
 {
-  event_ = ev;
-  event_type_ = type;
-  set_property (context (), "currentMarkEvent", ev->self_scm ());
+  performance_ev_ = ev;
+  performance_ev_type_ = type;
+  set_property (context (), "currentPerformanceMarkEvent", ev->self_scm ());
+}
+
+void
+Mark_tracking_translator::set_rehearsal_event (Event_type type,
+                                               Stream_event *ev)
+{
+  rehearsal_ev_ = ev;
+  rehearsal_ev_type_ = type;
+  set_property (context (), "currentRehearsalMarkEvent", ev->self_scm ());
 }
 
 bool
-Mark_tracking_translator::set_event_once (Event_type type, Stream_event *ev)
+Mark_tracking_translator::set_performance_event_once (Event_type type,
+                                                      Stream_event *ev)
 {
-  if (!assign_event_once (event_, ev))
+  if (!assign_event_once (performance_ev_, ev))
     return false;
-  set_event (type, ev);
+  set_performance_event (type, ev);
+  return true;
+}
+
+bool
+Mark_tracking_translator::set_rehearsal_event_once (Event_type type,
+                                                    Stream_event *ev)
+{
+  if (!assign_event_once (rehearsal_ev_, ev))
+    return false;
+  set_rehearsal_event (type, ev);
   return true;
 }
 
@@ -76,30 +104,21 @@ Mark_tracking_translator::stop_translation_timestep ()
   //
   // The rehearsal mark count is handled differently to support its legacy
   // interface: the user may set the property directly rather than with \mark.
-  switch (event_type_)
+  switch (performance_ev_type_)
     {
     case Event_type::default_coda_mark:
     case Event_type::specific_coda_mark:
       {
-        const auto label = get_coda_mark_label (context (), event_);
+        const auto label = get_coda_mark_label (context (), performance_ev_);
         if (label > 0)
           set_property (context (), "codaMarkCount", to_scm (label));
-        break;
-      }
-
-    case Event_type::default_rehearsal_mark:
-    case Event_type::specific_rehearsal_mark:
-      {
-        const auto label = get_rehearsal_mark_label (context (), event_);
-        if (label > 0)
-          set_property (context (), "rehearsalMark", to_scm (label + 1));
         break;
       }
 
     case Event_type::default_segno_mark:
     case Event_type::specific_segno_mark:
       {
-        const auto label = get_segno_mark_label (context (), event_);
+        const auto label = get_segno_mark_label (context (), performance_ev_);
         if (label > 0)
           set_property (context (), "segnoMarkCount", to_scm (label));
         break;
@@ -109,7 +128,22 @@ Mark_tracking_translator::stop_translation_timestep ()
       break;
     }
 
-  clear_event ();
+  switch (rehearsal_ev_type_)
+    {
+    case Event_type::default_rehearsal_mark:
+    case Event_type::specific_rehearsal_mark:
+      {
+        const auto label = get_rehearsal_mark_label (context (), rehearsal_ev_);
+        if (label > 0)
+          set_property (context (), "rehearsalMark", to_scm (label + 1));
+        break;
+      }
+
+    default:
+      break;
+    }
+
+  clear_events ();
   first_time_ = false;
 }
 
@@ -152,7 +186,7 @@ Mark_tracking_translator::listen_ad_hoc_mark (Stream_event *ev)
   // Ad-hoc marks are not rehearsal marks (though they lead to the creation of
   // RehearsalMark grobs for backward compatibility), so this conflict check is
   // simple: complain about everything to incentivize using something else.
-  set_event_once (Event_type::ad_hoc_mark, ev);
+  set_rehearsal_event_once (Event_type::ad_hoc_mark, ev);
 }
 
 void
@@ -165,7 +199,7 @@ Mark_tracking_translator::listen_coda_mark (Stream_event *ev)
       // use case in mind here; this is merely for consistency with segni.
       if (!first_time_)
         {
-          switch (event_type_)
+          switch (performance_ev_type_)
             {
             // Silently ignore default coda mark events after we have any coda
             // mark event.
@@ -175,23 +209,23 @@ Mark_tracking_translator::listen_coda_mark (Stream_event *ev)
 
             // Check others.
             default:
-              set_event_once (Event_type::default_coda_mark, ev);
+              set_performance_event_once (Event_type::default_coda_mark, ev);
               break;
             }
         }
     }
   else // a specific coda mark
     {
-      switch (event_type_)
+      switch (performance_ev_type_)
         {
         // Silently replace a default coda mark.
         case Event_type::default_coda_mark:
-          set_event (Event_type::specific_coda_mark, ev);
+          set_performance_event (Event_type::specific_coda_mark, ev);
           break;
 
         // Check others.
         default:
-          set_event_once (Event_type::specific_coda_mark, ev);
+          set_performance_event_once (Event_type::specific_coda_mark, ev);
           break;
         }
     }
@@ -205,29 +239,29 @@ Mark_tracking_translator::listen_rehearsal_mark (Stream_event *ev)
     {
       // Silently ignore default rehearsal mark events after we have any
       // rehearsal mark.
-      switch (event_type_)
+      switch (rehearsal_ev_type_)
         {
         case Event_type::default_rehearsal_mark:
         case Event_type::specific_rehearsal_mark:
           break;
 
         default:
-          set_event_once (Event_type::default_rehearsal_mark, ev);
+          set_rehearsal_event_once (Event_type::default_rehearsal_mark, ev);
           break;
         }
     }
   else // a specific mark
     {
-      switch (event_type_)
+      switch (rehearsal_ev_type_)
         {
         // Silently replace a default rehearsal mark.
         case Event_type::default_rehearsal_mark:
-          set_event (Event_type::specific_rehearsal_mark, ev);
+          set_rehearsal_event (Event_type::specific_rehearsal_mark, ev);
           break;
 
         // Check others.
         default:
-          set_event_once (Event_type::specific_rehearsal_mark, ev);
+          set_rehearsal_event_once (Event_type::specific_rehearsal_mark, ev);
           break;
         }
     }
@@ -236,7 +270,7 @@ Mark_tracking_translator::listen_rehearsal_mark (Stream_event *ev)
 void
 Mark_tracking_translator::listen_section_label (Stream_event *ev)
 {
-  set_event_once (Event_type::section_label, ev);
+  set_performance_event_once (Event_type::section_label, ev);
 }
 
 void
@@ -248,7 +282,7 @@ Mark_tracking_translator::listen_segno_mark (Stream_event *ev)
       // Ignore a default segno at the beginning of a piece.
       if (!first_time_)
         {
-          switch (event_type_)
+          switch (performance_ev_type_)
             {
             // Silently ignore default segno events after we have any segno
             // event.
@@ -258,23 +292,23 @@ Mark_tracking_translator::listen_segno_mark (Stream_event *ev)
 
             // Check others.
             default:
-              set_event_once (Event_type::default_segno_mark, ev);
+              set_performance_event_once (Event_type::default_segno_mark, ev);
               break;
             }
         }
     }
   else // a specific segno
     {
-      switch (event_type_)
+      switch (performance_ev_type_)
         {
         // Silently replace a default segno.
         case Event_type::default_segno_mark:
-          set_event (Event_type::specific_segno_mark, ev);
+          set_performance_event (Event_type::specific_segno_mark, ev);
           break;
 
         // Check others.
         default:
-          set_event_once (Event_type::specific_segno_mark, ev);
+          set_performance_event_once (Event_type::specific_segno_mark, ev);
           break;
         }
     }
@@ -293,7 +327,7 @@ Mark_tracking_translator::boot ()
 ADD_TRANSLATOR (Mark_tracking_translator,
                 /* doc */ R"(
 
-This translator chooses which mark @code{Mark_engraver} should engrave.
+This translator chooses which marks @code{Mark_engraver} should engrave.
 
 )",
 
@@ -307,7 +341,8 @@ This translator chooses which mark @code{Mark_engraver} should engrave.
 
                 /* write */
                 "codaMarkCount "
-                "currentMarkEvent "
+                "currentPerformanceMarkEvent "
+                "currentRehearsalMarkEvent "
                 "rehearsalMark "
                 "segnoMarkCount "
 );

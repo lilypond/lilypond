@@ -2,9 +2,12 @@
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc = "LilyPond issues warnings for conflicting simultaneous
-marks and engraves only the first -- in this case, coda marks 1
-to@tie{}8 in order."
+  texidoc = "LilyPond issues warnings when @code{\\codaMark @var{n}}
+conflicts with certain other simultaneous marks, and engraves only
+the first.
+
+Coda marks 1 to@tie{}3 should appear with various rehearsal marks.
+Coda marks 4 to@tie{}8 should appear alone."
 }
 
 \layout {
@@ -17,24 +20,15 @@ to@tie{}8 in order."
 \parallelMusic upper,lower {
   R1 \codaMark 1 |
   R1 \mark "A!" |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "coda-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "ad-hoc-mark-event")
+  %% no warning
 
   R1 \codaMark 2 |
   R1 \mark \default |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "coda-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "rehearsal-mark-event")
+  %% no warning
 
   R1 \codaMark 3 |
   R1 \mark 3 |
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "conflict with event: `%s'") "coda-mark-event")
-  #(ly:expect-warning (ly:translate-cpp-warning-scheme
-                       "discarding event: `%s'") "rehearsal-mark-event")
+  %% no warning
 
   R1 \codaMark 4 |
   R1 \segnoMark \default |

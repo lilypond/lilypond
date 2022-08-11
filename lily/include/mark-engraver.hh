@@ -28,16 +28,28 @@
 */
 class Mark_engraver : public Engraver
 {
+private:
+  struct Mark_state
+  {
+    Item *text_ = nullptr;
+    Item *final_text_ = nullptr;
+  };
+
+private:
+  Mark_state performance_mark_state_;
+  Mark_state rehearsal_mark_state_;
   bool first_time_ = true;
-  Item *text_ = nullptr;
-  Item *final_text_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
 
-  // Get the text property of the current mark in the given context (SCM_EOL if
-  // there is no mark).
-  static SCM get_current_mark_text (Context *);
+  // Get the text property of the current performance mark in the given context
+  // (SCM_EOL if there is no mark).
+  static SCM get_current_performance_mark_text (Context *);
+
+  // Get the text property of the current rehearsal mark in the given context
+  // (SCM_EOL if there is no mark).
+  static SCM get_current_rehearsal_mark_text (Context *);
 
 protected:
   void process_music ();
@@ -45,7 +57,14 @@ protected:
   void stop_translation_timestep ();
   void finalize () override;
 
-  static SCM get_current_mark (Context *, const char **grob_name, SCM *text);
+private:
+  static SCM
+  get_current_performance_mark (Context *context,
+                                const char **grob_name, SCM *text);
+  static SCM
+  get_current_rehearsal_mark (Context *context,
+                              const char **grob_name, SCM *text);
+
 };
 
 #endif /* MARK_TRACKING_TRANSLATOR_HH */
