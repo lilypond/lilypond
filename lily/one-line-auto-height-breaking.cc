@@ -19,27 +19,19 @@
 
 #include "one-line-auto-height-breaking.hh"
 
-#include "column-x-positions.hh"
-#include "international.hh"
+#include "one-line-page-breaking.hh"
 #include "output-def.hh"
-#include "page-spacing.hh"
 #include "paper-book.hh"
-#include "paper-score.hh"
-#include "simple-spacer.hh"
-#include "system.hh"
-
-#include <limits>
-
-using std::vector;
 
 One_line_auto_height_breaking::One_line_auto_height_breaking (Paper_book *pb)
-  : Page_breaking (pb, 0, 0)
+  : One_line_page_breaking (pb)
 {
 }
 
 One_line_auto_height_breaking::~One_line_auto_height_breaking ()
 {
 }
+
 
 /*
   This is a somewhat unconventional page-breaking algorithm.  Like
@@ -50,52 +42,12 @@ One_line_auto_height_breaking::~One_line_auto_height_breaking ()
   the paper-height setting in the paper block is also modified to fit
   the music.
 */
+
 SCM
 One_line_auto_height_breaking::solve ()
 {
-  SCM all_pages = SCM_EOL;
-  Real max_width = 0;
   Real max_height = 0;
-
-  for (vsize i = 0; i < system_specs_.size (); ++i)
-    {
-      if (Paper_score *ps = system_specs_[i].pscore_)
-        {
-          vector<Paper_column *> cols = ps->root_system ()->used_columns ();
-
-          // No indent, "infinite" line width, ragged.
-          Column_x_positions pos = get_line_configuration (cols, std::numeric_limits<Real>::max (), 0, true);
-          vector<Column_x_positions> positions;
-          positions.push_back (pos);
-
-          ps->root_system ()->break_into_pieces (positions);
-          ps->root_system ()->do_break_substitution_and_fixup_refpoints ();
-          Grob *system = ps->root_system ()->broken_intos_[0];
-
-          vector<vsize> lines_per_page;
-          lines_per_page.push_back (1);
-          SCM systems = scm_list_1 (system->self_scm ());
-          SCM pages = make_pages (lines_per_page, systems);
-
-          max_width = std::max (max_width, system->extent (system, X_AXIS).length ());
-          max_height = std::max (max_height, system->extent (system, Y_AXIS).length ());
-          all_pages = scm_cons (scm_car (pages), all_pages);
-        }
-      else if (Prob *pb = system_specs_[i].prob_)
-        // Because we don't call Page_breaking::systems in this algorithm,
-        // we need to manually unprotect the titles.
-        pb->unprotect ();
-    }
-
-  // Alter paper-width so that it is large enough to fit every system.
-  // TODO: it might be nice to allow different pages to have different widths
-  // and heights.  This would need support in the backends (eg. framework-ps.scm).
-  Real right_margin
-    = from_scm<double> (book_->paper ()->c_variable ("right-margin"), 0.0);
-  Real left_margin
-    = from_scm<double> (book_->paper ()->c_variable ("left-margin"), 0.0);
-  Real width = max_width + right_margin + left_margin;
-  book_->paper ()->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
+  SCM pages = solve_and_provide_max_height (max_height);
 
   // Alter paper-height so that it fits the height of the tallest system.
   Real top_margin
@@ -106,5 +58,5 @@ One_line_auto_height_breaking::solve ()
   book_->paper ()->set_variable (ly_symbol2scm ("paper-height"),
                                  to_scm (height));
 
-  return scm_reverse_x (all_pages, SCM_EOL);
+  return pages;
 }

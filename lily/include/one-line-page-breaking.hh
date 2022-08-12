@@ -30,6 +30,8 @@ public:
 
   One_line_page_breaking (Paper_book *pb);
   virtual ~One_line_page_breaking ();
+protected:
+  SCM solve_and_provide_max_height (Real &max_height);
 };
 
 #endif /* ONE_LINE_PAGE_BREAKING_HH */

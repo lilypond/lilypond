@@ -20,10 +20,10 @@
 #ifndef ONE_LINE_AUTO_HEIGHT_BREAKING_HH
 #define ONE_LINE_AUTO_HEIGHT_BREAKING_HH
 
+#include "one-line-page-breaking.hh"
 #include "page-breaking.hh"
-#include "page-spacing.hh"
 
-class One_line_auto_height_breaking: public Page_breaking
+class One_line_auto_height_breaking: public One_line_page_breaking
 {
 public:
   SCM solve () override;

@@ -48,10 +48,10 @@ One_line_page_breaking::~One_line_page_breaking ()
   paper-width setting in the paper block is modified to fit the music.
 */
 SCM
-One_line_page_breaking::solve ()
+One_line_page_breaking::solve_and_provide_max_height (Real &max_height)
 {
-  SCM all_pages = SCM_EOL;
   Real max_width = 0;
+  SCM all_pages = SCM_EOL;
   for (vsize i = 0; i < system_specs_.size (); ++i)
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
@@ -73,6 +73,7 @@ One_line_page_breaking::solve ()
           SCM pages = make_pages (lines_per_page, systems);
 
           max_width = std::max (max_width, system->extent (system, X_AXIS).length ());
+          max_height = std::max (max_height, system->extent (system, Y_AXIS).length ());
           all_pages = scm_cons (scm_car (pages), all_pages);
         }
       else if (Prob *pb = system_specs_[i].prob_)
@@ -92,4 +93,11 @@ One_line_page_breaking::solve ()
   book_->paper ()->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
 
   return scm_reverse_x (all_pages, SCM_EOL);
+}
+
+SCM
+One_line_page_breaking::solve ()
+{
+  Real unused_max_height = 0;
+  return solve_and_provide_max_height (unused_max_height);
 }
