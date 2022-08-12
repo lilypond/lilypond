@@ -383,6 +383,22 @@
 (define-public staff-symbol-referencer::callback
   (ly:make-unpure-pure-container ly:staff-symbol-referencer::callback))
 
+(define-public (staff-symbol::calc-widened-extent grob)
+  (let* ((basic-staff-space (ly:staff-symbol-staff-space grob))
+         ;; DOCME: unclear what this is for.
+         (staff-space (if (zero? basic-staff-space)
+                          1.0
+                          basic-staff-space))
+         (ext (ly:grob-extent grob grob Y)))
+    (if (< (interval-length ext)
+           (* staff-space 2))
+        ;; Avoid bar lines shorter than two staff spaces.
+        ;; (Gould seems to use 4 spaces, judging from her
+        ;; examples.)  Cope by extending the bar line by one
+        ;; staff space in each direction.
+        (interval-widen ext staff-space)
+        ext)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 

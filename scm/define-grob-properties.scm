@@ -1258,6 +1258,10 @@ white background extends beyond the bounding box in multiples of
 @code{whiteout} background.  Available are @code{'outline},
 @code{'rounded-box}, and the default @code{'box}.  There is one
 exception: Use @code{'special} for @code{LyricHyphen}.")
+     (widened-extent ,number-pair? "The vertical extent that a bar
+line on a certain staff symbol should have.  If the staff symbol is
+small (e.g., has just one line, as in a @code{RhythmicStaff}, this is
+wider than the staff symbol's Y extent.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (woodwind-diagram-details ,symbol-key-alist? "An alist of detailed

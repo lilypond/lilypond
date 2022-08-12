@@ -421,5 +421,6 @@ line-count
 line-positions
 staff-space
 thickness
+widened-extent
 width
                )");

@@ -640,26 +640,13 @@ drawn by the procedure associated with glyph @var{glyph}."
 ;; bar line callbacks
 
 (define-public (ly:bar-line::calc-bar-extent grob)
-  (let ((staff-symbol (ly:grob-object grob 'staff-symbol))
-        (staff-extent (cons 0 0)))
-
+  (let ((staff-symbol (ly:grob-object grob 'staff-symbol)))
     (if (ly:grob? staff-symbol)
-        (let ((bar-line-color (ly:grob-property grob 'color))
-              (staff-color (ly:grob-property staff-symbol 'color))
-              (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2))
-              (staff-space (ly:staff-symbol-staff-space grob)))
-
-          (set! staff-extent (ly:grob-extent staff-symbol staff-symbol Y))
-
-          (if (zero? staff-space)
-              (set! staff-space 1.0))
-
-          (if (< (interval-length staff-extent) (* staff-space 2))
-              ;; Avoid bar lines shorter than two staff spaces.
-              ;; (Gould seems to use 4 spaces, judging from her
-              ;; examples.)  Cope by extending the bar line by one
-              ;; staff space in each direction.
-              (set! staff-extent (interval-widen staff-extent staff-space))
+        (let ((staff-extent (ly:grob-property staff-symbol 'widened-extent))
+              (bar-line-color (ly:grob-property grob 'color))
+              (staff-color (ly:grob-property staff-symbol 'color)))
+          ;; FIXME: "red" not eq? to #(rgb-color 1 0 0)
+          (if (eq? bar-line-color staff-color)
               ;; Due to rounding problems, bar lines extending to the outermost edges
               ;; of the staff lines appear wrongly in on-screen display
               ;; (and, to a lesser extent, in print) - they stick out a pixel.
@@ -669,11 +656,11 @@ drawn by the procedure associated with glyph @var{glyph}."
               ;;
               ;; This reduction should not influence whether the bar is to be
               ;; expanded later, so length is not updated on purpose.
-              (if (eq? bar-line-color staff-color)
-                  (set! staff-extent
-                        (interval-widen staff-extent
-                                        (- half-staff-line-thickness)))))))
-    staff-extent))
+              (let ((half-staff-line-thickness
+                     (* 1/2 (ly:staff-symbol-line-thickness grob))))
+                (interval-widen staff-extent (- half-staff-line-thickness)))
+              staff-extent))
+        '(0 . 0))))
 
 ;; this function may come in handy when defining new bar line glyphs, so
 ;; we make it public.
