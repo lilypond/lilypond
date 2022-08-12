@@ -25,7 +25,6 @@
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
-#include "pqueue.hh"
 #include "rhythmic-head.hh"
 #include "score-engraver.hh"
 #include "spanner.hh"

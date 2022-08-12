@@ -22,7 +22,6 @@
 
 #include "polynomial.hh"
 
-#include "flower-proto.hh"
 #include "warn.hh"
 
 #include <cmath>
@@ -42,7 +41,7 @@ Polynomial::eval (Real x) const
   Real p = 0.0;
 
   // horner's scheme
-  for (vsize i = coefs_.size (); i--;)
+  for (auto i = coefs_.size (); i--;)
     p = x * p + coefs_[i];
 
   return p;
@@ -219,12 +218,12 @@ Polynomial::solve_cubic ()const
   /* resubstitute */
   Real sub = 1.0 / 3 * A;
 
-  for (vsize i = sol.size (); i--;)
+  for (auto& s : sol)
     {
-      sol[i] -= sub;
+      s -= sub;
 
 #ifdef PARANOID
-      assert (fabs (eval (sol[i])) < 1e-8);
+      assert (fabs (eval (s)) < 1e-8);
 #endif
     }
 

@@ -19,7 +19,6 @@
 
 #include "least-squares.hh"
 
-#include "flower-proto.hh"
 #include "warn.hh"
 
 using std::vector;
@@ -33,10 +32,10 @@ minimise_least_squares (Real *coef, Real *offset,
   Real sqx = 0.0;
   Real sxy = 0.0;
 
-  for (vsize i = 0; i < input.size (); i++)
+  for (const auto &offset : input)
     {
-      Real x = input[i][X_AXIS];
-      Real y = input[i][Y_AXIS];
+      Real x = offset[X_AXIS];
+      Real y = offset[Y_AXIS];
       sx += x;
       sy += y;
       sqx += sqr (x);

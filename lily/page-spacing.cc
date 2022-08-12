@@ -20,7 +20,6 @@
 #include "page-spacing.hh"
 
 #include "international.hh"
-#include "matrix.hh"
 #include "page-breaking.hh"
 #include "warn.hh"
 

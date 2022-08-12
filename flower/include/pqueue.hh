@@ -20,8 +20,6 @@
 #ifndef PQUEUE_HH
 #define PQUEUE_HH
 
-#include "flower-proto.hh"
-
 #include <cassert>
 #include <vector>
 
@@ -49,12 +47,15 @@ int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
 template<class T>
 class PQueue
 {
-  std::vector<T> heap_array_;
-  T &elt (vsize i)
+  using Vector = std::vector<T>;
+  using size_type = typename Vector::size_type;
+
+  Vector heap_array_;
+  T &elt (size_type i)
   {
     return heap_array_[i - 1];
   }
-  T const &elt (vsize i) const
+  T const &elt (size_type i) const
   {
     return heap_array_[i - 1];
   }
@@ -63,18 +64,18 @@ public:
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator [] (vsize i)
+  T &operator [] (size_type i)
   {
     return heap_array_[i];
   }
-  T operator [] (vsize i) const
+  T operator [] (size_type i) const
   {
     return heap_array_[i];
   }
   void OK () const
   {
 #ifdef DEBUG
-    for (vsize i = 2; i <= size (); i++)
+    for (size_type i = 2; i <= size (); i++)
       assert (compare (elt (i / 2), elt (i)) <= 0);
 #endif
   }
@@ -82,15 +83,15 @@ public:
   {
     return elt (1);
   }
-  vsize size () const
+  size_type size () const
   {
     return heap_array_.size ();
   }
   void insert (T v)
   {
     heap_array_.push_back (v);
-    vsize i = heap_array_.size ();
-    vsize j = i / 2;
+    size_type i = heap_array_.size ();
+    size_type j = i / 2;
     while (j)
       {
         if (compare (elt (j), v) > 0)
@@ -116,8 +117,8 @@ public:
     assert (size ());
     T last = heap_array_.back ();
 
-    vsize mini = 2;
-    vsize lasti = 1;
+    size_type mini = 2;
+    size_type lasti = 1;
 
     while (mini < size ())
       {

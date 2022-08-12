@@ -23,7 +23,6 @@
 // Needed because of extension definitions for POSIX functions.
 #include "config.hh"
 
-#include "flower-proto.hh"
 #include "interval-traits.hh"
 #include "std-string.hh"
 #include "drul-array.hh"

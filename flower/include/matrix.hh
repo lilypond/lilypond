@@ -20,51 +20,53 @@
 #ifndef MATRIX_HH
 #define MATRIX_HH
 
-#include "flower-proto.hh"
-
+#include <cassert>
 #include <vector>
 
 template<class T, class A = std::allocator<T> >
 class Matrix
 {
+  using Vector = std::vector<T, A>;
+  using size_type = typename Vector::size_type;
+
 public:
   Matrix<T, A> ()
   {
     rank_ = 0;
   }
 
-  Matrix<T, A> (vsize rows, vsize columns, T const &t)
+  Matrix<T, A> (size_type rows, size_type columns, T const &t)
     : data_ (rows * columns, t)
   {
     rank_ = rows;
   }
 
-  const T &at (vsize row, vsize col) const
+  const T &at (size_type row, size_type col) const
   {
     assert (row < rank_ && col * rank_ + row < data_.size ());
 
     return data_[col * rank_ + row];
   }
 
-  T &at (vsize row, vsize col)
+  T &at (size_type row, size_type col)
   {
     assert (row < rank_ && col * rank_ + row < data_.size ());
 
     return data_[col * rank_ + row];
   }
 
-  void resize (vsize rows, vsize columns, T const &t)
+  void resize (size_type rows, size_type columns, T const &t)
   {
     if (rows == rank_)
       data_.resize (rows * columns, t);
     else
       {
-        std::vector<T, A> new_data;
+        Vector new_data;
         new_data.resize (rows * columns, t);
-        vsize cur_cols = rank_ ? data_.size () / rank_ : 0;
+        size_type cur_cols = rank_ ? data_.size () / rank_ : 0;
 
-        for (vsize i = 0; i < cur_cols; i++)
-          for (vsize j = 0; j < rank_; j++)
+        for (size_type i = 0; i < cur_cols; i++)
+          for (size_type j = 0; j < rank_; j++)
             new_data[i * rows + j] = data_[i * rank_ + j];
         rank_ = rows;
         data_ = new_data;
@@ -72,8 +74,8 @@ public:
   }
 
 private:
-  std::vector<T, A> data_;
-  vsize rank_;
+  Vector data_;
+  size_type rank_;
 };
 
 #endif /* MATRIX_HH */
