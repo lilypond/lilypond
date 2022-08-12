@@ -535,14 +535,6 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
   return get_property (system_specs_[pos.system_spec_index_].prob_, str);
 }
 
-SCM
-Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, bool last)
-{
-  SCM dummy_page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
-  Page_layout_problem layout (book_, dummy_page, systems);
-  return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
-}
-
 /* Return a Prob as SCM value encompassing the given systems. */
 SCM
 Page_breaking::draw_page (SCM systems, int page_num, bool last, Real &last_page_force)
