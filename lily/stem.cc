@@ -99,7 +99,7 @@ Stem::get_beaming (Grob *me, Direction d)
 
   // This list represents the vertical positions at which beams start/end at
   // this stem, so the O(n) cost of scm_length is fine.
-  return scm_to_int (scm_length (lst));
+  return from_scm<int> (scm_length (lst));
 }
 
 Interval
@@ -302,7 +302,7 @@ Stem::is_normal_stem (Grob *me)
   if (!head_count (me))
     return false;
 
-  return scm_to_int (get_property (me, "duration-log")) >= 1;
+  return from_scm<int> (get_property (me, "duration-log")) >= 1;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, "ly:stem::pure-height", 3)
@@ -434,7 +434,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   Real length = 7;
   SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
   if (scm_is_pair (s))
-    length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
+    length = 2 * from_scm<double> (robust_list_ref (durlog - 2, s));
 
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
@@ -448,7 +448,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
       /*  change in length between full-size and shortened stems is executed gradually.
           "transition area" = stems between full-sized and fully-shortened.
           */
-      Real quarter_stem_length = 2 * scm_to_double (robust_list_ref (0, s));
+      Real quarter_stem_length = 2 * from_scm<double> (robust_list_ref (0, s));
       /*  shortening_step = difference in length between consecutive stem lengths
           in transition area. The bigger the difference between full-sized
           and shortened stems, the bigger shortening_step is.
@@ -514,7 +514,7 @@ int
 Stem::duration_log (Grob *me)
 {
   SCM s = get_property (me, "duration-log");
-  return (scm_is_number (s)) ? scm_to_int (s) : 2;
+  return (scm_is_number (s)) ? from_scm<int> (s) : 2;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, calc_positioning_done,
@@ -801,7 +801,7 @@ Stem::width (SCM e)
 Real
 Stem::thickness (Grob *me)
 {
-  return scm_to_double (get_property (me, "thickness"))
+  return from_scm<double> (get_property (me, "thickness"))
          * Staff_symbol_referencer::line_thickness (me);
 }
 
@@ -1002,8 +1002,8 @@ Stem::get_stem_info (Grob *me)
   si.dir_ = get_grob_direction (me);
 
   SCM scm_info = get_property (me, "stem-info");
-  si.ideal_y_ = scm_to_double (scm_car (scm_info));
-  si.shortest_y_ = scm_to_double (scm_cadr (scm_info));
+  si.ideal_y_ = from_scm<double> (scm_car (scm_info));
+  si.shortest_y_ = from_scm<double> (scm_cadr (scm_info));
   return si;
 }
 
@@ -1040,7 +1040,7 @@ Stem::calc_stem_info (SCM smob)
 
   Real ideal_length
     = (scm_is_pair (lengths)
-       ? (scm_to_double (robust_list_ref (beam_count - 1, lengths))
+       ? (from_scm<double> (robust_list_ref (beam_count - 1, lengths))
           * staff_space
           * length_fraction
           /*
@@ -1055,7 +1055,7 @@ Stem::calc_stem_info (SCM smob)
 
   Real ideal_minimum_free
     = (scm_is_pair (lengths)
-       ? (scm_to_double (robust_list_ref (beam_count - 1, lengths))
+       ? (from_scm<double> (robust_list_ref (beam_count - 1, lengths))
           * staff_space
           * length_fraction)
        : 0.0);
@@ -1129,7 +1129,7 @@ Stem::calc_stem_info (SCM smob)
 
   Real minimum_free
     = (scm_is_pair (bemfl)
-       ? (scm_to_double (robust_list_ref (beam_count - 1, bemfl))
+       ? (from_scm<double> (robust_list_ref (beam_count - 1, bemfl))
           * staff_space
           * length_fraction)
        : 0.0);

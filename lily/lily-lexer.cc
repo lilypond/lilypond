@@ -203,7 +203,7 @@ Lily_lexer::lookup_keyword (SCM s)
 {
   SCM val;
   if (unsmob<Scheme_hash_table> (keytable_)->try_retrieve (s, &val))
-    return scm_to_int (val);
+    return from_scm<int> (val);
   return -1;
 }
 

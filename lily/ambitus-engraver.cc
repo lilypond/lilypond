@@ -129,7 +129,7 @@ Ambitus_engraver::stop_translation_timestep ()
       if (scm_is_eq (SCM_BOOL_T, get_property (this, "ottavaStartNow")))
         start_c0_ = from_scm (get_property (this, "middleCClefPosition"), 0);
       else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
-        start_c0_ = scm_to_int (c_pos);
+        start_c0_ = from_scm<int> (c_pos);
       else
         {
           int clef_pos = from_scm (get_property (this, "middleCClefPosition"), 0);
@@ -182,7 +182,7 @@ Ambitus_engraver::finalize ()
 
           int pos;
           if (ly_is_procedure (layout_proc))
-            pos = scm_to_int (ly_call (layout_proc, p.smobbed_copy ()));
+            pos = from_scm<int> (ly_call (layout_proc, p.smobbed_copy ()));
           else
             pos = p.steps ();
 

@@ -433,7 +433,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
   else
     {
       /* dashed or combination slur */
-      int num_segments = scm_to_int (scm_length (dash_details));
+      int num_segments = from_scm<int> (scm_length (dash_details));
       for (int i = 0; i < num_segments; i++)
         {
           SCM dash_pattern = scm_list_ref (dash_details, to_scm (i));

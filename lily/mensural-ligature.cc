@@ -127,7 +127,7 @@ internal_brew_primitive (Grob *me)
                          " undefined primitive -> ignoring grob");
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
-  int primitive = scm_to_int (primitive_scm);
+  int primitive = from_scm<int> (primitive_scm);
 
   Real thickness = 0.0;
   Real width = 0.0;
@@ -230,7 +230,7 @@ internal_brew_primitive (Grob *me)
 
   if (from_scm<bool> (get_property (me, "add-join")))
     {
-      int join_right = scm_to_int (get_property (me, "delta-position"));
+      int join_right = from_scm<int> (get_property (me, "delta-position"));
       if (join_right)
         {
           Real y_top = join_right * 0.5 * staff_space;

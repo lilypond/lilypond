@@ -105,7 +105,7 @@ Real
 Output_def::get_dimension (SCM s) const
 {
   SCM val = lookup_variable (s);
-  return scm_to_double (val);
+  return from_scm<double> (val);
 }
 
 SCM
@@ -167,9 +167,9 @@ Output_def::normalize ()
     }
   else
     {
-      paper_width = scm_to_double (scm_paper_width);
-      left_margin_default = scm_to_double (scm_left_margin_default);
-      right_margin_default = scm_to_double (scm_right_margin_default);
+      paper_width = from_scm<double> (scm_paper_width);
+      left_margin_default = from_scm<double> (scm_left_margin_default);
+      right_margin_default = from_scm<double> (scm_right_margin_default);
     }
 
   Real line_width;
@@ -185,15 +185,15 @@ Output_def::normalize ()
     {
       left_margin = (SCM_UNBNDP (scm_left_margin)
                      ? left_margin_default
-                     : scm_to_double (scm_left_margin));
+                     : from_scm<double> (scm_left_margin));
       right_margin = (SCM_UNBNDP (scm_right_margin)
                       ? right_margin_default
-                      : scm_to_double (scm_right_margin)) + binding_offset;
+                      : from_scm<double> (scm_right_margin)) + binding_offset;
       line_width = paper_width - left_margin - right_margin;
     }
   else
     {
-      line_width = scm_to_double (scm_line_width);
+      line_width = from_scm<double> (scm_line_width);
       if (SCM_UNBNDP (scm_left_margin))
         {
           // Vertically center systems if only line-width is given
@@ -204,16 +204,16 @@ Output_def::normalize ()
             }
           else
             {
-              right_margin = scm_to_double (scm_right_margin) + binding_offset;
+              right_margin = from_scm<double> (scm_right_margin) + binding_offset;
               left_margin = paper_width - line_width - right_margin;
             }
         }
       else
         {
-          left_margin = scm_to_double (scm_left_margin);
+          left_margin = from_scm<double> (scm_left_margin);
           right_margin = (SCM_UNBNDP (scm_right_margin)
                           ? (paper_width - line_width - left_margin)
-                          : scm_to_double (scm_right_margin)) + binding_offset;
+                          : from_scm<double> (scm_right_margin)) + binding_offset;
         }
     }
 

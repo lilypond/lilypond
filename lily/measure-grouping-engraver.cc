@@ -89,7 +89,7 @@ Measure_grouping_engraver::process_music ()
            where += Rational (from_scm<int64_t> (scm_car (s))) * base_moment,
            s = scm_cdr (s))
         {
-          int grouplen = scm_to_int (scm_car (s));
+          int grouplen = from_scm<int> (scm_car (s));
           if (where == mp)
             {
               if (grouping_)

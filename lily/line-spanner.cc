@@ -591,7 +591,7 @@ Line_spanner::print (SCM smob)
                                   bounds[d], SCM_BOOL_F);
 
           if (scm_is_number (align))
-            s.align_to (Y_AXIS, scm_to_double (align));
+            s.align_to (Y_AXIS, from_scm<double> (align));
 
           if (is_number_pair (off))
             s.translate (from_scm<Offset> (off) * magstep);

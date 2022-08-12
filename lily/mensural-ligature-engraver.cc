@@ -292,7 +292,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
           (prev_primitive, "primitive",
            to_scm
            (MLP_FLEXA_BEGIN
-            | (scm_to_int (get_property (prev_primitive, "primitive"))
+            | (from_scm<int> (get_property (prev_primitive, "primitive"))
                & MLP_STEM)));
           set_property
           (prev_primitive, "flexa-interval", to_scm (pitch - prev_pitch));
@@ -349,7 +349,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
   Item *prev_primitive = NULL;
   for (const auto &primitive : primitives)
     {
-      int output = scm_to_int (get_property (primitive, "primitive"));
+      int output = from_scm<int> (get_property (primitive, "primitive"));
       set_property (primitive, "thickness",
                     to_scm (thickness));
 
@@ -405,13 +405,13 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives
         {
           first = current;
           staff_space = Staff_symbol_referencer::staff_space (first);
-          thickness = scm_to_double (get_property (current, "thickness"));
+          thickness = from_scm<double> (get_property (current, "thickness"));
         }
 
       move_related_items_to_column (current, first->get_column (),
                                     distance);
 
-      Real head_width = scm_to_double (get_property (current, "head-width"));
+      Real head_width = from_scm<double> (get_property (current, "head-width"));
       distance += head_width - thickness;
 
       if (size_t const dot_count = Rhythmic_head::dot_count (current))
@@ -427,7 +427,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives
                                 from_scm (get_property (current, "staff-position"), 0));
           Real vert_shift = on_line ? staff_space * 0.5 : 0.0;
           bool const flexa_begin
-            = scm_to_int (get_property (current, "primitive"))
+            = from_scm<int> (get_property (current, "primitive"))
               & MLP_FLEXA_BEGIN;
 
           if (i + 1 < primitives.size ())
@@ -438,7 +438,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives
             */
             {
               int const delta
-                = scm_to_int (get_property (current, "delta-position"));
+                = from_scm<int> (get_property (current, "delta-position"));
               if (flexa_begin)
                 vert_shift += delta < 0
                               ? staff_space : (on_line ? -2.0 : -1.0) * staff_space;

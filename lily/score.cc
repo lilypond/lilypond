@@ -116,7 +116,7 @@ Score::book_rendering (Output_def *layoutbook,
       && scm_is_eq (layoutbook->c_variable ("output-def-kind"),
                     ly_symbol2scm ("paper")))
     {
-      scale = scm_to_double (layoutbook->c_variable ("output-scale"));
+      scale = from_scm<double> (layoutbook->c_variable ("output-scale"));
     }
 
   SCM outputs = SCM_EOL;

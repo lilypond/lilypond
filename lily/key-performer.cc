@@ -65,7 +65,7 @@ Key_performer::process_music ()
       SCM acc = Lily::alterations_in_key (pitchlist);
 
       Pitch key_do (0,
-                    scm_to_int (scm_caar (pitchlist)),
+                    from_scm<int> (scm_caar (pitchlist)),
                     from_scm<Rational> (scm_cdar (pitchlist)));
 
       SCM c_pitchlist
@@ -80,7 +80,7 @@ Key_performer::process_music ()
                     && scm_is_number (scm_cdr (third))
                     && from_scm<Rational> (scm_cdr (third)) == FLAT_ALTERATION);
 
-      announce<Audio_key> (key_ev_, scm_to_int (acc), !minor);
+      announce<Audio_key> (key_ev_, from_scm<int> (acc), !minor);
       key_ev_ = 0;
     }
 }

@@ -165,12 +165,12 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   int measure_count = 0;
   SCM m (get_property (me, "measure-count"));
   if (scm_is_number (m))
-    measure_count = scm_to_int (m);
+    measure_count = from_scm<int> (m);
   if (measure_count <= 0)
     return Stencil ();
 
   SCM limit = get_property (me, "expand-limit");
-  if (measure_count > scm_to_int (limit))
+  if (measure_count > from_scm<int> (limit))
     {
       Real padding = 0.15;
       Stencil s = big_rest (me, (1.0 - 2 * padding) * space);
@@ -247,7 +247,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
       set_property (me, "staff-position", to_scm (pos));
     }
   else
-    pos = scm_to_double (sp);
+    pos = from_scm<double> (sp);
 
   int dl = -3;
   while (displayed_duration > 0)

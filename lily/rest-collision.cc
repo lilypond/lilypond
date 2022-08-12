@@ -55,7 +55,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
     while the offset probably still is 0/calculation-in-progress.
    */
   if (scm_is_number (offset))
-    rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
+    rest_grob->translate_axis (from_scm<double> (offset), Y_AXIS);
 
   if (has_interface<Note_column> (parent) && Note_column::has_rests (parent))
     {

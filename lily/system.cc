@@ -922,8 +922,8 @@ SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   System *me = unsmob<System> (smob);
-  int start = scm_to_int (start_scm);
-  int end = scm_to_int (end_scm);
+  int start = from_scm<int> (start_scm);
+  int end = from_scm<int> (end_scm);
 
   Interval begin = me->begin_of_line_pure_height (start, end);
   Interval rest = me->rest_of_line_pure_height (start, end);

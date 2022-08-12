@@ -170,9 +170,9 @@ Grob::get_print_stencil () const
       SCM rot = get_property (this, "rotation");
       if (scm_is_pair (rot))
         {
-          Real angle = scm_to_double (scm_car (rot));
-          Real x = scm_to_double (scm_cadr (rot));
-          Real y = scm_to_double (scm_caddr (rot));
+          Real angle = from_scm<double> (scm_car (rot));
+          Real x = from_scm<double> (scm_cadr (rot));
+          Real y = from_scm<double> (scm_caddr (rot));
 
           retval.rotate_degrees (angle, Offset (x, y));
         }

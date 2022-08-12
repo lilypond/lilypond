@@ -96,7 +96,7 @@ One_page_breaking::solve ()
   for (SCM c = config; scm_is_pair (c); c = scm_cdr (c))
     {
       SCM this_pos = scm_car (c);
-      line_posns.push_back (scm_to_double (this_pos));
+      line_posns.push_back (from_scm<double> (this_pos));
       if (scm_is_true (scm_gr_p (this_pos, lowest_line_pos)))
         lowest_line_pos = this_pos;
     }
@@ -135,7 +135,7 @@ One_page_breaking::solve ()
   SCM last_bottom = book_->paper ()->c_variable ("last-bottom-spacing");
 
   SCM padding = read_spacing_alist (last_bottom, ly_symbol2scm ("padding"));
-  lowest_bound += scm_to_double (padding);
+  lowest_bound += from_scm<double> (padding);
 
   SCM basic_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("basic-distance"));
   SCM minimum_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("minimum-distance"));
@@ -154,7 +154,7 @@ One_page_breaking::solve ()
   if (scm_is_pair (refpoint_extent) && scm_is_number (scm_car (refpoint_extent)))
     refpoint_dist = scm_product (scm_car (refpoint_extent), to_scm (-1));
 
-  Real last_bottom_bound = scm_to_double (scm_sum (lowest_line_pos, scm_sum (refpoint_dist, max_dist)));
+  Real last_bottom_bound = from_scm<double> (scm_sum (lowest_line_pos, scm_sum (refpoint_dist, max_dist)));
   if (last_bottom_bound > lowest_bound)
     lowest_bound = last_bottom_bound;
 

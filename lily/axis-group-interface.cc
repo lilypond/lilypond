@@ -984,8 +984,8 @@ Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM en
 {
   return calc_maybe_pure_staff_staff_spacing (unsmob<Grob> (smob),
                                               true,
-                                              scm_to_int (start),
-                                              scm_to_int (end));
+                                              from_scm<int> (start),
+                                              from_scm<int> (end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing,

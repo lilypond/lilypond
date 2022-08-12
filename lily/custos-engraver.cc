@@ -106,7 +106,7 @@ Custos_engraver::process_acknowledged ()
           int p = pitches_[i].steps ();
           SCM c0 = get_property (this, "middleCPosition");
           if (scm_is_number (c0))
-            p += scm_to_int (c0);
+            p += from_scm<int> (c0);
 
           set_property (c, "staff-position",
                         to_scm (p));

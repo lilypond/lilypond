@@ -664,7 +664,7 @@ Beam_scoring_problem::calc_concaveness ()
 {
   SCM conc = get_property (beam_, "concaveness");
   if (scm_is_number (conc))
-    return scm_to_double (conc);
+    return from_scm<double> (conc);
 
   if (is_knee_ || is_xstaff_)
     return 0.0;
@@ -718,7 +718,7 @@ Beam_scoring_problem::slope_damping ()
     return;
 
   SCM s = get_property (beam_, "damping");
-  Real damping = scm_to_double (s);
+  Real damping = from_scm<double> (s);
   Real concaveness = calc_concaveness ();
   if ((concaveness >= 10000) || (damping >= 10000))
     {

@@ -51,7 +51,7 @@ Return whether @var{spos} is on a line of the staff associated with the grob
   auto *const g = LY_ASSERT_SMOB (Grob, sg, 1);
   LY_ASSERT_TYPE (scm_is_number, spos, 2);
   Grob *st = Staff_symbol_referencer::get_staff_symbol (g);
-  int pos = scm_to_int (spos);
+  int pos = from_scm<int> (spos);
   bool on_line = st ? Staff_symbol::on_line (g, pos) : false;
   return to_scm (on_line);
 }

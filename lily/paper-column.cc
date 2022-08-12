@@ -377,7 +377,7 @@ Paper_column::print (SCM p)
   for (SCM s = get_object (me, "minimum-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Real dist = scm_to_double (scm_cdar (s));
+      Real dist = from_scm<double> (scm_cdar (s));
       Grob *other = unsmob<Grob> (scm_caar (s));
       if (!other || other->get_system () != me->get_system ())
         continue;

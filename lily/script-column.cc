@@ -57,7 +57,7 @@ Compare two grobs by script priority.  For internal use.
   SCM p1 = get_property (i1, "script-priority");
   SCM p2 = get_property (i2, "script-priority");
 
-  return scm_to_int (p1) < scm_to_int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
+  return from_scm<int> (p1) < from_scm<int> (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking,
@@ -174,10 +174,10 @@ Script_column::order_grobs (vector<Grob *> grobs)
                 of previous grob in order to preserve ordering.
               */
               else if ((!scm_is_number (initial_outside_staff))
-                       || (fabs (scm_to_double (initial_outside_staff)
+                       || (fabs (from_scm<double> (initial_outside_staff)
                                  - from_scm<double> (last_initial_outside_staff, 0)) < 0.001))
                 set_property (g, "outside-staff-priority",
-                              to_scm (scm_to_double (last_outside_staff) + 0.1));
+                              to_scm (from_scm<double> (last_outside_staff) + 0.1));
             }
         }
     }

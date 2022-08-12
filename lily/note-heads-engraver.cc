@@ -83,13 +83,13 @@ Note_heads_engraver::process_music ()
       else if (ly_is_procedure (layout_proc))
         {
           SCM pitch = get_property (ev, "pitch");
-          pos = scm_to_int (ly_call (layout_proc, pitch));
+          pos = from_scm<int> (ly_call (layout_proc, pitch));
         }
       else
         pos = pit->steps ();
 
       if (scm_is_number (c0))
-        pos += scm_to_int (c0);
+        pos += from_scm<int> (c0);
 
       set_property (note, "staff-position", to_scm (pos));
 

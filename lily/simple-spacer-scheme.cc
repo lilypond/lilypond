@@ -54,8 +54,8 @@ by @var{spring-count}+1 positions of the objects.
   Simple_spacer spacer;
   for (SCM s = springs; scm_is_pair (s); s = scm_cdr (s))
     {
-      Real ideal = scm_to_double (scm_caar (s));
-      Real inv_hooke = scm_to_double (scm_cadar (s));
+      Real ideal = from_scm<double> (scm_caar (s));
+      Real inv_hooke = from_scm<double> (scm_cadar (s));
 
       Spring sp (ideal, 0.0);
       sp.set_inverse_compress_strength (inv_hooke);
@@ -67,15 +67,15 @@ by @var{spring-count}+1 positions of the objects.
   for (SCM s = rods; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      int l = scm_to_int (scm_car (entry));
-      int r = scm_to_int (scm_cadr (entry));
+      int l = from_scm<int> (scm_car (entry));
+      int r = from_scm<int> (scm_cadr (entry));
       entry = scm_cddr (entry);
 
-      Real distance = scm_to_double (scm_car (entry));
+      Real distance = from_scm<double> (scm_car (entry));
       spacer.add_rod (l, r, distance);
     }
 
-  Simple_spacer::Solution sol = spacer.solve (scm_to_double (length), is_ragged);
+  Simple_spacer::Solution sol = spacer.solve (from_scm<double> (length), is_ragged);
 
   vector<Real> posns = spacer.spring_positions (sol.force_, is_ragged);
 

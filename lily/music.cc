@@ -142,9 +142,9 @@ Music::generic_to_relative_octave (Pitch last)
 
       SCM check = get_property (this, "absolute-octave");
       if (scm_is_number (check)
-          && new_pit.get_octave () != scm_to_int (check))
+          && new_pit.get_octave () != from_scm<int> (check))
         {
-          Pitch expected_pit (scm_to_int (check),
+          Pitch expected_pit (from_scm<int> (check),
                               new_pit.get_notename (),
                               new_pit.get_alteration ());
           warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",

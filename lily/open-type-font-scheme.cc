@@ -157,7 +157,7 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
   if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
-      i = scm_to_int (idx);
+      i = from_scm<int> (idx);
       if (i < 0)
         {
           warning (_ ("font index must be non-negative, using index 0"));
@@ -203,7 +203,7 @@ default value of @var{idx} is@tie{}0.
   if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
-      i = scm_to_int (idx);
+      i = from_scm<int> (idx);
       if (i < 0)
         {
           warning (_ ("font index must be non-negative, using index 0"));
@@ -249,7 +249,7 @@ default value of @var{idx} is@tie{}0.
   if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
-      i = scm_to_int (idx);
+      i = from_scm<int> (idx);
       if (i < 0)
         {
           warning (_ ("font index must be non-negative, using index 0"));
@@ -405,7 +405,7 @@ file @var{subfont-file-name}.
   LY_ASSERT_TYPE (scm_is_integer, idx, 2);
   LY_ASSERT_TYPE (scm_is_string, subfont_file_name, 3);
 
-  int i = scm_to_int (idx);
+  int i = from_scm<int> (idx);
   if (i < 0)
     {
       warning (_ ("font index must be non-negative, using index 0"));

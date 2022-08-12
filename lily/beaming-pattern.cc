@@ -208,7 +208,7 @@ find_location (SCM grouping, Rational base_moment, Rational start_moment,
       int64_t group_count = 1;  //default -- 1 base moments in a beam
       if (scm_is_pair (grouping))
         {
-          group_count = scm_to_int (scm_car (grouping));
+          group_count = from_scm<int> (scm_car (grouping));
           grouping = scm_cdr (grouping);
         }
 

@@ -73,7 +73,7 @@ void Midi_control_change_announcer::announce_control_changes ()
       SCM value = get_property_value (spec->context_property_name_);
       if (!scm_is_number (value))
         continue;
-      Real val = scm_to_double (value);
+      Real val = from_scm<double> (value);
       if (val >= spec->range_min_ && val <= spec->range_max_)
         {
           // Normalize the value to the 0.0 to 1.0 range.

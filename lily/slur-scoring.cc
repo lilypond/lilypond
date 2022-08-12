@@ -699,7 +699,7 @@ void
 Slur_score_state::generate_curves () const
 {
   Real r_0 = from_scm<double> (get_property (slur_, "ratio"), 0.33);
-  Real h_inf = staff_space_ * scm_to_double (get_property (slur_, "height-limit"));
+  Real h_inf = staff_space_ * from_scm<double> (get_property (slur_, "height-limit"));
 
   vector<Offset> avoid = generate_avoid_offsets ();
   for (vsize i = 0; i < configurations_.size (); i++)

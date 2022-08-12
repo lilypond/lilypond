@@ -692,7 +692,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         *offset = points[i][Y_AXIS] - tuplety;
     }
 
-  *offset += scm_to_double (get_property (me, "padding")) * dir;
+  *offset += from_scm<double> (get_property (me, "padding")) * dir;
 
   /*
     horizontal brackets should not collide with staff lines.

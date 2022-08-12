@@ -856,7 +856,7 @@ Lily_lexer::pop_extra_token ()
 
   /* produce requested token */
 	yylloc = *unsmob<Input> (scm_caar (extra_tokens_));
-	int type = scm_to_int (scm_cadar (extra_tokens_));
+	int type = from_scm<int> (scm_cadar (extra_tokens_));
 	yylval = scm_cddar (extra_tokens_);
 	extra_tokens_ = scm_cdr (extra_tokens_);
 	return type;

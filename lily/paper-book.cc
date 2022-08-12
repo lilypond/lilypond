@@ -54,7 +54,7 @@ Paper_book::Paper_book (Output_def *paper, Paper_book *parent_part)
   parent_ = 0;
   smobify_self ();
 
-  Real scale = scm_to_double (paper->c_variable ("output-scale"));
+  Real scale = from_scm<double> (paper->c_variable ("output-scale"));
   paper_ = scale_output_def (paper, scale);
   paper_->unprotect ();
   if (parent_part)

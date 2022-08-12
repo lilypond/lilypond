@@ -57,7 +57,7 @@ Slash_repeat_engraver::process_music ()
   if (slash_)
     {
       SCM count = get_property (slash_, "slash-count");
-      if (scm_to_int (count) == 0)
+      if (from_scm<int> (count) == 0)
         make_item ("DoubleRepeatSlash", slash_->self_scm ());
       else
         make_item ("RepeatSlash", slash_->self_scm ());

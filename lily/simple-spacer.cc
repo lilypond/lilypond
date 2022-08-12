@@ -405,7 +405,7 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
                                      Paper_column::rank_less);
           if (j != cols.end () && (*j)->get_rank () == other->get_rank ())
             {
-              Real dist = scm_to_double (scm_cdar (s));
+              Real dist = from_scm<double> (scm_cdar (s));
               vsize idx = j - cols.begin ();
               if (*j == other)
                 description.rods_.push_back (Rod_description (idx, dist));

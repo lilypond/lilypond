@@ -406,7 +406,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
     {
       Grob *s = unsmob<Grob> (scm_caar (hand));
-      Real amount = scm_to_double (scm_cdar (hand)) * wid;
+      Real amount = from_scm<double> (scm_cdar (hand)) * wid;
 
       done.push_back (s);
       amounts.push_back (amount);
@@ -414,7 +414,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   for (; scm_is_pair (autos); autos = scm_cdr (autos))
     {
       Grob *s = unsmob<Grob> (scm_caar (autos));
-      Real amount = scm_to_double (scm_cdar (autos)) * wid;
+      Real amount = from_scm<double> (scm_cdar (autos)) * wid;
 
       auto it = std::find (done.begin (), done.end (), s);
       if (it == done.end ())

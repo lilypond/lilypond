@@ -94,7 +94,7 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 
       if (!only_do_permissions && scm_is_number (pen))
         {
-          Real new_pen = from_scm<double> (cur_pen, 0.0) + scm_to_double (pen);
+          Real new_pen = from_scm<double> (cur_pen, 0.0) + from_scm<double> (pen);
           set_property (command_column_, pen_str.c_str (), to_scm (new_pen));
           set_property (command_column_, perm_str.c_str (), ly_symbol2scm ("allow"));
           force_break_permission = true;

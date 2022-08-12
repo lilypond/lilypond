@@ -38,7 +38,7 @@ SCM
 Rest::y_offset_callback (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int duration_log = scm_to_int (get_property (me, "duration-log"));
+  int duration_log = from_scm<int> (get_property (me, "duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   return to_scm (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
@@ -233,7 +233,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
   if (!scm_is_number (durlog_scm))
     return Stencil ().smobbed_copy ();
 
-  int durlog = scm_to_int (durlog_scm);
+  int durlog = from_scm<int> (durlog_scm);
 
   string style = robust_symbol2string (get_property (me, "style"), "default");
 

@@ -1218,7 +1218,7 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
           if (scm_is_number (scm_car (entry)))
             {
               spec.has_manual_position_ = true;
-              spec.manual_position_ = scm_to_double (scm_car (entry));
+              spec.manual_position_ = from_scm<double> (scm_car (entry));
               /* TODO: check whether inexact? is an appropriate condition here */
               spec.has_manual_delta_y_ = (scm_is_true (scm_inexact_p (scm_car (entry))));
             }
@@ -1226,7 +1226,7 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
           if (scm_is_number (scm_cdr (entry)))
             {
               spec.has_manual_dir_ = true;
-              spec.manual_dir_ = Direction (scm_to_int (scm_cdr (entry)));
+              spec.manual_dir_ = Direction (from_scm<int> (scm_cdr (entry)));
             }
         }
       k++;

@@ -89,11 +89,11 @@ Cue_clef_engraver::set_glyph ()
 void
 Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
 {
-  if (scm_is_number (transp) && scm_to_int (transp))
+  if (scm_is_number (transp) && from_scm<int> (transp))
     {
       Item *g = make_item ("ClefModifier", SCM_EOL);
 
-      int abs_transp = scm_to_int (transp);
+      int abs_transp = from_scm<int> (transp);
       int dir = sign (abs_transp);
       abs_transp = abs (abs_transp) + 1;
 

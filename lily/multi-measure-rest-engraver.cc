@@ -235,7 +235,7 @@ Multi_measure_rest_engraver::process_music ()
       // Finalize the current grobs.
       if (grobs_initialized ())
         {
-          int curr_measure = scm_to_int (get_property (this, "internalBarNumber"));
+          int curr_measure = from_scm<int> (get_property (this, "internalBarNumber"));
           set_measure_count (curr_measure - start_measure_);
           if (last_command_item_)
             add_bound_item_to_grobs (last_command_item_);
@@ -258,7 +258,7 @@ Multi_measure_rest_engraver::process_music ()
           last_command_item_ = 0;
         }
 
-      start_measure_ = scm_to_int (get_property (this, "internalBarNumber"));
+      start_measure_ = from_scm<int> (get_property (this, "internalBarNumber"));
       number_threshold_ = from_scm (get_property (this, "restNumberThreshold"), 1);
     }
 

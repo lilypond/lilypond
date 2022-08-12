@@ -124,7 +124,7 @@ looked up using the search path.
   if (!SCM_UNBNDP (size))
     {
       LY_ASSERT_TYPE (scm_is_number, size, 2);
-      sz = scm_to_int (size);
+      sz = from_scm<int> (size);
     }
 
   string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
@@ -144,7 +144,7 @@ read.  The file is looked up using the search path.
   if (!SCM_UNBNDP (size))
     {
       LY_ASSERT_TYPE (scm_is_number, size, 2);
-      sz = scm_to_int (size);
+      sz = from_scm<int> (size);
     }
 
   string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
@@ -162,7 +162,7 @@ direction.
 {
   if (scm_is_integer (s))
     {
-      int i = scm_to_int (s);
+      int i = from_scm<int> (s);
       return (i >= -1 && i <= 1) ? SCM_BOOL_T : SCM_BOOL_F;
     }
   return SCM_BOOL_F;
@@ -247,7 +247,7 @@ Convert @var{s} to a string without generating many decimals.
 
   if (scm_is_false (scm_exact_p (s)))
     {
-      Real r (scm_to_double (s));
+      Real r (from_scm<double> (s));
       if (!std::isfinite (r))
         {
           programming_error ("infinity or NaN encountered while converting Real number, "
@@ -396,7 +396,7 @@ first parameter is an integer, or to file @var{file-name}, opened with
     {
       // If passed a file descriptor, just replace the error stream (fd 2) by
       // calling dup2.
-      int fd = scm_to_int (fd_or_file_name);
+      int fd = from_scm<int> (fd_or_file_name);
       if (dup2 (fd, 2) == -1)
         error (_ ("failed redirecting stderr"));
       return SCM_UNSPECIFIED;
@@ -454,10 +454,10 @@ string
 format_single_argument (SCM arg, int precision, bool escape = false)
 {
   if (scm_is_integer (arg) && scm_is_true (scm_exact_p (arg)))
-    return std::to_string (scm_to_int (arg));
+    return std::to_string (from_scm<int> (arg));
   else if (scm_is_number (arg))
     {
-      Real val = scm_to_double (arg);
+      Real val = from_scm<double> (arg);
 
       if (!std::isfinite (val))
         {

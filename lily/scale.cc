@@ -48,8 +48,8 @@ represents the number of 200-cent tones of a pitch above the tonic.
           type_ok = type_ok && is_scm<Rational> (step);
           if (type_ok)
             {
-              Rational from_c (scm_to_int (scm_numerator (step)),
-                               scm_to_int (scm_denominator (step)));
+              Rational from_c (from_scm<int> (scm_numerator (step)),
+                               from_scm<int> (scm_denominator (step)));
               tones.push_back (from_c);
             }
         }

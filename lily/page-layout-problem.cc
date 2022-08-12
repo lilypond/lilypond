@@ -655,7 +655,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
             {
               if (scm_is_number (scm_car (manual_dists)))
                 {
-                  Real dy = scm_to_double (scm_car (manual_dists));
+                  Real dy = from_scm<double> (scm_car (manual_dists));
 
                   springs_.back ().set_ideal_distance (dy);
                   springs_.back ().set_min_distance (dy);
@@ -971,7 +971,7 @@ Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
   for (vsize i = 1; i + 1 < solution.size (); ++i)
     if (loose_lines[i])
       {
-        Real system_offset = scm_to_double (get_property (loose_lines[i], "system-Y-offset"));
+        Real system_offset = from_scm<double> (get_property (loose_lines[i], "system-Y-offset"));
         loose_lines[i]->translate_axis (first_translation - solution[i] - system_offset, Y_AXIS);
       }
 }
@@ -1112,7 +1112,7 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real *dest, SCM sym)
   SCM pair = scm_sloppy_assq (sym, spec);
   if (scm_is_pair (pair) && scm_is_number (scm_cdr (pair)))
     {
-      *dest = scm_to_double (scm_cdr (pair));
+      *dest = from_scm<double> (scm_cdr (pair));
       return true;
     }
   return false;
@@ -1155,7 +1155,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after,
         {
           SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
           if (scm_is_number (forced))
-            ret = std::max (ret, scm_to_double (forced));
+            ret = std::max (ret, from_scm<double> (forced));
         }
     }
 

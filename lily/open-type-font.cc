@@ -394,13 +394,13 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
       SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
 
       Box b;
-      b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+      b[X_AXIS][LEFT] = from_scm<double> (scm_car (bbox));
       bbox = scm_cdr (bbox);
-      b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+      b[Y_AXIS][LEFT] = from_scm<double> (scm_car (bbox));
       bbox = scm_cdr (bbox);
-      b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+      b[X_AXIS][RIGHT] = from_scm<double> (scm_car (bbox));
       bbox = scm_cdr (bbox);
-      b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+      b[Y_AXIS][RIGHT] = from_scm<double> (scm_car (bbox));
       bbox = scm_cdr (bbox);
 
       b.scale (point_constant);
@@ -490,7 +490,7 @@ Open_type_font::design_size () const
                                quickly. --hwn.
                              */
                              to_scm (1));
-  return scm_to_double (entry) * static_cast<Real> (point_constant);
+  return from_scm<double> (entry) * static_cast<Real> (point_constant);
 }
 
 SCM

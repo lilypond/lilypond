@@ -63,7 +63,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           SCM r = scm_car (color);
           SCM g = scm_cadr (color);
           SCM b = scm_caddr (color);
-          if (scm_to_int (scm_length (color)) == 4)
+          if (from_scm<int> (scm_length (color)) == 4)
             {
               SCM a = scm_cadddr (color);
               sink->output (scm_list_5 (ly_symbol2scm ("setcolor"), r, g, b, a));
@@ -106,8 +106,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           SCM args = scm_cadr (expr);
           SCM x_scale = scm_car (args);
           SCM y_scale = scm_cadr (args);
-          Offset unscaled = o.scale (Offset (1 / scm_to_double (x_scale),
-                                             1 / scm_to_double (y_scale)));
+          Offset unscaled = o.scale (Offset (1 / from_scm<double> (x_scale),
+                                             1 / from_scm<double> (y_scale)));
 
           sink->output (scm_list_3 (ly_symbol2scm ("setscale"), x_scale, y_scale));
           interpret_stencil_expression (scm_caddr (expr), sink, unscaled);

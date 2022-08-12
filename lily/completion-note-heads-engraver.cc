@@ -181,7 +181,7 @@ Completion_heads_engraver::make_note_head (Stream_event *ev)
   int pos = pit ? pit->steps () : 0;
   SCM c0 = get_property (this, "middleCPosition");
   if (scm_is_number (c0))
-    pos += scm_to_int (c0);
+    pos += from_scm<int> (c0);
 
   set_property (note, "staff-position", to_scm (pos));
 

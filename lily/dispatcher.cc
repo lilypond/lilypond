@@ -126,7 +126,7 @@ Dispatcher::dispatch (SCM sev)
       else
         {
           // insertion sort.
-          int prio = scm_to_int (scm_caar (list));
+          int prio = from_scm<int> (scm_caar (list));
           int j;
           for (j = i; j > 0 && lists[j - 1].prio > prio; j--)
             lists[j] = lists[j - 1];
@@ -160,7 +160,7 @@ Dispatcher::dispatch (SCM sev)
       SCM next = scm_cdr (lists[0].list);
       if (!scm_is_pair (next))
         num_classes--;
-      int prio = (scm_is_pair (next)) ? scm_to_int (scm_caar (next)) : INT_MAX;
+      int prio = (scm_is_pair (next)) ? from_scm<int> (scm_caar (next)) : INT_MAX;
       for (i = 0; prio > lists[i + 1].prio; i++)
         lists[i] = lists[i + 1];
       lists[i].prio = prio;
@@ -234,7 +234,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
          events */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
-          int priority = scm_to_int (scm_cdar (disp));
+          int priority = from_scm<int> (scm_cdar (disp));
           Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
           d->internal_add_listener (GET_LISTENER (this, dispatch).smobbed_copy (),
                                     ev_class, priority);

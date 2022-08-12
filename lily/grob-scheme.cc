@@ -115,7 +115,7 @@ found, return @var{val} or @code{'()} if @var{val} is not specified.
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  SCM retval = sc->internal_get_pure_property (sym, scm_to_int (beg), scm_to_int (end));
+  SCM retval = sc->internal_get_pure_property (sym, from_scm<int> (beg), from_scm<int> (end));
   if (scm_is_null (retval))
     retval = val;
 
@@ -136,7 +136,7 @@ found, return @var{val} or @code{'()} if @var{val} is not specified.
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  Interval retval = sc->pure_y_extent (ref, scm_to_int (beg), scm_to_int (end));
+  Interval retval = sc->pure_y_extent (ref, from_scm<int> (beg), from_scm<int> (end));
 
   return to_scm (retval);
 }
@@ -373,7 +373,7 @@ Translate @var{grob} on axis@tie{}@var{a} over distance@tie{}@var{d}.
   LY_ASSERT_TYPE (scm_is_number, d, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, a, 3);
 
-  me->translate_axis (scm_to_double (d), from_scm<Axis> (a));
+  me->translate_axis (from_scm<double> (d), from_scm<Axis> (a));
   return SCM_UNSPECIFIED;
 }
 

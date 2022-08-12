@@ -177,7 +177,7 @@ Completion_rest_engraver::make_rest (Stream_event *ev)
       int pos = p->steps ();
       SCM c0 = get_property (this, "middleCPosition");
       if (scm_is_number (c0))
-        pos += scm_to_int (c0);
+        pos += from_scm<int> (c0);
       set_property (rest, "staff-position", to_scm (pos));
     }
 

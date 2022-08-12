@@ -263,7 +263,7 @@ indicators.
   if (SCM_UNBNDP (line) || !scm_is_integer (line))
     ln = 0;
   else
-    ln = scm_to_int (line);
+    ln = from_scm<int> (line);
 
   if (!parser->lexer_->is_clean ())
     {

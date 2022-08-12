@@ -96,7 +96,7 @@ axis_aligned_side_helper (Grob *me, Axis a, bool pure,
   Real *current_off_ptr = 0;
   if (scm_is_number (current_off_scm))
     {
-      r = scm_to_double (current_off_scm);
+      r = from_scm<double> (current_off_scm);
       current_off_ptr = &r;
     }
 
@@ -142,8 +142,8 @@ Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM 
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return axis_aligned_side_helper (me, Y_AXIS, true,
-                                   scm_to_int (start),
-                                   scm_to_int (end),
+                                   from_scm<int> (start),
+                                   from_scm<int> (end),
                                    cur_off);
 }
 
@@ -424,7 +424,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
         {
           Real staff_padding
             = Staff_symbol_referencer::staff_space (me)
-              * scm_to_double (get_maybe_pure_property (me, "staff-padding", pure, start, end));
+              * from_scm<double> (get_maybe_pure_property (me, "staff-padding", pure, start, end));
 
           Grob *parent = me->get_y_parent ();
           Grob *common = me->common_refpoint (staff, Y_AXIS);

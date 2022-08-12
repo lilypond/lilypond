@@ -489,7 +489,7 @@ is_scm<Direction> (SCM s)
 template <> inline Direction
 from_scm<Direction> (const SCM &s, Direction fallback)
 {
-  return is_scm<Direction> (s) ? Direction (scm_to_int (s)) : fallback;
+  return is_scm<Direction> (s) ? Direction (from_scm<int> (s)) : fallback;
 }
 template <> inline Direction
 from_scm<Direction> (const SCM &s)

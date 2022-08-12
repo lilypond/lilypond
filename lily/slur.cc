@@ -86,8 +86,8 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     -- adding extra height for the "bulge" in a slur above a note head
   */
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int start = scm_to_int (start_scm);
-  int end = scm_to_int (end_scm);
+  int start = from_scm<int> (start_scm);
+  int end = from_scm<int> (end_scm);
   Direction dir = get_grob_direction (me);
 
   extract_grob_set (me, "note-columns", encompasses);

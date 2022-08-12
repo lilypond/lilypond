@@ -135,7 +135,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   trill_head_ = make_item ("TrillPitchHead", ev->self_scm ());
   SCM c0scm = get_property (this, "middleCPosition");
 
-  int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
+  int c0 = scm_is_number (c0scm) ? from_scm<int> (c0scm) : 0;
 
   set_property (trill_head_, "staff-position",
                 to_scm (unsmob<Pitch> (scm_pitch)->steps ()

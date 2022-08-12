@@ -276,7 +276,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       int count = 0;
       for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
         {
-          int k = -right_dir * scm_to_int (scm_car (s)) + i;
+          int k = -right_dir * from_scm<int> (scm_car (s)) + i;
           if (scm_is_true (ly_memv (to_scm (k), left_beaming)))
             count++;
         }
@@ -414,7 +414,7 @@ Beam::calc_beam_segments (SCM smob)
               if (!scm_is_integer (scm_car (s)))
                 continue;
 
-              int beam_rank = scm_to_int (scm_car (s));
+              int beam_rank = from_scm<int> (scm_car (s));
               ranks.add_point (beam_rank);
             }
 
@@ -424,7 +424,7 @@ Beam::calc_beam_segments (SCM smob)
               if (!scm_is_integer (scm_car (s)))
                 continue;
 
-              int beam_rank = scm_to_int (scm_car (s));
+              int beam_rank = from_scm<int> (scm_car (s));
               Beam_stem_segment seg;
               seg.stem_ = stem;
               seg.stem_x_ = stem_x;
@@ -940,7 +940,7 @@ Beam::consider_auto_knees (Grob *me)
   int beam_count = Beam::get_beam_count (me);
   Real height_of_beams = beam_thickness / 2
                          + (beam_count - 1) * beam_translation;
-  Real threshold = scm_to_double (scm) + height_of_beams;
+  Real threshold = from_scm<double> (scm) + height_of_beams;
 
   if (max_gap_len > threshold)
     {
@@ -986,7 +986,7 @@ Beam::calc_stem_shorten (SCM smob)
 
   SCM shorten_elt
     = robust_list_ref (beam_count - 1, shorten_list);
-  Real shorten = scm_to_double (shorten_elt) * staff_space;
+  Real shorten = from_scm<double> (shorten_elt) * staff_space;
 
   shorten *= forced_fraction;
 

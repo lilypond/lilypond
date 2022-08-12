@@ -511,7 +511,7 @@ Page_breaking::page_height (int page_num, bool last) const
     {
       SCM page = Page::make_page (book_->self_scm (), to_scm (page_num), to_scm (last));
       SCM height_scm = Page::calc_printable_height (page);
-      Real height = scm_to_double (height_scm);
+      Real height = from_scm<double> (height_scm);
 
       if (page_num >= 0)
         {
@@ -731,7 +731,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
               // this score is fixed.  We need to ensure that chunk
               // boundaries only occur at line breaks.
               Constrained_breaking breaking (system_specs_[i].pscore_);
-              vector<Line_details> details = breaking.line_details (0, VPOS, scm_to_int (system_count));
+              vector<Line_details> details = breaking.line_details (0, VPOS, from_scm<int> (system_count));
 
               for (vsize j = 0; j < details.size (); j++)
                 forced_line_break_cols.push_back (details[j].last_column_);

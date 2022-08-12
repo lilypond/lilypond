@@ -49,7 +49,7 @@ tones for alteration.
     alter = SCM_INUM0;
   LY_ASSERT_TYPE (is_scm<Rational>, alter, 3);
 
-  Pitch p (scm_to_int (octave), scm_to_int (note),
+  Pitch p (from_scm<int> (octave), from_scm<int> (note),
            from_scm<Rational> (alter));
 
   return p.smobbed_copy ();

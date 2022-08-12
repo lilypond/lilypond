@@ -62,7 +62,7 @@ Staff_symbol::print (SCM smob)
             since that would make aligning staff symbols of different sizes to
             one right margin hell.
           */
-          span_points[RIGHT] = scm_to_double (width_scm);
+          span_points[RIGHT] = from_scm<double> (width_scm);
         }
       else
         {
@@ -191,7 +191,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
           s2 = scm_car (s);
           if (!scm_is_number (s2))
             s2 = scm_car (s2);
-          Real current_ledger = scm_to_double (s2);
+          Real current_ledger = from_scm<double> (s2);
           if (current_ledger > max_pos)
             max_pos = current_ledger;
           if (current_ledger < min_pos)
@@ -215,7 +215,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
           s2 = scm_car (s);
           if (scm_is_number (s2))
             {
-              current = scm_to_double (s2) + n * cycle;
+              current = from_scm<double> (s2) + n * cycle;
               if (ledger_fill.contains (current))
                 values.push_back (current);
             }
@@ -224,13 +224,13 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
             {
               do
                 {
-                  current = scm_to_double (scm_car (s2)) + n * cycle;
+                  current = from_scm<double> (scm_car (s2)) + n * cycle;
                   if (ledger_fill.contains (current))
                     {
                       s2 = scm_car (s);
                       do
                         {
-                          current = scm_to_double (scm_car (s2)) + n * cycle;
+                          current = from_scm<double> (scm_car (s2)) + n * cycle;
                           values.push_back (current);
                           s2 = scm_cdr (s2);
                         }
@@ -389,7 +389,7 @@ Staff_symbol::line_span (Grob *me)
 
   if (scm_is_pair (line_positions))
     for (SCM s = line_positions; scm_is_pair (s); s = scm_cdr (s))
-      iv.add_point (scm_to_double (scm_car (s)));
+      iv.add_point (from_scm<double> (scm_car (s)));
   else
     {
       // Note: This yields an empty interval (start > end) when there are no

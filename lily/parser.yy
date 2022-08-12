@@ -1936,7 +1936,7 @@ function_arglist_nonbackup:
 reparsed_rhythm:
 	DURATION_ARG dots multipliers post_events
 	{
-		SCM d = make_duration ($1, scm_to_int ($2), $3);
+		SCM d = make_duration ($1, from_scm<int> ($2), $3);
 		parser->default_duration_ = *unsmob<Duration> (d);
 		$$ = make_music_from_simple (parser, @$, d);
 		Music *m = unsmob<Music> ($$);
@@ -3156,7 +3156,7 @@ chord_body_element:
 		}
 		if (scm_is_number (check))
 		{
-			int q = scm_to_int (check);
+			int q = from_scm<int> (check);
 			set_property (n, "absolute-octave", to_scm (q-1));
 		}
 
@@ -3376,7 +3376,7 @@ steno_pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob<Pitch> ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2), 0));
+                        p = p.transposed (Pitch (from_scm<int> ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}
@@ -3391,7 +3391,7 @@ steno_tonic_pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob<Pitch> ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2), 0));
+                        p = p.transposed (Pitch (from_scm<int> ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}
@@ -3403,7 +3403,7 @@ pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob<Pitch> ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2), 0));
+                        p = p.transposed (Pitch (from_scm<int> ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}
@@ -3499,7 +3499,7 @@ optional_notemode_duration:
 
 steno_duration:
 	UNSIGNED dots		{
-		$$ = make_duration ($1, scm_to_int ($2));
+		$$ = make_duration ($1, from_scm<int> ($2));
 		if (SCM_UNBNDP ($$))
 		{
 			parser->parser_error (@1, _ ("not a duration"));
@@ -3507,7 +3507,7 @@ steno_duration:
 		}
 	}
 	| DURATION_IDENTIFIER dots	{
-		$$ = make_duration ($1, scm_to_int ($2));
+		$$ = make_duration ($1, from_scm<int> ($2));
 	}
 	;
 
@@ -3573,7 +3573,7 @@ tremolo_type:
 			$$ = to_scm (parser->default_tremolo_type_);
 		} else {
 			$$ = $2;
-			parser->default_tremolo_type_ = scm_to_int ($2);
+			parser->default_tremolo_type_ = from_scm<int> ($2);
 		}
 	}
 	;
@@ -3716,7 +3716,7 @@ pitch_or_music:
 				$4 = scm_sum ($4, $6);
 			} else {
 				$1 = unsmob<Pitch> ($1)->transposed
-					(Pitch (scm_to_int ($6), 0)).smobbed_copy ();
+					(Pitch (from_scm<int> ($6), 0)).smobbed_copy ();
 			}
 		}
 
@@ -3742,7 +3742,7 @@ pitch_or_music:
 
 			if (scm_is_number ($4))
 			{
-				int q = scm_to_int ($4);
+				int q = from_scm<int> ($4);
 				set_property (n, "absolute-octave", to_scm (q-1));
 			}
 
@@ -4644,7 +4644,7 @@ make_duration (SCM d, int dots, SCM factor)
 			k = Duration (k.duration_log (), k.dot_count () + dots)
 				.compressed (k.factor ());
 	} else {
-		int t = scm_to_int (d);
+		int t = from_scm<int> (d);
 		if (t > 0 && (t & (t-1)) == 0)
 			k = Duration (intlog2 (t), dots);
 		else
@@ -4660,7 +4660,7 @@ make_duration (SCM d, int dots, SCM factor)
 SCM
 make_chord_step (SCM step_scm, Rational alter)
 {
-	Pitch m (0, scm_to_int (step_scm) - 1, alter);
+	Pitch m (0, from_scm<int> (step_scm) - 1, alter);
 
 	// Notename/octave are normalized
 	if (m.get_notename () == 6)

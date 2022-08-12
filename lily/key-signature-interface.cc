@@ -99,7 +99,7 @@ Key_signature_interface::print (SCM smob)
                               (scm_car (s), c0s, smob);
                scm_is_pair (pos_list); pos_list = scm_cdr (pos_list))
             {
-              int p = scm_to_int (scm_car (pos_list));
+              int p = from_scm<int> (scm_car (pos_list));
               ht_right.add_point (2 * p - 6); /* descender */
               ht_right.add_point (2 * p + 3); /* upper right corner */
               column.add_stencil (acc.translated (Offset (0, p * inter)));

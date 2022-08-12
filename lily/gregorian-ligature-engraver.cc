@@ -217,7 +217,7 @@ provide_context_info (vector<Item *> const &primitives)
       Stream_event *event_cause = primitive->event_cause ();
       int context_info = 0;
       int pitch = unsmob<Pitch> (get_property (event_cause, "pitch"))->steps ();
-      int prefix_set = scm_to_int (get_property (primitive, "prefix-set"));
+      int prefix_set = from_scm<int> (get_property (primitive, "prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)
         {

@@ -82,7 +82,7 @@ and @code{fetaBraces}, respectively.
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
 
-  int i = scm_to_int (index);
+  int i = from_scm<int> (index);
   size_t glyph_index ((i >= 0) ? i : GLYPH_INDEX_INVALID);
   size_t charcode = fm->index_to_charcode (glyph_index);
   return to_scm (charcode);

@@ -37,7 +37,7 @@ Make a spring.  @var{ideal} is the ideal distance of the spring, and
   LY_ASSERT_TYPE (scm_is_number, ideal, 1);
   LY_ASSERT_TYPE (scm_is_number, min_dist, 2);
 
-  Spring s (scm_to_double (ideal), scm_to_double (min_dist));
+  Spring s (from_scm<double> (ideal), from_scm<double> (min_dist));
 
   return s.smobbed_copy ();
 }
@@ -51,7 +51,7 @@ Set the inverse compress @var{strength} of @var{spring}.
   auto *const s = LY_ASSERT_SMOB (Spring, spring, 1);
   LY_ASSERT_TYPE (scm_is_number, strength, 2);
 
-  s->set_inverse_compress_strength (scm_to_double (strength));
+  s->set_inverse_compress_strength (from_scm<double> (strength));
   return s->smobbed_copy ();
 }
 
@@ -64,7 +64,7 @@ Set the inverse stretch @var{strength} of @var{spring}.
   auto *const s = LY_ASSERT_SMOB (Spring, spring, 1);
   LY_ASSERT_TYPE (scm_is_number, strength, 2);
 
-  s->set_inverse_stretch_strength (scm_to_double (strength));
+  s->set_inverse_stretch_strength (from_scm<double> (strength));
   return s->smobbed_copy ();
 }
 

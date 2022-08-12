@@ -161,7 +161,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
     }
 
   space_def = scm_cdr (space_def);
-  Real distance = scm_to_double (scm_cdr (space_def));
+  Real distance = from_scm<double> (scm_cdr (space_def));
   SCM type = scm_car (space_def);
 
   Real fixed = last_ext[RIGHT];

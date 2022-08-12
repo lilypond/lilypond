@@ -497,7 +497,7 @@ index within the TTC.  The default value of @var{idx} is@tie{}0.
   if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
-      i = scm_to_int (idx);
+      i = from_scm<int> (idx);
       if (i < 0)
         {
           warning (_ ("font index must be non-negative, using index 0"));
@@ -547,7 +547,7 @@ The default value of @var{idx} is@tie{}0.
   if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
-      i = scm_to_int (idx);
+      i = from_scm<int> (idx);
       if (i < 0)
         {
           warning (_ ("font index must be non-negative, using index 0"));

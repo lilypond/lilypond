@@ -52,7 +52,7 @@ and@tie{}@var{y} specify the respective coordinates.
     {
       LY_ASSERT_TYPE (scm_is_number, x, 1);
       LY_ASSERT_TYPE (scm_is_number, y, 2);
-      off = Offset (scm_to_double (x), scm_to_double (y));
+      off = Offset (from_scm<double> (x), from_scm<double> (y));
     }
   return to_scm (off.angle_degrees ());
 }
@@ -75,7 +75,7 @@ number pair indicating the vector.  With two arguments,
     {
       LY_ASSERT_TYPE (scm_is_number, x, 1);
       LY_ASSERT_TYPE (scm_is_number, y, 2);
-      off = Offset (scm_to_double (x), scm_to_double (y));
+      off = Offset (from_scm<double> (x), from_scm<double> (y));
     }
   return to_scm (off.length ());
 }
@@ -98,7 +98,7 @@ respective coordinates are scaled independently, useful for ellipse drawings.
   else
     {
       LY_ASSERT_TYPE (scm_is_number, direction, 1);
-      res = offset_directed (scm_to_double (direction));
+      res = offset_directed (from_scm<double> (direction));
     }
   if (SCM_UNBNDP (magnitude))
     return to_scm (res);
@@ -108,7 +108,7 @@ respective coordinates are scaled independently, useful for ellipse drawings.
       return to_scm (res.scale (from_scm<Offset> (magnitude)));
     }
   LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
-  return to_scm (scm_to_double (magnitude) * res);
+  return to_scm (from_scm<double> (magnitude) * res);
 }
 
 /*
@@ -127,7 +127,7 @@ Return a copy of stencil @var{stil} but translated by @var{amount} in
 
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Real real_amount = scm_to_double (amount);
+  Real real_amount = from_scm<double> (amount);
 
   s.translate_axis (real_amount, from_scm<Axis> (axis));
   return s.smobbed_copy ();
@@ -213,7 +213,7 @@ may also be @code{'()} or @code{#f}.
   if (!SCM_UNBNDP (padding))
     {
       LY_ASSERT_TYPE (scm_is_number, padding, 5);
-      p = scm_to_double (padding);
+      p = from_scm<double> (padding);
     }
 
   if (s1)
@@ -221,7 +221,7 @@ may also be @code{'()} or @code{#f}.
 
   if (s2)
     result.add_at_edge (from_scm<Axis> (axis),
-                        Direction (scm_to_int (direction)), *s2, p);
+                        Direction (from_scm<int> (direction)), *s2, p);
 
   scm_remember_upto_here_2 (first, second);
 
@@ -262,13 +262,13 @@ this distance.  If either of the stencils is spacing, @var{padding} and
   if (!SCM_UNBNDP (padding))
     {
       LY_ASSERT_TYPE (scm_is_number, padding, 5);
-      p = scm_to_double (padding);
+      p = from_scm<double> (padding);
     }
   Real d = -infinity_f;
   if (!SCM_UNBNDP (mindist))
     {
       LY_ASSERT_TYPE (scm_is_number, mindist, 6);
-      d = scm_to_double (mindist);
+      d = from_scm<double> (mindist);
     }
 
   if (s1)
@@ -276,7 +276,7 @@ this distance.  If either of the stencils is spacing, @var{padding} and
 
   if (s2)
     result.stack (from_scm<Axis> (axis),
-                  Direction (scm_to_int (direction)), *s2, p, d);
+                  Direction (from_scm<int> (direction)), *s2, p, d);
 
   scm_remember_upto_here_2 (first, second);
 
@@ -371,7 +371,7 @@ interpolated (so @code{0} means the center).
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
-  target.align_to (from_scm<Axis> (axis), scm_to_double (dir));
+  target.align_to (from_scm<Axis> (axis), from_scm<double> (dir));
   return target.smobbed_copy ();
 }
 
@@ -515,8 +515,8 @@ negative.  The thickness is given by@tie{}@var{t}.
       return Stencil ().smobbed_copy ();
     }
 
-  return Lookup::bracket (from_scm<Axis> (a), extent, scm_to_double (t),
-                          scm_to_double (p), 0.95 * scm_to_double (t))
+  return Lookup::bracket (from_scm<Axis> (a), extent, from_scm<double> (t),
+                          from_scm<double> (p), 0.95 * from_scm<double> (t))
          .smobbed_copy ();
 }
 
@@ -532,9 +532,9 @@ stencil around the left upper corner.
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
-  Real a = scm_to_double (angle);
-  Real x_off = scm_to_double (x);
-  Real y_off = scm_to_double (y);
+  Real a = from_scm<double> (angle);
+  Real x_off = from_scm<double> (x);
+  Real y_off = from_scm<double> (y);
 
   s.rotate_degrees (a, Offset (x_off, y_off));
   return s.smobbed_copy ();
@@ -551,9 +551,9 @@ Return a stencil @var{stil} rotated by @var{angle} degrees around point
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
-  Real a = scm_to_double (angle);
-  Real x_off = scm_to_double (x);
-  Real y_off = scm_to_double (y);
+  Real a = from_scm<double> (angle);
+  Real x_off = from_scm<double> (x);
+  Real y_off = from_scm<double> (y);
 
   s.rotate_degrees_absolute (a, Offset (x_off, y_off));
   return s.smobbed_copy ();
@@ -572,7 +572,7 @@ Make a @code{Stencil} object that prints a black box of dimensions @var{xext},
   LY_ASSERT_TYPE (scm_is_number, blot, 3);
 
   return Lookup::round_filled_box (Box (from_scm<Interval> (xext), from_scm<Interval> (yext)),
-                                   scm_to_double (blot)).smobbed_copy ();
+                                   from_scm<double> (blot)).smobbed_copy ();
 }
 
 LY_DEFINE (ly_round_polygon, "ly:round-polygon",
@@ -591,7 +591,7 @@ default of@tie{}0 keeping the middle of the line just on the polygon.
   if (!SCM_UNBNDP (extroversion))
     {
       LY_ASSERT_TYPE (scm_is_number, extroversion, 3);
-      ext = scm_to_double (extroversion);
+      ext = from_scm<double> (extroversion);
     }
   bool filled = true;
   if (!SCM_UNBNDP (filled_scm))
@@ -611,7 +611,7 @@ default of@tie{}0 keeping the middle of the line just on the polygon.
           // TODO: Print out warning
         }
     }
-  return Lookup::round_polygon (pts, scm_to_double (blot), ext, filled)
+  return Lookup::round_polygon (pts, from_scm<double> (blot), ext, filled)
          .smobbed_copy ();
 }
 
@@ -653,7 +653,7 @@ this may result in collisions unless it is repositioned.
   else
     LY_ASSERT_TYPE (scm_is_number, y, 3);
 
-  s.scale (scm_to_double (x), scm_to_double (y));
+  s.scale (from_scm<double> (x), from_scm<double> (y));
   return s.smobbed_copy ();
 }
 

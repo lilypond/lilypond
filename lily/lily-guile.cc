@@ -350,7 +350,7 @@ int_list_to_slice (SCM l)
   s.set_empty ();
   for (; scm_is_pair (l); l = scm_cdr (l))
     if (scm_is_number (scm_car (l)))
-      s.add_point (scm_to_int (scm_car (l)));
+      s.add_point (from_scm<int> (scm_car (l)));
   return s;
 }
 

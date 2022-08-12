@@ -276,8 +276,8 @@ Make a new key alist of@tie{}@var{l} transposed by pitch @var{pit}.
       SCM alter = scm_cdar (s);
       if (scm_is_pair (key))
         {
-          Pitch orig (scm_to_int (scm_car (key)),
-                      scm_to_int (scm_cdr (key)),
+          Pitch orig (from_scm<int> (scm_car (key)),
+                      from_scm<int> (scm_cdr (key)),
                       from_scm<Rational> (alter));
 
           orig = orig.transposed (p);
@@ -290,7 +290,7 @@ Make a new key alist of@tie{}@var{l} transposed by pitch @var{pit}.
         }
       else if (scm_is_number (key))
         {
-          Pitch orig (0, scm_to_int (key), from_scm<Rational> (alter));
+          Pitch orig (0, from_scm<int> (key), from_scm<Rational> (alter));
           orig = orig.transposed (p);
 
           key = to_scm (orig.get_notename ());

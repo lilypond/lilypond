@@ -134,7 +134,7 @@ Staff_symbol_referencer::callback (SCM smob)
   if (scm_is_number (pos))
     {
       Real space = Staff_symbol_referencer::staff_space (me);
-      off = scm_to_double (pos) * space / 2.0;
+      off = from_scm<double> (pos) * space / 2.0;
     }
 
   return to_scm (off);

@@ -34,8 +34,8 @@ Make a line using layout information from grob @var{grob}.
   LY_ASSERT_TYPE (scm_is_number, endx, 4);
   LY_ASSERT_TYPE (scm_is_number, endy, 5);
 
-  Offset from = Offset (scm_to_double (startx), scm_to_double (starty));
-  Offset to = Offset (scm_to_double (endx), scm_to_double (endy));
+  Offset from = Offset (from_scm<double> (startx), from_scm<double> (starty));
+  Offset to = Offset (from_scm<double> (endx), from_scm<double> (endy));
 
   Stencil stil = Line_interface::line (me, from, to);
 

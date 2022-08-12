@@ -62,7 +62,7 @@ Dots::print (SCM d)
       mol = Lookup::blank (Box (Interval (0, 0),
                                 Interval (0, 0)));
 
-      for (int i = scm_to_int (c); i--;)
+      for (int i = from_scm<int> (c); i--;)
         {
           mol.add_at_edge (X_AXIS, RIGHT, d, dw);
         }

@@ -509,7 +509,7 @@ internal_add_path_segments (Lazy_skyline_pair *skyline,
   //////////////////////
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
-      scm_to_int (scm_length (scm_car (s))) == 4
+      from_scm<int> (scm_length (scm_car (s))) == 4
       ? add_draw_line_segments (skyline, transform,
                                 scm_cons (blot, scm_car (s)))
       : add_draw_bezier_segments_scm (skyline, transform,

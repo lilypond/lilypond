@@ -49,7 +49,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
                && scm_is_number (scm_car (entry))
                && scm_is_string (scm_cdr (entry)))
         {
-          size = scm_to_double (scm_car (entry));
+          size = from_scm<double> (scm_car (entry));
           pango_description_string
             = scm_cdr (entry);
         }
@@ -121,7 +121,7 @@ select_encoded_font (Output_def *layout, SCM chain)
                                    0.0);
 
       return get_font_by_mag_step (layout, req, vec,
-                                   scm_to_double (base_size));
+                                   from_scm<double> (base_size));
     }
 
   assert (0);

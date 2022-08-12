@@ -29,7 +29,7 @@ LY_DEFINE (ly_pt, "ly:pt",
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (point_constant
-                 * scm_to_double (num));
+                 * from_scm<double> (num));
 }
 
 LY_DEFINE (ly_cm, "ly:cm",
@@ -40,7 +40,7 @@ LY_DEFINE (ly_cm, "ly:cm",
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (cm_constant
-                 * scm_to_double (num));
+                 * from_scm<double> (num));
 }
 
 LY_DEFINE (ly_inch, "ly:inch",
@@ -51,7 +51,7 @@ LY_DEFINE (ly_inch, "ly:inch",
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (inch_constant
-                 * scm_to_double (num));
+                 * from_scm<double> (num));
 }
 
 LY_DEFINE (ly_mm, "ly:mm",
@@ -62,7 +62,7 @@ LY_DEFINE (ly_mm, "ly:mm",
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (mm_constant
-                 * scm_to_double (num));
+                 * from_scm<double> (num));
 }
 
 LY_DEFINE (ly_bp, "ly:bp",
@@ -73,5 +73,5 @@ LY_DEFINE (ly_bp, "ly:bp",
 {
   LY_ASSERT_TYPE (scm_is_number, num, 1);
   return to_scm (bigpoint_constant
-                 * scm_to_double (num));
+                 * from_scm<double> (num));
 }

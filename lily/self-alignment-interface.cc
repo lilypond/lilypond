@@ -65,7 +65,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       if (!ext.is_empty ())
-        return - ext.linear_combination (scm_to_double (align));
+        return - ext.linear_combination (from_scm<double> (align));
     }
   return 0.0;
 }
@@ -152,13 +152,13 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
     {
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       if (!ext.is_empty ())
-        x -= ext.linear_combination (scm_to_double (self_align));
+        x -= ext.linear_combination (from_scm<double> (self_align));
     }
 
   if (scm_is_number (par_align))
     {
       if (!he.is_empty ())
-        x += he.linear_combination (scm_to_double (par_align));
+        x += he.linear_combination (from_scm<double> (par_align));
     }
 
   return x;

@@ -221,9 +221,9 @@ Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
   for (const auto &primitive : primitives)
     {
       int prefix_set
-        = scm_to_int (get_property (primitive, "prefix-set"));
+        = from_scm<int> (get_property (primitive, "prefix-set"));
       int context_info
-        = scm_to_int (get_property (primitive, "context-info"));
+        = from_scm<int> (get_property (primitive, "context-info"));
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -244,7 +244,7 @@ Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
         {
           SCM delta_pitch_scm = get_property (prev_primitive, "delta-position");
           if (!scm_is_null (delta_pitch_scm))
-            delta_pitch = scm_to_int (delta_pitch_scm);
+            delta_pitch = from_scm<int> (delta_pitch_scm);
           else
             {
               primitive->programming_error ("Vaticana_ligature:"
@@ -375,7 +375,7 @@ void
 Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
 {
   int prefix_set
-    = scm_to_int (get_property (primitive, "prefix-set"));
+    = from_scm<int> (get_property (primitive, "prefix-set"));
   if (prefix_set & ~PES_OR_FLEXA)
     {
       string prefs = Gregorian_ligature::prefixes_to_str (primitive);
@@ -471,7 +471,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       int delta_pitch;
       SCM delta_pitch_scm = get_property (primitive, "delta-position");
       if (!scm_is_null (delta_pitch_scm))
-        delta_pitch = scm_to_int (delta_pitch_scm);
+        delta_pitch = from_scm<int> (delta_pitch_scm);
       else
         {
           primitive->programming_error ("Vaticana_ligature:"
@@ -482,9 +482,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
       /* retrieve & complete prefix_set and context_info */
       int prefix_set
-        = scm_to_int (get_property (primitive, "prefix-set"));
+        = from_scm<int> (get_property (primitive, "prefix-set"));
       int context_info
-        = scm_to_int (get_property (primitive, "context-info"));
+        = from_scm<int> (get_property (primitive, "context-info"));
 
       if (Rhythmic_head::dot_count (primitive) > 0)
         // remove dots from primitive and add remember primitive for

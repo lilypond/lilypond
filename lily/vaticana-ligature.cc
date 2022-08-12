@@ -89,7 +89,7 @@ vaticana_brew_flexa (Grob *me,
   Real interval;
   SCM flexa_height_scm = get_property (me, "flexa-height");
   if (!scm_is_null (flexa_height_scm))
-    interval = scm_to_int (flexa_height_scm);
+    interval = from_scm<int> (flexa_height_scm);
   else
     {
       me->warning ("Vaticana_ligature: "
@@ -225,7 +225,7 @@ vaticana_brew_primitive (Grob *me)
   SCM delta_pitch_scm = get_property (me, "delta-position");
   int delta_pitch;
   if (!scm_is_null (delta_pitch_scm))
-    delta_pitch = scm_to_int (delta_pitch_scm);
+    delta_pitch = from_scm<int> (delta_pitch_scm);
   else
     delta_pitch = 0;
 

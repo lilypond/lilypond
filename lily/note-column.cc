@@ -55,8 +55,8 @@ Note_column::shift_less (Grob *const &p1, Grob *const &p2)
   SCM s1 = get_property (p1, "horizontal-shift");
   SCM s2 = get_property (p2, "horizontal-shift");
 
-  int h1 = (scm_is_number (s1)) ? scm_to_int (s1) : 0;
-  int h2 = (scm_is_number (s2)) ? scm_to_int (s2) : 0;
+  int h1 = (scm_is_number (s1)) ? from_scm<int> (s1) : 0;
+  int h2 = (scm_is_number (s2)) ? from_scm<int> (s2) : 0;
   return h1 < h2;
 }
 

@@ -337,9 +337,9 @@ Dynamic_performer::equalize_volume (Real volume)
       Interval iv (Audio_span_dynamic::MINIMUM_VOLUME,
                    Audio_span_dynamic::MAXIMUM_VOLUME);
       if (scm_is_number (min))
-        iv[DOWN] = scm_to_double (min);
+        iv[DOWN] = from_scm<double> (min);
       if (scm_is_number (max))
-        iv[UP] = scm_to_double (max);
+        iv[UP] = from_scm<double> (max);
       volume = iv[DOWN] + iv.length () * volume;
     }
   else

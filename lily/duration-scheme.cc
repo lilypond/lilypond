@@ -72,7 +72,7 @@ of two (whole, half, quarter, etc.) and a number of augmentation dots.
   if (!SCM_UNBNDP (dotcount))
     {
       LY_ASSERT_TYPE (scm_is_integer, dotcount, 2);
-      dots = scm_to_int (dotcount);
+      dots = from_scm<int> (dotcount);
     }
 
   bool compress = false;
@@ -92,7 +92,7 @@ of two (whole, half, quarter, etc.) and a number of augmentation dots.
   else
     den = to_scm (1);
 
-  Duration p (scm_to_int (length), dots);
+  Duration p (from_scm<int> (length), dots);
   if (compress)
     p = p.compressed (from_scm<Rational> (scm_divide (num, den)));
 
@@ -126,7 +126,7 @@ The 2-logarithm of 1/@var{d}.
            )")
 {
   LY_ASSERT_TYPE (scm_is_number, d, 1);
-  int log = intlog2 (scm_to_int (d));
+  int log = intlog2 (from_scm<int> (d));
   return to_scm (log);
 }
 

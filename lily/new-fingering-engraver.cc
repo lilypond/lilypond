@@ -217,7 +217,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (vsize i = 0; i < scripts->size (); i++)
-    (*scripts)[i].position_ = scm_to_int (get_property ((*scripts)[i].head_, "staff-position"));
+    (*scripts)[i].position_ = from_scm<int> (get_property ((*scripts)[i].head_, "staff-position"));
 
   for (vsize i = scripts->size (); i--;)
     for (vsize j = heads_.size (); j--;)
@@ -312,7 +312,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
             = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
           SCM yoff = get_property (f, "Y-offset");
           if (scm_is_number (yoff))
-            self_align_y = self_align_y + scm_to_double (yoff);
+            self_align_y = self_align_y + from_scm<double> (yoff);
           set_property (f, "Y-offset", to_scm (self_align_y));
         }
 

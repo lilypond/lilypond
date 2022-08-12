@@ -72,8 +72,8 @@ Time_signature_performer::process_music ()
   if (scm_is_pair (fr) && (event_ || !ly_is_equal (fr, last_time_fraction_)))
     {
       last_time_fraction_ = fr;
-      int b = scm_to_int (scm_car (fr));
-      int o = scm_to_int (scm_cdr (fr));
+      int b = from_scm<int> (scm_car (fr));
+      int o = from_scm<int> (scm_cdr (fr));
       static const Moment quarter = Moment (Rational (1, 4));
       const auto base_moment = from_scm (get_property (this, "baseMoment"),
                                          quarter);

@@ -59,7 +59,7 @@ Stem_tremolo::calc_slope (SCM smob)
       Real dy = 0;
       SCM s = get_property (beam, "quantized-positions");
       if (is_number_pair (s))
-        dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
+        dy = - from_scm<double> (scm_car (s)) + from_scm<double> (scm_cdr (s));
 
       Grob *s2 = Beam::last_normal_stem (beam);
       Grob *s1 = Beam::first_normal_stem (beam);
