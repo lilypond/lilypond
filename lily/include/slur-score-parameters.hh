@@ -21,6 +21,7 @@
 #define SLUR_SCORE_PARAMATERS_HH
 
 #include "lily-proto.hh"
+#include "real.hh"
 
 struct Slur_score_parameters
 {

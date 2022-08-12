@@ -502,6 +502,8 @@ to_scm<Direction> (const Direction &d)
   return to_scm<int> (d);
 }
 
+class Rational;
+
 template <> bool is_scm<Rational> (SCM s);
 template <> Rational from_scm<Rational> (const SCM &s);
 template <> SCM to_scm<Rational> (const Rational &i);
@@ -516,6 +518,8 @@ is_scm_pair (SCM s)
 // standardised well enough.  We could demand typename value_type,
 // accessor functions first and second, and a two-argument
 // constructor.  Not done for now.
+
+class Offset;
 
 template <> inline bool
 is_scm<Offset> (SCM s)

@@ -21,6 +21,7 @@
 #define COLUMN_X_POSITIONS_HH
 
 #include "lily-proto.hh"
+#include "real.hh"
 
 #include <vector>
 

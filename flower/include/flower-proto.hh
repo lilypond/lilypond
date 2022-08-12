@@ -20,13 +20,8 @@
 #ifndef FLOWER_PROTO_HH
 #define FLOWER_PROTO_HH
 
-#include "real.hh"
-
 #include <cstdint>
 #include <cstddef>
-
-class Offset;
-class Rational;
 
 using Byte = uint8_t; // C++17 has std::byte
 

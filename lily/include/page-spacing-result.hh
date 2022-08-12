@@ -21,6 +21,7 @@
 #define PAGE_SPACING_RESULT_HH
 
 #include "lily-proto.hh"
+#include "real.hh"
 
 #include <vector>
 

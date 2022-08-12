@@ -22,6 +22,7 @@
 
 #include "lily-proto.hh"
 #include "rational.hh"
+#include "real.hh"
 
 /*
   Various options for spacing. Usually inited from SpacingSpanner, but sometimes
