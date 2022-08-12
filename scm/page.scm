@@ -15,17 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (lily page)
-
-  #:export (calc-printable-height
-            make-page
-            page-property
-            page-set-property!
-            layout->page-init
-            page-configuration
-            page-stencil
-            page-free-height
-            ))
+(define-module (lily page))
 
 (use-modules (lily)
              (lily paper-system)
@@ -35,7 +25,7 @@
 (define (annotate? layout)
   (eq? #t (ly:output-def-lookup layout 'annotate-spacing)))
 
-(define (make-page paper-book page-number is-bookpart-last-page)
+(define-public (make-page paper-book page-number is-bookpart-last-page)
   "A page is a prob (Property object). This is because the non-music
 layout elements (title, header, footer) are markups and must be interpreted in context
 of layout settings just like markups inside the music."
@@ -61,8 +51,8 @@ of layout settings just like markups inside the music."
     (page-set-property! page 'foot-stencil foot-stencil)
     page))
 
-(define page-property ly:prob-property)
-(define page-set-property! ly:prob-set-property!)
+(define-public page-property ly:prob-property)
+(define-public page-set-property! ly:prob-set-property!)
 
 (define (page-translate-systems page)
   (for-each
@@ -146,7 +136,7 @@ of layout settings just like markups inside the music."
 
     arrow))
 
-(define (layout->page-init layout)
+(define-public (layout->page-init layout)
   "Alist of settings for page layout"
   (let*
       ((paper-height (ly:output-def-lookup layout 'paper-height))
@@ -310,7 +300,7 @@ of layout settings just like markups inside the music."
       (page-set-property! page 'stencil (make-page-stencil page)))
   (page-property page 'stencil))
 
-(define (calc-printable-height page)
+(define-public (calc-printable-height page)
   "Printable area for music and titles."
   (let*
       ((paper-book (page-property page 'paper-book))
