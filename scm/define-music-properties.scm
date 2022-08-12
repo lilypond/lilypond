@@ -70,6 +70,7 @@ context change.  The change applies to the nearest enclosing music
 with this tag.")
      (change-to-id ,string? "Name of the context to change to.")
      (change-to-type ,symbol? "Type of the context to change to.")
+     (color ,color? "The color of a highlight.")
      (class ,symbol? "The class name of an event class.")
      (context ,ly:context? "The context to which an event is sent.")
      (context-id ,string? "Name of context.")

@@ -112,6 +112,22 @@ sign would vertically displace accents.
 
 
 @item
+The new @code{\staffHighlight} and @code{\stopStaffHighlight}
+commands can be used to color a musical passage.
+
+@lilypond
+\relative {
+  \staffHighlight lightsteelblue
+  c'4 e g c
+  \staffHighlight lightpink
+  d, f a d
+  \staffHighlight lightsteelblue
+  c, e g c
+}
+@end lilypond
+
+
+@item
 The direction of a trill spanner can now be set with direction
 indicators like other articulations, i.e. with
 @code{_\startTrillSpan} or @code{^\startTrillSpan}.

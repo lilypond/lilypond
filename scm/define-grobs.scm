@@ -3023,6 +3023,19 @@ vertical spacing of staff groups.  See also
 spacing within a staff.  See also @iref{NoteSpacing},
 @iref{GraceSpacing}, and @iref{SpacingSpanner}.")))))
 
+    (StaffHighlight
+     . (
+        (bound-prefatory-paddings . (0.5 . 0.5))
+        (color . ,(grob::calc-property-by-copy 'color))
+        (stencil . ,staff-highlight::print)
+        (layer . -1)
+        (shorten-pair . (0 . 0))
+        (X-extent . ,staff-highlight::width)
+        (Y-extent . ,staff-highlight::height)
+        (meta . ((class . Spanner)
+                 (interfaces . (staff-highlight-interface))
+                 (description . "A colored span to highlight a music passage.")))))
+
     (StaffSymbol
      . (
         (break-align-symbols . (staff-bar break-alignment))

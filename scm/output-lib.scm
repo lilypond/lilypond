@@ -702,8 +702,8 @@ extent of the grob to the extent of the staff."
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-including-staff grob)
   (pair-map (cons min max)
-   (pure-from-neighbor-interface::extra-spacing-height grob)
-   (item::extra-spacing-height-including-staff grob)))
+            (pure-from-neighbor-interface::extra-spacing-height grob)
+            (item::extra-spacing-height-including-staff grob)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2694,12 +2694,12 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          ;; PaperColumn, with non-zero x-extent. Their x-extent should be
          ;; disregarded in this case, using zero instead.
          (left-start
-           (+ (if (and (unbroken-or-first-broken-spanner? grob)
-                  (grob::has-interface left-bound 'paper-column-interface))
-                  0
-                  (- left-info-X left-X))
-              adjust-for-dot-column
-              left-padding))
+          (+ (if (and (unbroken-or-first-broken-spanner? grob)
+                      (grob::has-interface left-bound 'paper-column-interface))
+                 0
+                 (- left-info-X left-X))
+             adjust-for-dot-column
+             left-padding))
     ;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;; DurationLine end
     ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2751,7 +2751,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
              right-padding
              adjust-for-arrow))
 
-    ;; TODO find a method to accept user-generated line-ending stencils
+         ;; TODO find a method to accept user-generated line-ending stencils
 
     ;;;;
     ;;;; arrow
@@ -2760,14 +2760,14 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           (if (and (not (eq? style 'none))
                    (eq? right-end-style 'arrow))
               (begin
-               ;; For 1/3 see remark in `arrow-stencil' above
-               (if (> (* 1/3  staff-space (ly:grob-property grob 'arrow-length))
-                      (- right-end left-start))
-                   (ly:warning
+                ;; For 1/3 see remark in `arrow-stencil' above
+                (if (> (* 1/3  staff-space (ly:grob-property grob 'arrow-length))
+                       (- right-end left-start))
+                    (ly:warning
                      (G_ "Not enough space to print a nice arrow.
 Please consider to increase 'minimum-length or decrease 'arrow-length.")))
-               (arrow-stencil
-                right-end left-Y layout-thick staff-space grob))
+                (arrow-stencil
+                 right-end left-Y layout-thick staff-space grob))
               empty-stencil))
     ;;;;;;;;
     ;;;; hook
@@ -2998,24 +2998,24 @@ which is the default."
              (bound-coord (ly:grob-relative-coordinate bound common X))
              (basic-position (- bound-coord my-coord)))
         (if (grob::has-interface bound 'bar-line-interface)
-          (let* ((skyline-pair (ly:grob-property bound 'horizontal-skylines))
-                 (skyline (index-cell skyline-pair (- dir)))
-                 (padded (ly:skyline-pad skyline 0.05))
-                 (correction
-                  ((if (eqv? dir LEFT)
-                       max
-                       min)
-                   (ly:skyline-height padded low)
-                   (ly:skyline-height padded high))))
-            (+ basic-position correction))
-          ;; If it's not a bar line, the bound is probably the
-          ;; NonMusicalPaperColumn at the beginning of the piece; there is no
-          ;; bar line there but system start delimiters (unless the original bar
-          ;; line is a repeat bar line, since those *are* printed at the start
-          ;; of the piece).  It's unclear what breakable items one could have
-          ;; there (there are never any clefs or such in chord grids), so we
-          ;; just assume that column has zero width.
-          basic-position)))
+            (let* ((skyline-pair (ly:grob-property bound 'horizontal-skylines))
+                   (skyline (index-cell skyline-pair (- dir)))
+                   (padded (ly:skyline-pad skyline 0.05))
+                   (correction
+                    ((if (eqv? dir LEFT)
+                         max
+                         min)
+                     (ly:skyline-height padded low)
+                     (ly:skyline-height padded high))))
+              (+ basic-position correction))
+            ;; If it's not a bar line, the bound is probably the
+            ;; NonMusicalPaperColumn at the beginning of the piece; there is no
+            ;; bar line there but system start delimiters (unless the original bar
+            ;; line is a repeat bar line, since those *are* printed at the start
+            ;; of the piece).  It's unclear what breakable items one could have
+            ;; there (there are never any clefs or such in chord grids), so we
+            ;; just assume that column has zero width.
+            basic-position)))
     (pair-map x-position-for-bound (cons LEFT RIGHT))))
 
 (define-public (chord-square::height grob)
@@ -3105,12 +3105,12 @@ which is the default."
     (apply ly:stencil-add
            (map
             (match-lambda
-             ((x1 y1 x2 y2)
-              (let ((scaled-x1 (interval-index X-ext x1))
-                    (scaled-y1 (interval-index Y-ext y1))
-                    (scaled-x2 (interval-index X-ext x2))
-                    (scaled-y2 (interval-index Y-ext y2)))
-                (ly:line-interface::line grob scaled-x1 scaled-y1 scaled-x2 scaled-y2))))
+              ((x1 y1 x2 y2)
+               (let ((scaled-x1 (interval-index X-ext x1))
+                     (scaled-y1 (interval-index Y-ext y1))
+                     (scaled-x2 (interval-index X-ext x2))
+                     (scaled-y2 (interval-index Y-ext y2)))
+                 (ly:line-interface::line grob scaled-x1 scaled-y1 scaled-x2 scaled-y2))))
             lines))))
 
 (define-public ((grid-chord-name::calc-offset-on-axis axis) grob)
@@ -3168,3 +3168,115 @@ for measure division ~a")
    (alist-copy default-measure-division-chord-placement-alist)
    '(1/4 1/4 1/4 1/4)
    '((-0.5 . 0.5) (0.5 . 0.5) (-0.5 . -0.5) (0.5 . -0.5))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; staff highlights
+
+(define (staff-highlight::width grob)
+  (let ((refp (ly:grob-system grob)))
+    (define (bound-start/end direction)
+      (let ((bound (ly:spanner-bound grob direction)))
+        (cond
+         (((if (eqv? direction LEFT)
+               not-first-broken-spanner?
+               not-last-broken-spanner?)
+           grob)
+          (let ((ext (ly:grob-robust-relative-extent bound refp X)))
+            (interval-index ext direction)))
+         ((let ((break-alignment (ly:grob-object bound 'break-alignment #f)))
+            (and break-alignment
+                 (ly:break-alignment-interface::find-nonempty-break-align-group
+                  break-alignment
+                  'staff-bar)))
+          => (lambda (bar-group)
+               (interval-end (ly:grob-extent bar-group refp X))))
+         (else
+          ;; By default, don't include any prefatory material.  The simplest way
+          ;; would be to take the end/start of the extent of our left bound
+          ;; (NonMusicalPaperColumn), but this makes the highlight boundary look
+          ;; too close to the prefatory matter, so we pad a bit with
+          ;; bound-prefatory-paddings.  However, we absolutely want to avoid
+          ;; having the highlight boundary cross a note head, so we cap at the
+          ;; boundary with musical material.  This is given to us by the
+          ;; 'columns array, which contains all PaperColumns the highlight
+          ;; spans.  (Columns spanned by the original highlight but not by this
+          ;; broken piece have been removed by break substitution, and the array
+          ;; is ordered.)  Note that we use a paper column, not a note column.
+          ;; Highlights in a staff may be influenced by the presence of
+          ;; suspended notes in another staff.  This is intentional.  If there
+          ;; are highlights in parallel in different staves, we want them to
+          ;; start and end at the same places.
+          (let ((non-musical-boundary-ext (ly:grob-extent bound refp X)))
+            (if (interval-empty? non-musical-boundary-ext)
+                ;; If there is no prefatory material at all, no need to shy away
+                ;; from this column.
+                (ly:grob-relative-coordinate bound refp X)
+                (let* ((non-musical-boundary
+                        (interval-index non-musical-boundary-ext (- direction)))
+                       (padding (index-cell (ly:grob-property grob 'bound-prefatory-paddings)
+                                            direction))
+                       (columns (ly:grob-array->list (ly:grob-object grob 'columns)))
+                       (musical-boundary
+                        ;; Find the first/last column that actually contains
+                        ;; material.  If there are skips, they don't factor into
+                        ;; the highlight start and end.
+                        (any
+                         (lambda (col)
+                           (let* ((basic-ext (ly:grob-extent col refp X))
+                                  ;; The extent of a PaperColumn does not
+                                  ;; include accidentals.
+                                  (conditional
+                                   (ly:grob-object col 'conditional-elements))
+                                  (conditional-ext
+                                   (ly:relative-group-extent conditional refp X))
+                                  (ext
+                                   (interval-union basic-ext conditional-ext)))
+                             (and (not (interval-empty? ext))
+                                  (interval-index ext direction))))
+                         (if (eqv? direction LEFT)
+                             ;; search from left
+                             columns
+                             ;; search from right
+                             (reverse columns))))
+                       (wished-coord ((if (eqv? direction LEFT)
+                                          +
+                                          -)
+                                      non-musical-boundary
+                                      padding)))
+                  (if (or (not musical-boundary)
+                          ((if (eqv? direction LEFT)
+                               <=
+                               >=)
+                           wished-coord
+                           musical-boundary))
+                      wished-coord
+                      musical-boundary))))))))
+    (let ((base-position (ly:grob-relative-coordinate grob refp X))
+          (start (bound-start/end LEFT))
+          (end (bound-start/end RIGHT))
+          (shorten-pair (ly:grob-property grob 'shorten-pair)))
+      (cons
+       (- (+ start (car shorten-pair))
+          base-position)
+       (- (- end (cdr shorten-pair))
+          base-position)))))
+
+(define (staff-highlight::height grob)
+  (let* ((staff-symbol-array (ly:grob-object grob 'elements))
+         (refp (ly:grob-common-refpoint-of-array grob staff-symbol-array Y)))
+    ;; Combine StaffSymbol heights.  Use the same "widened"
+    ;; extents as bar lines.
+    (fold (lambda (staff-symbol height-so-far)
+            (interval-union
+             height-so-far
+             (let ((ext (ly:grob-property staff-symbol 'widened-extent))
+                   (coord (ly:grob-relative-coordinate staff-symbol refp Y)))
+               (coord-translate ext coord))))
+          empty-interval
+          (ly:grob-array->list staff-symbol-array))))
+
+(define (staff-highlight::print grob)
+  (let* ((width (ly:grob-extent grob grob X))
+         (height (ly:grob-extent grob grob Y)))
+  (make-filled-box-stencil width height)))

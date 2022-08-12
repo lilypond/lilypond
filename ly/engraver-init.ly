@@ -93,6 +93,7 @@ to be modified directly."
   \consists Fingering_column_engraver
   \consists Merge_mmrest_numbers_engraver
   \consists Alteration_glyph_engraver
+  \consists Staff_highlight_engraver
 
   localAlterations = #'()
   createSpacing = ##t
@@ -213,6 +214,7 @@ multiple ancient notation schemes."
   \consists Instrument_name_engraver
   \consists Axis_group_engraver
   \consists Ledger_line_engraver
+  \consists Staff_highlight_engraver
 
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()

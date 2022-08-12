@@ -317,6 +317,11 @@ setting of @code{details.bow-direction}.
  '(index))
 
 (ly:add-interface
+ 'staff-highlight-interface
+ "A colored span to highlight a music passage."
+ '(bound-prefatory-paddings columns elements shorten-pair))
+
+(ly:add-interface
  'horizontal-bracket-text-interface
  "Label for an analysis bracket."
  '(bracket columns))

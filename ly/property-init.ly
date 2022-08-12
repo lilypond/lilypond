@@ -270,7 +270,6 @@ harmonicNote =
    (_i "Print @var{note} with a diamond-shaped note head.")
    (style-note-heads 'NoteHead 'harmonic note))
 
-
 %% hideNotes
 
 hideNotes = {
@@ -581,6 +580,18 @@ slurHalfSolid  = \override Slur.dash-definition = #'((0 0.5 1 1)
                                                        (0.5 1 0.4 0.75))
 slurSolid      = \revert Slur.dash-definition
 
+
+%% staff highlights
+
+staffHighlight =
+#(define-music-function (color) (color?)
+  (_i "Start a highlight with the specified color.")
+  (make-music 'StaffHighlightEvent
+              'span-direction START
+              'color color))
+
+stopStaffHighlight =
+#(make-music 'StaffHighlightEvent 'span-direction STOP)
 
 %% staff switches
 

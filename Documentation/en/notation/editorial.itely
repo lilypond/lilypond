@@ -35,6 +35,7 @@ inside the staff.
 * Gliding fingers::
 * Hidden notes::
 * Coloring objects::
+* Staff highlights::
 * Parentheses::
 * Stems::
 @end menu
@@ -787,6 +788,177 @@ Notes in a chord cannot be separately colored with
 @code{\override}; use @code{\tweak} or the equivalent
 @code{\single\override} before the respective note instead, see
 @ref{The tweak command}.
+
+
+@node Staff highlights
+@unnumberedsubsubsec Staff highlights
+
+@cindex staff, highlight
+@cindex highlight, staff
+@funindex \staffHighlight
+@funindex \stopStaffHighlight
+
+
+For analytical or pedagogical purposes, it may be useful to
+@qq{highlight} musical passages, for example in order to show
+local tonality.  This can be done using the @code{\staffHighlight}
+command, which expects a color.  For all ways to enter colors,
+@pxref{Coloring objects}.  The highlight is terminated using
+@code{\stopStaffHighlight}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 2/4
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \stopStaffHighlight
+  c2
+}
+@end lilypond
+
+If there are consecutive highlights, it is not necessary to write
+@code{\stopStaffHighlight}, as @code{\staffHighlight} also implicitly
+terminates the current highlight, if any.  Similarly, it is not
+necessary to add @code{\stopStaffHighlight} at the end of the piece.
+This is particularly handy if every measure is to be highlighted.
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+@end lilypond
+
+By default, staves are highlighted separately.
+
+@lilypond[verbatim,quote]
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
+@end lilypond
+
+
+However, several staves can be highlighted together by moving
+@code{Staff_highlight_engraver} to a higher context than
+@code{Staff} (or @code{RhythmicStaff}, or similar).  This is done
+using the @code{\consists} and @code{\remove} commands;
+@xref{Modifying context plug-ins} for more information.  For
+example, if the engraver is moved to @code{Score}, the highlights
+are shared by all staves.
+
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \remove Staff_highlight_engraver
+  }
+  \context {
+    \Score
+    \consists Staff_highlight_engraver
+  }
+}
+
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
+@end lilypond
+
+@code{Staff_highlight_engraver} may also be moved to intermediate
+contexts such as @code{StaffGroup}.
+
+@lilypond[verbatim,quote]
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new StaffGroup \with { \consists Staff_highlight_engraver } <<
+    \new Staff \with { \remove Staff_highlight_engraver } \music
+    \new Staff \with { \remove Staff_highlight_engraver } \music
+  >>
+  \new Staff \music
+>>
+@end lilypond
+
+The @code{StaffHighlight.shorten-pair} property may be used to
+tweak the horizontal start and end of the highlight span.
+
+@lilypond[verbatim,quote]
+{
+  c'1
+  \once \override Staff.StaffHighlight.shorten-pair = #'(1.0 . 1.0)
+  \staffHighlight lightsteelblue
+  c'1
+}
+@end lilypond
+
+@predefined
+@code{\staffHighlight},
+@code{\stopStaffHighlight}.
+@endpredefined
+
+@morerefs
+Notation Reference:
+@ref{Coloring objects},
+@ref{Modifying context plug-ins}.
+
+Internals Reference:
+@rinternals{StaffHighlight},
+@rinternals{staff-highlight-interface},
+@rinternals{Staff_highlight_engraver},
+@rinternals{StaffHighlightEvent},
+@rinternals{staff-highlight-event}.
+@endmorerefs
+
+@knownissues
+The behavior of highlights may not be what is expected at start
+repeat bar lines.  The @code{shorten-pair} property demonstrated
+above can be used to work around this issue.
+
+@lilypond[verbatim,quote]
+{
+  \staffHighlight "lightsteelblue"
+  c'1
+  \stopStaffHighlight
+  \repeat volta 2 { c'1 }
+  c'1
+}
+@end lilypond
 
 
 @node Parentheses

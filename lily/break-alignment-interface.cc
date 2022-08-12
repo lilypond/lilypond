@@ -96,9 +96,6 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
   Align_interface::add_element (me, toadd);
 }
 
-// Find the BreakAlignGroup with the given break-align-symbol.  Return nullptr
-// if there is no such group.  Also return nullptr if the group has empty
-// X-extent, which can happen if it contains only omitted items.
 Grob *
 Break_alignment_interface::find_nonempty_break_align_group (Item *me,
                                                             SCM break_align_sym)
@@ -111,6 +108,25 @@ Break_alignment_interface::find_nonempty_break_align_group (Item *me,
         return !group->extent (group, X_AXIS).is_empty () ? group : nullptr;
     }
   return nullptr;
+}
+
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Break_alignment_interface,
+                                 find_nonempty_break_align_group,
+                                 "ly:break-alignment-interface::find-nonempty-break-align-group",
+                                 2,
+                                 R"(
+Find the @code{BreakAlignGroup} with the given break-align-symbol in this
+@code{BreakAlignment}.  Return @code{#f} if there is no such group.  Also
+return @code{#f} if the group has empty @code{X-extent}, which can happen if
+it contains only omitted items.
+                                 )")
+SCM
+Break_alignment_interface::find_nonempty_break_align_group (SCM grob,
+                                                            SCM break_align_sym)
+{
+  auto *const me = LY_ASSERT_SMOB (Item, grob, 1);
+  Grob *result = find_nonempty_break_align_group (me, break_align_sym);
+  return result ? result->self_scm () : SCM_BOOL_F;
 }
 
 /* Main routine to space breakable items in one column

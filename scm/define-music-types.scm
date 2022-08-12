@@ -309,6 +309,12 @@ Syntax: @var{note}@code{\\glide}@code{-}@var{finger}")
         (types . (post-event event harmonic-event))
         ))
 
+    (StaffHighlightEvent
+     . ((description . "Start or stop a staff highlight.
+
+Syntax: @code{\\staffHighlight}, @code{\\stopStaffHighlight}.")
+        (types . (staff-highlight-event span-event event))))
+
     (HyphenEvent
      . ((description . "A hyphen between lyric syllables.")
         (types . (post-event hyphen-event event))

@@ -117,6 +117,9 @@ a callback function.")
 determining attachments of spanners to edges.")
      (bound-padding ,number? "The amount of padding to insert around
 spanner bounds.")
+     (bound-prefatory-paddings ,number-pair? "For a highlight,
+the amount of padding to insert at a bound from a prefatory
+item that is not a bar line.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value @code{0.0} means
 straight edges.")

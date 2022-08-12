@@ -34,6 +34,7 @@ public:
   static SCM break_align_order (Item *me);
   static Grob *find_nonempty_break_align_group (Item *me, SCM break_align_sym);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
+  DECLARE_SCHEME_CALLBACK (find_nonempty_break_align_group, (SCM, SCM));
 };
 
 struct Break_aligned_interface

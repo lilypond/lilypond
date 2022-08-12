@@ -62,7 +62,7 @@
     (dynamic-event . (absolute-dynamic-event))
     (span-event . (bend-span-event
                    beam-event episema-event finger-glide-event
-                   ligature-event
+                   staff-highlight-event ligature-event
                    measure-spanner-event
                    measure-counter-event pedal-event
                    phrasing-slur-event slur-event
