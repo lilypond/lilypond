@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 21d0a83199b0ce35dbfc9a7b05bce6b297290ba1
+   Translation of GIT committish: 1dd302684e9151a853a711b91c8070cd029803b1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,7 +157,8 @@ tutoriels destinés aux nouveaux utilisateurs.
 @uref{https://scheme-book.ursliska.de/introduction/index.html,
 LilyPond's Scheme} : un tutoriel externe en anglais pour se
 familiariser avec Scheme, le langage qui permet de programmer
-LilyPond.
+LilyPond. Sa lecture sera profitable à tous ceux qui n'ont jamais
+osé programmer.
 
 @item
 @uref{https://tutoriel-scheme.readthedocs.io,Apprendre Scheme pour
