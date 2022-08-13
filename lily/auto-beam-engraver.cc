@@ -191,7 +191,7 @@ Auto_beam_engraver::create_beam ()
     Beam::add_stem (beam, stem);
 
   Grob_info i = make_grob_info (beam, stems_[0]->self_scm ());
-  announce_grob (i, beam_start_context_.get_context ());
+  announce_grob (i, beam_start_context_.get ());
 
   return beam;
 }
@@ -211,7 +211,7 @@ Auto_beam_engraver::begin_beam ()
   beam_settings_ = Grob_property_info (context (),
                                        ly_symbol2scm ("Beam")).updated ();
 
-  beam_start_context_.set_context (context ()->get_parent ());
+  beam_start_context_ = context ()->get_parent ();
   beam_start_location_
     = from_scm (get_property (this, "measurePosition"), Moment (0));
   beam_start_moment_ = now_mom ();
@@ -223,7 +223,7 @@ Auto_beam_engraver::junk_beam ()
   if (!busy ())
     return;
 
-  beam_start_context_.set_context (nullptr);
+  beam_start_context_ = nullptr;
   beam_start_moment_ = Moment::infinity ();
   stems_.clear ();
   delete grouping_;
@@ -252,7 +252,7 @@ Auto_beam_engraver::end_beam ()
         {
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
 
-          announce_end_grob (i, beam_start_context_.get_context ());
+          announce_end_grob (i, beam_start_context_.get ());
           finished_grouping_ = grouping_;
           finished_beaming_options_ = beaming_options_;
         }
@@ -262,7 +262,7 @@ Auto_beam_engraver::end_beam ()
       beam_settings_ = SCM_EOL;
     }
 
-  beam_start_context_.set_context (NULL);
+  beam_start_context_ = nullptr;
   shortest_dur_ = Rational (1, 4);
 }
 

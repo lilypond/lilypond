@@ -95,13 +95,10 @@ Volta_specced_music_iterator::process (Moment m)
   if (!started_)
     {
       started_ = true;
-      if (auto *c = get_context ())
-        {
-          event_handler_.set_context (c);
-          SCM ev = create_event (START);
-          unsmob<Music> (ev)->send_to_context (c);
-          scm_remember_upto_here_1 (ev);
-        }
+      event_handler_ = get_context ();
+      SCM ev = create_event (START);
+      unsmob<Music> (ev)->send_to_context (event_handler_.get ());
+      scm_remember_upto_here_1 (ev);
     }
 
   Music_wrapper_iterator::process (m);
@@ -109,12 +106,12 @@ Volta_specced_music_iterator::process (Moment m)
   if (started_ && !stopped_ && (m == music_get_length ()))
     {
       stopped_ = true;
-      if (auto *c = event_handler_.get_context ())
+      if (event_handler_)
         {
           SCM ev = create_event (STOP);
-          unsmob<Music> (ev)->send_to_context (c);
+          unsmob<Music> (ev)->send_to_context (event_handler_.get ());
           scm_remember_upto_here_1 (ev);
-          event_handler_.set_context (nullptr);
+          event_handler_ = nullptr;
         }
     }
 }

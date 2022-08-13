@@ -94,8 +94,8 @@ public:
 
   // Circumvent the virtual get_context () and set_context () to address the
   // context of this very iterator.
-  Context *get_own_context () const { return handle_.get_context (); }
-  void set_own_context (Context *c) { handle_.set_context (c); }
+  Context *get_own_context () const { return handle_.get (); }
+  void set_own_context (Context *c) { handle_ = c; }
 
   // Replace this iterator's references to one context with another.  This is
   // not recursive.  Subclasses that track multiple contexts should override

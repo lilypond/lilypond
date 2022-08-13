@@ -62,7 +62,7 @@ void
 Quote_iterator::do_quit ()
 {
   Music_wrapper_iterator::do_quit ();
-  quote_handle_.set_context (0);
+  quote_handle_ = nullptr;
 }
 
 bool
@@ -144,7 +144,7 @@ Quote_iterator::create_contexts ()
 
   if (!cue_context)
     cue_context = get_context ()->get_default_interpreter ();
-  quote_handle_.set_context (cue_context);
+  quote_handle_ = cue_context;
 }
 
 Moment
@@ -269,7 +269,7 @@ Quote_iterator::process (Moment m)
                   ev->transpose (diff);
                   transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
                 }
-              quote_handle_.get_context ()->event_source ()->broadcast (ev);
+              quote_handle_->event_source ()->broadcast (ev);
             }
         }
     }

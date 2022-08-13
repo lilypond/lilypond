@@ -110,10 +110,10 @@ Tuplet_iterator::process (Moment m)
   if (spanner_duration_
       && Moment (m.main_part_) == next_split_mom_)
     {
-      if (tuplet_handler_.get_context ())
+      if (tuplet_handler_)
         {
           SCM ev = create_event (STOP);
-          unsmob<Music> (ev)->send_to_context (tuplet_handler_.get_context ());
+          unsmob<Music> (ev)->send_to_context (tuplet_handler_.get ());
           scm_remember_upto_here_1 (ev);
         }
 
@@ -121,7 +121,7 @@ Tuplet_iterator::process (Moment m)
         {
           spanner_duration_
             = std::min (music_get_length () - next_split_mom_, spanner_duration_);
-          tuplet_handler_.set_context (get_context ());
+          tuplet_handler_ = get_context ();
           SCM ev = create_event (START);
           report_event (unsmob<Music> (ev));
           scm_remember_upto_here_1 (ev);
@@ -129,7 +129,7 @@ Tuplet_iterator::process (Moment m)
           next_split_mom_ += spanner_duration_;
         }
       else
-        tuplet_handler_.set_context (0);
+        tuplet_handler_ = nullptr;
     }
   Music_wrapper_iterator::process (m);
 

@@ -18,67 +18,59 @@
 */
 
 #include "context-handle.hh"
+
 #include "context.hh"
 
-Context_handle::Context_handle ()
-{
-  context_ = 0;
-}
+#include <cassert>
 
 Context_handle::Context_handle (Context_handle const &s)
+  : context_ (s.context_)
 {
-  context_ = 0;
-  if (s.context_)
-    up (s.context_);
+  maybe_increment ();
 }
 
 Context_handle::~Context_handle ()
 {
-  /*
-    Don't do
-
-    if (context_)
-    down ();
-
-    with GC, this is asynchronous.
-  */
+  // Garbage collection may have delayed destruction of the owner of this
+  // handle, making RAII unreliable.
+  //
+  // The owner of a handle must nullify it explicitly at an appropriate moment
+  // during music translation.  Forgetting to do so doesn't always cause
+  // obvious problems, but it can do things like keeping ossia staves alive too
+  // long, so we want to detect it as early as possible.
+  assert (!context_);
 }
 
 void
-Context_handle::up (Context *t)
+Context_handle::maybe_increment ()
 {
-  context_ = t;
-  t->client_count_++;
-}
-
-void
-Context_handle::down ()
-{
-  context_->client_count_--;
-  context_ = 0;
-}
-
-void
-Context_handle::operator = (Context_handle const &s)
-{
-  set_context (s.context_);
-}
-
-void
-Context_handle::set_context (Context *trans)
-{
-  if (context_ == trans)
-    return;
   if (context_)
-    down ();
-  if (trans)
-    up (trans);
+    ++context_->client_count_;
 }
 
-Context *
-Context_handle::get_context () const
+void
+Context_handle::maybe_decrement ()
 {
-  return context_;
+  if (context_)
+    --context_->client_count_;
+}
+
+void
+Context_handle::reset ()
+{
+  maybe_decrement ();
+  context_ = nullptr;
+}
+
+void
+Context_handle::set (Context *c)
+{
+  if (context_ != c)
+    {
+      maybe_decrement ();
+      context_ = c;
+      maybe_increment ();
+    }
 }
 
 int

@@ -20,25 +20,47 @@
 #ifndef CONTEXT_HANDLE_HH
 #define CONTEXT_HANDLE_HH
 
-#include "lily-proto.hh"
+#include <memory>
 
-class Context_handle
+class Context;
+
+// This helps count users of a Context, which are usually Music_iterators and
+// sometimes other Contexts.
+//
+// This falls a little short of the smart pointers typical of modern C++
+// because it does not automatically decrement the reference count at the end
+// of its life.  The owner of a handle must nullify it explicitly at an
+// appropriate moment during music translation.  Forgetting to do so doesn't
+// always cause obvious problems, but it can do things like keeping ossia
+// staves alive too long.
+//
+// Meanwhile, this class still prevents other errors, such as forgetting to
+// decrement the count of the previous context when switching to a new one.
+class Context_handle final
 {
 public:
-  ~Context_handle ();
-  Context_handle ();
-
-  void set_context (Context *);
-  void operator = (Context_handle const &);
+  Context_handle () = default;
   Context_handle (Context_handle const &);
-  Context *get_context () const;
+  ~Context_handle ();
 
+  void operator = (std::nullptr_t) { reset (); }
+  void operator = (Context *c) { set (c); }
+  void operator = (Context_handle const &h) { set (h.context_); }
+  void reset ();
+
+  explicit operator bool () const { return context_; }
+  Context &operator *() const { return *context_; }
+  Context *operator ->() const { return context_; }
+  Context *get () const { return context_; }
   int get_count () const;
+
 private:
-  Context *context_;
-  void down ();
-  void up (Context *);
+  void maybe_decrement ();
+  void maybe_increment ();
+  void set (Context *);
+
+private:
+  Context *context_ = nullptr;
 };
 
 #endif /* CONTEXT_HANDLE_HH */
-
