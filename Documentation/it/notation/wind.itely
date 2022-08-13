@@ -88,14 +88,6 @@ e @code{open}.  Vedi @ref{Articolazioni e abbellimenti} e
 Vedi @ref{Articolazioni e abbellimenti}.
 @end itemize
 
-@snippets
-
-@cindex flageolet, modifica dimensione
-@cindex modifica della dimensione del segno di flageolet
-@funindex \flageolet
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
 @morerefs
 Guida alla notazione:
 @ref{Respiri},

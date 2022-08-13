@@ -85,14 +85,6 @@
 @ref{アーティキュレーションと装飾} を参照してください。
 @end itemize
 
-@snippets
-
-@cindex flageolet, changing size (フラジョレットのサイズを変更する)
-@cindex changing flageolet size (フラジョレットのサイズを変更する)
-@funindex \flageolet
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
 @morerefs
 記譜法リファレンス:
 @ref{Breath marks},

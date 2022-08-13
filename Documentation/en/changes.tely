@@ -127,6 +127,19 @@ other objects.
 
 
 @item
+The flageolet symbol is now smaller and slightly thicker.  This
+is in line with published scores and makes the recommended
+workaround to make it smaller (@code{\tweak font-size -3 \flageolet})
+unnecessary.
+
+@lilypond[quote]
+{
+  d''2^\flageolet d''_\flageolet
+}
+@end lilypond
+
+
+@item
 The accent glyph is now a bit smaller.  This fixes some cases where a natural
 sign would vertically displace accents.
 

@@ -107,14 +107,6 @@ nombreux et rapides, il est d'usage de recourir aux articulations
 Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
 
-@snippets
-
-@cindex flageolet, taille
-@cindex taille, flageolet
-@funindex \flageolet
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
 @morerefs
 Manuel de notation :
 @ref{Articulations et ornements},

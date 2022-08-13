@@ -10821,11 +10821,6 @@ msgstr ""
 msgid "to control the distance of the Dynamics context from the staff:"
 msgstr ""
 
-#. Documentation/snippets/changing--flageolet-mark-size.ly:20 (variable)
-#. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:32 (variable)
-msgid "smallFlageolet"
-msgstr ""
-
 #. Documentation/snippets/changing-beam-thickness-and-spacing.ly:26 (comment)
 #, fuzzy
 msgid "0.48 is default thickness"

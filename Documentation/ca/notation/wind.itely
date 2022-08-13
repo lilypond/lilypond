@@ -108,11 +108,6 @@ Las trompes tapades s'indiquen per mitjà de l'articulació
 @code{stopped}.  Vegeu @ref{Articulacions i ornaments}.
 @end itemize
 
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
 @morerefs
 Referència de la notació:
 @ref{Marques de respiració},

@@ -103,16 +103,6 @@ Las trompas tapadas se indican por medio de la articulación
 @code{stopped}.  Véase @ref{Articulaciones y ornamentos}.
 @end itemize
 
-
-@snippets
-
-@cindex flageolet, cambiar tamaño
-@cindex modificar, flageolet, tamaño
-@funindex \flageolet
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
-
 @morerefs
 Referencia de la notación:
 @ref{Marcas de respiración},

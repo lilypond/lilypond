@@ -78,16 +78,6 @@ See @ref{Articulations and ornamentations} and
 See @ref{Articulations and ornamentations}.
 @end itemize
 
-
-@snippets
-
-@cindex flageolet, changing size
-@cindex changing flageolet size
-@funindex \flageolet
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
-
 @morerefs
 Notation Reference:
 @ref{Breath marks},

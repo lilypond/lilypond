@@ -107,12 +107,6 @@ notiert. Siehe
 
 @end itemize
 
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing--flageolet-mark-size.ly}
-
-
 @morerefs
 Notationsreferenz:
 @ref{Atemzeichen},

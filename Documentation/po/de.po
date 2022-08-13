@@ -8136,11 +8136,6 @@ msgstr "GabelMolto"
 msgid "hairpinMore"
 msgstr "GabelMehr"
 
-#. Documentation/snippets/changing--flageolet-mark-size.ly:46 (variable)
-#. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:27 (variable)
-msgid "smallFlageolet"
-msgstr "kleinFlageolett"
-
 #. Documentation/snippets/changing-the-ambitus-gap.ly:45 (comment)
 msgid "Default setting"
 msgstr "Standardeinstellung"

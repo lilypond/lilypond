@@ -1356,9 +1356,9 @@ fet_endchar;
 fet_beginchar ("flageolet", "flageolet");
   save height, width, thickness, superness;
 
-  height# = 4/15 staffsize#;
+  height# = 3/15 staffsize#;
   width# = height#;
-  thickness# = blot_diameter#;
+  thickness# = 1.25 * blot_diameter#;
   define_pixels (height, width);
   define_whole_blacker_pixels (thickness);
 
