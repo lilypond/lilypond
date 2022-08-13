@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a2f027a68c97fe9bebade2e873419c6c465bc503
+   Translation of GIT committish: 42d632c34f73f121c71659d7e82a15930df2903d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -306,10 +306,23 @@ de la fontionnalité @code{chroot}. Windows, plus particulièrement, ne le
 prend pas en charge.]
 Lance @command{lilypond} dans un environnement protégé.
 
-L'option @option{--jail} est une alternative qui offre plus de
-flexibilité que l'option @option{--safe} lorsque LilyPond est installé
-sur un serveur web ou traite des fichiers externes -- voir
-@ref{Options avancées de lilypond}.
+L'option @option{--jail} peut s'utiliser pour des raisons de sécurité
+lorsque LilyPond est installé sur un serveur web ou traite des fichiers
+externes -- voir @ref{Options avancées de lilypond}. Dans la mesure où
+LilyPond procure de quoi faire tourner des programmes Guile, il est
+primordial, en pareil cas, que ce soit dans un environnement contraint
+de telle sorte que les fichiers alors compilés ne mettent pas en péril
+l'intégrité du système comme, par exemple, avec un
+
+@example
+% trop dangereux à écrire sans faute
+#(s yste m "rm -rf /")
+% malveillant mais pas destructeur
+@{ c4^$(ly:gulp-file "/etc/passwd") @}
+@end example
+
+L'option @option{--jail} permet d'obtenir une telle incarcération. Un
+autre moyen consiste à utiliser LilyPond dans un conteneur Docker.
 
 L'option @option{--jail} va détourner la racine de @command{lilypond}
 sur @var{jail} juste avant d'effectuer la compilation à proprement
@@ -854,48 +867,6 @@ fichier maître. La valeur par défaut est @code{#t}.
 @item @code{resolution} @var{num}
 Détermine la résolution des pixmaps @code{PNG}  à générer à @var{num}
 @code{dpi}. La valeur par défaut est @code{101}.
-
-@item @code{safe} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, ne pas avoir une confiance
-aveugle dans le code @file{.ly}. La valeur par défaut est @code{#f}.
-
-Lorsque LilyPond est accessible au travers d'un serveur web, il est
-@strong{impératif} d'utiliser les options @option{--safe} ou
-@option{--jail}.  L'option @option{--safe} aura pour effet d'empêcher
-tout code Scheme inclus de mettre en péril votre installation grâce à
-quelque chose du style
-
-@example
-% trop dangereux à écrire sans faute
-#(s ystem "rm -rf /")
-% malveillant mais pas destructeur
-@{ c4^$(ly:gulp-file "/etc/passwd") @}
-@end example
-
-L'option @code{-dsafe} forcera l'évaluation, au fil de l'eau et par un
-module sécurisé, des expressions Scheme contenues dans le fichier
-source.  Ce module sécuritaire, dérivé du module GUILE @file{safe-r5rs},
-ajoute un certain nombre de fonctions -- listées dans
-@file{scm/safe-lily.scm} -- à l'API de LilyPond.
-
-De plus, le mode @emph{safe} ne permet ni l'utilisation de directives
-@code{\include} ni le recours aux obliques inversées (@emph{backslash})
-dans les chaînes @TeX{}.  L'import de variables LilyPond dans du code
-Scheme n'est pas possible en mode sécurisé.
-
-L'option @code{-dsafe} @strong{ne détecte pas} l'utilisation abusive des
-ressources.  Il est donc possible que le programme finisse par rester
-sans réponse si on lui envoie une boucle sans fin.  C'est la raison pour
-laquelle nous recommandons, lorsque LilyPond tourne sur un serveur
-accessible au public, d'en limiter aussi bien les ressources processeur
-que mémoire.
-
-Notez bien que l'utilisation du mode sécuritaire empêchera aussi la
-compilation d'un certain nombre de fragments LilyPond.
-
-L'option @code{--jail} est dans ce cas une excellente alternative en
-terme de sécurité, même si elle requiert plus de temps à mettre en place
--- voir @ref{Options basiques de lilypond}.
 
 @item @code{separate-log-files} @var{bool}
 Pour les fichiers @file{fichier1.ly}, @file{fichier2.ly}, etc.
