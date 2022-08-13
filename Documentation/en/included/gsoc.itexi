@@ -22,8 +22,8 @@ new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
 of the @uref{https://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012, 2015, 2016 and 2017.  This site
-is current for the 2018 program.
+We have had GSoC participants in 2012, 2015, 2016, 2017 and 2020.  This
+site is current for the 2023 program.
 
 @divEnd
 
@@ -50,34 +50,6 @@ between the two and the community.
 
 A full list of all the current open issues can be found
 @uref{https://gitlab.com/lilypond/lilypond/-/issues, here}.
-
-
-@subsubheading Adopt the SMuFL music font encoding standard
-
-For several years now a new standard for music fonts has been around:
-@uref{https://www.smufl.org/, SMuFL}, which is also discussed as becoming part of
-a future W3C standard for music encoding.  As a FLOSS tool LilyPond should
-adhere to such an open standard instead of using an isolated solution like it
-does today.  Adopting SMuFL will help integrating LilyPond with the world of
-music notation software and eventually give LilyPond users access to a wider
-selection of notation fonts.
-
-Making LilyPond compliant to SMuFL includes remapping of the glyphs that are
-built from METAFONT sources, adjusting the glyphs' metrics to SMuFL's
-specifications, and finally updating the way LilyPond looks up and positions the
-glyphs.  As an optional part of this project LilyPond's font loading mechanism
-could be modified to use notation fonts installed as system fonts instead of
-inside the LilyPond installation.
-
-@emph{Difficulty}: Easy/medium
-
-@emph{Requirements}: C++ and willingness to get familiar with LilyPond
-internals.
-
-@emph{Recommended}: Interest and experience in working with font files.
-A little bit of METAFONT.
-
-@emph{Mentors:} Werner Lemberg, Abraham Lee
 
 
 @subsubheading Adding variants of font glyphs
@@ -122,9 +94,11 @@ Working in this project will mainly be done in the
 
 @emph{Difficulty:} easy to hard (depending on the targeted improvements)
 
+@emph{Size of project:} @emph{to be defined}
+
 @emph{Requirements:} Python, MusicXML
 
-@emph{Mentor}: Peter Bjuhr
+@emph{Mentor}: Peter Bjuhr (?)
 
 
 @subsubheading Fix Beaming Patterns/Beam Subdivisions and Tuplets
@@ -146,42 +120,14 @@ this discussion}), and that this has to be fixed as well.
 
 @emph{Difficulty:} medium
 
+@emph{Size of project:} @emph{to be defined}
+
 @emph{Requirements:} C++
 
 @emph{Recommended knowledge:} Good musical and mathematical understanding
 of timing issues
 
-@emph{Mentors:} Urs Liska, Carl Sorensen
-
-
-@subsubheading Frescobaldi Extensions
-
-Starting with the current release 3.1
-@uref{https://frescobaldi.org, Frescobaldi} has an extension API that
-allows the easy integration of arbitrary functionality in the editing
-environment.  These could range from, say, document statistics and
-accounting functionality to fancy features like a built-in video chat
-client or a stock market ticker.
-
-We would welcome project suggestions about arbitrary Frescobaldi
-extensions of appropriate complexity that add substantial functionality
-for working with LilyPond scores which might not be suitable to be
-included into Frescobaldi itself.
-
-As @emph{suggestions} and examples may serve: a project management
-extension that can manage repetoire of arbitrary complexity, handle
-the generation of template files and the compilation process. Or an
-extension to manage the @uref{https://openlilylib.org, openLilyLib}
-infrastructure.
-
-@emph{Difficulty:} easy/medium
-
-@emph{Requirements:} Python, (PyQt)
-
-@emph{Optional:} GUILE Scheme (if functionality involves LilyPond
-internals)
-
-@emph{Mentor:} @emph{Urs Liska}
+@emph{Mentors:} Carl Sorensen (?)
 
 
 @subsubheading Support for Style Sheets
@@ -206,76 +152,17 @@ fonts that are installed system-wide.
 
 @emph{Difficulty:} medium
 
+@emph{Size of project:} @emph{to be defined}
+
 @emph{Requirements:} Scheme, aesthetic competence
 
 @emph{Recommended:} sense of building hierarchical frameworks
 
 @emph{Optional:} C++ (for font loading internals)
 
-@emph{Mentor:} @emph{Abraham Lee}
+@emph{Mentor:} @emph{Abraham Lee} (?)
 
 @emph{Community Mentor:} @emph{Kieren MacMillan}
-
-
-@subsubheading Contemporary Notation
-
-LilyPond is very good at creating non-standard notation.  Having to
-@emph{code} every graphical element instead of simply @emph{drawing}
-it may seem cumbersome but is in fact a strong asset.  New notational
-functionality can be provided with consistent appearance, automatic
-layout and a natural syntactic interface.
-
-Within the @uref{https://github.com/openlilylib/oll-core, openLilyLib}
-library system the student will create a fundamental infrastructure
-and building blocks to make creating contemporary notation easier.
-Additionally (at least) @emph{one} concrete package is developed to
-cover specific contemporary notation, such as for example the style
-of a given composer, extended playing techniques for a specific
-instrument or a certain category of effects.
-
-@emph{Difficulty:} medium
-
-@emph{Requirements:} Scheme (interaction with LilyPond internals),
-contemporary notation techniques
-
-@emph{Recommended:} sense of building hierarchical frameworks
-
-@emph{Mentors:} @emph{NN,} Urs Liska
-
-
-@subsubheading  Implement a System to Handle Scores System by System
-
-One strategy that may improve the issue of LilyPond's compilation time is
-to handle scores in a system-by-system manner through partial compilation.
-This project explores one approach to achieve this and may lay the ground
-for future development towards a @qq{LilyPond server}.  It is very ambitions
-because it involves working with LilyPond's internals and optionally a
-reference user interface in @uref{https://frescobaldi.org, Frescobaldi}.
-
-The idea behind this project is the implementation of a music viewer that
-doesn't display pages but sees a scores as a continuous sequence of systems
-that are stitched together.  LilyPond can produce such a sequence of files,
-and it can be made aware of the moments of each line break.  That way only
-systems have to be recompiled that are affected by a modification, thus
-saving significant waiting times.  Optionally there could be new engraving
-modes in LilyPond that don't try to optimize the line breaking, saving
-even more time, at least while in content editing mode.
-
-The project is fairly complex and has many more aspects than could be
-listed on this page.  So if you are interested in this please get in
-touch with us as early as possible to evaluate options and discuss the
-topics before you write an application.
-
-
-@emph{Difficulty:} hard
-
-@emph{Requirements:} LilyPond/Scheme, Python/PyQt
-
-@emph{Optional:} C++ if it's necessary to modify LilyPond itself
-
-@emph{Mentors:} NN (, Urs Liska)
-
-@emph{Community Mentor:} Kieren MacMillan
 
 @divEnd
 
@@ -365,7 +252,6 @@ The following list describes GSoC projects that had been proposed
 in recent years and which are still considered valuable but for
 which we currently don't have mentors available.
 
-
 @subsubheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
@@ -408,6 +294,97 @@ such a SPA @emph{can} be part of the GSoC project, but is optional.
 @emph{Requirements:} Python or Scheme, static website generator(s) or
 (Node.js based) dynamic web application technology. Continuous
 Integration (can be learned during the bonding period)
+
+
+@subsubheading Contemporary Notation
+
+LilyPond is very good at creating non-standard notation.  Having to
+@emph{code} every graphical element instead of simply @emph{drawing}
+it may seem cumbersome but is in fact a strong asset.  New notational
+functionality can be provided with consistent appearance, automatic
+layout and a natural syntactic interface.
+
+Within the @uref{https://github.com/openlilylib/oll-core, openLilyLib}
+library system the student will create a fundamental infrastructure
+and building blocks to make creating contemporary notation easier.
+Additionally (at least) @emph{one} concrete package is developed to
+cover specific contemporary notation, such as for example the style
+of a given composer, extended playing techniques for a specific
+instrument or a certain category of effects.
+
+@emph{Difficulty:} medium
+
+@emph{Requirements:} Scheme (interaction with LilyPond internals),
+contemporary notation techniques
+
+@emph{Recommended:} sense of building hierarchical frameworks
+
+@emph{Mentors:} @emph{NN,} Urs Liska
+
+
+@subsubheading Frescobaldi Extensions
+
+Starting with the current release 3.1
+@uref{https://frescobaldi.org, Frescobaldi} has an extension API that
+allows the easy integration of arbitrary functionality in the editing
+environment.  These could range from, say, document statistics and
+accounting functionality to fancy features like a built-in video chat
+client or a stock market ticker.
+
+We would welcome project suggestions about arbitrary Frescobaldi
+extensions of appropriate complexity that add substantial functionality
+for working with LilyPond scores which might not be suitable to be
+included into Frescobaldi itself.
+
+As @emph{suggestions} and examples may serve: a project management
+extension that can manage repetoire of arbitrary complexity, handle
+the generation of template files and the compilation process. Or an
+extension to manage the @uref{https://openlilylib.org, openLilyLib}
+infrastructure.
+
+@emph{Difficulty:} easy/medium
+
+@emph{Requirements:} Python, (PyQt)
+
+@emph{Optional:} GUILE Scheme (if functionality involves LilyPond
+internals)
+
+@emph{Mentor:} @emph{Urs Liska}
+
+
+@subsubheading Implement a System to Handle Scores System by System
+
+One strategy that may improve the issue of LilyPond's compilation time is
+to handle scores in a system-by-system manner through partial compilation.
+This project explores one approach to achieve this and may lay the ground
+for future development towards a @qq{LilyPond server}.  It is very ambitions
+because it involves working with LilyPond's internals and optionally a
+reference user interface in @uref{https://frescobaldi.org, Frescobaldi}.
+
+The idea behind this project is the implementation of a music viewer that
+doesn't display pages but sees a scores as a continuous sequence of systems
+that are stitched together.  LilyPond can produce such a sequence of files,
+and it can be made aware of the moments of each line break.  That way only
+systems have to be recompiled that are affected by a modification, thus
+saving significant waiting times.  Optionally there could be new engraving
+modes in LilyPond that don't try to optimize the line breaking, saving
+even more time, at least while in content editing mode.
+
+The project is fairly complex and has many more aspects than could be
+listed on this page.  So if you are interested in this please get in
+touch with us as early as possible to evaluate options and discuss the
+topics before you write an application.
+
+
+@emph{Difficulty:} hard
+
+@emph{Requirements:} LilyPond/Scheme, Python/PyQt
+
+@emph{Optional:} C++ if it's necessary to modify LilyPond itself
+
+@emph{Mentors:} NN (, Urs Liska)
+
+@emph{Community Mentor:} Kieren MacMillan
 
 
 @subsubheading MusicXML
@@ -487,8 +464,7 @@ this book}).  If possible also reduce beaming-computation time.
 
 Automatic code analysis tools, like valgrind memory leak detection or
 callgrind code profilers, provide valuable information about possible
-flaws in our C++ code.  Cleaning up warnings would allow us to automate
-the rejection of any patch which introduced extra warnings.
+flaws in our C++ code.
 
 @emph{Difficulty:} medium
 
