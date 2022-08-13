@@ -46,7 +46,7 @@ _loglevel = _loglevels["PROGRESS"]
 def set_loglevel(l):
     global _loglevel
     newlevel = _loglevels.get(l, -1)
-    if newlevel > 0:
+    if newlevel >= 0:
         debug_output(_("Setting loglevel to %s") % l)
         _loglevel = newlevel
     else:
