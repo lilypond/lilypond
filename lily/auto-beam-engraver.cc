@@ -223,6 +223,7 @@ Auto_beam_engraver::junk_beam ()
   if (!busy ())
     return;
 
+  beam_start_context_.set_context (nullptr);
   beam_start_moment_ = Moment::infinity ();
   stems_.clear ();
   delete grouping_;
