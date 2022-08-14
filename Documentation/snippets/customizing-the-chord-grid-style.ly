@@ -5,7 +5,7 @@
 %%
 %% This file is in the public domain.
 %% Note: this file works from version 2.23.10
-\version "2.23.10"
+\version "2.23.12"
 
 \header {
   texidoc = "Custom divisions of chord squares can be defined through the

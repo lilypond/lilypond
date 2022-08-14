@@ -5,7 +5,7 @@
 %%
 %% This file is in the public domain.
 %% Note: this file works from version 2.23.6
-\version "2.23.6"
+\version "2.23.12"
 
 \header {
   lsrtags = "chords, legacy-code"

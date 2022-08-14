@@ -5,7 +5,7 @@
 %%
 %% This file is in the public domain.
 %% Note: this file works from version 2.23.3
-\version "2.23.3"
+\version "2.23.12"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
