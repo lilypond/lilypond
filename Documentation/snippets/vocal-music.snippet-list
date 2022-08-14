@@ -3,9 +3,9 @@ adding-indicators-to-staves-which-get-split-after-a-break.ly
 adding-orchestral-cues-to-a-vocal-score.ly
 adjusting-lyrics-vertical-spacing.ly
 aligning-syllables-with-melisma.ly
+ambitus.ly
 ambitus-after-key-signature.ly
 ambitus-with-multiple-voices.ly
-ambitus.ly
 ancient-notation-template----modern-transcription-of-gregorian-music.ly
 anglican-psalm-template.ly
 arranging-separate-lyrics-on-a-single-line.ly
@@ -25,13 +25,13 @@ satb-choir-template---four-staves.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly
 single-staff-template-with-notes,-lyrics,-chords-and-frets.ly
 single-staff-template-with-notes-and-lyrics.ly
-skips-in-lyric-mode-2.ly
 skips-in-lyric-mode.ly
+skips-in-lyric-mode-2.ly
 using-arpeggiobracket-to-make-divisi-more-visible.ly
 using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly
 vertically-aligning-ossias-and-lyrics.ly
 vertically-centered-common-lyrics.ly
+vocal-ensemble-template.ly
 vocal-ensemble-template-with-automatic-piano-reduction.ly
 vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
 vocal-ensemble-template-with-verse-and-refrain.ly
-vocal-ensemble-template.ly

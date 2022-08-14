@@ -86,8 +86,8 @@ setting-system-separators.ly
 showing-the-same-articulation-above-and-below-a-note-or-chord.ly
 string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
-time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly
+time-signature-in-parentheses---method-3.ly
 time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
 tuplet-bracket-and-change-staff.ly
 tweaking-clef-properties.ly

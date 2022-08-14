@@ -3,7 +3,6 @@ adding-fingerings-to-tablatures.ly
 adding-markups-in-a-tablature.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
 automatic-fretboards-barre.ly
-bar-chords-notation-for-guitar-with-text-spanner.ly
 changing-fret-orientations.ly
 chord-glissando-in-tablature.ly
 chordchanges-for-fretboards.ly
@@ -20,9 +19,9 @@ fretboards-alternate-tables.ly
 fretted-string-harmonics-in-tablature.ly
 guitar-slides.ly
 guitar-strum-rhythms.ly
+hammer-on-and-pull-off.ly
 hammer-on-and-pull-off-using-chords.ly
 hammer-on-and-pull-off-using-voices.ly
-hammer-on-and-pull-off.ly
 how-to-change-fret-diagram-position.ly
 jazz-combo-template.ly
 laissez-vibrer-ties.ly
