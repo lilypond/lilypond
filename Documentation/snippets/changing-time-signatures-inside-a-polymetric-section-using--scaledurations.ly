@@ -28,8 +28,7 @@ as the second argument of @code{\\scaleDurations}.
   \context {
     \Score
     \remove "Timing_translator"
-  } % begin verbatim
-
+  }
   \context {
     \Staff
     \consists "Timing_translator"

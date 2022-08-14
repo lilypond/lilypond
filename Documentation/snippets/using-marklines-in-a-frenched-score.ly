@@ -52,10 +52,11 @@ strings = \repeat unfold 240 { c''8 }
     \consists Axis_group_engraver
     \consists Mark_engraver
     \consists Metronome_mark_engraver
+    \consists Staff_collecting_engraver
     \override VerticalAxisGroup.remove-empty = ##t
     \override VerticalAxisGroup.remove-layer = #'any
     \override VerticalAxisGroup.staff-affinity = #DOWN
-    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.basic-distance = 1
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = 1
     keepAliveInterfaces = #'()
   }
   \context {
@@ -72,6 +73,7 @@ strings = \repeat unfold 240 { c''8 }
     \Score
     \remove Mark_engraver
     \remove Metronome_mark_engraver
+    \remove Staff_collecting_engraver
   }
 }
 

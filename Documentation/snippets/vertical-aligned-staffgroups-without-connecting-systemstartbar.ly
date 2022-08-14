@@ -10,8 +10,9 @@
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
 
   texidoc = "
-This snippet shows how to achieve vertically aligned StaffGroups with a
-SystemStartBar for each StaffGroup, but without connecting them.
+This snippet shows how to achieve vertically aligned @code{StaffGroups}
+with a @code{SystemStartBar} for each @code{StaffGroup}, but without
+connecting them.
 
 "
   doctitle = "Vertical aligned StaffGroups without connecting SystemStartBar"
@@ -46,6 +47,31 @@ SystemStartBar for each StaffGroup, but without connecting them.
     \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #15
   }
 }
+
+%% For 2.23. use:
+%
+%\layout {
+%  \context {
+%    \StaffGroup
+%    \consists "Mark_engraver"
+%    \consists "Staff_collecting_engraver"
+%    \consists "Mark_tracking_translator"
+%    \override RehearsalMark.self-alignment-X = #LEFT
+%    systemStartDelimiterHierarchy =
+%      #'(SystemStartBrace (SystemStartBracket a b))
+%  }
+%  \context {
+%    \Score
+%    \override SystemStartBrace.style = #'bar-line
+%    \omit SystemStartBar
+%    \override SystemStartBrace.padding = #-0.1
+%    \override SystemStartBrace.thickness = #1.6
+%    \remove "Mark_engraver"
+%    \remove "Staff_collecting_engraver"
+%    \remove "Mark_tracking_translator"
+%    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #15
+%  }
+%}
 
 %%%% EXAMPLE
 

@@ -29,17 +29,22 @@ independently of the other.
     \new Staff {
       <<
         \new Voice \with {
-          \consists Mark_engraver
+          \consists "Mark_engraver"
           \consists "Staff_collecting_engraver"
+          %% For 2.23. add Mark_tracking_translator
+          %\consists "Mark_tracking_translator"
+
         }
         { c4 d e f
           \mark \markup { \box A }
           c4 d e f
         }
         \new Voice \with {
-          \consists Mark_engraver
+          \consists "Mark_engraver"
           \consists "Staff_collecting_engraver"
           \override RehearsalMark.direction = #DOWN
+          %% For 2.23. add Mark_tracking_translator
+          %\consists "Mark_tracking_translator"
         }
         { s4 s s s
           \mark \markup { \circle 1 }
@@ -53,6 +58,8 @@ independently of the other.
       \Score
       \remove "Mark_engraver"
       \remove "Staff_collecting_engraver"
+      %% For 2.23. remove Mark_tracking_translator
+      %\remove "Mark_tracking_translator"
     }
   }
 }

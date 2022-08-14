@@ -8,7 +8,10 @@
 \version "2.23.12"
 
 \header {
-  texidoc = "Custom divisions of chord squares can be defined through the
+  lsrtags = "chords"
+
+  texidoc = "
+Custom divisions of chord squares can be defined through the
 @code{measure-division-lines-alist} and @code{measure-division-chord-placement-alist}
 properties of @code{ChordSquare}.  These are both alists.  Their keys are
 measure divisions, namely lists which give the fraction of the measure
@@ -28,9 +31,10 @@ lists of @code{(@var{x} . @var{y})} pairs giving the placement of
 the respective chords.
 
 This example defines a peculiar chord grid style that has a rule
-for measures divided in three equal parts."
-  lsrtags = "chords"
-  doctitle = "Customing the chord grid style"
+for measures divided in three equal parts.
+
+"
+  doctitle = "Customizing the chord grid style"
 } % begin verbatim
 
 
