@@ -1626,7 +1626,7 @@ written.
 Update the snippet files by running:
 
 @example
-scripts/auxiliar/makelsr.py
+scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
 @end example
 
 Where the convert-ly rule is not able to automatically update regression

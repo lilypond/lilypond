@@ -6,8 +6,8 @@
 * Introduction to LSR::
 * Adding and editing snippets::
 * Approving snippets::
+* The makelsr.pl script::
 * LSR to Git::
-* Fixing snippets in LilyPond sources::
 * Renaming a snippet::
 * Updating the LSR to a new version::
 @end menu
@@ -16,229 +16,334 @@
 @node Introduction to LSR
 @section Introduction to LSR
 
-The
-@uref{https://lsr.di.unimi.it/, LilyPond Snippet Repository (LSR)}
-is a collection of lilypond examples.  A subset of these examples
-are automatically imported into the documentation, making it easy
-for users to contribute to the docs without learning Git and
-Texinfo.
+The @uref{https://lsr.di.unimi.it/, LilyPond Snippet Repository
+(LSR)} is a collection of LilyPond examples.  A subset of these
+examples are automatically imported into the documentation, making
+it easy for users to contribute to the documentation without
+learning Git and Texinfo.
 
 
+@need 1000
 @node Adding and editing snippets
 @section Adding and editing snippets
 
 @subheading General guidelines
 
-When you create (or find!) a nice snippet, if it is supported by
-the LilyPond version running on the LSR, please add it to the LSR.
-Go to @uref{https://lsr.di.unimi.it/, LSR} and log in -- if you haven't
-already, create an account.  Follow the instructions on the website.
-These instructions also explain how to modify existing snippets.
+When you create (or find!) a nice snippet, and if it is supported
+by the LilyPond version running on the LSR, please add it to the
+LSR.  Go to @uref{https://lsr.di.unimi.it/, LSR} and log in -- if
+you haven't already, create an account.  Follow the instructions
+on the website.  These instructions also explain how to modify
+existing snippets.
 
-If you think the snippet is particularly informative and you think it
-should be included in the documentation, tag it with @qq{docs} and one
-or more other categories, or ask on the development list for
-somebody who has editing permissions to do it .
+If you think a snippet is particularly informative and should be
+included in the documentation, tag it with @q{docs} and one or
+more other categories, or ask on the development list for somebody
+who has editing permissions to do it.
 
-Please make sure that the lilypond code follows the guidelines in
-@ref{LilyPond formatting}.
+Please make sure that the LilyPond code follows our formatting
+guidelines, @pxref{LilyPond formatting}.
 
 If a new snippet created for documentation purposes compiles with
-LilyPond version currently on LSR, it should be added to LSR, and a
-reference to the snippet should be added to the documentation.
-Please ask a documentation editor to add a reference to it in an
-appropriate place in the docs.  (Note -- it should appear in the
-snippets document automatically, once it has been imported into
-git and built.  See @ref{LSR to Git}.
+the LilyPond version currently on LSR, it should be added to the
+LSR, and a reference to the snippet should be added to the
+documentation.  Please ask a documentation editor to add a
+reference to it in an appropriate place in the docs.  (Note -- it
+should appear in the @q{snippets} document automatically, once it
+has been imported into git and built.  @xref{LSR to Git}.)
 
-If the new snippet uses new features that are not available in the
-current LSR version, the snippet should be added to
-@file{Documentation/snippets/new} and a reference should be added to the
-manual.
+If a new snippet uses new features that are not available in the
+current LSR version of LilyPond, it should be added to directory
+@file{Documentation/@/snippets/@/new/}, and a reference should be
+added to the manual.
 
-Snippets created or updated in @file{Documentation/snippets/new} should
-be copied to @file{Documentation/snippets} by invoking at top of the
-source tree
+Snippets created or updated in
+@file{Documentation/@/snippets/@/new/} must be adjusted and copied
+to directory @file{Documentation/@/snippets/}.  This should be done
+by invoking the @command{makelsr.pl} script -- @emph{after} you
+have compiled LilyPond.  Assuming that your LilyPond build is in
+the top-level subdirectory @file{build/}, a proper invocation is
 
 @example
-scripts/auxiliar/makelsr.py
+cd /your/lilypond/git/top/dir
+scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
 @end example
 
-Be sure that @command{make doc} runs successfully before submitting a
-patch, to prevent breaking compilation.
+@xref{The makelsr.pl script}, for more details.
 
-@subheading Formatting snippets in @file{Documentation/snippets/new}
+Be sure that @samp{make doc} runs successfully before submitting a
+patch, to prevent breaking compilation (@pxref{Generating
+documentation}).
+
+
+@subheading Formatting snippets in @file{Documentation/snippets/new/}
 
 When adding a file to this directory, please start the file with
+the following template @dots{}
 
 @example
-\version "2.x.y"
+\version "2.xx.yy"
+
 \header @{
-% Use existing LSR tags other than 'docs'; see makelsr.py for
-% the list of tags used to sort snippets.  E.g.:
-  lsrtags = "rhythms,expressive-marks"
-% This texidoc string will be formatted by Texinfo
+  % Use existing LSR tags other than 'docs'; the names of the
+  % `*.snippet-list` files in `Documentation/snippets/` give the
+  % tags currently used.
+  lsrtags = "rhythms, expressive-marks"
+
+  % The documentation string must use Texinfo syntax.  In
+  % addition, `\` and `"` must be written as `\\` and `\"`,
+  % respectively.
   texidoc = "
-This code demonstrates ...
+This snippet demonstrates @@code@{\\foo@} ...
 "
-% Please put doctitle last so that the '% begin verbatim'
-% mark will be added correctly by makelsr.py.
+
+  % The snippet title string must be formatted similar to
+  % `texidoc`.
   doctitle = "Snippet title"
 @}
+
+<LilyPond code starts here>
 @end example
 
 @noindent
-and name the file @file{snippet-title.ly}.
+@dots{} and name the file @file{snippet-title.ly}.
 
-@noindent
-Please ensure that the version number you use at the top of the
-example is the minimum version that the file will compile with:
-for example, if the LSR is currently at 2.14.2 and your example
-requires 2.15.30, but the current development version of
-@code{lilypond} is 2.17.5, put @code{\version "2.15.30"} in the
-example.
+It is important that the version number you use at the top of the
+example is the minimum LilyPond version that the file compiles
+with: for example, if the LSR is currently at 2.22.2, your example
+requires 2.23.4, and the current development version of LilyPond
+is @version{}, use @code{\version "2.23.4"}.
 
-@noindent
-Please also pay particular attention to the lines beginning
-@code{lsrtags = } and @code{doctitle =}.  The tags must match tags used
-in the documentation, and the @code{doctitle} must match the
-filename.
+Particular attention is also necessary for the @code{lsrtags} and
+@code{doctitle} fields: the tags must match tags used in the
+documentation, and the @code{doctitle} must match the filename
+(@command{makelsr.pl} shows a helpful error message if it
+doesn't).
+
 
 @node Approving snippets
 @section Approving snippets
 
-The main task of LSR editors is approving snippets.  To find a list of
-unapproved snippets, log into @uref{https://lsr.di.unimi.it/, LSR} and
-select @qq{No} from the dropdown menu to the right of the word
-@qq{Approved} at the bottom of the interface, then click
-@qq{Enable filter}.
+The main task of LSR editors is approving snippets.  To find a
+list of unapproved snippets, log into
+@uref{https://lsr.di.unimi.it/, LSR} and select @qq{No} from the
+drop-down menu to the right of the word @qq{Approved} at the
+bottom of the interface, then click @qq{Enable filter}.
 
-Check each snippet:
+Here is a checklist of the necessary tasks.
 
 @enumerate
 
 @item
-Does the snippet make sense and does what the author claims that
-it does?  If you think the snippet is particularly helpful, add
-the @qq{docs} tag and at least one other tag.
+Does the snippet make sense and does it what the author claims
+that it does?  If you think the snippet is suited to be included
+into the LilyPond documentation, add the @q{docs} tag and at least
+one other tag.
 
 @item
-If the snippet is tagged with @qq{docs}, check to see if it
-matches our guidelines for @ref{LilyPond formatting}.
+If the snippet is tagged with @q{docs}, check whether it matches
+our formatting guidelines, @pxref{LilyPond formatting}.
 
-Also, snippets tagged with @qq{docs} should not be explaining
-(replicating) existing material in the docs.  They should not
-refer to the docs; the docs should refer to them.
-
-@item
-If the snippet uses scheme, check that everything looks good and
-there are no security risks.
-
-@warning{Somebody could sneak a @code{#'(system "rm -rf /")}
-command into our source tree if you do not do this!  Take this
-step @strong{VERY SERIOUSLY}.}
+Also, snippets tagged with @q{docs} should not be explaining (or
+replicating) existing material in the documentation.  They should
+not refer to the documentation; the documentation should rather
+refer to them.
 
 @item
-If all is well, check the box labelled @qq{approved} and save the
+If the snippet uses Scheme code, check that everything looks good
+and there are no security risks.
+
+@warning{Somebody could add code like @code{#'(system "rm -rf /")}
+to a snippet, which would cause catastrophic results if executed!
+Take this step @strong{VERY SERIOUSLY}.}
+
+@item
+If all is well, check the box labeled @qq{approved} and save the
 snippet.
 
 @end enumerate
 
 
+@node The makelsr.pl script
+@section The @command{makelsr.pl} script
+
+As you might have guessed already, @command{makelsr.pl} is a
+@uref{https://perl.org, Perl} script.  Obviously, you need Perl to
+execute it, which you should now install in case it isn't already
+available on your system.
+
+There is a dependency on the @uref{https://pandoc.org, Pandoc}
+program, which the script uses to convert LSR's snippet
+documentation strings (which are formatted in HTML) to Texinfo.
+This must be installed, too.
+
+Furthermore, @command{makelsr.pl} needs a few additional modules
+that are not Perl core modules (tested with Perl version 5.36):
+
+@itemize
+@item File::Which
+@item IPC::Run3
+@item MySQL::Dump::Parser::XS
+@item Pandoc
+@item Parallel::ForkManager
+@end itemize
+
+@noindent
+Either install missing modules with your package manager (if
+available) or use the @command{cpanm} command.@footnote{Most Perl
+distributions have this command included; if not, try to install a
+package named @q{cpanminus} or having @q{cpanminus} in its name.}
+
+A typical call might me
+
+@example
+cpanm --sudo Parallel::ForkManager
+@end example
+
+@noindent
+to download, compile, and install module
+@q{Parallel::@/ForkManager}.@footnote{Note that the program
+@command{cpanm} might be called differently; it sometimes has the
+Perl version appended to its name, for example
+@command{cpanm-5.34}.
+
+The @option{--sudo} option makes the modules install into a system
+directory, for example @file{/usr/@/lib/@/perl5/@/site_perl/@/...}
+-- you need the superuser password for this.  If you don't want to
+do that for whatever reason, just omit @option{--sudo} and follow
+the instructions shown in @command{cpanm}'s error message to
+install Perl modules locally (i.e., without @command{sudo}
+rights).
+
+As of this writing (August 2022) there is a small buglet in a test
+of the @q{Pandoc} module that makes it necessary to add option
+@option{--notest} for installing this module in case you have to
+use @command{cpanm}.}
+
+Finally, it needs to find the @command{convert-ly} script from the
+current LilyPond development build.
+
+By default, executing @command{makelsr.pl} performs the following
+actions.
+
+@itemize
+@item
+Download a current MySQL dump of the LSR database (the dump is
+regenerated once a day).
+
+@item
+Delete all snippet and snippet list files in directory
+@file{Documentation/@/snippets/} (but not in
+@file{Documentation/@/snippets/@/new/}).
+
+@item
+Extract all snippets from the LSR database that have the @q{docs}
+tag set, convert their documentation parts from HTML to Texinfo
+with the @command{pandoc} program, run the script
+@command{convert-ly} to update their LilyPond code parts to
+current syntax, and store them in
+@file{Documentation/@/snippets/}.
+
+@item
+Create snippet list files named @file{winds@/.snippet-@/list} or
+@file{connecting-@/notes@/.snippet-@/list} that list the snippets
+grouped by tags assigned in the database.  These files are used to
+structure LilyPond's @q{snippets} documentation.
+
+@item
+Convert all snippet files in
+@file{Documentation/@/snippets/@/new/} with @command{convert-ly}
+and output them to @file{Documentation/@/snippets/}, possibly
+overwriting existing files.
+@end itemize
+
+This flow of actions can be adjusted; say
+@samp{scripts/auxiliar/makelsr.pl --help} to get a detailed
+description of the provided command line options and used
+environment variables.
+
+
+@need 1000
 @node LSR to Git
 @section LSR to Git
 
 @subheading Introduction
+
 Snippets used in the documentation are in
-@file{$LILYPOND_GIT/Documentation/snippets}.  This directory
-contains a complete set of the snippets in the LSR which are
-tagged with 'docs'.  The exact method for getting them there is
-described below, but in essence they come from downloading a
-tarball from the LSR and importing into the directory using the
-@code{makelsr} script.
+@file{$LILYPOND_GIT/@/Documentation/@/snippets/}.  This directory
+contains a set of all snippets in the LSR that are tagged with
+@q{docs}.  An import is done with the @code{makelsr.pl} script,
+which downloads a complete database dump of the LSR to update this
+directory.
 
-Any snippets which are too bleeding edge to run on the LSR (which
-uses a stable development version) are put into
-@file{$LILYPOND_GIT/Documentation/snippets/new}.  Once the LSR has
-been upgraded so that these will run, then they are transferred to
-the LSR and deleted from @file{/snippets/new}.
+Snippets that are too new to be run on the LSR (which uses a
+stable LilyPond version) are put into
+@file{$LILYPOND_GIT/@/Documentation/@/snippets/@/new/}.  Once the
+LSR gets upgraded to a LilyPond version that can actually compile
+them, they are transferred to the LSR and deleted from
+@file{snippets/@/new/}.
 
-'Git' is the shorthand name for the Git repository that contains
-all the development code.  For further information on setting this
-up see, @ref{Working with source code}.  An alternative to setting
-up a Git repository for people wanting to do LSR work is to get
-the source code from
-@uref{https://lilypond.org/website/development.html}.
+@q{Git} is the shorthand name for LilyPond's Git repository, which
+contains all the development code.  For further information on
+setting this up, @pxref{Working with source code}.  An alternative
+to setting up a Git repository for people wanting to do LSR work
+is to get the source code from
+@uref{https://lilypond.org/website/development.html}.  However, we
+don't recommend this since it doesn't allow easy submission of
+patches as merge requests.
+
 
 @subheading Importing the LSR to Git
 
 @enumerate
 
 @item
-Make sure that @command{convert-ly} script and the @command{lilypond}
-binary are a bleeding edge version -- the latest release or even
-better, a fresh snapshot from Git master, with the environment
-variable @code{LILYPOND_BUILD_DIR} correctly set up, see
-@ref{Environment variables}.
+Make sure that the @command{convert-ly} script is a bleeding edge
+version -- the latest development release, or even better, freshly
+compiled from Git master, with the environment variable
+@code{LILYPOND_BUILD_DIR} correctly set up (@pxref{Environment
+variables}) in case your build directory isn't
+@file{$LILYPOND_GIT/@/build/}.
 
 @item
-Start by creating a list of updated snippets from your local
-repository.  From the top source directory, run:
+Check the other prerequisites necessary for executing the
+@command{makelsr.pl} script (@pxref{The makelsr.pl script}).
+
+@item
+If you are using a git repository, create and check out a branch,
+for example
 
 @example
-scripts/auxiliar/makelsr.py
+git checkout -b lsr-import
 @end example
 
-Commit the changes and make a patch.  Check the patch has nothing
-other than minor changes.  If all is good and you're confident in what
-you've done, this can be merged directly to @code{master}.
+@item
+From the top source directory, execute
+
+@example
+scripts/auxiliar/makelsr.pl
+@end example
+
+Say @samp{scripts/auxiliar/makelsr.pl --help} to find out how to
+modify this call; for example, command line option @option{--dump
+@var{file}} makes the script use a locally stored dump file.
 
 @item
-Next, download the updated snippets and run @command{makelsr.py}
-against them.  From the top source directory, run:
-
-@smallexample
-wget http://lsr.di.unimi.it/download/lsr-snippets-docs-`date +%F`.tar.gz
-tar -xzf lsr-snippets-docs-`date +%F`.tar.gz
-make -C $LILYPOND_BUILD_DIR
-scripts/auxiliar/makelsr.py lsr-snippets-docs-`date +%F`
-@end smallexample
-
-@noindent
-where @command{date +%F} gives the current date in format
-@var{YYYY-MM-DD} (the snippets archive is usually generated around
-03:50 CET, you may want to use @command{date -d yesterday +%F}
-instead, depending on your time zone and the time you run this
-commands sequence).  @command{make} is included in this sequence so
-that @command{makelsr} can run @command{lilypond} and
-@command{convert-ly} versions that match current source tree; you can
-select different binaries if desired or needed, to see options for
-this do
-
-@smallexample
-scripts/auxiliar/makelsr.py --help
-@end smallexample
-
-@end enumerate
-
-Note that whenever there is a snippet in
-@file{Documentation/snippets/new} and another from the LSR with
-the same file name, @command{makelsr.py} will overwrite the LSR
-version with the one from @file{Documentation/snippets/new}.
-
-
-@node Fixing snippets in LilyPond sources
-@section Fixing snippets in LilyPond sources
-
-If some snippet from @file{Documentation/snippets} causes the
-documentation compilation to fail, the following steps should be
-followed to fix it reliably.
-
-@enumerate
+Carefully check the output of the script for warnings and errors,
+then carefully check the file differences in the git repository.
+@samp{git diff} is your friend.
 
 @item
-Look up the snippet filename @file{@var{foo}.ly} in the error output
-or log, then fix the file @file{Documentation/snippets/@var{foo}.ly} to make the
+Rebuild the documentation.  If some snippets from
+@file{Documentation/@/snippets/} cause the documentation
+compilation to fail, try the following steps to fix it.
+
+@itemize
+
+@item
+Look up the snippet filename @file{@var{foo}.ly} in the error
+output or log file, then fix the file
+@file{Documentation/@/snippets/@/@var{foo}.ly} to make the
 documentation build successfully.
 
 @item
@@ -250,38 +355,40 @@ head -2 Documentation/snippets/@var{foo}.ly
 @end example
 
 @item
-@strong{If the snippet comes from the LSR}, also apply the fix to the
-snippet in the LSR and send a notification email to an LSR editor with CC to
-the development list -- see @ref{Adding and editing snippets}.  The
-failure may sometimes not be caused by the snippet in LSR but by the
-syntax conversion made by @command{convert-ly}; in this case, try to fix
-@command{convert-ly} or report the problem on the development list, then
-run @command{makelsr.py} again, see @ref{LSR to Git}.  In some cases,
-when some features has been introduced or vastly changed so it requires
-(or takes significant advantage of) important changes in the snippet, it
-is simpler and recommended to write a new version of the snippet in
-@file{Documentation/snippets/new}, then run @command{makelsr.py}.
+If the snippet comes from the LSR, also apply the fix to the
+snippet in the LSR and send a notification email to an LSR editor
+with CC to the development list, @pxref{Adding and editing
+snippets}.
+
+Note that the failure may sometimes not be caused by the snippet
+in the LSR but by LilyPond syntax changes that
+@command{convert-ly} can't handle automatically.  Such files
+@emph{must} be added to the @file{new/} directory.
 
 @item
-@strong{If the snippet comes from} @file{Documentation/snippets/new},
-apply the fix in @file{Documentation/snippets/new/@var{foo}.ly}, then
-run @command{makelsr.py} without argument from top of the source tree:
+If the snippet comes from @file{Documentation/@/snippets/@/new/},
+apply the fix in
+@file{Documentation/@/snippets/@/new/@/@var{foo}.ly} and run
+@command{makelsr.pl} as follows:
 
 @example
-scripts/auxiliar/makelsr.py
+scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
 @end example
 
-Then, inspect @file{Documentation/snippets/@var{foo}.ly} to check that
-the fix has been well propagated.
-
-If the build failure was caused by a translation string, you may have
-to fix some @file{Documentation/@var{lang}/texidocs/@var{foo}.texidoc}
-instead; in case the build failure comes only from translation
-strings, it is not needed to run @command{makelsr.py}.
+Then, inspect @file{Documentation/@/snippets/@/@var{foo}.ly} to
+check that the fix has been well propagated.
 
 @item
-When you've done, commit your changes to Git and ensure they're
-pushed to the correct branch.
+If the build failure was caused by a translation string, you may
+have to fix some
+@file{Documentation/@/@var{lang}/@/texidocs/@/@var{foo}.texidoc}
+files instead.
+
+@end itemize
+
+@item
+When you are done, commit your changes to your Git branch and
+create a merge request (@pxref{Lifecycle of a merge request}).
 
 @end enumerate
 
@@ -289,13 +396,14 @@ pushed to the correct branch.
 @node Renaming a snippet
 @section Renaming a snippet
 
-Due to the potential duality of snippets (i.e., they may exist both
-in the LSR database, and in @code{Documentation/snippets/new/}),
-this process is a bit more involved than we might like.
+Due to the potential duality of snippets (i.e., they may exist
+both in the LSR database and in
+@file{Documentation/@/snippets/@/new/}), this process is a bit
+more involved than we might like.
 
 @enumerate
 @item
-Send an email LSR editor, requesting the renaming.
+Send an email to an LSR editor, requesting the renaming.
 
 @item
 The LSR editor does the renaming (or debates the topic with you),
@@ -304,8 +412,8 @@ renaming.
 
 @item
 LSR-to-git person does his normal job, but then also renames any
-copies of the snippets in @code{Documentation/snippets/new/}, and
-any instances of the snippet name in the documentation.
+copies of the snippets in @file{Documentation/@/snippets/@/new/},
+and any instances of the snippet name in the documentation.
 
 @code{git grep} is highly recommended for this task.
 
