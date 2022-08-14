@@ -17,8 +17,8 @@ depending on the @code{figuredBassAlterationDirection} and
 
 If plus signs appear after the number, specially designed glyphs are
 provided for some figures.
-"
 
+"
   doctitle = "Changing the positions of figured bass alterations"
 } % begin verbatim
 

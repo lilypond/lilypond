@@ -18,10 +18,10 @@ rather than @code{BarNumber}.
 
 This example demonstrates a number of settings: the centered bar
 numbers are boxed and placed below the staves.
+
 "
   doctitle = "Measure-centered bar numbers"
 } % begin verbatim
-
 
 
 \layout {
