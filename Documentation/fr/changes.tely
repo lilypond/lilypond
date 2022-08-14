@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 488c66d331fca606a794fd5d2bcb30a00ad5ea79
+    Translation of GIT committish: 2b5991e641dc5fe241fd9b38cee56675cd83a25e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,7 @@
 
 @c no dircategory nor direntry in  French
 @c since info is not translated. -JCM
+@c deux lignes vides entre les items
 
 @include fr/macros.itexi
 
@@ -72,7 +73,6 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
-
 
 
 
@@ -207,7 +207,7 @@ l'utilisation de commandes telles que @code{\override Staff@dots{}}
 }
 @end lilypond
 
-La solution consiste à placer le @code{\bar} au sein même de la musiique
+La solution consiste à placer le @code{\bar} au sein même de la musique
 dans chaque portée, comme c'est généralement le cas pour la plupart des
 commandes.
 
@@ -367,13 +367,19 @@ L'instruction @code{\bar ","} crée une barre de mesure raccourcie.
 
 @itemize
 @item
+Le positionnement des extensions de trille peut désormais se spécifier
+comme pour toute indication d'articulation, autrement dit à l'aide de
+@code{_\startTrillSpan} ou @code{^\startTrillSpan}.
+
+
+@item
 L'apparence des extensions de trille a été modifiée pour mieux
 correspondre aux conventions classiques de la gravure. L'extension
 s'arrête désormais juste avant la note qui suit, sans la chevaucher. Ce
 sera juste avant l'altération si la note qui suit en est pourvue, et au
 niveau de la barre si la prochaine note est dans la mesure suivante.
 
-@lilypond
+@lilypond[quote]
 {
   \override Score.SpacingSpanner.spacing-increment = 2.1
   d''2\startTrillSpan 2\stopTrillSpan
@@ -387,7 +393,7 @@ niveau de la barre si la prochaine note est dans la mesure suivante.
 Les événements attachés à des notes, tels que nuances ou articulations,
 peuvent être différés d'une durée arbitraire à l'aide de @code{\after}.
 Ceci permet de simplifier de nombreuses situations qui jusqu'alors
-demandaient de recourir à une polypĥonie et des silences invisibles.
+demandaient de recourir à une polyphonie et des silences invisibles.
 
 @lilypond[verbatim,quote]
 {
@@ -499,7 +505,7 @@ music = \fixed c' {
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 
@@ -538,18 +544,27 @@ certains chiffres Emmentaler à l'aide de fonctionnalités OpenType.
 
 @lilypond[quote]
 \markuplist
+  \number
   \fontsize #6
-  \override #'((padding . 4)
-               (baseline-skip . 7))
-  \table #'(-1 -1) {
-    \number 0123456789
-          \normalsize "(time signatures)"
-    \override #'(font-features . ("ss02"))
-      \number 0123456789
-          \normalsize "(fingering)"
-    \override #'(font-features .("ss01" "-kern"))
-      \number 0123456789
-          \normalsize "(fixed-width digits)"
+  \override #'((padding . 3)
+               (baseline-skip . 7)
+               (box-padding . 0)
+               (thickness . 0.1))
+  \table #'(-1 -1 -1 -1) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 }
+    \normal-text \normalsize "(time signatures)"
+    \override #'(font-features .("cv47")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(alternatives)"
+    \override #'(font-features .("tnum" "cv47" "-kern")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fixed-width)"
+    \override #'(font-features . ("tnum" "cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(figured bass)"
+    \override #'(font-features . ("cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fingering)"
   }
 @end lilypond
 
@@ -595,12 +610,12 @@ d'afficher les numéros de mesure en cours de portée sauf pour la
 première mesure. En pareil cas, il convient de tout simplement supprimer
 la clause
 @code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
-puisque @code{\overrideBarNumber@/.break-@/visibility = ##t} est le
+puisque @code{\override BarNumber@/.break-@/visibility = ##t} est le
 réglage approprié et suffisant.
 
 
 @item
-Les types de barre prédéfinies qui suivent n'apparaissent plus sous
+Les types de barre prédéfinie qui suivent n'apparaissent plus sous
 forme de simple barre lorsqu'ils surviennent en fin de ligne. Des types
 de barre annotée, tel que @code{\bar "S-|"}, ont été ajoutés en
 conséquence.
@@ -682,7 +697,7 @@ altérations entre crochets.
 
 
 @item
-La mise en forme de info-bulles est désormais modifiable.
+La mise en forme des info-bulles est désormais modifiable.
 
 @lilypond[quote]
 \new Score \with {
@@ -707,8 +722,33 @@ La mise en forme de info-bulles est désormais modifiable.
 
 @itemize
 @item
+@code{\smallCaps} est maintenant opérationnel sur tout @emph{markup},
+non plus uniquement sur des chaînes brutes.
+
+
+@item
+Des textes de remplacement peuvent désormais changer des chaînes dans
+tout @emph{markup}, au lieu de modifier une chaîne en particulier.
+
+@lilypond[verbatim,quote]
+\markup
+  \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #}))
+  "2nd time"
+@end lilypond
+
+
+@item
+La commande de @emph{markup} @code{\with-string-transformer} est
+désormais disponible. Elle interprète un @emph{markup} avec l'un des
+« transformateurs de chaîne » installés. Le transformateur est appelé
+lorsque l'interprétation du @emph{markup} requiert l'interprétation
+d'une chaîne et permet d'opérer des modifications sur cette chaîne,
+comme par exemple en basculer la casse.
+
+
+@item
 La commande de @emph{markup} @code{\rhythm} fait son apparition. Il
-s'agit dun moyen simple de mélanger du texte et du rythme comme, par
+s'agit d'un moyen simple de mélanger du texte et du rythme comme, par
 exemple, pour afficher une indication de « swing ».
 
 @lilypond[verbatim,quote]
@@ -726,11 +766,11 @@ exemple, pour afficher une indication de « swing ».
 @item
 Sont maintenant disponibles les commandes de @emph{markup}
 @code{\with-true-dimension} et @code{\with-true-dimensions}. Elles
-procurent l'étendue réelle de la surface encrée, qui peut êtrre quelque
-peu différente de l'étendue par défaut pour certains glyphe en raison
+procurent l'étendue réelle de la surface encrée, qui peut être quelque
+peu différente de l'étendue par défaut pour certains glyphes en raison
 des contraintes de régularité du texte.
 
-@lilypond
+@lilypond[quote]
 \markup
   \fontsize #10
   \override #'((box-padding . 0) (thickness . 0.02))
@@ -1013,6 +1053,54 @@ Un
 @end ignore
 
 
+@subsubheading Améliorations pour les notations anciennes
+
+@itemize
+@item
+@code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff} et
+@code{VaticanaStaff} acceptent désormais qu'un saut de ligne intervienne
+n'importe où, sans qu'une barre de mesure @code{""} soit créée.
+
+
+@item
+Le type de barre @code{"-span|"} crée un @notation{mensurstrich} --
+impression des lignes de mensuration.
+
+@lilypond[quote]
+\new StaffGroup \with { measureBarType = "-span|" } <<
+  \new Staff \fixed c'' { c4 d e f e d }
+  \new Staff \fixed c' { a2 f2. g4 }
+>>
+@end lilypond
+
+
+@item
+Les commandes prédéfinies pour les divisions grégoriennes ne sont plus
+des variantes de @code{\breathe}. @code{\divisioMinima},
+@code{\divisioMaior}, @code{\divisioMaxima} et @code{\virgula} sont des
+variantes d'un @code{\caesura} de base. @code{\finalis} équivaut à
+@code{\section}.
+
+@c Note: Once Bar_engraver is capable of interpreting \caesura, I
+@c expect to switch GregorianTranscriptionStaff to use it rather
+@c than Divisio_engraver. [DE]
+@code{GregorianTranscriptionStaff}, @code{MensuralStaff} et
+@code{VaticanaStaff} ont recours au @code{Divisio_@/engraver} pour
+interpréter ces commandes, ainsi que @code{\repeat volta} et
+@code{\fine}.
+
+@lilypond[verbatim,quote]
+\new MensuralStaff \fixed c' {
+  \repeat volta 2 { f2 f }
+  g1
+  a1 \section
+  b1 \fine
+}
+@end lilypond
+
+@end itemize
+
+
 @subsubheading Améliorations pour les musiques du monde
 
 @itemize
@@ -1133,6 +1221,7 @@ sous-options @code{-dtall-page-formats} et
 
 @end itemize
 
+
 @subsubheading Améliorations pour le MIDI
 
 @itemize
@@ -1178,6 +1267,32 @@ l'instar de @code{\break}.
 
 @itemize
 @item
+La deuxième portion des soufflets tronqués bénéficie maintenant d'un
+rembourrage à gauche. Ceci est conforme aux canons de la gravure et
+règle le problème de décallage vertical qui pouvait intervenir en raison
+de l'armure.
+
+@lilypond[verbatim,quote]
+\relative {
+  \key a \major
+  c''4^\< c c c \break c c c c\! |
+}
+@end lilypond
+
+
+@item
+Le glyphe d'accent est un peu plus petit qu'auparavant. Ceci permet de
+pallier certains cas où, par exemple, la présence d'un bécarre aurait
+déplacé l'accent verticalement.
+
+@lilypond[quote]
+{
+  f'!8[-> f'-> f'-> f'->]
+}
+@end lilypond
+
+
+@item
 Deux glyphes redondants ont été supprimés des fontes Emmentaler :
 @code{scripts.trillelement} -- utilisez @code{scripts.trill_element} en
 remplacement -- et @code{scripts.augmentum} -- à remplacer par
@@ -1187,7 +1302,7 @@ remplacement -- et @code{scripts.augmentum} -- à remplacer par
 @item
 Les propriétés de @code{PaperColumn} et @code{NonMusicalPaperColumn}
 telle que @code{NonMusicalPaperColumn.line-@/break-@/system-@/details}
-acceptent désormais des dérogations au file de la musique à l'aide d'une
+acceptent désormais des dérogations au fil de la musique à l'aide d'une
 simple instruction @code{\once \override}. Elles consituaient
 jusqu'alors une exception, requérant l'utilisation de la commande
 @code{\overrideProperty}.
@@ -1265,7 +1380,7 @@ même pas, sauf si ces événements sont équivalents.
 Les traducteurs définis en Scheme et utilisables à la fois dans le cadre
 d'un @samp{\layout} et d'un @samp{\midi} peuvent désormais être créés à
 l'aide de @code{make-translator}. Les exécutants définis en Scheme, qui
-ne peuvent s'utiliser de dans un @samp{\midi} se créent à l'aide de
+ne peuvent s'utiliser que dans un @samp{\midi} se créent à l'aide de
 @code{make-performer}. Ces macros fontionnent tout comme la macro
 préexistante @code{make-engraver} qui permet de créer un graveur,
 uniquement utilisable dans un @samp{\layout}.
