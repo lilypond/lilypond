@@ -880,12 +880,10 @@ $(outdir)/ly-examples/%-small.png: $(outdir)/ly-examples/%.png
 
 ## LOGO
 
-ifeq ($(PLATFORM_WINDOWS),yes)
-  $(outdir)/%.ico: %.xpm
-	  $(call ly_progress,Making,$@,< xpm)
-	  mkdir -p $(dir $@)
-	  $(PYTHON) $(buildscript-dir)/genicon.py $< $@
-endif # PLATFORM_WINDOWS
+$(outdir)/%.ico: %.xpm
+	$(call ly_progress,Making,$@,< xpm)
+	mkdir -p $(dir $@)
+	convert $< -define icon:auto-resize=64,48,32 $@
 
 $(outdir)/%.css: %.css
 	$(call ly_progress,Making,$@,(copy))
