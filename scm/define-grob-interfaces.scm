@@ -580,6 +580,11 @@ as bar lines, but it is not a bar line."
  '(details display-cautionary span-start))
 
 (ly:add-interface
+ 'text-mark-interface
+ "A textual mark."
+ '())
+
+(ly:add-interface
  'time-signature-interface
  "A time signature, in different styles.  The following values for
 @code{style} are are recognized:

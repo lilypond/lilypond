@@ -629,6 +629,7 @@ run."
   \consists Spanner_tracking_engraver
   \consists System_start_delimiter_engraver
   \consists Mark_engraver
+  \consists Text_mark_engraver
   \consists Jump_engraver
   \consists Volta_engraver
   \consists Metronome_mark_engraver

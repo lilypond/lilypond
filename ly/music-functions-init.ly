@@ -1983,6 +1983,19 @@ property-changing music that isn't an @code{\\override}.")
     music)
    music)
 
+%% The reasoning behind using RIGHT for \textMark and LEFT for \textEndMark
+%% is that we may want to generalize horizontal-direction to be also a grob
+%% property and apply to more items, and this way it is similar to the break
+%% status direction of an item.
+
+textMark =
+#(define-music-function (text) (markup?)
+   (make-music 'TextMarkEvent 'text text 'horizontal-direction RIGHT))
+
+textEndMark =
+#(define-music-function (text) (markup?)
+   (make-music 'TextMarkEvent 'text text 'horizontal-direction LEFT))
+
 time =
 #(define-music-function (beat-structure fraction)
    ((number-list? '()) fraction?)

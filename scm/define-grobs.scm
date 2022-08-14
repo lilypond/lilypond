@@ -3417,6 +3417,46 @@ start delimiter.")))))
                  (description . "A @q{note head} (usually a
 digit) in a tablature.  See also @iref{NoteHead}.")))))
 
+    (TextMark
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (baseline-skip . 2)
+        (break-align-symbols . (staff-bar key-signature clef))
+        (break-visibility . ,text-mark-interface::calc-break-visibility)
+        (direction . ,UP)
+        ;; See \markLengthOn
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        ;; slightly bigger than TextScript, smaller than SectionLabel
+        (font-size . 0.5)
+        (non-musical . #t)
+        (outside-staff-horizontal-padding . 0.2)
+        ;; More than CenteredBarNumberLineSpanner but less than MetronomeMark.
+        ;; This is a guess; there isn't a single use case for text marks, so it
+        ;; is expected that the user might have to tweak outside-staff-priority
+        ;; if needed.
+        (outside-staff-priority . 1250)
+        (padding . 0.8)
+        (self-alignment-X . ,text-mark-interface::calc-self-alignment-X)
+        (stencil . ,ly:text-interface::print)
+        (text . ,(grob::calc-property-by-copy 'text))
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (accidental-switch-interface
+                                break-alignable-interface
+                                font-interface
+                                mark-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface
+                                text-mark-interface))
+                 (description . "An arbitrary textual mark.
+See also @iref{SectionLabel} and @iref{JumpScript} for grobs with a
+more specific intent.")))))
+
     (TextScript
      . (
         (avoid-slur . around)

@@ -183,9 +183,10 @@ Mark_tracking_translator::get_segno_mark_label (const Context *context,
 void
 Mark_tracking_translator::listen_ad_hoc_mark (Stream_event *ev)
 {
-  // Ad-hoc marks are not rehearsal marks (though they lead to the creation of
-  // RehearsalMark grobs for backward compatibility), so this conflict check is
-  // simple: complain about everything to incentivize using something else.
+  // Ad-hoc marks are not rehearsal marks, but they lead to the creation of
+  // RehearsalMark grobs for backward compatibility, so this conflict check is
+  // simple: complain about everything to incentivize using something
+  // else, such as \sectionLabel, \jump, \textMark or \textEndMark.
   set_rehearsal_event_once (Event_type::ad_hoc_mark, ev);
 }
 

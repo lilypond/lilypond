@@ -741,6 +741,12 @@ Syntax: @code{\\rightHandFinger @var{text}}")
         (types . (event tempo-change-event))
         ))
 
+    (TextMarkEvent
+     . ((description . "A textual mark.
+
+Syntax: @code{\\textMark @var{markup}} or @code{\\textEndMark @var{markup}}.")
+        (types . (text-mark-event event))))
+
     (TextScriptEvent
      . ((description . "Print text.")
         (types . (post-event script-event text-script-event event))

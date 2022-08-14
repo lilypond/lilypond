@@ -106,6 +106,10 @@ always be printed on this note.")
 property, e.g., @code{(beamed-lengths details)}.")
      (grob-value ,scheme? "The value of the grob property to set.")
 
+
+     (horizontal-direction ,ly:dir? "This is @code{RIGHT} for
+@code{\\textMark}, and @code{LEFT} for @code{\\textEndMark}.")
+
      (id ,symbol? "The ID of an event.")
      (input-tag ,scheme? "Arbitrary marker to relate input and output.")
      (inversion ,boolean? "If set, this chord note is inverted.")

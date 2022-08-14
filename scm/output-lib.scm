@@ -3299,3 +3299,25 @@ for measure division ~a")
   (let* ((width (ly:grob-extent grob grob X))
          (height (ly:grob-extent grob grob Y)))
   (make-filled-box-stencil width height)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; text marks
+
+(define-public (text-mark-interface::calc-break-visibility grob)
+  (let* ((ev (event-cause grob))
+         (is-end-mark (eqv? LEFT (ly:event-property ev 'horizontal-direction))))
+    (if is-end-mark begin-of-line-invisible end-of-line-invisible)))
+
+(define-public (text-mark-interface::calc-self-alignment-X grob)
+  ;; \textEndMark aligns on the right, as it's intended for text that look back
+  ;; at the preceding music, and is visible at the end of a line.  \textMark
+  ;; aligns on the left; text marks are often long (in the sense of "longer than
+  ;; rehearsal marks, which are just one letter"), so centering doesn't look
+  ;; very well.  That said, text marks fit various exotic use cases, so it is to
+  ;; be expected that the user will have to tweak self-alignment-X sometimes.
+  (let* ((ev (event-cause grob))
+         (is-end-mark (eqv? LEFT (ly:event-property ev 'horizontal-direction))))
+    (if is-end-mark
+        RIGHT
+        LEFT)))

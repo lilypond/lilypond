@@ -41,7 +41,8 @@
                     beam-forbid-event script-event tempo-change-event
                     tremolo-event bend-after-event fingering-event
                     glissando-event harmonic-event hyphen-event
-                    laissez-vibrer-event mark-event multi-measure-text-event
+                    laissez-vibrer-event mark-event text-mark-event
+                    multi-measure-text-event
                     multi-measure-articulation-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     section-event section-label-event
