@@ -14,7 +14,7 @@ as the second argument of @code{\\scaleDurations}.
 
 "
   doctitle = "Changing time signatures inside a polymetric section using \\scaleDurations"
-} % begin verbatim
+}
 
 \layout {
   \context {

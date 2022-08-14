@@ -1,6 +1,8 @@
 \version "2.23.10"
 
 \header {
+  lsrtags = "chords"
+
   texidoc = "Custom divisions of chord squares can be defined through the
 @code{measure-division-lines-alist} and @code{measure-division-chord-placement-alist}
 properties of @code{ChordSquare}.  These are both alists.  Their keys are
@@ -22,8 +24,8 @@ the respective chords.
 
 This example defines a peculiar chord grid style that has a rule
 for measures divided in three equal parts."
-  lsrtags = "chords"
-  doctitle = "Customing the chord grid style"
+
+  doctitle = "Customizing the chord grid style"
 }
 
 \paper {

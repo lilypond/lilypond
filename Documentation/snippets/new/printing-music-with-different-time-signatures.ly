@@ -18,7 +18,7 @@ numbers to the relevant staff.
 
 "
   doctitle = "Printing music with different time signatures"
-} % begin verbatim
+}
 
 
 \paper {

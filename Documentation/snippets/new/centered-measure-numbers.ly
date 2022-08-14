@@ -11,7 +11,7 @@ simulate this notational practice.  Here, the engraver has been added
 to a @code{Dynamics} context.
 
 This snippet presents a legacy method: starting from LilyPond 2.23.3,
-@code{\set Score.centerBarNumbers = ##t} is enough.
+@code{\\set Score.centerBarNumbers = ##t} is enough.
 
 "
   doctitle = "Centered measure numbers"
