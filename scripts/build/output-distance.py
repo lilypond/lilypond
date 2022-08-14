@@ -453,7 +453,7 @@ class ImagesLink (FileLink):
     def get_cell(self, oldnew: int) -> str:
         htmls = []
 
-        for (key, link) in self.image_links.items():
+        for (key, link) in sorted(self.image_links.items()):
             html = link.get_cell_html('image %d' % key, oldnew)
             if html:
                 htmls.append(html)
@@ -1146,6 +1146,8 @@ def test_compare_tree_pairs():
     assert "added.log" in html
     assert "dir2/removed.compare.jpeg" not in html
 
+    assert html.index("dir2/added-multipage-2.png") <  html.index("dir2/added-multipage-10.png")
+
     tidy_bin = shutil.which('tidy')
     if tidy_bin:
         subprocess.run([tidy_bin, '-o', '/dev/null', '-q', html_fn], check=True)
@@ -1275,8 +1277,21 @@ def test_basic_compare():
 { e'4 }
 """)
 
+
+    open('added-multipage.ly', 'w', encoding='utf-8').write(
+        r"""
+#(define default-toplevel-book-handler
+  print-book-with-defaults-as-systems )
+
+#(ly:set-option (quote no-point-and-click))
+
+\sourcefilename "added-multipage.ly"
+\repeat unfold 12 { a'1\break }
+""")
+
+    
     names = simple_names + ["20multipage",
-                            "19multipage"] + ['added', 'removed']
+                            "19multipage"] + ['added', 'removed', 'added-multipage.ly']
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
     args = [binary, '-dseparate-page-formats=ps', '-daux-files', '-dtall-page-formats=ps',
            '--formats=ps', '-dseparate-log-files', '-dinclude-eps-fonts', '-dgs-load-fonts',
