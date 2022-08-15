@@ -289,6 +289,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def macos_ldflags(self):
+        """Return additional linker flags for macOS."""
         return "-Wl,-framework -Wl,CoreFoundation"
 
     def get_env_variables(self, c: Config) -> Dict[str, str]:
