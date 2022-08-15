@@ -43,7 +43,7 @@ class Package:
 
     def enabled(self, c: Config) -> bool:
         """Return whether this package is enabled for this configuration."""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return True
 
     @property
@@ -100,7 +100,7 @@ class Package:
 
     def dependencies(self, c: Config) -> List["Package"]:
         """Return the dependencies for this package"""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return []
 
     def download(self, c: Config):
@@ -249,7 +249,6 @@ class ConfigurePackage(Package):
 
     def configure_args_triples(self, c: Config) -> List[str]:
         """Return the parameters to configure the package for the platform"""
-        # pylint: disable=no-self-use
         return [
             # "--build" is the current system.
             f"--build={c.native_config.triple}",
@@ -259,7 +258,7 @@ class ConfigurePackage(Package):
 
     def configure_args_static(self, c: Config) -> List[str]:
         """Return the parameters to configure the package for a static build (if any)"""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return ["--disable-shared", "--enable-static"]
 
     def configure_args(self, c: Config) -> List[str]:
@@ -269,17 +268,17 @@ class ConfigurePackage(Package):
         triples (see configure_args_triples), a static library build (see
         configure_args_static), as well as the install prefix to the temporary
         location."""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return []
 
     def make_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to the make invocation"""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return []
 
     def make_install_args(self, c: Config) -> List[str]:
         """Return additional parameters to pass to make install"""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return []
 
     def build(self, c: Config) -> bool:
@@ -326,7 +325,7 @@ class MesonPackage(Package):
 
     def meson_args_static(self, c: Config) -> List[str]:
         """Return the parameters to configure the package for a static build (if any)"""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return ["--default-library=static"]
 
     def meson_args(self, c: Config) -> List[str]:
@@ -335,7 +334,7 @@ class MesonPackage(Package):
         The build process automatically adds options for optimizations, a static
         library build (see meson_args_static) and the install prefix to the
         temporary location."""
-        # pylint: disable=no-self-use,unused-argument
+        # pylint: disable=unused-argument
         return []
 
     def build(self, c: Config):
