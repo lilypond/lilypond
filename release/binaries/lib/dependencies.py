@@ -720,8 +720,9 @@ class Guile(ConfigurePackage):
 
         # Fix conversion of large long values.
         def patch_conversion(content: str) -> str:
-            return content.replace("SIZEOF_TYPE < SIZEOF_SCM_T_BITS",
-                                   "SIZEOF_TYPE < SIZEOF_LONG")
+            return content.replace(
+                "SIZEOF_TYPE < SIZEOF_SCM_T_BITS", "SIZEOF_TYPE < SIZEOF_LONG"
+            )
 
         for conv in ["conv-integer.i.c", "conv-uinteger.i.c"]:
             self.patch_file(c, os.path.join("libguile", conv), patch_conversion)
@@ -933,7 +934,9 @@ class Pango(MesonPackage):
     @property
     def download_url(self) -> str:
         major_version = ".".join(self.version.split(".")[0:2])
+        # fmt: off
         return f"https://download.gnome.org/sources/pango/{major_version}/{self.archive}"
+        # fmt: on
 
     def apply_patches(self, c: Config):
         # Disable tests, fail to build on FreeBSD.

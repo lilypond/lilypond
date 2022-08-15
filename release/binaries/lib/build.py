@@ -186,15 +186,19 @@ class Package:
         # copying the invocations to the shell.
         formatted_args = "' '".join(args)
         formatted_args = f"'{formatted_args}'"
-        formatted_env = "\n  ".join([f"{key}={val}" for key, val in self.build_env_extra(c).items()])
-        log_entry = ("Running command\n"
+        formatted_env = "\n  ".join(
+            [f"{key}={val}" for key, val in self.build_env_extra(c).items()]
+        )
+        log_entry = (
+            "Running command\n"
             f"  {formatted_args}\n"
             "in directory\n"
             f"  '{self.build_directory(c)}'\n"
             "with additional environmental settings\n"
-            f"  {formatted_env}")
+            f"  {formatted_env}"
+        )
         logging.debug(log_entry)
-        log.write(log_entry+"\n*** Begin of command output ***\n")
+        log.write(log_entry + "\n*** Begin of command output ***\n")
         log.flush()
 
         build_env = os.environ.copy()
