@@ -438,7 +438,7 @@ zlib = Zlib()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.72.2"
+        return "2.72.3"
 
     @property
     def directory(self) -> str:
@@ -854,7 +854,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "4.4.0"
+        return "4.4.1"
 
     @property
     def directory(self) -> str:
@@ -893,7 +893,7 @@ harfbuzz = HarfBuzz()
 class FriBidi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.0.11"
+        return "1.0.12"
 
     @property
     def directory(self) -> str:
@@ -922,7 +922,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.50.7"
+        return "1.50.9"
 
     @property
     def directory(self) -> str:
@@ -978,7 +978,7 @@ class Pango(MesonPackage):
 pango = Pango()
 
 
-PYTHON_VERSION = "3.10.5"
+PYTHON_VERSION = "3.10.6"
 
 
 class Python(ConfigurePackage):
