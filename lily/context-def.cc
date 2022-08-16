@@ -25,7 +25,9 @@
 #include "context.hh"
 #include "context-mod.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "output-def.hh"
+#include "scm-hash.hh"
 #include "translator.hh"
 #include "warn.hh"
 
@@ -300,25 +302,48 @@ Context_def::internal_path_to_bottom_context (Output_def *odef,
 SCM
 Context_def::get_translator_names (SCM user_mod) const
 {
-  SCM l1 = SCM_EOL;
-
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_), user_mod);
-
-  for (SCM s = mods; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM tag = scm_caar (s);
-      SCM arg = scm_cadar (s);
-
-      if (scm_is_string (arg))
-        arg = scm_string_to_symbol (arg);
-
-      if (scm_is_eq (tag, ly_symbol2scm ("consists")))
-        l1 = scm_cons (arg, l1);
-      else if (scm_is_eq (tag, ly_symbol2scm ("remove")))
-        l1 = scm_delq_x (arg, l1);
-    }
-
-  return l1;
+  // Incrementally build the set of translators for this context.  A \consists
+  // command adds to the set.  Duplicates are avoided by storing the index of
+  // the last \consists command for a given translator in the added_index hash
+  // table.  The reason for avoiding duplicates without a warning is that this
+  // can be useful if several independent commands add the same translator.
+  // After the first iteration, the list is filtered for indices where the value
+  // in added_index matches, to let the order keep the last \consists.  A
+  // \remove command removes from the set, implemented as removing the
+  // corresponding value in added_index.  (This could also be implemented with
+  // just scm_memq and scm_delq, but that would be a quadratic algorithm.)
+  Scheme_hash_table *added_index =
+    unsmob<Scheme_hash_table> (Scheme_hash_table::make_smob ());
+  auto iter_mods = [&] (auto func) {
+    vsize i = 0;
+    for (SCM p : as_ly_scm_list (mods))
+      {
+        SCM tag = scm_car (p);
+        SCM arg = scm_cadr (p);
+        if (scm_is_string (arg))
+          arg = scm_string_to_symbol (arg);
+        func (i, tag, arg);
+        i++;
+      }
+  };
+  iter_mods ([&] (vsize i, SCM tag, SCM arg) {
+    if (scm_is_eq (tag, ly_symbol2scm ("consists")))
+      added_index->set (arg, to_scm (i));
+    else if (scm_is_eq (tag, ly_symbol2scm ("remove")))
+      added_index->remove (arg);
+  });
+  SCM ret = SCM_EOL;
+  iter_mods ([&] (vsize i, SCM tag, SCM arg) {
+    if (scm_is_eq (tag, ly_symbol2scm ("consists")))
+      {
+        SCM index = added_index->get (arg);
+        if (!SCM_UNBNDP (index) && from_scm<vsize> (index) == i)
+          ret = scm_cons (arg, ret);
+      }
+  });
+  // Note that the list is returned in reverse order.
+  return ret;
 }
 
 SCM
