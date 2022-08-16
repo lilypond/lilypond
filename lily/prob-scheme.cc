@@ -36,7 +36,7 @@ Set property @var{sym} of @var{obj} to @var{value}.
   Hmm, this is not orthogonal.
 */
 LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
-           2, 1, 0, (SCM obj, SCM sym),
+           2, 0, 0, (SCM obj, SCM sym),
            R"(
 Is boolean prop @var{sym} of @var{obj} set?
            )")

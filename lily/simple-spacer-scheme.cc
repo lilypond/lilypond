@@ -27,7 +27,7 @@
 using std::vector;
 
 LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
-           4, 1, 0, (SCM springs, SCM rods, SCM length, SCM ragged),
+           4, 0, 0, (SCM springs, SCM rods, SCM length, SCM ragged),
            R"(
 Solve a spring and rod problem for @var{count} objects that are connected by
 @var{count}-1 @var{springs}, and an arbitrary number of @var{rods}.

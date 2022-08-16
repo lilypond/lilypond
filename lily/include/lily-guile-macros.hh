@@ -146,6 +146,17 @@ struct ly_scm_func_of_arity<4>
   typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM);
 };
 
+template <>
+struct ly_scm_func_of_arity<5>
+{
+  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM, SCM);
+};
+
+template <>
+struct ly_scm_func_of_arity<6>
+{
+  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM, SCM, SCM);
+};
 
 /*
   Two main macros are provided in order to export C++ functions,
@@ -194,10 +205,13 @@ struct ly_scm_func_of_arity<4>
   void                                                                  \
   TYPE ## _ ## FUNC ## _init_functions ()                               \
   {                                                                     \
-    /* assignment selects the SCM function even if it is overloaded */ \
-    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
+    static_assert (OPTIONAL_COUNT <= ARGCOUNT, "");                     \
+    constexpr auto required_count = ARGCOUNT - OPTIONAL_COUNT;          \
+    /* assignment checks the signature of the function and selects */   \
+    /* the function with SCM arguments even if there are overloads */   \
+    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC;         \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (PRIMNAME,                \
-                                               (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,    \
+                                               required_count, OPTIONAL_COUNT, 0,    \
                                                reinterpret_cast<scm_t_subr> (func)); \
     ly_check_name (#TYPE "::" #FUNC, PRIMNAME);                         \
     ly_add_function_documentation (TYPE :: FUNC ## _proc, PRIMNAME, "", \
@@ -236,8 +250,14 @@ void ly_check_name (const char *cxx, const char *fname);
   void                                                                  \
   INITPREFIX ## init ()                                                 \
   {                                                                     \
+    static_assert ((VAR == 0) || (VAR == 1),                            \
+                   "can't have more than one 'rest' argument");         \
+    constexpr auto arg_count = REQ + OPT + VAR;                         \
+    /* assignment checks the signature of the function and selects */   \
+    /* the function with SCM arguments even if there are overloads */   \
+    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;             \
     FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,       \
-                                         reinterpret_cast<scm_t_subr> (FNAME)); \
+                                         reinterpret_cast<scm_t_subr> (func)); \
     ly_check_name (#FNAME, PRIMNAME);\
     ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
                                    DOCSTRING);                          \
@@ -266,28 +286,35 @@ void ly_check_name (const char *cxx, const char *fname);
    For this to work, the setter must be defined before the getter, and
    within the same compilation unit (so the init function adding it is
    guaranteed to be defined first). */
-#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME,                            \
-                              REQ, OPT, VAR,                                          \
-                              ARGLIST, DOCSTRING)                                     \
-  SCM FNAME ARGLIST;                                                                  \
-  SCM FNAME ## _proc_without_setter;                                                  \
-  SCM FNAME ## _proc;                                                                 \
-  void                                                                                \
-  FNAME ## init ()                                                                    \
-  {                                                                                   \
-    FNAME ## _proc_without_setter =                                                   \
-      scm_c_make_gsubr (PRIMNAME, REQ, OPT, VAR,                                      \
-                          reinterpret_cast<scm_t_subr> (FNAME));                      \
-    ly_check_name (#FNAME, PRIMNAME);                                                 \
-    FNAME ## _proc =                                                                  \
-      scm_make_procedure_with_setter (FNAME ## _proc_without_setter,                  \
-                                      SETTERNAME ## _proc);                           \
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST, DOCSTRING);    \
-    scm_c_define (PRIMNAME, FNAME ## _proc);                                          \
-    scm_c_export (PRIMNAME, NULL);                                                    \
-  }                                                                                   \
-  ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);                     \
-  SCM                                                                                 \
+#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME,              \
+                              REQ, OPT, VAR,                            \
+                              ARGLIST, DOCSTRING)                       \
+  SCM FNAME ARGLIST;                                                    \
+  SCM FNAME ## _proc_without_setter;                                    \
+  SCM FNAME ## _proc;                                                   \
+  void                                                                  \
+  FNAME ## init ()                                                      \
+  {                                                                     \
+    static_assert ((VAR == 0) || (VAR == 1),                            \
+                   "can't have more than one 'rest' argument");         \
+    constexpr auto arg_count = REQ + OPT + VAR;                         \
+    /* assignment checks the signature of the function and selects */   \
+    /* the function with SCM arguments even if there are overloads */   \
+    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;             \
+    FNAME ## _proc_without_setter =                                     \
+      scm_c_make_gsubr (PRIMNAME, REQ, OPT, VAR,                        \
+                        reinterpret_cast<scm_t_subr> (func));           \
+    ly_check_name (#FNAME, PRIMNAME);                                   \
+    FNAME ## _proc =                                                    \
+      scm_make_procedure_with_setter (FNAME ## _proc_without_setter,    \
+                                      SETTERNAME ## _proc);             \
+    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
+                                   DOCSTRING);                          \
+    scm_c_define (PRIMNAME, FNAME ## _proc);                            \
+    scm_c_export (PRIMNAME, NULL);                                      \
+  }                                                                     \
+  ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);       \
+  SCM                                                                   \
   FNAME ARGLIST
 
 

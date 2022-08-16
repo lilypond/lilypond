@@ -93,14 +93,11 @@ context is returned in its final state.
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",
-           2, 1, 0, (SCM mus, SCM output_def),
+           2, 0, 0, (SCM mus, SCM output_def),
            R"(
 Process @var{mus} according to @var{output-def}.  An interpretation context is
 set up, and @var{mus} is interpreted with it.  The context is returned in its
 final state.
-
-Optionally, this routine takes an object key to to uniquely identify the score
-block containing it.
            )")
 {
   auto *const music = LY_ASSERT_SMOB (Music, mus, 1);
