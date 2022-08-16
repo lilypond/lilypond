@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -866,9 +866,12 @@ disponibles ne couvre que les silences allant du
 @funindex s
 @funindex \skip
 
-Un silence invisible -- que l'on pourrait appeler un @qq{saut} --
-peut être entré comme une note avec le nom de note @code{s} ou avec
-@code{\skip @var{durée}} :
+Il existe deux formes de silence invisible -- que l'on pourrait appeler
+« saut » : le @dfn{silence d'espacement} qui se note @code{s}, et la
+commande @code{\skip}. Le silence d'espacement est une note qui ne
+produit pas de rélultat. Comme pour toute autre note ou silence, la
+durée qui lui est affectée définit la durée par défaut des notes qui le
+suivent.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -877,16 +880,25 @@ peut être entré comme une note avec le nom de note @code{s} ou avec
 }
 @end lilypond
 
+Tout comme les autres notes ou silences, un silence invisible génère
+implicitement les contextes @code{Staff} et @code{Voice} s'il n'y en
+avait pas.
+
+@lilypond[quote,verbatim]
+{ s1 s s }
+@end lilypond
+
 @cindex paroles, blanc
 @cindex paroles, saut de note
 
-La syntaxe @code{s} est seulement disponible pour les modes d'entrée
-de notes et d'accords.  Dans les autres situations, pour l'entrée de
-paroles par exemple, vous devrez utiliser la commande @code{\skip}, qui
-requiert une durée explicite ; cette durée ne sera pas prise en
-considération dès lors que les paroles suivent le rythme des notes de la
-mélodie à laquelle vous les aurez associées à l'aide des commandes
-@code{\addlyrics} ou @code{\lyricsto}.
+La syntaxe @code{s} est seulement disponible pour les modes d'entrée de
+notes et d'accords. Dans les autres situations, pour l'entrée de paroles
+par exemple, vous devrez utiliser la commande @code{\skip} pour sauter
+un moment. La commande @code{\skip} prend en argument soit une durée
+explicite, soit un fragment musical, et saute la durée de cet argument.
+Cette durée ne sera pas prise en considération dès lors que les paroles
+suivent le rythme des notes de la mélodie à laquelle vous les aurez
+associées à l'aide des commandes @code{\addlyrics} ou @code{\lyricsto}.
 
 @lilypond[quote,verbatim]
 <<
@@ -901,32 +913,55 @@ mélodie à laquelle vous les aurez associées à l'aide des commandes
 >>
 @end lilypond
 
-Gardez à l'esprit que @code{\skip} est une commande, et de ce fait
-n'affectera en rien la durée des notes qui suivent, contrairement à
-un @code{s}.
+Lorsque l'argument de @code{\skip} est de la musique, la durée par
+défaut de la note qui suit est celle de la dernière note du fragment
+« sauté ». Toutefois, et pour garder le compatibilité ascendante avec
+l'implémentation originelle de @code{\skip}, la durée donnée en argument
+n'affectera en rien la durée des notes qui suivent.
 
 @lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a'4 }
+    \repeat unfold 12 { a'4 }
   }
   {
-    a'4 \skip 2 a' |
+    a'4 \skip { a'8 a' a' a' } a' |
     s2 a'
   }
 >>
 @end lilypond
 
-La commande de saut génère simplement une case musicale vide.  Le code
-de saut @code{s} crée tout de même les contextes @code{Staff} et
-@code{Voice} lorsque nécessaire, à l'instar des notes ou des silences :
+La commande @code{\skip} préserve les effets de la commande
+@code{unfoldRepeats} qui la contiendrait, à l'inverse de la fonction
+Scheme @code{skip-@/of-@/length}.
 
-@lilypond[quote,verbatim]
-{ s1 s s }
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
+
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    #(skip-of-length MyCadenza)
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
 @end lilypond
 
-Un @code{\skip} ne fait que sauter du temps musical ; il ne produit
-rien du tout, pas même un symbole transparent.
+La commande @code{\skip} ne fait que sauter du temps musical ; elle ne
+produit rien du tout, pas même un symbole transparent.
 
 @lilypond[quote,verbatim]
 % This is valid input, but does nothing
@@ -947,6 +982,12 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{SkipMusic}.
 @endmorerefs
+
+@knownissues
+Dans la mesure où l'argument fourni à la commande @code{\skip} --
+durée ou fragment musical -- affecte différemment la durée de la
+musique qui suit, il est de bon ton de mentionner explicitement une
+durée à ce qui la suit.
 
 
 @node Silences valant une mesure
@@ -1470,6 +1511,21 @@ objet de type @emph{markup}, comme ici :
 }
 @end lilypond
 
+La commande de @emph{markup} @code{\rhythm} a ceci de particulier
+qu'elle permet d'imprimer un motif rythmique -- voir l'annexe
+@ref{Music}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
 Mentionner une indication textuelle vide vous permet de mettre entre
 parenthèses l'indication numérique :
 
@@ -1716,6 +1772,42 @@ partition, même si vous ne les placez que dans un simple contexte
 @code{Timing_translator} du contexte @code{Score} au contexte
 @code{Staff}, comme indiqué au chapitre @ref{Notation polymétrique}.
 
+@cindex cadence et saut de ligne
+@cindex cadence et saut de page
+@cindex musique non mesurée et saut de ligne
+@cindex musique non mesurée et saut de page
+@cindex saut de ligne et cadences
+@cindex saut de page et cadences
+@cindex saut de ligne et musique non mesurée
+@cindex saut de page et musique non mesurée
+
+Les sauts de ligne ou de page sont désactivés dans le cadre d'une
+cadence : puisqu'il n'y a  pas de métrique, il n'est pas possible de
+déterminer automatiquement où ils seraient appropriés. Il est donc
+nécessaire, lorsque la cadence est relativement longue, d'insérer des
+points de rupture potentiels aux endroits appropriés à l'aide de la
+commande @code{\allowBreak}.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 f g c, d f g c
+  \cadenzaOn
+  c4 cis8
+  \allowBreak
+  d[ cis c cis]
+  \allowBreak
+  d[ f g a]
+  \allowBreak
+  ais[ g f g]
+  \allowBreak
+  d4 f8
+  \allowBreak
+  d[ cis] c4
+  \allowBreak
+  a8[ c] g4
+}
+@end lilypond
+
 @predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
@@ -1734,25 +1826,6 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 @endmorerefs
-
-@cindex cadence et saut de ligne
-@cindex cadence et saut de page
-@cindex musique non mesurée et saut de ligne
-@cindex musique non mesurée et saut de page
-@cindex saut de ligne et cadences
-@cindex saut de page et cadences
-@cindex saut de ligne et musique non mesurée
-@cindex saut de page et musique non mesurée
-
-@knownissues
-Sauts de ligne ou de page ne peuvent intervenir qu'au niveau d'une barre
-de mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
-vous faudra insérer des barres de mesure « invisibles » pour indiquer où
-des sauts de ligne peuvent prendre place :
-
-@example
-\bar ""
-@end example
 
 
 @node Notation polymétrique
@@ -2956,17 +3029,10 @@ conduit à une musique compressée, voire à un débordement de la page.}
 @cindex barre de mesure invisible
 @cindex invisible, barre de mesure
 
-Il est possible d'autoriser un saut de ligne même s'il n'y a pas
-de barre de mesure visible, en utilisant :
-
-@example
-\bar ""
-@end example
-
-@noindent
-Ceci insérera une barre de mesure invisible, et permettra -- sans pour
-autant le forcer -- de sauter de ligne à cet endroit, sans incrémenter
-le numéro de mesure. Pour forcer le saut de ligne, référez vous à
+Les sauts de ligne sont aussi possibles lorsqu'est inséré manuellement
+une barre de mesure, même si cette mesure est incomplète. L'utilisation
+de la commande @code{\allowBreak} permet de passer à la ligne suivante
+sans pour autant imprimer de barre de mesure -- voir
 @ref{Sauts de ligne}.
 
 @cindex manuelle, barre de mesure
@@ -2984,8 +3050,11 @@ automatique des barres de mesure à suivre ni les propriétés y afférentes
 Lorsqu'une barre manuelle est insérée à l'endroit où viendrait se placer
 une barre normale, seul l'effet visuel en sera modifié.
 
-Vous disposez de deux types de barres simples et de cinq différentes
-doubles barres :
+@c TODO: "There are N of these and M of these and ..." is material
+@c for an appendix.
+
+Vous disposez de plusieurs types de barres simples et de doubles
+barres :
 
 @lilypond[quote,verbatim]
 \relative {
@@ -3012,7 +3081,7 @@ ainsi que d'une barre en pointillé et d'une discontinue :
 @end lilypond
 
 @noindent
-et de neuf types de barre de reprise :
+et de différents types de barre de reprise :
 
 @lilypond[quote,verbatim]
 \relative {
@@ -3054,7 +3123,8 @@ fournis à la rubrique @ref{Typographie de notation kiévienne}.
 @cindex barre et segno
 
 L'insertion d'un @emph{segno} directement sur la portée s'obtient à
-l'aide de trois types de barre de mesure, comme indiqué ci-dessous :
+l'aide de plusieurs types de barre de mesure, dont les effets diffèrent
+lorsqu'en fin de ligne :
 
 @lilypond[quote,verbatim]
 \fixed c' {
@@ -3117,8 +3187,8 @@ nouvelle.
 
 @cindex segno
 
-LilyPond dispose de six différents moyens de combiner une barre de
-reprise avec un @emph{segno} :
+LilyPond dispose de différents moyens de combiner une barre de reprise
+avec un @emph{segno} :
 
 @lilypond[quote,verbatim]
 \fixed c' {
@@ -3184,10 +3254,10 @@ utile que dans le cas d'un système à plusieurs portées (voir
 @ref{Regroupement de portées}) où il apparaîtra en tant
 qu'@var{extension} entre les portées.
 
-Les variables fournies à @code{\defineBarline} peuvent inclure la chaîne
-vide @code{""} qui correspond à une barre invisible, ou bien être
-valorisées à @code{#f} -- ce qui aura pour effet de n'imprimer aucune
-barre.
+Les arguments fournis à @code{\defineBarline} qui spécifient les glyphes
+de remplacement peuvent prendre les valeurs @code{#t} ou @code{#f}
+(absence de barre). La chaîne
+vide @code{""} qui correspond à une barre invisible.
 
 Une fois la définition explicitée, la nouvelle barre s'utilise à
 l'aide de @code{\bar} @var{type_de_barre}.
@@ -3195,12 +3265,14 @@ l'aide de @code{\bar} @var{type_de_barre}.
 Sont à ce jour disponibles dix éléments différents :
 
 @lilypond[quote,verbatim]
-\defineBarLine ":" #'("" ":" "")
-\defineBarLine "=" #'("=" "" "")
-\defineBarLine "[" #'("" "[" "")
-\defineBarLine "]" #'("]" "" "")
+\defineBarLine ":" #'(#f #t #f)
+\defineBarLine "=" #'(#t #f #t)
+\defineBarLine "[" #'(#f #t #f)
+\defineBarLine "]" #'(#t #f #f)
 
 \new Staff {
+  s1 \bar "'"
+  s1 \bar ","
   s1 \bar "|"
   s1 \bar "."
   s1 \bar "!"
@@ -3227,7 +3299,7 @@ matière d'extension.  Ce qui suit le @code{"-"} n'est d'aucune
 utilité dans la construction de la barre.
 
 @lilypond[quote,verbatim]
-\defineBarLine "||-dashedSpan" #'("||" "" "!!")
+\defineBarLine "||-dashedSpan" #'(#t #f "!!")
 
 \new StaffGroup <<
   \new Staff \relative c'' {
@@ -3248,8 +3320,8 @@ de l'espace et ainsi aligner correctement les différents tronçons
 d'une barre d'un seul tenant entre les portées d'un système :
 
 @lilypond[quote,verbatim]
-\defineBarLine ":|.-wrong" #'(":|." "" "|.")
-\defineBarLine ":|.-right" #'(":|." "" " |.")
+\defineBarLine ":|.-wrong" #'(#t #f "|.")
+\defineBarLine ":|.-right" #'(#t #f " |.")
 
 \new StaffGroup <<
   \new Staff \relative c'' {
@@ -3273,7 +3345,7 @@ possible, comme en fin de système :
 
 @lilypond[quote,verbatim]
 \defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
-\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" "" "!!")
+\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" #f "!!")
 
 \new StaffGroup <<
   \new Staff \relative c'' {
@@ -3355,17 +3427,17 @@ Référence des propriétés internes :
 
 Diverses commandes, autres que @code{\bar}, peuvent créer des barres de
 mesure en raison de leurs effets. Les barres générées en pariel cas
-peuvent se modifier en réglant des propriétés de contexte. Les types de
-barre de mesure se sélectionnent dans une liste prédéfinie de types ou
-bien des types préalablement définis à l'aide de la commande
-@code{\defineBarLine} -- voir @ref{Barres de mesure}.
+peuvent se modifier en réglant des propriétés de contexte. Lorsqu'une
+des propriétés est réglée sur @code{'()} ou n'est pas définie, eslle est
+ignorée ; la valeur doit être l'un des types prédéfinis ou bein l'un de
+ceux précédemment définis à l'aide de la commande @code{\defineBarLine}
+-- voir @ref{Barres de mesure}.
 
 De multiples raisons peuvent expliquer la création de barres de mesure
 automatiques différentes en un même moment. Les conflits se résoudront
 en partie par la fourniture de propriétés pour des combinaisons
-prédéterminées, en partie par l'annotation à la volée des types de
-barre, et en partie par un jeu de priorités. La table suivante présente,
-par ordre de priorité croissant, les propriétés disponibles.
+prédéterminées et en partie par un jeu de priorités. La table suivante
+présente, par ordre de priorité croissant, les propriétés disponibles.
 
 @quotation
 @table @code
@@ -3442,15 +3514,21 @@ sont créés par @code{\inStaffSegno}.
 Les propriétés dont le nom comporte @code{fine} répondent à
 l'instruction @code{\fine}.
 
-Bien que ces barres automatiques possèdent la priorité la plus élévée,
-elles n'en masquent pas pour autant les autres : la barre de mesure de
-rang directement inférieur s'ajoute à titre d'annotation, si tant est
-que le type de barre résultant est défini. Ceci permet l'affichage de la
-barre secondaire à l'occasion d'un saut de ligne dès lors que les types
-de barre adéquats auront été définis -- voir @ref{Barres de mesure}.
-
 @end table
 @end quotation
+
+La priorité s'aplique indépendamment du fait que la barre soit en début,
+en cours ou en fin de ligne, ce qui permet à des barres de mesure de
+priorité inférieure d'apparaître là où des types de barre de priorité
+supérieure n'auraient pas de glyphe défini -- voir
+@ref{Barres de mesure}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  c1 \section \break
+  \repeat volta 2 d1
+}
+@end lilypond
 
 @snippets
 
@@ -3899,7 +3977,7 @@ Le numéro des mesures tronquées se présente entre parenthèses.
   r4 a8 b c dis
   \startMeasureCount
   e8 b e g8. fis32 e dis8
-  e8 b e \bar "" \break g8. fis32 e dis8
+  e8 b e \break g8. fis32 e dis8
   e8 b e g8. fis32 e dis8
   \stopMeasureCount
   b'4. r
@@ -4304,12 +4382,14 @@ petites notes.  Par exemple,
 c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
+@noindent
 deviendrait
 
 @example
 c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
+@noindent
 ou bien modifier explicitement l'échelle des durées :
 
 @example
@@ -4357,6 +4437,29 @@ MyCadenza = \relative {
     c'1
   }
 >>
+@end lilypond
+
+Une autre solution consiste à utiliser la commande @code{\skip}.
+
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
+
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
 @end lilypond
 
 @morerefs

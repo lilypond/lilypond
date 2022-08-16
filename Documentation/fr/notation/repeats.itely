@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -429,8 +429,8 @@ respectant la répétition la plus imbriquée qui les entoure.}
 
 @funindex \fine
 
-La commande @code{\fine} met un point final à la musique, mais la placer
-à l'intérieur d'une forme « repliée » de reprise en suspend les effets.
+La commande @code{\fine} met un point final à la musique, sans
+toutefois le forcer.
 Lorsqu'une reprise contenant @code{\fine} est expansée, la commande
 @code{\fine} est déroulée avec le reste de la musique et interviendra là
 où elle doit se produire dans la musique expansée. Il est donc
@@ -442,7 +442,7 @@ music = \fixed c' {
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 
@@ -472,7 +472,7 @@ la propriété de contexte @code{fineText}.
   \repeat volta 2 {
     f1
     \volta 2 \fine
-    b1
+    \volta 1 b1
   }
 }
 @end lilypond
@@ -551,7 +551,7 @@ music = \fixed c' {
   \repeat segno 2 {
     g1
     \volta 2 \fine
-    a1
+    \volta 1 a1
   }
   \section
 }

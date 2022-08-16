@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -956,7 +956,7 @@ Par exemple,
 \score {
   \relative {
     \set Score.timing = ##f
-    \set Score.measureBarType = ""
+    \set Score.measureBarType = #'()
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
@@ -984,7 +984,7 @@ par le @code{Mensural_@/ligature_@/engraver}, on obtient
 @lilypond[quote,ragged-right]
 \relative {
   \set Score.timing = ##f
-  \set Score.measureBarType = ""
+  \set Score.measureBarType = #'()
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"
@@ -1418,10 +1418,10 @@ spécifiquement destinées au style des éditions vaticanes.
 \score {
   \new VaticanaVoice {
     \override Script.padding = #-0.1
-    a\ictus_"ictus " \bar "" \break
-    a\circulus_"circulus " \bar "" \break
-    a\semicirculus_"semicirculus " \bar "" \break
-    a\accentus_"accentus " \bar "" \break
+    a\ictus_"ictus " \break
+    a\circulus_"circulus " \break
+    a\semicirculus_"semicirculus "  \break
+    a\accentus_"accentus " \break
     \[ a_"episema" \episemInitium \pes b
        \flexa a b \episemFinis \flexa a \]
   }
@@ -1477,7 +1477,7 @@ Manuel de notation :
 @ref{Signes de respiration}.
 
 Référence des propriétés internes :
-@rinternals{BreathingSign}.
+@rinternals{Divisio}.
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Musiques anciennes}.
@@ -2863,12 +2863,21 @@ rendre la métrique transparente, ce qui par contre préservera l'espace
 qu'elle occupe.
 
 Dans de nombreux cas, une clause @code{\set Score.timing = ##f} donne de
-bons résultats.  On pourrait aussi utiliser @code{\cadenzaOn} et
+bons résultats.  On peut aussi utiliser @code{\cadenzaOn} et
 @code{\cadenzaOff}.
 
-Rien de plus radical que de supprimer du contexte @code{Staff} le
-@code{Bar_engraver} pour ne pas voir de barre de mesure.  Là aussi, une
-clause @code{\hide BarLine} vous permettra d'en afficher une au besoin.
+Les contextes de portée prédéfinis pour la musique ancienne ne créent
+pas de barre de mesure. On peut étendre ce comportement à tous les
+autres contextes à l'aide d'une clause
+@code{\set Score@/.measureBarType = #'()} ou bien à une portée
+particulière grâce à un @code{\set Staff@/.measureBarType = #'()}.
+
+Les contextes de portée prédéfinis pour la musique ancienne autorisent
+les sauts de lignes en l'absence de barre de mesure. On peut étendre ce
+comportement à tous les autres contextes à l'aide d'une clause
+@code{\set Score@/.forbidBreakBetweenBarLines = ##f} ou bien à des
+portées particulières grâce à un
+@code{\set Staff@/.forbidBreakBetweenBarLines = ##f}.
 
 Dans de nombreuses transcriptions, le récitatif fait apparaître une
 brève au lieu de la répétition d'une même note.  Le texte psalmodié se

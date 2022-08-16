@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.21.0"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
-@c Translation checkers: Valentin Villenave, Jean-Charles Malahieude
+@c Translation checkers: Valentin Villenave, J.-C. Malahieude
 
 @node Hauteurs
 @section Hauteurs
@@ -1330,8 +1330,8 @@ l'objet @code{Clef} devra être manuellement répercuté sur l'objet
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override Clef.color = #blue
-  \override ClefModifier.color = #red
+  \override Clef.color = #(universal-color 'blue)
+  \override ClefModifier.color = #(universal-color 'vermillion)
 }
 
 \clef "treble_8" c4

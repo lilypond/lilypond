@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+  Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -784,12 +784,25 @@ La syntaxe appropriée à la gestion des couleurs est traitée au chapitre
 @cindex liste des couleurs
 @cindex couleurs, liste
 
-@example
-black       white          red           green
-blue        cyan           magenta       yellow
-grey        darkred        darkgreen     darkblue
-darkcyan    darkmagenta    darkyellow
-@end example
+@indentedBlock
+@multitable {@code{darkcyan}} {@code{darkmagenta}} {@code{darkyellow}} {@code{darkblue}}
+@item @code{black}
+  @tab @code{white}
+  @tab @code{red}
+  @tab @code{green}
+@item @code{blue}
+  @tab @code{cyan}
+  @tab @code{magenta}
+  @tab @code{yellow}
+@item @code{grey}
+  @tab @code{darkred}
+  @tab @code{darkgreen}
+  @tab @code{darkblue}
+@item @code{darkcyan}
+  @tab @code{darkmagenta}
+  @tab @code{darkyellow}
+@end multitable
+@endIndentedBlock
 
 
 @subsubheading Noms de couleur CSS
@@ -797,46 +810,158 @@ darkcyan    darkmagenta    darkyellow
 Les noms de couleur CSS peuvent s'utiliser tels quels en argument
 textuel.
 
-@example
-aliceblue       darkturquoise        lightsalmon        papayawhip
-antiquewhite    darkviolet           lightseagreen      peachpuff
-aqua            deeppink             lightskyblue       peru
-aquamarine      deepskyblue          lightslategray     pink
-azure           dimgray              lightslategrey     plum
-beige           dimgrey              lightsteelblue     powderblue
-bisque          dodgerblue           lightyellow        purple
-black           firebrick            lime               rebeccapurple
-blanchedalmond  floralwhite          limegreen          red
-blue            forestgreen          linen              rosybrown
-blueviolet      fuchsia              magenta            royalblue
-brown           gainsboro            maroon             saddlebrown
-burlywood       ghostwhite           mediumaquamarine   salmon
-cadetblue       gold                 mediumblue         sandybrown
-chartreuse      goldenrod            mediumorchid       seagreen
-chocolate       gray                 mediumpurple       seashell
-coral           green                mediumseagreen     sienna
-cornflowerblue  greenyellow          mediumslateblue    silver
-cornsilk        grey                 mediumspringgreen  skyblue
-crimson         honeydew             mediumturquoise    slateblue
-cyan            hotpink              mediumvioletred    slategray
-darkblue        indianred            midnightblue       slategrey
-darkcyan        indigo               mintcream          snow
-darkgoldenrod   ivory                mistyrose          springgreen
-darkgray        khaki                moccasin           steelblue
-darkgreen       lavender             navajowhite        tan
-darkgrey        lavenderblush        navy               teal
-arkkhaki       lawngreen            oldlace            thistle
-darkmagenta     lemonchiffon         olive              tomato
-darkolivegreen  lightblue            olivedrab          turquoise
-darkorange      lightcoral           orange             violet
-darkorchid      lightcyan            orangered          wheat
-darkred         lightgoldenrodyellow orchid             white
-darksalmon      lightgray            palegoldenrod      whitesmoke
-darkseagreen    lightgreen           palegreen          yellow
-darkslateblue   lightgrey            paleturquoise      yellowgreen
-darkslategray   lightpink            palevioletred
-darkslategrey
-@end example
+@indentedBlock
+@multitable {@code{blanchedalmond}} {@code{lightgoldenrodyellow}} {@code{mediumspringgreen}} {@code{rebeccapurple}}
+@item @code{aliceblue}
+  @tab @code{darkturquoise}
+  @tab @code{lightsalmon}
+  @tab @code{papayawhip}
+@item @code{antiquewhite}
+  @tab @code{darkviolet}
+  @tab @code{lightseagreen}
+  @tab @code{peachpuff}
+@item @code{aqua}
+  @tab @code{deeppink}
+  @tab @code{lightskyblue}
+  @tab @code{peru}
+@item @code{aquamarine}
+  @tab @code{deepskyblue}
+  @tab @code{lightslategray}
+  @tab @code{pink}
+@item @code{azure}
+  @tab @code{dimgray}
+  @tab @code{lightslategrey}
+  @tab @code{plum}
+@item @code{beige}
+  @tab @code{dimgrey}
+  @tab @code{lightsteelblue}
+  @tab @code{powderblue}
+@item @code{bisque}
+  @tab @code{dodgerblue}
+  @tab @code{lightyellow}
+  @tab @code{purple}
+@item @code{black}
+  @tab @code{firebrick}
+  @tab @code{lime}
+  @tab @code{rebeccapurple}
+@item @code{blanchedalmond}
+  @tab @code{floralwhite}
+  @tab @code{limegreen}
+  @tab @code{red}
+@item @code{blue}
+  @tab @code{forestgreen}
+  @tab @code{linen}
+  @tab @code{rosybrown}
+@item @code{blueviolet}
+  @tab @code{fuchsia}
+  @tab @code{magenta}
+  @tab @code{royalblue}
+@item @code{brown}
+  @tab @code{gainsboro}
+  @tab @code{maroon}
+  @tab @code{saddlebrown}
+@item @code{burlywood}
+  @tab @code{ghostwhite}
+  @tab @code{mediumaquamarine}
+  @tab @code{salmon}
+@item @code{cadetblue}
+  @tab @code{gold}
+  @tab @code{mediumblue}
+  @tab @code{sandybrown}
+@item @code{chartreuse}
+  @tab @code{goldenrod}
+  @tab @code{mediumorchid}
+  @tab @code{seagreen}
+@item @code{chocolate}
+  @tab @code{gray}
+  @tab @code{mediumpurple}
+  @tab @code{seashell}
+@item @code{coral}
+  @tab @code{green}
+  @tab @code{mediumseagreen}
+  @tab @code{sienna}
+@item @code{cornflowerblue}
+  @tab @code{greenyellow}
+  @tab @code{mediumslateblue}
+  @tab @code{silver}
+@item @code{cornsilk}
+  @tab @code{grey}
+  @tab @code{mediumspringgreen}
+  @tab @code{skyblue}
+@item @code{crimson}
+  @tab @code{honeydew}
+  @tab @code{mediumturquoise}
+  @tab @code{slateblue}
+@item @code{cyan}
+  @tab @code{hotpink}
+  @tab @code{mediumvioletred}
+  @tab @code{slategray}
+@item @code{darkblue}
+  @tab @code{indianred}
+  @tab @code{midnightblue}
+  @tab @code{slategrey}
+@item @code{darkcyan}
+  @tab @code{indigo}
+  @tab @code{mintcream}
+  @tab @code{snow}
+@item @code{darkgoldenrod}
+  @tab @code{ivory}
+  @tab @code{mistyrose}
+  @tab @code{springgreen}
+@item @code{darkgray}
+  @tab @code{khaki}
+  @tab @code{moccasin}
+  @tab @code{steelblue}
+@item @code{darkgreen}
+  @tab @code{lavender}
+  @tab @code{navajowhite}
+  @tab @code{tan}
+@item @code{darkgrey}
+  @tab @code{lavenderblush}
+  @tab @code{navy}
+  @tab @code{teal}
+@item @code{darkkhaki}
+  @tab @code{lawngreen}
+  @tab @code{oldlace}
+  @tab @code{thistle}
+@item @code{darkmagenta}
+  @tab @code{lemonchiffon}
+  @tab @code{olive}
+  @tab @code{tomato}
+@item @code{darkolivegreen}
+  @tab @code{lightblue}
+  @tab @code{olivedrab}
+  @tab @code{turquoise}
+@item @code{darkorange}
+  @tab @code{lightcoral}
+  @tab @code{orange}
+  @tab @code{violet}
+@item @code{darkorchid}
+  @tab @code{lightcyan}
+  @tab @code{orangered}
+  @tab @code{wheat}
+@item @code{darkred}
+  @tab @code{lightgoldenrodyellow}
+  @tab @code{orchid}
+  @tab @code{white}
+@item @code{darksalmon}
+  @tab @code{lightgray}
+  @tab @code{palegoldenrod}
+  @tab @code{whitesmoke}
+@item @code{darkseagreen}
+  @tab @code{lightgreen}
+  @tab @code{palegreen}
+  @tab @code{yellow}
+@item @code{darkslateblue}
+  @tab @code{lightgrey}
+  @tab @code{paleturquoise}
+  @tab @code{yellowgreen}
+@item @code{darkslategray}
+  @tab @code{lightpink}
+  @tab @code{palevioletred}
+@item @code{darkslategrey}
+@end multitable
+@endIndentedBlock
 
 La définition CSS diffère des noms de couleur X pour les couleurs
 suivantes : @code{green}, @code{grey}, @code{maroon}, @code{purple}.
@@ -866,88 +991,280 @@ Certains noms peuvent prendre un suffixe numérique, comme
 
 @end itemize
 
+@funindex x11-color
+
+Ils sont accessibles par la fonction Scheme @code{x11-color}.
+
 Les listes suivantes présentent tous les noms de couleur disponibles,
 sans adjonction de suffixe numérique, puis celles acceptant un suffixe.
 
 
 @subsubheading Noms de couleur sans suffixe numérique
 
-@example
-AliceBlue       LawnGreen             OrangeRed      firebrick
-AntiqueWhite    LemonChiffon          PaleGoldenrod  gainsboro
-BlanchedAlmond  LightBlue             PaleGreen      gold
-BlueViolet      LightCoral            PaleTurquoise  goldenrod
-CadetBlue       LightCyan             PaleVioletRed  green
-CornflowerBlue  LightGoldenrod        PapayaWhip     grey
-DarkBlue        LightGoldenrodYellow  PeachPuff      honeydew
-DarkCyan        LightGreen            PowderBlue     ivory
-DarkGoldenrod   LightGrey             RosyBrown      khaki
-DarkGreen       LightPink             RoyalBlue      lavender
-DarkGrey        LightSalmon           SaddleBrown    linen
-DarkKhaki       LightSeaGreen         SandyBrown     magenta
-DarkMagenta     LightSkyBlue          SeaGreen       maroon
-DarkOliveGreen  LightSlateBlue        SkyBlue        moccasin
-DarkOrange      LightSlateGrey        SlateBlue      navy
-DarkOrchid      LightSteelBlue        SlateGrey      orange
-DarkRed         LightYellow           SpringGreen    orchid
-DarkSalmon      LimeGreen             SteelBlue      peru
-DarkSeaGreen    MediumAquamarine      VioletRed      pink
-DarkSlateBlue   MediumBlue            WhiteSmoke     plum
-DarkSlateGrey   MediumOrchid          YellowGreen    purple
-DarkTurquoise   MediumPurple          aquamarine     red
-DarkViolet      MediumSeaGreen        azure          salmon
-DeepPink        MediumSlateBlue       beige          seashell
-DeepSkyBlue     MediumSpringGreen     bisque         sienna
-DimGrey         MediumTurquoise       black          snow
-DodgerBlue      MediumVioletRed       blue           tan
-FloralWhite     MidnightBlue          brown          thistle
-ForestGreen     MintCream             burlywood      tomato
-GhostWhite      MistyRose             chartreuse     turquoise
-reenYellow     NavajoWhite           chocolate      violet
-HotPink         NavyBlue              coral          wheat
-+IndianRed       OldLace               cornsilk       white
-LavenderBlush   OliveDrab             cyan           yellow
-@end example
+@indentedBlock
+@multitable {@code{BlanchedAlmond}} {@code{LightGoldenrodYellow}} {@code{PaleGoldenrod}} {@code{firebrick}}
+@item @code{AliceBlue}
+  @tab @code{LawnGreen}
+  @tab @code{OrangeRed}
+  @tab @code{firebrick}
+@item @code{AntiqueWhite}
+  @tab @code{LemonChiffon}
+  @tab @code{PaleGoldenrod}
+  @tab @code{gainsboro}
+@item @code{BlanchedAlmond}
+  @tab @code{LightBlue}
+  @tab @code{PaleGreen}
+  @tab @code{gold}
+@item @code{BlueViolet}
+  @tab @code{LightCoral}
+  @tab @code{PaleTurquoise}
+  @tab @code{goldenrod}
+@item @code{CadetBlue}
+  @tab @code{LightCyan}
+  @tab @code{PaleVioletRed}
+  @tab @code{green}
+@item @code{CornflowerBlue}
+  @tab @code{LightGoldenrod}
+  @tab @code{PapayaWhip}
+  @tab @code{grey}
+@item @code{DarkBlue}
+  @tab @code{LightGoldenrodYellow}
+  @tab @code{PeachPuff}
+  @tab @code{honeydew}
+@item @code{DarkCyan}
+  @tab @code{LightGreen}
+  @tab @code{PowderBlue}
+  @tab @code{ivory}
+@item @code{DarkGoldenrod}
+  @tab @code{LightGrey}
+  @tab @code{RosyBrown}
+  @tab @code{khaki}
+@item @code{DarkGreen}
+  @tab @code{LightPink}
+  @tab @code{RoyalBlue}
+  @tab @code{lavender}
+@item @code{DarkGrey}
+  @tab @code{LightSalmon}
+  @tab @code{SaddleBrown}
+  @tab @code{linen}
+@item @code{DarkKhaki}
+  @tab @code{LightSeaGreen}
+  @tab @code{SandyBrown}
+  @tab @code{magenta}
+@item @code{DarkMagenta}
+  @tab @code{LightSkyBlue}
+  @tab @code{SeaGreen}
+  @tab @code{maroon}
+@item @code{DarkOliveGreen}
+  @tab @code{LightSlateBlue}
+  @tab @code{SkyBlue}
+  @tab @code{moccasin}
+@item @code{DarkOrange}
+  @tab @code{LightSlateGrey}
+  @tab @code{SlateBlue}
+  @tab @code{navy}
+@item @code{DarkOrchid}
+  @tab @code{LightSteelBlue}
+  @tab @code{SlateGrey}
+  @tab @code{orange}
+@item @code{DarkRed}
+  @tab @code{LightYellow}
+  @tab @code{SpringGreen}
+  @tab @code{orchid}
+@item @code{DarkSalmon}
+  @tab @code{LimeGreen}
+  @tab @code{SteelBlue}
+  @tab @code{peru}
+@item @code{DarkSeaGreen}
+  @tab @code{MediumAquamarine}
+  @tab @code{VioletRed}
+  @tab @code{pink}
+@item @code{DarkSlateBlue}
+  @tab @code{MediumBlue}
+  @tab @code{WhiteSmoke}
+  @tab @code{plum}
+@item @code{DarkSlateGrey}
+  @tab @code{MediumOrchid}
+  @tab @code{YellowGreen}
+  @tab @code{purple}
+@item @code{DarkTurquoise}
+  @tab @code{MediumPurple}
+  @tab @code{aquamarine}
+  @tab @code{red}
+@item @code{DarkViolet}
+  @tab @code{MediumSeaGreen}
+  @tab @code{azure}
+  @tab @code{salmon}
+@item @code{DeepPink}
+  @tab @code{MediumSlateBlue}
+  @tab @code{beige}
+  @tab @code{seashell}
+@item @code{DeepSkyBlue}
+  @tab @code{MediumSpringGreen}
+  @tab @code{bisque}
+  @tab @code{sienna}
+@item @code{DimGrey}
+  @tab @code{MediumTurquoise}
+  @tab @code{black}
+  @tab @code{snow}
+@item @code{DodgerBlue}
+  @tab @code{MediumVioletRed}
+  @tab @code{blue}
+  @tab @code{tan}
+@item @code{FloralWhite}
+  @tab @code{MidnightBlue}
+  @tab @code{brown}
+  @tab @code{thistle}
+@item @code{ForestGreen}
+  @tab @code{MintCream}
+  @tab @code{burlywood}
+  @tab @code{tomato}
+@item @code{GhostWhite}
+  @tab @code{MistyRose}
+  @tab @code{chartreuse}
+  @tab @code{turquoise}
+@item @code{GreenYellow}
+  @tab @code{NavajoWhite}
+  @tab @code{chocolate}
+  @tab @code{violet}
+@item @code{HotPink}
+  @tab @code{NavyBlue}
+  @tab @code{coral}
+  @tab @code{wheat}
+@item @code{IndianRed}
+  @tab @code{OldLace}
+  @tab @code{cornsilk}
+  @tab @code{white}
+@item @code{LavenderBlush}
+  @tab @code{OliveDrab}
+  @tab @code{cyan}
+  @tab @code{yellow}
+@end multitable
+@endIndentedBlock
 
 
 @subsubheading Noms de couleur avec suffixe numérique
 
 Les couleurs suivantes acceptent un suffixe entier numérique @var{N}
-compris entre 1 et 4.
+compris entre 1 et 4, allant du plus clair au plus fonce.
 
-@example
-AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
-CadetBlueN       LightSteelBlueN  VioletRedN   magentaN
-DarkGoldenrodN   LightYellowN     aquamarineN  maroonN
-DarkOliveGreenN  MediumOrchidN    azureN       orangeN
-DarkOrangeN      MediumPurpleN    bisqueN      orchidN
-DarkOrchidN      MistyRoseN       blueN        pinkN
-DarkSeaGreenN    NavajoWhiteN     brownN       plumN
-DeepPinkN        OliveDrabN       burlywoodN   purpleN
-DeepSkyBlueN     OrangeRedN       chartreuseN  redN
-DodgerBlueN      PaleGreenN       chocolateN   salmonN
-HotPinkN         PaleTurquoiseN   coralN       seashellN
-IndianRedN       PaleVioletRedN   cornsilkN    siennaN
-LavenderBlushN   PeachPuffN       cyanN        snowN
-LemonChiffonN    RosyBrownN       firebrickN   tanN
-LightBlueN       RoyalBlueN       goldN        thistleN
-LightCyanN       SeaGreenN        goldenrodN   tomatoN
-LightGoldenrodN  SkyBlueN         greenN       turquoiseN
-LightPinkN       SlateBlueN       honeydewN    wheatN
-LightSalmonN     SpringGreenN     ivoryN       yellowN
-@end example
+@indentedBlock
+@multitable {@code{DarkOliveGreen@var{N}}} {@code{LightSteelBlue@var{N}}} {@code{aquamarine@var{N}}} {@code{turquoise@var{N}}}
+@item @code{AntiqueWhite@var{N}}
+  @tab @code{LightSkyBlue@var{N}}
+  @tab @code{SteelBlue@var{N}}
+  @tab @code{khaki@var{N}}
+@item @code{CadetBlue@var{N}}
+  @tab @code{LightSteelBlue@var{N}}
+  @tab @code{VioletRed@var{N}}
+  @tab @code{magenta@var{N}}
+@item @code{DarkGoldenrod@var{N}}
+  @tab @code{LightYellow@var{N}}
+  @tab @code{aquamarine@var{N}}
+  @tab @code{maroon@var{N}}
+@item @code{DarkOliveGreen@var{N}}
+  @tab @code{MediumOrchid@var{N}}
+  @tab @code{azure@var{N}}
+  @tab @code{orange@var{N}}
+@item @code{DarkOrange@var{N}}
+  @tab @code{MediumPurple@var{N}}
+  @tab @code{bisque@var{N}}
+  @tab @code{orchid@var{N}}
+@item @code{DarkOrchid@var{N}}
+  @tab @code{MistyRose@var{N}}
+  @tab @code{blue@var{N}}
+  @tab @code{pink@var{N}}
+@item @code{DarkSeaGreen@var{N}}
+  @tab @code{NavajoWhite@var{N}}
+  @tab @code{brown@var{N}}
+  @tab @code{plum@var{N}}
+@item @code{DeepPink@var{N}}
+  @tab @code{OliveDrab@var{N}}
+  @tab @code{burlywood@var{N}}
+  @tab @code{purple@var{N}}
+@item @code{DeepSkyBlue@var{N}}
+  @tab @code{OrangeRed@var{N}}
+  @tab @code{chartreuse@var{N}}
+  @tab @code{red@var{N}}
+@item @code{DodgerBlue@var{N}}
+  @tab @code{PaleGreen@var{N}}
+  @tab @code{chocolate@var{N}}
+  @tab @code{salmon@var{N}}
+@item @code{HotPink@var{N}}
+  @tab @code{PaleTurquoise@var{N}}
+  @tab @code{coral@var{N}}
+  @tab @code{seashell@var{N}}
+@item @code{IndianRed@var{N}}
+  @tab @code{PaleVioletRed@var{N}}
+  @tab @code{cornsilk@var{N}}
+  @tab @code{sienna@var{N}}
+@item @code{LavenderBlush@var{N}}
+  @tab @code{PeachPuff@var{N}}
+  @tab @code{cyan@var{N}}
+  @tab @code{snow@var{N}}
+@item @code{LemonChiffon@var{N}}
+  @tab @code{RosyBrown@var{N}}
+  @tab @code{firebrick@var{N}}
+  @tab @code{tan@var{N}}
+@item @code{LightBlue@var{N}}
+  @tab @code{RoyalBlue@var{N}}
+  @tab @code{gold@var{N}}
+  @tab @code{thistle@var{N}}
+@item @code{LightCyan@var{N}}
+  @tab @code{SeaGreen@var{N}}
+  @tab @code{goldenrod@var{N}}
+  @tab @code{tomato@var{N}}
+@item @code{LightGoldenrod@var{N}}
+  @tab @code{SkyBlue@var{N}}
+  @tab @code{green@var{N}}
+  @tab @code{turquoise@var{N}}
+@item @code{LightPink@var{N}}
+  @tab @code{SlateBlue@var{N}}
+  @tab @code{honeydew@var{N}}
+  @tab @code{wheat@var{N}}
+@item @code{LightSalmon@var{N}}
+  @tab @code{SpringGreen@var{N}}
+  @tab @code{ivory@var{N}}
+  @tab @code{yellow@var{N}}
+@end multitable
+@endIndentedBlock
 
 
 @subsubheading Échelle de gris
 
 Une échelle de gris s'obtient en utilisant
 
-@example
-greyN
-@end example
+@display
+@code{grey@var{N}}
+@end display
 
 @noindent
 où @var{N} est compris entre 0 et 100.
+
+
+@subsubheading Couleurs in-ambiguës
+
+@funindex universal-color
+@cindex couleurs et dichromatisme
+@cindex dichromatisme et couleurs
+@cindex daltonien
+
+La fonction Scheme @code{universal-@/color} procure un
+@uref{https://jfly.uni-koeln.de/color, jeu de huit couleurs} conçu
+pour lever toute ambiquïté aux personnes souffrant de daltonisme.
+
+@indentedBlock
+@multitable {@code{yellow}} {@code{orange}} {@code{vermillion}} {@code{bluegreen}}
+@item @code{black}
+  @tab @code{orange}
+  @tab @code{skyblue}
+  @tab @code{bluegreen}
+@item @code{yellow}
+  @tab @code{blue}
+  @tab @code{vermillion}
+  @tab @code{redpurple}
+@end multitable
+@endIndentedBlock
 
 
 @node La fonte Emmentaler
@@ -988,6 +1305,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 * Glyphes de clef::
 * Glyphes de métrique::
 * Glyphes de chiffre::
+* Glyphes de symbole pour la basse chiffrée::
 * Glyphes d'altération::
 * Glyphes de tête de note par défaut::
 * Glyphes de tête de note spéciale::
@@ -1011,6 +1329,18 @@ Pour de plus amples informations, reportez-vous au chapitre
 * Glyphes de style Solesmes::
 * Glyphes de style kiévien::
 @end menu
+
+
+@c `texinfo.tex` inserts `\medskip` between images, which is far
+@c too much vertical distance for the glyph listings.  We thus
+@c set it to zero temporarily.
+
+@iftex
+@tex
+\global\let\medskipold = \medskip
+\global\let\medskip = \relax
+@end tex
+@end iftex
 
 
 @node Glyphes de clef
@@ -1043,6 +1373,17 @@ Pour de plus amples informations, reportez-vous au chapitre
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
+@end lilypond
+
+
+@node Glyphes de symbole pour la basse chiffrée
+@unnumberedsubsec Glyphes de symbole pour la basse chiffrée
+@translationof Figured bass symbol glyphs
+
+@lilypond[quote]
+\include "en/included/font-table.ly"
+\markuplist \override-lines #'(word-space . 4)
+            \doc-chars #figured-bass-symbols
 @end lilypond
 
 
@@ -1286,6 +1627,15 @@ Pour de plus amples informations, reportez-vous au chapitre
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
+
+
+@c Undo local change to `\medskip`.
+
+@iftex
+@tex
+\global\let\medskip = \medskipold
+@end tex
+@end iftex
 
 
 @node Styles de tête de note

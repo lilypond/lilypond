@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.21.0"
 
 @c Translators: Jean-Charles Malahieude
+@c Translation checkers:
 
 
 @node Annotations éditoriales
@@ -664,7 +665,7 @@ des couleurs disponibles se trouve à l'annexe @ref{Liste des couleurs}.
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
 c''4 c''
-\override NoteHead.color = #(x11-color 'LimeGreen)
+\override NoteHead.color = #(x11-color 'SlateGrey)
 d''
 \override Stem.color = "deepskyblue"
 e''
@@ -720,7 +721,7 @@ façon évidente au vu de la partition finale.
 @lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
-    \with-color #(x11-color 'red) "Clarinet"
+    \with-color #(x11-color 'SlateGrey) "Clarinet"
     }
   }
 
@@ -729,7 +730,7 @@ façon évidente au vu de la partition finale.
   gis8 a
   \override Beam.color = #(x11-color "medium turquoise")
   gis a
-  \override Accidental.color = #(x11-color 'DarkRed)
+  \override Accidental.color = #(x11-color 'orange)
   gis a
   \override NoteHead.color = #(x11-color "LimeGreen")
   gis a
@@ -737,6 +738,19 @@ façon évidente au vu de la partition finale.
   \override Stem.color = #(x11-color 'Boggle)
   b2 cis
 }
+@end lilypond
+
+@cindex dischromatisme
+@cindex daltonisme
+@funindex universal-color
+
+LilyPond prend aussi en charge un
+@uref{https://jfly.uni-koeln.de/color, jeu de huit noms de
+couleur} sans ambiguïté pour les gens souffrant de daltonisme ou
+non. Il est accessible sous le nom de @code{universal-@/color}.
+
+@lilypond[verbatim,quote]
+\markup \with-color #(universal-color 'vermillion) vermillion
 @end lilypond
 
 @cindex couleur rgb

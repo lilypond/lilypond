@@ -1,0 +1,28 @@
+%%  Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+  texidocfr = "
+
+Il est possible de personnaliser la division des cases à l'aide des
+propiétés de @code{ChordSquare} @code{measure-division-lines-alist} et
+@code{measure-division-chord-placement-alist}, qui sont toutes deux des
+listes associatives. Leurs clés sont des divisions de la mesure,
+autrement dit des listes de fractions de la mesure que chaque accord,
+silence ou saut représente. Plus précisément, cette liste de divisions
+de la mesure est constituée de nombres positifs exacts dont l'addition
+fait 1, comme par exemple @code{'(1/2 1/4 1/4)}. L'exigence d'exactitude
+signifie que @code{1/2} est valide, contrairement à @code{0.5}.
+
+Les valeurs de @code{measure-division-lines-alist} sont des listes de
+lignes, représentes sous la forme
+@code{(@var{x1} @var{y1} @var{x2} @var{y2})}. La ligne débute au point
+@code{(@var{x1} . @var{y1})} et se temine en
+@code{(@var{x2} . @var{y2})}. Les coordonnées sont comprises dans
+l'intervalle [@minus{}1,@tie{}1] relativement à l'étendue de la case.
+
+Les valeurs de @code{measure-division-chord-placement-alist} sont des
+listes de paires @code{(@var{x} . @var{y})} indiquant le positionnement
+des accords respectifs.
+
+L'exemple ci-dessous illustre le cas particulier d'une grille dont le
+style spécifie le découpage des mesures en trois parts égales.
+"
+  doctitlefr = "Personnalisation du style de grille harmonique"

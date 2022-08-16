@@ -1,9 +1,11 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
   texidocfr = "
+
 En musique mensurale, les barres de mesure ne traversent pas les
-portées. Pour obtenir ce résultat avec un @code{StaffGroup} plutôt qu'en
-utilisant un @code{ChoirStaff}, il faudra masquer les portions de barre
-qui recouvrent les portées à l'aide d'un @code{\\hide}.
+portées. Pour obtenir ce résultat il faudra définir
+@code{measureBarType} à @code{\"-span|\"} et utiliser un regroupement de
+portées permettant l'ectension des barres entre les portées, tel un
+@code{StaffGroup}.
 
 "
   doctitlefr = "Présentation à l'ancienne (barres de mesure entre les portées)"

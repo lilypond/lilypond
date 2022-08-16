@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1578,8 +1578,11 @@ marque) à la note ou au silence qui précède.
 Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
 tant au niveau de l'appel que de la note qui apparaîtra au bas de la
 page.  L'absence de cet élément -- ou une valeur de @code{\default} --
-incrémentera automatiquement le compteur.  Ce compteur est réinitialisé
-à chaque page comportant une annotation.
+incrémentera automatiquement le compteur.  Ce compteur est par défaut
+réinitialisé à chaque page comportant une annotation. La numérotation
+peut être continue sur l'ouvrage en désactivant la variable
+@code{reset-@/footnotes-@/on-@/new-@/page} -- voir
+@ref{Variables supplémentaires d'entête et markup}.
 
 @item décalage
 Une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
@@ -3278,6 +3281,16 @@ qu'en un point particulier de votre source :
 @lilypond[quote,verbatim]
 \markup \replace #'(("100" . "hundred")
                     ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+Le remplacement n'affectera pas nécessairement une chaîne ; il peut
+s'agir d'un @emph{markup} quelconque. Au niveau de la syntaxe, ceci
+requiert d'utiliser la syntaxe de quasi-citation de Scheme, à savoir une
+apostrophe inversée @samp{`} au lieu d'une apostrophe normale @samp{'}
+pour écrire la liste associative.
+
+@lilypond[quote,verbatim]
+\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
 @end lilypond
 
 Ces alias ne pourront plus, quant à eux, faire l'objet d'un remplacement.

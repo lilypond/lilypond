@@ -1,0 +1,8 @@
+%% Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+  texidocfr = "
+Par défaut, les silences apparaissant dans un contexte @code{ChordNames}
+déclenchent l'impression d'un symbole « N.C. ». Ce @emph{markup} peut
+être personnalisé.
+
+"
+  doctitlefr = "Personnalisation du symbole @emph{no-chord}"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2615,8 +2615,8 @@ forme développée de la commande @code{\tweak}, autrement dit
 lorsque l'objet est explicitement mentionné :
 
 @lilypond[fragment,verbatim,quote]
-\tweak Stem.color #red
-\tweak Beam.color #green c''8 e''
+\tweak Stem.color #(universal-color 'orange)
+\tweak Beam.color #(universal-color 'skyblue) c''8 e''
 <c'' e'' \tweak Accidental.font-size #-3 ges''>4
 @end lilypond
 
@@ -4203,6 +4203,7 @@ ces réglages par défaut.
 @item @code{BreathingSign}       @tab @code{Voice}          @tab @code{begin-of-line-invisible}
 @item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
+@item @code{Divisio}             @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
 @c omit KeyCancellation until it can be explained -td
 @c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
@@ -4374,25 +4375,6 @@ visibilité de l'objet @code{KeyCancellation} :
 @end lilypond
 
 @c TODO Add visibility of cautionary accidentals before notes
-
-
-@subsubsubheading Barres de mesure automatiques
-
-@funindex automaticBars
-@cindex barres de mesure, suppression
-
-La désactivation de la propriété @code{automaticBars}, qui réside dans
-le contexte @code{Score}, permet de s'affranchir d'imprimer
-automatiquement les barres de mesure ; seules seront imprimées les
-barres explicitées à l'aide de la commande @code{\bar}.  Néanmoins, et
-contrairement à ce qui se passe avec la commande @code{\cadenzaOn}, le
-compteur de numéro de mesure continuera de s'incrémenter.  Les barres
-s'imprimeront à nouveau, au niveau où en est le compteur, dès que la
-propriété @code{automaticBars} sera réactivée.  Gardez à l'esprit que
-les sauts de ligne, lorsque cette propriété est désactivée,  ne peuvent
-intervenir qu'à l'occasion d'un @code{\bar} explicite.
-
-@c TODO Add example
 
 
 @subsubsubheading Clefs transposées
