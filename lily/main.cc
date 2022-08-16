@@ -17,12 +17,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "main.hh"
 #include "lily-guile.hh"
 
 #include <unistd.h>
 #include <sys/types.h>
-#include "config.hh"
 
 #if HAVE_GRP_H
 #include <grp.h>

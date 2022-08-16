@@ -18,9 +18,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "source-file.hh"
-
 #include "config.hh"
+
+#include "source-file.hh"
 
 #include "international.hh"
 #include "misc.hh"

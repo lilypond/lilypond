@@ -18,6 +18,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "file-name.hh"
 
 #include "flower-proto.hh"
@@ -26,8 +28,6 @@
 #include <cerrno>
 #include <cstdio>
 #include <limits.h>
-
-#include "config.hh"
 
 #if HAVE_SYS_STAT_H
 #include <sys/stat.h>

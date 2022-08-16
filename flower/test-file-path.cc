@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "file-path.hh"
 #include "file-name.hh"
 
@@ -24,7 +26,6 @@
 #include <unistd.h>
 
 #include "yaffut.hh"
-#include "config.hh"
 
 using std::string;
 

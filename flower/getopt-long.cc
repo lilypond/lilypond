@@ -17,13 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "getopt-long.hh"
 
 #include <cstring>
 #include <cassert>
 #include <cstdlib>
 
-#include "config.hh"
 #include "international.hh"
 
 #if !HAVE_GETTEXT

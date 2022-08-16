@@ -17,9 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "relocate.hh"
-
 #include "config.hh"
+
+#include "relocate.hh"
 
 /* TODO: autoconf support */
 

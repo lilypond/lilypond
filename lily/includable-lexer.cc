@@ -17,9 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "includable-lexer.hh"
-
 #include "config.hh"
+
+#include "includable-lexer.hh"
 
 #include "file-name.hh"
 #include "file-path.hh"

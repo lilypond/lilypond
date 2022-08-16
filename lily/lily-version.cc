@@ -17,9 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "lily-version.hh"
 
-#include "config.hh"
 #include "international.hh"
 #include "lily-guile.hh"
 #include "program-option.hh"
