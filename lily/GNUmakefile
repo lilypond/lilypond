@@ -119,3 +119,8 @@ regex_ += $(foreach fname,$(three-arg-calls),--regex='$(pre)$(fname)$(third)')
 ETAGS_FLAGS += $(regex_)
 CTAGS_FLAGS += $(regex_)
 
+ifeq ($(strip $(CROSS)),no)
+$(outdir)/%.1: $(outdir)/%$(program_suffix) $(buildscript-dir)/help2man.pl
+	$(call ly_progress,Making,$@,(help2man))
+	LANGUAGE= $(PERL) $(buildscript-dir)/help2man.pl $< > $@
+endif
