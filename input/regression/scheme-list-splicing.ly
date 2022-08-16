@@ -26,7 +26,7 @@ scale =
 #(define-music-function (n) (index?)
    #{ #@(map (lambda (i)
                #{ $(ly:make-pitch 0 i) 4 #})
-             (iota 8)) #})
+             (iota n)) #})
 
 chord =
 #(define-music-function (n) (index?)
@@ -34,7 +34,7 @@ chord =
      <
        $@(map (lambda (i)
                 #{ $(ly:make-pitch 0 i) 4 #})
-              (iota 8))
+              (iota n))
      >
    #})
 
@@ -52,7 +52,7 @@ chordII =
        #(apply values
                (map (lambda (i)
                       #{ $(ly:make-pitch 0 i) 4 #})
-                    (iota 8)))
+                    (iota n)))
      >
    #})
 
