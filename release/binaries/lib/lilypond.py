@@ -38,6 +38,8 @@ from .dependencies import (
     glib,
     guile,
     pango,
+    libpng,
+    cairo,
     python,
     embeddable_python,
 )
@@ -121,6 +123,8 @@ class LilyPond(ConfigurePackage):
                 glib,
                 guile,
                 pango,
+                libpng,
+                cairo,
             ]
             + python_dep
         )
@@ -156,6 +160,7 @@ class LilyPond(ConfigurePackage):
             + [
                 # Disable the documentation.
                 "--disable-documentation",
+                "--enable-cairo-backend",
             ]
             + flexlexer
         )

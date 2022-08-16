@@ -980,6 +980,137 @@ class Pango(MesonPackage):
 pango = Pango()
 
 
+class Libpng(ConfigurePackage):
+    @property
+    def version(self) -> str:
+        return "1.6.37"
+
+    @property
+    def directory(self) -> str:
+        return f"libpng-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.xz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://downloads.sourceforge.net/libpng/{self.archive}"
+
+    def dependencies(self, c: Config) -> List[Package]:
+        return [zlib]
+
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
+        env.update(zlib.get_env_variables(c))
+        return env
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["LICENSE"]
+
+    def __str__(self) -> str:
+        return f"libpng {self.version}"
+
+
+libpng = Libpng()
+
+
+class Pixman(MesonPackage):
+    @property
+    def version(self) -> str:
+        return "0.40.0"
+
+    @property
+    def directory(self) -> str:
+        return f"pixman-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.gz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://www.cairographics.org/releases/{self.archive}"
+
+    def apply_patches(self, c: Config):
+        # Disable tests, they fail to build on macOS.
+        def patch_meson_build(content: str) -> str:
+            return content.replace("subdir('test')", "")
+
+        self.patch_file(c, "meson.build", patch_meson_build)
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["COPYING"]
+
+    def __str__(self) -> str:
+        return f"pixman {self.version}"
+
+
+pixman = Pixman()
+
+
+class Cairo(ConfigurePackage):
+    @property
+    def version(self) -> str:
+        return "1.16.0"
+
+    @property
+    def directory(self) -> str:
+        return f"cairo-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.xz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://www.cairographics.org/releases/{self.archive}"
+
+    def dependencies(self, c: Config) -> List[Package]:
+        return [zlib, freetype, fontconfig, libpng, pixman]
+
+    def build_env_extra(self, c: Config) -> Dict[str, str]:
+        env = super().build_env_extra(c)
+        env.update(zlib.get_env_variables(c))
+        # Cairo sets this by default, but doesn't work on Mingw.
+        env["CFLAGS"] = "-Wp,-U_FORTIFY_SOURCE"
+        return env
+
+    def configure_args(self, c: Config) -> List[str]:
+        return [
+            # ordering follows Cairo's configure --help output
+            "--enable-xlib=no",
+            "--enable-xlib-xrender=no",
+            "--enable-xcb=no",
+            "--enable-xcb-shm=no",
+            "--enable-quartz=no",
+            "--enable-quartz-font=no",
+            "--enable-win32=no",
+            "--enable-win32-font=no",
+            "--enable-egl=no",
+            "--enable-glx=no",
+            "--enable-wgl=no",
+            "--enable-script=no",
+            "--enable-ft=yes",
+            "--enable-fc=yes",
+            "--enable-ps=yes",
+            "--enable-pdf=yes",
+            "--enable-svg=yes",
+        ]
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["COPYING"]
+
+    def __str__(self) -> str:
+        return f"cairo {self.version}"
+
+
+cairo = Cairo()
+
+
 PYTHON_VERSION = "3.10.6"
 
 
@@ -1176,6 +1307,9 @@ all_dependencies: List[Package] = [
     harfbuzz,
     fribidi,
     pango,
+    libpng,
+    pixman,
+    cairo,
     python,
     embeddable_python,
 ]
