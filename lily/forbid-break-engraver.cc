@@ -30,7 +30,7 @@ class Forbid_line_break_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Forbid_line_break_engraver);
-  void start_translation_timestep ();
+  void pre_process_music ();
 };
 
 Forbid_line_break_engraver::Forbid_line_break_engraver (Context *c)
@@ -39,7 +39,7 @@ Forbid_line_break_engraver::Forbid_line_break_engraver (Context *c)
 }
 
 void
-Forbid_line_break_engraver::start_translation_timestep ()
+Forbid_line_break_engraver::pre_process_music ()
 {
   /*
     Check for running note heads. This should probably be done elsewhere.
