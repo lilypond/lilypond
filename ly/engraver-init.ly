@@ -319,7 +319,6 @@ multiple voices on the same staff."
 
   \description "A voice on a percussion staff."
   \remove Arpeggio_engraver
-  \consists Grob_pq_engraver
 
   \remove Note_head_line_engraver
   \remove Glissando_engraver
