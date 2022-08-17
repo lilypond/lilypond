@@ -129,6 +129,7 @@
         (script-stencil . (feta . ("dhenzelongfermata" . "uhenzelongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
 
     (henzeshortfermata
@@ -136,6 +137,7 @@
         (script-stencil . (feta . ("dhenzeshortfermata" . "uhenzeshortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
 
     (ictus
@@ -166,6 +168,7 @@
         (script-stencil . (feta . ("dlongfermata" . "ulongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
     (ltoe
      . (
@@ -277,6 +280,7 @@
         (script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
     (signumcongruentiae
      . (
@@ -387,11 +391,13 @@
         (script-stencil . (feta . ("dverylongfermata" . "uverylongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
     (veryshortfermata
      . (
         (script-stencil . (feta . ("dveryshortfermata" . "uveryshortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
+        (script-priority . 4000)
         (direction . ,UP)))
     ))
