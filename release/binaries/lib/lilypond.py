@@ -391,7 +391,14 @@ class LilyPondPackager:
         python_interpreter = python.python_with_major_version
         python_shebang = "#!/usr/bin/env python3"
         python_wrapper_template = f"""#!/bin/sh
-root="$(dirname $0)/.."
+script="$0"
+if test -L "$script"; then
+    # readlink is not POSIX, but present on all platforms we care about.
+    # On macOS, it does not support the recursive following of symlinks,
+    # so we only resolve one link and hope for the best.
+    script="$(readlink -f "$script" 2>/dev/null || readlink "$script")"
+fi
+root="$(dirname "$script")/.."
 exec "$root/libexec/{python_interpreter}" "$root/libexec/%s" "$@"
 """
 
