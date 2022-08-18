@@ -158,7 +158,13 @@ Item::pure_find_visible_prebroken_piece (vsize start, vsize end) const
 {
   auto *it = const_cast<Item *> (this);
 
-  const auto rank = static_cast<vsize> (get_column ()->get_rank ());
+  // An Item "always" has a column, but it is possible for a grob to be killed
+  // before its parents are set, so we have to be careful.
+  const auto *col = get_column ();
+  if (!col)
+    return nullptr;
+
+  const auto rank = static_cast<vsize> (col->get_rank ());
   if (rank == start)
     {
       it = find_prebroken_piece (RIGHT);
@@ -180,8 +186,14 @@ Item::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 Interval_t<int>
 Item::spanned_column_rank_interval () const
 {
-  int c = get_column ()->get_rank ();
-  return Interval_t<int> (c, c);
+  // An Item "always" has a column, but it is possible for a grob to be killed
+  // before its parents are set, so we have to be careful.
+  if (const auto *col = get_column ())
+    {
+      auto c = col->get_rank ();
+      return Interval_t<int> (c, c);
+    }
+  return {};
 }
 
 System_rank_interval
