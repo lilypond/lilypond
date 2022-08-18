@@ -22,6 +22,7 @@
 #include "accidental-placement.hh"
 #include "arpeggio.hh"
 #include "directional-element-interface.hh"
+#include "script-interface.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
 #include "grob.hh"
@@ -54,10 +55,7 @@ Compare two grobs by script priority.  For internal use.
   auto *const i1 = LY_ASSERT_SMOB (Grob, a, 1);
   auto *const i2 = LY_ASSERT_SMOB (Grob, b, 2);
 
-  SCM p1 = get_property (i1, "script-priority");
-  SCM p2 = get_property (i2, "script-priority");
-
-  return from_scm<int> (p1) < from_scm<int> (p2) ? SCM_BOOL_T : SCM_BOOL_F;
+  return to_scm (Script_interface::script_priority_less (i1, i2));
 }
 
 MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking,

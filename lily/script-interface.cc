@@ -152,6 +152,15 @@ Script_interface::print (SCM smob)
   return get_stencil (me, dir).smobbed_copy ();
 }
 
+bool
+Script_interface::script_priority_less (const Grob *g1, const Grob *g2)
+{
+  SCM script_priority_sym = ly_symbol2scm ("script-priority");
+  SCM p1 = get_property (g1, script_priority_sym);
+  SCM p2 = get_property (g2, script_priority_sym);
+  return from_scm<int> (p1) < from_scm<int> (p2);
+}
+
 struct Text_script
 {
 };
