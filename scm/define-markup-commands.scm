@@ -1442,6 +1442,10 @@ duration, e.g., @code{\\rhythm @{ 8 @}}.  Use extra braces:
   (let* ((mkup
           #{
             \markup \score {
+              \layout {
+                system-count = 1
+                ragged-right = ##t
+              }
               \new StandaloneRhythmVoice \with {
                 \magnifyStaff #(magstep font-size)
               }
