@@ -398,5 +398,6 @@ def add_feature_kern(font):
     kern("n", "p", 0.2 * DKU)
     kern("n", "f", -0.1 * DKU)
     kern("r", "f", 0.1 * DKU)
+    kern("s", "p", 0.3 * DKU)
 
 # eof
