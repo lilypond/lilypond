@@ -3107,7 +3107,8 @@ syntax, with a backtick @samp{`} instead of a quote @samp{'} to write
 the alist.
 
 @lilypond[quote,verbatim]
-\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
+\markup \replace
+  #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
 @end lilypond
 
 Aliases themselves are not further processed for replacements.

@@ -5332,7 +5332,8 @@ Note the quasiquoting syntax with a backquote in the second example.
 @lilypond[verbatim,quote]
 \\markup \\replace #'((\"2nd\" . \"Second\"))
   \"2nd time\"
-\\markup \\replace #`((\"2nd\" . ,#{ \\markup \\concat { 2 \\super nd } #}))
+\\markup \\replace
+  #`((\"2nd\" . ,#{ \\markup \\concat { 2 \\super nd } #}))
   \\center-column {
     \\line { Play only }
     \\line { the 2nd time }
