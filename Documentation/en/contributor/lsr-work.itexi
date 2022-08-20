@@ -120,6 +120,12 @@ documentation, and the @code{doctitle} must match the filename
 (@command{makelsr.pl} shows a helpful error message if it
 doesn't).
 
+The order of @code{\version}, @code{\header}, and the LilyPond
+code must be as shown above, otherwise @command{makelsr.pl} aborts
+with an error.  The same holds for the order of the
+@code{lsrtags}, @code{texidoc}, and @code{doctitle} fields within
+@code{\header}.
+
 
 @node Approving snippets
 @section Approving snippets
