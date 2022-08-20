@@ -107,6 +107,26 @@ the angle of partially-covered-keys and the display of non-graphical trill keys.
 
 
 @item
+The padding by default for fermatas is now larger. This avoids
+some cases where the fermata was placed too close to dots and
+other objects.
+
+@lilypond[quote]
+\relative c''' {
+  \tempo 4 = 60
+  a4.
+  a4.\fermata
+  a4.\henzeshortfermata
+  a4.\henzelongfermata
+  a4.\shortfermata
+  a4.\longfermata
+  a4.\veryshortfermata
+  a4.\verylongfermata
+}
+@end lilypond
+
+
+@item
 The accent glyph is now a bit smaller.  This fixes some cases where a natural
 sign would vertically displace accents.
 
