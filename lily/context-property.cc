@@ -29,29 +29,6 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
-/*
-  like execute_general_pushpop_property(), but typecheck
-  grob_property_path and context_property.
-*/
-void
-general_pushpop_property (Context *context,
-                          SCM context_property,
-                          SCM grob_property_path,
-                          SCM new_value)
-{
-  // Numbers may appear, but not in first place
-  if (!scm_is_symbol (context_property)
-      || !scm_is_symbol (scm_car (grob_property_path)))
-    {
-      warning (_ ("need symbol argument for \\override and \\revert"));
-      if (do_internal_type_checking_global)
-        assert (false);
-    }
-
-  Grob_property_info (context, context_property).pushpop
-  (grob_property_path, new_value);
-}
-
 bool
 typecheck_grob (SCM symbol, SCM value)
 {
