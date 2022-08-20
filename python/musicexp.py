@@ -53,7 +53,7 @@ def escape_instrument_string(input_string):
 
 class Output_stack_element:
     def __init__(self):
-        self.factor = Fraction(1)
+        self.factor = 1
 
     def copy(self):
         o = Output_stack_element()
@@ -174,13 +174,12 @@ class Duration:
     def __init__(self):
         self.duration_log = 0
         self.dots = 0
-        self.factor = Fraction(1)
+        self.factor = 1
 
     def lisp_expression(self):
-        return '(ly:make-duration %d %d %d %d)' % (self.duration_log,
-                                                   self.dots,
-                                                   self.factor.numerator,
-                                                   self.factor.denominator)
+        return '(ly:make-duration %d %d %s)' % (self.duration_log,
+                                                self.dots,
+                                                self.factor)
 
     def ly_expression(self, factor=None, scheme_mode=False):
         global ly_dur  # stores lilypond durations
@@ -197,11 +196,8 @@ class Duration:
             dur_str = '%d' % (1 << self.duration_log)
         dur_str += '.' * self.dots
 
-        if factor != Fraction(1, 1):
-            if factor.denominator != 1:
-                dur_str += '*%d/%d' % (factor.numerator, factor.denominator)
-            else:
-                dur_str += '*%d' % factor.numerator
+        if factor != 1:
+            dur_str += f'*{factor}'
 
         if dur_str.isdigit():
             ly_dur = int(dur_str)
@@ -224,15 +220,13 @@ class Duration:
         return d
 
     def get_length(self):
-        dot_fact = Fraction((1 << (1 + self.dots)) - 1,
-                            1 << self.dots)
+        num = (1 << (1 + self.dots)) - 1
+        dot_fact = Fraction(num, 1 << self.dots) if self.dots else num
 
-        log = abs(self.duration_log)
-        dur = 1 << log
-        if self.duration_log < 0:
-            base = Fraction(dur)
+        if self.duration_log <= 0:
+            base = 1 << (-self.duration_log)
         else:
-            base = Fraction(1, dur)
+            base = Fraction(1, 1 << self.duration_log)
 
         return base * dot_fact * self.factor
 
@@ -573,12 +567,12 @@ class Pitch:
 class Music:
     def __init__(self):
         self.parent = None
-        self.start = Fraction(0)
+        self.start = 0
         self.comment = ''
         self.identifier = None
 
     def get_length(self):
-        return Fraction(0)
+        return 0
 
     def get_properties(self):
         return ''
@@ -1082,7 +1076,7 @@ class ChordEvent (NestedMusic):
                 isinstance(e, NoteEvent) or isinstance(e, RestEvent)] != []
 
     def get_length(self):
-        l = Fraction(0)
+        l = 0
         for e in self.elements:
             l = max(l, e.get_length())
         return l
@@ -2769,10 +2763,10 @@ if __name__ == '__main__':
     test_pitch()
 
     expr = test_expr()
-    expr.set_start(Fraction(0))
+    expr.set_start(0)
     expr.print_ly(Output_printer())
-    start = Fraction(0, 4)
-    stop = Fraction(4, 2)
+    start = 0
+    stop = 2
 
     def sub(x, start=start, stop=stop):
         ok = x.start >= start and x.start + x.get_length() <= stop

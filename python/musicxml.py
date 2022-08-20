@@ -32,7 +32,6 @@ import musicexp
 import musicxml2ly_conversion
 import utilities
 
-
 class Xml_node(object):
 
     def __init__(self):
@@ -137,8 +136,8 @@ class Xml_node(object):
 class Music_xml_node(Xml_node):
     def __init__(self):
         Xml_node.__init__(self)
-        self.duration = Fraction(0)
-        self.start = Fraction(0)
+        self.duration = 0
+        self.start = 0
         self.converted = False
         self.voice_id = None
 
@@ -1289,14 +1288,14 @@ class Part(Music_xml_node):
 
         part_list = self.get_part_list()
 
-        now = Fraction(0)
-        factor = Fraction(1)
+        now = 0
+        factor = 1
         attributes_dict = {}
         attributes_object = None
         measures = self.get_typed_children(Measure)
-        last_moment = Fraction(-1)
-        last_measure_position = Fraction(-1)
-        measure_position = Fraction(0)
+        last_moment = -1
+        last_measure_position = -1
+        measure_position = 0
         measure_start_moment = now
         is_first_measure = True
         previous_measure = None
@@ -1326,7 +1325,7 @@ class Part(Music_xml_node):
                                 '%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
                     now = new_now
                 measure_start_moment = now
-                measure_position = Fraction(0)
+                measure_position = 0
 
             voice_id = None
             assign_to_next_voice = []
@@ -1357,7 +1356,7 @@ class Part(Music_xml_node):
 
                 if isinstance(n, Hash_text):
                     continue
-                dur = Fraction(0)
+                dur = 0
 
                 if n.__class__ == Attributes:
                     n.set_attributes_from_previous(attributes_dict)
@@ -1382,7 +1381,7 @@ class Part(Music_xml_node):
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
                     if n.get_maybe_exist_typed_child(Grace):
-                        dur = Fraction(0)
+                        dur = 0
 
                     rest = n.get_maybe_exist_typed_child(Rest)
                     if(rest
@@ -1391,7 +1390,7 @@ class Part(Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if(dur > Fraction(0)
+                if(dur > 0
                         and n.get_maybe_exist_typed_child(Chord)):
                     now = last_moment
                     measure_position = last_measure_position
@@ -1412,16 +1411,16 @@ class Part(Music_xml_node):
                     n._measure_position = last_measure_position
                 elif isinstance(n, Note) and n.is_grace():
                     pending_graces.append(n)
-                elif dur > Fraction(0):
+                elif dur > 0:
                     pending_graces = []
 
                 n._duration = dur
-                if dur > Fraction(0):
+                if dur > 0:
                     last_moment = now
                     last_measure_position = measure_position
                     now += dur
                     measure_position += dur
-                elif dur < Fraction(0):
+                elif dur < 0:
                     # backup element, reset measure position
                     now += dur
                     measure_position += dur
