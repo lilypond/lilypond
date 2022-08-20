@@ -15,6 +15,7 @@ provided for some figures.
   doctitle = "Changing the positions of figured bass alterations"
 }
 
+
 \figures {
   <5\+> <5+ 4\+> <6 4- 2\+> r
   \set figuredBassAlterationDirection = #RIGHT

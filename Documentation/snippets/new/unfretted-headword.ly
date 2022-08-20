@@ -5,10 +5,12 @@
 
   texidoc = "
 Unfretted headword
-
 "
+
   doctitle = "Unfretted headword"
 }
+
+
 % #!lilypond lcp-extract.ly -*- coding: utf-8; -*-
 
 %%%

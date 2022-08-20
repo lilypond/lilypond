@@ -6,10 +6,11 @@
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
 objects in parentheses.  The associated grob is @code{Parentheses}.
-
 "
+
   doctitle = "Adding parentheses around an expressive mark or chordal note"
 }
+
 
 \relative c' {
   c2-\parenthesize ->

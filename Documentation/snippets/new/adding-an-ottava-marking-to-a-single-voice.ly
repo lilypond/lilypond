@@ -9,10 +9,11 @@ voice transposes the position of notes in all voices for the duration
 of the ottava bracket. If the octavation is only intended to apply to
 one voice, the @code{Ottava_spanner_engraver} should be moved to
 @code{Voice} context.
-
 "
+
   doctitle = "Adding an ottava marking to a single voice"
 }
+
 
 \layout {
   \context {

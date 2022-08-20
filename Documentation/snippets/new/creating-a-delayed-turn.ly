@@ -10,10 +10,11 @@ accidental, requires several overrides.  The
 otherwise this would take precedence over the
 @code{avoid-slur property}.  Changing the fraction @code{2/3}
 adjusts the horizontal position.
-
 "
+
   doctitle = "Creating a delayed turn"
 }
+
 
 \relative c'' {
   \after 2*2/3 \turn c2( d4) r |

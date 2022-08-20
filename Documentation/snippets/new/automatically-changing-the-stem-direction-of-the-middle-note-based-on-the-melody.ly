@@ -10,10 +10,11 @@ that it follows the melody, by adding the @code{Melody_engraver} to the
 
 The context property @code{suspendMelodyDecisions} may be used to turn
 off this behavior locally.
-
 "
+
   doctitle = "Automatically changing the stem direction of the middle note based on the melody"
 }
+
 
 \relative c'' {
   \time 3/4

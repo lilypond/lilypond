@@ -6,10 +6,11 @@
   texidoc = "
 Shown here are many of the symbols that are included in LilyPond's
 ancient notation.
-
 "
+
   doctitle = "Ancient fonts"
 }
+
 
 upperStaff = \new VaticanaStaff = "upperStaff" <<
   \context VaticanaVoice <<

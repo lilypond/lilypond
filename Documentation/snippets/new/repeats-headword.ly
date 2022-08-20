@@ -5,10 +5,11 @@
 
   texidoc = "
 Repeats headword
-
 "
+
   doctitle = "Repeats headword"
 }
+
 
 %% http://lsr.di.unimi.it/LSR/Item?id=821
 %% see also http://www.lilypond.org/doc/v2.18/Documentation/notation/repeats

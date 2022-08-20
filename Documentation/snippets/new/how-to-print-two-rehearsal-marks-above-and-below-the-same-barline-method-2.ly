@@ -12,8 +12,8 @@ rehearsal mark UP and DOWN in each voice respectively.
 This method (as opposed to method 1) is more complex, but allows for
 more flexibility, should it be needed to tweak each rehearsal mark
 independently of the other.
-
 "
+
   doctitle = "How to print two rehearsal marks above and below the same barline (method 2)"
 }
 

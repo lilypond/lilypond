@@ -2,6 +2,7 @@
 
 \header {
   lsrtags = "expressive-marks"
+
   texidoc = "
 The ends of hairpins may be aligned to the @code{LEFT}, @code{CENTER}
 or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
@@ -12,8 +13,10 @@ will be transformed with a warning.  The right end of a hairpin
 terminating at a rest is not affected, always ending at the left edge
 of the rest.
 "
+
   doctitle = "Aligning the ends of hairpins to NoteColumn directions"
 }
+
 
 {
   c'2\< <c' d'>\! |

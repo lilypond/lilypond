@@ -9,8 +9,10 @@ printed by setting @code{measureBarType} to @code{\"-span|\"} and
 using a grouping context that allows span bars, such as
 @code{StaffGroup}.
 "
+
   doctitle = "Mensurstriche layout (bar lines between the staves)"
 }
+
 
 \layout {
   \context {

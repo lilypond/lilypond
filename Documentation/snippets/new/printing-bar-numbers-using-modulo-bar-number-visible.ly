@@ -20,10 +20,11 @@ Useful to print the @code{BarNumber} at certain distances, p.e:
 @item
 @code{(modulo-bar-number-visible 5 2)} -> prints 2,7,12
 @end itemize
-
 "
+
   doctitle = "Printing bar numbers using modulo-bar-number-visible"
 }
+
 
 \layout {
   \context {

@@ -16,10 +16,11 @@ This mirrors the mechanism originally used in early LilyPond versions
 (pre-1.7); not having been properly maintained, however, some features
 have been lost (mainly chord exception lists) and bugs have been
 introduced.
-
 "
+
   doctitle = "Chord names alternative"
 }
+
 
 %%%% Legacy chord naming functions (formerly in scm/chord-generic-names.scm)
 %%%% Copyright (C) 2003--2015 Jan Nieuwenhuizen <janneke@gnu.org>

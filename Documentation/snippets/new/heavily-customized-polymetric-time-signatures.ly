@@ -7,10 +7,11 @@
 Though the polymetric time signature shown was not the most essential
 item here, it has been included to show the beat of this piece (which
 is the template of a real Balkan song!).
-
 "
+
   doctitle = "Heavily customized polymetric time signatures"
 }
+
 
 melody = \relative c'' {
   \key g \major

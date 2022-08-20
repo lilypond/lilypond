@@ -7,10 +7,11 @@
 By setting the @code{barNumberVisibility} property, bar numbers can be
 printed at regular intervals. Here the bar numbers are printed every
 two measures except at the end of the line.
-
 "
+
   doctitle = "Printing bar numbers at regular intervals"
 }
+
 
 \relative c' {
   \override Score.BarNumber.break-visibility = #end-of-line-invisible

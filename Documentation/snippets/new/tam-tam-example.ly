@@ -5,10 +5,11 @@
 
   texidoc = "
 A tam-tam example, entered with 'tt'
-
 "
+
   doctitle = "Tam-tam example"
 }
+
 
 #(define mydrums '((tamtam default #f 0)))
 

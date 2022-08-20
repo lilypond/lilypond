@@ -18,10 +18,11 @@ This example shows two solutions to this problem, by redefining
 ordinary rests to be printed as slashes. (If the duration of each beat
 is not a quarter note, replace the @code{r4} in the definitions with a
 rest of the appropriate duration).
-
 "
+
   doctitle = "Rhythmic slashes"
 }
+
 
 % Macro to print single slash
 rs = {

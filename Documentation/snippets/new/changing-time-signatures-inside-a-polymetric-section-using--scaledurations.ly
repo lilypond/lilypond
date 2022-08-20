@@ -11,10 +11,11 @@ difficult to change time signatures.  In this case,
 @code{measureLength} should be set manually, using the
 @code{ly:make-moment} callback.  The second argument must be the same
 as the second argument of @code{\\scaleDurations}.
-
 "
+
   doctitle = "Changing time signatures inside a polymetric section using \\scaleDurations"
 }
+
 
 \layout {
   \context {

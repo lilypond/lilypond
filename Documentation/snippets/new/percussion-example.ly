@@ -5,10 +5,11 @@
 
   texidoc = "
 A short example taken from Stravinsky's @emph{L'Histoire du soldat}.
-
 "
+
   doctitle = "Percussion example"
 }
+
 
 #(define mydrums '((bassdrum   default #f  4)
                    (snare      default #f -4)

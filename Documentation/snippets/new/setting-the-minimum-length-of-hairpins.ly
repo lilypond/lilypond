@@ -6,10 +6,11 @@
   texidoc = "
 If hairpins are too short, they can be lengthened by modifying the
 @code{minimum-length} property of the @code{Hairpin} object.
-
 "
+
   doctitle = "Setting the minimum length of hairpins"
 }
+
 
 <<
   {

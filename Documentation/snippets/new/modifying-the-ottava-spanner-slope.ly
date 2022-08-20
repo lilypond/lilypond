@@ -5,10 +5,11 @@
 
   texidoc = "
 It is possible to change the slope of the Ottava spanner.
-
 "
+
   doctitle = "Modifying the Ottava spanner slope"
 }
+
 
 \relative c'' {
   \override Staff.OttavaBracket.stencil = #ly:line-spanner::print

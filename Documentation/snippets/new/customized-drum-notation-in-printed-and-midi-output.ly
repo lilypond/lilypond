@@ -21,10 +21,11 @@ assigns pitches to the names,
 @item
 tells LilyPond to use them for MIDI output.
 @end itemize
-
 "
+
   doctitle = "Customized drum notation in printed and MIDI output"
 }
+
 
 %% This snippet tries to amend
 %% NR 2.5.1 Common notation for percussion - Custom percussion staves

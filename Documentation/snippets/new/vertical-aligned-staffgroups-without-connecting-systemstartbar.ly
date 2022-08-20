@@ -7,10 +7,11 @@
 This snippet shows how to achieve vertically aligned @code{StaffGroups}
 with a @code{SystemStartBar} for each @code{StaffGroup}, but without
 connecting them.
-
 "
+
   doctitle = "Vertical aligned StaffGroups without connecting SystemStartBar"
 }
+
 
 #(set-global-staff-size 18)
 

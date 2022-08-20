@@ -9,10 +9,11 @@ sign bar lines, you can define new custom bar lines or redefine the way
 default repeat signs are drawn.  This snippet shows how.  This may be
 particularly helpful when using a staff with custom line-positions, as
 shown in this snippet.
-
 "
+
   doctitle = "Customizing the position and number of dots in repeat sign bar lines"
 }
+
 
 #(define ((make-custom-dot-bar-line dot-positions) grob extent)
 

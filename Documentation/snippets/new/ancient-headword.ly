@@ -5,10 +5,11 @@
 
   texidoc = "
 Ancient headword
-
 "
+
   doctitle = "Ancient headword"
 }
+
 
 #(set-global-staff-size 23)
 

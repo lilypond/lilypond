@@ -12,10 +12,11 @@ for the shorthands can be modified. For example, to associate the
 @code{-+} (@code{dashPlus}) shorthand with the @emph{trill} symbol
 instead of the default @emph{+} symbol, assign the value @code{\\trill}
 to the variable @code{dashPlus}:
-
 "
+
   doctitle = "Modifying default values for articulation shorthand notation"
 }
+
 
 \relative c'' { c1-+ }
 

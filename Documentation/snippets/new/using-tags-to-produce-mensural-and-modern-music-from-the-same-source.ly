@@ -1,4 +1,5 @@
 \version "2.23.12"
+
 \header {
   lsrtags = "ancient-notation, vocal-music"
 
@@ -13,8 +14,10 @@ modern music, but normal rests (@code{r1}, @code{r\\breve}, etc.) in
 the mensural version.  Converting mensural music to its modern
 equivalent is usually referred to as @qq{transcription}.
 "
+
   doctitle = "Using tags to produce mensural and modern music from the same source"
 }
+
 
 menrest = #(define-music-function (note)
   (ly:music?)

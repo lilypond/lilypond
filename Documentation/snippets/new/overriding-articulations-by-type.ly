@@ -12,10 +12,11 @@ might be to create a style sheet.
 
 With 2.16.2 and above it is possible to put the proposed function,
 @code{\\customScripts}, into a @code{\\layout}-block.
-
 "
+
   doctitle = "Overriding articulations by type"
 }
+
 
 % Code by David Nalesnik and Thomas Morley
 

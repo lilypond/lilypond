@@ -9,10 +9,11 @@ This snippet shows the use of the @code{Span_stem_engraver} and
 
 The stem length need not be specified, as the variable distance between
 noteheads and staves is calculated automatically.
-
 "
+
   doctitle = "Cross staff stems"
 }
+
 
 \layout {
   \context {

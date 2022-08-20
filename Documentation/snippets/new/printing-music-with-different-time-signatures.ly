@@ -15,8 +15,8 @@ If bar numbers are required, the @code{Bar_number_engraver} should also
 be moved, since it relies on properties set by the
 @code{Timing_translator}; a @code{\\with} block can be used to add bar
 numbers to the relevant staff.
-
 "
+
   doctitle = "Printing music with different time signatures"
 }
 

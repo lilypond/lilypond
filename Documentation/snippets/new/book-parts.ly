@@ -8,10 +8,11 @@
 part last page can be affected by @code{ragged-last-bottom}. Header and
 footer markups can detect a part last page, and make the difference
 with the book last page.
-
 "
+
   doctitle = "Book parts"
 }
+
 
 #(set-default-paper-size "a6")
 

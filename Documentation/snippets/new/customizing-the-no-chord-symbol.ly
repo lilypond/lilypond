@@ -6,10 +6,11 @@
   texidoc = "
 By default, rests in a @code{ChordNames} context cause the @qq{N.C.}
 symbol to be printed.  This markup can be customized.
-
 "
+
   doctitle = "Customizing the no-chord symbol"
 }
+
 
 <<
   \chords {
