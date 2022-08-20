@@ -564,14 +564,14 @@ if (!$no_new) {
     # We use named groups `(?<name> ...)` in the regular expression,
     # also removing leading and trailing whitespace.  `(?: ...)` is
     # for clustering, `*?` is the non-greedy version of `*`, and
-    # `(?s)` makes `.` match newlines, too.  Finally, `\z` matches the
-    # end of the string, while `$` matches EOL because of the 'm'
-    # modifier of this regex.
+    # `(?s)` makes `.` match newlines, too.  Finally, `\A` and `\z`
+    # match the start and the end of the string, respectively, while
+    # `$` matches EOL because of the 'm' modifier of this regex.
     #
     # The hash called `+` holds all matches of named groups.
     if ($content =~
         /
-          \s*
+          \A \s*
 
           \\version \s* " (?<version> [0-9.]+ ) " \s*
 
@@ -591,7 +591,9 @@ if (!$no_new) {
 
           } \h* (?<invalid> .*? ) \h* $ \s*
 
-          (?<code> (?s) .*? ) \s* \z
+          (?<code> (?s) .*? )
+
+          \s* \z
         /xm) {
       $version = $+{version};
       @lsrtags = split /\s*,\s*/, $+{lsrtags};
