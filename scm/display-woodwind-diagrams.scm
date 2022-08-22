@@ -143,7 +143,7 @@
               (text? . ("C" . #f))
               (complexity . trill)))
           (b
-           . ((offset . (1.0 . 0.0))
+           . ((offset . (1.15 . 0.0))
               (stencil . ,flute-rh-b-key-stencil)
               (text? . ("B" . #f))
               (complexity . trill)))
