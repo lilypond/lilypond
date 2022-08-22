@@ -501,16 +501,16 @@ are provided in @var{function-list}.  Example:
          gray-colorize
          identity)
         ((standard-e-stencil
-          (* (+ (- 1.0 (* 2 thick)) (/ thick 2)))
-          (* (+ (- 1.0 (* 2 thick)) (/ thick 2))))
+          (+ (- 1.0 (* 2 (/ thick radius))) (/ thick radius 2))
+          (+ (- 1.0 (* 2 (/ thick radius))) (/ thick radius 2)))
          radius
-         (* (* 4 radius) thick)
+         (* 4 thick)
          1
          layout
          props))
        ((standard-e-stencil 1.0 1.0) radius thick 1 layout props)
        (column-circle-stencil
-        (+ (* (- 1.0 (* 4 thick)) radius) (/ thick 2))
+        (* radius (+ (- 1.0 (* 4 (/ thick radius))) (/ thick radius 2)))
         thick
         (*
          (if (= 0 (remainder fill (assoc-get 'F HOLE-FILL-LIST)))
