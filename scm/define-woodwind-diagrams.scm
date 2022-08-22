@@ -1084,7 +1084,7 @@ are provided in @var{function-list}.  Example:
 (define (bassoon-uber-key-stencil height gap cut keylen d1 d2)
   (rich-bassoon-uber-key-stencil height gap cut keylen d1 d2 identity #t))
 
-(define bassoon-cc-one-key-stencil (standard-e-stencil 1.5 0.8))
+(define bassoon-cc-six-key-stencil (standard-e-stencil 1.5 0.8))
 
 (define bassoon-lh-he-key-stencil little-elliptical-key-stencil)
 

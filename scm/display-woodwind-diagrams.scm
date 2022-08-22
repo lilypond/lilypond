@@ -1360,7 +1360,7 @@
              (central-column
               . ((one
                   . ((offset . ,(assoc-get 'one CENTRAL-COLUMN-HOLE-PLACEMENTS))
-                     (stencil . ,bassoon-cc-one-key-stencil)
+                     (stencil . ,ring-column-circle-stencil)
                      (text? . #f)
                      (complexity . trill)))
                  (two
@@ -1385,7 +1385,7 @@
                      (complexity . ring)))
                  (six
                   . ((offset . ,(assoc-get 'six CENTRAL-COLUMN-HOLE-PLACEMENTS))
-                     (stencil . ,ring-column-circle-stencil)
+                     (stencil . ,bassoon-cc-six-key-stencil)
                      (text? . #f)
                      (complexity . ring)))))
              (left-hand
@@ -1450,7 +1450,7 @@
               . ,(append (assoc-get 'right-hand-additional-keys
                                     change-points)
                          `((bes
-                            . ((offset . (0.0 . 0.8))
+                            . ((offset . (0.0 . 0.7))
                                (stencil . ,bassoon-rh-bes-key-stencil)
                                (text? . ("B" . 0))
                                (complexity . trill)))
