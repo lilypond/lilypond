@@ -1322,7 +1322,7 @@
                                   (make-central-column-hole-addresses '(three two one))
                                   (make-left-hand-key-addresses
                                    '(low-b low-bes low-c low-d d a c w thumb-cis
-                                           high-ees high-e cis ees)))
+                                           lh-ees high-ees high-e cis ees)))
                                 (0.0 . 0.9)))
                               ()))
      (right-hand-lower-thumb-group .
@@ -1400,6 +1400,11 @@
                             . ((offset . (0.0 . 0.0))
                                (stencil . ,bassoon-lh-hees-key-stencil)
                                (text? . ("hE" . 0))
+                               (complexity . trill)))
+                           (lh-ees
+                            . ((offset . (0.0 . 0.0))
+                               (stencil . ,bassoon-lh-lhees-key-stencil)
+                               (text? . ("lE" . 0))
                                (complexity . trill)))
                            (ees
                             . ((offset . (-1.0 . 1.0))
@@ -1502,6 +1507,8 @@
                                                       '(-1.0 . 7.0))
                                ,(simple-stencil-alist '(left-hand . high-ees)
                                                       '(-1.0 . 6.0))
+                               ,(simple-stencil-alist '(left-hand . lh-ees)
+                                                      '(-1.0 . 5.0))
                                ((stencils
                                  . ((left-hand . ees) (left-hand . cis)))
                                 (xy-scale-function . (,return-1 . ,return-1))
@@ -1599,7 +1606,7 @@
                       (offset . (0.0 . 0.0)))
                      ((stencils
                        . ,(make-left-hand-key-addresses
-                           '(high-e high-ees ees cis)))
+                           '(high-e high-ees lh-ees ees cis)))
                       (textual? . ,lh-woodwind-text-stencil)
                       (offset . (1.5 . 3.75)))
                      ((stencils
@@ -1631,7 +1638,7 @@
                      (assoc-get 'front-right-hand-key-addresses change-points))
                    ,(make-right-hand-key-addresses
                      (assoc-get 'back-right-hand-key-addresses change-points))
-                   ,(make-left-hand-key-addresses '(high-e high-ees ees cis))))
+                   ,(make-left-hand-key-addresses '(high-e high-ees lh-ees ees cis))))
                  (,group-automate-rule
                   ,(make-central-column-hole-addresses
                     CENTRAL-COLUMN-HOLE-LIST))

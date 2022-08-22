@@ -1090,6 +1090,8 @@ are provided in @var{function-list}.  Example:
 
 (define bassoon-lh-hees-key-stencil little-elliptical-key-stencil)
 
+(define bassoon-lh-lhees-key-stencil little-elliptical-key-stencil)
+
 (define bassoon-lh-ees-key-stencil
   (rich-e-stencil
    1.2
