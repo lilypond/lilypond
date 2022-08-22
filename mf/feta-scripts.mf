@@ -1645,40 +1645,71 @@ fet_endchar;
 
 
 def draw_comma =
-  save alpha, thick, thin, ht;
+  save alpha, thick, thin, tip_thin, base_offset;
+  save pata, patb;
+  path pata, patb;
+  save r, d;
+  numeric r[], d[];
+  save ta, tb;
 
-  alpha := 35;
-  thin# = 1.2 linethickness#;
-  thick# = 3 linethickness#;
-  ht# = .6 staff_space#;
-  define_pixels (thin, thick, ht);
+  alpha := 65;
+  thick# := 1/3 staff_space# + 2 linethickness#;
+  thin# := 1/3 thick#;
+  base_offset# := 0.3 thick#;
+  define_whole_blacker_pixels (thick);
+  define_pixels (thin, base_offset);
+  tip_thin = 0.6 thin;
 
-  set_char_box (0, .5 staff_space#, ht#, ht#);
+  r1# := 1.0 thick#;
+  r2# := 0.9 thick#;
+  r3# := 0.8 thick#;
+  define_pixels (r1, r2, r3);
 
-  penpos1 (thick, alpha);
-  penpos2 (thick, alpha + 90);
-  penpos3 (thin, 180 - alpha);
-  penpos4 (thin, 90 - alpha);
+  d1# := 0.5 (r1# - r2#);
+  d2# := 0.5 (r2# - r3#);
+  define_pixels (d1, d2);
 
-  x3r = 0;
-  x1l = x3l;
-  y2r = -y4l = h;
-  z1 = z2;
-  z3 = z4;
+  set_char_box (0,
+                0.5 (r1# + r2#),
+                thick# - base_offset#,
+                0.5 (r1# + r3#) - d1# + base_offset#);
 
-  fill z1l{dir (alpha + 90)}
-       .. z2r{dir alpha}
-       .. z1r{dir (alpha - 90)}
-       .. z3l{dir (270 - alpha)}
-       .. z4l{dir (180 - alpha)}
-       .. z3r{dir (90-alpha)}
-       .. cycle;
+  pata := quartercircle scaled r1
+          .. quartercircle rotated 90 scaled r2
+                           shifted (0, d1)
+          .. quartercircle rotated 180 scaled r3
+                           shifted (-d2, d1)
+          -- (0.4, -0.5) scaled r3 shifted (-d2, d1);
+  pata := pata shifted (w - 0.5 r1, h - 0.5 r1);
+
+  penpos1 (thin, 0);
+  pickup pencircle scaled thin;
+  rt x1 = w;
+  y1 = 0.2 thick + base_offset;
+
+  penpos2 (tip_thin, -alpha);
+  pickup pencircle scaled tip_thin;
+  bot y2 = -d;
+  lft x2 = 0;
+
+  patb := z1l{down}
+          ..z2l{dir (270 - alpha)}
+          .. lft z2{down}
+          .. bot z2{right}
+          .. z2r{dir (90 - alpha)}
+          .. z1r{up};
+
+  (ta, tb) = pata intersectiontimes patb;
+
+  fill subpath (0, ta) of pata
+       .. subpath (tb, length patb) of patb
+       -- cycle;
 enddef;
 
 
 fet_beginchar ("right comma", "rcomma");
   draw_comma;
-  penlabels (1, 2, 3, 4);
+  penlabels (1, 2);
 fet_endchar;
 
 

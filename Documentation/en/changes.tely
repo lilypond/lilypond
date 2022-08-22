@@ -74,6 +74,15 @@ which scares away people.
 
 
 @item
+The comma glyph shape, as used in the @code{\breathe} command,
+has been changed to a more common form.
+
+@lilypond[quote]
+{ f'2 \breathe f'2 }
+@end lilypond
+
+
+@item
 In @code{GregorianTranscriptionStaff}, divisiones are now engraved
 as @code{BarLine} grobs by default.  To change them to
 @code{Divisio} grobs, use @code{\EnableGregorianDivisiones}.
