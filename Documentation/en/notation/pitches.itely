@@ -3551,6 +3551,11 @@ major:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/aiken-head-thin-variant-noteheads.ly}
 
+@cindex note head, shape, merging
+@cindex shape note, merging
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/direction-of-merged-fa-shape-note-heads.ly}
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 

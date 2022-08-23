@@ -14,6 +14,7 @@ clefs-can-be-transposed-by-arbitrary-amounts.ly
 coloring-notes-depending-on-their-pitch.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 creating-custom-key-signatures.ly
+direction-of-merged-fa-shape-note-heads.ly
 force-a-cancellation-natural-before-accidentals.ly
 forcing-a-clef-symbol-to-be-displayed.ly
 generating-random-notes.ly
