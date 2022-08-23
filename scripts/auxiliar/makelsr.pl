@@ -37,7 +37,6 @@ use warnings;
 
 use Encode qw(decode);
 
-use File::Basename; # For getting file names without path.
 use File::Spec::Functions qw(:ALL); # For file name manipulation.
 use File::Which; # For checking the existence of `convert-ly`.
 use Getopt::Long qw(:config no_ignore_case
@@ -245,7 +244,7 @@ if (!$no_lsr) {
   }
 }
 
-if (!$no_snippet_list) {
+if (!$no_snippet_list && !$no_lsr) {
   print "Removing old snippet list files\n";
   while (my $f = glob(catfile($snippet_dir, "*.snippet-list"))) {
     unlink $f or warn "warning: Can't remove file '$f': $!";
@@ -262,7 +261,8 @@ my $lsr_dump_gz = "";
 if ($dump eq "no") {
   $no_lsr = 1;
   $textdump = "";
-  print " no\n";
+  print $verbose ? "  Dump file disabled\n"
+                 : " no\n";
 }
 elsif ($dump) {
   $lsr_dump_gz = file_name_is_absolute($dump)
@@ -743,6 +743,40 @@ sub add_to_snippet_list {
 
 
 # Fill the `snippet_lists` hash.
+if ($dump eq "no") {
+  # Use contents of existing snippet list files instead of database
+  # entries.
+  print "Reading snippet list files\n";
+  opendir my $dh, $snippet_dir
+    or die "error: Can't open directory '$snippet_dir': $!\n";
+
+  for my $f (sort ly_sort readdir $dh) {
+    next unless $f =~ /\.snippet-list$/;
+    my $filename = catfile($snippet_dir, $f);
+    next unless -f $filename;
+
+    my $tag = $f =~ s/\.snippet-list$//r;
+
+    print "  $f\n" if $verbose;
+    open(my $fh, "<:encoding(UTF-8)", $filename)
+      or die "error: Can't open file '$filename': $!\n";
+
+    for my $snippet_filename (<$fh>) {
+      chomp $snippet_filename;
+      # Add snippet as being approved to the categories 'docs' and
+      # `$tag`.
+      $snippet_lists{"docs"}->{$snippet_filename} = 1;
+      $snippet_lists{$tag}->{$snippet_filename} = 1;
+    }
+
+    close($fh) or warn "warning: Can't close file '$filename': $!";
+  }
+
+  closedir $dh;
+}
+
+# If the database is not used, `snippet_table` only holds 'new'
+# entries.
 for my $entry (@{$snippet_table}) {
   next if not defined $entry->{"version"} and $no_lsr;
   for my $idx (0 .. MAX_TAGS - 1) {
