@@ -2110,7 +2110,6 @@ definitions, the source file could then be written as follows:
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
-  tocFormatMarkup = #markup %% Cancelling the default bold setting.
   tocActMarkup = \markup \large \column {
     \hspace #1
     \fill-line { \null \italic \fromproperty #'toc:text \null }
