@@ -81,6 +81,9 @@ Use the LSR database to regenerate LilyPond's 'snippets' directory.
   -l, --no-lsr           don't update snippets from the LSR database
   -n, --no-new           don't handle snippets from the 'new'
                            subdirectory
+  -N, --new              shorthand for '--dump=no --no-lsr' to quickly
+                           handle new snippets only; this also
+                           suppresses 'missing tag' warnings
   -p, --path=DIR         directory where to look for 'convert-ly'
                            script
   -s, --top-source=DIR   directory where to look for subdirectory
@@ -141,6 +144,7 @@ EOT
 my $dump = "";
 my $help = 0;
 my $jobs = 1;
+my $new = 0;
 my $no_convert = 0;
 my $no_lsr = 0;
 my $no_new = 0;
@@ -154,6 +158,7 @@ GetOptions(
   "dump|d=s" => \$dump,
   "help|h" => \$help,
   "jobs|j=i" => \$jobs,
+  "new|N" => \$new,
   "no-convert|c"  => \$no_convert,
   "no-lsr|l" => \$no_lsr,
   "no-new|n"  => \$no_new,
@@ -165,6 +170,10 @@ GetOptions(
   ) || show_help(2);
 show_help(1) if $help;
 
+if ($new) {
+  $dump = "no" if !$dump;
+  $no_lsr = 1;
+}
 
 # Check availability of external programs.
 if (!$no_lsr) {
@@ -686,7 +695,7 @@ EOT
         my $tag = convert_name($lsrtags[$idx], 0);
         if (!exists $tags{$tag}) {
           warn   "warning: Snippet '$filename'\n"
-               . "  contains new tag '$tag'\n";
+               . "  contains new tag '$tag'\n" if !$new;
           $tags{$tag} = ();
           # No need to take care of the `ids` hash, which is no longer
           # needed.
@@ -948,7 +957,7 @@ use constant DOC_PREAMBLE_NEW => <<~'EOT';
   %% generated from `Documentation/snippets/new/`.
   %%
   %% Make any changes in `Documentation/snippets/new/`,
-  %% then run `scripts/auxiliar/makelsr.pl`.
+  %% then run `scripts/auxiliar/makelsr.pl --new`.
   %%
   %% This file is in the public domain.
   %%

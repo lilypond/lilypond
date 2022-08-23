@@ -66,7 +66,7 @@ the top-level subdirectory @file{build/}, a proper invocation is
 
 @example
 cd /your/lilypond/git/top/dir
-scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
+scripts/auxiliar/makelsr.pl --new
 @end example
 
 @xref{The makelsr.pl script}, for more details.
@@ -372,7 +372,7 @@ apply the fix in
 @command{makelsr.pl} as follows:
 
 @example
-scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
+scripts/auxiliar/makelsr.pl --new
 @end example
 
 Then, inspect @file{Documentation/@/snippets/@/@var{foo}.ly} to
