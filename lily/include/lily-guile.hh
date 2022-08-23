@@ -171,6 +171,26 @@ ly_call (SCM proc, Args &&...args)
   return scm_call_n (proc, argv, sizeof... (args));
 }
 
+// Same with scm_list_...  It's tempting to use scm_list_n (args..., SCM_UNDEFINED),
+// but this doesn't work if any of args is SCM_UNDEFINED.  Recursion appears to be
+// the most straightforward way to do this while not sacrificing type safety as
+// would happen if forwarding the arguments to a function defined with C-style
+// (va_list) variadic arguments.
+
+inline
+SCM
+ly_list ()
+{
+  return SCM_EOL;
+}
+
+template <typename ...Args> inline
+SCM
+ly_list (SCM first, Args ...args)
+{
+  return scm_cons (first, ly_list (args...));
+}
+
 // Wrap scm_internal_hash_fold() to reduce the number of places we need to use
 // reinterpret_cast.
 inline SCM
