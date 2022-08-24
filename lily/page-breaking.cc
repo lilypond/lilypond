@@ -649,7 +649,9 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
 
       /* collect labels */
       SCM page_num_scm = to_scm (page_num);
-      for (SCM line : as_ly_scm_list (lines))
+      // Iterate over lines backwards so that labels come out in the
+      // same order as the lines.  This matters for PDF bookmarks.
+      for (SCM line : ly_scm_list (scm_reverse (lines)))
         {
           SCM labels = SCM_EOL;
           if (System *sys = unsmob<System> (line))
@@ -659,11 +661,10 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
           else if (Prob *prob = unsmob<Prob> (line))
             labels = get_property (prob, "labels");
 
-          SCM table = SCM_EOL;
+          // The list of labels is in reverse order.  By aconsing elements one
+          // by one onto label_page_table, we get them in forward order.
           for (SCM label : as_ly_scm_list (labels))
-            table = scm_acons (label, page_num_scm, table);
-
-          label_page_table = scm_reverse_x (table, label_page_table);
+            label_page_table = scm_acons (label, page_num_scm, label_page_table);
         }
 
       ret = scm_cons (page, ret);

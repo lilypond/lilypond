@@ -15,12 +15,15 @@ documents.)"
       \tocItem \markup "1"
       \tocItem \markup "2"
       c'
+      \break
+      \tocItem \markup "3"
+      c'
     }
   }
   \score {
     {
-      \tocItem \markup "3"
       \tocItem \markup "4"
+      \tocItem \markup "5"
       c'
     }
   }
