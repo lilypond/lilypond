@@ -21,7 +21,8 @@
 
 (use-modules (lily ps-to-png)
              (lily paper-system)
-             (ice-9 optargs))
+             (ice-9 optargs)
+             (srfi srfi-1))
 
 (define-public (ly:system command)
   (ly:debug (G_ "Invoking `~a'...") (string-join command))
@@ -434,14 +435,14 @@ created."
 (define (clip-systems-to-region-stencils basename systems region)
   "Returns NAME . STENCIL alist"
   (let* ((extents-system-pairs
-          (filtered-map (lambda (paper-system)
-                          (let* ((x-ext (system-clipped-x-extent
-                                         (paper-system-system-grob paper-system)
-                                         region)))
-                            (if x-ext
-                                (cons x-ext paper-system)
-                                #f)))
-                        systems))
+          (filter-map (lambda (paper-system)
+                        (let* ((x-ext (system-clipped-x-extent
+                                       (paper-system-system-grob paper-system)
+                                       region)))
+                          (if x-ext
+                              (cons x-ext paper-system)
+                              #f)))
+                      systems))
          (count 0))
     (map
      (lambda (ext-system-pair)

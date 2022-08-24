@@ -4694,6 +4694,13 @@ def conv(s):
          stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 23, 13), r"""
+filtered-map -> filter-map
+""")
+def conv(s):
+    s = re.sub(r"filtered-map", "(@ (srfi srfi-1) filter-map)", s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

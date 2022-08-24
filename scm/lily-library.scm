@@ -556,8 +556,6 @@ of Guile's @code{(ice-9 hash-table)} module, @strong{not}
          (list elem)))
    '() lst))
 
-(define-public filtered-map filter-map)
-
 (define-public (flatten-list x)
   "Unnest list."
   (let loop ((x x) (tail '()))
