@@ -1389,6 +1389,8 @@ the grob where this is set in.")
      (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
 
+     (fa-styles ,symbol-list? "List of note head styles that identify
+ @q{fa} shape note heads.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (flag ,ly:grob? "A pointer to a @code{Flag} object.")
      (footnote-stencil ,ly:stencil? "The stencil of a system's footnotes.")

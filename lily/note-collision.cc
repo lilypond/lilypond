@@ -209,17 +209,17 @@ check_meshing_chords (Grob *me,
         shift_amount = -1;
     }
 
-  /* The solfa is a triangle, which is inverted depending on stem
-     direction.  In case of a collision, one of them should be removed,
-     so the resulting note does not look like a block.
+  /* The 'fa' shape note heads have a triangular shape, which is
+     inverted depending on the stem direction.  In case of a
+     collision, one of them should be removed so that the resulting
+     note does not look like a rectangular block.
   */
+  SCM fa_styles = get_property (me, "fa-styles");
   SCM up_style = get_property (head_up, "style");
   SCM down_style = get_property (head_down, "style");
   if (merge_possible
-      && (scm_is_eq (up_style, ly_symbol2scm ("fa"))
-          || scm_is_eq (up_style, ly_symbol2scm ("faThin")))
-      && (scm_is_eq (down_style, ly_symbol2scm ("fa"))
-          || scm_is_eq (down_style, ly_symbol2scm ("faThin"))))
+      && scm_is_true (scm_memq (up_style, fa_styles))
+      && scm_is_true (scm_memq (down_style, fa_styles)))
     {
       Offset att = Offset (0.0, -1.0);
       set_property (head_up, "stem-attachment", to_scm (att));
@@ -615,6 +615,7 @@ and horizontal shifts.  Most of the interesting properties are to be set in
 
                /* properties */
                R"(
+fa-styles
 merge-differently-dotted
 merge-differently-headed
 note-collision-threshold

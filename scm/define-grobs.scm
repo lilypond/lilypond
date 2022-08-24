@@ -2339,6 +2339,7 @@ non-musical and musical columns.  Grobs that have the property
     (NoteCollision
      . (
         (axes . (,X ,Y))
+        (fa-styles . (fa faFunk faThin faWalker))
         (note-collision-threshold . 1)
         (positioning-done . ,ly:note-collision-interface::calc-positioning-done)
         (prefer-dotted-right . #t)
