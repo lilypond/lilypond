@@ -305,6 +305,10 @@ are interpolated.")
 ;;;
 ;;; f
 ;;;
+     (fa-merge-direction ,ly:dir? "If two @q{fa} shape note heads get
+merged that are both listed in the @code{fa-styles} property but
+have different stem directions, enforce this note head direction
+for display.")
      (filled ,boolean? "Whether an object is filled with ink.")
      (flag-count ,number? "The number of tremolo beams.")
      (flag-style ,symbol? "The style of the flag to be used with

@@ -221,9 +221,18 @@ check_meshing_chords (Grob *me,
       && scm_is_true (scm_memq (up_style, fa_styles))
       && scm_is_true (scm_memq (down_style, fa_styles)))
     {
-      Offset att = Offset (0.0, -1.0);
-      set_property (head_up, "stem-attachment", to_scm (att));
-      set_property (head_up, "transparent", SCM_BOOL_T);
+      // Compute which shape should be displayed.
+      Direction d = from_scm (get_property (me, "fa-merge-direction"), DOWN);
+
+      // Hide unwanted glyph.
+      set_property (d == UP ? head_down : head_up, "transparent", SCM_BOOL_T);
+
+      // Adjust starting point of the stem to get a smooth connection
+      // between stem and glyph.
+      Offset up_att = Offset (0.0, d == UP ? 0.5 : -1.0);
+      Offset down_att = Offset (0.0, d == DOWN ? -0.5 : 1.0);
+      set_property (head_up, "stem-attachment", to_scm (up_att));
+      set_property (head_down, "stem-attachment", to_scm (down_att));
     }
 
   if (merge_possible)
@@ -615,6 +624,7 @@ and horizontal shifts.  Most of the interesting properties are to be set in
 
                /* properties */
                R"(
+fa-merge-direction
 fa-styles
 merge-differently-dotted
 merge-differently-headed
