@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.25.0"
 
 \paper {
   #(set-paper-dimension-variables (current-module))
@@ -52,8 +52,8 @@
   %%
   %% Fixed vertical spacing
   %%
-  top-margin-default = 5\mm     % scaled to paper-size
-  bottom-margin-default = 6\mm  % scaled to paper-size
+  top-margin-default = 10\mm     % scaled to paper-size
+  bottom-margin-default = 10\mm  % scaled to paper-size
   ragged-bottom = ##f
   ragged-last-bottom = ##t  % best for shorter scores
 
@@ -77,10 +77,10 @@
                             (stretchability . 60))
   markup-markup-spacing = #'((basic-distance . 1)
                              (padding . 0.5))
-  top-system-spacing = #'((basic-distance . 1)
+  top-system-spacing = #'((basic-distance . 6)
                           (minimum-distance . 0)
                           (padding . 1))
-  top-markup-spacing = #'((basic-distance . 0)
+  top-markup-spacing = #'((basic-distance . 4)
                           (minimum-distance . 0)
                           (padding . 1))
   last-bottom-spacing = #'((basic-distance . 1)
@@ -92,8 +92,8 @@
   %%
   %% Widths and (horizontal) margins
   %%
-  left-margin-default = 10\mm   % scaled to paper-size
-  right-margin-default = 10\mm  % scaled to paper-size
+  left-margin-default = 15\mm   % scaled to paper-size
+  right-margin-default = 15\mm  % scaled to paper-size
   check-consistency = ##t
 
 
@@ -101,9 +101,9 @@
   %% Two-sided mode
   %%
   two-sided = ##f
-  inner-margin-default = 10\mm   % scaled to paper-size
-  outer-margin-default = 20\mm   % scaled to paper-size
-  binding-offset-default = 0\mm  % scaled to paper-size
+  inner-margin-default = 15\mm   % scaled to paper-size
+  outer-margin-default = 15\mm   % scaled to paper-size
+  binding-offset-default = 5\mm  % scaled to paper-size
 
 
   %%

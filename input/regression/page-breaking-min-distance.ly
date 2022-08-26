@@ -1,4 +1,4 @@
-\version "2.19.12"
+\version "2.25.0"
 
 \header {
   texidoc = "minimum-distance is correctly accounted for in page breaking."
@@ -7,7 +7,7 @@
 \book {
   \paper {
     score-system-spacing.minimum-distance = #'20
-    paper-height = 8\cm
+    paper-height = 9\cm
   }
 
   \score { c'1 }

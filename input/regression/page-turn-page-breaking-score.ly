@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.25.0"
 
 \header{
     texidoc="@code{Page_@/turn_@/engraver} places a page turn after a
@@ -18,7 +18,7 @@ engraver operates in @code{Score} context."
 
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #35
+    paper-height = #41
     auto-first-page-number = ##t
     print-page-number = ##t
     print-first-page-number = ##t

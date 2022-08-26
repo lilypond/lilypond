@@ -1,4 +1,4 @@
-\version "2.23.8"
+\version "2.25.0"
 
 \header {
   texidoc = "@code{\\autoPageBreaksOff} turns off automatic
@@ -6,7 +6,7 @@ page breaking; @code{\\autoPageBreaksOn} reenables it."
 }
 
 \paper {
-  #(set-paper-size "a8")
+  #(set-paper-size "b8")
   short-indent = 2
 }
 

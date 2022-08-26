@@ -60,6 +60,10 @@ environments with LilyPond support may provide a way to run
 @itemize
 
 @item
+Margins are now wider by default following the general layout of
+several publishers (and the recommendations of Elaine Gould).
+
+@item
 Instead of generating PostScript or SVG output by itself, LilyPond
 can now use the Cairo library to produce its output.  This is
 referred to as the @q{Cairo backend}, and can be turned on using

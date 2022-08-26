@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.0"
 #(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (G_ "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."))
 
@@ -12,7 +12,7 @@ should appear on 3 pages.
 \book {
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #40
+    paper-height = #50
     print-page-number = ##t
   }
 

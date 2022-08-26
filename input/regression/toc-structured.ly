@@ -1,4 +1,4 @@
-\version "2.21.2"
+\version "2.25.0"
 
 \header {
   texidoc = "TOC labels can be explicitly specified,
@@ -8,7 +8,7 @@ in PDF viewers).  PDF bookmarks are reordered so as
 to not `go back in time'."
 }
 
-#(set-default-paper-size "a8" 'landscape)
+#(set-default-paper-size "b8" 'landscape)
 
 \book {
   \header { tagline = ##f }

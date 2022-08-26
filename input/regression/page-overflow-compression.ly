@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.0"
 
 \header {
   texidoc = "
@@ -9,7 +9,7 @@ tagline should not collide with the bottom staff.
 }
 
 \paper {
-  paper-height= 8\cm
+  paper-height= 9\cm
 }
 
 \book {
