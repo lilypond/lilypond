@@ -14,10 +14,14 @@ Macro definitions that contain translatable text belong to file
 @end ignore
 
 @c Don't replace quotes with directed quotes.
-
 @set txicodequoteundirected
 @set txicodequotebacktick
+
+@c For sorting, ignore backslashes in indices.
 @set txiindexbackslashignore
+
+@c Make `@var` in typewriter environments use slanted typewriter.
+@set txicodevaristt
 
 
 @include en/cyrillic.itexi
@@ -147,7 +151,7 @@ Macro definitions that contain translatable text belong to file
 \global\let\imageold = \image
 \gdef\image#1{%
   \ifhmode
-    \raisebox{-.4\height}{\imageold{#1}}%
+    \raisebox{-.2\height}{\imageold{#1}}%
   \else
     \imageold{#1}%
   \fi}

@@ -16,21 +16,19 @@
   % Use the EC size information.
   \edef\ecsize{\csname\curfontsize ecsize\endcsname}%
   \edef\nominalsize{\csname\curfontsize nominalsize\endcsname}%
-  \ifmonospace
-    \font\thiscyrfont = latt\ecsize \space at \nominalsize
-  \else
-    \ifx\curfontstyle\bfstylename
-      \let\usebf\keywordtrue
-    \fi
-    \ifrmisbold
-      \let\usebf\keywordtrue
-    \fi
-    \ifx\usebf\keywordtrue
-      \font\thiscyrfont = lab\ifusingit{i}{x}\ecsize \space at \nominalsize
-    \else
-      \font\thiscyrfont = la\ifusingit{ti}{rm}\ecsize \space at \nominalsize
-    \fi
-  \fi
+  \ifusingtt
+    {\font\thiscyrfont = latt\ecsize \space at \nominalsize}%
+    {\ifx\curfontstyle\bfstylename
+       \let\usebf\keywordtrue
+     \fi
+     \ifrmisbold
+       \let\usebf\keywordtrue
+     \fi
+     \ifx\usebf\keywordtrue
+       \font\thiscyrfont = lab\ifusingit{i}{x}\ecsize \space at \nominalsize
+     \else
+       \font\thiscyrfont = la\ifusingit{ti}{rm}\ecsize \space at \nominalsize
+     \fi}%
   \thiscyrfont
 }
 

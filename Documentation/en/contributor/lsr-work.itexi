@@ -269,7 +269,12 @@ description of the provided command line options and used
 environment variables.
 
 
-@need 1000
+@c The value 1000 used elsewhere for holding `@section` and
+@c @subheading` together on one page is not sufficient here
+@c because of the footnote on the same page.  This is a bug in
+@c `texinfo.tex`; however, it is unclear whether it can ever be
+@c fixed in Texinfo because of very deep issues in the TeX engine.
+@need 1500
 @node LSR to Git
 @section LSR to Git
 
