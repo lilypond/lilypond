@@ -257,14 +257,16 @@ class LilyPondPackager:
         dst = os.path.join(self.package_dir, *paths)
         shutil.copytree(src, dst)
 
-    def _copy_to_libexec_and_strip(self, src: str):
-        dst = os.path.join(self.libexec_dir, os.path.basename(src))
+    def _copy_to_dir_and_strip(self, src: str, dst_dir: str):
+        dst = os.path.join(dst_dir, os.path.basename(src))
         shutil.copy(src, dst)
         strip(dst)
 
-    def _copy_to_bin(self, src: str):
-        dst = os.path.join(self.bin_dir, os.path.basename(src))
-        shutil.copy(src, dst)
+    def _copy_to_libexec_and_strip(self, src: str):
+        self._copy_to_dir_and_strip(src, self.libexec_dir)
+
+    def _copy_to_bin_and_strip(self, src: str):
+        self._copy_to_dir_and_strip(src, self.bin_dir)
 
     def _copy_guile_files(self):
         # Copy needed files for Guile. Source files in share/ should go before
@@ -321,7 +323,7 @@ class LilyPondPackager:
         # Copy shared Dlls for mingw.
         gettext_install = gettext.install_directory(self.c)
         libintl_dll = os.path.join(gettext_install, "bin", "libintl-8.dll")
-        self._copy_to_bin(libintl_dll)
+        self._copy_to_bin_and_strip(libintl_dll)
 
         glib_install = glib.install_directory(self.c)
         for lib in [
@@ -330,16 +332,16 @@ class LilyPondPackager:
             "libgmodule-2.0-0.dll",
             "libgobject-2.0-0.dll",
         ]:
-            self._copy_to_bin(os.path.join(glib_install, "bin", lib))
+            self._copy_to_bin_and_strip(os.path.join(glib_install, "bin", lib))
 
         # Copy helper executable for spawning from glib.
         gspawn = os.path.join(glib_install, "bin", "gspawn-win64-helper-console.exe")
-        self._copy_to_bin(gspawn)
+        self._copy_to_bin_and_strip(gspawn)
 
     def _copy_mingw_python(self):
         python_install = embeddable_python.install_directory(self.c)
-        for python_file in glob.glob(os.path.join(python_install, "*")):
-            self._copy_to_bin(python_file)
+        for python_file in os.listdir(python_install):
+            shutil.copy(os.path.join(python_install, python_file), self.bin_dir)
 
     def _move_scripts(self):
         for script in self.lilypond.python_scripts:
