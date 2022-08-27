@@ -3295,7 +3295,7 @@ b4 4 \breathe 4
 \drums { trio4 trio1 }
 @end lilypond
 @tab
-@code{mutetriangle @* trim}
+@code{mutetriangle @* trim @*}
 @lilypond[notime,ragged-right]
 \drums { trim4 trim1 }
 @end lilypond

@@ -1361,13 +1361,13 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+@endmorerefs
 
 @funindex \markuplist
 
 @predefined
 @code{\markuplist}.
 @endpredefined
-@endmorerefs
 
 
 @node Tipi di carattere
