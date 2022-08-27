@@ -315,10 +315,21 @@ class LilyPondPackager:
         relocate_dst = os.path.join(self.package_dir, "etc", "relocate")
         shutil.copytree(relocate_src, relocate_dst)
 
-    def _copy_mingw_files(self):
+    def _copy_native_bytecode(self):
         # Copy compiled Guile bytecode from the native LilyPond build.
         lilypond_install = self.lilypond.install_directory(self.c.native_config)
-        self._copy_recursive(lilypond_install, "lib", "lilypond")
+        src = os.path.join(lilypond_install, "lib", "lilypond")
+        dst = os.path.join(self.package_dir, "lib", "lilypond")
+        shutil.copytree(src, dst)
+
+        # Touch the files so that compiled bytecode of generated files (such as
+        # font-encodings.scm) works correctly.
+        for root, _, files in os.walk(dst):
+            for name in files:
+                os.utime(os.path.join(root, name), None)
+
+    def _copy_mingw_files(self):
+        self._copy_native_bytecode()
 
         # Copy shared Dlls for mingw.
         gettext_install = gettext.install_directory(self.c)
