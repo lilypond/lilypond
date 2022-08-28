@@ -100,7 +100,7 @@ EDITOR_TEMPLATES = {
     ],
     "geany": [("geany", "--line", "%(line)s", "--column", "%(column)s", "%(file)s")],
     "gedit": [("gedit", "--wait", "%(file)s", "+%(line)s:%(column)s")],
-    "gvim": [("gvim" "--remote", "+:%(line)s:norm%(column)s", "%(file)s")],
+    "gvim": [("gvim", "--remote", "+:%(line)s:norm%(column)s", "%(file)s")],
     "jedit": [("jedit", "-reuseview", "%(file)s", "+line:%(line)s")],
     "kate": [
         ("kate", "--block", "--line", "%(line)s", "--column", "%(column)s", "%(file)s")
