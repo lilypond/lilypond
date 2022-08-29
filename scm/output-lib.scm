@@ -1476,6 +1476,25 @@ property, which is identified by the symbol @var{property}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scripts
 
+(define-public (caesura-script-interface::before-line-breaking script)
+  "Callback for @code{CaesuraScript} grob.  Eliminate scripts aligned to
+bar lines if they might collide with a span bar.  Some types of bar
+lines have visible span bars and some don't.  For consistent notation,
+we don't check whether particular @code{SpanBar} grobs are actually
+visible, just that they exist."
+  (define (find-span-bars)
+    (let ((parent (ly:grob-parent script X)))
+      (if (grob::has-interface parent 'bar-line-interface)
+          (ly:grob-object parent 'has-span-bar)
+          #f)))
+
+  (let ((span-bars (find-span-bars)))
+    (when (pair? span-bars)
+      (let* ((dir (ly:grob-property script 'direction))
+             (span-bar (index-cell span-bars dir)))
+        (when (ly:grob? span-bar)
+          (ly:grob-suicide! script))))))
+
 (define-public (script-interface::calc-x-offset grob)
   (ly:grob-property grob 'positioning-done)
   (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))

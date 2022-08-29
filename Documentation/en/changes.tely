@@ -74,6 +74,19 @@ which scares away people.
 
 
 @item
+@code{Staff} contexts use the new @code{Caesura_engraver} to
+notate the @code{\caesura} command.
+
+@lilypond[quote]
+\fixed c' {
+  c2 \caesura d2
+  e1 \caesura \once \set Staff.caesuraType = #'((scripts . (fermata)))
+  f1
+}
+@end lilypond
+
+
+@item
 The comma glyph shape, as used in the @code{\breathe} command,
 has been changed to a more common form.
 

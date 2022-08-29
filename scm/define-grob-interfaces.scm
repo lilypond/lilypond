@@ -157,6 +157,12 @@ arrow head of the @code{BendSpanner}.
  '(show-control-points))
 
 (ly:add-interface
+ 'caesura-script-interface
+ "A script for @code{\\caesura}, e.g., an outside-staff comma or a
+fermata over a bar line."
+ '())
+
+(ly:add-interface
  'centered-bar-number-interface
  "A measure-centered bar number."
  '())

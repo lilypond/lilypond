@@ -200,6 +200,12 @@
         (padding . 0.20)
         (script-stencil . (feta . ("open" . "open")))
         (direction . ,UP)))
+    (outsidecomma
+     . (
+        (avoid-slur . around)
+        (direction . ,UP)
+        (padding . 0.20)
+        (script-stencil . (feta . ("lcomma" . "rcomma")))))
 
 
     (portato

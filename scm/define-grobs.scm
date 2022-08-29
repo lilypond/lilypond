@@ -678,6 +678,39 @@ time signature follows or precedes a bar line).")))))
                  (description . "A breathing sign.")))))
 
 
+    (CaesuraScript
+     ;; CaesuraScript is similar to Script for vertical stacking, but
+     ;; is non-musical.
+     . (
+        (before-line-breaking . ,caesura-script-interface::before-line-breaking)
+        (break-visibility . ,begin-of-line-invisible)
+        (direction . ,ly:script-interface::calc-direction)
+        (font-encoding . fetaMusic)
+        (horizon-padding . 0.1) ; to avoid interleaving with accidentals
+        (non-musical . #t)
+        (positioning-done . ,ly:script-interface::calc-positioning-done)
+        (self-alignment-X . ,CENTER)
+        (side-axis . ,Y)
+
+        ;; padding set in script definitions.
+        (slur-padding . 0.2)
+        (staff-padding . 0.25)
+
+        (stencil . ,ly:script-interface::print)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (X-offset . ,script-interface::calc-x-offset)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Item)
+                 (interfaces . (caesura-script-interface
+                                font-interface
+                                outside-staff-interface
+                                script-interface
+                                self-alignment-interface
+                                side-position-interface))
+                 (description . "A script for @code{\\caesura}, e.g.,
+an outside-staff comma or a fermata over a bar line.")))))
+
     (CenteredBarNumber
      . (
         (extra-spacing-width . (+inf.0 . -inf.0))

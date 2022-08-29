@@ -112,15 +112,19 @@ Script_column::before_line_breaking (SCM smob)
   vector<Grob *> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
-  for (vsize i = 0; i < scripts.size (); i++)
+  for (auto *sc : scripts)
     {
-      Grob *sc = scripts[i];
-      /*
-        Don't want to consider scripts horizontally next to notes.
-      */
-      if (!scm_is_eq (get_property_data (sc, "X-offset"),
-                      Side_position_interface::x_aligned_side_proc))
-        staff_sided.push_back (sc);
+      if (sc && sc->is_live ())
+        {
+          /*
+            Don't want to consider scripts horizontally next to notes.
+          */
+          if (!scm_is_eq (get_property_data (sc, "X-offset"),
+                          Side_position_interface::x_aligned_side_proc))
+            {
+              staff_sided.push_back (sc);
+            }
+        }
     }
 
   order_grobs (staff_sided);

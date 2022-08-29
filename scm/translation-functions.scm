@@ -22,6 +22,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; caesura
 
+(define-public ((at-bar-line-substitute-caesura-type substitute-type)
+                context caesura-type observations)
+  "At a bar line, create the caesura using @var{substitute-type} rather
+than the value of @code{caesuraType}."
+  (if (memq 'bar-line observations)
+      (let ((arts (assq-ref caesura-type 'articulations)))
+        (acons 'articulations arts substitute-type))
+      caesura-type))
+
 (define-public (caesura-to-divisio context caesura-type observations)
   "@code{caesuraTypeTransform} callback to print articulated caesurae as
 chant breath marks."

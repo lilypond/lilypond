@@ -62,6 +62,7 @@ to be modified directly."
   \consists Output_property_engraver
   \consists Skip_typesetting_engraver
   \consists Bar_engraver
+  \consists Caesura_engraver
   \consists Pure_from_neighbor_engraver
   %% Bar_engraver must be first so default bars aren't overwritten
   %% with empty ones.
@@ -89,6 +90,7 @@ to be modified directly."
   \consists Figured_bass_engraver
   \consists Figured_bass_position_engraver
   \consists Script_row_engraver
+  \consists Non_musical_script_column_engraver
   \consists Cue_clef_engraver
   \consists Fingering_column_engraver
   \consists Merge_mmrest_numbers_engraver
@@ -124,6 +126,7 @@ to be modified directly."
   \description "An internal @code{Staff} type with settings shared by
 multiple ancient notation schemes."
 
+  \remove Caesura_engraver
   \consists Divisio_engraver
 
   caesuraType = #'((breath . varcomma))
@@ -202,6 +205,7 @@ multiple ancient notation schemes."
   \consists Separating_line_group_engraver
   \consists Dot_column_engraver
   \consists Bar_engraver
+  \consists Caesura_engraver
   \consists Staff_symbol_engraver
   \consists Pitch_squash_engraver
   \consists Time_signature_engraver

@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.23.13"
 
 \header{
   texidoc="
@@ -14,6 +14,7 @@ finalis, the latter three looking similar to bar glyphs.
   \context {
     \Staff
     \remove Bar_engraver
+    \remove Caesura_engraver
     \consists Divisio_engraver
     caesuraType = #'((breath . varcomma))
     caesuraTypeTransform = #caesura-to-divisio
