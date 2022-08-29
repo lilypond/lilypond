@@ -1353,7 +1353,7 @@ and draws the stencil based on its coordinates.
 
 (define-public (lyric-text::print grob)
   "Allow interpretation of tildes as lyric tieing marks."
-
+  ;; See also similar code in Lyric_performer.
   (let ((text (ly:grob-property grob 'text)))
 
     (grob-interpret-markup grob (if (string? text)

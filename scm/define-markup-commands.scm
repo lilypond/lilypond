@@ -3790,6 +3790,8 @@ Draw @var{arg} in color specified by @var{color}.
   (string?)
   #:category music
   #:properties ((word-space))
+  ;; Use Unicode undertie character U+203F.
+  #:as-string (regexp-substitute/global #f "~" str 'pre "\u203f" 'post)
   "
 @cindex simple text string, with tie characters
 

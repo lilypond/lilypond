@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.23.13"
 
 \header {
   texidoc = "@code{markup->string} takes a markup and tries
@@ -197,3 +197,6 @@ input/regression/markup-to-string.ly."
 
 \test \markup \postscript "0 5 lineto stroke"
       ""
+
+\test \markup \tied-lyric "a~b~c"
+      #"a\u203fb\u203fc"

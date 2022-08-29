@@ -124,6 +124,7 @@ extern Variable ly_music_p;
 extern Variable make_concat_markup;
 extern Variable make_music;
 extern Variable make_span_event;
+extern Variable make_tied_lyric_markup;
 extern Variable markup_p;
 extern Variable markup_command_signature;
 extern Variable markup_function_p;

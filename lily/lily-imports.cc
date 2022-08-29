@@ -114,6 +114,7 @@ Variable ly_music_p ("ly:music?");
 Variable make_concat_markup ("make-concat-markup");
 Variable make_music ("make-music");
 Variable make_span_event ("make-span-event");
+Variable make_tied_lyric_markup ("make-tied-lyric-markup");
 Variable markup_p ("markup?");
 Variable markup_command_signature ("markup-command-signature");
 Variable markup_function_p ("markup-function?");

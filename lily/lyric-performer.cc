@@ -18,6 +18,7 @@
 */
 
 #include "audio-item.hh"
+#include "lily-imports.hh"
 #include "performer.hh"
 #include "stream-event.hh"
 #include "translator.icc"
@@ -46,6 +47,11 @@ Lyric_performer::process_music ()
   if (event_)
     {
       SCM text = get_property (event_, "text");
+      // Mimic lyric-text::print by wrapping text in \tied-lyric if a string.
+      // This ensures that the custom markup->string handler of \tied-lyric will
+      // convert tildes to Unicode underties.
+      if (scm_is_string (text))
+        text = Lily::make_tied_lyric_markup (text);
       if (!scm_is_null (text))
         announce<Audio_text> (event_, Audio_text::LYRIC, text);
 
