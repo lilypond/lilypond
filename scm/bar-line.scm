@@ -209,9 +209,9 @@ either strings or booleans: @code{#t} calls for the same value as
   (set! span-bar-glyph-alist
         (acons bar-glyph span-glyph span-bar-glyph-alist)))
 
-(define-session bar-glyph-alist '())
+(define-session-public bar-glyph-alist '())
 
-(define-session span-bar-glyph-alist '())
+(define-session-public span-bar-glyph-alist '())
 
 (define-public (add-bar-glyph-print-procedure glyph proc)
   "Specify the single glyph @var{glyph} that calls print procedure @var{proc}.
@@ -1193,6 +1193,9 @@ of the volta brackets relative to the bar lines."
 ;;   (define-bar-line "S" #f #t "=")
 ;;   (define-bar-line "S-|" "|" #t "=")
 ;;   (define-bar-line "S-||" "||" #t "=")
+;;
+;; When adding a new bar type, you must also add it in
+;; Documentation/en/included/bar-lines.ly.
 
 ;; common bar lines
 (define-bar-line "" #t #f #f)

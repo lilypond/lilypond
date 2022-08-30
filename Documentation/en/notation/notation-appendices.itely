@@ -31,6 +31,7 @@
 * List of articulations::
 * List of breath marks::
 * Percussion notes::
+* List of bar lines::
 * Default values for outside-staff-priority::
 * Technical glossary::
 * Available music functions::
@@ -3300,6 +3301,20 @@ b4 4 \breathe 4
 @end lilypond
 
 @end multitable
+
+
+@node List of bar lines
+@appendixsec List of bar lines
+
+Each system following shows the appearance of a particular bar
+type at the beginning, middle, and end of a line.
+
+For more information, @pxref{Bar lines} and @ref{Automatic bar
+lines}.
+
+@cindex bar line, list of
+
+@lilypondfile{en/included/bar-lines.ly}
 
 
 @node Default values for outside-staff-priority
