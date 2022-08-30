@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2b5991e641dc5fe241fd9b38cee56675cd83a25e
+    Translation of GIT committish: 3dbf56de2eab15052337de59a9dde46a9af9faed
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -638,6 +638,23 @@ conséquence.
 
 @itemize
 @item
+Les nouvelles commandes @code{\staffHighlight} et
+@code{\stopStaffHighlight} permettent de coloriser des fragments
+musicaux.
+
+@lilypond
+\relative {
+  \staffHighlight lightsteelblue
+  c'4 e g c
+  \staffHighlight lightpink
+  d, f a d
+  \staffHighlight lightsteelblue
+  c, e g c
+}
+@end lilypond
+
+
+@item
 Il est désormais possible de placer un accord entre parenthèses.
 Toutefois, la taille de la fonte utilisée pour les parenthèses devra
 être ajustée manuellement.
@@ -986,6 +1003,28 @@ basé sur les travaux de standardisation de Norman Weinberg.
 @end itemize
 
 
+@subsubheading Améliorations pour la notation des instruments à vent
+
+@itemize
+@item
+Des détails peuvent désormais s'ajouter à un @code{\woodwind-diagram}, y
+compris l'angle d'un trou partiellement bouché ou l'indication non
+graphique d'une clé de trille.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((fill-angle . 90)
+                                           (text-trill-circled . #f)))
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                               (lh . ())
+                               (rh . (besT)))
+}
+@end lilypond
+
+@end itemize
+
+
 @subsubheading Améliorations pour la notation des accords
 
 @itemize
@@ -1075,19 +1114,22 @@ impression des lignes de mensuration.
 
 
 @item
+Dans un @code{GregorianTranscriptionStaff}, les @emph{divisiones} sont
+désormais gravées comme des objets graphiques @emph{(grobs)}
+@code{BarLine}. Pour les modifier en @emph{grobs} @code{Divisio}, il
+faut mentionner @code{\EnableGregorianDivisiones}.
+
+
+@item
 Les commandes prédéfinies pour les divisions grégoriennes ne sont plus
 des variantes de @code{\breathe}. @code{\divisioMinima},
 @code{\divisioMaior}, @code{\divisioMaxima} et @code{\virgula} sont des
 variantes d'un @code{\caesura} de base. @code{\finalis} équivaut à
 @code{\section}.
 
-@c Note: Once Bar_engraver is capable of interpreting \caesura, I
-@c expect to switch GregorianTranscriptionStaff to use it rather
-@c than Divisio_engraver. [DE]
-@code{GregorianTranscriptionStaff}, @code{MensuralStaff} et
-@code{VaticanaStaff} ont recours au @code{Divisio_@/engraver} pour
-interpréter ces commandes, ainsi que @code{\repeat volta} et
-@code{\fine}.
+@code{MensuralStaff} et @code{VaticanaStaff} ont recours au
+@code{Divisio_@/engraver} pour interpréter ces commandes, ainsi que
+@code{\repeat volta} et @code{\fine}.
 
 @lilypond[verbatim,quote]
 \new MensuralStaff \fixed c' {
@@ -1187,6 +1229,17 @@ Un
 
 @itemize
 @item
+L'utilisation de @code{\paper @{ bookpart-level-page-numbering = ##t@}}
+permet d'individualiser la numérotation de page des parties d'un
+ouvrage. Dans le cas où l'instruction s'applique à toutes les parties,
+chacune d'entre elles aura sa propre séquence, en partant de 1 par
+défaut. Cette instruction peut aussi apparaître dans une partie
+spécifique, comme par exemple un propos liminaire dont la pagination
+peut accessoirement se présenter en chiffres romains grâce à
+l'instruction @code{page-number-type = #'roman-lower}.
+
+
+@item
 L'option @code{-dembed-@/source-@/code} permet maintenant d'embarquer
 également les images ajoutées par @code{\epsfile} ainsi que les fichiers
 inclus par @code{\verbatim-file}.
@@ -1266,6 +1319,48 @@ l'instar de @code{\break}.
 @c VO New for changing defaults
 
 @itemize
+@item
+Le glyphe de virgule stylisé, tel que celui utilisé par la commande
+@code{\breathe}, adopte une forme plus habituelle.
+
+@lilypond[quote]
+{ f'2 \breathe f'2 }
+@end lilypond
+
+
+@item
+Le décalage par défaut des points d'orgue a été élargi. Ceci permet de
+pallier certains cas où, en présence d’une note pointée, ils étaient
+trop proches des points et des autres objets.
+
+@lilypond[quote]
+\relative c''' {
+  \tempo 4 = 60
+  a4.
+  a4.\fermata
+  a4.\henzeshortfermata
+  a4.\henzelongfermata
+  a4.\shortfermata
+  a4.\longfermata
+  a4.\veryshortfermata
+  a4.\verylongfermata
+}
+@end lilypond
+
+
+@item
+Le symbole de flageolet est désormais plus petit et un peu plus épais.
+Ceci correspond plus aux partitions que l'on peut trouver et rend
+inutile la retouche @code{\tweak font-size -3 \flageolet} jusqu'ici
+recommandée.
+
+@lilypond[quote]
+{
+  d''2^\flageolet d''_\flageolet
+}
+@end lilypond
+
+
 @item
 La deuxième portion des soufflets tronqués bénéficie maintenant d'un
 rembourrage à gauche. Ceci est conforme aux canons de la gravure et
@@ -1399,9 +1494,9 @@ traducteurs les lisent.
 @item
 Les nouvelles propriétés @code{show-horizontal-skylines} et
 @code{show-vertical-skylines} permettent d'afficher les lignes d'horizon
-d'un objet. Ces propriétés sont beaucoup plus flexibles que d'utiliser
-l'option @code{debug-skylines} dans la mesure où elles sont
-opérationnelles avec tous les objets graphiques. Bien que prévu à
+d'un objet. Ces propriétés sont beaucoup plus flexibles que
+l'utilisation de l'option @code{debug-skylines} dans la mesure où elles
+sont opérationnelles avec tous les objets graphiques. Bien que prévu à
 l'origine pour le débogage de LilyPond, ceci s'avère fort utile lorsque
 l'on tente de comprendre les décisions en matière d'espacement ou la
 modification de stencils en Scheme.
