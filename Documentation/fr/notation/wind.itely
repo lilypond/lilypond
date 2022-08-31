@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -325,7 +325,8 @@ c''1^\markup
                                  (rh . (ees)))
 @end lilypond
 
-Les clés ou trous peuvent être partiellement enfoncés ou bouchés :
+Les clés ou trous peuvent être partiellement enfoncés ou bouchés, et il
+est possible de spécifier l'angle de bouchage :
 
 @c KEEP LY
 @lilypond[verbatim, quote, fragment]
@@ -374,17 +375,46 @@ c''1^\markup {
                                 (rh . ()))
   }
 }
+
+c''1^\markup {
+  \center-column {
+    "semi-bouché, vertical"
+    \override #'(woodwind-diagram-details . ((fill-angle . 90)))
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
 @end lilypond
 
 L'indication du doigté permettant de triller s'obtient en grisant une
-position :
+position ou, de manière non graphique, par un texte encerclé (par
+défaut) ou grisé :
 
 @lilypond[verbatim,quote,fragment]
+\textLengthOn
 c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
                        (rh . (b fis)))
+}
+
+c''1^\markup {
+  \override #'(graphical . #f)
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fisT)))
+}
+
+c''1^\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((text-trill-circled . #f)))
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fisT)))
 }
 @end lilypond
 

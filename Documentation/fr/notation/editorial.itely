@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -42,6 +42,7 @@ l'intérieur même de la portée.
 * Glissement de doigt::
 * Dictée à trous::
 * Coloration d'objets::
+* Surlignage de portées::
 * Parenthèses::
 * Hampes::
 @end menu
@@ -813,6 +814,175 @@ Vous ne pouvez pas coloriser individuellement des notes à l'intérieur
 d'un accord avec @code{\override}.  Si besoin est, utilisez
 @code{\tweak} ou @code{\single\override} devant la note en question.
 Pour plus de détails, consultez @ref{La commande d'affinage (tweak)}.
+
+
+@node Surlignage de portées
+@unnumberedsubsubsec Surlignage de portées
+@translationof Staff highlights
+
+@cindex portée, surlignage
+@cindex colorisation de portées
+@funindex \staffHighlight
+@funindex \stopStaffHighlight
+
+Pour des besoins pédagogiques ou d'analyse, il peut être utile de mettre
+en évidence un fragment musical comme, par exemple, pour indiquer une
+modulation. Ceci peut se réaliser à l'aide de la commande
+@code{\staffHighlight} complétée d'une couleur -- pour les manières de
+saisir des couleurs, voir @ref{Coloration d'objets}. Le surlignage
+s'interrompt par la commande @code{\stopStaffHighlight}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 2/4
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \stopStaffHighlight
+  c2
+}
+@end lilypond
+Lorsque plusieurs surlignages se succèdent, nul n'est besoin de stipuler
+un @code{\stopStaffHighlight}, dans la mesure où @code{\staffHighlight}
+interrompt implicitement l'éventuel surlignage en cours. Il n'est pas
+non plus nécessaire de positionner un @code{\stopStaffHighlight}. Ces
+manières implicites de terminer un surlignage sont particulièrement
+adaptées lorsque chaque mesure est surlignée.
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+@end lilypond
+
+Les portées sont par défaut surlignées de manière indépendante.
+
+@lilypond[verbatim,quote]
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
+@end lilypond
+
+Plusieurs portées peuvent toutefois être surlignées de concert dès lors
+que le @code{Staff_highlight_engraver} aura été déplacé dans un contexte
+supérieur à @code{Staff} (ou bien @code{RhythmicStaff} ou similaire). Il
+suffit en pareil cas d'utiliser les commandes @code{\consists} et
+@code{\remove} -- voir @ref{Modification des greffons de contexte} pour
+de plus amples informations. Le surlignage de toutes les portées
+s'obtient donc en déplaçant le graveur dans le contexte @code{Score}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \remove Staff_highlight_engraver
+  }
+  \context {
+    \Score
+    \consists Staff_highlight_engraver
+  }
+}
+
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
+@end lilypond
+
+Le @code{Staff_highlight_engraver} peut aussi être déplacé dans des
+contextes intermédiaires comme un @code{StaffGroup}.
+
+@lilypond[verbatim,quote]
+music = {
+  \time 2/4
+  \staffHighlight "lightpink"
+  c'4 4
+  \staffHighlight "lightsteelblue"
+  g'8( fis g4)-.
+  \staffHighlight "lightpink"
+  c2
+}
+
+<<
+  \new StaffGroup \with { \consists Staff_highlight_engraver } <<
+    \new Staff \with { \remove Staff_highlight_engraver } \music
+    \new Staff \with { \remove Staff_highlight_engraver } \music
+  >>
+  \new Staff \music
+>>
+@end lilypond
+
+La propriété @code{StaffHighlight.shorten-pair} permet d'ajuster les
+points de début et de fin de l'étendue du surlignage.
+
+@lilypond[verbatim,quote]
+{
+  c'1
+  \once \override Staff.StaffHighlight.shorten-pair = #'(1.0 . 1.0)
+  \staffHighlight lightsteelblue
+  c'1
+}
+@end lilypond
+
+@predefined
+@code{\staffHighlight},
+@code{\stopStaffHighlight}.
+@endpredefined
+
+@morerefs
+Manuel de notation :
+@ref{Coloration d'objets},
+@ref{Modification des greffons de contexte}.
+
+Référence des propriétés internes :
+@rinternals{StaffHighlight},
+@rinternals{staff-highlight-interface},
+@rinternals{Staff_highlight_engraver},
+@rinternals{StaffHighlightEvent},
+@rinternals{staff-highlight-event}.
+@endmorerefs
+
+@knownissues
+Le surlignage peut se révéler quelque peu hasardeux en présence d'une
+barre de début de reprise. La propriété @code{shorten-pair} vue
+ci-dessus permet alors de contourner le problème.
+
+@lilypond[verbatim,quote]
+{
+  \staffHighlight "lightsteelblue"
+  c'1
+  \stopStaffHighlight
+  \repeat volta 2 { c'1 }
+  c'1
+}
+@end lilypond
 
 
 @node Parenthèses

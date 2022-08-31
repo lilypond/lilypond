@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 60fdb28612b1cd9c9a2376eb30c94ce90d0670b7
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1908,6 +1908,9 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
 @node Fonctionnalités des fontes
 @unnumberedsubsubsec Fonctionnalités des fontes
 @translationof Font features
+
+@cindex OpenType, fonctionnalités
+@cindex fonctionnalités OpenType
 
 Le recours aux fontes OpenType permet d'utiliser certaines
 fonctionnalités de ces fontes.@footnote{La sélection de scripts ou de

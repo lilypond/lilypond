@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3238,6 +3238,7 @@ l'aide de barres de mesure spécifiques :
   a4 b c2
   \bar "'"
   a4 b c2
+  \bar ","
   a4 b c2
   \bar ";"
   a4 b c2
@@ -3248,35 +3249,13 @@ l'aide de barres de mesure spécifiques :
 @end lilypond
 
 Vous pouvez accessoirement, bien qu'il s'agisse de notation moderne,
-emprunter au grégorien des indications de pause et silence.  Il vous
-suffit pour cela d'adapter la commande @code{\breathe} selon vos
-besoins :
+emprunter au grégorien des indications de pause et silence.
 
 @lilypond[verbatim,quote]
-divisioMinima = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-divisioMaior = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-divisioMaxima = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-finalis = {
-  \once \override BreathingSign.stencil =
-    #ly:breathing-sign::finalis
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
+divisioMinima = \caesura
+divisioMaior = { \caesura \shortfermata }
+divisioMaxima = { \caesura \fermata }
+finalis = \section
 
 \score {
   \relative {
@@ -3293,6 +3272,8 @@ finalis = {
     \context {
       \Staff
       \remove Bar_engraver
+      \consists Divisio_engraver
+      caesuraType = #'((breath . chantquarterbar))
     }
   }
 }

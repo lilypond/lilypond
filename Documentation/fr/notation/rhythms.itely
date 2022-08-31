@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3458,6 +3458,14 @@ répétées ne s'alignent pas avec les mesures. Certaines commandes
 emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @code{\repeat segno}, @code{\repeat volta} et @code{\segnoMark}.
 
+@cindex barre de mesure, césure
+@cindex barre de mesure, phrase
+@cindex césure, barre de mesure
+@cindex phrase, barre de mesure
+@funindex \caesura
+@item caesuraType.underlying-bar-line
+S'utilise avec @code{\caesura}.
+
 @cindex barre par défaut
 @cindex barre, mesure
 @cindex barre simple
@@ -3465,6 +3473,14 @@ emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @cindex simple, barre de mesure
 @item measureBarType
 S'utilise en limite de mesure.
+
+@cindex barre de mesure, césure
+@cindex barre de mesure, phrase
+@cindex césure, barre de mesure
+@cindex phrase, barre de mesure
+@funindex \caesura
+@item caesuraType.underlying-bar-line
+S'utilise avec @code{\caesura}.
 
 @cindex barre double
 @cindex barre, section

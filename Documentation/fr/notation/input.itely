@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3289,7 +3289,8 @@ apostrophe inversée @samp{`} au lieu d'une apostrophe normale @samp{'}
 pour écrire la liste associative.
 
 @lilypond[quote,verbatim]
-\markup \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
+\markup \replace
+  #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #})) "2nd time"
 @end lilypond
 
 Ces alias ne pourront plus, quant à eux, faire l'objet d'un remplacement.

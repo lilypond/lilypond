@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1392,7 +1392,7 @@ LilyPond dispose de différents graphismes pour indiquer un arpège ;
 @cindex symbole, arpège
 
 Ces commandes prédéfinies modifient en interne la propriété
-@code{'arpeggio-direction} ; leur définition complète se trouve dans le
+@code{arpeggio-direction} ; leur définition complète se trouve dans le
 fichier @file{ly/property-init.ly}.
 
 @funindex \arpeggioBracket
@@ -1420,12 +1420,12 @@ Des crochets indiquent que l'accord devra être plaqué et non arpégé :
 @end lilypond
 
 Ces commandes prédéfinies apportent une dérogation à la propriété
-@code{'stencil} de l'objet @code{Arpeggio} et peuvent aussi adapter son
-@code{'X-extent} (en la matière son étendue horizontale, de telle sorte
+@code{stencil} de l'objet @code{Arpeggio} et peuvent aussi adapter son
+@code{X-extent} (en la matière son étendue horizontale, de telle sorte
 qu'il n'entre pas en collision avec d'autres objets).
 
 Les indications d'arpeggio peuvent se présenter sous la forme de ligne
-discontinue à l'aide de la propriété  @code{'dash-definition}.  Pour
+discontinue à l'aide de la propriété  @code{dash-definition}.  Pour
 plus de détails à ce propos, consultez @ref{Liaisons d'articulation}.
 
 Un arpège peut parfois s'écrire de manière explicite, à l'aide de

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4a5075072a081203f754ffbf992a9b019c7c9851
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -120,8 +120,8 @@ ancienne : @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
 abordés plus en détails au chapitre @ref{Contextes prédéfinis}.
 
 Le contexte @code{GregorianTranscriptionStaff} permet d'obtenir des
-éditions modernes du grégorien.  Bien entendu, il est dépourvu de barres
-de mesure.
+éditions modernes du grégorien. Les @notation{divisions} apparaîtront,
+mais pas les barres de mesure.
 
 @lilypond[verbatim,quote]
 \new GregorianTranscriptionStaff \relative { c''4 d e f e d }
@@ -237,6 +237,45 @@ qu'il gère automatiquement l'affichage du nom d'instrument -- voir
   \new Staff \relative { c''1 c }
   \new Staff \relative { \clef bass c1 c }
 >>
+@end lilypond
+
+@funindex OneStaff
+@cindex recouvrement de contextes
+@cindex contextes, recouvrement
+
+Le contexte @code{OneStaff} est un regroupement qui place des portées
+différentes dans le même alignement vertical. L'exemple suivant montre
+trois portées partageant le même espace. Ici, le
+@code{Time_signature_engraver} a été déplacé des portées au contexte
+@code{OneStaff} pour empêcher sa répétition à chaque portée.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \OneStaff
+    \consists Time_signature_engraver
+  }
+  \context {
+    \Staff
+    \remove Time_signature_engraver
+  }
+  \context {
+    \DrumStaff
+    \remove Time_signature_engraver
+  }
+}
+
+\new OneStaff {
+  \new Staff {
+    c'4 4 d'4 4 e'2 d'
+  }
+  \drums {
+    hihat4 hh bassdrum bd
+  }
+  \new Staff {
+    c'4 4 d'4 4 e'2 d'
+  }
+}
 @end lilypond
 
 Les barres de mesure au début de chaque système adoptent l'un des styles

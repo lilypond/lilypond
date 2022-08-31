@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 891fc7c8e2d9a4c97bcc33c900800769d609fadf
+   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1139,11 +1139,41 @@ numérotées.  La valeur par défaut est @code{#t}.
 @item page-number-type
 @funindex page-number-type
 
-Le type de chiffres à utiliser pour la numérotation : @code{arabic}
+Le type de chiffres à utiliser pour la numérotation : @code{'arabic}
 (arabes), @code{'roman-ij-lower} (romains minuscules avec ligature ij),
 @code{'roman-ij-upper} (romains majuscules avec ligature IJ),
-@code{roman-lower} (romains minuscules) ou @code{roman-upper} (romains
+@code{'roman-lower} (romains minuscules) ou @code{'roman-upper} (romains
 majuscules) . La valeur par défaut est @code{'arabic}.
+
+@cindex page, numérotation par @emph{bookpart}
+@cindex page, numérotation indépendente pour l'introduction
+@item bookpart-level-page-numbering
+@funindex bookpart-level-page-numbering
+
+L'activation de cette variable permet d'obtenir une pagination
+indépendante pour chacune des parties, démarrant à
+@code{first-page-number} (1 par défaut).
+
+On peut aussi l'utiliser pour une unique partie. C'est typiquement le
+cas de propos liminaires faisant l'objet d'une partie indépendante et
+paginée en chiffres romains.
+
+@example
+\book @{
+  \bookpart @{
+    \paper @{
+      bookpart-level-page-numbering = ##t
+      page-number-type = #'roman-lower
+    @}
+    \markuplist \wordwrap-lines @{
+      Lorem ipsum dolor sit amet.
+    @}
+  @}
+  \bookpart @{
+    @dots{}
+  @}
+@}
+@end example
 
 @end table
 
@@ -1172,6 +1202,14 @@ Lorsque cette variable est activée, l'intégralité des champs d'entête
 sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
 champs @code{piece} et @code{opus}. Voir @ref{Titres et entêtes} pour
 les cas d'usage.  La valeur par défaut est @code{#f}.
+
+@item reset-footnotes-on-new-page
+@funindex reset-footnotes-on-new-page
+
+Lorsque cette variable est activée, la numérotation des notes de bas de
+page est réinitialisée à chaque page. La désactivation de cette variable
+permet une numérotation sur l'intégralité de l'ouvrage. La valeur par
+défaut est @code{#t}.
 
 @item system-separator-markup
 @funindex system-separator-markup
@@ -1669,52 +1707,78 @@ vous le jugez utile pour « forcer » le passage à la ligne suivante :
 }
 @end lilypond
 
-Par défaut, un saut de ligne ne saurait intervenir au beau milieu d'une
-mesure ; LilyPond vous le signalera par un message lors de la
-compilation du fichier.  Si d'aventure vous voulez forcer un saut de
-ligne en l'absence de barre de mesure, vous devrez auparavant insérer
-une barre invisible -- à l'aide de @code{\bar ""}.
+Par défaut, un saut de ligne ne peut se produire qu'en présence d'une
+barre de mesure. D'autres facteurs peuvent empêcher la survenance d'un
+saut de ligne :
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  c4 c c
-  \bar ""
-  \break
-  c |
-  c4 c c c |
+@itemize
+@item
+une note ou un silence se prolonge sur la mesure suivante,
+
+@item
+la présence d'un bandeau non ruptible, telle une ligature ou un
+glissando à cheval sur les mesures.
+@end itemize
+
+La commande @code{\break} force le saut de ligne dans tous les cas, sans
+tenir compte de la présence d'une barre de mesure ou des autres
+facteurs. On peut aussi s'affranchir de tous ces facteurs à l'aide de la
+commande @code{\allowBreak}. Dans l'exemple suivant, les ruptures sont
+autorisées partout, y compris au milieu des mesures et malgré la
+présence de ligature.
+
+@lilypond[verbatim,quote]
+\repeat unfold 56 { c'8 \allowBreak }
+@end lilypond
+
+Il existe différents moyens d'éviter l'abus de @code{\allowBreak} afin
+de contourner les facteurs ci-dessus qui empêchent les ruptures.
+
+@itemize
+@item
+Le @code{Bar_@/engraver} interdit les ruptures entre les barres de
+mesure lorsqu'est activée @code{forbidBreakBetweenBarLines}. Pour s'en
+affranchir, il suffit de désactiver cette propriété.
+
+@lilypond[quote,ragged-right,line-width=50,verbatim]
+\layout {
+  \context {
+    \Score
+    forbidBreakBetweenBarLines = ##f
+  }
+}
+
+\fixed c' {
+  c4 d
 }
 @end lilypond
 
-LilyPond ignorera un @code{\break} placé sur une barre à la fin d'une
-mesure dès lors que la précédente avait une note en suspend -- c'est
-typiquement le cas lorsqu'un n-olet est à cheval sur deux mesures.
-L'instruction @code{\break} sera toutefois opérationnelle si vous avez
-auparavant désactivé le @code{Forbid_line_break_engraver} du contexte
-@code{Voice} concerné.  Notez bien qu'en pareil cas, les sauts de ligne
-forcés doivent être saisis au sein d'une expression polyphonique :
+@item
+Notes et silences en suspend en fin de mesure n'interdiront plus les
+ruptures dès lors que le @code{Forbid_@/line_@/break_@/engraver} aura
+été supprimé du contexte @code{Voice} :
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,line-width=50,verbatim]
 \new Voice \with {
   \remove Forbid_line_break_engraver
 } \relative {
-  <<
-    { c''2. \tuplet 3/2 { c4 c c } c2. | }
-    { s1 | \break s1 | }
-  >>
+  c''2. \tuplet 3/2 { c4 c c } c2.
 }
 @end lilypond
 
-Selon le même principe, un saut de ligne ne peut intervenir alors qu'une
-ligature s'étend sur deux mesures consécutives.  Il faut en ce cas là
-introduire la dérogation @w{@code{\override Beam.breakable = ##t}}.
+@item
+Une ligature ou autre bandeau non ruptible s'étendant sur deux mesures
+consécutives seront ignorés dès lors que leur propriété @code{breakable}
+est activée.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,line-width=50,verbatim]
 \relative c'' {
   \override Beam.breakable = ##t
-  c2. c8[ c | \break
+  c2. c8[ c |
   c8 c] c2. |
-}
+ }
 @end lilypond
+@end itemize
 
 L'instruction opposée, @code{\noBreak}, interdira toute tentative de
 saut de ligne à la fin de la mesure où elle est explicitée.
@@ -1781,6 +1845,7 @@ ailleurs :
 
 @predefined
 @code{\break},
+@code{\allowBreak},
 @code{\noBreak},
 @code{\autoBreaksOff},
 @code{\autoBreaksOn},
@@ -3467,11 +3532,11 @@ non musicaux apparaissent en bleu.
 @lilypond
 musical =
 #(define-music-function (grob) (key-list?)
-   #{ \override $grob . color = red #})
+   #{ \override $grob . color = #(universal-color 'vermillion) #})
 
 nonmusical =
 #(define-music-function (grob) (key-list?)
-   #{ \override $grob . color = blue #})
+   #{ \override $grob . color = #(universal-color 'skyblue) #})
 
 \layout {
   \context {
