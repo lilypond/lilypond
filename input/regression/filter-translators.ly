@@ -8,6 +8,15 @@ for a @code{Performer_group}.  In this test, the
 does not affect midi output, since it is filtered out."
 }
 
+\layout {
+  \context {
+    \StaffGroup
+    % Test that it's actually being added to StaffGroup, by cancelling the
+    % default \consists.
+    \remove Instrument_name_engraver
+  }
+}
+
 \score {
   \new StaffGroup \with {
     \consists "Instrument_name_engraver"

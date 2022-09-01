@@ -9,11 +9,6 @@ multimeasure rests. "
 
 \layout {
   ragged-right = ##t
-  \context {
-    \Staff
-    \consists "Instrument_name_engraver"
-
-  }
 }
 
 
