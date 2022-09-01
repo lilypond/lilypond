@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 En interne, la fonction @code{\\ottava} détermine les propriétés
 @code{ottavation} (par ex. en @code{\"8va\"} ou @code{\"8vb\"}) et
@@ -8,6 +8,6 @@ d'octaviation en définissant @code{ottavation} après avoir fait appel à
 
 Un texte bref est particulièrement utile lorsque l'octaviation est
 courte.
-
 "
+
   doctitlefr = "Modification du texte des marques d'octaviation"

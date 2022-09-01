@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'activation de la propriété @code{useBassFigureExtenders} permet
 d'afficher des lignes de prolongation pour les chiffres qui se répètent.
@@ -6,6 +6,6 @@ Deux chiffres prolongés sur la même durée se verront affublés d'un
 unique prolongateur, verticalement centré entre eux, dès lors que la
 propriété @code{figuredBassCenterContinuations} aura elle aussi été
 activée.
-
 "
+
   doctitlefr = "Prolongateur commun de basse figurée"

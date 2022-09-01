@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les altérations supprimées lors d'un changement de tonalité sont par
 défaut accolées à la nouvelle armure. Ce comportement peut s'adapter
@@ -12,6 +12,6 @@ rupture. Seule la deuxième liste est ici modifiée,
 modifiant que la deuxième liste, cette modification dans l'ordre
 d'apparition des éléments sera effective seulement en cours de système,
 et non en début ou fin de ligne.
-
 "
+
   doctitlefr = "Séparation entre altérations annulées et nouvelle armure"

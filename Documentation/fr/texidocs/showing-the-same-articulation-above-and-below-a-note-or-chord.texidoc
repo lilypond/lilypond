@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 LilyPond ne permet pas, par défaut, qu'une même articulation (accent,
 flageolet, point d'orgue, etc.) se retrouve à la fois au-dessus et
@@ -18,6 +18,6 @@ accord et d'ajouter les articulations au sein de la construction
 
 Un simple amendement permettra de rectifier le positionnement habituel
 en surplomb : @code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
-
 "
+
   doctitlefr = "Impression d'une même articulation des deux côtés d'une note ou d'un accord"

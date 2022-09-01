@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Le code ci-dessous permet d'adjoindre à un signe @emph{segno} un texte
 @emph{D.S. al Coda}, là où se trouverait normalement un bout de portée.
 La @emph{coda} entamera une nouvelle ligne. Une variante, indiquée ici
 même, permet de laisser la @emph{coda} sur la même ligne.
-
 "
+
   doctitlefr = "Positionnement des segno et coda (avec saut de ligne)"

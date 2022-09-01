@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Une ligne de basse chiffrée peut se positionner au-dessus ou en dessous
 d'une partie de basse, grâce à la propriété
@@ -10,6 +10,6 @@ au-dessus, @code{#CENTER} (ou @code{#0}) pour centrée, et @code{#DOWN}
 Cette propriété peut être sujette à modification au cours de la
 partition.  Il vous faudra insérer un @code{\\once \\override} si ce
 changement devait être temporaire.
-
 "
+
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"

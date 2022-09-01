@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il est possible de changer globalement la mise en forme des notes
 d'ornement dans un morceau, au moyen des fonctions
@@ -8,6 +8,6 @@ Ici, par exemple, on ôte la définition de l'orientation des objets
 @code{Stem} pour toutes les petites notes, afin que les hampes ne soient
 pas toujours orientées vers le haut, et on leur préfère des têtes en
 forme de croix.
-
 "
+
   doctitlefr = "Mise en forme des notes d'ornement"

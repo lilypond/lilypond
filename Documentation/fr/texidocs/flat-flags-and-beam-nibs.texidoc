@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des
 paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et
@@ -25,6 +25,6 @@ synonyme de @code{\\once \\set}.  Autrement dit, la détermination
 des ligatures n'est pas « permanente » ; c'est la raison pour
 laquelle les crochets du @code{c'16[]} isolé du dernier exemple n'ont
 rien à voir avec le @code{\\set} indiqué deux notes auparavant.)
-
 "
+
   doctitlefr = "Crochet rectiligne et débordement de ligature"

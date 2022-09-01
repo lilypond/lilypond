@@ -1,10 +1,10 @@
-%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 @code{\\bookpart} permet de découper un ouvrage en plusieurs parties.
 La dernière page de chaque partie peut être affectée d'un
 @code{ragged-last-bottom}.  Les routines de formatage font la
 distinction entre les @emph{markups} d'entête et de pied de page selon
 qu'ils se rattachent à une partie ou bien à l'ouvrage entier.
-
 "
+
   doctitlefr = "Partitionnement d'un ouvrage"

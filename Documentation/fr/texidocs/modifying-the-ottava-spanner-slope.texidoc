@@ -1,6 +1,6 @@
-%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il est possible d'adapter la pente d'une indication d'octaviation.
-
 "
+
   doctitlefr = "Modification de la pente de l'extension d'octaviation"

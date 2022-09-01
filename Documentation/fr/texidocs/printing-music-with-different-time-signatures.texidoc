@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Bien qu'ayant des métriques bien différentes, les deux parties
 ci-dessous présentées restent synchrones.
@@ -12,6 +12,6 @@ Le @code{Bar_number_engraver} devra lui aussi être déplacé, puisqu'il
 dépend de propriétés attachées au @code{Timing_translator}, afin de
 numéroter les mesures. L'utilisation d'un bloc @code{\\with} dans la
 portée concernée permettra un affichage des numéros de mesure.
-
 "
+
   doctitlefr = "Impression de musique aux métriques différentes"

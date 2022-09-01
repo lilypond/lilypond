@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
 lignes d'une portée plus épaisses que les autres, comme la ligne médiane,
@@ -6,6 +6,6 @@ ou bien pour mettre en exergue la ligne portant la clef de sol.  Il
 suffit pour cela d'ajouter une ligne qui sera accolée à celle qui doit
 être mise en évidence, grâce à la propriété @code{line-positions} de
 l'objet @code{StaffSymbol}.
-
 "
+
   doctitlefr = "Empâtement de certaines lignes d'une portée"

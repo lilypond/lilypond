@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 On peut parfois vouloir modifier un seul type d'articulation. Bien que
 ce soit tout à fait faisable avec un @code{\\tweak}, cela devient vite
@@ -9,6 +9,6 @@ servir à créer des feuilles de style.
 
 La fonction @code{\\customScripts} ici proposée peut se placer, depuis
 la version 2.16.2, dans un bloc @code{\\layout}.
-
 "
+
   doctitlefr = "Personnalisation de certains types d'articulation"

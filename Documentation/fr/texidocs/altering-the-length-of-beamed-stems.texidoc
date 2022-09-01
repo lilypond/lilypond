@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La hauteur de hampe des notes ligaturées est gérée par la sous-propriété
 @code{beamed-lengths} des @code{details} de l'objet @code{Stem}.
@@ -7,6 +7,6 @@ Lorsqu'elle ne comporte qu'une seule valeur, cette hauteur s'appliquera
 affectera les croches, le second les doubles croches, et ainsi de suite.
 Le dernier argument s'appliquera aussi aux notes de plus courte durée.
 Les arguments peuvent être des valeurs décimales.
-
 "
+
   doctitlefr = "Modification de la hauteur de hampes ligaturées"

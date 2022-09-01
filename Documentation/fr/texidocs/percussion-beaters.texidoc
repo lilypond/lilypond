@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La représentation graphique des instruments à percussion n'est pas prise
 en charge nativement. De tels symboles peuvent cependant être inclus,
 soit à l'aide de fichiers EPS indépendants, soit à l'aide d'un
 @emph{markup} contenant le code PostScript correspondant comme dans cet
 exemple.
-
 "
+
   doctitlefr = "Baguettes pour percussion"

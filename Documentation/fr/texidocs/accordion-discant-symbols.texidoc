@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Cet extrait de code est rendu obsolète par l'apparition de commandes de
 @emph{markup} prédéfinies.  Il reste néanmoins utile à titre d'exemple
@@ -8,6 +8,6 @@ arguments de @code{\\translate-scaled}.  La fonction
 @code{\\translate-scaled} est ici préférée à @code{\\translate} parce
 qu'elle permet au positionnement des parties symboliques de s'adapter
 aux changements de @code{font-size}.
-
 "
+
   doctitlefr = "Symboles de chant pour accordéon"

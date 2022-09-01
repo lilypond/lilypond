@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les terminaisons des soufflets peuvent être décalées en jouant sur la
 propriété @code{shorten-pair} de l'objet@code{Hairpin}. Les valeurs
@@ -8,6 +8,6 @@ n'affecte que l'apparence du soufflet sans ajuster l'espacement
 horizontal (y compris avec les nuances textuelles). Cette méthode est
 donc appropriée aux situations dans lesquelles un soufflet requiert un
 ajustement fin dans l'espace qui lui est alloué.
-
 "
+
   doctitlefr = "Déplacer les extrémités de soufflets"

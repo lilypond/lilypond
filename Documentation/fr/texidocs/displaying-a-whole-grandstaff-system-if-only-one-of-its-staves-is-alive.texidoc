@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il arrive, dans les partitions d'orchestre, qu'un instrument ou un
 groupe d'instruments ne joue pas pendant un moment et que leurs portées
@@ -12,6 +12,6 @@ qu'il s'agisse d'un @code{GrandStaff} ou d'un @code{StaffGroup}.
 Dans l'exemple suivant, les violons ne jouent pas lors des deuxième et
 troisième systèmes. Bien que seul le premier violon redémarre à la
 dernière mesure, la portée de second violon apparaît elle aussi.
-
 "
+
   doctitlefr = "Affichage d'un système complet lorsqu'une seule portée est active"

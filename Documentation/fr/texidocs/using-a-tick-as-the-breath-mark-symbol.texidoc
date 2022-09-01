@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les musiques vocales ou pour vents utilisent souvent une coche en tant
 que signe de respiration. Ceci indique une respiration qui enlève une
 fraction à la note précédente plutôt qu'une véritable pause comme le
 fait un signe sous forme de virgule. La coche peut être remontée un peu
 afin de l'isoler de la portée.
-
 "
+
   doctitlefr = "Remplacement du signe de respiration par une coche"

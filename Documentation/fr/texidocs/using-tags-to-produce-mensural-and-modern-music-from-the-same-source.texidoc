@@ -1,15 +1,15 @@
-%% Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
  texidocfr = "
 Grâce aux balises (@emph{tags}), il est possible d'utiliser une même
 source pour produire une partition de musique mensurale et moderne. Dans
 cet exemple est créée la fonction @code{menrest} qui permettra de
 positionner les silence comme dans la version originale, tout en
 respectant leur position sur une portée standard. Les balises permettent
-aussi gérer d'autres différenciations selon les besoins, comme des
+aussi de gérer d'autres différenciations selon les besoins, comme des
 « mesures de silence » (R1, R\\breve, etc.) en notation moderne mais des
 silences normaux (r1, r\\breve, etc.) en notation ancienne. L'action de
 convertir de la musique mensurale en version moderne est communément
 appelée « transcription ».
-
 "
+
   doctitlefr = "Recours aux balises pour produire une partition ancienne et moderne à partir de la même source"

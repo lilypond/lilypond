@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété de
 contexte @code{beatStructure}. Ses valeurs par défaut sont répertoriées,
@@ -20,7 +20,7 @@ Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 modernes à la rythmique complexe. Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
 règles par défaut contenues dans le fichier
-@code{scm/time-signature-settings.scm}.
-
+@file{scm/time-signature-settings.scm}.
 "
+
   doctitlefr = "Signes de direction, signes de sous-groupe"

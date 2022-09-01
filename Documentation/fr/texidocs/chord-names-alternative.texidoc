@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les noms d'accord sont générés à partir d'une liste de hauteurs. Les
 fonctions qui construisent ces noms peuvent être personnalisées.
@@ -13,6 +13,6 @@ Ceci est un reflet du mécanisme utilisé à l'origine par LilyPond,
 jusque dans les version 1.7. N'ayant pas fait l'objet d'une maintenance
 suivie, certaines fonctionnalités ont été perdues -- notamment au niveau
 des listes d'exception -- et des bogues ont fait leur apparition.
-
 "
+
   doctitlefr = "Noms d'accord alternatifs"

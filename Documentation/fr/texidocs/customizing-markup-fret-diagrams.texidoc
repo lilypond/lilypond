@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les propriétés d'un diagramme de fret sont modifiables grâce au
 @code{fret-diagram-details}. Lorsqu'ils sont générés sous forme
 de @code{\markup}, rien n'empêche de modifier les diagrammes en jouant
 sur les réglages de l'objet @code{Voice.TextScript} ou bien directement
 sur le @emph{markup}.
-
 "
+
   doctitlefr = "Personnalisation des diagrammes de fret"

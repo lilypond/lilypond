@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La syntaxe de LilyPond demande parfois un positionnement inhabituel des
 parenthèses, crochets, etc. qui peuvent s'entrelacer.
@@ -9,8 +9,8 @@ crochet fermant se place à la fin de la ligature, y compris lorsque la
 dernière note se trouve incluse dans un n-olet.
 
 Cet extrait illustre la manière de combiner ligatures manuelles,
-liaisons d'articulation, de prolongation ou de phrasé, avec des nolets
+liaisons d'articulation, de prolongation ou de phrasé, avec des n-olets
 bornées par des accolades.
-
 "
+
   doctitlefr = "Coexistence de ligatures et liaisons avec des rythmes comprenant des n-olets"

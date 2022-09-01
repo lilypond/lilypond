@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La ligature de notes se trouvant sur des lignes supplémentaires est
 généralement centrée sur la portée.  Les notes d'ornement ayant une
 hampe raccourcie, leur ligature peut se retrouver en dehors de la portée
 lorsqu'elles sont sur des lignes supplémentaires. LilyPond permet de
 rallonger les hampes en pareil cas.
-
 "
+
   doctitlefr = "Positionnement des ligatures de notes d'ornement à la hauteur de celles des notes normales"

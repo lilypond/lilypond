@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'empilement des indications de doigté se fait par défaut à l'extérieur
 de la portée. Il est néanmoins possible d'annuler ce comportement. Une
@@ -8,6 +8,6 @@ n'évitent les hampe qu'en présence de ligature. Ce réglage peut
 s'adapter pour éviter toutes les hampes ou aucune d'elles. L'exemple
 suivant illustre ces deux options, ainsi que la manière de revenir au
 comportement par défaut.
-
 "
+
   doctitlefr = "Impression des doigtés à l'intérieur de la portée"

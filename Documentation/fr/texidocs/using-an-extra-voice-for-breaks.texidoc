@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il est souvent plus pratique de séparer ce qui est purement musical et
 les informations concernant les sauts de ligne ou de page, en créant une
@@ -9,6 +9,6 @@ des @code{\\pageBreak} et autres informations concernant les ruptures.
 Cette manière de procéder est tout à fait indiquée lorsque vous ajustez
 les @code{line-break-system-details} et autres propriétés fort
 intéressantes de @code{NonMusicalPaperColumnGrob}.
-
 "
+
   doctitlefr = "Recours à une voix supplémentaire pour gérer les sauts"

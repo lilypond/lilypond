@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Cette méthode permet d'imprimer deux marques-repères l'une au-dessus de
 l'autre. Le repère inférieur est décalé sous la portée, puis s'insère
@@ -22,6 +22,6 @@ permet pas d'ajuster le positionnement d'un repère indépendamment de
 l'autre. Elle peut aussi générer quelques problèmes quant à l'espacement
 vertical, puisque le recours à @code{extra-offset} ne modifie en rien la
 valeur originelle de la boîte englobant le repère.
-
 "
+
   doctitlefr = "Impression d'un double repère sur une même barre (méthode 1)"

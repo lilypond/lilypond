@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 @code{staffLineLayoutFunction} permet de changer le positionnement des
 notes.  Dans cet exemple, la valeur qui lui est attribuée --
 @code{ly:pitch-semitones} -- génère une gamme chromatique où l'écart
 entre chaque ligne et interligne de la portée est ramené au demi ton.
-
 "
+
   doctitlefr = "Modification de l'intervalle des lignes de la portée"

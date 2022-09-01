@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'insertion du résultat de @code{lilypond-version} dans des paroles
 permet d'ajouter à la partition ou au document généré par
 @code{lilypond-book} le numéro de la version de LilyPond utilisée. Une
 autre possibilité consiste à l'ajouter à une chaîne textuelle comme
 ci-dessous.
-
 "
+
   doctitlefr = "Impression du numéro de version"

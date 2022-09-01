@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Tout objet graphique peut s'imprimer sur un fond blanc afin de masquer
 une partie des objets qu'il recouvre. Ceci trouve toute son utilité pour
@@ -13,6 +13,6 @@ l'affectation de la propriété @code{whiteout} à l'objet
 sur un calque au-dessus de celui de @code{Tie} -- il reste sur le calque
 par défaut (1) --, puis le @code{StaffSymbol} est placé sur un calque
 supérieur à celui de @code{TimeSignature} pour ne pas être masqué.
-
 "
+
   doctitlefr = "Utilisation de la propriété @code{whiteout}"

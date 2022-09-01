@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque du texte est attaché à un silence multimesure, il sera centré
 dans la mesure, au-dessus ou en dessous de la portée. Afin d'étirer la
@@ -8,6 +8,6 @@ le silence multimesure. Le texte attaché à un silence invisible sera
 aligné sur la gauche de là où serait positionnée la note dans la mesure.
 Cependant, si la taille de la mesure est déterminée par la longueur du
 texte, il apparaîtra comme centré.
-
 "
+
   doctitlefr = "Ajout de texte à un silence multimesure"

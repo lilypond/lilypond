@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les symboles spécifiques aux registres d'accordéon sont disponible tant
 sous forme de @code{\\markup} que d'événements musicaux indépendants --
@@ -6,6 +6,6 @@ un changement de registre a tendance à intervenir entre des événements
 musicaux réels.  Les registres de basse ne sont pas très standardisés.
 Les différentes commandes disponibles sont regroupées à l'annexe
 @rusernamed{Accordion Registers, Registres d'accordéon}.
-
 "
+
   doctitlefr = "Symboles de registre pour accordéon"

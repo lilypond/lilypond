@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque le reste de la division du numéro de la mesure courante par le
 premier argument de @code{modulo-bar-number-visible} égale le deuxième
@@ -17,6 +17,6 @@ exemple :
 @item
 @code{(modulo-bar-number-visible 5 2)} -> affichage à 2, 7, 12…
 @end itemize
-
 "
+
   doctitlefr = "Impression du numéro de mesure selon @code{modulo-bar-number-visible}"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il est possible de graver manuellement les liaisons de tenue, en
 modifiant la propriété @code{tie-configuration}. Pour chaque paire, le
@@ -12,6 +12,6 @@ exacte -- autrement dit un entier ou une fraction comme @code{(/ 4 5)}
 LilyPond de sorte à éviter les lignes de la portée. Dans le cas d'une
 valeur inexacte, tel un nombre à virgule flottante, c'est elle qui
 servira à positionner verticalement, sans ajustement.
-
 "
+
   doctitlefr = "Dessin à main levée de liaisons de tenue"

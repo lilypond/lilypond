@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'alignement horizontal des paroles peut se gérer à l'aide de la
 propriété @code{self-alignment-X} de l'objet @code{LyricText}.
 Les valeurs @code{-1} ou @code{LEFT} produiront un alignement par la
 gauche, les valeurs @code{0} ou @code{CENTER} un alignement centré, et
 les valeurs @code{1} ou @code{RIGHT} un alignement par la droite.
-
 "
+
   doctitlefr = "Alignement des syllabes"

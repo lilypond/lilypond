@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'instruction @code{\\whiteout} intercale un rectangle blanc
 contenant un @emph{markup}.  Dans la mesure où les lignes de la portée
 sont à un niveau inférieur à la plupart des autres objets graphiques, ce
 cache ne devrait pas masquer d'autres éléments.
-
 "
+
   doctitlefr = "Blanchiment de lignes de portée avec la commande @code{\\whiteout}"

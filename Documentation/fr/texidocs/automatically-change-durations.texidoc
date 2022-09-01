@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 @code{shiftDurations} permet de modifier la longueur des notes d'un
 morceau.
@@ -6,6 +6,6 @@ morceau.
 Cette instruction prend deux arguments : un coefficient d'échelonnement
 (une puissance de deux) et un nombre de points d'augmentation (entier
 positif).
-
 "
+
   doctitlefr = "Changement automatique des durées"

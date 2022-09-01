@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque l'on manipule des rappels d'objet (@emph{grob callbacks}), il
 peut être intéressant d'en maîtriser les ascendants. La plupart des
@@ -10,15 +10,18 @@ l'objet. De plus, chacun des parents peut avoir ses propres parents.
 Certains aspects de la lignée d'un objet peuvent toutefois porter à
 confusion :
 
--- Les types de parents d'un @emph{grob} peuvent dépendre du contexte.
-
--- Dans le cas de certains @emph{grobs}, les parents X et Y peuvent être
-   le même.
-
--- Un « ascendant » particulier peut dépendre d'un @emph{grob} de
-   différentes manières.
-
--- Le concept de « générations » est trompeur.
+@itemize
+@item
+Les types de parents d'un @emph{grob} peuvent dépendre du contexte.
+@item
+Dans le cas de certains @emph{grobs}, les parents X et Y peuvent être
+le même.
+@item
+Un « ascendant » particulier peut dépendre d'un @emph{grob} de
+différentes manières.
+@item
+Le concept de « générations » est trompeur.
+@end itemize
 
 Par exemple, l'objet @code{System} peut, vis à vis d'un objet
 @code{VerticalAlignment}, être à la fois parent (par son côté Y) et
@@ -27,13 +30,13 @@ grand parent (par deux fois du côté X).
 La macro ci-dessous affiche à l'écran une représentation textuelle de
 l'ascendance d'un @emph{grob}.
 
-
 Elle se lance ainsi :
 
 @verbatim
 { \\once \\override NoteHead.before-line-breaking = #display-ancestry c }
 @end verbatim
 
+@noindent
 et génère la sortie suivante :
 
 @verbatim
@@ -49,6 +52,6 @@ X,Y: NoteColumn
               X,Y: System
            Y: System
 @end verbatim
-
 "
+
   doctitlefr = "Affichage de la généalogie d'un objet"

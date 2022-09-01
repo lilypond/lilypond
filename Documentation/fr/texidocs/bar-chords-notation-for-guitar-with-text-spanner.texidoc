@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Voici comment imprimer un « accord barré » -- il suffit de dé-commenter
 la ligne appropriée.
@@ -7,6 +7,6 @@ La syntaxe est la suivante : @code{\\bbarre #\"fret_number\" note(s)}
 
 La fonction Scheme ici présentée peut faire l'objet d'un fichier de
 définition personnalisée à inclure dans vos propres fichiers sources.
-
 "
+
   doctitlefr = "Notation d'accords barrés pour guitare (avec extension textuelle)"

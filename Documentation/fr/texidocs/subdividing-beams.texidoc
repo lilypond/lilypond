@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut. Autrement dit, tous les traits de
@@ -19,6 +19,6 @@ durée du sous-groupe désiré comme dans l'exemple ci-dessous. Gardez à
 l'esprit que, si vous venez à modifier @code{baseMoment}, vous devrez
 probablement adapter @code{beatStrusture} afin qu'il reste en adéquation
 avec les nouvelles valeurs de @code{baseMoment}.
-
 "
+
   doctitlefr = "Subdivision des ligatures"

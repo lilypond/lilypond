@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 En accord avec les règles traditionnelles de l'écriture musicale, on
 grave un bécarre avant un dièse ou un bémol si la note était auparavant
@@ -6,6 +6,6 @@ affublée d'un double-dièse ou double-bémol. Pour adopter un
 comportement plus contemporain, la propriété @code{extraNatural} du
 contexte @code{Staff} doit se voir attribuer la valeur @code{##f}
 (faux).
-
 "
+
   doctitlefr = "Suppression des bécarres superflus"

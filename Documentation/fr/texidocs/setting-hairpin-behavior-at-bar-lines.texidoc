@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 En principe, un soufflet -- (de)crescendo imprimé sous forme graphique --
 commence au bord gauche de la note de départ, et se termine au
@@ -6,6 +6,6 @@ bord droit de la note d'arrivée. Cependant, si la note d'arrivée
 est sur un premier temps, le soufflet s'arrêtera au niveau de la
 barre de mesure qui la précède.  Ce comportement peut être annulé
 en assignant @emph{faux} (@code{#f}) à la propriété @code{to-barline}.
-
 "
+
   doctitlefr = "Soufflets et barres de mesure"

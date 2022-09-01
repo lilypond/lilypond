@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque vous regroupez automatiquement des parties, vous pouvez
 modifier le texte qui sera affiché pour les solos et pour les parties à
 l'unisson :
-
 "
+
   doctitlefr = "Modification des indications de parties combinées"

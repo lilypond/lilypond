@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La métrique est parfois indiquée non pas par une fraction (par ex. 7/4)
 mais simplement par son numérateur (le chiffre 7 dans ce cas).
@@ -10,4 +10,5 @@ Lorsque cette métrique sous la forme d'un seul chiffre ne se présente
 qu'une seule fois, il suffit de faire précéder l'instruction
 @code{\\override} d'un simple @code{\\once}.
 "
+
   doctitlefr = "Affichage seulement du numérateur d'une métrique (au lieu d'une fraction)"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Tous les objets @code{DynamicLineSpanner} (soufflets ou nuances
 textuelles) viennent s'aligner sur une ligne de référence placée, par
@@ -10,6 +10,6 @@ aura été défini à une valeur suffisante.
 C'est le même principe -- en combinaison avec @code{\\textLengthOn} --
 qui sert à aligner les indications textuelles sur une ligne de
 référence.
-
 "
-  doctitlefr = "Alignement vertical des nuances indications textuelles"
+
+  doctitlefr = "Alignement vertical des nuances et indications textuelles"

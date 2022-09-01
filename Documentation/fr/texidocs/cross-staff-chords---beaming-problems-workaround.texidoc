@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Il est parfois préférable d'utiliser les hampes de la portée supérieure
 pour créer des accords distribués, afin d'éviter tout risque de
@@ -7,6 +7,6 @@ le fait de partir des hampes de la portée inférieure aurait rendu
 nécessaire l'adaptation du détecteur de collision des ligatures, par une
 clause @code{\\override Staff.Beam.collision-voice-only = ##t}, afin
 qu'il ne tienne pas compte des collisions entre portées.
-
 "
+
   doctitlefr = "Accord distribué et problème de hampe – solution"

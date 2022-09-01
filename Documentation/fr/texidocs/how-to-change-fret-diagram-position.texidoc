@@ -1,18 +1,21 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Différents moyens permettent de repositionner un diagramme de fret pour
 éviter des collisions ou le placer entre deux notes :
 
--- La modification des valeurs de @code{padding} ou de
-   @code{extra-offset} comme pour le second diagramme ;
-
--- L'adjonction d'une voix invisible dans laquelle les diagrammes sont
-   attachés à des notes invisibles comme pour le troisième diagramme.
+@itemize
+@item
+La modification des valeurs de @code{padding} ou de @code{extra-offset}
+comme pour le second diagramme ;
+@item
+L'adjonction d'une voix invisible dans laquelle les diagrammes sont
+attachés à des notes invisibles comme pour le troisième diagramme.
+@end itemize
 
 Lorsque le diagramme doit correspondre à une position rythmique dans la
-mesure,  comme au troisième temps de la deuxième mesure, la seconde
+mesure, comme au troisième temps de la deuxième mesure, la seconde
 méthode est plus appropriée puisque le diagramme sera aligné sur le
 temps.
-
 "
+
   doctitlefr = "Repositionnement d'un diagramme de fret"

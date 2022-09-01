@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e0f05723b4d5bd6e7fdb90c986695bab68f607ae
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Des noms de « hauteurs » de batterie personnalisée peuvent s'utiliser à
 la fois pour la sortie imprimable et le fichier MIDI généré. Ces
@@ -6,11 +6,13 @@ variables doivent être définies en tant que @code{drumPitchNames},
 @code{drumStyleTable} et @code{midiDrumPitches}, comme indiqué
 ci-dessous. En résumé, cet extrait
 
-– définit quelques noms de « hauteur », @*
-– définit comment ils seront rendus, @*
-– indique à LilyPond de les utiliser pour la mise en forme, @*
-– assigne les hauteurs aux noms, @*
-– indique à LilyPond de les utiliser pour le rendu MIDI.
-
+@itemize
+@item définit quelques noms de « hauteur »,
+@item définit comment ils seront rendus,
+@item indique à LilyPond de les utiliser pour la mise en forme,
+@item assigne les hauteurs aux noms,
+@item indique à LilyPond de les utiliser pour le rendu MIDI.
+@end itemize
 "
+
   doctitlefr = "Personnalisation de batterie pour les sorties imprimable et MIDI"

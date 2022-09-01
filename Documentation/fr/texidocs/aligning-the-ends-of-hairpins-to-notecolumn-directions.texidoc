@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
-
 Les terminaisons des soufflets peuvent s’aligner sur la gauche, au
 centre ou sur la droite des @emph{grobs} @code{NoteColumn} à l’aide
 d’une dérogation à la propriété @code{endpoint-alignments} --
@@ -12,4 +11,5 @@ avertissement. L'extrémité droite d'un soufflet se terminant sur un
 silence ne sera pas affectée et s'alignera toujours sur le bord gauche
 de ce silence.
 "
+
   doctitlefr = "Alignement des bornes de soufflet relativement aux @code{NoteColumn}s"

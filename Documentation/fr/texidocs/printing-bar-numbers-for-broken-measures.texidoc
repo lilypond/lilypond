@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'objet @code{BarNumber} (numéro de mesure) n'est pas répété en début de
 ligne pour une mesure tronquée. Il apparaîtra, entre parenthèses, dès
 lors que la propriété @code{barNumberVisibility} sera affublée de
 @code{first-bar-number-invisible-save-broken-bars}.
-
 "
+
   doctitlefr = "Impression du numéro des mesures tronquées"

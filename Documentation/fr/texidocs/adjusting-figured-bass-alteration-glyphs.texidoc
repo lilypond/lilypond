@@ -1,5 +1,5 @@
-%% Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
-  texidocfr ="
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
+  texidocfr = "
 En basse chiffrée, des glyphes spécifiques sont utilisés par défaut pour
 les @code{6\\\\}, @code{7\\\\} et @code{9\\\\}. D'autres glyphes ont été
 conçus pour les @code{2\\+}, @code{4\\+} et @code{5\\+} ; ils sont
@@ -8,6 +8,6 @@ utilisés par défaut dès lors qu'un signe plus est ajouté au chiffre.
 Pour modifier ce comportement, il faut passer une liste associative à
 @code{figuredBassPlusStrokedAlist} et basculer le glyphe en question
 sur @code{#f} (ou ne pas le mentionner).
-
 "
+
   doctitlefr = "Ajustement des glyphes d'altération en basse chifrée"

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
 Recopiez-le, ajoutez-y d'autres notes et paroles. Les ligatures
 automatiques sont ici désactivées comme il est d'usage en matière de
 musique vocale. Pour activer la fonction de ligature automatique,
 modifiez ou commentez la ligne en question.
-
 "
+
   doctitlefr = "Portée unique et paroles"

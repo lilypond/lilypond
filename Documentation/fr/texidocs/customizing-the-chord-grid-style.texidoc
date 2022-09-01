@@ -1,6 +1,5 @@
-%%  Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+%%  Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
-
 Il est possible de personnaliser la division des cases à l'aide des
 propiétés de @code{ChordSquare} @code{measure-division-lines-alist} et
 @code{measure-division-chord-placement-alist}, qui sont toutes deux des
@@ -25,4 +24,5 @@ des accords respectifs.
 L'exemple ci-dessous illustre le cas particulier d'une grille dont le
 style spécifie le découpage des mesures en trois parts égales.
 "
+
   doctitlefr = "Personnalisation du style de grille harmonique"

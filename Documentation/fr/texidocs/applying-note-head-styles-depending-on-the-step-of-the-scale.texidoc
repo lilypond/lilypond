@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
@@ -14,6 +14,6 @@ chansons américaines.
 L'exemple suivant montre plusieurs manières de profiler les têtes de
 note, ainsi que la capacité de transposer tout en respectant la fonction
 harmonique de chaque note dans la gamme.
-
 "
+
   doctitlefr = "Profilage des notes selon leur degré dans la gamme"

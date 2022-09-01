@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 1cf73214ed17ad6ed3d77c7dedc282eea9ea32c0
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Si un soufflet est trop court, il suffit d'ajuster la propriété
 @code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
-
 "
+
   doctitlefr = "Ajustement de la longueur d'un soufflet"

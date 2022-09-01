@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Cet extrait illustre l'utilisation du @code{Measure_counter_engraver}
 aux fins de numéroter un groupe de mesures successives. La section à
@@ -15,6 +15,6 @@ défaut, comportement qui peut se modifier à l'aide de la propriété
 
 Lorsqu'une mesure s'étend après un saut de ligne, le numéro y est alors
 répété, entre parenthèses.
-
 "
+
   doctitlefr = "Numérotation de groupes de mesures"

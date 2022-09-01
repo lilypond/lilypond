@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Le code suivant permet d'obtenir une liste de toutes les possibilités en
 matière de doigtés pour bois, tels qu'ils sont définis dans le fichier
@@ -6,6 +6,6 @@ matière de doigtés pour bois, tels qu'ils sont définis dans le fichier
 le fichier de journalisation, mais pas sous forme de musique. Pour un
 affichage en console, supprimez la partie @code{(current-error-port)}
 des commandes.
-
 "
+
   doctitlefr = "Liste des différents diagrammes de doigtés pour bois"

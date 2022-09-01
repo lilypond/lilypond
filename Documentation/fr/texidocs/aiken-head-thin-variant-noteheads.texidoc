@@ -1,8 +1,9 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les notes profilées Aiken, lorsqu'elles sont blanches, deviennent
 difficile à distinguer avec des tailles de portée réduites, notamment en
 présence de ligne supplémentaire. Perdant du blanc sur leur intérieur
 les fait alors ressembler à des noires.
 "
+
   doctitlefr = "Variante fine des notes profilées Aiken"

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 932cacc120cdac845e0da4cc5bdb7d68498f96a5
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque plusieurs voix cohabitent sur une même portée, déterminer
 l'octaviation d'une voix affecte la position des notes de toutes les
 voix, jusqu'à la fin du crochet d'octaviation. Si l'octaviation ne doit
 s'appliquer qu'à une seule voix, le @code{Ottava_spanner_engraver}
 devrait être déplacé dans le contexte @code{Voice}.
-
 "
+
   doctitlefr = "Ajout d'une indication d'octave pour une seule voix"

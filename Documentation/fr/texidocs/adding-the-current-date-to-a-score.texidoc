@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Avec un peu de code Scheme, voici comment ajouter facilement la date du
 jour à votre partition.
-
 "
+
   doctitlefr = "Ajout de la date du jour à une partition"

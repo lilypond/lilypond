@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsqu'une clef a déjà été imprimée et qu'aucun changement n'est
 intervenu, LilyPond ignore toute répétition de la commande @code{\\clef}
 puisque le signe est le même. Il est cependant possible de rappeler la
 clef à s'imprimer à l'aide de l'instruction
 @code{\\set Staff.forceClef = ##t}.
-
 "
+
   doctitlefr = "Impression forcée de la clef"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des
 regroupements imbriqués complexes. La commande
@@ -10,6 +10,6 @@ que des éléments de la liste puissent être omis, le premier délimiteur
 embrassera toujours l'intégralité des portées. Vous disposez des quatre
 délimiteurs @code{SystemStartBar}, @code{SystemStartBracket},
 @code{SystemStartBrace} et @code{SystemStartSquare}.
-
 "
+
   doctitlefr = "Imbrications de regroupements de portées"

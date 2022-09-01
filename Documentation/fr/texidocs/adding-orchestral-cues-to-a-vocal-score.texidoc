@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
 multiplie, vous pourriez avoir intérêt à créer votre propre fonction
@@ -11,6 +11,6 @@ qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou
 qui interviendra en parallèle.  Le nom de l'instrument en question
 viendra s'aligner sur la gauche de la citation.  Bien que vous puissiez
 effectuer plusieurs citations, elle ne peuvent être simultanées.
-
 "
+
  doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une partition pour chœur"

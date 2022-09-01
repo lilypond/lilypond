@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 L'alignement horizontal des noms d'instrument se gère à l'aide de la
 propriété @code{Staff.InstrumentName.self-alignment-X}.  Les variables
 @code{indent} et @code{short-indent}, attachées au bloc @code{\\layout},
 déterminent l'espace alloué à l'alignement des noms d'instrument,
 respectivement dans leurs formes développée et abrégée.
-
 "
+
   doctitlefr = "Alignement des noms d'instrument"

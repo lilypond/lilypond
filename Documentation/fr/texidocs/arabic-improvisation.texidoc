@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Lorsque les improvisations ou @emph{taqasim} sont temporairement libres,
 la métrique peut ne pas apparaître, auquel cas on utilisera un
 @code{\\cadenzaOn}.  Les altérations accidentelles devront alors être
 répétées en raison de l'absence de barre de mesure.  Voici comment
 pourrait débuter une improvisation de @emph{hijaz}.
-
 "
+
   doctitlefr = "Improvisation en musique arabe"

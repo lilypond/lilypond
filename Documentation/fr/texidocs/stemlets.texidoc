@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Certaines conventions en matière de notation autorisent les ligatures à
 enjamber des silences. Dans certains cas, des moignons de hampe
@@ -13,6 +13,6 @@ silences sont masqués par activation de la propriété de transparence.
 
 Les @emph{markups} ajoutés au code ci-dessous mettent en exergue les
 différentes notations.
-
 "
+
   doctitlefr = "Moignons de hampe"

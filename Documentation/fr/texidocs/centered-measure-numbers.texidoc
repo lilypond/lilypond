@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b01203f45b7da976027506d05dacda8f3b625b47
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Les partitions pour grands ensembles disposent souvent de la
 numérotation des mesures centrée en dessous du système. L'extrait
@@ -9,4 +9,5 @@ répondre à cette pratique. Le graveur est ici ajouté à un contexte
 Il s'agit ici de code historique. Dès LilyPond 2.23.3, un simple
 @code{\\set Score.centerBarNumbers = ##t} suffit.
 "
+
   doctitlefr = "Numéros de mesure centrés"

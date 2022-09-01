@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
 contexte @code{Staff}.
@@ -13,6 +13,7 @@ liste :
   @dots{})
 @end verbatim
 
+@noindent
 dans laquelle, et pour chaque élément, @code{octave} spécifie l'octave
 (0 pour celle allant du do médium au si supérieur), @code{pas} la note
 dans cette octave (0 pour do et 6 pour si), et @code{altération} sera
@@ -26,6 +27,6 @@ l'octave.
 En ce qui concerne les gammes microtonales dans lesquelles un
 « dièse » n'est pas d'un centième, @code{altération} se réfère à un
 deux-centième de ton entier.
-
 "
+
   doctitlefr = "Armures inhabituelles"

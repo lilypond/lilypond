@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7b7f52e774eb9cc9e82a246cb8655034a267e877
+%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
   texidocfr = "
 Certains objets graphiques ne sont accessibles que par le biais d'un
 @emph{callback} à partir d'un autre @code{grob}. Ils sont normalement
@@ -23,6 +23,6 @@ Voici par exemple ce qui sera émis dans la console :
 #<Grob Arpeggio >
 #<Grob Stem >
 @end example
-
 "
+
   doctitlefr = "Utilisation de @code{ly:grob-object} pour accéder aux @emph{grobs} avec @code{\\tweak}"
