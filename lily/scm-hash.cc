@@ -50,7 +50,6 @@ Scheme_hash_table::contains (SCM k) const
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
-  assert (scm_is_symbol (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab (), k, SCM_UNDEFINED);
   scm_set_cdr_x (handle, v);
 }

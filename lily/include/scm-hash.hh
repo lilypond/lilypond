@@ -27,6 +27,10 @@
 
   Used for looking up keys by SCM value (keys compared with eq?).
   This is not much more than a C++ wrapper around a standard Guile hashtable.
+
+  TODO: support arbitrary hash and equality procedures in constructor,
+  wrapping the Guile 'hashx' interfaces?  Currently, Scheme_hash_table
+  is hardwired to use eq? semantics.
 */
 
 class Scheme_hash_table : public Smob0<Scheme_hash_table>
