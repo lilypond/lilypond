@@ -203,7 +203,7 @@ Stencil::add_stencil (Stencil const &s)
     {
       if (scm_is_pair (s.expr_)
           && scm_is_eq (cs, scm_car (s.expr_)))
-        expr_ = scm_append (scm_list_2 (s.expr_, scm_cdr (expr_)));
+        expr_ = ly_append (s.expr_, scm_cdr (expr_));
       else
         expr_ = scm_cons2 (cs, s.expr_, scm_cdr (expr_));
     }
@@ -211,7 +211,7 @@ Stencil::add_stencil (Stencil const &s)
     {
       if (scm_is_pair (s.expr_)
           && scm_is_eq (cs, scm_car (s.expr_)))
-        expr_ = scm_append (scm_list_2 (s.expr_, scm_list_1 (expr_)));
+        expr_ = ly_append (s.expr_, ly_list (expr_));
       else
         expr_ = ly_list (cs, s.expr_, expr_);
     }

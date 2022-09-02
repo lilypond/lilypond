@@ -76,7 +76,7 @@ ly_init_ly_module ()
 #elif SCM_MAJOR_VERSION == 2
   SCM tree_il_opts = Tree_il_optimize::tree_il_default_optimization_options ();
   SCM cps_opts = Cps_optimize::cps_default_optimization_options ();
-  SCM available_optimizations = scm_append (scm_list_2 (tree_il_opts, cps_opts));
+  SCM available_optimizations = ly_append (tree_il_opts, cps_opts);
   // available_optimizations is a list that looks like
   // '(#:precolor-calls? #t #:rotate-loops? #t ...).  Set all booleans to #f.
   SCM no_opts = SCM_EOL;

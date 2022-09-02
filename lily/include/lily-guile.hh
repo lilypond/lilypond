@@ -115,19 +115,6 @@ inline bool ly_is_equal (SCM x, SCM y)
   return scm_is_true (scm_equal_p (x, y));
 }
 
-inline SCM ly_append2 (SCM x1, SCM x2)
-{
-  return scm_append (scm_list_2 (x1, x2));
-}
-inline SCM ly_append3 (SCM x1, SCM x2, SCM x3)
-{
-  return scm_append (scm_list_3 (x1, x2, x3));
-}
-inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
-{
-  return scm_append (scm_list_4 (x1, x2, x3, x4));
-}
-
 /*
   display and print newline.
 */
@@ -189,6 +176,15 @@ SCM
 ly_list (SCM first, Args ...args)
 {
   return scm_cons (first, ly_list (args...));
+}
+
+// ly_append takes variadic arguments, unlike scm_append which takes an SCM list
+// of arguments.
+template <typename ...Args> inline
+SCM
+ly_append (Args ...args)
+{
+  return scm_append (ly_list (args...));
 }
 
 // Wrap scm_internal_hash_fold() to reduce the number of places we need to use

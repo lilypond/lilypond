@@ -213,7 +213,7 @@ Return a list containing the fonts from output definition @var{def} (e.g.,
       alist2 = ly_alist_vals (alist2);
     }
 
-  SCM alist = scm_append (scm_list_2 (alist1, alist2));
+  SCM alist = ly_append (alist1, alist2);
   SCM font_list = SCM_EOL;
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {

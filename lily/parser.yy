@@ -1792,11 +1792,11 @@ symbol_list_arg:
 	SYMBOL_LIST
 	| SYMBOL_LIST '.' symbol_list_rev
 	{
-		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+		$$ = ly_append ($1, scm_reverse_x ($3, SCM_EOL));
 	}
 	| SYMBOL_LIST ',' symbol_list_rev
 	{
-		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+		$$ = ly_append ($1, scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
@@ -2900,8 +2900,8 @@ grob_prop_path:
 			parser->parser_error (@1, _ ("bad grob property path"));
 			$$ = SCM_UNDEFINED;
 		} else {
-			property_path_dot_warning (@2, ly_append2 ($1, $2));
-			$$ = scm_append_x (scm_list_2 ($$, $2));
+			property_path_dot_warning (@2, ly_append ($1, $2));
+			$$ = scm_append_x (ly_list ($$, $2));
 		}
 	}
 	;
@@ -3106,7 +3106,7 @@ note_chord_element:
 
 		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
 			set_property (unsmob<Music> (scm_car (s)), "duration", dur);
-		es = ly_append2 (es, postevs);
+		es = ly_append (es, postevs);
 
 		set_property (m, "elements", es);
 		m->set_spot (parser->lexer_->override_input (@$));
@@ -3766,7 +3766,7 @@ pitch_or_music:
 							  parser->default_duration_.smobbed_copy (),
 							  SCM_EOL);
 
-			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
+			SCM elts = ly_append ($1, scm_reverse_x ($2, SCM_EOL));
 
 			$$ = MAKE_SYNTAX (event_chord, @1, elts);
 		} else if (!unsmob<Pitch> ($1))
@@ -4764,7 +4764,7 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 			set_property (m, "elements", post);
 			return m->unprotect ();
 		}
-		bad = ly_append2 (post, bad);
+		bad = ly_append (post, bad);
 		if (preserve) {
 			Music *p = unsmob<Music> (scm_car (post));
 			res = scm_cons (MAKE_SYNTAX (event_chord,
@@ -4830,7 +4830,7 @@ SCM post_event_cons (SCM post_event, SCM tail)
 		for (SCM q = props; scm_is_pair (q); q = scm_cdr (q))
 			set_property (ev, scm_caar (q), scm_cdar (q));
 	}
-	return ly_append2 (elts, tail);
+	return ly_append (elts, tail);
 }
 
 void property_path_dot_warning (Input loc, SCM lst)

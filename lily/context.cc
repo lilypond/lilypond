@@ -74,8 +74,8 @@ Context::properties_dict () const
 void
 Context::add_context (Context *child)
 {
-  context_list_ = ly_append2 (context_list_,
-                              scm_cons (child->self_scm (), SCM_EOL));
+  context_list_ = ly_append (context_list_,
+                             scm_cons (child->self_scm (), SCM_EOL));
 
   child->parent_ = this;
   events_below_->register_as_listener (child->events_below_);

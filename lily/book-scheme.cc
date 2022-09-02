@@ -38,7 +38,7 @@ well) containing @code{\score}s.
   if (ly_is_module (header))
     book->header_ = header;
 
-  book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
+  book->scores_ = ly_append (scores, book->scores_);
 
   SCM x = book->self_scm ();
   book->unprotect ();
@@ -52,7 +52,7 @@ Make a @code{\bookpart} containing @code{\score}s.
            )")
 {
   Book *book = new Book;
-  book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
+  book->scores_ = ly_append (scores, book->scores_);
 
   SCM x = book->self_scm ();
   book->unprotect ();

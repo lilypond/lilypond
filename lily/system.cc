@@ -486,7 +486,7 @@ System::collect_labels (Grob const *col, SCM *labels)
 {
   SCM col_labels = get_property (col, "labels");
   if (scm_is_pair (col_labels))
-    *labels = scm_append (scm_list_2 (col_labels, *labels));
+    *labels = ly_append (col_labels, *labels);
 }
 
 void
