@@ -568,7 +568,7 @@ differences in style:
 }
 @end lilypond
 
-@ref{Time signature}, gives a general introduction to
+@ref{Time signature} gives a general introduction to
 the use of time signatures.
 
 @morerefs
@@ -657,7 +657,7 @@ a'\longa
 @end lilypond
 
 
-@ref{Note head styles}, gives an overview of all available note head
+@ref{Note head styles} gives an overview of all available note head
 styles.
 
 @morerefs

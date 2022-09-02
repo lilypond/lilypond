@@ -1589,7 +1589,7 @@ The predefined fret diagram table for ukulele contains these chords
 plus an additional three chords (major sixth, suspended second, and
 suspended fourth).
 
-@xref{Predefined fretboard diagrams}, for a complete list of the
+@xref{Predefined fretboard diagrams} for a complete list of the
 predefined fret diagrams.  If there is no entry in the table for a
 chord, the @code{FretBoards} engraver calculates a fret diagram
 using the automatic fret diagram functionality, @pxref{Automatic
@@ -1905,7 +1905,7 @@ property.
 
 The strings and frets for the @code{FretBoards} context depend
 on the @code{stringTunings} property, which has the same meaning
-as in the @code{TabStaff} context.  @xref{Custom tablatures}, for
+as in the @code{TabStaff} context.  @xref{Custom tablatures} for
 information on the @code{stringTunings} property.
 
 The graphical layout of a fret diagram can be customized according to

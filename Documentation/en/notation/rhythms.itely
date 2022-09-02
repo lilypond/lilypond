@@ -480,7 +480,7 @@ A tie connects two adjacent note heads of the same pitch.  The tie
 in effect extends the duration of a note.
 
 Ties that connect notes to nothing are called @dfn{laissez vibrer}
-articulation; @pxref{Laissez vibrer}, for the @code{\laissezVibrer}
+articulation; @pxref{Laissez vibrer} for the @code{\laissezVibrer}
 command.  Ties that connect nothing to notes (as needed in seconda
 volta sections, for example), can be entered with the @code{\repeatTie}
 command; @pxref{Repeat tie}.
@@ -3852,7 +3852,7 @@ appropriate symbol name (@pxref{Music notation inside markup}).
 
 @noindent
 For a list of symbols which may be printed with
-@code{\musicglyph}, @pxref{The Emmentaler font},
+@code{\musicglyph}, @pxref{The Emmentaler font}.
 
 For common tweaks to the positioning of rehearsal marks,
 @pxref{Formatting text}.  For more precise control, consider

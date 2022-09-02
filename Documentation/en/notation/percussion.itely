@@ -40,7 +40,7 @@ also be used to show the rhythms of melodies.
 @itemize
 
 @item Some percussion may be notated on a rhythmic staff; this is
-discussed in @ref{Showing melody rhythms}, and
+discussed in @ref{Showing melody rhythms} and
 @ref{Instantiating new staves}.
 
 @item MIDI output is discussed in a separate section; please see

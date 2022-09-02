@@ -241,9 +241,9 @@ output file produced is derived from the name of the input file, so
 @file{fandangoforelephants.ly} will produce
 @file{fandangoforelephants.pdf}.
 
-(For more details  about @code{\book} blocks, see
-@ref{Multiple scores in a book},
-@ref{Multiple output files from one input file} @ref{File structure}.)
+(For more details about @code{\book} blocks, see @ref{Multiple
+scores in a book}, @ref{Multiple output files from one input
+file}, @ref{File structure}.)
 
 @morerefs
 Learning Manual:

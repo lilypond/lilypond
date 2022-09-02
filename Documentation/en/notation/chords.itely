@@ -415,7 +415,7 @@ specific inversion or voicing -- for example the so-called
 }
 @end lilypond
 
-Unlike added bass notes shown in @ref{Extended and altered chords},
+Unlike added bass notes shown in @ref{Extended and altered chords}
 this only affects the way chords are printed on a staff,
 and not chord names written with letters.  Furthermore, these
 functions may be used not only in chord mode but also
@@ -1068,7 +1068,7 @@ Snippets:
 @unnumberedsubsubsec Entering figured bass
 
 @code{\figuremode} is used to switch the input mode to figure
-mode.  @xref{Input modes}, for more information on different input
+mode.  @xref{Input modes} for more information on different input
 modes.
 
 In figure mode, a group of bass figures is delimited by @samp{<}

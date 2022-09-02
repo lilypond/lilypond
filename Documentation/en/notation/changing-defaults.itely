@@ -1898,7 +1898,7 @@ Here @var{name} is the name of a graphical object, like
 @code{Stem} or @code{NoteHead}, and @var{property} is an internal
 variable of the formatting system (@q{grob property} or @q{layout
 property}).  The latter is a symbol, so it must be quoted.  The
-subsection @ref{Modifying properties}, explains what to fill in
+subsection @ref{Modifying properties} explains what to fill in
 for @var{name}, @var{property}, and @var{value}.  Here we only
 discuss the functionality of this command.
 
