@@ -2861,6 +2861,25 @@ b4 4 \breathe 4
 b4 4 \breathe 4
 @end lilypond
 @tab
+@code{'tickmark}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'tickmark
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'upbow}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'upbow
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'outsidecomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'outsidecomma
+b4 4 \breathe 4
+@end lilypond
+@tab
 @code{'caesura}
 @lilypond[notime,relative=2]
 \set breathMarkType = #'caesura
@@ -2870,13 +2889,6 @@ b4 4 \breathe 4
 @code{'curvedcaesura}
 @lilypond[notime,relative=2]
 \set breathMarkType = #'curvedcaesura
-b4 4 \breathe 4
-@end lilypond
-
-@item
-@code{'tickmark}
-@lilypond[notime,relative=2]
-\set breathMarkType = #'tickmark
 b4 4 \breathe 4
 @end lilypond
 @tab

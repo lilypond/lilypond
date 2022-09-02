@@ -21,7 +21,9 @@ music = \fixed c' {
   \test #'chantquarterbar
   \test #'comma
   \test #'curvedcaesura
+  \test #'outsidecomma
   \test #'spacer
   \test #'tickmark
+  \test #'upbow
   \test #'varcomma
 }

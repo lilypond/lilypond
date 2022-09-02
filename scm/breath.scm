@@ -47,6 +47,11 @@
     (curvedcaesura
      . (
         (text . ,(make-musicglyph-markup "scripts.caesura.curved"))))
+    (outsidecomma
+     . (
+        (outside-staff-priority . 40) ; same as MultiMeasureRestScript
+        (text . ,(make-musicglyph-markup "scripts.rcomma"))
+        ))
     (spacer
      . (
         (text . ,(make-null-markup))))
@@ -54,6 +59,11 @@
      . (
         (outside-staff-priority . 40) ; same as MultiMeasureRestScript
         (text . ,(make-musicglyph-markup "scripts.tickmark"))
+        ))
+    (upbow
+     . (
+        (outside-staff-priority . 40) ; same as MultiMeasureRestScript
+        (text . ,(make-musicglyph-markup "scripts.upbow"))
         ))
     (varcomma
      . (
