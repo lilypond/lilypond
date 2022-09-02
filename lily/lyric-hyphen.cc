@@ -132,11 +132,10 @@ MAKE_SCHEME_CALLBACK (Lyric_hyphen, set_spacing_rods,
 SCM
 Lyric_hyphen::set_spacing_rods (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
-  Spanner *sp = dynamic_cast<Spanner *> (me);
   System *root = get_root_system (me);
-  const auto bounds = sp->get_bounds ();
+  const auto bounds = me->get_bounds ();
   if (!bounds[LEFT] || !bounds[RIGHT])
     return SCM_UNSPECIFIED;
   std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));

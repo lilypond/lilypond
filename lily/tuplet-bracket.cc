@@ -70,9 +70,8 @@
 using std::vector;
 
 static Item *
-get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
+get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Item *g = me->get_bound (hdir);
   if (has_interface<Note_column> (g)
       && Note_column::get_stem (g)
@@ -494,10 +493,8 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
-Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
+Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
-
   extract_grob_set (me, "note-columns", columns);
   extract_grob_set (me, "tuplets", tuplets);
 
@@ -786,10 +783,10 @@ Tuplet_bracket::get_default_dir (Grob *me)
 }
 
 void
-Tuplet_bracket::add_column (Grob *me, Item *n)
+Tuplet_bracket::add_column (Spanner *me, Item *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  add_bound_item (dynamic_cast<Spanner *> (me), n);
+  add_bound_item (me, n);
 }
 
 void

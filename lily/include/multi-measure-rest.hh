@@ -28,13 +28,13 @@ class Multi_measure_rest
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  static void add_column (Grob *, Item *);
+  static void add_column (Spanner *, Item *);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (set_text_rods, (SCM));
 
-  static void calculate_spacing_rods (Grob *me, Real length);
+  static void calculate_spacing_rods (Spanner *me, Real length);
   static Stencil big_rest (Grob *, Real);
-  static Stencil symbol_stencil (Grob *, Real);
+  static Stencil symbol_stencil (Spanner *me, Real);
   static Stencil church_rest (Grob *, Font_metric *, int, int, Real);
   static Interval bar_width (Spanner *me);
 };

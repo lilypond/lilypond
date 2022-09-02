@@ -35,10 +35,9 @@ MAKE_SCHEME_CALLBACK (Staff_symbol, print, "ly:staff-symbol::print", 1);
 SCM
 Staff_symbol::print (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
   Grob *common
-    = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
+    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   Interval span_points (0, 0);
 
@@ -66,9 +65,9 @@ Staff_symbol::print (SCM smob)
         }
       else
         {
-          Item *x = sp->get_bound (d);
+          Item *x = me->get_bound (d);
           if (x->extent (x, X_AXIS).is_empty ()
-              || (x->break_status_dir () && sp->broken_neighbor (d)))
+              || (x->break_status_dir () && me->broken_neighbor (d)))
             span_points[d] = x->relative_coordinate (common, X_AXIS);
           // What the default implementation of to-barline does for
           // spanners is not really in usefully recognizable shape by

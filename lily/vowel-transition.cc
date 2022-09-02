@@ -33,15 +33,14 @@ MAKE_SCHEME_CALLBACK (Vowel_transition, set_spacing_rods,
 SCM
 Vowel_transition::set_spacing_rods (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   SCM minimum_length = get_property (me, "minimum-length");
   SCM broken_length = get_property (me, "minimum-length-after-break");
   if (scm_is_number (minimum_length) || scm_is_number (broken_length))
     {
-      Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      const auto bounds = sp->get_bounds ();
+      const auto bounds = me->get_bounds ();
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
       std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
@@ -49,7 +48,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
       Drul_array<Real> padding_broken = {0.0, 0.0};
       for (const auto d : {LEFT, RIGHT})
         {
-          SCM bounds = get_property (sp, "bound-details");
+          SCM bounds = get_property (me, "bound-details");
           SCM details = ly_assoc_get ((d == LEFT ? ly_symbol2scm ("left") : ly_symbol2scm ("right")),
                                       bounds, SCM_BOOL_F);
           SCM details_broken
@@ -70,7 +69,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
         {
           /* Before line break */
           Rod rod_before_break;
-          rod_before_break.item_drul_[LEFT] = sp->get_bound (LEFT);
+          rod_before_break.item_drul_[LEFT] = me->get_bound (LEFT);
           rod_before_break.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
           rod_before_break.distance_ = from_scm<double> (minimum_length, 0);
           rod_before_break.distance_ += padding[LEFT];
@@ -81,7 +80,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
           /* After line break */
           Rod rod_after_break;
           rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
-          rod_after_break.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+          rod_after_break.item_drul_[RIGHT] = me->get_bound (RIGHT);
           Interval_t<Moment> segment_time = spanned_time_interval (rod_after_break.item_drul_[LEFT], rod_after_break.item_drul_[RIGHT]);
           segment_time[LEFT].grace_part_ = 0;
           /*
@@ -104,14 +103,14 @@ Vowel_transition::set_spacing_rods (SCM smob)
 
       Rod rod;
       rod.distance_ = from_scm<double> (minimum_length, 0);
-      rod.item_drul_[LEFT] = sp->get_bound (LEFT);
-      rod.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+      rod.item_drul_[LEFT] = me->get_bound (LEFT);
+      rod.item_drul_[RIGHT] = me->get_bound (RIGHT);
       for (const auto d : {LEFT, RIGHT})
         rod.distance_ += padding[d];
       rod.distance_ += rod.bounds_protrusion ();
       rod.add_to_cols ();
 
-      if (Item *left_pbp = sp->get_bound (RIGHT)->find_prebroken_piece (LEFT))
+      if (Item *left_pbp = me->get_bound (RIGHT)->find_prebroken_piece (LEFT))
         {
           rod.item_drul_[RIGHT] = left_pbp;
           rod.add_to_cols ();

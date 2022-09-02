@@ -143,10 +143,10 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 }
 
 void
-Volta_bracket_interface::add_bar (Grob *me, Item *b)
+Volta_bracket_interface::add_bar (Spanner *me, Item *b)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
-  add_bound_item (dynamic_cast<Spanner *> (me), b);
+  add_bound_item (me, b);
 }
 
 ADD_INTERFACE (Volta_bracket_interface,

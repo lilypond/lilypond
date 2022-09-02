@@ -38,11 +38,11 @@ public:
   static Grob *get_common_x (Spanner *);
   static void add_tuplet_bracket (Grob *me, Grob *smaller_bracket);
   static void get_bounds (Grob *, Grob **, Grob **);
-  static void add_column (Grob *me, Item *);
+  static void add_column (Spanner *me, Item *);
   static void add_script (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);
   static Spanner *parallel_beam (Spanner *me, std::vector<Grob *> const &cols);
-  static void calc_position_and_height (Grob *, Real *, Real *dy);
+  static void calc_position_and_height (Spanner *, Real *, Real *dy);
   static Direction get_default_dir (Grob *);
 };
 

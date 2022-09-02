@@ -42,10 +42,8 @@ using std::vector;
   is always placed on the opposite side of this stem.)
 */
 Grob *
-Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
+Tuplet_number::select_reference_stem (Spanner *me, vector<Grob *> const &cols)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
-
   vsize col_count = cols.size ();
 
   if (!col_count)
@@ -108,9 +106,8 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
   horizontally out of the way of stems and ledger lines.
 */
 Drul_array<Grob *>
-Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
+Tuplet_number::adjacent_note_columns (Spanner *me, Grob *ref_stem)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
   extract_grob_set (tuplet, "note-columns", columns);
@@ -155,9 +152,8 @@ Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
   --the tuplet number will fit between adjoining note columns
 */
 bool
-Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
+Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
   bool bracket_visible = from_scm<bool> (get_property (me, "bracket-visibility"))

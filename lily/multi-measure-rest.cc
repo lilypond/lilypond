@@ -64,13 +64,12 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, "ly:multi-measure-rest::print",
 SCM
 Multi_measure_rest::print (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
-  Interval sp_iv = bar_width (sp);
+  Interval sp_iv = bar_width (me);
   Real space = sp_iv.length ();
 
-  Real rx = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
+  Real rx = me->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
@@ -89,7 +88,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, "ly:multi-measure-rest::height
 SCM
 Multi_measure_rest::height (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Real space = 1000000; // something very large...
 
@@ -100,10 +99,9 @@ Multi_measure_rest::height (SCM smob)
 }
 
 int
-calc_measure_duration_log (Grob *me)
+calc_measure_duration_log (Spanner *me)
 {
-  SCM sml = get_property (dynamic_cast<Spanner *> (me)->get_bound (LEFT),
-                          "measure-length");
+  SCM sml = get_property (me->get_bound (LEFT), "measure-length");
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
                 : Rational (1);
   auto duration = static_cast<double> (ml);
@@ -160,7 +158,7 @@ calc_measure_duration_log (Grob *me)
 }
 
 Stencil
-Multi_measure_rest::symbol_stencil (Grob *me, Real space)
+Multi_measure_rest::symbol_stencil (Spanner *me, Real space)
 {
   int measure_count = 0;
   SCM m (get_property (me, "measure-count"));
@@ -313,23 +311,22 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 }
 
 void
-Multi_measure_rest::add_column (Grob *me, Item *c)
+Multi_measure_rest::add_column (Spanner *me, Item *c)
 {
-  add_bound_item (dynamic_cast<Spanner *> (me), c);
+  add_bound_item (me, c);
 }
 
 void
-Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
+Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+  if (! (me->get_bound (LEFT) && me->get_bound (RIGHT)))
     {
       programming_error ("Multi measure rest seems misplaced.");
       return;
     }
 
-  Item *li = sp->get_bound (LEFT)->get_column ();
-  Item *ri = sp->get_bound (RIGHT)->get_column ();
+  Item *li = me->get_bound (LEFT)->get_column ();
+  Item *ri = me->get_bound (RIGHT)->get_column ();
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
 
@@ -381,7 +378,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   calculate_spacing_rods (me, sym_width);
 
@@ -393,7 +390,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods,
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
   auto *stil = me->get_stencil ();
 
   /* FIXME uncached */

@@ -371,10 +371,8 @@ Beam::calc_beam_segments (SCM smob)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem.beaming is correct */
-  auto *const me_grob = LY_ASSERT_SMOB (Grob, smob, 1);
-  (void) get_property (me_grob, "beaming");
-
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
+  (void) get_property (me, "beaming");
 
   extract_grob_set (me, "stems", stems);
 

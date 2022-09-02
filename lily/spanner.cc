@@ -419,15 +419,14 @@ MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, "ly:spanner::set-spacing-rods",
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
   SCM num_length = get_property (me, "minimum-length");
   SCM broken_length = get_property (me, "minimum-length-after-break");
   if (scm_is_number (num_length)
       || scm_is_number (broken_length))
     {
-      Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      const auto bounds = sp->get_bounds ();
+      const auto bounds = me->get_bounds ();
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
 
@@ -437,13 +436,13 @@ Spanner::set_spacing_rods (SCM smob)
       if (cols.size ())
         {
           Rod r;
-          r.item_drul_[LEFT] = sp->get_bound (LEFT);
+          r.item_drul_[LEFT] = me->get_bound (LEFT);
           r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
           r.distance_ = from_scm<double> (num_length, 0);
           r.add_to_cols ();
 
           r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
-          r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+          r.item_drul_[RIGHT] = me->get_bound (RIGHT);
           if (scm_is_number (broken_length))
             /*
               r.distance_ may have been modified by add_to_cols ()
@@ -462,8 +461,8 @@ Spanner::set_spacing_rods (SCM smob)
         As r is a fresh rod, we can set distance_ with no complication.
       */
       r.distance_ = from_scm<double> (num_length, 0);
-      r.item_drul_[LEFT] = sp->get_bound (LEFT);
-      r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+      r.item_drul_[LEFT] = me->get_bound (LEFT);
+      r.item_drul_[RIGHT] = me->get_bound (RIGHT);
       r.add_to_cols ();
 
       /*
@@ -477,7 +476,7 @@ Spanner::set_spacing_rods (SCM smob)
         two rods will be in the column vector used for spacing in
         simple-spacer.cc get_line_configuration.
       */
-      if (Item *left_pbp = sp->get_bound (RIGHT)->find_prebroken_piece (LEFT))
+      if (Item *left_pbp = me->get_bound (RIGHT)->find_prebroken_piece (LEFT))
         {
           r.item_drul_[RIGHT] = left_pbp;
           r.add_to_cols ();

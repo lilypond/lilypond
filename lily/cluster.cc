@@ -146,17 +146,10 @@ MAKE_SCHEME_CALLBACK (Cluster, print, "ly:cluster::print", 1);
 SCM
 Cluster::print (SCM smob)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
-  Spanner *spanner = dynamic_cast<Spanner *> (me);
-  if (!spanner)
-    {
-      me->programming_error ("Cluster::print (): not a spanner");
-      return SCM_EOL;
-    }
-
-  Item *left_bound = spanner->get_bound (LEFT);
-  Item *right_bound = spanner->get_bound (RIGHT);
+  Item *left_bound = me->get_bound (LEFT);
+  Item *right_bound = me->get_bound (RIGHT);
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
@@ -195,7 +188,7 @@ Cluster::print (SCM smob)
   /*
     Across a line break we anticipate on the next pitches.
   */
-  if (Spanner *next = spanner->broken_neighbor (RIGHT))
+  if (Spanner *next = me->broken_neighbor (RIGHT))
     {
       extract_grob_set (next, "columns", next_cols);
       if (next_cols.size () > 0)

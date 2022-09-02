@@ -32,11 +32,10 @@ struct Tuplet_number
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
-  static Real calc_offset (Spanner *me, Axis a); // not used
-
-  static Grob *select_reference_stem (Grob *me, std::vector<Grob *> const &cols);
-  static Drul_array<Grob *> adjacent_note_columns (Grob *me, Grob *ref_stem);
-  static bool knee_position_against_beam (Grob *me, Grob *ref_stem);
+  static Grob *select_reference_stem (Spanner *me,
+                                      std::vector<Grob *> const &cols);
+  static Drul_array<Grob *> adjacent_note_columns (Spanner *me, Grob *ref_stem);
+  static bool knee_position_against_beam (Spanner *me, Grob *ref_stem);
 };
 
 #endif // Tuplet_number_HH
