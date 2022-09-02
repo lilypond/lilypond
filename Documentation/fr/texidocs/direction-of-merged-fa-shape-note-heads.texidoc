@@ -1,0 +1,11 @@
+%% Translation of GIT committish: e8bcef81259c5c88e4d5b93dd1da4d5a002de52f
+  texidocfr = "
+Grâce à la propriété @code{NoteCollision.fa-merge-direction},
+l'orientation de la tête des notes profilées « fa » (@code{fa},
+@code{faThin}, etc.) peut se gérer indépendamment de la direction des
+hampes lorsque deux voix ayant la même hauteur et des directions de
+hampes différentes sont fusionnées. Lorsque cette propriété n'est pas
+activée sera utilisée la variante « descendante ».
+"
+
+  doctitlefr = "Orientation de la tête d'un « fa » profilé en cas de fusion"

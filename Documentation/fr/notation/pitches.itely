@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+   Translation of GIT committish: e8bcef81259c5c88e4d5b93dd1da4d5a002de52f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3577,6 +3577,12 @@ mineure, les degrés sont déterminés par rapport au relatif majeur :
 @cindex Aiken, note profilée, variante fine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/aiken-head-thin-variant-noteheads.ly}
+
+@cindex tête profilée, fusion
+@cindex note profilée, fusion
+@cindex fusion de tête profilée
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/direction-of-merged-fa-shape-note-heads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
