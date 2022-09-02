@@ -76,7 +76,7 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
                                points));
 
   SCM expr
-    = scm_list_4 (ly_symbol2scm ("polygon"), points, to_scm (blot), SCM_BOOL_T);
+    = ly_list (ly_symbol2scm ("polygon"), points, to_scm (blot), SCM_BOOL_T);
 
   return Stencil (b, expr);
 }
@@ -122,10 +122,10 @@ Stencil
 Lookup::circle (Real rad, Real thick, bool filled)
 {
   Box b (Interval (-rad, rad), Interval (-rad, rad));
-  return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
-                                 to_scm (rad),
-                                 to_scm (thick),
-                                 to_scm (filled)));
+  return Stencil (b, ly_list (ly_symbol2scm ("circle"),
+                              to_scm (rad),
+                              to_scm (thick),
+                              to_scm (filled)));
 }
 
 Stencil
@@ -371,10 +371,10 @@ Lookup::round_polygon (vector<Offset> const &points,
     }
   shrunk_box.widen (0.5 * blotdiameter, 0.5 * blotdiameter);
   box.unite (shrunk_box);
-  SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
-                                shrunk_points_scm,
-                                to_scm (blotdiameter),
-                                to_scm (filled));
+  SCM polygon_scm = ly_list (ly_symbol2scm ("polygon"),
+                             shrunk_points_scm,
+                             to_scm (blotdiameter),
+                             to_scm (filled));
 
   Stencil polygon = Stencil (box, polygon_scm);
   return polygon;

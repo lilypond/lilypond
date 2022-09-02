@@ -349,7 +349,7 @@ execute_pushpop_property (Context *context,
                           SCM grob_property,
                           SCM new_value)
 {
-  Grob_property_info (context, grob).pushpop (scm_list_1 (grob_property), new_value);
+  Grob_property_info (context, grob).pushpop (ly_list (grob_property), new_value);
 }
 
 /*

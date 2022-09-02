@@ -296,7 +296,7 @@ Align_interface::align_elements_to_ideal_distances (Grob *me)
   System *sys = me->get_system ();
   if (sys)
     {
-      Page_layout_problem layout (NULL, SCM_EOL, scm_list_1 (sys->self_scm ()));
+      Page_layout_problem layout (NULL, SCM_EOL, ly_list (sys->self_scm ()));
       layout.solution (true);
     }
   else

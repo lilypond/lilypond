@@ -136,8 +136,8 @@ Pango_font::register_font_file (const string &filename,
 {
   scm_hash_set_x (physical_font_tab_,
                   ly_string2scm (ps_name),
-                  scm_list_2 (ly_string2scm (filename),
-                              to_scm (face_index)));
+                  ly_list (ly_string2scm (filename),
+                           to_scm (face_index)));
 }
 
 size_t
@@ -323,12 +323,12 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
   else
     char_id = scm_from_utf8_string (glyph_name);
 
-  return scm_list_5 (to_scm (scaled_glyph_extent[X_AXIS][RIGHT]
+  return ly_list (to_scm (scaled_glyph_extent[X_AXIS][RIGHT]
                              - scaled_glyph_extent[X_AXIS][LEFT]),
-                     scm_cons (to_scm (scaled_glyph_extent[Y_AXIS][DOWN]),
-                               to_scm (scaled_glyph_extent[Y_AXIS][UP])),
-                     to_scm (ggeo.x_offset * scale_),
-                     to_scm (-ggeo.y_offset * scale_), char_id);
+                  scm_cons (to_scm (scaled_glyph_extent[Y_AXIS][DOWN]),
+                            to_scm (scaled_glyph_extent[Y_AXIS][UP])),
+                  to_scm (ggeo.x_offset * scale_),
+                  to_scm (-ggeo.y_offset * scale_), char_id);
 }
 
 Stencil
@@ -469,11 +469,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       std::string substr
         = text.substr (glyph_item->item->offset, glyph_item->item->length);
-      SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"), self_scm (),
-                             ly_string2scm (ps_name), to_scm (size),
-                             to_scm (cid_keyed), glyph_exprs,
-                             ly_string2scm (file_name), to_scm (face_index),
-                             ly_string2scm (substr), clusters, SCM_UNDEFINED);
+      SCM expr = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
+                          ly_string2scm (ps_name), to_scm (size),
+                          to_scm (cid_keyed), glyph_exprs,
+                          ly_string2scm (file_name), to_scm (face_index),
+                          ly_string2scm (substr), clusters);
 
       return Stencil (string_extent, expr);
     }
@@ -543,10 +543,10 @@ Pango_font::text_stencil (Output_def * /* state */,
     {
       // Encapsulate to allow a short-cut for backends that also use
       // Pango for rendering.
-      SCM exp = scm_list_4 (ly_symbol2scm ("utf-8-string"),
-                            ly_string2scm (description_string ()),
-                            ly_string2scm (str),
-                            dest.expr ());
+      SCM exp = ly_list (ly_symbol2scm ("utf-8-string"),
+                         ly_string2scm (description_string ()),
+                         ly_string2scm (str),
+                         dest.expr ());
       dest = Stencil (dest.extent_box (), exp);
     }
   return dest;

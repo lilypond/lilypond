@@ -44,7 +44,7 @@ by @var{spring-count}+1 positions of the objects.
 {
   long len = scm_ilength (springs);
   if (len == 0)
-    return scm_list_2 (to_scm (0.0), to_scm (0.0));
+    return ly_list (to_scm (0.0), to_scm (0.0));
 
   SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__, "list of springs");
   SCM_ASSERT_TYPE (scm_ilength (rods) > 0, rods, SCM_ARG1, __FUNCTION__, "list of rods");

@@ -173,7 +173,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   Real coord = me->relative_coordinate (sys, X_AXIS);
 
   if (scm_is_symbol (align_syms))
-    align_syms = scm_list_1 (align_syms);
+    align_syms = ly_list (align_syms);
 
   if (is_musical (me))
     {

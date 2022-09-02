@@ -478,7 +478,7 @@ Page_breaking::systems ()
         }
       else if (Prob *pb = system_specs_[sys].prob_)
         {
-          ret = scm_cons (scm_list_1 (pb->self_scm ()), ret);
+          ret = scm_cons (ly_list (pb->self_scm ()), ret);
           pb->unprotect ();
         }
     }

@@ -162,14 +162,13 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real on = dash_fraction * dash_period;
   Real off = std::max (0.0, dash_period - on);
 
-  SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-                       to_scm (thick),
-                       to_scm (on),
-                       to_scm (off),
-                       to_scm (to[X_AXIS] - from[X_AXIS]),
-                       to_scm (to[Y_AXIS] - from[Y_AXIS]),
-                       to_scm (0.0),
-                       SCM_UNDEFINED);
+  SCM at = ly_list (ly_symbol2scm ("dashed-line"),
+                    to_scm (thick),
+                    to_scm (on),
+                    to_scm (off),
+                    to_scm (to[X_AXIS] - from[X_AXIS]),
+                    to_scm (to[Y_AXIS] - from[Y_AXIS]),
+                    to_scm (0.0));
 
   Box box;
   box.add_point (Offset (0, 0));
@@ -186,13 +185,12 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
-  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       to_scm (th),
-                       to_scm (from[X_AXIS]),
-                       to_scm (from[Y_AXIS]),
-                       to_scm (to[X_AXIS]),
-                       to_scm (to[Y_AXIS]),
-                       SCM_UNDEFINED);
+  SCM at = ly_list (ly_symbol2scm ("draw-line"),
+                    to_scm (th),
+                    to_scm (from[X_AXIS]),
+                    to_scm (from[Y_AXIS]),
+                    to_scm (to[X_AXIS]),
+                    to_scm (to[Y_AXIS]));
 
   Box box;
   box.add_point (from);

@@ -242,7 +242,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
   SCM entry = scm_cons (to_scm (priority), callback);
-  list = scm_merge (list, scm_list_1 (entry), Lily::car_less);
+  list = scm_merge (list, ly_list (entry), Lily::car_less);
   scm_set_cdr_x (handle, list);
 }
 

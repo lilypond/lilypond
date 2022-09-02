@@ -139,9 +139,9 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 SCM
 Grob::get_property_alist_chain (SCM def) const
 {
-  return scm_list_3 (mutable_property_alist_,
-                     immutable_property_alist_,
-                     def);
+  return ly_list (mutable_property_alist_,
+                  immutable_property_alist_,
+                  def);
 }
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
@@ -236,7 +236,7 @@ Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
 {
   SCM val = internal_get_property_data (sym);
   if (ly_is_procedure (val))
-    return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+    return call_pure_function (val, ly_list (self_scm ()), start, end);
 
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
     {
@@ -244,7 +244,7 @@ Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
       if (upc->is_unchanging ())
         return internal_get_property (sym);
       else
-        return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+        return call_pure_function (val, ly_list (self_scm ()), start, end);
     }
 
   return val;
@@ -268,7 +268,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   *alist = scm_assq_set_x (*alist, sym, marker);
 
   if (debug_property_callbacks)
-    grob_property_callback_stack = scm_cons (scm_list_3 (self_scm (), sym, proc), grob_property_callback_stack);
+    grob_property_callback_stack = scm_cons (ly_list (self_scm (), sym, proc), grob_property_callback_stack);
 
   SCM value = ly_call (proc, self_scm ());
 

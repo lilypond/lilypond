@@ -217,7 +217,7 @@ Alternative_sequence_iterator::save_context_properties ()
       if (auto *const c = where_defined (get_context (), sym, &val))
         {
           alt_restores_
-            = scm_cons (scm_list_3 (c->self_scm (), sym, val),
+            = scm_cons (ly_list (c->self_scm (), sym, val),
                         alt_restores_);
         }
     }

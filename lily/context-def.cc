@@ -146,7 +146,7 @@ Context_def::add_context_mod (SCM mod)
   else if (scm_is_eq (tag, ly_symbol2scm ("consists"))
            || scm_is_eq (tag, ly_symbol2scm ("remove")))
     {
-      translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
+      translator_mods_ = scm_cons (ly_list (tag, sym), translator_mods_);
     }
   else if (scm_is_eq (tag, ly_symbol2scm ("accepts")))
     acceptance_.accept (sym);

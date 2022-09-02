@@ -225,7 +225,7 @@ nalist_to_alist (SCM nalist, int nested)
         {
           SCM pair = scm_sloppy_assq (scm_car (key), partials);
           if (scm_is_false (pair))
-            partials = scm_acons (scm_car (key), scm_list_1 (elt),
+            partials = scm_acons (scm_car (key), ly_list (elt),
                                   partials);
           else
             scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));

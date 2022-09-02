@@ -302,7 +302,7 @@ Beam::calc_beaming (SCM smob)
   Slice last_int;
   last_int.set_empty ();
 
-  SCM last_beaming = scm_cons (SCM_EOL, scm_list_1 (to_scm (0)));
+  SCM last_beaming = scm_cons (SCM_EOL, ly_list (to_scm (0)));
   Direction last_dir = CENTER;
   for (vsize i = 0; i < stems.size (); i++)
     {
@@ -576,10 +576,10 @@ Beam::calc_beam_segments (SCM smob)
 
   for (vsize i = segments.size (); i--;)
     {
-      segments_scm = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
-                                                     to_scm (segments[i].vertical_count_)),
-                                           scm_cons (ly_symbol2scm ("horizontal"),
-                                                     to_scm (segments[i].horizontal_))),
+      segments_scm = scm_cons (ly_list (scm_cons (ly_symbol2scm ("vertical-count"),
+                                                  to_scm (segments[i].vertical_count_)),
+                                        scm_cons (ly_symbol2scm ("horizontal"),
+                                                  to_scm (segments[i].horizontal_))),
                                segments_scm);
     }
 

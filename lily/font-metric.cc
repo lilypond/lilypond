@@ -47,9 +47,9 @@ Font_metric::find_by_name (string s) const
   SCM expr = SCM_EOL;
   if (idx != GLYPH_INDEX_INVALID)
     {
-      expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
-                         self_scm (),
-                         ly_string2scm (s));
+      expr = ly_list (ly_symbol2scm ("named-glyph"),
+                      self_scm (),
+                      ly_string2scm (s));
       b = get_indexed_char_dimensions (idx);
     }
 

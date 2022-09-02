@@ -133,7 +133,7 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
   if (error)
     /* TODO: pass renamed input file too.  */
     scm_throw (ly_symbol2scm ("ly-file-failed"),
-               scm_list_1 (ly_string2scm (file_name)));
+               ly_list (ly_string2scm (file_name)));
 
   return SCM_UNSPECIFIED;
 }
@@ -164,7 +164,7 @@ Parse the init file @var{name}.
 
   if (error)
     scm_throw (ly_symbol2scm ("ly-file-failed"),
-               scm_list_1 (ly_string2scm (file_name)));
+               ly_list (ly_string2scm (file_name)));
 
   return SCM_UNSPECIFIED;
 }
@@ -355,7 +355,7 @@ parser, trigger an ordinary error.
       if (i)
         i->non_fatal_error (s);
       else
-        scm_misc_error ("ly:parser-error", "~A", scm_list_1 (msg));
+        scm_misc_error ("ly:parser-error", "~A", ly_list (msg));
     }
   return SCM_UNSPECIFIED;
 }

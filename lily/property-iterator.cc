@@ -76,7 +76,7 @@ get_property_path (Music *m)
   SCM eprop = get_property (m, "grob-property");
   if (scm_is_symbol (eprop))
     {
-      grob_property_path = scm_list_1 (eprop);
+      grob_property_path = ly_list (eprop);
     }
 
   return grob_property_path;

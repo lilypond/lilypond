@@ -96,8 +96,7 @@ Tab_note_heads_engraver::process_music ()
     string_fret_finger = ly_call (proc,
                                   context ()->self_scm (),
                                   tab_notes,
-                                  scm_list_2 (tab_strings,
-                                              defined_fingers));
+                                  ly_list (tab_strings, defined_fingers));
   SCM note_entry = SCM_EOL;
   SCM string_number = SCM_EOL;
   SCM fret = SCM_EOL;

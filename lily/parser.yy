@@ -453,7 +453,7 @@ toplevel_expression:
 	}
 	| full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-		ly_call (proc, scm_list_1 ($1));
+		ly_call (proc, ly_list ($1));
 	}
 	| full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
@@ -467,7 +467,7 @@ toplevel_expression:
 	{
 		SCM out = SCM_UNDEFINED;
 		if (Text_interface::is_markup ($1))
-			out = scm_list_1 ($1);
+			out = ly_list ($1);
 		else if (Text_interface::is_markup_list ($1))
 			out = $1;
 		if (scm_is_pair (out))
@@ -632,7 +632,7 @@ embedded_lilypond:
 		if (unsmob<Music> ($2))
 			tail = scm_cons ($2, tail);
 		$$ = reverse_music_list (parser, @$,
-					 scm_append_x (scm_list_2 ($3, tail)),
+					 scm_append_x (ly_list ($3, tail)),
 					 true, true);
 		if (scm_is_pair ($$)) // unpackaged list
 			if (scm_is_null (scm_cdr ($$)))
@@ -817,58 +817,58 @@ partial_function:
 	| OVERRIDE grob_prop_path '='
 	{
 		if (SCM_UNBNDP ($2))
-			$$ = scm_list_1 (SCM_BOOL_F);
+			$$ = ly_list (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_override,
-					     scm_cdr ($2), scm_car ($2)),
+				(ly_list (Syntax::property_override,
+			                  scm_cdr ($2), scm_car ($2)),
 				 SCM_EOL);
 	}
 	| SET context_prop_spec '='
 	{
 		if (SCM_UNBNDP ($2))
-			$$ = scm_list_1 (SCM_BOOL_F);
+			$$ = ly_list (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_set,
-					     scm_cadr ($2), scm_car ($2)),
+				(ly_list (Syntax::property_set,
+				          scm_cadr ($2), scm_car ($2)),
 				 SCM_EOL);
 	}
 	| OVERRIDE grob_prop_path '=' partial_function
 	{
 		if (SCM_UNBNDP ($2))
-			$$ = scm_list_1 (SCM_BOOL_F);
+			$$ = ly_list (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_override,
-					     scm_cdr ($2), scm_car ($2)),
+				(ly_list (Syntax::property_override,
+			       	          scm_cdr ($2), scm_car ($2)),
 				 $4);
 	}
 	| SET context_prop_spec '=' partial_function
 	{
 		if (SCM_UNBNDP ($2))
-			$$ = scm_list_1 (SCM_BOOL_F);
+			$$ = ly_list (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_set,
-					     scm_cadr ($2), scm_car ($2)),
+				(ly_list (Syntax::property_set,
+					  scm_cadr ($2), scm_car ($2)),
 				 $4);
 	}
 	| REPEAT simple_string unsigned_number
 	{
-		$$ = scm_cons (scm_list_3 (Syntax::repeat, $3, $2), SCM_EOL);
+		$$ = scm_cons (ly_list (Syntax::repeat, $3, $2), SCM_EOL);
 	}
 	| REPEAT simple_string unsigned_number partial_function
 	{
-		$$ = scm_cons (scm_list_3 (Syntax::repeat, $3, $2), $4);
+		$$ = scm_cons (ly_list (Syntax::repeat, $3, $2), $4);
 	}
 	| REPEAT simple_string
 	{
-		$$ = scm_cons (scm_list_2 (Syntax::repeat, $2), SCM_EOL);
+		$$ = scm_cons (ly_list (Syntax::repeat, $2), SCM_EOL);
 	}
 	| REPEAT simple_string partial_function
 	{
-		$$ = scm_cons (scm_list_2 (Syntax::repeat, $2), $3);
+		$$ = scm_cons (ly_list (Syntax::repeat, $2), $3);
 	}
 // Stupid duplication because we already expect ETC here.  It will follow anyway.
 	| script_dir markup_mode markup_partial_function
@@ -878,20 +878,20 @@ partial_function:
 		$3 = MAKE_SYNTAX (partial_markup, @3, $3);
 		parser->lexer_->pop_state ();
 // This relies on partial_function always being followed by ETC
-		$$ = scm_list_1 (scm_list_3 (MAKE_SYNTAX (partial_text_script, @$, $3),
-					     $3, $1));
+		$$ = ly_list (ly_list (MAKE_SYNTAX (partial_text_script, @$, $3),
+				       $3, $1));
 	}
 	| script_dir partial_function_scriptable
 	{
 		if (SCM_UNBNDP ($1))
 			$1 = SCM_INUM0;
-		$$ = scm_acons (Syntax::create_script_function, scm_list_1 ($1), $2);
+		$$ = scm_acons (Syntax::create_script_function, ly_list ($1), $2);
 	}
 	| script_dir
 	{
 		if (SCM_UNBNDP ($1))
 			$1 = SCM_INUM0;
-		$$ = scm_acons (Syntax::create_script_function, scm_list_1 ($1), SCM_EOL);
+		$$ = scm_acons (Syntax::create_script_function, ly_list ($1), SCM_EOL);
 	}
 	;
 
@@ -1018,7 +1018,7 @@ book_body:
 	}
 	| book_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
-		ly_call (proc, $1, scm_list_1 ($2));
+		ly_call (proc, $1, ly_list ($2));
 	}
 	| book_body full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
@@ -1032,7 +1032,7 @@ book_body:
 	{
 		SCM out = SCM_UNDEFINED;
 		if (Text_interface::is_markup ($2))
-			out = scm_list_1 ($2);
+			out = ly_list ($2);
 		else if (Text_interface::is_markup_list ($2))
 			out = $2;
 		if (scm_is_pair (out))
@@ -1099,7 +1099,7 @@ bookpart_body:
 	}
 	| bookpart_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
-		ly_call (proc, $1, scm_list_1 ($2));
+		ly_call (proc, $1, ly_list ($2));
 	}
 	| bookpart_body full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
@@ -1113,7 +1113,7 @@ bookpart_body:
 	{
 		SCM out = SCM_UNDEFINED;
 		if (Text_interface::is_markup ($2))
-			out = scm_list_1 ($2);
+			out = ly_list ($2);
 		else if (Text_interface::is_markup_list ($2))
 			out = $2;
 		if (scm_is_pair (out))
@@ -1343,7 +1343,7 @@ output_def_body:
 		// This is a stupid trick to mark the beginning of the
 		// body for deciding whether to allow
 		// embedded_scm_active to have an output definition
-		$$ = scm_list_1 ($1);
+		$$ = ly_list ($1);
 	}
 	| output_def_body assignment  {
 		if (scm_is_pair ($1))
@@ -1804,11 +1804,11 @@ symbol_list_rev:
 	symbol_list_part
 	| symbol_list_rev '.' symbol_list_part
 	{
-		$$ = scm_append_x (scm_list_2 ($3, $1));
+		$$ = scm_append_x (ly_list ($3, $1));
 	}
 	| symbol_list_rev ',' symbol_list_part
 	{
-		$$ = scm_append_x (scm_list_2 ($3, $1));
+		$$ = scm_append_x (ly_list ($3, $1));
 	}
 	;
 
@@ -1848,7 +1848,7 @@ symbol_list_part_bare:
 	}
 	| symbol_list_element
 	{
-		$$ = scm_list_1 ($1);
+		$$ = ly_list ($1);
 	}
 	;
 
@@ -2040,8 +2040,8 @@ function_arglist_nonbackup_reparse:
 		if (scm_is_true (ly_call ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-		else if (scm_is_true (ly_call ($2, scm_list_1 ($4))))
-			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
+		else if (scm_is_true (ly_call ($2, ly_list ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, ly_list ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -2148,8 +2148,8 @@ function_arglist_backup:
 		if (scm_is_true (ly_call ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-		else if (scm_is_true (ly_call ($2, scm_list_1 ($4))))
-			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
+		else if (scm_is_true (ly_call ($2, ly_list ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, ly_list ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -2553,8 +2553,8 @@ function_arglist_common_reparse:
 		if (scm_is_true (ly_call ($1, $3)))
 			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
-		else if (scm_is_true (ly_call ($1, scm_list_1 ($3))))
-			MYREPARSE (@3, $1, SYMBOL_LIST, scm_list_1 ($3));
+		else if (scm_is_true (ly_call ($1, ly_list ($3))))
+			MYREPARSE (@3, $1, SYMBOL_LIST, ly_list ($3));
 		else {
 			SCM d = make_duration ($3);
 			if (!SCM_UNBNDP (d)) {
@@ -2743,10 +2743,10 @@ property_path:
 
 property_operation:
 	symbol '=' scalar {
-		$$ = scm_list_3 (ly_symbol2scm ("assign"), $1, $3);
+		$$ = ly_list (ly_symbol2scm ("assign"), $1, $3);
 	}
 	| UNSET symbol {
-		$$ = scm_list_2 (ly_symbol2scm ("unset"), $2);
+		$$ = ly_list (ly_symbol2scm ("unset"), $2);
 	}
 	| OVERRIDE revert_arg '=' scalar {
 		if (scm_ilength ($2) < 2) {
@@ -2810,15 +2810,15 @@ revert_arg_part:
 	symbol_list_part
 	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
 	{
-		$$ = scm_append_x (scm_list_2 ($5, $3));
+		$$ = scm_append_x (ly_list ($5, $3));
 	}
 	| revert_arg_backup BACKUP SCM_ARG ',' symbol_list_part
 	{
-		$$ = scm_append_x (scm_list_2 ($5, $3));
+		$$ = scm_append_x (ly_list ($5, $3));
 	}
 	| revert_arg_backup BACKUP SCM_ARG symbol_list_part
 	{
-		$$ = scm_append_x (scm_list_2 ($4, $3));
+		$$ = scm_append_x (ly_list ($4, $3));
 		property_path_dot_warning (@4, scm_reverse ($$));
 	}
 	;
@@ -2840,10 +2840,10 @@ context_def_mod:
 context_mod:
 	property_operation { $$ = $1; }
 	| context_def_mod STRING {
-		$$ = scm_list_2 ($1, $2);
+		$$ = ly_list ($1, $2);
 	}
 	| context_def_mod SYMBOL {
-		$$ = scm_list_2 ($1, $2);
+		$$ = ly_list ($1, $2);
 	}
 	| context_def_mod embedded_scm
 	{
@@ -2856,7 +2856,7 @@ context_mod:
 		}
 		else
 		{
-			$$ = scm_list_2 ($1, $2);
+			$$ = ly_list ($1, $2);
 		}
 	}
 	;
@@ -3857,10 +3857,10 @@ chord_separator:
 		$$ = ly_symbol2scm ("chord-caret");
 	}
 	| CHORD_SLASH steno_tonic_pitch {
- 		$$ = scm_list_2 (ly_symbol2scm ("chord-slash"), $2);
+ 		$$ = ly_list (ly_symbol2scm ("chord-slash"), $2);
 	}
 	| CHORD_BASS steno_tonic_pitch {
-		$$ = scm_list_2 (ly_symbol2scm ("chord-bass"), $2);
+		$$ = ly_list (ly_symbol2scm ("chord-bass"), $2);
 	}
 	;
 
@@ -4061,12 +4061,12 @@ partial_markup:
 
 markup_top:
 	markup_list {
-		$$ = scm_list_2 (Lily::line_markup,  $1);
+		$$ = ly_list (Lily::line_markup,  $1);
 	}
 	| markup_head_1_list simple_markup
 	{
 		$$ = scm_car (MAKE_SYNTAX (composed_markup_list,
-					   @2, $1, scm_list_1 ($2)));
+					   @2, $1, ly_list ($2)));
 	}
 	| simple_markup_noword {
 		$$ = $1;
@@ -4102,7 +4102,7 @@ markup_uncomposed_list:
 		$$ = $1;
 	}
 	| markup_command_list {
-		$$ = scm_list_1 ($1);
+		$$ = ly_list ($1);
 	}
 	| markup_scm MARKUPLIST_IDENTIFIER
 	{
@@ -4118,7 +4118,7 @@ markup_uncomposed_list:
 			sc->add_output_def (od);
 			od->unprotect ();
 		}
-		$$ = scm_list_1 (scm_list_2 (Lily::score_lines_markup_list, $4));
+		$$ = ly_list (ly_list (Lily::score_lines_markup_list, $4));
 		parser->lexer_->pop_state ();
 	}
 	;
@@ -4197,7 +4197,7 @@ markup_command_list_arguments:
 markup_partial_function:
 	MARKUP_FUNCTION markup_arglist_partial
 	{
-		$$ = scm_list_1 (scm_cons ($1, scm_reverse_x ($2, SCM_EOL)));
+		$$ = ly_list (scm_cons ($1, scm_reverse_x ($2, SCM_EOL)));
 	}
 	| markup_head_1_list MARKUP_FUNCTION markup_arglist_partial
 	{
@@ -4233,7 +4233,7 @@ markup_head_1_item:
 
 markup_head_1_list:
 	markup_head_1_item	{
-		$$ = scm_list_1 ($1);
+		$$ = ly_list ($1);
 	}
 	| markup_head_1_list markup_head_1_item	{
 		$$ = scm_cons ($2, $1);
@@ -4264,7 +4264,7 @@ simple_markup_noword:
 			sc->add_output_def (od);
 			od->unprotect ();
 		}
-		$$ = scm_list_2 (Lily::score_markup, $4);
+		$$ = ly_list (Lily::score_markup, $4);
 		parser->lexer_->pop_state ();
 	}
 	| MARKUP_FUNCTION markup_command_basic_arguments {
@@ -4280,7 +4280,7 @@ markup:
 	markup_head_1_list simple_markup
 	{
 		$$ = scm_car (MAKE_SYNTAX (composed_markup_list,
-					   @2, $1, scm_list_1 ($2)));
+					   @2, $1, ly_list ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;
@@ -4441,9 +4441,9 @@ SCM
 make_reverse_key_list (SCM keys)
 {
 	if (scm_is_true (Lily::key_p (keys)))
-		return scm_list_1 (keys);
+		return ly_list (keys);
 	if (scm_is_string (keys))
-		return scm_list_1 (scm_string_to_symbol (keys));
+		return ly_list (scm_string_to_symbol (keys));
 	if (!ly_is_list (keys))
 		return SCM_UNDEFINED;
 	SCM res = SCM_EOL;
@@ -4467,7 +4467,7 @@ try_string_variants (SCM pred, SCM str)
 		return str;
 	// a key may be interpreted as a list of keys if it helps
 	if (scm_is_true (Lily::key_p (str))) {
-		str = scm_list_1 (str);
+		str = ly_list (str);
 		if (scm_is_true (ly_call (pred, str)))
 			return str;
 		return SCM_UNDEFINED;
@@ -4480,7 +4480,7 @@ try_string_variants (SCM pred, SCM str)
 
 	str = scm_string_to_symbol (str);
 
-	SCM lst = scm_list_1 (str);
+	SCM lst = ly_list (str);
 
 	if (scm_is_true (ly_call (pred, lst)))
 		return lst;
@@ -4693,7 +4693,7 @@ add_post_events (Music *m, SCM events)
 		    || m->is_mus_type ("caesura-event")) {
 			set_property
 				(m, "articulations",
-				 scm_append_x (scm_list_2
+				 scm_append_x (ly_list
 					       (get_property (m, "articulations"),
 						events)));
 			return false;
@@ -4701,7 +4701,7 @@ add_post_events (Music *m, SCM events)
 		if (m->is_mus_type ("event-chord")) {
 			set_property
 				(m, "elements",
-				 scm_append_x (scm_list_2
+				 scm_append_x (ly_list
 					       (get_property (m, "elements"),
 						events)));
 			return false;

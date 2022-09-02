@@ -119,7 +119,7 @@ Grace_engraver::consider_change_grace_settings ()
           SCM val = scm_cadr (scm_cddr (entry));
 
           if (!scm_is_pair (sym))
-            sym = scm_list_1 (sym);
+            sym = ly_list (sym);
 
           Context *c = find_context_above (context (), context_name);
           if (c)

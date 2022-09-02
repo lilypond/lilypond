@@ -42,7 +42,7 @@ Stream_event::Stream_event (SCM event_class, SCM immutable_props)
 
 Stream_event::Stream_event (SCM class_name, Input *origin)
   : Prob (ly_symbol2scm ("Stream_event"),
-          scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
+          ly_list (scm_cons (ly_symbol2scm ("class"), class_name)))
 {
   if (origin)
     set_spot (origin);

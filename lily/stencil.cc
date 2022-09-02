@@ -105,10 +105,10 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
    *         *this = rotated()
    */
 
-  expr_ = scm_list_3 (ly_symbol2scm ("rotate-stencil"),
-                      scm_list_2 (to_scm (a),
-                                  scm_cons (to_scm (x), to_scm (y))),
-                      expr_);
+  expr_ = ly_list (ly_symbol2scm ("rotate-stencil"),
+                   ly_list (to_scm (a),
+                            scm_cons (to_scm (x), to_scm (y))),
+                   expr_);
 
   /*
    * Calculate the new bounding box
@@ -166,9 +166,9 @@ Stencil::translate (Offset o)
     }
 
   if (!scm_is_null (expr_))
-    expr_ = scm_list_3 (ly_symbol2scm ("translate-stencil"),
-                        to_scm (o),
-                        expr_);
+    expr_ = ly_list (ly_symbol2scm ("translate-stencil"),
+                     to_scm (o),
+                     expr_);
   dim_.translate (o);
 }
 
@@ -183,10 +183,9 @@ Stencil::translate_axis (Real x, Axis a)
 void
 Stencil::scale (Real x, Real y)
 {
-  expr_ = scm_list_3 (ly_symbol2scm ("scale-stencil"),
-                      scm_list_2 (to_scm (x),
-                                  to_scm (y)),
-                      expr_);
+  expr_ = ly_list (ly_symbol2scm ("scale-stencil"),
+                   ly_list (to_scm (x), to_scm (y)),
+                   expr_);
   dim_[X_AXIS] *= x;
   dim_[Y_AXIS] *= y;
 }
@@ -214,7 +213,7 @@ Stencil::add_stencil (Stencil const &s)
           && scm_is_eq (cs, scm_car (s.expr_)))
         expr_ = scm_append (scm_list_2 (s.expr_, scm_list_1 (expr_)));
       else
-        expr_ = scm_list_3 (cs, s.expr_, expr_);
+        expr_ = ly_list (cs, s.expr_, expr_);
     }
   dim_.unite (s.dim_);
 }
@@ -399,11 +398,11 @@ Stencil::in_color (Real r, Real g, Real b, Real a) const
 {
 
   Stencil new_stencil (extent_box (),
-                       scm_list_3 (ly_symbol2scm ("color"),
-                                   scm_list_n (to_scm (r), to_scm (g), to_scm (b),
-                                               a == 1.0 ? SCM_UNDEFINED : to_scm (a),
-                                               SCM_UNDEFINED),
-                                   expr ()));
+                       ly_list (ly_symbol2scm ("color"),
+                                scm_list_n (to_scm (r), to_scm (g), to_scm (b),
+                                            a == 1.0 ? SCM_UNDEFINED : to_scm (a),
+                                            SCM_UNDEFINED),
+                                expr ()));
   return new_stencil;
 }
 
@@ -420,8 +419,8 @@ Stencil
 Stencil::with_outline (Stencil const &ol) const
 {
   Stencil new_stencil (ol.extent_box (),
-                       scm_list_3 (ly_symbol2scm ("with-outline"),
-                                   ol.expr (),
-                                   expr ()));
+                       ly_list (ly_symbol2scm ("with-outline"),
+                                ol.expr (),
+                                expr ()));
   return new_stencil;
 }

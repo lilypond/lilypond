@@ -342,10 +342,10 @@ Hairpin::print (SCM smob)
 
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
       Stencil circle (extent,
-                      scm_list_4 (ly_symbol2scm ("circle"),
-                                  to_scm (rad),
-                                  to_scm (thick),
-                                  SCM_BOOL_F));
+                      ly_list (ly_symbol2scm ("circle"),
+                               to_scm (rad),
+                               to_scm (thick),
+                               SCM_BOOL_F));
 
       /*
         don't add another circle if the hairpin is broken

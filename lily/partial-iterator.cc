@@ -53,9 +53,9 @@ Partial_iterator::process (Moment m)
         {
           set_property (timing, "partialBusy", SCM_BOOL_T);
           Global_context *g = find_global_context (get_context ());
-          g->add_finalization (scm_list_3 (finalization_proc,
-                                           timing->self_scm (),
-                                           length.smobbed_copy ()));
+          g->add_finalization (ly_list (finalization_proc,
+                                        timing->self_scm (),
+                                        length.smobbed_copy ()));
         }
       else
         {

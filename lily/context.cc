@@ -283,13 +283,13 @@ Context::make_revert_finalization (SCM sym)
   SCM val = SCM_UNDEFINED;
   if (here_defined (this, sym, &val))
     {
-      return scm_list_4 (ly_context_set_property_x_proc,
-                         self_scm (), sym, val);
+      return ly_list (ly_context_set_property_x_proc,
+                      self_scm (), sym, val);
     }
   else
     {
-      return scm_list_3 (ly_context_unset_property_proc,
-                         self_scm (), sym);
+      return ly_list (ly_context_unset_property_proc,
+                      self_scm (), sym);
     }
 }
 

@@ -160,9 +160,9 @@ Grob::get_print_stencil () const
         retval = Stencil (m->extent_box (), SCM_EOL);
       else
         {
-          SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
-                                 self_scm (),
-                                 retval.expr ());
+          SCM expr = ly_list (ly_symbol2scm ("grob-cause"),
+                              self_scm (),
+                              retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
         }
@@ -196,9 +196,9 @@ Grob::get_print_stencil () const
       SCM attributes = get_property (this, "output-attributes");
       if (scm_is_pair (attributes))
         {
-          SCM expr = scm_list_3 (ly_symbol2scm ("output-attributes"),
-                                 attributes,
-                                 retval.expr ());
+          SCM expr = ly_list (ly_symbol2scm ("output-attributes"),
+                              attributes,
+                              retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
         }
@@ -413,7 +413,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
       dim_cache_[Y_AXIS].offset_ = 0;
       set_property (this, "pure-Y-offset-in-progress", SCM_BOOL_T);
       off = from_scm<double> (call_pure_function (proc,
-                                                  scm_list_1 (self_scm ()),
+                                                  ly_list (self_scm ()),
                                                   start, end),
                               0.0);
       del_property (this, "pure-Y-offset-in-progress");

@@ -370,7 +370,7 @@ Bar_engraver::pre_process_music ()
   SCM wb = get_property (this, "whichBar");
   if (scm_is_string (wb))
     {
-      glyphs = scm_list_1 (wb);
+      glyphs = ly_list (wb);
     }
   else // consider automatic bars
     {

@@ -273,9 +273,9 @@ Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
   SCM minor = scm_string_to_number (ly_string2scm (MINOR_VERSION), to_scm (10));
   SCM patch = scm_string_to_number (ly_string2scm (PATCH_LEVEL), to_scm (10));
   if (MY_PATCH_LEVEL[0] == '\0')
-    return scm_list_3 (major, minor, patch);
+    return ly_list (major, minor, patch);
   else
-    return scm_list_4 (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
+    return ly_list (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
 }
 
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
@@ -489,7 +489,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
   else
     {
       ly_progress (scm_from_latin1_string ("\nUnsupported SCM value for format: ~a"),
-                   scm_list_1 (arg));
+                   ly_list (arg));
     }
 
   return "";
@@ -728,7 +728,7 @@ Use GhostScript started with @var{args}, and run @var{run_string}
         if (code < 0)
           {
             warning (_ ("Could not start GhostScript instance!"));
-            scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
+            scm_throw (ly_symbol2scm ("ly-file-failed"), ly_list (run_string));
             return SCM_UNSPECIFIED;
           }
       }
@@ -747,7 +747,7 @@ Use GhostScript started with @var{args}, and run @var{run_string}
   if (code != 0 && code != gs_error_Quit && code != gs_error_invalidexit)
     {
       warning (_ ("Error when running GhostScript command!"));
-      scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
+      scm_throw (ly_symbol2scm ("ly-file-failed"), ly_list (run_string));
     }
 
   return SCM_UNSPECIFIED;

@@ -43,7 +43,7 @@ SCM Protected_scm::last_ = SCM_EOL;
 void
 Protected_scm::protectify (SCM s)
 {
-  s = scm_list_1 (s);
+  s = ly_list (s);
   if (SCM_CONSP (last_))
     SCM_SETCDR (last_, s);
   else

@@ -29,7 +29,7 @@ internal_add_interface (SCM a, SCM b, SCM c)
   if (!all_ifaces.is_bound ())
     all_ifaces = scm_c_make_hash_table (59);
 
-  SCM entry = scm_list_3 (a, b, c);
+  SCM entry = ly_list (a, b, c);
 
   scm_hashq_set_x (all_ifaces, a, entry);
 }

@@ -72,7 +72,7 @@ get_footnotes (SCM expr)
     return get_footnotes (scm_caddr (expr));
 
   if (scm_is_eq (head, ly_symbol2scm ("footnote")))
-    return scm_list_1 (scm_cdr (expr));
+    return ly_list (scm_cdr (expr));
 
   return SCM_EOL;
 }

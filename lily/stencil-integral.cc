@@ -402,10 +402,10 @@ all_commands_to_absolute_and_group (SCM expr)
         {
           Real x = from_scm<double> (scm_cadr (expr), 0.0);
           Real y = from_scm<double> (scm_caddr (expr), 0.0);
-          out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
-                                      to_scm (current[Y_AXIS]),
-                                      to_scm (x),
-                                      to_scm (y)),
+          out = scm_cons (ly_list (to_scm (current[X_AXIS]),
+                                   to_scm (current[Y_AXIS]),
+                                   to_scm (x),
+                                   to_scm (y)),
                           out);
           current = Offset (x, y);
           expr = scm_cdddr (expr);
@@ -414,10 +414,10 @@ all_commands_to_absolute_and_group (SCM expr)
         {
           Real x = from_scm<double> (scm_cadr (expr), 0.0);
           Real y = from_scm<double> (scm_caddr (expr), 0.0);
-          out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
-                                      to_scm (current[Y_AXIS]),
-                                      to_scm (x + current[X_AXIS]),
-                                      to_scm (y + current[Y_AXIS])),
+          out = scm_cons (ly_list (to_scm (current[X_AXIS]),
+                                   to_scm (current[Y_AXIS]),
+                                   to_scm (x + current[X_AXIS]),
+                                   to_scm (y + current[Y_AXIS])),
                           out);
           current = (Offset (x, y) + current);
           expr = scm_cdddr (expr);
@@ -479,10 +479,10 @@ all_commands_to_absolute_and_group (SCM expr)
           if ((current[X_AXIS] != start[X_AXIS])
               || (current[Y_AXIS] != start[Y_AXIS]))
             {
-              out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
-                                          to_scm (current[Y_AXIS]),
-                                          to_scm (start[X_AXIS]),
-                                          to_scm (start[Y_AXIS])),
+              out = scm_cons (ly_list (to_scm (current[X_AXIS]),
+                                       to_scm (current[Y_AXIS]),
+                                       to_scm (start[X_AXIS]),
+                                       to_scm (start[Y_AXIS])),
                               out);
               current = start;
             }

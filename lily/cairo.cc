@@ -1318,7 +1318,7 @@ Cairo_outputter::handle_metadata (SCM module)
       if (Text_interface::is_markup (val))
         {
           SCM kwd = ly_keyword2scm ("props");
-          SCM props = Lily::headers_property_alist_chain (scm_list_1 (module));
+          SCM props = Lily::headers_property_alist_chain (ly_list (module));
           val = Lily::markup_to_string (val, kwd, props);
         }
 

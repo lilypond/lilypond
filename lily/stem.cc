@@ -1143,8 +1143,8 @@ Stem::calc_stem_info (SCM smob)
   Real minimum_y = note_start + minimum_length;
   Real shortest_y = minimum_y * my_dir;
 
-  return scm_list_2 (to_scm (ideal_y),
-                     to_scm (shortest_y));
+  return ly_list (to_scm (ideal_y),
+                  to_scm (shortest_y));
 }
 
 Slice

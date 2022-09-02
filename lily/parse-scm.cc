@@ -111,7 +111,7 @@ internal_parse_embedded_scheme (Parse_start *ps)
     }
 
   if (multiple)
-    form = scm_list_3 (ly_symbol2scm ("apply"), ly_symbol2scm ("values"), form);
+    form = ly_list (ly_symbol2scm ("apply"), ly_symbol2scm ("values"), form);
   return form;
 }
 

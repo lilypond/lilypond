@@ -69,7 +69,7 @@ One_line_page_breaking::solve_and_provide_max_height (Real &max_height)
 
           vector<vsize> lines_per_page;
           lines_per_page.push_back (1);
-          SCM systems = scm_list_1 (system->self_scm ());
+          SCM systems = ly_list (system->self_scm ());
           SCM pages = make_pages (lines_per_page, systems);
 
           max_width = std::max (max_width, system->extent (system, X_AXIS).length ());
