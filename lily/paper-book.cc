@@ -408,8 +408,7 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
         }
 
       func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_5 (out_name, stencils, header_,
-                                     paper ()->self_scm (), formats));
+      ly_call (func, out_name, stencils, header_, paper ()->self_scm (), formats);
     }
 }
 

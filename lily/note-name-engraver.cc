@@ -59,13 +59,15 @@ Note_name_engraver::process_music ()
       SCM sep = get_property (this, "noteNameSeparator");
 
       if (i)
-        markup_list = scm_append (scm_list_2 (scm_list_1 (Text_interface::is_markup (sep) ? sep : ly_string2scm (" ")),
-                                              markup_list));
+        markup_list = scm_cons (Text_interface::is_markup (sep)
+                                ? sep
+                                : ly_string2scm (" "),
+                                markup_list);
 
       if (ly_is_procedure (proc))
         {
           SCM pitch_name = ly_call (proc, pitch, context ()->self_scm ());
-          markup_list = scm_append (scm_list_2 (scm_list_1 (pitch_name), markup_list));
+          markup_list = scm_cons (pitch_name, markup_list);
         }
       else
         programming_error ("No translation function defined as noteNameFunction.");

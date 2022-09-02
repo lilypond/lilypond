@@ -121,12 +121,15 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 {
 #ifdef DEBUG
   if (ly_is_procedure (modification_callback))
-    scm_apply_0 (modification_callback,
-                 scm_list_n (self_scm (),
-                             scm_from_locale_string (file),
-                             to_scm (line),
-                             scm_from_latin1_string (fun),
-                             sym, v, SCM_UNDEFINED));
+    {
+      ly_call (modification_callback,
+               self_scm (),
+               scm_from_locale_string (file),
+               to_scm (line),
+               scm_from_latin1_string (fun),
+               sym,
+               v);
+    }
 #else
   (void) file;
   (void) line;

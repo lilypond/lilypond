@@ -155,9 +155,9 @@ Convert a transform matrix to a list of six values.  Values are @var{xx},
            )")
 {
   auto *const tr = LY_ASSERT_SMOB (Transform, transform, 1);
-  SCM res = scm_list_n (to_scm (tr->get_xx ()), to_scm (tr->get_yx ()),
-                        to_scm (tr->get_xy ()), to_scm (tr->get_yy ()),
-                        to_scm (tr->get_x0 ()), to_scm (tr->get_y0 ()), SCM_UNDEFINED);
+  SCM res = ly_list (to_scm (tr->get_xx ()), to_scm (tr->get_yx ()),
+                     to_scm (tr->get_xy ()), to_scm (tr->get_yy ()),
+                     to_scm (tr->get_x0 ()), to_scm (tr->get_y0 ()));
   scm_remember_upto_here_1 (transform);
   return res;
 }

@@ -436,15 +436,14 @@ all_commands_to_absolute_and_group (SCM expr)
           expr = scm_cdr (expr);
           Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (scm_list_n (to_scm (current[X_AXIS]),
-                                      to_scm (current[Y_AXIS]),
-                                      to_scm (x1),
-                                      to_scm (y1),
-                                      to_scm (x2),
-                                      to_scm (y2),
-                                      to_scm (x3),
-                                      to_scm (y3),
-                                      SCM_UNDEFINED),
+          out = scm_cons (ly_list (to_scm (current[X_AXIS]),
+                                   to_scm (current[Y_AXIS]),
+                                   to_scm (x1),
+                                   to_scm (y1),
+                                   to_scm (x2),
+                                   to_scm (y2),
+                                   to_scm (x3),
+                                   to_scm (y3)),
                           out);
           current = Offset (x3, y3);
         }
@@ -462,15 +461,14 @@ all_commands_to_absolute_and_group (SCM expr)
           expr = scm_cdr (expr);
           Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (scm_list_n (to_scm (current[X_AXIS]),
-                                      to_scm (current[Y_AXIS]),
-                                      to_scm (x1 + current[X_AXIS]),
-                                      to_scm (y1 + current[Y_AXIS]),
-                                      to_scm (x2 + current[X_AXIS]),
-                                      to_scm (y2 + current[Y_AXIS]),
-                                      to_scm (x3 + current[X_AXIS]),
-                                      to_scm (y3 + current[Y_AXIS]),
-                                      SCM_UNDEFINED),
+          out = scm_cons (ly_list (to_scm (current[X_AXIS]),
+                                   to_scm (current[Y_AXIS]),
+                                   to_scm (x1 + current[X_AXIS]),
+                                   to_scm (y1 + current[Y_AXIS]),
+                                   to_scm (x2 + current[X_AXIS]),
+                                   to_scm (y2 + current[Y_AXIS]),
+                                   to_scm (x3 + current[X_AXIS]),
+                                   to_scm (y3 + current[Y_AXIS])),
                           out);
           current = (Offset (x3, y3) + current);
         }

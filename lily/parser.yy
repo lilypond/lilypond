@@ -198,7 +198,7 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std
 	LOWLEVEL_MAKE_SYNTAX (location, Syntax::name, ##__VA_ARGS__)
 
 #define START_MAKE_SYNTAX(name, ...)					\
-	scm_list_n (Syntax::name, ##__VA_ARGS__, SCM_UNDEFINED)
+	ly_list (Syntax::name, ##__VA_ARGS__)
 
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
 	LOWLEVEL_MAKE_SYNTAX						\
@@ -206,8 +206,8 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std
 		 Guile_user::apply,					\
 		 scm_car (start),					\
 		 scm_append_x						\
-		 (scm_list_2 (scm_cdr (start),				\
-			      scm_list_n (__VA_ARGS__, SCM_UNDEFINED))))
+		 (ly_list (scm_cdr (start),				\
+		           ly_list (__VA_ARGS__))))
 
 #undef _
 #if !HAVE_GETTEXT

@@ -97,13 +97,12 @@ Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
 Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
-  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       to_scm (th),
-                       to_scm (w[LEFT]),
-                       to_scm (0),
-                       to_scm (w[RIGHT]),
-                       to_scm (0),
-                       SCM_UNDEFINED);
+  SCM at = ly_list (ly_symbol2scm ("draw-line"),
+                    to_scm (th),
+                    to_scm (w[LEFT]),
+                    to_scm (0),
+                    to_scm (w[RIGHT]),
+                    to_scm (0));
 
   Box box;
   box[X_AXIS] = w;
@@ -177,13 +176,12 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
       return Stencil (b, SCM_EOL);
     }
 
-  SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
-                        to_scm (-b[X_AXIS][LEFT]),
-                        to_scm (b[X_AXIS][RIGHT]),
-                        to_scm (-b[Y_AXIS][DOWN]),
-                        to_scm (b[Y_AXIS][UP]),
-                        to_scm (blotdiameter),
-                        SCM_UNDEFINED));
+  SCM at = ly_list (ly_symbol2scm ("round-filled-box"),
+                    to_scm (-b[X_AXIS][LEFT]),
+                    to_scm (b[X_AXIS][RIGHT]),
+                    to_scm (-b[Y_AXIS][DOWN]),
+                    to_scm (b[Y_AXIS][UP]),
+                    to_scm (blotdiameter));
 
   return Stencil (b, at);
 }
@@ -502,36 +500,34 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
 Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
-  SCM commands = scm_list_n (ly_symbol2scm ("moveto"),
-                             to_scm (top_curve.control_[0][X_AXIS]),
-                             to_scm (top_curve.control_[0][Y_AXIS]),
-                             ly_symbol2scm ("curveto"),
-                             to_scm (top_curve.control_[1][X_AXIS]),
-                             to_scm (top_curve.control_[1][Y_AXIS]),
-                             to_scm (top_curve.control_[2][X_AXIS]),
-                             to_scm (top_curve.control_[2][Y_AXIS]),
-                             to_scm (top_curve.control_[3][X_AXIS]),
-                             to_scm (top_curve.control_[3][Y_AXIS]),
-                             ly_symbol2scm ("lineto"),
-                             to_scm (bottom_curve.control_[3][X_AXIS]),
-                             to_scm (bottom_curve.control_[3][Y_AXIS]),
-                             ly_symbol2scm ("curveto"),
-                             to_scm (bottom_curve.control_[2][X_AXIS]),
-                             to_scm (bottom_curve.control_[2][Y_AXIS]),
-                             to_scm (bottom_curve.control_[1][X_AXIS]),
-                             to_scm (bottom_curve.control_[1][Y_AXIS]),
-                             to_scm (bottom_curve.control_[0][X_AXIS]),
-                             to_scm (bottom_curve.control_[0][Y_AXIS]),
-                             ly_symbol2scm ("closepath"),
-                             SCM_UNDEFINED);
+  SCM commands = ly_list (ly_symbol2scm ("moveto"),
+                          to_scm (top_curve.control_[0][X_AXIS]),
+                          to_scm (top_curve.control_[0][Y_AXIS]),
+                          ly_symbol2scm ("curveto"),
+                          to_scm (top_curve.control_[1][X_AXIS]),
+                          to_scm (top_curve.control_[1][Y_AXIS]),
+                          to_scm (top_curve.control_[2][X_AXIS]),
+                          to_scm (top_curve.control_[2][Y_AXIS]),
+                          to_scm (top_curve.control_[3][X_AXIS]),
+                          to_scm (top_curve.control_[3][Y_AXIS]),
+                          ly_symbol2scm ("lineto"),
+                          to_scm (bottom_curve.control_[3][X_AXIS]),
+                          to_scm (bottom_curve.control_[3][Y_AXIS]),
+                          ly_symbol2scm ("curveto"),
+                          to_scm (bottom_curve.control_[2][X_AXIS]),
+                          to_scm (bottom_curve.control_[2][Y_AXIS]),
+                          to_scm (bottom_curve.control_[1][X_AXIS]),
+                          to_scm (bottom_curve.control_[1][Y_AXIS]),
+                          to_scm (bottom_curve.control_[0][X_AXIS]),
+                          to_scm (bottom_curve.control_[0][Y_AXIS]),
+                          ly_symbol2scm ("closepath"));
 
-  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
-                                    to_scm (thickness),
-                                    commands,
-                                    ly_symbol2scm ("round"),
-                                    ly_symbol2scm ("round"),
-                                    SCM_BOOL_T,
-                                    SCM_UNDEFINED);
+  SCM horizontal_bend = ly_list (ly_symbol2scm ("path"),
+                                 to_scm (thickness),
+                                 commands,
+                                 ly_symbol2scm ("round"),
+                                 ly_symbol2scm ("round"),
+                                 SCM_BOOL_T);
 
   Interval x_extent = top_curve.extent (X_AXIS);
   x_extent.unite (bottom_curve.extent (X_AXIS));
@@ -550,28 +546,26 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   Real x_width = hypot (t, t / s);
   Real height = w * s;
 
-  SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
-                             to_scm (0),
-                             to_scm (0),
-                             ly_symbol2scm ("rlineto"),
-                             to_scm (x_width),
-                             to_scm (0),
-                             ly_symbol2scm ("rlineto"),
-                             to_scm (w),
-                             to_scm (height),
-                             ly_symbol2scm ("rlineto"),
-                             to_scm (-x_width),
-                             to_scm (0),
-                             ly_symbol2scm ("closepath"),
-                             SCM_UNDEFINED);
+  SCM controls = ly_list (ly_symbol2scm ("moveto"),
+                          to_scm (0),
+                          to_scm (0),
+                          ly_symbol2scm ("rlineto"),
+                          to_scm (x_width),
+                          to_scm (0),
+                          ly_symbol2scm ("rlineto"),
+                          to_scm (w),
+                          to_scm (height),
+                          ly_symbol2scm ("rlineto"),
+                          to_scm (-x_width),
+                          to_scm (0),
+                          ly_symbol2scm ("closepath"));
 
-  SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
-                               to_scm (0),
-                               controls,
-                               ly_symbol2scm ("round"),
-                               ly_symbol2scm ("round"),
-                               SCM_BOOL_T,
-                               SCM_UNDEFINED);
+  SCM slashnodot = ly_list (ly_symbol2scm ("path"),
+                            to_scm (0),
+                            controls,
+                            ly_symbol2scm ("round"),
+                            ly_symbol2scm ("round"),
+                            SCM_BOOL_T);
 
   Box b (Interval (0, w + x_width),
          Interval (0, height));

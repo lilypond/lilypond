@@ -159,8 +159,8 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
                       ly_symbol2scm ("fetaBraces"));
 
-  SCM alist = scm_list_n (fam, SCM_UNDEFINED);
-  fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
+  SCM alist = ly_list (fam);
+  fm = select_font (me->layout (), ly_list (alist));
 
   int lo = 0;
   int hi = std::max (static_cast<int> (fm->count ()) - 1, 2);
