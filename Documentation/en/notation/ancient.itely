@@ -2557,7 +2557,7 @@ Notation Reference:
 @ref{Accidentals},
 @ref{Automatic accidentals},
 @ref{Alternate accidental glyphs},
-@ref{The Emmentaler font}
+@ref{The Emmentaler font}.
 @endmorerefs
 
 
@@ -2577,7 +2577,7 @@ It can be invoked as @code{\bar "k"}.
 @morerefs
 Notation Reference:
 @ref{Bars},
-@ref{The Emmentaler font}
+@ref{The Emmentaler font}.
 @endmorerefs
 
 

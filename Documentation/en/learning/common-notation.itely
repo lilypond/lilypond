@@ -147,8 +147,12 @@ signature -- please read the warning at the end of this section.}
 @funindex eses
 @funindex isis
 
-Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{accidental}.
+Music Glossary:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{accidental}.
 
 @notation{Note names} in LilyPond identify pitches.  For example,
 @samp{c} always means C-natural, regardless of the key signature.
@@ -185,7 +189,9 @@ names, see @ruser{Note names in other languages}.
 @funindex \major
 @funindex \minor
 
-Music Glossary: @rglos{key signature}, @rglos{major},
+Music Glossary:
+@rglos{key signature},
+@rglos{major},
 @rglos{minor}.
 
 The @notation{key signature} is set with the command @code{\key}
@@ -206,9 +212,15 @@ followed by a pitch and @code{\major} or @code{\minor}.
 @node Warning key signatures and pitches
 @unnumberedsubsubsec Warning: key signatures and pitches
 
-Music Glossary: @rglos{accidental}, @rglos{key signature},
-@rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}, @rglos{Pitch names}.
+Music Glossary:
+@rglos{accidental},
+@rglos{key signature},
+@rglos{pitch},
+@rglos{flat},
+@rglos{natural},
+@rglos{sharp},
+@rglos{transposition},
+@rglos{Pitch names}.
 
 LilyPond makes a distinction between musical content and its
 printed representation.  Input such as @samp{d4 e fis2} defines
@@ -291,7 +303,8 @@ Notation Reference:
 @node Ties
 @unnumberedsubsubsec Ties
 
-Music Glossary: @rglos{tie}.
+Music Glossary:
+@rglos{tie}.
 
 A @notation{tie} is created by appending a tilde @samp{~} to the
 first of the two notes being tied.
@@ -321,7 +334,8 @@ as @samp{c4 a8 a8}, not as @samp{c4 a4 a8 a8}.  Write @samp{c4 a4
 @node Slurs
 @unnumberedsubsubsec Slurs
 
-Music Glossary: @rglos{slur}.
+Music Glossary:
+@rglos{slur}.
 
 A @notation{slur} is a curve drawn across many notes.  The
 starting note and ending note are marked with @samp{(} and
@@ -336,7 +350,9 @@ note of the slur.
 @node Phrasing slurs
 @unnumberedsubsubsec Phrasing slurs
 
-Music Glossary: @rglos{slur}, @rglos{phrasing}.
+Music Glossary:
+@rglos{slur},
+@rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
 @code{\(} and @code{\)}.  You can have both slurs and phrasing
@@ -354,7 +370,10 @@ slurs at the same time.
 
 @cindex slurs versus ties
 
-Music Glossary: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
+Music Glossary:
+@rglos{articulation},
+@rglos{slur},
+@rglos{tie}.
 
 A slur looks like a tie, but it has a different meaning.  A tie
 simply makes the first note longer, and can only be used on pairs
@@ -394,7 +413,8 @@ after the notes to which they apply.
 @cindex accent
 @cindex staccato
 
-Music Glossary: @rglos{articulation}.
+Music Glossary:
+@rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
 dash (@samp{-}) and a single character.
@@ -415,7 +435,8 @@ dash (@samp{-}) and a single character.
 @funindex ^
 @funindex _
 
-Music Glossary: @rglos{fingering}.
+Music Glossary:
+@rglos{fingering}.
 
 Similarly, @notation{fingering} indications can be added to a note
 using a dash (@samp{-}) and the digit to be printed:
@@ -452,7 +473,9 @@ to let LilyPond determine the articulation directions.
 @funindex \>
 @funindex \!
 
-Music Glossary: @rglos{dynamics}, @rglos{crescendo},
+Music Glossary:
+@rglos{dynamics},
+@rglos{crescendo},
 @rglos{decrescendo}.
 
 @notation{Dynamic} signs are made by adding the markings (with a
@@ -526,7 +549,8 @@ Notation Reference:
 @funindex \autoBeamOff
 @funindex \autoBeamOn
 
-Music Glossary: @rglos{beam}.
+Music Glossary:
+@rglos{beam}.
 
 All @notation{beams} are drawn automatically:
 
@@ -583,7 +607,8 @@ Notation Reference:
 
 @funindex \partial
 
-Music Glossary: @rglos{anacrusis}.
+Music Glossary:
+@rglos{anacrusis}.
 
 A pickup (or @notation{anacrusis}) is entered with the keyword
 @code{\partial}.  It is followed by a duration: @samp{\partial 4}
@@ -605,7 +630,9 @@ is a quarter note pickup and @samp{\partial 8} an eighth note.
 
 @funindex \tuplet
 
-Music Glossary: @rglos{note value}, @rglos{triplet}.
+Music Glossary:
+@rglos{note value},
+@rglos{triplet}.
 
 @notation{Tuplets} are made with the @code{\tuplet} keyword.  It
 takes two arguments: a fraction and a piece of music.  The
@@ -636,7 +663,9 @@ For triplets, there are three notes instead of two, so
 @funindex \appoggiatura
 @funindex acciaccatura
 
-Music Glossary: @rglos{grace notes}, @rglos{acciaccatura},
+Music Glossary:
+@rglos{grace notes},
+@rglos{acciaccatura},
 @rglos{appoggiatura}.
 
 @notation{Grace notes} are created with the @code{\grace} command,
@@ -760,7 +789,8 @@ polyphonic scores.
 @funindex >>
 @funindex << ... >>
 
-Music Glossary: @rglos{polyphony}.
+Music Glossary:
+@rglos{polyphony}.
 
 This technique is useful for @notation{polyphonic} music.  To
 enter music with more voices or more staves, we combine
@@ -929,7 +959,8 @@ Notation Reference:
 @node Combining notes into chords
 @subsection Combining notes into chords
 
-Music Glossary: @rglos{chord}.
+Music Glossary:
+@rglos{chord}.
 
 @cindex chords
 @cindex note durations in chords
@@ -1032,7 +1063,8 @@ This section introduces vocal music and simple song sheets.
 
 @funindex \addlyrics
 
-Music Glossary: @rglos{lyrics}.
+Music Glossary:
+@rglos{lyrics}.
 
 Here is the start of the melody to a nursery rhyme, @emph{Girls
 and boys come out to play}.
@@ -1080,7 +1112,9 @@ occur at the same time.
 @cindex lyrics, multi-syllable words
 @cindex words with multiple syllables in lyrics
 
-Music Glossary: @rglos{melisma}, @rglos{extender line}.
+Music Glossary:
+@rglos{melisma},
+@rglos{extender line}.
 
 The next line in the nursery rhyme is @emph{The moon doth shine as
 bright as day}.  Let's extend it:

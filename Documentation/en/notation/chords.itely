@@ -976,11 +976,15 @@ Skips cause blank space.  They can occupy part of a square.
 
 
 @morerefs
-Music Glossary: @rglos{chord grid}.
+Music Glossary:
+@rglos{chord grid}.
 
-Internals Reference: @rinternals{ChordGrid},
-@rinternals{ChordGridScore}, @rinternals{GridChordName},
-@rinternals{ChordSquare}, @rinternals{Grid_chord_name_engraver},
+Internals Reference:
+@rinternals{ChordGrid},
+@rinternals{ChordGridScore},
+@rinternals{GridChordName},
+@rinternals{ChordSquare},
+@rinternals{Grid_chord_name_engraver},
 @rinternals{Chord_square_engraver}.
 @endmorerefs
 

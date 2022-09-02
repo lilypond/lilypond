@@ -1145,7 +1145,7 @@ Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
-@rinternals{MultiMeasureRest}.
+@rinternals{MultiMeasureRest},
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
@@ -2264,7 +2264,7 @@ Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
-@rinternals{RhythmicStaff}.
+@rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
 @endmorerefs
 
@@ -2376,7 +2376,7 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{Auto_beam_engraver},
 @rinternals{Beam_engraver},
-@rinternals{Beam}.
+@rinternals{Beam},
 @rinternals{BeamEvent},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
@@ -3563,7 +3563,6 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Repeat_acknowledge_engraver}.
-
 @endmorerefs
 
 
@@ -4570,5 +4569,5 @@ Morceaux choisis :
 
 Références des propriétés internes :
 @rinternals{Timing_translator},
-@rinternals{Score}
+@rinternals{Score}.
 @endmorerefs

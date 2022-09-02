@@ -222,7 +222,7 @@ fichier @file{ly/satb.ly} -- voir @ref{Autres sources de documentation}.
 @morerefs
 Manuel d'initiation :
 @ref{Autres sources de documentation},
-@ref{Extension des modèles}.
+@ref{Extension des modèles},
 @ref{Modèles pour ensemble vocal},
 @ref{Organisation du code source avec des variables}.
 @endmorerefs
@@ -340,7 +340,7 @@ fichier @file{ly/ssaattbb.ly} -- voir
 @morerefs
 Manuel d'initiation :
 @ref{Autres sources de documentation},
-@ref{Extension des modèles}.
+@ref{Extension des modèles},
 @ref{Modèles pour ensemble vocal},
 @ref{Organisation du code source avec des variables}.
 @endmorerefs

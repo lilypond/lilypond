@@ -124,8 +124,12 @@ values are useful.
 @funindex '
 @funindex ,
 
-Music Glossary: @rglos{pitch}, @rglos{interval},
-@rglos{scale}, @rglos{middle C}, @rglos{octave},
+Music Glossary:
+@rglos{pitch},
+@rglos{interval},
+@rglos{scale},
+@rglos{middle C},
+@rglos{octave},
 @rglos{accidental}.
 
 LilyPond uses lowercase letters for pitches.  Note names in all
@@ -244,8 +248,12 @@ quotes @code{''} and not one double quote @samp{"}!
 @cindex dotted note
 @cindex notating durations
 
-Music Glossary: @rglos{beam}, @rglos{duration},
-@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
+Music Glossary:
+@rglos{beam},
+@rglos{duration},
+@rglos{whole note},
+@rglos{half note},
+@rglos{quarter note},
 @rglos{dotted note}.
 
 The @notation{duration} of a note is specified by a number after
@@ -283,7 +291,8 @@ explicitly (i.e., with a number).
 @cindex rest
 @cindex notating rests
 
-Music Glossary: @rglos{rest}.
+Music Glossary:
+@rglos{rest}.
 
 A @notation{rest} is entered just like a note with the name
 @samp{r}.
@@ -303,7 +312,8 @@ A @notation{rest} is entered just like a note with the name
 
 @funindex \time
 
-Music Glossary: @rglos{time signature}.
+Music Glossary:
+@rglos{time signature}.
 
 The @notation{time signature} can be set with the @code{\time}
 command:
@@ -328,7 +338,9 @@ command:
 
 @funindex \tempo
 
-Music Glossary: @rglos{tempo indication}, @rglos{metronome}.
+Music Glossary:
+@rglos{tempo indication},
+@rglos{metronome}.
 
 The @notation{tempo indication} and @notation{metronome mark} can be
 set with the @code{\tempo} command:
@@ -359,7 +371,8 @@ set with the @code{\tempo} command:
 
 @funindex \clef
 
-Music Glossary: @rglos{clef}.
+Music Glossary:
+@rglos{clef}.
 
 The @notation{clef} can be set using the @code{\clef} command:
 
@@ -395,9 +408,12 @@ Here is a small example showing all these elements together:
 @end lilypond
 
 @morerefs
-Notation Reference: @ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}.
+Notation Reference:
+@ruser{Writing pitches},
+@ruser{Writing rhythms},
+@ruser{Writing rests},
+@ruser{Time signature},
+@ruser{Clef}.
 @endmorerefs
 
 

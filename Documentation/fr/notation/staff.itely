@@ -1152,7 +1152,7 @@ Référence des propriétés internes :
 @rinternals{Axis_group_engraver},
 @rinternals{ChordNames},
 @rinternals{FiguredBass},
-@rinternals{Keep_alive_together_engraver}.
+@rinternals{Keep_alive_together_engraver},
 @rinternals{Lyrics},
 @rinternals{Staff},
 @rinternals{Staff_symbol_engraver},

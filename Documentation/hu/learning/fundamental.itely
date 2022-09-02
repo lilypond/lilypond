@@ -1714,7 +1714,8 @@ by modifying the action of Engravers.
 
 
 @morerefs
-Internals reference: @rinternals{Engravers and Performers}.
+Internals reference:
+@rinternals{Engravers and Performers}.
 
 
 @node Kontextusok tulajdonságainak módosítása
@@ -2020,7 +2021,7 @@ instances of contexts by statements in a @code{\with} block, and by
 
 @morerefs
 A kottaírás kézikönyve:
-@ruser{Changing context default settings}.
+@ruser{Changing context default settings},
 @ruser{The set command}.
 
 Internals Reference:

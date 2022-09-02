@@ -970,7 +970,8 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 @subsection 音符を組み合わせて和音にする
 @translationof Combining notes into chords
 
-Music Glossary: @rglos{chord}
+Music Glossary:
+@rglos{chord}
 
 @cindex chords (和音)
 @cindex note durations in chords (和音の中での音符の演奏時間)

@@ -124,8 +124,12 @@ LilyPond 会自动添加一些记谱元素。下面的例子中，我们只指�
 @funindex '
 @funindex ,
 
-Music Glossary: @rglos{pitch}, @rglos{interval},
-@rglos{scale}, @rglos{middle C}, @rglos{octave},
+Music Glossary:
+@rglos{pitch},
+@rglos{interval},
+@rglos{scale},
+@rglos{middle C},
+@rglos{octave},
 @rglos{accidental}.
 
 LilyPond 用小写字母表示音高。

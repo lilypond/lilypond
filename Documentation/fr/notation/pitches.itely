@@ -3060,7 +3060,7 @@ Référence des propriétés internes :
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},
-@rinternals{AccidentalPlacement}.
+@rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 @endmorerefs
 
@@ -3406,7 +3406,7 @@ Référence des propriétés internes :
 @rinternals{note-event},
 @rinternals{Note_heads_engraver},
 @rinternals{Ledger_line_engraver},
-@rinternals{NoteHead}.
+@rinternals{NoteHead},
 @rinternals{LedgerLineSpanner},
 @rinternals{note-head-interface},
 @rinternals{ledger-line-spanner-interface}.

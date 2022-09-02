@@ -659,6 +659,6 @@ copy out\myproject.pdf MyProject.pdf
 @morerefs
 Questo manuale:
 @ref{Uso da linea di comando},
-@ref{lilypond-book}
+@ref{lilypond-book}.
 @endmorerefs
 

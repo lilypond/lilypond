@@ -551,7 +551,10 @@ principal note to which it is attached.  The acciaccatura is drawn as a
 small eighth note (quaver) with a line drawn through the flag and stem.
 
 @morerefs
-@ref{appoggiatura}, @ref{grace notes}, @ref{mordent}, @ref{ornament}.
+@ref{appoggiatura},
+@ref{grace notes},
+@ref{mordent},
+@ref{ornament}.
 @endmorerefs
 
 
@@ -616,7 +619,9 @@ An accidental alters a note by:
 @end lilypond
 
 @morerefs
-@ref{alteration}, @ref{semitone}, @ref{whole tone}.
+@ref{alteration},
+@ref{semitone},
+@ref{whole tone}.
 @endmorerefs
 
 
@@ -645,7 +650,9 @@ of sonatas, symphonies, etc.
 @end itemize
 
 @morerefs
-@ref{andante}, @ref{largo}, @ref{sonata}.
+@ref{andante},
+@ref{largo},
+@ref{sonata}.
 @endmorerefs
 
 
@@ -705,7 +712,10 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 @emph{dal niente} (@notation{@b{from} nothing}).
 
 @morerefs
-@ref{crescendo}, @ref{dal niente}, @ref{decrescendo}, @ref{hairpin}.
+@ref{crescendo},
+@ref{dal niente},
+@ref{decrescendo},
+@ref{hairpin}.
 @endmorerefs
 
 
@@ -736,8 +746,12 @@ of multiplex proportions makes it easy to explicitly state which proportion
 is needed.
 
 @morerefs
-@ref{breve}, @ref{hemiola}, @ref{mensural notation}, @ref{note value},
-@ref{proportion}, @ref{whole note}.
+@ref{breve},
+@ref{hemiola},
+@ref{mensural notation},
+@ref{note value},
+@ref{proportion},
+@ref{whole note}.
 @endmorerefs
 
 
@@ -873,7 +887,8 @@ f,2. \bar "||"
 @end lilypond
 
 @morerefs
-@ref{measure}, @ref{meter}.
+@ref{measure},
+@ref{meter}.
 @endmorerefs
 
 
@@ -1092,7 +1107,8 @@ FI: aika-arvojen pidentäminen.
 This is a placeholder for augmentation (wrt mensural notation).
 
 @morerefs
-@ref{diminution}, @ref{mensural notation}.
+@ref{diminution},
+@ref{mensural notation}.
 @endmorerefs
 
 
@@ -1155,7 +1171,8 @@ No cross-references.
 @end itemize
 
 @morerefs
-@ref{H}, @ref{Pitch names}
+@ref{H},
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -1214,7 +1231,8 @@ The male voice intermediate in pitch between the bass and the tenor.
 @c F: clef de troisième ligne dropped
 
 @morerefs
-@ref{bass}, @ref{tenor}.
+@ref{bass},
+@ref{tenor}.
 @endmorerefs
 
 
@@ -1233,7 +1251,8 @@ FI: baritoniavain.
 C or F clef setting middle C on the upper staff line.
 
 @morerefs
-@ref{C clef}, @ref{F clef}.
+@ref{C clef},
+@ref{F clef}.
 @endmorerefs
 
 
@@ -1429,7 +1448,7 @@ S: ?,
 FI: sulkumerkki.
 
 @morerefs
-@ref{brace}
+@ref{brace}.
 @endmorerefs
 
 
@@ -1500,7 +1519,9 @@ g\breve
 @end lilypond
 
 @morerefs
-@ref{mensural notation}, @ref{note value}, @ref{semibreve}.
+@ref{mensural notation},
+@ref{note value},
+@ref{semibreve}.
 @endmorerefs
 
 
@@ -1571,7 +1592,8 @@ S: kadens,
 FI: kadenssi, lopuke.
 
 @morerefs
-@ref{harmonic cadence}, @ref{functional harmony}.
+@ref{harmonic cadence},
+@ref{functional harmony}.
 @endmorerefs
 
 
@@ -1654,7 +1676,8 @@ Logarithmic unit of measuring pitch differences.  1@tie{}cent is 1/1200 of
 an octave (1/100 of an equally tempered semitone).
 
 @morerefs
-@ref{equal temperament}, @ref{semitone}.
+@ref{equal temperament},
+@ref{semitone}.
 @endmorerefs
 
 
@@ -1713,7 +1736,10 @@ minor.
 @end lilypond
 
 @morerefs
-@ref{functional harmony}, @ref{interval}, @ref{inversion}, @ref{quality},
+@ref{functional harmony},
+@ref{interval},
+@ref{inversion},
+@ref{quality},
 @ref{third}.
 @endmorerefs
 
@@ -2019,7 +2045,9 @@ shown below, where the notes show an arpeggio on a C major chord.
 @end lilypond
 
 @morerefs
-@ref{C clef}, @ref{F clef}, @ref{G clef}.
+@ref{C clef},
+@ref{F clef},
+@ref{G clef}.
 @endmorerefs
 
 
@@ -2082,7 +2110,9 @@ Difference in pitch between a note derived from pure tuning and the
 same note derived from some other tuning method.
 
 @morerefs
-@ref{didymic comma}, @ref{Pythagorean comma}, @ref{syntonic comma},
+@ref{didymic comma},
+@ref{Pythagorean comma},
+@ref{syntonic comma},
 @ref{temperament}.
 @endmorerefs
 
@@ -2093,7 +2123,8 @@ same note derived from some other tuning method.
 Another name for @ref{common time}.
 
 @morerefs
-@ref{common time}, @ref{meter}.
+@ref{common time},
+@ref{meter}.
 @endmorerefs
 
 
@@ -2133,7 +2164,8 @@ FI: C-merkintä.
 mensural notation.
 
 @morerefs
-@ref{mensural notation}, @ref{meter}.
+@ref{mensural notation},
+@ref{meter}.
 @endmorerefs
 
 
@@ -2189,7 +2221,8 @@ A meter that includes a triplet subdivision within the beat, such as
 6/8, 9/8, 12/8.
 
 @morerefs
-@ref{meter}, @ref{simple meter}.
+@ref{meter},
+@ref{simple meter}.
 @endmorerefs
 
 
@@ -2475,7 +2508,8 @@ g4\< a b c | d1\! \bar "|."
 @end lilypond
 
 @morerefs
-@ref{decrescendo}, @ref{hairpin}.
+@ref{decrescendo},
+@ref{hairpin}.
 @endmorerefs
 
 
@@ -2567,7 +2601,7 @@ No cross-references.
 @end itemize
 
 @morerefs
-@ref{Pitch names}
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -2670,7 +2704,9 @@ d4\> c b a | g1 \! \bar "|."
 @end lilypond
 
 @morerefs
-@ref{crescendo}, @ref{diminuendo}, @ref{hairpin}.
+@ref{crescendo},
+@ref{diminuendo},
+@ref{hairpin}.
 @endmorerefs
 
 
@@ -2860,7 +2896,8 @@ the 6th and 7th tone.
 @end lilypond
 
 @morerefs
-@ref{semitone}, @ref{whole tone}.
+@ref{semitone},
+@ref{whole tone}.
 @endmorerefs
 
 
@@ -2923,7 +2960,8 @@ FI: aika-arvojen tihennys.
 This is a stub for diminution (@emph{wrt} mensural notation).
 
 @morerefs
-@ref{augmentation}, @ref{mensural notation}.
+@ref{augmentation},
+@ref{mensural notation}.
 @endmorerefs
 
 
@@ -2979,7 +3017,8 @@ with conjunct movement.
 Another name for @ref{dissonant interval}.
 
 @morerefs
-@ref{dissonant interval}, @ref{harmony}.
+@ref{dissonant interval},
+@ref{harmony}.
 @endmorerefs
 
 
@@ -3052,7 +3091,8 @@ Indicator for an indeterminately rising pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
 
 @morerefs
-@ref{fall}, @ref{glissando}.
+@ref{fall},
+@ref{glissando}.
 @endmorerefs
 
 
@@ -3071,7 +3111,8 @@ FI: dominantti, huippusointu.
 The fifth @emph{scale degree} in @emph{functional harmony}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}.
+@ref{functional harmony},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -3088,7 +3129,8 @@ S: dominantnonackord,
 FI: dominanttinoonisointu.
 
 @morerefs
-@ref{chord}, @ref{functional harmony}.
+@ref{chord},
+@ref{functional harmony}.
 @endmorerefs
 
 
@@ -3105,7 +3147,8 @@ S: dominantseptimackord,
 FI: dominanttiseptimisointu.
 
 @morerefs
-@ref{chord}, @ref{functional harmony}.
+@ref{chord},
+@ref{functional harmony}.
 @endmorerefs
 
 
@@ -3351,7 +3394,10 @@ one degree to another.  The terms, abbreviations, and symbols used to
 indicate this information are called dynamic marks.
 
 @morerefs
-@ref{piano}, @ref{forte}, @ref{crescendo}, @ref{decrescendo},
+@ref{piano},
+@ref{forte},
+@ref{crescendo},
+@ref{decrescendo},
 @ref{diminuendo}.
 @endmorerefs
 
@@ -3371,7 +3417,7 @@ indicate this information are called dynamic marks.
 @end itemize
 
 @morerefs
-@ref{Pitch names}
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -3379,7 +3425,8 @@ indicate this information are called dynamic marks.
 @section ecclesiastical mode
 
 @morerefs
-@ref{church mode}, @ref{diatonic scale}.
+@ref{church mode},
+@ref{diatonic scale}.
 @endmorerefs
 
 
@@ -3530,7 +3577,9 @@ A tuning system that divides the octave into 12 equal semitones (each of
 which is precisely equal to 100 cents).
 
 @morerefs
-@ref{cent}, @ref{semitone}, @ref{temperament}.
+@ref{cent},
+@ref{semitone},
+@ref{temperament}.
 @endmorerefs
 
 
@@ -3558,7 +3607,10 @@ Performance indications concerning:
 @end itemize
 
 @morerefs
-@ref{allegro}, @ref{andante}, @ref{crescendo}, @ref{forte}.
+@ref{allegro},
+@ref{andante},
+@ref{crescendo},
+@ref{forte}.
 @endmorerefs
 
 
@@ -3613,7 +3665,10 @@ by the given number of octaves.
 @end itemize
 
 @morerefs
-@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octave mark},
+@ref{melisma},
+@ref{sul G},
+@ref{thorough bass},
+@ref{octave mark},
 @ref{octave marking}.
 @endmorerefs
 
@@ -3633,7 +3688,7 @@ by the given number of octaves.
 @end itemize
 
 @morerefs
-@ref{Pitch names}
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -3682,7 +3737,8 @@ Double Bass).
 @end lilypond
 
 @morerefs
-@ref{baritone clef}, @ref{strings}.
+@ref{baritone clef},
+@ref{strings}.
 @endmorerefs
 
 
@@ -3702,7 +3758,8 @@ Indicator for an indeterminately falling pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
 
 @morerefs
-@ref{doit}, @ref{glissando}.
+@ref{doit},
+@ref{glissando}.
 @endmorerefs
 
 
@@ -3724,7 +3781,8 @@ direction of @q{feathering} -- but without changing the overall tempo
 of the piece.
 
 @morerefs
-Internals Reference: @ruser{Manual beams}
+Internals Reference:
+@ruser{Manual beams}.
 @endmorerefs
 
 
@@ -3824,7 +3882,8 @@ played above the bass notes.
 @end lilypond
 
 @morerefs
-@ref{chord}, @ref{interval}.
+@ref{chord},
+@ref{interval}.
 @endmorerefs
 
 
@@ -3915,7 +3974,8 @@ Also:
 @end itemize
 
 @morerefs
-@ref{articulation}, @ref{harmonics}.
+@ref{articulation},
+@ref{harmonics}.
 @endmorerefs
 
 
@@ -4112,8 +4172,10 @@ the parallel minor scale, or the incomplete dominant seventh chord.
 @end lilypond
 
 @morerefs
-@ref{dominant}, @ref{incomplete dominant seventh chord},
-@ref{subdominant}, @ref{tonic}.
+@ref{dominant},
+@ref{incomplete dominant seventh chord},
+@ref{subdominant},
+@ref{tonic}.
 @endmorerefs
 
 
@@ -4132,7 +4194,7 @@ the parallel minor scale, or the incomplete dominant seventh chord.
 @end itemize
 
 @morerefs
-@ref{Pitch names}
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -4215,7 +4277,10 @@ Notes printed in small types to indicate that their time values are not
 counted in the rhythm of the bar.
 
 @morerefs
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{mordent}, @ref{ornament}.
+@ref{acciaccatura},
+@ref{appoggiatura},
+@ref{mordent},
+@ref{ornament}.
 @endmorerefs
 
 
@@ -4284,7 +4349,8 @@ usage.  In the standard usage of these countries, @notation{B} means
 @notation{B flat}.
 
 @morerefs
-@ref{Pitch names}, @ref{B}.
+@ref{Pitch names},
+@ref{B}.
 @endmorerefs
 
 
@@ -4301,7 +4367,8 @@ c1\!
 @end lilypond
 
 @morerefs
-@ref{crescendo}, @ref{decrescendo}.
+@ref{crescendo},
+@ref{decrescendo}.
 @endmorerefs
 
 
@@ -4500,7 +4567,10 @@ c1. \bar "||"
 and is therefore a polymeter (second definition) of considerable antiquity.
 
 @morerefs
-@ref{mensural notation}, @ref{meter}, @ref{polymeter}, @ref{proportion}.
+@ref{mensural notation},
+@ref{meter},
+@ref{polymeter},
+@ref{proportion}.
 @endmorerefs
 
 
@@ -4538,7 +4608,8 @@ print the modern version @code{\clef "bass^8"} but without the @code{8};
 
 
 @morerefs
-@ref{F clef}, @ref{bass clef}.
+@ref{F clef},
+@ref{bass clef}.
 @endmorerefs
 
 
@@ -4628,7 +4699,9 @@ A dominant seventh chord where the root tone is removed.
 The remaining three tones build a diminished triad.
 
 @morerefs
-@ref{chord}, @ref{dominant seventh chord}, @ref{functional harmony}.
+@ref{chord},
+@ref{dominant seventh chord},
+@ref{functional harmony}.
 @endmorerefs
 
 
@@ -4703,7 +4776,8 @@ The addition of such two intervals forms an octave.
 @end lilypond
 
 @morerefs
-@ref{enharmonic}, @ref{whole tone}.
+@ref{enharmonic},
+@ref{whole tone}.
 @endmorerefs
 
 
@@ -4811,7 +4885,8 @@ According to the 12@w{ }tones of the @emph{chromatic scale} there are
 12@w{ }keys, one on@w{ }c, one on c-sharp, etc.
 
 @morerefs
-@ref{chromatic scale}, @ref{key signature}.
+@ref{chromatic scale},
+@ref{key signature}.
 @endmorerefs
 
 
@@ -4897,7 +4972,8 @@ called because of its strong tendency to @q{lead up} (resolve upwards)
 to the tonic scale degree.
 
 @morerefs
-@ref{scale degree}, @ref{semitone}.
+@ref{scale degree},
+@ref{semitone}.
 @endmorerefs
 
 
@@ -4968,7 +5044,8 @@ notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 @section legato curve
 
 @morerefs
-@ref{slur}, @ref{legato}.
+@ref{slur},
+@ref{legato}.
 @endmorerefs
 
 
@@ -5061,7 +5138,8 @@ FI: kirjoitetussa äänenkorkeudessa.
 written pitch.  Cancels octave mark (q.v.).
 
 @morerefs
-@ref{octave mark}, @ref{octave marking}.
+@ref{octave mark},
+@ref{octave marking}.
 @endmorerefs
 
 
@@ -5105,7 +5183,8 @@ g\longa g\breve
 @end lilypond
 
 @morerefs
-@ref{breve}, @ref{note value}.
+@ref{breve},
+@ref{note value}.
 @endmorerefs
 
 
@@ -5202,7 +5281,9 @@ respectively).  By the late 15th century, most composers used the smaller
 proportion by default.
 
 @morerefs
-@ref{Duration names notes and rests}, @ref{longa}, @ref{note value}.
+@ref{Duration names notes and rests},
+@ref{longa},
+@ref{note value}.
 @endmorerefs
 
 
@@ -5224,7 +5305,8 @@ temperament only a limited set of keys are playable.  Used for tuning
 keyboard instruments for performance of pre-1650 music.
 
 @morerefs
-@ref{cent}, @ref{temperament}.
+@ref{cent},
+@ref{temperament}.
 @endmorerefs
 
 
@@ -5245,7 +5327,9 @@ Such groups in numbers of two or more recur consistently throughout the
 composition and are separated from each other by bar lines.
 
 @morerefs
-@ref{bar line}, @ref{beat}, @ref{meter}.
+@ref{bar line},
+@ref{beat},
+@ref{meter}.
 @endmorerefs
 
 
@@ -5280,7 +5364,9 @@ mediant (variant tonic).
 @end itemize
 
 @morerefs
-@ref{chord}, @ref{functional harmony}, @ref{relative key}.
+@ref{chord},
+@ref{functional harmony},
+@ref{relative key}.
 @endmorerefs
 
 
@@ -5374,7 +5460,10 @@ colored) notes in the earlier notation.  ...
 TODO: add to definition (including summary info on proportional notation)
 
 @morerefs
-@ref{augmentation}, @ref{diminution}, @ref{ligature}, @ref{proportion}.
+@ref{augmentation},
+@ref{diminution},
+@ref{ligature},
+@ref{proportion}.
 @endmorerefs
 @c TODO: more cross-references?
 
@@ -5490,7 +5579,9 @@ slashed C, which designated the same with @notation{diminution} now stands
 for @notation{cut time} (essentially, it has not lost its original meaning).
 
 @morerefs
-@ref{diminution}, @ref{proportion}, @ref{time signature}.
+@ref{diminution},
+@ref{proportion},
+@ref{time signature}.
 @endmorerefs
 @c TODO: more cross-references?
 
@@ -5670,7 +5761,10 @@ TODO: add information from discussion on lilypond-user related to polymeter.
 @end ignore
 
 @morerefs
-@ref{accent}, @ref{hemiola}, @ref{note value}, @ref{time signature}
+@ref{accent},
+@ref{hemiola},
+@ref{note value},
+@ref{time signature}.
 @endmorerefs
 
 
@@ -5716,7 +5810,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 @emph{anglice}).
 
 @morerefs
-@ref{metronome}
+@ref{metronome}.
 @endmorerefs
 
 
@@ -5724,7 +5818,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 @section metronomic indication
 
 @morerefs
-@ref{metronome mark}
+@ref{metronome mark}.
 @endmorerefs
 
 
@@ -5782,7 +5876,8 @@ FI: mezzosopraano.
 The female voice between soprano and contralto.
 
 @morerefs
-@ref{soprano}, @ref{contralto}.
+@ref{soprano},
+@ref{contralto}.
 @endmorerefs
 
 
@@ -5867,7 +5962,8 @@ S: modus, skala,
 FI: moodi, kirkkosävelasteikko.
 
 @morerefs
-@ref{church mode}, @ref{diatonic scale}.
+@ref{church mode},
+@ref{diatonic scale}.
 @endmorerefs
 
 
@@ -5904,7 +6000,9 @@ S: mordent,
 FI: mordent, korukuvio.
 
 @morerefs
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
+@ref{acciaccatura},
+@ref{appoggiatura},
+@ref{grace notes},
 @ref{ornament}.
 @endmorerefs
 
@@ -6004,7 +6102,8 @@ a1
 @end lilypond
 
 @morerefs
-@ref{longa}, @ref{breve}.
+@ref{longa},
+@ref{breve}.
 @endmorerefs
 
 
@@ -6040,8 +6139,11 @@ S: ?,
 FI: ?.
 
 @morerefs
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
-@ref{mordent}, @ref{ornament}.
+@ref{acciaccatura},
+@ref{appoggiatura},
+@ref{grace notes},
+@ref{mordent},
+@ref{ornament}.
 @endmorerefs
 
 
@@ -6112,7 +6214,10 @@ For percussion instruments (often having no defined pitch) the note head may
 indicate the instrument.
 
 @morerefs
-@ref{clef}, @ref{flag}, @ref{staff}, @ref{stem}.
+@ref{clef},
+@ref{flag},
+@ref{staff},
+@ref{stem}.
 @endmorerefs
 
 
@@ -6120,7 +6225,7 @@ indicate the instrument.
 @section note names
 
 @morerefs
-@ref{Pitch names}
+@ref{Pitch names}.
 @endmorerefs
 
 
@@ -6234,7 +6339,8 @@ For uses like @notation{all'ottava} or @notation{8va} with an extender line or
 bracket, or @notation{loco} see octave marking.
 
 @morerefs
-@ref{interval}, @ref{octave marking}.
+@ref{interval},
+@ref{octave marking}.
 @endmorerefs
 
 
@@ -6291,7 +6397,10 @@ mark can be applied to any clef, but it is most frequently used with the G and F
 clefs.
 
 @morerefs
-@ref{F clef}, @ref{G clef}, @ref{loco}, @ref{octave marking}.
+@ref{F clef},
+@ref{G clef},
+@ref{loco},
+@ref{octave marking}.
 @endmorerefs
 
 
@@ -6315,7 +6424,10 @@ octave.
 For a list of the specific marks used, see @ref{octave mark}.
 
 @morerefs
-@ref{interval}, @ref{loco}, @ref{octave}, @ref{octave mark}.
+@ref{interval},
+@ref{loco},
+@ref{octave},
+@ref{octave mark}.
 @endmorerefs
 
 
@@ -6381,7 +6493,9 @@ the @emph{prall} (inverted mordent).
 @end lilypond
 
 @morerefs
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
+@ref{acciaccatura},
+@ref{appoggiatura},
+@ref{grace notes},
 @ref{mordent}.
 @endmorerefs
 
@@ -6430,7 +6544,7 @@ web.
 @end itemize
 
 @morerefs
-@ref{counterpoint}
+@ref{counterpoint}.
 @endmorerefs
 
 
@@ -6556,7 +6670,8 @@ The clear rendering in musical performance of the @notation{phrases} of the
 melody.  Phrasing may be indicated by a @notation{slur}.
 
 @morerefs
-@ref{phrase}, @ref{slur}.
+@ref{phrase},
+@ref{slur}.
 @endmorerefs
 
 
@@ -6669,7 +6784,7 @@ parts.
 @end itemize
 
 @morerefs
-@ref{polymetric} (adj.)
+@ref{polymetric} (adjective).
 @endmorerefs
 
 
@@ -6689,7 +6804,7 @@ Characterized by @emph{polymeter}: using two or more metric frameworks
 simultaneously or in alternation.
 
 @morerefs
-@ref{polymeter} (noun)
+@ref{polymeter} (noun).
 @endmorerefs
 
 
@@ -6905,7 +7020,8 @@ than the C obtained by adding 7 octaves.  The difference between those two
 pitches is the Pythagorean comma.
 
 @morerefs
-@ref{cent}, @ref{temperament}.
+@ref{cent},
+@ref{temperament}.
 @endmorerefs
 
 
@@ -7031,7 +7147,7 @@ FI: neljännessävelaskel.
 An interval equal to half a semitone.
 
 @morerefs
-@ref{interval}
+@ref{interval}.
 @endmorerefs
 
 
@@ -7101,7 +7217,10 @@ c1_"c minor" d es f g a! b! c
 @end lilypond
 
 @morerefs
-@ref{key}, @ref{key signature}, @ref{major}, @ref{minor}.
+@ref{key},
+@ref{key signature},
+@ref{major},
+@ref{minor}.
 @endmorerefs
 
 
@@ -7182,7 +7301,10 @@ metrical unit (beat).
 @end itemize
 
 @morerefs
-@ref{accent}, @ref{beat}, @ref{measure}, @ref{meter}.
+@ref{accent},
+@ref{beat},
+@ref{measure},
+@ref{meter}.
 @endmorerefs
 
 
@@ -7354,7 +7476,10 @@ consists of alternating semitones and whole tones, hence the size of a
 second depends on the scale degrees in question.
 
 @morerefs
-@ref{diatonic scale}, @ref{interval}, @ref{semitone}, @ref{whole tone}.
+@ref{diatonic scale},
+@ref{interval},
+@ref{semitone},
+@ref{whole tone}.
 @endmorerefs
 
 
@@ -7379,7 +7504,8 @@ The semibreve is the basis for the @notation{tactus} in mensural notation
 (i.e., music written before ca. 1600).
 
 @morerefs
-@ref{mensural notation}, @ref{note value}.
+@ref{mensural notation},
+@ref{note value}.
 @endmorerefs
 
 
@@ -7405,7 +7531,8 @@ g1 gis s a bes s b! c
 @end lilypond
 
 @morerefs
-@ref{interval}, @ref{chromatic scale}.
+@ref{interval},
+@ref{chromatic scale}.
 @endmorerefs
 
 
@@ -7430,7 +7557,8 @@ FI: septimi.
 @section sextolet
 
 @morerefs
-@ref{sextuplet}, @ref{note value}.
+@ref{sextuplet},
+@ref{note value}.
 @endmorerefs
 
 
@@ -7513,7 +7641,8 @@ A meter in which the basic beat is subdivided in two: that is, a meter
 that does not include triplet subdivision of the beat.
 
 @morerefs
-@ref{compound meter}, @ref{meter}.
+@ref{compound meter},
+@ref{meter}.
 @endmorerefs
 
 
@@ -7661,7 +7790,8 @@ General term for systems of designating the degrees of the
 (@emph{ti})).
 
 @morerefs
-@ref{scale}, @ref{scale degree}.
+@ref{scale},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -7713,8 +7843,13 @@ of these two.  The second theme is in another key, normally in the key of the
 @notation{relative key} if the tonic is @notation{minor}.
 
 @morerefs
-@ref{dominant}, @ref{major}, @ref{minor}, @ref{relative key}, @ref{sonata},
-@ref{symphony}, @ref{tonic}.
+@ref{dominant},
+@ref{major},
+@ref{minor},
+@ref{relative key},
+@ref{sonata},
+@ref{symphony},
+@ref{tonic}.
 @endmorerefs
 
 
@@ -7891,7 +8026,10 @@ S: betonat taktslag,
 FI: tahdin vahva isku.
 
 @morerefs
-@ref{beat}, @ref{accent}, @ref{measure}, @ref{rhythm}.
+@ref{beat},
+@ref{accent},
+@ref{measure},
+@ref{rhythm}.
 @endmorerefs
 
 
@@ -7910,7 +8048,8 @@ FI: subdominantti, alidominantti.
 The fourth @notation{scale degree}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}.
+@ref{functional harmony},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -7929,7 +8068,9 @@ FI: alikeskisävel.
 The sixth @notation{scale degree}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}, @ref{superdominant}.
+@ref{functional harmony},
+@ref{scale degree},
+@ref{superdominant}.
 @endmorerefs
 
 
@@ -7948,7 +8089,8 @@ FI: subtoonika, alitoonika.
 The seventh @ref{scale degree}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}.
+@ref{functional harmony},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -7987,7 +8129,9 @@ FI: ylidominantti.
 The sixth @ref{scale degree}.  Equivalent to the submediant, q.v.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}, @ref{submediant}.
+@ref{functional harmony},
+@ref{scale degree},
+@ref{submediant}.
 @endmorerefs
 
 
@@ -8006,7 +8150,8 @@ FI: ylitoonika.
 The second @ref{scale degree}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}.
+@ref{functional harmony},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -8084,7 +8229,7 @@ the sum of two octaves plus a major third.  (3:2)^4 - (2:1)^2 + (5:4)
 This comma is also known as the comma of Didymus, or didymic comma.
 
 @morerefs
-@ref{Pythagorean comma}
+@ref{Pythagorean comma}.
 @endmorerefs
 
 
@@ -8130,7 +8275,8 @@ Systems of tuning in which the intervals deviate from the acoustically
 pure intervals.
 
 @morerefs
-@ref{meantone temperament}, @ref{equal temperament}.
+@ref{meantone temperament},
+@ref{equal temperament}.
 @endmorerefs
 
 
@@ -8152,7 +8298,11 @@ slowest to the quickest, as is indicated by tempo marks as @notation{largo},
 @notation{presto}.
 
 @morerefs
-@ref{adagio}, @ref{allegro}, @ref{andante}, @ref{largo}, @ref{presto}.
+@ref{adagio},
+@ref{allegro},
+@ref{andante},
+@ref{largo},
+@ref{presto}.
 @endmorerefs
 
 
@@ -8325,7 +8475,9 @@ meter.  It most often takes the form of a fraction, but a few signs
 derived from mensural notation and proportions are also employed.
 
 @morerefs
-@ref{mensural notation}, @ref{mensuration sign}, @ref{meter}.
+@ref{mensural notation},
+@ref{mensuration sign},
+@ref{meter}.
 @endmorerefs
 
 
@@ -8366,7 +8518,8 @@ FI: toonika.
 The first @notation{scale degree}.
 
 @morerefs
-@ref{functional harmony}, @ref{scale degree}.
+@ref{functional harmony},
+@ref{scale degree}.
 @endmorerefs
 
 
@@ -8504,7 +8657,7 @@ in the distance of a third (@ref{interval}).
 @end lilypond
 
 @morerefs
-@ref{strings}
+@ref{strings}.
 @endmorerefs
 
 
@@ -8631,7 +8784,8 @@ indicated with a bracket and a number indicating the number of
 subdivisions.
 
 @morerefs
-@ref{triplet}, @ref{note value}.
+@ref{triplet},
+@ref{note value}.
 @endmorerefs
 
 
@@ -8686,7 +8840,7 @@ S: upptakt,
 FI: kohotahti.
 
 @morerefs
-@ref{anacrusis}
+@ref{anacrusis}.
 @endmorerefs
 
 
@@ -8778,7 +8932,9 @@ S: obetonat taktslag,
 FI: tahdin heikko isku.
 
 @morerefs
-@ref{beat}, @ref{measure}, @ref{rhythm}.
+@ref{beat},
+@ref{measure},
+@ref{rhythm}.
 @endmorerefs
 
 
@@ -9225,7 +9381,7 @@ send it to me, care of the lilypond-user discussion list.
 @end multitable
 
 @morerefs
-@ref{mensural notation}
+@ref{mensural notation}.
 @endmorerefs
 
 

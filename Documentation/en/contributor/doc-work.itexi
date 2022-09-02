@@ -1177,7 +1177,8 @@ Extending LilyPond:
 Installed Files:
 @@file@{path/to/dir/blahz@}.
 
-Snippets: @@rlsr@{section@}.
+Snippets:
+@@rlsr@{section@}.
 
 Internals Reference:
 @@rinternals@{fazzle@},

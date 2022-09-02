@@ -1086,7 +1086,7 @@ Un comando predefinito come @code{\dynamicUp}
 
 @morerefs
 Guida alla notazione:
-@ref{Modalità di inserimento}
+@ref{Modalità di inserimento}.
 @endmorerefs
 
 
@@ -2081,7 +2081,7 @@ per agire solo sul momento corrente:
 
 @morerefs
 Guida al funzionamento interno:
-@rinternals{Backend}
+@rinternals{Backend}.
 @endmorerefs
 
 

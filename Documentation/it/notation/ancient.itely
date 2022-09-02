@@ -2559,7 +2559,7 @@ Guida alla notazione:
 @ref{Alterazioni},
 @ref{Alterazioni automatiche},
 @ref{Alternate accidental glyphs},
-@ref{Il font Emmentaler}
+@ref{Il font Emmentaler}.
 @endmorerefs
 
 
@@ -2580,7 +2580,7 @@ nello stile di Kiev.  Può essere richiamata con @code{\bar "k"}.
 @morerefs
 Guida alla notazione:
 @ref{Battute},
-@ref{Il font Emmentaler}
+@ref{Il font Emmentaler}.
 @endmorerefs
 
 

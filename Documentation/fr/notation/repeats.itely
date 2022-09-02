@@ -1292,7 +1292,7 @@ Référence des propriétés internes :
 @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{PercentRepeatCounter},
-@rinternals{PercentRepeatedMusic}.
+@rinternals{PercentRepeatedMusic},
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
 @endmorerefs

@@ -359,10 +359,10 @@ Manual de aprenentatge:
 
 Referència de la notació:
 @ref{Explicació dels contextos},
-@ref{Duració automàtica de les síl·labes}.
+@ref{Duració automàtica de les síl·labes},
 @ref{Versos},
 @ref{Duració manual de les síl·labes},
-@ref{Diàlegs a sobre de la música}.
+@ref{Diàlegs a sobre de la música},
 @ref{Duració manual de les síl·labes}.
 
 Referència de funcionament interno:
@@ -2296,7 +2296,7 @@ Manual d'aprenentatge:
 Referència de la notació:
 @ref{Notació comuna per a música vocal},
 @ref{Impressió dels acords},
-@ref{Visualització dels pentagrames}.
+@ref{Visualització dels pentagrames},
 @ref{Teclats i altres instruments de pentagrames múltiples},
 @ref{Posicionament vertical de la lletra},
 @ref{Versos}.

@@ -2462,7 +2462,7 @@ propriétés causant des désagréments.
 
 @morerefs
 Référence des propriétés internes :
-@rinternals{Backend}
+@rinternals{Backend}.
 @endmorerefs
 
 
@@ -4397,7 +4397,7 @@ l'indication de transposition qui lui est attachée.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Visibilité et couleur des objets}
+@rlearning{Visibilité et couleur des objets}.
 @endmorerefs
 
 

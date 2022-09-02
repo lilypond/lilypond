@@ -1064,7 +1064,7 @@ Referència de la notació:
 @ref{Pas de pàgina òptim},
 @ref{Salts de pàgina mínims},
 @ref{Salts de pàgina del tipus pàgina única},
-@ref{Salts de pàgina del tipus una-línia}
+@ref{Salts de pàgina del tipus una-línia},
 @ref{Salts de pàgina del tipus una-línia-alçada-automàtica}.
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly}.
@@ -1492,7 +1492,7 @@ de glif recomanades es relacionen en la taula següent:
 
 @morerefs
 Referència de la notació:
-@ref{Selecció del la mida del tipus de lletra per a la notació}
+@ref{Selecció del la mida del tipus de lletra per a la notació},
 @ref{El tipus de lletra Emmentaler}
 
 Fragments de codi:
@@ -2371,7 +2371,7 @@ d'espaiat per a aquesta pauta.
 
 @morerefs
 Referencia de la notació:
-@ref{Variables flexibles d'espaiat vertical de paper}.
+@ref{Variables flexibles d'espaiat vertical de paper},
 @ref{Modificació de les llistes-A}.
 
 Fitxers d'inici:

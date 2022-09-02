@@ -1826,7 +1826,7 @@ automatisch in übergebundene Noten aufgeteilt werden.
 Dieses Verhalten erreicht man, indem der @rinternals{Note_heads_engraver}
 mit dem @rinternals{Completion_heads_engraver} ausgetauscht wird.  Auf
 gleiche Art können lange Pausen, die über Taktgrenzen reichen, automatisch
-aufgeteilt werden, indem man den @code{Rest_engraver}mit dem
+aufgeteilt werden, indem man den @code{Rest_engraver} mit dem
 @code{Completion_rest_engraver} ersetzt.  Im nächsten Beispiel werden
 Noten und Pausen, die über die Taktlinie dauern, aufgeteilt; Noten
 werden auch übergebunden.
@@ -1865,7 +1865,7 @@ Referenz der Interna:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
 @rinternals{Rest_engraver},
-@rinternals{Completion_rest_engraver}.
+@rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues

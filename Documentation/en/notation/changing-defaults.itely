@@ -1074,7 +1074,7 @@ A predefined command such as @code{\dynamicUp}
 
 @morerefs
 Notation Reference:
-@ref{Input modes}
+@ref{Input modes}.
 @endmorerefs
 
 
@@ -1593,7 +1593,8 @@ If you visit the documentation on fingering instructions (in
 @quotation
 @strong{See also}
 
-Internals Reference: @rinternals{Fingering}.
+Internals Reference:
+@rinternals{Fingering}.
 
 @end quotation
 
@@ -2287,7 +2288,7 @@ and the program reference.
 
 @morerefs
 Internals Reference:
-@rinternals{Backend}
+@rinternals{Backend}.
 @endmorerefs
 
 

@@ -386,7 +386,8 @@ on the same horizontal position in your text editor.
 
 
 @morerefs
-Notation Reference: @ruser{Structure of a score}.
+Notation Reference:
+@ruser{Structure of a score}.
 @endmorerefs
 
 
@@ -999,7 +1000,8 @@ created @q{across} voices.}
 
 
 @morerefs
-Notation Reference: @ruser{Multiple voices}.
+Notation Reference:
+@ruser{Multiple voices}.
 @endmorerefs
 
 
@@ -1436,7 +1438,8 @@ VerseFour  =
 
 
 @morerefs
-Notation Reference: @ruser{Vocal music}.
+Notation Reference:
+@ruser{Vocal music}.
 @endmorerefs
 
 
@@ -1528,7 +1531,8 @@ preceding word with no hyphen or underscore, e.g.,
 
 
 @morerefs
-Notation Reference: @ruser{Contexts explained}.
+Notation Reference:
+@ruser{Contexts explained}.
 @endmorerefs
 
 
@@ -1638,7 +1642,8 @@ use in the section on lyrics, see @ref{Voices and vocals}.
 
 
 @morerefs
-Notation Reference: @ruser{Creating and referencing contexts}.
+Notation Reference:
+@ruser{Creating and referencing contexts}.
 @endmorerefs
 
 
@@ -2025,7 +2030,7 @@ instances of contexts by statements in a @code{\with} block, and by
 
 @morerefs
 Notation Reference:
-@ruser{Changing context default settings}.
+@ruser{Changing context default settings},
 @ruser{The set command}.
 
 Internals Reference:
@@ -2189,7 +2194,8 @@ for all contexts of a particular type by including the
 same way.
 
 @morerefs
-Notation Reference: @ruser{Modifying context plug-ins},
+Notation Reference:
+@ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
 @endmorerefs
 

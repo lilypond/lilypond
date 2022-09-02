@@ -846,9 +846,9 @@ siehe auch @ref{Transposition von Instrumenten}.
 @morerefs
 Notationsreferenz:
 @ref{Relative Oktavenbezeichnung},
-@ref{Transposition von Instrumenten}.
-@ref{Umkehrung}
-@ref{Krebs}
+@ref{Transposition von Instrumenten},
+@ref{Umkehrung},
+@ref{Krebs},
 @ref{Modale Transformierungen}.
 
 Schnipsel:
@@ -1229,7 +1229,7 @@ bei Stichnoten siehe die Funktionen @code{\cueClef} und
 @morerefs
 Notationsreferenz:
 @ref{Mensurale Schlüssel},
-@ref{Gregorianische Schlüssel}
+@ref{Gregorianische Schlüssel},
 @ref{Standardtabulaturen},
 @ref{Angepasste Tabulaturen},
 @ref{Stichnoten formatieren}.
@@ -2864,7 +2864,7 @@ Schnipsel:
 
 Notationsreferenz:
 @ref{Notenkopfstile},
-@ref{Noten mit Akkorden}
+@ref{Noten mit Akkorden},
 @ref{Flageolett und gedämpfte Noten}.
 
 Referenz der Interna:

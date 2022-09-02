@@ -697,5 +697,5 @@ copy out\monprojet.pdf MonProjet.pdf
 @morerefs
 Manuel d'utilisation :
 @ref{Utilisation en ligne de commande},
-@ref{lilypond-book}
+@ref{lilypond-book}.
 @endmorerefs

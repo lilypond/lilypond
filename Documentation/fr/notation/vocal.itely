@@ -882,7 +882,7 @@ trait d'union en pareille situation.
 @morerefs
 Référence des propriétés internes :
 @rinternals{LyricExtender},
-@rinternals{LyricHyphen}
+@rinternals{LyricHyphen}.
 @endmorerefs
 
 
