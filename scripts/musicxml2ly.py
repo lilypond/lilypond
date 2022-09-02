@@ -1142,12 +1142,16 @@ def musicxml_bend_to_lily_event(mxl_event):
     return ev
 
 
+def musicxml_breath_mark_to_lily_event(mxl_event):
+    # TODO: Read the <breath-mark-value> child and override the type
+    # of symbol: comma, tick, upbow, salzedo.
+    return musicexp.BreatheEvent()
+
+
 def musicxml_caesura_to_lily_event(mxl_event):
-    ev = musicexp.MarkupEvent()
-    # FIXME: default to straight or curved caesura?
-    ev.contents = "\\musicglyph #\"scripts.caesura.straight\""
-    ev.force_direction = 1
-    return ev
+    # TODO: Read the <caesura-value> child and override the type of
+    # symbol: normal, thick, short, curved, single.
+    return musicexp.CaesuraEvent()
 
 
 def musicxml_fingering_event(mxl_event):
@@ -1195,7 +1199,7 @@ articulations_dict = {
     "accent": (musicexp.ShortArticulationEvent, ">"),  # or "accent"
     "accidental-mark": musicxml_accidental_mark,
     "bend": musicxml_bend_to_lily_event,
-    "breath-mark": (musicexp.NoDirectionArticulationEvent, "breathe"),
+    "breath-mark": musicxml_breath_mark_to_lily_event,
     "caesura": musicxml_caesura_to_lily_event,
     # "delayed-turn": "?",
     "detached-legato": (musicexp.ShortArticulationEvent, "_"),  # or "portato"

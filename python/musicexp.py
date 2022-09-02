@@ -1258,6 +1258,24 @@ class SpanEvent (Event):
         self.span_type = type
 
 
+class BreatheEvent (Event):
+    def __init__(self):
+        super().__init__()
+        self.after_note = "\\breathe"
+
+    def ly_expression(self):
+        return ''
+
+
+class CaesuraEvent (Event):
+    def __init__(self):
+        super().__init__()
+        self.after_note = "\\caesura"
+
+    def ly_expression(self):
+        return ''
+
+
 class SlurEvent (SpanEvent):
     def print_before_note(self, printer):
         command = {'dotted': '\\slurDotted',
@@ -1567,24 +1585,11 @@ class ShortArticulationEvent (ArticulationEvent):
 
 
 class NoDirectionArticulationEvent (ArticulationEvent):
-
-    def is_breathing_sign(self):
-        return self.type == 'breathe'
-
-    def print_after_note(self, printer):
-        # The breathing sign should, according to current LilyPond
-        # praxis, be treated as an independent musical
-        # event. Consequently, it should be printed _after_ the note
-        # to which it is attached.
-        if self.is_breathing_sign():
-            printer.dump(r'\breathe')
-
     def ly_expression(self):
-        if self.type and not self.is_breathing_sign():
+        if self.type:
             return '\\%s' % self.type
         else:
             return ''
-
 
 class MarkupEvent (ShortArticulationEvent):
     def __init__(self):
