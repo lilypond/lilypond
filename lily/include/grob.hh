@@ -44,7 +44,7 @@ public:
 private:
   void init ();
 
-protected:
+private:
   /* data */
   mutable Dimension_cache dim_cache_[NO_AXES];
   Output_def *layout_;
@@ -64,6 +64,9 @@ protected:
   */
   SCM interfaces_;
 
+protected:
+  void add_interface (SCM sym) { interfaces_ = scm_cons (sym, interfaces_); }
+  void set_layout (Output_def *layout) { layout_ = layout; }
   void substitute_object_links (Direction, SCM);
   void substitute_object_links (System *, SCM);
   Real get_offset (Axis a) const;

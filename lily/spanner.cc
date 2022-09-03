@@ -280,7 +280,7 @@ Spanner::Spanner (SCM s)
   : Grob (s)
 {
   break_index_ = 0;
-  interfaces_ = scm_cons (ly_symbol2scm ("spanner-interface"), interfaces_);
+  add_interface (ly_symbol2scm ("spanner-interface"));
 }
 
 Spanner::Spanner (Spanner const &s)
@@ -369,11 +369,11 @@ Spanner::find_broken_piece (System *l) const
 Spanner *
 Spanner::broken_neighbor (Direction d) const
 {
-  if (!original_)
+  auto *const orig = original ();
+  if (!orig)
     return 0;
 
   vsize k = get_break_index ();
-  Spanner *orig = dynamic_cast<Spanner *> (original_);
   int j = int (k) + d;
   if (j < 0 || vsize (j) >= orig->broken_intos_.size ())
     return 0;

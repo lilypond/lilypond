@@ -61,7 +61,7 @@ Paper_score::typeset_system (System *system)
     }
 
   system->pscore_ = this;
-  system->layout_ = layout_;
+  system->set_layout (layout_);
 }
 
 void

@@ -88,7 +88,7 @@ Paper_column::Paper_column (SCM l)
 {
   system_ = 0;
   rank_ = -1;
-  interfaces_ = scm_cons (ly_symbol2scm ("paper-column-interface"), interfaces_);
+  add_interface (ly_symbol2scm ("paper-column-interface"));
 }
 
 Paper_column::Paper_column (Paper_column const &src)
