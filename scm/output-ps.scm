@@ -37,11 +37,6 @@
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;
 
-(define (char font i)
-  (format #f "~a (\\~,8f) show\n"
-          (ps-font-command font)
-          i))
-
 (define (circle radius thick fill)
   (ly:format
    "~a ~4f ~4f draw_circle\n"
@@ -243,9 +238,6 @@ grestore
 (define (resetrotation ang x y)
   "grestore\n")
 
-(define (unknown)
-  "unknown\n")
-
 (define (url-link url x y)
   (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI\n"
              (car x)
@@ -317,8 +309,7 @@ grestore
   "grestore\n")
 
 (define-public stencil-dispatch-alist
-  `((char . ,char)
-    (circle . ,circle)
+  `((circle . ,circle)
     (dashed-line . ,dashed-line)
     (draw-line . ,draw-line)
     (eps-file . ,eps-file)
@@ -337,7 +328,6 @@ grestore
     (setrotation . ,setrotation)
     (resetrotation . ,resetrotation)
     (reset-grob-cause . ,no-origin)
-    (unknown . ,unknown)
     (url-link . ,url-link)
     (page-link . ,page-link)
     (path . ,path)

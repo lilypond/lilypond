@@ -21,9 +21,7 @@
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
 defined in the output modules (in files @file{output-*.scm})."
-  '(blank
-    char
-    circle
+  '(circle
     dashed-line
     draw-line
     ellipse
@@ -38,7 +36,6 @@ defined in the output modules (in files @file{output-*.scm})."
     page-link
     path
     partial-ellipse
-    placebox
     polygon
     resetcolor
     resetrotation
@@ -48,8 +45,6 @@ defined in the output modules (in files @file{output-*.scm})."
     setrotation
     setscale
     start-group-node
-    text
-    unknown
     url-link
     utf-8-string
     ))

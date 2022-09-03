@@ -322,9 +322,6 @@
 ;;; stencil outputters
 ;;;
 
-(define (char font i)
-  (fontify font (entity 'tspan (char->entity (integer->char i)) #f)))
-
 (define (circle radius thick is-filled)
   (entity
    'circle "" #f
@@ -660,8 +657,7 @@
   "")
 
 (define-public stencil-dispatch-alist
-  `((char . ,char)
-    (circle . ,circle)
+  `((circle . ,circle)
     (start-group-node . ,start-group-node)
     (end-group-node . ,end-group)
     (dashed-line . ,dashed-line)
