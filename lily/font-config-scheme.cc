@@ -112,7 +112,8 @@ Get the file for font @var{name}, as found by FontConfig.
   FcValue val;
 
   val.type = FcTypeString;
-  val.u.s = reinterpret_cast<const FcChar8 *> (ly_scm2string (name).c_str ());
+  std::string name_cpp = ly_scm2string (name);
+  val.u.s = reinterpret_cast<const FcChar8 *> (name_cpp.c_str ());
   FcPatternAdd (pat, FC_FAMILY, val, FcFalse);
 
   FcResult result;
