@@ -2223,7 +2223,7 @@ autorisant de définir un libellé pour chaque acte.
 @verbatim
 tocAct =
   #(define-music-function (label text) (symbol? markup?)
-     (add-toc-item! 'tocActMarkup label text))
+     (add-toc-item! 'tocActMarkup text label))
 @end verbatim
 
 @noindent
