@@ -66,9 +66,9 @@ Options @option{paper-width = 3 \in, paper-height = 300 \pt}:
 }
 @end lilypond
 
-Option @option{paper-width=100\mm}: expect overfull warnings from texinfo:
+Option @option{paper-width=350\bp}: expect overfull warnings from texinfo:
 
-@lilypond[paper-width=100\mm]
+@lilypond[paper-width=350\bp]
 \book {
   \header { title = "Top" }
   \score { c''2 }

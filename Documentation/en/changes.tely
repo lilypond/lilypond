@@ -74,6 +74,11 @@ which scares away people.
 
 
 @item
+The @q{big point} unit (1@dmn{bp} = 1/72@dmn{in}) is now available
+by appending @code{\bp} to length values.
+
+
+@item
 @code{Staff} contexts use the new @code{Caesura_engraver} to
 notate the @code{\caesura} command.
 

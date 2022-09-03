@@ -29,9 +29,10 @@
 
   unit = #(ly:unit)
   mm = 1.0
+  cm = #(* 10 mm)
   in = 25.4
   pt = #(/ in 72.27)
-  cm = #(* 10 mm)
+  bp = #(/ in 72)
 
   % 20pt staff, 5 pt = 1.75 mm
   output-scale = #1.7573

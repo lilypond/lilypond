@@ -160,11 +160,11 @@ To set it to @code{0.5} inches, use the @code{\in} unit suffix:
 @end example
 
 The available unit suffixes are @code{\mm}, @code{\cm},
-@code{\in}, and @code{\pt}.  These units are simple values for
-converting from millimeters; they are defined in
-@file{ly/paper-defaults-init.ly}.  For the sake of clarity, when
-using millimeters, the @code{\mm} is typically included in the
-code, even though it is not technically necessary.
+@code{\in}, @code{\pt}, and @code{\bp}.  These units are simple
+values for converting from millimeters; they are defined in
+@file{ly/@/paper-@/defaults-@/init.ly}.  For the sake of clarity,
+when using millimeters, the @code{\mm} is typically included in
+the code, even though it is not technically necessary.
 
 It is also possible to define @code{\paper} values using Scheme.
 The Scheme equivalent of the above example is:
@@ -243,19 +243,21 @@ placed @emph{before} any other functions used within the same
 Paper sizes are defined in file @file{scm/paper.scm};
 @pxref{Predefined paper sizes} for a complete list.
 
-@c An appendix entry exists for paper sizes but is not auto-generated
-
 Both @code{set-default-paper-size} and @code{set-paper-size} also
 accept a quoted number pair as its argument to set a custom paper
-size.
+size.  For example,
 
 @example
 #(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
 @end example
 
 @noindent
-The units @code{in} (inches), @code{cm} (centimeters), @code{mm}
-(millimeters), and @code{pt} (points) can all be used.
+sets the paper width and height to 100@dmn{mm} and 50@dmn{mm},
+respectively.
+
+Possible units are @code{in} (inches), @code{cm} (centimeters),
+@code{mm} (millimeters), @code{pt} (points), and @code{bp} (big
+points).
 
 @cindex paper size, orientation
 @cindex page, orientation

@@ -702,9 +702,9 @@ added to the LilyPond snippet.
 @itemx line-width=@var{size}\@var{unit}
 Set line width to @var{size} (expressed in @var{unit}).
 @var{unit} is one of the following: @code{cm}, @code{mm},
-@code{in}, or @code{pt}.  This option affects LilyPond output
-(that is, the staff length of the music fragment), not the text
-layout.
+@code{in}, @code{pt}, or @code{bp}.  This option affects LilyPond
+output (that is, the staff length of the music fragment), not the
+text layout.
 
 If used without an argument, set line width to a default value (as
 computed with a heuristic algorithm).
@@ -727,7 +727,8 @@ printed using the default @code{a4} size.
 @item paper-width=@var{size}\@var{unit}
 Set paper width to @var{size} (expressed in @var{unit}) for music
 fragments that use @code{\book}.  @var{unit} is one of the
-following: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+following: @code{cm}, @code{mm}, @code{in}, @code{pt}, or
+@code{bp}.
 
 This option affects LilyPond output (that is, the paper width of
 the music fragment), not the text layout.  If set, it overrides
@@ -738,7 +739,8 @@ the default A4 paper height (296@dmn{mm}).
 @item paper-height=@var{size}\@var{unit}
 Set paper height to @var{size} (expressed in @var{unit}) for music
 fragments that use @code{\book}.  @var{unit} is one of the
-following: @code{cm}, @code{mm}, @code{in}, or @code{pt}.
+following: @code{cm}, @code{mm}, @code{in}, @code{pt}, or
+@code{bp}.
 
 This option affects LilyPond output (that is, the paper height of
 the music fragment), not the text layout.  If set, it overrides
@@ -810,8 +812,8 @@ is widely known.
 @item indent=@var{size}\@var{unit}
 Set indentation of the first music system to @var{size} (expressed
 in @var{unit}).  @var{unit} is one of the following: @code{cm},
-@code{mm}, @code{in}, or @code{pt}.  This option affects LilyPond,
-not the text layout.
+@code{mm}, @code{in}, @code{pt}, or @code{bp}.  This option
+affects LilyPond, not the text layout.
 
 @item noindent
 Set indentation of the first music system to zero.  This option affects

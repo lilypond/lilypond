@@ -173,7 +173,7 @@ def classic_lilypond_book_compatibility(key, value):
         return ('staffsize', m.group(1))
 
     if key == 'indent' or key == 'line-width':
-        m = re.match('([-.0-9]+)(cm|in|mm|pt|staffspace)', value)
+        m = re.match('([-.0-9]+)(cm|in|mm|pt|bp|staffspace)', value)
         if m:
             f = float(m.group(1))
             return (key, '%f\\%s' % (f, m.group(2)))
@@ -254,7 +254,7 @@ ly_var_def_re = re.compile(r'^([a-zA-Z]+)[\t ]*=', re.M)
 ly_comment_re = re.compile(r'(%+[\t ]*)(.*)$', re.M)
 ly_context_id_re = re.compile('\\\\(?:new|context)\\s+(?:[a-zA-Z]*?(?:Staff\
 (?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\\s+=\\s+"?([a-zA-Z]+)"?\\s+')
-ly_dimen_re = re.compile(r'^([0-9]+\.?[0-9]*|\.[0-9]+)\s*\\(cm|mm|in|pt)$')
+ly_dimen_re = re.compile(r'^([0-9]+\.?[0-9]*|\.[0-9]+)\s*\\(cm|mm|in|pt|bp)$')
 
 
 def ly_comment_gettext(t, m):

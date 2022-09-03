@@ -3154,10 +3154,22 @@ Notation Reference:
 @cindex distance, absolute
 @cindex distance, scaled
 
+@cindex dimension units
+@cindex measuring units
+@cindex units, of measuring
+
+@cindex millimeter (mm)
+@cindex centimeter (cm)
+@cindex inch (in)
+@cindex point (pt)
+@cindex big point (bp)
+@cindex point, big (bp)
+
 @funindex \mm
 @funindex \cm
 @funindex \in
 @funindex \pt
+@funindex \bp
 
 Distances in LilyPond are of two types: absolute and scaled.
 
@@ -3165,13 +3177,34 @@ Distances in LilyPond are of two types: absolute and scaled.
 
 Absolute distances are used for specifying margins, indents, and
 other page layout details, and are by default specified in
-millimeters.  Distances may be specified in other units by
-following the quantity by @code{\mm}, @code{\cm},
-@code{\in}@tie{}(inches), or @code{\pt}@tie{}(points, 1/72.27 of
-an inch).  Page layout distances can also be specified in scalable
-units (see the following paragraph) by appending
-@code{\staff-space} to the quantity.  Page layout is described in
-detail in @ref{Page layout}.
+millimeters.  In general, distance units may be specified by
+appending @code{\mm} (millimeter), @code{\cm} (centimeter),
+@code{\in} (inches), @code{\pt} (points), or @code{\bp} (big
+points).
+
+@indentedBlock
+@c U+2007 digit space characters are used to align numbers at the
+@c decimal separator.
+@multitable {@b{mm}} {12.3456} {1.2345} {1.2345} {12.3456} {12.3456}
+@headitem
+         @tab mm      @tab cm     @tab in     @tab pt       @tab bp
+@item
+  @b{mm} @tab  1      @tab 0.1    @tab 0.0394 @tab  2.8453  @tab  2.8346
+@item
+  @b{cm} @tab 10      @tab 1      @tab 0.3937 @tab 28.4528  @tab 28.3465
+@item
+  @b{in} @tab 25.4    @tab 2.54   @tab 1      @tab 72.27    @tab 72
+@item
+  @b{pt} @tab  0.3515 @tab 0.0351 @tab 0.0138 @tab  1       @tab  0.996
+@item
+  @b{bp} @tab  0.3538 @tab 0.0354 @tab 0.0139 @tab  1.0038  @tab  1
+@end multitable
+@endIndentedBlock
+
+Page layout distances can also be specified in scalable units (see
+the following paragraph) by appending @code{\staff-space} to the
+quantity.  @xref{Page layout} for a detailed description of
+LilyPond's page layout.
 
 Scaled distances are always specified in units of the staff space
 or, rarely, the half staff space.  The staff space is the distance

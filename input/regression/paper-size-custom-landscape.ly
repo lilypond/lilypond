@@ -5,6 +5,6 @@
 }
 
 \book {
-  \paper { #(set-paper-size '(cons (* 4 in) (* 70 pt)) 'landscape) }
+  \paper { #(set-paper-size '(cons (* 4 in) (* 70 bp)) 'landscape) }
   \score { c''2 }
 }

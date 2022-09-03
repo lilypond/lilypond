@@ -20,6 +20,7 @@
                   '(binding-offset
                     blot-diameter
                     bottom-margin
+                    bp
                     cm
                     footnote-footer-padding
                     footnote-padding

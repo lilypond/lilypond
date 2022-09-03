@@ -142,6 +142,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
   unit = #(ly:output-def-lookup $defaultpaper 'unit)
 
   in = #(* 25.4 mm)
+  bp = #(/ in 72)
   pt = #(/ in 72.27)
   cm = #(* 10 mm)
 
