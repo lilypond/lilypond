@@ -419,12 +419,13 @@ floating point exceptions.")
              ((ice-9 format) #:select ((format . ice9-format)))
              (ice-9 rdelim)
              (ice-9 optargs)
-             (ice-9 curried-definitions)
              (oop goops)
              (srfi srfi-1)
              (srfi srfi-13)
              (srfi srfi-14)
-             (lily clip-region))
+             (lily clip-region)
+             (lily curried-definitions))
+
 
 (define format simple-format)
 

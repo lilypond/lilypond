@@ -17,7 +17,6 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-modules
- (ice-9 curried-definitions)
  (ice-9 match)
  (ice-9 regex)
  (ice-9 session))

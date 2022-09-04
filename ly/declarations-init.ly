@@ -18,10 +18,7 @@
 
 \version "2.21.0"
 
-#(cond-expand
-  (guile-2
-    (use-modules (ice-9 curried-definitions)))
-  (else))
+#(use-modules (lily curried-definitions))
 
 #(session-start-record)
 

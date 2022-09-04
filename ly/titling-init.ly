@@ -1,9 +1,6 @@
 \version "2.21.0"
 
-#(cond-expand
-  (guile-2
-    (use-modules (ice-9 curried-definitions)))
-  (else))
+#(use-modules (lily curried-definitions))
 
 #(define (on-first-page layout props)
   "Whether the markup is printed on the first page of the book."

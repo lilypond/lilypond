@@ -19,7 +19,6 @@
 (use-modules (oop goops)
              (srfi srfi-13)
              (srfi srfi-1)
-             (ice-9 curried-definitions)
              (ice-9 match))
 
 (define-class <texi-node> ()

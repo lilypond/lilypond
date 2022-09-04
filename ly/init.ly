@@ -19,10 +19,7 @@
 
 \version "2.23.2"
 
-#(cond-expand
-  (guile-2
-    (use-modules (ice-9 curried-definitions)))
-  (else))
+#(use-modules (lily curried-definitions))
 
 #(session-replay)
 #(note-names-language default-language)
