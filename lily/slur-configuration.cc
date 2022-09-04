@@ -453,15 +453,13 @@ void
 Slur_configuration::score_edges (Slur_score_state const &state)
 {
 
-  Offset dz = attachment_[RIGHT]
-              - attachment_[LEFT];
-  Real slope = dz[Y_AXIS] / dz[X_AXIS];
+  const Offset dz = attachment_[RIGHT] - attachment_[LEFT];
+  const Real slope = dz[Y_AXIS] / dz[X_AXIS];
+  const Real factor = state.parameters_.edge_attraction_factor_;
   for (const auto d : {LEFT, RIGHT})
     {
       Real y = attachment_[d][Y_AXIS];
       Real dy = fabs (y - state.base_attachments_[d][Y_AXIS]);
-
-      Real factor = state.parameters_.edge_attraction_factor_;
       Real demerit = factor * dy;
       if (state.extremes_[d].stem_
           && state.extremes_[d].stem_dir_ == state.dir_
