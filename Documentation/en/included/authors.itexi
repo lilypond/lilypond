@@ -192,13 +192,18 @@ Core developer
 
 Erlend E. Aasland,
 Kevin Barry,
+Martín Rincón Botero,
 Tim Burgess,
 Thibaut Cuvelier,
 Jefferson Felix,
 David Stephen Grant,
+Jordan Henderson,
 Masamichi Hosoda,
+Nihal Jere,
 Martin Joerg,
 Michael Käppler,
+Doug Kearns,
+Mark Knoop,
 Thomas Morley,
 Lukas-Fabian Moser,
 Martin Neubauer,
@@ -206,7 +211,9 @@ Knut Petersen,
 Valentin Petzel,
 Pete Siddall,
 Alen Šiljak,
-Timofey
+Samuel Tam,
+Timofey,
+Nathan Whetsell
 
 @c no comma for last entry
 
@@ -219,6 +226,7 @@ Timofey
 @c use commas not colons
 
 Johannes Feulner,
+David Stephen Grant,
 Owen Lamb
 
 @c no comma for last entry
@@ -232,6 +240,7 @@ Owen Lamb
 @c use commas not colons
 
 Michael Käppler,
+Daniel Tobias Johansen Langhoff,
 Thomas Morley,
 John Wheeler
 
@@ -246,10 +255,13 @@ John Wheeler
 @c use commas not colons
 
 Federico Bruni,
+Walter Garcia-Fontes,
 Dénes Harmath,
+Masamichi Hosoda,
 Guyutongxue,
 Chengrui Li,
-Jean-Charles Malahieude
+Jean-Charles Malahieude,
+Benkő Pál
 
 @c no comma for last entry
 
