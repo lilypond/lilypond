@@ -17,4 +17,4 @@ python3 scripts/auxiliar/update_pygments.py <rev>
 
 where `<rev>` is any reference in the Pygments Git repository (such as
 a commit, branch or tag).  The latest update was made with `<rev>` =
-`2.12.0`.
+`2.13.0`.
