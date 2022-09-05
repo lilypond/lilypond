@@ -57,7 +57,22 @@ environments with LilyPond support may provide a way to run
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
 
-None so far.
+@itemize
+
+@item
+Instead of generating PostScript or SVG output by itself, LilyPond
+can now use the Cairo library to produce its output.  This is
+referred to as the @q{Cairo backend}, and can be turned on using
+the @code{-dbackend=cairo} command-line option.  This works for
+all output formats (PDF, SVG, PNG, PostScript), and brings speed
+and rendering fidelity improvements in SVG output in particular.
+However, keep in mind that this backend does not yet implement all
+features of the default backends.  Among the features not
+currently supported are PDF outlines, the
+@code{-dembed-source-code} option for PDF, and the
+@code{output-attributes} property for SVG.
+
+@end itemize
 
 @ignore
 

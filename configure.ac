@@ -155,23 +155,13 @@ PKG_CHECK_MODULES(PANGO_FT2, pangoft2 >= 1.40.0)
 AC_SUBST(PANGO_FT2_CFLAGS)
 AC_SUBST(PANGO_FT2_LIBS)
 
-CAIRO_BACKEND=no
-AC_ARG_ENABLE(cairo-backend,
-    [AS_HELP_STRING([--enable-cairo-backend],
-                    [enable the cairo output backend (-dbackend=cairo)]
-                    [Default: off])],
-    [CAIRO_BACKEND=$enableval])
-AC_SUBST(CAIRO_BACKEND)
+PKG_CHECK_MODULES(CAIRO, cairo >= 1.8.8)
+AC_SUBST(CAIRO_CFLAGS)
+AC_SUBST(CAIRO_LIBS)
 
-if test "$CAIRO_BACKEND" = "yes"; then
-    PKG_CHECK_MODULES(CAIRO, cairo >= 1.8.8)
-    AC_SUBST(CAIRO_CFLAGS)
-    AC_SUBST(CAIRO_LIBS)
-    PKG_CHECK_MODULES(LIBPNG, libpng >= 1.6.0)
-    AC_SUBST(LIBPNG_CFLAGS)
-    AC_SUBST(LIBPNG_LIBS)
-    AC_DEFINE(CAIRO_BACKEND)
-fi
+PKG_CHECK_MODULES(LIBPNG, libpng >= 1.6.0)
+AC_SUBST(LIBPNG_CFLAGS)
+AC_SUBST(LIBPNG_LIBS)
 
 STEPMAKE_WINDOWS
 

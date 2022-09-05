@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "config.hh"
-#include "lily-guile.hh"
-#include "warn.hh"
 
-#if CAIRO_BACKEND
+// Defines _GNU_SOURCE, which is needed to enable POSIX features like
+// strdup and M_PI on Cygwin.
+#include "config.hh"
+
 
 #include "cpu-timer.hh"
 #include "dimensions.hh"
@@ -30,6 +30,7 @@
 #include "freetype.hh"
 #include "grob.hh"
 #include "international.hh"
+#include "lily-guile.hh"
 #include "lily-imports.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
@@ -46,6 +47,7 @@
 #include "stream-event.hh"
 #include "string-convert.hh"
 #include "text-interface.hh"
+#include "warn.hh"
 
 #include <cairo-ft.h>
 #include <cairo-pdf.h>
@@ -1431,8 +1433,6 @@ output_stencil_format (std::string const &basename, const Stencil *stc,
   outputter.close ();
 }
 
-#endif // CAIRO_BACKEND
-
 LY_DEFINE (ly_cairo_output_stencils, "ly:cairo-output-stencils", 5, 0, 0,
            (SCM basename, SCM stencils, SCM header, SCM paper, SCM formats),
            R"(
@@ -1442,7 +1442,6 @@ dump book through cairo backend
   if (scm_is_null (stencils))
     return SCM_UNSPECIFIED;
 
-#if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
 
   long int page_count = scm_ilength (stencils);
@@ -1490,13 +1489,6 @@ dump book through cairo backend
 
       outputter.close ();
     }
-#else
-  (void) basename;
-  (void) header;
-  (void) paper;
-  (void) formats;
-  error ("compiled without CAIRO_BACKEND");
-#endif // CAIRO_BACKEND
   return SCM_UNSPECIFIED;
 }
 
@@ -1506,7 +1498,6 @@ LY_DEFINE (ly_cairo_output_stencil, "ly:cairo-output-stencil", 4, 0, 0,
 dump a single stencil through the Cairo backend
            )")
 {
-#if CAIRO_BACKEND
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 3);
   bool seen_eps = false;
   for (auto f : parse_formats ("ly:cairo-output-stencil", 4, formats))
@@ -1523,13 +1514,5 @@ dump a single stencil through the Cairo backend
       const Stencil *stc = unsmob<const Stencil> (stencil);
       output_stencil_format (ly_scm2string (basename), stc, odef, f, true);
     }
-#else
-  error ("compiled without CAIRO_BACKEND");
-  (void) basename;
-  (void) stencil;
-  (void) paper;
-  (void) formats;
-
-#endif // CAIRO_BACKEND
   return SCM_UNSPECIFIED;
 }

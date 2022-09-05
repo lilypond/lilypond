@@ -160,7 +160,6 @@ class LilyPond(ConfigurePackage):
             + [
                 # Disable the documentation.
                 "--disable-documentation",
-                "--enable-cairo-backend",
             ]
             + flexlexer
         )

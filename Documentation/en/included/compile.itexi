@@ -72,6 +72,10 @@ from its sources; this gets handled in a later section.
 @itemize
 
 @item
+@uref{https://www.cairographics.org, Cairo}@*
+Use version 1.8.8 or newer.
+
+@item
 @uref{https://www.fontconfig.org, FontConfig}@*
 Use version 2.4.0 or newer.
 
@@ -87,6 +91,10 @@ Use version 9.03 or newer.
 @uref{https://www.gnu.org/software/guile/guile.html, Guile}@*
 Use version 2.2.  Newer versions, such as Guile 3.0, may work but
 are not officially supported (yet).
+
+@item
+@uref{http://www.libpng.org/pub/png/libpng.html, libpng}@*
+Use version 1.6.0 or newer.
 
 @item
 @uref{https://www.pango.org, Pango}@*
