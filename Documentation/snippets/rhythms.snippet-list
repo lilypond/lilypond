@@ -46,6 +46,7 @@ permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
 positioning-grace-notes-with-floating-space.ly
 positioning-multi-measure-rests.ly
+positioning-opposing-fermatas-on-a-bar-line.ly
 preventing-final-mark-from-removing-final-tuplet.ly
 printing-bar-numbers-at-regular-intervals.ly
 printing-bar-numbers-for-broken-measures.ly

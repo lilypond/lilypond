@@ -723,6 +723,7 @@ Rests are entered as part of the music in music expressions.
 * Rests::
 * Invisible rests::
 * Full measure rests::
+* Caesuras::
 @end menu
 
 @node Rests
@@ -1123,6 +1124,113 @@ into a single multi-measure rest.
 @cindex rest, collisions of
 
 Multi-measure rests do not take part in rest collisions.
+
+
+@node Caesuras
+@unnumberedsubsubsec Caesuras
+
+@cindex caesura
+@cindex pause mark
+@funindex \caesura
+
+The @code{\caesura} command calls for unmetered silence:
+typically, a short break in sound that does not shorten the
+previous note.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura d4 }
+@end lilypond
+
+@noindent
+In chants and hymns, @code{\caesura} can serve more generally as a
+phrase division; for more information, see the references at the
+end of this section.  For a break in sound that shortens the
+previous note, @pxref{Breath marks}.
+
+Articulations may follow @code{\caesura} to indicate the relative
+duration or significance of the break; these create
+@code{CaesuraScript} grobs.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura \fermata d4 }
+@end lilypond
+
+By default, @code{\caesura} creates a @code{BreathingSign} grob.
+The @code{breath} element of the @code{caesuraType} context
+property controls which of several predefined signs
+@code{\caesura} creates.  @xref{List of breath marks}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \set Score.caesuraType = #'((breath . curvedcaesura))
+  c2. \caesura d4
+}
+@end lilypond
+
+To designate one or more @code{CaesuraScript} grobs to be created
+as a normal part of an unarticulated caesura, set the
+@code{scripts} element of the @code{caesuraType} context property.
+(Additional scripts can still be attached as articulations.)  In
+conjunction with the @code{breath} element, the scripts listed in
+the @code{script} element attach to the @code{BreathingSign};
+otherwise, if a @code{BarLine} is present, they attach to it.
+
+The @code{caesuraTypeTransform} context property can be set to a
+Scheme function to enable a degree of automatic adaptation.  The
+@code{at-@/bar-@/line-@/substitute-@/caesura-@/type} function
+generator supports styles where the notation differs at a bar
+line.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.caesuraType =
+    #'((breath . spacer)
+       (scripts . (outsidecomma)))
+  \set Score.caesuraTypeTransform =
+    #(at-bar-line-substitute-caesura-type
+      '((scripts . (fermata))))
+  c'2. \caesura d'4
+  b1 \caesura
+  a1
+}
+@end lilypond
+
+
+@predefined
+@code{\caesura}.
+@endpredefined
+
+
+@snippets
+
+@cindex fermata, on bar line
+@funindex \caesura
+@funindex \fermata
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/positioning-opposing-fermatas-on-a-bar-line.ly}
+
+
+@morerefs
+Music Glossary:
+@rglos{caesura}.
+
+Notation Reference:
+@ref{Breath marks},
+@ref{Divisiones},
+@ref{Kievan bar lines},
+@ref{Phrase bar lines in hymn tunes}.
+
+Snippets:
+@rlsr{Expressive marks}.
+
+Internals Reference:
+@rinternals{BreathingSign},
+@rinternals{Caesura_engraver},
+@rinternals{CaesuraEvent},
+@rinternals{CaesuraScript},
+@rinternals{caesuraTypeTransform},
+@rinternals{caesuraType}.
+@endmorerefs
 
 
 @node Displaying rhythms
@@ -1743,7 +1851,8 @@ Within a cadenza section, automatic breaks are disabled: since there
 is no metric, it is not possible to determine automatically where
 they would be appropriate.  Therefore, in a long cadenza passage,
 you must insert possible break points at appropriate places using
-the @code{\allowBreak} command.
+the @code{\allowBreak} command or other solutions in @ref{Line
+breaking}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3398,8 +3507,8 @@ aligned to measures.  Several commands employ this bar type:
 @cindex caesura bar line
 @cindex phrase bar line
 @funindex \caesura
-@item caesuraType.underlying-bar-line
-Used at @code{\caesura}.
+@item caesuraType underlying-bar-line
+Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
 
 @cindex bar line, default
 @cindex bar line, measure
@@ -3415,8 +3524,8 @@ Used at a measure boundary.
 @cindex caesura bar line
 @cindex phrase bar line
 @funindex \caesura
-@item caesuraType.bar-line
-Used at @code{\caesura}.
+@item caesuraType bar-line
+Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
 
 @cindex bar line, double
 @cindex bar line, section

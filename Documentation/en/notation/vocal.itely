@@ -3009,6 +3009,7 @@ which arise are broadly similar, and are covered in this section.
 * References for chants and psalms::
 * Setting a chant::
 * Pointing a psalm::
+* Phrase bar lines in hymn tunes::
 * Partial measures in hymn tunes::
 @end menu
 
@@ -3047,9 +3048,13 @@ stemOff = { \hide Staff.Stem }
 
 @end lilypond
 
-Chants often omit the bar lines or use shortened or dotted bar
-lines to indicate pauses in the music.  To omit all bar lines from
-all staves remove the bar line engraver completely:
+Chants often omit measure bar lines or use shortened or dotted bar
+lines to indicate pauses in the music.  To set a chant with no
+musical meter, @pxref{Unmetered music}.  To retain all the effects
+of a time signature but disable automatic measure bar lines, set
+@code{measureBarType} to @code{'()}.  Without regular bar lines,
+you might need to take steps to control horizontal spacing;
+@pxref{Line breaking}.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3057,14 +3062,14 @@ all staves remove the bar line engraver completely:
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
@@ -3072,54 +3077,16 @@ all staves remove the bar line engraver completely:
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
 @end lilypond
 
-Bar lines can also be removed on a staff-by-staff basis:
-
-@lilypond[verbatim, quote]
-\score {
-  \new ChoirStaff <<
-    \new Staff
-    \with { \remove Bar_engraver } {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-    \new Staff {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-  >>
-}
-@end lilypond
-
-To remove bar lines from just a section of music treat it as a
-cadenza.  If the section is long you may need to insert dummy
-bar lines with @code{\bar ""} to show where the line should break.
-
-@lilypond[verbatim,quote]
-\relative a' {
-  a4 b c2 |
-  \cadenzaOn
-  a4 b c2
-  a4 b c2
-  \bar ""
-  a4 b c2
-  a4 b c2
-  \cadenzaOff
-  a4 b c2 |
-  a4 b c2 |
-}
-@end lilypond
+@noindent
+Measure bar lines can also be modified on a staff-by-staff basis;
+@pxref{Modifying context plug-ins}.
 
 Rests or pauses in chants can be indicated by modified bar lines.
 
@@ -3165,9 +3132,12 @@ finalis = \section
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove Caesura_engraver
       \consists Divisio_engraver
+      \EnableGregorianDivisiones
       caesuraType = #'((breath . chantquarterbar))
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
@@ -3187,9 +3157,10 @@ Chants usually omit the time signature and often omit the clef too.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
       \remove Time_signature_engraver
       \remove Clef_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
@@ -3205,8 +3176,8 @@ the @qq{reciting note}.  Chants are usually centered on the page.
 
 @lilypond[verbatim,quote]
 SopranoMusic = \relative {
-  g'1 | c2 b | a1 | \bar "||"
-  a1 | d2 c | c b | c1 | \bar "||"
+  g'1 | c2 b | a1 |
+  a1 | d2 c | c b | c1 |
 }
 
 AltoMusic = \relative {
@@ -3226,6 +3197,8 @@ BassMusic =  \relative {
 
 global = {
   \time 2/2
+  \skip 1*3 \section
+  \skip 1*4 \fine
 }
 
 % Use markup to center the chant on the page
@@ -3265,6 +3238,7 @@ global = {
           \Score
           \override SpacingSpanner.base-shortest-duration =
             #(ly:make-moment 1/2)
+          fineBarType = "||"
         }
         \context {
           \Staff
@@ -3478,6 +3452,54 @@ Notation Reference:
 @ref{Formatting text}.
 @endmorerefs
 
+
+@node Phrase bar lines in hymn tunes
+@unnumberedsubsubsec Phrase bar lines in hymn tunes
+
+@funindex \caesura
+@cindex bar line, in hymns
+@cindex caesura bar line, in hymns
+@cindex phrase bar line, in hymns
+
+The @code{\caesura} command can be configured to create phrase bar
+lines that interact well with other automatic bar lines
+(@pxref{Automatic bar lines}).
+
+In the following examples, the source code for the tune in
+@file{old-hundredth-example.ly} uses @code{\caesura} between
+poetic lines and @code{\fine} at the end.  There are no
+@code{\fermata} or @code{\bar} commands; those symbols appear in
+the output because of the caesura configuration.
+
+@cite{The Boston Handel and Haydn Society Collection of Church
+Music} (1830) has a thick bar after each phrase.  For this tune,
+it also has fermatas over the bar lines:
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score 
+    caesuraType = #'((bar-line . ".")
+                     (scripts . (fermata)))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
+
+J.S. James' @cite{Original Sacred Harp} (1911) has a thick bar
+when a line is broken in mid-measure at the end of a phrase.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score 
+    caesuraType = #'((underlying-bar-line . "x-."))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
 
 @node Partial measures in hymn tunes
 @unnumberedsubsubsec Partial measures in hymn tunes

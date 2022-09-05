@@ -2406,7 +2406,7 @@ with head prefixes in arbitrary order.
 * Kievan clefs::
 * Kievan notes::
 * Kievan accidentals::
-* Kievan bar line::
+* Kievan bar lines::
 * Kievan melismata::
 @end menu
 
@@ -2436,7 +2436,7 @@ values, so you can immediately go ahead entering the chant:
     \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
         c4 c c c c2 b\longa
-        \bar "k"
+        \fine
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2561,17 +2561,29 @@ Notation Reference:
 @endmorerefs
 
 
-@node Kievan bar line
-@unnumberedsubsubsec Kievan bar line
+@node Kievan bar lines
+@unnumberedsubsubsec Kievan bar lines
 
-A decorative figure is commonly placed at the end of a piece of
-Kievan notation, which may be called the Kievan final bar line.
-It can be invoked as @code{\bar "k"}.
+@funindex \caesura
+@funindex \fine
+@funindex \section
+@cindex bar line, in Kievan chant
+@cindex caesura bar line, in Kievan chant
+@cindex final bar line, in Kievan chant
+@cindex phrase bar line, in Kievan chant
+@cindex section bar line, in Kievan chant
 
-@lilypond[quote,fragment,notime,verbatim]
-  \kievanOn
-  \clef "kievan-do"
-  c' \bar "k"
+In a @code{KievanStaff}, there are no measures, but the
+@code{\caesura} command creates a phrase bar line, and the
+@code{\section} and @code{\fine} commands create a special section
+bar line.
+
+@lilypond[quote,verbatim]
+\new KievanStaff {
+  c'4 4 4 4 4 4 \caesura  % \bar "."
+  d'4 4 4 4 4 4 \section  % \bar "k"
+  e'4 4 4 4 4 4 \fine
+}
 @end lilypond
 
 @morerefs
@@ -2626,7 +2638,7 @@ The following example demonstrates the use of Kievan ligatures:
   <<
     \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
-        e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
+        e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \fine
     }
     \new Lyrics \lyricsto "melody" {
       Га -- врі -- и -- лу

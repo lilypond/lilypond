@@ -228,18 +228,28 @@ in @file{scm/script.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
-Articulations are @code{Script} objects.  Their properties are
-described more fully in @rinternals{Script}.
+The type of grob that an articulation creates depends on what it
+is attached to.
 
-Articulations can be attached to rests and multi-measure rests as
-well as notes.  Attaching an articulation to a multi-measure rest
-creates a @code{MultiMeasureRestScript} object.
+@itemize @bullet
+@item
+On notes or ordinary rests, articulations create @code{Script}
+objects.
+@item
+On multi-measure rests, articulations create
+@code{MultiMeasureRestScript} objects.
+@item
+On @code{\caesura}, articulations create @code{CaesuraScript}
+objects.
+@end itemize
 
 @lilypond[verbatim,quote,fragment]
-\override Script.color = #(universal-color 'vermillion)
-\override MultiMeasureRestScript.color = #(universal-color 'blue)
+\override Score.Script.color = #(universal-color 'vermillion)
+\override Score.MultiMeasureRestScript.color = #(universal-color 'blue)
+\override Score.CaesuraScript.color = #(universal-color 'orange)
 a'2\fermata r\fermata
 R1\fermata
+g'2 \caesura \fermata f'2
 @end lilypond
 
 In addition to articulations, text and markups can be attached to
@@ -300,6 +310,8 @@ Snippets:
 @rlsr{Expressive marks}.
 
 Internals Reference:
+@rinternals{CaesuraScript},
+@rinternals{MultiMeasureRestScript},
 @rinternals{Script},
 @rinternals{TextScript}.
 @endmorerefs
@@ -1123,62 +1135,55 @@ Internals Reference:
 @cindex pause mark
 @funindex \breathe
 
-Breath marks are entered using @code{\breathe}:
+The @code{\breathe} command calls for the performer to shorten the
+previous note to take a breath.
 
 @lilypond[verbatim,quote]
-{ c''2. \breathe d''4 }
+\fixed c'' { c2. \breathe d4 }
 @end lilypond
 
-Unlike other expressive marks, a breath mark is not associated with
-the preceding note but is a separate music event.  So all the
-expressive marks which are attached to the preceding note, any square
-brackets indicating manual beams, and any brackets indicating slurs
-and phrasing slurs must be placed before @code{\breathe}.
+@noindent
+For a short break in sound that is not taken away from the the
+previous note, @pxref{Caesuras}.
 
-A breath mark will end an automatic beam; to override this behavior,
+Unlike other expressive marks, a breath mark is treated as a
+separate music event; therefore, any expressive marks pertaining
+to the preceding note, and any brackets indicating manual beams,
+slurs, or phrasing slurs, must be placed before @code{\breathe}.
+@code{\breathe} does not accept articulations itself, but
+@pxref{Caesuras}.
+
+A breath mark ends an automatic beam; to override this,
 @pxref{Manual beams}.
 
 @lilypond[verbatim,quote]
-\relative { c''8 \breathe d e f g2 }
+\fixed c'' { c8 \breathe d e f g2 }
 @end lilypond
 
+@cindex breath mark symbol, changing
+@cindex changing breath mark symbol
 @cindex check mark
+@cindex symbol, breath mark, changing
 @cindex tick mark
+
 The @code{breathMarkType} context property controls which of
 several predefined breath marks the @code{\breathe} command
 creates.  @xref{List of breath marks}.
 
 @lilypond[verbatim,quote]
-\fixed c' {
+\fixed c'' {
   \set breathMarkType = #'tickmark
-  c2 \breathe d2
+  c2. \breathe d4
 }
 @end lilypond
-
-Musical indicators for breath marks in ancient notation,
-divisiones, are supported.  For details, @pxref{Divisiones}.
-
-
-@snippets
-
-@cindex breath mark symbol, changing
-@cindex changing breath mark symbol
-@cindex symbol, breath mark, changing
-@funindex BreathingSign
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-the-breath-mark-symbol.ly}
-
-@cindex caesura
-@cindex railroad tracks
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/inserting-a-caesura.ly}
 
 
 @morerefs
 Music Glossary:
-@rglos{caesura}.
+@rglos{breath mark}.
 
 Notation Reference:
+@ref{Caesuras},
 @ref{Divisiones}.
 
 Snippets:
