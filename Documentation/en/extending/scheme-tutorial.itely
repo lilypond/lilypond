@@ -636,6 +636,7 @@ guile> (cond ((< a b) "a is less than b")
 @menu
 * LilyPond Scheme syntax::
 * LilyPond variables::
+* Debugging Scheme code::
 * Input variables and Scheme::
 * Importing Scheme in LilyPond::
 * Object properties::
@@ -790,6 +791,37 @@ reference material.
 Extending:
 @ref{LilyPond Scheme syntax}.
 @endmorerefs
+
+
+@node Debugging Scheme code
+@subsection Debugging Scheme code
+
+@cindex debugging, Scheme code
+@cindex Scheme, debugging
+@cindex source locations, in error messages for Scheme code
+@cindex error message, in Scheme code
+@cindex line number, for error message in Scheme code
+
+When debugging large Scheme programs, it is helpful when an error
+occurs to be pointed to the precise line in the program where it
+was raised.  In order to enable source locations to be shown for
+errors in Scheme code, LilyPond must be run with the command-line
+option @option{-dcompile-@/scheme-@/code}.  Alternatively, writing
+@code{#(ly:set-@/option 'compile-@/scheme-@/code)} at the top of
+the LilyPond file has the same effect.
+
+Furthermore, to obtain even more information about the error, you
+may use the @option{-ddebug-@/eval} option, or the code
+@code{#(debug-@/enable 'backtrace)} in the file.  Under this mode,
+when an error occurs, a verbose @qq{backtrace} is displayed,
+containing information about all function calls that led to the
+problematic spot.
+
+@knownissues
+Due to a limitation in the Guile implementation, the
+@option{-dcompile-@/scheme-@/code} option currently makes it
+impossible to compile LilyPond files with more than a few thousand
+Scheme expressions.
 
 
 @node Input variables and Scheme

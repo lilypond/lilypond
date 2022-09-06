@@ -589,6 +589,10 @@ within the @code{\layout} block.  See @ruser{Extracting fragments of
 music}.  No fragments are extracted though if used with the
 @option{-dno-print-pages} option.  Default: @code{#f}.
 
+@item @code{compile-scheme-code} @var{bool}
+Use the Guile compiler to run Scheme code, instead of the evaluator.
+For more information, see @rextend{Debugging Scheme code}.
+
 @item @code{crop} @var{bool}
 
 If @var{bool} is @code{#t}, a second PDF file gets created (with

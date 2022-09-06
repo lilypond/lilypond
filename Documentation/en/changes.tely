@@ -1450,6 +1450,26 @@ frequent case of @emph{sticky} grobs, such as footnotes and balloons.
 It creates a grob with the same class as another grob and
 administrates parents and bounds.
 
+@item
+The new command-line option @code{-dcompile-scheme-code}, also
+settable in the LilyPond input with @code{#(ly:set-@/option
+'compile-@/scheme-@/code)}, provides with better diagnostics when
+running Scheme code leads to an error.  Internally, this uses the
+byte-compiler provided by Guile, instead of the interpreter.
+
+However, due to a limitation in Guile, this currently has the
+disadvantage of making it impossible to run more than a few
+thousand Scheme expressions.  Also, be aware that the Guile
+compiler has a few differences to the interpreter.  For example,
+constant parts of quasiquotes are made actual constants more
+aggressively, making code such as
+@code{(let ((x 4)) (sort! `(,x 3 2 1)))} produce an error because
+the @qq{cdr} of the quasiquoted list is constant, and it is
+an error in Scheme to mutate literal data.  (In this specific
+case, the code could avoid the issue by using the non-destructive
+@code{sort}, or by creating a fresh list each time with
+@code{(list x 3 2 1)}.)
+
 @end itemize
 
 @ifhtml
