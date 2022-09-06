@@ -133,16 +133,21 @@ given, and property value is @code{'()}, return @var{def}.
 }
 
 LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
-           2, 0, 0, (SCM context, SCM name),
+           2, 1, 0, (SCM context, SCM name, SCM def),
            R"(
-Return the context above @var{context} where @var{name} is defined.
+Return the context above @var{context} where @var{name} is defined,
+or @var{def} (defaulting to @code{'()}) if no such context is found.
            )")
 {
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   tr = where_defined (tr, name);
-  return tr ? tr->self_scm () : SCM_EOL;
+  if (tr)
+    return tr->self_scm ();
+  if (SCM_UNBNDP (def))
+    return SCM_EOL;
+  return def;
 }
 
 LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,

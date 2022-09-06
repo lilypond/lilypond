@@ -288,14 +288,14 @@ breathing or caesura.")))
             (set! event-start '()))))
      ((stop-translation-timestep trans)
       (if (and (ly:spanner? span)
-               (null? (ly:spanner-bound span LEFT))
+               (not (ly:spanner-bound span LEFT #f))
                (moment<=? (ly:context-property context 'measurePosition) ZERO-MOMENT))
           (ly:spanner-set-bound! span LEFT
                                  (ly:context-property context 'currentCommandColumn)))
       (if (and (ly:spanner? finished)
                (moment<=? (ly:context-property context 'measurePosition) ZERO-MOMENT))
           (begin
-            (if (null? (ly:spanner-bound finished RIGHT))
+            (if (not (ly:spanner-bound finished RIGHT #f))
                 (ly:spanner-set-bound! finished RIGHT
                                        (ly:context-property context 'currentCommandColumn)))
             (set! finished '())
@@ -304,7 +304,7 @@ breathing or caesura.")))
      ((finalize trans)
       (if (ly:spanner? finished)
           (begin
-            (if (null? (ly:spanner-bound finished RIGHT))
+            (if (not (ly:spanner-bound finished RIGHT #f))
                 (set! (ly:spanner-bound finished RIGHT)
                       (ly:context-property context 'currentCommandColumn)))
             (set! finished '())))
@@ -633,7 +633,7 @@ one voice.")))
           (begin
             (for-each
              (lambda (dur-line)
-               (if (null? (ly:spanner-bound dur-line RIGHT))
+               (if (not (ly:spanner-bound dur-line RIGHT #f))
                    (let ((cmc (ly:context-property
                                context
                                'currentMusicalColumn)))
@@ -689,7 +689,7 @@ one voice.")))
                 (begin
                   (for-each
                    (lambda (dur-line)
-                     (if (null? (ly:spanner-bound dur-line RIGHT))
+                     (if (not (ly:spanner-bound dur-line RIGHT #f))
                          (let ((cmc (ly:context-property
                                      context
                                      'currentCommandColumn)))
@@ -818,7 +818,7 @@ Engraver to print a line representing the duration of a rhythmic event like
          (if (and bend-stop
                   (ly:spanner? bend-spanner)
                   (ly:grob-property grob 'bend-me #t)
-                  (not (ly:grob? (ly:spanner-bound bend-spanner RIGHT))))
+                  (not (ly:spanner-bound bend-spanner RIGHT #f)))
              (let* ((nhds-array (ly:grob-object grob 'note-heads))
                     (nhds
                      (if (ly:grob-array? nhds-array)
@@ -1021,7 +1021,7 @@ Engraver to print a BendSpanner.")))
          (lambda (grob-entry)
            (if (and
                 (ly:grob? (cdr grob-entry))
-                (not (ly:grob? (ly:spanner-bound (cdr grob-entry) RIGHT))))
+                (not (ly:spanner-bound (cdr grob-entry) RIGHT #f)))
                (begin
                  (ly:warning
                   "Missing target for ~a starting with finger ~a"
@@ -1628,19 +1628,19 @@ adapted for typesetting within a chord grid.")))
        (when ended-trill
          (ly:pointer-group-interface::add-grob ended-trill 'note-columns grob)
          (ly:pointer-group-interface::add-grob ended-trill 'side-support-elements grob)
-         (when (null? (ly:spanner-bound ended-trill RIGHT)) ; respect to-barline
+         (when (not (ly:spanner-bound ended-trill RIGHT #f)) ; respect to-barline
            (ly:spanner-set-bound! ended-trill RIGHT grob)))))
      ((stop-translation-timestep engraver)
       ;; Absent any note column, fall back on the musical paper column.
       (when (and trill
                  ;; A bound already set is a note column, added above.
-                 (null? (ly:spanner-bound trill LEFT)))
+                 (not (ly:spanner-bound trill LEFT #f)))
         (let ((col (ly:context-property context 'currentMusicalColumn)))
           (ly:spanner-set-bound! trill LEFT col)))
       (when (and ended-trill
                  ;; A bound already set is either a note column, added
                  ;; above, or a BarLine due to to-barline.
-                 (null? (ly:spanner-bound ended-trill RIGHT)))
+                 (not (ly:spanner-bound ended-trill RIGHT #f)))
         (let ((col (ly:context-property context 'currentMusicalColumn)))
           (ly:spanner-set-bound! ended-trill RIGHT col))
         (set! ended-trill #f))
@@ -1694,8 +1694,8 @@ adapted for typesetting within a chord grid.")))
        (ly:grob-list->grob-array
         (remove
          (lambda (staff-sym)
-           (let ((right-bound (ly:spanner-bound staff-sym RIGHT)))
-             (and (not (null? right-bound))
+           (let ((right-bound (ly:spanner-bound staff-sym RIGHT #f)))
+             (and right-bound
                   (equal? (grob::when right-bound)
                           (grob::when grob)))))
          highlight-staff-symbols))))

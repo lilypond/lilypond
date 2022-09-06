@@ -661,13 +661,11 @@ in the PDF backend.
 
 (define-public (book-first-page layout props)
   "Return the @code{'first-page-number} of the entire book."
-  (define (ancestor layout)
-    "Return the topmost layout ancestor"
-    (let ((parent (ly:output-def-parent layout)))
-      (if (not (ly:output-def? parent))
-          layout
-          (ancestor parent))))
-  (ly:output-def-lookup (ancestor layout) 'first-page-number))
+  (let loop ((layout layout))
+    (let ((parent (ly:output-def-parent layout #f)))
+      (if parent
+          (loop parent)
+          (ly:output-def-lookup layout 'first-page-number)))))
 
 (define-markup-command (with-link layout props label arg)
   (symbol? markup?)

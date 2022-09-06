@@ -59,13 +59,19 @@ Return the variable scope inside @var{def}.
 }
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
-           1, 0, 0, (SCM def),
+           1, 1, 0, (SCM output_def, SCM default_value),
            R"(
-Return the parent output definition of @var{def}.
+Return the parent output definition of @var{output-def}, or
+@var{default-value} if @var{output-def} has no parent.
+@var{default-value} is optional, and defaults to @code{'()}.
            )")
 {
-  auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
-  return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
+  auto *const op = LY_ASSERT_SMOB (Output_def, output_def, 1);
+  if (op->parent_)
+    return op->parent_->self_scm ();
+  if (SCM_UNBNDP (default_value))
+    return SCM_EOL;
+  return default_value;
 }
 
 LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",

@@ -301,17 +301,22 @@ Set @var{parent-grob} as the parent of grob @var{grob} in axis @var{axis}.
 
 LY_DEFINE_WITH_SETTER (ly_grob_parent, "ly:grob-parent",
                        ly_grob_set_parent_x,
-                       2, 0, 0, (SCM grob, SCM axis),
+                       2, 1, 0, (SCM grob, SCM axis, SCM def),
                        R"(
 Get the parent of @var{grob}.  @var{axis} is @code{0} for the x@tie{}axis,
-@code{1}@tie{}for the y@tie{}axis.
+@code{1}@tie{}for the y@tie{}axis.  If @var{grob} has no parent on this
+axis (yet), return @var{def}, or @code{'()} if @var{def} is not specified.
                        )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
   Grob *par = sc->get_parent (from_scm<Axis> (axis));
-  return par ? par->self_scm () : SCM_EOL;
+  if (par)
+    return par->self_scm ();
+  if (SCM_UNBNDP (def))
+    return SCM_EOL;
+  return def;
 }
 
 LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",

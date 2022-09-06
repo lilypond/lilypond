@@ -22,16 +22,22 @@
 #include "item.hh"
 
 LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
-           2, 0, 0, (SCM spanner, SCM dir),
+           2, 1, 0, (SCM spanner, SCM dir, SCM def),
            R"(
 Get one of the bounds of @var{spanner}.  @var{dir} is @w{@code{-1}} for left,
-and @code{1} for right.
+and @code{1} for right.  If the spanner does not (yet) have a bound
+for this direction, return @var{def}, or @code{'()} if @var{def}
+is not specified.
            )")
 {
   auto *const me = LY_ASSERT_SMOB (Spanner, spanner, 1);
   LY_ASSERT_TYPE (is_scm<Direction>, dir, 2);
   Item *bound = me->get_bound (from_scm<Direction> (dir));
-  return bound ? bound->self_scm () : SCM_EOL;
+  if (bound)
+    return bound->self_scm ();
+  if (SCM_UNBNDP (def))
+    return SCM_EOL;
+  return def;
 }
 
 LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
