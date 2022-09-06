@@ -318,7 +318,7 @@ source code.
 @menu
 * Languages::
 * Filenames::
-* Indentation::
+* Code formatting::
 * Naming conventions::
 * Broken code::
 * Code comments::
@@ -363,60 +363,64 @@ references (&) shall not be included as include files.
 The class Class_name is coded in @q{class-name.*}
 
 
-@node Indentation
-@subsection Indentation
+@node Code formatting
+@subsection Code formatting
 
-Standard GNU coding style is used.
+@subsubheading Formatting tools
 
-@subsubheading Indenting files with @code{fixcc.py} (recommended)
-
-LilyPond provides a python script that will adjust the indentation
-and spacing on a @code{.cc} or @code{.hh} file to very near the
-GNU standard:
+For C++ files, standard GNU coding style is used.  You can reformat
+a file according to this style using the @command{clang-format} tool.
 
 @example
-scripts/auxiliar/fixcc.py FILENAME
+clang-format -i @var{filename}
 @end example
 
-This can be run on all files at once, but this is not recommended
-for normal contributors or developers.
+The version of @command{clang-format} currently being used is version
+14.0.
+
+Bindings for @command{clang-format} are available for many editors,
+including Emacs and Vim.
+
+@command{clang-format} can also be run on all files at once, but
+this is normally only done infrequently, more specifically before
+branching the next stable release.
+
+@example
+clang-format -i $(git ls-files "*.cc" "*.hh" "*.icc" "*.tcc")
+@end example
+
+Similarly, we have a script that reformats Scheme files.
+
+@example
+scripts/auxiliar/fixscm.sh @var{filename}
+@end example
+
+To run it on all files, use
+
+@example
+scripts/auxiliar/fixscm.sh $(git ls-files "*.scm")
+@end example
+
+This script drives Emacs behind the scenes, so Emacs users will get
+the right behavior out-of-the-box.
+
+For Python code, use @command{autopep8} with the following settings:
 
 @smallexample
-scripts/auxiliar/fixcc.py \
-  $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
+autopep8 -ia --ignore=E402 file.py
 @end smallexample
 
-
-@subsubheading Indenting with emacs
-
-The following hooks will produce indentation which is similar to
-our official indentation as produced with @code{fixcc.py}.
-
-@example
-(add-hook 'c++-mode-hook
-     '(lambda ()
-        (c-set-style "gnu")
-        (setq indent-tabs-mode nil))
-@end example
-
-If you like using font-lock, you can also add this to your
-@file{.emacs}:
-
-@example
-(setq font-lock-maximum-decoration t)
-(setq c++-font-lock-keywords-3
-      (append
-       c++-font-lock-keywords-3
-       '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
-       ))
-@end example
+However, currently files under @code{release/binaries/} are
+formatted with a different tool, @command{black}.
 
 
-@subsubheading Indenting with vim
+@subsubheading Vim-specific configuration
 
-Although emacs indentation is the GNU standard, correct
-indentation for C++ files can be achieved by using the settings
-recommended in the
+For C++ formatting, although using a plugin that provides a
+binding for @command{clang-format} allows you to fix indentation
+automatically, it does not produce correct indentation as you
+type.  You can, however, adjust your Vim configuration to come
+close.  These settings were adapted from the
 @url{https://gcc.gnu.org/wiki/FormattingCodeForGCC, GNU GCC Wiki}.
 Save the following in @file{~/.vim/after/ftplugin/cpp.vim}:
 
@@ -433,14 +437,9 @@ setlocal expandtab
 autocmd BufWritePre * :%s/\s\+$//e
 @end example
 
-With these settings, files can be reindented automatically by
-highlighting the lines to be indented in visual mode (use V to
-enter visual mode) and pressing @code{=}, or a single line
-correctly indented in normal mode by pressing @code{==}.
 
-A @file{scheme.vim} file will help improve the indentation of
-Scheme code.  This one was suggested by Patrick McCarty.  It
-should be saved in @file{~/.vim/after/syntax/scheme.vim}.
+For Scheme code, you can use these settings in
+@file{~/.vim/after/syntax/scheme.vim}:
 
 @example
 " Additional Guile-specific 'forms'
@@ -473,6 +472,11 @@ setlocal lw-=set!
 syn match schemeFunc "ly:[^) ]\+"
 @end example
 
+Files can be reindented automatically by highlighting the lines to
+be indented in visual mode (use @kbd{V} to enter visual mode) and
+pressing @kbd{=}, or a single line correctly indented in normal
+mode by pressing @kbd{==}.
+
 For documentation work on texinfo files, identify the file
 extensions used as texinfo files in your @file{.vim/filetype.vim}:
 
@@ -495,13 +499,6 @@ setlocal shiftwidth=2
 setlocal textwidth=66
 @end example
 
-@subsubheading Indenting Python files
-
-Use the following settings:
-
-@smallexample
-autopep8 -ia --ignore=E402 file.py
-@end smallexample
 
 
 @node Naming conventions
