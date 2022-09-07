@@ -3485,8 +3485,7 @@ Notation Reference:
 Hymn tunes frequently start and end every line of music with
 partial measures so that each line of music corresponds exactly
 with a line of text.  This requires a @code{\partial} command at
-the start of the music and @code{\bar "|"} or @code{\bar "||"}
-commands at the end of each line.
+the start of the music and a bar line at the end of each line.
 
 @cindex hymn, and partial measures
 @cindex partial measure, in hymns
