@@ -1223,11 +1223,12 @@ Internals Reference:
 @unnumberedsubsubsec Divisiones
 
 @cindex bar line, in Gregorian chant
-@cindex bar line, short, in Gregorian chant
-@cindex bar line, tick, in Gregorian chant
 @cindex divisio
 @cindex divisiones
+@cindex final bar line, in Gregorian chant
 @cindex finalis
+@cindex phrase bar line, in Gregorian chant
+@cindex section bar line, in Gregorian chant
 @cindex short bar line, in Gregorian chant
 @cindex tick bar line, in Gregorian chant
 
@@ -1235,12 +1236,11 @@ There are no rests in Gregorian chant notation; instead, it uses
 @ref{Divisiones}.
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
-@q{division}) is a staff context symbol that is used to indicate
-the phrase and section structure of Gregorian music.  The musical
-meaning of @emph{divisio minima}, @emph{divisio maior}, and
-@emph{divisio maxima} can be characterized as short, medium, and
-long pause, somewhat like the breath marks from @ref{Breath marks}.
-The  @emph{finalis} sign not only marks the end of a chant, but is
+@q{division}) is a staff-context symbol indicating the phrase and
+section structure of Gregorian music.  The musical meaning of
+@emph{divisio minima}, @emph{divisio maior}, and @emph{divisio
+maxima} can be characterized as short, medium, and long pause.
+The @emph{finalis} sign not only marks the end of a chant, but is
 also frequently used within a single antiphonal/responsorial chant
 to mark the end of each section.
 
@@ -1248,9 +1248,10 @@ To use divisiones, include the file @file{gregorian.ly}.  It
 contains definitions that you can apply by just inserting
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
 and @code{\finalis} at proper places in the input.  Some editions use
-@emph{virgula} or @emph{caesura} instead of divisio minima.
-Therefore, @file{gregorian.ly} also defines @code{\virgula} and
-@code{\caesura}
+@emph{virgula} or @emph{caesura} instead of divisio minima;
+therefore, @file{gregorian.ly} also defines @code{\virgula}, and
+the predefined staff contexts for Gregorian chant configure
+@code{\caesura} to produce an ancient caesura mark.
 
 @lilypond[quote,ragged-right,staffsize=23]
 \include "gregorian.ly"
@@ -2773,7 +2774,7 @@ the @code{Stem_engraver} from the Voice context:
   @dots{}
   \context @{
     \Voice
-      \remove Stem_engraver
+    \remove Stem_engraver
   @}
 @}
 @end example
@@ -2809,7 +2810,7 @@ either set as a single, left-aligned syllable:
 \include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
-  c'\breve c4 b4 a c2 c4  \divisioMaior
+  c'\breve c4 b4 a c2 c4 \divisioMaior
   c\breve c4 c f, f \finalis
 }
 
@@ -2820,18 +2821,17 @@ verba = \lyricmode {
   "concedat nobis Dominus" om -- ni -- po -- tens.
 }
 \score {
-  \new Staff <<
-  \new Voice = "melody" \chant
-  \new Lyrics = "one" \lyricsto melody \verba
+  \new GregorianTranscriptionStaff <<
+    \new GregorianTranscriptionVoice = "melody" {
+      \chant
+    }
+    \new GregorianTranscriptionLyrics = "one" {
+      \lyricsto "melody" \verba
+    }
   >>
   \layout {
     \context {
-      \Staff
-      \remove Time_signature_engraver
-      \remove Bar_engraver
-    }
-    \context {
-      \Voice
+      \GregorianTranscriptionVoice
       \remove Stem_engraver
     }
   }
@@ -2870,17 +2870,14 @@ verba = \lyricmode {
 }
 
 \score {
-  \new Staff <<
-    \new Voice = "melody" \chant
-    \new Lyrics \lyricsto "melody" \verba
-  >>
-  \layout {
-    \context {
-      \Staff
-      \remove Time_signature_engraver
-      \hide BarLine
+  \new GregorianTranscriptionStaff <<
+    \new GregorianTranscriptionVoice = "melody" {
+      \chant
     }
-  }
+    \new GregorianTranscriptionLyrics = "one" {
+      \lyricsto "melody" \verba
+    }
+  >>
 }
 @end lilypond
 
@@ -2919,19 +2916,23 @@ spirLyr = \lyricmode {
   -- _ ia.
 }
 \score {
-  \new Staff <<
-    \new Voice = "chant" \spiritus
-    \new Lyrics = "one" \lyricsto "chant" \spirLyr
+  \new GregorianTranscriptionStaff <<
+    \new GregorianTranscriptionVoice = "chant" {
+      \spiritus
+    }
+    \new GregorianTranscriptionLyrics = "one" {
+      \lyricsto "chant" \spirLyr
+    }
   >>
   \layout {
     \context {
-      \Staff
-      \remove Time_signature_engraver
+      \GregorianTranscriptionStaff
+      measureBarType = ""
       \override BarLine.X-extent = #'(-1 . 1)
       \hide Stem
       \hide Beam
-      \hide BarLine
       \hide TupletNumber
+      \hide TupletBracket
     }
   }
 }
