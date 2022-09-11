@@ -1268,6 +1268,7 @@ two syllables) as used in the notational style of Editio Vaticana."
   \Voice
   \name GregorianTranscriptionVoice
   \alias Voice
+  \remove Stem_engraver
   \consists Episema_engraver
 
   %% Removing ligature bracket engraver without replacing it by some

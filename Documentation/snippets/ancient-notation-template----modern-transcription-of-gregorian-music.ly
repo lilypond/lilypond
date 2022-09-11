@@ -42,14 +42,4 @@ verba = \lyricmode {
     \new GregorianTranscriptionVoice = "melody" \chant
     \new GregorianTranscriptionLyrics = "one" \lyricsto melody \verba
   >>
-  \layout {
-    \context {
-      \GregorianTranscriptionStaff
-      \hide Stem
-    }
-    \context {
-      \GregorianTranscriptionVoice
-      \override Stem.length = #0
-    }
-  }
 }

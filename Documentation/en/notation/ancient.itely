@@ -2766,8 +2766,9 @@ orientation aids that bar lines give.
 Gregorian chant can be transcribed into modern notation with a
 number of simple tweaks.
 
-@b{Stems}.  Stems can be left out altogether by @code{\remove}-ing
-the @code{Stem_engraver} from the Voice context:
+@b{Stems}.  The @code{GregorianTranscriptionVoice} context does
+not create stems.  You can extend this behavior to other contexts
+by removing @code{Stem_engraver}:
 
 @example
 \layout @{
@@ -2829,12 +2830,6 @@ verba = \lyricmode {
       \lyricsto "melody" \verba
     }
   >>
-  \layout {
-    \context {
-      \GregorianTranscriptionVoice
-      \remove Stem_engraver
-    }
-  }
 }
 @end lilypond
 
@@ -2842,24 +2837,22 @@ This works fine, as long as the text doesn't span a line break.  If
 that is the case, an alternative is to add hidden notes to the
 score, as below.
 
-In some transcription styles, stems are used
-occasionally, for example to indicate the transition from a
-single-tone recitative to a fixed melodic gesture.  In these cases,
-one can use either @code{\hide Stem} or
-@code{\override Stem.length = #0} instead of @code{\remove}-ing
-the @code{Stem_engraver} and restore the stem
-when needed with the corresponding @code{\undo \hide Stem}.
+In some transcription styles, stems are used occasionally, for
+example to indicate the transition from a single-tone recitative
+to a fixed melodic gesture.  In these cases, one can use the
+@code{Stem_engraver} and manually @code{\omit Stem} and
+@code{\undo \omit Stem}.
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
-  \hide Stem
+  \omit Stem
   c'\breve \hide NoteHead c c c c c
   \undo \hide NoteHead
-  \undo \hide Stem \stemUp c4 b4 a
-  \hide Stem c2 c4  \divisioMaior
+  \undo \omit Stem \stemUp c4 b4 a
+  \omit Stem c2 c4 \divisioMaior
   c\breve \hide NoteHead c c c c c c c
   \undo \hide NoteHead c4 c f, f \finalis
 }
@@ -2878,6 +2871,12 @@ verba = \lyricmode {
       \lyricsto "melody" \verba
     }
   >>
+  \layout {
+    \context {
+      \GregorianTranscriptionVoice
+      \consists Stem_engraver
+    }
+  }
 }
 @end lilypond
 
@@ -2929,7 +2928,6 @@ spirLyr = \lyricmode {
       \GregorianTranscriptionStaff
       measureBarType = ""
       \override BarLine.X-extent = #'(-1 . 1)
-      \hide Stem
       \hide Beam
       \hide TupletNumber
       \hide TupletBracket

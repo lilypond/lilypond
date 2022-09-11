@@ -74,6 +74,10 @@ which scares away people.
 
 
 @item
+@code{GregorianTranscriptionVoice} no longer uses @code{Stem_engraver}.
+
+
+@item
 @code{GregorianTranscriptionStaff} allows a line break after any
 note and no longer uses @code{Time_signature_engraver}.
 
