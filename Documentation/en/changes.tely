@@ -42,6 +42,62 @@ which scares away people.
 @end ignore
 
 
+@node Major changes in LilyPond
+@unnumbered Major changes in LilyPond
+
+@itemize
+
+@item
+LilyPond now requires Guile 2.2.  Even if you are not writing Scheme
+code yourself, you may be using libraries that contain a non-trivial
+amount of customizations.  If they do not work with LilyPond version
+@version{}, please report this to the library's developers.
+
+@item
+The infrastructure for creating the official binaries has been
+completely rewritten, incident with the switch to Guile 2.2.  As of
+this release, we provide 64-bit binaries for macOS and Windows.
+Also, all packages are made available as simple archives that can be
+extracted to any @qq{installation} location.  To uninstall, simply
+delete that directory.  We also discontinued the limited editor that
+was installed on macOS and Windows, LilyPad, and recommend switching
+to an external solution instead, such as the popular editor
+@uref{https://frescobaldi.org,Frescobaldi}, or one of the others listed
+in @rweb{Easier editing}.  For more information, please refer to the
+detailed instructions in @rlearning{Installing}.
+
+@end itemize
+
+@node Notes for source compilation and packagers
+@unnumberedsec Notes for source compilation and packagers
+
+This section is aimed at enthusiasts compiling LilyPond from source
+and packagers preparing LilyPond for distribution.  If you are not
+part of either group, you can skip over this section.
+
+@itemize
+
+@item
+As mentioned above, LilyPond now requires Guile 2.2.  If needed for
+distribution reasons, it can also be compiled with Guile 3.0 by passing
+@command{GUILE_FLAVOR=guile-3.0} to the @command{configure} script.
+However, this is not yet recommended nor officially supported.
+
+@item
+The Scheme code evaluator in Guile 2.2 is slower than in Guile 1.@var{x}.
+To offset most of the performance penalty, we recommend compiling the
+@file{.scm} files into bytecode by first running @command{make bytecode}
+during compilation and then @command{make install-bytecode} in addition
+to @command{make install}.
+
+@item
+Starting with this stable release, LilyPond's build system does not
+install text fonts anymore. Please provide them as separate packages
+while paying attention to the fonts' license and notice files.
+
+@end itemize
+
+
 @node New for musical notation
 @unnumbered New for musical notation
 
