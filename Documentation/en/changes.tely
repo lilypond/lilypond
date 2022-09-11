@@ -9,31 +9,6 @@
 
 @include en/macros.itexi
 
-@ifhtml
-@macro inputfileref{DIR,NAME}
-@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
-@end macro
-@macro usermanref{NAME}
-@inforef{\NAME\,,../user/lilypond/lilypond}@c
-@end macro
-@end ifhtml
-
-@ifnothtml
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}@c
-@end macro
-@macro usermanref{NAME}
-See user manual, \NAME\
-@end macro
-@end ifnothtml
-
-@macro textanchor{NAME}
-@html
-<a name="\NAME\"></a>
-@end html
-@end macro
-
-
 @documentencoding UTF-8
 @documentlanguage en
 @afourpaper
