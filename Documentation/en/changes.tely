@@ -49,15 +49,9 @@ in LilyPond version @version{} since 2.22.
 @allowcodebreaks false
 @end iftex
 
-@itemize
-
 @ignore
 
 HINTS
-
-* add new items at the top
-
-* leave two blank lines between items
 
 * only show verbatim input for syntax/input changes
 
@@ -73,920 +67,13 @@ which scares away people.
 @end ignore
 
 
-@item
-@code{GregorianTranscriptionVoice} no longer uses @code{Stem_engraver}.
+@node New for musical notation
+@unnumbered New for musical notation
 
+@node Pitches improvements
+@unnumberedsec Pitches improvements
 
-@item
-@code{GregorianTranscriptionStaff} allows a line break after any
-note and no longer uses @code{Time_signature_engraver}.
-
-
-@item
-@code{Bar_@/engraver} used to forbid line breaks between bar lines
-in all cases, but now it only does so when the
-@code{forbidBreakBetweenBarLines} context property is set to
-@code{#t}, which is the default.  The @code{barAlways} context
-property, which previously worked around the lack of
-@code{forbidBreakBetweenBarLines}, has been removed.
-
-
-@item
-The @q{big point} unit (1@dmn{bp} = 1/72@dmn{in}) is now available
-by appending @code{\bp} to length values.
-
-
-@item
-@code{Staff} contexts use the new @code{Caesura_engraver} to
-notate the @code{\caesura} command.
-
-@lilypond[quote]
-\fixed c' {
-  c2 \caesura d2
-  e1 \caesura \once \set Staff.caesuraType = #'((scripts . (fermata)))
-  f1
-}
-@end lilypond
-
-
-@item
-The comma glyph shape, as used in the @code{\breathe} command,
-has been changed to a more common form.
-
-@lilypond[quote]
-{ f'2 \breathe f'2 }
-@end lilypond
-
-
-@item
-In @code{GregorianTranscriptionStaff}, divisiones are now engraved
-as @code{BarLine} grobs by default.  To change them to
-@code{Divisio} grobs, use @code{\EnableGregorianDivisiones}.
-
-
-@item
-Using @code{\paper @{ bookpart-level-page-numbering = ##t@}}, it
-is now possible to make bookparts independent with respect to page
-numbering.  If this is used for all bookparts, each bookpart has
-its own numbering sequence, starting at 1 by default.  It can also
-be used in an individual bookpart, which is useful to achieve the
-standard practice of numbers pages in an analytical introduction
-independently and in roman numerals (the latter is achieved using
-@code{page-number-type = #'roman-lower}).
-
-
-@item
-Additional display details of a @code{\woodwind-diagram} can now be specified including
-the angle of partially-covered-keys and the display of non-graphical trill keys.
-
-@lilypond[verbatim,quote]
-\markup {
-  \override #'(graphical . #f)
-  \override #'(woodwind-diagram-details . ((fill-angle . 90)
-                                           (text-trill-circled . #f)))
-  \woodwind-diagram #'flute #'((cc . (one1h))
-                               (lh . ())
-                               (rh . (besT)))
-}
-@end lilypond
-
-
-@item
-The padding by default for fermatas is now larger. This avoids
-some cases where the fermata was placed too close to dots and
-other objects.
-
-@lilypond[quote]
-\relative c''' {
-  \tempo 4 = 60
-  a4.
-  a4.\fermata
-  a4.\henzeshortfermata
-  a4.\henzelongfermata
-  a4.\shortfermata
-  a4.\longfermata
-  a4.\veryshortfermata
-  a4.\verylongfermata
-}
-@end lilypond
-
-
-@item
-The flageolet symbol is now smaller and slightly thicker.  This
-is in line with published scores and makes the recommended
-workaround to make it smaller (@code{\tweak font-size -3 \flageolet})
-unnecessary.
-
-@lilypond[quote]
-{
-  d''2^\flageolet d''_\flageolet
-}
-@end lilypond
-
-
-@item
-The accent glyph is now a bit smaller.  This fixes some cases where a natural
-sign would vertically displace accents.
-
-@lilypond[quote]
-{
-  f'!8[-> f'-> f'-> f'->]
-}
-@end lilypond
-
-
-@item
-The new @code{\staffHighlight} and @code{\stopStaffHighlight}
-commands can be used to color a musical passage.
-
-@lilypond
-\relative {
-  \staffHighlight lightsteelblue
-  c'4 e g c
-  \staffHighlight lightpink
-  d, f a d
-  \staffHighlight lightsteelblue
-  c, e g c
-}
-@end lilypond
-
-
-@item
-The direction of a trill spanner can now be set with direction
-indicators like other articulations, i.e. with
-@code{_\startTrillSpan} or @code{^\startTrillSpan}.
-
-
-@item
-The predefined commands for Gregorian divisiones are no longer
-variations on @code{\breathe}.  @code{\divisioMinima},
-@code{\divisioMaior}, @code{\divisioMaxima}, and @code{\virgula}
-are variations on the basic @code{\caesura}.  @code{\finalis} is
-equivalent to @code{\section}.
-
-@code{MensuralStaff} and @code{VaticanaStaff} use
-@code{Divisio_@/engraver} to interpret the above commands as well
-as @code{\repeat volta} and @code{\fine}.
-
-@lilypond[verbatim,quote]
-\new MensuralStaff \fixed c' {
-  \repeat volta 2 { f2 f }
-  g1
-  a1 \section
-  b1 \fine
-}
-@end lilypond
-
-
-@item
-The bar type @code{"-span|"} creates a @notation{mensurstrich}.
-
-@lilypond[quote]
-\new StaffGroup \with { measureBarType = "-span|" } <<
-  \new Staff \fixed c'' { c4 d e f e d }
-  \new Staff \fixed c' { a2 f2. g4 }
->>
-@end lilypond
-
-
-@item
-@code{\smallCaps} now works on any markup, not just on a bare
-string.
-
-
-@item
-Text replacements can now replace strings with any markup, not
-just with a string.
-
-@lilypond[verbatim,quote]
-\markup
-  \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #}))
-  "2nd time"
-@end lilypond
-
-
-@item
-A new markup command @code{\with-string-transformer} is available.
-It interprets a markup with a @qq{string transformer} installed;
-the transformer is called when the interpretation of the markup
-requires interpreting a string, and allows to perform modifications
-on this string, such as changing case.
-
-
-@item
-Broken hairpins now have some left padding by default. This is in
-line with published scores and it fixes some cases where broken
-hairpins were vertically displaced by the key signature.
-
-@lilypond[verbatim,quote]
-\relative {
-  \key a \major
-  c''4^\< c c c \break c c c c\! |
-}
-@end lilypond
-
-
-@item
-@code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff},
-and @code{VaticanaStaff} now allow line breaks anywhere, and they
-no longer create @code{""} measure bar lines.
-
-
-@item
-Due to changes in the internals of @code{\bar}, it is no longer
-supported to use it before creating lower contexts with
-@code{\new}.  Such uses will now create an extra staff.  This is
-similar to what happens with commands such as @code{\override
-Staff@dots{}} (see @rprogram{An extra staff appears}).
-
-@lilypond[verbatim,quote]
-{
-  \bar ".|:"
-  <<
-    \new Staff { c' }
-    \new Staff { c' }
-  >>
-}
-@end lilypond
-
-The solution is to place @code{\bar} inside the music for each
-staff, as is usual with most commands.
-
-@lilypond[verbatim,quote]
-<<
-  \new Staff { \bar ".|:" c' }
-  \new Staff { \bar ".|:" c' }
->>
-@end lilypond
-
-
-@item
-The @code{\rhythm} markup command has been added.  It is a simple
-way to enter rhythms mixed with text, such as in @qq{swing}
-indications.
-
-@lilypond[verbatim,quote]
-\relative {
-  \tempo \markup {
-    Swing
-    \hspace #0.4
-    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
-  }
-  b8 g' c, d ees d16 ees d c r8
-}
-@end lilypond
-
-
-@item
-In figured bass, specially designed glyphs for @code{6\\},
-@code{7\\}, and @code{9\\} are now used by default.  Similarly,
-specially designed glyphs for symbols @code{2\+}, @code{4\+}, and
-@code{5\+} are used by default if plus signs appear after the
-number.
-
-@lilypond[quote]
-\figures {
-  \set figuredBassPlusDirection = #RIGHT
-  <7\\ 6 4 2\+> <4\+ _-> <3 5\+ 3 > <6\\ 4 3> <9\\>
-}
-@end lilypond
-
-
-@item
-The @code{-dembed-@/source-@/code} option now also embeds images
-added with @code{\epsfile} and files included with @code{\verbatim-file}.
-
-
-@item
-The new Scheme function @code{universal-@/color} provides an
-eight-element color palette designed to be unambiguous to people
-with dichromatism.
-
-@lilypond[quote]
-\markup \bold \column {
-  \with-color #(universal-color 'black) black
-  \with-color #(universal-color 'orange) orange
-  \with-color #(universal-color 'skyblue) skyblue
-  \with-color #(universal-color 'bluegreen) bluegreen
-  \with-color #(universal-color 'yellow) yellow
-  \with-color #(universal-color 'blue) blue
-  \with-color #(universal-color 'vermillion) vermillion
-  \with-color #(universal-color 'redpurple) redpurple
-}
-@end lilypond
-
-
-@item
-The following predefined bar types no longer appear as a single
-bar line at the end of a line.  Annotated bar types (e.g.,
-@code{\bar "S-|"}) have been added for that purpose.
-
-@lilypond[quote]
-{
-  R1 \bar ".|"
-  R1 \bar ".|:"
-  R1 \bar "[|:"
-  R1 \bar "S"
-  R1 \bar "S.|:"
-  r4
-}
-@end lilypond
-
-
-@item
-In figured bass, @code{_} now creates an empty figure that still
-takes up space.
-
-@lilypond[verbatim, quote]
-\figures {
-  <8 _ 4]> <_ 5+ 3>
-}
-@end lilypond
-
-
-@item
-Support for chord grids has been added.
-
-@lilypond[quote,indent=0\cm,noragged-right]
-\new ChordGrid \chordmode {
-  g2:7+ bes4:m7 ees:7
-  \repeat percent 2 {
-    a2:m7 b2:7.11+
-  }
-  e4:m7 e4:m7/d a4:7/cis c4:m7
-}
-@end lilypond
-
-
-@item
-Formatting of figured bass has been improved.  In particular, the
-default size is reduced to a value used by many Urtext editions of
-Baroque music.
-
-
-@item
-Text variant glyphs for sharp, flat, natural, double sharp, and
-double flat are now available in the Emmentaler fonts.  In markup,
-they can be easily accessed with standard Unicode values.
-
-@lilypond[quote]
-\markup \fontsize #6 \number "1 ♯ 2 ♭ 3 ♮ 4 𝄫 5 𝄪 6"
-@end lilypond
-
-
-@item
-@code{\defineBarLine} now accepts @code{#t} in lieu of repeating
-the mid-line glyph name.
-
-
-@item
-The new markup command @code{\align-on-other} translates a markup
-as if it was aligned to another markup.
-
-@lilypond[quote]
-\markup \column {
-  1
-  12
-  \align-on-other #X #RIGHT 12
-                     #LEFT 12345
-  123
-}
-@end lilypond
-
-
-@item
-It is now possible to control the width and the shape of (some)
-Emmentaler digits using OpenType features.
-
-@lilypond[quote]
-\markuplist
-  \number
-  \fontsize #6
-  \override #'((padding . 3)
-               (baseline-skip . 7)
-               (box-padding . 0)
-               (thickness . 0.1))
-  \table #'(-1 -1 -1 -1) {
-      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 }
-    \normal-text \normalsize "(time signatures)"
-    \override #'(font-features .("cv47")) {
-      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
-    \normal-text \normalsize "(alternatives)"
-    \override #'(font-features .("tnum" "cv47" "-kern")) {
-      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
-    \normal-text \normalsize "(fixed-width)"
-    \override #'(font-features . ("tnum" "cv47" "ss01")) {
-      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
-    \normal-text \normalsize "(figured bass)"
-    \override #'(font-features . ("cv47" "ss01")) {
-      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
-    \normal-text \normalsize "(fingering)"
-  }
-@end lilypond
-
-
-@item
-The bar line type @code{"-"} has been removed.  @code{convert-ly}
-converts it to @code{""}.  There is a slight difference in
-horizontal spacing at line breaks.
-
-
-@item
-@code{automaticBars} has been removed.  @code{convert-ly} converts
-@code{automaticBars = ##f} to @code{measureBarType = #'()}.
-
-
-@item
-The @code{\break} command now always inserts a break, bypassing all
-default decisions about break points.  For example, it is no longer
-necessary to insert @code{\bar ""} to obtain a mid-measure break.
-
-The new @code{\allowBreak} command inserts a possible break point,
-without forcing it, but bypassing default decisions like @code{\break}
-does.
-
-
-@item
-In @code{ChordNames}, multi-measure rests now also cause the
-@qq{N.C.} symbol to be printed, just like normal rests.
-
-
-@item
-Scheme translators can now contain listeners written as
-
-@example
-(listeners
- ((event-class engraver event #:once)
-  ...))
-@end example
-
-These are never triggered more than once per time step.  They emit
-a warning if they receive two events in the same time step, except
-if the events are equal.
-
-
-@item
-The default appearance of trill spanners has changed to better
-match classical engraving conventions.  They now end before the
-next note, not over it.  If the next note has an accidental, they
-stop before it.  If the next note is the first note of a measure,
-they stop over the bar line instead.
-
-@lilypond[quote]
-{
-  \override Score.SpacingSpanner.spacing-increment = 2.1
-  d''2\startTrillSpan 2\stopTrillSpan
-  2\startTrillSpan deses''2\stopTrillSpan
-  d''1\startTrillSpan 1\stopTrillSpan
-}
-@end lilypond
-
-
-@item
-New markup commands @code{\with-true-dimension} and
-@code{\with-true-dimensions} are available.  They give the markup
-the actual extent(s) of its printed ink, which may differ from the
-default extents for some font glyphs due to text regularity
-constraints.
-
-@lilypond[quote]
-\markup
-  \fontsize #10
-  \override #'((box-padding . 0) (thickness . 0.02))
-  \line
-  \box {
-    \musicglyph "scripts.trill"
-    \with-true-dimensions \musicglyph "scripts.trill"
-  }
-@end lilypond
-
-
-@item
-The new context property @code{breathMarkType} selects the mark
-that @code{\breathe} produces from several predefined types.
-
-@lilypond[verbatim,quote]
-\fixed c' {
-  \set breathMarkType = #'tickmark
-  c2 \breathe d2
-}
-@end lilypond
-
-
-@item
-Properties of @code{PaperColumn} and @code{NonMusicalPaperColumn}
-(such as @code{NonMusicalPaperColumn.line-break-system-details})
-can now be overridden mid-music with the usual command @code{\once
-\override}.  They used to be a special case requiring the
-@code{\overrideProperty} command.
-
-
-@item
-Scheme translators can now define a new slot called
-@code{pre-process-music}.  It is called on all translators, after
-all listeners but before all @code{process-music} slots.  This can
-be used for processing that depends on all events heard but needs
-to set context properties before other translators read them.
-
-
-@item
-@code{\markup \path} now also works in SVG output even if the path
-does not begin with a @code{moveto} or @code{rmoveto} command.  Also,
-it now accepts single-letter SVG equivalents (@code{moveto} = @code{M},
-etc.).
-
-
-@item
-A new context @code{VaticanaLyrics} is available.  It is similar to
-@code{Lyrics}, providing a hyphenation style (a single, flush-left hyphen
-between two syllables) as used in the notational style of Editio Vaticana.
-
-
-@item
-Two redundant glyphs in the Emmentaler font have been removed:
-@code{scripts.trillelement} (use @code{scripts.trill_element} instead) and
-@code{scripts.augmentum} (use @code{dots.dotvaticana} instead).
-
-
-@item
-Two new markup functions @code{\with-dimension} and
-@code{\with-dimension-from} are available.  They are similar to
-@code{\with-dimensions} and @code{\with-dimensions-from},
-respectively, modifying only a single dimension (instead of both).
-
-
-@item
-The @code{\enablePolymeter} command is now provided as an input
-shorthand for moving engravers as is necessary to allow different
-time signatures in parallel.  The code:
-
-@quotation
-@verbatim
-\layout {
-  \context {
-    \Score
-    \remove Timing_translator
-    \remove Default_bar_line_engraver
-  }
-  \context {
-    \Staff
-    \consists Timing_translator
-    \consists Default_bar_line_engraver
-  }
-}
-@end verbatim
-@end quotation
-
-@noindent
-can thus be shortened as:
-
-@quotation
-@verbatim
-\layout {
-  \enablePolymeter
-}
-@end verbatim
-@end quotation
-
-Independent of this, @code{Default_@/bar_@/line_@/engraver} has
-been removed.
-
-
-@item
-@code{\bar ""} is no longer necessary to print the first bar
-number.  It now suffices to set @code{barNumberVisibility} to
-@code{all-@/bar-@/numbers-@/visible}, or one of the other
-visibility settings where the first bar number is visible.
-
-Note that this is a change in behavior for scores that set
-@code{barNumberVisibility} to @code{all-@/bar-@/numbers-@/visible}
-or such and @code{BarNumber@/.break-@/visibility} to @code{#t}
-without having @code{\bar ""}.  Now, a bar number is printed at
-the beginning.  This is just the expected behavior (@emph{all} bar
-numbers should be visible), but due to slightly unclear
-documentation, users may have used these settings to print bar
-numbers in the middle of systems except for the first bar number.
-In such cases, simply remove
-@code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
-since @code{\override BarNumber@/.break-@/visibility = ##t} does
-the relevant setting alone.
-
-
-@item
-The @code{markup->string} function converts a markup into an
-approximate string representation; it is used for outputting PDF
-metadata as well as MIDI lyrics and markers.  Markup commands can
-now define a custom method to convert markups created using them
-into strings, for use by @code{markup->string}.  For example:
-
-@example
-#(define-markup-command (upcase layout props arg) (string?)
-   #:as-string (string-upcase arg)
-   (interpret-markup layout props (string-upcase arg)))
-@end example
-
-
-@item
-@code{\bar ","} creates a short bar line.
-
-@lilypond[quote]
-\new Staff \with {
-  \omit Clef
-  \omit TimeSignature
-} \fixed c' {
-  \cadenzaOn
-  e2 f g a g \bar "," f g f d e\breve
-}
-@end lilypond
-
-
-@item
-The new @code{show-horizontal-skylines} and
-@code{show-vertical-skylines} properties allow to display an
-object's skylines.  This is more flexible than the already
-existing @code{debug-skylines} option because it works for all
-grobs.  While primarily meant for debugging LilyPond, this can be
-useful when trying to understand spacing decisions or overriding
-stencils in Scheme.
-
-@lilypond[quote]
-#(set-global-staff-size 40)
-
-{
-  \override Staff.Clef.show-vertical-skylines = ##t
-  \override Accidental.show-horizontal-skylines = ##t
-  cis'
-}
-@end lilypond
-
-
-@item
-Balloons now have changeable formatting.
-
-@lilypond[quote]
-\new Score \with {
-  \consists Balloon_engraver
-  \override SpacingSpanner.spacing-increment = 5
-}
-{
-  \balloonLengthOn
-  \balloonGrobText Rest #'(1 . 2) "rest"
-  r4
-  \once \override Score.BalloonText.Y-attachment = #CENTER
-  \once \override Score.BalloonText.text-alignment-X = #CENTER
-  \balloonGrobText Rest #'(1 . 3.5) "rest"
-  r4
-}
-@end lilypond
-
-
-@item
-The new @code{\repeat segno} command automatically notates a
-variety of @emph{da-capo} and @emph{dal-segno} forms.
-
-@lilypond[verbatim,quote]
-music = \fixed c' {
-  \repeat segno 2 {
-    b1
-  }
-  \fine
-}
-
-\score { \music }
-\score { \unfoldRepeats \music }
-@end lilypond
-
-
-@item
-The new @code{\fine} command inserts a final bar line that
-interacts gracefully with repeat bar lines.  Used inside
-@code{\repeat}, it also prints @emph{Fine} and ends the music
-after unfolding.
-
-@lilypond[verbatim,quote]
-music = \fixed c' {
-  \repeat volta 2 {
-    f1
-    \volta 2 \fine
-    \volta 1 b1
-  }
-}
-
-\score { \music }
-\score { \unfoldRepeats \music }
-@end lilypond
-
-
-@item
-The new @code{\section} command inserts a double bar line that
-interacts gracefully with repeat bar lines.  A passage can be
-named with the new @code{\sectionLabel} command.
-
-@lilypond[verbatim,quote,line-width=9\cm]
-\fixed c' {
-  f1
-  \break
-  \section
-  \sectionLabel "Trio"
-  \repeat volta 2 {
-    b1
-  }
-}
-@end lilypond
-
-
-@item
-The drum notation style @code{weinberg-drums-style} was added.
-It is based on Norman Weinberg's standardization work.
-
-
-@item
-Support for Persian classical music is now available.  For this, two
-accidental glyphs, @emph{sori} and @emph{koron}, have been added to
-LilyPond.
-
-@lilypond[verbatim,quote,line-width=14.5\cm]
-\include "persian.ly"
-
-\relative c' {
-  \key d \chahargah
-  bk'8 a gs fo r g ak g |
-  fs ek d c d ef16 d c4 |
-}
-@end lilypond
-
-
-@item
-The new @code{Mark_performer} creates MIDI Marker events like
-@code{Mark_engraver} creates printed marks.
-
-
-@item
-The new @code{Mark_tracking_translator} takes over from
-@code{Mark_engraver} the decision of when to create a mark.
-@code{Mark_engraver} continues to control formatting and vertical
-placement.
-
-By default, @code{Mark_engravers} in multiple contexts create a
-common sequence of marks.  If independent sequences are desired,
-multiple @code{Mark_tracking_translators} must be used.
-
-
-@item
-The default of the @code{aux-files} program option changed to
-@code{#f}. If you are calling LilyPond with the
-@code{-dbackend=eps} argument and need the auxiliary @file{.tex}
-and @file{.texi} files, you now have to specify @code{-daux-files}
-explicitly. The formats for @code{lilypond-book} images can be set
-separately for the tall page image (typically PNG for HTML output)
-and per-system images (typically, EPS or PDF for printed output)
-with the @code{-d} sub-options @code{-dtall-page-formats} and
-@code{-dseparate-page-formats} respectively.
-
-
-@item
-Events attached to notes (e.g., dynamics or articulations) can be
-delayed by an arbitrary duration using @code{\after}.  This simplifies
-many situations that previously required the use of explicit polyphony
-and spacer rests.
-
-@lilypond[verbatim,quote]
-{
-  \after 2 \turn g'2. a'4
-  \after 2 \< b'1
-  \after 2. \f c''
-  <>\< \after 4 \> \after 2\! d''
-}
-@end lilypond
-
-
-@item
-@command{lilypond-book} supports two new music fragment options
-@option{paper-width} and @option{paper-height} to set a custom paper size.
-
-
-@item
-@code{set-default-paper-size} and @code{set-paper-size} now accept
-a custom paper size.
-
-@example
-#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
-@end example
-
-
-@item
-Scheme-defined translators usable in both @samp{\layout} and
-@samp{\midi} can now be created with @code{make-translator}.
-Scheme-defined performers usable only in @samp{\midi} can now be
-created with @code{make-performer}.  Those macros work strictly like
-the previously existing macro @code{make-engraver} for creating
-engravers only usable in @samp{\layout}.
-
-
-@item
-The syntax for conditions in markups was made more flexible and
-user-friendly.  It uses the new markup commands @code{\if} and
-@code{\unless}.  Here are example replacements:
-
-@multitable {@code{\on-the-fly #not-part-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
-@headitem 2.22 syntax @tab 2.24 syntax
-@item @code{\on-the-fly #first-page @dots{}}
-@tab @code{\if \on-first-page @code{} @dots{}}
-@item @code{\on-the-fly #not-part-first-page @dots{}}
-@tab @code{\unless \on-first-page-of-part @dots{}}
-@item @code{\on-the-fly #(on-page @var{n}) @dots{}}
-@tab @code{\if \on-page #@var{n} @dots{}}
-@end multitable
-
-
-@item
-In figured bass, brackets can now also be added around accidentals.
-
-@lilypond[quote]
-\figures {
-  <7 [5 3[+]]> <5[!]> <[5!]>
-}
-@end lilypond
-
-
-@item
-@code{\numericTimeSignature} and @code{\defaultTimeSignature} now act on
-all staves at once (more precisely, on all staves in the same @code{Timing}
-context), thus matching the behavior of @code{\time}.
-
-
-@item
-Parenthesizing chords is supported.  Currently, the font size of the
-parentheses has to be adjusted manually.
-
-@lilypond[quote]
-\new Voice {
-  \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
-  <<
-    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
-    { \parenthesize ees' }
-    { \tweak Parentheses.font-size -2 \parenthesize <c'' e''> }
-  >>
-}
-@end lilypond
-
-
-@item
-Parenthesizing spanners is supported.
-
-@lilypond[quote]
-{
-  c'\parenthesize\< d'2.\!
-  \parenthesize R1
-}
-@end lilypond
-
-
-@item
-A @qq{time-based} version of the @code{\parenthesize} command was
-added.  It takes a grob path: @code{\parenthesize @var{GrobName}}
-or @code{\parenthesize @var{ContextName}.@var{GrobName}}.  It acts
-like a @code{\once \override}.  This interface complements the
-already existing form @code{\parenthesize @var{event}}, in a fashion
-similar to @code{\footnote}.
-
-@lilypond[verbatim,quote]
-{
-  \parenthesize NoteHead
-  c'1
-  \parenthesize Staff.KeySignature
-  \key g \major
-  c'1
-}
-@end lilypond
-
-
-@item
-The same grob definition can now be used to create grobs of
-different classes (@code{Item}, @code{Spanner}, @code{Paper_column},
-@code{System}).  As part of this change, the grob types
-@code{FootnoteItem} and @code{FootnoteSpanner} were consolidated
-into a single type @code{Footnote}.  Similarly, @code{BalloonTextSpanner}
-and @code{BalloonTextItem} are unified into @code{BalloonText}.
-
-When the grob definition does not mandate a class, engravers should
-choose what class to create a grob with.  For authors of Scheme
-engravers, this means using either @code{ly:@/engraver-@/make-@/item} or
-@code{ly:@/engraver-@/make-@/spanner}.  The utility function
-@code{ly:@/engraver-@/make-@/sticky} is provided to support the
-frequent case of @emph{sticky} grobs, such as footnotes and balloons.
-It creates a grob with the same class as another grob and
-administrates parents and bounds.
-
-
-@item
-The new command @code{\vshape} is like @code{\shape}, but also shows
-the control points and polygon for easier tweaking.
-
-@lilypond[verbatim,quote]
-{ a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
-@end lilypond
-
+@itemize
 
 @item
 Support for alternate accidentals was improved.  Through the
@@ -1018,7 +105,6 @@ accidental glyphs may be set for all grobs at once
   fis''
 }
 @end lilypond
-
 
 @item
 Ottava brackets may apply to a single voice instead of the entire
@@ -1065,6 +151,86 @@ staff.  This used to require workarounds.
 }
 @end lilypond
 
+@end itemize
+
+@node Rythm improvements
+@unnumberedsec Rythm improvements
+
+@itemize
+
+@item
+The new @code{\section} command inserts a double bar line that
+interacts gracefully with repeat bar lines.  A passage can be
+named with the new @code{\sectionLabel} command.
+
+@lilypond[verbatim,quote,line-width=9\cm]
+\fixed c' {
+  f1
+  \break
+  \section
+  \sectionLabel "Trio"
+  \repeat volta 2 {
+    b1
+  }
+}
+@end lilypond
+
+@item
+@code{\numericTimeSignature} and @code{\defaultTimeSignature} now act on
+all staves at once (more precisely, on all staves in the same @code{Timing}
+context), thus matching the behavior of @code{\time}.
+
+@item
+The @code{\rhythm} markup command has been added.  It is a simple
+way to enter rhythms mixed with text, such as in @qq{swing}
+indications.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+@item
+The @code{\enablePolymeter} command is now provided as an input
+shorthand for moving engravers as is necessary to allow different
+time signatures in parallel.  The code:
+
+@quotation
+@verbatim
+\layout {
+  \context {
+    \Score
+    \remove Timing_translator
+    \remove Default_bar_line_engraver
+  }
+  \context {
+    \Staff
+    \consists Timing_translator
+    \consists Default_bar_line_engraver
+  }
+}
+@end verbatim
+@end quotation
+
+@noindent
+can thus be shortened as:
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
+
+Independent of this, @code{Default_@/bar_@/line_@/engraver} has
+been removed.
 
 @item
 Measure counts now take compressed multi-measure rests and
@@ -1102,29 +268,6 @@ alternatives into account.
 }
 @end lilypond
 
-
-@item
-The string tunings @code{banjo-double-c} and @code{banjo-double-d}
-were added.
-
-
-@item
-@command{lilypond-book} now appends the current directory as the last
-entry to search for included files, instead of prepending it to the
-list of specified include paths.  This allows include directories to
-shadow files from the current directory, and will only be noticed if
-there are files with the same name in both.
-
-
-@item
-@command{lilypond-book} supports a new snippet option @option{inline} for
-inline music, that is, music snippets like
-@lilypond[inline,staffsize=11]{
-  { \time 2/4 r8 g'[ g' g'] | es'2 }
-}
-that appear within a paragraph of text.
-
-
 @item
 Bar numbers may be centered in their measure, as is common in film scores.
 
@@ -1143,40 +286,276 @@ Bar numbers may be centered in their measure, as is common in film scores.
 >>
 @end lilypond
 
+@item
+The alignment of bar numbers appearing in the middle or end of a system
+has been changed to align them on their left edge.  This is in keeping with the
+advice of Elaine Gould (@cite{Behind Bars}, p.@tie{}237), and was mostly the
+consensus reached in a discussion of the issue by developers.  The alignment of
+bars at the beginning of a system remains unchanged.
 
 @item
-Adding the @code{Melody_engraver} to the @code{Voice} context now works
-out of the box to change the stem direction of the middle note according
-to the melody.  Previously, this required an additional override to
-@code{Stem.neutral-direction}.
+@code{\bar ","} creates a short bar line.
 
-@lilypond[verbatim,quote]
-\new Voice \with {
-  \consists Melody_engraver
-}
-\relative c'' {
-  \autoBeamOff
-  g8 b a e g b a g |
-  c b d c b e d c |
+@lilypond[quote]
+\new Staff \with {
+  \omit Clef
+  \omit TimeSignature
+} \fixed c' {
+  \cadenzaOn
+  e2 f g a g \bar "," f g f d e\breve
 }
 @end lilypond
 
-The @code{suspendMelodyDecisions} context property may be used
-to turn off this behavior temporarily, as
-@code{\override Stem.neutral-direction = #DOWN} used to do.
+@item
+The following predefined bar types no longer appear as a single
+bar line at the end of a line.  Annotated bar types (e.g.,
+@code{\bar "S-|"}) have been added for that purpose.
 
+@lilypond[quote]
+{
+  R1 \bar ".|"
+  R1 \bar ".|:"
+  R1 \bar "[|:"
+  R1 \bar "S"
+  R1 \bar "S.|:"
+  r4
+}
+@end lilypond
 
 @item
-In the Emmentaler font, identical-looking noteheads whose only difference was
-stem direction have been consolidated into a single glyph.  For instance,
-the glyphs @code{noteheads@/.u2triangle} and @code{noteheads@/.d2triangle} have
-been replaced by a single glyph, @code{noteheads@/.s2triangle}.  Notehead pairs
-that look visually different depending on the direction remain distinct.
+@code{\bar ""} is no longer necessary to print the first bar
+number.  It now suffices to set @code{barNumberVisibility} to
+@code{all-@/bar-@/numbers-@/visible}, or one of the other
+visibility settings where the first bar number is visible.
 
-In addition, the @code{stem-attachment} property of @code{NoteHead} grobs now
-returns its actual, direction-dependent stem attachment point instead of a
-hypothetical upwards-stem attachment point.
+Note that this is a change in behavior for scores that set
+@code{barNumberVisibility} to @code{all-@/bar-@/numbers-@/visible}
+or such and @code{BarNumber@/.break-@/visibility} to @code{#t}
+without having @code{\bar ""}.  Now, a bar number is printed at
+the beginning.  This is just the expected behavior (@emph{all} bar
+numbers should be visible), but due to slightly unclear
+documentation, users may have used these settings to print bar
+numbers in the middle of systems except for the first bar number.
+In such cases, simply remove
+@code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
+since @code{\override BarNumber@/.break-@/visibility = ##t} does
+the relevant setting alone.
 
+@item
+The @code{\break} command now always inserts a break, bypassing all
+default decisions about break points.  For example, it is no longer
+necessary to insert @code{\bar ""} to obtain a mid-measure break.
+
+The new @code{\allowBreak} command inserts a possible break point,
+without forcing it, but bypassing default decisions like @code{\break}
+does.
+
+@item
+The bar line type @code{"-"} has been removed.  @code{convert-ly}
+converts it to @code{""}.  There is a slight difference in
+horizontal spacing at line breaks.
+
+@item
+@code{automaticBars} has been removed.  @code{convert-ly} converts
+@code{automaticBars = ##f} to @code{measureBarType = #'()}.
+
+@item
+@code{\defineBarLine} now accepts @code{#t} in lieu of repeating
+the mid-line glyph name.
+
+@item
+@code{Bar_@/engraver} used to forbid line breaks between bar lines
+in all cases, but now it only does so when the
+@code{forbidBreakBetweenBarLines} context property is set to
+@code{#t}, which is the default.  The @code{barAlways} context
+property, which previously worked around the lack of
+@code{forbidBreakBetweenBarLines}, has been removed.
+
+@item
+Due to changes in the internals of @code{\bar}, it is no longer
+supported to use it before creating lower contexts with
+@code{\new}.  Such uses will now create an extra staff.  This is
+similar to what happens with commands such as @code{\override
+Staff@dots{}} (see @rprogram{An extra staff appears}).
+
+@lilypond[verbatim,quote]
+{
+  \bar ".|:"
+  <<
+    \new Staff { c' }
+    \new Staff { c' }
+  >>
+}
+@end lilypond
+
+The solution is to place @code{\bar} inside the music for each
+staff, as is usual with most commands.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { \bar ".|:" c' }
+  \new Staff { \bar ".|:" c' }
+>>
+@end lilypond
+
+@item
+The bar type @code{"-span|"} creates a @notation{mensurstrich}.
+
+@lilypond[quote]
+\new StaffGroup \with { measureBarType = "-span|" } <<
+  \new Staff \fixed c'' { c4 d e f e d }
+  \new Staff \fixed c' { a2 f2. g4 }
+>>
+@end lilypond
+
+@item
+@code{Staff} contexts use the new @code{Caesura_engraver} to
+notate the @code{\caesura} command.
+
+@lilypond[quote]
+\fixed c' {
+  c2 \caesura d2
+  e1 \caesura \once \set Staff.caesuraType = #'((scripts . (fermata)))
+  f1
+}
+@end lilypond
+
+@end itemize
+
+@node Expressive mark improvements
+@unnumberedsec Expressive mark improvements
+
+@itemize
+
+@item
+Events attached to notes (e.g., dynamics or articulations) can be
+delayed by an arbitrary duration using @code{\after}.  This simplifies
+many situations that previously required the use of explicit polyphony
+and spacer rests.
+
+@lilypond[verbatim,quote]
+{
+  \after 2 \turn g'2. a'4
+  \after 2 \< b'1
+  \after 2. \f c''
+  <>\< \after 4 \> \after 2\! d''
+}
+@end lilypond
+
+@item
+Broken hairpins now have some left padding by default. This is in
+line with published scores and it fixes some cases where broken
+hairpins were vertically displaced by the key signature.
+
+@lilypond[verbatim,quote]
+\relative {
+  \key a \major
+  c''4^\< c c c \break c c c c\! |
+}
+@end lilypond
+
+@item
+The ends of hairpins may now be aligned to the @code{LEFT}, @code{CENTER}
+or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
+@code{endpoint-alignments}.
+
+@lilypond[quote]
+{
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,RIGHT . ,LEFT)
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,CENTER . ,CENTER)
+  c'2\< <c' d'>\! |
+}
+@end lilypond
+
+@item
+The direction of a trill spanner can now be set with direction
+indicators like other articulations, i.e. with
+@code{_\startTrillSpan} or @code{^\startTrillSpan}.
+
+@item
+The default appearance of trill spanners has changed to better
+match classical engraving conventions.  They now end before the
+next note, not over it.  If the next note has an accidental, they
+stop before it.  If the next note is the first note of a measure,
+they stop over the bar line instead.
+
+@lilypond[quote]
+{
+  \override Score.SpacingSpanner.spacing-increment = 2.1
+  d''2\startTrillSpan 2\stopTrillSpan
+  2\startTrillSpan deses''2\stopTrillSpan
+  d''1\startTrillSpan 1\stopTrillSpan
+}
+@end lilypond
+
+@item
+The padding by default for fermatas is now larger. This avoids
+some cases where the fermata was placed too close to dots and
+other objects.
+
+@lilypond[quote]
+\relative c''' {
+  \tempo 4 = 60
+  a4.
+  a4.\fermata
+  a4.\henzeshortfermata
+  a4.\henzelongfermata
+  a4.\shortfermata
+  a4.\longfermata
+  a4.\veryshortfermata
+  a4.\verylongfermata
+}
+@end lilypond
+
+@item
+The flageolet symbol is now smaller and slightly thicker.  This
+is in line with published scores and makes the recommended
+workaround to make it smaller (@code{\tweak font-size -3 \flageolet})
+unnecessary.
+
+@lilypond[quote]
+{
+  d''2^\flageolet d''_\flageolet
+}
+@end lilypond
+
+@item
+The accent glyph is now a bit smaller.  This fixes some cases where a natural
+sign would vertically displace accents.
+
+@lilypond[quote]
+{
+  f'!8[-> f'-> f'-> f'->]
+}
+@end lilypond
+
+@item
+The comma glyph shape, as used in the @code{\breathe} command,
+has been changed to a more common form.
+
+@lilypond[quote]
+{ f'2 \breathe f'2 }
+@end lilypond
+
+@item
+The new context property @code{breathMarkType} selects the mark
+that @code{\breathe} produces from several predefined types.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set breathMarkType = #'tickmark
+  c2 \breathe d2
+}
+@end lilypond
+
+@end itemize
+
+@node Repeat improvements
+@unnumberedsec Repeat improvements
+
+@itemize
 
 @item
 Repeat alternatives may appear within the repeated section.
@@ -1194,56 +573,68 @@ The volta numbers for repeat alternatives may be set with the
 \repeat volta 3 c'1 \alternative { \volta 1 d' \volta 2,3 e' }
 @end lilypond
 
+@item
+The new @code{\repeat segno} command automatically notates a
+variety of @emph{da-capo} and @emph{dal-segno} forms.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat segno 2 {
+    b1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@item
+The new @code{\fine} command inserts a final bar line that
+interacts gracefully with repeat bar lines.  Used inside
+@code{\repeat}, it also prints @emph{Fine} and ends the music
+after unfolding.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    \volta 1 b1
+  }
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
 
 @item
 The @code{\volta} command removes music when a repeat is unfolded.
 
-
 @item
 The @code{\unfolded} command adds music when a repeat is unfolded.
 
+@end itemize
+
+@node Editorial annotation improvements
+@unnumberedsec Editorial annotation improvements
+
+@itemize
 
 @item
-The ends of hairpins may now be aligned to the @code{LEFT}, @code{CENTER}
-or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
-@code{endpoint-alignments}.
+The new @code{\staffHighlight} and @code{\stopStaffHighlight}
+commands can be used to color a musical passage.
 
-@lilypond[quote]
-{
-  c'2\< <c' d'>\! |
-  \override Hairpin.endpoint-alignments = #`(,RIGHT . ,LEFT)
-  c'2\< <c' d'>\! |
-  \override Hairpin.endpoint-alignments = #`(,CENTER . ,CENTER)
-  c'2\< <c' d'>\! |
+@lilypond
+\relative {
+  \staffHighlight lightsteelblue
+  c'4 e g c
+  \staffHighlight lightpink
+  d, f a d
+  \staffHighlight lightsteelblue
+  c, e g c
 }
 @end lilypond
-
-
-@item
-The @command{lilypond-book} script now allows braces in the argument of
-the commands @code{\lilypond} (for LaTeX) and @code{@@lilypond} (for
-Texinfo).
-
-
-@item
-With the new markup list command @code{string-lines} it is now possible to
-split a string at a given character.  The default is to split at line break.
-Surrounding white space gets dropped.  The resulting list of markups may be
-further formatted.
-This is a very convenient way of entering additional stanzas for songs.
-
-@lilypond[quote]
-\markup
-  \column
-  \string-lines
-    "Twinkle, twinkle, little star,
-     How I wonder what you are!
-     Up above the world so high,
-     Like a diamond in the sky.
-     Twinkle, twinkle, little star,
-     How I wonder what you are!"
-@end lilypond
-
 
 @item
 A new grob @code{FingerGlideSpanner} is now available, indicating a finger
@@ -1280,6 +671,265 @@ mus = {
 Also possible is @code{dashed-line}, @code{dotted-line}, @code{zigzag},
 @code{trill}, @code{bow} and @code{none}.
 
+@item
+Balloons now have changeable formatting.
+
+@lilypond[quote]
+\new Score \with {
+  \consists Balloon_engraver
+  \override SpacingSpanner.spacing-increment = 5
+}
+{
+  \balloonLengthOn
+  \balloonGrobText Rest #'(1 . 2) "rest"
+  r4
+  \once \override Score.BalloonText.Y-attachment = #CENTER
+  \once \override Score.BalloonText.text-alignment-X = #CENTER
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
+}
+@end lilypond
+
+@item
+Parenthesizing chords is supported.  Currently, the font size of the
+parentheses has to be adjusted manually.
+
+@lilypond[quote]
+\new Voice {
+  \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c'' e''> }
+  >>
+}
+@end lilypond
+
+@item
+Parenthesizing spanners is supported.
+
+@lilypond[quote]
+{
+  c'\parenthesize\< d'2.\!
+  \parenthesize R1
+}
+@end lilypond
+
+@item
+A @qq{time-based} version of the @code{\parenthesize} command was
+added.  It takes a grob path: @code{\parenthesize @var{GrobName}}
+or @code{\parenthesize @var{ContextName}.@var{GrobName}}.  It acts
+like a @code{\once \override}.  This interface complements the
+already existing form @code{\parenthesize @var{event}}, in a fashion
+similar to @code{\footnote}.
+
+@lilypond[verbatim,quote]
+{
+  \parenthesize NoteHead
+  c'1
+  \parenthesize Staff.KeySignature
+  \key g \major
+  c'1
+}
+@end lilypond
+
+@item
+Adding the @code{Melody_engraver} to the @code{Voice} context now works
+out of the box to change the stem direction of the middle note according
+to the melody.  Previously, this required an additional override to
+@code{Stem.neutral-direction}.
+
+@lilypond[verbatim,quote]
+\new Voice \with {
+  \consists Melody_engraver
+}
+\relative c'' {
+  \autoBeamOff
+  g8 b a e g b a g |
+  c b d c b e d c |
+}
+@end lilypond
+
+The @code{suspendMelodyDecisions} context property may be used
+to turn off this behavior temporarily, as
+@code{\override Stem.neutral-direction = #DOWN} used to do.
+
+@item
+The new @code{Mark_tracking_translator} takes over from
+@code{Mark_engraver} the decision of when to create a mark.
+@code{Mark_engraver} continues to control formatting and vertical
+placement.
+
+By default, @code{Mark_engravers} in multiple contexts create a
+common sequence of marks.  If independent sequences are desired,
+multiple @code{Mark_tracking_translators} must be used.
+
+@end itemize
+
+@node Text improvements
+@unnumberedsec Text improvements
+
+@itemize
+
+@item
+Text variant glyphs for sharp, flat, natural, double sharp, and
+double flat are now available in the Emmentaler fonts.  In markup,
+they can be easily accessed with standard Unicode values.
+
+@lilypond[quote]
+\markup \fontsize #6 \number "1 ♯ 2 ♭ 3 ♮ 4 𝄫 5 𝄪 6"
+@end lilypond
+
+@item
+It is now possible to control the width and the shape of (some)
+Emmentaler digits using OpenType features.
+
+@lilypond[quote]
+\markuplist
+  \number
+  \fontsize #6
+  \override #'((padding . 3)
+               (baseline-skip . 7)
+               (box-padding . 0)
+               (thickness . 0.1))
+  \table #'(-1 -1 -1 -1) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 }
+    \normal-text \normalsize "(time signatures)"
+    \override #'(font-features .("cv47")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(alternatives)"
+    \override #'(font-features .("tnum" "cv47" "-kern")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fixed-width)"
+    \override #'(font-features . ("tnum" "cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(figured bass)"
+    \override #'(font-features . ("cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fingering)"
+  }
+@end lilypond
+
+@item
+@code{\smallCaps} now works on any markup, not just on a bare
+string.
+
+@item
+The syntax for conditions in markups was made more flexible and
+user-friendly.  It uses the new markup commands @code{\if} and
+@code{\unless}.  Here are example replacements:
+
+@multitable {@code{\on-the-fly #not-part-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
+@headitem 2.22 syntax @tab 2.24 syntax
+@item @code{\on-the-fly #first-page @dots{}}
+@tab @code{\if \on-first-page @code{} @dots{}}
+@item @code{\on-the-fly #not-part-first-page @dots{}}
+@tab @code{\unless \on-first-page-of-part @dots{}}
+@item @code{\on-the-fly #(on-page @var{n}) @dots{}}
+@tab @code{\if \on-page #@var{n} @dots{}}
+@end multitable
+
+@item
+With the new markup list command @code{string-lines} it is now possible to
+split a string at a given character.  The default is to split at line break.
+Surrounding white space gets dropped.  The resulting list of markups may be
+further formatted.
+This is a very convenient way of entering additional stanzas for songs.
+
+@lilypond[quote]
+\markup
+  \column
+  \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!
+     Up above the world so high,
+     Like a diamond in the sky.
+     Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+@item
+The new markup command @code{\align-on-other} translates a markup
+as if it was aligned to another markup.
+
+@lilypond[quote]
+\markup \column {
+  1
+  12
+  \align-on-other #X #RIGHT 12
+                     #LEFT 12345
+  123
+}
+@end lilypond
+
+@item
+Two new markup functions @code{\with-dimension} and
+@code{\with-dimension-from} are available.  They are similar to
+@code{\with-dimensions} and @code{\with-dimensions-from},
+respectively, modifying only a single dimension (instead of both).
+
+@item
+New markup commands @code{\with-true-dimension} and
+@code{\with-true-dimensions} are available.  They give the markup
+the actual extent(s) of its printed ink, which may differ from the
+default extents for some font glyphs due to text regularity
+constraints.
+
+@lilypond[quote]
+\markup
+  \fontsize #10
+  \override #'((box-padding . 0) (thickness . 0.02))
+  \line
+  \box {
+    \musicglyph "scripts.trill"
+    \with-true-dimensions \musicglyph "scripts.trill"
+  }
+@end lilypond
+
+@item
+Text replacements can now replace strings with any markup, not
+just with a string.
+
+@lilypond[verbatim,quote]
+\markup
+  \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #}))
+  "2nd time"
+@end lilypond
+
+@item
+A new markup command @code{\with-string-transformer} is available.
+It interprets a markup with a @qq{string transformer} installed;
+the transformer is called when the interpretation of the markup
+requires interpreting a string, and allows to perform modifications
+on this string, such as changing case.
+
+@item
+The @code{markup->string} function converts a markup into an
+approximate string representation; it is used for outputting PDF
+metadata as well as MIDI lyrics and markers.  Markup commands can
+now define a custom method to convert markups created using them
+into strings, for use by @code{markup->string}.  For example:
+
+@example
+#(define-markup-command (upcase layout props arg) (string?)
+   #:as-string (string-upcase arg)
+   (interpret-markup layout props (string-upcase arg)))
+@end example
+
+@end itemize
+
+
+@node New for specialist notation
+@unnumbered New for specialist notation
+
+@node Fretted string instrument improvements
+@unnumberedsec Fretted string instrument improvements
+
+@itemize
+
+@item
+The string tunings @code{banjo-double-c} and @code{banjo-double-d}
+were added.
 
 @item
 A new grob @code{BendSpanner} is now available for @code{TabStaff}, indicating
@@ -1314,6 +964,204 @@ mus = {
 }
 @end lilypond
 
+@end itemize
+
+@node Percussion improvements
+@unnumberedsec Percussion improvements
+
+@itemize
+
+@item
+The drum notation style @code{weinberg-drums-style} was added.
+It is based on Norman Weinberg's standardization work.
+
+@end itemize
+
+@node Wind instrument improvements
+@unnumberedsec Wind instrument improvements
+
+@itemize
+
+@item
+Additional display details of a @code{\woodwind-diagram} can now be specified including
+the angle of partially-covered-keys and the display of non-graphical trill keys.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((fill-angle . 90)
+                                           (text-trill-circled . #f)))
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                               (lh . ())
+                               (rh . (besT)))
+}
+@end lilypond
+
+@end itemize
+
+@node Chord notation improvements
+@unnumberedsec Chord notation improvements
+
+@itemize
+
+@item
+Support for chord grids has been added.
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  g2:7+ bes4:m7 ees:7
+  \repeat percent 2 {
+    a2:m7 b2:7.11+
+  }
+  e4:m7 e4:m7/d a4:7/cis c4:m7
+}
+@end lilypond
+
+@item
+In @code{ChordNames}, multi-measure rests now also cause the
+@qq{N.C.} symbol to be printed, just like normal rests.
+
+@item
+In figured bass, @code{_} now creates an empty figure that still
+takes up space.
+
+@lilypond[verbatim, quote]
+\figures {
+  <8 _ 4]> <_ 5+ 3>
+}
+@end lilypond
+
+@item
+Formatting of figured bass has been improved.  In particular, the
+default size is reduced to a value used by many Urtext editions of
+Baroque music.
+
+@item
+In figured bass, specially designed glyphs for @code{6\\},
+@code{7\\}, and @code{9\\} are now used by default.  Similarly,
+specially designed glyphs for symbols @code{2\+}, @code{4\+}, and
+@code{5\+} are used by default if plus signs appear after the
+number.
+
+@lilypond[quote]
+\figures {
+  \set figuredBassPlusDirection = #RIGHT
+  <7\\ 6 4 2\+> <4\+ _-> <3 5\+ 3 > <6\\ 4 3> <9\\>
+}
+@end lilypond
+
+@item
+In figured bass, brackets can now also be added around accidentals.
+
+@lilypond[quote]
+\figures {
+  <7 [5 3[+]]> <5[!]> <[5!]>
+}
+@end lilypond
+
+@end itemize
+
+@node Ancient notation improvements
+@unnumberedsec Ancient notation improvements
+
+@itemize
+
+@item
+A new context @code{VaticanaLyrics} is available.  It is similar to
+@code{Lyrics}, providing a hyphenation style (a single, flush-left hyphen
+between two syllables) as used in the notational style of Editio Vaticana.
+
+@item
+The predefined commands for Gregorian divisiones are no longer
+variations on @code{\breathe}.  @code{\divisioMinima},
+@code{\divisioMaior}, @code{\divisioMaxima}, and @code{\virgula}
+are variations on the basic @code{\caesura}.  @code{\finalis} is
+equivalent to @code{\section}.
+
+@code{MensuralStaff} and @code{VaticanaStaff} use
+@code{Divisio_@/engraver} to interpret the above commands as well
+as @code{\repeat volta} and @code{\fine}.
+
+@lilypond[verbatim,quote]
+\new MensuralStaff \fixed c' {
+  \repeat volta 2 { f2 f }
+  g1
+  a1 \section
+  b1 \fine
+}
+@end lilypond
+
+@item
+@code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff},
+and @code{VaticanaStaff} now allow line breaks anywhere, and they
+no longer create @code{""} measure bar lines.
+
+@item
+In @code{GregorianTranscriptionStaff}, divisiones are now engraved
+as @code{BarLine} grobs by default.  To change them to
+@code{Divisio} grobs, use @code{\EnableGregorianDivisiones}.
+
+@item
+@code{GregorianTranscriptionStaff} allows a line break after any
+note and no longer uses @code{Time_signature_engraver}.
+
+@item
+@code{GregorianTranscriptionVoice} no longer uses @code{Stem_engraver}.
+
+@end itemize
+
+@node World music improvements
+@unnumberedsec World music improvements
+
+@itemize
+
+@item
+Support for Persian classical music is now available.  For this, two
+accidental glyphs, @emph{sori} and @emph{koron}, have been added to
+LilyPond.
+
+@lilypond[verbatim,quote,line-width=14.5\cm]
+\include "persian.ly"
+
+\relative c' {
+  \key d \chahargah
+  bk'8 a gs fo r g ak g |
+  fs ek d c d ef16 d c4 |
+}
+@end lilypond
+
+@end itemize
+
+@node Miscellaneous improvements
+@unnumbered Miscellaneous improvements
+
+@itemize
+
+@item
+In the Emmentaler font, identical-looking noteheads whose only difference was
+stem direction have been consolidated into a single glyph.  For instance,
+the glyphs @code{noteheads@/.u2triangle} and @code{noteheads@/.d2triangle} have
+been replaced by a single glyph, @code{noteheads@/.s2triangle}.  Notehead pairs
+that look visually different depending on the direction remain distinct.
+
+In addition, the @code{stem-attachment} property of @code{NoteHead} grobs now
+returns its actual, direction-dependent stem attachment point instead of a
+hypothetical upwards-stem attachment point.
+
+@item
+Two redundant glyphs in the Emmentaler font have been removed:
+@code{scripts.trillelement} (use @code{scripts.trill_element} instead) and
+@code{scripts.augmentum} (use @code{dots.dotvaticana} instead).
+
+@item
+Using @code{\paper @{ bookpart-level-page-numbering = ##t@}}, it
+is now possible to make bookparts independent with respect to page
+numbering.  If this is used for all bookparts, each bookpart has
+its own numbering sequence, starting at 1 by default.  It can also
+be used in an individual bookpart, which is useful to achieve the
+standard practice of numbers pages in an analytical introduction
+independently and in roman numerals (the latter is achieved using
+@code{page-number-type = #'roman-lower}).
 
 @item
 A new grob callback function @code{break-alignment-list} is now available for
@@ -1336,13 +1184,163 @@ it is positioned at the beginning, the middle, or the end of a line.
 }
 @end lilypond
 
+@item
+The new @code{Mark_performer} creates MIDI Marker events like
+@code{Mark_engraver} creates printed marks.
 
 @item
-The alignment of bar numbers appearing in the middle or end of a system
-has been changed to align them on their left edge.  This is in keeping with the
-advice of Elaine Gould (@cite{Behind Bars}, p.@tie{}237), and was mostly the
-consensus reached in a discussion of the issue by developers.  The alignment of
-bars at the beginning of a system remains unchanged.
+Properties of @code{PaperColumn} and @code{NonMusicalPaperColumn}
+(such as @code{NonMusicalPaperColumn.line-break-system-details})
+can now be overridden mid-music with the usual command @code{\once
+\override}.  They used to be a special case requiring the
+@code{\overrideProperty} command.
+
+@item
+The new @code{show-horizontal-skylines} and
+@code{show-vertical-skylines} properties allow to display an
+object's skylines.  This is more flexible than the already
+existing @code{debug-skylines} option because it works for all
+grobs.  While primarily meant for debugging LilyPond, this can be
+useful when trying to understand spacing decisions or overriding
+stencils in Scheme.
+
+@lilypond[quote]
+#(set-global-staff-size 40)
+
+{
+  \override Staff.Clef.show-vertical-skylines = ##t
+  \override Accidental.show-horizontal-skylines = ##t
+  cis'
+}
+@end lilypond
+
+@item
+The new command @code{\vshape} is like @code{\shape}, but also shows
+the control points and polygon for easier tweaking.
+
+@lilypond[verbatim,quote]
+{ a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
+@end lilypond
+
+@item
+@code{\markup \path} now also works in SVG output even if the path
+does not begin with a @code{moveto} or @code{rmoveto} command.  Also,
+it now accepts single-letter SVG equivalents (@code{moveto} = @code{M},
+etc.).
+
+@item
+@code{set-default-paper-size} and @code{set-paper-size} now accept
+a custom paper size.
+
+@example
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
+@end example
+
+@item
+@command{lilypond-book} supports two new music fragment options
+@option{paper-width} and @option{paper-height} to set a custom paper size.
+
+@item
+@command{lilypond-book} supports a new snippet option @option{inline} for
+inline music, that is, music snippets like
+@lilypond[inline,staffsize=11]{
+  { \time 2/4 r8 g'[ g' g'] | es'2 }
+}
+that appear within a paragraph of text.
+
+@item
+The @command{lilypond-book} script now allows braces in the argument of
+the commands @code{\lilypond} (for LaTeX) and @code{@@lilypond} (for
+Texinfo).
+
+@item
+@command{lilypond-book} now appends the current directory as the last
+entry to search for included files, instead of prepending it to the
+list of specified include paths.  This allows include directories to
+shadow files from the current directory, and will only be noticed if
+there are files with the same name in both.
+
+@item
+The new Scheme function @code{universal-@/color} provides an
+eight-element color palette designed to be unambiguous to people
+with dichromatism.
+
+@lilypond[quote]
+\markup \bold \column {
+  \with-color #(universal-color 'black) black
+  \with-color #(universal-color 'orange) orange
+  \with-color #(universal-color 'skyblue) skyblue
+  \with-color #(universal-color 'bluegreen) bluegreen
+  \with-color #(universal-color 'yellow) yellow
+  \with-color #(universal-color 'blue) blue
+  \with-color #(universal-color 'vermillion) vermillion
+  \with-color #(universal-color 'redpurple) redpurple
+}
+@end lilypond
+
+@item
+The @code{-dembed-@/source-@/code} option now also embeds images
+added with @code{\epsfile} and files included with @code{\verbatim-file}.
+
+@item
+The default of the @code{aux-files} program option changed to
+@code{#f}. If you are calling LilyPond with the
+@code{-dbackend=eps} argument and need the auxiliary @file{.tex}
+and @file{.texi} files, you now have to specify @code{-daux-files}
+explicitly. The formats for @code{lilypond-book} images can be set
+separately for the tall page image (typically PNG for HTML output)
+and per-system images (typically, EPS or PDF for printed output)
+with the @code{-d} sub-options @code{-dtall-page-formats} and
+@code{-dseparate-page-formats} respectively.
+
+@item
+The @q{big point} unit (1@dmn{bp} = 1/72@dmn{in}) is now available
+by appending @code{\bp} to length values.
+
+@item
+Scheme-defined translators usable in both @samp{\layout} and
+@samp{\midi} can now be created with @code{make-translator}.
+Scheme-defined performers usable only in @samp{\midi} can now be
+created with @code{make-performer}.  Those macros work strictly like
+the previously existing macro @code{make-engraver} for creating
+engravers only usable in @samp{\layout}.
+
+@item
+Scheme translators can now define a new slot called
+@code{pre-process-music}.  It is called on all translators, after
+all listeners but before all @code{process-music} slots.  This can
+be used for processing that depends on all events heard but needs
+to set context properties before other translators read them.
+
+@item
+Scheme translators can now contain listeners written as
+
+@example
+(listeners
+ ((event-class engraver event #:once)
+  ...))
+@end example
+
+These are never triggered more than once per time step.  They emit
+a warning if they receive two events in the same time step, except
+if the events are equal.
+
+@item
+The same grob definition can now be used to create grobs of
+different classes (@code{Item}, @code{Spanner}, @code{Paper_column},
+@code{System}).  As part of this change, the grob types
+@code{FootnoteItem} and @code{FootnoteSpanner} were consolidated
+into a single type @code{Footnote}.  Similarly, @code{BalloonTextSpanner}
+and @code{BalloonTextItem} are unified into @code{BalloonText}.
+
+When the grob definition does not mandate a class, engravers should
+choose what class to create a grob with.  For authors of Scheme
+engravers, this means using either @code{ly:@/engraver-@/make-@/item} or
+@code{ly:@/engraver-@/make-@/spanner}.  The utility function
+@code{ly:@/engraver-@/make-@/sticky} is provided to support the
+frequent case of @emph{sticky} grobs, such as footnotes and balloons.
+It creates a grob with the same class as another grob and
+administrates parents and bounds.
 
 @end itemize
 

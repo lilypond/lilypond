@@ -370,6 +370,7 @@ my $lastfilename;
 my $docnr = 0;
 my $node_to_filename_map = ();
 $source_to_translationof_map = ();
+our $changes_manual;
 
 
 # This function makes sure that files are only generated for numbered sections,
@@ -411,7 +412,7 @@ sub lilypond_element_file_name($$$)
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
     if (not ($web_manual) and not ($element->{number})
-	and not ($lastfilename eq '') and ($element->{level} > 1)) {
+	and not ($lastfilename eq '') and ($element->{level} > 1 or $changes_manual)) {
       $filename = $lastfilename;
     }
     if (($filename eq $lastfilename)) {
@@ -555,6 +556,8 @@ sub lilypond_init_map ()
     if ($docu_name eq 'web') {
 	$web_manual = 1;
 	web_settings();
+    } elsif ($docu_name eq 'changes') {
+        $changes_manual = 1;
     }
     $node_to_filename_map = load_map_file ($map_filename);
 }
@@ -832,10 +835,11 @@ sub lilypond_print_toc_div ($)
     my %parentelements;
     while ($element and not $element->{'top'}) {
         # The Snippets documentation has @unnumbered at the top level
-        # that we do want to have marked as "toc_current".
+        # that we do want to have marked as "toc_current". The Changes
+        # document consists of only one page.
         # The section on the web pages are special and have no numbering
         # at all, but should still be taken into account.
-        if ($element->{'number'} or $element->{'toc_level'} == 1 or $web_manual) {
+        if ($element->{'number'} or (not $changes_manual and $element->{'toc_level'} == 1) or $web_manual) {
             $parentelements{$element->{'tocid'}} = 1;
         }
         $element = $element->{'sectionup'};
@@ -955,8 +959,8 @@ sub get_navigation_button
 
 sub lilypond_print_navigation
 {
-    # No navigation buttons for the web pages.
-    if ($web_manual) {
+    # No navigation buttons for the Changes document and web pages.
+    if ($changes_manual or $web_manual) {
         return "\n";
     }
 
