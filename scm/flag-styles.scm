@@ -204,7 +204,7 @@ a flag always touches a staff line."
                                               d)
                                              (/ 2 ss)))))
          ;; For some reason the stem-end is a real instead of an integer...
-         (dir-modifier (if (ly:position-on-line? stem-grob stem-end) "1" "0"))
+         (dir-modifier (if (ly:position-on-line? stem-grob stem-end) "0" "1"))
          (modifier (if adjust dir-modifier "2")))
     (create-glyph-flag "mensural" modifier grob)))
 

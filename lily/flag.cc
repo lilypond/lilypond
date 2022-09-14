@@ -18,6 +18,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// FIXME: there is a whole reimplementation of this in Scheme, in
+// flag-styles.scm.  It's more flexible, so why do we still have this?
+// Shouldn't this be deleted altogether?
+
 #include "stem.hh"
 
 #include "directional-element-interface.hh"
