@@ -65,13 +65,8 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   SCM parenthesized = get_property (me, "parenthesized");
 
-  SCM props = Font_interface::music_font_alist_chain (me);
-  SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
-                                  props,
-                                  SCM_EOL);
-  SCM alt = get_property (me, "alteration");
-  string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
-                                         "");
+  string glyph_name = ly_scm2string (get_property (me, "glyph-name"));
+
   if ((glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat") && !from_scm<bool> (parenthesized))
     {
       // a bit more padding for the right of the stem
@@ -130,28 +125,10 @@ Accidental_interface::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Font_metric *fm = Font_interface::get_default_font (me);
-  SCM props = Font_interface::music_font_alist_chain (me);
-  SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
-                                  props,
-                                  SCM_EOL);
-  SCM alt = get_property (me, "alteration");
-  SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
-
-  Stencil st;
-
-  if (!scm_is_string (glyph_name))
-    {
-      me->warning (_f ("Could not find glyph-name for alteration %s",
-                       ly_scm_write_string (alt).c_str ()));
-      st = fm->find_by_name ("noteheads.s1cross");
-    }
-  else
-    {
-      string glyph_str = ly_scm2string (glyph_name);
-      st = fm->find_by_name (glyph_str);
-      if (st.is_empty ())
-        me->warning (_f ("cannot find glyph %s", glyph_str));
-    }
+  std::string glyph_name = ly_scm2string (get_property (me, "glyph-name"));
+  Stencil st = fm->find_by_name (glyph_name);
+  if (st.is_empty ())
+    me->warning (_f ("cannot find glyph %s", glyph_name));
 
   if (from_scm<bool> (get_property (me, "restore-first")))
     {
@@ -181,9 +158,10 @@ A single accidental.
                /* properties */
                R"(
 alteration
-avoid-slur
-forced
 alteration-glyph-name-alist
+avoid-slur
+glyph-name
+forced
 hide-tied-accidental-after-break
 restore-first
 tie

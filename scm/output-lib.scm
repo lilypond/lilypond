@@ -883,6 +883,20 @@ extent of the grob to the extent of the staff."
 (define-public (accidental-interface::calc-alteration grob)
   (ly:pitch-alteration (ly:event-property (event-cause grob) 'pitch)))
 
+(define-public (accidental-interface::calc-glyph-name grob)
+  (let* ((alteration (ly:grob-property grob 'alteration))
+         (layout (ly:grob-layout grob))
+         (defs (ly:output-def-lookup layout 'font-defaults '()))
+         (chain (ly:grob-alist-chain grob defs))
+         (alist (chain-assoc-get 'alteration-glyph-name-alist chain '()))
+         (glyph (assv-ref alist alteration)))
+    (or glyph
+        (begin
+          (ly:warning (G_ "no glyph name for alteration ~a in \
+alteration-glyph-name-alist; try defining one in alterationGlyphs")
+                      alteration)
+          "noteheads.s1cross"))))
+
 (define-public accidental-interface::height
   (ly:make-unpure-pure-container
    ly:accidental-interface::height))
