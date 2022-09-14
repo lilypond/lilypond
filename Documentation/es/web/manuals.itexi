@@ -128,10 +128,6 @@ referencia sobre el trucaje.
 Versiones estables anteriores y versión actual como un archivo comprimido.
 
 @item
-@ref{Traducido}:
-estado del proceso de traducción para los lectores no anglófonos.
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository (el almacén de fragmentos de código de LilyPond)}:
 ejemplos, consejos y trucos creados por los usuarios.
 
@@ -184,7 +180,6 @@ de} y a continuación el nombre del manual.
 * Cambios::                Noticias.
 * Extender::               Programación.
 * Funcionamiento interno:: Interioridades.
-* Traducido::              Estado de la traducción.
 * Todos::                  Todos los manuales.
 * FDL::                    Licencia.
 @end menu
@@ -518,18 +513,6 @@ se refiere a la documentación generada.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Traducido
-@unnumberedsec Traducido
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Estado de la traducción
-
-@include es/translations.itexi
 
 @divEnd
 

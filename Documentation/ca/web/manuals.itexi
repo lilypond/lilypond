@@ -132,10 +132,6 @@ referències sobre com fer trucs.
 Versions estables anteriors i versió actual com un fitxer comprimit.
 
 @item
-@ref{Traduït}:
-estat del procés de traducció per a lectors no anglòfons.
-
-@item
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository (el magatzem de fragments de codi del LilyPond)}:
 exemples, consells, i trucs creats pels usuaris.
 
@@ -188,7 +184,6 @@ el nom del manual.
 * Canvis::                 Notícies.
 * Extensió::               Programació.
 * Funcionament intern::    Funcionament intern.
-* Traduït::                Estat de la traducció.
 * Tots::                   Tots els manuals.
 * FDL::                    Llicència.
 @end menu
@@ -523,18 +518,6 @@ documentació generada.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Traduït
-@unnumberedsec Traduït
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Estat de la traducció
-
-@include ca/translations.itexi
 
 @divEnd
 

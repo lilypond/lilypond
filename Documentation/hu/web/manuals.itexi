@@ -130,10 +130,6 @@ szükséges.
 @itemize
 
 @item
-@ref{Honosítás}:
-A honosítás állapota.
-
-@item
 @ref{Teljes dokumentáció}:
 Gyorslinkek a dokumentáció különböző részeihez, letölthető változataihoz és
 régi verzióihoz.
@@ -166,7 +162,6 @@ A dokumentáció licence, a GNU Free Documentation License.
 * Változások:: A program fejlődése.
 * Bővítés:: A funkcionalitás kiterjesztése.
 * Belső működés:: A belső működés referenciája.
-* Honosítás:: A honosítás állapota.
 * Teljes dokumentáció:: Az összes kézikönyv egyben.
 * FDL:: Licenc.
 @end menu
@@ -468,18 +463,6 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Honosítás
-@unnumberedsec Honosítás
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading A honosítások állapota
-
-@include hu/translations.itexi
 
 @divEnd
 

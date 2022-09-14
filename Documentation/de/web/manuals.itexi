@@ -132,10 +132,6 @@ Referenz für Anpassungen.
 vorhergehende stabile Versionen und die aktuelle Version als komprimiertes Archiv.
 
 @item
-@ref{Übersetzt}:
-der Übersetzungsstatus für nicht Nicht-Englischsprachige.
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 
@@ -183,7 +179,6 @@ dem Offline Lesen vorgesehen.  Sie gelangen zu diesen 3 Formaten indem Sie den L
 * Änderungen::             NEWS.
 * Erweitern::              Programmierung.
 * Interna::                Interna.
-* Übersetzt::              Übersetzt.
 * Alles::                  Alle Handbücher
 * FDL::                    Lizenz.
 @end menu
@@ -523,18 +518,6 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Übersetzt
-@unnumberedsec Übersetzt
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Status der Übersetzungen
-
-@include de/translations.itexi
 
 @divEnd
 

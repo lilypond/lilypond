@@ -122,9 +122,6 @@ guida ai tweak.
 @ref{Tutti}:
 versioni stabili precedenti e quella attuale in un archivio compresso.
 
-@item @ref{Tradotti}:
-stato delle traduzioni per i lettori di lingua non inglese.
-
 @item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 esempi, consigli e trucchi creati dagli utenti.
@@ -185,7 +182,6 @@ Per vedere questi tre formati segui i collegamenti
 * Cambiamenti::               Novità.
 * Estendere::                 Programmazione.
 * Funzionamento interno::     Funzionamento interno.
-* Tradotti::                  Traduzione.
 * Tutti::                     Tutti i manuali.
 * FDL::                       Licenza.
 @end menu
@@ -514,18 +510,6 @@ che si riferisce alla documentazione generata.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Tradotti
-@unnumberedsec Tradotti
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Stato delle traduzioni
-
-@include it/translations.itexi
 
 @divEnd
 

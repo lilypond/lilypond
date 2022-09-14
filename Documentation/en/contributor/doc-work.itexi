@@ -1707,11 +1707,56 @@ All files should be encoded in UTF-8.
 @node Files to be translated
 @unnumberedsubsubsec Files to be translated
 
-@include en/contributor/doc-translation-list.itexi
+Translation of @file{Documentation/en/foo/bar} should be
+@file{Documentation/@var{LANG}/foo/bar}.  Unmentioned files should not
+be translated.
 
-In addition, not listed above, Snippets' titles and descriptions
-should be translated; they are a part of the Notation Reference and
-therefore their priority is 5.
+Files of priority 1 should be submitted along all files generated
+by starting a new language in the same commit and thus a unique
+patch, and the translation of files marked with priority 2 should
+be committed to Git at the same time and thus sent in a single
+patch.  Priority 1 files are required before requesting a
+language-specific mailing list @code{lilypond-xyz@@gnu.org}.
+Files marked with priority 3 or more may be submitted
+individually.  For knowing how to commit your work to Git, then
+make patches of your new translations as well as corrections and
+updates, see @ref{Working with source code}.
+
+@enumerate
+
+@item
+the website: @file{web.texi}, @file{web/introduction.itexi}, and
+@file{web/download.itexi}.  Additionally, also translate
+@file{macros.itexi}, @file{po/lilypond-doc.pot}, and
+@file{search-box.ihtml}.
+
+@item
+the tutorial: @file{web/manuals.itexi}, @file{learning.tely},
+@file{learning/installing.itely}, @file{learning/tutorial.itely},
+and @file{learning/common-notation.itely}
+
+@item
+fundamental concepts in @file{learning/fundamental.itely},
+as well as @file{usage.tely}, @file{usage/running.itely},
+@file{usage/updating.itely}, and @file{web/community.itexi}
+
+@item
+@file{learning/tweaks.itely}, @file{learning/templates.itely},
+and @file{usage/suggestions.itely}
+
+@item
+the Notation reference: @file{notation.tely}, all of
+@file{notation/*.itely}, and the Snippets' titles and descriptions
+
+@item
+@file{usage/lilypond-book.itely} and @file{usage/external.itely}
+
+@item
+the appendices, whose translation is optional:
+@file{essay.tely} and @file{essay/*.itely}, as well as
+@file{extending.tely} and @file{extending/*.itely}
+
+@end enumerate
 
 @node Translating the Web site and other Texinfo documentation
 @unnumberedsubsubsec Translating the Web site and other Texinfo documentation
@@ -1972,19 +2017,6 @@ you should make in your language to the existing translation, in order
 to make your translation up to date.
 
 @seeCommittishesUpdate
-
-Global state of the translation is recorded in
-@file{Documentation/LANG/translations.itexi}, which is used to generate
-Translations status page.  To update that page, do from
-@file{Documentation/}
-
-@example
-make translation-status
-@end example
-
-This will also leave @file{out/translations-status.txt}, which contains
-up-to-dateness percentages for each translated file, and update word
-counts of documentation files in this Guide.
 
 @morerefs
 @ref{Maintaining without updating translations}.
@@ -2254,8 +2286,6 @@ are located in @file{scripts/auxiliar/}.
 make message catalogs and Texinfo skeleton files,
 @item @file{update-snippets.py} -- synchronize ly snippets with those
 from English docs,
-@item @file{translations-status.py} -- update translations status pages and word
-counts in the file you are reading,
 @item @file{tely-gettext.py} -- gettext node names, section titles and references
 in the sources; WARNING only use this script once for each file, when support for
 "makeinfo --html" has been dropped.

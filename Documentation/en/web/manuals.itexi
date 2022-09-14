@@ -125,10 +125,6 @@ tweaks reference.
 previous stable versions and current as a compressed archive.
 
 @item
-@ref{Translated}:
-translation status for non-English readers.
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 user-created examples, hints and tips.
 
@@ -192,7 +188,6 @@ that read @code{details of} and then the manual name.
 * Changes::                     NEWS.
 * Extending::         Programming.
 * Internals::         Internals.
-* Translated::          Translation.
 * All::                 All manuals.
 * FDL::                     Licence.
 @end menu
@@ -509,17 +504,6 @@ generated documentation.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Translated
-@unnumberedsec Translated
-
-@divClass{column-center-bottom}
-@subheading Translations status
-
-@include en/translations.itexi
 
 @divEnd
 

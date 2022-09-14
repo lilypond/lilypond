@@ -128,10 +128,6 @@ Doporučení pro přizpůsobení.
 @itemize
 
 @item
-@ref{Překlad}:
-Stav překladu pro lidi, kteří nehovoří anglicky.
-
-@item
 @ref{Vše}:
 Příručky ke stažení a staré příručky.
 
@@ -163,7 +159,6 @@ Tyto příručky jsou vydány pod GNU Free Documentation License.
 * Změny::
 * Rozšíření::
 * Vnitřnosti::
-* Překlad::
 * Vše::
 * FDL::
 @end menu
@@ -501,18 +496,6 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Překlad
-@unnumberedsec Překlad
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Stav překladů
-
-@include cs/translations.itexi
 
 @divEnd
 

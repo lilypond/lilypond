@@ -136,10 +136,6 @@ referência de ajustes.
 versões estáveis anteriores e atuais como um arquivo compactado.
 
 @item
-@ref{Traduzido}:
-status de tradução para leitores de outro idioma.
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 exemplos criados por usuários, dicas e truques.
 
@@ -183,7 +179,6 @@ Os manuais do LilyPond geralmente vêm em três formatos: HTML dividido, HTML gr
 * Mudanças::               O que mudou entre versões
 * Extensão::               Programação
 * Procedimentos internos:: Referências do programa
-* Traduzido::              Status das várias traduções
 * Todos::                  Todas os manuais
 * FDL::                    Licença
 @end menu
@@ -515,18 +510,6 @@ também}, que se refere à documentação gerada.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Traduzido
-@unnumberedsec Traduzido
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Status de tradução
-
-@include pt/translations.itexi
 
 @divEnd
 

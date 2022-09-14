@@ -141,10 +141,6 @@ liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
 @item
-@ref{Traductions} :
-état des traductions pour les lecteurs non anglophones.
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository} :
 collection d'exemples, trucs et astuces élaborés par des utilisateurs.
 
@@ -212,7 +208,6 @@ accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
 * Nouveautés::          Ce qui change au fil des versions
 * Extension::           Programmation au sein de LilyPond
 * Propriétés internes:: Références du programme
-* Traductions::         État d'avancement des différentes traductions
 * Tous::                Tous les manuels
 * FDL::                 Licence.
 @end menu
@@ -551,18 +546,6 @@ renvoie à la documentation générée automatiquement.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Traductions
-@unnumberedsec Traductions
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading État des traductions
-
-@include fr/translations.itexi
 
 @divEnd
 

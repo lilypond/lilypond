@@ -133,9 +133,6 @@ tweaks-handleiding.
 vorige stabiele versies en huidige als gecomprimeerd archief.
 
 @item
-@ref{Vertaald}:
-status van de vertaling voor niet-Engelstaligen.
-
 @item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippers Repository}:
 voorbeelden door gebruikers, hints en tips.
@@ -169,7 +166,6 @@ License (GNU Vrije Documentatie Licentie).
 * Veranderingen::                     Veranderingen.
 * Uitbreidingen::         Uitbreidingen.
 * Internals::         Internals.
-* Vertaald::          Vertaald.
 * Alles::                 Alles.
 * FDL::                     FDL.
 @end menu
@@ -510,18 +506,6 @@ dat verwijst naar deze gegenereerde documentatie.
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node Vertaald
-@unnumberedsec Vertaald
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading Status van de vertaling
-
-@include nl/translations.itexi
 
 @divEnd
 

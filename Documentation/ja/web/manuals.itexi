@@ -133,10 +133,6 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 ドキュメント。
 
 @item
-@ref{翻訳済み}:
-非英語圏の読者のための翻訳状況。
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 ユーザが作成した例、ヒント、それに TIPS。
 
@@ -187,7 +183,6 @@ PDF はダウンロードしてオフラインで利用することができま�
 * 変更点::          ニュース
 * 拡張::           プログラミング
 * 内部リファレンス::内部リファレンス
-* 翻訳済み::        翻訳
 * すべて::          すべてのマニュアル
 * FDL::             ライセンス
 @end menu
@@ -520,18 +515,6 @@ HTML ドキュメントでは、それらサブセクションにはクリック
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node 翻訳済み
-@unnumberedsec 翻訳済み
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading 翻訳状況
-
-@include ja/translations.itexi
 
 @divEnd
 

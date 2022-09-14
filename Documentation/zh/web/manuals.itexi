@@ -129,10 +129,6 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 以往的稳定版本文档，以及当前稳定版的文档压缩包。
 
 @item
-@ref{Translated}:
-针对非英语读者的翻译情况。
-
-@item
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 用户创建的例子、窍门和秘诀。
 
@@ -164,7 +160,6 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 * 变化::        新闻。
 * 扩展::        编程。
 * 内部机制::    内部机制。
-* 翻译::        翻译。
 * 所有::        所有手册。
 * FDL::         许可证。
 @end menu
@@ -465,18 +460,6 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
   @manualStableInternalsSplit,
   @manualStableInternalsBig,
   @manualStableInternalsPdf}
-
-@divEnd
-
-
-@node 翻译
-@unnumberedsec 翻译
-@translationof Translated
-
-@divClass{column-center-bottom}
-@subheading 翻译状态
-
-@include zh/translations.itexi
 
 @divEnd
 
