@@ -457,9 +457,20 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives
 
           /*
             move all dots behind head
+
+            This is ugly and should probably be handled by configuring
+            the DotColumn appropriately.  Note that these dots will
+            be disconnected from their dot column.  See
+            move_related_items_to_column.
+
+            This also means the padding isn't configurable as DotColumn.padding is.
           */
+          const Stencil *stil = unsmob<const Stencil> (
+                                 get_property (dot_gr, "dot-stencil"));
+          Real dot_width = stil ? stil->extent (X_AXIS).length () : 0.0;
           dot_gr->translate_axis
-          ((flexa_begin ? staff_space * 0.6 : head_width) - 2.0 * thickness, X_AXIS);
+           ((flexa_begin ? staff_space * 0.6 : head_width) - 2.0 * thickness + dot_width,
+            X_AXIS);
         }
     }
 }

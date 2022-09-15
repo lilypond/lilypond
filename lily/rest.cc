@@ -20,7 +20,6 @@
 #include "rest.hh"
 
 #include "directional-element-interface.hh"
-#include "dots.hh"
 #include "font-interface.hh"
 #include "international.hh"
 #include "output-def.hh"

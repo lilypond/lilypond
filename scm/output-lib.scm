@@ -461,6 +461,46 @@
           ((9 10) 6)
           (else   0)))))
 
+(define-public (dots::calc-glyph-name grob)
+  (let ((style (ly:grob-property grob 'style)))
+    (format #f "dots.dot~a"
+            (if (symbol? style)
+                (symbol->string style)
+                ""))))
+
+(define-public (dots::calc-dot-stencil grob)
+  (let* ((font (ly:grob-default-font grob))
+         (name (ly:grob-property grob 'glyph-name))
+         (stencil (ly:font-get-glyph font name)))
+    (if (ly:stencil-empty? stencil)
+        (begin
+          (ly:grob-warning grob
+                           #f
+                           (G_ "dot glyph ~s not found")
+                           name)
+          point-stencil)
+        stencil)))
+
+(define-public (ly:dots::print grob)
+  (let* ((dot-stencil (ly:grob-property grob 'dot-stencil))
+         (padding (interval-length (ly:stencil-extent dot-stencil X)))
+         (count (ly:grob-property grob 'dot-count 0)))
+    (stack-stencils X RIGHT padding (make-list count dot-stencil))))
+
+(define-public (dot-column-interface::pad-by-one-dot-width grob)
+  ;; The default for padding dots is to pad by the width of one dot exactly
+  ;; (this width depends on the dot style used).  We do a little better than
+  ;; assuming all dots have the same width by taking the max of all widths.
+  (apply max
+         (map
+          (lambda (d)
+            (if (grob::is-live? d)
+                (let* ((dot-stencil (ly:grob-property d 'dot-stencil))
+                       (ext (ly:stencil-extent dot-stencil X)))
+                  (interval-length ext))
+                0.0))
+          (ly:grob-array->list (ly:grob-object grob 'dots)))))
+
 ;; Kept separate from note-head::calc-glyph-name to allow use by
 ;; markup commands \note and \note-by-number
 (define-public (select-head-glyph style log)

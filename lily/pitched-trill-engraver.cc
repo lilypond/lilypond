@@ -21,7 +21,6 @@
 
 #include "axis-group-interface.hh"
 #include "context.hh"
-#include "dots.hh"
 #include "item.hh"
 #include "note-head.hh"
 #include "pitch.hh"

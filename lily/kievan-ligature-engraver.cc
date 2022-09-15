@@ -92,11 +92,20 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives,
         {
           Grob *dot_gr = Rhythmic_head::get_dots (current);
 
-          head_width += Font_interface::get_default_font (current)->
-                        find_by_name ("dots.dotkievan").extent (X_AXIS).length ()
-                        - 0.5 * (padding - accumul_acc_space);
+          /*
+            This is ugly and should probably be handled by configuring
+            the DotColumn appropriately.  Note that these dots will
+            be disconnected from their dot column.  See
+            move_related_items_to_column.
 
-          dot_gr->translate_axis (0.5 * (padding - accumul_acc_space), X_AXIS);
+            This also means the padding isn't configurable as DotColumn.padding is.
+          */
+          const Stencil *stil = unsmob<const Stencil> (
+                                 get_property (dot_gr, "dot-stencil"));
+          Real dot_width = stil ? stil->extent (X_AXIS).length () : 0.0;
+          head_width += dot_width - 0.5 * (padding - accumul_acc_space);
+
+          dot_gr->translate_axis (0.5 * (padding - accumul_acc_space) + dot_width, X_AXIS);
         }
 
       // add more padding if we have an accidental coming up

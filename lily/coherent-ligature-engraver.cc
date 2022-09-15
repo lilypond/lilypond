@@ -86,7 +86,12 @@ using std::vector;
  */
 
 /*
- * TODO: move this function to class Item?
+  FIXME: this is very ugly.  Instead of moving items around between columns,
+  we should set exact spacing constraints between these columns.
+
+  It also changes some grob relationships by setting the parent of all these
+  grobs to the paper column, e.g. disconnecting Dots from their DotColumn.
+  This is actually relied upon by the engravers.
  */
 void
 Coherent_ligature_engraver::move_related_items_to_column

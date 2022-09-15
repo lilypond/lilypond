@@ -212,6 +212,14 @@ or 15 (two octaves), but LilyPond allows any integer here."
  '(bezier extroversion filled))
 
 (ly:add-interface
+ 'dots-interface
+ "The dots to go with a notehead or rest.  @code{direction} sets the preferred
+direction to move in case of staff line collisions.  @code{style} defaults to
+undefined, which is normal 19th/20th century traditional style.  Set
+@code{style} to @code{vaticana} for ancient type dots."
+ '(direction dot-count dot-stencil glyph-name style))
+
+(ly:add-interface
  'duration-line-interface
  "A line lasting for the duration of a rhythmic event."
  '(details))

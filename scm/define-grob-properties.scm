@@ -1521,6 +1521,8 @@ will not in general be marked @code{cross-staff} when some of the members
 of the group are @code{cross-staff}.")
 
      (delta-position ,number? "The vertical position difference.")
+     (dot-stencil ,ly:stencil? "The stencil for an individual dot,
+as opposed to a group of several dots.")
 
      (font ,ly:font-metric? "A cached font metric object.")
      (forced ,boolean? "Manually forced accidental.")

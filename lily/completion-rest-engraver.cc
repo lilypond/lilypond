@@ -19,7 +19,6 @@
 */
 
 #include "dot-column.hh"
-#include "dots.hh"
 #include "duration.hh"
 #include "global-context.hh"
 #include "item.hh"

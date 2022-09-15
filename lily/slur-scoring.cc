@@ -27,7 +27,6 @@
 #include "beam.hh"
 #include "clef.hh"
 #include "directional-element-interface.hh"
-#include "dots.hh"
 #include "libc-extension.hh"
 #include "international.hh"
 #include "misc.hh"
@@ -837,7 +836,7 @@ Slur_score_state::get_extra_encompass_infos () const
           Grob *g = encompasses [i];
           Interval xe = g->extent (common_[X_AXIS], X_AXIS);
           Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
-          if (has_interface<Dots> (g))
+          if (g->internal_has_interface (ly_symbol2scm ("dots-interface")))
             ye.widen (0.2);
 
           Real xp = 0.0;

@@ -19,7 +19,6 @@
 
 #include "engraver.hh"
 
-#include "dots.hh"
 #include "duration.hh"
 #include "item.hh"
 #include "pitch.hh"

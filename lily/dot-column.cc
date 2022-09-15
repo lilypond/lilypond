@@ -22,7 +22,6 @@
 #include "dot-column.hh"
 #include "dot-configuration.hh"
 #include "dot-formatting-problem.hh"
-#include "dots.hh"
 #include "grob.hh"
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
@@ -88,6 +87,7 @@ Dot_column::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < parent_stems.size (); i++)
     base_x.unite (Stem::first_head (parent_stems[i])->extent (commonx, X_AXIS));
 
+  // TODO: could this be refactored using side-position-interface?
   for (vsize i = 0; i < support.size (); i++)
     {
       Grob *s = support[i];
@@ -230,7 +230,8 @@ Dot_column::calc_positioning_done (SCM smob)
   for (const auto &ent : cfg) // Junkme?
     Staff_symbol_referencer::pure_set_position (ent.second.dot_, ent.first);
 
-  me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS),
+  me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS)
+                      + from_scm<Real> (get_property (me, "padding"), 0),
                       X_AXIS);
   return SCM_BOOL_T;
 }
@@ -250,10 +251,17 @@ Dot_column::add_head (Grob *me, Grob *head)
       // correct X-offset of the dots for horizontal collision avoidance.
       // The translation here is undone in calc_positioning_done, where we
       // do the X-offset properly.
+      // TODO: this seems very hacky.  We should try to find something better.
       if (has_interface<Rest> (head))
-        d->translate_axis (head->extent (head, X_AXIS).length (), X_AXIS);
+        {
+          d->translate_axis (head->extent (head, X_AXIS).length ()
+                             + from_scm<Real> (get_property (me, "padding")),
+                             X_AXIS);
+        }
       else
-        set_property (d, "X-offset", Grob::x_parent_positioning_proc);
+        {
+          set_property (d, "X-offset", Grob::x_parent_positioning_proc);
+        }
       Axis_group_interface::add_element (me, d);
     }
 }
@@ -271,4 +279,5 @@ dots
 positioning-done
 direction
 note-collision
+padding
                )");
