@@ -132,6 +132,10 @@ multiple ancient notation schemes."
   caesuraType = #'((breath . varcomma))
   caesuraTypeTransform = #caesura-to-bar-line-or-divisio
 
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
+
   %% The chosen caesuraTypeTransform prefers BarLine over Divisio.
   %% Also create bar lines for \section, \fine, and \repeat volta.
   doubleRepeatBarType = "||"
@@ -1195,10 +1199,6 @@ of Editio Vaticana."
   \remove Time_signature_engraver
   \consists Custos_engraver
 
-  %% Eliminate measure bar lines and allow line breaks anywhere.
-  forbidBreakBetweenBarLines = ##f
-  measureBarType = #'()
-
   \EnableGregorianDivisiones
 
   %% Mark bar lines a little thinner to match the divisiones.
@@ -1289,10 +1289,7 @@ two syllables) as used in the notational style of Editio Vaticana."
 
   \description "A staff for notating Gregorian chant in modern style."
 
-  %% This staff has no bar lines, but it has time signatures, and it
-  %% is supposed to be "modern style", so we break lines on measure
-  %% boundaries.
-  measureBarType = ""
+  \remove Time_signature_engraver
 }
 
 \context {
@@ -1339,10 +1336,6 @@ accommodated for typesetting a piece in mensural style."
 accommodated for typesetting a piece in mensural style."
 
   \consists Custos_engraver
-
-  %% Eliminate measure bar lines and allow line breaks anywhere.
-  forbidBreakBetweenBarLines = ##f
-  measureBarType = #'()
 
   \EnableGregorianDivisiones
 

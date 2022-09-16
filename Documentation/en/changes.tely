@@ -74,6 +74,11 @@ which scares away people.
 
 
 @item
+@code{GregorianTranscriptionStaff} allows a line break after any
+note and no longer uses @code{Time_signature_engraver}.
+
+
+@item
 @code{Bar_@/engraver} used to forbid line breaks between bar lines
 in all cases, but now it only does so when the
 @code{forbidBreakBetweenBarLines} context property is set to
