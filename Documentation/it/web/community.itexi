@@ -606,7 +606,7 @@ l'inizio del manuale di
 @rlearningnamed{Top,Apprendimento}.
 @end ifclear
 @ifset web_version
-@manualDevelLearningSplitNoName.
+manuale di @manualDevelLearningSplitNoName-it{}.
 @end ifset
 
 

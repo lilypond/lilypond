@@ -655,7 +655,7 @@ début du
 @rlearningnamed{Top, Manuel d'initiation}.
 @end ifclear
 @ifset web_version
-@manualDevelLearningSplitNoName.
+manuel d'@manualDevelLearningSplitNoName-fr{}.
 @end ifset
 
 @divEnd
