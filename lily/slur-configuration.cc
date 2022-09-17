@@ -500,8 +500,11 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
                         - state.parameters_.max_slope_), 0.0)
              * state.parameters_.max_slope_factor_;
 
-  if (sign (dy) == 0
-      && sign (slur_dy) != 0
+
+  // This morally checks for 0, but account for rounding errors.  TODO: use a
+  // detail to set a threshold for what a 'horizontal' slur is?
+  if (fabs (dy) < 0.01
+      && fabs (slur_dy) > 0.01
       && !state.is_broken_)
     demerit += state.parameters_.non_horizontal_penalty_;
 
