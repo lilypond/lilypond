@@ -630,20 +630,21 @@ Skyline::internal_distance (Skyline const &other, Real *touch_point) const
   return dist;
 }
 
-Real
-Skyline::height (Real airplane) const
+static bool
+building_on_left_of (Building const &b, Real limit)
 {
-  assert (!std::isinf (airplane));
+  return b.x_[RIGHT] < limit;
+}
 
-  // TODO - use binary search
-  for (auto const &b : buildings_)
-    {
-      if (b.x_[RIGHT] >= airplane)
-        return sky_ * b.height (airplane);
-    }
-
-  assert (0);
-  return 0;
+Real
+Skyline::height (Real x) const
+{
+  assert (!std::isinf (x));
+  auto relevant_building =
+    std::lower_bound (buildings_.begin (), buildings_.end (),
+                      x, building_on_left_of);
+  assert (relevant_building != buildings_.end ());
+  return sky_ * relevant_building->height (x);
 }
 
 Real
