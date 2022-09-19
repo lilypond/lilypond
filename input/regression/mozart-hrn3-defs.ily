@@ -15,7 +15,6 @@ ritenuto = \markup { \italic  "rit." }
     \override RehearsalMark.padding = #1
     restNumberThreshold = #1
 
-    \override RehearsalMark.font-series = #'bold
     \override RehearsalMark.font-size = #4.5
   }
 }

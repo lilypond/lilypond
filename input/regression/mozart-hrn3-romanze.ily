@@ -15,7 +15,7 @@ romanze =  \relative {
   bes8[ (c d bes)] g4 r8 c,
   c8[( e g bes)] a[( c f d)]
   c r e r f r r4
-  \mark "A"
+  \mark \default
   R1*8
   g4.\mf f8   e[ d c bes]
   % 18
@@ -28,7 +28,7 @@ romanze =  \relative {
   c16[ ( d c d)] e[ ( f e f)] g[( e) c-. c-.] f[( d) b-. b-.]
   c16[\p ( d c d)] e[ ( f e f)] g[( e) c-. c-.] f[( d) b-. b-.]
   c8[ \< c, c c] c[ c c c\!]
-  \mark "B"
+  \mark \default
   c1\f
   R1*9
   f'4.(\p  d8) b4 r8 g
@@ -43,7 +43,7 @@ romanze =  \relative {
   c4(
   \grace e16
   d8.[  c16) \< ]  c8[ c-.( c-. c)-.]\!
-  \mark "C"
+  \mark \default
   \override DynamicLineSpanner.staff-padding = #2.5
   des1\sfp
   g,1\sfp
@@ -54,7 +54,7 @@ romanze =  \relative {
   r8  c[\p c c] c2~
   8[ c' c c] c2~
   8[ \< e( g f] e[ d\!\> c bes]
-  \mark "D"
+  \mark \default
   a4\!) r r2
   R1*3
   c4.\p ( f8) a,4 a |

@@ -15,7 +15,7 @@ allegro = \relative c' {
   g'4 g, r2
   R1*18
   r2 r4^"Solo" g'4 |
-  \mark "A"
+  \mark \default
   e'4. ( c8)  f[ (d c b) ]
   b[( c)] g4 r8  g[ c e]
   g2.  g16[( f e f)]
@@ -39,7 +39,7 @@ allegro = \relative c' {
   a4( cis e g)
   \appoggiatura g16
     fis8[( e16  d)] d4-. r2 |
-  \mark "B"
+  \mark \default
   R1*3
   r2 r4  d8[(_\markup { \italic \bold "con espressione" } b) ]
   a[( g) d'( b)] a[( g) e'( c) ]
@@ -54,10 +54,10 @@ allegro = \relative c' {
   c,2\p e4 g c e\cresc g4. e8 |
   d4.\!\f e16[ fis]  g[ ( fis) e d] c[( b) a g]
   \afterGrace a1(\trill { g16[ a] }
-  \mark "C"
+  \mark \default
   g4) r r2
   R1*15
-  \mark "D"
+  \mark \default
   bes2\mf d4 f
   g,2~  8[ g' es c]|
   bes4(  a4.)  c8[( d es)]
@@ -83,7 +83,7 @@ allegro = \relative c' {
   r8 fis,[ b dis] fis4 r
   r8 gis,[ b d] f4 r
   r8 g,[ b d_\ritenuto ] f4 r
-  \mark  "E"
+  \mark \default
   R1*8
   r2 r8  g,[ g g]
   e'4.( c8)  f[( d c b)]
@@ -96,7 +96,7 @@ allegro = \relative c' {
   \acciaccatura e8
   d8.[ c16 d8. e16]
   c4 r r2
-  \mark "F"
+  \mark \default
   R1*3
   c,2~ 8[ e g c]
   c8[( b)] b4 r2
@@ -109,7 +109,7 @@ allegro = \relative c' {
   b8[( a16  g)] g4 r2 |
   R1*3
   r2 r4  g'8[( e)]
-  \mark "G"
+  \mark \default
   d[( c) g'( e)] d[( c) a'( f)]
   e[( d)] d4 r  d8[ d]
   d4(~  16[ e d e)] g8[( f) e d] |
@@ -129,7 +129,7 @@ allegro = \relative c' {
   \afterGrace d1_(\trill { c16[ d] }
   c4) r r2
   R1 |
-  \mark "H"
+  \mark \default
   \tuplet 3/2 { c8[ b a ] }
   \tuplet 3/2 { g[ a b] }
   \tuplet 3/2 { c[ d e] }

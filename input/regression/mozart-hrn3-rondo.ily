@@ -36,7 +36,7 @@ rondo = \relative {
   g[( e) c-.] d[( e) d-.]
   c4 r8 r4 r8 |
   R2.*7
-  \mark  "A"
+  \mark \default
   c4.\p \acciaccatura e16
   d8[ c d]
   c4 r8 r4 r8
@@ -53,7 +53,7 @@ rondo = \relative {
   d2.~
   8[ c b] b[ a g]
   g'4( e8) b4( cis8)
-  \mark "B"
+  \mark \default
   d4 r8 r4 r8
   R2.*3 |
   r8  d[-. d-.] d[( g) d-.]
@@ -69,7 +69,7 @@ rondo = \relative {
   d4( g8)  c,[ d e]
   d[( g) fis] e[ d c]
   b[ ( e) d] c[ b a]
-  \mark "C"
+  \mark \default
   g4 r8 r4 r8
   R2. |
   r8  g[\f g] g[( b) b-.]
@@ -84,7 +84,7 @@ rondo = \relative {
 
   R2.*12
   r4 r8 r4 c8
-  \mark "D"
+  \mark \default
   c4 f8 c4 a8
   a4.~4 a8
   bes4 c8 d4 bes8
@@ -107,7 +107,7 @@ rondo = \relative {
   bes4. ~ 4 g8
   a4 c8  f[ ( d) b!]
   d4. ( c8) r r
-  \mark "E"
+  \mark \default
   R2.*9  |
   \lipbreaker
   c,8[ c' c] c4.~
@@ -121,7 +121,7 @@ rondo = \relative {
   r8  g[ g] g[ g g]
   es'4. ~  8[ d c]
   b4.\cresc c4. d4. e4.
-  \mark "F"
+  \mark \default
   f2.\f ~ |
   f4 r8 r4 r8
   r8  g,[\> g] g[ g g]
@@ -138,7 +138,7 @@ rondo = \relative {
   >>
 
   R2.*7
-  \mark "G"
+  \mark \default
   R2.*4
   c,4.\mf c4 c8
   c4. e4 c8
@@ -148,7 +148,7 @@ rondo = \relative {
   r4 r8 r4 g'8
   c[ ( e) g,-.] c[ ( e) g,-.]
   c[ ( e) g,-.] c[ ( e) g,-.]
-  \mark "H"
+  \mark \default
   g'2.\cresc bes,2.
   a4. b16[ c d e f g]
   a4. f4 d8
