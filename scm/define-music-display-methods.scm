@@ -152,6 +152,8 @@ expression."
   " --")
 (define-display-method ExtenderEvent (event)
   " __")
+(define-display-method VowelTransitionEvent (event)
+  " \\vowelTransition")
 (define-display-method TieEvent (event)
   " ~")
 (define-display-method DurationLineEvent (event)
@@ -162,7 +164,12 @@ expression."
   "\\noBeam")
 (define-display-method StringNumberEvent (event)
   (format #f "\\~a" (ly:music-property event 'string-number)))
-
+(define-display-method BreakDynamicSpanEvent (event)
+  "\\breakDynamicSpan")
+(define-post-event-display-method LaissezVibrerEvent (event) #f
+  "\\laissezVibrer")
+(define-post-event-display-method RepeatTieEvent (event) #f
+  "\\repeatTie")
 
 (define-display-method TremoloEvent (event)
   (let ((tremolo-type (ly:music-property event 'tremolo-type 8)))
@@ -541,9 +548,6 @@ expression."
                               (music->lily-string event))
                             (ly:music-property rest 'articulations)))))
 
-(define-display-method MultiMeasureRestEvent (rest)
-  (string-append "R" (duration->lily-string (ly:music-property rest 'duration))))
-
 (define-display-method SkipEvent (rest)
   (format #f "s~a~{~a~}"
           (duration->lily-string (ly:music-property rest 'duration))
@@ -572,6 +576,21 @@ expression."
   (let ((label (ly:music-property segno 'label #f)))
     (string-append "\\segnoMark "
                    (if label (value->lily-string label) "\\default"))))
+
+(define-display-method TextMarkEvent (text-mark)
+  (let* ((text (ly:music-property text-mark 'text))
+         (is-end-mark
+          (eqv? LEFT (ly:music-property text-mark 'horizontal-direction))))
+    (string-append (if is-end-mark "\\textEndMark " "\\textMark ")
+                   (value->lily-string text))))
+
+(define-display-method AdHocJumpEvent (jump)
+  (let ((text (ly:music-property jump 'text)))
+    (string-append "\\jump " (value->lily-string text))))
+
+(define-display-method SectionLabelEvent (section-label)
+  (let ((text (ly:music-property section-label 'text)))
+    (string-append "\\sectionLabel " (value->lily-string text))))
 
 (define-display-method KeyChangeEvent (key)
   (let ((pitch-alist (ly:music-property key 'pitch-alist))
@@ -698,8 +717,6 @@ expression."
 ;;;
 ;;; Repeats
 ;;;
-
-(define-display-method AlternativeEvent (alternative) "")
 
 (define (repeat->lily-string expr repeat-type)
   (let* ((main (music->lily-string (ly:music-property expr 'element))))
@@ -1213,6 +1230,19 @@ Otherwise, return #f."
                                                   break-permission 'force))))
                     "\\pageTurn"))
 
+(define-extra-display-method EventChord (expr)
+  (with-music-match (expr (music 'EventChord
+                                 page-marker #t
+                                 page-label ?lab
+                                 elements ((music 'LabelEvent
+                                                  page-label ?lab-again))))
+                    (string-append "\\label " (value->lily-string ?lab))))
+
+(define-extra-display-method EventChord (expr)
+  (with-music-match (expr (music 'EventChord
+                                 elements ((music 'SpacingSectionEvent))))
+                    "\\newSpacingSection"))
+
 ;;;
 ;;; Lyrics
 ;;;
@@ -1272,3 +1302,49 @@ Otherwise, return #f."
 ;; Silence internal event sent at end of each lyrics block
 (define-display-method CompletizeExtenderEvent (expr)
   "")
+
+
+(define-display-method StaffHighlightEvent (event)
+  (if (eqv? LEFT (ly:music-property event 'span-direction))
+      (let ((color (ly:music-property event 'color)))
+        ;; TODO: for #(rgb-color r g b) calls, this will convert to
+        ;; #'(r g b).  Is this fine?  Do we want to make rgb-color
+        ;; return an opaque object instead?
+        (string-append "\\staffHighlight " (value->lily-string color)))
+      "\\stopStaffHighlight"))
+
+(define-span-event-display-method MeasureCounterEvent (_) #f
+  "\\startMeasureCount" "\\stopMeasureCount")
+
+(define-span-event-display-method MeasureSpannerEvent (_) #f
+  "\\startMeasureSpanner" "\\stopMeasureSpanner")
+
+(define-display-method AnnotateOutputEvent (event)
+  (let* ((symbol (ly:music-property event 'symbol #f))
+         (X-offset (ly:music-property event 'X-offset))
+         (Y-offset (ly:music-property event 'Y-offset))
+         (text (ly:music-property event 'text)))
+    (if symbol
+        (format #f "\\balloonGrobText ~a #'(~a . ~a) ~a"
+                (value->lily-string symbol)
+                X-offset
+                Y-offset
+                (value->lily-string text))
+        (format #f "\\balloonText ~a #'(~a . ~a)"
+                X-offset
+                Y-offset
+                (value->lily-string text)))))
+
+
+(define-extra-display-method EventChord (expr)
+  (with-music-match (expr (music 'EventChord
+                                 elements (?mus)))
+                    (and (eq? 'AnnotateOutputEvent (ly:music-property ?mus 'name))
+                         ;; \balloonGrobText attaches an AnnotateOutputEvent to
+                         ;; an empty chord, drop that empty chord.
+                         (value->lily-string ?mus))))
+
+(define-display-method PostEvents (expr)
+  (string-join
+   (map music->lily-string (ly:music-property expr 'elements))
+   ""))

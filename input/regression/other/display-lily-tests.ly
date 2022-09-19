@@ -1,12 +1,28 @@
 \version "2.23.14"
+
 #(use-modules (srfi srfi-13)
-              (ice-9 format))
+              (ice-9 format)
+              (ice-9 match))
 
 %%%
 %%% Testing utilities
 %%%
 #(use-modules (lily display-lily))
 #(memoize-clef-names supported-clefs)
+
+%% Warn about untested music types. This does not guarantee 100% coverage
+%% (the form of the lily string might need to depend on the music property
+%% values), but does catch trivial cases of forgetting to add a display method
+%% for a new event.
+#(define tested-music-types (make-hash-table))
+
+%% Some events are sent internally but never present in the user-written
+%% input music.  Such events can be excluded from the check using
+%% \ignoreMusicType.
+ignoreMusicType =
+#(define-void-function (type) (symbol?)
+   (hashq-set! tested-music-types type #t))
+
 #(define (parse-lily-and-compute-lily-string chr port)
   (let ((lily-string (call-with-output-string
                       (lambda (out)
@@ -19,6 +35,11 @@
             (input-str (string-trim-both ,lily-string))
             (music (ly:parse-string-expression parser-clone input-str))
             (result-str (string-trim-both (music->lily-string music))))
+       (for-some-music
+        (lambda (m)
+          (ignoreMusicType (ly:music-property m 'name))
+          #f)
+        music)
        (cons input-str result-str))))
 
 #(read-hash-extend #\[ parse-lily-and-compute-lily-string) %{ ] %}
@@ -129,17 +150,22 @@ are reported on the stderr of this run."
 \test ##[ \lyricsto "foo" { bla bla  } #]		% LyricCombineMusic
 \test ##[ { { c4 d4 }
   \addlyrics { bla bla  } } #]
+\test ##[ \lyricmode { a \vowelTransition b } #]	% VowelTransitionEvent
 
 %% Drums
 \test ##[ \drums { hihat4 } #]
 \test ##[ \drummode { hihat4.*3/4 } #]
 
 %% Expressive marks
-\test ##[ c4 ~ #]			 		% TieEvent
-\test ##[ c4\noBeam #] 					% BeamForbidEvent
-\test ##[ c4\1 #] 					% StringNumberEvent
-\test ##[ { c4:8 c4:1 } #]				% TremoloEvent
-\test ##[ { c4-^ c4^^ c4_^ } #]				% ArticulationEvent
+\test ##[ c4 ~ #]			% TieEvent
+\test ##[ c4\laissezVibrer #]		% LaissezVibrerEvent
+\test ##[ c4^\laissezVibrer #]
+\test ##[ c4\repeatTie #]		% RepeatTieEvent
+\test ##[ c4^\repeatTie #]
+\test ##[ c4\noBeam #] 			% BeamForbidEvent
+\test ##[ c4\1 #] 			% StringNumberEvent
+\test ##[ { c4:8 c4:1 } #]		% TremoloEvent
+\test ##[ { c4-^ c4^^ c4_^ } #]		% ArticulationEvent
 \test ##[ { c4-+ c4^+ c4_+ } #]
 \test ##[ { c4-- c4^- c4_- } #]
 \test ##[ { c4-! c4^! c4_! } #]
@@ -155,23 +181,24 @@ are reported on the stderr of this run."
 \test ##[ { c4\glissando c4^\glissando c4_\glissando } #]	% GlissandoEvent
 \test ##[ { c4\arpeggio c4^\arpeggio c4_\arpeggio } #] 	% ArpeggioEvent
 \test ##[ { c4\p c4^\ff c4_\sfz } #] 			% AbsoluteDynamicEvent
+\test ##[ { c4\< c,,4\!\breakDynamicSpan\p } #]          % BreakDynamicSpanEvent
 \test ##[ { c4[ c4] c4^[ c4^] c4_[ c4_] } #] 		% BeamEvent
 \test ##[ { c4( c4) c4^( c4^) c4_( c4_) } #] 		% SlurEvent
 \test ##[ { c4\< c4\! c4^\< c4^\! c4_\< c4_\! } #]	% CrescendoEvent
 \test ##[ { c4\> c4\! c4^\> c4^\! c4_\> c4_\! } #]	% DecrescendoEvent
-\test ##[ { c4\episemInitium c4\episemFinis } #]	% EpisemaEvent
+\test ##[ { c4\episemInitium c4\episemFinis } #]		% EpisemaEvent
 \test ##[ { c4\( c4\) c4^\( c4^\) c4_\( c4_\) } #]	% PhrasingSlurEvent
 \test ##[ { c4\sustainOn c4\sustainOff } #]		% SustainEvent
 \test ##[ { c4\sostenutoOn c4\sostenutoOff } #]		% SostenutoEvent
 \test ##[ \melisma #]
 \test ##[ \melismaEnd #]
-\test ##[ { c4\startTextSpan c4\stopTextSpan } #]	% TextSpanEvent
+\test ##[ { c4\startTextSpan c4\stopTextSpan } #]		% TextSpanEvent
 \test ##[ { c4\startTrillSpan c4\stopTrillSpan } #]	% TrillSpanEvent
 \test ##[ { c4 \startStaff c4 \stopStaff } #]		% StaffSpanEvent
 \test ##[ { c4\startGroup c4\stopGroup c4^\startGroup c4^\stopGroup c4_\startGroup c4_\stopGroup } #]    % NoteGroupingEvent
-\test ##[ { c4\unaCorda c4\treCorde } #]		% UnaCordaEvent
-\test ##[ \breathe #]                                   % BreathingEvent
-\test ##[ \caesura #]                                   % CaesuraEvent
+\test ##[ { c4\unaCorda c4\treCorde } #]			% UnaCordaEvent
+\test ##[ \breathe #]					% BreathingEvent
+\test ##[ \caesura #]					% CaesuraEvent
 \test ##[ { c4 \[ c4 \] } #]				% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
 \test ##[ \- #]						% DurationLineEvent
@@ -180,12 +207,14 @@ are reported on the stderr of this run."
 \test ##[ c4\bendAfter #3 #]				% BendAfterEvent
 \test ##[ c4\rightHandFinger #1 #]			% StrokeFingerEvent
 
-\test ##[ \break #]
+\test ##[ \break #]		% LineBreakEvent
 \test ##[ \noBreak #]
-\test ##[ \pageBreak #]
+\test ##[ \pageBreak #]		% PageBreakEvent
 \test ##[ \noPageBreak #]
-\test ##[ \pageTurn #]
+\test ##[ \pageTurn #]		% PageTurnEvent
 \test ##[ \noPageTurn #]
+\test ##[ \label #'labI #]	%  LabelEvent
+\test ##[ \newSpacingSection #]	% SpacingSectionEvent
 
 %% Checks
 \test ##[ \octaveCheck a' #]				% RelativeOctaveCheck
@@ -197,10 +226,14 @@ are reported on the stderr of this run."
 \test ##[ \mark "Z" #]				% AdHocMarkEvent
 \test ##[ \mark \markup \italic "X" #]
 \test ##[ \mark "Allegro" #]
+\test ##[ \textMark "Fl. 1 solo" #]              % TextMarkEvent
+\test ##[ \textEndMark \markup \italic "Seconda volta duo" #]
 \test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
 \test ##[ \tempo 4 = 108 - 116 #]
 \test ##[ \tempo "Allegro" 4 = 132 #]
 \test ##[ \tempo "Andante" #]
+\test ##[ \jump \markup \italic "Gavotte I D.C." #]	% AdHocJumpEvent
+\test ##[ \sectionLabel \markup \italic "Gavotte" #]	% SectionLabelEvent
 
 %% Segno
 \test ##[ \segnoMark \default #]
@@ -250,7 +283,7 @@ are reported on the stderr of this run."
 \test ##[ \repeat segno 2 { c4 d4 } #]			% SegnoRepeatedMusic
 \test ##[ \repeat volta 2 { c4 d4 } #]			% VoltaRepeatedMusic
 \test ##[ \repeat unfold 2 { c4 d4 } #]			% UnfoldedRepeatedMusic
-\test ##[ \repeat percent 2 { c4 d4 } #]		% PercentRepeatedMusic
+\test ##[ \repeat percent 2 { c4 d4 } #]			% PercentRepeatedMusic
 \test ##[ \repeat tremolo 4 { c16 d16 } #]		% TremoloRepeatedMusic
 \test ##[ \repeat tremolo 7 { c''32 b'32 } #]
 \test ##[ \repeat tremolo 15 { c''16 b'16 } #]
@@ -275,7 +308,7 @@ are reported on the stderr of this run."
 \test ##[ \volta 5,13,12 c'1 #]
 
 %% Context creation
-\test ##[ \new Staff { c4 d4 } #]			% ContextSpeccedMusic
+\test ##[ \new Staff { c4 d4 } #]		% ContextSpeccedMusic
 \test ##[ \new Staff = "up" { c4 d4 } #]		% ContextSpeccedMusic
 \test ##[ \context Staff { c4 d4 } #]
 \test ##[ \context Staff = "up" { c4 d4 } #]
@@ -295,8 +328,8 @@ are reported on the stderr of this run."
 \test ##[ \revert Staff.Stem.thickness #]		% RevertProperty
 \test ##[ \revert Beam.beam-thickness #]
 \test "NOT A BUG" ##[ \oneVoice #]	% resetting a bunch of properties
-\test ##[ \override StaffGrouper.staff-staff-spacing.basic-distance = #7 #]    % nested properties
-\test ##[ \revert StaffGrouper.staff-staff-spacing.basic-distance #]    % nested properties
+\test ##[ \override StaffGrouper.staff-staff-spacing.basic-distance = #7 #] % nested properties
+\test ##[ \revert StaffGrouper.staff-staff-spacing.basic-distance #] % nested properties
 
 %% \applyOutput
 \test ##[ \applyOutput Foo #identity #]
@@ -327,7 +360,7 @@ are reported on the stderr of this run."
 \test ##[ \quoteDuring "foo" { c4 d4 } #]
 
 %% \ottava
-\test ##[ \ottava #1 #]    % OttavaEvent
+\test ##[ \ottava #1 #]	% OttavaEvent
 
 %% \tweak
 \test ##[ < \tweak duration-log #2 c >4 #]
@@ -336,6 +369,61 @@ are reported on the stderr of this run."
 \test ##[ c4-\tweak font-size #3 -> #]
 \test ##[ < \tweak Accidental.color #'(1.0 0.0 0.0) cis eis g >4 #]
 
+%% highlights
+\test ##[ \staffHighlight "red" #]	% StaffHighlightEvent
+\test ##[ \stopStaffHighlight #]
+
+%% measure counters and spanners
+\test ##[ \startMeasureCount #]		% MeasureCounterEvent
+\test ##[ \stopMeasureCount #]
+\test ##[ \startMeasureSpanner #]	% MeasureSpannerEvent
+\test ##[ \stopMeasureSpanner #]
+
+%% footnotes
+%\test ##[ \footnote #'(1 . 2) "footnote" NoteHead #] % FootnoteEvent
+%\test ##[ \footnote "*" #'(1 . 2) "footnote" c' #]
+
+
+%% balloons
+\test ##[ \balloonGrobText #'NoteHead #'(1 . 2) "note head" #]	% AnnotateOutputEvent
+
+%% grouped post-events
+\test ##[ ^"a"^\fermata #] % PostEvents
+
+%% these types do not implement a display method on purpose
+\ignoreMusicType TremoloSpanEvent
+\ignoreMusicType RepeatSlashEvent
+\ignoreMusicType PercentEvent
+\ignoreMusicType DoublePercentEvent
+\ignoreMusicType VoltaSpanEvent
+\ignoreMusicType VoltaRepeatStartEvent
+\ignoreMusicType VoltaRepeatEndEvent
+\ignoreMusicType AlternativeEvent
+\ignoreMusicType DalSegnoEvent
+\ignoreMusicType SpanEvent
+\ignoreMusicType Event
+\ignoreMusicType MultiMeasureRestEvent
+\ignoreMusicType ScriptEvent % unused?
+\ignoreMusicType UnisonoEvent
+\ignoreMusicType SoloOneEvent
+\ignoreMusicType SoloTwoEvent
+\ignoreMusicType TupletSpanEvent
+\ignoreMusicType TimeSignatureEvent % unused?
+
+%% TODO: this one should be implemented, but currently
+%% isn't.  The implementation is complicated by the way
+%% \footnote works, adding a music as tweak.  It should
+%% probably be simplified anyway.
+\ignoreMusicType FootnoteEvent
+
 %% end test.
 
 #(read-hash-extend #\[ #f) %{ ] %}
+
+#(for-each
+  (match-lambda
+   ((name . props)
+    (when (not (hashq-ref tested-music-types name))
+      (ly:error "no display-lily test for music type ~a"
+                name))))
+  music-descriptions)
