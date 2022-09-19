@@ -1,4 +1,4 @@
-\version "2.23.9"
+\version "2.23.14"
 
 \header {
   texidoc = "When a group of break-aligned items agree on the position
@@ -12,8 +12,8 @@ point to the stated point relative to the compound time signature."
   \context {
     \Score
     %% Point rehearsal marks to time signatures.
-    \override RehearsalMark.break-align-symbols = #'(time-signature)
-    \override RehearsalMark.self-alignment-X = #CENTER
+    \override TextMark.break-align-symbols = #'(time-signature)
+    \override TextMark.self-alignment-X = #CENTER
   }
 
   \enablePolymeter
@@ -32,23 +32,23 @@ point to the stated point relative to the compound time signature."
 \fixed c' <<
   \new Staff {
     \override Score.TimeSignature.break-align-anchor-alignment = -1.5
-    \compoundMeter 1,1,1 \mark \markup \test-mark "-1.5"
+    \compoundMeter 1,1,1 \textMark \markup \test-mark "-1.5"
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #LEFT
-    \compoundMeter 1,1,1 \mark \markup \test-mark "-1.0" \partial 1*100
+    \compoundMeter 1,1,1 \textMark \markup \test-mark "-1.0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #CENTER
-    \compoundMeter 1,1,1 \mark \markup \test-mark "0" \partial 1*100
+    \compoundMeter 1,1,1 \textMark \markup \test-mark "0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #RIGHT
-    \compoundMeter 1,1,1 \mark \markup \test-mark "+1.0" \partial 1*100
+    \compoundMeter 1,1,1 \textMark \markup \test-mark "+1.0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = 1.5
-    \compoundMeter 1,1,1 \mark \markup \test-mark "+1.5" \partial 1*100
+    \compoundMeter 1,1,1 \textMark \markup \test-mark "+1.5" \partial 1*100
     c1 \bar "|"
   }
 

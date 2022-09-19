@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.23.14"
 
 \header {
   texidoc = "Straight flag styles."
@@ -10,21 +10,20 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64
    c''8 d''16 c''32 d''64 \acciaccatura {\stemDown c''8 \stemNeutral} d''64  }
 
 {
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 2/4
-  \mark "modern straight"
+  \textMark "modern straight"
   \override Flag.stencil = #modern-straight-flag
   \testnotes
 
-  \mark "old straight (large angles)"
+  \textMark "old straight (large angles)"
   \override Flag.stencil = #old-straight-flag
   \testnotes
 
-  \mark "flat"
+  \textMark "flat"
   \override Flag.stencil = #flat-flag
   \testnotes
 %
-%   \mark "custom slant"
+%   \textMark "custom slant"
 % %   Custom straight flag. The parameters are:
 % %                flag thickness and spacing
 % %                up-flag angle and length

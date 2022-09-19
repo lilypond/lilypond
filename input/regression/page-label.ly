@@ -1,4 +1,4 @@
-\version "2.21.2"
+\version "2.23.14"
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,
@@ -34,18 +34,16 @@ remain referrable by their user-specified name."
   \label #'firstScore
   \score {
     { c'2 c'
-      \mark \markup {
+      \textMark \markup {
         A (page \concat { \page-ref #'markA "0" "?" ) }
       } \label #'markA
       c' c'
       \pageBreak
-      \mark "B" \label #'markB
+      \textMark "B" \label #'markB
       d' d'
       \tocItem parent "This shouldn’t be printed"
       d' d'
-      \once \override Score.RehearsalMark.break-visibility =
-        #begin-of-line-invisible
-      \mark "C" \label #'markC
+      \textEndMark "C" \label #'markC
       \tocItem parent.markC "This shouldn’t be printed"
     }
     \header { piece = "First score" }

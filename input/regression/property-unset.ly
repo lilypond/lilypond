@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.14"
 
 \header{
 
@@ -13,14 +13,14 @@ systems here should revert to the @samp{Score}-level violin clef."
 \score {
   \new DrumStaff {
     \unset DrumStaff.clefGlyph
-    \mark "layout instruction"
+    \textMark "layout instruction"
     c c c c
   }
 }
 
 \score {
   \new DrumStaff {
-    \mark "context def"
+    \textMark "context def"
     c c c c
   }
   \layout { \context { \DrumStaff \unset clefGlyph } }
@@ -28,7 +28,7 @@ systems here should revert to the @samp{Score}-level violin clef."
 
 \score {
   \new DrumStaff \with { \unset clefGlyph } {
-    \mark "context mod"
+    \textMark "context mod"
     c c c c
   }
 }

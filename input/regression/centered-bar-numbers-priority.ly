@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.23.14"
 
 \header {
   texidoc = "Test the stacking of measure-centered bar numbers with
@@ -15,7 +15,8 @@ other objects."
 {
   c'1 1
   \tempo "Allegro ma non troppo"
-  \mark "Look at the conductor!"
+  \mark \default
+  \textMark "Look at the conductor!"
   \ottava #1
   c''1 1
 }

@@ -1,4 +1,4 @@
-\version "2.23.9"
+\version "2.23.14"
 
 \header {
   texidoc = "In this case, the compound time signature has a CENTER
@@ -16,8 +16,8 @@ arrow should point there."
     \Score
     %% Point rehearsal marks at the right side of time signatures by
     %% default.
-    \override RehearsalMark.break-align-symbols = #'(time-signature)
-    \override RehearsalMark.self-alignment-X = #CENTER
+    \override TextMark.break-align-symbols = #'(time-signature)
+    \override TextMark.self-alignment-X = #CENTER
     \override TimeSignature.break-align-anchor-alignment = #RIGHT
   }
 
@@ -28,7 +28,7 @@ arrow should point there."
   \new Staff \with { % here, point at the right side (almost)
     \override TimeSignature.break-align-anchor-alignment = #CENTER
   } {
-    \compoundMeter 1,2,3,1 \mark "↓"
+    \compoundMeter 1,2,3,1 \textMark "↓"
     c1 \bar "|"
   }
   \new Staff {

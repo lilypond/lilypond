@@ -4,28 +4,29 @@
   the alignment depends on which symbols are visible."
 }
 
-\version "2.19.21"
+\version "2.23.14"
   
 \relative {
-  \override Score.RehearsalMark.break-align-symbols = #'(clef key-signature staff-bar)
+  \override Score.TextMark.break-align-symbols = #'(clef key-signature staff-bar)
+  \override Score.TextMark.self-alignment-X = #CENTER
   c'1
   \clef "bass"
-  \mark "clef"
+  \textMark "clef"
   \noBreak
 
   c1
   \clef "treble"
   \key g \major
-  \mark "clef"
+  \textMark "clef"
   \noBreak
 
   c1
   \key f \major
-  \mark "key"
+  \textMark "key"
   \noBreak
 
   c1
-  \mark "bar"
+  \textMark "bar"
   \noBreak
 
   c1

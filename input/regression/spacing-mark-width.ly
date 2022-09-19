@@ -4,7 +4,7 @@
 
 }
 
-\version "2.19.21"
+\version "2.23.14"
 
 \paper {
   ragged-right = ##t
@@ -12,7 +12,6 @@
 
 \relative
 {
-  \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
   c''1
-  \mark "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx "
+  \tweak self-alignment-X #CENTER \textEndMark "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx "
 }

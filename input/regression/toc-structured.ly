@@ -25,7 +25,7 @@ to not `go back in time'."
       c'1 \pageBreak
       \tocItem parentI.pIchildI \markup "Second level I. a"
       d'
-      \mark "A" \tocItem pIchildI.pIcIgrandchildI \markup "Third level I. a, 1"
+      \mark \default \tocItem pIchildI.pIcIgrandchildI \markup "Third level I. a, 1"
       e'
       \pageBreak
     }

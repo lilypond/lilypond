@@ -1,4 +1,4 @@
-\version "2.17.16"
+\version "2.23.14"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the
@@ -26,9 +26,9 @@
     \Score
     \override SpacingSpanner.packed-spacing = ##t
     \override PaperColumn.keep-inside-line = ##f
-    \override RehearsalMark.padding = #7
-    \override RehearsalMark.font-series = #'bold
-    \override RehearsalMark.font-size = #0
+    \override TextMark.padding = #7
+    \override TextMark.font-series = #'bold
+    \override TextMark.font-size = #0
   }
 }
 
@@ -40,7 +40,7 @@
   \textLengthOn
 
 % ligaturae binaria
-  \mark "ligaturae binaria"
+  \textMark "ligaturae binaria"
 
   <>^"BL " \[ b\breve g\longa \]
   <>^"BL " \[ g\breve b\longa \]
@@ -55,7 +55,7 @@
   \bar "|" \break
 
 % ligaturae ternariae, quaternariae, etc. (sicut in Apel[1])
-  \mark "ligaturae ternariae, quaternariae, etc."
+  \textMark "ligaturae ternariae, quaternariae, etc."
 
   <>^"BBL "     \[ b\breve a g\longa \]
   <>^"BBBB "    \[ a\breve g a b \]
@@ -66,7 +66,7 @@
   \bar "|" \break
 
 % examples from "dtv-Atlas zur Musik" [2]
-  \mark "dtv-Atlas"
+  \textMark "dtv-Atlas"
 
   <>^"BBL "        \[ d'\breve c' b\longa \]
   <>^"BBBL "       \[ a\breve b c' d'\longa \]
@@ -77,7 +77,7 @@
   \bar "|" \break
 
 % some ligatures from Ockeghem: Missa De plus en plus
-  \mark "Ockeghem: Missa De plus en plus"
+  \textMark "Ockeghem: Missa De plus en plus"
 
   <>^"MxMx "    \[ c'\maxima g \]
   <>^"LBBBB "   \[ d\longa c\breve f e d \]
@@ -114,7 +114,7 @@
   \bar "|" \break
 
 % some from the Requiem
-  \mark "Ockeghem: Requiem"
+  \textMark "Ockeghem: Requiem"
 
   <>^"SSBBBBBBBL " \[ a1 d e\breve f d f e f g e\longa \]
   <>^"BBBBL "      \[ c'\breve c d c c'\longa \]
@@ -133,7 +133,7 @@
   \textLengthOn
 
 % crazy ligatures
-  \mark "crazy ligatures"
+  \textMark "crazy ligatures"
 
   <>^"BBBBB "              \[ c\breve e f g bes \]
   % TODO: accidentals must be collected and printed before ligature
@@ -144,7 +144,7 @@
   \bar "|" \break
 
 % invalid ligatures (those commented out are rejected with explanation)
-  \mark "invalid ligatures"
+  \textMark "invalid ligatures"
 
 % <>^"SS "   \[ a1 as \]
   <>^"BBB "  \[ a\breve g as \]

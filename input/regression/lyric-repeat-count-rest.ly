@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.23.14"
 
 \header {
   texidoc = "A lyric repeat count is placed at the end of a repeated
@@ -14,7 +14,7 @@ marks the expected position of the repeat count."
 
 music = \fixed c' {
   \repeat volta 2 { r1 f1 r1 }
-  \mark "↓"
+  \tweak self-alignment-X #CENTER \textMark "↓"
   r1 a1
 }
 

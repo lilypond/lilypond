@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.14"
 
 \header {
   texidoc = "A table of contents is included using
@@ -18,7 +18,7 @@ to the corresponding pages."
     {
       \tocItem \markup "(score begins here)"
       c'1 \pageBreak
-      \mark "A" \tocItem \markup "Mark A"
+      \mark \default \tocItem \markup "Mark A"
       d'
     }
   }

@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.23.14"
 
 \header {
   texidoc = "The operation of @code{\\keepWithTag} can be made more
@@ -33,7 +33,7 @@ demo =
   #{
     \new Score <<
       \keepWithTag #syms #m
-      \context Staff \mark #(string-join (map symbol->string syms) "&")
+      \context Staff \textMark #(string-join (map symbol->string syms) "&")
     >>
   #})
 

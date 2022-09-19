@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.23.14"
 
 #(ly:set-option 'warning-as-error #t)
 

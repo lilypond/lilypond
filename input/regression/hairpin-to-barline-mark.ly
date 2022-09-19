@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.14"
 
 \header {
 
@@ -8,6 +8,7 @@
 
 \new Staff \relative {
   c'1\<
-  \mark "Very long mark"
+  \tweak self-alignment-X #CENTER
+    \textMark "This is quite a long mark text"
   c4\> c c c\!
 }

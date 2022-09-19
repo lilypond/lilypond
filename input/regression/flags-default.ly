@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.23.14"
 #(set-global-staff-size 17)
 
 \header {
@@ -22,54 +22,51 @@ testnotes = { \autoBeamOff
 % Old settings: style set to default, 'mensural, 'no-flag; using the
 % default C++ function ly:stem::calc-stem
 {
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 2/4
 
-  \mark "Default flags (C++)"
+  \textMark "Default flags (C++)"
   \testnotes
 
-  \mark "Symbol: 'mensural (C++)"
+  \textMark "Symbol: 'mensural (C++)"
   \override Flag.style = #'mensural
   \testnotes
 
-  \mark "Symbol: 'no-flag (C++)"
+  \textMark "Symbol: 'no-flag (C++)"
   \override Flag.style = #'no-flag
   \testnotes
 }
 
 % The same, but using the Scheme implementation of default-flag
 {
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 2/4
 
   \override Flag.stencil = #default-flag
   \revert Flag.style
-  \mark "Default flags (Scheme)"
+  \textMark "Default flags (Scheme)"
   \testnotes
 
-  \mark "Symbol: 'mensural (Scheme)"
+  \textMark "Symbol: 'mensural (Scheme)"
   \override Flag.style = #'mensural
   \testnotes
 
-  \mark "Symbol: 'no-flag (Scheme)"
+  \textMark "Symbol: 'no-flag (Scheme)"
   \override Flag.style = #'no-flag
   \testnotes
 }
 
 % New scheme functions: normal-flag, mensural-flag, no-flag
 {
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 2/4
 
-  \mark "Function: normal-flag"
+  \textMark "Function: normal-flag"
   \override Flag.stencil = #normal-flag
   \testnotes
 
-  \mark "Function: mensural-flag"
+  \textMark "Function: mensural-flag"
   \override Flag.stencil = #mensural-flag
   \testnotes
 
-  \mark "Function: no-flag"
+  \textMark "Function: no-flag"
   \override Flag.stencil = #no-flag
   \testnotes
 }

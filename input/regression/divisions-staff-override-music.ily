@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.23.14"
 
 divisions = {
   \time 2/4
@@ -14,15 +14,16 @@ divisions = {
 }
 
 labels = {
+  \override Score.TextMark.self-alignment-X = #CENTER
   \time 2/4
-  \skip 2 \mark "Meas."
+  \skip 2 \textMark "Meas."
   \skip 2
   \repeat volta 2 \skip 2
   \repeat volta 2 \skip 2
   \skip 2 \sectionLabel "\\caesura ..."
   \skip 2
   \skip 2
-  \skip 2 \mark "Sec."
+  \skip 2 \textMark "Sec."
   \skip 2
 }
 

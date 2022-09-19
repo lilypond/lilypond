@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.14"
 
 \header {
   texidoc = "The space taken up by rehearsal marks is correctly
@@ -14,8 +14,8 @@ accounted for, even though they live in the Score context."
   }
   \score {
     <<
-      \new Staff { \mark \markup \column { T A L L M A R K } c'1 \break
-		   \mark \markup \column { T A L L M A R K } c'1 }
+      \new Staff { \textMark \markup \column { T A L L M A R K } c'1 \break
+		   \textMark \markup \column { T A L L M A R K } c'1 }
       \new Staff { c'1 \break c'1 }
     >>
   }

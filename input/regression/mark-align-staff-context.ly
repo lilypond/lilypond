@@ -1,14 +1,21 @@
+\version "2.23.14"
 
 \header {
-
-  texidoc = "Marks are put on top a breakable symbol,
-  according to the value of @code{break-align-symbols} grob property.
-  The same holds for @code{BarNumber} grobs."
-
+  texidoc = "Marks still align correctly if Mark_engraver is moved to
+Staff context."
 }
 
-\version "2.23.14"
-  
+\layout {
+  \context {
+    \Staff
+    \consists Text_mark_engraver
+  }
+  \context {
+    \Score
+    \remove Text_mark_engraver
+  }
+}
+
 \relative {
   c'1 \textMark "foo"
   c1

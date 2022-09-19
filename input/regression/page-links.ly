@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.14"
 
 \header {
 
@@ -19,11 +19,11 @@
 
   \score {
     { c'2
-      \mark \markup \with-link #'front { front: \concat { \page-ref #'front "0" "?" ) }} 
+      \textMark \markup \with-link #'front { front: \concat { \page-ref #'front "0" "?" ) }}
       c'
 
       \pageBreak
-      \mark \markup \with-link #'front "B" 
+      \textMark \markup \with-link #'front "B"
       \label #'markB
       d' d'
       }

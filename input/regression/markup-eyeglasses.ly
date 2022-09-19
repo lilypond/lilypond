@@ -1,6 +1,6 @@
 \header {
   texidoc = "The eyeglasses markup function prints out eyeglasses."
 }
-\version "2.16.0"
+\version "2.23.14"
 
-\relative c'' { \mark \markup{ \eyeglasses } c4_\markup{ \eyeglasses } }
+\relative c'' { c4_\markup{ \eyeglasses } }

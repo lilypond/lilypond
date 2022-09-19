@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.14"
 
 \header
 {
@@ -8,6 +8,6 @@
 \paper{ ragged-right=##t }
 
 \relative g' {
-    \mark \markup{ "foo foo foo foo foo foo"}
+    \textMark "foo foo foo foo foo foo foo foo"
     R1 | g4 g g g |
 }

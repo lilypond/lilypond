@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.23.14"
 
 \header{
 
@@ -35,12 +35,11 @@ clefs = {
 }
 
 { 
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \textLengthOn
-  \mark "clefs:"
+  \textMark "clefs:"
   \clefs
   \override Staff.Clef.full-size-change = ##t \break
-  \mark "with full-size-change = #t:"
+  \textMark "with full-size-change = #t:"
   \clefs
   \bar "|."
 }

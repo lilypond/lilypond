@@ -1,19 +1,14 @@
-\version "2.23.8"
+\version "2.23.14"
 
 \header {
   texidoc = "At line break a broken @code{DurationLine}, like @code{Glissando},
 avoids items with @code{break-aligned-interface}, like @code{KeySignature},
 @code{BreathingSign} etc., but not items with the
-@code{break-alignable-interface}, like @code{RehearsalMark},
+@code{break-alignable-interface}, like @code{TextMark},
 @code{MetronomeMark}, etc.."
 }
 
 \layout {
-  \context {
-    \Score
-    \override RehearsalMark.break-visibility = ##(#t #f #f)
-    \override RehearsalMark.self-alignment-X = #RIGHT
-  }
   \context {
     \Voice
     \consists "Duration_line_engraver"
@@ -29,7 +24,7 @@ avoids items with @code{break-aligned-interface}, like @code{KeySignature},
   \new Staff {
     b1\-\glissando
     \break
-    \mark "long mark"
+    \textEndMark "long mark"
     \tempo "Allegretto, ma non troppo"
     \breathe
     s

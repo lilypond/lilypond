@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.23.14"
 
 \header {
   texidoc = "The 'stencil property of the Flag grob can be set to a custom
@@ -35,13 +35,12 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 c''8 d''1
     (ly:stencil-translate rotated-flag (cons (- (/ stem-width 2))  0))))
 
 {
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 2/4
-  \mark "Function: weight-flag (custom)"
+  \textMark "Function: weight-flag (custom)"
   \override Flag.stencil = #weight-flag
   \testnotes
 
-  \mark "Function: inverted-flag (custom)"
+  \textMark "Function: inverted-flag (custom)"
   \override Flag.stencil = #inverted-flag
   \testnotes
 

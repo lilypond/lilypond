@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.23.14"
 \header {
 
   texidoc = "The @code{\\removeWithTag} and @code{\\keepWithTag}
@@ -21,7 +21,7 @@ demo =
   #{
     \new Staff
     <<
-      { \mark #(string-join (map symbol->string syms) "&") \skip 1*4 }
+      { \textMark #(string-join (map symbol->string syms) "&") \skip 1*4 }
       $fun #syms #m
     >>
   #})

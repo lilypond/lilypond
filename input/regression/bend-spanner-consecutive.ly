@@ -1,4 +1,4 @@
-\version "2.23.0"
+\version "2.23.14"
 
 \header {
   texidoc = "Multiple consecutive @code{BendSpanner} grobs work.
@@ -7,15 +7,15 @@ previous one or at a @code{TabNoteHead}."
 }
 
 mus-consecutive-bend = {
-  \mark "consecutive bends up"
+  \tag top \textMark "consecutive bends up"
   c'4\3\^ d'\3 \^ e'\3 \^ fis'\3
   <f'\2 a'>4\^ <g' b'\1> \^ <a' cis''>2
 
-  \mark "consecutive bends down"
+  \tag top \textMark "consecutive bends down"
   fis'4\3 -\tweak details.successive-level #3 \^ e'\3\^ d'\3 \^ c'\3
   <a' cis''>4 -\tweak details.successive-level #2 \^ <g' b'>\^ <f' a'>2
 
-  \mark "with pre-bend-hold"
+  \tag top \textMark "with pre-bend-hold"
   <>_\markup \column { "Make first target" "parenthesized and visible" }
   \grace bes4\3 -\tweak style #'pre-bend-hold
                 -\tweak details.target-visibility ##t
@@ -37,7 +37,7 @@ mus-consecutive-bend = {
   \new StaffGroup
   <<
     \new Staff { \clef "G_8" \mus-consecutive-bend }
-    \new TabVoice \mus-consecutive-bend
+    \new TabVoice \removeWithTag top \mus-consecutive-bend
   >>
   \layout {
     \context {

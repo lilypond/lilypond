@@ -1,4 +1,4 @@
-\version "2.17.28"
+\version "2.23.14"
 
 \header
 {
@@ -9,7 +9,7 @@ autobeaming at the start of each @code{\\grace} command."
 \layout { short-indent = 1\cm  indent = 2\cm }
 
 music = {
-  \mark "manual"
+  \tag top \textMark "manual"
   \relative c'' {
     \grace {a8[ b] } a1 
     \grace {a8[ b c b gis] } a1 
@@ -17,7 +17,7 @@ music = {
     \grace {a8[ b c16 d] c4 b8[ gis] } a1
     \grace {a8[ b c16 d] c4 b8 a b\fermata a16[ gis] } a1
   } \break
-  \mark "automatic"
+  \tag top \textMark "automatic"
   \relative c'' {
     \grace {a8 b } a1
     \grace {a8 b c b gis } a1
@@ -35,6 +35,6 @@ music = {
                \music
     \new Staff \with { instrumentName = \markup \center-column
 		       { with engraver } }
-    \new Voice \music
+    \new Voice \removeWithTag top \music
   >>
 }
