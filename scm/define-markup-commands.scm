@@ -2979,6 +2979,34 @@ of its own.
   (interpret-markup layout props
                     `(,fontsize-markup 1 ,arg)))
 
+(define-markup-command (figured-bass layout props arg)
+  (markup?)
+  #:category font
+  "Set @var{arg} as small numbers for figured bass.  Specially slashed
+digits can be achieved with a trailing backslashes (for numbers 6,
+7, and@tie{}9) or a trailing plus (for numbers 2, 4,
+and@tie{}5).@footnote{Internally, this works by activating the
+@q{dlig} OpenType feature of the Emmentaler font.}
+
+The use of a backslash is in analogy to
+@code{\figuremode} (@pxref{Entering figured bass}).  Note that to get
+a backslash character in markup it must be escaped by doubling it.
+Additionally, it must be put into double quotes.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\figured-bass {
+    2 3 4+ 7 \"9\\\\\"
+  }
+}
+@end lilypond"
+  (interpret-markup layout
+                    (cons '((font-size . -5)
+                            (font-encoding . fetaText)
+                            (font-features . ("dlig" "tnum" "cv47" "ss01")))
+                          props)
+                    arg))
+
 (define-markup-command (finger layout props arg)
   (markup?)
   #:category font

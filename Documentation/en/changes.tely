@@ -1081,6 +1081,9 @@ number.
 }
 @end lilypond
 
+Use the new command @code{\figured-bass} to access these glyphs in
+markup.
+
 @item
 In figured bass, brackets can now also be added around accidentals.
 
