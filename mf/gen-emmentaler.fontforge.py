@@ -25,6 +25,7 @@ import sys
 import fontforge
 
 from emmentaler_codes import add_code_points
+from emmentaler_features import add_feature_dlig
 from emmentaler_features import add_feature_ss01
 from emmentaler_features import add_feature_cv47
 from emmentaler_features import add_feature_tnum
@@ -107,12 +108,15 @@ for glyph in font.glyphs():
         i += 1
 
 
-# Include OpenType features.
+# Include OpenType features, in reverse lookup order.
 
-add_feature_kern(font)
+# GSUB
 add_feature_ss01(font)
 add_feature_cv47(font)
 add_feature_tnum(font)
+add_feature_dlig(font)
+# GPOS
+add_feature_kern(font)
 
 
 # Include (private) SFNT tables needed by LilyPond.

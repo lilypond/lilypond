@@ -652,14 +652,6 @@ emmentaler_glyphsets = [
         "flags.mensurald26",
         "flags.mensuralu26",
 
-        # symbols for figured bass
-        "figbass.twoplus",
-        "figbass.fourplus",
-        "figbass.fiveplus",
-        "figbass.sixstroked",
-        "figbass.sevenstroked",
-        "figbass.ninestroked",
-
         # pedal symbol elements
         "pedal.P",
         "pedal.e",
@@ -730,6 +722,9 @@ emmentaler_glyphsets = [
     # the PUA) should be part of this array.  The corresponding
     # Emmentaler encoding is the only one used for communication with
     # the Pango library.
+    #
+    # Glyphs that are results of input ligatures like '4+' should
+    # appear here, too.
     LilypondGlyphset("P", [
         ##
         ## text-mode glyphs
@@ -817,6 +812,14 @@ emmentaler_glyphsets = [
         "accidentals.sharp.figbass",
         "accidentals.doublesharp.figbass",
         "accidentals.natural.figbass",
+
+        # symbols for figured bass
+        "figbass.twoplus",
+        "figbass.fourplus",
+        "figbass.fiveplus",
+        "figbass.sixstroked",
+        "figbass.sevenstroked",
+        "figbass.ninestroked",
     ]),
 ]
 

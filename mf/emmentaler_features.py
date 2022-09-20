@@ -73,6 +73,7 @@ def add_feature_ss01(font):
     ss01("fixedwidth.eight", "fattened.fixedwidth.eight")
     ss01("fixedwidth.nine", "fattened.fixedwidth.nine")
 
+
 # Character variant 'cv47' selects alternative glyphs for digits
 # 'four' and 'seven'.
 
@@ -133,5 +134,35 @@ def add_feature_tnum(font):
     tnum("fattened.seven.alt", "fattened.fixedwidth.seven.alt")
     tnum("fattened.eight", "fattened.fixedwidth.eight")
     tnum("fattened.nine", "fattened.fixedwidth.nine")
+
+
+# Optional input ligatures for specially slashed figured bass digits,
+# off by default.
+
+def add_feature_dlig(font):
+    # We need a dummy backslash character.
+    font.createChar(ord("\\"), "backslash")
+    # Without the next code line, FontForge considers the 'backslash'
+    # glyph as unused and refuses to produce ligatures with it.
+    font["backslash"].width = 0;
+
+    font.addLookup("dlig", "gsub_ligature", 0,
+                   (("dlig",
+                     (("DFLT",
+                       ("dflt")), )), ))
+    font.addLookupSubtable("dlig", "slashed")
+
+    def dlig(glyph, left, right):
+        font[glyph].addPosSub("slashed", (left, right))
+
+    dlig("figbass.sixstroked", "six", "backslash")
+    dlig("figbass.sevenstroked", "seven", "backslash")
+    dlig("figbass.sevenstroked", "seven.alt", "backslash")
+    dlig("figbass.ninestroked", "nine", "backslash")
+
+    dlig("figbass.twoplus", "two", "plus")
+    dlig("figbass.fourplus", "four", "plus")
+    dlig("figbass.fourplus", "four.alt", "plus")
+    dlig("figbass.fiveplus", "five", "plus")
 
 # eof

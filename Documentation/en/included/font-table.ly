@@ -6,9 +6,13 @@
 
   (use-modules (ice-9 regex))
 
+  ;; filter out glyphs that are only used internally for input
+  ;; ligature creation ('backslash') or not used at all ('.notdef')
   (define glyph-list
-    (delete ".notdef"
-            (ly:otf-glyph-list (ly:system-font-load "emmentaler-20"))))
+    (lset-difference
+     equal?
+     (ly:otf-glyph-list (ly:system-font-load "emmentaler-20"))
+     '(".notdef" "backslash")))
 
   (define (get-group glyph-list regexp)
     (let ((r (make-regexp regexp)))
