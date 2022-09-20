@@ -411,21 +411,88 @@ Internals Reference:
 @node Text marks
 @unnumberedsubsubsec Text marks
 
-
 @cindex text mark
 @cindex mark, text
 @cindex text, on bar line
-@cindex fermata, on bar line
+@cindex text, between notes
+@cindex text, at beginning of line
 @cindex bar line, symbols on
+@cindex bar line, text over
+@cindex text, at end of score
 
-@funindex \mark
+@funindex \textMark
+@funindex \textEndMark
 @funindex \markup
 
-Arbitrary text may be centered over a bar line with the
-@code{\mark} command (@pxref{Rehearsal marks}).  Before using this
-feature to add text that is effectively something other than a
-rehearsal mark, seeking a more fitting command is recommended.
-Some possibilities are referenced at the end of this section.
+
+Text marks are textual objects that, unlike text scripts
+(@pxref{Text scripts}), are not printed over notes but between
+notes, often aligned to a bar line.
+
+@funindex \mark
+
+@warning{Older LilyPond versions used the @code{\mark} command for
+text marks, even though it is primarily intended for rehearsal
+marks (@pxref{Rehearsal marks}).  The @code{\textMark} and
+@code{\textEndMark} commands are better suited for text marks with
+regard to their default settings as well as the ability to have
+several text marks at the same moment.  It is therefore
+recommended to use @code{\textMark} and @code{\textEndMark}
+instead of @code{\mark "Text"} or @code{\mark \markup @dots{}}.
+Note that if converting code that uses @code{\mark} for text
+marks, overrides using @code{RehearsalMark} should be changed to
+@code{TextMark}.}
+
+Before using text marks, it is recommended to seek a more specific
+command, if available.  For text that identifies a section, use
+@code{\sectionLabel} (@pxref{Section labels}).  For jump
+instructions, use @code{\jump} (@pxref{Manual repeat marks}).
+These commands have different default layout settings, and they
+create separate objects which can be styled differently from
+generic text marks in stylesheets.
+
+A text mark is entered using either @code{\textMark} or
+@code{\textEndMark}.  The @code{\textMark} command draws a
+left-aligned mark.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \textMark "Fl. 1 solo"
+  c4 e g2
+  \textMark "A due"
+  e4 g c'2
+}
+@end lilypond
+
+If a line break occurs at the point @code{\textMark} is used, the
+text appears on the next system.
+
+@lilypond[verbatim,quote,ragged-right]
+\fixed c'' {
+  \textMark "Fl. 1 solo"
+  c4 e g2
+  \break
+  \textMark "A due"
+  e4 g c'2
+}
+@end lilypond
+
+Unlike @code{\textMark}, @code{\textEndMark} creates a
+right-aligned mark.  If it occurs on a line break, it is printed
+on the preceding system.
+
+@lilypond[verbatim,quote,ragged-right]
+\fixed c' {
+  \repeat volta 2 {
+    c4 e8 f g2
+    e4 f8 g c'2
+    \textEndMark "ad lib"
+  }
+  \break
+  c'4 8 8 4 8 8
+  c'1
+}
+@end lilypond
 
 Complex text formatting may be added using a @code{\markup} block
 (@pxref{Formatting text}).
@@ -433,41 +500,112 @@ Complex text formatting may be added using a @code{\markup} block
 @lilypond[quote,verbatim]
 \relative {
   <c' e>1
-  \mark \markup { \italic { colla parte } }
+  \textMark \markup { \italic { colla parte } }
   <d f>2 <e g>
   <c f aes>1
 }
 @end lilypond
 
-@noindent
-As for normal rehearsal marks, these objects are typeset above the
-top staff of the score; depending on whether they are specified at
-the end or the middle of a bar, they can be placed above the bar
-line or between notes.
-
 @funindex \markLengthOn
 @funindex \markLengthOff
 
+The @code{\markLengthOn} and @code{\markLengthOff} commands
+(@pxref{Metronome marks}) can also be used on text marks.
+
+@lilypond
+{
+  \mark \default
+  c'2 2
+  \textEndMark "long mark text"
+  \markLengthOn
+  2 2
+  \mark \default
+  2 2
+  \textEndMark "long mark text"
+}
+@end lilypond
+
+@cindex text mark, below staff
+
+Text marks may be printed below the staff.
+
+@lilypond
+\fixed c' {
+  c4 g c'8 b c4 e' c' c2
+  c4 g c'8 b c4 e' c' g2
+  e'4 c' c'8 b c'4
+  g4 c' c2~ c1
+  \tweak direction #DOWN
+    \tweak font-size #-1
+      \textEndMark "Composed on November 13th, 2020"
+}
+@end lilypond
+
+@cindex text mark, vertical stacking
+
+There can be several text marks at the same moment.  Their
+stacking order can be overridden using the
+@code{outside-staff-priority} property (@pxref{Vertical collision
+avoidance}).  Alternatively, a single text mark with
+@code{\markup \column @{ @dots{} @} } can achieve the same effect.
+
+@lilypond
+\fixed c' {
+  \repeat volta 2 {
+    c4 g c'8 b c4 e' c' c2
+    \textEndMark "ad lib."
+    \tweak outside-staff-priority 1200
+      \tweak font-size -1
+        \textEndMark "2nd time a due"
+  }
+}
+@end lilypond
+
+@cindex text mark, alignment
+
+The alignment of a text mark can be changed.
+
+@lilypond[verbatim,quote]
+{
+  c'8 8 8 8 8 8 8 8
+  \textMark \markup \column {
+    \line { Left-aligned mark }
+    \line { (default for \concat { \typewriter "\\textMark" ) } }
+  }
+  d'8 8 8 8 8 8 8 8
+}
+
+{
+  c'8 8 8 8 8 8 8 8
+  \tweak self-alignment-X #CENTER
+    \textMark "Centered mark"
+  d'8 8 8 8 8 8 8 8
+}
+
+{
+  c'8 8 8 8 8 8 8 8
+  \tweak self-alignment-X #RIGHT
+    \textMark \markup \right-column {
+      \line { Right-aligned mark }
+      \line { (default for \concat { \typewriter "\\textEndMark" ) } }
+    }
+  d'8 8 8 8 8 8 8 8
+}
+@end lilypond
+
+
 @predefined
+@code{\textMark},
+@code{\textEndMark},
 @code{\markLengthOn},
 @code{\markLengthOff}.
 @endpredefined
 
-
 @snippets
 
-@c TODO: This snippet uses \mark "D.C. al Fine".  It should be
-@c edited to avoid drawing attention away from \repeat segno.
-@c Maybe it should be replaced: demonstrating alignment of a
-@c fermata in @ref{Rehearsal marks} seems like a good alternative.
-@cindex end of line, positioning marks
-@cindex line, end of, positioning marks
-@cindex mark, at end of line
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
-@cindex mark, on every staff
-@funindex Mark_engraver
+@c Also in 'Rehearsal marks'.
+@cindex text mark, on every staff
+@funindex Text_mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-marks-on-every-staff.ly}
@@ -486,9 +624,9 @@ Snippets:
 @rlsr{Text}.
 
 Internals Reference:
-@rinternals{AdHocMarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{TextMarkEvent},
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark}.
 @endmorerefs
 
 

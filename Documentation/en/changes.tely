@@ -803,6 +803,43 @@ multiple @code{Mark_tracking_translators} must be used.
 @itemize
 
 @item
+New commands @code{\textMark} and @code{\textEndMark} are
+available to add an arbitrary piece of text between notes, called
+a text mark.  These commands improve over the previously existing
+syntax with the @code{\mark} command called as @code{\mark @var{markup}}
+(i.e., @code{\mark "@dots{}"} or @code{\mark \markup @dots{}}).
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \textMark "Text mark"
+  c16 d e f e f e d c e d c e d c8
+  \textEndMark "Text end mark"
+}
+@end lilypond
+
+@code{\textMark} and @code{\textEndMark} are now the recommended
+way to create textual marks.  The use of @code{\mark} for this
+purpose is still supported, but discouraged (note that the
+@code{\mark} command itself is not discouraged, only calling it on
+a markup argument; @code{\mark \default} or @code{\mark @var{number}}
+is still the recommended and only way to create a rehearsal mark).
+
+The new commands have several differences to @code{\mark @var{markup}}.
+There can be an arbitrary number of them at a given moment, while there
+can only be one use of @code{\mark}.  They output grobs of the dedicated
+@code{TextMark} type, whereas @code{\mark} creates a @code{RehearsalMark}
+grob regardless of whether it is called for a rehearsal mark or a textual
+mark; introducing this distinction allows stylesheets to set different
+layout settings for rehearsal marks and text marks.  The alignment
+set by the new commands is different: @code{\textMark} always
+creates a left-aligned mark, and @code{\textEndMark} creates a
+right-aligned mark; in contrast, the alignment of a @code{RehearsalMark}
+depends on the anchor point of the object it aligns to.
+
+See @ruser{Text marks} for full details.
+
+
+@item
 Text variant glyphs for sharp, flat, natural, double sharp, and
 double flat are now available in the Emmentaler fonts.  In markup,
 they can be easily accessed with standard Unicode values.

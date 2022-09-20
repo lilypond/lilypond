@@ -3930,6 +3930,16 @@ the definitions of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
 
+@snippets
+
+@c Also in 'Text marks'.
+@cindex mark, on every staff
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-marks-on-every-staff.ly}
+
+
 @morerefs
 Notation Reference:
 @ref{The Emmentaler font},
