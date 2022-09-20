@@ -113,7 +113,7 @@ pdf_styles = {
     Token.Name.Builtin.Scale: "bold",
     Token.Name.Builtin.RepeatType: "",
     Token.Name.Builtin.Dynamic: "",
-    Token.Name.Builtin.Articulation: "",
+    Token.Name.Builtin.Articulation: "bold",
     Token.Name.Builtin.SchemeFunction: "bold",
     Token.Name.Builtin.SchemeBuiltin: "bold",
     Token.Name.Builtin.MarkupCommand: "bold",
