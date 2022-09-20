@@ -3010,7 +3010,7 @@ Additionally, it must be put into double quotes.
 (define-markup-command (finger layout props arg)
   (markup?)
   #:category font
-  "Set @var{arg} as small numbers.
+  "Set @var{arg} as small numbers for fingering instructions.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3020,7 +3020,10 @@ Additionally, it must be put into double quotes.
 }
 @end lilypond"
   (interpret-markup layout
-                    (cons '((font-size . -5) (font-encoding . fetaText)) props)
+                    (cons '((font-size . -5)
+                            (font-encoding . fetaText)
+                            (font-features . ("cv47" "ss01")))
+                          props)
                     arg))
 
 (define-markup-command (abs-fontsize layout props size arg)
@@ -3198,8 +3201,12 @@ glyphs.
       0123456789 \\box 147 \\concat { \\box 1 \\box 4 \\box 7 } }
     \\normal-text \\normalsize \"(fingering)\"
   }
-@end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaText props) arg))
+@end lilypond
+
+See also the markup commands @code{\\figured-bass} and
+@code{\\finger}, which set the font features accordingly."
+  (interpret-markup layout (prepend-alist-chain
+                            'font-encoding 'fetaText props) arg))
 
 (define-markup-command (roman layout props arg)
   (markup?)
@@ -4024,9 +4031,12 @@ and continue with double letters.
                        thickness))
          ;; backward slashes might use slope and point in the other direction!
          (dy (* mag (if forward 0.4 -0.4)))
-         (number-stencil (interpret-markup layout
-                                           (prepend-alist-chain 'font-encoding 'fetaText props)
-                                           (number->string num)))
+         (number-stencil (interpret-markup
+                          layout
+                          (cons '((font-encoding . fetaText)
+                                  (font-features . ("tnum" "cv47" "ss01")))
+                                props)
+                          (number->string num)))
          (num-x (horizontal-slash-interval num forward (ly:stencil-extent number-stencil X) mag))
          (center (interval-center (ly:stencil-extent number-stencil Y)))
          ;; Use the real extents of the slash, not the whole number,
