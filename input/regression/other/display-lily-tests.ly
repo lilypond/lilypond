@@ -1,4 +1,4 @@
-\version "2.23.11"
+\version "2.23.14"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -147,6 +147,7 @@ are reported on the stderr of this run."
 \test ##[ { c4-. c4^. c4_. } #]
 \test ##[ { c4-_ c4^_ c4__ } #]
 \test ##[ { c4\trill c4^\trill c4_\trill } #]
+\test ##[ { R1-! R1-- R1\trill R1^"a" R1^\markup \italic "foo" } #]
 \test ##[ { c4-1 c4^2 c4_3 } #]				% FingerEvent
 \test ##[ { c4-"foo" c4^"foo" c4_"foo" } #]		% TextScriptEvent
 \test ##[ { R1*4-"foo" R1*4^"foo" R1*4_"foo" } #]	% MultiMeasureTextEvent

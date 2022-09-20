@@ -185,22 +185,8 @@ expression."
             shorthand
             (or shorthand articulation))))
 
-(define-display-method MultiMeasureArticulationEvent (event) #t
-  (let* ((articulation  (ly:music-property event 'articulation-type))
-         (shorthand
-          (case (string->symbol articulation)
-            ((marcato) "^")
-            ((stopped) "+")
-            ((tenuto)    "-")
-            ((staccatissimo) "!")
-            ((accent) ">")
-            ((staccato) ".")
-            ((portato) "_")
-            (else #f))))
-    (format #f "~a~:[\\~;~]~a"
-            (event-direction->lily-string event shorthand)
-            shorthand
-            (or shorthand articulation))))
+(define-display-method MultiMeasureArticulationEvent (event)
+  (music->lily-string (make-music 'ArticulationEvent event)))
 
 (define-post-event-display-method FingeringEvent (event) #t
   (ly:music-property event 'digit))
@@ -208,8 +194,8 @@ expression."
 (define-post-event-display-method TextScriptEvent (event) #t
   (markup->lily-string (ly:music-property event 'text)))
 
-(define-post-event-display-method MultiMeasureTextEvent (event) #t
-  (markup->lily-string (ly:music-property event 'text)))
+(define-display-method MultiMeasureTextEvent (event)
+  (music->lily-string (make-music 'TextScriptEvent event)))
 
 (define-post-event-display-method BendAfterEvent (event) #f
   (format #f "\\bendAfter #~a " (ly:music-property event 'delta-step)))
