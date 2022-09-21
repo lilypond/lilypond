@@ -1245,6 +1245,10 @@ positioning?")
 ;;;
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
+     (visible-over-note-heads ,boolean? "This prints a tuplet bracket
+when the bracket is set to be over the note heads.  This option can
+be combined with the default tuplet bracket visibility style and
+with @code{#'if-no-beam}.")
      (voiced-position ,number? "The staff-position of a voiced
 @code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
 

@@ -316,18 +316,31 @@ Tuplet_bracket::print (SCM smob)
   extract_grob_set (me, "note-columns", columns);
   Spanner *par_beam = parallel_beam (me, columns);
   bool equally_long = equal_bounds (par_beam, me);
+  Direction dir = get_grob_direction (me);
 
   bool bracket_visibility = !(par_beam && equally_long); // Flag, print/don't print tuplet bracket.
+
   /*
     FIXME: The type of this prop is sucky.
   */
   SCM bracket_vis_prop = get_property (me, "bracket-visibility");
   bool bracket_prop = scm_is_true (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
-  bool bracket = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
+  bool if_no_beam = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
   if (scm_is_bool (bracket_vis_prop))
     bracket_visibility = bracket_prop;
-  else if (bracket)
+  else if (if_no_beam)
     bracket_visibility = !par_beam;
+
+  if (!scm_is_bool (bracket_vis_prop) && !bracket_visibility)
+    {
+      bool bracket_over_heads = from_scm<bool> (get_property (me, "visible-over-note-heads"));
+      if (bracket_over_heads && !Beam::is_knee (par_beam))
+        {
+          Direction default_dir = from_scm<Direction> (get_property (par_beam, "direction"));
+          if (default_dir != dir)
+            bracket_visibility = true;
+        }
+    }
 
   /*
     Don't print a tuplet bracket and number if
@@ -407,8 +420,6 @@ Tuplet_bracket::print (SCM smob)
             = from_scm (get_property (me, "edge-height"), zero);
           Drul_array<Real> flare
             = from_scm (get_property (me, "bracket-flare"), zero);
-
-          Direction dir = get_grob_direction (me);
 
           scale_drul (&height, -ss * dir);
           scale_drul (&flare, ss);
@@ -864,5 +875,6 @@ staff-padding
 thickness
 tuplets
 tuplet-slur
+visible-over-note-heads
 X-positions
                )");
