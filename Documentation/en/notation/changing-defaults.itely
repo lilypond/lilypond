@@ -3281,7 +3281,7 @@ Many objects of musical notation extend over several notes or even
 several bars.  Examples are slurs, beams, tuplet brackets, volta
 repeat brackets, crescendi, trills, and glissandi.  Such objects
 are collectively called @qq{spanners}, and have special properties
-to control their appearance and behaviour, as well as special
+to control their appearance and behavior, as well as special
 tweaking methods related to the fact that they can be broken
 across systems.
 
@@ -3921,7 +3921,7 @@ end of a line the new time signature will be printed at the start
 of the next line and a cautionary time signature will be printed
 at the end of the previous line as well.
 
-This behaviour is controlled by the @code{break-visibility}
+This behavior is controlled by the @code{break-visibility}
 property, which is explained in
 @c Leave this ref on a newline - formats incorrectly otherwise -td
 @rlearning{Visibility and color of objects}.  This property takes

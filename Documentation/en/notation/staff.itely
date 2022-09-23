@@ -1847,7 +1847,7 @@ direction.
 By default, all measures are printed even if they are empty
 -- which can happen if a rhythmic event (such as notes, rests
 or invisible rests) is so long as to span several measures.
-This behaviour can be changed by contracting all empty
+This behavior can be changed by contracting all empty
 measures into a single one, as illustrated here (the second
 part of this example, with expanded measures,
 actually reverts back to the default behavior):

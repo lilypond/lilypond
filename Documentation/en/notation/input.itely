@@ -369,7 +369,7 @@ It does this by adding a suffix to the output name for each
 @code{\book} which uses the default output file name derived from the
 input source file.
 
-The default behaviour is to append a version number suffix for each
+The default behavior is to append a version number suffix for each
 name which may clash, so
 
 @example

@@ -673,7 +673,7 @@ tabFullNotation = {
   \revert TabStaff.NoteColumn.ignore-collision
 }
 
-%tie/repeat tie behaviour
+%tie/repeat tie behavior
 hideSplitTiedTabNotes = {
   \override TabVoice.TabNoteHead.details.tied-properties.break-visibility = #all-invisible
   \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##f

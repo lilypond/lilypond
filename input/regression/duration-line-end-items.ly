@@ -1,7 +1,7 @@
 \version "2.23.6"
 
 \header {
-  texidoc = "A @code{DurationLine} grob may end with a special behaviour.
+  texidoc = "A @code{DurationLine} grob may end with a special behavior.
 Currently available are hooks (with settable direction) and arrows."
 }
 

@@ -401,7 +401,7 @@ beat, but in a manner that is difficult to match by adjusting
 automatic beaming.  The alternative is to switch off automatic
 beaming and beam the notes manually.  Even if a match to existing
 typeset music is not required, it may still be desirable to adjust
-the automatic beaming behaviour and/or use compound time signatures.
+the automatic beaming behavior and/or use compound time signatures.
 
 
 @snippets

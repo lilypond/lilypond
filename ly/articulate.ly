@@ -133,7 +133,7 @@
 %  * Add Mordents (reported by Patrick Karl)
 %  * Thomas Morley: extend unfold-repeats to reflect the possibility to
 %    customize its effect to user-settable repeat-types. Here the most general
-%    setting is hard-coded, resulting in unchanged behaviour.
+%    setting is hard-coded, resulting in unchanged behavior.
 
 \version "2.23.2"
 
@@ -171,14 +171,14 @@
 #(define ac:maxTwiddleTime (ly:make-moment 1/240))
 
 % How long ordinary grace notes should be relative to their notated
-% duration.  9/40 is LilyPond's built-in behaviour for MIDI output
+% duration.  9/40 is LilyPond's built-in behavior for MIDI output
 % (though the notation reference says 1/4).
 #(define ac:defaultGraceFactor 9/40)
 
 % What proportion of an ordinary grace note's time should be stolen
 % from preceding notes (as opposed to stealing from the principal note).
 % Composers' intentions for this vary.  Taking all from the preceding
-% notes is LilyPond's built-in behaviour for MIDI output.
+% notes is LilyPond's built-in behavior for MIDI output.
 #(define ac:defaultGraceBackwardness 1)
 
 

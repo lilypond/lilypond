@@ -29,7 +29,7 @@ best to override it with a procedure (as an argument to the
 @code{'target-visibility}
 @end itemize
 
-Line-breaking behaviour may be customized with:
+Line-breaking behavior may be customized with:
 
 @itemize
 @item
@@ -195,7 +195,7 @@ mus-line-breaks = {
 
 \score {
   \header {
-    piece = "subproperties of 'details for line-breaking behaviour"
+    piece = "subproperties of 'details for line-breaking behavior"
   }
   \new StaffGroup
   <<

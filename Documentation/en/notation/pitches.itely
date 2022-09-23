@@ -1263,7 +1263,7 @@ This @emph{warning} clef can be suppressed.
 By default, a clef that has previously been printed will not be
 reprinted if the same @code{\clef} command is issued again and
 will be ignored.  The command
-@code{\set Staff.forceClef = ##t} changes this behaviour.
+@code{\set Staff.forceClef = ##t} changes this behavior.
 
 @lilypond[verbatim,quote,fragment]
   \clef treble
@@ -1284,7 +1284,7 @@ display a clef or not in the current staff.  The @code{forceClef}
 property overrides this decision locally to reprint a clef once.
 
 When there is a manual clef change, the glyph of the changed clef
-will be smaller than normal.  This behaviour can be overridden.
+will be smaller than normal.  This behavior can be overridden.
 
 @lilypond[verbatim,quote,fragment]
   \clef "treble"

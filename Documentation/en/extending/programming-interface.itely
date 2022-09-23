@@ -837,11 +837,11 @@ The @code{props} argument makes some properties accessible to markup
 commands.  For instance, when a book title markup is interpreted, all
 the variables defined in the @code{\header} block are automatically
 added to @code{props}, so that the book title markup can access the book
-title, composer, etc.  It is also a way to configure the behaviour of a
+title, composer, etc.  It is also a way to configure the behavior of a
 markup command: for example, when a command uses font size during
 processing, the font size is read from @code{props} rather than having a
 @code{font-size} argument.  The caller of a markup command may change
-the value of the font size property in order to change the behaviour.
+the value of the font size property in order to change the behavior.
 Use the @code{#:properties} keyword of @code{define-markup-command} to
 specify which properties shall be read from the @code{props} arguments.
 

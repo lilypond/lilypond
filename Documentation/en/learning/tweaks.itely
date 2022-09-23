@@ -1999,7 +1999,7 @@ above, below, to the left or to the right of each note.
 
 First, here's the effect of @code{direction} on the fingering
 attached to single notes.  The first bar shows the default
-behaviour, and the following two bars shows the effect of
+behavior, and the following two bars shows the effect of
 specifying @code{DOWN} and @code{UP}:
 
 @cindex Fingering, example of overriding

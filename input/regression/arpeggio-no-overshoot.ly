@@ -3,7 +3,7 @@
 \header {
   texidoc = "Arpeggios do not overshoot the highest note head.
 The first chord in this example simulates overshoot using
-@code{'positions} for comparison with the correct behaviour."
+@code{'positions} for comparison with the correct behavior."
 }
 
 \relative {

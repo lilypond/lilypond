@@ -257,7 +257,7 @@ comfortable to define the playing position by using the value of
 @code{minimumFret}.  The default value for minimumFret is 0.
 
 Even when @code{minimumFret} is set, open strings are used whenever
-possible.  This behaviour can be changed by setting @code{restrainOpenStrings}
+possible.  This behavior can be changed by setting @code{restrainOpenStrings}
 to @code{#t}.
 
 @lilypond[quote,ragged-right,verbatim]

@@ -5,7 +5,7 @@
   texidoc = "For vowel transitions, @code{minimum-length} refers to
 the drawn length of the arrow.  The protrusion of the syllables and
 padding is in effect added to @code{minimum-length} for spacing.  This
-default behaviour can be changed by overriding @code{springs-and-rods},
+default behavior can be changed by overriding @code{springs-and-rods},
 which may cause the transition arrow not to be drawn if there is
 insufficient space (rather than adding the space necessary to draw it
 at @code{minimum-length}).  @code{minimum-length-after-break} controls
