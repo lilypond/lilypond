@@ -3201,7 +3201,7 @@ Here's an example in which the phrasing slur and slur collide:
 @noindent
 One possibility would be to move the two ends of the phrasing slur
 higher.  We can try setting the left end to 2.5 staff-spaces above the
-centre line and the right end to 4.5 above, and LilyPond will
+center line and the right end to 4.5 above, and LilyPond will
 select the phrasing slur from the candidates it has found with its
 end points closest to these:
 

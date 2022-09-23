@@ -1,7 +1,7 @@
 \version "2.19.16"
 \header {
   texidoc = "The two dots of a repeat sign should be symmetric
-to the staff centre and avoid staff lines even for exotic staves.
+to the staff center and avoid staff lines even for exotic staves.
 Test set-global-staff size 10 (with layout-set-staff-size)."
 }
 

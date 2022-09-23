@@ -400,7 +400,7 @@ absolute dynamic, or another crescendo or decrescendo mark.
 A hairpin that is terminated with @code{\!} will end at the
 right edge of the note that has the @code{\!} assigned to it.  In the
 case where it is terminated with the start of another @notation{crescendo}
-or @notation{decrescendo} mark, it will end at the centre of the note
+or @notation{decrescendo} mark, it will end at the center of the note
 that has the next @code{\<} or @code{\>} assigned to it.  The next
 hairpin will then start at the right edge of the same note
 instead of the usual left edge had it been terminated with @code{\!}
