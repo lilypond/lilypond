@@ -3120,7 +3120,7 @@ macro, o comandi definiti dall'utente) anche per le modifiche manuali:
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+centerText = { \once \override TextScript.self-alignment-X = #CENTER }
 
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
@@ -3129,7 +3129,7 @@ fthenp =_\markup {
 violin = \relative {
   \repeat volta 2 {
     c''4._\dolce b8 a8 g a b |
-    \centreText
+    \centerText
     c4.^"hi there!" d8 e f g d |
     c4.\fthenp b8 c4 c-. |
   }
@@ -3194,9 +3194,9 @@ artEsprVar = \articulationVar ^\espressivo
 @cindex variabili contenenti funzioni
 
 Finora abbiamo visto la sostituzione statica -- quando LilyPond
-vede @code{\centreText}, lo sostituisce con quel che noi abbiamo
+vede @code{\centerText}, lo sostituisce con quel che noi abbiamo
 definito che sia (ovvero tutto ciò che sta a destra di
-@code{centreText=}).
+@code{centerText=}).
 
 LilyPond può gestire anche la sostituzione non statica (la puoi
 immaginare come una funzione).

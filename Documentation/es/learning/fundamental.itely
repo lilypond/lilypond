@@ -3300,7 +3300,7 @@ el usuario) para hacer trucos:
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+centerText = { \once \override TextScript.self-alignment-X = #CENTER }
 
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
@@ -3309,7 +3309,7 @@ fthenp =_\markup {
 violin = \relative {
   \repeat volta 2 {
     c''4._\dolce b8 a8 g a b |
-    \centreText
+    \centerText
     c4.^"hi there!" d8 e f g d |
     c4.\fthenp b8 c4 c-. |
   }
@@ -3375,9 +3375,9 @@ artEsprVar = \articulationVar ^\espressivo
 @cindex variables que contienen funciones
 
 Hasta ahora hemos contemplado la sustitución estática: cuando
-LilyPond se encuentra con @code{\centreText}, lo sustituye con
+LilyPond se encuentra con @code{\centerText}, lo sustituye con
 aquello que hemos definido que sea (es decir, todo lo que está a
-la derecha de @code{centreText=}).
+la derecha de @code{centerText=}).
 
 LilyPond también puede manejar sustituciones no estáticas (piense
 en ellas como en funciones).

@@ -3177,7 +3177,7 @@ violin = \new Staff {
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+centerText = { \once \override TextScript.self-alignment-X = #CENTER }
 
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
@@ -3186,7 +3186,7 @@ fthenp =_\markup {
 violin = \relative {
   \repeat volta 2 {
     c''4._\dolce b8 a8 g a b |
-    \centreText
+    \centerText
     c4.^"hi there!" d8 e f g d |
     c4.\fthenp b8 c4 c-. |
   }
@@ -3220,8 +3220,8 @@ violin = \relative @{
 @end example
 
 これまでに見てきたのは静的な置き換えです
--- LilyPond は @code{\centreText} を見つけると、それを定義した内容
-(つまり、@code{centreText=} の右側にあるもの) に置き換えます。
+-- LilyPond は @code{\centerText} を見つけると、それを定義した内容
+(つまり、@code{centerText=} の右側にあるもの) に置き換えます。
 
 LilyPond は非静的な置き換えも処理できます (それらを関数と見なすことができます)。
 

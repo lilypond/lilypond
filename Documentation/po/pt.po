@@ -2352,7 +2352,7 @@ msgid "dolce"
 msgstr "dolce"
 
 #. Documentation/learning/fundamental.itely:3074 (variable)
-msgid "centreText"
+msgid "centerText"
 msgstr "TextoCentro"
 
 #. Documentation/learning/fundamental.itely:3076 (variable)

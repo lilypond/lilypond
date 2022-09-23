@@ -3244,7 +3244,7 @@ werden:
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+centerText = { \once \override TextScript.self-alignment-X = #CENTER }
 
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
@@ -3253,7 +3253,7 @@ fthenp =_\markup {
 violin = \relative {
   \repeat volta 2 {
     c''4._\dolce b8 a8 g a b |
-    \centreText
+    \centerText
     c4.^"hi there!" d8 e f g d |
     c4.\fthenp b8 c4 c-. |
   }
@@ -3288,9 +3288,9 @@ violin = \relative @{
 @end example
 
 Bisher haben wir vor allem statische Ersetzungen betrachtet:
-wenn LilyPond etwa @code{\centreText} sieht, wird es ersetzt mit
+wenn LilyPond etwa @code{\centerText} sieht, wird es ersetzt mit
 all dem Code, mit dem wir es definiert haben (also alles,
-was sich rechts von @code{centreText=} befindet).
+was sich rechts von @code{centerText=} befindet).
 
 LilyPond kann auch nicht-statische Ersetzungen bewältigen.  Man
 kann sie sich als Funktionen vorstellen.
