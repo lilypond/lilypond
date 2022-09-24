@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a2f027a68c97fe9bebade2e873419c6c465bc503
+    Translation of GIT committish: 71838b5f233fb9ba9cb590c4b2f74006e1285754
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -759,9 +759,10 @@ l'extrait LilyPond.
 @item line-width
 @itemx line-width=@var{taille}\@var{unité}
 Détermine la longueur de ligne à @var{taille}, exprimée en @var{unité}.
-@var{unité} peut prendre les valeurs @code{cm}, @code{mm}, @code{in} ou
-@code{pt}.  Cette option n'affectera que le résultat de LilyPond -- la
-longueur de la portée -- et en aucun cas la mise en forme du texte.
+@var{unité} peut prendre les valeurs @code{cm}, @code{mm}, @code{in},
+@code{pt} ou @code{bp}. Cette option n'affectera que le résultat de
+LilyPond -- la longueur de la portée -- et en aucun cas la mise en forme
+du texte.
 
 En l'absence d'argument, la longueur de ligne sera définie à une valeur
 par défaut telle que calculée par un algorithme heuristique.
@@ -786,7 +787,8 @@ défaut, à savoir @code{a4}.
 @item paper-width=@var{taille}\@var{unité}
 Définit la largeur du papier à @var{taille} (exprimée en @var{unité})
 pour les fragments musicaux utilisant @code{\book}. @var{unité} peut
-prendre les valeurs @code{cm}, @code{mm}, @code{in} ou @code{pt}.
+prendre les valeurs @code{cm}, @code{mm}, @code{in}, @code{pt}
+ou @code{bp}.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
 feuille contenant le fragement musical -- et en aucun cas le texte.
@@ -798,7 +800,8 @@ hauteur de la feuille est déterminée à sa valeur par défaut de A4
 @item paper-height=@var{taille}\@var{unité}
 Définit la hauteur du papier à @var{taille} (exprimée en @var{unité})
 pour les fragments musicaux utilisant @code{\book}. @var{unité} peut
-prendre les valeurs @code{cm}, @code{mm}, @code{in} ou @code{pt}.
+prendre les valeurs @code{cm}, @code{mm}, @code{in}, @code{pt}
+ou @code{bp}.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
 feuille contenant le fragement musical -- et en aucun cas le texte.
@@ -872,8 +875,8 @@ est bien connu.
 
 @item indent=@var{taille}\@var{unité}
 Définit l'indentation du premier système à @var{taille}, exprimée en
-@var{unité} -- @code{cm}, @code{mm}, @code{in} ou @code{pt}.  Cette
-option n'affecte que LilyPond, et en aucun cas la mise en forme du
+@var{unité} -- @code{cm}, @code{mm}, @code{in}, @code{pt} ou @code{bp}.
+Cette option n'affecte que LilyPond, et en aucun cas la mise en forme du
 texte.
 
 @item noindent
