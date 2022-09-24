@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 65dec28558795785adcf90f4a8bd438f6809a5a0
+   Translation of GIT committish: 70606224a69f3a7e96aeaf081cb0d1216c3f2cea
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -161,9 +161,11 @@ la note à la fin de cette section.}
 @funindex isis
 
 Glossaire musicologique :
-@rglosnamed{sharp,dièse}, @rglosnamed{flat,bémol},
+@rglosnamed{sharp,dièse},
+@rglosnamed{flat,bémol},
 @rglosnamed{double sharp,double dièse},
-@rglosnamed{double flat,double bémol}, @rglosnamed{accidental,altération}.
+@rglosnamed{double flat,double bémol},
+@rglosnamed{accidental,altération}.
 
 LilyPond identifie le @notation{nom d'une note} par sa hauteur. Par
 exemple, un @code{c} signifiera toujours @notation{do naturel}, quelle
@@ -212,7 +214,8 @@ autres langues disponibles, consultez
 @funindex \minor
 
 Glossaire musicologique :
-@rglosnamed{key signature,armure}, @rglosnamed{major,majeur},
+@rglosnamed{key signature,armure},
+@rglosnamed{major,majeur},
 @rglosnamed{minor,mineur}.
 
 L'armure est déterminée par la commande @code{\key}, suivie d'une
@@ -235,10 +238,14 @@ hauteur puis de @code{\major} (majeur) ou @code{\minor} (mineur).
 @translationof Warning key signatures and pitches
 
 Glossaire musicologique :
-@rglosnamed{accidental,altération}, @rglosnamed{key signature,armure},
-@rglosnamed{pitch,hauteur}, @rglosnamed{flat,bémol},
-@rglosnamed{natural,bécarre}, @rglosnamed{sharp,dièse},
-@rglos{transposition}, @rglosnamed{Pitch names,Noms de note}.
+@rglosnamed{accidental,altération},
+@rglosnamed{key signature,armure},
+@rglosnamed{pitch,hauteur},
+@rglosnamed{flat,bémol},
+@rglosnamed{natural,bécarre},
+@rglosnamed{sharp,dièse},
+@rglos{transposition},
+@rglosnamed{Pitch names,Noms de note}.
 
 LilyPond fait une distinction nette entre le contenu musical et sa
 représentation sur papier.  Un code tel que @code{d4 e fis2} définit la
@@ -370,7 +377,8 @@ seule note.  Autrement dit, @samp{c4 a 8 8} sera interprété comme
 @c phrasing slur = "ils ont des chapeaux ronds" (phrase). jcm
 
 Glossaire musicologique :
-@rglosnamed{slur,liaison}, @rglosnamed{phrasing,phrasé}.
+@rglosnamed{slur,liaison},
+@rglosnamed{phrasing,phrasé}.
 
 Une liaison d'articulation ou @emph{legato} peut englober
 plusieurs notes.  Les notes de départ et d'arrivée sont suivies
@@ -404,7 +412,8 @@ phrasés.
 @cindex liaisons d'articulation et de prolongation, différences
 
 Glossaire musicologique :
-@rglos{articulation}, @rglosnamed{slur,liaison},
+@rglos{articulation},
+@rglosnamed{slur,liaison},
 @rglosnamed{tie,liaison de tenue}.
 
 Une liaison d'articulation ou de phrasé ressemble à une liaison de
@@ -657,7 +666,8 @@ Manuel de notation :
 
 @funindex \partial
 
-Glossaire musicologique : @rglosnamed{anacrusis,anacrouse}.
+Glossaire musicologique :
+@rglosnamed{anacrusis,anacrouse}.
 
 On crée une levée (ou anacrouse) avec la commande @code{\partial},
 suivie d'une durée : @samp{\partial 4} produit une levée d'une
@@ -680,7 +690,8 @@ noire et @samp{\partial 8} d'une croche.
 
 @funindex \tuplet
 
-Glossaire musicologique : @rglosnamed{note value,valeur d'une note},
+Glossaire musicologique :
+@rglosnamed{note value,valeur d'une note},
 @rglosnamed{triplet,triolet}.
 
 Les @notation{n-olets} sont créés avec la commande @code{\tuplet}, qui
@@ -848,7 +859,8 @@ de la musique polyphonique.
 @funindex >>
 @funindex << ... >>
 
-Glossaire musicologique : @rglosnamed{polyphony,polyphonie}.
+Glossaire musicologique :
+@rglosnamed{polyphony,polyphonie}.
 
 Cette technique est utile pour de la musique @notation{polyphonique}.
 Pour entrer une musique avec plusieurs voix ou plusieurs portées, nous
@@ -1040,7 +1052,8 @@ Manuel de notation :
 @funindex < ... >
 @funindex q
 
-Glossaire musicologique : @rglosnamed{chord,accord}.
+Glossaire musicologique :
+@rglosnamed{chord,accord}.
 
 Nous avons vu précédemment comment combiner des notes simultanément :
 en les encadrant par des chevrons doubles @code{<<} et @code{>>}.  Pour
@@ -1138,7 +1151,8 @@ Cette section présente l'écriture vocale et les partitions de variété.
 
 @funindex \addlyrics
 
-Glossaire musicologique : @rglos{lyrics}.
+Glossaire musicologique :
+@rglos{lyrics}.
 
 Prenons une mélodie toute simple, la comptine @emph{Girls and boys
 come out to play}.
@@ -1186,7 +1200,8 @@ produisent en même temps.
 @cindex alignement des paroles
 @cindex paroles, mot de plusieurs syllabes
 
-Glossaire musicologique : @rglosnamed{melisma,mélisme},
+Glossaire musicologique :
+@rglosnamed{melisma,mélisme},
 @rglosnamed{extender line,ligne d'extension}.
 
 La deuxième ligne de la comptine précédente est @emph{The moon doth
