@@ -1143,7 +1143,7 @@ previous note to take a breath.
 @end lilypond
 
 @noindent
-For a short break in sound that is not taken away from the the
+For a short break in sound that is not taken away from the
 previous note, @pxref{Caesuras}.
 
 Unlike other expressive marks, a breath mark is treated as a
@@ -1393,7 +1393,7 @@ Different types of arpeggios may be written.
 }
 @end lilypond
 
-These predefined commands internally modify the 
+These predefined commands internally modify the
 @code{arpeggio-direction} property; see their full
 definition in the @file{ly/property-init.ly} file.
 
@@ -1611,7 +1611,7 @@ printed, even for naturals.
 {
   \key d \major
   \pitchedTrill
-  d'2\startTrillSpan cis d\stopTrillSpan 
+  d'2\startTrillSpan cis d\stopTrillSpan
   \pitchedTrill
   d2\startTrillSpan c d\stopTrillSpan
   \pitchedTrill
