@@ -1,4 +1,4 @@
-/* -*- C++ -*-
+/*
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2005--2022 Han-Wen Nienhuys <hanwen@xs4all.nl>

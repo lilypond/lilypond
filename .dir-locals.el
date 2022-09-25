@@ -1,11 +1,17 @@
 ;;; Directory Local Variables
 ;;; See Info node `(emacs) Directory Variables' for more information.
 
-((c++-mode
-  (c-file-style . "gnu")
-  (indent-tabs-mode . nil))
- (scheme-mode
+((auto-mode-alist
+  ;; *.tcc files are C++ code
+  ("\\.tcc\\'" . c++-mode))
+ (nil ; all file types
+  ;; No tabs
   (indent-tabs-mode . nil)
+  ;; Usually use an 80-characters line length limit
+  (fill-column . 80))
+ (c++-mode
+  (c-file-style . "gnu"))
+ (scheme-mode
   (eval .
         ;; Teach Emacs about a few Scheme forms that it would
         ;; otherwise reformat badly.  This can be removed when
@@ -26,8 +32,5 @@ safe', just accept running it."
           (put 'and-let* 'scheme-indent-function 1)
           (put 'with-syntax 'scheme-indent-function 1)
           (put 'eval-when 'scheme-indent-function 1))))
- (shell-script-mode
-  (indent-tabs-mode . nil))
  (texinfo-mode
-  (fill-column . 66)
-  (indent-tabs-mode . nil)))
+  (fill-column . 66)))
