@@ -176,12 +176,12 @@ if ($new) {
 }
 
 # Check availability of external programs.
-if (!$no_lsr) {
+unless ($no_lsr) {
   pandoc or die "error: 'pandoc' executable not found\n";
 }
 
 my $CONVERT_LY = "";
-if (!$no_convert) {
+unless ($no_convert) {
   if ($path) {
     $CONVERT_LY = catfile($path, "convert-ly");
     if (!-x $CONVERT_LY) {
@@ -246,14 +246,14 @@ chdir $top_source;
 
 
 # Clean up.
-if (!$no_lsr) {
+unless ($no_lsr) {
   print "Removing old snippet files\n";
   while (my $f = glob(catfile($snippet_dir, "*.ly"))) {
     unlink $f or warn "warning: Can't remove file '$f': $!";
   }
 }
 
-if (!$no_snippet_list && !$no_lsr) {
+unless ($no_snippet_list || $no_lsr) {
   print "Removing old snippet list files\n";
   while (my $f = glob(catfile($snippet_dir, "*.snippet-list"))) {
     unlink $f or warn "warning: Can't remove file '$f': $!";
@@ -544,7 +544,7 @@ if ($textdump) {
 
 # Handle new snippets.  We expect them to have a structure similar to
 # snippets derived from the LSR database.
-if (!$no_new) {
+unless ($no_new) {
   print "Examining snippets in subdirectory 'new'\n";
   opendir my $dh, $new_snippet_dir
     or die "error: Can't open directory '$new_snippet_dir': $!\n";
@@ -794,7 +794,7 @@ for my $entry (@{$snippet_table}) {
 }
 
 
-if (!$no_snippet_list) {
+unless ($no_snippet_list) {
   # Write snippet lists.  No need to parallelize this since it is very
   # quick.
   print "Creating snippet list files\n";
