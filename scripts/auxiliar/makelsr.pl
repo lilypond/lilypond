@@ -239,23 +239,27 @@ unless ($no_convert) {
 
 
 # Check the actual snippet directories.
-my @dirs;
 my $snippet_dir = catdir("Documentation", "snippets");
 my $new_snippet_dir = catdir($snippet_dir, "new");
 
-push @dirs, catdir($top_source, $snippet_dir);
-push @dirs, catdir($top_source, $new_snippet_dir) unless $no_new;
+unless ($no_lsr && $no_snippet_list && $no_new) {
+  my @dirs;
 
-for my $dir (@dirs) {
-  die "error: No directory '$dir'\n" unless -d $dir;
-  die "error: Directory '$dir' is not readable\n" unless -r $dir;
-  die "error: Directory '$dir' is not writable\n" unless -w $dir;
+  push @dirs, catdir($top_source, $snippet_dir);
+  push @dirs, catdir($top_source, $new_snippet_dir) unless $no_new;
+
+  for my $dir (@dirs) {
+    die "error: No directory '$dir'\n" unless -d $dir;
+    die "error: Directory '$dir' is not readable\n" unless -r $dir;
+    die "error: Directory '$dir' is not writable\n" unless -w $dir;
+  }
 }
 
 
 # Change to the top source directory for simplicity.
 my $curr_dir = rel2abs(curdir);
-chdir $top_source;
+chdir $top_source
+  or die "error: Can't change to directory '$top_source'\n";
 
 
 # Clean up.
@@ -843,6 +847,9 @@ unless ($no_snippet_list) {
 }
 
 
+exit 0 if ($no_lsr && $no_new);
+
+
 # Function:
 #   Convert HTML data into the Texinfo format.
 #
@@ -1065,8 +1072,8 @@ for my $entry (sort { $a->{"filename"} cmp $b->{"filename"} }
       # We have to remove '%LSR' comments, which are not intended to
       # be exported from the LSR.
       $snippet .= "\n";
-      $snippet =~ s/^ \h* %+ \h* LSR .* \n//gmx; # '%LSR' on a line of its own.
-      $snippet =~ s/\h* %+ \h* LSR .* $//gmx; # Trailing '%LSR'.
+      $snippet =~ s/^ \h* %+ \h* LSR .* \n//gmx; # `%LSR` on a line of its own.
+      $snippet =~ s/\h* %+ \h* LSR .* $//gmx; # Trailing `%LSR`.
 
       $data .= $snippet;
 
