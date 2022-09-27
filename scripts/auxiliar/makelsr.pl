@@ -91,6 +91,9 @@ Use the LSR database to regenerate LilyPond's 'snippets' directory.
   -t, --textdump=FILE    create a plain text dump file of all snippets
                            (omitting binary fields) in the LSR
                            database dump; ignored if '--dump=no'
+  -T, --textdump-only=FILE
+                         shorthand for '--no-convert --no-lsr
+                         --no-new --no-snippet-list --textdump=FILE'
   -V, --verbose          be verbose
 
 Environment variables:
@@ -151,6 +154,7 @@ my $no_new = 0;
 my $no_snippet_list = 0;
 my $path = "";
 my $textdump = "";
+my $textdump_only = "";
 my $top_source = ".";
 my $verbose = 0;
 
@@ -165,6 +169,7 @@ GetOptions(
   "no-snippet-list|f" => \$no_snippet_list,
   "path|p=s" => \$path,
   "textdump|t=s" => \$textdump,
+  "textdump-only|T=s" => \$textdump_only,
   "top-source|s=s" => \$top_source,
   "verbose|V" => \$verbose,
   ) || show_help(2);
@@ -173,6 +178,14 @@ show_help(1) if $help;
 if ($new) {
   $dump = "no" if !$dump;
   $no_lsr = 1;
+}
+
+if ($textdump_only) {
+  $no_convert = 1;
+  $no_lsr = 1;
+  $no_new = 1;
+  $no_snippet_list = 1;
+  $textdump = $textdump_only;
 }
 
 # Check availability of external programs.
