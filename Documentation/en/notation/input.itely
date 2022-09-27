@@ -3031,13 +3031,14 @@ the input file in UTF-8 format.  Of course, a font containing all
 such encoded characters must be installed and available to LilyPond.
 
 The following example shows Unicode hexadecimal values being entered
-in four places -- in a rehearsal mark, as articulation text, in
+in four places -- in a text mark, as articulation text, in
 lyrics and as stand-alone text below the score:
 
 @lilypond[quote,verbatim]
 \score {
   \relative {
-    c''1 \mark \markup { \char ##x03A8 }
+    c''1
+    \textMark \markup { \char ##x03A8 }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }

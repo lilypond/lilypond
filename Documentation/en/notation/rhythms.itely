@@ -3921,48 +3921,6 @@ You may use @code{format-@/mark-@/barnumbers},
 @code{format-@/mark-@/circle-@/barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
-Arbitrary text can be provided to create a rehearsal mark that is
-independent of the @code{rehearsalMark} sequence.
-
-@example
-\mark "A1"
-@end example
-
-@noindent
-When text is supplied, @code{Score.rehearsalMarkFormatter} has no effect;
-however, it is possible to apply a @code{\markup} to the string.
-
-@example
-\mark \markup @{ \box A1 @}
-@end example
-
-@noindent
-Before using @code{\mark} to add text that is effectively
-something other than a rehearsal mark, seeking a more fitting
-command is recommended.  Some possibilities are referenced at the
-end of this section.
-
-@cindex fermata
-@cindex music glyph
-@cindex glyph, music
-
-@funindex \musicglyph
-
-Music glyphs may be centered over bar lines by specifying the
-appropriate symbol name (@pxref{Music notation inside markup}).
-
-@lilypond[quote,verbatim]
-\fixed c'' {
-  c1
-  \mark \markup { \musicglyph "scripts.ufermata" }
-  c1
-}
-@end lilypond
-
-@noindent
-For a list of symbols which may be printed with
-@code{\musicglyph}, @pxref{The Emmentaler font}.
-
 For common tweaks to the positioning of rehearsal marks,
 @pxref{Formatting text}.  For more precise control, consider
 @code{break-alignable-interface} (@pxref{Aligning objects}).

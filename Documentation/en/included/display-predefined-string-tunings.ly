@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.23.14"
 
 #(define (filter-instrument instrument-name tuning-alist)
    (filter (lambda (entry)
@@ -29,30 +29,30 @@ displayInstrumentDefaultTunings =
 
 
 {
-  \mark \markup \huge \bold "Guitar tunings"
+  \textMark \markup \huge \bold "Guitar tunings"
   \clef "treble_8"
   \displayInstrumentDefaultTunings "guitar"
 }
 
 {
-  \mark \markup \huge \bold "Bass tunings"
+  \textMark \markup \huge \bold "Bass tunings"
   \clef "bass_8"
   \displayInstrumentDefaultTunings "bass"
 }
 
 {
-  \mark \markup \huge \bold "Mandolin tunings"
+  \textMark \markup \huge \bold "Mandolin tunings"
   \displayInstrumentDefaultTunings "mandolin"
 }
 
 {
-  \mark \markup \huge \bold "Banjo tunings"
+  \textMark \markup \huge \bold "Banjo tunings"
   \clef "treble_8"
   \displayInstrumentDefaultTunings "banjo"
 }
 
 {
-  \mark \markup \huge \bold "Ukulele tunings"
+  \textMark \markup \huge \bold "Ukulele tunings"
   \clef treble
   \displayInstrumentDefaultTunings "ukulele"
   \clef alto
@@ -61,7 +61,7 @@ displayInstrumentDefaultTunings =
 }
 
 {
-  \mark \markup \huge \bold "Orchestral string tunings"
+  \textMark \markup \huge \bold "Orchestral string tunings"
   \clef treble
   \displayInstrumentDefaultTunings "violin"
   \clef alto

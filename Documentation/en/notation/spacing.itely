@@ -3487,18 +3487,18 @@ only, but preserve its dimensions for other spacing types.
 
 @lilypond[verbatim,quote]
 {
-  \mark "Default"
+  \textMark "Default"
   c'2 2 cis'2 2
 }
 
 {
-  \mark "Modified X-extent"
+  \textMark "Modified X-extent"
   \override NoteHead.X-extent = #'(-2 . 2)
   c'2 2 cis'2 2
 }
 
 {
-  \mark "Modified extra-spacing-width"
+  \textMark "Modified extra-spacing-width"
   \override NoteHead.extra-spacing-width = #'(-2 . 2)
   c'2 2 cis'2 2
 }

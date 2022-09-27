@@ -4449,45 +4449,49 @@ example shows the difference:
 @cindex align to object
 @funindex break-align-symbols
 
-Rehearsal marks and bar numbers may be aligned with notation
-objects other than bar lines.  To be more precise, breakable items
-have a @code{break-@/align-@/symbol} property, providing symbols
-that can be used as @q{anchor points} for other objects via the
+Rehearsal marks, text marks, bar numbers, and more generally all objects
+with @rinternals{break-alignable-interface}, collectively referred to
+as @qq{break-alignable objects}, may be aligned with notation objects
+such as bar lines, key signatures, time signatures, and generally any
+object with @rinternals{break-aligned-interface}.  To be more precise,
+break-aligned items have a @code{break-@/align-@/symbol} property, providing
+symbols that can be used as @q{anchor points} for other objects via the
 @code{break-@/align-@/symbols} property.  See
 @rinternals{break-alignment-interface}, for a complete list of
 available symbols.
 
 Each type of object has its own default reference point, to which
-rehearsal marks are aligned:
+break-alignable items are aligned:
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
+\override Score.TextMark.self-alignment-X = #CENTER
+% The text mark will be aligned
 % to the right edge of the clef
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
-% The rehearsal mark will be aligned
+% The text mark will be aligned
 % to the left edge of the time signature
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
-\mark "↓"
+\textMark "↓"
 e'2.
-% The rehearsal mark will be centered
+% The text mark will be centered
 % above the breathing mark
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
 e'1
 \breathe
-\mark "↓"
+\textEndMark "↓"
 @end lilypond
 
 A list of possible target alignment objects may be specified.  If
@@ -4500,84 +4504,87 @@ line is invisible the object is aligned to the place where the bar
 line would be.
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
+\override Score.TextMark.self-alignment-X = #CENTER
+% The text mark will be aligned
 % to the right edge of the key signature
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
-% The rehearsal mark will be aligned
+% The text mark will be aligned
 % to the right edge of the clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef bass
-\mark "↓"
+\textMark "↓"
 gis,1
-% The rehearsal mark will be centered
+% The text mark will be centered
 % above the bar line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 
-The alignment of the rehearsal mark relative to the notation object
-can be changed, as shown in the following example.  In a score with
-multiple staves, this setting should be done for all the staves.
+The alignment of the break-alignable item relative to the notation
+object can be changed, as shown in the following example.  In a score
+with multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
+\override Score.TextMark.self-alignment-X = #CENTER
+% The text mark will be aligned
 % with the right edge of the key signature
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
-\mark "↓"
+\textMark "↓"
 e'1
-% The rehearsal mark will be centered
+% The text mark will be centered
 % above the key signature
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #CENTER
-\mark "↓"
+\textMark "↓"
 \key a \major
 e'1
-% The rehearsal mark will be aligned
+% The text mark will be aligned
 % with the left edge of the key signature
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #LEFT
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 
-The rehearsal mark can also be offset to the right or left of the left
-edge by an arbitrary amount.  The units are staff spaces:
+The break-alignable item can also be offset to the right or left of the
+left edge by an arbitrary amount.  The units are staff spaces:
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned
+\override Score.TextMark.self-alignment-X = #CENTER
+% The text mark will be aligned
 % with the left edge of the key signature
 % and then shifted right by 3.5 staff spaces
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
-% The rehearsal mark will be aligned
+% The text mark will be aligned
 % with the left edge of the key signature
 % and then shifted left by 2 staff spaces
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 

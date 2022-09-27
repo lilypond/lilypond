@@ -144,7 +144,7 @@ dyn =
     \chordmode { c1:maj7 }
     \new Staff {
       \tempo \markup "MetronomeMark"
-      \mark \markup \smaller "RehearsalMark"
+      \textMark "TextMark"
       \once \override TupletNumber.text =
         \markup "TupletNumber"
       \tuplet 3/2 {
@@ -1803,8 +1803,8 @@ the size.  The value supplied to @code{font-size} is taken
 relative to the default font size.
 
 @lilypond[quote,verbatim,fragment]
-\override Score.RehearsalMark.font-family = #'typewriter
-\mark \markup "Ouverture"
+\override Score.TextMark.font-family = #'typewriter
+\textMark "Ouverture"
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
 d''2.^\markup "Allegro"

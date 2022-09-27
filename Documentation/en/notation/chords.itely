@@ -942,12 +942,12 @@ d'emploi} (@qq{Jazz, user instructions}).
         grob
         #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
   \override Score.RehearsalMark.self-alignment-X = #LEFT
-  \mark \markup default
+  \textMark "default"
   r4 r4 r4 r4
   \stopStaff
   s1
   \startStaff
-  \mark \markup \typewriter "\\medianChordGridStyle"
+  \textMark \markup \typewriter "\\medianChordGridStyle"
   \medianChordGridStyle
   r4 r4 r4 r4
   \stopStaff
