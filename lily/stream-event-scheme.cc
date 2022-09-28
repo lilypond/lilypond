@@ -36,11 +36,7 @@ Create a stream event of class @var{cl} with the given mutable property list.
 {
   LY_ASSERT_TYPE (ly_is_pair, cl, 1);
 
-  /* should be scm_list_p, but scm_list_p is expensive. */
-  LY_ASSERT_TYPE (scm_is_pair, proplist, 2);
-
-  if (SCM_UNBNDP (proplist))
-    proplist = SCM_EOL;
+  LY_ASSERT_TYPE (ly_cheap_is_list, proplist, 2);
 
   Stream_event *e = new Stream_event (cl, proplist);
   return e->unprotect ();

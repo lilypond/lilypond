@@ -96,26 +96,6 @@ Stream_event::make_transposable ()
     }
 }
 
-MAKE_SCHEME_CALLBACK (Stream_event, dump, "ly:stream-event::dump", 1);
-SCM
-Stream_event::dump (SCM self)
-{
-  Stream_event *ev = unsmob<Stream_event> (self);
-  // Reversed alists look prettier.
-  return scm_cons (scm_reverse (ev->immutable_property_alist_),
-                   scm_reverse (ev->mutable_property_alist_));
-}
-
-MAKE_SCHEME_CALLBACK (Stream_event, undump, "ly:stream-event::undump", 1);
-SCM
-Stream_event::undump (SCM data)
-{
-  Stream_event *obj = new Stream_event ();
-  obj->immutable_property_alist_ = scm_reverse (scm_car (data));
-  obj->mutable_property_alist_ = scm_reverse (scm_cdr (data));
-  return obj->unprotect ();
-}
-
 void
 warn_reassign_event_ptr (Stream_event &old_ev, Stream_event *new_ev)
 {
