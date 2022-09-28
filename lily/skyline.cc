@@ -214,12 +214,13 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
                   n.x_[RIGHT] = b.x_[LEFT] = b.intersection_x (c);
                   result->push_back (n);
                   result->push_back (b);
+                  c.x_[LEFT] = b.x_[RIGHT];
                 }
             }
           else
             {
               if (c.above (b, b.x_[RIGHT])) /* ---/ . | */
-                b.x_[RIGHT] = b.intersection_x (c);
+                c.x_[LEFT] = b.x_[RIGHT] = b.intersection_x (c);
               else                        /* -----.   */
                 c.x_[LEFT] = b.x_[RIGHT];
               result->push_back (b);
