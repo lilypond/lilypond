@@ -149,11 +149,20 @@ Building::print () const
           x_[RIGHT]);
 }
 
+// Compute the abscissa at which these buildings intersect.  This is only
+// meaningful if the two buildings have an intersection point (but we don't
+// assert () it because numerical inaccuracies could make it false, although
+// very "close" to true).
 inline Real
 Building::intersection_x (Building const &other) const
 {
-  Real ret = (y_intercept_ - other.y_intercept_) / (other.slope_ - slope_);
-  return std::isnan (ret) ? -infinity_f : ret;
+  Real slope_delta = other.slope_ - slope_;
+  // If the slopes are really close (for example, if we happen to try merging
+  // two identical buildings), avoid numerical inaccuracies related to dividing
+  // by a small number.
+  if (fabs (slope_delta) < 1e-4)
+    return std::max (x_[LEFT], other.x_[LEFT]);
+  return (y_intercept_ - other.y_intercept_) / slope_delta;
 }
 
 bool
