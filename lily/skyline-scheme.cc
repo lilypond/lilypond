@@ -18,6 +18,7 @@
 */
 
 #include "lazy-skyline-pair.hh"
+#include "ly-scm-list.hh"
 #include "lily-guile.hh"
 #include "skyline.hh"
 #include "stencil.hh"
@@ -129,4 +130,88 @@ along the horizon.
   LY_ASSERT_TYPE (scm_is_real, horizon_padding, 2);
   Real hp = from_scm<Real> (horizon_padding);
   return sky->padded (hp).smobbed_copy ();
+}
+
+LY_DEFINE (ly_make_skyline, "ly:make-skyline",
+           3, 0, 0, (SCM segments, SCM axis, SCM direction),
+           R"(
+Create a new skyline from a list of segments.  A skyline is an object
+representing an outline along a @q{horizon axis}, much like a city skyline.
+The argument @var{segments} is a list of segments.  A segment has the
+form @code{'((x1 . y1) . (x2 . y2))}.  The resulting skyline, viewed on
+the given @var{axis}, has a builing joining these two points for each segment.
+@var{x1}, @var{y1}, @var{x2}, @var{y2} may be infinite.  The buildings
+can be given in any order, and overlap.
+           )")
+{
+  std::vector<Drul_array<Offset>> offs;
+  LY_ASSERT_TYPE (ly_is_list, segments, 1);
+  for (SCM segment : as_ly_scm_list (segments))
+    {
+      if (!(ly_is_list (segment)
+            && from_scm<vsize> (scm_length (segment)) == 4))
+        {
+          scm_wrong_type_arg_msg ("ly:make-skyline", 0, segment, "list of 4 numbers");
+        }
+      for (SCM x : as_ly_scm_list (segment))
+        {
+          if (!is_scm<Real> (x))
+            {
+              scm_wrong_type_arg_msg ("ly:make-skyline", 0, x, "real number");
+            }
+        }
+      Real x1 = from_scm<Real> (scm_car (segment));
+      Real y1 = from_scm<Real> (scm_cadr (segment));
+      Real x2 = from_scm<Real> (scm_caddr (segment));
+      Real y2 = from_scm<Real> (scm_cadddr (segment));
+      if ((std::isinf (x1) || std::isinf (x2)) && (y1 != y2))
+        {
+          scm_misc_error ("ly:make-skyline",
+                          "building with infinite bound must be horizontal",
+                          SCM_EOL);
+        }
+      offs.push_back (Drul_array<Offset> (Offset (x1, y1), Offset (x2, y2)));
+    }
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+  Axis a = from_scm<Axis> (axis);
+  LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
+  Direction d = from_scm<Direction> (direction);
+  return Skyline (offs, a, d).smobbed_copy ();
+}
+
+LY_DEFINE (ly_skyline_2_points, "ly:skyline->points",
+           2, 0, 0, (SCM skyline, SCM horizon_axis),
+           R"(
+Return a list of points from the given skyline, if viewed with
+@var{horizon-@/axis} as @q{horizon axis}.  Joining the points with a
+line draws the outline of the skyline.
+           )")
+{
+  Skyline *sky = LY_ASSERT_SMOB (Skyline, skyline, 1);
+  LY_ASSERT_TYPE (is_scm<Axis>, horizon_axis, 2);
+  Axis ha = from_scm<Axis> (horizon_axis);
+  const std::vector<Offset> &points = sky->to_points (ha);
+  scm_remember_upto_here (skyline);
+  return to_scm_list (points);
+}
+
+LY_DEFINE (ly_skyline_merge, "ly:skyline-merge",
+           2, 0, 0, (SCM skyline1, SCM skyline2),
+           R"(
+Merge the two given skylines.
+           )")
+{
+  Skyline *sky1 = LY_ASSERT_SMOB (Skyline, skyline1, 1);
+  Skyline *sky2 = LY_ASSERT_SMOB (Skyline, skyline2, 2);
+  if (sky1->sky () != sky2->sky ())
+    {
+      scm_misc_error ("ly:skyline-merge",
+                      "expecting skylines with the same direction",
+                      SCM_EOL);
+    }
+  Skyline merged (*sky1);
+  merged.merge (*sky2);
+  scm_remember_upto_here (skyline1);
+  scm_remember_upto_here (skyline2);
+  return merged.smobbed_copy ();
 }
