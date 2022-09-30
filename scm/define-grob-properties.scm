@@ -1092,6 +1092,9 @@ override:
 \\override MultiMeasureRest.spacing-pair =
              #'(staff-bar . staff-bar)
 @end example")
+     (span-all-note-heads ,boolean? "If true, tuplet brackets are
+printed spanning horizontally from the first to the last note head
+instead of covering only the stems.")
      (spanner-id ,key? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")

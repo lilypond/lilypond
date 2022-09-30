@@ -3742,16 +3742,17 @@ line (created with @code{\\startTrillSpan}, not with
         (direction  . ,ly:tuplet-bracket::calc-direction)
         (edge-height . (0.7 . 0.7))
         (full-length-to-extent . #t)
-        (visible-over-note-heads . #f)
         (padding . 1.1)
         (positions . ,ly:tuplet-bracket::calc-positions)
         (shorten-pair . (-0.2 . -0.2))
+        (span-all-note-heads . #f)
         (staff-padding . 0.25)
         (stencil . ,ly:tuplet-bracket::print)
         (thickness . 1.6)
         (tuplet-slur . #f)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-positions . ,ly:tuplet-bracket::calc-x-positions)
+        (visible-over-note-heads . #f)
 
         (meta . ((class . Spanner)
                  (interfaces . (line-interface

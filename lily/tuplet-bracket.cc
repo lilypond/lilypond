@@ -174,6 +174,63 @@ Tuplet_bracket::get_common_x (Spanner *me)
   return commonx;
 }
 
+bool equal_bounds (Spanner *s1, Spanner *s2)
+{
+  return (s1 && s2
+          && s1->get_bound (LEFT)->get_column ()
+             == s2->get_bound (LEFT)->get_column ()
+          && s1->get_bound (RIGHT)->get_column ()
+             == s2->get_bound (RIGHT)->get_column ());
+}
+
+bool
+Tuplet_bracket::bracket_basic_visibility (Spanner *me)
+{
+  extract_grob_set (me, "note-columns", columns);
+
+  Spanner *par_beam = parallel_beam (me, columns);
+  bool equally_long = equal_bounds (par_beam, me);
+  bool bracket_visibility = !(par_beam && equally_long);
+
+  SCM bracket_vis_prop = get_property (me, "bracket-visibility");
+  bool bracket_prop = scm_is_true (bracket_vis_prop);
+  bool if_no_beam = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
+
+  if (scm_is_bool (bracket_vis_prop))
+    bracket_visibility = bracket_prop;
+  else if (if_no_beam)
+    bracket_visibility = !par_beam;
+
+  if (!scm_is_bool (bracket_vis_prop) && !bracket_visibility)
+    {
+      bool bracket_over_heads = from_scm<bool> (get_property (me, "visible-over-note-heads"));
+      if (bracket_over_heads && !Beam::is_knee (par_beam))
+        {
+          Direction default_dir = from_scm<Direction> (get_property (par_beam, "direction"));
+          Direction dir = get_grob_direction (me);
+
+          if (default_dir != dir)
+            bracket_visibility = true;
+        }
+    }
+
+  /*  if the tuplet does not span any time, i.e. a single-note tuplet, hide
+      the bracket, but still let the number be displayed.
+      Only do this if the user has not explicitly specified bracket-visibility = #t.
+  */
+  if (!from_scm<bool> (bracket_vis_prop))
+    {
+      auto *const start_col = me->get_bound (LEFT)->get_column ();
+      auto *const end_col = me->get_bound (RIGHT)->get_column ();
+      auto start_mom = from_scm (get_property (start_col, "when"), Moment (0));
+      auto end_mom = from_scm (get_property (end_col, "when"), Moment (0));
+      if (start_mom == end_mom && !me->get_bound (LEFT)->break_status_dir ())
+        bracket_visibility = false;
+    }
+
+  return bracket_visibility;
+}
+
 MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions,
                       "ly:tuplet-bracket::calc-x-positions", 1)
 SCM
@@ -192,11 +249,19 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Drul_array<bool> connect_to_other = from_scm (
     get_property (me, "connect-to-neighbor"), Drul_array<bool> (false, false));
 
+  bool span_note_heads = from_scm<bool> (get_property (me, "span-all-note-heads"));
+  bool bracket_visibility = false;
+
+  if (span_note_heads)
+    bracket_visibility = bracket_basic_visibility (me);
+
   Interval x_span;
   for (const auto d : {LEFT, RIGHT})
     {
-      x_span[d] = Axis_group_interface::generic_bound_extent (
-        bounds[d], commonx, X_AXIS)[d];
+      if (bracket_visibility && has_interface<Note_column> (bounds[d]->get_x_parent ()))
+        x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d]->get_x_parent (), commonx, X_AXIS)[d];
+      else
+        x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d];
 
       if (connect_to_other[d])
         {
@@ -289,16 +354,6 @@ make_tuplet_slur (Grob *me, Offset left_cp, Offset right_cp,
   return mol;
 }
 
-bool
-equal_bounds (Spanner *s1, Spanner *s2)
-{
-  return (s1 && s2
-          && s1->get_bound (LEFT)->get_column ()
-               == s2->get_bound (LEFT)->get_column ()
-          && s1->get_bound (RIGHT)->get_column ()
-               == s2->get_bound (RIGHT)->get_column ());
-}
-
 /*
   TODO:
 
@@ -314,38 +369,9 @@ Tuplet_bracket::print (SCM smob)
 
   bool tuplet_slur = scm_is_true (get_property (me, "tuplet-slur"));
 
-  extract_grob_set (me, "note-columns", columns);
-  Spanner *par_beam = parallel_beam (me, columns);
-  bool equally_long = equal_bounds (par_beam, me);
-  Direction dir = get_grob_direction (me);
-
-  bool bracket_visibility
-    = !(par_beam && equally_long); // Flag, print/don't print tuplet bracket.
-
-  /*
-    FIXME: The type of this prop is sucky.
-  */
+  bool bracket_visibility = bracket_basic_visibility (me);
   SCM bracket_vis_prop = get_property (me, "bracket-visibility");
-  bool bracket_prop = scm_is_true (
-    bracket_vis_prop); // Flag, user has set bracket-visibility prop.
-  bool if_no_beam = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
-  if (scm_is_bool (bracket_vis_prop))
-    bracket_visibility = bracket_prop;
-  else if (if_no_beam)
-    bracket_visibility = !par_beam;
-
-  if (!scm_is_bool (bracket_vis_prop) && !bracket_visibility)
-    {
-      bool bracket_over_heads
-        = from_scm<bool> (get_property (me, "visible-over-note-heads"));
-      if (bracket_over_heads && !Beam::is_knee (par_beam))
-        {
-          Direction default_dir
-            = from_scm<Direction> (get_property (par_beam, "direction"));
-          if (default_dir != dir)
-            bracket_visibility = true;
-        }
-    }
+  bool bracket_prop = scm_is_true (bracket_vis_prop);
 
   /*
     Don't print a tuplet bracket and number if
@@ -357,19 +383,6 @@ Tuplet_bracket::print (SCM smob)
     {
       me->suicide ();
       return SCM_EOL;
-    }
-  /*  if the tuplet does not span any time, i.e. a single-note tuplet, hide
-      the bracket, but still let the number be displayed.
-      Only do this if the user has not explicitly specified bracket-visibility = #t.
-  */
-  if (!from_scm<bool> (bracket_vis_prop))
-    {
-      auto *const start_col = me->get_bound (LEFT)->get_column ();
-      auto *const end_col = me->get_bound (RIGHT)->get_column ();
-      auto start_mom = from_scm (get_property (start_col, "when"), Moment (0));
-      auto end_mom = from_scm (get_property (end_col, "when"), Moment (0));
-      if (start_mom == end_mom)
-        bracket_visibility = false;
     }
 
   Interval x_span = from_scm (scm_x_span, Interval (0.0, 0.0));
@@ -425,6 +438,7 @@ Tuplet_bracket::print (SCM smob)
             = from_scm (get_property (me, "edge-height"), zero);
           Drul_array<Real> flare
             = from_scm (get_property (me, "bracket-flare"), zero);
+          Direction dir = get_grob_direction (me);
 
           scale_drul (&height, -ss * dir);
           scale_drul (&flare, ss);
@@ -875,6 +889,7 @@ padding
 tuplet-number
 scripts
 shorten-pair
+span-all-note-heads
 staff-padding
 thickness
 tuplets

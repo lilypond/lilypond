@@ -97,6 +97,37 @@ None so far.
 @itemize
 
 @item
+The new option @code{span-all-note-heads} may be used to make
+tuplet brackets span all note heads (not just the stems) as
+recommended by Gould and Ross.
+
+@lilypond[quote]
+{
+  \time 3/4
+  \override TupletBracket.span-all-note-heads = ##t
+  \tuplet 3/2
+    {
+      \tuplet 3/2
+        {
+          fis'8
+          (
+          e'8
+          d'8
+        }
+      g'4
+      f'4
+      )
+    }
+  \tuplet 3/2
+    {
+      <c' d'>8
+      a'8
+      r8
+    }
+}
+@end lilypond
+
+@item
 Using the new @code{printInitialRepeatBar} property, it is
 possible to make a start repeat bar line automatically printed
 even at the beginning of the piece.
