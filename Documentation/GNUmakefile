@@ -257,7 +257,8 @@ $(outdir)/%.pdf: \
 #
 # Option `Printed=false` makes ghostscript preserve hyperlinks.
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	  $(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	  $(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
+            -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	  $(GS920) \
 	    -dBATCH \
 	    -dNOSAFER \

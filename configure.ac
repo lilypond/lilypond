@@ -210,6 +210,7 @@ fi
 
 AC_SUBST(GS920)
 AC_SUBST(EXTRACTPDFMARK)
+AC_SUBST(EXTRACTPDFMARK_OPTIONS)
 AC_SUBST(USE_EXTRACTPDFMARK)
 
 if test "x$with_extractpdfmark" = "xyes"; then
@@ -220,7 +221,9 @@ fi
 
 if test "x$with_extractpdfmark" != "xno"; then
     USE_EXTRACTPDFMARK=yes
-    STEPMAKE_PROGS(EXTRACTPDFMARK, extractpdfmark, $EXTRACTPDFMARK_REQUIRED)
+    EXTRACTPDFMARK_OPTIONS=
+    STEPMAKE_PROGS(EXTRACTPDFMARK, extractpdfmark, $EXTRACTPDFMARK_REQUIRED,
+        1.0.0)
 
     STEPMAKE_PROGS(GS920, gs, OPTIONAL, 9.20)
     req=`STEPMAKE_NUMERIC_VERSION(9.20)`
@@ -232,6 +235,15 @@ if test "x$with_extractpdfmark" != "xno"; then
     if test "$EXTRACTPDFMARK" = "false"; then
         EXTRACTPDFMARK=
         USE_EXTRACTPDFMARK=no
+    else
+        # pdftex + extractpdfmark 1.1.0 raises an error.
+        # extractpdfmark 1.1.1 has been fixed and does not raise the error.
+        # So we add a workaround option to prevent the error
+        # if extractpdfmark is older than 1.1.1.
+        req=`STEPMAKE_NUMERIC_VERSION(1.1.1)`
+        if test "$EXTRACTPDFMARK_VERSION" -lt "$req"; then
+            EXTRACTPDFMARK_OPTIONS="--style=hex"
+        fi
     fi
 
     if test "$EXTRACTPDFMARK_REQUIRED" = "OPTIONAL"; then
