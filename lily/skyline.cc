@@ -722,12 +722,10 @@ Skyline::to_points (Axis horizon_axis) const
   vector<Offset> out;
   out.reserve (2 * buildings_.size ());
 
-  Real start = -infinity_f;
   for (auto const &b : buildings_)
     {
-      out.push_back (Offset (start, sky_ * b.height (start)));
+      out.push_back (Offset (b.x_[LEFT], sky_ * b.height (b.x_[LEFT])));
       out.push_back (Offset (b.x_[RIGHT], sky_ * b.height (b.x_[RIGHT])));
-      start = b.x_[RIGHT];
     }
 
   if (horizon_axis == Y_AXIS)
