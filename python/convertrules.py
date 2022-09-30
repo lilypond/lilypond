@@ -4711,6 +4711,20 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 23, 14), r"""
+changed convention for ly:skylines-for-stencil second argument
+""")
+def conv(s):
+    if "ly:skylines-for-stencil" in s:
+        stderr_write(NOT_SMART % "ly:skylines-for-stencil second argument")
+        stderr_write("""
+The second argument to ly:skylines-for-stencil is now the 'horizon axis', which
+is the opposite of the convention used previously.
+""")
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

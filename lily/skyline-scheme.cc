@@ -106,17 +106,15 @@ LY_DEFINE (ly_skylines_for_stencil, "ly:skylines-for-stencil",
            2, 0, 0, (SCM stencil, SCM axis),
            R"(
 Return a pair of skylines representing the outline of @var{stencil}.
-This gives horizontal skylines if @var{axis} is@tie{}@code{X},
-and vertical skylines with @var{axis} =@tie{}@code{Y}.
+@var{axis} is the @q{horizon axis} (i.e., this function gives skylines
+suitable for the @code{vertical-@/skylines} property if @var{axis}
+is@tie{}@code{X}, and for @code{horizontal-@/skylines} if @var{axis}
+is@tie{}@code{Y}).
            )")
 {
   LY_ASSERT_SMOB (const Stencil, stencil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   Axis a = from_scm<Axis> (axis);
-  // For a user interface, it seems to make more sense that passing
-  // X yields what is called "horizontal skylines".  TODO: should the
-  // internals be changed to use that convention?
-  a = other_axis (a);
   return to_scm (skylines_from_stencil (stencil, SCM_EOL, a));
 }
 

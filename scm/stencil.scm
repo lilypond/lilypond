@@ -993,6 +993,6 @@ on @var{axis}."
   ;; to inspect the stencil expressions and compute their extents
   ;; directly without building full skylines -- at the cost of
   ;; a lot more code.
-  (let ((skyp (ly:skylines-for-stencil stencil axis)))
+  (let ((skyp (ly:skylines-for-stencil stencil (other-axis axis))))
     (cons (ly:skyline-max-height (car skyp))
           (ly:skyline-max-height (cdr skyp)))))
