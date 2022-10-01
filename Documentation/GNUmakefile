@@ -107,13 +107,12 @@ INFO_IMAGES_DIR = lilypond
 
 # Some PDF files require extra packages to build.
 #
-# Czech - needs XeTeX.
-#
 # Chinese/Japanese - needs:
 #
-#   XeTeX 0.9998+ (TeX Live 2012+)
+#   XeTeX 0.9998+ (TeX Live 2012+) or luatex 0.95+
 #     The modern TeX engine used for LilyPond's PDF documents.  It might be
-#     contained in the 'texlive-xetex' package.
+#     contained in the 'texlive-xetex' or 'texlive-luatex' packages,
+#     respectively.
 #
 #   IPAex fonts
 #     Japanese fonts.  It might be contained in the 'texlive-lang-japanese'

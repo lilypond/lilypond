@@ -691,6 +691,11 @@ UNTRANSLATED NODE: IGNORE ME
 \csname cmapOT1TT\endcsname{\textttbx}
 \csname cmapOT1TT\endcsname{\textttbxsl}
 
+\ifx\luatexversion\thisisundefined
+\else
+  \protected\def\pdfmapfile{\pdfextension mapfile }
+\fi
+
 % Load font map file.
 \pdfmapfile{+lmtt.map}
 
