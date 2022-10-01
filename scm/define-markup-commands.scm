@@ -4276,8 +4276,9 @@ mensural-flags.  Both are supplied for convenience.
     ;; From /scm/flag-styles.scm, modified to fit here.
 
     (let* ((stem-up (> dir 0))
-           ;; scale with the note size
-           (factor (magstep font-size))
+           (staff-space (ly:output-def-lookup layout 'staff-space))
+           ;; scale with font-size and staff-space
+           (factor (* staff-space (magstep font-size)))
            (stem-thickness (* factor 0.1))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
            (half-stem-thickness (/ (* stem-thickness line-thickness) 2))

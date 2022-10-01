@@ -73,8 +73,11 @@ All lengths are scaled according to the font size of the note."
            (dir (ly:grob-property stem-grob 'direction))
            (stem-up (eqv? dir UP))
            (layout (ly:grob-layout grob))
-           ;; scale with the note size (e.g. for grace notes)
-           (factor (magstep (ly:grob-property grob 'font-size 0)))
+           (staff-space (ly:output-def-lookup layout 'staff-space))
+           ;; scale with font size-and staff-space (e.g. for grace notes)
+           (factor
+             (* staff-space
+                (magstep (ly:grob-property grob 'font-size 0))))
            (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
            (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
