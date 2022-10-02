@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
+   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -184,11 +184,11 @@ mentionner le suffixe d'unité @code{\in} :
 @end example
 
 LilyPond accepte les suffixes d'unité @code{\mm}, @code{\cm}, @code{\in}
-et @code{\pt}. Ces unités sont des conversions de millimètres,
-répertoriées dans le fichier @file{ly/@/paper-@/defaults-@/init.ly}.
-Pour plus de lisibilité, et bien que ce ne soit pas techniquement
-requis, nous vous conseillons d'ajouter @code{\mm} à votre code lorsque
-vous travaillez en millimètres.
+et @code{\pt} et @code{\bp}. Ces unités sont des conversions de
+millimètres, répertoriées dans le fichier
+@file{ly/@/paper-@/defaults-@/init.ly}. Pour plus de lisibilité, et bien
+que ce ne soit pas techniquement requis, nous vous conseillons d'ajouter
+@code{\mm} à votre code lorsque vous travaillez en millimètres.
 
 Vous pouvez aussi définir les valeurs du bloc @code{\paper} à l'aide de
 fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
@@ -280,19 +280,18 @@ l'annexe @ref{Formats de papier prédéfinis}.
 La commande suivante, inscrite dans votre fichier, vous permettra
 d'ajouter votre format personnalisé à ceux déjà connus, puis d'y faire
 appel à l'aide des fonctions @code{set-@/default-@/paper-@/size} et
-@code{set-@/paper-@/size} :
+@code{set-@/paper-@/size}. Par exemple :
 
 @example
-#(set! paper-alist
-  (cons '("mon format" . (cons (* 15 in) (* 3 in))) paper-alist))
-
-\paper @{
-  #(set-paper-size "mon format")
-@}
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
 @end example
 
+@noindent
+définit une feuille de largeur 100@dmn{mm} et 50@dmn{mm} de hauteur.
+
 Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
-@code{cm} (centimètres) ou @code{mm} (millimètres).
+@code{cm} (centimètres), @code{mm} (millimètres), @code{pt} (point) ou
+@code{bp} (@emph{big point}).
 
 @cindex papier, orientation
 @cindex @code{landscape}, papier

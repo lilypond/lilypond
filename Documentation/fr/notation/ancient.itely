@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: daa17f1f63171dd9c2237ddd2817f1a4bbc15934
+   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2633,7 +2633,7 @@ Manuel de notation :
 
 @node Barre de mesure kiévienne
 @unnumberedsubsubsec Barre de mesure kiévienne
-@translationof Kievan bar line
+@translationof Kievan bar lines
 
 Les pièces en notation kiévienne sont habituellement terminées par une
 décoration qui fait office de barre finale.  Elle s'obtient à l'aide

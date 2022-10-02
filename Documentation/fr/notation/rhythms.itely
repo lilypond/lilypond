@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
+   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -759,6 +759,7 @@ notes.
 * Silences::
 * Silences invisibles::
 * Silences valant une mesure::
+* Césures::
 @end menu
 
 
@@ -1169,6 +1170,114 @@ Condenser plusieurs silences en un unique silence multimesure ne peut
 
 Les silences multimesures peuvent générer des collisions avec d'autres
 silences.
+
+
+@node Césures
+@unnumberedsubsubsec Césures
+@translationof Caesuras
+
+@cindex cæsura
+@cindex césure
+@cindex indication de pause
+@funindex \caesura
+
+La commande @code{\caesura} indique un silence de durée non déterminée.
+Il s'agit typiquement d'une rupture du flux sonore qui ne raccourcit pas
+la note qui précède.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura d4 }
+@end lilypond
+
+@noindent
+En matière d'hymne et de chants liturgiques, @code{\caesura} sert plus
+généralement à diviser les phrases. Pour plus d'information, voir les
+références à la fin de cette section. Pour les coupures qui amputent la
+note précédente, voir @ref{Signes de respiration}.
+
+Des articulations peuvent suivre un @code{\caesura} afin d'indiquer la
+durée relative ou la signification de la pause. Seront alors créés des
+objets @code{CaesuraScript}.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura \fermata d4 }
+@end lilypond
+
+Par défaut, @code{\caesura} crée un objet @code{BreathingSign}.
+L'élément @code{breath} de la propriété de contexte @code{caesuraType}
+contrôle lequel des signes prédéfinis sera créé par @code{\caesura} --
+voir @ref{Liste des marques de respiration}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \set Score.caesuraType = #'((breath . curvedcaesura))
+  c2. \caesura d4
+}
+@end lilypond
+
+Afin de désigner un ou plusieurs objets @code{CaesuraScript} devant être
+créés pour intégrer une césure sans articulation, il faudra définir
+l'élément @code{scripts} de la propriété de contexte @code{caesuraType}
+-- des scripts additionnels peuvent toutefois s'attacher en tant
+qu'articulations. Conjointement à l'élément @code{breath}, les scripts
+listés dans l'élément @code{script} s'attachent au
+@code{BreathingSign} ; c'est par contre au @code{barLine} qu'ils
+s'attacheront s'il est présent.
+
+La propriété de contexte @code{caesuraTypeTransform} peut consister en
+une fonction Scheme pour permettre une forme d'adaptation plus ou moins
+automatisée. Le générateur de fonction
+@code{at-@/bar-@/line-@/substitute-@/caesura-@/type} prend en charge les
+styles pour lesquels la notation diffère lors d'une barre de mesure.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.caesuraType =
+    #'((breath . spacer)
+       (scripts . (outsidecomma)))
+  \set Score.caesuraTypeTransform =
+    #(at-bar-line-substitute-caesura-type
+      '((scripts . (fermata))))
+  c'2. \caesura d'4
+  b1 \caesura
+  a1
+}
+@end lilypond
+
+@predefined
+@code{\caesura}.
+@endpredefined
+
+@snippets
+@cindex point d'orgue sur barre de mesure
+@cindex barre de mesure et point d'orgue
+@funindex \caesura
+@funindex \fermata
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/positioning-opposing-fermatas-on-a-bar-line.ly}
+
+
+@morerefs
+Glossaire musicologique :
+@rglosnamed{caesura, césure}.
+
+Manuel de notation :
+@ref{Barre de mesure kiévienne},
+@ref{Barre de phrase en musique liturgique},
+@ref{Divisions},
+@ref{Signes de respiration}.
+
+Morceaux choisis :
+@rlsrnamed{Expressive marks, Signes d'interprétation}.
+
+Référence des propriétés internes :
+@rinternals{BreathingSign},
+@rinternals{Caesura_engraver},
+@rinternals{CaesuraEvent},
+@rinternals{CaesuraScript},
+@rinternals{caesuraTypeTransform},
+@rinternals{caesuraType}.
+@endmorerefs
 
 
 @node Gravure du rythme
@@ -1786,7 +1895,8 @@ cadence : puisqu'il n'y a  pas de métrique, il n'est pas possible de
 déterminer automatiquement où ils seraient appropriés. Il est donc
 nécessaire, lorsque la cadence est relativement longue, d'insérer des
 points de rupture potentiels aux endroits appropriés à l'aide de la
-commande @code{\allowBreak}.
+commande @code{\allowBreak} ou d'envisager d'autres solutions -- voir
+@ref{Sauts de ligne}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3463,8 +3573,9 @@ emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @cindex césure, barre de mesure
 @cindex phrase, barre de mesure
 @funindex \caesura
-@item caesuraType.underlying-bar-line
-S'utilise avec @code{\caesura}.
+@item caesuraType underlying-bar-line
+S'utilise avec @code{\caesura} -- voir
+@ref{Barre de phrase en musique liturgique}.
 
 @cindex barre par défaut
 @cindex barre, mesure
@@ -3479,8 +3590,9 @@ S'utilise en limite de mesure.
 @cindex césure, barre de mesure
 @cindex phrase, barre de mesure
 @funindex \caesura
-@item caesuraType.underlying-bar-line
-S'utilise avec @code{\caesura}.
+@item caesuraType bar-line
+S'utilise avec @code{\caesura} -- voir
+@ref{Barre de phrase en musique liturgique}.
 
 @cindex barre double
 @cindex barre, section

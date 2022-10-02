@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
+   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -207,26 +207,27 @@ contenues dans le fichier @file{scm/script.scm}, il est possible de
 l'obliger à les positionner au-dessus ou en dessous de la note, comme
 indiqué au chapitre @ref{Direction et positionnement}.
 
-Les articulations sont des objets de type @code{script} ; les
-propriétés de ces objets sont abordées plus en détail au chapitre
-@rinternals{Script}.
+Le type d'objet graphique créé par une articulation dépend de ce à quoi
+il est attaché.
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Articulations and ornamentations'
-@c in the English documentation.
+@itemize @bullet
+@item
+Attachées à des notes ou des silences ordinaires, les articulations
+créent des objets @code{script}.
 
-Une articulation peut se rattacher aussi bien à un silence qu'à une
-note.  L'ajout d'un signe d'articulation à un silence multimesure crée
-un objet @code{MultiMeasureRestScript}.
+@item
+Attachées à des silences multimesures, les articulations créent des objets
+@code{MultiMeasureRestScript}.
+@end itemize
 
 @lilypond[verbatim,quote,fragment]
-\override Script.color = #red
-\override MultiMeasureRestScript.color = #blue
+\override Score.Script.color = #(universal-color 'vermillion)
+\override Score.MultiMeasureRestScript.color = #(universal-color 'blue)
+\override Score.CaesuraScript.color = #(universal-color 'orange)
 a'2\fermata r\fermata
 R1\fermata
+g'2 \caesura \fermata f'2
 @end lilypond
-@end ignore
 
 En dehors des articulations habituelles, vous pouvez adjoindre du texte
 -- avec ou sans mise en forme -- à n'importe quelle note.  Voir à ce
@@ -284,6 +285,8 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Référence des propriétés internes :
+@rinternals{CaesuraScript},
+@rinternals{MultiMeasureRestScript},
 @rinternals{Script},
 @rinternals{TextScript}.
 @endmorerefs
@@ -1128,54 +1131,56 @@ Référence des propriétés internes :
 
 @funindex \breathe
 
-Les indications de respiration sont indiquées par la commande
-@code{\breathe}.
+La commande @code{\breathe} indique à l'interprète de raccourcir la note
+qui précède pour prendre une respiration..
 
 @lilypond[verbatim,quote]
-{ c''2. \breathe d''4 }
+\fixed c'' { c2. \breathe d4 }
 @end lilypond
 
-Contrairement aux autres signes d'interprétation, une respiration n'est
-pas associée à la note qui la précède ; il s'agit d'un événement musical
-à part entière.  Par voie de conséquence, toute autre marque attachée à
-la note précédente, telle un crochet indiquant une ligature manuelle ou
-une parenthèse indiquant une liaison, doit impérativement se placer
-avant l'instruction @code{\breathe}.
+@noindent
+Pour une courte interruption du son qui ne soit pas prise sur la note
+précédente, voir @ref{Césures}.
 
-Un signe de respiration interrompt obligatoirement les ligatures, même
+Contrairement aux autres signes d'interprétation, une respiration
+constitue un événement musical à part entière. Par voie de conséquence,
+toute autre marque attachée à la note précédente, telle un crochet
+indiquant une ligature manuelle ou une parenthèse indiquant une liaison,
+doit impérativement se placer avant l'instruction @code{\breathe}.
+L'instruction @code{\breathe} ne tolère pas d'articulation en soi --
+voir @ref{Césures}.
+
+Un signe de respiration interrompt obligatoirement les ligatures
 automatiques.  Pour passer outre ce fonctionnement, voir
 @ref{Barres de ligature manuelles}.
 
 @lilypond[verbatim,quote]
-\relative { c''8 \breathe d e f g2 }
+\fixed c'' { c8 \breathe d e f g2 }
 @end lilypond
-
-LilyPond gère les @emph{divisiones}, signes utilisés en notation
-ancienne pour indiquer les respirations.  Pour de plus amples détails,
-voir @ref{Divisions}.
-
-@snippets
 
 @cindex respiration, modification du symbole
 @cindex signe de respiration, modification
 @cindex modification, respiration, signe
-@funindex BreathingSign
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-the-breath-mark-symbol.ly}
-
 @cindex coche
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
-@cindex césure
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/inserting-a-caesura.ly}
+La propriété de contexte @code{breathMarkType} permet de contrôler
+laquelle des différentes indications de respiration la commande
+@code{\breathe} se chargera de créer -- voir
+@ref{Liste des marques de respiration}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \set breathMarkType = #'tickmark
+  c2. \breathe d4
+}
+@end lilypond
 
 @morerefs
 Glossaire musicologique :
-@rglosnamed{caesura,césure}.
+@rglosnamed{breath mark, respiration}.
 
-Manuel de notation :
+Manuel de notation :
+@ref{Césures},
 @ref{Divisions}.
 
 Morceaux choisis :

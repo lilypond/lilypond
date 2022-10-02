@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c3c40bc5f2c0ee6c57035954d7123f199da2cd6
+   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3108,6 +3108,7 @@ l'obédience.
 * Références en matière de chant liturgique::
 * Cantiques et hymnes::
 * Psalmodie::
+* Barre de phrase en musique liturgique::
 * Mesure incomplète et musique liturgique::
 @end menu
 
@@ -3152,8 +3153,12 @@ stemOff = { \hide Staff.Stem }
 
 Les barres de mesure sont absentes dans la plupart des cas ; celles
 que vous rencontrerez seront raccourcies ou en pointillé, dans le but
-d'indiquer une « respiration ».  Le fait de supprimer le graveur de
-barres de mesure produira des portées sans barre :
+d'indiquer une « respiration ». Pour obtenir un chant non mesuré, voir
+@ref{Musique sans métrique}. Pour préseerver tous les effets d'une
+métrique tout en désactivant les barres de mesure automatiques, il
+faudra régler @code{measureBarType} à @code{'()}. Sans barre de mesure à
+intervalle régulier, vous devrez gérer manuellement l'espacement
+horizontal -- voir @ref{Sauts de ligne}.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3161,14 +3166,14 @@ barres de mesure produira des portées sans barre :
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
@@ -3176,56 +3181,16 @@ barres de mesure produira des portées sans barre :
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
 @end lilypond
 
-L'absence de barre de mesure peut ne concerner que certaines portées :
-
-@lilypond[verbatim, quote]
-\score {
-  \new ChoirStaff <<
-    \new Staff
-    \with { \remove Bar_engraver } {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-    \new Staff {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-  >>
-}
-@end lilypond
-
-L'absence de barre de mesure sur un fragment seulement s'obtient en
-traitant ce fragment comme une cadence.  S'il est relativement long,
-pensez à y insérer des barres fantômes -- un simple @code{\bar ""}
--- pour indiquer à LilyPond où serait susceptible de se produire un saut
-de ligne.
-
-@lilypond[verbatim,quote]
-\relative a' {
-  a4 b c2 |
-  \cadenzaOn
-  a4 b c2
-  a4 b c2
-  \bar ""
-  a4 b c2
-  a4 b c2
-  \cadenzaOff
-  a4 b c2 |
-  a4 b c2 |
-}
-@end lilypond
+@noindent
+L'absence de barre de mesure peut ne concerner que certaines portées --
+voir @ref{Modification des greffons de contexte}.
 
 Dans la mélodie d'un cantique, les silences ou pauses s'indiquent à
 l'aide de barres de mesure spécifiques :
@@ -3293,9 +3258,10 @@ De nombreux cantiques sont dépourvus de métrique, voire même de clef.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
       \remove Time_signature_engraver
       \remove Clef_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
@@ -3313,8 +3279,8 @@ centrés sur la page.
 
 @lilypond[verbatim,quote]
 SopranoMusic = \relative {
-  g'1 | c2 b | a1 | \bar "||"
-  a1 | d2 c | c b | c1 | \bar "||"
+  g'1 | c2 b | a1 |
+  a1 | d2 c | c b | c1 |
 }
 
 AltoMusic = \relative {
@@ -3334,6 +3300,8 @@ BassMusic =  \relative {
 
 global = {
   \time 2/2
+  \skip 1*3 \section
+  \skip 1*4 \fine
 }
 
 % Use markup to center the chant on the page
@@ -3373,6 +3341,7 @@ global = {
           \Score
           \override SpacingSpanner.base-shortest-duration =
             #(ly:make-moment 1/2)
+          fineBarType = "||"
         }
         \context {
           \Staff
@@ -3587,6 +3556,58 @@ Manuel de notation :
 @endmorerefs
 
 
+@node Barre de phrase en musique liturgique
+@unnumberedsubsubsec Barre de phrase en musique liturgique
+@translationof Phrase bar lines in hymn tunes
+
+@funindex \caesura
+@cindex barre de mesure, hymnes
+@cindex césure, barre de mesure, hymnes
+@cindex phrase, barre de mesusre, hymnes
+
+La commande @code{\caesura} peut être configurée de sorte à créer des
+barres de phrase qui interagissent correctement avec les autres barres
+automatiques -- voir @ref{Barres de mesure automatiques}.
+
+Dans les exemples suivants, le code source de la mélodie dans
+@file{old-hundredth-example.ly} utilise @code{\caesura} pour séparer les
+lignes poétiques et @code{\fine} à la fin. Il est aussi dépourvu des
+commandes @code{\fermata} ou @code{\bar} ; ces symboles apparaissent en
+raison de la configuration de la césure.
+
+@cite{The Boston Handel and Haydn Society Collection of Church
+Music} (1830) positionne une barre épaisse à la fin de chaque phrase.
+Dans cet hymne, il y a aussi des points d'orgue sur les barres de
+mesure :
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    caesuraType = #'((bar-line . ".")
+                     (scripts . (fermata)))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
+
+J.S. James, dans @cite{Original Sacred Harp} (1911), dispose une barre
+épaisse lorsqu'un saut de ligne intervient en cours de mesure à la fin
+d'une phrase.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    caesuraType = #'((underlying-bar-line . "x-."))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
+
+
 @node Mesure incomplète et musique liturgique
 @unnumberedsubsubsec Mesure incomplète et musique liturgique
 @translationof Partial measures in hymn tunes
@@ -3595,8 +3616,7 @@ Il arrive fréquemment que les chants liturgiques comportent des mesures
 incomplètes aussi bien en début qu'en fin de ligne, de telle sorte qu'à
 une portée corresponde une ligne de texte.  Ceci requiert donc
 l'utilisation de la commande @code{\partial} en début de partition et
-d'une commande @code{\bar "|"} ou @code{\bar "||"} à la fin de
-chaque ligne.
+d'une barre de mesure à la fin de chaque ligne.
 
 @cindex cantique, mesure incomplète
 @cindex anacrouse, cantique
