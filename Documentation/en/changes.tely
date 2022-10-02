@@ -41,6 +41,18 @@ which scares away people.
 
 @end ignore
 
+@warning{LilyPond releases can contain syntax changes, which may
+require modifications in your existing files written for older
+versions so that they work in the new version.  To upgrade files,
+it is @strong{strongly recommended} to use the @command{convert-ly}
+tool distributed with LilyPond, which is described in
+@rprogram{Updating with convert-ly}.  @command{convert-ly} can perform
+almost all syntax updates automatically.  Frescobaldi users can
+run @command{convert-ly} directly from Frescobaldi using
+@qq{Tools > Update with convert-ly@dots{}}.  Other editing
+environments with LilyPond support may provide a way to run
+@command{convert-ly} graphically.}
+
 
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
