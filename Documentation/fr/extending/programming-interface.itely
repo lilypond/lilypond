@@ -791,7 +791,7 @@ Dans un @emph{markup} tel que
 L'expression @emph{markup} est enregistrée sous la forme
 
 @example
-(list raise-markup 0.5 (list simple-markup "text example"))
+(list raise-markup 0.5 "text example")
 @end example
 
 Lorsque ce @emph{markup} est converti en objets imprimables (stencils),

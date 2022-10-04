@@ -780,7 +780,7 @@ En un elemento de marcado como
 @code{raise-markup}.  La expresión de marcado se almacena como
 
 @example
-(list raise-markup 0.5 (list simple-markup "ejemplo de texto"))
+(list raise-markup 0.5 "ejemplo de texto")
 @end example
 
 Cuando el marcado se convierte en objetos imprimibles (Stencils o

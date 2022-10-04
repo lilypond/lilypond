@@ -669,7 +669,7 @@ ist @code{\raise} unter der Haube durch die @code{raise-markup}-Funktion
 repräsentiert.  Der Beschriftungsausdruck wird gespeichert als
 
 @example
-(list raise-markup 0.5 (list simple-markup "Textbeispiel"))
+(list raise-markup 0.5 "Textbeispiel")
 @end example
 
 Wenn die Beschriftung in druckbare Objekte (Stencils) umgewandelt ist,

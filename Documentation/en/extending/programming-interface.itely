@@ -707,7 +707,7 @@ In a markup like
 function.  The markup expression is stored as
 
 @example
-(list raise-markup 0.5 (list simple-markup "text example"))
+(list raise-markup 0.5 "text example")
 @end example
 
 When the markup is converted to printable objects (Stencils), the
