@@ -92,7 +92,6 @@ protected:
   void typeset_tie (Spanner *);
   void report_unterminated_tie (Head_event_tuple const &);
   bool has_autosplit_end (Stream_event *event);
-  void finalize () override;
 public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
@@ -136,13 +135,6 @@ Tie_engraver::has_autosplit_end (Stream_event *event)
   if (event)
     return from_scm<bool> (get_property (event, "autosplit-end"));
   return false;
-}
-
-void
-Tie_engraver::finalize ()
-{
-  for (Head_event_tuple &hanging : heads_to_tie_)
-    report_unterminated_tie (hanging);
 }
 
 void
