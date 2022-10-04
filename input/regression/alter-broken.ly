@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.23.14"
 
 \header {
   texidoc = "The command @code{\\alterBroken} may be used to override the
@@ -15,6 +15,7 @@ its usage with a variety of data types."
 #(for-each
    (lambda _ (ly:expect-warning "TimeSignature.color: this grob is not a spanner"))
    (iota 2))
+#(ly:expect-warning "not a spanner")
 
 \relative {
   d''4-\alterBroken #'positions #'((3 . 3) (5 . 5))
@@ -59,5 +60,7 @@ its usage with a variety of data types."
   \once \alterBroken #'color #`(,red ,blue) Staff.TimeSignature
   \time 2/4
   \break
-  f c a f\!
+  % Another warning
+  \alterBroken stencil #'(#f) f
+  c a f\!
 }

@@ -129,8 +129,8 @@ form of a spanner event, @var{property} may also have the form
               (music-is-of-type? target 'tie-event))
           (tweak property (value-for-spanner-piece property arg) target)
           (begin
-            (ly:music-warning item (G_ "not a spanner"))
-            item))
+            (ly:music-warning target (G_ "not a spanner"))
+            target))
       (propertyOverride (append target (if (symbol? property)
                                            (list property)
                                            property))
