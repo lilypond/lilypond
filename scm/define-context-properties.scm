@@ -612,6 +612,8 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
 fret diagrams to use in FretBoards.")
      (printAccidentalNames ,boolean-or-symbol? "Print accidentals in the
 @code{NoteNames} context.")
+     (printInitialRepeatBar ,boolean? "Use a special bar line at the
+start of a volta repeat even at the beginning of the piece.")
      (printKeyCancellation ,boolean? "Print restoration alterations
 before a key signature change.")
      (printNotesLanguage ,string? "Use a specific language in the

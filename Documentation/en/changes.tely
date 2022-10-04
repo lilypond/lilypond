@@ -79,7 +79,22 @@ None so far.
 @node Rhythm improvements
 @unnumberedsec Rhythm improvements
 
-None so far.
+@itemize
+
+@item
+Using the new @code{printInitialRepeatBar} property, it is
+possible to make a start repeat bar line automatically printed
+even at the beginning of the piece.
+
+@lilypond[quote]
+\fixed c'' {
+  \set Score.printInitialRepeatBar = ##t
+  \repeat volta 2 { c2 f }
+}
+@end lilypond
+
+@end itemize
+
 
 @node Expressive mark improvements
 @unnumberedsec Expressive mark improvements

@@ -165,13 +165,21 @@ repeated.
 }
 @end lilypond
 
-A starting bar line is not automatically printed at the beginning
-of a piece; however, it is possible to add one with
-@code{\bar ".|:"}.
+@cindex repeat, bar line at start of piece
+@cindex volta repeat, bar line at start of piece
+@cindex bar line, for repeat at start of piece
+
+By default, a starting bar line is not automatically printed at
+the beginning of a piece, in accordance with classical engraving
+conventions.  However, in some contexts, these bar lines are
+traditionally added, such as in lead sheets for jazz standards.
+This can be achieved by setting the @code{printInitialRepeatBar}
+property.
 
 @lilypond[verbatim,fragment,quote]
 \fixed c'' {
-  \repeat volta 2 { \bar ".|:" c2 f }
+  \set Score.printInitialRepeatBar = ##t
+  \repeat volta 2 { c2 f }
 }
 @end lilypond
 

@@ -362,7 +362,8 @@ Bar_engraver::pre_process_music ()
     }
   else // consider automatic bars
     {
-      if (!first_time_)
+      if (!first_time_
+          || from_scm<bool> (get_property (this, "printInitialRepeatBar")))
         {
           SCM repeat_commands = get_property (this, "repeatCommands");
           for (SCM command : as_ly_scm_list (repeat_commands))
@@ -524,6 +525,7 @@ fineSegnoBarType
 fineStartRepeatSegnoBarType
 forbidBreakBetweenBarLines
 measureBarType
+printInitialRepeatBar
 repeatCommands
 sectionBarType
 segnoBarType
