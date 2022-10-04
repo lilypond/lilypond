@@ -92,12 +92,10 @@ Staff_symbol::print (SCM smob)
     span_points - me->relative_coordinate (common, X_AXIS), t);
 
   Real space = staff_space (me);
-  for (vector<Real>::const_iterator i = line_positions.begin (),
-                                    e = line_positions.end ();
-       i != e; ++i)
+  for (const Real p : line_positions)
     {
       Stencil b (line);
-      b.translate_axis (*i * 0.5 * space, Y_AXIS);
+      b.translate_axis (p * 0.5 * space, Y_AXIS);
       m.add_stencil (b);
     }
   return m.smobbed_copy ();
@@ -152,14 +150,12 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   // find the staff line nearest to note position
   Real nearest_line = line_positions[0];
   Real line_dist = abs (line_positions[0] - pos);
-  for (vector<Real>::const_iterator i = line_positions.begin (),
-                                    e = line_positions.end ();
-       i != e; ++i)
+  for (const Real p : line_positions)
     {
-      if (abs (*i - pos) < line_dist)
+      if (abs (p - pos) < line_dist)
         {
-          nearest_line = *i;
-          line_dist = abs (*i - pos);
+          nearest_line = p;
+          line_dist = abs (p - pos);
         }
     }
 
@@ -254,13 +250,12 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   // remove any ledger lines that would fall on staff lines,
   // which can happen when ledger-extra > 0
   vector<Real> final_values;
-  for (vector<Real>::const_iterator i = values.begin (), e = values.end ();
-       i != e; ++i)
+  for (const Real v : values)
     {
-      if (find (line_positions.begin (), line_positions.end (), *i)
+      if (find (line_positions.begin (), line_positions.end (), v)
           == line_positions.end ())
         {
-          final_values.push_back (*i);
+          final_values.push_back (v);
         }
     }
   return final_values;
@@ -322,10 +317,9 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
   // staff lines
   std::vector<Real> lines
     = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
-  for (std::vector<Real>::const_iterator i = lines.begin (), e = lines.end ();
-       i != e; ++i)
+  for (const Real line : lines)
     {
-      if (pos == *i)
+      if (pos == line)
         return true;
     }
 
@@ -335,11 +329,9 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
       std::vector<Real> ledgers = Staff_symbol::ledger_positions (me, pos);
       if (ledgers.empty ())
         return false;
-      for (std::vector<Real>::const_iterator i = ledgers.begin (),
-                                             e = ledgers.end ();
-           i != e; ++i)
+      for (const Real line : ledgers)
         {
-          if (pos == *i)
+          if (pos == line)
             return true;
         }
     }
