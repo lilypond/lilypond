@@ -917,10 +917,6 @@ Some TODOs on chord grids:
   a good way to reduce the hair-thickness for those bar lines only
   while preserving it for normal bar lines.
 
-* If there were a property to let \repeat volta print a ".|:" bar even
-  at the beginning of the piece, it could be switched on by default in
-  ChordGrid, since this is standard practice for jazz.
-
 * It's a little odd that the vertical lines separating squares are
   drawn by SystemStartBar at the beginning of the line but BarLine
   elsewhere.  The problem here is that no bar line is created by
@@ -940,6 +936,9 @@ settings like removing bar numbers."
   \remove Bar_number_engraver
   \remove System_start_delimiter_engraver
   proportionalNotationDuration = #(ly:make-moment 1/4)
+  %% Printing repeat bar lines even at the start is apparently standard
+  %% for jazz.
+  printInitialRepeatBar = ##t
 }
 
 \context {
