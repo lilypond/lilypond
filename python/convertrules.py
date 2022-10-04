@@ -4727,6 +4727,15 @@ is the opposite of the convention used previously.
         stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 25, 0), r"""
+\override Staff.StaffSymbol.line-positions = #'() ->
+  \override Staff.StaffSymbol.line-positions = #ly:staff-symbol::calc-line-positions
+""")
+def conv(s):
+    s = re.sub(r"(\\override (\w+\.)?StaffSymbol\.line-positions\s*=\s*)#'\(\)",
+               r"\1#ly:staff-symbol::calc-line-positions",
+               s)
+    return s
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

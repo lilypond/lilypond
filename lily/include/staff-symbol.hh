@@ -35,15 +35,12 @@ public:
   static Real get_line_thickness (Grob *);
   static Real get_ledger_line_thickness (Grob *);
 
-  static std::vector<Real> line_positions (Grob *);
   static std::vector<Real> ledger_positions (Grob *me, int pos,
                                              Item const *head = 0);
   static bool on_line (Grob *me, int pos, bool allow_ledger = true);
   static Interval line_span (Grob *);
+  DECLARE_SCHEME_CALLBACK (calc_line_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-
-private:
-  static int internal_line_count (Grob *);
 };
 #endif // STAFF_SYMBOL_HH

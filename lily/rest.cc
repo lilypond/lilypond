@@ -88,7 +88,8 @@ Rest::staff_position_internal (Grob *me, int duration_log, Direction dir)
   if (!staff)
     return pos;
 
-  std::vector<Real> linepos = Staff_symbol::line_positions (staff);
+  std::vector<Real> linepos =
+    from_scm_list<std::vector<Real>> (get_property (staff, "line-positions"));
 
   if (linepos.empty ())
     return pos;

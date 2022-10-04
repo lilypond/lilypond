@@ -73,50 +73,21 @@ Pad the string with @code{annotation-char}s to the length of the
 
 (define (staff-symbol-line-count staff)
   "Get or compute the number of lines of staff @var{staff}."
-  (let ((line-count 0))
-
-    (if (ly:grob? staff)
-        (let ((line-pos (ly:grob-property staff 'line-positions '())))
-
-          (set! line-count (if (pair? line-pos)
-                               (length line-pos)
-                               (ly:grob-property staff 'line-count 0)))))
-
-    line-count))
-
-(define (staff-symbol-y-extent-from-line-positions line-pos)
-  (let ((iv (cons 0.0 0.0)))
-
-    (if (pair? line-pos)
-        (begin
-          (set! iv (cons (car line-pos) (car line-pos)))
-          (for-each (lambda (x)
-                      (set! iv (cons (min (car iv) x)
-                                     (max (cdr iv) x))))
-                    (cdr line-pos)))
-
-        (let ((line-count (ly:grob-property grob 'line-count 0)))
-
-          (set! iv (cons (- 1 line-count)
-                         (- line-count 1)))))
-    iv))
+  (if (ly:grob? staff)
+      (let ((line-pos (ly:grob-property staff 'line-positions '())))
+        (length line-pos))
+      0))
 
 (define (staff-symbol-line-span grob)
-  (staff-symbol-y-extent-from-line-positions
-   (staff-symbol-line-positions grob)))
-
-(define (staff-symbol-line-positions grob)
-  "Get or compute the @code{'line-positions} list from @var{grob}."
-  (let ((line-pos (ly:grob-property grob 'line-positions '())))
-
-    (if (not (pair? line-pos))
-        (let* ((line-count (ly:grob-property grob 'line-count 0))
-               (height (- line-count 1.0)))
-
-          (set! line-pos (map (lambda (x)
-                                (- height (* x 2)))
-                              (iota line-count)))))
-    line-pos))
+  (let ((line-positions (ly:grob-property grob 'line-positions)))
+    (if (pair? line-positions)
+        (fold
+         (lambda (p iv)
+           (add-point iv p))
+         empty-interval
+         line-positions)
+        ;; See similar code in staff-symbol.cc.
+        '(1.0 . -1.0))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; internal helper functions
@@ -303,7 +274,7 @@ is not used within the routine."
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
          (staff-symbol (ly:grob-object grob 'staff-symbol))
-         (line-pos (staff-symbol-line-positions staff-symbol))
+         (line-pos (ly:grob-property staff-symbol 'line-positions))
          (line-count (length line-pos))
          (half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
          (center (interval-end extent)))
@@ -352,7 +323,7 @@ is not used within the routine."
           (let ((staff-symbol (ly:grob-object grob 'staff-symbol)))
 
             (if (ly:grob? staff-symbol)
-                (let ((line-pos (staff-symbol-line-positions staff-symbol)))
+                (let ((line-pos (ly:grob-property staff-symbol 'line-positions)))
 
                   (if (pair? line-pos)
                       (begin
@@ -454,7 +425,7 @@ is not used within the routine."
           ;; colliding with staff lines.
           (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
                  (lines-pos (if (ly:grob? staff-symbol)
-                                (staff-symbol-line-positions staff-symbol)
+                                (ly:grob-property staff-symbol 'line-positions)
                                 '()))
                  (even-interval (cons
                                  (if (even? bottom-pos)

@@ -234,8 +234,17 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont,
   Real pos;
 
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  // If there is no StaffSymbol, print MMrests on one (invisible) line.
-  bool oneline = (!staff) || Staff_symbol::line_positions (staff).size () < 2;
+  bool oneline;
+  if (staff)
+    {
+      SCM line_positions = get_property (staff, "line-positions");
+      oneline = (from_scm<vsize> (scm_length (line_positions)) < 2);
+    }
+  else
+    {
+      // If there is no StaffSymbol, print MMrests on one (invisible) line.
+      oneline = true;
+    }
 
   if (scm_is_null (sp))
     {

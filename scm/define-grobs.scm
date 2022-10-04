@@ -3083,6 +3083,7 @@ spacing within a staff.  See also @iref{NoteSpacing},
         (layer . 0)
         (ledger-line-thickness . (1.0 . 0.1))
         (line-count . 5)
+        (line-positions . ,ly:staff-symbol::calc-line-positions)
         (stencil . ,ly:staff-symbol::print)
         (widened-extent . ,staff-symbol::calc-widened-extent)
         (Y-extent . ,(ly:make-unpure-pure-container ly:staff-symbol::height))

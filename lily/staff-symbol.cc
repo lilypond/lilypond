@@ -85,7 +85,8 @@ Staff_symbol::print (SCM smob)
 
   Stencil m;
 
-  vector<Real> line_positions = Staff_symbol::line_positions (me);
+  const std::vector<Real> &line_positions
+    = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
 
   Stencil line = Lookup::horizontal_line (
     span_points - me->relative_coordinate (common, X_AXIS), t);
@@ -102,25 +103,20 @@ Staff_symbol::print (SCM smob)
   return m.smobbed_copy ();
 }
 
-vector<Real>
-Staff_symbol::line_positions (Grob *me)
+MAKE_SCHEME_CALLBACK (Staff_symbol, calc_line_positions,
+                      "ly:staff-symbol::calc-line-positions", 1);
+SCM
+Staff_symbol::calc_line_positions (SCM smob)
 {
-  SCM line_positions = get_property (me, "line-positions");
-  if (scm_is_pair (line_positions))
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  int line_count = from_scm<int> (get_property (me, "line-count"), 0);
+  Real height = line_count - 1;
+  vector<Real> values (line_count);
+  for (int i = 0; i < line_count; i++)
     {
-      return from_scm_list<std::vector<Real>> (line_positions);
+      values[i] = height - i * 2;
     }
-  else
-    {
-      int line_count = internal_line_count (me);
-      Real height = line_count - 1;
-      vector<Real> values (line_count);
-      for (int i = 0; i < line_count; i++)
-        {
-          values[i] = height - i * 2;
-        }
-      return values;
-    }
+  return to_scm_list (values);
 }
 
 vector<Real>
@@ -146,8 +142,9 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
 
   SCM ledger_positions = get_property (me, "ledger-positions");
   Real ledger_extra = from_scm<double> (get_property (me, "ledger-extra"), 0);
-  vector<Real> line_positions = Staff_symbol::line_positions (me);
-  vector<Real> values;
+  const std::vector<Real> line_positions
+    = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
+  std::vector<Real> values;
 
   if (line_positions.empty ())
     return values;
@@ -269,14 +266,6 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   return final_values;
 }
 
-// Get the line-count property directly.  This is for internal use when it is
-// known that the line-positions property is not relevant.
-int
-Staff_symbol::internal_line_count (Grob *me)
-{
-  return from_scm (get_property (me, "line-count"), 0);
-}
-
 Real
 Staff_symbol::staff_space (Grob *me)
 {
@@ -330,36 +319,24 @@ Staff_symbol::height (SCM smob)
 bool
 Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 {
-  // standard staff lines (any line count) and standard ledger lines
-  if (!scm_is_pair (get_property (me, "line-positions"))
-      && !scm_is_pair (get_property (me, "ledger-positions")))
-    {
-      int const line_cnt = internal_line_count (me);
-      bool result = abs (pos + line_cnt) % 2 == 1;
-      if (result && !allow_ledger)
-        {
-          result = -line_cnt < pos && pos < line_cnt;
-        }
-      return result;
-    }
-
-  // staff lines (custom or standard)
-  vector<Real> lines = Staff_symbol::line_positions (me);
-  for (vector<Real>::const_iterator i = lines.begin (), e = lines.end ();
+  // staff lines
+  std::vector<Real> lines
+    = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
+  for (std::vector<Real>::const_iterator i = lines.begin (), e = lines.end ();
        i != e; ++i)
     {
       if (pos == *i)
         return true;
     }
 
-  // ledger lines (custom or standard)
+  // ledger lines
   if (allow_ledger)
     {
-      vector<Real> ledgers = Staff_symbol::ledger_positions (me, pos);
+      std::vector<Real> ledgers = Staff_symbol::ledger_positions (me, pos);
       if (ledgers.empty ())
         return false;
-      for (vector<Real>::const_iterator i = ledgers.begin (),
-                                        e = ledgers.end ();
+      for (std::vector<Real>::const_iterator i = ledgers.begin (),
+                                             e = ledgers.end ();
            i != e; ++i)
         {
           if (pos == *i)
@@ -372,20 +349,22 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 Interval
 Staff_symbol::line_span (Grob *me)
 {
-  SCM line_positions = get_property (me, "line-positions");
+  const std::vector<Real> &line_positions
+    = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
+
+  // This stems from history.  We used to compute this from the line-count
+  // property with [-(line-count) + 1, line-count - 1].  This would give the
+  // empty interval [1, -1] for line-count == 0.  It could make more sense to
+  // remove these two lines, which would make the code use the more conventional
+  // interval [+infinity, -infinity] in this case.  If you change this, be sure
+  // to check that all callers will do something sane with it.  See also similar
+  // code in bar-line.scm.
+  if (line_positions.empty ())
+    return Interval (1, -1);
+
   Interval iv;
-
-  if (scm_is_pair (line_positions))
-    for (SCM s = line_positions; scm_is_pair (s); s = scm_cdr (s))
-      iv.add_point (from_scm<double> (scm_car (s)));
-  else
-    {
-      // Note: This yields an empty interval (start > end) when there are no
-      // staff lines.
-      int count = internal_line_count (me);
-      return Interval (-count + 1, count - 1);
-    }
-
+  for (Real p : line_positions)
+    iv.add_point (p);
   return iv;
 }
 
