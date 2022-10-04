@@ -125,9 +125,7 @@ work than classifying the pitches."
 
     (define (glue-word-to-step word x)
       (make-line-markup
-       (list
-        (make-simple-markup word)
-        (name-step x))))
+       (list word (name-step x))))
 
     (define (suffix-modifier->markup mod)
       (if (or (= 4 (pitch-step mod))
@@ -141,7 +139,7 @@ work than classifying the pitches."
           (if lowercase-root?
               empty-markup
               (ly:context-property context 'minorChordModifier))
-          (make-simple-markup "huh")))
+          "huh"))
 
     (define (filter-alterations alters)
       "Filter out uninteresting (natural) pitches from ALTERS."
@@ -166,16 +164,15 @@ work than classifying the pitches."
         (- (ly:pitch-alteration pitch)
            (natural-chord-alteration pitch)))
 
-      (let* ((num-markup (make-simple-markup
-                          (number->string (pitch-step pitch))))
-             (args (list num-markup))
+      (let* ((num-string (number->string (pitch-step pitch)))
              (major-seven-symbol (ly:context-property context 'majorSevenSymbol))
              (total
               (if (and (= (ly:pitch-alteration pitch) 0)
                        (= (pitch-step pitch) 7)
                        (markup? major-seven-symbol))
                   (list major-seven-symbol)
-                  (cons (accidental->markup (step-alteration pitch)) args))))
+                  (list (accidental->markup (step-alteration pitch))
+                        num-string))))
 
         (make-line-markup total)))
 

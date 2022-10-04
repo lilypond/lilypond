@@ -881,7 +881,7 @@ with optional arrows of @code{max-size} on start and end controlled by
     (if (not (interval-sane? extent))
         (set! annotation (interpret-markup
                           layout text-props
-                          (make-simple-markup (simple-format #f "~a: NaN/inf" name))))
+                          (simple-format #f "~a: NaN/inf" name)))
         (let ((text-stencil (interpret-markup
                              layout text-props
                              (make-whiteout-markup name)))

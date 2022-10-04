@@ -1524,8 +1524,7 @@ and ignore the rest.
     args)
    empty-stencil))
 
-(define-public empty-markup
-  (make-simple-markup ""))
+(define-public empty-markup "")
 
 ;; helper for justifying lines.
 (define (get-fill-space

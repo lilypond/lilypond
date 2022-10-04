@@ -110,8 +110,7 @@ note names are capitalized."
   (let ((str (note-name->string pitch)))
     (make-line-markup
      (list
-      (make-simple-markup
-       (conditional-string-capitalize str lowercase?))
+      (conditional-string-capitalize str lowercase?)
       (accidental->markup (ly:pitch-alteration pitch))))))
 
 (define (pitch-alteration-semitones pitch)
@@ -130,11 +129,10 @@ note names are capitalized."
                   (cons name alt-semitones))))
     (make-line-markup
      (list
-      (make-simple-markup
-       (conditional-string-capitalize
-        ;; TODO: use note-name->string with an exception for B.
-        (vector-ref #("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
-        lowercase?))
+      (conditional-string-capitalize
+       ;; TODO: use note-name->string with an exception for B.
+       (vector-ref #("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
+       lowercase?)
       (accidental->markup (/ (cdr n-a) 2))))))
 
 (define-public (note-name->german-markup pitch lowercase?)
@@ -163,8 +161,7 @@ pitch@tie{}D instead of `re'."
          (alt (ly:pitch-alteration pitch)))
     (make-line-markup
      (list
-      (make-simple-markup
-       (conditional-string-capitalize name lowercase?))
+      (conditional-string-capitalize name lowercase?)
       (accidental->markup-italian alt)))))
 
 ;; fixme we should standardize on omit-root (or the other one.)

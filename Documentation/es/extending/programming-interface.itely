@@ -704,8 +704,7 @@ siguiente:
    (#:line
     (#:bold (#:italic "hola") #:raise 0.4 "mundo")
     #:larger
-    (#:line
-     (#:simple "fulano" #:simple "fulanito" #:simple "menganito")))))
+    (#:line ("fulano" "fulanito" "menganito")))))
 @end example
 
 Para evitar que el marcado se imprima en la página, use

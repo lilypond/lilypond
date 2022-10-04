@@ -718,8 +718,7 @@ Compiler ce code renverra en console les lignes suivantes :
    (#:line
     (#:bold (#:italic "hello") #:raise 0.4 "world")
     #:larger
-    (#:line
-     (#:simple "foo" #:simple "bar" #:simple "baz")))))
+    (#:line ("foo" "bar" "baz")))))
 @end example
 
 L'impression du @emph{markup} sera suspendue dès lors qu'apparaîtra un

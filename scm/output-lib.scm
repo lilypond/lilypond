@@ -829,10 +829,10 @@ extent of the grob to the extent of the staff."
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
     (make-concat-markup (list
-                         (make-simple-markup (format #f "~a" den))
+                         (format #f "~a" den)
                          (make-fontsize-markup -5 (make-note-markup denominatornote UP))
-                         (make-simple-markup " : ")
-                         (make-simple-markup (format #f "~a" num))
+                         " : "
+                         (format #f "~a" num)
                          (make-fontsize-markup -5 (make-note-markup numeratornote UP))))))
 
 

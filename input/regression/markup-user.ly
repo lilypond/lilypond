@@ -9,7 +9,7 @@ the @code{define-markup-command} scheme macro."
 
 #(define-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
-  (interpret-markup paper props (make-simple-markup (string-upcase str))))
+  (interpret-markup paper props (string-upcase str)))
 
 \score{
   {

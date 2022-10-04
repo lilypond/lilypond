@@ -133,7 +133,7 @@ presentation."
 For instance,
   \\markup \\bold \\italic hello
 ==>
-  (markup #:line (#:bold (#:italic (#:simple \"hello\"))))"
+  (markup (#:bold (#:italic \"hello\"))"
   (define (proc->command-keyword proc)
     "Return a keyword, e.g., `#:bold`, from the `proc` function,
      e.g., `#<procedure bold-markup (layout props arg)>`."
@@ -149,7 +149,7 @@ For instance,
            (music->make-music arg))))
   (define (inner-markup->make-markup mrkup)
     (if (string? mrkup)
-        `(#:simple ,mrkup)
+        `(,mrkup)
         (let ((cmd (proc->command-keyword (car mrkup)))
               (args (map transform-arg (cdr mrkup))))
           `(,cmd ,@args))))

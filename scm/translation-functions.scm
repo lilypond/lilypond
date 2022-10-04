@@ -115,18 +115,16 @@ way the transposition number is displayed."
               #f))
          (count-markup (cond ((number? count)
                               (if (> count 0)
-                                  (make-simple-markup
-                                   (number->string count))
+                                  (number->string count)
                                   #f))
                              ((pair? count)
                               ;; Thin Spaces U+2009 & En-dash U+2013
-                              (make-simple-markup
-                               (format #f "~a – ~a" (car count) (cdr count))))
+                              (format #f "~a – ~a" (car count) (cdr count)))
                              (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
                           (list
                            (make-general-align-markup Y DOWN note-mark)
-                           (make-simple-markup " = ")
+                           " = "
                            count-markup)
                           #f))
          (text-markup (if (not (null? text)) (make-bold-markup text) #f)))
@@ -134,9 +132,9 @@ way the transposition number is displayed."
         (if (and note-markup (not hide-note))
             (make-line-markup (list (make-concat-markup
                                      (append (list text-markup
-                                                   (make-simple-markup " ("))
+                                                   " (")
                                              note-markup
-                                             (list (make-simple-markup ")"))))))
+                                             (list ")")))))
             (make-line-markup (list text-markup)))
         (if note-markup
             (make-line-markup (list (make-concat-markup note-markup)))

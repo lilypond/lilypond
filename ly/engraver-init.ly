@@ -806,17 +806,17 @@ run."
 
   %% chord names:
   chordNameFunction = #ignatzek-chord-names
-  minorChordModifier = #(make-simple-markup "m")
+  minorChordModifier = "m"
   additionalPitchPrefix = "" % was "add"
   majorSevenSymbol = #whiteTriangleMarkup
   chordNameLowercaseMinor = ##f
   chordNameSeparator = #(make-hspace-markup 0.5)
-  slashChordSeparator = #(make-simple-markup "/")
+  slashChordSeparator = "/"
   chordNameExceptions = #ignatzekExceptions
   chordNoteNamer = #'()
   chordRootNamer = #note-name->markup
   chordPrefixSpacer = #0
-  noChordSymbol = #(make-simple-markup "N.C.")
+  noChordSymbol = "N.C."
 
   %% tablature:
   stringOneTopmost = ##t

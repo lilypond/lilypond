@@ -430,7 +430,7 @@ against signature, reporting MAKE-NAME as the user-invoked function.
            (values m (cdr expr))))
         ((and (pair? expr)
               (string? (car expr))) ;; expr === ("string" ...)
-         (values `(make-simple-markup ,(car expr)) (cdr expr)))
+         (values (car expr) (cdr expr)))
         (else
          ;; expr === (symbol ...) or ((funcall ...) ...)
          (values (car expr)
