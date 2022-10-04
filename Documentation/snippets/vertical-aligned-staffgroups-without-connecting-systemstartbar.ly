@@ -6,9 +6,9 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.23.5.
+%% Note: this file works from version 2.23.14.
 
-\version "2.23.13"
+\version "2.23.14"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
@@ -34,19 +34,16 @@ connecting them.
 \layout {
   \context {
     \StaffGroup
-    \consists "Mark_engraver"
-    \consists "Staff_collecting_engraver"
-    \consists "Mark_tracking_translator"
-    \override RehearsalMark.self-alignment-X = #LEFT
+    \consists Text_mark_engraver
+    \consists Staff_collecting_engraver
     systemStartDelimiterHierarchy =
       #'(SystemStartBrace (SystemStartBracket a b))
   }
 
   \context {
     \Score
-    \remove "Mark_engraver"
-    \remove "Staff_collecting_engraver"
-    \remove "Mark_tracking_translator"
+    \remove Text_mark_engraver
+    \remove Staff_collecting_engraver
     \override SystemStartBrace.style = #'bar-line
     \omit SystemStartBar
     \override SystemStartBrace.padding = #-0.1
@@ -67,7 +64,7 @@ txt =
 
 eI =
 \relative c' {
-        \mark \markup {
+        \textMark \markup {
                 \bold Teacher:
                 This is a simple setting of the choral. Please improve it.
                 }
@@ -156,7 +153,7 @@ exercise =
 
 sbI =
 \relative c' {
-        \mark \markup { \bold" Pupil:" Here's my version! }
+        \textMark \markup { \bold" Pupil:" Here's my version! }
         \key a \minor
         \time 4/4
         \voiceOne
@@ -242,7 +239,7 @@ simpleBach =
 
 cbI =
 \relative c' {
-        \mark \markup {
+        \textMark \markup {
           \bold "Teacher:"
           \column {
             "Well, you simply copied and transposed a version of J.S.Bach."
