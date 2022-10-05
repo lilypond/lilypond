@@ -301,12 +301,6 @@ successiva.
 
 @snippets
 
-@cindex fine linea, posizionamento segni
-@cindex linea, fine, posizionamento segni
-@cindex segno, a fine linea
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
 @cindex segno, su ogni rigo
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver

@@ -312,9 +312,6 @@ s'imprimeixen al principi de la línia següent.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-marks-on-every-staff.ly}
 
 @morerefs

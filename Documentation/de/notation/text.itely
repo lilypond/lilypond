@@ -313,9 +313,6 @@ c  c
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-marks-on-every-staff.ly}
 
 @morerefs
@@ -766,7 +763,7 @@ Wenn die Befehle @code{\teeny}, @code{\tiny},
 @code{\small}, @code{\normalsize}, @code{\large} und
 @code{\huge} eingesetzt werden, erhält man schlechte Zeilenabstände
 verglichen mit @code{\fontsize}.
- 
+
 
 @node Textausrichtung
 @unnumberedsubsubsec Textausrichtung
@@ -1651,4 +1648,3 @@ Notationsreferenz:
 @ref{Schriftarten für einen Eintrag},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
 @ref{Font}.
-

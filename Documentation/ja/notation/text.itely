@@ -453,12 +453,6 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @snippets
 
-@cindex end of line, positioning marks (行末にリハーサル記号を配置する)
-@cindex line, end of, positioning marks (行末にリハーサル記号を配置する)
-@cindex mark, at end of line (行末のリハーサル記号)
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
 @cindex mark, on every staff (全ての譜にリハーサル記号を表示する)
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver

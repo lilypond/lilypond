@@ -467,11 +467,6 @@ siguiente.
 
 @snippets
 
-@cindex línea, final, posicionar marcas
-@cindex marca, al final de la línea
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
 @cindex marca, en todos los pentagramas
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
@@ -2057,4 +2052,3 @@ Referencia de la notación:
 @ref{Seleccionar la tipografía y su tamaño},
 @ref{Tipografías},
 @ref{Sustituir la tipografía de la notación}.
-
