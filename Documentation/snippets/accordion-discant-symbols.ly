@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "keyboards, specific-notation, symbols-and-glyphs, workaround"

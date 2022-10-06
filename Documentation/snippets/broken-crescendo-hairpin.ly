@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "contemporary-notation, expressive-marks, symbols-and-glyphs"

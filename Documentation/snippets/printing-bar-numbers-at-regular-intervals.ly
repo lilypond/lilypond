@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.23.7.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "rhythms"

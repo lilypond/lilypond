@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "chords, contexts-and-engravers, scheme-language, staff-notation"

@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.23.3.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"

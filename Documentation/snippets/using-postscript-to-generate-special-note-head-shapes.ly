@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, scheme-language, tweaks-and-overrides"

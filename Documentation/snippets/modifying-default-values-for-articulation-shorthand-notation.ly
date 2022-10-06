@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.23.6.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "expressive-marks"
