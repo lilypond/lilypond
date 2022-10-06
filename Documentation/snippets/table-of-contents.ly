@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "paper-and-layout"
@@ -32,7 +32,7 @@ the @code{\\tocItem} command.
   \score {
     {
       c'1 \pageBreak
-      \mark "A" \tocItem \markup { Mark A }
+      \mark \default \tocItem \markup { Mark A }
       d'1
     }
   }

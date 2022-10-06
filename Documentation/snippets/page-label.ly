@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "spacing"
@@ -22,47 +22,25 @@ in markups.
 } % begin verbatim
 
 
-#(set-default-paper-size "a6")
+\label license
+\markup "This snippet is available under the Creative Commons
+Public Domain Dedication license."
 
-#(define-markup-command (toc-line layout props label text)
-  (symbol? markup?)
-  (interpret-markup layout props
-   (markup #:fill-line (text #:page-ref label "8" "?"))))
-
-\book {
-  \markup \huge \fill-line { \null Title Page \null }
-
-  \pageBreak
-
-  \label #'toc
-  \markup \column {
-    \large \fill-line { \null Table of contents \null }
-    \toc-line #'toc "Table of contents"
-    \toc-line #'firstScore "First Score"
-    \toc-line #'markA "Mark A"
-    \toc-line #'markB "Mark B"
-    \toc-line #'markC "Mark C"
-    \toc-line #'unknown "Unknown label"
+{
+  \repeat volta 2 {
+    \label startRepeat
+    \repeat unfold 20 { c'2 2 }
+    \pageBreak
+    2 2
   }
-
-  \pageBreak
-
-  \label #'firstScore
-  \score {
-    \new Staff \relative c' {
-      c2 c
-      \mark \markup {
-        A (page \concat { \page-ref #'markA "0" "?" ) }
-      } \label #'markA
-      c2 c
-      \pageBreak
-      \mark "B" \label #'markB
-      d2 d
-      d2 d
-      \once \override Score.RehearsalMark.break-visibility =
-        #begin-of-line-invisible
-      \mark "C" \label #'markC
+  \mark \markup {
+    \with-link #'startRepeat \line {
+      To page \page-ref #'startRepeat "0" "?"
     }
-    \header { piece = "First score" }
   }
+}
+
+\markup {
+  See page \page-ref #'license "0" "?" for
+  licensing information.
 }

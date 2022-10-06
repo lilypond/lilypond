@@ -23,7 +23,6 @@ creating-cross-staff-arpeggios-in-a-piano-staff.ly
 creating-cross-staff-arpeggios-in-other-contexts.ly
 creating-double-digit-fingerings.ly
 creating-real-parenthesized-dynamics.ly
-creating-simultaneous-rehearsal-marks.ly
 creating-slurs-across-voices.ly
 creating-text-spanners.ly
 dynamics-custom-text-spanner-postfix.ly
@@ -32,8 +31,6 @@ glissandi-can-skip-grobs.ly
 hairpins-with-different-line-styles.ly
 hiding-the-extender-line-for-text-dynamics.ly
 horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
-how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
-how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-2.ly
 inserting-a-caesura.ly
 laissez-vibrer-ties.ly
 line-arrows.ly

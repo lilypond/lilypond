@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
@@ -36,6 +36,6 @@ arbitrary grob.
   \revert Stem.stencil
   \revert Flag.stencil
   c4. c4
-  \mark "F"
+  \mark \default
   c1
 }

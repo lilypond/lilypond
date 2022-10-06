@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "headword"
@@ -34,11 +34,7 @@ Wind headword
   \new StaffGroup <<
     \new Staff \with { instrumentName = "Flauto I,II" }
     \relative c'' {
-      \once \override Score.RehearsalMark.self-alignment-X = #-1
-      \once \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
-      \once \override Score.TimeSignature.break-align-anchor-alignment = #LEFT
-      \once \override Score.RehearsalMark.padding = #4
-      \mark \markup \large \bold {Moderato assai}
+      \tweak padding 3.5 \tweak font-size 1 \tempo "Moderato assai"
       \key d \major
       \time 2/4
       \compressMMRests R2*2

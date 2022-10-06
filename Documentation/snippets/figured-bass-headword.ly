@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.12"
+\version "2.23.13"
 
 \header {
   lsrtags = "headword"
@@ -38,7 +38,7 @@ extendOff = \bassFigureExtendersOff
 
     {
       \time 4/4
-      \mark \markup { \italic Adagio. }
+      \tempo Adagio
       \partial 8 r16 a'16 |
       a'8. [ d''16 d''8.  e''16 ] cis''8 a'4 a''16 bes''16 |
       cis''8 d''16 ( e'' ) e''8.  d''16 d''4 r8 d''16 e''16 |
@@ -100,13 +100,4 @@ extendOff = \bassFigureExtendersOff
       <7>8 <6>8 <5>4 <9 4>8 <8 3>8 s4 |
     }
   >>
-
-  \layout {
-    \context {
-      \Score
-      \override RehearsalMark.break-align-symbols = #'(time-signature)
-      \override RehearsalMark.self-alignment-X = #LEFT
-      \override TimeSignature.break-align-anchor-alignment = #LEFT
-    }
-  }
 }

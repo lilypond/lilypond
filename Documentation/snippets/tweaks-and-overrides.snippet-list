@@ -25,7 +25,6 @@ controlling-tuplet-bracket-visibility.ly
 creating-a-delayed-turn.ly
 creating-custom-key-signatures.ly
 creating-double-digit-fingerings.ly
-creating-simultaneous-rehearsal-marks.ly
 creating-text-spanners.ly
 cross-staff-chords---beaming-problems-workaround.ly
 cross-staff-stems.ly
@@ -51,8 +50,6 @@ glissandi-can-skip-grobs.ly
 hairpins-with-different-line-styles.ly
 horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
 how-to-change-fret-diagram-position.ly
-how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
-how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-2.ly
 inserting-a-caesura.ly
 keep-change-clefs-full-sized.ly
 line-arrows.ly
