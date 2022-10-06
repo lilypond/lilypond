@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 70606224a69f3a7e96aeaf081cb0d1216c3f2cea
+   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3227,7 +3227,7 @@ violin = \relative @{
 
 Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
 rencontre @code{\centerText}, il le remplace par le contenu que nous lui
-avons défini -- c'est-à-dire le contenu à droite de @code{centerText=}.
+avons défini -- c'est-à-dire le contenu à droite de @code{centerText =}.
 
 LilyPond gère également des substitutions non-statiques -- vous
 pouvez les voir comme des fonctions.
