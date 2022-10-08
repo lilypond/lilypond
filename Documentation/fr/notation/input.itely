@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
+   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3209,13 +3209,14 @@ devrez toutefois disposer d'une fonte contenant ce caractère qui soit
 accessible à LilyPond.
 
 L'exemple suivant illustre la manière d'insérer un caractère sous sa
-forme hexadécimale, à la fois dans un repère, dans une articulation,
-dans des paroles et dans du texte indépendant.
+forme hexadécimale, à la fois dans un repère textuel, dans une
+articulation, dans des paroles et dans du texte indépendant.
 
 @lilypond[quote,verbatim]
 \score {
   \relative {
-    c''1 \mark \markup { \char ##x03A8 }
+    c''1
+    \textMark \markup { \char ##x03A8 }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }

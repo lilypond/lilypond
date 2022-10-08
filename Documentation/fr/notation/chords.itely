@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 11550057d65cb50a866bbfad726809b57643e4fc
+   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -950,12 +950,12 @@ d'emploi}.
         grob
         #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
   \override Score.RehearsalMark.self-alignment-X = #LEFT
-  \mark \markup default
+  \textMark "default"
   r4 r4 r4 r4
   \stopStaff
   s1
   \startStaff
-  \mark \markup \typewriter "\\medianChordGridStyle"
+  \textMark \markup \typewriter "\\medianChordGridStyle"
   \medianChordGridStyle
   r4 r4 r4 r4
   \stopStaff

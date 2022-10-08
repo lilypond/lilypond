@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
+   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -917,8 +917,8 @@ associées à l'aide des commandes @code{\addlyrics} ou @code{\lyricsto}.
 Lorsque l'argument de @code{\skip} est de la musique, la durée par
 défaut de la note qui suit est celle de la dernière note du fragment
 « sauté ». Toutefois, et pour garder le compatibilité ascendante avec
-l'implémentation originelle de @code{\skip}, la durée donnée en argument
-n'affectera en rien la durée des notes qui suivent.
+l'implémentation originelle de @code{\skip}, la durée explicitée
+en argument n'affectera en rien la durée des notes qui suivent.
 
 @lilypond[quote,verbatim]
 <<
@@ -926,7 +926,8 @@ n'affectera en rien la durée des notes qui suivent.
     \repeat unfold 12 { a'4 }
   }
   {
-    a'4 \skip { a'8 a' a' a' } a' |
+    a'4 \skip 2 a' |
+    a'4 \skip { a'8 a' a' a' } a' a' |
     s2 a'
   }
 >>
@@ -1020,7 +1021,7 @@ y compris un éventuel multiplicateur comme indiqué dans
 @end lilypond
 
 @noindent
-Cet exmple illustre aussi la manière de condenser une succession de
+Cet exemple illustre aussi la manière de condenser une succession de
 mesures vides, comme indiqué dans @ref{Compression de mesures vides}.
 
 Ceci ne peut être utile que pour une mesure complètement vide.  Sa durée
@@ -3884,6 +3885,7 @@ Morceaux choisis :
 @translationof Rehearsal marks
 
 @cindex repère, indication de
+@cindex indication, repère
 
 @funindex \mark
 
@@ -3980,48 +3982,6 @@ d'autres fonctions de formatage.
 @code{format-@/mark-@/circle-@/barnumbers} permettent d'imprimer le
 numéro de mesure au lieu des compteurs alphabétique ou numérique.
 
-On peut aussi spécifier manuellement une marque de repère indépendamment
-de la séquence @code{rehearsalMark} :
-
-@example
-\mark "A1"
-@end example
-
-@noindent
-@code{Score.rehearsalMarkFormatter} sera sans effet sur des repères
-ainsi définis. Un @code{\markup} peut néanmoins s'utiliser en argument.
-
-@example
-\mark \markup @{ \box A1 @}
-@end example
-
-@noindent
-Avant d'utiliser @code{\mark} pour ajouter un texte qui ne constitue pas
-en lui-même un repère, il peut être judicieux de chercher un commande
-qui serait plus appropriée. Quelques possibilités sont mentionnées à la
-fin de cette section.
-
-@cindex point d'orgue
-@cindex glyphe musical
-
-@funindex \musicglyph
-
-Un glyphe musical peut venir se centrer en surplomb d'une barre de
-mesure dès lors qu'aura été spécifié le symbole adéquat -- voir
-@ref{Notation musicale dans du texte formaté}.
-
-@lilypond[quote,verbatim]
-\fixed c'' {
-  c1
-  \mark \markup { \musicglyph "scripts.ufermata" }
-  c1
-}
-@end lilypond
-
-@noindent
-Pour connaître les différents symboles accessibles par
-@code{\musicglyph}, consultez @ref{La fonte Emmentaler}.
-
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Mise en forme du texte}, et tout particulièrement ce qui concerne
 la @code{break-@/alignable-@/interface} au chapitre
@@ -4032,8 +3992,17 @@ sont inscrites dan le fichier @file{scm/@/translation-@/functions.scm}.
 Elles seront une source d'inspiration en matière de fonctions de
 formatage.
 
+@snippets
+@c Also in 'Text marks'.
+@cindex repère, sur toutes les portées
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-marks-on-every-staff.ly}
+
+
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{Alignement des objets},
 @ref{Indication métronomique},
 @ref{La fonte Emmentaler},
@@ -4047,7 +4016,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{AdHocMarkEvent},
 @rinternals{RehearsalMark},
 @rinternals{RehearsalMarkEvent}.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
+   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -162,7 +162,7 @@ dyn =
     \chordmode { c1:maj7 }
     \new Staff {
       \tempo \markup "MetronomeMark"
-      \mark \markup \smaller "RehearsalMark"
+      \textMark "textMark"
       \once \override TupletNumber.text =
         \markup "TupletNumber"
       \tuplet 3/2 {
@@ -440,18 +440,88 @@ Référence des propriétés internes :
 @translationof Text marks
 
 @cindex indication textuelle
-@cindex point d'orgue sur une barre de mesure
+@cindex repère textuel
+@cindex texte, sur barre de mesure
 @cindex barre de mesure, symbole au dessus
+@cindex texte, entre des notes
+@cindex texte, en début de ligne
+@cindex texte, en fin de partition
 
-@funindex \mark
+@funindex \textMark
+@funindex \textEndMark
 @funindex \markup
 
-N'importe quel texte peut venir se centrer en surplomb d'une barre de
-mesure à l'aide de la commande @code{\mark}. Avant d'utiliser cette
-fonctionnalité pour ajouter un texte qui ne constitue pas en lui-même un
-repère, il peut être judicieux de chercher une commande qui serait plus
-appropriée. Quelques possibilités sont mentionnées à la fin de cette
-section.
+Les indications textuelles sont des objets qui, contrairement aux
+scripts (voir @ref{Commentaires textuels}), ne s'impriment pas en regard
+des notes, mais entre elles, et souvent alignées sur une barre de mesure.
+
+@funindex \mark
+
+@warning{Les versions précédentes de LilyPond utilisaient l'instruction
+@code{\mark} pour les indications textuelles, bien quelle ait été
+initialement conçue pour les repères de répétition (voir
+@ref{Indications de repère}). Les commandes @code{\textMark} et
+@code{\textEndMark} sont plus appropriées en matière d'indications
+textuelles de par leurs réglages par défaut et la capacité qu'elles
+offrent de présenter plusieurs indications en un même endroit. Il est
+donc préférable d'utiliser @code{\textMark} et @code{\textEndMark} en
+lieu et place de @code{\mark "Texte"} ou @code{\mark \markup
+@dots{}}. Pour la conversion de code utilisant @code{\mark}, les
+dérogations portées à @code{RehearsalMark} devraient être modifiées en
+@code{TextMark}.}
+
+Avant d'insérer une indication textuelle, il peut être judicieux de
+chercher une commande qui serait plus appropriée. Lorsque le texte
+identifie une section, utilisez @code{\sectionLabel} (voir
+@ref{Marque de section}). Pour un saut ou un renvoi arbitraire, il vaut
+mieux utiliser @code{\jump} (voir
+@ref{Indications de reprise manuelles}). Ces instructions disposent de
+mises en forme par défaut différentes et créent d'autres objets qui
+peuvent être personnalisés indépendamment des indications textuelles
+génériques à l'aide de feuilles de style.
+
+Une indication textuelle se saisit à l'aide de @code{\textMark} ou
+@code{\textEndMark}. La commande @code{\textMark} affiche une marque
+alignée sur sa gauche.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \textMark "Fl. 1 solo"
+  c4 e g2
+  \textMark "A due"
+  e4 g c'2
+}
+@end lilypond
+
+Lorsqu'intervient un saut de ligne à l'endroit où est placé
+@code{\textMark}, l'indication apparaîtra sur le système suivant.
+
+@lilypond[verbatim,quote,ragged-right]
+\fixed c'' {
+  \textMark "Fl. 1 solo"
+  c4 e g2
+  \break
+  \textMark "A due"
+  e4 g c'2
+}
+@end lilypond
+
+Contrairement à @code{\textMark}, @code{\textEndMark} crée une marque
+alignée sur sa droite. Si elle se présente lors d'un saut de ligne,
+l'indication apparaîtra en fin du système précédent.
+
+@lilypond[verbatim,quote,ragged-right]
+\fixed c' {
+  \repeat volta 2 {
+    c4 e8 f g2
+    e4 f8 g c'2
+    \textEndMark "ad lib"
+  }
+  \break
+  c'4 8 8 4 8 8
+  c'1
+}
+@end lilypond
 
 Le texte peut être mis en forme de différentes manières dès lors qu'est
 utilisé un bloc @code{\markup}, comme indiqué à la rubrique
@@ -460,37 +530,112 @@ utilisé un bloc @code{\markup}, comme indiqué à la rubrique
 @lilypond[quote,verbatim]
 \relative {
   <c' e>1
-  \mark \markup { \italic { colla parte } }
+  \textMark \markup { \italic { colla parte } }
   <d f>2 <e g>
   <c f aes>1
 }
 @end lilypond
 
-Tout comme les indications de repère habituelles, ces objets viendront
-se positionner en surplomb de la portée supérieure d'un système. Selon
-qu'ils sont introduits à la fin ou en cours de mesure, ils seront placés
-au-dessus de la barre ou entre les notes.
-
 @funindex \markLengthOn
 @funindex \markLengthOff
 
+Les commandes @code{\markLengthOn} et @code{\markLengthOff} -- voir
+@ref{Indication métronomique} --  sont opérationnelles dans le cadre des
+indications textuelles.
+
+@lilypond
+{
+  \mark \default
+  c'2 2
+  \textEndMark "longue indication textuelle"
+  \markLengthOn
+  2 2
+  \mark \default
+  2 2
+  \textEndMark "longue indication textuelle"
+}
+@end lilypond
+
+@cindex indication textuelle, sous la portée
+
+Les indications textuelles peuvent se présenter en dessous de la portée.
+
+@lilypond
+\fixed c' {
+  c4 g c'8 b c4 e' c' c2
+  c4 g c'8 b c4 e' c' g2
+  e'4 c' c'8 b c'4
+  g4 c' c2~ c1
+  \tweak direction #DOWN
+    \tweak font-size #-1
+      \textEndMark "Composed on November 13th, 2020"
+}
+@end lilypond
+
+@cindex indication textuelle, empilement vertical
+
+Plusieurs indications peuvent intervenir en un même moment. L'ordre dans
+lequel elles s'empileront peut se gérer à l'aide de la propriété
+@code{outside-staff-priority} (voir
+@ref{Résolution des collisions verticales}). Une autre façon de procéder
+pourrait consister à utiliser une seule indication sous la forme
+@code{\markup \column @{ @dots{} @} }.
+
+@lilypond
+\fixed c' {
+  \repeat volta 2 {
+    c4 g c'8 b c4 e' c' c2
+    \textEndMark "ad lib."
+    \tweak outside-staff-priority 1200
+      \tweak font-size -1
+        \textEndMark "2a volta a due"
+  }
+}
+@end lilypond
+
+@cindex indication textuelle, alignement
+
+L'alignement d'une indication textuelle peut se modifier.
+
+@lilypond[verbatim,quote]
+{
+  c'8 8 8 8 8 8 8 8
+  \textMark \markup \column {
+    \line { Indication alignée sur sa gauche }
+    \line { (par défaut pour \concat { \typewriter "\\textMark" ) } }
+  }
+  d'8 8 8 8 8 8 8 8
+}
+
+{
+  c'8 8 8 8 8 8 8 8
+  \tweak self-alignment-X #CENTER
+    \textMark "Indication centrée"
+  d'8 8 8 8 8 8 8 8
+}
+
+{
+  c'8 8 8 8 8 8 8 8
+  \tweak self-alignment-X #RIGHT
+    \textMark \markup \right-column {
+      \line { Indication alignée sur sa droite }
+      \line { (par défaut pour \concat { \typewriter "\\textEndMark" ) } }
+    }
+  d'8 8 8 8 8 8 8 8
+}
+@end lilypond
+
 @predefined
+@code{\textMark},
+@code{\textEndMark},
 @code{\markLengthOn},
 @code{\markLengthOff}.
 @endpredefined
 
 @snippets
 
-@c TODO: This snippet uses \mark "D.C. al Fine".  It should be
-@c edited to avoid drawing attention away from \repeat segno.
-@c Maybe it should be replaced: demonstrating alignment of a
-@c fermata in @ref{Rehearsal marks} seems like a good alternative.
-@cindex fin de ligne, repère, positionnement
-@cindex repère, positionnement en fin de ligne
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/printing-marks-at-the-end-of-a-line.ly}
-
-@cindex repère, sur toutes les portées
+@c Also in 'Rehearsal marks'.
+@cindex indication textuelle, sur toutes les portées
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -509,9 +654,9 @@ Morceaux choisis:
 @rlsrnamed{Text, Texte}.
 
 Référence des propriétés internes :
-@rinternals{AdHocMarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark},
+@rinternals{TextMarkEvent}.
 @endmorerefs
 
 
@@ -1872,8 +2017,8 @@ le style, la graisse ou la taille. Notez bien que l'argument fourni à
 défaut.
 
 @lilypond[quote,verbatim,fragment]
-\override Score.RehearsalMark.font-family = #'typewriter
-\mark \markup "Ouverture"
+\override Score.TextMark.font-family = #'typewriter
+\textMark "Ouverture"
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
 d''2.^\markup "Allegro"

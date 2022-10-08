@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 11550057d65cb50a866bbfad726809b57643e4fc
+   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.21.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
-@c Translation checkers: Gilles Thibault
+@c Translation checkers: Gilles Thibault, Jean Abou Samra
 
 
 @node Modification des réglages prédéfinis
@@ -4720,45 +4720,54 @@ example shows the difference:
 @cindex alignement sur un objet
 @funindex break-align-symbols
 
-Indications de repère et numéros de mesure peuvent s'aligner sur des
-objets de notation autres qu'une barre de mesure. Pour être plus précis,
-les éléments ruptibles disposent d'une propriété
-@code{break-@/align-@/symbol} qui fournit des symboles qui pourront
-faire office de « point d'ancrage » pour d'autres objets au travers de
-cette propriété. Une liste exhaustive des symboles est disponible au
-chapitre @rinternals{break-alignment-interface}.
+Indications de repère, marques textuelles, numéros de mesure et plus
+généralement tous les objets disposant de la
+@rinternals{break-alignable-interface} -- que l'on pourrait regrouper
+sous l'apellation de « jalons » -- sont susceptibles de se positionner
+sur des objets de notation tels que barre de mesure, armure, métrique et
+plus communément tout objet disposant de la
+@rinternals{break-aligned-interface}. Pour être plus précis, ces
+derniers disposent d'une propriété @code{break-@/align-@/symbol}, qui
+est un symbole Scheme. Un jalon, donc un objet disposant de
+@code{break-@/alignable-@/interface}, peut définir son point d'ancrage
+aux éléments disposant de @code{break-@/aligned-@/interface}, ce au
+moyen d'une liste de symboles qui correspondent aux valeurs de
+@code{break-@/align-@/symbol} des éléments sur lesquels il peut
+s'aligner. Une liste exhaustive des symboles est disponible au chapitre
+@rinternals{break-alignment-interface}.
 
 Chaque objet possède son propre point de référence par défaut, sur
-lequel viendront s'aligner les indications de repère :
+lequel viendront s'aligner les jalons :
 
 @lilypond[verbatim,quote,fragment]
-% Le repère s'alignera
+\override Score.TextMark.self-alignment-X = #CENTER
+% Le repère textuel s'alignera
 % sur la droite de la clef
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
-% Le repère s'alignera
+% Le repère textuel s'alignera
 % sur la gauche de la métrique
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
-\mark "↓"
+\textMark "↓"
 e'2.
-% Le repère sera centré
+% Le repère textuel sera centré
 % au-dessus de la respiration
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
 e'1
 \breathe
-\mark "↓"
+\textEndMark "↓"
 @end lilypond
 
 Les différents objets sur lesquels l'alignement pourrait intervenir
@@ -4771,84 +4780,87 @@ l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
 de mesure est invisible, à l'endroit même où la barre prendrait place.
 
 @lilypond[verbatim,quote,fragment]
-% Le repère s'alignera
+\override Score.TextMark.self-alignment-X = #CENTER
+% Le repère textuel s'alignera
 % sur la droite de l'armure
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
-% Le repère s'alignera
+% Le repère textuel s'alignera
 % sur la droite de la clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef bass
-\mark "↓"
+\textMark "↓"
 gis,1
-% Le repère sera centré
+% Le repère textuel sera centré
 % au-dessus de la barre de mesure
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature clef)
 \key a \major
 \clef treble
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 
-L'alignement d'un repère sur un objet de notation peut se modifier,
+L'alignement d'un jalon sur un objet de notation peut se modifier,
 comme l'illustre l'exemple suivant.  Toutefois, si la partition comporte
 plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 
 @lilypond[verbatim,quote,fragment]
-% Le repère s'alignera
+\override Score.TextMark.self-alignment-X = #CENTER
+% Le repère textuel s'alignera
 % sur la droite de l'armure
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
-\mark "↓"
+\textMark "↓"
 e'1
-% Le repère sera centré
+% Le repère textuel sera centré
 % au-dessus de l'armure
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #CENTER
-\mark "↓"
+\textMark "↓"
 \key a \major
 e'1
-% Le repère s'alignera
+% Le repère textuel s'alignera
 % sur la gauche de l'armure
 \once \override Score.KeySignature.break-align-anchor-alignment =
                   #LEFT
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 
-Le bord gauche d'un repère peut se décaler arbitrairement sur la gauche
+Le bord gauche d'un jalon peut se décaler arbitrairement sur la gauche
 ou sur la droite.  La valeur est exprimée en espaces de portée.
 
 @lilypond[verbatim,quote,fragment]
-% Le repère s'alignera
+\override Score.TextMark.self-alignment-X = #CENTER
+% Le repère textuel s'alignera
 % sur la gauche de l'armure
 % puis décalé de 3,5 espaces de portée vers la droite
-\override Score.RehearsalMark.break-align-symbols =
+\override Score.TextMark.break-align-symbols =
             #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
-% Le repère s'alignera
+% Le repère textuel s'alignera
 % sur la gauche de l'armure
 % puis sera décalé de 2 espaces de portée vers la gauche
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
-\mark "↓"
+\textMark "↓"
 e'1
 @end lilypond
 
