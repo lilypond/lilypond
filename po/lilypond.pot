@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.13\n"
+"Project-Id-Version: lilypond 2.23.14\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-09-18 14:31+0200\n"
+"POT-Creation-Date: 2022-10-09 18:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1812,17 +1812,12 @@ msgstr ""
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:144
-#, c-format
-msgid "Could not find glyph-name for alteration %s"
-msgstr ""
-
-#: accidental.cc:153
+#: accidental.cc:131
 #, c-format
 msgid "cannot find glyph %s"
 msgstr ""
 
-#: accidental.cc:165
+#: accidental.cc:142
 msgid "natural alteration glyph not found"
 msgstr ""
 
@@ -2021,7 +2016,7 @@ msgstr ""
 msgid "junking empty cluster"
 msgstr ""
 
-#: coherent-ligature-engraver.cc:112
+#: coherent-ligature-engraver.cc:117
 #, c-format
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
@@ -2074,11 +2069,6 @@ msgstr ""
 
 #: dispatcher.cc:305
 msgid "Already listening to dispatcher, ignoring request"
-msgstr ""
-
-#: dots.cc:50
-#, c-format
-msgid "dot `%s' not found"
 msgstr ""
 
 #: drum-note-engraver.cc:100
@@ -2156,12 +2146,12 @@ msgstr ""
 msgid "Cannot add a fingering without a direction."
 msgstr ""
 
-#: flag.cc:135
+#: flag.cc:139
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: flag.cc:155
+#: flag.cc:159
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
@@ -3313,8 +3303,8 @@ msgstr ""
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:58
-msgid "GUILE signaled an error for the expression beginning here"
+#: parse-scm.cc:116 parse-scm.cc:151
+msgid "Guile signaled an error for the expression beginning here"
 msgstr ""
 
 #: percent-repeat-engraver.cc:96
@@ -3493,7 +3483,7 @@ msgstr ""
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:244
+#: rest.cc:243
 #, c-format
 msgid "rest `%s' not found"
 msgstr ""
@@ -3564,7 +3554,7 @@ msgstr ""
 msgid "no side-axis setting found for grob %s."
 msgstr ""
 
-#: skyline.cc:545
+#: skyline.cc:555
 msgid "Cannot have negative horizon padding.  Junking."
 msgstr ""
 
@@ -3590,11 +3580,11 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur-scoring.cc:359
+#: slur-scoring.cc:358
 msgid "no viable slur configuration found"
 msgstr ""
 
-#: slur-scoring.cc:484
+#: slur-scoring.cc:483
 msgid "slur trying to encompass an empty note column."
 msgstr ""
 
@@ -3662,12 +3652,12 @@ msgid ""
 "f, A-F)"
 msgstr ""
 
-#: stream-event.cc:129
+#: stream-event.cc:109
 #, c-format
 msgid "conflict with event: `%s'"
 msgstr ""
 
-#: stream-event.cc:132
+#: stream-event.cc:112
 #, c-format
 msgid "discarding event: `%s'"
 msgstr ""
@@ -4148,17 +4138,17 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:92
+#: define-event-classes.scm:93
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-event-classes.scm:126
+#: define-event-classes.scm:127
 #, scheme-format
 msgid "Cannot redefine event class `~S'"
 msgstr ""
 
-#: define-event-classes.scm:128
+#: define-event-classes.scm:129
 #, scheme-format
 msgid "Undefined parent event class `~S'"
 msgstr ""
@@ -4176,17 +4166,17 @@ msgstr ""
 msgid "invalid tremolo repeat count: ~a"
 msgstr ""
 
-#: define-music-types.scm:952
+#: define-music-types.scm:958
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:955
+#: define-music-types.scm:961
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:975
+#: define-music-types.scm:981
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -4254,12 +4244,12 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:156
+#: flag-styles.scm:159
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
 
-#: flag-styles.scm:169
+#: flag-styles.scm:172
 #, scheme-format
 msgid "flag ~a not found"
 msgstr ""
@@ -4547,42 +4537,42 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:455
+#: lily.scm:461
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:776
+#: lily.scm:782
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:777
+#: lily.scm:783
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:853
+#: lily.scm:859
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:856
+#: lily.scm:862
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:860
+#: lily.scm:866
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:873
+#: lily.scm:879
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:906
+#: lily.scm:912
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4763,32 +4753,44 @@ msgstr ""
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: output-lib.scm:1971
+#: output-lib.scm:479
+#, scheme-format
+msgid "dot glyph ~s not found"
+msgstr ""
+
+#: output-lib.scm:935
+#, scheme-format
+msgid ""
+"no glyph name for alteration ~a in alteration-glyph-name-alist; try defining "
+"one in alterationGlyphs"
+msgstr ""
+
+#: output-lib.scm:2025
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2290
+#: output-lib.scm:2344
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2786
+#: output-lib.scm:2840
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:2802
+#: output-lib.scm:2856
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3119
+#: output-lib.scm:3173
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3143
+#: output-lib.scm:3197
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
