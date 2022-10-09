@@ -1461,6 +1461,11 @@ dump book through cairo backend
                   if (page_count > 1)
                     suffix = "-page" + std::to_string (page);
                 }
+              else if (format == SVG)
+                {
+                  if (page_count > 1)
+                    suffix = "-" + std::to_string (page);
+                }
               else
                 suffix = "-" + std::to_string (page);
 
