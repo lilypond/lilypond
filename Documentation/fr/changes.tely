@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c9925c1a4cde68de2e8d5226c71b5f63c8167e4c
+    Translation of GIT committish: 229b286a5562598ad53d32082dd86890c1ff1221
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,6 +51,21 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+
+@warning{Chaque nouvelle version de LilyPond peut comporter des
+changements de syntaxe, ce qui peut exiger de modifier les fichiers que
+vous avez écrits avec des vesrions précédentes, de telle sorte qu'ils
+restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
+vos fichiers, il est @strong{fortement conseillé} d'utiliser
+l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
+abordé dans @rprogram{Mise à jour avec convert-ly}. @command{convert-ly}
+est capable de réaliser la plupart des modifications de syntaxe
+automatiquement. Les utilisateurs de Frescobaldi peuvent lancer
+@command{convert-ly} directement à partir du menu de Frescobaldi en
+faisant « Outils > Mettre à jour avec convert-ly@dots{} ». D'autres
+environnements prenant en charge LilyPond sont susceptibles de fournir
+un moyen graphique de lancer @command{convert-ly}.}
 
 
 @node Modifications majeures de LilyPond
@@ -213,9 +228,35 @@ circonvolutions.
 
 @node Améliorations en matière de rythme
 @unnumberedsec Améliorations en matière de rythme
-@translationof Rythm improvements
+@translationof Rhythm improvements
 
 @itemize
+@item
+La nouvelle option @code{visible-over-note-heads} permet aux crochets de
+n-olets de toujours s'afficher lorsqu'ils sont placés du côté des têtes
+de note. Cette option peut s'utiliser avec le style par défaut de
+visibilité des crochets de n-olet ou avec @code{#'if-no-beam}.
+
+@lilypond[quote]
+music = \relative c'' {
+  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
+  \tupletUp \tuplet 3/2 { c8 d e }
+}
+
+\new Voice {
+  \relative c' {
+    \time 2/4
+    \override TupletBracket.visible-over-note-heads = ##t
+    \once \override Score.TextMark.break-align-symbols =
+            #'(time-signature)
+    { \textMark \markup "default" \music }
+    \override TupletBracket.bracket-visibility = #'if-no-beam
+    { \textMark \markup \typewriter "'if-no-beam" \music }
+  }
+}
+@end lilypond
+
+
 @item
 La nouvelle commande @code{\section} insère une double barre qui
 interagit de manière optimale avec les barres de reprise. Un passage
@@ -891,6 +932,46 @@ indépendantes sont préférables, il faut utiliser plusieurs
 
 @itemize
 @item
+Les nouvelles commandes @code{\textMark} et @code{\textEndMark}
+permettent d'ajouter entre les notes un texte arbitraire que l'on
+appelle indication textuelle. Ces commandes constituent une amélioration
+de la syntaxe utilisée précédemment avec la commande @code{\mark} à
+laquelle on adjoignait un @emph{markup} -- autrement dit libeller
+@code{\mark "@dots{}"} ou @code{\mark \markup @dots{}}.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \textMark "Text mark"
+  c16 d e f e f e d c e d c e d c8
+  \textEndMark "Text end mark"
+}
+@end lilypond
+
+@code{\textMark} et @code{\textEndMark} sont désormais les moyens
+recommandés de créer des indications textuelles. Le propos n'est pas ici
+de décourager l'utilisation de @code{\mark}, mais de plutôt la réserver
+à la création des marques-repères -- avec @code{\mark \default} ou
+@code{\mark @var{nombre}} -- auxquelles il est souvent fait référence en
+répétition.
+
+Ces nouvelle commandes diffèrent de @code{\mark @var{markup}} par
+quelques aspects. Alors que plusieurs indications peuvent survenir en un
+même endroit, il ne peut y avoir qu'une seule occurrence de @code{\mark}
+(un seul repère à la fois). Elles génèrent des objets graphiques du type
+@code{TextMark} particulier, alors que @code{\mark} génère un objet
+@code{RehearsalMark} que ce soit pour créer un repère ou une indication
+textuelle. Cette distinction permet alors de gérer des réglages
+différents pour les repères et les indications textuelles. L'alignement
+engendré par ces nouvelles commandes est différent : l'indication créée par
+@code{\textMark} sera toujours alignée par la gauche et celle créée par
+@code{\textEndMark} le sera toujours par la droite ; l'alignement d'un
+@code{RehearsalMark}, par contre, dépend du point d'ancrage de l'objet
+sur lequel il doit s'aligner.
+
+Voir @ruser{Indications textuelles} pour de plus amples détails.
+
+
+@item
 Sont désormais disponibles dans la fonte Emmentaler, des variantes
 textuelles pour les glyphes de dièse, bémol, bécarre, double dièse et
 double bémol. En mode @emph{markup}, ils sont accessibles par leur
@@ -1197,6 +1278,8 @@ en présence d'un signe plus après le chiffre pour les symboles
 }
 @end lilypond
 
+L'utilisation de ces glypes dans le cadre d'un @emph{markup} s'obtient
+à l'aide de la commande @code{\figured-bass}.
 
 @item
 En matière de basse chiffrée, il est désormais possible de placer les
