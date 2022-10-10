@@ -3616,9 +3616,11 @@ grob_path = symbol_list + r"(?:\s+" + symbol_list + r")*"
 grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
 
 
-def path_replace(m):
-    return m.group(1) + ".".join(re.findall(wordsyntax, m.group(2)))
-
+def convert_overrides_to_dots(s):
+    def path_replace(m):
+        return m.group(1) + ".".join(re.findall(wordsyntax, m.group(2)))
+    return re.sub(r"(\\(?:override|revert)\s+)(" + grob_spec + r"\s+" + grob_path + ")",
+                  path_replace, s)
 
 # The following regexp appears to be unusually expensive to compile,
 # so we do it only once instead of for every file
@@ -3626,7 +3628,6 @@ footnotec = re.compile("(" + matchfullmarkup + ")|"
                        + r"(\\footnote(?:\s*"
                        + matchmarkup + ")?" + matcharg + ")(" + matcharg
                        + r")?(\s+" + matchmarkup + r")(\s+\\default)?")
-
 
 @rule((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
 \alterBroken "Context.grob" -> \alterBroken Context.grob
@@ -3668,8 +3669,7 @@ def conv(s):
                  + matcharg + ")", r"\1\3\2", s)
     s = re.sub(r"(\\overrideProperty\s+)(" + grob_spec + r"\s+" + grob_path + ")",
                  path_replace, s)
-    s = re.sub(r"(\\(?:override|revert)\s+)(" + grob_spec + r"\s+" + grob_path + ")",
-                 path_replace, s)
+    s = convert_overrides_to_dots(s)
     return s
 
 
@@ -4630,6 +4630,9 @@ def conv(s):
         r'S\.\|:']  # S.|:
     s = re.sub(r'\\bar\s*"(' + '|'.join(changed_bar_types) + ')"',
                r'\\bar "\1-|"', s)
+    # New syntax was introduced in 2.17.6, but this version adds a warning,
+    # which is more insistent.
+    s = convert_overrides_to_dots(s)
     return s
 
 fine_iteration_warning = _(r"""
