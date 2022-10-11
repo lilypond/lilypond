@@ -70,4 +70,3 @@ edge-height
 shorten-pair
 connect-to-neighbor
                )");
-

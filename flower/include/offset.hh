@@ -34,24 +34,18 @@ class Offset
 public:
   Real coordinate_a_[NO_AXES];
 
-  Real &operator [] (Axis i)
-  {
-    return coordinate_a_[i];
-  }
+  Real &operator[] (Axis i) { return coordinate_a_[i]; }
 
-  Real operator [] (Axis i) const
-  {
-    return coordinate_a_[i];
-  }
+  Real operator[] (Axis i) const { return coordinate_a_[i]; }
 
-  Offset &operator += (Offset o)
+  Offset &operator+= (Offset o)
   {
     (*this)[X_AXIS] += o[X_AXIS];
     (*this)[Y_AXIS] += o[Y_AXIS];
     return *this;
   }
 
-  Offset operator - () const
+  Offset operator- () const
   {
     Offset o = *this;
 
@@ -60,7 +54,7 @@ public:
     return o;
   }
 
-  Offset &operator -= (Offset o)
+  Offset &operator-= (Offset o)
   {
     (*this)[X_AXIS] -= o[X_AXIS];
     (*this)[Y_AXIS] -= o[Y_AXIS];
@@ -76,13 +70,13 @@ public:
     return *this;
   }
 
-  Offset &operator /= (Real a)
+  Offset &operator/= (Real a)
   {
     (*this) *= 1 / a;
     return *this;
   }
 
-  Offset &operator *= (Real a)
+  Offset &operator*= (Real a)
   {
     (*this)[X_AXIS] *= a;
     (*this)[Y_AXIS] *= a;
@@ -96,10 +90,7 @@ public:
     coordinate_a_[Y_AXIS] = iy;
   }
 
-  Offset ()
-  {
-    coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0;
-  }
+  Offset () { coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0; }
 
   std::string to_string () const;
 
@@ -114,7 +105,7 @@ public:
   Real angle_degrees () const;
   Real length () const;
   bool is_sane () const;
-  Offset operator *= (Offset z2);
+  Offset operator*= (Offset z2);
 
   /*
     Gets an orthogonal vector with same size to orig, pointing left
@@ -135,28 +126,28 @@ Offset complex_multiply (Offset, Offset);
 Offset offset_directed (Real);
 
 inline Offset
-Offset::operator *= (Offset z2)
+Offset::operator*= (Offset z2)
 {
   *this = complex_multiply (*this, z2);
   return *this;
 }
 
 inline Offset
-operator * (Real o1, Offset o2)
+operator* (Real o1, Offset o2)
 {
   o2 *= o1;
   return o2;
 }
 
 inline Offset
-operator / (Offset o1, Real a)
+operator/ (Offset o1, Real a)
 {
   o1 /= a;
   return o1;
 }
 
 inline Offset
-operator * (Offset o1, Real o2)
+operator* (Offset o1, Real o2)
 {
   o1 *= o2;
   return o1;
@@ -169,15 +160,13 @@ mirror (Offset o, Axis a)
   return o;
 }
 
-inline
-Real
+inline Real
 dot_product (Offset o1, Offset o2)
 {
   return o1[X_AXIS] * o2[X_AXIS] + o1[Y_AXIS] * o2[Y_AXIS];
 }
 
-inline
-Real
+inline Real
 cross_product (Offset o1, Offset o2)
 {
   return o1[X_AXIS] * o2[Y_AXIS] - o1[Y_AXIS] * o2[X_AXIS];

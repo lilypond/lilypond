@@ -55,8 +55,7 @@ using std::vector;
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
 
-LY_DEFINE (ly_find_file, "ly:find-file",
-           1, 0, 0, (SCM name),
+LY_DEFINE (ly_find_file, "ly:find-file", 1, 0, 0, (SCM name),
            R"(
 Return the absolute file name of @var{name}, or @code{#f} if not found.
            )")
@@ -71,8 +70,8 @@ Return the absolute file name of @var{name}, or @code{#f} if not found.
   return ly_string2scm (file_name);
 }
 
-LY_DEFINE (ly_rename_file, "ly:rename-file",
-           2, 0, 0, (SCM oldname, SCM newname),
+LY_DEFINE (ly_rename_file, "ly:rename-file", 2, 0, 0,
+           (SCM oldname, SCM newname),
            R"(
 Rename @var{oldname} to @var{newname}. In contrast to Guile's
 @code{rename-file} function, this replaces the destination if it already
@@ -111,8 +110,7 @@ Randomize C random generator.
   Ugh. Gulped file is copied twice. (maybe thrice if you count stdio
   buffering.)
 */
-LY_DEFINE (ly_gulp_file, "ly:gulp-file",
-           1, 1, 0, (SCM name, SCM size),
+LY_DEFINE (ly_gulp_file, "ly:gulp-file", 1, 1, 0, (SCM name, SCM size),
            R"(
 Read @var{size} characters from the file @var{name}, and return its contents in
 a string.  If @var{size} is undefined, the entire file is read.  The file is
@@ -131,8 +129,8 @@ looked up using the search path.
   return scm_from_latin1_stringn (contents.c_str (), contents.length ());
 }
 
-LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8",
-           1, 1, 0, (SCM name, SCM size),
+LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8", 1, 1, 0,
+           (SCM name, SCM size),
            R"(
 Read @var{size} characters from the file @var{name}, and return its contents in
 a string decoded from UTF-8.  If @var{size} is undefined, the entire file is
@@ -151,8 +149,7 @@ read.  The file is looked up using the search path.
   return scm_from_utf8_stringn (contents.c_str (), contents.length ());
 }
 
-LY_DEFINE (ly_dir_p, "ly:dir?",
-           1, 0, 0, (SCM s),
+LY_DEFINE (ly_dir_p, "ly:dir?", 1, 0, 0, (SCM s),
            R"(
 Is @var{s} a direction?  Valid directions are @w{@code{-1}}, @code{0},
 or@tie{}@code{1}, where @w{@code{-1}} represents left or down,
@@ -168,8 +165,7 @@ direction.
   return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_assoc_get, "ly:assoc-get",
-           2, 2, 0,
+LY_DEFINE (ly_assoc_get, "ly:assoc-get", 2, 2, 0,
            (SCM key, SCM alist, SCM default_value, SCM strict_checking),
            R"(
 Return value if @var{key} in @var{alist}, else @var{default-value} (or
@@ -188,22 +184,20 @@ Return value if @var{key} in @var{alist}, else @var{default-value} (or
 
   if (from_scm<bool> (strict_checking))
     {
-      string key_string = ly_scm2string
-                          (scm_object_to_string (key, SCM_UNDEFINED));
-      string default_value_string = ly_scm2string
-                                    (scm_object_to_string (default_value,
-                                                           SCM_UNDEFINED));
-      programming_error ("Cannot find key `"
-                         + key_string
-                         + "' in alist, setting to `"
-                         + default_value_string + "'.");
+      string key_string
+        = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
+      string default_value_string
+        = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
+      programming_error ("Cannot find key `" + key_string
+                         + "' in alist, setting to `" + default_value_string
+                         + "'.");
     }
 
   return default_value;
 }
 
-LY_DEFINE (ly_string_substitute, "ly:string-substitute",
-           3, 0, 0, (SCM a, SCM b, SCM s),
+LY_DEFINE (ly_string_substitute, "ly:string-substitute", 3, 0, 0,
+           (SCM a, SCM b, SCM s),
            R"(
 Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
            )")
@@ -213,14 +207,13 @@ Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
   LY_ASSERT_TYPE (scm_is_string, s, 3);
 
   string ss = ly_scm2string (s);
-  replace_all (&ss, ly_scm2string (a),
-               ly_scm2string (b));
+  replace_all (&ss, ly_scm2string (a), ly_scm2string (b));
 
   return ly_string2scm (ss);
 }
 
-LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
-           1, 0, 0, (SCM str),
+LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode", 1, 0, 0,
+           (SCM str),
            R"(
 Encode all characters in string @var{str} with hexadecimal percent escape
 sequences, with the following exceptions: characters @w{@samp{-./_}} and
@@ -235,23 +228,23 @@ characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
   return ly_string2scm (new_str);
 }
 
-LY_DEFINE (ly_number_2_string, "ly:number->string",
-           1, 0, 0, (SCM s),
+LY_DEFINE (ly_number_2_string, "ly:number->string", 1, 0, 0, (SCM s),
            R"(
 Convert @var{s} to a string without generating many decimals.
            )")
 {
   LY_ASSERT_TYPE (scm_is_number, s, 1);
 
-  char str[400];                        // ugh.
+  char str[400]; // ugh.
 
   if (scm_is_false (scm_exact_p (s)))
     {
       Real r (from_scm<double> (s));
       if (!std::isfinite (r))
         {
-          programming_error ("infinity or NaN encountered while converting Real number, "
-                             "setting to zero");
+          programming_error (
+            "infinity or NaN encountered while converting Real number, "
+            "setting to zero");
 
           r = 0.0;
         }
@@ -298,8 +291,7 @@ numbers.
 // TODO: When we drop Guile 1 support, remove this function
 // and simply use either escape sequences (\u, \U) and/or
 // integer->char.
-LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
-           1, 0, 0, (SCM wc),
+LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8", 1, 0, 0, (SCM wc),
            R"(
 Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
            )")
@@ -316,28 +308,27 @@ Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
   else if (wide_char < 0x0800)
     {
       *p++ = static_cast<char> (((wide_char >> 6)) | 0xC0);
-      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
     }
   else if (wide_char < 0x10000)
     {
       *p++ = static_cast<char> (((wide_char >> 12)) | 0xE0);
       *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
     }
   else
     {
       *p++ = static_cast<char> (((wide_char >> 18)) | 0xF0);
       *p++ = static_cast<char> (((wide_char >> 12) & 0x3F) | 0x80);
       *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = static_cast<char> (((wide_char) & 0x3F) | 0x80);
+      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
     }
   *p = 0;
 
   return scm_from_utf8_string (buf);
 }
 
-LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
-           0, 0, 0, (),
+LY_DEFINE (ly_effective_prefix, "ly:effective-prefix", 0, 0, 0, (),
            R"(
 Return effective prefix.  For example, if LilyPond Scheme files are stored in
 directory @file{/foo/bar/scm} and PS files in @file{/foo/bar/ps}, the effective
@@ -347,8 +338,8 @@ prefix is @file{/foo/bar}.
   return ly_string2scm (lilypond_datadir);
 }
 
-LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
-           2, 2, 0, (SCM key, SCM achain, SCM default_value, SCM strict_checking),
+LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get", 2, 2, 0,
+           (SCM key, SCM achain, SCM default_value, SCM strict_checking),
            R"(
 Return value for @var{key} from a list of alists @var{achain}.  If no entry is
 found, return @var{default-value} or @code{#f} if @var{default-value} is not
@@ -359,7 +350,7 @@ output in such cases.
   if (scm_is_pair (achain))
     {
       SCM handle = scm_is_symbol (key) ? scm_assq (key, scm_car (achain))
-                   : ly_assoc (key, scm_car (achain));
+                                       : ly_assoc (key, scm_car (achain));
       if (scm_is_pair (handle))
         return scm_cdr (handle);
       else
@@ -368,22 +359,20 @@ output in such cases.
 
   if (from_scm<bool> (strict_checking))
     {
-      string key_string = ly_scm2string
-                          (scm_object_to_string (key, SCM_UNDEFINED));
-      string default_value_string = ly_scm2string
-                                    (scm_object_to_string (default_value,
-                                                           SCM_UNDEFINED));
-      programming_error ("Cannot find key `"
-                         + key_string
-                         + "' in achain, setting to `"
-                         + default_value_string + "'.");
+      string key_string
+        = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
+      string default_value_string
+        = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
+      programming_error ("Cannot find key `" + key_string
+                         + "' in achain, setting to `" + default_value_string
+                         + "'.");
     }
 
   return SCM_UNBNDP (default_value) ? SCM_BOOL_F : default_value;
 }
 
-LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
-           1, 1, 0, (SCM fd_or_file_name, SCM mode),
+LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect", 1, 1, 0,
+           (SCM fd_or_file_name, SCM mode),
            R"(
 Redirect standard error output (stderr) to file descriptor @var{fd} if the
 first parameter is an integer, or to file @var{file-name}, opened with
@@ -415,25 +404,19 @@ first parameter is an integer, or to file @var{file-name}, opened with
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
-           1, 0, 0, (SCM tab),
+LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys", 1, 0, 0, (SCM tab),
            R"(
 Return a list of keys in @var{tab}.
            )")
 {
-  auto accumulate_symbol = [] (void * /* closure */,
-                               SCM key,
-                               SCM /* val */,
-                               SCM result)
-  {
-    return scm_cons (key, result);
-  };
+  auto accumulate_symbol = [] (void * /* closure */, SCM key, SCM /* val */,
+                               SCM result) { return scm_cons (key, result); };
 
   return ly_scm_hash_fold (accumulate_symbol, nullptr, SCM_EOL, tab);
 }
 
-LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
-           1, 0, 0, (SCM name_sym),
+LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier", 1,
+           0, 0, (SCM name_sym),
            R"(
 Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
            )")
@@ -488,15 +471,15 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     return (ly_symbol2string (arg));
   else
     {
-      ly_progress (scm_from_latin1_string ("\nUnsupported SCM value for format: ~a"),
-                   ly_list (arg));
+      ly_progress (
+        scm_from_latin1_string ("\nUnsupported SCM value for format: ~a"),
+        ly_list (arg));
     }
 
   return "";
 }
 
-LY_DEFINE (ly_format, "ly:format",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_format, "ly:format", 1, 0, 1, (SCM str, SCM rest),
            R"(
 LilyPond specific format function, supporting @code{~a} and @code{~[0-9]f}.
 Basic support for @code{~s} is also provided.
@@ -554,8 +537,7 @@ Basic support for @code{~s} is also provided.
     }
 
   if (scm_is_pair (rest))
-    programming_error (string (__FUNCTION__)
-                       + ": too many arguments");
+    programming_error (string (__FUNCTION__) + ": too many arguments");
 
   // one wonders how much this extra walk actually saves
   vsize len = 0;
@@ -581,13 +563,11 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
     flags |= G_SPAWN_STDOUT_TO_DEV_NULL;
   if (!standard_error)
     flags |= G_SPAWN_STDERR_TO_DEV_NULL;
-  if (!g_spawn_sync (0, argv, 0, GSpawnFlags (flags),
-                     0, 0,
-                     standard_output, standard_error,
-                     &exit_status, &error))
+  if (!g_spawn_sync (0, argv, 0, GSpawnFlags (flags), 0, 0, standard_output,
+                     standard_error, &exit_status, &error))
     {
-      warning (_f ("g_spawn_sync failed (%d): %s: %s",
-                   exit_status, argv[0], error->message));
+      warning (_f ("g_spawn_sync failed (%d): %s: %s", exit_status, argv[0],
+                   error->message));
       g_error_free (error);
       if (!exit_status)
         exit_status = -1;
@@ -596,8 +576,7 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
   return exit_status;
 }
 
-LY_DEFINE (ly_spawn, "ly:spawn",
-           1, 0, 1, (SCM command, SCM rest),
+LY_DEFINE (ly_spawn, "ly:spawn", 1, 0, 1, (SCM command, SCM rest),
            R"(
 Simple Scheme interface to the GLib function @code{g_spawn_sync}.  If an error
 occurs, format it with @code{format} and @var{rest}.
@@ -625,8 +604,8 @@ occurs, format it with @code{format} and @var{rest}.
   char *standard_output = 0;
   char *standard_error = 0;
   // Always get the pointer to the stdout/stderr messages
-  const auto exit_status = ly_run_command (argv.data (),
-                                           &standard_output, &standard_error);
+  const auto exit_status
+    = ly_run_command (argv.data (), &standard_output, &standard_error);
 
   if (standard_output && standard_error)
     {

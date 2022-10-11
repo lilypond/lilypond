@@ -33,7 +33,7 @@
 using std::map;
 using std::vector;
 
-typedef map<Grob *, vector <Grob *> > Grob_scripts_map;
+typedef map<Grob *, vector<Grob *>> Grob_scripts_map;
 
 void
 Script_column::add_side_positioned (Grob *me, Grob *script)
@@ -46,8 +46,8 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
   set_object (script, "script-column", me->self_scm ());
 }
 
-LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
-           2, 0, 0, (SCM a, SCM b),
+LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less", 2, 0,
+           0, (SCM a, SCM b),
            R"(
 Compare two grobs by script priority.  For internal use.
            )")
@@ -89,8 +89,7 @@ Script_column::row_before_line_breaking (SCM smob)
     }
 
   for (Grob_scripts_map::const_iterator i (head_scripts_map.begin ());
-       i != head_scripts_map.end ();
-       i++)
+       i != head_scripts_map.end (); i++)
     {
       vector<Grob *> grobs = (*i).second;
 
@@ -148,27 +147,31 @@ Script_column::order_grobs (vector<Grob *> grobs)
       SCM ss = scm_reverse_x (scripts_drul[d], SCM_EOL);
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
 
-      Grob *g = 0;  // current grob in list
+      Grob *g = 0;    // current grob in list
       Grob *last = 0; // previous grob in list
-      SCM initial_outside_staff = SCM_EOL;  // initial outside_staff_priority of current grob
-      SCM last_initial_outside_staff = SCM_EOL;  // initial outside_staff_priority of previous grob
+      SCM initial_outside_staff
+        = SCM_EOL; // initial outside_staff_priority of current grob
+      SCM last_initial_outside_staff
+        = SCM_EOL; // initial outside_staff_priority of previous grob
 
       //  loop over all grobs in script column (already sorted by script_priority)
-      for (SCM s = ss; scm_is_pair (s);
-           s = scm_cdr (s), last = g, last_initial_outside_staff = initial_outside_staff)
+      for (SCM s = ss; scm_is_pair (s); s = scm_cdr (s), last = g,
+               last_initial_outside_staff = initial_outside_staff)
         {
           g = unsmob<Grob> (scm_car (s));
           initial_outside_staff = get_property (g, "outside-staff-priority");
-          if (last)    //not the first grob in the list
+          if (last) //not the first grob in the list
             {
-              SCM last_outside_staff = get_property (last, "outside-staff-priority");
+              SCM last_outside_staff
+                = get_property (last, "outside-staff-priority");
               /*
                 if outside_staff_priority is missing for previous grob,
                 use all the scripts so far as support for the current grob
               */
               if (!scm_is_number (last_outside_staff))
                 for (SCM t = ss; !scm_is_eq (t, s); t = scm_cdr (t))
-                  Side_position_interface::add_support (g, unsmob<Grob> (scm_car (t)));
+                  Side_position_interface::add_support (
+                    g, unsmob<Grob> (scm_car (t)));
               /*
                 if outside_staff_priority is missing or is equal to original
                 outside_staff_priority of previous grob, set new
@@ -176,10 +179,13 @@ Script_column::order_grobs (vector<Grob *> grobs)
                 of previous grob in order to preserve ordering.
               */
               else if ((!scm_is_number (initial_outside_staff))
-                       || (fabs (from_scm<double> (initial_outside_staff)
-                                 - from_scm<double> (last_initial_outside_staff, 0)) < 0.001))
-                set_property (g, "outside-staff-priority",
-                              to_scm (from_scm<double> (last_outside_staff) + 0.1));
+                       || (fabs (
+                             from_scm<double> (initial_outside_staff)
+                             - from_scm<double> (last_initial_outside_staff, 0))
+                           < 0.001))
+                set_property (
+                  g, "outside-staff-priority",
+                  to_scm (from_scm<double> (last_outside_staff) + 0.1));
             }
         }
     }

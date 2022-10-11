@@ -74,9 +74,10 @@ public:
   Input *origin () const override;
 
   VIRTUAL_CLASS_NAME (Music_iterator);
+
 private:
   Music_iterator (Music_iterator const &) = delete;
-  Music_iterator &operator = (Music_iterator const &) = delete;
+  Music_iterator &operator= (Music_iterator const &) = delete;
 
 public:
   const Moment &music_get_length () const { return music_length_; }
@@ -109,10 +110,7 @@ public:
   }
 
   // Create an iterator that has this iterator as its parent.
-  SCM create_child (Music *mus)
-  {
-    return create_iterator (this, mus);
-  }
+  SCM create_child (Music *mus) { return create_iterator (this, mus); }
 
   void init_context (Context *);
   void quit ();
@@ -120,8 +118,7 @@ public:
   virtual Moment pending_moment () const;
   bool ok () const
   {
-    return (pending_moment () < Moment::infinity ())
-           || run_always ();
+    return (pending_moment () < Moment::infinity ()) || run_always ();
   }
   virtual bool run_always () const;
   // process is called with a time relative to the iterator start, so
@@ -138,7 +135,7 @@ public:
   // inherited implementation first, and then call preorder_walk for each
   // child.
   virtual void
-  preorder_walk (const std::function <void (Music_iterator *)> &visit)
+  preorder_walk (const std::function<void (Music_iterator *)> &visit)
   {
     if (visit)
       visit (this);
@@ -215,15 +212,13 @@ private:
 
 bool is_child_context (Context *me, Context *child);
 
-#define IMPLEMENT_CTOR_CALLBACK(Class)                                  \
-  LY_DEFINE_MEMBER_FUNCTION (Class, constructor, \
-                             mangle_cxx_identifier (#Class "::constructor").c_str(), \
-                             0, 0, 0,                                   \
-                             (),                                        \
-                             "")                                        \
-  {                                                                     \
-    Class *c = (new Class);                                             \
-    return c->unprotect ();                                             \
+#define IMPLEMENT_CTOR_CALLBACK(Class)                                         \
+  LY_DEFINE_MEMBER_FUNCTION (                                                  \
+    Class, constructor,                                                        \
+    mangle_cxx_identifier (#Class "::constructor").c_str (), 0, 0, 0, (), "")  \
+  {                                                                            \
+    Class *c = (new Class);                                                    \
+    return c->unprotect ();                                                    \
   }
 
 #endif // MUSIC_ITERATOR_HH

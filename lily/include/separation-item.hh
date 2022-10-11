@@ -42,4 +42,3 @@ struct Separation_item
 };
 
 #endif /* SINGLE_MALT_GROUPING_ITEM_HH */
-

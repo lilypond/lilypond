@@ -45,11 +45,13 @@ public:
 class Midi_chunk
 {
 public:
-  void set (const std::string &header_string, const std::string &data_string, const std::string &footer_string);
+  void set (const std::string &header_string, const std::string &data_string,
+            const std::string &footer_string);
   virtual std::string to_string () const;
   virtual std::string data_string () const;
   VIRTUAL_CLASS_NAME (Midi_chunk);
   virtual ~Midi_chunk ();
+
 private:
   std::string data_string_;
   std::string footer_string_;
@@ -82,4 +84,3 @@ public:
 };
 
 #endif /* MIDI_CHUNK_HH */
-

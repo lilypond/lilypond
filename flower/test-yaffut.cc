@@ -66,10 +66,8 @@ protected:
                 || !std::equal (exp.rbegin (), exp.rend (), act.rbegin ()))
               {
                 std::cout << "EXPECTED EXCEPTION MESSAGE:\n"
-                          << exp
-                          << "\nACTUAL EXCEPTION MESSAGE:\n"
-                          << act
-                          << "\n";
+                          << exp << "\nACTUAL EXCEPTION MESSAGE:\n"
+                          << act << "\n";
                 assert (false);
               }
           }
@@ -81,7 +79,7 @@ protected:
       }
   }
 };
-}
+} // namespace
 
 TEST (Yaffut_self_test, failure_message_assert_throw)
 {
@@ -93,34 +91,30 @@ TEST (Yaffut_self_test, failure_message_assert_throw)
 TEST (Yaffut_self_test, failure_message_check)
 {
   const bool phooey = false;
-  expect_fail ([&] { YAFFUT_CHECK (phooey); },
-               ": CHECK(phooey) failed ");
+  expect_fail ([&] { YAFFUT_CHECK (phooey); }, ": CHECK(phooey) failed ");
 }
 
 TEST (Yaffut_self_test, failure_message_fail)
 {
-  expect_fail ([&] { YAFFUT_FAIL ("mumble"); },
-               ": mumble");
+  expect_fail ([&] { YAFFUT_FAIL ("mumble"); }, ": mumble");
 }
 
 TEST (Yaffut_self_test, failure_message_equal)
 {
   const int a = 123;
   const int b = 456;
-  expect_fail ([&] { YAFFUT_EQUAL (a, b); },
-               ": EQUAL(a == b) failed \n"
-               "left:  (int) 123\n"
-               "right: (int) 456");
+  expect_fail ([&] { YAFFUT_EQUAL (a, b); }, ": EQUAL(a == b) failed \n"
+                                             "left:  (int) 123\n"
+                                             "right: (int) 456");
 }
 
 TEST (Yaffut_self_test, failure_message_unequal)
 {
   const float f = 1.5;
   const double d = 1.5;
-  expect_fail ([&] { YAFFUT_UNEQUAL (f, d); },
-               ": UNEQUAL(f != d) failed \n"
-               "left:  (float) 1.5\n"
-               "right: (double) 1.5");
+  expect_fail ([&] { YAFFUT_UNEQUAL (f, d); }, ": UNEQUAL(f != d) failed \n"
+                                               "left:  (float) 1.5\n"
+                                               "right: (double) 1.5");
 }
 
 // NaN equals nothing, not even itself.

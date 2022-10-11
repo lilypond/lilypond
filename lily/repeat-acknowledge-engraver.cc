@@ -28,8 +28,8 @@
 class Repeat_acknowledge_engraver : public Engraver
 {
 public:
-
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
+
 protected:
   void add_repeat_command (SCM new_cmd);
   void listen_volta_repeat_end (Stream_event *);

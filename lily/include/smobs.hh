@@ -163,11 +163,15 @@ class Scm_init
   static const Scm_init *list_;
   void (*const fun_) (void);
   Scm_init const *const next_;
-  Scm_init ();          // don't use default constructor, don't define
-  Scm_init (const Scm_init &);  // don't define copy constructor
+  Scm_init ();                 // don't use default constructor, don't define
+  Scm_init (const Scm_init &); // don't define copy constructor
 public:
-  Scm_init (void (*fun) (void)) : fun_ (fun), next_ (list_)
-  { list_ = this; }
+  Scm_init (void (*fun) (void))
+    : fun_ (fun),
+      next_ (list_)
+  {
+    list_ = this;
+  }
   static void init ();
 };
 
@@ -178,6 +182,7 @@ class Smob_base
   static Scm_init scm_init_;
   static void init (void);
   static std::string smob_name_;
+
 protected:
   static Super *unchecked_unsmob (SCM s)
   {
@@ -186,10 +191,15 @@ protected:
   // reference scm_init_ in smob_tag which is sure to be called.  The
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
-  static scm_t_bits smob_tag () { (void) scm_init_; return smob_tag_; }
+  static scm_t_bits smob_tag ()
+  {
+    (void) scm_init_;
+    return smob_tag_;
+  }
   constexpr Smob_base () = default;
   static SCM register_ptr (Super *p);
   static Super *unregister_ptr (SCM obj);
+
 private:
   // Those fallbacks are _only_ for internal use by Smob_base.  They
   // are characterized by no knowledge about the implemented type
@@ -211,12 +221,12 @@ private:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *) const;
   static int print_trampoline (SCM, SCM, scm_print_state *);
-  static void smob_proc_init (scm_t_bits) { };
+  static void smob_proc_init (scm_t_bits) {};
 
   // Define type_p_name_ in the Super class as a const char * const.
   // Without such definition it defaults to 0, producing no predicate.
 
-  static const char *const type_p_name_;  // = 0
+  static const char *const type_p_name_; // = 0
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
   // making a smob callable like a function.  Its first argument is a
@@ -224,14 +234,14 @@ private:
   // correct number of SCM arguments and returning SCM.  The function
   // itself has to be defined separately.
 
-#define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                 \
-  static void smob_proc_init (scm_t_bits smob_tag)                      \
-  {                                                                     \
-    scm_set_smob_apply (smob_tag, reinterpret_cast<scm_t_subr> (FUN),   \
-                        REQ, OPT, VAR);                                 \
+#define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                        \
+  static void smob_proc_init (scm_t_bits smob_tag)                             \
+  {                                                                            \
+    scm_set_smob_apply (smob_tag, reinterpret_cast<scm_t_subr> (FUN), REQ,     \
+                        OPT, VAR);                                             \
   }
 
-#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \
+#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                               \
   LY_DECLARE_STATIC_SMOB_PROC (smob_trampoline<PMF>, REQ, OPT, VAR)
 
   // Template parameter packs could reduce repetition here; however,
@@ -279,7 +289,8 @@ private:
 };
 
 template <class T>
-std::string calc_smob_name ()
+std::string
+calc_smob_name ()
 {
   std::string name = typeid (T).name ();
   // Primitive demangling, suitable for GCC, should be harmless
@@ -291,14 +302,16 @@ std::string calc_smob_name ()
 }
 
 template <class T>
-inline T *unsmob (SCM s)
+inline T *
+unsmob (SCM s)
 {
   /* Any reference to a freed cell is a programming error.
 
      This is a bit clumsy, but works across GUILE 1.8 to 3.0
    */
   const unsigned int FREED_SMOB = 0;
-  assert (!(SCM_NIMP(s) && SCM_TYP7(s) == scm_tc7_smob && SCM_SMOBNUM(s) == FREED_SMOB));
+  assert (!(SCM_NIMP (s) && SCM_TYP7 (s) == scm_tc7_smob
+            && SCM_SMOBNUM (s) == FREED_SMOB));
 
   return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
@@ -332,6 +345,7 @@ protected:
   Smob_core ();
   ~Smob_core ();
   void maybe_grow_heap ();
+
 public:
   SCM self_scm () const { return self_scm_; }
 };
@@ -341,9 +355,11 @@ class Smob : public Smob_core, public Smob_base<Super>
 {
 private:
   Smob (const Smob<Super> &) = delete;
-  Smob &operator = (const Smob<Super> &) = delete;
+  Smob &operator= (const Smob<Super> &) = delete;
+
 protected:
   Smob () = default;
+
 public:
   static size_t free_smob (SCM obj)
   {
@@ -356,14 +372,8 @@ public:
     self_scm_ = s;
     return s;
   }
-  void protect ()
-  {
-    protect_smob (self_scm_);
-  }
-  void smobify_self ()
-  {
-    protect_smob (unprotected_smobify_self ());
-  }
+  void protect () { protect_smob (self_scm_); }
+  void smobify_self () { protect_smob (unprotected_smobify_self ()); }
   SCM unprotect ()
   {
     SCM s = self_scm_;
@@ -388,23 +398,26 @@ class parsed_dead
   }
 
 public:
-  parsed_dead ()
-  {
-    elements.push_back (this);
-  }
+  parsed_dead () { elements.push_back (this); }
   void checkin (SCM arg) { data.push_back (arg); }
   static SCM readout ();
 };
 
 #ifdef DEBUG
-#define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
-  do {                                                                  \
-    static parsed_dead pass_here;                                       \
-    if (parsed_objects_should_be_dead)                                  \
-      pass_here.checkin (arg);                                          \
-  } while (0)
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
+  do                                                                           \
+    {                                                                          \
+      static parsed_dead pass_here;                                            \
+      if (parsed_objects_should_be_dead)                                       \
+        pass_here.checkin (arg);                                               \
+    }                                                                          \
+  while (0)
 #else
-#define ASSERT_LIVE_IS_ALLOWED(arg) do { (void)(arg); }  \
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
+  do                                                                           \
+    {                                                                          \
+      (void) (arg);                                                            \
+    }                                                                          \
   while (0)
 #endif
 

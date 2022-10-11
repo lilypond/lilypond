@@ -41,6 +41,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   void finalize () override;
+
 private:
   vector<Stream_event *> cluster_notes_;
   Item *beacon_;
@@ -76,7 +77,6 @@ Cluster_spanner_engraver::typeset_grobs ()
         {
           finished_spanner_->set_bound (RIGHT,
                                         finished_spanner_->get_bound (LEFT));
-
         }
 
       finished_spanner_ = 0;
@@ -103,7 +103,8 @@ Cluster_spanner_engraver::process_music ()
 
       for (vsize i = 0; i < cluster_notes_.size (); i++)
         {
-          Pitch *pit = unsmob<Pitch> (get_property (cluster_notes_[i], "pitch"));
+          Pitch *pit
+            = unsmob<Pitch> (get_property (cluster_notes_[i], "pitch"));
 
           int p = (pit ? pit->steps () : 0) + c0;
 
@@ -111,10 +112,10 @@ Cluster_spanner_engraver::process_music ()
           pmin = std::min (pmin, p);
         }
 
-      beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
+      beacon_
+        = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
       set_property (beacon_, "positions",
-                    scm_cons (to_scm (pmin),
-                              to_scm (pmax)));
+                    scm_cons (to_scm (pmin), to_scm (pmax)));
     }
 
   if (beacon_ && !spanner_)
@@ -123,7 +124,8 @@ Cluster_spanner_engraver::process_music ()
   if (beacon_ && spanner_)
     {
       add_bound_item (spanner_, beacon_);
-      Pointer_group_interface::add_grob (spanner_, ly_symbol2scm ("columns"), beacon_);
+      Pointer_group_interface::add_grob (spanner_, ly_symbol2scm ("columns"),
+                                         beacon_);
     }
 }
 
@@ -172,4 +174,3 @@ ClusterSpannerBeacon
                 R"(
 
                 )");
-

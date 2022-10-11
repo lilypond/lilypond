@@ -36,6 +36,7 @@ protected:
   void process_music ();
 
   void listen_key_change (Stream_event *);
+
 private:
   Stream_event *key_ev_;
 };
@@ -64,20 +65,17 @@ Key_performer::process_music ()
 
       SCM acc = Lily::alterations_in_key (pitchlist);
 
-      Pitch key_do (0,
-                    from_scm<int> (scm_caar (pitchlist)),
+      Pitch key_do (0, from_scm<int> (scm_caar (pitchlist)),
                     from_scm<Rational> (scm_cdar (pitchlist)));
 
       SCM c_pitchlist
-        = ly_transpose_key_alist (pitchlist,
-                                  key_do.negated ().smobbed_copy ());
+        = ly_transpose_key_alist (pitchlist, key_do.negated ().smobbed_copy ());
 
       /* MIDI keys are too limited for lilypond scales.
          We check for minor scale and assume major otherwise.  */
 
       SCM third = ly_assoc (to_scm (2), c_pitchlist);
-      bool minor = (scm_is_pair (third)
-                    && scm_is_number (scm_cdr (third))
+      bool minor = (scm_is_pair (third) && scm_is_number (scm_cdr (third))
                     && from_scm<Rational> (scm_cdr (third)) == FLAT_ALTERATION);
 
       announce<Audio_key> (key_ev_, from_scm<int> (acc), !minor);

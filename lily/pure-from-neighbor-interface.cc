@@ -29,18 +29,16 @@
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs,
-                      "ly:pure-from-neighbor-interface::calc-pure-relevant-grobs",
-                       1);
+MAKE_SCHEME_CALLBACK (
+  Pure_from_neighbor_interface, calc_pure_relevant_grobs,
+  "ly:pure-from-neighbor-interface::calc-pure-relevant-grobs", 1);
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  extract_grob_set ((me->original () && me->original ()->is_live ()
-                     ? me->original ()
-                     : me),
-                    "neighbors",
-                    elts);
+  extract_grob_set (
+    (me->original () && me->original ()->is_live () ? me->original () : me),
+    "neighbors", elts);
 
   vector<Grob *> new_elts;
   new_elts.insert (new_elts.end (), elts.begin (), elts.end ());
@@ -48,7 +46,8 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
   if (Grob_array *a = unsmob<Grob_array> (get_object (me, "neighbors")))
     a->set_array (new_elts);
 
-  return Axis_group_interface::internal_calc_pure_relevant_grobs (me, "neighbors");
+  return Axis_group_interface::internal_calc_pure_relevant_grobs (me,
+                                                                  "neighbors");
 }
 
 ADD_INTERFACE (Pure_from_neighbor_interface,

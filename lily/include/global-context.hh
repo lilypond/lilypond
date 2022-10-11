@@ -36,6 +36,7 @@ class Global_context : Preinit_Global_context, public Context
   OVERRIDE_CLASS_NAME (Global_context);
 
   friend class Output_def;
+
 public:
   Global_context (Output_def *, Context_def *);
   vsize get_moments_left () const;

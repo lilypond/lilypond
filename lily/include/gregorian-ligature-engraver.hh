@@ -36,13 +36,12 @@ protected:
 
   void listen_pes_or_flexa (Stream_event *ev);
 
-  void
-  build_ligature (Spanner *ligature,
-                  std::vector<Item *> const &primitives) override;
+  void build_ligature (Spanner *ligature,
+                       std::vector<Item *> const &primitives) override;
 
-  virtual void
-  transform_heads (Spanner *ligature,
-                   std::vector<Item *> const &primitives) = 0;
+  virtual void transform_heads (Spanner *ligature,
+                                std::vector<Item *> const &primitives)
+    = 0;
 
   void stop_translation_timestep ();
 };

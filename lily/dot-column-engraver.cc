@@ -27,11 +27,11 @@
 class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
+
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
 protected:
-
   void acknowledge_rhythmic_head (Grob_info);
 
   void stop_translation_timestep ();

@@ -45,8 +45,8 @@ Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info_t<Spanner> gi)
 }
 
 void
-Staff_collecting_engraver::acknowledge_end_staff_symbol
-(Grob_info_t<Spanner> gi)
+Staff_collecting_engraver::acknowledge_end_staff_symbol (
+  Grob_info_t<Spanner> gi)
 {
   SCM staffs = get_property (this, "stavesFound");
   staffs = scm_delq (gi.grob ()->self_scm (), staffs);

@@ -40,8 +40,10 @@ public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
   static const char *const type_p_name_;
+
 private:
   SCM mods_;
+
 public:
   void add_context_mod (SCM);
   void add_context_mods (SCM);

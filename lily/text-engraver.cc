@@ -38,8 +38,10 @@ class Text_engraver : public Engraver
 {
   vector<Stream_event *> evs_;
   vector<Grob *> scripts_;
+
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
+
 protected:
   void stop_translation_timestep ();
   void process_music ();
@@ -86,9 +88,9 @@ Text_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   // Make note column (or rest, if there are no heads) the parent of the script.
   extract_grob_set (info.grob (), "note-heads", heads);
-  Grob *x_parent = (heads.size ()
-                    ? info.grob ()
-                    : unsmob<Grob> (get_object (info.grob (), "rest")));
+  Grob *x_parent
+    = (heads.size () ? info.grob ()
+                     : unsmob<Grob> (get_object (info.grob (), "rest")));
 
   for (vsize i = 0; i < scripts_.size (); i++)
     {

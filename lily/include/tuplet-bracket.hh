@@ -47,4 +47,3 @@ public:
 };
 
 #endif // Tuplet_bracket_HH
-

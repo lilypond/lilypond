@@ -178,8 +178,8 @@ Input::end_column_number () const
 }
 
 void
-Input::get_counts (ssize_t *line, ssize_t *chr,
-                   ssize_t *col, ssize_t *offset) const
+Input::get_counts (ssize_t *line, ssize_t *chr, ssize_t *col,
+                   ssize_t *offset) const
 {
   source_file_->get_counts (start_, line, chr, col, offset);
 }
@@ -201,10 +201,7 @@ Input::get_source_file () const
 SCM
 with_location_n (SCM loc, SCM proc, SCM *argv, size_t nargs)
 {
-  return ly_with_fluid (Lily::f_location,
-                        unsmob<Input> (loc) ? loc : SCM_BOOL_F,
-                        [proc, argv, nargs] ()
-                        {
-                          return scm_call_n (proc, argv, nargs);
-                        });
+  return ly_with_fluid (
+    Lily::f_location, unsmob<Input> (loc) ? loc : SCM_BOOL_F,
+    [proc, argv, nargs] () { return scm_call_n (proc, argv, nargs); });
 }

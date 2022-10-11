@@ -78,12 +78,10 @@ print_header (std::ostream &stream, FT_Face face)
   const auto *const ht
     = static_cast<TT_Header *> (FT_Get_Sfnt_Table (face, ft_sfnt_head));
 
-  stream << "/FontBBox ["
-         << float (ht->xMin) / float (ht->Units_Per_EM) << " "
+  stream << "/FontBBox [" << float (ht->xMin) / float (ht->Units_Per_EM) << " "
          << float (ht->yMin) / float (ht->Units_Per_EM) << " "
          << float (ht->xMax) / float (ht->Units_Per_EM) << " "
-         << float (ht->yMax) / float (ht->Units_Per_EM)
-         << "] def" << std::endl;
+         << float (ht->yMax) / float (ht->Units_Per_EM) << "] def" << std::endl;
 
   stream << "/FontType 42 def" << std::endl
          << "/FontInfo 8 dict dup begin" << std::endl;
@@ -92,14 +90,14 @@ print_header (std::ostream &stream, FT_Face face)
   int32_t font_revision = static_cast<int32_t> (ht->Font_Revision);
   stream << "/version (" << (font_revision / 65536.0) << ") def" << std::endl;
 
-  stream << "/isFixedPitch "
-         << (pt->isFixedPitch ? "true" : "false") << " def" << std::endl
+  stream << "/isFixedPitch " << (pt->isFixedPitch ? "true" : "false") << " def"
+         << std::endl
          << "/UnderlinePosition "
-         << float (pt->underlinePosition) / float (ht->Units_Per_EM)
-         << " def" << std::endl
+         << float (pt->underlinePosition) / float (ht->Units_Per_EM) << " def"
+         << std::endl
          << "/UnderlineThickness "
-         << float (pt->underlineThickness) / float (ht->Units_Per_EM)
-         << " def" << std::endl
+         << float (pt->underlineThickness) / float (ht->Units_Per_EM) << " def"
+         << std::endl
          << "end readonly def" << std::endl;
 }
 
@@ -109,10 +107,10 @@ const FT_ULong FT_ENC_TAG (glyf_tag, 'g', 'l', 'y', 'f');
 const FT_ULong FT_ENC_TAG (head_tag, 'h', 'e', 'a', 'd');
 const FT_ULong FT_ENC_TAG (loca_tag, 'l', 'o', 'c', 'a');
 
-static
-void t42_write_table (std::ostream &stream, FT_Face face,
-                      unsigned char const *buffer, size_t s, bool is_glyf,
-                      FT_ULong head_length, FT_ULong loca_length)
+static void
+t42_write_table (std::ostream &stream, FT_Face face,
+                 unsigned char const *buffer, size_t s, bool is_glyf,
+                 FT_ULong head_length, FT_ULong loca_length)
 {
   vector<FT_UShort> chunks;
   bool long_offsets = false;
@@ -208,19 +206,15 @@ void t42_write_table (std::ostream &stream, FT_Face face,
     {
       if (l >= chunks[cur_chunk_idx])
         {
-          stream << std::endl
-                 << " 00>" << std::endl
-                 << " <";
+          stream << std::endl << " 00>" << std::endl << " <";
           l = 0;
           cur_chunk_idx++;
         }
 
       if (l % 31 == 0)
-        stream << std::endl
-               << "  ";
+        stream << std::endl << "  ";
 
-      stream << xdigits[(buffer[j] & 0xF0) >> 4]
-             << xdigits[buffer[j] & 0x0F];
+      stream << xdigits[(buffer[j] & 0xF0) >> 4] << xdigits[buffer[j] & 0x0F];
 
       l++;
     }
@@ -229,9 +223,7 @@ void t42_write_table (std::ostream &stream, FT_Face face,
   while ((s++) % 4 != 0)
     stream << "00";
 
-  stream << std::endl
-         << "  00" << std::endl
-         << " >";
+  stream << std::endl << "  00" << std::endl << " >";
 }
 
 static void
@@ -247,8 +239,7 @@ print_body (std::ostream &stream, FT_Face face)
     might be a TTC where tables are not contiguous, or the font
     contains tables which aren't indexed at all
    */
-  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
-         != FT_Err_Table_Missing)
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length) != FT_Err_Table_Missing)
     {
       lengths.push_back (length);
       tags.push_back (tag);
@@ -264,7 +255,7 @@ print_body (std::ostream &stream, FT_Face face)
   unsigned char *hbuf = new unsigned char[hlength];
   unsigned char *p;
 
-  hbuf[0] = 0x00;                                       /* version */
+  hbuf[0] = 0x00; /* version */
   hbuf[1] = 0x01;
   hbuf[2] = 0x00;
   hbuf[3] = 0x00;
@@ -290,7 +281,7 @@ print_body (std::ostream &stream, FT_Face face)
 
   FT_ULong checksum, font_checksum = 0;
 
-  FT_ULong offset = hlength;            /* first table offset */
+  FT_ULong offset = hlength; /* first table offset */
 
   for (FT_UInt i = 0; i < idx; i++)
     {
@@ -298,7 +289,7 @@ print_body (std::ostream &stream, FT_Face face)
       FT_ULong len = (lengths[i] + 3) & ~3;
       unsigned char *buf = new unsigned char[len];
 
-      buf[len - 1] = 0x00;                /* assure padding with zeros */
+      buf[len - 1] = 0x00; /* assure padding with zeros */
       buf[len - 2] = 0x00;
       buf[len - 3] = 0x00;
 
@@ -362,14 +353,13 @@ print_body (std::ostream &stream, FT_Face face)
     the /sfnts array must be constructed
    */
   stream << "/sfnts [";
-  t42_write_table (stream, face, hbuf, hlength, false,
-                   head_length, loca_length);
+  t42_write_table (stream, face, hbuf, hlength, false, head_length,
+                   loca_length);
   delete[] hbuf;
 
   idx = 0;
 
-  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
-         != FT_Err_Table_Missing)
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length) != FT_Err_Table_Missing)
     {
       unsigned char *buf = new unsigned char[length];
       FT_Error error = FT_Load_Sfnt_Table (face, tag, 0, buf, NULL);
@@ -389,8 +379,8 @@ print_body (std::ostream &stream, FT_Face face)
         }
 
       bool is_glyf_table = tag == glyf_tag && length > CHUNKSIZE;
-      t42_write_table (stream, face, buf, length, is_glyf_table,
-                       head_length, loca_length);
+      t42_write_table (stream, face, buf, length, is_glyf_table, head_length,
+                       loca_length);
 
       delete[] buf;
       idx++;
@@ -417,8 +407,8 @@ print_trailer (std::ostream &stream, FT_Face face)
       glyph_name[0] = 0;
       if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
         {
-          FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name,
-                                              GLYPH_NAME_LEN);
+          FT_Error error
+            = FT_Get_Glyph_Name (face, i, glyph_name, GLYPH_NAME_LEN);
           if (error)
             {
               programming_error ("FT_Get_Glyph_Name (): error.");
@@ -448,7 +438,7 @@ print_trailer (std::ostream &stream, FT_Face face)
       else
         programming_error (to_string ("no name for glyph %d", i));
 
-      if (! (output_count % 5))
+      if (!(output_count % 5))
         stream << std::endl;
     }
 
@@ -483,8 +473,8 @@ create_type42_font (std::ostream &stream, const string &name, int idx)
   FT_Done_Face (face);
 }
 
-LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
-           1, 1, 0, (SCM ttf_file_name, SCM idx),
+LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name", 1, 1, 0,
+           (SCM ttf_file_name, SCM idx),
            R"(
 Extract the PostScript name from a TrueType font.  The optional @var{idx}
 argument is useful for TrueType collections (TTC) only; it specifies the font
@@ -532,8 +522,7 @@ index within the TTC.  The default value of @var{idx} is@tie{}0.
   return ps_name;
 }
 
-LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
-           1, 1, 0, (SCM ttf_file_name, SCM idx),
+LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa", 1, 1, 0, (SCM ttf_file_name, SCM idx),
            R"(
 Convert the contents of a TrueType font file to PostScript Type@tie{}42 font,
 returning it as a string.  The optional @var{idx} argument is useful for

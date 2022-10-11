@@ -51,7 +51,6 @@ as_ly_smob_list (SCM &s)
 // (e.g. the result of a function call) to this function, construct a list
 // instead: ly_smob_list_t<T> (s).
 template <class T>
-inline const ly_smob_list<T> &
-as_ly_smob_list (const SCM &&) = delete;
+inline const ly_smob_list<T> &as_ly_smob_list (const SCM &&) = delete;
 
 #endif /* LY_SMOB_LIST_HH */

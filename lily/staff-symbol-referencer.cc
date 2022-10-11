@@ -81,9 +81,8 @@ Staff_symbol_referencer::internal_get_position (Grob *me, bool pure)
   Grob *c = st ? me->common_refpoint (st, Y_AXIS) : 0;
   if (st && c)
     {
-      Real y = (pure
-                ? me->pure_relative_y_coordinate (c, 0, INT_MAX)
-                : me->relative_coordinate (c, Y_AXIS))
+      Real y = (pure ? me->pure_relative_y_coordinate (c, 0, INT_MAX)
+                     : me->relative_coordinate (c, Y_AXIS))
                - st->relative_coordinate (c, Y_AXIS);
       Real space = Staff_symbol::staff_space (st);
       p = (space == 0) ? 0 : 2.0 * y / space;
@@ -103,8 +102,7 @@ Staff_symbol_referencer::extent_in_staff (Grob *me)
   Interval retval;
   if (st && c)
     {
-      retval = me->extent (c, Y_AXIS)
-               - st->relative_coordinate (c, Y_AXIS);
+      retval = me->extent (c, Y_AXIS) - st->relative_coordinate (c, Y_AXIS);
     }
 
   return retval;

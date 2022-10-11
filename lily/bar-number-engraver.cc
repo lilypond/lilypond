@@ -118,7 +118,8 @@ Bar_number_engraver::consider_creating_bar_number ()
   // Time to terminate the previous spanner if applicable.
   if (span_)
     {
-      span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      span_->set_bound (
+        RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       announce_end_grob (span_, SCM_EOL);
       span_ = nullptr;
     }
@@ -129,8 +130,8 @@ Bar_number_engraver::consider_creating_bar_number ()
       SCM bn = get_property (this, "currentBarNumber");
       if (scm_is_number (bn))
         {
-          const auto mp (from_scm (get_property (this, "measurePosition"),
-                                   Moment (0)));
+          const auto mp (
+            from_scm (get_property (this, "measurePosition"), Moment (0)));
 
           if (from_scm<bool> (ly_call (vis_p, bn, mp.smobbed_copy ())))
             {
@@ -138,9 +139,7 @@ Bar_number_engraver::consider_creating_bar_number ()
               SCM formatted_text = SCM_EOL;
               if (ly_is_procedure (formatter))
                 {
-                  formatted_text = ly_call (formatter,
-                                            bn,
-                                            mp.smobbed_copy (),
+                  formatted_text = ly_call (formatter, bn, mp.smobbed_copy (),
                                             to_scm (get_alt_number () - 1),
                                             context ()->self_scm ());
                 }
@@ -187,23 +186,22 @@ Bar_number_engraver::stop_translation_timestep ()
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
 
-    if (break_allowed_now_
-        && !saw_bar_line_
-        && scm_is_false (get_property (context (), "centerBarNumbers")))
-      {
-        SCM bk_vis = get_property (text_, "break-visibility");
-        if (!scm_is_vector (bk_vis))
-          {
-            // The general default for break-visibility is all-visible.
-            bk_vis = scm_c_make_vector (3, SCM_BOOL_T);
-          }
-        else
-          {
-            bk_vis = scm_vector_copy (bk_vis);
-          }
-        scm_c_vector_set_x (bk_vis, 1, SCM_BOOL_F);
-        set_property (text_, "break-visibility", bk_vis);
-      }
+      if (break_allowed_now_ && !saw_bar_line_
+          && scm_is_false (get_property (context (), "centerBarNumbers")))
+        {
+          SCM bk_vis = get_property (text_, "break-visibility");
+          if (!scm_is_vector (bk_vis))
+            {
+              // The general default for break-visibility is all-visible.
+              bk_vis = scm_c_make_vector (3, SCM_BOOL_T);
+            }
+          else
+            {
+              bk_vis = scm_vector_copy (bk_vis);
+            }
+          scm_c_vector_set_x (bk_vis, 1, SCM_BOOL_F);
+          set_property (text_, "break-visibility", bk_vis);
+        }
 
       text_ = nullptr;
     }

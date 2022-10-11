@@ -60,16 +60,17 @@ public:
 
   std::string location_string () const;
   std::string line_number_string () const;
-  std::string file_string ()const;
+  std::string file_string () const;
 
   ssize_t line_number () const;
   ssize_t column_number () const;
   ssize_t end_line_number () const;
   ssize_t end_column_number () const;
 
-  void get_counts (ssize_t *line, ssize_t *chr, ssize_t *col, ssize_t *byte_col) const;
+  void get_counts (ssize_t *line, ssize_t *chr, ssize_t *col,
+                   ssize_t *byte_col) const;
 
-  Input &operator = (Input const &) = default;
+  Input &operator= (Input const &) = default;
   Input (Input const &i) = default;
   Input () = default;
 
@@ -80,15 +81,14 @@ protected:
 
 extern Input dummy_input_global;
 
-SCM
-with_location_n (SCM loc, SCM proc, SCM *argv, size_t nargs);
+SCM with_location_n (SCM loc, SCM proc, SCM *argv, size_t nargs);
 
-template <typename ...Args>
+template <typename... Args>
 inline SCM
 with_location (SCM loc, SCM proc, Args &&...args)
 {
   SCM argv[] = {std::forward<Args> (args)...};
-  return with_location_n (loc, proc, argv, sizeof... (args));
+  return with_location_n (loc, proc, argv, sizeof...(args));
 }
 
 #endif // INPUT_HH

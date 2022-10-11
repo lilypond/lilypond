@@ -32,7 +32,8 @@ using std::string;
 PangoFontDescription *
 properties_to_pango_description (SCM chain, Real text_size)
 {
-  SCM name = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
+  SCM name
+    = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
 
   PangoFontDescription *description = 0;
   if (scm_is_string (name))
@@ -42,37 +43,35 @@ properties_to_pango_description (SCM chain, Real text_size)
     }
   else
     {
-      SCM family = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain,
-                                       SCM_BOOL_F);
-      SCM variant = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
-                                        SCM_BOOL_F);
+      SCM family
+        = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain, SCM_BOOL_F);
+      SCM variant
+        = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain, SCM_BOOL_F);
 
-      SCM style = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
-                                      SCM_BOOL_F);
-      SCM weight = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain,
-                                       SCM_BOOL_F);
+      SCM style
+        = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain, SCM_BOOL_F);
+      SCM weight
+        = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain, SCM_BOOL_F);
 
-      description
-        = symbols_to_pango_font_description (family, style, variant, weight,
-                                             SCM_BOOL_F);
+      description = symbols_to_pango_font_description (family, style, variant,
+                                                       weight, SCM_BOOL_F);
     }
 
-  Real step = from_scm<double> (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-                                0.0);
+  Real step = from_scm<double> (
+    ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F), 0.0);
   Real size = text_size * pow (2.0, step / 6.0);
 
-  pango_font_description_set_size (description,
-                                   gint (round_halfway_up (size * PANGO_SCALE)));
+  pango_font_description_set_size (
+    description, gint (round_halfway_up (size * PANGO_SCALE)));
   return description;
 }
 
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain)
 {
-  PangoFontDescription *pfd
-    = properties_to_pango_description (chain,
-                                       point_constant
-                                       * layout->get_dimension (ly_symbol2scm ("text-font-size")));
+  PangoFontDescription *pfd = properties_to_pango_description (
+    chain,
+    point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
 
   char *str = pango_font_description_to_string (pfd);
   SCM scm_str = scm_from_locale_string (str);
@@ -144,11 +143,8 @@ symbol_to_pango_stretch (SCM) //  stretch)
 }
 
 PangoFontDescription *
-symbols_to_pango_font_description (SCM family,
-                                   SCM style,
-                                   SCM variant,
-                                   SCM weight,
-                                   SCM stretch)
+symbols_to_pango_font_description (SCM family, SCM style, SCM variant,
+                                   SCM weight, SCM stretch)
 {
   PangoFontDescription *description = pango_font_description_new ();
 
@@ -158,10 +154,8 @@ symbols_to_pango_font_description (SCM family,
   else if (scm_is_string (family))
     family_str = ly_scm2string (family);
 
-  pango_font_description_set_family (description,
-                                     family_str.c_str ());
-  pango_font_description_set_style (description,
-                                    symbol_to_pango_style (style));
+  pango_font_description_set_family (description, family_str.c_str ());
+  pango_font_description_set_style (description, symbol_to_pango_style (style));
   pango_font_description_set_variant (description,
                                       symbol_to_pango_variant (variant));
   pango_font_description_set_weight (description,

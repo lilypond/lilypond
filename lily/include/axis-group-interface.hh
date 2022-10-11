@@ -29,6 +29,7 @@
 class Axis_group_interface
 {
   static Real default_outside_staff_padding_;
+
 public:
   static SCM generic_group_extent (Grob *me, Axis a);
   static Real get_default_outside_staff_padding ();
@@ -50,8 +51,9 @@ public:
   static SCM internal_calc_pure_relevant_grobs (Grob *, const std::string &);
   static Interval relative_group_extent (std::vector<Grob *> const &list,
                                          Grob *common, Axis);
-  static Interval relative_maybe_bound_group_extent (std::vector<Grob *> const &list,
-                                                     Grob *common, Axis, bool);
+  static Interval
+  relative_maybe_bound_group_extent (std::vector<Grob *> const &list,
+                                     Grob *common, Axis, bool);
   static Interval relative_pure_height (Grob *me, int start, int end);
   static Interval combine_pure_heights (Grob *me, SCM, vsize, vsize);
   static Interval sum_partial_pure_heights (Grob *me, int, int);
@@ -72,4 +74,3 @@ public:
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */
-

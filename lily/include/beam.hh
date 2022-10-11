@@ -57,7 +57,7 @@ struct Beam_stem_segment
   int max_connect_;
 };
 
-bool operator <(Beam_stem_segment const &a, Beam_stem_segment const &b);
+bool operator<(Beam_stem_segment const &a, Beam_stem_segment const &b);
 
 class Beam
 {
@@ -74,10 +74,13 @@ public:
   static Real get_beam_translation (Grob *me);
   static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
-  static std::vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common);
+  static std::vector<Beam_segment> get_beam_segments (Grob *me_grob,
+                                                      Grob **common);
 
-  DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
-  DECLARE_SCHEME_CALLBACK (pure_rest_collision_callback, (SCM element, SCM, SCM, SCM prev_off));
+  DECLARE_SCHEME_CALLBACK (rest_collision_callback,
+                           (SCM element, SCM prev_off));
+  DECLARE_SCHEME_CALLBACK (pure_rest_collision_callback,
+                           (SCM element, SCM, SCM, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_shorten, (SCM));
@@ -102,9 +105,7 @@ private:
   static void set_stem_shorten (Grob *);
   static vsize forced_stem_count (Grob *);
   static Beam_stem_end calc_stem_y (Grob *, Grob *s, Grob **c, Real, Real,
-                                    Direction, Interval pos,
-                                    int french_count);
+                                    Direction, Interval pos, int french_count);
 };
 
 #endif /* BEAM_HH */
-

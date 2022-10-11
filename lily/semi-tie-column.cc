@@ -68,7 +68,8 @@ Semi_tie_column::calc_positioning_done (SCM smob)
 
   Tie_formatting_problem problem;
 
-  problem.from_semi_ties (lv_ties, from_scm<Direction> (get_property (me, "head-direction")));
+  problem.from_semi_ties (
+    lv_ties, from_scm<Direction> (get_property (me, "head-direction")));
 
   SCM manual_configs = get_property (me, "tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);
@@ -76,8 +77,8 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   Ties_configuration base = problem.generate_optimal_configuration ();
   for (vsize i = 0; i < lv_ties.size (); i++)
     {
-      SCM cp = Tie::get_control_points (lv_ties[i], problem.common_x_refpoint (), base[i],
-                                        problem.details_);
+      SCM cp = Tie::get_control_points (
+        lv_ties[i], problem.common_x_refpoint (), base[i], problem.details_);
 
       set_property (lv_ties[i], "control-points", cp);
       set_grob_direction (lv_ties[i], base[i].dir_);
@@ -99,10 +100,12 @@ Semi_tie_column::calc_head_direction (SCM smob)
   Direction d = LEFT;
   for (vsize i = 0; i < ties.size (); i++)
     {
-      Direction this_d = from_scm<Direction> (get_property (ties[i], "head-direction"));
+      Direction this_d
+        = from_scm<Direction> (get_property (ties[i], "head-direction"));
       if (i > 0 && d != this_d)
         {
-          programming_error ("all semi-ties in a semi-tie-column should have the same head-direction");
+          programming_error ("all semi-ties in a semi-tie-column should have "
+                             "the same head-direction");
           return to_scm (d);
         }
       d = this_d;

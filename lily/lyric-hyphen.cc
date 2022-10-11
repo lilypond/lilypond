@@ -44,7 +44,7 @@ Lyric_hyphen::print (SCM smob)
   // after-line-breaking? --JeanAS
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
-          == Paper_column::when_mom (bounds[RIGHT]->get_column ())
+            == Paper_column::when_mom (bounds[RIGHT]->get_column ())
           && !from_scm<bool> (get_property (me, "after-line-breaking"))))
     return SCM_EOL;
 
@@ -53,11 +53,12 @@ Lyric_hyphen::print (SCM smob)
   Interval span_points;
   for (const auto d : {LEFT, RIGHT})
     {
-      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS);
+      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d],
+                                                                common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
-                       ? bounds[d]->relative_coordinate (common, X_AXIS)
-                       : iv[-d];
+                         ? bounds[d]->relative_coordinate (common, X_AXIS)
+                         : iv[-d];
     }
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -82,10 +83,10 @@ Lyric_hyphen::print (SCM smob)
   if (n <= 0)
     n = 1;
 
-  if (l < dash_length + 2 * padding
-      && !bounds[RIGHT]->break_status_dir ())
+  if (l < dash_length + 2 * padding && !bounds[RIGHT]->break_status_dir ())
     {
-      Real minimum_length = from_scm<double> (get_property (me, "minimum-length"), .3);
+      Real minimum_length
+        = from_scm<double> (get_property (me, "minimum-length"), .3);
       dash_length = std::max ((l - 2 * padding), minimum_length);
     }
 
@@ -95,8 +96,7 @@ Lyric_hyphen::print (SCM smob)
     If there is not enough space, the hyphen should disappear, but not
     at the end of the line.
   */
-  if (space_left < 0.0
-      && !bounds[RIGHT]->break_status_dir ())
+  if (space_left < 0.0 && !bounds[RIGHT]->break_status_dir ())
     return SCM_EOL;
 
   space_left = std::max (space_left, 0.0);
@@ -108,8 +108,8 @@ Lyric_hyphen::print (SCM smob)
   for (int i = 0; i < n; i++)
     {
       Stencil m (dash_mol);
-      m.translate_axis (span_points[LEFT] + i * dash_period
-                        + space_left / 2, X_AXIS);
+      m.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2,
+                        X_AXIS);
       total.add_stencil (m);
       if (whiteout > 0.0)
         {
@@ -117,8 +117,9 @@ Lyric_hyphen::print (SCM smob)
                  Interval (h - whiteout * lt, h + th + whiteout * lt));
           Stencil w (Lookup::round_filled_box (c, 0.8 * lt));
           w = w.in_color (1.0, 1.0, 1.0);
-          w.translate_axis (span_points[LEFT] + i * dash_period
-                            + space_left / 2 - whiteout * lt, X_AXIS);
+          w.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2
+                              - whiteout * lt,
+                            X_AXIS);
           total.add_stencil (w);
         }
     }
@@ -138,7 +139,8 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   const auto bounds = me->get_bounds ();
   if (!bounds[LEFT] || !bounds[RIGHT])
     return SCM_UNSPECIFIED;
-  std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
+  std::vector<Item *> cols (root->broken_col_range (
+    bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
   Rod rod;
   rod.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
@@ -146,13 +148,17 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   rod.distance_ += rod.bounds_protrusion ();
   rod.add_to_cols ();
 
-  if (cols.size () && from_scm<bool> (get_property_data (me, "after-line-breaking")))
+  if (cols.size ()
+      && from_scm<bool> (get_property_data (me, "after-line-breaking")))
     {
       Rod rod_after_break;
-      rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
+      rod_after_break.item_drul_[LEFT]
+        = cols.back ()->find_prebroken_piece (RIGHT);
       rod_after_break.item_drul_[RIGHT] = bounds[RIGHT];
-      rod_after_break.distance_ = from_scm<double> (get_property (me, "length"), 0.5);
-      rod_after_break.distance_ += from_scm<double> (get_property (me, "padding"), 0.1) * 2;
+      rod_after_break.distance_
+        = from_scm<double> (get_property (me, "length"), 0.5);
+      rod_after_break.distance_
+        += from_scm<double> (get_property (me, "padding"), 0.1) * 2;
       rod_after_break.distance_ += rod_after_break.bounds_protrusion ();
       rod_after_break.add_to_cols ();
     }

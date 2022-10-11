@@ -43,6 +43,7 @@ protected:
 
   void process_acknowledged ();
   void stop_translation_timestep ();
+
 public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };
@@ -60,7 +61,8 @@ Rest_collision_engraver::process_acknowledged ()
   set<Grob *> columns;
   auto now = now_mom ();
 
-  for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Grob *g = unsmob<Grob> (scm_cdar (s));
       Moment *m = unsmob<Moment> (scm_caar (s));
@@ -75,7 +77,8 @@ Rest_collision_engraver::process_acknowledged ()
 
           // Only include rests that start now. Include notes that started any time.
           auto *const paper_column = column->get_column ();
-          if (!has_interface<Rest> (g) || !paper_column || Paper_column::when_mom (paper_column) == now)
+          if (!has_interface<Rest> (g) || !paper_column
+              || Paper_column::when_mom (paper_column) == now)
             {
               columns.insert (column);
               rest_count += Note_column::has_rests (column);
@@ -100,7 +103,6 @@ Rest_collision_engraver::stop_translation_timestep ()
 void
 Rest_collision_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Rest_collision_engraver,

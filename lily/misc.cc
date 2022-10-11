@@ -50,7 +50,8 @@ peak_around (Real epsilon, Real threshold, Real x)
 {
   if (x < 0)
     return 1.0;
-  return std::max (- epsilon * (x - threshold) / ((x + epsilon) * threshold), 0.0);
+  return std::max (-epsilon * (x - threshold) / ((x + epsilon) * threshold),
+                   0.0);
 }
 
 /*
@@ -59,7 +60,8 @@ peak_around (Real epsilon, Real threshold, Real x)
 Real
 convex_amplifier (Real standard_x, Real increase_factor, Real x)
 {
-  return (exp (increase_factor * x / standard_x) - 1.0) / (exp (increase_factor) - 1.0);
+  return (exp (increase_factor * x / standard_x) - 1.0)
+         / (exp (increase_factor) - 1.0);
 }
 
 string
@@ -74,7 +76,7 @@ camel_case_to_lisp_identifier (const string &in)
     {
       if (isupper (in[inpos]))
         out.push_back ('-');
-      out.push_back ( char (tolower (in[inpos])));
+      out.push_back (char (tolower (in[inpos])));
     }
 
   string result (&out[0], out.size ());

@@ -37,6 +37,7 @@ class Key_engraver : public Engraver
   Stream_event *key_event_;
   Item *item_;
   Item *cancellation_;
+
 public:
   TRANSLATOR_DECLARATIONS (Key_engraver);
 
@@ -91,7 +92,9 @@ Key_engraver::create_key (bool is_default)
               SCM new_alter_pair = ly_assoc (scm_caar (s), key);
               Rational old_alter = from_scm<Rational> (scm_cdar (s), 0);
               if (scm_is_false (new_alter_pair)
-                  || ((from_scm<Rational> (scm_cdr (new_alter_pair)) - old_alter) * old_alter
+                  || ((from_scm<Rational> (scm_cdr (new_alter_pair))
+                       - old_alter)
+                        * old_alter
                       < Rational (0)))
                 {
                   restore = scm_cons (scm_car (s), restore);
@@ -100,9 +103,9 @@ Key_engraver::create_key (bool is_default)
 
           if (scm_is_pair (restore))
             {
-              cancellation_ = make_item ("KeyCancellation",
-                                         key_event_
-                                         ? key_event_->self_scm () : SCM_EOL);
+              cancellation_
+                = make_item ("KeyCancellation",
+                             key_event_ ? key_event_->self_scm () : SCM_EOL);
 
               set_property (cancellation_, "alteration-alist", restore);
               set_property (cancellation_, "c0-position",
@@ -155,7 +158,8 @@ void
 Key_engraver::stop_translation_timestep ()
 {
   item_ = 0;
-  set_property (context (), "lastKeyAlterations", get_property (this, "keyAlterations"));
+  set_property (context (), "lastKeyAlterations",
+                get_property (this, "keyAlterations"));
   cancellation_ = 0;
   key_event_ = 0;
 }
@@ -171,8 +175,7 @@ Key_engraver::read_event (Stream_event const *r)
 
   SCM alist = scm_list_copy (p);
   SCM order = get_property (this, "keyAlterationOrder");
-  for (SCM s = order;
-       scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
+  for (SCM s = order; scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
       SCM head = scm_member (scm_car (s), alist);
 
@@ -198,8 +201,7 @@ Key_engraver::read_event (Stream_event const *r)
     }
 
   set_property (context (), "keyAlterations", scm_reverse_x (accs, SCM_EOL));
-  set_property (context (), "tonic",
-                get_property (r, "tonic"));
+  set_property (context (), "tonic", get_property (r, "tonic"));
 }
 
 void

@@ -62,8 +62,8 @@ class Rhythmic_column_engraver : public Engraver
   Grob *note_column_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
-protected:
 
+protected:
   void acknowledge_stem (Grob_info);
   void acknowledge_flag (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
@@ -97,8 +97,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 
   if (note_column_)
     {
-      if (stem_
-          && !stem_->get_x_parent ())
+      if (stem_ && !stem_->get_x_parent ())
         {
           Note_column::set_stem (note_column_, stem_);
           stem_ = 0;

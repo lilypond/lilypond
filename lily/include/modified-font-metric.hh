@@ -31,17 +31,18 @@ struct Preinit_Modified_font_metric
 };
 
 /* Perhaps junk this, and move this to layout_def as interface? */
-class Modified_font_metric : Preinit_Modified_font_metric,
-  public Font_metric
+class Modified_font_metric : Preinit_Modified_font_metric, public Font_metric
 {
 public:
-  Stencil text_stencil (Output_def *output_state, const std::string &, bool, const std::string &) const override;
+  Stencil text_stencil (Output_def *output_state, const std::string &, bool,
+                        const std::string &) const override;
   Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const override;
   Offset get_indexed_wxwy (size_t) const override;
-  std::pair<Offset, bool> attachment_point (const std::string &, Direction) const override;
+  std::pair<Offset, bool> attachment_point (const std::string &,
+                                            Direction) const override;
   size_t name_to_index (std::string) const override;
   size_t index_to_charcode (size_t) const override;
   Font_metric *original_font () const;

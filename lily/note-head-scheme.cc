@@ -21,8 +21,8 @@
 #include "note-head.hh"
 #include "font-metric.hh"
 
-LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
-           2, 1, 0, (SCM font_metric, SCM glyph_name, SCM direction),
+LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment", 2, 1,
+           0, (SCM font_metric, SCM glyph_name, SCM direction),
            R"(
 Get attachment in @var{font-metric} for attaching a stem to notehead
 @var{glyph-name} in the direction @var{direction} (default @code{UP}).
@@ -36,6 +36,6 @@ Get attachment in @var{font-metric} for attaching a stem to notehead
   else
     LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 
-  return to_scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name), from_scm<Direction> (direction)));
+  return to_scm (Note_head::get_stem_attachment (
+    fm, ly_scm2string (glyph_name), from_scm<Direction> (direction)));
 }
-

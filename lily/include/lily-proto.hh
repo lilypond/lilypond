@@ -166,7 +166,8 @@ class Translator;
 class Translator_creator;
 class Translator_group;
 
-template <class> class Grob_info_t;
+template <class>
+class Grob_info_t;
 using Grob_info = Grob_info_t<Grob>;
 
 #endif /* LILY_PROTO_HH */

@@ -81,7 +81,8 @@ Score_performer::acknowledge_audio_elements ()
 {
   for (vsize i = 0; i < announce_infos_.size (); i++)
     {
-      if (Audio_item *ai = dynamic_cast<Audio_item *> (announce_infos_[i].elem_))
+      if (Audio_item *ai
+          = dynamic_cast<Audio_item *> (announce_infos_[i].elem_))
         audio_column_->add_audio_item (ai);
     }
   Performer_group::acknowledge_audio_elements ();
@@ -93,7 +94,8 @@ Score_performer::connect_to_context (Context *c)
   Performer_group::connect_to_context (c);
 
   Dispatcher *d = find_top_context (c)->event_source ();
-  d->add_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (this, one_time_step),
+                   ly_symbol2scm ("OneTimeStep"));
   d->add_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
   d->add_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 }
@@ -102,7 +104,8 @@ void
 Score_performer::disconnect_from_context ()
 {
   Dispatcher *d = find_top_context (context ())->event_source ();
-  d->remove_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (this, one_time_step),
+                      ly_symbol2scm ("OneTimeStep"));
   d->remove_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
   d->remove_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 
@@ -117,7 +120,8 @@ Score_performer::prepare (SCM sev)
   Moment *m = unsmob<Moment> (sm);
   audio_column_ = new Audio_column (*m);
   announce_element (Audio_element_info (audio_column_, 0));
-  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP,
+                                        UP);
 }
 
 void
@@ -126,11 +130,8 @@ Score_performer::finish (SCM)
   SCM channel_mapping = get_property (context (), "midiChannelMapping");
   bool use_ports = scm_is_eq (channel_mapping, ly_symbol2scm ("voice"));
   performance_->ports_ = use_ports;
-  recurse_over_translators
-  (context (),
-   MFP_WRAP (&Translator::finalize),
-   MFP_WRAP (&Translator_group::finalize),
-   UP);
+  recurse_over_translators (context (), MFP_WRAP (&Translator::finalize),
+                            MFP_WRAP (&Translator_group::finalize), UP);
 }
 
 void
@@ -176,7 +177,8 @@ Score_performer::one_time_step (SCM)
       do_announces ();
     }
 
-  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
+  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP,
+                                        UP);
 }
 
 void

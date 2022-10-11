@@ -96,11 +96,15 @@ class Listener : public Simple_smob<Listener>
 private:
   SCM callback_;
   SCM target_;
+
 public:
   static const char *const type_p_name_;
 
   Listener (SCM callback, SCM target)
-    : callback_ (callback), target_ (target) { }
+    : callback_ (callback),
+      target_ (target)
+  {
+  }
 
   LY_DECLARE_SMOB_PROC (&Listener::listen, 1, 0, 0)
   SCM listen (SCM ev)
@@ -115,7 +119,7 @@ public:
     return target_;
   }
 
-  bool operator == (Listener const &other) const
+  bool operator== (Listener const &other) const
   {
     return scm_is_eq (callback_, other.callback_)
            && scm_is_eq (target_, other.target_);
@@ -123,20 +127,19 @@ public:
 
   static SCM equal_p (SCM a, SCM b)
   {
-    return *unchecked_unsmob (a) == *unchecked_unsmob (b)
-           ? SCM_BOOL_T : SCM_BOOL_F;
+    return *unchecked_unsmob (a) == *unchecked_unsmob (b) ? SCM_BOOL_T
+                                                          : SCM_BOOL_F;
   }
 
   template <class T, void (T::*callback) (SCM)>
-  static Listener
-  get (SCM instance)
+  static Listener get (SCM instance)
   {
     return Listener (MFP_WRAP (callback), instance);
   }
 };
 
 // Get a listener for given pointer
-#define GET_LISTENER(ptr, proc)                                         \
+#define GET_LISTENER(ptr, proc)                                                \
   Listener::get<MFP_ARGS (MFP_CREATE (ptr, proc))> ((ptr)->self_scm ())
 
 #endif /* LISTENER_HH */

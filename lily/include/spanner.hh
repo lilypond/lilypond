@@ -49,6 +49,7 @@ class Preinit_Spanner
 protected:
   Drul_array<Item *> spanned_drul_ {nullptr, nullptr};
   SCM pure_property_cache_ = SCM_UNDEFINED;
+
 public:
   std::vector<Spanner *> broken_intos_;
 };
@@ -96,8 +97,7 @@ public:
   static bool less (Spanner *const &, Spanner *const &);
   Spanner *find_broken_piece (System *) const override;
 
-  Spanner *
-  pure_find_visible_prebroken_piece (vsize, vsize) const final override
+  Spanner *pure_find_visible_prebroken_piece (vsize, vsize) const final override
   {
     return const_cast<Spanner *> (this);
   }

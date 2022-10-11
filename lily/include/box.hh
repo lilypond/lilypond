@@ -32,15 +32,17 @@ class Box
 {
 public:
   static const char *const type_p_name_;
+
 private:
   Interval interval_a_[NO_AXES];
+
 public:
-  Interval &x () {return interval_a_[X_AXIS]; }
+  Interval &x () { return interval_a_[X_AXIS]; }
   Interval &y () { return interval_a_[Y_AXIS]; }
   Interval x () const { return interval_a_[X_AXIS]; }
-  Interval y () const {return interval_a_[Y_AXIS]; }
-  Interval operator [] (Axis a) const;
-  Interval &operator [] (Axis a);
+  Interval y () const { return interval_a_[Y_AXIS]; }
+  Interval operator[] (Axis a) const;
+  Interval &operator[] (Axis a);
   Real area () const;
   bool is_empty () const;
   bool is_empty (Axis a) const;

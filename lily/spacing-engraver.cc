@@ -36,7 +36,11 @@ struct Rhythmic_tuple
   Grob_info info_;
   Moment end_;
 
-  Rhythmic_tuple (Grob_info i, Moment m) : info_ (i), end_ (m) {}
+  Rhythmic_tuple (Grob_info i, Moment m)
+    : info_ (i),
+      end_ (m)
+  {
+  }
 
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
@@ -150,13 +154,15 @@ Spacing_engraver::stop_spanner ()
 void
 Spacing_engraver::acknowledge_note_spacing (Grob_info i)
 {
-  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"),
+                                     i.grob ());
 }
 
 void
 Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
 {
-  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"),
+                                     i.grob ());
 }
 
 void
@@ -174,8 +180,10 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
 void
 Spacing_engraver::add_starter_duration (Grob_info i)
 {
-  if (i.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
-      || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
+  if (i.grob ()->internal_has_interface (
+        ly_symbol2scm ("lyric-syllable-interface"))
+      || i.grob ()->internal_has_interface (
+        ly_symbol2scm ("multi-measure-interface")))
     return;
 
   /*

@@ -40,6 +40,7 @@ class Script_row_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Script_row_engraver);
+
 protected:
   void acknowledge_accidental_placement (Grob_info_t<Item>);
   void acknowledge_side_position (Grob_info);

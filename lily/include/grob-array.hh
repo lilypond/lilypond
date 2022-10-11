@@ -31,11 +31,13 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char *const type_p_name_;
+
 private:
   std::vector<Grob *> grobs_;
   bool ordered_;
 
   Grob_array ();
+
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }

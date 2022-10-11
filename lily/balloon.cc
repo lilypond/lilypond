@@ -39,7 +39,8 @@ public:
   static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, print, "ly:balloon-interface::print", 1);
+MAKE_SCHEME_CALLBACK (Balloon_interface, print, "ly:balloon-interface::print",
+                      1);
 SCM
 Balloon_interface::print (SCM smob)
 {
@@ -60,7 +61,8 @@ Balloon_interface::print (SCM smob)
   return internal_balloon_print (me, b, off).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, width, "ly:balloon-interface::width", 1);
+MAKE_SCHEME_CALLBACK (Balloon_interface, width, "ly:balloon-interface::width",
+                      1);
 SCM
 Balloon_interface::width (SCM smob)
 {
@@ -74,10 +76,12 @@ Balloon_interface::width (SCM smob)
   Box b (robust_relative_extent (annotated, annotated, X_AXIS),
          Interval (0, 0));
   Real off = me->relative_coordinate (annotated, X_AXIS);
-  return to_scm (internal_balloon_print (me, b, Offset (off, 0)).extent (X_AXIS));
+  return to_scm (
+    internal_balloon_print (me, b, Offset (off, 0)).extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, "ly:balloon-interface::pure-height", 3);
+MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height,
+                      "ly:balloon-interface::pure-height", 3);
 SCM
 Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
@@ -96,8 +100,9 @@ Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   Real off = me->relative_coordinate (annotated, Y_AXIS);
 
-  return to_scm (internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
-                 .extent (Y_AXIS));
+  return to_scm (
+    internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
+      .extent (Y_AXIS));
 }
 
 Stencil
@@ -143,14 +148,15 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 
       */
       Real off_sign = static_cast<Real> (sign (off[a]));
-      SCM text_align_prop = ((a == X_AXIS)
-                             ? ly_symbol2scm ("text-alignment-X")
-                             : ly_symbol2scm ("text-alignment-Y"));
-      Real text_align = from_scm (get_property (me, text_align_prop), -off_sign);
-      SCM attach_align_prop = ((a == X_AXIS)
-                               ? ly_symbol2scm ("X-attachment")
-                               : ly_symbol2scm ("Y-attachment"));
-      Real attach_align = from_scm (get_property (me, attach_align_prop), off_sign);
+      SCM text_align_prop
+        = ((a == X_AXIS) ? ly_symbol2scm ("text-alignment-X")
+                         : ly_symbol2scm ("text-alignment-Y"));
+      Real text_align
+        = from_scm (get_property (me, text_align_prop), -off_sign);
+      SCM attach_align_prop = ((a == X_AXIS) ? ly_symbol2scm ("X-attachment")
+                                             : ly_symbol2scm ("Y-attachment"));
+      Real attach_align
+        = from_scm (get_property (me, attach_align_prop), off_sign);
       z1[a] = b[a].linear_combination (attach_align);
       text_stil.align_to (a, text_align);
     }

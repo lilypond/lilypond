@@ -40,9 +40,9 @@ using std::vector;
 */
 Stencil
 Bracket::make_bracket (Grob *me, // for line properties.
-                       Axis protrusion_axis, Offset dz,
-                       Drul_array<Real> height, Interval gap,
-                       Drul_array<Real> flare, Drul_array<Real> shorten)
+                       Axis protrusion_axis, Offset dz, Drul_array<Real> height,
+                       Interval gap, Drul_array<Real> flare,
+                       Drul_array<Real> shorten)
 {
   Drul_array<Offset> corners (Offset (0, 0), dz);
 
@@ -73,8 +73,8 @@ Bracket::make_bracket (Grob *me, // for line properties.
   Stencil m;
   if (!gap.is_empty ())
     for (const auto d : {LEFT, RIGHT})
-      m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                           gap_corners[d]));
+      m.add_stencil (
+        Line_interface::line (me, straight_corners[d], gap_corners[d]));
   else
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
                                          straight_corners[RIGHT]));
@@ -83,8 +83,8 @@ Bracket::make_bracket (Grob *me, // for line properties.
       && !from_scm<bool> (get_property (me, "dashed-edge")))
     set_property (me, "style", ly_symbol2scm ("line"));
   for (const auto d : {LEFT, RIGHT})
-    m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                         flare_corners[d]));
+    m.add_stencil (
+      Line_interface::line (me, straight_corners[d], flare_corners[d]));
   return m;
 }
 
@@ -96,12 +96,12 @@ Stencil
 Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
-  Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                           Drul_array<Real> (1.0, 1.0));
+  Drul_array<Real> edge_height
+    = from_scm (get_property (me, "edge-height"), Drul_array<Real> (1.0, 1.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
-  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                       Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> shorten
+    = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, -dir);
@@ -109,9 +109,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   Offset start;
   start[a] = length;
 
-  Drul_array<bool> connect_to_other
-    = from_scm (get_property (me, "connect-to-neighbor"),
-                Drul_array<bool> (false, false));
+  Drul_array<bool> connect_to_other = from_scm (
+    get_property (me, "connect-to-neighbor"), Drul_array<bool> (false, false));
 
   for (const auto d : {LEFT, RIGHT})
     {
@@ -123,8 +122,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
         }
     }
 
-  return make_bracket (me, other_axis (a), start, edge_height,
-                       gap, flare, shorten);
+  return make_bracket (me, other_axis (a), start, edge_height, gap, flare,
+                       shorten);
 }
 
 /*
@@ -133,9 +132,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   figured bass (BassFigureBracket).
 */
 Stencil
-Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                 vector<Grob *> grobs, Axis a,
-                                 Direction dir)
+Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint, vector<Grob *> grobs,
+                                 Axis a, Direction dir)
 {
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);
   Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
@@ -147,8 +145,10 @@ Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
     }
   else
     {
-      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir, Interval ());
-      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
+      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir,
+                                                 Interval ());
+      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a),
+                        a);
       return b;
     }
 }

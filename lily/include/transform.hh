@@ -76,8 +76,8 @@ public:
   Transform &rotate (Real angle, Offset center);
   Transform &scale (Real xscale, Real yscale);
 
-  Offset operator () (Offset point) const;
-  Transform operator () (const Transform &t) const;
+  Offset operator() (Offset point) const;
+  Transform operator() (const Transform &t) const;
   std::string to_string () const;
   int print_smob (SCM p, scm_print_state *) const;
 
@@ -93,7 +93,8 @@ Offset scm_transform (SCM trans, Offset p);
 Transform scm_transform (SCM trans, const Transform &t);
 
 inline Transform
-robust_scm2transform (SCM trans, const Transform &fallback = Transform::identity)
+robust_scm2transform (SCM trans,
+                      const Transform &fallback = Transform::identity)
 {
   if (Transform *tp = unsmob<Transform> (trans))
     return *tp;

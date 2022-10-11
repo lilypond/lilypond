@@ -39,9 +39,13 @@ class Dimension_cache
     T value_;
 
   public:
-    Optional () : has_value_ (false), value_ () {}
+    Optional ()
+      : has_value_ (false),
+        value_ ()
+    {
+    }
 
-    Optional &operator = (const T &value)
+    Optional &operator= (const T &value)
     {
       has_value_ = true;
       value_ = value;
@@ -52,8 +56,8 @@ class Dimension_cache
 
     explicit operator bool () const { return has_value_; }
 
-    T &operator * () { return value_; }
-    const T &operator * () const { return value_; }
+    T &operator* () { return value_; }
+    const T &operator* () const { return value_; }
   };
 
   Optional<Interval> extent_;
@@ -62,7 +66,10 @@ class Dimension_cache
 
   friend class Grob;
 
-  Dimension_cache () : parent_ (0) {}
+  Dimension_cache ()
+    : parent_ (0)
+  {
+  }
 
   // The compiler-generated copy constructor, assignment operator, and
   // destructor should be OK.

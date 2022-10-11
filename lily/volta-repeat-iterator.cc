@@ -37,15 +37,13 @@ Volta_repeat_iterator::create_children ()
   // Lyric_combine_music_iterator drives the processing tends to place things
   // at the wrong point in time.
   auto create_styler
-    = [this] (std::unique_ptr<Repeat_styler> factory (Music_iterator *))
-  {
-    const auto timing_is_accurate
-      = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
+    = [this] (std::unique_ptr<Repeat_styler> factory (Music_iterator *)) {
+        const auto timing_is_accurate
+          = !find_above_by_music_type (ly_symbol2scm ("lyric-combine-music"));
 
-    return timing_is_accurate
-           ? factory (this)
-           : Repeat_styler::create_null (this);
-  };
+        return timing_is_accurate ? factory (this)
+                                  : Repeat_styler::create_null (this);
+      };
 
   if (get_music ()->is_mus_type ("segno-repeated-music"))
     repeat_styler_ = create_styler (Repeat_styler::create_segno);

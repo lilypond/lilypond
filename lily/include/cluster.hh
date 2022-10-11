@@ -31,4 +31,3 @@ public:
 };
 
 #endif // CLUSTER_HH
-

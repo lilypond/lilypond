@@ -39,6 +39,7 @@ protected:
   void listen_note (Stream_event *);
   void listen_tie (Stream_event *);
   void listen_articulation (Stream_event *);
+
 private:
   vector<Stream_event *> note_evs_, script_evs_;
 };
@@ -60,8 +61,7 @@ Drum_note_performer::process_music ()
       SCM sym = get_property (n, "drum-type");
       SCM defn = SCM_EOL;
 
-      if (scm_is_symbol (sym)
-          && from_scm<bool> (scm_hash_table_p (tab)))
+      if (scm_is_symbol (sym) && from_scm<bool> (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
       if (Pitch *pit = unsmob<Pitch> (defn))
@@ -72,7 +72,8 @@ Drum_note_performer::process_music ()
           int velocity = 0;
 
           for (vsize j = script_evs_.size (); j--;)
-            articulations = scm_cons (script_evs_[j]->self_scm (), articulations);
+            articulations
+              = scm_cons (script_evs_[j]->self_scm (), articulations);
 
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
@@ -85,14 +86,16 @@ Drum_note_performer::process_music ()
               SCM f = get_property (ev, "midi-length");
               if (ly_is_procedure (f))
                 {
-                  len = from_scm (ly_call (f, len.smobbed_copy (),
-                                           context ()->self_scm ()),
-                                  len);
+                  len = from_scm (
+                    ly_call (f, len.smobbed_copy (), context ()->self_scm ()),
+                    len);
                 }
-              velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
+              velocity
+                += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 
-          announce<Audio_note> (n, *pit, len, tie_event, Pitch (0, 0), velocity);
+          announce<Audio_note> (n, *pit, len, tie_event, Pitch (0, 0),
+                                velocity);
         }
     }
 

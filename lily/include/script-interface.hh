@@ -40,12 +40,9 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
   // return g1.script-priority < g2.script-priority
-  static bool
-  script_priority_less (const Grob *g1, const Grob *g2);
+  static bool script_priority_less (const Grob *g1, const Grob *g2);
 };
 
-void make_script_from_event (Grob *p, Context *tg,
-                             SCM type, size_t index);
+void make_script_from_event (Grob *p, Context *tg, SCM type, size_t index);
 
 #endif /* SCRIPT_INTERFACE_HH */
-

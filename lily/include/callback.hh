@@ -39,8 +39,8 @@
 
 // Templated work class to Callbacks
 
-template <typename ... Args>
-class Callback_wrapper : public Simple_smob<Callback_wrapper <Args ...>>
+template <typename... Args>
+class Callback_wrapper : public Simple_smob<Callback_wrapper<Args...>>
 {
   // We use an ordinary function pointer pointing to a trampoline
   // function (templated on the callback in question) instead of
@@ -50,22 +50,24 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper <Args ...>>
   // pointers in connection with inheritance are somewhat opaque as
   // this involves an adjustment of the this pointer from Smob_core to
   // the scope containing the callback.
-  SCM (*trampoline_) (SCM, Args ...);
-  Callback_wrapper (SCM (*trampoline) (SCM, Args ...))
+  SCM (*trampoline_) (SCM, Args...);
+  Callback_wrapper (SCM (*trampoline) (SCM, Args...))
     : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
-public:
-  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof ...(Args) + 1, 0, 0)
-  static SCM call (SCM self, SCM target, Args ... args)
   {
-    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_) (target, args ...);
+  } // Private constructor, use only in make_smob
+public:
+  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof...(Args) + 1, 0, 0)
+  static SCM call (SCM self, SCM target, Args... args)
+  {
+    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_) (target,
+                                                                     args...);
   }
 
   // Callback wrappers are for an unchanging entity, so we do the Lisp
   // creation just once on the first call of make_smob.  So we only
   // get a single Callback_wrapper instance for each differently
   // templated make_smob call.
-  template <SCM (*trampoline) (SCM, Args ...)>
+  template <SCM (*trampoline) (SCM, Args...)>
   static SCM make_smob ()
   {
     static SCM res
@@ -80,17 +82,17 @@ public:
   template <SCM (*trampoline) (SCM)>
   static SCM make_smob ()
   {
-    return Callback_wrapper<>::make_smob <trampoline> ();
+    return Callback_wrapper<>::make_smob<trampoline> ();
   }
   template <SCM (*trampoline) (SCM, SCM)>
   static SCM make_smob ()
   {
-    return Callback_wrapper<SCM>::make_smob <trampoline> ();
+    return Callback_wrapper<SCM>::make_smob<trampoline> ();
   }
   template <SCM (*trampoline) (SCM, SCM, SCM)>
   static SCM make_smob ()
   {
-    return Callback_wrapper<SCM, SCM>::make_smob <trampoline> ();
+    return Callback_wrapper<SCM, SCM>::make_smob<trampoline> ();
   }
 
   // Provide a number of trampolines, first basic no-argument ones
@@ -136,7 +138,7 @@ public:
 
   template <class Target, class Owner, class Delegate,
             Delegate Owner::*delegate,
-            void (Delegate::*method) (Stream_event *) = &Delegate::operator ()>
+            void (Delegate::*method) (Stream_event *) = &Delegate::operator()>
   static SCM trampoline (SCM owner, SCM ev);
 
   // Acknowledger trampolines
@@ -154,9 +156,18 @@ public:
 // there is no pointer to be removed) but it's simple enough that we
 // don't want to pull in all of <type_traits> for a header as
 // frequently included as this one.
-template <typename U> struct ly_remove_pointer; // Template, no default
-template <typename U> struct ly_remove_pointer <U *> { using type = U; };
-template <typename U> struct ly_remove_pointer <const U *> { using type = U; };
+template <typename U>
+struct ly_remove_pointer; // Template, no default
+template <typename U>
+struct ly_remove_pointer<U *>
+{
+  using type = U;
+};
+template <typename U>
+struct ly_remove_pointer<const U *>
+{
+  using type = U;
+};
 
 // Tool class for member function pointer base class identification in
 // spirit akin to the <type_traits> include file classes.
@@ -168,13 +179,14 @@ template <typename T>
 class mfp_baseclass
 {
   // We cannot make the return type U since it can be an abstract base class
-  template <typename U, typename V, typename ...W>
+  template <typename U, typename V, typename... W>
   static U *strip_mfp (V (U::*) (W...));
-  template <typename U, typename V, typename ...W>
+  template <typename U, typename V, typename... W>
   static U *strip_mfp (V (U::*) (W...) const);
+
 public:
-  using type
-    = typename ly_remove_pointer<decltype (strip_mfp (static_cast<T> (nullptr)))>::type;
+  using type = typename ly_remove_pointer<decltype (strip_mfp (
+    static_cast<T> (nullptr)))>::type;
 };
 
 // Tool class for member object pointer base class identification in
@@ -189,15 +201,15 @@ class mop_baseclass
   // We cannot make the return type U since it can be an abstract base class
   template <typename U, typename V>
   static U *strip_mop (V U::*);
+
 public:
-  using type
-    = typename ly_remove_pointer<decltype (strip_mop (static_cast<T> (nullptr)))>::type;
+  using type = typename ly_remove_pointer<decltype (strip_mop (
+    static_cast<T> (nullptr)))>::type;
 };
 
 // Build a member function pointer given a pointer to the class and
 // the unqualified name of a member function
-#define MFP_CREATE(ptr, proc)                   \
-  (&ly_remove_pointer<decltype(ptr)>::type::proc)
+#define MFP_CREATE(ptr, proc) (&ly_remove_pointer<decltype (ptr)>::type::proc)
 
 // Split a constant member function pointer into a pair of template
 // arguments, the first being the underlying base class type, the
@@ -208,7 +220,8 @@ public:
 
 // Wrapper macro for member function pointers
 
-#define MFP_WRAP(mfp) Callbacks::make_smob<Callbacks::trampoline <MFP_ARGS (mfp)>> ()
+#define MFP_WRAP(mfp)                                                          \
+  Callbacks::make_smob<Callbacks::trampoline<MFP_ARGS (mfp)>> ()
 
 // Wrap a member object's member function.  The resulting procedure expects to
 // be called with the owning object as the first argument, and it will forward
@@ -218,18 +231,13 @@ public:
 // base class, which we call the "owner" in this context.
 //
 // The function to be called is `delegate.method ()`.
-#define MOMF_WRAP(target, delegate, method)                             \
-  [] ()                                                                 \
-    {                                                                   \
-      using Delegate = decltype(std::declval<target> ().delegate);      \
-      using Owner = typename mop_baseclass<decltype(&target::delegate)>::type; \
-      return Callbacks::make_smob<Callbacks::trampoline<                \
-        target,                                                         \
-        Owner,                                                          \
-        Delegate,                                                       \
-        &target::delegate,                                              \
-        &Delegate::method>> ();                                         \
-    } ()
+#define MOMF_WRAP(target, delegate, method)                                    \
+  [] () {                                                                      \
+    using Delegate = decltype (std::declval<target> ().delegate);              \
+    using Owner = typename mop_baseclass<decltype (&target::delegate)>::type;  \
+    return Callbacks::make_smob<Callbacks::trampoline<                         \
+      target, Owner, Delegate, &target::delegate, &Delegate::method>> ();      \
+  }()
 
 // The following will usually be used unsmobbified, relying on its
 // constituents being protected independently.
@@ -237,23 +245,25 @@ public:
 class Method_instance : public Simple_smob<Method_instance>
 {
   SCM method_, instance_;
+
 public:
   LY_DECLARE_SMOB_PROC (&Method_instance::call, 0, 0, 1)
-  SCM call (SCM rest)
-  {
-    return scm_apply_1 (method_, instance_, rest);
-  }
+  SCM call (SCM rest) { return scm_apply_1 (method_, instance_, rest); }
 
   Method_instance (SCM method, SCM instance)
-    : method_ (method), instance_ (instance)
-  { }
+    : method_ (method),
+      instance_ (instance)
+  {
+  }
   Method_instance (SCM method, Smob_core *instance)
-    : method_ (method), instance_ (instance->self_scm ())
-  { }
+    : method_ (method),
+      instance_ (instance->self_scm ())
+  {
+  }
   SCM method () const { return method_; }
   SCM instance () const { return instance_; }
-  template <typename ...Args>
-  SCM operator () (Args &&...args) const
+  template <typename... Args>
+  SCM operator() (Args &&...args) const
   {
     return ly_call (method_, instance_, std::forward<Args> (args)...);
   }

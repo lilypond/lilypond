@@ -141,23 +141,18 @@ get_help_string (SCM alist)
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      string opt_spec = string (INDENT, ' ')
-                        + ly_symbol2string (sym)
-                        + " ("
-                        + ly_scm2string (Lily::scm_to_string (val))
-                        + ")";
+      string opt_spec = string (INDENT, ' ') + ly_symbol2string (sym) + " ("
+                        + ly_scm2string (Lily::scm_to_string (val)) + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
         opt_spec += '\n' + string (HELP_INDENT, ' ');
       else
         opt_spec += string (HELP_INDENT - opt_spec.length (), ' ');
 
-      SCM opt_help_scm
-        = scm_object_property (sym,
-                               ly_symbol2scm ("program-option-documentation"));
+      SCM opt_help_scm = scm_object_property (
+        sym, ly_symbol2scm ("program-option-documentation"));
       string opt_help = ly_scm2string (opt_help_scm);
-      replace_all (&opt_help,
-                   string ("\n"),
+      replace_all (&opt_help, string ("\n"),
                    string ("\n") + string (HELP_INDENT, ' '));
 
       opts.push_back (opt_spec + opt_help + "\n");
@@ -215,8 +210,8 @@ Add a program option @var{sym}.  @var{val} is the default value and
 
   internal_set_option (sym, val);
 
-  scm_set_object_property_x (sym, ly_symbol2scm ("program-option-documentation"),
-                             description);
+  scm_set_object_property_x (
+    sym, ly_symbol2scm ("program-option-documentation"), description);
 
   return SCM_UNSPECIFIED;
 }
@@ -270,8 +265,7 @@ Was verbose output requested, i.e., is the log level at least @code{DEBUG}?
   return to_scm (is_loglevel (LOG_DEBUG));
 }
 
-LY_DEFINE (ly_all_options, "ly:all-options",
-           0, 0, 0, (),
+LY_DEFINE (ly_all_options, "ly:all-options", 0, 0, 0, (),
            R"(
 Get all option settings in an alist.
            )")

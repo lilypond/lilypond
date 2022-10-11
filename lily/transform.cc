@@ -44,8 +44,7 @@
 
 #include <string>
 
-const Transform
-Transform::identity;
+const Transform Transform::identity;
 
 Transform::Transform (Real angle, Offset center)
 {
@@ -53,7 +52,7 @@ Transform::Transform (Real angle, Offset center)
   // maintaining sane behavior at multiples of 45 degrees
   Offset d = offset_directed (angle);
   m_.xx = d[X_AXIS];
-  m_.xy = 0.0 - d[Y_AXIS];  // Avoid -0.0
+  m_.xy = 0.0 - d[Y_AXIS]; // Avoid -0.0
   m_.yx = d[Y_AXIS];
   m_.yy = d[X_AXIS];
   m_.x0 = center[X_AXIS];
@@ -108,14 +107,14 @@ Transform::scale (Real xscale, Real yscale)
 }
 
 Offset
-Transform::operator () (Offset point) const
+Transform::operator() (Offset point) const
 {
   pango_matrix_transform_point (&m_, &point[X_AXIS], &point[Y_AXIS]);
   return point;
 }
 
 Transform
-Transform::operator () (const Transform &t) const
+Transform::operator() (const Transform &t) const
 {
   // This looks dangerous regarding garbage collection.  However,
   // there is no allocation happening inside of this routine, so the
@@ -124,14 +123,16 @@ Transform::operator () (const Transform &t) const
   return Transform (*this).concat (t);
 }
 
-Offset scm_transform (SCM trans, Offset p)
+Offset
+scm_transform (SCM trans, Offset p)
 {
   if (Transform *tp = unsmob<Transform> (trans))
     return (*tp) (p);
   return p;
 }
 
-Transform scm_transform (SCM trans, const Transform &t)
+Transform
+scm_transform (SCM trans, const Transform &t)
 {
   if (Transform *tp = unsmob<Transform> (trans))
     return (*tp) (t);

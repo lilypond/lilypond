@@ -98,9 +98,11 @@ Glissando_engraver::acknowledge_note_column (Grob_info_t<Item> info)
           else
             {
               lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
-              set_property (lines_[i], "glissando-index", to_scm (glissando_index));
+              set_property (lines_[i], "glissando-index",
+                            to_scm (glissando_index));
               glissando_index++;
-              announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
+              announce_end_grob (lines_[i],
+                                 note_heads[note_column_2[i]]->self_scm ());
             }
         }
       lines_.clear ();

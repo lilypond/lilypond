@@ -48,8 +48,8 @@ protected:
   void announce_element (Audio_element_info) override;
   void derived_mark () const override;
   void acknowledge_audio_elements () override;
-private:
 
+private:
   Audio_column *audio_column_;
   bool skipping_;
   Moment skip_last_mom_;

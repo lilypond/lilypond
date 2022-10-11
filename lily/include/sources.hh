@@ -34,11 +34,12 @@ class File_path;
 class Sources
 {
   Sources (Sources const &) = delete;
-  Sources &operator = (Sources const &) = delete;
+  Sources &operator= (Sources const &) = delete;
 
   std::vector<Source_file *> sourcefiles_;
   const File_path *path_;
-  std::string find_full_path (std::string file_string, const std::string &dir) const;
+  std::string find_full_path (std::string file_string,
+                              const std::string &dir) const;
 
 public:
   Sources ();

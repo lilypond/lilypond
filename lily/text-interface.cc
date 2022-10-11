@@ -41,9 +41,7 @@ using std::string;
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string,
                       "ly:text-interface::interpret-string", 3);
 SCM
-Text_interface::interpret_string (SCM layout_smob,
-                                  SCM props,
-                                  SCM markup)
+Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
 {
   auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
@@ -61,8 +59,7 @@ Text_interface::interpret_string (SCM layout_smob,
   Font_metric *fm = select_encoded_font (layout, props);
 
   SCM transformers = ly_chain_assoc_get (ly_symbol2scm ("string-transformers"),
-                                         props,
-                                         SCM_EOL);
+                                         props, SCM_EOL);
   if (scm_is_pair (transformers))
     {
       // Apply transformers outermost to innermost.  Each yields a
@@ -74,13 +71,14 @@ Text_interface::interpret_string (SCM layout_smob,
       SCM rev_transformers = scm_reverse (transformers);
       SCM outer_transformer = scm_car (rev_transformers);
       SCM inner_transformers = scm_reverse (scm_cdr (rev_transformers));
-      SCM transformed = ly_call (outer_transformer, layout_smob, props, ly_string2scm (str));
+      SCM transformed
+        = ly_call (outer_transformer, layout_smob, props, ly_string2scm (str));
       SCM props_no_outer_transform
         = scm_cons (scm_acons (ly_symbol2scm ("string-transformers"),
-                               inner_transformers,
-                               SCM_EOL),
+                               inner_transformers, SCM_EOL),
                     props);
-      return interpret_markup (layout_smob, props_no_outer_transform, transformed);
+      return interpret_markup (layout_smob, props_no_outer_transform,
+                               transformed);
     }
 
   /*
@@ -88,14 +86,12 @@ Text_interface::interpret_string (SCM layout_smob,
     the text interface.  Here the font encoding is checked to see
     if it matches one of the music font encodings.  --pmccarty
   */
-  SCM encoding = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"),
-                                     props,
-                                     SCM_BOOL_F);
+  SCM encoding
+    = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"), props, SCM_BOOL_F);
   SCM music_encodings = Lily::all_music_font_encodings;
 
-  SCM features = ly_chain_assoc_get (ly_symbol2scm ("font-features"),
-                                     props,
-                                     SCM_BOOL_F);
+  SCM features
+    = ly_chain_assoc_get (ly_symbol2scm ("font-features"), props, SCM_BOOL_F);
 
   // The font-features value is stored in a scheme list. This joins the entries
   // with commas for processing with pango.
@@ -115,13 +111,16 @@ Text_interface::interpret_string (SCM layout_smob,
             }
           else
             {
-              scm_misc_error (__FUNCTION__, "Found non-string in font-features list", SCM_EOL);
+              scm_misc_error (__FUNCTION__,
+                              "Found non-string in font-features list",
+                              SCM_EOL);
             }
         }
     }
   else if (!scm_is_false (features))
     {
-      scm_misc_error (__FUNCTION__, "Expecting a list for font-features value", SCM_EOL);
+      scm_misc_error (__FUNCTION__, "Expecting a list for font-features value",
+                      SCM_EOL);
     }
 
   bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
@@ -130,8 +129,16 @@ Text_interface::interpret_string (SCM layout_smob,
 
 static size_t markup_depth = 0;
 
-void markup_up_depth (void *) { ++markup_depth; }
-void markup_down_depth (void *) { --markup_depth; }
+void
+markup_up_depth (void *)
+{
+  ++markup_depth;
+}
+void
+markup_down_depth (void *)
+{
+  --markup_depth;
+}
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup,
                                    "ly:text-interface::interpret-markup", 3, 0,
@@ -171,8 +178,8 @@ Text_interface::interpret_markup (Output_def *layout, SCM props, SCM markup)
 }
 
 SCM
-Text_interface::internal_interpret_markup (Output_def *layout,
-                                           SCM props, SCM markup)
+Text_interface::internal_interpret_markup (Output_def *layout, SCM props,
+                                           SCM markup)
 {
   if (scm_is_string (markup))
     return interpret_string (to_scm (layout), props, markup);
@@ -199,7 +206,8 @@ Text_interface::internal_interpret_markup (Output_def *layout,
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
           non_fatal_error (_f ("Markup depth exceeds maximal value of %zu; "
-                               "Markup: %s", max_depth, name.c_str ()));
+                               "Markup: %s",
+                               max_depth, name.c_str ()));
           return Stencil ().smobbed_copy ();
         }
 
@@ -209,10 +217,9 @@ Text_interface::internal_interpret_markup (Output_def *layout,
     }
   else
     {
-      programming_error (
-        String_convert::form_string (
-          "Trying to interpret a non-markup object: %s",
-          ly_scm_write_string (markup).c_str ()));
+      programming_error (String_convert::form_string (
+        "Trying to interpret a non-markup object: %s",
+        ly_scm_write_string (markup).c_str ()));
       return Stencil ().smobbed_copy ();
     }
 }

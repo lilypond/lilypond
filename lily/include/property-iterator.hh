@@ -43,6 +43,7 @@ class Property_unset_iterator final : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Property_unset_iterator);
+
 protected:
   void process (Moment) override;
 };
@@ -52,6 +53,7 @@ class Push_property_iterator final : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Push_property_iterator);
+
 protected:
   void process (Moment) override;
 };
@@ -61,6 +63,7 @@ class Pop_property_iterator final : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Pop_property_iterator);
+
 protected:
   void process (Moment) override;
 };

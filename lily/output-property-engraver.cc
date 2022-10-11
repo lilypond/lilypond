@@ -29,6 +29,7 @@ using std::vector;
 class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
+
 protected:
   vector<Stream_event *> props_;
 
@@ -61,9 +62,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
           && ly_symbol2string (grob) != inf.grob ()->name ())
         continue;
       SCM proc = get_property (o, "procedure");
-      ly_call (proc,
-               inf.grob ()->self_scm (),
-               d->self_scm (),
+      ly_call (proc, inf.grob ()->self_scm (), d->self_scm (),
                context ()->self_scm ());
     }
 }

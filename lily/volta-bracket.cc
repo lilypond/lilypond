@@ -65,10 +65,11 @@ Volta_bracket_interface::print (SCM smob)
   if (bound->break_status_dir () == RIGHT)
     {
       Paper_column *pc = bound->get_column ();
-      left = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
-             // For some reason, break_align_width is relative to
-             // the x-parent of the column.
-             - bound->relative_coordinate (pc->get_x_parent (), X_AXIS);
+      left
+        = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
+          // For some reason, break_align_width is relative to
+          // the x-parent of the column.
+          - bound->relative_coordinate (pc->get_x_parent (), X_AXIS);
     }
   else
     {
@@ -82,12 +83,12 @@ Volta_bracket_interface::print (SCM smob)
   if (!me->is_live ())
     return SCM_EOL;
 
-  Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                           Drul_array<Real> (1.0, 1.0));
+  Drul_array<Real> edge_height
+    = from_scm (get_property (me, "edge-height"), Drul_array<Real> (1.0, 1.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
-  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                       Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> shorten
+    = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
 
   scale_drul (&edge_height, -get_grob_direction (me));
 
@@ -95,9 +96,8 @@ Volta_bracket_interface::print (SCM smob)
   Offset start;
   start[X_AXIS] = me->spanner_length () - left;
 
-  Stencil total
-    = Bracket::make_bracket (me, Y_AXIS, start, edge_height, empty,
-                             flare, shorten);
+  Stencil total = Bracket::make_bracket (me, Y_AXIS, start, edge_height, empty,
+                                         flare, shorten);
 
   if (!orig_span || broken_first_bracket)
     {
@@ -106,8 +106,8 @@ Volta_bracket_interface::print (SCM smob)
       auto num = Text_interface::interpret_markup (layout, properties, text);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
-      total.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-                         - 1.0);
+      total.add_at_edge (X_AXIS, LEFT, num,
+                         -num.extent (X_AXIS).length () - 1.0);
     }
 
   total.translate_axis (left, X_AXIS);
@@ -120,7 +120,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   Spanner *orig_span = me->original ();
 
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == me);
-  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == me);
+  bool broken_last_bracket
+    = orig_span && (orig_span->broken_intos_.back () == me);
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 

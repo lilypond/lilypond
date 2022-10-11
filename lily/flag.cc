@@ -98,8 +98,8 @@ Flag::glyph_name (SCM smob)
       if (adjust)
         {
           Real ss = Staff_symbol_referencer::staff_space (me);
-          const auto p = static_cast<int>
-                         (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
+          const auto p
+            = static_cast<int> (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
           staffline_offs
             = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
         }
@@ -165,11 +165,10 @@ Flag::print (SCM smob)
   return flag.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, "ly:flag::pure-calc-y-offset", 3);
+MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, "ly:flag::pure-calc-y-offset",
+                      3);
 SCM
-Flag::pure_calc_y_offset (SCM smob,
-                          SCM /* beg */,
-                          SCM /* end */)
+Flag::pure_calc_y_offset (SCM smob, SCM /* beg */, SCM /* end */)
 {
   return internal_calc_y_offset (smob, true);
 }
@@ -188,16 +187,12 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
   Grob *stem = me->get_x_parent ();
   Direction d = get_grob_direction (stem);
 
-  Real blot
-    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-  Interval stem_extent = pure
-                         ? stem->pure_y_extent (stem, 0, INT_MAX)
-                         : stem->extent (stem, Y_AXIS);
+  Interval stem_extent = pure ? stem->pure_y_extent (stem, 0, INT_MAX)
+                              : stem->extent (stem, Y_AXIS);
 
-  return to_scm (stem_extent.is_empty ()
-                 ? 0.0
-                 : stem_extent[d] - d * blot / 2);
+  return to_scm (stem_extent.is_empty () ? 0.0 : stem_extent[d] - d * blot / 2);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, "ly:flag::calc-x-offset", 1);

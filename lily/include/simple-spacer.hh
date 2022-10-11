@@ -35,7 +35,8 @@ public:
   void add_spring (Spring const &spring);
 
   /* solve */
-  struct Solution {
+  struct Solution
+  {
     Real force_;
     bool fits_;
   };
@@ -45,12 +46,15 @@ public:
   Real configuration_length (Real force) const;
 
 private:
-  Solution range_solve (vsize left, vsize right, Real line_len, bool ragged) const;
+  Solution range_solve (vsize left, vsize right, Real line_len,
+                        bool ragged) const;
   Real range_len (vsize left, vsize right, Real force) const;
   Real range_ideal_len (vsize left, vsize right) const;
   Real range_stiffness (vsize left, vsize right, bool stretch) const;
-  Solution expand_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
-  Solution compress_line (vsize left, vsize right, Real line_len, Real max_block_force_len, Real max_block_force) const;
+  Solution expand_line (vsize left, vsize right, Real line_len,
+                        Real max_block_force_len, Real max_block_force) const;
+  Solution compress_line (vsize left, vsize right, Real line_len,
+                          Real max_block_force_len, Real max_block_force) const;
   Real rod_force (vsize left, vsize right, Real dist) const;
   // Maximum force that causes any spring to block.
   Real range_max_block_force (vsize left, vsize right) const;
@@ -60,13 +64,10 @@ private:
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
 std::vector<Real> get_line_forces (std::vector<Paper_column *> const &columns,
-                                   Real line_len,
-                                   Real indent,
-                                   bool ragged);
+                                   Real line_len, Real indent, bool ragged);
 
-Column_x_positions get_line_configuration (std::vector<Paper_column *> const &columns,
-                                           Real line_len,
-                                           Real indent,
-                                           bool ragged);
+Column_x_positions
+get_line_configuration (std::vector<Paper_column *> const &columns,
+                        Real line_len, Real indent, bool ragged);
 
 #endif /* SIMPLE_SPACER_HH */

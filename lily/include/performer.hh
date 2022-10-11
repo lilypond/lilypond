@@ -37,14 +37,15 @@ public:
   Performer_group *get_group () const;
   Performer (Context *c)
     : Translator (c)
-  { }
+  {
+  }
 
 protected:
   void announce_element (Audio_element_info);
 
   // Create and announce an Audio_element.
   template <typename T, typename... Args>
-  T *announce (Stream_event *cause, Args &&... args)
+  T *announce (Stream_event *cause, Args &&...args)
   {
     T *const elem = new T (std::forward<Args> (args)...);
     Audio_element_info info (elem, cause);
@@ -57,4 +58,3 @@ protected:
 };
 
 #endif /* PERFORMER_HH */
-

@@ -38,7 +38,8 @@
   different spacing wishes from one to the next column.
 */
 Spring
-Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
+Spacing_spanner::standard_breakable_column_spacing (
+  Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
   Real min_dist = std::max (0.0, Paper_column::minimum_distance (l, r));
 
@@ -50,7 +51,8 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
         mlen = *dt;
 
       Real incr = from_scm<double> (get_property (me, "spacing-increment"), 1);
-      Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      Real space
+        = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
       Spring spring = Spring (min_dist + space, min_dist);
 
       /*
@@ -91,8 +93,8 @@ get_measure_length (Paper_column *column)
 
   do
     {
-      if (auto *len = unsmob<Moment> (get_property (cols[col_idx],
-                                                    "measure-length")))
+      if (auto *len
+          = unsmob<Moment> (get_property (cols[col_idx], "measure-length")))
         {
           return *len;
         }
@@ -104,16 +106,15 @@ get_measure_length (Paper_column *column)
 
 /* Basic spring based on duration alone */
 Spring
-Spacing_spanner::note_spacing (Grob * /* me */,
-                               Paper_column *lc,
-                               Paper_column *rc,
-                               Spacing_options const *options)
+Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
+                               Paper_column *rc, Spacing_options const *options)
 {
   auto shortest_playing_len
     = from_scm (get_property (lc, "shortest-playing-duration"), Moment (0));
   if (shortest_playing_len < 0)
     {
-      programming_error ("cannot find a ruling note at: " + Paper_column::when_mom (lc).to_string ());
+      programming_error ("cannot find a ruling note at: "
+                         + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;
     }
 
@@ -147,7 +148,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
     {
       // A spring of length and stiffness based on the controlling duration
       Real len = options->get_duration_space (shortest_playing_len.main_part_);
-      Real min = options->increment_;  // canonical notehead width
+      Real min = options->increment_; // canonical notehead width
 
       // The portion of that spring proportional to the time between lc and rc
       auto fraction = static_cast<Real> (delta_t.main_part_
@@ -171,11 +172,10 @@ Spacing_spanner::note_spacing (Grob * /* me */,
           ret.set_inverse_stretch_strength (grace_opts.increment_ / 2.0);
         }
       else // Fallback to the old grace spacing: half that of the shortest note
-        ret = Spring (options->
-                      get_duration_space (options->global_shortest_) / 2.0,
+        ret = Spring (options->get_duration_space (options->global_shortest_)
+                        / 2.0,
                       options->increment_ / 2.0);
     }
 
   return ret;
 }
-

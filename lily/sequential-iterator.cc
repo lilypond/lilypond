@@ -44,8 +44,8 @@ Sequential_iterator::derived_mark () const
 }
 
 void
-Sequential_iterator::preorder_walk
-(const std::function <void (Music_iterator *)> &visit)
+Sequential_iterator::preorder_walk (
+  const std::function<void (Music_iterator *)> &visit)
 {
   Music_iterator::preorder_walk (visit);
   if (iter_)
@@ -77,7 +77,8 @@ Sequential_iterator::create_contexts ()
     }
 }
 
-void Sequential_iterator::look_ahead ()
+void
+Sequential_iterator::look_ahead ()
 {
   // Move past elements that have no main duration, then move past the first
   // one with duration.
@@ -110,10 +111,8 @@ Sequential_iterator::pop_element ()
 {
   iter_ = nullptr;
 
-  const auto have_ready_music = [this]
-  {
-    return !scm_is_eq (remaining_music_, ahead_music_);
-  };
+  const auto have_ready_music
+    = [this] { return !scm_is_eq (remaining_music_, ahead_music_); };
 
   if (have_ready_music () || (look_ahead (), have_ready_music ()))
     {

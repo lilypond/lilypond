@@ -46,7 +46,9 @@ class Rational
 private:
   // n.b. can be used to intialize abnormally
   constexpr Rational (int sign, uint64_t num, uint64_t den)
-    : sign_ (sign), num_ (num), den_ (den)
+    : sign_ (sign),
+      num_ (num),
+      den_ (den)
   {
   }
 
@@ -69,25 +71,42 @@ public:
   explicit operator bool () const { return sign_ != 0; }
   explicit operator double () const;
 
-  constexpr Rational operator - () const { return { -sign_, num_, den_ }; }
+  constexpr Rational operator- () const { return {-sign_, num_, den_}; }
 
   // default to zero
-  constexpr Rational () : sign_ (0), num_ (1), den_ (1) {}
+  constexpr Rational ()
+    : sign_ (0),
+      num_ (1),
+      den_ (1)
+  {
+  }
 
   // positive infinity
-  static constexpr Rational infinity () { return { 2, 1, 1 }; }
+  static constexpr Rational infinity () { return {2, 1, 1}; }
 
   // not-a-number
-  static constexpr Rational nan () { return { 1, 0, 0 }; }
+  static constexpr Rational nan () { return {1, 0, 0}; }
 
   // Allow implicit conversion from integer.  All of these must be defined or
   // deleted to avoid ambiguity.  "long long" is specified by the C++ standard
   // to be at least 64 bits wide, which is what we are storing.
-  Rational (int n) : Rational (static_cast<long long> (n)) {}
-  Rational (long n) : Rational (static_cast<long long> (n)) {}
+  Rational (int n)
+    : Rational (static_cast<long long> (n))
+  {
+  }
+  Rational (long n)
+    : Rational (static_cast<long long> (n))
+  {
+  }
   Rational (long long n);
-  Rational (unsigned n) : Rational (static_cast<unsigned long long> (n)) {}
-  Rational (unsigned long n) : Rational (static_cast<unsigned long long> (n)) {}
+  Rational (unsigned n)
+    : Rational (static_cast<unsigned long long> (n))
+  {
+  }
+  Rational (unsigned long n)
+    : Rational (static_cast<unsigned long long> (n))
+  {
+  }
   Rational (unsigned long long);
 
   // n.b. {0, 0} is treated as zero rather than NaN
@@ -95,13 +114,13 @@ public:
 
   explicit Rational (double);
   Rational (Rational const &r) = default;
-  Rational &operator = (Rational const &r) = default;
+  Rational &operator= (Rational const &r) = default;
 
-  Rational &operator *= (Rational);
-  Rational &operator /= (Rational);
-  Rational &operator += (Rational);
-  Rational &operator -= (Rational);
-  Rational &operator %= (Rational);
+  Rational &operator*= (Rational);
+  Rational &operator/= (Rational);
+  Rational &operator+= (Rational);
+  Rational &operator-= (Rational);
+  Rational &operator%= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
   std::string to_string () const;
@@ -118,11 +137,11 @@ public:
 
 #include "arithmetic-operator.hh"
 
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, -);
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, % );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
 
 INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 

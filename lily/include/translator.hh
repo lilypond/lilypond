@@ -23,7 +23,7 @@
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "callback.hh"
-#include "input.hh"             // for error reporting
+#include "input.hh" // for error reporting
 #include "smobs.hh"
 #include "stream-event.hh"
 #include "protected-scm.hh"
@@ -43,35 +43,33 @@ class Translator_creator : public Smob<Translator_creator>
 {
   // no need to copy
   Translator_creator (Translator_creator const &) = delete;
-  Translator_creator &operator = (Translator_creator const &) = delete;
+  Translator_creator &operator= (Translator_creator const &) = delete;
 
   Translator *(*allocate_) (Context *);
 
-  Translator_creator (Translator * (*allocate) (Context *))
+  Translator_creator (Translator *(*allocate) (Context *) )
     : allocate_ (allocate)
   {
     smobify_self ();
   }
+
 public:
   // This is stupid, but constructors cannot have explicit template
   // argument lists.
   template <class T>
   static Translator_creator *alloc ()
   {
-    auto allocate = [] (Context * ctx)->Translator *
-    {
-      return new T (ctx);
-    };
+    auto allocate = [] (Context *ctx) -> Translator * { return new T (ctx); };
     return new Translator_creator (allocate);
   }
   SCM call (SCM ctx);
   LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
 };
 
-#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
-  public:                                                               \
-  OVERRIDE_CLASS_NAME (NAME);                                           \
-  void fetch_precomputable_methods (SCM methods[]) override;            \
+#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                   \
+public:                                                                        \
+  OVERRIDE_CLASS_NAME (NAME);                                                  \
+  void fetch_precomputable_methods (SCM methods[]) override;                   \
   /* end #define */
 
 /*
@@ -81,31 +79,34 @@ public:
   announced in a context.
 */
 
-#define TRANSLATOR_DECLARATIONS(NAME)                                   \
-  private:                                                              \
-  using self_type = NAME; /* no decltype(*this) in static methods */    \
-  public:                                                               \
-  TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                 \
-  static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
-  static Protected_scm listener_list_;                                  \
-  static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
-  SCM get_acknowledger (SCM sym, Direction start_end) override          \
-  {                                                                     \
-    return static_get_acknowledger (sym, start_end);                    \
-  }                                                                     \
-public:                                                                 \
-  NAME (Context *);                                                     \
-  static void boot ();                                                  \
-  static SCM static_translator_description ();                          \
-  SCM get_listener_list () const override                               \
-  {                                                                     \
-    return listener_list_;                                              \
-  }                                                                     \
-private:                                                                \
-  static void add_listener (SCM event_class_sym, SCM proc)              \
-  {                                                                     \
-    listener_list_ = scm_acons (event_class_sym, proc, listener_list_); \
-  }                                                                     \
+#define TRANSLATOR_DECLARATIONS(NAME)                                          \
+private:                                                                       \
+  using self_type = NAME; /* no decltype(*this) in static methods */           \
+public:                                                                        \
+  TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                        \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;             \
+  static Protected_scm listener_list_;                                         \
+  static SCM static_get_acknowledger (SCM sym, Direction start_end);           \
+  SCM get_acknowledger (SCM sym, Direction start_end) override                 \
+  {                                                                            \
+    return static_get_acknowledger (sym, start_end);                           \
+  }                                                                            \
+                                                                               \
+public:                                                                        \
+  NAME (Context *);                                                            \
+  static void boot ();                                                         \
+  static SCM static_translator_description ();                                 \
+  SCM get_listener_list () const override                                      \
+  {                                                                            \
+    return listener_list_;                                                     \
+  }                                                                            \
+                                                                               \
+private:                                                                       \
+  static void add_listener (SCM event_class_sym, SCM proc)                     \
+  {                                                                            \
+    listener_list_ = scm_acons (event_class_sym, proc, listener_list_);        \
+  }                                                                            \
+                                                                               \
 public:
 /* end #define */
 
@@ -140,13 +141,13 @@ protected:
 
 private:
   Translator (Translator const &) = delete;
-  Translator &operator = (Translator const &) = delete;
-public:
+  Translator &operator= (Translator const &) = delete;
 
+public:
   SCM internal_get_property (SCM symbol) const;
 
   virtual Output_def *get_output_def () const;
-  Translator_group *get_group ()const;
+  Translator_group *get_group () const;
   virtual Moment now_mom () const;
   virtual bool must_be_last () const;
   virtual bool is_midi () const { return true; };
@@ -179,25 +180,22 @@ protected:
   template <class T, void (T::*callback) (Stream_event *)>
   friend SCM Callbacks::trampoline (SCM, SCM);
 
-  template <class Target, class Owner, class Delegate,
-            Delegate Owner::*member,
+  template <class Target, class Owner, class Delegate, Delegate Owner::*member,
             void (Delegate::*method) (Stream_event *)>
   friend SCM Callbacks::trampoline (SCM, SCM);
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
-  static SCM
-  static_translator_description (const char *grobs,
-                                 const char *desc,
-                                 SCM listener_list,
-                                 const char *read,
-                                 const char *write);
+  static SCM static_translator_description (const char *grobs, const char *desc,
+                                            SCM listener_list, const char *read,
+                                            const char *write);
 
   friend class Translator_group;
 };
 
 template <class T, void (T::*callback) (Stream_event *)>
-SCM Callbacks::trampoline (SCM target, SCM event)
+SCM
+Callbacks::trampoline (SCM target, SCM event)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
   auto *const ev = LY_ASSERT_SMOB (Stream_event, event, 2);
@@ -209,10 +207,10 @@ SCM Callbacks::trampoline (SCM target, SCM event)
 
 template <class Target, // receives the callback
           class Owner,  // has the delegate object as a member
-          class Delegate,
-          Delegate Owner::*delegate,
+          class Delegate, Delegate Owner::*delegate,
           void (Delegate::*method) (Stream_event *)>
-SCM Callbacks::trampoline (SCM target, SCM event)
+SCM
+Callbacks::trampoline (SCM target, SCM event)
 {
   auto *const t = LY_ASSERT_SMOB (Target, target, 1);
   auto *const ev = LY_ASSERT_SMOB (Stream_event, event, 2);
@@ -222,8 +220,7 @@ SCM Callbacks::trampoline (SCM target, SCM event)
   return SCM_UNSPECIFIED;
 }
 
-SCM
-generic_get_acknowledger (SCM sym, SCM ack_hash);
+SCM generic_get_acknowledger (SCM sym, SCM ack_hash);
 
 void add_translator_creator (SCM creator, SCM name, SCM description);
 

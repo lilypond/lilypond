@@ -52,11 +52,10 @@ print_property_callback_stack ()
       SCM grob = scm_caar (s);
       SCM prop = scm_cadar (s);
       SCM callback = scm_caddar (s);
-      message (String_convert::form_string ("  %d: %s.%s (%s)",
-                                            frame++,
-                                            unsmob<Grob> (grob)->name ().c_str (),
-                                            ly_symbol2string (prop).c_str (),
-                                            ly_scm_write_string (callback).c_str ()));
+      message (String_convert::form_string (
+        "  %d: %s.%s (%s)", frame++, unsmob<Grob> (grob)->name ().c_str (),
+        ly_symbol2string (prop).c_str (),
+        ly_scm_write_string (callback).c_str ()));
     }
 }
 
@@ -83,8 +82,8 @@ check_debug_callback (SCM cb)
 #endif
 }
 
-LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
-           1, 0, 0, (SCM cb),
+LY_DEFINE (ly_set_grob_modification_callback,
+           "ly:set-grob-modification-callback", 1, 0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called every time LilyPond modifies a grob
 property.  The callback receives as arguments the grob that is being modified,
@@ -99,8 +98,8 @@ the callback.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
-           1, 0, 0, (SCM cb),
+LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback", 1,
+           0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called whenever LilyPond calculates a callback
 function and caches the result.  The callback receives as arguments the grob
@@ -114,21 +113,15 @@ calculated the property, and the new (cached) value of the property.  Call with
 }
 
 void
-Grob::instrumented_set_property (SCM sym, SCM v,
-                                 char const *file,
-                                 int line,
+Grob::instrumented_set_property (SCM sym, SCM v, char const *file, int line,
                                  char const *fun)
 {
 #ifdef DEBUG
   if (ly_is_procedure (modification_callback))
     {
-      ly_call (modification_callback,
-               self_scm (),
-               scm_from_locale_string (file),
-               to_scm (line),
-               scm_from_latin1_string (fun),
-               sym,
-               v);
+      ly_call (modification_callback, self_scm (),
+               scm_from_locale_string (file), to_scm (line),
+               scm_from_latin1_string (fun), sym, v);
     }
 #else
   (void) file;
@@ -142,9 +135,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 SCM
 Grob::get_property_alist_chain (SCM def) const
 {
-  return ly_list (mutable_property_alist_,
-                  immutable_property_alist_,
-                  def);
+  return ly_list (mutable_property_alist_, immutable_property_alist_, def);
 }
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
@@ -152,9 +143,7 @@ extern void check_interfaces_for_property (Grob const *me, SCM sym);
 void
 Grob::internal_set_property (SCM sym, SCM v)
 {
-  internal_set_value_on_alist (&mutable_property_alist_,
-                               sym, v);
-
+  internal_set_value_on_alist (&mutable_property_alist_, sym, v);
 }
 
 void
@@ -166,8 +155,7 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
 
   if (do_internal_type_checking_global)
     {
-      if (!ly_is_procedure (v)
-          && !unsmob<Unpure_pure_container> (v)
+      if (!ly_is_procedure (v) && !unsmob<Unpure_pure_container> (v)
           && !scm_is_eq (v, ly_symbol2scm ("calculation-in-progress")))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -194,8 +182,7 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val)
-          && !unsmob<Unpure_pure_container> (val))
+      if (!ly_is_procedure (val) && !unsmob<Unpure_pure_container> (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -211,9 +198,9 @@ Grob::internal_get_property (SCM sym) const
 
   if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
     {
-      programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for %s.%s",
-                                    name ().c_str (),
-                                    ly_symbol2string (sym).c_str ()));
+      programming_error (to_string (
+        "cyclic dependency: calculation-in-progress encountered for %s.%s",
+        name ().c_str (), ly_symbol2string (sym).c_str ()));
       if (debug_property_callbacks)
         {
           ::message ("backtrace: ");
@@ -254,10 +241,11 @@ Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
 }
 
 SCM
-Grob::internal_get_maybe_pure_property (SCM sym, bool pure,
-                                        vsize start, vsize end) const
+Grob::internal_get_maybe_pure_property (SCM sym, bool pure, vsize start,
+                                        vsize end) const
 {
-  return pure ? internal_get_pure_property (sym, start, end) : internal_get_property (sym);
+  return pure ? internal_get_pure_property (sym, start, end)
+              : internal_get_property (sym);
 }
 
 SCM
@@ -271,7 +259,8 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   *alist = scm_assq_set_x (*alist, sym, marker);
 
   if (debug_property_callbacks)
-    grob_property_callback_stack = scm_cons (ly_list (self_scm (), sym, proc), grob_property_callback_stack);
+    grob_property_callback_stack = scm_cons (ly_list (self_scm (), sym, proc),
+                                             grob_property_callback_stack);
 
   SCM value = ly_call (proc, self_scm ());
 
@@ -280,11 +269,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 
 #ifdef DEBUG
   if (ly_is_procedure (cache_callback))
-    ly_call (cache_callback,
-             self_scm (),
-             sym,
-             proc,
-             value);
+    ly_call (cache_callback, self_scm (), sym, proc, value);
 #endif
   internal_set_value_on_alist (alist, sym, value);
 
@@ -360,10 +345,7 @@ call_pure_function (SCM value, SCM args, vsize start, vsize end)
       value = upc->pure_part ();
 
       if (ly_is_procedure (value))
-        return scm_apply_3 (value,
-                            scm_car (args),
-                            to_scm (start),
-                            to_scm (end),
+        return scm_apply_3 (value, scm_car (args), to_scm (start), to_scm (end),
                             scm_cdr (args));
 
       return value;

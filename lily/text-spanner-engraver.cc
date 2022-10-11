@@ -34,6 +34,7 @@ class Text_spanner_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Text_spanner_engraver);
+
 protected:
   void finalize () override;
   void listen_text_span (Stream_event *);
@@ -133,17 +134,15 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (span_)
     {
-      Pointer_group_interface::add_grob (span_,
-                                         ly_symbol2scm ("note-columns"),
+      Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-columns"),
                                          info.grob ());
       if (!span_->get_bound (LEFT))
         add_bound_item (span_, info.grob ());
     }
   else if (finished_)
     {
-      Pointer_group_interface::add_grob (finished_,
-                                         ly_symbol2scm ("note-columns"),
-                                         info.grob ());
+      Pointer_group_interface::add_grob (
+        finished_, ly_symbol2scm ("note-columns"), info.grob ());
       if (!finished_->get_bound (RIGHT))
         add_bound_item (finished_, info.grob ());
     }

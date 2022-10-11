@@ -27,9 +27,13 @@
    keep track of counts safely. */
 static std::atomic<int> smob_core_count (0);
 
-Smob_core::~Smob_core () { smob_core_count.fetch_add (-1); }
+Smob_core::~Smob_core ()
+{
+  smob_core_count.fetch_add (-1);
+}
 
-Smob_core::Smob_core () : self_scm_ (SCM_UNDEFINED)
+Smob_core::Smob_core ()
+  : self_scm_ (SCM_UNDEFINED)
 {
   smob_core_count.fetch_add (1);
   maybe_grow_heap ();
@@ -89,15 +93,13 @@ init_smob_protection ()
 }
 ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 
-LY_DEFINE (ly_smob_protects, "ly:smob-protects",
-           0, 0, 0, (),
+LY_DEFINE (ly_smob_protects, "ly:smob-protects", 0, 0, 0, (),
            R"(
 Return LilyPond's internal smob protection list.
            )")
 {
-  return scm_is_pair (smob_protection_list)
-         ? scm_cdr (smob_protection_list)
-         : SCM_EOL;
+  return scm_is_pair (smob_protection_list) ? scm_cdr (smob_protection_list)
+                                            : SCM_EOL;
 }
 
 void

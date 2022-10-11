@@ -36,6 +36,7 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void set_melisma (bool);
+
 private:
   Last_span_event_listener beam_listener_;
 };
@@ -93,4 +94,3 @@ ADD_TRANSLATOR (Beam_performer,
                 R"(
 
                 )");
-

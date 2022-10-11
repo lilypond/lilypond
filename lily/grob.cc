@@ -80,16 +80,18 @@ Grob::Grob (SCM basicprops)
     set_property (this, "X-extent", Grob::stencil_width_proc);
   if (scm_is_null (get_property_data (this, "Y-extent")))
     set_property (this, "Y-extent",
-                  Unpure_pure_container::make_smob (Grob::stencil_height_proc,
-                                                    Grob::pure_stencil_height_proc));
+                  Unpure_pure_container::make_smob (
+                    Grob::stencil_height_proc, Grob::pure_stencil_height_proc));
   if (scm_is_null (get_property_data (this, "vertical-skylines")))
     set_property (this, "vertical-skylines",
-                  Unpure_pure_container::make_smob (Grob::simple_vertical_skylines_from_extents_proc,
-                                                    Grob::pure_simple_vertical_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (
+                    Grob::simple_vertical_skylines_from_extents_proc,
+                    Grob::pure_simple_vertical_skylines_from_extents_proc));
   if (scm_is_null (get_property_data (this, "horizontal-skylines")))
     set_property (this, "horizontal-skylines",
-                  Unpure_pure_container::make_smob (Grob::simple_horizontal_skylines_from_extents_proc,
-                                                    Grob::pure_simple_horizontal_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (
+                    Grob::simple_horizontal_skylines_from_extents_proc,
+                    Grob::pure_simple_horizontal_skylines_from_extents_proc));
 }
 
 Grob::Grob (Grob const &s)
@@ -101,7 +103,7 @@ Grob::Grob (Grob const &s)
   mutable_property_alist_ = SCM_EOL;
 
   for (const auto a : {X_AXIS, Y_AXIS})
-    dim_cache_ [a] = s.dim_cache_ [a];
+    dim_cache_[a] = s.dim_cache_[a];
 
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
@@ -145,23 +147,22 @@ Grob::get_print_stencil () const
       /* whiteout background and larger file sizes with \pointAndClickOn. */
       /* A grob has to be visible, otherwise the whiteout property has no effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
-      if (!transparent && (scm_is_number (get_property (this, "whiteout"))
-                           || from_scm<bool> (get_property (this, "whiteout"))))
+      if (!transparent
+          && (scm_is_number (get_property (this, "whiteout"))
+              || from_scm<bool> (get_property (this, "whiteout"))))
         {
-          Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-          retval = *unsmob<const Stencil>
-                   (Lily::stencil_whiteout (retval.smobbed_copy (),
-                                            get_property (this, "whiteout-style"),
-                                            get_property (this, "whiteout"),
-                                            to_scm (line_thickness)));
+          Real line_thickness
+            = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+          retval = *unsmob<const Stencil> (Lily::stencil_whiteout (
+            retval.smobbed_copy (), get_property (this, "whiteout-style"),
+            get_property (this, "whiteout"), to_scm (line_thickness)));
         }
 
       if (transparent)
         retval = Stencil (m->extent_box (), SCM_EOL);
       else
         {
-          SCM expr = ly_list (ly_symbol2scm ("grob-cause"),
-                              self_scm (),
+          SCM expr = ly_list (ly_symbol2scm ("grob-cause"), self_scm (),
                               retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
@@ -189,20 +190,18 @@ Grob::get_print_stencil () const
                                     from_scm<Real> (scm_cadr (color)),
                                     from_scm<Real> (scm_caddr (color)),
                                     scm_is_pair (scm_cdddr (color))
-                                    ? from_scm<Real> (scm_cadddr (color))
-                                    : 1.0);
+                                      ? from_scm<Real> (scm_cadddr (color))
+                                      : 1.0);
         }
 
       SCM attributes = get_property (this, "output-attributes");
       if (scm_is_pair (attributes))
         {
-          SCM expr = ly_list (ly_symbol2scm ("output-attributes"),
-                              attributes,
+          SCM expr = ly_list (ly_symbol2scm ("output-attributes"), attributes,
                               retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
         }
-
     }
   auto &&add_skylines = [&retval] (Axis a, SCM skyp_scm) {
     const Skyline_pair &skyp = from_scm<Skyline_pair> (skyp_scm);
@@ -293,9 +292,7 @@ Grob::handle_broken_dependencies ()
     }
   System *system = get_system ();
 
-  if (is_live ()
-      && system
-      && common_refpoint (system, X_AXIS)
+  if (is_live () && system && common_refpoint (system, X_AXIS)
       && common_refpoint (system, Y_AXIS))
     substitute_object_links (system, object_alist_);
   else
@@ -369,8 +366,7 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
   // refp should really always be non-null, but this
   // does not hold currently.
   Real result = 0.0;
-  for (const Grob *ancestor = this;
-       ancestor != refp;
+  for (const Grob *ancestor = this; ancestor != refp;
        ancestor = ancestor->get_parent (a))
     {
       // !ancestor here means that we asked for a coordinate
@@ -412,10 +408,8 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 
       dim_cache_[Y_AXIS].offset_ = 0;
       set_property (this, "pure-Y-offset-in-progress", SCM_BOOL_T);
-      off = from_scm<double> (call_pure_function (proc,
-                                                  ly_list (self_scm ()),
-                                                  start, end),
-                              0.0);
+      off = from_scm<double> (
+        call_pure_function (proc, ly_list (self_scm ()), start, end), 0.0);
       del_property (this, "pure-Y-offset-in-progress");
       dim_cache_[Y_AXIS].offset_.reset ();
     }
@@ -429,7 +423,8 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
     {
       Real trans = 0;
       if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
-        trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
+        trans
+          = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
     }
@@ -462,13 +457,13 @@ Grob::get_offset (Axis a) const
 }
 
 Real
-Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure,
-                             vsize start, vsize end)
+Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, vsize start,
+                             vsize end)
 {
   if (pure && a != Y_AXIS)
     programming_error ("tried to get pure X-offset");
   return (pure && a == Y_AXIS) ? pure_relative_y_coordinate (refp, start, end)
-         : relative_coordinate (refp, a);
+                               : relative_coordinate (refp, a);
 }
 
 /****************************************************************
@@ -508,15 +503,13 @@ Grob::extent (Grob const *refp, Axis a) const
       /*
         Order is significant: ?-extent may trigger suicide.
        */
-      SCM ext = (a == X_AXIS)
-                ? get_property (this, "X-extent")
-                : get_property (this, "Y-extent");
+      SCM ext = (a == X_AXIS) ? get_property (this, "X-extent")
+                              : get_property (this, "Y-extent");
       if (is_number_pair (ext))
         real_ext.unite (from_scm<Interval> (ext));
 
-      SCM min_ext = (a == X_AXIS)
-                    ? get_property (this, "minimum-X-extent")
-                    : get_property (this, "minimum-Y-extent");
+      SCM min_ext = (a == X_AXIS) ? get_property (this, "minimum-X-extent")
+                                  : get_property (this, "minimum-Y-extent");
       if (is_number_pair (min_ext))
         real_ext.unite (from_scm<Interval> (min_ext));
 
@@ -527,8 +520,7 @@ Grob::extent (Grob const *refp, Axis a) const
   if (!std::isinf (offset))
     real_ext.translate (offset);
   else
-    warning (_f ("ignored infinite %s-offset",
-                 a == X_AXIS ? "X" : "Y"));
+    warning (_f ("ignored infinite %s-offset", a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
 }
@@ -556,14 +548,16 @@ Grob::pure_y_extent (Grob *refp, vsize start, vsize end)
 Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, vsize start, vsize end)
 {
-  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
+  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end)
+                               : extent (refp, a);
 }
 
 /* Sort grobs according to their starting column. */
 bool
 Grob::less (Grob *g1, Grob *g2)
 {
-  return g1->spanned_column_rank_interval ()[LEFT] < g2->spanned_column_rank_interval ()[LEFT];
+  return g1->spanned_column_rank_interval ()[LEFT]
+         < g2->spanned_column_rank_interval ()[LEFT];
 }
 
 /****************************************************************
@@ -667,7 +661,6 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
   if (has_interface<Align_interface> (g))
     return get_maybe_root_vertical_alignment (g->get_y_parent (), g);
   return get_maybe_root_vertical_alignment (g->get_y_parent (), maybe);
-
 }
 
 Grob *
@@ -687,7 +680,6 @@ Grob::get_vertical_axis_group (Grob *g)
       && has_interface<Align_interface> (g->get_y_parent ()))
     return g;
   return get_vertical_axis_group (g->get_y_parent ());
-
 }
 
 int
@@ -701,7 +693,8 @@ Grob::get_vertical_axis_group_index (Grob *g)
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i] == vax)
       return static_cast<int> (i);
-  g->programming_error ("could not find this grob's vertical axis group in the vertical alignment");
+  g->programming_error (
+    "could not find this grob's vertical axis group in the vertical alignment");
   return -1;
 }
 
@@ -735,7 +728,8 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
   if (ag1 == ag2 && !pure)
     {
       Grob *common = g1->common_refpoint (g2, Y_AXIS);
-      return g1->relative_coordinate (common, Y_AXIS) > g2->relative_coordinate (common, Y_AXIS);
+      return g1->relative_coordinate (common, Y_AXIS)
+             > g2->relative_coordinate (common, Y_AXIS);
     }
 
   for (vsize i = 0; i < elts.size (); i++)
@@ -788,9 +782,8 @@ Grob::name () const
   SCM meta = get_property (this, "meta");
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
-  return scm_is_symbol (nm)
-    ? ly_symbol2string (nm)
-    : string ("dead ").append (class_name ());
+  return scm_is_symbol (nm) ? ly_symbol2string (nm)
+                            : string ("dead ").append (class_name ());
 }
 
 ADD_INTERFACE (Grob,
@@ -898,11 +891,10 @@ Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
     return grob_stencil_extent (me, Y_AXIS);
 
   return to_scm (Interval ());
-
 }
 
-MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, "ly:grob::y-parent-positioning",
-                      1);
+MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning,
+                      "ly:grob::y-parent-positioning", 1);
 SCM
 Grob::y_parent_positioning (SCM smob)
 {
@@ -914,8 +906,8 @@ Grob::y_parent_positioning (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, "ly:grob::x-parent-positioning",
-                      1);
+MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning,
+                      "ly:grob::x-parent-positioning", 1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {
@@ -1013,7 +1005,7 @@ Grob::check_cross_staff (Grob *commony)
 }
 
 void
-uniquify (vector <Grob *> &grobs)
+uniquify (vector<Grob *> &grobs)
 {
   std::unordered_set<Grob *> seen (grobs.size ());
   vsize j = 0;

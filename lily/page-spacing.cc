@@ -79,35 +79,29 @@ Page_spacing::account_for_footnotes (Line_details const &line)
   bool has_in_notes = false;
   for (vsize i = 0; i < line.in_note_heights_.size (); i++)
     {
-      in_note_height += (has_in_notes
-                         ? 0.0
-                         : breaker_->in_note_padding ());
+      in_note_height += (has_in_notes ? 0.0 : breaker_->in_note_padding ());
       has_in_notes = true;
       in_note_height += line.in_note_heights_[i];
     }
 
   for (vsize i = 0; i < line.footnote_heights_.size (); i++)
     {
-      footnote_height += (has_footnotes_
-                          ? 0.0
-                          : (breaker_->footnote_separator_stencil_height ()
-                             + breaker_->footnote_padding ()
-                             + breaker_->footnote_number_raise ()));
+      footnote_height
+        += (has_footnotes_ ? 0.0
+                           : (breaker_->footnote_separator_stencil_height ()
+                              + breaker_->footnote_padding ()
+                              + breaker_->footnote_number_raise ()));
 
       has_footnotes_ = true;
       footnote_height += line.footnote_heights_[i];
       footnote_height += breaker_->footnote_padding ();
     }
 
-  return (in_note_height
-          - (has_in_notes
-             ? breaker_->in_note_padding ()
-             : 0.0))
-         +
-         (footnote_height
-          + (has_footnotes_
-             ? - breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
-             : 0.0));
+  return (in_note_height - (has_in_notes ? breaker_->in_note_padding () : 0.0))
+         + (footnote_height
+            + (has_footnotes_ ? -breaker_->footnote_padding ()
+                                  + breaker_->footnote_footer_padding ()
+                              : 0.0));
 }
 
 void
@@ -137,7 +131,8 @@ Page_spacing::clear ()
   has_footnotes_ = false;
 }
 
-Page_spacer::Page_spacer (vector<Line_details> const &lines, int first_page_num, Page_breaking const *breaker)
+Page_spacer::Page_spacer (vector<Line_details> const &lines, int first_page_num,
+                          Page_breaking const *breaker)
   : lines_ (lines)
 {
   first_page_num_ = first_page_num;
@@ -161,15 +156,16 @@ Page_spacer::solve ()
   if (simple_state_.empty ())
     return ret;
 
-  ret.penalty_ = simple_state_.back ().penalty_
-                 + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
+  ret.penalty_ = simple_state_.back ().penalty_ + lines_.back ().page_penalty_
+                 + lines_.back ().turn_penalty_;
   ret.system_count_status_ = simple_state_.back ().system_count_status_;
 
   vsize system = lines_.size () - 1;
   while (system != VPOS)
     {
       Page_spacing_node const &cur = simple_state_[system];
-      vsize system_count = (cur.prev_ == VPOS) ? system + 1 : system - cur.prev_;
+      vsize system_count
+        = (cur.prev_ == VPOS) ? system + 1 : system - cur.prev_;
 
       ret.force_.push_back (cur.force_);
       ret.systems_per_page_.push_back (system_count);
@@ -204,7 +200,8 @@ Page_spacer::solve (vsize page_count)
          that don't fit get tacked onto the last page.
       */
       vsize i;
-      for (i = system; std::isinf (state_.at (i, page_count - 1).demerits_) && i; i--)
+      for (i = system;
+           std::isinf (state_.at (i, page_count - 1).demerits_) && i; i--)
         ;
 
       if (i)
@@ -216,7 +213,8 @@ Page_spacer::solve (vsize page_count)
         {
           /* try chopping off pages from the end */
           vsize j;
-          for (j = page_count; j && std::isinf (state_.at (system, j - 1).demerits_); j--)
+          for (j = page_count;
+               j && std::isinf (state_.at (system, j - 1).demerits_); j--)
             ;
 
           if (j)
@@ -231,7 +229,8 @@ Page_spacer::solve (vsize page_count)
 
   ret.force_.resize (page_count);
   ret.systems_per_page_.resize (page_count);
-  ret.system_count_status_ = state_.at (system, page_count - 1).system_count_status_;
+  ret.system_count_status_
+    = state_.at (system, page_count - 1).system_count_status_;
   ret.penalty_ = state_.at (system, page_count - 1).penalty_
                  + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
 
@@ -258,7 +257,8 @@ Page_spacer::solve (vsize page_count)
   if (extra_pages)
     {
       ret.force_.insert (ret.force_.end (), extra_pages, BAD_SPACING_PENALTY);
-      ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages, 0);
+      ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages,
+                                    0);
     }
 
   return ret;
@@ -307,9 +307,11 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   // good example of this is input/regression/page-spacing-tall-headfoot.ly
   vsize page_num = page == VPOS ? 0 : page;
   Real paper_height = breaker_->paper_height ();
-  Page_spacing space (breaker_->page_height (first_page_num_ + static_cast<int> (page), last),
-                      breaker_);
-  Page_spacing_node &cur = page == VPOS ? simple_state_[line] : state_.at (line, page);
+  Page_spacing space (
+    breaker_->page_height (first_page_num_ + static_cast<int> (page), last),
+    breaker_);
+  Page_spacing_node &cur
+    = page == VPOS ? simple_state_[line] : state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
   int line_count = 0;
 
@@ -332,15 +334,15 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
       space.prepend_system (lines_[page_start]);
 
-      bool overfull = (space.rod_height_ > paper_height
-                       || (ragged_
-                           && (space.rod_height_ + space.spring_len_ > paper_height)));
+      bool overfull
+        = (space.rod_height_ > paper_height
+           || (ragged_
+               && (space.rod_height_ + space.spring_len_ > paper_height)));
       // This 'if' statement is a little hard to parse. It won't consider this configuration
       // if it is overfull unless the current configuration is the first one with this start
       // point. We also make an exception (and consider this configuration) if the previous
       // configuration we tried had fewer lines than min-systems-per-page.
-      if (!breaker_->too_few_lines (line_count)
-          && page_start < line
+      if (!breaker_->too_few_lines (line_count) && page_start < line
           && overfull)
         break;
 
@@ -363,18 +365,17 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
           Real penalty = breaker_->line_count_penalty (line_count);
           if (page_start > 0)
-            penalty += lines_[page_start - 1].page_penalty_
-                       + ((page % 2 == 0) ? lines_[page_start - 1].turn_penalty_ : 0);
+            penalty
+              += lines_[page_start - 1].page_penalty_
+                 + ((page % 2 == 0) ? lines_[page_start - 1].turn_penalty_ : 0);
 
           /* Deal with widow/orphan lines */
           /* Last line of paragraph is first line on the new page */
-          if ((page_start > 0)
-              && (page_start < lines_.size ())
+          if ((page_start > 0) && (page_start < lines_.size ())
               && (lines_[page_start].last_markup_line_))
             penalty += breaker_->orphan_penalty ();
           /* First line of paragraph is last line on the previous page */
-          if ((page_start > 0)
-              && (page_start < lines_.size ())
+          if ((page_start > 0) && (page_start < lines_.size ())
               && (lines_[page_start - 1].first_markup_line_))
             penalty += breaker_->orphan_penalty ();
 
@@ -384,8 +385,9 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
               cur.demerits_ = demerits;
               cur.force_ = space.force_;
               cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
-              cur.system_count_status_ = breaker_->line_count_status (line_count)
-                                         | (prev ? prev->system_count_status_ : 0);
+              cur.system_count_status_
+                = breaker_->line_count_status (line_count)
+                  | (prev ? prev->system_count_status_ : 0);
               cur.prev_ = page_start - 1;
               cur.page_ = prev ? prev->page_ + 1 : first_page_num_;
             }

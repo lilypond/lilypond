@@ -34,8 +34,7 @@ Preinit_Modified_font_metric::Preinit_Modified_font_metric ()
   orig_ = 0;
 }
 
-Modified_font_metric::Modified_font_metric (Font_metric *fm,
-                                            Real magnification)
+Modified_font_metric::Modified_font_metric (Font_metric *fm, Real magnification)
 {
   magnification_ = magnification;
 
@@ -117,10 +116,8 @@ Modified_font_metric::derived_mark () const
 }
 
 Stencil
-Modified_font_metric::text_stencil (Output_def *state,
-                                    const string &text,
-                                    bool feta,
-                                    const string &features_str) const
+Modified_font_metric::text_stencil (Output_def *state, const string &text,
+                                    bool feta, const string &features_str) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))

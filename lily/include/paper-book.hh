@@ -32,6 +32,7 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Paper_book ();
+
 private:
   SCM systems_;
   SCM pages_;
@@ -51,6 +52,7 @@ private:
 
   Paper_book *parent_;
   Output_def *paper_;
+
 public:
   SCM header_;
   SCM header_0_;
@@ -77,11 +79,8 @@ public:
   void output (SCM output_channel);
 
 protected:
-  void classic_output_aux (SCM output,
-                           long *first_performance_number);
-  long output_aux (SCM output_channel,
-                   bool is_last,
-                   long *first_page_number,
+  void classic_output_aux (SCM output, long *first_performance_number);
+  long output_aux (SCM output_channel, bool is_last, long *first_page_number,
                    long *first_performance_number);
 };
 

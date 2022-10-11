@@ -24,8 +24,7 @@
 using std::vector;
 
 void
-minimise_least_squares (Real *coef, Real *offset,
-                        vector<Offset> const &input)
+minimise_least_squares (Real *coef, Real *offset, vector<Offset> const &input)
 {
   Real sx = 0.0;
   Real sy = 0.0;
@@ -62,4 +61,3 @@ minimise_least_squares (Real *coef, Real *offset,
       *offset = (sy - (*coef) * sx) / count;
     }
 }
-

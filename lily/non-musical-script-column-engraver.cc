@@ -37,14 +37,15 @@ class Non_musical_script_column_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Non_musical_script_column_engraver);
+
 protected:
   void acknowledge_script (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
 
-Non_musical_script_column_engraver::Non_musical_script_column_engraver
-(Context *c)
+Non_musical_script_column_engraver::Non_musical_script_column_engraver (
+  Context *c)
   : Engraver (c)
 {
 }

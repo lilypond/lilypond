@@ -40,7 +40,7 @@ class Stem_engraver final : public Engraver
 {
   Grob *stem_ = nullptr;
   Grob *tremolo_ = nullptr;
-  std::vector <Item *> maybe_flags_;
+  std::vector<Item *> maybe_flags_;
   Stream_event *rhythmic_ev_ = nullptr;
   Stream_event *tremolo_ev_ = nullptr;
   bool tuplet_start_ = false;
@@ -91,8 +91,9 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
       Stream_event *ev = gi.event_cause ();
       Duration *dur = unsmob<Duration> (get_property (ev, "duration"));
 
-      int tremolo_flags = intlog2 (requested_type) - 2
-                          - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
+      int tremolo_flags
+        = intlog2 (requested_type) - 2
+          - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
         {
           tremolo_ev_->warning (_ ("tremolo duration is too long"));
@@ -147,16 +148,15 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 
   if (ds != dc)
     {
-      cause->warning (_f ("adding note head to incompatible stem (type = %d/%d)",
-                          ds < 0 ? 1 << -ds : 1,
-                          ds > 0 ? 1 << ds : 1));
+      cause->warning (
+        _f ("adding note head to incompatible stem (type = %d/%d)",
+            ds < 0 ? 1 << -ds : 1, ds > 0 ? 1 << ds : 1));
       cause->warning (_ ("maybe input should specify polyphonic voices"));
     }
 
   Stem::add_head (stem_, gi.grob ());
 
-  if (Stem::is_normal_stem (stem_)
-      && Stem::duration_log (stem_) > 2
+  if (Stem::is_normal_stem (stem_) && Stem::duration_log (stem_) > 2
       && !(unsmob<Grob> (get_object (stem_, "flag"))))
     {
       Item *flag = make_item ("Flag", stem_->self_scm ());
@@ -222,7 +222,7 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
       // set stem property if stem already exists
       if (stem_)
         set_property (stem_, "tuplet-start", SCM_BOOL_T);
-      tuplet_start_ = true;  // stash the value for use in later creation
+      tuplet_start_ = true; // stash the value for use in later creation
     }
 }
 

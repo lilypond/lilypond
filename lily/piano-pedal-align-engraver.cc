@@ -47,11 +47,7 @@ struct Pedal_align_info
   Spanner *carrying_spanner_;
   Spanner *finished_carrying_spanner_;
 
-  Pedal_align_info ()
-  {
-    clear ();
-
-  }
+  Pedal_align_info () { clear (); }
   void clear ()
   {
     line_spanner_ = 0;
@@ -64,7 +60,8 @@ struct Pedal_align_info
     bool do_continue = carrying_item_;
 
     do_continue |= (carrying_spanner_ && !finished_carrying_spanner_);
-    do_continue |= (carrying_spanner_ && finished_carrying_spanner_ != carrying_spanner_);
+    do_continue
+      |= (carrying_spanner_ && finished_carrying_spanner_ != carrying_spanner_);
 
     return !do_continue;
   }
@@ -206,8 +203,8 @@ Piano_pedal_align_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 }
 
 void
-Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket
-(Grob_info_t<Spanner> gi)
+Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket (
+  Grob_info_t<Spanner> gi)
 {
   Pedal_type type = get_grob_pedal_type (gi.event_cause ());
   Grob *sp = make_line_spanner (type, gi.grob ()->self_scm ());
@@ -217,8 +214,8 @@ Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket
 }
 
 void
-Piano_pedal_align_engraver::acknowledge_end_piano_pedal_bracket
-(Grob_info_t<Spanner> gi)
+Piano_pedal_align_engraver::acknowledge_end_piano_pedal_bracket (
+  Grob_info_t<Spanner> gi)
 {
   Pedal_type type = get_grob_pedal_type (gi.event_cause ());
   pedal_info_[type].finished_carrying_spanner_ = gi.grob ();

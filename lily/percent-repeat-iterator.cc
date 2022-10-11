@@ -90,8 +90,8 @@ Percent_repeat_iterator::next_element ()
           int current_bar = -1;
           if (!measure_position (get_context ()).main_part_)
             {
-              current_bar = from_scm (get_property (get_context (),
-                                                    "internalBarNumber"), 0);
+              current_bar = from_scm (
+                get_property (get_context (), "internalBarNumber"), 0);
             }
 
           if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)

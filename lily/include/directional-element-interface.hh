@@ -29,4 +29,3 @@ Direction get_grob_direction (Grob *);
 Direction get_strict_grob_direction (Grob *);
 
 #endif /* DIRECTIONAL_ELEMENT_HH */
-

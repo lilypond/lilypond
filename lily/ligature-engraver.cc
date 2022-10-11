@@ -149,8 +149,9 @@ Ligature_engraver::stop_translation_timestep ()
     {
       if (!finished_primitives_.size ())
         {
-          finished_ligature_->programming_error ("Ligature_engraver::stop_translation_timestep ():"
-                                                 " junking empty ligature");
+          finished_ligature_->programming_error (
+            "Ligature_engraver::stop_translation_timestep ():"
+            " junking empty ligature");
         }
       else
         {
@@ -201,7 +202,8 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 {
   if (ligature_)
     {
-      info.event_cause ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      info.event_cause ()->warning (
+        _ ("ignoring rest: ligature may not contain rest"));
       ligature_->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?

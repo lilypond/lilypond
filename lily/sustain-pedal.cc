@@ -76,4 +76,3 @@ Sustain_pedal::print (SCM smob)
 
   return mol.smobbed_copy ();
 }
-

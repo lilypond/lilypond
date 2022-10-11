@@ -44,17 +44,14 @@ using std::string;
        number should be negative.
 */
 const Midi_control_change_announcer::Control_spec
-Midi_control_change_announcer::controls_[]
-=
-{
-  { "midiBalance", -1.0, 1.0, 8, 40 },
-  { "midiPanPosition", -1.0, 1.0, 10, 42 },
-  { "midiExpression", 0.0, 1.0, 11, 43 },
-  { "midiReverbLevel", 0.0, 1.0, 91, -1 },
-  { "midiChorusLevel", 0.0, 1.0, 93, -1 },
-  // This element should be kept last in the array.
-  { 0, 0.0, 0.0, 0, 0 }
-};
+  Midi_control_change_announcer::controls_[]
+  = {{"midiBalance", -1.0, 1.0, 8, 40},
+     {"midiPanPosition", -1.0, 1.0, 10, 42},
+     {"midiExpression", 0.0, 1.0, 11, 43},
+     {"midiReverbLevel", 0.0, 1.0, 91, -1},
+     {"midiChorusLevel", 0.0, 1.0, 93, -1},
+     // This element should be kept last in the array.
+     {0, 0.0, 0.0, 0, 0}};
 
 Midi_control_change_announcer::Midi_control_change_announcer (Input *origin)
   : origin_ (origin)
@@ -65,7 +62,8 @@ Midi_control_change_announcer::~Midi_control_change_announcer ()
 {
 }
 
-void Midi_control_change_announcer::announce_control_changes ()
+void
+Midi_control_change_announcer::announce_control_changes ()
 {
   for (const Control_spec *spec = controls_; spec->context_property_name_;
        ++spec)
@@ -88,19 +86,16 @@ void Midi_control_change_announcer::announce_control_changes ()
           const Real full_fine_scale = 0x3FFF;
           const Real full_coarse_scale = 0x7F;
           const bool fine_resolution = (spec->lsb_control_number_ >= 0);
-          const auto v
-            = static_cast<int> (round_halfway_up (val * (fine_resolution
-                                                         ? full_fine_scale
-                                                         : full_coarse_scale)));
+          const auto v = static_cast<int> (round_halfway_up (
+            val * (fine_resolution ? full_fine_scale : full_coarse_scale)));
           // Announce a control change for the most significant 7 bits of the
           // control value (and, if the control supports fine resolution, for
           // the least significant 7 bits as well).
-          do_announce (new Audio_control_change (spec->msb_control_number_,
-                                                 fine_resolution
-                                                 ? (v >> 7) : v));
+          do_announce (new Audio_control_change (
+            spec->msb_control_number_, fine_resolution ? (v >> 7) : v));
           if (fine_resolution)
-            do_announce (new Audio_control_change (spec->lsb_control_number_,
-                                                   v & 0x7F));
+            do_announce (
+              new Audio_control_change (spec->lsb_control_number_, v & 0x7F));
         }
       else
         warn (_f ("ignoring out-of-range value change for MIDI property `%s'",
@@ -108,7 +103,8 @@ void Midi_control_change_announcer::announce_control_changes ()
     }
 }
 
-void Midi_control_change_announcer::warn (const string &message)
+void
+Midi_control_change_announcer::warn (const string &message)
 {
   if (origin_)
     origin_->warning (message);

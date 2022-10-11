@@ -44,7 +44,7 @@ intlog2 (T d)
       i++;
     }
 
-  assert (! (d / 2));
+  assert (!(d / 2));
   return i;
 }
 
@@ -55,7 +55,8 @@ sign (int i)
     return -1;
   else if (i)
     return 1;
-  else return 0;
+  else
+    return 0;
 }
 
 // Shift value left by shiftamount; if shiftamount is negative, shift right
@@ -70,8 +71,7 @@ shift_left (T value, int shiftamount)
 inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 {
-  return (x2 - x) / (x2 - x1) * y1
-         + (x - x1) / (x2 - x1) * y2;
+  return (x2 - x) / (x2 - x1) * y1 + (x - x1) / (x2 - x1) * y2;
 }
 
 inline Real
@@ -87,4 +87,3 @@ Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
 std::string camel_case_to_lisp_identifier (const std::string &in);
 
 #endif
-

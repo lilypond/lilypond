@@ -40,6 +40,7 @@ class Paper_column : public Item
     column is
   */
   System *system_;
+
 public:
   OVERRIDE_CLASS_NAME (Paper_column);
   Paper_column (SCM);
@@ -48,8 +49,8 @@ public:
   Paper_column *clone () const override { return new Paper_column (*this); }
   [[noreturn]] Paper_column *make_sticky_same_type (Engraver *eng, SCM type,
                                                     SCM cause, char const *file,
-                                                    int line, char const *fun)
-  override;
+                                                    int line,
+                                                    char const *fun) override;
   Paper_column *original () const
   {
     // safe: if there is an original, it is because this was cloned from it

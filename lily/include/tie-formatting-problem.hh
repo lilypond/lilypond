@@ -39,7 +39,7 @@ using Tie_configuration_map
 
 struct Tie_configuration_variation
 {
-  std::vector<std::pair<vsize, Tie_configuration *> > index_suggestion_pairs_;
+  std::vector<std::pair<vsize, Tie_configuration *>> index_suggestion_pairs_;
   void add_suggestion (vsize index, Tie_configuration *suggestion)
   {
     index_suggestion_pairs_.push_back (std::make_pair (index, suggestion));
@@ -68,27 +68,34 @@ class Tie_formatting_problem
   Grob *x_refpoint_;
   Grob *y_refpoint_;
 
-  Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+  Tie_configuration *get_configuration (int position, Direction dir,
+                                        Drul_array<int> cols,
+                                        bool tune_y) const;
   std::unique_ptr<Tie_configuration>
   generate_configuration (int position, Direction dir, Drul_array<int> cols,
                           bool tune_y) const;
 
-  std::vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
-  std::vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
-  std::vector<Tie_configuration_variation> generate_single_tie_variations (Ties_configuration const &ties) const;
+  std::vector<Tie_configuration_variation>
+  generate_collision_variations (Ties_configuration const &ties) const;
+  std::vector<Tie_configuration_variation>
+  generate_extremal_tie_variations (Ties_configuration const &ties) const;
+  std::vector<Tie_configuration_variation>
+  generate_single_tie_variations (Ties_configuration const &ties) const;
 
   void score_configuration (Tie_configuration *) const;
   Real score_aptitude (Tie_configuration *, Tie_specification const &,
                        Ties_configuration *, vsize) const;
   void score_ties_aptitude (Ties_configuration *ties) const;
   void score_ties_configuration (Ties_configuration *ties) const;
-  void set_ties_config_standard_directions (Ties_configuration *tie_configs_ptr);
+  void
+  set_ties_config_standard_directions (Ties_configuration *tie_configs_ptr);
   void score_ties (Ties_configuration *) const;
 
   Slice head_positions_slice (int) const;
   Ties_configuration generate_base_chord_configuration ();
-  Ties_configuration find_best_variation (Ties_configuration const &base,
-                                          std::vector<Tie_configuration_variation> const &vars);
+  Ties_configuration
+  find_best_variation (Ties_configuration const &base,
+                       std::vector<Tie_configuration_variation> const &vars);
 
 public:
   Tie_details details_;

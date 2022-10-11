@@ -29,7 +29,7 @@
 #include <type_traits>
 
 std::ostream &
-operator << (std::ostream &os, const Rational &r) // for Yaffut
+operator<< (std::ostream &os, const Rational &r) // for Yaffut
 {
   return os << to_string (r);
 }
@@ -273,9 +273,7 @@ TEST (Rational_test, multiplication)
     Rational multiplier;
     Rational multiplicand;
     Rational product;
-  } cases []
-  =
-  {
+  } cases[] = {
     {Rational::infinity (), 5, Rational::infinity ()},
     // TODO: {Rational::infinity (), 0, Rational::nan ()},
     {-Rational::infinity (), 6, -Rational::infinity ()},
@@ -327,9 +325,7 @@ TEST (Rational_test, division)
     Rational dividend;
     Rational divisor;
     Rational quotient;
-  } cases []
-  =
-  {
+  } cases[] = {
     // basic
     {Rational (5, 4), Rational (2, 10), Rational (25, 4)},
     // by zero
@@ -396,9 +392,7 @@ TEST (Rational_test, modulo)
     Rational dividend;
     Rational divisor;
     Rational modulus;
-  } cases []
-  =
-  {
+  } cases[] = {
     // basic
     {52, 17, 1},
     {Rational (5, 4), Rational (1, 5), Rational (1, 20)},
@@ -429,9 +423,8 @@ TEST (Rational_test, modulo)
     {
       try
         {
-          const auto actual_double
-            = std::fmod (static_cast<double> (c.dividend),
-                         static_cast<double> (c.divisor));
+          const auto actual_double = std::fmod (
+            static_cast<double> (c.dividend), static_cast<double> (c.divisor));
           const auto expected_double = static_cast<double> (c.modulus);
 
           if (!std::isnan (actual_double))

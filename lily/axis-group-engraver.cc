@@ -110,7 +110,8 @@ Axis_group_engraver::finalize ()
       Grob *it = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       staffline_->set_bound (RIGHT, it);
 
-      Pointer_group_interface::set_ordered (staffline_, ly_symbol2scm ("elements"), false);
+      Pointer_group_interface::set_ordered (staffline_,
+                                            ly_symbol2scm ("elements"), false);
     }
 }
 
@@ -128,7 +129,8 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
         {
           if (i.grob ()->internal_has_interface (scm_car (s)))
             {
-              Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+              Hara_kiri_group_spanner::add_interesting_item (staffline_,
+                                                             i.grob ());
               break;
             }
         }
@@ -152,7 +154,8 @@ Axis_group_engraver::process_acknowledged ()
           if (staffline_->get_y_parent ()
               && staffline_->get_y_parent () == elts_[i])
             {
-              staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
+              staffline_->warning (
+                _ ("Axis_group_engraver: vertical group already has a parent"));
               staffline_->warning (_ ("are there two Axis_group_engravers?"));
               staffline_->warning (_ ("removing this vertical group"));
               staffline_->suicide ();

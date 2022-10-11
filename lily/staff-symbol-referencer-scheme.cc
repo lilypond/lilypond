@@ -26,8 +26,7 @@
 
 #include <cmath>
 
-LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
-           1, 0, 0, (SCM sg),
+LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position", 1, 0, 0, (SCM sg),
            R"(
 Return the y@tie{}position of @var{sg} relative to the staff.
            )")
@@ -41,8 +40,8 @@ Return the y@tie{}position of @var{sg} relative to the staff.
     return to_scm (pos);
 }
 
-LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
-           2, 0, 0, (SCM sg, SCM spos),
+LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?", 2, 0, 0,
+           (SCM sg, SCM spos),
            R"(
 Return whether @var{spos} is on a line of the staff associated with the grob
 @var{sg} (even on an extender line).
@@ -54,8 +53,8 @@ Return whether @var{spos} is on a line of the staff associated with the grob
   return to_scm (Staff_symbol_referencer::on_line (g, pos));
 }
 
-LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness", 1,
+           0, 0, (SCM grob),
            R"(
 Return the current staff line thickness in the staff associated with
 @var{grob}, expressed as a multiple of the current staff space height.
@@ -66,8 +65,8 @@ Return the current staff line thickness in the staff associated with
   return to_scm (thickness);
 }
 
-LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space", 1, 0, 0,
+           (SCM grob),
            R"(
 Return the current staff space height in the staff associated with @var{grob},
 expressed as a multiple of the default height of a staff space in the
@@ -79,8 +78,8 @@ traditional five-line staff.
   return to_scm (staff_space);
 }
 
-LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius", 1, 0,
+           0, (SCM grob),
            R"(
 Return the radius of the staff associated with @var{grob}.
            )")

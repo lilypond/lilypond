@@ -34,6 +34,7 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   int scan_word (SCM &output, SCM sym);
+
 private:
   int lookup_keyword (SCM);
   int scan_bare_word (const std::string &);
@@ -51,6 +52,7 @@ private:
   SCM start_module_;
   Input override_input_;
   SCM eval_scm (SCM, Input, char extra_token = 0);
+
 public:
   SCM eval_scm_token (SCM sval, Input w)
   {
@@ -92,8 +94,8 @@ public:
 
   bool top_input () { return include_stack_.size () < 2; }
   SCM lookup_identifier_symbol (SCM s);
-  void push_extra_token (Input const &where,
-                         int token_type, SCM scm = SCM_UNSPECIFIED);
+  void push_extra_token (Input const &where, int token_type,
+                         SCM scm = SCM_UNSPECIFIED);
   int pop_extra_token ();
   void push_chord_state ();
   void push_figuredbass_state ();

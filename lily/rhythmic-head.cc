@@ -42,8 +42,8 @@ Rhythmic_head::get_stem (Grob *me)
 int
 Rhythmic_head::dot_count (Grob *me)
 {
-  return get_dots (me)
-         ? from_scm (get_property (get_dots (me), "dot-count"), 0) : 0;
+  return get_dots (me) ? from_scm (get_property (get_dots (me), "dot-count"), 0)
+                       : 0;
 }
 
 void

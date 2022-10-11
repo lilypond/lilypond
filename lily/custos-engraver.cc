@@ -72,7 +72,6 @@ Custos_engraver::start_translation_timestep ()
   custodes_.clear ();
 }
 
-
 void
 Custos_engraver::acknowledge_note_head (Grob_info info)
 {
@@ -108,8 +107,7 @@ Custos_engraver::process_acknowledged ()
           if (scm_is_number (c0))
             p += from_scm<int> (c0);
 
-          set_property (c, "staff-position",
-                        to_scm (p));
+          set_property (c, "staff-position", to_scm (p));
         }
 
       pitches_.clear ();

@@ -145,7 +145,7 @@ gcd (int64_t u, int64_t v)
       else
         {
           t = u;
-b3:
+        b3:
           t = t >> 1;
         }
       if (!(1 & t))
@@ -235,14 +235,14 @@ compare (Rational const &r, Rational const &s)
 }
 
 Rational &
-Rational::operator %= (Rational r)
+Rational::operator%= (Rational r)
 {
   *this = mod_rat (r);
   return *this;
 }
 
 Rational &
-Rational::operator += (Rational r)
+Rational::operator+= (Rational r)
 {
   if (r.sign_ == 0)
     ;
@@ -255,7 +255,8 @@ Rational::operator += (Rational r)
   else
     {
       int64_t lcm = (den_ / gcd (r.den_, den_)) * r.den_;
-      int64_t n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
+      int64_t n
+        = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       int64_t d = lcm;
       sign_ = ::sign (n) * ::sign (d);
       num_ = static_cast<uint64_t> (::abs (n));
@@ -318,7 +319,7 @@ Rational::Rational (double x)
 }
 
 Rational &
-Rational::operator *= (Rational r)
+Rational::operator*= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
   if (isinf (r))
@@ -336,7 +337,7 @@ exit_func:
 }
 
 Rational &
-Rational::operator /= (Rational r)
+Rational::operator/= (Rational r)
 {
   if (isinf (r))
     {
@@ -362,7 +363,7 @@ Rational::negate ()
 }
 
 Rational &
-Rational::operator -= (Rational r)
+Rational::operator-= (Rational r)
 {
   r.negate ();
   return (*this += r);

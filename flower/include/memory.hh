@@ -26,10 +26,7 @@
 // a functor wrapping free ()
 struct Freer
 {
-  void operator () (void *p)
-  {
-    free (p);
-  }
+  void operator() (void *p) { free (p); }
 };
 
 // a std::unique_ptr<T> that releases its object with free () instead of delete

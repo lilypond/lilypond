@@ -26,7 +26,9 @@
 extern bool parse_protect_global;
 extern bool parsed_objects_should_be_dead;
 
-SCM evaluate_embedded_scheme (SCM form, Input const &start, Lily_parser *parser);
-SCM parse_embedded_scheme (const Input &start, Lily_parser *parser, Input *parsed_output);
+SCM evaluate_embedded_scheme (SCM form, Input const &start,
+                              Lily_parser *parser);
+SCM parse_embedded_scheme (const Input &start, Lily_parser *parser,
+                           Input *parsed_output);
 
 #endif /* PARSE_SCM_HH */

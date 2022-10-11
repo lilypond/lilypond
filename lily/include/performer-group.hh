@@ -26,7 +26,7 @@
 
 #include <vector>
 
-typedef void (Performer:: *Performer_method) (void);
+typedef void (Performer::*Performer_method) (void);
 
 class Performer_group : public Translator_group
 {

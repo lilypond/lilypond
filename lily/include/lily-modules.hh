@@ -33,6 +33,7 @@ class Scm_module
   class Variable_record;
   Variable_record *variables_;
   static void boot_init (void *);
+
 public:
   void boot (void (*init) () = 0);
   void import ();
@@ -53,8 +54,9 @@ class Scm_variable
   friend Scm_module;
   void boot (const char *name);
   void import (SCM module, const char *name);
+
 public:
-  operator SCM &()
+  operator SCM & ()
   {
 #if 0
     // One could conceivably work with variables even before the
@@ -66,12 +68,12 @@ public:
 #endif
     return *SCM_VARIABLE_LOC (var_);
   }
-  void operator =(SCM const &k)
+  void operator= (SCM const &k)
   {
     *SCM_VARIABLE_LOC (var_) = k;
   }
-  template <typename ...Args>
-  SCM operator () (Args &&...args)
+  template <typename... Args>
+  SCM operator() (Args &&...args)
   {
     return ly_call (*this, std::forward<Args> (args)...);
   }
@@ -84,11 +86,9 @@ class Module_variable : public Scm_variable
 public:
   Module_variable (const char *name, SCM value = SCM_UNDEFINED)
     : Scm_variable (m, name, value)
-  { }
-  void operator =(SCM const &k)
   {
-    Scm_variable::operator =(k);
   }
+  void operator= (SCM const &k) { Scm_variable::operator= (k); }
 };
 
 #endif

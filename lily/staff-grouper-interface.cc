@@ -28,7 +28,8 @@
 // Find the furthest staff in the given direction whose x-extent overlaps with
 // the given interval.
 Grob *
-Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint, Direction dir, Interval const &iv)
+Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint,
+                                             Direction dir, Interval const &iv)
 {
   // N.B. This is intended to work for a VerticalAlignment grob even though
   // VerticalAlignment does not have the staff-grouper interface.  StaffGrouper
@@ -59,7 +60,8 @@ Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint, Direction
    belongs to the group.
 */
 bool
-Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pure, int start, int end)
+Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child,
+                                                  bool pure, int start, int end)
 {
   extract_grob_set (me, "elements", elts);
 
@@ -71,7 +73,7 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
     if (Page_layout_problem::is_spaceable (*i)
         && ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
             || (!pure && (*i)->is_live ())))
-      return me == unsmob <Grob> (get_object (*i, "staff-grouper"));
+      return me == unsmob<Grob> (get_object (*i, "staff-grouper"));
 
   // If there was no spaceable, living child after me, I don't
   // count as within the group.
@@ -88,4 +90,3 @@ A grob that collects staves together.
 staff-staff-spacing
 staffgroup-staff-spacing
                )");
-

@@ -27,7 +27,7 @@
 /*
   A dynamic programming solution to breaking pages
  */
-class Page_turn_page_breaking: public Page_breaking
+class Page_turn_page_breaking : public Page_breaking
 {
 public:
   SCM solve () override;
@@ -64,9 +64,7 @@ protected:
   std::vector<Break_node> state_;
 
   vsize total_page_count (Break_node const &b);
-  Break_node put_systems_on_pages (vsize start,
-                                   vsize end,
-                                   vsize configuration,
+  Break_node put_systems_on_pages (vsize start, vsize end, vsize configuration,
                                    int page_number);
 
   SCM make_lines (std::vector<Break_node> *breaks);

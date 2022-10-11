@@ -73,9 +73,7 @@ enum Cairo_output_format
   PS,
 };
 
-static std::unordered_map<std::string, Cairo_output_format> output_formats
-=
-{
+static std::unordered_map<std::string, Cairo_output_format> output_formats = {
   {"svg", SVG}, {"pdf", PDF}, {"eps", EPS}, {"ps", PS}, {"png", PNG},
 };
 
@@ -129,14 +127,16 @@ public:
       {
         auto status = cairo_status (context_);
         if (status != CAIRO_STATUS_SUCCESS)
-          warning (_f ("Cairo context status '%s'", cairo_status_to_string (status)));
+          warning (
+            _f ("Cairo context status '%s'", cairo_status_to_string (status)));
       }
 
     if (surface_)
       {
         auto status = cairo_surface_status (surface_);
         if (status != CAIRO_STATUS_SUCCESS)
-          warning (_f ("Cairo surface status '%s'", cairo_status_to_string (status)));
+          warning (
+            _f ("Cairo surface status '%s'", cairo_status_to_string (status)));
       }
   }
   virtual void finish ()
@@ -265,7 +265,7 @@ protected:
 struct Pair_hash
 {
   template <class T1, class T2>
-  std::size_t operator () (const std::pair<T1, T2> &pair) const
+  std::size_t operator() (const std::pair<T1, T2> &pair) const
   {
     return std::hash<T1> () (pair.first) ^ std::hash<T2> () (pair.second);
   }
@@ -364,8 +364,9 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
       cairo_font_face = cairo_ft_font_face_create_for_ft_face (face, 0);
       cairo_fonts_[face] = cairo_font_face;
 
-      if (cairo_font_face_set_user_data (cairo_font_face, &ukey, face,
-                                         reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
+      if (cairo_font_face_set_user_data (
+            cairo_font_face, &ukey, face,
+            reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
         {
           programming_error ("cairo_font_face_set_user_data failed");
         }
@@ -404,9 +405,7 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
   FT_Face ft_face = ft_font (otf->filename (), 0);
 
   cairo_set_font_face (context (), cairo_font_for_ft_font (ft_face));
-  cairo_matrix_t m
-  =
-  {
+  cairo_matrix_t m = {
     .xx = font_scale_factor_,
     .yx = 0,
     .xy = 0,
@@ -439,9 +438,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
 
   // TODO - why do we need to scale with scale_factor here?
   Real scale = from_scm<Real> (size) / (bigpoint_constant * scale_factor_);
-  cairo_matrix_t m
-  =
-  {
+  cairo_matrix_t m = {
     .xx = scale,
     .yx = 0,
     .xy = 0,
@@ -489,8 +486,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
               // Google Noto CJK OpenType/CFF Collection (OTC) font. Our test
               // case collection does not exercise this code.
               int glyph_code = from_scm<int> (glyph_scm);
-              cairo_glyphs.push_back (cairo_glyph_t (
-              {
+              cairo_glyphs.push_back (cairo_glyph_t ({
                 .index = static_cast<long unsigned int> (glyph_code),
                 .x = startx + (x + sumw),
                 .y = starty - y,
@@ -500,8 +496,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       else // we have a font with glyph names
         {
           std::string g = ly_scm2string (glyph_scm);
-          cairo_glyphs.push_back (cairo_glyph_t (
-          {
+          cairo_glyphs.push_back (cairo_glyph_t ({
             .index
             = FT_Get_Name_Index (ft_face, const_cast<FT_String *> (g.c_str ())),
             .x = startx + (x + sumw),
@@ -952,22 +947,26 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
      image exactly to bbox size.
    */
   int height = bbox[3] - bbox[1];
-  cairo_surface_t *image = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
+  cairo_surface_t *image = cairo_image_surface_create (
+    CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
 
   assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
 
   char *dupped_content = strdup (content.c_str ());
-  cairo_status_t status = cairo_surface_set_mime_data (image, CAIRO_MIME_TYPE_EPS,
-                                                       reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
-                                                       free, dupped_content);
+  cairo_status_t status = cairo_surface_set_mime_data (
+    image, CAIRO_MIME_TYPE_EPS,
+    reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
+    free, dupped_content);
   assert (status == CAIRO_STATUS_SUCCESS);
 
-  std::string bbox_str = String_convert::form_string ("bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
+  std::string bbox_str = String_convert::form_string (
+    "bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
 
   char *dupped_bbox = strdup (bbox_str.c_str ());
-  status = cairo_surface_set_mime_data (image, CAIRO_MIME_TYPE_EPS_PARAMS,
-                                        reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
-                                        &free, dupped_bbox);
+  status = cairo_surface_set_mime_data (
+    image, CAIRO_MIME_TYPE_EPS_PARAMS,
+    reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
+    &free, dupped_bbox);
   assert (status == CAIRO_STATUS_SUCCESS);
 
   Real x = 0.0;
@@ -1077,8 +1076,9 @@ Cairo_outputter::pdf_rect (Real llx, Real lly, Real w, Real h,
   Real cx = 0.0, cy = 0.0;
   if (relative_to_current)
     cairo_get_current_point (context (), &cx, &cy);
-  return String_convert::form_string ("rect=[ %f %f %f %f ] ", (cx + llx) * scale_factor_,
-                                      -(cy + lly + h) * scale_factor_, w * scale_factor_, h * scale_factor_);
+  return String_convert::form_string (
+    "rect=[ %f %f %f %f ] ", (cx + llx) * scale_factor_,
+    -(cy + lly + h) * scale_factor_, w * scale_factor_, h * scale_factor_);
 }
 
 void
@@ -1088,8 +1088,9 @@ Cairo_outputter::url_link (std::string const &target, Real llx, Real lly,
   if (std::isinf (llx) || std::isinf (lly) || std::isinf (w) || std::isinf (h))
     return;
 
-  std::string attr = String_convert::form_string ("%s uri='%s'", pdf_rect (llx, lly, w, h, relative_to_current).c_str (),
-                                                  target.c_str ());
+  std::string attr = String_convert::form_string (
+    "%s uri='%s'", pdf_rect (llx, lly, w, h, relative_to_current).c_str (),
+    target.c_str ());
 
   cairo_link (attr);
 }
@@ -1143,7 +1144,8 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
 
   textedit_link (off[X_AXIS] + x[LEFT], off[Y_AXIS] + y[DOWN], x.length (),
                  y.length (),
-                 String_convert::percent_encode (name.absolute (get_working_directory ()).to_string ()),
+                 String_convert::percent_encode (
+                   name.absolute (get_working_directory ()).to_string ()),
                  int (line), int (chr), int (col));
 }
 
@@ -1168,7 +1170,8 @@ Cairo_outputter::page_link (SCM target, SCM varx, SCM vary)
   Real y = from_scm<Real> (scm_car (vary));
   Real w = from_scm<Real> (scm_cdr (varx)) - x;
   Real h = from_scm<Real> (scm_cdr (vary)) - y;
-  std::string attr = String_convert::form_string ("%s page=%d pos=[0.0 0.0]", pdf_rect (x, y, w, h, true).c_str (), page);
+  std::string attr = String_convert::form_string (
+    "%s page=%d pos=[0.0 0.0]", pdf_rect (x, y, w, h, true).c_str (), page);
 
   cairo_link (attr);
 }
@@ -1176,7 +1179,7 @@ Cairo_outputter::page_link (SCM target, SCM varx, SCM vary)
 void
 Cairo_outputter::cairo_link (std::string const &attr)
 {
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE (1, 16, 0)
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
   cairo_tag_begin (context (), CAIRO_TAG_LINK, attr.c_str ());
   cairo_tag_end (context (), CAIRO_TAG_LINK);
 #else
@@ -1207,9 +1210,7 @@ Cairo_outputter::reset_scale ()
   cairo_restore (context ());
 }
 
-static std::unordered_map<std::string, cairo_pdf_metadata_t> metadata_keys
-=
-{
+static std::unordered_map<std::string, cairo_pdf_metadata_t> metadata_keys = {
   {"author", CAIRO_PDF_METADATA_AUTHOR},
   {"creator", CAIRO_PDF_METADATA_CREATOR},
   {"keywords", CAIRO_PDF_METADATA_KEYWORDS},
@@ -1227,7 +1228,7 @@ Cairo_outputter::metadata (std::string const &key, std::string const &val,
     {
       auto it = metadata_keys.find (key);
       assert (it != metadata_keys.end ());
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE (1, 16, 0)
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
       cairo_pdf_surface_set_metadata (surface_->cairo_surface (), it->second,
                                       val.c_str ());
       (void) user_provided;
@@ -1289,7 +1290,6 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
 
   scale_factor_
     = paper->get_dimension (ly_symbol2scm ("output-scale")) / bigpoint_constant;
-
 }
 
 void
@@ -1446,8 +1446,8 @@ dump book through cairo backend
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
 
   long int page_count = scm_ilength (stencils);
-  for (auto const format
-       : parse_formats ("ly:cairo-output-stencils", 5, formats))
+  for (auto const format :
+       parse_formats ("ly:cairo-output-stencils", 5, formats))
     {
       std::string base = ly_scm2string (basename);
       if (format == EPS || format == PNG || format == SVG)

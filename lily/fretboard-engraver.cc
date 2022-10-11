@@ -42,6 +42,7 @@ class Fretboard_engraver : public Engraver
   vector<Stream_event *> note_events_;
   vector<Stream_event *> tabstring_events_;
   vector<Stream_event *> fingering_events_;
+
 public:
   TRANSLATOR_DECLARATIONS (Fretboard_engraver);
 
@@ -94,25 +95,19 @@ Fretboard_engraver::process_music ()
   if (!note_events_.size ())
     return;
 
-  SCM tab_strings = articulation_list (note_events_,
-                                       tabstring_events_,
+  SCM tab_strings = articulation_list (note_events_, tabstring_events_,
                                        "string-number-event");
-  SCM fingers = articulation_list (note_events_,
-                                   fingering_events_,
-                                   "fingering-event");
+  SCM fingers
+    = articulation_list (note_events_, fingering_events_, "fingering-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = to_scm_list (note_events_);
   SCM proc = get_property (this, "noteToFretFunction");
   if (ly_is_procedure (proc))
-    ly_call (proc,
-             context ()->self_scm (),
-             fret_notes,
-             ly_list (tab_strings, fingers),
-             fret_board_->self_scm ());
+    ly_call (proc, context ()->self_scm (), fret_notes,
+             ly_list (tab_strings, fingers), fret_board_->self_scm ());
   SCM changes = get_property (this, "chordChanges");
   SCM placements = get_property (fret_board_, "dot-placement-list");
-  if (from_scm<bool> (changes)
-      && ly_is_equal (last_placements_, placements))
+  if (from_scm<bool> (changes) && ly_is_equal (last_placements_, placements))
     set_property (fret_board_, "begin-of-line-visible", SCM_BOOL_T);
 
   last_placements_ = placements;

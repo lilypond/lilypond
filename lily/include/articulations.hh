@@ -30,4 +30,3 @@ SCM articulation_list (std::vector<Stream_event *> notes,
                        char const *articulation_name);
 
 #endif /* ARTICULATIONS_HH */
-

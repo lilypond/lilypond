@@ -39,7 +39,8 @@ public:
   Audio_element_info () = default;
 
   Audio_element_info (Audio_element *elem, Stream_event *event)
-    : elem_ (elem), event_ (event)
+    : elem_ (elem),
+      event_ (event)
   {
   }
 };

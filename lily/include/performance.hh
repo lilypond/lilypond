@@ -45,18 +45,23 @@ public:
 
   void add_element (Audio_element *p);
   void process () override;
-  void output (Midi_stream &midi_stream, const std::string &performance_name) const;
+  void output (Midi_stream &midi_stream,
+               const std::string &performance_name) const;
 
-  void write_output (std::string filename, const std::string &performance_name) const;
+  void write_output (std::string filename,
+                     const std::string &performance_name) const;
 
 public:
   std::vector<Audio_staff *> audio_staffs_;
+
 private:
   std::vector<Audio_element *> audio_elements_;
   Moment start_mom_;
+
 public:
   Output_def *midi_;
   bool ports_;
+
 private:
   // list of headers (innermost is first)
   SCM headers_;

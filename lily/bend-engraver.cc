@@ -75,8 +75,8 @@ Bend_engraver::stop_translation_timestep ()
     {
       // don't cross a barline
       SCM col_scm = unsmob<Grob> (get_property (this, "currentBarLine"))
-                    ? get_property (this, "currentCommandColumn")
-                    : get_property (this, "currentMusicalColumn");
+                      ? get_property (this, "currentCommandColumn")
+                      : get_property (this, "currentMusicalColumn");
       if (auto *col = unsmob<Grob> (col_scm))
         {
           last_fall_->set_bound (RIGHT, col);
@@ -113,8 +113,8 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
     }
 
   note_head_ = info.grob ();
-  stop_moment_ = now_mom () + get_event_length (info.event_cause (),
-                                                now_mom ());
+  stop_moment_
+    = now_mom () + get_event_length (info.event_cause (), now_mom ());
 }
 
 Bend_engraver::Bend_engraver (Context *c)
@@ -135,7 +135,8 @@ Bend_engraver::process_music ()
     {
       fall_ = make_spanner ("BendAfter", fall_event_->self_scm ());
       set_property (fall_, "delta-position",
-                    to_scm (from_scm<double> (get_property (fall_event_, "delta-step"), 0)));
+                    to_scm (from_scm<double> (
+                      get_property (fall_event_, "delta-step"), 0)));
     }
 }
 

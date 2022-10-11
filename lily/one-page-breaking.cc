@@ -112,7 +112,8 @@ One_page_breaking::solve ()
           for (vsize s = 0; s < broken_intos_size; s++)
             {
               Grob *system = ps->root_system ()->broken_intos_[s];
-              line_heights.push_back (system->extent (system, Y_AXIS).length ());
+              line_heights.push_back (
+                system->extent (system, Y_AXIS).length ());
             }
         }
       else if (Prob *pb = system_specs_[i].prob_)
@@ -137,8 +138,10 @@ One_page_breaking::solve ()
   SCM padding = read_spacing_alist (last_bottom, ly_symbol2scm ("padding"));
   lowest_bound += from_scm<double> (padding);
 
-  SCM basic_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("basic-distance"));
-  SCM minimum_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("minimum-distance"));
+  SCM basic_dist
+    = read_spacing_alist (last_bottom, ly_symbol2scm ("basic-distance"));
+  SCM minimum_dist
+    = read_spacing_alist (last_bottom, ly_symbol2scm ("minimum-distance"));
   SCM max_dist = scm_max (basic_dist, minimum_dist);
 
   // If the last line is a musical system get the distance between its
@@ -147,19 +150,23 @@ One_page_breaking::solve ()
   SCM refpoint_dist = to_scm (0);
 
   SCM lines_probs = get_property (page_pb, "lines");
-  Prob *last_line_pb = unsmob<Prob> (scm_list_ref (lines_probs, scm_oneminus (scm_length (lines_probs))));
+  Prob *last_line_pb = unsmob<Prob> (
+    scm_list_ref (lines_probs, scm_oneminus (scm_length (lines_probs))));
 
   SCM refpoint_extent = get_property (last_line_pb, "staff-refpoint-extent");
 
-  if (scm_is_pair (refpoint_extent) && scm_is_number (scm_car (refpoint_extent)))
+  if (scm_is_pair (refpoint_extent)
+      && scm_is_number (scm_car (refpoint_extent)))
     refpoint_dist = scm_product (scm_car (refpoint_extent), to_scm (-1));
 
-  Real last_bottom_bound = from_scm<double> (scm_sum (lowest_line_pos, scm_sum (refpoint_dist, max_dist)));
+  Real last_bottom_bound = from_scm<double> (
+    scm_sum (lowest_line_pos, scm_sum (refpoint_dist, max_dist)));
   if (last_bottom_bound > lowest_bound)
     lowest_bound = last_bottom_bound;
 
   // SET FINAL PAPER HEIGHT
-  auto *foot_stil = unsmob<const Stencil> (get_property (page_pb, "foot-stencil"));
+  auto *foot_stil
+    = unsmob<const Stencil> (get_property (page_pb, "foot-stencil"));
   Real foot_height = foot_stil->extent (Y_AXIS).length ();
 
   SCM top_margin = book_->paper ()->c_variable ("top-margin");
@@ -171,7 +178,8 @@ One_page_breaking::solve ()
   book_->paper ()->set_variable (ly_symbol2scm ("paper-height"), ppr_height);
 
   // bottom-edge determines placement of footer (tagline, footnotes, etc.)
-  set_property (page_pb, "bottom-edge", scm_difference (ppr_height, bottom_margin));
+  set_property (page_pb, "bottom-edge",
+                scm_difference (ppr_height, bottom_margin));
 
   return pages;
 }

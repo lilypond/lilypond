@@ -91,8 +91,7 @@ Instrument_name_engraver::consider_start_spanner ()
 
   if ((Text_interface::is_markup (long_text)
        || Text_interface::is_markup (short_text))
-      && (!text_spanner_
-          || !scm_is_eq (short_text_, short_text)
+      && (!text_spanner_ || !scm_is_eq (short_text_, short_text)
           || !scm_is_eq (long_text_, long_text)))
     {
       if (text_spanner_)
@@ -153,16 +152,14 @@ Instrument_name_engraver::stop_spanner ()
     axis_groups_ = backup_axis_groups_;
 
   for (vsize i = 0; i < axis_groups_.size (); i++)
-    Pointer_group_interface::add_grob (text_spanner_,
-                                       ly_symbol2scm ("elements"),
-                                       axis_groups_[i]);
+    Pointer_group_interface::add_grob (
+      text_spanner_, ly_symbol2scm ("elements"), axis_groups_[i]);
 
   auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
   text_spanner_->set_bound (RIGHT, col);
 
   Pointer_group_interface::set_ordered (text_spanner_,
-                                        ly_symbol2scm ("elements"),
-                                        false);
+                                        ly_symbol2scm ("elements"), false);
 
   text_spanner_ = 0;
 }

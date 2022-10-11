@@ -46,4 +46,3 @@ Music_wrapper::length_callback (SCM m)
   else
     return Moment (0).smobbed_copy ();
 }
-

@@ -49,7 +49,8 @@ Beam_rhythmic_element::Beam_rhythmic_element ()
 }
 
 Beam_rhythmic_element::Beam_rhythmic_element (Rational m, int i, bool inv,
-                                              Rational factor, bool tuplet_start)
+                                              Rational factor,
+                                              bool tuplet_start)
 {
   start_moment_ = m;
   rhythmic_importance_ = 0;
@@ -80,7 +81,8 @@ Beaming_pattern::flag_direction (Beaming_options const &options, vsize i) const
   if (i == 0 || i == infos_.size () - 1)
     return CENTER;
 
-  int count = infos_[i].count (LEFT); // Both directions should still be the same
+  int count
+    = infos_[i].count (LEFT); // Both directions should still be the same
   int left_count = infos_[i - 1].count (RIGHT);
   int right_count = infos_[i + 1].count (LEFT);
 
@@ -108,7 +110,8 @@ Beaming_pattern::flag_direction (Beaming_options const &options, vsize i) const
 
   // If all else fails, point the beamlet away from the important moment.
   return (infos_[i].rhythmic_importance_ < infos_[i + 1].rhythmic_importance_)
-         ? RIGHT : LEFT;
+           ? RIGHT
+           : LEFT;
 }
 
 void
@@ -125,7 +128,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
   find_rhythmic_importance (options);
 
-  vector <Direction> flag_directions;
+  vector<Direction> flag_directions;
   // Get the initial flag directions
   for (vsize i = 0; i < infos_.size (); i++)
     flag_directions.push_back (flag_direction (options, i));
@@ -151,18 +154,20 @@ Beaming_pattern::beamify (Beaming_options const &options)
             int count
               = (infos_[i + 1].rhythmic_importance_ < 0
                  && options.subdivide_beams_)
-                // we're left of a subdivision
-                ? (i != infos_.size () - 2)
-                // respect the beam count for shortened beams ...
-                ? std::max (beam_count_for_rhythmic_position (i + 1),
-                            beam_count_for_length (remaining_length (i + 1)))
-                // ... except if there's only one trailing stem
-                : beam_count_for_rhythmic_position (i + 1)
+                  // we're left of a subdivision
+                  ? (i != infos_.size () - 2)
+                      // respect the beam count for shortened beams ...
+                      ? std::max (
+                        beam_count_for_rhythmic_position (i + 1),
+                        beam_count_for_length (remaining_length (i + 1)))
+                      // ... except if there's only one trailing stem
+                      : beam_count_for_rhythmic_position (i + 1)
 
-                // we're at any other stem
-                : std::min (std::min (infos_[i].count (non_flag_dir),
-                                      infos_[i + non_flag_dir].count (-non_flag_dir)),
-                            infos_[i - non_flag_dir].count (non_flag_dir));
+                  // we're at any other stem
+                  : std::min (
+                    std::min (infos_[i].count (non_flag_dir),
+                              infos_[i + non_flag_dir].count (-non_flag_dir)),
+                    infos_[i - non_flag_dir].count (non_flag_dir));
 
             // Ensure at least one beam is left, even for groups longer than 1/8
             count = std::max (count, 1);
@@ -205,7 +210,7 @@ find_location (SCM grouping, Rational base_moment, Rational start_moment,
 
   while (*next_group_pos < *next_beat_pos)
     {
-      int64_t group_count = 1;  //default -- 1 base moments in a beam
+      int64_t group_count = 1; //default -- 1 base moments in a beam
       if (scm_is_pair (grouping))
         {
           group_count = from_scm<int> (scm_car (grouping));
@@ -221,7 +226,8 @@ find_location (SCM grouping, Rational base_moment, Rational start_moment,
           // the largest beamed value.  If the tuplet is shorter, it's
           // OK, the code still works
           auto test_count = ((Rational (1, 8) / factor) / base_moment).num ();
-          if (test_count > group_count) group_count = test_count;
+          if (test_count > group_count)
+            group_count = test_count;
         }
       *group_pos = *next_group_pos;
       *next_group_pos = *group_pos + group_count * base_moment;
@@ -243,7 +249,8 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
   // Find where we are in the beat structure of the measure
   if (infos_.size ())
     find_location (grouping, options.base_moment_, infos_[i].start_moment_,
-                   infos_[i].factor_, &group_pos, &next_group_pos, &next_beat_pos);
+                   infos_[i].factor_, &group_pos, &next_group_pos,
+                   &next_beat_pos);
 
   // Mark the importance of stems that start at a beat or a beat group.
   while (i < infos_.size ())
@@ -252,7 +259,8 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           || (infos_[i].start_moment_ > next_beat_pos))
         // Find the new group ending point
         find_location (grouping, options.base_moment_, infos_[i].start_moment_,
-                       infos_[i].factor_, &group_pos, &next_group_pos, &next_beat_pos);
+                       infos_[i].factor_, &group_pos, &next_group_pos,
+                       &next_beat_pos);
       // Mark the start of this beat group
       if (infos_[i].start_moment_ == group_pos)
         infos_[i].rhythmic_importance_ = -2;
@@ -278,8 +286,8 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
           // the fraction of the tuplet, instead of the fraction of
           // a beat.
           const auto ratio = (tuplet_number == 1)
-                             ? dt / options.base_moment_
-                             : tuplet_dt / Rational (1, 8) / tuplet;
+                               ? dt / options.base_moment_
+                               : tuplet_dt / Rational (1, 8) / tuplet;
           if (infos_[i].rhythmic_importance_ >= 0)
             infos_[i].rhythmic_importance_ = static_cast<int> (ratio.den ());
 
@@ -324,9 +332,11 @@ Beaming_pattern::unbeam_invisible_stems ()
 }
 
 void
-Beaming_pattern::add_stem (Rational m, int b, bool invisible, Rational factor, bool tuplet_start)
+Beaming_pattern::add_stem (Rational m, int b, bool invisible, Rational factor,
+                           bool tuplet_start)
 {
-  infos_.push_back (Beam_rhythmic_element (m, b, invisible, factor, tuplet_start));
+  infos_.push_back (
+    Beam_rhythmic_element (m, b, invisible, factor, tuplet_start));
 }
 
 Beaming_pattern::Beaming_pattern ()
@@ -348,9 +358,8 @@ Beaming_pattern::start_moment (vsize i) const
 Rational
 Beaming_pattern::end_moment (vsize i) const
 {
-  Duration dur (2 + std::max (beamlet_count (i, LEFT),
-                              beamlet_count (i, RIGHT)),
-                0);
+  Duration dur (
+    2 + std::max (beamlet_count (i, LEFT), beamlet_count (i, RIGHT)), 0);
 
   return infos_.at (i).start_moment_
          + infos_.at (i).factor_ * dur.get_length ();
@@ -407,11 +416,8 @@ Beaming_pattern::split_pattern (vsize i)
   for (vsize j = i + 1; j < infos_.size (); j++)
     {
       count = std::max (beamlet_count (j, LEFT), beamlet_count (j, RIGHT));
-      new_pattern->add_stem (start_moment (j),
-                             count,
-                             invisibility (j),
-                             factor (j),
-                             tuplet_start (j));
+      new_pattern->add_stem (start_moment (j), count, invisibility (j),
+                             factor (j), tuplet_start (j));
     }
   for (vsize j = i + 1; j < infos_.size ();)
     infos_.pop_back ();
@@ -423,11 +429,13 @@ Beaming_options::from_context (Context *context)
 {
   grouping_ = get_property (context, "beatStructure");
   subdivide_beams_ = from_scm<bool> (get_property (context, "subdivideBeams"));
-  strict_beat_beaming_ = from_scm<bool> (get_property (context, "strictBeatBeaming"));
-  base_moment_ = from_scm (get_property (context, "baseMoment"),
-                           Moment (1, 4)).main_part_;
-  measure_length_ = from_scm (get_property (context, "measureLength"),
-                              Moment (4, 4)).main_part_;
+  strict_beat_beaming_
+    = from_scm<bool> (get_property (context, "strictBeatBeaming"));
+  base_moment_
+    = from_scm (get_property (context, "baseMoment"), Moment (1, 4)).main_part_;
+  measure_length_
+    = from_scm (get_property (context, "measureLength"), Moment (4, 4))
+        .main_part_;
 }
 
 Beaming_options::Beaming_options ()

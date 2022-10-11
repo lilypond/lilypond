@@ -79,7 +79,7 @@ static_assert (POSI * NEGA == NEGA, "");
 static_assert (POSI * ZERO == ZERO, "");
 static_assert (POSI * POSI == POSI, "");
 
-static_assert (directed_same (POSI *POSI, POSI),
+static_assert (directed_same (POSI * POSI, POSI),
                "(Direction * Direction) should yield a Direction");
 
 static_assert ((Direction (NEGA) *= NEGA) == POSI, "");

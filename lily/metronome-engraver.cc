@@ -107,8 +107,7 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
 
   if (text_)
     for (SCM s = get_property (text_, "non-break-align-symbols");
-         scm_is_pair (s);
-         s = scm_cdr (s))
+         scm_is_pair (s); s = scm_cdr (s))
       if (g->internal_has_interface (scm_car (s)))
         text_->set_x_parent (g);
 }
@@ -119,7 +118,8 @@ Metronome_mark_engraver::stop_translation_timestep ()
   if (text_)
     {
       if (text_->get_x_parent ()
-          && text_->get_x_parent ()->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
+          && text_->get_x_parent ()->internal_has_interface (
+            ly_symbol2scm ("multi-measure-rest-interface"))
           && bar_)
         text_->set_x_parent (bar_);
       else if (!support_)
@@ -131,9 +131,11 @@ Metronome_mark_engraver::stop_translation_timestep ()
             first notational element of the measure if no time
             signature is present in that measure).
           */
-          if (Grob *mc = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
+          if (Grob *mc
+              = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
             text_->set_x_parent (mc);
-          else if (Grob *cc = unsmob<Grob> (get_property (this, "currentCommandColumn")))
+          else if (Grob *cc
+                   = unsmob<Grob> (get_property (this, "currentCommandColumn")))
             text_->set_x_parent (cc);
         }
       set_object (text_, "side-support-elements",
@@ -153,9 +155,8 @@ Metronome_mark_engraver::process_music ()
       text_ = make_item ("MetronomeMark", tempo_ev_->self_scm ());
 
       SCM proc = get_property (this, "metronomeMarkFormatter");
-      SCM result = ly_call (proc,
-                            tempo_ev_->self_scm (),
-                            context ()->self_scm ());
+      SCM result
+        = ly_call (proc, tempo_ev_->self_scm (), context ()->self_scm ());
 
       set_property (text_, "text", result);
     }

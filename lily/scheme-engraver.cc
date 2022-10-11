@@ -78,20 +78,18 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
-  is_midi_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("is-midi"),
-                                           definition,
-                                           SCM_BOOL_F));
+  is_midi_ = from_scm<bool> (
+    ly_assoc_get (ly_symbol2scm ("is-midi"), definition, SCM_BOOL_F));
 
-  is_layout_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("is-layout"),
-                                             definition,
-                                             is_midi_ ? SCM_BOOL_F : SCM_BOOL_T));
+  is_layout_
+    = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("is-layout"), definition,
+                                    is_midi_ ? SCM_BOOL_F : SCM_BOOL_T));
 
   SCM p = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
   SCM listeners = SCM_EOL;
 
-  must_be_last_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("must-be-last"),
-                                                definition,
-                                                SCM_BOOL_F));
+  must_be_last_ = from_scm<bool> (
+    ly_assoc_get (ly_symbol2scm ("must-be-last"), definition, SCM_BOOL_F));
 
   for (; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -107,12 +105,10 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
       listeners = scm_acons (event_class, proc, listeners);
     }
 
-  SCM hash1
-    = init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
-                                        definition, SCM_EOL));
-  SCM hash2
-    = init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
-                                        definition, SCM_EOL));
+  SCM hash1 = init_acknowledgers (
+    ly_assoc_get (ly_symbol2scm ("acknowledgers"), definition, SCM_EOL));
+  SCM hash2 = init_acknowledgers (
+    ly_assoc_get (ly_symbol2scm ("end-acknowledgers"), definition, SCM_EOL));
 
   per_instance_listeners_ = listeners;
   interface_acknowledger_hash_ = {hash1, hash2};

@@ -133,8 +133,7 @@ File_name::to_string () const
   string d = dir_part ();
   string f = file_part ();
 
-  if (!f.empty ()
-      && !dir_.empty ())
+  if (!f.empty () && !dir_.empty ())
     d += DIRSEP;
 
   return d + f;

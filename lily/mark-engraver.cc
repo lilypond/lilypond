@@ -48,8 +48,7 @@ Mark_engraver::start_translation_timestep ()
 void
 Mark_engraver::stop_translation_timestep ()
 {
-  auto process_mark = [this] (Mark_state & mark)
-  {
+  auto process_mark = [this] (Mark_state &mark) {
     if (mark.text_)
       {
         if (first_time_)
@@ -60,9 +59,9 @@ Mark_engraver::stop_translation_timestep ()
                           scm_c_make_vector (3, SCM_BOOL_T));
           }
 
-        set_object (mark.text_, "side-support-elements",
-                    grob_list_to_grob_array (get_property (this,
-                                                           "stavesFound")));
+        set_object (
+          mark.text_, "side-support-elements",
+          grob_list_to_grob_array (get_property (this, "stavesFound")));
         mark.final_text_ = mark.text_;
         mark.text_ = nullptr;
       }
@@ -76,8 +75,7 @@ Mark_engraver::stop_translation_timestep ()
 void
 Mark_engraver::finalize ()
 {
-  auto finalize_mark = [this] (Mark_state & mark)
-  {
+  auto finalize_mark = [this] (Mark_state &mark) {
     if (mark.final_text_)
       {
         // A mark created at the very end is always visible even if it would
@@ -102,8 +100,8 @@ Mark_engraver::get_current_performance_mark_text (Context *context)
 }
 
 SCM
-Mark_engraver::get_current_performance_mark
-(Context *ctx, const char **grob_name, SCM *text)
+Mark_engraver::get_current_performance_mark (Context *ctx,
+                                             const char **grob_name, SCM *text)
 {
   *grob_name = nullptr;
   *text = SCM_EOL;
@@ -160,8 +158,8 @@ Mark_engraver::get_current_rehearsal_mark_text (Context *context)
 }
 
 SCM
-Mark_engraver::get_current_rehearsal_mark
-(Context *ctx, const char **grob_name, SCM *text)
+Mark_engraver::get_current_rehearsal_mark (Context *ctx, const char **grob_name,
+                                           SCM *text)
 {
   *grob_name = nullptr;
   *text = SCM_EOL;
@@ -198,8 +196,7 @@ Mark_engraver::get_current_rehearsal_mark
 void
 Mark_engraver::process_music ()
 {
-  auto process_mark = [this] (Mark_state & mark, auto get_current_mark)
-  {
+  auto process_mark = [this] (Mark_state &mark, auto get_current_mark) {
     if (!mark.text_)
       {
         const char *grob_name = nullptr;

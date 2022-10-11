@@ -37,8 +37,7 @@ Box::unite (Box b)
 Real
 Box::area () const
 {
-  return interval_a_[X_AXIS].length ()
-         * interval_a_[Y_AXIS].length ();
+  return interval_a_[X_AXIS].length () * interval_a_[Y_AXIS].length ();
 }
 
 Box::Box ()
@@ -74,13 +73,13 @@ Box::Box (Interval ix, Interval iy)
 }
 
 Interval &
-Box::operator [] (Axis a)
+Box::operator[] (Axis a)
 {
   return interval_a_[a];
 }
 
 Interval
-Box::operator [] (Axis a) const
+Box::operator[] (Axis a) const
 {
   return interval_a_[a];
 }
@@ -102,8 +101,7 @@ Box::add_point (Offset o)
 Offset
 Box::center () const
 {
-  return Offset (interval_a_[X_AXIS].center (),
-                 interval_a_[Y_AXIS].center ());
+  return Offset (interval_a_[X_AXIS].center (), interval_a_[Y_AXIS].center ());
 }
 
 void

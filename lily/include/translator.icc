@@ -30,134 +30,128 @@
 /**
    A macro to automate administration of translators.
 */
-#define ADD_THIS_TRANSLATOR(T)                                          \
-  static void _ ## T ## _adder ()                                       \
-  {                                                                     \
-    T::boot ();                                                         \
-    add_translator_creator (Translator_creator::alloc<T>()->unprotect (), \
-                            scm_from_latin1_symbol (#T),                \
-                            T::static_translator_description ());       \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (_ ## T ## _adder, _ ## T ## _adder);               \
+#define ADD_THIS_TRANSLATOR(T)                                                 \
+  static void _##T##_adder ()                                                  \
+  {                                                                            \
+    T::boot ();                                                                \
+    add_translator_creator (Translator_creator::alloc<T> ()->unprotect (),     \
+                            scm_from_latin1_symbol (#T),                       \
+                            T::static_translator_description ());              \
+  }                                                                            \
+  ADD_SCM_INIT_FUNC (_##T##_adder, _##T##_adder);                              \
   /* end define */
 
-#define DEFINE_TRANSLATOR_LISTENER_LIST(T)                              \
-  Protected_scm T::listener_list_ (SCM_EOL);                            \
+#define DEFINE_TRANSLATOR_LISTENER_LIST(T)                                     \
+  Protected_scm T::listener_list_ (SCM_EOL);                                   \
   /* end define */
 
-#define DEFINE_ACKNOWLEDGERS(classname) \
-  Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;  \
-  SCM                                                                   \
-  classname::static_get_acknowledger (SCM sym, Direction start_end)     \
-  {                                                                     \
-    return generic_get_acknowledger                                     \
-      (sym, acknowledge_static_array_drul_[start_end]);                 \
-  }                                                                     \
+#define DEFINE_ACKNOWLEDGERS(classname)                                        \
+  Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;         \
+  SCM classname::static_get_acknowledger (SCM sym, Direction start_end)        \
+  {                                                                            \
+    return generic_get_acknowledger (                                          \
+      sym, acknowledge_static_array_drul_[start_end]);                         \
+  }                                                                            \
   /* end define */
 
-#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)      \
-  SCM                                                                   \
-  classname::static_translator_description ()                           \
-  {                                                                     \
-    return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
+#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)             \
+  SCM classname::static_translator_description ()                              \
+  {                                                                            \
+    return Translator::static_translator_description (                         \
+      grobs, desc, listener_list_, read, write);                               \
   }
 
-#define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
-  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                    \
-  DEFINE_ACKNOWLEDGERS(classname);                                      \
-  ADD_THIS_TRANSLATOR (classname);                                      \
-  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write);           \
-  DEFINE_TRANSLATOR_LISTENER_LIST(classname);
+#define ADD_TRANSLATOR(classname, desc, grobs, read, write)                    \
+  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                           \
+  DEFINE_ACKNOWLEDGERS (classname);                                            \
+  ADD_THIS_TRANSLATOR (classname);                                             \
+  DEFINE_TRANSLATOR_DOC (classname, desc, grobs, read, write);                 \
+  DEFINE_TRANSLATOR_LISTENER_LIST (classname);
 
-#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                        \
-  void                                                                  \
-  T::fetch_precomputable_methods (SCM ptrs[])                           \
-  {                                                                     \
+#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                               \
+  void T::fetch_precomputable_methods (SCM ptrs[])                             \
+  {                                                                            \
     /* The base Translator methods don't do anything.  By skipping them \
        in the precomputed method lists, we avoid calling a bunch of     \
        noop methods at every time step, which makes the process more    \
-       efficient. */                                                    \
-    ptrs[START_TRANSLATION_TIMESTEP] =                                  \
-      &T::start_translation_timestep != &Translator::start_translation_timestep \
-      ? MFP_WRAP (&T::start_translation_timestep)                       \
-      : SCM_UNDEFINED;                                                  \
-                                                                        \
-    ptrs[STOP_TRANSLATION_TIMESTEP] =                                   \
-      &T::stop_translation_timestep != &Translator::stop_translation_timestep \
-      ? MFP_WRAP (&T::stop_translation_timestep)                        \
-      : SCM_UNDEFINED;                                                  \
-                                                                        \
-    ptrs[PRE_PROCESS_MUSIC] =                                           \
-      &T::pre_process_music != &Translator::pre_process_music           \
-      ? MFP_WRAP (&T::pre_process_music)                                \
-      : SCM_UNDEFINED;                                                  \
-                                                                        \
-    ptrs[PROCESS_MUSIC] =                                               \
-      &T::process_music != &Translator::process_music                   \
-      ? MFP_WRAP (&T::process_music)                                    \
-      : SCM_UNDEFINED;                                                  \
-                                                                        \
-    ptrs[PROCESS_ACKNOWLEDGED] =                                        \
-      &T::process_acknowledged != &Translator::process_acknowledged     \
-      ? MFP_WRAP (&T::process_acknowledged)                             \
-      : SCM_UNDEFINED;                                                  \
+       efficient. */      \
+    ptrs[START_TRANSLATION_TIMESTEP]                                           \
+      = &T::start_translation_timestep                                         \
+            != &Translator::start_translation_timestep                         \
+          ? MFP_WRAP (&T::start_translation_timestep)                          \
+          : SCM_UNDEFINED;                                                     \
+                                                                               \
+    ptrs[STOP_TRANSLATION_TIMESTEP]                                            \
+      = &T::stop_translation_timestep                                          \
+            != &Translator::stop_translation_timestep                          \
+          ? MFP_WRAP (&T::stop_translation_timestep)                           \
+          : SCM_UNDEFINED;                                                     \
+                                                                               \
+    ptrs[PRE_PROCESS_MUSIC]                                                    \
+      = &T::pre_process_music != &Translator::pre_process_music                \
+          ? MFP_WRAP (&T::pre_process_music)                                   \
+          : SCM_UNDEFINED;                                                     \
+                                                                               \
+    ptrs[PROCESS_MUSIC] = &T::process_music != &Translator::process_music      \
+                            ? MFP_WRAP (&T::process_music)                     \
+                            : SCM_UNDEFINED;                                   \
+                                                                               \
+    ptrs[PROCESS_ACKNOWLEDGED]                                                 \
+      = &T::process_acknowledged != &Translator::process_acknowledged          \
+          ? MFP_WRAP (&T::process_acknowledged)                                \
+          : SCM_UNDEFINED;                                                     \
   }
 
-void add_acknowledger (SCM ptr,
-                       char const *func_name,
-                       SCM &ack_hash);
+void add_acknowledger (SCM ptr, char const *func_name, SCM &ack_hash);
 
 // Register `self_type::function` to acknowledge grobs of type `grob`.
 //
 // Where possible, to help maintain consistency, please use ADD_ACKNOWLEDGER
 // instead.
-#define ADD_ACKNOWLEDGER_FOR(function, grob)                            \
-  add_acknowledger (MFP_WRAP (&self_type::function),                    \
-                    #grob, acknowledge_static_array_drul_[START])
+#define ADD_ACKNOWLEDGER_FOR(function, grob)                                   \
+  add_acknowledger (MFP_WRAP (&self_type::function), #grob,                    \
+                    acknowledge_static_array_drul_[START])
 
 // Short form of ADD_ACKNOWLEDGER_FOR using conventional names:
 // Handle grobs of type `grob` with `self_type::acknowledge_grob`.
-#define ADD_ACKNOWLEDGER(grob)                                          \
-  ADD_ACKNOWLEDGER_FOR (acknowledge_ ## grob, grob)
+#define ADD_ACKNOWLEDGER(grob) ADD_ACKNOWLEDGER_FOR (acknowledge_##grob, grob)
 
 // Register `self_type::function` to acknowledge end grobs of type `grob`.
 //
 // Where possible, to help maintain consistency, please use
 // ADD_END_ACKNOWLEDGER instead.
-#define ADD_END_ACKNOWLEDGER_FOR(function, grob)                        \
-  add_acknowledger (MFP_WRAP (&self_type::function),                    \
-                    #grob, acknowledge_static_array_drul_[STOP])
+#define ADD_END_ACKNOWLEDGER_FOR(function, grob)                               \
+  add_acknowledger (MFP_WRAP (&self_type::function), #grob,                    \
+                    acknowledge_static_array_drul_[STOP])
 
 // Short form of ADD_END_ACKNOWLEDGER_FOR using conventional names:
 // Handle grobs of type `grob` with `self_type::acknowledge_end_grob`.
-#define ADD_END_ACKNOWLEDGER(grob)                                      \
-  ADD_END_ACKNOWLEDGER_FOR (acknowledge_end_ ## grob, grob)
+#define ADD_END_ACKNOWLEDGER(grob)                                             \
+  ADD_END_ACKNOWLEDGER_FOR (acknowledge_end_##grob, grob)
 
 // Delegate handling events of type `event` to member function `function` of
 // object `self_type::delegate`.
 //
 // Where possible, to help maintain consistency, please use
 // ADD_DELEGATE_LISTENER instead.
-#define ADD_DELEGATE_LISTENER_FOR(delegate, function, event)            \
-  add_listener (event_class_symbol (#event),                            \
-                MOMF_WRAP(self_type, delegate, function))
+#define ADD_DELEGATE_LISTENER_FOR(delegate, function, event)                   \
+  add_listener (event_class_symbol (#event),                                   \
+                MOMF_WRAP (self_type, delegate, function))
 
 // Short form of ADD_DELEGATE_LISTENER_FOR using conventional names: Handle
 // events of type `event` by calling `self_type::event_listener_::listen`.
-#define ADD_DELEGATE_LISTENER(event)                                    \
-  ADD_DELEGATE_LISTENER_FOR (event ## _listener_, listen, event)
+#define ADD_DELEGATE_LISTENER(event)                                           \
+  ADD_DELEGATE_LISTENER_FOR (event##_listener_, listen, event)
 
 // Register `self_type::function` to handle events of type `event`.
 //
 // Where possible, to help maintain consistency, please use ADD_LISTENER
 // instead.
-#define ADD_LISTENER_FOR(function, event)                               \
-  add_listener (event_class_symbol (#event),                            \
-                MFP_WRAP (&self_type::function))
+#define ADD_LISTENER_FOR(function, event)                                      \
+  add_listener (event_class_symbol (#event), MFP_WRAP (&self_type::function))
 
 // Short form of ADD_LISTENER_FOR using conventional names:
 // Handle events of type `event` by calling `self_type::listen_event`.
-#define ADD_LISTENER(event)                                             \
-  ADD_LISTENER_FOR (listen_ ## event, event)
+#define ADD_LISTENER(event) ADD_LISTENER_FOR (listen_##event, event)
 
 #endif /* TRANSLATOR_ICC */

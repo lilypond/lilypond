@@ -42,6 +42,7 @@ protected:
   void process_music ();
 
   void derived_mark () const override;
+
 private:
   Item *clef_;
   Item *modifier_;
@@ -79,11 +80,13 @@ Cue_clef_engraver::set_glyph ()
   SCM glyph_sym = ly_symbol2scm ("glyph");
   SCM basic = ly_symbol2scm ("CueClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "cueClefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property (this, "cueClefGlyph"));
 
   basic = ly_symbol2scm ("CueEndClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property (this, "clefGlyph"));
 }
 
 void
@@ -97,8 +100,7 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
       int dir = sign (abs_transp);
       abs_transp = abs (abs_transp) + 1;
 
-      SCM txt = scm_number_to_string (to_scm (abs_transp),
-                                      to_scm (10));
+      SCM txt = scm_number_to_string (to_scm (abs_transp), to_scm (10));
 
       if (ly_is_procedure (formatter))
         set_property (g, "text", ly_call (formatter, txt, style));
@@ -124,9 +126,10 @@ Cue_clef_engraver::create_clef ()
       if (scm_is_number (cpos))
         set_property (clef_, "staff-position", cpos);
 
-      create_clef_modifier (get_property (this, "cueClefTransposition"),
-                            get_property (this, "cueClefTranspositionStyle"),
-                            get_property (this, "cueClefTranspositionFormatter"));
+      create_clef_modifier (
+        get_property (this, "cueClefTransposition"),
+        get_property (this, "cueClefTranspositionStyle"),
+        get_property (this, "cueClefTranspositionFormatter"));
     }
 }
 
@@ -165,8 +168,7 @@ Cue_clef_engraver::inspect_clef_properties ()
   SCM clefpos = get_property (this, "cueClefPosition");
   SCM transposition = get_property (this, "cueClefTransposition");
 
-  if (!ly_is_equal (glyph, prev_glyph_)
-      || !ly_is_equal (clefpos, prev_cpos_)
+  if (!ly_is_equal (glyph, prev_glyph_) || !ly_is_equal (clefpos, prev_cpos_)
       || !ly_is_equal (transposition, prev_transposition_))
     {
       set_glyph ();
@@ -183,7 +185,6 @@ Cue_clef_engraver::inspect_clef_properties ()
       prev_glyph_ = glyph;
       prev_transposition_ = transposition;
     }
-
 }
 
 void

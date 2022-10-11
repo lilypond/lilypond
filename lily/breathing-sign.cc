@@ -103,7 +103,8 @@ Breathing_sign::divisio_minima (SCM smob)
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
-  Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blotdiameter
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   /*
    * Draw a small vertical line through the uppermost (or, depending
@@ -128,7 +129,8 @@ Breathing_sign::divisio_maior (SCM smob)
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
-  Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blotdiameter
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   /*
     Draw a vertical line that is roughly centered vertically in
@@ -169,9 +171,8 @@ Breathing_sign::divisio_maior (SCM smob)
                 enough, take the next space (if there are no more
                 spaces, ydim won't be enlarged further).
               */
-              std::vector<Real>::const_iterator it
-                = std::lower_bound (line_pos.begin (), line_pos.end (),
-                                    ydim[DOWN]);
+              std::vector<Real>::const_iterator it = std::lower_bound (
+                line_pos.begin (), line_pos.end (), ydim[DOWN]);
               assert (line_pos.begin () < it);
               double val = (it[-1] + it[0]) / 2;
               if (ydim[DOWN] < val && line_pos.begin () < it - 1)
@@ -210,7 +211,8 @@ Breathing_sign::divisio_maxima (SCM smob)
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
-  Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blotdiameter
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   // like a "|" type bar
   Interval xdim (0, thickness);
@@ -233,7 +235,8 @@ Breathing_sign::finalis (SCM smob)
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
-  Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blotdiameter
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   // like a "||" type bar
   Interval xdim (0, thickness);

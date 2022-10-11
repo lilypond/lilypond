@@ -128,7 +128,8 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
   if (line_ && cause)
     {
       Direction line_dir = get_grob_direction (line_);
-      Direction grob_dir = from_scm<Direction> (get_property (cause, "direction"));
+      Direction grob_dir
+        = from_scm<Direction> (get_property (cause, "direction"));
 
       // If we have an explicit direction for the new dynamic grob
       // that differs from the current line spanner, break the spanner
@@ -172,8 +173,7 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))
         {
-          vector<Spanner *> const &spanners
-            = (d == LEFT) ? started_ : ended_;
+          vector<Spanner *> const &spanners = (d == LEFT) ? started_ : ended_;
 
           Grob *bound = 0;
           if (scripts_.size ())
@@ -182,8 +182,10 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
             bound = spanners[0]->get_bound (d);
           else
             {
-              bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-              programming_error ("started DynamicLineSpanner but have no left bound");
+              bound
+                = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+              programming_error (
+                "started DynamicLineSpanner but have no left bound");
             }
 
           line->set_bound (d, bound);
@@ -217,7 +219,8 @@ Dynamic_align_engraver::stop_translation_timestep ()
   // add any more support points (needed e.g. for style=none, where the
   // invisible spanner should NOT be shifted since we don't have a line).
   bool spanner_broken = current_dynamic_spanner_
-                        && from_scm<bool> (get_property (current_dynamic_spanner_, "spanner-broken"));
+                        && from_scm<bool> (get_property (
+                          current_dynamic_spanner_, "spanner-broken"));
   for (vsize i = 0; line_ && !spanner_broken && i < support_.size (); i++)
     Side_position_interface::add_support (line_, support_[i]);
 

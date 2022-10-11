@@ -103,8 +103,8 @@ Context *
 Global_context::get_score_context () const
 {
   return (scm_is_pair (context_list_))
-         ? unsmob<Context> (scm_car (context_list_))
-         : 0;
+           ? unsmob<Context> (scm_car (context_list_))
+           : 0;
 }
 
 SCM
@@ -158,8 +158,7 @@ Global_context::iterate (Music *music, bool force_found_music)
         {
           Moment w = iter->pending_moment ();
           // write out iter->ok () to save a call to pending_moment ()
-          const bool ok = (w < Moment::infinity ())
-                          || iter->run_always ();
+          const bool ok = (w < Moment::infinity ()) || iter->run_always ();
 
           w = sneaky_insert_extra_moment (w);
           if (w > final_mom)
@@ -172,8 +171,8 @@ Global_context::iterate (Music *music, bool force_found_music)
               break;
             }
 
-          send_stream_event (this, "Prepare", 0,
-                             ly_symbol2scm ("moment"), w.smobbed_copy ());
+          send_stream_event (this, "Prepare", 0, ly_symbol2scm ("moment"),
+                             w.smobbed_copy ());
 
           if (first)
             iter->init_context (this);

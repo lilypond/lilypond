@@ -56,8 +56,7 @@ Stencil::extent (Axis a) const
 bool
 Stencil::is_empty () const
 {
-  return (scm_is_null (expr_)
-          || dim_.is_empty ());
+  return (scm_is_null (expr_) || dim_.is_empty ());
 }
 
 bool
@@ -105,10 +104,9 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
    *         *this = rotated()
    */
 
-  expr_ = ly_list (ly_symbol2scm ("rotate-stencil"),
-                   ly_list (to_scm (a),
-                            scm_cons (to_scm (x), to_scm (y))),
-                   expr_);
+  expr_
+    = ly_list (ly_symbol2scm ("rotate-stencil"),
+               ly_list (to_scm (a), scm_cons (to_scm (x), to_scm (y))), expr_);
 
   /*
    * Calculate the new bounding box
@@ -117,9 +115,12 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
   shifted_box.translate (-absolute_off);
 
   vector<Offset> pts;
-  pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (DOWN)));
-  pts.push_back (Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (DOWN)));
-  pts.push_back (Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (UP)));
+  pts.push_back (
+    Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (DOWN)));
+  pts.push_back (
+    Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (DOWN)));
+  pts.push_back (
+    Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (UP)));
   pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (UP)));
 
   const Offset rot (offset_directed (a));
@@ -156,9 +157,10 @@ Stencil::translate (Offset o)
           // ugh, hardcoded.
           || fabs (o[a]) > 1e6)
         {
-          programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
-                             + "\n"
-                             + "Setting to zero.");
+          programming_error (
+            String_convert::form_string (
+              "Improbable offset for stencil: %f staff space", o[a])
+            + "\n" + "Setting to zero.");
           o[a] = 0.0;
           if (strict_infinity_checking)
             scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
@@ -166,9 +168,7 @@ Stencil::translate (Offset o)
     }
 
   if (!scm_is_null (expr_))
-    expr_ = ly_list (ly_symbol2scm ("translate-stencil"),
-                     to_scm (o),
-                     expr_);
+    expr_ = ly_list (ly_symbol2scm ("translate-stencil"), to_scm (o), expr_);
   dim_.translate (o);
 }
 
@@ -184,8 +184,7 @@ void
 Stencil::scale (Real x, Real y)
 {
   expr_ = ly_list (ly_symbol2scm ("scale-stencil"),
-                   ly_list (to_scm (x), to_scm (y)),
-                   expr_);
+                   ly_list (to_scm (x), to_scm (y)), expr_);
   dim_[X_AXIS] *= x;
   dim_[Y_AXIS] *= y;
 }
@@ -198,19 +197,16 @@ Stencil::add_stencil (Stencil const &s)
     expr_ = s.expr_;
   else if (scm_is_null (s.expr_))
     ;
-  else if (scm_is_pair (expr_)
-           && scm_is_eq (cs, scm_car (expr_)))
+  else if (scm_is_pair (expr_) && scm_is_eq (cs, scm_car (expr_)))
     {
-      if (scm_is_pair (s.expr_)
-          && scm_is_eq (cs, scm_car (s.expr_)))
+      if (scm_is_pair (s.expr_) && scm_is_eq (cs, scm_car (s.expr_)))
         expr_ = ly_append (s.expr_, scm_cdr (expr_));
       else
         expr_ = scm_cons2 (cs, s.expr_, scm_cdr (expr_));
     }
   else
     {
-      if (scm_is_pair (s.expr_)
-          && scm_is_eq (cs, scm_car (s.expr_)))
+      if (scm_is_pair (s.expr_) && scm_is_eq (cs, scm_car (s.expr_)))
         expr_ = ly_append (s.expr_, ly_list (expr_));
       else
         expr_ = ly_list (cs, s.expr_, expr_);
@@ -308,7 +304,8 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
 // edge seems like the most straightforward way.
 
 void
-Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindist)
+Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding,
+                Real mindist)
 {
   // Material that is empty in the axis of reference can't be sensibly
   // stacked.  We just revert to add_at_edge behavior then.
@@ -361,7 +358,7 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
   if (s.is_empty (other_axis (a)))
     {
       Stencil toadd (s);
-      Real offset = first_extent [d];
+      Real offset = first_extent[d];
       toadd.translate_axis (offset, a);
       toadd.add_stencil (*this);
       expr_ = toadd.expr ();
@@ -376,8 +373,8 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
   // If the added stencil has a backwardly protruding edge, we make
   // room for it when combining.
 
-  if (d * next_extent [-d] < 0)
-    offset -= next_extent [-d];
+  if (d * next_extent[-d] < 0)
+    offset -= next_extent[-d];
 
   offset += d * padding;
 
@@ -389,20 +386,20 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
   toadd.add_stencil (*this);
   expr_ = toadd.expr ();
   dim_ = toadd.extent_box ();
-  dim_[a][-d] = first_extent [-d];
-  dim_[a][d] = next_extent [d] + offset;
+  dim_[a][-d] = first_extent[-d];
+  dim_[a][d] = next_extent[d] + offset;
 }
 
 Stencil
 Stencil::in_color (Real r, Real g, Real b, Real a) const
 {
 
-  Stencil new_stencil (extent_box (),
-                       ly_list (ly_symbol2scm ("color"),
-                                scm_list_n (to_scm (r), to_scm (g), to_scm (b),
-                                            a == 1.0 ? SCM_UNDEFINED : to_scm (a),
-                                            SCM_UNDEFINED),
-                                expr ()));
+  Stencil new_stencil (
+    extent_box (),
+    ly_list (ly_symbol2scm ("color"),
+             scm_list_n (to_scm (r), to_scm (g), to_scm (b),
+                         a == 1.0 ? SCM_UNDEFINED : to_scm (a), SCM_UNDEFINED),
+             expr ()));
   return new_stencil;
 }
 
@@ -418,9 +415,8 @@ Stencil::translated (Offset z) const
 Stencil
 Stencil::with_outline (Stencil const &ol) const
 {
-  Stencil new_stencil (ol.extent_box (),
-                       ly_list (ly_symbol2scm ("with-outline"),
-                                ol.expr (),
-                                expr ()));
+  Stencil new_stencil (
+    ol.extent_box (),
+    ly_list (ly_symbol2scm ("with-outline"), ol.expr (), expr ()));
   return new_stencil;
 }

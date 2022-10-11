@@ -41,4 +41,3 @@ public:
 };
 
 #endif // COLUMN_X_POSITIONS_HH
-

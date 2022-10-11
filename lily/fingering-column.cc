@@ -38,7 +38,8 @@ struct Fingering_and_offset
 };
 
 Fingering_and_offset::Fingering_and_offset (Grob *fingering, Real offset)
-  : fingering_ (fingering), offset_ (offset)
+  : fingering_ (fingering),
+    offset_ (offset)
 {
 }
 
@@ -72,7 +73,8 @@ Fingering_column::do_y_positioning (Grob *me)
 
   if (const_fingerings.size () < 2)
     {
-      me->programming_error ("This FingeringColumn should have never been created.");
+      me->programming_error (
+        "This FingeringColumn should have never been created.");
       return;
     }
 
@@ -81,8 +83,7 @@ Fingering_column::do_y_positioning (Grob *me)
     fingerings.push_back (const_fingerings[i]);
 
   Grob *common[2] = {common_refpoint_of_array (fingerings, me, X_AXIS),
-                     common_refpoint_of_array (fingerings, me, Y_AXIS)
-                    };
+                     common_refpoint_of_array (fingerings, me, Y_AXIS)};
 
   Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
 
@@ -98,12 +99,14 @@ Fingering_column::do_y_positioning (Grob *me)
       Real stack_end = -d * infinity_f;
       Interval prev_x_ext;
       for (vsize i = (d == UP) ? 0 : fingerings.size () - 1;
-           i < fingerings.size ();
-           i += d)
+           i < fingerings.size (); i += d)
         {
-          Interval x_ext = robust_relative_extent (fingerings[i], common[X_AXIS], X_AXIS);
-          Interval y_ext = robust_relative_extent (fingerings[i], fingerings[i], Y_AXIS);
-          Real parent_y = fingerings[i]->parent_relative (common[Y_AXIS], Y_AXIS);
+          Interval x_ext
+            = robust_relative_extent (fingerings[i], common[X_AXIS], X_AXIS);
+          Interval y_ext
+            = robust_relative_extent (fingerings[i], fingerings[i], Y_AXIS);
+          Real parent_y
+            = fingerings[i]->parent_relative (common[Y_AXIS], Y_AXIS);
 
           // Checking only between sequential neighbors, seems good enough
           if (!intersection (x_ext, prev_x_ext).is_empty ())
@@ -134,7 +137,8 @@ Fingering_column::do_x_positioning (Grob *me)
   vector<Fingering_and_offset> fos;
 
   for (vsize i = 0; i < fingerings.size (); i++)
-    fos.push_back (Fingering_and_offset (fingerings[i], fingerings[i]->relative_coordinate (common_x, X_AXIS)));
+    fos.push_back (Fingering_and_offset (
+      fingerings[i], fingerings[i]->relative_coordinate (common_x, X_AXIS)));
 
   std::sort (fos.begin (), fos.end (), fingering_and_offset_less);
   Direction dir = get_grob_direction (fingerings[0]);
@@ -153,7 +157,10 @@ Fingering_column::do_x_positioning (Grob *me)
     }
 
   for (vsize i = 0; i < fos.size (); i++)
-    fos[i].fingering_->translate_axis (fos[i].offset_ - fos[i].fingering_->relative_coordinate (common_x, X_AXIS), X_AXIS);
+    fos[i].fingering_->translate_axis (
+      fos[i].offset_
+        - fos[i].fingering_->relative_coordinate (common_x, X_AXIS),
+      X_AXIS);
 }
 
 void

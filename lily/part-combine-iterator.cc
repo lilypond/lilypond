@@ -32,6 +32,7 @@ public:
   Part_combine_iterator () = default;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
 protected:
   void derived_mark () const override;
 
@@ -54,7 +55,8 @@ Part_combine_iterator::derived_mark () const
     scm_gc_mark (mmrest_event_->self_scm ());
 }
 
-bool Part_combine_iterator::is_active_context (const Context *c) const
+bool
+Part_combine_iterator::is_active_context (const Context *c) const
 {
   for (auto *child : get_children ())
     {
@@ -70,8 +72,8 @@ Part_combine_iterator::kill_mmrest (Context *c)
 {
   if (!mmrest_event_)
     {
-      mmrest_event_ = new Stream_event
-      (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
+      mmrest_event_ = new Stream_event (
+        Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
       set_property (mmrest_event_, "duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }

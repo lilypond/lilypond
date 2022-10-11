@@ -41,8 +41,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
   int delta_oct = 0;
   if (check_p)
     {
-      Pitch no_octave (-1,
-                       check_p->get_notename (),
+      Pitch no_octave (-1, check_p->get_notename (),
                        check_p->get_alteration ());
 
       Pitch result = no_octave.to_relative_octave (p);
@@ -58,7 +57,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
         }
     }
 
-  return Pitch (p.get_octave () + delta_oct,
-                p.get_notename (),
-                p.get_alteration ()).smobbed_copy ();
+  return Pitch (p.get_octave () + delta_oct, p.get_notename (),
+                p.get_alteration ())
+    .smobbed_copy ();
 }

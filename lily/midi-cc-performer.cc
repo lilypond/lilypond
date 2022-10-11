@@ -77,17 +77,17 @@ Midi_control_change_performer::~Midi_control_change_performer ()
 void
 Midi_control_change_performer::connect_to_context (Context *c)
 {
-  c->events_below ()->
-  add_listener (GET_LISTENER (this, announce_control_change),
-                ly_symbol2scm ("SetProperty"));
+  c->events_below ()->add_listener (
+    GET_LISTENER (this, announce_control_change),
+    ly_symbol2scm ("SetProperty"));
 }
 
 void
 Midi_control_change_performer::disconnect_from_context (Context *c)
 {
-  c->events_below ()->
-  remove_listener (GET_LISTENER (this, announce_control_change),
-                   ly_symbol2scm ("SetProperty"));
+  c->events_below ()->remove_listener (
+    GET_LISTENER (this, announce_control_change),
+    ly_symbol2scm ("SetProperty"));
 }
 
 void
@@ -102,8 +102,9 @@ Midi_control_change_performer::announce_control_change (SCM sev)
   a.announce_control_changes ();
 }
 
-Midi_control_change_performer::Control_change_announcer::Control_change_announcer
-(Midi_control_change_performer *p, Stream_event *ev, const string &s)
+Midi_control_change_performer::Control_change_announcer::
+  Control_change_announcer (Midi_control_change_performer *p, Stream_event *ev,
+                            const string &s)
   : Midi_control_change_announcer (ev->origin ()),
     performer_ (p),
     event_ (ev),
@@ -112,14 +113,15 @@ Midi_control_change_performer::Control_change_announcer::Control_change_announce
 }
 
 SCM
-Midi_control_change_performer::Control_change_announcer::get_property_value
-(const char *property_name)
+Midi_control_change_performer::Control_change_announcer::get_property_value (
+  const char *property_name)
 {
   return symbol_ == property_name ? get_property (event_, "value") : SCM_EOL;
 }
 
-void Midi_control_change_performer::Control_change_announcer::do_announce
-(Audio_control_change *item)
+void
+Midi_control_change_performer::Control_change_announcer::do_announce (
+  Audio_control_change *item)
 {
   performer_->announce_element (Audio_element_info (item, 0));
 }
@@ -127,7 +129,6 @@ void Midi_control_change_performer::Control_change_announcer::do_announce
 void
 Midi_control_change_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Midi_control_change_performer,

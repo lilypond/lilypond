@@ -36,7 +36,8 @@ public:
   static Real get_ledger_line_thickness (Grob *);
 
   static std::vector<Real> line_positions (Grob *);
-  static std::vector<Real> ledger_positions (Grob *me, int pos, Item const *head = 0);
+  static std::vector<Real> ledger_positions (Grob *me, int pos,
+                                             Item const *head = 0);
   static bool on_line (Grob *me, int pos, bool allow_ledger = true);
   static Interval line_span (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));

@@ -40,6 +40,7 @@ class Ambitus_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
+
 protected:
   void acknowledge_note_head (Grob_info);
 
@@ -77,8 +78,7 @@ Ambitus_engraver::create_ambitus ()
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_y_parent (heads_[d]);
-      set_object (heads_[d], "accidental-grob",
-                  accidentals_[d]->self_scm ());
+      set_object (heads_[d], "accidental-grob", accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
     }
@@ -132,7 +132,8 @@ Ambitus_engraver::stop_translation_timestep ()
         start_c0_ = from_scm<int> (c_pos);
       else
         {
-          int clef_pos = from_scm (get_property (this, "middleCClefPosition"), 0);
+          int clef_pos
+            = from_scm (get_property (this, "middleCClefPosition"), 0);
           int offset = from_scm (get_property (this, "middleCOffset"), 0);
           start_c0_ = clef_pos + offset;
         }
@@ -187,20 +188,19 @@ Ambitus_engraver::finalize ()
             pos = p.steps ();
 
           set_property (heads_[d], "cause", causes_[d]->self_scm ());
-          set_property (heads_[d], "staff-position",
-                        to_scm (start_c0_ + pos));
+          set_property (heads_[d], "staff-position", to_scm (start_c0_ + pos));
 
-          SCM handle = ly_assoc (scm_cons (to_scm (p.get_octave ()),
-                                           to_scm (p.get_notename ())),
-                                 start_key_sig_);
+          SCM handle = ly_assoc (
+            scm_cons (to_scm (p.get_octave ()), to_scm (p.get_notename ())),
+            start_key_sig_);
 
           if (scm_is_false (handle))
-            handle
-              = ly_assoc (to_scm (p.get_notename ()), start_key_sig_);
+            handle = ly_assoc (to_scm (p.get_notename ()), start_key_sig_);
 
-          Rational sig_alter = (scm_is_true (handle))
-                               ? from_scm<Rational> (scm_cdr (handle), Rational (0))
-                               : Rational (0);
+          Rational sig_alter
+            = (scm_is_true (handle))
+                ? from_scm<Rational> (scm_cdr (handle), Rational (0))
+                : Rational (0);
 
           const Pitch other = pitch_interval_[-d];
 
@@ -218,9 +218,8 @@ Ambitus_engraver::finalize ()
                                                  accidental_placement);
           Accidental_placement::add_accidental (accidental_placement,
                                                 accidentals_[d], false, 0);
-          Pointer_group_interface::add_grob (ambitus_,
-                                             ly_symbol2scm ("note-heads"),
-                                             heads_[d]);
+          Pointer_group_interface::add_grob (
+            ambitus_, ly_symbol2scm ("note-heads"), heads_[d]);
         }
 
       Axis_group_interface::add_element (group_, accidental_placement);

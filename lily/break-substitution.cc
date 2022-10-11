@@ -43,15 +43,13 @@
   being on the same system but having the same break direction.
 */
 
-
 using std::vector;
 
 /*
   Perform the substitution for a single grob.
 */
 template <class Criterion>
-static Grob *
-substitute_grob (Criterion, Grob *);
+static Grob *substitute_grob (Criterion, Grob *);
 
 template <>
 Grob *
@@ -126,8 +124,9 @@ do_break_substitution (Crit break_criterion, SCM src)
       SCM nv = scm_c_make_vector (len, SCM_UNSPECIFIED);
       for (size_t i = 0; i < len; i++)
         {
-          scm_c_vector_set_x (nv, i,
-                              do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
+          scm_c_vector_set_x (
+            nv, i,
+            do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
         }
       return nv;
     }
@@ -219,15 +218,14 @@ struct Substitution_entry
     right_ = sr[RIGHT];
   }
 
-  bool operator <(Substitution_entry const &other) const
+  bool operator<(Substitution_entry const &other) const
   {
     return left_ < other.left_;
   }
 };
 
 bool
-Spanner::fast_substitute_grob_array (SCM sym,
-                                     Grob_array const *grob_array)
+Spanner::fast_substitute_grob_array (SCM sym, Grob_array const *grob_array)
 {
   if (grob_array->ordered ())
     return false;
@@ -268,9 +266,9 @@ Spanner::fast_substitute_grob_array (SCM sym,
   // Sorting spanners is a waste of time: the staff-spanners screw up the
   // ordering because they span the entire score.
 
-  assert ((broken_intos_.size ()
-           == static_cast<vsize> (system_range.length () + 1))
-          || (broken_intos_.empty () && system_range.length () == 0));
+  assert (
+    (broken_intos_.size () == static_cast<vsize> (system_range.length () + 1))
+    || (broken_intos_.empty () && system_range.length () == 0));
 
   for (vsize i = 0; i < broken_intos_.size (); ++i)
     {

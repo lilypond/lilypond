@@ -27,6 +27,7 @@ class Stanza_number_engraver : public Engraver
   Item *text_;
 
   SCM last_stanza_;
+
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   void process_music ();
@@ -59,8 +60,7 @@ Stanza_number_engraver::process_music ()
 {
   SCM stanza = get_property (this, "stanza");
 
-  if (Text_interface::is_markup (stanza)
-      && !scm_is_eq (stanza, last_stanza_))
+  if (Text_interface::is_markup (stanza) && !scm_is_eq (stanza, last_stanza_))
     {
       last_stanza_ = stanza;
 

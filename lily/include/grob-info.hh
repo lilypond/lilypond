@@ -36,15 +36,16 @@ class Grob_info_t
 
 public:
   // both the Engraver and the Grob are required
-  Grob_info_t (Engraver *e, T *g) : origin_engraver_ (e), grob_ (g) { }
+  Grob_info_t (Engraver *e, T *g)
+    : origin_engraver_ (e),
+      grob_ (g)
+  {
+  }
 
   T *grob () const { return grob_; }
   Engraver *origin_engraver () const { return origin_engraver_; }
 
-  Stream_event *event_cause () const
-  {
-    return grob_->event_cause ();
-  }
+  Stream_event *event_cause () const { return grob_->event_cause (); }
 
   Stream_event *ultimate_event_cause () const
   {

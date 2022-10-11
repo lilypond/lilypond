@@ -54,7 +54,8 @@ Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
       // alive to have meaningful position and linebreaking.  [maybe we should
       // try keeping all columns alive?, and perhaps inherit position from
       // their (non-)musical brother]
-      Pointer_group_interface::add_grob (this, ly_symbol2scm ("bounded-by-me"), s);
+      Pointer_group_interface::add_grob (this, ly_symbol2scm ("bounded-by-me"),
+                                         s);
     }
   return ok;
 }
@@ -149,7 +150,8 @@ Real
 Paper_column::minimum_distance (Grob *left, Grob *right)
 {
   Drul_array<Grob *> cols (left, right);
-  Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
+  Drul_array<Skyline> skys
+    = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 
   for (const auto d : {LEFT, RIGHT})
     {
@@ -177,7 +179,8 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
 
   if (is_musical (me))
     {
-      me->programming_error ("tried to get break-align-width of a musical column");
+      me->programming_error (
+        "tried to get break-align-width of a musical column");
       return Interval (coord);
     }
 
@@ -199,8 +202,8 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
       else
         {
           Grob *group
-            = Break_alignment_interface::find_nonempty_break_align_group
-              (break_alignment, align_sym);
+            = Break_alignment_interface::find_nonempty_break_align_group (
+              break_alignment, align_sym);
           if (group)
             {
               align = group;
@@ -219,8 +222,9 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return ext + coord;
 }
 
-LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
-           2, 0, 0, (SCM col, SCM align_syms),
+LY_DEFINE (ly_paper_column__break_align_width,
+           "ly:paper-column::break-align-width", 2, 0, 0,
+           (SCM col, SCM align_syms),
            R"(
 
 @var{col} should be a non-musical paper-column.  This function
@@ -287,7 +291,8 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, "ly:paper-column::print", 1,
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, "ly:paper-column::print",
+                                 1,
                                  "Optional stencil for @code{PaperColumn} or"
                                  " @code{NonMusicalPaperColumn}."
                                  "  Draws the @dfn{rank number} of each column,"
@@ -306,11 +311,9 @@ Paper_column::print (SCM p)
 
   Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
-  auto t = Text_interface::interpret_markup (me->layout (),
-                                             properties,
+  auto t = Text_interface::interpret_markup (me->layout (), properties,
                                              ly_string2scm (r));
-  auto when_mol = Text_interface::interpret_markup (me->layout (),
-                                                    properties,
+  auto when_mol = Text_interface::interpret_markup (me->layout (), properties,
                                                     ly_string2scm (when));
   t.scale (1.2, 1.4);
   t.add_at_edge (Y_AXIS, DOWN, when_mol, 0.1);
@@ -319,8 +322,7 @@ Paper_column::print (SCM p)
   t.translate (Offset (-0.1, 0));
   t.align_to (Y_AXIS, DOWN);
 
-  Stencil l = Lookup::filled_box (Box (Interval (0, 0.02),
-                                       Interval (-8, -1)));
+  Stencil l = Lookup::filled_box (Box (Interval (0, 0.02), Interval (-8, -1)));
 
   Real small_pad = 0.15;
   Real big_pad = 0.35;
@@ -328,8 +330,8 @@ Paper_column::print (SCM p)
   // number of printed arrows from *both* loops
   int j = 0;
 
-  for (SCM s = get_object (me, "ideal-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_object (me, "ideal-distances"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Spring *sp = unsmob<Spring> (scm_caar (s));
       if (!unsmob<Grob> (scm_cdar (s))
@@ -345,9 +347,8 @@ Paper_column::print (SCM p)
 
       SCM number_markup = ly_string2scm (
         String_convert::form_string ("%5.2lf", sp->ideal_distance ()));
-      auto number_stc = Text_interface::interpret_markup (me->layout (),
-                                                          properties,
-                                                          number_markup);
+      auto number_stc = Text_interface::interpret_markup (
+        me->layout (), properties, number_markup);
       number_stc.scale (1, 1.1);
       Real num_height = number_stc.extent (Y_AXIS).length ();
       Real num_len = number_stc.extent (X_AXIS).length ();
@@ -374,8 +375,8 @@ Paper_column::print (SCM p)
       l.add_stencil (id_stencil);
     }
 
-  for (SCM s = get_object (me, "minimum-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_object (me, "minimum-distances"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Real dist = from_scm<double> (scm_cdar (s));
       Grob *other = unsmob<Grob> (scm_caar (s));
@@ -391,9 +392,8 @@ Paper_column::print (SCM p)
 
       SCM number_markup
         = ly_string2scm (String_convert::form_string ("%5.2lf", dist));
-      auto number_stc = Text_interface::interpret_markup (me->layout (),
-                                                          properties,
-                                                          number_markup);
+      auto number_stc = Text_interface::interpret_markup (
+        me->layout (), properties, number_markup);
       number_stc.scale (1, 1.1);
       Real num_height = number_stc.extent (Y_AXIS).length ();
       Real num_len = number_stc.extent (X_AXIS).length ();
@@ -403,8 +403,7 @@ Paper_column::print (SCM p)
       Real y = -3;
       y -= j * (num_height + small_pad + big_pad);
       // horizontally center number on the arrow, excluding arrowhead.
-      Offset num_off = Offset ((dist - num_len - head_len) / 2,
-                               y - small_pad);
+      Offset num_off = Offset ((dist - num_len - head_len) / 2, y - small_pad);
 
       vector<Offset> pts;
       pts.push_back (Offset (0, y));

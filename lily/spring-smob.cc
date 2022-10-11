@@ -27,8 +27,7 @@ Spring::equal_p (SCM a, SCM b)
   return scm_is_eq (a, b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_make_spring, "ly:make-spring",
-           2, 0, 0, (SCM ideal, SCM min_dist),
+LY_DEFINE (ly_make_spring, "ly:make-spring", 2, 0, 0, (SCM ideal, SCM min_dist),
            R"(
 Make a spring.  @var{ideal} is the ideal distance of the spring, and
 @var{min-dist} is the minimum distance.
@@ -42,8 +41,9 @@ Make a spring.  @var{ideal} is the ideal distance of the spring, and
   return s.smobbed_copy ();
 }
 
-LY_DEFINE (ly_spring_set_inverse_compress_strength_x, "ly:spring-set-inverse-compress-strength!",
-           2, 0, 0, (SCM spring, SCM strength),
+LY_DEFINE (ly_spring_set_inverse_compress_strength_x,
+           "ly:spring-set-inverse-compress-strength!", 2, 0, 0,
+           (SCM spring, SCM strength),
            R"(
 Set the inverse compress @var{strength} of @var{spring}.
            )")
@@ -55,8 +55,9 @@ Set the inverse compress @var{strength} of @var{spring}.
   return s->smobbed_copy ();
 }
 
-LY_DEFINE (ly_spring_set_inverse_stretch_strength_x, "ly:spring-set-inverse-stretch-strength!",
-           2, 0, 0, (SCM spring, SCM strength),
+LY_DEFINE (ly_spring_set_inverse_stretch_strength_x,
+           "ly:spring-set-inverse-stretch-strength!", 2, 0, 0,
+           (SCM spring, SCM strength),
            R"(
 Set the inverse stretch @var{strength} of @var{spring}.
            )")

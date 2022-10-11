@@ -75,18 +75,17 @@ bool point_and_click_global = true;
  * File globals.
  */
 
-static char const *AUTHORS
-  = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
-    "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+static char const *AUTHORS = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
+                             "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "https://lilypond.org";
 
-static char const *NOTICE
-  = _i ("This program is free software.  It is covered by the GNU General Public\n"
-        "License and you are welcome to change it and/or distribute copies of it\n"
-        "under certain conditions.  Invoke as `%s --warranty' for more\n"
-        "information.\n");
+static char const *NOTICE = _i (
+  "This program is free software.  It is covered by the GNU General Public\n"
+  "License and you are welcome to change it and/or distribute copies of it\n"
+  "under certain conditions.  Invoke as `%s --warranty' for more\n"
+  "information.\n");
 
 static char const *WARRANTY
   = _i ("    This program is free software; you can redistribute it and/or\n"
@@ -118,115 +117,51 @@ static Getopt_long *option_parser = 0;
   Data to be used to display when
   -h command line option is detected.
 */
-static Long_option_init options_static[]
-=
-{
-  {
-    _i ("FORMATs"), "formats", 'f',
-    _i ("dump FORMAT,...  Also as separate options:")
-  },
-  {
-    0, "pdf", 0,
-    _i ("generate PDF files (default)")
-  },
-  {
-    0, "svg", 0,
-    _i ("generate SVG files ")
-  },
-  {
-    0, "png", 0,
-    _i ("generate PNG files ")
-  },
-  {
-    0, "ps", 0,
-    _i ("generate PostScript files")
-  },
-  {
-    0, "eps", 'E',
-    _i ("generate Encapsulated PostScript files")
-  },
-  {
-    _i ("KEY"), "pspdfopt", 'O',
-    _i ("set ps/pdf optimization to KEY, which is either\n"
-        "'size' (default), 'TeX', or 'TeX-GS'")
-  },
-  {
-    _i ("SYM[=VAL]"), "define-default", 'd',
-    _i ("set Scheme option SYM to VAL (default: '#t')")
-  },
-  {
-    _i ("no-SYM"), "define-default", 'd',
-    _i ("set Scheme option SYM to '#f'")
-  },
-  {
-    _i ("help"), "define-default", 'd',
-    _i ("show help for Scheme options")
-  },
-  {
-    _i ("EXPR"), "evaluate", 'e',
-    _i ("evaluate scheme code")
-  },
+static Long_option_init options_static[] = {
+  {_i ("FORMATs"), "formats", 'f',
+   _i ("dump FORMAT,...  Also as separate options:")},
+  {0, "pdf", 0, _i ("generate PDF files (default)")},
+  {0, "svg", 0, _i ("generate SVG files ")},
+  {0, "png", 0, _i ("generate PNG files ")},
+  {0, "ps", 0, _i ("generate PostScript files")},
+  {0, "eps", 'E', _i ("generate Encapsulated PostScript files")},
+  {_i ("KEY"), "pspdfopt", 'O',
+   _i ("set ps/pdf optimization to KEY, which is either\n"
+       "'size' (default), 'TeX', or 'TeX-GS'")},
+  {_i ("SYM[=VAL]"), "define-default", 'd',
+   _i ("set Scheme option SYM to VAL (default: '#t')")},
+  {_i ("no-SYM"), "define-default", 'd', _i ("set Scheme option SYM to '#f'")},
+  {_i ("help"), "define-default", 'd', _i ("show help for Scheme options")},
+  {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
-  {
-    0, "help", 'h',
-    _i ("show this help and exit")
-  },
-  {
-    _i ("FIELD"), "header", 'H',
-    _i ("dump \\header field FIELD to file\n"
-        "named BASENAME.FIELD")
-  },
-  {
-    _i ("DIR"), "include", 'I',
-    _i ("append DIR to search path")
-  },
-  {
-    _i ("FILE"), "init", 'i',
-    _i ("use FILE as init file")
-  },
+  {0, "help", 'h', _i ("show this help and exit")},
+  {_i ("FIELD"), "header", 'H',
+   _i ("dump \\header field FIELD to file\n"
+       "named BASENAME.FIELD")},
+  {_i ("DIR"), "include", 'I', _i ("append DIR to search path")},
+  {_i ("FILE"), "init", 'i', _i ("use FILE as init file")},
 #if HAVE_CHROOT
-  {
-    _i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
-    _i ("chroot to JAIL, become USER:GROUP\n"
-        "and cd into DIR")
-  },
+  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
+   _i ("chroot to JAIL, become USER:GROUP\n"
+       "and cd into DIR")},
 #endif
-  {
-    _i ("LOGLEVEL"), "loglevel", 'l',
-    _i ("print log messages according to LOGLEVEL,\n"
-        "which is either NONE, ERROR, WARNING,\n"
-        "BASIC, PROGRESS, INFO (default), or DEBUG")
-  },
-  {
-    _i ("FILE"), "output", 'o',
-    _i ("write output to FILE (suffix will be added)\n"
-        "or to FOLDER, in which case the file name\n"
-        "will be taken from the input file.")
-  },
-  {
-    0, "relocate", 0,
-    _i ("(ignored)")
-  },
-  {
-    0, "silent", 's',
-    _i ("no progress, only error messages\n"
-        "(equivalent to --loglevel=ERROR)")
-  },
-  {
-    0, "version", 'v',
-    _i ("show version number and exit")
-  },
-  {
-    0, "verbose", 'V',
-    _i ("be verbose (equivalent to --loglevel=DEBUG)")
-  },
-  {
-    0, "warranty", 'w',
-    _i ("show warranty and copyright")
-  },
-  {0, 0, 0, 0}
-};
+  {_i ("LOGLEVEL"), "loglevel", 'l',
+   _i ("print log messages according to LOGLEVEL,\n"
+       "which is either NONE, ERROR, WARNING,\n"
+       "BASIC, PROGRESS, INFO (default), or DEBUG")},
+  {_i ("FILE"), "output", 'o',
+   _i ("write output to FILE (suffix will be added)\n"
+       "or to FOLDER, in which case the file name\n"
+       "will be taken from the input file.")},
+  {0, "relocate", 0, _i ("(ignored)")},
+  {0, "silent", 's',
+   _i ("no progress, only error messages\n"
+       "(equivalent to --loglevel=ERROR)")},
+  {0, "version", 'v', _i ("show version number and exit")},
+  {0, "verbose", 'V', _i ("be verbose (equivalent to --loglevel=DEBUG)")},
+  {0, "warranty", 'w', _i ("show warranty and copyright")},
+  {0, 0, 0, 0}};
 
 using std::map;
 using std::string;
@@ -258,7 +193,9 @@ dir_info (FILE *out)
 
   fputs (_f ("\n"
              "Effective prefix: '%s'\n",
-             lilypond_datadir).c_str (), out);
+             lilypond_datadir)
+           .c_str (),
+         out);
 
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
@@ -294,8 +231,9 @@ copyright ()
  */
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
-  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2022",
-                     AUTHORS).c_str ()));
+  printf ("%s",
+          (_f ("Copyright (c) %s by\n%s  and others.", "1996--2022", AUTHORS)
+             .c_str ()));
   printf ("\n");
 }
 
@@ -322,8 +260,7 @@ notice ()
   puts (_f (NOTICE, PROGRAM_NAME).c_str ());
 }
 
-LY_DEFINE (ly_usage, "ly:usage",
-           0, 0, 0, (),
+LY_DEFINE (ly_usage, "ly:usage", 0, 0, 0, (),
            R"(
 Print usage message.
            )")
@@ -352,7 +289,7 @@ Print usage message.
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("You found a bug? Please read %s",
                      "https://lilypond.org/bug-reports.html")
-                 .c_str ()));
+                   .c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -384,7 +321,7 @@ warranty ()
   // (The first argument is the "program name" and is ignored.)
   char gs[] = "gs";
   char nodisplay[] = "-dNODISPLAY";
-  char *argv[] = { gs, nodisplay };
+  char *argv[] = {gs, nodisplay};
   gsapi_init_with_args (gs_inst, 2, argv);
   gsapi_exit (gs_inst);
   gsapi_delete_instance (gs_inst);
@@ -423,7 +360,11 @@ do_chroot_jail ()
 
   enum Jail
   {
-    USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
+    USER_NAME,
+    GROUP_NAME,
+    JAIL,
+    DIR,
+    JAIL_MAX
   };
 
   vector<string> components = string_split (jail_spec, ',');
@@ -446,8 +387,7 @@ do_chroot_jail ()
         error (_f ("no such user: %s", components[USER_NAME]));
       else
         error (_f ("cannot get user id from user name: %s: %s",
-                   components[USER_NAME],
-                   strerror (errno)));
+                   components[USER_NAME], strerror (errno)));
       exit (3);
     }
 
@@ -463,15 +403,14 @@ do_chroot_jail ()
         error (_f ("no such group: %s", components[GROUP_NAME]));
       else
         error (_f ("cannot get group id from group name: %s: %s",
-                   components[GROUP_NAME],
-                   strerror (errno)));
+                   components[GROUP_NAME], strerror (errno)));
       exit (3);
     }
 
   if (chroot (components[JAIL].c_str ()))
     {
-      error (_f ("cannot chroot to: %s: %s", components[JAIL],
-                 strerror (errno)));
+      error (
+        _f ("cannot chroot to: %s: %s", components[JAIL], strerror (errno)));
       exit (3);
     }
 
@@ -578,7 +517,7 @@ setup_localisation ()
 {
 #if HAVE_GETTEXT
   /* Enable locales */
-#if !defined (__MINGW32__) || defined (_UCRT)
+#if !defined(__MINGW32__) || defined(_UCRT)
   setlocale (LC_ALL, "");
 #else
   // Workaround for MinGW UTF-8 locale settings issue:
@@ -660,17 +599,14 @@ parse_argv (int argc, char **argv)
           {
             string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
-              init_scheme_variables_global
-              += "(music-font-encodings . #f)\n"
-                 "(gs-never-embed-fonts . #f)\n";
+              init_scheme_variables_global += "(music-font-encodings . #f)\n"
+                                              "(gs-never-embed-fonts . #f)\n";
             else if (arg == "TeX-GS")
-              init_scheme_variables_global
-              += "(music-font-encodings . #t)\n"
-                 "(gs-never-embed-fonts . #t)\n";
+              init_scheme_variables_global += "(music-font-encodings . #t)\n"
+                                              "(gs-never-embed-fonts . #t)\n";
             else if (arg == "TeX")
-              init_scheme_variables_global
-              += "(music-font-encodings . #t)\n"
-                 "(gs-never-embed-fonts . #f)\n";
+              init_scheme_variables_global += "(music-font-encodings . #t)\n"
+                                              "(gs-never-embed-fonts . #f)\n";
             else
               programming_error ("Ignoring unknown optimization key");
           }
@@ -690,8 +626,7 @@ parse_argv (int argc, char **argv)
                 val = arg.substr (eq + 1, arg.length () - 1);
               }
 
-            init_scheme_variables_global
-            += "(" + key + " . " + val + ")\n";
+            init_scheme_variables_global += "(" + key + " . " + val + ")\n";
           }
           break;
 
@@ -712,7 +647,7 @@ parse_argv (int argc, char **argv)
 
         case 'e':
           init_scheme_code_global
-          += option_parser->optional_argument_str0_ + string (" ");
+            += option_parser->optional_argument_str0_ + string (" ");
           break;
         case 'w':
           warranty ();
@@ -720,8 +655,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'H':
-          dump_header_fieldnames_global
-          .push_back (option_parser->optional_argument_str0_);
+          dump_header_fieldnames_global.push_back (
+            option_parser->optional_argument_str0_);
           break;
         case 'I':
           global_path.append (option_parser->optional_argument_str0_);
@@ -742,8 +677,8 @@ parse_argv (int argc, char **argv)
           set_loglevel (option_parser->optional_argument_str0_);
           break;
         default:
-          programming_error (to_string ("unhandled short option: %c",
-                                        opt->shortname_char_));
+          programming_error (
+            to_string ("unhandled short option: %c", opt->shortname_char_));
           assert (false);
           break;
         }
@@ -828,7 +763,7 @@ main (int argc, char **argv)
     identify (stderr);
 
   setup_paths (argv[0]);
-  setup_guile_env ();  // set up environment variables to pass into Guile API
+  setup_guile_env (); // set up environment variables to pass into Guile API
 
 #if !GS_API
   // Let Guile know whether the Ghostscript API is not available.

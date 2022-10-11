@@ -113,7 +113,8 @@ template <class Super>
 const char *const Smob_base<Super>::type_p_name_ = 0;
 
 template <class Super>
-void Smob_base<Super>::init ()
+void
+Smob_base<Super>::init ()
 {
   smob_name_ = calc_smob_name<Super> ();
   assert (!smob_tag_);
@@ -137,7 +138,8 @@ void Smob_base<Super>::init ()
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
                                      reinterpret_cast<scm_t_subr> (smob_p));
       std::string fundoc = std::string ("Is @var{x} a smob of class"
-                                        " @code{" + smob_name_ + "}?");
+                                        " @code{"
+                                        + smob_name_ + "}?");
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
                                      fundoc.c_str ());
       scm_c_export (Super::type_p_name_, NULL);

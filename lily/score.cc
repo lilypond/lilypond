@@ -104,8 +104,7 @@ Score::Score (Score const &s)
   LAYOUTBOOK should be scaled already.
 */
 SCM
-Score::book_rendering (Output_def *layoutbook,
-                       Output_def *default_def)
+Score::book_rendering (Output_def *layoutbook, Output_def *default_def)
 {
   if (error_found_)
     return SCM_EOL;
@@ -157,8 +156,10 @@ Score::set_music (SCM music)
 {
   if (unsmob<Music> (music_))
     {
-      unsmob<Music> (music)->non_fatal_error (_ ("already have music in score"));
-      unsmob<Music> (music_)->non_fatal_error (_ ("this is the previous music"));
+      unsmob<Music> (music)->non_fatal_error (
+        _ ("already have music in score"));
+      unsmob<Music> (music_)->non_fatal_error (
+        _ ("this is the previous music"));
     }
   Music *m = unsmob<Music> (music);
   if (m && from_scm<bool> (get_property (m, "error-found")))

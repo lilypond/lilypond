@@ -40,15 +40,16 @@ class All_font_metrics : public Smob<All_font_metrics>
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
 
-  std::map<std::string, Index_to_charcode_map > filename_charcode_maps_map_;
+  std::map<std::string, Index_to_charcode_map> filename_charcode_maps_map_;
 
   All_font_metrics (All_font_metrics const &);
+
 public:
   SCM mark_smob () const;
 
-  Index_to_charcode_map const *get_index_to_charcode_map (const std::string &filename,
-                                                          int face_index,
-                                                          FT_Face face);
+  Index_to_charcode_map const *
+  get_index_to_charcode_map (const std::string &filename, int face_index,
+                             FT_Face face);
 
   All_font_metrics (const std::string &search_path);
   ~All_font_metrics ();

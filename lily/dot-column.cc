@@ -57,8 +57,7 @@ Dot_column::calc_positioning_done (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  vector<Grob *> dots
-    = extract_grob_array (me, "dots");
+  vector<Grob *> dots = extract_grob_array (me, "dots");
 
   vector<Grob *> parent_stems;
   Real ss = 0;
@@ -131,8 +130,7 @@ Dot_column::calc_positioning_done (SCM smob)
         stems.insert (stem);
     }
 
-  for (set<Grob *>::const_iterator i (stems.begin ());
-       i != stems.end (); i++)
+  for (set<Grob *>::const_iterator i (stems.begin ()); i != stems.end (); i++)
     {
       Grob *stem = (*i);
       Grob *flag = Stem::flag (stem);
@@ -159,10 +157,10 @@ Dot_column::calc_positioning_done (SCM smob)
   if (scm_is_number (chord_dots_limit))
     {
       // Sort dots by stem, then check for dots above the limit for each stem
-      vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
+      vector<vector<Grob *>> dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_y_parent (),
-                                                   "stem")))
+        if (Grob *stem
+            = unsmob<Grob> (get_object (dots[i]->get_y_parent (), "stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
               {
@@ -191,7 +189,8 @@ Dot_column::calc_positioning_done (SCM smob)
         dots.erase (dots.begin () + i);
       else
         // Undo any fake translations that were done in add_head.
-        dots[i]->translate_axis (-dots[i]->relative_coordinate (me, X_AXIS), X_AXIS);
+        dots[i]->translate_axis (-dots[i]->relative_coordinate (me, X_AXIS),
+                                 X_AXIS);
     }
 
   Dot_formatting_problem problem (boxes, base_x);
@@ -215,8 +214,8 @@ Dot_column::calc_positioning_done (SCM smob)
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
-      p += static_cast<int>
-           (from_scm<double> (get_property (dp.dot_, "staff-position"), 0.0));
+      p += static_cast<int> (
+        from_scm<double> (get_property (dp.dot_, "staff-position"), 0.0));
       dp.pos_ = p;
 
       cfg.remove_collision (p);
@@ -230,8 +229,9 @@ Dot_column::calc_positioning_done (SCM smob)
   for (const auto &ent : cfg) // Junkme?
     Staff_symbol_referencer::pure_set_position (ent.second.dot_, ent.first);
 
-  me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS)
-                      + from_scm<Real> (get_property (me, "padding"), 0),
+  me->translate_axis (cfg.x_offset ()
+                        - me->relative_coordinate (commonx, X_AXIS)
+                        + from_scm<Real> (get_property (me, "padding"), 0),
                       X_AXIS);
   return SCM_BOOL_T;
 }
@@ -255,7 +255,7 @@ Dot_column::add_head (Grob *me, Grob *head)
       if (has_interface<Rest> (head))
         {
           d->translate_axis (head->extent (head, X_AXIS).length ()
-                             + from_scm<Real> (get_property (me, "padding")),
+                               + from_scm<Real> (get_property (me, "padding")),
                              X_AXIS);
         }
       else

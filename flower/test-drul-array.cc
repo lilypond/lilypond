@@ -62,7 +62,10 @@ public:
 
   static void test_init_default_class ()
   {
-    struct AdHoc { int val = 42; };
+    struct AdHoc
+    {
+      int val = 42;
+    };
     constexpr Drul_array<AdHoc> arr;
     static_assert (arr.front ().val == 42, "");
     static_assert (arr.back ().val == 42, "");
@@ -84,7 +87,10 @@ public:
 
   static void test_init_value_class ()
   {
-    struct AdHoc { int val = 42; };
+    struct AdHoc
+    {
+      int val = 42;
+    };
     constexpr Drul_array<AdHoc> arr {};
     static_assert (arr.front ().val == 42, "");
     static_assert (arr.back ().val == 42, "");

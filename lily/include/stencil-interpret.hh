@@ -28,8 +28,6 @@ public:
   virtual SCM output (SCM expr) = 0;
 };
 
-void interpret_stencil_expression (SCM expr,
-                                   Stencil_sink *sink,
-                                   Offset o);
+void interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o);
 
 #endif

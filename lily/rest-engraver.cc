@@ -33,10 +33,12 @@ class Rest_engraver : public Engraver
   Stream_event *rest_event_;
   Item *dot_;
   Grob *rest_;
+
 protected:
   void start_translation_timestep ();
   void process_music ();
   void listen_rest (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };

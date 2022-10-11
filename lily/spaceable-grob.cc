@@ -53,8 +53,7 @@ Spaceable_grob::add_rod (Paper_column *me, Paper_column *p, Real d)
       SCM dist = scm_car (s);
       if (scm_is_eq (scm_car (dist), p->self_scm ()))
         {
-          scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
-                                        newdist));
+          scm_set_cdr_x (dist, scm_max (scm_cdr (dist), newdist));
           return;
         }
     }
@@ -78,11 +77,10 @@ Spaceable_grob::add_spring (Grob *me, Grob *other, Spring const &sp)
 Spring
 Spaceable_grob::get_spring (Paper_column *this_col, Grob *next_col)
 {
-  for (SCM s = get_object (this_col, "ideal-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_object (this_col, "ideal-distances"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      if (scm_is_pair (scm_car (s))
-          && unsmob<Grob> (scm_cdar (s)) == next_col)
+      if (scm_is_pair (scm_car (s)) && unsmob<Grob> (scm_cdar (s)) == next_col)
         {
           if (Spring *spring = unsmob<Spring> (scm_caar (s)))
             return *spring;

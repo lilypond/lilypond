@@ -52,8 +52,7 @@ public:
     pending_moment_ = (m < length) ? length : Moment::infinity ();
   }
 
-  Moment pending_moment ()const final override { return pending_moment_; }
+  Moment pending_moment () const final override { return pending_moment_; }
 };
 
 #endif /* SIMPLE_MUSIC_ITERATOR_HH */
-

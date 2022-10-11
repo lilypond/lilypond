@@ -144,12 +144,10 @@ Music::generic_to_relative_octave (Pitch last)
       if (scm_is_number (check)
           && new_pit.get_octave () != from_scm<int> (check))
         {
-          Pitch expected_pit (from_scm<int> (check),
-                              new_pit.get_notename (),
+          Pitch expected_pit (from_scm<int> (check), new_pit.get_notename (),
                               new_pit.get_alteration ());
           warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
-                       expected_pit.to_string (),
-                       new_pit.to_string ()));
+                       expected_pit.to_string (), new_pit.to_string ()));
           new_pit = expected_pit;
         }
 
@@ -161,7 +159,8 @@ Music::generic_to_relative_octave (Pitch last)
   if (Music *m = unsmob<Music> (elt))
     last = m->to_relative_octave (last);
 
-  (void) music_list_to_relative (get_property (this, "articulations"), last, true);
+  (void) music_list_to_relative (get_property (this, "articulations"), last,
+                                 true);
   last = music_list_to_relative (get_property (this, "elements"), last, false);
   return last;
 }
@@ -172,8 +171,8 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property (this, "to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p = unsmob<Pitch> (ly_call (callback, self_scm (),
-                                         last.smobbed_copy ()));
+      Pitch *p
+        = unsmob<Pitch> (ly_call (callback, self_scm (), last.smobbed_copy ()));
       return *p;
     }
 
@@ -243,15 +242,15 @@ Music::origin () const
 Stream_event *
 Music::to_event () const
 {
-  SCM class_name = ly_camel_case_2_lisp_identifier (get_property (this, "name"));
+  SCM class_name
+    = ly_camel_case_2_lisp_identifier (get_property (this, "name"));
 
   // catch programming mistakes.
   if (!internal_is_music_type (class_name))
     programming_error ("Not a music type");
 
-  Stream_event *e = new Stream_event
-  (Lily::ly_make_event_class (class_name),
-   mutable_property_alist_);
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (class_name),
+                                      mutable_property_alist_);
   Moment length = get_length ();
   if (length)
     set_property (e, "length", length.smobbed_copy ());

@@ -147,9 +147,8 @@ pitch_interval (Pitch const &from, Pitch const &to)
 
 /* FIXME
    Merge with *note-name->string* in chord-name.scm  */
-char const *accname[] = {"eses", "eseh", "es", "eh", "",
-                         "ih", "is", "isih", "isis"
-                        };
+char const *accname[]
+  = {"eses", "eseh", "es", "eh", "", "ih", "is", "isih", "isis"};
 
 string
 Pitch::to_string () const
@@ -249,8 +248,7 @@ Pitch::equal_p (SCM a, SCM b)
   Pitch *p = unsmob<Pitch> (a);
   Pitch *q = unsmob<Pitch> (b);
 
-  bool eq = p->notename_ == q->notename_
-            && p->octave_ == q->octave_
+  bool eq = p->notename_ == q->notename_ && p->octave_ == q->octave_
             && p->alteration_ == q->alteration_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
@@ -325,5 +323,6 @@ set_middle_C (Context *c)
   if (scm_is_number (cue_pos))
     clef_pos = from_scm (cue_pos, 0);
 
-  set_property (c, ly_symbol2scm ("middleCPosition"), to_scm (clef_pos + offset));
+  set_property (c, ly_symbol2scm ("middleCPosition"),
+                to_scm (clef_pos + offset));
 }

@@ -26,8 +26,7 @@
 #include "lily-imports.hh"
 
 Font_metric *
-get_font_by_design_size (Output_def *layout, Real requested,
-                         SCM font_vector)
+get_font_by_design_size (Output_def *layout, Real requested, SCM font_vector)
 {
   size_t n = scm_c_vector_length (font_vector);
   Real size = 1e6;
@@ -45,13 +44,11 @@ get_font_by_design_size (Output_def *layout, Real requested,
           Font_metric *fm = unsmob<Font_metric> (scm_force (entry));
           size = fm->design_size ();
         }
-      else if (scm_is_pair (entry)
-               && scm_is_number (scm_car (entry))
+      else if (scm_is_pair (entry) && scm_is_number (scm_car (entry))
                && scm_is_string (scm_cdr (entry)))
         {
           size = from_scm<double> (scm_car (entry));
-          pango_description_string
-            = scm_cdr (entry);
+          pango_description_string = scm_cdr (entry);
         }
       if (size > requested)
         break;
@@ -74,8 +71,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
   Font_metric *fm = 0;
   if (scm_is_string (pango_description_string))
     {
-      return find_pango_font (layout,
-                              pango_description_string,
+      return find_pango_font (layout, pango_description_string,
                               requested / size);
     }
   else
@@ -85,12 +81,11 @@ get_font_by_design_size (Output_def *layout, Real requested,
 }
 
 Font_metric *
-get_font_by_mag_step (Output_def *layout, Real requested_step,
-                      SCM font_vector, Real default_size)
+get_font_by_mag_step (Output_def *layout, Real requested_step, SCM font_vector,
+                      Real default_size)
 {
-  return get_font_by_design_size (layout, default_size
-                                  * pow (2.0, requested_step / 6.0),
-                                  font_vector);
+  return get_font_by_design_size (
+    layout, default_size * pow (2.0, requested_step / 6.0), font_vector);
 }
 
 SCM
@@ -102,7 +97,8 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 Font_metric *
 select_encoded_font (Output_def *layout, SCM chain)
 {
-  SCM name = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
+  SCM name
+    = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
 
   if (!scm_is_string (name))
     {
@@ -117,8 +113,9 @@ select_encoded_font (Output_def *layout, SCM chain)
       SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
-      Real req = from_scm<double> (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-                                   0.0);
+      Real req = from_scm<double> (
+        ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
+        0.0);
 
       return get_font_by_mag_step (layout, req, vec,
                                    from_scm<double> (base_size));

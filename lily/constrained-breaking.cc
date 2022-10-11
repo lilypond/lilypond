@@ -111,7 +111,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (std::isinf (prev_dem))
         continue;
 
-      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
+      Real dem
+        = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
       Constrained_break_node &n = st.at (max_index, sys);
       if (dem < n.demerits_)
         {
@@ -127,8 +128,10 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
 Column_x_positions
 Constrained_breaking::space_line (vsize i, vsize j)
 {
-  bool ragged_right = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
-  bool ragged_last = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
+  bool ragged_right
+    = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
+  bool ragged_last
+    = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
 
   // TODO: Unnecessary copy.  Could pass iterators/indices to
   // get_line_configuration().  What is the real cost?
@@ -141,13 +144,13 @@ Constrained_breaking::space_line (vsize i, vsize j)
   /* As a special case, if there is only one line in the score and ragged-right
      hasn't been specifically forbidden and the line is stretched, use
      ragged spacing. */
-  if (last && i == 0
-      && lines_.at (i, j).force_ >= 0
+  if (last && i == 0 && lines_.at (i, j).force_ >= 0
       && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-right"))
       && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-last")))
     ragged = true;
 
-  return get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT], line_dims[LEFT], ragged);
+  return get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT],
+                                 line_dims[LEFT], ragged);
 }
 
 void
@@ -158,12 +161,14 @@ Constrained_breaking::resize (vsize systems)
   if (pscore_ && systems_ > valid_systems_)
     {
       for (vsize i = 0; i < state_.size (); i++)
-        state_[i].resize (breaks_.size () - starting_breakpoints_[i], systems_, Constrained_break_node ());
+        state_[i].resize (breaks_.size () - starting_breakpoints_[i], systems_,
+                          Constrained_break_node ());
 
       /* fill out the matrices */
       for (vsize i = 0; i < state_.size (); i++)
         for (vsize j = valid_systems_; j < systems_; j++)
-          for (vsize k = starting_breakpoints_[i] + j + 1; k < breaks_.size (); k++)
+          for (vsize k = starting_breakpoints_[i] + j + 1; k < breaks_.size ();
+               k++)
             if (!calc_subproblem (i, j, k))
               break; /* if we couldn't break this, it is too cramped already */
       valid_systems_ = systems_;
@@ -190,7 +195,8 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
                 {
                   brk = st.at (brk, sys).prev_;
                   sys--;
-                  warning (_ ("cannot find line breaking that satisfies constraints"));
+                  warning (
+                    _ ("cannot find line breaking that satisfies constraints"));
                   ret.push_back (space_line (brk, end_brk));
                 }
 
@@ -199,7 +205,8 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
                 {
                   vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
-                  ret.push_back (space_line (prev_brk + start_brk, brk + start_brk));
+                  ret.push_back (
+                    space_line (prev_brk + start_brk, brk + start_brk));
                   brk = prev_brk;
                 }
               std::reverse (ret.begin (), ret.end ());
@@ -334,7 +341,8 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
 vsize
 Constrained_breaking::max_system_count (vsize start, vsize end) const
 {
-  vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];
+  vsize brk = (end >= start_.size ()) ? breaks_.size () - 1
+                                      : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
 }
 
@@ -361,7 +369,8 @@ Constrained_breaking::Constrained_breaking (Paper_score *ps)
   initialize (ps, start);
 }
 
-Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const &start)
+Constrained_breaking::Constrained_breaking (Paper_score *ps,
+                                            vector<vsize> const &start)
 {
   initialize (ps, start);
 }
@@ -402,37 +411,35 @@ Constrained_breaking::initialize (Paper_score *ps,
       return;
     }
 
-  ragged_right_ = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
-  ragged_last_ = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
+  ragged_right_
+    = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
+  ragged_last_
+    = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
 
   Output_def *l = pscore_->layout ();
 
   SCM spacing_spec = l->c_variable ("system-system-spacing");
   SCM between_scores_spec = l->c_variable ("score-system-spacing");
   SCM title_spec = l->c_variable ("score-markup-spacing");
-  SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-system-system-spacing");
+  SCM page_breaking_spacing_spec
+    = l->c_variable ("page-breaking-system-system-spacing");
 
-  Page_layout_problem::read_spacing_spec (spacing_spec,
-                                          &system_system_space_,
+  Page_layout_problem::read_spacing_spec (spacing_spec, &system_system_space_,
                                           ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
                                           &system_system_space_,
                                           ly_symbol2scm ("basic-distance"));
-  Page_layout_problem::read_spacing_spec (title_spec,
-                                          &system_markup_space_,
+  Page_layout_problem::read_spacing_spec (title_spec, &system_markup_space_,
                                           ly_symbol2scm ("basic-distance"));
 
-  Page_layout_problem::read_spacing_spec (spacing_spec,
-                                          &system_system_padding_,
+  Page_layout_problem::read_spacing_spec (spacing_spec, &system_system_padding_,
                                           ly_symbol2scm ("padding"));
-  Page_layout_problem::read_spacing_spec (between_scores_spec,
-                                          &score_system_padding_,
-                                          ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (
+    between_scores_spec, &score_system_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
                                           &system_system_padding_,
                                           ly_symbol2scm ("padding"));
-  Page_layout_problem::read_spacing_spec (title_spec,
-                                          &score_markup_padding_,
+  Page_layout_problem::read_spacing_spec (title_spec, &score_markup_padding_,
                                           ly_symbol2scm ("padding"));
 
   Page_layout_problem::read_spacing_spec (between_scores_spec,
@@ -454,10 +461,9 @@ Constrained_breaking::initialize (Paper_score *ps,
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-  vector<Real> forces = get_line_forces (all_,
-                                         other_lines.length (),
-                                         other_lines.length () - first_line.length (),
-                                         ragged_right_);
+  vector<Real> forces = get_line_forces (
+    all_, other_lines.length (), other_lines.length () - first_line.length (),
+    ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       for (vsize j = i + 1; j < breaks_.size (); j++)
@@ -485,9 +491,7 @@ Constrained_breaking::initialize (Paper_score *ps,
          eg. when starting a score with a \pageBreak
        */
       vsize j;
-      for (j = 0;
-           j + 1 < breaks_.size () && breaks_[j] < pb_col;
-           j++)
+      for (j = 0; j + 1 < breaks_.size () && breaks_[j] < pb_col; j++)
         ;
       starting_breakpoints_.push_back (j);
       start_.push_back (breaks_[j]);
@@ -500,50 +504,61 @@ Constrained_breaking::initialize (Paper_score *ps,
   except for information about horizontal spacing.
 */
 void
-Constrained_breaking::fill_line_details (Line_details *const out, vsize start, vsize end)
+Constrained_breaking::fill_line_details (Line_details *const out, vsize start,
+                                         vsize end)
 {
   int start_rank = all_[breaks_[start]]->get_rank ();
   int end_rank = all_[breaks_[end]]->get_rank ();
   System *sys = pscore_->root_system ();
-  Interval begin_of_line_extent = sys->begin_of_line_pure_height (start_rank, end_rank);
-  Interval rest_of_line_extent = sys->rest_of_line_pure_height (start_rank, end_rank);
+  Interval begin_of_line_extent
+    = sys->begin_of_line_pure_height (start_rank, end_rank);
+  Interval rest_of_line_extent
+    = sys->rest_of_line_pure_height (start_rank, end_rank);
   bool last = (end == breaks_.size () - 1);
 
   Paper_column *c = all_[breaks_[end]];
   out->last_column_ = c;
-  out->break_penalty_ = from_scm<double> (get_property (c, "line-break-penalty"), 0);
-  out->page_penalty_ = from_scm<double> (get_property (c, "page-break-penalty"), 0);
-  out->turn_penalty_ = from_scm<double> (get_property (c, "page-turn-penalty"), 0);
+  out->break_penalty_
+    = from_scm<double> (get_property (c, "line-break-penalty"), 0);
+  out->page_penalty_
+    = from_scm<double> (get_property (c, "page-break-penalty"), 0);
+  out->turn_penalty_
+    = from_scm<double> (get_property (c, "page-turn-penalty"), 0);
   out->break_permission_ = get_property (c, "line-break-permission");
   out->page_permission_ = get_property (c, "page-break-permission");
   out->turn_permission_ = get_property (c, "page-turn-permission");
 
   /* turn permission should always be stricter than page permission
      and page permission should always be stricter than line permission */
-  out->page_permission_ = min_permission (out->break_permission_,
-                                          out->page_permission_);
-  out->turn_permission_ = min_permission (out->page_permission_,
-                                          out->turn_permission_);
+  out->page_permission_
+    = min_permission (out->break_permission_, out->page_permission_);
+  out->turn_permission_
+    = min_permission (out->page_permission_, out->turn_permission_);
 
   begin_of_line_extent = (begin_of_line_extent.is_empty ()
                           || std::isnan (begin_of_line_extent[LEFT])
                           || std::isnan (begin_of_line_extent[RIGHT]))
-                         ? Interval (0, 0) : begin_of_line_extent;
-  rest_of_line_extent = (rest_of_line_extent.is_empty ()
-                         || std::isnan (rest_of_line_extent[LEFT])
-                         || std::isnan (rest_of_line_extent[RIGHT]))
-                        ? Interval (0, 0) : rest_of_line_extent;
+                           ? Interval (0, 0)
+                           : begin_of_line_extent;
+  rest_of_line_extent
+    = (rest_of_line_extent.is_empty () || std::isnan (rest_of_line_extent[LEFT])
+       || std::isnan (rest_of_line_extent[RIGHT]))
+        ? Interval (0, 0)
+        : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;
   out->title_padding_ = score_markup_padding_;
-  out->min_distance_ = last ? score_system_min_distance_ : system_system_min_distance_;
+  out->min_distance_
+    = last ? score_system_min_distance_ : system_system_min_distance_;
   out->title_min_distance_ = score_markup_min_distance_;
   out->space_ = system_system_space_;
   out->title_space_ = system_markup_space_;
   out->inverse_hooke_ = out->full_height () + system_system_space_;
 
-  out->footnote_heights_ = sys->get_footnote_heights_in_range (start_rank, end_rank);
-  out->in_note_heights_ = sys->get_in_note_heights_in_range (start_rank, end_rank);
+  out->footnote_heights_
+    = sys->get_footnote_heights_in_range (start_rank, end_rank);
+  out->in_note_heights_
+    = sys->get_in_note_heights_in_range (start_rank, end_rank);
 
   out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
   if (out->refpoint_extent_.is_empty ())
@@ -569,12 +584,18 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_min_distance_ = 0;
   space_ = 0;
   title_space_ = 0;
-  Page_layout_problem::read_spacing_spec (spec, &space_, ly_symbol2scm ("basic-distance"));
-  Page_layout_problem::read_spacing_spec (title_spec, &title_space_, ly_symbol2scm ("basic-distance"));
-  Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
-  Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
-  Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));
-  Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_, ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (spec, &space_,
+                                          ly_symbol2scm ("basic-distance"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_space_,
+                                          ly_symbol2scm ("basic-distance"));
+  Page_layout_problem::read_spacing_spec (spec, &padding_,
+                                          ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_padding_,
+                                          ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (spec, &min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_,
+                                          ly_symbol2scm ("minimum-distance"));
 
   SCM footnotes = get_property (pb, "footnotes");
 
@@ -593,9 +614,10 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   last_column_ = 0;
   force_ = 0;
   auto *st = unsmob<const Stencil> (get_property (pb, "stencil"));
-  Interval stencil_extent = st->is_empty (Y_AXIS) ? Interval (0, 0)
-                            : st->extent (Y_AXIS);
-  shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
+  Interval stencil_extent
+    = st->is_empty (Y_AXIS) ? Interval (0, 0) : st->extent (Y_AXIS);
+  shape_ = Line_shape (stencil_extent,
+                       stencil_extent); // pretend it goes all the way across
   tallness_ = 0;
   bottom_padding_ = 0;
   inverse_hooke_ = 1.0;
@@ -638,7 +660,8 @@ Line_details::spring_length (Line_details const &next_line) const
   // of this to the top refpoint of next_line. We want to return
   // the stretchable space between the bottom of this's extent to
   // the top of next_line's extent.
-  Real refpoint_dist = tallness_ + refpoint_extent_[DOWN] - next_line.refpoint_extent_[UP];
+  Real refpoint_dist
+    = tallness_ + refpoint_extent_[DOWN] - next_line.refpoint_extent_[UP];
   Real space = next_line.title_ ? title_space_ : space_;
   return std::max (0.0, space - refpoint_dist);
 }
@@ -652,8 +675,10 @@ Line_shape::Line_shape (Interval begin, Interval rest)
 Line_shape
 Line_shape::piggyback (Line_shape mount, Real padding) const
 {
-  Real elevation = std::max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
-  Interval begin = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
+  Real elevation
+    = std::max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
+  Interval begin
+    = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
   Interval rest = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
   return Line_shape (begin, rest);
 }

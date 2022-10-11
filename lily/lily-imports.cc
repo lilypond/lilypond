@@ -38,7 +38,7 @@ Variable module_public_interface ("module-public-interface");
 Variable module_use_x ("module-use!");
 Variable symbol_p ("symbol?");
 Variable the_root_module ("the-root-module");
-}
+} // namespace Guile_user
 
 namespace Compile
 {
@@ -48,22 +48,23 @@ Variable compile ("compile");
 #if SCM_MAJOR_VERSION >= 3
 Variable default_optimization_level ("default-optimization-level");
 #endif
-}
+} // namespace Compile
 
 #if SCM_MAJOR_VERSION == 2
 namespace Tree_il_optimize
 {
 Scm_module module ("language tree-il optimize");
 
-Variable tree_il_default_optimization_options ("tree-il-default-optimization-options");
-}
+Variable
+  tree_il_default_optimization_options ("tree-il-default-optimization-options");
+} // namespace Tree_il_optimize
 
 namespace Cps_optimize
 {
 Scm_module module ("language cps optimize");
 
 Variable cps_default_optimization_options ("cps-default-optimization-options");
-}
+} // namespace Cps_optimize
 #endif
 
 namespace Display
@@ -71,7 +72,7 @@ namespace Display
 Scm_module module ("lily display-lily");
 
 Variable value_to_lily_string ("value->lily-string");
-}
+} // namespace Display
 
 namespace Lily
 {
@@ -80,8 +81,8 @@ Scm_module module ("lily");
 Variable all_music_font_encodings ("all-music-font-encodings");
 Variable alterations_in_key ("alterations-in-key");
 Variable bar_glyph_alist ("bar-glyph-alist");
-Variable bar_line_calc_glyph_name_for_direction
-("bar-line::calc-glyph-name-for-direction");
+Variable bar_line_calc_glyph_name_for_direction (
+  "bar-line::calc-glyph-name-for-direction");
 Variable base_length ("base-length");
 Variable beam_exceptions ("beam-exceptions");
 Variable beat_structure ("beat-structure");
@@ -102,7 +103,8 @@ Variable interpret_markup_list ("interpret-markup-list");
 Variable invalidate_alterations ("invalidate-alterations");
 Variable key_p ("key?");
 Variable key_list_p ("key-list?");
-Variable key_signature_interface_alteration_positions ("key-signature-interface::alteration-positions");
+Variable key_signature_interface_alteration_positions (
+  "key-signature-interface::alteration-positions");
 Variable layout_extract_page_properties ("layout-extract-page-properties");
 Variable parse_and_check_version ("parse-and-check-version");
 Variable lilypond_main ("lilypond-main");
@@ -141,19 +143,21 @@ Variable scorify_music ("scorify-music");
 Variable stencil_whiteout ("stencil-whiteout");
 Variable symbol_list_p ("symbol-list?");
 Variable type_name ("type-name");
-Variable unbroken_or_first_broken_spanner_p ("unbroken-or-first-broken-spanner?");
+Variable
+  unbroken_or_first_broken_spanner_p ("unbroken-or-first-broken-spanner?");
 Variable unbroken_or_last_broken_spanner_p ("unbroken-or-last-broken-spanner?");
-Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
+Variable
+  volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
 Variable write_performances_midis ("write-performances-midis");
 Variable write_lilypond_book_aux_files ("write-lilypond-book-aux-files");
-}
+} // namespace Lily
 
 namespace Loader
 {
 Scm_module module ("system vm loader");
 
 Variable load_thunk_from_memory ("load-thunk-from-memory");
-}
+} // namespace Loader
 
 namespace Page
 {
@@ -162,7 +166,7 @@ Scm_module module ("lily page");
 Variable calc_printable_height ("calc-printable-height");
 Variable make_page ("make-page");
 Variable page_stencil ("page-stencil");
-}
+} // namespace Page
 
 namespace Srfi_1
 {
@@ -171,7 +175,7 @@ Scm_module module ("srfi srfi-1");
 Variable append_reverse ("append-reverse");
 Variable delete_duplicates ("delete-duplicates");
 Variable lset_union ("lset-union");
-}
+} // namespace Srfi_1
 
 namespace Syntax
 {
@@ -207,4 +211,4 @@ Variable simultaneous_music ("simultaneous-music");
 Variable tempo ("tempo");
 Variable unrelativable_music ("unrelativable-music");
 Variable void_music ("void-music");
-}
+} // namespace Syntax

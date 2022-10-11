@@ -91,7 +91,8 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
-  string str (1, static_cast<char> (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
+  string str (1, static_cast<char> (
+                   0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
   str += program_byte;
   return str;
 }
@@ -155,8 +156,7 @@ string
 Midi_key::to_string () const
 {
   uint8_t str[] = {0xff, 0x59, 0x02, uint8_t (audio_->accidentals_),
-                   uint8_t (audio_->major_ ? 0 : 1)
-                  };
+                   uint8_t (audio_->major_ ? 0 : 1)};
 
   return string (reinterpret_cast<char *> (str), sizeof (str));
 }
@@ -184,26 +184,30 @@ Midi_time_signature::to_string () const
                    uint8_t (num),
                    uint8_t (intlog2 (den)),
                    uint8_t (audio_->base_moment_clocks_),
-                   8
-                  };
+                   8};
   return string (reinterpret_cast<char *> (out), sizeof (out));
 }
 
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    dynamic_byte_ (std::min (std::max (Byte ((a->dynamic_
-                                              ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f : 0x5a)
-                                             + a->extra_velocity_),
-                                       Byte (0)), Byte (0x7f)))
+    dynamic_byte_ (std::min (
+      std::max (
+        Byte ((a->dynamic_
+                 ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f
+                 : 0x5a)
+              + a->extra_velocity_),
+        Byte (0)),
+      Byte (0x7f)))
 {
 }
 
 int
 Midi_note::get_fine_tuning () const
 {
-  Rational tune = (audio_->pitch_.tone_pitch ()
-                   + audio_->transposing_.tone_pitch ()) * Rational (2);
+  Rational tune
+    = (audio_->pitch_.tone_pitch () + audio_->transposing_.tone_pitch ())
+      * Rational (2);
   tune -= Rational (get_semitone_pitch ());
 
   tune *= PITCH_WHEEL_SEMITONE;
@@ -213,8 +217,9 @@ Midi_note::get_fine_tuning () const
 int
 Midi_note::get_semitone_pitch () const
 {
-  double tune = double ((audio_->pitch_.tone_pitch ()
-                         + audio_->transposing_.tone_pitch ()) * Rational (2));
+  double tune = double (
+    (audio_->pitch_.tone_pitch () + audio_->transposing_.tone_pitch ())
+    * Rational (2));
   return int (rint (tune));
 }
 

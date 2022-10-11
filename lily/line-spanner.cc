@@ -113,22 +113,22 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
   SCM bound_details = get_property (me, "bound-details");
 
-  SCM details = ly_assoc_get ((dir == LEFT)
-                              ? ly_symbol2scm ("left")
-                              : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
+  SCM details = ly_assoc_get ((dir == LEFT) ? ly_symbol2scm ("left")
+                                            : ly_symbol2scm ("right"),
+                              bound_details, SCM_BOOL_F);
 
   // Don't use bound_item->break_status_dir (): a spanner running to the end of
   // the piece has a broken right bound, but should not get details from
   // right-broken.
-  Lily::Variable checker = ((dir == LEFT)
-                            ? Lily::unbroken_or_first_broken_spanner_p
-                            : Lily::unbroken_or_last_broken_spanner_p);
+  Lily::Variable checker
+    = ((dir == LEFT) ? Lily::unbroken_or_first_broken_spanner_p
+                     : Lily::unbroken_or_last_broken_spanner_p);
   bool unfinished_at_bound = !from_scm<bool> (checker (smob));
   if (unfinished_at_bound)
     {
-      SCM extra = ly_assoc_get ((dir == LEFT)
-                                ? ly_symbol2scm ("left-broken")
-                                : ly_symbol2scm ("right-broken"), bound_details, SCM_EOL);
+      SCM extra = ly_assoc_get ((dir == LEFT) ? ly_symbol2scm ("left-broken")
+                                              : ly_symbol2scm ("right-broken"),
+                                bound_details, SCM_EOL);
 
       details = ly_append (extra, scm_is_true (details) ? details : SCM_EOL);
     }
@@ -142,39 +142,41 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
       Output_def *layout = me->layout ();
       SCM properties = Font_interface::text_font_alist_chain (me);
       details = scm_acons (ly_symbol2scm ("stencil"),
-                           Text_interface::interpret_markup (layout->self_scm (),
-                                                             properties, text),
+                           Text_interface::interpret_markup (
+                             layout->self_scm (), properties, text),
                            details);
     }
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
-      auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
-                                                             X_AXIS);
+      auto *commonx
+        = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
       commonx = me->common_refpoint (commonx, X_AXIS);
 
-      Direction attach = from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
-                                                 details, SCM_BOOL_F),
-                                   CENTER);
+      Direction attach = from_scm (
+        ly_assoc_get (ly_symbol2scm ("attach-dir"), details, SCM_BOOL_F),
+        CENTER);
 
       Grob *bound_grob = bound_item;
-      SCM end_note = ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F);
-      if (from_scm<bool> (end_note)
-          && unfinished_at_bound)
+      SCM end_note
+        = ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F);
+      if (from_scm<bool> (end_note) && unfinished_at_bound)
         {
           extract_grob_set (me, "note-columns", columns);
           if (!columns.empty ())
             {
-              bound_grob = (dir == LEFT)
-                           ? columns.front () : columns.back ();
+              bound_grob = (dir == LEFT) ? columns.front () : columns.back ();
             }
         }
 
       Real x_coord = (has_interface<Paper_column> (bound_grob)
-                      ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
-                      : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
+                        ? Axis_group_interface::generic_bound_extent (
+                          bound_grob, commonx, X_AXIS)
+                        : robust_relative_extent (bound_grob, commonx, X_AXIS))
+                       .linear_combination (attach);
 
-      SCM end_acc = ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F);
+      SCM end_acc = ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details,
+                                  SCM_BOOL_F);
       if (from_scm<bool> (end_acc))
         {
           Grob *maybe_note_column = nullptr;
@@ -185,41 +187,45 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
             {
               /* Our bound may be a note head or rest, so try the parent
                  axis group. */
-              Grob *ag = unsmob<Grob> (get_object (bound_grob, "axis-group-parent-Y"));
+              Grob *ag
+                = unsmob<Grob> (get_object (bound_grob, "axis-group-parent-Y"));
               if (has_interface<Note_column> (ag))
                 maybe_note_column = ag;
             }
           if (maybe_note_column)
             {
-              if (Grob *acc_placement = Note_column::accidentals (maybe_note_column))
-                x_coord = robust_relative_extent (acc_placement, commonx, X_AXIS).linear_combination (attach);
+              if (Grob *acc_placement
+                  = Note_column::accidentals (maybe_note_column))
+                x_coord
+                  = robust_relative_extent (acc_placement, commonx, X_AXIS)
+                      .linear_combination (attach);
             }
         }
 
       Grob *dot = unsmob<Grob> (get_object (bound_grob, "dot"));
-      if (dot && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
-        x_coord = robust_relative_extent (dot, commonx, X_AXIS).linear_combination (attach);
+      if (dot
+          && from_scm<bool> (
+            ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
+        x_coord = robust_relative_extent (dot, commonx, X_AXIS)
+                    .linear_combination (attach);
 
-      SCM adj = ly_assoc_get (ly_symbol2scm ("adjust-on-neighbor"), details, SCM_BOOL_F);
+      SCM adj = ly_assoc_get (ly_symbol2scm ("adjust-on-neighbor"), details,
+                              SCM_BOOL_F);
       if (from_scm<bool> (adj))
         {
-          SCM sym = (dir == LEFT)
-                    ? ly_symbol2scm ("left-neighbor")
-                    : ly_symbol2scm ("right-neighbor");
+          SCM sym = (dir == LEFT) ? ly_symbol2scm ("left-neighbor")
+                                  : ly_symbol2scm ("right-neighbor");
           Grob *neighbor = unsmob<Grob> (get_object (me, sym));
           if (neighbor)
             {
               Interval neighbor_ext = neighbor->extent (commonx, X_AXIS);
               Real neighbor_x = neighbor_ext[-dir];
-              x_coord = (dir == LEFT)
-                        ? std::max (x_coord, neighbor_x)
-                        : std::min (x_coord, neighbor_x);
+              x_coord = (dir == LEFT) ? std::max (x_coord, neighbor_x)
+                                      : std::min (x_coord, neighbor_x);
             }
         }
 
-      details = scm_acons (ly_symbol2scm ("X"),
-                           to_scm (x_coord),
-                           details);
+      details = scm_acons (ly_symbol2scm ("X"), to_scm (x_coord), details);
     }
 
   Grob *common_y;
@@ -229,7 +235,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
     }
   else
     {
-      bool y_needed = (!scm_is_number (ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)));
+      bool y_needed = (!scm_is_number (
+        ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)));
       // Even when we don't need to compute a Y value, run through part
       // of the code below in order to convey a reference point.  The
       // purpose is to make user tweaks to the Y value relative to the
@@ -294,16 +301,16 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
           Drul_array<Grob *> extreme_bound_groups;
           for (const auto d : {LEFT, RIGHT})
             {
-              Spanner *extreme = ((d == LEFT)
-                                  ? orig->broken_intos_.front ()
-                                  : orig->broken_intos_.back ());
+              Spanner *extreme = ((d == LEFT) ? orig->broken_intos_.front ()
+                                              : orig->broken_intos_.back ());
               extreme_bounds[d] = extreme->get_bound (d);
               extreme_bound_groups[d]
                 = Grob::get_vertical_axis_group (extreme_bounds[d]);
               if (!extreme_bound_groups[d])
                 {
-                  programming_error ("extremal broken spanner's bound has no parent"
-                                     " vertical axis group");
+                  programming_error (
+                    "extremal broken spanner's bound has no parent"
+                    " vertical axis group");
                   return details;
                 }
             }
@@ -315,10 +322,12 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
               // This one can be null if the corresponding staff ended
               // prematurely or started after the beginning of the score.
               extreme_bound_groups_here[d]
-                = extreme_bound_groups[d]->original ()->find_broken_piece (sys_here);
+                = extreme_bound_groups[d]->original ()->find_broken_piece (
+                  sys_here);
               // Can be null for the direction other than dir.
               extreme_bound_groups_there[d]
-                = extreme_bound_groups[d]->original ()->find_broken_piece (sys_there);
+                = extreme_bound_groups[d]->original ()->find_broken_piece (
+                  sys_there);
             }
           Grob *common_here;
           Grob *common_there;
@@ -351,8 +360,10 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
                   if (extreme_bound_groups_here[dir]
                       && extreme_bound_groups_here[-dir])
                     {
-                      offset_here = (offsets_here[LEFT] + offsets_here[RIGHT]) / 2;
-                      offset_there = (offsets_there[LEFT] + offsets_there[RIGHT]) / 2;
+                      offset_here
+                        = (offsets_here[LEFT] + offsets_here[RIGHT]) / 2;
+                      offset_there
+                        = (offsets_there[LEFT] + offsets_there[RIGHT]) / 2;
                     }
                   else if (extreme_bound_groups_here[dir])
                     {
@@ -378,7 +389,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
                       offset_there = offsets_there[dir];
                     }
                 }
-              Interval extent = extreme_bounds[dir]->extent (common_there, Y_AXIS);
+              Interval extent
+                = extreme_bounds[dir]->extent (common_there, Y_AXIS);
               Real coord_there = extent.center ();
               y = coord_there - offset_there + offset_here;
             }
@@ -398,7 +410,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
           common_y = Grob::get_vertical_axis_group (bound_item);
           if (!common_y)
             {
-              programming_error ("bound item has no parent vertical axis group");
+              programming_error (
+                "bound item has no parent vertical axis group");
               common_y = bound_item;
             }
           if (y_needed)
@@ -411,13 +424,13 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
       if (y_needed)
         {
-          Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
-                                            0.0);
+          Real extra_dy = from_scm<double> (get_property (me, "extra-dy"), 0.0);
           y += dir * extra_dy / 2;
           details = scm_acons (ly_symbol2scm ("Y"), to_scm (y), details);
         }
     }
-  details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
+  details
+    = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
   return details;
 }
 
@@ -462,7 +475,8 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob, bool horizontal)
   SCM text = get_property (me, "text");
   if (Text_interface::is_markup (text)
       && from_scm<bool> (Lily::unbroken_or_first_broken_spanner_p (smob))
-      && scm_is_false (ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
+      && scm_is_false (
+        ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
     {
       Output_def *layout = me->layout ();
       SCM properties = Font_interface::text_font_alist_chain (me);
@@ -483,9 +497,9 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob)
   return Line_spanner::calc_left_bound_info_and_text (smob, false);
 }
 
-MAKE_SCHEME_CALLBACK (Horizontal_line_spanner, calc_left_bound_info_and_text,
-                      "ly:horizontal-line-spanner::calc-left-bound-info-and-text",
-                      1);
+MAKE_SCHEME_CALLBACK (
+  Horizontal_line_spanner, calc_left_bound_info_and_text,
+  "ly:horizontal-line-spanner::calc-left-bound-info-and-text", 1);
 SCM
 Horizontal_line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
@@ -518,18 +532,19 @@ Line_spanner::print (SCM smob)
   Drul_array<SCM> bounds (get_property (me, "left-bound-info"),
                           get_property (me, "right-bound-info"));
 
-  auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
-                                                         X_AXIS);
+  auto *commonx
+    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
 
   Drul_array<Offset> span_points;
 
   for (const auto d : {LEFT, RIGHT})
     {
-      Offset z (from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
-                                                bounds[d], SCM_BOOL_F), 0.0),
-                from_scm<double> (ly_assoc_get (ly_symbol2scm ("Y"),
-                                                bounds[d], SCM_BOOL_F), 0.0));
+      Offset z (
+        from_scm<double> (
+          ly_assoc_get (ly_symbol2scm ("X"), bounds[d], SCM_BOOL_F), 0.0),
+        from_scm<double> (
+          ly_assoc_get (ly_symbol2scm ("Y"), bounds[d], SCM_BOOL_F), 0.0));
 
       span_points[d] = z;
     }
@@ -545,14 +560,14 @@ Line_spanner::print (SCM smob)
 
   for (const auto d : {LEFT, RIGHT})
     {
-      gaps[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
-                                                bounds[d], SCM_BOOL_F), 0.0);
-      arrows[d] = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("arrow"),
-                                                bounds[d], SCM_BOOL_F));
-      stencils[d] = unsmob<const Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
-                                                         bounds[d], SCM_BOOL_F));
-      common_y[d] = unsmob<Grob> (ly_assoc_get (ly_symbol2scm ("common-Y"),
-                                                bounds[d], SCM_BOOL_F));
+      gaps[d] = from_scm<double> (
+        ly_assoc_get (ly_symbol2scm ("padding"), bounds[d], SCM_BOOL_F), 0.0);
+      arrows[d] = from_scm<bool> (
+        ly_assoc_get (ly_symbol2scm ("arrow"), bounds[d], SCM_BOOL_F));
+      stencils[d] = unsmob<const Stencil> (
+        ly_assoc_get (ly_symbol2scm ("stencil"), bounds[d], SCM_BOOL_F));
+      common_y[d] = unsmob<Grob> (
+        ly_assoc_get (ly_symbol2scm ("common-Y"), bounds[d], SCM_BOOL_F));
       if (!common_y[d])
         {
           programming_error ("no common-Y in bound details");
@@ -562,9 +577,11 @@ Line_spanner::print (SCM smob)
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
   for (const auto d : {LEFT, RIGHT})
-    span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
+    span_points[d][Y_AXIS]
+      += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
 
-  Interval normalized_endpoints = from_scm (get_property (me, "normalized-endpoints"), Interval (0, 1));
+  Interval normalized_endpoints
+    = from_scm (get_property (me, "normalized-endpoints"), Interval (0, 1));
   Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
 
   span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;
@@ -587,8 +604,8 @@ Line_spanner::print (SCM smob)
           Stencil s (*stencils[d]);
           SCM align = ly_assoc_get (ly_symbol2scm ("stencil-align-dir-y"),
                                     bounds[d], SCM_BOOL_F);
-          SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"),
-                                  bounds[d], SCM_BOOL_F);
+          SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"), bounds[d],
+                                  SCM_BOOL_F);
 
           if (scm_is_number (align))
             s.align_to (Y_AXIS, from_scm<double> (align));
@@ -604,24 +621,24 @@ Line_spanner::print (SCM smob)
 
   for (const auto d : {LEFT, RIGHT})
     {
-      if (stencils[d] && ! stencils[d]->is_empty ())
-        span_points[d] += dz_dir *
-                          (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
+      if (stencils[d] && !stencils[d]->is_empty ())
+        span_points[d]
+          += dz_dir * (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
     }
 
   Offset adjust = dz.direction () * Staff_symbol_referencer::staff_space (me);
-  Offset line_left = span_points[LEFT] + (arrows[LEFT] ? adjust * 1.4 : Offset (0, 0));
-  Offset line_right = span_points[RIGHT] - (arrows[RIGHT] ? adjust * 0.55 : Offset (0, 0));
+  Offset line_left
+    = span_points[LEFT] + (arrows[LEFT] ? adjust * 1.4 : Offset (0, 0));
+  Offset line_right
+    = span_points[RIGHT] - (arrows[RIGHT] ? adjust * 0.55 : Offset (0, 0));
 
   if (line_right[X_AXIS] > line_left[X_AXIS])
     {
       line.add_stencil (Line_interface::line (me, line_left, line_right));
 
-      line.add_stencil (Line_interface::arrows (me,
-                                                span_points[LEFT],
+      line.add_stencil (Line_interface::arrows (me, span_points[LEFT],
                                                 span_points[RIGHT],
-                                                arrows[LEFT],
-                                                arrows[RIGHT]));
+                                                arrows[LEFT], arrows[RIGHT]));
     }
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),

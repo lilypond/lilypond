@@ -50,22 +50,22 @@ SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return to_scm (pure_y_aligned_on_self (me, from_scm (start, 0),
-                                         from_scm (end, INT_MAX)));
+  return to_scm (
+    pure_y_aligned_on_self (me, from_scm (start, 0), from_scm (end, INT_MAX)));
 }
 
 Real
-Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
+Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure,
+                                           int start, int end)
 {
-  SCM align = (a == X_AXIS)
-              ? get_property (me, "self-alignment-X")
-              : get_property (me, "self-alignment-Y");
+  SCM align = (a == X_AXIS) ? get_property (me, "self-alignment-X")
+                            : get_property (me, "self-alignment-Y");
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       if (!ext.is_empty ())
-        return - ext.linear_combination (from_scm<double> (align));
+        return -ext.linear_combination (from_scm<double> (align));
     }
   return 0.0;
 }
@@ -123,8 +123,8 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
       of PaperColumn's children), so we align on NoteColumn instead.
       This happens e.g. for lyrics without associatedVoice.
     */
-    he = Paper_column::get_interface_extent
-         (him, ly_symbol2scm ("note-column-interface"), a);
+    he = Paper_column::get_interface_extent (
+      him, ly_symbol2scm ("note-column-interface"), a);
   else
     {
       if (from_scm<bool> (get_property (me, "X-align-on-main-noteheads"))
@@ -134,13 +134,11 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         he = him->extent (him, a);
     }
 
-  SCM self_align = (a == X_AXIS)
-                   ? get_property (me, "self-alignment-X")
-                   : get_property (me, "self-alignment-Y");
+  SCM self_align = (a == X_AXIS) ? get_property (me, "self-alignment-X")
+                                 : get_property (me, "self-alignment-Y");
 
-  SCM par_align = (a == X_AXIS)
-                  ? get_property (me, "parent-alignment-X")
-                  : get_property (me, "parent-alignment-Y");
+  SCM par_align = (a == X_AXIS) ? get_property (me, "parent-alignment-X")
+                                : get_property (me, "parent-alignment-Y");
 
   if (scm_is_null (par_align))
     par_align = self_align;
@@ -167,9 +165,8 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 void
 Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 {
-  add_offset_callback (me,
-                       (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
-                       a);
+  add_offset_callback (
+    me, (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc, a);
 }
 
 ADD_INTERFACE (Self_alignment_interface,

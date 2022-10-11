@@ -37,15 +37,17 @@ public:
   void do_quit () override;
   bool run_always () const override;
 
-  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
+  void preorder_walk (const std::function<void (Music_iterator *)> &) override;
 
 protected:
   void create_children () override;
   void create_contexts () override;
   void process (Moment) override;
 
-  const ly_smob_list<Music_iterator> &
-  get_children () const { return children_list_; }
+  const ly_smob_list<Music_iterator> &get_children () const
+  {
+    return children_list_;
+  }
 
 private:
   ly_smob_list<Music_iterator> children_list_;

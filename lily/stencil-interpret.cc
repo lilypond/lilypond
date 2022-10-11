@@ -79,7 +79,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
         {
           SCM attributes = scm_cadr (expr);
 
-          sink->output (ly_list (ly_symbol2scm ("start-group-node"), attributes));
+          sink->output (
+            ly_list (ly_symbol2scm ("start-group-node"), attributes));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
           sink->output (ly_list (ly_symbol2scm ("end-group-node")));
 
@@ -122,8 +123,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
       else
         {
           sink->output (ly_list (ly_symbol2scm ("settranslation"),
-                                    to_scm (o[X_AXIS]),
-                                    to_scm (o[Y_AXIS])));
+                                 to_scm (o[X_AXIS]), to_scm (o[Y_AXIS])));
           SCM result = sink->output (expr);
           sink->output (ly_list (ly_symbol2scm ("resettranslation")));
 

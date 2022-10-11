@@ -52,6 +52,7 @@ protected:
   void listen_sustain (Stream_event *);
   void listen_una_corda (Stream_event *);
   void listen_sostenuto (Stream_event *);
+
 private:
   vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
@@ -85,7 +86,8 @@ Piano_pedal_performer::process_music ()
       if (p->event_drul_[STOP])
         {
           if (!p->start_event_)
-            p->event_drul_[STOP]->warning (_ ("cannot find start of piano pedal"));
+            p->event_drul_[STOP]->warning (
+              _ ("cannot find start of piano pedal"));
           else
             {
               Audio_piano_pedal *a = new Audio_piano_pedal;

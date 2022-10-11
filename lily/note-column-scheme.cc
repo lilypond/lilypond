@@ -21,8 +21,8 @@
 #include "lily-guile.hh"
 #include "grob.hh"
 
-LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
-           1, 0, 0, (SCM note_column),
+LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals", 1, 0, 0,
+           (SCM note_column),
            R"(
 Return the @code{AccidentalPlacement} grob from @var{note-column} if any, or
 @code{SCM_EOL} otherwise.
@@ -35,8 +35,8 @@ Return the @code{AccidentalPlacement} grob from @var{note-column} if any, or
   return SCM_EOL;
 }
 
-LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column",
-           1, 0, 0, (SCM note_column),
+LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column", 1, 0, 0,
+           (SCM note_column),
            R"(
 Return the @code{DotColumn} grob from @var{note-column} if any, or
 @code{SCM_EOL} otherwise.

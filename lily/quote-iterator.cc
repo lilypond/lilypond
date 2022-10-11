@@ -41,7 +41,7 @@ public:
   Moment zero_mom_ = -Moment::infinity ();
   SCM event_vector_ = SCM_EOL;
   vsize event_idx_ = 0; // left closed
-  vsize end_idx_ = 0; // right open
+  vsize end_idx_ = 0;   // right open
   bool first_time_ = true;
 
   SCM transposed_musics_ = SCM_EOL;
@@ -133,8 +133,8 @@ Quote_iterator::create_contexts ()
     {
       SCM id = get_property (get_music (), "quoted-context-id");
       std::string c_id = robust_scm2string (id, "");
-      cue_context = get_context ()->find_create_context (CENTER,
-                                                         name, c_id, SCM_EOL);
+      cue_context
+        = get_context ()->find_create_context (CENTER, name, c_id, SCM_EOL);
       if (!cue_context)
         {
           warning (_f ("cannot find or create context: %s",
@@ -190,19 +190,17 @@ Quote_iterator::process (Moment m)
           // main part) before the first call to pending_moment ().  It
           // possibly also requires improvements to handle music where the
           // grace part of the start moment is unknown prior to iteration.
-          event_idx_ = binsearch_scm_vector (event_vector_,
-                                             start_mom.smobbed_copy (),
-                                             moment_less);
+          event_idx_ = binsearch_scm_vector (
+            event_vector_, start_mom.smobbed_copy (), moment_less);
 
           // end moment of this music, excluding any grace notes leading to an
           // unquoted note
           const Moment end_mom (zero_mom_.main_part_
-                                + music_get_length ().main_part_,
+                                  + music_get_length ().main_part_,
                                 -Rational::infinity ());
 
-          end_idx_ = binsearch_scm_vector (event_vector_,
-                                           end_mom.smobbed_copy (),
-                                           moment_less);
+          end_idx_ = binsearch_scm_vector (
+            event_vector_, end_mom.smobbed_copy (), moment_less);
         }
     }
 
@@ -230,9 +228,11 @@ Quote_iterator::process (Moment m)
         The pitch that sounds when written central C is played.
       */
       Pitch temp_pitch;
-      Pitch *me_pitch = unsmob<Pitch> (get_property (get_music (), "quoted-transposition"));
+      Pitch *me_pitch
+        = unsmob<Pitch> (get_property (get_music (), "quoted-transposition"));
       if (!me_pitch)
-        me_pitch = unsmob<Pitch> (get_property (get_context (), "instrumentTransposition"));
+        me_pitch = unsmob<Pitch> (
+          get_property (get_context (), "instrumentTransposition"));
       else
         {
           // We are not going to win a beauty contest with this one,
@@ -267,7 +267,8 @@ Quote_iterator::process (Moment m)
                   ev = ev->clone ();
                   ev->make_transposable ();
                   ev->transpose (diff);
-                  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
+                  transposed_musics_
+                    = scm_cons (ev->unprotect (), transposed_musics_);
                 }
               quote_handle_->event_source ()->broadcast (ev);
             }

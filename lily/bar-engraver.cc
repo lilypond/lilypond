@@ -113,8 +113,7 @@ Bar_engraver::calc_bar_type () const
   // Read caesuraType and pass it through caesuraTypeTransform.
   // TODO: Caesura_engraver and Divisio_engraver also do this stuff.
   // Refactor to reduce repetition and ensure consistency.
-  auto get_caesura_type = [] (Context * ctx, Stream_event * ev)
-  {
+  auto get_caesura_type = [] (Context *ctx, Stream_event *ev) {
     SCM caesura_type = get_property (ctx, "caesuraType");
 
     // Form a symbol list describing the user-provided articulations.
@@ -144,9 +143,8 @@ Bar_engraver::calc_bar_type () const
     return caesura_type;
   };
 
-  SCM caesura_type = caesura_ev_
-                     ? get_caesura_type (context (), caesura_ev_)
-                     : SCM_EOL;
+  SCM caesura_type
+    = caesura_ev_ ? get_caesura_type (context (), caesura_ev_) : SCM_EOL;
 
   const bool segno = observations_.segno
                      && scm_is_eq (get_property (this, "segnoStyle"),
@@ -159,8 +157,7 @@ Bar_engraver::calc_bar_type () const
   // probably not useful enough to be worth explaining, testing, and
   // maintaining.  Varying the position of a caesura/phrase bar might be a good
   // reason to do it, but that is easy enough to do with two layers (as seen).
-  constexpr std::array<BarType, 8> types_by_priority
-  {
+  constexpr std::array<BarType, 8> types_by_priority {
     BarType::REPEAT,
     BarType::FINE,
     BarType::SECTION,
@@ -168,8 +165,7 @@ Bar_engraver::calc_bar_type () const
     BarType::MEASURE,
     BarType::UNDERLYING_CAESURA,
     BarType::UNDERLYING_REPEAT,
-    BarType::EMPTY
-  };
+    BarType::EMPTY};
 
   for (const auto layer : types_by_priority)
     {
@@ -177,8 +173,7 @@ Bar_engraver::calc_bar_type () const
       std::string ub;
 
       // Read the named bar-type context property into `ub`.
-      auto read_bar = [this, &has_underlying_bar, &ub] (SCM context_prop_sym)
-      {
+      auto read_bar = [this, &has_underlying_bar, &ub] (SCM context_prop_sym) {
         SCM s = get_property (this, context_prop_sym);
         if (scm_is_string (s))
           {
@@ -190,15 +185,14 @@ Bar_engraver::calc_bar_type () const
       // Get the requested bar subproperty ('bar-line or 'underlying-bar-line)
       // from the caesura properties.
       auto read_caesura_bar
-        = [this, &caesura_type, &has_underlying_bar, &ub] (SCM subprop_sym)
-      {
-        SCM s = scm_assq_ref (caesura_type, subprop_sym);
-        if (scm_is_string (s))
-          {
-            ub = ly_scm2string (s);
-            has_underlying_bar = true;
-          }
-      };
+        = [this, &caesura_type, &has_underlying_bar, &ub] (SCM subprop_sym) {
+            SCM s = scm_assq_ref (caesura_type, subprop_sym);
+            if (scm_is_string (s))
+              {
+                ub = ly_scm2string (s);
+                has_underlying_bar = true;
+              }
+          };
 
       switch (layer)
         {
@@ -392,8 +386,7 @@ Bar_engraver::pre_process_music ()
           volta_span_listener_.reset ();
         }
 
-      if (observations_.repeat_start
-          || observations_.repeat_end
+      if (observations_.repeat_start || observations_.repeat_end
           || observations_.segno)
         {
           underlying_repeat_listener_.set_heard ();
@@ -406,8 +399,7 @@ Bar_engraver::pre_process_music ()
   glyph_ = calc_name (glyphs, to_scm (CENTER));
   glyph_left_ = calc_name (glyphs, to_scm (LEFT));
   glyph_right_ = calc_name (glyphs, to_scm (RIGHT));
-  has_any_glyph_ = scm_is_string (glyph_)
-                   || scm_is_string (glyph_left_)
+  has_any_glyph_ = scm_is_string (glyph_) || scm_is_string (glyph_left_)
                    || scm_is_string (glyph_right_);
 
   // This needs to be in pre-process-music so other engravers can notice a break

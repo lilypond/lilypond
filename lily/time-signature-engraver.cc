@@ -41,6 +41,7 @@ protected:
   void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
+
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
   void listen_time_signature (Stream_event *);
@@ -72,8 +73,8 @@ Time_signature_engraver::process_music ()
   SCM fr = get_property (this, "timeSignatureFraction");
   if (!scm_is_eq (last_time_fraction_, fr) && scm_is_pair (fr))
     {
-      time_signature_ = make_item ("TimeSignature",
-                                   event_ ? to_scm (event_) : SCM_EOL);
+      time_signature_
+        = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
       set_property (time_signature_, "fraction", fr);
 
       if (scm_is_false (last_time_fraction_))
@@ -89,8 +90,7 @@ Time_signature_engraver::process_music ()
             OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
           */
           time_signature_->warning (_f ("strange time signature found: %d/%d",
-                                        from_scm<int> (scm_car (fr)),
-                                        den));
+                                        from_scm<int> (scm_car (fr)), den));
         }
 
       last_time_fraction_ = fr;
@@ -107,7 +107,8 @@ Time_signature_engraver::stop_translation_timestep ()
       Moment *mp = unsmob<Moment> (get_property (this, "measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))
           && !from_scm<bool> (get_property (this, "partialBusy")))
-        time_signature_->warning (_ ("mid-measure time signature without \\partial"));
+        time_signature_->warning (
+          _ ("mid-measure time signature without \\partial"));
     }
 
   time_signature_ = nullptr;

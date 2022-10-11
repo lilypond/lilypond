@@ -39,50 +39,46 @@ class Pango_font : Preinit_Pango_font, public Font_metric
   PangoFontDescription *pango_description_;
   Real scale_;
 
-  SCM get_glyph_desc (PangoGlyphInfo const &pgi,
-                      Box const &scaled_extent,
-                      std::string const &file_name,
-                      FT_Face ftface,
+  SCM get_glyph_desc (PangoGlyphInfo const &pgi, Box const &scaled_extent,
+                      std::string const &file_name, FT_Face ftface,
                       bool *cid_keyed) const;
 
 public:
   SCM physical_font_tab () const;
-  Pango_font (PangoFT2FontMap *,
-              PangoFontDescription const *,
-              Real);
+  Pango_font (PangoFT2FontMap *, PangoFontDescription const *, Real);
   ~Pango_font ();
   OVERRIDE_CLASS_NAME (Pango_font);
 
   std::string description_string () const;
   SCM font_file_name () const override;
-  void register_font_file (const std::string &filename, const std::string &ps_name, int face_index);
+  void register_font_file (const std::string &filename,
+                           const std::string &ps_name, int face_index);
 
   size_t name_to_index (std::string) const override;
-  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr, size_t signed_idx) const;
+  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr,
+                               size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
   Box get_scaled_indexed_char_dimensions (size_t) const;
 
-  Stencil pango_item_string_stencil (PangoGlyphItem const *, std::string const &text) const;
+  Stencil pango_item_string_stencil (PangoGlyphItem const *,
+                                     std::string const &text) const;
 
-  Stencil text_stencil (Output_def *output_state,
-                        const std::string &text,
+  Stencil text_stencil (Output_def *output_state, const std::string &text,
                         bool music,
                         const std::string &features_str) const override;
   void derived_mark () const override;
 };
 
-PangoFontDescription *
-symbols_to_pango_font_description (SCM family,
-                                   SCM style,
-                                   SCM variant,
-                                   SCM weight,
-                                   SCM stretch);
+PangoFontDescription *symbols_to_pango_font_description (SCM family, SCM style,
+                                                         SCM variant,
+                                                         SCM weight,
+                                                         SCM stretch);
 
-Font_metric *
-select_pango_font (Output_def *layout, SCM chain);
+Font_metric *select_pango_font (Output_def *layout, SCM chain);
 
 const int PANGO_RESOLUTION = 1200;
-PangoFontDescription *properties_to_pango_description (SCM chain, Real text_size);
+PangoFontDescription *properties_to_pango_description (SCM chain,
+                                                       Real text_size);
 
 #endif /* PANGO_FONT_HH */

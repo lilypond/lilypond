@@ -42,8 +42,8 @@ Event_chord_iterator::process (Moment m)
 {
   if (!has_started ())
     {
-      for (SCM s = get_property (get_music (), "elements");
-           scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = get_property (get_music (), "elements"); scm_is_pair (s);
+           s = scm_cdr (s))
         {
           Music *mus = unsmob<Music> (scm_car (s));
           report_event (mus);

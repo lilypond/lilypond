@@ -31,4 +31,3 @@ public:
 };
 
 #endif /* MELODY_SPANNER_HH */
-

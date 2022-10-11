@@ -60,8 +60,8 @@ public:
     return !d ? const_cast<Item *> (this) : broken_to_drul_[d];
   }
 
-  Item *
-  pure_find_visible_prebroken_piece (vsize start, vsize end) const override;
+  Item *pure_find_visible_prebroken_piece (vsize start,
+                                           vsize end) const override;
 
   Item *find_broken_piece (System *) const override;
   System *get_system () const override;
@@ -72,6 +72,7 @@ public:
   Interval pure_y_extent (Grob *ref, vsize start, vsize end) override;
   virtual void cache_pure_height (Interval height);
   bool internal_set_as_bound_of_spanner (Spanner *, Direction) override;
+
 protected:
   void break_breakable_item (System *) override;
   void copy_breakable_items ();

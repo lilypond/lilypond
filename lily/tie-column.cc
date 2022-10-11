@@ -39,8 +39,7 @@ using std::vector;
 void
 Tie_column::add_tie (Grob *tc, Spanner *tie)
 {
-  if (tie->get_y_parent ()
-      && has_interface<Tie_column> (tie->get_y_parent ()))
+  if (tie->get_y_parent () && has_interface<Tie_column> (tie->get_y_parent ()))
     return;
 
   // TODO: Change to a Spanner in the function signature.
@@ -104,12 +103,10 @@ Tie_column::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < base.size (); i++)
     {
       SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
-                                        base[i],
-                                        problem.details_);
+                                        base[i], problem.details_);
 
       set_property (ties[i], "control-points", cp);
-      set_grob_direction (ties[i],
-                          base[i].dir_);
+      set_grob_direction (ties[i], base[i].dir_);
 
       problem.set_debug_scoring (base);
     }

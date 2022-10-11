@@ -19,7 +19,7 @@
 #ifndef STENCIL_HH
 #define STENCIL_HH
 
-#include <cstdlib>              // size_t
+#include <cstdlib> // size_t
 
 #include "lily-proto.hh"
 #include "box.hh"
@@ -59,6 +59,7 @@ class Stencil : public Simple_smob<Stencil>
 public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
+
 private:
   Box dim_;
   SCM expr_;
@@ -73,7 +74,8 @@ public:
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
-  void stack (Axis a, Direction d, const Stencil &m, Real padding, Real mindist);
+  void stack (Axis a, Direction d, const Stencil &m, Real padding,
+              Real mindist);
   void add_stencil (Stencil const &m);
   void translate (Offset);
   Stencil translated (Offset) const;
@@ -99,6 +101,7 @@ SCM all_stencil_heads ();
 
 // C++ code must not modify Stencil objects shared with Scheme.
 // Requiring unsmob<const Stencil> helps to enforce this.
-template <> inline Stencil *unsmob<Stencil> (SCM) = delete;
+template <>
+inline Stencil *unsmob<Stencil> (SCM) = delete;
 
 #endif /* STENCIL_HH */

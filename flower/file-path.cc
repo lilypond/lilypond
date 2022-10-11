@@ -75,7 +75,7 @@ File_path::parse_path (const string &p)
 inline int
 workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
 {
-#if !defined (__MINGW32__) || defined (_UCRT)
+#if !defined(__MINGW32__) || defined(_UCRT)
   return FUNCTION_STAT (f, s);
 #else
   // Workaround for MinGW UTF-8 stat issue:
@@ -129,7 +129,7 @@ is_dir (string file_name)
 bool
 rename_file (const char *oldname, const char *newname)
 {
-#if !defined (__MINGW32__)
+#if !defined(__MINGW32__)
   return rename (oldname, newname) == 0;
 #else
   // If the current code page is UTF-8, convert the filename to wide strings
@@ -149,7 +149,8 @@ rename_file (const char *oldname, const char *newname)
       // Note the return value: MoveFileExW() returns 0 in case of failure, so
       // the opposite of POSIX rename().
       if (MoveFileExW (old_wide.get (), new_wide.get (),
-                       MOVEFILE_REPLACE_EXISTING) != 0)
+                       MOVEFILE_REPLACE_EXISTING)
+          != 0)
         return true;
 
       // Fall back to copying the file contents to the destination.

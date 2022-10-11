@@ -34,10 +34,8 @@ Tie_specification::Tie_specification ()
   position_ = 0;
   manual_position_ = 0;
   manual_dir_ = CENTER;
-  note_head_drul_[LEFT]
-    = note_head_drul_[RIGHT] = 0;
-  column_ranks_[RIGHT]
-    = column_ranks_[LEFT] = 0;
+  note_head_drul_[LEFT] = note_head_drul_[RIGHT] = 0;
+  column_ranks_[RIGHT] = column_ranks_[LEFT] = 0;
 }
 
 void
@@ -66,7 +64,8 @@ Tie_specification::from_grob (Grob *tie)
   if (scm_is_number (pos_scm))
     {
       has_manual_delta_y_ = !is_scm<Rational> (pos_scm);
-      manual_position_ = from_scm<double> (get_property (tie, "staff-position"));
+      manual_position_
+        = from_scm<double> (get_property (tie, "staff-position"));
       has_manual_position_ = true;
     }
 }

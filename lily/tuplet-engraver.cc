@@ -138,10 +138,10 @@ Tuplet_engraver::process_music ()
         {
           if (tuplet.full_length_)
             {
-              auto *col
-                = unsmob<Item> (tuplet.full_length_note_
-                                ? get_property (this, "currentMusicalColumn")
-                                : get_property (this, "currentCommandColumn"));
+              auto *col = unsmob<Item> (
+                tuplet.full_length_note_
+                  ? get_property (this, "currentMusicalColumn")
+                  : get_property (this, "currentCommandColumn"));
 
               bracket->set_bound (RIGHT, col);
               number->set_bound (RIGHT, col);
@@ -155,7 +155,8 @@ Tuplet_engraver::process_music ()
                 }
               else
                 {
-                  warning (_ ("omitting tuplet bracket with neither left nor right bound"));
+                  warning (_ ("omitting tuplet bracket with neither left nor "
+                              "right bound"));
                   continue;
                 }
             }
@@ -177,26 +178,30 @@ Tuplet_engraver::process_music ()
       if (tuplets_[i].bracket_)
         continue;
 
-      tuplets_[i].full_length_ = from_scm<bool> (get_property (this, "tupletFullLength"));
+      tuplets_[i].full_length_
+        = from_scm<bool> (get_property (this, "tupletFullLength"));
       tuplets_[i].full_length_note_
         = from_scm<bool> (get_property (this, "tupletFullLengthNote"));
 
-      tuplets_[i].bracket_ = make_spanner ("TupletBracket",
-                                           tuplets_[i].event_->self_scm ());
-      tuplets_[i].number_ = make_spanner ("TupletNumber",
-                                          tuplets_[i].event_->self_scm ());
-      set_object (tuplets_[i].number_, "bracket", tuplets_[i].bracket_->self_scm ());
+      tuplets_[i].bracket_
+        = make_spanner ("TupletBracket", tuplets_[i].event_->self_scm ());
+      tuplets_[i].number_
+        = make_spanner ("TupletNumber", tuplets_[i].event_->self_scm ());
+      set_object (tuplets_[i].number_, "bracket",
+                  tuplets_[i].bracket_->self_scm ());
       tuplets_[i].number_->set_x_parent (tuplets_[i].bracket_);
       tuplets_[i].number_->set_y_parent (tuplets_[i].bracket_);
-      set_object (tuplets_[i].bracket_, "tuplet-number", tuplets_[i].number_->self_scm ());
+      set_object (tuplets_[i].bracket_, "tuplet-number",
+                  tuplets_[i].number_->self_scm ());
       tuplets_[i].stop_moment_.grace_part_ = 0;
 
       if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
-        Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_,
+                                            tuplets_[i + 1].bracket_);
 
       if (i > 0 && tuplets_[i - 1].bracket_)
-        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
-
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_,
+                                            tuplets_[i].bracket_);
     }
 }
 

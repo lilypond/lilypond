@@ -24,8 +24,8 @@
 
 using std::vector;
 
-LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
-           3, 0, 0, (SCM elements, SCM common, SCM axis),
+LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent", 3, 0, 0,
+           (SCM elements, SCM common, SCM axis),
            R"(
 Determine the extent of @var{elements} relative to @var{common} in the
 @var{axis} direction.
@@ -33,18 +33,20 @@ Determine the extent of @var{elements} relative to @var{common} in the
 {
   Grob_array *ga = unsmob<Grob_array> (elements);
 
-  SCM_ASSERT_TYPE (ga || ly_is_list (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
+  SCM_ASSERT_TYPE (ga || ly_is_list (elements), elements, SCM_ARG1,
+                   __FUNCTION__, "list or Grob_array");
   auto *const com = LY_ASSERT_SMOB (Grob, common, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
   Axis a = from_scm<Axis> (axis);
   if (!ga)
     ga = unsmob<Grob_array> (grob_list_to_grob_array (elements));
-  Interval ext = Axis_group_interface::relative_group_extent (ga->array (), com, a);
+  Interval ext
+    = Axis_group_interface::relative_group_extent (ga->array (), com, a);
   return to_scm (ext);
 }
 
-LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
-           2, 0, 0, (SCM grob, SCM common),
+LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent", 2, 0, 0,
+           (SCM grob, SCM common),
            R"(
 Determine the extent of @var{grob} relative to @var{common} along the
 x@tie{}axis, finding its extent as a bound when it a has
@@ -59,8 +61,9 @@ extent.
   return to_scm (ext);
 }
 
-LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
-           2, 0, 0, (SCM grob, SCM grob_element),
+LY_DEFINE (ly_axis_group_interface__add_element,
+           "ly:axis-group-interface::add-element", 2, 0, 0,
+           (SCM grob, SCM grob_element),
            R"(
 Add @var{grob-element} to the axis group @var{grob}.  In particular, @var{grob}
 becomes parent to @var{grob-element} on all axes supported by @var{grob},

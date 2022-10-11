@@ -162,10 +162,8 @@ Translator::event_class_symbol (const char *ev_class)
  Helps the individual static_translator_description methods of translators.
 */
 SCM
-Translator::static_translator_description (const char *grobs,
-                                           const char *desc,
-                                           SCM listener_list,
-                                           const char *read,
+Translator::static_translator_description (const char *grobs, const char *desc,
+                                           SCM listener_list, const char *read,
                                            const char *write)
 {
   SCM static_properties = SCM_EOL;
@@ -173,14 +171,15 @@ Translator::static_translator_description (const char *grobs,
   static_properties = scm_acons (ly_symbol2scm ("grobs-created"),
                                  parse_symbol_list (grobs), static_properties);
 
-  static_properties = scm_acons (ly_symbol2scm ("description"),
-                                 scm_from_utf8_string (desc), static_properties);
+  static_properties
+    = scm_acons (ly_symbol2scm ("description"), scm_from_utf8_string (desc),
+                 static_properties);
 
   SCM list = SCM_EOL;
   for (; scm_is_pair (listener_list); listener_list = scm_cdr (listener_list))
     list = scm_cons (scm_caar (listener_list), list);
-  static_properties = scm_acons (ly_symbol2scm ("events-accepted"),
-                                 list, static_properties);
+  static_properties
+    = scm_acons (ly_symbol2scm ("events-accepted"), list, static_properties);
 
   static_properties = scm_acons (ly_symbol2scm ("properties-read"),
                                  parse_symbol_list (read), static_properties);
@@ -240,9 +239,7 @@ Translator::print_smob (SCM port, scm_print_state *) const
 }
 
 void
-add_acknowledger (SCM ptr,
-                  char const *func_name,
-                  SCM &ack_hash)
+add_acknowledger (SCM ptr, char const *func_name, SCM &ack_hash)
 {
   if (SCM_UNBNDP (ack_hash))
     ack_hash = Scheme_hash_table::make_smob ();
@@ -252,8 +249,8 @@ add_acknowledger (SCM ptr,
   interface_name = replace_all (&interface_name, '_', '-');
   interface_name += "-interface";
 
-  unsmob<Scheme_hash_table> (ack_hash)
-  ->set (ly_symbol2scm (interface_name), ptr);
+  unsmob<Scheme_hash_table> (ack_hash)->set (ly_symbol2scm (interface_name),
+                                             ptr);
 }
 
 SCM

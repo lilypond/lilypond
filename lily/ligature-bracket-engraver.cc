@@ -37,6 +37,7 @@ protected:
   void acknowledge_rest (Grob_info);
   void acknowledge_note_column (Grob_info);
   void listen_ligature (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 

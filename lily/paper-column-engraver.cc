@@ -80,7 +80,8 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
         prefix = name.substr (0, end);
       else
         {
-          programming_error ("Paper_column_engraver doesn't know about this break-event");
+          programming_error (
+            "Paper_column_engraver doesn't know about this break-event");
           return;
         }
 
@@ -94,9 +95,11 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 
       if (!only_do_permissions && scm_is_number (pen))
         {
-          Real new_pen = from_scm<double> (cur_pen, 0.0) + from_scm<double> (pen);
+          Real new_pen
+            = from_scm<double> (cur_pen, 0.0) + from_scm<double> (pen);
           set_property (command_column_, pen_str.c_str (), to_scm (new_pen));
-          set_property (command_column_, perm_str.c_str (), ly_symbol2scm ("allow"));
+          set_property (command_column_, perm_str.c_str (),
+                        ly_symbol2scm ("allow"));
           force_break_permission = true;
         }
       else
@@ -121,16 +124,19 @@ Paper_column_engraver::pre_process_music ()
   if (!skiptypesetting_at_start_of_timestep_)
     {
       command_column_ = make_paper_column ("NonMusicalPaperColumn");
-      set_property (context (), "currentCommandColumn", command_column_->self_scm ());
+      set_property (context (), "currentCommandColumn",
+                    command_column_->self_scm ());
       system_->add_column (command_column_);
       musical_column_ = make_paper_column ("PaperColumn");
-      set_property (context (), "currentMusicalColumn", musical_column_->self_scm ());
+      set_property (context (), "currentMusicalColumn",
+                    musical_column_->self_scm ());
       system_->add_column (musical_column_);
 
       if (!system_->get_bound (LEFT)) // first time step
         {
           system_->set_bound (LEFT, command_column_);
-          set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
+          set_property (command_column_, "line-break-permission",
+                        ly_symbol2scm ("allow"));
         }
     }
 
@@ -171,17 +177,15 @@ Paper_column_engraver::acknowledge_item (Grob_info_t<Item> gi)
 void
 Paper_column_engraver::acknowledge_staff_spacing (Grob_info gi)
 {
-  Pointer_group_interface::add_grob (command_column_,
-                                     ly_symbol2scm ("spacing-wishes"),
-                                     gi.grob ());
+  Pointer_group_interface::add_grob (
+    command_column_, ly_symbol2scm ("spacing-wishes"), gi.grob ());
 }
 
 void
 Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
 {
-  Pointer_group_interface::add_grob (musical_column_,
-                                     ly_symbol2scm ("spacing-wishes"),
-                                     gi.grob ());
+  Pointer_group_interface::add_grob (
+    musical_column_, ly_symbol2scm ("spacing-wishes"), gi.grob ());
 }
 
 void
@@ -203,11 +207,9 @@ Paper_column_engraver::stop_translation_timestep ()
 
   SCM mpos = get_property (this, "measurePosition");
   SCM barnum = get_property (this, "internalBarNumber");
-  if (unsmob<Moment> (mpos)
-      && scm_is_integer (barnum))
+  if (unsmob<Moment> (mpos) && scm_is_integer (barnum))
     {
-      SCM where = scm_cons (barnum,
-                            mpos);
+      SCM where = scm_cons (barnum, mpos);
 
       set_property (command_column_, "rhythmic-location", where);
       set_property (musical_column_, "rhythmic-location", where);
@@ -215,7 +217,8 @@ Paper_column_engraver::stop_translation_timestep ()
 
   for (auto *const elem : items_)
     {
-      Grob *col = Item::is_non_musical (elem) ? command_column_ : musical_column_;
+      Grob *col
+        = Item::is_non_musical (elem) ? command_column_ : musical_column_;
 
       if (!elem->get_x_parent ())
         elem->set_x_parent (col);
@@ -230,8 +233,9 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (!break_allowed (context ())
-      && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
+  if (
+    !break_allowed (context ())
+    && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
       set_property (command_column_, "page-turn-permission", SCM_EOL);
       set_property (command_column_, "page-break-permission", SCM_EOL);
@@ -241,7 +245,7 @@ Paper_column_engraver::stop_translation_timestep ()
     {
       breaks_++;
 
-      if (! (breaks_ % 8))
+      if (!(breaks_ % 8))
         progress_indication ("[" + std::to_string (breaks_) + "]");
     }
 
@@ -256,10 +260,10 @@ void
 Paper_column_engraver::finalize ()
 {
   // At the end of the score, allow page breaks and turns by default, but...
-  set_property (command_column_,
-                "page-break-permission", ly_symbol2scm ("allow"));
-  set_property (command_column_,
-                "page-turn-permission", ly_symbol2scm ("allow"));
+  set_property (command_column_, "page-break-permission",
+                ly_symbol2scm ("allow"));
+  set_property (command_column_, "page-turn-permission",
+                ly_symbol2scm ("allow"));
 
   // ...allow the user to override them.
   handle_manual_breaks (true);
@@ -268,8 +272,8 @@ Paper_column_engraver::finalize ()
   // even if they try to stop us.
   if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
     {
-      set_property (command_column_,
-                    "line-break-permission", ly_symbol2scm ("allow"));
+      set_property (command_column_, "line-break-permission",
+                    ly_symbol2scm ("allow"));
     }
 
   system_->set_bound (RIGHT, command_column_);

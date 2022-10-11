@@ -87,7 +87,7 @@ Measure_grouping_engraver::process_music ()
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
            where += Rational (from_scm<int64_t> (scm_car (s))) * base_moment,
-           s = scm_cdr (s))
+               s = scm_cdr (s))
         {
           int grouplen = from_scm<int> (scm_car (s));
           if (where == mp)
@@ -100,18 +100,21 @@ Measure_grouping_engraver::process_music ()
               if (grouplen > 1)
                 {
                   grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-                  auto *col
-                    = unsmob<Grob> (get_property (this,
-                                                  "currentMusicalColumn"));
+                  auto *col = unsmob<Grob> (
+                    get_property (this, "currentMusicalColumn"));
                   grouping_->set_bound (LEFT, col);
 
-                  stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
-                  find_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
+                  stop_grouping_mom_
+                    = now.main_part_ + Rational (grouplen - 1) * base_moment;
+                  find_global_context ()->add_moment_to_process (
+                    Moment (stop_grouping_mom_));
 
                   if (grouplen == 3)
-                    set_property (grouping_, "style", ly_symbol2scm ("triangle"));
+                    set_property (grouping_, "style",
+                                  ly_symbol2scm ("triangle"));
                   else
-                    set_property (grouping_, "style", ly_symbol2scm ("bracket"));
+                    set_property (grouping_, "style",
+                                  ly_symbol2scm ("bracket"));
 
                   break;
                 }

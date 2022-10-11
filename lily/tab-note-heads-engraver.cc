@@ -83,19 +83,15 @@ Tab_note_heads_engraver::listen_fingering (Stream_event *ev)
 void
 Tab_note_heads_engraver::process_music ()
 {
-  SCM tab_strings = articulation_list (note_events_,
-                                       tabstring_events_,
+  SCM tab_strings = articulation_list (note_events_, tabstring_events_,
                                        "string-number-event");
-  SCM defined_fingers = articulation_list (note_events_,
-                                           fingering_events_,
-                                           "fingering-event");
+  SCM defined_fingers
+    = articulation_list (note_events_, fingering_events_, "fingering-event");
   SCM tab_notes = to_scm_list (note_events_);
   SCM proc = get_property (this, "noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
   if (ly_is_procedure (proc))
-    string_fret_finger = ly_call (proc,
-                                  context ()->self_scm (),
-                                  tab_notes,
+    string_fret_finger = ly_call (proc, context ()->self_scm (), tab_notes,
                                   ly_list (tab_strings, defined_fingers));
   SCM note_entry = SCM_EOL;
   SCM string_number = SCM_EOL;
@@ -116,16 +112,14 @@ Tab_note_heads_engraver::process_music ()
         if (scm_is_true (string_number))
           {
             fret = scm_cadr (note_entry);
-            fret_label = ly_call (fret_procedure,
-                                  context ()->self_scm (),
-                                  string_number,
-                                  fret);
+            fret_label = ly_call (fret_procedure, context ()->self_scm (),
+                                  string_number, fret);
             index = length_changed ? 0 : i;
-            Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
+            Item *note
+              = make_item ("TabNoteHead", note_events_[index]->self_scm ());
             set_property (note, "text", fret_label);
             staff_position = ly_call (staff_line_procedure,
-                                      context ()->self_scm (),
-                                      string_number);
+                                      context ()->self_scm (), string_number);
             set_property (note, "staff-position", staff_position);
           }
       }

@@ -24,6 +24,7 @@
 #include <vector>
 
 std::vector<std::string> string_split (std::string str, char c);
-std::string string_join (std::vector<std::string> const &strs, const std::string &infix);
+std::string string_join (std::vector<std::string> const &strs,
+                         const std::string &infix);
 
 #endif /* STD_VECTOR_HH */

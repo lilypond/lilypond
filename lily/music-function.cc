@@ -99,8 +99,8 @@ Music_function::call (SCM rest)
           // non-optional argument
           if (scm_is_false (ly_call (pred, arg)))
             {
-              Syntax::argument_error (scm_oneplus (scm_length (args)),
-                                      pred, arg);
+              Syntax::argument_error (scm_oneplus (scm_length (args)), pred,
+                                      arg);
               SCM val = scm_car (get_signature ());
               val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
               return with_loc (val, location);

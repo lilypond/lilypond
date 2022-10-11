@@ -163,8 +163,7 @@ Duration::equal_p (SCM a, SCM b)
   Duration *p = unsmob<Duration> (a);
   Duration *q = unsmob<Duration> (b);
 
-  bool eq = p->dots_ == q->dots_
-            && p->durlog_ == q->durlog_
+  bool eq = p->dots_ == q->dots_ && p->durlog_ == q->durlog_
             && p->factor_ == q->factor_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;

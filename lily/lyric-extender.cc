@@ -54,7 +54,8 @@ Lyric_extender::print (SCM smob)
   common = common_refpoint_of_array (heads, common, X_AXIS);
 
   Real left_point = 0.0;
-  if (left_edge->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (left_edge->internal_has_interface (
+        ly_symbol2scm ("lyric-syllable-interface")))
     left_point = left_edge->extent (common, X_AXIS)[RIGHT];
   else if (heads.size ())
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
@@ -82,11 +83,9 @@ Lyric_extender::print (SCM smob)
     }
 
   Real h = sl * from_scm<double> (get_property (me, "thickness"), 0);
-  Drul_array<Real> paddings
-  {
+  Drul_array<Real> paddings {
     from_scm<double> (get_property (me, "left-padding"), h),
-    from_scm<double> (get_property (me, "right-padding"), h)
-  };
+    from_scm<double> (get_property (me, "right-padding"), h)};
 
   if (right_text)
     {
@@ -100,8 +99,8 @@ Lyric_extender::print (SCM smob)
     auto *const rb = me->get_bound (RIGHT);
     if (rb->break_status_dir ())
       {
-        auto limit = robust_relative_extent (rb, common, X_AXIS)[LEFT]
-                     - paddings[RIGHT];
+        auto limit
+          = robust_relative_extent (rb, common, X_AXIS)[LEFT] - paddings[RIGHT];
         right_point = std::max (right_point, limit);
       }
   }
@@ -112,9 +111,8 @@ Lyric_extender::print (SCM smob)
   if (w < 1.5 * h)
     return SCM_EOL;
 
-  Stencil mol (Lookup::round_filled_box (Box (Interval (0, w),
-                                              Interval (0, h)),
-                                         0.8 * h));
+  Stencil mol (
+    Lookup::round_filled_box (Box (Interval (0, w), Interval (0, h)), 0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
                       X_AXIS);
   return mol.smobbed_copy ();

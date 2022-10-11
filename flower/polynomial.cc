@@ -113,7 +113,7 @@ Polynomial::clean ()
 }
 
 void
-Polynomial::operator += (Polynomial const &p)
+Polynomial::operator+= (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
@@ -123,7 +123,7 @@ Polynomial::operator += (Polynomial const &p)
 }
 
 void
-Polynomial::operator -= (Polynomial const &p)
+Polynomial::operator-= (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
@@ -147,7 +147,8 @@ Polynomial::Polynomial (Real a, Real b)
 }
 
 /* cubic root. */
-inline Real cubic_root (Real x)
+inline Real
+cubic_root (Real x)
 {
   if (x > 0.0)
     return pow (x, 1.0 / 3.0);
@@ -157,7 +158,7 @@ inline Real cubic_root (Real x)
 }
 
 vector<Real>
-Polynomial::solve_cubic ()const
+Polynomial::solve_cubic () const
 {
   vector<Real> sol;
 
@@ -181,13 +182,13 @@ Polynomial::solve_cubic ()const
 
   if (D == 0)
     {
-      if (q == 0)   /* one triple solution */
+      if (q == 0) /* one triple solution */
         {
           sol.push_back (0);
           sol.push_back (0);
           sol.push_back (0);
         }
-      else              /* one single and one double solution */
+      else /* one single and one double solution */
         {
           Real u = cubic_root (-q);
 
@@ -218,7 +219,7 @@ Polynomial::solve_cubic ()const
   /* resubstitute */
   Real sub = 1.0 / 3 * A;
 
-  for (auto& s : sol)
+  for (auto &s : sol)
     {
       s -= sub;
 
@@ -239,7 +240,7 @@ Polynomial::degree () const
   all roots of quadratic eqn.
 */
 vector<Real>
-Polynomial::solve_quadric ()const
+Polynomial::solve_quadric () const
 {
   vector<Real> sol;
   /* normal form: x^2 + px + q = 0 */
@@ -260,7 +261,7 @@ Polynomial::solve_quadric ()const
 
 /* solve linear equation */
 vector<Real>
-Polynomial::solve_linear ()const
+Polynomial::solve_linear () const
 {
   vector<Real> s;
   if (coefs_[1] != 0)
@@ -287,8 +288,7 @@ Polynomial::solve () const
 }
 
 void
-Polynomial::operator *= (Polynomial const &p2)
+Polynomial::operator*= (Polynomial const &p2)
 {
   *this = multiply (*this, p2);
 }
-

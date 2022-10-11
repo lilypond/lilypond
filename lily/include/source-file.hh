@@ -34,6 +34,7 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   static const char *const type_p_name_;
   virtual ~Source_file ();
+
 private:
   std::vector<char const *> newline_locations_;
   std::istream *istream_;
@@ -62,8 +63,8 @@ public:
 
   SourceSlice line_slice (char const *pos_str0) const;
   std::string line_string (char const *pos_str0) const;
-  void get_counts (char const *pos_str0,
-                   ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
+  void get_counts (char const *pos_str0, ssize_t *, ssize_t *, ssize_t *,
+                   ssize_t *) const;
 
   std::string name_;
 

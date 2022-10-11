@@ -25,9 +25,7 @@
 void read_relocation_dir (const std::string &dirname);
 void read_relocation_file (const std::string &filename);
 
-int sane_putenv (char const *key,
-                 const std::string &value,
-                 bool overwrite,
+int sane_putenv (char const *key, const std::string &value, bool overwrite,
                  bool indent = false);
 void setup_paths (char const *argv0);
 

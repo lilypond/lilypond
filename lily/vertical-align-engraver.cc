@@ -120,7 +120,8 @@ Vertical_align_engraver::process_music ()
 
       top_level_ = from_scm<bool> (get_property (this, "topLevelAlignment"));
 
-      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
+      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper",
+                              SCM_EOL);
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       valign_->set_bound (LEFT, col);
     }
@@ -208,7 +209,8 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
     }
   else
     {
-      Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
+      Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"),
+                                         i.grob ());
       if (!unsmob<Grob> (get_object (i.grob (), "staff-grouper")))
         set_object (i.grob (), "staff-grouper", valign_->self_scm ());
     }
@@ -228,7 +230,8 @@ Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
         }
       else
         {
-          programming_error ("cannot claim outside-staff grob before creating staff grouper");
+          programming_error (
+            "cannot claim outside-staff grob before creating staff grouper");
         }
     }
 }

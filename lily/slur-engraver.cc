@@ -111,14 +111,15 @@ Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
   else if (d == STOP)
     stop_events_.push_back (Event_info (ev, note));
   else
-    ev->warning (_f ("direction of %s invalid: %d", ev->name ().c_str (), int (d)));
+    ev->warning (
+      _f ("direction of %s invalid: %d", ev->name ().c_str (), int (d)));
 }
 
 void
 Slur_engraver::listen_note (Stream_event *ev)
 {
-  for (SCM arts = get_property (ev, "articulations");
-       scm_is_pair (arts); arts = scm_cdr (arts))
+  for (SCM arts = get_property (ev, "articulations"); scm_is_pair (arts);
+       arts = scm_cdr (arts))
     {
       Stream_event *art = unsmob<Stream_event> (scm_car (arts));
       if (art->in_event_class (event_symbol ()))
@@ -144,10 +145,9 @@ Slur_engraver::acknowledge_note_column (Grob_info_t<Item> info)
       if (Stream_event *ev = heads[i]->event_cause ())
         for (const auto d : {LEFT, RIGHT})
           {
-            std::pair<Note_slurs::const_iterator, Note_slurs::const_iterator> its
-              = note_slurs_[d].equal_range (ev);
-            for (Note_slurs::const_iterator it = its.first;
-                 it != its.second;
+            std::pair<Note_slurs::const_iterator, Note_slurs::const_iterator>
+              its = note_slurs_[d].equal_range (ev);
+            for (Note_slurs::const_iterator it = its.first; it != its.second;
                  ++it)
               it->second->set_bound (d, heads[i]);
           }
@@ -163,7 +163,8 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
 void
 Slur_engraver::acknowledge_script (Grob_info info)
 {
-  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+  if (!info.grob ()->internal_has_interface (
+        ly_symbol2scm ("dynamic-interface")))
     acknowledge_extra_object (info);
 }
 
@@ -179,11 +180,12 @@ Slur_engraver::finalize ()
 }
 
 void
-Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken)
+Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause,
+                            Direction dir, bool left_broken)
 {
   Grob *ccc = left_broken
-              ? unsmob<Grob> (get_property (this, "currentCommandColumn"))
-              : 0; // efficiency
+                ? unsmob<Grob> (get_property (this, "currentCommandColumn"))
+                : 0; // efficiency
   SCM cause = evi.slur_ ? evi.slur_->self_scm () : g_cause->self_scm ();
   Spanner *slur = make_spanner (grob_symbol (), cause);
   set_property (slur, "spanner-id", spanner_id);
@@ -207,11 +209,11 @@ Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direc
       if (evi.note_)
         note_slurs_[START].insert (Note_slurs::value_type (evi.note_, slur));
     }
-
 }
 
 bool
-Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Stream_event *ev)
+Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx,
+                                Stream_event *ev)
 {
   for (vsize j = slurs_.size (); j--;)
     {
@@ -242,11 +244,13 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
 
           if (!c)
             {
-              slur->programming_error (_f ("%s without a cause", object_name ()));
+              slur->programming_error (
+                _f ("%s without a cause", object_name ()));
               return true;
             }
 
-          Direction slur_dir = from_scm<Direction> (get_property (c, "direction"));
+          Direction slur_dir
+            = from_scm<Direction> (get_property (c, "direction"));
 
           // If the existing slur does not have a direction yet,
           // we'd rather take the new one.
@@ -281,7 +285,8 @@ Slur_engraver::try_to_end (Event_info evi)
           ended = true;
           end_slurs_.push_back (slurs_[j]);
           if (evi.note_)
-            note_slurs_[STOP].insert (Note_slurs::value_type (evi.note_, slurs_[j]));
+            note_slurs_[STOP].insert (
+              Note_slurs::value_type (evi.note_, slurs_[j]));
           slurs_.erase (slurs_.begin () + j);
         }
     }
@@ -300,7 +305,8 @@ Slur_engraver::process_music ()
           // Ignore redundant stop events for this id
           for (vsize j = stop_events_.size (); --j > i;)
             {
-              if (ly_is_equal (id, get_property (stop_events_[j].slur_, "spanner-id")))
+              if (ly_is_equal (
+                    id, get_property (stop_events_[j].slur_, "spanner-id")))
                 stop_events_.erase (stop_events_.begin () + j);
             }
         }
@@ -348,7 +354,8 @@ Slur_engraver::stop_translation_timestep ()
     }
 
   for (vsize i = 0; i < objects_to_acknowledge_.size (); i++)
-    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slurs_, end_slurs_);
+    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i],
+                                              slurs_, end_slurs_);
 
   note_slurs_[LEFT].clear ();
   note_slurs_[RIGHT].clear ();

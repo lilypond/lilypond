@@ -48,7 +48,8 @@ FUNC (interval_set_union)
   ivs.push_back (Interval (-infinity_f, -4));
   result = Interval_set::interval_union (ivs);
   EQUAL (result.intervals ().size (), 2u);
-  EQUAL (result.intervals ()[0].to_string (), Interval (-infinity_f, -4).to_string ());
+  EQUAL (result.intervals ()[0].to_string (),
+         Interval (-infinity_f, -4).to_string ());
   EQUAL (result.intervals ()[1].to_string (), Interval (-1, 3).to_string ());
 
   // Empty intervals.
@@ -91,21 +92,25 @@ FUNC (interval_set_complement)
   ivs.push_back (Interval (1, 3));
   Interval_set set = Interval_set::interval_union (ivs).complement ();
   EQUAL (set.intervals ().size (), 3u);
-  EQUAL (set.intervals ()[0].to_string (), Interval (-infinity_f, -3).to_string ());
+  EQUAL (set.intervals ()[0].to_string (),
+         Interval (-infinity_f, -3).to_string ());
   EQUAL (set.intervals ()[1].to_string (), Interval (-1, 1).to_string ());
-  EQUAL (set.intervals ()[2].to_string (), Interval (3, infinity_f).to_string ());
+  EQUAL (set.intervals ()[2].to_string (),
+         Interval (3, infinity_f).to_string ());
 
   // Half-infinite sets are handled correctly.
   ivs.push_back (Interval (-infinity_f, -2));
   set = Interval_set::interval_union (ivs).complement ();
   EQUAL (set.intervals ().size (), 2u);
   EQUAL (set.intervals ()[0].to_string (), Interval (-1, 1).to_string ());
-  EQUAL (set.intervals ()[1].to_string (), Interval (3, infinity_f).to_string ());
+  EQUAL (set.intervals ()[1].to_string (),
+         Interval (3, infinity_f).to_string ());
 
   // Full and empty sets are handled correctly.
   set = Interval_set ().complement ();
   EQUAL (set.intervals ().size (), 1u);
-  EQUAL (set.intervals ()[0].to_string (), Interval (-infinity_f, infinity_f).to_string ());
+  EQUAL (set.intervals ()[0].to_string (),
+         Interval (-infinity_f, infinity_f).to_string ());
   set = set.complement ();
   EQUAL (set.intervals ().size (), 0u);
 }

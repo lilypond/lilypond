@@ -25,9 +25,7 @@ Real
 get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
-  return from_scm<double> (scm_is_pair (entry)
-                           ? scm_cdr (entry)
-                           : SCM_EOL,
+  return from_scm<double> (scm_is_pair (entry) ? scm_cdr (entry) : SCM_EOL,
                            0.0);
 }
 
@@ -50,10 +48,8 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("steeper-slope-factor"));
   non_horizontal_penalty_
     = get_detail (details, ly_symbol2scm ("non-horizontal-penalty"));
-  max_slope_
-    = get_detail (details, ly_symbol2scm ("max-slope"));
-  max_slope_factor_
-    = get_detail (details, ly_symbol2scm ("max-slope-factor"));
+  max_slope_ = get_detail (details, ly_symbol2scm ("max-slope"));
+  max_slope_factor_ = get_detail (details, ly_symbol2scm ("max-slope-factor"));
   free_head_distance_
     = get_detail (details, ly_symbol2scm ("free-head-distance"));
   gap_to_staffline_inside_
@@ -68,8 +64,8 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("accidental-collision"));
   extra_encompass_free_distance_
     = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
-  extra_encompass_collision_distance_
-    = get_detail (details, ly_symbol2scm ("extra-encompass-collision-distance"));
+  extra_encompass_collision_distance_ = get_detail (
+    details, ly_symbol2scm ("extra-encompass-collision-distance"));
   head_slur_distance_factor_
     = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
   head_slur_distance_max_ratio_
@@ -84,6 +80,6 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("encompass-object-range-overshoot"));
   slur_tie_extrema_min_distance_
     = get_detail (details, ly_symbol2scm ("slur-tie-extrema-min-distance"));
-  slur_tie_extrema_min_distance_penalty_
-    = get_detail (details, ly_symbol2scm ("slur-tie-extrema-min-distance-penalty"));
+  slur_tie_extrema_min_distance_penalty_ = get_detail (
+    details, ly_symbol2scm ("slur-tie-extrema-min-distance-penalty"));
 }

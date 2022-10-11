@@ -23,7 +23,7 @@
 #include "page-breaking.hh"
 #include "page-spacing.hh"
 
-class Optimal_page_breaking: public Page_breaking
+class Optimal_page_breaking : public Page_breaking
 {
 public:
   SCM solve () override;

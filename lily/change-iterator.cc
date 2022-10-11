@@ -53,8 +53,7 @@ Change_iterator::change (Music_iterator *it, Context *source, Context *target)
       // The iterator's context might be a descendant of the one to be changed.
       // Find the branch to prune, if any, and announce the change.
       for (auto *branch = it->get_context ();
-           auto *const parent = branch->get_parent ();
-           branch = parent)
+           auto *const parent = branch->get_parent (); branch = parent)
         {
           if (parent == target)
             {
@@ -63,10 +62,8 @@ Change_iterator::change (Music_iterator *it, Context *source, Context *target)
 
           if (parent == source)
             {
-              send_stream_event (branch, "ChangeParent",
-                                 it->origin (),
-                                 ly_symbol2scm ("context"),
-                                 to_scm (target));
+              send_stream_event (branch, "ChangeParent", it->origin (),
+                                 ly_symbol2scm ("context"), to_scm (target));
               break;
             }
         }
@@ -89,8 +86,7 @@ Change_iterator::process (Moment m)
         {
           auto *scope
             = where_tagged (get_property (get_music (), "change-tag"));
-          scope->preorder_walk ([last, dest] (Music_iterator * iter)
-          {
+          scope->preorder_walk ([last, dest] (Music_iterator *iter) {
             Change_iterator::change (iter, last, dest);
           });
         }

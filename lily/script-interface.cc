@@ -38,7 +38,7 @@ Script_interface::get_stencil (Grob *me, Direction d)
   if (!scm_is_pair (s))
     {
       warning (_f ("script-stencil property must be pair: %s",
-                    ly_scm_write_string (s)));
+                   ly_scm_write_string (s)));
       return Stencil ();
     }
 
@@ -55,20 +55,22 @@ Script_interface::get_stencil (Grob *me, Direction d)
             {
               if (!ly_is_equal (scm_car (name_entry), scm_cdr (name_entry)))
                 {
-                  me->warning (_f ("script needs an explicit direction specifier"
-                                   " to disambiguate between different glyphs"));
+                  me->warning (
+                    _f ("script needs an explicit direction specifier"
+                        " to disambiguate between different glyphs"));
                 }
               str = scm_car (name_entry);
             }
         }
       else
         str = name_entry;
-      return Font_interface::get_default_font (me)
-             ->find_by_name ("scripts." + ly_scm2string (str));
+      return Font_interface::get_default_font (me)->find_by_name (
+        "scripts." + ly_scm2string (str));
     }
   else
     {
-      programming_error ("cannot deal with script-stencil key other than 'feta");
+      programming_error (
+        "cannot deal with script-stencil key other than 'feta");
       return Stencil ();
     }
 }

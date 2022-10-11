@@ -27,8 +27,7 @@
   definitions.
 */
 
-LY_DEFINE (ly_module_copy, "ly:module-copy",
-           2, 0, 0, (SCM dest, SCM src),
+LY_DEFINE (ly_module_copy, "ly:module-copy", 2, 0, 0, (SCM dest, SCM src),
            R"(
 Copy all bindings from module @var{src} into @var{dest}.
            )")
@@ -36,16 +35,13 @@ Copy all bindings from module @var{src} into @var{dest}.
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
 
-  auto module_define_closure_func = [] (void *closure,
-                                        SCM key,
-                                        SCM val,
-                                        SCM /* result */)
-  {
-    SCM module = *static_cast<SCM *> (closure);
-    if (from_scm<bool> (scm_variable_bound_p (val)))
-      scm_module_define (module, key, scm_variable_ref (val));
-    return SCM_EOL;
-  };
+  auto module_define_closure_func
+    = [] (void *closure, SCM key, SCM val, SCM /* result */) {
+        SCM module = *static_cast<SCM *> (closure);
+        if (from_scm<bool> (scm_variable_bound_p (val)))
+          scm_module_define (module, key, scm_variable_ref (val));
+        return SCM_EOL;
+      };
 
   ly_scm_hash_fold (module_define_closure_func, static_cast<void *> (&dest),
                     SCM_EOL, SCM_MODULE_OBARRAY (src));
@@ -54,8 +50,7 @@ Copy all bindings from module @var{src} into @var{dest}.
 
 /* Lookup SYM in a list of modules, which do not have to be related.
    Return the first instance. */
-LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
-           2, 1, 0,
+LY_DEFINE (ly_modules_lookup, "ly:modules-lookup", 2, 1, 0,
            (SCM modules, SCM sym, SCM def),
            R"(
 Look up @var{sym} in the list @var{modules}, returning the first occurrence.

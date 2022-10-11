@@ -53,9 +53,14 @@ class Getopt_long
 public:
   /** errorcodes: no error, argument expected, no argument expected,
       unknown option, illegal argument (eg. int expected).  */
-  enum Errorcod { E_NOERROR = 0, E_ARGEXPECT, E_NOARGEXPECT, E_UNKNOWNOPTION,
-                  E_ILLEGALARG
-                };
+  enum Errorcod
+  {
+    E_NOERROR = 0,
+    E_ARGEXPECT,
+    E_NOARGEXPECT,
+    E_UNKNOWNOPTION,
+    E_ILLEGALARG
+  };
 
   /// argument. Set to 0 if not present
   char const *optional_argument_str0_;
@@ -86,7 +91,7 @@ public:
        @return pointer to next option found.
        0 if error occurred, or next argument is no option.
   */
-  const Long_option_init *operator () ();
+  const Long_option_init *operator() ();
 
   char const *current_arg ();
   char const *get_next_arg ();

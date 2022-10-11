@@ -41,8 +41,7 @@ Mark_performer::Mark_performer (Context *c)
 void
 Mark_performer::process_music ()
 {
-  auto process_mark = [this] (auto get_text, SCM property_sym)
-  {
+  auto process_mark = [this] (auto get_text, SCM property_sym) {
     SCM text = get_text (context ());
     if (!scm_is_null (text))
       {

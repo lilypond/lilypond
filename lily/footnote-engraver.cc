@@ -55,7 +55,8 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
         }
 
       Engraver *eng = info.origin_engraver ();
-      eng->make_sticky ("Footnote", info.grob (), mus->to_event ()->unprotect ());
+      eng->make_sticky ("Footnote", info.grob (),
+                        mus->to_event ()->unprotect ());
 
       // This grob has exhausted its footnote
       set_property (info.grob (), "footnote-music", SCM_EOL);

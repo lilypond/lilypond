@@ -44,4 +44,3 @@ struct Tie_specification
 };
 
 #endif /* TIE_SPECIFICATION_HH */
-

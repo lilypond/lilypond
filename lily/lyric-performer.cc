@@ -27,11 +27,12 @@ class Lyric_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Lyric_performer);
-protected:
 
+protected:
   void stop_translation_timestep ();
   void process_music ();
   void listen_lyric (Stream_event *);
+
 private:
   Stream_event *event_ = nullptr;
 };

@@ -32,8 +32,8 @@ Simultaneous_music_iterator::derived_mark () const
 }
 
 void
-Simultaneous_music_iterator::preorder_walk
-(const std::function <void (Music_iterator *)> &visit)
+Simultaneous_music_iterator::preorder_walk (
+  const std::function<void (Music_iterator *)> &visit)
 {
   Music_iterator::preorder_walk (visit);
   for (auto *child : children_list_)
@@ -64,8 +64,8 @@ Simultaneous_music_iterator::create_contexts ()
   Music_iterator::create_contexts ();
 
   auto *my_context = get_context ();
-  for (auto proc = children_list_.begin ();
-       proc != children_list_.end (); /*in loop*/)
+  for (auto proc = children_list_.begin (); proc != children_list_.end ();
+       /*in loop*/)
     {
       auto *child = *proc;
       child->init_context (my_context);
@@ -99,8 +99,8 @@ void
 Simultaneous_music_iterator::process (Moment until)
 {
   bool finite = !isinf (pending_moment ().main_part_);
-  for (auto proc = children_list_.begin ();
-       proc != children_list_.end (); /*in loop*/)
+  for (auto proc = children_list_.begin (); proc != children_list_.end ();
+       /*in loop*/)
     {
       auto *child = *proc;
       if (child->run_always () || (child->pending_moment () == until))

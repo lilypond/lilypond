@@ -66,19 +66,15 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 Stencil
 System_start_delimiter::line_bracket (Grob *me, Real height)
 {
-  Real thick
-    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * from_scm<double> (get_property (me, "thickness"), 1);
+  Real thick = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+               * from_scm<double> (get_property (me, "thickness"), 1);
   Real w = 0.8;
 
-  Stencil tip1 = Line_interface::make_line (thick,
-                                            Offset (0, -height / 2),
+  Stencil tip1 = Line_interface::make_line (thick, Offset (0, -height / 2),
                                             Offset (w, -height / 2));
-  Stencil tip2 = Line_interface::make_line (thick,
-                                            Offset (0, height / 2),
+  Stencil tip2 = Line_interface::make_line (thick, Offset (0, height / 2),
                                             Offset (w, height / 2));
-  Stencil vline = Line_interface::make_line (thick,
-                                             Offset (0, -height / 2),
+  Stencil vline = Line_interface::make_line (thick, Offset (0, -height / 2),
                                              Offset (0, height / 2));
 
   vline.add_stencil (tip1);
@@ -92,8 +88,8 @@ System_start_delimiter::simple_bar (Grob *me, Real h)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real w = lt * from_scm<double> (get_property (me, "thickness"), 1);
-  return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
-                                   lt);
+  return Lookup::round_filled_box (
+    Box (Interval (0, w), Interval (-h / 2, h / 2)), lt);
 }
 
 MAKE_SCHEME_CALLBACK (System_start_delimiter, print,
@@ -112,8 +108,7 @@ System_start_delimiter::print (SCM smob)
     {
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
 
-      if (sp
-          && sp->get_bound (LEFT) == me->get_bound (LEFT))
+      if (sp && sp->get_bound (LEFT) == me->get_bound (LEFT))
         {
           Interval dims = sp->extent (common, Y_AXIS);
           if (!dims.is_empty ())
@@ -130,7 +125,8 @@ System_start_delimiter::print (SCM smob)
 
   // Use collapse-height in multiples of the staff-space
   if (ext.is_empty ()
-      || (from_scm<double> (get_property (me, "collapse-height"), 0.0) >= (len / staffspace)))
+      || (from_scm<double> (get_property (me, "collapse-height"), 0.0)
+          >= (len / staffspace)))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
@@ -156,8 +152,8 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   Font_metric *fm = 0;
   /* We use the style sheet to look up the font file name.
      This is better than using 'find_font' directly.*/
-  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
-                      ly_symbol2scm ("fetaBraces"));
+  SCM fam
+    = scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("fetaBraces"));
 
   SCM alist = ly_list (fam);
   fm = select_font (me->layout (), ly_list (alist));

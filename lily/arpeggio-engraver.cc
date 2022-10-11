@@ -44,6 +44,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void listen_arpeggio (Stream_event *);
+
 private:
   Item *arpeggio_;
   Stream_event *arpeggio_event_;
@@ -56,7 +57,8 @@ Arpeggio_engraver::Arpeggio_engraver (Context *c)
   arpeggio_event_ = 0;
 }
 
-void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
+void
+Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
   assign_event_once (arpeggio_event_, ev);
 }
@@ -69,8 +71,7 @@ Arpeggio_engraver::acknowledge_stem (Grob_info info)
       if (!arpeggio_->get_y_parent ())
         arpeggio_->set_y_parent (info.grob ());
 
-      Pointer_group_interface::add_grob (arpeggio_,
-                                         ly_symbol2scm ("stems"),
+      Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"),
                                          info.grob ());
     }
 }

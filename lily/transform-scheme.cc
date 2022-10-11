@@ -21,8 +21,7 @@
 #include "offset.hh"
 #include "transform.hh"
 
-const char *const
-Transform::type_p_name_ = "ly:transform?";
+const char *const Transform::type_p_name_ = "ly:transform?";
 
 SCM
 Transform::call (SCM arg)
@@ -33,15 +32,16 @@ Transform::call (SCM arg)
     }
   if (scm_is_number (arg))
     {
-      Offset res = (*this) (Offset (scm_c_real_part (arg), scm_c_imag_part (arg)));
+      Offset res
+        = (*this) (Offset (scm_c_real_part (arg), scm_c_imag_part (arg)));
       return scm_c_make_rectangular (res[X_AXIS], res[Y_AXIS]);
     }
   LY_ASSERT_TYPE (is_scm<Offset>, arg, 1);
   return to_scm<Offset> ((*this) (from_scm<Offset> (arg)));
 }
 
-LY_DEFINE (ly_make_transform, "ly:make-transform",
-           0, 6, 0, (SCM xx, SCM yx, SCM xy, SCM yy, SCM x0, SCM y0),
+LY_DEFINE (ly_make_transform, "ly:make-transform", 0, 6, 0,
+           (SCM xx, SCM yx, SCM xy, SCM yy, SCM x0, SCM y0),
            R"(
 Create a transform.  Without options, it is the identity transform.  Given four
 arguments @var{xx}, @var{yx}, @var{xy}, and @var{yy}, it is a linear transform.
@@ -64,20 +64,18 @@ on points given either as complex number or real number pair.  See also
     {
       // Constructor argument order follows that of Pango
       return Transform (from_scm<Real> (xx), from_scm<Real> (xy),
-                        from_scm<Real> (yx), from_scm<Real> (yy),
-                        0, 0)
-             .smobbed_copy ();
+                        from_scm<Real> (yx), from_scm<Real> (yy), 0, 0)
+        .smobbed_copy ();
     }
   LY_ASSERT_TYPE (scm_is_real, x0, 5);
   LY_ASSERT_TYPE (scm_is_real, y0, 6);
   return Transform (from_scm<Real> (xx), from_scm<Real> (xy),
                     from_scm<Real> (yx), from_scm<Real> (yy),
                     from_scm<Real> (x0), from_scm<Real> (y0))
-         .smobbed_copy ();
+    .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_scaling, "ly:make-scaling",
-           1, 1, 0, (SCM scale, SCM scaley),
+LY_DEFINE (ly_make_scaling, "ly:make-scaling", 1, 1, 0, (SCM scale, SCM scaley),
            R"(
 Create a scaling transform from argument @var{scale} and optionally
 @var{scaley}.  When both arguments are given, they must be real and give the
@@ -93,7 +91,8 @@ y@tie{}direction like with the first calling convention.
         {
           LY_ASSERT_TYPE (is_scm<Offset>, scale, 1);
           Offset xy = from_scm<Offset> (scale);
-          return Transform (xy[X_AXIS], 0.0, 0.0, xy[Y_AXIS], 0.0, 0.0).smobbed_copy ();
+          return Transform (xy[X_AXIS], 0.0, 0.0, xy[Y_AXIS], 0.0, 0.0)
+            .smobbed_copy ();
         }
       LY_ASSERT_TYPE (scm_is_number, scale, 1);
       Real re = scm_c_real_part (scale);
@@ -104,12 +103,13 @@ y@tie{}direction like with the first calling convention.
     }
   LY_ASSERT_TYPE (scm_is_real, scale, 1);
   LY_ASSERT_TYPE (scm_is_real, scaley, 2);
-  return Transform (from_scm<Real> (scale), 0.0, 0.0, from_scm<Real> (scaley), 0.0, 0.0)
-         .smobbed_copy ();
+  return Transform (from_scm<Real> (scale), 0.0, 0.0, from_scm<Real> (scaley),
+                    0.0, 0.0)
+    .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_rotation, "ly:make-rotation",
-           1, 1, 0, (SCM angle, SCM center),
+LY_DEFINE (ly_make_rotation, "ly:make-rotation", 1, 1, 0,
+           (SCM angle, SCM center),
            R"(
 Make a transform rotating by @var{angle} in degrees.  If @var{center} is given
 as a pair of coordinates, it is the center of the rotation, otherwise the
@@ -120,11 +120,10 @@ rotation is around @w{(0, 0)}.
   if (!SCM_UNBNDP (center))
     LY_ASSERT_TYPE (is_scm<Offset>, center, 2);
   return Transform (from_scm<Real> (angle), from_scm (center, Offset (0, 0)))
-         .smobbed_copy ();
+    .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_translation, "ly:make-translation",
-           1, 1, 0, (SCM x, SCM y),
+LY_DEFINE (ly_make_translation, "ly:make-translation", 1, 1, 0, (SCM x, SCM y),
            R"(
 Make a transform translating by @var{x} and @var{y}. If only @var{x} is given,
 it can also be a complex number or a pair of numbers indicating the offset to
@@ -136,19 +135,18 @@ use.
       LY_ASSERT_TYPE (scm_is_real, x, 1);
       LY_ASSERT_TYPE (scm_is_real, y, 2);
       return Transform (Offset (from_scm<Real> (x), from_scm<Real> (y)))
-             .smobbed_copy ();
+        .smobbed_copy ();
     }
   if (scm_is_number (x))
     {
       return Transform (Offset (scm_c_real_part (x), scm_c_imag_part (x)))
-             .smobbed_copy ();
+        .smobbed_copy ();
     }
   LY_ASSERT_TYPE (is_scm<Offset>, x, 1);
   return Transform (from_scm<Offset> (x)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_transform_2_list, "ly:transform->list",
-           1, 0, 0, (SCM transform),
+LY_DEFINE (ly_transform_2_list, "ly:transform->list", 1, 0, 0, (SCM transform),
            R"(
 Convert a transform matrix to a list of six values.  Values are @var{xx},
 @var{yx}, @var{xy}, @var{yy}, @var{x0}, @var{y0}.

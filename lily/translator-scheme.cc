@@ -22,8 +22,7 @@
 #include "translator-group.hh"
 #include "moment.hh"
 
-LY_DEFINE (ly_translator_context, "ly:translator-context",
-           1, 0, 0, (SCM trans),
+LY_DEFINE (ly_translator_context, "ly:translator-context", 1, 0, 0, (SCM trans),
            R"(
 Return the context of the translator object @var{trans}.
            )")

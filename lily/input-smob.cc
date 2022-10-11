@@ -51,8 +51,7 @@ Input::equal_p (SCM sa, SCM sb)
   Input *a = unsmob<Input> (sa);
   Input *b = unsmob<Input> (sb);
   if (a->get_source_file () == b->get_source_file ()
-      && a->start () == b->start ()
-      && a->end () == b->end ())
+      && a->start () == b->start () && a->end () == b->end ())
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;

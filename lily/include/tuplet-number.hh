@@ -39,4 +39,3 @@ struct Tuplet_number
 };
 
 #endif // Tuplet_number_HH
-

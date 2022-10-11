@@ -31,8 +31,7 @@ public:
 MAKE_SCHEME_CALLBACK (Relative_octave_music, no_relative_callback,
                       "ly:relative-octave-music::no-relative-callback", 2)
 SCM
-Relative_octave_music::no_relative_callback (SCM /* music */,
-                                             SCM pitch)
+Relative_octave_music::no_relative_callback (SCM /* music */, SCM pitch)
 {
   return pitch;
 }
@@ -40,9 +39,7 @@ Relative_octave_music::no_relative_callback (SCM /* music */,
 MAKE_SCHEME_CALLBACK (Relative_octave_music, relative_callback,
                       "ly:relative-octave-music::relative-callback", 2)
 SCM
-Relative_octave_music::relative_callback (SCM /* music */,
-                                          SCM pitch)
+Relative_octave_music::relative_callback (SCM /* music */, SCM pitch)
 {
   return pitch;
 }
-

@@ -39,6 +39,7 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char *const type_p_name_;
+
 private:
   int octave_;
   int notename_;

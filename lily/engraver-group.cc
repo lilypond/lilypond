@@ -42,14 +42,11 @@ Engraver_group::override (SCM sev)
         {
           Global_context *g = find_global_context (context ());
           g->add_finalization (ly_list (ly_context_matched_pop_property_proc,
-                                        context ()->self_scm (),
-                                        sym,
-                                        token));
+                                        context ()->self_scm (), sym, token));
         }
     }
   else
-    gpi.push (get_property (ev, "property-path"),
-              get_property (ev, "value"));
+    gpi.push (get_property (ev, "property-path"), get_property (ev, "value"));
 }
 
 void
@@ -66,9 +63,7 @@ Engraver_group::revert (SCM sev)
         {
           Global_context *g = find_global_context (context ());
           g->add_finalization (ly_list (ly_context_matched_pop_property_proc,
-                                        context ()->self_scm (),
-                                        sym,
-                                        token));
+                                        context ()->self_scm (), sym, token));
         }
     }
   else
@@ -79,15 +74,19 @@ void
 Engraver_group::connect_to_context (Context *c)
 {
   Translator_group::connect_to_context (c);
-  c->event_source ()->add_listener (GET_LISTENER (this, override), ly_symbol2scm ("Override"));
-  c->event_source ()->add_listener (GET_LISTENER (this, revert), ly_symbol2scm ("Revert"));
+  c->event_source ()->add_listener (GET_LISTENER (this, override),
+                                    ly_symbol2scm ("Override"));
+  c->event_source ()->add_listener (GET_LISTENER (this, revert),
+                                    ly_symbol2scm ("Revert"));
 }
 
 void
 Engraver_group::disconnect_from_context ()
 {
-  context ()->event_source ()->remove_listener (GET_LISTENER (this, override), ly_symbol2scm ("Override"));
-  context ()->event_source ()->remove_listener (GET_LISTENER (this, revert), ly_symbol2scm ("Revert"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (this, override),
+                                                ly_symbol2scm ("Override"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (this, revert),
+                                                ly_symbol2scm ("Revert"));
   Translator_group::disconnect_from_context ();
 }
 
@@ -97,13 +96,11 @@ Engraver_group::announce_grob (Grob_info info, Direction dir,
 {
   announce_infos_.push_back (Announce_grob_info (info, dir));
 
-  Context *dad_con = reroute_context ? reroute_context
-                     : context_->get_parent ();
+  Context *dad_con
+    = reroute_context ? reroute_context : context_->get_parent ();
 
   Engraver_group *dad_eng
-    = dad_con
-      ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
-      : 0;
+    = dad_con ? dynamic_cast<Engraver_group *> (dad_con->implementation ()) : 0;
 
   if (dad_eng)
     dad_eng->announce_grob (info, dir);
@@ -133,8 +130,8 @@ Engraver_group::acknowledge_grobs ()
       // on its class (e.g., System adds system-interface and spanner-interface).
       nm = scm_cons (ly_symbol2scm (info.grob ()->class_name ()), nm);
 
-      SCM ackhandle = scm_hash_create_handle_x (acknowledge_hash_table_drul_[info.start_end ()],
-                                                nm, SCM_BOOL_F);
+      SCM ackhandle = scm_hash_create_handle_x (
+        acknowledge_hash_table_drul_[info.start_end ()], nm, SCM_BOOL_F);
 
       SCM acklist = scm_cdr (ackhandle);
 
@@ -164,8 +161,7 @@ Engraver_group::pending_grobs () const
 {
   if (!announce_infos_.empty ())
     return true;
-  for (SCM s = context_->children_contexts ();
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context_->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     {
       Context *c = unsmob<Context> (scm_car (s));
       Engraver_group *group
@@ -185,8 +181,8 @@ Engraver_group::do_announces ()
       /*
         DOCME: why is this inside the loop?
        */
-      for (SCM s = context ()->children_contexts ();
-           scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = context ()->children_contexts (); scm_is_pair (s);
+           s = scm_cdr (s))
         {
           Context *c = unsmob<Context> (scm_car (s));
           Engraver_group *group

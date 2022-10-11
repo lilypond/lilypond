@@ -97,7 +97,7 @@ Timing_translator::process_music ()
 
         default:
           assert (false);
-        // fallthrough
+          // fallthrough
 
         case RIGHT:
           alt_number_ = 0;
@@ -115,7 +115,6 @@ Timing_translator::process_music ()
         {
           set_property (context (), "alternativeNumber", SCM_EOL);
         }
-
     }
 }
 
@@ -125,8 +124,8 @@ Timing_translator::stop_translation_timestep ()
   if (from_scm<bool> (get_property (this, "timing"))
       && !from_scm<bool> (get_property (this, "skipBars")))
     {
-      const auto barleft = Moment (measure_length (context ()))
-                           - measure_position (context ());
+      const auto barleft
+        = Moment (measure_length (context ())) - measure_position (context ());
 
       if (barleft > Moment (0))
         {
@@ -176,10 +175,10 @@ Timing_translator::initialize ()
 
   if (!unsmob<Moment> (measureLength))
     {
-      measureLength
-        = Moment (from_scm<Rational>
-                  (scm_divide (scm_car (timeSignatureFraction),
-                               scm_cdr (timeSignatureFraction)))).smobbed_copy ();
+      measureLength = Moment (from_scm<Rational> (
+                                scm_divide (scm_car (timeSignatureFraction),
+                                            scm_cdr (timeSignatureFraction))))
+                        .smobbed_copy ();
     }
   set_property (context (), "measureLength", measureLength);
   set_property (context (), "measurePosition", now_mom ().smobbed_copy ());
@@ -195,28 +194,26 @@ Timing_translator::initialize ()
   SCM beamExceptions = get_property (timing, "beamExceptions");
   if (!scm_is_pair (beamExceptions))
     {
-      beamExceptions = Lily::beam_exceptions (timeSignatureFraction,
-                                              timeSignatureSettings);
+      beamExceptions
+        = Lily::beam_exceptions (timeSignatureFraction, timeSignatureSettings);
     }
   set_property (context (), "beamExceptions", beamExceptions);
 
   SCM baseMoment = get_property (timing, "baseMoment");
   if (!unsmob<Moment> (baseMoment))
     {
-      baseMoment
-        = Moment (from_scm<Rational>
-                  (Lily::base_length (timeSignatureFraction,
-                                      timeSignatureSettings))).smobbed_copy ();
+      baseMoment = Moment (from_scm<Rational> (Lily::base_length (
+                             timeSignatureFraction, timeSignatureSettings)))
+                     .smobbed_copy ();
     }
   set_property (context (), "baseMoment", baseMoment);
 
   SCM beatStructure = get_property (timing, "beatStructure");
   if (!scm_is_pair (beatStructure))
     {
-      beatStructure
-        = Lily::beat_structure (to_scm (unsmob<Moment> (baseMoment)->main_part_),
-                                timeSignatureFraction,
-                                timeSignatureSettings);
+      beatStructure = Lily::beat_structure (
+        to_scm (unsmob<Moment> (baseMoment)->main_part_), timeSignatureFraction,
+        timeSignatureSettings);
     }
   set_property (context (), "beatStructure", beatStructure);
 

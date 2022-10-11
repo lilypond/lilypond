@@ -53,8 +53,8 @@ articulation_list (vector<Stream_event *> note_events,
         stored as articulations on the note, so we check through
         the notes
       */
-      for (auto * art
-           : ly_smob_list<Stream_event> (get_property (event, "articulations")))
+      for (auto *art :
+           ly_smob_list<Stream_event> (get_property (event, "articulations")))
         {
           if (art && art->in_event_class (articulation_name))
             {
@@ -75,10 +75,9 @@ articulation_list (vector<Stream_event *> note_events,
           if (j + 1 < articulation_events.size ())
             j++;
         }
-      articulations = scm_cons ((articulation_event
-                                 ? articulation_event->self_scm ()
-                                 : SCM_EOL),
-                                articulations);
+      articulations = scm_cons (
+        (articulation_event ? articulation_event->self_scm () : SCM_EOL),
+        articulations);
     }
 
   return scm_reverse_x (articulations, SCM_EOL);

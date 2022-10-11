@@ -35,7 +35,7 @@
 using std::string;
 using std::vector;
 
-template<typename T>
+template <typename T>
 static bool
 is_break (T *g)
 {
@@ -43,11 +43,14 @@ is_break (T *g)
 
   if (turnable)
     {
-      bool page_breakable = scm_is_symbol (get_property (g, "page-break-permission"));
-      bool line_breakable = scm_is_symbol (get_property (g, "line-break-permission"));
+      bool page_breakable
+        = scm_is_symbol (get_property (g, "page-break-permission"));
+      bool line_breakable
+        = scm_is_symbol (get_property (g, "line-break-permission"));
       if (!page_breakable || !line_breakable)
         {
-          programming_error ("found a page-turnable place which was not breakable");
+          programming_error (
+            "found a page-turnable place which was not breakable");
           turnable = false;
         }
     }
@@ -68,8 +71,7 @@ Page_turn_page_breaking::~Page_turn_page_breaking ()
    aggregate demerits taking demerits of break at start with the
    config of putting [start..end] on a page */
 Page_turn_page_breaking::Break_node
-Page_turn_page_breaking::put_systems_on_pages (vsize start,
-                                               vsize end,
+Page_turn_page_breaking::put_systems_on_pages (vsize start, vsize end,
                                                vsize configuration,
                                                int page_number)
 {
@@ -100,14 +102,17 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)
-        result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, 0);
+        result = space_systems_on_n_or_one_more_pages (
+          configuration, min_p_count, page_number, 0);
       else
-        result = space_systems_on_n_pages (configuration, min_p_count, page_number);
+        result
+          = space_systems_on_n_pages (configuration, min_p_count, page_number);
     }
   else if (((page_number % 2) == 0) == ((min_p_count % 2) == 0))
     result = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
-    result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, blank_page_penalty ());
+    result = space_systems_on_n_or_one_more_pages (
+      configuration, min_p_count, page_number, blank_page_penalty ());
 
   Break_node ret;
   ret.prev_ = start - 1;
@@ -189,9 +194,11 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       /* heuristic: we've just added a breakpoint, we'll need at least as
          many systems as before */
       min_sys_count = std::max (min_sys_count, prev_best_system_count);
-      for (vsize sys_count = min_sys_count; sys_count <= max_sys_count && ok_page; sys_count++)
+      for (vsize sys_count = min_sys_count;
+           sys_count <= max_sys_count && ok_page; sys_count++)
         {
-          set_current_breakpoints (start, end, sys_count, min_division, max_division);
+          set_current_breakpoints (start, end, sys_count, min_division,
+                                   max_division);
           bool found = false;
 
           for (vsize i = 0; i < current_configuration_count (); i++)
@@ -201,7 +208,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
               if (std::isinf (cur.demerits_)
                   || (cur.page_count_ + (p_num % 2) > 2
                       && (!std::isinf (this_start_best.demerits_))
-                      && total_page_count (cur) > total_page_count (this_start_best)))
+                      && total_page_count (cur)
+                           > total_page_count (this_start_best)))
                 {
                   ok_page = false;
                   break;
@@ -231,8 +239,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           break;
         }
 
-      if (start == 0 && end == 1
-          && this_start_best.first_page_number_ == 1
+      if (start == 0 && end == 1 && this_start_best.first_page_number_ == 1
           && this_start_best.page_count_ > 1)
         warning (_ ("cannot fit the first page turn onto a single page."
                     "  Consider setting first-page-number to an even number."));
@@ -286,7 +293,8 @@ Page_turn_page_breaking::make_lines (vector<Break_node> *psoln)
 }
 
 SCM
-Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems)
+Page_turn_page_breaking::make_pages (vector<Break_node> const &soln,
+                                     SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
@@ -297,7 +305,8 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
       for (vsize j = 0; j < soln[i].page_count_; j++)
         lines_per_page.push_back (soln[i].system_count_[j]);
 
-      if (i + 1 < soln.size () && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
+      if (i + 1 < soln.size ()
+          && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
         /* add a blank page */
         lines_per_page.push_back (0);
     }

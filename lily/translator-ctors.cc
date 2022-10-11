@@ -56,53 +56,52 @@ add_translator_creator (SCM creator, SCM name, SCM description)
   if (!dict)
     {
       global_translator_dict = Scheme_hash_table::make_smob ();
-      global_translator_dict_rev
-        = scm_make_weak_key_hash_table (to_scm (119));
+      global_translator_dict_rev = scm_make_weak_key_hash_table (to_scm (119));
       dict = unsmob<Scheme_hash_table> (global_translator_dict);
     }
   dict->set (name, creator);
-  scm_hashq_set_x (global_translator_dict_rev, creator, scm_cons (name, description));
+  scm_hashq_set_x (global_translator_dict_rev, creator,
+                   scm_cons (name, description));
 }
 
-LY_DEFINE (ly_translator_name, "ly:translator-name",
-           1, 0, 0, (SCM creator),
+LY_DEFINE (ly_translator_name, "ly:translator-name", 1, 0, 0, (SCM creator),
            R"(
 Return the type name of the translator definition @var{creator}.  The name is a
 symbol.
            )")
 {
   SCM res = global_translator_dict_rev.is_bound ()
-            ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
-            : SCM_BOOL_F;
-  SCM_ASSERT_TYPE (scm_is_pair (res),
-                   creator, SCM_ARG1, __FUNCTION__, "translator definition");
+              ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+              : SCM_BOOL_F;
+  SCM_ASSERT_TYPE (scm_is_pair (res), creator, SCM_ARG1, __FUNCTION__,
+                   "translator definition");
   return scm_car (res);
 }
 
-LY_DEFINE (ly_translator_description, "ly:translator-description",
-           1, 0, 0, (SCM creator),
+LY_DEFINE (ly_translator_description, "ly:translator-description", 1, 0, 0,
+           (SCM creator),
            R"(
 Return an alist of properties of translator definition @var{creator}.
            )")
 {
   SCM res = global_translator_dict_rev.is_bound ()
-            ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
-            : SCM_BOOL_F;
-  SCM_ASSERT_TYPE (scm_is_pair (res),
-                   creator, SCM_ARG1, __FUNCTION__, "translator definition");
+              ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+              : SCM_BOOL_F;
+  SCM_ASSERT_TYPE (scm_is_pair (res), creator, SCM_ARG1, __FUNCTION__,
+                   "translator definition");
   return scm_cdr (res);
 }
 
-LY_DEFINE (ly_register_translator, "ly:register-translator",
-           2, 1, 0, (SCM creator, SCM name, SCM description),
+LY_DEFINE (ly_register_translator, "ly:register-translator", 2, 1, 0,
+           (SCM creator, SCM name, SCM description),
            R"(
 Register a translator @var{creator} (usually a descriptive alist or a
 function/closure returning one when given a context argument) with the given
 symbol @var{name} and the given @var{description} alist.
            )")
 {
-  SCM_ASSERT_TYPE (ly_is_procedure (creator) || scm_is_pair (creator),
-                   creator, SCM_ARG1, __FUNCTION__, "translator creator");
+  SCM_ASSERT_TYPE (ly_is_procedure (creator) || scm_is_pair (creator), creator,
+                   SCM_ARG1, __FUNCTION__, "translator creator");
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
   if (SCM_UNBNDP (description))
     description = SCM_EOL;
@@ -122,7 +121,8 @@ get_translator_creator (SCM sym)
 
   if (scm_is_false (v))
     {
-      warning (_f ("unknown translator: `%s'", ly_symbol2string (sym).c_str ()));
+      warning (
+        _f ("unknown translator: `%s'", ly_symbol2string (sym).c_str ()));
     }
 
   return v;

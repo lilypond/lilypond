@@ -49,7 +49,9 @@ struct Parse_start
   Lily_parser *parser_;
 
   Parse_start (SCM form, const Input &start, Lily_parser *parser)
-    : form_ (form), start_ (start), parser_ (parser)
+    : form_ (form),
+      start_ (start),
+      parser_ (parser)
   {
   }
 
@@ -92,7 +94,8 @@ struct Parse_start
                 // This catches user .ly files, but not init files.
                 if (scm_is_true (scm_member (filename, source_files))
                     // ugh
-                    && !ly_is_equal (filename, ly_string2scm ("<included string>"))
+                    && !ly_is_equal (filename,
+                                     ly_string2scm ("<included string>"))
                     // ly:parser-include-string uses "<included string>" but
                     // ly:parser-parse-string uses "<string>" (should this be
                     // harmonized?).
@@ -112,8 +115,8 @@ struct Parse_start
       {
         // No location found.  This can happen for syntax errors.  Use the start
         // of the Scheme expression where the error was raised.
-        ps->start_.non_fatal_error
-          (_ ("Guile signaled an error for the expression beginning here"));
+        ps->start_.non_fatal_error (
+          _ ("Guile signaled an error for the expression beginning here"));
       }
     else
       {
@@ -126,10 +129,10 @@ struct Parse_start
         // towards getting line/column info from the current char* position (to
         // work with Flex), whereas here we have the line/column and we want to
         // get the line from them.
-        SCM port = scm_open_file_with_encoding (filename,
-                                                ly_string2scm ("r"),
-                                                SCM_BOOL_F, // don't guess encoding
-                                                ly_string2scm ("UTF8"));
+        SCM port
+          = scm_open_file_with_encoding (filename, ly_string2scm ("r"),
+                                         SCM_BOOL_F, // don't guess encoding
+                                         ly_string2scm ("UTF8"));
         // Wait until the relevant line
         while (!ly_is_eqv (scm_port_line (port), line))
           (void) scm_read_line (port);
@@ -140,7 +143,8 @@ struct Parse_start
         SCM before_chars = SCM_EOL;
         while (!ly_is_eqv (scm_port_column (port), column))
           before_chars = scm_cons (scm_read_char (port), before_chars);
-        SCM before_substring = scm_string (scm_reverse_x (before_chars, SCM_EOL));
+        SCM before_substring
+          = scm_string (scm_reverse_x (before_chars, SCM_EOL));
         SCM after_substring = scm_car (scm_read_line (port));
         static SCM space = scm_integer_to_char (to_scm (32));
         // Note that we get the "cutting point" right wrt. tab expansion, but we
@@ -148,28 +152,27 @@ struct Parse_start
         // point, which is not really possible anyway because there is no
         // universal tab width.
         SCM context = scm_make_string (column, space);
-        non_fatal_error (_ ("Guile signaled an error for the expression beginning here")
-                         + "\n" + ly_scm2string (before_substring)
-                         + "\n" + ly_scm2string (context)
-                         + ly_scm2string (after_substring),
-                         ly_scm2string (filename) + ":"
-                         + ly_scm_write_string (scm_oneplus (line)) + ":"
-                         + ly_scm_write_string (scm_oneplus (column)));
+        non_fatal_error (
+          _ ("Guile signaled an error for the expression beginning here") + "\n"
+            + ly_scm2string (before_substring) + "\n" + ly_scm2string (context)
+            + ly_scm2string (after_substring),
+          ly_scm2string (filename) + ":"
+            + ly_scm_write_string (scm_oneplus (line)) + ":"
+            + ly_scm_write_string (scm_oneplus (column)));
       }
 
     // If enabled, print a backtrace.  "enabled" means that Guile would print a
     // backtrace if the error were not handled.  This can be turned on with
     // #(debug-enable 'backtrace) or by running with -ddebug-eval.
     if (scm_is_true (
-         scm_memq (ly_symbol2scm ("backtrace"), Guile_user::debug_options ())))
+          scm_memq (ly_symbol2scm ("backtrace"), Guile_user::debug_options ())))
       {
         // Use scm_display_backtrace and not the scm_backtrace convenience
         // wrapper because the latter outputs to stdout whereas we want stderr.
-        scm_display_backtrace (call_stack,
-                               scm_current_error_port (),
+        scm_display_backtrace (call_stack, scm_current_error_port (),
                                SCM_BOOL_F, // don't cut inner frames
-                               SCM_BOOL_F // don't cut outer frames
-                               );
+                               SCM_BOOL_F  // don't cut outer frames
+        );
       }
 
     // Now let Guile tell us what the error is about.  We pass #f for the
@@ -194,7 +197,8 @@ struct Parse_start
   // evaluation resulted in an error is evaluated as *unspecified* in order to
   // be able to continue compiling the main LilyPond file.  (Unreachable in
   // -dno-protected-scheme-parsing.)
-  static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/, SCM /*args*/)
+  static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/,
+                                           SCM /*args*/)
   {
     // This *unspecified* is important, it's the value returned to LilyPond.
     return SCM_UNSPECIFIED;
@@ -223,7 +227,8 @@ internal_parse_embedded_scheme (void *p)
 
   SCM port = overlay.as_port ();
   scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));
-  scm_set_port_filename_x (port, ly_string2scm (start.get_source_file ()->name_string ().c_str ()));
+  scm_set_port_filename_x (
+    port, ly_string2scm (start.get_source_file ()->name_string ().c_str ()));
   // TODO: Do GUILE ports count in characters or bytes? Do they do tab
   // expansion for column counts?
   scm_set_port_column_x (port, scm_from_ssize_t (column - 1));
@@ -245,8 +250,8 @@ internal_parse_embedded_scheme (void *p)
   if (ps->parser_->lexer_->top_input ())
     {
       // Find any precompiled form.
-      SCM c = scm_assv_ref (ps->parser_->closures_,
-                            scm_from_ssize_t (byte_offset));
+      SCM c
+        = scm_assv_ref (ps->parser_->closures_, scm_from_ssize_t (byte_offset));
       if (scm_is_true (c))
         return c;
     }
@@ -260,13 +265,13 @@ internal_parse_embedded_scheme (void *p)
 // parsed_output to the cover the entire form. parsed_output may not
 // be null.
 SCM
-parse_embedded_scheme (const Input &start, Lily_parser *parser, Input *parsed_output)
+parse_embedded_scheme (const Input &start, Lily_parser *parser,
+                       Input *parsed_output)
 {
   Parse_start ps (SCM_UNDEFINED, start, parser);
 
   // Catch #t : catch all Scheme level errors.
-  SCM result = scm_c_catch (SCM_BOOL_T,
-                            internal_parse_embedded_scheme, &ps,
+  SCM result = scm_c_catch (SCM_BOOL_T, internal_parse_embedded_scheme, &ps,
                             &Parse_start::handle_error_after_unwinding, &ps,
                             &Parse_start::handle_error_before_unwinding, &ps);
 
@@ -297,15 +302,14 @@ internal_evaluate_embedded_scheme (void *p)
   // https://lists.gnu.org/archive/html/guile-devel/2022-08/msg00033.html.  For
   // the same reason, we don't compile code from the init files for now, only
   // code from the user.
-  bool compile = (from_scm<bool> (ly_get_option (ly_symbol2scm ("compile-scheme-code")))
-                  && ps->parser_->lexer_->is_main_input_
-                  // Avoid compilation overhead for trivial expressions.
-                  && !scm_is_number (ps->form_)
-                  && !scm_is_string (ps->form_)
-                  && !scm_is_bool (ps->form_)
-                  && !scm_is_keyword (ps->form_)
-                  && !(scm_is_pair (ps->form_)
-                       && scm_is_eq (scm_car (ps->form_), ly_symbol2scm ("quote"))));
+  bool compile
+    = (from_scm<bool> (ly_get_option (ly_symbol2scm ("compile-scheme-code")))
+       && ps->parser_->lexer_->is_main_input_
+       // Avoid compilation overhead for trivial expressions.
+       && !scm_is_number (ps->form_) && !scm_is_string (ps->form_)
+       && !scm_is_bool (ps->form_) && !scm_is_keyword (ps->form_)
+       && !(scm_is_pair (ps->form_)
+            && scm_is_eq (scm_car (ps->form_), ly_symbol2scm ("quote"))));
   if (!compile)
     {
       // The simple case: evaluation.
@@ -343,24 +347,18 @@ internal_evaluate_embedded_scheme (void *p)
   static SCM devnull = scm_sys_make_void_port (ly_string2scm ("w"));
   scm_set_current_warning_port (devnull);
 #if SCM_MAJOR_VERSION >= 3
-  SCM bytecode =
-    Compile::compile (
-      ps->form_,
-      ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
-      ly_keyword2scm ("env"), scm_current_module (),
-      // Turn off optimizations, they make for very slow compilation.
-      ly_keyword2scm ("optimization-level"), to_scm (0)
-    );
+  SCM bytecode = Compile::compile (
+    ps->form_, ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
+    ly_keyword2scm ("env"), scm_current_module (),
+    // Turn off optimizations, they make for very slow compilation.
+    ly_keyword2scm ("optimization-level"), to_scm (0));
 #else
-  SCM bytecode =
-    Compile::compile (
-      ps->form_,
-      ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
-      ly_keyword2scm ("env"), scm_current_module (),
-      // To turn off optimizations, reuse the options that LilyPond
-      // uses when compiling its own .scm files.
-      ly_keyword2scm ("opts"), Guile_user::p_auto_compilation_options
-    );
+  SCM bytecode = Compile::compile (
+    ps->form_, ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
+    ly_keyword2scm ("env"), scm_current_module (),
+    // To turn off optimizations, reuse the options that LilyPond
+    // uses when compiling its own .scm files.
+    ly_keyword2scm ("opts"), Guile_user::p_auto_compilation_options);
 #endif
   scm_set_current_warning_port (port);
   SCM thunk = Loader::load_thunk_from_memory (bytecode);
@@ -377,8 +375,7 @@ evaluate_embedded_scheme (SCM form, Input const &start, Lily_parser *parser)
   scm_dynwind_begin (SCM_F_DYNWIND_REWINDABLE);
   scm_dynwind_fluid (Lily::f_location, start.smobbed_copy ());
 
-  SCM result = scm_c_catch (SCM_BOOL_T,
-                            internal_evaluate_embedded_scheme, &ps,
+  SCM result = scm_c_catch (SCM_BOOL_T, internal_evaluate_embedded_scheme, &ps,
                             &Parse_start::handle_error_after_unwinding, &ps,
                             &Parse_start::handle_error_before_unwinding, &ps);
 

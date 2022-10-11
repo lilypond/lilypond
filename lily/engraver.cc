@@ -90,8 +90,8 @@ Engraver::Engraver (Context *c)
 
 static Protected_scm creation_callback (SCM_EOL);
 
-LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
-           1, 0, 0, (SCM cb),
+LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback", 1, 0,
+           0, (SCM cb),
            R"(
 Specify a procedure that gets called every time a new grob is created.  The
 callback receives as arguments the grob that was created, the name of the C++
@@ -104,7 +104,7 @@ callback.
   return SCM_UNSPECIFIED;
 }
 
-template<typename T>
+template <typename T>
 T *
 Engraver::choose_grob_type (SCM classes, SCM props)
 {
@@ -114,14 +114,13 @@ Engraver::choose_grob_type (SCM classes, SCM props)
     {
       programming_error (_f ("grob %s created with disallowed class %s"
                              " (expected any class in the list %s)",
-                             grob->name (),
-                             class_name,
+                             grob->name (), class_name,
                              print_scm_val (classes)));
     }
   return grob;
 }
 
-template<>
+template <>
 Grob *
 Engraver::choose_grob_type<Grob> (SCM classes, SCM props)
 {
@@ -160,25 +159,22 @@ Engraver::choose_grob_type<Grob> (SCM classes, SCM props)
    When T is Grob, the meta.classes field must be have only one element.
    Make a grob with the corresponding class and return it as Grob *.
    This is used by ly:engraver-make-grob. */
-template<typename T>
+template <typename T>
 T *
-Engraver::internal_make_grob (SCM symbol,
-                              SCM cause,
-                              char const *file,
-                              int line,
+Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file, int line,
                               char const *fun)
 {
 #ifndef DEBUG
-  (void)file;
-  (void)line;
-  (void)fun;
+  (void) file;
+  (void) line;
+  (void) fun;
 #endif
 
   SCM props = Grob_property_info (context (), symbol).updated ();
   if (!scm_is_pair (props))
     {
-      error (_f ("No grob definition found for `%s'.",
-                 ly_symbol2string (symbol)));
+      error (
+        _f ("No grob definition found for `%s'.", ly_symbol2string (symbol)));
     }
 
   SCM meta = scm_assq_ref (props, ly_symbol2scm ("meta"));
@@ -189,8 +185,7 @@ Engraver::internal_make_grob (SCM symbol,
 
 #ifdef DEBUG
   if (ly_is_procedure (creation_callback))
-    ly_call (creation_callback,
-             grob->self_scm (), scm_from_utf8_string (file),
+    ly_call (creation_callback, grob->self_scm (), scm_from_utf8_string (file),
              to_scm (line), scm_from_latin1_string (fun));
 #endif
 
@@ -198,39 +193,38 @@ Engraver::internal_make_grob (SCM symbol,
 }
 
 Item *
-Engraver::internal_make_item (SCM x, SCM cause,
-                              char const *file, int line, char const *fun)
+Engraver::internal_make_item (SCM x, SCM cause, char const *file, int line,
+                              char const *fun)
 {
   return internal_make_grob<Item> (x, cause, file, line, fun);
 }
 
 Paper_column *
-Engraver::internal_make_column (SCM x, char const *file, int line, char const *fun)
+Engraver::internal_make_column (SCM x, char const *file, int line,
+                                char const *fun)
 {
   return internal_make_grob<Paper_column> (x, SCM_EOL, file, line, fun);
 }
 
 Spanner *
-Engraver::internal_make_spanner (SCM x, SCM cause,
-                                 char const *file, int line, char const *fun)
+Engraver::internal_make_spanner (SCM x, SCM cause, char const *file, int line,
+                                 char const *fun)
 {
   return internal_make_grob<Spanner> (x, cause, file, line, fun);
 }
 
 Grob *
-Engraver::internal_make_indeterminate (SCM x, SCM cause,
-                                       char const *file, int line,
-                                       char const *fun)
+Engraver::internal_make_indeterminate (SCM x, SCM cause, char const *file,
+                                       int line, char const *fun)
 {
   return internal_make_grob<Grob> (x, cause, file, line, fun);
 }
 
 Grob *
-Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause,
-                                char const *file, int line, char const *fun)
+Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause, char const *file,
+                                int line, char const *fun)
 {
-  Grob *sticky = host->make_sticky_same_type (this, x, cause,
-                                              file, line, fun);
+  Grob *sticky = host->make_sticky_same_type (this, x, cause, file, line, fun);
   if (!sticky->internal_has_interface (ly_symbol2scm ("sticky-grob-interface")))
     {
       programming_error (_f ("sticky grob %s created with a type that does"

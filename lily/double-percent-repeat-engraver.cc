@@ -55,8 +55,8 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 {
   if (!percent_event_)
     {
-      const auto meas_len (from_scm (get_property (this, "measureLength"),
-                                     Moment (1)));
+      const auto meas_len (
+        from_scm (get_property (this, "measureLength"), Moment (1)));
       start_mom_ = now_mom () + meas_len;
       find_global_context ()->add_moment_to_process (start_mom_);
       percent_event_ = ev;
@@ -68,8 +68,8 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 void
 Double_percent_repeat_engraver::pre_process_music ()
 {
-  should_print_double_percent_ =
-    (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_);
+  should_print_double_percent_
+    = (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_);
   // Prevent breaks over percent sign.
   if (should_print_double_percent_)
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
@@ -80,16 +80,16 @@ Double_percent_repeat_engraver::process_music ()
 {
   if (should_print_double_percent_)
     {
-      Item *double_percent = make_item ("DoublePercentRepeat",
-                                        percent_event_->self_scm ());
+      Item *double_percent
+        = make_item ("DoublePercentRepeat", percent_event_->self_scm ());
 
       SCM count = get_property (percent_event_, "repeat-count");
-      if (!scm_is_null (count) && from_scm<bool> (get_property (this, "countPercentRepeats"))
+      if (!scm_is_null (count)
+          && from_scm<bool> (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
-          Item *double_percent_counter
-            = make_item ("DoublePercentRepeatCounter",
-                         percent_event_->self_scm ());
+          Item *double_percent_counter = make_item (
+            "DoublePercentRepeatCounter", percent_event_->self_scm ());
 
           SCM text = scm_number_to_string (count, to_scm (10));
           set_property (double_percent_counter, "text", text);

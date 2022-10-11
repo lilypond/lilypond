@@ -19,8 +19,8 @@
 
 #include "pitch.hh"
 
-LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
-           2, 0, 0, (SCM p, SCM delta),
+LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose", 2, 0, 0,
+           (SCM p, SCM delta),
            R"(
 Transpose pitch@tie{}@var{p} by the amount @var{delta}, where @var{delta} is
 relative to middle@tie{}C.
@@ -32,8 +32,8 @@ relative to middle@tie{}C.
   return t->transposed (*d).smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_pitch, "ly:make-pitch",
-           2, 1, 0, (SCM octave, SCM note, SCM alter),
+LY_DEFINE (ly_make_pitch, "ly:make-pitch", 2, 1, 0,
+           (SCM octave, SCM note, SCM alter),
            R"(
 Make a pitch.  @var{octave} is specified by an integer, zero for the octave
 containing middle@tie{}C.  @var{note} is a number indexing the global default
@@ -55,8 +55,7 @@ tones for alteration.
   return p.smobbed_copy ();
 }
 
-LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0,
-           (SCM p),
+LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0, (SCM p),
            R"(
 Negate pitch@tie{}@var{p}.
            )")
@@ -65,8 +64,7 @@ Negate pitch@tie{}@var{p}.
   return pp->negated ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
-           (SCM p),
+LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0, (SCM p),
            R"(
 Number of steps counted from middle@tie{}C of the pitch@tie{}@var{p}.
            )")
@@ -75,8 +73,7 @@ Number of steps counted from middle@tie{}C of the pitch@tie{}@var{p}.
   return to_scm (pp->steps ());
 }
 
-LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_octave, "ly:pitch-octave", 1, 0, 0, (SCM pp),
            R"(
 Extract the octave from pitch@tie{}@var{pp}.
            )")
@@ -86,8 +83,7 @@ Extract the octave from pitch@tie{}@var{pp}.
   return to_scm (q);
 }
 
-LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration", 1, 0, 0, (SCM pp),
            R"(
 Extract the alteration from pitch@tie{}@var{pp}.
            )")
@@ -98,8 +94,7 @@ Extract the alteration from pitch@tie{}@var{pp}.
   return to_scm (q);
 }
 
-LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_notename, "ly:pitch-notename", 1, 0, 0, (SCM pp),
            R"(
 Extract the note name from pitch @var{pp}.
            )")
@@ -109,8 +104,7 @@ Extract the note name from pitch @var{pp}.
   return to_scm (q);
 }
 
-LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_tones, "ly:pitch-tones", 1, 0, 0, (SCM pp),
            R"(
 Calculate the number of tones of pitch @var{pp} from middle@tie{}C as a
 rational number.
@@ -120,8 +114,7 @@ rational number.
   return to_scm (p->tone_pitch ());
 }
 
-LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones", 1, 0, 0, (SCM pp),
            R"(
 Calculate the number of quarter tones of pitch @var{pp} from middle@tie{}C.
            )")
@@ -131,8 +124,7 @@ Calculate the number of quarter tones of pitch @var{pp} from middle@tie{}C.
   return to_scm (q);
 }
 
-LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
-           1, 0, 0, (SCM pp),
+LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones", 1, 0, 0, (SCM pp),
            R"(
 Calculate the number of semitones of pitch @var{pp} from middle@tie{}C.
            )")
@@ -142,8 +134,7 @@ Calculate the number of semitones of pitch @var{pp} from middle@tie{}C.
   return to_scm (q);
 }
 
-LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
-           2, 0, 0, (SCM p1, SCM p2),
+LY_DEFINE (ly_pitch_less_p, "ly:pitch<?", 2, 0, 0, (SCM p1, SCM p2),
            R"(
 Is @var{p1} lexicographically smaller than @var{p2}?
            )")
@@ -157,8 +148,7 @@ Is @var{p1} lexicographically smaller than @var{p2}?
     return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
-           2, 0, 0, (SCM pitch, SCM root),
+LY_DEFINE (ly_pitch_diff, "ly:pitch-diff", 2, 0, 0, (SCM pitch, SCM root),
            R"(
 Return pitch @var{delta} such that @var{root} transposed by @var{delta} equals
 @var{pitch}.
@@ -171,8 +161,7 @@ Return pitch @var{delta} such that @var{root} transposed by @var{delta} equals
   return pitch_interval (*r, *p).smobbed_copy ();
 }
 
-LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!", 1, 0, 0, (SCM context),
            R"(
 Set the @code{middleCPosition} variable in @var{context} based on the variables
 @code{middleCClefPosition} and @code{middleCOffset}.

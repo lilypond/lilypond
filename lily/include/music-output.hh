@@ -33,8 +33,10 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Music_output ();
+
 private:
   VIRTUAL_CLASS_NAME (Music_output);
+
 protected:
   Music_output ();
 

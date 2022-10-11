@@ -64,8 +64,7 @@ private:
   {
   public:
     Midi_control_initializer (Staff_performer *performer,
-                              Audio_staff *audio_staff,
-                              int channel);
+                              Audio_staff *audio_staff, int channel);
 
     SCM get_property_value (const char *property_name) override;
     void do_announce (Audio_control_change *item) override;
@@ -100,7 +99,6 @@ int Staff_performer::staff_performer_count_ = 0;
 void
 Staff_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Staff_performer,
@@ -155,8 +153,8 @@ Staff_performer::new_audio_staff (const string &voice)
   string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {
-      name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
-                              + ":" + voice);
+      name_ = new Audio_text (Audio_text::TRACK_NAME,
+                              context ()->id_string () + ":" + voice);
       audio_staff->add_audio_item (name_);
       announce_element (Audio_element_info (name_, 0));
     }
@@ -210,8 +208,8 @@ Staff_performer::set_instrument (int channel, const string &voice)
 void
 Staff_performer::set_instrument_name (const string &voice)
 {
-  instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME,
-                                     instrument_string_);
+  instrument_name_
+    = new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_string_);
   announce_element (Audio_element_info (instrument_name_, 0));
   get_audio_staff (voice)->add_audio_item (instrument_name_);
 }
@@ -228,8 +226,8 @@ Staff_performer::stop_translation_timestep ()
 void
 Staff_performer::finalize ()
 {
-  Moment end_mom = now_mom ()
-                   + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+  Moment end_mom
+    = now_mom () + from_scm (get_property (this, "midiSkipOffset"), Moment ());
   for (map<string, Audio_staff *>::iterator i = staff_map_.begin ();
        i != staff_map_.end (); ++i)
     {
@@ -253,8 +251,7 @@ Staff_performer::new_instrument_string ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property (this, "midiInstrument");
 
-  if (!scm_is_string (minstr)
-      || ly_scm2string (minstr) == instrument_string_)
+  if (!scm_is_string (minstr) || ly_scm2string (minstr) == instrument_string_)
     return "";
 
   instrument_string_ = ly_scm2string (minstr);
@@ -268,11 +265,10 @@ Staff_performer::get_channel (const string &instrument)
   SCM channel_mapping = get_property (this, "midiChannelMapping");
   map<string, int> &channel_map
     = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
-      ? channel_map_
-      : static_channel_map_;
+        ? channel_map_
+        : static_channel_map_;
 
-  if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff"))
-      && channel_ >= 0)
+  if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")) && channel_ >= 0)
     return channel_;
 
   map<string, int>::const_iterator i = channel_map.find (instrument);
@@ -280,8 +276,8 @@ Staff_performer::get_channel (const string &instrument)
     return i->second;
 
   auto channel = (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")))
-                 ? channel_count_++
-                 : static_cast<int> (channel_map.size ());
+                   ? channel_count_++
+                   : static_cast<int> (channel_map.size ());
 
   /* MIDI players tend to ignore instrument settings on channel
      10, the percussion channel.  */
@@ -342,22 +338,24 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
     }
 }
 
-Staff_performer::Midi_control_initializer::Midi_control_initializer
-(Staff_performer *performer, Audio_staff *audio_staff, int channel)
+Staff_performer::Midi_control_initializer::Midi_control_initializer (
+  Staff_performer *performer, Audio_staff *audio_staff, int channel)
   : performer_ (performer),
     audio_staff_ (audio_staff),
     channel_ (channel)
 {
 }
 
-SCM Staff_performer::Midi_control_initializer::get_property_value
-(const char *property_name)
+SCM
+Staff_performer::Midi_control_initializer::get_property_value (
+  const char *property_name)
 {
   return get_property (performer_, property_name);
 }
 
-void Staff_performer::Midi_control_initializer::do_announce
-(Audio_control_change *item)
+void
+Staff_performer::Midi_control_initializer::do_announce (
+  Audio_control_change *item)
 {
   item->channel_ = channel_;
   audio_staff_->add_audio_item (item);

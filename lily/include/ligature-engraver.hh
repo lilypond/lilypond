@@ -41,9 +41,9 @@ protected:
 
   virtual Spanner *create_ligature_spanner () = 0;
 
-  virtual void
-  typeset_ligature (Spanner *ligature,
-                    std::vector<Item *> const &primitives) = 0;
+  virtual void typeset_ligature (Spanner *ligature,
+                                 std::vector<Item *> const &primitives)
+    = 0;
 
   virtual Spanner *current_ligature ();
 

@@ -42,11 +42,7 @@ using std::string;
  * TODO: move this function to class Lookup?
  */
 Stencil
-brew_flexa (Grob *me,
-            bool solid,
-            Real width,
-            Real thickness,
-            bool begin)
+brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -78,7 +74,8 @@ brew_flexa (Grob *me,
 
   if (solid) // colorated flexae
     {
-      stencil = Lookup::beam (corrected_slope, width * 0.5, staff_space, blotdiameter);
+      stencil = Lookup::beam (corrected_slope, width * 0.5, staff_space,
+                              blotdiameter);
     }
   else // outline
     {
@@ -90,15 +87,13 @@ brew_flexa (Grob *me,
                                   Y_AXIS);
         }
 
-      Stencil bottom_edge
-        = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                        blotdiameter);
+      Stencil bottom_edge = Lookup::beam (
+        corrected_slope, width * 0.5, horizontal_line_thickness, blotdiameter);
       bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
-      Stencil top_edge
-        = Lookup::beam (corrected_slope, width * 0.5, horizontal_line_thickness,
-                        blotdiameter);
+      Stencil top_edge = Lookup::beam (corrected_slope, width * 0.5,
+                                       horizontal_line_thickness, blotdiameter);
       top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }
@@ -135,10 +130,8 @@ internal_brew_primitive (Grob *me)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   SCM style = get_property (me, "style");
-  bool const black
-    = scm_is_eq (style, ly_symbol2scm ("blackpetrucci"));
-  bool const semi
-    = scm_is_eq (style, ly_symbol2scm ("semipetrucci"));
+  bool const black = scm_is_eq (style, ly_symbol2scm ("blackpetrucci"));
+  bool const semi = scm_is_eq (style, ly_symbol2scm ("semipetrucci"));
 
   if (primitive & MLP_ANY)
     {
@@ -147,8 +140,8 @@ internal_brew_primitive (Grob *me)
               - thickness;
     }
   if (primitive & MLP_FLEXA)
-    flexa_width = from_scm<double> (get_property (me, "flexa-width"), 2.0)
-                  * staff_space;
+    flexa_width
+      = from_scm<double> (get_property (me, "flexa-width"), 2.0) * staff_space;
 
   Stencil out;
   int const note_shape = primitive & MLP_ANY;
@@ -180,9 +173,8 @@ internal_brew_primitive (Grob *me)
       index = prefix + "s";
       out = fm->find_by_name (index + "r" + suffix);
       if (!out.is_empty ()
-          && !Staff_symbol_referencer::on_line
-          (me,
-           from_scm (get_property (me, "staff-position"), 0)))
+          && !Staff_symbol_referencer::on_line (
+            me, from_scm (get_property (me, "staff-position"), 0)))
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;
@@ -282,7 +274,8 @@ Mensural_ligature::brew_ligature_primitive (SCM smob)
   return internal_brew_primitive (me).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Mensural_ligature, print, "ly:mensural-ligature::print", 1);
+MAKE_SCHEME_CALLBACK (Mensural_ligature, print, "ly:mensural-ligature::print",
+                      1);
 SCM
 Mensural_ligature::print (SCM)
 {

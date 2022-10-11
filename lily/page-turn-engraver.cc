@@ -59,7 +59,8 @@ public:
   */
   vector<Page_turn_event> penalize (Page_turn_event const &penalty)
   {
-    Interval_t<Rational> intersect = intersection (duration_, penalty.duration_);
+    Interval_t<Rational> intersect
+      = intersection (duration_, penalty.duration_);
     vector<Page_turn_event> ret;
 
     if (intersect.is_empty ())
@@ -71,13 +72,16 @@ public:
     Real new_pen = std::max (penalty_, penalty.penalty_);
 
     if (duration_[LEFT] < penalty.duration_[LEFT])
-      ret.push_back (Page_turn_event (duration_[LEFT], penalty.duration_[LEFT], permission_, penalty_));
+      ret.push_back (Page_turn_event (duration_[LEFT], penalty.duration_[LEFT],
+                                      permission_, penalty_));
 
     if (!scm_is_null (penalty.permission_))
-      ret.push_back (Page_turn_event (intersect[LEFT], intersect[RIGHT], permission_, new_pen));
+      ret.push_back (Page_turn_event (intersect[LEFT], intersect[RIGHT],
+                                      permission_, new_pen));
 
     if (penalty.duration_[RIGHT] < duration_[RIGHT])
-      ret.push_back (Page_turn_event (penalty.duration_[RIGHT], duration_[RIGHT], permission_, penalty_));
+      ret.push_back (Page_turn_event (penalty.duration_[RIGHT],
+                                      duration_[RIGHT], permission_, penalty_));
 
     return ret;
   }
@@ -85,11 +89,11 @@ public:
 
 class Page_turn_engraver final : public Engraver
 {
-  Moment rest_begin_{0};
-  Moment repeat_begin_{-1};
-  Moment note_end_{0};
-  Rational repeat_begin_rest_length_{0};
-  bool found_special_bar_line_{false};
+  Moment rest_begin_ {0};
+  Moment repeat_begin_ {-1};
+  Moment note_end_ {0};
+  Rational repeat_begin_rest_length_ {0};
+  bool found_special_bar_line_ {false};
 
   vector<Page_turn_event> forced_breaks_;
   vector<Page_turn_event> automatic_breaks_;
@@ -124,10 +128,11 @@ Page_turn_engraver::Page_turn_engraver (Context *c)
 Grob *
 Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 {
-  auto start = std::lower_bound (breakable_moments_.begin (), breakable_moments_.end (),
-                                 brk.duration_[LEFT]);
-  auto end = std::upper_bound (breakable_moments_.begin (), breakable_moments_.end (),
-                               brk.duration_[RIGHT]);
+  auto start
+    = std::lower_bound (breakable_moments_.begin (), breakable_moments_.end (),
+                        brk.duration_[LEFT]);
+  auto end = std::upper_bound (breakable_moments_.begin (),
+                               breakable_moments_.end (), brk.duration_[RIGHT]);
 
   if (start == breakable_moments_.end ())
     return NULL;
@@ -147,8 +152,9 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 Real
 Page_turn_engraver::penalty (Rational rest_len)
 {
-  const auto min_turn = from_scm (get_property (this, "minimumPageTurnLength"),
-                                  Moment (1)).main_part_;
+  const auto min_turn
+    = from_scm (get_property (this, "minimumPageTurnLength"), Moment (1))
+        .main_part_;
 
   return (rest_len < min_turn) ? infinity_f : 0;
 }
@@ -181,9 +187,8 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 {
   Stream_event *cause = gi.event_cause ();
 
-  Duration *dur_ptr = cause
-                      ? unsmob<Duration> (get_property (cause, "duration"))
-                      : 0;
+  Duration *dur_ptr
+    = cause ? unsmob<Duration> (get_property (cause, "duration")) : 0;
 
   if (!dur_ptr)
     return;
@@ -192,9 +197,9 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
     {
       Real pen = penalty ((now_mom () - rest_begin_).main_part_);
       if (!std::isinf (pen))
-        automatic_breaks_.push_back (Page_turn_event (rest_begin_.main_part_,
-                                                      now_mom ().main_part_,
-                                                      ly_symbol2scm ("allow"), 0));
+        automatic_breaks_.push_back (
+          Page_turn_event (rest_begin_.main_part_, now_mom ().main_part_,
+                           ly_symbol2scm ("allow"), 0));
     }
 
   if (rest_begin_ <= repeat_begin_)
@@ -213,7 +218,8 @@ Page_turn_engraver::listen_break (Stream_event *ev)
       Real penalty = from_scm<double> (get_property (ev, "break-penalty"), 0);
       Rational now = now_mom ().main_part_;
 
-      forced_breaks_.push_back (Page_turn_event (now, now, permission, penalty));
+      forced_breaks_.push_back (
+        Page_turn_event (now, now, permission, penalty));
     }
 }
 
@@ -230,7 +236,8 @@ Page_turn_engraver::start_translation_timestep ()
      timestep.
   */
 
-  if (breakable_columns_.size () && !Paper_column::is_breakable (breakable_columns_.back ()))
+  if (breakable_columns_.size ()
+      && !Paper_column::is_breakable (breakable_columns_.back ()))
     {
       breakable_columns_.pop_back ();
       breakable_moments_.pop_back ();
@@ -281,19 +288,21 @@ Page_turn_engraver::stop_translation_timestep ()
   if (end && (repeat_begin_.main_part_ >= 0))
     {
       Rational now = now_mom ().main_part_;
-      Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);
+      Real pen = penalty ((now_mom () - rest_begin_).main_part_
+                          + repeat_begin_rest_length_);
 
       const auto minimumRepeatLengthForPageTurn
-        = from_scm (get_property (this,
-                                  "minimumRepeatLengthForPageTurn"),
+        = from_scm (get_property (this, "minimumRepeatLengthForPageTurn"),
                     -Moment::infinity ());
       if (minimumRepeatLengthForPageTurn > (now_mom () - repeat_begin_))
         pen = infinity_f;
 
       if (pen == infinity_f)
-        repeat_penalties_.push_back (Page_turn_event (repeat_begin_.main_part_, now, SCM_EOL, -infinity_f));
+        repeat_penalties_.push_back (Page_turn_event (
+          repeat_begin_.main_part_, now, SCM_EOL, -infinity_f));
       else
-        repeat_penalties_.push_back (Page_turn_event (repeat_begin_.main_part_, now, ly_symbol2scm ("allow"), pen));
+        repeat_penalties_.push_back (Page_turn_event (
+          repeat_begin_.main_part_, now, ly_symbol2scm ("allow"), pen));
 
       repeat_begin_ = Moment (-1);
     }
@@ -334,24 +343,26 @@ Page_turn_engraver::finalize ()
       Page_turn_event &brk = automatic_breaks_[i];
 
       /* find the next applicable repeat penalty */
-      for (;
-           rep_index < repeat_penalties_.size ()
-           && repeat_penalties_[rep_index].duration_[RIGHT] <= brk.duration_[LEFT];
+      for (; rep_index < repeat_penalties_.size ()
+             && repeat_penalties_[rep_index].duration_[RIGHT]
+                  <= brk.duration_[LEFT];
            rep_index++)
         ;
 
       if (rep_index >= repeat_penalties_.size ()
-          || brk.duration_[RIGHT] <= repeat_penalties_[rep_index].duration_[LEFT])
+          || brk.duration_[RIGHT]
+               <= repeat_penalties_[rep_index].duration_[LEFT])
         auto_breaks.push_back (brk);
       else
         {
-          vector<Page_turn_event> split = brk.penalize (repeat_penalties_[rep_index]);
+          vector<Page_turn_event> split
+            = brk.penalize (repeat_penalties_[rep_index]);
 
           /* it's possible that the last of my newly-split events overlaps the next repeat_penalty,
              in which case we need to refilter that event */
-          if (rep_index + 1 < repeat_penalties_.size ()
-              && split.size ()
-              && split.back ().duration_[RIGHT] > repeat_penalties_[rep_index + 1].duration_[LEFT])
+          if (rep_index + 1 < repeat_penalties_.size () && split.size ()
+              && split.back ().duration_[RIGHT]
+                   > repeat_penalties_[rep_index + 1].duration_[LEFT])
             {
               automatic_breaks_[i] = split.back ();
               split.pop_back ();
@@ -368,15 +379,20 @@ Page_turn_engraver::finalize ()
       Grob *pc = breakable_column (auto_breaks[i]);
       if (pc)
         {
-          SCM perm = max_permission (get_property (pc, "page-turn-permission"), brk.permission_);
-          Real pen = std::min (from_scm<double> (get_property (pc, "page-turn-penalty"), infinity_f), brk.penalty_);
+          SCM perm = max_permission (get_property (pc, "page-turn-permission"),
+                                     brk.permission_);
+          Real pen
+            = std::min (from_scm<double> (
+                          get_property (pc, "page-turn-penalty"), infinity_f),
+                        brk.penalty_);
           set_property (pc, "page-turn-permission", perm);
           set_property (pc, "page-turn-penalty", to_scm (pen));
         }
     }
 
   /* unless a manual break overrides it, allow a page turn at the end of the piece */
-  set_property (breakable_columns_.back (), "page-turn-permission", ly_symbol2scm ("allow"));
+  set_property (breakable_columns_.back (), "page-turn-permission",
+                ly_symbol2scm ("allow"));
 
   /* apply the manual breaks */
   for (vsize i = 0; i < forced_breaks_.size (); i++)

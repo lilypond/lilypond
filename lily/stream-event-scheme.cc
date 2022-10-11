@@ -19,8 +19,7 @@
 
 #include "stream-event.hh"
 
-LY_DEFINE (ly_stream_event_p, "ly:stream-event?",
-           1, 0, 0, (SCM obj),
+LY_DEFINE (ly_stream_event_p, "ly:stream-event?", 1, 0, 0, (SCM obj),
            R"(
 Is @var{obj} a @code{Stream_event} object?
            )")
@@ -28,8 +27,8 @@ Is @var{obj} a @code{Stream_event} object?
   return to_scm (static_cast<bool> (unsmob<Stream_event> (obj)));
 }
 
-LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
-           1, 1, 0, (SCM cl, SCM proplist),
+LY_DEFINE (ly_make_stream_event, "ly:make-stream-event", 1, 1, 0,
+           (SCM cl, SCM proplist),
            R"(
 Create a stream event of class @var{cl} with the given mutable property list.
            )")
@@ -42,8 +41,8 @@ Create a stream event of class @var{cl} with the given mutable property list.
   return e->unprotect ();
 }
 
-LY_DEFINE (ly_event_property, "ly:event-property",
-           2, 1, 0, (SCM sev, SCM sym, SCM val),
+LY_DEFINE (ly_event_property, "ly:event-property", 2, 1, 0,
+           (SCM sev, SCM sym, SCM val),
            R"(
 Get the property @var{sym} of stream event @var{sev}.  If @var{sym} is
 undefined, return @var{val} or @code{'()} if @var{val} is not specified.
@@ -53,8 +52,8 @@ undefined, return @var{val} or @code{'()} if @var{val} is not specified.
   return ly_prob_property (sev, sym, val);
 }
 
-LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
-           3, 0, 0, (SCM ev, SCM sym, SCM val),
+LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!", 3, 0, 0,
+           (SCM ev, SCM sym, SCM val),
            R"(
 Set property @var{sym} in event @var{ev} to @var{val}.
            )")
@@ -65,8 +64,7 @@ Set property @var{sym} in event @var{ev} to @var{val}.
   return ly_prob_set_property_x (ev, sym, val);
 }
 
-LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy",
-           1, 0, 0, (SCM m),
+LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy", 1, 0, 0, (SCM m),
            R"(
 Copy @var{m} and all sub-expressions of@tie{}@var{m}.
            )")

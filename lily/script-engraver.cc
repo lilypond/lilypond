@@ -82,8 +82,7 @@ Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
   for (vsize i = 0; i < scripts_.size (); i++)
-    if (scm_is_eq (get_property (scripts_[i].event_,
-                                 "articulation-type"),
+    if (scm_is_eq (get_property (scripts_[i].event_, "articulation-type"),
                    get_property (ev, "articulation-type")))
       return;
 
@@ -147,8 +146,7 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
         }
 
       SCM preset = get_property_data (p, sym);
-      if (scm_is_null (val)
-          || scm_is_false (ly_call (type, preset)))
+      if (scm_is_null (val) || scm_is_false (ly_call (type, preset)))
         set_property (p, sym, val);
     }
 
@@ -168,8 +166,7 @@ Script_engraver::process_music ()
       Grob *p = make_item ("Script", ev->self_scm ());
 
       make_script_from_event (p, context (),
-                              get_property (ev, "articulation-type"),
-                              i);
+                              get_property (ev, "articulation-type"), i);
 
       scripts_[i].script_ = p;
 

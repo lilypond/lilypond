@@ -34,4 +34,3 @@ public:
 };
 
 #endif /* TIE_COLUMN_HH */
-

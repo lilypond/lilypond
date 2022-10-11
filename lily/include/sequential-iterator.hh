@@ -34,14 +34,14 @@ public:
   Sequential_iterator () = default;
 
   Sequential_iterator (Sequential_iterator const &) = delete;
-  Sequential_iterator &operator = (Sequential_iterator const &) = delete;
+  Sequential_iterator &operator= (Sequential_iterator const &) = delete;
 
   void derived_mark () const override;
 
   Moment pending_moment () const override;
   void do_quit () override;
 
-  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
+  void preorder_walk (const std::function<void (Music_iterator *)> &) override;
 
 protected:
   void create_children () override;

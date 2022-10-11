@@ -74,8 +74,9 @@ pfb2pfa (const string &pfb)
 
           for (size_t i = seglen; i > 0; --i)
             {
-              ss << std::setw (2) << static_cast<int> (static_cast<Byte> (*p++));
-              if (! (i % 32))
+              ss << std::setw (2)
+                 << static_cast<int> (static_cast<Byte> (*p++));
+              if (!(i % 32))
                 ss << '\n';
             }
 

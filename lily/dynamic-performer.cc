@@ -30,6 +30,7 @@ class Dynamic_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
+
 protected:
   void acknowledge_audio_element (Audio_element_info info) override;
   void finalize () override;
@@ -43,17 +44,13 @@ protected:
 
 private:
   void close_and_enqueue_span ();
-  Real calc_departure_volume (Direction depart_dir,
-                              Real start_vol,
-                              Real end_vol,
-                              Real min_vol,
-                              Real max_vol);
+  Real calc_departure_volume (Direction depart_dir, Real start_vol,
+                              Real end_vol, Real min_vol, Real max_vol);
   bool drive_state_machine (Direction next_grow_dir);
   // next_vol < 0 means select a target dynamic based on growth direction.
   // return actual next volume (computed if not provided)
   Real finish_queued_spans (Real next_vol = -1.0);
-  Real look_up_absolute_volume (SCM dynamicString,
-                                Real defaultValue);
+  Real look_up_absolute_volume (SCM dynamicString, Real defaultValue);
 
 private:
   // This performer queues a number of dynamic spans waiting for the following
@@ -71,7 +68,7 @@ private:
   {
     STATE_INITIAL = 0, // waiting for a (de)crescendo
     STATE_DEPART, // enqueued the first span, gathering same-direction spans
-    STATE_RETURN // gathering opposite-direction spans
+    STATE_RETURN  // gathering opposite-direction spans
   };
 
   struct UnfinishedSpan
@@ -79,7 +76,11 @@ private:
     Audio_span_dynamic *dynamic_;
     Direction grow_dir_;
 
-    UnfinishedSpan () : dynamic_ (0), grow_dir_ (CENTER) {}
+    UnfinishedSpan ()
+      : dynamic_ (0),
+        grow_dir_ (CENTER)
+    {
+    }
   };
 
   struct DynamicQueue
@@ -90,7 +91,10 @@ private:
     Real min_target_vol_;
     Real max_target_vol_;
 
-    DynamicQueue () : change_duration_ (0) {}
+    DynamicQueue ()
+      : change_duration_ (0)
+    {
+    }
 
     void clear ()
     {
@@ -98,8 +102,7 @@ private:
       change_duration_ = 0;
     }
 
-    void push_back (const UnfinishedSpan &span,
-                    Real min_target_vol,
+    void push_back (const UnfinishedSpan &span, Real min_target_vol,
                     Real max_target_vol)
     {
       if (span.grow_dir_ != CENTER)
@@ -131,8 +134,7 @@ Dynamic_performer::Dynamic_performer (Context *c)
     depart_dir_ (CENTER),
     state_ (STATE_INITIAL)
 {
-  span_events_[LEFT]
-    = span_events_[RIGHT] = 0;
+  span_events_[LEFT] = span_events_[RIGHT] = 0;
 }
 
 void
@@ -208,8 +210,7 @@ Dynamic_performer::close_and_enqueue_span ()
 // (loss) of any (de)crescendo is proportional to its share of the total time
 // spent changing.
 void
-Dynamic_performer::DynamicQueue::set_volume (Real start_vol,
-                                             Real target_vol)
+Dynamic_performer::DynamicQueue::set_volume (Real start_vol, Real target_vol)
 {
   const Real gain = target_vol - start_vol;
   Real dur = 0; // duration of (de)crescendi processed so far
@@ -236,10 +237,8 @@ Dynamic_performer::DynamicQueue::set_volume (Real start_vol,
 //
 // The given minimum and maximum volumes are the allowable dynamic range.
 Real
-Dynamic_performer::calc_departure_volume (Direction depart_dir,
-                                          Real start_vol,
-                                          Real end_vol,
-                                          Real min_vol,
+Dynamic_performer::calc_departure_volume (Direction depart_dir, Real start_vol,
+                                          Real end_vol, Real min_vol,
                                           Real max_vol)
 {
   if (depart_dir == CENTER)
@@ -288,7 +287,8 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       return next_vol;
     }
 
-  const Real start_vol = depart_queue_.spans_.front ().dynamic_->get_start_volume ();
+  const Real start_vol
+    = depart_queue_.spans_.front ().dynamic_->get_start_volume ();
 
   if (return_queue_.spans_.empty ())
     {
@@ -298,8 +298,7 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       // direction of growth, choose a reasonable target.
       if ((next_vol < 0) || (depart_dir_ != Direction (next_vol - start_vol)))
         {
-          depart_vol = calc_departure_volume (depart_dir_,
-                                              start_vol, start_vol,
+          depart_vol = calc_departure_volume (depart_dir_, start_vol, start_vol,
                                               depart_queue_.min_target_vol_,
                                               depart_queue_.max_target_vol_);
         }
@@ -312,10 +311,9 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
     {
       // If the next dynamic is not specified, return to the starting volume.
       const Real return_vol = (next_vol >= 0) ? next_vol : start_vol;
-      Real depart_vol = calc_departure_volume (depart_dir_,
-                                               start_vol, return_vol,
-                                               depart_queue_.min_target_vol_,
-                                               depart_queue_.max_target_vol_);
+      Real depart_vol = calc_departure_volume (
+        depart_dir_, start_vol, return_vol, depart_queue_.min_target_vol_,
+        depart_queue_.max_target_vol_);
       depart_queue_.set_volume (start_vol, depart_vol);
       depart_queue_.clear ();
       return_queue_.set_volume (depart_vol, return_vol);
@@ -430,10 +428,9 @@ Dynamic_performer::process_music ()
       if (volume < 0)
         volume = equalize_volume (Audio_span_dynamic::DEFAULT_VOLUME);
 
-      Stream_event *cause
-        = span_events_[START] ? span_events_[START]
-          : script_event_ ? script_event_
-          : span_events_[STOP];
+      Stream_event *cause = span_events_[START] ? span_events_[START]
+                            : script_event_     ? script_event_
+                                                : span_events_[STOP];
 
       open_span_.dynamic_ = new Audio_span_dynamic (now_mom (), volume);
       open_span_.grow_dir_ = next_grow_dir_;
@@ -458,8 +455,7 @@ Dynamic_performer::stop_translation_timestep ()
   notes_.clear ();
 
   script_event_ = 0;
-  span_events_[LEFT]
-    = span_events_[RIGHT] = 0;
+  span_events_[LEFT] = span_events_[RIGHT] = 0;
   next_grow_dir_ = CENTER;
 }
 

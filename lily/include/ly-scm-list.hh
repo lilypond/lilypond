@@ -32,21 +32,21 @@ template <class T, bool allow_mutation>
 class ly_scm_iterator_t
 {
 private:
-  using private_scm
-    = typename std::conditional<allow_mutation, SCM, const SCM>::type;
+  using private_scm =
+    typename std::conditional<allow_mutation, SCM, const SCM>::type;
 
   using const_iterator = ly_scm_iterator_t<T, false>;
   using iterator = ly_scm_iterator_t<T, true>;
-  using other_iterator
-    = typename std::conditional<allow_mutation, const_iterator, iterator>::type;
+  using other_iterator =
+    typename std::conditional<allow_mutation, const_iterator, iterator>::type;
 
 public:
   using difference_type = ssize_t;
   using value_type = T;
-  using pointer
-    = typename std::conditional<allow_mutation, T *, const T *>::type;
-  using reference
-    = typename std::conditional<allow_mutation, T &, const T &>::type;
+  using pointer =
+    typename std::conditional<allow_mutation, T *, const T *>::type;
+  using reference =
+    typename std::conditional<allow_mutation, T &, const T &>::type;
   using iterator_category = std::forward_iterator_tag;
 
 private:
@@ -60,7 +60,7 @@ private:
   // const_iterator is only as a point of reference, not as a restriction on
   // mutating the container.
   explicit ly_scm_iterator_t (const other_iterator &other)
-    : it_ (const_cast <private_scm *> (other.it_))
+    : it_ (const_cast<private_scm *> (other.it_))
   {
   }
 
@@ -97,24 +97,24 @@ protected:
   //
   // Note: If it were useful, we could make this a public method of iterator,
   // but not of const_iterator, because it would allow modifying the sequence.
-  SCM self_scm () const
-  {
-    return it_ ? *it_ : SCM_EOL;
-  }
+  SCM self_scm () const { return it_ ? *it_ : SCM_EOL; }
 
 public:
   ly_scm_iterator_t () = default;
-  explicit ly_scm_iterator_t (SCM *s) : it_ (vet (s)) {}
-  explicit ly_scm_iterator_t (const SCM *s) : it_ (vet (s)) {}
+  explicit ly_scm_iterator_t (SCM *s)
+    : it_ (vet (s))
+  {
+  }
+  explicit ly_scm_iterator_t (const SCM *s)
+    : it_ (vet (s))
+  {
+  }
   ly_scm_iterator_t (const ly_scm_iterator_t &) = default;
-  ly_scm_iterator_t &operator = (const ly_scm_iterator_t &) = default;
+  ly_scm_iterator_t &operator= (const ly_scm_iterator_t &) = default;
   ~ly_scm_iterator_t () = default;
 
   // an iterator can be converted to a const_iterator
-  operator const_iterator () const
-  {
-    return const_iterator (*this);
-  }
+  operator const_iterator () const { return const_iterator (*this); }
 
   // Dereference this iterator as SCM regardless of the value type.
   // This returns a reference to the car of the current pair.
@@ -122,10 +122,7 @@ public:
   //
   // If you find yourself using this more than rarely, you might be better off
   // just working with SCM as the value type of your list.
-  private_scm &dereference_scm () const
-  {
-    return *SCM_CARLOC (*it_);
-  }
+  private_scm &dereference_scm () const { return *SCM_CARLOC (*it_); }
 
   // When the value type is SCM, we return a reference to the car of the
   // current pair.  Recommended range-based for loop syntax:
@@ -162,23 +159,23 @@ public:
   // Calling the robust version of from_scm () is not an option because
   // operator * takes no parameters.  TODO: It might be possible to provide a
   // uniform fallback value as a parameter of the list template.
-  decltype(auto) operator * () const
+  decltype (auto) operator* () const
   {
     return from_scm<T> (dereference_scm ());
   }
 
-  ly_scm_iterator_t &operator ++()
+  ly_scm_iterator_t &operator++ ()
   {
     it_ = vet (SCM_CDRLOC (*it_));
     return *this;
   }
 
-  bool operator == (const ly_scm_iterator_t &other) const
+  bool operator== (const ly_scm_iterator_t &other) const
   {
     return scm_is_eq (self_scm (), other.self_scm ());
   }
 
-  bool operator != (const ly_scm_iterator_t &other) const
+  bool operator!= (const ly_scm_iterator_t &other) const
   {
     return !(*this == other);
   }
@@ -222,18 +219,21 @@ public:
   // original SCM.  To use a SCM in loco, cast it with as_ly_scm_list_t().
   explicit ly_scm_list_t (const SCM &) = delete;
 
-  explicit ly_scm_list_t (SCM &&s) : head_ (scm_is_pair (s) ? s : SCM_EOL) {}
+  explicit ly_scm_list_t (SCM &&s)
+    : head_ (scm_is_pair (s) ? s : SCM_EOL)
+  {
+  }
 
   // Like std::list, moving leaves the source list in an unspecified state.
   // Unlike std::list, moving invalidates iterators referring to the beginning
   // of the source list (which is also the end in the case of an empty list).
   // Other iterators remain valid, following their elements into the new list.
   ly_scm_list_t (ly_scm_list_t &&) = default;
-  ly_scm_list_t &operator = (ly_scm_list_t &&) = default;
+  ly_scm_list_t &operator= (ly_scm_list_t &&) = default;
 
   // Copying is not implemented.
   ly_scm_list_t (const ly_scm_list_t &) = delete;
-  ly_scm_list_t &operator = (const ly_scm_list_t &) = delete;
+  ly_scm_list_t &operator= (const ly_scm_list_t &) = delete;
 
   const_iterator begin () const { return const_iterator (&head_); }
   const_iterator cbegin () const { return const_iterator (&head_); }
@@ -330,8 +330,7 @@ as_ly_scm_list_t (SCM &s)
 // (e.g. the result of a function call) to this function, construct a list
 // instead: ly_scm_list_t<T> (s).
 template <class T>
-inline const ly_scm_list_t<T> &
-as_ly_scm_list_t (const SCM &&s) = delete;
+inline const ly_scm_list_t<T> &as_ly_scm_list_t (const SCM &&s) = delete;
 
 using ly_scm_list = ly_scm_list_t<SCM>;
 
@@ -354,7 +353,6 @@ as_ly_scm_list (SCM &s)
 // If you get a compiler error because you're trying to pass a temporary value
 // (e.g. the result of a function call) to this function, construct a list
 // instead: ly_scm_list (s).
-inline const ly_scm_list &
-as_ly_scm_list (const SCM &&s) = delete;
+inline const ly_scm_list &as_ly_scm_list (const SCM &&s) = delete;
 
 #endif /* LY_SCM_LIST_HH */

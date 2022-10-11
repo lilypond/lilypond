@@ -39,4 +39,3 @@ get_program_option (const char *s)
 
   return from_scm<bool> (ly_get_option (sym));
 }
-

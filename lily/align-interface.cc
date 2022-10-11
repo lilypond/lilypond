@@ -67,16 +67,13 @@ Align_interface::align_to_ideal_distances (SCM smob)
 // TODO(jneem): the pure and non-pure parts seem to share very little
 // code. Split them into 2 functions, perhaps?
 static Skyline_pair
-get_skylines (Grob *g,
-              Axis a,
-              Grob *other_common,
-              bool pure, vsize start, vsize end)
+get_skylines (Grob *g, Axis a, Grob *other_common, bool pure, vsize start,
+              vsize end)
 {
   if (!pure)
     {
-      SCM sym = (a == Y_AXIS)
-                ? ly_symbol2scm ("vertical-skylines")
-                : ly_symbol2scm ("horizontal-skylines");
+      SCM sym = (a == Y_AXIS) ? ly_symbol2scm ("vertical-skylines")
+                              : ly_symbol2scm ("horizontal-skylines");
       SCM skyp_scm = get_property (g, sym);
       Skyline_pair skylines;
       if (is_scm<Skyline_pair> (skyp_scm))
@@ -117,7 +114,8 @@ get_skylines (Grob *g,
         = Axis_group_interface::begin_of_line_pure_height (g, start);
       if (!begin_of_line_extent.is_empty ())
         {
-          boxes.push_back (Box (Interval (-infinity_f, -1), begin_of_line_extent));
+          boxes.push_back (
+            Box (Interval (-infinity_f, -1), begin_of_line_extent));
         }
     }
 
@@ -134,7 +132,8 @@ Align_interface::get_minimum_translations (Grob *me,
                                            vector<Grob *> const &all_grobs,
                                            Axis a)
 {
-  return internal_get_minimum_translations (me, all_grobs, a, true, false, 0, 0);
+  return internal_get_minimum_translations (me, all_grobs, a, true, false, 0,
+                                            0);
 }
 
 vector<Real>
@@ -142,15 +141,16 @@ Align_interface::get_pure_minimum_translations (Grob *me,
                                                 vector<Grob *> const &all_grobs,
                                                 Axis a, vsize start, vsize end)
 {
-  return internal_get_minimum_translations (me, all_grobs, a, true, true, start, end);
+  return internal_get_minimum_translations (me, all_grobs, a, true, true, start,
+                                            end);
 }
 
 vector<Real>
-Align_interface::get_minimum_translations_without_min_dist (Grob *me,
-                                                            vector<Grob *> const &all_grobs,
-                                                            Axis a)
+Align_interface::get_minimum_translations_without_min_dist (
+  Grob *me, vector<Grob *> const &all_grobs, Axis a)
 {
-  return internal_get_minimum_translations (me, all_grobs, a, false, false, 0, 0);
+  return internal_get_minimum_translations (me, all_grobs, a, false, false, 0,
+                                            0);
 }
 
 // If include_fixed_spacing is false, the only constraints that will be measured
@@ -163,20 +163,18 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 // - If you're going to actually lay out the page, then it should be false (or
 //   else centered dynamics will break when there is a fixed alignment).
 vector<Real>
-Align_interface::internal_get_minimum_translations (Grob *me,
-                                                    vector<Grob *> const &elems,
-                                                    Axis a,
-                                                    bool include_fixed_spacing,
-                                                    bool pure, vsize start, vsize end)
+Align_interface::internal_get_minimum_translations (
+  Grob *me, vector<Grob *> const &elems, Axis a, bool include_fixed_spacing,
+  bool pure, vsize start, vsize end)
 {
-  if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me) && !me->get_system ())
+  if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me)
+      && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
 
   // check the cache
   if (pure)
     {
-      SCM fv = ly_assoc_get (scm_cons (to_scm (start),
-                                       to_scm (end)),
+      SCM fv = ly_assoc_get (scm_cons (to_scm (start), to_scm (end)),
                              get_property (me, "minimum-translations-alist"),
                              SCM_EOL);
       if (!scm_is_null (fv))
@@ -190,8 +188,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (!dynamic_cast<System *> (me->get_y_parent ()))
     include_fixed_spacing = false;
 
-  Direction stacking_dir = from_scm (get_property (me, "stacking-dir"),
-                                     DOWN);
+  Direction stacking_dir = from_scm (get_property (me, "stacking-dir"), DOWN);
 
   Grob *other_common = common_refpoint_of_array (elems, me, other_axis (a));
 
@@ -209,7 +206,8 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       Real dy = 0;
       Real padding = default_padding;
 
-      Skyline_pair skyline = get_skylines (elems[j], a, other_common, pure, start, end);
+      Skyline_pair skyline
+        = get_skylines (elems[j], a, other_common, pure, start, end);
 
       if (skyline.is_empty ())
         {
@@ -225,40 +223,51 @@ Align_interface::internal_get_minimum_translations (Grob *me,
         }
       else
         {
-          SCM spec = Page_layout_problem::get_spacing_spec (last_nonempty_element, elems[j], pure, start, end);
-          Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
+          SCM spec = Page_layout_problem::get_spacing_spec (
+            last_nonempty_element, elems[j], pure, start, end);
+          Page_layout_problem::read_spacing_spec (spec, &padding,
+                                                  ly_symbol2scm ("padding"));
 
           dy = down_skyline.distance (skyline[-stacking_dir]) + padding;
 
           Real spec_distance = 0;
-          if (Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("minimum-distance")))
+          if (Page_layout_problem::read_spacing_spec (
+                spec, &spec_distance, ly_symbol2scm ("minimum-distance")))
             dy = std::max (dy, spec_distance);
           // Consider the likely final spacing when estimating distance between staves of the full score
           if (INT_MAX == end && 0 == start
-              && Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("basic-distance")))
+              && Page_layout_problem::read_spacing_spec (
+                spec, &spec_distance, ly_symbol2scm ("basic-distance")))
             dy = std::max (dy, spec_distance);
 
-          if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
+          if (include_fixed_spacing
+              && Page_layout_problem::is_spaceable (elems[j])
+              && last_spaceable_element)
             {
               // Spaceable staves may have
               // constraints coming from the previous spaceable staff
               // as well as from the previous staff.
-              spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j], pure, start, end);
+              spec = Page_layout_problem::get_spacing_spec (
+                last_spaceable_element, elems[j], pure, start, end);
               Real spaceable_padding = 0;
-              Page_layout_problem::read_spacing_spec (spec,
-                                                      &spaceable_padding,
-                                                      ly_symbol2scm ("padding"));
-              dy = std::max (dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
-                                  + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
+              Page_layout_problem::read_spacing_spec (
+                spec, &spaceable_padding, ly_symbol2scm ("padding"));
+              dy = std::max (
+                dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
+                     + stacking_dir * (last_spaceable_element_pos - where)
+                     + spaceable_padding));
 
               Real spaceable_min_distance = 0;
-              if (Page_layout_problem::read_spacing_spec (spec,
-                                                          &spaceable_min_distance,
-                                                          ly_symbol2scm ("minimum-distance")))
-                dy = std::max (dy, spaceable_min_distance + stacking_dir * (last_spaceable_element_pos - where));
+              if (Page_layout_problem::read_spacing_spec (
+                    spec, &spaceable_min_distance,
+                    ly_symbol2scm ("minimum-distance")))
+                dy = std::max (
+                  dy, spaceable_min_distance
+                        + stacking_dir * (last_spaceable_element_pos - where));
 
-              dy = std::max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
-                                                                         pure, start, end));
+              dy = std::max (dy, Page_layout_problem::get_fixed_spacing (
+                                   last_spaceable_element, elems[j],
+                                   spaceable_count, pure, start, end));
             }
         }
 
@@ -281,8 +290,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (pure)
     {
       SCM mta = get_property (me, "minimum-translations-alist");
-      mta = scm_cons (scm_cons (scm_cons (to_scm (start),
-                                          to_scm (end)),
+      mta = scm_cons (scm_cons (scm_cons (to_scm (start), to_scm (end)),
                                 to_scm_list (translates)),
                       mta);
       set_property (me, "minimum-translations-alist", mta);
@@ -315,10 +323,12 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
 }
 
 Real
-Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start, vsize end)
+Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start,
+                                               vsize end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  vector<Real> translates = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
+  vector<Real> translates
+    = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
 
   if (translates.size ())
     {
@@ -329,7 +339,8 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start, 
   else
     return 0;
 
-  programming_error ("tried to get a translation for something that is no child of mine");
+  programming_error (
+    "tried to get a translation for something that is no child of mine");
   return 0;
 }
 

@@ -35,4 +35,3 @@ struct Rod
 };
 
 #endif /* ROD_HH */
-

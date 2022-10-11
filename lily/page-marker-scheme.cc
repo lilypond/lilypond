@@ -19,9 +19,8 @@
 
 #include "page-marker.hh"
 
-LY_DEFINE (ly_make_page_permission_marker, "ly:make-page-permission-marker",
-           2, 0, 0,
-           (SCM symbol, SCM permission),
+LY_DEFINE (ly_make_page_permission_marker, "ly:make-page-permission-marker", 2,
+           0, 0, (SCM symbol, SCM permission),
            R"(
 Return page marker with page breaking and turning permissions.
            )")
@@ -32,8 +31,7 @@ Return page marker with page breaking and turning permissions.
   return page_marker->unprotect ();
 }
 
-LY_DEFINE (ly_make_page_label_marker, "ly:make-page-label-marker",
-           1, 0, 0,
+LY_DEFINE (ly_make_page_label_marker, "ly:make-page-label-marker", 1, 0, 0,
            (SCM label),
            R"(
 Return page marker with label @var{label}.

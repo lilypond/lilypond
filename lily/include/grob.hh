@@ -78,7 +78,6 @@ protected:
   Input *origin () const override;
 
 public:
-
   /* friends */
   friend class System;
   friend SCM ly_grob_properties (SCM);
@@ -90,16 +89,21 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_stencil_height, (SCM smob, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (stencil_width, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_simple_vertical_skylines_from_extents, (SCM smob, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_simple_vertical_skylines_from_extents,
+                           (SCM smob, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (simple_vertical_skylines_from_extents, (SCM smob));
   DECLARE_SCHEME_CALLBACK (vertical_skylines_from_stencil, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_vertical_skylines_from_element_stencils, (SCM smob, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_vertical_skylines_from_element_stencils,
+                           (SCM smob, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (vertical_skylines_from_element_stencils, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_simple_horizontal_skylines_from_extents, (SCM smob, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_simple_horizontal_skylines_from_extents,
+                           (SCM smob, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (simple_horizontal_skylines_from_extents, (SCM smob));
   DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_stencil, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_horizontal_skylines_from_element_stencils, (SCM smob, SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_element_stencils, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (pure_horizontal_skylines_from_element_stencils,
+                           (SCM smob, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_element_stencils,
+                           (SCM smob));
 
   /* R/O access */
   Output_def *layout () const { return layout_; }
@@ -112,7 +116,8 @@ public:
   virtual Grob *clone () const = 0;
   virtual Grob *make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
                                        char const *file, int line,
-                                       char const *fun) = 0;
+                                       char const *fun)
+    = 0;
 
   /* forced death */
   void suicide ();
@@ -126,8 +131,8 @@ public:
   SCM internal_get_property (SCM symbol) const;
   SCM internal_get_property_data (SCM symbol) const;
   SCM internal_get_pure_property (SCM symbol, vsize start, vsize end) const;
-  SCM internal_get_maybe_pure_property (SCM symbol, bool pure,
-                                        vsize start, vsize end) const;
+  SCM internal_get_maybe_pure_property (SCM symbol, bool pure, vsize start,
+                                        vsize end) const;
   SCM internal_get_non_callback_marker_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
@@ -148,12 +153,15 @@ public:
   virtual void derived_mark () const;
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
-  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction) { return false; }
+  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction)
+  {
+    return false;
+  }
 
   // get the relevant piece of this grob in the context of a line running from
   // `start` to `end` -- nullptr if the grob would not be visible
-  virtual Grob *
-  pure_find_visible_prebroken_piece (vsize start, vsize end) const = 0;
+  virtual Grob *pure_find_visible_prebroken_piece (vsize start,
+                                                   vsize end) const = 0;
 
   /* printing */
   const Stencil *get_stencil () const;
@@ -167,14 +175,15 @@ public:
   Real relative_coordinate (Grob const *refp, Axis) const;
   Real parent_relative (Grob const *refp, Axis) const;
   Real pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end);
-  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, vsize start, vsize end);
+  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, vsize start,
+                              vsize end);
 
   /* extents */
   Interval extent (Grob const *refpoint, Axis) const;
   void flush_extent_cache (Axis);
   virtual Interval pure_y_extent (Grob *refpoint, vsize start, vsize end);
-  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure,
-                              vsize start, vsize end);
+  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, vsize start,
+                              vsize end);
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
@@ -200,13 +209,18 @@ public:
   virtual System_rank_interval spanned_system_rank_interval () const = 0;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
-  static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);
-  static SCM internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end);
+  static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis,
+                                                               bool, int, int,
+                                                               bool, bool);
+  static SCM internal_skylines_from_element_stencils (Grob *me, Axis a,
+                                                      bool pure, int beg,
+                                                      int end);
   static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
 
 template <class T>
-inline bool has_interface (Grob const *g)
+inline bool
+has_interface (Grob const *g)
 {
   return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
 }

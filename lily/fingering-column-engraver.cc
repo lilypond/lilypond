@@ -34,11 +34,12 @@ using std::vector;
 class Fingering_column_engraver : public Engraver
 {
   Drul_array<Grob *> fingering_columns_;
-  Drul_array<vector<Grob *> > scripts_;
+  Drul_array<vector<Grob *>> scripts_;
   vector<Grob *> possibles_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_column_engraver);
+
 protected:
   void acknowledge_finger (Grob_info_t<Item>);
   void process_acknowledged ();
@@ -65,7 +66,8 @@ Fingering_column_engraver::stop_translation_timestep ()
           if (d)
             scripts_[d].push_back (item);
           else
-            possibles_[i]->warning (_ ("Cannot add a fingering without a direction."));
+            possibles_[i]->warning (
+              _ ("Cannot add a fingering without a direction."));
         }
     }
 
@@ -79,8 +81,8 @@ Fingering_column_engraver::stop_translation_timestep ()
       if (fingering_columns_[d])
         {
           for (vsize i = 0; i < scripts_[d].size (); i++)
-            Fingering_column::add_fingering (fingering_columns_[d], scripts_[d][i]);
-
+            Fingering_column::add_fingering (fingering_columns_[d],
+                                             scripts_[d][i]);
         }
       scripts_[d].clear ();
       fingering_columns_[d] = 0;

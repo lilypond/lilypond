@@ -31,7 +31,7 @@
 
 // A T interval.  This represents the closed interval [left,right].
 // No invariants.  T must be a totally ordered ring (with division, anyway ..)
-template<class T>
+template <class T>
 struct Interval_t : private Drul_array<T>
 {
 private:
@@ -40,7 +40,7 @@ private:
 
 public:
   using base_type::at;
-  using base_type::operator [];
+  using base_type::operator[];
 
   // empty interval
   constexpr Interval_t ()
@@ -49,11 +49,13 @@ public:
   }
 
   // degenerate interval (a point, if the argument is finite)
-  constexpr explicit Interval_t (T m) : Interval_t (m, m)
+  constexpr explicit Interval_t (T m)
+    : Interval_t (m, m)
   {
   }
 
-  constexpr Interval_t (T m, T M) : base_type (m, M)
+  constexpr Interval_t (T m, T M)
+    : base_type (m, M)
   {
   }
 
@@ -95,15 +97,9 @@ public:
     return t;
   }
 
-  T &left ()
-  {
-    return base_type::front ();
-  }
+  T &left () { return base_type::front (); }
 
-  constexpr T const &left () const
-  {
-    return base_type::front ();
-  }
+  constexpr T const &left () const { return base_type::front (); }
 
   // Given x in [-1.0, 1.0], interpolate linearly between the left and right
   // bounds of this Interval.  For other values, extrapolate linearly.
@@ -114,15 +110,9 @@ public:
   // and +1 at the right.  This is the inverse of linear_combination ().
   Real inverse_linear_combination (const T &t) const;
 
-  T &right ()
-  {
-    return base_type::back ();
-  }
+  T &right () { return base_type::back (); }
 
-  constexpr T const &right () const
-  {
-    return base_type::back ();
-  }
+  constexpr T const &right () const { return base_type::back (); }
 
   template <typename T2>
   Interval_t<T> &translate (const T2 &t)
@@ -197,9 +187,8 @@ public:
    interval, with a minimum amount of space in between.
    (That is, h will be translated before we unite, if
    that is necessary to prevent overlap. */
-  template<class Padding>
-  void
-  unite_disjoint (Interval_t h, Padding padding, Direction d)
+  template <class Padding>
+  void unite_disjoint (Interval_t h, Padding padding, Direction d)
   {
     const auto translation (d * (at (d) + d * padding - h.at (-d)));
     if (translation > decltype (translation) (0))
@@ -208,8 +197,7 @@ public:
   }
 
   template <class Padding>
-  Interval_t
-  union_disjoint (Interval_t h, Padding padding, Direction d) const
+  Interval_t union_disjoint (Interval_t h, Padding padding, Direction d) const
   {
     Interval_t iv = *this;
     iv.unite_disjoint (h, padding, d);
@@ -221,20 +209,17 @@ public:
   // * A point interval has a length of zero but is not empty.
   // * (-infinity, -infinity) has undefined length but is nonempty.
   // * (infinity, infinity) has undefined length but is nonempty.
-  constexpr bool is_empty () const
-  {
-    return left () > right ();
-  }
+  constexpr bool is_empty () const { return left () > right (); }
 
   template <typename T2>
-  Interval_t<T> &operator -= (T2 r)
+  Interval_t<T> &operator-= (T2 r)
   {
     *this += -r;
     return *this;
   }
 
   template <typename T2>
-  Interval_t<T> &operator += (const T2 &r)
+  Interval_t<T> &operator+= (const T2 &r)
   {
     left () += r;
     right () += r;
@@ -242,7 +227,7 @@ public:
   }
 
   template <class Factor>
-  Interval_t<T> &operator *= (Factor r)
+  Interval_t<T> &operator*= (Factor r)
   {
     if (!is_empty ())
       {
@@ -256,10 +241,7 @@ public:
 
   std::string to_string () const;
 
-  constexpr bool contains (T r) const
-  {
-    return r >= left () && r <= right ();
-  }
+  constexpr bool contains (T r) const { return r >= left () && r <= right (); }
 
   void negate ()
   {
@@ -294,15 +276,14 @@ private:
 /**
    inclusion ordering. Crash if not  comparable.
 */
-template<class T>
+template <class T>
 int Interval__compare (const Interval_t<T> &, Interval_t<T> const &);
 
 /**
    Inclusion ordering.  return -2 if not comparable
 */
-template<class T>
-int
-_Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
+template <class T>
+int _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 /*
   INLINE
@@ -310,9 +291,11 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 #include "compare.hh"
 
-TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare, template<class T>);
+TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare,
+                              template <class T>
+);
 
-template<>
+template <>
 inline Real
 Interval_t<Real>::center () const
 {
@@ -324,21 +307,21 @@ Interval_t<Real>::center () const
   return unchecked_center ();
 }
 
-template<>
+template <>
 inline Real
 Interval_t<Real>::linear_combination (Real x) const
 {
   return (((1.0 - x) * left ()) + ((x + 1.0) * right ())) * 0.5;
 }
 
-template<>
+template <>
 inline Real
 Interval_t<Real>::inverse_linear_combination (const Real &x) const
 {
   return (x - center ()) / (length () * 0.5);
 }
 
-template<class T>
+template <class T>
 inline Interval_t<T>
 intersection (Interval_t<T> a, Interval_t<T> const &b)
 {
@@ -346,49 +329,49 @@ intersection (Interval_t<T> a, Interval_t<T> const &b)
   return a;
 }
 
-template<class T>
-inline
-Interval_t<T> operator + (T a, Interval_t<T> i)
+template <class T>
+inline Interval_t<T>
+operator+ (T a, Interval_t<T> i)
 {
   i += a;
   return i;
 }
 
-template<class T, class T2>
-inline
-Interval_t<T> operator - (Interval_t<T> i, T2 a)
+template <class T, class T2>
+inline Interval_t<T>
+operator- (Interval_t<T> i, T2 a)
 {
   i += -a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator - (T a, Interval_t<T> i)
+template <class T>
+inline Interval_t<T>
+operator- (T a, Interval_t<T> i)
 {
   i.negate ();
   i += a;
   return i;
 }
 
-template<class T, class T2>
-inline
-Interval_t<T> operator + (Interval_t<T> i, T2 a)
+template <class T, class T2>
+inline Interval_t<T>
+operator+ (Interval_t<T> i, T2 a)
 {
   return i += a;
 }
 
-template<class T>
-inline
-Interval_t<T> operator * (T a, Interval_t<T> i)
+template <class T>
+inline Interval_t<T>
+operator* (T a, Interval_t<T> i)
 {
   i *= a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator * (Interval_t<T> i, T a)
+template <class T>
+inline Interval_t<T>
+operator* (Interval_t<T> i, T a)
 {
   return a * i;
 }
@@ -401,7 +384,6 @@ to_string (Interval_t<T> const &i)
 }
 
 typedef Interval_t<Real> Interval;
-typedef Interval_t<int> Slice;  // weird name
-
+typedef Interval_t<int> Slice; // weird name
 
 #endif // INTERVAL_HH

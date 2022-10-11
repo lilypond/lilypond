@@ -31,7 +31,8 @@ Audio_staff::add_audio_item (Audio_item *ai)
 }
 
 Audio_staff::Audio_staff ()
-  : percussion_ (false), merge_unisons_ (false)
+  : percussion_ (false),
+    merge_unisons_ (false)
 {
 }
 
@@ -49,4 +50,3 @@ Audio_staff::output (Midi_stream &midi_stream, int track, bool port,
 
   midi_stream.write (midi_track);
 }
-

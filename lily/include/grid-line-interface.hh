@@ -37,4 +37,3 @@ public:
 };
 
 #endif /* GRID_LINE_INTERFACE_HH */
-

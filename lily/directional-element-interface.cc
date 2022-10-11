@@ -29,8 +29,8 @@ internal_get_grob_direction (Grob *me, bool strict)
   auto dir = from_scm<Direction> (d, CENTER);
   if (strict && (dir == CENTER))
     {
-      me->warning (_f ("direction of grob %s must be UP or DOWN; using UP",
-                       me->name ()));
+      me->warning (
+        _f ("direction of grob %s must be UP or DOWN; using UP", me->name ()));
       set_grob_direction (me, UP);
       return UP;
     }

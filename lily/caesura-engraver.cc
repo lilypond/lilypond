@@ -113,8 +113,8 @@ Caesura_engraver::process_music ()
 
       // Form a symbol list describing the user-provided articulations.
       {
-        ly_smob_list<Stream_event> arts (get_property (caesura_ev_,
-                                                       "articulations"));
+        ly_smob_list<Stream_event> arts (
+          get_property (caesura_ev_, "articulations"));
         for (auto *art : arts)
           {
             SCM a_type = get_property (art, "articulation-type");

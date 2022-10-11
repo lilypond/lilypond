@@ -39,9 +39,10 @@ typedef size_t ssize;
 // TODO: This should probably be renamed to avoid any possible confusion with
 // std::to_string.
 std::string to_string (char const *format, ...)
-__attribute__ ((format (printf, 1, 2)));
+  __attribute__ ((format (printf, 1, 2)));
 
-std::string &replace_all (std::string *str, std::string const &find, std::string const &replace);
+std::string &replace_all (std::string *str, std::string const &find,
+                          std::string const &replace);
 std::string &replace_all (std::string *str, char find, char replace);
 
 #endif /* STD_STRING_HH */

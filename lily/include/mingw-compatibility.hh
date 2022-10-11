@@ -26,70 +26,70 @@
    investigated whether this is a mingw bug or a windows bug (ie,
    mingw compatibility feature), also not reported yet.  */
 
-# ifdef CHAR
-# define LILY_CHAR CHAR
-# undef CHAR
-# endif
-# define CHAR MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_CHAR
+#ifdef CHAR
+#define LILY_CHAR CHAR
+#undef CHAR
+#endif
+#define CHAR MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_CHAR
 
-# ifdef CONTEXT
-# define LILY_CONTEXT CONTEXT
-# undef CONTEXT
-# endif
-# define CONTEXT MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_CONTEXT
+#ifdef CONTEXT
+#define LILY_CONTEXT CONTEXT
+#undef CONTEXT
+#endif
+#define CONTEXT MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_CONTEXT
 
-# ifdef DATADIR
-# define LILY_DATADIR DATADIR
-# undef DATADIR
-# endif
-# define DATADIR MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_DATADIR
+#ifdef DATADIR
+#define LILY_DATADIR DATADIR
+#undef DATADIR
+#endif
+#define DATADIR MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_DATADIR
 
-# ifdef RELATIVE
-# define LILY_RELATIVE RELATIVE
-# undef RELATIVE
-# endif
-# define RELATIVE MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_RELATIVE
+#ifdef RELATIVE
+#define LILY_RELATIVE RELATIVE
+#undef RELATIVE
+#endif
+#define RELATIVE MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_RELATIVE
 
-# ifdef THIS
-# define LILY_THIS THIS
-# undef THIS
-# endif
-# define THIS MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_THIS
+#ifdef THIS
+#define LILY_THIS THIS
+#undef THIS
+#endif
+#define THIS MINGW_INFRINGES_ON_OUR_NAMESPACE_USING_THIS
 
 //#include <winsock2.h>
 
-#if defined (__MINGW32__) && !defined (STATIC)
-# define SCM_IMPORT 1
+#if defined(__MINGW32__) && !defined(STATIC)
+#define SCM_IMPORT 1
 #endif
 
-# include <libguile.h>
+#include <libguile.h>
 
-# undef CHAR
-# ifdef LILY_CHAR
-# define CHAR LILY_CHAR
-# endif
+#undef CHAR
+#ifdef LILY_CHAR
+#define CHAR LILY_CHAR
+#endif
 
-# undef CONTEXT
-# ifdef LILY_CONTEXT
-# define CONTEXT LILY_CONTEXT
-# endif
-# undef CONTEXT
+#undef CONTEXT
+#ifdef LILY_CONTEXT
+#define CONTEXT LILY_CONTEXT
+#endif
+#undef CONTEXT
 
-# undef DATADIR
-# ifdef LILY_DATADIR
-# define DATADIR LILY_DATADIR
-# endif
-# undef DATADIR
+#undef DATADIR
+#ifdef LILY_DATADIR
+#define DATADIR LILY_DATADIR
+#endif
+#undef DATADIR
 
-# undef RELATIVE
-# ifdef LILY_RELATIVE
-# define RELATIVE LILY_RELATIVE
-# endif
+#undef RELATIVE
+#ifdef LILY_RELATIVE
+#define RELATIVE LILY_RELATIVE
+#endif
 
-# undef THIS
-# ifdef LILY_THIS
-# define THIS LILY_THIS
-# endif
+#undef THIS
+#ifdef LILY_THIS
+#define THIS LILY_THIS
+#endif
 
 #endif /* __MINGW__ */
 

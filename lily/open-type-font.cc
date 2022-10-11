@@ -40,9 +40,9 @@
 #include <memory>
 #include <utility>
 
+using std::make_pair;
 using std::map;
 using std::pair;
-using std::make_pair;
 using std::string;
 
 std::unique_ptr<FT_Byte[]>
@@ -74,9 +74,8 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
       return buffer;
     }
   else
-    programming_error (_f ("FreeType error: %s",
-                           freetype_error_string (error_code).c_str ()
-                          ));
+    programming_error (
+      _f ("FreeType error: %s", freetype_error_string (error_code).c_str ()));
 
   return 0;
 }
@@ -129,13 +128,13 @@ FT_Face
 open_ft_face (const string &str, FT_Long idx)
 {
   FT_Face face;
-  FT_Error error_code = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
+  FT_Error error_code
+    = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
     error (_f ("unsupported font format: %s", str.c_str ()));
   else if (error_code)
-    error (_f ("error reading font file %s: %s",
-               str.c_str (),
+    error (_f ("error reading font file %s: %s", str.c_str (),
                freetype_error_string (error_code).c_str ()));
   return face;
 }
@@ -157,7 +156,7 @@ get_postscript_name (FT_Face face)
   if (fmt)
     {
       if (static_cast<string> (fmt) != "CFF")
-        return face_ps_name;  // For non-CFF font, pass it through.
+        return face_ps_name; // For non-CFF font, pass it through.
     }
   else
     {
@@ -177,20 +176,19 @@ get_postscript_name (FT_Face face)
 
       if (cff_name == "")
         {
-          warning (_f ("cannot get CFF name from font %s",
-                       face_ps_name.c_str ()));
+          warning (
+            _f ("cannot get CFF name from font %s", face_ps_name.c_str ()));
           return face_ps_name;
         }
       if (face_ps_name != cff_name)
         {
           debug_output (_f ("Subsitute font name: %s => %s",
-                            face_ps_name.c_str (),
-                            cff_name.c_str ()));
+                            face_ps_name.c_str (), cff_name.c_str ()));
         }
       else
         {
-          debug_output (_f ("CFF name for font %s is the same.",
-                            cff_name.c_str ()));
+          debug_output (
+            _f ("CFF name for font %s is the same.", cff_name.c_str ()));
         }
 
       cff_name_cache[face_ps_name] = cff_name;
@@ -210,17 +208,16 @@ get_cff_name (FT_Face face)
 
   FT_Open_Args args;
   args.flags = FT_OPEN_MEMORY;
-  args.memory_base = static_cast<const FT_Byte *>
-                     (static_cast<const void *> (cff_table.data ()));
+  args.memory_base = static_cast<const FT_Byte *> (
+    static_cast<const void *> (cff_table.data ()));
   args.memory_size = cff_table.size ();
 
   FT_Face cff_face;
   // According to OpenType Specification ver 1.7,
   // the CFF (derived from OTF and OTC) has only one name.
   // So we use zero as the font index.
-  FT_Error error_code = FT_Open_Face (freetype2_library, &args,
-                                      0 /* font index */,
-                                      &cff_face);
+  FT_Error error_code
+    = FT_Open_Face (freetype2_library, &args, 0 /* font index */, &cff_face);
   if (error_code)
     {
       warning (_f ("cannot read CFF: %s",
@@ -258,20 +255,19 @@ get_cff_name (FT_Face face)
           // has only one name.
           size_t off1 = 0, off2 = 0;
           for (size_t t = 0; t < offsize; t++)
-            off1 = ( off1 << 8) | static_cast<unsigned char> (*it++);
+            off1 = (off1 << 8) | static_cast<unsigned char> (*it++);
           if (off1)
             {
               for (size_t t = 0; t < offsize; t++)
-                off2 = ( off2 << 8) | static_cast<unsigned char> (*it++);
+                off2 = (off2 << 8) | static_cast<unsigned char> (*it++);
             }
           if (off1 && off1 < off2)
             {
-              ret.assign (&cff_table.at (hdrsize + 3
-                                         + offsize * (name_index_count + 1)
-                                         + off1 - 1),
-                          &cff_table.at (hdrsize + 3
-                                         + offsize * (name_index_count + 1)
-                                         + off2 - 1));
+              ret.assign (
+                &cff_table.at (hdrsize + 3 + offsize * (name_index_count + 1)
+                               + off1 - 1),
+                &cff_table.at (hdrsize + 3 + offsize * (name_index_count + 1)
+                               + off2 - 1));
             }
         }
 
@@ -360,8 +356,8 @@ Open_type_font::attachment_point (const string &glyph_name, Direction d) const
       att_scm = scm_assq_ref (char_alist, ly_symbol2scm ("attachment"));
       if (scm_is_false (att_scm))
         {
-          warning (_f ("no stem attachment found in font for glyph %s",
-                       glyph_name));
+          warning (
+            _f ("no stem attachment found in font for glyph %s", glyph_name));
           return make_pair (o, false);
         }
     }
@@ -380,8 +376,8 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 
   const size_t len = 256;
   char name[len];
-  FT_Error code = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx),
-                                     name, FT_UInt (len));
+  FT_Error code
+    = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx), name, FT_UInt (len));
   if (code)
     warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
                  freetype_error_string (code)));
@@ -480,8 +476,7 @@ Open_type_font::count () const
 Real
 Open_type_font::design_size () const
 {
-  SCM entry = scm_hashq_ref (lily_global_table_,
-                             ly_symbol2scm ("design_size"),
+  SCM entry = scm_hashq_ref (lily_global_table_, ly_symbol2scm ("design_size"),
 
                              /*
                                Hmm. Design size is arbitrary for

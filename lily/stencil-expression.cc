@@ -22,16 +22,19 @@
 
 static Protected_scm heads (SCM_EOL);
 
-void register_stencil_head (SCM symbol)
+void
+register_stencil_head (SCM symbol)
 {
-  scm_set_object_property_x (symbol, ly_symbol2scm ("stencil-head?"), SCM_BOOL_T);
+  scm_set_object_property_x (symbol, ly_symbol2scm ("stencil-head?"),
+                             SCM_BOOL_T);
   heads = scm_cons (symbol, heads);
 }
 
 bool
 is_stencil_head (SCM symbol)
 {
-  return from_scm<bool> (scm_object_property (symbol, ly_symbol2scm ("stencil-head?")));
+  return from_scm<bool> (
+    scm_object_property (symbol, ly_symbol2scm ("stencil-head?")));
 }
 
 SCM

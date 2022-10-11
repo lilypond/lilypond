@@ -68,7 +68,8 @@ Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
 /* there is probably a way that doesn't involve re-implementing a binary
    search (I would love some proper closures right now) */
-bool find_in_range (SCM vector, vsize low, vsize hi, vsize min, vsize max)
+bool
+find_in_range (SCM vector, vsize low, vsize hi, vsize min, vsize max)
 {
   if (low >= hi)
     return false;
@@ -95,14 +96,16 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, vsize start, vsize end)
 
   extract_grob_set (me, "keep-alive-with", friends);
   for (vsize i = 0; i < friends.size (); ++i)
-    if (friends[i]->is_live () && !request_suicide_alone (friends[i], start, end))
+    if (friends[i]->is_live ()
+        && !request_suicide_alone (friends[i], start, end))
       return false;
 
   return true;
 }
 
 bool
-Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end)
+Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
+                                                vsize end)
 {
   if (!from_scm<bool> (get_property (me, "remove-empty")))
     return false;
@@ -173,7 +176,8 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback,
-                      "ly:hara-kiri-group-spanner::force-hara-kiri-callback", 1);
+                      "ly:hara-kiri-group-spanner::force-hara-kiri-callback",
+                      1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
 {
@@ -182,9 +186,9 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
   return to_scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback,
-                      "ly:hara-kiri-group-spanner::force-hara-kiri-in-y-parent-callback",
-                      1);
+MAKE_SCHEME_CALLBACK (
+  Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback,
+  "ly:hara-kiri-group-spanner::force-hara-kiri-in-y-parent-callback", 1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
@@ -196,7 +200,8 @@ Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {
-  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("items-worth-living"), n);
+  Pointer_group_interface::add_unordered_grob (
+    me, ly_symbol2scm ("items-worth-living"), n);
 }
 
 ADD_INTERFACE (Hara_kiri_group_spanner,

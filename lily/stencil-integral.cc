@@ -166,18 +166,16 @@ add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
-  const auto quantization
-    = static_cast<vsize> (std::max (1.0, ((rad[X_AXIS] * x_scale)
-                                          + (rad[Y_AXIS] * y_scale))
-                                    * M_PI / QUANTIZATION_UNIT));
+  const auto quantization = static_cast<vsize> (
+    std::max (1.0, ((rad[X_AXIS] * x_scale) + (rad[Y_AXIS] * y_scale)) * M_PI
+                     / QUANTIZATION_UNIT));
 
   Offset last;
   Offset first;
   for (vsize i = 0; i <= quantization; i++)
     {
-      Real ang = linear_interpolate (static_cast<Real> (i), 0,
-                                     static_cast<Real> (quantization),
-                                     start, end);
+      Real ang = linear_interpolate (
+        static_cast<Real> (i), 0, static_cast<Real> (quantization), start, end);
       Offset pt (offset_directed (ang).scale (rad));
       if (i > 0)
         skyline->add_segment (transform, last, pt, th);
@@ -227,21 +225,18 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
     }
   else
     {
-      const auto quantization
-        = static_cast<vsize> (std::max (0.0,
-                                        rounded * diameter * (x_scale + y_scale)
-                                        * M_PI / QUANTIZATION_UNIT / 8));
+      const auto quantization = static_cast<vsize> (
+        std::max (0.0, rounded * diameter * (x_scale + y_scale) * M_PI
+                         / QUANTIZATION_UNIT / 8));
       /* if there is no quantization, there is no need to draw
          rounded corners. >>> Set the effective skyline radius to 0 */
       Real radius = (quantization ? diameter / 2 : 0.);
 
       /* draw straight lines */
-      Offset points[]
-      =
-      {
+      Offset points[] = {
         Offset (-left, -bottom + radius), Offset (-left, top - radius),
-        Offset (-left + radius, top), Offset (right - radius, top),
-        Offset (right, top - radius), Offset (right, -bottom + radius),
+        Offset (-left + radius, top),     Offset (right - radius, top),
+        Offset (right, top - radius),     Offset (right, -bottom + radius),
         Offset (right - radius, -bottom), Offset (-left + radius, -bottom),
       };
       for (vsize i = 0; i < sizeof (points) / sizeof (Offset); i += 2)
@@ -268,10 +263,9 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
                 Offset last;
                 for (vsize i = 0; i <= quantization; i++)
                   {
-                    Real ang
-                      = linear_interpolate (static_cast<Real> (i), 0,
-                                            static_cast<Real> (quantization),
-                                            0., 90.);
+                    Real ang = linear_interpolate (
+                      static_cast<Real> (i), 0,
+                      static_cast<Real> (quantization), 0., 90.);
                     Offset pt (offset_directed (ang).scale (rad));
                     Offset inter (cx[h] + h * pt[X_AXIS],
                                   cy[v] + v * pt[Y_AXIS]);
@@ -309,9 +303,7 @@ add_draw_bezier_segments_scm (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr);
   Real y3 = from_scm<double> (scm_car (expr), 0.0);
 
-  Offset ps[]
-  =
-  {
+  Offset ps[] = {
     Offset (x0, y0),
     Offset (x1, y1),
     Offset (x2, y2),
@@ -403,8 +395,7 @@ all_commands_to_absolute_and_group (SCM expr)
           Real x = from_scm<double> (scm_cadr (expr), 0.0);
           Real y = from_scm<double> (scm_caddr (expr), 0.0);
           out = scm_cons (ly_list (to_scm (current[X_AXIS]),
-                                   to_scm (current[Y_AXIS]),
-                                   to_scm (x),
+                                   to_scm (current[Y_AXIS]), to_scm (x),
                                    to_scm (y)),
                           out);
           current = Offset (x, y);
@@ -437,13 +428,9 @@ all_commands_to_absolute_and_group (SCM expr)
           Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
           out = scm_cons (ly_list (to_scm (current[X_AXIS]),
-                                   to_scm (current[Y_AXIS]),
-                                   to_scm (x1),
-                                   to_scm (y1),
-                                   to_scm (x2),
-                                   to_scm (y2),
-                                   to_scm (x3),
-                                   to_scm (y3)),
+                                   to_scm (current[Y_AXIS]), to_scm (x1),
+                                   to_scm (y1), to_scm (x2), to_scm (y2),
+                                   to_scm (x3), to_scm (y3)),
                           out);
           current = Offset (x3, y3);
         }
@@ -461,15 +448,13 @@ all_commands_to_absolute_and_group (SCM expr)
           expr = scm_cdr (expr);
           Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (ly_list (to_scm (current[X_AXIS]),
-                                   to_scm (current[Y_AXIS]),
-                                   to_scm (x1 + current[X_AXIS]),
-                                   to_scm (y1 + current[Y_AXIS]),
-                                   to_scm (x2 + current[X_AXIS]),
-                                   to_scm (y2 + current[Y_AXIS]),
-                                   to_scm (x3 + current[X_AXIS]),
-                                   to_scm (y3 + current[Y_AXIS])),
-                          out);
+          out = scm_cons (
+            ly_list (
+              to_scm (current[X_AXIS]), to_scm (current[Y_AXIS]),
+              to_scm (x1 + current[X_AXIS]), to_scm (y1 + current[Y_AXIS]),
+              to_scm (x2 + current[X_AXIS]), to_scm (y2 + current[Y_AXIS]),
+              to_scm (x3 + current[X_AXIS]), to_scm (y3 + current[Y_AXIS])),
+            out);
           current = (Offset (x3, y3) + current);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("closepath")))
@@ -477,11 +462,10 @@ all_commands_to_absolute_and_group (SCM expr)
           if ((current[X_AXIS] != start[X_AXIS])
               || (current[Y_AXIS] != start[Y_AXIS]))
             {
-              out = scm_cons (ly_list (to_scm (current[X_AXIS]),
-                                       to_scm (current[Y_AXIS]),
-                                       to_scm (start[X_AXIS]),
-                                       to_scm (start[Y_AXIS])),
-                              out);
+              out = scm_cons (
+                ly_list (to_scm (current[X_AXIS]), to_scm (current[Y_AXIS]),
+                         to_scm (start[X_AXIS]), to_scm (start[Y_AXIS])),
+                out);
               current = start;
             }
           expr = scm_cdr (expr);
@@ -508,10 +492,10 @@ internal_add_path_segments (Lazy_skyline_pair *skyline,
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
       from_scm<int> (scm_length (scm_car (s))) == 4
-      ? add_draw_line_segments (skyline, transform,
-                                scm_cons (blot, scm_car (s)))
-      : add_draw_bezier_segments_scm (skyline, transform,
-                                      scm_cons (blot, scm_car (s)));
+        ? add_draw_line_segments (skyline, transform,
+                                  scm_cons (blot, scm_car (s)))
+        : add_draw_bezier_segments_scm (skyline, transform,
+                                        scm_cons (blot, scm_car (s)));
     }
 }
 
@@ -519,8 +503,9 @@ void
 add_path_segments (Lazy_skyline_pair *skyline, Transform const &transform,
                    SCM expr)
 {
-  return internal_add_path_segments (skyline, transform,
-                                     scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
+  return internal_add_path_segments (
+    skyline, transform,
+    scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
 }
 
 void
@@ -535,13 +520,15 @@ add_polygon_segments (Lazy_skyline_pair *skyline, Transform const &transform,
   SCM l = SCM_EOL;
   for (SCM s = coords; scm_is_pair (s); s = scm_cddr (s))
     {
-      l = scm_cons (first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"), l);
+      l = scm_cons (first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"),
+                    l);
       l = scm_cons (scm_car (s), l);
       l = scm_cons (scm_cadr (s), l);
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_add_path_segments (skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
+  internal_add_path_segments (
+    skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
 }
 
 void
@@ -554,9 +541,8 @@ add_named_glyph_segments (Lazy_skyline_pair *skyline,
   SCM glyph = scm_car (expr);
   string glyph_s = ly_scm2string (glyph);
 
-  Open_type_font *open_fm
-    = dynamic_cast<Open_type_font *>
-      (dynamic_cast<Modified_font_metric *> (fm)->original_font ());
+  Open_type_font *open_fm = dynamic_cast<Open_type_font *> (
+    dynamic_cast<Modified_font_metric *> (fm)->original_font ());
   SCM_ASSERT_TYPE (open_fm, fm_scm, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   size_t gidx = open_fm->name_to_index (glyph_s);
@@ -652,11 +638,13 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
           // FIXME: this looks extremely fishy.
           Transform transcopy = transform;
           transcopy
-          .translate (Offset (kerned_bbox[X_AXIS][LEFT],
-                              kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
-          .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
-          .scale (scale_factor, scale_factor)
-          .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
+            .translate (
+              Offset (kerned_bbox[X_AXIS][LEFT],
+                      kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
+            .translate (
+              Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
+            .scale (scale_factor, scale_factor)
+            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
           pango_fm->add_outline_to_skyline (skyline, transcopy, gidx);
         }
     }
@@ -729,9 +717,10 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
 
-      skyline->add_segment (transform, Offset (0.0, 0.0),
-                            Offset (from_scm<double> (x1, 0.0), from_scm<double> (x2, 0.0)),
-                            from_scm<double> (th, 0.0));
+      skyline->add_segment (
+        transform, Offset (0.0, 0.0),
+        Offset (from_scm<double> (x1, 0.0), from_scm<double> (x2, 0.0)),
+        from_scm<double> (th, 0.0));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
@@ -777,21 +766,22 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
 }
 
 SCM
-Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool pure, int beg, int end, bool ignore_x, bool ignore_y)
+Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a,
+                                                        bool pure, int beg,
+                                                        int end, bool ignore_x,
+                                                        bool ignore_y)
 {
   vector<Box> boxes;
   // we don't know how far spanners stretch along the X axis before
   // line breaking. better have them take up the whole thing
-  Interval xex = ignore_x
-                 ? Interval (-infinity_f, infinity_f)
-                 : me->extent (me, X_AXIS);
+  Interval xex
+    = ignore_x ? Interval (-infinity_f, infinity_f) : me->extent (me, X_AXIS);
 
   // If we're looking at the x exent of a cross staff grob, it could be
   // very early on in the computation process.  We won't know its height
   // until way later, so we give a brute force approximation.
-  Interval yex = ignore_y
-                 ? Interval (-infinity_f, infinity_f)
-                 : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
+  Interval yex = ignore_y ? Interval (-infinity_f, infinity_f)
+                          : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
 
   if (xex.is_empty () || yex.is_empty ())
     return to_scm (Skyline_pair ());
@@ -803,14 +793,16 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool p
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents,
                       "ly:grob::pure-simple-vertical-skylines-from-extents", 3);
 SCM
-Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
+Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm,
+                                                  SCM endscm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int beg = from_scm (begscm, 0);
   int end = from_scm (endscm, INT_MAX);
   // We cannot measure the widths before line breaking,
   // so we assume that the width is infinite: pass ignore_x=true
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, true, false);
+  return maybe_pure_internal_simple_skylines_from_extents (
+    me, X_AXIS, true, beg, end, true, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents,
@@ -819,13 +811,16 @@ SCM
 Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0, 0, false, false);
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0,
+                                                           0, false, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents,
-                      "ly:grob::pure-simple-horizontal-skylines-from-extents", 3);
+                      "ly:grob::pure-simple-horizontal-skylines-from-extents",
+                      3);
 SCM
-Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
+Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm,
+                                                    SCM endscm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int beg = from_scm (begscm, 0);
@@ -833,7 +828,9 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, from_scm<bool> (get_property (me, "cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (
+    me, Y_AXIS, true, beg, end, false,
+    from_scm<bool> (get_property (me, "cross-staff")));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents,
@@ -843,7 +840,9 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   // See comment in function above.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, from_scm<bool> (get_property (me, "cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (
+    me, Y_AXIS, false, 0, 0, false,
+    from_scm<bool> (get_property (me, "cross-staff")));
 }
 
 Skyline_pair
@@ -884,8 +883,10 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Skyline_pair p (skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
-  p.pad (from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
+  Skyline_pair p (skylines_from_stencil (
+    get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
+  p.pad (
+    from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
   return to_scm (p);
 }
 
@@ -895,13 +896,15 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Skyline_pair p = skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
+  Skyline_pair p = skylines_from_stencil (
+    get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
   p.pad (from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
   return to_scm (p);
 }
 
 SCM
-Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end)
+Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure,
+                                               int beg, int end)
 {
   extract_grob_set (me, "elements", elts);
   vector<Real> x_pos;
@@ -911,7 +914,8 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   for (vsize i = 0; i < elts.size (); i++)
     {
       x_pos.push_back (elts[i]->relative_coordinate (x_common, X_AXIS));
-      y_pos.push_back (elts[i]->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end));
+      y_pos.push_back (
+        elts[i]->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end));
     }
   Real my_x = me->relative_coordinate (x_common, X_AXIS);
   Real my_y = me->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end);
@@ -919,9 +923,8 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      SCM sym = ((a == X_AXIS)
-                 ? ly_symbol2scm ("vertical-skylines")
-                 : ly_symbol2scm ("horizontal-skylines"));
+      SCM sym = ((a == X_AXIS) ? ly_symbol2scm ("vertical-skylines")
+                               : ly_symbol2scm ("horizontal-skylines"));
       SCM skyp_scm = get_maybe_pure_property (elts[i], sym, pure, beg, end);
       if (is_scm<Skyline_pair> (skyp_scm))
         {
@@ -946,7 +949,8 @@ SCM
 Grob::vertical_skylines_from_element_stencils (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return internal_skylines_from_element_stencils (me, X_AXIS, false, 0, INT_MAX);
+  return internal_skylines_from_element_stencils (me, X_AXIS, false, 0,
+                                                  INT_MAX);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils,
@@ -955,13 +959,16 @@ SCM
 Grob::horizontal_skylines_from_element_stencils (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0, INT_MAX);
+  return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0,
+                                                  INT_MAX);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils,
-                      "ly:grob::pure-vertical-skylines-from-element-stencils", 3);
+                      "ly:grob::pure-vertical-skylines-from-element-stencils",
+                      3);
 SCM
-Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm,
+                                                    SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int beg = from_scm (beg_scm, 0);
@@ -970,9 +977,11 @@ Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM e
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils,
-                      "ly:grob::pure-horizontal-skylines-from-element-stencils", 3);
+                      "ly:grob::pure-horizontal-skylines-from-element-stencils",
+                      3);
 SCM
-Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm,
+                                                      SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int beg = from_scm (beg_scm, 0);

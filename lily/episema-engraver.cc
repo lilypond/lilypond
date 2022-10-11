@@ -35,6 +35,7 @@ class Episema_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Episema_engraver);
+
 protected:
   void finalize () override;
   void listen_episema (Stream_event *);
@@ -95,10 +96,10 @@ Episema_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          auto *col = (!note_columns_.empty ()
-                       ? note_columns_.back ()
-                       : unsmob<Item> (get_property (this,
-                                                     "currentMusicalColumn")));
+          auto *col
+            = (!note_columns_.empty ()
+                 ? note_columns_.back ()
+                 : unsmob<Item> (get_property (this, "currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
       finished_ = nullptr;
@@ -110,10 +111,10 @@ Episema_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      auto *col = (!note_columns_.empty ()
-                   ? note_columns_.front ()
-                   : unsmob<Item> (get_property (this,
-                                                 "currentMusicalColumn")));
+      auto *col
+        = (!note_columns_.empty ()
+             ? note_columns_.front ()
+             : unsmob<Item> (get_property (this, "currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 

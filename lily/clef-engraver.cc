@@ -40,6 +40,7 @@ protected:
   void process_music ();
 
   void derived_mark () const override;
+
 private:
   Item *clef_;
   Item *modifier_;
@@ -79,7 +80,8 @@ Clef_engraver::set_glyph ()
   SCM basic = ly_symbol2scm ("Clef");
 
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property (this, "clefGlyph"));
 }
 
 void
@@ -104,8 +106,7 @@ Clef_engraver::create_clef ()
           int dir = sign (abs_transp);
           abs_transp = abs (abs_transp) + 1;
 
-          SCM txt = scm_number_to_string (to_scm (abs_transp),
-                                          to_scm (10));
+          SCM txt = scm_number_to_string (to_scm (abs_transp), to_scm (10));
 
           SCM style = get_property (this, "clefTranspositionStyle");
 
@@ -133,11 +134,11 @@ Clef_engraver::process_music ()
     create_clef ();
 }
 
-static void apply_on_children (Context *context, SCM fun)
+static void
+apply_on_children (Context *context, SCM fun)
 {
   ly_call (fun, context->self_scm ());
-  for (SCM s = context->children_contexts ();
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     apply_on_children (unsmob<Context> (scm_car (s)), fun);
 }
 
@@ -149,8 +150,7 @@ Clef_engraver::inspect_clef_properties ()
   SCM transposition = get_property (this, "clefTransposition");
   SCM force_clef = get_property (this, "forceClef");
 
-  if (scm_is_null (clefpos)
-      || !ly_is_equal (glyph, prev_glyph_)
+  if (scm_is_null (clefpos) || !ly_is_equal (glyph, prev_glyph_)
       || !ly_is_equal (clefpos, prev_cpos_)
       || !ly_is_equal (transposition, prev_transposition_)
       || from_scm<bool> (force_clef))
@@ -158,7 +158,8 @@ Clef_engraver::inspect_clef_properties ()
       apply_on_children (context (), Lily::invalidate_alterations);
 
       set_glyph ();
-      if (scm_is_true (prev_cpos_) || from_scm<bool> (get_property (this, "firstClef")))
+      if (scm_is_true (prev_cpos_)
+          || from_scm<bool> (get_property (this, "firstClef")))
         create_clef ();
 
       if (clef_)

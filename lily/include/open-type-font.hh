@@ -51,10 +51,10 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   Open_type_font (FT_Face);
 
   OVERRIDE_CLASS_NAME (Open_type_font);
-  
+
 protected:
   void derived_mark () const override;
-  
+
 public:
   Real get_units_per_EM () const;
   SCM get_subfonts () const;
@@ -63,13 +63,15 @@ public:
   SCM glyph_list () const;
   std::string const &filename () const { return filename_; }
 
-  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr, size_t signed_idx) const;
+  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr,
+                               size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   std::string get_otf_table (const std::string &tag) const;
   static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
-  std::pair<Offset, bool> attachment_point (const std::string &, Direction) const override;
+  std::pair<Offset, bool> attachment_point (const std::string &,
+                                            Direction) const override;
   size_t count () const override;
   Box get_indexed_char_dimensions (size_t) const override;
   Box get_unscaled_indexed_char_dimensions (size_t) const;

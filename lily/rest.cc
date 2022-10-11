@@ -40,7 +40,9 @@ Rest::y_offset_callback (SCM smob)
   int duration_log = from_scm<int> (get_property (me, "duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
-  return to_scm (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
+  return to_scm (ss * 0.5
+                 * Rest::staff_position_internal (me, duration_log,
+                                                  get_grob_direction (me)));
 }
 
 Real
@@ -54,8 +56,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, Direction dir)
 
   if (position_override)
     {
-      pos
-        = from_scm<double> (get_property (me, "staff-position"), 0);
+      pos = from_scm<double> (get_property (me, "staff-position"), 0);
 
       /*
         semibreve rests are positioned one staff line off
@@ -169,17 +170,17 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
   bool is_ledgered = false;
   if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
     {
-      int const pos = int (Staff_symbol_referencer::get_position (me)
-                           + offset);
+      int const pos = int (Staff_symbol_referencer::get_position (me) + offset);
       /*
         half rests need ledger if not lying on a staff line,
         whole rests need ledger if not hanging from a staff line,
         breve rests need ledger if neither lying on nor hanging from a staff line
       */
       if (-1 <= durlog && durlog <= 1)
-        is_ledgered = !Staff_symbol_referencer::on_staff_line (me, pos)
-                      && !(durlog == -1
-                           && Staff_symbol_referencer::on_staff_line (me, pos + 2));
+        is_ledgered
+          = !Staff_symbol_referencer::on_staff_line (me, pos)
+            && !(durlog == -1
+                 && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
   string actual_style (style.c_str ());
@@ -244,7 +245,8 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   if (durlog < 0)
     {
-      Real fs = pow (2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
+      Real fs
+        = pow (2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
       Real ss = Staff_symbol_referencer::staff_space (me);
       out.translate_axis (ss - fs, Y_AXIS);
     }
@@ -261,7 +263,8 @@ Rest::translate (Grob *me, int dy)
 {
   if (!scm_is_number (get_property (me, "staff-position")))
     {
-      me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0, Y_AXIS);
+      me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0,
+                          Y_AXIS);
       Grob *p = me->get_y_parent ();
       p->flush_extent_cache (Y_AXIS);
     }
@@ -310,9 +313,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
 
 MAKE_SCHEME_CALLBACK (Rest, pure_height, "ly:rest::pure-height", 3);
 SCM
-Rest::pure_height (SCM smob,
-                   SCM /* start */,
-                   SCM /* end */)
+Rest::pure_height (SCM smob, SCM /* start */, SCM /* end */)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM m = brew_internal_stencil (me, false);

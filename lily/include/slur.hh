@@ -31,7 +31,9 @@ public:
   static void add_column (Spanner *me, Grob *col);
   static void add_extra_encompass (Spanner *me, Grob *col);
   static void replace_breakable_encompass_objects (Grob *me);
-  static void auxiliary_acknowledge_extra_object (Grob *, std::vector<Spanner *> &, std::vector<Spanner *> &);
+  static void auxiliary_acknowledge_extra_object (Grob *,
+                                                  std::vector<Spanner *> &,
+                                                  std::vector<Spanner *> &);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));

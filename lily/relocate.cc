@@ -52,10 +52,7 @@ using std::vector;
 #define FRAMEWORKDIR ".."
 
 int
-sane_putenv (char const *key,
-             const string &value,
-             bool overwrite,
-             bool indent)
+sane_putenv (char const *key, const string &value, bool overwrite, bool indent)
 {
   const char *space = indent ? "  " : "";
 
@@ -120,11 +117,8 @@ prepend_env_path (char const *key, string value)
 }
 
 static string
-set_up_directory (char const *env_name,
-                  char const *id,
-                  string compile_default,
-                  string runtime_default,
-                  string alt_runtime_default = "")
+set_up_directory (char const *env_name, char const *id, string compile_default,
+                  string runtime_default, string alt_runtime_default = "")
 {
   string dir = "";
 
@@ -195,16 +189,17 @@ setup_paths (char const *argv0_ptr)
 
 #ifndef __MINGW32__
       argv0_abs = path.find (argv0_filename.to_string ());
-#else // __MINGW32__
+#else  // __MINGW32__
       path.prepend (get_working_directory ());
-      char const *ext[] = {"exe", "", 0 };
+      char const *ext[] = {"exe", "", 0};
       argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif // __MINGW32__
 
-      debug_output (_f ("  Absolute file name of LilyPond binary computed from PATH:\n"
-                        "    PATH=%s\n"
-                        "    argv0=%s\n",
-                        path.to_string (), argv0_ptr));
+      debug_output (
+        _f ("  Absolute file name of LilyPond binary computed from PATH:\n"
+            "    PATH=%s\n"
+            "    argv0=%s\n",
+            path.to_string (), argv0_ptr));
 
       if (argv0_abs.empty ())
         programming_error ("cannot find absolute argv0");
@@ -226,7 +221,8 @@ setup_paths (char const *argv0_ptr)
     }
 #endif
 
-  string bindir = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
+  string bindir
+    = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
   string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
 
   // set INSTALLER_PREFIX environment variable
@@ -236,22 +232,17 @@ setup_paths (char const *argv0_ptr)
   if (getenv ("LILYPONDPREFIX"))
     error (_ ("LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"));
 
-  lilypond_datadir = set_up_directory ("LILYPOND_DATADIR",
-                                       "datadir",
-                                       PACKAGE_DATADIR "/" TOPLEVEL_VERSION,
-                                       prefix + "/share/lilypond/" TOPLEVEL_VERSION,
-                                       prefix + "/share/lilypond/current");
-  lilypond_libdir = set_up_directory ("LILYPOND_LIBDIR",
-                                      "libdir",
-                                      PACKAGE_LIBDIR "/" TOPLEVEL_VERSION,
-                                      prefix + "/lib/lilypond/" TOPLEVEL_VERSION,
-                                      prefix + "/lib/lilypond/current");
-  string localedir = set_up_directory ("LILYPOND_LOCALEDIR",
-                                       "localedir",
-                                       LOCALEDIR,
-                                       prefix + "/share/locale");
-  string relocdir = set_up_directory ("LILYPOND_RELOCDIR",
-                                      "relocdir",
+  lilypond_datadir = set_up_directory (
+    "LILYPOND_DATADIR", "datadir", PACKAGE_DATADIR "/" TOPLEVEL_VERSION,
+    prefix + "/share/lilypond/" TOPLEVEL_VERSION,
+    prefix + "/share/lilypond/current");
+  lilypond_libdir = set_up_directory (
+    "LILYPOND_LIBDIR", "libdir", PACKAGE_LIBDIR "/" TOPLEVEL_VERSION,
+    prefix + "/lib/lilypond/" TOPLEVEL_VERSION,
+    prefix + "/lib/lilypond/current");
+  string localedir = set_up_directory ("LILYPOND_LOCALEDIR", "localedir",
+                                       LOCALEDIR, prefix + "/share/locale");
+  string relocdir = set_up_directory ("LILYPOND_RELOCDIR", "relocdir",
                                       "", // no compile-time default
                                       prefix + "/etc/relocate");
 
@@ -337,7 +328,6 @@ expand_environment_variables (const string &orig)
         }
       else
         break;
-
     }
 
   out += ptr;

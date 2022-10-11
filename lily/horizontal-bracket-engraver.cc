@@ -82,10 +82,8 @@ Horizontal_bracket_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
       Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
       Pointer_group_interface::add_grob (bracket_stack_[i],
                                          ly_symbol2scm ("columns"), gi.grob ());
-      add_bound_item (bracket_stack_[i],
-                      gi.grob ());
-      add_bound_item (text_stack_[i],
-                      gi.grob ());
+      add_bound_item (bracket_stack_[i], gi.grob ());
+      add_bound_item (text_stack_[i], gi.grob ());
     }
 }
 

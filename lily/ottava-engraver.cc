@@ -32,6 +32,7 @@ class Ottava_spanner_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
+
 protected:
   void finalize () override;
   void start_translation_timestep ();
@@ -43,6 +44,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void derived_mark () const override;
+
 private:
   Stream_event *ottava_ev_ = nullptr;
   SCM ottavation_ = SCM_EOL;
@@ -95,8 +97,9 @@ Ottava_spanner_engraver::create_spanner ()
           ott = ly_assoc_get (ottavation_, markups, SCM_EOL);
           if (scm_is_null (ott))
             {
-              warning (_f ("Could not find ottavation markup for %d octaves up.",
-                           from_scm<int> (ottavation_)));
+              warning (
+                _f ("Could not find ottavation markup for %d octaves up.",
+                    from_scm<int> (ottavation_)));
               ott = ly_string2scm ("");
             }
         }
@@ -150,7 +153,8 @@ Ottava_spanner_engraver::typeset_all ()
         {
           if (!finished_->get_bound (RIGHT))
             {
-              Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+              Grob *e
+                = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
               finished_->set_bound (d, e);
             }
         }

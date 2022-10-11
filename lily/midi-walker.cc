@@ -48,13 +48,13 @@ compare (Midi_note_event const &left, Midi_note_event const &right)
 }
 
 bool
-audio_item_less (Audio_item *const a,
-                 Audio_item *const b)
+audio_item_less (Audio_item *const a, Audio_item *const b)
 {
   return a->get_column ()->when_ < b->get_column ()->when_;
 }
 
-Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track, int start_tick)
+Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
+                          int start_tick)
 {
   track_ = track;
   index_ = 0;
@@ -98,7 +98,7 @@ Midi_walker::do_start_note (Midi_note *note)
       /* if this pitch already in queue, and is not already ignored */
       if (!stop_note_queue[i].ignore_
           && stop_note_queue[i].val->get_semitone_pitch ()
-          == note->get_semitone_pitch ())
+               == note->get_semitone_pitch ())
         {
           int queued_ticks
             = stop_note_queue[i].val->audio_->audio_column_->ticks ();
@@ -222,7 +222,7 @@ Midi_walker::ok () const
 }
 
 void
-Midi_walker::operator ++(int)
+Midi_walker::operator++ (int)
 {
   assert (ok ());
   index_++;

@@ -62,7 +62,8 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
           stem_posns.intersect (bar_height);
 
           ret = std::min (abs (stem_posns.length () / 7.0), 1.0);
-          ret *= from_scm<double> (get_property (me, "stem-spacing-correction"), 1);
+          ret *= from_scm<double> (get_property (me, "stem-spacing-correction"),
+                                   1);
         }
     }
   return ret;
@@ -95,8 +96,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 }
 
 Real
-Staff_spacing::next_notes_correction (Grob *me,
-                                      Grob *last_grob)
+Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Grob *orig = me->original () ? me->original () : me;
@@ -105,7 +105,8 @@ Staff_spacing::next_notes_correction (Grob *me,
   Real max_optical = 0.0;
 
   for (vsize i = 0; i < note_columns.size (); i++)
-    max_optical = std::max (max_optical, optical_correction (me, note_columns[i], bar_size));
+    max_optical = std::max (max_optical,
+                            optical_correction (me, note_columns[i], bar_size));
 
   return max_optical;
 }
@@ -123,9 +124,8 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
 
   Interval last_ext;
   Direction break_dir = me_item->break_status_dir ();
-  Grob *last_grob = Spacing_interface::extremal_break_aligned_grob (me, LEFT,
-                    break_dir,
-                    &last_ext);
+  Grob *last_grob = Spacing_interface::extremal_break_aligned_grob (
+    me, LEFT, break_dir, &last_ext);
   if (!last_grob)
     {
       /*

@@ -27,16 +27,15 @@
 
 struct Bracket
 {
-  static Stencil make_bracket (Grob *me, Axis protrusion_axis,
-                               Offset dz, Drul_array<Real> height,
-                               Interval gap, Drul_array<Real> flare,
+  static Stencil make_bracket (Grob *me, Axis protrusion_axis, Offset dz,
+                               Drul_array<Real> height, Interval gap,
+                               Drul_array<Real> flare,
                                Drul_array<Real> shorten);
-  static Stencil make_axis_constrained_bracket (Grob *me, Real length,
-                                                Axis a, Direction dir,
-                                                Interval gap);
+  static Stencil make_axis_constrained_bracket (Grob *me, Real length, Axis a,
+                                                Direction dir, Interval gap);
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                         std::vector<Grob *> grobs,
-                                         Axis a, Direction dir);
+                                         std::vector<Grob *> grobs, Axis a,
+                                         Direction dir);
 };
 
 #endif /* BRACKET_HH */

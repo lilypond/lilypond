@@ -36,6 +36,7 @@ class Fingering_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
+
 protected:
   void stop_translation_timestep ();
   void process_music ();

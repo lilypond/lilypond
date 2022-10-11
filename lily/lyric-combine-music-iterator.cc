@@ -48,6 +48,7 @@ public:
   Lyric_combine_music_iterator () = default;
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
 protected:
   void create_children () override;
   void create_contexts () override;
@@ -57,7 +58,8 @@ protected:
   void derived_mark () const override;
   void substitute_context (Context *, Context *) override;
   void set_music_context (Context *to);
-  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
+  void preorder_walk (const std::function<void (Music_iterator *)> &) override;
+
 private:
   bool start_new_syllable () const;
   Context *find_voice ();
@@ -136,7 +138,7 @@ Lyric_combine_music_iterator::run_always () const
 }
 
 void
-Lyric_combine_music_iterator::derived_mark ()const
+Lyric_combine_music_iterator::derived_mark () const
 {
   if (lyric_iter_)
     scm_gc_mark (lyric_iter_->self_scm ());
@@ -162,8 +164,8 @@ Lyric_combine_music_iterator::substitute_context (Context *f, Context *t)
 }
 
 void
-Lyric_combine_music_iterator::preorder_walk
-(const std::function <void (Music_iterator *)> &visit)
+Lyric_combine_music_iterator::preorder_walk (
+  const std::function<void (Music_iterator *)> &visit)
 {
   Music_iterator::preorder_walk (visit);
   if (lyric_iter_)
@@ -211,7 +213,8 @@ Lyric_combine_music_iterator::create_contexts ()
     delayed when voices are created implicitly.
   */
   Context *g = find_top_context (get_context ());
-  g->events_below ()->add_listener (GET_LISTENER (this, check_new_context), ly_symbol2scm ("CreateContext"));
+  g->events_below ()->add_listener (GET_LISTENER (this, check_new_context),
+                                    ly_symbol2scm ("CreateContext"));
 
   /*
     We do not create a Lyrics context, because the user might
@@ -247,8 +250,8 @@ Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
   SCM running = lyrics_context_
-                ? get_property (lyrics_context_, "associatedVoice")
-                : SCM_EOL;
+                  ? get_property (lyrics_context_, "associatedVoice")
+                  : SCM_EOL;
   SCM voice_type = lyricsto_voice_type_;
   if (scm_is_string (running))
     {
@@ -257,11 +260,12 @@ Lyric_combine_music_iterator::find_voice ()
     }
 
   if (scm_is_string (voice_name)
-      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())
+      && (!music_context_
+          || ly_scm2string (voice_name) != music_context_->id_string ())
       && scm_is_symbol (voice_type))
     {
-      return find_context_below (find_top_context (get_context ()),
-                                 voice_type, ly_scm2string (voice_name));
+      return find_context_below (find_top_context (get_context ()), voice_type,
+                                 ly_scm2string (voice_name));
     }
 
   return 0;
@@ -286,18 +290,20 @@ Lyric_combine_music_iterator::process (Moment /* when */)
         We die too.
       */
       if (lyrics_context_)
-        lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
+        lyrics_context_->unset_property (
+          ly_symbol2scm ("associatedVoiceContext"));
       lyric_iter_ = 0;
       set_music_context (0);
     }
 
   if (music_context_
-      && (start_new_syllable ()
-          || (busy_moment_ >= pending_grace_moment_))
+      && (start_new_syllable () || (busy_moment_ >= pending_grace_moment_))
       && lyric_iter_->ok ())
     {
       const auto now = music_context_->now_mom ();
-      if (now.grace_part_ && !from_scm<bool> (get_property (lyrics_context_, "includeGraceNotes")))
+      if (now.grace_part_
+          && !from_scm<bool> (
+            get_property (lyrics_context_, "includeGraceNotes")))
         {
           pending_grace_moment_ = now;
           pending_grace_moment_.grace_part_ = Rational (0);
@@ -335,8 +341,8 @@ Lyric_combine_music_iterator::do_quit ()
       if (!scm_is_symbol (voice_type))
         voice_type = ly_symbol2scm ("Voice");
 
-      string id = robust_scm2string (get_property (m, "associated-context"),
-                                     "");
+      string id
+        = robust_scm2string (get_property (m, "associated-context"), "");
 
       Input *origin = m->origin ();
       origin->warning (_f ("cannot find context: %s",

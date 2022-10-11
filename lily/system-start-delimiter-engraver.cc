@@ -89,8 +89,8 @@ void
 Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
 {
   SCM type = scm_is_symbol (symbol_) ? symbol_ : default_type;
-  delimiter_ = engraver->make_spanner (ly_symbol2string (type).c_str (),
-                                       SCM_EOL);
+  delimiter_
+    = engraver->make_spanner (ly_symbol2string (type).c_str (), SCM_EOL);
 
   for (vsize i = 0; i < children_.size (); i++)
     children_[i]->create_grobs (engraver, default_type);
@@ -200,8 +200,8 @@ System_start_delimiter_engraver::process_music ()
 
       nesting_->from_list (hierarchy);
       nesting_->create_grobs (this, delimiter_name);
-      nesting_->set_bound (LEFT,
-                           unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      nesting_->set_bound (
+        LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
     }
 }
 
@@ -210,8 +210,8 @@ System_start_delimiter_engraver::finalize ()
 {
   if (nesting_)
     {
-      nesting_->set_bound (RIGHT,
-                           unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      nesting_->set_bound (
+        RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       nesting_->set_nesting_support (0);
 
       delete nesting_;
@@ -219,8 +219,8 @@ System_start_delimiter_engraver::finalize ()
 }
 
 void
-System_start_delimiter_engraver::acknowledge_staff_symbol
-(Grob_info_t<Spanner> inf)
+System_start_delimiter_engraver::acknowledge_staff_symbol (
+  Grob_info_t<Spanner> inf)
 {
   auto *const staff = inf.grob ();
   bool succ = nesting_->add_staff (staff);
@@ -228,13 +228,14 @@ System_start_delimiter_engraver::acknowledge_staff_symbol
   if (!succ)
     {
       auto bns = std::make_unique<Bracket_nesting_staff> (nullptr);
-      nesting_->children_.push_back (std::move(bns));
+      nesting_->children_.push_back (std::move (bns));
       nesting_->add_staff (staff);
     }
 }
 
 void
-System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
+System_start_delimiter_engraver::acknowledge_system_start_delimiter (
+  Grob_info inf)
 {
   nesting_->add_support (inf.grob ());
 }

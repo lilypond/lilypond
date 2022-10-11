@@ -34,7 +34,10 @@ class Beam_collision_engraver : public Engraver
   struct Grob_with_context
   {
     Grob_with_context (Grob *grob, Context const *context)
-      : grob_ (grob), context_ (context) { }
+      : grob_ (grob),
+        context_ (context)
+    {
+    }
 
     Grob *grob_;
     Context const *context_;
@@ -75,7 +78,7 @@ private:
     Context const *context = i.origin_engraver ()->context ();
     // Remember this Context so it does not get collected.
     contexts_.insert (context);
-    return { i.grob (), context };
+    return {i.grob (), context};
   }
 
 public:
@@ -89,10 +92,12 @@ public:
 
 Beam_collision_engraver::Beam_collision_engraver (Context *c)
   : Engraver (c)
-{}
+{
+}
 
 bool
-Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob, Grob *beam)
+Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob,
+                                                     Grob *beam)
 {
   SCM interfaces = get_property (beam, "collision-interfaces");
 
@@ -160,10 +165,12 @@ Beam_collision_engraver::finalize ()
              then make sure the beam and the covered_grob are in the same voice.
           */
           if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank[LEFT])
-              && !(from_scm<bool> (get_property (beam_grob, "collision-voice-only"))
+              && !(from_scm<bool> (
+                     get_property (beam_grob, "collision-voice-only"))
                    && (covered_grob_context != beam_context))
-              && !(has_interface<Beam> (covered_grob)
-                   && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank[LEFT]))
+              && !(
+                has_interface<Beam> (covered_grob)
+                && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank[LEFT]))
               && covered_grob_has_interface (covered_grob, beam_grob))
             {
               // Do not consider note heads attached to the beam.
@@ -176,7 +183,8 @@ Beam_collision_engraver::finalize ()
                   if (beam == beam_grob)
                     continue;
 
-              Pointer_group_interface::add_grob (beam_grob, ly_symbol2scm ("covered-grobs"), covered_grob);
+              Pointer_group_interface::add_grob (
+                beam_grob, ly_symbol2scm ("covered-grobs"), covered_grob);
             }
         }
     }
@@ -197,7 +205,8 @@ Beam_collision_engraver::acknowledge_stem (Grob_info i)
 void
 Beam_collision_engraver::acknowledge_accidental (Grob_info i)
 {
-  if (i.grob ()->internal_has_interface (ly_symbol2scm ("inline-accidental-interface")))
+  if (i.grob ()->internal_has_interface (
+        ly_symbol2scm ("inline-accidental-interface")))
     covered_grobs_.push_back (create_grob_with_context (i));
 }
 

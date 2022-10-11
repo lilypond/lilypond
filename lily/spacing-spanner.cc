@@ -123,7 +123,8 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
           SCM st = get_property (cols[i], "shortest-starter-duration");
           Moment this_shortest = *unsmob<Moment> (st);
           assert (this_shortest);
-          shortest_in_measure = std::min (shortest_in_measure, this_shortest.main_part_);
+          shortest_in_measure
+            = std::min (shortest_in_measure, this_shortest.main_part_);
         }
       else if (!isinf (shortest_in_measure)
                && Paper_column::is_breakable (cols[i]))
@@ -134,7 +135,8 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
               if (durations[j] > shortest_in_measure)
                 {
                   counts.insert (counts.begin () + j, 1);
-                  durations.insert (durations.begin () + j, shortest_in_measure);
+                  durations.insert (durations.begin () + j,
+                                    shortest_in_measure);
                   break;
                 }
               else if (durations[j] == shortest_in_measure)
@@ -177,24 +179,25 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 }
 
 void
-Spacing_spanner::generate_pair_spacing (Grob *me,
-                                        Paper_column *left_col, Paper_column *right_col,
+Spacing_spanner::generate_pair_spacing (Grob *me, Paper_column *left_col,
+                                        Paper_column *right_col,
                                         Paper_column *after_right_col,
                                         Spacing_options const *options)
 {
   if (Paper_column::is_musical (left_col))
     {
       if (!Paper_column::is_musical (right_col)
-          && (options->float_nonmusical_columns_ || from_scm<bool> (get_property (right_col, "maybe-loose")))
-          && after_right_col
-          && Paper_column::is_musical (after_right_col))
+          && (options->float_nonmusical_columns_
+              || from_scm<bool> (get_property (right_col, "maybe-loose")))
+          && after_right_col && Paper_column::is_musical (after_right_col))
         {
           /*
             TODO: should generate rods to prevent collisions.
           */
           musical_column_spacing (me, left_col, after_right_col, options);
-          set_object (right_col, "between-cols", scm_cons (left_col->self_scm (),
-                                                           after_right_col->self_scm ()));
+          set_object (
+            right_col, "between-cols",
+            scm_cons (left_col->self_scm (), after_right_col->self_scm ()));
         }
       else
         musical_column_spacing (me, left_col, right_col, options);
@@ -240,7 +243,8 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
       Paper_column *r = cols[i];
       Item *rb = r->find_prebroken_piece (LEFT);
 
-      if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
+      if (Separation_item::is_empty (r)
+          && (!rb || Separation_item::is_empty (rb)))
         continue;
 
       SCM skyp_scm = get_property (r, "horizontal-skylines");
@@ -248,12 +252,14 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
       const Skyline_pair &skyp = from_scm<Skyline_pair> (skyp_scm);
       overhangs[i] = skyp_ok ? skyp[RIGHT].max_height () : 0.0;
 
-      if (0 == i) continue;
+      if (0 == i)
+        continue;
 
       /* min rather than max because stickout will be negative if the right-hand column
          sticks out a lot to the left */
-      Real stickout = std::min (skyp_ok ? skyp[LEFT].max_height () : 0.0,
-                                Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
+      Real stickout = std::min (
+        skyp_ok ? skyp[LEFT].max_height () : 0.0,
+        Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
       Real prev_distances = 0.0;
 
@@ -262,7 +268,8 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
          a constant number of times per iteration of the outer loop. */
       for (vsize j = i; j--;)
         {
-          if (overhangs[j] + padding <= prev_distances + distances[i] + stickout)
+          if (overhangs[j] + padding
+              <= prev_distances + distances[i] + stickout)
             break; // cols[0 thru j] cannot reach cols[i]
 
           Paper_column *l = cols[j];
@@ -278,9 +285,9 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
               // right than the unbroken version, by extending farther and/or
               // nesting more closely;
               if (j == i - 1) // check this, the first time we see each lb.
-                overhangs[j] = std::max (overhangs[j],
-                                         lb->extent (lb, X_AXIS)[RIGHT]
-                                         + distances[i] - dist);
+                overhangs[j]
+                  = std::max (overhangs[j], lb->extent (lb, X_AXIS)[RIGHT]
+                                              + distances[i] - dist);
             }
           if (rb)
             Separation_item::set_distance (l, rb, padding);
@@ -289,14 +296,12 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
 
           prev_distances += distances[j];
         }
-      overhangs[i] = std::max (overhangs[i],
-                               overhangs[i - 1] - distances[i]);
+      overhangs[i] = std::max (overhangs[i], overhangs[i - 1] - distances[i]);
     }
 }
 
 void
-Spacing_spanner::generate_springs (Grob *me,
-                                   vector<Paper_column *> const &cols,
+Spacing_spanner::generate_springs (Grob *me, vector<Paper_column *> const &cols,
                                    Spacing_options const *options)
 {
   Paper_column *prev = cols[0];
@@ -318,8 +323,7 @@ Spacing_spanner::generate_springs (Grob *me,
   Generate the space between two musical columns LEFT_COL and RIGHT_COL.
 */
 void
-Spacing_spanner::musical_column_spacing (Grob *me,
-                                         Paper_column *left_col,
+Spacing_spanner::musical_column_spacing (Grob *me, Paper_column *left_col,
                                          Paper_column *right_col,
                                          Spacing_options const *options)
 {
@@ -351,8 +355,9 @@ Spacing_spanner::musical_column_spacing (Grob *me,
           for (vsize j = 0; j < right_items.size (); j++)
             {
               Item *it = dynamic_cast<Item *> (right_items[j]);
-              if (it && (right_col == it->get_column ()
-                         || right_col->original () == it->get_column ()))
+              if (it
+                  && (right_col == it->get_column ()
+                      || right_col->original () == it->get_column ()))
                 found_matching_column = true;
             }
 
@@ -369,7 +374,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
                   grace_opts.init_from_grob (gsp);
                   inc = grace_opts.increment_;
                 }
-              springs.push_back (Note_spacing::get_spacing (wish, right_col, spring, inc));
+              springs.push_back (
+                Note_spacing::get_spacing (wish, right_col, spring, inc));
             }
         }
 
@@ -446,10 +452,8 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
   if (!next)
     return false;
 
-  if (Paper_column::is_musical (next)
-      || Paper_column::is_musical (left)
-      || !Paper_column::is_musical (col)
-      || !Paper_column::is_used (next))
+  if (Paper_column::is_musical (next) || Paper_column::is_musical (left)
+      || !Paper_column::is_musical (col) || !Paper_column::is_used (next))
     return false;
 
   const auto dt = Paper_column::when_mom (next) - Paper_column::when_mom (col);
@@ -463,8 +467,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
     often shortened due to pickups.
    */
   if (dt.main_part_ > len->main_part_ / Rational (2)
-      && (next->is_broken ()
-          || next->break_status_dir ()))
+      && (next->is_broken () || next->break_status_dir ()))
     return true;
 
   return false;
@@ -481,10 +484,10 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   Spring spring;
 
   Real full_measure_space = 0.0;
-  if (Paper_column::is_musical (r)
-      && l->break_status_dir () == CENTER
+  if (Paper_column::is_musical (r) && l->break_status_dir () == CENTER
       && fills_measure (me, l, r))
-    full_measure_space = from_scm<double> (get_property (l, "full-measure-extra-space"), 1.0);
+    full_measure_space
+      = from_scm<double> (get_property (l, "full-measure-extra-space"), 1.0);
 
   const auto dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
@@ -505,8 +508,8 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
           */
           assert (spacing_grob->get_column () == l);
 
-          springs.push_back (Staff_spacing::get_spacing (spacing_grob, r,
-                                                         full_measure_space));
+          springs.push_back (
+            Staff_spacing::get_spacing (spacing_grob, r, full_measure_space));
         }
     }
 

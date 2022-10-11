@@ -35,7 +35,8 @@
 
 class Scheme_hash_table : public Smob0<Scheme_hash_table>
 {
-  void operator = (Scheme_hash_table const &) = delete;
+  void operator= (Scheme_hash_table const &) = delete;
+
 public:
   int print_smob (SCM, scm_print_state *) const;
   bool try_retrieve (SCM key, SCM *val);
@@ -45,10 +46,7 @@ public:
   void remove (SCM k);
   SCM to_alist () const;
   static SCM make_smob ();
-  static bool is_smob (SCM arg)
-  {
-    return scm_is_true (scm_hash_table_p (arg));
-  }
+  static bool is_smob (SCM arg) { return scm_is_true (scm_hash_table_p (arg)); }
 
 private:
   SCM hash_tab () const { return self_scm (); }

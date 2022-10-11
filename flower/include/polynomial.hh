@@ -47,20 +47,20 @@ struct Polynomial
   void clean ();
 
   void scalarmultiply (Real fact);
-  void operator *= (Real f) { scalarmultiply (f); }
-  void operator /= (Real f) { scalarmultiply (1 / f); }
-  void operator += (Polynomial const &p2);
-  void operator *= (Polynomial const &p2);
-  void operator -= (Polynomial const &p2);
+  void operator*= (Real f) { scalarmultiply (f); }
+  void operator/= (Real f) { scalarmultiply (1 / f); }
+  void operator+= (Polynomial const &p2);
+  void operator*= (Polynomial const &p2);
+  void operator-= (Polynomial const &p2);
   Polynomial (Real a, Real b = 0.0);
   Polynomial () {}
 
   /// take the derivative
   void differentiate ();
 
-  std::vector<Real> solve_quadric ()const;
-  std::vector<Real> solve_cubic ()const;
-  std::vector<Real> solve_linear ()const;
+  std::vector<Real> solve_quadric () const;
+  std::vector<Real> solve_cubic () const;
+  std::vector<Real> solve_linear () const;
 
   std::vector<Real> solve () const;
 };
@@ -70,16 +70,15 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, *);
 
 inline Polynomial
-operator * (Polynomial p, Real a)
+operator* (Polynomial p, Real a)
 {
   p *= a;
   return p;
 }
 inline Polynomial
-operator * (Real a, Polynomial p)
+operator* (Real a, Polynomial p)
 {
   p *= a;
   return p;
 }
 #endif
-

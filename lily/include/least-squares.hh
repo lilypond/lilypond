@@ -27,7 +27,7 @@
 /**
    Least squares minimisation in 2 variables.
 */
-void minimise_least_squares (Real *coef, Real *offset, std::vector<Offset> const &);
+void minimise_least_squares (Real *coef, Real *offset,
+                             std::vector<Offset> const &);
 
 #endif // LEASTSQUARE_HH
-

@@ -125,8 +125,8 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
 
   if (*mpos > *mlen)
     {
-      programming_error ("invalid measure position: "
-                         + to_string (*mpos) + " of " + to_string (*mlen));
+      programming_error ("invalid measure position: " + to_string (*mpos)
+                         + " of " + to_string (*mlen));
       return result;
     }
 
@@ -162,8 +162,7 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
       Rational const step_unit = result / unit;
       if (step_unit.den () < step_unit.num ())
         {
-          int const log2
-            = intlog2 (int (step_unit.num () / step_unit.den ()));
+          int const log2 = intlog2 (int (step_unit.num () / step_unit.den ()));
           result = unit * Rational (1 << log2);
         }
     }
@@ -215,9 +214,8 @@ Completion_heads_engraver::process_music ()
       note_dur = *orig;
       SCM factor = get_property (this, "completionFactor");
       if (ly_is_procedure (factor))
-        factor = ly_call (factor,
-                          context ()->self_scm (),
-                          note_dur.smobbed_copy ());
+        factor
+          = ly_call (factor, context ()->self_scm (), note_dur.smobbed_copy ());
       factor_ = from_scm<Rational> (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
@@ -241,7 +239,8 @@ Completion_heads_engraver::process_music ()
       SCM pits = get_property (note_events_[i], "pitch");
       set_property (event, "pitch", pits);
       set_property (event, "duration", note_dur.smobbed_copy ());
-      set_property (event, "length", Moment (note_dur.get_length ()).smobbed_copy ());
+      set_property (event, "length",
+                    Moment (note_dur.get_length ()).smobbed_copy ());
       set_property (event, "duration-log", to_scm (note_dur.duration_log ()));
 
       /*
@@ -275,9 +274,8 @@ Completion_heads_engraver::process_music ()
   left_to_do_ -= note_dur.get_length ();
   if (left_to_do_)
     {
-      find_global_context ()
-      ->add_moment_to_process (Moment (now.main_part_
-                                       + note_dur.get_length ()));
+      find_global_context ()->add_moment_to_process (
+        Moment (now.main_part_ + note_dur.get_length ()));
     }
   /*
     don't do complicated arithmetic with grace notes.
@@ -316,8 +314,7 @@ Completion_heads_engraver::start_translation_timestep ()
       note_events_.clear ();
       prev_notes_.clear ();
     }
-  set_property (context (), "completionBusy",
-                to_scm (!note_events_.empty ()));
+  set_property (context (), "completionBusy", to_scm (!note_events_.empty ()));
 }
 
 Completion_heads_engraver::Completion_heads_engraver (Context *c)

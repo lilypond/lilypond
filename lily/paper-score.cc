@@ -127,8 +127,7 @@ void
 Paper_score::process ()
 {
   debug_output (_f ("Element count %zu (spanners %zu) ",
-                    system_->element_count (),
-                    system_->spanner_count ()));
+                    system_->element_count (), system_->spanner_count ()));
 
   message (_ ("Preprocessing graphical objects..."));
 

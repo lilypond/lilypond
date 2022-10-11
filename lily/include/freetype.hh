@@ -34,8 +34,11 @@ extern FT_Library freetype2_library;
 std::string freetype_error_string (FT_Error code);
 
 SCM box_to_scheme_lines (Box b);
-Box ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_idx);
+Box ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face,
+                                                size_t signed_idx);
 Box ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx);
-void ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &transform, FT_Face const &face, size_t signed_idx);
+void ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
+                                   Transform const &transform,
+                                   FT_Face const &face, size_t signed_idx);
 
 #endif /* FREETYPE_HH */

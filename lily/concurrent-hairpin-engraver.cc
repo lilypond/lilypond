@@ -81,18 +81,28 @@ Concurrent_hairpin_engraver::stop_translation_timestep ()
         for (vsize i = 0; i < arriving_hairpins_.size () - 1; i++)
           for (vsize j = i + 1; j < arriving_hairpins_.size (); j++)
             {
-              Pointer_group_interface::add_grob (arriving_hairpins_[i], ly_symbol2scm ("concurrent-hairpins"), arriving_hairpins_[j]);
-              Pointer_group_interface::add_grob (arriving_hairpins_[j], ly_symbol2scm ("concurrent-hairpins"), arriving_hairpins_[i]);
+              Pointer_group_interface::add_grob (
+                arriving_hairpins_[i], ly_symbol2scm ("concurrent-hairpins"),
+                arriving_hairpins_[j]);
+              Pointer_group_interface::add_grob (
+                arriving_hairpins_[j], ly_symbol2scm ("concurrent-hairpins"),
+                arriving_hairpins_[i]);
             }
 
       for (vsize i = 0; i < arriving_hairpins_.size (); i++)
         for (vsize j = 0; j < hairpins_hanging_out_.size (); j++)
           {
-            Pointer_group_interface::add_grob (arriving_hairpins_[i], ly_symbol2scm ("concurrent-hairpins"), hairpins_hanging_out_[j]);
-            Pointer_group_interface::add_grob (hairpins_hanging_out_[j], ly_symbol2scm ("concurrent-hairpins"), arriving_hairpins_[i]);
+            Pointer_group_interface::add_grob (
+              arriving_hairpins_[i], ly_symbol2scm ("concurrent-hairpins"),
+              hairpins_hanging_out_[j]);
+            Pointer_group_interface::add_grob (
+              hairpins_hanging_out_[j], ly_symbol2scm ("concurrent-hairpins"),
+              arriving_hairpins_[i]);
           }
     }
-  hairpins_hanging_out_.insert (hairpins_hanging_out_.end (), arriving_hairpins_.begin (), arriving_hairpins_.end ());
+  hairpins_hanging_out_.insert (hairpins_hanging_out_.end (),
+                                arriving_hairpins_.begin (),
+                                arriving_hairpins_.end ());
   arriving_hairpins_.resize (0);
   departing_hairpins_.resize (0);
 }

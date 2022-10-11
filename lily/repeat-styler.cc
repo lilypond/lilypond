@@ -28,41 +28,39 @@
 #include <string>
 
 void
-Repeat_styler::report_end_event (SCM event_sym, long alt_num,
-                                 long repeat_count, long return_count)
+Repeat_styler::report_end_event (SCM event_sym, long alt_num, long repeat_count,
+                                 long return_count)
 {
-    SCM ev_scm = Lily::make_music (event_sym);
-    auto *const ev = unsmob<Music> (ev_scm);
+  SCM ev_scm = Lily::make_music (event_sym);
+  auto *const ev = unsmob<Music> (ev_scm);
 
-    if (auto *const origin = owner ()->get_music ()->origin ())
-      ev->set_spot (*origin);
+  if (auto *const origin = owner ()->get_music ()->origin ())
+    ev->set_spot (*origin);
 
-    if (alt_num > 0)
-      set_property (ev, "alternative-number", to_scm (alt_num));
+  if (alt_num > 0)
+    set_property (ev, "alternative-number", to_scm (alt_num));
 
-    if (repeat_count > 0)
-      set_property (ev, "repeat-count", to_scm (repeat_count));
+  if (repeat_count > 0)
+    set_property (ev, "repeat-count", to_scm (repeat_count));
 
-    if (return_count >= 0)
-      set_property (ev, "return-count", to_scm (return_count));
+  if (return_count >= 0)
+    set_property (ev, "return-count", to_scm (return_count));
 
-    // Currently, repeat-body-start-moment helps detect conflicting jumps.  In
-    // the future, it might be used to engrave nested segno repeats in
-    // conjunction with a mark table maintained by Mark_tracking_translator.
-    // In that future, we would probably also want to report the point of the
-    // first coda mark as repeat-body-end-moment.
-    set_property (ev, "repeat-body-start-moment",
-                  to_scm (spanned_time ().left ()));
+  // Currently, repeat-body-start-moment helps detect conflicting jumps.  In
+  // the future, it might be used to engrave nested segno repeats in
+  // conjunction with a mark table maintained by Mark_tracking_translator.
+  // In that future, we would probably also want to report the point of the
+  // first coda mark as repeat-body-end-moment.
+  set_property (ev, "repeat-body-start-moment",
+                to_scm (spanned_time ().left ()));
 
-    ev->send_to_context (owner ()->get_context ());
-    scm_remember_upto_here_1 (ev_scm);
+  ev->send_to_context (owner ()->get_context ());
+  scm_remember_upto_here_1 (ev_scm);
 }
 
 void
-Repeat_styler::report_alternative_event (Music *element,
-                                         Direction d,
-                                         size_t volta_depth,
-                                         SCM volta_nums)
+Repeat_styler::report_alternative_event (Music *element, Direction d,
+                                         size_t volta_depth, SCM volta_nums)
 {
   SCM ev_scm = Lily::make_music (ly_symbol2scm ("AlternativeEvent"));
   auto *const ev = unsmob<Music> (ev_scm);
@@ -81,7 +79,8 @@ Repeat_styler::report_alternative_event (Music *element,
 class Null_repeat_styler final : public Repeat_styler
 {
 public:
-  explicit Null_repeat_styler (Music_iterator *owner) : Repeat_styler (owner)
+  explicit Null_repeat_styler (Music_iterator *owner)
+    : Repeat_styler (owner)
   {
   }
 
@@ -92,14 +91,18 @@ public:
   {
     return false; // disable volta brackets
   }
-  void derived_report_alternative_start (Music *,
-                                         long /*alt_num*/,
+  void derived_report_alternative_start (Music *, long /*alt_num*/,
                                          size_t /*volta_depth*/,
-                                         SCM /*volta_nums*/) override {}
-  void derived_report_return (long /*alt_num*/,
-                              long /*return_count*/) override {}
+                                         SCM /*volta_nums*/) override
+  {
+  }
+  void derived_report_return (long /*alt_num*/, long /*return_count*/) override
+  {
+  }
   void derived_report_alternative_group_end (Music *,
-                                             size_t /*volta_depth*/) override {}
+                                             size_t /*volta_depth*/) override
+  {
+  }
 };
 
 class Segno_repeat_styler final : public Repeat_styler
@@ -109,9 +112,8 @@ private:
 
   void report_mark (Music *music, long alt_num) const
   {
-    SCM ev_name = (alt_num == 0)
-                  ? ly_symbol2scm ("SegnoMarkEvent")
-                  : ly_symbol2scm ("CodaMarkEvent");
+    SCM ev_name = (alt_num == 0) ? ly_symbol2scm ("SegnoMarkEvent")
+                                 : ly_symbol2scm ("CodaMarkEvent");
     SCM ev_scm = Lily::make_music (ev_name);
     auto *const ev = unsmob<Music> (ev_scm);
     if (auto *const origin = music->origin ())
@@ -121,7 +123,8 @@ private:
   }
 
 public:
-  explicit Segno_repeat_styler (Music_iterator *owner) : Repeat_styler (owner)
+  explicit Segno_repeat_styler (Music_iterator *owner)
+    : Repeat_styler (owner)
   {
   }
 
@@ -133,8 +136,7 @@ public:
     report_mark (owner ()->get_music (), 0);
   }
 
-  bool derived_report_alternative_group_start (Direction start,
-                                               Direction end,
+  bool derived_report_alternative_group_start (Direction start, Direction end,
                                                bool in_order) override
   {
     if (repeat_count () < 2)
@@ -155,8 +157,7 @@ public:
     return !(coda_marks_enabled_ && (alternative_depth () < 2));
   }
 
-  void derived_report_alternative_start (Music *element,
-                                         long alt_num,
+  void derived_report_alternative_start (Music *element, long alt_num,
                                          size_t volta_depth,
                                          SCM volta_nums) override
   {
@@ -169,8 +170,9 @@ public:
         // Importantly, this allows "al Coda" structures where the final
         // alternative has no music and a section label is defined at the same
         // moment.
-        const bool empty = !element || (!element->get_length ()
-                                        && !element->start_mom ().grace_part_);
+        const bool empty
+          = !element
+            || (!element->get_length () && !element->start_mom ().grace_part_);
         if (!empty)
           report_mark (element, alt_num);
       }
@@ -198,8 +200,8 @@ public:
         return_count = -1;
       }
 
-    report_end_event (ly_symbol2scm ("DalSegnoEvent"),
-                      alt_num, reps, return_count);
+    report_end_event (ly_symbol2scm ("DalSegnoEvent"), alt_num, reps,
+                      return_count);
   }
 
   void derived_report_alternative_group_end (Music *element,
@@ -218,7 +220,8 @@ public:
 class Volta_repeat_styler final : public Repeat_styler
 {
 public:
-  explicit Volta_repeat_styler (Music_iterator *owner) : Repeat_styler (owner)
+  explicit Volta_repeat_styler (Music_iterator *owner)
+    : Repeat_styler (owner)
   {
   }
 
@@ -247,8 +250,7 @@ public:
     return true;
   }
 
-  void derived_report_alternative_start (Music *element,
-                                         long alt_num,
+  void derived_report_alternative_start (Music *element, long alt_num,
                                          size_t volta_depth,
                                          SCM volta_nums) override
   {
@@ -262,8 +264,8 @@ public:
   void derived_report_return (long alt_num, long return_count) override
   {
     const auto reps = (alt_num < 1) ? repeat_count () : 0;
-    report_end_event (ly_symbol2scm ("VoltaRepeatEndEvent"),
-                      alt_num, reps, return_count);
+    report_end_event (ly_symbol2scm ("VoltaRepeatEndEvent"), alt_num, reps,
+                      return_count);
   }
 
   void derived_report_alternative_group_end (Music *element,

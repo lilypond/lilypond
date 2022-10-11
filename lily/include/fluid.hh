@@ -40,18 +40,21 @@
 
 class Fluid
 {
-  SCM const fluid_;             // the fluid itself
-  SCM value_;                   // its cached value, SCM_UNDEFINED if unset
+  SCM const fluid_; // the fluid itself
+  SCM value_;       // its cached value, SCM_UNDEFINED if unset
 
-  Fluid ();                     // No accessible default constructor
-  Fluid (const Fluid &);        // Don't copy
+  Fluid ();              // No accessible default constructor
+  Fluid (const Fluid &); // Don't copy
   // Caching fluids only makes sense if we really treat them as
   // function parameters, namely only modify them synchronized to
   // function calls, like when using scm_with_fluid.  So no assignment
   // operator or any other interface to scm_fluid_set_x.
-  Fluid &operator = (const Fluid &);
+  Fluid &operator= (const Fluid &);
+
 public:
-  Fluid (SCM fluid) : fluid_ (fluid), value_ (SCM_UNDEFINED)
+  Fluid (SCM fluid)
+    : fluid_ (fluid),
+      value_ (SCM_UNDEFINED)
   {
   }
   operator SCM ()

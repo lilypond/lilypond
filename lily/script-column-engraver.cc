@@ -36,6 +36,7 @@ class Script_column_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
+
 protected:
   void acknowledge_side_position (Grob_info);
   void process_acknowledged ();

@@ -32,10 +32,7 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Volta_repeat_iterator () = default;
 
-  std::shared_ptr<Repeat_styler> get_repeat_styler ()
-  {
-    return repeat_styler_;
-  }
+  std::shared_ptr<Repeat_styler> get_repeat_styler () { return repeat_styler_; }
 
 protected:
   void create_children () override;

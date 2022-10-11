@@ -87,9 +87,12 @@ Stream_event::make_transposable ()
       SCM val = scm_cdr (entry);
 
       if ((unsmob<Pitch> (val)
-           || (scm_is_eq (prop, ly_symbol2scm ("element")) && unsmob<Music> (val))
-           || (scm_is_eq (prop, ly_symbol2scm ("elements")) && scm_is_pair (val))
-           || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist")) && scm_is_pair (val)))
+           || (scm_is_eq (prop, ly_symbol2scm ("element"))
+               && unsmob<Music> (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("elements"))
+               && scm_is_pair (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist"))
+               && scm_is_pair (val)))
           && scm_is_false (scm_assq (prop, mutable_property_alist_)))
         mutable_property_alist_
           = scm_acons (prop, music_deep_copy (val), mutable_property_alist_);

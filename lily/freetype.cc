@@ -41,7 +41,8 @@ init_freetype ()
 }
 
 Box
-ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_idx)
+ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face,
+                                            size_t signed_idx)
 {
   FT_UInt idx = FT_UInt (signed_idx);
   FT_Load_Glyph (face, idx, FT_LOAD_NO_SCALE);
@@ -51,8 +52,9 @@ ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_i
   FT_Pos vb = m.horiBearingY;
 
   // is this viable for all grobs?
-  return Box (Interval (static_cast<Real> (hb), static_cast<Real> (hb + m.width)),
-              Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
+  return Box (
+    Interval (static_cast<Real> (hb), static_cast<Real> (hb + m.width)),
+    Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
 }
 
 Box
@@ -64,7 +66,8 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
   if (!(face->glyph->format == FT_GLYPH_FORMAT_OUTLINE))
     {
       // no warning; this happens a lot
-      return Box (Interval (infinity_f, -infinity_f), Interval (infinity_f, -infinity_f));
+      return Box (Interval (infinity_f, -infinity_f),
+                  Interval (infinity_f, -infinity_f));
     }
   FT_Outline *outline;
   outline = &(face->glyph->outline);
@@ -72,10 +75,9 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
   FT_BBox bbox;
   FT_Outline_Get_BBox (outline, &bbox);
 
-  return Box (Interval (static_cast<Real> (bbox.xMin),
-                        static_cast<Real> (bbox.xMax)),
-              Interval (static_cast<Real> (bbox.yMin),
-                        static_cast<Real> (bbox.yMax)));
+  return Box (
+    Interval (static_cast<Real> (bbox.xMin), static_cast<Real> (bbox.xMax)),
+    Interval (static_cast<Real> (bbox.yMin), static_cast<Real> (bbox.yMax)));
 }
 
 Offset
@@ -142,22 +144,18 @@ struct Path_interpreter
   }
   FT_Outline_Funcs funcs () const
   {
-    FT_Outline_Funcs funcs{};
-    funcs.move_to = [] (const FT_Vector * to, void *user)
-    {
+    FT_Outline_Funcs funcs {};
+    funcs.move_to = [] (const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->moveto (*to);
     };
-    funcs.line_to = [] (const FT_Vector * to, void *user)
-    {
+    funcs.line_to = [] (const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->lineto (*to);
     };
-    funcs.conic_to = [] (const FT_Vector * c1, const FT_Vector * to, void *user)
-    {
+    funcs.conic_to = [] (const FT_Vector *c1, const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->curve2to (*c1, *to);
     };
-    funcs.cubic_to = [] (const FT_Vector * c1, const FT_Vector * c2,
-                         const FT_Vector * to, void *user)
-    {
+    funcs.cubic_to = [] (const FT_Vector *c1, const FT_Vector *c2,
+                         const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->curve3to (*c1, *c2, *to);
     };
     funcs.shift = 0;

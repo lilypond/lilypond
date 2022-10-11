@@ -25,7 +25,8 @@
 
 #if defined(__MINGW32__)
 #include <malloc.h>
-#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)    \
+  || defined(__OpenBSD__)
 #include <stdlib.h>
 #else
 #include <alloca.h>
@@ -160,7 +161,8 @@ Dispatcher::dispatch (SCM sev)
       SCM next = scm_cdr (lists[0].list);
       if (!scm_is_pair (next))
         num_classes--;
-      int prio = (scm_is_pair (next)) ? from_scm<int> (scm_caar (next)) : INT_MAX;
+      int prio
+        = (scm_is_pair (next)) ? from_scm<int> (scm_caar (next)) : INT_MAX;
       for (i = 0; prio > lists[i + 1].prio; i++)
         lists[i] = lists[i + 1];
       lists[i].prio = prio;
@@ -183,15 +185,12 @@ Dispatcher::is_listened_class (SCM cl)
 SCM
 Dispatcher::listened_types ()
 {
-  auto accumulate_types = [] (void * /* closure */,
-                              SCM key,
-                              SCM val,
-                              SCM result)
-  {
-    if (scm_is_pair (val))
-      return scm_cons (key, result);
-    return result;
-  };
+  auto accumulate_types
+    = [] (void * /* closure */, SCM key, SCM val, SCM result) {
+        if (scm_is_pair (val))
+          return scm_cons (key, result);
+        return result;
+      };
 
   return ly_scm_hash_fold (accumulate_types, nullptr, SCM_EOL, listeners_);
 }
@@ -236,8 +235,8 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
         {
           int priority = from_scm<int> (scm_cdar (disp));
           Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
-          d->internal_add_listener (GET_LISTENER (this, dispatch).smobbed_copy (),
-                                    ev_class, priority);
+          d->internal_add_listener (
+            GET_LISTENER (this, dispatch).smobbed_copy (), ev_class, priority);
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }

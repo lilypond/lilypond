@@ -96,7 +96,8 @@ Lily_parser::print_smob (SCM port, scm_print_state *) const
 
 /* Process one .ly file, or book.  */
 void
-Lily_parser::parse_file (const string &init, const string &name, const string &out_name)
+Lily_parser::parse_file (const string &init, const string &name,
+                         const string &out_name)
 {
   output_basename_ = out_name;
 
@@ -138,8 +139,8 @@ Lily_parser::parse_string (const string &ly_code)
 }
 
 SCM
-Lily_parser::parse_string_expression (const string &ly_code, const string &filename,
-                                      int line)
+Lily_parser::parse_string_expression (const string &ly_code,
+                                      const string &filename, int line)
 {
   lexer_->main_input_name_ = filename;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -199,13 +200,15 @@ const char *const Lily_parser::type_p_name_ = "ly:lily-parser?";
 Output_def *
 get_layout (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultlayout"));
+  SCM id = parser->lexer_->lookup_identifier_symbol (
+    ly_symbol2scm ("$defaultlayout"));
   Output_def *layout = unsmob<Output_def> (id);
   layout = layout ? layout->clone () : new Output_def;
   // TODO: use a member in the Output_def. Can't do that for now,
   // because the current paper code uses the output def module, not
   // the output def itself.
-  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("layout"));
+  layout->set_variable (ly_symbol2scm ("output-def-kind"),
+                        ly_symbol2scm ("layout"));
 
   return layout;
 }
@@ -217,7 +220,8 @@ get_midi (Lily_parser *parser)
     = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultmidi"));
   Output_def *layout = unsmob<Output_def> (id);
   layout = layout ? layout->clone () : new Output_def;
-  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("midi"));
+  layout->set_variable (ly_symbol2scm ("output-def-kind"),
+                        ly_symbol2scm ("midi"));
   return layout;
 }
 
@@ -229,11 +233,14 @@ get_paper (Lily_parser *parser)
   SCM papers
     = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"));
   Output_def *layout = (SCM_UNBNDP (papers) || scm_is_null (papers))
-                       ? 0 : unsmob<Output_def> (scm_car (papers));
-  SCM default_paper = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultpaper"));
+                         ? 0
+                         : unsmob<Output_def> (scm_car (papers));
+  SCM default_paper = parser->lexer_->lookup_identifier_symbol (
+    ly_symbol2scm ("$defaultpaper"));
   layout = layout ? layout : unsmob<Output_def> (default_paper);
   layout = layout ? layout->clone () : new Output_def;
-  layout->set_variable (ly_symbol2scm ("output-def-kind"), ly_symbol2scm ("paper"));
+  layout->set_variable (ly_symbol2scm ("output-def-kind"),
+                        ly_symbol2scm ("paper"));
   return layout;
 }
 
@@ -248,31 +255,38 @@ init_papers (Lily_parser *parser)
 void
 push_paper (Lily_parser *parser, Output_def *paper)
 {
-  parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
-                                  scm_cons (paper->self_scm (), parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"))));
+  parser->lexer_->set_identifier (
+    ly_symbol2scm ("$papers"),
+    scm_cons (paper->self_scm (), parser->lexer_->lookup_identifier_symbol (
+                                    ly_symbol2scm ("$papers"))));
 }
 
 /* Pop a paper from $papers stack */
 void
 pop_paper (Lily_parser *parser)
 {
-  if (scm_is_pair (parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"))))
-    parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
-                                    scm_cdr (parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"))));
+  if (scm_is_pair (
+        parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"))))
+    parser->lexer_->set_identifier (
+      ly_symbol2scm ("$papers"),
+      scm_cdr (
+        parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers"))));
 }
 
 /* Change the paper on top of $papers stack */
 void
 set_paper (Lily_parser *parser, Output_def *paper)
 {
-  scm_set_car_x (parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers")),
-                 paper->self_scm ());
+  scm_set_car_x (
+    parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$papers")),
+    paper->self_scm ());
 }
 
 SCM
 get_header (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultheader"));
+  SCM id = parser->lexer_->lookup_identifier_symbol (
+    ly_symbol2scm ("$defaultheader"));
   if (!ly_is_module (id))
     id = ly_make_module ();
   else
@@ -284,4 +298,3 @@ get_header (Lily_parser *parser)
 
   return id;
 }
-

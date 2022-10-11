@@ -36,6 +36,7 @@ protected:
   void acknowledge_note_column (Grob_info_t<Item>);
   void process_acknowledged ();
   void stop_translation_timestep ();
+
 public:
   TRANSLATOR_DECLARATIONS (Collision_engraver);
 };

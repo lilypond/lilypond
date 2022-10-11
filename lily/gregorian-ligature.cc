@@ -23,7 +23,8 @@
 
 using std::string;
 
-void check_prefix (const string &name, int mask, int prefix_set, string *str)
+void
+check_prefix (const string &name, int mask, int prefix_set, string *str)
 {
   if (prefix_set & mask)
     {
@@ -37,8 +38,7 @@ string
 Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
   string str;
-  int prefix_set
-    = from_scm<int> (get_property (primitive, "prefix-set"));
+  int prefix_set = from_scm<int> (get_property (primitive, "prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);
   check_prefix ("stropha", STROPHA, prefix_set, &str);
   check_prefix ("inclinatum", INCLINATUM, prefix_set, &str);

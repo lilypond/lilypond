@@ -31,9 +31,8 @@
 using std::vector;
 
 Stencil
-Line_interface::make_arrow (Offset begin, Offset end,
-                            Real thick,
-                            Real length, Real width)
+Line_interface::make_arrow (Offset begin, Offset end, Real thick, Real length,
+                            Real width)
 {
   Offset dir = (end - begin).direction ();
   vector<Offset> points;
@@ -49,18 +48,17 @@ Line_interface::make_arrow (Offset begin, Offset end,
 }
 
 Stencil
-Line_interface::make_trill_line (Grob *me,
-                                 Offset from,
-                                 Offset to)
+Line_interface::make_trill_line (Grob *me, Offset from, Offset to)
 {
   Offset dz = (to - from);
   for (const auto a : {X_AXIS, Y_AXIS})
     {
       if (std::isinf (dz[a]) || std::isnan (dz[a]) || fabs (dz[a]) > 1e6)
         {
-          programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", dz[a])
-                             + "\n"
-                             + "Setting to zero.");
+          programming_error (
+            String_convert::form_string (
+              "Improbable offset for stencil: %f staff space", dz[a])
+            + "\n" + "Setting to zero.");
           dz[a] = 0.0;
           if (strict_infinity_checking)
             scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
@@ -76,9 +74,8 @@ Line_interface::make_trill_line (Grob *me,
   // Get the real length of the trill element, so as not to exceed
   // the allotted length for the line.  The element sticks out of
   // its bounding box so that two elements blend when concatenated.
-  Skyline_pair const &skyp = skylines_from_stencil (elt.smobbed_copy (),
-                                                    SCM_EOL,
-                                                    Y_AXIS);
+  Skyline_pair const &skyp
+    = skylines_from_stencil (elt.smobbed_copy (), SCM_EOL, Y_AXIS);
   Interval elt_true_ext (skyp[LEFT].max_height (), skyp[RIGHT].max_height ());
   Real elt_true_len = elt_true_ext.length ();
   if (elt_true_len <= 0)
@@ -96,10 +93,10 @@ Line_interface::make_trill_line (Grob *me,
     {
       // First trill element takes true_elt_len, each further element
       // only adds elt_len because of the overlap.
-      vsize num_extra_elements = static_cast<vsize> (delta/elt_len);
+      vsize num_extra_elements = static_cast<vsize> (delta / elt_len);
       for (vsize i = 0; i < num_extra_elements; i++)
         line.add_at_edge (X_AXIS, RIGHT, elt, 0);
-      total_len += static_cast<Real> (num_extra_elements)*elt_len;
+      total_len += static_cast<Real> (num_extra_elements) * elt_len;
     }
   SCM expr = line.expr ();
   Box b = line.extent_box ();
@@ -113,18 +110,18 @@ Line_interface::make_trill_line (Grob *me,
 }
 
 Stencil
-Line_interface::make_zigzag_line (Grob *me,
-                                  Offset from,
-                                  Offset to)
+Line_interface::make_zigzag_line (Grob *me, Offset from, Offset to)
 {
   Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= from_scm<double> (get_property (me, "thickness"), 1.0); // todo: staff sym referencer?
+  thick *= from_scm<double> (get_property (me, "thickness"),
+                             1.0); // todo: staff sym referencer?
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real w = from_scm<double> (get_property (me, "zigzag-width"), 1) * staff_space;
+  Real w
+    = from_scm<double> (get_property (me, "zigzag-width"), 1) * staff_space;
   const auto count = static_cast<int> (ceil (dz.length () / w));
   w = dz.length () / count;
 
@@ -141,7 +138,8 @@ Line_interface::make_zigzag_line (Grob *me,
     points[i] = complex_multiply (points[i], rotation_factor);
 
   Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
-  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
+  squiggle.add_stencil (
+    Line_interface::make_line (thick, points[1], points[2]));
 
   Stencil total;
   for (int i = 0; i < count; i++)
@@ -162,13 +160,9 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real on = dash_fraction * dash_period;
   Real off = std::max (0.0, dash_period - on);
 
-  SCM at = ly_list (ly_symbol2scm ("dashed-line"),
-                    to_scm (thick),
-                    to_scm (on),
-                    to_scm (off),
-                    to_scm (to[X_AXIS] - from[X_AXIS]),
-                    to_scm (to[Y_AXIS] - from[Y_AXIS]),
-                    to_scm (0.0));
+  SCM at = ly_list (ly_symbol2scm ("dashed-line"), to_scm (thick), to_scm (on),
+                    to_scm (off), to_scm (to[X_AXIS] - from[X_AXIS]),
+                    to_scm (to[Y_AXIS] - from[Y_AXIS]), to_scm (0.0));
 
   Box box;
   box.add_point (Offset (0, 0));
@@ -185,12 +179,9 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
-  SCM at = ly_list (ly_symbol2scm ("draw-line"),
-                    to_scm (th),
-                    to_scm (from[X_AXIS]),
-                    to_scm (from[Y_AXIS]),
-                    to_scm (to[X_AXIS]),
-                    to_scm (to[Y_AXIS]));
+  SCM at
+    = ly_list (ly_symbol2scm ("draw-line"), to_scm (th), to_scm (from[X_AXIS]),
+               to_scm (from[Y_AXIS]), to_scm (to[X_AXIS]), to_scm (to[Y_AXIS]));
 
   Box box;
   box.add_point (from);
@@ -203,8 +194,7 @@ Line_interface::make_line (Real th, Offset from, Offset to)
 }
 
 Stencil
-Line_interface::arrows (Grob *me, Offset from, Offset to,
-                        bool from_arrow,
+Line_interface::arrows (Grob *me, Offset from, Offset to, bool from_arrow,
                         bool to_arrow)
 {
   Stencil a;
@@ -249,8 +239,8 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
       Real fraction
         = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
-          ? 0.0
-          : from_scm<double> (get_property (me, "dash-fraction"), 0.4);
+            ? 0.0
+            : from_scm<double> (get_property (me, "dash-fraction"), 0.4);
 
       fraction = std::min (std::max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)

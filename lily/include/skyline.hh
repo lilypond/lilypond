@@ -49,14 +49,17 @@ class Skyline : public Simple_smob<Skyline>
 {
 public:
   static const char *const type_p_name_;
+
 private:
   std::vector<Building> buildings_;
   Direction sky_;
 
-  void internal_merge_skyline (std::vector<Building> const *, std::vector<Building>const *,
+  void internal_merge_skyline (std::vector<Building> const *,
+                               std::vector<Building> const *,
                                std::vector<Building> *result) const;
   std::vector<Building> internal_build_skyline (std::vector<Building> *) const;
-  Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
+  Real internal_distance (Skyline const &, Real horizon_padding,
+                          Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
 
@@ -68,7 +71,7 @@ public:
   Skyline ();
   Skyline (Direction sky);
   Skyline (std::vector<Box> const &bldgs, Axis a, Direction sky);
-  Skyline (std::vector<Drul_array<Offset> > const &bldgs, Axis a, Direction sky);
+  Skyline (std::vector<Drul_array<Offset>> const &bldgs, Axis a, Direction sky);
   Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 

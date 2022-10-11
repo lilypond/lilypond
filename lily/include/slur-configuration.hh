@@ -62,7 +62,8 @@ public:
                        std::vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
-  static std::unique_ptr<Slur_configuration> new_config (Drul_array<Offset> const &offs, size_t idx);
+  static std::unique_ptr<Slur_configuration>
+  new_config (Drul_array<Offset> const &offs, size_t idx);
 
 protected:
   void score_extra_encompass (Slur_score_state const &);
@@ -77,7 +78,7 @@ protected:
 class Slur_configuration_less
 {
 public:
-  bool operator () (Slur_configuration *const &l, Slur_configuration *const &r)
+  bool operator() (Slur_configuration *const &l, Slur_configuration *const &r)
   {
     // Invert
     return l->score_ > r->score_;

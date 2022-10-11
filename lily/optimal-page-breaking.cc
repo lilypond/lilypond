@@ -84,7 +84,8 @@ Optimal_page_breaking::solve ()
           if (ideal_sys_count > max_system_count (0, end)
               || ideal_sys_count < min_system_count (0, end))
             {
-              warning (_ ("could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"));
+              warning (_ ("could not satisfy systems-per-page and page-count "
+                          "at the same time, ignoring systems-per-page"));
               ideal_sys_count = system_count ();
               min_sys_count = page_count;
             }
@@ -121,7 +122,7 @@ Optimal_page_breaking::solve ()
           if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
             min_sys_count -= best.systems_per_page_[page_count - 2];
 
-          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
+          if (min_sys_count > ideal_sys_count // subtraction wrapped around
               || min_sys_count <= 0)
             min_sys_count = 1;
         }
@@ -132,8 +133,8 @@ Optimal_page_breaking::solve ()
   else if (scm_is_integer (forced_page_count) || page_count == 0)
     message (_f ("Fitting music on %zu pages...", page_count));
   else
-    message (_f ("Fitting music on %zu or %zu pages...",
-                 page_count - 1, page_count));
+    message (
+      _f ("Fitting music on %zu or %zu pages...", page_count - 1, page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
@@ -162,7 +163,8 @@ Optimal_page_breaking::solve ()
         }
 
       if (debug_page_breaking_scoring)
-        message (_f ("best score for this sys-count: %f", best_for_this_sys_count.demerits_));
+        message (_f ("best score for this sys-count: %f",
+                     best_for_this_sys_count.demerits_));
 
       if (best_for_this_sys_count.demerits_ < best.demerits_)
         {
@@ -191,7 +193,8 @@ Optimal_page_breaking::solve ()
      is more or less C&P. */
   bound = ideal_line_division;
   vsize prev_actual_sys_count = 0;
-  for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count; sys_count++)
+  for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count;
+       sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
       set_current_breakpoints (0, end, sys_count, bound);
@@ -225,7 +228,8 @@ Optimal_page_breaking::solve ()
         }
 
       if (debug_page_breaking_scoring)
-        message (_f ("best score for this sys-count: %f", best_demerits_for_this_sys_count));
+        message (_f ("best score for this sys-count: %f",
+                     best_demerits_for_this_sys_count));
 
       vsize actual_sys_count = 0;
       for (const auto &v : best.systems_per_page_)
@@ -248,4 +252,3 @@ Optimal_page_breaking::solve ()
   SCM lines = systems ();
   return make_pages (best.systems_per_page_, lines);
 }
-

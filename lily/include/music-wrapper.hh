@@ -30,4 +30,3 @@ public:
 };
 
 #endif /* MUSIC_WRAPPER_HH */
-

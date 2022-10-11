@@ -183,13 +183,10 @@ Note_column::calc_main_extent (SCM smob)
       if (heads.size ())
         main_head = heads[0];
     }
-  Grob *main_item = main_head
-                    ? main_head
-                    : unsmob<Grob> (get_object (me, "rest"));
+  Grob *main_item
+    = main_head ? main_head : unsmob<Grob> (get_object (me, "rest"));
 
-  return to_scm (main_item
-                 ? main_item->extent (me, X_AXIS)
-                 : Interval (0, 0));
+  return to_scm (main_item ? main_item->extent (me, X_AXIS) : Interval (0, 0));
 }
 
 /*

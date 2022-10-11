@@ -34,12 +34,13 @@ Measure_grouping::print (SCM grob)
   SCM which = get_property (me, "style");
   Real height = from_scm<double> (get_property (me, "height"), 1);
 
-  Real t = Staff_symbol_referencer::line_thickness (me) * from_scm<double> (get_property (me, "thickness"), 1);
-  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
-                                                        X_AXIS);
+  Real t = Staff_symbol_referencer::line_thickness (me)
+           * from_scm<double> (get_property (me, "thickness"), 1);
+  Grob *common
+    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
-  Real right_point = robust_relative_extent (me->get_bound (RIGHT),
-                                             common, X_AXIS).center ();
+  Real right_point
+    = robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS).center ();
   Real left_point = me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
   Interval iv (left_point, right_point);
@@ -54,7 +55,7 @@ Measure_grouping::print (SCM grob)
     m = Lookup::triangle (iv, t, height);
 
   m.align_to (Y_AXIS, DOWN);
-  m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
+  m.translate_axis (-me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
 
@@ -70,4 +71,3 @@ thickness
 style
 height
                )");
-

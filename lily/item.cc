@@ -53,7 +53,8 @@ bool
 Item::is_non_musical (Grob *me)
 {
   Item *i = dynamic_cast<Item *> (me->get_x_parent ());
-  return i ? Item::is_non_musical (i) : from_scm<bool> (get_property (me, "non-musical"));
+  return i ? Item::is_non_musical (i)
+           : from_scm<bool> (get_property (me, "non-musical"));
 }
 
 Paper_column *
@@ -223,8 +224,8 @@ spanned_time_interval (Item *l, Item *r)
     {
       if (bounds[d] && bounds[d]->get_column ())
         {
-          iv[d] = from_scm (get_property (bounds[d]->get_column (), "when"),
-                            iv[d]);
+          iv[d]
+            = from_scm (get_property (bounds[d]->get_column (), "when"), iv[d]);
         }
     }
 

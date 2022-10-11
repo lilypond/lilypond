@@ -23,15 +23,16 @@
 #include <cassert>
 #include <vector>
 
-template<class K, class T>
+template <class K, class T>
 struct PQueue_ent
 {
   T val;
   K key;
 };
 
-template<class K, class T>
-int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
+template <class K, class T>
+int
+compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
 {
   return compare (e1.key, e2.key);
 }
@@ -44,34 +45,23 @@ int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
    TODO: add increase/decrease operations,
    add max () operation
 */
-template<class T>
+template <class T>
 class PQueue
 {
   using Vector = std::vector<T>;
   using size_type = typename Vector::size_type;
 
   Vector heap_array_;
-  T &elt (size_type i)
-  {
-    return heap_array_[i - 1];
-  }
-  T const &elt (size_type i) const
-  {
-    return heap_array_[i - 1];
-  }
+  T &elt (size_type i) { return heap_array_[i - 1]; }
+  T const &elt (size_type i) const { return heap_array_[i - 1]; }
+
 public:
   /** acces an heap element.  Careful with this, as changing the
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator [] (size_type i)
-  {
-    return heap_array_[i];
-  }
-  T operator [] (size_type i) const
-  {
-    return heap_array_[i];
-  }
+  T &operator[] (size_type i) { return heap_array_[i]; }
+  T operator[] (size_type i) const { return heap_array_[i]; }
   void OK () const
   {
 #ifdef DEBUG

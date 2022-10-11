@@ -26,8 +26,8 @@
 
 using std::vector;
 
-LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
-           4, 0, 0, (SCM springs, SCM rods, SCM length, SCM ragged),
+LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem", 4, 0, 0,
+           (SCM springs, SCM rods, SCM length, SCM ragged),
            R"(
 Solve a spring and rod problem for @var{count} objects that are connected by
 @var{count}-1 @var{springs}, and an arbitrary number of @var{rods}.
@@ -46,8 +46,10 @@ by @var{spring-count}+1 positions of the objects.
   if (len == 0)
     return ly_list (to_scm (0.0), to_scm (0.0));
 
-  SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__, "list of springs");
-  SCM_ASSERT_TYPE (scm_ilength (rods) > 0, rods, SCM_ARG1, __FUNCTION__, "list of rods");
+  SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__,
+                   "list of springs");
+  SCM_ASSERT_TYPE (scm_ilength (rods) > 0, rods, SCM_ARG1, __FUNCTION__,
+                   "list of rods");
   LY_ASSERT_TYPE (scm_is_number, length, 3);
 
   bool is_ragged = from_scm<bool> (ragged);
@@ -75,7 +77,8 @@ by @var{spring-count}+1 positions of the objects.
       spacer.add_rod (l, r, distance);
     }
 
-  Simple_spacer::Solution sol = spacer.solve (from_scm<double> (length), is_ragged);
+  Simple_spacer::Solution sol
+    = spacer.solve (from_scm<double> (length), is_ragged);
 
   vector<Real> posns = spacer.spring_positions (sol.force_, is_ragged);
 

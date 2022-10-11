@@ -27,7 +27,7 @@
 
 using std::vector;
 
-class Keep_alive_together_engraver: public Engraver
+class Keep_alive_together_engraver : public Engraver
 {
   vector<Grob *> group_spanners_;
 
@@ -92,8 +92,9 @@ Keep_alive_together_engraver::finalize ()
                 }
               else
                 {
-                  group_spanners_[i]->warning (_f ("unknown remove-layer value `%s'",
-                                                   ly_symbol2string (this_layer).c_str ()));
+                  group_spanners_[i]->warning (
+                    _f ("unknown remove-layer value `%s'",
+                        ly_symbol2string (this_layer).c_str ()));
                   continue;
                 }
             }

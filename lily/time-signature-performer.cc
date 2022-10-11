@@ -32,6 +32,7 @@ protected:
   void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
+
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_performer);
   void listen_time_signature (Stream_event *);
@@ -75,13 +76,15 @@ Time_signature_performer::process_music ()
       int b = from_scm<int> (scm_car (fr));
       int o = from_scm<int> (scm_cdr (fr));
       static const Moment quarter = Moment (Rational (1, 4));
-      const auto base_moment = from_scm (get_property (this, "baseMoment"),
-                                         quarter);
+      const auto base_moment
+        = from_scm (get_property (this, "baseMoment"), quarter);
       Rational base_moment_clocks = 96 * base_moment.main_part_;
       SCM common_beat = SCM_INUM0;
-      for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p);
+           p = scm_cdr (p))
         common_beat = scm_gcd (common_beat, scm_car (p));
-      if (is_scm<Rational> (common_beat) && scm_is_false (scm_zero_p (common_beat)))
+      if (is_scm<Rational> (common_beat)
+          && scm_is_false (scm_zero_p (common_beat)))
         base_moment_clocks *= from_scm<Rational> (common_beat);
       if (base_moment_clocks.denominator () != 1
           || base_moment_clocks.numerator () < 1
@@ -98,7 +101,8 @@ Time_signature_performer::process_music ()
           base_moment_clocks = 24;
         }
 
-      audio_ = new Audio_time_signature (b, o, static_cast <int> (base_moment_clocks.numerator ()));
+      audio_ = new Audio_time_signature (
+        b, o, static_cast<int> (base_moment_clocks.numerator ()));
       Audio_element_info info (audio_, 0);
       announce_element (info);
     }

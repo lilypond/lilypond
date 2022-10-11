@@ -46,7 +46,8 @@ public:
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
 };
 
-#define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
+#define in_event_class(class_name)                                             \
+  internal_in_event_class (ly_symbol2scm (class_name))
 
 SCM ly_event_deep_copy (SCM);
 

@@ -32,7 +32,6 @@ One_line_auto_height_breaking::~One_line_auto_height_breaking ()
 {
 }
 
-
 /*
   This is a somewhat unconventional page-breaking algorithm.  Like
   ly:one-line-breaking, every score is put on a single page, whose width

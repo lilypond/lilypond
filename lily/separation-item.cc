@@ -42,7 +42,8 @@ Separation_item::add_item (Grob *s, Item *i)
 void
 Separation_item::add_conditional_item (Grob *me, Grob *e)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"), e);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"),
+                                     e);
 }
 
 Real
@@ -50,8 +51,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
   Drul_array<Skyline_pair> lines (
     from_scm<Skyline_pair> (get_property (l, "horizontal-skylines")),
-    from_scm<Skyline_pair> (get_property (r, "horizontal-skylines"))
-  );
+    from_scm<Skyline_pair> (get_property (r, "horizontal-skylines")));
   Skyline right = conditional_skyline (r, l);
   right.merge (lines[RIGHT][LEFT]);
 
@@ -104,7 +104,8 @@ Separation_item::calc_skylines (SCM smob)
     vertical skylines are handled (where padding is not built into
     the skyline).
   */
-  Real vp = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
+  Real vp
+    = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
   sp[LEFT] = sp[LEFT].padded (vp);
   sp[RIGHT] = sp[RIGHT].padded (vp);
   return to_scm (sp);
@@ -126,7 +127,8 @@ Separation_item::boxes (Grob *me, Grob *left)
   int very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
   vector<Box> out;
-  extract_grob_set (me, left ? "conditional-elements" : "elements", read_only_elts);
+  extract_grob_set (me, left ? "conditional-elements" : "elements",
+                    read_only_elts);
   vector<Grob *> elts;
 
   if (left)
@@ -140,7 +142,8 @@ Separation_item::boxes (Grob *me, Grob *left)
           else
             other_elts.push_back (read_only_elts[i]);
         }
-      elts = Accidental_placement::get_relevant_accidentals (accidental_elts, left);
+      elts = Accidental_placement::get_relevant_accidentals (accidental_elts,
+                                                             left);
       elts.insert (elts.end (), other_elts.begin (), other_elts.end ());
     }
   else
@@ -162,10 +165,10 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      Interval extra_width = from_scm (get_property (elts[i], "extra-spacing-width"),
-                                       Interval (-0.1, 0.1));
-      Interval extra_height = from_scm (get_property (elts[i], "extra-spacing-height"),
-                                        Interval (0.0, 0.0));
+      Interval extra_width = from_scm (
+        get_property (elts[i], "extra-spacing-width"), Interval (-0.1, 0.1));
+      Interval extra_height = from_scm (
+        get_property (elts[i], "extra-spacing-height"), Interval (0.0, 0.0));
 
       // The conventional empty extent is (+inf.0 . -inf.0)
       //  but (-inf.0 . +inf.0) is used as extra-spacing-height

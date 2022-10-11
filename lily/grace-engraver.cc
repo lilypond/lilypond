@@ -101,7 +101,8 @@ Grace_engraver::consider_change_grace_settings ()
           SCM grob = scm_cadr (elt);
           SCM cell = scm_cddr (elt);
 
-          Grob_property_info (unsmob<Context> (context), grob).matched_pop (cell);
+          Grob_property_info (unsmob<Context> (context), grob)
+            .matched_pop (cell);
         }
       grace_settings_ = SCM_EOL;
     }
@@ -125,8 +126,8 @@ Grace_engraver::consider_change_grace_settings ()
           if (c)
             {
               SCM cell = Grob_property_info (c, grob).push (sym, val);
-              grace_settings_
-                = scm_cons (scm_cons2 (c->self_scm (), grob, cell), grace_settings_);
+              grace_settings_ = scm_cons (
+                scm_cons2 (c->self_scm (), grob, cell), grace_settings_);
             }
           else
             programming_error ("cannot find context from graceSettings: "
@@ -154,7 +155,6 @@ Grace_engraver::derived_mark () const
 void
 Grace_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Grace_engraver,

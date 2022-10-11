@@ -93,7 +93,8 @@ Percent_repeat_engraver::process_music ()
     }
   else if (percent_ && percent_event_)
     {
-      percent_event_->warning (_ ("percent repeat started while another already in progress"));
+      percent_event_->warning (
+        _ ("percent repeat started while another already in progress"));
       percent_->suicide ();
       percent_ = nullptr;
       if (percent_counter_)
@@ -112,7 +113,8 @@ Percent_repeat_engraver::process_music ()
       percent_->set_bound (LEFT, first_command_column_);
 
       SCM count = get_property (percent_event_, "repeat-count");
-      if (!scm_is_null (count) && from_scm<bool> (get_property (this, "countPercentRepeats"))
+      if (!scm_is_null (count)
+          && from_scm<bool> (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           percent_counter_ = make_spanner ("PercentRepeatCounter",
@@ -135,7 +137,8 @@ Percent_repeat_engraver::finalize ()
 {
   if (percent_)
     {
-      percent_->programming_error ("percent end moment should have been processed");
+      percent_->programming_error (
+        "percent end moment should have been processed");
       percent_->suicide ();
       if (percent_counter_)
         percent_counter_->suicide ();

@@ -45,8 +45,8 @@ private:
 SCM
 Volta_specced_music_iterator::create_event (Direction d)
 {
-  SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("VoltaSpanEvent"),
-                                      to_scm (d));
+  SCM ev_scm
+    = Lily::make_span_event (ly_symbol2scm ("VoltaSpanEvent"), to_scm (d));
   auto *ev = unsmob<Music> (ev_scm);
 
   auto *mus = get_music ();
@@ -68,7 +68,7 @@ Volta_specced_music_iterator::process (Moment m)
       // is not accurate until process ().  If not for that, all this could
       // have been prepared in create_children ().
 
-      if (auto * const parent
+      if (auto *const parent
           = dynamic_cast<Alternative_sequence_iterator *> (get_parent ()))
         {
           volta_depth_ = parent->volta_bracket_depth ();

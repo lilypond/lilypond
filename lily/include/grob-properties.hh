@@ -39,10 +39,14 @@ class Grob_property_info
   Context *const context_;
   SCM const symbol_;
   Grob_properties *props_;
+
 public:
   Grob_property_info (Context *context, SCM symbol, Grob_properties *props = 0)
-    : context_ (context), symbol_ (symbol), props_ (props)
-  { }
+    : context_ (context),
+      symbol_ (symbol),
+      props_ (props)
+  {
+  }
   operator bool () { return props_; }
   Grob_property_info find ();
   bool check ();

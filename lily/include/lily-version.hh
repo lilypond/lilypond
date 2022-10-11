@@ -25,5 +25,3 @@
 std::string version_string ();
 
 #endif // LILY_VERSION_HH
-
-

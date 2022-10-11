@@ -23,17 +23,14 @@
 #include <cassert>
 #include <vector>
 
-template<class T, class A = std::allocator<T> >
+template <class T, class A = std::allocator<T>>
 class Matrix
 {
   using Vector = std::vector<T, A>;
   using size_type = typename Vector::size_type;
 
 public:
-  Matrix<T, A> ()
-  {
-    rank_ = 0;
-  }
+  Matrix<T, A> () { rank_ = 0; }
 
   Matrix<T, A> (size_type rows, size_type columns, T const &t)
     : data_ (rows * columns, t)

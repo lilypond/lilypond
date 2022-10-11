@@ -28,7 +28,7 @@
 // MacOS 10.3 problems:
 // #include <cmath>
 
-template<class T>
+template <class T>
 int
 _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b)
 {
@@ -44,7 +44,7 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b)
   return -2;
 }
 
-template<class T>
+template <class T>
 int
 Interval__compare (Interval_t<T> const &a, Interval_t<T> const &b)
 {
@@ -54,7 +54,7 @@ Interval__compare (Interval_t<T> const &a, Interval_t<T> const &b)
   return i;
 }
 
-template<class T>
+template <class T>
 std::string
 Interval_t<T>::to_string () const
 {
@@ -68,7 +68,8 @@ Interval_t<T>::to_string () const
   return s + to_string (left ()) + ',' + to_string (right ()) + ']';
 }
 
-#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;                  \
+#define INTERVAL__INSTANTIATE(T)                                               \
+  struct Interval_t<T>;                                                        \
   template int Interval__compare (const Interval_t<T> &, Interval_t<T> const &)
 
 #endif // INTERVAL_TCC

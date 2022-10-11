@@ -43,7 +43,7 @@ replace_all (string *str, string const &find, string const &replace)
   ssize len = find.length ();
   ssize replen = replace.length ();
   for (ssize i = str->find (find); i != NPOS; i = str->find (find, i + replen))
-    * str = str->replace (i, len, replace);
+    *str = str->replace (i, len, replace);
   return *str;
 }
 

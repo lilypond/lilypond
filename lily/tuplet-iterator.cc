@@ -38,6 +38,7 @@ public:
   /* construction */
   OVERRIDE_CLASS_NAME (Tuplet_iterator);
   Tuplet_iterator () = default;
+
 protected:
   void process (Moment m) override;
   void create_contexts () override;
@@ -46,7 +47,6 @@ protected:
   SCM create_event (Direction d);
 
 private:
-
   /* tupletSpannerDuration */
   Moment spanner_duration_ {-1};
 
@@ -59,8 +59,8 @@ private:
 SCM
 Tuplet_iterator::create_event (Direction d)
 {
-  SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("TupletSpanEvent"),
-                                      to_scm (d));
+  SCM ev_scm
+    = Lily::make_span_event (ly_symbol2scm ("TupletSpanEvent"), to_scm (d));
 
   Music *mus = get_music ();
 
@@ -107,8 +107,7 @@ Tuplet_iterator::process (Moment m)
         }
     }
 
-  if (spanner_duration_
-      && Moment (m.main_part_) == next_split_mom_)
+  if (spanner_duration_ && Moment (m.main_part_) == next_split_mom_)
     {
       if (tuplet_handler_)
         {
@@ -119,8 +118,8 @@ Tuplet_iterator::process (Moment m)
 
       if (m.main_part_ < music_get_length ().main_part_)
         {
-          spanner_duration_
-            = std::min (music_get_length () - next_split_mom_, spanner_duration_);
+          spanner_duration_ = std::min (music_get_length () - next_split_mom_,
+                                        spanner_duration_);
           tuplet_handler_ = get_context ();
           SCM ev = create_event (START);
           report_event (unsmob<Music> (ev));
@@ -136,7 +135,6 @@ Tuplet_iterator::process (Moment m)
   auto *child = get_child ();
   if (child && child->ok ())
     descend_to_child (child->get_context ());
-
 }
 
 void

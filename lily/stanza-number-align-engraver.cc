@@ -99,4 +99,3 @@ This engraver ensures that stanza numbers are neatly aligned.
                 R"(
 
                 )");
-

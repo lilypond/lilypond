@@ -40,15 +40,9 @@ struct Spacings
   Item *staff_spacing_;
   vector<Item *> note_spacings_;
 
-  Spacings ()
-  {
-    staff_spacing_ = 0;
-  }
+  Spacings () { staff_spacing_ = 0; }
 
-  bool is_empty () const
-  {
-    return !staff_spacing_ && !note_spacings_.size ();
-  }
+  bool is_empty () const { return !staff_spacing_ && !note_spacings_.size (); }
   void clear ()
   {
     staff_spacing_ = 0;
@@ -68,6 +62,7 @@ protected:
   void start_translation_timestep ();
 
   vector<Item *> break_aligned_;
+
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -88,8 +83,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
       return;
     }
 
-  if (Item::is_non_musical (it)
-      && !current_spacings_.staff_spacing_
+  if (Item::is_non_musical (it) && !current_spacings_.staff_spacing_
       && from_scm<bool> (get_property (this, "createSpacing")))
     {
       Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
@@ -98,8 +92,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
       set_property (context (), "hasStaffSpacing", SCM_BOOL_T);
 
       Pointer_group_interface::add_grob (current_spacings_.staff_spacing_,
-                                         ly_symbol2scm ("left-items"),
-                                         col);
+                                         ly_symbol2scm ("left-items"), col);
 
       if (!last_spacings_.note_spacings_.size ()
           && last_spacings_.staff_spacing_)
@@ -139,11 +132,13 @@ Separating_line_group_engraver::stop_translation_timestep ()
       SCM smob = break_aligned_[i]->self_scm ();
 
       if (Item *sp = current_spacings_.staff_spacing_)
-        Pointer_group_interface::add_grob (sp, ly_symbol2scm ("left-break-aligned"), smob);
+        Pointer_group_interface::add_grob (
+          sp, ly_symbol2scm ("left-break-aligned"), smob);
 
       for (vsize j = 0; j < last_spacings_.note_spacings_.size (); j++)
-        Pointer_group_interface::add_grob (last_spacings_.note_spacings_[j],
-                                           ly_symbol2scm ("right-break-aligned"), smob);
+        Pointer_group_interface::add_grob (
+          last_spacings_.note_spacings_[j],
+          ly_symbol2scm ("right-break-aligned"), smob);
     }
 
   if (!current_spacings_.is_empty ())
@@ -151,7 +146,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
   if (Item *sp = current_spacings_.staff_spacing_)
     if (Grob *col = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
-      Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"), col);
+      Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"),
+                                         col);
 
   current_spacings_.clear ();
   break_aligned_.clear ();

@@ -33,7 +33,7 @@ static constexpr Real infinity_f = INFINITY;
 
 using std::abs; // TODO: replace abs (x) with std::abs (x) and remove this
 
-template<class T>
+template <class T>
 inline int
 sign (T x)
 {
@@ -42,7 +42,7 @@ sign (T x)
   return 0;
 }
 
-template<class T>
+template <class T>
 constexpr auto
 sqr (T x)
 {

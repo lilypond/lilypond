@@ -58,7 +58,8 @@ Hairpin::broken_bound_padding (SCM smob)
   Item *r_bound = me->get_bound (RIGHT);
   if (r_bound->break_status_dir () != LEFT)
     {
-      me->warning (_ ("Asking for broken bound padding at a non-broken bound."));
+      me->warning (
+        _ ("Asking for broken bound padding at a non-broken bound."));
       return to_scm (0.0);
     }
 
@@ -70,14 +71,10 @@ Hairpin::broken_bound_padding (SCM smob)
   Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
   Drul_array<Grob *> vertical_axis_groups;
   for (const auto d : {DOWN, UP})
-    vertical_axis_groups[d] =
-      d == dir
-      ? sys->get_neighboring_staff (
-        d,
-        my_vertical_axis_group,
-        me->spanned_column_rank_interval ()
-      )
-      : my_vertical_axis_group;
+    vertical_axis_groups[d]
+      = d == dir ? sys->get_neighboring_staff (
+          d, my_vertical_axis_group, me->spanned_column_rank_interval ())
+                 : my_vertical_axis_group;
 
   if (!vertical_axis_groups[dir])
     return to_scm (0.0);
@@ -87,7 +84,8 @@ Hairpin::broken_bound_padding (SCM smob)
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
-        if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
+        if (elts[i]->internal_has_interface (
+              ly_symbol2scm ("bar-line-interface"))
             && dynamic_cast<Item *> (elts[i])->break_status_dir () == LEFT)
           {
             SCM hsb = get_object (elts[i], "has-span-bar");
@@ -162,8 +160,8 @@ Hairpin::print (SCM smob)
   if (circled_tip)
     thick = from_scm<double> (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
-  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                       Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> shorten
+    = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
 
   auto endpoint_alignments = from_scm (get_property (me, "endpoint-alignments"),
                                        Drul_array<Real> (-1, 1));
@@ -183,24 +181,27 @@ Hairpin::print (SCM smob)
   for (const auto d : {LEFT, RIGHT})
     {
       Item *b = bounds[d];
-      Interval e = Axis_group_interface::generic_bound_extent (b, common, X_AXIS);
+      Interval e
+        = Axis_group_interface::generic_bound_extent (b, common, X_AXIS);
 
       x_points[d] = b->relative_coordinate (common, X_AXIS);
-      if (broken [d])
+      if (broken[d])
         {
           if (d == LEFT)
             x_points[d] = e[-d] + padding;
           else
             {
-              Real broken_bound_padding
-                = from_scm<double> (get_property (me, "broken-bound-padding"), 0.0);
+              Real broken_bound_padding = from_scm<double> (
+                get_property (me, "broken-bound-padding"), 0.0);
               extract_grob_set (me, "concurrent-hairpins", chp);
               for (vsize i = 0; i < chp.size (); i++)
                 {
                   Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
                   if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
-                    broken_bound_padding = std::max (broken_bound_padding,
-                                                     from_scm<double> (get_property (span_elt, "broken-bound-padding"), 0.0));
+                    broken_bound_padding = std::max (
+                      broken_bound_padding,
+                      from_scm<double> (
+                        get_property (span_elt, "broken-bound-padding"), 0.0));
                 }
               x_points[d] -= d * broken_bound_padding;
             }
@@ -290,7 +291,7 @@ Hairpin::print (SCM smob)
   if (width < 0)
     {
       me->warning (_ ((grow_dir == SMALLER) ? "decrescendo too small"
-                      : "crescendo too small"));
+                                            : "crescendo too small"));
       width = 0;
     }
 
@@ -328,9 +329,8 @@ Hairpin::print (SCM smob)
         width -= rad * 2.0;
     }
   mol = Line_interface::line (me, Offset (x, starth), Offset (width, endh));
-  mol.add_stencil (Line_interface::line (me,
-                                         Offset (x, -starth),
-                                         Offset (width, -endh)));
+  mol.add_stencil (
+    Line_interface::line (me, Offset (x, -starth), Offset (width, -endh)));
 
   /*
     Support al/del niente notation by putting a circle at the
@@ -341,11 +341,8 @@ Hairpin::print (SCM smob)
       Box extent (Interval (-rad, rad), Interval (-rad, rad));
 
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
-      Stencil circle (extent,
-                      ly_list (ly_symbol2scm ("circle"),
-                               to_scm (rad),
-                               to_scm (thick),
-                               SCM_BOOL_F));
+      Stencil circle (extent, ly_list (ly_symbol2scm ("circle"), to_scm (rad),
+                                       to_scm (thick), SCM_BOOL_F));
 
       /*
         don't add another circle if the hairpin is broken
@@ -355,7 +352,7 @@ Hairpin::print (SCM smob)
     }
 
   mol.translate_axis (x_points[LEFT]
-                      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
+                        - bounds[LEFT]->relative_coordinate (common, X_AXIS),
                       X_AXIS);
   return mol.smobbed_copy ();
 }

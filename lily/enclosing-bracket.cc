@@ -50,7 +50,8 @@ thickness
 
 /* ugh: should make bracket interface. */
 
-MAKE_SCHEME_CALLBACK (Enclosing_bracket, width, "ly:enclosing-bracket::width", 1);
+MAKE_SCHEME_CALLBACK (Enclosing_bracket, width, "ly:enclosing-bracket::width",
+                      1);
 SCM
 Enclosing_bracket::width (SCM grob)
 {
@@ -66,12 +67,13 @@ Enclosing_bracket::width (SCM grob)
     }
 
   Grob *common_x = common_refpoint_of_array (elements, me, X_AXIS);
-  Interval xext = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
+  Interval xext
+    = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
 
-  Stencil left_br
-    = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS, LEFT, Interval ());
-  Stencil right_br
-    = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS, LEFT, Interval ());
+  Stencil left_br = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS,
+                                                            LEFT, Interval ());
+  Stencil right_br = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS,
+                                                             LEFT, Interval ());
 
   xext.widen (from_scm<double> (get_property (me, "padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);
@@ -83,7 +85,8 @@ Enclosing_bracket::width (SCM grob)
   return to_scm (left_br.extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Enclosing_bracket, print, "ly:enclosing-bracket::print", 1);
+MAKE_SCHEME_CALLBACK (Enclosing_bracket, print, "ly:enclosing-bracket::print",
+                      1);
 SCM
 Enclosing_bracket::print (SCM grob)
 {
@@ -96,7 +99,8 @@ Enclosing_bracket::print (SCM grob)
     }
 
   Grob *common_x = common_refpoint_of_array (elements, me, X_AXIS);
-  Interval xext = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
+  Interval xext
+    = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
   if (xext.is_empty ())
     {
       me->programming_error ("elements have no X extent.");
@@ -117,4 +121,3 @@ Enclosing_bracket::print (SCM grob)
 
   return left_br.smobbed_copy ();
 }
-

@@ -59,8 +59,7 @@ public:
   // Report that a repeat has started.  spanned_time is the lifetime of the
   // repeat in the timeline of the score.  repeat_count is the number of times
   // the section is performed from this starting point.
-  void report_start (const Interval_t<Moment> &spanned_time,
-                     long repeat_count)
+  void report_start (const Interval_t<Moment> &spanned_time, long repeat_count)
   {
     spanned_time_ = spanned_time;
     repeat_count_ = repeat_count;
@@ -90,8 +89,8 @@ public:
   // the alternative within its group.  volta_depth is the depth of the
   // alternative in the repeat structure.  volta_nums is a list of the volta
   // numbers in which the alternative is used.
-  void report_alternative_start (Music *alt, long alt_num,
-                                 size_t volta_depth, SCM volta_nums)
+  void report_alternative_start (Music *alt, long alt_num, size_t volta_depth,
+                                 SCM volta_nums)
   {
     derived_report_alternative_start (alt, alt_num, volta_depth, volta_nums);
   }
@@ -126,7 +125,10 @@ public:
   }
 
 protected:
-  explicit Repeat_styler (Music_iterator *owner) : owner_ (owner) {}
+  explicit Repeat_styler (Music_iterator *owner)
+    : owner_ (owner)
+  {
+  }
   Music_iterator *owner () const { return owner_; }
 
   long repeat_count () const { return repeat_count_; }
@@ -135,20 +137,22 @@ protected:
 
   void report_alternative_event (Music *element, Direction d,
                                  size_t volta_depth, SCM volta_nums);
-  void report_end_event (SCM event_sym,
-                         long alt_num, long repeat_count, long return_count);
+  void report_end_event (SCM event_sym, long alt_num, long repeat_count,
+                         long return_count);
 
   virtual void derived_report_start () = 0;
   virtual bool derived_report_alternative_group_start (Direction start,
                                                        Direction end,
-                                                       bool in_order) = 0;
-  virtual void derived_report_alternative_start (Music *alt,
-                                                 long alt_num,
+                                                       bool in_order)
+    = 0;
+  virtual void derived_report_alternative_start (Music *alt, long alt_num,
                                                  size_t volta_depth,
-                                                 SCM volta_nums) = 0;
+                                                 SCM volta_nums)
+    = 0;
   virtual void derived_report_return (long alt_num, long return_count) = 0;
   virtual void derived_report_alternative_group_end (Music *element,
-                                                     size_t volta_depth) = 0;
+                                                     size_t volta_depth)
+    = 0;
 
 private:
   // Think twice before adding state or logic to the repeat stylers.  Dealing

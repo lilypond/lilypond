@@ -78,7 +78,7 @@ Performance::output (Midi_stream &midi_stream,
   for (uint16_t i = 0; i < num_tracks; ++i)
     {
       Audio_staff *s = audio_staffs_[i];
-      if (Audio_control_track_staff * c
+      if (Audio_control_track_staff *c
           = dynamic_cast<Audio_control_track_staff *> (s))
         {
           // The control track, created by Control_track_performer, should

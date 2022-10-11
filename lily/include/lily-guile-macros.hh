@@ -27,7 +27,10 @@
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
-scm_or_str2symbol (char const *c) { return scm_from_utf8_symbol (c); }
+scm_or_str2symbol (char const *c)
+{
+  return scm_from_utf8_symbol (c);
+}
 
 inline SCM
 scm_or_str2symbol (const std::string &s)
@@ -44,7 +47,10 @@ scm_or_str2symbol (SCM s)
 
 /* Same, with keywords */
 inline SCM
-scm_or_str2keyword (char const *c) { return scm_from_utf8_keyword (c); }
+scm_or_str2keyword (char const *c)
+{
+  return scm_from_utf8_keyword (c);
+}
 
 inline SCM
 scm_or_str2keyword (const std::string &s)
@@ -64,7 +70,7 @@ scm_or_str2keyword (SCM s)
    static variable per ly_{symbol,keyword}2scm() use, and the cost of C++'s
    mechanism to ensure a static variable is only initialized once.
  */
-#define ly_internal_symbol_or_keyword2scm(converter, x)                 \
+#define ly_internal_symbol_or_keyword2scm(converter, x)                        \
   (__builtin_constant_p (x)                                             \
    ? [&] {                                                              \
      static SCM cached = scm_gc_protect_object (converter (x));         \
@@ -72,23 +78,26 @@ scm_or_str2keyword (SCM s)
    } ()                                                                 \
    : converter (x))
 
-#define ly_symbol2scm(x) ly_internal_symbol_or_keyword2scm(scm_or_str2symbol, x)
-#define ly_keyword2scm(x) ly_internal_symbol_or_keyword2scm(scm_or_str2keyword, x)
+#define ly_symbol2scm(x)                                                       \
+  ly_internal_symbol_or_keyword2scm (scm_or_str2symbol, x)
+#define ly_keyword2scm(x)                                                      \
+  ly_internal_symbol_or_keyword2scm (scm_or_str2keyword, x)
 
 /*
   Adds the NAME as a Scheme function, and a variable to store the SCM
   version of the function in the static variable NAME_proc
 */
-#define DECLARE_SCHEME_CALLBACK(NAME, ARGS)     \
-  static SCM NAME ARGS;                         \
-  static SCM NAME ## _proc
+#define DECLARE_SCHEME_CALLBACK(NAME, ARGS)                                    \
+  static SCM NAME ARGS;                                                        \
+  static SCM NAME##_proc
 
 std::string mangle_cxx_identifier (const char *);
 
 void ly_internal_add_type_predicate (const void *pred, const char *name);
 
 template <typename ReturnType>
-inline void ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
+inline void
+ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
 {
   // ReturnType might be bool.
   // ReturnType might be int for scm_is_foo().
@@ -101,7 +110,8 @@ inline void ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
 std::string internal_predicate_to_typename (const void *pred);
 
 template <typename ReturnType>
-inline std::string predicate_to_typename (ReturnType (*pred) (SCM))
+inline std::string
+predicate_to_typename (ReturnType (*pred) (SCM))
 {
   static_assert (static_cast<bool> (ReturnType ()) || true,
                  "predicate return type must be convertible to bool");
@@ -200,82 +210,75 @@ struct ly_scm_func_of_arity<6>
   readability and editability.
 */
 
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, OPTIONAL_COUNT, DOC) \
-  SCM TYPE ::FUNC ## _proc;                                             \
-  void                                                                  \
-  TYPE ## _ ## FUNC ## _init_functions ()                               \
-  {                                                                     \
-    static_assert (OPTIONAL_COUNT <= ARGCOUNT, "");                     \
-    constexpr auto required_count = ARGCOUNT - OPTIONAL_COUNT;          \
-    /* assignment checks the signature of the function and selects */   \
-    /* the function with SCM arguments even if there are overloads */   \
-    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC;         \
-    TYPE ::FUNC ## _proc = scm_c_define_gsubr (PRIMNAME,                \
-                                               required_count, OPTIONAL_COUNT, 0,    \
-                                               reinterpret_cast<scm_t_subr> (func)); \
-    ly_check_name (#TYPE "::" #FUNC, PRIMNAME);                         \
-    ly_add_function_documentation (TYPE :: FUNC ## _proc, PRIMNAME, "", \
-                                   DOC);                                \
-    scm_c_export (PRIMNAME, NULL);                                      \
-  }                                                                     \
-                                                                        \
-  ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,                    \
-                     TYPE ## _ ## FUNC ## _init_functions);
+#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT,      \
+                                          OPTIONAL_COUNT, DOC)                 \
+  SCM TYPE ::FUNC##_proc;                                                      \
+  void TYPE##_##FUNC##_init_functions ()                                       \
+  {                                                                            \
+    static_assert (OPTIONAL_COUNT <= ARGCOUNT, "");                            \
+    constexpr auto required_count = ARGCOUNT - OPTIONAL_COUNT;                 \
+    /* assignment checks the signature of the function and selects */          \
+    /* the function with SCM arguments even if there are overloads */          \
+    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC;                \
+    TYPE ::FUNC##_proc                                                         \
+      = scm_c_define_gsubr (PRIMNAME, required_count, OPTIONAL_COUNT, 0,       \
+                            reinterpret_cast<scm_t_subr> (func));              \
+    ly_check_name (#TYPE "::" #FUNC, PRIMNAME);                                \
+    ly_add_function_documentation (TYPE ::FUNC##_proc, PRIMNAME, "", DOC);     \
+    scm_c_export (PRIMNAME, NULL);                                             \
+  }                                                                            \
+                                                                               \
+  ADD_SCM_INIT_FUNC (TYPE##_##FUNC##_callback, TYPE##_##FUNC##_init_functions);
 
-#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT, DOC) \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, DOC);
+#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT, DOC)   \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS (TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, DOC);
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT)             \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, "");
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, PRIMNAME, ARGCOUNT)                   \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS (TYPE, FUNC, PRIMNAME, ARGCOUNT, 0, "");
 
-void ly_add_function_documentation (SCM proc, const char *fname, const char *varlist, const char *doc);
+void ly_add_function_documentation (SCM proc, const char *fname,
+                                    const char *varlist, const char *doc);
 void ly_check_name (const char *cxx, const char *fname);
 
-#define ADD_SCM_INIT_FUNC(name, func)           \
-  class name ## _scm_initter                    \
-  {                                             \
-  public:                                       \
-    name ## _scm_initter ()                     \
-    {                                           \
-      add_scm_init_func (func);                 \
-    }                                           \
-  }                                             \
-    _ ## name ## _scm_initter;
+#define ADD_SCM_INIT_FUNC(name, func)                                          \
+  class name##_scm_initter                                                     \
+  {                                                                            \
+  public:                                                                      \
+    name##_scm_initter () { add_scm_init_func (func); }                        \
+  } _##name##_scm_initter;
 
 /* end define */
 
-#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR, \
-                               ARGLIST, DOCSTRING)                      \
-  SCM FNAME ## _proc;                                                   \
-  void                                                                  \
-  INITPREFIX ## init ()                                                 \
-  {                                                                     \
-    static_assert ((VAR == 0) || (VAR == 1),                            \
-                   "can't have more than one 'rest' argument");         \
-    constexpr auto arg_count = REQ + OPT + VAR;                         \
-    /* assignment checks the signature of the function and selects */   \
-    /* the function with SCM arguments even if there are overloads */   \
-    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;             \
-    FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,       \
-                                         reinterpret_cast<scm_t_subr> (func)); \
-    ly_check_name (#FNAME, PRIMNAME);\
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
-                                   DOCSTRING);                          \
-    scm_c_export (PRIMNAME, NULL);                                      \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init); \
-  SCM                                                                   \
-  FNAME ARGLIST
+#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR,     \
+                               ARGLIST, DOCSTRING)                             \
+  SCM FNAME##_proc;                                                            \
+  void INITPREFIX##init ()                                                     \
+  {                                                                            \
+    static_assert ((VAR == 0) || (VAR == 1),                                   \
+                   "can't have more than one 'rest' argument");                \
+    constexpr auto arg_count = REQ + OPT + VAR;                                \
+    /* assignment checks the signature of the function and selects */          \
+    /* the function with SCM arguments even if there are overloads */          \
+    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;                    \
+    FNAME##_proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,                \
+                                       reinterpret_cast<scm_t_subr> (func));   \
+    ly_check_name (#FNAME, PRIMNAME);                                          \
+    ly_add_function_documentation (FNAME##_proc, PRIMNAME, #ARGLIST,           \
+                                   DOCSTRING);                                 \
+    scm_c_export (PRIMNAME, NULL);                                             \
+  }                                                                            \
+  ADD_SCM_INIT_FUNC (INITPREFIX##init_unique_prefix, INITPREFIX##init);        \
+  SCM FNAME ARGLIST
 
-#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)   \
-  SCM FNAME ARGLIST;                                                    \
-  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, \
+#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)          \
+  SCM FNAME ARGLIST;                                                           \
+  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST,      \
                           DOCSTRING)
 
-#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, \
-                                  ARGLIST, DOCSTRING)                   \
-  LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
-                          VAR, ARGLIST, DOCSTRING)
+#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR,       \
+                                  ARGLIST, DOCSTRING)                          \
+  LY_DEFINE_WITHOUT_DECL (CLASS##FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, VAR, \
+                          ARGLIST, DOCSTRING)
 
 /* LY_DEFINE_WITH_SETTER is like LY_DEFINE, but adding a setter procedure.
    Adding, for example, ly:music-set-property! as setter to ly:music-property
@@ -286,57 +289,52 @@ void ly_check_name (const char *cxx, const char *fname);
    For this to work, the setter must be defined before the getter, and
    within the same compilation unit (so the init function adding it is
    guaranteed to be defined first). */
-#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME,              \
-                              REQ, OPT, VAR,                            \
-                              ARGLIST, DOCSTRING)                       \
-  SCM FNAME ARGLIST;                                                    \
-  SCM FNAME ## _proc_without_setter;                                    \
-  SCM FNAME ## _proc;                                                   \
-  void                                                                  \
-  FNAME ## init ()                                                      \
-  {                                                                     \
-    static_assert ((VAR == 0) || (VAR == 1),                            \
-                   "can't have more than one 'rest' argument");         \
-    constexpr auto arg_count = REQ + OPT + VAR;                         \
-    /* assignment checks the signature of the function and selects */   \
-    /* the function with SCM arguments even if there are overloads */   \
-    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;             \
-    FNAME ## _proc_without_setter =                                     \
-      scm_c_make_gsubr (PRIMNAME, REQ, OPT, VAR,                        \
-                        reinterpret_cast<scm_t_subr> (func));           \
-    ly_check_name (#FNAME, PRIMNAME);                                   \
-    FNAME ## _proc =                                                    \
-      scm_make_procedure_with_setter (FNAME ## _proc_without_setter,    \
-                                      SETTERNAME ## _proc);             \
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
-                                   DOCSTRING);                          \
-    scm_c_define (PRIMNAME, FNAME ## _proc);                            \
-    scm_c_export (PRIMNAME, NULL);                                      \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);       \
-  SCM                                                                   \
-  FNAME ARGLIST
+#define LY_DEFINE_WITH_SETTER(FNAME, PRIMNAME, SETTERNAME, REQ, OPT, VAR,      \
+                              ARGLIST, DOCSTRING)                              \
+  SCM FNAME ARGLIST;                                                           \
+  SCM FNAME##_proc_without_setter;                                             \
+  SCM FNAME##_proc;                                                            \
+  void FNAME##init ()                                                          \
+  {                                                                            \
+    static_assert ((VAR == 0) || (VAR == 1),                                   \
+                   "can't have more than one 'rest' argument");                \
+    constexpr auto arg_count = REQ + OPT + VAR;                                \
+    /* assignment checks the signature of the function and selects */          \
+    /* the function with SCM arguments even if there are overloads */          \
+    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;                    \
+    FNAME##_proc_without_setter = scm_c_make_gsubr (                           \
+      PRIMNAME, REQ, OPT, VAR, reinterpret_cast<scm_t_subr> (func));           \
+    ly_check_name (#FNAME, PRIMNAME);                                          \
+    FNAME##_proc = scm_make_procedure_with_setter (                            \
+      FNAME##_proc_without_setter, SETTERNAME##_proc);                         \
+    ly_add_function_documentation (FNAME##_proc, PRIMNAME, #ARGLIST,           \
+                                   DOCSTRING);                                 \
+    scm_c_define (PRIMNAME, FNAME##_proc);                                     \
+    scm_c_export (PRIMNAME, NULL);                                             \
+  }                                                                            \
+  ADD_SCM_INIT_FUNC (FNAME##init_unique_prefix, FNAME##init);                  \
+  SCM FNAME ARGLIST
 
-
-#define get_property(p,x) (p)->internal_get_property (ly_symbol2scm (x))
-#define get_pure_property(p,x,y,z)                      \
+#define get_property(p, x) (p)->internal_get_property (ly_symbol2scm (x))
+#define get_pure_property(p, x, y, z)                                          \
   (p)->internal_get_pure_property (ly_symbol2scm (x), y, z)
-#define get_maybe_pure_property(p,w,x,y,z)                      \
+#define get_maybe_pure_property(p, w, x, y, z)                                 \
   (p)->internal_get_maybe_pure_property (ly_symbol2scm (w), x, y, z)
-#define get_property_data(p,x) (p)->internal_get_property_data (ly_symbol2scm (x))
-#define get_object(p,x) (p)->internal_get_object (ly_symbol2scm (x))
+#define get_property_data(p, x)                                                \
+  (p)->internal_get_property_data (ly_symbol2scm (x))
+#define get_object(p, x) (p)->internal_get_object (ly_symbol2scm (x))
 #define set_object(p, x, y) (p)->internal_set_object (ly_symbol2scm (x), y)
-#define del_property(p,x) (p)->internal_del_property (ly_symbol2scm (x))
+#define del_property(p, x) (p)->internal_del_property (ly_symbol2scm (x))
 
 // Is the variable named x defined at p?  Does not check enclosing scopes.  An
 // optional parameter receives the value if defined.  Returns bool.
-#define here_defined(p, x, ...) \
+#define here_defined(p, x, ...)                                                \
   (p)->internal_here_defined (ly_symbol2scm (x), ##__VA_ARGS__)
 
 // Where is the variable named x defined?  Checks enclosing scopes starting
 // from p.  An optional parameter receives the value if defined.  Returns
 // pointer.
-#define where_defined(p, x, ...) \
+#define where_defined(p, x, ...)                                               \
   (p)->internal_where_defined (ly_symbol2scm (x), ##__VA_ARGS__)
 
 #ifdef DEBUG
@@ -344,20 +342,22 @@ void ly_check_name (const char *cxx, const char *fname);
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
-#define set_property(p, x, y) (p)->instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
+#define set_property(p, x, y)                                                  \
+  (p)->instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__,    \
+                                  __FUNCTION__)
 #else
 #define set_property(p, x, y) (p)->internal_set_property (ly_symbol2scm (x), y)
 #endif
 
 // Note: For Smobs, use LY_ASSERT_SMOB instead.
-#define LY_ASSERT_TYPE(pred, var, number)                                       \
-  {                                                                     \
-    if (!pred (var)) \
-      {                                                                 \
-        scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
-                               number, var, \
-                               predicate_to_typename (pred).c_str());   \
-      }                                                                 \
+#define LY_ASSERT_TYPE(pred, var, number)                                      \
+  {                                                                            \
+    if (!pred (var))                                                           \
+      {                                                                        \
+        scm_wrong_type_arg_msg (mangle_cxx_identifier (__FUNCTION__).c_str (), \
+                                number, var,                                   \
+                                predicate_to_typename (pred).c_str ());        \
+      }                                                                        \
   }
 
 template <class T>
@@ -369,16 +369,17 @@ T *unsmob (SCM var);
 // Do not call this directly.
 // Use LY_ASSERT_SMOB() which supplies the function name automatically.
 template <class T>
-inline T *ly_assert_smob (SCM var, int number, const char *fun)
+inline T *
+ly_assert_smob (SCM var, int number, const char *fun)
 {
   if (auto *smob = unsmob<T> (var))
     return smob;
 
-  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
-                          number, var, calc_smob_name<T> ().c_str ());
+  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (), number, var,
+                          calc_smob_name<T> ().c_str ());
 }
 
-#define LY_ASSERT_SMOB(klass, var, number)                              \
+#define LY_ASSERT_SMOB(klass, var, number)                                     \
   ly_assert_smob<klass> (var, number, __FUNCTION__)
 
 #endif /* LILY_GUILE_MACROS_HH */

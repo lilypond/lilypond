@@ -58,7 +58,7 @@ public:
 public: // exposed subset of map interface
   using map::begin;
   using map::end;
-  using map::operator [];
+  using map::operator[];
 };
 
 #endif

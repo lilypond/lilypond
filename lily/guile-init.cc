@@ -62,7 +62,7 @@ ly_init_ly_module ()
   for (Void_fptr f : *scm_init_funcs_)
     f ();
 
-  /*
+    /*
      Guile 2 tries to optimize code when byte-compiling.  Experimentally, this
      makes LilyPond's speed borderline worse, not better, and the compilation
      takes time.  This situation is further exacerbated in Guile 3.  Thus, we

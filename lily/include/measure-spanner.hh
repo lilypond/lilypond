@@ -30,4 +30,3 @@ struct Measure_spanner
 };
 
 #endif // MEASURE_SPANNER_HH
-

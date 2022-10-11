@@ -48,48 +48,59 @@ public:
   ~Mint () = default;
 
   // conversion
-  constexpr explicit Mint (int v) : v_ (v) {}
+  constexpr explicit Mint (int v)
+    : v_ (v)
+  {
+  }
 
   // special values
   static constexpr M infinity () { return M (100); }
 
   // assignment
-  M &operator = (const M &) = default;
-  M &operator = (M &&) = default;
+  M &operator= (const M &) = default;
+  M &operator= (M &&) = default;
 
   // negation
-  friend constexpr M operator - (M a) { return M (-a.v_); }
+  friend constexpr M operator- (M a) { return M (-a.v_); }
 
   // addition
-  M &operator += (M b) { v_ += b.v_; return *this; }
-  M &operator -= (M b) { v_ -= b.v_; return *this; }
-  friend constexpr M operator + (M a, M b) { return M (a.v_ + b.v_); }
-  friend constexpr M operator - (M a, M b) { return M (a.v_ - b.v_); }
+  M &operator+= (M b)
+  {
+    v_ += b.v_;
+    return *this;
+  }
+  M &operator-= (M b)
+  {
+    v_ -= b.v_;
+    return *this;
+  }
+  friend constexpr M operator+ (M a, M b) { return M (a.v_ + b.v_); }
+  friend constexpr M operator- (M a, M b) { return M (a.v_ - b.v_); }
 
   // scaling
-  M &operator *= (int) = delete;
-  M &operator /= (int) = delete;
-  friend constexpr M operator * (M, int) = delete;
-  friend constexpr M operator / (M a, int b) { return M (a.v_ / b); }
+  M &operator*= (int) = delete;
+  M &operator/= (int) = delete;
+  friend constexpr M operator* (M, int) = delete;
+  friend constexpr M operator/ (M a, int b) { return M (a.v_ / b); }
 
   // comparison
-  friend constexpr bool operator != (M a, M b) { return a.v_ != b.v_; }
-  friend constexpr bool operator < (M a, M b) { return a.v_ < b.v_; }
-  friend constexpr bool operator <= (M a, M b) { return a.v_ <= b.v_; }
-  friend constexpr bool operator == (M a, M b) { return a.v_ == b.v_; }
-  friend constexpr bool operator > (M a, M b) { return a.v_ > b.v_; }
-  friend constexpr bool operator >= (M a, M b) { return a.v_ >= b.v_; }
+  friend constexpr bool operator!= (M a, M b) { return a.v_ != b.v_; }
+  friend constexpr bool operator<(M a, M b) { return a.v_ < b.v_; }
+  friend constexpr bool operator<= (M a, M b) { return a.v_ <= b.v_; }
+  friend constexpr bool operator== (M a, M b) { return a.v_ == b.v_; }
+  friend constexpr bool operator> (M a, M b) { return a.v_ > b.v_; }
+  friend constexpr bool operator>= (M a, M b) { return a.v_ >= b.v_; }
 
   friend std::string to_string (M a) { return std::to_string (a.v_); }
 };
 
 static inline std::ostream &
-operator << (std::ostream &os, Mint m) // for Yaffut
+operator<< (std::ostream &os, Mint m) // for Yaffut
 {
   return os << to_string (m);
 }
 
-}
+} // namespace
 
 template INTERVAL__INSTANTIATE (Mint);
 
@@ -305,7 +316,7 @@ protected:
     // nonempty, nonfull; add point already in interval
     {
       IVT iv {T (10), T (20)};
-      iv.add_point ( T (0));
+      iv.add_point (T (0));
       EQUAL (iv.left (), T (0));
       EQUAL (iv.right (), T (20));
     }
@@ -803,9 +814,9 @@ TEST (Interval_test, linear_combination)
     CHECK (std::isnan (iv.linear_combination (-INFINITY)));
     EQUAL (iv.linear_combination (-2), 42);
     EQUAL (iv.linear_combination (-1), 42);
-    EQUAL (iv.linear_combination ( 0), 42);
-    EQUAL (iv.linear_combination ( 1), 42);
-    EQUAL (iv.linear_combination ( 2), 42);
+    EQUAL (iv.linear_combination (0), 42);
+    EQUAL (iv.linear_combination (1), 42);
+    EQUAL (iv.linear_combination (2), 42);
     // TODO: Wouldn't INFINITY would be a better result than NAN?
     CHECK (std::isnan (iv.linear_combination (INFINITY)));
     CHECK (std::isnan (iv.linear_combination (NAN)));
@@ -816,9 +827,9 @@ TEST (Interval_test, linear_combination)
     EQUAL (iv.linear_combination (-INFINITY), -INFINITY);
     EQUAL (iv.linear_combination (-2), -6);
     EQUAL (iv.linear_combination (-1), -1);
-    EQUAL (iv.linear_combination ( 0), 4);
-    EQUAL (iv.linear_combination ( 1), 9);
-    EQUAL (iv.linear_combination ( 2), 14);
+    EQUAL (iv.linear_combination (0), 4);
+    EQUAL (iv.linear_combination (1), 9);
+    EQUAL (iv.linear_combination (2), 14);
     EQUAL (iv.linear_combination (INFINITY), INFINITY);
     CHECK (std::isnan (iv.linear_combination (NAN)));
   }
@@ -848,16 +859,15 @@ TEST (Interval_test, inverse_linear_combination)
     EQUAL (iv.inverse_linear_combination (-INFINITY), -INFINITY);
     EQUAL (iv.inverse_linear_combination (-6), -2);
     EQUAL (iv.inverse_linear_combination (-1), -1);
-    EQUAL (iv.inverse_linear_combination ( 4), 0);
-    EQUAL (iv.inverse_linear_combination ( 9), 1);
+    EQUAL (iv.inverse_linear_combination (4), 0);
+    EQUAL (iv.inverse_linear_combination (9), 1);
     EQUAL (iv.inverse_linear_combination (14), 2);
     EQUAL (iv.inverse_linear_combination (INFINITY), INFINITY);
     CHECK (std::isnan (iv.inverse_linear_combination (NAN)));
   }
 
   // other weird cases
-  for (const auto &iv :
-       {
+  for (const auto &iv : {
          Interval {},
          Interval {-INFINITY, -INFINITY},
          Interval {-INFINITY, 0},

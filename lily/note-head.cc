@@ -40,7 +40,8 @@ internal_print (Grob *me, string *font_char)
 {
   string style = robust_symbol2string (get_property (me, "style"), "default");
 
-  string suffix = std::to_string (std::min (from_scm (get_property (me, "duration-log"), 2), 2));
+  string suffix = std::to_string (
+    std::min (from_scm (get_property (me, "duration-log"), 2), 2));
   if (style != "default")
     suffix = robust_scm2string (get_property (me, "glyph-name"), "");
 
@@ -63,15 +64,11 @@ internal_print (Grob *me, string *font_char)
       out = fm->find_by_name (idx_either + suffix);
     }
 
-  if (style == "mensural"
-      || style == "neomensural"
-      || style == "petrucci"
-      || style == "baroque"
-      || style == "kievan")
+  if (style == "mensural" || style == "neomensural" || style == "petrucci"
+      || style == "baroque" || style == "kievan")
     {
-      if (!Staff_symbol_referencer::on_line
-          (me,
-           from_scm (get_property (me, "staff-position"), 0)))
+      if (!Staff_symbol_referencer::on_line (
+            me, from_scm (get_property (me, "staff-position"), 0)))
         {
           Stencil test = fm->find_by_name (idx_either + "r" + suffix);
           if (!test.is_empty ())
@@ -82,8 +79,7 @@ internal_print (Grob *me, string *font_char)
         }
     }
 
-  if (style == "kievan"
-      && 3 == from_scm (get_property (me, "duration-log"), 2))
+  if (style == "kievan" && 3 == from_scm (get_property (me, "duration-log"), 2))
     {
       Grob *stem = unsmob<Grob> (get_object (me, "stem"));
       Grob *beam = unsmob<Grob> (get_object (stem, "beam"));
@@ -158,10 +154,9 @@ Note_head::include_ledger_line_height (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  Offset off = from_scm (get_property (me, "stem-attachment"),
-                         Offset (0, 0));
+  Offset off = from_scm (get_property (me, "stem-attachment"), Offset (0, 0));
 
-  return off [a];
+  return off[a];
 }
 
 /*

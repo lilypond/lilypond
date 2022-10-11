@@ -58,13 +58,10 @@ protected:
   void finalize () override;
 
 private:
-  static SCM
-  get_current_performance_mark (Context *context,
-                                const char **grob_name, SCM *text);
-  static SCM
-  get_current_rehearsal_mark (Context *context,
-                              const char **grob_name, SCM *text);
-
+  static SCM get_current_performance_mark (Context *context,
+                                           const char **grob_name, SCM *text);
+  static SCM get_current_rehearsal_mark (Context *context,
+                                         const char **grob_name, SCM *text);
 };
 
 #endif /* MARK_TRACKING_TRANSLATOR_HH */

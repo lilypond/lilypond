@@ -32,7 +32,7 @@ using std::map;
 
 class Note_spacing_engraver : public Engraver
 {
-  typedef map <Context *, Grob *> Last_spacing_map;
+  typedef map<Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;
   Grob *last_spacing_;
 
@@ -40,8 +40,8 @@ class Note_spacing_engraver : public Engraver
 
   void add_spacing_item (Grob *);
   TRANSLATOR_DECLARATIONS (Note_spacing_engraver);
-protected:
 
+protected:
   void acknowledge_rhythmic_grob (Grob_info);
   void acknowledge_note_column (Grob_info_t<Item>);
   void stop_translation_timestep ();
@@ -74,14 +74,12 @@ Note_spacing_engraver::add_spacing_item (Grob *g)
 
   if (spacing_)
     {
-      Pointer_group_interface::add_grob (spacing_,
-                                         ly_symbol2scm ("left-items"),
+      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("left-items"),
                                          g);
 
       if (last_spacing_)
         Pointer_group_interface::add_grob (last_spacing_,
-                                           ly_symbol2scm ("right-items"),
-                                           g);
+                                           ly_symbol2scm ("right-items"), g);
     }
 }
 
@@ -109,8 +107,7 @@ Note_spacing_engraver::finalize ()
       Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 
       Pointer_group_interface::add_grob (last_spacing,
-                                         ly_symbol2scm ("right-items"),
-                                         col);
+                                         ly_symbol2scm ("right-items"), col);
     }
 }
 
@@ -120,13 +117,11 @@ Note_spacing_engraver::stop_translation_timestep ()
   Context *parent = context ()->get_parent ();
   Grob *last_spacing = last_spacings_[parent];
 
-  if (last_spacing
-      && from_scm<bool> (get_property (this, "hasStaffSpacing")))
+  if (last_spacing && from_scm<bool> (get_property (this, "hasStaffSpacing")))
     {
       Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       Pointer_group_interface::add_grob (last_spacing,
-                                         ly_symbol2scm ("right-items"),
-                                         col);
+                                         ly_symbol2scm ("right-items"), col);
     }
 
   if (spacing_)
@@ -135,7 +130,6 @@ Note_spacing_engraver::stop_translation_timestep ()
       last_spacing_ = spacing_;
       spacing_ = 0;
     }
-
 }
 
 void

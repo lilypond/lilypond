@@ -131,7 +131,7 @@ public:
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
   std::vector<std::unique_ptr<Slur_configuration>>
-                                                enumerate_attachments (Drul_array<Real> end_ys) const;
+  enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments () const;
   Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;

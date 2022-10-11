@@ -43,7 +43,7 @@ extern Variable module_public_interface;
 extern Variable module_use_x;
 extern Variable symbol_p;
 extern Variable the_root_module;
-}
+} // namespace Guile_user
 
 namespace Compile
 {
@@ -54,7 +54,7 @@ extern Variable compile;
 #if SCM_MAJOR_VERSION >= 3
 extern Variable default_optimization_level;
 #endif
-}
+} // namespace Compile
 
 #if SCM_MAJOR_VERSION == 2
 namespace Tree_il_optimize
@@ -63,7 +63,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable tree_il_default_optimization_options;
-}
+} // namespace Tree_il_optimize
 
 namespace Cps_optimize
 {
@@ -71,7 +71,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable cps_default_optimization_options;
-}
+} // namespace Cps_optimize
 #endif
 
 namespace Display
@@ -80,7 +80,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable value_to_lily_string;
-}
+} // namespace Display
 
 namespace Lily
 {
@@ -158,7 +158,7 @@ extern Variable unbroken_or_last_broken_spanner_p;
 extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
 extern Variable write_lilypond_book_aux_files;
-}
+} // namespace Lily
 
 namespace Loader
 {
@@ -166,7 +166,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable load_thunk_from_memory;
-}
+} // namespace Loader
 
 namespace Page
 {
@@ -176,7 +176,7 @@ typedef Module_variable<module> Variable;
 extern Variable calc_printable_height;
 extern Variable make_page;
 extern Variable page_stencil;
-}
+} // namespace Page
 
 namespace Srfi_1
 {
@@ -186,7 +186,7 @@ typedef Module_variable<module> Variable;
 extern Variable append_reverse;
 extern Variable delete_duplicates;
 extern Variable lset_union;
-}
+} // namespace Srfi_1
 
 namespace Syntax
 {
@@ -223,6 +223,6 @@ extern Variable simultaneous_music;
 extern Variable tempo;
 extern Variable unrelativable_music;
 extern Variable void_music;
-};
+}; // namespace Syntax
 
 #endif

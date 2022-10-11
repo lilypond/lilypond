@@ -85,8 +85,7 @@ Dynamic_engraver::listen_break_dynamic_span (Stream_event *)
 
 SCM
 Dynamic_engraver::get_property_setting (Stream_event const *evt,
-                                        char const *evprop,
-                                        char const *ctxprop)
+                                        char const *evprop, char const *ctxprop)
 {
   SCM spanner_type = get_property (evt, evprop);
   if (scm_is_null (spanner_type))
@@ -142,9 +141,9 @@ Dynamic_engraver::process_music ()
           if (!scm_is_eq (cresc_type, ly_symbol2scm ("hairpin")))
             {
               string as_string = ly_scm_write_string (cresc_type);
-              starter
-              ->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.",
-                             as_string.c_str ()));
+              starter->warning (
+                _f ("unknown crescendo style: %s\ndefaulting to hairpin.",
+                    as_string.c_str ()));
             }
           current_spanner_ = make_spanner ("Hairpin", starter->self_scm ());
         }
@@ -157,21 +156,20 @@ Dynamic_engraver::process_music ()
       if (finished_spanner_)
         {
           if (has_interface<Hairpin> (finished_spanner_))
-            Pointer_group_interface::add_grob (finished_spanner_,
-                                               ly_symbol2scm ("adjacent-spanners"),
-                                               current_spanner_);
+            Pointer_group_interface::add_grob (
+              finished_spanner_, ly_symbol2scm ("adjacent-spanners"),
+              current_spanner_);
           if (has_interface<Hairpin> (current_spanner_))
-            Pointer_group_interface::add_grob (current_spanner_,
-                                               ly_symbol2scm ("adjacent-spanners"),
-                                               finished_spanner_);
+            Pointer_group_interface::add_grob (
+              current_spanner_, ly_symbol2scm ("adjacent-spanners"),
+              finished_spanner_);
         }
     }
 
   if (script_event_)
     {
       script_ = make_item ("DynamicText", script_event_->self_scm ());
-      set_property (script_, "text",
-                    get_property (script_event_, "text"));
+      set_property (script_, "text", get_property (script_event_, "text"));
 
       if (finished_spanner_)
         finished_spanner_->set_bound (RIGHT, script_);
@@ -184,14 +182,12 @@ void
 Dynamic_engraver::stop_translation_timestep ()
 {
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
-    finished_spanner_
-    ->set_bound (RIGHT,
-                 unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+    finished_spanner_->set_bound (
+      RIGHT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
-    current_spanner_
-    ->set_bound (LEFT,
-                 unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+    current_spanner_->set_bound (
+      LEFT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
   script_ = nullptr;
   script_event_ = nullptr;
   span_dynamic_listener_.reset ();
@@ -208,8 +204,8 @@ Dynamic_engraver::finalize ()
   if (current_spanner_)
     {
       auto *const event = current_spanner_->event_cause ();
-      current_spanner_->warning (_f ("unterminated %s",
-                                     get_spanner_type (event).c_str ()));
+      current_spanner_->warning (
+        _f ("unterminated %s", get_spanner_type (event).c_str ()));
       current_spanner_->suicide ();
       current_spanner_ = nullptr;
     }
@@ -241,9 +237,9 @@ Dynamic_engraver::acknowledge_note_column (Grob_info_t<Item> info)
         Spacing constraints may require dynamics to be attached to rests,
         so check for a rest if this note column has no note heads.
       */
-      Grob *x_parent = (heads.size ()
-                        ? info.grob ()
-                        : unsmob<Grob> (get_object (info.grob (), "rest")));
+      Grob *x_parent
+        = (heads.size () ? info.grob ()
+                         : unsmob<Grob> (get_object (info.grob (), "rest")));
       if (x_parent)
         script_->set_x_parent (x_parent);
     }

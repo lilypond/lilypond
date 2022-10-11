@@ -72,9 +72,9 @@ Book::Book (Book const &s)
       SCM entry = scm_car (p);
 
       if (Score *newscore = unsmob<Score> (entry))
-        * t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
+        *t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
       else if (Page_marker *marker = unsmob<Page_marker> (entry))
-        * t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
+        *t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
       else
         {
           /* This entry is a markup list */
@@ -190,21 +190,22 @@ Book::error_found () const
 }
 
 Paper_book *
-Book::process (Output_def *default_paper,
-               Output_def *default_layout)
+Book::process (Output_def *default_paper, Output_def *default_layout)
 {
   return process (default_paper, default_layout, 0);
 }
 
 void
-Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Output_def *layout)
+Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper,
+                         Output_def *layout)
 {
   add_scores_to_bookpart ();
   for (auto *book : ly_smob_list<Book> (scm_reverse (bookparts_)))
     {
       if (book)
         {
-          Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
+          Paper_book *paper_book_part
+            = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
             {
               output_paper_book->add_bookpart (paper_book_part->self_scm ());
@@ -267,8 +268,7 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
 /* Concatenate all score or book part outputs into a Paper_book
  */
 Paper_book *
-Book::process (Output_def *default_paper,
-               Output_def *default_layout,
+Book::process (Output_def *default_paper, Output_def *default_layout,
                Paper_book *parent_part)
 {
   Output_def *paper = paper_ ? paper_ : default_paper;

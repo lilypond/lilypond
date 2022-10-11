@@ -34,8 +34,8 @@ class Control_track_performer : public Performer
 
   void add_text (Audio_text::Type, const string &);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
-protected:
 
+protected:
   void initialize () override;
   void acknowledge_audio_element (Audio_element_info info) override;
   void finalize () override;
@@ -66,13 +66,13 @@ Control_track_performer::acknowledge_audio_element (Audio_element_info info)
 }
 
 void
-Control_track_performer::add_text (Audio_text::Type text_type, const string &str)
+Control_track_performer::add_text (Audio_text::Type text_type,
+                                   const string &str)
 {
   Audio_item *text = new Audio_text (text_type, str);
   control_track_->add_audio_item (text);
 
   announce_element (Audio_element_info (text, 0));
-
 }
 
 void
@@ -96,14 +96,13 @@ Control_track_performer::initialize ()
 void
 Control_track_performer::finalize ()
 {
-  control_track_->end_mom_ = now_mom ()
-                             + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+  control_track_->end_mom_
+    = now_mom () + from_scm (get_property (this, "midiSkipOffset"), Moment ());
 }
 
 void
 Control_track_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Control_track_performer,

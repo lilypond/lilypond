@@ -31,6 +31,7 @@ class Fine_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
 protected:
   void create_contexts () override;
   void process (Moment) override;
@@ -57,8 +58,8 @@ Fine_iterator::process (Moment m)
       if (timing_is_accurate)
         {
           auto *m = get_music ()->clone ();
-          const auto folded
-            = find_above_by_music_type (ly_symbol2scm ("folded-repeated-music"));
+          const auto folded = find_above_by_music_type (
+            ly_symbol2scm ("folded-repeated-music"));
           set_property (m, "fine-folded", to_scm (static_cast<bool> (folded)));
           report_event (m);
           m->unprotect ();

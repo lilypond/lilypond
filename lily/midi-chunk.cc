@@ -45,14 +45,14 @@ Midi_track::Midi_track (int number, bool port)
   //         mi = 1:  minor key
 
   char const *data_str0 = ""
-                          //        "00" "ff58" "0404" "0218" "08"
-                          //  "00" "ff51" "0307" "a120"
-                          // why a key at all, in midi?
-                          // key: C
-                          //  "00" "ff59" "02" "00" "00"
-                          // key: F (scsii-menuetto)
-                          //                            "00" "ff59" "02" "ff" "00"
-                          ;
+    //        "00" "ff58" "0404" "0218" "08"
+    //  "00" "ff51" "0307" "a120"
+    // why a key at all, in midi?
+    // key: C
+    //  "00" "ff59" "02" "00" "00"
+    // key: F (scsii-menuetto)
+    //                            "00" "ff59" "02" "ff" "00"
+    ;
 
   string data_string;
   // only for format 0 (currently using format 1)?
@@ -86,7 +86,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
   // Insertion position for the new event in the track.
   vector<Midi_event *>::iterator position (events_.end ());
   if (delta_ticks == 0
-      && (! dynamic_cast<Midi_note *> (midi)
+      && (!dynamic_cast<Midi_note *> (midi)
           || dynamic_cast<Midi_note_off *> (midi)))
     {
       // If the new event occurs at the same time as the most recently added
@@ -98,7 +98,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
       while (position != events_.begin ())
         {
           vector<Midi_event *>::iterator previous (position - 1);
-          if (! dynamic_cast<Midi_note *> ((*previous)->midi_)
+          if (!dynamic_cast<Midi_note *> ((*previous)->midi_)
               || dynamic_cast<Midi_note_off *> ((*previous)->midi_))
             {
               // Found an event that does not represent the start of a note.
@@ -178,11 +178,11 @@ Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
  */
 Midi_chunk::~Midi_chunk ()
 {
-
 }
 
 void
-Midi_chunk::set (const string &header_string, const string &data_string, const string &footer_string)
+Midi_chunk::set (const string &header_string, const string &data_string,
+                 const string &footer_string)
 {
   data_string_ = data_string;
   footer_string_ = footer_string;

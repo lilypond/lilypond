@@ -41,4 +41,3 @@ protected:
 };
 
 #endif /* RHYTHMIC_MUSIC_ITERATOR_HH */
-

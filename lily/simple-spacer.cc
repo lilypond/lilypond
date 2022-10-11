@@ -71,7 +71,9 @@ using std::vector;
   positive force = expanding, negative force = compressing.
 */
 
-Simple_spacer::Simple_spacer () {}
+Simple_spacer::Simple_spacer ()
+{
+}
 
 Real
 Simple_spacer::rod_force (vsize left, vsize right, Real dist) const
@@ -121,7 +123,8 @@ Simple_spacer::add_rod (vsize left, vsize right, Real dist)
       return;
     }
   for (vsize i = left; i < right; i++)
-    springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
+    springs_[i].set_blocking_force (
+      std::max (block_force, springs_[i].blocking_force ()));
 }
 
 Real
@@ -148,7 +151,7 @@ Simple_spacer::range_stiffness (vsize left, vsize right, bool stretch) const
   Real den = 0.0;
   for (vsize i = left; i < right; i++)
     den += stretch ? springs_[i].inverse_stretch_strength ()
-           : springs_[i].inverse_compress_strength ();
+                   : springs_[i].inverse_compress_strength ();
 
   return 1 / den;
 }
@@ -210,8 +213,9 @@ Simple_spacer::expand_line (vsize left, vsize right, Real line_len,
   for (vsize i = left; i < right; i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
-  if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
-    inv_hooke = 1e-6;   /* then report a very large stretching force */
+  if (inv_hooke
+      == 0.0) /* avoid division by zero. If springs are infinitely stiff */
+    inv_hooke = 1e-6; /* then report a very large stretching force */
 
   Solution sol;
   sol.force_ = (line_len - max_block_force_len) / inv_hooke + max_block_force;
@@ -322,7 +326,7 @@ struct Rod_description
   vsize right_;
   Real dist_;
 
-  bool operator< (const Rod_description right) { return right_ < right.right_; }
+  bool operator<(const Rod_description right) { return right_ < right.right_; }
 
   Rod_description ()
   {
@@ -340,17 +344,15 @@ struct Rod_description
 struct Column_description
 {
   vector<Rod_description> rods_;
-  vector<Rod_description> end_rods_;   /* use these if they end at the last column of the line */
+  vector<Rod_description>
+    end_rods_; /* use these if they end at the last column of the line */
   Spring spring_;
   Spring end_spring_;
 
   SCM break_permission_;
   Interval keep_inside_line_;
 
-  Column_description ()
-  {
-    break_permission_ = SCM_EOL;
-  }
+  Column_description () { break_permission_ = SCM_EOL; }
 };
 
 static bool
@@ -377,7 +379,8 @@ next_spaceable_column (vector<Paper_column *> const &list, vsize starting)
 }
 
 static Column_description
-get_column_description (vector<Paper_column *> const &cols, vsize col_index, bool line_starter)
+get_column_description (vector<Paper_column *> const &cols, vsize col_index,
+                        bool line_starter)
 {
   Paper_column *col = cols[col_index];
   if (line_starter)
@@ -395,14 +398,13 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
         description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
     }
 
-  for (SCM s = Spaceable_grob::get_minimum_distances (col);
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = Spaceable_grob::get_minimum_distances (col); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       if (Paper_column *other = unsmob<Paper_column> (scm_caar (s)))
         {
-          auto j = std::lower_bound (cols.begin () + col_index,
-                                     cols.end (), other,
-                                     Paper_column::rank_less);
+          auto j = std::lower_bound (cols.begin () + col_index, cols.end (),
+                                     other, Paper_column::rank_less);
           if (j != cols.end () && (*j)->get_rank () == other->get_rank ())
             {
               Real dist = from_scm<double> (scm_cdar (s));
@@ -439,8 +441,8 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
    If the combination doesn't fit, use infinity as force.
  */
 vector<Real>
-get_line_forces (vector<Paper_column *> const &columns,
-                 Real line_len, Real indent, bool ragged)
+get_line_forces (vector<Paper_column *> const &columns, Real line_len,
+                 Real indent, bool ragged)
 {
   vector<vsize> breaks;
   vector<Real> force;
@@ -491,7 +493,8 @@ get_line_forces (vector<Paper_column *> const &columns,
                                   cols[i].end_rods_[right].dist_);
               if (!cols[i].keep_inside_line_.is_empty ())
                 {
-                  spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
+                  spacer.add_rod (i - st, end - st,
+                                  cols[i].keep_inside_line_[RIGHT]);
                   spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
                 }
             }
@@ -508,7 +511,8 @@ get_line_forces (vector<Paper_column *> const &columns,
                 force[b * breaks.size () + c] = infinity_f;
               break;
             }
-          if (end < cols.size () && scm_is_eq (cols[end].break_permission_, force_break))
+          if (end < cols.size ()
+              && scm_is_eq (cols[end].break_permission_, force_break))
             break;
         }
     }
@@ -516,10 +520,8 @@ get_line_forces (vector<Paper_column *> const &columns,
 }
 
 Column_x_positions
-get_line_configuration (vector<Paper_column *> const &columns,
-                        Real line_len,
-                        Real indent,
-                        bool ragged)
+get_line_configuration (vector<Paper_column *> const &columns, Real line_len,
+                        Real indent, bool ragged)
 {
   vector<Column_description> cols;
   Simple_spacer spacer;

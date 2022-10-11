@@ -40,10 +40,12 @@ public:
   static SCM equal_p (SCM, SCM);
   static const char *const type_p_name_;
   virtual ~Prob ();
+
 private:
   VIRTUAL_CLASS_NAME (Prob);
 
   void init_vars ();
+
 protected:
   SCM mutable_property_alist_;
   SCM immutable_property_alist_;

@@ -36,7 +36,8 @@ Spacing_options::init_from_grob (Grob *me)
     = from_scm<bool> (get_property (me, "strict-note-spacing"));
   float_grace_columns_
     = from_scm<bool> (get_property (me, "strict-grace-spacing"));
-  shortest_duration_space_ = from_scm<double> (get_property (me, "shortest-duration-space"), 1);
+  shortest_duration_space_
+    = from_scm<double> (get_property (me, "shortest-duration-space"), 1);
 
   const auto shortest_dur
     = from_scm (get_property (me, "common-shortest-duration"),
@@ -101,4 +102,3 @@ Spacing_options::get_duration_space (Rational d) const
       return (shortest_duration_space_ + log_2 (ratio)) * increment_;
     }
 }
-

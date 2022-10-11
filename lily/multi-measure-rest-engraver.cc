@@ -105,7 +105,8 @@ Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 }
 
 void
-Multi_measure_rest_engraver::listen_multi_measure_articulation (Stream_event *ev)
+Multi_measure_rest_engraver::listen_multi_measure_articulation (
+  Stream_event *ev)
 {
   articulation_events_.push_back (ev);
 }
@@ -133,8 +134,8 @@ void
 Multi_measure_rest_engraver::initialize_grobs ()
 {
   mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
-  text_.push_back (make_spanner ("MultiMeasureRestNumber",
-                                 mmrest_->self_scm ()));
+  text_.push_back (
+    make_spanner ("MultiMeasureRestNumber", mmrest_->self_scm ()));
 
   if (articulation_events_.size ())
     {
@@ -143,15 +144,13 @@ Multi_measure_rest_engraver::initialize_grobs ()
           Stream_event *e = articulation_events_[i];
           Spanner *sp = make_spanner ("MultiMeasureRestScript", e->self_scm ());
           make_script_from_event (sp, context (),
-                                  get_property (e, "articulation-type"),
-                                  i);
+                                  get_property (e, "articulation-type"), i);
           SCM dir = get_property (e, "direction");
           if (is_scm<Direction> (dir))
             set_property (sp, "direction", dir);
 
           text_.push_back (sp);
         }
-
     }
 
   if (text_events_.size ())
@@ -168,7 +167,6 @@ Multi_measure_rest_engraver::initialize_grobs ()
 
           text_.push_back (sp);
         }
-
     }
 
   /*
@@ -230,12 +228,14 @@ Multi_measure_rest_engraver::process_music ()
 {
   if (from_scm<bool> (get_property (this, "measureStartNow")) || first_time_)
     {
-      last_command_item_ = unsmob<Item> (get_property (this, "currentCommandColumn"));
+      last_command_item_
+        = unsmob<Item> (get_property (this, "currentCommandColumn"));
 
       // Finalize the current grobs.
       if (grobs_initialized ())
         {
-          int curr_measure = from_scm<int> (get_property (this, "internalBarNumber"));
+          int curr_measure
+            = from_scm<int> (get_property (this, "internalBarNumber"));
           set_measure_count (curr_measure - start_measure_);
           if (last_command_item_)
             add_bound_item_to_grobs (last_command_item_);
@@ -259,7 +259,8 @@ Multi_measure_rest_engraver::process_music ()
         }
 
       start_measure_ = from_scm<int> (get_property (this, "internalBarNumber"));
-      number_threshold_ = from_scm (get_property (this, "restNumberThreshold"), 1);
+      number_threshold_
+        = from_scm (get_property (this, "restNumberThreshold"), 1);
     }
 
   first_time_ = false;

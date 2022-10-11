@@ -108,8 +108,8 @@ Staff_symbol_engraver::stop_spanner ()
 
   announce_end_grob (finished_span_,
                      staff_span_listener_.get_stop ()
-                     ? staff_span_listener_.get_stop ()->self_scm ()
-                     : SCM_EOL);
+                       ? staff_span_listener_.get_stop ()->self_scm ()
+                       : SCM_EOL);
 
   finished_span_ = 0;
 }
@@ -117,8 +117,7 @@ Staff_symbol_engraver::stop_spanner ()
 void
 Staff_symbol_engraver::stop_translation_timestep ()
 {
-  if ((staff_span_listener_.get_start () || first_start_)
-      && span_)
+  if ((staff_span_listener_.get_start () || first_start_) && span_)
     first_start_ = false;
 
   staff_span_listener_.reset ();

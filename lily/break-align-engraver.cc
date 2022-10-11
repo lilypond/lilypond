@@ -35,9 +35,11 @@ class Break_align_engraver : public Engraver
 
   void add_to_group (SCM, Item *);
   void create_alignment ();
+
 protected:
   void stop_translation_timestep ();
   void derived_mark () const override;
+
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
   void acknowledge_break_aligned (Grob_info_t<Item>);
@@ -152,7 +154,8 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
       set_property (group, "break-align-symbol", align_name);
       group->set_y_parent (align_);
 
-      column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
+      column_alist_
+        = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 
       Break_alignment_interface::add_element (align_, group);
     }

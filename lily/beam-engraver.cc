@@ -161,8 +161,8 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      const auto mp (from_scm (get_property (this, "measurePosition"),
-                               Moment (0)));
+      const auto mp (
+        from_scm (get_property (this, "measurePosition"), Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -176,7 +176,6 @@ Beam_engraver::process_music ()
   if (stop_ev_ && beam_)
     {
       announce_end_grob (beam_, stop_ev_->self_scm ());
-
     }
 }
 
@@ -204,7 +203,6 @@ Beam_engraver::typeset_beam ()
       delete finished_beam_info_;
       finished_beam_info_ = 0;
       finished_beam_ = 0;
-
     }
 }
 
@@ -256,9 +254,9 @@ Beam_engraver::acknowledge_rest (Grob_info info)
   if (beam_
       && !scm_is_number (get_property_data (info.grob (), "staff-position")))
     chain_offset_callback (info.grob (),
-                           Unpure_pure_container::make_smob
-                           (Beam::rest_collision_callback_proc,
-                            Beam::pure_rest_collision_callback_proc),
+                           Unpure_pure_container::make_smob (
+                             Beam::rest_collision_callback_proc,
+                             Beam::pure_rest_collision_callback_proc),
                            Y_AXIS);
 }
 
@@ -312,9 +310,8 @@ Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
   set_property (stem, "duration-log", to_scm (durlog));
   const auto stem_location = beam_start_location_ + (now - beam_start_mom_);
   beam_info_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
-                        : stem_location.main_part_,
-                        std::max (durlog - 2, 0),
-                        Stem::is_invisible (stem),
+                                                  : stem_location.main_part_,
+                        std::max (durlog - 2, 0), Stem::is_invisible (stem),
                         stem_duration->factor (),
                         (from_scm<bool> (get_property (stem, "tuplet-start"))));
   Beam::add_stem (beam_, stem);

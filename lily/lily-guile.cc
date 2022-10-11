@@ -54,10 +54,9 @@ using std::vector;
 string
 ly_scm_write_string (SCM s)
 {
-  SCM port = scm_mkstrport (SCM_INUM0,
-                            scm_make_string (SCM_INUM0, SCM_UNDEFINED),
-                            SCM_OPN | SCM_WRTNG,
-                            "ly_write2string");
+  SCM port
+    = scm_mkstrport (SCM_INUM0, scm_make_string (SCM_INUM0, SCM_UNDEFINED),
+                     SCM_OPN | SCM_WRTNG, "ly_write2string");
   scm_write (s, port);
   return ly_scm2string (scm_strport_to_string (port));
 }
@@ -106,10 +105,10 @@ gulp_file_to_string (const string &fn, bool must_exist, int size)
   return result;
 }
 
-extern "C" {
+extern "C"
+{
   // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
-  void
-  ly_display_scm (SCM s)
+  void ly_display_scm (SCM s)
   {
     scm_display (s, scm_current_output_port ());
     scm_newline (scm_current_output_port ());
@@ -176,19 +175,23 @@ index_set_cell (SCM s, Direction d, SCM v)
 bool
 is_number_pair (SCM p)
 {
-  return scm_is_pair (p)
-         && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
+  return scm_is_pair (p) && scm_is_number (scm_car (p))
+         && scm_is_number (scm_cdr (p));
 }
 
 /*
   OFFSET
 */
-template <> Offset from_scm<Offset> (const SCM &s)
+template <>
+Offset
+from_scm<Offset> (const SCM &s)
 {
   return Offset (from_scm<Real> (scm_car (s)), from_scm<Real> (scm_cdr (s)));
 }
 
-template <> SCM to_scm<Offset> (const Offset &i)
+template <>
+SCM
+to_scm<Offset> (const Offset &i)
 {
   return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
 }
@@ -259,8 +262,7 @@ print_scm_val (SCM val)
 {
   string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
-    realval = realval.substr (0, 100)
-              + "\n :\n :\n"
+    realval = realval.substr (0, 100) + "\n :\n :\n"
               + realval.substr (realval.length () - 100);
   return realval;
 }
@@ -285,29 +287,27 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-        scm_throw (ly_symbol2scm ("ly-file-failed"), ly_list (ly_symbol2scm ("typecheck"),
-                                                              sym, val));
+        scm_throw (ly_symbol2scm ("ly-file-failed"),
+                   ly_list (ly_symbol2scm ("typecheck"), sym, val));
 
       warning (_ ("skipping assignment"));
       return false;
     }
 
   // '(), #f and *unspecified* always succeed.
-  if (scm_is_null (val)
-      || scm_is_false (val)
+  if (scm_is_null (val) || scm_is_false (val)
       || scm_is_eq (val, SCM_UNSPECIFIED))
     return true;
 
-  if (!scm_is_null (val)
-      && ly_is_procedure (type)
+  if (!scm_is_null (val) && ly_is_procedure (type)
       && scm_is_false (ly_call (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
-      warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
-                   ly_symbol2string (sym).c_str (),
-                   print_scm_val (val),
-                   ly_scm2string (type_name).c_str ()));
+      warning (
+        _f ("type check for `%s' failed; value `%s' must be of type `%s'",
+            ly_symbol2string (sym).c_str (), print_scm_val (val),
+            ly_scm2string (type_name).c_str ()));
       return false;
     }
   return true;
@@ -355,12 +355,11 @@ int_list_to_slice (SCM l)
 }
 
 SCM
-ly_with_fluid (SCM fluid, SCM val, std::function<SCM()> const &fn)
+ly_with_fluid (SCM fluid, SCM val, std::function<SCM ()> const &fn)
 {
-  using Fn = std::function<SCM()>;
+  using Fn = std::function<SCM ()>;
 
-  auto trampoline = [] (void *vp_fn)
-  {
+  auto trampoline = [] (void *vp_fn) {
     auto &fn = *static_cast<Fn const *> (vp_fn);
     return fn ();
   };
@@ -377,7 +376,8 @@ robust_scm2string (SCM k, const string &s)
 }
 
 template <>
-SCM to_scm<Rational> (const Rational &r)
+SCM
+to_scm<Rational> (const Rational &r)
 {
   if (isinf (r))
     {
@@ -387,12 +387,12 @@ SCM to_scm<Rational> (const Rational &r)
       return scm_difference (scm_inf (), SCM_UNDEFINED);
     }
 
-  return scm_divide (to_scm (r.numerator ()),
-                     to_scm (r.denominator ()));
+  return scm_divide (to_scm (r.numerator ()), to_scm (r.denominator ()));
 }
 
 template <>
-Rational from_scm<Rational> (const SCM &r)
+Rational
+from_scm<Rational> (const SCM &r)
 {
   if (scm_is_true (scm_inf_p (r)))
     {
@@ -411,11 +411,11 @@ Rational from_scm<Rational> (const SCM &r)
 }
 
 template <>
-bool is_scm<Rational> (SCM n)
+bool
+is_scm<Rational> (SCM n)
 {
   return (scm_is_real (n)
-          && (scm_is_true (scm_exact_p (n))
-              || scm_is_true (scm_inf_p (n))));
+          && (scm_is_true (scm_exact_p (n)) || scm_is_true (scm_inf_p (n))));
 }
 
 template <>
@@ -427,8 +427,7 @@ is_scm<Bezier> (SCM s)
       if (!scm_is_pair (s))
         return false;
       SCM next = scm_car (s);
-      if (!scm_is_pair (next)
-          || !is_scm<Real> (scm_car (next))
+      if (!scm_is_pair (next) || !is_scm<Real> (scm_car (next))
           || !is_scm<Real> (scm_cdr (next)))
         return false;
       s = scm_cdr (s);
@@ -457,8 +456,7 @@ template <>
 bool
 is_scm<Skyline_pair> (SCM s)
 {
-  return scm_is_pair (s)
-         && unsmob<Skyline> (scm_car (s))
+  return scm_is_pair (s) && unsmob<Skyline> (scm_car (s))
          && unsmob<Skyline> (scm_cdr (s));
 }
 
@@ -479,16 +477,14 @@ from_scm<Skyline_pair> (const SCM &s)
       scm_misc_error (
         __FUNCTION__,
         "direction of first skyline in skyline pair must be DOWN/LEFT",
-        SCM_EOL
-      );
+        SCM_EOL);
     }
   if (right->sky () != UP)
     {
       scm_misc_error (
         __FUNCTION__,
         "direction of second skyline in skyline pair must be UP/RIGHT",
-        SCM_EOL
-      );
+        SCM_EOL);
     }
   return Skyline_pair (*left, *right);
 }
@@ -497,8 +493,7 @@ template <>
 SCM
 to_scm<Skyline_pair> (const Skyline_pair &skyp)
 {
-  return scm_cons (skyp[LEFT].smobbed_copy (),
-                   skyp[RIGHT].smobbed_copy ());
+  return scm_cons (skyp[LEFT].smobbed_copy (), skyp[RIGHT].smobbed_copy ());
 }
 
 SCM
@@ -587,7 +582,8 @@ struct ly_t_double_cell
 };
 
 /* inserts at front, removing duplicates */
-SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
+SCM
+ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
 {
   return scm_acons (key, val, scm_assoc_remove_x (alist, key));
 }

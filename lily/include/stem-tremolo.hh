@@ -26,7 +26,6 @@
 class Stem_tremolo
 {
 public:
-
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_width, (SCM));
@@ -45,4 +44,3 @@ public:
 };
 
 #endif /* ABBREV_HH */
-

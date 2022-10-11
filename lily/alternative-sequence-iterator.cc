@@ -47,13 +47,11 @@ Alternative_sequence_iterator::create_children ()
   // are transformed before the music is iterated; therefore, searching here
   // for the nearest enclosing folded repeat is the same as searching for the
   // nearest enclosing repeat.
-  auto *const repeat_iter
-    = dynamic_cast<Volta_repeat_iterator *>
-      (find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")));
+  auto *const repeat_iter = dynamic_cast<Volta_repeat_iterator *> (
+    find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")));
 
-  repeat_styler_ = repeat_iter
-                   ? repeat_iter->get_repeat_styler ()
-                   : Repeat_styler::create_null (this); // defensive
+  repeat_styler_ = repeat_iter ? repeat_iter->get_repeat_styler ()
+                               : Repeat_styler::create_null (this); // defensive
 }
 
 // Peek at the alternatives to figure out how they should be presented.
@@ -127,10 +125,8 @@ Alternative_sequence_iterator::analyze ()
       }
   }
 
-  volta_brackets_enabled_
-    = repeat_styler_->report_alternative_group_start (start_alignment,
-                                                      end_alignment,
-                                                      alts_in_order);
+  volta_brackets_enabled_ = repeat_styler_->report_alternative_group_start (
+    start_alignment, end_alignment, alts_in_order);
 
   // The local volta bracket depth is whatever it was for the nearest enclosing
   // \alternative, plus one if volta brackets are enabled here.
@@ -186,8 +182,8 @@ Alternative_sequence_iterator::restore_context_properties ()
         {
           Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
                      get_context ()->now_mom ().grace_part_);
-          Lily::ly_context_set_property_x (scm_car (ls),
-                                           mp_sym, mp.smobbed_copy ());
+          Lily::ly_context_set_property_x (scm_car (ls), mp_sym,
+                                           mp.smobbed_copy ());
         }
       else
         {
@@ -217,8 +213,7 @@ Alternative_sequence_iterator::save_context_properties ()
       if (auto *const c = where_defined (get_context (), sym, &val))
         {
           alt_restores_
-            = scm_cons (ly_list (c->self_scm (), sym, val),
-                        alt_restores_);
+            = scm_cons (ly_list (c->self_scm (), sym, val), alt_restores_);
         }
     }
 }

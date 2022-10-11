@@ -24,10 +24,12 @@ class Font_size_engraver : public Engraver
 {
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
+
 protected:
   void acknowledge_font (Grob_info);
   void process_music ();
   Real size;
+
 private:
 };
 
@@ -55,8 +57,8 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
   if (gi.origin_engraver ()->context () != context ())
     return;
 
-  Real font_size = size
-                   + from_scm<double> (get_property (gi.grob (), "font-size"), 0);
+  Real font_size
+    = size + from_scm<double> (get_property (gi.grob (), "font-size"), 0);
   set_property (gi.grob (), "font-size", to_scm (font_size));
 }
 

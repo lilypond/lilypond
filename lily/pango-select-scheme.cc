@@ -29,7 +29,8 @@ size @var{size}.
            )")
 {
   LY_ASSERT_TYPE (scm_is_number, size, 1);
-  PangoFontDescription *pfd = properties_to_pango_description (chain, from_scm<double> (size));
+  PangoFontDescription *pfd
+    = properties_to_pango_description (chain, from_scm<double> (size));
   char *str = pango_font_description_to_string (pfd);
 
   SCM scm_str = scm_from_locale_string (str);

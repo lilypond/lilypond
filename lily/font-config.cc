@@ -74,8 +74,8 @@ init_fontconfig ()
         error (_f ("failed to add fontconfig configuration file `%s'",
                    conf.c_str ()));
       else
-        debug_output (_f ("Adding fontconfig configuration file: %s",
-                          conf.c_str ()));
+        debug_output (
+          _f ("Adding fontconfig configuration file: %s", conf.c_str ()));
     }
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
@@ -94,5 +94,4 @@ init_fontconfig ()
   FcConfigSetCurrent (font_config_global);
 
   debug_output ("\n");
-
 }

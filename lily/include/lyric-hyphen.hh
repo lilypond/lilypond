@@ -31,4 +31,3 @@ public:
 };
 
 #endif // HYPHEN_SPANNER_HH
-

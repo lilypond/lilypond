@@ -28,7 +28,7 @@
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
 */
-template<class T>
+template <class T>
 struct Drul_array
 {
 private:
@@ -36,14 +36,20 @@ private:
 
 public:
   // By default, value-initialize both elements.
-  constexpr Drul_array () : array_ {} {}
-  constexpr Drul_array (T const &t1, T const &t2) : array_ {t1, t2} {}
+  constexpr Drul_array ()
+    : array_ {}
+  {
+  }
+  constexpr Drul_array (T const &t1, T const &t2)
+    : array_ {t1, t2}
+  {
+  }
   constexpr Drul_array (const Drul_array &) = default;
   constexpr Drul_array (Drul_array &&) = default;
   ~Drul_array () = default; // N.B. non-virtual
 
-  Drul_array &operator = (const Drul_array &) = default;
-  Drul_array &operator = (Drul_array &&) = default;
+  Drul_array &operator= (const Drul_array &) = default;
+  Drul_array &operator= (Drul_array &&) = default;
 
   T &at (Direction d)
   {
@@ -57,15 +63,9 @@ public:
     return array_[d > CENTER];
   }
 
-  T &operator [] (Direction d)
-  {
-    return at (d);
-  }
+  T &operator[] (Direction d) { return at (d); }
 
-  constexpr T const &operator [] (Direction d) const
-  {
-    return at (d);
-  }
+  constexpr T const &operator[] (Direction d) const { return at (d); }
 
   constexpr T &front () // at (Direction::negative ())
   {
@@ -86,10 +86,9 @@ public:
   {
     return array_[1];
   }
-
 };
 
-template<class T1, class T2>
+template <class T1, class T2>
 constexpr void
 scale_drul (Drul_array<T1> *dr, T2 x)
 {

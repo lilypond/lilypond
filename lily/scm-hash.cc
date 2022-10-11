@@ -75,13 +75,10 @@ Scheme_hash_table::remove (SCM k)
 SCM
 Scheme_hash_table::to_alist () const
 {
-  auto collect_handles = [] (void * /* closure */,
-                             SCM key,
-                             SCM value,
-                             SCM result)
-  {
-    return scm_acons (key, value, result);
-  };
+  auto collect_handles
+    = [] (void * /* closure */, SCM key, SCM value, SCM result) {
+        return scm_acons (key, value, result);
+      };
 
   return ly_scm_hash_fold (collect_handles, nullptr, SCM_EOL, hash_tab ());
 }

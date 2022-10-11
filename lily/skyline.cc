@@ -115,7 +115,8 @@ Building::Building (Box const &b, Axis horizon_axis, Direction sky)
 void
 Building::precompute (Real start_height, Real end_height)
 {
-  slope_ = 0.0; /* if they were both infinite, we would get nan, not 0, from the prev line */
+  slope_
+    = 0.0; /* if they were both infinite, we would get nan, not 0, from the prev line */
   if (start_height != end_height)
     slope_ = (end_height - start_height) / x_.length ();
 
@@ -168,9 +169,10 @@ Building::intersection_x (Building const &other) const
 bool
 Building::above (Building const &other, Real x) const
 {
-  return (std::isinf (y_intercept_) || std::isinf (other.y_intercept_) || std::isinf (x))
-         ? y_intercept_ > other.y_intercept_
-         : (slope_ - other.slope_) * x + y_intercept_ > other.y_intercept_;
+  return (std::isinf (y_intercept_) || std::isinf (other.y_intercept_)
+          || std::isinf (x))
+           ? y_intercept_ > other.y_intercept_
+           : (slope_ - other.slope_) * x + y_intercept_ > other.y_intercept_;
 }
 
 void
@@ -221,7 +223,7 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
             {
               if (c.above (b, b.x_[RIGHT])) /* ---/ . | */
                 c.x_[LEFT] = b.x_[RIGHT] = b.intersection_x (c);
-              else                        /* -----.   */
+              else /* -----.   */
                 c.x_[LEFT] = b.x_[RIGHT];
               result->push_back (b);
             }
@@ -247,7 +249,7 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
               c.x_[LEFT] = m.x_[RIGHT] = b.intersection_x (c);
               result->push_back (m);
             }
-          else  /* c is completely hidden by b */
+          else /* c is completely hidden by b */
             continue;
           result->push_back (c);
           b.x_[LEFT] = c.x_[RIGHT];
@@ -273,10 +275,12 @@ single_skyline (Building b, vector<Building> *const ret)
   assert (b.x_[RIGHT] >= b.x_[LEFT]);
 
   if (b.x_[LEFT] != -infinity_f)
-    ret->push_back (Building (-infinity_f, -infinity_f, -infinity_f, b.x_[LEFT]));
+    ret->push_back (
+      Building (-infinity_f, -infinity_f, -infinity_f, b.x_[LEFT]));
   ret->push_back (b);
   if (b.x_[RIGHT] != infinity_f)
-    ret->push_back (Building (b.x_[RIGHT], -infinity_f, -infinity_f, infinity_f));
+    ret->push_back (
+      Building (b.x_[RIGHT], -infinity_f, -infinity_f, infinity_f));
 }
 
 /* Partition BUILDINGS into a non-overlapping set of boxes and the rest */
@@ -318,13 +322,14 @@ non_overlapping_skyline (vector<Building> const &buildings,
     }
 
   if (last_end < infinity_f)
-    result->push_back (Building (last_end, -infinity_f, -infinity_f, infinity_f));
+    result->push_back (
+      Building (last_end, -infinity_f, -infinity_f, infinity_f));
 }
 
 class LessThanBuilding
 {
 public:
-  bool operator () (Building const &b1, Building const &b2)
+  bool operator() (Building const &b1, Building const &b2)
   {
     return b1.x_[LEFT] < b2.x_[LEFT]
            || (b1.x_[LEFT] == b2.x_[LEFT]
@@ -409,8 +414,7 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
   sky_ = sky;
 
   for (vsize i = 0; i < boxes.size (); i++)
-    if (!boxes[i].is_empty (X_AXIS)
-        && !boxes[i].is_empty (Y_AXIS))
+    if (!boxes[i].is_empty (X_AXIS) && !boxes[i].is_empty (Y_AXIS))
       buildings.push_back (Building (boxes[i], horizon_axis, sky));
 
   buildings_ = internal_build_skyline (&buildings);
@@ -422,7 +426,8 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
   Segments can be articulated from left to right or right to left.
   In the case of the latter, they will be stored internally as left to right.
  */
-Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis, Direction sky)
+Skyline::Skyline (vector<Drul_array<Offset>> const &segments, Axis horizon_axis,
+                  Direction sky)
 {
   vector<Building> buildings;
   buildings.reserve (segments.size ());
@@ -537,7 +542,8 @@ Skyline::touching_point (Skyline const &other, Real horizon_padding) const
 }
 
 Real
-Skyline::internal_distance (Skyline const &other, Real horizon_padding, Real *touch_point) const
+Skyline::internal_distance (Skyline const &other, Real horizon_padding,
+                            Real *touch_point) const
 {
   if (horizon_padding == 0.0)
     return internal_distance (other, touch_point);
@@ -569,7 +575,8 @@ Skyline::padded (Real horizon_padding) const
               // Add the sloped building that pads the left side of the current building.
               Real start = b.x_[LEFT] - 2 * horizon_padding;
               Real end = b.x_[LEFT] - horizon_padding;
-              pad_buildings.push_back (Building (start, height - horizon_padding, height, end));
+              pad_buildings.push_back (
+                Building (start, height - horizon_padding, height, end));
 
               // Add the flat building that pads the left side of the current building.
               start = b.x_[LEFT] - horizon_padding;
@@ -591,7 +598,8 @@ Skyline::padded (Real horizon_padding) const
               // Add the sloped building that pads the right side of the current building.
               start = end;
               end += horizon_padding;
-              pad_buildings.push_back (Building (start, height, height - horizon_padding, end));
+              pad_buildings.push_back (
+                Building (start, height, height - horizon_padding, end));
             }
         }
     }
@@ -650,9 +658,8 @@ Real
 Skyline::height (Real x) const
 {
   assert (!std::isinf (x));
-  auto relevant_building =
-    std::lower_bound (buildings_.begin (), buildings_.end (),
-                      x, building_on_left_of);
+  auto relevant_building = std::lower_bound (
+    buildings_.begin (), buildings_.end (), x, building_on_left_of);
   assert (relevant_building != buildings_.end ());
   return sky_ * relevant_building->height (x);
 }

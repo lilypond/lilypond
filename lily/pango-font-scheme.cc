@@ -26,9 +26,7 @@
 
 #include <pango/pangoft2.h>
 
-LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
-           1, 0, 0,
-           (SCM f),
+LY_DEFINE (ly_pango_font_p, "ly:pango-font?", 1, 0, 0, (SCM f),
            R"(
 Is @var{f} a Pango font?
            )")
@@ -36,9 +34,8 @@ Is @var{f} a Pango font?
   return to_scm (static_cast<bool> (unsmob<Pango_font> (f)));
 }
 
-LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
-           1, 0, 0,
-           (SCM f),
+LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts", 1, 0,
+           0, (SCM f),
            R"(
 Return alist of @code{(ps-name file-name font-index)} lists for Pango
 font@tie{}@var{f}.

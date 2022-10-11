@@ -51,6 +51,7 @@ create dependencies between engravers, which is bad.
 class Chord_tremolo_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
+
 protected:
   Stream_event *repeat_ = nullptr;
 
@@ -74,7 +75,8 @@ Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
 void
 Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
 {
-  Direction span_dir = from_scm<Direction> (get_property (ev, "span-direction"));
+  Direction span_dir
+    = from_scm<Direction> (get_property (ev, "span-direction"));
   if (span_dir == START)
     {
       assign_event_once (repeat_, ev);

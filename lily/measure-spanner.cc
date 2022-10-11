@@ -35,7 +35,8 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
 
   Spanner *orig_spanner = me->original ();
-  if (!orig_spanner) return SCM_EOL;
+  if (!orig_spanner)
+    return SCM_EOL;
 
   const auto bounds = me->get_bounds ();
   Drul_array<bool> connect_to_other;
@@ -46,8 +47,7 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
       vsize neighbor_idx = me->get_break_index () - break_dir;
 
       connect_to_other[d]
-        = (break_dir
-           && neighbor_idx < orig_spanner->broken_intos_.size ()
+        = (break_dir && neighbor_idx < orig_spanner->broken_intos_.size ()
            && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
     }
 
@@ -80,11 +80,9 @@ Measure_spanner::print (SCM smob)
 
   for (const auto d : {LEFT, RIGHT})
     {
-      align_syms = (scm_is_pair (sp)
-                    ? index_get_cell (sp, d)
-                    : ly_symbol2scm ("staff-bar"));
-      x_points[d] = Paper_column::break_align_width (bounds[d],
-                                                     align_syms)[-d];
+      align_syms = (scm_is_pair (sp) ? index_get_cell (sp, d)
+                                     : ly_symbol2scm ("staff-bar"));
+      x_points[d] = Paper_column::break_align_width (bounds[d], align_syms)[-d];
     }
 
   Stencil bracket_text;
@@ -97,7 +95,8 @@ Measure_spanner::print (SCM smob)
       bracket_text = Text_interface::interpret_markup (pap, properties, txt);
       bracket_text.align_to (X_AXIS, CENTER);
       Interval stil_Y_ext = bracket_text.extent (Y_AXIS);
-      bracket_text.translate_axis ((x_points[RIGHT] - x_points[LEFT]) / 2.0, X_AXIS);
+      bracket_text.translate_axis ((x_points[RIGHT] - x_points[LEFT]) / 2.0,
+                                   X_AXIS);
       bracket_text.translate_axis (-stil_Y_ext[UP] / 2.0, Y_AXIS);
       Real gap = bracket_text.extent (X_AXIS).length ();
       gap_iv = Interval (-0.5, 0.5) * gap;
@@ -105,8 +104,9 @@ Measure_spanner::print (SCM smob)
     }
 
   if (scm_is_true (visible))
-    brack = Bracket::make_axis_constrained_bracket (me, x_points[RIGHT] - x_points[LEFT], X_AXIS,
-                                                    get_grob_direction (me), gap_iv);
+    brack = Bracket::make_axis_constrained_bracket (
+      me, x_points[RIGHT] - x_points[LEFT], X_AXIS, get_grob_direction (me),
+      gap_iv);
 
   if (!bracket_text.is_empty ())
     brack.add_stencil (bracket_text);

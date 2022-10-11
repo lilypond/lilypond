@@ -41,7 +41,7 @@ public:
   void do_quit () override;
   bool run_always () const override;
 
-  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
+  void preorder_walk (const std::function<void (Music_iterator *)> &) override;
 
 protected:
   void create_children () override;
@@ -55,4 +55,3 @@ private:
 };
 
 #endif /* MUSIC_WRAPPER_ITERATOR_HH */
-

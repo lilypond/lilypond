@@ -27,6 +27,7 @@
 class Cpu_timer
 {
   clock_t start_clock_;
+
 public:
   Cpu_timer ();
   void restart ();

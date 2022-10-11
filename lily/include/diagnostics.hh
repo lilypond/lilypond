@@ -29,6 +29,7 @@ class Diagnostics
 {
 protected:
   virtual Input *origin () const = 0;
+
 public:
   [[noreturn]] void error (const std::string &) const;
   void programming_error (const std::string &) const;

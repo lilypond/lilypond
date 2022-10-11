@@ -42,8 +42,7 @@ public:
   Lazy_skyline_pair (Axis a) { a_ = a; }
   bool empty () const
   {
-    return todo_.empty ()
-           && per_dir_todo_[UP].empty ()
+    return todo_.empty () && per_dir_todo_[UP].empty ()
            && per_dir_todo_[DOWN].empty ();
   }
   void add_segment (Transform const &tr, Offset p1, Offset p2)
@@ -71,7 +70,8 @@ public:
         add_segment (tr, p1, p2);
         return;
       }
-    Real radius = (tr (Offset (thickness / 2, 0)) - tr (Offset (0, 0))).length ();
+    Real radius
+      = (tr (Offset (thickness / 2, 0)) - tr (Offset (0, 0))).length ();
 
     Offset widen;
     widen[a_] = radius;
@@ -89,7 +89,8 @@ public:
 
     for (const auto d : {DOWN, UP})
       {
-        per_dir_todo_[d].push_back (Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
+        per_dir_todo_[d].push_back (
+          Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
       }
   }
 
@@ -99,8 +100,7 @@ public:
     Offset ps[] = {Offset (b[X_AXIS][LEFT], b[Y_AXIS][DOWN]),
                    Offset (b[X_AXIS][LEFT], b[Y_AXIS][UP]),
                    Offset (b[X_AXIS][RIGHT], b[Y_AXIS][UP]),
-                   Offset (b[X_AXIS][RIGHT], b[Y_AXIS][DOWN])
-                  };
+                   Offset (b[X_AXIS][RIGHT], b[Y_AXIS][DOWN])};
     for (int i = 0; i < 4; i++)
       {
         add_contour_segment (tr, Orientation::CW, ps[i], ps[(i + 1) % 4]);
@@ -114,7 +114,8 @@ public:
         if (todo_.empty () && per_dir_todo_[d].empty ())
           continue;
 
-        per_dir_todo_[d].insert (per_dir_todo_[d].end (), todo_.begin (), todo_.end ());
+        per_dir_todo_[d].insert (per_dir_todo_[d].end (), todo_.begin (),
+                                 todo_.end ());
         skylines_[d].merge (Skyline (per_dir_todo_[d], a_, d));
         per_dir_todo_[d].clear ();
       }

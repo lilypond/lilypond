@@ -47,12 +47,11 @@ Break_alignment_interface::break_align_order (Item *me)
     return SCM_BOOL_F;
 
   SCM order_vec = get_property (me, "break-align-orders");
-  if (!scm_is_vector (order_vec)
-      || scm_c_vector_length (order_vec) < 3)
+  if (!scm_is_vector (order_vec) || scm_c_vector_length (order_vec) < 3)
     return SCM_BOOL_F;
 
-  SCM order = scm_vector_ref (order_vec,
-                              to_scm (me->break_status_dir ().to_index ()));
+  SCM order
+    = scm_vector_ref (order_vec, to_scm (me->break_status_dir ().to_index ()));
 
   return order;
 }
@@ -110,11 +109,10 @@ Break_alignment_interface::find_nonempty_break_align_group (Item *me,
   return nullptr;
 }
 
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Break_alignment_interface,
-                                 find_nonempty_break_align_group,
-                                 "ly:break-alignment-interface::find-nonempty-break-align-group",
-                                 2,
-                                 R"(
+MAKE_DOCUMENTED_SCHEME_CALLBACK (
+  Break_alignment_interface, find_nonempty_break_align_group,
+  "ly:break-alignment-interface::find-nonempty-break-align-group", 2,
+  R"(
 Find the @code{BreakAlignGroup} with the given break-align-symbol in this
 @code{BreakAlignment}.  Return @code{#f} if there is no such group.  Also
 return @code{#f} if the group has empty @code{X-extent}, which can happen if
@@ -157,8 +155,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   while (idx < elems.size ())
     {
       vsize next_idx = idx + 1;
-      while (next_idx < elems.size ()
-             && extents[next_idx].is_empty ())
+      while (next_idx < elems.size () && extents[next_idx].is_empty ())
         next_idx++;
 
       Grob *l = elems[idx];
@@ -201,8 +198,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       if (r)
         {
           extract_grob_set (r, "elements", elts);
-          for (vsize i = elts.size ();
-               !scm_is_symbol (rsym) && i--;)
+          for (vsize i = elts.size (); !scm_is_symbol (rsym) && i--;)
             {
               Grob *elt = elts[i];
               rsym = get_property (elt, "break-align-symbol");
@@ -246,8 +242,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       if (r)
         {
           if (scm_is_eq (type, ly_symbol2scm ("extra-space")))
-            offsets[next_idx] = extents[idx][RIGHT] + distance
-                                - extents[next_idx][LEFT];
+            offsets[next_idx]
+              = extents[idx][RIGHT] + distance - extents[next_idx][LEFT];
           /* should probably junk minimum-space */
           else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
             offsets[next_idx] = std::max (extents[idx][RIGHT], distance);
@@ -352,11 +348,11 @@ Break_alignable_interface::self_align_callback (SCM grob)
     return to_scm (0);
 
   Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
-  Real anchor = from_scm<double> (get_property (alignment_parent, "break-align-anchor"), 0);
+  Real anchor = from_scm<double> (
+    get_property (alignment_parent, "break-align-anchor"), 0);
 
   return to_scm (alignment_parent->relative_coordinate (common, X_AXIS)
-                 - me->relative_coordinate (common, X_AXIS)
-                 + anchor);
+                 - me->relative_coordinate (common, X_AXIS) + anchor);
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor,
@@ -460,12 +456,14 @@ Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor,
-                      "ly:break-aligned-interface::calc-extent-aligned-anchor", 1)
+                      "ly:break-aligned-interface::calc-extent-aligned-anchor",
+                      1)
 SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Real alignment = from_scm<double> (get_property (me, "break-align-anchor-alignment"), 0.0);
+  Real alignment
+    = from_scm<double> (get_property (me, "break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
   if (std::isinf (iv[LEFT]) && std::isinf (iv[RIGHT])) /* avoid NaN */
@@ -489,7 +487,8 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
       for (vsize i = 0; i < elts.size (); i++)
         {
           SCM vis = get_property (elts[i], "break-visibility");
-          if (scm_is_vector (vis) && from_scm<bool> (scm_c_vector_ref (vis, dir)))
+          if (scm_is_vector (vis)
+              && from_scm<bool> (scm_c_vector_ref (vis, dir)))
             visible = true;
         }
       scm_c_vector_set_x (ret, dir, to_scm (visible));

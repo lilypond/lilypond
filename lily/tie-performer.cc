@@ -47,7 +47,7 @@ class Tie_performer : public Performer
   Stream_event *event_;
   list<Head_audio_event_tuple> now_heads_;
   list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
-  list<Head_audio_event_tuple> heads_to_tie_; // heads waiting for closing tie
+  list<Head_audio_event_tuple> heads_to_tie_;   // heads waiting for closing tie
 
 protected:
   void stop_translation_timestep ();
@@ -55,6 +55,7 @@ protected:
   void acknowledge_audio_element (Audio_element_info) override;
   void process_music ();
   void listen_tie (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
@@ -96,9 +97,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       // remove it from the heads_to_tie vector and create the tie
       list<Head_audio_event_tuple>::iterator it;
       Stream_event *right_mus = inf.event_;
-      for (it = heads_to_tie_.begin ();
-           it != heads_to_tie_.end ();
-           it++)
+      for (it = heads_to_tie_.begin (); it != heads_to_tie_.end (); it++)
         {
           Audio_element_info et = (*it).head_;
           Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
@@ -115,9 +114,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
               return;
             }
         }
-      for (it = heads_to_tie_.begin ();
-           it != heads_to_tie_.end ();
-           it++)
+      for (it = heads_to_tie_.begin (); it != heads_to_tie_.end (); it++)
         {
           Audio_element_info et = (*it).head_;
           Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
@@ -129,7 +126,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           SCM p1 = get_property (left_mus, "pitch");
           SCM p2 = get_property (right_mus, "pitch");
           if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
-              && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
+              && unsmob<Pitch> (p1)->tone_pitch ()
+                   == unsmob<Pitch> (p2)->tone_pitch ())
             {
               // it->moment_ already stores the end of the tied note!
               const auto skip = now_mom () - it->end_moment_;
@@ -144,8 +142,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 void
 Tie_performer::start_translation_timestep ()
 {
-  set_property (context (), "tieMelismaBusy",
-                to_scm (!heads_to_tie_.empty ()));
+  set_property (context (), "tieMelismaBusy", to_scm (!heads_to_tie_.empty ()));
 }
 
 // a predicate implemented as a class, used to delete all tied notes with end
@@ -154,9 +151,13 @@ class end_moment_passed
 {
 protected:
   Moment now;
+
 public:
-  end_moment_passed (Moment mom) : now (mom) {}
-  bool operator () (const Head_audio_event_tuple &value)
+  end_moment_passed (Moment mom)
+    : now (mom)
+  {
+  }
+  bool operator() (const Head_audio_event_tuple &value)
   {
     return (value.end_moment_ <= now);
   }

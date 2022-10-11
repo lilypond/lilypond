@@ -36,7 +36,7 @@ struct Grob_pq_entry
 };
 
 bool
-operator < (Grob_pq_entry const &a, Grob_pq_entry const &b)
+operator<(Grob_pq_entry const &a, Grob_pq_entry const &b)
 {
   return a.end_ < b.end_;
 }
@@ -45,6 +45,7 @@ class Grob_pq_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);
+
 protected:
   void initialize () override;
   void acknowledge_grob (Grob_info) override;
@@ -66,14 +67,14 @@ Grob_pq_engraver::initialize ()
   set_property (context (), "busyGrobs", SCM_EOL);
 }
 
-LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
-           2, 0, 0, (SCM a, SCM b),
+LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?", 2, 0, 0, (SCM a, SCM b),
            R"(
 Compare two grob priority queue entries.  This is an internal function.
            )")
 {
   if (Moment::compare (*unsmob<Moment> (scm_car (a)),
-                       *unsmob<Moment> (scm_car (b))) < 0)
+                       *unsmob<Moment> (scm_car (b)))
+      < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -85,7 +86,8 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
   Stream_event *ev = gi.event_cause ();
 
   if (ev
-      && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
+      && !gi.grob ()->internal_has_interface (
+        ly_symbol2scm ("multi-measure-interface")))
     {
       const auto now = now_mom ();
       const auto len = get_event_length (ev, now);
@@ -103,8 +105,7 @@ Grob_pq_engraver::process_acknowledged ()
   for (vsize i = 0; i < started_now_.size (); i++)
     {
       *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
-                         started_now_[i].grob_->self_scm (),
-                         SCM_EOL);
+                         started_now_[i].grob_->self_scm (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -123,7 +124,6 @@ Grob_pq_engraver::stop_translation_timestep ()
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob<Moment> (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
-
 }
 
 void

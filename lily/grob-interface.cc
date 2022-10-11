@@ -28,15 +28,14 @@
 
 using std::string;
 
-SCM add_interface (char const *cxx_name,
-                   char const *descr,
-                   char const *vars)
+SCM
+add_interface (char const *cxx_name, char const *descr, char const *vars)
 {
   string suffix ("-interface");
   string lispy_name = camel_case_to_lisp_identifier (cxx_name);
   vsize end = (lispy_name.size () >= suffix.size ())
-              ? (lispy_name.size () - suffix.size ())
-              : 0;
+                ? (lispy_name.size () - suffix.size ())
+                : 0;
   if (lispy_name.substr (end) != suffix)
     lispy_name += suffix;
 

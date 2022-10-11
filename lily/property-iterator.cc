@@ -36,10 +36,10 @@ Property_iterator::process (Moment mom)
   Context *o = get_context ();
   Music *m = get_music ();
 
-  send_stream_event (o, "SetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), get_property (m, "symbol"),
-                     ly_symbol2scm ("value"), get_property (m, "value"),
-                     ly_symbol2scm ("once"), get_property (m, "once"));
+  send_stream_event (o, "SetProperty", m->origin (), ly_symbol2scm ("symbol"),
+                     get_property (m, "symbol"), ly_symbol2scm ("value"),
+                     get_property (m, "value"), ly_symbol2scm ("once"),
+                     get_property (m, "once"));
 
   Simple_music_iterator::process (mom);
 }
@@ -50,9 +50,9 @@ Property_unset_iterator::process (Moment mom)
   Context *o = get_context ();
   Music *m = get_music ();
 
-  send_stream_event (o, "UnsetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), get_property (m, "symbol"),
-                     ly_symbol2scm ("once"), get_property (m, "once"));
+  send_stream_event (o, "UnsetProperty", m->origin (), ly_symbol2scm ("symbol"),
+                     get_property (m, "symbol"), ly_symbol2scm ("once"),
+                     get_property (m, "once"));
 
   Simple_music_iterator::process (mom);
 }
@@ -60,7 +60,8 @@ Property_unset_iterator::process (Moment mom)
 bool
 check_grob (Music *mus, SCM sym)
 {
-  bool g = from_scm<bool> (scm_object_property (sym, ly_symbol2scm ("is-grob?")));
+  bool g
+    = from_scm<bool> (scm_object_property (sym, ly_symbol2scm ("is-grob?")));
 
   if (!g)
     mus->warning (_f ("not a grob name, `%s'", ly_symbol2string (sym)));
@@ -98,11 +99,10 @@ Push_property_iterator::process (Moment m)
                            ly_symbol2scm ("symbol"), sym,
                            ly_symbol2scm ("property-path"), grob_property_path);
 
-      send_stream_event (get_context (), "Override", origin (),
-                         ly_symbol2scm ("symbol"), sym,
-                         ly_symbol2scm ("property-path"), grob_property_path,
-                         ly_symbol2scm ("once"), once,
-                         ly_symbol2scm ("value"), val);
+      send_stream_event (
+        get_context (), "Override", origin (), ly_symbol2scm ("symbol"), sym,
+        ly_symbol2scm ("property-path"), grob_property_path,
+        ly_symbol2scm ("once"), once, ly_symbol2scm ("value"), val);
     }
   Simple_music_iterator::process (m);
 }
@@ -118,8 +118,8 @@ Pop_property_iterator::process (Moment mom)
       SCM grob_property_path = get_property_path (m);
 
       send_stream_event (get_context (), "Revert", m->origin (),
-                         ly_symbol2scm ("symbol"), sym,
-                         ly_symbol2scm ("once"), get_property (m, "once"),
+                         ly_symbol2scm ("symbol"), sym, ly_symbol2scm ("once"),
+                         get_property (m, "once"),
                          ly_symbol2scm ("property-path"), grob_property_path);
     }
   Simple_music_iterator::process (mom);

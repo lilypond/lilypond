@@ -118,8 +118,8 @@ Jump_engraver::process_music ()
           SCM proc = get_property (this, "segnoMarkFormatter");
           if (ly_is_procedure (proc))
             {
-              body_start_markup = ly_call (proc, to_scm (segno_count),
-                                           context ()->self_scm ());
+              body_start_markup
+                = ly_call (proc, to_scm (segno_count), context ()->self_scm ());
             }
         }
 
@@ -163,11 +163,8 @@ Jump_engraver::process_music ()
         {
           const auto count
             = from_scm (get_property (ds_ev_, "return-count"), 1L);
-          m = ly_call (proc,
-                       context ()->self_scm (),
-                       to_scm (count),
-                       scm_cons2 (body_start_markup,
-                                  body_end_markup,
+          m = ly_call (proc, context ()->self_scm (), to_scm (count),
+                       scm_cons2 (body_start_markup, body_end_markup,
                                   scm_cons (next_markup, SCM_EOL)));
         }
 

@@ -33,7 +33,8 @@
 Real
 output_scale (Output_def *od)
 {
-  return from_scm<double> (od->lookup_variable (ly_symbol2scm ("output-scale")));
+  return from_scm<double> (
+    od->lookup_variable (ly_symbol2scm ("output-scale")));
 }
 
 SCM
@@ -104,8 +105,8 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
     = round_halfway_up (factor * pango_font_description_get_size (description));
   pango_font_description_set_size (description, gint (font_description_size));
 
-  Font_metric *fm = all_fonts_global->find_pango_font (description,
-                                                       output_scale (layout));
+  Font_metric *fm
+    = all_fonts_global->find_pango_font (description, output_scale (layout));
 
   pango_font_description_free (description);
 

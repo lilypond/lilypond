@@ -43,14 +43,14 @@ public:
   Context_handle (Context_handle const &);
   ~Context_handle ();
 
-  void operator = (std::nullptr_t) { reset (); }
-  void operator = (Context *c) { set (c); }
-  void operator = (Context_handle const &h) { set (h.context_); }
+  void operator= (std::nullptr_t) { reset (); }
+  void operator= (Context *c) { set (c); }
+  void operator= (Context_handle const &h) { set (h.context_); }
   void reset ();
 
   explicit operator bool () const { return context_; }
-  Context &operator *() const { return *context_; }
-  Context *operator ->() const { return context_; }
+  Context &operator* () const { return *context_; }
+  Context *operator->() const { return context_; }
   Context *get () const { return context_; }
   int get_count () const;
 

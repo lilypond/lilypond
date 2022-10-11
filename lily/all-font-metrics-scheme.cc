@@ -27,8 +27,7 @@ using std::string;
 All_font_metrics *all_fonts_global = 0;
 Protected_scm all_fonts_global_scm;
 
-LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0,
-           (),
+LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0, (),
            R"(
 Forget all about previously loaded fonts.
            )")
@@ -39,8 +38,7 @@ Forget all about previously loaded fonts.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_system_font_load, "ly:system-font-load", 1, 0, 0,
-           (SCM name),
+LY_DEFINE (ly_system_font_load, "ly:system-font-load", 1, 0, 0, (SCM name),
            R"(
 Load the OpenType system font @file{@var{name}.otf}.  Fonts loaded with this
 command must contain three additional SFNT font tables called @code{LILC},

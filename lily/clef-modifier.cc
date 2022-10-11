@@ -69,4 +69,3 @@ LilyPond allows any integer here.
                R"(
 clef-alignments
                )");
-

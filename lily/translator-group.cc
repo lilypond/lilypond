@@ -61,9 +61,11 @@ Translator_group::connect_to_context (Context *c)
     }
 
   context_ = c;
-  c->event_source ()->add_listener (GET_LISTENER (this, create_child_translator),
-                                    ly_symbol2scm ("AnnounceNewContext"));
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+  c->event_source ()->add_listener (
+    GET_LISTENER (this, create_child_translator),
+    ly_symbol2scm ("AnnounceNewContext"));
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
+       tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->connect_to_context (c);
@@ -73,13 +75,15 @@ Translator_group::connect_to_context (Context *c)
 void
 Translator_group::disconnect_from_context ()
 {
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
+       tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->disconnect_from_context (context_);
     }
-  context_->event_source ()->remove_listener (GET_LISTENER (this, create_child_translator),
-                                              ly_symbol2scm ("AnnounceNewContext"));
+  context_->event_source ()->remove_listener (
+    GET_LISTENER (this, create_child_translator),
+    ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
   protected_events_ = SCM_EOL;
 }
@@ -121,7 +125,8 @@ Translator_group::create_child_translator (SCM sev)
   Context_def *def = unsmob<Context_def> (new_context->get_definition ());
   SCM ops = new_context->get_definition_mods ();
 
-  Translator_group *g = get_translator_group (def->get_translator_group_type ());
+  Translator_group *g
+    = get_translator_group (def->get_translator_group_type ());
   ly_scm_list trans_list;
   auto tail = trans_list.begin ();
 
@@ -138,7 +143,8 @@ Translator_group::create_child_translator (SCM sev)
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
         {
-          warning (_f ("cannot find: `%s'", ly_scm_write_string (arg).c_str ()));
+          warning (
+            _f ("cannot find: `%s'", ly_scm_write_string (arg).c_str ()));
           continue;
         }
 
@@ -156,9 +162,11 @@ Translator_group::create_child_translator (SCM sev)
   /* Filter unwanted translator types. Required to make
      \with { \consists "..." } work. */
   if (dynamic_cast<Engraver_group *> (g))
-    trans_list.remove_if ([] (SCM s) { return !unsmob<Translator> (s)->is_layout (); });
+    trans_list.remove_if (
+      [] (SCM s) { return !unsmob<Translator> (s)->is_layout (); });
   else if (dynamic_cast<Performer_group *> (g))
-    trans_list.remove_if ([] (SCM s) { return !unsmob<Translator> (s)->is_midi (); });
+    trans_list.remove_if (
+      [] (SCM s) { return !unsmob<Translator> (s)->is_midi (); });
 
   g->simple_trans_list_ = trans_list.begin_scm ();
 
@@ -168,11 +176,8 @@ Translator_group::create_child_translator (SCM sev)
   g->connect_to_context (new_context);
   g->unprotect ();
 
-  recurse_over_translators
-  (new_context,
-   MFP_WRAP (&Translator::initialize),
-   MFP_WRAP (&Translator_group::initialize),
-   DOWN);
+  recurse_over_translators (new_context, MFP_WRAP (&Translator::initialize),
+                            MFP_WRAP (&Translator_group::initialize), DOWN);
 }
 
 SCM
@@ -182,7 +187,9 @@ Translator_group::get_simple_trans_list ()
 }
 
 void
-precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir)
+precomputed_recurse_over_translators (Context *c,
+                                      Translator_precompute_index idx,
+                                      Direction dir)
 {
   Translator_group *tg = c->implementation ();
 
@@ -191,9 +198,9 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
       tg->precomputed_translator_foreach (idx);
     }
 
-  for (SCM s = c->children_contexts (); scm_is_pair (s);
-       s = scm_cdr (s))
-    precomputed_recurse_over_translators (unsmob<Context> (scm_car (s)), idx, dir);
+  for (SCM s = c->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
+    precomputed_recurse_over_translators (unsmob<Context> (scm_car (s)), idx,
+                                          dir);
 
   if (tg && dir == UP)
     {
@@ -202,8 +209,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 }
 
 void
-recurse_over_translators (Context *c, SCM ptr,
-                          SCM tg_ptr, Direction dir)
+recurse_over_translators (Context *c, SCM ptr, SCM tg_ptr, Direction dir)
 {
   Translator_group *tg = c->implementation ();
   SCM tg_scm = tg ? tg->self_scm () : SCM_UNDEFINED;
@@ -214,14 +220,12 @@ recurse_over_translators (Context *c, SCM ptr,
       translator_each (tg->get_simple_trans_list (), ptr);
     }
 
-  for (SCM s = c->children_contexts (); scm_is_pair (s);
-       s = scm_cdr (s))
+  for (SCM s = c->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     recurse_over_translators (unsmob<Context> (scm_car (s)), ptr, tg_ptr, dir);
 
   if (tg && dir == UP)
     {
-      translator_each (tg->get_simple_trans_list (),
-                       ptr);
+      translator_each (tg->get_simple_trans_list (), ptr);
 
       ly_call (tg_ptr, tg_scm);
     }
@@ -253,18 +257,19 @@ Translator_group::precompute_method_bindings ()
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
         {
           if (!SCM_UNBNDP (ptrs[i]))
-            precomputed_method_bindings_[i].push_back (Method_instance (ptrs[i], tr));
+            precomputed_method_bindings_[i].push_back (
+              Method_instance (ptrs[i], tr));
         }
     }
-
 }
 
 void
-Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
+Translator_group::precomputed_translator_foreach (
+  Translator_precompute_index idx)
 {
   vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
-    bindings[i] ();
+    bindings[i]();
 }
 
 Translator_group::~Translator_group ()

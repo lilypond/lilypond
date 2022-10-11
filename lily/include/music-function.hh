@@ -36,4 +36,3 @@ public:
 };
 
 #endif /* MUSIC_FUNCTION_HH */
-

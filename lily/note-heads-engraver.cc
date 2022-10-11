@@ -104,7 +104,8 @@ Note_heads_engraver::process_music ()
           if (unsmob<Pitch> (scm_tonic))
             tonic = *unsmob<Pitch> (scm_tonic);
 
-          unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;
+          unsigned int delta
+            = (pit->get_notename () - tonic.get_notename () + 7) % 7;
 
           SCM style = SCM_EOL;
           if (scm_c_vector_length (shape_vector) > delta

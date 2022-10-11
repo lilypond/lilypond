@@ -32,8 +32,10 @@ class Slash_repeat_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
+
 protected:
   Stream_event *slash_;
+
 protected:
   void listen_repeat_slash (Stream_event *);
   void process_music ();

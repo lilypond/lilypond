@@ -37,6 +37,7 @@ class Spring : public Simple_smob<Spring>
 public:
   static SCM equal_p (SCM, SCM);
   static const char *const type_p_name_;
+
 private:
   // parameters
   Real ideal_distance_;
@@ -71,8 +72,8 @@ public:
   void set_default_compress_strength ();
   void set_default_stretch_strength ();
 
-  void operator *= (Real);
-  bool operator > (Spring const &) const;
+  void operator*= (Real);
+  bool operator> (Spring const &) const;
 };
 
 Spring merge_springs (std::vector<Spring> const &springs);

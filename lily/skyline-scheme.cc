@@ -23,8 +23,8 @@
 #include "skyline.hh"
 #include "stencil.hh"
 
-LY_DEFINE (ly_skyline_touching_point, "ly:skyline-touching-point",
-           2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
+LY_DEFINE (ly_skyline_touching_point, "ly:skyline-touching-point", 2, 1, 0,
+           (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Get the point where @var{skyline} and @var{other-skyline} (having
 opposite directions) reach their minimum distance.  If
@@ -43,8 +43,8 @@ first.
   return to_scm (sky->touching_point (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_distance, "ly:skyline-distance",
-           2, 1, 0, (SCM skyline, SCM other_skyline, SCM horizon_padding),
+LY_DEFINE (ly_skyline_distance, "ly:skyline-distance", 2, 1, 0,
+           (SCM skyline, SCM other_skyline, SCM horizon_padding),
            R"(
 Compute the distance between the two skylines, padding by
 @var{horizon-padding} if provided.
@@ -61,8 +61,8 @@ Compute the distance between the two skylines, padding by
   return to_scm (sky->distance (*other, hp));
 }
 
-LY_DEFINE (ly_skyline_max_height, "ly:skyline-max-height",
-           1, 0, 0, (SCM skyline),
+LY_DEFINE (ly_skyline_max_height, "ly:skyline-max-height", 1, 0, 0,
+           (SCM skyline),
            R"(
 Return the maximum height found in @var{skyline}.
            )")
@@ -71,8 +71,8 @@ Return the maximum height found in @var{skyline}.
   return to_scm (sky->max_height ());
 }
 
-LY_DEFINE (ly_skyline_max_height_position, "ly:skyline-max-height-position",
-           1, 0, 0, (SCM skyline),
+LY_DEFINE (ly_skyline_max_height_position, "ly:skyline-max-height-position", 1,
+           0, 0, (SCM skyline),
            R"(
 Return the position at which @var{skyline} reaches its maximum height.
            )")
@@ -81,8 +81,8 @@ Return the position at which @var{skyline} reaches its maximum height.
   return to_scm (sky->max_height_position ());
 }
 
-LY_DEFINE (ly_skyline_height, "ly:skyline-height",
-           2, 0, 0, (SCM skyline, SCM x),
+LY_DEFINE (ly_skyline_height, "ly:skyline-height", 2, 0, 0,
+           (SCM skyline, SCM x),
            R"(
 Return the height of @var{skyline} at point @var{x}.
            )")
@@ -93,8 +93,7 @@ Return the height of @var{skyline} at point @var{x}.
   return to_scm (sky->height (x_cpp));
 }
 
-LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
-           1, 0, 0, (SCM sky),
+LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?", 1, 0, 0, (SCM sky),
            R"(
 Return whether skyline @var{sky} is empty.
            )")
@@ -103,8 +102,8 @@ Return whether skyline @var{sky} is empty.
   return to_scm (s->is_empty ());
 }
 
-LY_DEFINE (ly_skylines_for_stencil, "ly:skylines-for-stencil",
-           2, 0, 0, (SCM stencil, SCM axis),
+LY_DEFINE (ly_skylines_for_stencil, "ly:skylines-for-stencil", 2, 0, 0,
+           (SCM stencil, SCM axis),
            R"(
 Return a pair of skylines representing the outline of @var{stencil}.
 @var{axis} is the @q{horizon axis} (i.e., this function gives skylines
@@ -119,8 +118,8 @@ is@tie{}@code{Y}).
   return to_scm (skylines_from_stencil (stencil, SCM_EOL, a));
 }
 
-LY_DEFINE (ly_skyline_pad, "ly:skyline-pad",
-           2, 0, 0, (SCM skyline, SCM horizon_padding),
+LY_DEFINE (ly_skyline_pad, "ly:skyline-pad", 2, 0, 0,
+           (SCM skyline, SCM horizon_padding),
            R"(
 Return a version of @var{skyline} padded by @var{horizon-padding}
 along the horizon.
@@ -132,8 +131,8 @@ along the horizon.
   return sky->padded (hp).smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_skyline, "ly:make-skyline",
-           3, 0, 0, (SCM segments, SCM axis, SCM direction),
+LY_DEFINE (ly_make_skyline, "ly:make-skyline", 3, 0, 0,
+           (SCM segments, SCM axis, SCM direction),
            R"(
 Create a new skyline from a list of segments.  A skyline is an object
 representing an outline along a @q{horizon axis}, much like a city skyline.
@@ -151,7 +150,8 @@ can be given in any order, and overlap.
       if (!(ly_is_list (segment)
             && from_scm<vsize> (scm_length (segment)) == 4))
         {
-          scm_wrong_type_arg_msg ("ly:make-skyline", 0, segment, "list of 4 numbers");
+          scm_wrong_type_arg_msg ("ly:make-skyline", 0, segment,
+                                  "list of 4 numbers");
         }
       for (SCM x : as_ly_scm_list (segment))
         {
@@ -179,8 +179,8 @@ can be given in any order, and overlap.
   return Skyline (offs, a, d).smobbed_copy ();
 }
 
-LY_DEFINE (ly_skyline_2_points, "ly:skyline->points",
-           2, 0, 0, (SCM skyline, SCM horizon_axis),
+LY_DEFINE (ly_skyline_2_points, "ly:skyline->points", 2, 0, 0,
+           (SCM skyline, SCM horizon_axis),
            R"(
 Return a list of points from the given skyline, if viewed with
 @var{horizon-@/axis} as @q{horizon axis}.  Joining the points with a
@@ -195,8 +195,8 @@ line draws the outline of the skyline.
   return to_scm_list (points);
 }
 
-LY_DEFINE (ly_skyline_merge, "ly:skyline-merge",
-           2, 0, 0, (SCM skyline1, SCM skyline2),
+LY_DEFINE (ly_skyline_merge, "ly:skyline-merge", 2, 0, 0,
+           (SCM skyline1, SCM skyline2),
            R"(
 Merge the two given skylines.
            )")
@@ -206,8 +206,7 @@ Merge the two given skylines.
   if (sky1->sky () != sky2->sky ())
     {
       scm_misc_error ("ly:skyline-merge",
-                      "expecting skylines with the same direction",
-                      SCM_EOL);
+                      "expecting skylines with the same direction", SCM_EOL);
     }
   Skyline merged (*sky1);
   merged.merge (*sky2);

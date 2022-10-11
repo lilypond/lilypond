@@ -87,7 +87,8 @@ Prob::equal_p (SCM sa, SCM sb)
   return SCM_BOOL_T;
 }
 
-Prob::Prob (SCM type, SCM immutable_init) : Smob<Prob> ()
+Prob::Prob (SCM type, SCM immutable_init)
+  : Smob<Prob> ()
 {
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = immutable_init;
@@ -171,7 +172,8 @@ Prob::internal_get_property (SCM sym) const
 
 /* We don't (yet) instrument probs */
 void
-Prob::instrumented_set_property (SCM sym, SCM val, const char *, int, const char *)
+Prob::instrumented_set_property (SCM sym, SCM val, const char *, int,
+                                 const char *)
 {
   internal_set_property (sym, val);
 }

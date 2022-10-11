@@ -28,24 +28,24 @@ struct Piano_pedal_bracket
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, "ly:piano-pedal-bracket::print",
-                      1);
+MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print,
+                      "ly:piano-pedal-bracket::print", 1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *orig = me->original ();
 
-  Drul_array<Real> height = from_scm (get_property (me, "edge-height"),
-                                      Drul_array<Real> (0.0, 0.0));
-  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                       Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> height
+    = from_scm (get_property (me, "edge-height"), Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> shorten
+    = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
   Drul_array<bool> broken;
 
-  Grob *common = me->get_bound (LEFT)
-                 ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  Grob *common
+    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Grob *textbit = unsmob<Grob> (get_object (me, "pedal-text"));
 
   if (textbit)
@@ -66,8 +66,8 @@ Piano_pedal_bracket::print (SCM smob)
           else
             flare[d] = 0.0;
 
-          span_points[d]
-            = Axis_group_interface::generic_bound_extent (b, common, X_AXIS)[RIGHT];
+          span_points[d] = Axis_group_interface::generic_bound_extent (
+            b, common, X_AXIS)[RIGHT];
         }
       else
         span_points[d] = b->relative_coordinate (common, X_AXIS);
@@ -82,19 +82,18 @@ Piano_pedal_bracket::print (SCM smob)
 
       Real padding = from_scm<double> (get_property (me, "bound-padding"), 0);
 
-      span_points[LEFT] = padding
-                          + robust_relative_extent (textbit, common, X_AXIS)[RIGHT];
+      span_points[LEFT]
+        = padding + robust_relative_extent (textbit, common, X_AXIS)[RIGHT];
     }
 
   Stencil m;
-  if (!span_points.is_empty ()
-      && span_points.length () > 0.001)
+  if (!span_points.is_empty () && span_points.length () > 0.001)
     {
-      m = Bracket::make_bracket (me, Y_AXIS, Offset (span_points.length (), 0), height,
-                                 Interval (), flare, shorten);
+      m = Bracket::make_bracket (me, Y_AXIS, Offset (span_points.length (), 0),
+                                 height, Interval (), flare, shorten);
     }
-  m.translate_axis (span_points[LEFT]
-                    - me->relative_coordinate (common, X_AXIS), X_AXIS);
+  m.translate_axis (
+    span_points[LEFT] - me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
 

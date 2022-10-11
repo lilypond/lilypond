@@ -60,17 +60,21 @@ Interval_minefield::solve ()
         {
           for (const auto d : {DOWN, UP})
             {
-              Interval feasible_widened = Interval (feasible_placements_[d], feasible_placements_[d]);
+              Interval feasible_widened
+                = Interval (feasible_placements_[d], feasible_placements_[d]);
               feasible_widened.widen (bulk_ / 2.);
 
               if (forbidden_intervals_[i][d] == d * infinity_f)
                 feasible_placements_[d] = d * infinity_f;
               else if (forbidden_intervals_[i].contains (feasible_widened[d])
-                       || forbidden_intervals_[i].contains (feasible_widened[-d])
+                       || forbidden_intervals_[i].contains (
+                         feasible_widened[-d])
                        || feasible_widened.contains (forbidden_intervals_[i][d])
-                       || feasible_widened.contains (forbidden_intervals_[i][-d]))
+                       || feasible_widened.contains (
+                         forbidden_intervals_[i][-d]))
                 {
-                  feasible_placements_[d] = forbidden_intervals_[i][d] + d * (epsilon + (bulk_ / 2));
+                  feasible_placements_[d]
+                    = forbidden_intervals_[i][d] + d * (epsilon + (bulk_ / 2));
                   dirty = true;
                 }
             }

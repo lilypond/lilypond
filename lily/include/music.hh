@@ -66,6 +66,7 @@ protected:
   SCM copy_mutable_properties () const override;
   void type_check_assignment (SCM, SCM) const override;
   void derived_mark () const override;
+
 protected:
   friend SCM ly_extended_make_music (SCM, SCM);
 };

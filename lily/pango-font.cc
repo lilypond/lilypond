@@ -31,7 +31,7 @@
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "international.hh"
-#include "lookup.hh"            // debugging
+#include "lookup.hh" // debugging
 #include "ly-module.hh"
 #include "string-convert.hh"
 #include "warn.hh"
@@ -55,13 +55,10 @@ public:
     pango_font_ = pango_context_load_font (context, pango_description);
   }
 
-  ~PangoFont_accessor ()
-  {
-    g_object_unref (pango_font_);
-  }
+  ~PangoFont_accessor () { g_object_unref (pango_font_); }
 
-  operator PangoFont *() { return pango_font_; }
-  operator PangoFcFont *() { return PANGO_FC_FONT (pango_font_); }
+  operator PangoFont * () { return pango_font_; }
+  operator PangoFcFont * () { return PANGO_FC_FONT (pango_font_); }
 };
 
 // RAII for extracting FT_Face from PangoFcFont
@@ -72,7 +69,7 @@ class FTFace_accessor
 
 public:
   operator FT_Face () { return face_; }
-  FT_Face operator ->() { return face_; }
+  FT_Face operator->() { return face_; }
   FTFace_accessor (PangoFcFont *pango_font)
   {
     pango_font_ = pango_font;
@@ -130,14 +127,11 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (const string &filename,
-                                const string &ps_name,
+Pango_font::register_font_file (const string &filename, const string &ps_name,
                                 int face_index)
 {
-  scm_hash_set_x (physical_font_tab_,
-                  ly_string2scm (ps_name),
-                  ly_list (ly_string2scm (filename),
-                           to_scm (face_index)));
+  scm_hash_set_x (physical_font_tab_, ly_string2scm (ps_name),
+                  ly_list (ly_string2scm (filename), to_scm (face_index)));
 }
 
 size_t
@@ -171,15 +165,13 @@ Pango_font::derived_mark () const
 }
 
 void
-get_glyph_index_name (char *s,
-                      FT_ULong code)
+get_glyph_index_name (char *s, FT_ULong code)
 {
   sprintf (s, "glyphIndex%lX", code);
 }
 
 void
-get_unicode_name (char *s,
-                  FT_ULong code)
+get_unicode_name (char *s, FT_ULong code)
 {
   if (code > 0xFFFF)
     sprintf (s, "u%lX", code);
@@ -204,10 +196,8 @@ Pango_font::get_scaled_indexed_char_dimensions (size_t signed_idx) const
   PangoRectangle ink_rect;
   PangoGlyph glyph = glyph_index_to_pango (signed_idx);
   pango_font_get_glyph_extents (font, glyph, &ink_rect, &logical_rect);
-  Box out (Interval (PANGO_LBEARING (ink_rect),
-                     PANGO_RBEARING (ink_rect)),
-           Interval (-PANGO_DESCENT (ink_rect),
-                     PANGO_ASCENT (ink_rect)));
+  Box out (Interval (PANGO_LBEARING (ink_rect), PANGO_RBEARING (ink_rect)),
+           Interval (-PANGO_DESCENT (ink_rect), PANGO_ASCENT (ink_rect)));
   out.scale (scale_);
   return out;
 }
@@ -324,7 +314,7 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
     char_id = scm_from_utf8_string (glyph_name);
 
   return ly_list (to_scm (scaled_glyph_extent[X_AXIS][RIGHT]
-                             - scaled_glyph_extent[X_AXIS][LEFT]),
+                          - scaled_glyph_extent[X_AXIS][LEFT]),
                   scm_cons (to_scm (scaled_glyph_extent[Y_AXIS][DOWN]),
                             to_scm (scaled_glyph_extent[Y_AXIS][UP])),
                   to_scm (ggeo.x_offset * scale_),
@@ -393,10 +383,10 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       pango_glyph_string_extents_range (pgs, i, i + 1, pa->font, &ink_sub_rect,
                                         &logical_sub_rect);
-      Box b_sub (Interval (PANGO_LBEARING (logical_sub_rect),
-                           PANGO_RBEARING (logical_sub_rect)),
-                 Interval (-PANGO_DESCENT (ink_sub_rect),
-                           PANGO_ASCENT (ink_sub_rect)));
+      Box b_sub (
+        Interval (PANGO_LBEARING (logical_sub_rect),
+                  PANGO_RBEARING (logical_sub_rect)),
+        Interval (-PANGO_DESCENT (ink_sub_rect), PANGO_ASCENT (ink_sub_rect)));
 
       b_sub.scale (scale_);
 
@@ -428,10 +418,8 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
     warning (_f ("no PostScript font name for font `%s'", file_name));
 
   string ps_name;
-  if (ps_name_str0.empty ()
-      && file_name != ""
-      && (file_name.find (".otf") != NPOS
-          || file_name.find (".cff") != NPOS))
+  if (ps_name_str0.empty () && file_name != ""
+      && (file_name.find (".otf") != NPOS || file_name.find (".cff") != NPOS))
     {
       // UGH: kludge a PS name for OTF/CFF fonts.
       string name = file_name;
@@ -445,8 +433,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
       if (slash_idx != NPOS)
         {
           slash_idx++;
-          name = name.substr (slash_idx,
-                              name.length () - slash_idx);
+          name = name.substr (slash_idx, name.length () - slash_idx);
         }
 
       string initial = name.substr (0, 1);
@@ -469,11 +456,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       std::string substr
         = text.substr (glyph_item->item->offset, glyph_item->item->length);
-      SCM expr = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
-                          ly_string2scm (ps_name), to_scm (size),
-                          to_scm (cid_keyed), glyph_exprs,
-                          ly_string2scm (file_name), to_scm (face_index),
-                          ly_string2scm (substr), clusters);
+      SCM expr
+        = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
+                   ly_string2scm (ps_name), to_scm (size), to_scm (cid_keyed),
+                   glyph_exprs, ly_string2scm (file_name), to_scm (face_index),
+                   ly_string2scm (substr), clusters);
 
       return Stencil (string_extent, expr);
     }
@@ -491,10 +478,8 @@ Pango_font::physical_font_tab () const
 extern bool music_strings_to_paths;
 
 Stencil
-Pango_font::text_stencil (Output_def * /* state */,
-                          const string &str,
-                          bool music_string,
-                          const string &features_str) const
+Pango_font::text_stencil (Output_def * /* state */, const string &str,
+                          bool music_string, const string &features_str) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided
@@ -506,7 +491,8 @@ Pango_font::text_stencil (Output_def * /* state */,
   if (!features_str.empty ())
     {
       PangoAttrList *list = pango_attr_list_new ();
-      PangoAttribute *features_attr = pango_attr_font_features_new (features_str.c_str ());
+      PangoAttribute *features_attr
+        = pango_attr_font_features_new (features_str.c_str ());
       pango_attr_list_insert (list, features_attr);
       pango_layout_set_attributes (layout, list);
       pango_attr_list_unref (list);
@@ -545,8 +531,7 @@ Pango_font::text_stencil (Output_def * /* state */,
       // Pango for rendering.
       SCM exp = ly_list (ly_symbol2scm ("utf-8-string"),
                          ly_string2scm (description_string ()),
-                         ly_string2scm (str),
-                         dest.expr ());
+                         ly_string2scm (str), dest.expr ());
       dest = Stencil (dest.extent_box (), exp);
     }
   return dest;

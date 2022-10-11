@@ -55,7 +55,7 @@ struct Finger_tuple
 };
 
 bool
-operator < (Finger_tuple const &a, Finger_tuple const &b)
+operator<(Finger_tuple const &a, Finger_tuple const &b)
 {
   return a.position_ < b.position_;
 }
@@ -73,17 +73,18 @@ class New_fingering_engraver : public Engraver
   Item *note_column_;
 
   void position_all ();
+
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
+
 protected:
   void stop_translation_timestep ();
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_note_column (Grob_info_t<Item>);
-  void add_fingering (Grob *, SCM,
-                      vector<Finger_tuple> *,
-                      Stream_event *, Stream_event *);
+  void add_fingering (Grob *, SCM, vector<Finger_tuple> *, Stream_event *,
+                      Stream_event *);
   void add_script (Grob *, Stream_event *, Stream_event *);
   void position_scripts (SCM orientations, vector<Finger_tuple> *);
 };
@@ -111,9 +112,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
         continue;
 
       if (ev->in_event_class ("fingering-event"))
-        add_fingering (inf.grob (),
-                       ly_symbol2scm ("Fingering"),
-                       &fingerings_,
+        add_fingering (inf.grob (), ly_symbol2scm ("Fingering"), &fingerings_,
                        ev, note_ev);
       else if (ev->in_event_class ("text-script-event"))
         ev->warning (_ ("cannot add text scripts to individual note heads"));
@@ -121,16 +120,12 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
         add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
         {
-          add_fingering (inf.grob (),
-                         ly_symbol2scm ("StringNumber"),
-                         &string_numbers_,
-                         ev,
-                         note_ev);
+          add_fingering (inf.grob (), ly_symbol2scm ("StringNumber"),
+                         &string_numbers_, ev, note_ev);
         }
       else if (ev->in_event_class ("stroke-finger-event"))
-        add_fingering (inf.grob (),
-                       ly_symbol2scm ("StrokeFinger"), &stroke_fingerings_,
-                       ev, note_ev);
+        add_fingering (inf.grob (), ly_symbol2scm ("StrokeFinger"),
+                       &stroke_fingerings_, ev, note_ev);
       else if (ev->in_event_class ("harmonic-event"))
         {
           set_property (inf.grob (), "style", ly_symbol2scm ("harmonic"));
@@ -156,8 +151,7 @@ New_fingering_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 }
 
 void
-New_fingering_engraver::add_script (Grob *head,
-                                    Stream_event *event,
+New_fingering_engraver::add_script (Grob *head, Stream_event *event,
                                     Stream_event * /* note */)
 {
   Finger_tuple ft;
@@ -176,8 +170,7 @@ New_fingering_engraver::add_script (Grob *head,
 }
 
 void
-New_fingering_engraver::add_fingering (Grob *head,
-                                       SCM grob_sym,
+New_fingering_engraver::add_fingering (Grob *head, SCM grob_sym,
                                        vector<Finger_tuple> *tuple_vector,
                                        Stream_event *event,
                                        Stream_event *hevent)
@@ -217,7 +210,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (vsize i = 0; i < scripts->size (); i++)
-    (*scripts)[i].position_ = from_scm<int> (get_property ((*scripts)[i].head_, "staff-position"));
+    (*scripts)[i].position_
+      = from_scm<int> (get_property ((*scripts)[i].head_, "staff-position"));
 
   for (vsize i = scripts->size (); i--;)
     for (vsize j = heads_.size (); j--;)
@@ -229,7 +223,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
       SCM d = get_property ((*scripts)[i].finger_event_, "direction");
       if (from_scm<Direction> (d))
         {
-          ((from_scm<Direction> (d) == UP) ? up : down).push_back ((*scripts)[i]);
+          ((from_scm<Direction> (d) == UP) ? up : down)
+            .push_back ((*scripts)[i]);
           scripts->erase (scripts->begin () + i);
         }
     }
@@ -239,7 +234,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
   bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
   bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));
   bool left_p = scm_is_true (scm_c_memq (ly_symbol2scm ("left"), orientations));
-  bool right_p = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
+  bool right_p
+    = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
   Direction hordir = (right_p) ? RIGHT : LEFT;
   if (left_p || right_p)
     {
@@ -288,14 +284,14 @@ New_fingering_engraver::position_scripts (SCM orientations,
       set_property (f, "avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
           && unsmob<Grob> (get_object (ft.head_, "accidental-grob")))
-        Side_position_interface::add_support
-        (f, unsmob<Grob> (get_object (ft.head_, "accidental-grob")));
+        Side_position_interface::add_support (
+          f, unsmob<Grob> (get_object (ft.head_, "accidental-grob")));
       else if (Rhythmic_head::dot_count (ft.head_))
         for (vsize j = 0; j < heads_.size (); j++)
           if (Grob *d = unsmob<Grob> (get_object (heads_[j], "dot")))
             Side_position_interface::add_support (f, d);
 
-      if (horiz.size () > 1)  /* -> FingeringColumn */
+      if (horiz.size () > 1) /* -> FingeringColumn */
         {
           // Ouch, should do this in the typesetting phase. --JeanAS
           const Stencil *stil = f->get_stencil ();
@@ -321,7 +317,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       set_property (f, "direction", to_scm (hordir));
     }
 
-  Drul_array< vector<Finger_tuple> > vertical (down, up);
+  Drul_array<vector<Finger_tuple>> vertical (down, up);
   for (const auto d : {DOWN, UP})
     {
       for (vsize i = 0; i < vertical[d].size (); i++)
@@ -396,7 +392,9 @@ New_fingering_engraver::position_all ()
       for (vsize j = heads_.size (); j--;)
         Side_position_interface::add_support (script, heads_[j]);
 
-      if (stem_ && from_scm<Direction> (get_property (script, "side-relative-direction")))
+      if (stem_
+          && from_scm<Direction> (
+            get_property (script, "side-relative-direction")))
         set_object (script, "direction-source", stem_->self_scm ());
 
       if (stem_ && from_scm<bool> (get_property (script, "add-stem-support")))

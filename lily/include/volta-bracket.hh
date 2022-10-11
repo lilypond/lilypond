@@ -32,4 +32,3 @@ public:
 };
 
 #endif // VOLTA_SPANNER_HH
-

@@ -52,7 +52,8 @@ const Real TERRIBLE_SPACING_PENALTY = 1e8;
 class Page_spacer
 {
 public:
-  Page_spacer (std::vector<Line_details> const &lines, int first_page_num, Page_breaking const *);
+  Page_spacer (std::vector<Line_details> const &lines, int first_page_num,
+               Page_breaking const *);
   Page_spacing_result solve (vsize page_count);
   Page_spacing_result solve ();
 

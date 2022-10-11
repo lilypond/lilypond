@@ -28,10 +28,13 @@
 class Announce_grob_info : public Grob_info
 {
   Direction start_end_;
+
 public:
   Announce_grob_info (Grob_info gi, Direction start_end)
-    : Grob_info (gi), start_end_ (start_end)
-  { }
+    : Grob_info (gi),
+      start_end_ (start_end)
+  {
+  }
   Direction start_end () const { return start_end_; }
 };
 
@@ -46,6 +49,7 @@ protected:
   std::vector<Announce_grob_info> announce_infos_;
   void override (SCM);
   void revert (SCM);
+
 public:
   OVERRIDE_CLASS_NAME (Engraver_group);
   Engraver_group ();
@@ -56,13 +60,13 @@ public:
   virtual void announce_grob (Grob_info, Direction start_end,
                               Context *reroute_context = 0);
   bool pending_grobs () const;
+
 private:
   virtual void acknowledge_grobs ();
 };
 
-typedef void (Engraver:: *Engraver_method) (void);
+typedef void (Engraver::*Engraver_method) (void);
 
 void engraver_each (SCM list, Engraver_method method);
 
 #endif /* ENGRAVERGROUP_HH */
-

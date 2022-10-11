@@ -39,6 +39,7 @@ protected:
   void stop_translation_timestep ();
   void acknowledge_note_head (Grob_info);
   void listen_laissez_vibrer (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
 };

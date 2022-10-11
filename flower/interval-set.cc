@@ -75,7 +75,8 @@ vector<Interval>::const_iterator
 Interval_set::upper_bound (Real x) const
 {
   Interval xx (x, x);
-  return std::upper_bound (intervals_.begin (), intervals_.end (), xx, Interval::left_less);
+  return std::upper_bound (intervals_.begin (), intervals_.end (), xx,
+                           Interval::left_less);
 }
 
 Real
@@ -123,7 +124,8 @@ Interval_set::complement () const
     ret.intervals_.push_back (Interval (-infinity_f, intervals_[0][LEFT]));
 
   for (vsize i = 1; i < intervals_.size (); ++i)
-    ret.intervals_.push_back (Interval (intervals_[i - 1][RIGHT], intervals_[i][LEFT]));
+    ret.intervals_.push_back (
+      Interval (intervals_[i - 1][RIGHT], intervals_[i][LEFT]));
 
   if (intervals_.back ()[RIGHT] < infinity_f)
     ret.intervals_.push_back (Interval (intervals_.back ()[RIGHT], infinity_f));

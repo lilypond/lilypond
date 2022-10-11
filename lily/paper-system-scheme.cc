@@ -22,8 +22,7 @@
 
 #include "skyline-pair.hh"
 
-LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
-           1, 0, 0, (SCM obj),
+LY_DEFINE (ly_paper_system_p, "ly:paper-system?", 1, 0, 0, (SCM obj),
            R"(
 Is @var{obj} a C++ @code{Prob} object of type @code{paper-system}?
            )")

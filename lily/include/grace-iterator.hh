@@ -25,8 +25,12 @@
 class Grace_iterator final : public Music_wrapper_iterator
 {
   bool in_grace_;
+
 public:
-  Grace_iterator () : in_grace_ (false) { }
+  Grace_iterator ()
+    : in_grace_ (false)
+  {
+  }
   void process (Moment) override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Grace_iterator);
@@ -34,4 +38,3 @@ public:
 };
 
 #endif /* GRACE_ITERATOR_HH */
-

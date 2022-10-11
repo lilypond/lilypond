@@ -40,4 +40,3 @@ version_string ()
     str += mpl;
   return str;
 }
-

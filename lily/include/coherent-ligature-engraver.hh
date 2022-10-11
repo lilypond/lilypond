@@ -28,19 +28,18 @@ class Coherent_ligature_engraver : public Ligature_engraver
 public:
   Coherent_ligature_engraver (Context *c)
     : Ligature_engraver (c)
-  {}
+  {
+  }
   // no TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver) needed
   // since this class is abstract
 
 protected:
+  virtual void build_ligature (Spanner *ligature,
+                               std::vector<Item *> const &primitives)
+    = 0;
 
-  virtual void
-  build_ligature (Spanner *ligature,
-                  std::vector<Item *> const &primitives) = 0;
-
-  void
-  typeset_ligature (Spanner *ligature,
-                    std::vector<Item *> const &primitives) override;
+  void typeset_ligature (Spanner *ligature,
+                         std::vector<Item *> const &primitives) override;
 
   virtual void move_related_items_to_column (Item *, Paper_column *, Real);
 

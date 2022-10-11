@@ -30,4 +30,3 @@ struct Clef
 };
 
 #endif /* CLEF_HH */
-

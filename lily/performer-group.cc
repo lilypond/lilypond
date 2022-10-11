@@ -49,8 +49,7 @@ void
 Performer_group::announce_element (Audio_element_info info)
 {
   announce_infos_.push_back (info);
-  Translator_group *t
-    = context ()->get_parent ()->implementation ();
+  Translator_group *t = context ()->get_parent ()->implementation ();
 
   if (Performer_group *eg = dynamic_cast<Performer_group *> (t))
     eg->announce_element (info);
@@ -76,8 +75,8 @@ Performer_group::acknowledge_audio_elements ()
 void
 Performer_group::do_announces ()
 {
-  for (SCM s = context ()->children_contexts ();
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context ()->children_contexts (); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Context *c = unsmob<Context> (scm_car (s));
       Performer_group *group

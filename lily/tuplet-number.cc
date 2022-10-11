@@ -20,7 +20,7 @@
 
 #include "tuplet-number.hh"
 #include "tuplet-bracket.hh"
-#include "moment.hh"      // needed?
+#include "moment.hh" // needed?
 #include "paper-column.hh"
 #include "text-interface.hh"
 #include "spanner.hh"
@@ -63,8 +63,9 @@ Tuplet_number::select_reference_stem (Spanner *me, vector<Grob *> const &cols)
     two stems.
   */
   Direction me_dir = from_scm (get_property (me, "direction"), UP);
-  Drul_array<Item *> bounding_stems (Note_column::get_stem (cols[col_count / 2 - 1]),
-                                     Note_column::get_stem (cols[col_count / 2]));
+  Drul_array<Item *> bounding_stems (
+    Note_column::get_stem (cols[col_count / 2 - 1]),
+    Note_column::get_stem (cols[col_count / 2]));
 
   for (const auto d : {LEFT, RIGHT})
     if (!bounding_stems[d])
@@ -90,10 +91,11 @@ Tuplet_number::select_reference_stem (Spanner *me, vector<Grob *> const &cols)
       int beam_count_L_R = Stem::get_beaming (bounding_stems[LEFT], RIGHT);
       int beam_count_R_L = Stem::get_beaming (bounding_stems[RIGHT], LEFT);
       if (beam_count_L_R == beam_count_R_L)
-        ref_stem = (dir_left == me_dir) ? bounding_stems[LEFT] : bounding_stems[RIGHT];
+        ref_stem
+          = (dir_left == me_dir) ? bounding_stems[LEFT] : bounding_stems[RIGHT];
       else
-        ref_stem = (beam_count_L_R > beam_count_R_L)
-                   ? bounding_stems[LEFT] : bounding_stems[RIGHT];
+        ref_stem = (beam_count_L_R > beam_count_R_L) ? bounding_stems[LEFT]
+                                                     : bounding_stems[RIGHT];
     }
 
   return ref_stem;
@@ -156,8 +158,9 @@ Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
 {
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
-  bool bracket_visible = from_scm<bool> (get_property (me, "bracket-visibility"))
-                         || !tuplet->extent (tuplet, Y_AXIS).is_empty ();
+  bool bracket_visible
+    = from_scm<bool> (get_property (me, "bracket-visibility"))
+      || !tuplet->extent (tuplet, Y_AXIS).is_empty ();
 
   if (bracket_visible || !from_scm<bool> (get_property (me, "knee-to-beam")))
     return false;
@@ -189,9 +192,12 @@ Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
   for (const auto d : {LEFT, RIGHT})
     {
       if (adj_cols[d])
-        available_ext[d] = Axis_group_interface::generic_bound_extent (adj_cols[d], commonx, X_AXIS)[-d] + (-d * padding);
+        available_ext[d] = Axis_group_interface::generic_bound_extent (
+                             adj_cols[d], commonx, X_AXIS)[-d]
+                           + (-d * padding);
       else
-        available_ext[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d];
+        available_ext[d] = Axis_group_interface::generic_bound_extent (
+          bounds[d], commonx, X_AXIS)[-d];
     }
 
   if (number_ext.length () > available_ext.length ())
@@ -232,8 +238,10 @@ Real
 calc_beam_y_shift (Grob *ref_stem, Real dx)
 {
   Grob *beam = Stem::get_beam (ref_stem);
-  Interval x_pos = from_scm (get_property (beam, "X-positions"), Interval (0.0, 0.0));
-  Interval y_pos = from_scm (get_property (beam, "quantized-positions"), Interval (0.0, 0.0));
+  Interval x_pos
+    = from_scm (get_property (beam, "X-positions"), Interval (0.0, 0.0));
+  Interval y_pos = from_scm (get_property (beam, "quantized-positions"),
+                             Interval (0.0, 0.0));
   Real beam_dx = x_pos.length ();
   Real beam_dy = y_pos[RIGHT] - y_pos[LEFT];
   Real slope = beam_dx ? beam_dy / beam_dx : 0.0;
@@ -269,7 +277,8 @@ Tuplet_number::calc_x_offset (SCM smob)
       if (has_interface<Note_column> (bounds[d])
           && Note_column::get_stem (bounds[d]))
         bounds[d] = Note_column::get_stem (bounds[d]);
-      bound_poss[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d];
+      bound_poss[d] = Axis_group_interface::generic_bound_extent (
+        bounds[d], commonx, X_AXIS)[-d];
     }
 
   extract_grob_set (tuplet, "note-columns", cols);
@@ -278,12 +287,11 @@ Tuplet_number::calc_x_offset (SCM smob)
   /*
     Return bracket-based positioning.
   */
-  if (!ref_stem
-      || !knee_position_against_beam (me, ref_stem))
+  if (!ref_stem || !knee_position_against_beam (me, ref_stem))
     {
       Interval x_positions;
-      x_positions = from_scm (get_property (tuplet, "X-positions"),
-                              Interval (0.0, 0.0));
+      x_positions
+        = from_scm (get_property (tuplet, "X-positions"), Interval (0.0, 0.0));
       return to_scm (x_positions.center ());
     }
 
@@ -373,13 +381,13 @@ Tuplet_number::calc_y_offset (SCM smob)
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (ref_stem))
     {
       Interval staff_ext_y = st->extent (commony, Y_AXIS);
-      bool move = ref_stem_dir == DOWN
-                  ? ref_stem_ext[DOWN] > staff_ext_y[UP]
-                  : staff_ext_y[DOWN] > ref_stem_ext[UP];
+      bool move = ref_stem_dir == DOWN ? ref_stem_ext[DOWN] > staff_ext_y[UP]
+                                       : staff_ext_y[DOWN] > ref_stem_ext[UP];
       if (move)
         {
-          Interval ledger_domain = Interval (std::min (staff_ext_y[UP], ref_stem_ext[UP]),
-                                             std::max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
+          Interval ledger_domain
+            = Interval (std::min (staff_ext_y[UP], ref_stem_ext[UP]),
+                        std::max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
           Interval num_y (me->extent (commony, Y_AXIS));
           num_y.translate (y_offset);
           Interval num_ledger_overlap (num_y);
@@ -388,8 +396,7 @@ Tuplet_number::calc_y_offset (SCM smob)
           Real staff_space = Staff_symbol_referencer::staff_space (st);
           // Number will touch outer staff line.
           if (!num_ledger_overlap.is_empty ()
-              && num_ledger_overlap.length () > (staff_space / 2.0)
-              && move)
+              && num_ledger_overlap.length () > (staff_space / 2.0) && move)
             y_offset += staff_ext_y[-ref_stem_dir] - num_y[-ref_stem_dir]
                         + line_thickness * ref_stem_dir;
         }
@@ -437,7 +444,8 @@ Tuplet_number::calc_y_offset (SCM smob)
   overlap_acc_y.intersect (num_ext_y);
 
   if (!overlap_acc_y.is_empty ())
-    y_offset += colliding_acc_ext_y[ref_stem_dir] - num_ext_y[-ref_stem_dir] + padding * ref_stem_dir;
+    y_offset += colliding_acc_ext_y[ref_stem_dir] - num_ext_y[-ref_stem_dir]
+                + padding * ref_stem_dir;
 
   return to_scm (y_offset);
 }
@@ -448,7 +456,8 @@ SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return get_property (unsmob<Grob> (get_object (me, "bracket")), "cross-staff");
+  return get_property (unsmob<Grob> (get_object (me, "bracket")),
+                       "cross-staff");
 }
 
 ADD_INTERFACE (Tuplet_number,
@@ -463,4 +472,3 @@ bracket
 direction
 knee-to-beam
                )");
-

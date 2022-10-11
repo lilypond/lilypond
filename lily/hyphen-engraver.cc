@@ -47,7 +47,6 @@ public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
-
   void acknowledge_lyric_syllable (Grob_info_t<Item>);
   void listen_hyphen (Stream_event *);
   void listen_vowel_transition (Stream_event *);
@@ -142,7 +141,8 @@ Hyphen_engraver::stop_translation_timestep ()
       // in which case it is just removed.  This happens with "some _ -- words".
       // Otherwise, there are extraneous hyphens in the input (e.g.,
       // "some \vowelTransition _ -- words") and we should warn.
-      if (!finished_hyphen_->internal_has_interface (ly_symbol2scm ("lyric-space-interface")))
+      if (!finished_hyphen_->internal_has_interface (
+            ly_symbol2scm ("lyric-space-interface")))
         finished_hyphen_->warning ("this hyphen or vowel transition was "
                                    "overridden by a later one");
       finished_hyphen_->suicide ();

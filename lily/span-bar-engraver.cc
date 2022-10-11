@@ -42,6 +42,7 @@ class Span_bar_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
+
 protected:
   void acknowledge_bar_line (Grob_info_t<Item>);
   void stop_translation_timestep ();
@@ -76,7 +77,8 @@ Span_bar_engraver::process_acknowledged ()
       spanbar_ = make_item ("SpanBar", SCM_EOL);
 
       for (vsize i = 0; i < bars_.size (); i++)
-        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"), bars_[i]);
+        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"),
+                                           bars_[i]);
       make_spanbar_ = false;
     }
 }
@@ -87,9 +89,10 @@ Span_bar_engraver::stop_translation_timestep ()
   if (spanbar_)
     {
       for (vsize i = 0; i < bars_.size (); i++)
-        set_object (bars_[i], "has-span-bar",
-                    scm_cons (i == bars_.size () - 1 ? SCM_BOOL_F : spanbar_->self_scm (),
-                              i == 0 ? SCM_BOOL_F : spanbar_->self_scm ()));
+        set_object (
+          bars_[i], "has-span-bar",
+          scm_cons (i == bars_.size () - 1 ? SCM_BOOL_F : spanbar_->self_scm (),
+                    i == 0 ? SCM_BOOL_F : spanbar_->self_scm ()));
       spanbar_ = 0;
     }
   bars_.resize (0);

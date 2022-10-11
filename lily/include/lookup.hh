@@ -30,15 +30,11 @@ namespace Lookup
 Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
 Stencil circle (Real rad, Real thick, bool filled);
 Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
-Stencil round_polygon (std::vector<Offset> const &points,
-                       Real blotdiameter,
-                       Real extroversion = 0,
-                       bool filled = true);
+Stencil round_polygon (std::vector<Offset> const &points, Real blotdiameter,
+                       Real extroversion = 0, bool filled = true);
 Stencil frame (Box b, Real thick, Real blot);
-Stencil slur (Bezier controls, Real cthick, Real thick,
-              SCM dash_definition);
-Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve,
-                         Real thickness);
+Stencil slur (Bezier controls, Real cthick, Real thick, SCM dash_definition);
+Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness);
 Stencil beam (Real slope, Real width, Real thick, Real blot);
 Stencil blank (Box b);
 Stencil filled_box (Box b);
@@ -47,6 +43,6 @@ Stencil repeat_slash (Real w, Real slope, Real th);
 Stencil horizontal_line (Interval w, Real th);
 Stencil triangle (Interval iv, Real thick, Real protrude);
 Stencil points_to_line_stencil (Real thick, std::vector<Offset> const &points);
-};
+}; // namespace Lookup
 
 #endif // LOOKUP_HH

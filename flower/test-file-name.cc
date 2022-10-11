@@ -25,9 +25,12 @@ using std::string;
 
 string slashify (string file_name);
 
-struct CaseB: public yaffut::Test<File_name, CaseB>
+struct CaseB : public yaffut::Test<File_name, CaseB>
 {
-  CaseB (): File_name ("123") {}
+  CaseB ()
+    : File_name ("123")
+  {
+  }
 };
 
 TEST_STRING (File_name, Mingw_slashify, "foe.ly")

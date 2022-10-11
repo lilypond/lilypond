@@ -196,7 +196,7 @@ Music_iterator::print_smob (SCM port, scm_print_state *) const
 }
 
 void
-Music_iterator::derived_mark ()const
+Music_iterator::derived_mark () const
 {
 }
 
@@ -213,7 +213,7 @@ Music_iterator::do_quit ()
 }
 
 bool
-Music_iterator::run_always ()const
+Music_iterator::run_always () const
 {
   return false;
 }
@@ -242,8 +242,7 @@ Music_iterator::descend_to_child (Context *child_report)
 Music_iterator *
 Music_iterator::find_above_by_music_type (SCM type_sym) const
 {
-  for (auto scope = const_cast<Music_iterator *> (this);
-       scope;
+  for (auto scope = const_cast<Music_iterator *> (this); scope;
        scope = scope->parent_)
     {
       if (auto m = scope->get_music ())
@@ -262,8 +261,7 @@ Music_iterator *
 Music_iterator::internal_where_defined (SCM sym, SCM *value_out) const
 {
   // TODO: Abstract Context property features into a reusable base class?
-  for (auto scope = const_cast<Music_iterator *> (this);
-       scope;
+  for (auto scope = const_cast<Music_iterator *> (this); scope;
        scope = scope->parent_)
     {
       if (auto m = scope->get_music ())

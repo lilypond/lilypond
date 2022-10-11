@@ -41,6 +41,7 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Font_metric ();
+
 private:
   VIRTUAL_CLASS_NAME (Font_metric);
 
@@ -50,13 +51,13 @@ public:
   // Return stencil for given std::string. output_state may be modified to
   // record the font.
   virtual Stencil text_stencil (Output_def *output_state,
-                                const std::string &text,
-                                bool music,
+                                const std::string &text, bool music,
                                 const std::string &features_str) const;
 
   virtual std::string font_name () const;
   virtual size_t count () const;
-  virtual std::pair<Offset, bool> attachment_point (const std::string &, Direction) const;
+  virtual std::pair<Offset, bool> attachment_point (const std::string &,
+                                                    Direction) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
   virtual size_t name_to_index (std::string) const = 0;

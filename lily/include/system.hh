@@ -53,11 +53,12 @@ private:
   Grob_array *all_elements ();
   Grob_array const *all_elements () const;
   void init_elements ();
-  friend class Paper_score;     // ugh.
+  friend class Paper_score; // ugh.
 
 public:
   Paper_score *paper_score () const;
-  Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds);
+  Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group,
+                               Interval_t<int> bounds);
   bool accepts_as_bound_item (const Item *) const override;
   bool accepts_as_bound_paper_column (const Paper_column *) const override;
   Paper_column *get_bound (Direction d) const
@@ -66,12 +67,13 @@ public:
     return static_cast<Paper_column *> (Spanner::get_bound (d));
   }
   Paper_column *get_pure_bound (Direction dir, vsize start, vsize end);
-  Paper_column *get_maybe_pure_bound (Direction dir, bool pure,
-                                      vsize start, vsize end);
+  Paper_column *get_maybe_pure_bound (Direction dir, bool pure, vsize start,
+                                      vsize end);
   vsize get_rank () const { return rank_; }
   std::vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   std::vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
-  std::vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
+  std::vector<Real> internal_get_note_heights_in_range (vsize st, vsize end,
+                                                        bool foot);
   std::vector<Grob *> get_footnote_grobs_in_range (vsize st, vsize end);
   vsize num_footnotes ();
 
@@ -114,7 +116,8 @@ public:
   void break_into_pieces (std::vector<Column_x_positions> const &cols);
 
   std::vector<Item *> broken_col_range (Item const *, Item const *) const;
-  std::vector<Paper_column *> used_columns_in_range (vsize start, vsize end) const;
+  std::vector<Paper_column *> used_columns_in_range (vsize start,
+                                                     vsize end) const;
   std::vector<Paper_column *> used_columns () const
   {
     return used_columns_in_range (0, std::numeric_limits<vsize>::max ());
@@ -131,8 +134,8 @@ public:
   void collect_labels (Grob const *, SCM *);
   [[noreturn]] System *make_sticky_same_type (Engraver *eng, SCM type,
                                               SCM cause, char const *file,
-                                              int line, char const *fun)
-  override;
+                                              int line,
+                                              char const *fun) override;
 
 protected:
   void derived_mark () const override;

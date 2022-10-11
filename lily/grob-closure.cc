@@ -24,17 +24,14 @@
 SCM
 axis_offset_symbol (Axis a)
 {
-  return a == X_AXIS
-         ? ly_symbol2scm ("X-offset")
-         : ly_symbol2scm ("Y-offset");
+  return a == X_AXIS ? ly_symbol2scm ("X-offset") : ly_symbol2scm ("Y-offset");
 }
 
 SCM
 axis_parent_positioning (Axis a)
 {
-  return (a == X_AXIS)
-         ? Grob::x_parent_positioning_proc
-         : Grob::y_parent_positioning_proc;
+  return (a == X_AXIS) ? Grob::x_parent_positioning_proc
+                       : Grob::y_parent_positioning_proc;
 }
 
 /*

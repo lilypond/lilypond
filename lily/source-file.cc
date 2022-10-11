@@ -154,8 +154,8 @@ Source_file::file_line_column_string (char const *context_str0) const
       ssize_t l, ch, col, offset;
       get_counts (context_str0, &l, &ch, &col, &offset);
 
-      return name_string () + ":" + std::to_string (l)
-             + ":" + std::to_string (col + 1);
+      return name_string () + ":" + std::to_string (l) + ":"
+             + std::to_string (col + 1);
     }
 }
 
@@ -277,7 +277,8 @@ Source_file::get_counts (char const *pos_str0, ssize_t *line_number,
 bool
 Source_file::contains (char const *pos_str0) const
 {
-  return (pos_str0 && (pos_str0 >= c_str ()) && (pos_str0 <= c_str () + length ()));
+  return (pos_str0 && (pos_str0 >= c_str ())
+          && (pos_str0 <= c_str () + length ()));
 }
 
 ssize_t

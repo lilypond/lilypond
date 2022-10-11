@@ -61,4 +61,3 @@ public:
 };
 
 #endif /* TIE_DETAILS_HH */
-

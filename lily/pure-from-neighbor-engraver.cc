@@ -39,6 +39,7 @@ class Pure_from_neighbor_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
+
 protected:
   void acknowledge_item (Grob_info_t<Item>);
   void finalize () override;
@@ -86,17 +87,16 @@ Pure_from_neighbor_engraver::finalize ()
   */
 
   vsize l = 0;
-  vector<vector<Grob *> > need_pure_heights_from_neighbors;
+  vector<vector<Grob *>> need_pure_heights_from_neighbors;
   do
     {
       vector<Grob *> temp;
       temp.push_back (need_pure_heights_from_neighbors_[l]);
-      for (;
-           (l < need_pure_heights_from_neighbors_.size () - 1
-            && ((need_pure_heights_from_neighbors_[l]
-                 ->spanned_column_rank_interval ()[LEFT])
-                == (need_pure_heights_from_neighbors_[l + 1]
-                    ->spanned_column_rank_interval ()[LEFT])));
+      for (; (l < need_pure_heights_from_neighbors_.size () - 1
+              && ((need_pure_heights_from_neighbors_[l]
+                     ->spanned_column_rank_interval ()[LEFT])
+                  == (need_pure_heights_from_neighbors_[l + 1]
+                        ->spanned_column_rank_interval ()[LEFT])));
            l++)
         temp.push_back (need_pure_heights_from_neighbors_[l + 1]);
       need_pure_heights_from_neighbors.push_back (temp);
@@ -109,13 +109,13 @@ Pure_from_neighbor_engraver::finalize ()
     to the elements of need_pure_heights_from_neighbors_ on either side.
   */
 
-  std::array<vsize, 2> pos { VPOS, 0 };
+  std::array<vsize, 2> pos {VPOS, 0};
   for (const auto &pure_relevant : pure_relevants_)
     {
       while (pos[1] < need_pure_heights_from_neighbors.size ()
              && (pure_relevant->spanned_column_rank_interval ()[LEFT]
                  > (need_pure_heights_from_neighbors[pos[1]][0]
-                    ->spanned_column_rank_interval ()[LEFT])))
+                      ->spanned_column_rank_interval ()[LEFT])))
         {
           pos[0] = pos[1];
           pos[1]++;
@@ -125,16 +125,14 @@ Pure_from_neighbor_engraver::finalize ()
         {
           if ((p != VPOS) && (p < need_pure_heights_from_neighbors.size ()))
             {
-              for (vsize k = 0;
-                   k < need_pure_heights_from_neighbors[p].size ();
+              for (vsize k = 0; k < need_pure_heights_from_neighbors[p].size ();
                    k++)
                 {
                   if (!in_same_column (need_pure_heights_from_neighbors[p][k],
                                        pure_relevant))
-                    Pointer_group_interface::add_grob
-                    (need_pure_heights_from_neighbors[p][k],
-                     ly_symbol2scm ("neighbors"),
-                     pure_relevant);
+                    Pointer_group_interface::add_grob (
+                      need_pure_heights_from_neighbors[p][k],
+                      ly_symbol2scm ("neighbors"), pure_relevant);
                 }
             }
         }

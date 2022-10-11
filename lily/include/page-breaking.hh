@@ -76,7 +76,8 @@ struct Break_position
      this Break_position and the previous. */
   vsize forced_line_count_;
 
-  Break_position (vsize s = VPOS, vsize brk = VPOS, Grob *g = NULL, bool end = false)
+  Break_position (vsize s = VPOS, vsize brk = VPOS, Grob *g = NULL,
+                  bool end = false)
   {
     system_spec_index_ = s;
     score_break_ = brk;
@@ -88,18 +89,21 @@ struct Break_position
   /*
     lexicographic in (system_spec_index_, score_break_)
    */
-  bool operator < (const Break_position &other) const
+  bool operator<(const Break_position &other) const
   {
     return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
            || (system_spec_index_ < other.system_spec_index_)
-           || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
+           || (system_spec_index_ == other.system_spec_index_
+               && score_break_ < other.score_break_);
   }
 
-  bool operator <= (const Break_position &other) const
+  bool operator<= (const Break_position &other) const
   {
     return (system_spec_index_ == VPOS)
-           || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
-           || (system_spec_index_ == other.system_spec_index_ && score_break_ <= other.score_break_);
+           || (system_spec_index_ < other.system_spec_index_
+               && other.system_spec_index_ != VPOS)
+           || (system_spec_index_ == other.system_spec_index_
+               && score_break_ <= other.score_break_);
   }
 };
 
@@ -165,9 +169,7 @@ protected:
   SCM systems ();
   SCM footnotes ();
 
-  void set_current_breakpoints (vsize start,
-                                vsize end,
-                                vsize system_count,
+  void set_current_breakpoints (vsize start, vsize end, vsize system_count,
                                 Line_division lower_bound = Line_division (),
                                 Line_division upper_bound = Line_division ());
   void set_to_ideal_line_configuration (vsize start, vsize end);
@@ -176,13 +178,15 @@ protected:
   Line_division current_configuration (vsize configuration_index) const;
   Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
                                                 vsize n, int first_page_num);
-  Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
-                                                            int first_page_num,
-                                                            Real penalty_for_fewer_pages);
+  Page_spacing_result
+  space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
+                                        int first_page_num,
+                                        Real penalty_for_fewer_pages);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
                                                    int first_page_num);
-  Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
-      int first_page_num);
+  Page_spacing_result
+  space_systems_with_fixed_number_per_page (vsize configuration_index,
+                                            int first_page_num);
   Page_spacing_result pack_systems_on_least_pages (vsize configuration_index,
                                                    int first_page_num);
   vsize min_page_count (vsize configuration_index, int first_page_num);
@@ -194,6 +198,7 @@ protected:
   vsize last_break_position () const;
 
   std::vector<System_spec> system_specs_;
+
 private:
   std::vector<Break_position> breaks_;
   std::vector<Break_position> chunks_;
@@ -228,22 +233,24 @@ private:
   mutable std::vector<Real> last_page_height_cache_;
 
   std::vector<Break_position> chunk_list (vsize start, vsize end) const;
-  Line_division system_count_bounds (std::vector<Break_position> const &chunks, bool min);
-  void line_breaker_args (vsize i,
-                          Break_position const &start,
-                          Break_position const &end,
-                          vsize *line_breaker_start,
+  Line_division system_count_bounds (std::vector<Break_position> const &chunks,
+                                     bool min);
+  void line_breaker_args (vsize i, Break_position const &start,
+                          Break_position const &end, vsize *line_breaker_start,
                           vsize *line_breaker_end);
 
-  void line_divisions_rec (vsize system_count,
-                           Line_division const &min,
-                           Line_division const &max,
-                           Line_division *cur);
+  void line_divisions_rec (vsize system_count, Line_division const &min,
+                           Line_division const &max, Line_division *cur);
 
-  std::vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
-  Page_spacing_result space_systems_on_1_page (std::vector<Line_details> const &lines, Real page_height, bool ragged);
-  Page_spacing_result space_systems_on_2_pages (vsize configuration_index, int first_page_num);
-  Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
+  std::vector<Line_details> line_details (vsize start, vsize end,
+                                          Line_division const &div);
+  Page_spacing_result
+  space_systems_on_1_page (std::vector<Line_details> const &lines,
+                           Real page_height, bool ragged);
+  Page_spacing_result space_systems_on_2_pages (vsize configuration_index,
+                                                int first_page_num);
+  Page_spacing_result finalize_spacing_result (vsize configuration_index,
+                                               Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate, Prob_break_predicate);
   SCM draw_page (SCM systems, int page_num, bool last, Real &last_page_force);

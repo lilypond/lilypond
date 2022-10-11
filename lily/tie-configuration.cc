@@ -43,7 +43,7 @@ Tie_configuration::center_tie_vertically (Tie_details const &details)
   Offset edge = b.curve_point (0.0);
   Real center = (edge[Y_AXIS] + middle[Y_AXIS]) / 2.0;
 
-  delta_y_ = - dir_ * center;
+  delta_y_ = -dir_ * center;
 }
 
 Bezier
@@ -70,9 +70,7 @@ Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
       programming_error ("Inf or NaN encountered");
       l = 1.0;
     }
-  return slur_shape (l,
-                     details.height_limit_,
-                     details.ratio_);
+  return slur_shape (l, details.height_limit_, details.ratio_);
 }
 
 int
@@ -107,9 +105,8 @@ Tie_configuration::height (Tie_details const &details) const
 {
   Real l = attachment_x_.length ();
 
-  return slur_shape (l,
-                     details.height_limit_,
-                     details.ratio_).curve_point (0.5)[Y_AXIS];
+  return slur_shape (l, details.height_limit_, details.ratio_)
+    .curve_point (0.5)[Y_AXIS];
 }
 
 Ties_configuration::Ties_configuration ()
@@ -195,4 +192,3 @@ Ties_configuration::card () const
 {
   return score_card_;
 }
-

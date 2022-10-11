@@ -32,8 +32,7 @@ Dot_configuration::badness () const
       int demerit = sqr (p - ent.second.pos_) * 2;
 
       const Direction dot_move_dir (p - ent.second.pos_);
-      if (ent.second.dir_
-          && dot_move_dir != ent.second.dir_)
+      if (ent.second.dir_ && dot_move_dir != ent.second.dir_)
         demerit += 2;
       else if (dot_move_dir != UP)
         demerit += 1;
@@ -66,8 +65,7 @@ Dot_configuration::shifted (int k, Direction d) const
   Dot_configuration new_cfg (*problem_);
   int offset = 0;
 
-  auto process_entry = [d, k, &new_cfg, &offset] (const value_type & ent)
-  {
+  auto process_entry = [d, k, &new_cfg, &offset] (const value_type &ent) {
     int p = ent.first;
     if (p == k)
       {

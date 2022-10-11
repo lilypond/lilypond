@@ -29,10 +29,11 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Page_marker ();
+
 private:
-  SCM symbol_; /* either 'page-turn-permission or 'page-break-permission */
-  SCM permission_;  /* 'force, 'allow, or '() */
-  SCM label_; /* bookmarking label (a symbol) */
+  SCM symbol_;     /* either 'page-turn-permission or 'page-break-permission */
+  SCM permission_; /* 'force, 'allow, or '() */
+  SCM label_;      /* bookmarking label (a symbol) */
 
 public:
   Page_marker ();

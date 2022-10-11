@@ -129,7 +129,8 @@ moment_to_ticks (Moment m)
   return int (moment_to_real (m) * 384 * 4);
 }
 
-void Audio_span_dynamic::set_end_moment (Moment mom)
+void
+Audio_span_dynamic::set_end_moment (Moment mom)
 {
   if (mom < start_moment_)
     {
@@ -161,14 +162,16 @@ Audio_span_dynamic::set_volume (Real start, Real target)
   gain_ = target - start;
 }
 
-Real Audio_span_dynamic::get_volume (Moment mom) const
+Real
+Audio_span_dynamic::get_volume (Moment mom) const
 {
   const Real when = moment_to_real (mom - start_moment_);
 
   if (when <= 0)
     {
       if (when < 0)
-        programming_error (_f ("asked to compute volume at %f for dynamic span of duration %f starting at %s",
+        programming_error (_f ("asked to compute volume at %f for dynamic span "
+                               "of duration %f starting at %s",
                                when, duration_,
                                start_moment_.to_string ().c_str ()));
       return start_volume_;
@@ -176,7 +179,8 @@ Real Audio_span_dynamic::get_volume (Moment mom) const
 
   if (when >= duration_)
     {
-      programming_error (_f ("asked to compute volume at +%f for dynamic span of duration %f starting at %s",
+      programming_error (_f ("asked to compute volume at +%f for dynamic span "
+                             "of duration %f starting at %s",
                              when, duration_,
                              start_moment_.to_string ().c_str ()));
       return start_volume_ + gain_;
@@ -190,7 +194,8 @@ Audio_tempo::Audio_tempo (int per_minute_4)
   per_minute_4_ = per_minute_4;
 }
 
-Audio_time_signature::Audio_time_signature (int beats, int one_beat, int base_moment_clocks)
+Audio_time_signature::Audio_time_signature (int beats, int one_beat,
+                                            int base_moment_clocks)
 {
   beats_ = beats;
   one_beat_ = one_beat;

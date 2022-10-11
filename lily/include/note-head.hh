@@ -39,4 +39,3 @@ public:
                                      Direction);
 };
 #endif // NOTEHEAD_HH
-

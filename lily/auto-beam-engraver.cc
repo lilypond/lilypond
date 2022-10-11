@@ -140,11 +140,9 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational dur)
 {
-  return scm_is_true (ly_call (get_property (this, "autoBeamCheck"),
-                               context ()->self_scm (),
-                               to_scm (dir),
-                               test_mom.smobbed_copy (),
-                               Moment (dur).smobbed_copy ()));
+  return scm_is_true (ly_call (
+    get_property (this, "autoBeamCheck"), context ()->self_scm (), to_scm (dir),
+    test_mom.smobbed_copy (), Moment (dur).smobbed_copy ()));
 }
 
 void
@@ -208,8 +206,8 @@ Auto_beam_engraver::begin_beam ()
   stems_.clear ();
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
-  beam_settings_ = Grob_property_info (context (),
-                                       ly_symbol2scm ("Beam")).updated ();
+  beam_settings_
+    = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_ = context ()->get_parent ();
   beam_start_location_
@@ -391,9 +389,8 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
 
   const auto stem_location = now - beam_start_moment_ + beam_start_location_;
   grouping_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
-                       : stem_location.main_part_,
-                       durlog - 2,
-                       Stem::is_invisible (stem),
+                                                 : stem_location.main_part_,
+                       durlog - 2, Stem::is_invisible (stem),
                        stem_duration->factor (),
                        (from_scm<bool> (get_property (stem, "tuplet-start"))));
   stems_.push_back (stem);
@@ -416,9 +413,8 @@ Auto_beam_engraver::recheck_beam ()
 
   for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {
-      const bool found_end = test_moment (STOP,
-                                          Moment (grouping_->end_moment (i)),
-                                          shortest_dur_);
+      const bool found_end
+        = test_moment (STOP, Moment (grouping_->end_moment (i)), shortest_dur_);
       if (!found_end)
         i++;
       else
@@ -434,8 +430,7 @@ Auto_beam_engraver::recheck_beam ()
 
           auto *const new_grouping_ = grouping_->split_pattern (i);
           new_stems.insert (new_stems.end (),
-                            std::next (stems_.begin (), i + 1),
-                            stems_.end ());
+                            std::next (stems_.begin (), i + 1), stems_.end ());
           stems_.resize (i + 1);
 
           end_beam ();

@@ -41,8 +41,8 @@ Music_wrapper_iterator::derived_mark () const
 }
 
 void
-Music_wrapper_iterator::preorder_walk
-(const std::function <void (Music_iterator *)> &visit)
+Music_wrapper_iterator::preorder_walk (
+  const std::function<void (Music_iterator *)> &visit)
 {
   Music_iterator::preorder_walk (visit);
   if (child_iter_)

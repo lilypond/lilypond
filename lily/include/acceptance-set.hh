@@ -39,7 +39,7 @@ public:
   }
 
   Acceptance_set (const Acceptance_set &) = delete;
-  Acceptance_set &operator = (const Acceptance_set &) = delete;
+  Acceptance_set &operator= (const Acceptance_set &) = delete;
 
   Acceptance_set &assign_copy (const Acceptance_set &other)
   {

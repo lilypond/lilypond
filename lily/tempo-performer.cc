@@ -32,9 +32,9 @@ public:
   ~Tempo_performer ();
 
 protected:
-
   void derived_mark () const override;
   void process_music ();
+
 private:
   SCM last_tempo_;
 };
@@ -59,8 +59,7 @@ void
 Tempo_performer::process_music ()
 {
   SCM w = get_property (this, "tempoWholesPerMinute");
-  if (unsmob<Moment> (w)
-      && !ly_is_equal (w, last_tempo_))
+  if (unsmob<Moment> (w) && !ly_is_equal (w, last_tempo_))
     {
       Rational r = unsmob<Moment> (w)->main_part_;
       r *= Rational (4, 1);
@@ -75,7 +74,6 @@ Tempo_performer::process_music ()
 void
 Tempo_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Tempo_performer,

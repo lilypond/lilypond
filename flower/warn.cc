@@ -90,8 +90,8 @@ set_loglevel (string level)
         set_loglevel (l);
       else
         {
-          non_fatal_error (_f ("unknown log level `%s', using default (INFO)",
-                               level));
+          non_fatal_error (
+            _f ("unknown log level `%s', using default (INFO)", level));
           set_loglevel (LOGLEVEL_INFO);
         }
     }
@@ -103,12 +103,14 @@ set_loglevel (string level)
  * expected warnings again.
  */
 vector<string> expected_warnings;
-void expect_warning (const string &msg)
+void
+expect_warning (const string &msg)
 {
   expected_warnings.push_back (msg);
 }
 
-void check_expected_warnings ()
+void
+check_expected_warnings ()
 {
   if (expected_warnings.size () > 0)
     {
@@ -123,7 +125,8 @@ void check_expected_warnings ()
   expected_warnings.clear ();
 }
 
-bool is_expected (const string &s)
+bool
+is_expected (const string &s)
 {
   bool expected = false;
   for (vsize i = 0; i < expected_warnings.size (); i++)
@@ -133,7 +136,8 @@ bool is_expected (const string &s)
       // suppressed message, suppress the warning.
       // This is needed for the Input class, where the message contains
       // the input file contents after the real message.
-      if (s.compare (0, expected_warnings[i].size (), expected_warnings[i]) == 0)
+      if (s.compare (0, expected_warnings[i].size (), expected_warnings[i])
+          == 0)
         {
           expected = true;
           expected_warnings.erase (expected_warnings.begin () + i);
@@ -189,13 +193,16 @@ void
 programming_error (const string &s, const string &location)
 {
   if (is_expected (s))
-    print_message (LOG_DEBUG, location, _f ("suppressed programming error: %s", s) + "\n");
+    print_message (LOG_DEBUG, location,
+                   _f ("suppressed programming error: %s", s) + "\n");
   else if (warning_as_error)
     error (s, location);
   else
     {
-      print_message (LOG_ERROR, location, _f ("programming error: %s", s) + "\n");
-      print_message (LOG_ERROR, location, _ ("continuing, cross fingers") + "\n");
+      print_message (LOG_ERROR, location,
+                     _f ("programming error: %s", s) + "\n");
+      print_message (LOG_ERROR, location,
+                     _ ("continuing, cross fingers") + "\n");
     }
 }
 
@@ -216,7 +223,8 @@ void
 warning (const string &s, const string &location)
 {
   if (is_expected (s))
-    print_message (LOG_DEBUG, location, _f ("suppressed warning: %s", s) + "\n");
+    print_message (LOG_DEBUG, location,
+                   _f ("suppressed warning: %s", s) + "\n");
   else if (warning_as_error)
     error (s, location);
   else

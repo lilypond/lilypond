@@ -20,8 +20,7 @@
 #include "paper-book.hh"
 #include "output-def.hh"
 
-LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages", 1, 0, 0, (SCM pb),
            R"(
 Return pages in @code{Paper_book} object @var{pb}.
            )")
@@ -30,8 +29,7 @@ Return pages in @code{Paper_book} object @var{pb}.
   return pbook->pages ();
 }
 
-LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes", 1, 0, 0, (SCM pb),
            R"(
 Return scopes in @code{Paper_book} object @var{pb}.
            )")
@@ -41,8 +39,8 @@ Return scopes in @code{Paper_book} object @var{pb}.
   return book->get_scopes ();
 }
 
-LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances", 1, 0, 0,
+           (SCM pb),
            R"(
 Return performances in @code{Paper_book} object @var{pb}.
            )")
@@ -51,8 +49,7 @@ Return performances in @code{Paper_book} object @var{pb}.
   return pbook->performances ();
 }
 
-LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems", 1, 0, 0, (SCM pb),
            R"(
 Return systems in @code{Paper_book} object @var{pb}.
            )")
@@ -61,8 +58,7 @@ Return systems in @code{Paper_book} object @var{pb}.
   return pbook->systems ();
 }
 
-LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper", 1, 0, 0, (SCM pb),
            R"(
 Return the paper output definition (@code{\paper}) in @code{Paper_book} object
 @var{pb}.
@@ -72,8 +68,7 @@ Return the paper output definition (@code{\paper}) in @code{Paper_book} object
   return pbook->paper ()->self_scm ();
 }
 
-LY_DEFINE (ly_paper_book_header, "ly:paper-book-header",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_header, "ly:paper-book-header", 1, 0, 0, (SCM pb),
            R"(
 Return the header definition (@code{\header}) in @code{Paper_book} object
 @var{pb}.

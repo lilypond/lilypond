@@ -140,8 +140,7 @@ Slur::height (SCM smob)
 
   // FIXME uncached
   auto *m = me->get_stencil ();
-  return m ? to_scm (m->extent (Y_AXIS))
-         : to_scm (Interval ());
+  return m ? to_scm (m->extent (Y_AXIS)) : to_scm (Interval ());
 }
 
 MAKE_SCHEME_CALLBACK (Slur, print, "ly:slur::print", 1);
@@ -157,18 +156,16 @@ Slur::print (SCM smob)
     }
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = staff_thick
-                    * from_scm<double> (get_property (me, "thickness"), 1);
-  Real line_thick = staff_thick
-                    * from_scm<double> (get_property (me, "line-thickness"), 1);
+  Real base_thick
+    = staff_thick * from_scm<double> (get_property (me, "thickness"), 1);
+  Real line_thick
+    = staff_thick * from_scm<double> (get_property (me, "line-thickness"), 1);
 
   Bezier one = get_curve (me);
   Stencil a;
 
   SCM dash_definition = get_property (me, "dash-definition");
-  a = Lookup::slur (one,
-                    get_grob_direction (me) * base_thick,
-                    line_thick,
+  a = Lookup::slur (one, get_grob_direction (me) * base_thick, line_thick,
                     dash_definition);
 
   SCM annotation = get_property (me, "annotation");
@@ -178,11 +175,11 @@ Slur::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (get_property (me, "font-size")))
-        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), to_scm (-6), SCM_EOL),
-                               properties);
+        properties = scm_cons (
+          scm_acons (ly_symbol2scm ("font-size"), to_scm (-6), SCM_EOL),
+          properties);
 
-      auto tm = Text_interface::interpret_markup (me->layout (),
-                                                  properties,
+      auto tm = Text_interface::interpret_markup (me->layout (), properties,
                                                   annotation);
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
@@ -211,7 +208,8 @@ Slur::replace_breakable_encompass_objects (Grob *me)
           for (vsize j = 0; j < breakables.size (); j++)
             /* if we encompass a separation-item that spans multiple staves,
                we filter out the grobs that don't belong to our staff */
-            if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_y_parent ()
+            if (me->common_refpoint (breakables[j], Y_AXIS)
+                  == me->get_y_parent ()
                 && scm_is_eq (get_property (breakables[j], "avoid-slur"),
                               ly_symbol2scm ("inside")))
               new_encompasses.push_back (breakables[j]);
@@ -240,14 +238,16 @@ Slur::add_column (Spanner *me, Grob *n)
 void
 Slur::add_extra_encompass (Spanner *me, Grob *n)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"),
+                                     n);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback,
-                                   "ly:slur::pure-outside-slur-callback",
-                                   4, 1, "");
+                                   "ly:slur::pure-outside-slur-callback", 4, 1,
+                                   "");
 SCM
-Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offset_scm)
+Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm,
+                                  SCM offset_scm)
 {
   int start = from_scm (start_scm, 0);
   int end = from_scm (end_scm, 0);
@@ -263,7 +263,8 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 
   Real offset = from_scm<double> (offset_scm, 0.0);
   Direction dir = get_grob_direction (script);
-  return to_scm (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
+  return to_scm (offset
+                 + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback,
@@ -316,8 +317,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   yext.translate (offset);
 
   /* FIXME: slur property, script property?  */
-  Real slur_padding = from_scm<double> (get_property (script, "slur-padding"),
-                                        0.0);
+  Real slur_padding
+    = from_scm<double> (get_property (script, "slur-padding"), 0.0);
   yext.widen (slur_padding);
 
   Interval exts[] = {xext, yext};
@@ -327,7 +328,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     {
       for (const auto d : {LEFT, RIGHT})
         {
-          Real x = minmax (-d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
+          Real x = minmax (
+            -d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
           Real y = curve.get_other_coordinate (X_AXIS, x);
           do_shift = y == minmax (dir, yext[-dir], y);
           if (do_shift)
@@ -355,7 +357,13 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         }
     }
 
-  Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
+  Real avoidance_offset
+    = do_shift
+        ? curve.minmax (
+            X_AXIS, std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS),
+            std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir)
+            - yext[-dir]
+        : 0.0;
 
   return to_scm (offset + avoidance_offset);
 }
@@ -364,8 +372,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
-Slur::auxiliary_acknowledge_extra_object (Grob *e,
-                                          vector<Spanner *> &slurs,
+Slur::auxiliary_acknowledge_extra_object (Grob *e, vector<Spanner *> &slurs,
                                           vector<Spanner *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
@@ -378,8 +385,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob *e,
   else
     slur = slurs[0];
 
-  if (has_interface<Tie> (e)
-      || scm_is_eq (avoid, ly_symbol2scm ("inside")))
+  if (has_interface<Tie> (e) || scm_is_eq (avoid, ly_symbol2scm ("inside")))
     {
       for (vsize i = slurs.size (); i--;)
         add_extra_encompass (slurs[i], e);
@@ -393,11 +399,13 @@ Slur::auxiliary_acknowledge_extra_object (Grob *e,
     {
       if (slur)
         {
-          chain_offset_callback (e,
-                                 Unpure_pure_container::make_smob (outside_slur_callback_proc,
-                                                                   pure_outside_slur_callback_proc),
-                                 Y_AXIS);
-          chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm ("cross-staff"));
+          chain_offset_callback (
+            e,
+            Unpure_pure_container::make_smob (outside_slur_callback_proc,
+                                              pure_outside_slur_callback_proc),
+            Y_AXIS);
+          chain_callback (e, outside_slur_cross_staff_proc,
+                          ly_symbol2scm ("cross-staff"));
           set_object (e, "slur", slur->self_scm ());
         }
     }

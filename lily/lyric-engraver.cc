@@ -80,8 +80,7 @@ Lyric_engraver::process_music ()
     }
 
   Context *voice = get_voice_to_lyrics (context ());
-  if (last_text_
-      && voice
+  if (last_text_ && voice
       && from_scm<bool> (get_property (voice, "melismaBusy"))
       && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
     set_property (last_text_, "self-alignment-X",
@@ -91,7 +90,8 @@ Lyric_engraver::process_music ()
 Context *
 get_voice_to_lyrics (Context *lyrics)
 {
-  bool searchForVoice = from_scm<bool> (get_property (lyrics, "searchForVoice"));
+  bool searchForVoice
+    = from_scm<bool> (get_property (lyrics, "searchForVoice"));
 
   SCM avc = get_property (lyrics, "associatedVoiceContext");
   if (Context *c = unsmob<Context> (avc))
@@ -129,10 +129,11 @@ Grob *
 get_current_note_head (Context *voice)
 {
   const auto now = voice->now_mom ();
-  for (SCM s = get_property (voice, "busyGrobs");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_property (voice, "busyGrobs"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      Grob *g = unsmob<Grob> (scm_cdar (s));;
+      Grob *g = unsmob<Grob> (scm_cdar (s));
+      ;
       Moment *end_mom = unsmob<Moment> (scm_caar (s));
       if (!end_mom || !g)
         {
@@ -153,8 +154,7 @@ get_current_note_head (Context *voice)
       // indistinguishable from a proper note ending on a non-grace
       // time.  So we really have no way to obey includeGraceNotes
       // here.  Not with this mechanism.
-      if ((*end_mom == end_from_now)
-          && dynamic_cast<Item *> (g)
+      if ((*end_mom == end_from_now) && dynamic_cast<Item *> (g)
           && has_interface<Note_head> (g))
         {
           return g;

@@ -36,7 +36,8 @@ using std::vector;
   TODO: Add support for cubic spline segments.
  */
 Stencil
-brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_points)
+brew_cluster_piece (Grob *me, vector<Offset> bottom_points,
+                    vector<Offset> top_points)
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me) / 2;
 
@@ -70,8 +71,9 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
         {
           Box box;
           box.add_point (bottom_points[i] - hvpadding);
-          box.add_point (Offset (top_points[i + 1][X_AXIS],
-                                 top_points[i][Y_AXIS]) + hvpadding);
+          box.add_point (
+            Offset (top_points[i + 1][X_AXIS], top_points[i][Y_AXIS])
+            + hvpadding);
           out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
         }
     }
@@ -80,8 +82,9 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
       for (vsize i = 0; i < size - 1; i++)
         {
           Box box;
-          box.add_point (Offset (bottom_points[i][X_AXIS],
-                                 bottom_points[i + 1][Y_AXIS]) - hvpadding);
+          box.add_point (
+            Offset (bottom_points[i][X_AXIS], bottom_points[i + 1][Y_AXIS])
+            - hvpadding);
           box.add_point (top_points[i + 1] + hvpadding);
           out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
         }
@@ -193,11 +196,13 @@ Cluster::print (SCM smob)
       extract_grob_set (next, "columns", next_cols);
       if (next_cols.size () > 0)
         {
-          Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
+          Grob *next_commony
+            = common_refpoint_of_array (next_cols, next, Y_AXIS);
           Grob *col = next_cols[0];
 
           Interval v = col->extent (next_commony, Y_AXIS);
-          Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
+          Real x
+            = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 
           bottom_points.push_back (Offset (x, v[DOWN]));
           top_points.push_back (Offset (x, v[UP]));
@@ -205,7 +210,7 @@ Cluster::print (SCM smob)
     }
 
   Stencil out = brew_cluster_piece (me, bottom_points, top_points);
-  out.translate_axis (- me->relative_coordinate (commony, Y_AXIS), Y_AXIS);
+  out.translate_axis (-me->relative_coordinate (commony, Y_AXIS), Y_AXIS);
   return out.smobbed_copy ();
 }
 
@@ -238,8 +243,7 @@ SCM
 Cluster_beacon::height (SCM g)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, g, 1);
-  Interval v = from_scm (get_property (me, "positions"),
-                         Interval (0, 0));
+  Interval v = from_scm (get_property (me, "positions"), Interval (0, 0));
   return to_scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }
 

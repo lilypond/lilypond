@@ -56,15 +56,15 @@ public:
   Beam_configuration ();
   bool done () const;
   void add (Real demerit, const std::string &reason);
-  static std::unique_ptr<Beam_configuration> new_config (Drul_array<Real> start,
-                                                         Drul_array<Real> offset);
+  static std::unique_ptr<Beam_configuration>
+  new_config (Drul_array<Real> start, Drul_array<Real> offset);
 };
 
 // Comparator for a queue of Beam_configuration*.
 class Beam_configuration_less
 {
 public:
-  bool operator () (Beam_configuration *const &l, Beam_configuration *const &r)
+  bool operator() (Beam_configuration *const &l, Beam_configuration *const &r)
   {
     // Invert
     return l->demerits > r->demerits;
@@ -173,7 +173,8 @@ private:
   vsize first_normal_index ();
   vsize last_normal_index ();
 
-  void init_instance_variables (Grob *me, Drul_array<Real> ys, bool align_broken_intos);
+  void init_instance_variables (Grob *me, Drul_array<Real> ys,
+                                bool align_broken_intos);
   void add_collision (Real x, Interval y, Real factor);
   void no_visible_stem_positions ();
   void least_squares_positions ();
@@ -182,10 +183,9 @@ private:
   void shift_region_to_valid ();
 
   void one_scorer (Beam_configuration *config) const;
-  Beam_configuration *
-  force_score (SCM inspect_quants,
-               const std::vector<std::unique_ptr<Beam_configuration>> &configs)
-  const;
+  Beam_configuration *force_score (
+    SCM inspect_quants,
+    const std::vector<std::unique_ptr<Beam_configuration>> &configs) const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
@@ -195,9 +195,8 @@ private:
   void score_slope_direction (Beam_configuration *config) const;
   void score_slope_musical (Beam_configuration *config) const;
   void score_stem_lengths (Beam_configuration *config) const;
-  void
-  generate_quants (std::vector<std::unique_ptr<Beam_configuration>> *scores)
-  const;
+  void generate_quants (
+    std::vector<std::unique_ptr<Beam_configuration>> *scores) const;
   void score_collisions (Beam_configuration *config) const;
 };
 

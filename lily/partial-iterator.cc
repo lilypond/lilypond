@@ -32,6 +32,7 @@ class Partial_iterator final : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_SCHEME_CALLBACK (finalization, (SCM, SCM));
+
 protected:
   void process (Moment) override;
 };
@@ -39,7 +40,7 @@ protected:
 void
 Partial_iterator::process (Moment m)
 {
-  if (Duration * dur
+  if (Duration *dur
       = unsmob<Duration> (get_property (get_music (), "duration")))
     {
       Moment length = Moment (dur->get_length ());
@@ -53,16 +54,15 @@ Partial_iterator::process (Moment m)
         {
           set_property (timing, "partialBusy", SCM_BOOL_T);
           Global_context *g = find_global_context (get_context ());
-          g->add_finalization (ly_list (finalization_proc,
-                                        timing->self_scm (),
+          g->add_finalization (ly_list (finalization_proc, timing->self_scm (),
                                         length.smobbed_copy ()));
         }
       else
         {
           auto mp = from_scm (mp_scm, Moment (0));
           mp.main_part_ = 0;
-          set_property
-          (timing, "measurePosition", (mp - length).smobbed_copy ());
+          set_property (timing, "measurePosition",
+                        (mp - length).smobbed_copy ());
         }
     }
   else

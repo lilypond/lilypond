@@ -52,17 +52,15 @@ Score_engraver::derived_mark () const
 void
 Score_engraver::prepare (SCM)
 {
-  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, DOWN);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP,
+                                        DOWN);
 }
 
 void
 Score_engraver::finish (SCM)
 {
-  recurse_over_translators
-  (context (),
-   MFP_WRAP (&Translator::finalize),
-   MFP_WRAP (&Translator_group::finalize),
-   UP);
+  recurse_over_translators (context (), MFP_WRAP (&Translator::finalize),
+                            MFP_WRAP (&Translator_group::finalize), UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"
@@ -76,12 +74,9 @@ Score_engraver::initialize ()
   Font_metric *fm = all_fonts_global->find_otf (MUSIC_FONT);
   if (!fm)
     {
-      error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
-             + "\n"
-             + _ ("Music font has not been installed properly.")
-             + "\n"
-             + _f ("Search path `%s'", global_path.to_string ().c_str ())
-             + "\n"
+      error (_f ("cannot find `%s'", MUSIC_FONT ".otf") + "\n"
+             + _ ("Music font has not been installed properly.") + "\n"
+             + _f ("Search path `%s'", global_path.to_string ().c_str ()) + "\n"
              + _ ("Aborting"));
     }
 
@@ -89,7 +84,8 @@ Score_engraver::initialize ()
   pscore_->unprotect ();
   set_property (context (), "output", pscore_->self_scm ());
 
-  SCM props = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
+  SCM props
+    = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
 
   pscore_->typeset_system (new System (props));
 
@@ -105,7 +101,8 @@ Score_engraver::connect_to_context (Context *c)
   Engraver_group::connect_to_context (c);
 
   Dispatcher *d = find_top_context (c)->event_source ();
-  d->add_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (this, one_time_step),
+                   ly_symbol2scm ("OneTimeStep"));
   d->add_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
   d->add_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 }
@@ -128,7 +125,8 @@ void
 Score_engraver::disconnect_from_context ()
 {
   Dispatcher *d = find_top_context (context ())->event_source ();
-  d->remove_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (this, one_time_step),
+                      ly_symbol2scm ("OneTimeStep"));
   d->remove_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
   d->remove_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 
@@ -159,12 +157,14 @@ Score_engraver::one_time_step (SCM)
       Engraver_group::do_announces ();
     }
 
-  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
+  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP,
+                                        UP);
   typeset_all ();
 }
 
 void
-Score_engraver::announce_grob (Grob_info info, Direction start_end, Context *reroute_context)
+Score_engraver::announce_grob (Grob_info info, Direction start_end,
+                               Context *reroute_context)
 {
   Engraver_group::announce_grob (info, start_end, reroute_context);
   if (start_end == START)

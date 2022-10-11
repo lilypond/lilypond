@@ -34,10 +34,11 @@ class Engraver : public Translator
   friend class Engraver_group;
 
 private:
-  template<typename T> T *choose_grob_type (SCM klass, SCM props);
-  template<typename T> T *internal_make_grob (SCM sym, SCM cause,
-                                              char const *f, int l,
-                                              char const *fun);
+  template <typename T>
+  T *choose_grob_type (SCM klass, SCM props);
+  template <typename T>
+  T *internal_make_grob (SCM sym, SCM cause, char const *f, int l,
+                         char const *fun);
 
 protected:
   /*
@@ -61,14 +62,14 @@ public:
 
   Grob_info make_grob_info (Grob *, SCM cause);
 
-  Item *internal_make_item (SCM sym, SCM cause,
-                            char const *f, int l, char const *fun);
-  Spanner *internal_make_spanner (SCM sym, SCM cause,
-                                  char const *f, int l, char const *fun);
-  Paper_column *internal_make_column (SCM sym,
-                                      char const *f, int l, char const *fun);
-  Grob *internal_make_indeterminate (SCM sym, SCM cause,
-                                     char const *f, int l, char const *fun);
+  Item *internal_make_item (SCM sym, SCM cause, char const *f, int l,
+                            char const *fun);
+  Spanner *internal_make_spanner (SCM sym, SCM cause, char const *f, int l,
+                                  char const *fun);
+  Paper_column *internal_make_column (SCM sym, char const *f, int l,
+                                      char const *fun);
+  Grob *internal_make_indeterminate (SCM sym, SCM cause, char const *f, int l,
+                                     char const *fun);
   Grob *internal_make_sticky (SCM symbol, Grob *host, SCM cause,
                               char const *file, int line, char const *fun);
 
@@ -79,16 +80,24 @@ public:
   Engraver (Context *);
 };
 
-#define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__, __FUNCTION__)
-#define make_spanner(x, cause) internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__, __FUNCTION__)
-#define make_paper_column(x) internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
-#define make_sticky(x, host, cause) internal_make_sticky (ly_symbol2scm (x), host, cause, __FILE__, __LINE__, __FUNCTION__)
+#define make_item(x, cause)                                                    \
+  internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__,            \
+                      __FUNCTION__)
+#define make_spanner(x, cause)                                                 \
+  internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__,         \
+                         __FUNCTION__)
+#define make_paper_column(x)                                                   \
+  internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
+#define make_sticky(x, host, cause)                                            \
+  internal_make_sticky (ly_symbol2scm (x), host, cause, __FILE__, __LINE__,    \
+                        __FUNCTION__)
 
 bool ly_is_grob_cause (SCM obj);
 
 // Acknowledger trampolines
 template <class T, void (T::*callback) (Grob_info_t<Grob>)>
-SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
+SCM
+Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 2);
@@ -99,7 +108,8 @@ SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 }
 
 template <class T, void (T::*callback) (Grob_info_t<Item>)>
-SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
+SCM
+Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
   auto *const g = LY_ASSERT_SMOB (Item, grob, 2);
@@ -110,7 +120,8 @@ SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 }
 
 template <class T, void (T::*callback) (Grob_info_t<Spanner>)>
-SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
+SCM
+Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
   auto *const g = LY_ASSERT_SMOB (Spanner, grob, 2);

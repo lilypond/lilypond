@@ -38,7 +38,8 @@ Mark_tracking_translator::clear_events ()
     {
       performance_ev_ = nullptr;
       performance_ev_type_ = Event_type::none;
-      context ()->unset_property (ly_symbol2scm ("currentPerformanceMarkEvent"));
+      context ()->unset_property (
+        ly_symbol2scm ("currentPerformanceMarkEvent"));
     }
 
   if (rehearsal_ev_type_ != Event_type::none)
@@ -154,8 +155,7 @@ Mark_tracking_translator::get_coda_mark_label (const Context *context,
   auto n = from_scm<size_t> (get_property (ev, "label"), 0);
   if (n < 1)
     {
-      n = from_scm<size_t> (get_property (context, "codaMarkCount"), 0)
-          + 1;
+      n = from_scm<size_t> (get_property (context, "codaMarkCount"), 0) + 1;
     }
   return n;
 }
@@ -345,5 +345,4 @@ This translator chooses which marks @code{Mark_engraver} should engrave.
                 "currentPerformanceMarkEvent "
                 "currentRehearsalMarkEvent "
                 "rehearsalMark "
-                "segnoMarkCount "
-);
+                "segnoMarkCount ");

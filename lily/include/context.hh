@@ -40,14 +40,15 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   static const char *const type_p_name_;
   virtual ~Context ();
+
 protected:
   Context (Context_def *odef, SCM ops);
+
 private:
   void add_global_finalization (SCM x);
   Context *create_hierarchy (const std::vector<Context_def *> &path,
                              const std::string &intermediate_id,
-                             const std::string &leaf_id,
-                             SCM leaf_operations);
+                             const std::string &leaf_id, SCM leaf_operations);
   Context *find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name);
   SCM make_revert_finalization (SCM sym);
   Scheme_hash_table *properties_dict () const;
@@ -59,17 +60,17 @@ private:
     CREATE_ONLY
   };
 
-  Context *core_find (FindMode, Direction,
-                      SCM context_name, const std::string &id, SCM ops);
+  Context *core_find (FindMode, Direction, SCM context_name,
+                      const std::string &id, SCM ops);
 
-  Context *find (FindMode, Direction,
-                 SCM context_name, const std::string &id, SCM ops);
+  Context *find (FindMode, Direction, SCM context_name, const std::string &id,
+                 SCM ops);
 
-  Context *unchecked_find (FindMode, Direction,
-                           SCM context_name, const std::string &id, SCM ops);
+  Context *unchecked_find (FindMode, Direction, SCM context_name,
+                           const std::string &id, SCM ops);
 
   Context (Context const &src) = delete;
-  Context &operator = (Context const &) = delete;
+  Context &operator= (Context const &) = delete;
 
   VIRTUAL_CLASS_NAME (Context);
   void terminate ();
@@ -84,8 +85,10 @@ private:
 
 protected:
   virtual void derived_mark () const;
+
 private:
   Context *parent_;
+
 protected:
   /* The used Context_def */
   SCM definition_;
@@ -131,16 +134,14 @@ public:
   Dispatcher *event_source () const { return event_source_; }
   Dispatcher *events_below () const { return events_below_; }
   void internal_send_stream_event (SCM type, Input *origin);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2,
-                                   SCM prop3, SCM val3);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2,
-                                   SCM prop3, SCM val3, SCM prop4, SCM val4);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2, SCM prop3, SCM val3);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2, SCM prop3, SCM val3,
+                                   SCM prop4, SCM val4);
   SCM get_definition () const { return definition_; }
   SCM get_definition_mods () const { return definition_mods_; }
 
@@ -194,14 +195,12 @@ public:
 
   // This is like find_create_context () without the possibility of finding an
   // existing context.
-  Context *
-  create_unique_context (Direction dir,
-                         SCM name, const std::string &id, SCM ops);
+  Context *create_unique_context (Direction dir, SCM name,
+                                  const std::string &id, SCM ops);
 
   // This is like find_create_context () without the possibility of creating a
   // new context.
-  Context *
-  find_context (Direction dir, SCM name, const std::string &id);
+  Context *find_context (Direction dir, SCM name, const std::string &id);
 
   // Find the first context with the given name and ID, or create a new context
   // with the given name, ID, and context ops.
@@ -215,8 +214,8 @@ public:
   //
   // A direction of DOWN skips the ancestors and a direction of UP skips the
   // descendants.  This context is always considered.
-  Context *
-  find_create_context (Direction dir, SCM name, const std::string &id, SCM ops);
+  Context *find_create_context (Direction dir, SCM name, const std::string &id,
+                                SCM ops);
 
   std::vector<Context_def *> path_to_acceptable_context (SCM alias) const;
 };
@@ -271,7 +270,7 @@ bool break_allowed (Context const *);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, origin, ...)                       \
+#define send_stream_event(ctx, type, origin, ...)                              \
   ctx->internal_send_stream_event (ly_symbol2scm (type), origin, ##__VA_ARGS__)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);

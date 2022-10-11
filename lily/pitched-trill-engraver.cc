@@ -90,8 +90,7 @@ void
 Pitched_trill_engraver::acknowledge_trill_spanner (Grob_info info)
 {
   Stream_event *ev = info.event_cause ();
-  if (ev
-      && ev->in_event_class ("trill-span-event")
+  if (ev && ev->in_event_class ("trill-span-event")
       && from_scm<Direction> (get_property (ev, "span-direction")) == START
       && unsmob<Pitch> (get_property (ev, "pitch")))
     make_trill (ev);
@@ -105,8 +104,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
 
   SCM keysig = get_property (this, "localAlterations");
 
-  SCM key = scm_cons (to_scm (p->get_octave ()),
-                      to_scm (p->get_notename ()));
+  SCM key = scm_cons (to_scm (p->get_octave ()), to_scm (p->get_notename ()));
 
   int bn = measure_number (context ());
 
@@ -121,8 +119,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
         handle = SCM_BOOL_F;
     }
 
-  bool print_acc = scm_is_false (handle)
-                   || p->get_alteration () == Rational (0)
+  bool print_acc = scm_is_false (handle) || p->get_alteration () == Rational (0)
                    || from_scm<bool> (get_property (ev, "force-accidental"));
 
   if (trill_head_)
@@ -137,8 +134,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   int c0 = scm_is_number (c0scm) ? from_scm<int> (c0scm) : 0;
 
   set_property (trill_head_, "staff-position",
-                to_scm (unsmob<Pitch> (scm_pitch)->steps ()
-                        + c0));
+                to_scm (unsmob<Pitch> (scm_pitch)->steps () + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());
 
@@ -149,18 +145,20 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       trill_accidental_ = make_item ("TrillPitchAccidental", ev->self_scm ());
 
       // fixme: naming -> alterations
-      set_property (trill_accidental_, "alteration", to_scm (p->get_alteration ()));
+      set_property (trill_accidental_, "alteration",
+                    to_scm (p->get_alteration ()));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
 
-      set_object (trill_head_, "accidental-grob", trill_accidental_->self_scm ());
+      set_object (trill_head_, "accidental-grob",
+                  trill_accidental_->self_scm ());
       trill_accidental_->set_y_parent (trill_head_);
       Axis_group_interface::add_element (trill_group_, trill_accidental_);
     }
 
-  trill_parentheses_ = make_item ("TrillPitchParentheses", trill_head_->self_scm ());
+  trill_parentheses_
+    = make_item ("TrillPitchParentheses", trill_head_->self_scm ());
   Pointer_group_interface::add_grob (trill_parentheses_,
-                                     ly_symbol2scm ("elements"),
-                                     trill_head_);
+                                     ly_symbol2scm ("elements"), trill_head_);
   trill_parentheses_->set_x_parent (trill_head_);
   trill_parentheses_->set_y_parent (trill_head_);
   Axis_group_interface::add_element (trill_group_, trill_parentheses_);

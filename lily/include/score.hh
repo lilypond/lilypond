@@ -34,10 +34,12 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Score ();
+
 private:
   SCM music_;
   SCM input_location_;
   SCM header_;
+
 public:
   Input *origin () const;
 

@@ -23,7 +23,7 @@
 #include "one-line-page-breaking.hh"
 #include "page-breaking.hh"
 
-class One_line_auto_height_breaking: public One_line_page_breaking
+class One_line_auto_height_breaking : public One_line_page_breaking
 {
 public:
   SCM solve () override;

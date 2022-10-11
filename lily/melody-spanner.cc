@@ -46,7 +46,8 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 
   vector<Direction> dirs;
   for (vsize i = 0; i < stems.size (); i++)
-    dirs.push_back (from_scm<Direction> (get_property (stems[i], "default-direction")));
+    dirs.push_back (
+      from_scm<Direction> (get_property (stems[i], "default-direction")));
 
   vsize last_nonneutral = VPOS;
   vsize next_nonneutral = 0;
@@ -83,14 +84,12 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
         }
 
       last_nonneutral = next_nonneutral;
-      while (last_nonneutral < dirs.size ()
-             && dirs[last_nonneutral])
+      while (last_nonneutral < dirs.size () && dirs[last_nonneutral])
         last_nonneutral++;
       next_nonneutral = last_nonneutral;
       last_nonneutral--;
 
-      while (next_nonneutral < dirs.size ()
-             && !dirs[next_nonneutral])
+      while (next_nonneutral < dirs.size () && !dirs[next_nonneutral])
         next_nonneutral++;
     }
 
@@ -102,7 +101,8 @@ Melody_spanner::add_stem (Grob *me, Grob *stem)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("stems"), stem);
   set_object (stem, "melody-spanner", me->self_scm ());
-  set_property (stem, "neutral-direction", Melody_spanner::calc_neutral_stem_direction_proc);
+  set_property (stem, "neutral-direction",
+                Melody_spanner::calc_neutral_stem_direction_proc);
 }
 
 ADD_INTERFACE (Melody_spanner,
@@ -115,4 +115,3 @@ Context dependent typesetting decisions.
 stems
 neutral-direction
                )");
-

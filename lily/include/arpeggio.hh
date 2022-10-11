@@ -37,4 +37,3 @@ public:
 };
 
 #endif /* ARPEGGIO_HH */
-

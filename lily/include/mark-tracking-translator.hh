@@ -42,6 +42,7 @@ private:
 
 public:
   TRANSLATOR_DECLARATIONS (Mark_tracking_translator);
+
 private:
   // Rehearsal marks, ad-hoc marks
   Stream_event *rehearsal_ev_ = nullptr;

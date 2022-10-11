@@ -25,8 +25,8 @@
 class Staff_grouper_interface
 {
 public:
-
-  static Grob *get_extremal_staff (Grob *, Grob *refpoint, Direction dir, Interval const &iv);
+  static Grob *get_extremal_staff (Grob *, Grob *refpoint, Direction dir,
+                                   Interval const &iv);
   static bool maybe_pure_within_group (Grob *, Grob *child, bool, int, int);
 };
 

@@ -16,6 +16,7 @@
 class String_convert
 {
   static int hex2bin (std::string hex_string, std::string &bin_string_r);
+
 public:
   static int hex2nibble (char hex_digit);
   static std::string be_u32 (uint32_t u);
@@ -23,7 +24,8 @@ public:
   static std::string be_u16 (uint16_t u);
   static std::string pad_to (const std::string &s, size_t length);
   static std::string bin2hex (Byte bin_char);
-  static std::string form_string (char const *format, ...) __attribute__ ((format (printf, 1, 2)));
+  static std::string form_string (char const *format, ...)
+    __attribute__ ((format (printf, 1, 2)));
   static std::string vform_string (char const *format, va_list args);
   static std::string hex2bin (const std::string &str);
   static std::string to_lower (std::string s);

@@ -32,8 +32,7 @@ public:
   static int get_column_rank (Spanner *, Direction);
   static int get_position (Spanner *);
   static Direction get_default_dir (Spanner *);
-  static SCM get_control_points (Grob *, Grob *,
-                                 Tie_configuration const &,
+  static SCM get_control_points (Grob *, Grob *, Tie_configuration const &,
                                  Tie_details const &);
   static SCM get_default_control_points (Spanner *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));

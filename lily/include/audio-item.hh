@@ -41,7 +41,7 @@ public:
 
 private:
   Audio_item (Audio_item const &);
-  Audio_item &operator = (Audio_item const &);
+  Audio_item &operator= (Audio_item const &);
 };
 
 // Audio_span_dynamic is open at the end of the interval, so the volume
@@ -60,7 +60,7 @@ private:
   Moment start_moment_;
   Real start_volume_;
   Real duration_; // = target moment - start moment
-  Real gain_; // = target volume - start volume
+  Real gain_;     // = target volume - start volume
 
 public:
   Moment get_start_moment () const { return start_moment_; }
@@ -92,7 +92,8 @@ public:
 class Audio_note final : public Audio_item
 {
 public:
-  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition, int velocity);
+  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition,
+              int velocity);
 
   // with tieWaitForNote, there might be a skip between the tied notes!
   void tie_to (Audio_note *, Moment skip = 0);
@@ -121,12 +122,18 @@ class Audio_text final : public Audio_item
 public:
   enum Type : uint8_t
   {
-    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
-    MARKER, CUE_POINT
+    TEXT = 1,
+    COPYRIGHT,
+    TRACK_NAME,
+    INSTRUMENT_NAME,
+    LYRIC,
+    MARKER,
+    CUE_POINT
   };
 
   Audio_text (Audio_text::Type type, const std::string &text_string)
-    : type_ (type), text_string_ (text_string)
+    : type_ (type),
+      text_string_ (text_string)
   {
   }
 
@@ -172,4 +179,3 @@ int moment_to_ticks (Moment);
 Real moment_to_real (Moment);
 
 #endif // AUDIO_ITEM_HH
-

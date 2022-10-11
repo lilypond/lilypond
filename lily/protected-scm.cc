@@ -52,7 +52,7 @@ Protected_scm::protectify (SCM s)
 }
 
 Protected_scm &
-Protected_scm::operator = (SCM s)
+Protected_scm::operator= (SCM s)
 {
   if (SCM_CONSP (object_))
     SCM_SETCAR (object_, s);
@@ -65,19 +65,19 @@ Protected_scm::operator = (SCM s)
 }
 
 Protected_scm &
-Protected_scm::operator = (Protected_scm const &s)
+Protected_scm::operator= (Protected_scm const &s)
 {
   return *this = static_cast<SCM> (s);
 }
 
-Protected_scm::operator SCM const &() const
+Protected_scm::operator SCM const & () const
 {
   if (SCM_CONSP (object_))
     return *SCM_CARLOC (object_);
   return object_;
 }
 
-Protected_scm::operator SCM &()
+Protected_scm::operator SCM & ()
 {
   // The reference may be used to overwrite an immediate value with a
   // non-immediate one, so we _have_ to create full protection.

@@ -182,8 +182,7 @@ Context_def::add_context_mod (SCM mod)
   list may have been modified from the defined default.)
 */
 vector<Context_def *>
-Context_def::path_to_acceptable_context (SCM type_sym,
-                                         Output_def *odef,
+Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef,
                                          SCM accepted) const
 {
   set<const Context_def *> seen;
@@ -206,19 +205,17 @@ context.  Example: The caller requests a Timing and the current context would
 accept a Score, for which Timing is an alias, so substitute a Score.
 */
 vector<Context_def *>
-Context_def::internal_path_to_acceptable_context (SCM type_sym,
-                                                  bool instantiable,
-                                                  Output_def *odef,
-                                                  SCM accepted,
-                                                  set<const Context_def *> *seen) const
+Context_def::internal_path_to_acceptable_context (
+  SCM type_sym, bool instantiable, Output_def *odef, SCM accepted,
+  set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 
   vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context_def *t = unsmob<Context_def> (find_context_def (odef,
-                                                              scm_car (s)));
+      Context_def *t
+        = unsmob<Context_def> (find_context_def (odef, scm_car (s)));
       if (is_instantiable (t))
         accepteds.push_back (t);
     }
@@ -227,8 +224,8 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       bool valid = instantiable
-                   ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
-                   : accepteds[i]->is_alias (type_sym);
+                     ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
+                     : accepteds[i]->is_alias (type_sym);
       if (valid)
         {
           best_result.push_back (accepteds[i]);
@@ -262,8 +259,7 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
 }
 
 vector<Context_def *>
-Context_def::path_to_bottom_context (Output_def *odef,
-                                     SCM first_child_type_sym)
+Context_def::path_to_bottom_context (Output_def *odef, SCM first_child_type_sym)
 {
   vector<Context_def *> path;
   if (!internal_path_to_bottom_context (odef, &path, first_child_type_sym))
@@ -313,8 +309,8 @@ Context_def::get_translator_names (SCM user_mod) const
   // \remove command removes from the set, implemented as removing the
   // corresponding value in added_index.  (This could also be implemented with
   // just scm_memq and scm_delq, but that would be a quadratic algorithm.)
-  Scheme_hash_table *added_index =
-    unsmob<Scheme_hash_table> (Scheme_hash_table::make_smob ());
+  Scheme_hash_table *added_index
+    = unsmob<Scheme_hash_table> (Scheme_hash_table::make_smob ());
   auto iter_mods = [&] (auto func) {
     vsize i = 0;
     for (SCM p : as_ly_scm_list (mods))
@@ -364,8 +360,8 @@ Context_def::to_alist () const
 {
   SCM ell = SCM_EOL;
 
-  ell = scm_cons (scm_cons (ly_symbol2scm ("consists"),
-                            get_translator_names (SCM_EOL)), ell);
+  ell = scm_cons (
+    scm_cons (ly_symbol2scm ("consists"), get_translator_names (SCM_EOL)), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), acceptance_.get_list ()),
@@ -375,14 +371,14 @@ Context_def::to_alist () const
       ell = scm_acons (ly_symbol2scm ("default-child"),
                        acceptance_.get_default (), ell);
     }
-  ell = scm_cons (scm_cons (ly_symbol2scm ("property-ops"), property_ops_),
-                  ell);
-  ell = scm_cons (scm_cons (ly_symbol2scm ("context-name"), context_name_),
-                  ell);
+  ell
+    = scm_cons (scm_cons (ly_symbol2scm ("property-ops"), property_ops_), ell);
+  ell
+    = scm_cons (scm_cons (ly_symbol2scm ("context-name"), context_name_), ell);
 
   if (scm_is_symbol (translator_group_type_))
-    ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
-                              translator_group_type_), ell);
+    ell = scm_cons (
+      scm_cons (ly_symbol2scm ("group-type"), translator_group_type_), ell);
   return ell;
 }
 
@@ -420,8 +416,8 @@ Context_def::is_alias (SCM sym) const
   return scm_is_true (scm_c_memq (sym, context_aliases_));
 }
 
-LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
-           2, 1, 0, (SCM def, SCM sym, SCM val),
+LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup", 2, 1, 0,
+           (SCM def, SCM sym, SCM val),
            R"(
 Return the value of @var{sym} in context definition @var{def} (e.g.,
 @code{\Voice}).  If no value is found, return @var{val} or @code{'()} if
@@ -446,8 +442,8 @@ Return the value of @var{sym} in context definition @var{def} (e.g.,
   return res;
 }
 
-LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
-           2, 0, 0, (SCM def, SCM mod),
+LY_DEFINE (ly_context_def_modify, "ly:context-def-modify", 2, 0, 0,
+           (SCM def, SCM mod),
            R"(
 Return the result of applying the context-mod @var{mod} to the context
 definition @var{def}.  Does not change @var{def}.
@@ -458,9 +454,7 @@ definition @var{def}.  Does not change @var{def}.
 
   auto *cd = orig_cd->clone ();
 
-  for (SCM s = cm->get_mods ();
-       scm_is_pair (s);
-       s = scm_cdr (s))
+  for (SCM s = cm->get_mods (); scm_is_pair (s); s = scm_cdr (s))
     cd->add_context_mod (scm_car (s));
 
   return cd->unprotect ();

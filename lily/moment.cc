@@ -62,7 +62,7 @@ Moment::compare (Moment const &a, Moment const &b)
 }
 
 Moment &
-Moment::operator += (Moment const &src)
+Moment::operator+= (Moment const &src)
 {
   main_part_ += src.main_part_;
   grace_part_ += src.grace_part_;
@@ -70,7 +70,7 @@ Moment::operator += (Moment const &src)
 }
 
 Moment &
-Moment::operator -= (Moment const &src)
+Moment::operator-= (Moment const &src)
 {
   main_part_ -= src.main_part_;
   grace_part_ -= src.grace_part_;
@@ -78,7 +78,7 @@ Moment::operator -= (Moment const &src)
 }
 
 Moment &
-Moment::operator *= (Rational const &r)
+Moment::operator*= (Rational const &r)
 {
   main_part_ *= r;
   grace_part_ *= r;
@@ -86,7 +86,7 @@ Moment::operator *= (Rational const &r)
 }
 
 Moment &
-Moment::operator /= (Rational const &r)
+Moment::operator/= (Rational const &r)
 {
   main_part_ /= r;
   grace_part_ /= r;
@@ -94,7 +94,7 @@ Moment::operator /= (Rational const &r)
 }
 
 Moment &
-Moment::operator %= (Rational const &r)
+Moment::operator%= (Rational const &r)
 {
   main_part_ %= r;
   grace_part_ %= r;
@@ -111,7 +111,7 @@ Moment::to_string () const
 }
 
 Moment
-Moment::operator - () const
+Moment::operator- () const
 {
   Moment m;
   m.grace_part_ = -grace_part_;
@@ -121,7 +121,7 @@ Moment::operator - () const
 
 #ifdef STREAM_SUPPORT
 ostream &
-operator << (ostream &os, Moment const &m)
+operator<< (ostream &os, Moment const &m)
 {
   os << m.to_string ();
   return os;

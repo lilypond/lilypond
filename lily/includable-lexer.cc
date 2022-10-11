@@ -37,8 +37,7 @@ using std::string;
 #endif
 
 #ifndef YY_START
-#define YY_START                                \
-  ((yy_start - 1) / 2)
+#define YY_START ((yy_start - 1) / 2)
 #define YYSTATE YY_START
 #endif
 
@@ -50,7 +49,9 @@ Includable_lexer::new_input (const string &name, Sources *sources)
 {
   string current_dir = dir_name (main_input_name_);
   if (relative_includes)
-    current_dir = include_stack_.size () ? dir_name (include_stack_.back ()->name_string ()) : "";
+    current_dir = include_stack_.size ()
+                    ? dir_name (include_stack_.back ()->name_string ())
+                    : "";
 
   Source_file *file = sources->get_file (name, current_dir);
   if (!file)
@@ -58,7 +59,8 @@ Includable_lexer::new_input (const string &name, Sources *sources)
       string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-                 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->search_path ().c_str ());
+                 (current_dir.length () ? (current_dir + PATHSEP) : "")
+                   + sources->search_path ().c_str ());
       LexerError (msg.c_str ());
       return;
     }
@@ -119,7 +121,8 @@ Includable_lexer::get_source_file () const
   return include_stack_.back ();
 }
 
-void Includable_lexer::skip_chars (size_t count)
+void
+Includable_lexer::skip_chars (size_t count)
 {
   for (size_t i = 0; i < count; ++i)
     yyinput ();

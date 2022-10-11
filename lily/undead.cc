@@ -59,8 +59,7 @@ parsed_dead::readout ()
   return result;
 }
 
-LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!",
-           0, 0, 0, (),
+LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!", 0, 0, 0, (),
            R"(
 Return the list of objects that have been found alive but should have been
 dead, and clear that list.

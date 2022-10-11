@@ -94,8 +94,8 @@ using std::vector;
   This is actually relied upon by the engravers.
  */
 void
-Coherent_ligature_engraver::move_related_items_to_column
-(Item *item, Paper_column *target_column, Real offset)
+Coherent_ligature_engraver::move_related_items_to_column (
+  Item *item, Paper_column *target_column, Real offset)
 {
   Paper_column *source_column = item->get_column ();
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (item);
@@ -153,8 +153,9 @@ calc_delta_pitches (vector<Item *> const &primitives)
   if (primitives.empty ())
     return;
 
-  auto prev_pitch = unsmob<Pitch> (get_property (primitives[0]->event_cause (),
-                                                 "pitch"))->steps ();
+  auto prev_pitch
+    = unsmob<Pitch> (get_property (primitives[0]->event_cause (), "pitch"))
+        ->steps ();
   for (vsize i = 1; i < primitives.size (); ++i)
     {
       auto *const cause = primitives[i]->event_cause ();

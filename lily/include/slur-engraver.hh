@@ -35,8 +35,10 @@ private:
   {
     Stream_event *slur_, *note_;
     Event_info (Stream_event *slur, Stream_event *note)
-      : slur_ (slur), note_ (note)
-    { }
+      : slur_ (slur),
+        note_ (note)
+    {
+    }
   };
 
   std::vector<Event_info> start_events_;
@@ -69,7 +71,8 @@ protected:
   void process_music ();
 
   bool can_create_slur (SCM, vsize, vsize *, Stream_event *);
-  void create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken);
+  void create_slur (SCM spanner_id, Event_info evi, Grob *g_cause,
+                    Direction dir, bool left_broken);
   bool try_to_end (Event_info evi);
 
   virtual void set_melisma (bool);

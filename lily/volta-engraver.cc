@@ -78,8 +78,8 @@ class Volta_engraver : Preinit_Volta_engraver, public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
-protected:
 
+protected:
   void acknowledge_bar_line (Grob_info_t<Item>);
   void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
@@ -141,8 +141,7 @@ Volta_engraver::format_numbers (SCM volta_numbers)
   size_t range_start = 0;
   size_t prev_num = 0;
 
-  auto handle_num = [&] (size_t num)
-  {
+  auto handle_num = [&] (size_t num) {
     if (range_start)
       {
         if (num != prev_num + 1) // end range
@@ -216,10 +215,9 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
       // simplicity, we remove all matches and then restore some if there were
       // actually more than one.
       auto removed_count
-        = as_ly_scm_list (layer.numbers_).remove_if ([nums] (SCM entry)
-      {
-        return from_scm<bool> (scm_equal_p (entry, nums));
-      });
+        = as_ly_scm_list (layer.numbers_).remove_if ([nums] (SCM entry) {
+            return from_scm<bool> (scm_equal_p (entry, nums));
+          });
 
       for (size_t i = 1; i < removed_count; ++i)
         {
@@ -309,9 +307,8 @@ Volta_engraver::process_music ()
 
       if (layer.bracket_ && !end)
         {
-          auto voltaSpannerDuration
-            = from_scm (get_property (this, "voltaSpannerDuration"),
-                        Moment::infinity ());
+          auto voltaSpannerDuration = from_scm (
+            get_property (this, "voltaSpannerDuration"), Moment::infinity ());
           end = (voltaSpannerDuration <= now_mom () - layer.started_mom_);
         }
 
@@ -341,8 +338,7 @@ Volta_engraver::process_music ()
           layer.bracket_ = 0;
         }
 
-      if (!layer.bracket_
-          && Text_interface::is_markup (bracket_text))
+      if (!layer.bracket_ && Text_interface::is_markup (bracket_text))
         {
           layer.started_mom_ = now_mom ();
 
@@ -407,7 +403,8 @@ Volta_engraver::stop_translation_timestep ()
         layer.end_bracket_->set_bound (RIGHT, ci);
 
       if (layer.spanner_ && layer.end_bracket_)
-        layer.spanner_->set_bound (RIGHT, layer.end_bracket_->get_bound (RIGHT));
+        layer.spanner_->set_bound (RIGHT,
+                                   layer.end_bracket_->get_bound (RIGHT));
 
       if (layer.end_bracket_ && !layer.bracket_)
         {
@@ -475,5 +472,4 @@ voltaSpannerDuration
                 )",
 
                 /* write */
-                ""
-               );
+                "");

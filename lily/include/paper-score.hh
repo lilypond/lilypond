@@ -35,6 +35,7 @@ class Paper_score : public Music_output
   mutable std::vector<Paper_column *> cols_;
   mutable std::vector<vsize> break_indices_;
   mutable std::vector<vsize> break_ranks_;
+
 public:
   Paper_score (Output_def *);
 
@@ -53,6 +54,7 @@ public:
   std::vector<vsize> const &get_break_ranks () const;
   std::vector<Paper_column *> const &get_columns () const;
   SCM get_paper_systems ();
+
 protected:
   void find_break_indices () const;
   void process () override;
@@ -60,7 +62,7 @@ protected:
 
 private:
   Paper_score (Paper_score const &) = delete;
-  Paper_score &operator = (Paper_score const &) = delete;
+  Paper_score &operator= (Paper_score const &) = delete;
 };
 
 #endif /* PAPER_SCORE_HH */

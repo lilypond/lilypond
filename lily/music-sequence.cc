@@ -204,8 +204,8 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
   auto *const me = LY_ASSERT_SMOB (Music, music, 1);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (get_property (me, "elements"),
-                                 p, false).smobbed_copy ();
+  return music_list_to_relative (get_property (me, "elements"), p, false)
+    .smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback,
@@ -215,6 +215,6 @@ Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {
   auto *const me = LY_ASSERT_SMOB (Music, music, 1);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (get_property (me, "elements"),
-                                 p, true).smobbed_copy ();
+  return music_list_to_relative (get_property (me, "elements"), p, true)
+    .smobbed_copy ();
 }

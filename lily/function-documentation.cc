@@ -52,14 +52,13 @@ ly_check_name (const char *cxx, const char *scm_name)
   string mangle = mangle_cxx_identifier (cxx);
   if (mangle != scm_name)
     {
-      programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", " + scm_name);
+      programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", "
+                         + scm_name);
     }
 }
 
 void
-ly_add_function_documentation (SCM func,
-                               const char *fname,
-                               const char *varlist,
+ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
                                const char *doc)
 {
   // doc is a null-terminated character string, so check if it is empty.
@@ -78,8 +77,8 @@ ly_add_function_documentation (SCM func,
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 
-LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
-           0, 0, 0, (),
+LY_DEFINE (ly_get_all_function_documentation,
+           "ly:get-all-function-documentation", 0, 0, 0, (),
            R"(
 Get a hash table with all LilyPond Scheme extension functions.
            )")
@@ -110,47 +109,55 @@ internal_predicate_to_typename (const void *pred)
 namespace
 {
 
-template <typename SIGN_TAG, std::size_t BITS> struct integral_descriptor;
+template <typename SIGN_TAG, std::size_t BITS>
+struct integral_descriptor;
 
-template<> struct integral_descriptor<signed, 16>
+template <>
+struct integral_descriptor<signed, 16>
 {
   static constexpr auto text = "integer in [-2^15, 2^15)";
 };
 
-template<> struct integral_descriptor<signed, 32>
+template <>
+struct integral_descriptor<signed, 32>
 {
   static constexpr auto text = "integer in [-2^31, 2^31)";
 };
 
-template<> struct integral_descriptor<signed, 64>
+template <>
+struct integral_descriptor<signed, 64>
 {
   static constexpr auto text = "integer in [-2^63, 2^63)";
 };
 
-template<> struct integral_descriptor<unsigned, 16>
+template <>
+struct integral_descriptor<unsigned, 16>
 {
   static constexpr auto text = "integer in [0, 2^16)";
 };
 
-template<> struct integral_descriptor<unsigned, 32>
+template <>
+struct integral_descriptor<unsigned, 32>
 {
   static constexpr auto text = "integer in [0, 2^32)";
 };
 
-template<> struct integral_descriptor<unsigned, 64>
+template <>
+struct integral_descriptor<unsigned, 64>
 {
   static constexpr auto text = "integer in [0, 2^64)";
 };
 
 template <typename T>
-constexpr const char *int_text (T = {})
+constexpr const char *
+int_text (T = {})
 {
   using namespace std;
   using s = typename conditional<is_signed<T>::value, signed, unsigned>::type;
-  return integral_descriptor<s, CHAR_BIT *sizeof (T)>::text;
+  return integral_descriptor<s, CHAR_BIT * sizeof (T)>::text;
 }
 
-}
+} // namespace
 
 void
 init_func_doc ()

@@ -70,8 +70,7 @@ Sources::find_full_path (string file_string, string const &current_dir) const
 {
   // First, check for a path relative to the directory of the
   // file currently being parsed.
-  if (current_dir.length ()
-      && file_string.length ()
+  if (current_dir.length () && file_string.length ()
       && !File_name (file_string).is_absolute ()
       && is_file (current_dir + DIRSEP + file_string))
     file_string = current_dir + DIRSEP + file_string;
@@ -84,7 +83,8 @@ Sources::find_full_path (string file_string, string const &current_dir) const
   return file_string;
 }
 
-string Sources::search_path () const
+string
+Sources::search_path () const
 {
   return path_->to_string ();
 }
@@ -108,8 +108,7 @@ Sources::~Sources ()
 #include "lily-imports.hh"
 #include "fluid.hh"
 
-LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
-           (SCM parser_smob),
+LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0, (SCM parser_smob),
            R"(
 Return a list of input files that have been opened up to here, including the
 files that have been closed already.  A parser, @var{parser-smob}, may
@@ -122,8 +121,7 @@ optionally be specified.
   Includable_lexer *lex = parser->lexer_;
 
   SCM lst = SCM_EOL;
-  for (vector<string>::const_iterator
-       i = lex->file_name_strings_.begin ();
+  for (vector<string>::const_iterator i = lex->file_name_strings_.begin ();
        i != lex->file_name_strings_.end (); ++i)
     {
       lst = scm_cons (ly_string2scm (*i), lst);
@@ -131,8 +129,7 @@ optionally be specified.
   return scm_reverse_x (lst, SCM_EOL);
 }
 
-LY_DEFINE (ly_note_extra_source_file, "ly:note-extra-source-file",
-           1, 1, 0,
+LY_DEFINE (ly_note_extra_source_file, "ly:note-extra-source-file", 1, 1, 0,
            (SCM filename, SCM parser),
            R"(
 Register a file, e.g., an image file, as being needed to compile the

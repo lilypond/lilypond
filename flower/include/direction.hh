@@ -32,16 +32,24 @@ public:
   // Create a Direction from the sign of the input.
 
   constexpr explicit Direction (int x)
-    : Direction (static_cast<long long> (x)) {}
+    : Direction (static_cast<long long> (x))
+  {
+  }
 
   constexpr explicit Direction (long x)
-    : Direction (static_cast<long long> (x)) {}
+    : Direction (static_cast<long long> (x))
+  {
+  }
 
   constexpr explicit Direction (long long x)
-    : val_ (x ? ((x < 0) ? -1 : 1) : 0) {}
+    : val_ (x ? ((x < 0) ? -1 : 1) : 0)
+  {
+  }
 
   explicit Direction (const double &x)
-    : val_ ((x != 0.0) ? (std::signbit (x) ? -1 : 1) : 0) {}
+    : val_ ((x != 0.0) ? (std::signbit (x) ? -1 : 1) : 0)
+  {
+  }
 
   static constexpr Direction negative () { return Direction (-1); }
   static constexpr Direction positive () { return Direction (1); }
@@ -49,7 +57,7 @@ public:
 
   // Direction is copiable
   Direction (const Direction &) = default;
-  Direction &operator =(const Direction &) = default;
+  Direction &operator= (const Direction &) = default;
 
   // Implicit conversion to int keeps legacy code working, but it has its
   // quirks.  All of these are true:
@@ -61,41 +69,40 @@ public:
   constexpr operator int () const { return val_; }
 
   // unary minus reverses the direction
-  constexpr Direction operator -() const { return Direction (-val_); }
+  constexpr Direction operator- () const { return Direction (-val_); }
 
   // unary plus is implemented for symmetry
-  constexpr Direction operator +() const { return *this; }
+  constexpr Direction operator+ () const { return *this; }
 
   // Multiplying two directions maintains the type as a Direction.  Multiplying
   // by other types is supported via implicit conversion of Direction to int.
-  constexpr Direction operator *(Direction other) const
+  constexpr Direction operator* (Direction other) const
   {
     return Direction (val_ * other.val_);
   }
 
-  constexpr Direction &operator *=(Direction other)
+  constexpr Direction &operator*= (Direction other)
   {
     return (*this = (*this) * other);
   }
 
   // convert to a zero-based index: {negative->0, zero->1, positive->2}
-  constexpr size_t to_index () const
-  {
-    return static_cast<size_t> (val_ + 1);
-  }
+  constexpr size_t to_index () const { return static_cast<size_t> (val_ + 1); }
 
 private:
   int val_ = 0;
 };
 
 // the directions are opposite and nonzero
-constexpr bool directed_opposite (Direction a, Direction b)
+constexpr bool
+directed_opposite (Direction a, Direction b)
 {
   return (a * b) < Direction::zero ();
 }
 
 // the directions are equal and nonzero
-constexpr bool directed_same (Direction a, Direction b)
+constexpr bool
+directed_same (Direction a, Direction b)
 {
   return (a * b) > Direction::zero ();
 }
@@ -104,7 +111,9 @@ constexpr bool directed_same (Direction a, Direction b)
    if d > 0: the max operator
    if d < 0: the min operator
 */
-template<class T> constexpr T minmax (Direction d, T a, T b)
+template <class T>
+constexpr T
+minmax (Direction d, T a, T b)
 {
   if (d == Direction::positive ())
     return std::max (a, b);

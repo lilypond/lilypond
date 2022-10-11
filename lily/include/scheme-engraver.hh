@@ -28,7 +28,7 @@ struct Preinit_Scheme_engraver
 {
   SCM initialize_function_;
   SCM finalize_function_;
-  SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
+  SCM precomputable_methods_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   // hashq table of interface-symbol -> scheme-function
   Drul_array<SCM> interface_acknowledger_hash_ {SCM_EOL, SCM_EOL};
@@ -58,8 +58,8 @@ protected:
 private:
   SCM get_acknowledger (SCM sym, Direction start_end) override
   {
-    return generic_get_acknowledger
-           (sym, interface_acknowledger_hash_[start_end]);
+    return generic_get_acknowledger (sym,
+                                     interface_acknowledger_hash_[start_end]);
   }
 
   SCM init_acknowledgers (SCM alist);

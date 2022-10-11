@@ -65,7 +65,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *le = unsmob<Paper_column> (scm_car (between));
           Paper_column *re = unsmob<Paper_column> (scm_cdr (between));
 
-          if (! (le && re))
+          if (!(le && re))
             break;
 
           if (!left && le)
@@ -99,7 +99,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
         right = which->get_bound (RIGHT);
       else
         {
-          clique.back ()->programming_error ("Loose column does not have right side to attach to.");
+          clique.back ()->programming_error (
+            "Loose column does not have right side to attach to.");
           System *base_system = which->original ();
           int j = clique.back ()->get_rank () + 1;
           int end_rank = which->get_bound (RIGHT)->get_rank ();
@@ -138,7 +139,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *next_col = clique[j + 1];
 
           Grob *spacing = unsmob<Grob> (get_object (clique_col, "spacing"));
-          if (Grob *grace_spacing = unsmob<Grob> (get_object (clique_col, "grace-spacing")))
+          if (Grob *grace_spacing
+              = unsmob<Grob> (get_object (clique_col, "grace-spacing")))
             {
               spacing = grace_spacing;
             }
@@ -154,8 +156,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
               && Paper_column::is_musical (loose_col))
             {
               if (has_interface<Note_spacing> (spacing))
-                spring = Note_spacing::get_spacing (spacing, next_col,
-                                                    spring, options.increment_);
+                spring = Note_spacing::get_spacing (spacing, next_col, spring,
+                                                    options.increment_);
               else
                 spring = Spacing_spanner::note_spacing (spacing, loose_col,
                                                         next_col, &options);
@@ -169,16 +171,22 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Real base_note_space = spring.ideal_distance ();
           Real tight_note_space = spring.min_distance ();
 
-          Real loose_col_horizontal_length = loose_col->extent (loose_col, X_AXIS).length ();
-          base_note_space = std::max (base_note_space, loose_col_horizontal_length);
-          tight_note_space = std::max (tight_note_space, loose_col_horizontal_length);
+          Real loose_col_horizontal_length
+            = loose_col->extent (loose_col, X_AXIS).length ();
+          base_note_space
+            = std::max (base_note_space, loose_col_horizontal_length);
+          tight_note_space
+            = std::max (tight_note_space, loose_col_horizontal_length);
 
           clique_spacing.push_back (base_note_space);
           clique_tight_spacing.push_back (tight_note_space);
         }
 
-      Real permissible_distance = clique.back ()->relative_coordinate (common, X_AXIS) - robust_relative_extent (clique[0], common, X_AXIS)[RIGHT];
-      Real right_point = robust_relative_extent (clique.back (), common, X_AXIS)[LEFT];
+      Real permissible_distance
+        = clique.back ()->relative_coordinate (common, X_AXIS)
+          - robust_relative_extent (clique[0], common, X_AXIS)[RIGHT];
+      Real right_point
+        = robust_relative_extent (clique.back (), common, X_AXIS)[LEFT];
       Grob *finished_right_column = clique.back ();
 
       Real sum_tight_spacing = 0;
@@ -190,21 +198,28 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           sum_tight_spacing += clique_tight_spacing[j];
           sum_spacing += clique_spacing[j];
         }
-      Real scale_factor = std::max (0.0, std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing) / (sum_spacing - sum_tight_spacing)));
+      Real scale_factor = std::max (
+        0.0,
+        std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing)
+                         / (sum_spacing - sum_tight_spacing)));
       for (vsize j = clique.size () - 2; j > 0; j--)
         {
           Paper_column *clique_col = clique[j];
 
-          right_point = finished_right_column->relative_coordinate (common, X_AXIS);
+          right_point
+            = finished_right_column->relative_coordinate (common, X_AXIS);
 
-          Real distance_to_next = clique_tight_spacing[j] + (clique_spacing[j] - clique_tight_spacing[j]) * scale_factor;
+          Real distance_to_next
+            = clique_tight_spacing[j]
+              + (clique_spacing[j] - clique_tight_spacing[j]) * scale_factor;
 
           Real my_offset = right_point - distance_to_next;
 
-          clique_col->translate_axis (my_offset - clique_col->relative_coordinate (common, X_AXIS), X_AXIS);
+          clique_col->translate_axis (
+            my_offset - clique_col->relative_coordinate (common, X_AXIS),
+            X_AXIS);
 
           finished_right_column = clique_col;
         }
     }
 }
-

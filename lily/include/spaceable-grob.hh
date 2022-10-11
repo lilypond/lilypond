@@ -36,4 +36,3 @@ struct Spaceable_grob
 };
 
 #endif /* SPACEABLE_GROB_HH */
-

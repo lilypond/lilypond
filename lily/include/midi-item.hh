@@ -154,8 +154,13 @@ class Midi_text : public Midi_item
 public:
   enum Type
   {
-    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
-    MARKER, CUE_POINT
+    TEXT = 1,
+    COPYRIGHT,
+    TRACK_NAME,
+    INSTRUMENT_NAME,
+    LYRIC,
+    MARKER,
+    CUE_POINT
   };
   OVERRIDE_CLASS_NAME (Midi_text);
 

@@ -35,8 +35,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0, (SCM font),
            R"(
 Given the font metric @var{font} of an OpenType font, return the names of the
 subfonts within @var{font}.
@@ -54,11 +53,10 @@ Given the font metric @var{font} of an OpenType font, return the information
 about named glyph @var{glyph} (a string).
            )")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+    = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+         : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, glyph, 2);
@@ -74,16 +72,15 @@ Extract a table @var{tag} from @var{font}.  Return empty string for
 non-existent @var{tag}.
            )")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+    = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+         : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, tag, 2);
 
-  char ctag [5] = "    ";
+  char ctag[5] = "    ";
 
   string tag_string = ly_scm2string (tag);
   strncpy (ctag, tag_string.c_str (), tag_string.length ());
@@ -93,57 +90,51 @@ non-existent @var{tag}.
   return scm_from_latin1_stringn (tab.data (), tab.length ());
 }
 
-LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0, (SCM font),
            R"(
 Is @var{font} an OpenType font?
            )")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+    = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+         : unsmob<Open_type_font> (font);
 
   return to_scm (static_cast<bool> (otf));
 }
 
-LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0, (SCM font),
            R"(
 Return the number of glyphs in @var{font}.
            )")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+    = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+         : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   return to_scm (otf->count ());
 }
 
-LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0, (SCM font),
            R"(
 Return a list of glyph names for @var{font}.
            )")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+    = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+         : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   return otf->glyph_list ();
 }
 
-LY_DEFINE (ly_get_font_format, "ly:get-font-format",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_get_font_format, "ly:get-font-format", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            R"(
 Get the font format for @var{font-file-name}, returning it as a symbol.  The
 optional @var{idx} argument is useful for TrueType Collections (TTC) and
@@ -188,8 +179,8 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
   return asscm;
 }
 
-LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            R"(
 Does the font for @var{font-file-name} have glyph names?  The optional
 @var{idx} argument is useful for TrueType Collections (TTC) and OpenType/CFF
@@ -234,8 +225,8 @@ default value of @var{idx} is@tie{}0.
   return has_glyph_names ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            R"(
 Get the offset of the `CFF' table for @var{font-file-name}, returning it as an
 integer.  The optional @var{idx} argument is useful for OpenType/CFF
@@ -288,17 +279,16 @@ default value of @var{idx} is@tie{}0.
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "numFonts", file_name.c_str ()));
+          warning (
+            _f ("cannot read %s of `%s'", "numFonts", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      int numfonts
-        = static_cast<unsigned char> (buff[0]) << 24
-          | static_cast<unsigned char> (buff[1]) << 16
-          | static_cast<unsigned char> (buff[2]) << 8
-          | static_cast<unsigned char> (buff[3]);
+      int numfonts = static_cast<unsigned char> (buff[0]) << 24
+                     | static_cast<unsigned char> (buff[1]) << 16
+                     | static_cast<unsigned char> (buff[2]) << 8
+                     | static_cast<unsigned char> (buff[3]);
 
-      if ( i > numfonts)
+      if (i > numfonts)
         {
           warning (_f ("font index %d too large for font `%s', using index 0",
                        i, file_name.c_str ()));
@@ -311,15 +301,14 @@ default value of @var{idx} is@tie{}0.
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "OffsetTable", file_name.c_str ()));
+          warning (
+            _f ("cannot read %s of `%s'", "OffsetTable", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      unsigned int offset
-        = static_cast<unsigned char> (buff[0]) << 24
-          | static_cast<unsigned char> (buff[1]) << 16
-          | static_cast<unsigned char> (buff[2]) << 8
-          | static_cast<unsigned char> (buff[3]);
+      unsigned int offset = static_cast<unsigned char> (buff[0]) << 24
+                            | static_cast<unsigned char> (buff[1]) << 16
+                            | static_cast<unsigned char> (buff[2]) << 8
+                            | static_cast<unsigned char> (buff[3]);
 
       // Seek to subfont and skip `sfnt version`
       fseek (fp, offset + 4, SEEK_SET);
@@ -331,13 +320,11 @@ default value of @var{idx} is@tie{}0.
   if (fread (buff, 2, 1, fp) != 1)
     {
       fclose (fp);
-      warning (_f ("cannot read %s of `%s'",
-                   "numTables", file_name.c_str ()));
+      warning (_f ("cannot read %s of `%s'", "numTables", file_name.c_str ()));
       return SCM_BOOL_F;
     }
-  int numtables
-    = static_cast<unsigned char> (buff[0]) << 8
-      | static_cast<unsigned char> (buff[1]);
+  int numtables = static_cast<unsigned char> (buff[0]) << 8
+                  | static_cast<unsigned char> (buff[1]);
 
   // Skip `searchRange`, `entrySelector` and `rangeShift`
   fseek (fp, 6, SEEK_CUR);
@@ -349,8 +336,7 @@ default value of @var{idx} is@tie{}0.
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "tag", file_name.c_str ()));
+          warning (_f ("cannot read %s of `%s'", "tag", file_name.c_str ()));
           return SCM_BOOL_F;
         }
 
@@ -365,15 +351,14 @@ default value of @var{idx} is@tie{}0.
           if (fread (buff, 4, 1, fp) != 1)
             {
               fclose (fp);
-              warning (_f ("cannot read %s of `%s'",
-                           "CFF offset", file_name.c_str ()));
+              warning (_f ("cannot read %s of `%s'", "CFF offset",
+                           file_name.c_str ()));
               return SCM_BOOL_F;
             }
-          unsigned int offset
-            = static_cast<unsigned char> (buff[0]) << 24
-              | static_cast<unsigned char> (buff[1]) << 16
-              | static_cast<unsigned char> (buff[2]) << 8
-              | static_cast<unsigned char> (buff[3]);
+          unsigned int offset = static_cast<unsigned char> (buff[0]) << 24
+                                | static_cast<unsigned char> (buff[1]) << 16
+                                | static_cast<unsigned char> (buff[2]) << 8
+                                | static_cast<unsigned char> (buff[3]);
 
           // Done
           fclose (fp);
@@ -387,14 +372,14 @@ default value of @var{idx} is@tie{}0.
     }
 
   fclose (fp);
-  warning (_f ("font `%s' index %d does not have `CFF' table",
-               file_name.c_str (), i));
+  warning (
+    _f ("font `%s' index %d does not have `CFF' table", file_name.c_str (), i));
   return SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_extract_subfont_from_collection,
-           "ly:extract-subfont-from-collection",
-           3, 0, 0, (SCM collection_file_name, SCM idx, SCM subfont_file_name),
+           "ly:extract-subfont-from-collection", 3, 0, 0,
+           (SCM collection_file_name, SCM idx, SCM subfont_file_name),
            R"(
 Extract the subfont of index @var{idx} in TrueType collection (TTC) or
 OpenType/CFF collection (OTC) file @var{collection-file-name} and write it to
@@ -418,8 +403,7 @@ file @var{subfont-file-name}.
   FILE *fi = fopen (collection.c_str (), "rb");
   if (!fi)
     {
-      warning (_f ("font `%s': cannot open for reading",
-                   collection.c_str ()));
+      warning (_f ("font `%s': cannot open for reading", collection.c_str ()));
       return SCM_BOOL_F;
     }
 
@@ -429,16 +413,15 @@ file @var{subfont-file-name}.
   if (fread (buff, 4, 1, fi) != 1)
     {
       fclose (fi);
-      warning (_f ("font `%s': cannot read field `%s'",
-                   collection.c_str (), "ttcTag"));
+      warning (_f ("font `%s': cannot read field `%s'", collection.c_str (),
+                   "ttcTag"));
       return SCM_BOOL_F;
     }
 
   if (!(buff[0] == 't' && buff[1] == 't' && buff[2] == 'c' && buff[3] == 'f'))
     {
       fclose (fi);
-      warning (_f ("font `%s': not a font collection",
-                   collection.c_str ()));
+      warning (_f ("font `%s': not a font collection", collection.c_str ()));
       return SCM_BOOL_F;
     }
 
@@ -446,8 +429,8 @@ file @var{subfont-file-name}.
   if (fread (buff, 4, 1, fi) != 1)
     {
       fclose (fi);
-      warning (_f ("font `%s': cannot read field `%s'",
-                   collection.c_str (), "majorVersion/minorVersion"));
+      warning (_f ("font `%s': cannot read field `%s'", collection.c_str (),
+                   "majorVersion/minorVersion"));
       return SCM_BOOL_F;
     }
 
@@ -455,8 +438,8 @@ file @var{subfont-file-name}.
         && (buff[1] == 1 || buff[1] == 2)))
     {
       fclose (fi);
-      warning (_f ("font `%s': invalid TTC header version",
-                   collection.c_str ()));
+      warning (
+        _f ("font `%s': invalid TTC header version", collection.c_str ()));
       return SCM_BOOL_F;
     }
 
@@ -464,17 +447,16 @@ file @var{subfont-file-name}.
   if (fread (buff, 4, 1, fi) != 1)
     {
       fclose (fi);
-      warning (_f ("font `%s': cannot read field `%s'",
-                   collection.c_str (), "numFonts"));
+      warning (_f ("font `%s': cannot read field `%s'", collection.c_str (),
+                   "numFonts"));
       return SCM_BOOL_F;
     }
-  int numfonts
-    = static_cast<unsigned char> (buff[0]) << 24
-      | static_cast<unsigned char> (buff[1]) << 16
-      | static_cast<unsigned char> (buff[2]) << 8
-      | static_cast<unsigned char> (buff[3]);
+  int numfonts = static_cast<unsigned char> (buff[0]) << 24
+                 | static_cast<unsigned char> (buff[1]) << 16
+                 | static_cast<unsigned char> (buff[2]) << 8
+                 | static_cast<unsigned char> (buff[3]);
 
-  if ( i > numfonts)
+  if (i > numfonts)
     {
       warning (_f ("font `%s': index %d is too large, using index 0",
                    collection.c_str (), i));
@@ -491,11 +473,10 @@ file @var{subfont-file-name}.
                    collection.c_str (), i));
       return SCM_BOOL_F;
     }
-  unsigned int offset
-    = static_cast<unsigned char> (buff[0]) << 24
-      | static_cast<unsigned char> (buff[1]) << 16
-      | static_cast<unsigned char> (buff[2]) << 8
-      | static_cast<unsigned char> (buff[3]);
+  unsigned int offset = static_cast<unsigned char> (buff[0]) << 24
+                        | static_cast<unsigned char> (buff[1]) << 16
+                        | static_cast<unsigned char> (buff[2]) << 8
+                        | static_cast<unsigned char> (buff[3]);
 
   // Seek to subfont
   fseek (fi, offset, SEEK_SET);
@@ -510,7 +491,8 @@ file @var{subfont-file-name}.
     }
 
   if (!(buff[0] == 0 && buff[1] == 1 && buff[2] == 0 && buff[3] == 0)
-      && !(buff[0] == 'O' && buff[1] == 'T' && buff[2] == 'T' && buff[3] == 'O'))
+      && !(buff[0] == 'O' && buff[1] == 'T' && buff[2] == 'T'
+           && buff[3] == 'O'))
     {
       fclose (fi);
       warning (_f ("font `%s': invalid field `sfntVersion' in subfont %d",
@@ -522,8 +504,7 @@ file @var{subfont-file-name}.
   if (!fo)
     {
       fclose (fi);
-      warning (_f ("subfont `%s': cannot open for writing",
-                   subfont.c_str ()));
+      warning (_f ("subfont `%s': cannot open for writing", subfont.c_str ()));
       return SCM_BOOL_F;
     }
 
@@ -532,8 +513,8 @@ file @var{subfont-file-name}.
     {
       fclose (fi);
       fclose (fo);
-      warning (_f ("subfont `%s': cannot write field `%s'",
-                   subfont.c_str (), "sfntVersion"));
+      warning (_f ("subfont `%s': cannot write field `%s'", subfont.c_str (),
+                   "sfntVersion"));
       return SCM_BOOL_F;
     }
 
@@ -546,17 +527,16 @@ file @var{subfont-file-name}.
                    collection.c_str (), "numTables/searchRange", i));
       return SCM_BOOL_F;
     }
-  unsigned int numtables
-    = static_cast<unsigned char> (buff[0]) << 8
-      | static_cast<unsigned char> (buff[1]);
+  unsigned int numtables = static_cast<unsigned char> (buff[0]) << 8
+                           | static_cast<unsigned char> (buff[1]);
 
   // Write `numTables` and `searchRange`
   if (fwrite (buff, 4, 1, fo) != 1)
     {
       fclose (fi);
       fclose (fo);
-      warning (_f ("subfont `%s': cannot write field `%s'",
-                   subfont.c_str (), "numTables/searchRange"));
+      warning (_f ("subfont `%s': cannot write field `%s'", subfont.c_str (),
+                   "numTables/searchRange"));
       return SCM_BOOL_F;
     }
 
@@ -575,8 +555,8 @@ file @var{subfont-file-name}.
     {
       fclose (fi);
       fclose (fo);
-      warning (_f ("subfont `%s': cannot write field `%s'",
-                   subfont.c_str (), "entrySelector/rangeShift"));
+      warning (_f ("subfont `%s': cannot write field `%s'", subfont.c_str (),
+                   "entrySelector/rangeShift"));
       return SCM_BOOL_F;
     }
 
@@ -589,8 +569,8 @@ file @var{subfont-file-name}.
   };
   std::vector<struct tables> ttcotc_tables;
 
-  unsigned int next_offset = static_cast<unsigned int> (ftell (fo))
-                             + numtables * 16;
+  unsigned int next_offset
+    = static_cast<unsigned int> (ftell (fo)) + numtables * 16;
 
   // Copy and modify table records
   for (unsigned int t = 0; t < numtables; t++)
@@ -652,11 +632,10 @@ file @var{subfont-file-name}.
                        collection.c_str (), "offset", tbl.tag, i));
           return SCM_BOOL_F;
         }
-      tbl.offset
-        = static_cast<unsigned char> (buff[0]) << 24
-          | static_cast<unsigned char> (buff[1]) << 16
-          | static_cast<unsigned char> (buff[2]) << 8
-          | static_cast<unsigned char> (buff[3]);
+      tbl.offset = static_cast<unsigned char> (buff[0]) << 24
+                   | static_cast<unsigned char> (buff[1]) << 16
+                   | static_cast<unsigned char> (buff[2]) << 8
+                   | static_cast<unsigned char> (buff[3]);
       tbl.new_offset = next_offset;
       buff[0] = static_cast<char> ((tbl.new_offset >> 24) & 0xff);
       buff[1] = static_cast<char> ((tbl.new_offset >> 16) & 0xff);
@@ -682,11 +661,10 @@ file @var{subfont-file-name}.
                        collection.c_str (), "length", tbl.tag, i));
           return SCM_BOOL_F;
         }
-      tbl.length
-        = static_cast<unsigned char> (buff[0]) << 24
-          | static_cast<unsigned char> (buff[1]) << 16
-          | static_cast<unsigned char> (buff[2]) << 8
-          | static_cast<unsigned char> (buff[3]);
+      tbl.length = static_cast<unsigned char> (buff[0]) << 24
+                   | static_cast<unsigned char> (buff[1]) << 16
+                   | static_cast<unsigned char> (buff[2]) << 8
+                   | static_cast<unsigned char> (buff[3]);
       // Write `length`
       if (fwrite (buff, 4, 1, fo) != 1)
         {

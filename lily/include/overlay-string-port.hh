@@ -104,8 +104,10 @@ public:
   }
 
 public:
-  Overlay_string_port (const char *data, ssize_t len) : data_ (data),
-    pos_ (0), len_ (len)
+  Overlay_string_port (const char *data, ssize_t len)
+    : data_ (data),
+      pos_ (0),
+      len_ (len)
   {
   }
 

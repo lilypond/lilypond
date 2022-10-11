@@ -92,6 +92,7 @@ protected:
   void typeset_tie (Spanner *);
   void report_unterminated_tie (Head_event_tuple const &);
   bool has_autosplit_end (Stream_event *event);
+
 public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
@@ -113,7 +114,8 @@ Tie_engraver::listen_tie (Stream_event *ev)
     }
 }
 
-void Tie_engraver::report_unterminated_tie (Head_event_tuple const &tie_start)
+void
+Tie_engraver::report_unterminated_tie (Head_event_tuple const &tie_start)
 {
   // If tie_from_chord_created is set, we have another note at the same
   // moment that created a tie, so this is not necessarily an unterminated
@@ -142,8 +144,7 @@ Tie_engraver::process_music ()
 {
   bool busy = event_;
   for (vsize i = 0; !busy && i < heads_to_tie_.size (); i++)
-    busy |= (heads_to_tie_[i].tie_event_
-             || heads_to_tie_[i].tie_stream_event_);
+    busy |= (heads_to_tie_[i].tie_event_ || heads_to_tie_[i].tie_stream_event_);
 
   if (busy)
     set_property (context (), "tieMelismaBusy", SCM_BOOL_T);
@@ -172,18 +173,18 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
       */
       SCM p1 = get_property (left_ev, "pitch");
       SCM p2 = get_property (right_ev, "pitch");
-      if ((enharmonic
-           ? (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
-              && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
-           : ly_is_equal (p1, p2))
+      if ((enharmonic ? (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
+                         && unsmob<Pitch> (p1)->tone_pitch ()
+                              == unsmob<Pitch> (p2)->tone_pitch ())
+                      : ly_is_equal (p1, p2))
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
           Spanner *p = heads_to_tie_[i].tie_;
           Moment end = heads_to_tie_[i].end_moment_;
 
           Stream_event *cause = heads_to_tie_[i].tie_event_
-                                ? heads_to_tie_[i].tie_event_
-                                : heads_to_tie_[i].tie_stream_event_;
+                                  ? heads_to_tie_[i].tie_event_
+                                  : heads_to_tie_[i].tie_stream_event_;
 
           announce_end_grob (p, cause->self_scm ());
 
@@ -192,7 +193,8 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
 
           if (is_scm<Direction> (get_property (cause, "direction")))
             {
-              Direction d = from_scm<Direction> (get_property (cause, "direction"));
+              Direction d
+                = from_scm<Direction> (get_property (cause, "direction"));
               set_property (p, "direction", to_scm (d));
             }
 
@@ -227,7 +229,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
   if (!tie_notehead (h, false))
     tie_notehead (h, true);
 
-  if (ties_.size () && ! tie_column_)
+  if (ties_.size () && !tie_column_)
     tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
 
   if (tie_column_)
@@ -238,7 +240,8 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 void
 Tie_engraver::start_translation_timestep ()
 {
-  if (heads_to_tie_.size () && !from_scm<bool> (get_property (this, "tieWaitForNote")))
+  if (heads_to_tie_.size ()
+      && !from_scm<bool> (get_property (this, "tieWaitForNote")))
     {
       auto now = now_mom ();
       for (vsize i = heads_to_tie_.size (); i--;)
@@ -251,8 +254,7 @@ Tie_engraver::start_translation_timestep ()
         }
     }
 
-  set_property (context (), "tieMelismaBusy",
-                to_scm (!heads_to_tie_.empty ()));
+  set_property (context (), "tieMelismaBusy", to_scm (!heads_to_tie_.empty ()));
 }
 
 void
@@ -298,8 +300,7 @@ Tie_engraver::process_acknowledged ()
       Stream_event *tie_event = 0;
       Stream_event *tie_stream_event = event_;
       for (SCM s = left_articulations;
-           !tie_event && !tie_stream_event && scm_is_pair (s);
-           s = scm_cdr (s))
+           !tie_event && !tie_stream_event && scm_is_pair (s); s = scm_cdr (s))
         {
           Stream_event *ev = unsmob<Stream_event> (scm_car (s));
           if (!ev)
@@ -319,9 +320,9 @@ Tie_engraver::process_acknowledged ()
           event_tup.head_ = head;
           event_tup.tie_event_ = tie_event;
           event_tup.tie_stream_event_ = tie_stream_event;
-          event_tup.tie_ = make_spanner ("Tie", tie_event
-                                         ? tie_event->self_scm ()
-                                         : tie_stream_event->self_scm ());
+          event_tup.tie_
+            = make_spanner ("Tie", tie_event ? tie_event->self_scm ()
+                                             : tie_stream_event->self_scm ());
 
           const auto now = now_mom ();
           event_tup.end_moment_ = now + get_event_length (left_ev, now);
