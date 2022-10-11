@@ -1440,16 +1440,16 @@ duration, e.g., @code{\\rhythm @{ 8 @}}.  Use extra braces:
   (let* ((mkup
           #{
             \markup \score {
-              \layout {
-                system-count = 1
-                ragged-right = ##t
-              }
-              \new StandaloneRhythmVoice \with {
-                \magnifyStaff #(magstep font-size)
-              }
-              { #music }
-            }
-          #})
+                            \layout {
+                                     system-count = 1
+                                                  ragged-right = ##t
+                                                  }
+                            \new StandaloneRhythmVoice \with {
+                                                              \magnifyStaff #(magstep font-size)
+                                                              }
+                            { #music }
+                            }
+            #})
          (stil (interpret-markup layout props mkup)))
     (ly:stencil-aligned-to stil X LEFT)))
 
@@ -2922,9 +2922,9 @@ of its own.
   (string?)
   #:category other
   #:as-string
-    (begin
-      (ly:note-extra-source-file name)
-      (ly:gulp-file name))
+  (begin
+    (ly:note-extra-source-file name)
+    (ly:gulp-file name))
   "Read the contents of file @var{name}, and include it verbatim.
 
 @lilypond[verbatim,quote]

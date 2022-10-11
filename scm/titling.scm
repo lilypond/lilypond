@@ -60,25 +60,25 @@ reflecting the variables in the page's layout and header modules."
                         odd-mkup)
                        (else #f))))
     (if header-mkup
-         (let* ((scopes (ly:paper-book-scopes paper-book))
-                (is-last-bookpart (page-property page 'is-last-bookpart))
-                (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
-                (number-type (ly:output-def-lookup layout 'page-number-type))
-                ;; Support tagline in \paper
-                (tagline (ly:modules-lookup scopes
-                                            'tagline
-                                            (ly:output-def-lookup layout 'tagline)))
-                (basic-props (layout-extract-page-properties layout))
-                (header-props (headers-property-alist-chain scopes))
-                (extra-properties
-                 `((page:is-last-bookpart . ,is-last-bookpart)
-                   (page:is-bookpart-last-page . ,is-bookpart-last-page)
-                   (page:page-number . ,page-number)
-                   (page:page-number-string . ,(number-format number-type page-number))
-                   (header:tagline . ,tagline)))
-                (props (cons extra-properties (append header-props basic-props))))
-           (interpret-markup layout props header-mkup))
-         empty-stencil)))
+        (let* ((scopes (ly:paper-book-scopes paper-book))
+               (is-last-bookpart (page-property page 'is-last-bookpart))
+               (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
+               (number-type (ly:output-def-lookup layout 'page-number-type))
+               ;; Support tagline in \paper
+               (tagline (ly:modules-lookup scopes
+                                           'tagline
+                                           (ly:output-def-lookup layout 'tagline)))
+               (basic-props (layout-extract-page-properties layout))
+               (header-props (headers-property-alist-chain scopes))
+               (extra-properties
+                `((page:is-last-bookpart . ,is-last-bookpart)
+                  (page:is-bookpart-last-page . ,is-bookpart-last-page)
+                  (page:page-number . ,page-number)
+                  (page:page-number-string . ,(number-format number-type page-number))
+                  (header:tagline . ,tagline)))
+               (props (cons extra-properties (append header-props basic-props))))
+          (interpret-markup layout props header-mkup))
+        empty-stencil)))
 
 (define-public ((marked-up-title what) layout scopes)
   "Read variables @var{what-odd} and @var{what-even} from the page's

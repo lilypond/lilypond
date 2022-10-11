@@ -86,9 +86,9 @@
            opts))))
       (map (lambda (pair)
              (let ((kw (car pair)))
-              (format #f "~a ~a"
-                      kw
-                      (keyword->symbol kw))))
+               (format #f "~a ~a"
+                       kw
+                       (keyword->symbol kw))))
            keyword-args)
       (if rest-arg
           (list

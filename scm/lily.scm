@@ -793,7 +793,7 @@ PIDs or the number of the process."
   ;; during a careless upgrade to LilyPond >= 2.23.12.
   (when (ly:get-option 'safe)
     (ly:error
-"Due to security vulnerabilities deemed unfixable
+     "Due to security vulnerabilities deemed unfixable
 by the developers, LilyPond's safe mode was removed in
 version 2.23.12 in order not to provide a false sense of
 security.  If you need to compile an untrusted .ly file, please

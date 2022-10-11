@@ -3352,7 +3352,7 @@ for measure division ~a")
 (define (staff-highlight::print grob)
   (let* ((width (ly:grob-extent grob grob X))
          (height (ly:grob-extent grob grob Y)))
-  (make-filled-box-stencil width height)))
+    (make-filled-box-stencil width height)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

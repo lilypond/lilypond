@@ -152,16 +152,16 @@
     (('assign property value)
      (format #f "@item Set context property @code{~a} to~a"
              property
-            (if (pretty-printable? value)
-                (format #f ":~a\n" (scm->texi value))
-                (format #f " ~a.\n" (scm->texi value)))))
+             (if (pretty-printable? value)
+                 (format #f ":~a\n" (scm->texi value))
+                 (format #f " ~a.\n" (scm->texi value)))))
     (('push grob value . path)
      (format #f "@item Set grob property @code{~{~a~^.~}} in @iref{~a} to ~a"
              path
              grob
-            (if (pretty-printable? value)
-                (format #f ":~a\n" (scm->texi value))
-                (format #f " ~a.\n" (scm->texi value)))))
+             (if (pretty-printable? value)
+                 (format #f ":~a\n" (scm->texi value))
+                 (format #f " ~a.\n" (scm->texi value)))))
     (('unset property)
      (format #f "@item Unset context property @code{~a}\n"
              property))

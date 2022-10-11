@@ -17,51 +17,51 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 #|
-  This file implements the #{ ... #} reader extension that allows embedding
-  values in LilyPond syntax within Scheme code.  At read time, the
-  implementation of this reader extension outputs a call to
-  read-lily-expression-internal.  At evaluation time,
-  read-lily-expression-internal will clone the current parser to parse the
-  value, and return it.
+This file implements the #{ ... #} reader extension that allows embedding
+values in LilyPond syntax within Scheme code.  At read time, the
+implementation of this reader extension outputs a call to
+read-lily-expression-internal.  At evaluation time,
+read-lily-expression-internal will clone the current parser to parse the
+value, and return it.
 
-  Complications arise because of the Scheme code that this LilyPond might in
-  turn embed.  We want the local variables from outer Scheme code to be available
-  to that inner Scheme code, as in
+Complications arise because of the Scheme code that this LilyPond might in
+turn embed.  We want the local variables from outer Scheme code to be available
+to that inner Scheme code, as in
 
-  (let ((mus ...))  #{ \transpose c d #mus #})
+(let ((mus ...))  #{ \transpose c d #mus #})
 
-  The "obvious" thing to do would be to use Guile's local-eval facility, which
-  allows capturing a lexical environment and later evaluating expressions in
-  that environment.  This implementation is different.  When reading #{ #}, we
-  catch Scheme expressions.  Say we encounter an expression <expr>.  We will
-  output code that passes (lambda () <expr>) to read-lily-expression-internal,
-  associated with the position of this <expr> in the source.  When the parser
-  wants to evaluate this bit of Scheme code, it will just call that thunk
-  (0-argument function).
+The "obvious" thing to do would be to use Guile's local-eval facility, which
+allows capturing a lexical environment and later evaluating expressions in
+that environment.  This implementation is different.  When reading #{ #}, we
+catch Scheme expressions.  Say we encounter an expression <expr>.  We will
+output code that passes (lambda () <expr>) to read-lily-expression-internal,
+associated with the position of this <expr> in the source.  When the parser
+wants to evaluate this bit of Scheme code, it will just call that thunk
+(0-argument function).
 
-  While this implementation is an artifact of history, it is being kept because it
-  has features that would not be possible with local-eval.  For example, it plays
-  nicely with quasiquotation. Example from David K.:
+While this implementation is an artifact of history, it is being kept because it
+has features that would not be possible with local-eval.  For example, it plays
+nicely with quasiquotation. Example from David K.:
 
-    #(define-macro (pattern args result)
-       `(define-music-function (parser location ,@args) ,(make-list (length args) 'ly:music?)
-          #{ $@(list ,@result) #}))
+#(define-macro (pattern args result)
+`(define-music-function (parser location ,@args) ,(make-list (length args) 'ly:music?)
+#{ $@(list ,@result) #}))
 
-    $(pattern (A B C D) (A B D A C D)) { a' } { b' } { c'' } { d'' }
+$(pattern (A B C D) (A B D A C D)) { a' } { b' } { c'' } { d'' }
 
-  This works because quasiquoting a Scheme expression that includes a #{ #} that
-  in turn includes an inner Scheme expression, and unquoting in that inner Scheme
-  expression indeed performs the substitution.  The code (lambda () <expr>) is
-  generated and includes an unquote form, which is replaced during macro expansion.
-  In more low-level terms, this means that the macro expansion phase of the outer
-  Scheme code also processes the inner Scheme code.  That would not be possible with
-  local-eval.
+This works because quasiquoting a Scheme expression that includes a #{ #} that
+in turn includes an inner Scheme expression, and unquoting in that inner Scheme
+expression indeed performs the substitution.  The code (lambda () <expr>) is
+generated and includes an unquote form, which is replaced during macro expansion.
+In more low-level terms, this means that the macro expansion phase of the outer
+Scheme code also processes the inner Scheme code.  That would not be possible with
+local-eval.
 
-  On the other hand, it does have the shortcoming that something like
+On the other hand, it does have the shortcoming that something like
 
-    ##{ \paper { #(define foo 'bar) } #}
+##{ \paper { #(define foo 'bar) } #}
 
-  is not possible, since (lambda () (define foo 'bar)) is not valid.
+is not possible, since (lambda () (define foo 'bar)) is not valid.
 |#
 
 

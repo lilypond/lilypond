@@ -118,7 +118,7 @@ note names are capitalized."
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
 (define-public ((chord-name->german-markup B-instead-of-Bb)
-                     pitch lowercase?)
+                pitch lowercase?)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
    Otherwise semi-german names (with Bb and below keeping the british names)

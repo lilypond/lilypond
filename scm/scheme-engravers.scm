@@ -35,17 +35,17 @@ longer needed."
       ((breathing-event engraver event)
        (set! breathing-event event)))
 
-      ((process-music engraver)
-       (if (ly:stream-event? breathing-event)
-           (let ((b-type (ly:context-property context 'breathMarkType)))
-             (if (symbol? b-type)
-                 (let ((grob (ly:engraver-make-grob
-                              engraver 'BreathingSign breathing-event)))
-                   (ly:breathing-sign::set-breath-properties
-                    grob context b-type))))))
+     ((process-music engraver)
+      (if (ly:stream-event? breathing-event)
+          (let ((b-type (ly:context-property context 'breathMarkType)))
+            (if (symbol? b-type)
+                (let ((grob (ly:engraver-make-grob
+                             engraver 'BreathingSign breathing-event)))
+                  (ly:breathing-sign::set-breath-properties
+                   grob context b-type))))))
 
-      ((stop-translation-timestep engraver)
-       (set! breathing-event #f)))))
+     ((stop-translation-timestep engraver)
+      (set! breathing-event #f)))))
 
 (ly:register-translator
  Breathing_sign_engraver 'Breathing_sign_engraver
@@ -709,8 +709,8 @@ one voice.")))
       ;; earlier steps.
       (for-each
        (lambda (dur-line)
-        (ly:grob-set-property! dur-line 'thickness
-         (duration-line::calc-thickness dur-line)))
+         (ly:grob-set-property! dur-line 'thickness
+                                (duration-line::calc-thickness dur-line)))
        created)
       ;; likely unneeded, better be paranoid
       (if (pair? current-dur-grobs)
@@ -1617,9 +1617,9 @@ adapted for typesetting within a chord grid.")))
           (ly:grob-set-object! ended-trill 'right-neighbor trill))))
      (acknowledgers
       ((note-column-interface engraver grob source-engraver)
-        ;; If we find a note column, use it for the left bound of the
-        ;; newly created trill and the right bound of the trill that
-        ;; ended here.
+       ;; If we find a note column, use it for the left bound of the
+       ;; newly created trill and the right bound of the trill that
+       ;; ended here.
        (when trill
          (ly:pointer-group-interface::add-grob trill 'note-columns grob)
          (ly:pointer-group-interface::add-grob trill 'side-support-elements grob)
