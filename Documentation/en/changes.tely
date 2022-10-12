@@ -202,31 +202,6 @@ staff.  This used to require workarounds.
 @itemize
 
 @item
-The new option @code{visible-over-note-heads} can be used to make
-tuplet brackets always appear when their direction is set to be
-over the note heads.  It can be used with the default tuplet
-bracket visibility style or with @code{#'if-no-beam}.
-
-@lilypond[quote]
-music = \relative c'' {
-  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
-  \tupletUp \tuplet 3/2 { c8 d e }
-}
-
-\new Voice {
-  \relative c' {
-    \time 2/4
-    \override TupletBracket.visible-over-note-heads = ##t
-    \once \override Score.TextMark.break-align-symbols =
-            #'(time-signature)
-    { \textMark \markup "default" \music }
-    \override TupletBracket.bracket-visibility = #'if-no-beam
-    { \textMark \markup \typewriter "'if-no-beam" \music }
-  }
-}
-@end lilypond
-
-@item
 The new @code{\section} command inserts a double bar line that
 interacts gracefully with repeat bar lines.  A passage can be
 named with the new @code{\sectionLabel} command.
@@ -299,6 +274,31 @@ can thus be shortened as:
 
 Independent of this, @code{Default_@/bar_@/line_@/engraver} has
 been removed.
+
+@item
+The new option @code{visible-over-note-heads} can be used to make
+tuplet brackets always appear when their direction is set to be
+over the note heads.  It can be used with the default tuplet
+bracket visibility style or with @code{#'if-no-beam}.
+
+@lilypond[quote]
+music = \relative c'' {
+  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
+  \tupletUp \tuplet 3/2 { c8 d e }
+}
+
+\new Voice {
+  \relative c' {
+    \time 2/4
+    \override TupletBracket.visible-over-note-heads = ##t
+    \once \override Score.TextMark.break-align-symbols =
+            #'(time-signature)
+    { \textMark \markup "default" \music }
+    \override TupletBracket.bracket-visibility = #'if-no-beam
+    { \textMark \markup \typewriter "'if-no-beam" \music }
+  }
+}
+@end lilypond
 
 @item
 Measure counts now take compressed multi-measure rests and
@@ -874,7 +874,6 @@ right-aligned mark; in contrast, the alignment of a @code{RehearsalMark}
 depends on the anchor point of the object it aligns to.
 
 See @ruser{Text marks} for full details.
-
 
 @item
 Text variant glyphs for sharp, flat, natural, double sharp, and
