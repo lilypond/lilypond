@@ -12,8 +12,8 @@ then
     if [ -n "${CI_MERGE_REQUEST_DIFF_BASE_SHA+set}" ]; then
         # Use the data provided by CI, origin/master may not exist.
         FP="$CI_MERGE_REQUEST_DIFF_BASE_SHA"
-    elif git rev-parse origin/master >/dev/null; then
-        FP=`git merge-base --octopus origin/master HEAD`
+    elif git rev-parse origin/stable/2.24 >/dev/null; then
+        FP=`git merge-base --octopus origin/stable/2.24 HEAD`
     else
         FP=""
     fi
