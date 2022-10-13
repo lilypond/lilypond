@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 229b286a5562598ad53d32082dd86890c1ff1221
+    Translation of GIT committish: 50ead696fceb16061436effa942f8d7b41021684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -232,32 +232,6 @@ circonvolutions.
 
 @itemize
 @item
-La nouvelle option @code{visible-over-note-heads} permet aux crochets de
-n-olets de toujours s'afficher lorsqu'ils sont placés du côté des têtes
-de note. Cette option peut s'utiliser avec le style par défaut de
-visibilité des crochets de n-olet ou avec @code{#'if-no-beam}.
-
-@lilypond[quote]
-music = \relative c'' {
-  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
-  \tupletUp \tuplet 3/2 { c8 d e }
-}
-
-\new Voice {
-  \relative c' {
-    \time 2/4
-    \override TupletBracket.visible-over-note-heads = ##t
-    \once \override Score.TextMark.break-align-symbols =
-            #'(time-signature)
-    { \textMark \markup "default" \music }
-    \override TupletBracket.bracket-visibility = #'if-no-beam
-    { \textMark \markup \typewriter "'if-no-beam" \music }
-  }
-}
-@end lilypond
-
-
-@item
 La nouvelle commande @code{\section} insère une double barre qui
 interagit de manière optimale avec les barres de reprise. Un passage
 peut être nommé à l'aide de la commande @code{\sectionLabel}.
@@ -333,6 +307,32 @@ peut ainsi s'abréger en :
 @end quotation
 
 Par ailleurs, le @code{Default_@/bar_@/line_@/engraver} a été supprimé.
+
+
+@item
+La nouvelle option @code{visible-over-note-heads} permet aux crochets de
+n-olets de toujours s'afficher lorsqu'ils sont placés du côté des têtes
+de note. Cette option peut s'utiliser avec le style par défaut de
+visibilité des crochets de n-olet ou avec @code{#'if-no-beam}.
+
+@lilypond[quote]
+music = \relative c'' {
+  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
+  \tupletUp \tuplet 3/2 { c8 d e }
+}
+
+\new Voice {
+  \relative c' {
+    \time 2/4
+    \override TupletBracket.visible-over-note-heads = ##t
+    \once \override Score.TextMark.break-align-symbols =
+            #'(time-signature)
+    { \textMark \markup "default" \music }
+    \override TupletBracket.bracket-visibility = #'if-no-beam
+    { \textMark \markup \typewriter "'if-no-beam" \music }
+  }
+}
+@end lilypond
 
 
 @item
@@ -1624,6 +1624,27 @@ des @emph{sticky grobs} tels que notes de bas de page et infobulles.
 Elle crée un @emph{grob} de la même classe qu'un autre et gère la
 parenté et les attachements.
 
+
+@item
+La nouvelle option @code{-dcompile-scheme-code} pour la ligne de
+commande -- on peut aussi l'inclure en tête de fichier LilyPond par une
+ligne @code{#(ly:set-@/option 'compile-@/scheme-@/code)} -- permet un
+meilleur diagnostic lorsque l'exécution de code Scheme provoque une
+erreur. En interne, ceci utilise le compilateur de byte fournit par
+guile, en lieu et place de l'interpréteur.
+
+Néanmoins, en raison d'une limitation de Guile, il n'est pas possible à
+ce jour de traiter au-delà de quelques milliers d'expressions Scheme. Il
+faut aussi tenir compte du fait que le compilateur de Guile diffère
+quelque peu de l'interpréteur. Par exemple, les parties constantes des
+quasicitations sont traduites en constantes réelles de manière plus
+agressive, ce qui a pour conséquence qu'un code comme @code{(let ((x 4))
+(sort! `(,x 3 2 1)))} produira une erreur puisque le « cdr » de la liste
+quasicitée est une constante, et faire subir une mutation à une donnée
+littérale est une erreur pour Scheme. (Dans ce cas d'espèce, le code
+pourrait éviter l'erreur s'il avait été utilisé un simple @code{sort} --
+qui n'est pas destructif -- ou en créant une nouvelle liste à chaque
+fois avec un @code{(list x 3 2 1)}).
 
 @end itemize
 
