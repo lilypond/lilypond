@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 42d632c34f73f121c71659d7e82a15930df2903d
+   Translation of GIT committish: 2d8a09d28e5c8a28ee4d7ab698f0a07f605f57d7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -702,6 +702,7 @@ guile> (cond ((< a b) "a est plus petit que b")
 @menu
 * Syntaxe Scheme dans LilyPond::
 * Variables LilyPond::
+* Débogage de code Scheme::
 * Saisie de variables et Scheme::
 * Import de code Scheme dans LilyPond::
 * Propriétés des objets::
@@ -876,6 +877,39 @@ littéralement recopié, mais plutôt une référence explicite.
 Manuel d'extension :
 @ref{Syntaxe Scheme dans LilyPond}.
 @endmorerefs
+
+
+@node Débogage de code Scheme
+@subsection Débogage de code Scheme
+@translationof Debugging Scheme code
+
+@cindex débogage, code Scheme
+@cindex Scheme, débogage
+@cindex localisation du code, message d'erreur Scheme
+@cindex erreur Scheme, localisation du code
+@cindex ligne, localisation, message d'erreur Scheme
+
+Lorsque l'on débogue de larges portions de code Scheme, il est bien
+appréciable que soit mise en évidence la ligne du programme à la source
+même de l'erreur. Lilypond permet la localisation dans les sources pour
+les erreurs Scheme dès lors d'ezst ajoutée à la ligne de commande
+l'option @option{-dcompile-@/scheme-@/code}. L'ajout d'une ligne
+@code{#(ly:set-@/option 'compile-@/scheme-@/code)} en tête d'un fichier
+LilyPond aura le même effet.
+
+Par ailleurs, il est possible d'obtenir encore plus d'informations au
+sujet de l'erreur grâce à l'option @option{-ddebug-@/eval} -- ou une
+ligne @code{#(debug-@/enable 'backtrace)} dans le fichier. Grâce à ce
+mode, et dès la survenance d'une erreur, s'affiche en mode verbeux une
+« trace inverse » contenant des informations sur tous les appels de
+fonction, ce qui permet de remonter le fil jusqu'àa la pierre
+d'achoppement.
+
+@knownissues
+En raison d'une limitation dans l'implémentation de Guile, l'option
+@option{-dcompile-@/scheme-@/code} ne permet pas de compiler des
+fichiers LilyPond comportant au-delà de quelques milliers d'expressions
+Scheme.
 
 
 @node Saisie de variables et Scheme
