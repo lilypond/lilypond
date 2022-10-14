@@ -89,7 +89,7 @@ Die Syntax für normale Wiederholungen ist
 @noindent
 wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist.
 
-Wiederholung ohne alternativen Schluß:
+Wiederholung ohne alternativen Schluss:
 
 @lilypond[verbatim,quote]
 \relative {
