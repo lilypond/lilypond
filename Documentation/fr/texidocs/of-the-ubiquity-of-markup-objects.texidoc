@@ -1,4 +1,4 @@
-%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
+%% Translation of GIT committish: 2d8a09d28e5c8a28ee4d7ab698f0a07f605f57d7
   texidocfr = "
 Les objets textuels se saisissent soit en tant que simples chaînes de
 caractères bornées par des guillemets informatiques, soit dans des blocs
@@ -12,9 +12,9 @@ pour tout objet @code{TextScript} (attaché aux notes par @code{-},
 @code{^} ou @code{_}),
 
 @item
-pour tout @code{RehearsalMark} introduit par le mot-clé @code{\\mark}
-ou tout autre objet similaire comme @code{MetronomeMark} introduit par
-@code{\\tempo},
+pour tout @code{TextMark} introduit par les mots-clé @code{\\textMark}
+ou @code{\\textEndMark}, ou bien tout autre objet similaire comme
+@code{MetronomeMark} introduit par @code{\\tempo},
 
 @item
 comme bloc de @emph{markup} indépendant, placé au niveau supérieur en
