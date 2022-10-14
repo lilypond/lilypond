@@ -1,8 +1,0 @@
-%% Translation of GIT committish: dbf7c8f5883b9a7044a6d8303da97208848fb62a
-  texidocfr = "
-Par défaut, la commande @code{\\mark} centre les objets sur la barre de
-mesure.  Ce comportement peut se modifier pour un alignement par la
-gauche ou par la droite.
-"
-
-  doctitlefr = "Alignement des objets créés par la commande @code{\\mark}"
