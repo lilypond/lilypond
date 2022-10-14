@@ -718,7 +718,7 @@ weil der Guile-Interpreter und nicht der LilyPond-Parser den Scheme-Ausdruck
 liest.  Kommentare in Guile Scheme werden wie folgt notiert:
 
 @example
-; Einzeiliges Kommentar
+; Einzeiliger Kommentar
 
 #!
   Guile-Stil Blockkommentar (nicht schachtelbar)
