@@ -31,12 +31,12 @@ class Matrix
   using size_type = typename Vector::size_type;
 
 public:
-  Matrix<T, A> () { rows_ = 0; }
+  Matrix () = default;
 
-  Matrix<T, A> (size_type rows, size_type columns, T const &t)
-    : data_ (rows * columns, t)
+  Matrix (size_type rows, size_type columns, T const &t)
+    : data_ (rows * columns, t),
+      rows_ (rows)
   {
-    rows_ = rows;
   }
 
   const T &at (size_type row, size_type col) const
@@ -72,7 +72,7 @@ public:
 
 private:
   Vector data_;
-  size_type rows_;
+  size_type rows_ = 0;
 };
 
 #endif /* MATRIX_HH */
