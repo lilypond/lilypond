@@ -20,6 +20,7 @@
 #ifndef MATRIX_HH
 #define MATRIX_HH
 
+#include <algorithm>
 #include <cassert>
 #include <vector>
 
@@ -58,15 +59,14 @@ public:
       data_.resize (rows * columns, t);
     else
       {
-        Vector new_data;
-        new_data.resize (rows * columns, t);
-        size_type cur_cols = rank_ ? data_.size () / rank_ : 0;
-
-        for (size_type i = 0; i < cur_cols; i++)
-          for (size_type j = 0; j < rank_; j++)
-            new_data[i * rows + j] = data_[i * rank_ + j];
+        Vector new_data (rows * columns, t);
+        const auto cur_cols = rank_ ? (data_.size () / rank_) : 0;
+        const auto copy_cols = std::min (columns, cur_cols);
+        const auto copy_rows = std::min (rows, rank_);
+        for (size_type col = 0; col < copy_cols; ++col)
+          std::copy_n (&data_[col * rank_], copy_rows, &new_data[col * rows]);
         rank_ = rows;
-        data_ = new_data;
+        data_ = std::move (new_data);
       }
   }
 
