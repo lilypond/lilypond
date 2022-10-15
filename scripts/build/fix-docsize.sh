@@ -30,7 +30,7 @@
 # path processing on the size comments.
 
 # Only treat files actually having file-size source comments
-sourcefiles=$(fgrep -l '<!-- file-size:' "$@")
+sourcefiles=$(grep -l '<!-- file-size:' "$@")
 
 # get out if there are no such files
 [ -z "$sourcefiles" ] && exit 0
