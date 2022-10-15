@@ -47,7 +47,7 @@ unter @uref{https://www.gnu.org/software/guile/}.  Der
 @section Einleitung in Scheme
 @translationof Introduction to Scheme
 
-Wir wollen mit einer Einführung in Scheme beginnen.  Für diese kurze Einfürung
+Wir wollen mit einer Einführung in Scheme beginnen.  Für diese kurze Einführung
 soll der GUILE-Interpreter genommen werden, um zu erforschen, wie die Sprache
 funktioniert.  Nach besserer Bekanntschaft mit Scheme soll gezeigt werden, wie
 die Sprache in LilyPond-Dateien eingefügt werden kann.
@@ -103,7 +103,7 @@ in der Sandbox funktionieren.
 @subsection Scheme-Variablen
 @translationof Scheme variables
 
-Scheme-Variablen können jedlichen gültigen Scheme-Wert erhalten, auch
+Scheme-Variablen können jeglichen gültigen Scheme-Wert erhalten, auch
 Scheme-Prozeduren.
 
 Scheme-Variablen werden mit @code{define} definiert:
@@ -225,7 +225,7 @@ und Hash-Tabellen.
 
 @subheading Paare (pair)
 
-Der wichtigeste zusammengesetzte Datentyp in Scheme ist ein Paar (@code{pair}).
+Der wichtigste zusammengesetzte Datentyp in Scheme ist ein Paar (@code{pair}).
 Wie aus dem Namen schon hervorgeht, besteht ein Paar aus zwei zusammengeschweißten
 Werten.  Die Prozedur um ein Paar zu erstellen ist @code{cons}.
 
@@ -273,7 +273,7 @@ guile>
 
 @noindent
 
-Achtung:  @code{cdr} wird ausgeprochen wie "kudd-err", nach Sussman und
+Achtung:  @code{cdr} wird ausgesprochen wie "kudd-err", nach Sussman und
 Abelson, siehe
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
@@ -425,7 +425,7 @@ guile> (+ 1 (* 3 4))
 Diese Berechnungen sind Beispiele von Auswertungen. Ein Ausdruck
 wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt.
 
-Scheme-Berechnungen können zwischen Integren und Nich-Integren
+Scheme-Berechnungen können zwischen Integren und Nicht-Integren
 unterscheiden.  Integre Berechnungen sind exakt, während Nicht-Integre
 nach den passenden Genauigkeitseinschränkungen berechnet werden:
 
@@ -538,7 +538,7 @@ guile> (average 3 12)
 
 @subheading Prädikate
 
-Scheme-Prozeduren, die Boolsche Werte ausgeben, werden oft als Prädikate
+Scheme-Prozeduren, die Boolesche Werte ausgeben, werden oft als Prädikate
 (predicate) bezeichnet.  Es herrscht die Übereinkunft, Prädikat-Bezeichnungen
 mit einem Fragezeichen abzuschließen:
 
@@ -558,7 +558,7 @@ Wiedergabewert kann ein beliebiger gültiger Scheme-Wert sein, auch eine
 komplexe Datenstruktur oder eine Prozedur.
 
 Manchmal würden Benutzer gerne mehrere Scheme-Ausdrucke in einer Prozedur haben.
-Es gibt zwei Arten, wie merhere Ausdrücke kombiniert werden können.  Die erste
+Es gibt zwei Arten, wie mehrere Ausdrücke kombiniert werden können.  Die erste
 Art ist die @code{begin}-Prozedur, der es ermöglicht, dass mehrere Ausdrücke
 ausgewertet werden und den Wert des letzten Ausdrucks wiedergibt.
 
