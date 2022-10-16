@@ -64,7 +64,7 @@ Rational::trunc_rat () const
 Rational::Rational (int64_t n, int64_t d)
 {
   // use sign of n when d=0
-  sign_ = ::sign (n) * (std::signbit (d) ? -1 : 1);
+  sign_ = sign (n) * (std::signbit (d) ? -1 : 1);
   num_ = static_cast<uint64_t> (::abs (n));
   if (n || d)
     {
@@ -82,14 +82,14 @@ Rational::Rational (int64_t n, int64_t d)
 
 Rational::Rational (long long n)
 {
-  sign_ = ::sign (n);
+  sign_ = sign (n);
   num_ = static_cast<uint64_t> (::abs (n));
   den_ = 1;
 }
 
 Rational::Rational (unsigned long long n)
 {
-  sign_ = ::sign (n);
+  sign_ = sign (n);
   num_ = n;
   den_ = 1;
 }
@@ -190,11 +190,6 @@ Rational::normalize ()
         sign_ = 1;
     }
 }
-int
-Rational::sign () const
-{
-  return ::sign (sign_);
-}
 
 int
 Rational::compare (Rational const &r, Rational const &s)
@@ -252,7 +247,7 @@ Rational::operator+= (Rational r)
       int64_t n
         = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       int64_t d = lcm;
-      sign_ = ::sign (n) * ::sign (d);
+      sign_ = sign (n) * sign (d);
       num_ = static_cast<uint64_t> (::abs (n));
       den_ = static_cast<uint64_t> (::abs (d));
       normalize ();
@@ -278,7 +273,7 @@ Rational::Rational (double x)
           return;
         }
 
-      sign_ = ::sign (x);
+      sign_ = sign (x);
       x *= sign_;
 
       int expt;
@@ -315,10 +310,10 @@ Rational::Rational (double x)
 Rational &
 Rational::operator*= (Rational r)
 {
-  sign_ *= ::sign (r.sign_);
+  sign_ *= sign (r.sign_);
   if (isinf (r))
     {
-      sign_ = sign () * 2;
+      sign_ = sign (sign_) * 2;
       goto exit_func;
     }
 
@@ -380,10 +375,4 @@ Rational::to_string () const
   if (den () != 1 && num ())
     s += "/" + std::to_string (den ());
   return s;
-}
-
-int
-sign (Rational r)
-{
-  return r.sign ();
 }

@@ -121,7 +121,6 @@ public:
   Rational &operator-= (Rational);
   Rational &operator%= (Rational);
   static int compare (Rational const &, Rational const &);
-  int sign () const;
   std::string to_string () const;
 
   // false for positive infinity, negative infinity, or not-a-number
@@ -132,6 +131,9 @@ public:
 
   // true for not-a-number
   friend bool isnan (Rational const &r) { return !r.den_; }
+
+  // true for a negative (finite value, infinity, or not-a-number)
+  friend bool signbit (Rational const &r) { return r.sign_ < 0; }
 };
 
 #include "arithmetic-operator.hh"
@@ -145,7 +147,6 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
 INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 
 int compare (Rational const &, Rational const &);
-int sign (Rational r);
 
 inline std::string
 to_string (Rational const &r)

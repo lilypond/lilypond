@@ -41,7 +41,7 @@ class Rational_test
 TEST (Rational_test, init_default)
 {
   Rational r;
-  EQUAL (0, r.sign ());
+  CHECK (!signbit (r));
   EQUAL (0, r.num ());
   EQUAL (1, r.den ());
 }
@@ -55,7 +55,7 @@ protected:
     // zero, explicit construction
     {
       const Rational r (T (0));
-      EQUAL (0, r.sign ());
+      CHECK (!signbit (r));
       EQUAL (0, r.num ());
       EQUAL (1, r.den ());
       CHECK (!isinf (r));
@@ -68,7 +68,7 @@ protected:
       const auto L = std::numeric_limits<T>::lowest () + avoid;
       Rational r (789);
       r = L; // construct Rational (L) and copy-assign
-      EQUAL (L ? -1 : 0, r.sign ());
+      EQUAL (std::signbit (L), signbit (r));
       EQUAL (static_cast<decltype (r.num ())> (L), r.num ());
       EQUAL (1, r.den ());
 
@@ -81,7 +81,7 @@ protected:
     {
       const auto H = std::numeric_limits<T>::max ();
       const Rational r (H);
-      EQUAL (1, r.sign ());
+      EQUAL (std::signbit (H), signbit (r));
       EQUAL (static_cast<decltype (r.num ())> (H), r.num ());
       EQUAL (1, r.den ());
 
@@ -127,7 +127,7 @@ TEST (Rational_test, assign_literal_zero)
 {
   Rational r (789);
   r = 0;
-  EQUAL (0, r.sign ());
+  CHECK (!signbit (r));
   EQUAL (0, r.num ());
   EQUAL (1, r.den ());
 }
@@ -135,7 +135,7 @@ TEST (Rational_test, assign_literal_zero)
 TEST (Rational_test, init_zero_over_zero)
 {
   const Rational r (0, 0);
-  EQUAL (0, r.sign ());
+  CHECK (!signbit (r));
   CHECK (isfinite (r));
   CHECK (!isinf (r));
   CHECK (!isnan (r));
@@ -148,7 +148,7 @@ TEST (Rational_test, init_zero_over_zero)
 TEST (Rational_test, init_pos_over_zero)
 {
   const Rational r (123, 0);
-  EQUAL (1, r.sign ());
+  CHECK (!signbit (r));
   CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
@@ -159,7 +159,7 @@ TEST (Rational_test, init_pos_over_zero)
 TEST (Rational_test, init_neg_over_zero)
 {
   const Rational r (-123, 0);
-  EQUAL (-1, r.sign ());
+  CHECK (signbit (r));
   CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
@@ -170,7 +170,7 @@ TEST (Rational_test, init_neg_over_zero)
 TEST (Rational_test, init_float_zero)
 {
   const Rational r (0.0);
-  EQUAL (0, r.sign ());
+  CHECK (!signbit (r));
   EQUAL (0, r.num ());
   EQUAL (1, r.den ());
 }
@@ -178,7 +178,7 @@ TEST (Rational_test, init_float_zero)
 TEST (Rational_test, init_float_pos_inf)
 {
   const Rational r (INFINITY);
-  EQUAL (1, r.sign ());
+  CHECK (!signbit (r));
   CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
@@ -189,7 +189,7 @@ TEST (Rational_test, init_float_pos_inf)
 TEST (Rational_test, init_float_neg_inf)
 {
   const Rational r (-INFINITY);
-  EQUAL (-1, r.sign ());
+  CHECK (signbit (r));
   CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
@@ -200,46 +200,49 @@ TEST (Rational_test, init_float_neg_inf)
 TEST (Rational_test, init_float_nan)
 {
   const Rational r (NAN);
-  UNEQUAL (0, r.sign ());
+  // we don't require conversion from floating-point NaN to preserve sign
   CHECK (!isfinite (r));
   CHECK (!isinf (r));
   CHECK (isnan (r));
 
   CHECK (static_cast<bool> (r));
 
+  // we don't require conversion to floating-point NaN to preserve sign
   CHECK (std::isnan (static_cast<double> (r)));
 }
 
 TEST (Rational_test, neg_nan)
 {
   constexpr auto r = -Rational::nan ();
-  UNEQUAL (0, r.sign ());
+  CHECK (signbit (r));
   CHECK (!isfinite (r));
   CHECK (!isinf (r));
   CHECK (isnan (r));
 
   CHECK (static_cast<bool> (r));
 
+  // we don't require conversion to floating-point NaN to preserve sign
   CHECK (std::isnan (static_cast<double> (r)));
 }
 
 TEST (Rational_test, pos_nan)
 {
   constexpr auto r = Rational::nan ();
-  UNEQUAL (0, r.sign ());
+  CHECK (!signbit (r));
   CHECK (!isfinite (r));
   CHECK (!isinf (r));
   CHECK (isnan (r));
 
   CHECK (static_cast<bool> (r));
 
+  // we don't require conversion to floating-point NaN to preserve sign
   CHECK (std::isnan (static_cast<double> (r)));
 }
 
 TEST (Rational_test, neg_infinity)
 {
   constexpr auto r = -Rational::infinity ();
-  EQUAL (-1, r.sign ());
+  CHECK (signbit (r));
   CHECK (isinf (r));
   CHECK (r == Rational (-INFINITY));
 }
@@ -247,7 +250,7 @@ TEST (Rational_test, neg_infinity)
 TEST (Rational_test, infinity)
 {
   constexpr auto r = Rational::infinity ();
-  EQUAL (1, r.sign ());
+  CHECK (!signbit (r));
   CHECK (isinf (r));
   CHECK (r == Rational (INFINITY));
 }

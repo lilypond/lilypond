@@ -31,8 +31,9 @@ template <class T>
 inline int
 sign (T x)
 {
+  using std::signbit;
   if (x != T (0))
-    return std::signbit (x) ? -1 : 1;
+    return signbit (x) ? -1 : 1;
   return 0;
 }
 
