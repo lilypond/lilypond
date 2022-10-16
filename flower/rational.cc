@@ -46,12 +46,6 @@ Rational::operator double () const
   return 0.0;
 }
 
-Rational
-Rational::abs () const
-{
-  return Rational (::abs (sign_), num_, den_);
-}
-
 int64_t
 Rational::trunc_int () const
 {

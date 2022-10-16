@@ -65,7 +65,6 @@ public:
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;
-  Rational abs () const;
   void negate ();
 
   explicit operator bool () const { return sign_ != 0; }
