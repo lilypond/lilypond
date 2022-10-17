@@ -342,6 +342,10 @@ bracket is also introduced in @ref{Scaling durations}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/controlling-tuplet-bracket-visibility.ly}
 
+@cindex tuplet bracket, note head side
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-tuplet-brackets-on-the-note-head-side.ly}
+
 @cindex beamed tuplet, line break within
 @cindex tuplet, beamed, line break within
 @funindex Forbid_line_break_engraver
