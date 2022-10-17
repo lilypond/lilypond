@@ -3743,6 +3743,7 @@ line (created with @code{\\startTrillSpan}, not with
         (direction  . ,ly:tuplet-bracket::calc-direction)
         (edge-height . (0.7 . 0.7))
         (full-length-to-extent . #t)
+        (max-slope-factor . 0.5)
         (padding . 1.1)
         (positions . ,ly:tuplet-bracket::calc-positions)
         (shorten-pair . (-0.2 . -0.2))

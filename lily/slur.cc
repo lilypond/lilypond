@@ -494,7 +494,8 @@ Demerit for slurs with attachment points that are not horizontally aligned.
 @item max-slope
 The maximum slope allowed for this slur.
 @item max-slope-factor
-Factor that calculates demerit based on the max slope.
+Factor that calculates demerit based on the max slope.  Notice that there exists
+a homonymous property for tuplet brackets.
 @item free-head-distance
 The amount of vertical free space that must exist between a slur and note
 heads.

@@ -655,6 +655,9 @@ direction of the @code{Stem} because of a chromatic clash).")
 to beams from this stem.  Further beams are typeset as beamlets.")
      (maximum-gap ,number? "Maximum value allowed for @code{gap}
 property.")
+     (max-slope-factor ,non-negative-number? "Factor for calculating
+the maximum tuplet bracket slope.  Notice that there exists a homonymous
+property for slurs.")
      (max-symbol-separation ,number? "The maximum distance between
 symbols making up a church rest.")
      (measure-count ,integer? "The number of measures for a

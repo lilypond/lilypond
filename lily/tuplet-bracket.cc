@@ -486,6 +486,10 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
+
+  Real max_slope_factor
+    = from_scm<double> (get_property (me, "max-slope-factor"), 0);
+
   bool follow_beam = par_beam && get_grob_direction (par_beam) == dir
                      && !from_scm<bool> (get_property (par_beam, "knee"));
 
@@ -508,6 +512,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
         }
 
       *dy = poss[RIGHT] - poss[LEFT];
+
       points.push_back (Offset (
         stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, poss[LEFT]));
       points.push_back (Offset (
@@ -536,6 +541,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
           Interval musical_dy;
           musical_dy[UP] = rs[UP] - ls[UP];
           musical_dy[DOWN] = rs[DOWN] - ls[DOWN];
+
           if (sign (musical_dy[UP]) != sign (musical_dy[DOWN]))
             *dy = 0.0;
           else if (sign (graphical_dy) != sign (musical_dy[DOWN]))
@@ -546,15 +552,82 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       else
         *dy = 0;
 
+      Real x = 0;
       for (vsize i = 0; i < columns.size (); i++)
         {
           Interval note_ext
             = Note_column::cross_staff_extent (columns[i], commony);
-          Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
+          x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
 
           points.push_back (Offset (x, note_ext[dir]));
         }
-    }
+
+      Real last_x = x;
+
+      if (*dy)
+        {
+          Real slope = fabs (*dy / (x1 - x0));
+          Real max_slope = 0;
+          Real max_dy = max_slope_factor * last_x * sign (*dy);
+          Real beam_dy = 0;
+          Real beam_slope = 0;
+          Real sub_x0 = 0;
+          Real sub_x1 = 0;
+
+          Drul_array<Real> beam_positions;
+
+          if (par_beam)
+            beam_positions
+              = from_scm (get_property (par_beam, "quantized-positions"),
+                          Drul_array<Real> (0.0, 0.0));
+          else
+            {
+              for (vsize i = columns.size (); i--;)
+                {
+                  Grob *stem = Note_column::get_stem (columns[i]);
+                  if (stem)
+                    {
+                      if (Grob *beam = Stem::get_beam (stem))
+                        {
+                          beam_positions
+                            = from_scm (get_property (beam, "quantized-positions"),
+                                        Drul_array<Real> (0.0, 0.0));
+                          sub_x0 = robust_relative_extent (beam, commonx, X_AXIS)[LEFT];
+                          sub_x1 = robust_relative_extent (beam, commonx, X_AXIS)[RIGHT];
+                          break;
+                        }
+                    }
+                }
+            }
+
+          beam_dy = beam_positions[RIGHT] - beam_positions[LEFT];
+          
+          if (beam_dy)
+            {
+              if (!sub_x1)
+                beam_slope = fabs (beam_dy / (x1 - x0));
+              else
+                beam_slope = fabs (beam_dy / (sub_x1 - sub_x0));
+
+              if (beam_slope)
+                max_slope = std::max (beam_slope, max_slope_factor);
+              else
+                max_slope = max_slope_factor;
+
+              slope = std::min (slope, max_slope);
+
+              if (fabs (*dy) > fabs (max_dy))
+                {
+                  if (fabs (*dy * slope) <= fabs (max_dy))
+                   *dy *= slope;
+                  else
+                   *dy = max_dy;
+                }
+            }
+          else if (fabs (*dy) > fabs (max_dy))
+            *dy = max_dy;
+        }
+      }
 
   if (!follow_beam)
     {
@@ -821,6 +894,7 @@ edge-text
 full-length-padding
 full-length-to-extent
 gap
+max-slope-factor
 positions
 potential-beam
 note-columns
