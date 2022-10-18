@@ -42,7 +42,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.4.8"
+        return "2.4.9"
 
     @property
     def directory(self) -> str:
@@ -80,7 +80,7 @@ expat = Expat()
 class Zlib(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.2.12"
+        return "1.2.13"
 
     @property
     def directory(self) -> str:
@@ -295,7 +295,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "0.21"
+        return "0.21.1"
 
     @property
     def directory(self) -> str:
@@ -384,7 +384,7 @@ gettext = Gettext()
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.4.2"
+        return "3.4.3"
 
     @property
     def directory(self) -> str:
@@ -440,7 +440,7 @@ pcre = PCRE()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.72.3"
+        return "2.72.4"
 
     @property
     def directory(self) -> str:
@@ -496,7 +496,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.2.0"
+        return "8.2.2"
 
     @property
     def directory(self) -> str:
@@ -940,7 +940,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.50.9"
+        return "1.50.11"
 
     @property
     def directory(self) -> str:
@@ -999,7 +999,7 @@ pango = Pango()
 class Libpng(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.6.37"
+        return "1.6.38"
 
     @property
     def directory(self) -> str:
@@ -1127,7 +1127,7 @@ class Cairo(ConfigurePackage):
 cairo = Cairo()
 
 
-PYTHON_VERSION = "3.10.6"
+PYTHON_VERSION = "3.10.8"
 
 
 class Python(ConfigurePackage):
