@@ -512,7 +512,7 @@ Complex text formatting may be added using a @code{\markup} block
 The @code{\markLengthOn} and @code{\markLengthOff} commands
 (@pxref{Metronome marks}) can also be used on text marks.
 
-@lilypond
+@lilypond[verbatim,quote]
 {
   \mark \default
   c'2 2
@@ -529,7 +529,7 @@ The @code{\markLengthOn} and @code{\markLengthOff} commands
 
 Text marks may be printed below the staff.
 
-@lilypond
+@lilypond[verbatim,quote]
 \fixed c' {
   c4 g c'8 b c4 e' c' c2
   c4 g c'8 b c4 e' c' g2
@@ -549,7 +549,7 @@ stacking order can be overridden using the
 avoidance}).  Alternatively, a single text mark with
 @code{\markup \column @{ @dots{} @} } can achieve the same effect.
 
-@lilypond
+@lilypond[verbatim,quote]
 \fixed c' {
   \repeat volta 2 {
     c4 g c'8 b c4 e' c' c2
