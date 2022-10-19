@@ -31,6 +31,9 @@ safe', just accept running it."
           (put 'match-letrec 'scheme-indent-function 1)
           (put 'and-let* 'scheme-indent-function 1)
           (put 'with-syntax 'scheme-indent-function 1)
-          (put 'eval-when 'scheme-indent-function 1))))
+          (put 'eval-when 'scheme-indent-function 1)
+          ;; Same thing here.
+          ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=40869
+          (put 'syntax-rules 'scheme-indent-function 'defun))))
  (texinfo-mode
   (fill-column . 66)))

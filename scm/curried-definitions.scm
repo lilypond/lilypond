@@ -29,40 +29,40 @@
 
 (define-syntax make-currying-define
   (syntax-rules ::: ()
-                ((_ currying-name lambda-name)
-                 (define-syntax currying-name
-                   (lambda (sintax)
-                     (syntax-case sintax ()
-                       ((_ ((head2 . rest2) . rest) docstring body body* ...)
-                        (string? (syntax->datum #'docstring))
-                        ;; Keep moving docstring to outermost lambda.
-                        #'(currying-name (head2 . rest2)
-                                         docstring
-                                         (lambda-name rest body body* ...)))
-                       ((_ (head . rest) body body* ...)
-                        #'(currying-name head
-                                         (lambda-name rest body body* ...)))
-                       ((_ name val)
-                        #'(define name val))))))))
+    ((_ currying-name lambda-name)
+     (define-syntax currying-name
+       (lambda (sintax)
+         (syntax-case sintax ()
+           ((_ ((head2 . rest2) . rest) docstring body body* ...)
+            (string? (syntax->datum #'docstring))
+            ;; Keep moving docstring to outermost lambda.
+            #'(currying-name (head2 . rest2)
+                             docstring
+                             (lambda-name rest body body* ...)))
+           ((_ (head . rest) body body* ...)
+            #'(currying-name head
+                             (lambda-name rest body body* ...)))
+           ((_ name val)
+            #'(define name val))))))))
 
 (make-currying-define cdefine lambda)
 (make-currying-define cdefine* lambda*)
 
 (define-syntax make-currying-define-public
   (syntax-rules ::: ()
-                ((_ public-name define-name)
-                 (define-syntax public-name
-                   (lambda (sintax)
-                     (syntax-case sintax ()
-                       ((_ binding body body* ...)
-                        #`(begin
-                            (define-name binding body body* ...)
-                            (export #,(let find-name ((form #'binding))
-                                        (syntax-case form ()
-                                          ((head . tail)
-                                           (find-name #'head))
-                                          (name
-                                           #'name))))))))))))
+    ((_ public-name define-name)
+     (define-syntax public-name
+       (lambda (sintax)
+         (syntax-case sintax ()
+           ((_ binding body body* ...)
+            #`(begin
+                (define-name binding body body* ...)
+                (export #,(let find-name ((form #'binding))
+                            (syntax-case form ()
+                              ((head . tail)
+                               (find-name #'head))
+                              (name
+                               #'name))))))))))))
 
 (make-currying-define-public define-public cdefine)
 (make-currying-define-public define*-public cdefine*)
