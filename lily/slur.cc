@@ -63,7 +63,7 @@ Slur::calc_direction (SCM smob)
   auto d = DOWN;
   for (const auto &col : encompasses)
     {
-      if (Note_column::dir (col) == DOWN)
+      if (!Note_column::has_rests (col) && Note_column::dir (col) == DOWN)
         {
           d = UP;
           break;
