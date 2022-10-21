@@ -39,6 +39,7 @@
                     "document-markup"
                     "document-outside-staff-priorities"
                     "document-paper-sizes"
+                    "document-colors"
                     "hyphenate-internal-words"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,6 +84,25 @@
 (display
  paper-sizes-doc-string
  (open-output-file "paper-sizes.tely"))
+
+(display
+ standard-colors-doc-string
+ (open-output-file "standard-colors.tely"))
+(display
+ x11-unnumbered-colors-doc-string
+ (open-output-file "x11-unnumbered-colors.tely"))
+(display
+ x11-colorN-doc-string
+ (open-output-file "x11-colorN.tely"))
+(display
+ x11-grayN-doc-string
+ (open-output-file "x11-grayN.tely"))
+(display
+ css-colors-doc-string
+ (open-output-file "css-colors.tely"))
+(display
+ universal-colors-doc-string
+ (open-output-file "universal-colors.tely"))
 
 (display
  hyphenation-rules-string
