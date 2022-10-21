@@ -476,6 +476,11 @@ In the input file, music is specified with any of the following commands
 Additionally, @code{@@lilypondversion} displays the current version
 of LilyPond.
 
+All of the above commands @emph{must} start a line (possibly preceded by
+whitespace), even if used with the @code{inline} fragment option.  There
+must be also no text after the closing brace (for
+@code{@@lilypond@{@/...@}}) or @code{@@end lilypond}.
+
 When @command{lilypond-book} is run on it, this results in a Texinfo
 file (with extension @file{.texi}) containing @code{@@image} tags for
 HTML, Info and printed output.  @command{lilypond-book} generates images
