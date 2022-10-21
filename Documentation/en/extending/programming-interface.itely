@@ -651,7 +651,7 @@ LilyPond markup syntax and Scheme markup syntax.  Using @code{#@{
 convenient, but we explain how to use the @code{markup} macro to get a
 Scheme-only solution.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\markup markup1} @tab @code{(markup markup1)}
@@ -664,7 +664,7 @@ Scheme-only solution.
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable
-@end quotation
+@endIndentedBlock
 
 The whole Scheme language is accessible inside the
 @code{markup} macro.  For example, You may use function calls inside

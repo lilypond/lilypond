@@ -1332,7 +1332,7 @@ same layout by defining it as @code{\oddFooterMarkup}:
 Here is a list of all predefined procedures available for use with
 @code{\if} and @code{\unless}.
 
-@quotation
+@indentedBlock
 @multitable {@code{\should-print-page-numbers-global}} {Print the number of the current page?}
 
 @headitem Syntax                       @tab  Condition tested
@@ -1351,7 +1351,7 @@ Here is a list of all predefined procedures available for use with
 @item @code{\should-print-all-headers} @tab Is @code{print-all-headers} true?
 
 @end multitable
-@end quotation
+@endIndentedBlock
 
 
 @morerefs
@@ -2753,7 +2753,7 @@ function =
 @noindent
 where
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .2 .7
 @item @code{@var{argN}}
 @tab The @var{n}th argument.
@@ -2769,7 +2769,7 @@ value or music function argument or music inside of music lists) to
 reference arguments
 (e.g., @samp{#arg1}).
 @end multitable
-@end quotation
+@endIndentedBlock
 
 The list of type predicates is required.  Some of the most common
 type predicates used in music functions are:
