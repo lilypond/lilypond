@@ -47,8 +47,12 @@ Macro definitions that contain translatable text belong to file
 @end macro
 
 
-@c texi2html 1.82 doesn't support the @indentedblock,
-@c @smallindentedblock and @raggedright environments.
+@c `texi2html` 1.82 doesn't support the newer `@indentedblock`,
+@c `@smallindentedblock`, and `@raggedright` environments.  It would be
+@c tempting to use `@quotation` and `@smallquotation` as a replacement
+@c for the former two; however, due to a bug we get terrible vertical
+@c formatting if `@multitable` environments are put inside of quotation
+@c environments.
 
 @ifnothtml
 
@@ -65,11 +69,9 @@ Macro definitions that contain translatable text belong to file
 @ifhtml
 
 @macro indentedBlock
-@quotation
 @end macro
 
 @macro endIndentedBlock
-@end quotation
 @end macro
 
 @end ifhtml
@@ -90,11 +92,9 @@ Macro definitions that contain translatable text belong to file
 @ifhtml
 
 @macro smallIndentedBlock
-@smallquotation
 @end macro
 
 @macro endSmallIndentedBlock
-@end smallquotation
 @end macro
 
 @end ifhtml
