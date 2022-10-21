@@ -2155,7 +2155,7 @@ center of its @code{StaffSymbol} (i.e., the middle line if
 even).  The reference points for individual non-staff lines are
 given in the following table:
 
-@quotation
+@indentedBlock
 @multitable {@b{Non-staff line}} {mid-height of @q{m}}
 @headitem Non-staff line @tab Reference point
 @item @code{ChordNames}  @tab baseline
@@ -2165,7 +2165,7 @@ given in the following table:
 @item @code{FiguredBass} @tab highest point
 @item @code{FretBoards}  @tab top line
 @end multitable
-@end quotation
+@endIndentedBlock
 
 In the following image, horizontal lines indicate the positions
 of these reference points:

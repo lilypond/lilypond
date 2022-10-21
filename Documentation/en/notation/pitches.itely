@@ -508,7 +508,7 @@ using Italian note names:
 
 The available languages and the note names they define are:
 
-@quotation
+@indentedBlock
 @multitable {@w{@code{português} or}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Language
   @tab Note Names
@@ -537,12 +537,12 @@ The available languages and the note names they define are:
 @item @code{vlaams}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
-@end quotation
+@endIndentedBlock
 
 In addition to note names, accidental suffixes may
 also vary depending on the language:
 
-@quotation
+@indentedBlock
 @multitable {@w{@code{português} or}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
@@ -575,7 +575,7 @@ also vary depending on the language:
 @item @code{vlaams}
   @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
-@end quotation
+@endIndentedBlock
 
 In Dutch, German, Norwegian, and Finnish, @code{aes} is contracted to
 @code{as}; in Dutch and Norwegian, however, both forms are accepted by
@@ -601,7 +601,7 @@ Some music uses microtones whose alterations are fractions of a
 for quarter tone accidentals; here the prefixes @notation{semi-} and
 @notation{sesqui-} respectively mean @q{half} and @q{one and a half}.
 
-@quotation
+@indentedBlock
 @multitable {@w{@code{português} or}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@code{esseh}/@code{eseh}}
 @headitem Language
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
@@ -632,7 +632,7 @@ for quarter tone accidentals; here the prefixes @notation{semi-} and
 @item @code{vlaams}
   @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
-@end quotation
+@endIndentedBlock
 
 In German, there are similar name contractions for microtones as with normal
 pitches described above.

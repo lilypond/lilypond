@@ -1222,7 +1222,7 @@ manually specify the output format; for details, see @ref{Invoking
 lilypond-book}.  Otherwise, @command{lilypond-book} automatically
 selects the output format based on the input filename's extension.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .2 .5
 @item @strong{extension} @tab @strong{output format}
 @item
@@ -1238,7 +1238,7 @@ selects the output format based on the input filename's extension.
 @item @file{.texinfo} @tab Texinfo
 @item @file{.xml} @tab HTML
 @end multitable
-@end quotation
+@endIndentedBlock
 
 If you use the same filename extension for the input file than the
 extension @command{lilypond-book} uses for the output file, and if the

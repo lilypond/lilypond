@@ -725,7 +725,7 @@ chords where out-of-tune intervals would be noticeable.
 
 The following suffixes to English note names are provided.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .03 .77
 @item @code{ff} @tab double-flat
 @item @code{f}  @tab flat
@@ -743,7 +743,7 @@ The following suffixes to English note names are provided.
                      normal sharp; does never occur in traditional
                      Persian music)
 @end multitable
-@end quotation
+@endIndentedBlock
 
 
 @node Persian tunings
@@ -755,7 +755,7 @@ following Persian tunings are provided to be used as the second
 argument of the @code{\key} command.  Note that in practice not
 all tunings are used in all keys.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .2 .6
 @item @code{\shur}          @tab @q{Shur} gushehs with natural 5th
                                  degree
@@ -769,7 +769,7 @@ all tunings are used in all keys.
                                  context
 @item @code{\delkashMahur}  @tab
 @end multitable
-@end quotation
+@endIndentedBlock
 
 In dastgah @q{Shur}, the 5th degree can either be natural or
 koron, so two tunings are provided (@code{\shur}, @code{\shurk}).
