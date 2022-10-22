@@ -66,18 +66,8 @@ Rational::Rational (int64_t n, int64_t d)
   // use sign of n when d=0
   sign_ = sign (n) * (std::signbit (d) ? -1 : 1);
   num_ = static_cast<uint64_t> (::abs (n));
-  if (n || d)
-    {
-      den_ = static_cast<uint64_t> (::abs (d));
-      normalize ();
-    }
-  else
-    {
-      // Treat initialization with {0, 0} as if it were {0} because parts of
-      // LilyPond depend on this behavior.  It would make more sense to treat
-      // {0, 0} as NaN, but it might not be easy to change.
-      den_ = 1;
-    }
+  den_ = static_cast<uint64_t> (::abs (d));
+  normalize ();
 }
 
 Rational::Rational (long long n)

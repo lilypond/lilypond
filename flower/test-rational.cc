@@ -135,14 +135,15 @@ TEST (Rational_test, assign_literal_zero)
 TEST (Rational_test, init_zero_over_zero)
 {
   const Rational r (0, 0);
-  CHECK (!signbit (r));
-  CHECK (isfinite (r));
+  CHECK (!signbit (r)); // merely what our implementation does
+  CHECK (!isfinite (r));
   CHECK (!isinf (r));
-  CHECK (!isnan (r));
+  CHECK (isnan (r));
 
-  CHECK (!static_cast<bool> (r));
+  CHECK (static_cast<bool> (r));
 
-  CHECK (!std::isnan (static_cast<double> (r)));
+  // we don't require conversion to floating-point NaN to preserve sign
+  CHECK (std::isnan (static_cast<double> (r)));
 }
 
 TEST (Rational_test, init_pos_over_zero)
