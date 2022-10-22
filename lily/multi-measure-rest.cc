@@ -39,6 +39,8 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
+#include <cmath>
+
 Interval
 Multi_measure_rest::bar_width (Spanner *me)
 {
@@ -359,7 +361,7 @@ Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
         += from_scm<double> (get_property (li, "full-measure-extra-space"), 0.0)
            + options.get_duration_space (mlen.main_part_)
            + (from_scm<double> (get_property (me, "space-increment"), 0.0)
-              * log_2 (from_scm (get_property (me, "measure-count"), 1)));
+              * std::log2 (from_scm (get_property (me, "measure-count"), 1)));
     }
 
   length += 2 * from_scm<double> (get_property (me, "bound-padding"), 0.0);

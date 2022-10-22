@@ -24,8 +24,6 @@
 
 #include "interval.hh"
 
-double log_2 (double x);
-
 /*
   Return the 2-log, rounded down
 */

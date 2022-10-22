@@ -25,6 +25,8 @@
 #include "moment.hh"
 #include "spanner.hh"
 
+#include <cmath>
+
 void
 Spacing_options::init_from_grob (Grob *me)
 {
@@ -99,6 +101,6 @@ Spacing_options::get_duration_space (Rational d) const
         Information Science, The Ohio State University, 1987.
       */
 
-      return (shortest_duration_space_ + log_2 (ratio)) * increment_;
+      return (shortest_duration_space_ + std::log2 (ratio)) * increment_;
     }
 }
