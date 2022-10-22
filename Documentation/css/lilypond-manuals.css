@@ -244,6 +244,7 @@ table th {
 table td {
     vertical-align: top;
     padding-bottom: .5em;
+    padding-right: .5em;
 }
 
 img {
