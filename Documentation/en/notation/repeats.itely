@@ -519,7 +519,7 @@ applied to alternative endings notated with coda marks.
 
 Demonstrations of common uses follow.
 
-@indentedBlock
+@quotation
 @table @emph
 
 @cindex al fine
@@ -655,7 +655,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 @end table
-@endIndentedBlock
+@end quotation
 
 @morerefs
 Music Glossary:

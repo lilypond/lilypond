@@ -801,13 +801,13 @@ is widely known.
 @noindent
 becomes
 
-@indentedBlock
+@quotation
 The motive
 @lilypond[inline,staffsize=11]{
   { \time 2/4 r8 g'[ g' g'] | es'2 }
 }
 is widely known.
-@endIndentedBlock
+@end quotation
 
 @item indent=@var{size}\@var{unit}
 Set indentation of the first music system to @var{size} (expressed
