@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.14\n"
+"Project-Id-Version: lilypond 2.23.80\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-10-09 18:19+0200\n"
+"POT-Creation-Date: 2022-10-22 17:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "%s has been replaced by %s"
 msgstr ""
 
-#: convertrules.py:45 lilylib.py:87 warn.cc:223
+#: convertrules.py:45 lilylib.py:87 warn.cc:231
 #, c-format, python-format
 msgid "warning: %s"
 msgstr ""
@@ -826,7 +826,7 @@ msgid ""
 "  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 msgstr ""
 
-#: convertrules.py:4635
+#: convertrules.py:4638
 msgid ""
 "\n"
 "Warning: \\fine no longer enforces the end of the music.  If your piece\n"
@@ -834,7 +834,7 @@ msgid ""
 "unfolded, use \\volta to exclude it.\n"
 msgstr ""
 
-#: convertrules.py:4641
+#: convertrules.py:4644
 msgid ""
 "\n"
 "MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave\n"
@@ -849,7 +849,7 @@ msgid ""
 "and Divisio_engraver in the appropriate Staff-aliased context.\n"
 msgstr ""
 
-#: convertrules.py:4654
+#: convertrules.py:4657
 msgid ""
 "\n"
 "GregorianTranscriptionStaff now engraves \\divisioMinima,\n"
@@ -869,7 +869,7 @@ msgid ""
 "grobs.\n"
 msgstr ""
 
-#: convertrules.py:4697
+#: convertrules.py:4700
 msgid ""
 "\n"
 "The barAlways property has been removed.  Instead, use\n"
@@ -886,7 +886,7 @@ msgstr ""
 msgid "Unknown or invalid loglevel '%s'"
 msgstr ""
 
-#: lilylib.py:83 warn.cc:211
+#: lilylib.py:83 warn.cc:218
 #, c-format, python-format
 msgid "error: %s"
 msgstr ""
@@ -988,12 +988,14 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:271
-#: midi2ly.py:1185 musicxml2ly.py:2915 main.cc:218
+#: midi2ly.py:1185 musicxml2ly.py:2915 main.cc:161
 msgid "show version number and exit"
 msgstr ""
 
+#. Bug in option parser: --output =foe is taken as an abbreviation
+#. for --output-format.
 #: abc2ly.py:1459 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
-#: midi2ly.py:1152 musicxml2ly.py:2896 main.cc:173
+#: midi2ly.py:1152 musicxml2ly.py:2896 main.cc:138
 msgid "show this help and exit"
 msgstr ""
 
@@ -1065,7 +1067,7 @@ msgid ""
 msgstr ""
 
 #: convert-ly.py:115 lilypond-book.py:194 lilypond-book.py:210
-#: musicxml2ly.py:2955 main.cc:196
+#: musicxml2ly.py:2955 main.cc:149
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -1097,7 +1099,7 @@ msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
 #: convert-ly.py:156 etf2ly.py:1235 lilypond-book.py:275 midi2ly.py:1186
-#: main.cc:226
+#: main.cc:163
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -1160,7 +1162,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1233 midi2ly.py:1157 midi2ly.py:1162 musicxml2ly.py:3009
-#: main.cc:185 main.cc:202
+#: main.cc:143 main.cc:153
 msgid "FILE"
 msgstr ""
 
@@ -1200,7 +1202,7 @@ msgid "add DIR to include path"
 msgstr ""
 
 #: lilypond-book.py:170 lilypond-book.py:178 lilypond-book.py:202
-#: lilypond-book.py:217 lilypond-book.py:243 lilypond-book.py:251 main.cc:181
+#: lilypond-book.py:217 lilypond-book.py:243 lilypond-book.py:251 main.cc:142
 msgid "DIR"
 msgstr ""
 
@@ -1737,7 +1739,7 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: getopt-long.cc:144
+#: getopt-long.cc:145
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr ""
@@ -1747,12 +1749,12 @@ msgstr ""
 msgid "option `%s' does not allow an argument"
 msgstr ""
 
-#: getopt-long.cc:152
+#: getopt-long.cc:153
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr ""
 
-#: getopt-long.cc:158
+#: getopt-long.cc:159
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
@@ -1762,75 +1764,75 @@ msgstr ""
 msgid "Log level set to %d\n"
 msgstr ""
 
-#: warn.cc:93
+#: warn.cc:94
 #, c-format
 msgid "unknown log level `%s', using default (INFO)"
 msgstr ""
 
 #. Some expected warning was not triggered, so print out a warning.
-#: warn.cc:116
+#: warn.cc:118
 #, c-format
 msgid "%zu expected warning(s) not encountered: "
 msgstr ""
 
-#: warn.cc:183
+#: warn.cc:187
 #, c-format
 msgid "fatal error: %s"
 msgstr ""
 
-#: warn.cc:192
+#: warn.cc:197
 #, c-format
 msgid "suppressed programming error: %s"
 msgstr ""
 
-#: warn.cc:197
+#: warn.cc:203
 #, c-format
 msgid "programming error: %s"
 msgstr ""
 
-#: warn.cc:198
+#: warn.cc:205
 msgid "continuing, cross fingers"
 msgstr ""
 
-#: warn.cc:207
+#: warn.cc:214
 #, c-format
 msgid "suppressed error: %s"
 msgstr ""
 
-#: warn.cc:219
+#: warn.cc:227
 #, c-format
 msgid "suppressed warning: %s"
 msgstr ""
 
-#: accidental-engraver.cc:184
+#: accidental-engraver.cc:177
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:211
+#: accidental-engraver.cc:205
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:131
+#: accidental.cc:129
 #, c-format
 msgid "cannot find glyph %s"
 msgstr ""
 
-#: accidental.cc:142
+#: accidental.cc:140
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:148
+#: all-font-metrics.cc:143
 #, c-format
 msgid "cannot find font: `%s'"
 msgstr ""
 
-#: alternative-sequence-iterator.cc:96
+#: alternative-sequence-iterator.cc:94
 msgid "missing volta specification on alternative element"
 msgstr ""
 
-#: apply-context-iterator.cc:42
+#: apply-context-iterator.cc:43
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
@@ -1838,55 +1840,55 @@ msgstr ""
 msgid "no heads for arpeggio found?"
 msgstr ""
 
-#: audio-item.cc:136
+#: audio-item.cc:137
 #, c-format
 msgid "end moment (%s) < start moment (%s)"
 msgstr ""
 
-#: audio-item.cc:150
+#: audio-item.cc:151
 #, c-format
 msgid "invalid start volume: %f"
 msgstr ""
 
-#: audio-item.cc:156
+#: audio-item.cc:157
 #, c-format
 msgid "invalid target volume: %f"
 msgstr ""
 
-#: audio-item.cc:171
+#: audio-item.cc:173
 #, c-format
 msgid ""
 "asked to compute volume at %f for dynamic span of duration %f starting at %s"
 msgstr ""
 
-#: audio-item.cc:179
+#: audio-item.cc:182
 #, c-format
 msgid ""
 "asked to compute volume at +%f for dynamic span of duration %f starting at %s"
 msgstr ""
 
-#: axis-group-engraver.cc:155
+#: axis-group-engraver.cc:158
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:156
+#: axis-group-engraver.cc:159
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:157
+#: axis-group-engraver.cc:160
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:683
+#: axis-group-interface.cc:693
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:755
+#: axis-group-interface.cc:762
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
-#: axis-group-interface.cc:887
+#: axis-group-interface.cc:898
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
 msgstr ""
 
@@ -1899,28 +1901,27 @@ msgstr ""
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:243
+#: beam-engraver.cc:241
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:290 chord-tremolo-engraver.cc:145
+#: beam-engraver.cc:288 chord-tremolo-engraver.cc:147
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:300
+#: beam-engraver.cc:298
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:301
+#: beam-engraver.cc:299
 msgid "beam was started here"
 msgstr ""
 
-#. We are completely screwed.
-#: beam-quanting.cc:854
+#: beam-quanting.cc:890
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: beam.cc:201
+#: beam.cc:202
 msgid "removing beam with no stems"
 msgstr ""
 
@@ -1929,7 +1930,7 @@ msgstr ""
 msgid "do not know how to interpret breath type: %s"
 msgstr ""
 
-#: cairo.cc:132
+#: cairo.cc:131
 #, c-format
 msgid "Cairo context status '%s'"
 msgstr ""
@@ -1953,29 +1954,29 @@ msgstr ""
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:564 cairo.cc:577
+#: cairo.cc:559 cairo.cc:572
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:676
+#: cairo.cc:671
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:943
+#: cairo.cc:938
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1019
+#: cairo.cc:1018
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1238
+#: cairo.cc:1239
 msgid "Cairo too old for PDF metadata"
 msgstr ""
 
@@ -1984,21 +1985,21 @@ msgstr ""
 msgid "unknown output format %s"
 msgstr ""
 
-#: change-iterator.cc:99
+#: change-iterator.cc:95
 #, c-format
 msgid "cannot find context to change to: %s"
 msgstr ""
 
-#: change-iterator.cc:105
+#: change-iterator.cc:101
 #, c-format
 msgid "cannot find context to change from: %s"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:85
+#: chord-tremolo-engraver.cc:87
 msgid "No tremolo to end"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:106
+#: chord-tremolo-engraver.cc:108
 msgid "unterminated chord tremolo"
 msgstr ""
 
@@ -2007,12 +2008,12 @@ msgstr ""
 msgid "clef `%s' not found"
 msgstr ""
 
-#: cluster.cc:128
+#: cluster.cc:131
 #, c-format
 msgid "unknown cluster style `%s'"
 msgstr ""
 
-#: cluster.cc:159
+#: cluster.cc:162
 msgid "junking empty cluster"
 msgstr ""
 
@@ -2021,16 +2022,16 @@ msgstr ""
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
 
-#: constrained-breaking.cc:193 constrained-breaking.cc:213
+#: constrained-breaking.cc:199 constrained-breaking.cc:220
 msgid "cannot find line breaking that satisfies constraints"
 msgstr ""
 
-#: context-def.cc:285
+#: context-def.cc:281
 #, c-format
 msgid "cannot create default child context: %s"
 msgstr ""
 
-#: context-def.cc:292
+#: context-def.cc:288
 #, c-format
 msgid "default child context begins a cycle: %s"
 msgstr ""
@@ -2044,7 +2045,7 @@ msgstr ""
 #. failure, so we have to log here if we want to log at all.  It would be
 #. more flexible to return null and let the caller decide whether to warn in
 #. its situation.  The caller might know a useful source location too.
-#: context-specced-music-iterator.cc:79 context.cc:547 quote-iterator.cc:140
+#: context-specced-music-iterator.cc:79 context.cc:535 quote-iterator.cc:140
 #, c-format
 msgid "cannot find or create context: %s"
 msgstr ""
@@ -2054,36 +2055,36 @@ msgstr ""
 msgid "custos `%s' not found"
 msgstr ""
 
-#: directional-element-interface.cc:32
+#: directional-element-interface.cc:33
 #, c-format
 msgid "direction of grob %s must be UP or DOWN; using UP"
 msgstr ""
 
-#: dispatcher.cc:88
+#: dispatcher.cc:89
 msgid "Event class should be a list"
 msgstr ""
 
-#: dispatcher.cc:279
+#: dispatcher.cc:278
 msgid "Attempting to remove nonexisting listener."
 msgstr ""
 
-#: dispatcher.cc:305
+#: dispatcher.cc:304
 msgid "Already listening to dispatcher, ignoring request"
 msgstr ""
 
-#: drum-note-engraver.cc:100
+#: drum-note-engraver.cc:102
 #, c-format
 msgid "unrecognised percussion sign: \"%s\""
 msgstr ""
 
-#: dynamic-engraver.cc:146
+#: dynamic-engraver.cc:145
 #, c-format
 msgid ""
 "unknown crescendo style: %s\n"
 "defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:211 slur-engraver.cc:175
+#: dynamic-engraver.cc:208 slur-engraver.cc:176
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2094,47 +2095,47 @@ msgid ""
 "grob %s created with disallowed class %s (expected any class in the list %s)"
 msgstr ""
 
-#: engraver.cc:130
+#: engraver.cc:129
 #, c-format
 msgid "meta.classes must be non-empty list, found %s"
 msgstr ""
 
-#: engraver.cc:135
+#: engraver.cc:134
 msgid ""
 "must have only one element in meta.classes to create a grob without "
 "specifying the class"
 msgstr ""
 
-#: engraver.cc:148
+#: engraver.cc:147
 #, c-format
 msgid "grob class should be 'Item, 'Spanner or 'Paper_column, found %s"
 msgstr ""
 
-#: engraver.cc:180
+#: engraver.cc:177
 #, c-format
 msgid "No grob definition found for `%s'."
 msgstr ""
 
-#: engraver.cc:236
+#: engraver.cc:230
 #, c-format
 msgid ""
 "sticky grob %s created with a type that does not have the sticky-grob-"
 "interface"
 msgstr ""
 
-#: episema-engraver.cc:68
+#: episema-engraver.cc:69
 msgid "already have an episema"
 msgstr ""
 
-#: episema-engraver.cc:69
+#: episema-engraver.cc:70
 msgid "episema was started here"
 msgstr ""
 
-#: episema-engraver.cc:80
+#: episema-engraver.cc:81
 msgid "cannot find start of episema"
 msgstr ""
 
-#: episema-engraver.cc:130
+#: episema-engraver.cc:131
 msgid "unterminated episema"
 msgstr ""
 
@@ -2142,7 +2143,7 @@ msgstr ""
 msgid "unterminated extender"
 msgstr ""
 
-#: fingering-column-engraver.cc:68
+#: fingering-column-engraver.cc:70
 msgid "Cannot add a fingering without a direction."
 msgstr ""
 
@@ -2156,22 +2157,22 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: font-config-scheme.cc:157 font-config.cc:87
+#: font-config-scheme.cc:159 font-config.cc:87
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:159 font-config.cc:89
+#: font-config-scheme.cc:161 font-config.cc:89
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:175
+#: font-config-scheme.cc:178
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: font-config-scheme.cc:177
+#: font-config-scheme.cc:180
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
@@ -2189,7 +2190,7 @@ msgstr ""
 msgid "failed to add fontconfig configuration file `%s'"
 msgstr ""
 
-#: font-config.cc:77
+#: font-config.cc:78
 #, c-format
 msgid "Adding fontconfig configuration file: %s"
 msgstr ""
@@ -2206,68 +2207,68 @@ msgstr ""
 msgid "cannot initialize FreeType"
 msgstr ""
 
-#: general-scheme.cc:91 midi-stream.cc:70
+#: general-scheme.cc:90 midi-stream.cc:70
 #, c-format
 msgid "cannot rename `%s' to `%s'"
 msgstr ""
 
-#: general-scheme.cc:401
+#: general-scheme.cc:390
 msgid "failed redirecting stderr"
 msgstr ""
 
-#: general-scheme.cc:414
+#: general-scheme.cc:403
 #, c-format
 msgid "failed redirecting stderr to `%s'"
 msgstr ""
 
-#: general-scheme.cc:464
+#: general-scheme.cc:447
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
-#: general-scheme.cc:589
+#: general-scheme.cc:569
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
-#: general-scheme.cc:658
+#: general-scheme.cc:637
 msgid "Exiting current GhostScript instance...\n"
 msgstr ""
 
-#: general-scheme.cc:699
+#: general-scheme.cc:678
 msgid "Mismatch of GhostScript arguments!\n"
 msgstr ""
 
-#: general-scheme.cc:706
+#: general-scheme.cc:685
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
 msgstr ""
 
-#: general-scheme.cc:730
+#: general-scheme.cc:709
 msgid "Could not start GhostScript instance!"
 msgstr ""
 
-#: general-scheme.cc:740
+#: general-scheme.cc:719
 #, c-format
 msgid "Running GhostScript command: %s\n"
 msgstr ""
 
-#: general-scheme.cc:749
+#: general-scheme.cc:728
 msgid "Error when running GhostScript command!"
 msgstr ""
 
-#: glissando-engraver.cc:161
+#: glissando-engraver.cc:163
 msgid "unterminated glissando"
 msgstr ""
 
-#: global-context-scheme.cc:110
+#: global-context-scheme.cc:109
 msgid "Interpreting music..."
 msgstr ""
 
-#: global-context-scheme.cc:113
+#: global-context-scheme.cc:112
 msgid "skipping zero-duration score"
 msgstr ""
 
-#: global-context-scheme.cc:114
+#: global-context-scheme.cc:113
 msgid "to suppress this, consider adding a spacer rest"
 msgstr ""
 
@@ -2276,7 +2277,7 @@ msgstr ""
 msgid "cannot determine music length"
 msgstr ""
 
-#: global-context.cc:195
+#: global-context.cc:194
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
@@ -2291,13 +2292,11 @@ msgstr ""
 msgid "implied \\%s added"
 msgstr ""
 
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:225
+#: gregorian-ligature-engraver.cc:212
 msgid "cannot apply `\\~' on first head of ligature"
 msgstr ""
 
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:237
+#: gregorian-ligature-engraver.cc:225
 msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
@@ -2309,17 +2308,17 @@ msgstr ""
 msgid "ly:grob-list->grob-array expected a list"
 msgstr ""
 
-#: grob-interface.cc:72
+#: grob-interface.cc:71
 #, c-format
 msgid "Unknown interface `%s'"
 msgstr ""
 
-#: grob-interface.cc:82
+#: grob-interface.cc:81
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: grob-property.cc:80
+#: grob-property.cc:79
 msgid "To use grob debug callbacks, configure with --enable-checking"
 msgstr ""
 
@@ -2327,7 +2326,7 @@ msgstr ""
 msgid "typecheck failed"
 msgstr ""
 
-#: grob.cc:530
+#: grob.cc:523
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2337,18 +2336,18 @@ msgstr ""
 msgid "(primitive-load-path lily): %.2f seconds"
 msgstr ""
 
-#: hairpin.cc:61
+#: hairpin.cc:62
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:176
+#: hairpin.cc:174
 #, c-format
 msgid ""
 "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', "
 "setting to '%d'"
 msgstr ""
 
-#: hairpin.cc:292
+#: hairpin.cc:293
 msgid "decrescendo too small"
 msgstr ""
 
@@ -2368,12 +2367,12 @@ msgstr ""
 msgid "unterminated hyphen; removing"
 msgstr ""
 
-#: includable-lexer.cc:58 lily-guile.cc:88 lily-parser-scheme.cc:109
+#: includable-lexer.cc:59 lily-guile.cc:87 lily-parser-scheme.cc:107
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr ""
 
-#: includable-lexer.cc:60 lily-parser-scheme.cc:101
+#: includable-lexer.cc:61 lily-parser-scheme.cc:100
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
@@ -2382,38 +2381,38 @@ msgstr ""
 msgid "position unknown"
 msgstr ""
 
-#: jump-engraver.cc:104 jump-engraver.cc:177 jump-engraver.cc:188
+#: jump-engraver.cc:104 jump-engraver.cc:174 jump-engraver.cc:185
 msgid "jump text must be a markup object"
 msgstr ""
 
-#: keep-alive-together-engraver.cc:95
+#: keep-alive-together-engraver.cc:96
 #, c-format
 msgid "unknown remove-layer value `%s'"
 msgstr ""
 
-#: key-engraver.cc:197
+#: key-engraver.cc:200
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr ""
 
-#: key-signature-interface.cc:83
+#: key-signature-interface.cc:81
 #, c-format
 msgid "No glyph found for alteration: %s"
 msgstr ""
 
-#: key-signature-interface.cc:93
+#: key-signature-interface.cc:91
 msgid "alteration not found"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:60 ligature-engraver.cc:105
+#: ligature-bracket-engraver.cc:61 ligature-engraver.cc:105
 msgid "cannot find start of ligature"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:71 ligature-engraver.cc:125
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:125
 msgid "already have a ligature"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:126
-#: ligature-engraver.cc:205
+#: ligature-bracket-engraver.cc:73 ligature-engraver.cc:126
+#: ligature-engraver.cc:207
 msgid "ligature was started here"
 msgstr ""
 
@@ -2425,103 +2424,103 @@ msgstr ""
 msgid "no left bound"
 msgstr ""
 
-#: ligature-engraver.cc:177
+#: ligature-engraver.cc:178
 msgid "unterminated ligature"
 msgstr ""
 
-#: ligature-engraver.cc:204
+#: ligature-engraver.cc:206
 msgid "ignoring rest: ligature may not contain rest"
 msgstr ""
 
-#: lily-guile.cc:92
+#: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s', cwd: `%s')"
 msgstr ""
 
-#: lily-guile.cc:281
+#: lily-guile.cc:283
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:284
+#: lily-guile.cc:286
 msgid "perhaps a typing error?"
 msgstr ""
 
-#: lily-guile.cc:291
+#: lily-guile.cc:293
 msgid "skipping assignment"
 msgstr ""
 
-#: lily-guile.cc:307
+#: lily-guile.cc:308
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:256
+#: lily-lexer.cc:251
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:279 lily-lexer.cc:292
+#: lily-lexer.cc:274 lily-lexer.cc:287
 #, c-format
 msgid "%s:EOF"
 msgstr ""
 
-#: lily-modules.cc:82
+#: lily-modules.cc:89
 #, c-format
 msgid "Uninitialized variable `%s' in module (%s)"
 msgstr ""
 
-#: lily-parser-scheme.cc:81
+#: lily-parser-scheme.cc:80
 #, c-format
 msgid "Changing working directory to: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:85
+#: lily-parser-scheme.cc:84
 #, c-format
 msgid "unable to change directory to: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:100
+#: lily-parser-scheme.cc:99
 #, c-format
 msgid "cannot find init file: `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:117
+#: lily-parser-scheme.cc:115
 #, c-format
 msgid "Processing `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:121
+#: lily-parser-scheme.cc:119
 msgid "Parsing..."
 msgstr ""
 
-#: lily-parser-scheme.cc:238
+#: lily-parser-scheme.cc:236
 msgid ""
 "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser-scheme.cc:270
+#: lily-parser-scheme.cc:268
 msgid ""
 "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lookup.cc:174
+#: lookup.cc:160
 #, c-format
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:197
+#: lyric-combine-music-iterator.cc:199
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:342
+#: lyric-combine-music-iterator.cc:348
 #, c-format
 msgid "cannot find context: %s"
 msgstr ""
 
-#: main.cc:86
+#: main.cc:85
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -2530,7 +2529,7 @@ msgid ""
 "information.\n"
 msgstr ""
 
-#: main.cc:92
+#: main.cc:91
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License as \n"
@@ -2548,146 +2547,145 @@ msgid ""
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: main.cc:125
+#: main.cc:121
 msgid "FORMATs"
 msgstr ""
 
-#: main.cc:126
+#: main.cc:122
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr ""
 
-#: main.cc:130
+#: main.cc:123
 msgid "generate PDF files (default)"
 msgstr ""
 
-#: main.cc:134
+#: main.cc:124
 msgid "generate SVG files "
 msgstr ""
 
-#: main.cc:138
+#: main.cc:125
 msgid "generate PNG files "
 msgstr ""
 
-#: main.cc:142
+#: main.cc:126
 msgid "generate PostScript files"
 msgstr ""
 
-#: main.cc:146
+#: main.cc:127
 msgid "generate Encapsulated PostScript files"
 msgstr ""
 
-#: main.cc:149
+#: main.cc:128
 msgid "KEY"
 msgstr ""
 
-#: main.cc:150
+#: main.cc:129
 msgid ""
 "set ps/pdf optimization to KEY, which is either\n"
 "'size' (default), 'TeX', or 'TeX-GS'"
 msgstr ""
 
-#: main.cc:154
+#: main.cc:131
 msgid "SYM[=VAL]"
 msgstr ""
 
-#: main.cc:155
+#: main.cc:132
 msgid "set Scheme option SYM to VAL (default: '#t')"
 msgstr ""
 
-#: main.cc:158
+#: main.cc:133
 msgid "no-SYM"
 msgstr ""
 
-#: main.cc:159
+#: main.cc:133
 msgid "set Scheme option SYM to '#f'"
 msgstr ""
 
-#: main.cc:162
+#: main.cc:134
 msgid "help"
 msgstr ""
 
-#: main.cc:163
+#: main.cc:134
 msgid "show help for Scheme options"
 msgstr ""
 
-#: main.cc:166
+#: main.cc:135
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:167
+#: main.cc:135
 msgid "evaluate scheme code"
 msgstr ""
 
-#: main.cc:176
+#: main.cc:139
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:177
+#: main.cc:140
 msgid ""
 "dump \\header field FIELD to file\n"
 "named BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:182
+#: main.cc:142
 msgid "append DIR to search path"
 msgstr ""
 
-#: main.cc:186
+#: main.cc:143
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:190
+#: main.cc:145
 msgid "USER,GROUP,JAIL,DIR"
 msgstr ""
 
-#: main.cc:191
+#: main.cc:146
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
 msgstr ""
 
-#: main.cc:197
+#: main.cc:150
 msgid ""
 "print log messages according to LOGLEVEL,\n"
 "which is either NONE, ERROR, WARNING,\n"
 "BASIC, PROGRESS, INFO (default), or DEBUG"
 msgstr ""
 
-#: main.cc:203
+#: main.cc:154
 msgid ""
 "write output to FILE (suffix will be added)\n"
 "or to FOLDER, in which case the file name\n"
 "will be taken from the input file."
 msgstr ""
 
-#: main.cc:209
+#: main.cc:157
 msgid "(ignored)"
 msgstr ""
 
-#: main.cc:213
+#: main.cc:159
 msgid ""
 "no progress, only error messages\n"
 "(equivalent to --loglevel=ERROR)"
 msgstr ""
 
-#: main.cc:222
+#: main.cc:162
 msgid "be verbose (equivalent to --loglevel=DEBUG)"
 msgstr ""
 
-#: main.cc:259
+#: main.cc:194
 #, c-format
 msgid ""
 "\n"
 "Effective prefix: '%s'\n"
 msgstr ""
 
-#: main.cc:286
+#: main.cc:223
 #, c-format
 msgid "%s %s (running Guile %s)"
 msgstr ""
 
-#. Do not update the copyright years here, run `make grand-replace'
-#: main.cc:297
+#: main.cc:235
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2695,25 +2693,25 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:337
+#: main.cc:274
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:339
+#: main.cc:276
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:341
+#: main.cc:278
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:343
+#: main.cc:280
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:345
+#: main.cc:282
 msgid "Options:"
 msgstr ""
 
@@ -2721,100 +2719,100 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: main.cc:353
+#: main.cc:290
 #, c-format
 msgid "You found a bug? Please read %s"
 msgstr ""
 
-#: main.cc:375
+#: main.cc:312
 msgid "linked against Ghostscript:"
 msgstr ""
 
-#: main.cc:432
+#: main.cc:373
 #, c-format
 msgid "expected %d arguments with jail, found: %zu"
 msgstr ""
 
-#: main.cc:446
+#: main.cc:387
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:448
+#: main.cc:389
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:463
+#: main.cc:403
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:465
+#: main.cc:405
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:473
+#: main.cc:413
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:480
+#: main.cc:419
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:486
+#: main.cc:425
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:492
+#: main.cc:431
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:651
+#: main.cc:590
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
-#: mark-engraver.cc:214
+#: mark-engraver.cc:211
 msgid "mark label must be a markup object"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:95
+#: mensural-ligature-engraver.cc:94
 msgid "ligature with less than 2 heads -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:121
+#: mensural-ligature-engraver.cc:120
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr ""
 
 #. we can get here after invalid input
-#: mensural-ligature-engraver.cc:134
+#: mensural-ligature-engraver.cc:133
 msgid "single note ligature - skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:144
+#: mensural-ligature-engraver.cc:143
 msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:155
+#: mensural-ligature-engraver.cc:154
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:198
+#: mensural-ligature-engraver.cc:200
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:208
+#: mensural-ligature-engraver.cc:210
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:227
+#: mensural-ligature-engraver.cc:229
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -2822,11 +2820,11 @@ msgid ""
 "or the ligatura must be LB or SSB"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:385
+#: mensural-ligature-engraver.cc:386
 msgid "unexpected case fall-through"
 msgstr ""
 
-#: midi-cc-announcer.cc:106
+#: midi-cc-announcer.cc:101
 #, c-format
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr ""
@@ -2869,24 +2867,24 @@ msgid ""
 "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr ""
 
-#: music.cc:150
+#: music.cc:149
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
 
-#: new-fingering-engraver.cc:119
+#: new-fingering-engraver.cc:118
 msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
-#: new-fingering-engraver.cc:275
+#: new-fingering-engraver.cc:271
 msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-fingering-engraver.cc:276
+#: new-fingering-engraver.cc:272
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:527
+#: note-collision.cc:530
 msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
 msgstr ""
 
@@ -2894,7 +2892,7 @@ msgstr ""
 msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
-#: note-head.cc:97
+#: note-head.cc:93
 #, c-format
 msgid "none of note heads `%s' or `%s' found"
 msgstr ""
@@ -2904,115 +2902,115 @@ msgid "NoteEvent without pitch"
 msgstr ""
 
 #. PAGE BREAKING
-#: one-page-breaking.cc:80 optimal-page-breaking.cc:131
+#: one-page-breaking.cc:80 optimal-page-breaking.cc:132
 msgid "Fitting music on 1 page..."
 msgstr ""
 
-#: open-type-font-scheme.cc:163 open-type-font-scheme.cc:209
-#: open-type-font-scheme.cc:255 open-type-font-scheme.cc:411 pfb-scheme.cc:81
-#: ttf.cc:503 ttf.cc:553
+#: open-type-font-scheme.cc:154 open-type-font-scheme.cc:200
+#: open-type-font-scheme.cc:246 open-type-font-scheme.cc:396 pfb-scheme.cc:79
+#: ttf.cc:493 ttf.cc:542
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:177 open-type-font-scheme.cc:223
-#: open-type-font-scheme.cc:303 pfb-scheme.cc:96 ttf.cc:470 ttf.cc:519
+#: open-type-font-scheme.cc:168 open-type-font-scheme.cc:214
+#: open-type-font-scheme.cc:293 pfb-scheme.cc:94 ttf.cc:460 ttf.cc:509
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:265
+#: open-type-font-scheme.cc:256
 #, c-format
 msgid "cannot open font filename `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:275 open-type-font-scheme.cc:291
-#: open-type-font-scheme.cc:314 open-type-font-scheme.cc:334
-#: open-type-font-scheme.cc:352 open-type-font-scheme.cc:368
+#: open-type-font-scheme.cc:266 open-type-font-scheme.cc:283
+#: open-type-font-scheme.cc:305 open-type-font-scheme.cc:323
+#: open-type-font-scheme.cc:339 open-type-font-scheme.cc:354
 #, c-format
 msgid "cannot read %s of `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:390
+#: open-type-font-scheme.cc:376
 #, c-format
 msgid "font `%s' index %d does not have `CFF' table"
 msgstr ""
 
-#: open-type-font-scheme.cc:421
+#: open-type-font-scheme.cc:406
 #, c-format
 msgid "font `%s': cannot open for reading"
 msgstr ""
 
-#: open-type-font-scheme.cc:432 open-type-font-scheme.cc:449
-#: open-type-font-scheme.cc:467
+#: open-type-font-scheme.cc:416 open-type-font-scheme.cc:432
+#: open-type-font-scheme.cc:450
 #, c-format
 msgid "font `%s': cannot read field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:440
+#: open-type-font-scheme.cc:424
 #, c-format
 msgid "font `%s': not a font collection"
 msgstr ""
 
-#: open-type-font-scheme.cc:458
+#: open-type-font-scheme.cc:442
 #, c-format
 msgid "font `%s': invalid TTC header version"
 msgstr ""
 
-#: open-type-font-scheme.cc:479
+#: open-type-font-scheme.cc:461
 #, c-format
 msgid "font `%s': index %d is too large, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:490
+#: open-type-font-scheme.cc:472
 #, c-format
 msgid "font `%s': cannot read offset of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:507 open-type-font-scheme.cc:545
-#: open-type-font-scheme.cc:568
+#: open-type-font-scheme.cc:488 open-type-font-scheme.cc:526
+#: open-type-font-scheme.cc:548
 #, c-format
 msgid "font `%s': cannot read field `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:516
+#: open-type-font-scheme.cc:498
 #, c-format
 msgid "font `%s': invalid field `sfntVersion' in subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:525
+#: open-type-font-scheme.cc:507
 #, c-format
 msgid "subfont `%s': cannot open for writing"
 msgstr ""
 
-#: open-type-font-scheme.cc:535 open-type-font-scheme.cc:558
-#: open-type-font-scheme.cc:578
+#: open-type-font-scheme.cc:516 open-type-font-scheme.cc:538
+#: open-type-font-scheme.cc:558
 #, c-format
 msgid "subfont `%s': cannot write field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:605
+#: open-type-font-scheme.cc:585
 #, c-format
 msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:620 open-type-font-scheme.cc:640
-#: open-type-font-scheme.cc:670 open-type-font-scheme.cc:695
+#: open-type-font-scheme.cc:600 open-type-font-scheme.cc:620
+#: open-type-font-scheme.cc:649 open-type-font-scheme.cc:673
 #, c-format
 msgid "subfont `%s': cannot write field `%s' for table `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:630 open-type-font-scheme.cc:650
-#: open-type-font-scheme.cc:680
+#: open-type-font-scheme.cc:610 open-type-font-scheme.cc:630
+#: open-type-font-scheme.cc:659
 #, c-format
 msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:721
+#: open-type-font-scheme.cc:699
 #, c-format
 msgid "font `%s': cannot read table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:730
+#: open-type-font-scheme.cc:708
 #, c-format
 msgid "subfont `%s': cannot write table `%s'"
 msgstr ""
@@ -3027,7 +3025,7 @@ msgstr ""
 msgid "cannot load font table: %s"
 msgstr ""
 
-#: open-type-font.cc:77
+#: open-type-font.cc:78
 #, c-format
 msgid "FreeType error: %s"
 msgstr ""
@@ -3042,11 +3040,11 @@ msgstr ""
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:152
+#: open-type-font.cc:151
 msgid "cannot get postscript name"
 msgstr ""
 
-#: open-type-font.cc:164
+#: open-type-font.cc:163
 #, c-format
 msgid "cannot get font %s format"
 msgstr ""
@@ -3056,17 +3054,17 @@ msgstr ""
 msgid "cannot get CFF name from font %s"
 msgstr ""
 
-#: open-type-font.cc:186
+#: open-type-font.cc:185
 #, c-format
 msgid "Subsitute font name: %s => %s"
 msgstr ""
 
-#: open-type-font.cc:192
+#: open-type-font.cc:191
 #, c-format
 msgid "CFF name for font %s is the same."
 msgstr ""
 
-#: open-type-font.cc:226
+#: open-type-font.cc:223
 #, c-format
 msgid "cannot read CFF: %s"
 msgstr ""
@@ -3075,25 +3073,25 @@ msgstr ""
 #. (FreeType 2.5.5 and earlier does not have this issue.
 #. FreeType 2.6.2+ has this bug fixed.)
 #. So we need direct parsing of the 'CFF' table, in this case.
-#: open-type-font.cc:242
+#: open-type-font.cc:239
 msgid "Directly parsing 'CFF' table of font."
 msgstr ""
 
-#: open-type-font.cc:280
+#: open-type-font.cc:276
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:363
+#: open-type-font.cc:360
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:386
+#: open-type-font.cc:382
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:538 pango-font.cc:268
+#: open-type-font.cc:533 pango-font.cc:258
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -3109,187 +3107,187 @@ msgid ""
 msgstr ""
 
 #. find out the ideal number of pages
-#: optimal-page-breaking.cc:108
+#: optimal-page-breaking.cc:109
 msgid "Finding the ideal number of pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:133
+#: optimal-page-breaking.cc:134
 #, c-format
 msgid "Fitting music on %zu pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:135
+#: optimal-page-breaking.cc:137
 #, c-format
 msgid "Fitting music on %zu or %zu pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:146 optimal-page-breaking.cc:200
+#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:203
 #, c-format
 msgid "trying %zu systems"
 msgstr ""
 
-#: optimal-page-breaking.cc:165 optimal-page-breaking.cc:228
+#: optimal-page-breaking.cc:166 optimal-page-breaking.cc:231
 #, c-format
 msgid "best score for this sys-count: %f"
 msgstr ""
 
-#: optimal-page-breaking.cc:246 page-turn-page-breaking.cc:267
-#: paper-score.cc:157
+#: optimal-page-breaking.cc:250 page-turn-page-breaking.cc:274
+#: paper-score.cc:156
 msgid "Drawing systems..."
 msgstr ""
 
-#: ottava-engraver.cc:98
+#: ottava-engraver.cc:101
 #, c-format
 msgid "Could not find ottavation markup for %d octaves up."
 msgstr ""
 
-#: output-def.cc:228
+#: output-def.cc:229
 msgid "margins do not fit with line-width, setting default values"
 msgstr ""
 
-#: output-def.cc:235
+#: output-def.cc:236
 msgid ""
 "systems run off the page due to improper paper settings, setting default "
 "values"
 msgstr ""
 
-#: page-breaking.cc:293
+#: page-breaking.cc:300
 msgid ""
 "ignoring min-systems-per-page and max-systems-per-page because systems-per-"
 "page was set"
 msgstr ""
 
-#: page-breaking.cc:298
+#: page-breaking.cc:306
 msgid ""
 "min-systems-per-page is larger than max-systems-per-page, ignoring both "
 "values"
 msgstr ""
 
-#: page-breaking.cc:561
+#: page-breaking.cc:573
 #, c-format
 msgid "page %d has been compressed"
 msgstr ""
 
-#: page-breaking.cc:1217
+#: page-breaking.cc:1254
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
 msgstr ""
 
-#: page-breaking.cc:1222
+#: page-breaking.cc:1259
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
 msgstr ""
 
-#: page-layout-problem.cc:407
+#: page-layout-problem.cc:431
 msgid ""
 "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr ""
 
-#: page-layout-problem.cc:756
+#: page-layout-problem.cc:808
 msgid "ragged-bottom was specified, but page must be compressed"
 msgstr ""
 
-#: page-layout-problem.cc:759
+#: page-layout-problem.cc:812
 #, c-format
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1229
+#: page-layout-problem.cc:1319
 msgid "staff-affinities should only decrease"
 msgstr ""
 
-#: page-spacing.cc:199
+#: page-spacing.cc:195
 msgid "tried to space systems on a bad number of pages"
 msgstr ""
 
-#: page-turn-page-breaking.cc:185
+#: page-turn-page-breaking.cc:190
 #, c-format
 msgid "page-turn-page-breaking: breaking from %zu to %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:237
+#: page-turn-page-breaking.cc:244
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:250
+#: page-turn-page-breaking.cc:257
 #, c-format
 msgid "Calculating page and line breaks (%zu possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:319
+#: page-turn-page-breaking.cc:328
 #, c-format
 msgid "break starting at page %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:320
+#: page-turn-page-breaking.cc:329
 #, c-format
 msgid "\tdemerits: %f"
 msgstr ""
 
-#: page-turn-page-breaking.cc:321
+#: page-turn-page-breaking.cc:330
 #, c-format
 msgid "\tsystem count: %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:322
+#: page-turn-page-breaking.cc:331
 #, c-format
 msgid "\tpage count: %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:323
+#: page-turn-page-breaking.cc:332
 #, c-format
 msgid "\tprevious break: %zu"
 msgstr ""
 
-#: pango-font.cc:257
+#: pango-font.cc:247
 #, c-format
 msgid "no glyph for character U+%04X in font `%s'"
 msgstr ""
 
-#: pango-font.cc:290
+#: pango-font.cc:280
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:315
+#: pango-font.cc:305
 #, c-format
 msgid ""
 "FT_Get_CID_From_Glyph_Index () error: %s\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:428
+#: pango-font.cc:418
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:481
+#: pango-font.cc:468
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: paper-book.cc:353
+#: paper-book.cc:344
 #, c-format
 msgid ""
 "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:405
+#: paper-book.cc:396
 #, c-format
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
 
-#: paper-column.cc:458
+#: paper-column.cc:457
 #, c-format
 msgid ""
 "refusing to create a grob sticking to Paper_column grob %s; paper columns "
 "should not be created from custom engravers."
 msgstr ""
 
-#: paper-outputter.cc:124
+#: paper-outputter.cc:125
 #, c-format
 msgid "Paper_outputter elapsed time: %.2f seconds"
 msgstr ""
@@ -3299,15 +3297,15 @@ msgstr ""
 msgid "Element count %zu (spanners %zu) "
 msgstr ""
 
-#: paper-score.cc:133
+#: paper-score.cc:132
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:116 parse-scm.cc:151
+#: parse-scm.cc:119 parse-scm.cc:156
 msgid "Guile signaled an error for the expression beginning here"
 msgstr ""
 
-#: percent-repeat-engraver.cc:96
+#: percent-repeat-engraver.cc:97
 msgid "percent repeat started while another already in progress"
 msgstr ""
 
@@ -3333,110 +3331,110 @@ msgstr ""
 msgid "Segment length of the Type 1 (PFB) font is too long."
 msgstr ""
 
-#: pfb.cc:87
+#: pfb.cc:88
 msgid "Segment type of the Type 1 (PFB) font is unknown."
 msgstr ""
 
-#: piano-pedal-engraver.cc:278
+#: piano-pedal-engraver.cc:283
 #, c-format
 msgid "expect 3 strings for piano pedals, found: %ld"
 msgstr ""
 
-#: piano-pedal-engraver.cc:293 piano-pedal-engraver.cc:304
+#: piano-pedal-engraver.cc:299 piano-pedal-engraver.cc:312
 #, c-format
 msgid "cannot find start of piano pedal: `%s'"
 msgstr ""
 
-#: piano-pedal-engraver.cc:338
+#: piano-pedal-engraver.cc:347
 #, c-format
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
-#: piano-pedal-performer.cc:88
+#: piano-pedal-performer.cc:90
 msgid "cannot find start of piano pedal"
 msgstr ""
 
-#: program-option-scheme.cc:243
+#: program-option-scheme.cc:238
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
 
-#: property-iterator.cc:66
+#: property-iterator.cc:67
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr ""
 
-#: relative-octave-check.cc:52
+#: relative-octave-check.cc:51
 msgid "Failed octave check, got: "
 msgstr ""
 
-#: relocate.cc:67
+#: relocate.cc:64
 #, c-format
 msgid "%sSetting %s to '%s'\n"
 msgstr ""
 
-#: relocate.cc:77
+#: relocate.cc:74
 #, c-format
 msgid "%s%s not overwritten\n"
 msgstr ""
 
-#: relocate.cc:88
+#: relocate.cc:85
 #, c-format
 msgid "No such file '%s' for %s"
 msgstr ""
 
-#: relocate.cc:98 relocate.cc:118
+#: relocate.cc:95 relocate.cc:115
 #, c-format
 msgid "No such directory '%s' for %s"
 msgstr ""
 
-#: relocate.cc:107
+#: relocate.cc:104
 #, c-format
 msgid "  Prepending '%s' to %s\n"
 msgstr ""
 
-#: relocate.cc:135
+#: relocate.cc:129
 #, c-format
 msgid ""
 "  Found %s environment variable,\n"
 "    setting %s to '%s'\n"
 msgstr ""
 
-#: relocate.cc:150
+#: relocate.cc:144
 #, c-format
 msgid ""
 "  Using run-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:158
+#: relocate.cc:152
 #, c-format
 msgid ""
 "  Using compile-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:169
+#: relocate.cc:163
 msgid ""
 "\n"
 "Relocation\n"
 msgstr ""
 
-#: relocate.cc:177
+#: relocate.cc:171
 #, c-format
 msgid ""
 "  LilyPond binary has absolute file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:184
+#: relocate.cc:178
 #, c-format
 msgid ""
 "  LilyPond binary has relative file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:204
+#: relocate.cc:199
 #, c-format
 msgid ""
 "  Absolute file name of LilyPond binary computed from PATH:\n"
@@ -3444,65 +3442,65 @@ msgid ""
 "    argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:237
+#: relocate.cc:233
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr ""
 
-#: relocate.cc:364
+#: relocate.cc:354
 #, c-format
 msgid "  Relocation file '%s'\n"
 msgstr ""
 
-#: relocate.cc:368
+#: relocate.cc:358
 #, c-format
 msgid "cannot open file '%s', ignored"
 msgstr ""
 
-#: relocate.cc:400
+#: relocate.cc:390
 #, c-format
 msgid "Unknown relocation command '%s'"
 msgstr ""
 
-#: relocate.cc:412
+#: relocate.cc:402
 #, c-format
 msgid ""
 "\n"
 "  Using relocation config directory '%s'\n"
 msgstr ""
 
-#: relocate.cc:423
+#: relocate.cc:413
 #, c-format
 msgid "No relocation config directory '%s'"
 msgstr ""
 
-#: rest-collision.cc:160
+#: rest-collision.cc:161
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:172 rest-collision.cc:284
+#: rest-collision.cc:173 rest-collision.cc:288
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:243
+#: rest.cc:244
 #, c-format
 msgid "rest `%s' not found"
 msgstr ""
 
-#: score-engraver.cc:79
+#: score-engraver.cc:77
 #, c-format
 msgid "cannot find `%s'"
 msgstr ""
 
-#: score-engraver.cc:81
+#: score-engraver.cc:78
 msgid "Music font has not been installed properly."
 msgstr ""
 
-#: score-engraver.cc:83
+#: score-engraver.cc:79
 #, c-format
 msgid "Search path `%s'"
 msgstr ""
 
-#: score-engraver.cc:85
+#: score-engraver.cc:80
 msgid "Aborting"
 msgstr ""
 
@@ -3510,15 +3508,15 @@ msgstr ""
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:161
+#: score.cc:162
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:166
+#: score.cc:167
 msgid "errors found, ignoring music expression"
 msgstr ""
 
-#: script-engraver.cc:117
+#: script-engraver.cc:116
 #, c-format
 msgid "do not know how to interpret articulation: %s"
 msgstr ""
@@ -3528,7 +3526,7 @@ msgstr ""
 msgid "script-stencil property must be pair: %s"
 msgstr ""
 
-#: script-interface.cc:58
+#: script-interface.cc:59
 msgid ""
 "script needs an explicit direction specifier to disambiguate between "
 "different glyphs"
@@ -3538,57 +3536,57 @@ msgstr ""
 #. precomputed length.
 #. TODO: It might be nice to log the actual music that was
 #. iterated in a debug message.
-#: sequential-iterator.cc:141
+#: sequential-iterator.cc:140
 msgid "total length of sequential music elements is different than anticipated"
 msgstr ""
 
 #. iter_ is !ok earlier than the length of its music predicts.
 #. Mitigate by waiting until the expected time so that the next
 #. element starts in sync.
-#: sequential-iterator.cc:174
+#: sequential-iterator.cc:173
 msgid "music is shorter than anticipated"
 msgstr ""
 
-#: side-position-interface.cc:477
+#: side-position-interface.cc:486
 #, c-format
 msgid "no side-axis setting found for grob %s."
 msgstr ""
 
-#: skyline.cc:555
+#: skyline.cc:561
 msgid "Cannot have negative horizon padding.  Junking."
 msgstr ""
 
-#: slur-engraver.cc:114
+#: slur-engraver.cc:115
 #, c-format
 msgid "direction of %s invalid: %d"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-engraver.cc:228
+#: slur-engraver.cc:230
 #, c-format
 msgid "already have %s"
 msgstr ""
 
-#: slur-engraver.cc:245
+#: slur-engraver.cc:248
 #, c-format
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-engraver.cc:308
+#: slur-engraver.cc:314
 #, c-format
 msgid "cannot end %s"
 msgstr ""
 
-#: slur-scoring.cc:358
+#: slur-scoring.cc:361
 msgid "no viable slur configuration found"
 msgstr ""
 
-#: slur-scoring.cc:483
+#: slur-scoring.cc:490
 msgid "slur trying to encompass an empty note column."
 msgstr ""
 
-#: slur.cc:405
+#: slur.cc:413
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3608,32 +3606,32 @@ msgstr ""
 msgid "expected to read %zu characters, got %zu"
 msgstr ""
 
-#: staff-performer.cc:307
+#: staff-performer.cc:303
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:308
+#: staff-performer.cc:304
 msgid "remapping modulo 16"
 msgstr ""
 
-#: stem-engraver.cc:98
+#: stem-engraver.cc:99
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:150
+#: stem-engraver.cc:152
 #, c-format
 msgid "adding note head to incompatible stem (type = %d/%d)"
 msgstr ""
 
-#: stem-engraver.cc:153
+#: stem-engraver.cc:154
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
-#: stem-tremolo.cc:300
+#: stem-tremolo.cc:307
 msgid "Whole-note tremolo may collide with simultaneous notes."
 msgstr ""
 
-#: stem-tremolo.cc:354
+#: stem-tremolo.cc:360
 msgid "stem tremolo has no note heads"
 msgstr ""
 
@@ -3641,23 +3639,23 @@ msgstr ""
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: stencil-integral.cc:491
+#: stencil-integral.cc:475
 msgid "Malformed path for path stencil."
 msgstr ""
 
-#: stencil-scheme.cc:483
+#: stencil-scheme.cc:474
 #, c-format
 msgid ""
 "invalid sequence %c%c in color (characters should be in one of ranges 0-9, a-"
 "f, A-F)"
 msgstr ""
 
-#: stream-event.cc:109
+#: stream-event.cc:112
 #, c-format
 msgid "conflict with event: `%s'"
 msgstr ""
 
-#: stream-event.cc:112
+#: stream-event.cc:115
 #, c-format
 msgid "discarding event: `%s'"
 msgstr ""
@@ -3667,44 +3665,44 @@ msgstr ""
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:523
+#: system.cc:524
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
 
-#: system.cc:1022
+#: system.cc:1033
 msgid ""
 "refusing to create a grob sticking to a System grob; systems should not be "
 "created from custom engravers."
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:201
+#: text-interface.cc:208
 #, c-format
 msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
 msgstr ""
 
-#: text-spanner-engraver.cc:62
+#: text-spanner-engraver.cc:63
 msgid "cannot find start of text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:75
+#: text-spanner-engraver.cc:76
 msgid "already have a text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:76
+#: text-spanner-engraver.cc:77
 msgid "text spanner was started here"
 msgstr ""
 
-#: text-spanner-engraver.cc:125
+#: text-spanner-engraver.cc:126
 msgid "unterminated text spanner"
 msgstr ""
 
-#: tie-engraver.cc:123
+#: tie-engraver.cc:125
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:369
+#: tie-engraver.cc:370
 msgid "lonely tie"
 msgstr ""
 
@@ -3713,20 +3711,20 @@ msgstr ""
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:91
+#: time-signature-engraver.cc:92
 #, c-format
 msgid "strange time signature found: %d/%d"
 msgstr ""
 
-#: time-signature-engraver.cc:110
+#: time-signature-engraver.cc:111
 msgid "mid-measure time signature without \\partial"
 msgstr ""
 
-#: time-signature-performer.cc:90
+#: time-signature-performer.cc:93
 msgid "bad baseMoment/beatStructure for MIDI time signature"
 msgstr ""
 
-#: timing-translator.cc:259
+#: timing-translator.cc:256
 msgid "found music after \\fine"
 msgstr ""
 
@@ -3742,7 +3740,7 @@ msgid ""
 "Score_engraver or Score_performer)"
 msgstr ""
 
-#: translator-group.cc:141
+#: translator-group.cc:147
 #, c-format
 msgid "cannot find: `%s'"
 msgstr ""
@@ -3755,30 +3753,30 @@ msgstr ""
 msgid "omitting tuplet bracket with neither left nor right bound"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:382
+#: vaticana-ligature-engraver.cc:380
 #, c-format
 msgid ""
 "ignored prefix(es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:445
+#: vaticana-ligature-engraver.cc:443
 msgid ""
 "Ambiguous use of dots in ligature: there are multiple dotted notes with the "
 "same pitch.  The ligature should be split."
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:503
+#: vaticana-ligature-engraver.cc:501
 msgid ""
 "This ligature has a dotted head followed by a non-dotted head.  The ligature "
 "should be split after the last dotted head before this head."
 msgstr ""
 
-#: vaticana-ligature.cc:96
+#: vaticana-ligature.cc:91
 msgid "flexa-height undefined; assuming 0"
 msgstr ""
 
-#: vaticana-ligature.cc:101
+#: vaticana-ligature.cc:96
 msgid "ascending vaticana style flexa"
 msgstr ""
 
@@ -3786,30 +3784,30 @@ msgstr ""
 msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
 msgstr ""
 
-#: vertical-align-engraver.cc:169
+#: vertical-align-engraver.cc:170
 #, c-format
 msgid "alignAboveContext not found: %s"
 msgstr ""
 
-#: vertical-align-engraver.cc:174
+#: vertical-align-engraver.cc:175
 #, c-format
 msgid "alignBelowContext not found: %s"
 msgstr ""
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:320
+#: volta-engraver.cc:317
 msgid "cannot end volta spanner"
 msgstr ""
 
-#: volta-engraver.cc:330
+#: volta-engraver.cc:327
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr ""
 
-#: volta-engraver.cc:335
+#: volta-engraver.cc:332
 msgid "also already have an ended spanner"
 msgstr ""
 
-#: volta-engraver.cc:336
+#: volta-engraver.cc:333
 msgid "giving up"
 msgstr ""
 
