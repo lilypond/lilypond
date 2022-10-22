@@ -27,6 +27,15 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.23.14 released  @emph{October 9, 2022}
+
+We are happy to announce the release of LilyPond 2.23.14. This is termed a
+development release, but these are usually reliable. However, if you require
+stability, we recommend using version 2.22.2, the current stable release.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.23.13 released  @emph{September 18, 2022}
 
 We are happy to announce the release of LilyPond 2.23.13. This is termed a
