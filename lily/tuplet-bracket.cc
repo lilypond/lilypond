@@ -387,6 +387,7 @@ Tuplet_bracket::print (SCM smob)
     Don't print the bracket when it would be smaller than the number.
     ...Unless the user has coded bracket-visibility = #t, that is.
   */
+
   Real gap = 0.;
   if (bracket_visibility && number_grob)
     {
@@ -395,7 +396,7 @@ Tuplet_bracket::print (SCM smob)
         {
           gap = ext.length () + 1.0;
 
-          if ((0.75 * x_span.length () < gap) && !bracket_prop)
+          if (!from_scm<bool> (bracket_vis_prop) && gap > x_span.length ())
             bracket_visibility = false;
         }
     }
