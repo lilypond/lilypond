@@ -531,7 +531,7 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
 void
 Slur_configuration::run_next_scorer (Slur_score_state const &state)
 {
-  switch (next_scorer_todo)
+  switch (next_scorer_todo_)
     {
     case EXTRA_ENCOMPASS:
       score_extra_encompass (state);
@@ -548,13 +548,13 @@ Slur_configuration::run_next_scorer (Slur_score_state const &state)
     default:
       assert (false);
     }
-  next_scorer_todo++;
+  next_scorer_todo_++;
 }
 
 bool
 Slur_configuration::done () const
 {
-  return next_scorer_todo >= NUM_SCORERS;
+  return next_scorer_todo_ >= NUM_SCORERS;
 }
 
 unique_ptr<Slur_configuration>
@@ -563,6 +563,6 @@ Slur_configuration::new_config (Drul_array<Offset> const &offs, size_t idx)
   auto conf = std::make_unique<Slur_configuration> ();
   conf->attachment_ = offs;
   conf->index_ = idx;
-  conf->next_scorer_todo = INITIAL_SCORE + 1;
+  conf->next_scorer_todo_ = INITIAL_SCORE + 1;
   return conf;
 }

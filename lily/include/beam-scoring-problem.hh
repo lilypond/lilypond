@@ -51,7 +51,7 @@ public:
   Real demerits;
   std::string score_card_;
 
-  int next_scorer_todo;
+  int next_scorer_todo_;
 
   Beam_configuration ();
   bool done () const;

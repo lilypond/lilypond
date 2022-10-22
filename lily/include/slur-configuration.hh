@@ -50,7 +50,7 @@ public:
     NUM_SCORERS,
   };
 
-  int next_scorer_todo;
+  int next_scorer_todo_;
 
   Slur_configuration ();
 

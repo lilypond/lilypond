@@ -136,13 +136,13 @@ shrink_extra_weight (Real x, Real fac)
 Beam_configuration::Beam_configuration ()
 {
   demerits = 0.0;
-  next_scorer_todo = ORIGINAL_DISTANCE;
+  next_scorer_todo_ = ORIGINAL_DISTANCE;
 }
 
 bool
 Beam_configuration::done () const
 {
-  return next_scorer_todo >= NUM_SCORERS;
+  return next_scorer_todo_ >= NUM_SCORERS;
 }
 
 void
@@ -165,7 +165,7 @@ Beam_configuration::new_config (Drul_array<Real> start, Drul_array<Real> offset)
   // the ideal offset first.
   Real start_score = abs (offset[RIGHT]) + abs (offset[LEFT]);
   qs->demerits = start_score / 1000.0;
-  qs->next_scorer_todo = ORIGINAL_DISTANCE + 1;
+  qs->next_scorer_todo_ = ORIGINAL_DISTANCE + 1;
 
   return qs;
 }
@@ -960,7 +960,7 @@ Beam_scoring_problem::generate_quants (
 void
 Beam_scoring_problem::one_scorer (Beam_configuration *config) const
 {
-  switch (config->next_scorer_todo)
+  switch (config->next_scorer_todo_)
     {
     case SLOPE_IDEAL:
       score_slope_ideal (config);
@@ -989,7 +989,7 @@ Beam_scoring_problem::one_scorer (Beam_configuration *config) const
     default:
       assert (false);
     }
-  config->next_scorer_todo++;
+  config->next_scorer_todo_++;
 }
 
 Beam_configuration *
