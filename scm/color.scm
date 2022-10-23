@@ -15,6 +15,33 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(define-public standard-color-list '())
+
+(define-syntax-rule (define-color name value)
+  (begin
+    (define-public name value)
+    (set! standard-color-list (acons 'name value standard-color-list))))
+
+(define-color black '(0.0 0.0 0.0))
+
+(define-color white '(1.0 1.0 1.0))
+(define-color red '(1.0 0.0 0.0))
+(define-color green '(0.0 1.0 0.0))
+(define-color blue '(0.0 0.0 1.0))
+(define-color cyan '(0.0 1.0 1.0))
+(define-color magenta '(1.0 0.0 1.0))
+(define-color yellow '(1.0 1.0 0.0))
+
+(define-color grey '(0.5 0.5 0.5))
+(define-color darkred '(0.5 0.0 0.0))
+(define-color darkgreen '(0.0 0.5 0.0))
+(define-color darkblue '(0.0 0.0 0.5))
+(define-color darkcyan '(0.0 0.5 0.5))
+(define-color darkmagenta '(0.5 0.0 0.5))
+(define-color darkyellow '(0.5 0.5 0.0))
+
+(set! standard-color-list (reverse! standard-color-list))
+
 (define shared-color-list
   '((aliceblue 0.94117647058823528 0.97254901960784312 1)
     (antiquewhite 0.98039215686274506 0.92156862745098034 0.84313725490196079)

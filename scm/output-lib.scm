@@ -836,24 +836,6 @@ extent of the grob to the extent of the staff."
       (list r g b a)
       (list r g b)))
 
-;; predefined colors
-(define-public black       '(0.0 0.0 0.0))
-(define-public white       '(1.0 1.0 1.0))
-(define-public red         '(1.0 0.0 0.0))
-(define-public green       '(0.0 1.0 0.0))
-(define-public blue        '(0.0 0.0 1.0))
-(define-public cyan        '(0.0 1.0 1.0))
-(define-public magenta     '(1.0 0.0 1.0))
-(define-public yellow      '(1.0 1.0 0.0))
-
-(define-public grey        '(0.5 0.5 0.5))
-(define-public darkred     '(0.5 0.0 0.0))
-(define-public darkgreen   '(0.0 0.5 0.0))
-(define-public darkblue    '(0.0 0.0 0.5))
-(define-public darkcyan    '(0.0 0.5 0.5))
-(define-public darkmagenta '(0.5 0.0 0.5))
-(define-public darkyellow  '(0.5 0.5 0.0))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; key signature
