@@ -40,7 +40,6 @@ public:
   static void add_column (Spanner *me, Item *);
   static void add_script (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);
-  static Spanner *parallel_beam (Spanner *me, std::vector<Grob *> const &cols);
   static void calc_position_and_height (Spanner *, Real *, Real *dy);
   static Direction get_default_dir (Grob *);
   static bool bracket_basic_visibility (Spanner *me);

@@ -1450,6 +1450,8 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
+     (potential-beam ,ly:grob? "For tuplet brackets, a grob to use as
+parallel beam unless the tuplet is broken.")
      (pure-relevant-grobs ,ly:grob-array? "All the grobs (items and spanners)
 that are relevant for finding the @code{pure-Y-extent}")
      (pure-relevant-items ,ly:grob-array? "A subset of elements that are

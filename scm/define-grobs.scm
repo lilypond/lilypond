@@ -3753,8 +3753,10 @@ line (created with @code{\\startTrillSpan}, not with
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-positions . ,ly:tuplet-bracket::calc-x-positions)
         (visible-over-note-heads . #f)
-
         (meta . ((class . Spanner)
+                 (object-callbacks
+                  . ((beam . ,ly:tuplet-bracket::calc-beam)
+                     (potential-beam . ,ly:tuplet-bracket::calc-potential-beam)))
                  (interfaces . (line-interface
                                 outside-staff-interface
                                 tuplet-bracket-interface))

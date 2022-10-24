@@ -3357,3 +3357,41 @@ for measure division ~a")
     (if is-end-mark
         RIGHT
         LEFT)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tuplet brackets
+
+(define-public (ly:tuplet-bracket::calc-potential-beam grob)
+  ;; Find a beam that encompasses the span of the tuplet bracket.  The
+  ;; "potential" part of this is that it is computable before line breaking and
+  ;; therefore does not take line breaking into account.
+  (let* ((left-bound (ly:spanner-bound grob LEFT))
+         (right-bound (ly:spanner-bound grob RIGHT))
+         (note-columns (ly:grob-object grob 'note-columns))
+         (first-col (ly:grob-array-ref note-columns 0))
+         (last-col (ly:grob-array-ref note-columns
+                                      (1- (ly:grob-array-length note-columns))))
+         (left-stem (ly:grob-object first-col 'stem #f))
+         (right-stem (ly:grob-object last-col 'stem #f)))
+    (and
+     left-stem
+     right-stem
+     ;; Don't use a parallel beam if tupletFullNote = ##t
+     (eq? (ly:item-get-column right-stem)
+          (ly:item-get-column right-bound))
+     (let* ((left-beam (ly:grob-object left-stem 'beam #f))
+            (right-beam (ly:grob-object right-stem 'beam #f)))
+       (and left-beam
+            right-beam
+            (eq? left-beam right-beam)
+            left-beam)))))
+
+(define-public (ly:tuplet-bracket::calc-beam grob)
+  (let* ((left-bound (ly:spanner-bound grob LEFT))
+         (right-bound (ly:spanner-bound grob RIGHT)))
+    ;; Don't use a parallel beam if we are broken.
+    (and
+     (zero? (ly:item-break-dir left-bound))
+     (zero? (ly:item-break-dir right-bound))
+     (ly:grob-object grob 'potential-beam))))

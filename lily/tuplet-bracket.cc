@@ -84,35 +84,6 @@ get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
   return g;
 }
 
-/*
-  Return beam that encompasses the span of the tuplet bracket.
-*/
-Spanner *
-Tuplet_bracket::parallel_beam (Spanner *me, std::vector<Grob *> const &cols)
-{
-  Item *left = me->get_bound (LEFT);
-  Item *right = me->get_bound (RIGHT);
-  if (!left || left->break_status_dir () || !right
-      || right->break_status_dir ())
-    return 0;
-
-  Drul_array<Item *> stems (Note_column::get_stem (cols.front ()),
-                            Note_column::get_stem (cols.back ()));
-
-  if (!stems[RIGHT] || !stems[LEFT]
-      || (stems[RIGHT]->get_column () != right->get_column ()))
-    return 0;
-
-  Drul_array<Spanner *> beams;
-  for (const auto d : {LEFT, RIGHT})
-    beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
-
-  if (!beams[LEFT] || beams[LEFT] != beams[RIGHT] || me->is_broken ())
-    return 0;
-
-  return beams[LEFT];
-}
-
 MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,
                       "ly:tuplet-bracket::calc-connect-to-neighbors", 1);
 SCM
@@ -164,9 +135,7 @@ equal_bounds (Spanner *s1, Spanner *s2)
 bool
 Tuplet_bracket::bracket_basic_visibility (Spanner *me)
 {
-  extract_grob_set (me, "note-columns", columns);
-
-  Spanner *par_beam = parallel_beam (me, columns);
+  Spanner *par_beam = unsmob<Spanner> (get_object (me, "beam")); // NB may be null
   bool equally_long = equal_bounds (par_beam, me);
   bool bracket_visibility = !(par_beam && equally_long);
 
@@ -549,7 +518,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 
   Direction dir = get_grob_direction (me);
 
-  Grob *par_beam = parallel_beam (me, columns);
+  Grob *par_beam = unsmob<Grob> (get_object (me, "beam")); // NB may be null
 
   Item *lgr = get_x_bound_item (me, LEFT, dir);
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
@@ -840,7 +809,13 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   if (me->check_cross_staff (commony))
     return SCM_BOOL_T;
 
-  Grob *par_beam = parallel_beam (me, cols);
+  // Whether we want to use a parallel beam depends on whether we are going to
+  // be broken.  However, we will only have that information after line
+  // breaking, while cross-staff needs to be known before line breaking.
+  // Therefore we conservatively mark as cross-staff if there is a potential
+  // beam.
+  Grob *par_beam
+    = unsmob<Grob> (get_object (me, "potential-beam")); // NB may be null
 
   if (par_beam && from_scm<bool> (get_property (par_beam, "cross-staff")))
     return SCM_BOOL_T;
@@ -866,6 +841,7 @@ are printed at the edges.
                /* properties */
                R"(
 avoid-scripts
+beam
 bracket-flare
 bracket-visibility
 break-overshoot
@@ -878,6 +854,7 @@ full-length-padding
 full-length-to-extent
 gap
 positions
+potential-beam
 note-columns
 padding
 tuplet-number
