@@ -69,7 +69,7 @@ protected:
   void set_layout (Output_def *layout) { layout_ = layout; }
   void substitute_object_links (Direction, SCM);
   void substitute_object_links (System *, SCM);
-  Real get_offset (Axis a) const;
+  Real get_offset (Axis a);
   SCM try_callback (SCM, SCM);
   SCM try_callback_on_alist (SCM *, SCM, SCM);
   void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
@@ -128,13 +128,12 @@ public:
 
   /* Properties */
   SCM get_property_alist_chain (SCM) const;
-  SCM internal_get_property (SCM symbol) const;
+  SCM internal_get_property (SCM symbol);
   SCM internal_get_property_data (SCM symbol) const;
-  SCM internal_get_pure_property (SCM symbol, vsize start, vsize end) const;
+  SCM internal_get_pure_property (SCM symbol, vsize start, vsize end);
   SCM internal_get_maybe_pure_property (SCM symbol, bool pure, vsize start,
-                                        vsize end) const;
-  SCM internal_get_non_callback_marker_property_data (SCM symbol) const;
-  SCM internal_get_object (SCM symbol) const;
+                                        vsize end);
+  SCM internal_get_object (SCM symbol);
   void internal_set_object (SCM sym, SCM val);
   void internal_del_property (SCM symbol);
   void instrumented_set_property (SCM, SCM, char const *, int, char const *);
@@ -164,22 +163,22 @@ public:
                                                    vsize end) const = 0;
 
   /* printing */
-  const Stencil *get_stencil () const;
-  Stencil get_print_stencil () const;
+  const Stencil *get_stencil ();
+  Stencil get_print_stencil ();
 
   /* interfaces */
   bool internal_has_interface (SCM intf) const;
 
   /* offsets */
   void translate_axis (Real, Axis);
-  Real relative_coordinate (Grob const *refp, Axis) const;
-  Real parent_relative (Grob const *refp, Axis) const;
+  Real relative_coordinate (Grob const *refp, Axis);
+  Real parent_relative (Grob const *refp, Axis);
   Real pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end);
   Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, vsize start,
                               vsize end);
 
   /* extents */
-  Interval extent (Grob const *refpoint, Axis) const;
+  Interval extent (Grob const *refpoint, Axis);
   void flush_extent_cache (Axis);
   virtual Interval pure_y_extent (Grob *refpoint, vsize start, vsize end);
   Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, vsize start,

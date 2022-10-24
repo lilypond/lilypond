@@ -163,8 +163,13 @@ Spanner::get_bound (Direction d) const
          the engravers taking care of the host can set its right bound (and
          even the left bound) as late as the finalize hook, and we don't want
          dependencies on engraver order.  So we handle this at bound retrieval
-         time, falling back on the host's bounds if we don't have any. */
-      if (Spanner *sp = unsmob<Spanner> (get_object (this, "sticky-host")))
+         time, falling back on the host's bounds if we don't have any.
+
+         N.B. We want this method const, and it would be strange if an object callback
+         for sticky-host had side effects.
+      */
+      Spanner *unconst = const_cast<Spanner *> (this);
+      if (Spanner *sp = unsmob<Spanner> (get_object (unconst, "sticky-host")))
         return sp->get_bound (d);
       else
         programming_error ("sticky spanner's host is not a spanner");
@@ -304,7 +309,7 @@ Spanner::Spanner (Spanner const &s)
   left-bound-info/right-bound-info.
 */
 Real
-Spanner::spanner_length () const
+Spanner::spanner_length ()
 {
   Interval lr = from_scm (get_property (this, "X-positions"), Interval (1, -1));
 

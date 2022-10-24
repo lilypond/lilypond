@@ -123,7 +123,7 @@ Grob::~Grob ()
 ****************************************************************/
 
 const Stencil *
-Grob::get_stencil () const
+Grob::get_stencil ()
 {
   if (!is_live ())
     return 0;
@@ -133,7 +133,7 @@ Grob::get_stencil () const
 }
 
 Stencil
-Grob::get_print_stencil () const
+Grob::get_print_stencil ()
 {
   SCM stil = get_property (this, "stencil");
 
@@ -273,6 +273,7 @@ Grob::handle_broken_dependencies ()
      give a bound to the grobs they create even if unterminated
      (we don't want duplicated warnings).
    */
+
   if (sp && !(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       suicide ();
@@ -361,12 +362,12 @@ Grob::translate_axis (Real y, Axis a)
 
 /* Find the offset on axis a relative to refp. */
 Real
-Grob::relative_coordinate (Grob const *refp, Axis a) const
+Grob::relative_coordinate (Grob const *refp, Axis a)
 {
   // refp should really always be non-null, but this
   // does not hold currently.
   Real result = 0.0;
-  for (const Grob *ancestor = this; ancestor != refp;
+  for (Grob *ancestor = this; ancestor != refp;
        ancestor = ancestor->get_parent (a))
     {
       // !ancestor here means that we asked for a coordinate
@@ -380,7 +381,7 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
 }
 
 Real
-Grob::parent_relative (Grob const *refp, Axis a) const
+Grob::parent_relative (Grob const *refp, Axis a)
 {
   if (Grob *p = get_parent (a))
     return p->relative_coordinate (refp, a);
@@ -433,7 +434,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 
 /* Invoke callbacks to get offset relative to parent.  */
 Real
-Grob::get_offset (Axis a) const
+Grob::get_offset (Axis a)
 {
   if (dim_cache_[a].offset_)
     return *dim_cache_[a].offset_;
@@ -449,7 +450,7 @@ Grob::get_offset (Axis a) const
   if (dim_cache_[a].offset_)
     {
       *dim_cache_[a].offset_ += off;
-      del_property (const_cast<Grob *> (this), sym);
+      del_property (this, sym);
       return *dim_cache_[a].offset_;
     }
   else
@@ -490,7 +491,7 @@ Grob::flush_extent_cache (Axis axis)
 }
 
 Interval
-Grob::extent (Grob const *refp, Axis a) const
+Grob::extent (Grob const *refp, Axis a)
 {
   Real offset = relative_coordinate (refp, a);
   Interval real_ext;
@@ -750,14 +751,17 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
 Stream_event *
 Grob::event_cause () const
 {
-  SCM cause = get_property (this, "cause");
+  // See below about const_cast.
+  SCM cause = get_property (const_cast<Grob *> (this), "cause");
   return unsmob<Stream_event> (cause);
 }
 
 Stream_event *
 Grob::ultimate_event_cause () const
 {
-  SCM cause = get_property (this, "cause");
+  // Mutation in a callback for cause would be strange, and we want
+  // const for origin ().
+  SCM cause = get_property (const_cast<Grob *> (this), "cause");
   while (Grob *g = unsmob<Grob> (cause))
     {
       cause = get_property (g, "cause");
@@ -779,7 +783,10 @@ Grob::origin () const
 string
 Grob::name () const
 {
-  SCM meta = get_property (this, "meta");
+  // Technically this could trigger mutation in a callback, but that
+  // would be crazy for the meta property, and we need to use this
+  // in print_smob (), which should be const.
+  SCM meta = get_property (const_cast<Grob *> (this), "meta");
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm)

@@ -97,14 +97,14 @@ ly_scm2link_array (SCM x)
 }
 
 vector<Grob *> const &
-internal_extract_grob_array (Grob const *elt, SCM symbol)
+internal_extract_grob_array (Grob *elt, SCM symbol)
 {
   return elt ? ly_scm2link_array (elt->internal_get_object (symbol))
              : empty_array;
 }
 
 vector<Item *>
-internal_extract_item_array (Grob const *elt, SCM symbol)
+internal_extract_item_array (Grob *elt, SCM symbol)
 {
   Grob_array *arr = unsmob<Grob_array> (elt->internal_get_object (symbol));
   vector<Item *> items;

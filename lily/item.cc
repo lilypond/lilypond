@@ -143,7 +143,7 @@ Item::handle_prebroken_dependencies ()
 }
 
 bool
-Item::break_visible () const
+Item::break_visible ()
 {
   SCM vis = get_property (this, "break-visibility");
   if (scm_is_vector (vis))

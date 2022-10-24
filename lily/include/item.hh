@@ -49,7 +49,7 @@ public:
   }
 
   static bool is_non_musical (Grob *);
-  bool break_visible () const;
+  bool break_visible ();
 
   bool is_broken () const;
 

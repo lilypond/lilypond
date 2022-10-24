@@ -92,7 +92,7 @@ public:
   }
   bool is_broken () const;
   void do_break ();
-  Real spanner_length () const;
+  Real spanner_length ();
 
   static bool less (Spanner *const &, Spanner *const &);
   Spanner *find_broken_piece (System *) const override;

@@ -115,14 +115,14 @@ public:
    */
   void break_into_pieces (std::vector<Column_x_positions> const &cols);
 
-  std::vector<Item *> broken_col_range (Item const *, Item const *) const;
+  std::vector<Item *> broken_col_range (Item const *, Item const *);
   std::vector<Paper_column *> used_columns_in_range (vsize start,
-                                                     vsize end) const;
-  std::vector<Paper_column *> used_columns () const
+                                                     vsize end);
+  std::vector<Paper_column *> used_columns ()
   {
     return used_columns_in_range (0, std::numeric_limits<vsize>::max ());
   }
-  Paper_column *column (vsize i) const;
+  Paper_column *column (vsize i);
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);
@@ -131,7 +131,7 @@ public:
   Interval begin_of_line_pure_height (vsize start, vsize end);
   Interval rest_of_line_pure_height (vsize start, vsize end);
   Interval pure_refpoint_extent (vsize start, vsize end);
-  void collect_labels (Grob const *, SCM *);
+  void collect_labels (Grob *, SCM *);
   [[noreturn]] System *make_sticky_same_type (Engraver *eng, SCM type,
                                               SCM cause, char const *file,
                                               int line,

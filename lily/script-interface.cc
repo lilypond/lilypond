@@ -155,7 +155,7 @@ Script_interface::print (SCM smob)
 }
 
 bool
-Script_interface::script_priority_less (const Grob *g1, const Grob *g2)
+Script_interface::script_priority_less (Grob *g1, Grob *g2)
 {
   SCM script_priority_sym = ly_symbol2scm ("script-priority");
   SCM p1 = get_property (g1, script_priority_sym);

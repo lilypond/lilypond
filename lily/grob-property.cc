@@ -192,7 +192,7 @@ Grob::internal_get_property_data (SCM sym) const
 }
 
 SCM
-Grob::internal_get_property (SCM sym) const
+Grob::internal_get_property (SCM sym)
 {
   SCM val = get_property_data (this, sym);
 
@@ -222,7 +222,7 @@ Grob::internal_get_property (SCM sym) const
 
 /* Unlike internal_get_property, this function does no caching. Use it, therefore, with caution. */
 SCM
-Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
+Grob::internal_get_pure_property (SCM sym, vsize start, vsize end)
 {
   SCM val = internal_get_property_data (sym);
   if (ly_is_procedure (val))
@@ -242,7 +242,7 @@ Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
 
 SCM
 Grob::internal_get_maybe_pure_property (SCM sym, bool pure, vsize start,
-                                        vsize end) const
+                                        vsize end)
 {
   return pure ? internal_get_pure_property (sym, start, end)
               : internal_get_property (sym);
@@ -293,7 +293,7 @@ Grob::internal_del_property (SCM sym)
 }
 
 SCM
-Grob::internal_get_object (SCM sym) const
+Grob::internal_get_object (SCM sym)
 {
   if (profile_property_accesses)
     note_property_access (&grob_property_lookup_table, sym);

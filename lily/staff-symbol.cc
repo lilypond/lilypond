@@ -118,7 +118,7 @@ Staff_symbol::calc_line_positions (SCM smob)
 }
 
 vector<Real>
-Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
+Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
 {
   // allow override of ledger positions via note head grob...
   if (head)

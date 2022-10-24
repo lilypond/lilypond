@@ -59,7 +59,11 @@ System::all_elements ()
 Grob_array const *
 System::all_elements () const
 {
-  SCM obj = get_object (this, "all-elements");
+  // const_cast assumes that the user doesn't set all-elements
+  // to an object callback that has side effects.  Since all-elements
+  // is used for keeping tracks of all grobs during the formatting
+  // process, user modifications are ill-advised anyway.
+  SCM obj = get_object (const_cast<System *> (this), "all-elements");
   return unsmob<Grob_array> (obj);
 }
 
@@ -483,7 +487,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 }
 
 void
-System::collect_labels (Grob const *col, SCM *labels)
+System::collect_labels (Grob *col, SCM *labels)
 {
   SCM col_labels = get_property (col, "labels");
   if (scm_is_pair (col_labels))
@@ -676,7 +680,7 @@ System::get_paper_system ()
 }
 
 vector<Item *>
-System::broken_col_range (Item const *left_item, Item const *right_item) const
+System::broken_col_range (Item const *left_item, Item const *right_item)
 {
   vector<Item *> ret;
 
@@ -704,7 +708,7 @@ System::broken_col_range (Item const *left_item, Item const *right_item) const
     columns, since they might disrupt the spacing problem.
 */
 vector<Paper_column *>
-System::used_columns_in_range (vsize start, vsize end) const
+System::used_columns_in_range (vsize start, vsize end)
 {
   extract_grob_set (this, "columns", ro_columns);
 
@@ -732,7 +736,7 @@ System::used_columns_in_range (vsize start, vsize end) const
 }
 
 Paper_column *
-System::column (vsize which) const
+System::column (vsize which)
 {
   extract_grob_set (this, "columns", columns);
   if (which >= columns.size ())
