@@ -3615,10 +3615,10 @@ grob_path = symbol_list + r"(?:\s+" + symbol_list + r")*"
 
 grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
 
+def path_replace(m):
+    return m.group(1) + ".".join(re.findall(wordsyntax, m.group(2)))
 
 def convert_overrides_to_dots(s):
-    def path_replace(m):
-        return m.group(1) + ".".join(re.findall(wordsyntax, m.group(2)))
     return re.sub(r"(\\(?:override|revert)\s+)(" + grob_spec + r"\s+" + grob_path + ")",
                   path_replace, s)
 
