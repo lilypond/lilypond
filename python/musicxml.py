@@ -1837,14 +1837,14 @@ def name2class_name(name):
 
 
 def get_class(name):
-    classname = class_dict.get(name)
-    if classname:
-        return classname
-    else:
-        class_name = name2class_name(name)
-        klass = type(class_name, (Music_xml_node,), {})
-        class_dict[name] = klass
-        return klass
+    try:
+        return class_dict[name]
+    except KeyError:
+        pass
+    class_name = name2class_name(name)
+    klass = type(class_name, (Music_xml_node,), {})
+    class_dict[name] = klass
+    return klass
 
 
 def lxml_demarshal_node(node):
