@@ -368,7 +368,7 @@ primer sistema, incloure solament el primer sistema és quelcom trivial.
 @example
 \def\betweenLilyPondSystem#1@{\endinput@}
 
-\begin[fragment]@{lilypond@}
+\begin@{lilypond@}[fragment]
   c'1\( e'( c'~ \break c' d) e f\)
 \end@{lilypond@}
 @end example

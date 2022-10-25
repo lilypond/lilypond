@@ -255,10 +255,6 @@ In the input file, music is specified with any of the following commands:
   YOUR LILYPOND CODE
 \end@{lilypond@}
 
-\begin[@var{options},@var{go},@var{here}]@{lilypond@}
-  YOUR LILYPOND CODE
-\end@{lilypond@}
-
 \lilypond[@var{options},@var{go},@var{here}]@{ YOUR LILYPOND CODE @}
 
 \lilypondfile[@var{options},@var{go},@var{here}]@{@var{filename}@}

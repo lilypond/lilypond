@@ -261,10 +261,6 @@ Nel file di input, la musica viene specificata con uno dei seguenti comandi:
   CODICE LILYPOND
 \end@{lilypond@}
 
-\begin[@var{le},@var{opzioni},@var{vanno},@var{qui}]@{lilypond@}
-  CODICE LILYPOND
-\end@{lilypond@}
-
 \lilypondfile[@var{le},@var{opzioni},@var{vanno},@var{qui}]@{@var{nomefile}@}
 
 \musicxmlfile[@var{le},@var{opzioni},@var{vanno},@var{qui}]@{@var{nomefile}@}
