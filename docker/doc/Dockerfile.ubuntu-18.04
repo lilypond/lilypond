@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM registry.gitlab.com/lilypond/lilypond/base/ubuntu-18.04:20220407
+FROM registry.gitlab.com/lilypond/lilypond/base/ubuntu-18.04:20221027
 
 # Install additional packages for the official documentation build.
 RUN apt-get update && apt-get --no-install-recommends install -y \
