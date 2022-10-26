@@ -751,7 +751,7 @@ de a LilyPond forrásfájlt olvasó emberek számára áttekinthetőbb lesz
 a bemenet.
 
 @warning{Relatív módban minden hang magasságát a forrásfájlban őt megelőző
-hanghoz képest számítja ki a LilyPond, nem pedig az első @code{\relative}
+hanghoz képest számítja ki a LilyPond, nem pedig az első @code{@bs{}relative}
 parancs viszonyítási hangjához képest.}
 
 
