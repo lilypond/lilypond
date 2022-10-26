@@ -354,7 +354,7 @@ Scheme 関数
 @subsection 固定された垂直方向の @code{\paper} スペース変数
 @translationof Fixed vertical spacing \paper variables
 
-@warning{いくつかの @code{\paper} 変数は紙面サイズに応じて@c
+@warning{いくつかの @code{@bs{}paper} 変数は紙面サイズに応じて@c
 自動的に拡縮され、結果として予期せぬ振る舞いを引き起こすことがあります。@c
 @ref{紙面サイズに応じた自動拡縮} を参照してください。}
 
@@ -607,7 +607,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 @subsection 水平方向の @code{\paper} スペース変数
 @translationof Horizontal spacing paper variables
 
-@warning{いくつかの @code{\paper} の間隔は紙面サイズに応じて自動的に@c
+@warning{いくつかの @code{@bs{}paper} の間隔は紙面サイズに応じて自動的に@c
 拡縮され、それにより予期せぬ結果となることがあります。@c
 @ref{紙面サイズに応じた自動拡縮} を参照してください。}
 

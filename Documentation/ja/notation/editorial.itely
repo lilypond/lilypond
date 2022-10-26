@@ -132,7 +132,7 @@
 @code{\magnifyMusic} の値を 0.63 にセットすることで、@code{CueVoice} と同じ@c
 大きさになります。
 
-@warning{@code{\magnifyMusic} コマンドは譜のサイズを変更する時にも@c
+@warning{@code{@bs{}magnifyMusic} コマンドは譜のサイズを変更する時にも@c
 使うべきでは@i{ありません。}@ref{譜サイズを設定する}を参照してください。}
 
 

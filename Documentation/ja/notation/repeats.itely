@@ -182,7 +182,7 @@ LilyPond は以下の種類の繰り返しをサポートします:
 さもないと、予期せぬ数の入れ替えが発生します。}
 
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
-@code{\relative} を @code{\repeat} の中に配置すると、@c
+@code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
 余計な譜が表示されます。@c
 @rprogram{余計な譜が表示される} を参照してください。}
 
@@ -454,7 +454,7 @@ c'4 e g
 
 @warning{以下の手法は特殊な繰り返し構造を表示するためだけに使用され、@c
 予期しない振る舞いをする可能性があります。@c
-たいていのケースでは、繰り返しは標準の @code{\repeat} コマンドを用いるか、@c
+たいていのケースでは、繰り返しは標準の @code{@bs{}repeat} コマンドを用いるか、@c
 適切な小節線を譜刻することによって作成すべきです。@c
 更なる情報は、@ref{Bar lines} を参照してください。}
 
@@ -666,7 +666,7 @@ a'4 b c | a'4 b c
 @ref{Chord repetition} を参照してください。
 
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
-@code{\relative} を @code{\repeat} の中に配置すると、@c
+@code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
 余計な譜が表示されます。@c
 @rprogram{余計な譜が表示される} を参照してください。}
 
