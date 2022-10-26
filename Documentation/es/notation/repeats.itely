@@ -176,11 +176,11 @@ Más de una repetición con más de un final alternativo:
 
 @warning{Si hay dos o más alternativas, no debe aparecer nada
 entre la llave de cierre de una y la de apertura de la otra dentro
-de un bloque @code{\alternative}, pues en caso contrario no
+de un bloque @code{@bs{}alternative}, pues en caso contrario no
 obtendremos el número de finales esperado.}
 
-@warning{Si incluimos @code{\relative} dentro de un
-@code{\repeat} sin instanciar el contexto @code{Voice}
+@warning{Si incluimos @code{@bs{}relative} dentro de un
+@code{@bs{}repeat} sin instanciar el contexto @code{Voice}
 explícitamente, aparecerán pentagramas adicionales no deseados.
 Véase @rprogram{Aparece un pentagrama de más}.}
 
@@ -467,7 +467,7 @@ situaciones.
 construcciones de repetición poco usuales, y pueden tener un
 comportamiento distinto al esperado.  En casi todas las
 situaciones, se deben crear las repeticiones utilizando la
-instrucción estándar @code{\repeat} o imprimiendo las barras
+instrucción estándar @code{@bs{}repeat} o imprimiendo las barras
 de compás correspondientes.  Para ver más información, consulte
 @ref{Barras de compás}.}
 
@@ -687,8 +687,8 @@ Las construcciones de acorde se pueden repetir mediante el símbolo
 de repetición de acordes @code{q}.  Véase @ref{Repetición de
 acordes}.
 
-@warning{Si pone @code{\relative} dentro de un bloque
-@code{\repeat} sin instanciar explícitamente el contexto
+@warning{Si pone @code{@bs{}relative} dentro de un bloque
+@code{@bs{}repeat} sin instanciar explícitamente el contexto
 @code{Voice}, aparecerán pentagramas no deseados.  Véase
 @rprogram{Aparece un pentagrama de más}.}
 

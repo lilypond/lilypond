@@ -150,7 +150,7 @@ sintaxis de sus archivos de entrada a partir de la versión
 anterior.  Ello significa que la herramienta @command{convert-ly}
 solamente convierte archivos hasta el último cambio de sintaxis
 que tiene, lo que a su vez podría implicar que el número de
-@code{\version} que se escribe en el archivo actualizado es, a
+@code{@bs{}version} que se escribe en el archivo actualizado es, a
 veces, anterior que la versión de la propia herramienta
 @command{convert-ly}.}
 

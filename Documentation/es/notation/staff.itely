@@ -1663,7 +1663,7 @@ citan, pero no las articulaciones, marcas dinámicas, elementos de
 marcado, etc.
 
 @warning{Cuando un contexto @code{Voice} da comienzo con
-@code{\cueDuring}, como en el ejemplo siguiente, el contexto
+@code{@bs{}cueDuring}, como en el ejemplo siguiente, el contexto
 @code{Voice} se debe declarar explícitamente, pues en caso
 contrario toda la expresión musical pertenecería al contexto
 @code{CueVoice}.}
