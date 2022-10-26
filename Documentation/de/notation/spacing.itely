@@ -302,7 +302,7 @@ Installierte Dateien:
 @subsection Vertikale @code{\paper}-Variablen mit festen Abständen
 @translationof Fixed vertical spacing paper variables
 
-@warning{Einige @code{\paper}-Dimensionen werden automatisch nach
+@warning{Einige @code{@bs{}paper}-Dimensionen werden automatisch nach
 Papierformat skaliert, was zu ungewolltem Verhalten führen kann.  Siehe
 @ref{Automatische Skalierung auf ein Papierformat}.}
 
@@ -575,7 +575,7 @@ Schnipsel:
 @subsection @code{\paper}-Variablen für horizontale Abstände
 @translationof Horizontal spacing paper variables
 
-@warning{Einige @code{\paper}-Dimensionen werden automatische
+@warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
 entsprechend dem Papierformat skaliert und können deshalb ungewollte
 Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
 

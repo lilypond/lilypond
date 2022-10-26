@@ -89,7 +89,7 @@ im Verzeichnis, in welchem die Datei liegt, aufzurufen.  Hierdurch wird
 @file{meineDatei.ly~} gesichert.
 
 @warning{@command{convert-ly} konvertiert immer bis zur letzten Syntax-Änderung,
-die das Programm beherrscht.  Das heißt, dass die @code{\version}-Nummer,
+die das Programm beherrscht.  Das heißt, dass die @code{@bs{}version}-Nummer,
 die nach der Konversion in der Datei steht, normalerweise niedriger ist als
 die Version von @command{convert-ly} selbst.}
 

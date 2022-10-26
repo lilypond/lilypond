@@ -131,7 +131,7 @@ siehe @ref{Kontexte und Engraver}.
 
 @warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
 empfiehlt es sich, die Notenzeilen und die Stimmen immer explizit
-mit @code{\new Staff} und @code{\new Voice} zu erzeugen.}
+mit @code{@bs{}new Staff} und @code{@bs{}new Voice} zu erzeugen.}
 
 Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
 nur den @code{\score}-Befehl näher betrachten.
@@ -1583,12 +1583,12 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
-@warning{Der \@code{new Score}-Befehl sollte nicht benutzt werden,
+@warning{Der @code{@bs{}new Score}-Befehl sollte nicht benutzt werden,
 weil der Partitur-(Score)-Kontext der obersten Ebene
 normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
-innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
+innerhalb der @code{@bs{}score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
-sollen, können innerhalb der \@code{layout}-Umgebung definiert werden.
+sollen, können innerhalb der @code{@bs{}layout}-Umgebung definiert werden.
 Siehe @ref{Kontexteigenschaften verändern}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen

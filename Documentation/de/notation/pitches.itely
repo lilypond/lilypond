@@ -755,8 +755,8 @@ Tonhöhe @var{vonTonhöhe} hat, wird in die Tonhöhe @var{nachTonhöhe} umgewand
 Noten um das gleiche Intervall.  Beide Tonhöhen
 werden im absoluten Modus eingegeben.
 
-@warning{Tonhöhen innerhalb einer @code{\transpose}-Umgebung
-sind absolut, es sei denn, ein @code{\relative} wird
+@warning{Tonhöhen innerhalb einer @code{@bs{}transpose}-Umgebung
+sind absolut, es sei denn, ein @code{@bs{}relative} wird
 eingefügt.}
 
 So kann z. B. ein Stück in D-Dur, wenn es für den Sänger etwas zu
@@ -909,7 +909,7 @@ music = \relative { c' d e f }
 
 @warning{Motive, die umgekehrt werden, sollen in absoluten Tonhöhen
 notiert werden oder zuerst in absolute Tonhöhen umgewandelt werden,
-indem sie in eine @code{\relative}-Umgebung eingeschlossen werden.}
+indem sie in eine @code{@bs{}relative}-Umgebung eingeschlossen werden.}
 
 @morerefs
 Notationsreferenz:
