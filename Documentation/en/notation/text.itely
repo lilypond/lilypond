@@ -431,15 +431,15 @@ notes, often aligned to a bar line.
 
 @funindex \mark
 
-@warning{Older LilyPond versions used the @code{\mark} command for
+@warning{Older LilyPond versions used the @code{@bs{}mark} command for
 text marks, even though it is primarily intended for rehearsal
-marks (@pxref{Rehearsal marks}).  The @code{\textMark} and
-@code{\textEndMark} commands are better suited for text marks with
+marks (@pxref{Rehearsal marks}).  The @code{@bs{}textMark} and
+@code{@bs{}textEndMark} commands are better suited for text marks with
 regard to their default settings as well as the ability to have
 several text marks at the same moment.  It is therefore
-recommended to use @code{\textMark} and @code{\textEndMark}
-instead of @code{\mark "Text"} or @code{\mark \markup @dots{}}.
-Note that if converting code that uses @code{\mark} for text
+recommended to use @code{@bs{}textMark} and @code{@bs{}textEndMark}
+instead of @code{@bs{}mark "Text"} or @code{@bs{}mark @bs{}markup @dots{}}.
+Note that if converting code that uses @code{@bs{}mark} for text
 marks, overrides using @code{RehearsalMark} should be changed to
 @code{TextMark}.}
 

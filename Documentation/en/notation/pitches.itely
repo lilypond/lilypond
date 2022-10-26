@@ -779,8 +779,8 @@ is changed to @code{@var{topitch}} and any other note is
 transposed by the same interval.  Both pitches are entered in
 absolute mode.
 
-@warning{Music inside a @code{\transpose} block is absolute
-unless a @code{\relative} is included in the block.}
+@warning{Music inside a @code{@bs{}transpose} block is absolute
+unless a @code{@bs{}relative} is included in the block.}
 
 Consider a piece written in the key of D-major.  It can be
 transposed up to E-major; note that the key signature is
@@ -927,7 +927,7 @@ music = \relative { c' d e f }
 
 @warning{Motifs to be inverted should be expressed in absolute form
 or be first converted to absolute form by enclosing them in a
-@code{\relative} block.}
+@code{@bs{}relative} block.}
 
 @morerefs
 Notation Reference:

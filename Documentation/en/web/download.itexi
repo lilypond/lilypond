@@ -451,8 +451,8 @@ which contains LilyPond executable files like this:
 [@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} will generally be @code{C:\Program Files (x86)}
-for 64 bit or @code{C:\Program Files} for 32 bit systems.}
+@warning{@var{DIR} will generally be @code{C:@bs{}Program Files (x86)}
+for 64 bit or @code{C:@bs{}Program Files} for 32 bit systems.}
 
 @noindent
 and click @qq{OK} button to close the window.

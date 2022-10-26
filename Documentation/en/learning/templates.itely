@@ -40,7 +40,7 @@ not need to be copied and edited:  instead they are simply
 @code{\include}'d in the input file.
 
 @warning {Unlike most included files, these built-in templates must be
-@code{\include}'d at the @emph{end} of the input file.}
+@code{@bs{}include}'d at the @emph{end} of the input file.}
 
 The required music expressions are entered by defining values for
 specific variables.  These definitions must come before the

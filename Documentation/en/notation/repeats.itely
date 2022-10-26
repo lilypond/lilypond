@@ -122,7 +122,7 @@ a'4 b c d |
 Also, nesting @code{\repeat unfold} can be practical in ways that
 nesting @code{\repeat volta} or @code{\repeat segno} would not be.
 
-@warning{If you include @code{\relative} inside a @code{\repeat}
+@warning{If you include @code{@bs{}relative} inside a @code{@bs{}repeat}
 without explicitly instantiating the @code{Voice} context, extra
 (unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
 
@@ -330,13 +330,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{Every element in an @code{\alternative} block is
+@warning{Every element in an @code{@bs{}alternative} block is
 treated as an alternative ending.  Something as simple as a bar
 check on the wrong side of a bracket can produce unexpected
 results.}
 
-@warning{If you include @code{\relative} inside a
-@code{\repeat} without explicitly instantiating the
+@warning{If you include @code{@bs{}relative} inside a
+@code{@bs{}repeat} without explicitly instantiating the
 @code{Voice} context, extra (unwanted) staves will appear.  See
 @rprogram{An extra staff appears}.}
 
@@ -417,7 +417,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{The @code{\volta} and @code{\unfolded} commands
+@warning{The @code{@bs{}volta} and @code{@bs{}unfolded} commands
 function with respect to the innermost repeat enclosing them.}
 
 
@@ -956,7 +956,7 @@ For clarity, it is advisable to use braces in such situations.
 
 @warning{These methods are only used for displaying unusual repeat
 constructs, and may produce unexpected behavior.  In most cases,
-repeats should be created using the standard @code{\repeat} command
+repeats should be created using the standard @code{@bs{}repeat} command
 or by printing the relevant bar lines.  For more information, see
 @ref{Bar lines}.}
 

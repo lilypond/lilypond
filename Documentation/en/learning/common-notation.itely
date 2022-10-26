@@ -816,7 +816,7 @@ little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
 @warning{Each note is relative to the previous note in the input;
-the first one in a @code{\relative} block is relative to @samp{c}
+the first one in a @code{@bs{}relative} block is relative to @samp{c}
 (one octave below the middle@tie{}C).}
 
 
