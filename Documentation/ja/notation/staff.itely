@@ -1362,7 +1362,7 @@ tie-event beam-event tuplet-span-event)} であり、音符、休符、タイ、
 それに連符だけが引用され、アーティキュレーション、強弱記号、マークアップ等は@c
 引用されません。
 
-@warning{以下の例のように @code{Voice} が @code{\cueDuring} で始まる場合、@c
+@warning{以下の例のように @code{Voice} が @code{@bs{}cueDuring} で始まる場合、@c
 @code{Voice} を明示的に宣言する必要があります。@c
 そうしないと音楽表記全体が @code{CueVoice} コンテキストに属してしまいます。}
 
