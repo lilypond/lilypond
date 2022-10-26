@@ -29,6 +29,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         texlive-lang-italian \
         texlive-lang-portuguese \
         texlive-lang-spanish \
+        texlive-xetex \
         ttf-bitstream-vera \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/share/doc /usr/share/man
