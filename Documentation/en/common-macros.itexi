@@ -25,6 +25,14 @@ Macro definitions that contain translatable text belong to file
 
 @c   ***** Displaying text *****
 
+@c We need this for `@warning`: Due to a bug in `texi2html`, ordinary
+@c backslashes disappear if used in commands like `@code`.
+
+@macro bs
+\\
+@end macro
+
+
 @ifnotinfo
 
 @macro notation{TEXT}
