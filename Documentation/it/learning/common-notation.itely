@@ -801,7 +801,7 @@ all'inizio di una linea, tuttavia indentare il codice di LilyPond in
 questo modo lo rende molto più semplice da leggere per l'essere umano.
 
 @warning{Ogni nota è relativa alla nota precedente nell'input; la prima
-in un blocco @code{\relative} è relativa al @samp{c} (un'ottava sotto
+in un blocco @code{@bs{}relative} è relativa al @samp{c} (un'ottava sotto
 il Do@tie{}centrale).}
 
 

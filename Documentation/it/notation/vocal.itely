@@ -1502,10 +1502,10 @@ Attenzione: non usare il trattino basso, @code{_}, per saltare le note,
 perché il trattino basso indica un melisma e fa sì che la sillaba
 precedente sia allineata a sinistra.
 
-@warning{Il comando @code{\skip} deve essere seguito da un numero,
+@warning{Il comando @code{@bs{}skip} deve essere seguito da un numero,
 ma questo numero viene ignorato se nel testo vocale la durata delle
 sillabe deriva dalla durata delle note in una melodia associata attraverso
-@code{\addlyrics} o @code{\lyricsto}.  Ogni @code{\skip} salta una
+@code{@bs{}addlyrics} o @code{@bs{}lyricsto}.  Ogni @code{@bs{}skip} salta una
 singola nota di un qualsiasi valore, senza tener conto del valore del
 numero che segue.}
 
@@ -2137,7 +2137,7 @@ contenente la terzina.
 Attenzione al posizionamento del comando @code{\set associatedVoice}: appare
 una sillaba troppo presto, ma ciò è corretto.
 
-@warning{Il comando @code{\set associatedVoice} deve essere inserito
+@warning{Il comando @code{@bs{}set associatedVoice} deve essere inserito
 una sillaba @emph{prima} di quella in cui deve verificarsi il passaggio
 alla nuova voce.  In altre parole, il passaggio alla voce associata
 accade una sillaba dopo quella che ci si aspetterebbe.  Ciò è dovuto

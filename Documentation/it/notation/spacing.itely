@@ -359,7 +359,7 @@ File installati:
 @subsection Variabili @code{\paper} della spaziatura verticale fissa
 @translationof Fixed vertical spacing paper variables
 
-@warning{Alcune dimensioni definite nel blocco @code{\paper} sono
+@warning{Alcune dimensioni definite nel blocco @code{@bs{}paper} sono
 ridimensionate automaticamente in base al formato carta, portando a
 possibili risultati imprevisti. Vedi
 @ref{Ridimensionamento automatico al formato carta}.}
@@ -633,7 +633,7 @@ Frammenti:
 @subsection Variabili @code{\paper} della spaziatura orizzontale
 @translationof Horizontal spacing paper variables
 
-@warning{Alcune dimensioni in @code{\paper} sono ridimensionate
+@warning{Alcune dimensioni in @code{@bs{}paper} sono ridimensionate
 automaticamente in base al formato carta, producendo talvolta un
 risultato inatteso. Vedi @ref{Ridimensionamento automatico al formato carta}.}
 

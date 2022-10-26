@@ -1359,7 +1359,7 @@ tie-event beam-event tuplet-span-event)}, che significa che vengono citati
 solo note, pause, legature di valore, travature e gruppi irregolari, ma
 non le articolazioni, le indicazioni dinamiche, il testo a margine, etc.
 
-@warning{Quando una voce inizia con @code{\cueDuring}, come
+@warning{Quando una voce inizia con @code{@bs{}cueDuring}, come
 nell'esempio seguente, il contesto @code{Voice} deve essere dichiarato
 esplicitamente, altrimenti l'intera espressione musicale appartiene al
 contesto @code{CueVoice}.}
