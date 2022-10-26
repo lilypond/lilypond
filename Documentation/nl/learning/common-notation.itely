@@ -729,7 +729,7 @@ LilyPond-code maakt het voor mensen veel leesbaarder.
 
 @warning{elke noot is relatief aan de vorige noot in de
 invoer, niet relatief aan de @code{c''} in het eerste
-@code{\relative} commando.}
+@code{@bs{}relative} commando.}
 
 
 @subheading Simultane muziekuitdrukking: enkele notenbalk
