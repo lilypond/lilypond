@@ -800,8 +800,8 @@ cualquier otra nota se transporta el mismo intervalo.  Las dos
 notas se introducen en modo absoluto.
 
 @warning{La música que está dentro de un bloque
-@code{\transpose} es absoluta, a no ser que se incluya una
-instrucción @code{\relative} dentro del bloque.}
+@code{@bs{}transpose} es absoluta, a no ser que se incluya una
+instrucción @code{@bs{}relative} dentro del bloque.}
 
 Por ejemplo, tomemos una pieza escrita en la tonalidad de Re
 mayor.  Se puede transportar hacia arriba a Mi mayor; observe que
@@ -956,7 +956,7 @@ music = \relative { c' d e f }
 
 @warning{Los motivos a invertir deberían venir expresados en modo
 absoluto o convertirse previamente a la forma absoluta
-encerrándolos en un bloque @code{\relative}.}
+encerrándolos en un bloque @code{@bs{}relative}.}
 
 @morerefs
 Referencia de la notación:

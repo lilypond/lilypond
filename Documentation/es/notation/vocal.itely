@@ -1538,10 +1538,10 @@ Nota: no utilice un guión bajo, @code{_}, para saltar notas: el
 guión bajo indica un melisma, y hace que la sílaba anterior
 resulte alineada por la izquierda.
 
-@warning{La instrucción @code{\skip} debe ir seguida por un
+@warning{La instrucción @code{@bs{}skip} debe ir seguida por un
 número, pero este número se ignora dentro de la letra, que deriva
 las duraciones de las notas de una melodía asociada a través de
-@code{\addlyrics} o @code{\lyricsto}.  Cada @code{\skip} salta
+@code{@bs{}addlyrics} o @code{@bs{}lyricsto}.  Cada @code{@bs{}skip} salta
 una sola nota de cualquier valor, independientemente del valor del
 número que se escribe a continuación.}
 
@@ -2173,7 +2173,7 @@ Observe la posición de la instrucción @code{\set associatedVoice}:
 parece estar situada una sílaba antes de lo normal, pero está bien
 así.
 
-@warning{La instrucción @code{\set associatedVoice} se debe
+@warning{La instrucción @code{@bs{}set associatedVoice} se debe
 escribir una sílaba @emph{antes} de aquella en la que queremos que
 se produzca el cambio a la voz nueva.  Dicho de otra forma, el
 cambio de la voz asociada se produce una sílaba más tarde de lo

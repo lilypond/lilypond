@@ -61,7 +61,7 @@ delimitada por un par de llaves:
 
 @c outer?
 @warning{Sólo puede haber @strong{una} expresión musical dentro del
-bloque @code{\score}, y @strong{debe} estar encerrada entre llaves.}
+bloque @code{@bs{}score}, y @strong{debe} estar encerrada entre llaves.}
 
 Esta expresión musical única puede tener cualquier tamaño, y
 puede contener otras expresiones musicales hasta cualquier grado
@@ -3384,9 +3384,9 @@ estar vacío, dentro del bloque @code{\score}:
 @}
 @end example
 
-@warning{Un bloque @code{\score} que, además de la música,
-contiene solamente un bloque @code{\midi} (o sea, @emph{sin}
-el bloque @code{\layout}), solo produce archivos de salida
+@warning{Un bloque @code{@bs{}score} que, además de la música,
+contiene solamente un bloque @code{@bs{}midi} (o sea, @emph{sin}
+el bloque @code{@bs{}layout}), solo produce archivos de salida
 MIDI; no se imprime ninguna notación musical.}
 
 La extensión predeterminada para los archivos de salida
@@ -4117,7 +4117,7 @@ lo que podría no ser adecuado para algunos tipos de instrumento,
 como el órgano.  Las notas que no tienen ninguna articulación
 también se pueden acortar; así, para contener el alcance
 de este efecto limite
-el uso de de la función @code{\articulate} a segmentos de música
+el uso de de la función @code{@bs{}articulate} a segmentos de música
 más breves o modifique los valores de las variables definidas
 dentro del script @file{articulate}
 para compensar el efecto de acortamiento de las notas.}
