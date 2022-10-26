@@ -1,6 +1,6 @@
 #!/bin/sh
 
-IMAGE="registry.gitlab.com/lilypond/lilypond/doc/ubuntu-18.04:20220407"
+IMAGE="registry.gitlab.com/lilypond/lilypond/doc/ubuntu-18.04:20221027"
 
 if [ $# -lt 1 ]; then
   echo "Too few arguments, pass the archive with LilyPond's source code" >&2
