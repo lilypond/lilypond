@@ -128,7 +128,7 @@ command is created, however not every version of LilyPond will need
 syntax changes for its input files from the version before.  This means
 that the @command{convert-ly} command will only convert input files up
 to the latest syntax change it has and this, in turn, may mean that the
-@code{\version} number left in the upgraded input file is sometimes
+@code{@bs{}version} number left in the upgraded input file is sometimes
 earlier than the version of @command{convert-ly} command itself.}
 
 To convert all input files in a single directory use;

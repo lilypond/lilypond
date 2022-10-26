@@ -904,13 +904,13 @@ the same format as @code{@@enumerate}.  Do not use
 
 @warning{In Texinfo, the backslash is an ordinary character, and
 is entered without escaping (e.g.
-@samp{The@tie{}@@code@{\foo@}@tie{}command}).  However, within
+@samp{The@tie{}@@code@{@bs{}foo@}@tie{}command}).  However, within
 double-quoted Scheme and/or LilyPond strings, backslashes
 (including those ending up in Texinfo markup) need to be escaped
 by doubling them:
 @example
 (define (foo x)
-  "The @@code@{\\foo@} command..."
+  "The @@code@{@bs{}@bs{}foo@} command..."
   ...)
 @end example
 }

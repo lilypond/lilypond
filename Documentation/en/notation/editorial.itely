@@ -134,7 +134,7 @@ cadenza-like passages or in cases such as the above examples.
 Setting the @code{\magnifyMusic} value to 0.63 duplicates the
 dimensions of the @code{CueVoice} context.
 
-@warning{The @code{\magnifyMusic} command should @emph{not} be
+@warning{The @code{@bs{}magnifyMusic} command should @emph{not} be
 used when also resizing the staff.  @xref{Setting the staff
 size}.}
 

@@ -1655,7 +1655,7 @@ tie-event beam-event tuplet-span-event)}, which means that only
 notes, rests, ties, beams and tuplets are quoted, but not
 articulations, dynamic marks, markup, etc.
 
-@warning{When a @code{Voice} starts with @code{\cueDuring}, as in the
+@warning{When a @code{Voice} starts with @code{@bs{}cueDuring}, as in the
 following example, the @code{Voice} context must be explicitly declared,
 or else the entire music expression would belong to the @code{CueVoice}
 context.}

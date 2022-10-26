@@ -1489,10 +1489,10 @@ Note: do not use an underscore, @code{_}, to skip notes -- an
 underscore indicates a melisma, causing the preceding syllable
 to be left-aligned.
 
-@warning{The @code{\skip} command must be followed by a number,
+@warning{The @code{@bs{}skip} command must be followed by a number,
 but this number is ignored in lyrics which derive their durations
-from the notes in an associated melody through @code{\addlyrics} or
-@code{\lyricsto}.  Each @code{\skip} skips a single note of any
+from the notes in an associated melody through @code{@bs{}addlyrics} or
+@code{@bs{}lyricsto}.  Each @code{@bs{}skip} skips a single note of any
 value, irrespective of the value of the following number.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -2110,7 +2110,7 @@ containing the triplet.
 Note the placement of the @code{\set associatedVoice} command --
 it appears to be one syllable too early, but this is correct.
 
-@warning{The @code{\set associatedVoice} command must be placed
+@warning{The @code{@bs{}set associatedVoice} command must be placed
 one syllable @emph{before} the one at which the switch to the new
 voice is to occur.  In other words, changing the associated Voice
 happens one syllable later than expected.  This is for technical

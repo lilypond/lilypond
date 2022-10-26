@@ -340,7 +340,7 @@ Installed Files:
 @node Fixed vertical spacing paper variables
 @subsection Fixed vertical spacing @code{\paper} variables
 
-@warning{Some @code{\paper} dimensions are automatically
+@warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
 
@@ -605,7 +605,7 @@ Snippets:
 @node Horizontal spacing paper variables
 @subsection Horizontal spacing @code{\paper} variables
 
-@warning{Some @code{\paper} dimensions are automatically
+@warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
 
