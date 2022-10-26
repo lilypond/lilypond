@@ -379,7 +379,7 @@ Fichiers d'initialisation :
 @subsection Variables d'espacement vertical fixe
 @translationof Fixed vertical spacing paper variables
 
-@warning{Certains dimensionnements attachés au bloc @code{\paper}
+@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}
@@ -664,7 +664,7 @@ Morceaux choisis :
 @subsection Variables d'espacement horizontal
 @translationof Horizontal spacing paper variables
 
-@warning{Certains dimensionnements attachés au bloc @code{\paper}
+@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}

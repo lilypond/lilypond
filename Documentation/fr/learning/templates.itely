@@ -44,8 +44,8 @@ ou huit portées.  Contrairement aux autre gabarits, celui-ci est
 et édité ; il suffit en fait d'ajouter une instruction @code{\include}
 au fichier source.
 
-@warning {Contrairement à la plupart des inclusions, la commande
-@code{\include} traitant ces gabarit préprogrammés doit se placer
+@warning{Contrairement à la plupart des inclusions, la commande
+@code{@bs{}include} traitant ces gabarit préprogrammés doit se placer
 @strong{à la fin} du fichier source.}
 
 Les expressions musicales nécessaires sont affectées à des variables

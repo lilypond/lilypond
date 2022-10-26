@@ -488,8 +488,8 @@ fichiers exécutables de LilyPond, comme suit :
 [@var{chemins déjà définis}];@var{RÉP}\LilyPond\usr\bin
 @end example
 
-@warning{@var{RÉP} sera en règle générale @code{C:\Program Files
-(x86)} pour un système 64 bits et @code{C:\Program Files} pour du
+@warning{@var{RÉP} sera en règle générale @code{C:@bs{}Program Files
+(x86)} pour un système 64 bits et @code{C:@bs{}Program Files} pour du
 32 bits.}
 
 @noindent

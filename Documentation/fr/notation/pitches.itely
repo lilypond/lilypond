@@ -786,9 +786,9 @@ l'intervalle séparant @code{@var{note_de_départ}} et
 autres notes seront changées selon le même intervalle.  Les deux
 hauteurs s'expriment en octave absolue.
 
-@warning{La musique contenue dans un bloc @code{\transpose} est en
+@warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
 octaves absolues, sauf à inclure dans ce même bloc une clause
-@code{\relative}.}
+@code{@bs{}relative}.}
 
 Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
 un peu trop basse pour l'interprète, elle peut être transposée en mi
@@ -928,7 +928,7 @@ music = \relative { c' d e f }
 
 @warning{Le motif à inverser doit être exprimé en hauteur absolue, à
 moins d'avoir été préalablement inclus explicitement dans un bloc
-@code{\relative}.}
+@code{@bs{}relative}.}
 
 @morerefs
 Manuel de notation :
