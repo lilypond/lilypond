@@ -930,11 +930,10 @@ hinzugefügt werden.
 R2.*10^\markup { \italic "ad lib." }
 @end lilypond
 
-@warning{
-Beschriftungen und Artikulationen, die an Mehrtaktpausen gehängt
+@warning{Beschriftungen und Artikulationen, die an Mehrtaktpausen gehängt
 werden, sind Objekte vom Typ @code{MultiMeasureRestText} bzw.
 @code{MultiMeasureRestScript}, nicht vom Typ @code{TextScript}
-bzw. @code{Script}.  Änderungen etwa mit @code{\override}
+bzw. @code{Script}.  Änderungen etwa mit @code{@bs{}override}
 müssen auf das richtige Objekt gerichtet werden, damit sie
 nicht ignoriert werden.  Siehe auch das folgende Beispiel.
 }
@@ -2020,9 +2019,9 @@ eingeschaltet werden.
 @cindex Balken und Melismen
 
 @warning{Wenn Balken eingesetzt werden, um Melismen in Gesang zu notieren,
-sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
+sollte die automatische Bebalkung mit @code{@bs{}autoBeamOff} ausgeschaltet
 werden und die Balken manuell notiert werden.  Die Benutzung von
-@code{\partCombine} zusammen mit @code{\autoBeamOff} kann zu
+@code{@bs{}partCombine} zusammen mit @code{@bs{}autoBeamOff} kann zu
 unbeabsichtigten Ergebnissen führen.  Siehe die Schnipsel für mehr
 Information.}
 

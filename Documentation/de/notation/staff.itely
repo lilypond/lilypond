@@ -810,7 +810,7 @@ Instrumenten zu verstecken.  In der Standardeinstellung werden alle
 leeren Notenzeilen außer die des ersten Systems entfernt.
 
 @warning{Eine Notenzeile gilt als leer, wenn sie nur Ganztaktpausen,
-Pausen, unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination
+Pausen, unsichtbare Noten, @code{@bs{}skip}-Befehle oder eine Kombination
 der drei enthält.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1395,7 +1395,7 @@ Standardwert ist  @code{'(note-event rest-event tie-event beam-event
 Balken und N-tolen zitiert, nicht aber Artikulationen, Dynamik,
 Beschriftung usw.
 
-@warning{Wenn eine @code{Voice}-Umgebung mit @code{\cueDuring} beginnt,
+@warning{Wenn eine @code{Voice}-Umgebung mit @code{@bs{}cueDuring} beginnt,
 wie im folgenden Beispiel, muss die @code{Voice}-Umgebung explizit
 erstellt werden, weil sonst der gesamte musikalische Ausdruck zum
 @code{CueVoice}-Kontext gehören würde.}

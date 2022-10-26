@@ -62,7 +62,7 @@ Ausdruck beinhalten, der durch geschweifte Klammern begrenzt wird:
 @end example
 
 @warning{Es darf @strong{nur ein} äußerer musikalischer Ausdruck
-in der @code{\score}-Umgebung geschrieben werden, und er @strong{muss}
+in der @code{@bs{}score}-Umgebung geschrieben werden, und er @strong{muss}
 von geschweiften Klammern umgeben sein.}
 
 Dieser einzelne musikalische Ausdruck kann beliebige Größe annehmen und

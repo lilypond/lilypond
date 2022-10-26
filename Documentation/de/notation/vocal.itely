@@ -1449,11 +1449,11 @@ Noten zu überspringen, weil das ein Melisma anzeigen würde und
 die vorhergehende Silbe dazu veranlasst, links ausgerichtet zu
 werden.
 
-@warning{Der @code{\skip}-Befehl muss von einer Zahl gefolgt
+@warning{Der @code{@bs{}skip}-Befehl muss von einer Zahl gefolgt
 werden, aber diese Zahl wird ignoriert, wenn der Gesangstext
 seine Dauern von einer assoziierten Melodie ableitet, die mit
-@code{\addlyrics} oder @code{\lyricsto} angefügt wird.  Jeder
-@code{\skip}-Befehl überspringt eine einzelne Note beliebiger
+@code{@bs{}addlyrics} oder @code{@bs{}lyricsto} angefügt wird.  Jeder
+@code{@bs{}skip}-Befehl überspringt eine einzelne Note beliebiger
 Dauer, unabhängig vom Wert der auf den Befehl folgenden Zahl.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1973,7 +1973,7 @@ mit der Triole.
 Der @code{\set associatedVoice}-Befehl tritt eine Silbe zu früh auf,
 aber das ist in diesem Fall richtig.
 
-@warning{Der @code{\set associatedVoice}-Befehl muss eine Silbe @emph{vor}
+@warning{Der @code{@bs{}set associatedVoice}-Befehl muss eine Silbe @emph{vor}
 der Silbe notiert werden, auf welcher der Wechsel zur neuen Stimme
 stattfinden soll.  Anders gesagt: der Wechsel der assoziierten Stimme
 geschieht eine Silber später, als man erwarten würde.  Das geschieht
