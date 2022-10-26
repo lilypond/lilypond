@@ -16,7 +16,7 @@ To update a container image:
 
 Combinations of `$container` and `$dockerfile` are:
 
-| `$container` | `$dockerfile` | Comment |
+| `$image` | `$dockerfile` | Comment |
 | --- | --- | --- |
 | `base/ubuntu-18.04` | `base/Dockerfile.ubuntu-18.04` | The "base" image |
 | `ci/ubuntu-18.04` | `ci/Dockerfile.ubuntu-18.04` | The image for CI testing |
