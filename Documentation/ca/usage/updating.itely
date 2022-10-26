@@ -123,7 +123,7 @@ original @file{elmeufitxer.ly~}.
 
 @warning{@command{convert-ly} sempre converteix fins l'últim canvi
 de sintaxi que és capaç de gestionar.  Això significa que el
-número de @code{\version} que apareix al fitxer convertit sol ser
+número de @code{@bs{}version} que apareix al fitxer convertit sol ser
 inferior al número de versió del propi programa
 @command{convert-ly}.}
 

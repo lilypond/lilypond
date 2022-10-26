@@ -1382,7 +1382,7 @@ però no les articulacions, maques dinàmiques, elements de
 marcatge, etc.
 
 @warning{Quan un context @code{Voice} comença amb
-@code{\cueDuring}, com a l'exemple següent, el context
+@code{@bs{}cueDuring}, com a l'exemple següent, el context
 @code{Voice} s'ha de declarar explícitament, ja que en cas
 contrari tota l'expressió musical pertanyeria al context
 @code{CueVoice}.}
