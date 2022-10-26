@@ -999,7 +999,7 @@ werden.  Der Befehl muss also lauten:
 Leerzeichen zwischen der letzten Silbe und der schließenden
 Klammer gesetzt werden.}
 
-@warning{Innerhalb von @code{\override}-Befehlen in
+@warning{Innerhalb von @code{@bs{}override}-Befehlen in
 Gesangstexten müssen Leerzeichen um Punkte zwischen
 Kontext- und Objektbezeichnungen gesetzt werden.}
 

@@ -90,7 +90,7 @@ v adresáři, v němž soubor leží.  Tím je
 @file{můjsoubor.ly~}.
 
 @warning{@command{convert-ly} vždy převádí až po poslední změnu ve skladbě,
-kterou program zvládá.  To znamená, že číslo @code{\version},
+kterou program zvládá.  To znamená, že číslo @code{@bs{}version},
 které v souboru stojí po převodu, je obvykle nižší než
 verze samotného @command{convert-ly}.}
 

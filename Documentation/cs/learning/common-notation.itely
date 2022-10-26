@@ -694,7 +694,7 @@ ale pro člověka je volikou pomocí, když hned vidí, které
 
 @warning{Každá nota v souboru se vztahuje k předcházející
 a nesouvisí s dvoučárkovaným C (@code{c''}), které je zadáno v
-příkazu @code{\relative}. Závorky na to nemají žádný
+příkazu @code{@bs{}relative}. Závorky na to nemají žádný
 vliv.}
 
 
