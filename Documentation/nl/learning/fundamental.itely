@@ -1487,11 +1487,11 @@ where @var{type} is a context name (like @code{Staff} or
 @code{Voice}).  This command creates a new context, and starts
 interpreting the @var{music-expression} within that context.
 
-@warning{\@code{new Score} should not be used as the essential
+@warning{@code{@bs{}new Score} should not be used as the essential
 top-level @code{Score} context is created automatically when the music
-expression within the \@code{score} block is interpreted.  Score-wide
+expression within the @code{@bs{}score} block is interpreted.  Score-wide
 default values of context properties can be changed within the
-\@code{layout} block.  See @ref{Modifying context properties}}
+@code{@bs{}layout} block.  See @ref{Modifying context properties}}
 
 You have seen many practical examples which created new
 @code{Staff} and @code{Voice} contexts in earlier sections, but
