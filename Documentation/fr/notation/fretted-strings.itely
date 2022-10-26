@@ -1966,7 +1966,7 @@ hauteurs.
 Les doigtés de main droite @var{p-i-m-a} doivent être entrés à l'aide de
 l'instruction @code{\rightHandFinger} suivie d'un nombre.
 
-@warning{Lorsque vous utilisez l'instruction @code{\rightHandFinger}
+@warning{Lorsque vous utilisez l'instruction @code{@bs{}rightHandFinger}
 dans un accord, une espace @strong{doit} précéder la fermeture de la
 construction par un @code{>}.}
 

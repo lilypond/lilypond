@@ -136,8 +136,8 @@ Vous pouvez facilement imbriquer plusieurs fonctions @code{\repeat
 unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta} ou
 @code{\repeat segno}.
 
-@warning{L'insertion d'un @code{\relative} dans une section
-@code{\repeat} sans déclaration explicite du contexte @code{Voice}
+@warning{L'insertion d'un @code{@bs{}relative} dans une section
+@code{@bs{}repeat} sans déclaration explicite du contexte @code{Voice}
 génèrera une portée supplémentaire -- voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
@@ -335,13 +335,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{Tout élément inclus dans un bloc @code{\alternative} sera
+@warning{Tout élément inclus dans un bloc @code{@bs{}alternative} sera
 traîté en tant qu'alternative. Quelque chose d'aussi simple qu'un
 contrôle de mesure placé du mauvais côté d'une accolade peut générer des
 résultats inattendus.}
 
-@warning{Une clause @code{\relative} ne doit jamais se trouver à
-l'intérieur d'une section @code{\repeat} : vous aurez
+@warning{Une clause @code{@bs{}relative} ne doit jamais se trouver à
+l'intérieur d'une section @code{@bs{}repeat} : vous aurez
 immanquablement des portées parasites.  Voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
@@ -419,7 +419,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{Les commandes @code{\volta} et @code{\unfolded} fontionnent en
+@warning{Les commandes @code{@bs{}volta} et @code{@bs{}unfolded} fontionnent en
 respectant la répétition la plus imbriquée qui les entoure.}
 
 
@@ -951,7 +951,7 @@ de clarté.
 @warning{Les méthodes présentées dans les lignes qui suivent ne
 devraient servir à indiquer que des constructions de répétition
 inhabituelles. En règle générale, il vaut mieux recourir à la fonction
-@code{\repeat} pour créer une reprise ou bien insérer la barre de mesure
+@code{@bs{}repeat} pour créer une reprise ou bien insérer la barre de mesure
 adéquate. Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
 

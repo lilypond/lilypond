@@ -888,7 +888,7 @@ un code bien indenté est bien plus lisible par des humains.
 @warning{La hauteur de chaque note saisie est relative à la précédente ;
 seule la première première note verra sa hauteur déterminée relativement
 au au @samp{c} (une octave sous le do médium) de la commande
-@code{\relative} de départ.}
+@code{@bs{}relative} de départ.}
 
 
 @node Expressions musicales simultanées -- une seule portée

@@ -2440,9 +2440,9 @@ par @code{\autoBeamOn} :
 
 @warning{Si des ligatures sont utilisées dans les paroles d'une chanson
 (pour indiquer des mélismes), les ligatures automatiques doivent être
-désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.@*
-L'utilisation conjointe de @code{\partCombine} et de
-@code{\autoBeamOff} peut produire des résultats quelque peu
+désactivées, avec @code{@bs{}autoBeamOff}, et indiquées manuellement.@*
+L'utilisation conjointe de @code{@bs{}partCombine} et de
+@code{@bs{}autoBeamOff} peut produire des résultats quelque peu
 surprenants ; ceci fait l'objet d'un exemple particulier à la
 rubrique morceaux choisis.}
 
