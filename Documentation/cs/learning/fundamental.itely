@@ -168,7 +168,7 @@ se podívejte na @ref{Prostředí a rytci,,prostředí a rytce}.
 
 @warning{Když se zadává více jak dvojice notových řádků,
 doporučuje se vytvořit notové osnovy a hlasy vždy otevřeně
-pomocí @code{\new Staff} a @code{\new Voice}.}
+pomocí @code{@bs{}new Staff} a @code{@bs{}new Voice}.}
 
 V této chvíli se ale chceme vrátit k našemu prvnímu příkladu a
 blíže se podívat jen na příkaz @code{\score}.
@@ -1572,12 +1572,12 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
-@warning{Der \@code{new Score}-Befehl sollte nicht benutzt werden,
+@warning{Der @code{@bs{}new Score}-Befehl sollte nicht benutzt werden,
 weil der Partitur-(Score)-Kontext der obersten Ebene
 normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
-innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
+innerhalb der @code{@bs{}score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
-sollen, können innerhalb der \@code{layout}-Umgebung definiert werden.
+sollen, können innerhalb der @code{@bs{}layout}-Umgebung definiert werden.
 Siehe @ref{Změna vlastností prostředí,,změnu vlastností prostředí}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen
