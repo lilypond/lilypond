@@ -54,7 +54,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         lmodern \
         make \
         perl \
-        pkg-config \
+        pkgconf \
         python3 \
         rsync \
         texi2html \
