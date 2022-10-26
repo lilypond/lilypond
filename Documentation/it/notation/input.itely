@@ -61,7 +61,7 @@ delimitata da parentesi graffe:
 @end example
 
 @warning{Ci deve essere @strong{solo una} espressione musicale più
-esterna in un blocco @code{\score} e @strong{deve} essere racchiusa
+esterna in un blocco @code{@bs{}score} e @strong{deve} essere racchiusa
 tra parentesi graffe.}
 
 Questa espressione musicale singola può essere di qualsiasi dimensione
@@ -3175,9 +3175,9 @@ Per creare un file MIDI da un file di input LilyPond, inserire un blocco
 @}
 @end example
 
-@warning{ Un blocco @code{\score} che, oltre alla musica, contenga
-soltanto un blocco @code{\midi} (ovvero @emph{sia privo} del blocco
-@code{\layout}), produrrà come output soltanto file MIDI e nessun
+@warning{Un blocco @code{@bs{}score} che, oltre alla musica, contenga
+soltanto un blocco @code{@bs{}midi} (ovvero @emph{sia privo} del blocco
+@code{@bs{}layout}), produrrà come output soltanto file MIDI e nessun
 file visuale.}
 
 L'estensione predefinita del file di output (@code{.midi}) può essere
@@ -3860,7 +3860,7 @@ File installati:
 accordi, cosa che potrebbe non essere appropriata per alcuni tipi di
 strumento, come nel caso della musica per organo. Potrebbe essere ridotta
 anche la durata di note prive di articolazioni.
-Dunque, per consentire tutto ciò, limitare l'uso del comando @code{\articulate}
+Dunque, per consentire tutto ciò, limitare l'uso del comando @code{@bs{}articulate}
 a brevi segmenti di musica o modificare i valori delle variabili definite
 nello script @file{articulate} per compensare il comportamento di accorciamento
 della durata delle note.}

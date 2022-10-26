@@ -2134,9 +2134,9 @@ disabilitata con @code{\autoBeamOff} e riabilitata con @code{\autoBeamOn}:
 @cindex travatura, con melisma
 
 @warning{Se si usano le travature per indicare i melismi nelle parti vocali, occorre
-disabilitare la disposizione automatica delle travature con @code{\\autoBeamOff}
-e le travature devono essere indicate manualmente.  L'uso di @code{\partCombine}
-insieme a @code{\autoBeamOff} può produrre risultati imprevisti.  Si vedano i
+disabilitare la disposizione automatica delle travature con @code{@bs{}autoBeamOff}
+e le travature devono essere indicate manualmente.  L'uso di @code{@bs{}partCombine}
+insieme a @code{@bs{}autoBeamOff} può produrre risultati imprevisti.  Si vedano i
 frammenti di codice per avere maggiori informazioni.}
 
 Si possono creare dei modelli di disposizione delle travature diversi da

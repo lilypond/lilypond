@@ -172,11 +172,11 @@ Molteplici ripetizioni con più di un finale alternativo:
 
 @warning{Se ci sono due o più finali alternativi, non ci deve essere
 niente tra la parentesi di chiusura di uno e quella di apertura di
-quello successivo all'interno di un blocco @code{\alternative},
+quello successivo all'interno di un blocco @code{@bs{}alternative},
 altrimenti non si otterrà il numero atteso di finali.}
 
-@warning{Se si usa @code{\relative} dentro a un blocco
-@code{\repeat} senza istanziare esplicitamente il
+@warning{Se si usa @code{@bs{}relative} dentro a un blocco
+@code{@bs{}repeat} senza istanziare esplicitamente il
 contesto @code{Voice}, appare un rigo in più (non desiderato).  Vedi
 @rprogram{Appare un rigo in più}.}
 
@@ -457,7 +457,7 @@ situazioni.
 @warning{Questi metodi vengono usati solo per mostrare tipi di ripetizioni
 inusuali, e potrebbero causare un comportamento inaspettato.  Nella
 maggior parte dei casi, le ripetizioni devono essere create col
-comando standard @code{\repeat} oppure stampando le stanghette
+comando standard @code{@bs{}repeat} oppure stampando le stanghette
 opportune.  Maggiori informazioni in @ref{Stanghette}.}
 
 La proprietà @code{repeatCommands} permette di controllare la formattazione
@@ -669,7 +669,7 @@ senza finali alternativi).
 Gli accordi si ripetono col simbolo di ripetizione dell'accordo
 @code{q}.  Vedi @ref{Ripetizione di un accordo}.
 
-@warning{Se si usa @code{\relative} dentro a un blocco @code{\repeat}
+@warning{Se si usa @code{@bs{}relative} dentro a un blocco @code{@bs{}repeat}
 senza istanziare esplicitamente il contesto @code{Voice}, appare un rigo
 in  più (non desiderato).  Vedi @rprogram{Appare un rigo in più}.}
 

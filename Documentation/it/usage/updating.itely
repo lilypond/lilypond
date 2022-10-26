@@ -130,7 +130,7 @@ LilyPond più recente.
 di cambi di sintassi per i propri file di input creati da una versione
 precedente.  Ciò significa che il comando @command{convert-ly} converterà
 i file di input solo fino all'ultimo cambio di sintassi in suo possesso
-e di conseguenza il numero di @code{\version} nel file di input aggiornato
+e di conseguenza il numero di @code{@bs{}version} nel file di input aggiornato
 è talvolta precedente alla versione del comando @command{convert-ly} stesso.}
 
 Per convertire tutti i file di input in una directory si usa:
