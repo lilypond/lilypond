@@ -765,8 +765,8 @@ qualsevol altra nota es transporta el mateix interval.  Les dues
 notes s'introdueixen en mode absolut.
 
 @warning{La música que està dins d'un bloc
-@code{\transpose} és absoluta, a no ser que s'inclogui una introducció
-@code{\relative} dins del bloc.}
+@code{@bs{}transpose} és absoluta, a no ser que s'inclogui una introducció
+@code{@bs{}relative} dins del bloc.}
 
 Per exemple, agafem una peça escrita en la tonalitat de Re major.
 Es pot transposar cap amunt a Mi major; observeu que també
@@ -911,7 +911,7 @@ music = \relative { c' d e f }
 
 @warning{Els motius a invertir haurien de venir expressats en mode
 absolut o convertir-se prèviament a la forma absoluta
-envoltant-los en un bloc @code{\relative}.}
+envoltant-los en un bloc @code{@bs{}relative}.}
 
 @morerefs
 Referència de la notació:

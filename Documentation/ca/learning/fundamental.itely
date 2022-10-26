@@ -1522,12 +1522,12 @@ on @var{tipus} és el nom d'un context (com @code{Staff} o
 a interpretar la @var{expressió_musical} que està dins d'aquest
 context.
 
-@warning{No s'ha d'usar \@code{new Score} perquè el context
+@warning{No s'ha d'usar @code{@bs{}new Score} perquè el context
 @code{Score} essencial del nivell superior ja es crea
 automàticament al interpretar-se l'expressió musical que està
-dins del bloc \@code{score}.  Els valors predeterminats de
+dins del bloc @code{@bs{}score}.  Els valors predeterminats de
 propietats de context vàlids per a tota la partitura es poden
-canviar dins del bloc \@code{layout}.  Vegeu @ref{Modificar
+canviar dins del bloc @code{@bs{}layout}.  Vegeu @ref{Modificar
 les propietats dels contextos}.}
 
 En les seccions anteriors heu pogut veure molts exemples pràctics
