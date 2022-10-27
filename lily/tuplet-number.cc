@@ -460,16 +460,6 @@ Tuplet_number::calc_y_offset (SCM smob)
   return to_scm (y_offset);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff,
-                      "ly:tuplet-number::calc-cross-staff", 1)
-SCM
-Tuplet_number::calc_cross_staff (SCM smob)
-{
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return get_property (unsmob<Grob> (get_object (me, "bracket")),
-                       "cross-staff");
-}
-
 ADD_INTERFACE (Tuplet_number,
                R"(
 The number for a bracket.

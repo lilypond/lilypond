@@ -3766,7 +3766,7 @@ line (created with @code{\\startTrillSpan}, not with
     (TupletNumber
      . (
         (avoid-slur . inside)
-        (cross-staff . ,ly:tuplet-number::calc-cross-staff)
+        (cross-staff . ,(grob::inherit-parent-property X 'cross-staff))
         (direction . ,tuplet-number::calc-direction)
         (font-shape . italic)
         (font-size . -2)
