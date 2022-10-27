@@ -118,7 +118,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,
 SCM
 Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
-  Spanner *me = unsmob<Spanner> (smob);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Direction dir = get_grob_direction (me);
   Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
@@ -216,7 +216,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions,
 SCM
 Tuplet_bracket::calc_x_positions (SCM smob)
 {
-  Spanner *me = unsmob<Spanner> (smob);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
   extract_grob_set (me, "note-columns", columns);
 
   Grob *commonx = me->get_system ();
@@ -354,7 +354,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, "ly:tuplet-bracket::print", 1);
 SCM
 Tuplet_bracket::print (SCM smob)
 {
-  Spanner *me = unsmob<Spanner> (smob);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
   Stencil mol;
 
   bool tuplet_slur = scm_is_true (get_property (me, "tuplet-slur"));
@@ -750,7 +750,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions,
 SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
-  Spanner *me = unsmob<Spanner> (smob);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Real dy = 0.0;
   Real offset = 0.0;
