@@ -27,6 +27,7 @@
 #include "lookup.hh"
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "system.hh"
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "note-column.hh"
@@ -168,8 +169,12 @@ Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
   if (!beam || !Beam::is_knee (beam))
     return false;
 
-  Grob *commonx = Tuplet_bracket::get_common_x (tuplet);
-  commonx = commonx->common_refpoint (me, X_AXIS);
+  Grob *commonx = me->get_system ();
+  if (!commonx)
+    {
+      programming_error ("Tuplet_number::knee_position_against_beam called before line breaking");
+      return true;
+    }
 
   Interval number_ext = me->extent (commonx, X_AXIS);
 
@@ -265,8 +270,12 @@ Tuplet_number::calc_x_offset (SCM smob)
 
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
-  Grob *commonx = Tuplet_bracket::get_common_x (tuplet);
-  commonx = commonx->common_refpoint (me, X_AXIS);
+  Grob *commonx = me->get_system ();
+  if (!commonx)
+    {
+      programming_error ("TupletNumber.X-offset accessed before line breaking");
+      return to_scm (0);
+    }
 
   Interval bound_poss;
 
@@ -335,8 +344,12 @@ Tuplet_number::calc_y_offset (SCM smob)
                                          Drul_array<Real> (0.0, 0.0));
   SCM to_bracket = to_scm ((positions[LEFT] + positions[RIGHT]) / 2.0);
 
-  Grob *commonx = Tuplet_bracket::get_common_x (me);
-  commonx = commonx->common_refpoint (me, X_AXIS);
+  Grob *commonx = me->get_system ();
+  if (!commonx)
+    {
+      programming_error ("TupletBracket.Y-offset accessed before line breaking");
+      return to_scm (0);
+    }
   Real x_coord = me->relative_coordinate (commonx, X_AXIS);
   extract_grob_set (tuplet, "note-columns", columns);
   Grob *ref_stem = select_reference_stem (me, columns);
@@ -422,7 +435,6 @@ Tuplet_number::calc_y_offset (SCM smob)
         commony = commony->common_refpoint (acc, Y_AXIS);
         Interval acc_ext_y = acc->extent (commony, Y_AXIS);
 
-        commonx = commonx->common_refpoint (acc, X_AXIS);
         Interval num_ext_x = me->extent (commonx, X_AXIS);
         num_ext_x.widen (padding);
         Interval overlap_x (num_ext_x);

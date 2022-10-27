@@ -35,7 +35,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_connect_to_neighbors, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
-  static Grob *get_common_x (Spanner *);
   static void add_tuplet_bracket (Grob *me, Grob *smaller_bracket);
   static void get_bounds (Grob *, Grob **, Grob **);
   static void add_column (Spanner *me, Item *);

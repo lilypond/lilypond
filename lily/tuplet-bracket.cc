@@ -54,6 +54,7 @@
 #include "font-interface.hh"
 #include "text-interface.hh"
 #include "stem.hh"
+#include "system.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
@@ -150,18 +151,6 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   return SCM_EOL;
 }
 
-Grob *
-Tuplet_bracket::get_common_x (Spanner *me)
-{
-  extract_grob_set (me, "note-columns", columns);
-
-  Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
-  commonx = commonx->common_refpoint (me->get_bound (LEFT), X_AXIS);
-  commonx = commonx->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-
-  return commonx;
-}
-
 bool
 equal_bounds (Spanner *s1, Spanner *s2)
 {
@@ -230,7 +219,13 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   extract_grob_set (me, "note-columns", columns);
 
-  Grob *commonx = get_common_x (me);
+  Grob *commonx = me->get_system ();
+  if (!commonx) // FIXME: ->get_system () should also work before line breaking
+    {
+      programming_error ("TupletBracket.X-positions requested before line breaking");
+      return to_scm (Interval (0, 0));
+    }
+
   Direction dir = get_grob_direction (me);
 
   Drul_array<Item *> bounds;
@@ -529,8 +524,12 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
     commony = st->common_refpoint (commony, Y_AXIS);
   Real my_offset = me->relative_coordinate (commony, Y_AXIS);
 
-  Grob *commonx = get_common_x (me);
-  commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
+  Grob *commonx = me->get_system ();
+  if (!commonx) // FIXME: ->get_system () should also work before line breaking
+    {
+      programming_error ("TupletBracket.positions requested before line breaking");
+      return;
+    }
 
   Interval staff;
   Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
