@@ -1258,6 +1258,7 @@ In particular, don't link to:
 
 @divClass{column-center-top}
 @subheading Front-end Applications
+
 @subsubheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
@@ -1297,6 +1298,38 @@ with the Denemo file, so that users can continue to edit graphically.
 Moving the cursor in the LilyPond text moves the cursor in the graphical
 view, and any syntax errors in your LilyPond tweaks are highlighted in
 the text view when printed from there.
+
+@subsubheading Spontini-Editor
+
+@imageClickable{screenshot-spontini-small,png,
+  (click to enlarge),screenshot-spontini,png,right}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{https://github.com/paopre/Spontini}
+
+Spontini-Editor is a text-combined-with-graphic music editor that
+speeds up the creation and fine graphic tuning of complex scores edited
+with LilyPond through two main features:
+
+@enumerate
+
+@item
+It allows the positioning of musical objects (articulations, texts,
+pedals, curves, brackets etc.) with the mouse. Once the positioning is
+graphically done, the text editor reports the corresponding changes
+on the input file.
+
+@item
+It assists in the creation of piano music by inserting notes in tabular
+and formatted form and it provides quick tools for cross-staff notation.
+
+@end enumerate
+
+It works both as a standalone application and as a web-based
+server + multi-client system.
 
 @divEnd
 
