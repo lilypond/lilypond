@@ -67,8 +67,6 @@
 
 #include <cmath>
 
-using std::vector;
-
 static Item *
 get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
 {
@@ -89,7 +87,7 @@ get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
   Return beam that encompasses the span of the tuplet bracket.
 */
 Spanner *
-Tuplet_bracket::parallel_beam (Spanner *me, vector<Grob *> const &cols)
+Tuplet_bracket::parallel_beam (Spanner *me, std::vector<Grob *> const &cols)
 {
   Item *left = me->get_bound (LEFT);
   Item *right = me->get_bound (RIGHT);
@@ -561,7 +559,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   bool follow_beam = par_beam && get_grob_direction (par_beam) == dir
                      && !Beam::is_knee (par_beam);
 
-  vector<Offset> points;
+  std::vector<Offset> points;
   if (columns.size () && follow_beam && Note_column::get_stem (columns[0])
       && Note_column::get_stem (columns.back ()))
     {

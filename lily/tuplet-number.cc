@@ -34,15 +34,13 @@
 #include "stem.hh"
 #include "warn.hh"
 
-using std::vector;
-
 /*
   The reference stem is used to determine on which side of the beam to place
   the tuplet number when it is positioned independently of a bracket.  (The number
   is always placed on the opposite side of this stem.)
 */
 Grob *
-Tuplet_number::select_reference_stem (Spanner *me, vector<Grob *> const &cols)
+Tuplet_number::select_reference_stem (Spanner *me, std::vector<Grob *> const &cols)
 {
   vsize col_count = cols.size ();
 
@@ -115,7 +113,7 @@ Tuplet_number::adjacent_note_columns (Spanner *me, Grob *ref_stem)
   extract_grob_set (tuplet, "note-columns", columns);
   Grob *ref_col = ref_stem->get_x_parent (); // X-parent of Stem = NoteColumn
   Direction ref_stem_dir = get_grob_direction (ref_stem);
-  vector<Grob *> filtered_cols;
+  std::vector<Grob *> filtered_cols;
   vsize ref_pos = 0;
 
   for (vsize i = 0, counter = 0; i < columns.size (); ++i)
