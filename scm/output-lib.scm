@@ -296,6 +296,17 @@
                       (offset-scale quant2 factor))))
           (ly:beam::quanting grob base #f)))))
 
+(define-public (ly:beam::calc-knee grob)
+  (let ((stem-array (ly:grob-object grob 'stems #f)))
+    (if stem-array
+        (not (apply eqv? (map (lambda (stem)
+                                (ly:grob-property stem 'direction))
+                              (ly:grob-array->list stem-array))))
+        ;; paranoia
+        (begin
+          (ly:programming-error "beam without stems")
+          #f))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cross-staff stuff
 

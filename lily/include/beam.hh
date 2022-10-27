@@ -67,7 +67,6 @@ public:
   static Grob *last_normal_stem (Grob *);
   static void add_stem (Grob *, Grob *);
   static bool is_cross_staff (Grob *);
-  static bool is_knee (Grob *);
   static void set_beaming (Grob *, Beaming_pattern const *);
   static void set_stemlens (Grob *);
   static int get_beam_count (Grob *me);

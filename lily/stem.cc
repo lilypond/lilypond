@@ -1116,7 +1116,7 @@ Stem::calc_stem_info (SCM smob)
 
   Also, not for knees.  Seems to be a good thing. */
   bool no_extend = from_scm<bool> (get_property (me, "no-stem-extend"));
-  bool is_knee = Beam::is_knee (beam);
+  bool is_knee = from_scm<bool> (get_property (beam, "knee"));
   if (!no_extend && !is_knee)
     {
       /* Highest beam of (UP) beam must never be lower than middle

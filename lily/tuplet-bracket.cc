@@ -114,7 +114,7 @@ Tuplet_bracket::bracket_basic_visibility (Spanner *me)
     {
       bool bracket_over_heads
         = from_scm<bool> (get_property (me, "visible-over-note-heads"));
-      if (bracket_over_heads && !Beam::is_knee (par_beam))
+      if (bracket_over_heads && !from_scm<bool> (get_property (par_beam, "knee")))
         {
           Direction default_dir
             = from_scm<Direction> (get_property (par_beam, "direction"));
@@ -487,7 +487,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   bool follow_beam = par_beam && get_grob_direction (par_beam) == dir
-                     && !Beam::is_knee (par_beam);
+                     && !from_scm<bool> (get_property (par_beam, "knee"));
 
   std::vector<Offset> points;
   if (columns.size () && follow_beam && Note_column::get_stem (columns[0])

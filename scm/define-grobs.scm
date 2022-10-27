@@ -489,6 +489,7 @@ vertically.")))))
         (font-family . roman)
 
         (gap . 0.8)
+        (knee . ,ly:beam::calc-knee)
         (neutral-direction . ,DOWN)
         (positions . ,beam::place-broken-parts-individually)
         (X-positions . ,ly:beam::calc-x-positions)

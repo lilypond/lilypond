@@ -166,7 +166,7 @@ Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
 
   Grob *beam = Stem::get_beam (ref_stem);
 
-  if (!beam || !Beam::is_knee (beam))
+  if (!beam || !from_scm<bool> (get_property (beam, "knee")))
     return false;
 
   Grob *commonx = me->get_system ();

@@ -990,7 +990,7 @@ Beam::calc_stem_shorten (SCM smob)
   /*
     shortening looks silly for x staff beams
   */
-  if (is_knee (me))
+  if (from_scm<bool> (get_property (me, "knee")))
     return to_scm (0);
 
   Real forced_fraction = static_cast<Real> (forced_stem_count (me))
@@ -1419,32 +1419,6 @@ Beam::pure_rest_collision_callback (SCM smob, SCM, /* start */
       + previous;
 
   return to_scm (offset);
-}
-
-bool
-Beam::is_knee (Grob *me)
-{
-  SCM k = get_property (me, "knee");
-  if (scm_is_bool (k))
-    return scm_is_true (k);
-
-  bool knee = false;
-  auto d = CENTER;
-  extract_grob_set (me, "stems", stems);
-  for (vsize i = stems.size (); i--;)
-    {
-      Direction dir = get_grob_direction (stems[i]);
-      if (d && d != dir)
-        {
-          knee = true;
-          break;
-        }
-      d = dir;
-    }
-
-  set_property (me, "knee", to_scm (knee));
-
-  return knee;
 }
 
 bool
