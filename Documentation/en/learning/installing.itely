@@ -46,7 +46,7 @@ GNU/Linux distributions, @pxref{Command line setup}.
 
 First, find the GNOME Software app.
 
-@center @sourceimage{linux-1-search-gnome-software,10cm,}
+@center @sourceimage{linux-1-search-gnome-software,6cm,}
 
 In GNOME Software, search @qq{Frescobaldi}.
 
@@ -83,7 +83,7 @@ Frescobaldi, without losing the initial one.  To do this, first
 download the archive from @rweb{Download}, and double-click to
 unpack it.
 
-@center @sourceimage{linux-6-download-and-unpack-archive,10cm,}
+@center @sourceimage{linux-6-download-and-unpack-archive,14cm,}
 
 Move the unpacked folder out of your Downloads folder to the
 folder where you want to permanently store it.  For example, put
@@ -91,7 +91,7 @@ it in your home folder.
 
 Now, in Frescobaldi, go the Preferences.
 
-@center @sourceimage{linux-7-frescobaldi-find-preferences,15cm,}
+@center @sourceimage{linux-7-frescobaldi-find-preferences,10cm,}
 
 Select @qq{LilyPond Preferences}, and click @qq{Add} to register a
 new LilyPond version.
@@ -100,17 +100,17 @@ new LilyPond version.
 
 Click on the file explorer icon.
 
-@center @sourceimage{linux-9-frescobaldi-select-lilypond-executable,10cm,}
+@center @sourceimage{linux-9-frescobaldi-select-lilypond-executable,5cm,}
 
 Navigate to the folder you just extracted, then inside this
 folder, to @samp{bin} and finally @samp{lilypond}.
 
-@center @sourceimage{linux-10-navigate-to-lilypond-executable,10cm,}
+@center @sourceimage{linux-10-navigate-to-lilypond-executable,13cm,}
 
 You're done!  You can click @samp{OK}.  You now have two versions
 of LilyPond installed.
 
-@center @sourceimage{linux-11-frescobaldi-new-version-added,10cm,}
+@center @sourceimage{linux-11-frescobaldi-new-version-added,13cm,}
 
 Now turn to @ref{Tutorial} to learn more about LilyPond's syntax.
 
@@ -137,7 +137,7 @@ project's download page}.  Choose the @file{.exe} file.
 Double-click on the downloaded file in the file explorer.  This
 launches the setup wizard.
 
-@center @sourceimage{windows-2-frescobaldi-installer,10cm,}
+@center @sourceimage{windows-2-frescobaldi-installer,6cm,}
 
 Accept the license and install Frescobaldi using the wizard.  You
 will find a startup screen like this:
@@ -150,23 +150,23 @@ Navigate to the Frescobaldi preferences.
 
 Navigate to @qq{LilyPond Preferences} on the left.
 
-@center @sourceimage{windows-5-frescobaldi-find-lilypond-preferences,15cm,}
+@center @sourceimage{windows-5-frescobaldi-find-lilypond-preferences,13cm,}
 
 Click @qq{Edit} on the right.  This leads to a dialog for choosing
 the LilyPond executable.
 
-@center @sourceimage{windows-6-frescobaldi-select-lilypond-executable,10cm,}
+@center @sourceimage{windows-6-frescobaldi-select-lilypond-executable,5cm,}
 
 Click on the folder icon and navigate to the
 @code{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64} folder you previously created.
 Inside this folder, open @file{lilypond-@var{x}.@var{y}.@var{z}}, then @file{bin},
 and finally select @file{lilypond}.
 
-@center @sourceimage{windows-7-frescobaldi-find-executable-from-explorer,10cm,}
+@center @sourceimage{windows-7-frescobaldi-find-executable-from-explorer,12cm,}
 
 Now click @qq{OK}.
 
-@center @sourceimage{windows-8-frescobaldi-ok,10cm,}
+@center @sourceimage{windows-8-frescobaldi-ok,5cm,}
 
 Click @qq{OK} again.
 
@@ -212,7 +212,7 @@ project's download page}.  Choose the @file{.dmg} file.
 In the Finder, double-click on the file to run the installer.  At
 this point, you might encounter a problem:
 
-@center @sourceimage{macos-2-frescobaldi-cant-be-opened,10cm,}
+@center @sourceimage{macos-2-frescobaldi-cant-be-opened,5cm,}
 
 This is because Frescobaldi is developed independently from Apple.
 Nevertheless, it is totally secure software, but you have to tell
@@ -224,13 +224,13 @@ Preferences} app and select @qq{Security & Privacy}.
 
 Then click @qq{Open Anyway}.
 
-@center @sourceimage{macos-4-allow-open-anyway,10cm,}
+@center @sourceimage{macos-4-allow-open-anyway,8cm,}
 
 This leads to a new security warning.  This time, you have the
 option to accept.  Select @qq{Open}.  Again, do not fear:
 Frescobaldi is completely secure for your system.
 
-@center @sourceimage{macos-5-accept-security-warning,10cm,}
+@center @sourceimage{macos-5-accept-security-warning,5cm,}
 
 Frescobaldi is now open.  Find the Preferences.
 
@@ -242,7 +242,7 @@ Click on @qq{LilyPond Preferences} on the left.
 
 Click @qq{Edit} on the right.  This opens a new window:
 
-@center @sourceimage{macos-8-frescobaldi-edit-lilypond-executable,10cm,}
+@center @sourceimage{macos-8-frescobaldi-edit-lilypond-executable,5cm,}
 
 Click on the @q{folder} icon.  A Finder window opens.  Navigate to
 the @file{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64} folder
@@ -250,7 +250,7 @@ you saved earlier.  Inside it, find
 @file{lilypond-@var{x}.@var{y}.@var{z}}, then @file{bin} and
 finally @file{lilypond}.
 
-@center @sourceimage{macos-9-frescobaldi-navigate-to-lilypond-executable,10cm,}
+@center @sourceimage{macos-9-frescobaldi-navigate-to-lilypond-executable,12cm,}
 
 When you press @qq{OK}, a new security warning about LilyPond will
 likely appear.  Again, first click @qq{Cancel}, then enable
@@ -276,7 +276,7 @@ the program to be executed.
 Finally, the next compilation run will work and you will find a
 minimal score.
 
-@center @sourceimage{macos-10-minimal-score,15cm,}
+@center @sourceimage{macos-10-minimal-score,11cm,}
 
 Congratulations!  You have compiled your first music sheet with
 LilyPond.  Now continue with the @ref{Tutorial} to learn more
