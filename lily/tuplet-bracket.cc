@@ -85,16 +85,6 @@ get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
   return g;
 }
 
-void
-flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
-{
-  Drul_array<Real> zero (0, 0);
-  Drul_array<Real> pair = from_scm (get_property (me, sym), zero);
-  pair[xdir] = 0.0;
-
-  set_property (me, sym, to_scm (pair));
-}
-
 /*
   Return beam that encompasses the span of the tuplet bracket.
 */
