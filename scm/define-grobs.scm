@@ -1666,7 +1666,7 @@ start or end point for a @iref{GridLine} grob.")))))
     (HorizontalBracket
      . (
         (bracket-flare . (0.5 . 0.5))
-        (connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+        (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,DOWN)
         (padding . 0.2)
         (side-axis . ,Y)
@@ -1954,7 +1954,7 @@ as an anchor point for other grobs.")))))
         ;; a tuplet bracket.
 
         (bracket-visibility . #t)
-        (connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+        (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,UP)
         (edge-height . (0.7 . 0.7))
         (padding . 2.0)
@@ -2113,7 +2113,7 @@ measures.")))))
 
     (MeasureSpanner
      . (
-        (connect-to-neighbor . ,ly:measure-spanner::calc-connect-to-neighbors)
+        (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,UP)
         (edge-height . (0.7 . 0.7))
         (outside-staff-priority . 750)
@@ -3737,7 +3737,7 @@ line (created with @code{\\startTrillSpan}, not with
     (TupletBracket
      . (
         (avoid-scripts . #t)
-        (connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+        (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (cross-staff . ,ly:tuplet-bracket::calc-cross-staff)
         (direction  . ,ly:tuplet-bracket::calc-direction)
         (edge-height . (0.7 . 0.7))

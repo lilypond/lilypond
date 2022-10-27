@@ -84,44 +84,6 @@ get_x_bound_item (Spanner *me, Direction hdir, Direction my_dir)
   return g;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,
-                      "ly:tuplet-bracket::calc-connect-to-neighbors", 1);
-SCM
-Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
-{
-  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
-
-  Direction dir = get_grob_direction (me);
-  Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
-                             get_x_bound_item (me, RIGHT, dir));
-
-  Drul_array<bool> connect_to_other;
-  for (const auto d : {LEFT, RIGHT})
-    {
-      Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = me->original ();
-      vsize neighbor_idx = me->get_break_index () - break_dir;
-      if (break_dir && d == RIGHT
-          && neighbor_idx < orig_spanner->broken_intos_.size ())
-        {
-          Grob *neighbor = orig_spanner->broken_intos_[neighbor_idx];
-
-          /* trigger possible suicide*/
-          (void) get_property (neighbor, "positions");
-        }
-
-      connect_to_other[d]
-        = (break_dir && neighbor_idx < orig_spanner->broken_intos_.size ()
-           && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
-    }
-
-  if (connect_to_other[LEFT] || connect_to_other[RIGHT])
-    return scm_cons (to_scm (connect_to_other[LEFT]),
-                     to_scm (connect_to_other[RIGHT]));
-
-  return SCM_EOL;
-}
-
 bool
 equal_bounds (Spanner *s1, Spanner *s2)
 {

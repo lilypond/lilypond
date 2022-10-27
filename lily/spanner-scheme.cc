@@ -70,6 +70,20 @@ Return broken-into list for @var{spanner}.
   return s;
 }
 
+LY_DEFINE (ly_spanner_broken_neighbor, "ly:spanner-broken-neighbor", 2, 0, 0,
+           (SCM spanner, SCM dir),
+           R"(
+Return the broken neighbor of @var{spanner} on the next or previous system
+according to @var{dir}.  If there is no neighbor, return @code{#f}.
+           )")
+{
+  auto *const me = LY_ASSERT_SMOB (Spanner, spanner, 1);
+  LY_ASSERT_TYPE (is_scm<Direction>, dir, 2);
+  Direction d = from_scm<Direction> (dir);
+  Spanner *neighbor = me->broken_neighbor (d);
+  return neighbor ? neighbor->self_scm () : SCM_BOOL_F;
+}
+
 LY_DEFINE (ly_spanner_p, "ly:spanner?", 1, 0, 0, (SCM g),
            R"(
 Is @var{g} a spanner object?

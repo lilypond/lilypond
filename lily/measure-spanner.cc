@@ -27,36 +27,6 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 
-MAKE_SCHEME_CALLBACK (Measure_spanner, calc_connect_to_neighbors,
-                      "ly:measure-spanner::calc-connect-to-neighbors", 1);
-SCM
-Measure_spanner::calc_connect_to_neighbors (SCM smob)
-{
-  Spanner *me = unsmob<Spanner> (smob);
-
-  Spanner *orig_spanner = me->original ();
-  if (!orig_spanner)
-    return SCM_EOL;
-
-  const auto bounds = me->get_bounds ();
-  Drul_array<bool> connect_to_other;
-
-  for (const auto d : {LEFT, RIGHT})
-    {
-      Direction break_dir = bounds[d]->break_status_dir ();
-      vsize neighbor_idx = me->get_break_index () - break_dir;
-
-      connect_to_other[d]
-        = (break_dir && neighbor_idx < orig_spanner->broken_intos_.size ()
-           && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
-    }
-
-  if (connect_to_other[LEFT] || connect_to_other[RIGHT])
-    return scm_cons (to_scm (connect_to_other[LEFT]),
-                     to_scm (connect_to_other[RIGHT]));
-
-  return SCM_EOL;
-}
 
 MAKE_SCHEME_CALLBACK (Measure_spanner, print, "ly:measure-spanner::print", 1);
 SCM

@@ -173,6 +173,13 @@
   ;; using ly:set-option in the file.
   (ly:get-option 'debug-skylines))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; spanners
+
+(define-public (ly:spanner::calc-connect-to-neighbors grob)
+  (cons (->bool (ly:spanner-broken-neighbor grob LEFT))
+        (->bool (ly:spanner-broken-neighbor grob RIGHT))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
