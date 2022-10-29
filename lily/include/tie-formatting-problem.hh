@@ -112,9 +112,9 @@ public:
   Ties_configuration generate_optimal_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
 
-  void from_ties (std::vector<Grob *> const &ties);
-  void from_tie (Grob *tie);
-  void from_semi_ties (std::vector<Grob *> const &, Direction head_dir);
+  void from_ties (std::vector<Spanner *> const &ties);
+  void from_tie (Spanner *tie);
+  void from_semi_ties (std::vector<Item *> const &, Direction head_dir);
   void set_chord_outline (std::vector<Item *>, Direction);
   void set_column_chord_outline (std::vector<Item *>, Direction, int rank);
   void set_manual_tie_configuration (SCM);

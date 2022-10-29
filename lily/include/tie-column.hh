@@ -26,7 +26,7 @@
 class Tie_column
 {
 public:
-  static void add_tie (Grob *me, Spanner *);
+  static void add_tie (Spanner *me, Spanner *);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   static void set_directions (Grob *me);

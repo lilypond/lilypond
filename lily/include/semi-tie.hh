@@ -27,10 +27,14 @@ struct Semi_tie
 {
 
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static bool less (Grob *s1, Grob *s2);
   static int get_column_rank (Item *);
   static int get_position (Item *);
   static Item *head (Item *);
+
+  static bool less (Item *a, Item *b)
+  {
+    return get_position (a) < get_position (b);
+  }
 };
 
 #endif /* SEMI_TIE_HH */

@@ -57,5 +57,8 @@ std::vector<T *> internal_extract_grob_subtype_array (Grob *elt, SCM symbol);
 #define extract_item_set(grob, prop, set)                                      \
   auto set                                                                     \
     = internal_extract_grob_subtype_array<Item> (grob, ly_symbol2scm (prop))
+#define extract_spanner_set(grob, prop, set)                                   \
+  auto set = internal_extract_grob_subtype_array<Spanner> (                    \
+    grob, ly_symbol2scm (prop))
 
 #endif /* POINTER_GROUP_INTERFACE_HH */

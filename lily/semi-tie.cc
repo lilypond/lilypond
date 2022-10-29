@@ -89,26 +89,6 @@ Semi_tie::get_position (Item *me)
     rint (Staff_symbol_referencer::get_position (head (me))));
 }
 
-bool
-Semi_tie::less (Grob *g1, Grob *g2)
-{
-  Item *i1 = dynamic_cast<Item *> (g1);
-  if (!i1)
-    {
-      g1->programming_error ("grob is not a semi-tie");
-      return false;
-    }
-
-  Item *i2 = dynamic_cast<Item *> (g2);
-  if (!i2)
-    {
-      g2->programming_error ("grob is not a semi-tie");
-      return true;
-    }
-
-  return get_position (i1) < get_position (i2);
-}
-
 Item *
 Semi_tie::head (Item *me)
 {

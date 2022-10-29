@@ -37,13 +37,11 @@
 using std::vector;
 
 void
-Tie_column::add_tie (Grob *tc, Spanner *tie)
+Tie_column::add_tie (Spanner *me, Spanner *tie)
 {
   if (tie->get_y_parent () && has_interface<Tie_column> (tie->get_y_parent ()))
     return;
 
-  // TODO: Change to a Spanner in the function signature.
-  Spanner *me = dynamic_cast<Spanner *> (tc);
   if (!me->get_bound (LEFT)
       || (me->get_bound (LEFT)->get_column ()->get_rank ()
           > tie->get_bound (LEFT)->get_column ()->get_rank ()))
@@ -85,9 +83,9 @@ SCM
 Tie_column::calc_positioning_done (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  extract_grob_set (me, "ties", ro_ties);
-  vector<Grob *> ties (ro_ties);
-  if (!ties.size ())
+
+  extract_spanner_set (me, "ties", ties);
+  if (ties.empty ())
     return SCM_BOOL_T;
 
   set_property (me, "positioning-done", SCM_BOOL_T);

@@ -38,7 +38,11 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static bool less (Grob *s1, Grob *s2);
+
+  static bool less (Spanner *a, Spanner *b)
+  {
+    return get_position (a) < get_position (b);
+  }
 };
 
 #endif // TIE_HH

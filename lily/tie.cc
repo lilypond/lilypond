@@ -42,26 +42,6 @@
 
 using std::string;
 
-bool
-Tie::less (Grob *g1, Grob *g2)
-{
-  Spanner *s1 = dynamic_cast<Spanner *> (g1);
-  if (!s1)
-    {
-      g1->programming_error ("grob is not a tie");
-      return false;
-    }
-
-  Spanner *s2 = dynamic_cast<Spanner *> (g2);
-  if (!s2)
-    {
-      g2->programming_error ("grob is not a tie");
-      return true;
-    }
-
-  return get_position (s1) < get_position (s2);
-}
-
 void
 Tie::set_head (Spanner *me, Direction d, Grob *h)
 {

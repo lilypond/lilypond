@@ -22,6 +22,7 @@
 #include "grob-array.hh"
 #include "grob.hh"
 #include "item.hh"
+#include "spanner.hh"
 
 using std::vector;
 
@@ -126,3 +127,5 @@ internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
 
 // explicit instantiation
 template vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *, SCM);
+template vector<Spanner *> internal_extract_grob_subtype_array<Spanner> (Grob *,
+                                                                         SCM);

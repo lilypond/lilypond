@@ -315,9 +315,9 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds, Direction dir)
 }
 
 void
-Tie_formatting_problem::from_tie (Grob *tie)
+Tie_formatting_problem::from_tie (Spanner *tie)
 {
-  vector<Grob *> ties;
+  vector<Spanner *> ties;
   ties.push_back (tie);
   from_ties (ties);
 
@@ -331,16 +331,15 @@ Tie_formatting_problem::common_x_refpoint () const
 }
 
 void
-Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
+Tie_formatting_problem::from_ties (vector<Spanner *> const &ties)
 {
   if (ties.empty ())
     return;
 
   x_refpoint_ = ties[0];
   y_refpoint_ = ties[0];
-  for (vsize i = 0; i < ties.size (); i++)
+  for (auto *const tie : ties)
     {
-      Spanner *tie = dynamic_cast<Spanner *> (ties[i]);
       Item *l = tie->get_bound (LEFT);
       Item *r = tie->get_bound (RIGHT);
 
@@ -359,9 +358,8 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
     {
       vector<Item *> bounds;
 
-      for (vsize i = 0; i < ties.size (); i++)
+      for (auto *const tie : ties)
         {
-          Spanner *tie = dynamic_cast<Spanner *> (ties[i]);
           Item *it = tie->get_bound (d);
           if (it->break_status_dir ())
             it = it->get_column ();
@@ -372,9 +370,8 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
       set_chord_outline (bounds, d);
     }
 
-  for (vsize i = 0; i < ties.size (); i++)
+  for (auto *const tie : ties)
     {
-      Spanner *tie = dynamic_cast<Spanner *> (ties[i]);
       Tie_specification spec;
       spec.from_grob (tie);
 
@@ -388,7 +385,7 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
 }
 
 void
-Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties,
+Tie_formatting_problem::from_semi_ties (vector<Item *> const &semi_ties,
                                         Direction head_dir)
 {
   if (semi_ties.empty ())
@@ -399,9 +396,8 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties,
   vector<Item *> heads;
 
   int column_rank = -1;
-  for (vsize i = 0; i < semi_ties.size (); i++)
+  for (auto *const semi_tie : semi_ties)
     {
-      Item *semi_tie = dynamic_cast<Item *> (semi_ties[i]);
       Tie_specification spec;
       Item *head = Semi_tie::head (semi_tie);
 
