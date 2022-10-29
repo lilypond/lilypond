@@ -18,7 +18,7 @@ ifeq ($(out),www)
   TEXDIR = $(src-dir)
 
   LMFILES = lmttb lmttbo lmttr lmttro
-  AUXFILES = lmtt.map ot1tt.enc
+  AUXFILES = lmtt.map ot1ttx.enc
 
   $(outdir)/dep: \
     $(LMFILES:%=$(outdir)/%.tfm) \
@@ -40,7 +40,7 @@ ifeq ($(out),www)
 
   $(AUXFILES:%=$(outdir)/%): auxfiles
 
-  lmfiles: lm-ot1.tex
+  lmfiles: lm-ot1.tex ot1ttx.etx
 	  $(call ly_info,Making .pl files for lm fonts < afm)
 	  cd $(outdir) \
 	  && TEXINPUTS="$(AFMDIR);$(TEXDIR);" $(TEX) $< $(TEX_QUIET)

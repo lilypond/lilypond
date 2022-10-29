@@ -34,21 +34,21 @@
 \input fontinst.sty
 
 \recordtransforms{lm-ot1-transforms.recs}
-  \transformfont{lmttr}{\reencodefont{ot1tt}{\fromafm{lmtl10}}}
-  \transformfont{lmttb}{\reencodefont{ot1tt}{\fromafm{lmtk10}}}
-  \transformfont{lmttro}{\reencodefont{ot1tt}{\fromafm{lmtlo10}}}
-  \transformfont{lmttbo}{\reencodefont{ot1tt}{\fromafm{lmtko10}}}
+  \transformfont{lmttr}{\reencodefont{ot1ttx}{\fromafm{lmtl10}}}
+  \transformfont{lmttb}{\reencodefont{ot1ttx}{\fromafm{lmtk10}}}
+  \transformfont{lmttro}{\reencodefont{ot1ttx}{\fromafm{lmtlo10}}}
+  \transformfont{lmttbo}{\reencodefont{ot1ttx}{\fromafm{lmtko10}}}
 
   % Since we don't need an `.fd` file, replace `\installfonts ...
   % \endinstallfonts` with an ordinary group.
   \bgroup
-    \installrawfont{lmttr}{lmttr,newlatin option nosc}{ot1tt}%
+    \installrawfont{lmttr}{lmttr,newlatin option nosc}{ot1ttx}%
                      {OT1}{lmtt}{m}{n}{}
-    \installrawfont{lmttb}{lmttb,newlatin option nosc}{ot1tt}%
+    \installrawfont{lmttb}{lmttb,newlatin option nosc}{ot1ttx}%
                      {OT1}{lmtt}{b}{n}{}
-    \installrawfont{lmttro}{lmttro,newlatin option nosc}{ot1tt}%
+    \installrawfont{lmttro}{lmttro,newlatin option nosc}{ot1ttx}%
                      {OT1}{lmtt}{m}{sl}{}
-    \installrawfont{lmttbo}{lmttbo,newlatin option nosc}{ot1tt}%
+    \installrawfont{lmttbo}{lmttbo,newlatin option nosc}{ot1ttx}%
                      {OT1}{lmtt}{b}{sl}{}
   \egroup
 \endrecordtransforms
