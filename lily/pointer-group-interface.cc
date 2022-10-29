@@ -103,13 +103,26 @@ internal_extract_grob_array (Grob *elt, SCM symbol)
              : empty_array;
 }
 
-vector<Item *>
-internal_extract_item_array (Grob *elt, SCM symbol)
+template <typename T>
+vector<T *>
+internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
 {
-  Grob_array *arr = unsmob<Grob_array> (elt->internal_get_object (symbol));
-  vector<Item *> items;
-  for (vsize i = 0; arr && i < arr->size (); i++)
-    items.push_back (dynamic_cast<Item *> (arr->grob (i)));
+  vector<T *> result;
 
-  return items;
+  if (auto *const ga = unsmob<Grob_array> (elt->internal_get_object (symbol)))
+    {
+      result.reserve (ga->size ());
+      for (auto *const grob : ga->array ())
+        {
+          if (auto *const specific_grob = dynamic_cast<T *> (grob))
+            result.push_back (specific_grob);
+          else
+            grob->programming_error ("unexpected grob subtype in grob array");
+        }
+    }
+
+  return result;
 }
+
+// explicit instantiation
+template vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *, SCM);

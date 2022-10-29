@@ -99,13 +99,10 @@ Coherent_ligature_engraver::move_related_items_to_column (
 {
   Paper_column *source_column = item->get_column ();
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (item);
-  extract_item_set (source_column, "elements", elements);
+  extract_grob_set (source_column, "elements", elements);
   for (vsize i = elements.size (); i--;)
     {
-      Item *sibling = elements[i];
-      if (!sibling)
-        // should not occur, but who knows... -jr
-        continue;
+      auto *const sibling = elements[i];
 
       if (Staff_symbol_referencer::get_staff_symbol (sibling) != staff_symbol)
         // sibling is from a staff different than that of the item of

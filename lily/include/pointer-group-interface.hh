@@ -38,7 +38,9 @@ public:
 };
 
 std::vector<Grob *> const &internal_extract_grob_array (Grob *elt, SCM symbol);
-std::vector<Item *> internal_extract_item_array (Grob *elt, SCM symbol);
+
+template <typename T>
+std::vector<T *> internal_extract_grob_subtype_array (Grob *elt, SCM symbol);
 
 #define extract_grob_array(x, prop)                                            \
   internal_extract_grob_array (x, ly_symbol2scm (prop))
@@ -53,7 +55,7 @@ std::vector<Item *> internal_extract_item_array (Grob *elt, SCM symbol);
   std::vector<Grob *> const &set (                                             \
     internal_extract_grob_array (grob, ly_symbol2scm (prop)))
 #define extract_item_set(grob, prop, set)                                      \
-  std::vector<Item *> set (                                                    \
-    internal_extract_item_array (grob, ly_symbol2scm (prop)))
+  auto set                                                                     \
+    = internal_extract_grob_subtype_array<Item> (grob, ly_symbol2scm (prop))
 
 #endif /* POINTER_GROUP_INTERFACE_HH */

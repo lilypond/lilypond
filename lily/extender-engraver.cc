@@ -151,9 +151,16 @@ completize_extender (Spanner *sp)
 {
   if (!sp->get_bound (RIGHT))
     {
-      extract_item_set (sp, "heads", heads);
-      if (heads.size ())
-        sp->set_bound (RIGHT, heads.back ());
+      extract_grob_set (sp, "heads", heads);
+      if (!heads.empty ())
+        {
+          // extract_item_set () would clean this up, but would be wasteful
+          // given that we need to use only one of the elements
+          if (auto *const head = dynamic_cast<Item *> (heads.back ()))
+            sp->set_bound (RIGHT, head);
+          else
+            heads.back ()->programming_error ("non-item among heads");
+        }
     }
 }
 
