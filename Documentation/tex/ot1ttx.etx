@@ -1,0 +1,64 @@
+% ot1ttx.etx
+%
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2021--2022 Werner Lemberg <wl@gnu.org>
+%
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+
+% This is an encoding file for the `fontinst` plain TeX macro package.  It
+% modifies the OT1TT encoding, overriding the slot names for glyphs
+% 'circumflex' and 'tilde' with 'asciicircum' and 'asciitilde',
+% respectively, to use the correct Adobe Glyph List (AGL) names.
+%
+% Here is a more in-depth explanation.
+%
+% Modern TeX flavors use a double mapping while creating PDFs: Input
+% characters are first mapped to glyphs, then mapped back to input
+% characters via PDF's `toUnicode` feature for cut and paste support.
+%
+% 1. Input characters completely disappear in TeX and are not accessible
+%    for the creation of `toUnicode`, which makes it important that glyph
+%    names are correct.
+%
+% 2. In case no `toUnicode` mapping is provided in the PDF, glyph names are
+%    mapped to Unicode characters by modern PDF viewers according to the
+%    AGL, which makes it even more important that the glyph names are
+%    correct.
+%
+% The cause of the issue is probably a 'fontinst' bug (see
+% https://tug.org/pipermail/fontinst/2022/001705.html): File `ot1tt.etx`,
+% which defines the OT1 encoding, and which uses the glyph names
+% 'circumflex' and 'tilde' (most probably because the Type1 versions of the
+% CM fonts at that time used these glyph names -- Latin Modern fonts have
+% both `asciicircum` and `circumflex` glyphs, and ditto for the tilde), was
+% last updated in 2002; at that time the standardization of glyph names in
+% modern fonts via the AGL hadn't happened yet.
+
+\relax
+
+\encoding
+
+\nextslot{"5E}
+\setslot{asciicircum}
+\endsetslot
+
+\nextslot{"7E}
+\setslot{asciitilde}
+\endsetslot
+
+\inputetx{ot1tt}
+
+\endencoding
