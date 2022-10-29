@@ -17,11 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 // Defines _GNU_SOURCE, which is needed to enable POSIX features like
 // strdup and M_PI on Cygwin.
 #include "config.hh"
-
 
 #include "cpu-timer.hh"
 #include "dimensions.hh"

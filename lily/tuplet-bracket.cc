@@ -174,13 +174,14 @@ Tuplet_bracket::get_common_x (Spanner *me)
   return commonx;
 }
 
-bool equal_bounds (Spanner *s1, Spanner *s2)
+bool
+equal_bounds (Spanner *s1, Spanner *s2)
 {
   return (s1 && s2
           && s1->get_bound (LEFT)->get_column ()
-             == s2->get_bound (LEFT)->get_column ()
+               == s2->get_bound (LEFT)->get_column ()
           && s1->get_bound (RIGHT)->get_column ()
-             == s2->get_bound (RIGHT)->get_column ());
+               == s2->get_bound (RIGHT)->get_column ());
 }
 
 bool
@@ -203,10 +204,12 @@ Tuplet_bracket::bracket_basic_visibility (Spanner *me)
 
   if (!scm_is_bool (bracket_vis_prop) && !bracket_visibility)
     {
-      bool bracket_over_heads = from_scm<bool> (get_property (me, "visible-over-note-heads"));
+      bool bracket_over_heads
+        = from_scm<bool> (get_property (me, "visible-over-note-heads"));
       if (bracket_over_heads && !Beam::is_knee (par_beam))
         {
-          Direction default_dir = from_scm<Direction> (get_property (par_beam, "direction"));
+          Direction default_dir
+            = from_scm<Direction> (get_property (par_beam, "direction"));
           Direction dir = get_grob_direction (me);
 
           if (default_dir != dir)
@@ -249,7 +252,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Drul_array<bool> connect_to_other = from_scm (
     get_property (me, "connect-to-neighbor"), Drul_array<bool> (false, false));
 
-  bool span_note_heads = from_scm<bool> (get_property (me, "span-all-note-heads"));
+  bool span_note_heads
+    = from_scm<bool> (get_property (me, "span-all-note-heads"));
   bool bracket_visibility = false;
 
   if (span_note_heads)
@@ -258,10 +262,13 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Interval x_span;
   for (const auto d : {LEFT, RIGHT})
     {
-      if (bracket_visibility && has_interface<Note_column> (bounds[d]->get_x_parent ()))
-        x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d]->get_x_parent (), commonx, X_AXIS)[d];
+      if (bracket_visibility
+          && has_interface<Note_column> (bounds[d]->get_x_parent ()))
+        x_span[d] = Axis_group_interface::generic_bound_extent (
+          bounds[d]->get_x_parent (), commonx, X_AXIS)[d];
       else
-        x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d];
+        x_span[d] = Axis_group_interface::generic_bound_extent (
+          bounds[d], commonx, X_AXIS)[d];
 
       if (connect_to_other[d])
         {

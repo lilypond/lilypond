@@ -145,8 +145,8 @@ Breathing_sign::divisio_maior (SCM smob)
   Interval ydim (0.0, 0.0);
   if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
     {
-      std::vector<Real> line_pos =
-        from_scm_list<std::vector<Real>> (get_property (staff, "line-positions"));
+      std::vector<Real> line_pos = from_scm_list<std::vector<Real>> (
+        get_property (staff, "line-positions"));
       if (!line_pos.empty ())
         {
           std::sort (line_pos.begin (), line_pos.end ());

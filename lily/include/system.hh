@@ -116,8 +116,7 @@ public:
   void break_into_pieces (std::vector<Column_x_positions> const &cols);
 
   std::vector<Item *> broken_col_range (Item const *, Item const *);
-  std::vector<Paper_column *> used_columns_in_range (vsize start,
-                                                     vsize end);
+  std::vector<Paper_column *> used_columns_in_range (vsize start, vsize end);
   std::vector<Paper_column *> used_columns ()
   {
     return used_columns_in_range (0, std::numeric_limits<vsize>::max ());

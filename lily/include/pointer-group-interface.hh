@@ -37,8 +37,7 @@ public:
   static Grob *find_grob (Grob *, SCM, bool (*pred) (Grob const *));
 };
 
-std::vector<Grob *> const &internal_extract_grob_array (Grob *elt,
-                                                        SCM symbol);
+std::vector<Grob *> const &internal_extract_grob_array (Grob *elt, SCM symbol);
 std::vector<Item *> internal_extract_item_array (Grob *elt, SCM symbol);
 
 #define extract_grob_array(x, prop)                                            \
