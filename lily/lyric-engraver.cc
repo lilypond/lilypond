@@ -77,12 +77,16 @@ Lyric_engraver::process_music ()
         text_ = make_item ("LyricText", event_->self_scm ());
     }
 
-  Context *voice = get_voice_to_lyrics (context ());
-  if (last_text_ && voice
-      && from_scm<bool> (get_property (voice, "melismaBusy"))
-      && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
-    set_property (last_text_, "self-alignment-X",
-                  get_property (this, "lyricMelismaAlignment"));
+  if (last_text_)
+    {
+      Context *voice = get_voice_to_lyrics (context ());
+      if (voice && from_scm<bool> (get_property (voice, "melismaBusy"))
+          && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
+        {
+          set_property (last_text_, "self-alignment-X",
+                        get_property (this, "lyricMelismaAlignment"));
+        }
+    }
 }
 
 Context *
