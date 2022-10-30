@@ -42,6 +42,7 @@
 /*.po
 /*.ppm
 /*.ps
+/*.xml
 /GNUmakefile
 /local.make
 /x
