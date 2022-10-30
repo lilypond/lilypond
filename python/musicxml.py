@@ -37,7 +37,6 @@ class Xml_node(object):
     def __init__(self):
         self._children = []
         self._data = None
-        self._original = None
         self._name = 'xml_node'
         self._parent = None
         self._attribute_dict = {}
@@ -47,9 +46,6 @@ class Xml_node(object):
 
     def is_first(self):
         return self._parent.get_typed_children(self.__class__)[0] == self
-
-    def original(self):
-        return self._original
 
     def get_name(self):
         return self._name
@@ -1856,7 +1852,6 @@ def lxml_demarshal_node(node):
     klass = get_class(name)
     py_node = klass()
 
-    py_node._original = node
     py_node._name = name
     py_node._data = node.text
     py_node._children = [lxml_demarshal_node(cn) for cn in node.getchildren()]
@@ -1891,7 +1886,6 @@ def minidom_demarshal_node(node):
     if node.nodeType == node.TEXT_NODE and node.data:
         py_node._data = node.data
 
-    py_node._original = node
     return py_node
 
 
