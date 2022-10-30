@@ -444,15 +444,6 @@ class Unpitched(Music_xml_node):
         return p
 
 
-class Measure_element (Music_xml_node):
-    def get_voice_id(self):
-        voice = self.get_maybe_exist_named_child('voice')
-        if voice:
-            return voice.get_text()
-        else:
-            return self.voice_id
-
-
 class Attributes(Measure_element):
 
     def __init__(self):
