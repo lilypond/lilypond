@@ -1667,10 +1667,6 @@ class KeyAlter(Music_xml_node):
     pass
 
 
-class Direction (Measure_element):
-    pass
-
-
 class KeyOctave(Music_xml_node):
     pass
 
