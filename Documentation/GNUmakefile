@@ -136,31 +136,6 @@ PDF_FILES = \
     $(outdir)/cs/% $(outdir)/zh/% $(outdir)/ja/%, \
     $(ALL_PDF_FILES))
 
-target_language = $(word 2, $(subst /, ,$@))
-
-TEXI2HTML_INIT = \
-  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
-  --document-language=$(call target_language) \
-  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-
-TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
-
-TEXI2HTML_FLAGS += \
-  $(TEXI2HTML_ERROR_LIMIT) \
-  $(TEXI2HTML_INCLUDES) \
-  $(TEXI2HTML_INIT) \
-  $(if $(VERBOSE),--verbose)
-TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
-
-ifeq ($(WEB_VERSION),yes)
-  TEXI2HTML_FLAGS += -D web_version
-  TEXI2PDF_LOCAL_FLAGS += -D web_version
-  # As version, use the released $(VERSION_DEVEL) instead of the in-development
-  # $(MAJOR_VERSION).$(MINOR_VERSION).  This makes a difference after branching
-  # for next stable release.
-  WEB_ENV = ONLY_WEB_VERSION=v$(basename $(VERSION_DEVEL))
-endif
-
 SPLIT_HTML_INDEX_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%/index.html)
 BIG_HTML_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%-big-page.html)
 
@@ -196,10 +171,56 @@ include $(depth)/make/lilypond.make
 # Must be here, or overwritten by `lilypond-book-var`.
 OUT_HTML_FILES = $(SPLIT_HTML_INDEX_FILES) $(BIG_HTML_FILES)
 
-EXTRACT_TEXI_FILENAMES_FLAGS += $(if $(VERBOSE),,--quiet)
+### Programs and flags
+
+target_language = $(word 2, $(subst /, ,$@))
+
+LILYPOND_BOOK_INCLUDE_DIRS = \
+  $(outdir) \
+  $(src-dir)/$(call target_language) \
+  $(src-dir)/pictures \
+  $(src-dir)/en/included \
+  $(src-dir)
+
+LILYPOND_BOOK_INCLUDES = $(addprefix -I ,$(LILYPOND_BOOK_INCLUDE_DIRS))
 
 LILYPOND_BOOK_FLAGS += \
   --highlight
+
+EXTRACT_TEXI_FILENAMES_FLAGS += $(if $(VERBOSE),,--quiet)
+
+DOCUMENTATION_INCLUDE_DIRS = \
+  $(src-dir)/pictures \
+  $(dir $@) \
+  $(outdir)/en \
+  $(outdir) \
+  $(src-dir)
+
+DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
+
+TEXI2HTML_INIT = \
+  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
+  --document-language=$(call target_language) \
+  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+
+TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
+
+TEXI2HTML_FLAGS += \
+  $(TEXI2HTML_ERROR_LIMIT) \
+  $(TEXI2HTML_INCLUDES) \
+  $(TEXI2HTML_INIT) \
+  $(if $(VERBOSE),--verbose)
+TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+
+ifeq ($(WEB_VERSION),yes)
+  TEXI2HTML_FLAGS += -D web_version
+  TEXI2PDF_LOCAL_FLAGS += -D web_version
+  # As version, use the released $(VERSION_DEVEL) instead of the in-development
+  # $(MAJOR_VERSION).$(MINOR_VERSION).  This makes a difference after branching
+  # for next stable release.
+  WEB_ENV = ONLY_WEB_VERSION=v$(basename $(VERSION_DEVEL))
+endif
+
 
 # xref map maps section titles <> node names for translated split HTML docs.
 $(outdir)/%.xref-map: $(outdir)/%.texi
@@ -323,24 +344,6 @@ $(outdir)/%-big-page.html: \
      $<" \
 \
 	  "$(outdir)/$*.bigtexi.log"
-
-DOCUMENTATION_INCLUDE_DIRS = \
-  $(src-dir)/pictures \
-  $(dir $@) \
-  $(outdir)/en \
-  $(outdir) \
-  $(src-dir)
-
-DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
-
-LILYPOND_BOOK_INCLUDE_DIRS = \
-  $(outdir) \
-  $(src-dir)/$(call target_language) \
-  $(src-dir)/pictures \
-  $(src-dir)/en/included \
-  $(src-dir)
-
-LILYPOND_BOOK_INCLUDES = $(addprefix -I ,$(LILYPOND_BOOK_INCLUDE_DIRS))
 
 ### Bad hack for badly-integrated roadmap.
 # TODO: move into CG.
