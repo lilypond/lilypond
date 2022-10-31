@@ -587,22 +587,6 @@ $(outdir)/lilypond-%.info: \
 	  "$(outdir)/$*.makeinfo.log"
 	$(UPDATE_IMAGE_SYMLINKS)
 
-$(outdir)/lilypond-internals.info: \
-  $(outdir)/en/internals.texi \
-  $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi
-	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh \
-\
-"$(MAKEINFO) \
-   $(DOCUMENTATION_INCLUDES) \
-   -I$(outdir) \
-   --output=$@ \
-   $<" \
-\
-	  "$(outdir)/$*.makeinfo.log"
-	$(UPDATE_IMAGE_SYMLINKS)
-
 $(outdir)/music-glossary.info: \
   $(outdir)/en/music-glossary.texi \
   $(outdir)/version.itexi \
