@@ -599,7 +599,7 @@ $(outdir)/music-glossary.info: \
    --output=$@ \
    $<" \
 \
-	  "$(outdir)/$*.makeinfo.log"
+	  "$(outdir)/music-glossary.makeinfo.log"
 	$(UPDATE_IMAGE_SYMLINKS)
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
