@@ -171,8 +171,8 @@ ifeq ($(WEB_VERSION),yes)
   WEB_ENV = ONLY_WEB_VERSION=v$(basename $(VERSION_DEVEL))
 endif
 
-SPLIT_HTML_MANUALS = $(TEXINFO_MANUALS)
-SPLIT_HTML_INDEX_FILES = $(SPLIT_HTML_MANUALS:%=$(outdir)/%/index.html)
+SPLIT_HTML_INDEX_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%/index.html)
+BIG_HTML_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%-big-page.html)
 
 # Other out files
 
@@ -208,8 +208,8 @@ ALL_INFO_FILES = $(ALL_INFO_DOCS:%=$(outdir)/%.info)
 include $(depth)/make/lilypond.make
 
 # Must be here, or overwritten by `lilypond-book-var`.
-OUT_HTML_FILES = \
-  $(foreach m, $(SPLIT_HTML_MANUALS), $(outdir)/$(m)-big-page.html)
+OUT_HTML_FILES = $(SPLIT_HTML_INDEX_FILES) $(BIG_HTML_FILES)
+
 EXTRACT_TEXI_FILENAMES_FLAGS += $(if $(VERBOSE),,--quiet)
 
 LILYPOND_BOOK_FLAGS += \
@@ -496,7 +496,7 @@ PICTURE_SYMLINKS = $(foreach L, $(LANGS), $(outdir)/$(L)/pictures)
 PDF_TARGETS = $(OUT_PDF_IMAGES) $(PDF_FILES)
 pdf: $(PDF_TARGETS)
 
-HTML_TARGETS = $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES)
+HTML_TARGETS = $(OUT_HTML_FILES)
 HTML_MISC_TARGETS = $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
 html: $(HTML_TARGETS) $(HTML_MISC_TARGETS)
 
