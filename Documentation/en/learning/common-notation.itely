@@ -56,6 +56,7 @@ on one staff.
 * Advanced rhythmic commands::
 @end menu
 
+
 @node Bar lines and bar checks
 @subsection Bar lines and bar checks
 
@@ -64,9 +65,9 @@ on one staff.
 * Bar checks::
 @end menu
 
+
 @node Bar lines
 @unnumberedsubsubsec Bar lines
-
 
 Single bar lines are automatically placed in the music so there is
 no need to add them manually.  Other types of bar lines are added
@@ -206,8 +207,6 @@ followed by a pitch and @code{\major} or @code{\minor}.
 }
 @end lilypond
 
-@smallspace
-
 
 @node Warning key signatures and pitches
 @unnumberedsubsubsec Warning: key signatures and pitches
@@ -291,7 +290,6 @@ Notation Reference:
 @funindex ( ... )
 @funindex \( ... \)
 
-
 @menu
 * Ties::
 * Slurs::
@@ -362,8 +360,6 @@ slurs at the same time.
 \relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
-@smallspace
-
 
 @node Warnings slurs vs. ties
 @unnumberedsubsubsec Warnings: slurs vs.@: ties
@@ -417,7 +413,7 @@ Music Glossary:
 @rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
-dash (@samp{-}) and a single character.
+dash (@samp{-}) followed by a single character.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -438,8 +434,9 @@ dash (@samp{-}) and a single character.
 Music Glossary:
 @rglos{fingering}.
 
-Similarly, @notation{fingering} indications can be added to a note
-using a dash (@samp{-}) and the digit to be printed:
+Similarly to articulations, @notation{fingering} indications can
+be added to a note using a dash (@samp{-}) followed by the digit
+to be printed:
 
 @lilypond[verbatim,quote]
 \relative { c''4-3 e-5 b-2 a-1 }
@@ -543,7 +540,6 @@ Notation Reference:
 @cindex beams, manual
 @cindex beams, by hand
 
-@funindex [ ... ]
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
@@ -693,7 +689,7 @@ Notation Reference:
 
 This section introduces notation having more than one note at the
 same time: multiple instruments, multiple staves for a single
-instrument (i.e., piano), and chords.
+instrument (such as the piano), and chords.
 
 Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
@@ -722,14 +718,14 @@ than one voice on the same staff.
 * Simultaneous music expressions single staff::
 @end menu
 
-In LilyPond input files, music is represented by @emph{music
+In LilyPond input files, music is represented by @dfn{music
 expressions}.  A single note is a music expression:
 
 @lilypond[verbatim,quote,fragment]
 a'4
 @end lilypond
 
-Enclosing music in braces creates a @emph{compound music
+Enclosing music in braces creates a @dfn{compound music
 expression}.  Here we have created a compound music expression
 with two notes:
 
@@ -873,15 +869,16 @@ and @code{>>}:
 >>
 @end lilypond
 
-The command @code{\new} introduces a @q{notation context}.  A
+The command @code{\new} introduces a @dfn{notation context}.  A
 notation context is an environment in which musical events (like
 notes or @code{\clef} commands) are interpreted.  For simple
 pieces, such notation contexts are created automatically.  For
 more complex pieces, it is best to mark contexts explicitly.
 
-There are several types of contexts.  @code{Score}, @code{Staff},
-and @code{Voice} handle melodic notation, while @code{Lyrics} sets
-lyric texts and @code{ChordNames} prints chord names.
+There are several types of contexts.  The most important ones are
+@code{Score}, @code{Staff}, and @code{Voice}, which handle melodic
+notation, while @code{Lyrics} sets lyric texts and
+@code{ChordNames} prints chord names.
 
 In terms of syntax, prepending @code{\new} to a music expression
 creates a bigger music expression.  In this way it resembles the
@@ -925,7 +922,8 @@ Music Glossary:
 Piano music is typeset in two staves connected by a
 @notation{brace}.  Printing such a staff is similar to polyphonic
 music in multiple staves (@pxref{Multiple staves}).  However, now
-this entire expression is inserted into a @code{PianoStaff}:
+this entire expression is inserted into a @code{PianoStaff}
+context:
 
 @example
 \new PianoStaff <<
@@ -947,7 +945,7 @@ Other staff groupings are introduced with @code{\new GrandStaff},
 suitable for orchestral scores, and @code{\new ChoirStaff},
 suitable for vocal scores.  These staff groups each form another
 type of context, one that generates the brace at the left side of
-every system and also controls the extent of bar lines.
+every system and also controls the vertical extent of bar lines.
 
 @morerefs
 Notation Reference:
@@ -1375,13 +1373,13 @@ later by placing a backslash in front of the name
 (@code{\namedMusic}), just like a normal LilyPond command.
 
 @lilypond[verbatim,quote]
-violin = \new Staff {
+Violin = \new Staff {
   \relative {
     a'4 b c b
   }
 }
 
-cello = \new Staff {
+Cello = \new Staff {
   \relative {
     \clef bass
     e2 d
@@ -1390,8 +1388,8 @@ cello = \new Staff {
 
 {
   <<
-    \violin
-    \cello
+    \Violin
+    \Cello
   >>
 }
 @end lilypond
@@ -1547,24 +1545,7 @@ and is extremely useful for computer-generated LilyPond files.
 When cutting and pasting melody fragments, absolute mode preserves
 the original octave.
 
-Sometimes music is arranged in more complex ways.  If you are
-using @code{\relative} inside of @code{\relative}, the outer and
-inner relative sections are independent:
-
-@lilypond[verbatim,quote]
-\relative { c'4 \relative { f'' g } c }
-@end lilypond
-
-To use absolute mode inside of @code{\relative}, put the absolute
-music inside @code{\fixed c @{ @dots{}@tie{}@}} and the absolute
-pitches will not affect the octaves of the relative music:
-
-@lilypond[verbatim,quote]
-\relative {
-  c'4 \fixed c { f'' g'' } c |
-  c4 \fixed c'' { f g } c
-}
-@end lilypond
+See @ruser{Relative octave entry} for more complex situations.
 
 
 @node After the tutorial
@@ -1597,4 +1578,3 @@ of manuals}.  There is a lot of information about LilyPond, so
 newcomers often do not know where they should look for help.  If
 you spend five minutes reading that section carefully, you might
 save yourself hours of frustration looking in the wrong places!
-

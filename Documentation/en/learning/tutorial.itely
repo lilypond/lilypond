@@ -22,6 +22,7 @@ This chapter gives a basic introduction to working with LilyPond.
 * How to read the manuals::
 @end menu
 
+
 @node Compiling a file
 @section Compiling a file
 
@@ -30,15 +31,16 @@ This chapter gives a basic introduction to working with LilyPond.
 @cindex example, first
 @cindex case sensitive
 
-@qq{Compiling} is the term used for processing an input file in
+@dfn{Compiling} is the term used for processing an input file in
 LilyPond format to produce output file(s).  Output files are
-generally PDF (for printing or viewing), MIDI (for playing), and
-PNG (for online use).  LilyPond input files are simple text files.
+generally PDF documents (for printing or viewing), MIDI files (for
+playing), and PNG images (for online use).  LilyPond input files
+are documents containing plain text only.
 
 This example shows a simple input file:
 
 @example
-\version "@w{@version{}}"
+\version "@version{}"
 @{
   c' e' g' e'
 @}
@@ -60,7 +62,7 @@ should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  They may
 be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
-examples in the manual, see @ref{How to read the manuals}.}
+examples in the manual, @pxref{How to read the manuals}.}
 
 In addition, LilyPond input is @strong{case sensitive}.
 @w{@samp{@{ c d e @}}} is valid input; @w{@samp{@{ C D E @}}}
@@ -74,9 +76,28 @@ This section introduces some basic LilyPond syntax to help get you
 started writing input files.
 
 @menu
+* Input characters::
 * Simple notation::
 * Working on input files::
 @end menu
+
+
+@node Input characters
+@subsection Input characters
+
+If you open a new file for LilyPond input, ensure that your editor
+uses UTF-8 input encoding.  Frescobaldi (@pxref{Installing}) does
+this automatically for you, but especially under Windows this
+might not be the default under a different editor.
+
+@c To compare quote-like characters it is better to use `@code`
+@c here instead of `@samp`.
+Note also that some characters used for LilyPond notation have
+look-alike siblings.  In particular, you have to use straight
+quotes@tie{}(@code{'}), not curly quotes@tie{}(@code{’}) or acute
+accents@tie{}(@code{´}).  Some editors, especially e-mail clients,
+automatically replace straight quotes with curly ones; such a
+feature must be switched off.
 
 
 @node Simple notation
@@ -94,6 +115,7 @@ started writing input files.
 * Clef::
 * All together::
 @end menu
+
 
 LilyPond adds some notation elements automatically.  In the next
 example, we have only specified four pitches, but LilyPond has
@@ -354,7 +376,7 @@ set with the @code{\tempo} command:
   \tempo 4. = 96
   a4. a
   \time 4/4
-  \tempo  "Presto" 4 = 120
+  \tempo "Presto" 4 = 120
   a4 a a a
 }
 @end lilypond
@@ -452,9 +474,9 @@ are now going to explain what all these terms mean.
 
 @item
 @strong{Version statement}:
-Every LilyPond file should contain a version statement.  A version
-statement is a line that describes the version of LilyPond for which
-the file was written, as in the following example:
+Every LilyPond file should contain a @dfn{version statement}.  A
+version statement is a line that describes the version of LilyPond
+for which the file was written, as in the following example:
 
 @example
 \version "@version{}"
@@ -639,7 +661,7 @@ online version.
 @cindex files, tips for constructing
 
 LilyPond input must be surrounded by @code{@{@tie{}@}} marks or
-@q{@code{\relative @{ @dots{}@tie{}@}}} (@pxref{Working on input
+@samp{\relative @{ @dots{}@tie{}@}} (@pxref{Working on input
 files}).  For the rest of this manual, some short examples omit
 this.  To replicate these examples, you can copy displayed input,
 but paste it between @samp{@{} and @samp{@}} in your input file.
@@ -664,8 +686,9 @@ But you should make a practice of including them in your files.
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
 picture in the HTML version of this manual, you will see the exact
-LilyPond input that was used to generate that image.  Try it on
-this image:
+LilyPond input that was used to generate that image.
+@ifhtml
+Try it on this image:
 
 @c no verbatim here
 @lilypond[quote]
@@ -679,6 +702,7 @@ By cutting and pasting everything in the @qq{ly snippet} section,
 you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
+@end ifhtml
 
 
 @ignore
@@ -687,7 +711,7 @@ This is item 825
 @n ode Keyboard navigation
 @s ubsection Keyboard navigation
 
-@warning{This features is only available in the HTML manuals.}
+@warning{This feature is only available in the HTML manuals.}
 
 @c TODO: once this is figured out, insert it here.
 

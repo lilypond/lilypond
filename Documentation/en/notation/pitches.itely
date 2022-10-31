@@ -234,6 +234,17 @@ independently of the outer @code{\relative}.
 }
 @end lilypond
 
+To use absolute mode inside of @code{\relative}, put the absolute
+music inside @code{\fixed c @{ @dots{}@tie{}@}} and the absolute
+pitches will not affect the octaves of the relative music:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
+}
+@end lilypond
+
 @code{\relative} has no effect on @code{\chordmode} blocks.
 
 @lilypond[verbatim,quote]
