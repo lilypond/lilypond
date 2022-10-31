@@ -7,18 +7,8 @@ depth = ..
 #############
 ### Variables
 
-NAME = documentation
-
 SUBDIRS = po
 TEMPLATES = lilypond ly lilypond-book
-
-### Extra flags
-
-LILYPOND_BOOK_FLAGS = \
-  --extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
-TEXI2PDF_FLAGS = \
-  -I $(outdir) \
-  -I $(top-build-dir)/Documentation/$(outconfbase)
 
 ### ly examples
 
@@ -173,10 +163,6 @@ endif
 
 SPLIT_HTML_INDEX_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%/index.html)
 BIG_HTML_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%-big-page.html)
-
-# Other out files
-
-MAIN_INFO_DOC = lilypond-web
 
 # This list must stay in sync with the corresponding @direntry block in file
 # `web.texi`.
