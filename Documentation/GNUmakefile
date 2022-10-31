@@ -222,152 +222,6 @@ ifeq ($(WEB_VERSION),yes)
 endif
 
 
-# xref map maps section titles <> node names for translated split HTML docs.
-$(outdir)/%.xref-map: $(outdir)/%.texi
-	$(call ly_progress,Making,$@,< texi)
-	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py \
-	  $(EXTRACT_TEXI_FILENAMES_FLAGS) \
-	  $(if $(call target_language), \
-	    --master-map-file=$(subst $(call target_language)/,en/,$@)) \
-	  $(DOCUMENTATION_INCLUDES) \
-	  -o $(dir $@) \
-	  $<
-
-$(outdir)/%.pdf: \
-  $(outdir)/%.texi \
-  $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi \
-  $(OUT_PDF_IMAGES) \
-  $(OUT_BITMAP_IMAGES) \
-  | pre-pdf
-	$(call ly_progress,Making,$@,< texi)
-	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
-	  $(buildscript-dir)/run-and-check.sh \
-\
-"cd $(dir $@); \
-   texi2pdf \
-     --batch \
-     $(TEXI2PDF_LOCAL_FLAGS) \
-     -I ../ \
-     -I $(abs-src-dir)/$(call target_language) \
-     -I $(abs-src-dir) \
-     -I $(abs-src-dir)/en/ \
-     -o $(CURDIR)/$(outdir)/$*.tmp.pdf \
-     $(CURDIR)/$< \
-   < /dev/null" \
-\
-	    "$(outdir)/$*.texi2pdf.log"
-# A surprisingly large number of options (the ones containing 'Image' in
-# their names together with `ColorConversionStrategy`) is necessary to
-# change ghostscript's default behaviour of converting PNG images to JPEG,
-# which would cause ugly artifacts in our screenshots.
-#
-# Option `Printed=false` makes ghostscript preserve hyperlinks.
-ifeq ($(USE_EXTRACTPDFMARK),yes)
-	  $(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
-            -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
-	  $(GS920) \
-	    -dBATCH \
-	    -dNOSAFER \
-	    -dNOPAUSE \
-	    -q \
-	    -sDEVICE=pdfwrite \
-	    -dAutoRotatePages=/None \
-	    -dPrinted=false \
-	    -dColorConversionStrategy=/LeaveColorUnchanged \
-	    -dDownsampleMonoImages=false \
-	    -dDownsampleGrayImages=false \
-	    -dDownsampleColorImages=false \
-	    -dAutoFilterColorImages=false \
-	    -dAutoFilterGrayImages=false \
-	    -dColorImageFilter=/FlateEncode \
-	    -dGrayImageFilter=/FlateEncode \
-	    -sOutputFile=$@ \
-	    -c "30000000 setvmthreshold" \
-	    -I $(top-build-dir)/out-fonts \
-	    -I $(top-build-dir)/out-fonts/Font \
-	    $(outdir)/$*.pdfmark \
-	    $(outdir)/$*.tmp.pdf
-	  rm $(outdir)/$*.tmp.pdf
-else
-	  mv $(outdir)/$*.tmp.pdf $@
-endif
-
-# LilyPond uses Cyrillic in its documentation; the used fonts are from the LH
-# family.  By default, its metrics files are generated on the fly, which might
-# cause problems in parallel make jobs.  For this reason we make TeX Live
-# generate the needed TFM files in advance.
-pre-pdf:
-	$(MAKE) out=www -C tex local-WWW
-	$(call ly_info,Making latt1095.tfm in TeX Live (mktextfm))
-	$(buildscript-dir)/run-and-check.sh \
-	  "mktextfm latt1095" "$(outdir)/latt1095.mktextfm.log"
-	$(call ly_info,Making larm1095.tfm in TeX Live (mktextfm))
-	$(buildscript-dir)/run-and-check.sh \
-	  "mktextfm larm1095" "$(outdir)/larm1095.mktextfm.log"
-
-$(outdir)/%/index.html: \
-  $(outdir)/%.texi \
-  $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi \
-  $(OUT_BITMAP_IMAGES) \
-  $(OUT_CSS_FILES)
-	$(call ly_progress,Making,$@,< texi)
-	mkdir -p $(dir $@)
-	rm -f $(dir $@)/pictures && ln -s ../pictures $(dir $@)/pictures
-	rm -f $(dir $@)/css && ln -s ../../css $(dir $@)/css
-	$(buildscript-dir)/run-and-check.sh \
-\
-"$(WEB_ENV) \
- DEPTH=$(depth)/../ \
-   $(TEXI2HTML) \
-     --prefix=index \
-     --split=section \
-     $(TEXI2HTML_FLAGS) \
-     --output=$(dir $@) \
-     $<" \
-\
-	  "$(outdir)/$*.splittexi.log"
-
-$(outdir)/%-big-page.html: \
-  $(outdir)/%.texi \
-  $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi
-	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh \
-\
-"DEPTH=$(depth) \
-   $(TEXI2HTML) \
-     $(TEXI2HTML_FLAGS) \
-     -D bigpage \
-     --output=$@ \
-     $<" \
-\
-	  "$(outdir)/$*.bigtexi.log"
-
-### Bad hack for badly-integrated roadmap.
-# TODO: move into CG.
-$(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
-	$(call ly_progress,Making,$@,(copy))
-	mkdir -p $(dir $@)
-	cp $(top-src-dir)/ROADMAP $@
-
-$(outdir)/en/contributor.texi: $(outdir)/en/ROADMAP
-
-$(outdir)/topdocs/NEWS.texi: $(outdir)/en/changes.texi
-	mkdir -p $(dir $@)
-	cp $< $@
-
-### Bad hack for badly-integrated bibliography.
-$(outdir)/%.itexi: bib/%.bib
-	$(call ly_progress,Making,$@,< bib)
-	BSTINPUTS=$(src-dir)/essay \
-	  $(PYTHON) $(buildscript-dir)/bib2texi.py \
-	    -s $(top-src-dir)/Documentation/lily-bib -o $@ $<
-
-$(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
-
-
 ###########
 ### Targets
 
@@ -590,6 +444,151 @@ $(outdir)/music-glossary.info: \
 \
 	  "$(outdir)/music-glossary.makeinfo.log"
 	$(UPDATE_IMAGE_SYMLINKS)
+
+# xref map maps section titles <> node names for translated split HTML docs.
+$(outdir)/%.xref-map: $(outdir)/%.texi
+	$(call ly_progress,Making,$@,< texi)
+	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py \
+	  $(EXTRACT_TEXI_FILENAMES_FLAGS) \
+	  $(if $(call target_language), \
+	    --master-map-file=$(subst $(call target_language)/,en/,$@)) \
+	  $(DOCUMENTATION_INCLUDES) \
+	  -o $(dir $@) \
+	  $<
+
+$(outdir)/%.pdf: \
+  $(outdir)/%.texi \
+  $(outdir)/version.itexi \
+  $(outdir)/weblinks.itexi \
+  $(OUT_PDF_IMAGES) \
+  $(OUT_BITMAP_IMAGES) \
+  | pre-pdf
+	$(call ly_progress,Making,$@,< texi)
+	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+	  $(buildscript-dir)/run-and-check.sh \
+\
+"cd $(dir $@); \
+   texi2pdf \
+     --batch \
+     $(TEXI2PDF_LOCAL_FLAGS) \
+     -I ../ \
+     -I $(abs-src-dir)/$(call target_language) \
+     -I $(abs-src-dir) \
+     -I $(abs-src-dir)/en/ \
+     -o $(CURDIR)/$(outdir)/$*.tmp.pdf \
+     $(CURDIR)/$< \
+   < /dev/null" \
+\
+	    "$(outdir)/$*.texi2pdf.log"
+# A surprisingly large number of options (the ones containing 'Image' in
+# their names together with `ColorConversionStrategy`) is necessary to
+# change ghostscript's default behaviour of converting PNG images to JPEG,
+# which would cause ugly artifacts in our screenshots.
+#
+# Option `Printed=false` makes ghostscript preserve hyperlinks.
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	  $(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
+            -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	  $(GS920) \
+	    -dBATCH \
+	    -dNOSAFER \
+	    -dNOPAUSE \
+	    -q \
+	    -sDEVICE=pdfwrite \
+	    -dAutoRotatePages=/None \
+	    -dPrinted=false \
+	    -dColorConversionStrategy=/LeaveColorUnchanged \
+	    -dDownsampleMonoImages=false \
+	    -dDownsampleGrayImages=false \
+	    -dDownsampleColorImages=false \
+	    -dAutoFilterColorImages=false \
+	    -dAutoFilterGrayImages=false \
+	    -dColorImageFilter=/FlateEncode \
+	    -dGrayImageFilter=/FlateEncode \
+	    -sOutputFile=$@ \
+	    -c "30000000 setvmthreshold" \
+	    -I $(top-build-dir)/out-fonts \
+	    -I $(top-build-dir)/out-fonts/Font \
+	    $(outdir)/$*.pdfmark \
+	    $(outdir)/$*.tmp.pdf
+	  rm $(outdir)/$*.tmp.pdf
+else
+	  mv $(outdir)/$*.tmp.pdf $@
+endif
+
+# LilyPond uses Cyrillic in its documentation; the used fonts are from the LH
+# family.  By default, its metrics files are generated on the fly, which might
+# cause problems in parallel make jobs.  For this reason we make TeX Live
+# generate the needed TFM files in advance.
+pre-pdf:
+	$(MAKE) out=www -C tex local-WWW
+	$(call ly_info,Making latt1095.tfm in TeX Live (mktextfm))
+	$(buildscript-dir)/run-and-check.sh \
+	  "mktextfm latt1095" "$(outdir)/latt1095.mktextfm.log"
+	$(call ly_info,Making larm1095.tfm in TeX Live (mktextfm))
+	$(buildscript-dir)/run-and-check.sh \
+	  "mktextfm larm1095" "$(outdir)/larm1095.mktextfm.log"
+
+$(outdir)/%/index.html: \
+  $(outdir)/%.texi \
+  $(outdir)/version.itexi \
+  $(outdir)/weblinks.itexi \
+  $(OUT_BITMAP_IMAGES) \
+  $(OUT_CSS_FILES)
+	$(call ly_progress,Making,$@,< texi)
+	mkdir -p $(dir $@)
+	rm -f $(dir $@)/pictures && ln -s ../pictures $(dir $@)/pictures
+	rm -f $(dir $@)/css && ln -s ../../css $(dir $@)/css
+	$(buildscript-dir)/run-and-check.sh \
+\
+"$(WEB_ENV) \
+ DEPTH=$(depth)/../ \
+   $(TEXI2HTML) \
+     --prefix=index \
+     --split=section \
+     $(TEXI2HTML_FLAGS) \
+     --output=$(dir $@) \
+     $<" \
+\
+	  "$(outdir)/$*.splittexi.log"
+
+$(outdir)/%-big-page.html: \
+  $(outdir)/%.texi \
+  $(outdir)/version.itexi \
+  $(outdir)/weblinks.itexi
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh \
+\
+"DEPTH=$(depth) \
+   $(TEXI2HTML) \
+     $(TEXI2HTML_FLAGS) \
+     -D bigpage \
+     --output=$@ \
+     $<" \
+\
+	  "$(outdir)/$*.bigtexi.log"
+
+### Bad hack for badly-integrated roadmap.
+# TODO: move into CG.
+$(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
+	$(call ly_progress,Making,$@,(copy))
+	mkdir -p $(dir $@)
+	cp $(top-src-dir)/ROADMAP $@
+
+$(outdir)/en/contributor.texi: $(outdir)/en/ROADMAP
+
+$(outdir)/topdocs/NEWS.texi: $(outdir)/en/changes.texi
+	mkdir -p $(dir $@)
+	cp $< $@
+
+### Bad hack for badly-integrated bibliography.
+$(outdir)/%.itexi: bib/%.bib
+	$(call ly_progress,Making,$@,< bib)
+	BSTINPUTS=$(src-dir)/essay \
+	  $(PYTHON) $(buildscript-dir)/bib2texi.py \
+	    -s $(top-src-dir)/Documentation/lily-bib -o $@ $<
+
+$(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
