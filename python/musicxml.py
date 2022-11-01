@@ -737,6 +737,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'grace': 1,
+        'rest': 1,
         'staff': 1,
         'voice': 1,
     }
@@ -850,10 +851,9 @@ class Note(Measure_element):
     def initialize_rest_event(self, convert_rest_positions=True):
         # rests can have display-octave and display-step, which are
         # treated like an ordinary note pitch
-        rest = self.get_maybe_exist_typed_child(Rest)
         event = musicexp.RestEvent()
         if convert_rest_positions:
-            pitch = rest.to_lily_object()
+            pitch = self['rest'].to_lily_object()
             event.pitch = pitch
         return event
 
@@ -868,7 +868,7 @@ class Note(Measure_element):
             event = self.initialize_pitched_event()
         elif self.get_maybe_exist_typed_child(Unpitched):
             event = self.initialize_unpitched_event()
-        elif self.get_maybe_exist_typed_child(Rest):
+        elif 'rest' in self:
             event = self.initialize_rest_event(convert_rest_positions)
         else:
             self.message(_("cannot find suitable event"))
@@ -1344,7 +1344,7 @@ class Part(Music_xml_node):
                     if 'grace' in n:
                         dur = 0
 
-                    rest = n.get_maybe_exist_typed_child(Rest)
+                    rest = n.get('rest')
                     if(rest
                             and attributes_object
                             and attributes_object.get_measure_length() == dur):

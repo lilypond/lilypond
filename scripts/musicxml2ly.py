@@ -2237,7 +2237,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         return isinstance(elem, musicxml.Note)
 
     def is_rest(elem):
-        return elem.get_typed_children(musicxml.Rest)
+        return 'rest' in elem
 
     def is_chord(elem):
         return elem.get_typed_children(musicxml.Chord)
@@ -2369,7 +2369,7 @@ def musicxml_voice_to_lily_voice(voice):
 
         # Continue any multimeasure-rests before trying to add bar checks!
         # Don't handle new MM rests yet, because for them we want bar checks!
-        rest = n.get_maybe_exist_typed_child(musicxml.Rest)
+        rest = n.get('rest')
         if (rest and rest.is_whole_measure()
                 and voice_builder.pending_multibar > 0):
             voice_builder.add_multibar_rest(n._duration)
