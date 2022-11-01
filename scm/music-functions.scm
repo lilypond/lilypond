@@ -790,7 +790,18 @@ tweaks should be applied.  Relevant for music wrappers and event
 chords."
   (cond ((music-is-of-type? mus 'music-wrapper-music)
          (get-tweakable-music (ly:music-property mus 'element)))
-        ((music-is-of-type? mus 'event-chord)
+        ((and (music-is-of-type? mus 'event-chord)
+              ;; A chord music expression with a duration on it (rather than on
+              ;; the contained events) is a chord repetition "q".  In general,
+              ;; \tweak on a chord tweaks all contained rhythmic events, but for
+              ;; "q" this is useless since the contained elements are to be set
+              ;; later.  In this case, we attach the tweaks on the EventChord
+              ;; itself, so as not to lose them.  Later, when chord repeats are
+              ;; expanded, the tweaks will be propagated to any contained
+              ;; rhythmic events.  We assume that none of the elements is a
+              ;; rhythmic event, which holds because of the input syntax of "q"
+              ;; which makes no room for adding notes.
+              (not (ly:music-property mus 'duration #f)))
          (filter (music-type-predicate 'rhythmic-event)
                  (ly:music-property mus 'elements)))
         (else (list mus))))
@@ -849,9 +860,23 @@ duration is replaced with the specified @var{duration}."
                (if (ly:music-property m 'cautionary #f)
                    (set! (ly:music-property m 'cautionary) #f))
                (if (ly:music-property m 'force-accidental #f)
-                   (set! (ly:music-property m 'force-accidental) #f))))
+                   (set! (ly:music-property m 'force-accidental) #f))
+               ;; Tweaks on repeat chords are put on the EventChord itself in order to keep
+               ;; track of them, since there are no elements at the time they are added.  Now
+               ;; move them to the newly filled in elements.
+               (if (music-is-of-type? m 'rhythmic-event)
+                   (set! (ly:music-property m 'tweaks)
+                         (append (ly:music-property repeat-chord 'tweaks)
+                                 (ly:music-property m 'tweaks))))))
            elts)
+          ;; Regarding tweaks, assume no rhythmic events are in the chord
+          ;; repetition's elements, which is prevented by the input syntax.
           (append! elts (ly:music-property repeat-chord 'elements))))
+  ;; Tweaks have been propagated to the elements, they're no longer useful on
+  ;; the chord itself.
+  (set! (ly:music-property repeat-chord 'tweaks)
+        '())
+  ;; Append articulations from the repeated chords to the articulations on "q".
   (let ((arts (filter keep-element?
                       (ly:music-property original-chord
                                          'articulations))))
