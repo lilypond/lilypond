@@ -50,25 +50,6 @@ column with zero-based index COLUMN."
   (list-longest (map car
                      (every-nth-element lst column num-columns))))
 
-(define digit-suffix-regexp (make-regexp "[0-9]+$"))
-
-(define (color-key<? a b)
-  "Similar to 'symbol-key<?', but compare trailing numbers numerically so that
-'foo2' is ordered before 'foo10'."
-  (let* ((str-a (symbol->string (car a)))
-         (str-b (symbol->string (car b)))
-         (match-a (regexp-exec digit-suffix-regexp str-a))
-         (match-b (regexp-exec digit-suffix-regexp str-b)))
-    (if (and match-a match-b)
-        (let ((prefix-a (match:prefix match-a))
-              (prefix-b (match:prefix match-b)))
-          (if (string=? prefix-a prefix-b)
-              (let ((matched-a (match:substring match-a))
-                    (matched-b (match:substring match-b)))
-                (< (string->number matched-a) (string->number matched-b)))
-              (string<? str-a str-b)))
-        (string<? str-a str-b))))
-
 (define color-formatter-alist
   '((css . "\"~a\"")
     (definition . "#~a")
@@ -80,7 +61,7 @@ column with zero-based index COLUMN."
 ;; consequence, these lists have to be sorted for documentation.
 (define (make-color-doc-string color-list color-type num-columns sorted?)
   (let ((clist (if sorted?
-                   (sort color-list color-key<?)
+                   (sort color-list ly:alist-ci<?)
                    color-list)))
     (format #f
             "\

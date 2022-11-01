@@ -3,7 +3,7 @@
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
 ;;;; Copyright 2009--2022 Mark Polesky <markpolesky@yahoo.com>
-
+;;;;           2022--2022 Jean Abou Samra <jean@abou-samra.fr>
 
 ;; This file implements a LilyPond-specific character-sorting algorithm
 ;; that can be used to sort lists, alists, etc. consistently and
@@ -38,6 +38,9 @@
 ;; "prepended" to it so that they now come first. This is achieved with
 ;; the function "ly:char-generic-<?".
 ;;
+;; Furthermore, the string comparison function recognizes numeric parts
+;; and sorts them by numeric value, so that "grey10" comes after "grey2".
+;;
 ;; This file defines 3 case-sensitive binary comparison predicates:
 ;;   ly:string<?     ly:symbol<?     ly:alist<?
 ;; and their case-insensitive counterparts:
@@ -46,6 +49,8 @@
 ;; Case-insensitive predicates are recommended in general; otherwise
 ;; symbols like "Y-offset" appear near the top of lists which
 ;; otherwise include mostly lowercase symbols.
+
+(use-modules (srfi srfi-11)) ; let-values
 
 (define (ly:char-generic-<? a b ci)
   (let* ((init-list (string->list " !?<=>:-_"))
@@ -62,22 +67,52 @@
 (define (ly:char-ci<? a b)
   (ly:char-generic-<? a b #t))
 
-(define (first-diff-chars str0 str1 ci)
-  (let find-mismatch ((a (string->list str0)) (b (string->list str1)))
-    (cond ((and (null? a) (null? b)) #f)
-          ((null? a) (cons #f (car b)))
-          ((null? b) (cons (car a) #f))
-          ((not ((if ci char-ci=? char=?) (car a) (car b)))
-           (cons (car a) (car b)))
-          (else (find-mismatch (cdr a) (cdr b))))))
-
 (define (ly:string-generic-<? a b ci)
-  (let ((mismatch (first-diff-chars a b ci)))
-    (cond ((and mismatch (car mismatch) (cdr mismatch))
-           ((if ci ly:char-ci<? ly:char<?)
-            (car mismatch) (cdr mismatch)))
-          ((and mismatch (cdr mismatch)) #t)
-          (else #f))))
+  ;; Don't use char-set:digit, it also contains Unicode digits from other
+  ;; alphabets.
+  (define char-set:latin-digit (char-set #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9))
+  (define (digit-at? s i)
+    (char-set-contains? char-set:latin-digit (string-ref s i)))
+  (define (split-number s)
+    (let loop ((i 0))
+      (cond
+       ((eqv? i (string-length s))
+        (values (string->number s)
+                ""))
+       ((digit-at? s i)
+        (loop (1+ i)))
+       (else
+        (values (string->number (substring s 0 i))
+                (substring s i))))))
+  (cond
+   ((string-null? b)
+    #f)
+   ((string-null? a)
+    #t)
+   ((and (digit-at? a 0)
+         (digit-at? b 0))
+    (let-values (((num-a rest-a) (split-number a))
+                 ((num-b rest-b) (split-number b)))
+      (cond
+       ((< num-a num-b)
+        #t)
+       ((> num-a num-b)
+        #f)
+       (else
+        (ly:string-generic-<? rest-a rest-b ci)))))
+   ((ly:char-generic-<? (string-ref a 0)
+                        (string-ref b 0)
+                        ci)
+    #t)
+   ((ly:char-generic-<? (string-ref b 0)
+                        (string-ref a 0)
+                        ci)
+    #f)
+   (else
+    ;; This isn't quadratic as it may seem: Guile substrings are copy-on-write.
+    (ly:string-generic-<? (substring a 1)
+                          (substring b 1)
+                          ci))))
 
 (define (ly:string<? a b)
   "Return #t if string A is less than string B in case-sensitive
