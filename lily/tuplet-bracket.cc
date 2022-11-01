@@ -649,7 +649,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 
     This doesn't seem to support cross-staff tuplets atm.
   */
-  if (*dy == 0)
+  if (fabs (*dy) < 0.01)
     {
       // quantize, then do collision check.
       *offset /= 0.5 * ss;
@@ -657,6 +657,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       Interval staff_span = Staff_symbol_referencer::staff_span (me);
       if (staff_span.contains (*offset))
         {
+          // Round to staff line or middle of staff space //
           *offset = rint (*offset);
           if (Staff_symbol_referencer::on_line (me, int (*offset)))
             *offset += dir;
