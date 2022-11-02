@@ -302,17 +302,14 @@ breathing or caesura.")))
             (set! event-start '())
             (set! event-stop '()))))
      ((finalize trans)
-      (if (ly:spanner? finished)
-          (begin
-            (if (not (ly:spanner-bound finished RIGHT #f))
-                (set! (ly:spanner-bound finished RIGHT)
-                      (ly:context-property context 'currentCommandColumn)))
-            (set! finished '())))
+      (if (and (ly:spanner? finished)
+               (not (ly:spanner-bound finished RIGHT #f)))
+          (set! (ly:spanner-bound finished RIGHT)
+                (ly:context-property context 'currentCommandColumn)))
       (if (ly:spanner? span)
           (begin
             (ly:warning (G_ "unterminated measure spanner"))
-            (ly:grob-suicide! span)
-            (set! span '())))))))
+            (ly:grob-suicide! span)))))))
 
 (ly:register-translator
  Measure_counter_engraver 'Measure_counter_engraver
@@ -721,13 +718,7 @@ one voice.")))
                (ly:grob-suicide! dur-line))
              current-dur-grobs)
             (set! current-dur-grobs #f)
-            (set! stop-duration-line #f)))
-
-      ;; house-keeping
-      (set! created '())
-      (set! rhyth-event #f)
-      (set! skip #f)
-      (set! mmr-event #f)))))
+            (set! stop-duration-line #f)))))))
 
 (ly:register-translator
  Duration_line_engraver 'Duration_line_engraver
@@ -901,12 +892,7 @@ ignoring. If you want to bend an open string, consider to override/tweak the
         (if bend-spanner
             (begin
               (ly:warning (G_ "Unbound BendSpanner, ignoring"))
-              (ly:grob-suicide! bend-spanner)
-              (ly:context-set-property! context 'stringFretFingerList '())
-              (set! bend-spanner #f)
-              (set! bend-stop #f)
-              (set! previous-bend-dir #f)
-              (set! successive-lvl #f))))))))
+              (ly:grob-suicide! bend-spanner))))))))
 
 (ly:register-translator
  Bend_spanner_engraver 'Bend_spanner_engraver
@@ -935,14 +921,14 @@ Engraver to print a BendSpanner.")))
                 (music-arts (ly:prob-property music-cause 'articulations))
                 (digit #f)
                 (glide-event #f))
-           ;; Find 'FingeringEvent and catch its 'digit.
+           ;; Find FingeringEvent and catch its digit.
            (for-each
             (lambda (art)
               (let* ((name (ly:prob-property art 'name)))
                 (when (eq? name 'FingeringEvent)
                   (set! digit (ly:prob-property art 'digit #f)))))
             music-arts)
-           ;; Finger FingerGlideEvent
+           ;; Find FingerGlideEvent
            (for-each
             (lambda (art-ev)
               (when (memq 'finger-glide-event (ly:event-property art-ev 'class))
@@ -998,10 +984,7 @@ Engraver to print a BendSpanner.")))
                   (cdr grob-entry)
                   (car grob-entry))
                  (ly:grob-suicide! (cdr grob-entry)))))
-         glide-grobs)
-        ;; House keeping
-        (set! glide-grobs '())
-        (set! digit-glide-event '()))))))
+         glide-grobs))))))
 
 (ly:register-translator
  Finger_glide_engraver 'Finger_glide_engraver
