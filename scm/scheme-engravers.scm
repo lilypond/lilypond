@@ -995,17 +995,10 @@ Engraver to print a BendSpanner.")))
            ;; Set right bound, select the grob via its digit from
            ;; `glide-grobs`
            (let* ((relevant-grob (assoc-get digit glide-grobs)))
-             (cond ((and digit-glide-evt relevant-grob)
-                    (ly:spanner-set-bound! relevant-grob RIGHT grob))
-                   ((and (not digit-glide-evt) relevant-grob)
-                    (begin
-                      (ly:spanner-set-bound! relevant-grob RIGHT grob)
-                      (ly:engraver-announce-end-grob
-                       this-engraver
-                       relevant-grob
-                       grob)
-                      (set! glide-grobs
-                            (assoc-set! glide-grobs digit #f))))))
+             (when relevant-grob
+               (ly:spanner-set-bound! relevant-grob RIGHT grob)
+               (ly:engraver-announce-end-grob this-engraver relevant-grob grob)
+               (set! glide-grobs (assoc-set! glide-grobs digit #f))))
            ;; Set left bound and store the digit with the created grob as a
            ;; pair in local `glide-grobs`
            (if new-glide-grob
