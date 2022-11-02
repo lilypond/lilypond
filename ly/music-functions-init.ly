@@ -1075,30 +1075,11 @@ the same music expression with an appropriate tweak applied to it.")
 once =
 #(define-music-function (music) (ly:music?)
    (_i "Set @code{once} to @code{#t} on all layout instruction events
-in @var{music}.  This will complain about music with an actual
-duration.  As a special exception, if @var{music} might be the result
-of a @code{\\tweak} command, no warning will be given in order to
-allow for @code{\\once \\propertyTweak} to work as both one-time
-override and proper tweak.")
-   ;; is the warning worth this effort and reliable enough?
-   ;;
-   ;; Note that a repeat chord has a duration but an empty list of
-   ;; tweakable music, so quiet? is trivially true for it.  Which is
-   ;; just as well, considering that tweaks will not register on it.
-   (let ((quiet? (every
-                  (lambda (m) (pair? (ly:music-property m 'tweaks)))
-                  (get-tweakable-music music))))
-     (for-some-music
-      (lambda (m)
-        (cond ((music-is-of-type? m 'layout-instruction-event)
-               (set! (ly:music-property m 'once) #t)
-               #t)
-              ((ly:duration? (ly:music-property m 'duration))
-               (if (not quiet?)
-                   (ly:music-warning m (G_ "Cannot apply \\once to timed music")))
-               #t)
-              (else #f)))
-      music))
+in @var{music}.")
+   (for-each
+    (lambda (m)
+      (ly:music-set-property! m 'once #t))
+    (extract-typed-music music 'layout-instruction-event))
    music)
 
 ottava =
