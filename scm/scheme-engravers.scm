@@ -938,8 +938,9 @@ Engraver to print a BendSpanner.")))
                   (set! digit-glide-event
                         (acons digit glide-event digit-glide-event)))
                  ((and glide-event (not digit))
-                  (ly:warning
-                   "No finger found to start a glide, ignoring."))
+                  (ly:event-warning
+                   glide-event
+                   (G_ "no finger found to start this glide, ignoring.")))
                  ((and digit (not glide-event))
                   (set! digit-glide-event
                         (assoc-set! digit-glide-event digit #f)))))))
@@ -979,10 +980,9 @@ Engraver to print a BendSpanner.")))
                 (ly:grob? (cdr grob-entry))
                 (not (ly:spanner-bound (cdr grob-entry) RIGHT #f)))
                (begin
-                 (ly:warning
-                  "Missing target for ~a starting with finger ~a"
-                  (cdr grob-entry)
-                  (car grob-entry))
+                 (ly:event-warning
+                  (event-cause (cdr grob-entry))
+                  (G_ "unterminated finger glide spanner"))
                  (ly:grob-suicide! (cdr grob-entry)))))
          glide-grobs))))))
 
