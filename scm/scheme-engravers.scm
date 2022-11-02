@@ -936,14 +936,14 @@ Engraver to print a BendSpanner.")))
             event-arts)
            (cond ((and digit glide-event)
                   (set! digit-glide-event
-                        (acons digit glide-event digit-glide-event)))
+                        (assv-set! digit-glide-event digit glide-event)))
                  ((and glide-event (not digit))
                   (ly:event-warning
                    glide-event
                    (G_ "no finger found to start this glide, ignoring.")))
                  ((and digit (not glide-event))
                   (set! digit-glide-event
-                        (assoc-set! digit-glide-event digit #f)))))))
+                        (assv-remove! digit-glide-event digit)))))))
        (acknowledgers
         ((finger-interface this-engraver grob source-engraver)
          (let* ((cause (ly:grob-property grob 'cause))
@@ -962,28 +962,21 @@ Engraver to print a BendSpanner.")))
              (when relevant-grob
                (ly:spanner-set-bound! relevant-grob RIGHT grob)
                (ly:engraver-announce-end-grob this-engraver relevant-grob grob)
-               (set! glide-grobs (assoc-set! glide-grobs digit #f))))
+               (set! glide-grobs (assv-remove! glide-grobs digit))))
            ;; Set left bound and store the digit with the created grob as a
            ;; pair in local `glide-grobs`
            (if new-glide-grob
                (begin
-                 (set! glide-grobs
-                       (cons
-                        (cons digit new-glide-grob)
-                        glide-grobs))
+                 (set! glide-grobs (acons digit new-glide-grob glide-grobs))
                  (ly:spanner-set-bound! new-glide-grob LEFT grob))))))
        ((finalize this-engraver)
         ;; Warn for a created grob without right bound, suicide the grob.
         (for-each
          (lambda (grob-entry)
-           (if (and
-                (ly:grob? (cdr grob-entry))
-                (not (ly:spanner-bound (cdr grob-entry) RIGHT #f)))
-               (begin
-                 (ly:event-warning
-                  (event-cause (cdr grob-entry))
-                  (G_ "unterminated finger glide spanner"))
-                 (ly:grob-suicide! (cdr grob-entry)))))
+           (ly:event-warning
+            (event-cause (cdr grob-entry))
+            (G_ "unterminated finger glide spanner"))
+           (ly:grob-suicide! (cdr grob-entry)))
          glide-grobs))))))
 
 (ly:register-translator
