@@ -748,6 +748,7 @@ class Notehead(Music_xml_node):
 
 class Note(Measure_element):
     max_occurs_by_child = {
+        'accidental': 1,
         'chord': 1,
         'duration': 1,
         'grace': 1,
@@ -844,12 +845,14 @@ class Note(Measure_element):
         pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
-        acc = self.get_maybe_exist_named_child('accidental')
-        if acc:
-            # let's not force accs everywhere.
-            event.cautionary = acc.cautionary
+        # <accidental> is optional, but profiling showed that is slightly better
+        # to treat it as expected.
+        try:
+            event.cautionary = self['accidental'].cautionary
             # TODO: Handle editorial accidentals
             # TODO: Handle the level-display setting for displaying brackets/parentheses
+        except KeyError:
+            pass
         return event
 
     def initialize_unpitched_event(self):
