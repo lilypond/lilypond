@@ -38,11 +38,12 @@ description of the input format, see @ruser{File structure}.
 
 @menu
 * Introduction to the LilyPond file structure::
-* Score is a (single) compound musical expression::
+* A score is a (single) compound musical expression::
 * Nesting music expressions::
 * Structure of a note entry::
 * On the un-nestedness of brackets and ties::
 @end menu
+
 
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
@@ -53,7 +54,7 @@ description of the input format, see @ruser{File structure}.
 A basic example of a LilyPond input file is
 
 @example
-\version @w{"@version{}"}
+\version "@version{}"
 
 \header @{ @}
 
@@ -74,8 +75,8 @@ example serves as a useful starting place.
 @cindex score
 
 Up to this point none of the examples you have seen have used a
-@code{\score@{@}} command.  This is because LilyPond automatically
-adds the extra commands which are needed when you give it simple
+@code{\score} command.  This is because LilyPond automatically
+adds the extra commands that are needed when you give it simple
 input.  LilyPond treats input like this:
 
 @example
@@ -115,8 +116,8 @@ commands, leaving them to be created implicitly.  For simple
 examples this works well, but for more complex examples, especially
 when additional commands are used, the implicit creation of contexts
 can give surprising results, maybe creating extra unwanted staves.
-The way to create contexts explicitly is explained in
-@ref{Contexts and engravers}.
+For a detailed explanation how to create contexts explicitly,
+@pxref{Contexts and engravers}.
 
 @warning{When entering more than a few lines of music it is
 advisable to always create staves and voices explicitly.}
@@ -160,8 +161,8 @@ things, such as
 @cindex midi
 
 @noindent
-Note that these three commands -- @code{\header}, @code{\layout} and
-@code{\midi} -- are special: unlike many other commands which begin
+Note that these three commands -- @code{\header}, @code{\layout}, and
+@code{\midi} -- are special: unlike many other commands that begin
 with a backward slash (@code{\}) they are @emph{not} music expressions
 and are not part of any music expression.  So they may be placed
 inside a @code{\score} block or outside it.  In fact, these commands
@@ -170,9 +171,9 @@ are commonly placed outside the @code{\score} block -- for example,
 example at the beginning of this section shows.
 
 Two more commands you have not previously seen are
-@code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
+@code{\layout} and @code{\midi}.  If these appear as
 shown they will cause LilyPond to produce a printed output and a
-MIDI output respectively.  They are described fully in the
+MIDI output, respectively.  They are described fully in the
 Notation Reference -- @ruser{Score layout}, and
 @ruser{Creating MIDI output}.
 
@@ -190,30 +191,34 @@ separate output files from one @file{.ly} file then the
 sections: each @code{\book} block will produce a
 separate output file.
 
-In summary:
+To summarize:
 
+@itemize
+@item
 Every @code{\book} block creates a separate output file (e.g., a
 PDF file).  If you haven't explicitly added one, LilyPond wraps
 your entire input code in a @code{\book} block implicitly.
 
+@item
 Every @code{\score} block is a separate chunk of music within a
 @code{\book} block.
 
 @cindex layout block, effect of location
-
+@item
 Every @code{\layout} block affects the @code{\score} or
 @code{\book} block in which it appears -- i.e., a @code{\layout}
 block inside a @code{\score} block affects only that @code{\score}
 block, but a @code{\layout} block outside of a @code{\score} block
 (and thus in a @code{\book} block, either explicitly or
 implicitly) will affect every @code{\score} in that @code{\book}.
+@end itemize
 
-For details see @ruser{Multiple scores in a book}.
+See @ruser{Multiple scores in a book} for details.
 
 @cindex variables
 
 Another great shorthand is the ability to define variables, as
-shown in @ref{Organizing pieces with variables}.  All the
+shown previously (@pxref{Organizing pieces with variables}).  All the
 templates use this:
 
 @example
@@ -233,10 +238,9 @@ the name -- it could be @code{melody}, @code{global},
 @code{keyTime}, @code{pianorighthand}, or something else.
 Remember that you can use almost any name you like as long as it
 contains just alphabetic characters and is distinct from LilyPond
-command names.  For more details, see @ref{Saving typing with
+command names.  For more details, @pxref{Saving typing with
 variables and functions}.  The exact limitations on variable names
 are detailed in @ruser{File structure}.
-
 
 @morerefs
 For a complete definition of the input format, see
@@ -244,8 +248,8 @@ For a complete definition of the input format, see
 @endmorerefs
 
 
-@node Score is a (single) compound musical expression
-@subsection Score is a (single) compound musical expression
+@node A score is a (single) compound musical expression
+@subsection A score is a (single) compound musical expression
 
 @funindex \score
 @cindex score
@@ -268,8 +272,8 @@ there @emph{is} no mystery.  This line explains it all:
 
 @noindent
 To understand what is meant by a
-music expression, you may find it useful to review the tutorial,
-@ref{Music expressions explained}.  In that section, we saw how to
+music expression, you may find it useful to review the tutorial
+(@pxref{Music expressions explained}).  In that section, we saw how to
 build big music expressions from small pieces -- we started from
 notes, then chords, etc.  Now we're going to start from a big
 music expression and work our way down.  For simplicity, we'll use
@@ -295,18 +299,18 @@ Here we have given names to the staves -- @qq{singer} and
 to cultivate so that you can see at a glance what each stave is
 for.
 
-Remember that we use @code{<< @dots{} >>} instead of @code{@{ @dots{} @}} to
+Remember that we use @code{<< @dots{} >>} instead of @code{@{@tie{}@dots{}@tie{}@}} to
 show simultaneous music.  This causes the vocal part and piano part
 to appear one above the other in the score.  The @code{<< @dots{} >>}
-construct would not be necessary for the Singer staff in the example
+construct would not be necessary for the @qq{singer} staff in the example
 above if it were going to contain only one sequential music
 expression, but @code{<< @dots{} >>} rather than braces is necessary if
-the music in the Staff is to contain two or more simultaneous
-expressions, e.g., two simultaneous Voices, or a Voice with lyrics.
+the music in the staff is to contain two or more simultaneous
+expressions, e.g., two simultaneous voices, or a voice with lyrics.
 We're going to have a voice with lyrics, so angle brackets are
 required.  We'll add some real music later; for now let's just put
 in some dummy notes and lyrics.  If you've forgotten how to add lyrics
-you may wish to review @code{\addlyrics} in @ref{Setting simple songs}.
+you may wish to review @code{\addlyrics}, @pxref{Setting simple songs}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -345,7 +349,7 @@ But if we did that, the @code{\score} section would get pretty
 long, and it would be harder to understand what was happening.  So
 let's use variables instead.  These were introduced at the end
 of the previous section, remember?  To ensure the contents of the
-@code{text} variable are interpreted as lyrics we preface them with
+@code{words} variable below are interpreted as lyrics we preface them with
 @code{\lyricmode}.  Like @code{\addlyrics}, this switches the input
 mode to lyrics.  Without that, LilyPond would try to interpret the
 contents as notes, which would generate errors.  (Several other
@@ -356,15 +360,15 @@ have a piece of real music:
 
 @lilypond[verbatim,quote,ragged-right]
 melody = \relative { r4 d''8\noBeam g, c4 r }
-text   = \lyricmode { And God said, }
-upper  = \relative { <g' d g,>2~ <g d g,> }
+words  = \lyricmode { And God said, }
+upper  = \relative { <g' d g,>2~ <g c, g> }
 lower  = \relative { b,2 e }
 
 \score {
   <<
     \new Staff = "singer" <<
       \new Voice = "vocal" { \melody }
-      \addlyrics { \text }
+      \addlyrics { \words }
     >>
     \new PianoStaff = "piano" <<
       \new Staff = "upper" { \upper }
@@ -383,7 +387,6 @@ slowly and carefully.  Start with the outer level, then work on
 each smaller level.  It also really helps to be strict with
 indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
-
 
 @morerefs
 Notation Reference:
@@ -407,15 +410,12 @@ duration of three notes:
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
   \relative {
-    r4 g'8 g c4 c8 d |
-    e4 r8
+    r4 g'8 g c4 c8 e |
     <<
-      { f8 c c }
-      \new Staff {
-        f8 f c
-      }
+      { c4 c }
+      \new Staff { d4 c }
     >>
-    r4 |
+    r2 |
   }
 }
 @end lilypond
@@ -434,31 +434,29 @@ as follows:
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "main" {
   \relative {
-    r4 g'8 g c4 c8 d |
-    e4 r8
+    r4 g'8 g c4 c8 e |
     <<
-      { f8 c c }
+      { c4 c }
       \new Staff \with {
         alignAboveContext = "main"
-      } { f8 f c }
+      } { d4 c }
     >>
-    r4 |
+    r2 |
   }
 }
 @end lilypond
 
-This example uses @code{\with}, which will be explained more
-fully later.  It is a means of modifying the default behavior
-of a single Staff.  Here it says that the new staff should be
+This example uses @code{\with}, which will be explained later
+in more detail.  It is a means of modifying the default behavior
+of a single staff.  Here it says that the new staff should be
 placed above the staff called @qq{main} instead of the default
-position which is below.
-
+position, which is below.
 
 @morerefs
-Ossia are often written without clef and without
-time signature and are usually in a smaller font.
-These require further commands which
-have not yet been introduced.  See @ref{Size of objects},
+Ossia staves are often written without clef and without
+time signature and are usually printed at a smaller size.
+Achieving this requires further commands, which
+have not yet been introduced.  @xref{Size of objects},
 and @ruser{Ossia staves}.
 @endmorerefs
 
@@ -469,24 +467,24 @@ and @ruser{Ossia staves}.
 @cindex post-events
 
 A note entry in LilyPond consists of a pitch, followed by a duration,
-optionally followed by one or more @q{post-events}.  LilyPond
+optionally followed by one or more @dfn{post-events}.  LilyPond
 post-events add things such as articulations, fingerings, string numbers,
-slurs, ties and explanatory text.
+slurs, ties, and explanatory text.
 
 The pitch may be explicitly defined using the current LilyPond input
 language as described in @ruser{Note names in other languages}.  The
-pitch may be omitted.  If the pitch is omitted, the pitch of a current
+pitch may be omitted.  If the pitch is omitted, the pitch of the current
 note will be the same as the pitch of the previous note in the input
-file, see @ruser{Durations}.  Note that neither @code{r} nor @code{s}
-is a pitch.
+file, see @ruser{Durations}.  Note that neither @samp{r} nor @samp{s}
+(a @dfn{spacer rest}, see @ruser{Invisible rests}) is a pitch.
 
 The duration includes a number and optionally one or more dots.  If a
-duration is not explicitly defined, the duration of a current note will
+duration is not explicitly defined, the duration of the current note will
 be the same as the duration of the previous note, chord, rest, or spacer
 rest, see @ruser{Durations}.
 
 Post-events follow the note to which they are attached.  Suppose we
-want to have an eighth note c' with a fingering of 1, a tenuto
+want to have an eighth note c' with a fingering of@tie{}1, a tenuto
 articulation, a slur beginning with the note, a tie beginning with
 the note, and a text annotation.  This can be accomplished as
 shown.
@@ -521,9 +519,10 @@ These obey different rules which can be confusing at first.
 Let's first review the different types of brackets and bracket-like
 constructs.
 
-@c attempt to force this onto a new page
+@c Avoid page break after header line.
 @need 50
-@multitable @columnfractions .3 .7
+@quotation
+@multitable @columnfractions .2 .7
 @headitem Bracket Type
   @tab Function
 @item @code{@{ @dots{} @}}
@@ -539,11 +538,13 @@ constructs.
 @item @code{[ @dots{} ]}
   @tab Marks the start and end of a manual beam
 @end multitable
+@end quotation
 
-To these we should add other constructs which generate lines
-between or across notes: ties (marked by a tilde, @code{~}),
-tuplets written as @code{\tuplet x/y @{ @dots{} @}}, and grace notes
-written as @code{\grace @{ @dots{} @}}.
+@noindent
+To these we should add other constructs that generate lines
+between or across notes: ties (marked by a tilde, @samp{~}),
+tuplets written as @code{\tuplet x/y @{@tie{}@dots{}@tie{}@}}, and grace notes
+written as @code{\grace @{@tie{}@dots{}@tie{}@}}.
 
 Outside LilyPond, the conventional use of brackets requires the
 different types to be properly nested, like this, @code{<< [ @{ ( @dots{} )
@@ -568,10 +569,10 @@ musical, perhaps, but possible:
 
 In general, different kinds of brackets, bracket-like constructs,
 and those implied by tuplets, ties and grace notes, may be mixed
-freely.  This example shows a beam extending into a tuplet (line 1),
-a slur extending into a tuplet (line 2), a beam and a slur
+freely.  This example shows a beam extending into a tuplet (line@tie{}1),
+a slur extending into a tuplet (line@tie{}2), a beam and a slur
 extending into a tuplet, a tie crossing two tuplets, and a
-phrasing slur extending out of a tuplet (lines 3 and 4).
+phrasing slur extending out of a tuplet (lines 3 and@tie{}4).
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
