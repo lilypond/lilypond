@@ -589,17 +589,18 @@ phrasing slur extending out of a tuplet (lines 3 and@tie{}4).
 
 Singers need voices to sing, and so does LilyPond.
 The actual music for all instruments in a score
-is contained in Voices -- the most fundamental
+is contained in voices -- the most fundamental
 of all LilyPond's concepts.
 
 @menu
-* I'm hearing Voices::
+* I'm hearing voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
 @end menu
 
-@node I'm hearing Voices
-@subsection I'm hearing Voices
+
+@node I'm hearing voices
+@subsection I'm hearing voices
 
 @cindex polyphony
 @cindex layers
@@ -615,16 +616,16 @@ of all LilyPond's concepts.
 @cindex chords vs.@: voices
 
 The lowest, most fundamental or innermost layers in a LilyPond
-score are called @q{Voice contexts} or just @q{Voices} for short.
+score are called @dfn{voice contexts} or just @q{voices} for short.
 Voices are sometimes called @q{layers} in other notation
 packages.
 
-In fact, a Voice layer or context is the only one which can contain
-music.  If a Voice context is not explicitly declared one is created
+In fact, a voice layer or context is the only one that can contain
+music.  If a @code{Voice} context is not explicitly declared one is created
 automatically, as we saw at the beginning of this chapter.  Some
 instruments such as an Oboe can play only one note at a time.  Music
 written for such instruments requires just a single voice.  Instruments
-which can play more than one note at a time like the piano will often
+that can play more than one note at a time like the piano will often
 require multiple voices to encode the different concurrent notes and
 rhythms they are capable of playing.
 
@@ -639,12 +640,13 @@ this example of four chords:
 }
 @end lilypond
 
+@noindent
 This can be expressed using just the single angle bracket chord
-symbols, @code{< @dots{} >}, and for this just a single voice is
-needed.  But suppose the F-sharp were actually an eighth-note
-followed by an eighth-note G, a passing note on the way to the A?
+symbols, @code{<@tie{}@dots{}@tie{}>}, and for this just a single voice is
+needed.  But suppose the F-sharp was actually an eighth-note
+followed by an eighth-note@tie{}G, a passing note on the way to the@tie{}A?
 Now we have two notes which start at the same time but have
-different durations: the quarter-note D and the eighth-note
+different durations: the quarter-note@tie{}D and the eighth-note
 F-sharp.  How are these to be coded?  They cannot be written as
 a chord because all the notes in a chord must have the same
 duration.  And they cannot be written as two sequential notes
@@ -657,7 +659,7 @@ Let us see how this is done in LilyPond input syntax.
 @funindex \\
 
 The easiest way to enter fragments with more than one voice on a
-staff is to enter each voice as a sequence (with @code{@{ @dots{} @}}),
+staff is to enter each voice as a sequence (with @code{@{@tie{}@dots{}@tie{}@}}),
 and combine them simultaneously with angle brackets, @code{<< @dots{} >>}.
 The fragments must also be separated with double backward slashes,
 @code{\\}, to place them in separate voices.  Without these, the
@@ -677,6 +679,7 @@ the passing note and a slur:
 }
 @end lilypond
 
+@noindent
 Notice how the stems of the second voice now point down.
 
 Here's another simple example:
@@ -687,13 +690,14 @@ Here's another simple example:
   %    Voice = "1"           Voice = "2"
   << { r4 g' g4. a8 }   \\ { d,2 d4 g }       >> |
   << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
-  << { a2. r4 }         \\ { fis2. s4 }       >> |
+  << { a2. r4 }         \\ { fis2. r4 }       >> |
 }
 @end lilypond
 
+@noindent
 It is not necessary to use a separate @code{<< \\ >>} construct
 for each bar.  For music with few notes in each bar this layout
-can help the legibility of the code, but if there are many
+can help improve the legibility of the code, but if there are many
 notes in each bar it may be better to split out each voice
 separately, like this:
 
@@ -708,11 +712,10 @@ separately, like this:
   \relative { % Voice = "2"
     d'2 d4 g |
     g4 g g8( a) g4 |
-    fis2. s4 |
+    fis2. r4 |
   }
 >>
 @end lilypond
-
 
 @cindex voices, naming
 @cindex voices crossing brackets
@@ -723,12 +726,13 @@ This example has just two voices, but the same construct may be
 used to encode three or more voices by adding more back-slash
 separators.
 
-The Voice contexts bear the names @code{"1"}, @code{"2"}, etc.
+The @code{Voice} contexts implicitly created by @code{<< \\ >>}
+bear the names @code{"1"}, @code{"2"}, etc.
 The first contexts set the @emph{outer} voices, the highest
 voice in context @code{"1"} and the lowest voice in context
 @code{"2"}.  The inner voices go in contexts @code{"3"} and
 @code{"4"}.  In each of these contexts, the vertical direction
-of slurs, stems, ties, dynamics etc., is set appropriately.
+of slurs, stems, ties, dynamics, etc., is set appropriately.
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
@@ -739,6 +743,10 @@ of slurs, stems, ties, dynamics etc., is set appropriately.
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
 }
 @end lilypond
+
+@noindent
+Note the use of @code{s4} to insert an invisible spacer rest, thus
+delaying the (visible) start of voice @code{"3"}.
 
 @funindex \voices
 If you prefer entering the voices in a different order, like top
@@ -760,7 +768,7 @@ command, like
 
 These voices are all separate from the main voice that contains
 the notes just outside the @code{<< @dots{} >>} construct.  Let's call
-this the @emph{simultaneous construct}.  Slurs and ties may only
+this the @dfn{simultaneous construct}.  Slurs and ties may only
 connect notes within the same voice, so slurs and ties cannot go
 into or out of a simultaneous construct.  Conversely,
 parallel voices from separate simultaneous constructs on the same
@@ -808,7 +816,7 @@ blue triangle voice.
 @funindex \voiceFourStyle
 @funindex \voiceNeutralStyle
 
-The commands @code{\voiceXXXStyle} are mainly intended for use in
+The commands @code{\voice@var{XXX}Style} are mainly intended for use in
 educational documents such as this one.  They modify the color
 of the note head, the stem and the beams, and the style of the
 note head, so that the voices may be easily distinguished.
@@ -818,7 +826,7 @@ here) to magenta crosses;  @code{\voiceNeutralStyle} (also not
 used here) reverts the style back to the default.
 We shall see later how commands like these may be created by the
 user.
-See @ref{Visibility and color of objects} and
+@xref{Visibility and color of objects} and
 @ref{Using variables for layout adjustments}.
 
 @cindex polyphony and relative note entry
@@ -830,15 +838,20 @@ the note immediately preceding it, or to the first note of the
 preceding chord.  So in
 
 @example
-\relative @{ noteA << < noteB noteC > \\ noteD >> noteE @}
+\relative @{ noteA << <noteB noteC> \\ noteD >> noteE @}
 @end example
 
-@noindent
-@code{noteB} is relative to @code{noteA}                      @*
-@code{noteC} is relative to @code{noteB}, not @code{noteA};   @*
+@itemize
+@item
+@code{noteB} is relative to @code{noteA};
+@item
+@code{noteC} is relative to @code{noteB}, not @code{noteA};
+@item
 @code{noteD} is relative to @code{noteB}, not @code{noteA} or
-@code{noteC};                                                 @*
+@code{noteC};
+@item
 @code{noteE} is relative to @code{noteD}, not @code{noteA}.
+@end itemize
 
 An alternative way, which may be clearer if the notes in the
 voices are widely separated, is to place a @code{\relative}
@@ -847,7 +860,7 @@ command at the start of each voice:
 @example
 \relative @{ noteA @dots{} @}
 <<
-  \relative @{ < noteB noteC > @dots{} @}
+  \relative @{ <noteB noteC> @dots{} @}
 \\
   \relative @{ noteD @dots{} @}
 >>
@@ -856,10 +869,10 @@ command at the start of each voice:
 
 Let us finally analyze the voices in a more complex piece of music.
 Here are the notes from the first two bars of the second of Chopin's
-Deux Nocturnes, Op 32.  This example will be used at later stages in
+@emph{Deux Nocturnes}, Op.@tie{}32.  This example will be used at later stages in
 this and the next chapter to illustrate several techniques for
 producing notation, so please ignore for now anything in the
-underlying code which looks mysterious and concentrate just on the
+underlying code that looks mysterious and concentrate just on the
 music and the voices -- the complications will all be explained in
 later sections.
 
@@ -867,12 +880,12 @@ later sections.
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4    % No voice three
+  \voices 1,2,4  % No voice three (we want stems down)
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
     {
-      % Ignore these for now - they are explained in Ch 4
+      % Ignore these for now - they are explained later
       \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
@@ -895,8 +908,8 @@ down.  This is the first indication that more than one voice is
 required.
 
 But the real need for multiple voices arises when notes
-which start at the same time have different durations.
-Look at the notes which start at beat three in the first
+starting at the same time have different durations.
+Look at the notes that start at beat three in the first
 bar.  The A-flat is a dotted quarter note, the F is a
 quarter note and the D-flat is a half note.  These
 cannot be written as a chord as all the notes in a chord
@@ -914,7 +927,7 @@ not understand.
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4  % No Voice three (we want stems down)
+  \voices 1,2,4  % No voice three (we want stems down)
   <<
     {  % Voice one
       \voiceOneStyle
@@ -922,7 +935,7 @@ not understand.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      % Ignore these for now - they are explained in Ch 4
+      % Ignore these for now - they are explained later
       \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
@@ -937,7 +950,6 @@ not understand.
   <c ees aes c>1 |
 }
 @end lilypond
-
 
 Let us try to encode this music from scratch.  As we
 shall see, this encounters some difficulties.  We begin as
@@ -961,8 +973,8 @@ enter the music of the first bar in three voices:
 
 The stem directions are automatically assigned with the
 odd-numbered voices taking upward stems and the even-numbered
-voices downward ones.  The stems for voices 1 and 2 are right,
-but the stems in voice 3 should go down in this particular piece
+voices downward ones.  The stems for voices 1 and@tie{}2 are right,
+but the stems in voice@tie{}3 should go down in this particular piece
 of music.  We can correct this by skipping voice three
 and placing the music in voice four.  This could be done by simply
 adding another pair of @code{\\}, but we use the @code{\voices}
@@ -972,7 +984,7 @@ different order if we preferred doing that):
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4   % Omit Voice three
+  \voices 1,2,4   % Omit voice three
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
@@ -988,17 +1000,16 @@ different order if we preferred doing that):
 We see that this fixes the stem direction, but the horizontal
 placement of notes is not what we want.  LilyPond shifts the
 inner notes when they or their stems would collide with outer
-voices, but this is not appropriate for piano music.  In other
+voices, but this is not always appropriate for piano music.  In other
 situations, the shifts LilyPond applies might fail to clear
 the collisions.  LilyPond provides several ways to adjust the
 horizontal placing of notes.  We are not quite ready yet to see
 how to correct this, so we shall leave this problem until a
-later section --- see the @code{force-hshift} property in
+later section -- see the @code{force-hshift} property in
 @ref{Fixing overlapping notation}.
 
 @warning{Lyrics, spanners (such as slurs, ties, hairpins, etc.@:) cannot be
 created @q{across} voices.}
-
 
 @morerefs
 Notation Reference:
@@ -1019,7 +1030,7 @@ Notation Reference:
 
 Voice contexts can also be created manually
 inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne} @dots{} @code{\voiceFour} to indicate the required
+@code{\voiceOne} to @code{\voiceFour} to indicate the required
 directions of stems, slurs, etc.  In longer scores this method
 is clearer, as it permits the voices to be separated and to be
 given more descriptive names.
@@ -1058,7 +1069,7 @@ Both of the above would produce
 @cindex voices, reverting to single
 @cindex reverting to a single voice
 
-The @code{\voiceXXX} commands set the direction of stems, slurs,
+The @code{\voice@var{XXX}} commands set the direction of stems, slurs,
 ties, articulations, text annotations, augmentation dots of dotted
 notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
 make these objects point upwards, while @code{\voiceTwo} and
@@ -1068,7 +1079,7 @@ to avoid clashes of note heads.  The command @code{\oneVoice}
 reverts the settings back to the normal values for a single voice.
 
 Let us see in some simple examples exactly what effect
-@code{\oneVoice}, @code{\voiceOne} and @code{voiceTwo} have on
+@code{\oneVoice}, @code{\voiceOne}, and @code{voiceTwo} have on
 markup, ties, slurs, and dynamics:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1103,7 +1114,7 @@ circumstances, using the example from the previous section.
 An expression that appears directly inside a @code{<< >>} belongs to the
 main voice (but, note, @strong{not} in a @code{<< \\ >>} construct).
 This is useful when extra voices appear while the main voice is playing.
-Here is a more correct rendition of our example.  The red diamond-shaped
+Here is an improved rendition of our example.  The red diamond-shaped
 notes demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
@@ -1162,7 +1173,6 @@ voice into the simultaneous construct:
 }
 @end lilypond
 
-
 @cindex nesting music expressions
 @cindex nesting simultaneous constructs
 @cindex nesting voices
@@ -1193,13 +1203,13 @@ typeset the music:
 }
 @end lilypond
 
-@cindex spacing notes
+@cindex spacer rests
 
 This method of nesting new voices briefly is useful
 when only small sections of the music
 are polyphonic, but when the whole staff is largely polyphonic
 it can be clearer to use multiple voices throughout, using
-spacing notes to step over sections where the voice is silent,
+spacer rests to step over sections where the voice is silent,
 as here:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1224,6 +1234,7 @@ as here:
 >>
 @end lilypond
 
+
 @subsubheading Note columns
 
 @cindex note column
@@ -1238,12 +1249,12 @@ as here:
 Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
 columns to prevent the note heads overlapping.  These are called
-note columns.  There are separate columns for each voice, and
-the currently specified voice-dependent shift is applied to the
+@dfn{note columns}.  There are separate columns for each voice, and
+the currently specified, voice-dependent shift is applied to the
 note column if there would otherwise be a collision.  This can
-be seen in the example above.  In bar 2 the C in voice two is
-shifted to the right relative to the D in voice one, and in the
-final chord the C in voice three is also shifted to the right
+be seen in the example above.  In bar@tie{}2 the@tie{}C in voice two is
+shifted to the right relative to the@tie{}D in voice one, and in the
+final chord the@tie{}C in voice three is also shifted to the right
 relative to the other notes.
 
 The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
@@ -1257,16 +1268,15 @@ the right and voices two and four to the left.
 
 @code{\shiftOnn} and @code{\shiftOnnn} define further shift
 levels which may be specified temporarily to resolve collisions
-in complex situations -- see @ref{Real music example}.
+in complex situations -- @pxref{Real music example}.
 
 A note column can contain just one note (or chord) from a voice
 with stems up and one note (or chord) from a voice with stems
-down.  If notes from two voices which have their stems in the
+down.  If notes from two voices that have their stems in the
 same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
-@qq{This voice needs a @code{\voiceXx} or @code{\shiftXx} setting}
+@qq{This voice needs a @code{\voice@var{Xx}} or @code{\shift@var{Xx}} setting}
 will be produced.
-
 
 @morerefs
 Learning Manual:
@@ -1289,13 +1299,13 @@ expressions -- notes and lyrics.
 @cindex Lyrics context, creating
 @cindex lyrics, linking to voice
 
-You have already seen the @code{\addlyrics@{@}} command, which
+You have already seen the @code{\addlyrics} command, which
 handles simple scores well.  However, this technique is
 quite limited.  For more complex music, you must introduce the
 lyrics in a @code{Lyrics} context using @code{\new Lyrics} and
 explicitly link
-the lyrics to the notes with @code{\lyricsto@{@}}, using the
-name assigned to the Voice.
+the lyrics to the notes with @code{\lyricsto}, using the
+name assigned to the @code{Voice} context.
 
 @lilypond[quote,verbatim]
 <<
@@ -1321,7 +1331,7 @@ explicitly.
 @cindex beaming and lyrics
 @funindex \autoBeamOff
 
-The automatic beaming which LilyPond uses by default works well
+The automatic beaming that LilyPond uses by default works well
 for instrumental music, but not so well for music with lyrics,
 where beaming is either not required at all or is used to indicate
 melismata in the lyrics.  In the example above we use the command
@@ -1333,10 +1343,10 @@ melismata in the lyrics.  In the example above we use the command
 @cindex vocal score structure
 @cindex choir staff
 
-Let us reuse the earlier example from Judas Maccabæus to
+Let us reuse the earlier example from @emph{Judas Maccabæus} to
 illustrate this more flexible technique.  We first recast
 it to use variables so the music and lyrics can be separated
-from the staff structure.  We also introduce a ChoirStaff
+from the staff structure.  We also introduce a @code{ChoirStaff}
 bracket.  The lyrics themselves must be introduced with
 @code{\lyricmode} to ensure they are interpreted as lyrics
 rather than music.
@@ -1396,7 +1406,7 @@ Here is an example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
 parts are the same.  Note how we use variables to separate the
 music notation and words from the staff structure.  See too
-how a variable, which we have chosen to call @q{keyTime}, is used
+how a variable, which we have chosen to call @code{keyTime}, is used
 to hold several commands for use within the two staves.  In other
 examples this is often called @q{global}.
 
@@ -1436,7 +1446,6 @@ VerseFour  =
   >>
 }
 @end lilypond
-
 
 @morerefs
 Notation Reference:

@@ -210,7 +210,7 @@ down = \drummode {
 @end lilypond
 
 The above example shows verbose polyphonic notation.  The short
-polyphonic notation, described in @rlearning{I'm hearing Voices},
+polyphonic notation, described in @rlearning{I'm hearing voices},
 can also be used.
 For example,
 
@@ -456,7 +456,7 @@ as explained in @ref{Custom percussion staves}.
 
 @morerefs
 Learning Manual:
-@rlearning{I'm hearing Voices}.
+@rlearning{I'm hearing voices}.
 
 Notation Reference:
 @ref{Custom percussion staves}.

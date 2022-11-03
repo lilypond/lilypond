@@ -3289,7 +3289,7 @@ override should no longer apply it should be reverted, as shown.
 @unnumberedsubsubsec The @code{force-hshift} property
 
 We can now see how to apply the final corrections to the Chopin
-example introduced at the end of @ref{I'm hearing Voices}, which
+example introduced at the end of @ref{I'm hearing voices}, which
 was left looking like this:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3435,7 +3435,7 @@ D, and the dotted quarter note F-sharp, which is also merged with
 the eighth note at the same pitch.  Everything else is in a single
 voice, so the easiest way is to introduce these extra three voices
 temporarily at the time they are needed.  If you have forgotten
-how to do this, look at @ref{I'm hearing Voices} and @ref{Explicitly
+how to do this, look at @ref{I'm hearing voices} and @ref{Explicitly
 instantiating voices}.  Here we choose to use explicitly instantiated
 voices for the polyphonic passage, as LilyPond is better able to
 avoid collisions if all voices are instantiated explicitly in this
