@@ -754,6 +754,7 @@ class Note(Measure_element):
         'pitch': 1,
         'rest': 1,
         'staff': 1,
+        'type': 1,
         'unpitched': 1,
         'voice': 1,
     }
@@ -770,16 +771,15 @@ class Note(Measure_element):
                           or hasattr(grace, 'steal-time-previous'))
 
     def get_duration_log(self):
-        ch = self.get_maybe_exist_named_child('type')
-
-        if ch:
-            log = ch.get_text().strip()
-            return utilities.musicxml_duration_to_log(log)
-        elif 'grace' in self:
+        # <type> is optional, but profiling showed that is slightly better to
+        # treat it as expected.
+        try:
+            ch = self['type']
+        except KeyError:
             # FIXME: is it ok to default to eight note for grace notes?
-            return 3
-        else:
-            return None
+            return 3 if ('grace' in self) else None
+        log = ch.get_text().strip()
+        return utilities.musicxml_duration_to_log(log)
 
     def get_duration_info(self):
         log = self.get_duration_log()
