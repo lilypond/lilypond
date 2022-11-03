@@ -751,6 +751,7 @@ class Note(Measure_element):
         'chord': 1,
         'duration': 1,
         'grace': 1,
+        'pitch': 1,
         'rest': 1,
         'staff': 1,
         'voice': 1,
@@ -789,9 +790,6 @@ class Note(Measure_element):
 
     def get_factor(self):
         return 1
-
-    def get_pitches(self):
-        return self.get_typed_children(get_class('pitch'))
 
     def set_notehead_style(self, event):
         noteheads = self.get_named_children('notehead')
@@ -842,8 +840,7 @@ class Note(Measure_element):
                 return None
 
     def initialize_pitched_event(self):
-        mxl_pitch = self.get_maybe_exist_typed_child(Pitch)
-        pitch = mxl_pitch.to_lily_object()
+        pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
         acc = self.get_maybe_exist_named_child('accidental')
@@ -878,7 +875,7 @@ class Note(Measure_element):
         duration = None
         event = None
 
-        if self.get_maybe_exist_typed_child(Pitch):
+        if 'pitch' in self:
             event = self.initialize_pitched_event()
         elif self.get_maybe_exist_typed_child(Unpitched):
             event = self.initialize_unpitched_event()
