@@ -754,6 +754,7 @@ class Note(Measure_element):
         'pitch': 1,
         'rest': 1,
         'staff': 1,
+        'unpitched': 1,
         'voice': 1,
     }
 
@@ -854,9 +855,8 @@ class Note(Measure_element):
     def initialize_unpitched_event(self):
         # Unpitched elements have display-step and can also have
         # display-octave.
-        unpitched = self.get_maybe_exist_typed_child(Unpitched)
         event = musicexp.NoteEvent()
-        event.pitch = unpitched.to_lily_object()
+        event.pitch = self['unpitched'].to_lily_object()
         return event
 
     def initialize_rest_event(self, convert_rest_positions=True):
@@ -877,7 +877,7 @@ class Note(Measure_element):
 
         if 'pitch' in self:
             event = self.initialize_pitched_event()
-        elif self.get_maybe_exist_typed_child(Unpitched):
+        elif 'unpitched' in self:
             event = self.initialize_unpitched_event()
         elif 'rest' in self:
             event = self.initialize_rest_event(convert_rest_positions)
