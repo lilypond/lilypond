@@ -33,9 +33,7 @@ pour correspondre à la mise en forme de votre document.
 
 @command{lilypond-book} est un script indépendant de @command{lilypond}
 et se lance en ligne de commande -- pour plus de précisions, consultez
-@ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS ou
-Windows et rencontrez quelque difficulté avec @code{lilypond-book},
-référez-vous à @rweb{MacOS X} ou @rweb{Windows}.
+@ref{Utilisation en ligne de commande}.
 
 @command{lilypond-book} s'applique aux documents @LaTeX{}, HTML, Texinfo
 et DocBook.

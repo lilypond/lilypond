@@ -400,9 +400,7 @@ de détails, rendez-vous sur le @uref{https://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
-chapitre @ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS
-10.3 ou 10.4 et rencontrez quelque problème avec l'un de ces scripts,
-comme @code{convert-ly}, reportez-vous à la page @rweb{MacOS X}.
+chapitre @ref{Utilisation en ligne de commande}.
 
 
 @knownissues
