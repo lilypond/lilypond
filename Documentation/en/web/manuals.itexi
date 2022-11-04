@@ -134,7 +134,7 @@ Ben Lemon, a LilyPond user, has created a range of video tutorials on
 his blog and which are aimed at new users.
 
 @item
-@uref{https://scheme-book.ursliska.de/introduction/index.html,
+@uref{https://scheme-book.readthedocs.io,
 LilyPond's Scheme}: an external tutorial to learn Scheme, the
 language used to program LilyPond.  Recommended if you are
 an absolute beginner when it comes to programming.
