@@ -437,30 +437,19 @@ class Pitch(Music_xml_node):
 
 
 class Unpitched(Music_xml_node):
-
-    def get_step(self):
-        ch = self.get_unique_typed_child(get_class('display-step'))
-        step = ch.get_text().strip()
-        return step
-
-    def get_octave(self):
-        ch = self.get_unique_typed_child(get_class('display-octave'))
-
-        if ch:
-            octave = ch.get_text().strip()
-            return int(octave)
-        else:
-            return None
+    max_occurs_by_child = {
+        'display-octave': 1,
+        'display-step': 1,
+    }
 
     def to_lily_object(self):
         p = None
-        step = self.get_step()
+        step = self.get('display-step')
         if step:
             p = musicexp.Pitch()
             p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
-        octave = self.get_octave()
-        if octave and p:
-            p.octave = octave - 4
+            # if display-step is present, display-octave must be present too
+            p.octave = self['display-octave'] - 4
         return p
 
 
@@ -1084,6 +1073,10 @@ class Octave_shift(Music_xml_spanner):
 # Rests in MusicXML are <note> blocks with a <rest> inside. This class is only
 # for the inner <rest> element, not the whole rest block.
 class Rest(Music_xml_node):
+    max_occurs_by_child = {
+        'display-octave': 1,
+        'display-step': 1,
+    }
 
     def __init__(self):
         Music_xml_node.__init__(self)
@@ -1092,30 +1085,14 @@ class Rest(Music_xml_node):
     def is_whole_measure(self):
         return self._is_whole_measure
 
-    def get_step(self):
-        ch = self.get_maybe_exist_typed_child(get_class('display-step'))
-        if ch:
-            return ch.get_text().strip()
-        else:
-            return None
-
-    def get_octave(self):
-        ch = self.get_maybe_exist_typed_child(get_class('display-octave'))
-        if ch:
-            oct = ch.get_text().strip()
-            return int(oct)
-        else:
-            return None
-
     def to_lily_object(self):
         p = None
-        step = self.get_step()
+        step = self.get('display-step')
         if step:
             p = musicexp.Pitch()
             p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
-        octave = self.get_octave()
-        if octave and p:
-            p.octave = octave - 4
+            # if display-step is present, display-octave must be present too
+            p.octave = self['display-octave'] - 4
         return p
 
 
@@ -1686,6 +1663,10 @@ class Octave(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_text_to_int # 0 to 9, per the spec
 
 
+class Display_octave(Octave):
+    pass
+
+
 class Part_group(Music_xml_node):
     pass
 
@@ -1726,6 +1707,10 @@ class Staff(Music_xml_node):
 
 class Step(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_text_to_str
+
+
+class Display_step(Step):
+    pass
 
 
 class Text(Music_xml_node):
@@ -1779,6 +1764,8 @@ class_dict = {
     'dot': Dot,
     'direction': Direction,
     'direction-type': DirType,
+    'display-octave': Display_octave,
+    'display-step': Display_step,
     'duration': Duration,
     'elision': Elision,
     'extend': Extend,
