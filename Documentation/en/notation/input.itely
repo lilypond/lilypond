@@ -2732,6 +2732,8 @@ described in @rextend{Music functions}.
 @menu
 * Substitution function syntax::
 * Substitution function examples::
+* How to prevent sharing of music expressions::
+* Substitution functions and relative octave entry::
 @end menu
 
 @node Substitution function syntax
@@ -2906,6 +2908,157 @@ tempoPadded =
 @end lilypond
 
 @c TODO: add appropriate @@ref's here.
+
+
+@node How to prevent sharing of music expressions
+@subsubsection How to prevent sharing of music expressions
+
+@cindex music expression, sharing
+@cindex music expression, copying
+
+When writing music functions, it is important to abide by a rule:
+the same music expressions must not be shared in several places.
+As an example, here is a problematic function:
+
+@lilypond[verbatim,quote]
+simpleAccompaniment =
+#(define-music-function
+   (bass-1 bass-2 chord) (ly:music? ly:music? ly:music?)
+   #{
+     #bass-1 #chord #bass-2 #chord
+   #})
+
+{
+  \clef bass
+  \simpleAccompaniment c g, <e g>
+  \simpleAccompaniment d g, <f g>
+}
+@end lilypond
+
+The problem with this function becomes clear if the
+result is transposed:
+
+@lilypond[verbatim,quote]
+simpleAccompaniment =
+#(define-music-function
+   (bass-1 bass-2 chord) (ly:music? ly:music? ly:music?)
+   #{
+     #bass-1 #chord #bass-2 #chord
+   #})
+
+\transpose c e {
+  \clef bass
+  \simpleAccompaniment c g, <e g>
+  \simpleAccompaniment d g, <f g>
+}
+@end lilypond
+
+While the bass notes are correct, the chord is not transposed
+properly -- in fact, it is being transposed twice.  The reason
+for this is that the music expression @var{chord} was used twice
+in the result of the function, without copying it.  Functions
+such as @code{\transpose} modify the music object directly (in
+the case of @code{\transpose}, the pitches are changed).
+If the same music object is reused, modifications made in
+one place where it is used affect both places, since they hold
+the same object.  In this case, @code{\transpose} encounters
+the object twice and transposes it twice.
+
+One way to fix this function is to use @samp{$} instead of
+@samp{#} to reference the variables, which makes a copy.  The
+difference between @samp{#} and @samp{$} is detailed in
+@rextend{LilyPond Scheme syntax}.
+
+@lilypond[verbatim,quote]
+simpleAccompaniment =
+#(define-music-function
+   (bass-1 bass-2 chord) (ly:music? ly:music? ly:music?)
+   #{
+     $bass-1 $chord $bass-2 $chord
+   #})
+
+\transpose c e {
+  \clef bass
+  \simpleAccompaniment c g, <e g>
+  \simpleAccompaniment d g, <f g>
+}
+@end lilypond
+
+
+@node Substitution functions and relative octave entry
+@subsubsection Substitution functions and relative octave entry
+
+@cindex substitution function, and relative octave entry
+@funindex \relative
+@funindex make-relative
+
+When @code{\relative} is applied to a music expression, it traverses
+it searching for pitched notes, and modifies the pitches in the
+order they are found, changing the octave of each pitch according
+to its octave marks (@samp{'} and @samp{,}) and the previous
+pitch.  When writing substitution functions, this may lead to the
+situation that a music expression is @q{relativized} in a surprising
+way because the output of the function uses the parameters several
+times and/or in a different order.  Consider this function and how
+its output reacts to @code{\relative}:
+
+@lilypond[verbatim,quote]
+simpleAccompaniment =
+#(define-music-function
+   (bass-1 bass-2 chord) (ly:music? ly:music? ly:music?)
+   #{
+     $bass-1 $chord $bass-2 $chord
+   #})
+
+\relative {
+  \clef bass
+  \simpleAccompaniment c g <e' g>
+  \simpleAccompaniment d g, <f' g>
+}
+@end lilypond
+
+In this example, the output is the same as that of
+
+@lilypond[verbatim,quote]
+\relative {
+  \clef bass
+  c <e' g> g <e' g>
+  d <f' g>  g, <f' g>
+}
+@end lilypond
+
+However, this is not the desired output when using the
+@code{\simpleAccompaniment} function.  The pitch @code{g,} is
+relative to the first note of the chord that precedes it,
+@code{<e' g>}, although it comes after @code{c} in the input.
+Clearly, the pitches should be made relative according to the
+order in which they are input when using the function, not in the
+order they appear in the output of the function.  This can be
+achieved using the @code{make-relative} Scheme macro.  Its
+arguments are: a list of variables, a reference expression, and a
+main music expression.  The reference expression is intended to be
+a mock-up of how the variables were entered in the input.  Most of
+the time, it can be a simple expression made with @code{#@{
+@dots{} #@}} containing the variables in order.  Beware @emph{not}
+to make copies in the reference expression (in particular, use
+@samp{#}, not @samp{$}).  The example above can be fixed using
+@code{make-relative} in this way:
+
+@lilypond[verbatim,quote]
+simpleAccompaniment =
+#(define-music-function
+   (bass-1 bass-2 chord) (ly:music? ly:music? ly:music?)
+   (make-relative
+    (bass-1 bass-2 chord)
+    #{ #bass-1 #bass-2 #chord #}
+    #{ $bass-1 $chord $bass-2 $chord #}))
+
+\relative {
+  \clef bass
+  \simpleAccompaniment c g <e' g>
+  \simpleAccompaniment d g, <f' g>
+}
+@end lilypond
 
 
 @node Special characters
