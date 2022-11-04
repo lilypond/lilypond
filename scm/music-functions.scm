@@ -2332,51 +2332,56 @@ retaining only the chord articulations.  Returns the modified music."
     after-pitch))
 
 (define-syntax-rule-public (make-relative (variables ...) reference music)
-  "The list of pitch or music variables in @var{variables} is used as
-a sequence for creating relativable music from @var{music}.
+  "\
+The list of pitch or music variables in @var{variables} is (when inside of a
+@samp{\\relative} expression) first passed through the throwaway expression
+@var{reference} for the sake of adjusting the variables according to the needs
+of relative notation, and then is employed for constructing the returned
+expression @var{music}.
 
-When the constructed music is used outside of @code{\\relative}, it
-just reflects plugging in the @var{variables} into @var{music}.
+This should work well both inside and outside of @code{\\relative} even when
+music function arguments get used multiple times and/or in different order in
+the resulting music expression.
 
-The action inside of @code{\\relative}, however, is determined by
-first relativizing the surrogate @var{reference} with the variables
-plugged in and then using the variables relativized as a side effect
-of relativizing @var{reference} for evaluating @var{music}.
+Outside of @code{\\relative}, the result just reflects plugging in the
+@var{variables} into @var{music}.
 
-Since pitches don't have the object identity required for tracing the
-effect of the reference call, they are replaced @emph{only} for the
-purpose of evaluating @var{reference} with simple pitched note events.
+Inside of @code{\\relative}, however, @code{\\relative} is getting called on the
+@var{reference} expression (that is supposed to contain the variables just once
+and in the order and arrangement that results in a natural action of
+@code{\\relative} on their values).  After adjusting the octaves in the
+variables in that manner, the resulting expression @var{music} is constructed
+from them.
 
-The surrogate @var{reference} expression has to be written with that
-in mind.  In addition, it must @emph{not} contain @emph{copies} of
-music that is supposed to be relativized but rather the
-@emph{originals}.  This @emph{includes} the pitch expressions.  As a
-rule, inside of @code{#@{@dots{}#@}} variables must @emph{only} be
-introduced using @code{#}, never via the copying construct @code{$}.
-The reference expression will usually just be a sequential or chord
-expression naming all variables in sequence, implying that following
-music will be relativized according to the resulting pitch of the last
+Any of the @var{variables} containing a pitch rather than a complete music
+expression is replaced with a simple note event for the purpose of plugging into
+@var{reference} and thus is also affected by @code{\\relative}.
+
+For @var{\\relative} to have an effect on one of the @var{variables}, the
+@var{reference} expression must use the values of the variables without creating
+copies (i.e., only using @samp{#} instead of @samp{$} on them inside of
+@samp{#@{@dots{}#@}} constructs).  The reference expression will usually just be
+a sequential or chord expression naming all variables in sequence, implying that
+followup music will be relativized according to the resulting pitch of the last
 or first variable, respectively.
 
-Since the usual purpose is to create more complex music from general
-arguments and since music expression parts must not occur more than
-once, one @emph{does} generally need to use copying operators in the
-@emph{replacement} expression @var{music} when using an argument more
-than once there.  Using an argument more than once in @var{reference},
-in contrast, does not make sense.
+For constructing the resulting @var{music} however, the usual copying
+requirements for avoiding side effects from multiply used music function
+arguments and return values apply.
 
-There is another fine point to mind: @var{music} must @emph{only}
-contain freshly constructed elements or copied constructs.  This will
-be the case anyway for regular LilyPond code inside of
-@code{#@{@dots{}#@}}, but any other elements (apart from the
-@var{variables} themselves which are already copied) must be created
-or copied as well.
+An example would be
 
-The reason is that it is usually permitted to change music in-place as
-long as one does a @var{ly:music-deep-copy} on it, and such a copy of
-the whole resulting expression will @emph{not} be able to copy
-variables/values inside of closures where the information for
-relativization is being stored.
+@example
+abba =
+#(define-music-function (a b) (ly:music? ly:music?)
+  (make-relative (a b)
+    #@{ #a #b #@}
+    #@{ $a $b $b $a #@}))
+
+\\relative @{
+  \\abba c'' g'
+@}
+@end example
 "
 
   ;; pitch and music generator might be stored instead in music
