@@ -3163,7 +3163,9 @@ def update_score_setup(score_structure, part_list, voices, parts):
                                     for (voice_name, voice) in list(nv_dict.items())]
             staves_info.append(format_staff_info(
                 part_id, None, thisstaff_raw_voices))
-        score_structure.set_part_information(part_id, staves_info)
+        part = score_structure.find_part(part_id)
+        if part is not None:
+            part.set_part_information(staves_info)
 
     sounds = []
     for part in parts:

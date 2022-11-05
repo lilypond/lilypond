@@ -2374,13 +2374,20 @@ class StaffGroup:
     def append_staff(self, staff):
         self.children.append(staff)
 
-    def set_part_information(self, part_name, staves_info):
-        if part_name == self.id:
-            self.part_information = staves_info
-        else:
-            for c in self.children:
-                if hasattr(c, 'set_part_information'):
-                    c.set_part_information(part_name, staves_info)
+    def find_part(self, part_id):
+        # TODO: Instead of searching the tree, why not consult a score-level LUT
+        # {part_id: node} that is populated as nodes are added?
+        if part_id == self.id:
+            return self
+        for c in self.children:
+            f = getattr(c, 'find_part', None)
+            found = f and f(part_id)
+            if found is not None:
+                return found
+        return None
+
+    def set_part_information(self, staves_info):
+        self.part_information = staves_info
 
     def add_context_modification(self, modification):
         self.context_modifications.append(modification)
@@ -2603,9 +2610,8 @@ class Score:
     def set_contents(self, contents):
         self.contents = contents
 
-    def set_part_information(self, part_id, staves_info):
-        if self.contents:
-            self.contents.set_part_information(part_id, staves_info)
+    def find_part(self, part_id):
+        return self.contents and self.contents.find_part(part_id)
 
     def set_tempo(self, tempo):
         """
