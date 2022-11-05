@@ -1124,9 +1124,9 @@ class ChordEvent (NestedMusic):
         # articulations/ornaments before the note
 
         for e in other_events:
-            if not hasattr(e, 'print_before_note'):
-                continue
-            e.print_before_note(printer)
+            f = getattr(e, 'print_before_note', None)
+            if f is not None:
+                f(printer)
 
         if rest_events:
             rest_events[0].print_ly(printer)
@@ -1159,9 +1159,9 @@ class ChordEvent (NestedMusic):
             e.print_ly(printer)
 
         for e in other_events:
-            if not hasattr(e, 'print_after_note'):
-                continue
-            e.print_after_note(printer)
+            f = getattr(e, 'print_after_note', None)
+            if f is not None:
+                f(printer)
 
         if self.after_grace_elements:
             printer('}')
@@ -1302,28 +1302,30 @@ class PedalEvent (SpanEvent):
 
 class TextSpannerEvent (SpanEvent):
     def print_before_note(self, printer):
-        if hasattr(self, 'style') and self.style == "wave":
+        if getattr(self, 'style', None) == 'wave':
             printer.dump(r"\once \override TextSpanner.style = #'trill")
-        if hasattr(self, 'force_direction'):
+        force_dir = getattr(self, 'force_direction', None)
+        if force_dir is not None:
             x = {-1: '\\textSpannerDown', 0: '\\textSpannerNeutral',
-                 1: '\\textSpannerUp'}.get(self.force_direction, '')
+                 1: '\\textSpannerUp'}.get(force_dir, '')
             printer.dump(x)
+
     def print_after_note(self, printer):
         pass
 
     def ly_expression(self):
         global whatOrnament
-        if hasattr(self, 'style') and self.style == "ignore":
+        style = getattr(self, 'style', None)
+        if style == 'ignore':
             return ""
         # if self.style=="wave":
         if whatOrnament == "wave":
             return {-1: '\\startTextSpan',
                     1: '\\stopTextSpan'}.get(self.span_direction, '')
-        else:
-            if hasattr(self, 'style') and self.style == "stop" and whatOrnament != "trill":
-                return ""
-            return {-1: '\\startTrillSpan',
-                    1: '\\stopTrillSpan'}.get(self.span_direction, '')
+        elif (style == 'stop') and (whatOrnament != 'trill'):
+            return ""
+        return {-1: '\\startTrillSpan',
+                1: '\\stopTrillSpan'}.get(self.span_direction, '')
 
 
 class BracketSpannerEvent (SpanEvent):
@@ -1908,10 +1910,6 @@ class RestEvent (RhythmicEvent):
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
-#        if hasattr(self, 'color'):
-#            printer.print_note_color("NoteHead", self.color)
-#            printer.print_note_color("Stem", self.color)
-#            printer.print_note_color("Beam", self.color)
         if self.pitch:
             self.pitch.print_ly(printer)
             self.duration.print_ly(printer)
@@ -1968,21 +1966,19 @@ class NoteEvent(RhythmicEvent):
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
-        if hasattr(self, 'color'):
-            printer.print_note_color("NoteHead", self.color)
-            printer.print_note_color("Stem", self.color)
-            printer.print_note_color("Beam", self.color)
 
-        if hasattr(self, "pitch"):
-            self.pitch.print_ly(printer)
+        color = getattr(self, 'color', None)
+        if color is not None:
+            printer.print_note_color("NoteHead", color)
+            printer.print_note_color("Stem", color)
+            printer.print_note_color("Beam", color)
+
+        pitch = getattr(self, "pitch", None)
+        if pitch is not None:
+            pitch.print_ly(printer)
             printer(self.pitch_mods())
 
         self.duration.print_ly(printer)
-
-#        if hasattr(self, 'color'):
-#            printer.print_note_color("NoteHead")
-#            printer.print_note_color("Stem")
-#            printer.print_note_color("Beam")
 
 
 class KeySignatureChange (Music):
