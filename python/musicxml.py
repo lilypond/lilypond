@@ -183,8 +183,9 @@ class Identification(Xml_node):
             # the text contents of this node looks something like this:
             # 'Copyright: X.Y.' and thus already contains the relevant
             # information.
-            if hasattr(r, 'type'):
-                rights_type = r.type.title()  # capitalize first letter
+            rights_type = getattr(r, 'type', None)
+            if rights_type is not None:
+                rights_type = rights_type.title()  # capitalize first letter
                 result = ''.join([rights_type, ': ', text])
                 ret.append(result)
             else:
@@ -203,7 +204,7 @@ class Identification(Xml_node):
         creators = self.get_named_children('creator')
         # return the first creator tag that has the particular type
         for i in creators:
-            if hasattr(i, 'type') and i.type == type:
+            if getattr(i, 'type', None) == type:
                 return i.get_text()
         return None
 
@@ -266,7 +267,7 @@ class Identification(Xml_node):
         for m in misc:
             misc_fields = m.get_named_children('miscellaneous-field')
             for mf in misc_fields:
-                if hasattr(mf, 'name') and mf.name == 'description':
+                if getattr(mf, 'name', None) == 'description':
                     return mf.get_text()
         return None
 
@@ -558,9 +559,7 @@ class Attributes(Measure_element):
                     alterations.append(
                         [current_step, utilities.interpret_alter_element(i)])
                 elif isinstance(i, KeyOctave):
-                    nr = -1
-                    if hasattr(i, 'number'):
-                        nr = int(i.number)
+                    nr = int(getattr(i, 'number', -1))
                     if(nr > 0) and (nr <= len(alterations)):
                         # MusicXML Octave 4 is middle C -> shift to 0
                         alterations[nr - 1].append(int(i.get_text()) - 4)
@@ -654,8 +653,9 @@ class Stem(Music_xml_node):
     def to_stem_style_event(self):
         styles = []
         style_elm = musicexp.StemstyleEvent()
-        if hasattr(self, 'color'):
-            style_elm.color = utilities.hex_to_color(getattr(self, 'color'))
+        color = getattr(self, 'color', None)
+        if color is not None:
+            style_elm.color = utilities.hex_to_color(color)
         if style_elm.color is not None:
             styles.append(style_elm)
         return styles
@@ -697,14 +697,16 @@ class Notehead(Music_xml_node):
         event = musicexp.NotestyleEvent()
         if style:
             event.style = style
-        if hasattr(self, 'filled'):
-            event.filled = (getattr(self, 'filled') == "yes")
-        if hasattr(self, 'color'):
-            event.color = utilities.hex_to_color(getattr(self, 'color'))
+        filled = getattr(self, 'filled', None)
+        if filled is not None:
+            event.filled = (filled == 'yes')
+        color = getattr(self, 'color', None)
+        if color is not None:
+            event.color = utilities.hex_to_color(color)
         if event.style or (event.filled is not None) or (event.color is not None):
             styles.append(event)
         # parentheses
-        if hasattr(self, 'parentheses') and (self.parentheses == "yes"):
+        if getattr(self, 'parentheses', None) == 'yes':
             styles.append(musicexp.ParenthesizeEvent())
 
         return styles
@@ -893,7 +895,7 @@ class Measure(Music_xml_node):
         self.partial = 0
 
     def is_implicit(self):
-        return hasattr(self, 'implicit') and self.implicit == 'yes'
+        return getattr(self, 'implicit', None) == 'yes'
 
     def get_notes(self):
         return self.get_typed_children(get_class('note'))
@@ -924,10 +926,7 @@ class Lyric(Music_xml_node):
         @rtype: number
         @return: The value of the number attribute
         """
-        if hasattr(self, 'number'):
-            return int(self.number)
-        else:
-            return -1
+        return int(getattr(self, 'number', -1))
 
 
 class Sound(Music_xml_node):
@@ -940,10 +939,7 @@ class Sound(Music_xml_node):
         @rtype: string
         @return: The value of the tempo attribute
         """
-        if hasattr(self, 'tempo'):
-            return self.tempo
-        else:
-            return None
+        return getattr(self, 'tempo', None)
 
 
 class Notations(Music_xml_node):
@@ -1041,10 +1037,7 @@ class Beam(Music_xml_spanner):
         return self.get_text() # <beam> has no 'type' attribute
 
     def is_primary(self):
-        if hasattr(self, 'number'):
-            return self.number == "1"
-        else:
-            return True
+        return getattr(self, 'number', '1') == '1'
 
 
 class Octave_shift(Music_xml_spanner):
@@ -1409,7 +1402,7 @@ class Part(Music_xml_node):
         if staff == "None":
             staff = "1"
         for c in attr._children:
-            if ((not hasattr(c, 'number') or c.number == staff) and
+            if ((getattr(c, 'number', staff) == staff) and
                   not isinstance(c, Hash_text)):
                 attributes._children.append(c)
         if not attributes._children:
@@ -1530,7 +1523,7 @@ class Part(Music_xml_node):
                 assign_to_next_note.append(n)
                 continue
 
-            if hasattr(n, 'print-object') and getattr(n, 'print-object') == "no":
+            if getattr(n, 'print-object', None) == 'no':
                 # Skip this note.
                 pass
             else:
