@@ -40,12 +40,14 @@
             ""
             "-"))
       (regexp-substitute/global #f uppercase name 'pre maybe-hyphen 0 'post))
-    (define (format-hyphenation-entry hyphenated)
-      (format #f "@hyphenation{~a}\n" hyphenated))
-    (apply string-append
-           (map
-            (lambda (sym)
-              (format-hyphenation-entry
-               (hyphenate-camel-case
-                (symbol->string sym))))
-            (append music-types context-types grob-types)))))
+    (string-append
+     "@hyphenation{\n"
+     (apply string-append
+            (sort
+             (map
+              (lambda (sym)
+                (format #f "  ~a\n"
+                        (hyphenate-camel-case (symbol->string sym))))
+              (append music-types context-types grob-types))
+             string<?))
+     "}\n")))
