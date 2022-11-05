@@ -717,6 +717,11 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       *offset /= 0.5 * ss;
 
       Interval staff_span = Staff_symbol_referencer::staff_span (me);
+
+      /* Include in the staff span also tuplet brackets that might
+      collide with the extremal staff lines. */
+      staff_span.widen (ss);
+
       if (staff_span.contains (*offset))
         {
           // Round to staff line or middle of staff space //
