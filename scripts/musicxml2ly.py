@@ -1021,7 +1021,7 @@ spanner_type_dict = {
     'start': -1,
     'begin': -1,
     'crescendo': -1,
-    'decreschendo': -1,
+    'decreschendo': -1, # TODO: explain this nonstandard, misspelled value
     'diminuendo': -1,
     'continue': 0,
     'change': 0,
@@ -1029,6 +1029,12 @@ spanner_type_dict = {
     'down': -1,
     'stop': 1,
     'end': 1
+    ## TODO: 'backward hook' for <beam>
+    ## TODO: 'discontinue' for <pedal>
+    ## TODO: 'forward hook' for <beam>
+    ## TODO: 'let-ring' for <tied>
+    ## TODO: 'resume' for <pedal>
+    ## TODO: 'sostenuto' for <pedal>
 }
 
 
@@ -1047,8 +1053,6 @@ def musicxml_spanner_to_lily_event(mxl_event):
 
     type = mxl_event.get_type()
     span_direction = spanner_type_dict.get(type)
-    # really check for None, because some types will be translated to 0, which
-    # would otherwise also lead to the unknown span warning
     if span_direction is not None:
         ev.span_direction = span_direction
     else:
@@ -1057,8 +1061,7 @@ def musicxml_spanner_to_lily_event(mxl_event):
     ev.set_span_type(type)
     ev.line_type = getattr(mxl_event, 'line-type', 'solid')
 
-    # assign the size, which is used for octave-shift, etc.
-    ev.size = mxl_event.get_size()
+    ev.size = int(getattr(mxl_event, 'size', 0)) # attr of octave-shift
 
     return ev
 

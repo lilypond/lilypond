@@ -137,18 +137,9 @@ class Music_xml_node(Xml_node):
 
 
 class Music_xml_spanner(Music_xml_node):
-
     def get_type(self):
-        if hasattr(self, 'type'):
-            return self.type
-        else:
-            return 0
-
-    def get_size(self):
-        if hasattr(self, 'size'):
-            return int(self.size)
-        else:
-            return 0
+        # Most subclasses represent elements with a required 'type' attribute.
+        return self.type
 
 
 class Measure_element(Music_xml_node):
@@ -1039,20 +1030,16 @@ class Tuplet(Music_xml_spanner):
 
 
 class Slur(Music_xml_spanner):
-
-    def get_type(self):
-        return self.type
+    pass
 
 
 class Tied(Music_xml_spanner):
-
-    def get_type(self):
-        return self.type
+    pass
 
 
 class Beam(Music_xml_spanner):
     def get_type(self):
-        return self.get_text()
+        return self.get_text() # <beam> has no 'type' attribute
 
     def is_primary(self):
         if hasattr(self, 'number'):
@@ -1062,12 +1049,7 @@ class Beam(Music_xml_spanner):
 
 
 class Octave_shift(Music_xml_spanner):
-    # default is 8 for the octave-shift!
-    def get_size(self):
-        if hasattr(self, 'size'):
-            return int(self.size)
-        else:
-            return 8
+    size = '8'
 
 
 # Rests in MusicXML are <note> blocks with a <rest> inside. This class is only
