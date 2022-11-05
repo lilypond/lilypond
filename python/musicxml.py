@@ -587,18 +587,19 @@ class Barline(Measure_element):
         if bartype_element:
             bartype = bartype_element.get_text()
 
-        if repeat_element and hasattr(repeat_element, 'direction'):
+        direction = getattr(repeat_element, 'direction', None)
+        if direction is not None:
             repeat = musicxml2ly_conversion.RepeatMarker()
-            repeat.direction = {"forward": -1, "backward": 1}.get(
-                repeat_element.direction, 0)
+            repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
 
-            if((repeat_element.direction == "forward" and bartype == "heavy-light") or
-                    (repeat_element.direction == "backward" and bartype == "light-heavy")):
+            if ((direction == 'forward' and bartype == 'heavy-light') or
+                (direction == 'backward' and bartype == 'light-heavy')):
                 bartype = None
-            if hasattr(repeat_element, 'times'):
+            times = getattr(repeat_element, 'times', None)
+            if times is not None:
                 try:
-                    repeat.times = int(repeat_element.times)
-                except ValueError:
+                    repeat.times = int(times)
+                except ValueError: # TODO: explain this choice
                     repeat.times = 2
             repeat.event = self
             if repeat.direction == -1:
@@ -606,10 +607,11 @@ class Barline(Measure_element):
             else:
                 retval[1] = repeat
 
-        if ending_element and hasattr(ending_element, 'type'):
+        ending_type = getattr(ending_element, 'type', None)
+        if ending_type is not None:
             ending = musicxml2ly_conversion.EndingMarker()
             ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get(
-                ending_element.type, 0)
+                ending_type, 0)
             ending.event = self
             if ending.direction == -1:
                 retval[4] = ending
