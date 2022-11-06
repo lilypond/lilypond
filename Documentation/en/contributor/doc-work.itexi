@@ -846,13 +846,121 @@ shortens the line by about 4 columns.
 @node Indexing
 @unnumberedsubsubsec Indexing
 
+Use the following two commands.
+
 @itemize
 @item
-@code{@@cindex @dots{}} --- General index.  Please add as many as you can.
-Don't capitalize the first word.
+@code{@@cindex @dots{}} --- for the general index
+@item
+@code{@@funindex @dots{}} --- for commands and properties like
+@code{\bar} or @code{left-@/margin}
+@end itemize
+
+Here are some rules how index entries should look like.
+
+@itemize
+@item
+Only capitalize the first word of a @code{@@cindex} entry if you
+would do so in the middle of an English sentence.  Examples:
+
+@example
+@@cindex ancient clef
+@@cindex Kievan clef
+@end example
+
+@code{@@funindex} entries are written as-is; don't omit the
+leading backslash if there is one.
 
 @item
-@code{@@funindex @dots{}} --- is for a \lilycommand.
+Use singular forms as much as possible.  After a comma, use
+whatever looks better.  Examples:
+
+@example
+@@cindex clef
+@@cindex fingering instruction, for chords
+@end example
+
+@item
+Permute index entries if it makes sense.  Example:
+
+@example
+@@cindex ancient note head
+@@cindex note head, ancient
+@end example
+
+@item
+Try to make entries fit into groups so that the printed index
+looks like this:
+
+@example
+@dots{}
+text, framing
+text, horizontal alignment
+text, in columns
+text, in volta bracket
+text, justified
+@dots{}
+@end example
+
+@item
+Don't insert @code{@@funindex@{\foo@}} and @code{@@cindex@{\foo@}}
+simultaneously.
+
+@item
+If both @code{foo} and @code{\foo} need to be indexed with
+@code{@@funindex} you have to use the @code{@@funindexpre} or
+@code{@@funindexpost} command: @code{@@funindexpre foo} gets
+sorted before @code{@@funindex \foo}, and @code{@@funindexpost
+\foo} gets sorted after @code{@@funindex foo}.  Example:
+
+@example
+@@funindex [
+@@funindexpost \[
+@end example
+
+@item
+If you mention entities in a @code{@@cindex} entry that would
+normally be entered with @code{@@funindex}, use @code{@@code} to
+mark them.  Example:
+
+@example
+@@cindex @@code@{\context@}, in @@code@{\layout@} block
+@end example
+
+@item
+To get a literal @samp{@{} or @samp{@}} in an index, write
+@code{@@@{} and @code{@@@}}, respectively.
+
+@item
+As of November 2022, if an index entry starts with an accented
+character, use a Texinfo accent macro instead of the real
+character.  For example, an index entry for @q{Äolisch} should be
+entered as
+
+@example
+@@cindex @@"Aolisch
+@end example
+
+@noindent
+to circumvent a problem with @command{texindex} (used by Texinfo
+to sort and unify index entries in PDF output): This program
+currently has no support for locale-specific collation.  In the
+above example, the entry is now sorted as @q{Aolisch}.
+
+In case this is not sufficient it is always possible to explicitly
+specify a sorting key using the @code{@@sortas} command: Assuming
+that entries starting with letter @q{ä} must be sorted after all
+entries starting with letter @q{a}, writing
+
+@example
+@@cindex @@sortas@{azzzAolisch@} Äolisch
+@end example
+
+@noindent
+would make this work.  Unfortunately, this trick doesn't create an
+initial letter in the printed index for entries starting with
+@q{Ä}.
+
 @end itemize
 
 
