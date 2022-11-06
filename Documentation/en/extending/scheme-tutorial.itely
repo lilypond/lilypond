@@ -1218,7 +1218,7 @@ in its @code{'elements} property.  A note is represented as a
 attached information (in this case, an @code{AbsoluteDynamicEvent} with
 a @code{"f"} text property) stored in its @code{articulations} property.
 
-@funindex{\void}
+@funindex \void
 @code{\displayMusic} returns the music it displays, so it will get
 interpreted as well as displayed.  To avoid interpretation, write
 @code{\void} before @code{\displayMusic}.

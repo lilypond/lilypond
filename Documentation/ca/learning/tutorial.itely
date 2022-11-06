@@ -453,7 +453,7 @@ Referència de la notació:
 
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

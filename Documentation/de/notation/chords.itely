@@ -524,7 +524,7 @@ mit der @code{noChordSymbol}-Beschriftung darstellt.
 >>
 @end lilypond
 
-@funindex{\chords}
+@funindex \chords
 
 @code{\chords @{ ... @}} ist eine Kurznotation für die Bezeichnung
 @code{\new ChordNames @{ \chordmode @{ ... @} @}}.

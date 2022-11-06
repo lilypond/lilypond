@@ -479,7 +479,7 @@ Manuel de notation :
 @cindex numéro de version
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

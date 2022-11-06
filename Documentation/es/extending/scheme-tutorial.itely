@@ -1333,7 +1333,7 @@ caso, un evento @code{AbsoluteDynamicEvent} con una propiedad
 @code{"f"} de texto) almacenada en su propiedad
 @code{articulations}.
 
-@funindex{\void}
+@funindex \void
 
 @code{\displayMusic} devuelve la música que imprime en la consola,
 y por ello se interpretará al tiempo que se imprime en la consola.

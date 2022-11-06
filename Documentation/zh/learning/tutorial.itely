@@ -396,7 +396,7 @@ See @ruser{Note names in other languages}.
 @cindex version number
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

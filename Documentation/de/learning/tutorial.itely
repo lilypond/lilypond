@@ -462,7 +462,7 @@ Notationsreferenz: @ruser{Tonhöhen setzen},
 @cindex Versionsnummer
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

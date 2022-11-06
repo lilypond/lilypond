@@ -473,7 +473,7 @@ Referencia de la notación:
 
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

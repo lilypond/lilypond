@@ -424,7 +424,7 @@ Notatiehandleiding: @ruser{Writing pitches},
 @cindex versienummer
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

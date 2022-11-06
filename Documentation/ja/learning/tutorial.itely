@@ -453,7 +453,7 @@ A, G, F である場合は B の下に置かれます。
 @cindex version number (バージョン番号)
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

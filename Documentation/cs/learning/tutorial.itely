@@ -419,7 +419,7 @@ Doporučení pro notový zápis: @ruser{Nastavení výšek tónů},
 @cindex Velká písmena
 @cindex Malá písmena
 
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

@@ -414,7 +414,7 @@ Referencia: @ruser{Writing pitches},
 @cindex verziószám
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

@@ -429,7 +429,7 @@ Guida alla notazione: @ruser{Inserimento delle altezze},
 @cindex numero di versione
 
 @funindex \version
-@funindex { ... }
+@funindex @{ ... @}
 @funindex %
 @funindex %@{ ... %@}
 

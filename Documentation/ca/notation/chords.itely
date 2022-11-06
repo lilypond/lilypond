@@ -483,7 +483,7 @@ N.C., Sense Acord).
 >>
 @end lilypond
 
-@funindex{\chords}
+@funindex \chords
 
 @code{\chords @{ @dots{} @}} és una forma abreujada d'escriure
 @code{\new ChordNames \chordmode @{ @dots{} @}}.
