@@ -2083,7 +2083,7 @@ les línies del pentagrama estan dibuixades pel gravador
 }
 @end lilypond
 
-@cindex àmbit, gravador del
+@cindex @`ambit, gravador del
 
 Els gravadors també es poden afegir als contextos individuals. La
 instrucció que ho fa és

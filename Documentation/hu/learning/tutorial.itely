@@ -296,7 +296,7 @@ csak a hangmagasság megjelölése helyett @code{r}@tie{} betűt kell írni:
 @unnumberedsubsubsec Ütemmutató
 @translationof Time signature
 
-@cindex ütemmutató
+@cindex @"utemmutató
 
 @funindex \time
 

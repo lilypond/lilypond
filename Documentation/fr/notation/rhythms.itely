@@ -401,7 +401,7 @@ Références des propriétés internes :
 @unnumberedsubsubsec Changement d'échelle des durées
 @translationof Scaling durations
 
-@cindex échelonnement des durées
+@cindex @'echelonnement des durées
 @cindex durées, échelonnement
 
 La durée des notes, silences ou accords peut se modifier en lui
@@ -443,7 +443,7 @@ elle aussi être affectée d'un multiplicateur.  Cette technique permet
 tout simplement de sauter plusieurs mesures, comme par exemple un
 @code{s1*23}.
 
-@cindex échelonnement de musique
+@cindex @'echelonnement de musique
 @cindex musique échelonnée
 
 @funindex \scaleDurations
@@ -1059,7 +1059,7 @@ R1*2 |
 @cindex silence multimesure, ajout de texte
 @cindex script et silence multimesure
 @cindex silence multimesure, script
-@cindex étiquette et silence multimesure
+@cindex @'etiquette et silence multimesure
 @cindex silence multimesure, étiquette
 @cindex point d'orgue et silence multimesure
 @cindex silence multimesure et point d'orgue

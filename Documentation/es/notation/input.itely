@@ -1914,7 +1914,7 @@ puede ser "00", es decir, un número de dos dígitos.
 @subsection Índice general
 @translationof Table of contents
 
-@cindex índice general
+@cindex @'indice general
 @cindex tabla de contenidos
 @cindex marcadores
 
@@ -2066,7 +2066,7 @@ correspondiente:
 @end lilypond
 
 @funindex add-toc-item!
-@cindex índice general, funciones personalizadas
+@cindex @'indice general, funciones personalizadas
 
 Además del mecanismo incorporado de construcción del índice
 general, las instrucciones predefinidas pueden definirse también

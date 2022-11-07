@@ -1026,7 +1026,7 @@ hinzuzufügen, muss der @code{Instrument_name_engraver} dem
 entsprechenden Kontext hinzugefügt werden.  Zu Einzelheiten
 siehe @ref{Umgebungs-Plugins verändern}.
 
-@cindex Ändern von Instrumentenbezeichnungen
+@cindex @"Andern von Instrumentenbezeichnungen
 @cindex Instrumentenbezeichnungen, wechseln
 @cindex Wechseln von Instrumentenbezeichnungen
 

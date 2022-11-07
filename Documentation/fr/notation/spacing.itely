@@ -296,7 +296,7 @@ Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
 @cindex papier, orientation
 @cindex @code{landscape}, papier
 @cindex paysage, papier
-@cindex à l'italienne, papier
+@cindex @`a l'italienne, papier
 
 Le fait d'ajouter l'argument @code{'landscape} à l'instruction
 stipulant le format du papier permet d'obtenir une présentation à
@@ -3511,8 +3511,8 @@ d'avoir tout d'abord identifié le type d'espace dont il est question.
 @cindex empilement
 @cindex musical, élément
 @cindex non-musical, élément
-@cindex élément musical
-@cindex élément non-musical
+@cindex @'elément musical
+@cindex @'elément non-musical
 @cindex préfabriqué, matériel
 
 Les objets de rendu qui ont une position horizontale fixe sont

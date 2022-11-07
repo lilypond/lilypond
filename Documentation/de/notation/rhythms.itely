@@ -421,7 +421,7 @@ Schnipsel:
 @translationof Ties
 
 @cindex Bindebogen
-@cindex Überbindung
+@cindex @"Uberbindung
 
 @funindex ~
 
@@ -463,7 +463,7 @@ Mit diesem Mechanismus werden lange Noten
 automatisch aufgeteilt, wenn sie über Taktgrenzen reichen.
 
 @cindex Bindebögen und Akkorde
-@cindex Überbindungen und Akkorde
+@cindex @"Uberbindungen und Akkorde
 @cindex Akkorde und Überbindungen
 
 Wenn ein Bindebogen an einen Akkord gehängt wird, werden alle Noten
@@ -479,7 +479,7 @@ geschrieben werden.
 
 @cindex Bindebögen wiederholen
 @cindex Wiederholung und Bindebögen
-@cindex Überbindung und Wiederholungen
+@cindex @"Uberbindung und Wiederholungen
 @cindex Volta-Klammern und Wiederholungen
 @cindex Volta und Überbindung
 
@@ -747,7 +747,7 @@ Maxima (8 Ganze).
 @translationof Invisible rests
 
 @cindex Skip
-@cindex Überspringen von Zeichen
+@cindex @"Uberspringen von Zeichen
 @cindex Unsichtbare Pausen
 @cindex Pausen, unsichtbar
 @cindex Platzhalternoten
@@ -3149,7 +3149,7 @@ Schnipsel:
 @unnumberedsubsubsec Übungszeichen
 @translationof Rehearsal marks
 
-@cindex Übungszeichen
+@cindex @"Ubungszeichen
 @cindex Abschnitte markieren
 @cindex Markieren von Abschnitten
 
@@ -3206,9 +3206,9 @@ Buchstaben in einem Kasten, Buchstaben in einem Kreis).
 }
 @end lilypond
 
-@cindex Übungszeichen formatieren
+@cindex @"Ubungszeichen formatieren
 @cindex Stil von Übungszeichen
-@cindex Übungszeichenstil
+@cindex @"Ubungszeichenstil
 @cindex Art der Übungszeichen
 @cindex Zeichen, Übung: Formatierung
 @cindex manuelles Übungszeichen

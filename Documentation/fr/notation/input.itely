@@ -1619,7 +1619,7 @@ l'élément qui fait l'objet du commentaire, qu'il s'agisse d'un
 @subsubsubheading Notes de bas de page événementielles
 @c VO Event-based footnotes
 
-@cindex événementielle, note de bas de page
+@cindex @'evénementielle, note de bas de page
 
 Ce type de note de bas de page s'attache à un objet de rendu
 généré directement par l'événement correspondant à @var{musique}.
@@ -3968,7 +3968,7 @@ instruments -- voir @file{scm/midi.scm}.
 @snippets
 
 @cindex MIDI, égalisation par défaut, adaptation
-@cindex égalisation en MIDI, adaptation
+@cindex @'egalisation en MIDI, adaptation
 @cindex instrument MIDI, égalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/replacing-default-midi-instrument-equalization.ly}

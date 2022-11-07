@@ -1018,7 +1018,7 @@ Referència de la notació:
 @cindex polifonia
 @cindex diverses veus
 @cindex veus, més, en un sol pentagrama
-@cindex únic, polifonia en pentagrama
+@cindex @'unic, polifonia en pentagrama
 @cindex separador, silenci
 @cindex silenci separador
 
@@ -1363,7 +1363,7 @@ la resta del manual.
 @cindex identificadors
 @cindex macros
 @cindex assignació de variables
-@cindex ús de les variables
+@cindex @'us de les variables
 @cindex variables, ús de
 @cindex variables, caràcters permesos en
 @cindex caràcters permesos en variables

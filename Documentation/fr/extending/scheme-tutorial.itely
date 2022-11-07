@@ -19,7 +19,7 @@
 @cindex GUILE
 @cindex Scheme, inclusion de code
 @cindex accéder à Scheme
-@cindex évaluation Scheme
+@cindex @'evaluation Scheme
 @cindex LISP
 
 LilyPond recourt abondamment au langage de programmation Scheme, tant au

@@ -642,7 +642,7 @@ expression musicale @code{void}.
 @translationof Event functions
 
 @funindex define-event-function
-@cindex événementielle, fonction
+@cindex @'evénementielle, fonction
 
 L'utilisation d'une fonction musicale pour placer un événement requiert
 l'insertion d'un indicateur de position, ce qui peut ne pas correspondre

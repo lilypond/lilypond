@@ -1617,7 +1617,7 @@ Schriftarten in @ref{Was sind Schriftarten}.
 
 @cindex Schriftartenfamilien, definieren
 @cindex Schriftarten, für das gesamte Dokument ändern
-@cindex Ändern von Schriftarten für das gesamte Dokument
+@cindex @"Andern von Schriftarten für das gesamte Dokument
 
 @funindex make-pango-font-tree
 

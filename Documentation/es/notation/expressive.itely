@@ -163,7 +163,7 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex símbolo, segno
 @cindex trino
 @cindex varcoda
-@cindex órgano, marca de pedal
+@cindex @'organo, marca de pedal
 
 @funindex \accent
 @funindex \marcato

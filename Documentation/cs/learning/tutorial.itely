@@ -123,7 +123,7 @@ jsou automatické hodnoty v zásadě použitelné.
 @cindex Výšky tónů
 @cindex Vztažný režim
 @cindex Odsuvník (apostrof)
-@cindex Čárka
+@cindex @v{C}árka
 @cindex Předznamenání a vztažný režim
 @cindex Vztažný režim a předznamenání
 
@@ -248,7 +248,7 @@ jednat skutečně o dva odsuvníky a ne o uvozovky
 @cindex Rytmus
 @cindex Celé noty
 @cindex Půlové noty
-@cindex Čtvrťové noty
+@cindex @v{C}tvrťové noty
 @cindex Tečkované noty
 
 Slovníček: @rglos{beam}, @rglos{duration},
@@ -329,7 +329,7 @@ Slovníček: @rglos{time signature}.
 @subheading Vyznačení tempa
 
 @cindex Vyznačení tempa
-@cindex Údaj metronomu
+@cindex @'Udaj metronomu
 
 @funindex \tempo
 
@@ -412,7 +412,7 @@ Doporučení pro notový zápis: @ruser{Nastavení výšek tónů},
 @cindex kulaté závorky
 @cindex Závorky, kulaté
 @cindex Poznámky
-@cindex Řádkové poznámky
+@cindex @v{R}ádkové poznámky
 @cindex Blokové poznámky
 @cindex Psaní velkých a malých písmen
 @cindex Výrazy
@@ -506,7 +506,7 @@ v závorkách (jako například @q{@w{@code{\relative c' @{ @dots{} @}}}})
 je též hodnocen jako jednotlivý hudební výraz.
 
 @cindex Poznámky
-@cindex Řádkové poznámky
+@cindex @v{R}ádkové poznámky
 @cindex Blokové poznámky
 
 @item
@@ -556,7 +556,7 @@ možné použití poznámek:
 @section Vypořádání se s chybami
 @translationof Dealing with errors
 
-@cindex Řešení chyb
+@cindex @v{R}ešení chyb
 
 Někdy LilyPond nevytvoří notový obraz takový, jaký jste očekávali.  Tento
 úryvek poskytuje několik odkazů, aby vám pomohl při řešení
@@ -584,7 +584,7 @@ se nacházejí v @rprogram{Řešení potíží}.
 @subsection Některé časté chyby
 @translationof Some common errors
 
-@cindex časté chyby
+@cindex @v{c}asté chyby
 @cindex Chyby, časté
 
 Jsou některé běžné chyby, které se dají vyřešit obtížně, když má člověk
@@ -614,7 +614,7 @@ verze.
 
 @cindex Příručka, čtení
 @cindex Jak číst příručky
-@cindex Čtení příručky
+@cindex @v{C}tení příručky
 @cindex Příklady, klepnutelné
 @cindex Klepnutelné příklady
 @cindex Předlohy

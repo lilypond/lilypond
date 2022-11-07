@@ -243,7 +243,7 @@ A bemeneti formátum teljes definíciója a
 
 @funindex \score
 @cindex score
-@cindex összetett zenei kifejezés
+@cindex @"osszetett zenei kifejezés
 
 Az előző szakaszban (@ref{Bevezetés a LilyPond fájlok szerkezetébe}) már láttuk
 a LilyPond fájlok általános felépítését. De a legfontosabb részt mintha

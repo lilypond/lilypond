@@ -122,7 +122,7 @@ Aquesta secció destaca temes relatius a la música àrab.
 @unnumberedsubsubsec Referències per a música àrab
 @translationof References for Arabic music
 
-@cindex àrab, música
+@cindex @`arab, música
 @cindex mitjos, intervals
 @cindex maqam
 @cindex maqams
@@ -367,7 +367,7 @@ Fragments de codi:
 @unnumberedsubsubsec Indicacions de compàs àrabs
 @translationof Arabic time signatures
 
-@cindex àrabs, armadures
+@cindex @`arabs, armadures
 @cindex Semai, forma
 @cindex taqasim
 
@@ -409,8 +409,8 @@ Fragments de codi:
 @unnumberedsubsubsec Exemple de música àrab
 @translationof Arabic music example
 
-@cindex àrab, exemple de música
-@cindex àrab, plantilla de música
+@cindex @`arab, exemple de música
+@cindex @`arab, plantilla de música
 @cindex plantilla música àrab
 
 A continuació es pot trobar una plantilla que fa servir també el

@@ -1495,7 +1495,7 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/analysis-brackets-above-the-staff.ly}
 
-@cindex étiquette, crochet d'analyse
+@cindex @'etiquette, crochet d'analyse
 @cindex analyse, crochet, étiquette
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

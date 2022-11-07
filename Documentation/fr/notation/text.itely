@@ -214,7 +214,7 @@ Morceaux choisis :
 @unnumberedsubsubsec Commentaires textuels
 @translationof Text scripts
 
-@cindex étiquette de texte
+@cindex @'etiquette de texte
 @cindex bloc de texte
 @cindex ajout de texte
 
@@ -756,9 +756,9 @@ forme du texte à l'aide de la syntaxe propre au mode @emph{markup}.
 @unnumberedsubsubsec Introduction au formatage de texte
 @translationof Text markup introduction
 
-@cindex étiquette
+@cindex @'etiquette
 @cindex commentaire textuel
-@cindex étiquette textuelle
+@cindex @'etiquette textuelle
 @cindex texte ajouté
 @cindex annotation
 @cindex @emph{markup}

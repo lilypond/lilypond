@@ -828,7 +828,7 @@ simplement ignorée.  Il faut donc que la commande introduite par
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
 @cindex Liaison, exemple de dérogation
-@cindex Épaisseur, exemple d'utilisation de la propriété
+@cindex @'Epaisseur, exemple d'utilisation de la propriété
 
 @lilypond[quote,verbatim]
 {
@@ -872,7 +872,7 @@ débute la liaison :
 
 @cindex liaison, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
-@cindex épaisseur, exemple d'utilisation
+@cindex @'epaisseur, exemple d'utilisation
 
 @lilypond[quote,verbatim]
 {
@@ -902,7 +902,7 @@ la seconde liaison la commande @code{\revert}, qui ramène la propriété
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
 @cindex liaison, exemple de dérogation
-@cindex épaisseur, exemple d'utilisation
+@cindex @'epaisseur, exemple d'utilisation
 
 @lilypond[quote,verbatim]
 {
@@ -1756,12 +1756,12 @@ sous-section montrera comment faire.
 @translationof Length and thickness of objects
 
 @cindex distance
-@cindex épaisseur
+@cindex @'epaisseur
 @cindex longueur
 @cindex magstep
 @cindex taille, modification
 @cindex hampe, modification de longueur
-@cindex écartement des lignes, modification
+@cindex @'ecartement des lignes, modification
 
 Dans LilyPond, les écartements et longueurs sont généralement mesurés en
 « intervalles de lignes » (@emph{staff-spaces} en anglais),
@@ -2458,7 +2458,7 @@ LilyPond dispose de commandes équivalentes et dévolues au
 traitement des repères et indications de tempo :
 @code{\markLengthOn} et @code{\markLengthOff}.
 
-@cindex étiquette de texte et collision
+@cindex @'etiquette de texte et collision
 @cindex markup et collision
 
 Les textes des @emph{markup} éviteront également les notes qui

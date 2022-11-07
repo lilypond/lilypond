@@ -70,7 +70,7 @@ nombres de nota italianos.  Para ver más detalles, consulte
 @cindex maqam
 @cindex Turquía, música clásica
 @cindex Otomana, música clásica
-@cindex árabe, maqam
+@cindex @'arabe, maqam
 @cindex persa, makam
 @cindex turco, makam
 
@@ -127,7 +127,7 @@ Esta sección destaca asuntos relativos a la música árabe.
 @unnumberedsubsubsec Referencias para música árabe
 @translationof References for Arabic music
 
-@cindex árabe, música
+@cindex @'arabe, música
 @cindex medio, intervalo
 @cindex maqam
 
@@ -186,7 +186,7 @@ Fragmentos de código:
 @unnumberedsubsubsec Nombres de nota árabes
 @translationof Arabic note names
 
-@cindex árabe, notas, nombres
+@cindex @'arabe, notas, nombres
 @cindex nota, nombres, Hel-arabic
 @cindex nota, nombres, árabes
 
@@ -229,7 +229,7 @@ El uso de notación occidental estándar para música no occidental
 se discute en @ref{Notación común para músicas no occidentales}.
 Véase también @ref{Nombres de las notas en otros idiomas}.
 
-@cindex árabe, semi-bemol
+@cindex @'arabe, semi-bemol
 @cindex semi-bemol, apariencia
 
 @funindex \dwn
@@ -405,7 +405,7 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Indicaciones de compás árabes
 @translationof Arabic time signatures
 
-@cindex árabes, armaduras
+@cindex @'arabes, armaduras
 @cindex Semai, forma
 @cindex taqasim
 
@@ -423,7 +423,7 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 @snippets
 
 @cindex improvisación, árabe
-@cindex árabe, improvisación
+@cindex @'arabe, improvisación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/arabic-improvisation.ly}
 
@@ -453,8 +453,8 @@ Fragmentos de código:
 @unnumberedsubsubsec Ejemplo de música árabe
 @translationof Arabic music example
 
-@cindex árabe, ejemplo de música
-@cindex árabe, plantilla de música
+@cindex @'arabe, ejemplo de música
+@cindex @'arabe, plantilla de música
 @cindex plantilla, música árabe
 
 A continuación aparece una plantilla que emplea también el comienzo de

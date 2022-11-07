@@ -1476,7 +1476,7 @@ ein neues Notensystem erstellt, wie man es für ein @rglos{ossia}
 braucht.
 
 @cindex alignAboveContext-Eigenschaft, Beispiel
-@cindex über dem System anordnen, Beispiel
+@cindex @"uber dem System anordnen, Beispiel
 @cindex @code{\with}-Beispiel
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -1501,7 +1501,7 @@ Wie man Schlüssel und Taktangabe entfernt, wissen wir schon:
 wir setzen den Stencil von beiden auf @code{#f}:
 
 @cindex alignAboveContext-Eigenschaft, Beispiel
-@cindex über dem System anordnen, Beispiel
+@cindex @"uber dem System anordnen, Beispiel
 @cindex @code{\with}-Beispiel
 @cindex stencil-Eigenschaft, Beispiel
 @cindex Schlüssel, Beispiel zur Veränderung
@@ -1570,7 +1570,7 @@ eine Fehlermeldung.
 Das obige Beispiel könnte also auch so aussehen:
 
 @cindex alignAboveContext-Eigenschaft, Beispiel
-@cindex über dem System anordnen, Beispiel
+@cindex @"uber dem System anordnen, Beispiel
 @cindex @code{\with}-Beispiel
 @cindex stencil-Eigenschaft, Beispiel
 @cindex Schlüssel, Beispiel zur Veränderung
@@ -1641,7 +1641,7 @@ Schriftgröße um etwa 12% verändert.
 Setzen wir das also in unserem Ossia-Beispiel ein:
 
 @cindex alignAboveContext-Eigenschaft, Beispiel
-@cindex über dem System anordnen, Beispiel
+@cindex @"uber dem System anordnen, Beispiel
 @cindex @code{\with}-Beispiel
 @cindex stencil-Eigenschaft, Beispiel
 @cindex Schlüssel, Beispiel zur Veränderung
@@ -1710,7 +1710,7 @@ Objekte proportionell zueinander zu verändern.  So wird
 sie benutzt:
 
 @cindex alignAboveContext-Eigenschaft, Beispiel
-@cindex über dem System anordnen, Beispiel
+@cindex @"uber dem System anordnen, Beispiel
 @cindex @code{\with}-Beispiel
 @cindex stencil-Eigenschaft, Beispiel
 @cindex Schlüssel, Beispiel zur Veränderung
@@ -2249,7 +2249,7 @@ Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
 @cindex Position der Taktzahl, verändern
 @cindex Metronom-Bezeichnungsposition verändern
 @cindex Verändern der Metronom-Bezeichnungsposition
-@cindex Übungszeichenposition verändern
+@cindex @"Ubungszeichenposition verändern
 @cindex Verändern der Übungszeichenposition
 
 Beachten Sie, dass Taktnummern, Metronombezeichnungen
@@ -2846,7 +2846,7 @@ werden können.
 @subheading padding (Fülleigenschafte)
 
 @cindex padding (Verschiebungs-Eigenschaft)
-@cindex Überschneidende Notation korrigieren
+@cindex @"Uberschneidende Notation korrigieren
 @cindex Korrigieren von überschneidender Notation
 
 Die @code{padding}-(Verschiebungs-)Eigenschaft kann benutzt
@@ -3774,7 +3774,7 @@ lhMusic = \relative {
 @cindex Objekte entfernen
 @cindex Objekte verstecken
 @cindex Noten zwischen Stimmen überbinden
-@cindex Überbinden von Noten zwischen Stimmen
+@cindex @"Uberbinden von Noten zwischen Stimmen
 
 @subheading Noten zwischen unterschiedlichen Stimmen überbinden
 

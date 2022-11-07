@@ -4324,7 +4324,7 @@ El ángulo de rotación y las coordenadas del punto de rotación se
 deben determinar por ensayo y error.
 
 @cindex regulador en ángulo
-@cindex ángulo, regulador en
+@cindex @'angulo, regulador en
 
 Solamente en ciertas ocasiones es útil la rotación de objetos de
 presentación; el ejemplo siguiente muestra una situación en que

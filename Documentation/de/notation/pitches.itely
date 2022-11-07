@@ -410,7 +410,7 @@ cis cis cis! cis? c c? c! c
 @end lilypond
 
 @cindex Versetzungszeichen an übergebundener Note
-@cindex Überbindung, Versetzungszeichen
+@cindex @"Uberbindung, Versetzungszeichen
 
 Versetzungzeichen von übergebundenen Noten werden nur
 dann gesetzt, wenn ein neues System begonnen wird:
@@ -1301,7 +1301,7 @@ Die Tonart kann geändert werden:
 @cindex Moll
 @cindex Ionisch
 @cindex Lokrisch
-@cindex Äolisch
+@cindex @"Aolisch
 @cindex Mixolydisch
 @cindex Aeolisch
 @cindex Dorisch
@@ -2883,7 +2883,7 @@ Referenz der Interna:
 
 @cindex Notenköpfe, Übung
 @cindex Notenköpfe zum Lernen
-@cindex Übungszwecke, Notenköpfe
+@cindex @"Ubungszwecke, Notenköpfe
 @cindex Noteknöpfe, einfache Notation
 @cindex pädagogische Notenköpfe
 @cindex Anfänger, Notenlernen

@@ -247,7 +247,7 @@ A kottaírás kézikönyve:
 @subsection Ívek
 @translationof Ties and slurs
 
-@cindex átkötés
+@cindex @'atkötés
 @cindex kötőív
 @cindex frazeálóív
 
@@ -647,7 +647,7 @@ használjuk, amikor egy vonalrendszeren belül több szólam szerepel.
 
 @cindex zenei kifejezés
 @cindex kifejezés, zenei
-@cindex összetett zenei kifejezés
+@cindex @"osszetett zenei kifejezés
 @cindex zenei kifejezés, összetett
 
 
@@ -1242,9 +1242,9 @@ részébe.
 @cindex változók
 @cindex azonosítók
 @cindex makrók
-@cindex értékadás
+@cindex @'ertékadás
 @cindex hozzárendelés
-@cindex újrafelhasználás
+@cindex @'ujrafelhasználás
 @cindex hivatkozás
 @cindex változók, megengedett karakterek
 

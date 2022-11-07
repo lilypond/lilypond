@@ -1437,7 +1437,7 @@ werden.
 @funindex \skip
 @cindex Auslassen von Noten im Gesangstext
 @cindex Gesangstext, Auslassen von Noten
-@cindex Überspringen von Noten im Gesangstext
+@cindex @"Uberspringen von Noten im Gesangstext
 
 Aber wenn der wiederholte Abschnitt unterschiedlichen Text hat,
 kann keine @code{repeat}-Konstruktion um den Text eingesetzt

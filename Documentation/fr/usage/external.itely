@@ -308,7 +308,7 @@ lilypond \
 @section LilyPond et les éditeurs de texte
 @translationof Text editor support
 
-@cindex éditeurs
+@cindex @'editeurs
 @cindex vim
 @cindex emacs
 @cindex modes, éditeur

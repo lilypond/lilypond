@@ -275,7 +275,7 @@ c1_"D.S." \bar "|."
 
 @cindex Wiederholungen mit Überbindung
 @cindex Alternative Schlüsse mit Bindebogen
-@cindex Überbindung in Wiederholung
+@cindex @"Uberbindung in Wiederholung
 @cindex Bindebogen in Wiederholung
 @cindex Bindebogen in alternativem Schluss
 @funindex \repeatTie

@@ -2238,7 +2238,7 @@ las líneas del pentagrama están dibujadas por el grabador
 }
 @end lilypond
 
-@cindex ámbito, grabador del
+@cindex @'ambito, grabador del
 
 Los grabadores también se pueden añadir a los contextos
 individuales La instrucción que lo hace es
