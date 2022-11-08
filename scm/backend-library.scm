@@ -27,7 +27,7 @@
 (define-public (ly:system command)
   (ly:debug (G_ "Invoking `~a'...") (string-join command))
   (let ((status (apply ly:spawn command)))
-    (if (> status 0)
+    (if (not (= status 0))
         (begin
           (ly:warning (G_ "`~a' failed (~a)\n") command status)
           ;; hmmm.  what's the best failure option?
