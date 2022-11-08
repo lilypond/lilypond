@@ -566,11 +566,11 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
   if (!g_spawn_sync (0, argv, 0, GSpawnFlags (flags), 0, 0, standard_output,
                      standard_error, &exit_status, &error))
     {
+      if (!exit_status)
+        exit_status = -1;
       warning (_f ("g_spawn_sync failed (%d): %s: %s", exit_status, argv[0],
                    error->message));
       g_error_free (error);
-      if (!exit_status)
-        exit_status = -1;
     }
 
   return exit_status;
