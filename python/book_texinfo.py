@@ -131,7 +131,7 @@ TexInfo_output = {
 @end iftex''',
 
     book_snippets.OUTPUTIMAGE: r'''@ifinfo
-@image{%(info_image_path)s,,,%(alt)s,}
+@image{%(info_image_path)s,,,%(alt)s}
 @end ifinfo
 @html
 %(para_pre)s<a href="%(base)s%(ext)s">
