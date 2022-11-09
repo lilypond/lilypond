@@ -44,9 +44,6 @@ class Xml_node(object):
     def get_parent(self):
         return self._parent
 
-    def is_first(self):
-        return self._parent.get_typed_children(self.__class__)[0] == self
-
     def get_name(self):
         return self._name
 
@@ -161,16 +158,6 @@ class Measure_element(Music_xml_node):
             return voice.get_text()
         else:
             return self.voice_id
-
-    def is_first(self):
-        # Look at all measure elements(previously we had self.__class__, which
-        # only looked at objects of the same type!
-        cn = self._parent.get_typed_children(Measure_element)
-        # But only look at the correct voice; But include Attributes, too, which
-        # are not tied to any particular voice
-        cn = [c for c in cn if(
-            c.get_voice_id() == self.get_voice_id()) or isinstance(c, Attributes)]
-        return cn[0] == self
 
 
 class Work(Xml_node):
@@ -473,13 +460,6 @@ class Attributes(Measure_element):
         self._dict = {}
         self._original_tag = None
         self._time_signature_cache = None
-
-    def is_first(self):
-        cn = self._parent.get_typed_children(self.__class__)
-        if self._original_tag:
-            return cn[0] == self._original_tag
-        else:
-            return cn[0] == self
 
     def set_attributes_from_previous(self, dict):
         self._dict.update(dict)
