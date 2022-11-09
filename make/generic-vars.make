@@ -107,8 +107,19 @@ script-dir = $(src-depth)/scripts
 
 export PYTHONPATH:=$(auxpython-dir):$(PYTHONPATH)
 
+MAKEINFO_FLAGS += --enable-encoding --error-limit=0
+MAKEINFO = LANG=C $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
+
 # texi2html v5 has fatal errors in the build, so only be strict about
 # errors in the version we officially support
 ifeq ($(TEXI2HTML_VERSION),1082000)
 TEXI2HTML_ERROR_LIMIT=--error-limit=0
 endif
+
+TEXI2HTML_FLAGS += \
+  $(TEXI2HTML_INCLUDES) \
+  $(TEXI2HTML_INIT) \
+  $(TEXI2HTML_ERROR_LIMIT) \
+  $(if $(VERBOSE),--verbose)
+TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+TEXI2HTML_SPLIT = --prefix=index --split=section

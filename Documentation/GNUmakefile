@@ -202,15 +202,7 @@ TEXI2HTML_INIT = \
   --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
   --document-language=$(call target_language) \
   --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-
 TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
-
-TEXI2HTML_FLAGS += \
-  $(TEXI2HTML_ERROR_LIMIT) \
-  $(TEXI2HTML_INCLUDES) \
-  $(TEXI2HTML_INIT) \
-  $(if $(VERBOSE),--verbose)
-TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 ifeq ($(WEB_VERSION),yes)
   TEXI2HTML_FLAGS += -D web_version
@@ -544,8 +536,7 @@ $(outdir)/%/index.html: \
 "$(WEB_ENV) \
  DEPTH=$(depth)/../ \
    $(TEXI2HTML) \
-     --prefix=index \
-     --split=section \
+     $(TEXI2HTML_SPLIT) \
      $(TEXI2HTML_FLAGS) \
      --output=$(dir $@) \
      $<" \
