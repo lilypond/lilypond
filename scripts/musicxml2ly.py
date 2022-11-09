@@ -457,7 +457,7 @@ def extract_score_structure(part_list, staffinfo):
         partname = el.get_maybe_exist_named_child("part-name-display")
         if partname:
             staff.instrument_name = extract_display_text(partname)
-        if hasattr(options, 'midi') and options.midi:
+        if options.midi:
             staff.sound = extract_instrument_sound(el)
         if staff.instrument_name:
             paper.indent = max(paper.indent, len(staff.instrument_name))
@@ -811,7 +811,7 @@ def musicxml_clef_to_lily(attributes):
 def musicxml_time_to_lily(attributes):
     change = musicexp.TimeSignatureChange()
     # time signature function
-    if hasattr(options, 'shift_meter') and options.shift_meter:
+    if options.shift_meter:
         tmp_meter = options.shift_meter.split("/", 1)
         sig = [int(tmp_meter[0]), int(tmp_meter[1])]
         change.originalFractions = attributes.get_time_signature()
@@ -1308,13 +1308,15 @@ def musicxml_articulation_to_lily_event(mxl_event):
         ev = tmp_tp(mxl_event)
 
     # Some articulations use the type attribute, other the placement...
-    dir = None
-    if hasattr(mxl_event, 'type') and hasattr(options, 'convert_directions') and options.convert_directions:
-        dir = musicxml_direction_to_indicator(mxl_event.type)
-    if hasattr(mxl_event, 'placement') and hasattr(options, 'convert_directions') and options.convert_directions:
-        dir = musicxml_direction_to_indicator(mxl_event.placement)
-    if dir:
-        ev.force_direction = dir
+    if options.convert_directions:
+        dir = None
+        if hasattr(mxl_event, 'type'):
+            dir = musicxml_direction_to_indicator(mxl_event.type)
+        if hasattr(mxl_event, 'placement'):
+            dir = musicxml_direction_to_indicator(mxl_event.placement)
+        if dir:
+            ev.force_direction = dir
+
     return ev
 
 
@@ -1408,7 +1410,7 @@ def musicxml_words_to_lily_event(words):
     text = re.sub(' *\n? *$', '', text)
     event.text = text
 
-    if hasattr(words, 'default-y') and hasattr(options, 'convert_directions') and options.convert_directions:
+    if options.convert_directions and hasattr(words, 'default-y'):
         offset = getattr(words, 'default-y')
         try:
             off = int(offset)
@@ -1642,7 +1644,7 @@ def musicxml_direction_to_lily(n):
     res = []
     # placement applies to all children!
     dir = None
-    if hasattr(n, 'placement') and hasattr(options, 'convert_directions') and options.convert_directions:
+    if options.convert_directions and hasattr(n, 'placement'):
         dir = musicxml_direction_to_indicator(n.placement)
     dirtype_children = []
     # TODO: The direction-type is used for grouping (e.g. dynamics with text),
@@ -2003,7 +2005,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
     elif text == "_" and extended:
         return "__"
     elif continued and text:
-        if hasattr(options, 'convert_beaming') and options.convert_beaming:
+        if options.convert_beaming:
             if ignoremelismata == "on":
                 return r" \set ignoreMelismata = ##t " + utilities.escape_ly_output_string(text)
             elif ignoremelismata == "off":
@@ -2742,7 +2744,7 @@ def musicxml_voice_to_lily_voice(voice):
     # force trailing mm rests to be written out.
     voice_builder.add_music (musicexp.ChordEvent(), 0)
 
-    if hasattr(options, 'shift_meter') and options.shift_meter:
+    if options.shift_meter:
         for event in voice_builder.elements:
             if isinstance(event, musicexp.TimeSignatureChange):
                 sd = []
@@ -2761,12 +2763,12 @@ def musicxml_voice_to_lily_voice(voice):
         return_value.lyrics_dict[k] = musicexp.Lyrics()
         return_value.lyrics_dict[k].lyrics_syllables = lyrics[k]
 
-    if hasattr(options, 'shift_meter') and options.shift_meter:
+    if options.shift_meter:
         sd[-1].element = seq_music
         seq_music = sd[-1]
         sd.pop()
 
-    if hasattr(options, 'relative') and options.relative:
+    if options.relative:
         v = musicexp.RelativeMusic()
         v.element = seq_music
         v.basepitch = first_pitch
@@ -2781,7 +2783,7 @@ def musicxml_voice_to_lily_voice(voice):
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'figuremode'
         v.element = fbass_music
-        if hasattr(options, 'shift_meter') and options.shift_meter:
+        if options.shift_meter:
             sd[-1].element = v
             v = sd[-1]
             sd.pop()
@@ -2794,7 +2796,7 @@ def musicxml_voice_to_lily_voice(voice):
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'chordmode'
         v.element = cname_music
-        if hasattr(options, 'shift_meter') and options.shift_meter:
+        if options.shift_meter:
             sd[-1].element = v
             v = sd[-1]
             sd.pop()
@@ -2806,7 +2808,7 @@ def musicxml_voice_to_lily_voice(voice):
         fboard_music.elements = group_repeats(fretboards_builder.elements)
         v = musicexp.MusicWrapper()
         v.element = fboard_music
-        if hasattr(options, 'shift_meter') and options.shift_meter:
+        if options.shift_meter:
             sd[-1].element = v
             v = sd[-1]
             sd.pop()
