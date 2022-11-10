@@ -294,8 +294,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       || scm_is_eq (val, SCM_UNSPECIFIED))
     return true;
 
-  if (!scm_is_null (val) && ly_is_procedure (type)
-      && scm_is_false (ly_call (type, val)))
+  if (ly_is_procedure (type) && scm_is_false (ly_call (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
