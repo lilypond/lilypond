@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 50ead696fceb16061436effa942f8d7b41021684
+    Translation of GIT committish: 33011782dcac254bf537aaeb7d720788302f9579
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,14 +79,16 @@ LilyPond requiert désormais Guile 2.2. Même si vous n'êtes pas
 personnellement l'auteur de code Scheme, vous pourriez avoir recours à
 des bibliothèques de personnalisation évoluée. Si elles venaient à ne
 pas fonctionner avec la version @version{} de LilyPond, veuillez vous
-adresser aux développeurs de ces bibliothèques.
+adresser aux développeurs de ces bibliothèques.  Si vous êtes vous-même
+développeur de bibliothèques Scheme, veuillez lire @ref{Notes sur Guile 2.2}
+ci-dessous.
 
 @item
 L'infrastructure permettant de générer les binaires officiels a été
 complètement réécrite, de concert avec la bascule sur Guile 2.2. Nous
 fournissons, à compter de cette version, des binaires 64 bits pour macOS
 et Windows. Par ailleurs, tous les paquetages sont disponibles sous
-forme de simples archive qui peuvent être dépliées dans n'importe quel
+forme de simples archives qui peuvent être dépliées dans n'importe quel
 endroit pour « installation ». Il suffira, pour désinstaller, de
 simplement supprimer le dossier en question. Est aussi abandonné
 l'éditeur de base, LilyPad, qui était installé sur macOS et Windows.
@@ -95,6 +97,16 @@ l'éditeur bien connu @uref{https://frescobaldi.org,Frescobaldi} ou l'un
 de ceux mentionnés dans @rweb{Facilités d'édition}. Pour de plus amples
 informations, veuillez consulter les instructions détaillées dans
 @rlearning{Installation}.
+
+Dans les paquetages officiels, Ghostscript ne contient plus son
+propre jeu de polices par défaut, ceci afin de réduire la taille
+des archives à télécharger.  LilyPond n'a pas besoin de ces
+polices (l'application contient elle-même les polices dont elle a
+besoin).  Cependant, quelques utilisateurs y faisaient appel avec
+des instructions comme @code{/Arial findfont} dans du code
+PostScript inséré avec @code{\markup \postscript}.  Il est
+recommandé d'utiliser la syntaxe @code{\markup} normale pour le
+texte plutôt que du code PostScript écrit à la main.
 
 
 @end itemize
@@ -1645,6 +1657,67 @@ littérale est une erreur pour Scheme. (Dans ce cas d'espèce, le code
 pourrait éviter l'erreur s'il avait été utilisé un simple @code{sort} --
 qui n'est pas destructif -- ou en créant une nouvelle liste à chaque
 fois avec un @code{(list x 3 2 1)}).
+
+@end itemize
+
+
+@node Notes sur Guile 2.2
+@unnumbered Notes sur Guile 2.2
+@translationof Notes on Guile 2.2
+
+LilyPond utilise désormais Guile 2.2 au lieu de Guile 1.8.  Cette
+section liste quelques unes des incompatibilités que l'on
+rencontre le plus fréquemment en portant du code écrit pour Guile
+1.8 vers Guile 2.2.
+
+Un liste détaillée des changements apportés à Guile est disponible
+dans le fichier
+@uref{https://git.savannah.gnu.org/cgit/guile.git/tree/NEWS,
+@file{NEWS}} des sources de Guile.
+
+@itemize
+@item
+La fonction @code{format} requiert un premier argument qui est un
+booléen ou un port.  Cet argument était facultatif en Guile@tie{}1.8.
+Pour que la fonction renvoie la sortie formatée comme une chaîne de
+caractères, il faut passer @code{#f} pour cet argument, c'est à dire
+utiliser @code{(format #f "@var{chaîne}" @var{arguments} @dots{})}
+au lieu de @code{(format "@var{chaîne}" @var{arguments} @dots{})}.
+
+@item
+Les règles sur les définitions internes (les @code{define} qui ne
+sont pas au plus haut niveau du fichier mais à l'intérieur
+d'autres expressions) sont devenues plus strictes.  En particulier,
+on ne peut plus utiliser @code{define} dans certains contextes où
+une expression est attendue.  À titre d'exemple, ce code n'est
+plus valide :
+
+@example
+(if (not (defined? 'variable))
+    (define variable 'valeur))
+@end example
+
+Dans ce cas précis, une solution est
+
+@example
+(define variable
+        (if (not (defined? 'variable))
+        'valeur
+        variable))
+@end example
+
+
+@item
+Les chaînes de caractères sont désormais constituées de caractères Unicode.
+Auparavant, un caractère Unicode s'étendait sur plusieurs caractères.
+De plus, les fonctions de Guile dédiées au traitement des chaînes de
+caractères prennent maintenant en charge l'Unicode.
+
+@item
+Certaines fonctions numériques renvoient des résultats exacts dans
+des cas où le résultat était auparavant inexact.  Par exemple,
+@code{(sqrt 4)} renvoie maintenant @code{2} (un entier) au lieu de
+@code{2.0}.
 
 @end itemize
 
