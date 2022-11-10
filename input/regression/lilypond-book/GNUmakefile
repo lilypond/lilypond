@@ -94,6 +94,11 @@ $(outdir)/%.texi: %.tely
 	$(call ly_progress,Making,$@,< tely)
 	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
+$(outdir)/%.info: $(outdir)/%.texi
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh \
+		"$(MAKEINFO) --output=$@ $<" "$(outdir)/$*.makeinfo.log"
+
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) \
