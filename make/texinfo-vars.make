@@ -5,8 +5,6 @@ TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
 ###########
 
-TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
-
 ifndef VERBOSE
   TEXI2PDF_QUIET = -q
   TEXINFO_GS_QUIET = -q
