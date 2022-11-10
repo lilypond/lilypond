@@ -280,12 +280,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   if (!ly_is_procedure (type))
     {
-      warning (_f ("cannot find property type-check for `%s' (%s).",
-                   ly_symbol2string (sym).c_str (),
-                   ly_symbol2string (type_symbol).c_str ())
-               + "  " + _ ("perhaps a typing error?"));
-
-      warning (_ ("skipping assignment"));
+      warning (_f ("the property '%s' does not exist (perhaps a typing error)",
+                   ly_symbol2string (sym).c_str ()));
       return false;
     }
 
@@ -298,10 +294,9 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
     {
       SCM type_name = Lily::type_name (type);
 
-      warning (
-        _f ("type check for `%s' failed; value `%s' must be of type `%s'",
-            ly_symbol2string (sym).c_str (), print_scm_val (val),
-            ly_scm2string (type_name).c_str ()));
+      warning (_f ("the property '%s' must be of type '%s', ignoring invalid value '%s'",
+                   ly_symbol2string (sym).c_str (), ly_scm2string (type_name).c_str (),
+                   print_scm_val (val)));
       return false;
     }
   return true;
