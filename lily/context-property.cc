@@ -29,17 +29,6 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
-bool
-typecheck_grob (SCM symbol, SCM value)
-{
-  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (value))
-    return typecheck_grob (symbol, upc->unpure_part ())
-           && typecheck_grob (symbol, upc->pure_part ());
-  return ly_is_procedure (value)
-         || type_check_assignment (symbol, value,
-                                   ly_symbol2scm ("backend-type?"));
-}
-
 class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
@@ -197,7 +186,8 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   if (scm_is_pair (rest))
     {
       // poor man's typechecking
-      if (typecheck_grob (symbol, nested_create_alist (rest, new_value)))
+      if (type_check_assignment (symbol, nested_create_alist (rest, new_value),
+                                 ly_symbol2scm ("backend-type?")))
         {
           SCM cell = scm_cons (grob_property_path, new_value);
           props_->alist_ = scm_cons (cell, props_->alist_);
@@ -212,7 +202,7 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
    \revert back to it.
   */
 
-  if (typecheck_grob (symbol, new_value))
+  if (type_check_assignment (symbol, new_value, ly_symbol2scm ("backend-type?")))
     {
       SCM cell = scm_cons (symbol, new_value);
       props_->alist_ = scm_cons (cell, props_->alist_);

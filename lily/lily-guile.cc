@@ -36,6 +36,7 @@
 #include "std-vector.hh"
 #include "string-convert.hh"
 #include "source-file.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
 
@@ -290,13 +291,30 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       || scm_is_eq (val, SCM_UNSPECIFIED))
     return true;
 
+  if (scm_is_eq (type_symbol, ly_symbol2scm ("backend-type?")))
+    {
+      // A callback always succeeds for a grob property since it is not the
+      // eventual value the property will have, but just the function that
+      // computes it.
+      if (ly_is_procedure (val))
+        return true;
+      // For an unpure-pure container, both the pure part and the unpure part
+      // should have the right type.
+      if (auto *upc = unsmob<Unpure_pure_container> (val))
+        {
+          return (
+            type_check_assignment (sym, upc->unpure_part (), type_symbol)
+            && type_check_assignment (sym, upc->pure_part (), type_symbol));
+        }
+    }
+
   if (scm_is_false (ly_call (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
       warning (_f ("the property '%s' must be of type '%s', ignoring invalid value '%s'",
                    ly_symbol2string (sym).c_str (), ly_scm2string (type_name).c_str (),
-                   print_scm_val (val)));
+                   print_scm_val (val).c_str ()));
       return false;
     }
   return true;
