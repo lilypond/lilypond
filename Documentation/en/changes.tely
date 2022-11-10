@@ -63,7 +63,8 @@ environments with LilyPond support may provide a way to run
 LilyPond now requires Guile 2.2.  Even if you are not writing Scheme
 code yourself, you may be using libraries that contain a non-trivial
 amount of customizations.  If they do not work with LilyPond version
-@version{}, please report this to the library's developers.
+@version{}, please report this to the library's developers.  If you
+@emph{are} a library developer, @pxref{Notes on Guile 2.2} below.
 
 @item
 The infrastructure for creating the official binaries has been
@@ -1470,6 +1471,60 @@ case, the code could avoid the issue by using the non-destructive
 @code{(list x 3 2 1)}.)
 
 @end itemize
+
+@node Notes on Guile 2.2
+@unnumbered Notes on Guile 2.2
+
+This version of LilyPond switches from Guile 1.8 to Guile 2.2.
+This section lists some of the most common incompatibilities that
+you could have to deal with in order to upgrade your Scheme code.
+
+A full, detailed log of changes in Guile can be found in the
+@uref{https://git.savannah.gnu.org/cgit/guile.git/tree/NEWS,
+@file{NEWS} file} of the Guile source.
+
+@itemize
+@item
+The @code{format} function now requires a boolean or port as the
+first argument.  This argument was optional in Guile 1.8.  In
+order to make the function return the formatted output as a string, like
+@code{format} does without this argument in Guile 1.8, pass @code{#f}
+for this argument, i.e., @code{(format #f "@var{string}" @var{arguments} @dots{})}
+instead of @code{(format "@var{string}" @var{arguments} @dots{})}.
+
+
+@item
+The rules for internal (i.e., non-toplevel) definitions have
+become stricter.  Definitions are no longer allowed in various
+expression contexts.  This is no longer valid, for example:
+
+@example
+(if (not (defined? 'variable))
+    (define variable 'value))
+@end example
+
+The solution in this particular example is:
+
+@example
+(define variable
+  (if (not (defined? 'variable))
+      'value
+      variable))
+@end example
+
+
+@item
+Strings now support Unicode characters.  Previously, a Unicode
+character was represented by several characters, and various
+functions were not tailored for Unicode support.
+
+@item
+Some numeric functions now return exact results in more cases.
+For instance, @code{(sqrt 4)} returns @code{2.0} in Guile 1.8,
+but @code{2} (an integer) in Guile 2.2.
+
+@end itemize
+
 
 @ifhtml
 For older news, go to
