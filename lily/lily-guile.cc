@@ -278,7 +278,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (!scm_is_null (type) && !ly_is_procedure (type))
+  if (!ly_is_procedure (type))
     {
       warning (_f ("cannot find property type-check for `%s' (%s).",
                    ly_symbol2string (sym).c_str (),
@@ -294,7 +294,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       || scm_is_eq (val, SCM_UNSPECIFIED))
     return true;
 
-  if (ly_is_procedure (type) && scm_is_false (ly_call (type, val)))
+  if (scm_is_false (ly_call (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
