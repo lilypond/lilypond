@@ -106,6 +106,7 @@ $(outdir)/%.html: $(outdir)/%.texi
 		--output=$@ $<"  "$(outdir)/$*.texilog.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
+	$(call ly_progress,Making,$@,< texi)
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check.sh \
 			"cd $(outdir); \
