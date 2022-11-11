@@ -49,72 +49,72 @@ et aborderons la manière de générer vos propres signes.
 @unnumberedsubsubsec Articulations et ornements
 @translationof Articulations and ornamentations
 
-@cindex « accent », articulation
-@cindex articulation, « accent »
-@cindex « marcato », articulation
-@cindex articulation, « marcato »
-@cindex « staccatissimo », articulation
-@cindex articulation, « staccatissimo »
-@cindex « espressivo », articulation
-@cindex articulation, « espressivo »
-@cindex « staccato », articulation
-@cindex articulation, « staccato »
-@cindex « tenuto », articulation
-@cindex articulation, « tenuto »
-@cindex « portato », articulation
-@cindex articulation, « portato »
-@cindex « poussé », archet
+@cindex @qq{accent}, articulation
+@cindex articulation, @qq{accent}
+@cindex @qq{marcato}, articulation
+@cindex articulation, @qq{marcato}
+@cindex @qq{staccatissimo}, articulation
+@cindex articulation, @qq{staccatissimo}
+@cindex @qq{espressivo}, articulation
+@cindex articulation, @qq{espressivo}
+@cindex @qq{staccato}, articulation
+@cindex articulation, @qq{staccato}
+@cindex @qq{tenuto}, articulation
+@cindex articulation, @qq{tenuto}
+@cindex @qq{portato}, articulation
+@cindex articulation, @qq{portato}
+@cindex @qq{poussé}, archet
 @cindex archet, indication
-@cindex « tiré », archet
-@cindex « flageolet », harmoniques
-@cindex harmoniques, « flageolet »
-@cindex « pouce », doigté
-@cindex doigté, « pouce »
+@cindex @qq{tiré}, archet
+@cindex @qq{flageolet}, harmoniques
+@cindex harmoniques, @qq{flageolet}
+@cindex @qq{pouce}, doigté
+@cindex doigté, @qq{pouce}
 @cindex pied, indication
 @cindex orgue, indication, pédalier
 @cindex pédalier, orgue indication
-@cindex « talon », pédalier
-@cindex pédalier, « talon »
-@cindex « pointe », pédalier
-@cindex pédalier, « pointe »
-@cindex « ouvert », articulation
-@cindex articulation, « ouvert »
+@cindex @qq{talon}, pédalier
+@cindex pédalier, @qq{talon}
+@cindex @qq{pointe}, pédalier
+@cindex pédalier, @qq{pointe}
+@cindex @qq{ouvert}, articulation
+@cindex articulation, @qq{ouvert}
 @cindex open high hat
 @cindex high hat, open
-@cindex « semi-ouvert », articulation
-@cindex articulation, « semi-ouvert »
+@cindex @qq{semi-ouvert}, articulation
+@cindex articulation, @qq{semi-ouvert}
 @cindex half-open high hat
 @cindex high hat, half open
-@cindex « stop », articulation
-@cindex articulation, « stop »
+@cindex @qq{stop}, articulation
+@cindex articulation, @qq{stop}
 @cindex pédale high hat
 @cindex high hat, pédale
-@cindex « snappizzicato », signe
-@cindex signe « snappizzicato »
-@cindex « grupetto », ornement
-@cindex ornement, « grupetto »
-@cindex « grupetto renversé », ornement
-@cindex ornement, « grupetto renversé »
-@cindex « grupetto barré », ornement
-@cindex ornement, « grupetto barré »
-@cindex « grupetto Haydn », ornement
-@cindex ornement, « grupetto Haydn »
-@cindex « trille », ornement
-@cindex ornement, « trille »
-@cindex « mordant », ornement
-@cindex ornement, « mordant »
-@cindex « mordant ascendant », ornement
-@cindex ornement, « mordant ascendant »
-@cindex « mordant descendant », ornement
-@cindex ornement, « mordant descendant »
-@cindex « signum congruentiae » ornement
-@cindex ornement, « signum congruentiae »
+@cindex @qq{snappizzicato}, signe
+@cindex signe @qq{snappizzicato}
+@cindex @qq{grupetto}, ornement
+@cindex ornement, @qq{grupetto}
+@cindex @qq{grupetto renversé}, ornement
+@cindex ornement, @qq{grupetto renversé}
+@cindex @qq{grupetto barré}, ornement
+@cindex ornement, @qq{grupetto barré}
+@cindex @qq{grupetto Haydn}, ornement
+@cindex ornement, @qq{grupetto Haydn}
+@cindex @qq{trille}, ornement
+@cindex ornement, @qq{trille}
+@cindex @qq{mordant}, ornement
+@cindex ornement, @qq{mordant}
+@cindex @qq{mordant ascendant}, ornement
+@cindex ornement, @qq{mordant ascendant}
+@cindex @qq{mordant descendant}, ornement
+@cindex ornement, @qq{mordant descendant}
+@cindex @qq{signum congruentiae} ornement
+@cindex ornement, @qq{signum congruentiae}
 @cindex point d'orgue
 @cindex Henze, point d'orgue
-@cindex « segno », signe
-@cindex signe, « segno »
-@cindex « coda », signe
-@cindex « variante coda », signe
+@cindex @qq{segno}, signe
+@cindex signe, @qq{segno}
+@cindex @qq{coda}, signe
+@cindex @qq{variante coda}, signe
 
 @funindex \accent
 @funindex \marcato
