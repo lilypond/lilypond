@@ -452,9 +452,9 @@ déjà vus :
 
 @morerefs
 Manuel de notation :
-@ruser{Écriture des hauteurs de note},
-@ruser{Écriture du rythme},
-@ruser{Écriture des silences},
+@rusernamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
+@rusernamed{Écriture du rythme,@'Ecriture du rythme},
+@rusernamed{Écriture des silences,@'Ecriture des silences},
 @ruser{Gravure du rythme},
 @ruser{Gravure des hauteurs}.
 @endmorerefs

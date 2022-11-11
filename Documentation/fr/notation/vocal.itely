@@ -68,7 +68,7 @@ documentation de LilyPond.
 @item
 La plupart du temps, les paroles ne sont constituées que de texte
 simple.  Cette forme de notation est abordée dans
-@rlearning{Écriture de chants simples}.
+@rlearningnamed{Écriture de chants simples,@'Ecriture de chants simples}.
 
 @item
 La musique vocale nécessite souvent de recourir au mode @code{markup},
@@ -93,7 +93,7 @@ Glossaire musicologique :
 @rglos{ambitus}.
 
 Manuel d'initiation :
-@rlearning{Écriture de chants simples}.
+@rlearningnamed{Écriture de chants simples,@'Ecriture de chants simples}.
 
 Manuel de notation :
 @ref{Ambitus},

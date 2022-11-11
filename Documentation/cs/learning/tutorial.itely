@@ -577,7 +577,7 @@ zvyklý na obrazové uživatelské rozhraní, představovat velkou výzvu, proto
 neplatné vstupní soubory vytvořeny být mohou.  Když se tak stane, je
 logický postup pustit se do toho, potíže určit a řešit, tou nejlepší
 cestou.  Některé směrnice, jak se tyto potíže můžete naučit řešit,
-se nacházejí v @rprogram{Řešení potíží}.
+se nacházejí v @rprogramnamed{Řešení potíží,@v{R}ešení potíží}.
 
 
 @node Některé časté chyby
@@ -589,7 +589,7 @@ se nacházejí v @rprogram{Řešení potíží}.
 
 Jsou některé běžné chyby, které se dají vyřešit obtížně, když má člověk
 jen hlášení chyb v souboru s chybami.  Blíže budou osvětleny v
-@rprogram{Časté chyby}.
+@rprogramnamed{Časté chyby,@v{C}asté chyby}.
 
 
 

@@ -3386,7 +3386,7 @@ Manuel d'initiation :
 @ref{Organisation du code source avec des variables}.
 
 Manuel de notation :
-@ruser{Écriture de parties séparées},
+@rusernamed{Écriture de parties séparées,@'Ecriture de parties séparées},
 @ruser{Insertion de fichiers LilyPond},
 @ruser{Silences valant une mesure},
 @ruser{Transposition}.

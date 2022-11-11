@@ -103,7 +103,7 @@ Dieses Dokument.
 @details{Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Änderungen}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,@"Anderungen}}
 Was ist neu?
 @details{Änderungen}
 
@@ -458,7 +458,7 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 @divClass{column-right-bottom}
 
 @docLinks{Änderungen, changes,
-  @rchangesnamed{Top,Änderungen},
+  @rchangesnamed{Top,@"Anderungen},
   @manualStableChangesSplit,
   @manualStableChangesBig,
   @manualStableChangesPdf}

@@ -765,7 +765,9 @@ Glossar:
 @rglos{slur}.
 
 Handbuch zum Lernen:
-@rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
+@rlearningnamed{Über die Nicht-Schachtelung von Klammern und
+Bindebögen,@"Uber die Nicht-Schachtelung von Klammern und
+Bindebögen}.
 
 Notationsreferenz:
 @ref{Richtung und Platzierung},
@@ -905,7 +907,9 @@ die Schnipsel im Abschnitt @ref{Legatobögen}.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
+@rlearningnamed{Über die Nicht-Schachtelung von Klammern und
+Bindebögen,@"Uber die Nicht-Schachtelung von Klammern und
+Bindebögen}.
 
 Notationsreferenz:
 @ref{Richtung und Platzierung}.

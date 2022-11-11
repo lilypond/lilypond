@@ -31,7 +31,7 @@ Dieses Kapitel behandelt die technischen Details, wie LilyPond ausgeführt werde
 @translationof Normal usage
 
 Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
-aus. Siehe @rlearning{Übung}, falls Sie dies nicht bereits getan haben.  Wenn
+aus. Siehe @rlearningnamed{Übung,@"Ubung}, falls Sie dies nicht bereits getan haben.  Wenn
 Sie einen alternativen Editor für Ihre LilyPond-Dateien verwenden, lesen Sie
 bitte die Dokumentation dieses Editors.
 

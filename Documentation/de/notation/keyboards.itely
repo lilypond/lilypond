@@ -211,11 +211,12 @@ Balken zwischen den Systemen werden automatisch erstellt:
 @end lilypond
 
 @noindent
-Wenn die Balken verändert werden müssen, sollte zuerst die Richtung
-des Balkens beeinflusst werden.  Die Balkenposition wird dann von
-der Mitte des Systems gemessen, dass näher am Balken ist.  Ein
-einfaches Beispiel ist gezeigt in
-@rlearning{Überlappende Notation in Ordnung bringen}.
+Wenn die Balken verändert werden müssen, sollte zuerst die
+Richtung des Balkens beeinflusst werden.  Die Balkenposition wird
+dann von der Mitte des Systems gemessen, dass näher am Balken ist.
+Ein einfaches Beispiel ist gezeigt in @rlearningnamed{Überlappende
+Notation in Ordnung bringen,@"Uberlappende Notation in Ordnung
+bringen}.
 
 @cindex Zusammenstöße zwischen Systemen
 @cindex Systeme, Zusammenstöße beim Stimmenwechsel
@@ -247,19 +248,23 @@ Notation kommen:
 >>
 @end lilypond
 
-Die Hälse und Bögen überlappen sich mit der dazwischenstehenden Dynamik-Zeile,
-weil die automatische Zusammenstoßauflösung für Balken, Bögen und andere
-Strecker, die Noten zwischen unterschiedlichen Systemen verbinden, ausgeschaltet
-ist.  Das gilt auch für Hälse und Artikulationszeichen, wenn ihre Positionierung
-durch einen Strecker zwischen Systemen verändert wird.  Die resultierenden
-Zusammenstöße müssen manuell aufgelöst werden, wo es nötig ist, dabei kann man
-die Methoden anwenden, die in @rlearning{Überlappende Notation in Ordnung bringen}
-gezeigt werden.
+Die Hälse und Bögen überlappen sich mit der dazwischenstehenden
+Dynamik-Zeile, weil die automatische Zusammenstoßauflösung für
+Balken, Bögen und andere Strecker, die Noten zwischen
+unterschiedlichen Systemen verbinden, ausgeschaltet ist.  Das gilt
+auch für Hälse und Artikulationszeichen, wenn ihre Positionierung
+durch einen Strecker zwischen Systemen verändert wird.  Die
+resultierenden Zusammenstöße müssen manuell aufgelöst werden, wo
+es nötig ist, dabei kann man die Methoden anwenden, die in
+@rlearningnamed{Überlappende Notation in Ordnung
+bringen,@"Uberlappende Notation in Ordnung bringen} gezeigt
+werden.
 
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Überlappende Notation in Ordnung bringen}.
+@rlearningnamed{Überlappende Notation in Ordnung
+bringen,@"Uberlappende Notation in Ordnung bringen}.
 
 Notationsreferenz:
 @ref{Hälse},

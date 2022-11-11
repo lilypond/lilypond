@@ -55,7 +55,7 @@ a podány odpovídající překlady v mnoha dalších řečech.
 
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Článek}}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,@v{C}lánek}}
 @emph{(optional)} Informace o pozadí procesu notové sazby a kráse
 rytí not v 19. století.
 @details{Článek}
@@ -80,7 +80,7 @@ jak jsou programy vyvolávány.
 @details{Používání}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Úryvky}}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,@'Uryvky}}
 krátké lsti, rady a příklady.
 @details{Úryvky}
 
@@ -246,7 +246,7 @@ rozlišení.}
 @divClass{column-right-bottom}
 
 @docLinks{Článek, essay,
-  @ressaynamed{Top,Článek},
+  @ressaynamed{Top,@v{C}lánek},
   @manualStableEssaySplit,
   @manualStableEssayBig,
   @manualStableEssayPdf}
@@ -332,7 +332,7 @@ jsou také odkázány z odstavce @strong{Podívejte se také na}.
 @divClass{column-right-bottom}
 
 @docLinks{Úryvky, snippets,
-  @rlsrnamed{Top,Úryvky},
+  @rlsrnamed{Top,@'Uryvky},
   @manualStableSnippetsSplit,
   @manualStableSnippetsBig,
   @manualStableSnippetsPdf}
@@ -375,7 +375,7 @@ upřednostnit před jinými programy, jsou představeny v
 
 @subsubheading Něco nepracuje!  Jak to můžu opravit?
 
-To je vysvětleno v @rprogram{Řešení potíží}.
+To je vysvětleno v @rprogramnamed{Řešení potíží,@v{R}ešení potíží}.
 
 
 @subsubheading Proč měníte skladbu?

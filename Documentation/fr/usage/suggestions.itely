@@ -152,9 +152,10 @@ au sein du bloc @code{\layout} :
 @}
 @end example
 
-Ceci n'aura par pour effet de générer un contexte supplémentaire, mais
-s'appliquera dès sa création.  Voyez
-@rlearning{Économie de saisie grâce aux identificateurs et fonctions} et
+Ceci n'aura par pour effet de générer un contexte supplémentaire,
+mais s'appliquera dès sa création.  Voyez @rlearningnamed{Économie
+de saisie grâce aux identificateurs et fonctions,@'Economie de
+saisie grâce aux identificateurs et fonctions} et
 @rlearning{Feuilles de style}.
 
 @end itemize
