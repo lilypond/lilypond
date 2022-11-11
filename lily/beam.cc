@@ -235,18 +235,13 @@ Beam::calc_direction (SCM smob)
         }
     }
 
+  if (!dir)
+    dir = get_default_dir (me);
+
   if (count >= 1)
-    {
-      if (!dir)
-        dir = get_default_dir (me);
+    consider_auto_knees (me);
 
-      consider_auto_knees (me);
-    }
-
-  if (dir)
-    {
-      set_stem_directions (me, dir);
-    }
+  set_stem_directions (me, dir);
 
   return to_scm (dir);
 }
