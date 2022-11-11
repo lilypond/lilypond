@@ -268,7 +268,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossário de música}
 @end macro
 
@@ -278,7 +278,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual de aprendizagem}
 @end macro
 
@@ -288,7 +288,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Referência de notação}
 @end macro
 
@@ -298,7 +298,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extensão}
 @end macro
 
@@ -308,7 +308,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Mudanças}
 @end macro
 
@@ -318,7 +318,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Guia do contribuidor}
 @end macro
 
@@ -328,7 +328,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,Informações gerais}
 @end macro
 
@@ -338,7 +338,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Ensaio}
 @end macro
 
@@ -348,7 +348,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Uso do aplicativo}
 @end macro
 
@@ -366,7 +366,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Referência de propriedades internas}
 @end macro
 
@@ -385,7 +385,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossário de música}
 @end macro
 
@@ -395,7 +395,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,,learning,Manual de aprendizagem}
 @end macro
 
@@ -405,7 +405,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Referência de notação}
 @end macro
 
@@ -415,7 +415,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes,Mudanças}
 @end macro
 
@@ -425,7 +425,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extensão}
 @end macro
 
@@ -435,7 +435,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia do contribuidor}
 @end macro
 
@@ -445,7 +445,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,Informações gerais}
 @end macro
 
@@ -455,7 +455,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay,Ensaio}
 @end macro
 
@@ -465,7 +465,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Uso do aplicativo}
 @end macro
 
@@ -483,7 +483,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Referência de propriedades internas}
 @end macro
 
@@ -497,7 +497,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossário de música}
 @end macro
 
@@ -507,7 +507,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Manual de aprendizagem}
 @end macro
 
@@ -517,7 +517,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Referência de notação}
 @end macro
 
@@ -527,7 +527,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Mudanças}
 @end macro
 
@@ -537,7 +537,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extensão}
 @end macro
 
@@ -547,7 +547,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Guia do contribuidor}
 @end macro
 
@@ -557,7 +557,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-web,Informações gerais}
 @end macro
 
@@ -567,7 +567,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Ensaio}
 @end macro
 
@@ -577,7 +577,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Uso do aplicativo}
 @end macro
 
@@ -595,7 +595,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referência de propriedades internas}
 @end macro
 
@@ -626,7 +626,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossário de música}
 @end macro
 
@@ -636,7 +636,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,learning,Manual de aprendizagem}
 @end macro
 
@@ -646,7 +646,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation,Referência de notação}
 @end macro
 
@@ -656,7 +656,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes,Mudanças}
 @end macro
 
@@ -666,7 +666,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extensão}
 @end macro
 
@@ -676,7 +676,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia do contribuidor}
 @end macro
 
@@ -686,7 +686,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web,Informações gerais}
 @end macro
 
@@ -696,7 +696,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay,Ensaio}
 @end macro
 
@@ -706,7 +706,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,usage,Uso do aplicativo}
 @end macro
 
@@ -716,7 +716,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,snippets,Trechos}
 @end macro
 
@@ -726,7 +726,7 @@ Para LilyPond versão @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,internals,Referência de propriedades internas}
 @end macro
 

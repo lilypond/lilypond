@@ -271,7 +271,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossari musical}
 @end macro
 
@@ -281,7 +281,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual d'aprenentatge}
 @end macro
 
@@ -291,7 +291,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Referència de la notació}
 @end macro
 
@@ -301,7 +301,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extensions}
 @end macro
 
@@ -311,7 +311,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Canvis}
 @end macro
 
@@ -321,7 +321,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Guia del col·laborador}
 @end macro
 
@@ -331,7 +331,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,Informació general}
 @end macro
 
@@ -341,7 +341,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Monografia}
 @end macro
 
@@ -351,7 +351,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Utilització del programa}
 @end macro
 
@@ -369,7 +369,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de funcionament intern}
 @end macro
 
@@ -388,7 +388,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
@@ -398,7 +398,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning,Manual d'aprenentatge}
 @end macro
 
@@ -408,7 +408,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Referència de la notació}
 @end macro
 
@@ -418,7 +418,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes,Canvis}
 @end macro
 
@@ -428,7 +428,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
@@ -438,7 +438,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia del col·laborador}
 @end macro
 
@@ -448,7 +448,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,Informació general}
 @end macro
 
@@ -458,7 +458,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
@@ -468,7 +468,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Utilització del programa}
 @end macro
 
@@ -486,7 +486,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 
@@ -500,7 +500,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
@@ -510,7 +510,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Manual d'aprenentatge}
 @end macro
 
@@ -520,7 +520,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Referència de la notació}
 @end macro
 
@@ -530,7 +530,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Canvis}
 @end macro
 
@@ -540,7 +540,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extensions}
 @end macro
 
@@ -550,7 +550,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Guia del col·laborador}
 @end macro
 
@@ -560,7 +560,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-web,Informació general}
 @end macro
 
@@ -570,7 +570,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Monografia}
 @end macro
 
@@ -580,7 +580,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Utilització del programa}
 @end macro
 
@@ -598,7 +598,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referència de funcionament intern}
 @end macro
 
@@ -629,7 +629,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
@@ -639,7 +639,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,learning.es,Manual d'aprenentatge}
 @end macro
 
@@ -649,7 +649,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.es,Referència de la notació}
 @end macro
 
@@ -659,7 +659,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes,Canvis}
 @end macro
 
@@ -669,7 +669,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
@@ -679,7 +679,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia del col·laborador}
 @end macro
 
@@ -689,7 +689,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web,Informació general}
 @end macro
 
@@ -699,7 +699,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
@@ -709,7 +709,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,usage.es,Utilització del programa}
 @end macro
 
@@ -719,7 +719,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,snippets,Fragments de codi}
 @end macro
 
@@ -729,7 +729,7 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 

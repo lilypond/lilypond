@@ -227,7 +227,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Slovníček}
 @end macro
 
@@ -237,7 +237,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Příručka k učení se}
 @end macro
 
@@ -247,7 +247,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Doporučení pro notový zápis}
 @end macro
 
@@ -257,7 +257,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
 @end macro
 
@@ -267,7 +267,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
 @end macro
 
@@ -277,7 +277,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
 @end macro
 
@@ -287,7 +287,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,Všeobecné informace}
 @end macro
 
@@ -297,7 +297,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Článek}
 @end macro
 
@@ -307,7 +307,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Používání programu}
 @end macro
 
@@ -325,7 +325,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Doporučení pro vnitřní části}
 @end macro
 
@@ -344,7 +344,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Slovníček}
 @end macro
 
@@ -354,7 +354,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning,Příručka k učení se}
 @end macro
 
@@ -364,7 +364,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Doporučení pro notový zápis}
 @end macro
 
@@ -374,7 +374,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
@@ -384,7 +384,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
@@ -394,7 +394,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
@@ -404,7 +404,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,Všeobecné informace}
 @end macro
 
@@ -414,7 +414,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Článek}
 @end macro
 
@@ -424,7 +424,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Používání programu}
 @end macro
 
@@ -442,7 +442,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Doporučení pro vnitřní části}
 @end macro
 
@@ -456,7 +456,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Slovníček}
 @end macro
 
@@ -466,7 +466,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Příručka k učení se}
 @end macro
 
@@ -476,7 +476,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Doporučení pro notový zápis}
 @end macro
 
@@ -486,7 +486,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
@@ -496,7 +496,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
 @end macro
 
@@ -506,7 +506,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
 @end macro
 
@@ -516,7 +516,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web, Všeobecné informace}
 @end macro
 
@@ -526,7 +526,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Článek}
 @end macro
 
@@ -536,7 +536,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Používání programu}
 @end macro
 
@@ -554,7 +554,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Doporučení pro vnitřní části}
 @end macro
 
@@ -585,7 +585,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Slovníček}
 @end macro
 
@@ -595,7 +595,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,learning.cs,Příručka k učení se}
 @end macro
 
@@ -605,7 +605,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.cs,Doporučení pro notový zápis}
 @end macro
 
@@ -615,7 +615,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
@@ -625,7 +625,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
@@ -635,7 +635,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
@@ -645,7 +645,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web.cs,Všeobecné informace}
 @end macro
 
@@ -655,7 +655,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay.cs,Článek}
 @end macro
 
@@ -665,7 +665,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,usage.cs,Používání programu}
 @end macro
 
@@ -675,7 +675,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,snippets,Úryvky}
 @end macro
 
@@ -685,7 +685,7 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,internals,Doporučení pro vnitřní části}
 @end macro
 
