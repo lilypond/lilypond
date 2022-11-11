@@ -38,6 +38,127 @@
 
 using std::string;
 
+// This is a little bit ugly, but the replacement alist is setup in
+// the layout block so it'll be the same across invocations.
+
+std::map<string, SCM> replacement_cache;
+vsize replacement_max;
+Protected_scm replacement_cache_alist_key;
+Protected_scm replacement_alist_original_values;
+
+static void
+populate_cache (SCM alist)
+{
+  if (scm_is_eq (alist, static_cast<SCM> (replacement_cache_alist_key)))
+    return;
+
+  replacement_cache.clear ();
+  replacement_max = 0;
+  replacement_cache_alist_key = alist;
+  replacement_alist_original_values = SCM_EOL;
+  for (SCM h = alist; scm_is_pair (h); h = scm_cdr (h))
+    {
+      SCM k = scm_caar (h);
+      SCM v = scm_cdar (h);
+      if (!scm_is_string (k))
+        continue;
+
+      string orig = ly_scm2string (k);
+      if (orig.empty ())
+        continue;
+
+      // If an alist has duplicate key entries, only the first must be
+      // considered.
+      if (replacement_cache.insert ({orig, v}).second)
+        {
+          replacement_max = std::max (replacement_max, orig.size ());
+          // Be foolproof with garbage collection.  The user could mutate the
+          // replacement alist behind our back without changing its head, which
+          // means our reference to the alist in replacement_cache_alist_key
+          // could not suffice to protect the value.  We don't support this kind
+          // of mutation in the sense that we won't "see" the update, but at
+          // least we won't crash by using an SCM value that might have been
+          // collected in the meantime if it has been removed from the alist.
+          replacement_alist_original_values
+            = scm_cons (v, replacement_alist_original_values);
+        }
+    }
+}
+
+// It is tempting to use regular expressions for this, but Guile regular
+// expressions don't work with non-ASCII input under a non-Unicode-aware locale
+// (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=57507).
+LY_DEFINE (ly_perform_text_replacements, "ly:perform-text-replacements", 3, 0,
+           0, (SCM /* layout */, SCM props, SCM input_string),
+           R"(
+A string transformer to perform text replacements using the @code{replacement-alist}
+from the property alist chain @var{props}.
+           )")
+{
+  std::string str = ly_scm2string (input_string);
+  SCM replacement_alist
+    = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"), props, SCM_EOL);
+
+  if (scm_is_null (replacement_alist) || str.empty ())
+    return input_string;
+
+  populate_cache (replacement_alist);
+
+  SCM acc = SCM_EOL;
+  vsize last_replacement_end = 0;
+  vsize i = 0;
+  for (; i < str.size (); i++)
+    {
+      do
+        {
+          // replacement loop while consecutive replacements happen
+          // We break out when this is not the case
+
+          /* Don't match in mid-UTF-8 */
+          if ((str[i] & 0xc0) == 0x80)
+            break;
+
+          // Using a C++17 string_view here instead of substr would
+          // obviate the need for maintaining replacement_max in order
+          // to keep complexity from becoming quadratic in string
+          // length.
+          auto it
+            = replacement_cache.upper_bound (str.substr (i, replacement_max));
+          if (it == replacement_cache.begin ())
+            break;
+
+          --it;
+          // The iterator it now points to largest key smaller or equal
+          // to string tail.  In the case of several keys matching for
+          // their respective entire length, the longest matching key
+          // will be taken, being the lexicographically largest one.
+
+          const string &key = it->first;
+          vsize len = key.length ();
+          // Make sure that entire key is present in the source string
+          if (str.compare (i, len, key) != 0)
+            break;
+
+          const std::string before
+            = str.substr (last_replacement_end, i - last_replacement_end);
+          acc = scm_cons (ly_string2scm (before), acc);
+          SCM replacement = it->second;
+          acc = scm_cons (replacement, acc);
+          // Stop doing replacements at this position and advance in the
+          // string up to just after the text we replaced with. This
+          // ensures that the result of a replacement is never processed
+          // itself for replacements.
+          i += len;
+          last_replacement_end = i;
+        }
+      while (i < str.size ());
+    }
+  const std::string last
+    = str.substr (last_replacement_end, i - last_replacement_end);
+  acc = scm_cons (ly_string2scm (last), acc);
+  return Lily::make_concat_markup (scm_reverse_x (acc, SCM_EOL));
+}
+
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string,
                       "ly:text-interface::interpret-string", 3);
 SCM

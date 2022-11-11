@@ -181,7 +181,7 @@
      `((font-encoding . latin1)
        (baseline-skip . 3)
        (replacement-alist . ())
-       (string-transformers . (,perform-text-replacements))
+       (string-transformers . (,ly:perform-text-replacements))
        (word-space . 0.6)))
   \include "text-replacements.ly"
 
