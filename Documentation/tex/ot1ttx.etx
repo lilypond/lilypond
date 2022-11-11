@@ -40,16 +40,26 @@
 %
 % The cause of the issue is probably a 'fontinst' bug (see
 % https://tug.org/pipermail/fontinst/2022/001705.html): File `ot1tt.etx`,
-% which defines the OT1 encoding, and which uses the glyph names
-% 'circumflex' and 'tilde' (most probably because the Type1 versions of the
-% CM fonts at that time used these glyph names -- Latin Modern fonts have
-% both `asciicircum` and `circumflex` glyphs, and ditto for the tilde), was
-% last updated in 2002; at that time the standardization of glyph names in
-% modern fonts via the AGL hadn't happened yet.
+% which defines the OT1 encoding for typewriter, and which uses the glyph
+% names 'circumflex' and 'tilde' (most probably because the Type1 versions
+% of the Computer Modern fonts at that time used these glyph names -- Latin
+% Modern fonts have both `asciicircum` and `circumflex` glyphs, and ditto
+% for the tilde), was last updated in 2002; at that time the standardization
+% of glyph names in modern fonts via the AGL hadn't happened yet.
+
+% Similarly to the above, we also change the glyph name 'ringfitted' to the
+% proper AGL name 'ring'.  Note that `texinfo.tex` uses this glyph for
+% character U+00B0 (DEGREE SIGN), which looks rather bad, especially for
+% typewriter, but there is no alternative glyph available in OT1 encoding,
+% unfortunately.
 
 \relax
 
 \encoding
+
+\nextslot{"17}
+\setslot{ring}
+\endsetslot
 
 \nextslot{"5E}
 \setslot{asciicircum}
