@@ -671,32 +671,32 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex{\TEXT\}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,changes.fr,Nouveautés}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex{\DISPLAY\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes.fr,Nouveautés}
 @end macro
 
 @macro rextend{TEXT}
-@vindex{\TEXT\}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,extending.fr,Extension de LilyPond}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex{\DISPLAY\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending.fr,Extension de LilyPond}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex{\TEXT\}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,contributor,Guide du contributeur}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex{\DISPLAY\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Guide du contributeur}
 @end macro
 
@@ -711,12 +711,12 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro ressay{TEXT}
-@vindex{\TEXT\}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,essay.fr,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex{\DISPLAY\}
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay.fr,Essai}
 @end macro
 

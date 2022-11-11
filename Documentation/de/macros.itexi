@@ -683,12 +683,12 @@ Für LilyPond Version @version{}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,essay.de,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay.de,Aufsatz}
 @end macro
 

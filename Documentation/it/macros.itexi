@@ -672,12 +672,12 @@ Per la versione di LilyPond @version{}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,web,Informazioni generali}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web,Informazioni generali}
 @end macro
 

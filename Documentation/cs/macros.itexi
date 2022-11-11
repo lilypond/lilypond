@@ -650,12 +650,12 @@ Pro LilyPond ve verzi @version{}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,essay.cs,Článek}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
+@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay.cs,Článek}
 @end macro
 
