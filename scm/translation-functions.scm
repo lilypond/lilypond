@@ -413,6 +413,19 @@ segni to avoid ambiguity."
                  CENTER alt-markup))
           (set! alt-markup #f)))
 
+    ;; We treat a solitary plus similarly to digits (but enlarged).
+    (if (and (not fig-markup) plus-markup)
+        (begin
+          (set! fig-markup
+                (make-align-on-other-markup
+                 Y
+                 CENTER (make-number-markup "1")
+                 CENTER (make-align-on-other-markup
+                         X
+                         CENTER (make-number-markup "1")
+                         CENTER (make-fontsize-markup 3 plus-markup))))
+          (set! plus-markup #f)))
+
     ;; The alteration gets attached either to the left or the right of
     ;; the digit(s).
     (if alt-markup

@@ -1116,7 +1116,7 @@ Augmented and diminished steps can be indicated.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <6\+ 5/> <7/>
+  <6\+ 5/> <7/> <7 _\+>
 }
 @end lilypond
 
