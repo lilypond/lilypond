@@ -131,7 +131,8 @@ Stem::set_stem_positions (Grob *me, Real se, Real fc)
   Direction d = get_grob_direction (me);
 
   Grob *beam = unsmob<Grob> (get_object (me, "beam"));
-  if (d && d * head_positions (me)[get_grob_direction (me)] >= se * d)
+  if (d && is_normal_stem (me)
+      && d * head_positions (me)[get_grob_direction (me)] >= se * d)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
   // trigger note collision mechanisms
