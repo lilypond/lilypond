@@ -700,9 +700,6 @@ Context::internal_set_property (SCM sym, SCM val)
   bool type_check_ok
     = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
-  if (do_internal_type_checking_global)
-    assert (type_check_ok);
-
   if (type_check_ok)
     properties_dict ()->set (sym, val);
 }

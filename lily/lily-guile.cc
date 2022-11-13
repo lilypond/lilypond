@@ -285,11 +285,6 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
                    ly_symbol2string (type_symbol).c_str ())
                + "  " + _ ("perhaps a typing error?"));
 
-      /* Be strict when being anal :) */
-      if (do_internal_type_checking_global)
-        scm_throw (ly_symbol2scm ("ly-file-failed"),
-                   ly_list (ly_symbol2scm ("typecheck"), sym, val));
-
       warning (_ ("skipping assignment"));
       return false;
     }
