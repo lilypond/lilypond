@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2022-10-15.20}
+\def\texinfoversion{2022-11-13.08}
 %
 % Copyright 1985, 1986, 1988, 1990-2022 Free Software Foundation, Inc.
 %
@@ -3691,7 +3691,10 @@ $$%
 
 % @textdegree - the normal degrees sign.
 %
-\def\textdegree{$^\circ$}
+\def\textdegree{%
+   \ifmmode ^\circ
+   \else {\tcfont \char 176}%
+   \fi}
 
 % Laurent Siebenmann reports \Orb undefined with:
 %  Textures 1.7.7 (preloaded format=plain 93.10.14)  (68K)  16 APR 2004 02:38
@@ -5270,7 +5273,10 @@ $$%
         \xdef\trimmed{\segment}%
         \xdef\trimmed{\expandafter\eatspaces\expandafter{\trimmed}}%
         \xdef\indexsortkey{\trimmed}%
-        \ifx\indexsortkey\empty\xdef\indexsortkey{ }\fi
+        \ifx\indexsortkey\empty
+          \message{Empty index sort key near line \the\inputlineno}%
+          \xdef\indexsortkey{ }%
+        \fi
       }\fi
       %
       % Append to \fullindexsortkey.
@@ -6399,6 +6405,16 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \def\Yappendixkeyword{Yappendix}
 \def\Yomitfromtockeyword{Yomitfromtoc}
 %
+%
+% Definitions for @thischapter. These can be overridden in translation
+% files.
+\def\thischapterAppendix{%
+  \putwordAppendix{} \thischapternum: \thischaptername}
+
+\def\thischapterChapter{%
+  \putwordChapter{} \thischapternum: \thischaptername}
+%
+%
 \def\chapmacro#1#2#3{%
   \expandafter\ifx\thisenv\titlepage\else
     \checkenv{}% chapters, etc., should not start inside an environment.
@@ -6421,22 +6437,14 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     \xdef\currentchapterdefs{%
       \gdef\noexpand\thischaptername{\the\toks0}%
       \gdef\noexpand\thischapternum{\appendixletter}%
-      % \noexpand\putwordAppendix avoids expanding indigestible
-      % commands in some of the translations.
-      \gdef\noexpand\thischapter{\noexpand\putwordAppendix{}
-                                 \noexpand\thischapternum:
-                                 \noexpand\thischaptername}%
+      \let\noexpand\thischapter\noexpand\thischapterAppendix
     }%
   \else
     \toks0={#1}%
     \xdef\currentchapterdefs{%
       \gdef\noexpand\thischaptername{\the\toks0}%
       \gdef\noexpand\thischapternum{\the\chapno}%
-      % \noexpand\putwordChapter avoids expanding indigestible
-      % commands in some of the translations.
-      \gdef\noexpand\thischapter{\noexpand\putwordChapter{}
-                                 \noexpand\thischapternum:
-                                 \noexpand\thischaptername}%
+      \let\noexpand\thischapter\noexpand\thischapterChapter
     }%
   \fi\fi\fi
   %
@@ -6522,6 +6530,12 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \def\subsubsecheadingskip{\subsecheadingskip}
 \def\subsubsecheadingbreak{\subsecheadingbreak}
 
+% Definition for @thissection. This can be overridden in translation
+% files.
+\def\thissectionDef{%
+  \putwordSection{} \thissectionnum: \thissectionname}
+%
+
 
 % Print any size, any type, section title.
 %
@@ -6563,11 +6577,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         \xdef\currentsectiondefs{%
           \gdef\noexpand\thissectionname{\the\toks0}%
           \gdef\noexpand\thissectionnum{#4}%
-          % \noexpand\putwordSection avoids expanding indigestible
-          % commands in some of the translations.
-          \gdef\noexpand\thissection{\noexpand\putwordSection{}
-                                     \noexpand\thissectionnum:
-                                     \noexpand\thissectionname}%
+          \let\noexpand\thissection\noexpand\thissectionDef
         }%
       \fi
     \else
@@ -6576,11 +6586,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         \xdef\currentsectiondefs{%
           \gdef\noexpand\thissectionname{\the\toks0}%
           \gdef\noexpand\thissectionnum{#4}%
-          % \noexpand\putwordSection avoids expanding indigestible
-          % commands in some of the translations.
-          \gdef\noexpand\thissection{\noexpand\putwordSection{}
-                                     \noexpand\thissectionnum:
-                                     \noexpand\thissectionname}%
+          \let\noexpand\thissection\noexpand\thissectionDef
         }%
       \fi
     \fi\fi\fi
@@ -8425,21 +8431,21 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \ifcase\paramno
   % 0
     \expandafter\xdef\csname\the\macname\endcsname{%
-      \bgroup
+      \begingroup
         \noexpand\spaceisspace
         \noexpand\endlineisspace
         \noexpand\expandafter % skip any whitespace after the macro name.
         \expandafter\noexpand\csname\the\macname @@@\endcsname}%
     \expandafter\xdef\csname\the\macname @@@\endcsname{%
-      \egroup
+      \endgroup
       \noexpand\scanmacro{\macrobody}}%
   \or % 1
     \expandafter\xdef\csname\the\macname\endcsname{%
-       \bgroup
+       \begingroup
        \noexpand\braceorline
        \expandafter\noexpand\csname\the\macname @@@\endcsname}%
     \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
-      \egroup
+      \endgroup
       \noexpand\scanmacro{\macrobody}%
       }%
   \else % at most 9
@@ -8450,7 +8456,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       % @MACNAME@@@ removes braces surrounding the argument list.
       % @MACNAME@@@@ scans the macro body with arguments substituted.
       \expandafter\xdef\csname\the\macname\endcsname{%
-        \bgroup
+        \begingroup
         \noexpand\expandafter  % This \expandafter skip any spaces after the
         \noexpand\macroargctxt % macro before we change the catcode of space.
         \noexpand\expandafter
@@ -8464,7 +8470,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       \expandafter\xdef
       \expandafter\expandafter
         \csname\the\macname @@@@\endcsname\paramlist{%
-          \egroup\noexpand\scanmacro{\macrobody}}%
+          \endgroup\noexpand\scanmacro{\macrobody}}%
     \else % 10 or more:
       \expandafter\xdef\csname\the\macname\endcsname{%
         \noexpand\getargvals@{\the\macname}{\argl}%
@@ -8907,11 +8913,10 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       \xrefprintnodename\printedrefname
       %
       \ifflagclear{txiomitxrefpg}{%
-        % But we always want a comma and a space:
-        ,\space
-        %
+        % We always want a comma
+        ,%
         % output the `page 3'.
-        \turnoffactive \putwordpage\tie\refx{#1-pg}%
+        \turnoffactive \putpageref{#1}%
         % Add a , if xref followed by a space
         \if\space\noexpand\tokenafterxref ,%
         \else\ifx\	\tokenafterxref ,% @TAB
@@ -8926,6 +8931,10 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \fi
   \endlink
 \endgroup}
+
+% can be overridden in translation files
+\def\putpageref#1{%
+  \space\putwordpage\tie\refx{#1-pg}}
 
 % Output a cross-manual xref to #1.  Used just above (twice).
 % 
@@ -10057,7 +10066,7 @@ directory should work if nowhere else does.}
   \gdefchar^^ae{\v Z}
   \gdefchar^^af{\dotaccent Z}
   %
-  \gdefchar^^b0{\textdegree{}}
+  \gdefchar^^b0{\textdegree}
   \gdefchar^^b1{\ogonek{a}}
   \gdefchar^^b2{\ogonek{ }}
   \gdefchar^^b3{\l}
@@ -10480,7 +10489,7 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{00AE}{\registeredsymbol{}}%
   \DeclareUnicodeCharacter{00AF}{\={ }}%
   %
-  \DeclareUnicodeCharacter{00B0}{\ringaccent{ }}%
+  \DeclareUnicodeCharacter{00B0}{\textdegree}%
   \DeclareUnicodeCharacter{00B1}{\ensuremath\pm}%
   \DeclareUnicodeCharacter{00B2}{$^2$}%
   \DeclareUnicodeCharacter{00B3}{$^3$}%
@@ -10984,7 +10993,7 @@ directory should work if nowhere else does.}
   %
   \DeclareUnicodeCharacter{20AC}{\euro{}}%
   %
-  \DeclareUnicodeCharacter{2192}{\expansion{}}%
+  \DeclareUnicodeCharacter{2192}{\arrow}%
   \DeclareUnicodeCharacter{21D2}{\result{}}%
   %
   % Mathematical symbols
@@ -11445,17 +11454,18 @@ directory should work if nowhere else does.}
   \mtadjustprotcode#1\relax
 }
 
+\newcount\countC
 \def\mtadjustprotcode#1{%
-  \countA=0
+  \countC=0
   \loop
-    \ifcase\lpcode#1\countA\else
-      \mtadjustcp\lpcode#1\countA
+    \ifcase\lpcode#1\countC\else
+      \mtadjustcp\lpcode#1\countC
     \fi
-    \ifcase\rpcode#1\countA\else
-      \mtadjustcp\rpcode#1\countA
+    \ifcase\rpcode#1\countC\else
+      \mtadjustcp\rpcode#1\countC
     \fi
-    \advance\countA 1
-  \ifnum\countA < 256 \repeat
+    \advance\countC 1
+  \ifnum\countC < 256 \repeat
 }
 
 \newcount\countB
