@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.80\n"
+"Project-Id-Version: lilypond 2.23.81\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-10-22 17:37+0200\n"
+"POT-Creation-Date: 2022-11-13 13:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,6 +165,7 @@ msgstr ""
 #: convertrules.py:104 convertrules.py:1944 convertrules.py:2121
 #: convertrules.py:2245 convertrules.py:2587 convertrules.py:2904
 #: convertrules.py:3291 convertrules.py:3564 convertrules.py:3912
+#: convertrules.py:4285
 msgid "bump version for release"
 msgstr ""
 
@@ -796,13 +797,13 @@ msgstr ""
 msgid "Now \"output-attributes\" (association list) is used instead."
 msgstr ""
 
-#: convertrules.py:4454
+#: convertrules.py:4459
 msgid ""
 "If independent mark sequences are desired, use multiple "
 "Mark_tracking_translators."
 msgstr ""
 
-#: convertrules.py:4505
+#: convertrules.py:4510
 msgid ""
 "\n"
 "Warning:\n"
@@ -826,7 +827,7 @@ msgid ""
 "  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 msgstr ""
 
-#: convertrules.py:4638
+#: convertrules.py:4643
 msgid ""
 "\n"
 "Warning: \\fine no longer enforces the end of the music.  If your piece\n"
@@ -834,7 +835,7 @@ msgid ""
 "unfolded, use \\volta to exclude it.\n"
 msgstr ""
 
-#: convertrules.py:4644
+#: convertrules.py:4649
 msgid ""
 "\n"
 "MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave\n"
@@ -849,7 +850,7 @@ msgid ""
 "and Divisio_engraver in the appropriate Staff-aliased context.\n"
 msgstr ""
 
-#: convertrules.py:4657
+#: convertrules.py:4662
 msgid ""
 "\n"
 "GregorianTranscriptionStaff now engraves \\divisioMinima,\n"
@@ -869,7 +870,7 @@ msgid ""
 "grobs.\n"
 msgstr ""
 
-#: convertrules.py:4700
+#: convertrules.py:4705
 msgid ""
 "\n"
 "The barAlways property has been removed.  Instead, use\n"
@@ -2225,7 +2226,7 @@ msgstr ""
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
-#: general-scheme.cc:569
+#: general-scheme.cc:571
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
