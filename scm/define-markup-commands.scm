@@ -2989,7 +2989,7 @@ and@tie{}5).@footnote{Internally, this works by activating the
 @q{dlig} OpenType feature of the Emmentaler font.}
 
 The use of a backslash is in analogy to
-@code{\figuremode} (@pxref{Entering figured bass}).  Note that to get
+@code{\\figuremode} (@pxref{Entering figured bass}).  Note that to get
 a backslash character in markup it must be escaped by doubling it.
 Additionally, it must be put into double quotes.
 

@@ -993,7 +993,7 @@ LST is a list music-lists.
 id is 1-based, i.e., Voice=1 (upstems) has number 1.
 
 id may be a symbol or string giving a specific voice id: in this
-case, no \voiceXXX style is selected, merely the context given.
+case, no \\voiceXXX style is selected, merely the context given.
 
 locs is a list of music expressions suitable for giving
 error locations (enclosing expression for the first element,
