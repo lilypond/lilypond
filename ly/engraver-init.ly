@@ -1270,13 +1270,7 @@ two syllables) as used in the notational style of Editio Vaticana."
   \alias Voice
   \remove Stem_engraver
   \consists Episema_engraver
-
-  %% Removing ligature bracket engraver without replacing it by some
-  %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
-  %% warning for every "\[" and "\]".  Therefore, we make the grob
-  %% transparent instead.
-  \override LigatureBracket.transparent = ##t
-
+  \remove Ligature_bracket_engraver
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
 }
