@@ -4464,11 +4464,17 @@ def conv(s):
 dash_abbreviations = ["Hat", "Plus", "Dash", "Bang", "Larger", "Dot", "Underscore"]
 
 
-markup2string_replacement = """
-(lambda* (m #:optional headers)
-  (if headers
-      (markup->string m #:props (headers-property-alist-chain headers))
-      (markup->string m)))
+markup2string_warning = """
+The signature of the markup->string Scheme function changed.  Calls with
+just one argument are not affected.  Calls using the second optional
+argument, the list of header modules, should be changed from
+
+  (markup->string <markup> <header list>)
+
+to
+
+  (markup->string <markup> #:props (headers-property-alist-chain <header list>))
+
 """
 
 @rule((2, 23, 6), r"""
@@ -4503,7 +4509,14 @@ def conv(s):
     s = re.sub(r'''((make-articulation|'articulation-type)\s+)"(\w+)"''', r"\1'\3", s)
     s = re.sub(r'(dash(%s)\s+)=(\s+)"(\w+)"' % "|".join(dash_abbreviations),
                r"\1=\3#(make-articulation '\4)", s)
-    s = re.sub(r"markup->string", markup2string_replacement, s)
+    # The case (markup->string <symbol>) is easy to detect and should
+    # not be warned about.  Cases with one argument that is more complex
+    # than a symbol are harder to detect reliably, so we conservatively
+    # print the warning.
+    if re.search(r"(?!(?<=\()markup\->string\s+\w+\))markup->string", s):
+        stderr_write(NOT_SMART % "markup->string")
+        stderr_write(markup2string_warning)
+        stderr_write(UPDATE_MANUALLY)
     s = s.replace("ly:grob-spanned-rank-interval", "ly:grob-spanned-column-rank-interval")
     return s
 
