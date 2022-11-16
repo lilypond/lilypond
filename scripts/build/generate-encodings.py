@@ -438,6 +438,8 @@ emmentaler_glyphsets = [
         "scripts.rcomma",
         "scripts.lvarcomma",
         "scripts.rvarcomma",
+        "scripts.laltcomma",
+        "scripts.raltcomma",
         "scripts.tickmark",
 
         "scripts.trill",

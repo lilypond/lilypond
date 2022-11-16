@@ -615,6 +615,16 @@ has been changed to a more common form.
 { f'2 \breathe f'2 }
 @end lilypond
 
+The old glyph remains available under the name @q{raltcomma}:
+
+@lilypond[quote,verbatim]
+{
+  \override BreathingSign.text =
+    \markup { \musicglyph "scripts.raltcomma" }
+  f'2 \breathe f' |
+}
+@end lilypond
+
 @item
 The new context property @code{breathMarkType} selects the mark
 that @code{\breathe} produces from several predefined types.

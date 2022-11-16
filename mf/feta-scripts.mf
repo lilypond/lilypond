@@ -1750,6 +1750,50 @@ fet_beginchar ("left varied comma", "lvarcomma");
 fet_endchar;
 
 
+def draw_altcomma =
+  save alpha, thick, thin, ht;
+
+  alpha := 35;
+  thin# = 1.2 linethickness#;
+  thick# = 3 linethickness#;
+  ht# = .6 staff_space#;
+  define_pixels (thin, thick, ht);
+
+  set_char_box (0, .5 staff_space#, ht#, ht#);
+
+  penpos1 (thick, alpha);
+  penpos2 (thick, alpha + 90);
+  penpos3 (thin, 180 - alpha);
+  penpos4 (thin, 90 - alpha);
+
+  x3r = 0;
+  x1l = x3l;
+  y2r = -y4l = h;
+  z1 = z2;
+  z3 = z4;
+
+  fill z1l{dir (alpha + 90)}
+       .. z2r{dir alpha}
+       .. z1r{dir (alpha - 90)}
+       .. z3l{dir (270 - alpha)}
+       .. z4l{dir (180 - alpha)}
+       .. z3r{dir (90-alpha)}
+       .. cycle;
+enddef;
+
+
+fet_beginchar ("right alternate comma", "raltcomma");
+  draw_altcomma;
+  penlabels (1, 2, 3, 4);
+fet_endchar;
+
+
+fet_beginchar ("left alternate comma", "laltcomma");
+  draw_altcomma;
+  xy_mirror_char;
+fet_endchar;
+
+
 thick# := 1/24 designsize;
 define_blacker_pixels (thick);
 
