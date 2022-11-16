@@ -17,6 +17,9 @@
 
 (define-public default-breath-alist
   `(
+    (altcomma
+     . (
+        (text . ,(make-musicglyph-markup "scripts.raltcomma"))))
     (caesura
      . (
         (text . ,(make-musicglyph-markup "scripts.caesura.straight"))))

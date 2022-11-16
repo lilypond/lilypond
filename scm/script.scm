@@ -32,6 +32,13 @@
         (quantize-position . #t)
         (script-priority . -100)
         (direction . ,UP)))
+    (altcomma
+     . (
+        (script-stencil . (feta . ("laltcomma" . "raltcomma")))
+        (quantize-position . #t)
+        (padding . 0.20)
+        (avoid-slur . ignore)
+        (direction . ,UP)))
 
 
     (circulus

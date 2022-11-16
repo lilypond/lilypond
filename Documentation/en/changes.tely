@@ -145,7 +145,24 @@ even at the beginning of the piece.
 @node Expressive mark improvements
 @unnumberedsec Expressive mark improvements
 
-None so far.
+@itemize
+
+@item
+Two new variant glyphs for breathing signs are available:
+@q{laltcomma} and @q{raltcomma}.  These glyphs represent the old
+shapes of @q{lcomma} and @q{rcomma}, respectively, before changing
+them to more common shapes.
+
+@lilypond[quote,verbatim]
+{
+  \override BreathingSign.text =
+    \markup { \musicglyph "scripts.raltcomma" }
+  f'2 \breathe f' |
+}
+@end lilypond
+
+@end itemize
+
 
 @node Repeat improvements
 @unnumberedsec Repeat improvements

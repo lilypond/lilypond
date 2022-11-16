@@ -23,6 +23,13 @@ ticks, vees and `railroad tracks' (caesura)."
         #(make-musicglyph-markup "scripts.rvarcomma")
       c4 c \breathe c c |
 
+      %% raltcomma and laltcomma are alternative variations of the default
+      %% rcomma and lcomma
+      %%
+      \override Staff.BreathingSign.text =
+        #(make-musicglyph-markup "scripts.raltcomma")
+      c4 c \breathe c c |
+
       %% wedge
       %%
       \override BreathingSign.text =
