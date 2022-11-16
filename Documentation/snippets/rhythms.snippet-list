@@ -56,6 +56,7 @@ printing-bar-numbers-with-changing-regular-intervals.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 printing-music-with-different-time-signatures.ly
 printing-the-bar-number-for-the-first-measure.ly
+printing-tuplet-brackets-on-the-note-head-side.ly
 redefining-grace-note-global-defaults.ly
 removing-bar-numbers-from-a-score.ly
 removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
