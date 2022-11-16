@@ -71,6 +71,7 @@ positioning-text-markups-inside-slurs.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 printing-note-names-with-and-without-an-octave-marker.ly
+printing-tuplet-brackets-on-the-note-head-side.ly
 proportional-strict-notespacing.ly
 removing-brace-on-first-line-of-piano-score.ly
 removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
