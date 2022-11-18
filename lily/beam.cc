@@ -357,6 +357,76 @@ operator<(Beam_stem_segment const &a, Beam_stem_segment const &b)
   return a.rank_ < b.rank_;
 }
 
+vector<Grob *>
+Beam::get_accidentals (Grob *me)
+{
+  extract_grob_set (me, "stems", stems);
+  vector<Grob *> accs;
+  if (!stems.empty ())
+    {
+      if (Grob *last_stem = stems.back ())
+        {
+          extract_grob_set (last_stem, "note-heads", note_heads);
+          for (auto &note_head : note_heads)
+            {
+              if (Grob *acc = unsmob<Grob> (get_object (note_head, "accidental-grob")))
+                accs.push_back (acc);
+            }
+        }
+    }
+  return accs;
+}
+
+Drul_array<Real>
+Beam::get_gaps (Grob *me, Grob *commonx)
+{
+  extract_grob_set (me, "stems", stems);
+  Real gap_length = from_scm<double> (get_property (me, "gap"), 0.0);
+  Drul_array<Real> gap_lengths (gap_length, gap_length);
+
+  if ((Stem::duration_log (stems[0])) <= 0)
+      {
+        vector<Grob *> accs = get_accidentals (me);
+
+        if (!accs.empty ())
+          {
+            Interval accs_ext
+              = Axis_group_interface::relative_group_extent (accs, commonx,
+                                                              X_AXIS);
+            if (!accs_ext.is_empty ())
+              {
+                Real accs_length = accs_ext.length ();
+                Real acc_padding 
+                  = from_scm (get_property (me, "accidental-padding"), 1.0);
+                gap_lengths[RIGHT] += accs_length + acc_padding;
+              }
+          }
+      }
+  return gap_lengths;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, tremolo_springs_and_rods,
+                      "ly:beam::tremolo-springs-and-rods", 1);
+SCM
+Beam::tremolo_springs_and_rods (SCM smob)
+{
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
+
+  extract_grob_set (me, "stems", stems);
+
+  vector<Grob *> accs;
+
+  if (!stems.empty ())
+    {
+      accs = get_accidentals (me);
+
+      if (!accs.empty () && Stem::duration_log (stems[0]) <= 0)
+        Spanner::set_spacing_rods (smob);
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
 typedef map<int, vector<Beam_stem_segment>> Position_stem_segments_map;
 
 MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, "ly:beam::calc-beam-segments",
@@ -376,7 +446,7 @@ Beam::calc_beam_segments (SCM smob)
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
 
   int gap_count = from_scm (get_property (me, "gap-count"), 0);
-  Real gap_length = from_scm<double> (get_property (me, "gap"), 0.0);
+  Drul_array<Real> gap_lengths = get_gaps (me, commonx);
 
   Position_stem_segments_map stem_segments;
   Real lt = Staff_symbol_referencer::line_thickness (me);
@@ -540,7 +610,7 @@ Beam::calc_beam_segments (SCM smob)
                   current.horizontal_[event_dir] += event_dir * seg.width_ / 2;
                   if (seg.gapped_)
                     {
-                      current.horizontal_[event_dir] -= event_dir * gap_length;
+                      current.horizontal_[event_dir] -= event_dir * gap_lengths[event_dir];
 
                       if (Stem::is_invisible (seg.stem_))
                         {
@@ -555,7 +625,7 @@ Beam::calc_beam_segments (SCM smob)
                               = event_dir
                                 * std::min (
                                   event_dir * current.horizontal_[event_dir],
-                                  -gap_length / 2
+                                  - gap_lengths[event_dir] / 2
                                     + event_dir
                                         * heads[k]->extent (
                                           commonx, X_AXIS)[-event_dir]);
@@ -1490,6 +1560,7 @@ penalties.
 
                /* properties */
                R"(
+accidental-padding
 annotation
 auto-knee-gap
 beamed-stem-shorten
@@ -1512,6 +1583,7 @@ inspect-quants
 knee
 length-fraction
 least-squares-dy
+minimum-length
 neutral-direction
 normal-stems
 positions

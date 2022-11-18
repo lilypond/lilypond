@@ -436,6 +436,7 @@ vertically.")))))
      . (
         ;; todo: clean this up a bit: the list is getting
         ;; rather long.
+        (accidental-padding . 1.0)
         (auto-knee-gap . 5.5)
         (beam-segments . ,ly:beam::calc-beam-segments)
         (beam-thickness . 0.48) ; in staff-space
@@ -491,8 +492,10 @@ vertically.")))))
 
         (gap . 0.8)
         (knee . ,ly:beam::calc-knee)
+        (minimum-length . 6.0)
         (neutral-direction . ,DOWN)
         (positions . ,beam::place-broken-parts-individually)
+        (springs-and-rods . ,ly:beam::tremolo-springs-and-rods)
         (X-positions . ,ly:beam::calc-x-positions)
         (transparent . ,(grob::inherit-parent-property
                          X 'transparent))

@@ -70,6 +70,8 @@ public:
   static void set_beaming (Grob *, Beaming_pattern const *);
   static void set_stemlens (Grob *);
   static int get_beam_count (Grob *me);
+  static std::vector<Grob *> get_accidentals (Grob *);
+  static Drul_array<Real> get_gaps (Grob *me, Grob *commonx);
   static Real get_beam_translation (Grob *me);
   static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
@@ -87,6 +89,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
+  DECLARE_SCHEME_CALLBACK (tremolo_springs_and_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beam_segments, (SCM));
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM, SCM));

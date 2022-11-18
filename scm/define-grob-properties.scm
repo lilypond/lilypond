@@ -34,6 +34,8 @@
 ;;;
 ;;; a
 ;;;
+     (accidental-padding ,number? "Property used by Beam to avoid
+accidentals in whole note tremolos.")
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
