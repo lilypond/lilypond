@@ -640,7 +640,7 @@ combinazioni di ance, come @notation{oboe}, @notation{musette} o
 per semplificare le istruzioni di esecuzione.
 
 Un elenco completo di tutti i registri per fisarmonica disponibili si
-trova in @ref{Accordion Registers}.
+trova in @ref{Accordion registers}.
 
 @snippets
 
@@ -742,5 +742,5 @@ Guida alla notazione:
 @ref{Scritte},
 @c Questo nodo porta a una sezione dell'appendice che è generata dai
 @c sorgenti durante la compilazione, dunque non può essere tradotto.
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 @endmorerefs

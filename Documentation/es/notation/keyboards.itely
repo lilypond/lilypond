@@ -672,7 +672,7 @@ las instrucciones de ejecución.
 
 Puede verse una lista completa de todos los registros de acordeón
 disponibles en
-@rusernamed{Accordion Registers, Registros de acordeón}
+@rusernamed{Accordion registers, Registros de acordeón}
 
 
 @snippets
@@ -774,4 +774,4 @@ símbolo de pedal se rodea por una elipse.
 @morerefs
 Referencia de la notación:
 @ref{Guiones de texto},
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.

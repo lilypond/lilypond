@@ -95,11 +95,24 @@
 (set! all-markup-commands (sort! all-markup-commands markup-name<?))
 (set! all-markup-list-commands (sort! all-markup-list-commands markup-name<?))
 
+;; This maps categories to node/section names in the generated documentation.
+;; The documentation sections are using the order given here.
+(define category-name-alist
+  '((font . "Font markup")
+    (align . "Markup for text alignment")
+    (graphic . "Graphical markup")
+    (music . "Markup for music and musical symbols")
+    (conditionals . "Conditional markup")
+    (instrument-specific . "Instrument-specific markup")
+    (accordion-registers . "Accordion registers")
+    (other . "Other markup commands")))
+
 (define (markup-category-doc-node category)
-  (let* ((category-string (symbol->string category))
-         (category-name (string-capitalize
-                         (regexp-substitute/global
-                          #f "-" category-string 'pre " " 'post)))
+  (let* ((category-name (or (assoc-get category category-name-alist)
+                            (ly:error "\
+Markup command category '~a' not defined.\n
+Check spelling or add it to `document-markup.scm`"
+                                      category)))
          (markup-functions (filter
                             (lambda (fun)
                               (let ((cats (markup-function-category (cdr fun))))
@@ -124,15 +137,8 @@
     #:name "Text markup commands"
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
-    #:children (let* (;; when a new category is defined, update `ordered-categories'
-                      (ordered-categories '(font
-                                            align
-                                            graphic
-                                            music
-                                            conditionals
-                                            instrument-specific-markup
-                                            accordion-registers
-                                            other))
+    #:children (let* ((ordered-categories
+                       (map car category-name-alist))
                       (raw-categories
                        (fold (lambda (next union)
                                (let ((cat (markup-function-category next)))

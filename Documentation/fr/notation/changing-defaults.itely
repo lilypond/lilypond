@@ -4914,13 +4914,13 @@ accessibles à l'aide de la commande de @emph{markup} @code{\musicglyph}
 L'insertion de fichier @file{EPS} ou d'instructions Postscript sont
 accessibles par les commandes de @emph{markup} @code{\epsfile} et
 @code{\postscript} respectivement -- voir l'annexe
-@rusernamed{Graphic, Graphisme}.
+@rusernamed{Graphical markup, Graphisme}.
 
 @morerefs
 Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Éléments graphiques dans du texte formaté},
-@rusernamed{Graphic, Graphisme},
+@rusernamed{Graphical markup, Graphisme},
 @ref{La fonte Emmentaler},
 @ref{Mise en forme du texte}.
 @endmorerefs

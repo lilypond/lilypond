@@ -824,7 +824,7 @@ interfícies produeixen marcatges equivalents, però tenen
 quantitats variables d'informació a la cadena de marcatge.  Hi ha
 més detalls sobre la sintaxi de les diverses cadenes de marcatge
 que s'usen per definir diagrames de posicions a l'annex
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 La cadena de marcatge dels diagrames estàndard de trasts indica el
 número de la corda i el número de trast en el qual es col·loca
@@ -1247,7 +1247,7 @@ diagrama de trasts, les propietats de la interfície pertanyen a
 
 @morerefs
 Referència de la notació:
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 Fragments de codi:
 @rlsr{Fretted strings}.

@@ -1573,7 +1573,7 @@ In general, the text can be any markup object:
 @end lilypond
 
 A particularly useful markup command is @code{\rhythm}, which
-prints a rhythmic pattern.  @xref{Music}.
+prints a rhythmic pattern.  @xref{Markup for music and musical symbols}.
 
 @lilypond[verbatim,quote]
 \relative {

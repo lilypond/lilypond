@@ -1153,14 +1153,14 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup text, alignment command (マークアップ テキスト揃えのコマンド)
 @cindex alignment, text, commands (テキスト揃えのコマンド)
 
-@ref{Align} にテキスト揃えコマンドの徹底したリストがあります。
+@ref{Markup for text alignment} にテキスト揃えコマンドの徹底したリストがあります。
 
 @morerefs
 学習マニュアル:
 @rlearning{オブジェクトを移動させる}
 
 記譜法リファレンス:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{テキスト マーク}
 
 インストールされているファイル:
@@ -1231,7 +1231,7 @@ allegro = \markup { \bold \large Allegro }
 
 コマンドの中にはテキストの周りのパディングを増やすことを必要とするものも@c
 あります。@c
-パティングの増加は @ref{Align} で徹底的に記述されている@c
+パティングの増加は @ref{Markup for text alignment} で徹底的に記述されている@c
 マークアップ コマンドを用いて達成できます。
 
 @lilypond[quote,verbatim]
@@ -1324,14 +1324,14 @@ c'1^\markup {
 c'
 @end lilypond
 
-@ref{Graphic} にグラフィック特有のコマンドの徹底したリストがあります。
+@ref{Graphical markup} にグラフィック特有のコマンドの徹底したリストがあります。
 
 @morerefs
 記譜法リファレンス:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Dimensions},
 @ref{編集者の注釈},
-@ref{Graphic}
+@ref{Graphical markup}
 
 インストールされているファイル:
 @file{scm/define-markup-commands.scm},
@@ -1438,7 +1438,7 @@ a'1_\markup {
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-そのようなダイアグラムは @ref{Instrument Specific Markup} で@c
+そのようなダイアグラムは @ref{Instrument-specific markup} で@c
 ドキュメント化されています。
 
 @cindex score, inside markup (マークアップ内部の楽譜)
@@ -1458,11 +1458,11 @@ a'1_\markup {
 }
 @end lilypond
 
-@ref{Music} に、音楽記譜法関連のコマンドの徹底したリストがあります。
+@ref{Markup for music and musical symbols} に、音楽記譜法関連のコマンドの徹底したリストがあります。
 
 @morerefs
 記譜法リファレンス:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{The Emmentaler font},
 @ref{フォントの説明}
 

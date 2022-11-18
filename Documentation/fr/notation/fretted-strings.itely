@@ -1017,7 +1017,7 @@ interfaces « diagramme d'accord » (@emph{fret-diagram} en anglais) :
 produiront des diagrammes similaires mais permettent des niveaux de
 personnalisation différents.  Des détails à propos des interfaces de
 type @code{\markup} peuvent être trouvés à l'annexe
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 Dans l'interface standard des diagrammes d'accord, on indiquera le
 numéro de corde et le numéro de case pour chaque point placé sur une corde.
@@ -1453,7 +1453,7 @@ propriétés de l'interface dépendent de @code{Voice.TextScript}.
 
 @morerefs
 Manuel de notation :
-@rusernamed{Instrument Specific Markup,
+@rusernamed{Instrument-specific markup,
 Markups spécifiques aux instruments (en anglais)}.
 
 Morceaux choisis :

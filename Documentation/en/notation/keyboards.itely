@@ -620,7 +620,7 @@ select the various reed combinations, such as @notation{oboe},
 come into use to simplify the performance instructions.
 
 A complete list of all available accordion registers can be found in
-@ref{Accordion Registers}.
+@ref{Accordion registers}.
 
 
 @snippets
@@ -715,5 +715,5 @@ position (sharpened pitch), and @code{|} is the divider.  A prefixed
 @morerefs
 Notation Reference:
 @ref{Text scripts},
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 @endmorerefs

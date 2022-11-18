@@ -978,14 +978,14 @@ següent:
 @cindex alineació, instruccions de text
 
 Hi ha una llista exhaustiva d'ordres d'alineació de text a
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 @morerefs
 Manual d'aprenentage:
 @rlearning{Moviment d'objectes}.
 
 Referència de la notació:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Indicacions de text}.
 
 Fitxers d'inici:
@@ -1055,7 +1055,7 @@ amb gràfics, com es mostra a l'exemple següent.
 
 Algunes poden requerir un augment del farciment al voltant del
 text: això es pot aconseguir amb algunes instruccions de marcatge
-descrites exhaustivament a @ref{Align}.
+descrites exhaustivament a @ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1147,14 +1147,14 @@ c'
 @end lilypond
 
 Hi una llista exhaustiva d'ordres específiques de gràfics a
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 @morerefs
 Referència de la notació:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Dimensions},
 @ref{Anotacions editorials},
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm},
@@ -1264,7 +1264,7 @@ específics:
 
 @noindent
 Aquests diagrames es troben documentats a
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 
 @cindex partitura, a dins de marcatge
@@ -1288,11 +1288,11 @@ de contenir un bloc @code{\layout}, com es mostra aquí:
 @end lilypond
 
 Hi ha una llista exhaustiva d'ordres relacionades amb la notació
-musical a @ref{Music}.
+musical a @ref{Markup for music and musical symbols}.
 
 @morerefs
 Referència de la notació:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{El tipus de lletra Emmentaler},
 @ref{Explicació dels tipus de lletra}.
 
@@ -1513,7 +1513,7 @@ Referència de la notació:
 @ref{Notació musical dins d'elements de marcatge},
 @ref{Rotació d'objectes},
 @ref{Selecció del tipus de lletra i la seva mida},
-@ref{Font}.
+@ref{Font markup}.
 
 
 @node Tipus de lletra d'un sol element
@@ -1615,4 +1615,4 @@ Referència de la notació:
 @ref{Explicació dels tipus de lletra},
 @ref{Tipus de lletra d'un sol element},
 @ref{Selecció del tipus de lletra i la seva mida},
-@ref{Font}.
+@ref{Font markup}.

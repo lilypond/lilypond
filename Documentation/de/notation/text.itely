@@ -708,7 +708,7 @@ dem Befehl @code{\concat} zu einem Element verschmolzen werden:
 @end lilypond
 
 Eine ausführliche Liste der unterschiedlichen Befehl zur Beeinflussung
-der Schriftarten findet sich in @ref{Font}.
+der Schriftarten findet sich in @ref{Font markup}.
 
 Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @ref{Schriftarten}.
@@ -744,7 +744,7 @@ Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 
 @morerefs
 Notationsreferenz:
-@ref{Font},
+@ref{Font markup},
 @ref{Neue Lautstärkezeichen},
 @ref{Manuelle Wiederholungszeichen},
 @ref{Schriftarten}.
@@ -1009,14 +1009,14 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
 @cindex Ausrichtung von Text, Befehle
 
 Eine vollständige Liste der Textausrichtungsbefehle findet sich in
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 @morerefs
 Handbuch zum Lernen:
 @rlearning{Verschieben von Objekten}.
 
 Notationsreferenz:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Textartige Zeichen}.
 
 Installierte Dateien:
@@ -1097,7 +1097,7 @@ Graphik hinzufügen, wie das nächste Beispiel zeigt:
 
 Es kann nötig sein, einem Text mehr Platz einzuräumen.  Das geschieht mit
 verschiedenen Befehlen, wie das folgende Beispiel zeigt.  Eine ausführliche
-Übersicht findet sich in @ref{Align}.
+Übersicht findet sich in @ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1197,13 +1197,13 @@ c'
 @end lilypond
 
 Eine ausführliche Liste der Graphik-Befehle findet sich in
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 @morerefs
 Notationsreferenz:
-@ref{Graphic},
+@ref{Graphical markup},
 @ref{Anmerkungen},
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 Installierte Dateien:
 @file{scm/define-markup-commands.scm},
@@ -1315,7 +1315,7 @@ Instrumente:
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Derartige Digramme sind dokumentiert in @ref{Instrument Specific Markup}.
+Derartige Digramme sind dokumentiert in @ref{Instrument-specific markup}.
 
 @cindex Notation innerhalb von Beschriftung
 @cindex Notation innerhalb von Text
@@ -1340,11 +1340,12 @@ eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
 }
 @end lilypond
 
-Eine vollständige Liste der Musiksymbol-Befehle findet sich in @ref{Music}.
+Eine vollständige Liste der Musiksymbol-Befehle findet sich in
+@ref{Markup for music and musical symbols}.
 
 @morerefs
 Notationsreferenz:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{Die Emmentaler-Schriftart},
 @ref{Was sind Schriftarten}.
 
@@ -1559,7 +1560,7 @@ Notationsreferenz:
 @ref{Drehen von Objekten},
 @ref{Musikalische Notation innerhalb einer Textbeschriftung},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
-@ref{Font}.
+@ref{Font markup}.
 
 
 @node Schriftarten für einen Eintrag
@@ -1647,4 +1648,4 @@ Notationsreferenz:
 @ref{Was sind Schriftarten},
 @ref{Schriftarten für einen Eintrag},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
-@ref{Font}.
+@ref{Font markup}.

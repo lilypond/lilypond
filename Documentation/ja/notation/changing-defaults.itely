@@ -4809,7 +4809,7 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 @file{EPS} ファイルや Postscript コマンドを、それぞれ
 @code{\epsfile} や @code{\postscript} マークアップ コマンドを使って@c
 行内に埋め込むことができます。@c
-@ref{Graphic} を参照してください。
+@ref{Graphical markup} を参照してください。
 
 @morerefs
 記譜法リファレンス:
@@ -4817,7 +4817,7 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 @ref{テキストをフォーマットする},
 @ref{Text markup commands},
 @ref{The Emmentaler font},
-@ref{Graphic}
+@ref{Graphical markup}
 
 
 @node 形状を変更する

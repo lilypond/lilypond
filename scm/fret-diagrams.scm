@@ -1064,7 +1064,7 @@ values."
 (define-markup-command
   (fret-diagram-verbose layout props marking-list)
   (pair?) ; argument type (list, but use pair? for speed)
-  #:category instrument-specific-markup ; markup type
+  #:category instrument-specific ; markup type
   #:properties ((align-dir -0.4) ; properties and defaults
                 (size 1.0)
                 (fret-diagram-details)
@@ -1129,7 +1129,7 @@ indications per string.
 
 (define-markup-command (fret-diagram layout props definition-string)
   (string?) ; argument type
-  #:category instrument-specific-markup ; markup category
+  #:category instrument-specific ; markup category
   #:properties (fret-diagram-verbose-markup) ; properties and defaults
   #:as-string ""
   "Make a (guitar) fret diagram.  For example, say
@@ -1209,7 +1209,7 @@ Note: There is no limit to the number of fret indications per string.
 (define-markup-command
   (fret-diagram-terse layout props definition-string)
   (string?) ; argument type
-  #:category instrument-specific-markup ; markup category
+  #:category instrument-specific ; markup category
   #:properties (fret-diagram-verbose-markup) ; properties
   #:as-string ""
   "Make a fret diagram markup using terse string-based syntax.

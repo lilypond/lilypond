@@ -18,7 +18,7 @@
 
 
 (define-markup-command (harp-pedal layout props definition-string) (string?)
-  #:category instrument-specific-markup ; markup type for the documentation!
+  #:category instrument-specific ; markup type for the documentation!
   #:properties ((size 1.2)
                 (harp-pedal-details '())
                 (thickness 0.5))

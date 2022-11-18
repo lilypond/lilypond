@@ -41,12 +41,14 @@ Notation Reference
 @setManual NR
 @include notation.tely
 Dummy nodes to satisfy refs to text markup
-@node Font
-@node Align
-@node Graphic
-@node Instrument Specific Markup
-@node Accordion Registers
-@node Music
+@node Font markup
+@node Markup for text alignment
+@node Graphical markup
+@node Markup for music and musical symbols
+@node Conditional markup
+@node Instrument-specific markup
+@node Accordion registers
+@node Other markup commands
 
 Application Usage
 @setManual AU

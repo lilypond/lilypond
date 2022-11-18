@@ -69,10 +69,9 @@
 ;;;     signature would be: (number? markup?)
 ;;;
 ;;;   category
-;;;     for documentation purpose, builtin markup commands are grouped by
-;;;     category.  This can be any symbol.  When documentation is generated,
-;;;     the symbol is converted to a capitalized string, where hyphens are
-;;;     replaced by spaces.
+;;;     for documentation purposes, built-in markup commands are grouped by
+;;;     category.  The available categories and their order are set up in
+;;;     `category-name-alist` (in file `document-markup.scm`).
 ;;;
 ;;;   property-bindings
 ;;;     this is used both for documentation generation, and to ease

@@ -1121,7 +1121,7 @@ concatenating the text elements together:
 @end lilypond
 
 An exhaustive list of font switching commands and custom font usage
-commands can be found in @ref{Font}.
+commands can be found in @ref{Font markup}.
 
 Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
@@ -1149,7 +1149,7 @@ Defining custom font sets is also possible, as explained in
 
 @morerefs
 Notation Reference:
-@ref{Font},
+@ref{Font markup},
 @ref{New dynamic marks},
 @ref{Manual repeat marks},
 @ref{Fonts}.
@@ -1463,14 +1463,14 @@ as shown in the following example.
 @cindex alignment, text, commands
 
 An exhaustive list of text alignment commands can be found in
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 @morerefs
 Learning Manual:
 @rlearning{Moving objects}.
 
 Notation Reference:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Text marks}.
 
 Installed Files:
@@ -1541,7 +1541,7 @@ as demonstrated in the following example.
 
 Some commands may require an increase in the padding around the text;
 this is achieved with some markup commands exhaustively described in
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
@@ -1629,14 +1629,14 @@ c'
 @end lilypond
 
 An exhaustive list of graphics-specific commands can be found in
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 @morerefs
 Notation Reference:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Dimensions},
 @ref{Editorial annotations},
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 Installed Files:
 @file{scm/define-markup-commands.scm},
@@ -1744,7 +1744,7 @@ instruments:
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Such diagrams are documented in @ref{Instrument Specific Markup}.
+Such diagrams are documented in @ref{Instrument-specific markup}.
 
 @cindex score, inside markup
 @cindex markup, score inside
@@ -1764,11 +1764,11 @@ A whole score can even be nested inside a markup object:
 @end lilypond
 
 An exhaustive list of music notation related commands can be found in
-@ref{Music}.
+@ref{Markup for music and musical symbols}.
 
 @morerefs
 Notation Reference:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{The Emmentaler font},
 @ref{Music fonts}.
 
@@ -2031,7 +2031,7 @@ Notation Reference:
 @ref{Music notation inside markup},
 @ref{Rotating objects},
 @ref{Selecting font and font size},
-@ref{Font}.
+@ref{Font markup}.
 @endmorerefs
 
 
@@ -2290,7 +2290,7 @@ Notation Reference:
 @ref{Font families},
 @ref{Single entry fonts},
 @ref{Selecting font and font size},
-@ref{Font},
+@ref{Font markup},
 @ref{Replacing the notation font}.
 @endmorerefs
 

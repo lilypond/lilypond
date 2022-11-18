@@ -690,7 +690,7 @@ elementi testuali:
 @end lilypond
 
 Una lista completa dei comandi per cambiare il tipo di carattere o per usare
-tipi di carattere personalizzati si trova in @ref{Font}.
+tipi di carattere personalizzati si trova in @ref{Font markup}.
 
 È possibile anche definire i propri gruppi di tipi di carattere, come
 è spiegato in @ref{Tipi di carattere}.
@@ -718,7 +718,7 @@ tipi di carattere personalizzati si trova in @ref{Font}.
 
 @morerefs
 Guida alla notazione:
-@ref{Font},
+@ref{Font markup},
 @ref{Nuove indicazioni dinamiche},
 @ref{Indicazioni di ripetizione manuali},
 @ref{Tipi di carattere}.
@@ -969,14 +969,14 @@ sinistra o giustificate, come mostra l'esempio seguente.
 @cindex allineamento, testo, comandi
 
 Una lista completa dei comandi di allineamento del testo si trova in
-@ref{Align}.
+@ref{Markup for text alignment}.
 
 @morerefs
 Manuale d'apprendimento:
 @rlearning{Spostare gli oggetti}.
 
 Guida alla notazione:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Indicazioni testuali}.
 
 File installati:
@@ -1047,7 +1047,7 @@ degli elementi grafici, come è illustrato nell'esempio seguente.
 
 Alcuni comandi possono richiedere un aumento del padding intorno al
 testo;  per farlo si usano dei comandi di markup, descritti in modo
-esaustivo in @ref{Align}.
+esaustivo in @ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1135,14 +1135,14 @@ c'
 @end lilypond
 
 Una lista completa dei comandi specifici per la grafica si trova in
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 @morerefs
 Guida alla notazione:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Dimensioni},
 @ref{Note editoriali},
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 File installati:
 @file{scm/define-markup-commands.scm},
@@ -1250,7 +1250,7 @@ La modalità markup supporta anche i diagrammi per strumenti specifici:
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Questi diagrammi sono documentati in @ref{Instrument Specific Markup}.
+Questi diagrammi sono documentati in @ref{Instrument-specific markup}.
 
 @cindex partitura, dentro il blocco markup
 @cindex markup, partitura dentro
@@ -1270,11 +1270,11 @@ Questi diagrammi sono documentati in @ref{Instrument Specific Markup}.
 @end lilypond
 
 Una lista completa dei comandi relativi alla notazione musicale si trova
-in @ref{Music}.
+in @ref{Markup for music and musical symbols}.
 
 @morerefs
 Guida alla notazione:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{Il font Emmentaler},
 @ref{Tipi di carattere in dettaglio}.
 
@@ -1563,7 +1563,7 @@ Guida alla notazione:
 @ref{Notazione musicale nel blocco markup},
 @ref{Rotazione degli oggetti},
 @ref{Scelta del tipo di carattere e della dimensione},
-@ref{Font}.
+@ref{Font markup}.
 @endmorerefs
 
 
@@ -1739,6 +1739,6 @@ Guida alla notazione:
 @ref{Tipi di carattere in dettaglio},
 @ref{Tipi di carattere per singolo oggetto},
 @ref{Scelta del tipo di carattere e della dimensione},
-@ref{Font},
+@ref{Font markup},
 @ref{Cambiare il tipo di carattere della notazione}.
 @endmorerefs

@@ -631,7 +631,7 @@ music = {
 そのため、演奏指示を単純にするための記号システムを用います。
 
 使用可能なアコーディオン レジスターの一覧は@c
-@ref{Accordion Registers}にあります。
+@ref{Accordion registers}にあります。
 
 @snippets
 
@@ -731,4 +731,4 @@ c''!1_\markup { \harp-pedal "^o--|vv-^" }
 @morerefs
 記譜法リファレンス:
 @ref{テキスト スクリプト},
-@ref{Instrument Specific Markup}
+@ref{Instrument-specific markup}

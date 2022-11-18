@@ -1358,7 +1358,7 @@ Here is a list of all predefined procedures available for use with
 Notation Reference:
 @ref{Titles explained},
 @ref{Default layout of bookpart and score titles},
-@ref{Conditionals}.
+@ref{Conditional markup}.
 
 Installed Files:
 @file{../ly/titling-init.ly}.

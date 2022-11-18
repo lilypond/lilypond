@@ -848,8 +848,8 @@ terse (escueto) y verbose (prolijo).  Los tres interfaces producen
 marcados equivalentes, pero tienen cantidades variables de
 información en la cadena de marcado.  Hay más detalles sobre la
 sintaxis de las distintos cadenas de marcado que se usan para
-definir diagramas de posiciones en @ref{Instrument Specific
-Markup}.
+definir diagramas de posiciones en @ref{Instrument-specific
+markup}.
 
 La cadena de marcado de los diagramas estándar de trastes indica
 el número de la cuerda y el número de traste en que se coloca cada
@@ -1288,7 +1288,7 @@ de trastes, las propiedades del interface pertenecen a
 
 @morerefs
 Referencia de la notación:
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.

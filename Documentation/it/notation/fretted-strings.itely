@@ -1062,7 +1062,7 @@ ridondante (verbose).  Le tre interfacce producono testi graficamente
 equivalenti, ma hanno diverse quantità di informazioni nella stringa
 di testo.  I dettagli sulla sintassi delle diverse stringhe di markup
 usate per definire i diagrammi dei tasti si trovano in
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 @cindex fret-diagram, diagramma dei tasti
 @funindex \fret-diagram
@@ -1466,7 +1466,7 @@ tipo markup, le proprietà dell'interfaccia appartengono a @code{Voice.TextScrip
 
 @morerefs
 Guida alla notazione:
-@ref{Instrument Specific Markup}.
+@ref{Instrument-specific markup}.
 
 Frammenti:
 @rlsr{Fretted strings}.

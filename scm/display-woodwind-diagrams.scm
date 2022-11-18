@@ -1858,7 +1858,7 @@
 (define-markup-command
   (woodwind-diagram layout props instrument user-draw-commands)
   (symbol? list?)
-  #:category instrument-specific-markup ; markup category
+  #:category instrument-specific ; markup category
   #:properties ((size 1)
                 (thickness 0.1)
                 (graphical #t)

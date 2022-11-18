@@ -4635,7 +4635,7 @@ supplied to the @code{\musicglyph} markup command -- see
 
 @file{EPS} files and Postscript commands can both be inserted inline
 using the @code{\epsfile} and @code{\postscript} markup commands
-respectively -- see @ref{Graphic}.
+respectively -- see @ref{Graphical markup}.
 
 
 @morerefs
@@ -4644,7 +4644,7 @@ Notation Reference:
 @ref{Formatting text},
 @ref{Text markup commands},
 @ref{The Emmentaler font},
-@ref{Graphic}.
+@ref{Graphical markup}.
 @endmorerefs
 
 

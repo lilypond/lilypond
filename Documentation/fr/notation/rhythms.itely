@@ -1623,7 +1623,7 @@ objet de type @emph{markup}, comme ici :
 
 La commande de @emph{markup} @code{\rhythm} a ceci de particulier
 qu'elle permet d'imprimer un motif rythmique -- voir l'annexe
-@ref{Music}.
+@ref{Markup for music and musical symbols}.
 
 @lilypond[verbatim,quote]
 \relative {

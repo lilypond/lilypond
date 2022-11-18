@@ -4407,7 +4407,7 @@ comando markup @code{\musicglyph} -- vedi @ref{Il font Emmentaler}.
 I file @file{EPS} e i comandi Postscript possono essere inseriti entrambi nel
 @c traduzione libera di "inline"
 corpo del testo con i comandi markup @code{\epsfile} e @code{\postscript} --
-vedi @ref{Graphic}.
+vedi @ref{Graphical markup}.
 
 
 @morerefs
@@ -4416,7 +4416,7 @@ Guida alla notazione:
 @ref{Formattazione del testo},
 @ref{Comandi per markup},
 @ref{Il font Emmentaler},
-@ref{Graphic}.
+@ref{Graphical markup}.
 @endmorerefs
 
 

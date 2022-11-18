@@ -4825,7 +4825,7 @@ pasar a la instrucción de marcado @code{\musicglyph}: véase
 Se pueden insertar en línea tanto imágenes en formato @file{EPS}
 como instrucciones de Postscript usando las instrucciones de
 marcado @code{\epsfile} y @code{\postscript} respectivamente;
-véase @ref{Graphic}.
+véase @ref{Graphical markup}.
 
 
 @morerefs
@@ -4834,7 +4834,7 @@ Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Text markup commands},
 @ref{La tipografía Emmentaler},
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 
 @node Modificación de las formas

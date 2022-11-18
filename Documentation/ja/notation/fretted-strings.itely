@@ -816,7 +816,7 @@ mus = \relative {
 これら 3 種類のインターフェイスが作り出すマークアップは等価ですが、@c
 そのマークアップ文字列が持つ情報量は異なります。@c
 フレット ダイアグラムを定義するのに用いられるマークアップ文字列の文法@c
-についての詳細は、@ref{Instrument Specific Markup} を参照してください。
+についての詳細は、@ref{Instrument-specific markup} を参照してください。
 
 標準フレット ダイアグラムのマークアップ文字列は、@c
 弦の上に配置されるドットの弦番号とフレット番号を示します。@c
@@ -1246,7 +1246,7 @@ and color of dots.
 
 @morerefs
 記譜法リファレンス:
-@ref{Instrument Specific Markup}
+@ref{Instrument-specific markup}
 
 コード断片集:
 @rlsr{Fretted strings}

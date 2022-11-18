@@ -1221,14 +1221,14 @@ siguiente.
 @cindex alineación, instrucciones de texto
 
 Hay una lista exhaustiva de instrucciones de alineación de texto
-en @ref{Align}.
+en @ref{Markup for text alignment}.
 
 @morerefs
 Manual de aprendizaje:
 @rlearning{Mover objetos}.
 
 Referencia de la notación:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Indicaciones de texto}.
 
 Archivos de inicio:
@@ -1299,7 +1299,8 @@ siguiente.
 
 Algunas instrucciones pueden requerir un aumento del relleno
 alrededor del texto: esto se puede conseguir con algunas
-instrucciones de marcado descritas exhaustivamente en @ref{Align}.
+instrucciones de marcado descritas exhaustivamente en
+@ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1392,14 +1393,14 @@ c'
 @end lilypond
 
 Hay una lista exhaustiva de instrucciones específicas de gráficos
-en @ref{Graphic}.
+en @ref{Graphical markup}.
 
 @morerefs
 Referencia de la notación:
-@ref{Align},
+@ref{Markup for text alignment},
 @ref{Dimensions},
 @ref{Anotaciones editoriales},
-@ref{Graphic}.
+@ref{Graphical markup}.
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm},
@@ -1508,8 +1509,8 @@ específicos:
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Dichos diagramas se encuentran documentados en @ref{Instrument
-Specific Markup}.
+Dichos diagramas se encuentran documentados en
+@ref{Instrument-specific markup}.
 
 @cindex partitura, dentro de un marcado
 @cindex marcado, partitura dentro de
@@ -1530,11 +1531,11 @@ objeto de marcado:
 @end lilypond
 
 Hay una lista exhaustiva de instrucciones relacionadas con la
-notación musical en @ref{Music}.
+notación musical en @ref{Markup for music and musical symbols}.
 
 @morerefs
 Referencia de la notación:
-@ref{Music},
+@ref{Markup for music and musical symbols},
 @ref{La tipografía Emmentaler},
 @ref{Explicación de las fuentes tipográficas}.
 
