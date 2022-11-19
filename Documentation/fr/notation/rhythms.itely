@@ -1991,8 +1991,10 @@ les règles de ligature automatique.
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = 9/8
-    \scaleDurations 2/3
-      \repeat unfold 6 { c8[ c c] }
+    \scaleDurations 2/3 {
+      \repeat unfold 3 { c8[ c c] }
+      \repeat unfold 3 { c4 c8 }
+    }
   }
   \new Staff {
     \time 3/4
