@@ -436,20 +436,6 @@ bookoutput function"
   (string<? (symbol->string (car x))
             (symbol->string (car y))))
 
-(define (map-alist-vals func list)
-  "map FUNC over the vals of LIST, leaving the keys."
-  (if (null?  list)
-      '()
-      (cons (cons  (caar list) (func (cdar list)))
-            (map-alist-vals func (cdr list)))))
-
-(define (map-alist-keys func list)
-  "map FUNC over the keys of an alist LIST, leaving the vals."
-  (if (null?  list)
-      '()
-      (cons (cons (func (caar list)) (cdar list))
-            (map-alist-keys func (cdr list)))))
-
 (define-public (first-member members lst)
   "Return first successful member (of member) from @var{members} in
 @var{lst}."
