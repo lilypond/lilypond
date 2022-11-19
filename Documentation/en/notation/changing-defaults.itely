@@ -3268,6 +3268,9 @@ staff spaces.
 
 @morerefs
 Notation Reference:
+@ref{Other markup commands} (documentation for commands similar to
+@code{\with-dimensions}, such as @code{\with-dimension} or
+@code{\with-dimension-from}),
 @ref{Distances and measurements}.
 @endmorerefs
 
