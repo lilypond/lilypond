@@ -1192,8 +1192,29 @@ Inline an EPS image.  The image is scaled along @var{axis} to
   #:as-string ""
   "
 @cindex inserting PostScript directly, into text
-This inserts @var{str} directly into the output as a PostScript
+Insert @var{str} directly into the output as a PostScript
 command string.
+
+This command is meant as a @emph{last resort}.  Almost all needs are better
+fulfilled by other markup commands (see, for example, @code{\\path} and
+@code{\\draw-line}).  If you do use this command, keep the following points in
+mind:
+
+@itemize
+
+@item @code{\\postscript} does not work in SVG output.
+
+@item There are no stability guarantees on the details of how LilyPond produces
+its own output (i.e., the context into which the PostScript code is inserted).
+They may change substantially across versions.
+
+@item LilyPond cannot understand the shape of the drawing, leading to
+suboptimal spacing.
+
+@item Depending on how you install LilyPond, the version of the PostScript
+interpreter (GhostScript) can vary, and some of its features may be disabled.
+
+@end itemize
 
 @lilypond[verbatim,quote]
 ringsps = #\"
