@@ -33,7 +33,7 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event", 1, 1, 0,
 Create a stream event of class @var{cl} with the given mutable property list.
            )")
 {
-  LY_ASSERT_TYPE (ly_is_pair, cl, 1);
+  LY_ASSERT_TYPE (scm_is_pair, cl, 1);
 
   LY_ASSERT_TYPE (ly_cheap_is_list, proplist, 2);
 

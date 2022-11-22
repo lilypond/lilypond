@@ -179,10 +179,6 @@ void add_scm_init_func (void (*) ());
 #define scm_cdr ly_cdr
 #define scm_car ly_car
 
-#ifndef scm_is_pair
-#define scm_is_pair ly_is_pair
-#endif
-
 inline SCM
 ly_car (SCM x)
 {
@@ -192,11 +188,6 @@ inline SCM
 ly_cdr (SCM x)
 {
   return SCM_CDR (x);
-}
-inline bool
-ly_is_pair (SCM x)
-{
-  return SCM_I_CONSP (x);
 }
 
 // Wrap scm_call_... so that we don't have to count arguments.

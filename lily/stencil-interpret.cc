@@ -130,7 +130,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           if (scm_is_false (result) && scm_is_pair (expr)
               && scm_is_eq (scm_car (expr), ly_symbol2scm ("utf-8-string")))
             {
-              expr = scm_list_ref (expr, SCM_I_MAKINUM (3));
+              expr = scm_list_ref (expr, to_scm (3));
               continue;
             }
 
