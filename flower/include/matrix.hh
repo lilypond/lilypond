@@ -31,48 +31,48 @@ class Matrix
   using size_type = typename Vector::size_type;
 
 public:
-  Matrix<T, A> () { rank_ = 0; }
+  Matrix<T, A> () { rows_ = 0; }
 
   Matrix<T, A> (size_type rows, size_type columns, T const &t)
     : data_ (rows * columns, t)
   {
-    rank_ = rows;
+    rows_ = rows;
   }
 
   const T &at (size_type row, size_type col) const
   {
-    assert (row < rank_ && col * rank_ + row < data_.size ());
+    assert (row < rows_ && col * rows_ + row < data_.size ());
 
-    return data_[col * rank_ + row];
+    return data_[col * rows_ + row];
   }
 
   T &at (size_type row, size_type col)
   {
-    assert (row < rank_ && col * rank_ + row < data_.size ());
+    assert (row < rows_ && col * rows_ + row < data_.size ());
 
-    return data_[col * rank_ + row];
+    return data_[col * rows_ + row];
   }
 
   void resize (size_type rows, size_type columns, T const &t)
   {
-    if (rows == rank_)
+    if (rows == rows_)
       data_.resize (rows * columns, t);
     else
       {
         Vector new_data (rows * columns, t);
-        const auto cur_cols = rank_ ? (data_.size () / rank_) : 0;
+        const auto cur_cols = rows_ ? (data_.size () / rows_) : 0;
         const auto copy_cols = std::min (columns, cur_cols);
-        const auto copy_rows = std::min (rows, rank_);
+        const auto copy_rows = std::min (rows, rows_);
         for (size_type col = 0; col < copy_cols; ++col)
-          std::copy_n (&data_[col * rank_], copy_rows, &new_data[col * rows]);
-        rank_ = rows;
+          std::copy_n (&data_[col * rows_], copy_rows, &new_data[col * rows]);
+        rows_ = rows;
         data_ = std::move (new_data);
       }
   }
 
 private:
   Vector data_;
-  size_type rank_;
+  size_type rows_;
 };
 
 #endif /* MATRIX_HH */
