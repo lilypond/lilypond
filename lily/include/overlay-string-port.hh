@@ -58,7 +58,7 @@ class Overlay_string_port
 
   static size_t read_scm (SCM port, SCM dest, size_t dest_off, size_t n)
   {
-    Overlay_string_port *p = (Overlay_string_port *) SCM_STREAM (port);
+    auto *p = reinterpret_cast<Overlay_string_port *> (SCM_STREAM (port));
     return p->read (dest, dest_off, n);
   }
 
@@ -90,7 +90,7 @@ class Overlay_string_port
 
   static guile_off_t seek_scm (SCM port, guile_off_t offset, int whence)
   {
-    Overlay_string_port *p = (Overlay_string_port *) SCM_STREAM (port);
+    auto *p = reinterpret_cast<Overlay_string_port *> (SCM_STREAM (port));
     return p->seek (offset, whence);
   }
 

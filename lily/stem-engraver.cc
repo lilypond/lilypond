@@ -41,7 +41,6 @@ class Stem_engraver final : public Engraver
   Grob *stem_ = nullptr;
   Grob *tremolo_ = nullptr;
   std::vector<Item *> maybe_flags_;
-  Stream_event *rhythmic_ev_ = nullptr;
   Stream_event *tremolo_ev_ = nullptr;
   bool tuplet_start_ = false;
 

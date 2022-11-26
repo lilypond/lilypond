@@ -75,7 +75,7 @@ Mark_engraver::stop_translation_timestep ()
 void
 Mark_engraver::finalize ()
 {
-  auto finalize_mark = [this] (Mark_state &mark) {
+  auto finalize_mark = [] (Mark_state &mark) {
     if (mark.final_text_)
       {
         // A mark created at the very end is always visible even if it would

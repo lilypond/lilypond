@@ -218,7 +218,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
   Drul_array<Spanner *> beams_drul;
   Drul_array<Grob *> stems_drul;
 
-  Interval intersect;
   Interval bar_xextent;
   Interval bar_yextent;
 

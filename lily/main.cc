@@ -707,7 +707,7 @@ setup_guile_env ()
 {
   sane_putenv ("GUILE_AUTO_COMPILE", "0", false); // disable auto-compile
   sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
-               "true"); // set Guile to info re deprecation
+               true); // set Guile to info re deprecation
   /*
         Set root for Guile %compile-fallback to
         Lilypond root for its data.

@@ -185,7 +185,7 @@ Bar_engraver::calc_bar_type () const
       // Get the requested bar subproperty ('bar-line or 'underlying-bar-line)
       // from the caesura properties.
       auto read_caesura_bar
-        = [this, &caesura_type, &has_underlying_bar, &ub] (SCM subprop_sym) {
+        = [&caesura_type, &has_underlying_bar, &ub] (SCM subprop_sym) {
             SCM s = scm_assq_ref (caesura_type, subprop_sym);
             if (scm_is_string (s))
               {
