@@ -694,17 +694,44 @@ UNTRANSLATED NODE: IGNORE ME
 % Load font map file.
 \pdfmapfile{+lmtt.map}
 
-% Internal font switches for `@tb` and `@tbsl`.
-\gdef\dotb#1{{%
+% Use normal characters for typewriter bold and typewriter bold italic, not
+% active ones (which would always select non-bold, upright typewriter).
+\gdef\normalcatcodes{%
+  \catcode`\"=\other
+  \catcode`\$=\other
+  \catcode`\<=\other
+  \catcode`\>=\other
+  \catcode`\\=\other
+  \catcode`\^=\other
+  \catcode`\_=\other
+  \catcode`\|=\other
+  \catcode`\~=\other
+  \catcode`\+=\other
+}
+
+% Internal font switches for `@tb` and `@tbsl`.  We have to do this in two
+% steps, resetting the character category codes before the argument `#1` is
+% read.
+\gdef\dotb{%
+  \begingroup
+  \normalcatcodes
+  \dotbx}
+\gdef\dotbx#1{%
   \textttbx
   \plainfrenchspacing
-  #1}%
+  #1%
+  \endgroup
   \null}
 
-\gdef\dotbsl#1{{%
+\gdef\dotbsl{%
+  \begingroup
+  \normalcatcodes
+  \dotbslx}
+\gdef\dotbslx#1{%
   \textttbxsl
   \plainfrenchspacing
-  #1}%
+  #1%
+  \endgroup
   \null}
 
 @end tex
