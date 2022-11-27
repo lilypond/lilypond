@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
+   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -464,11 +464,11 @@ initialement conçue pour les repères de répétition (voir
 @code{@bs{}textEndMark} sont plus appropriées en matière d'indications
 textuelles de par leurs réglages par défaut et la capacité qu'elles
 offrent de présenter plusieurs indications en un même endroit. Il est
-donc préférable d'utiliser @code{@bs{}textMark} et @code{@bs{}textEndMark} en
-lieu et place de @code{@bs{}mark "Texte"} ou @code{@bs{}mark \markup
-@dots{}}. Pour la conversion de code utilisant @code{@bs{}mark}, les
-dérogations portées à @code{RehearsalMark} devraient être modifiées en
-@code{TextMark}.}
+donc préférable d'utiliser @code{@bs{}textMark} et
+@code{@bs{}textEndMark} en lieu et place de @code{@bs{}mark "Texte"} ou
+@code{@bs{}mark @bs{}markup @dots{}}. Pour la conversion de code utilisant
+@code{@bs{}mark}, les dérogations portées à @code{RehearsalMark}
+devraient être modifiées en @code{TextMark}.}
 
 Avant d'insérer une indication textuelle, il peut être judicieux de
 chercher une commande qui serait plus appropriée. Lorsque le texte
@@ -543,7 +543,7 @@ Les commandes @code{\markLengthOn} et @code{\markLengthOff} -- voir
 @ref{Indication métronomique} --  sont opérationnelles dans le cadre des
 indications textuelles.
 
-@lilypond
+@lilypond[verbatim,quote]
 {
   \mark \default
   c'2 2
@@ -560,7 +560,7 @@ indications textuelles.
 
 Les indications textuelles peuvent se présenter en dessous de la portée.
 
-@lilypond
+@lilypond[verbatim,quote]
 \fixed c' {
   c4 g c'8 b c4 e' c' c2
   c4 g c'8 b c4 e' c' g2
@@ -581,7 +581,7 @@ lequel elles s'empileront peut se gérer à l'aide de la propriété
 pourrait consister à utiliser une seule indication sous la forme
 @code{\markup \column @{ @dots{} @} }.
 
-@lilypond
+@lilypond[verbatim,quote]
 \fixed c' {
   \repeat volta 2 {
     c4 g c'8 b c4 e' c' c2

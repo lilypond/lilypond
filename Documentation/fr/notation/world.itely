@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+    Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -769,7 +769,7 @@ intervalles étrangers.
 
 Voici les différents suffixes à porter aux nom des notes en anglais.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .03 .77
 @item @code{ff} @tab double bémol
 @item @code{f}  @tab bémol
@@ -787,7 +787,7 @@ Voici les différents suffixes à porter aux nom des notes en anglais.
                      un dièse normal ; on ne le trouve jamais en musique
                      traditionelle iranienne)
 @end multitable
-@end quotation
+@endIndentedBlock
 
 
 @node Tonalités perses
@@ -800,7 +800,7 @@ les mettent en œuvre. Les tonalités perses qui suivent sont à fournir en
 second argument à la commande @code{\key}. Notez bien que, en pratique,
 ces tonalités ne sont pas toutes utilisées dans tous les tons.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .2 .6
 @item @code{\shur}
 @tab gushehs « Shur » avec
@@ -833,7 +833,7 @@ ces tonalités ne sont pas toutes utilisées dans tous les tons.
                                  dans un contexte complètement different
 @item @code{\delkashMahur}  @tab
 @end multitable
-@end quotation
+@endIndentedBlock
 
 Dans un dastgah « Shur », le
 @ifnothtml

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -735,7 +735,7 @@ syntaxes respectives de LilyPond et de Scheme en matière de
 @code{#@{ @dots{} #@}} apporte de la souplesse, nous allons voir comment
 utiliser la macro @code{markup} en Scheme exclusivement.
 
-@quotation
+@indentedBlock
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\markup markup1} @tab @code{(markup markup1)}
@@ -748,7 +748,7 @@ utiliser la macro @code{markup} en Scheme exclusivement.
 @item @code{chaîne} @tab @code{"chaîne"}
 @item @code{#argument-scheme} @tab @code{argument-scheme}
 @end multitable
-@end quotation
+@endIndentedBlock
 
 L'intégralité du langage Scheme est accessible à l'intérieur même de la
 macro @code{markup}.  Vous pouvez ainsi appeler des fonctions à partir

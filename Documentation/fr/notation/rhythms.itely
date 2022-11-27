@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
+   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -363,6 +363,11 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @cindex visibilité, crochet de n-olet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/controlling-tuplet-bracket-visibility.ly}
+
+@cindex n-olet, crochet côté tête de note
+@cindex crochet de n-olet, affichage
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-tuplet-brackets-on-the-note-head-side.ly}
 
 @cindex n-olet, ligature, saut de ligne
 @cindex ligature, n-olet, saut de ligne

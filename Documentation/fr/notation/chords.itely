@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
+   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1148,7 +1148,7 @@ Vous pouvez stipuler un intervalle augmenté ou diminué :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <6\+ 5/> <7/>
+  <6\+ 5/> <7/> <7 _\+>
 }
 @end lilypond
 
