@@ -748,7 +748,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @ifnottex
 @macro tb {arg}
-\arg\
+@t{\arg\}
 @end macro
 @end ifnottex
 
@@ -763,7 +763,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @ifnottex
 @macro tbsl {arg}
-\arg\
+@t{\arg\}
 @end macro
 @end ifnottex
 
