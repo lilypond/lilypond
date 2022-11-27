@@ -983,6 +983,9 @@ are at the same time differently dotted are not clear.
 @node Merging rests
 @unnumberedsubsubsec Merging rests
 
+@cindex merging rests
+@cindex rest, merging
+
 When using multiple voices it is common to merge rests which occur in both
 parts. This can be accomplished using @code{Merge_rests_engraver}.
 
