@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.81\n"
+"Project-Id-Version: lilypond 2.23.82\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-11-13 13:35+0100\n"
+"POT-Creation-Date: 2022-11-27 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -803,7 +803,7 @@ msgid ""
 "Mark_tracking_translators."
 msgstr ""
 
-#: convertrules.py:4510
+#: convertrules.py:4523
 msgid ""
 "\n"
 "Warning:\n"
@@ -827,7 +827,7 @@ msgid ""
 "  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 msgstr ""
 
-#: convertrules.py:4643
+#: convertrules.py:4656
 msgid ""
 "\n"
 "Warning: \\fine no longer enforces the end of the music.  If your piece\n"
@@ -835,7 +835,7 @@ msgid ""
 "unfolded, use \\volta to exclude it.\n"
 msgstr ""
 
-#: convertrules.py:4649
+#: convertrules.py:4662
 msgid ""
 "\n"
 "MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave\n"
@@ -850,7 +850,7 @@ msgid ""
 "and Divisio_engraver in the appropriate Staff-aliased context.\n"
 msgstr ""
 
-#: convertrules.py:4662
+#: convertrules.py:4675
 msgid ""
 "\n"
 "GregorianTranscriptionStaff now engraves \\divisioMinima,\n"
@@ -870,7 +870,7 @@ msgid ""
 "grobs.\n"
 msgstr ""
 
-#: convertrules.py:4705
+#: convertrules.py:4718
 msgid ""
 "\n"
 "The barAlways property has been removed.  Instead, use\n"
@@ -3678,7 +3678,7 @@ msgid ""
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:208
+#: text-interface.cc:329
 #, c-format
 msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
 msgstr ""
@@ -4156,7 +4156,7 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1323
+#: define-markup-commands.scm:1344
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4541,37 +4541,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:782
+#: lily.scm:781
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:783
+#: lily.scm:782
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:859
+#: lily.scm:858
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:862
+#: lily.scm:861
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:866
+#: lily.scm:865
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:879
+#: lily.scm:878
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:912
+#: lily.scm:911
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4968,49 +4968,49 @@ msgstr ""
 msgid "no accidental glyph found for alteration ~a"
 msgstr ""
 
-#: translation-functions.scm:642
+#: translation-functions.scm:655
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:647
+#: translation-functions.scm:660
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:652
+#: translation-functions.scm:665
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:695
+#: translation-functions.scm:708
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:718 translation-functions.scm:730
+#: translation-functions.scm:731 translation-functions.scm:743
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:721
+#: translation-functions.scm:734
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:733
+#: translation-functions.scm:746
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:758
+#: translation-functions.scm:771
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:797
+#: translation-functions.scm:810
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:881
+#: translation-functions.scm:894
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
