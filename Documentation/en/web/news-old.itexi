@@ -27,6 +27,16 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.23.81 released  @emph{November 13, 2022}
+
+We are happy to announce the release of LilyPond 2.23.81. This is the second
+release candidate towards the next stable version 2.24.0 expected in December.
+Please test your scores with this version and report back the experience as
+well as any problems you encounter.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.23.80 released  @emph{October 22, 2022}
 
 We are happy to announce the release of LilyPond 2.23.80. This is the first
