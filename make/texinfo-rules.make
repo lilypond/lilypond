@@ -16,7 +16,7 @@ $(outdir)/%/index.html: $(outdir)/%.texi
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
-	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
 		$(buildscript-dir)/run-and-check.sh \
 			"cd $(outdir); \
 				texi2pdf --batch $(TEXI2PDF_FLAGS) \

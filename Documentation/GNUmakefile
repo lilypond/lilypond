@@ -455,7 +455,7 @@ $(outdir)/%.pdf: \
   $(OUT_BITMAP_IMAGES) \
   | pre-pdf
 	$(call ly_progress,Making,$@,< texi)
-	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
 	  $(buildscript-dir)/run-and-check.sh \
 \
 "cd $(dir $@); \
