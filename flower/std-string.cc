@@ -35,7 +35,7 @@ to_string (char const *format, ...)
 }
 
 /*
-  TODO: this O(n^2) in #occurences of find, due to repeated copying.
+  TODO: this O(n^2) in #occurrences of find, due to repeated copying.
  */
 string &
 replace_all (string *str, string const &find, string const &replace)

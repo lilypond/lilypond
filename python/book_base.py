@@ -143,9 +143,9 @@ class BookOutputFormat:
             [x for x in keys if x not in snippet_type_order]
         return res
 
-    def snippet_regexp(self, snippettype):
-        """return regex string for snippettype"""
-        return self.snippet_res.get(snippettype, None)
+    def snippet_regexp(self, snippet_type):
+        """return regex string for snippet type"""
+        return self.snippet_res.get(snippet_type, None)
 
     def can_handle_format(self, format):
         return format == self.format

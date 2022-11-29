@@ -522,7 +522,7 @@ setup_localisation ()
 #else
   // Workaround for MinGW UTF-8 locale settings issue:
   // `setlocale (LC_ALL, "")` in msvcrt.dll sets user-defined ANSI code page
-  // (i.e. 437 for English, 932 for Japanse, etc.)
+  // (i.e. 437 for English, 932 for Japanese, etc.)
   // even if process code page is UTF-8 (i.e. 65001 for all languages).
   // With this setting, outputting UTF-8 string becomes garbled.
   // So we get the process code page with `GetACP ()` and,

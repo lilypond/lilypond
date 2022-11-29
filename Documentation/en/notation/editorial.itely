@@ -422,12 +422,12 @@ Internals Reference:
 @funindex glide
 @funindex \glide
 
-For stringed instruments a gliding finger is often indicated by a line
-connecting the same finger to be used for notes played at different positions on
-the same string.
-This line is initiated with @code{\\glide} entered before a @code{Fingering} and
-ends with the next occurence of the same finger.
-The line may be printed in various styles.
+For stringed instruments a gliding finger is often indicated by a
+line connecting the same finger to be used for notes played at
+different positions on the same string.  This line is initiated
+with @code{\glide} entered before a @code{Fingering} and ends with
+the next occurrence of the same finger.  The line may be printed in
+various styles.
 
 @lilypond[verbatim,quote]
 mus = {

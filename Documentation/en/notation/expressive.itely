@@ -864,7 +864,7 @@ Slurs may be manually placed above or below the staff; see
 @funindex \=
 
 Simultaneous or overlapping slurs require special attention.  Most
-occurences of outer slurs actually indicate phrasing, and phrasing
+occurrences of outer slurs actually indicate phrasing, and phrasing
 slurs may overlap a regular slur, see @ref{Phrasing slurs}.  When
 multiple regular slurs are needed in a single @code{Voice},
 matching slur starts and ends need to be labelled by preceding

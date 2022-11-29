@@ -562,7 +562,7 @@ class LilypondSnippet (Snippet):
         #         to detect the default exampleindent, so we might reintroduce
         #         further usage of exampleindent again.
         #
-        # First, make sure we have some falback default value, auto-detected
+        # First, make sure we have some fallback default value, auto-detected
         # values and explicitly specified values will always override them:
         override[EXAMPLEINDENT] = r'0.4\in'
         override[LINE_WIDTH] = '5\\in'

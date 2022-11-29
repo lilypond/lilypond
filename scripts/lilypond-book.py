@@ -330,7 +330,7 @@ global_options = None
 
 
 def command_name(cmd):
-    # Strip all stuf after command,
+    # Strip all stuff after command,
     # deal with "((latex ) >& 1 ) .." too
     cmd = re.match(r'([\(\)]*)([^\\ ]*)', cmd).group(2)
     return os.path.basename(cmd)
