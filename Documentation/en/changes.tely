@@ -88,6 +88,16 @@ normal @code{\markup} syntax to print glyphs.
 
 @end itemize
 
+@node Known issues in LilyPond @version{}
+@unnumberedsec Known issues in LilyPond @version{}
+
+On Windows, compiling very large scores (several hundreds of
+pages) can result in crashes.@footnote{Note that very large
+scores could already crash in LilyPond 2.22 due to restrictions
+imposed by the 32-bit architecture.}  We hope to address this
+in a future 2.24.@var{x} release.
+
+
 @node Notes for source compilation and packagers
 @unnumberedsec Notes for source compilation and packagers
 
@@ -1486,6 +1496,8 @@ an error in Scheme to mutate literal data.  (In this specific
 case, the code could avoid the issue by using the non-destructive
 @code{sort}, or by creating a fresh list each time with
 @code{(list x 3 2 1)}.)
+
+Furthermore, this option does not currently work on Windows.
 
 @end itemize
 
