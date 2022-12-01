@@ -102,17 +102,22 @@ TexInfo_snippet_res = {
             )
           )''',
 
-    # Don't do this: It interferes with @code{@{}.
-    #        'verb': r'''(?P<code>@code{.*?})''',
-
-    'verbatim': r'''(?sx)
+    'verb': r'''(?sx)
           (?P<match>
             (?P<code>
-              @example
-              \s .*?
-              @end \s+ example \s
+              @verb{ (?P<del>.)
+              .*?
+              (?P=del) }
             )
           )''',
+
+    'verbatim': r'''(?smx)
+          ^
+          (?P<match>
+            @verbatim \s+?
+            ^ (?P<code> .*? )
+            ^ @end \s+ verbatim
+          ) \s''',
 
     'lilypondversion': r'''(?mx)
           [^@]
