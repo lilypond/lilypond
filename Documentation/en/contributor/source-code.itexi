@@ -160,7 +160,7 @@ If your are not familiar with it, change it to an editor that you are
 comfortable with; for example, Gedit:
 
 @example
-git config --global core.editor gedit
+git config --global core.editor "gedit --wait --new-window"
 @end example
 
 Finally, and in some ways most importantly, let's make sure that
