@@ -486,22 +486,6 @@
   (music-map
    (lambda (m)
     (case (ly:music-property m 'name)
-     ((UnfoldedRepeatedMusic)
-      (let
-       ((body (ly:music-property m 'element))
-        (altl (ly:music-property m 'elements))
-        (rc (ly:music-property m 'repeat-count)))
-       (if (null? altl)
-        (make-sequential-music
-         (list-tabulate rc (lambda (i) (ly:music-deep-copy body))))
-        (let ((ealtl (if (> (length altl) rc) (take altl rc) altl)))
-         (make-sequential-music
-          (apply append!
-           (append!
-            (list-tabulate
-             (- rc (length ealtl))
-             (lambda (i) (list (ly:music-deep-copy body) (ly:music-deep-copy (car ealtl)))))
-            (map (lambda (alt) (list (ly:music-deep-copy body) alt)) ealtl))))))))
      ((EventChord)
       (let-values
        (((trem evl)
@@ -540,7 +524,7 @@
         (make-music 'BarCheck))))
      (else
       m)))
-   (unfold-repeats '() music)))
+   (unfold-repeats-fully music)))
 
 % If there's an articulation, use it.
 % If in a slur, use (1 . 1) instead (unless the note is marked staccato,
