@@ -59,8 +59,15 @@ HTML_snippet_res = {
             </lilypondfile \s* >
           )''',
 
+    # This is problematic, since `-->` can occur in valid LilyPond code,
+    # for example, `c4--->`.
     'multiline_comment':
-    r'''(?smx)(?P<match>\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s)''',
+    r'''(?sx)
+          (?P<match>
+            \s*
+            (?! @c \s+ )
+            (?P<code> <!-- .*? -->)
+          )''',
 
     'musicxml_file':
     r'''(?mx)
@@ -68,12 +75,6 @@ HTML_snippet_res = {
           <musicxmlfile\s*(?P<options>.*?)\s*>
           \s*(?P<filename>.*?)\s*
           </musicxmlfile\s*>)''',
-
-    'verb':
-    r'''(?x)(?P<match>(?P<code><pre>.*?</pre>))''',
-
-    'verbatim':
-    r'''(?xs)(?P<match>(?P<code><pre>\s.*?</pre>\s))''',
 
     'lilypondversion':
     r'''(?mx)(?P<match><lilypondversion\s*/>)''',
