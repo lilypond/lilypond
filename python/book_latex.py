@@ -62,7 +62,7 @@ Latex_snippet_res = {
             \s*
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<code>''' + book_base.brace_matcher(10) + r''') }
+            { (?P<code>''' + book_base.brace_matcher(10) + r''') \s* }
           )''',
 
     # Accept both
@@ -78,7 +78,7 @@ Latex_snippet_res = {
             (?P<env> {lilypond} \s* )?
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             (?(env) | \s* {lilypond} )
-            (?P<code> .*? )
+            (?P<code> .*? ) \s*
             ^ [^%\n]*?
             \\end \s* {lilypond}
           )''',

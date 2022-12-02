@@ -44,7 +44,7 @@ Docbook_snippet_res = {
           (?P<match>
           <textobject.*?>\s*
           <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
-          (?P<code>.*?)
+          (?P<code>.*?) \s*
           </programlisting\s*>\s*
           </textobject\s*>\s*)
           </(inline)?mediaobject>''',
@@ -55,7 +55,7 @@ Docbook_snippet_res = {
           (?P<match>
           <textobject.*?>\s*
           <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
-          (?P<code>.*?)
+          (?P<code>.*?) \s*
           </programlisting\s*>\s*
           </textobject\s*>\s*)
           </(inline)?mediaobject>''',

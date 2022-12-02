@@ -49,7 +49,7 @@ TexInfo_snippet_res = {
             \s*
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<code>''' + book_base.brace_matcher(10) + r''') }
+            { (?P<code>''' + book_base.brace_matcher(10) + r''' ) \s* }
           )''',
 
     'lilypond_block': r'''(?smx)
@@ -59,7 +59,7 @@ TexInfo_snippet_res = {
             \s*
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s+?
-            ^ (?P<code> .*? )
+            ^ (?P<code> .*? ) \s*
             ^ @end \s+ lilypond
           ) \s''',
 
@@ -124,7 +124,8 @@ TexInfo_snippet_res = {
 
 TexInfo_output = {
     book_snippets.FILTER: r'''@lilypond[%(options)s]
-%(code)s@end lilypond''',
+%(code)s
+@end lilypond''',
 
     book_snippets.OUTPUT: r'''@iftex
 @include %(base)s-systems.texi

@@ -45,7 +45,7 @@ HTML_snippet_res = {
             <lilypond \s*
             (?P<options> [^:<>]*? )
             \s* >
-            (?P<code> .*? )
+            (?P<code> .*? ) \s*
             </lilypond \s* >
           )''',
 
