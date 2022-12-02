@@ -20,7 +20,9 @@
  ;; for take, drop, take-while, list-index, and find-tail:
  (srfi srfi-1)
  (ice-9 pretty-print)
- (ice-9 match))
+ (ice-9 match)
+ (ice-9 receive)
+ (oop goops))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -590,6 +592,23 @@ the parts (with the separators removed) as a list of lists.  Example:
                 tail
                 (split-list-by-separator (cdr tail) pred))))))
 
+(define-public (fold-values proc lst . inits)
+  "A variant of @code{fold} that works on one list only, but allows
+@var{proc} to return multiple values, and can itself return multiple
+values. The calls to @var{proc} are
+@code{(@var{proc} @var{list-elem} @var{previous1} @var{previous2} @dots{})}.
+Note that the @var{inits} arguments are given after @var{lst} in the
+signature, unlike @code{fold}."
+  (match lst
+    (()
+     (apply values inits))
+    ((elem . rest)
+     (call-with-values
+         (lambda ()
+           (apply proc elem inits))
+       (lambda new-vals
+         (apply fold-values proc rest new-vals))))))
+
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
         (+ (cdr a) (cdr b))))
@@ -785,6 +804,69 @@ as rectangular coordinates @code{(x-length . y-length)}."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
+
+(define-class <regex-match> ()
+  (original-string #:init-keyword #:original-string)
+  (substring-positions #:init-keyword #:substring-positions))
+
+;; TODO: add generic infrastructure to generate predicates from GOOPS
+;; classes?  (NB: SRFI 9 records always have a predicate generated,
+;; but we want a docstring too).
+(define-public (ly:regex-match? x)
+  "Is @var{x} a regular expression match object?"
+  (is-a? x <regex-match>))
+
+(define*-public (ly:regex-match-positions match #:optional (index 0))
+  "Retrieve the start and end of a capturing group in a regular expression match
+object, returned as a pair, or @code{#f}.  See @code{ly:regex-match-substring}
+for details.  The @var{index} argument is optional, defaulting to@tie{}0."
+  (vector-ref (slot-ref match 'substring-positions)
+              index))
+
+(define*-public (ly:regex-match-substring m #:optional (index 0))
+  "Retrieve the substring matched by a specific capturing group in the match
+object @var{match}.  @var{index} should be@tie{}1 for the first group,@tie{}2
+for the second group, etc.  @var{index} defaults to@tie{}0, which returns the
+substring matched by the entire regular expression.  If the capturing group was
+not part of the match (e.g., group@tie{}2 when matching @code{aa} against the
+regex @code{(a+)|(b+)}), @code{#f} is returned."
+  (let ((str (slot-ref m 'original-string)))
+    (match (ly:regex-match-positions m index)
+      ((start . end) (substring str start end))
+      (#f #f))))
+
+(define-public (ly:regex-match-prefix m)
+  "Retrieve the part of the target string before the regex match @var{m}."
+  (match-let (((start . end) (ly:regex-match-positions m))
+              (str (slot-ref m 'original-string)))
+    (substring str 0 start)))
+
+(define-public (ly:regex-match-suffix m)
+  "Retrieve the part of the target string after the regex match @var{m}."
+  (match-let (((start . end) (ly:regex-match-positions m))
+              (str (slot-ref m 'original-string)))
+    (substring str end)))
+
+(define-public (ly:regex-split regex str)
+  "Split @var{str} into non-overlapping occurrences of the regex
+@var{regex}, returning a list of the substrings."
+  ;; This is not written in C++ with g_regex_split_full because the latter
+  ;; includes substrings for capturing groups in the regex, which we don't
+  ;; really want.
+  (receive (substrings last-match-end)
+      (fold-values
+       (lambda (match substrings end-of-prev-match)
+         (match-let (((start . end) (ly:regex-match-positions match)))
+           (values
+            (cons (substring str end-of-prev-match start)
+                  substrings)
+            end)))
+       (ly:regex-exec->list regex str)
+       '()
+       0)
+    (reverse!
+     (cons (substring str last-match-end)
+           substrings))))
 
 (define-public (string-endswith s suffix)
   (equal? suffix (substring/shared s

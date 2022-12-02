@@ -116,5 +116,6 @@ ly_c_init_guile ()
   Srfi_1::module.import ();
   Syntax::module.import ();
   Display::module.import ();
+  Goops::module.import ();
   scm_c_use_module ("lily");
 }

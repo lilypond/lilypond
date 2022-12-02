@@ -17,6 +17,7 @@
 * Callback tutorial::
 * Understanding pure properties::
 * LilyPond scoping::
+* Regular expressions::
 * Scheme->C interface::
 * Garbage collection for dummies::
 * LilyPond miscellany::
@@ -2258,6 +2259,16 @@ information belonging to user-defined commands and markups is stored in
 a manner that allows it to be garbage-collected when the module is
 dispersed, either by being stored module-locally, or in weak hash
 tables.
+
+
+@node Regular expressions
+@section Regular expressions
+
+@emph{Never} use Guile's native regular expressions in LilyPond.
+They are a source of portability problems, especially in relation
+with Unicode.  Instead, use LilyPond's own regular expression
+interface, which is made of all @code{ly:regex-@dots{}} functions
+(see the Internals Reference).
 
 
 @node Scheme->C interface

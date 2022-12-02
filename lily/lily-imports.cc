@@ -74,6 +74,13 @@ Scm_module module ("lily display-lily");
 Variable value_to_lily_string ("value->lily-string");
 } // namespace Display
 
+namespace Goops
+{
+Scm_module module ("oop goops");
+
+Variable make ("make");
+} // namespace Goops
+
 namespace Lily
 {
 Scm_module module ("lily");
@@ -133,6 +140,7 @@ Variable output_scopes ("output-scopes");
 Variable percussion_p ("percussion?");
 Variable pitchnames ("pitchnames");
 Variable pure_chain_offset_callback ("pure-chain-offset-callback");
+Variable regex_match_class ("<regex-match>");
 Variable scale_p ("scale?");
 Variable scale_to_factor ("scale->factor");
 Variable scale_layout ("scale-layout");

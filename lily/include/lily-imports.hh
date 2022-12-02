@@ -82,6 +82,14 @@ typedef Module_variable<module> Variable;
 extern Variable value_to_lily_string;
 } // namespace Display
 
+namespace Goops
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable make;
+} // namespace Goops
+
 namespace Lily
 {
 extern Scm_module module;
@@ -141,6 +149,7 @@ extern Variable output_scopes;
 extern Variable percussion_p;
 extern Variable pitchnames;
 extern Variable pure_chain_offset_callback;
+extern Variable regex_match_class;
 extern Variable remove_stencil_warnings;
 extern Variable scale_p;
 extern Variable scale_to_factor;
