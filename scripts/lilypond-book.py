@@ -51,7 +51,7 @@ TODO:
 import gettext
 import glob
 import hashlib
-from optparse import OptionGroup
+from optparse import OptionGroup, SUPPRESS_HELP
 import os
 import re
 import shlex
@@ -163,7 +163,8 @@ def get_option_parser():
     # when building the main documentation.  Purposefully
     # undocumented, it is not for end users.
     p.add_option("--highlight",
-                 action="store_true")
+                 action="store_true",
+                 help=SUPPRESS_HELP)
 
     p.add_option("-I", '--include',
                  help=_("add DIR to include path"),
