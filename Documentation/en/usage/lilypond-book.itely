@@ -1071,16 +1071,14 @@ If this option is missing,
 @ref{Filename extensions}.  Currently, @code{texi-html} is the same as
 @code{texi}.
 
-@c This complicated detail is not implemented, comment it out -jm
-@ignore
-The @code{texi} document type produces a Texinfo file with music
-fragments in the printed output only.  For getting images in the HTML
-version, the format @code{texi-html} must be used instead.
-@end ignore
-
 @item -F @var{filter}
 @itemx --filter=@var{filter}
-Pipe snippets through @command{@var{filter}}.  Example:
+Pipe snippets through @command{@var{filter}}.  With this option,
+@code{lilypond-book} does not create snippet files; instead, it
+modifies the code of the embedded snippets in the input document
+and emits the resulting file, which in turn can then be processed
+by another run with @code{lilypond-book} (without the
+@option{--filter} option).  Example:
 
 @example
 lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely

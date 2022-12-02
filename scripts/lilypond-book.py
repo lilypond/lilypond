@@ -23,13 +23,13 @@ r'''
 Example usage:
 
 test:
-  lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
+  lilypond-book --filter="tr '[a-z]' '[A-Z]'" FILE
 
 convert-ly on book:
-  lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
+  lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" FILE
 
 classic lilypond-book:
-  lilypond-book --process="lilypond" BOOK.tely
+  lilypond-book --process="lilypond" FILE
 
 TODO:
 
@@ -88,10 +88,10 @@ help_summary = (
     + '\n\n'
     + _("Examples:")
     + '''
- $ lilypond-book --filter="tr '[a-z]' '[A-Z]'" %(BOOK)s
- $ lilypond-book -F "convert-ly --no-version --from=2.0.0 -" %(BOOK)s
- $ lilypond-book --process='lilypond -I include' %(BOOK)s
-''' % {'BOOK': _("BOOK")})
+ $ lilypond-book --format=latex --pdf %(FILE)s
+ $ lilypond-book --process='lilypond -I include' %(FILE)s
+ $ lilypond-book -F "convert-ly --no-version --from=2.0.0 -" %(FILE)s
+''' % {'FILE': _("FILE")})
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
            'Han-Wen Nienhuys <hanwen@xs4all.nl>')
