@@ -1,0 +1,62 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename texinfo-verbatim.info
+@settitle verb and verbatim
+
+
+@chapter verb and verbatim
+
+This file should not contain (and produce) any LilyPond images!
+
+Snippets inside a verbatim environment or a comment are not run
+through LilyPond but left unchanged.  We check the @code{lilypond}
+environment and the commands @code{@@lilypond} and
+@code{@@lilypondfile}.
+
+@sp 1
+
+The @code{verbatim} environment does not confuse
+@command{lilypond-book}.
+
+@verbatim
+@lilypond
+  c d e
+@end lilypond
+@end verbatim
+
+@verbatim
+@lilypond[fragment]{c d e}
+@end verbatim
+
+@verbatim
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@end verbatim
+
+@sp 1
+
+The @code{@@verb} command doesn't cause problems either.
+
+@verb{|@lilypond[fragment]
+  c d e
+@end lilypond|}
+
+@verb{/@lilypond[fragment]{c d e}/}
+
+@verb{+@lilypondfile[quote,noindent]{screech-and-boink.ly}+}
+
+@sp 1
+
+Neither does a @code{verbatim} environment inside @code{@@verb}
+
+@verb{|@verbatim
+  @lilypond
+    c d e
+  @end lilypond
+@end verbatim|}
+
+or @code{@@verb} inside @code{verbatim}.
+
+@verbatim
+@verb{|@lilypondfile{screech-and-boink.ly}|}
+@end verbatim
+
+@bye

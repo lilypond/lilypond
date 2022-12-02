@@ -1,46 +1,56 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[a4paper, 11pt]{article}
+
+\parindent 0pt
+\parskip 1ex
 
 \begin{document}
 
 \section{verb and verbatim}
 
-This file should not contain (and produce) any lilypond images!
+This file should not contain (and produce) any LilyPond images!
 
-Snippets inside a verbatim environment or a comment are not run through
-lilypond, but left as is.
+Snippets inside a verbatim environment or a comment are not run through LilyPond
+but left unchanged.  We check the \textsl{lilypond} environment and the commands
+\verb|\lilypond| and \verb|\lilypondfile|.
 
-You should see the begin/end lilypond commands in all three of the below tests.
+\bigskip
 
-% TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
-% \verb|\lilypond[fragment]{c' d' e'}|
-%
-% and
-
-The verbatim environment does not confuse lilypond-book:
+The \textsl{verbatim} environment does not confuse \texttt{lilypond-book}.
 
 \begin{verbatim}
 \begin{lilypond}
-c d e
+  c d e
 \end{lilypond}
 \end{verbatim}
 
-
-% TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
-% \verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
-
-% \verb+\lilypondfile[quote,noindent]{screech-and-boink.ly}+
-
-Neither does a verbatim inside verb:
-
-\verb|\begin{verbatim}\begin{lilypond}[fragment]c d e\end{lilypond}\end{verbatim}|
-
-or verb inside verbatim:
-
 \begin{verbatim}
-\verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+\lilypond[fragment]{c d e}
 \end{verbatim}
 
-But these are just to stress \verb|lilypond-book|.
+\begin{verbatim}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
+\end{verbatim}
 
+\bigskip
+
+The \verb|\verb| command doesn't cause problems either.
+
+\verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+
+\verb/\lilypond[fragment]{c d e}/
+
+\verb+\lilypondfile[quote,noindent]{screech-and-boink.ly}+
+
+\bigskip
+
+Neither does a \textsl{verbatim} environment inside \verb|\verb|
+
+\verb|\begin{verbatim}\begin{lilypond}c d e\end{lilypond}\end{verbatim}|
+
+or \verb|\verb| inside \textsl{verbatim}.
+
+\begin{verbatim}
+\verb|\lilypondfile{screech-and-boink.ly}|
+\end{verbatim}
 
 \end{document}
