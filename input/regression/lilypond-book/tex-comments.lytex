@@ -2,24 +2,24 @@
 
 \begin{document}
 
-
 \subsection{LaTeX comments}
-This is a line with lilypond code
-after the comment char % \lilypond{\context Voice <<c' e' g'>>}
+
+This is a line with LilyPond code after the comment
+character. % \lilypond{\context Voice <<c' e' g'>>}
 % \lilypond{\context Voice <<c' e' g'>>}
 
-If you do not see any music above
-this line, then lilypond-book is handling latex comments pretty well :-)
+If you do not see any music above this line, then \texttt{lilypond-book} is
+working correctly.
 
-The following snippet is preceded by a comment that would start a lilypond
-environment
+The following snippet is preceded by a comment that would start a
+\textsl{lilypond} environment.
 
 %%\begin{lilypond}
 \begin{lilypond}[staffsize=11,fragment]
 \context Voice <<c' e' g'>>
 \end{lilypond}
 
-A single-line comment inside a fragment does not confuse lilypond-book:
+A single-line comment inside a fragment does not confuse \texttt{lilypond-book}.
 
 \begin{lilypond}[fragment]
 c d e %\score

@@ -1,0 +1,31 @@
+<html>
+<body>
+
+  <p>This is a line followed by a <code>lilypond</code> environment in a
+    multi-line comment.
+    <!-- <lilypond staffsize=11 fragment>
+         \context Voice <<c' e' g'>>
+         </lilypond> -->
+  </p>
+
+  <p>If you do not see any music above this line, then
+    <code>lilypond-book</code> is working correctly.</p>
+
+  <p>This is a line followed by a <code>lilypond</code> command in a multi-line
+    comment.
+    <!-- <lilypond staffsize=11 fragment: \context Voice <<c' e' g'>> /> -->
+  </p>
+
+  <p>If you do not see any music above this line, then
+    <code>lilypond-book</code> is working correctly.</p>
+
+  <p>The following snippet is preceded by a comment that would start a
+    <code>lilypond</code> environment.</p>
+
+  <!-- <lilypond> -->
+  <lilypond staffsize=11 fragment>
+    \context Voice <<c' e' g'>>
+  </lilypond>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename texinfo-comments-info
+@settitle Texinfo comments
+
+
+@chapter Texinfo comments
+
+This is a line with LilyPond code after the comment
+character. @c @lilypond{\context Voice <<c' e' g'>>}
+@c @lilypond{\context Voice <<c' e' g'>>}
+
+If you do not see any music above this line, then
+@command{lilypond-book} is working correctly.
+
+This is a line followed by a @code{lilypond} environment in a
+multi-line comment.
+@ignore
+@lilypond[staffsize=11,fragment]
+\context Voice <<c' e' g'>>
+@end lilypond
+@end ignore
+
+If you do not see any music above this line, then
+@command{lilypond-book} is working correctly.
+
+This is a line followed by a @code{lilypond} command in a
+multi-line comment.
+@ignore
+@lilypond[staffsize=11,fragment]{\context Voice <<c' e' g'>>}
+@end ignore
+
+If you do not see any music above this line, then
+@command{lilypond-book} is working correctly.
+
+The following snippet is preceded by a comment that would start a
+@code{lilypond} environment.
+
+@c @lilypond
+@lilypond[staffsize=11,fragment]
+\context Voice <<c' e' g'>>
+@end lilypond
+
+@bye
