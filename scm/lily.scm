@@ -393,8 +393,6 @@ configurations.")
     (debug-property-callbacks #f
                               "Debug cyclic callback chains.")
     (deterministic #f "Suppress version and timestamps.")
-    (dump-signatures #f
-                     "Dump output signatures of each system.")
     (profile-property-accesses #f
                                "Keep statistics of get_property() calls.")
     (read-file-list #f
