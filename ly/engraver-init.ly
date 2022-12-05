@@ -716,9 +716,9 @@ run."
   segnoBarType = "S"
   startRepeatSegnoBarType = "S.|:"
 
-  %% TODO: Add 'measureStartNow to alternativeRestores?
   %% TODO: Add 'timing to alternativeRestores?
-  alternativeRestores = #'(measurePosition measureLength lastChord)
+  alternativeRestores = #'(measurePosition measureLength measureStartNow
+                           lastChord)
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
   centerBarNumbers = ##f
