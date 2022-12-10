@@ -131,7 +131,7 @@ static Long_option_init options_static[] = {
   {_i ("SYM[=VAL]"), "define-default", 'd',
    _i ("set Scheme option SYM to VAL (default: '#t')")},
   {_i ("no-SYM"), "define-default", 'd', _i ("set Scheme option SYM to '#f'")},
-  {_i ("help"), "define-default", 'd', _i ("show help for Scheme options")},
+  {"help", "define-default", 'd', _i ("show help for Scheme options")},
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
