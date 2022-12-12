@@ -1,0 +1,1646 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 43adaa3b5baa8559c449ff45e69eb1b5420c3f5a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-changes.info
+@settitle LilyPond Changes
+
+@c No dircategory nor direntry since info is not translated.
+
+@include de/macros.itexi
+
+@documentencoding UTF-8
+@documentlanguage de
+@afourpaper
+
+@macro manualIntro
+Dieses Dokument listet die Änderungen und neuen Funktionen
+in LilyPond für die Version @version{} seit 2.22.
+@end macro
+
+@lilyTitlePage{Neuerungen}
+
+@iftex
+@allowcodebreaks false
+@end iftex
+
+@warning{LilyPond-Veröffentlichungen können Änderungen der Syntax
+enthalten, die Modifikationen existierender Dateien, die für
+ältere Versionen geschrieben wurden, erfordern können, um in
+der neuen Version zu funktionieren.  Um Dateien zu aktualisieren
+ist es @strong{nachdrücklich empfohlen}, das Werkzeug
+@command{convert-ly} zu verwenden, welches mit LilyPond verteilt
+wird und in @rprogram{Dateien mit convert-ly aktualisieren}
+beschrieben ist.  @command{convert-ly} kann fast alle Änderungen
+der Syntax automatisch aktualisieren.  Nutzer von Frescobaldi
+können @command{convert-ly} direct aus Frescobaldi aufrufen,
+indem sie @qq{Werkzeuge > Mittels convert-ly aktualisieren...}
+verwenden.  Andere Bearbeitungsprogramm mit Unterstützung für
+LilyPond können ebenfalls die Möglichkeit bieten,
+@command{convert-ly} über die graphische Oberfläche aufzurufen.}
+
+
+@node Bedeutende Änderungen in LilyPond
+@unnumbered Bedeutende Änderungen in LilyPond
+@translationof Major changes in LilyPond
+
+@itemize
+
+@item
+LilyPond erfordert jetzt Guile 2.2.  Selbst wenn Sie nicht selbst
+Code in Scheme schreiben, nutzen Sie vielleicht Bibliotheken, die
+eine signifikante Menge von Anpassungen enthält.  Falls diese
+nicht mit LilyPond @version{} funktionieren, melden Sie dies bitte
+an die Entwickler der Bibliothek.  Falls Sie Entwickler einer
+Bibliothek sind, @pxref{Hinweise zu Guile 2.2} am Ende dieses
+Dokuments.
+
+@item
+Die Infrastruktur zum Erstellen der offiziellen Pakete wurde
+komplett überarbeitet, zeitgleich mit dem Wechsel auf Guile 2.2.
+Ab dieser Veröffentlichung stellen wir 64-bit Programme für
+macOS und Windows bereit.  Diese Pakete sind außerdem einfache
+Archive, die zur @qq{Installation} an einen beliebigen Ort
+entpackt werden können.  Zum Deinstallieren entfernen Sie einfach
+das Verzeichnis.  Wir haben außerdem das begrenzte
+Bearbeitungsprogramm aufgegeben, das auf macOS und Windows
+installiert wurde, LilyPad, und empfehlen stattdessen den Wechsel
+auf eine externe Lösung, wie zum Beispiel der beliebte Editor
+@uref{https://frescobaldi.org,Frescobaldi}, oder eine andere
+Umgebung wie beschrieben in @rweb{Leichteres Editieren}.  Für
+weitere Informationen beachten Sie bitte die ausführlichen
+Anweisungen in @rlearning{Installing}.
+
+Die Version von Ghostscript, die mit den offiziellen Paketen
+verteilt wird, enthält keine eigenen Schriftarten mehr, um die
+Größe des Downloads zu reduzieren.  LilyPond benötigt diese nicht
+(es hat eine eigene Kopie der Schriftarten).  Dies bedeutet
+allerdings, dass Code wie zum Beispiel @code{/Arial findfont}
+in @code{\markup \postscript} nicht mehr funktioniert.  Wir
+empfehlen die Verwendung der normalen @code{\markup} Syntax, um
+Schriftzeichen auszugeben.
+
+@end itemize
+
+@node Bekannte Probleme in LilyPond @version{}
+@unnumberedsec Bekannte Probleme in LilyPond @version{}
+@translationof Known issues in LilyPond @version{}
+
+Unter Windows kann das Kompilieren von sehr großen Dokumenten
+(mehrere hundert Seiten) zu Abstürzen führen.@footnote{Es ist
+zu beachten, dass sehr große Dokumente bereits in LilyPond 2.22
+abstürzen können, aufgrund der Einschränkungen durch die
+32-bit Architektur.}  Wir hoffen, dieses Problem in zukünftigen
+Versionen 2.24.@var{x} zu beheben.
+
+@node Hinweise zur Kompilierung des Quelltexts und für Paketersteller
+@unnumberedsec Hinweise zur Kompilierung des Quelltexts und für Paketersteller
+@translationof Notes for source compilation and packagers
+
+Dieser Abschnitt richtet sich an Enthusiasten, die LilyPond aus dem
+Quelltext übersetzen, und Paketersteller, die LilyPond für
+Distributionen vorbereiten.  Falls Sie nicht zu einer dieser Gruppen
+gehören, können Sie diesen Abschnitt überspringen.
+
+@itemize
+
+@item
+Wie bereits angemerkt benötigt LilyPond jetzt Guile 2.2.  Falls
+aus anderen Gründen in der Distribution erforderlich, kann
+LilyPond auch mit Guile 3.0 übersetzt werden, durch Angabe von
+@command{GUILE_FLAVOR=guile-3.0} an das @command{configure}
+Skript.  Dies ist jedoch zum aktuellen Zeitpunkt weder empfohlen
+noch offiziell unterstützt.
+
+@item
+Die Auswertung von Scheme Code in Guile 2.2 ist langsamer als in
+Guile 1.@var{x}.  Um den Großteil der Leistungseinbußen
+auszugleichen, empfehlen wir die Übersetzung der @file{.scm}
+Dateien als Bytecode.  Dies geschieht zuerst mit der Ausführung
+von @command{make bytecode} während der Übersetzung und
+anschließend @command{make install-bytecode} zusätzlich zu
+@command{make install}.
+
+@item
+Beginnend mit dieser stabilen Versionen installiert LilyPonds
+Build-System keine Textschriftarten mehr.  Bitte installieren
+Sie diese als separate Pakete unter Beachtung der Lizenzen und
+und Notice-Dateien.
+
+@end itemize
+
+
+@node Neuerungen in der musikalischen Notation
+@unnumbered Neuerungen in der musikalischen Notation
+@translationof New for musical notation
+
+@node Verbesserungen bei der Anzeige von Tonhöhen
+@unnumberedsec Verbesserungen bei der Anzeige von Tonhöhen
+@translationof Pitches improvements
+
+@itemize
+
+@item
+Die Unterstützung für alternative Versetzungszeichen wurde
+verbessert.  Durch die Eigenschaft @code{alterationGlyphs}
+in Kontexten wie @code{Staff} können Versetzungszeichen für
+alle Grobs auf einmal gesetzt werden (siehe auch
+@ruser{Alternate accidental glyphs}).
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+  }
+}
+
+\new Voice \with {
+  \consists Ambitus_engraver
+}
+{
+  \key g \major
+  ces''
+  \set suggestAccidentals = ##t
+  c''
+  \unset suggestAccidentals
+  \accidentalStyle teaching
+  fis''
+}
+@end lilypond
+
+@item
+Oktavierungsklammern können sich auf eine einzelne Stimme beziehen
+statt auf das gesamte Notensystem.  Dies erforderte in der
+Vergangenheit einige Verrenkungen.
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \remove Ottava_spanner_engraver
+  @}
+  \context @{
+    \Voice
+    \consists Ottava_spanner_engraver
+  @}
+@}
+@end example
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Staff
+    \remove Ottava_spanner_engraver
+  }
+  \context {
+    \Voice
+    \consists Ottava_spanner_engraver
+  }
+}
+
+{
+  \clef bass
+  << { <g d'>1~ q2 <c' e'> }
+  \\
+    {
+      r2.
+      \ottava -1
+      <b,,, b,,>4 ~ |
+      q2
+      \ottava 0
+      <c e>2
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+@node Verbesserungen bei Rhythmen
+@unnumberedsec Verbesserungen bei Rhythmen
+@translationof Rhythm improvements
+
+@itemize
+
+@item
+Der neue Befehl @code{\section} fügt einen doppelten Taktstrich
+ein, der einwandfrei mit Wiederholungszeichen zusammenarbeitet.
+Ein Abschnitt kann mit dem neuen Befehl @code{\sectionLabel}
+benannt werden.
+
+@lilypond[verbatim,quote,line-width=9\cm]
+\fixed c' {
+  f1
+  \break
+  \section
+  \sectionLabel "Trio"
+  \repeat volta 2 {
+    b1
+  }
+}
+@end lilypond
+
+@item
+@code{\numericTimeSignature} und @code{\defaultTimeSignature} beziehen
+sich jetzt auf alle Notensysteme auf einmal (genauer gesagt auf alle
+Notensysteme im gleichen @code{Timing} Kontext).  Dies entspricht dem
+Verhalten von @code{\time}.
+
+@item
+Der Textbeschriftungsbefehl @code{\rhythm} wurde hinzugefügt.  Er
+bietet einen einfachen Weg, um Rhythmen gemischt mit Text einzugeben,
+wie beispielsweise in @qq{Swing}-Angaben.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+@item
+Der Befehl @code{\enablePolymeter} bietet jetzt eine Abkürzung,
+um Engraver zu verschieben, wie es für die gleichzeitige Verwendung
+von unterschiedlichen Zeitsignaturen nötig ist.  Der Code:
+
+@quotation
+@verbatim
+\layout {
+  \context {
+    \Score
+    \remove Timing_translator
+    \remove Default_bar_line_engraver
+  }
+  \context {
+    \Staff
+    \consists Timing_translator
+    \consists Default_bar_line_engraver
+  }
+}
+@end verbatim
+@end quotation
+
+@noindent
+kann damit verkürzt werden zu:
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
+
+Unabhängig davon wurde der @code{Default_@/bar_@/line_@/engraver}
+entfernt.
+
+@item
+Die neue Option @code{visible-over-note-heads} kann benutzt werden,
+um N-tolenklammern immer sichtbar zu machen, wenn deren Richtung
+über den Notenköpfen gesetzt ist.  Die Option kann mit der üblichen
+Sichtbarkeit von N-tolenklammern genutzt werden oder mit
+@code{#'if-no-beam}.
+
+@lilypond[quote]
+music = \relative c'' {
+  \tupletNeutral \tuplet 3/2 { c16[ d e } f8]
+  \tupletUp \tuplet 3/2 { c8 d e }
+}
+
+\new Voice {
+  \relative c' {
+    \time 2/4
+    \override TupletBracket.visible-over-note-heads = ##t
+    \once \override Score.TextMark.break-align-symbols =
+            #'(time-signature)
+    { \textMark \markup "default" \music }
+    \override TupletBracket.bracket-visibility = #'if-no-beam
+    { \textMark \markup \typewriter "'if-no-beam" \music }
+  }
+}
+@end lilypond
+
+@item
+Taktzählungen beachten jetzt komprimierte mehrtaktige Pausen
+und Alternativen.
+
+@lilypond[quote,line-width=15\cm]
+\new Score \with {
+  \consists Measure_counter_engraver
+  \override MeasureCounter.font-encoding = #'latin1
+  \override MeasureCounter.font-size = 1
+  \override MeasureCounter.padding = 0.5
+  \override MeasureCounter.font-series = #'bold
+  alternativeNumberingStyle = #'numbers-with-letters
+}
+\new Voice \compressMMRests \relative {
+  c'4-. 4-. 4-. 4-.
+  r4 4-. 4-. r
+  \startMeasureCount
+  <<
+    { R1 }
+    \new CueVoice {
+      \voiceTwo
+      r4 c8( d) e-. g-.
+    }
+  >>
+  R1*2
+  \repeat volta 2 {
+    c,8( d e g) c,( d e g)
+  }
+  \alternative {
+    { c,8( d e g) c,( d e4) }
+    { c8\< d e g c2\! R1*2 \bar "|." }
+  }
+  \stopMeasureCount
+}
+@end lilypond
+
+@item
+Taktnummern können in ihrem Takt zentriert werden, wie es in Filmmusiken
+üblich ist.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    centerBarNumbers = ##t
+    barNumberVisibility = #all-bar-numbers-visible
+  }
+}
+
+<<
+  { \repeat unfold 3 { c'4 d' e' f' } }
+  { \repeat unfold 3 { c'4 d' e' f' } }
+>>
+@end lilypond
+
+@item
+Taktnummern in der Mitte oder am Ende eines Systems werden jetzt an
+ihrer linken Seite ausgerichtet.  Dies folgt der Empfehlung von
+Elaine Gould (@cite{Behind Bars}, S.@tie{}237), und war größtenteils
+der gefundene Konsens in einer Diskussion zwischen den Entwicklern.
+Die Ausrichtung der Taktnummern am Beginn eines Systems bleiben
+unverändert.
+
+@item
+@code{\bar ","} erzeugt einen kurzen Taktstrich.
+
+@lilypond[quote]
+\new Staff \with {
+  \omit Clef
+  \omit TimeSignature
+} \fixed c' {
+  \cadenzaOn
+  e2 f g a g \bar "," f g f d e\breve
+}
+@end lilypond
+
+@item
+Die folgenden vordefinierten Taktarten erscheinen nicht mehr
+als einfache Taktstriche am Ende einer Zeile.  Annotierte
+Taktarten (zum Beispiel @code{\bar "S-|"}) wurden für diesen
+Zweck hinzugefügt.
+
+@lilypond[quote]
+{
+  R1 \bar ".|"
+  R1 \bar ".|:"
+  R1 \bar "[|:"
+  R1 \bar "S"
+  R1 \bar "S.|:"
+  r4
+}
+@end lilypond
+
+@item
+@code{\bar ""} ist nicht mehr nötigt, um die erste Taktnummer
+darzustellen.  Es reicht jetzt aus, @code{barNumberVisibility}
+auf @code{all-@/bar-@/numbers-@/visible} zu setzen oder eine
+der anderen Einstellungen, in der die erste Taktnummer sichtbar
+ist.
+
+Es ist zu beachten, dass dies eine Änderung im Verhalten für
+Dokumente ist, die @code{barNumberVisibility} auf
+@code{all-@/bar-@/numbers-@/visible} oder ähnliches setzen und
+@code{BarNumber@/.break-@/visibility} auf @code{#t}, ohne ein
+@code{\bar ""}.  Ab dieser Version wird dann eine Takzahl am
+Anfang ausgegeben.  Dies ist das erwartete Verhalten (@emph{alle}
+Taktzahlen sollen sichtbar sein), aber wegen leicht unklarer
+Dokumentation könnte diese Einstellung genutzt worden sein,
+um Taktzahlen in der Mitte von Systemen außer der ersten
+Taktzahl darzustellen.  In diesem Fall reicht es aus,
+@code{\set Score@/.barNumberVisibility = #all-@/bar-@/numbers-@/visible}
+zu entfernen, da  @code{\override BarNumber@/.break-@/visibility = ##t}
+die relevanten Einstellungen alleine vornimmt.
+
+@item
+Der Befehl @code{\break} fügt jetzt immer einen Umbruch ein, ohne
+Rücksicht auf die standardmäßigen Entscheidungen zu Umbrüchen.  Es
+ist zum Beispiel nicht mehr nötig, ein @code{\bar ""} einzufügen,
+um einen Umbruch in der Mitte eines Taktes zu erreichen.
+
+Der neue Befehl @code{\allowBreak} fügt einen möglichen Umbruch ein,
+ohne ihn zu erzwingen, aber ebenfalls wie @code{\break} ohne Rücksicht
+auf die standardmäßigen Entscheidungen zu Umbrüchen.
+
+@item
+Der Taktstrich @code{"-"} wurde entfernt.  @code{convert-ly} wandelt
+ihn in @code{""} um.  Dies führt zu geringfügigen Änderungen bei den
+horizontalen Abständen bei Zeilenumbrüchen.
+
+@item
+@code{automaticBars} wurde entfernt.  @code{convert-ly} wandelt
+@code{automaticBars = ##f} in @code{measureBarType = #'()} um.
+
+@item
+@code{\defineBarLine} akzeptiert jetzt @code{#t} anstelle der
+Wiederholung des Zeichennamens in der Mitte einer Zeile.
+
+@item
+@code{Bar_@/engraver} hat früher Zeilenumbrüche zwischen
+Taktstrichen in allen Fällen verboten, aber tut dies jetzt nur
+noch, wenn die Kontexteigenschaft @code{forbidBreakBetweenBarLines}
+auf @code{#t} gesetzt ist, was der Standard ist.  Die
+Eigenschaft @code{barAlways}, die in der Vergangenheit das
+Fehlen von @code{forbidBreakBetweenBarLines} umging, wurde entfernt.
+
+@item
+Wegen Änderungen in den Interna von @code{\bar} wird die Verwendung
+des Befehls nicht länger unterstützt, bevor die tieferen Kontexte
+mit @code{\new} erzeugt wurden.  Diese Anwendungen werden jetzt
+ein zusätzliches Notensystem erzeugen.  Diese ist ähnlich zu dem
+Fall, der mit Befehlen wie @code{\override Staff@dots{}} auftritt
+(siehe @rprogram{An extra staff appears}).
+
+@lilypond[verbatim,quote]
+{
+  \bar ".|:"
+  <<
+    \new Staff { c' }
+    \new Staff { c' }
+  >>
+}
+@end lilypond
+
+Die Lösung ist, @code{\bar} innerhalb der Musik für jedes
+Notensystem zu platzieren, wie üblich mit den meisten Befehlen.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { \bar ".|:" c' }
+  \new Staff { \bar ".|:" c' }
+>>
+@end lilypond
+
+@item
+Die Taktart @code{"-span|"} erzeugt einen @notation{mensurstrich}.
+
+@lilypond[quote]
+\new StaffGroup \with { measureBarType = "-span|" } <<
+  \new Staff \fixed c'' { c4 d e f e d }
+  \new Staff \fixed c' { a2 f2. g4 }
+>>
+@end lilypond
+
+@item
+@code{Staff}-Kontexte verwenden den neuen @code{Caesura_engraver},
+um den Befehl @code{\caesura} zu notieren.
+
+@lilypond[quote]
+\fixed c' {
+  c2 \caesura d2
+  e1 \caesura \once \set Staff.caesuraType = #'((scripts . (fermata)))
+  f1
+}
+@end lilypond
+
+@end itemize
+
+@node Verbesserungen bei Ausdrucksbezeichnungen
+@unnumberedsec Verbesserungen bei Ausdrucksbezeichnungen
+@translationof Expressive mark improvements
+
+@itemize
+
+@item
+Ergeignisse, die mit Noten verbunden sind (zum Beispiel Dynamiken oder
+Artikulationen), können mit @code{\after} um eine beliebige Dauer
+verzögert werden.  Das vereinfacht viele Situationen, die vorher die
+Verwendung von expliziter Polyhonie und leeren Pausen erforderten.
+
+@lilypond[verbatim,quote]
+{
+  \after 2 \turn g'2. a'4
+  \after 2 \< b'1
+  \after 2. \f c''
+  <>\< \after 4 \> \after 2\! d''
+}
+@end lilypond
+
+@item
+Umgebrochene Klammern haben jetzt standardmäßig einen linken
+Abstand.  Das folgt dem Vorbild von veröffentlichten
+Notensätzen und behebt einige Fälle, in denen umgebrochene
+Klammern vertikal durch die Tonart verschoben wurden.
+
+@lilypond[verbatim,quote]
+\relative {
+  \key a \major
+  c''4^\< c c c \break c c c c\! |
+}
+@end lilypond
+
+@item
+Die Enden von Klammern können jetzt links, mittig oder rechts einer
+@code{NoteColumn} ausgerichtet werden, indem die Eigenschaft
+@code{endpoint-alignments} überschrieben wird.
+
+@lilypond[quote]
+{
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,RIGHT . ,LEFT)
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,CENTER . ,CENTER)
+  c'2\< <c' d'>\! |
+}
+@end lilypond
+
+@item
+Die Richtung eines Trillers kann jetzt mit Richtungsanweisungen
+wie bei anderen Artikulationen gesetzt werden, also mit
+@code{_\startTrillSpan} oder @code{^\startTrillSpan}.
+
+@item
+Das Aussehen von Trillern wurde geändert, um besser dem klassischen
+Notensatz zu entsprechen.  Sie enden jetzt vor der nächsten Note
+und nicht über ihr.  Falls die nächste Note ein Vorzeichen hat,
+endet der Triller davor.  Falls die nächste Note die erste Note
+eines Takts ist, endet der Triller stattdessen vor dem Taktstrich.
+
+@lilypond[quote]
+{
+  \override Score.SpacingSpanner.spacing-increment = 2.1
+  d''2\startTrillSpan 2\stopTrillSpan
+  2\startTrillSpan deses''2\stopTrillSpan
+  d''1\startTrillSpan 1\stopTrillSpan
+}
+@end lilypond
+
+@item
+Der Abstand von Fermaten ist jetzt größer.  Dies verhindert
+einige Fälle, in denen Fermaten zu nah an Punkten und anderen
+Objekten platziert wurde.
+
+@lilypond[quote]
+\relative c''' {
+  \tempo 4 = 60
+  a4.
+  a4.\fermata
+  a4.\henzeshortfermata
+  a4.\henzelongfermata
+  a4.\shortfermata
+  a4.\longfermata
+  a4.\veryshortfermata
+  a4.\verylongfermata
+}
+@end lilypond
+
+@item
+Das Flageolett-Symbol ist jetzt kleiner und etwas dicker.  Das
+folgt dem Vorbild von veröffentlichten Notensätzen und macht die
+empfohlene Anpassung unnötig, um das Zeichen zu verkleinern
+(@code{\tweak font-size -3 \flageolet}).
+
+@lilypond[quote]
+{
+  d''2^\flageolet d''_\flageolet
+}
+@end lilypond
+
+@item
+Das Akzentzeichen ist jetzt ein wenig kleiner.  Das behebt einige Fälle,
+in denen ein Auflösungszeichen Akzente vertikal verschob.
+
+@lilypond[quote]
+{
+  f'!8[-> f'-> f'-> f'->]
+}
+@end lilypond
+
+@item
+Das Kommazeichen, wie benutzt im Befehl @code{\breathe}, wurde
+zu einer üblicheren Form geändert.
+
+@lilypond[quote]
+{ f'2 \breathe f'2 }
+@end lilypond
+
+Das alte Zeichen bleibt verfügbar unter dem Namen @q{raltcomma}:
+
+@lilypond[quote,verbatim]
+{
+  \override BreathingSign.text =
+    \markup { \musicglyph "scripts.raltcomma" }
+  f'2 \breathe f' |
+}
+@end lilypond
+
+@item
+Die neue Kontexteigenschaft @code{breathMarkType} wählt aus mehreren
+vordefinierten Typen das Symbol, das @code{\breathe} produziert.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set breathMarkType = #'tickmark
+  c2 \breathe d2
+}
+@end lilypond
+
+@end itemize
+
+@node Verbesserungen bei Wiederholungen
+@unnumberedsec Verbesserungen bei Wiederholungen
+@translationof Repeat improvements
+
+@itemize
+
+@item
+Wiederholungsalternativen können innerhalb von wiederholten
+Abschnitten notiert werden.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 { c'1 \alternative { d' e' } f' }
+@end lilypond
+
+
+@item
+Die Zahlen in Wiederholungsklammern können mit dem Befehl
+@code{\volta} gesetzt werden.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 c'1 \alternative { \volta 1 d' \volta 2,3 e' }
+@end lilypond
+
+@item
+Der neue Befehl @code{\repeat segno} notiert automatisch eine
+Vielfalt von Formen mit @emph{da-capo} und @emph{dal-segno}.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat segno 2 {
+    b1
+  }
+  \fine
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@item
+Der neue Befehl @code{\fine} fügt einen endgültigen Taktstrich
+ein, der einwandfrei mit Wiederholungszeichen zusammenarbeitet.
+Innerhalb eines @code{\repeat} gibt er außerdem @emph{Fine} aus
+und beendet die Musik beim Entfalten.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 2 {
+    f1
+    \volta 2 \fine
+    \volta 1 b1
+  }
+}
+
+\score { \music }
+\score { \unfoldRepeats \music }
+@end lilypond
+
+@item
+Der Befehl @code{\volta} entfernt Musik, wenn eine Wiederholung
+entfaltet wird.
+
+@item
+Der Befehl @code{\unfolded} fügt Musik hinzu, wenn eine Wiederholung
+entfaltet wird.
+
+@end itemize
+
+@node Verbesserungen bei Anmerkungen
+@unnumberedsec Verbesserungen bei Anmerkungen
+@translationof Editorial annotation improvements
+
+@itemize
+
+@item
+Die neuen Befehle @code{\staffHighlight} und @code{\stopStaffHighlight}
+können benutzt werden, um einen musikalischen Abschnitt einzufärben.
+
+@lilypond
+\relative {
+  \staffHighlight lightsteelblue
+  c'4 e g c
+  \staffHighlight lightpink
+  d, f a d
+  \staffHighlight lightsteelblue
+  c, e g c
+}
+@end lilypond
+
+@item
+Ein neuer Grob @code{FingerGlideSpanner} ist jetzt verfügbar, um das
+Rutschen von Fingern auf einer Saite von einer Position zu einer
+anderen anzuzeigen.
+Mehrere Aussehen sind möglich, abhängig von der Einstellung @code{style}.
+Im Bild sind die Stile @code{line}, @code{stub-left}, @code{stub-right}
+und @code{stub-both} zu sehen.
+
+@lilypond[quote]
+mus = {
+  \set fingeringOrientations = #'(right)
+  <a'\glide-1>2.
+  \set fingeringOrientations = #'(left)
+  <d'-1>4
+}
+
+\score {
+  {
+    <>^"line"
+    \mus
+    <>^"stub-left"
+    \override FingerGlideSpanner.style = #'stub-left
+    \mus
+    <>^"stub-right"
+    \override FingerGlideSpanner.style = #'stub-right
+    \mus
+    <>^"stub-both"
+    \override FingerGlideSpanner.style = #'stub-both
+    \mus
+  }
+}
+@end lilypond
+
+Außerdem möglich sind @code{dashed-line}, @code{dotted-line}, @code{zigzag},
+@code{trill}, @code{bow} und @code{none}.
+
+@item
+Blasen haben jetzt änderbare Formattierungen.
+
+@lilypond[quote]
+\new Score \with {
+  \consists Balloon_engraver
+  \override SpacingSpanner.spacing-increment = 5
+}
+{
+  \balloonLengthOn
+  \balloonGrobText Rest #'(1 . 2) "rest"
+  r4
+  \once \override Score.BalloonText.Y-attachment = #CENTER
+  \once \override Score.BalloonText.text-alignment-X = #CENTER
+  \balloonGrobText Rest #'(1 . 3.5) "rest"
+  r4
+}
+@end lilypond
+
+@item
+Einklammern von Akkorten wird jetzt unterstützt.  Momentan muss die
+Schriftgröße der Klammern manuell angepasst werden.
+
+@lilypond[quote]
+\new Voice {
+  \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c'' e''> }
+  >>
+}
+@end lilypond
+
+@item
+Einklammern von Streckern wird jetzt unterstützt.
+
+@lilypond[quote]
+{
+  c'\parenthesize\< d'2.\!
+  \parenthesize R1
+}
+@end lilypond
+
+@item
+Eine @qq{Zeit-basierte} Version des Befehls @code{\parenthesize}
+wurde hinzugefügt.  Der Befehl erwartet einen Pfad:
+@code{\parenthesize @var{GrobName}} oder
+@code{\parenthesize @var{ContextName}.@var{GrobName}}.  Er verhält
+sich wie ein @code{\once \override}.  Das Interface ergänzt die
+bereits vorhandene Form @code{\parenthesize @var{event}}, ähnlich
+zu @code{\footnote}.
+
+@lilypond[verbatim,quote]
+{
+  \parenthesize NoteHead
+  c'1
+  \parenthesize Staff.KeySignature
+  \key g \major
+  c'1
+}
+@end lilypond
+
+@item
+Das Hinzufügen von @code{Melody_engraver} zum @code{Voice}-Kontext
+funktioniert jetzt standardmäßig, um die Richtung des Halses der
+mittleren Note entsprechend der Melodie zu ändern.  Vorher erforderte
+dies zusätzlichen Anpassungen von @code{Stem.neutral-direction}.
+
+@lilypond[verbatim,quote]
+\new Voice \with {
+  \consists Melody_engraver
+}
+\relative c'' {
+  \autoBeamOff
+  g8 b a e g b a g |
+  c b d c b e d c |
+}
+@end lilypond
+
+Die Kontexteigenschaft @code{suspendMelodyDecisions} kann verwendet
+werden, um dieses Verhalten temporär auszuschalten, wie es auch
+@code{\override Stem.neutral-direction = #DOWN} vorher tat.
+
+@item
+Der neue @code{Mark_tracking_translator} übernimmt die
+Entscheidung von @code{Mark_engraver}, wann eine Markierung
+erzeugt wird.  @code{Mark_engraver} kontrolliert weiterhin
+die Formattierung und die vertikale Platzierung.
+
+Standardmäßig erzeugen @code{Mark_engraver} in mehreren
+Kontexten eine gemeinsame Abfolge von Markierungen.  Falls
+unabhängige Sequenzen gewünscht werden, müssen mehrere
+@code{Mark_tracking_translator} verwendet werden.
+
+@end itemize
+
+@node Verbesserungen bei der Textformattierung
+@unnumberedsec Verbesserungen bei der Textformattierung
+@translationof Text improvements
+
+@itemize
+
+@item
+Die neuen Befehle @code{\textMark} und @code{\textEndMark} sind
+verfügbar, um einen beliebiges Stück Text zwischen Noten einzufügen,
+genannt eine Textmarkierung.  Diese Befehle verbessern die bisher
+verfügbare Syntax mit dem Befehl @code{\mark}, aufgerufen als
+@code{\mark @var{markup}} (@code{\mark "@dots{}"} oder
+@code{\mark \markup @dots{}}).
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \textMark "Text mark"
+  c16 d e f e f e d c e d c e d c8
+  \textEndMark "Text end mark"
+}
+@end lilypond
+
+@code{\textMark} und @code{\textEndMark} sind jetzt der empfohlene
+Weg, um Textmarkierungen zu erstellen.  Die Benutzung von @code{\mark}
+zu diesem Zweck wird zwar weiter unterstützt, es wird aber davon
+abegraten (das betrifft nicht den Befehl @code{\mark} selbst, nur
+der Aufruf mit einem Textargument; @code{\mark \default} oder
+@code{\mark @var{number}} sind weiterhin der empfohlene und einzige
+Weg, um eine Probenmarkierung zu erzeugen).
+
+Die neuen Befehle haben einige Unterschiede zu @code{\mark @var{markup}}.
+Zu jedem Zeitpunkt kann es eine beliebige Anzahl geben, während es nur
+eine Benutzung von @code{\mark} geben kann.  Sie erzeugen Grobs des
+dedizierten Typs @code{TextMark}, wohingegen @code{\mark} ein Grob des
+Typs @code{RehearsalMark} erzeugt, unabhängig davon ob es als
+Probenmarkierung oder Textmarkierung aufgerufen wurde; die Einführung
+dieser Unterscheidung erlaubt es Stylesheets, verschiedene
+Layouteinstellungen für Proben- und Textmarkierungen zu setzen.
+Die Ausrichtung der neuen Befehle ist unterschiedlich: @code{\textMark}
+erzeugt immer eine links-ausgerichtete Markierung, während
+@code{\textEndMark} eine rechts-ausgerichtete Markierung erzeugt;
+im Gegensatz dazu hängt die Ausrichtung eines @code{RehearsalMark}
+vom Ankerpunkt des Objekts ab, an dem aus ausgerichtet ist.
+
+Siehe @ruser{Text marks} für Details.
+
+@item
+Textvarianten für Kreuze, Bs, Auflösungszeichen, Doppelkreuze
+und Doppel-Bs sind jetzt in der Emmentaler-Schrift verfügbar.
+In Texten können sie einfach über ihre Unicode-Zeichen genutzt
+werden.
+
+@lilypond[quote]
+\markup \fontsize #6 \number "1 ♯ 2 ♭ 3 ♮ 4 𝄫 5 𝄪 6"
+@end lilypond
+
+@item
+Es ist jetzt möglich, die Breite und die Form von (einigen)
+Emmentaler-Ziffern mit OpenType-Features zu kontrollieren.
+
+@lilypond[quote]
+\markuplist
+  \number
+  \fontsize #6
+  \override #'((padding . 3)
+               (baseline-skip . 7)
+               (box-padding . 0)
+               (thickness . 0.1))
+  \table #'(-1 -1 -1 -1) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 }
+    \normal-text \normalsize "(time signatures)"
+    \override #'(font-features .("cv47")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(alternatives)"
+    \override #'(font-features .("tnum" "cv47" "-kern")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fixed-width)"
+    \override #'(font-features . ("tnum" "cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(figured bass)"
+    \override #'(font-features . ("cv47" "ss01")) {
+      0123456789 \box 147 \concat { \box 1 \box 4 \box 7 } }
+    \normal-text \normalsize "(fingering)"
+  }
+@end lilypond
+
+@item
+@code{\smallCaps} funktioniert jetzt für beliebige Textbeschriftungen,
+nicht nur für Zeichenketten.
+
+@item
+Die Syntax für Bedingungen in Textbeschriftungen wurde flexibler
+und nutzerfreundlicher gemacht.  Es benutzt die neuen
+Textbeschriftungsbefehle @code{\if} und @code{\unless}.
+Hier sind beispielhaft einige Ersetzungen:
+
+@multitable {@code{\on-the-fly #not-part-first-page @dots{}}} {@code{\unless \on-first-page-of-part @dots{}}}
+@headitem Sytanx für 2.22 @tab Syntax für 2.24
+@item @code{\on-the-fly #first-page @dots{}}
+@tab @code{\if \on-first-page @code{} @dots{}}
+@item @code{\on-the-fly #not-part-first-page @dots{}}
+@tab @code{\unless \on-first-page-of-part @dots{}}
+@item @code{\on-the-fly #(on-page @var{n}) @dots{}}
+@tab @code{\if \on-page #@var{n} @dots{}}
+@end multitable
+
+@item
+Mit dem neuen Textbeschriftungslistenbefehle @code{string-lines} ist es
+jetzt möglich, eine Zeichenkette an einem gegebenen Zeichen aufzuteilen.
+Standardmäßig teilt der Befehl an einem Zeilenumbruch.  Umgebende
+Leerzeichen werden entfernt.  Die resultierende Liste von Textbeschritungen
+kann weiter formatiert werden.
+Dies ist ein sehr praktischer Weg, um zusätzliche Strophen für Lieder
+einzugeben.
+
+@lilypond[quote]
+\markup
+  \column
+  \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!
+     Up above the world so high,
+     Like a diamond in the sky.
+     Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+@item
+Der neue Textbeschriftungsbefehl @code{\align-on-other} übersetzt
+eine Textbeschriftung so, als wäre sie an einer anderen
+Textbeschriftung ausgerichtet.
+
+@lilypond[quote]
+\markup \column {
+  1
+  12
+  \align-on-other #X #RIGHT 12
+                     #LEFT 12345
+  123
+}
+@end lilypond
+
+@item
+Zwei neue Textbeschriftungsfunktionen @code{\with-dimension} und
+@code{\with-dimension-from} sind verfügbar.  Sie sind ähnlich
+zu @code{\with-dimensions} und @code{\with-dimensions-from},
+ändern aber nur eine Dimension (statt beider).
+
+@item
+Die neuen Textbeschriftungsfunktionen @code{\with-true-dimension}
+und @code{\with-true-dimensions} sind verfügbar.  Sie geben der
+Textbeschriftung die tatsächliche Größe ihrer gedruckten Tinte,
+die von der standardmäßigen Größe für einige Symbole aufgrund von
+Einschränkungen der Textregularität abweichen kann.
+
+@lilypond[quote]
+\markup
+  \fontsize #10
+  \override #'((box-padding . 0) (thickness . 0.02))
+  \line
+  \box {
+    \musicglyph "scripts.trill"
+    \with-true-dimensions \musicglyph "scripts.trill"
+  }
+@end lilypond
+
+@item
+Textersetzungen können jetzt Zeichenketten mit beliebigem
+Textbeschriftungen ersetzen, nicht nur mit einer Zeichenkette.
+
+@lilypond[verbatim,quote]
+\markup
+  \replace #`(("2nd" . ,#{ \markup \concat { 2 \super nd } #}))
+  "2nd time"
+@end lilypond
+
+@item
+Ein neuer Textbeschriftungsbefehl @code{\with-string-transformer}
+ist verfügbar.  Er interpretiert eine Textbeschriftung mit einem
+installierten @qq{string transformer}; dieser wird aufgerufen,
+wenn die Interpretation der Textbeschriftung die Interpretation
+einer Zeichenkette erfordert, und erlaubt es, Änderungen an
+dieser Zeichenkette vorzunehmen, wie das Ändern der Großschreibung.
+
+@item
+Die Funktion @code{markup->string} konvertiert eine Textbeschriftung
+in eine ungefähre Darstellung als Zeichenkette; sie wird für die
+Ausgabe von PDF-Metadaten sowie für Liedtexte und Markierungen in
+MIDI benutzt.  Textbeschriftungsbefehle können jetzt eine spezielle
+Methode für die Konvertierung von Textbeschriftungen, die mit ihnen
+erzeugt wurden, in Zeichenketten definieren, für die Benutzung mit
+@code{markup->string}.  Zum Beispiel:
+
+@example
+#(define-markup-command (upcase layout props arg) (string?)
+   #:as-string (string-upcase arg)
+   (interpret-markup layout props (string-upcase arg)))
+@end example
+
+@end itemize
+
+
+@node Neuerungen für spezielle Notation
+@unnumbered Neuerungen für spezielle Notation
+@translationof New for specialist notation
+
+@node Verbesserungen für Saiteninstrumente mit Bünden
+@unnumberedsec Verbesserungen für Saiteninstrumente mit Bünden
+@translationof Fretted string instrument improvements
+
+@itemize
+
+@item
+Die neuen Saiteneinstellungen @code{banjo-double-c} und
+@code{banjo-double-d} wurden hinzugefügt.
+
+@item
+Ein neuer Grob @code{BendSpanner} ist jetzt für @code{TabStaff}
+verfügbar, um eine gekurvte Saite anzuzeigen.
+Abgesehen vom Standard sind drei Stile möglich: @code{'hold},
+@code{'pre-bend} und @code{'pre-bend-hold}.
+
+@lilypond[quote]
+mus = {
+  d4\5\^ e\5\^ d2\5
+  c'4\3\^ d'\3\bendHold \^ d'\3\^ c'\3
+  \grace c'4\3\preBendHold \^ d'\3\bendHold \^ d'\3\^ c'2\3
+  \grace c'4\3 \preBend \^ d'1\3
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff { \clef "G_8" \mus }
+    \new TabVoice \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists Bend_spanner_engraver
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+
+@node Neuerungen für Schlagzeug
+@unnumberedsec Neuerungen für Schlagzeug
+@translationof Percussion improvements
+
+@itemize
+
+@item
+Der Notationsstil @code{weinberg-drums-style} für Schlaginstrumente
+wurde hinzugefügt.  Er basiert auf der Standardisierungsarbeit von
+Norman Weinberg.
+
+@end itemize
+
+@node Verbesserungen für Blasinstrumente
+@unnumberedsec Verbesserungen für Blasinstrumente
+@translationof Wind instrument improvements
+
+@itemize
+
+@item
+Zusätzliche Darstellungsdetails für Holzbläserdiagramme können
+jetzt angegeben werden, inklusive der Winkel von teilweise bedeckten
+Löchern und der Anzeige von nicht-graphischen Trillerklappen.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(graphical . #f)
+  \override #'(woodwind-diagram-details . ((fill-angle . 90)
+                                           (text-trill-circled . #f)))
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                               (lh . ())
+                               (rh . (besT)))
+}
+@end lilypond
+
+@end itemize
+
+@node Verbesserungen für die Notation von Akkorden
+@unnumberedsec Verbesserungen für die Notation von Akkorden
+@translationof Chord notation improvements
+
+@itemize
+
+@item
+Unterstützung von Akkordgittern wurde hinzugefügt.
+
+@lilypond[quote,indent=0\cm,noragged-right]
+\new ChordGrid \chordmode {
+  g2:7+ bes4:m7 ees:7
+  \repeat percent 2 {
+    a2:m7 b2:7.11+
+  }
+  e4:m7 e4:m7/d a4:7/cis c4:m7
+}
+@end lilypond
+
+@item
+Bei der Verwendung von @code{ChordNames} verursachen Mehrtaktpausen
+jetzt auch die Anzeige des Symbols @qq{N.C.}, genau wie normale
+Pausen.
+
+@item
+Im bezifferten Bass erzeugt @code{_} einen leeren Eintrag, der
+aber trotzdem Platz braucht.
+
+@lilypond[verbatim, quote]
+\figures {
+  <8 _ 4]> <_ 5+ 3>
+}
+@end lilypond
+
+@item
+Die Formattierung von bezifferten Bässen wurde verbessert.
+Insbesondere wurde die Standardgröße auf einen Wert reduziert,
+der von vielen Urtext-Editionen von barocker Musik genutzt wird.
+
+@item
+Im bezifferten Bass werden jetzt standardmäßig speziell entworfene
+Ziffern für @code{6\\}, @code{7\\}, und @code{9\\} verwendet.
+Es werden ebenfalls speziell entworfene Ziffern für die Symbole
+@code{2\+}, @code{4\+}, und @code{5\+} verwendet, wenn das
+Pluszeichen nach der Zahl steht.
+
+@lilypond[quote]
+\figures {
+  \set figuredBassPlusDirection = #RIGHT
+  <7\\ 6 4 2\+> <4\+ _-> <3 5\+ 3 > <6\\ 4 3> <9\\>
+}
+@end lilypond
+
+Die neuen Ziffern können über den neuen Befehl @code{\figured-bass}
+in Textbeschriftungen abgerufen werden.
+
+@item
+Im bezifferten Bass können Klammern jetzt auch um Vorzeichen
+hinzugefügt werden.
+
+@lilypond[quote]
+\figures {
+  <7 [5 3[+]]> <5[!]> <[5!]>
+}
+@end lilypond
+
+@end itemize
+
+@node Verbesserungen für die Notation von alter Musik
+@unnumberedsec Verbesserungen für die Notation von alter Musik
+@translationof Ancient notation improvements
+
+@itemize
+
+@item
+Ein neuer Kontext @code{VaticanaLyrics} ist verfügbar.  Er ist
+ähnlich zu @code{Lyrics}, mit einem Stil für Silbentrennung (einem
+einfachen, links-ausgerichteten Bindestrich zwischen zwei Silben),
+wie er in den notierten Stilen der Editio Vaticana genutzt wurde.
+
+@item
+Die vordefinierten Befehle für gregorianische Divisiones sind
+nicht länger Variationen von @code{\breathe}.  @code{\divisioMinima},
+@code{\divisioMaior}, @code{\divisioMaxima} und @code{\virgula}
+sind Variationen des grundlegenden @code{\caesura}.  @code{\finalis}
+ist äquivalent zu @code{\section}.
+
+@code{MensuralStaff} und @code{VaticanaStaff} benutzen
+@code{Divisio_@/engraver}, um die oben genannten Befehle sowie
+@code{\repeat volta} und @code{\fine} zu interpretieren.
+
+@lilypond[verbatim,quote]
+\new MensuralStaff \fixed c' {
+  \repeat volta 2 { f2 f }
+  g1
+  a1 \section
+  b1 \fine
+}
+@end lilypond
+
+@item
+@code{KievanStaff}, @code{MensuralStaff}, @code{PetrucciStaff},
+und @code{VaticanaStaff} erlauben jetzt Zeilenumbrüche an jeder
+Position und erzeugen nicht länger leere Taktstriche (@code{""}).
+
+@item
+Im @code{GregorianTranscriptionStaff} werden Divisiones jetzt
+standardmäßig mit @code{BarLine} Grobs notiert.  Um sie zu
+@code{Divisio} Grobs zu ändern, kann @code{\EnableGregorianDivisiones}
+genutzt werden.
+
+@item
+@code{GregorianTranscriptionStaff} erlaubt jetzt einen Zeilenumbruch
+nach einer Note und nutzt nicht länger @code{Time_signature_engraver}.
+
+@item
+@code{GregorianTranscriptionVoice} nutzt nicht länger
+@code{Stem_engraver}.
+
+@end itemize
+
+@node Verbesserungen für Weltmusik
+@unnumberedsec Verbesserungen für Weltmusik
+@translationof World music improvements
+
+@itemize
+
+@item
+Unterstützung für klassische persische Musik ist jetzt verfügbar.
+Dafür wurden zwei neue Versetzungszeichen, @emph{sori} und
+@emph{koron}, zu LilyPond hinzugefügt.
+
+@lilypond[verbatim,quote,line-width=14.5\cm]
+\include "persian.ly"
+
+\relative c' {
+  \key d \chahargah
+  bk'8 a gs fo r g ak g |
+  fs ek d c d ef16 d c4 |
+}
+@end lilypond
+
+@end itemize
+
+@node Verschiedene Verbesserungen
+@unnumbered Verschiedene Verbesserungen
+@translationof Miscellaneous improvements
+
+@itemize
+
+@item
+In der Emmentalerschriftart wurden identisch-aussehende Notenköpfe,
+die sich nur in der Ausrichtung von Notenhälsen unterschieden, in ein
+einzelnes Symbol zusammengefasst.  Zum Beispiel wurden die Zeichen
+@code{noteheads@/.u2triangle} und @code{noteheads@/.d2triangle}
+durch ein einzelnes Zeichen ersetzt, @code{noteheads@/.s2triangle}.
+Paare von Notenköpfen, die abhängig von der Ausrichtung anders
+aussehen, bleiben verschieden.
+
+Zusäztlich gibt die Eigenschaft @code{stem-attachment} von
+@code{NoteHead} Grobs jetzt den wirklichen, ausrichtungsabhängigen
+Punkt für das Anbringen von Notenhälsen zurück statt eines hypothetischen
+Punktes für einen aufgewärtsgerichteten Notenhals.
+
+@item
+Zwei überflüssige Zeichen in der Emmentalerschriftart wurden
+entfernt: @code{scripts.trillelement} (stattdessen ist
+@code{scripts.trill_element} zu benutzen) und @code{scripts.augmentum}
+(stattdessen ist @code{dots.dotvaticana} zu benutzen).
+
+@item
+Mit @code{\paper @{ bookpart-level-page-numbering = ##t@}} ist es
+jetzt möglich, Buchteile unabhängig im Bezug auf die
+Seitennummerierung zu machen.  Wenn dies für alle Buchteile
+genutzt wird, hat jeder Buchteil eine eigene Nummerierung,
+jeweils beginnend bei 1.  Die Option kann auch für einen einzelnen
+Buchteil genutzt werden, was nützlich sein kann, um die Seiten
+einer analytischen Einführung unabhängig und mit römischen Ziffern
+zu nummerieren (letztes kann durch Benutzen von
+@code{page-number-type = #'roman-lower} erreicht werden).
+
+@item
+Eine neue Funktion @code{break-alignment-list} ist jetzt verfügbar,
+um unterschiedliche Werte abhängig von der Umbruchrichtung eines Grobs
+zurückzugeben.  Dies kann beispielsweise genutzt werden, um verschiedene
+Ausrichtungen eines Grobs zu setzen, abhängig davon, ob er am Anfang, in
+der Mitte oder am Ende einer Zeile positioniert wird.
+
+@lilypond[quote]
+\score {
+  { \repeat unfold 8 c' }
+  \layout {
+    \context {
+      \Score
+      barNumberVisibility = #all-bar-numbers-visible
+      \override BarNumber.break-visibility = #'#(#t #t #t)
+      \override BarNumber.self-alignment-X =
+        #(break-alignment-list CENTER LEFT CENTER)
+    }
+  }
+}
+@end lilypond
+
+@item
+Der neue @code{Mark_performer} erzeugt MIDI Markierungen in der
+gleichen Weise, wie @code{Mark_engraver} gedruckte Markierungen
+erzeugt.
+
+@item
+Eigenschaften von @code{PaperColumn} und @code{NonMusicalPaperColumn}
+(wie @code{NonMusicalPaperColumn.line-break-system-details}) können
+jetzt mitten in der Musik mit dem üblichen Befehl @code{\once \override}
+überschrieben werden.  Vorher war dies ein Sonderfall und erforderte
+den Befehl @code{\overrideProperty}.
+
+@item
+Die neuen Eigenschaften @code{show-horizontal-skylines} und
+@code{show-vertical-skylines} erlauben das Anzeigen der Skyline
+eines Objekts.  Dies ist flexibler als die bereits existierende
+Option @code{debug-skylines}, weil es für alle Grobs funktioniert.
+Obwohl die Eigenschaften primär für die Entwicklung von LilyPond
+gedacht sind, können sie nützlich sein, um Abstandsentscheidungen
+zu verstehen oder Stencils in Scheme zu überschreiben.
+
+@lilypond[quote]
+#(set-global-staff-size 40)
+
+{
+  \override Staff.Clef.show-vertical-skylines = ##t
+  \override Accidental.show-horizontal-skylines = ##t
+  cis'
+}
+@end lilypond
+
+@item
+Der neue Befehl @code{\vshape} verhält sich wie @code{\shape}, zeigt
+aber auch die Kontrollpunkte und Polygone für einfachere Anpassungen.
+
+@lilypond[verbatim,quote]
+{ a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
+@end lilypond
+
+@item
+@code{\markup \path} funktioniert jetzt auch in der Ausgabe von
+SVGs, selbst wenn der Pfad nicht mit einem der Befehle @code{moveto}
+oder @code{rmoveto} beginnt.  Der Pfad akzeptiert außerdem die
+Buchstabenäquivalente für SVG (@code{moveto} = @code{M}, etc.).
+
+@item
+@code{set-default-paper-size} und @code{set-paper-size} akzeptieren
+jetzt eine benutzerdefinierte Papiergröße.
+
+@example
+#(set-default-paper-size '(cons (* 100 mm) (* 50 mm)))
+@end example
+
+@item
+@command{lilypond-book} unterstützt zwei neue Optionen für
+Musikfragmente, @option{paper-width} und @option{paper-height},
+um die Papiergröße zu setzen.
+
+@item
+@command{lilypond-book} unterstützt eine neue Schnipsel-Option
+@option{inline} für die Anzeige von Musik, wie
+@lilypond[inline,staffsize=11]{
+  { \time 2/4 r8 g'[ g' g'] | es'2 }
+}
+innerhalb eines Textabsatzes.
+
+@item
+Das Skript @command{lilypond-book} erlaubt jetzt Klammern in den
+Argumenten für die Befehle @code{\lilypond} (für LaTeX) und
+@code{@@lilypond} (für Texinfo).
+
+@item
+@command{lilypond-book} fügt jetzt das aktuelle Verzeichnis als
+letzten Eintrag für die Suche von eingebundenen Dateien an, statt
+es als ersten Eintrag vor alle angegebenen Pfade zu stellen.  Dies
+erlaubt es eingebundenen Verzeichnissen, Dateien im aktuellen
+Verzeichnis zu überschreiben, und wird nur bemerkt werden, falls
+es Dateien gleichen Namens in beiden gibt.
+
+@item
+Die neue Scheme-Funktion @code{universal-@/color} beschreibt eine
+Farbpalette mit acht Elementen, die entworfen wurde, um für Personen
+mit Dichromatismus eindeutig zu sein.
+
+@lilypond[quote]
+\markup \bold \column {
+  \with-color #(universal-color 'black) black
+  \with-color #(universal-color 'orange) orange
+  \with-color #(universal-color 'skyblue) skyblue
+  \with-color #(universal-color 'bluegreen) bluegreen
+  \with-color #(universal-color 'yellow) yellow
+  \with-color #(universal-color 'blue) blue
+  \with-color #(universal-color 'vermillion) vermillion
+  \with-color #(universal-color 'redpurple) redpurple
+}
+@end lilypond
+
+@item
+Die Option @code{-dembed-@/source-@/code} bettet jetzt auch Bilder,
+die mit @code{\epsfile} hinzugefügt wurden, und Dateien, die mit
+@code{\verbatim-file} eingebunden wurden, ein.
+
+@item
+Der Standard der Programmoption @code{aux-files} wurde zu
+@code{#f} geändert.  Falls LilyPond mit dem Argument
+@code{-dbackend=eps} aufgerufen wird und die Hilfsdateien
+mit den Endungen @file{.tex} und  @file{.texi} benötigt werden,
+muss jetzt auch @code{-daux-files} angegeben werden.
+Die Formate der Bilder für @code{lilypond-book} kann separat
+für große Seitenbilder (typischerweise PNG für die Ausgabe als
+HTML) und für kleine Bilder von Systemen (typischerweise EPS
+oder PDF für Druckausgaben) gesetzt werden, mit den Optionen
+@code{-dtall-page-formats} und @code{-dseparate-page-formats}.
+
+@item
+Die Einheit @q{big point} (1@dmn{bp} = 1/72@dmn{in}) ist jetzt
+verfügbar durch Anfügen von @code{\bp} an Längenwerte.
+
+@item
+Scheme-definierte Translators, die sowohl in @samp{\layout} als auch
+@samp{\midi} nutzbar sind, können jetzt mit @code{make-translator}
+erzeugt werden.  Scheme-definierte Performer, die nur in
+@samp{\midi} nutzbar sind, können mit @code{make-performer}
+erzeugt werden.  Diese Makros funktionieren genau wie das
+existierende Makro @code{make-engraver} für die Erzeugung eines
+Engravers, der nur in @samp{\layout} nutzbar ist.
+
+@item
+Scheme Translators können jetzt einen neuen Slot definieren, genannt
+@code{pre-process-music}.  Er wird für alle Translators nach allen
+Listenern aufgerufen, aber vor allen @code{process-music}.  Dies kann
+für die Vorverarbeitung genutzt werden, die von allen Ereignissen
+abhängt, aber Kontexteigenschaften setzen muss, bevor diese von
+anderen Translators gelesen werden.
+
+@item
+Scheme Translators können jetzt Listener enhalten, geschrieben als
+
+@example
+(listeners
+ ((event-class engraver event #:once)
+  ...))
+@end example
+
+Diese werden niemals mehr als einmal pro Zeitschritt ausgelöst.
+Sie erzeugen eine Warnung, wenn sie zwei Ereignisse in einem
+Zeitschritt empfangen, außer wenn die beiden Ereignisse gleich sind.
+
+@item
+Die gleiche Definition von Grobs kann jetzt genutzt werden, um Grobs
+verschiedener Klassen zu erzeugen (@code{Item}, @code{Spanner},
+@code{Paper_column} und @code{System}).  Als Teil dieser Änderung
+würden die Typen @code{FootnoteItem} und @code{FootnoteSpanner}
+in einen einzigen Typ @code{Footnote} konsolidiert. Gleichfalls
+wurden @code{BalloonTextSpanner} und @code{BalloonTextItem} in
+@code{BalloonText} vereinigt.
+
+Wenn die Definition keine Klasse vorschreibt, sollten die Engraver
+auswählen, mit welcher Klasse der Grob erstellt wird.  Für Autoren
+von Scheme Engavern heißt das die Verwendung von entweder
+@code{ly:@/engraver-@/make-@/item} oder
+@code{ly:@/engraver-@/make-@/spanner}.  Die Hilfsfunktion
+@code{ly:@/engraver-@/make-@/sticky} untersützt den häufigen Fall
+von @emph{sticky} Grobs, wie Fußnoten und Blasen.  Es erzeugt einen
+Grob mit der gleichen Klasse wie ein anderer Grob und verwaltet
+Eltern und Grenzen.
+
+@item
+Die neue Option @code{-dcompile-scheme-code}, die auch direkt
+in der Eingabe an LilyPond gesetzt werden kann mit
+@code{#(ly:set-@/option 'compile-@/scheme-@/code)}, ermöglicht
+bessere Meldungen, wenn die Ausführung von Scheme-Code zu einem
+Fehler führt.  Intern nutzt dies den Byte-Compiler von Guile
+statt des Interpreters.
+
+Aufgrund einer Limitierung von Guile hat dies zur Zeit jedoch
+den Nachteil, dass es unmöglich ist, mehr als ein paar tausend
+Scheme-Ausdrücke laufen zu lassen.  Es wird außerdem darauf
+hingewiesen, dass der Guile-Compiler einige Unterschiede zum
+Interpreter hat.  Konstante Teile eines Quasiquotes werden
+beispielsweise aggressiver zu echten Konstanten und führen damit
+in Code wie @code{(let ((x 4)) (sort! `(,x 3 2 1)))} zu einem
+Fehler, weil der @qq{cdr} der Liste konstant ist und es ein
+Fehler in Scheme ist, eine Liste von Literalen zu verändern.
+(In diesem speziellen Fall könnte der Code das Problem durch
+die Nutzung der nicht-destruktiven Funktion @code{sort} vermeiden,
+oder jedes Mal eine neue Liste erzeugen mit @code{(list x 3 2 1)}.
+
+Diese Option funktioniert zur Zeit nicht unter Windows.
+
+@end itemize
+
+@node Hinweise zu Guile 2.2
+@unnumbered Hinweise zu Guile 2.2
+@translationof Notes on Guile 2.2
+
+Diese Version von LilyPond wechselt von Guile 1.8 zu Guile 2.2.
+Dieser Abschnitt führt einige der häufigsten Inkompatibilitäten
+auf, mit denen man beim Upgrade seines Scheme-Codes zu tun hat.
+
+Eine vollständige, detaillierte Liste der Änderungen in Guile
+findet sich in der
+@uref{https://git.savannah.gnu.org/cgit/guile.git/tree/NEWS,
+@file{NEWS} Datei} des Guile-Quellcodes.
+
+@itemize
+@item
+Die Funktion @code{format} erfordert jetzt einen boolschen Wert
+oder einen Port als erstes Argument.  Dieses Argument war in
+Guile 1.8 optional.  Um die formattierte Ausgabe als Zeichenkette zu
+erhalten, wie es @code{format} ohne dieses Argument in Guile 1.8 tat,
+muss @code{#f} als Argument übergeben werden, also
+@code{(format #f "@var{string}" @var{arguments} @dots{})} statt
+@code{(format "@var{string}" @var{arguments} @dots{})}.
+
+
+@item
+Die Regeln für interne Definitionen (also nicht auf oberster
+Ebene) sind strenger geworden.  Definitionen sind nicht länger
+in verschiedenen Ausdruckskontexten erlaubt.  Der folgende
+Code ist beispielsweise nicht länger gültig:
+
+@example
+(if (not (defined? 'variable))
+    (define variable 'value))
+@end example
+
+Die Lösung in diesem speziellen Beispiel ist:
+
+@example
+(define variable
+  (if (not (defined? 'variable))
+      'value
+      variable))
+@end example
+
+
+@item
+Zeichenketten unterstützen jetzt Unicode-Zeichen.  Bisher wurde
+ein Unicode-Zeichen als mehrere Zeichen dargestellt, und verschiedene
+Funktionen waren nicht für die Unterstützung von Unicode ausgelegt.
+
+@item
+Einige numerische Funktionen geben jetzt in mehr Fällen exakte
+Ergebnisse zurück.  Beispielsweise gibt @code{(sqrt 4)} in Guile 1.8
+@code{2.0} zurück, aber @code{2} (eine Ganzzahl) in Guile 2.2.
+
+@end itemize
+
+
+@ifhtml
+Ältere Änderungen finden sich in
+@uref{https://lilypond.org/doc/v2.22/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+oder @uref{../,zurück} im Index der Dokumentation.
+@end ifhtml
+
+@bye
