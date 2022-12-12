@@ -70,6 +70,14 @@ font into the document, this font does not by itself cause the
 resulting document to be covered by the GNU General Public License.
 """
 font.version = version
+# The next field is needed for FontConfig, which bases the selection of
+# identical fonts (at least from FontConfig's view) on the font revision
+# field of the 'head' table.
+ver = version.split(".")
+v = int(ver[0])
+v += int(ver[1]) / 100
+v += int(ver[2]) / 100 / 100 if len(ver) > 2 else 0
+font.sfntRevision = v
 
 
 # Merge all Feta and Parmesan subfonts into a single font.
