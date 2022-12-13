@@ -31,9 +31,7 @@ werden dabei Ihrem Dokument angepasst.
 
 @command{lilypond-book} ist ein eigenständiges Programm und wird
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
-hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.  Wenn Sie
-MacOS oder Windows benutzen und Probleme mit @code{lilypond-book} haben,
-lesen Sie @rweb{MacOS X} bzw. @rweb{Windows} .
+hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
