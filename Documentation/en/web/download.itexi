@@ -210,7 +210,7 @@ Compiling instructions are listed in @rcontrib{Compiling}.
 
 To obtain the source and binaries for any release, visit our
 @uref{https://gitlab.com/lilypond/lilypond/-/releases,GitLab
-releases page} for versions since 2.23.3, or the previous
+releases page} for versions since 2.23.6, or the previous
 @uref{https://lilypond.org/download/binaries/,download site} for
 earlier versions.
 
