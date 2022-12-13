@@ -299,9 +299,7 @@ findet sich auf der @uref{https://@/lilypond@/.org,Homepage} von LilyPond.
 
 Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe
-@ref{Benutzung auf der Kommandozeile} für weitere Informationen.  Wenn Sie MacOS
-10.3 oder 10.4 benutzen und Probleme mit diesen Skripten (z. B.
-@code{convert-ly}) haben, lesen Sie @rweb{MacOS X}.
+@ref{Benutzung auf der Kommandozeile} für weitere Informationen.
 
 @knownissues
 Leider haben wir nicht ausreichend viele Entwickler, um all die folgenden

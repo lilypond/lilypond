@@ -51,8 +51,6 @@ Unter @q{Kommandozeile} verstehen wir die Kommandozeile des jeweiligen
 Betriebssystems. Windows Benutzern ist sie vielleicht eher unter den
 englischen Begriffen @q{DOS shell} oder @q{command shell} bekannt.
 MacOS@tie{}X Benutzer kennen sie eher unter @q{Terminal} oder @q{Konsole}.
-Einige zusätzliche Einrichtungsarbeiten werden unter MacOS@tie{}X,
-siehe @rweb{MacOS X}.
 
 Wie die Kommandozeile im jeweiligen Betriebssystem benutzt werden kann,
 soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
