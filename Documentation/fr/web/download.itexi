@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
+    Translation of GIT committish: 1d5b5cf3065a32ad624e8d118ee4dd452826fb69
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -224,7 +224,7 @@ Les instructions permettant de compiler LilyPond sont répertoriées dans
 @subheading Toutes les versions
 @c VO All versions
 
-Les sources et les exécutables pour les versions à compter de la 2.23.3
+Les sources et les exécutables pour les versions à compter de la 2.23.6
 sont disponibles dans notre
 @uref{https://gitlab.com/lilypond/lilypond/-/releases, vitrine chez
 GitLab}, ou sur notre
