@@ -385,7 +385,7 @@ dies bitte mit. Die Anleitung dazu finden Sie unter
 @end ifnothtml
 
 @include de/web/introduction.itexi
-@include en/web/download.itexi
+@include de/web/download.itexi
 @include de/web/manuals.itexi
 @include de/web/community.itexi
 
