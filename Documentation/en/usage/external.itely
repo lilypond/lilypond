@@ -739,19 +739,63 @@ been tested with OpenOffice 2.4 without issues.
 @node Other programs
 @subsection Other programs
 
-Other programs that can handle @file{PNG}, @file{EPS}, or @file{PDF}
-formats should use @code{lilypond} instead of @code{lilypond-book}.
-Each LilyPond output file must be created and inserted separately.
-Consult the program's own documentation on how to insert files from
-other sources.
+When integrating LilyPond scores into documents in other software,
+you have to effectively mimick how @command{lilypond-book} runs
+@command{lilypond}.
 
-To help reduce the white space around your LilyPond score, use the
-following options;
+Here we discuss how to create @file{PNG} images
+for use with online formats similar to HTML, and @file{PDF} and
+@file{EPS} for print-out formats similar to @file{PDF}.
+
+PDF documents are usually formatted to enable printing.  This means
+that long pieces of music must be distributed over several
+pages.  For this mode of operation, invoke @command{lilypond} as
+
+@example
+lilypond -dseparate-page-formats=pdf myfile.ly
+@end example
+
+@noindent
+This creates @file{myfile-1.pdf}, @file{myfile-2.pdf}, @dots{},
+each containing a single page.
+
+For embedding the images in a PostScript file, you can create
+@file{EPS} files, using @code{-dseparate-page-formats=eps}.  In
+this case, you may also want to specify
+@code{-dno-gs-load-fonts -dinclude-eps-fonts}, otherwise the
+@file{EPS} files will not render if they are copied to another computer.
+
+HTML documents are not printed, so they usually don't have to
+worry about splitting music images across page breaks, and you can
+use a single (possibly very tall) image to represent a long
+score.  This can be achieved with
+
+@example
+lilypond -dtall-page-formats=png myfile.ly
+@end example
+
+@noindent
+yielding a @file{myfile.png} that has all the pages of
+@file{myfile.ly} stacked vertically.
+
+Specifying either @code{-dseparate-page-formats} or
+@code{-dtall-page-formats} suppresses the standard output mode
+(single file with multiple pages) and the associated
+@code{--formats} option.  Both options take a comma-separated list
+of formats and can be specified together, e.g.
+
+@example
+lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg myfile.ly
+@end example
+
+To reduce the margins around the pages pass the
+@code{-dno-use-paper-size-for-page} option to crop extraneous
+whitespace.  The following paper settings will elide page numbers
+and other footers that enlarge the page.
 
 @example
 \paper@{
   indent=0\mm
-  line-width=120\mm
   oddFooterMarkup=##f
   oddHeaderMarkup=##f
   bookTitleMarkup = ##f
@@ -761,26 +805,13 @@ following options;
 @var{@dots{} music @dots{}}
 @end example
 
-@noindent
-To produce @file{EPS} images;
+The above discusses how pages are dumped into output files, but
+for music integrated  into text, you often don't want full pages
+(possibly including page numbers, margins etc.), but rather lines
+of music.  This is achieved by including @file{lilypond-book-preamble.ly}
+before a fragment of music.  This makes a toplevel @code{\score}
+block render into lines of music rather than pages.  
 
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
-@end example
-
-@noindent
-To produce @file{PNG} images;
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
-@end example
-
-@noindent
-For transparent @file{PNG} images
-
-@smallexample
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
-@end smallexample
 
 @cindex fragments, music
 @cindex quoting, music fragments
