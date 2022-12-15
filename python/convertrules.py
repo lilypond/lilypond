@@ -4745,6 +4745,10 @@ is the opposite of the convention used previously.
         stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 24, 0), _("bump version for release"))
+def conv(s):
+    return s
+
 @rule((2, 25, 0), r"""
 \override Staff.StaffSymbol.line-positions = #'() ->
   \override Staff.StaffSymbol.line-positions = #ly:staff-symbol::calc-line-positions

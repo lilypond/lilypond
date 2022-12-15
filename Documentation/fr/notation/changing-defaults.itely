@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 72e590e5b04a5e3f449eab2b90b6cef8fc173d29
+   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4168,7 +4168,7 @@ fonctions prédéfinies, regroupées dans le fichier
 @file{scm/output-lib.scm}.  Le tableau suivant vous les présente ;
 les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 
-@quotation
+@indentedBlock
 @multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {apres} {apres} {apres}
 @headitem Forme                      @tab Forme                  @tab Avant @tab Hors    @tab Après
 @headitem fonctionnelle              @tab vectorielle            @tab saut  @tab saut    @tab saut
@@ -4182,14 +4182,14 @@ les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 @item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}    @tab non    @tab oui    @tab oui
 @item @code{all-invisible}           @tab @code{#(#f #f #f)}    @tab non    @tab non    @tab non
 @end multitable
-@end quotation
+@endIndentedBlock
 
 Les réglages par défaut de la propriété @code{break-visibility}
 diffèrent selon l'objet de rendu.  Le tableau suivant présente, pour la
 plupart des  objets comportant la propriété @code{break-visibility},
 ces réglages par défaut.
 
-@quotation
+@indentedBlock
 @multitable {@code{DoublePercentRepeat}} {@b{Contexte habituel}} {@code{begin-of-line-invisible}}
 
 @headitem Objet de rendu   @tab Contexte habituel  @tab Réglage par défaut
@@ -4215,7 +4215,7 @@ ces réglages par défaut.
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
 @end multitable
-@end quotation
+@endIndentedBlock
 
 Voici un exemple d'utilisation de la forme vectorielle pour contrôler la
 visibilité des barres de mesure :
@@ -4576,7 +4576,7 @@ préceptes suivants :
 
 @c TODO add an example of each to the table
 
-@quotation
+@indentedBlock
 @multitable {@b{Propriété @code{side-axis}}} {@b{Propriété @code{direction}}} {@b{Positionnement}}
 @headitem Propriété @code{side-axis}
                       @tab Propriété @code{direction}
@@ -4588,7 +4588,7 @@ préceptes suivants :
 @item     @code{1}          @tab @code{1}          @tab au-dessus
 
 @end multitable
-@end quotation
+@endIndentedBlock
 
 Pour un @code{side-axis} à @code{0}, le @code{X-offset} devrait engager
 la procédure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.

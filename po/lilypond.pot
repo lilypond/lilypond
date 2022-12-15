@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.82\n"
+"Project-Id-Version: lilypond 2.24.0\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-11-27 13:27+0100\n"
+"POT-Creation-Date: 2022-12-13 20:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,7 +165,7 @@ msgstr ""
 #: convertrules.py:104 convertrules.py:1944 convertrules.py:2121
 #: convertrules.py:2245 convertrules.py:2587 convertrules.py:2904
 #: convertrules.py:3291 convertrules.py:3564 convertrules.py:3912
-#: convertrules.py:4285
+#: convertrules.py:4285 convertrules.py:4748
 msgid "bump version for release"
 msgstr ""
 
@@ -988,7 +988,7 @@ msgid ""
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:271
+#: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:272
 #: midi2ly.py:1185 musicxml2ly.py:2915 main.cc:161
 msgid "show version number and exit"
 msgstr ""
@@ -1016,7 +1016,7 @@ msgstr ""
 msgid "suppress progress messages"
 msgstr ""
 
-#: abc2ly.py:1474 convert-ly.py:161 etf2ly.py:1241 lilypond-book.py:302
+#: abc2ly.py:1474 convert-ly.py:161 etf2ly.py:1241 lilypond-book.py:303
 #: midi2ly.py:1197 musicxml2ly.py:3059
 #, python-format
 msgid "Report bugs via %s"
@@ -1067,7 +1067,7 @@ msgid ""
 "(default), DEBUG)"
 msgstr ""
 
-#: convert-ly.py:115 lilypond-book.py:194 lilypond-book.py:210
+#: convert-ly.py:115 lilypond-book.py:195 lilypond-book.py:211
 #: musicxml2ly.py:2955 main.cc:149
 msgid "LOGLEVEL"
 msgstr ""
@@ -1099,7 +1099,7 @@ msgstr ""
 msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
-#: convert-ly.py:156 etf2ly.py:1235 lilypond-book.py:275 midi2ly.py:1186
+#: convert-ly.py:156 etf2ly.py:1235 lilypond-book.py:276 midi2ly.py:1186
 #: main.cc:163
 msgid "show warranty and copyright"
 msgstr ""
@@ -1198,187 +1198,187 @@ msgstr ""
 msgid "FORMAT"
 msgstr ""
 
-#: lilypond-book.py:169
+#: lilypond-book.py:170
 msgid "add DIR to include path"
 msgstr ""
 
-#: lilypond-book.py:170 lilypond-book.py:178 lilypond-book.py:202
-#: lilypond-book.py:217 lilypond-book.py:243 lilypond-book.py:251 main.cc:142
+#: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:203
+#: lilypond-book.py:218 lilypond-book.py:244 lilypond-book.py:252 main.cc:142
 msgid "DIR"
 msgstr ""
 
-#: lilypond-book.py:176
+#: lilypond-book.py:177
 msgid "format Texinfo output so that Info will look for images of music in DIR"
 msgstr ""
 
-#: lilypond-book.py:184
+#: lilypond-book.py:185
 #, python-format
 msgid ""
 "pad left side of music to align music in spite of uneven bar numbers (in mm) "
 "[default: %default]"
 msgstr ""
 
-#: lilypond-book.py:186
+#: lilypond-book.py:187
 msgid "PAD"
 msgstr ""
 
-#: lilypond-book.py:192
+#: lilypond-book.py:193
 #, python-format
 msgid "print lilypond log messages according to LOGLEVEL [default: %default]"
 msgstr ""
 
-#: lilypond-book.py:200
+#: lilypond-book.py:201
 msgid "write lily-XXX files to DIR, link into --output dir"
 msgstr ""
 
-#: lilypond-book.py:208
+#: lilypond-book.py:209
 msgid ""
 "print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "[default], DEBUG)"
 msgstr ""
 
-#: lilypond-book.py:216
+#: lilypond-book.py:217
 msgid "write output to DIR"
 msgstr ""
 
-#: lilypond-book.py:223
+#: lilypond-book.py:224
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:224
+#: lilypond-book.py:225
 msgid "COMMAND"
 msgstr ""
 
-#: lilypond-book.py:230
+#: lilypond-book.py:231
 msgid "redirect the lilypond output"
 msgstr ""
 
-#: lilypond-book.py:236
+#: lilypond-book.py:237
 msgid "removed; using this option results in an error"
 msgstr ""
 
-#: lilypond-book.py:242
+#: lilypond-book.py:243
 msgid "do not fail if no lilypond output is found"
 msgstr ""
 
-#: lilypond-book.py:249
+#: lilypond-book.py:250
 msgid "do not fail if no PNG images are found for EPS files"
 msgstr ""
 
-#: lilypond-book.py:257
+#: lilypond-book.py:258
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:264 midi2ly.py:1180 musicxml2ly.py:2921
+#: lilypond-book.py:265 midi2ly.py:1180 musicxml2ly.py:2921
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:280
+#: lilypond-book.py:281
 msgid ""
 "run executable PROG instead of latex or, in case --pdf option is set, "
 "instead of pdflatex"
 msgstr ""
 
-#: lilypond-book.py:283 lilypond-book.py:289
+#: lilypond-book.py:284 lilypond-book.py:290
 msgid "PROG"
 msgstr ""
 
-#: lilypond-book.py:288
+#: lilypond-book.py:289
 msgid "run executable PROG instead of texi2pdf"
 msgstr ""
 
-#: lilypond-book.py:294
+#: lilypond-book.py:295
 msgid "create PDF files for use with pdftex"
 msgstr ""
 
-#: lilypond-book.py:342
+#: lilypond-book.py:343
 #, python-format
 msgid "Invoking `%s'"
 msgstr ""
 
-#: lilypond-book.py:344
+#: lilypond-book.py:345
 #, python-format
 msgid "Processing %s.ly"
 msgstr ""
 
-#: lilypond-book.py:347
+#: lilypond-book.py:348
 #, python-format
 msgid "Running %s..."
 msgstr ""
 
 #. Next call write_ly() for each snippet once.
-#: lilypond-book.py:440
+#: lilypond-book.py:441
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:444
+#: lilypond-book.py:445
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:449
+#: lilypond-book.py:450
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:451
+#: lilypond-book.py:452
 msgid "Linking files..."
 msgstr ""
 
-#: lilypond-book.py:467
+#: lilypond-book.py:468
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:479
+#: lilypond-book.py:480
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:489
+#: lilypond-book.py:490
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:544
+#: lilypond-book.py:545
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:548
+#: lilypond-book.py:549
 #, python-format
 msgid "Reading `%s'"
 msgstr ""
 
-#: lilypond-book.py:554
+#: lilypond-book.py:555
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:565
+#: lilypond-book.py:566
 #, python-format
 msgid "Processing include `%s'"
 msgstr ""
 
-#: lilypond-book.py:576
+#: lilypond-book.py:577
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:689
+#: lilypond-book.py:690
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:694
+#: lilypond-book.py:695
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:700
+#: lilypond-book.py:701
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
 
-#: lilypond-book.py:728
+#: lilypond-book.py:729
 #, python-format
 msgid "Compiling `%s'..."
 msgstr ""
@@ -4536,42 +4536,42 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:461
+#: lily.scm:459
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:781
+#: lily.scm:779
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:782
+#: lily.scm:780
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:858
+#: lily.scm:856
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:861
+#: lily.scm:859
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:865
+#: lily.scm:863
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:878
+#: lily.scm:876
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:911
+#: lily.scm:909
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""

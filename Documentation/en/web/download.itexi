@@ -7,91 +7,141 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@macro warningTextBased
-@c Can't use @ifWebLinks because it inserts an extra colon.  This
-@c needs to be repetitive because @ifset can't work inside
-@c @warning.
-@ifclear web_version
-@warning{LilyPond is a @strong{text-based} music engraver; it is
-more similar to a programming language than a graphical score
-editing program.  Before downloading LilyPond, please read about
-our @ref{Text input}.  Once you have downloaded LilyPond, read
-the start of the
-@c I don't understand why this use of @rlearning produces "Learning Manual"
-@c and not just "Learning". --JeanAS
-@rlearningnamed{Top,Learning} for a gentle introduction on how to
-install it and use it.}
-@end ifclear
-
-@ifset web_version
-@warning{LilyPond is a @strong{text-based} music engraver; it is
-more similar to a programming language than a graphical score
-editing program.  Before downloading LilyPond, please read about
-our @ref{Text input}.  Once you have downloaded LilyPond, read the
-start of the @manualStableLearningSplitNoName manual for a gentle
-introduction on how to install it and use it.}
-@end ifset
-@end macro
-
 @node Download
 @unnumbered Download
 
 @divClass{heading-center}
 @heading Downloads for LilyPond @versionStable
 
-@ifclear web_version
-@warning{Links for the unstable version of LilyPond can be found at
-@ref{Development}.}
-@end ifclear
-
-@warningTextBased
-
 @divEnd
+
 
 @divClass{link-headings}
 
+
+@divClass{column-center-top}
+@subheading Essential links
+
+@subsubheading For new users
+
+@ref{Text input}:  LilyPond is a @strong{text-based} music engraver;
+it is more similar to a programming language than a graphical score
+editing program.  Read this to understand the basic LilyPond editing
+workflow.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+This gentle introduction to LilyPond shows how to install it
+and guides you through your first steps with the program.
+
+@subsubheading For users who upgrade from a previous version
+
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+What's new in LilyPond @versionStable{}.
+
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+Explains how to run @command{convert-ly} to effortlessly update
+existing input files written for older versions.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+The installation method shown in the tutorial allows installing
+several versions of LilyPond in parallel seamlessly.
+
+@divEnd
+
+
 @divClass{column-left-top}
-@subheading For users
+@subheading GNU/Linux
+
+@subsubheading Generic Packages or Distribution-Specific Packages?
+
+Many distributions include LilyPond within their normal package
+repositories.  However, these may be significantly older than the
+current stable version.  If this is the case for you, we strongly
+recommend that you use our generic packages.
+
+@subsubheading Downloads for Generic Packages
 
 @itemize
-
 @item
-@c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,}}
-@ref{Unix, Unix (generic packages for GNU/Linux)}
-
-@item
-@ref{MacOS X, @sourceimage{logo-macosx,,}}
-@ref{MacOS X, MacOS X}
-
-@item
-@ref{Windows, @sourceimage{logo-windows,,}}
-@ref{Windows, Microsoft Windows}
-
+@sourceimage{logo-linux,,}
+@downloadStableLinux
 @end itemize
 
 @divEnd
 
+
+
 @divClass{column-right-top}
-@subheading For developers
+
+@subheading Windows
+
+@subsubheading Downloads for Generic Packages
+
+These binaries work under current Windows versions (Windows 7
+and Windows 8 are not supported).
 
 @itemize
+@item
+@sourceimage{logo-windows,,}
+@downloadStableMingw
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-left-bottom}
+@subheading macOS
+
+@subsubheading Downloads for Generic Packages
+
+These binaries work on macOS 10.15 (Catalina) and higher.
+For older macOS versions, please use MacPorts.
+
+@itemize
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwin
+@end itemize
+
+@subsubheading Using a Package Manager
+
+@itemize
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, a package manager
+for macOS, has a @uref{https://ports.macports.org/port/lilypond/summary,
+LilyPond port}.
 
 @item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, another package manager
+for macOS, has a @uref{https://formulae.brew.sh/formula/lilypond,
+LilyPond formula}.
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-right-bottom}
+@subheading For developers
+
 @ref{Source}:
 for packagers
 
-@item
 @ref{Old downloads}:
 old versions
 
-@item @ref{Development}:
+@ref{Development}:
 latest unstable version
 
-@end itemize
 @divEnd
 
-@divEnd
+
+@divEnd @c link-headings
+
+
 
 @divClass{column-center-middle-color2}
 
@@ -101,6 +151,8 @@ LilyPond is published under the
 @ref{GPL, GNU General Public License}.
 @divEnd
 
+
+
 @divClass{column-center-bottom}
 @subheading Legalese
 
@@ -118,11 +170,9 @@ acknowledged.
 @divEnd
 
 
+
 @divClass{hide}
 @menu
-* Unix::
-* MacOS X::
-* Windows::
 * Source::
 * Old downloads::
 * GPL::
@@ -130,409 +180,43 @@ acknowledged.
 @divEnd
 
 
-@node Unix
-@unnumberedsec Unix
-
-@divClass{heading-center}
-@warningTextBased
-@divEnd
-
-@divClass{column-center-top}
-@subheading Generic Packages or Distribution-Specific Packages?
-
-Many distributions include LilyPond within their normal package
-repositories that are often @emph{significantly} older than the current
-stable version.  While these older packages may be easier to install, we
-@emph{strongly} recommend that you use our generic packages.  In this
-case, check that your LilyPond editor is using the correct version.
-See @ref{Easier editing}.
-
-@divEnd
-
-
-@divClass{column-center-top}
-@subheading Generic Packages
-
-@subsubheading Download
-
-@itemize
-
-@item
-@sourceimage{logo-linux,,}
-@downloadStableLinuxNormal
-32bit Systems.
-
-@item
-@sourceimage{logo-linux,,}
-@downloadStableLinuxBig
-64bit Systems.
-
-@end itemize
-
-
-@subsubheading Install
-
-In the shell, type:
-
-@example
-cd PATH-TO-DOWNLOAD-DIRECTORY
-sh lilypond-@versionStable{}-OS-TYPE.sh
-@end example
-
-@subsubheading Uninstall
-
-In the shell, type:
-
-@example
-uninstall-lilypond
-@end example
-
-@subsubheading Help
-
-In the shell, type:
-
-@example
-sh lilypond-@versionStable{}-OS-TYPE.sh --help
-@end example
-
-@divEnd
-
-
-@divClass{column-center-bottom}
-@subheading Legalese
-
-@divClass{legal}
-All logos and product images are copyright and trademark
-acknowledged.
-
-@logoLegalLinux
-
-@divEnd
-@divEnd
-
-
-@node MacOS X
-@unnumberedsec MacOS X
-
-@divClass{heading-center}
-@warningTextBased
-@divEnd
-
-@divClass{column-left-top}
-@subheading Packages
-
-@subsubheading Download
-
-@itemize
-
-@item
-@sourceimage{logo-macosx,,}
-@downloadStableDarwinNormal
-For Mac OS X 10.4--10.14 running on Intel CPUs (for 10.15 see below).
-
-@item
-@sourceimage{logo-macosx,,}
-@c file name is unpredictable, linking to main page
-Unofficial 64-bit application bundles for macOS 10.15 are
-available at
-@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
-
-@item
-@sourceimage{logo-macports,,}
-@uref{https://www.macports.org/,MacPorts}, a package manager
-for Mac OS, has a @uref{https://ports.macports.org/port/lilypond/summary,
-LilyPond port}.
-
-@item
-@sourceimage{logo-homebrew,,}
-@uref{https://brew.sh/,Homebrew}, another package manager
-for Mac OS, has a @uref{https://formulae.brew.sh/formula/lilypond,
-LilyPond formula}.
-
-@end itemize
-
-@subsubheading Install
-
-Double-click the downloaded file, then drag it to wherever you
-want.
-
-@subsubheading Uninstall
-
-Delete the LilyPond.app folder.
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading Running on the command-line
-
-@warning{If you are happy with the GUI instructions in the Learning Manual,
-then please ignore these instructions.}
-
-@subsubheading MacOS X on the command line
-
-The most convenient way to run lilypond scripts is by setting up
-@qq{helper} scripts of your own.
-
-@enumerate
-
-@item
-Create a directory to store these scripts,
-
-@example
-mkdir -p ~/bin
-cd ~/bin
-@end example
-
-
-@item
-Create a file called @command{lilypond} which contains
-
-@divClass{h-scroll-auto}
-@example
-#!/bin/bash
-exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end example
-@divEnd
-
-@warning{@var{DIR} will generally be @code{/Applications/}}
-
-
-@item
-Create similar files @command{lilypond-book},
-@command{convert-ly}, and any other scripts you wish to use, by
-replacing the @command{bin/lilypond} with @command{bin/convert-ly}
-(or other program name).
-
-
-@item
-Make the file executable,
-
-@example
-chmod u+x lilypond
-@end example
-
-
-@item
-Now, add this directory to your path.  Modify (or create) a file
-called @code{.profile} in your home directory such that it
-contains
-
-@example
-export PATH=$PATH:~/bin
-@end example
-
-This file should end with a blank line.
-
-@end enumerate
-
-
-@subsubheading Invoking individual scripts
-
-The scripts --- such as @command{lilypond-book}, @command{convert-ly},
-@command{abc2ly}, and even @command{lilypond} itself --- are included
-inside the @code{.app} file for MacOS@tie{}X.
-
-Scripts can also be run from the command line by invoking them
-directly:
-
-@divClass{h-scroll-auto}
-@example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
-@end example
-@divEnd
-
-The same is true for all other scripts in that directory, such as
-@command{lilypond-book} and @command{convert-ly}.
-
-@divEnd
-
-
-@divClass{column-center-bottom}
-@subheading Legalese
-
-@divClass{legal}
-All logos and product images are copyright and trademark
-acknowledged.
-
-@logoLegalMacOSX
-
-@divEnd
-@divEnd
-
-
-
-@node Windows
-@unnumberedsec Windows
-
-@divClass{heading-center}
-@warningTextBased
-@divEnd
-
-@divClass{column-left-top}
-@subheading Packages
-
-@subsubheading Download
-
-@itemize
-
-@item
-@sourceimage{logo-windows,,}
-@downloadStableWindows
-For current versions of Windows.
-
-@end itemize
-
-@subsubheading Install
-
-@enumerate
-
-@item
-Locate the downloaded file and double-click on it to start the
-installer.  Follow the instructions given to you by the installer;
-we recommend that you leave all the install options checked and
-use the default installation location.  Click the @q{Finish} button
-when the installer has completed.  LilyPond is now installed.
-
-@end enumerate
-
-@subsubheading Uninstall
-
-To uninstall LilyPond either:
-
-@enumerate
-
-@item
-Locate the LilyPond folder from the @q{Start} menu and click on the
-@q{Uninstall} icon.  Click the @q{Finish} button when the uninstaller
-has completed.
-
-@item
-Or from within the Control Panel, locate and select LilyPond and then
-choose the option to uninstall/remove the software.  Click the @q{Finish}
-button when the uninstaller has completed.
-
-@end enumerate
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading Running on the command-line
-
-@warning{If you are happy with the GUI instructions in the Learning Manual,
-then please ignore these instructions.}
-
-@subsubheading Windows on the command line
-
-@ignore
-CHECK: check the following descriptions.
-I don't have English version of Windows.
-@end ignore
-
-The most convenient way to run LilyPond is by adding the folder
-which contains LilyPond executable files to the environmental variable
-@qq{Path}.
-
-
-@enumerate
-@item
-Open your @qq{System} on the Control Panel,
-select Advanced tab and click Environmental Variables button.
-
-@item
-Select the Variable @qq{Path} from Environmental variables list
-and click the Edit button.
-You will be presented a window titled @qq{Edit System Variable};
-append to @qq{Variable value} the name of the folder
-which contains LilyPond executable files like this:
-
-@example
-[@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
-@end example
-
-@warning{@var{DIR} will generally be @code{C:@bs{}Program Files (x86)}
-for 64 bit or @code{C:@bs{}Program Files} for 32 bit systems.}
-
-@noindent
-and click @qq{OK} button to close the window.
-
-@end enumerate
-
-@subsubheading Invoking individual executable files
-
-LilyPond executable files
--- such as lilypond, lilypond-book, convert-ly, and so on --
-can be run from the command-line by invoking them:
-
-@example
-lilypond test.ly
-@end example
-
-@divEnd
-
-
-@divClass{column-center-bottom}
-@subheading Legalese
-
-@divClass{legal}
-All logos and product images are copyright and trademark
-acknowledged.
-
-@logoLegalWindows
-
-@divEnd
-@divEnd
-
-
 
 @node Source
 @unnumberedsec Source
-
-@divClass{heading-center}
-@warningTextBased
-@divEnd
 
 @warning{We @strong{do not} recommend that you attempt to build
 LilyPond yourself; almost all user needs are better met with the
 pre-built version.}
 
-@divClass{column-left-bottom}
+
+@divClass{column-center-top}
+
 @subheading Source tarball
 
 @downloadStableSource{}
 
-For an extensive listing of all versions (old and new), see our
-@uref{https://lilypond.org/download/source/?C=N;O=D,
-download site}.
+Compiling instructions are listed in @rcontrib{Compiling}.
 
 @divEnd
 
-@divClass{column-right-bottom}
-@subheading Compiling instructions
 
-Instructions are listed in @rcontrib{Compiling}.
-
-@divEnd
 
 
 @node Old downloads
 @unnumberedsec Old downloads
-
-@divClass{heading-center}
-@warningTextBased
-@divEnd
 
 @divClass{column-center-top}
 @subheading All versions
 
 To obtain the source and binaries for any release, visit our
 @uref{https://gitlab.com/lilypond/lilypond/-/releases,GitLab
-releases page} for versions since 2.23.3, or the previous
+releases page} for versions since 2.23.6, or the previous
 @uref{https://lilypond.org/download/binaries/,download site} for
 earlier versions.
 
 @divEnd
+
+
 
 
 @node GPL

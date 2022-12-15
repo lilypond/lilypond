@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+  texidocfr = "
+Quelle que soit l'option choisie pour contrôler la visibilité d'une
+indication de n-olet, elle s'affichera ou sera masquée indépendamment de
+son positionnement (côté hampe ou tête de note). Toutefois, lorsqu'elle
+se place du côté des têtes de note, certains auteurs recommandent de
+toujours afficher un crochet. L'option @code{visible-over-note-heads}
+permet d'y parvenir.
+"
+
+  doctitlefr = "Affichage du crochet de n-olet du côté des têtes de note"

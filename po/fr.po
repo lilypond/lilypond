@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.23.80\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
 "POT-Creation-Date: 2022-10-22 17:37+0200\n"
-"PO-Revision-Date: 2022-11-01 15:21+0100\n"
+"PO-Revision-Date: 2022-12-11 11:26+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan@orange.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -2929,11 +2929,11 @@ msgid ""
 msgstr ""
 "écrit le résultat dans FICHIER (le suffixe\n"
 "  sera ajouté) ou dans DOSSIER, auquel cas le\n"
-"  nom du fichier serarepris du fichier source."
+"  nom du fichier sera repris du fichier source."
 
 #: main.cc:157
 msgid "(ignored)"
-msgstr "ignoré(e)"
+msgstr "(option obsolète, ignorée)"
 
 #: main.cc:159
 msgid ""
@@ -2982,7 +2982,7 @@ msgstr "Composer la musique ou jouer en format MIDI à partir du FICHIER"
 
 #: main.cc:278
 msgid "LilyPond produces beautiful music notation."
-msgstr "LilyPond produit une jolie notation musicale"
+msgstr "LilyPond produit une jolie notation musicale."
 
 #: main.cc:280
 #, c-format
@@ -3001,8 +3001,11 @@ msgstr "Options :"
 #, c-format
 msgid "You found a bug? Please read %s"
 msgstr ""
-"Transmettez votre rapport de bogue en anglais à %s\n"
-"  ou la <a href=\"https://lists.gnu.org/mailman/listinfo/lilypond-user-fr\">liste francophone des utilisateurs</a>."
+"Pour signaler un bogue, suivez les instructions sur cette page\n"
+"si vous maîtrisez l'anglais :\n"
+"  %s\n"
+"ou écrivez à la liste francophone des utilisateurs :\n"
+"  https://lists.gnu.org/mailman/listinfo/lilypond-user-fr"
 
 #: main.cc:312
 msgid "linked against Ghostscript:"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 2d8a09d28e5c8a28ee4d7ab698f0a07f605f57d7
+   Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -52,8 +52,7 @@ Par « ligne de commande », nous entendons l'interface de commande du
 système.  Les utilisateurs de Windows seront certainement plus familiers
 des termes « fenêtre DOS » ou « invite de commande ».  Quant aux
 utilisateurs de MacOS X, ils connaissent assurément les termes
-« console » et « terminal ».  Les paramétrages spécifiques au système
-MacOS font l'objet d'un @rwebnamed{MacOS X,chapitre particulier}.
+« console » et « terminal ».
 
 Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
 commande pour un système informatique ni comment elle fonctionne.

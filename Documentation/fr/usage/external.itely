@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a2f027a68c97fe9bebade2e873419c6c465bc503
+   Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -400,9 +400,7 @@ de détails, rendez-vous sur le @uref{https://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
-chapitre @ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS
-10.3 ou 10.4 et rencontrez quelque problème avec l'un de ces scripts,
-comme @code{convert-ly}, reportez-vous à la page @rweb{MacOS X}.
+chapitre @ref{Utilisation en ligne de commande}.
 
 
 @knownissues
