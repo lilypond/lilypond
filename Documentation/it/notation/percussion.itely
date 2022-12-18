@@ -315,11 +315,11 @@ Basato sul lavoro di Norman Weinberg, pubblicato nel suo
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
   bd bda hh hhc hho hhp \break
-  ss sn tommh tomh tomml toml tomfh tomfl \break
+  ss sn tomh tommh tomml toml tomfh tomfl \break
   cymc cymr rb cymra cymch cb }
 mus = \drummode {
   bd bda hh hhc hho hhp \break
-  ss sn tommh tomh tomml toml tomfh tomfl \break
+  ss sn tomh tommh tomml toml tomfh tomfl \break
   cymc cymr rb cymra cymch cb
   }
 \score {
