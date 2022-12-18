@@ -4757,6 +4757,18 @@ def conv(s):
     s = re.sub(r"(\\override (\w+\.)?StaffSymbol\.line-positions\s*=\s*)#'\(\)",
                r"\1#ly:staff-symbol::calc-line-positions",
                s)
+    if "string-regexp-substitute" in s:
+        stderr_write(NOT_SMART % "string-regexp-substitute")
+        stderr_write(r"""
+The string-regexp-substitute function has been removed.  A call
+
+  (string-regexp-substitute pattern replacement str)
+
+should be replaced with
+
+  (ly:regex-replace (ly:make-regex pattern) str replacement)
+""")
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

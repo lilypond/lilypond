@@ -72,33 +72,34 @@ tspan { white-space: pre; }
 
 (define output-dir #f)
 
-(define (svg-define-font font font-name scaling)
-  (let* ((base-file-name (basename (if (list? font) (pango-pf-file-name font)
-                                       (ly:font-file-name font)) ".otf"))
-         (woff-file-name (string-regexp-substitute "([.]otf)?$" ".woff"
-                                                   base-file-name))
-         (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
-         (url (string-append output-dir "/fonts/" (lilypond-version) "/"
-                             (basename woff-file-name)))
-         (lower-name (string-downcase font-name)))
-    (if (file-exists? woff-file)
-        (begin
-          (if (not (file-exists? url))
-              (begin
-                (ly:message (G_ "Updating font into: ~a") url)
-                (mkdirs (string-append output-dir "/" (dirname url)) #o700)
-                (copy-file woff-file url)
-                (ly:progress "\n")))
-          (format #f
-                  "@font-face {
+(define svg-define-font
+  (let ((otf-regex (ly:make-regex "([.]otf)?$")))
+    (lambda (font font-name scaling)
+      (let* ((base-file-name (basename (if (list? font) (pango-pf-file-name font)
+                                           (ly:font-file-name font)) ".otf"))
+             (woff-file-name (ly:regex-replace otf-regex base-file-name ".woff"))
+             (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
+             (url (string-append output-dir "/fonts/" (lilypond-version) "/"
+                                 (basename woff-file-name)))
+             (lower-name (string-downcase font-name)))
+        (if (file-exists? woff-file)
+            (begin
+              (if (not (file-exists? url))
+                  (begin
+                    (ly:message (G_ "Updating font into: ~a") url)
+                    (mkdirs (string-append output-dir "/" (dirname url)) #o700)
+                    (copy-file woff-file url)
+                    (ly:progress "\n")))
+              (format #f
+                      "@font-face {
 font-family: '~a';
 font-weight: normal;
 font-style: normal;
 src: url('~a');
 }
 "
-                  font-name url))
-        "")))
+                      font-name url))
+            "")))))
 
 (define (style-defs-end)
   (string-append

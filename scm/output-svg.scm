@@ -21,6 +21,9 @@
 ;; TODO: replace Guile regexes with Unicode-aware LilyPond regexes
 ;; (ly:regex-... functions).
 
+(define (string-regexp-substitute a b str)
+  (regexp-substitute/global #f a str 'pre b 'post))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 

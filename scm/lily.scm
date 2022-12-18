@@ -466,12 +466,16 @@ floating point exceptions.")
     (if (ly:get-option 'verbose)
         (ly:progress "]\n"))))
 
-(define (slashify x)
-  (if (string-index x #\\)
-      x
-      (string-regexp-substitute
-       "//*" "/"
-       (string-regexp-substitute "\\\\" "/" x))))
+(define slashify
+  (let ((double-backslash-regex (ly:make-regex "\\\\"))
+        (backslashes-regex (ly:make-regex "//*")))
+    (lambda (x)
+      (if (string-index x #\\)
+          x
+          (ly:regex-replace
+           backslashes-regex
+           (ly:regex-replace backslashes-regex "/" x)
+           "/")))))
 
 (define-public (ly-getcwd)
   (if (eq? PLATFORM 'windows)

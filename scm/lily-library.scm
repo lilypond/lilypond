@@ -217,35 +217,34 @@ bookoutput function"
 
 (define-public current-outfile-name #f)  ; for use by regression tests
 
-(define (get-outfile-name book)
-  "return current filename for generating backend output files"
-  ;; user can now override the base file name, so we have to use
-  ;; the file-name concatenated with any potential output-suffix value
-  ;; as the key to out internal a-list
-  (let* ((base-name (get-current-filename book))
-         (output-suffix (get-current-suffix book))
-         (alist-key (format #f "~a~a" base-name output-suffix))
-         (counter-alist (ly:parser-lookup 'counter-alist))
-         (output-count (assoc-get alist-key counter-alist 0))
-         (result base-name))
-    ;; Allow all ASCII alphanumerics, including accents
-    (if (string? output-suffix)
-        (set! result
-              (format #f "~a-~a"
-                      result
-                      (string-regexp-substitute
-                       "[^-[:alnum:]]"
-                       "_"
-                       output-suffix))))
+(define get-outfile-name
+  (let ((non-alnum-or-dash-regex (ly:make-regex "[^-[:alnum:]]")))
+    (lambda (book)
+      "return current filename for generating backend output files"
+      ;; user can now override the base file name, so we have to use
+      ;; the file-name concatenated with any potential output-suffix value
+      ;; as the key to out internal a-list
+      (let* ((base-name (get-current-filename book))
+             (output-suffix (get-current-suffix book))
+             (alist-key (format #f "~a~a" base-name output-suffix))
+             (counter-alist (ly:parser-lookup 'counter-alist))
+             (output-count (assoc-get alist-key counter-alist 0))
+             (result base-name))
+        ;; Allow all alphanumerics, including accents
+        (if (string? output-suffix)
+            (set! result
+                  (format #f "~a-~a"
+                          result
+                          (ly:regex-replace non-alnum-or-dash-regex output-suffix "_"))))
 
-    ;; assoc-get call will always have returned a number
-    (if (> output-count 0)
-        (set! result (format #f "~a-~a" result output-count)))
+        ;; assoc-get call will always have returned a number
+        (if (> output-count 0)
+            (set! result (format #f "~a-~a" result output-count)))
 
-    (ly:parser-define! 'counter-alist
-                       (assoc-set! counter-alist alist-key (1+ output-count)))
-    (set! current-outfile-name result)
-    result))
+        (ly:parser-define! 'counter-alist
+                           (assoc-set! counter-alist alist-key (1+ output-count)))
+        (set! current-outfile-name result)
+        result))))
 
 (define (print-book-with book process-procedure)
   (let* ((paper (ly:parser-lookup '$defaultpaper))
@@ -936,9 +935,6 @@ Handy for debugging, possibly turned off."
         (cons x  (cons between y))))
   (fold-right conc #f lst))
 
-(define-public (string-regexp-substitute a b str)
-  (regexp-substitute/global #f a str 'pre b 'post))
-
 (define (regexp-split str regex)
   (define matches '())
   (define end-of-prev-match 0)
@@ -962,54 +958,61 @@ Handy for debugging, possibly turned off."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; numbering styles
 
-(define-public (number-format number-type num . custom-format)
-  "Print @var{num} according to the requested @var{number-type}.
+(define-public number-format
+  (let ((end-i-regex (ly:make-regex "i$"))
+        (end-ij-regex (ly:make-regex "ij$"))
+        (end-I-regex (ly:make-regex "I$"))
+        (end-IJ-regex (ly:make-regex "IJ$")))
+    (lambda (number-type num . custom-format)
+      "Print @var{num} according to the requested @var{number-type}.
 Choices include @code{arabic}, @code{custom}, @code{roman-ij-lower},
 @code{roman-ij-upper}, @code{roman-lower} (the default), and
 @code{roman-upper}.
 
 For @code{custom}, @var{custom-format} must be present; it gets
 applied to @var{num}."
-  ;; Be foolproof: avoid an error if trying to format zero or a
-  ;; negative number in roman numbers; use arabic numbers in that
-  ;; case.
-  (case number-type
-    ((roman-lower)
-     (if (positive? num)
-         (ice9-format #f "~(~@r~)" num)
-         (ice9-format #f "~d" num)))
-    ((roman-upper)
-     (if (positive? num)
-         (ice9-format #f "~@r" num)
-         (ice9-format #f "~d" num)))
-    ((arabic)
-     (ice9-format #f "~d" num))
-    ;; Too bad that we can't make this work with out-of-range numbers and such.
-    ;; Guile prints information about the error before raising it.  Maybe we
-    ;; should change from accepting 'custom plus a format string to accepting a
-    ;; procedure that does the work itself?
-    ((custom)
-     (ice9-format #f (car custom-format) num))
-    ((roman-ij-lower)
-     (if (positive? num)
-         (let* ((text (ice9-format #f "~(~@r~)" num))
-                (text (string-regexp-substitute "i$" "j" text))
-                (text (string-regexp-substitute
-                       "ij$" (ly:wide-char->utf-8 #x0133) text))) ; ij ligature
-           text)
-         (ice9-format #f "~d" num)))
-    ((roman-ij-upper)
-     (if (positive? num)
-         (let* ((text (ice9-format #f "~@r" num))
-                (text (string-regexp-substitute "I$" "J" text))
-                (text (string-regexp-substitute
-                       "IJ$" (ly:wide-char->utf-8 #x0132) text))) ; IJ ligature
-           text)
-         (ice9-format #f "~d" num)))
-    (else
-     (if (positive? num)
-         (ice9-format #f "~(~@r~)" num)
-         (ice9-format #f "~d" num)))))
+      ;; Be foolproof: avoid an error if trying to format zero or a
+      ;; negative number in roman numbers; use arabic numbers in that
+      ;; case.
+      (case number-type
+        ((roman-lower)
+         (if (positive? num)
+             (ice9-format #f "~(~@r~)" num)
+             (ice9-format #f "~d" num)))
+        ((roman-upper)
+         (if (positive? num)
+             (ice9-format #f "~@r" num)
+             (ice9-format #f "~d" num)))
+        ((arabic)
+         (ice9-format #f "~d" num))
+        ;; Too bad that we can't make this work with out-of-range numbers and such.
+        ;; Guile prints information about the error before raising it.  Maybe we
+        ;; should change from accepting 'custom plus a format string to accepting a
+        ;; procedure that does the work itself?
+        ((custom)
+         (ice9-format #f (car custom-format) num))
+        ((roman-ij-lower)
+         (if (positive? num)
+             (let* ((text (ice9-format #f "~(~@r~)" num))
+                    (text (ly:regex-replace end-i-regex text "j"))
+                    (text (ly:regex-replace end-ij-regex
+                                            text
+                                            (ly:wide-char->utf-8 #x0133)))) ; ij ligature
+               text)
+             (ice9-format #f "~d" num)))
+        ((roman-ij-upper)
+         (if (positive? num)
+             (let* ((text (ice9-format #f "~@r" num))
+                    (text (ly:regex-replace end-I-regex text "J"))
+                    (text (ly:regex-replace end-IJ-regex
+                                            text
+                                            (ly:wide-char->utf-8 #x0132)))) ; IJ ligature
+               text)
+             (ice9-format #f "~d" num)))
+        (else
+         (if (positive? num)
+             (ice9-format #f "~(~@r~)" num)
+             (ice9-format #f "~d" num)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lilypond version
@@ -1317,34 +1320,36 @@ print a warning and set an optional @var{default}."
        (not (hash-table? val))
        (not (ly-type? val))))
 
-(define-public (scm->string val)
-  (let* ((quote-style (if (string? val)
-                          'double
-                          (if (or (null? val) ; (ly-type? '()) => #t
-                                  (and (not (self-evaluating? val))
-                                       (not (vector? val))
-                                       (not (hash-table? val))
-                                       (not (ly-type? val))))
-                              'single
-                              'none)))
-         ;; don't confuse users with #<procedure ...> syntax
-         (str (if (and (procedure? val)
-                       (symbol? (procedure-name val)))
-                  (symbol->string (procedure-name val))
-                  (call-with-output-string
-                   (if (pretty-printable? val)
-                       ;; property values in PDF hit margin after 64 columns
-                       (lambda (port)
-                         (pretty-print val port #:width (case quote-style
-                                                          ((single) 63)
-                                                          (else 64))))
-                       (lambda (port) (display val port)))))))
-    (case quote-style
-      ((single) (string-append
-                 "'"
-                 (string-regexp-substitute "\n " "\n  " str)))
-      ((double) (string-append "\"" str "\""))
-      (else str))))
+(define-public scm->string
+  (let ((newline-and-space-regex (ly:make-regex "\n ")))
+    (lambda (val)
+      (let* ((quote-style (if (string? val)
+                              'double
+                              (if (or (null? val) ; (ly-type? '()) => #t
+                                      (and (not (self-evaluating? val))
+                                           (not (vector? val))
+                                           (not (hash-table? val))
+                                           (not (ly-type? val))))
+                                  'single
+                                  'none)))
+             ;; don't confuse users with #<procedure ...> syntax
+             (str (if (and (procedure? val)
+                           (symbol? (procedure-name val)))
+                      (symbol->string (procedure-name val))
+                      (call-with-output-string
+                       (if (pretty-printable? val)
+                           ;; property values in PDF hit margin after 64 columns
+                           (lambda (port)
+                             (pretty-print val port #:width (case quote-style
+                                                              ((single) 63)
+                                                              (else 64))))
+                           (lambda (port) (display val port)))))))
+        (case quote-style
+          ((single) (string-append
+                     "'"
+                     (ly:regex-replace newline-and-space-regex str "\n  ")))
+          ((double) (string-append "\"" str "\""))
+          (else str))))))
 
 (define-public (!= lst r)
   (not (= lst r)))
