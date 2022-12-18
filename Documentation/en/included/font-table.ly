@@ -15,8 +15,8 @@
      '(".notdef" "backslash")))
 
   (define (get-group glyph-list regexp)
-    (let ((r (make-regexp regexp)))
-      (filter (lambda (token) (regexp-exec r token))
+    (let ((r (ly:make-regex regexp)))
+      (filter (lambda (token) (ly:regex-exec r token))
               glyph-list)))
 
   ;;;;;;;;;

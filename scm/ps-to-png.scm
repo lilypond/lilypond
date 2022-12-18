@@ -30,15 +30,17 @@
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
-(define-public (ps-page-count ps-name)
-  (let* ((byte-count 10240)
-         (header (gulp-file ps-name byte-count))
-         (first-null (string-index header #\nul))
-         (match (string-match "%%Pages: ([0-9]+)"
-                              (if (number? first-null)
-                                  (substring header 0 first-null)
-                                  header))))
-    (if match (string->number (match:substring match 1)) 0)))
+(define-public ps-page-count
+  (let ((pages-regex (ly:make-regex "%%Pages: ([0-9]+)")))
+    (lambda (ps-name)
+      (let* ((byte-count 10240)
+             (header (gulp-file ps-name byte-count))
+             (first-null (string-index header #\nul))
+             (match (ly:regex-exec pages-regex
+                                   (if (number? first-null)
+                                       (substring header 0 first-null)
+                                       header))))
+        (if match (string->number (ly:regex-match-substring match 1)) 0)))))
 
 (define-public (make-ps-images base-name ps-tmp-name is-eps . rest)
   (let-keywords*

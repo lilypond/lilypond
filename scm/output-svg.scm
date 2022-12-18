@@ -18,6 +18,9 @@
 
 (define-module (lily output-svg))
 
+;; TODO: replace Guile regexes with Unicode-aware LilyPond regexes
+;; (ly:regex-... functions).
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 

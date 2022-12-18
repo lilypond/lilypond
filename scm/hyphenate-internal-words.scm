@@ -32,14 +32,14 @@
         (grob-types (map car all-grob-descriptions))
         ;; This is enough because we don't use non-ASCII characters in internal
         ;; naming.
-        (uppercase (make-regexp "[A-Z]")))
+        (uppercase (ly:make-regex "[A-Z]")))
     (define (hyphenate-camel-case name)
       (define (maybe-hyphen match)
         ;; Don't add a leading hyphen at the start of the string.
-        (if (zero? (match:start match))
+        (if (zero? (car (ly:regex-match-positions match)))
             ""
             "-"))
-      (regexp-substitute/global #f uppercase name 'pre maybe-hyphen 0 'post))
+      (ly:regex-replace uppercase name maybe-hyphen 0))
     (string-append
      "@hyphenation{\n"
      (apply string-append

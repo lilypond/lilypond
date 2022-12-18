@@ -1150,17 +1150,17 @@ Use a stencil as markup.
   stil)
 
 (define bbox-regexp
-  (make-regexp "%%BoundingBox:[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)"))
+  (ly:make-regex "%%BoundingBox:[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)"))
 
 (define-public (get-postscript-bbox string)
   "Extract the bounding box from @var{string}, or return @code{#f} if not
 present."
   (let*
-      ((match (regexp-exec bbox-regexp string)))
+      ((match (ly:regex-exec bbox-regexp string)))
 
     (if match
         (map (lambda (x)
-               (string->number (match:substring match x)))
+               (string->number (ly:regex-match-substring match x)))
              (cdr (iota 5)))
 
         #f)))
@@ -3822,12 +3822,15 @@ Draw @var{arg} in color specified by @var{color}.
 @end lilypond"
   (stencil-with-color (interpret-markup layout props arg) color))
 
+(define tie-regexp (ly:make-regex "~"))
+(define short-tie-regexp (ly:make-regex "~[^.]~"))
+
 (define-markup-command (tied-lyric layout props str)
   (string?)
   #:category music
   #:properties ((word-space))
   ;; Use Unicode undertie character U+203F.
-  #:as-string (regexp-substitute/global #f "~" str 'pre "\u203f" 'post)
+  #:as-string (ly:regex-replace tie-regexp str "\u203f")
   "
 @cindex simple text string, with tie characters
 
@@ -3857,8 +3860,7 @@ Replace @q{~} tilde symbols with tie characters in the argument.
           (make-concat-markup joined))
         str))
 
-  (define short-tie-regexp (make-regexp "~[^.]~"))
-  (define (match-short str) (regexp-exec short-tie-regexp str))
+  (define (match-short str) (ly:regex-exec short-tie-regexp str))
 
   (define (replace-short str mkp)
     (let ((match (match-short str)))
@@ -3866,13 +3868,13 @@ Replace @q{~} tilde symbols with tie characters in the argument.
           (make-concat-markup (list
                                mkp
                                (replace-ties "ties.lyric.default" str)))
-          (let ((new-str (match:suffix match))
+          (let ((new-str (ly:regex-match-suffix match))
                 (new-mkp (make-concat-markup (list
                                               mkp
                                               (replace-ties "ties.lyric.default"
-                                                            (match:prefix match))
+                                                            (ly:regex-match-prefix match))
                                               (replace-ties "ties.lyric.short"
-                                                            (match:substring match))))))
+                                                            (ly:regex-match-substring match))))))
             (replace-short new-str new-mkp)))))
 
   (interpret-markup layout

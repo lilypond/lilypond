@@ -55,10 +55,12 @@
   (let ((val-str (format #f "~a" val)))
    (string-take val-str (min 50 (string-length val-str)))))
 
-#(define (escape-label label)
-  ;; to keep escaped "\"" we need to transform it to "\\\""
-  ;; otherwise the final pdf-creation will break
-  (regexp-substitute/global #f "\"" label 'pre "\\\"" 'post))
+#(define escape-label
+   (let ((quote-regex (ly:make-regex "\"")))
+     (lambda (label)
+      ;; to keep escaped "\"" we need to transform it to "\\\""
+      ;; otherwise the final pdf-creation will break
+      (ly:regex-replace quote-regex label "\\\""))))
 
 %% Create an uninterned symbol to get a unique value.
 #(define discard-marker (make-symbol "discard-marker"))

@@ -526,13 +526,16 @@ created."
             (ly:stencil-extent stil Y)))
          stencils)))
 
-(define-public (font-name-split font-name)
-  "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
-string or @code{#f}."
-  (let ((match (regexp-exec (make-regexp "(.*)-([0-9]*)") font-name)))
-    (if (regexp-match? match)
-        (cons (match:substring match 1) (match:substring match 2))
-        (cons font-name-designsize #f))))
+(define-public font-name-split
+  (let ((regex (ly:make-regex "(.*)-([0-9]*)")))
+    (lambda (font-name)
+       "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
+      string or @code{#f}."
+      (let ((match (ly:regex-exec regex font-name)))
+        (if match
+            (cons (ly:regex-match-substring match 1)
+                  (ly:regex-match-substring match 2))
+            (cons font-name-designsize #f))))))
 
 ;; Example of a pango-physical-font
 ;; ("Emmentaler-11" "/home/janneke/vc/lilypond/out/share/lilypond/current/fonts/otf/emmentaler-11.otf" 0)

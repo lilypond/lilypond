@@ -37,15 +37,20 @@
               (or properties (list)))
     prop-strings))
 
+;; FIXME: duplication with similar code for music functions
+(define markup-command-signature-regex (ly:make-regex "^\\([^)]*\\)\n"))
 (define (doc-markup-function func-pair)
   (let* ((f-name (symbol->string (car func-pair)))
          (func (cdr func-pair))
          (full-doc (procedure-documentation func))
-         (match-args (and full-doc (string-match "^\\([^)]*\\)\n" full-doc)))
+         (match-args (and full-doc (ly:regex-exec markup-command-signature-regex
+                                                  full-doc)))
          (arg-names (if match-args
-                        (with-input-from-string (match:string match-args) read)
+                        (with-input-from-string full-doc read)
                         (circular-list "arg")))
-         (doc-str (if match-args (match:suffix match-args) full-doc))
+         (doc-str (if match-args
+                      (ly:regex-match-suffix match-args)
+                      full-doc))
          (sig (markup-command-signature func))
          (sig-type-names (map type-name sig))
          (signature-str
@@ -74,23 +79,25 @@
 (define all-markup-commands '())
 (define all-markup-list-commands '())
 
-(for-each
- (lambda (m)
-   (module-for-each (lambda (name var)
-                      (let* ((str-name (symbol->string name))
-                             (fixed-str-name
-                              (regexp-substitute/global
-                               #f "-markup(-list)?" str-name 'pre "" 'post))
-                             (fixed-name (string->symbol fixed-str-name))
-                             (val (variable-ref var)))
-                        (cond ((markup-function? val)
-                               (set! all-markup-commands
-                                     (acons fixed-name val all-markup-commands)))
-                              ((markup-list-function? val)
-                               (set! all-markup-list-commands
-                                     (acons fixed-name val all-markup-list-commands))))))
-                    (module-public-interface m)))
- (cons (current-module) (map resolve-module '((lily) (lily accreg)))))
+(let ((markup-function-name-end-regex (ly:make-regex "-markup(-list)?")))
+  (for-each
+   (lambda (m)
+     (module-for-each (lambda (name var)
+                        (let* ((str-name (symbol->string name))
+                               (fixed-str-name
+                                (ly:regex-replace markup-function-name-end-regex
+                                                  str-name
+                                                  ""))
+                               (fixed-name (string->symbol fixed-str-name))
+                               (val (variable-ref var)))
+                          (cond ((markup-function? val)
+                                 (set! all-markup-commands
+                                       (acons fixed-name val all-markup-commands)))
+                                ((markup-list-function? val)
+                                 (set! all-markup-list-commands
+                                       (acons fixed-name val all-markup-list-commands))))))
+                      (module-public-interface m)))
+   (cons (current-module) (map resolve-module '((lily) (lily accreg))))))
 
 (set! all-markup-commands (sort! all-markup-commands markup-name<?))
 (set! all-markup-list-commands (sort! all-markup-list-commands markup-name<?))

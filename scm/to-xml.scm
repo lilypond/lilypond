@@ -190,7 +190,9 @@ is then separated.
       (ly:error (G_ "assertion failed: ~S") x)))
 
 (define (re-sub re to string)
-  (regexp-substitute/global #f re string 'pre to 'post))
+  (ly:regex-replace (ly:make-regex re)
+                    string
+                    to))
 
 (define (re-sub-alist string alist)
   (if (null? alist)

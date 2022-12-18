@@ -654,6 +654,9 @@ expression."
                   (else ""))))
             (if (null? bracket-stop) "" "]"))))
 
+;; TODO check exactly in which cases double quotes should be used
+(define needs-quoting-regex (ly:make-regex "(\"| |[0-9])"))
+
 (define-display-method LyricEvent (lyric)
   (format #f "~a~{~a~^ ~}"
           (let ((text (ly:music-property lyric 'text)))
@@ -663,8 +666,7 @@ expression."
                 (let ((string (if (string? text)
                                   text
                                   (second text))))
-                  (if (string-match "(\"| |[0-9])" string)
-                      ;; TODO check exactly in which cases double quotes should be used
+                  (if (ly:regex-exec needs-quoting-regex string)
                       (format #f "~s" string)
                       string))
                 (markup->lily-string text)))

@@ -136,35 +136,37 @@
     ("clefs.petrucci.g" . -4)
     ("clefs.kievan.do" . 0)))
 
-(define-public (make-clef-set clef-name)
-  "Generate the clef setting commands for a clef with name @var{clef-name}."
-  (let* ((match (string-match "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$" clef-name))
-         (e (assoc-get (if match (match:substring match 1) clef-name) supported-clefs))
-         (oct (if match
-                  ((if (equal? (match:substring match 2) "^") - +)
-                   (1- (string->number (match:substring match 4))))
-                  0))
-         (style (cond ((not match) 'default)
-                      ((equal? (match:substring match 3) "(") 'parenthesized)
-                      ((equal? (match:substring match 3) "[") 'bracketed)
-                      (else 'default))))
-    (if e
-        (let ((musics (list
-                       (make-property-set 'clefGlyph (car e))
-                       (make-property-set 'middleCClefPosition
-                                          (+ oct (cadr e)
-                                             (assoc-get (car e) c0-pitch-alist)))
-                       (make-property-set 'clefPosition (cadr e))
-                       (make-property-set 'clefTransposition (- oct))
-                       (make-property-set 'clefTranspositionStyle style)
-                       (make-apply-context ly:set-middle-C!))))
-          (context-spec-music (make-sequential-music musics) 'Staff))
-        (begin
-          (ly:warning (G_ "unknown clef type `~a'") clef-name)
-          (ly:warning (G_ "supported clefs: ~a")
-                      (string-join
-                       (sort (map car supported-clefs) string<?)))
-          (make-music 'Music)))))
+(define-public make-clef-set
+  (let ((clef-with-modifier-regex (ly:make-regex "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$")))
+    (lambda (clef-name)
+      "Generate the clef setting commands for a clef with name @var{clef-name}."
+      (let* ((match (ly:regex-exec clef-with-modifier-regex clef-name))
+             (e (assoc-get (if match (ly:regex-match-substring match 1) clef-name) supported-clefs))
+             (oct (if match
+                      ((if (equal? (ly:regex-match-substring match 2) "^") - +)
+                       (1- (string->number (ly:regex-match-substring match 4))))
+                      0))
+             (style (cond ((not match) 'default)
+                          ((equal? (ly:regex-match-substring match 3) "(") 'parenthesized)
+                          ((equal? (ly:regex-match-substring match 3) "[") 'bracketed)
+                          (else 'default))))
+        (if e
+            (let ((musics (list
+                           (make-property-set 'clefGlyph (car e))
+                           (make-property-set 'middleCClefPosition
+                                              (+ oct (cadr e)
+                                                 (assoc-get (car e) c0-pitch-alist)))
+                           (make-property-set 'clefPosition (cadr e))
+                           (make-property-set 'clefTransposition (- oct))
+                           (make-property-set 'clefTranspositionStyle style)
+                           (make-apply-context ly:set-middle-C!))))
+              (context-spec-music (make-sequential-music musics) 'Staff))
+            (begin
+              (ly:warning (G_ "unknown clef type `~a'") clef-name)
+              (ly:warning (G_ "supported clefs: ~a")
+                          (string-join
+                           (sort (map car supported-clefs) string<?)))
+              (make-music 'Music)))))))
 
 (define-public (make-cue-clef-set clef-name)
   "Generate the clef setting commands for a cue clef with name

@@ -17,17 +17,25 @@
 
 (use-modules (ice-9 format))
 
+(define signature-regex (ly:make-regex "^\\([^)]*\\)\n"))
 (define (document-music-function music-func-pair)
   (let*
       ((name-sym (car music-func-pair))
        (music-func (cdr music-func-pair))
        (func (ly:music-function-extract music-func))
        (full-doc (procedure-documentation func))
-       (match-args (and full-doc (string-match "^\\([^)]*\\)\n" full-doc)))
+       ;; FIXME: can't we assume every music function has these arguments, since
+       ;; they are added by define-music-function?
+       ;; FIXME: wouldn't it be better to attach the arguments as metadata on the
+       ;; music function instead of adding them to the signature and reading them
+       ;; back?
+       (match-args (and full-doc (ly:regex-exec signature-regex full-doc)))
        (arg-names (if match-args
-                      (with-input-from-string (match:string match-args) read)
+                      (with-input-from-string full-doc read)
                       (circular-list "arg")))
-       (doc (if match-args (match:suffix match-args) full-doc))
+       (doc (if match-args
+                (ly:regex-match-suffix match-args)
+                full-doc))
        (sign (ly:music-function-signature music-func))
        (type-names (map (lambda (pred)
                           (if (pair? pred)

@@ -21,15 +21,19 @@
  (ice-9 regex)
  (ice-9 session))
 
-(define (dashify-underscores str)
-  (regexp-substitute/global #f "_" str 'pre "-" 'post))
+(define dashify-underscores
+  (let ((underscore-regex (ly:make-regex "_")))
+    (lambda (str)
+      (ly:regex-replace underscore-regex str "-"))))
 
-(define (format-c-header c-h)
-  (regexp-substitute/global
-   #f ","
-   (regexp-substitute/global #f "(SCM|\\)|\\() *" (dashify-underscores c-h)
-                             'pre "" 'post)
-   'pre " " 'post))
+(define format-c-header
+  (let ((comma-regex (ly:make-regex ","))
+        (to-remove-regex (ly:make-regex "(SCM|\\)|\\() *")))
+    (lambda (c-h)
+      (let* ((c-h (dashify-underscores c-h))
+             (c-h (ly:regex-replace to-remove-regex c-h ""))
+             (c-h (ly:regex-replace comma-regex c-h " ")))
+        c-h))))
 
 ;; If there is `::` in the function name, insert a breakpoint to avoid
 ;; overlong index entries that would otherwise stick out to the right
@@ -37,13 +41,15 @@
 ;; triggers a bug in `texi2html` 1.82; we thus have to temporarily
 ;; enclose `prettier-name` with `@code` until an upgrade to a recent
 ;; `texi2any` version.
-(define (document-function name arguments doc-string is-macro)
-  (let* ((cmd (if is-macro "defmac" "defun"))
-         (str-name (symbol->string name))
-         (prettier-name
-          (regexp-substitute/global #f "::" str-name 'pre "::@/" 'post)))
-    (format #f "@~a @code{~a} ~a\n~a\n@end ~a\n\n"
-            cmd prettier-name arguments doc-string cmd)))
+(define document-function
+  (let ((double-colon-regex (ly:make-regex "::")))
+    (lambda (name arguments doc-string is-macro)
+      (let* ((cmd (if is-macro "defmac" "defun"))
+             (str-name (symbol->string name))
+             (prettier-name
+              (ly:regex-replace double-colon-regex str-name "::@/")))
+        (format #f "@~a @code{~a} ~a\n~a\n@end ~a\n\n"
+                cmd prettier-name arguments doc-string cmd)))))
 
 ;; Map function names (as strings) to full documentation entries
 ;; including signature and doc-string.
