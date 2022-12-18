@@ -4152,16 +4152,6 @@ markup_command_list:
 	}
 	;
 
-markup_command_embedded_lilypond:
-	'{' {
-		parser->lexer_->push_note_state ();
-	} embedded_lilypond '}' {
-		parser->lexer_->pop_state ();
-                $$ = $3;
-	}
-	;
-
-
 markup_command_basic_arguments:
 	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
 		$$ = scm_cons ($3, $2);
@@ -4169,9 +4159,34 @@ markup_command_basic_arguments:
 	| EXPECT_SCM markup_command_list_arguments embedded_scm {
 		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
-	| EXPECT_SCM markup_command_list_arguments markup_command_embedded_lilypond
-	{
-		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
+	// If an argument to a markup command does not expect markup? or
+	// markup-list?, its value can be given in braces, and the inner content
+	// is basically interpreted like ##{ ... #} would do.  However, { 4 }
+	// and { cis } can be interpreted both as a duration or pitch,
+	// respectively, or as a note event.  Therefore, we try both variants,
+	// doing a very limited subset of the flexible interpretation that music
+	// functions do.  ##{ ... #} itself obviously cannot be smart like this,
+	// since it doesn't have a type predicate to try the variants against.
+	| EXPECT_SCM markup_command_list_arguments '{' {
+		parser->lexer_->push_note_state ();
+	} embedded_lilypond '}' {
+		$$ = SCM_UNDEFINED;
+		if (scm_is_false (ly_call ($1, $5))) {
+			// The conversion to a note event needs the lexer to be still
+			// in note state.
+			SCM maybe_music = make_music_from_simple (parser, @5, $5);
+			if (unsmob<Music> (maybe_music)
+			    && scm_is_true (ly_call ($1, maybe_music))) {
+				$$ = scm_cons (maybe_music, $2);
+				if (Duration *dur = unsmob<Duration> ($5)) {
+					parser->default_duration_ = *dur;
+				}
+			}
+		}
+		if (SCM_UNBNDP ($$)) {
+			$$ = check_scheme_arg (parser, @5, $5, $2, $1);
+		}
+		parser->lexer_->pop_state ();
 	}
 	| EXPECT_SCM markup_command_list_arguments mode_changed_music {
 		$$ = check_scheme_arg (parser, @3, $3, $2, $1);

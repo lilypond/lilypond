@@ -1452,10 +1452,6 @@ tweaks to the output by using a @code{\\layout} block.
 
 \\markup \\rhythm { 8 16 8 }
 @end lilypond
-
-@warning{@code{\\rhythm} does not work when its argument is a single
-duration, e.g., @code{\\rhythm @{ 8 @}}.  Use extra braces:
-@code{\\rhythm @{ @{ 8 @} @}}.}
 "
   (let* ((mkup
           #{
