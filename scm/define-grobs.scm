@@ -3675,8 +3675,8 @@ horizontally.  See also @iref{TrillSpanner}.")))))
                  (interfaces . (accidental-participating-head-interface
                                 font-interface
                                 ledgered-interface
+                                note-head-interface
                                 pitched-trill-interface
-                                rhythmic-head-interface
                                 staff-symbol-referencer-interface))
                  (description . "The note head of a pitched
 trill.  See also @iref{TrillPitchGroup}.")))))
