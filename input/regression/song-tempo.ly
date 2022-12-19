@@ -13,4 +13,4 @@ changing tempo in the middle of a piece.
 \addlyrics { do re mi do re mi }
 }
 #(ly:progress "song-tempo")
-#(ly:progress "~a" (ly:gulp-file "song-tempo.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-tempo.xml"))

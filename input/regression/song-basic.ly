@@ -13,4 +13,4 @@ basic songs.
 \addlyrics { play the game }
 }
 #(ly:progress "song-basic")
-#(ly:progress "~a" (ly:gulp-file "song-basic.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-basic.xml"))

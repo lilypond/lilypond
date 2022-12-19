@@ -15,4 +15,4 @@ multiple stanzas.
 \addlyrics { joue le jeu }
 }
 #(ly:progress "song-stanzas")
-#(ly:progress "~a" (ly:gulp-file "song-stanzas.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-stanzas.xml"))

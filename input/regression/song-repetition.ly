@@ -23,4 +23,4 @@ repeat signs.
 >>
 }
 #(ly:progress "song-repetition")
-#(ly:progress "~a" (ly:gulp-file "song-repetition.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-repetition.xml"))

@@ -26,4 +26,4 @@ slurs.
   }
 >>
 #(ly:progress "song-slurs\n")
-#(ly:progress "~a" (ly:gulp-file "song-slurs.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-slurs.xml"))

@@ -38,4 +38,4 @@ reordered lyrics.
     sau -- rus Rex
   } >>
 #(ly:progress "song-reordering")
-#(ly:progress "~a" (ly:gulp-file "song-reordering.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-reordering.xml"))

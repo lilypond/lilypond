@@ -13,4 +13,4 @@ breath marks.
 \addlyrics { play the game }
 }
 #(ly:progress "song-breathe")
-#(ly:progress "~a" (ly:gulp-file "song-breathe.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-breathe.xml"))
