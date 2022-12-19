@@ -27,9 +27,6 @@
  (lily)
  )
 
-(define (re-sub re sub string)
-  (regexp-substitute/global #f re string 'pre sub 'post))
-
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
