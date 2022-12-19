@@ -2927,7 +2927,7 @@ of its own.
   #:as-string
   (begin
     (ly:note-extra-source-file name)
-    (ly:gulp-file name))
+    (ly:gulp-file-utf8 name))
   "Read the contents of file @var{name}, and include it verbatim.
 
 @lilypond[verbatim,quote]
@@ -2939,7 +2939,7 @@ of its own.
   (interpret-markup layout props
                     (make-typewriter-markup
                      (make-column-markup
-                      (string-split (ly:gulp-file name)
+                      (string-split (ly:gulp-file-utf8 name)
                                     #\nl)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -13,4 +13,4 @@ skips.
   kle
 }
 #(ly:progress "song-skip")
-#(ly:progress "~a" (ly:gulp-file "song-skip.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-skip.xml"))

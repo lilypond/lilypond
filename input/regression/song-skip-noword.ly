@@ -15,6 +15,6 @@ lyrics which are not complete words.
 }
 
 #(ly:progress "song-skip-noword")
-#(ly:progress "~a" (ly:gulp-file "song-skip-noword.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-skip-noword.xml"))
 
 #(*skip-word* "-skip-")

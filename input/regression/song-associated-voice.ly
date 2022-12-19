@@ -21,4 +21,4 @@ associated voices.
   } >>
 }
 #(ly:progress "song-associated-voice")
-#(ly:progress "~a" (ly:gulp-file "song-associated-voice.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-associated-voice.xml"))

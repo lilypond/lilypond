@@ -815,7 +815,7 @@ use an external tool to run LilyPond in a sandbox."))
                     (append-map
                      (lambda (f)
                        (string-split
-                        (string-delete #\cr (ly:gulp-file f))
+                        (string-delete #\cr (ly:gulp-file-utf8 f))
                         #\nl))
                      files))))
   (let ((job-count (min (length files)
@@ -848,7 +848,7 @@ use an external tool to run LilyPond in a sandbox."))
                              (state (cdr x))
                              (logfile (format #f "~a-~a.log"
                                               (ly:get-option 'log-file) job))
-                             (log (ly:gulp-file logfile))
+                             (log (ly:gulp-file-utf8 logfile))
                              (len (string-length log))
                              (tail (substring  log (max 0 (- len 1024)))))
                         (if (status:term-sig state)

@@ -23,4 +23,4 @@ divided voices.
   \new Lyrics \lyricsto "splitpart" { will }
 >> }
 #(ly:progress "song-splitpart")
-#(ly:progress "~a" (ly:gulp-file "song-splitpart.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-splitpart.xml"))
