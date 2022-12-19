@@ -1900,6 +1900,8 @@ the line width, where @var{X} is the number of staff spaces.
 
 (define cr-regex (ly:make-regex "\r"))
 (define crlf-regex (ly:make-regex "\n"))
+(define para-sep-regex (ly:make-regex "\n[ \t\n]*\n[ \t\n]*"))
+(define whitespace-regex (ly:make-regex "[ \t\n]+")) ;; should use "\\s+" ?
 (define-markup-list-command (wordwrap-string-internal layout props justify arg)
   (boolean? string?)
   #:properties ((line-width)
@@ -1907,14 +1909,14 @@ the line width, where @var{X} is the number of staff spaces.
                 (text-direction RIGHT))
   "Internal markup list command that is used to define @code{\\justify-string}
 and @code{\\wordwrap-string}."
-  (let* ((para-strings (regexp-split
+  (let* ((para-strings (ly:regex-split
+                        para-sep-regex
                         (ly:regex-replace
                          cr-regex
                          (ly:regex-replace crlf-regex arg "\n")
-                         "\n")
-                        "\n[ \t\n]*\n[ \t\n]*"))
+                         "\n")))
          (list-para-words (map (lambda (str)
-                                 (regexp-split str "[ \t\n]+"))
+                                 (ly:regex-split whitespace-regex str))
                                para-strings))
          (para-lines (map (lambda (words)
                             (let* ((stencils

@@ -72,9 +72,11 @@ class Regex : public Smob<Regex>
 {
 public:
   static const char *const type_p_name_;
-  Regex (GRegex *);
+  Regex (GRegex *regex);
   virtual ~Regex ();
+  GRegex *regex () { return regex_; }
 
+private:
   GRegex *regex_;
 };
 
@@ -231,10 +233,10 @@ For example, this extracts the components of a date in YYYY-MM-DD format:
   unique_stdlib_ptr<char> s = ly_scm2str0 (string);
   GError *error = nullptr;
   GMatchInfo *match_info = nullptr;
-  bool matched = g_regex_match_full (r->regex_, s.get (),
+  bool matched = g_regex_match_full (r->regex (), s.get (),
                                      NULL_TERMINATED_STRING, START_AT_BEGINNING,
                                      DEFAULT_MATCH_FLAGS, &match_info, &error);
-  // Make sure r->regex_ is not freed while matching
+  // Make sure r->regex () is not freed while matching
   scm_remember_upto_here (regex);
   check_error (error, "ly:regex-exec");
   SCM ret;
@@ -267,10 +269,10 @@ instead of the first match only."
   unique_stdlib_ptr<char> s = ly_scm2str0 (string);
   GError *error = nullptr;
   GMatchInfo *match_info = nullptr;
-  bool matched = g_regex_match_full (r->regex_, s.get (),
+  bool matched = g_regex_match_full (r->regex (), s.get (),
                                      NULL_TERMINATED_STRING, START_AT_BEGINNING,
                                      DEFAULT_MATCH_FLAGS, &match_info, &error);
-  // Make sure r->regex_ is not freed while matching.
+  // Make sure r->regex () is not freed while matching.
   scm_remember_upto_here (regex);
   check_error (error, "ly:regex-exec->list");
   SCM ret;
@@ -423,7 +425,7 @@ This example does the same, using a procedure:
   Replacement_data replacement_data (string, s.get (), replacements);
   GError *error = nullptr;
   unique_glib_ptr<char> result (g_regex_replace_eval (
-    r->regex_, s.get (), NULL_TERMINATED_STRING, START_AT_BEGINNING,
+    r->regex (), s.get (), NULL_TERMINATED_STRING, START_AT_BEGINNING,
     DEFAULT_MATCH_FLAGS, static_cast<GRegexEvalCallback> (replacement_callback),
     &replacement_data, &error));
   check_error (error, "ly:regex-replace");
