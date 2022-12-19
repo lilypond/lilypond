@@ -26,6 +26,12 @@
 
 
 (ly:add-interface
+ 'accidental-participating-head-interface
+ "A grob that should set the current alteration for a pitch
+in a measure."
+ '())
+
+(ly:add-interface
  'accidental-suggestion-interface
  "An accidental, printed as a suggestion (typically: vertically over a
 note)."

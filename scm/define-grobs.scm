@@ -2403,7 +2403,8 @@ the same voice.  See also @iref{NoteCollision}.")))))
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (bend-interface
+                 (interfaces . (accidental-participating-head-interface
+                                bend-interface
                                 font-interface
                                 gregorian-ligature-interface
                                 ledgered-interface
@@ -3671,7 +3672,8 @@ horizontally.  See also @iref{TrillSpanner}.")))))
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-participating-head-interface
+                                font-interface
                                 ledgered-interface
                                 pitched-trill-interface
                                 rhythmic-head-interface

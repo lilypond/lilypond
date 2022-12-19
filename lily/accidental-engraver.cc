@@ -81,7 +81,7 @@ protected:
 
   void acknowledge_end_tie (Grob_info_t<Spanner>);
   void acknowledge_arpeggio (Grob_info);
-  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_accidental_participating_head (Grob_info);
   void acknowledge_finger (Grob_info);
   void acknowledge_note_column (Grob_info_t<Item>);
 
@@ -459,12 +459,10 @@ Accidental_engraver::stop_translation_timestep ()
 }
 
 void
-Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
+Accidental_engraver::acknowledge_accidental_participating_head (Grob_info info)
 {
   Stream_event *note = info.event_cause ();
   if (note
-      && (note->in_event_class ("note-event")
-          || note->in_event_class ("trill-span-event"))
       // option to skip accidentals on string harmonics
       && (from_scm<bool> (get_property (this, "harmonicAccidentals"))
           || !scm_is_eq (get_property (info.grob (), "style"),
@@ -518,9 +516,9 @@ Accidental_engraver::process_music ()
 void
 Accidental_engraver::boot ()
 {
+  ADD_ACKNOWLEDGER (accidental_participating_head);
   ADD_ACKNOWLEDGER (arpeggio);
   ADD_ACKNOWLEDGER (finger);
-  ADD_ACKNOWLEDGER (rhythmic_head);
   ADD_END_ACKNOWLEDGER (tie);
   ADD_ACKNOWLEDGER (note_column);
 }
