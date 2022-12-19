@@ -568,11 +568,13 @@ and duration log @var{log}."
         ((kievan)
          (string-append (number->string log) "kievan"))
         (else
-         (if (string-match "vaticana*|hufnagel*|medicaea*"
-                           (symbol->string style))
-             (symbol->string style)
-             (string-append (number->string (max 0 log))
-                            (symbol->string style)))))
+         (let ((str (symbol->string style)))
+           (if (or (string-startswith str "vaticana")
+                   (string-startswith str "hufnagel")
+                   (string-startswith str "medicaea"))
+               str
+               (string-append (number->string (max 0 log))
+                              str)))))
       ;; 'vaticana-ligature-interface has a 'glyph-name-property for NoteHead.
       ;; Probably best to return an empty list here, if called in a context
       ;; without setting 'style, i.e. 'style is '(), to avoid a scheme-error.
