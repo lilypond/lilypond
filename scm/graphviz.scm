@@ -18,22 +18,22 @@
 
 (define-module (lily graphviz)
   #:use-module (lily)
+  #:use-module (srfi srfi-9)
   #:export
   (make-empty-graph add-node add-edge add-cluster
                     graph-write
                     ))
 
-(define graph-type (make-record-type "graph" '(nodes edges clusters name)))
+(define-record-type <graph>
+  (make-graph nodes edges clusters name)
+  graph?
+  (nodes nodes set-nodes!)
+  (edges edges set-edges!)
+  (clusters clusters set-clusters!)
+  ;; Unused field?
+  (name name))
 
-(define make-graph (record-constructor graph-type))
 (define (make-empty-graph name) (make-graph '() '() '() name))
-
-(define nodes (record-accessor graph-type 'nodes))
-(define edges (record-accessor graph-type 'edges))
-(define clusters (record-accessor graph-type 'clusters))
-(define set-nodes! (record-modifier graph-type 'nodes))
-(define set-edges! (record-modifier graph-type 'edges))
-(define set-clusters! (record-modifier graph-type 'clusters))
 
 (define (add-cluster graph node-id cluster-name)
   (let* ((cs (clusters graph))
