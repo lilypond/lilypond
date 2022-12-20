@@ -60,6 +60,10 @@ public:
   Font_metric *find_font (const std::string &name);
   Open_type_font *find_otf (const std::string &name);
   SCM font_descriptions () const;
+
+  // Pango wants to be informed if the Fontconfig configuration
+  // parameters are modified.
+  void notify_fc_config_change ();
 };
 
 extern All_font_metrics *all_fonts_global;

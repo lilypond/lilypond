@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "all-font-metrics.hh"
 #include "lily-guile.hh"
 #include "international.hh"
 #include "memory.hh"
@@ -160,6 +161,8 @@ Add directory @var{dir} to FontConfig.
   else
     debug_output (_f ("Adding font directory: %s", d.c_str ()));
 
+  all_fonts_global->notify_fc_config_change ();
+
   return SCM_UNSPECIFIED;
 }
 
@@ -178,6 +181,8 @@ Add font @var{font} to FontConfig.
     error (_f ("failed adding font file: %s", f.c_str ()));
   else
     debug_output (_f ("Adding font file: %s", f.c_str ()));
+
+  all_fonts_global->notify_fc_config_change ();
 
   return SCM_UNSPECIFIED;
 }
