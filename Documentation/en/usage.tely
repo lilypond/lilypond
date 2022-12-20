@@ -81,10 +81,6 @@ Appendices
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @include en/usage/running.itely
 @include en/usage/updating.itely
 @include en/usage/lilypond-book.itely

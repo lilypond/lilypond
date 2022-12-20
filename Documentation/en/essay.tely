@@ -55,10 +55,6 @@ Copyright @copyright{} 2002--2022 by the authors.
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @include en/essay/engraving.itely
 @include en/essay/literature.itely
 

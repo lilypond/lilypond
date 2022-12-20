@@ -73,10 +73,6 @@ Appendices
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @include en/contributor/introduction.itexi
 @include en/contributor/quick-start.itexi
 @include en/contributor/source-code.itexi

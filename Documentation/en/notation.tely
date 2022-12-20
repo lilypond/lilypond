@@ -71,10 +71,6 @@ Appendices
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @include en/notation/notation.itely
 @include en/notation/specialist.itely
 

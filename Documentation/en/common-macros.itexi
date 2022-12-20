@@ -23,6 +23,13 @@ Macro definitions that contain translatable text belong to file
 @c Make `@var` in typewriter environments use slanted typewriter.
 @set txicodevaristt
 
+@c Don't break words at `-` and `_` within `@code`.  This must be
+@c in an `iftex` block because `texi2html` 1.82 doesn't know this
+@c command.
+@iftex
+@allowcodebreaks false
+@end iftex
+
 
 @include en/cyrillic.itexi
 

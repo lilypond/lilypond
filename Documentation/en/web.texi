@@ -254,10 +254,6 @@ Browse our gallery of @ref{Examples} and be inspired!
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore
 Distributions will want to install lilypond.info in postinstall, doing:

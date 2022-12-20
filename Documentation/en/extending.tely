@@ -60,10 +60,6 @@ Appendices
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @include en/extending/scheme-tutorial.itely
 @include en/extending/programming-interface.itely
 

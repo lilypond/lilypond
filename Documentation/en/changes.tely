@@ -20,10 +20,6 @@ in LilyPond version @version{} since 2.24.
 
 @lilyTitlePage{Changes}
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @ignore
 
 HINTS

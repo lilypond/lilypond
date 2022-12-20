@@ -63,10 +63,6 @@ Appendices
 @c TOC - tex
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @c INCLUDES
 
 @include en/learning/installing.itely
