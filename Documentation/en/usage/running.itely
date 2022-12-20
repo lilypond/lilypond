@@ -789,15 +789,15 @@ If @var{bool} is @code{#t}, create preview images in addition to
 normal output.
 Default: @code{#f}.
 
-This option is supported by all backends (@code{pdf}, @code{png},
-@code{ps}, @code{eps}, and @code{svg}) except @code{scm}.  For input
-file name @var{file} and backend @var{format}, it generates an output
-file having the name @file{@var{file}@code{.preview.}@var{format}},
-containing the titles and the first system of music.  If @code{\book}
-or @code{\bookpart} blocks are used, the titles of @code{\book},
+For input file name @var{file} and output format @var{fmt}, it
+generates an output file having the name
+@file{@var{file}@code{.preview.}@var{fmt}}, containing the
+titles and the first system of music.  If @code{\book} or
+@code{\bookpart} blocks are used, the titles of @code{\book},
 @code{\bookpart} or @code{\score} will appear in the output,
 including the first system of every @code{\score} block if the
-@code{\paper} variable @code{print-all-headers} is set to @code{#t}.
+@code{\paper} variable @code{print-all-headers} is set to
+@code{#t}.
 
 To suppress the usual output, use the @option{-dprint-pages} or
 @option{-dno-print-pages} options according to your requirements.
