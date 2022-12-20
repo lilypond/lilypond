@@ -1492,22 +1492,10 @@ An empty markup with extents of a single point.
 (define-markup-command (simple layout props str)
   (string?)
   #:category font
-  "
-@cindex simple text string
-
-A simple text string; @code{\\markup @{ foo @}} is equivalent with
-@code{\\markup @{ \\simple #\"foo\" @}}.
-
-Note: for creating standard text markup or defining new markup commands,
-the use of @code{\\simple} is unnecessary.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\simple #\"simple\"
-  \\simple #\"text\"
-  \\simple #\"strings\"
-}
-@end lilypond"
+  "@code{\\markup \\simple \"x\"} is equivalent to @code{\\markup \"x\"}.  This
+command was previously used internally, but no longer is, and is being kept for
+backwards compatibility only.
+"
   (interpret-markup layout props str))
 
 (define-markup-command (first-visible layout props args)
@@ -1724,8 +1712,8 @@ space.  If there are no arguments, return an empty stencil.
 @cindex ligature, in text
 
 Concatenate @var{args} in a horizontal line, without spaces in between.
-Strings and simple markups are concatenated on the input level, allowing
-ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
+Strings are concatenated on the input level, allowing ligatures.
+For example, @code{\\concat @{ \"f\" \"i\" @}} is
 equivalent to @code{\"fi\"}.
 
 @lilypond[verbatim,quote]
@@ -3844,7 +3832,7 @@ Draw @var{arg} in color specified by @var{color}.
   "
 @cindex simple text string, with tie characters
 
-Like simple-markup, but use tie characters for @q{~} tilde symbols.
+Replace @q{~} tilde symbols with tie characters in the argument.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
