@@ -663,27 +663,32 @@ UNTRANSLATED NODE: IGNORE ME
 % typewriter in section titles.  Note that Texinfo is already partially
 % prepared to do so via the `\ttbshape` macro; however, it doesn't provide
 % `\ttbslshape`.
-\global\font\texttt = lmttr scaled \mainmagstep
-\global\font\deftt = lmttr scaled \magstep1
-\global\font\smalltt = lmttr scaled 900
-\global\font\smallertt = lmttr scaled 800
-\global\font\seventt = lmttr scaled 700
-\global\font\titlett = lmttb scaled \magstep4
-\global\font\chaptt = lmttb scaled \magstep3
-\global\font\sectt = lmttb scaled \magstep2
-\global\font\ssectt = lmttb scaled 1315
-\global\font\reducedtt = lmttr
+\def\makefont#1#2{%
+  \global\font#1 = #2
+  \global\hyphenchar#1 = -1
+}
 
-\global\font\textttsl = lmttro scaled \mainmagstep
-\global\font\defttsl = lmttro scaled \magstep1
-\global\font\smallttsl = lmttro scaled 900
-\global\font\smallerttsl = lmttro scaled 800
-\global\font\seventtsl = lmttro scaled 700
-\global\font\titlettsl = lmttbo scaled \magstep4
-\global\font\chapttsl = lmttbo scaled \magstep3
-\global\font\secttsl = lmttbo scaled \magstep2
-\global\font\ssecttsl = lmttbo scaled 1315
-\global\font\reducedttsl = lmttro
+\makefont{\texttt}{lmttr scaled \mainmagstep}
+\makefont{\deftt}{lmttr scaled \magstep1}
+\makefont{\smalltt}{lmttr scaled 900}
+\makefont{\smallertt}{lmttr scaled 800}
+\makefont{\seventt}{lmttr scaled 700}
+\makefont{\titlett}{lmttb scaled \magstep4}
+\makefont{\chaptt}{lmttb scaled \magstep3}
+\makefont{\sectt}{lmttb scaled \magstep2}
+\makefont{\ssectt}{lmttb scaled 1315}
+\makefont{\reducedtt}{lmttr}
+
+\makefont{\textttsl}{lmttro scaled \mainmagstep}
+\makefont{\defttsl}{lmttro scaled \magstep1}
+\makefont{\smallttsl}{lmttro scaled 900}
+\makefont{\smallerttsl}{lmttro scaled 800}
+\makefont{\seventtsl}{lmttro scaled 700}
+\makefont{\titlettsl}{lmttbo scaled \magstep4}
+\makefont{\chapttsl}{lmttbo scaled \magstep3}
+\makefont{\secttsl}{lmttbo scaled \magstep2}
+\makefont{\ssecttsl}{lmttbo scaled 1315}
+\makefont{\reducedttsl}{lmttro}
 
 % Activate font changes.  To avoid redefinitions of Texinfo macros, we use
 % `\aftergroup` to call `\assignfonts{text}` to do this job (right now we
@@ -694,8 +699,8 @@ UNTRANSLATED NODE: IGNORE ME
 % Bold and bold italic typewriter are only needed by Pygments in the
 % `@format` environment; no need to set up sectioning fonts or other
 % sizes.
-\global\font\textttbx = lmttb scaled \mainmagstep
-\global\font\textttbxsl = lmttbo scaled \mainmagstep
+\makefont{\textttbx}{lmttb scaled \mainmagstep}
+\makefont{\textttbxsl}{lmttbo scaled \mainmagstep}
 
 % Register additional CMaps.
 \csname cmapOT1TT\endcsname{\textttbx}
