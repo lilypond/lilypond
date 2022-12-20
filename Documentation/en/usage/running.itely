@@ -568,6 +568,11 @@ For PDF output, the @code{ps} backend is used, too; the resulting
 PS data is post-processed by Ghostscript's @code{ps2pdf} script,
 which also does font subsetting by default.
 
+@item cairo
+This creates graphics output throught the Cairo library, if
+support was compiled in. This backend can output @code{ps},
+@code{eps}, @code{pdf}, @code{png} and @code{svg}.
+
 @item svg
 Scalable Vector Graphics.
 A single SVG file is created for every page of output.  Music glyphs
