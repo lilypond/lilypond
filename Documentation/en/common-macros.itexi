@@ -155,7 +155,7 @@ Macro definitions that contain translatable text belong to file
   \dimen0 = #1\relax
   \raise\dimen0 \box0 }
 
-% Factor -0.4 is heuristic.
+% Factor -0.2 is heuristic.
 \global\let\imageold = \image
 \gdef\image#1{%
   \ifhmode
@@ -218,6 +218,7 @@ Macro definitions that contain translatable text belong to file
 @xrefautomaticsectiontitle on
 
 @end ifnothtml
+
 
 @c We introduce an additional cross-reference command `@iref`
 @c specifically tailored for the PDF version of the Internals
@@ -324,7 +325,7 @@ Macro definitions that contain translatable text belong to file
 @c   ***** Indexing *****
 
 @c Don't remove the `@c' within the macro definition!  See section 19.3,
-@c `Macro Details and Caveats', in the texinfo info file for explanation.
+@c `Macro Details and Caveats', in the Texinfo info file for explanation.
 
 @iftex
 
@@ -338,7 +339,7 @@ Macro definitions that contain translatable text belong to file
 @c `foo' appear in the unified index.
 @c
 @c For this reason, we make macro `@funindex' use `@sortas' to set a
-@c special sorting key, and we redefine texinfo's internal macro
+@c special sorting key, and we redefine Texinfo's internal macro
 @c `\indexwritesortas' to swallow backslashes.  We also modify
 @c `@cindex' to insert another sorting key to ensure that `\foo'
 @c immediately comes after `foo', followed by entries like `foo bar'.
@@ -431,7 +432,7 @@ Macro definitions that contain translatable text belong to file
 
 @c XXX Currently we are forced to use ancient version 1.82 of texi2html
 @c     (from 2005); we thus have to provide a macro for `@sortas',
-@c     which was introduced in texinfo version 6.1 (in 2016).
+@c     which was introduced in Texinfo version 6.1 (in 2016).
 
 @ifhtml
 @macro sortas {TEXT}
@@ -641,16 +642,18 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 
+@c  ***** Macros and fonts for displaying LilyPond code snippets *****
+
 @tex
 
-% Override CM typewriter.  For pygments support we need bold and bold
+% Override CM typewriter.  For Pygments support we need bold and bold
 % slanted typewriter, which is not available in the Computer Modern font
-% family used by texinfo.  Instead, we use the font family 'LMMonoLt10' that
+% family used by Texinfo.  Instead, we use the font family 'LMMonoLt10' that
 % comes with the 'Latin Modern' package, which is a light version of 'cmtt',
 % and which provides all necessary shapes.
 %
 % We do even more than just overriding: We correctly use bold shapes for
-% typewriter in section titles.  Note that texinfo is already partially
+% typewriter in section titles.  Note that Texinfo is already partially
 % prepared to do so via the `\ttbshape` macro; however, it doesn't provide
 % `\ttbslshape`.
 \global\font\texttt = lmttr scaled \mainmagstep
@@ -675,13 +678,13 @@ UNTRANSLATED NODE: IGNORE ME
 \global\font\ssecttsl = lmttbo scaled 1315
 \global\font\reducedttsl = lmttro
 
-% Activate font changes.  To avoid redefinitions of texinfo macros, we use
+% Activate font changes.  To avoid redefinitions of Texinfo macros, we use
 % `\aftergroup` to call `\assignfonts{text}` to do this job (right now we
 % are in a `@tex` group).
 \gdef\callassignfonts{\assignfonts{text}}
 \aftergroup\callassignfonts
 
-% Bold and bold italic typewriter are only needed by pygments in the
+% Bold and bold italic typewriter are only needed by Pygments in the
 % `@format` environment; no need to set up sectioning fonts or other
 % sizes.
 \global\font\textttbx = lmttb scaled \mainmagstep
@@ -742,7 +745,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end tex
 
 
-@c Since stuff like `@t{@b{...}}` doesn't work in texinfo, provide `@tb` as
+@c Since stuff like `@t{@b{...}}` doesn't work in Texinfo, provide `@tb` as
 @c a command to access bold typewriter.
 
 @iftex
