@@ -28,6 +28,8 @@
 
 #include <string>
 
+#include <pango/pangofc-fontmap.h>
+
 using std::string;
 
 Index_to_charcode_map const *
@@ -144,4 +146,10 @@ All_font_metrics::find_font (const string &name)
     }
 
   return f;
+}
+
+void
+All_font_metrics::notify_fc_config_change ()
+{
+  pango_fc_font_map_config_changed (PANGO_FC_FONT_MAP (pango_ft2_fontmap_));
 }
