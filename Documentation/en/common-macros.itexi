@@ -808,3 +808,42 @@ UNTRANSLATED NODE: IGNORE ME
 @macro endPygments
 @end format
 @end macro
+
+
+@c  ***** LuaTeX enhancement for `@code` *****
+
+@c See file `code.lua` for details.
+@tex
+\ifx\luatexversion\thisisundefined
+\else
+  % Register `code_hyphenate` as a filter, to be applied before normal
+  % hyphenation.
+  \directlua{
+    dofile(kpse.find_file("code.lua"))
+    callback.register("hyphenate",
+      function(head, tail)
+        code_hyphenate(head)
+        lang.hyphenate(head)
+      end) }
+
+  % Save the original internal function that handles the argument of
+  % `@code`.
+  \global\let\texicodex \codex
+
+  % Set and unset node attribute key 200 (which is an arbitrarily
+  % chosen value), enabling `code_hyphenate` to identify nodes that
+  % belong to `@code`.  We use `\xdef` to avoid issues with '-',
+  % which is defined differently outside of this group.
+  \xdef\setattribute{%
+    \attribute 200 = 1 }
+  \xdef\unsetattribute{%
+    \attribute 200 = -"7FFFFFFF }
+
+  % To 'escape' the current group we use `\aftergroup` to unset the
+  % LuaTeX attribute.
+  \gdef\codex#1{%
+    \setattribute
+    \aftergroup\unsetattribute
+    \texicodex{#1}}
+\fi
+@end tex

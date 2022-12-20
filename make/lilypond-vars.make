@@ -82,11 +82,13 @@ endif
 #    TFMFONTS     TeX metric files (suffix `.tfm`)
 #    TEXFONTMAPS  font map files (suffix `.map`)
 #    ENCFONTS     PostScript encoding files (suffix `.enc`)
+#    LUAINPUTS    Lua files for LuaTeX (suffix `.lua`)
 #
 export TEXINPUTS=$(top-src-dir)/Documentation/tex/:
 export TFMFONTS=$(top-build-dir)/Documentation/tex/$(outdir);
 export TEXFONTMAPS=$(top-build-dir)/Documentation/tex/$(outdir);
 export ENCFONTS=$(top-build-dir)/Documentation/tex/$(outdir);
+export LUAINPUTS=$(top-build-dir)/Documentation/tex/$(outdir);
 
 export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 
