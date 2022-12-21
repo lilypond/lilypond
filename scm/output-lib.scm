@@ -1008,8 +1008,6 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
 
     (list lp rp)))
 
-(define-public (parentheses-interface::y-extent grob) (ly:grob::stencil-height grob))
-
 (define-public (parentheses-interface::print grob)
   (let* ((elts (ly:grob-array->list (ly:grob-object grob 'elements)))
          (get-friends
@@ -1038,18 +1036,44 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
      (ly:stencil-translate-axis lp (interval-start parenthesis-positions) X)
      (ly:stencil-translate-axis rp (interval-end parenthesis-positions) X))))
 
-(define-public (parentheses-interface::calc-Y-offset grob)
+;; For the Y-offset, compute the combined extent of enclosed items and take the
+;; center (see trill-pitch-group::pure-height for comments on the pure part).
+(define ((parentheses-interface::maybe-pure-Y-offset pure) grob . rest)
   (let* ((y-parent (ly:grob-parent grob Y))
          ;; The Y alignment is based on elements and not parenthesized-elements.
          ;; We don't want the friends, or parenthesized notes with a flat would
          ;; look bad.
          (elts (ly:grob-object grob 'elements))
          (refp (ly:grob-common-refpoint-of-array grob elts Y))
-         (y-ext (ly:relative-group-extent elts refp Y))
+         (y-ext (fold interval-union
+                      empty-interval
+                      (map (lambda (elt)
+                             (if pure
+                                 (apply ly:grob-pure-height elt refp rest)
+                                 (ly:grob-extent elt refp Y)))
+                           (ly:grob-array->list elts))))
          (y-center (interval-center y-ext))
-         (my-y (ly:grob-relative-coordinate y-parent refp Y)))
+         (my-y (if pure
+                   (apply ly:grob-pure-relative-coordinate y-parent refp rest)
+                   (ly:grob-relative-coordinate y-parent refp Y))))
     (- y-center my-y)))
 
+(define-public parentheses-interface::calc-Y-offset
+  (parentheses-interface::maybe-pure-Y-offset #f))
+
+(define-public parentheses-interface::calc-pure-Y-offset
+  (parentheses-interface::maybe-pure-Y-offset #t))
+
+;; For the Y-extent, use the stencils property.  This is exactly the extent of
+;; the final stencil, so this callback is used for both the unpure and the pure
+;; part of the unpure-pure container.  (We cannot use the stencil for this,
+;; though, because we want the pure Y-extent before line breaking, while the
+;; stencil can only be computed after line breaking if this Parentheses grob is
+;; a spanner).
+(define-public (parentheses-interface::calc-Y-extent grob)
+  (match-let (((left right) (ly:grob-property grob 'stencils)))
+    (interval-union (ly:stencil-extent left Y)
+                    (ly:stencil-extent right Y))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; offset callbacks

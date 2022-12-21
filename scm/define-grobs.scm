@@ -2510,8 +2510,11 @@ musical and non-musical columns.  See also
         (padding . 0.2)
         (stencil . ,parentheses-interface::print)
         (stencils . ,parentheses-interface::calc-parenthesis-stencils)
-        (Y-extent . ,parentheses-interface::y-extent)
-        (Y-offset . ,parentheses-interface::calc-Y-offset)
+        (Y-extent . ,(ly:make-unpure-pure-container
+                      parentheses-interface::calc-Y-extent))
+        (Y-offset . ,(ly:make-unpure-pure-container
+                      parentheses-interface::calc-Y-offset
+                      parentheses-interface::calc-pure-Y-offset))
         (meta . ((classes . (Item Spanner))
                  (interfaces . (font-interface
                                 parentheses-interface

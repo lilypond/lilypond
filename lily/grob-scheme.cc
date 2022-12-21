@@ -286,6 +286,23 @@ Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
   return to_scm (sc->relative_coordinate (ref, a));
 }
 
+
+LY_DEFINE (ly_grob_pure_relative_coordinate, "ly:grob-pure-relative-coordinate",
+           4, 0, 0, (SCM grob, SCM refp, SCM start, SCM end),
+           R"(
+Return the pure vertical coordinate of @var{grob} relative to
+@var{refp} between @var{start} and @var{end}.
+           )")
+{
+  auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const r = LY_ASSERT_SMOB (Grob, refp, 2);
+  LY_ASSERT_TYPE (is_scm<int>, start, 3);
+  int s = from_scm<int> (start);
+  LY_ASSERT_TYPE (is_scm<int>, end, 4);
+  int e = from_scm<int> (end);
+  return to_scm (g->pure_relative_y_coordinate (r, s, e));
+}
+
 LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!", 3, 0, 0,
            (SCM grob, SCM axis, SCM parent_grob),
            R"(
