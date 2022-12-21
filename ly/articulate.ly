@@ -137,8 +137,9 @@
 
 \version "2.23.2"
 
-#(use-modules (srfi srfi-11))
-#(use-modules (lily display-lily))
+#(use-modules (srfi srfi-11)
+              (ice-9 control)
+              (lily display-lily))
 
 % PARAMETERS
 % How much to compress notes marked Staccato.  CPE Bach says `as short as
@@ -826,7 +827,7 @@
    ((eq? 'GraceMusic (ly:music-property music 'name))
     (let
      ((first-ev
-       (call-with-current-continuation
+       (call-with-escape-continuation
         (lambda (yield-fev)
          (music-map
           (lambda (m)
