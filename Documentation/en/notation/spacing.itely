@@ -4003,6 +4003,11 @@ spacing variables; for more details see the following section,
 
 @funindex annotate-spacing
 @cindex spacing, display of layout
+@cindex debugging, vertical spacing
+@cindex vertical spacing, debugging
+@cindex layout, vertical, debugging
+@cindex show vertical layout
+@cindex display vertical layout
 
 To graphically display the dimensions of vertical layout variables
 that may be altered for page formatting, set
