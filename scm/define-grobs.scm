@@ -2515,6 +2515,7 @@ musical and non-musical columns.  See also
         ;; space of its own, however.
         (X-extent . (0 . 0))
         (Y-extent . ,parentheses-interface::y-extent)
+        (Y-offset . ,parentheses-interface::calc-Y-offset)
         (meta . ((classes . (Item Spanner))
                  (interfaces . (font-interface
                                 parentheses-interface

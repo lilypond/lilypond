@@ -1010,7 +1010,7 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
 
 (define-public (parentheses-interface::y-extent grob) (ly:grob::stencil-height grob))
 
-(define-public (parenthesize-elements grob)
+(define-public (parentheses-interface::print grob)
   (let* ((elts (ly:grob-array->list (ly:grob-object grob 'elements)))
          (get-friends
           (lambda (g)
@@ -1038,19 +1038,17 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
      (ly:stencil-translate-axis lp (interval-start parenthesis-positions) X)
      (ly:stencil-translate-axis rp (interval-end parenthesis-positions) X))))
 
-(define-public (parentheses-interface::print grob)
+(define-public (parentheses-interface::calc-Y-offset grob)
   (let* ((y-parent (ly:grob-parent grob Y))
          ;; The Y alignment is based on elements and not parenthesized-elements.
          ;; We don't want the friends, or parenthesized notes with a flat would
          ;; look bad.
          (elts (ly:grob-object grob 'elements))
          (refp (ly:grob-common-refpoint-of-array grob elts Y))
-         (stencil (parenthesize-elements grob))
          (y-ext (ly:relative-group-extent elts refp Y))
          (y-center (interval-center y-ext))
-         (my-y (ly:grob-relative-coordinate grob refp Y))
-         (translation (- y-center my-y)))
-    (ly:stencil-translate-axis stencil translation Y)))
+         (my-y (ly:grob-relative-coordinate y-parent refp Y)))
+    (- y-center my-y)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
