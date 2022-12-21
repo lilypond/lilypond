@@ -57,8 +57,7 @@ public:
   Pango_font *find_pango_font (PangoFontDescription const *description,
                                Real scale);
 
-  Font_metric *find_font (const std::string &name);
-  Open_type_font *find_otf (const std::string &name);
+  Open_type_font *find_otf_font (const std::string &name);
   SCM font_descriptions () const;
 
   // Pango wants to be informed if the Fontconfig configuration

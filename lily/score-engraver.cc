@@ -71,15 +71,6 @@ Score_engraver::finish (SCM)
 void
 Score_engraver::initialize ()
 {
-  Font_metric *fm = all_fonts_global->find_otf (MUSIC_FONT);
-  if (!fm)
-    {
-      error (_f ("cannot find `%s'", MUSIC_FONT ".otf") + "\n"
-             + _ ("Music font has not been installed properly.") + "\n"
-             + _f ("Search path `%s'", global_path.to_string ().c_str ()) + "\n"
-             + _ ("Aborting"));
-    }
-
   pscore_ = new Paper_score (context ()->get_output_def ());
   pscore_->unprotect ();
   set_property (context (), "output", pscore_->self_scm ());

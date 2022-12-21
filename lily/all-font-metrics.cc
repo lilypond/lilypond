@@ -107,18 +107,18 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
 }
 
 Open_type_font *
-All_font_metrics::find_otf (const string &name)
+All_font_metrics::find_otf_font (const string &name)
 {
   SCM sname = ly_symbol2scm (name);
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
-      string file_name;
-
+      string file_name = search_path_.find (name + ".otf");
       if (file_name.empty ())
-        file_name = search_path_.find (name + ".otf");
-      if (file_name.empty ())
-        return 0;
+        {
+          error (_f ("cannot find font '%s' (search path: %s)", name.c_str (),
+                     search_path_.to_string ().c_str ()));
+        }
 
       debug_output ("[" + file_name, true); // start on a new line
       val = Open_type_font::make_otf (file_name);
@@ -131,21 +131,9 @@ All_font_metrics::find_otf (const string &name)
       otf_dict_->set (sname, val);
       otf->unprotect ();
     }
-
-  return unsmob<Open_type_font> (val);
-}
-
-Font_metric *
-All_font_metrics::find_font (const string &name)
-{
-  Font_metric *f = find_otf (name);
-
-  if (!f)
-    {
-      error (_f ("cannot find font: `%s'", name.c_str ()));
-    }
-
-  return f;
+  Open_type_font *ret = unsmob<Open_type_font> (val);
+  assert (ret);
+  return ret;
 }
 
 void

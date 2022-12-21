@@ -20,6 +20,7 @@
 
 #include "all-font-metrics.hh"
 #include "main.hh"
+#include "open-type-font.hh"
 #include "protected-scm.hh"
 
 using std::string;
@@ -54,7 +55,7 @@ via the Pango interface.
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
   string name_str = ly_scm2string (name);
-  Font_metric *fm = all_fonts_global->find_font (name_str);
+  Font_metric *fm = all_fonts_global->find_otf_font (name_str);
 
   return fm->self_scm ();
 }
