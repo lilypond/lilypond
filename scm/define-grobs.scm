@@ -2510,10 +2510,6 @@ musical and non-musical columns.  See also
         (padding . 0.2)
         (stencil . ,parentheses-interface::print)
         (stencils . ,parentheses-interface::calc-parenthesis-stencils)
-        ;; X-extent needs to be non-empty in order to allow proper
-        ;; horizontal attachment.  Parentheses does not reserve
-        ;; space of its own, however.
-        (X-extent . (0 . 0))
         (Y-extent . ,parentheses-interface::y-extent)
         (Y-offset . ,parentheses-interface::calc-Y-offset)
         (meta . ((classes . (Item Spanner))
