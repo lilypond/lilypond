@@ -33,7 +33,7 @@ LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0, (),
 Forget all about previously loaded fonts.
            )")
 {
-  all_fonts_global = new All_font_metrics (global_path.to_string ());
+  all_fonts_global = new All_font_metrics (global_path);
   all_fonts_global_scm = all_fonts_global->unprotect ();
 
   return SCM_UNSPECIFIED;

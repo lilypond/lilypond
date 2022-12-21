@@ -19,6 +19,7 @@
 
 #include "all-font-metrics.hh"
 
+#include "file-path.hh"
 #include "string-convert.hh"
 #include "international.hh"
 #include "open-type-font.hh"
@@ -44,7 +45,8 @@ All_font_metrics::get_index_to_charcode_map (const string &filename,
   return &filename_charcode_maps_map_[key];
 }
 
-All_font_metrics::All_font_metrics (const string &path)
+All_font_metrics::All_font_metrics (File_path search_path)
+  : search_path_ (search_path)
 {
   pango_dict_ = 0;
 
@@ -60,8 +62,6 @@ All_font_metrics::All_font_metrics (const string &path)
   pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_, pango_dpi_,
                                      pango_dpi_);
-
-  search_path_.parse_path (path);
 }
 
 All_font_metrics::~All_font_metrics ()

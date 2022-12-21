@@ -31,6 +31,7 @@
    Interface to all fonts (both system fonts and fonts loaded
    via Pango).
 */
+
 class All_font_metrics : public Smob<All_font_metrics>
 {
   Scheme_hash_table *otf_dict_;
@@ -51,7 +52,7 @@ public:
   get_index_to_charcode_map (const std::string &filename, int face_index,
                              FT_Face face);
 
-  All_font_metrics (const std::string &search_path);
+  All_font_metrics (File_path search_path);
   ~All_font_metrics ();
 
   Pango_font *find_pango_font (PangoFontDescription const *description,
