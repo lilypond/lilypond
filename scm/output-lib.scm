@@ -1008,44 +1008,6 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
 
     (list lp rp)))
 
-(define-public (parentheses-interface::calc-angled-bracket-stencils grob)
-  (let* ((parent (ly:grob-parent grob Y))
-         (y-extent (ly:grob-extent parent parent Y))
-         (half-thickness 0.05) ; should it be a property?
-         (width 0.5) ; should it be a property?
-         (angularity 1.5)  ; makes angle brackets
-         (white-padding 0.1) ; should it be a property?
-         (lp (ly:stencil-aligned-to
-              (ly:stencil-aligned-to
-               (make-parenthesis-stencil y-extent
-                                         half-thickness
-                                         width
-                                         angularity
-                                         -1)
-               Y CENTER)
-              X RIGHT))
-         (lp-x-extent
-          (interval-widen (ly:stencil-extent lp X) white-padding))
-         (rp (ly:stencil-aligned-to
-              (ly:stencil-aligned-to
-               (make-parenthesis-stencil y-extent
-                                         half-thickness
-                                         width
-                                         angularity
-                                         1)
-               Y CENTER)
-              X LEFT))
-         (rp-x-extent
-          (interval-widen (ly:stencil-extent rp X) white-padding)))
-    (set! lp (ly:make-stencil (ly:stencil-expr lp)
-                              lp-x-extent
-                              (ly:stencil-extent lp Y)))
-    (set! rp (ly:make-stencil (ly:stencil-expr rp)
-                              rp-x-extent
-                              (ly:stencil-extent rp Y)))
-    (list (stencil-whiteout-box lp)
-          (stencil-whiteout-box rp))))
-
 (define-public (parentheses-interface::y-extent grob) (ly:grob::stencil-height grob))
 
 (define-public (parenthesize-elements grob)
