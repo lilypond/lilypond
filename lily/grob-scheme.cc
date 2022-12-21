@@ -219,6 +219,22 @@ default.  If unspecified, @code{font-defaults} from the layout block is taken.
   return sc->get_property_alist_chain (global);
 }
 
+// FIXME: the C++ functions should do these checks too (cf. #6149).
+static void
+check_refp (Grob *grob, Grob *refp, Axis a, const char *function)
+{
+  if (!grob->has_in_ancestry (refp, a))
+    {
+      scm_misc_error (function,
+                      "grob ~a is an invalid refpoint for ~a on ~a axis.\n"
+                      "The refpoint should be an ancestor (direct or indirect) of the grob.",
+                      ly_list (ly_string2scm (grob->name ()),
+                               ly_string2scm (refp->name ()),
+                               ly_string2scm (a == X_AXIS ? "X" : "Y")));
+
+    }
+}
+
 LY_DEFINE (ly_grob_extent, "ly:grob-extent", 3, 0, 0,
            (SCM grob, SCM refp, SCM axis),
            R"(
@@ -232,11 +248,8 @@ Get the extent in @var{axis} direction of @var{grob} relative to the grob
 
   const auto a = from_scm<Axis> (axis);
 
-  if (!sc->has_in_ancestry (ref, a))
-    {
-      // ugh. should use other error message
-      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
-    }
+  check_refp (sc, ref, a, "ly:grob-extent");
+
   return to_scm (sc->extent (ref, a));
 }
 
@@ -253,11 +266,7 @@ Get the extent in @var{axis} direction of @var{grob} relative to the grob
 
   const auto a = from_scm<Axis> (axis);
 
-  if (!sc->has_in_ancestry (ref, a))
-    {
-      // ugh. should use other error message
-      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
-    }
+  check_refp (sc, ref, a, "ly:grob-robust-relative-extent");
 
   return to_scm (robust_relative_extent (sc, ref, a));
 }
@@ -275,11 +284,7 @@ Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
 
   const auto a = from_scm<Axis> (axis);
 
-  if (!sc->has_in_ancestry (ref, a))
-    {
-      // ugh. should use other error message
-      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
-    }
+  check_refp (sc, ref, a, "ly:grob-relative-coordinate");
 
   return to_scm (sc->relative_coordinate (ref, a));
 }
