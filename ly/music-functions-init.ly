@@ -792,7 +792,7 @@ languageRestore =
 
 
 magnifyMusic =
-#(define-music-function (mag music) (positive? ly:music?)
+#(define-music-function (mag music) (positive-number? ly:music?)
    (_i "Magnify the notation of @var{music} without changing the
 staff-size, using @var{mag} as a size factor.  Stems, beams,
 slurs, ties, and horizontal spacing are adjusted automatically.")
@@ -866,7 +866,7 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
    #})
 
 magnifyStaff =
-#(define-music-function (mag) (positive?)
+#(define-music-function (mag) (positive-number?)
    (_i "Change the size of the staff, adjusting notation size and
 horizontal spacing automatically, using @var{mag} as a size factor.")
 

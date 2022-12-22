@@ -48,6 +48,10 @@
 (define-public (number-or-grob? x)
   (or (ly:grob? x) (number? x)))
 
+(define-public (positive-number? x)
+  (and (number? x)
+       (positive? x)))
+
 (define-public (non-negative-number? x)
   (and (number? x)
        (or (positive? x)
