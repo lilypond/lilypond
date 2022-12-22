@@ -14,34 +14,34 @@ include $(depth)/make/lilypond.make
 # as we test/doc builds with gs-api=#t for performance reasons.
 LILYPOND_FLAGS = -dpreview -dgs-api=\#f -l DEBUG
 
-welcome_ps: Welcome_to_LilyPond.ly
+internal-backend-test-ps: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
 	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=ps,pdf,png -o $(outdir)/$@ $<" \
 	    "$(outdir)/$@.log"
 
-welcome_svg: Welcome_to_LilyPond.ly
+internal-backend-test-svg: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
 	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=svg -dbackend=svg -o $(outdir)/$@ $<" \
 	    "$(outdir)/$@.log"
 
-WELCOME_FILES = welcome_ps welcome_svg
+INTERNAL_BACKEND_TEST_FILES = internal-backend-test-ps internal-backend-test-svg
 
-welcome_cairo: Welcome_to_LilyPond.ly
+internal-backend-test-cairo: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
 	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=svg,ps,pdf,png -dbackend=cairo -o $(outdir)/$@ $<" \
 	    "$(outdir)/$@.log"
 
 ifneq ($(CAIRO_CFLAGS),)
-WELCOME_FILES += welcome_cairo
+INTERNAL_BACKEND_TEST_FILES += internal-backend-test-cairo
 endif
 
 
-local-test: $(WELCOME_FILES)
+local-test: $(INTERNAL_BACKEND_TEST_FILES)
 
-.PHONY: welcome_svg welcome_ps
+.PHONY: internal-backend-test-ps internal-backend-test-svg
 
 LY_FILES := $(call src-wildcard,*.ly)
 TAGS_SOURCES += $(LY_FILES)

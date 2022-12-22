@@ -136,25 +136,15 @@ accordingly.
 @end itemize
 
 @item
-Adjust the version numbers:
-@itemize
-@item
-Bump the @code{\version} statements in @file{ly/Wel*.ly} to
-the current version that is about to be released.
-
-@item
 Adjust version numbers in @file{VERSION}.  In most cases, this
 means setting @code{VERSION_DEVEL} to the current version.  Only
 change @code{VERSION_STABLE} if releasing a stable version.
-
-@end itemize
 
 @item
 Commit the changes:
 @example
 git commit -m "po: Update template" -- po/lilypond.pot
 git commit -m "web: Update news" -- Documentation/en/web/
-git commit -m "ly: Bump Welcome versions" -- ly/Wel*.ly
 git commit -m "Bump VERSION_DEVEL" -- VERSION
 @end example
 
