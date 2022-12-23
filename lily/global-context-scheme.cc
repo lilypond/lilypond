@@ -26,6 +26,25 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
+LY_DEFINE (ly_context_schedule_moment, "ly:context-schedule-moment", 2, 0, 0,
+           (SCM context, SCM moment),
+           R"(
+Add the given moment @code{moment} (which must lie in the future) to the
+list of moments to process for the global context governing @code{context}.
+This makes it possible for translators (engravers, performers) to see moments
+not directly created by user input.
+           )")
+{
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
+  auto const mom = *LY_ASSERT_SMOB (Moment, moment, 2);
+
+  Global_context *global = find_global_context (ctx);
+
+  global->add_moment_to_process (mom);
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_format_output, "ly:format-output", 1, 0, 0, (SCM context),
            R"(
 Given a global context in its final state, process it and return the
