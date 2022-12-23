@@ -8,6 +8,16 @@
 
 @c used for news about the upcoming release; see CG on Release Work
 
+@newsItem
+@subheading LilyPond 2.25.0 released  @emph{December 23, 2022}
+
+We are happy to announce the release of LilyPond 2.25.0, the start
+of the next development cycle. This is termed a development release,
+but these are usually reliable for testing new features and recent
+bug fixes. However, if you require stability, we recommend using
+version 2.24.0, the current stable release.
+
+@newsEnd
 
 @newsItem
 @subheading LilyPond 2.24.0 released!  @emph{December 15, 2022}
@@ -24,15 +34,5 @@ other user-visible changes can be found at
 This release switches to Guile 2.2 and features a completely rewritten
 infrastructure for creating the official packages, finally allowing us
 to offer 64-bit binaries for macOS and Windows.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.23.82 released  @emph{November 27, 2022}
-
-We are happy to announce the release of LilyPond 2.23.82. This is the third
-release candidate towards the next stable version 2.24.0 expected in December.
-Please test your scores with this version and report back the experience as
-well as any problems you encounter.
 
 @newsEnd
