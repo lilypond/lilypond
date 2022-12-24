@@ -19,23 +19,6 @@
 \version "2.23.3"
 \language "italiano" %Arabs usually use italian note names
 
-% Modern Arabic scores are written using a 24-TET tonal system.
-% The accidental that lowers by a quarter is however the slashed flat, not the
-% mirrored one lilypond uses by default.
-TwentyFourTETglyphs = #'(
-    (0 . "accidentals.natural")
-    (-1/2 . "accidentals.flat")
-    (1/2 . "accidentals.sharp")
-
-    (3/4 . "accidentals.sharp.slashslash.stemstemstem")
-    (1/4 . "accidentals.sharp.slashslash.stem")
-    (-1/4 . "accidentals.flat.slash")
-    (-3/4 . "accidentals.mirroredflat.flat")
-
-    (1 . "accidentals.doublesharp")
-    (-1 . "accidentals.flatflat")
-)
-
 %
 % Arabic maqamat ordered by maqam family
 %
@@ -83,6 +66,17 @@ kurd = #`(
     (6 . ,FLAT)
 )
 
+% Nakriz family
+nakriz = #`(
+    (0 . ,NATURAL)
+    (1 . ,NATURAL)
+    (2 . ,FLAT)
+    (3 . ,SHARP)
+    (4 . ,NATURAL)
+    (5 . ,NATURAL)
+    (6 . ,FLAT)
+)
+
 % Rast family
 rast = #`(
     (0 . ,NATURAL)
@@ -95,6 +89,16 @@ rast = #`(
   )
 
 % Sikah family
+huzam = #`(
+    (0 . ,NATURAL)
+    (1 . ,SEMI-FLAT)
+    (2 . ,SEMI-FLAT)
+    (3 . ,SEMI-FLAT)
+    (4 . ,SEMI-SHARP)
+    (5 . ,SEMI-FLAT)
+    (6 . ,SEMI-FLAT)
+  )
+
 sikah = #`(
     (0 . ,NATURAL)
     (1 . ,SEMI-FLAT)
@@ -115,6 +119,23 @@ iraq = #`(
     (6 . ,SEMI-FLAT)
   )
 
+
+% Modern Arabic scores are written using a 24-TET tonal system.
+% The accidental that lowers by a quarter is however the slashed flat, not the
+% mirrored one LilyPond uses by default.
+TwentyFourTETglyphs = #'(
+    (0 . "accidentals.natural")
+    (-1/2 . "accidentals.flat")
+    (1/2 . "accidentals.sharp")
+
+    (3/4 . "accidentals.sharp.slashslash.stemstemstem")
+    (1/4 . "accidentals.sharp.slashslash.stem")
+    (-1/4 . "accidentals.flat.slash")
+    (-3/4 . "accidentals.mirroredflat.flat")
+
+    (1 . "accidentals.doublesharp")
+    (-1 . "accidentals.flatflat")
+)
 
 \paper {
   font-defaults.alteration-glyph-name-alist = \TwentyFourTETglyphs

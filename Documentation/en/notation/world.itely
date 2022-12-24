@@ -182,36 +182,53 @@ Snippets:
 @cindex note name, Arabic
 @cindex note name, Hel-arabic
 
-Traditional Arabic note names can be quite long and so may not always be
-suitable for the purpose of music writing.
+Traditional Arabic note names (like @q{rast}, @q{dukah}, @q{sikah}, etc.@:)
+can be quite long and so may not always be suitable for the purpose of
+music writing.
 
-The @file{hel-arabic.ly} file allows English note names to be used.
-This is a @code{rast} scale using @file{hel-arabic.ly};
+Include the file @file{arabic.ly} to write Arabic sheet music.
+The following example demonstrates how to write a @q{rast} scale:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative {
+  \key do \rast
+  do' re misb fa | sol la sisb do | sib la sol fa | misb re do
+}
+@end lilypond
+
+The file @file{arabic.ly} sets the note language to Italian (or Solfege),
+since that is the modern standard in Arabic music and is widely adopted among
+Arabic musicians.  If you prefer to write sheet music in another language,
+simply change the language to your preferred language directly after including
+the file @file{arabic.ly}.  This is a @q{rast} scale with English note names:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\language "english"
+\relative {
+  \key c \rast
+  c' d eqf f | g a bqf c | bf a g f | eqf d c
+}
+@end lilypond
+
+The @file{hel-arabic.ly} file allows English note names to be used,
+but with customized Italian-like suffixes for alterations.
+The following example demonstrates again a @q{rast} scale using that file:
 
 @lilypond[quote,verbatim]
 \include "hel-arabic.ly"
 \relative {
 \key c \rast
-  c' d edb f | g a bdb c | c bb a g | f d c
-}
-@end lilypond
-
-The @file{arabic.ly} file allows Italian (or Solfege) note names to be
-used instead.  This is a @code{rast} scale using @file{arabic.ly};
-
-@lilypond[quote,verbatim]
-\include "arabic.ly"
-\relative {
-  do' re misb fa | sol la sisb do | sisb la sol fa | misb re do
+  c' d edb f | g a bdb c | bb a g f | edb d c
 }
 @end lilypond
 
 @noindent
 @qq{Rast} is a heptatonic scale that uses quarter tone intervals and is
 considered the most important and central scale of the
-@qq{Arabic Maqamat}.  For the full list of supported Arabic scales
-please refer to either the @file{hel-arabic.ly} or @file{arabic.ly}
-files that are both included with LilyPond.
+@qq{Arabic Maqamat}.  For the full list of supported Arabic scales,
+@pxref{Arabic key signatures}.
 
 The use of standard Western notation to notate non-Western music is
 discussed in @ref{Common notation for non-Western music}.  Also see
@@ -258,13 +275,20 @@ Snippets:
 
 @cindex Arabic key signatures
 
-In addition to the minor and major key signatures, Arabic key signatures
-are defined in either @file{hel-arabic.ly} or @file{arabic.ly} files and
-define many different maqam groups.
 
-In general, a maqam uses the key signature of its group, or a
-neighbouring group, and varying accidentals are marked throughout the
-music.  Arabic maqams only allow for limited modulations, due to the
+In addition to the minor and major key signatures, LilyPond provides
+the most common Arabic key signatures in the file @file{arabic.ly}.
+With that being said LilyPond is not aiming at providing a full suite of all
+possible maqams.  It rather defines the most common ones that are frequently
+used and offers key signatures by grouping maqams together.
+In general, a maqam uses the key signature of its family, or a
+neighbouring family, and varying accidentals are marked throughout the
+music.  When forming key signatures neighbouring maqam families are grouped
+together.  For example, maqam @notation{saba} seldom occurs outside of the
+context of maqam @notation{bayati} and adds only a single alteration.
+Although both maqams come from different @emph{maqam families}
+they are inside the same key signature @emph{group}.
+Arabic maqams only allow for limited modulations, due to the
 nature of Arabic musical instruments.
 
 Here is an example of the key signature for a @qq{maqam muhayer} piece
@@ -300,56 +324,93 @@ parentheses for those that are modulations of their base maqam.
 @end example
 
 In Arabic music, the same term, for example @notation{bayati}, that is
-used to indicate a maqam group, will also be a maqam that is usually the
-most important in the group so can also be thought of as a @emph{base
+used to indicate a maqam family, is also a maqam that is usually the
+most important in the family so can also be thought of as a @emph{base
 maqam}.
 
-Here is one suggested grouping that maps the more common maqams to
-key signatures:
+Here is the grouping that maps the more common maqams to
+key signatures as defined in the file @file{arabic.ly}:
 
 @multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem maqam group
   @tab key
   @tab finalis
-  @tab Other maqmas in group (finalis)
+  @tab Other maqams in group (finalis)
 @item ajam
-  @tab major
+  @tab @code{major}
   @tab sib
   @tab jaharka (fa)
 @item bayati
-  @tab bayati
+  @tab @code{bayati}
   @tab re
   @tab hussaini, muhayer, saba, ushaq, nawa (sol)
 @item hijaz
-  @tab kurd
+  @tab @code{hijaz}
   @tab re
-  @tab shahnaz, shad arban (sol), hijazkar (do)
+  @tab zanjaran (do)
+@item hijaz kar
+  @tab @code{hijaz_kar}
+  @tab do
+  @tab shahnaz, shad arban (sol)
+@item huzam
+  @tab @code{huzam}
+  @tab misb
+  @tab -
 @item iraq
-  @tab iraq
+  @tab @code{iraq}
   @tab sisb
   @tab -
 @item kurd
-  @tab kurd
+  @tab @code{kurd}
   @tab re
   @tab hijazkar kurd (do)
 @item nahawand
-  @tab minor
+  @tab @code{minor}
   @tab do
   @tab busalik (re), farah faza (sol)
 @item nakriz
-  @tab minor
+  @tab @code{nakriz}
   @tab do
   @tab nawa athar, hisar (re)
 @item rast
-  @tab rast
+  @tab @code{rast}
   @tab do
   @tab mahur, yakah (sol)
 @item sikah
-  @tab sikah
+  @tab @code{sikah}
   @tab misb
-  @tab huzam
+  @tab -
 @end multitable
 
+In case you are missing a specific maqam, you can define it yourself
+in your sheet music before using it.
+The following example defines and then uses the @notation{zanjaran} maqam.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+
+% For example on do: do reb mi fa sol la sib do
+% reb and sib are FLAT
+% You can also use SHARP, SEMI-FLAT, SEMI-SHARP
+zanjaran = #`(
+  (0 . ,NATURAL)
+  (1 . ,FLAT)
+  (2 . ,NATURAL)
+  (3 . ,NATURAL)
+  (4 . ,NATURAL)
+  (5 . ,NATURAL)
+  (6 . ,FLAT)
+)
+
+\relative {
+  \key do \zanjaran
+  do' reb mi fa sol la sib do
+}
+@end lilypond
+
+For special cases, rare maqams are defined in the @file{hel-arabic.ly} file.
+Please refer to the file included with LilyPond for a full list of the
+provided maqams.
 
 @snippets
 
@@ -596,7 +657,7 @@ Notation Reference:
 @node Turkish key signatures
 @unnumberedsubsubsec Turkish key signatures
 
-Lilypond supports over 200 makam key signature definitions -- well
+LilyPond supports over 200 makam key signature definitions -- well
 beyond what is used in Turkish classical music -- with each makam having
 its own specific tonic / finalis pitch (known as @q{karar} in Turkish).
 
