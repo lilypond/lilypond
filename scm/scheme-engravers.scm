@@ -1756,3 +1756,77 @@ adapted for typesetting within a chord grid.")))
    (properties-read . (stavesFound))
    (properties-written . ())
    (description . "Engraves arbitrary textual marks.")))
+
+
+(define-public Measure_grouping_engraver
+  (lambda (ctx)
+    (define (moment-scalmul mom factor)
+      (ly:moment-mul mom (ly:make-moment factor)))
+    (let ((grouping-spanner #f)
+          (stop-grouping-moment #f))
+      (make-engraver
+       ((process-music engraver)
+        (let ((now (ly:context-current-moment ctx)))
+          (when (zero? (ly:moment-grace now))
+            (when (and grouping-spanner
+                       (not (ly:moment<? now stop-grouping-moment)))
+              (ly:spanner-set-bound!
+               grouping-spanner
+               RIGHT
+               (ly:context-property ctx 'currentMusicalColumn))
+              (set! grouping-spanner #f))
+
+            (let*
+                ((base-moment (ly:context-property ctx 'baseMoment))
+                 (measure-position (ly:context-property ctx 'measurePosition)))
+              (let loop ((where ZERO-MOMENT)
+                         (grouping (ly:context-property ctx 'beatStructure)))
+                (when (and (equal? where measure-position)
+                           (pair? grouping))
+                  (if grouping-spanner
+                      (ly:programming-error
+                       "last grouping-spanner not finished yet")
+                      (when (> (car grouping) 1)
+                        (set! grouping-spanner (ly:engraver-make-grob
+                                                engraver 'MeasureGrouping '()))
+                        (ly:spanner-set-bound!
+                         grouping-spanner LEFT
+                         (ly:context-property ctx 'currentMusicalColumn))
+                        (set! stop-grouping-moment
+                              (ly:moment-add
+                               now
+                               (moment-scalmul base-moment (1- (car grouping)))))
+                        (ly:context-schedule-moment ctx stop-grouping-moment)
+                        (ly:grob-set-property!
+                         grouping-spanner 'style
+                         (if (= (car grouping) 3) 'triangle 'bracket))
+                        (set! grouping '()))))
+                (when (pair? grouping)
+                  (loop
+                   (ly:moment-add where
+                                  (moment-scalmul base-moment (car grouping)))
+                   (cdr grouping))))))))
+       (acknowledgers
+        ((note-column-interface engraver grob source-engraver)
+         (when grouping-spanner
+           (ly:pointer-group-interface::add-grob grouping-spanner
+                                                 'side-support-elements
+                                                 grob))))
+       ((finalize engraver)
+        (when grouping-spanner
+          (ly:spanner-set-bound!
+           grouping-spanner
+           RIGHT
+           (ly:context-property ctx 'currentMusicalColumn))
+          (ly:grob-suicide! grouping-spanner)))))))
+
+(ly:register-translator
+ Measure_grouping_engraver 'Measure_grouping_engraver
+ '((events-accepted . ())
+   (grobs-created . (MeasureGrouping))
+   (properties-read . (baseMoment
+                       beatStructure
+                       currentMusicalColumn
+                       measurePosition))
+   (properties-written . ())
+   (description . "Create @code{MeasureGrouping} to indicate beat subdivision.")))
