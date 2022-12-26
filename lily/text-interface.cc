@@ -177,7 +177,7 @@ Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
     if (isspace (ch))
       ch = ' ';
 
-  Font_metric *fm = select_encoded_font (layout, props);
+  Font_metric *fm = select_font (layout, props);
 
   SCM transformers = ly_chain_assoc_get (ly_symbol2scm ("string-transformers"),
                                          props, SCM_EOL);

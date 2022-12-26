@@ -95,7 +95,7 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 }
 
 Font_metric *
-select_encoded_font (Output_def *layout, SCM chain)
+select_font (Output_def *layout, SCM chain)
 {
   SCM name
     = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
@@ -120,13 +120,6 @@ select_encoded_font (Output_def *layout, SCM chain)
       return get_font_by_mag_step (layout, req, vec,
                                    from_scm<double> (base_size));
     }
-
   assert (0);
   return 0;
-}
-
-Font_metric *
-select_font (Output_def *layout, SCM chain)
-{
-  return select_encoded_font (layout, chain);
 }

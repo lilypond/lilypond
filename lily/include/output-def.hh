@@ -70,7 +70,6 @@ SCM find_context_def (Output_def const *m, SCM name);
 
 Interval line_dimension_interval (Output_def *def, vsize n);
 
-Font_metric *select_encoded_font (Output_def *layout, SCM chain);
 Font_metric *select_font (Output_def *layout, SCM chain);
 
 Font_metric *find_pango_font (Output_def *layout, SCM descr, Real factor);
