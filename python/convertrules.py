@@ -4761,6 +4761,7 @@ def conv(s):
 
 @rule((2, 25, 1), r"""
 string-regexp-substitute removal
+(uniqued-alist x '()) -> (uniqued-alist x)
 """)
 def conv(s):
     if "string-regexp-substitute" in s:
@@ -4774,6 +4775,10 @@ should be replaced with
 
   (ly:regex-replace (ly:make-regex pattern) str replacement)
 """)
+        stderr_write(UPDATE_MANUALLY)
+    if "uniqued-alist" in s:
+        stderr_write(NOT_SMART % "uniqued-alist")
+        stderr_write("uniqued-alist no longer needs to take '() as its second argument\n")
         stderr_write(UPDATE_MANUALLY)
     return s
 

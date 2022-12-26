@@ -427,11 +427,24 @@ bookoutput function"
 
 (define-public chain-assoc-get ly:chain-assoc-get)
 
-(define-public (uniqued-alist alist acc)
-  (if (null? alist) acc
-      (if (assoc (caar alist) acc)
-          (uniqued-alist (cdr alist) acc)
-          (uniqued-alist (cdr alist) (cons (car alist) acc)))))
+(define*-public (uniqued-alist alist #:optional (hash-func hash) (assoc-func assoc))
+  "Make keys unique in @var{alist}.  If duplicate keys are found, the
+first key-value pair is kept.  The order of entries is otherwise preserved.
+The optional arguments @var{hash-func} and @var{assoc-func} are a hashing
+function and an alist retrieval function, as in Guile's @code{hashx-@dots{}}
+functions."
+  (let ((tab (make-hash-table)))
+    (reverse!
+     (fold
+      (lambda (new prev)
+        (match-let (((key . value) new))
+          (if (hashx-ref hash-func assoc-func tab key)
+              prev
+              (begin
+                (hashx-set! hash-func assoc-func tab key #t)
+                (cons new prev)))))
+      '()
+      alist))))
 
 (define-public (alist<? x y)
   (string<? (symbol->string (car x))
