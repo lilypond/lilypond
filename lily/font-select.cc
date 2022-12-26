@@ -68,16 +68,17 @@ get_font_by_design_size (Output_def *layout, Real requested, SCM font_vector)
         }
     }
 
-  Font_metric *fm = 0;
   if (scm_is_string (pango_description_string))
     {
       return find_pango_font (layout, pango_description_string,
                               requested / size);
     }
   else
-    fm = unsmob<Font_metric> (scm_force (scm_c_vector_ref (font_vector, i)));
-
-  return find_scaled_font (layout, fm, requested / size);
+    {
+      Font_metric *fm
+        = unsmob<Font_metric> (scm_force (scm_c_vector_ref (font_vector, i)));
+      return find_scaled_font (layout, fm, requested / size);
+    }
 }
 
 Font_metric *
@@ -86,12 +87,6 @@ get_font_by_mag_step (Output_def *layout, Real requested_step, SCM font_vector,
 {
   return get_font_by_design_size (
     layout, default_size * pow (2.0, requested_step / 6.0), font_vector);
-}
-
-SCM
-properties_to_font_size_family (SCM fonts, SCM alist_chain)
-{
-  return Lily::lookup_font (fonts, alist_chain);
 }
 
 Font_metric *
@@ -103,13 +98,14 @@ select_font (Output_def *layout, SCM chain)
   if (!scm_is_string (name))
     {
       SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
-      name = properties_to_font_size_family (fonts, chain);
+      name = Lily::lookup_font (fonts, chain);
     }
 
   if (scm_is_string (name))
     return select_pango_font (layout, chain);
-  else if (scm_is_true (scm_instance_p (name)))
+  else
     {
+      assert (scm_is_true (scm_instance_p (name)));
       SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
@@ -120,6 +116,4 @@ select_font (Output_def *layout, SCM chain)
       return get_font_by_mag_step (layout, req, vec,
                                    from_scm<double> (base_size));
     }
-  assert (0);
-  return 0;
 }
