@@ -1783,6 +1783,12 @@ adapted for typesetting within a chord grid.")))
                          (grouping (ly:context-property ctx 'beatStructure)))
                 (when (and (equal? where measure-position)
                            (pair? grouping))
+                  (ly:context-schedule-moment
+                   ;; make sure the next grouping step will be encountered
+                   ;; by engravers (i.e. by this one)
+                   ctx
+                   (ly:moment-add now
+                                  (moment-scalmul base-moment (car grouping))))
                   (if grouping-spanner
                       (ly:programming-error
                        "last grouping-spanner not finished yet")
