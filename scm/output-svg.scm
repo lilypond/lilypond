@@ -76,7 +76,8 @@
     (string-concatenate
      (map (lambda (item)
             (ly:format " ~a=\"~a\"" (car item) (cdr item)))
-          attributes)))
+          ;; Due to the way nested grob properties work, we may see duplicate keys.
+          (uniqued-alist attributes hashq assq))))
   (string-append "<g" attributes-string ">\n"))
 
 (define-public (comment s)
