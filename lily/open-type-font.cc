@@ -33,6 +33,7 @@
 
 #include "dimensions.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
 
@@ -303,8 +304,10 @@ Open_type_font::Open_type_font (FT_Face face)
 {
   face_ = face;
 
-  lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
-  lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
+  lily_character_table_
+    = Hash_table::alist_to_hashq_table (load_scheme_table ("LILC", face_));
+  lily_global_table_
+    = Hash_table::alist_to_hashq_table (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
 

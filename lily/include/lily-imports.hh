@@ -90,6 +90,14 @@ typedef Module_variable<module> Variable;
 extern Variable make;
 } // namespace Goops
 
+namespace Hash_table
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable alist_to_hashq_table;
+} // namespace Hash_table
+
 namespace Lily
 {
 extern Scm_module module;

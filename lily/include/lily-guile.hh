@@ -87,7 +87,6 @@ SCM ly_number2string (SCM s);
 
 SCM parse_symbol_list (char const *);
 SCM robust_list_ref (int i, SCM l);
-SCM alist_to_hashq (SCM);
 
 SCM ly_alist_vals (SCM alist);
 SCM ly_hash2alist (SCM tab);

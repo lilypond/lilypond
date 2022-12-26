@@ -45,7 +45,7 @@ Paper_outputter::Paper_outputter (SCM port, SCM alist, SCM default_callback)
   default_callback_ = SCM_EOL;
   smobify_self ();
 
-  callback_tab_ = alist_to_hashq (alist);
+  callback_tab_ = Hash_table::alist_to_hashq_table (alist);
   default_callback_ = default_callback;
   if (!ly_is_procedure (default_callback_))
     default_callback_ = SCM_BOOL_F;

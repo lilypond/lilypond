@@ -30,6 +30,7 @@
 #include "source-file.hh"
 #include "warn.hh"
 #include "program-option.hh"
+#include "lily-imports.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
 
@@ -376,6 +377,6 @@ Lily_lexer::push_pitch_names (SCM alist)
   SCM p = scm_assq (alist, pitchname_tab_stack_);
 
   if (scm_is_false (p))
-    p = scm_cons (alist, alist_to_hashq (alist));
+    p = scm_cons (alist, Hash_table::alist_to_hashq_table (alist));
   pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 }

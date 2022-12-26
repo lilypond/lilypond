@@ -117,5 +117,6 @@ ly_c_init_guile ()
   Syntax::module.import ();
   Display::module.import ();
   Goops::module.import ();
+  Hash_table::module.import ();
   scm_c_use_module ("lily");
 }

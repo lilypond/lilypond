@@ -67,6 +67,13 @@ Variable cps_default_optimization_options ("cps-default-optimization-options");
 } // namespace Cps_optimize
 #endif
 
+namespace Hash_table
+{
+Scm_module module ("ice-9 hash-table");
+
+Variable alist_to_hashq_table ("alist->hashq-table");
+} // namespace Hash_table
+
 namespace Display
 {
 Scm_module module ("lily display-lily");

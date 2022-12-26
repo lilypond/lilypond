@@ -504,22 +504,6 @@ to_scm<Skyline_pair> (const Skyline_pair &skyp)
 }
 
 SCM
-alist_to_hashq (SCM alist)
-{
-  long i = scm_ilength (alist);
-  if (i < 0)
-    return scm_c_make_hash_table (0);
-
-  SCM tab = scm_c_make_hash_table (i);
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM pt = scm_cdar (s);
-      scm_hashq_set_x (tab, scm_caar (s), pt);
-    }
-  return tab;
-}
-
-SCM
 ly_hash2alist (SCM tab)
 {
   return Lily::hash_table_to_alist (tab);

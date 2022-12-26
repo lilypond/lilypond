@@ -2695,7 +2695,7 @@ mode_changing_head:
 	}
 	| CHORDMODE {
 		SCM mods = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("chordmodifiers"));
-		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (mods);
+		parser->lexer_->chordmodifier_tab_ = Hash_table::alist_to_hashq_table (mods);
 		parser->lexer_->push_chord_state ();
 		$$ = ly_symbol2scm ("chords");
 
@@ -2718,7 +2718,7 @@ mode_changing_head_with_context:
 	}
 	| CHORDS {
 		SCM mods = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("chordmodifiers"));
-		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (mods);
+		parser->lexer_->chordmodifier_tab_ = Hash_table::alist_to_hashq_table (mods);
 		parser->lexer_->push_chord_state ();
 		$$ = ly_symbol2scm ("ChordNames");
 	}
