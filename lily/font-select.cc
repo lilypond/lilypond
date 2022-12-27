@@ -95,19 +95,17 @@ select_font (Output_def *layout, SCM chain)
   SCM name
     = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
 
-  if (!scm_is_string (name))
-    {
-      SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
-      name = Lily::lookup_font (fonts, chain);
-    }
-
   if (scm_is_string (name))
-    return select_pango_font (layout, chain);
+    {
+      return select_pango_font (layout, chain);
+    }
   else
     {
-      assert (scm_is_true (scm_instance_p (name)));
-      SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
-      SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
+      SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
+      SCM leaf = Lily::lookup_font (fonts, chain);
+      assert (scm_is_true (scm_instance_p (leaf)));
+      SCM base_size = scm_slot_ref (leaf, ly_symbol2scm ("default-size"));
+      SCM vec = scm_slot_ref (leaf, ly_symbol2scm ("size-vector"));
 
       Real req = from_scm<double> (
         ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
