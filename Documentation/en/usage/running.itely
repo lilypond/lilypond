@@ -569,9 +569,9 @@ PS data is post-processed by Ghostscript's @code{ps2pdf} script,
 which also does font subsetting by default.
 
 @item cairo
-This creates graphics output throught the Cairo library, if
-support was compiled in. This backend can output @code{ps},
-@code{eps}, @code{pdf}, @code{png} and @code{svg}.
+This creates graphics output throught the Cairo library.
+This backend can output @code{ps}, @code{eps}, @code{pdf},
+@code{png} and @code{svg}.
 
 @item svg
 Scalable Vector Graphics.
