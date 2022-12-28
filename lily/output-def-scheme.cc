@@ -22,6 +22,7 @@
 #include "pango-font.hh"
 #include "modified-font-metric.hh"
 #include "ly-module.hh"
+#include "ly-scm-list.hh"
 #include "context-def.hh"
 #include "lily-parser.hh"
 
@@ -193,39 +194,30 @@ Return a list containing the fonts from output definition @var{def} (e.g.,
 {
   auto *const b = LY_ASSERT_SMOB (Output_def, def, 1);
 
-  SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
-  SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
+  SCM music_font_tab = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
+  SCM pango_font_list = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
 
-  SCM alist1 = SCM_EOL;
-  if (from_scm<bool> (scm_hash_table_p (tab1)))
+  SCM music_font_list = SCM_EOL;
+  if (from_scm<bool> (scm_hash_table_p (music_font_tab)))
     {
-      alist1 = scm_append (ly_alist_vals (ly_hash2alist (tab1)));
-
-      alist1 = ly_alist_vals (alist1);
+      music_font_list = ly_alist_vals (
+        scm_append (ly_alist_vals (ly_hash2alist (music_font_tab))));
     }
 
-  SCM alist2 = SCM_EOL;
-  if (scm_is_true (scm_hash_table_p (tab2)))
+  SCM font_list = ly_append (music_font_list, pango_font_list);
+
+  // Is this necessary?
+  SCM ret = SCM_EOL;
+  for (SCM font : as_ly_scm_list (font_list))
     {
-      // strip original-fonts/pango-font-descriptions
-      alist2 = scm_append (ly_alist_vals (ly_hash2alist (tab2)));
-
-      // strip size factors
-      alist2 = ly_alist_vals (alist2);
+      if (Font_metric *fm = unsmob<Font_metric> (font))
+        {
+          if (dynamic_cast<Modified_font_metric *> (fm)
+              || dynamic_cast<Pango_font *> (fm))
+            {
+              ret = scm_cons (font, ret);
+            }
+        }
     }
-
-  SCM alist = ly_append (alist1, alist2);
-  SCM font_list = SCM_EOL;
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM entry = scm_car (s);
-
-      Font_metric *fm = unsmob<Font_metric> (entry);
-
-      if (dynamic_cast<Modified_font_metric *> (fm)
-          || dynamic_cast<Pango_font *> (fm))
-        font_list = scm_cons (fm->self_scm (), font_list);
-    }
-
-  return font_list;
+  return ret;
 }

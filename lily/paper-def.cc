@@ -49,18 +49,6 @@ get_font_table (Output_def *def)
   return font_table;
 }
 
-SCM
-get_pango_font_table (Output_def *def)
-{
-  SCM font_table = def->lookup_variable (ly_symbol2scm ("pango-fonts"));
-  if (!from_scm<bool> (scm_hash_table_p (font_table)))
-    {
-      font_table = scm_c_make_hash_table (11);
-      def->set_variable (ly_symbol2scm ("pango-fonts"), font_table);
-    }
-  return font_table;
-}
-
 /* TODO: should add nesting for Output_def here too. */
 Font_metric *
 find_scaled_font (Output_def *mod, Font_metric *f, Real m)
@@ -90,13 +78,6 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   if (layout->parent_)
     return find_pango_font (layout->parent_, descr, factor);
 
-  SCM table = get_pango_font_table (layout);
-  SCM sizes = scm_hash_ref (table, descr, SCM_EOL);
-  SCM size_key = to_scm (factor);
-  SCM handle = ly_assoc (size_key, sizes);
-  if (scm_is_pair (handle))
-    return unsmob<Font_metric> (scm_cdr (handle));
-
   std::string font_descr = ly_scm2string (descr);
   PangoFontDescription *description
     = pango_font_description_from_string (font_descr.c_str ());
@@ -110,8 +91,13 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 
   pango_font_description_free (description);
 
-  sizes = scm_acons (size_key, fm->self_scm (), sizes);
-  scm_hash_set_x (table, descr, sizes);
+  // No caching needed here since all_fonts_global does it for us, so a plain
+  // list suffices, unlike music fonts.
+  SCM pango_fonts = layout->lookup_variable (ly_symbol2scm ("pango-fonts"));
+  if (SCM_UNBNDP (pango_fonts))
+    pango_fonts = SCM_EOL;
+  pango_fonts = scm_cons (fm->self_scm (), pango_fonts);
+  layout->set_variable (ly_symbol2scm ("pango-fonts"), pango_fonts);
 
   return fm;
 }
