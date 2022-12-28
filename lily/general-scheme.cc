@@ -55,9 +55,12 @@ using std::vector;
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
 
-LY_DEFINE (ly_find_file, "ly:find-file", 1, 0, 0, (SCM name),
+LY_DEFINE (ly_find_file, "ly:find-file", 1, 1, 0, (SCM name, SCM strict),
            R"(
-Return the absolute file name of @var{name}, or @code{#f} if not found.
+Return the absolute file name of @var{name}.  By default, if
+the file is not found, return @code{#f}.  If the optional parameter
+@var{strict} is passed as @code{#t}, raise an error in this case
+instead.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
@@ -65,7 +68,18 @@ Return the absolute file name of @var{name}, or @code{#f} if not found.
   string nm = ly_scm2string (name);
   string file_name = global_path.find (nm);
   if (file_name.empty ())
-    return SCM_BOOL_F;
+    {
+      if (SCM_UNBNDP (strict) || scm_is_false (strict))
+        return SCM_BOOL_F;
+
+      error (std::string (_f ("cannot find file '%s'", nm)) + " "
+             + _f ("(load path: '%s', cwd: '%s')",
+                   global_path.to_string ().c_str (),
+                   ly_scm2string (scm_getcwd ()).c_str ()));
+    }
+
+  debug_output (String_convert::form_string (
+    "Found file in search path: %s -> %s", nm.c_str (), file_name.c_str ()));
 
   return ly_string2scm (file_name);
 }
@@ -104,49 +118,6 @@ Randomize C random generator.
   gettimeofday (&tv, NULL);
   srand (static_cast<unsigned> (tv.tv_sec ^ tv.tv_usec ^ pid));
   return SCM_UNSPECIFIED;
-}
-
-/*
-  Ugh. Gulped file is copied twice. (maybe thrice if you count stdio
-  buffering.)
-*/
-LY_DEFINE (ly_gulp_file, "ly:gulp-file", 1, 1, 0, (SCM name, SCM size),
-           R"(
-Read @var{size} characters from the file @var{name}, and return its contents in
-a string.  If @var{size} is undefined, the entire file is read.  The file is
-looked up using the search path.
-           )")
-{
-  LY_ASSERT_TYPE (scm_is_string, name, 1);
-  int sz = INT_MAX;
-  if (!SCM_UNBNDP (size))
-    {
-      LY_ASSERT_TYPE (scm_is_number, size, 2);
-      sz = from_scm<int> (size);
-    }
-
-  string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
-  return scm_from_latin1_stringn (contents.c_str (), contents.length ());
-}
-
-LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8", 1, 1, 0,
-           (SCM name, SCM size),
-           R"(
-Read @var{size} characters from the file @var{name}, and return its contents in
-a string decoded from UTF-8.  If @var{size} is undefined, the entire file is
-read.  The file is looked up using the search path.
-           )")
-{
-  LY_ASSERT_TYPE (scm_is_string, name, 1);
-  int sz = INT_MAX;
-  if (!SCM_UNBNDP (size))
-    {
-      LY_ASSERT_TYPE (scm_is_number, size, 2);
-      sz = from_scm<int> (size);
-    }
-
-  string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
-  return scm_from_utf8_stringn (contents.c_str (), contents.length ());
 }
 
 LY_DEFINE (ly_dir_p, "ly:dir?", 1, 0, 0, (SCM s),

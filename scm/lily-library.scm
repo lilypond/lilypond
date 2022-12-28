@@ -22,7 +22,8 @@
  (ice-9 pretty-print)
  (ice-9 match)
  (ice-9 receive)
- (oop goops))
+ (oop goops)
+ (ice-9 textual-ports))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -920,6 +921,30 @@ regex @code{(a+)|(b+)}), @code{#f} is returned."
   (define (inverse-basename x y) (basename y x))
   (simple-format #f "~a/~a" (dirname file)
                  (fold inverse-basename file rest)))
+
+(define (gulp-file-with-encoding encoding filename size)
+  (call-with-input-file
+      (ly:find-file filename #| strict |# #t)
+    (lambda (port)
+      (if size
+          (get-string-n port size)
+          (get-string-all port)))
+    #:encoding encoding))
+
+(define*-public (ly:gulp-file-utf8 filename #:optional size)
+  "Find a file on the search path (with @code{ly:find-file}),
+and return its contents decoded as UTF-8.  Raise an error
+if the file is not found.
+
+If the optional argument @var{size} is given, read at most
+@var{size} characters (@emph{not} bytes) from the file."
+  (gulp-file-with-encoding "UTF-8" filename size))
+
+(define*-public (ly:gulp-file filename #:optional size)
+  "Same as @code{ly:gulp-file-utf8}, but decode the file
+as Latin@tie{}1.  Warning: this is rarely what you want;
+consider using @code{ly:gulp-file-utf8} instead."
+  (gulp-file-with-encoding "latin1" filename size))
 
 (define-public (write-me message x)
   "Return @var{x}.  Display @var{message} and write @var{x}.

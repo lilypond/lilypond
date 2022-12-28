@@ -55,9 +55,6 @@ class Skyline_pair;
 std::string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 
-std::string gulp_file_to_string (const std::string &fn, bool must_exist,
-                                 int size);
-
 SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);

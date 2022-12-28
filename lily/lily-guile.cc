@@ -77,35 +77,6 @@ robust_symbol2string (SCM sym, const string &str)
   return scm_is_symbol (sym) ? ly_symbol2string (sym) : str;
 }
 
-string
-gulp_file_to_string (const string &fn, bool must_exist, int size)
-{
-  string s = global_path.find (fn);
-  if (s == "")
-    {
-      if (must_exist)
-        {
-          string e = _f ("cannot find file: `%s'", fn);
-          e += " ";
-          char buf[PATH_MAX];
-          char *cwd = getcwd (buf, PATH_MAX);
-          e += _f ("(load path: `%s', cwd: `%s')", global_path.to_string (),
-                   cwd);
-          error (e);
-          /* unreachable */
-        }
-      return s;
-    }
-
-  debug_output ("[" + s, true);
-
-  string result = gulp_file (s, size);
-
-  debug_output ("]\n", false);
-
-  return result;
-}
-
 extern "C"
 {
   // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
