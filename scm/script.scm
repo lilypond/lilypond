@@ -72,7 +72,7 @@
         (skyline-horizontal-padding . 0.20)
         (avoid-slur . around)
         (direction . ,UP)
-        (script-priority . 150)))
+        (script-priority . 180)))
     (downmordent
      . (
         (script-stencil . (feta . ("downmordent" . "downmordent")))
@@ -100,7 +100,7 @@
         (script-stencil . (feta . ("dfermata" . "ufermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
     (flageolet
      . (
@@ -108,6 +108,7 @@
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
         (direction . ,UP)))
+        (script-priority . 50)
 
 
     (halfopen
@@ -136,7 +137,7 @@
         (script-stencil . (feta . ("dhenzelongfermata" . "uhenzelongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
 
     (henzeshortfermata
@@ -144,7 +145,7 @@
         (script-stencil . (feta . ("dhenzeshortfermata" . "uhenzeshortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
 
     (ictus
@@ -175,7 +176,7 @@
         (script-stencil . (feta . ("dlongfermata" . "ulongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
     (ltoe
      . (
@@ -293,7 +294,7 @@
         (script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
     (signumcongruentiae
      . (
@@ -371,7 +372,7 @@
         (avoid-slur . around)
         (padding . 0.20)
         (direction . ,UP)
-        (script-priority . 150)))
+        (script-priority . 180)))
     (upmordent
      . (
         (script-stencil . (feta . ("upmordent" . "upmordent")))
@@ -404,13 +405,13 @@
         (script-stencil . (feta . ("dverylongfermata" . "uverylongfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
     (veryshortfermata
      . (
         (script-stencil . (feta . ("dveryshortfermata" . "uveryshortfermata")))
         (padding . 0.40)
         (avoid-slur . around)
-        (script-priority . 4000)
+        (script-priority . 175)
         (direction . ,UP)))
     ))
