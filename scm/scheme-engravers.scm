@@ -1836,3 +1836,70 @@ adapted for typesetting within a chord grid.")))
                        measurePosition))
    (properties-written . ())
    (description . "Create @code{MeasureGrouping} to indicate beat subdivision.")))
+
+
+(define (Bend_engraver context)
+  (let
+      ((stop-moment #f)
+       (fall-event #f)
+       (fall #f)
+       (last-fall #f)
+       (note-head #f))
+    (define (stop-fall)
+      (set! last-fall fall)
+      (set! fall #f)
+      (set! note-head #f)
+      (set! fall-event #f))
+    (make-engraver
+     ((start-translation-timestep engraver)
+      (set! last-fall #f)
+      (when (and fall
+                 (>= (ly:moment-main (ly:context-current-moment context))
+                     (ly:moment-main stop-moment)))
+        (stop-fall)))
+     (listeners
+      ((bend-after-event engraver event #:once)
+       (set! fall-event event)))
+     ((process-music engraver)
+      (when (and fall-event (not fall))
+        (set! fall (ly:engraver-make-grob engraver 'BendAfter fall-event))
+        (ly:grob-set-property! fall 'delta-position
+                               (ly:event-property fall-event 'delta-step))))
+     (acknowledgers
+      ((note-head-interface engraver grob source-engraver)
+       (when fall-event
+         (when (and note-head fall)
+           (stop-fall))
+         (set! note-head grob)
+         (set! stop-moment
+               (let ((now (ly:context-current-moment context)))
+                 (ly:moment-add
+                  now
+                  (ly:event-length (event-cause grob) now)))))))
+     ((stop-translation-timestep engraver)
+      (when last-fall
+        (ly:spanner-set-bound!
+         last-fall
+         RIGHT
+         (if (ly:grob? (ly:context-property context 'currentBarLine))
+             ;; don't cross a barline!
+             (ly:context-property context 'currentCommandColumn)
+             (ly:context-property context 'currentMusicalColumn))))
+      (when (and fall
+                 (not (ly:grob? (ly:spanner-bound fall LEFT))))
+        (ly:spanner-set-bound! fall LEFT note-head)
+        (ly:grob-set-parent! fall Y note-head)))
+     ((finalize engraver)
+      (when last-fall
+        (ly:spanner-set-bound!
+         last-fall
+         RIGHT
+         (ly:context-property context 'currentCommandColumn)))))))
+
+(ly:register-translator
+ Bend_engraver 'Bend_engraver
+ '((events-accepted . (bend-after-event))
+   (grobs-created . (BendAfter))
+   (properties-read . (currentBarLine currentCommandColumn currentMusicalColumn))
+   (properties-written . ())
+   (description . "Create fall spanners.")))
