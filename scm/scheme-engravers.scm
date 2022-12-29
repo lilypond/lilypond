@@ -1843,19 +1843,30 @@ adapted for typesetting within a chord grid.")))
       ((stop-moment #f)
        (fall-event #f)
        (fall #f)
+       (start-in-grace #f)
        (last-fall #f)
        (note-head #f))
     (define (stop-fall)
       (set! last-fall fall)
       (set! fall #f)
+      (set! start-in-grace #f)
       (set! note-head #f)
       (set! fall-event #f))
     (make-engraver
      ((start-translation-timestep engraver)
       (set! last-fall #f)
       (when (and fall
-                 (>= (ly:moment-main (ly:context-current-moment context))
-                     (ly:moment-main stop-moment)))
+                 (if start-in-grace
+                     ;; For falls starting in grace time, compare actual
+                     ;; moments to make sure the band spans the full (grace)
+                     ;; length of the main note.
+                     ;; For falls starting in non-grace time, compare only
+                     ;; moment-main's to make sure the fall gets terminated
+                     ;; before any grace notes coming before the next note.
+                     (not (ly:moment<? (ly:context-current-moment context)
+                                       stop-moment))
+                     (>= (ly:moment-main (ly:context-current-moment context))
+                         (ly:moment-main stop-moment))))
         (stop-fall)))
      (listeners
       ((bend-after-event engraver event #:once)
@@ -1871,8 +1882,10 @@ adapted for typesetting within a chord grid.")))
          (when (and note-head fall)
            (stop-fall))
          (set! note-head grob)
-         (set! stop-moment
-               (let ((now (ly:context-current-moment context)))
+         (let
+             ((now (ly:context-current-moment context)))
+           (set! start-in-grace (negative? (ly:moment-grace now)))
+           (set! stop-moment
                  (ly:moment-add
                   now
                   (ly:event-length (event-cause grob) now)))))))
