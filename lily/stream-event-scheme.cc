@@ -18,6 +18,7 @@
 */
 
 #include "stream-event.hh"
+#include "translator.hh"
 
 LY_DEFINE (ly_stream_event_p, "ly:stream-event?", 1, 0, 0, (SCM obj),
            R"(
@@ -80,4 +81,30 @@ Copy @var{m} and all sub-expressions of@tie{}@var{m}.
                      ly_event_deep_copy (scm_cdr (m)));
 
   return copy;
+}
+
+LY_DEFINE (ly_event_length, "ly:event-length", 1, 1, 0, (SCM event, SCM moment),
+           R"(
+Return the length of a stream event. If @code{moment} is not given, this is just
+the event's @code{length} property.  If @code{moment} is given and is an in-grace
+moment (i.e. having non-zero, usually negative, grace part), then the length of
+the stream event is returned as a grace-only moment.  In any case, thus, the
+effective length of the stream event when happening at @code{moment} is returned.
+           )")
+{
+  auto *const stream_ev = LY_ASSERT_SMOB (Stream_event, event, 1);
+  Moment len;
+
+  if (SCM_UNBNDP (moment))
+    len = get_event_length (stream_ev);
+  else
+    {
+      auto const mom = *LY_ASSERT_SMOB (Moment, moment, 2);
+
+      len = get_event_length (stream_ev, mom);
+    }
+
+  scm_remember_upto_here (event);
+
+  return to_scm<Moment> (len);
 }
