@@ -1344,52 +1344,52 @@ Cairo_outputter::output (SCM expr)
   while (argc < N)
     arg[argc++] = SCM_UNDEFINED;
 
-  if (head == ly_symbol2scm ("circle"))
+  if (scm_is_eq (head, ly_symbol2scm ("circle")))
     draw_circle (arg[0], arg[1], arg[2]);
-  else if (head == ly_symbol2scm ("dashed-line"))
+  else if (scm_is_eq (head, ly_symbol2scm ("dashed-line")))
     draw_dashed_line (arg[0], arg[1], arg[2], arg[3], arg[4], arg[5]);
-  else if (head == ly_symbol2scm ("draw-line"))
+  else if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
     draw_line (arg[0], arg[1], arg[2], arg[3], arg[4]);
-  else if (head == ly_symbol2scm ("partial-ellipse"))
+  else if (scm_is_eq (head, ly_symbol2scm ("partial-ellipse")))
     draw_partial_ellipse (arg[0], arg[1], arg[2], arg[3], arg[4], arg[5],
                           arg[6]);
-  else if (head == ly_symbol2scm ("ellipse"))
+  else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     draw_ellipse (arg[0], arg[1], arg[2], arg[3]);
-  else if (head == ly_symbol2scm ("glyph-string"))
+  else if (scm_is_eq (head, ly_symbol2scm ("glyph-string")))
     print_glyphs (arg[2], arg[4], arg[5], arg[6], arg[7], arg[8]);
-  else if (head == ly_symbol2scm ("grob-cause"))
+  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
     grob_cause (arg[0], arg[1]);
-  else if (head == ly_symbol2scm ("settranslation"))
+  else if (scm_is_eq (head, ly_symbol2scm ("settranslation")))
     moveto (arg[0], arg[1]);
-  else if (head == ly_symbol2scm ("named-glyph"))
+  else if (scm_is_eq (head, ly_symbol2scm ("named-glyph")))
     show_named_glyph (arg[0], arg[1]);
-  else if (head == ly_symbol2scm ("polygon"))
+  else if (scm_is_eq (head, ly_symbol2scm ("polygon")))
     draw_polygon (arg[0], arg[1], arg[2]);
-  else if (head == ly_symbol2scm ("round-filled-box"))
+  else if (scm_is_eq (head, ly_symbol2scm ("round-filled-box")))
     draw_round_box (arg[0], arg[1], arg[2], arg[3], arg[4]);
-  else if (head == ly_symbol2scm ("setcolor"))
+  else if (scm_is_eq (head, ly_symbol2scm ("setcolor")))
     setrgbacolor (arg[0], arg[1], arg[2], arg[3]);
-  else if (head == ly_symbol2scm ("resetcolor"))
+  else if (scm_is_eq (head, ly_symbol2scm ("resetcolor")))
     resetrgbacolor ();
-  else if (head == ly_symbol2scm ("setrotation"))
+  else if (scm_is_eq (head, ly_symbol2scm ("setrotation")))
     set_rotation (arg[0], arg[1], arg[2]);
-  else if (head == ly_symbol2scm ("resetrotation"))
+  else if (scm_is_eq (head, ly_symbol2scm ("resetrotation")))
     reset_rotation ();
-  else if (head == ly_symbol2scm ("url-link"))
+  else if (scm_is_eq (head, ly_symbol2scm ("url-link")))
     url_link (arg[0], arg[1], arg[2]);
-  else if (head == ly_symbol2scm ("page-link"))
+  else if (scm_is_eq (head, ly_symbol2scm ("page-link")))
     page_link (arg[0], arg[1], arg[2]);
-  else if (head == ly_symbol2scm ("path"))
+  else if (scm_is_eq (head, ly_symbol2scm ("path")))
     path (arg[0], arg[1], arg[2], arg[3], arg[4]);
-  else if (head == ly_symbol2scm ("setscale"))
+  else if (scm_is_eq (head, ly_symbol2scm ("setscale")))
     set_scale (arg[0], arg[1]);
-  else if (head == ly_symbol2scm ("resetscale"))
+  else if (scm_is_eq (head, ly_symbol2scm ("resetscale")))
     reset_scale ();
-  else if (head == ly_symbol2scm ("utf-8-string"))
+  else if (scm_is_eq (head, ly_symbol2scm ("utf-8-string")))
     return SCM_BOOL_F;
-  else if (head == ly_symbol2scm ("eps-file"))
+  else if (scm_is_eq (head, ly_symbol2scm ("eps-file")))
     eps_file (arg[1], arg[2], arg[3]);
-  else if (head == ly_symbol2scm ("embedded-ps"))
+  else if (scm_is_eq (head, ly_symbol2scm ("embedded-ps")))
     embedded_ps (arg[0]);
 
   return SCM_UNSPECIFIED;

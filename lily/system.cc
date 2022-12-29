@@ -122,7 +122,7 @@ System::typeset_grob (Grob *elem)
       if (scm_is_false (elem->protection_pool_))
         elem->protection_pool_ = protection_pool_;
       else
-        assert (elem->protection_pool_ == protection_pool_);
+        assert (scm_is_eq (elem->protection_pool_, protection_pool_));
       protection_pool_add (protection_pool_, elem->self_scm ());
       elem->unprotect ();
     }
