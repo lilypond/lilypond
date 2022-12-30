@@ -730,14 +730,14 @@ mark {ly~a_stream} /CLOSE pdfmark
          (remaining (map car sorted-page-numbers)))
     ;; TODO -- properly handle non-linear parent-children
     ;; relationships (within the format's limitations) -vv
-    (map
+    (for-each
      (lambda (entry)
        (let* ((id (car entry))
               (page-number (cdr entry))
               (alist (assoc-get id toc-alist)))
          (set! remaining (cdr remaining))
          (if (and (number? page-number) alist
-                  (not (memq id remaining)))
+                  (not (memv id remaining)))
              (format
               port
               "mark /Page ~a /Title (~a) /Count ~a\
