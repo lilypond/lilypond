@@ -636,11 +636,6 @@ LilyPond の開発手法はかなり複雑です。@c
 @uref{../../input/regression/abc2ly/collated-files.html, abc2ly テスト}:
 このリリースの abc2ly テスト。
 (@uref{../../input/regression/abc2ly/collated-files.pdf, PDF バージョン})
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book テスト}:
-このリリースのlilypond-book テスト。
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, PDF バージョン})
 @end itemize
 
 @end ifclear
@@ -654,8 +649,6 @@ LilyPond の開発手法はかなり複雑です。@c
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
-
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
 @end itemize
 
 @subsubheading 安定バージョン
@@ -666,8 +659,6 @@ LilyPond の開発手法はかなり複雑です。@c
 @item @regtestStableXml (@regtestStableXmlPdf{})
 
 @item @regtestStableAbc (@regtestStableAbcPdf{})
-
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 @end ifset
 

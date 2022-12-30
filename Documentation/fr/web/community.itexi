@@ -706,11 +706,6 @@ relatifs à ce niveau de mise à jour
 @uref{../../input/regression/abc2ly/collated-files.html, Test de abc2ly}
 relatifs à ce niveau de mise à jour
 (@uref{../../input/regression/abc2ly/collated-files.pdf, version pdf}).
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html,
-Test de lilypond-book} relatifs à ce niveau de mise à jour
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, version pdf}).
 @end itemize
 
 @end ifclear
@@ -725,8 +720,6 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
-
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
 @end itemize
 
 @subsubheading Version stable
@@ -738,8 +731,6 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 @item @regtestStableXml (@regtestStableXmlPdf{})
 
 @item @regtestStableAbc (@regtestStableAbcPdf{})
-
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 @end ifset
 
