@@ -552,18 +552,6 @@ abc2ly-Zkoušky této verze.
 
 @end ifset
 
-
-
-@subsubheading Všechny verze
-
-@itemize
-@item @uref{https://lilypond.org/test, Porovnání dvou verzí}:
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archiv všech zkoušek regresí}
-
-@end itemize
-
 @divEnd
 @divEnd
 

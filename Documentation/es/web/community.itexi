@@ -674,17 +674,6 @@ Las pruebas de abc2ly de esta versión.
 @end itemize
 @end ifset
 
-
-@subsubheading Todas las versiones
-
-@itemize
-@item @uref{https://lilypond.org/test, Comparaciones entre pruebas de regresión}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archivo de todas las pruebas de regresión}
-
-@end itemize
-
 @divEnd
 @divEnd
 

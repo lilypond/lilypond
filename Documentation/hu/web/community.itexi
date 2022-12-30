@@ -597,17 +597,6 @@ Az abc2ly konverzió tesztjei.
 @end itemize
 @end ifset
 
-
-@subsubheading Minden verzió
-
-@itemize
-@item @uref{https://lilypond.org/test, Összehasonlítás}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Archívum}
-
-@end itemize
-
 @divEnd
 @divEnd
 

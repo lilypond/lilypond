@@ -662,17 +662,6 @@ LilyPond の開発手法はかなり複雑です。@c
 @end itemize
 @end ifset
 
-
-@subsubheading すべてのバージョン
-
-@itemize
-@item @uref{https://lilypond.org/test, バージョン間での回帰テストの比較}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-すべての回帰テストのアーカイブ}
-
-@end itemize
-
 @divEnd
 @divEnd
 
