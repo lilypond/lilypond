@@ -649,11 +649,6 @@ Os testes de musicXML deste lançamento.
 @uref{../../input/regression/abc2ly/collated-files.html, Testes de abc2ly}:
 Os testes de abc2ly deste lançamento.
 (@uref{../../input/regression/abc2ly/collated-files.pdf, versão pdf})
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html, Testes de lilypond-book}:
-Os testes de lilypond-book deste lançamento.
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, versão pdf})
 @end itemize
 
 @end ifclear
@@ -667,8 +662,6 @@ Os testes de lilypond-book deste lançamento.
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
-
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
 @end itemize
 
 @subsubheading Versão estável
@@ -679,8 +672,6 @@ Os testes de lilypond-book deste lançamento.
 @item @regtestStableXml (@regtestStableXmlPdf{})
 
 @item @regtestStableAbc (@regtestStableAbcPdf{})
-
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 @end ifset
 

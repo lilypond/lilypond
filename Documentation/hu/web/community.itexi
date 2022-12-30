@@ -571,11 +571,6 @@ A MusicXML konverzió tesztjei.
 @uref{../../input/regression/abc2ly/collated-files.html, abc2ly tesztek}:
 Az abc2ly konverzió tesztjei.
 (@uref{../../input/regression/abc2ly/collated-files.pdf, PDF formátumban})
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book tesztek}:
-A lilypond-book tesztjei.
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, PDF formátumban})
 @end itemize
 
 @end ifclear
@@ -589,8 +584,6 @@ A lilypond-book tesztjei.
 @item @regtestDevelXml-hu (@regtestDevelXmlPdf-hu{})
 
 @item @regtestDevelAbc-hu (@regtestDevelAbcPdf-hu{})
-
-@item @regtestDevelLilypondBook-hu (@regtestDevelLilypondBookPdf-hu{})
 @end itemize
 
 @subsubheading Stabil verzió
@@ -601,8 +594,6 @@ A lilypond-book tesztjei.
 @item @regtestStableXml-hu (@regtestStableXmlPdf-hu{})
 
 @item @regtestStableAbc-hu (@regtestStableAbcPdf-hu{})
-
-@item @regtestStableLilypondBook-hu (@regtestStableLilypondBookPdf-hu{})
 @end itemize
 @end ifset
 

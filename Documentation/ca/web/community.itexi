@@ -648,11 +648,6 @@ les proves del MusicXML de la versió actual.
 @uref{../../input/regression/abc2ly/collated-files.html, proves de l'abc2ly}:
 Les proves de l'abc2ly d'aquesta versió.
 (@uref{../../input/regression/abc2ly/collated-files.pdf, versió en PDF})
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html, proves de lilypond-book}:
-Les proves del lilypond-book d'aquesta versió.
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, versió en PDF})
 @end itemize
 
 @end ifclear
@@ -666,8 +661,6 @@ Les proves del lilypond-book d'aquesta versió.
 @item @regtestDevelXml-ca (@regtestDevelXmlPdf-ca{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
-
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
 @end itemize
 
 @subsubheading Versió estable
@@ -678,8 +671,6 @@ Les proves del lilypond-book d'aquesta versió.
 @item @regtestStableXml (@regtestStableXmlPdf{})
 
 @item @regtestStableAbc (@regtestStableAbcPdf{})
-
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 @end ifset
 

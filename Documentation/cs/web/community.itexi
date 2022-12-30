@@ -525,11 +525,6 @@ musicXML-Zkoušky regresí této verze.
 @uref{../../input/regression/abc2ly/collated-files.html, abc2ly-Teste}:
 abc2ly-Zkoušky této verze.
 (@uref{../../input/regression/abc2ly/collated-files.pdf, Verze PDF})
-
-@item
-@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book-Teste}:
-lilypond-book-Zkoušky této verze.
-(@uref{../../input/regression/lilypond-book/collated-files.pdf, Verze PDF})
 @end itemize
 
 @end ifclear
@@ -543,8 +538,6 @@ lilypond-book-Zkoušky této verze.
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
-
-@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
 @end itemize
 
 @subsubheading Stálá verze
@@ -555,8 +548,6 @@ lilypond-book-Zkoušky této verze.
 @item @regtestStableXml (@regtestStableXmlPdf{})
 
 @item @regtestStableAbc (@regtestStableAbcPdf{})
-
-@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
 
 @end ifset
