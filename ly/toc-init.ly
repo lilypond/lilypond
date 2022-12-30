@@ -55,6 +55,7 @@
                                 (ly:warning (_i "Invalid toc label: ~a")
                                             raw-path))
                                (list id))))
+                  (parent #f) ; set below
                   (level
                    ;; Find which existing TOC entry, if any, to attach this entry to.
                    ;; The principle is that the first element of path is interpreted specially:
@@ -71,26 +72,28 @@
                       (hashq-set! toc-name-id-hashtab single id)
                       0)
                      ((head . tail)
-                      (let* ((node-id (hashq-ref toc-name-id-hashtab head))
-                             (entry (and node-id (hashq-ref toc-hashtab node-id))))
+                      (let* ((root-id (hashq-ref toc-name-id-hashtab head)))
                         (let loop ((path path)
-                                   ;; entry corresponds to the entry for the first element
-                                   ;; in the path.  path still contains its name so a warning
-                                   ;; can be emitted if entry is #f.
-                                   (entry entry)
-                                   (level (and entry (1+ (assq-ref entry 'level)))))
-                          (if entry
-                              (let ((children (assq-ref entry 'children)))
+                                   ;; nested-id is the TOC ID of the first element in the path.  path still
+                                   ;; contains its name so a warning can be emitted if nested-id is #f.
+                                   (ancestor-id root-id)
+                                   ;; Start with the level of the root, which may be anywhere
+                                   ;; in the tree.
+                                   (level (let ((entry (hashq-ref toc-hashtab root-id)))
+                                            (and entry (1+ (assq-ref entry 'level))))))
+                          (if ancestor-id
+                              (let* ((entry (hashq-ref toc-hashtab ancestor-id))
+                                     (children (assq-ref entry 'children)))
                                 (match path
                                   ((head name)
                                    ;; The last component is a newly created node.
                                    (hashq-set! children name id)
                                    (hashq-set! toc-name-id-hashtab name id)
+                                   (set! parent ancestor-id)
                                    level)
                                   ((head . (and remaining (child . rest)))
                                    (loop remaining
-                                         (let ((child-id (hashq-ref children child)))
-                                           (and child-id (hashq-ref toc-hashtab child-id)))
+                                         (hashq-ref children child)
                                          (1+ level)))))
                               (begin
                                (ly:warning (G_ "TOC node ~a not defined")
@@ -103,7 +106,8 @@
                    `((text . ,text)
                      (toc-markup . ,markup-symbol)
                      (children . ,(make-hash-table))
-                     (level . ,level))))
+                     (level . ,level)
+                     (parent . ,parent))))
              ;; Register the new entry.
              (hashq-set! toc-hashtab id alist)
              (set! toc-alist (acons id alist toc-alist))

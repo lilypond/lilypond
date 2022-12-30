@@ -32,6 +32,7 @@
 #include "lily-imports.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
@@ -351,6 +352,7 @@ public:
   void create_surface (Stencil const *);
   void finish_page ();
   void handle_metadata (SCM header);
+  void handle_outline (Output_def *paper);
   void close ();
 };
 
@@ -945,7 +947,7 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
      make a 1x1 image. However, the pattern does not necessarily
      have a 1:1 aspect ratio. Avoid scaling magic by creating the
      image exactly to bbox size.
-   */
+  */
   int height = bbox[3] - bbox[1];
   cairo_surface_t *image = cairo_image_surface_create (
     CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
@@ -1327,6 +1329,108 @@ Cairo_outputter::handle_metadata (SCM module)
     }
 }
 
+void
+Cairo_outputter::handle_outline (Output_def *paper)
+{
+  if (format_ != PDF)
+    return;
+
+  if (scm_is_false (ly_get_option (ly_symbol2scm ("outline-bookmarks"))))
+    return;
+
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+
+  SCM toc_alist = paper->lookup_variable (ly_symbol2scm ("label-alist-table"));
+  SCM page_numbers
+    = paper->lookup_variable (ly_symbol2scm ("label-page-table"));
+  for (SCM entry : as_ly_scm_list (page_numbers))
+    {
+      if (!scm_is_pair (entry))
+        {
+          programming_error ("non-pair in label-page-table");
+          return;
+        }
+    }
+
+  // This is OK because the entries are GC-protected through their presence in
+  // page_numbers.
+  std::vector<SCM> page_numbers_vec
+    = from_scm_list<std::vector<SCM>> (page_numbers);
+
+  // Entries for the same page are in the right order.  Entries for different
+  // pages are in reverse order.  By doing a stable sort, we reorder pages while
+  // keeping entries in the right order within the same page.
+  std::stable_sort (page_numbers_vec.begin (), page_numbers_vec.end (),
+                    [&] (SCM entry1, SCM entry2) {
+                      return from_scm<int> (scm_cdr (entry1))
+                             < from_scm<int> (scm_cdr (entry2));
+                    });
+
+  // If a label straddles at a page break, we want to choose the occurrence at
+  // the beginning of the new page.  label-page-table is in the right order for
+  // that, but it will contain two occurrences for the label in question, so
+  // make sure we skip the first one.
+  SCM label_to_chosen_index_table = scm_c_make_hash_table (0);
+  vsize i = 0;
+  for (SCM entry : page_numbers_vec)
+    {
+      SCM id_sym = scm_car (entry);
+      scm_hashv_set_x (label_to_chosen_index_table, id_sym, to_scm (i));
+      i++;
+    }
+  i = 0;
+
+  // Maps TOC IDs (symbols) to bookmark IDs (integers) returned by Cairo.
+  SCM bookmark_cairo_id_table = scm_c_make_hash_table (0);
+
+  for (SCM entry : page_numbers_vec)
+    {
+      SCM id_sym = scm_car (entry);
+
+      // Skip this occurrence if there is a later one.
+      vsize chosen_index = from_scm<vsize> (
+        scm_hashv_ref (label_to_chosen_index_table, id_sym, SCM_BOOL_F));
+
+      if (chosen_index == i)
+        {
+          int page_number = from_scm<int> (scm_cdr (entry));
+
+          SCM alist = ly_assoc_get (id_sym, toc_alist, SCM_EOL);
+          std::string toc_text = ly_scm2string (Lily::markup_to_string (
+            ly_assoc_get (ly_symbol2scm ("text"), alist, SCM_BOOL_F)));
+
+          SCM parent
+            = ly_assoc_get (ly_symbol2scm ("parent"), alist, SCM_BOOL_F);
+          int parent_cairo_id
+            = scm_is_false (parent)
+                ? CAIRO_PDF_OUTLINE_ROOT
+                : from_scm<int> (
+                  scm_hashq_ref (bookmark_cairo_id_table, parent, SCM_BOOL_F));
+
+          std::string attributes = String_convert::form_string (
+            "page=%d pos=[0.0 0.0]", page_number);
+
+          int new_item_id = cairo_pdf_surface_add_outline (
+            surface_->cairo_surface (), parent_cairo_id, toc_text.c_str (),
+            attributes.c_str (), static_cast<cairo_pdf_outline_flags_t> (0));
+
+          scm_hashq_set_x (bookmark_cairo_id_table, id_sym,
+                           to_scm (new_item_id));
+        }
+
+      i++;
+    }
+
+  scm_remember_upto_here (page_numbers);
+
+#else
+
+  (void) paper;
+  debug_output ("Skipping PDF outline, as Cairo is too old.");
+
+#endif // CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+}
+
 SCM
 Cairo_outputter::output (SCM expr)
 {
@@ -1476,6 +1580,7 @@ dump book through cairo backend
       Cairo_outputter outputter (format, base, odef, false);
       outputter.create_surface (unsmob<const Stencil> (scm_car (stencils)));
       outputter.handle_metadata (header);
+      outputter.handle_outline (odef);
 
       for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p))
         {
