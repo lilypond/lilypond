@@ -4757,6 +4757,12 @@ def conv(s):
     s = re.sub(r"(\\override (\w+\.)?StaffSymbol\.line-positions\s*=\s*)#'\(\)",
                r"\1#ly:staff-symbol::calc-line-positions",
                s)
+    return s
+
+@rule((2, 25, 1), r"""
+string-regexp-substitute removal
+""")
+def conv(s):
     if "string-regexp-substitute" in s:
         stderr_write(NOT_SMART % "string-regexp-substitute")
         stderr_write(r"""
