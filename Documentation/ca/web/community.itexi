@@ -674,17 +674,6 @@ Les proves de l'abc2ly d'aquesta versió.
 @end itemize
 @end ifset
 
-
-@subsubheading Totes les versions
-
-@itemize
-@item @uref{https://lilypond.org/test, Comparacions entre proves de regressió}
-
-@item @uref{https://lilypond.org/downloads/binaries/test-output/,
-Arxiu de totes les proves de regressió}
-
-@end itemize
-
 @divEnd
 @divEnd
 
