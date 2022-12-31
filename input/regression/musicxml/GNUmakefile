@@ -4,12 +4,10 @@ TEMPLATES = lilypond ly lysdoc texinfo
 
 TEXI2HTML_FLAGS += --nomenu
 
-COLLATED_FILES = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(TEXINFO_SOURCES) )
-
 MUSICXML_FILES = $(call src-wildcard,*.xml)
 MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
-OUT_LY_FILES = $(sort ${MUSICXML_FILES:%.xml=$(outdir)/%.ly} ${MUSICMXL_FILES:%.mxl=$(outdir)/%.ly})
-OUT_FILES = $(OUT_LY_FILES)
+
+COLLATED_FILES = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(ITEXI_FILES))
 
 TEST_SUITE_VERSION=0.1
 

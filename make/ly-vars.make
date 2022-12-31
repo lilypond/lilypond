@@ -8,7 +8,6 @@ ITEXI_FILES := $(call src-wildcard,*.itexi)
 LY_FILES := $(call src-wildcard,*.ly)
 ILY_FILES := $(call src-wildcard,*.ily)
 
-TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 LILYPOND_BOOK_INCLUDES = -I $(abs-src-dir)
 
 # prerequisites for all rules invoking compiled lilypond binary
