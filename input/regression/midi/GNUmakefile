@@ -4,12 +4,8 @@ TEMPLATES = lilypond ly lysdoc texinfo
 
 TEXI2HTML_FLAGS += --nomenu
 
-TMP_FILES = $(sort $(LY_FILES) $(TEXINFO_SOURCES) )
-COLLATED_FILES = ${TMP_FILES:%.ly=$(outdir)/recovered/%-midi.ly}
+COLLATED_FILES = $(sort ${LY_FILES:%.ly=$(outdir)/recovered/%-midi.ly})
 
-
-OUT_LY_FILES = $(sort ${LY_FILES:%.ly=$(outdir)/recovered/%-midi.ly} )
-OUT_FILES = $(OUT_LY_FILES)
 HEADER_FIELDS = texidoc options
 OUT_DIFF_FILES = ${LY_FILES:%.ly=$(outdir)/%.diff}
 MIDI2LY_IGNORE_RES = -I 'Lily was here' -I '^\\version ' -I 'TEXT_EVENT.*GNU LilyPond' -I '^% included from'
