@@ -68,7 +68,6 @@ TEXI2HTML_PROGRAM = @TEXI2HTML@
 TEXI2HTML_VERSION = @TEXI2HTML_VERSION@
 USE_EXTRACTPDFMARK=@USE_EXTRACTPDFMARK@
 WINDRES = @WINDRES@
-ZIP = @ZIP@
 bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
 configure-builddir = @abs_builddir@

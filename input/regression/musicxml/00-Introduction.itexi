@@ -13,11 +13,6 @@ is supposed to fill a severe gap for all developers implementing MusicXML
 support in their application: There is no complete test suite of MusicXML
 files available for testing purposes.
 
-@heading Downloading the test suite
-
-The complete set of MusicXML test files contained in this suite can be downloaded
-@uref{MusicXML-TestSuite-0.1.zip,here} as a ZIP archive.
-
 @heading License of the test suite
 
 This collection of MusicXML test files is distributed under the
