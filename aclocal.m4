@@ -577,11 +577,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     PATHSEP=':'
     LN=ln
     LN_S='ln -s'
-    ZIP="zip -r -9"
 
     AC_SUBST(program_prefix)
     AC_SUBST(program_suffix)
-    AC_SUBST(ZIP)
     AC_SUBST(LN)
     AC_SUBST(LN_S)
     AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
