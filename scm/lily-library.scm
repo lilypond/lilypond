@@ -881,13 +881,17 @@ regex @code{(a+)|(b+)}), @code{#f} is returned."
      (cons (substring str last-match-end)
            substrings))))
 
-(define-public (string-endswith s suffix)
-  (equal? suffix (substring/shared s
-                                   (max 0 (- (string-length s) (string-length suffix)))
-                                   (string-length s))))
+(define*-public (string-endswith s suffix #:key (case-insensitive #f))
+  ((if case-insensitive string-ci=? string=?)
+   suffix
+   (substring/shared s
+                     (max 0 (- (string-length s) (string-length suffix)))
+                     (string-length s))))
 
-(define-public (string-startswith s prefix)
-  (equal? prefix (substring/shared s 0 (min (string-length s) (string-length prefix)))))
+(define*-public (string-startswith s prefix #:key (case-insensitive #f))
+  ((if case-insensitive string-ci=? string=?)
+   prefix
+   (substring/shared s 0 (min (string-length s) (string-length prefix)))))
 
 (define-public (remove-whitespace strg)
   "Remove characters satisfying @code{char-whitespace?} from string
