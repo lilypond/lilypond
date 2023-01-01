@@ -37,6 +37,7 @@ defined in the output modules (in files @file{output-*.scm})."
     path
     partial-ellipse
     polygon
+    png-file
     resetcolor
     resetrotation
     resetscale

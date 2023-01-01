@@ -189,7 +189,17 @@ None so far.
 @node Miscellaneous improvements
 @unnumbered Miscellaneous improvements
 
-None so far.
+@itemize
+@item
+Embedding PNG images is now supported using the new @code{\image}
+markup command.  This supplements the existing @code{\epsfile}
+command for EPS images.
+
+@code{\image} works for both PNG and EPS images.  For EPS images,
+the difference between using @code{\image} and @code{\epsfile} is
+that @code{\image} adds a white background by default, while
+@code{\epsfile} does not.
+@end itemize
 
 
 @ifhtml

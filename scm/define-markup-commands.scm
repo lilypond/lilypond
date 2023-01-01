@@ -110,6 +110,10 @@
 ;;; Each markup command definition shall have a documentation string
 ;;; with description, syntax and example.
 
+(use-modules (ice-9 receive)
+             (ice-9 control)
+             (ice-9 match))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utility functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1168,20 +1172,15 @@ present."
   #:category graphic
   #:as-string ""
   "
-@cindex inlining an Encapsulated PostScript image
-
-Inline an EPS image.  The image is scaled along @var{axis} to
-@var{size}.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\general-align #Y #DOWN {
-    \\epsfile #X #20 #\"context-example.eps\"
-    \\epsfile #Y #20 #\"context-example.eps\"
-  }
-}
-@end lilypond"
-  (eps-file->stencil axis size file-name))
+See @code{\\image} for details on this command.
+@code{\\markup \\epsfile @var{axis} @var{size} @var{file-name}}
+is the same as @code{\\markup \\override #'(background-color . #f)
+\\image @var{axis} @var{size} @var{file-name}}.
+"
+  (interpret-markup layout props
+                    (make-override-markup
+                     '(background-color . #f)
+                     (make-image-markup axis size file-name))))
 
 (define-markup-command (postscript layout props str)
   (string?)
@@ -1319,6 +1318,106 @@ samplePath =
                      filled
                      #:line-cap-style line-cap-style
                      #:line-join-style line-join-style))
+
+(define-markup-command (image layout props axis size file-name)
+  (number? number? string?)
+  #:category graphic
+  #:properties ((background-color "white"))
+  #:as-string ""
+  "
+@cindex image
+@cindex markup, image
+@cindex PNG, image
+@cindex EPS, image
+
+Inline an image, scaled along @var{axis} to @var{size}.
+
+The image format is determined based on the file extension, which should be
+@file{.png} for a PNG image, or @file{.eps} for an EPS image (@file{.PNG} and
+@file{.EPS} are allowed as well).
+
+EPS files are only supported in the PostScript backend -- for all output
+formats@tie{}--, and in the Cairo backend -- when creating PostScript or EPS
+output.
+
+If the image has transparency, it will appear over a colored background with
+the color specified by the @code{background-color} property, which defaults to
+@code{\"white\"}.
+
+To disable the colored background, set @code{background-color} to @code{#f}.
+For EPS images, this always works (where EPS images work in the first place).
+On the other hand, for PNG images, it works in the Cairo backend (which can
+output all supported formats), as well as in the SVG backend, but @emph{not} in
+the PostScript backend, which is the default.  See @rprogram{Advanced command
+line options for LilyPond} for how to activate the Cairo backend.
+"
+  ;; From the width and height of the actual image plus one of the scaled
+  ;; dimensions specified by the user, determine the scaling factor from image
+  ;; coordinates to page coordinates, and the two dimensions of the stencil.
+  (define (calc-factor width height)
+    (let ((bbox-size (if (= axis X)
+                         width
+                         height)))
+      (if (< 0 bbox-size)
+          (let ((factor (exact->inexact (/ size bbox-size))))
+            ;; Stencil starts at (0, 0), even for an EPS image whose bounding
+            ;; box does not start at (0, 0).
+            (values factor
+                    (cons 0 (* width factor))
+                    (cons 0 (* height factor))))
+          (values 0 0 0))))
+  (let-escape-continuation
+   escape-and-return
+   (let* ((file-name (let ((it (ly:find-file file-name #|strict|# #t)))
+                       (ly:note-extra-source-file it)
+                       it))
+          (format
+           (cond
+            ((string-endswith file-name ".png" #:case-insensitive #t)
+             'png)
+            ((string-endswith file-name ".eps" #:case-insensitive #t)
+             'eps)
+            (else
+             (ly:warning
+              (G_ "unrecognized image file, should have .png or .eps extension: ~a")
+              file-name)
+             (escape-and-return empty-stencil))))
+          (background-color (and=> background-color normalize-color)))
+     (case format
+       ((eps)
+        (let ((contents (ly:gulp-file file-name)))
+          (match (get-postscript-bbox (car (string-split contents #\nul)))
+            (#f
+             (ly:warning
+              (G_ "EPS image dimensions could not be determined; \
+is '~a' a valid EPS file?")
+              file-name)
+             (escape-and-return empty-stencil))
+            ((and bbox (x1 y1 x2 y2))
+             (let ((width (- x2 x1))
+                   (height (- y2 y1)))
+               (receive (factor real-width real-height)
+                   (calc-factor width height)
+                 (let* ((expr `(eps-file ,file-name ,contents ,bbox ,factor))
+                        (basic-stencil (ly:make-stencil expr real-width real-height)))
+                   (if background-color
+                       (ly:stencil-add
+                        (stencil-with-color
+                         (make-filled-box-stencil real-width real-height)
+                         background-color)
+                        basic-stencil)
+                       basic-stencil))))))))
+       ((png)
+        (match (ly:png-dimensions file-name)
+          (#f
+           ;; No warning: assume ly:png-dimensions already complained.
+           (escape-and-return empty-stencil))
+          ((width . height)
+           (receive (factor real-width real-height)
+               (calc-factor width height)
+             (let ((expr `(png-file ,file-name ,width ,height
+                                    ,factor ,background-color)))
+               (ly:make-stencil expr real-width real-height))))))))))
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)

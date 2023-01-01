@@ -41,6 +41,7 @@
 #include "paper-book.hh"
 #include "prob.hh"
 #include "program-option.hh"
+#include "source-file.hh"
 #include "std-vector.hh"
 #include "stencil-interpret.hh"
 #include "stream-event.hh"
@@ -338,8 +339,11 @@ class Cairo_outputter : public Stencil_sink
   std::string pdf_rect (Real llx, Real lly, Real w, Real h,
                         bool relative_to_current) const;
   void cairo_link (std::string const &attr);
+  void paint_image_surface (cairo_surface_t *surface, Real width, Real height,
+                            Real scale, bool paint_background, Real rgba[4]);
   void eps_file (std::string const &content, std::vector<int> bbox, Real scale);
   void eps_file (SCM, SCM, SCM);
+  void png_file (SCM, SCM, SCM);
   void embedded_ps (SCM);
   void url_link (SCM target, SCM varx, SCM vary);
   void url_link (std::string const &target, Real llx, Real lly, Real w, Real h,
@@ -939,6 +943,47 @@ Cairo_outputter::reset_rotation ()
 }
 
 void
+Cairo_outputter::paint_image_surface (cairo_surface_t *surface, Real width,
+                                      Real height, Real scale,
+                                      bool paint_background, Real rgba[4])
+{
+  Real x = 0.0;
+  Real y = 0.0;
+  cairo_get_current_point (context (), &x, &y);
+
+  if (paint_background)
+    {
+      cairo_save (context ());
+      cairo_set_source_rgba (context (), rgba[0], rgba[1], rgba[2], rgba[3]);
+      cairo_rectangle (context (), x, y, width * scale , height * scale);
+      cairo_fill (context ());
+      cairo_restore (context ());
+    }
+
+  /* Must save & restore: the source image introduces a clip path that
+     will trim subsequent elements otherwise
+  */
+  cairo_save (context ());
+
+  cairo_pattern_t *pattern = cairo_pattern_create_for_surface (surface);
+
+  cairo_matrix_t matrix = {};
+
+  cairo_matrix_init_identity (&matrix);
+
+  // Undo Cairo's -1 Y-scaling
+  cairo_matrix_scale (&matrix, 1 / scale, -1 / scale);
+  cairo_matrix_translate (&matrix, -x, -y - scale * height);
+  cairo_pattern_set_matrix (pattern, &matrix);
+
+  cairo_set_source (context (), pattern);
+
+  cairo_paint (context ());
+  cairo_restore (context ());
+  cairo_pattern_destroy (pattern);
+}
+
+void
 Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
                            Real scale)
 {
@@ -957,9 +1002,10 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
      have a 1:1 aspect ratio. Avoid scaling magic by creating the
      image exactly to bbox size.
   */
+  int width = bbox[2] - bbox[0];
   int height = bbox[3] - bbox[1];
-  cairo_surface_t *image = cairo_image_surface_create (
-    CAIRO_FORMAT_ARGB32, bbox[2] - bbox[0], height);
+  cairo_surface_t *image
+    = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
   assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
 
@@ -979,33 +1025,8 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
     reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
     &free, dupped_bbox);
   assert (status == CAIRO_STATUS_SUCCESS);
-
-  Real x = 0.0;
-  Real y = 0.0;
-  cairo_get_current_point (context (), &x, &y);
-
-  /* Must save & restore: the source image introduces a clip path that
-     will trim subsequent elements otherwise
-  */
-  cairo_save (context ());
-
-  cairo_pattern_t *pattern = cairo_pattern_create_for_surface (image);
-
-  cairo_matrix_t matrix = {};
-
-  cairo_matrix_init_identity (&matrix);
-
-  // Undo Cairo's -1 Y-scaling
-  cairo_matrix_scale (&matrix, 1 / scale, -1 / scale);
-  cairo_matrix_translate (&matrix, -x, -y - scale * height);
-  cairo_pattern_set_matrix (pattern, &matrix);
-
-  cairo_set_source (context (), pattern);
-
-  cairo_paint (context ());
-  cairo_restore (context ());
+  paint_image_surface (image, width, height, scale, false, nullptr);
   cairo_surface_destroy (image);
-  cairo_pattern_destroy (pattern);
 }
 
 void
@@ -1055,6 +1076,59 @@ Cairo_outputter::embedded_ps (SCM arg)
       + command;
   eps_file (eps_command, bbox, 1.0);
   cairo_restore (context ());
+}
+
+// Returns nullptr in case of error.  The caller should handle this gracefully.
+cairo_surface_t *
+read_png_to_surface (const std::string &fn)
+{
+  cairo_surface_t *surface = cairo_image_surface_create_from_png (fn.c_str ());
+  cairo_status_t status = cairo_surface_status (surface);
+  if (status)
+    {
+      warning (_f ("error while reading PNG image: %s",
+                   cairo_status_to_string (status)));
+      cairo_surface_destroy (surface);
+      return nullptr;
+    }
+  return surface;
+}
+
+void
+Cairo_outputter::png_file (SCM file_name, SCM factor, SCM background_color)
+{
+  LY_ASSERT_TYPE (scm_is_string, file_name, 0);
+  std::string fn = ly_scm2string (file_name);
+  LY_ASSERT_TYPE (is_scm<Real>, factor, 0);
+  Real f = from_scm<Real> (factor);
+  cairo_surface_t *surface = read_png_to_surface (fn);
+  // In case the image cannot be read, \image should have detected this in the
+  // call to ly:png-dimensions and prevented the creation of an image stencil.
+  assert (surface);
+  // TODO: when the PS backend is dropped, \image will be able to emit the image
+  // stencil on top of a box stencil, and we won't have to handle the background
+  // color here.
+  bool paint_background;
+  Real rgba[4] {0, 0, 0, 0};
+  if (scm_is_false (background_color))
+    {
+      paint_background = false;
+    }
+  else
+    {
+      paint_background = true;
+      for (vsize i = 0; i < 4; i++)
+        {
+          LY_ASSERT_TYPE (scm_is_pair, background_color, 0);
+          LY_ASSERT_TYPE (is_scm<Real>, scm_car (background_color), 0);
+          rgba[i] = from_scm<Real> (scm_car (background_color));
+          background_color = scm_cdr (background_color);
+        }
+    }
+  Real width = cairo_image_surface_get_width (surface);
+  Real height = cairo_image_surface_get_height (surface);
+  paint_image_surface (surface, width, height, f, paint_background, rgba);
+  cairo_surface_destroy (surface);
 }
 
 void
@@ -1507,6 +1581,8 @@ Cairo_outputter::output (SCM expr)
     return SCM_BOOL_F;
   else if (scm_is_eq (head, ly_symbol2scm ("eps-file")))
     eps_file (arg[1], arg[2], arg[3]);
+  else if (scm_is_eq (head, ly_symbol2scm ("png-file")))
+    png_file (arg[0], arg[3], arg[4]); // ignore width, height
   else if (scm_is_eq (head, ly_symbol2scm ("embedded-ps")))
     embedded_ps (arg[0]);
 
@@ -1645,4 +1721,22 @@ dump a single stencil through the Cairo backend
                              /* no page links */ false);
     }
   return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_png_dimensions, "ly:png-dimensions", 1, 0, 0, (SCM file_name),
+           R"(
+Read the PNG image under @var{file-name} and return its dimensions
+as a pair of integers, or @code{#f} if there was an error (a warning
+is printed in this case).
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, file_name, 1);
+  const std::string fn = ly_scm2string (file_name);
+  cairo_surface_t *surface = read_png_to_surface (fn);
+  if (!surface)
+    return SCM_BOOL_F;
+  int width = cairo_image_surface_get_width (surface);
+  int height = cairo_image_surface_get_height (surface);
+  cairo_surface_destroy (surface);
+  return scm_cons (to_scm (width), to_scm (height));
 }
