@@ -23,7 +23,8 @@
  (ice-9 match)
  (ice-9 receive)
  (oop goops)
- (ice-9 textual-ports))
+ (ice-9 textual-ports)
+ ((ice-9 binary-ports) #:select (open-bytevector-output-port)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -976,6 +977,20 @@ Handy for debugging, possibly turned off."
         (list x)
         (cons x  (cons between y))))
   (fold-right conc #f lst))
+
+(define-public call-with-output-bytevector
+  (cond-expand
+   (guile-3.0 (@ (ice-9 binary-ports) call-with-output-bytevector))
+   (else
+    (lambda (proc)
+      (call-with-values
+          (lambda ()
+            (open-bytevector-output-port))
+        (lambda (port get-bytevector)
+          (proc port)
+          (let ((bv (get-bytevector)))
+            (close-port port)
+            bv)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; numbering styles

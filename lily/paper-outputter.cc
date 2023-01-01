@@ -84,14 +84,20 @@ Paper_outputter::output_scheme (SCM expr)
   if (scm_is_true (callback))
     {
       result = scm_apply_0 (callback, scm_cdr (expr));
-      if (scm_is_string (result))
-        dump_string (result);
     }
   else if (scm_is_true (default_callback_))
     {
       result = ly_call (default_callback_, expr);
-      if (scm_is_string (result))
-        dump_string (result);
+    }
+
+  if (scm_is_string (result))
+    {
+      dump_string (result);
+    }
+  else if (scm_is_bytevector (result))
+    {
+      scm_put_bytevector (file (), result, /* start */ SCM_UNDEFINED,
+                          /* count */ SCM_UNDEFINED);
     }
 
   return result;

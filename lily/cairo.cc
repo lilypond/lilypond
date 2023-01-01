@@ -1740,3 +1740,55 @@ is printed in this case).
   cairo_surface_destroy (surface);
   return scm_cons (to_scm (width), to_scm (height));
 }
+
+cairo_status_t
+write_to_bytevector (void *closure, const unsigned char *data,
+                     unsigned int length)
+{
+  SCM port = *static_cast<SCM *> (closure);
+  scm_c_write (port, data, static_cast<vsize> (length));
+  return CAIRO_STATUS_SUCCESS;
+}
+
+LY_DEFINE (ly_png_2_eps_dump, "ly:png->eps-dump", 6, 0, 0,
+           (SCM file_name, SCM port, SCM r, SCM g, SCM b, SCM a),
+           R"(
+Read the PNG image under @var{file-name} and convert it to EPS data,
+dumping the output onto @var{port}.  @var{r}, @var{g}, @var{b} and
+@var{a} are the components of the background color.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, file_name, 1);
+  LY_ASSERT_TYPE (ly_is_port, port, 2);
+  const std::string fn = ly_scm2string (file_name);
+  LY_ASSERT_TYPE (is_scm<Real>, r, 1);
+  Real r_real = from_scm<Real> (r);
+  LY_ASSERT_TYPE (is_scm<Real>, g, 2);
+  Real g_real = from_scm<Real> (g);
+  LY_ASSERT_TYPE (is_scm<Real>, b, 3);
+  Real b_real = from_scm<Real> (b);
+  LY_ASSERT_TYPE (is_scm<Real>, a, 4);
+  Real a_real = from_scm<Real> (a);
+  cairo_surface_t *png_surface = read_png_to_surface (fn);
+  // If this function is called, a stencil was constructed in the first place,
+  // implying that ly:png-dimensions didn't signal an error (or \image would
+  // have bailed out).
+  assert (png_surface);
+  cairo_surface_t *eps_surface = cairo_ps_surface_create_for_stream (
+    write_to_bytevector, &port, cairo_image_surface_get_width (png_surface),
+    cairo_image_surface_get_height (png_surface));
+  cairo_ps_surface_set_eps (eps_surface, true);
+  cairo_t *cr = cairo_create (eps_surface);
+  // Draw background first.
+  cairo_save (cr);
+  cairo_set_source_rgba (cr, r_real, g_real, b_real, a_real);
+  cairo_paint (cr);
+  cairo_restore (cr);
+  cairo_set_source_surface (cr, png_surface, 0.0, 0.0);
+  cairo_paint (cr);
+  cairo_destroy (cr);
+  cairo_surface_destroy (eps_surface);
+  cairo_surface_destroy (png_surface);
+  scm_remember_upto_here_1 (port);
+  return SCM_UNSPECIFIED;
+}

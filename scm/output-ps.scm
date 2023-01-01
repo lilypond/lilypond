@@ -30,6 +30,8 @@
              (ice-9 optargs)
              (srfi srfi-1)
              (srfi srfi-13)
+             (ice-9 match)
+             (ice-9 textual-ports)
              (lily framework-ps)
              (lily))
 
@@ -80,7 +82,9 @@
 (define (embedded-ps string)
   string)
 
-(define (eps-file file-name contents bbox factor)
+;; Auxiliary routine for eps-file and png-file.  contents-outputter is a
+;; procedure outputting the EPS file contents to a port.
+(define (dump-eps file-name contents-outputter bbox factor)
   (let*
       ;; We need to shift the whole eps to (0,0), otherwise it will appear
       ;; displaced in lilypond (displacement will depend on the scaling!)
@@ -91,10 +95,16 @@
                           (list-ref bbox 1)
                           (- (list-ref bbox 2) (list-ref bbox 0))
                           (- (list-ref bbox 3) (list-ref bbox 1)))))
-
-    (string-append
-     (ly:format
-      "gsave
+    ;; Return a bytevector here: when we go through this function for outputting
+    ;; a PNG file, the EPS data (converted from PNG through Cairo) can be very
+    ;; bulky.  Experimentally, this leads to a huge cost for decoding the string
+    ;; from bytes and then reencoding it.
+    (call-with-output-bytevector
+     (lambda (port)
+       (set-port-encoding! port "latin1")
+       (display
+        (ly:format
+         "gsave
 currentpoint translate
 BeginEPSF
 ~a dup scale
@@ -102,12 +112,35 @@ BeginEPSF
 ~a
 %%BeginDocument: ~a
 "
-      factor translate-string  clip-rect-string file-name)
-     contents
-     "%%EndDocument
+         factor translate-string  clip-rect-string file-name)
+        port)
+       (contents-outputter port)
+       (display
+        "%%EndDocument
 EndEPSF
 grestore
-")))
+"
+        port)))))
+
+(define (eps-file file-name contents bbox factor)
+  (let ((contents-outputter (lambda (port)
+                              (put-string port contents))))
+    (dump-eps file-name contents-outputter bbox factor)))
+
+(define (png-file file-name width height factor background-color)
+  (if background-color
+      (let* ((contents-outputter
+              (lambda (port)
+                (apply ly:png->eps-dump file-name port background-color))))
+        (dump-eps file-name
+                  contents-outputter
+                  (list 0 0 width height)
+                  factor))
+      (begin
+        (ly:warning
+         (G_ "transparency (no background color) for PNG images is not
+supported in the PostScript backend.  Use the Cairo backend instead."))
+        "")))
 
 (define (glyph-string pango-font
                       postscript-font-name
@@ -320,6 +353,7 @@ grestore
     (grob-cause . ,grob-cause)
     (named-glyph . ,named-glyph)
     (no-origin . ,no-origin)
+    (png-file . ,png-file)
     (settranslation . ,settranslation)
     (polygon . ,polygon)
     (round-filled-box . ,round-filled-box)
