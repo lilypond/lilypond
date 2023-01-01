@@ -57,6 +57,4 @@ private:
 
 INSTANTIATE_COMPARE (Duration, Duration::compare);
 
-extern SCM Duration_type_p_proc;
-
 #endif // DURATION_HH

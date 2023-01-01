@@ -106,9 +106,7 @@ SCM ly_pitch_transpose (SCM p, SCM delta);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
-extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
-extern SCM Pitch_type_p_proc;
 
 #include "context.hh"
 void set_middle_C (Context *context);
