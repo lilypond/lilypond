@@ -186,6 +186,7 @@ init_func_doc ()
   ly_add_type_predicate (ly_is_symbol, "symbol");
   ly_add_type_predicate (ly_is_unicode_integer, "integer in [0, #x10FFFF]");
   ly_add_type_predicate (scm_is_bool, "boolean");
+  ly_add_type_predicate (scm_is_bytevector, "bytevector");
   ly_add_type_predicate (scm_is_integer, "integer");
   ly_add_type_predicate (scm_is_number, "number");
   ly_add_type_predicate (scm_is_pair, "pair");

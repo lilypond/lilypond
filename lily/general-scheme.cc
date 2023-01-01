@@ -23,6 +23,7 @@
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "file-path.hh"
+#include "glib-utils.hh"
 #include "international.hh"
 #include "lily-guile.hh"
 #include "ly-scm-list.hh"
@@ -703,3 +704,17 @@ Use GhostScript started with @var{args}, and run @var{run_string}
   return SCM_UNSPECIFIED;
 }
 #endif
+
+LY_DEFINE (ly_base64_encode, "ly:base64-encode", 1, 0, 0, (SCM bv),
+           R"(
+Encode the given bytevector as a base 64 string.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_bytevector, bv, 1);
+  vsize len = SCM_BYTEVECTOR_LENGTH (bv);
+  const unsigned char *contents
+    = reinterpret_cast<unsigned char *> (SCM_BYTEVECTOR_CONTENTS (bv));
+  unique_glib_ptr<char> base64 (g_base64_encode (contents, len));
+  scm_remember_upto_here_1 (bv);
+  return ly_string2scm (base64.get ());
+}

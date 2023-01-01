@@ -38,6 +38,7 @@
 // ly:regex-exec, which encourages storing the regex object in a variable in
 // order to compile it only once.
 
+#include "glib-utils.hh"
 #include "lily-guile.hh"
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
@@ -56,15 +57,6 @@ const int START_AT_BEGINNING = 0;
 const auto DEFAULT_COMPILE_FLAGS = static_cast<GRegexCompileFlags> (0);
 const auto DEFAULT_MATCH_FLAGS = static_cast<GRegexMatchFlags> (0);
 
-// unique_glib_ptr is like unique_stdlib_ptr from flower, but uses g_free
-// instead of free.  Use for anything GLib returns that is owned by the caller.
-
-struct Glib_freer
-{
-  void operator() (void *p) { g_free (p); }
-};
-template <typename T>
-using unique_glib_ptr = std::unique_ptr<T, Glib_freer>;
 
 // A smob that just owns a pointer to a GLib regex object.
 

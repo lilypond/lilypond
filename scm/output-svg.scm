@@ -18,6 +18,8 @@
 
 (define-module (lily output-svg))
 
+(use-modules ((ice-9 binary-ports) #:select (get-bytevector-all)))
+
 ;; TODO: replace Guile regexes with Unicode-aware LilyPond regexes
 ;; (ly:regex-... functions).
 
@@ -522,6 +524,28 @@
                         (1+ (cadddr location))))))
        "")))
 
+(define (png-file file-name width height factor background-color)
+  ;; The file-name is already resolved using the search path.
+  (let* ((content (call-with-input-file file-name get-bytevector-all))
+         (base64-content (ly:base64-encode content)))
+    (string-append
+     (if background-color
+         (string-append
+          (apply setcolor background-color)
+          (eoc 'rect
+               `(y . ,(- (* height factor)))
+               `(width . ,(* width factor))
+               `(height . ,(* height factor))
+               '(fill . "currentcolor"))
+          (end-group))
+         "")
+     (eoc 'image
+          `(y . ,(- (* height factor)))
+          `(width . ,(* width factor))
+          `(height . ,(* height factor))
+          `(xlink:href . ,(format #f "data:image/png;base64,~a"
+                                  base64-content))))))
+
 (define (no-origin)
   (if have-grob-cause?
       (begin
@@ -672,6 +696,7 @@
     (grob-cause . ,grob-cause)
     (named-glyph . ,named-glyph)
     (no-origin . ,no-origin)
+    (png-file . ,png-file)
     (settranslation . ,settranslation)
     (resettranslation . ,end-group)
     (polygon . ,polygon)
