@@ -74,8 +74,6 @@ public:
   int rounded_quartertone_pitch () const;
   Pitch negated () const;
   std::string to_string () const;
-
-  DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
 };
 
 enum
