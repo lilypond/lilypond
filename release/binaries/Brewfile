@@ -1,0 +1,9 @@
+# This Brewfile lists all packages needed to build LilyPond binaries on macOS.
+
+brew "bison"
+brew "fontforge"
+brew "meson"
+brew "ninja"
+brew "python"
+brew "t1utils"
+brew "texlive"
