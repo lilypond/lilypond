@@ -104,6 +104,7 @@ Variable calc_repeat_slash_count ("calc-repeat-slash-count");
 Variable car_less ("car<");
 Variable clipped_systems_stencils ("clipped-systems-stencils");
 Variable construct_chord_elements ("construct-chord-elements");
+Variable default_global_scale ("default-global-scale");
 Variable default_time_signature_settings ("default-time-signature-settings");
 Variable define_markup_command_internal ("define-markup-command-internal");
 Variable generate_crop_stencil ("generate-crop-stencil");

@@ -19,6 +19,7 @@
 
 #include "pitch.hh"
 
+#include "lily-imports.hh"
 #include "scale.hh"
 #include "string-convert.hh"
 #include "warn.hh"
@@ -32,7 +33,8 @@ Pitch::Pitch (int o, int n, Rational a)
   notename_ = n;
   alteration_ = a;
   octave_ = o;
-  scale_ = default_global_scale;
+  scale_ = unsmob<Scale> (Lily::default_global_scale);
+  assert (scale_);
   normalize_octave ();
 }
 
@@ -40,7 +42,8 @@ Pitch::Pitch (int o, int n, Rational a)
 Pitch::Pitch ()
 {
   notename_ = 0;
-  scale_ = default_global_scale;
+  scale_ = unsmob<Scale> (Lily::default_global_scale);
+  assert (scale_);
   octave_ = 0;
   alteration_ = 0;
 }

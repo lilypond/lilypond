@@ -508,7 +508,11 @@ floating point exceptions.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; init pitch system
 
-(ly:set-default-scale (ly:make-scale #(0 1 2 5/2 7/2 9/2 11/2)))
+(define-session default-global-scale (ly:make-scale #(0 1 2 5/2 7/2 9/2 11/2)))
+
+(define-public (ly:default-scale)
+  "Get the global default scale."
+  default-global-scale)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.

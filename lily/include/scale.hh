@@ -41,6 +41,4 @@ private:
   std::vector<Rational> step_tones_;
 };
 
-extern Scale *default_global_scale;
-
 #endif /* SCALE_HH */

@@ -115,6 +115,7 @@ extern Variable calc_repeat_slash_count;
 extern Variable car_less;
 extern Variable clipped_systems_stencils;
 extern Variable construct_chord_elements;
+extern Variable default_global_scale;
 extern Variable default_time_signature_settings;
 extern Variable define_markup_command_internal;
 extern Variable generate_crop_stencil;
