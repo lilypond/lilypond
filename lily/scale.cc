@@ -36,21 +36,21 @@ represents the number of 200-cent tones of a pitch above the tonic.
            )")
 {
   bool type_ok = scm_is_vector (steps);
-
   vector<Rational> tones;
+
   if (type_ok)
     {
       vsize len = scm_c_vector_length (steps);
+      tones.reserve (len);
       for (vsize i = 0; i < len; i++)
         {
           SCM step = scm_c_vector_ref (steps, i);
-          type_ok = type_ok && is_scm<Rational> (step);
-          if (type_ok)
-            {
-              Rational from_c (from_scm<int> (scm_numerator (step)),
-                               from_scm<int> (scm_denominator (step)));
-              tones.push_back (from_c);
-            }
+          type_ok = is_scm<Rational> (step);
+
+          if (!type_ok)
+            break;
+
+          tones.push_back (from_scm<Rational> (step));
         }
     }
 
