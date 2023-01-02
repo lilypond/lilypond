@@ -232,9 +232,6 @@ class Ghostscript(ConfigurePackage):
     def apply_patches(self, c: Config):
         # Remove unused bundled sources to disable their build.
         dirs = ["tesseract", "leptonica"]
-        # Also remove some Resource directories to reduce the size.
-        for resource_dir in ["Font", "CIDFont", "CIDFSubst", "CMap"]:
-            dirs.append(os.path.join("Resource", resource_dir))
 
         for unused in dirs:
             shutil.rmtree(os.path.join(self.src_directory(c), unused))
@@ -266,12 +263,6 @@ class Ghostscript(ConfigurePackage):
             "--without-urf",
             "--without-x",
         ]
-
-    def make_args(self, c: Config) -> List[str]:
-        return ["PS_FONT_DEPS=", "GS_LIB_DEFAULT="]
-
-    def make_install_args(self, c: Config) -> List[str]:
-        return ["PS_FONT_DEPS="]
 
     def exe_path(self, c: Config) -> str:
         """Return path to gs executable."""
