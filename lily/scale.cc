@@ -26,6 +26,8 @@
 
 using std::vector;
 
+const char *const Scale::type_p_name_ = "ly:note-scale?";
+
 /*
   todo: put string <-> pitch here too.
 */
@@ -58,28 +60,6 @@ represents the number of 200-cent tones of a pitch above the tonic.
                    "vector of rational");
 
   return (new Scale (tones))->unprotect ();
-}
-
-// TODO: This is somewhat fishy: pitches protect their scale via a
-// mark_smob hook.  But since pitches are of Simple_smob variety, they
-// are unknown to GUILE unless a smobbed_copy has been created.  So
-// changing the default scale might cause some existing pitches to
-// lose their scale's protection.
-
-LY_DEFINE (ly_set_default_scale, "ly:set-default-scale", 1, 0, 0, (SCM scale),
-           R"(
-Set the global default scale.  This determines the tuning of pitches with no
-accidentals or key signatures.  The first pitch is C.  Alterations are
-calculated relative to this scale.  The number of pitches in this scale
-determines the number of scale steps that make up an octave.  Usually the
-7-note major scale.
-           )")
-{
-  LY_ASSERT_SMOB (Scale, scale, 1);
-
-  Lily::default_global_scale = scale;
-
-  return SCM_UNSPECIFIED;
 }
 
 int

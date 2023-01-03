@@ -508,11 +508,30 @@ floating point exceptions.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; init pitch system
 
+;; TODO: This is somewhat fishy: pitches protect their scale via a
+;; mark_smob hook.  But since pitches are of Simple_smob variety, they
+;; are unknown to GUILE unless a smobbed_copy has been created.  So
+;; changing the default scale might cause some existing pitches to
+;; refer to an unprotected scale.  This likely mostly concerns pitches in MIDI
+;; data structures it would appear; the others are either ephemeral or
+;; registered with Scheme.
+
 (define-session default-global-scale (ly:make-scale #(0 1 2 5/2 7/2 9/2 11/2)))
 
 (define-public (ly:default-scale)
   "Get the global default scale."
   default-global-scale)
+
+
+(define-public (ly:set-default-scale scale)
+  "Set the global default scale.  This determines the tuning of pitches with no
+accidentals or key signatures.  The first pitch is C.  Alterations are
+calculated relative to this scale.  The number of pitches in this scale
+determines the number of scale steps that make up an octave.  Usually the
+7-note major scale."
+  (if (ly:note-scale? scale)
+      (set! default-global-scale scale)
+      (ly:error (G_ "note scale expected: ~S" scale))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
@@ -704,6 +723,7 @@ floating point exceptions.")
     (,ly:music-function? . "music function")
     (,ly:music-list? . "list of music objects")
     (,ly:music-output? . "music output")
+    (,ly:note-scale? . "note scale")
     (,ly:otf-font? . "OpenType font")
     (,ly:output-def? . "output definition")
     (,ly:page-marker? . "page marker")

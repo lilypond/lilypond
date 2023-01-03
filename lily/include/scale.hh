@@ -36,6 +36,7 @@ public:
   Rational step_size (int step) const;
   int step_count () const;
   int normalize_step (int step) const;
+  static const char *const type_p_name_;
 
 private:
   std::vector<Rational> step_tones_;
