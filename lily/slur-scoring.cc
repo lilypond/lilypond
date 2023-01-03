@@ -210,8 +210,6 @@ Slur_score_state::get_bound_info () const
                   = Note_column::get_rest (extremes[d].bound_);
               extremes[d].staff_ = Staff_symbol_referencer ::get_staff_symbol (
                 extremes[d].stem_);
-              extremes[d].staff_space_
-                = Staff_symbol_referencer ::staff_space (extremes[d].stem_);
             }
         }
       else if (has_interface<Note_head> (extremes[d].bound_))

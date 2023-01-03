@@ -82,7 +82,6 @@ struct Bound_info
   Grob *stem_;
   Grob *flag_;
   Interval slur_head_x_extent_;
-  Real staff_space_;
 
   Bound_info ()
   {
