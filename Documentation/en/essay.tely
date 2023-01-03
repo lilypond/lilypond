@@ -25,7 +25,7 @@ LilyPond version @version{}.
 @c   file: Documentation/user/introduction.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2022 by the authors.
+Copyright @copyright{} 2002--2023 by the authors.
 @end macro
 
 @dircategory LilyPond -- the music typesetter

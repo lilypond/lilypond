@@ -24,7 +24,7 @@ Aquest fitxer ofereix una introducció al programa LilyPond versió
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 pels autors.
+Copyright @copyright{} 1999--2023 pels autors.
 @end macro
 
 @set FDL

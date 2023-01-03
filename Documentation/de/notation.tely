@@ -24,7 +24,7 @@ dem @rlearningnamed{Top, Handbuch zum Lernen} vertraut ist.
 
 @c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 bei den Autoren.
+Copyright @copyright{} 1999--2023 bei den Autoren.
 @end macro
 
 

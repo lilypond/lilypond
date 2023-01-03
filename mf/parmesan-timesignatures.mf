@@ -1,9 +1,9 @@
 % Feta (not the Font-En-Tja) music font --  ancient time signatures
 % This file is part of LilyPond, the GNU music typesetter.
 %
-% Copyright (C) 1998--2022 Mats Bengtsson <matsb@s3.kth.se>,
+% Copyright (C) 1998--2023 Mats Bengtsson <matsb@s3.kth.se>,
 %                 Christian Mondrup <scancm@biobase.dk>
-% Copyright (C) 2002--2022 Juergen Reuter <reuter@ipd.uka.de>
+% Copyright (C) 2002--2023 Juergen Reuter <reuter@ipd.uka.de>
 %
 % The LilyPond font is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

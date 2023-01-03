@@ -26,7 +26,7 @@ This file provides an introduction to LilyPond version
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 door de auteurs.
+Copyright @copyright{} 1999--2023 door de auteurs.
 @end macro
 
 @set FDL

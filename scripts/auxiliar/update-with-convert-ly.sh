@@ -2,7 +2,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2010--2022 Graham Percival <graham@percival-music.ca>
+# Copyright (C) 2010--2023 Graham Percival <graham@percival-music.ca>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -21,7 +21,7 @@ LilyPond Version @version{}.
 
 @c `Essay' was born 2002-06-03 with git commit e38f5fc...
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2022 bei den Autoren.
+Copyright @copyright{} 2002--2023 bei den Autoren.
 @end macro
 
 @set FDL

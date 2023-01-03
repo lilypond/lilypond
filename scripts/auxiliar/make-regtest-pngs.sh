@@ -4,7 +4,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2013--2022 Phil Holmes <mail@philholmes.net>
+# Copyright (C) 2013--2023 Phil Holmes <mail@philholmes.net>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

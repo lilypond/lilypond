@@ -28,7 +28,7 @@ versione di LilyPond @version{}.
 @c   file: Documentation/user/introduction.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2022 degli autori.
+Copyright @copyright{} 2002--2023 degli autori.
 @end macro
 
 @dircategory LilyPond -- il compositore tipografico musicale

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2022 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -232,7 +232,7 @@ copyright ()
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
   printf ("%s",
-          (_f ("Copyright (c) %s by\n%s  and others.", "1996--2022", AUTHORS)
+          (_f ("Copyright (c) %s by\n%s  and others.", "1996--2023", AUTHORS)
              .c_str ()));
   printf ("\n");
 }

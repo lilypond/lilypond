@@ -19,7 +19,7 @@ Questo file fornisce un'introduzione alla versione di LilyPond
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 by the authors.
+Copyright @copyright{} 1999--2023 by the authors.
 @end macro
 
 @dircategory LilyPond -- il compositore tipografico musicale

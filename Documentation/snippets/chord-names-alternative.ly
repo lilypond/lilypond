@@ -33,7 +33,7 @@ introduced.
 
 
 %%%% Legacy chord naming functions (formerly in scm/chord-generic-names.scm)
-%%%% Copyright (C) 2003--2015 Jan Nieuwenhuizen <janneke@gnu.org>
+%%%% Copyright (C) 2003--2023 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #(set-global-staff-size 19.7)
 

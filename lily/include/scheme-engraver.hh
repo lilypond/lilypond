@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  Copyright (c) 2009--2022 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (c) 2009--2023 Han-Wen Nienhuys <hanwen@lilypond.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

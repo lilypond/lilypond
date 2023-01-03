@@ -1,6 +1,6 @@
 #!@TARGET_PYTHON@
 
-# Copyright (c) 2006--2022 Brailcom, o.p.s.
+# Copyright (c) 2006--2023 Brailcom, o.p.s.
 #
 # Author: Milan Zamazal <pdm@brailcom.org>
 #

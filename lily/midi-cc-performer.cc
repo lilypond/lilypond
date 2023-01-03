@@ -1,9 +1,9 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2013--2022 by Heikki Tauriainen <g034737@welho.com>.
+  Copyright (C) 2013--2023 by Heikki Tauriainen <g034737@welho.com>.
   Adapted from performer implementations
-  Copyright (C) 1996--2022 Jan Nieuwenhuizen <janneke@gnu.org>,
+  Copyright (C) 1996--2023 Jan Nieuwenhuizen <janneke@gnu.org>,
   Han-Wen Nienhyus <hanwen@xs4all.nl> and others.
 
   LilyPond is free software: you can redistribute it and/or modify

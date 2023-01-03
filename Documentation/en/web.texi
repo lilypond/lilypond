@@ -25,11 +25,11 @@
 @c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2003--2022 by the authors.
+@c Copyright @copyright{} 2003--2023 by the authors.
 @c @end macro
 
 @copying
-Copyright @copyright{} 2003--2022 by the authors.
+Copyright @copyright{} 2003--2023 by the authors.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

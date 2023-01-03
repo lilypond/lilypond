@@ -3,7 +3,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2005--2022  Han-Wen Nienhuys <hanwen@xs4all.nl>,
+# Copyright (C) 2005--2023  Han-Wen Nienhuys <hanwen@xs4all.nl>,
 #                           Jan Nieuwenhuizen <janneke@gnu.org>,
 #                           Reinhold Kainhofer <reinhold@kainhofer.com>,
 #                           Patrick L. Schmidt <pls@philomelos.net>
@@ -2901,7 +2901,7 @@ If the given filename is -, musicxml2ly reads from the command line.
 
     p.version = ('%prog (LilyPond) ' + lilypond_version + '\n\n'
                  +
-                 _("""Copyright (c) 2005--2022 by
+                 _("""Copyright (c) 2005--2023 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>

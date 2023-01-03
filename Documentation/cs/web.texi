@@ -17,7 +17,7 @@
 
 @c `Web' was imported 2009-08-05 with git commit b938d71...
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2022 by the authors.
+@c Copyright @copyright{} 2009--2023 by the authors.
 @c @end macro
 
 @set FDL
@@ -29,7 +29,7 @@
 
 
 @copying
-Autorské právo @copyright{} 2009--2022 autoři.
+Autorské právo @copyright{} 2009--2023 autoři.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

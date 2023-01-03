@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2022 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1999--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   TODO:
   - add support for different stretch/shrink constants?

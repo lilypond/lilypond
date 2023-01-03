@@ -20,7 +20,7 @@ Ez a tankönyv a LilyPond @version{} verziójába nyújt bevezetést.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 a szerzők.
+Copyright @copyright{} 1999--2023 a szerzők.
 @end macro
 
 @set FDL

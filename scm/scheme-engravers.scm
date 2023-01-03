@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2012--2022 David Nalesnik <david.nalesnik@gmail.com>
+;;;; Copyright (C) 2012--2023 David Nalesnik <david.nalesnik@gmail.com>
 ;;;;                          Thomas Morley <thomasmorley65@gmail.com>
 ;;;;                          Dan Eble <nine.fierce.ballads@gmail.com>
 ;;;;                          Jonas Hahnfeld <hahnjo@hahnjo.de>

@@ -19,7 +19,7 @@ terms used in the documentation manuals for LilyPond version
 @c   file: Documentation/user/glossary.texi
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2022 by the authors
+Copyright @copyright{} 1999--2023 by the authors
 @end macro
 @dircategory LilyPond -- the music typesetter
 @direntry

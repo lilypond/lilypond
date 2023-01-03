@@ -30,7 +30,7 @@ information about different jobs, see @rcontrib{Help us}.
 @c   file: Documentation/devel.html.in
 
 @macro copyrightDeclare
-Copyright @copyright{} 2007--2022 by the authors.
+Copyright @copyright{} 2007--2023 by the authors.
 @end macro
 
 @dircategory LilyPond -- the music typesetter

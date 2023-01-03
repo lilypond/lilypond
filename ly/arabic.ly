@@ -1,7 +1,7 @@
 %%%% Definitions for writing modern Arabic music scores
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2017--2022 Amir Czwink <amir130@hotmail.de>
+%%%% Copyright (C) 2017--2023 Amir Czwink <amir130@hotmail.de>
 %%%% Copyright (C) 2008 Neil Puttock
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify

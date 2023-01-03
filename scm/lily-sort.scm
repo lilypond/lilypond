@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; Copyright 2009--2022 Mark Polesky <markpolesky@yahoo.com>
+;;;; Copyright 2009--2023 Mark Polesky <markpolesky@yahoo.com>
 ;;;;           2022--2022 Jean Abou Samra <jean@abou-samra.fr>
 
 ;; This file implements a LilyPond-specific character-sorting algorithm
