@@ -209,7 +209,6 @@ Slur_score_state::get_bound_info () const
               info.slur_head_ = Stem::extremal_heads (stem)[slur_dir];
               if (!info.slur_head_ && Note_column::has_rests (note_col))
                 info.slur_head_ = Note_column::get_rest (note_col);
-              info.staff_ = Staff_symbol_referencer::get_staff_symbol (stem);
             }
         }
       else if (has_interface<Note_head> (bound))
@@ -221,6 +220,8 @@ Slur_score_state::get_bound_info () const
         {
           info.slur_head_x_extent_
             = info.slur_head_->extent (common_[X_AXIS], X_AXIS);
+          info.staff_
+            = Staff_symbol_referencer::get_staff_symbol (info.slur_head_);
         }
     }
 
