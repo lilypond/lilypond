@@ -169,26 +169,31 @@ Slur_score_state::get_bound_info () const
 {
   Drul_array<Bound_info> extremes;
 
-  Direction dir = dir_;
+  const auto slur_dir = dir_;
 
-  for (const auto d : {LEFT, RIGHT})
+  for (const auto bound_dir : {LEFT, RIGHT})
     {
-      extremes[d].bound_ = slur_->get_bound (d);
-      if (has_interface<Note_column> (extremes[d].bound_))
+      auto &info = extremes[bound_dir];
+      auto *const bound = slur_->get_bound (bound_dir);
+      info.bound_ = bound;
+      if (has_interface<Note_column> (bound))
         {
-          extremes[d].note_column_ = extremes[d].bound_;
-          extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
-          extremes[d].flag_ = Note_column::get_flag (extremes[d].note_column_);
+          auto *const note_col = bound;
+          info.note_column_ = note_col;
+          auto *const stem = Note_column::get_stem (note_col);
+          info.stem_ = stem;
+          auto *const flag = Note_column::get_flag (note_col);
+          info.flag_ = flag;
 
-          if (extremes[d].stem_)
+          if (stem)
             {
-              extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
+              info.stem_dir_ = get_grob_direction (stem);
 
               for (const auto ax : {X_AXIS, Y_AXIS})
                 {
-                  Interval s = extremes[d].stem_->extent (common_[ax], ax);
-                  if (extremes[d].flag_)
-                    s.unite (extremes[d].flag_->extent (common_[ax], ax));
+                  Interval s = stem->extent (common_[ax], ax);
+                  if (flag)
+                    s.unite (flag->extent (common_[ax], ax));
                   if (s.is_empty ())
                     {
                       /*
@@ -196,29 +201,27 @@ Slur_score_state::get_bound_info () const
                         whole notes.
                       */
                       s = Interval (0, 0)
-                          + extremes[d].stem_->relative_coordinate (common_[ax],
-                                                                    ax);
+                          + stem->relative_coordinate (common_[ax], ax);
                     }
-                  extremes[d].stem_extent_[ax] = s;
+                  info.stem_extent_[ax] = s;
                 }
 
-              extremes[d].slur_head_
-                = Stem::extremal_heads (extremes[d].stem_)[dir];
-              if (!extremes[d].slur_head_
-                  && Note_column::has_rests (extremes[d].bound_))
-                extremes[d].slur_head_
-                  = Note_column::get_rest (extremes[d].bound_);
-              extremes[d].staff_ = Staff_symbol_referencer ::get_staff_symbol (
-                extremes[d].stem_);
+              info.slur_head_ = Stem::extremal_heads (stem)[slur_dir];
+              if (!info.slur_head_ && Note_column::has_rests (note_col))
+                info.slur_head_ = Note_column::get_rest (note_col);
+              info.staff_ = Staff_symbol_referencer::get_staff_symbol (stem);
             }
         }
-      else if (has_interface<Note_head> (extremes[d].bound_))
+      else if (has_interface<Note_head> (bound))
         {
-          extremes[d].slur_head_ = extremes[d].bound_;
+          info.slur_head_ = bound;
         }
-      if (extremes[d].slur_head_)
-        extremes[d].slur_head_x_extent_
-          = extremes[d].slur_head_->extent (common_[X_AXIS], X_AXIS);
+
+      if (info.slur_head_)
+        {
+          info.slur_head_x_extent_
+            = info.slur_head_->extent (common_[X_AXIS], X_AXIS);
+        }
     }
 
   return extremes;
