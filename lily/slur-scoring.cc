@@ -207,9 +207,15 @@ Slur_score_state::get_bound_info () const
                 }
 
               info.slur_head_ = Stem::extremal_heads (stem)[slur_dir];
-              if (!info.slur_head_)
-                info.slur_head_ = Note_column::get_rest (note_col);
             }
+          else
+            {
+              info.slur_head_
+                = Note_column::extremal_heads (note_col)[slur_dir];
+            }
+
+          if (!info.slur_head_)
+            info.slur_head_ = Note_column::get_rest (note_col);
         }
       else if (has_interface<Note_head> (bound))
         {
