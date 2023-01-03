@@ -120,7 +120,6 @@ Slur_score_state::get_encompass_info (Grob *notecol) const
 
   if (!stem)
     {
-      programming_error ("no stem for note column");
       ei.x_ = notecol->relative_coordinate (common_[X_AXIS], X_AXIS);
       ei.head_ = ei.stem_ = notecol->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       return ei;
