@@ -49,7 +49,7 @@ def main():
              if not any(fnmatch.fnmatch(file, pat) for pat in ignored_files)]
     year = datetime.datetime.now().year
     last_year = year - 1
-    copyright_part = r'(Copyright|\(c\)|\(C\)|@copyright\{\}[^\d-]*)'
+    copyright_part = r'((?:Copyright|\(c\)|\(C\)|@copyright\{\})[^\d-]*)'
     for filename in files:
         with open(filename, encoding='utf-8') as file:
             try:
