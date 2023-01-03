@@ -162,6 +162,13 @@ Note_column::first_head (Grob *me)
   return st ? Stem::first_head (st) : 0;
 }
 
+Drul_array<Grob *>
+Note_column::extremal_heads (Grob *me)
+{
+  // This looks weird because it is weird; see the implementation.
+  return Stem::extremal_heads (me);
+}
+
 /*
   Return extent of the noteheads in the "main column",
   (i.e. excluding any suspended noteheads), or extent

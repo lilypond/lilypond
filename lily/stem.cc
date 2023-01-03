@@ -226,6 +226,10 @@ Stem::last_head (Grob *me)
 Drul_array<Grob *>
 Stem::extremal_heads (Grob *me)
 {
+  // N.B. `me` could be a NoteColumn rather than a Stem.  This isn't very clean,
+  // but this was implemented here first, and rearranging it without rearranging
+  // a bunch of other things might do more harm than good. [DE]
+
   const int inf = INT_MAX;
   Drul_array<int> extpos;
   extpos[DOWN] = inf;
