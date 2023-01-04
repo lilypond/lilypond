@@ -293,6 +293,8 @@ class Cairo_outputter : public Stencil_sink
   bool use_left_margin_;
   Real left_margin_;
 
+  bool use_page_links_;
+
   // Transform staff-space units to Cairo bigpoints
   Real scale_factor_;
 
@@ -353,7 +355,8 @@ class Cairo_outputter : public Stencil_sink
 
 public:
   Cairo_outputter (Cairo_output_format format, std::string const &basename,
-                   Output_def *paper, bool use_left_margin);
+                   Output_def *paper, bool use_left_margin,
+                   bool use_page_links);
   ~Cairo_outputter ();
   void create_surface (Stencil const *);
   void finish_page ();
@@ -1170,6 +1173,9 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
 void
 Cairo_outputter::page_link (SCM target, SCM varx, SCM vary)
 {
+  if (!use_page_links_)
+    return;
+
   if (!is_scm<int> (target))
     return;
 
@@ -1274,10 +1280,12 @@ Cairo_outputter::~Cairo_outputter ()
 
 Cairo_outputter::Cairo_outputter (Cairo_output_format format,
                                   std::string const &basename,
-                                  Output_def *paper, bool use_left_margin)
+                                  Output_def *paper, bool use_left_margin,
+                                  bool use_page_links)
+  : use_left_margin_ (use_left_margin),
+    use_page_links_ (use_page_links)
 {
   left_margin_ = 0.0;
-  use_left_margin_ = use_left_margin;
   if (use_left_margin_)
     {
       SCM padding = ly_get_option (ly_symbol2scm ("eps-box-padding"));
@@ -1532,9 +1540,10 @@ parse_formats (const char *funcname, int format_arg, SCM formats)
 void
 output_stencil_format (std::string const &basename, const Stencil *stc,
                        Output_def *odef, Cairo_output_format fmt,
-                       bool use_left_margin)
+                       bool use_left_margin, bool use_page_links)
 {
-  Cairo_outputter outputter (fmt, basename, odef, use_left_margin);
+  Cairo_outputter outputter (fmt, basename, odef, use_left_margin,
+                             use_page_links);
 
   outputter.create_surface (stc);
   interpret_stencil_expression (stc->expr (), &outputter, Offset (0, 0));
@@ -1576,14 +1585,18 @@ dump book through cairo backend
               else
                 suffix = "-" + std::to_string (page);
 
+              // Page links make no sense in output formats where pages are
+              // separate files.
               output_stencil_format (base + suffix,
                                      unsmob<const Stencil> (scm_car (p)), odef,
-                                     format, false);
+                                     format, /* no left margin */ false,
+                                     /* no page links */ false);
             }
           continue;
         }
 
-      Cairo_outputter outputter (format, base, odef, false);
+      Cairo_outputter outputter (format, base, odef, /* no left margin */ false,
+                                 /* page links */ true);
       outputter.create_surface (unsmob<const Stencil> (scm_car (stencils)));
       outputter.handle_metadata (header);
       outputter.handle_outline (odef);
@@ -1621,7 +1634,15 @@ dump a single stencil through the Cairo backend
         seen_eps = true;
 
       const Stencil *stc = unsmob<const Stencil> (stencil);
-      output_stencil_format (ly_scm2string (basename), stc, odef, f, true);
+
+      // ly:cairo-output-stencil is used for -dclip-systems / -dcrop / -dpreview
+      // / -dseparate-page-formats / -dtall-page-formats, which all change the
+      // relationship between document pages and output file pages.  Therefore,
+      // we disable page links in this case (e.g., when using
+      // -dseparate-page-formats, they would have to refer to another file).
+      output_stencil_format (ly_scm2string (basename), stc, odef, f,
+                             /* use left margin */ true,
+                             /* no page links */ false);
     }
   return SCM_UNSPECIFIED;
 }
