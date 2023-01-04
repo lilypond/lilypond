@@ -222,7 +222,7 @@ grestore
                width height x y blotdiam)))
 
 ;; save current color on stack and set new color
-(define* (setcolor r g b #:optional (a #f))
+(define (setcolor r g b a)
   ;; TODO: figure out a way to support alpha transparency
   ;; using /SetTransparency pdfmark
   (ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" r g b))

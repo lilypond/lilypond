@@ -727,7 +727,7 @@ Cairo_outputter::setrgbacolor (SCM varr, SCM varg, SCM varb, SCM vara)
   Real r = from_scm<Real> (varr);
   Real g = from_scm<Real> (varg);
   Real b = from_scm<Real> (varb);
-  Real a = SCM_UNBNDP (vara) ? 1.0 : from_scm<Real> (vara);
+  Real a = from_scm<Real> (vara);
 
   cairo_save (context ());
   cairo_set_source_rgba (context (), r, g, b, a);
