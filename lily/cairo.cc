@@ -169,6 +169,12 @@ public:
       case PDF:
         surface_ = cairo_pdf_surface_create (filename.c_str (), paper_width,
                                              paper_height);
+        // The default PDF version of Cairo's output may change with releases.
+        // As of Cairo 1.17.7, the default is PDF 1.7. This results in a warning
+        // when embedding the produced PDF with XeTeX, which currently defaults
+        // to PDF 1.5.  Set a fixed version of 1.4, which is also the basis of
+        // the standard PDF/A and has all features we need.
+        cairo_pdf_surface_restrict_to_version (surface_, CAIRO_PDF_VERSION_1_4);
         break;
       case PS:
       case EPS:
