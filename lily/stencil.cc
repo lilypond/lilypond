@@ -19,6 +19,7 @@
 
 #include "stencil.hh"
 
+#include "lily-imports.hh"
 #include "main.hh"
 #include "font-metric.hh"
 #include "input.hh"
@@ -393,14 +394,17 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding,
 Stencil
 Stencil::in_color (Real r, Real g, Real b, Real a) const
 {
+  SCM color = ly_list (to_scm (r), to_scm (g), to_scm (b), to_scm (a));
+  SCM new_stil = Lily::stencil_with_color (smobbed_copy (), color);
+  return *LY_ASSERT_SMOB (const Stencil, new_stil, 0);
+}
 
-  Stencil new_stencil (
-    extent_box (),
-    ly_list (ly_symbol2scm ("color"),
-             scm_list_n (to_scm (r), to_scm (g), to_scm (b),
-                         a == 1.0 ? SCM_UNDEFINED : to_scm (a), SCM_UNDEFINED),
-             expr ()));
-  return new_stencil;
+Stencil
+Stencil::in_color (std::string const &css_color) const
+{
+  SCM color = ly_string2scm (css_color);
+  SCM new_stil = Lily::stencil_with_color (smobbed_copy (), color);
+  return *LY_ASSERT_SMOB (const Stencil, new_stil, 0);
 }
 
 /* convenience */

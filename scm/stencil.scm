@@ -693,10 +693,25 @@ box, remains the same."
     replaced-stil))
 
 (define-public (stencil-with-color stencil color)
-  (cond
-   ((string? color) (ly:stencil-in-color stencil color))
-   (color (apply ly:stencil-in-color stencil color))
-   (else stencil)))
+  "Return a modified version of the given stencil that is colored
+with the given color.  See @code{normalize-color} for possible
+color formats."
+  (if color
+      (let* ((expr (ly:stencil-expr stencil))
+             (xext (ly:stencil-extent stencil X))
+             (yext (ly:stencil-extent stencil Y))
+             (rgba (normalize-color color)))
+        (ly:make-stencil `(color ,rgba ,expr) xext yext))
+      ;; FIXME: why accept #f for `color`?
+      stencil))
+
+;; For historical reasons, we have two inconsistent functions for coloring a
+;; stencil, with inconsistent calling conventions.  We could try to deprecate
+;; this one.
+(define-public (ly:stencil-in-color stencil . color-args)
+  (if (string? (car color-args))
+      (stencil-with-color stencil (car color-args))
+      (stencil-with-color stencil color-args)))
 
 (define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)

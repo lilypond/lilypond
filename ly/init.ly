@@ -23,7 +23,6 @@
 
 #(session-replay)
 #(note-names-language default-language)
-#(reset-stencil-colors)
 
 #(define toplevel-scores (list))
 #(define toplevel-bookparts (list))

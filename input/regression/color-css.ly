@@ -8,9 +8,7 @@ predefined color names) are used directly;
 @code{rgb-color} lists are converted to @code{rgb()}
 or @code{rgba()} appropriately.
 
-This test's output should be perceivably the same as
-@file{input/regression/color.ly}; alpha transparency
-is only visible in SVG output.
+Alpha transparency is only visible in SVG output.
 "
 }
 
@@ -37,8 +35,6 @@ darkgreen = "#080"
   %% CSS three-chars shorthand is supported.
   \override NoteHead.color = #"#808"
   g
-  %% Extraneous chars are ignored.
-  \override NoteHead.color = #"#000088FFEDCBA"
   b
   %% ly:stencil-in-color works:
   \override NoteHead.stencil =

@@ -15,6 +15,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (ice-9 match))
+
 (define-public standard-color-list '())
 
 (define-syntax-rule (define-color name value)
@@ -756,12 +758,6 @@
     (vermillion 0.8352941176470589 0.3686274509803922 0)
     (redpurple 0.8 0.4745098039215686 0.6549019607843137)))
 
-(define-public (reset-stencil-colors)
-  (ly:set-color-names (map (lambda (entry)
-                             (cons (symbol->string (car entry))
-                                   (cdr entry)))
-                           css-color-list)))
-
 (define (make-color-handler color-list)
   (let
       ((color-table (make-hash-table 31)))
@@ -797,3 +793,49 @@
 (define-public x11-color (make-color-handler x11-color-list))
 (define-public css-color (make-color-handler css-color-list))
 (define-public universal-color (make-color-handler universal-color-list))
+
+(define-public (normalize-color color)
+  "Convert a color given in any of the supported formats into a list of 4 numbers:
+R, G, B, A.  Possible formats are: such a list of 4 numbers; a list of 3 numbers
+(transparency defaults to 1.0); a CSS string (named color, or @qq{#RRGGBB}, or
+@qq{#RRGGBBAA}, or @qq{#RGB}, or @qq{#RGBA})."
+  (unless (color? color)
+    (scm-error 'wrong-type-arg "normalize-color" "color expected: ~a"
+               (list color) #f))
+  (match color
+    ((r g b a)
+     color)
+    ((r g b)
+     (list r g b 1.0))
+    ((? string?)
+     (let process ((char-list (string->list (string-downcase color))))
+       (match char-list
+         ((#\# r g b)
+          (process (list #\# r r g g b b #\f #\f)))
+         ((#\# r g b a)
+          (process (list #\# r r g g b b a a)))
+         ((#\# r1 r2 g1 g2 b1 b2)
+          (process (list #\# r1 r2 g1 g2 b1 b2 #\f #\f)))
+         ((#\# r1 r2 g1 g2 b1 b2 a1 a2)
+          (map
+           (lambda (s)
+             (let ((val (string->number s 16)))
+               (if val
+                   (/ (exact->inexact val)
+                      255)
+                   (error 'misc-error
+                          (format #f
+                                  "wrong hexadecimal number in CSS color: '~a'" s)))))
+           (list (string r1 r2)
+                 (string g1 g2)
+                 (string b1 b2)
+                 (string a1 a2))))
+         ((#\# . _)
+          (error 'misc-error
+                 (format #f "unrecognized CSS #-style color '~a'.
+Color should be #RGB, #RGBA, #RRGGBB or #RRGGBBAA"
+                         color)))
+         (_
+          (match (css-color color)
+            ((r g b)
+             (list r g b 1.0)))))))))
