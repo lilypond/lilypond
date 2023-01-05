@@ -56,8 +56,10 @@ def main():
                 content = file.read()
             except UnicodeDecodeError:
                 continue # ignore binary files
+        # \g<1> is like \1, but avoids the year that follows
+        # being treated as part of the group number.
         content = re.sub(copyright_part + rf'{last_year}(?!-)',
-                         rf'\1{last_year}--{year}',
+                         rf'\g<1>{last_year}--{year}',
                          content)
         content = re.sub(copyright_part + r'(\d{4})--\d{4}',
                          rf'\1\2--{year}',
