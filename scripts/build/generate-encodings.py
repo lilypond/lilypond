@@ -4,8 +4,8 @@
 # This file is part of LilyPond, the GNU music typesetter.
 #
 # Copyright (C) 2015--2023 Knut Petersen <knut_petersen@t-online.de>,
-#               2018--2019 Malte Meyn <lilypond@maltemeyn.de>,
-#               2022 Werner Lemberg  <wl@gnu.org>
+# Copyright (C) 2018--2023 Malte Meyn <lilypond@maltemeyn.de>,
+# Copyright (C) 2022--2023 Werner Lemberg  <wl@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -904,8 +904,8 @@ postscript_header = """\
 % LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 2015--2023 Knut Petersen <knut_petersen@t-online.de>,
-%               2018--2019 Malte Meyn <lilypond@maltemeyn.de>
-%               2022 Werner Lemberg <wl@gnu.org>
+% Copyright (C) 2018--2023 Malte Meyn <lilypond@maltemeyn.de>
+% Copyright (C) 2022--2023 Werner Lemberg <wl@gnu.org>
 %
 % LilyPond is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by

@@ -4,7 +4,7 @@
 # This file is part of LilyPond, the GNU music typesetter.
 #
 # Copyright (C) 2020--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>,
-#               2010 Reinhold Kainhofer <reinhold@kainhofer.com>
+# Copyright (C) 2010--2023 Reinhold Kainhofer <reinhold@kainhofer.com>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -147,7 +147,7 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
             rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
             s += self.output[book_snippets.VERBATIM] % rep
             s += '\n'
-            
+
         return s
 
 

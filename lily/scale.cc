@@ -2,8 +2,8 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2006--2023 Han-Wen Nienhuys <hanwen@lilypond.org>
-      2007--2008 Rune Zedeler
-      2008       Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2007--2023 Rune Zedeler
+  Copyright (C) 2008--2023 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
