@@ -43,7 +43,9 @@ subfonts within @var{font}.
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  return fm->sub_fonts ();
+  SCM ret = fm->sub_fonts ();
+  scm_remember_upto_here_1 (font);
+  return ret;
 }
 
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
@@ -62,7 +64,9 @@ about named glyph @var{glyph} (a string).
   LY_ASSERT_TYPE (scm_is_string, glyph, 2);
 
   SCM sym = scm_string_to_symbol (glyph);
-  return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
+  SCM ret = scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
+  scm_remember_upto_here_1 (font);
+  return ret;
 }
 
 LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
@@ -87,7 +91,9 @@ non-existent @var{tag}.
 
   string tab = otf->get_otf_table (string (ctag));
 
-  return scm_from_latin1_stringn (tab.data (), tab.length ());
+  SCM ret = scm_from_latin1_stringn (tab.data (), tab.length ());
+  scm_remember_upto_here_1 (font);
+  return ret;
 }
 
 LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0, (SCM font),
@@ -115,7 +121,9 @@ Return the number of glyphs in @var{font}.
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
-  return to_scm (otf->count ());
+  SCM ret = to_scm (otf->count ());
+  scm_remember_upto_here_1 (font);
+  return ret;
 }
 
 LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0, (SCM font),
@@ -130,7 +138,9 @@ Return a list of glyph names for @var{font}.
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
-  return otf->glyph_list ();
+  SCM ret = otf->glyph_list ();
+  scm_remember_upto_here_1 (font);
+  return ret;
 }
 
 LY_DEFINE (ly_get_font_format, "ly:get-font-format", 1, 1, 0,
