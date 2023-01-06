@@ -421,6 +421,14 @@ class PCRE(ConfigurePackage):
     def license_files(self) -> List[str]:
         return ["LICENCE"]
 
+    def configure_args(self, c: Config) -> List[str]:
+        return [
+            # Enable Unicode support, needed for LilyPond's GLib-based
+            # regex API.  This is the default in PCRE2, but we use PCRE1.
+            "--enable-utf",
+            "--enable-unicode-properties",
+        ]
+
     def __str__(self) -> str:
         return f"PCRE {self.version}"
 
