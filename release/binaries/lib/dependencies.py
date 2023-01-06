@@ -521,7 +521,9 @@ class Bdwgc(ConfigurePackage):
         # static variable and determining the surrounding pages.
         # Upstream issue: https://github.com/ivmai/bdwgc/issues/454
         def disable_win32_dlls(content: str) -> str:
-            return content.replace("GC_no_win32_dlls = FALSE", "GC_no_win32_dlls = TRUE")
+            return content.replace(
+                "GC_no_win32_dlls = FALSE", "GC_no_win32_dlls = TRUE"
+            )
 
         self.patch_file(c, "os_dep.c", disable_win32_dlls)
 
