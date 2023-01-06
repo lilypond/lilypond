@@ -25,6 +25,7 @@ import os
 import platform as py_platform
 import sysconfig
 
+from typing import Optional
 
 @enum.unique
 class Platform(enum.Enum):
@@ -64,12 +65,12 @@ class Config:
     def __init__(
         self,
         base_dir: str,
-        downloads_dir: str = None,
+        downloads_dir: Optional[str] = None,
         jobs: int = 1,
-        platform: Platform = None,
-        architecture: str = None,
-        triple: str = None,
-        native_config: "Config" = None,
+        platform: Optional[Platform] = None,
+        architecture: Optional[str] = None,
+        triple: Optional[str] = None,
+        native_config: Optional["Config"] = None,
         program_suffix: str = "",
     ):
         """Create a new Config instance, optionally for a given platform."""
