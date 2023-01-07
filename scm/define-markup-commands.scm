@@ -110,8 +110,6 @@
 ;;; Each markup command definition shall have a documentation string
 ;;; with description, syntax and example.
 
-(use-modules (ice-9 regex))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utility functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

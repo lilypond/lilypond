@@ -24,8 +24,6 @@
 ;; TODO: make it work for Translator_names?  The use of underscores seems
 ;; to make this a nightmare.
 
-(use-modules (ice-9 regex))
-
 (define hyphenation-rules-string
   (let ((music-types (map car music-descriptions))
         (context-types (map car (ly:output-description $defaultlayout)))

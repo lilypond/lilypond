@@ -19,7 +19,6 @@
 
 (use-modules
  (ice-9 optargs)
- (ice-9 regex)
  (ice-9 rw)
  (srfi srfi-1)
  (srfi srfi-13)

@@ -15,8 +15,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (ice-9 regex))
-
 (define (every-nth-element lst offset nth)
   "Get every NTH element of list LST, with the start element having a zero-based
 offset OFFSET"

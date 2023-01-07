@@ -40,8 +40,7 @@
  (lily clip-region)
  (srfi srfi-1)
  (srfi srfi-2)
- (srfi srfi-13)
- (ice-9 regex))
+ (srfi srfi-13))
 
 (define (svg-begin . rest)
   (string-append

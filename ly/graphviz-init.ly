@@ -19,7 +19,6 @@
 \version "2.23.2"
 
 #(use-modules (lily graphviz))
-#(use-modules (ice-9 regex))
 
 #(define last-grob-action '())
 

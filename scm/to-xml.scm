@@ -18,8 +18,7 @@
 
 (define-module (lily to-xml))
 
-(use-modules (ice-9 regex)
-             (srfi srfi-1)
+(use-modules (srfi srfi-1)
              (lily)
              (oop goops))
 

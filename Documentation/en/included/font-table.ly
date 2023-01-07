@@ -4,8 +4,6 @@
 
   ;; some helper functions
 
-  (use-modules (ice-9 regex))
-
   ;; filter out glyphs that are only used internally for input
   ;; ligature creation ('backslash') or not used at all ('.notdef')
   (define glyph-list

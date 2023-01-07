@@ -419,8 +419,7 @@ floating point exceptions.")
 
 (debug-set! stack 0)
 
-(use-modules (ice-9 regex)
-             ((ice-9 format) #:select ((format . ice9-format)))
+(use-modules ((ice-9 format) #:select ((format . ice9-format)))
              (ice-9 rdelim)
              (ice-9 optargs)
              (oop goops)

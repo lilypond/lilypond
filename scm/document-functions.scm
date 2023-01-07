@@ -18,7 +18,6 @@
 
 (use-modules
  (ice-9 match)
- (ice-9 regex)
  (ice-9 session))
 
 (define dashify-underscores

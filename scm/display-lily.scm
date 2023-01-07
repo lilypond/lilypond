@@ -23,7 +23,6 @@
 (define-module (lily display-lily)
   #:use-module (ice-9 optargs)
   #:use-module (ice-9 format)
-  #:use-module (ice-9 regex)
   #:use-module (ice-9 pretty-print)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-13)
