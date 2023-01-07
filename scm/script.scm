@@ -362,7 +362,7 @@
         (direction . ,UP)
         (padding . 0.20)
         (avoid-slur . outside)
-        (script-priority . 2000)))
+        (script-priority . 150)))
     (turn
      . (
         (script-stencil . (feta . ("turn" . "turn")))
