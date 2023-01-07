@@ -1,7 +1,5 @@
 TEXI_FILES = $(call src-wildcard,*.texi)
 
-TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
-
 ###########
 
 ifndef VERBOSE

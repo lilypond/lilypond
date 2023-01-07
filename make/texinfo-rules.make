@@ -22,7 +22,6 @@ $(outdir)/%.pdf: $(outdir)/%.texi
 				texi2pdf --batch $(TEXI2PDF_FLAGS) \
 					$(TEXI2PDF_QUIET) \
 					-I $(abs-src-dir) \
-					$(TEXINFO_PAPERSIZE_OPTION) \
 					-o $*.tmp.pdf \
 					$(<F) \
 					< /dev/null" \
