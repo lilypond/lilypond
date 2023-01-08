@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.13"
+\version "2.25.1"
 
 \header {
   lsrtags = "chords, keyboards, tweaks-and-overrides, workaround"

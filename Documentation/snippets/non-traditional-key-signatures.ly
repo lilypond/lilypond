@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.23.13"
+\version "2.25.1"
 
 \header {
   lsrtags = "contemporary-notation, pitches, really-cool, staff-notation, version-specific"
