@@ -3372,8 +3372,6 @@ about the two first arguments.
   #:category font
   "Emit @var{arg} as small caps.
 
-Note: @code{\\smallCaps} does not support accented characters.
-
 @lilypond[verbatim,quote]
 \\markup {
   default
