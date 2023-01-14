@@ -53,16 +53,17 @@ and the dimensions of the extent into account."
 
 (define (get-span-glyph bar-glyph)
   "Get the corresponding span glyph from the @code{span-glyph-bar-alist}.
-Pad the string with @code{annotation-char}s to the length of the
+Return the found span glyph unchanged if it is not of type @code{string?},
+otherwise pad the string with @code{annotation-char}s to the length of the
 @var{bar-glyph} string."
   (let ((span-glyph (assoc-get bar-glyph span-bar-glyph-alist bar-glyph)))
 
     (if (string? span-glyph)
-        (set! span-glyph (string-pad-right
-                          span-glyph
-                          (string-length bar-glyph)
-                          replacement-char)))
-    span-glyph))
+        (string-pad-right
+          span-glyph
+          (string-length bar-glyph)
+          replacement-char)
+        span-glyph)))
 
 (define (layout-blot-diameter grob)
   "Get the blot diameter of the @var{grob}'s corresponding layout."
@@ -113,13 +114,15 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
 (define (string->string-list str)
   "Convert a string into a list of strings with length 1.
 @code{\"aBc\"} will be converted to @code{(\"a\" \"B\" \"c\")}.
-An empty string will be converted to a list containing @code{\"\"}."
-  (if (and (string? str)
-           (not (zero? (string-length str))))
-      (map (lambda (s)
-             (string s))
-           (string->list str))
-      (list "")))
+An empty string gets converted to a list containing @code{\"\"}.
+If @var{str} is not of type @code{string?}, return an empty list."
+  (cond ((and (string? str) (string-null? str))
+         (list ""))
+        ((string? str)
+         (map (lambda (s)
+                (string s))
+              (string->list str)))
+        (else '())))
 
 (define (strip-string-annotation str)
   "Strip annotations starting with and including the
@@ -685,7 +688,16 @@ drawn by the procedure associated with glyph @var{glyph}."
          (bar-glyph-list (string->string-list
                           (strip-string-annotation bar-glyph)))
          (span-glyph (get-span-glyph bar-glyph))
-         (span-glyph-list (string->string-list span-glyph))
+         (span-glyph-list
+           (cond ((string? span-glyph)
+                   (string->string-list span-glyph))
+                 ((boolean? span-glyph)
+                   (make-list (length bar-glyph-list) span-glyph))
+                 (else
+                   (ly:warning
+"Setting for span bar needs to be a boolean or string: ~a. Using #f instead."
+                    span-glyph)
+                   (make-list (length bar-glyph-list) #f))))
          (neg-stencil empty-stencil)
          (stencil empty-stencil)
          (is-first-neg-stencil #t)
@@ -706,7 +718,8 @@ drawn by the procedure associated with glyph @var{glyph}."
     ;; first stencil
     ;; (Thanks to Harm who came up with this idea!)
     (for-each (lambda (bar span)
-                (if (and (string=? span (string replacement-char))
+                (if (and span
+                         (string=? span (string replacement-char))
                          is-first-stencil)
                     (begin
                       (set! neg-stencil
