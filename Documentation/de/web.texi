@@ -10,7 +10,7 @@
 @c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @setfilename web.info
-@settitle LilyPond -- Notation für Jedermann
+@settitle LilyPond -- Notation für jedermann
 @documentencoding UTF-8
 @documentlanguage de
 @afourpaper
@@ -117,7 +117,7 @@ Für LilyPond Version @version{}
 @divId{pageHeader}
 @heading LilyPond
 
-... Notensatz für Jedermann
+... Notensatz für jedermann
 @divEnd
 
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
