@@ -3236,6 +3236,11 @@ A list of ASCII aliases for special characters can be included:
 }
 @end lilypond
 
+@cindex replacing strings, automatically
+@cindex automatic replacement, of strings
+@cindex string, automatic replacement
+@cindex global replacement, automatic, of strings
+
 You can also make your own aliases, either globally:
 
 @lilypond[quote,verbatim]
