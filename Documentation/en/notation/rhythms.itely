@@ -3294,31 +3294,170 @@ automatically by @code{\repeat} commands (@pxref{Repeats}).
 New bar line types can be defined with @code{\defineBarLine}:
 
 @example
-\defineBarLine @var{bartype} #'(@var{end} @var{begin} @var{span})
+\defineBarLine @var{bar-type} #'(@var{eol-bar} @var{bol-bar} @var{span-bar})
 @end example
 
 @noindent
-In addition to @var{bartype} (the character string that will
-then be used to refer to that new bar line), it takes three values:
-the first two determine the bar line's appearance when it occurs at
-a line break, in which case the first and second given glyphs
-are printed respectively at the @var{end} of the system and at
-the @var{begin}ning of the next one.  The third given glyph is
-only relevant in multi-staff systems (see @ref{Grouping staves}),
-where it is used as @var{span} bar, printed between staves.
+Briefly, the @var{bar-type} argument specifies the bar line glyph to
+use in the middle of a staff line, and also serves as the name by
+which this bar line type is referenced.  The other arguments
+specify the bar line glyph to use at the end or beginning of a line,
+or in the span between multiple staves.  Setting any of @var{eol-bar},
+@var{bol-bar}, or @var{span-bar} to @code{#t} means to use the same bar
+line type specified by @var{bar-type} for the corresponding
+position.  Setting them to @code{#f} means to print no bar line in
+the corresponding position.
 
-The @code{\defineBarLine} arguments specifying replacement glyphs
-can be set to @code{#t} to copy the mid-line glyph or @code{#f} to
-create no bar line.  The empty string, @code{""}, yields a
-zero-width bar line.
+In more detail, the @var{bar-type} argument is a string that serves a
+dual purpose: It specifies the bar line glyph to be printed when it
+occurs in the middle of a staff line; and it identifies the bar line
+object that can be invoked with @code{\bar @var{bar-type}}.  It must
+have the form @var{midglyph} or
+@var{midglyph}@code{-}@var{annotation} (with a literal hyphen),
+where @var{annotation} is an arbitrary string, and @var{midglyph} is a
+string each of whose characters is the name of one of the predefined
+bar line elements listed below.  The resulting bar line glyph to be used in
+the middle of a line is the concatenation of these elements.  For
+example, a @var{bar-type} of either @code{";|"} or @code{";|-other"}
+specifies a compound bar line consisting of a dotted line (@samp{;})
+paired with a solid line (@samp{|}):
 
-After the definiton, the new bar line can be used by
-@code{\bar} @var{bartype}.
+@lilypond[quote,verbatim]
+\defineBarLine ";|" #'(#t #t #t)
+\defineBarLine ";|-other" #'(#f #f #f)
+\fixed c' {
+   \bar ";|" a1 \bar ";|" b1 \bar ";|-other" c'1 \bar ";|-other"
+}
+@end lilypond
 
-There are several bar line elements, and there are predefined bar
-types that use most of them individually.  Some elements are
-primarily intended to be combined with others; those do not have
-predefined individual bar types.
+@noindent
+The @var{annotation} (@samp{other} in the second example above) is
+used to distinguish this bar type from others with the same
+@var{midglyph} but different line break or multi-staff behavior.
+(By convention, the string specified in @var{eol-bar} is often
+used as the annotation, so we might have named the second example
+@samp{";|-f"}.)
+
+The arguments @var{eol-bar} and @var{bol-bar} specify the bar line
+to be printed at the end of the line and beginning of the next
+line, when @code{\bar @var{bar-type}} occurs at a line break.
+@var{bol-bar} also applies when @code{\bar @var{bar-type}} is used
+at the beginning of a score.  The format of these arguments is the
+same as that of @var{bar-type}.  The string of bar line elements
+specifies the bar line glyph to print at the corresponding line
+position.  In addition, either of these arguments can be @code{#t}
+as a shorthand for copying the value of @var{bar-type}; or
+@code{#f} to print no bar line.  For example, all of the bar line
+types in this example print a dotted-solid line pair in the middle
+of a staff line, but have different behavior at ends or beginnings
+of lines:
+
+@lilypond[quote,verbatim,line-width=80]
+%   dotted-solid everywhere
+\defineBarLine  ";|"  #'( #t #t #t)
+%   solid-bold at EOL, solid-solid at BOL
+\defineBarLine  ";|-A" #'( "|."  "||"  #f )
+%   dotted-solid at EOL, nothing at BOL
+\defineBarLine  ";|-B" #'( #t  #f  #f )
+%   nothing at EOL, dotted-solid at BOL
+\defineBarLine  ";|-C" #'( #f  #t  #f )
+\relative c'' {
+  \bar ";|"  \textMark "\";|\""
+  a1  \bar ";|-A"
+  a1  \bar ";|-A"  \textEndMark "\";|-A\""  \break
+  b1  \bar ";|-B" b \bar ";|-B"  \textEndMark "\";|-B\""  \break
+  c1  \bar ";|-C" c \bar ";|-C"  \textEndMark "\";|-C\""   \break 
+  d1  \bar ";|" \textEndMark "\";|\""
+}
+@end lilypond
+
+Note: The @var{eol-bar} or @var{bol-bar} strings may be names of
+previously defined bar line types.  In a single staff context, it
+does not matter: the bar line elements in the given string are
+used regardless of any features of the defined bar line named by
+the string.  In particular, any annotation is ignored in this
+context.  However, in a multi-staff system it is important that
+@var{eol-bar} and @var{bol-bar} refer to previously defined bar
+line types (including @var{bar-type} itself), or be @code{#t} or
+@code{#f}. This is explained in more detail below.
+
+The argument @var{span-bar} has an effect only in multi-staff
+systems (@pxref{Grouping staves}), where it specifies what to
+print between grouped staves.  This argument should be a string of
+bar line elements, of the same length as @var{bar-type} or
+shorter.  (Extra elements are ignored.)  Each element will be
+printed in line with the corresponding element of @var{bar-type}.
+A space character (@samp{ }) can be used to omit a bar line
+element but leave space for it.  Setting @var{span-bar} to @code{#t}
+makes it the same as the mid-line glyph.  Setting it to @code{#f}
+omits the span bar, and setting it to @code{""} (an empty string)
+makes a zero-width span bar.  Here are some examples:
+
+@lilypond[quote,verbatim]
+\defineBarLine  ";|!-A"  #'(#t #t "!|")
+\defineBarLine  ";|!-B"  #'(#t #t " !|")
+\defineBarLine  ";|!-C"  #'(#t #t #t)
+\defineBarLine  ";|!-D"  #'(#t #t #f)
+\fixed c' {
+  \new StaffGroup <<
+    \new Staff {
+      a1 \bar ";|!-A"  
+      b  \bar ";|!-B"  
+      c' \bar ";|!-C"  
+      d' \bar ";|!-D"  
+      e'
+    }
+    \new Staff {
+      a1 b c' d' e'
+    }
+  >>
+}
+@end lilypond
+
+At line breaks, instead of using @var{span-bar}, the bar line
+types referenced by @var{eol-bar} and @var{bol-bar} are used to
+determine the span bar to print.  In the context of a staff group,
+if @var{eol-bar} and @var{bol-bar} do not refer to defined bar
+line types, LilyPond issues a warning, and no span bar is printed
+at line breaks.  It is allowed for @var{eol-bar} or @var{bol-bar}
+to be @code{#f}, in which case no span bar is printed at the
+corresponding line position.  These arguments can also be
+@code{#t}, or equivalently, equal to @var{bar-type}, in which case
+the current @var{span-bar} does determine the span bar to print at
+the corresponding line position:
+
+@lilypond[quote,verbatim]
+\defineBarLine  "!|-t"  #'(#t #t #t)
+\defineBarLine  "|!-t"  #'(#t #t #t)
+\defineBarLine  ";|!-bad"  #'("|!" "!|" #t)  % fails at line breaks
+\defineBarLine  ";|!-good" #'("!|-t" "|!-t" #t)
+\relative c'' {
+  \new StaffGroup <<
+    \new Staff {
+      \bar ";|!-good"   
+      a1 \bar ";|!-good"
+      % \bar ";|!-bad"     % "WARNING: No span bar glyph defined..."
+      b1 \bar ";|!-good"
+    }
+    \new Staff {
+      a1 b1
+    }
+  >>
+}
+@end lilypond
+
+Note: If @var{span-bar} is a string, it should contain @emph{only}
+bar line elements, or space (@samp{ }), and not an annotation such
+as allowed in the other arguments.  If @var{span-bar} contains an
+annotation, LilyPond issues a warning.  The one exception is that
+it may be equal to @var{bar-type}, in which case no warning is
+issued even if @var{bar-type} includes an annotation.
+
+All the available bar line elements are shown below.  Most also
+have predefined bar types (for arguments to @code{\bar}) that
+reference them individually.  Some elements are primarily intended
+to be combined with others and so do not have predefined
+individual bar types.
 
 @lilypond[quote,verbatim]
 \defineBarLine ":" #'(#f #t #f)
@@ -3346,74 +3485,6 @@ predefined individual bar types.
 The @code{"="} bar line provides a double span bar line for use in
 combination with the segno sign.  Using it as a stand-alone double
 thin bar line is not recommended; @code{\bar "||"} is preferred.
-
-The @code{"-"} sign starts annotations to bar lines which
-are useful to distinguish those with identical appearance
-but different behavior at line breaks and/or different span bars.
-The part following the @code{"-"} sign is not used for building up
-the bar line.
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashedSpan" #'(#t #f "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-dashedSpan"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Furthermore, the space character @code{" "} serves as a placeholder
-for defining span bars correctly aligned to the main bar lines:
-
-@lilypond[quote,verbatim]
-\defineBarLine ":|.-wrong" #'(#t #f "|.")
-\defineBarLine ":|.-right" #'(#t #f " |.")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar ":|.-wrong"
-    c1 \bar ":|.-right"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-New bar line types defined using @code{\defineBarLine} may even,
-in turn, be used in a @emph{second} bar line definition.  Such
-@q{nested} definitions make it possible to use customized glyphs
-in places where it would not be otherwise possible, such as
-system ends:
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
-\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" #f "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-advancedDashSpan"
-    c1 \bar "||-advancedDashSpan"
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
 
 If additional elements are needed, LilyPond provides a simple
 way to define them.  For more information on modifying or adding
