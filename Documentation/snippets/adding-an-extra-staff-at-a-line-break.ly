@@ -25,6 +25,8 @@ workaround is to add a setting of
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 \score {
   \new StaffGroup \relative c'' {
     \new Staff

@@ -201,7 +201,7 @@ exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
               (partial-match (cdr exceptions))))
         #f))
 
-  ;; FIXME: exceptions don’t work anyway.
+  ;; FIXME: exceptions don't work anyway.
   (if #f (begin
            (write-me "pitches: " pitches)))
   (let* ((full-exceptions

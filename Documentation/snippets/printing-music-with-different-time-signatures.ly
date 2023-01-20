@@ -18,8 +18,9 @@ In the following snippet, two parts have a completely different time
 signature, yet remain synchronized.
 
 The bar lines can no longer be printed at the @code{Score} level; to
-allow independent bar lines in each part, the @code{Timing_translator}
-is moved from the @code{Score} context to the @code{Staff} context.
+allow independent bar lines in each part, the
+@code{Default_barline_engraver} and @code{Timing_translator} are moved
+from the @code{Score} context to the @code{Staff} context.
 
 If bar numbers are required, the @code{Bar_number_engraver} should also
 be moved, since it relies on properties set by the

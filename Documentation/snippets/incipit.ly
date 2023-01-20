@@ -27,12 +27,6 @@ on the staves.
 } % begin verbatim
 
 
-%% With 2.23. this throws:
-%% programming error: Loose column does not have right side to attach to.
-%% Likely "Hidden BarLine during note yields programming error"
-%% https://gitlab.com/lilypond/lilypond/-/issues/4084
-%%  --Harm
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A short excerpt from the Jubilate Deo by Orlande de Lassus
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

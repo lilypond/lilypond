@@ -16,9 +16,9 @@
   texidoc = "
 Lyrics can be moved vertically to place them inside the staff.  The
 lyrics are moved with
-@code{\\override LyricText.extra-offset = #'(0 . dy)} and there are
-similar commands to move the extenders and hyphens.  The offset needed
-is established with trial and error.
+@code{\\override LyricText.extra-offset = #'(0 . @var{dy})} and
+there are similar commands to move the extenders and hyphens.  The
+offset needed is established with trial and error.
 "
 
   doctitle = "Putting lyrics inside the staff"

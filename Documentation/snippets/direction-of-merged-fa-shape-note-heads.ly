@@ -14,12 +14,11 @@
   lsrtags = "pitches, specific-notation"
 
   texidoc = "
-Using property @code{NoteCollision.fa-merge-direction}, the
-direction of @q{fa} shape note heads (@q{fa}, @q{faThin}, etc.)
-can be controlled independently of the stem direction if two
-voices with the same pitch and different stem directions are
-merged.  If this property is not set, the @q{down} glyph variant
-is used.
+Using property @code{NoteCollision.fa-merge-direction}, the direction
+of @qq{fa} shape note heads (@qq{fa}, @qq{faThin}, etc.) can be controlled
+independently of the stem direction if two voices with the same pitch
+and different stem directions are merged.  If this property is not set,
+the @qq{down} glyph variant is used.
 "
 
   doctitle = "Direction of merged 'fa' shape note heads"

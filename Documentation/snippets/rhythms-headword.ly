@@ -22,7 +22,6 @@ Rhythms headword
 
 
 %% http://lsr.di.unimi.it/LSR/Item?id=822
-%% see also http://lilypond.org/doc/v2.18/Documentation/notation/rhythms
 
 % Beethoven, Op. 81a
 % Piano sonata 26 - Das Lebewohl

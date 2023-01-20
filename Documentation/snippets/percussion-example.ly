@@ -14,7 +14,7 @@
   lsrtags = "percussion, really-simple, rhythms, specific-notation"
 
   texidoc = "
-A short example taken from Stravinsky's @emph{L'Histoire du soldat}.
+A short example taken from Stravinsky's @emph{L'histoire du Soldat}.
 "
 
   doctitle = "Percussion example"

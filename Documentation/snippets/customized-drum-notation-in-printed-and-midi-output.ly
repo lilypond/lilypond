@@ -17,7 +17,9 @@
 Customized drum @qq{pitch} names (suitable for a custom drum style, for
 example) may be used both in printed and MIDI output by defining such
 variables as @code{drumPitchNames}, @code{drumStyleTable} and
-@code{midiDrumPitches}, as demonstrated here. In short, this snippet:
+@code{midiDrumPitches}, as demonstrated here.
+
+In short, this snippet
 
 @itemize
 @item
@@ -27,7 +29,7 @@ defines how they will be rendered,
 @item
 tells LilyPond to use them for layout,
 @item
-assigns pitches to the names,
+assigns pitches to the names, and
 @item
 tells LilyPond to use them for MIDI output.
 @end itemize
@@ -39,7 +41,7 @@ tells LilyPond to use them for MIDI output.
 
 %% This snippet tries to amend
 %% NR 2.5.1 Common notation for percussion - Custom percussion staves
-%% http://lilypond.org/doc/v2.18/Documentation/notation/common-notation-for-percussion#custom-percussion-staves
+%% http://lilypond.org/doc/v2.24/Documentation/notation/common-notation-for-percussion#custom-percussion-staves
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

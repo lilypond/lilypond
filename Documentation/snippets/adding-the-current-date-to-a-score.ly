@@ -22,6 +22,8 @@ score.
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 % first, define a variable to hold the formatted date:
 date = #(strftime "%d-%m-%Y" (localtime (current-time)))
 

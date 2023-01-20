@@ -26,6 +26,7 @@ well.
 
 
 \layout { ragged-right = ##f }
+
 \relative c'' {
   c1
   c1

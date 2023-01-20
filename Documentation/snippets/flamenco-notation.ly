@@ -47,7 +47,6 @@ This snippet contains some header-like code that can be copied as
 } % begin verbatim
 
 
-
 %%%%%%%  Cut here ----- Start 'flamenco.ly'
 
 % Text indicators :

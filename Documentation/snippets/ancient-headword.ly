@@ -136,3 +136,5 @@ Ancient headword
     }
   >>
 }
+
+\paper { tagline = ##f }

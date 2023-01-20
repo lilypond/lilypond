@@ -22,7 +22,6 @@ Simultaneous notes
 
 
 %% http://lsr.di.unimi.it/LSR/Item?id=825
-%% see also http://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-notes
 
 \include "english.ly"
 

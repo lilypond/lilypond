@@ -28,6 +28,8 @@ to the variable @code{dashPlus}:
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 \relative c'' { c1-+ }
 
 dashPlus = \trill

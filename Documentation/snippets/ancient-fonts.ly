@@ -206,6 +206,10 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
       alterationGlyphs =
         #alteration-mensural-glyph-name-alist
       clefGlyph = #"clefs.petrucci.c2"
+      \override Clef.space-alist =
+        #(grob-transformer 'space-alist
+          (lambda (grob orig)
+            (acons 'custos '(extra-space . 0.7) orig)))
     }
     \context {
       \VaticanaStaff
@@ -214,6 +218,10 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
       alterationGlyphs =
         #alteration-vaticana-glyph-name-alist
       \override Custos.neutral-position = #4
+      \override Clef.space-alist =
+        #(grob-transformer 'space-alist
+          (lambda (grob orig)
+            (acons 'custos '(extra-space . 0.7) orig)))
     }
   }
 }

@@ -14,11 +14,11 @@
   lsrtags = "tweaks-and-overrides"
 
   texidoc = "
-For film scores, a common convention is to center bar
-numbers within their measure.  This is achieved through setting
-the @code{centerBarNumbers} context property to true.  When this
-is used, the type of the bar number grobs is @code{CenteredBarNumber}
-rather than @code{BarNumber}.
+For film scores, a common convention is to center bar numbers within
+their measure.  This is achieved through setting the
+@code{centerBarNumbers} context property to true.  When this is used,
+the type of the bar number grobs is @code{CenteredBarNumber} rather
+than @code{BarNumber}.
 
 This example demonstrates a number of settings: the centered bar
 numbers are boxed and placed below the staves.

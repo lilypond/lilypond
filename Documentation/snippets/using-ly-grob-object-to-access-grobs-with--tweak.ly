@@ -30,7 +30,9 @@ accessed.
 
 Example console output:
 
-@code{ #Grob Accidental () #Grob Stem}
+@code{#<Grob Accidental >}@*
+@code{()}@*
+@code{#<Grob Stem >}
 "
 
   doctitle = "Using ly:grob-object to access grobs with \\tweak"

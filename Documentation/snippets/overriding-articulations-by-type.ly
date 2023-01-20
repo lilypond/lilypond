@@ -100,7 +100,8 @@ two =
   f-> f-.\coda
 }
 
-\new Staff <<
-   \new Voice { \voiceOne \one }
-   \new Voice { \voiceTwo \two }
-   >>
+\new Staff
+  <<
+    \new Voice { \voiceOne \one }
+    \new Voice { \voiceTwo \two }
+  >>

@@ -21,7 +21,6 @@ Demonstrates fretted-string harmonics in tablature
 } % begin verbatim
 
 
-
 pinchedHarmonics = {
    \textSpannerDown
    \override TextSpanner.bound-details.left.text =

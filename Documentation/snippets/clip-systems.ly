@@ -35,6 +35,7 @@ are generated.
 
 
 #(ly:set-option 'clip-systems)
+#(ly:set-option 'separate-page-formats 'ps)
 #(define output-suffix "1")
 
 origScore = \score {
@@ -79,6 +80,7 @@ origScore = \score {
 }
 
 #(ly:set-option 'clip-systems #f)
+#(ly:set-option 'separate-page-formats #f)
 #(define output-suffix #f)
 
 \book {

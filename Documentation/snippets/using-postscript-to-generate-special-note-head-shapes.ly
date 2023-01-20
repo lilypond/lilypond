@@ -24,18 +24,22 @@ generated.
 } % begin verbatim
 
 
+%% Updaters remark:
+%% For unkown reasons this snippet returns a gs-error, but only, if compiled
+%% with multiple others like: lilypond *.ly
+%% Thus changing to a path-stencil.
+%% TODO description needs to get adjusted  --harm
+
 parallelogram =
-  #(ly:make-stencil (list 'embedded-ps
-    "gsave
-      currentpoint translate
-      newpath
-      0 0.25 moveto
-      1.3125 0.75 lineto
-      1.3125 -0.25 lineto
-      0 -0.75 lineto
-      closepath
-      fill
-      grestore" )
+  #(ly:make-stencil
+    '(path 0.1
+        (rmoveto 0 0.25
+         lineto 1.3125 0.75
+         lineto 1.3125 -0.25
+         lineto 0 -0.75)
+         round
+         round
+         #t)
     (cons 0 1.3125)
     (cons -.75 .75))
 

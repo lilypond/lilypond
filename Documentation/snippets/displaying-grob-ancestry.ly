@@ -69,12 +69,6 @@ X,Y: NoteColumn
 
 
 %% http://lsr.di.unimi.it/LSR/Item?id=622
-%% see also http://www.lilypond.org/doc/v2.18/Documentation/snippets/tweaks-and-overrides#tweaks-and-overrides-displaying-grob-ancestry
-
-%% Remark:
-%% grob::name is in the source since 2.19.x could be deleted during next LSR-upgrade
-#(define (grob::name grob)
-  (assq-ref (ly:grob-property grob 'meta) 'name))
 
 #(define (get-ancestry grob)
   (if (not (null? (ly:grob-parent grob X)))

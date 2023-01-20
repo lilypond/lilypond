@@ -26,6 +26,7 @@ the following example.
 
 %% Hide fret number: useful to draw slide into/from a casual point of
 %% the fretboard.
+
 hideFretNumber = {
   \once \hide TabNoteHead
   \once \hide NoteHead

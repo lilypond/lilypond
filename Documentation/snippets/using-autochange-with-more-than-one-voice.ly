@@ -21,8 +21,7 @@ Using @code{autochange} with more than one voice.
 } % begin verbatim
 
 
-\score
-{
+\score {
   \new PianoStaff
   <<
     \new Staff = "up" {

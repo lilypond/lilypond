@@ -22,12 +22,12 @@ As such, markup blocks may be used:
 
 @itemize
 @item
-in any TextScript object (attached to notes with @code{-}, @code{^} or
-@code{_}),
+in any @code{TextScript} object (attached to notes with @code{-},
+@code{^} or @code{_}),
 @item
-any @code{TextMark} introduced with the @code{\\textMark} or
-@code{\\textEndMark} command, or other similar objects such
-as MetronomeMark introduced with @code{\\tempo},
+any @code{TextMark} introduced with the @code{\\textMark} keyword, or
+@code{\\textEndMark} command, or other similar objects such as
+MetronomeMark introduced with @code{\\tempo},
 @item
 as standalone markup blocks, entered at the top level outside of any
 @code{\\score} block,
@@ -52,12 +52,16 @@ this example using various methods.
 \paper {
   paper-width = 8\cm paper-height = 8\cm
 }
+
 \header {
   title = \markup "Header"
   tagline = \markup "(tagline)"
 }
+
 \markup "Top-level markup"
+
 dyn = #(make-dynamic-script #{ \markup \text "DynamicText" #})
+
 \score {
   <<
     \new ChordNames

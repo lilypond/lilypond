@@ -22,7 +22,6 @@ Wind headword
 
 
 %% http://lsr.di.unimi.it/LSR/Item?id=833
-%% see also https://lilypond.org/doc/v2.18/Documentation/notation/wind-instruments
 
 % NR 2.whatever  Wind
 % Tchaikovsky

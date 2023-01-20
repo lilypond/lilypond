@@ -22,7 +22,6 @@ Repeats headword
 
 
 %% http://lsr.di.unimi.it/LSR/Item?id=821
-%% see also http://www.lilypond.org/doc/v2.18/Documentation/notation/repeats
 
 % Beethoven, Op. 57
 % Piano sonata 23 - Dem Grafen Franz von Brunswick Gewidmet
@@ -38,7 +37,7 @@ Repeats headword
       \key df \major
       \time 2/4
       \set Score.currentBarNumber = #9
-      \bar ".|:"
+      \bar ".|:-|"
       <af ef c>4 (
       <af gf c>8..
       <af ef c>32

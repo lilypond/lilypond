@@ -14,7 +14,7 @@
   lsrtags = "text"
 
   texidoc = "
-Although marks are normally only printed above the topmost staff,
+Although text marks are normally only printed above the topmost staff,
 they may also be printed on every staff.
 "
 

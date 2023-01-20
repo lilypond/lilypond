@@ -27,7 +27,7 @@ To do this, the @code{springs-and-rods} property should be set to
 
 
 \relative c' {
-\key c\minor
+  \key c\minor
   \time 2/4
   c16( as') c,-. des-.
   \once\override TrillSpanner.minimum-length = #15
