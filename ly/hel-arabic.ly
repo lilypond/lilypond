@@ -18,28 +18,7 @@
 
 \version "2.23.3"
 \include "arabic.ly"
-\language "arabic"
-
-%% set pitch names.
-HelmakamGlyphs = #'(
-  (1 . "accidentals.doublesharp")
-  (1/4 . "accidentals.sharp.slashslash.stem")
-  (3/4 . "accidentals.sharp.slashslashslash.stem")
-  (5/2 . "accidentals.sharp.slashslashslash.stemstem")
-  (7/2 . "accidentals.sharp.slashslash.stemstemstem")
-  (1/2 . "accidentals.sharp")
-  (0 . "accidentals.natural")
-  (-1/4 . "accidentals.flat.slash")
-  (-3/4 . "accidentals.mirroredflat.flat")
-  (-5/2 . "accidentals.flatflat.slash")
-  (-7/2 . "accidentals.flat.slashslash")
-  (-1/2 . "accidentals.flat")
-  (-1 . "accidentals.flatflat")
-)
-
-\paper {
-  font-defaults.alteration-glyph-name-alist = \HelmakamGlyphs
-}
+\language "english"
 
 %% The keys
 

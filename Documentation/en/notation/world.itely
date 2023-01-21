@@ -212,18 +212,6 @@ the file @file{arabic.ly}.  This is a @q{rast} scale with English note names:
 }
 @end lilypond
 
-The @file{hel-arabic.ly} file allows English note names to be used,
-but with customized Italian-like suffixes for alterations.
-The following example demonstrates again a @q{rast} scale using that file:
-
-@lilypond[quote,verbatim]
-\include "hel-arabic.ly"
-\relative {
-\key c \rast
-  c' d edb f | g a bdb c | bb a g f | edb d c
-}
-@end lilypond
-
 @noindent
 @qq{Rast} is a heptatonic scale that uses quarter tone intervals and is
 considered the most important and central scale of the
@@ -263,7 +251,6 @@ Notation Reference:
 
 Installed Files:
 @file{ly/arabic.ly}
-@file{ly/hel-arabic.ly}
 
 Snippets:
 @rlsr{World music}.
@@ -488,7 +475,6 @@ Notation Reference:
 
 Installed Files:
 @file{ly/arabic.ly}
-@file{ly/hel-arabic.ly}
 
 Snippets:
 @rlsr{World music}.
@@ -531,7 +517,6 @@ medium intervals and unusual modes that are discussed in this section.
 @morerefs
 Installed Files:
 @file{ly/arabic.ly}
-@file{ly/hel-arabic.ly}
 
 Snippets:
 @rlsr{World music}.

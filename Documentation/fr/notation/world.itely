@@ -201,7 +201,7 @@ Les noms de note anglais sont accessibles à travers le fichier
 \include "hel-arabic.ly"
 \relative {
 \key c \rast
-  c' d edb f | g a bdb c | c bb a g | f d c
+  c' d eqf f | g a bqf c | c bf a g | f d c
 }
 @end lilypond
 
