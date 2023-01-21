@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.0\n"
+"Project-Id-Version: lilypond 2.25.1\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-12-23 17:56+0100\n"
+"POT-Creation-Date: 2023-01-21 13:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1820,9 +1820,9 @@ msgstr ""
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:143
+#: all-font-metrics.cc:119
 #, c-format
-msgid "cannot find font: `%s'"
+msgid "cannot find font '%s' (search path: %s)"
 msgstr ""
 
 #: alternative-sequence-iterator.cc:94
@@ -1927,57 +1927,62 @@ msgstr ""
 msgid "do not know how to interpret breath type: %s"
 msgstr ""
 
-#: cairo.cc:131
+#: cairo.cc:133
 #, c-format
 msgid "Cairo context status '%s'"
 msgstr ""
 
-#: cairo.cc:139
+#: cairo.cc:141
 #, c-format
 msgid "Cairo surface status '%s'"
 msgstr ""
 
-#: cairo.cc:202
+#: cairo.cc:210
 #, c-format
 msgid "libpng error: '%s'"
 msgstr ""
 
-#: cairo.cc:204
+#: cairo.cc:212
 msgid "libpng error, no details given."
 msgstr ""
 
-#: cairo.cc:259
+#: cairo.cc:267
 #, c-format
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:559 cairo.cc:572
+#: cairo.cc:574 cairo.cc:587
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:671
+#: cairo.cc:686
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:938
+#: cairo.cc:994
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1018
+#: cairo.cc:1050
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1239
+#: cairo.cc:1089
+#, c-format
+msgid "error while reading PNG image: %s"
+msgstr ""
+
+#: cairo.cc:1327
 msgid "Cairo too old for PDF metadata"
 msgstr ""
 
-#: cairo.cc:1413
+#: cairo.cc:1607
 #, c-format
 msgid "unknown output format %s"
 msgstr ""
@@ -2154,22 +2159,22 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: font-config-scheme.cc:159 font-config.cc:87
+#: font-config-scheme.cc:161 font-config.cc:87
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:161 font-config.cc:89
+#: font-config-scheme.cc:163 font-config.cc:89
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:178
+#: font-config-scheme.cc:182
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: font-config-scheme.cc:180
+#: font-config-scheme.cc:184
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
@@ -2204,52 +2209,62 @@ msgstr ""
 msgid "cannot initialize FreeType"
 msgstr ""
 
-#: general-scheme.cc:90 midi-stream.cc:70
+#: general-scheme.cc:76
+#, c-format
+msgid "cannot find file '%s'"
+msgstr ""
+
+#: general-scheme.cc:77
+#, c-format
+msgid "(load path: '%s', cwd: '%s')"
+msgstr ""
+
+#: general-scheme.cc:105 midi-stream.cc:70
 #, c-format
 msgid "cannot rename `%s' to `%s'"
 msgstr ""
 
-#: general-scheme.cc:390
+#: general-scheme.cc:362
 msgid "failed redirecting stderr"
 msgstr ""
 
-#: general-scheme.cc:403
+#: general-scheme.cc:375
 #, c-format
 msgid "failed redirecting stderr to `%s'"
 msgstr ""
 
-#: general-scheme.cc:447
+#: general-scheme.cc:419
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
-#: general-scheme.cc:571
+#: general-scheme.cc:543
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
-#: general-scheme.cc:637
+#: general-scheme.cc:609
 msgid "Exiting current GhostScript instance...\n"
 msgstr ""
 
-#: general-scheme.cc:678
+#: general-scheme.cc:650
 msgid "Mismatch of GhostScript arguments!\n"
 msgstr ""
 
-#: general-scheme.cc:685
+#: general-scheme.cc:657
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
 msgstr ""
 
-#: general-scheme.cc:709
+#: general-scheme.cc:681
 msgid "Could not start GhostScript instance!"
 msgstr ""
 
-#: general-scheme.cc:719
+#: general-scheme.cc:691
 #, c-format
 msgid "Running GhostScript command: %s\n"
 msgstr ""
 
-#: general-scheme.cc:728
+#: general-scheme.cc:700
 msgid "Error when running GhostScript command!"
 msgstr ""
 
@@ -2257,15 +2272,15 @@ msgstr ""
 msgid "unterminated glissando"
 msgstr ""
 
-#: global-context-scheme.cc:109
+#: global-context-scheme.cc:128
 msgid "Interpreting music..."
 msgstr ""
 
-#: global-context-scheme.cc:112
+#: global-context-scheme.cc:131
 msgid "skipping zero-duration score"
 msgstr ""
 
-#: global-context-scheme.cc:113
+#: global-context-scheme.cc:132
 msgid "to suppress this, consider adding a spacer rest"
 msgstr ""
 
@@ -2360,7 +2375,7 @@ msgstr ""
 msgid "unterminated hyphen; removing"
 msgstr ""
 
-#: includable-lexer.cc:59 lily-guile.cc:88 lily-parser-scheme.cc:107
+#: includable-lexer.cc:59 lily-parser-scheme.cc:107
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr ""
@@ -2425,27 +2440,22 @@ msgstr ""
 msgid "ignoring rest: ligature may not contain rest"
 msgstr ""
 
-#: lily-guile.cc:92
-#, c-format
-msgid "(load path: `%s', cwd: `%s')"
-msgstr ""
-
-#: lily-guile.cc:284
+#: lily-guile.cc:255
 #, c-format
 msgid "the property '%s' does not exist (perhaps a typing error)"
 msgstr ""
 
-#: lily-guile.cc:315
+#: lily-guile.cc:286
 #, c-format
 msgid "the property '%s' must be of type '%s', ignoring invalid value '%s'"
 msgstr ""
 
-#: lily-lexer.cc:251
+#: lily-lexer.cc:252
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:274 lily-lexer.cc:287
+#: lily-lexer.cc:275 lily-lexer.cc:288
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2887,165 +2897,165 @@ msgstr ""
 msgid "Fitting music on 1 page..."
 msgstr ""
 
-#: open-type-font-scheme.cc:154 open-type-font-scheme.cc:200
-#: open-type-font-scheme.cc:246 open-type-font-scheme.cc:396 pfb-scheme.cc:79
+#: open-type-font-scheme.cc:164 open-type-font-scheme.cc:210
+#: open-type-font-scheme.cc:256 open-type-font-scheme.cc:406 pfb-scheme.cc:79
 #: ttf.cc:493 ttf.cc:542
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:168 open-type-font-scheme.cc:214
-#: open-type-font-scheme.cc:293 pfb-scheme.cc:94 ttf.cc:460 ttf.cc:509
+#: open-type-font-scheme.cc:178 open-type-font-scheme.cc:224
+#: open-type-font-scheme.cc:303 pfb-scheme.cc:94 ttf.cc:460 ttf.cc:509
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:256
+#: open-type-font-scheme.cc:266
 #, c-format
 msgid "cannot open font filename `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:266 open-type-font-scheme.cc:283
-#: open-type-font-scheme.cc:305 open-type-font-scheme.cc:323
-#: open-type-font-scheme.cc:339 open-type-font-scheme.cc:354
+#: open-type-font-scheme.cc:276 open-type-font-scheme.cc:293
+#: open-type-font-scheme.cc:315 open-type-font-scheme.cc:333
+#: open-type-font-scheme.cc:349 open-type-font-scheme.cc:364
 #, c-format
 msgid "cannot read %s of `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:376
+#: open-type-font-scheme.cc:386
 #, c-format
 msgid "font `%s' index %d does not have `CFF' table"
 msgstr ""
 
-#: open-type-font-scheme.cc:406
+#: open-type-font-scheme.cc:416
 #, c-format
 msgid "font `%s': cannot open for reading"
 msgstr ""
 
-#: open-type-font-scheme.cc:416 open-type-font-scheme.cc:432
-#: open-type-font-scheme.cc:450
+#: open-type-font-scheme.cc:426 open-type-font-scheme.cc:442
+#: open-type-font-scheme.cc:460
 #, c-format
 msgid "font `%s': cannot read field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:424
+#: open-type-font-scheme.cc:434
 #, c-format
 msgid "font `%s': not a font collection"
 msgstr ""
 
-#: open-type-font-scheme.cc:442
+#: open-type-font-scheme.cc:452
 #, c-format
 msgid "font `%s': invalid TTC header version"
 msgstr ""
 
-#: open-type-font-scheme.cc:461
+#: open-type-font-scheme.cc:471
 #, c-format
 msgid "font `%s': index %d is too large, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:472
+#: open-type-font-scheme.cc:482
 #, c-format
 msgid "font `%s': cannot read offset of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:488 open-type-font-scheme.cc:526
-#: open-type-font-scheme.cc:548
+#: open-type-font-scheme.cc:498 open-type-font-scheme.cc:536
+#: open-type-font-scheme.cc:558
 #, c-format
 msgid "font `%s': cannot read field `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:498
+#: open-type-font-scheme.cc:508
 #, c-format
 msgid "font `%s': invalid field `sfntVersion' in subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:507
+#: open-type-font-scheme.cc:517
 #, c-format
 msgid "subfont `%s': cannot open for writing"
 msgstr ""
 
-#: open-type-font-scheme.cc:516 open-type-font-scheme.cc:538
-#: open-type-font-scheme.cc:558
+#: open-type-font-scheme.cc:526 open-type-font-scheme.cc:548
+#: open-type-font-scheme.cc:568
 #, c-format
 msgid "subfont `%s': cannot write field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:585
+#: open-type-font-scheme.cc:595
 #, c-format
 msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:600 open-type-font-scheme.cc:620
-#: open-type-font-scheme.cc:649 open-type-font-scheme.cc:673
+#: open-type-font-scheme.cc:610 open-type-font-scheme.cc:630
+#: open-type-font-scheme.cc:659 open-type-font-scheme.cc:683
 #, c-format
 msgid "subfont `%s': cannot write field `%s' for table `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:610 open-type-font-scheme.cc:630
-#: open-type-font-scheme.cc:659
+#: open-type-font-scheme.cc:620 open-type-font-scheme.cc:640
+#: open-type-font-scheme.cc:669
 #, c-format
 msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:699
+#: open-type-font-scheme.cc:709
 #, c-format
 msgid "font `%s': cannot read table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:708
+#: open-type-font-scheme.cc:718
 #, c-format
 msgid "subfont `%s': cannot write table `%s'"
 msgstr ""
 
-#: open-type-font.cc:65
+#: open-type-font.cc:66
 #, c-format
 msgid "cannot allocate %lu bytes"
 msgstr ""
 
-#: open-type-font.cc:70
+#: open-type-font.cc:71
 #, c-format
 msgid "cannot load font table: %s"
 msgstr ""
 
-#: open-type-font.cc:78
+#: open-type-font.cc:79
 #, c-format
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:135
+#: open-type-font.cc:136
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:137
+#: open-type-font.cc:138
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:151
+#: open-type-font.cc:152
 msgid "cannot get postscript name"
 msgstr ""
 
-#: open-type-font.cc:163
+#: open-type-font.cc:164
 #, c-format
 msgid "cannot get font %s format"
 msgstr ""
 
-#: open-type-font.cc:180
+#: open-type-font.cc:181
 #, c-format
 msgid "cannot get CFF name from font %s"
 msgstr ""
 
-#: open-type-font.cc:185
+#: open-type-font.cc:186
 #, c-format
 msgid "Subsitute font name: %s => %s"
 msgstr ""
 
-#: open-type-font.cc:191
+#: open-type-font.cc:192
 #, c-format
 msgid "CFF name for font %s is the same."
 msgstr ""
 
-#: open-type-font.cc:223
+#: open-type-font.cc:224
 #, c-format
 msgid "cannot read CFF: %s"
 msgstr ""
@@ -3054,25 +3064,25 @@ msgstr ""
 #. (FreeType 2.5.5 and earlier does not have this issue.
 #. FreeType 2.6.2+ has this bug fixed.)
 #. So we need direct parsing of the 'CFF' table, in this case.
-#: open-type-font.cc:239
+#: open-type-font.cc:240
 msgid "Directly parsing 'CFF' table of font."
 msgstr ""
 
-#: open-type-font.cc:276
+#: open-type-font.cc:277
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:360
+#: open-type-font.cc:363
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:382
+#: open-type-font.cc:385
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:533 pango-font.cc:258
+#: open-type-font.cc:536 pango-font.cc:258
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -3268,7 +3278,7 @@ msgid ""
 "should not be created from custom engravers."
 msgstr ""
 
-#: paper-outputter.cc:125
+#: paper-outputter.cc:131
 #, c-format
 msgid "Paper_outputter elapsed time: %.2f seconds"
 msgstr ""
@@ -3467,24 +3477,6 @@ msgstr ""
 msgid "rest `%s' not found"
 msgstr ""
 
-#: score-engraver.cc:77
-#, c-format
-msgid "cannot find `%s'"
-msgstr ""
-
-#: score-engraver.cc:78
-msgid "Music font has not been installed properly."
-msgstr ""
-
-#: score-engraver.cc:79
-#, c-format
-msgid "Search path `%s'"
-msgstr ""
-
-#: score-engraver.cc:80
-msgid "Aborting"
-msgstr ""
-
 #: score.cc:160
 msgid "already have music in score"
 msgstr ""
@@ -3559,11 +3551,11 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur-scoring.cc:361
+#: slur-scoring.cc:368
 msgid "no viable slur configuration found"
 msgstr ""
 
-#: slur-scoring.cc:490
+#: slur-scoring.cc:497
 msgid "slur trying to encompass an empty note column."
 msgstr ""
 
@@ -3622,13 +3614,6 @@ msgstr ""
 
 #: stencil-integral.cc:475
 msgid "Malformed path for path stencil."
-msgstr ""
-
-#: stencil-scheme.cc:474
-#, c-format
-msgid ""
-"invalid sequence %c%c in color (characters should be in one of ranges 0-9, a-"
-"f, A-F)"
 msgstr ""
 
 #: stream-event.cc:112
@@ -4071,32 +4056,32 @@ msgstr ""
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: bar-line.scm:110
+#: bar-line.scm:111
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:138
+#: bar-line.scm:141
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:146
+#: bar-line.scm:149
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:195
+#: bar-line.scm:198
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:944
+#: bar-line.scm:957
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4106,7 +4091,7 @@ msgstr ""
 msgid "Spurious garbage following chord: ~A"
 msgstr ""
 
-#: color.scm:793
+#: color.scm:789
 #, scheme-format
 msgid "Requested color '~a' is not defined!"
 msgstr ""
@@ -4132,11 +4117,21 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:277
+#: define-markup-commands.scm:279
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1343
+#: define-markup-commands.scm:1382
+#, scheme-format
+msgid "unrecognized image file, should have .png or .eps extension: ~a"
+msgstr ""
+
+#: define-markup-commands.scm:1392
+#, scheme-format
+msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
+msgstr ""
+
+#: define-markup-commands.scm:1440
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4198,7 +4193,7 @@ msgstr ""
 msgid "context modification `~a' not documented."
 msgstr ""
 
-#: document-identifiers.scm:56
+#: document-identifiers.scm:64
 #, scheme-format
 msgid "music function `~a' not documented."
 msgstr ""
@@ -4436,40 +4431,40 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:342
+#: lily-library.scm:345
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:350
+#: lily-library.scm:353
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:401
+#: lily-library.scm:404
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:417
+#: lily-library.scm:420
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:979
+#: lily-library.scm:1101
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:992
+#: lily-library.scm:1114
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1007
+#: lily-library.scm:1129
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1023
+#: lily-library.scm:1145
 #, scheme-format
 msgid ""
 "\n"
@@ -4481,29 +4476,29 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1173
+#: lily-library.scm:1295
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1274
+#: lily-library.scm:1398
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1299
+#: lily-library.scm:1423
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1332
+#: lily-library.scm:1456
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1333
+#: lily-library.scm:1457
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
@@ -4516,42 +4511,47 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:459
+#: lily.scm:458
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:780
+#: lily.scm:533
+#, scheme-format
+msgid "note scale expected: ~S"
+msgstr ""
+
+#: lily.scm:808
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:781
+#: lily.scm:809
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:857
+#: lily.scm:885
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:860
+#: lily.scm:888
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:864
+#: lily.scm:892
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:877
+#: lily.scm:905
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:910
+#: lily.scm:938
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4737,64 +4737,70 @@ msgstr ""
 msgid "dot glyph ~s not found"
 msgstr ""
 
-#: output-lib.scm:935
+#: output-lib.scm:937
 #, scheme-format
 msgid ""
 "no glyph name for alteration ~a in alteration-glyph-name-alist; try defining "
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2025
+#: output-lib.scm:2011
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2344
+#: output-lib.scm:2330
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2840
+#: output-lib.scm:2826
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:2856
+#: output-lib.scm:2842
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3173
+#: output-lib.scm:3159
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3197
+#: output-lib.scm:3183
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
 msgstr ""
 
-#: output-ps.scm:283 output-svg.scm:559
+#: output-ps.scm:141
+msgid ""
+"transparency (no background color) for PNG images is not\n"
+"supported in the PostScript backend.  Use the Cairo backend instead."
+msgstr ""
+
+#: output-ps.scm:316 output-svg.scm:590
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:288 output-svg.scm:565
+#: output-ps.scm:321 output-svg.scm:596
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
 
-#: output-svg.scm:150
+#: output-svg.scm:159
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
-#: output-svg.scm:230
+#: output-svg.scm:239
 msgid "Glyph must have a unicode value"
 msgstr ""
 
-#: output-svg.scm:282 output-svg.scm:292
+#: output-svg.scm:291 output-svg.scm:301
 #, scheme-format
 msgid "cannot find SVG font ~S"
 msgstr ""
@@ -4866,12 +4872,12 @@ msgstr ""
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
-#: parser-clef.scm:163
+#: parser-clef.scm:165
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr ""
 
-#: parser-clef.scm:164
+#: parser-clef.scm:166
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr ""
@@ -4885,12 +4891,12 @@ msgstr ""
 msgid "quoted music `~a' is empty"
 msgstr ""
 
-#: ps-to-png.scm:66
+#: ps-to-png.scm:64
 #, scheme-format
 msgid "Unknown pixmap format ~a"
 msgstr ""
 
-#: ps-to-png.scm:166
+#: ps-to-png.scm:164
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
@@ -4942,63 +4948,63 @@ msgstr ""
 msgid "no highlight to end"
 msgstr ""
 
-#: stencil.scm:718
+#: stencil.scm:733
 msgid "Both angle-increments and radial-increments must be positive numbers."
 msgstr ""
 
-#: to-xml.scm:190
+#: to-xml.scm:189
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:393
+#: translation-functions.scm:391
 #, scheme-format
 msgid "no accidental glyph found for alteration ~a"
 msgstr ""
 
-#: translation-functions.scm:655
+#: translation-functions.scm:653
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:660
+#: translation-functions.scm:658
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:665
+#: translation-functions.scm:663
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:708
+#: translation-functions.scm:706
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:731 translation-functions.scm:743
+#: translation-functions.scm:729 translation-functions.scm:741
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:734
+#: translation-functions.scm:732
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:746
+#: translation-functions.scm:744
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:771
+#: translation-functions.scm:769
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:810
+#: translation-functions.scm:808
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:894
+#: translation-functions.scm:892
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
