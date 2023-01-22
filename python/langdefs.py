@@ -85,7 +85,6 @@ ca = LanguageDef('ca', 'Català')
 de = LanguageDef('de', 'Deutsch')
 es = LanguageDef('es', 'Español')
 fr = LanguageDef('fr', 'Français', html_filter = french_html_filter)
-hu = LanguageDef('hu', 'Magyar')
 it = LanguageDef('it', 'Italiano')
 ja = LanguageDef('ja', '日本語', enable_ly_identifier_l10n=False)
 zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
@@ -94,8 +93,8 @@ zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, ca, de, es, fr, hu, it, ja, zh)
-WEB_LANGUAGES = (site, ca, de, es, fr, hu, it, ja, zh)
+LANGUAGES = (site, ca, de, es, fr, it, ja, zh)
+WEB_LANGUAGES = (site, ca, de, es, fr, it, ja, zh)
 
 LANGDICT = {l.code: l for l in LANGUAGES}
 
