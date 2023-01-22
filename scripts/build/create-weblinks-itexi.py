@@ -247,34 +247,6 @@ translations = {
         'Doc tarball for ': 'ドキュメント アーカイブ バージョン ',
 
     },
-    'pt': {
-        'Source': 'Código-fonte',
-
-        'Learning': 'Aprendizagem',
-        'Music glossary': 'Glossário',
-        'Essay': 'Ensaio',
-        'Notation': 'Notação',
-        'Usage': 'Uso',
-        'Snippets': 'Trechos',
-        'Web': 'Web',
-        'Changes': 'Mudanças',
-        'Extending': 'Extensão',
-        'Internals': 'Procedimentos internos',
-        'Contributor': 'Guia do contribuidor',
-
-        # keep the spaces!
-        ' (split HTML)': ' (HTML dividido)',
-        ' (big HTML)': ' (HTML único)',
-
-        'Regression tests for ': 'Testes de regressão de ',
-        'PDF of regtests for ': 'PDF dos testes de regressão de ',
-        'abc2ly Regression tests for ': 'Testes de regressão de abc2ly de ',
-        'PDF of abc2ly regtests for ': 'PDF dos testos de regressão de abc2ly de ',
-        'MusicXML Regression tests for ': 'Testes de regressão de MusicXML de ',
-        'PDF of MusicXML regtests for ': 'PDF des testos de regressão de MusicXML de ',
-
-        'Doc tarball for ': 'Arquivo da documentação de ',
-    },
     'zh': {
         'Source': '源码',
         'Learning': '学习',

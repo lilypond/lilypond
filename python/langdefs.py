@@ -88,15 +88,14 @@ fr = LanguageDef('fr', 'Français', html_filter = french_html_filter)
 hu = LanguageDef('hu', 'Magyar')
 it = LanguageDef('it', 'Italiano')
 ja = LanguageDef('ja', '日本語', enable_ly_identifier_l10n=False)
-pt = LanguageDef('pt', 'Português')
 zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, ca, de, es, fr, hu, it, ja, pt, zh)
-WEB_LANGUAGES = (site, ca, de, es, fr, hu, it, ja, pt, zh)
+LANGUAGES = (site, ca, de, es, fr, hu, it, ja, zh)
+WEB_LANGUAGES = (site, ca, de, es, fr, hu, it, ja, zh)
 
 LANGDICT = {l.code: l for l in LANGUAGES}
 

@@ -129,7 +129,6 @@ AddLanguage fr .fr
 AddLanguage hu .hu
 AddLanguage it .it
 AddLanguage ja .ja
-AddLanguage pt .pt
 AddLanguage zh .zh
 
 # Make en the default language and serve *.html as a fallback if
