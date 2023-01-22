@@ -124,7 +124,6 @@ AddCharset utf-8 .txt
 # Add extensions for language negotiation
 # See: https://www.w3.org/International/questions/qa-apache-lang-neg
 AddLanguage ca .ca
-AddLanguage cs .cs
 AddLanguage de .de
 AddLanguage es .es
 AddLanguage fr .fr

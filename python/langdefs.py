@@ -82,7 +82,6 @@ def french_html_filter(page):
     return page[:body_begin] + body + page[body_end:]
 
 ca = LanguageDef('ca', 'Català')
-cs = LanguageDef('cs', 'Česky', enable_ly_identifier_l10n=False)
 de = LanguageDef('de', 'Deutsch')
 es = LanguageDef('es', 'Español')
 fr = LanguageDef('fr', 'Français', html_filter = french_html_filter)
@@ -97,8 +96,8 @@ zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
-WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
+LANGUAGES = (site, ca, de, es, fr, hu, it, ja, nl, pt, zh)
+WEB_LANGUAGES = (site, ca, de, es, fr, hu, it, ja, nl, pt, zh)
 
 LANGDICT = {l.code: l for l in LANGUAGES}
 
