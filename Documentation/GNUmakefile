@@ -43,8 +43,7 @@ MISC_FILES = \
   browser-language.ca.html browser-language.de.html \
     browser-language.es.html browser-language.fr.html \
     browser-language.html browser-language.hu.html \
-    browser-language.it.html browser-language.ja.html \
-    browser-language.nl.html \
+    browser-language.it.html browser-language.ja.html
   ChangeLog-1.5 ChangeLog-2.1 ChangeLog-2.10 ChangeLog-2.3 \
   CHANGES-0.0 CHANGES-0.1 CHANGES-1.0 CHANGES-1.1 CHANGES-1.2 CHANGES-1.3 \
     CHANGES-1.4 CHANGES-1.5 \

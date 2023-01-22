@@ -118,7 +118,6 @@ AddCharset utf-8 .de
 AddCharset utf-8 .en
 AddCharset utf-8 .es
 AddCharset utf-8 .fr
-AddCharset utf-8 .nl
 AddCharset utf-8 .txt
 
 # Add extensions for language negotiation
@@ -130,7 +129,6 @@ AddLanguage fr .fr
 AddLanguage hu .hu
 AddLanguage it .it
 AddLanguage ja .ja
-AddLanguage nl .nl
 AddLanguage pt .pt
 AddLanguage zh .zh
 

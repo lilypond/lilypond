@@ -35,10 +35,6 @@ $LY_LANGUAGES->{'ja'} = {
     'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
 };
 
-$LY_LANGUAGES->{'nl'} = {
-    'Back to Documentation Index' => 'Terug naar de Documentatieindex',
-};
-
 $LY_LANGUAGES->{'zh'} = {
     'Back to Documentation Index' => '回到文档索引',
 };
