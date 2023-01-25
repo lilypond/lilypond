@@ -504,11 +504,11 @@ be converted into a Scheme hash table, using the
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
-\new DrumStaff <<
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \new DrumVoice { \voiceOne \up }
-  \new DrumVoice { \voiceTwo \down }
->>
+\new DrumStaff \with { drumStyleTable = #(alist->hash-table mydrums) }
+  <<
+    \new DrumVoice { \voiceOne \up }
+    \new DrumVoice { \voiceTwo \down }
+  >>
 @end lilypond
 
 @funindex drumPitchNames
