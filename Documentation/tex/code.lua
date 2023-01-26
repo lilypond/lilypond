@@ -31,8 +31,9 @@
 --     output line, respectively.  A typical case with LilyPond code
 --     is `@code{@{ ... @}}`.
 --
--- There will be at least two characters at the start or the end of a
--- word before inserting a hyphenation point or a possible line break.
+-- There will be at least one character before the hyphen at the start
+-- and two characters after the hyphen at the end of a word before
+-- inserting a possible line break.
 --
 -- Note that this code only works if `@allowcodebreaks false` is set.
 
@@ -130,6 +131,53 @@ code_hyphenate = function(head)
     end
   end
 
+  -- Item (1)
+  --
+  -- In the following, we assume that underscores are a substitute for
+  -- dashes because dashes are often not allowed in identifiers (this
+  -- is the case for most computer languages); as a consequence, we
+  -- treat them identically.
+  --
+  -- Here are all handled use-cases.  `|` marks a possible breakpoint,
+  -- `x` is a character not equal to `-` or `_`, and `-` means either
+  -- `-` or `_`.  `^` and `$` indicate the start and the end of a
+  -- word, respectively.
+  --
+  --   allowed pattern  example
+  --   ---------------- ------------------
+  --   x-|xx            x-axis
+  --   x-|x-            type-p-name-alist
+  --   x--|xx           fo2--bar
+  --   x--|x-           foo--2-bar
+  --
+  --   disallowed pattern  example
+  --   ------------------- -----------------
+  --   ^-|x                -foo
+  --   ^--|x               --verbose
+  --   -|x$                self-alignment-X
+  --   --|x$               fo2--x
+  --
+  -- Putting the above together we get the following two regular
+  -- expressions (with inserted spaces for better legibility).
+  -- `(?=...)` is a positive, zero-width look-ahead assertion.
+  --
+  -- ```
+  -- ([^_-]) ([_-]) ([_-]) (?=[^_-].)  ->  \1 \2 \3 <break>
+  -- ([^_-])        ([_-]) (?=[^_-].)  ->  \1 \2 <break>
+  -- ```
+  --
+  -- These regular expressions map to the cases below, which we are
+  -- going to implement.  We are a bit more strict and define a
+  -- 'character' as being either a letter or digit.
+  --
+  -- Note that in `texinfo.tex` a dash is actually already represented
+  -- as a `-` glyph node followed by a penalty; we just have to adjust
+  -- the penalty value.  On the other hand, we must insert a penalty
+  -- node after `_` if necessary.
+  --
+  -- Cases with more than two subsequent dashes or hyphens are not
+  -- handled and must be resolved manually.
+
   -- Now loop over all collected words.
   for _, word in ipairs(words) do
     word_start, word_len = table.unpack(word)
@@ -137,82 +185,143 @@ code_hyphenate = function(head)
     -- Check for
     --
     -- ```
-    -- [<letter>_] [<letter>_] - <penalty> <letter> [<letter>_]
+    -- <character> - <penalty> - <penalty> <character> <any character>
+    -- <character> _           - <penalty> <character> <any character>
+    -- <character>             - <penalty> <character> <any character>
     -- ```
     --
     -- and adjust the penalty after `-` if we have a hit.
-    if word_len >= 6 then
+    if word_len >= 5 then
       local start = word_start
       local len = word_len
 
-      while len >= 6 do
-        local n1 = start
-        local n2 = n1.next
-        local n3 = n2.next
-        local n4 = n3.next
-        local n5 = n4.next
-        local n6 = n5.next
+      while len >= 5 do
+        local cur = start
+        local pen
+        local skip = 0
 
-        if n1.id == GLYPH and umatch(uchar(n1.char), "[%l%u_]")
-             and n2.id == GLYPH and umatch(uchar(n2.char), "[%l%u_]")
-             and n3.id == GLYPH and n3.char == char_hyphen
-             and n4.id == PENALTY
-             and n5.id == GLYPH and umatch(uchar(n5.char), "[%l%u]")
-             and n6.id == GLYPH and umatch(uchar(n6.char), "[%l%u_]") then
-          n4.penalty = tex.hyphenpenalty
-
-          len = len - 4
-          start = n5
-        else
-          len = len - 1
-          start = n2
+        if not (cur.id == GLYPH
+                and umatch(uchar(cur.char), "[%a%d]")) then
+          goto no_match
         end
-      end
+
+        cur = cur.next
+        if cur.id ~= GLYPH then
+          goto no_match
+        end
+
+        if cur.char == char_underscore
+            and len >= 6 then
+          cur = cur.next
+          skip = 1
+        elseif cur.char == char_hyphen
+            and cur.next.id == PENALTY
+            and cur.next.next.id == GLYPH
+              and cur.next.next.char == char_hyphen
+            and cur.next.next.next.id == PENALTY
+            and len >= 7 then
+          cur = cur.next.next
+          skip = 2
+        end
+
+        if not (cur.id == GLYPH and cur.char == char_hyphen
+                and cur.next.id == PENALTY) then
+          goto no_match
+        end
+
+        pen = cur.next
+        cur = cur.next.next
+
+        if cur.id == GLYPH and umatch(uchar(cur.char), "[%a%d]")
+            and cur.next.id == GLYPH then
+          pen.penalty = tex.hyphenpenalty
+          len = len - 3 - skip
+          start = cur
+          goto continue
+        end
+
+        ::no_match::
+        len = len - 1
+        start = start.next
+
+        ::continue::
+      end -- end of while-loop
     end
 
     -- Check for
     --
     -- ```
-    -- [<letter>_] [<letter>_] _ <letter> [<letter>_]
+    -- <character> - <penalty> _ <character> <any character>
+    -- <character> _           _ <character> <any character>
+    -- <character>             _ <character> <any character>
     -- ```
     --
     -- and insert a penalty after `_` if we have a hit.
-    if word_len >= 5 then
+    if word_len >= 4 then
       local start = word_start
       local len = word_len
       local num_added_nodes = 0
 
-      while len >= 5 do
-        local n1 = start
-        local n2 = n1.next
-        local n3 = n2.next
-        local n4 = n3.next
-        local n5 = n4.next
+      while len >= 4 do
+        local cur = start
+        local skip = 0
 
-        if n1.id == GLYPH and umatch(uchar(n1.char), "[%l%u_]")
-             and n2.id == GLYPH and umatch(uchar(n2.char), "[%l%u_]")
-             and n3.id == GLYPH and n3.char == char_underscore
-             and n4.id == GLYPH and umatch(uchar(n4.char), "[%l%u]")
-             and n5.id == GLYPH and umatch(uchar(n5.char), "[%l%u_]") then
+        if not (cur.id == GLYPH
+                and umatch(uchar(cur.char), "[%a%d]")) then
+          goto no_match
+        end
+
+        cur = cur.next
+        if cur.id ~= GLYPH then
+          goto no_match
+        end
+
+        if cur.char == char_underscore
+            and cur.next.id == GLYPH
+              and cur.next.char == char_underscore
+            and len >= 5 then
+          cur = cur.next
+          skip = 1
+        elseif cur.char == char_hyphen
+            and cur.next.id == PENALTY
+            and len >= 6 then
+          cur = cur.next.next
+          skip = 2
+        end
+
+        if not (cur.id == GLYPH and cur.char == char_underscore) then
+          goto no_match
+        end
+
+        cur = cur.next
+
+        if cur.id == GLYPH and umatch(uchar(cur.char), "[%a%d]")
+            and cur.next.id == GLYPH then
           local pen = node.new(PENALTY)
           pen.penalty = tex.hyphenpenalty
           node.set_attribute(pen, code_attribute, 1)
-          node.insert_after(head, n3, pen)
+          node.insert_before(head, cur, pen)
 
           num_added_nodes = num_added_nodes + 1
 
-          len = len - 3
-          start = n4
-        else
-          len = len - 1
-          start = n2
+          len = len - 2 - skip
+          start = cur
+          goto continue
         end
-      end
+
+        ::no_match::
+        len = len - 1
+        start = start.next
+
+        ::continue::
+      end -- end of while-loop
 
       word_len = word_len + num_added_nodes
     end
   end -- end of for-loop
 
+  -- Item (2)
+  --
   for n in node.traverse(head) do
     -- Check whether there is a single character at the beginning of
     -- `@code`, followed by a space.  If we have a hit, insert a
