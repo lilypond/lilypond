@@ -179,7 +179,7 @@ freetype = FreeType()
 class Fontconfig(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.14.0"
+        return "2.14.2"
 
     @property
     def directory(self) -> str:
