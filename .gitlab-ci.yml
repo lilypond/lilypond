@@ -136,7 +136,11 @@ check:
     - ../scripts/auxiliar/download-test-baseline.sh
     - make $MAKE_FLAGS check
     - mv out/test-results/ ..
-    - echo "Results can be viewed at $CI_JOB_URL/artifacts/file/test-results/index.html"
+    # $CI_PAGES_URL refers to the GitLab Pages of the repository, we want the
+    # "implicit" pages URL with a dash before the project name. Do not use
+    # $CI_PAGES_DOMAIN to construct it because that is only available if GitLab
+    # Pages are enabled for the repository (which may be a user's fork).
+    - echo "Results can be viewed at https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/test-results/index.html"
   artifacts:
     name: "test-results"
     when: always
