@@ -15,21 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM registry.gitlab.com/lilypond/lilypond/base/ubuntu-18.04:20221027
+FROM registry.gitlab.com/lilypond/lilypond/base/ubuntu-20.04:20230129
 
-# Install additional packages for the official documentation build.
-RUN apt-get update && apt-get --no-install-recommends install -y \
-        extractpdfmark \
-        fonts-linuxlibertine \
-        fonts-noto-cjk \
-        texlive-lang-english \
-        texlive-lang-european \
-        texlive-lang-french \
-        texlive-lang-german \
-        texlive-lang-italian \
-        texlive-lang-portuguese \
-        texlive-lang-spanish \
-        texlive-xetex \
-        ttf-bitstream-vera \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /usr/share/doc /usr/share/man
+# Drop root user inside the container.
+USER nobody

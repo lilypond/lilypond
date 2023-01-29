@@ -5,8 +5,8 @@ To update a container image:
 * Build and push an image:
 
 ```
- $ image="base/ubuntu-18.04"
- $ dockerfile="base/Dockerfile.ubuntu-18.04"
+ $ image="base/ubuntu-20.04"
+ $ dockerfile="base/Dockerfile.ubuntu-20.04"
  $ date=$(date +"%Y%m%d")
  $ docker build --pull -t registry.gitlab.com/lilypond/lilypond/$image:$date -f $dockerfile .
  $ docker push registry.gitlab.com/lilypond/lilypond/$image:$date
@@ -18,6 +18,6 @@ Combinations of `$container` and `$dockerfile` are:
 
 | `$image` | `$dockerfile` | Comment |
 | --- | --- | --- |
-| `base/ubuntu-18.04` | `base/Dockerfile.ubuntu-18.04` | The "base" image |
-| `ci/ubuntu-18.04` | `ci/Dockerfile.ubuntu-18.04` | The image for CI testing |
-| `doc/ubuntu-18.04` | `doc/Dockerfile.ubuntu-18.04` | The image for building the official documentation |
+| `base/ubuntu-20.04` | `base/Dockerfile.ubuntu-20.04` | The "base" image |
+| `ci/ubuntu-20.04` | `ci/Dockerfile.ubuntu-20.04` | The image for CI testing |
+| `doc/ubuntu-20.04` | `doc/Dockerfile.ubuntu-20.04` | The image for building the official documentation |
