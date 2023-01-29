@@ -39,8 +39,8 @@
   \cadenzaOn % turn off bar lines
   \textLengthOn
 
-% ligaturae binaria
-  \textMark "ligaturae binaria"
+% ligaturae binariae
+  \textMark "ligaturae binariae"
 
   <>^"BL " \[ b\breve g\longa \]
   <>^"BL " \[ g\breve b\longa \]
@@ -52,6 +52,10 @@
   <>^"LB " \[ g\longa b\breve \]
   <>^"SS " \[ b1 g \]
   <>^"SS " \[ g1 b \]
+  <>^"SL " \[ b1 g\longa \]
+  <>^"SL " \[ g1 b\longa \]
+  <>^"SMx " \[ b1 g\maxima \]
+  <>^"SMx " \[ g1 b\maxima \]
   \bar "|" \break
 
 % ligaturae ternariae, quaternariae, etc. (sicut in Apel[1])

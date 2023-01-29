@@ -185,8 +185,13 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
               general_case = false;
             }
         }
-      // 2. initial semibrevis must be followed by another one
-      else if (prev_semibrevis)
+      // 2. initial semibrevis must not be followed by a brevis
+      //    (theoretical sources require semibrevis, but
+      //     longa and maxima can be denoted unambiguously,
+      //     and in extremely rare cases these are used,
+      //     see e.g. Wylkynson's five part Salve regina
+      //     in the Eton Choirbook: fol. i2, Bassus part at words Et Jesum)
+      else if (prev_semibrevis && duration_log > -2)
         {
           prev_semibrevis = false;
           if (duration_log == 0)
@@ -197,7 +202,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
           else
             {
               nr->warning (
-                _ ("semibrevis must be followed by another one -> skipping"));
+                _ ("semibrevis must not be followed by a brevis -> skipping"));
               prim = MLP_NONE;
               at_beginning = true;
               continue;
@@ -208,7 +213,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
         {
           nr->warning (
             _ ("semibreves can only appear at the beginning of a ligature,\n"
-               "and there may be only zero or two of them"));
+               "and there may be at most two of them"));
           prim = MLP_NONE;
           at_beginning = true;
           continue;
@@ -235,12 +240,13 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
                 }
             }
           // longa
-          else if (duration_log == -2)
+          else if (duration_log == -2 && ! prev_semibrevis)
             {
               prim = MLP_BREVIS;
               general_case = allow_flexa = false;
             }
-          // else maxima; fall through to regular case below
+          // else maxima (or longa-after-semibrevis);
+          // fall through to regular case below
         }
 
       if (allow_flexa
