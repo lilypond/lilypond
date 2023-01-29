@@ -23,7 +23,7 @@ if [ -z "${GITLAB_CI-}" ]; then
   echo "locally, you need to adapt the stored paths to match your setup:" >&2
   echo " - The source directory was \`/builds/lilypond/lilypond/'." >&2
   echo " - The build directory was \`/builds/lilypond/lilypond/build/'." >&2
-  echo " - Fonts were installed as packaged by Ubuntu 18.04, for example" >&2
+  echo " - Fonts were installed as packaged by Ubuntu 20.04, for example" >&2
   echo "   DejaVu Sans in \`/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'." >&2
   exit 1
 fi
