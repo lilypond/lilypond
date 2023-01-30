@@ -102,9 +102,9 @@ Slur_score_state::slur_direction () const
   Grob *left_neighbor = slur_->broken_neighbor (LEFT);
 
   if (left_neighbor && left_neighbor->is_live ())
-    return get_grob_direction (left_neighbor);
+    return get_strict_grob_direction (left_neighbor);
 
-  Direction dir = get_grob_direction (slur_);
+  Direction dir = get_strict_grob_direction (slur_);
 
   if (Grob *right_neighbor = slur_->broken_neighbor (RIGHT))
     set_grob_direction (right_neighbor, dir);
@@ -124,7 +124,7 @@ Slur_score_state::get_encompass_info (Grob *notecol) const
       ei.head_ = ei.stem_ = notecol->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       return ei;
     }
-  Direction stem_dir = get_grob_direction (stem);
+  Direction stem_dir = get_strict_grob_direction (stem);
 
   if (Grob *head = Note_column::first_head (notecol))
     {
@@ -187,7 +187,7 @@ Slur_score_state::get_bound_info () const
 
           if (stem)
             {
-              info.stem_dir_ = get_grob_direction (stem);
+              info.stem_dir_ = get_strict_grob_direction (stem);
 
               for (const auto ax : {X_AXIS, Y_AXIS})
                 {
@@ -606,6 +606,7 @@ Slur_score_state::get_base_attachments () const
               y = robust_relative_extent (col, common_[Y_AXIS], Y_AXIS)[dir_];
               y += dir_ * 0.5 * staff_space_;
 
+              // FIXME: dead code? NoteColumn doesn't have a direction defined.
               if (get_grob_direction (col) == dir_
                   && Note_column::get_stem (col)
                   && !Stem::is_invisible (Note_column::get_stem (col)))

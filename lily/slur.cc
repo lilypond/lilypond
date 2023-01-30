@@ -88,7 +88,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int start = from_scm<int> (start_scm);
   int end = from_scm<int> (end_scm);
-  Direction dir = get_grob_direction (me);
+  Direction dir = get_strict_grob_direction (me);
 
   extract_grob_set (me, "note-columns", encompasses);
   Interval ret;
@@ -165,7 +165,7 @@ Slur::print (SCM smob)
   Stencil a;
 
   SCM dash_definition = get_property (me, "dash-definition");
-  a = Lookup::slur (one, get_grob_direction (me) * base_thick, line_thick,
+  a = Lookup::slur (one, get_strict_grob_direction (me) * base_thick, line_thick,
                     dash_definition);
 
   SCM annotation = get_property (me, "annotation");
@@ -181,7 +181,7 @@ Slur::print (SCM smob)
 
       auto tm = Text_interface::interpret_markup (me->layout (), properties,
                                                   annotation);
-      a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
+      a.add_at_edge (Y_AXIS, get_strict_grob_direction (me), tm, 1.0);
     }
 
   return a.smobbed_copy ();
