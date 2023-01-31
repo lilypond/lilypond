@@ -63,6 +63,7 @@ text, not at the center of \\pp.
 \paper {
   ragged-right = ##f
   indent = 2.5\cm
+  tagline = ##f
 }
 
 % Solution 1: Using a simple markup with a particular halign value

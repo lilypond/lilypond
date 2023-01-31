@@ -9,6 +9,7 @@ alternative-bar-numbering.ly
 analysis-brackets-above-the-staff.ly
 analysis-brackets-with-labels.ly
 asymmetric-slurs.ly
+breaking-vertical-alignment-of-dynamics-and-textscripts.ly
 caesura-railtracks-with-fermata.ly
 changing-a-single-notes-size-in-a-chord.ly
 changing-beam-thickness-and-spacing.ly
