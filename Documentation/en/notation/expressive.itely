@@ -632,6 +632,15 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
+@cindex vertical alignment, dynamics, breaking
+@cindex aligment, breaking vertical, dynamics
+@cindex dynamics, breaking vertical alignment
+@cindex text script, breaking vertical alignment
+@cindex alignment breaking vertical, text scripts
+@funindex \breakDynamicSpan
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/breaking-vertical-alignment-of-dynamics-and-textscripts.ly}
+
 @cindex dynamics, extender line, hiding
 @cindex hiding dynamics extender line
 @cindex extender line, dynamics, hiding
