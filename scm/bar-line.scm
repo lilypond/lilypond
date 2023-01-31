@@ -167,12 +167,18 @@ either strings or booleans: @code{#t} calls for the same value as
   (when (eq? span-glyph #t)
     (set! span-glyph bar-glyph))
 
-  ;; the last argument may not include annotations
-  (check-for-annotation span-glyph)
+  ;; The last argument should not include annotations.
+  ;; But do not check this if identical to first argument,
+  ;; (as when called with #t) to avoid a useless warning
+  ;; while keeping the meaning of #t consistent in the interface.
+  (when (not (equal? span-glyph bar-glyph))
+    (check-for-annotation span-glyph))
+
   ;; only the last argument may call for replacements
   (for-each (lambda (s)
               (check-for-replacement s))
             (list bar-glyph eol-glyph bol-glyph))
+
   ;; the bar-glyph-alist has entries like
   ;; (bar-glyph . ( eol-glyph . bol-glyph))
   (set! bar-glyph-alist
