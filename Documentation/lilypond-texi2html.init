@@ -871,7 +871,7 @@ sub lilypond_print_toc_div ($)
     # For some time, Google won't have the new location in its index, so the
     # search would get nothing.  It is better to keep "v2.15" in the search for
     # a while.
-    my $search_site = "lilypond.org/doc/v2.23";
+    my $search_site = "lilypond.org/doc/v2.24";
     if ($web_manual) {
         $search_site = "lilypond.org";
     }
