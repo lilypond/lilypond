@@ -66,7 +66,7 @@ testing new features.  Please contribute to these discussions!
 These jobs generally require that you have the source code and can
 compile LilyPond.
 
-@warning{We suggest that contributors using Windows or MacOS X do
+@warning{We suggest that contributors using Windows or macOS do
 @strong{not} attempt to set up their own development environment;
 instead, use Lilydev as discussed in @rcontrib{Quick start}.}
 

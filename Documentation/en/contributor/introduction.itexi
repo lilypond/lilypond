@@ -77,7 +77,7 @@ email to @email{lilypond-devel@@gnu.org}.  You can subscribe to
 the developers' mailing list here:
 @uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel}.
 
-@warning{Contributors on Windows or MacOS X wishing to compile
+@warning{Contributors on Windows or macOS wishing to compile
 code or documentation are strongly advised to use our Debian
 LilyPond Developer Remix, as discussed in @ref{Quick start}.}
 

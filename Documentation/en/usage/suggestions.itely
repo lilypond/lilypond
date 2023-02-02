@@ -314,7 +314,7 @@ require difficult commands to build them (such as
 @code{lilypond-book} projects).  Makefiles vary greatly in
 complexity and flexibility, according to the needs and skills of
 the authors.  The program GNU Make comes installed on GNU/Linux
-distributions and on MacOS X, and it is also available for Windows.
+distributions and on macOS, and it is also available for Windows.
 
 See the @strong{GNU Make Manual} for full details on using
 @code{make}, as what follows here gives only a glimpse of what it
@@ -322,10 +322,10 @@ can do.
 
 The commands to define rules in a makefile differ
 according to platform; for instance the various forms of GNU/Linux and
-MacOS use @code{bash}, while Windows uses @code{cmd}.  Note that on
-MacOS X, you need to configure the system to use the command-line
+macOS use @code{bash}, while Windows uses @code{cmd}.  Note that on
+macOS, you need to configure the system to use the command-line
 interpreter.  Here are some example makefiles, with versions for both
-GNU/Linux/MacOS and Windows.
+GNU/@/Linux/@/macOS and Windows.
 
 The first example is for an orchestral work in four
 movements with a directory structure as follows:
@@ -375,7 +375,7 @@ full score), @code{movements} (individual movements in full score),
 and @code{parts} (individual parts for performers).  There
 is also a target @code{archive} that will create a tarball of
 the source files, suitable for sharing via web or email.  Here is
-the makefile for GNU/Linux or MacOS X.  It should be saved with the
+the makefile for GNU/Linux or macOS.  It should be saved with the
 name @code{Makefile} in the top directory of the project:
 
 @warning{When a target or pattern rule is defined, the

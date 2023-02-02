@@ -137,8 +137,8 @@ To convert all input files in a single directory use;
 convert-ly -e *.ly
 @end example
 
-Linux and MacOS@tie{}X users can both use the appropriate terminal
-application, but MacOS@tie{}X users can also execute this command
+Linux and macOS users can both use the appropriate terminal
+application, but macOS users can also execute this command
 directly under the menu entry @code{Compile > Update syntax}.
 
 A Windows user would run the command;
@@ -162,7 +162,7 @@ find . -name '*.ly' -exec convert-ly -e '@{@}' \;
 This example searches and converts all input files in the current
 directory and all directories below it recursively.  The converted files
 will be located in the same directory along with their renamed
-originals.  This should also work for MacOS@tie{}X users, although only
+originals.  This should also work for macOS users, although only
 via the terminal app.
 
 Windows user would use;

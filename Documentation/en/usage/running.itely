@@ -43,7 +43,7 @@ as @code{midi2ly}) which are only available on the command-line.
 
 By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
-@q{command shell}.  MacOS@tie{}X users might be more familiar with the terms
+@q{command shell}.  macOS users might be more familiar with the terms
 @q{terminal} or @q{console}.
 
 Describing how to use this part of an operating system is outside the
@@ -126,7 +126,7 @@ lilypond file.ly &> all.txt
 The above commands divert @q{normal} output, @q{errors} only, or @q{everything},
 respectively, to text files.  Consult the documentation for your
 particular shell, Command (Windows), Terminal or Console
-applications (MacOS X) to check whether output redirection is supported or if
+applications (macOS) to check whether output redirection is supported or if
 the syntax is different.
 
 The following example searches and processes all input files in the
@@ -139,7 +139,7 @@ find . -name '*.ly' -exec lilypond '@{@}' \;
 @end example
 
 @noindent
-This should also work for MacOS@tie{}X users.
+This should also work for macOS users.
 
 A Windows user would run
 
@@ -943,7 +943,7 @@ smaller value means more CPU time is used.  The default value is
 @code{70}.
 
 @item TMPDIR
-This specifies the temporary directory in GNU/Linux and Mac.
+This specifies the temporary directory in GNU/Linux and macOS.
 Default is @file{/tmp}.  It is the directory where intermediate
 files (such as PostScript files) are saved during compilation.
 Overriding this variable might be useful, for example, if the
@@ -969,7 +969,7 @@ While this approach works fine for manual compilation and
 platforms that come with standardized package managers, it can
 cause issues where such managers are not common or not used by
 default.  Typical examples of such platforms are Windows and
-MacOS, where users expect that application bundles can be
+macOS, where users expect that application bundles can be
 installed anywhere.
 
 The common solution to this problem is relocation support: Instead

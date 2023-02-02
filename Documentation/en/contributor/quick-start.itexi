@@ -25,7 +25,7 @@ not necessarily correct for different releases.}
 the necessary software and tools to compile LilyPond, the documentation
 and the website (also see @ref{Website work}).
 
-While compiling LilyPond on Mac OS and Windows is possible, both
+While compiling LilyPond on macOS and Windows is possible, both
 environments are complex to set up.  LilyDev can be easily run
 inside a @q{virtual machine} on either of these operating
 systems relatively easily using readily available virtualization
@@ -33,7 +33,7 @@ software.  We recommend using VirtualBox as it is available for all
 major operating systems and is very easy to install & configure.
 
 LilyDev comes in two @q{flavours}: containers and a standard disk image.
-Windows or Mac OS users should choose the Debian disk image
+Windows or macOS users should choose the Debian disk image
 (to be run in a virtual machine), that is the file named
 @file{LilyDev-VERSION-debian-vm.zip}.  GNU/Linux users are recommended
 to choose one of the containers (currently Debian or

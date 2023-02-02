@@ -1302,12 +1302,12 @@ bug reports to @email{bug-lilypond@@gnu.org}.
 Bugs that are not fault of LilyPond are documented here.
 
 
-@unnumberedsubsec Compiling on MacOS@tie{}X
+@unnumberedsubsec Compiling on macOS
 
-Here are special instructions for compiling under MacOS@tie{}X.
+Here are special instructions for compiling under macOS.
 These instructions assume that dependencies are installed using
 @uref{https://www.macports.org/, MacPorts.} The instructions have
-been tested using OS X 10.5 (Leopard).
+been tested using Mac~OS~X 10.5 (Leopard).
 
 First, install the relevant dependencies using MacPorts.
 
@@ -1357,7 +1357,7 @@ for your hierarchy.)
 
 @unnumberedsubsec International fonts
 
-On Mac OS X, all fonts are installed by default.  However, finding all
+On macOS, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
 @uref{https://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00472.html,
 this post} on the @code{lilypond-user} mailing list.

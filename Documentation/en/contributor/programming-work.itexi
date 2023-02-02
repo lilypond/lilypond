@@ -183,7 +183,7 @@ become a regression test and will be part of the LilyPond distribution.
 @subsection Desired file formatting
 
 Files that are part of the LilyPond distribution have Unix-style line
-endings (LF), rather than DOS (CR+LF) or MacOS 9 and earlier (CR).  Make
+endings (LF), rather than DOS (CR+LF) or Mac~OS~9 and earlier (CR).  Make
 sure you use the necessary tools to ensure that Unix-style line endings are
 preserved in the patches you create.
 
