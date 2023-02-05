@@ -36,17 +36,8 @@
 using std::string;
 using std::vector;
 
-#ifndef ROOTSEP
 #define ROOTSEP ':'
-#endif
-
-#ifndef DIRSEP
 #define DIRSEP '/'
-#endif
-
-#ifndef EXTSEP
-#define EXTSEP '.'
-#endif
 
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
@@ -122,7 +113,7 @@ File_name::file_part () const
   string s = base_;
 
   if (!ext_.empty ())
-    s += EXTSEP + ext_;
+    s += '.' + ext_;
 
   return s;
 }

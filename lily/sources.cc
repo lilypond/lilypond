@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "config.hh"
-
 #include "sources.hh"
 
 #include "source-file.hh"
@@ -72,8 +70,8 @@ Sources::find_full_path (string file_string, string const &current_dir) const
   // file currently being parsed.
   if (current_dir.length () && file_string.length ()
       && !File_name (file_string).is_absolute ()
-      && is_file (current_dir + DIRSEP + file_string))
-    file_string = current_dir + DIRSEP + file_string;
+      && is_file (current_dir + '/' + file_string))
+    file_string = current_dir + '/' + file_string;
 
   // Otherwise, check the rest of the path.
   else if (path_)

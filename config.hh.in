@@ -25,8 +25,7 @@
 /* define if you have pwd header */
 #define HAVE_PWD_H 0
 
-/* define directory and path separators */
-#define DIRSEP '@DIRSEP@'
+/* define path separator */
 #define PATHSEP '@PATHSEP@'
 
 /* define if you have sys/stat.h */

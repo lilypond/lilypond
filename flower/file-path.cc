@@ -226,7 +226,7 @@ File_path::find (const string &name) const
       if (file_name.dir_.empty ())
         file_name.dir_ = dir.to_string ();
       else if (!dir.to_string ().empty ())
-        file_name.dir_ = dir.to_string () + DIRSEP + file_name.dir_;
+        file_name.dir_ = dir.to_string () + '/' + file_name.dir_;
 
       if (is_file (file_name.to_string ()))
         return file_name.to_string ();
