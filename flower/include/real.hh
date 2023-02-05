@@ -25,8 +25,6 @@
 typedef double Real;
 static constexpr Real infinity_f = INFINITY;
 
-using std::abs; // TODO: replace abs (x) with std::abs (x) and remove this
-
 template <class T>
 inline int
 sign (T x)

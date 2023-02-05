@@ -149,13 +149,13 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
 
   // find the staff line nearest to note position
   Real nearest_line = line_positions[0];
-  Real line_dist = abs (line_positions[0] - pos);
+  Real line_dist = std::abs (line_positions[0] - pos);
   for (const Real p : line_positions)
     {
-      if (abs (p - pos) < line_dist)
+      if (std::abs (p - pos) < line_dist)
         {
           nearest_line = p;
-          line_dist = abs (p - pos);
+          line_dist = std::abs (p - pos);
         }
     }
 
@@ -240,7 +240,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
     // normal ledger lines
     {
       const auto ledger_count = static_cast<int> (
-        floor ((abs (nearest_line - pos) + ledger_extra) / 2));
+        floor ((std::abs (nearest_line - pos) + ledger_extra) / 2));
       values.resize (ledger_count);
       for (int i = 0; i < ledger_count; i++)
         {

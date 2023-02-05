@@ -149,7 +149,7 @@ different_directions_correction (Grob *note_spacing,
 
   if (!intersect.is_empty ())
     {
-      ret = abs (intersect.length ());
+      ret = std::abs (intersect.length ());
 
       /*
         Ugh. 7 is hardcoded.

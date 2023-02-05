@@ -220,7 +220,8 @@ Output_def::normalize ()
   if (from_scm<bool> (c_variable ("check-consistency")))
     {
       // Consistency checks. If values don't match, set defaults.
-      if (abs (paper_width - line_width - left_margin - right_margin) > 1e-6)
+      if (std::abs (paper_width - line_width - left_margin - right_margin)
+          > 1e-6)
         {
           line_width = line_width_default;
           left_margin = left_margin_default;

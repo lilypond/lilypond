@@ -163,7 +163,7 @@ Beam_configuration::new_config (Drul_array<Real> start, Drul_array<Real> offset)
 
   // This orders the sequence so we try combinations closest to the
   // the ideal offset first.
-  Real start_score = abs (offset[RIGHT]) + abs (offset[LEFT]);
+  Real start_score = std::abs (offset[RIGHT]) + std::abs (offset[LEFT]);
   qs->demerits = start_score / 1000.0;
   qs->next_scorer_todo_ = ORIGINAL_DISTANCE + 1;
 
@@ -877,8 +877,8 @@ Beam_scoring_problem::shift_region_to_valid ()
   else if (!feasible_left_point.is_empty ())
     {
       // Only one of them offers is feasible solution. Pick that one.
-      if (abs (beam_left_y - feasible_beam_placements[DOWN])
-          > abs (beam_left_y - feasible_beam_placements[UP]))
+      if (std::abs (beam_left_y - feasible_beam_placements[DOWN])
+          > std::abs (beam_left_y - feasible_beam_placements[UP]))
         beam_left_y = feasible_beam_placements[UP];
       else
         beam_left_y = feasible_beam_placements[DOWN];
@@ -1248,7 +1248,7 @@ Beam_scoring_problem::score_horizontal_inter_quants (
   Beam_configuration *config) const
 {
   if (delta (config->y) == 0.0
-      && abs (config->y[LEFT]) < staff_radius_ * staff_space_)
+      && std::abs (config->y[LEFT]) < staff_radius_ * staff_space_)
     {
       Real yshift = config->y[LEFT] - 0.5 * staff_space_;
       if (fabs (round_halfway_up (yshift) - yshift) < 0.01 * staff_space_)

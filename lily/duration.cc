@@ -113,7 +113,7 @@ Duration::compressed (Rational m) const
 Rational
 Duration::get_length () const
 {
-  Rational mom (1 << abs (durlog_));
+  Rational mom (1 << std::abs (durlog_));
 
   if (durlog_ > 0)
     mom = Rational (1) / mom;

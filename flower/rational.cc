@@ -65,15 +65,15 @@ Rational::Rational (int64_t n, int64_t d)
 {
   // use sign of n when d=0
   sign_ = sign (n) * (std::signbit (d) ? -1 : 1);
-  num_ = static_cast<uint64_t> (::abs (n));
-  den_ = static_cast<uint64_t> (::abs (d));
+  num_ = static_cast<uint64_t> (std::abs (n));
+  den_ = static_cast<uint64_t> (std::abs (d));
   normalize ();
 }
 
 Rational::Rational (long long n)
 {
   sign_ = sign (n);
-  num_ = static_cast<uint64_t> (::abs (n));
+  num_ = static_cast<uint64_t> (std::abs (n));
   den_ = 1;
 }
 
@@ -238,8 +238,8 @@ Rational::operator+= (Rational r)
         = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       int64_t d = lcm;
       sign_ = sign (n) * sign (d);
-      num_ = static_cast<uint64_t> (::abs (n));
-      den_ = static_cast<uint64_t> (::abs (d));
+      num_ = static_cast<uint64_t> (std::abs (n));
+      den_ = static_cast<uint64_t> (std::abs (d));
       normalize ();
     }
   return *this;

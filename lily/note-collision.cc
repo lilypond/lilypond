@@ -149,7 +149,7 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
     {
       if (ups[i] == dps[j])
         full_collide = true;
-      else if (abs (ups[i] - dps[j]) <= threshold)
+      else if (std::abs (ups[i] - dps[j]) <= threshold)
         {
           merge_possible = false;
           if (ups[i] > dps[j])

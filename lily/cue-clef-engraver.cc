@@ -98,7 +98,7 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
 
       int abs_transp = from_scm<int> (transp);
       int dir = sign (abs_transp);
-      abs_transp = abs (abs_transp) + 1;
+      abs_transp = std::abs (abs_transp) + 1;
 
       SCM txt = scm_number_to_string (to_scm (abs_transp), to_scm (10));
 

@@ -332,7 +332,7 @@ Lookup::round_polygon (vector<Offset> const &points, Real blotdiameter,
           // shape from inverting from pulling too far inward.
           // 3 diameters is pretty much a handwaving guess.
 
-          if (abs (proj) < 0.03)
+          if (std::abs (proj) < 0.03)
             proj = proj < 0 ? -0.03 : 0.03;
 
           shrunk_points[i1]

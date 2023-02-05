@@ -61,7 +61,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
 
           stem_posns.intersect (bar_height);
 
-          ret = std::min (abs (stem_posns.length () / 7.0), 1.0);
+          ret = std::min (std::abs (stem_posns.length () / 7.0), 1.0);
           ret *= from_scm<double> (get_property (me, "stem-spacing-correction"),
                                    1);
         }

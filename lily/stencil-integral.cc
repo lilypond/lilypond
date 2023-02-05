@@ -631,7 +631,7 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
         }
       else
         {
-          assert (abs (xlen - ylen) < 10e-3);
+          assert (std::abs (xlen - ylen) < 10e-3);
 
           Real scale_factor = std::max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates

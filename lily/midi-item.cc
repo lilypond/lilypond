@@ -169,7 +169,7 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
 string
 Midi_time_signature::to_string () const
 {
-  int num = abs (audio_->beats_);
+  int num = std::abs (audio_->beats_);
   if (num > 255)
     {
       warning (_ ("Time signature with more than 255 beats.  Truncating"));

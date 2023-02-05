@@ -551,8 +551,8 @@ Beam::calc_beam_segments (SCM smob)
 
               bool event = on_beam_bound
                            || absdiff (seg.rank_, segs[j + event_dir].rank_) > 1
-                           || (abs (vertical_count) >= seg.max_connect_
-                               || abs (vertical_count)
+                           || (std::abs (vertical_count) >= seg.max_connect_
+                               || std::abs (vertical_count)
                                     >= segs[j + event_dir].max_connect_);
 
               if (!event)
@@ -904,7 +904,7 @@ Beam::get_default_dir (Grob *me)
 
   if (!force_dir)
     {
-      if (abs (extremes[UP]) > -extremes[DOWN])
+      if (std::abs (extremes[UP]) > -extremes[DOWN])
         return DOWN;
       else if (extremes[UP] < -extremes[DOWN])
         return UP;
@@ -1280,7 +1280,7 @@ Beam::forced_stem_count (Grob *me)
       Direction defdir
         = from_scm<Direction> (get_property (s, "default-direction"));
 
-      if (abs (Stem::chord_start_y (s)) > 0.1 && defdir
+      if (std::abs (Stem::chord_start_y (s)) > 0.1 && defdir
           && get_grob_direction (s) != defdir)
         f++;
     }

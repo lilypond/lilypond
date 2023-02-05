@@ -203,7 +203,7 @@ Pitch::to_relative_octave (Pitch p) const
   down_pitch.down_to (notename_);
 
   int h = p.steps ();
-  if (abs (up_pitch.steps () - h) < abs (down_pitch.steps () - h))
+  if (std::abs (up_pitch.steps () - h) < std::abs (down_pitch.steps () - h))
     n = up_pitch;
   else
     n = down_pitch;

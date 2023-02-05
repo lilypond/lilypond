@@ -475,7 +475,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
           */
       Real which_step
         = (std::min (1.0, quarter_stem_length - (2 * staff_rad) - 2.0))
-          + abs (hp[dir]);
+          + std::abs (hp[dir]);
       Real shorten = std::min (std::max (0.0, (shortening_step * which_step)),
                                shorten_property);
 

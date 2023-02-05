@@ -102,7 +102,7 @@ vaticana_brew_flexa (Grob *me, bool solid, Real line_thickness)
    * section of bend.
    */
   Real left_height
-    = right_height + std::min (0.12 * abs (interval), 0.3) * staff_space;
+    = right_height + std::min (0.12 * std::abs (interval), 0.3) * staff_space;
 
   /*
    * Compensate optical illusion regarding vertical position of left

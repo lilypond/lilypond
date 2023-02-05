@@ -1406,8 +1406,9 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
       res.penalty_ += cached_line_details_[line - 1].page_penalty_;
       if (system_count_on_this_page != systems_per_page_)
         {
-          res.penalty_ += abs (system_count_on_this_page - systems_per_page_)
-                          * TERRIBLE_SPACING_PENALTY;
+          res.penalty_
+            += std::abs (system_count_on_this_page - systems_per_page_)
+               * TERRIBLE_SPACING_PENALTY;
           res.system_count_status_
             |= ((system_count_on_this_page < systems_per_page_))
                  ? SYSTEM_COUNT_TOO_FEW
