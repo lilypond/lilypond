@@ -2,13 +2,6 @@ TEXI_FILES = $(call src-wildcard,*.texi)
 
 ###########
 
-ifndef VERBOSE
-  TEXI2PDF_QUIET = -q
-  TEXINFO_GS_QUIET = -q
-endif
-
-###########
-
 TEXI2HTML_INIT = \
   --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir)
