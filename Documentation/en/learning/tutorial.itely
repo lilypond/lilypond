@@ -158,7 +158,7 @@ LilyPond uses lowercase letters for pitches.  Note names in all
 examples in this section use the Dutch naming system (white piano
 keys are c, d, e, f, g, a,@tie{}b).  However, LilyPond supports
 many different naming schemes like @q{English} or @q{Fixed-Do}
-(do, re, mi, @dots{}).  See @ruser{Note names in other languages}.
+(do, re, mi, @dots{}).  See @rnotation{Note names in other languages}.
 The letters @samp{c} through @samp{b} denote pitches in the
 @q{small octave} below @notation{middle C}.  Added @samp{'} or
 @samp{,} suffixes indicate higher or lower octaves.  Here is a
@@ -431,11 +431,11 @@ Here is a small example showing all these elements together:
 
 @morerefs
 Notation Reference:
-@ruser{Writing pitches},
-@ruser{Writing rhythms},
-@ruser{Writing rests},
-@ruser{Time signature},
-@ruser{Clef}.
+@rnotation{Writing pitches},
+@rnotation{Writing rhythms},
+@rnotation{Writing rests},
+@rnotation{Time signature},
+@rnotation{Clef}.
 @endmorerefs
 
 
@@ -741,7 +741,7 @@ the @rglos{Top}.
 @item
 @strong{Before trying to write a complete piece of music}:
 @pxref{Fundamental concepts} of this manual.  After that, you may
-want to look into relevant sections of the @ruser{Top}.
+want to look into relevant sections of the @rnotation{Top}.
 
 @item
 @strong{Before trying to change the default output}:

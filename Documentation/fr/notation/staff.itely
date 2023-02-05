@@ -1910,7 +1910,7 @@ nécessaire, en suivant la syntaxe indiquée dans
 @funindex \compressMMRests
 
 Une telle notation peut toutefois s'avérer utile lorsqu'elle
-s'applique à des @rusernamed{Silences valant une mesure,
+s'applique à des @rnotationnamed{Silences valant une mesure,
 silences valant une mesure}. Un silence de plusieurs mesures sera alors
 affiché sous la forme d'une seule mesure contenant un symbole de silence
 multimesure surplombé du nombre de mesures de silence :

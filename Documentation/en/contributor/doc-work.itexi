@@ -688,7 +688,7 @@ cross-reference to be rendered incorrectly in HTML documents.
 @code{@@rprogram@{@dots{}@}} --- link to Application Usage.
 
 @item
-@code{@@ruser@{@dots{}@}} --- link to Notation Reference.
+@code{@@rnotation@{@dots{}@}} --- link to Notation Reference.
 
 @item
 @code{@@rweb@{@dots{}@}} --- link to General Information.
@@ -1270,8 +1270,8 @@ Learning Manual:
 @@rlearning@{foozle@}.
 
 Notation Reference:
-@@ruser@{faazle@},
-@@ruser@{boo@}.
+@@rnotation@{faazle@},
+@@rnotation@{boo@}.
 
 Application Usage:
 @@rprogram@{blah@}.
@@ -1897,7 +1897,7 @@ name of an entry in Music Glossary.
 
 Every time you translate a node name in a cross-reference, i.e., the
 argument of commands @code{@@ref, @@rprogram, @@rlearning, @@rlsr,
-@@ruser} or the first argument of their @code{@var{*}named} variants,
+@@rnotation} or the first argument of their @code{@var{*}named} variants,
 you should make sure the target node is defined in the correct source
 file; if you do not intend to translate the target node right now, you
 should at least write the node definition (that is, the @code{@@node

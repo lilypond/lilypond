@@ -199,7 +199,7 @@ propietats a partir dels seus noms.
 
 @morerefs
 Referencia de la notació:
-@ruser{Modificació de les propietats}
+@rnotation{Modificació de les propietats}
 
 @node Mètodes d'ajustament
 @subsection Mètodes d'ajustament
@@ -571,7 +571,7 @@ es pot modificar de la forma usual mitjançant ordres @code{\override}:
 
 @morerefs
 Referència de la notació:
-@ruser{L'ordre tweak}.
+@rnotation{L'ordre tweak}.
 
 @node El prefix single
 @unnumberedsubsubsec El prefix @code{\single}
@@ -1416,7 +1416,7 @@ les línies del pentagrama amb les quals es creua.  Podreu observar
 en alguns dels exemples que apareixen a continuació, que això
 succeeix de forma impredictible.  Els detalls sobre perquè això passa
 així, i com controlar-lo, s'estudien a
-@ruser{Pintar els objectes de blanc};
+@rnotation{Pintar els objectes de blanc};
 de moment estem estudiant el color, per la qual cosa us preguem
 que accepteu aquesta limitació per ara).
 
@@ -1427,7 +1427,7 @@ una llista de valors en unitats internes, però per evitar haver de
 saber quines són, s'ofereixen diverses vies per a l'especificació
 dels colors.  La primera forma és utilitzar un dels colors
 @q{normals} dels quals es fa una relació a la primera taula de la
-@ruser{Llista de colors}.  Per posar les
+@rnotation{Llista de colors}.  Per posar les
 línies divisòries de color blanc, escrivim:
 
 @cindex BarLine, exemple de sobreescriptura
@@ -1459,7 +1459,7 @@ voleu canviar el color a una de les altres variables de la llista.
 
 La segona forma de canviar el color és utilitzar la llista de noms
 de colores d'X11 que apareix a la segona llista de
-@ruser{Llista de colors}.  De totes maneres,
+@rnotation{Llista de colors}.  De totes maneres,
 es fan correspondre als valors real per mitjà de la funció
 @code{x11-color} que converteix els símbols de color d'X11 a la
 llista de valors interns d'aquests colors:
@@ -2388,7 +2388,7 @@ música.  L'extensor abasta des de l'ordre@code{\startTextSpan}
 fins l'ordre @code{\stopTextSpan}, i el format del text es
 defineix per mitjà de l'ordre @code{\override TextSpanner}.  Per
 veure més detalls, consulteu
-@ruser{Extensions de text}.
+@rnotation{Extensions de text}.
 
 També mostra la manera de crear indicadors d'octava alta i baixa.
 
@@ -2722,7 +2722,7 @@ Començarem amb la lletra.
 
 La lletra es troba a l'interior d'un sistema, i per tant les
 ordres per aplicar-li l'espaiat estaran en
-@ruser{Espaiat vertical flexible dins dels sistemes}.
+@rnotation{Espaiat vertical flexible dins dels sistemes}.
 Aquí es diu que el text són línies del tipus @qq{no-pauta} i per
 tant l'ordre per canviar el seu espaiat farà referència a la propietat
 @code{nonstaff}.  Per separar-les del pentagrama al que pertanyen
@@ -2876,8 +2876,8 @@ que hem de recordar és que l'espaiat entre objectes dins d'un
 @code{StaffGrouper}. L'espaiat dels pentagrames no agrupats (com
 @code{Lyrics} i @code{Staff}) es controla amb les variables
 del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
-@ruser{Variables flexibles d'espaiat vertical de paper} i
-@ruser{Espaiat vertical flexible dins dels sistemes}.
+@rnotation{Variables flexibles d'espaiat vertical de paper} i
+@rnotation{Espaiat vertical flexible dins dels sistemes}.
 
 
 @node Col·lisions d'objectes
@@ -3233,7 +3233,7 @@ context respecta un determinat objecte.  Atès que l'objecte
 @code{MetronomeMark} respecta el context @code{Score}, els canvis
 de propietats al context @code{Voice} passaran inadvertits. Per
 veure més detalls consulteu
-@ruser{Modificació de les propietats}.
+@rnotation{Modificació de les propietats}.
 
 Si la propietat de farciment @code{padding} d'un objecte
 s'incrementa quan aquest objecte es troba a una pila d'objectes
@@ -3449,7 +3449,7 @@ seleccionat, i en aquest cas la propietat @code{positions} no té
 cap efecte.  Malgrat això, les lligadures d'unió, expressió i
 fraseig @emph{es poden} col·locar i ajustar de manera molt exacta
 quan cal. Per aprendre la manera de fer-lo, consulteu
-@ruser{Modificació de lligadures d'unió i d'expressió}.
+@rnotation{Modificació de lligadures d'unió i d'expressió}.
 
 Presentem un altre exemple.  Veiem que la barra xoca amb les lligadures:
 
@@ -3877,7 +3877,7 @@ de Referència de la notació.  En cuscar la paraula @qq{merge}
 (fusiona) a l'índex de la Referència de la notació arribem
 ràpidament a les ordres per barrejar notes amb diferent cap i amb
 o sense puntet, a
-@ruser{Resolució de les col·lisions}.
+@rnotation{Resolució de les col·lisions}.
 Al nostre exemple hem de fusionar ambdós tipus de notes al
 transcurs de la secció polifònica del compàs 3; per tant, gràcies
 a la informació que apareix a la Referència de la Notació, escrivim

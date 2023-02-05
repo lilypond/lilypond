@@ -81,7 +81,7 @@ Normale (einfache) Taktstriche werden von LilyPond automatisch eingefügt und
 müssen daher nicht extra angegeben werden.  Andere Arten von Taktstrichen können
 mittels @code{\bar} eingeben werden, z.B. @code{\bar "||"} für einen doppelten Taktstrich,
 oder @code{\bar "|."} für einen Schlusstaktstrich.  Eine vollständige Liste aller
-möglichen Taktstriche findet sich unter @ruser{Taktstriche}.
+möglichen Taktstriche findet sich unter @rnotation{Taktstriche}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -122,7 +122,7 @@ ein noch direkter Hinweis auf das fehlende @code{4} in Takt 3.
 
 @morerefs
 Notationsreferenz:
-@ruser{Takt- und Taktzahlüberprüfung}.
+@rnotation{Takt- und Taktzahlüberprüfung}.
 
 
 @node Tonhöhen und Tonartbezeichnungen (Vorzeichen)
@@ -173,7 +173,7 @@ von @q{isis} oder @q{eses} geschrieben. Diese Syntax
 stammt aus der Tradition der germanischen Sprachen und ist also für
 deutsche Benutzer kein Problem. Es ist aber möglich, die Namen für die
 @notation{Versetzungszeichen} in anderen
-Sprachen zu benutzen, siehe @ruser{Notenbezeichnungen in anderen Sprachen}.
+Sprachen zu benutzen, siehe @rnotation{Notenbezeichnungen in anderen Sprachen}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -271,16 +271,16 @@ Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht
 etwas mehr Schreibarbeit, hat aber den großen Vorteil, dass
 @notation{Transpositionen} sehr viel einfacher sind und der Ausdruck
 von Versetzungszeichen nach unterschiedlichen Regeln erfolgen kann. Siehe
-@ruser{Automatische Versetzungszeichen} für einige Beispiele, wie Vorzeichen
+@rnotation{Automatische Versetzungszeichen} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
 
 @morerefs
 Notationsreferenz:
-@ruser{Notenbezeichnungen in anderen Sprachen},
-@ruser{Versetzungszeichen},
-@ruser{Automatische Versetzungszeichen},
-@ruser{Tonartbezeichnung}.
+@rnotation{Notenbezeichnungen in anderen Sprachen},
+@rnotation{Versetzungszeichen},
+@rnotation{Automatische Versetzungszeichen},
+@rnotation{Tonartbezeichnung}.
 
 
 @node Bindebögen und Legatobögen
@@ -393,9 +393,9 @@ geschachtelt werden.
 
 @morerefs
 Notationsreferenz:
-@ruser{Bindebögen},
-@ruser{Legatobögen},
-@ruser{Phrasierungsbögen}.
+@rnotation{Bindebögen},
+@rnotation{Legatobögen},
+@rnotation{Phrasierungsbögen}.
 
 
 @node Artikulationszeichen und Lautstärke
@@ -507,9 +507,9 @@ Mit dem Befehl @code{\!} kann es explizit beendet werden.
 
 @morerefs
 Notationsreferenz:
-@ruser{Artikulationszeichen und Verzierungen},
-@ruser{Fingersatzanweisungen},
-@ruser{Dynamik}.
+@rnotation{Artikulationszeichen und Verzierungen},
+@rnotation{Fingersatzanweisungen},
+@rnotation{Dynamik}.
 
 
 @node Text hinzufügen
@@ -543,7 +543,7 @@ a'2_\markup {
 
 @morerefs
 Notationsreferenz:
-@ruser{Text eingeben}.
+@rnotation{Text eingeben}.
 
 
 @node Automatische und manuelle Balken
@@ -594,8 +594,8 @@ und @code{\autoBeamOn}, um sie wieder einzuschalten.
 
 @morerefs
 Notationsreferenz:
-@ruser{Automatische Balken},
-@ruser{Manuelle Balken}.
+@rnotation{Automatische Balken},
+@rnotation{Manuelle Balken}.
 
 
 @node Zusätzliche rhythmische Befehle
@@ -690,9 +690,9 @@ und Vorschläge mit @code{\acciaccatura}.
 
 @morerefs
 Notationsreferenz:
-@ruser{Verzierungen},
-@ruser{Andere rhythmische Aufteilungen},
-@ruser{Auftakte}.
+@rnotation{Verzierungen},
+@rnotation{Andere rhythmische Aufteilungen},
+@rnotation{Auftakte}.
 
 
 @node Mehrere Noten auf einmal
@@ -991,8 +991,8 @@ oder auch zwischen System gesetzt werden.
 
 @morerefs
 Notationsreferenz:
-@ruser{Tasteninstrumente und andere Instrumente mit mehreren Systemen},
-@ruser{Systeme anzeigen lassen}.
+@rnotation{Tasteninstrumente und andere Instrumente mit mehreren Systemen},
+@rnotation{Systeme anzeigen lassen}.
 
 
 @node Noten zu Akkorden verbinden
@@ -1039,7 +1039,7 @@ spitzen Klammern gesetzt werden.
 
 @morerefs
 Notationsreferenz:
-@ruser{Chorded notes}.
+@rnotation{Chorded notes}.
 
 
 @node Mehrstimmigkeit in einem System
@@ -1069,7 +1069,7 @@ Handbuch zum Lernen:
 @ref{Voice enthält Noten}.
 
 Notationsreferenz:
-@ruser{Gleichzeitig erscheinende Noten}.
+@rnotation{Gleichzeitig erscheinende Noten}.
 
 
 @node Lieder
@@ -1310,7 +1310,7 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden muss.
 
 @morerefs
 Notationsreferenz:
-@ruser{Notation von Gesang}.
+@rnotation{Notation von Gesang}.
 
 
 @node Text zu mehreren Systemen
@@ -1355,7 +1355,7 @@ von Variablen wird erklärt im Abschnitt @ref{Stücke durch Variablen organisier
 
 @morerefs
 Notationsreferenz:
-@ruser{Notation von Gesang}.
+@rnotation{Notation von Gesang}.
 
 
 @node Letzter Schliff
@@ -1500,7 +1500,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 
 Wenn die Datei übersetzt wird, werden Titel- und Komponisteneinträge
 über der Musik ausgegeben. Mehr Information über die Titelei findet
-sich im Abschnitt @ruser{Titel Kopf und Fußzeilen erstellen}.
+sich im Abschnitt @rnotation{Titel Kopf und Fußzeilen erstellen}.
 
 
 @node Absolute Notenbezeichnungen
@@ -1608,7 +1608,7 @@ besten ein paar Stücke selber notieren. Beginnen Sie mit
 den @ref{Vorlagen} und fügen Sie einfach Ihre Noten
 dazu. Wenn Sie irgendetwas brauchen, das nicht im
 Tutorium besprochen wurde, schauen Sie sich den Abschnitt Alles
-über die Notation an, angefangen mit @ruser{Musikalische Notation}.
+über die Notation an, angefangen mit @rnotation{Musikalische Notation}.
 Wenn Sie für ein Instrument oder Ensemble Noten schreiben
 wollen, für das es keine Vorlage gibt, schauen Sie
 sich @ref{Erweiterung der Vorlagen} an.

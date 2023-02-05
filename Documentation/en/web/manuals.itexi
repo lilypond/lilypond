@@ -62,7 +62,7 @@ a @qq{must-read} gentle introduction to LilyPond.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@ifWebLinks{@manualStableNotationSplitNoName,@rnotationnamed{Top,Notation}}
 syntax reference.
 @details{Notation}
 
@@ -295,7 +295,7 @@ the English musical terms presented in the glossary.}
 @divClass{column-right-bottom}
 
 @docLinks{Notation, notation,
-  @rusernamed{Top,Notation},
+  @rnotationnamed{Top,Notation},
   @manualStableNotationSplit,
   @manualStableNotationBig,
   @manualStableNotationPdf}

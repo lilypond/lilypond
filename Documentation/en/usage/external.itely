@@ -818,7 +818,7 @@ block render into lines of music rather than pages.
 @cindex music fragments, quoting
 
 If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of music}.
+the clip systems feature, see @rnotation{Extracting fragments of music}.
 
 
 @node Independent includes
@@ -826,7 +826,7 @@ the clip systems feature, see @ruser{Extracting fragments of music}.
 
 Some users have produced files that can be @code{\include}d with
 LilyPond to produce certain effects and those listed below are part of
-the LilyPond distribution.  Also see @ruser{Working with input files}.
+the LilyPond distribution.  Also see @rnotation{Working with input files}.
 
 @menu
 * MIDI articulation::
@@ -844,4 +844,4 @@ attempt to enhance LilyPond's MIDI output and works by adjusting note
 lengths (that are not under slurs) according to the articulation
 markings attached to them.  For example, a @q{staccato} halves the note
 value, @q{tenuto} gives a note its full duration and so on.  See
-@ruser{Enhancing MIDI output}.
+@rnotation{Enhancing MIDI output}.

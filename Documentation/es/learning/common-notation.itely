@@ -76,7 +76,7 @@ música, por lo que no hay que añadirlas de forma manual.  Otros
 tipos de barras de compás se añaden usando @code{\bar}, por
 ejemplo @code{\bar "||"} para una doble barra, o @code{\bar "|."}
 para la doble barra final.  Para ver una lista completa de las
-líneas divisorias, consulte @ruser{Barras de compás}.
+líneas divisorias, consulte @rnotation{Barras de compás}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -119,7 +119,7 @@ que falta en el compás 3.
 
 @morerefs
 Referencia de la notación:
-@ruser{Comprobación de compás y de número de compás}.
+@rnotation{Comprobación de compás y de número de compás}.
 
 
 @node Alturas y armaduras
@@ -177,7 +177,7 @@ o @notation{doble bemol} se hace añadiendo @code{isis} o
 @code{eses}.  Esta sintaxis se deriva de las convenciones de
 nomenclatura de las notas en las lenguas nórdicas y germánicas
 como el alemán y el holandés.  Para utilizar otras nomenclaturas
-para las notas, véase @ruser{Nombres de las notas en otros
+para las notas, véase @rnotation{Nombres de las notas en otros
 idiomas}.
 
 @lilypond[verbatim,quote]
@@ -284,17 +284,17 @@ Poner todas las alteraciones de forma explícita puede que requiera
 algo más de trabajo al teclear, pero la ventaja es que la
 @notation{transposición} es más fácil, y las alteraciones se
 pueden imprimir siguiendo varias convenciones distintas.  Consulte
-@ruser{Alteraciones accidentales automáticas} para ver ejemplos de
+@rnotation{Alteraciones accidentales automáticas} para ver ejemplos de
 cómo se pueden imprimir las alteraciones de acuerdo a reglas
 diferentes.
 
 
 @morerefs
 Referencia de la notación:
-@ruser{Nombres de las notas en otros idiomas},
-@ruser{Alteraciones accidentales},
-@ruser{Alteraciones accidentales automáticas},
-@ruser{Armadura de la tonalidad}.
+@rnotation{Nombres de las notas en otros idiomas},
+@rnotation{Alteraciones accidentales},
+@rnotation{Alteraciones accidentales automáticas},
+@rnotation{Armadura de la tonalidad}.
 
 
 @node Ligaduras de unión y de expresión
@@ -412,9 +412,9 @@ otras.
 
 @morerefs
 Referencia de la notación:
-@ruser{Ligaduras de unión},
-@ruser{Ligaduras de expresión},
-@ruser{Ligaduras de fraseo}.
+@rnotation{Ligaduras de unión},
+@rnotation{Ligaduras de expresión},
+@rnotation{Ligaduras de fraseo}.
 
 
 @node Articulaciones y matices dinámicos
@@ -527,9 +527,9 @@ matiz, como por ejemplo @code{\f}, dará por terminado el
 
 @morerefs
 Referencia de la notación:
-@ruser{Articulaciones y ornamentos},
-@ruser{Indicaciones de digitación},
-@ruser{Matices dinámicos}.
+@rnotation{Articulaciones y ornamentos},
+@rnotation{Indicaciones de digitación},
+@rnotation{Matices dinámicos}.
 
 
 @node Añadir texto
@@ -561,7 +561,7 @@ a'2_\markup {
 
 @morerefs
 Referencia de la notación:
-@ruser{Escritura del texto}.
+@rnotation{Escritura del texto}.
 
 
 @node Barras automáticas y manuales
@@ -618,8 +618,8 @@ activarlo de nuevo.
 
 @morerefs
 Referencia de la notación:
-@ruser{Barras automáticas},
-@ruser{Barras manuales}.
+@rnotation{Barras automáticas},
+@rnotation{Barras manuales}.
 
 
 @node Instrucciones rítmicas avanzadas
@@ -718,9 +718,9 @@ expresión musical por la palabra clave @code{\appoggiatura} o
 
 @morerefs
 Referencia de la notación:
-@ruser{Notas de adorno},
-@ruser{Grupos especiales},
-@ruser{Anacrusas}.
+@rnotation{Notas de adorno},
+@rnotation{Grupos especiales},
+@rnotation{Anacrusas}.
 
 
 @node Varias notas a la vez
@@ -1005,8 +1005,8 @@ controla el alcance de las líneas divisorias.
 
 @morerefs
 Referencia de la notación:
-@ruser{Teclados y otros instrumentos de varios pentagramas},
-@ruser{Impresión de los pentagramas}.
+@rnotation{Teclados y otros instrumentos de varios pentagramas},
+@rnotation{Impresión de los pentagramas}.
 
 
 @node Combinar notas para formar acordes
@@ -1053,7 +1053,7 @@ con acordes.  Tan sólo debe recordar que se escriben por fuera de los
 
 @morerefs
 Referencia de la notación:
-@ruser{Notas en acorde}.
+@rnotation{Notas en acorde}.
 
 
 @node Polifonía en un solo pentagrama
@@ -1083,7 +1083,7 @@ Manual de aprendizaje:
 @ref{Las voces contienen música}.
 
 Referencia de la notación:
-@ruser{Notas simultáneas}.
+@rnotation{Notas simultáneas}.
 
 
 @node Canciones
@@ -1323,7 +1323,7 @@ el aria de Fígaro @notation{Largo al factotum}:
 
 @morerefs
 Referencia de la notación:
-@ruser{Música vocal}.
+@rnotation{Música vocal}.
 
 
 @node Letra en varios pentagramas
@@ -1369,7 +1369,7 @@ se tratan en @ref{Organizar las piezas mediante variables}.
 
 @morerefs
 Referencia de la notación:
-@ruser{Música vocal}.
+@rnotation{Música vocal}.
 
 
 @node Retoques finales
@@ -1446,7 +1446,7 @@ cello = \new Staff {
 
 @noindent
 Por convención, los nombres de variable consisten enteramente en
-caracteres alfabéticos.  Para ver información detallada, consulte @ruser{Estructura del archivo}.
+caracteres alfabéticos.  Para ver información detallada, consulte @rnotation{Estructura del archivo}.
 
 Las variables se deben definir @emph{antes} de la expresión
 musical principal, pero se pueden usar tantas veces como se
@@ -1519,7 +1519,7 @@ normalmente se sitúa por debajo del número de versión.
 
 Cuando se procesa el archivo, el título y el autor se imprimen por
 encima de la música.  Puede obtener más información sobre los
-títulos en @ruser{Crear títulos encabezamientos y pies de página}.
+títulos en @rnotation{Crear títulos encabezamientos y pies de página}.
 
 
 @node Nombres de nota absolutos
@@ -1630,7 +1630,7 @@ Después de terminar el tutorial, quizá debería probar a escribir
 una o dos piezas.  Comience con una de las plantillas que aparecen
 en @ref{Plantillas} y añada algunas notas.  Si necesita un tipo de
 notación que no ha sido tratada en el tutorial, eche un vistazo a
-la Referencia de Notación, empezando por @ruser{Notación musical}.
+la Referencia de Notación, empezando por @rnotation{Notación musical}.
 Si quiere escribir música para un conjunto instrumental que no
 está cubierto por ninguna plantilla, consulte @ref{Extender las
 plantillas}.

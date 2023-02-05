@@ -212,7 +212,7 @@ LilyPond バージョン @version{} 用
 @c     @rlearning
 @c     @rlsr
 @c     @rprogram
-@c     @ruser
+@c     @rnotation
 @c     @rchanges
 @c     @rextend
 @c     @rcontrib
@@ -252,12 +252,12 @@ LilyPond バージョン @version{} 用
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,\DISPLAY\}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
 @end macro
@@ -369,12 +369,12 @@ LilyPond バージョン @version{} 用
 @ref{\TEXT\,,,learning,\DISPLAY\}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,\DISPLAY\}
 @end macro
@@ -481,12 +481,12 @@ LilyPond バージョン @version{} 用
 @ref{\TEXT\,,,lilypond-learning,\DISPLAY\}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,\DISPLAY\}
 @end macro
@@ -610,12 +610,12 @@ LilyPond バージョン @version{} 用
 @ref{\TEXT\,,\DISPLAY\,learning,\DISPLAY\}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,,notation,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation,\DISPLAY\}
 @end macro

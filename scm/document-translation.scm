@@ -283,7 +283,7 @@
   (make <texi-node>
     #:name "Engravers and Performers"
     #:desc "All separate engravers and performers."
-    #:text "See @ruser{Modifying context plug-ins}."
+    #:text "See @rnotation{Modifying context plug-ins}."
     #:children
     (map engraver-doc all-engravers-list)))
 

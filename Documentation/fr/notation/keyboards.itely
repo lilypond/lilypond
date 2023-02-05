@@ -658,7 +658,7 @@ de symbole a fini par voir le jour afin de faciliter les instructions
 pour exécuter un morceau.
 
 Une liste des différents symboles est disponible à l'annexe
-@rusernamed{Accordion registers, Registre pour arccordéon}.
+@rnotationnamed{Accordion registers, Registre pour arccordéon}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -762,6 +762,6 @@ précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 @morerefs
 Manuel de notation :
 @ref{Commentaires textuels},
-@rusernamed{Instrument-specific markup,
+@rnotationnamed{Instrument-specific markup,
 Markups spécifiques aux instruments (en anglais)}.
 @endmorerefs

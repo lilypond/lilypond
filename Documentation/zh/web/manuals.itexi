@@ -66,7 +66,7 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@ifWebLinks{@manualStableNotationSplitNoName,@rnotationnamed{Top,Notation}}
 语法参考。
 @details{Notation}
 
@@ -259,7 +259,7 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divClass{column-right-bottom}
 
 @docLinks{Notation, notation,
-  @rusernamed{Top,Notation},
+  @rnotationnamed{Top,Notation},
   @manualStableNotationSplit,
   @manualStableNotationBig,
   @manualStableNotationPdf}

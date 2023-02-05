@@ -389,7 +389,7 @@ Text_interface::is_markup_list (SCM x)
 
 ADD_INTERFACE (Text_interface,
                R"(
-A Scheme markup text, see @ruser{Formatting text} and @rextend{New markup
+A Scheme markup text, see @rnotation{Formatting text} and @rextend{New markup
 command definition}.
 
 There are two important commands: @code{ly:text-interface::print}, which is a

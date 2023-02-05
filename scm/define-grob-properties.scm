@@ -643,7 +643,7 @@ curve's outline, which intersect at the endpoints.  This property is
 expressed as a multiple of the current staff-line thickness (i.e., the
 visual output is influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
-     (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
+     (long-text ,markup? "Text markup.  See @rnotation{Formatting text}.")
 
 
 ;;;
@@ -1192,7 +1192,7 @@ this property.")
 ;;;
 ;;; t
 ;;;
-     (text ,markup? "Text markup.  See @ruser{Formatting text}.")
+     (text ,markup? "Text markup.  See @rnotation{Formatting text}.")
      (text-alignment-X ,number? "How to align an annotation horizontally.")
      (text-alignment-Y ,number? "How to align an annotation vertically.")
      ;;FIXME -- Should both be the same?

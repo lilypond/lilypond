@@ -84,8 +84,8 @@ archivos de entrada sea mucho más sencilla.
 
 @item
 @strong{Inserte barras de
-@ruser{Comprobación de compás y de número de compás} así como
-códigos de @ruser{Comprobación de octava}}.  La inclusión de
+@rnotation{Comprobación de compás y de número de compás} así como
+códigos de @rnotation{Comprobación de octava}}.  La inclusión de
 códigos de comprobación de estos tipos será de ayuda para
 localizar los errores mucho más rápidamente.  La frecuencia con
 que añadir las comprobaciones dependerá de la complejidad de la
@@ -180,7 +180,7 @@ de cada vez (pero mantenga la práctica de escribir un compás por
 línea de texto), y compruebe cada sistema cuando lo haya
 terminado.  Puede usar las propiedades @code{showLastLength} o
 @code{showFirstLength} para acelerar el proceso (véase
-@ruser{Saltar la música corregida}).
+@rnotation{Saltar la música corregida}).
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo

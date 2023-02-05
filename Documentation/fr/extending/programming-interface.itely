@@ -208,11 +208,11 @@ permissifs tel que @code{Scheme?} lorsque l'application fait plutôt
 appel à des types d'argument plus spécifiques.
 
 Les différents types de prédicat propres à LilyPond sont recensés à
-l'annexe @ruser{Types de prédicats prédéfinis}.
+l'annexe @rnotation{Types de prédicats prédéfinis}.
 
 @morerefs
 Manuel de notation :
-@ruser{Types de prédicats prédéfinis}.
+@rnotation{Types de prédicats prédéfinis}.
 
 Fichiers d'initialisation :
 @file{lily/music-scheme.cc},
@@ -369,11 +369,11 @@ Scheme}.  La plupart du temps, le @var{corps} sera constitué d'un
 @ref{Blocs de code LilyPond, bloc de code LilyPond}.
 
 Les différents types des prédicat sont recensés à l'annexe
-@ruser{Types de prédicats prédéfinis}.
+@rnotation{Types de prédicats prédéfinis}.
 
 @morerefs
 Manuel de notation :
-@ruser{Types de prédicats prédéfinis}.
+@rnotation{Types de prédicats prédéfinis}.
 
 Fichiers d'initialisation :
 @file{lily/music-scheme.cc},
@@ -431,7 +431,7 @@ haut niveau.
 Une fonction de substitution simple renvoie une expression musicale
 écrite au format LilyPond et contient des arguments au format de
 l'expression résultante.  Vous en trouverez une description détaillée à
-la rubrique @ruser{Exemples de fonction de substitution}.
+la rubrique @rnotation{Exemples de fonction de substitution}.
 
 
 @node Fonctions de substitution intermédiaires
@@ -958,7 +958,7 @@ Nous allons, dans cet exemple, nous attacher à encadrer du texte avec un
 double liseré.
 
 Commençons par construire quelque chose d'approximatif à l'aide d'un
-simple @emph{markup}.  La lecture de @ruser{Commandes pour markup} nous
+simple @emph{markup}.  La lecture de @rnotation{Commandes pour markup} nous
 indique la commande @code{\box}, qui semble ici appropriée.
 
 @lilypond[quote,verbatim,ragged-right]

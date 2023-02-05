@@ -71,8 +71,8 @@ list).  Nota che tutti i modelli contengono l'informazione su @code{\version}.
 semplifica molto l'analisi dei problemi del file di input.
 
 @item
-@strong{Inserire i @ruser{Controlli di battuta e del numero di battuta} e
-i @ruser{Controlli di ottava}}.  Inserendo @q{controlli} di questo tipo nei
+@strong{Inserire i @rnotation{Controlli di battuta e del numero di battuta} e
+i @rnotation{Controlli di ottava}}.  Inserendo @q{controlli} di questo tipo nei
 file di input, si può individuare un errore più rapidamente.  Quanto spesso
 aggiungere i controlli dipende dalla complessità della musica da scrivere.  Per
 composizioni semplici, aggiungere controlli in pochi punti strategici può essere
@@ -156,7 +156,7 @@ contenuto in uno spartito già scritto),
 musica) un sistema alla volta (ma sempre una battuta per linea di testo),
 e controlla ogni sistema completato.  Puoi usare le proprietà
 @code{showLastLength} o @code{showFirstLength} per velocizzare
-l'elaborazione -- vedi @ruser{Saltare la musica già corretta}.
+l'elaborazione -- vedi @rnotation{Saltare la musica già corretta}.
 
 @item Definisci @code{mBreak = @{ \break @}} e inserisci @code{\mBreak}
 nel file di input ogni volta che nel manoscritto c'è un a capo.  In questo

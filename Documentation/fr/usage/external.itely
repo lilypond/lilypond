@@ -855,7 +855,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
 même partition, vous pouvez recourir à « l'emporte pièce » -- la
 fonction @emph{clip systems} -- comme indiqué au chapitre
-@ruser{Extraction de fragments musicaux}.
+@rnotation{Extraction de fragments musicaux}.
 
 
 @node Inclusion du travail des autres
@@ -865,7 +865,7 @@ fonction @emph{clip systems} -- comme indiqué au chapitre
 Certains utilisateurs ont, pour obtenir des effets particuliers, écrit
 des fichiers qu'il est toujours possible d'intégrer à LilyPond avec
 l'instruction @code{\include}.  Plusieurs sont même désormais inclus
-dans le programme.  Voir aussi @ruser{Travail sur des fichiers texte}.
+dans le programme.  Voir aussi @rnotation{Travail sur des fichiers texte}.
 
 @menu
 * MIDI et articulations::
@@ -885,4 +885,4 @@ d'améliorer la sortie MIDI de LilyPond.  Les notes qui ne sont pas liées
 sont ainsi raccourcies dans le but « d'articuler ».  Ce raccourcissement
 dépend de l'articulation appliquée à la note : un @emph{staccato}
 raccourcira la note de moitié, un @emph{tenuto} lui gardera sa durée
-entière…  Voir @ruser{Amélioration du rendu MIDI}.
+entière…  Voir @rnotation{Amélioration du rendu MIDI}.

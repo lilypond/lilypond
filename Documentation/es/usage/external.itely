@@ -914,7 +914,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 
 Si necesita citar muchos fragmentos de una partitura grande,
 también puede usar la funcionalidad clip-systems de recorte de
-sistemas, véase @ruser{Extracción de fragmentos de música}.
+sistemas, véase @rnotation{Extracción de fragmentos de música}.
 
 
 @node Archivos de inclusión independientes
@@ -925,7 +925,7 @@ Algunos usuarios han producido archivos que se pueden incluir con
 la instrucción @code{\include} en LilyPond para producir ciertos
 efectos, y aquellos que se relacionan más abajo forman parte de la
 distribución de LilyPond.  Véase también
-@ruser{Trabajar sobre los archivos de entrada}.
+@rnotation{Trabajar sobre los archivos de entrada}.
 
 
 @menu
@@ -946,4 +946,4 @@ ajustando la duración de las notas (que no estén bajo ligaduras de
 expresión) de acuerdo con las articulaciones que lleve cada una.
 Por ejemplo, un @q{staccato} reduce la duración a la mitad,
 @q{tenuto} da a una nota la duración completa, etcétera.  Véase
-@ruser{Enriquecimiento de la salida MIDI}.
+@rnotation{Enriquecimiento de la salida MIDI}.

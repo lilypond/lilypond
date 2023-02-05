@@ -715,7 +715,7 @@ guess a default for @code{lilypond} environments which don't use the
 @item papersize=@var{string}
 Set paper size to @var{string} (for example @code{a5} or
 @code{letter}) for music fragments that use @code{\book}.  See
-@ruser{Predefined paper sizes} for a list of available paper
+@rnotation{Predefined paper sizes} for a list of available paper
 sizes.
 
 This option affects LilyPond output (that is, the paper size of

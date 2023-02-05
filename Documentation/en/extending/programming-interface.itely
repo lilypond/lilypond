@@ -182,11 +182,11 @@ permissive predicates like @code{scheme?} when the application
 rather calls for more specific argument types.
 
 For a list of available predefined type predicates, see
-@ruser{Predefined type predicates}.
+@rnotation{Predefined type predicates}.
 
 @morerefs
 Notation Reference:
-@ruser{Predefined type predicates}.
+@rnotation{Predefined type predicates}.
 
 Installed Files:
 @file{lily/music-scheme.cc},
@@ -320,11 +320,11 @@ quite in analogy to @ref{Scheme function definitions}.  More often than
 not, @var{body} will be a @ref{LilyPond code blocks, LilyPond code block}.
 
 For a list of available type predicates, see
-@ruser{Predefined type predicates}.
+@rnotation{Predefined type predicates}.
 
 @morerefs
 Notation Reference:
-@ruser{Predefined type predicates}.
+@rnotation{Predefined type predicates}.
 
 Installed Files:
 @file{lily/music-scheme.cc},
@@ -371,7 +371,7 @@ post-events, chord constituent and top level music expressions.
 Simple substitution functions are music functions whose output
 music expression is written in LilyPond format and contains
 function arguments in the output expression.  They are described
-in @ruser{Substitution function examples}.
+in @rnotation{Substitution function examples}.
 
 
 @node Intermediate substitution functions
@@ -854,7 +854,7 @@ The following example defines a markup command to draw a double box
 around a piece of text.
 
 Firstly, we need to build an approximative result using markups.
-Consulting the @ruser{Text markup commands} shows us the @code{\box}
+Consulting the @rnotation{Text markup commands} shows us the @code{\box}
 command is useful:
 
 @lilypond[quote,verbatim,ragged-right]

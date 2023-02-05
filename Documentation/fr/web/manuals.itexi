@@ -74,7 +74,7 @@ traditionnelle avec poinçons et plaques de plomb.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-fr,@rusernamed{Top,Notation}}
+@ifWebLinks{@manualStableNotationSplitNoName-fr,@rnotationnamed{Top,Notation}}
 partie la plus importante de la documentation, ce manuel fournit toutes
 les informations détaillées dont vous aurez besoin en matière de notation.
 @details{Notation}
@@ -325,7 +325,7 @@ glossaire.}
 @divClass{column-right-bottom}
 
 @docLinks{Notation, notation,
-  @rusernamed{Top,Notation},
+  @rnotationnamed{Top,Notation},
   @manualStableNotationSplit-fr,
   @manualStableNotationBig-fr,
   @manualStableNotationPdf-fr}

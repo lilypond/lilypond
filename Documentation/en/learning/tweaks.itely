@@ -183,8 +183,8 @@ the types of objects and properties from their names.
 
 @morerefs
 Notation Reference:
-@ruser{Naming conventions},
-@ruser{Modifying properties}.
+@rnotation{Naming conventions},
+@rnotation{Modifying properties}.
 @endmorerefs
 
 
@@ -522,7 +522,7 @@ appearance may be modified in the usual way with
 
 @morerefs
 Notation Reference:
-@ruser{The tweak command}.
+@rnotation{The tweak command}.
 @endmorerefs
 
 
@@ -1315,7 +1315,7 @@ them white.  (There is a difficulty with this in that the
 white bar line may or may not blank out the staff lines where
 they cross.  You may see in some of the examples below that this
 happens unpredictably.  The details of why this is so and how to
-control it are covered in @ruser{Painting objects white}.  But at
+control it are covered in @rnotation{Painting objects white}.  But at
 the moment we are learning about color, so please just accept this
 limitation for now.)
 
@@ -1326,7 +1326,7 @@ requires is actually a list of values in internal units,
 but, to avoid having to know what these are, several ways
 are provided to specify colors.  The first way is to use one
 of the predefined @q{CSS} colors listed in
-@ruser{List of colors}.  To set the bar lines to white
+@rnotation{List of colors}.  To set the bar lines to white
 we write:
 
 @cindex BarLine, example of overriding
@@ -1428,7 +1428,7 @@ enclosed in parentheses.  The same can be said of the
 
 @code{x11-color}, again, maps predefined color names
 to internal values -- but offers many more choices
-than CSS names, as you can see in @ruser{List of colors}).
+than CSS names, as you can see in @rnotation{List of colors}).
 For example, the X11 set of colors includes an extensive
 grey scale, whose names range from black, @code{'grey0},
 to white, @code{'grey100}, in steps of@tie{}1.  Let's illustrate
@@ -2167,7 +2167,7 @@ The @code{outside-staff-priority} is defined in the
 @code{grob-interface} and so is a property of all layout objects.
 By default it is set to @code{#f} for all within-staff objects,
 and to a numerical value appropriate to each outside-staff object
-when the object is created.  See @ruser{Default values for
+when the object is created.  See @rnotation{Default values for
 outside-staff-priority} for an exhaustive table.
 
 @cindex spanners
@@ -2223,7 +2223,7 @@ text with extender lines above a section of music.  The
 spanner extends from the @code{\startTextSpan} command to
 the @code{\stopTextSpan} command, and the format of the
 text is defined by the @code{\override TextSpanner} command.
-For more details see @ruser{Text spanners}.
+For more details see @rnotation{Text spanners}.
 
 It also shows how ottava brackets are created.
 
@@ -2239,7 +2239,7 @@ the placing you want, the priority of any of the objects may be
 overridden.  Suppose we would like the ottava bracket to be placed
 below the text spanner in the example above.  All we need to do is to
 look up the priority of @code{OttavaBracket} in the table at
-@ruser{Default values for outside-staff-priority} or in the IR, and
+@rnotation{Default values for outside-staff-priority} or in the IR, and
 reduce it to a value lower than that of a @code{TextSpanner},
 remembering that @code{OttavaBracket} is created in the @code{Staff}
 context:
@@ -2541,7 +2541,7 @@ accompaniment spaced away from the vocal line and they want the two
 piano staves pushed together tightly.  Let's start with the lyrics.
 
 Lyrics sit within a system, and therefore the commands to space them
-are found in @ruser{Flexible vertical spacing within systems}.  It
+are found in @rnotation{Flexible vertical spacing within systems}.  It
 tells us that lyrics are @code{non-staff lines} and therefore the
 command to change their spacing will refer to the @code{nonstaff}
 property.  Spacing them away from the staff to which they relate
@@ -2690,8 +2690,8 @@ to remember is that the spacing between objects in a
 of the @code{StaffGrouper}. Spacing from ungrouped staves
 (like @code{Lyrics} and @code{Staff}) is controlled by the
 variables of the @code{VerticalAxisGroup}.  See the
-@ruser{Flexible vertical spacing paper variables} and
-@ruser{Flexible vertical spacing within systems} for more
+@rnotation{Flexible vertical spacing paper variables} and
+@rnotation{Flexible vertical spacing within systems} for more
 details.
 
 @node Collisions of objects
@@ -3015,7 +3015,7 @@ Note in the second example how important it is to figure out what
 context handles a certain object.  Since the @code{MetronomeMark}
 object is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ruser{Modifying properties}.
+@rnotation{Modifying properties}.
 
 If the @code{padding} property of an object is increased when that
 object is in a stack of objects being positioned according to
@@ -3148,7 +3148,7 @@ to move it, say, four half-staff spaces down to @w{@code{-10}}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
-See @ruser{Engraving ties manually} for the difference between
+See @rnotation{Engraving ties manually} for the difference between
 exact and inexact values.
 
 @node The extra-offset property
@@ -3216,7 +3216,7 @@ That's because there are no candidate slurs lower than the one
 already selected, and in this case the @code{positions} property has
 no effect.  However, ties, slurs and phrasing slurs @emph{can} be
 positioned and shaped very precisely when necessary.  To learn how to
-do this, see @ruser{Modifying ties and slurs}.
+do this, see @rnotation{Modifying ties and slurs}.
 
 Here's a further example.  We see that the beams
 collide with the ties:
@@ -3631,7 +3631,7 @@ different voices together?  This is where we need to turn again to
 the Notation Reference for help.  A search for @qq{merge} in the
 Notation Reference index quickly leads us to the commands for merging
 differently headed and differently dotted notes in
-@ruser{Collision resolution}.  In our example we need to merge both
+@rnotation{Collision resolution}.  In our example we need to merge both
 types of note for the duration of the polyphonic section in bar 3,
 so using the information we find in the Notation Reference we add
 

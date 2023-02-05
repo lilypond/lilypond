@@ -61,7 +61,7 @@ Le stanghette singole vengono aggiunte automaticamente, quindi non occorre
 aggiungerle manualmente.  Si possono inserire altri tipi di stanghette
 col comando @code{\bar}, per esempio @code{\bar "||"} per una stanghetta
 doppia, o @code{\bar "|."} per una stanghetta finale.  La lista completa
-delle stanghette si trova in @ruser{Stanghette}.
+delle stanghette si trova in @rnotation{Stanghette}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -102,7 +102,7 @@ nel guidare l'attenzione al @samp{4} mancante nella terza battuta.
 
 @morerefs
 Guida alla notazione:
-@ruser{Controlli di battuta e del numero di battuta}.
+@rnotation{Controlli di battuta e del numero di battuta}.
 @endmorerefs
 
 @node Altezze e armature di chiave
@@ -155,7 +155,7 @@ si ottengono aggiungendo @samp{isis} o @samp{eses}.  Questa sintassi
 deriva dalle convenzioni per i nomi delle note presenti nelle lingue
 nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
 schemi di denominazione per i nomi delle note, si veda
-@ruser{Nomi delle note in altre lingue}.
+@rnotation{Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -249,15 +249,15 @@ di lavoro in fase di scrittura, ma il vantaggio è che la
 @notation{trasposizione} è più semplice, e le alterazioni possono essere
 prodotte usando diverse convenzioni.  Per alcuni esempi che mostrano come
 sia possibile produrre delle alterazioni in base a regole diverse, si veda
-@ruser{Alterazioni automatiche}.
+@rnotation{Alterazioni automatiche}.
 
 
 @morerefs
 Guida alla notazione:
-@ruser{Nomi delle note in altre lingue},
-@ruser{Alterazioni},
-@ruser{Alterazioni automatiche},
-@ruser{Armatura di chiave}.
+@rnotation{Nomi delle note in altre lingue},
+@rnotation{Alterazioni},
+@rnotation{Alterazioni automatiche},
+@rnotation{Armatura di chiave}.
 @endmorerefs
 
 
@@ -369,9 +369,9 @@ possono essere annidate le une dentro le altre.
 
 @morerefs
 Guida alla notazione:
-@ruser{Legature di valore},
-@ruser{Legature di portamento},
-@ruser{Legature di frase}.
+@rnotation{Legature di valore},
+@rnotation{Legature di portamento},
+@rnotation{Legature di frase}.
 @endmorerefs
 
 
@@ -478,9 +478,9 @@ il comando @code{\!}:
 
 @morerefs
 Guida alla notazione:
-@ruser{Articolazioni e abbellimenti},
-@ruser{Indicazioni di diteggiatura},
-@ruser{Dinamiche}.
+@rnotation{Articolazioni e abbellimenti},
+@rnotation{Indicazioni di diteggiatura},
+@rnotation{Dinamiche}.
 @endmorerefs
 
 
@@ -512,7 +512,7 @@ Per aggiungere delle formattazioni puoi usare il comando @code{\markup}:
 
 @morerefs
 Guida alla notazione:
-@ruser{Inserimento del testo}.
+@rnotation{Inserimento del testo}.
 @endmorerefs
 
 
@@ -569,8 +569,8 @@ riattivarlo.
 
 @morerefs
 Guida alla notazione:
-@ruser{Travature automatiche},
-@ruser{Travature manuali}.
+@rnotation{Travature automatiche},
+@rnotation{Travature manuali}.
 @endmorerefs
 
 
@@ -665,9 +665,9 @@ musicale le parole chiave @code{\appoggiatura} o @code{\acciaccatura}:
 
 @morerefs
 Guida alla notazione:
-@ruser{Abbellimenti},
-@ruser{Gruppi irregolari},
-@ruser{Anacrusi}.
+@rnotation{Abbellimenti},
+@rnotation{Gruppi irregolari},
+@rnotation{Anacrusi}.
 @endmorerefs
 
 
@@ -941,8 +941,8 @@ delle linee della battuta.
 
 @morerefs
 Guida alla notazione:
-@ruser{Tastiera e altri strumenti multirigo},
-@ruser{Aspetto del rigo}.
+@rnotation{Tastiera e altri strumenti multirigo},
+@rnotation{Aspetto del rigo}.
 @endmorerefs
 
 
@@ -1000,7 +1000,7 @@ da note singole.
 
 @morerefs
 Guida alla notazione:
-@ruser{Note in un accordo}.
+@rnotation{Note in un accordo}.
 @endmorerefs
 
 
@@ -1030,7 +1030,7 @@ Manuale di Apprendimento:
 @ref{Le voci contengono la musica}.
 
 Guida alla notazione:
-@ruser{Note simultanee}.
+@rnotation{Note simultanee}.
 @endmorerefs
 
 
@@ -1267,7 +1267,7 @@ Ecco un esempio tratto dall'opera @notation{Il barbiere di Siviglia} di Rossini,
 
 @morerefs
 Guida alla notazione:
-@ruser{Musica vocale}.
+@rnotation{Musica vocale}.
 @endmorerefs
 
 
@@ -1314,7 +1314,7 @@ mediante l'uso di variabili. Per un'introduzione,
 
 @morerefs
 Guida alla notazione:
-@ruser{Musica vocale}.
+@rnotation{Musica vocale}.
 @endmorerefs
 
 
@@ -1388,7 +1388,7 @@ cello = \new Staff {
 @end lilypond
 
 Per convenzione, il nome di una variabile è composto soltanto da caratteri
-alfabetici.  Informazioni più dettagliate in @ruser{Struttura del file}.
+alfabetici.  Informazioni più dettagliate in @rnotation{Struttura del file}.
 
 Le variabili devono essere definite @emph{prima} della principale espressione
 musicale, ma possono poi essere usate quante volte si vuole e ovunque, una
@@ -1460,7 +1460,7 @@ posto sotto il numero di versione.
 @noindent
 Quando il file viene elaborato, sopra la musica vengono visualizzati
 il titolo e il compositore.  Si possono trovare  maggiori informazioni
-sui titoli in @ruser{Creazione di titoli intestazioni e piè di pagina}.
+sui titoli in @rnotation{Creazione di titoli intestazioni e piè di pagina}.
 
 
 @node Nomi assoluti delle note
@@ -1572,7 +1572,7 @@ Dopo aver finito di leggere la guida, probabilmente dovresti cercare
 di scrivere uno o due brani.  Puoi iniziare aggiungendo delle note a uno
 dei modelli (@pxref{Modelli}).  Se necessiti di una qualche notazione che non è
 stata coperta nel tutorial, dai un'occhiata alla Guida alla notazione,
-a cominciare da @ruser{Notazione musicale}.  Se vuoi scrivere per un gruppo
+a cominciare da @rnotation{Notazione musicale}.  Se vuoi scrivere per un gruppo
 di strumenti che non è incluso nei modelli, dai un'occhiata a
 @pxref{Estendere i modelli}.
 

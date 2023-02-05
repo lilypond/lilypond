@@ -76,8 +76,8 @@ fa uns anys.  @code{convert-ly} requereix que declareu quina
 versió del LilyPond fèieu servir.
 
 @item @strong{Incloeu comprovacions}:
-@ruser{Comprovació de compàs i de número de compàs},
-@ruser{Comprovació d'octava}.
+@rnotation{Comprovació de compàs i de número de compàs},
+@rnotation{Comprovació d'octava}.
 Si incloeu comprovacions de tant en tant, en cas que cometeu un
 error podreu localitzar-lo molt més ràpidament.  Amb quina
 freqüència és @q{de tant en tant}?  Depèn de la complexitat de la
@@ -131,7 +131,7 @@ física, per separat (però manteniu la pràctica d'escriure un
 compàs per línia de text), i comproveu cada sistema quan l'hàgiu
 acabat.  Podeu usar les propietats @code{showLastLength} o
 @code{showFirstLength} per accelerar el procés (vegeu
-@ruser{Salts sobre la música corregida}.
+@rnotation{Salts sobre la música corregida}.
 
 @item Definiu @code{mBreak = @{ \break @}} i inseriu
 @code{\mBreak} dins del fitxer d'entrada on el manuscrit tingui un

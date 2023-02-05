@@ -135,7 +135,7 @@ Music Glossary:
 LilyPond 用小写字母表示音高。
 本节中所有例子中的音名都用荷兰命名系统（对应钢琴上的白键 c-b）. 然而 LilyPond 也支持很多不同的命名方法，比如英语，或者唱名
 @q{Fixed-Do} (do-re-mi-...).
-See @ruser{Note names in other languages}.
+See @rnotation{Note names in other languages}.
 字母 @code{c} 到@tie{}@code{b} 表示 @notation{中央 C} 下面的一个 @q{小八度}。加上 @code{'}
 或者@tie{}@code{,} 的后缀表示高八度或低八度。
 下面是一段从 @notation{middle C} 开始的音阶和琶音：
@@ -372,9 +372,9 @@ See @ruser{Note names in other languages}.
 
 
 @morerefs
-记谱法参考：@ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}.
+记谱法参考：@rnotation{Writing pitches},
+@rnotation{Writing rhythms}, @rnotation{Writing rests},
+@rnotation{Time signature}, @rnotation{Clef}.
 
 
 @node 处理输入文件
@@ -601,7 +601,7 @@ LilyPond 有很多文档。新用户可能有时候不知道应该阅读哪一�
 manual's @ref{教程} 和 @ref{Common notation}。如果你遇到了你不认识的音乐术语，请看 @rglosnamed{Top, Glossary}.
 
 @item
-@strong{在写一段完整音乐之前}：阅读学习教程的 @ref{Fundamental concepts}。之后，你可能会想去看 @rusernamed{Top, Notation reference} 部分的相关章节。
+@strong{在写一段完整音乐之前}：阅读学习教程的 @ref{Fundamental concepts}。之后，你可能会想去看 @rnotationnamed{Top, Notation reference} 部分的相关章节。
 
 @item
 @strong{在改变默认输出之前}：阅读学习教程 @ref{Tweaking output} 部分。

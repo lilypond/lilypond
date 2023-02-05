@@ -67,7 +67,7 @@ informazioni sull'incisione realizzata dal computer.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName-it,@rusernamed{Top,Notazione}}
+@item @ifWebLinks{@manualStableNotationSplitNoName-it,@rnotationnamed{Top,Notazione}}
 guida alla sintassi.
 @details{Notazione}
 
@@ -293,7 +293,7 @@ musicali inglesi presentati nel Glossario.}
 @divClass{column-right-bottom}
 
 @docLinks{Notazione, notation,
-  @rusernamed{Top,Notazione},
+  @rnotationnamed{Top,Notazione},
   @manualStableNotationSplit-it,
   @manualStableNotationBig-it,
   @manualStableNotationPdf-it}

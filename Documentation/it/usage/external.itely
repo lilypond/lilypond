@@ -866,7 +866,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
 
 Per inserire molti frammenti di una grande partitura, si può
 usare anche la funzione di ritaglio dei sistemi; si veda
-@ruser{Estrarre frammenti musicali}.
+@rnotation{Estrarre frammenti musicali}.
 
 
 @node Inclusioni indipendenti
@@ -876,7 +876,7 @@ usare anche la funzione di ritaglio dei sistemi; si veda
 Alcuni utenti hanno creato file che possono essere inclusi in LilyPond
 tramite @code{\include} per produrre certi effetti.  Quelli elencati
 in questo capitolo fanno parte di LilyPond.  Maggiori informazioni
-in @ruser{Lavorare coi file di input}.
+in @rnotation{Lavorare coi file di input}.
 
 @menu
 * Articolazione MIDI::
@@ -897,5 +897,5 @@ ai segni di articolazione attaccati ad esse.  Per esempio, @q{staccato}
 dimezza il valore della nota, @q{tenuto} assegna alla nota la sua
 durata completa, e così via.
 
-Maggiori informazioni in @ruser{Miglioramento dell'output MIDI}.
+Maggiori informazioni in @rnotation{Miglioramento dell'output MIDI}.
 

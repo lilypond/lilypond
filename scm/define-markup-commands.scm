@@ -3676,7 +3676,7 @@ normal text font, no matter what font was used earlier.
   ;; TODO: as-string?
   "@var{glyph-name} is converted to a musical symbol; for example,
 @code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
-the music font.  See @ruser{The Emmentaler font} for a complete listing of
+the music font.  See @rnotation{The Emmentaler font} for a complete listing of
 the possible glyphs.
 
 @lilypond[verbatim,quote]

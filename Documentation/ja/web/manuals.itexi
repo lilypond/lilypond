@@ -69,7 +69,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-ja,@rusernamed{Top,記譜法}}
+@ifWebLinks{@manualStableNotationSplitNoName-ja,@rnotationnamed{Top,記譜法}}
 構文リファレンス。
 @details{記譜法}
 
@@ -295,7 +295,7 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 @divClass{column-right-bottom}
 
 @docLinks{記譜法, notation,
-  @rusernamed{Top,記譜法},
+  @rnotationnamed{Top,記譜法},
   @manualStableNotationSplit-ja,
   @manualStableNotationBig-ja,
   @manualStableNotationPdf}

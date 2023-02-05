@@ -350,7 +350,7 @@ files are missing.
 In a jail mounted with @code{noexec} it is impossible to execute any
 external program.  Therefore LilyPond must be run with a backend that
 does not require any such program.  As we have already mentioned, it
-must be run with superuser privileges (which, of course, it loses
+must be run with supernotation privileges (which, of course, it loses
 immediately), possibly using @command{sudo}.  It is also good practice
 to limit the number of seconds of CPU time LilyPond can use (e.g., using
 @command{ulimit@tie{}-t}), and, if your operating system supports it,
@@ -589,7 +589,7 @@ in case an SVG viewer is unable to handle them.  When using
 @item @code{clip-systems} @var{bool}
 If @var{bool} is @code{#t}, extract music fragments out of a score.
 This requires that the @code{clip-regions} function has been defined
-within the @code{\layout} block.  See @ruser{Extracting fragments of
+within the @code{\layout} block.  See @rnotation{Extracting fragments of
 music}.  No fragments are extracted though if used with the
 @option{-dno-print-pages} option.  Default: @code{#f}.
 
@@ -1334,11 +1334,11 @@ inhibited, leading to a line of highly compressed music or
 music which flows off the page.}
 
 The incorrect duration can be found easily if bar checks are used,
-see @ruser{Bar and bar number checks}.
+see @rnotation{Bar and bar number checks}.
 
 If you actually intend to have a series of such carry-over measures
 you will need to insert an invisible bar line where you want the
-line to break.  For details, see @ruser{Bar lines}.
+line to break.  For details, see @rnotation{Bar lines}.
 
 
 @node An extra staff appears
@@ -1391,7 +1391,7 @@ semi-colon, (@code{;}).
 
 This error messages appears in the console output or log file if
 an input file contains a non-ASCII character and was not saved in
-UTF-8 encoding.  For details, see @ruser{Text encoding}.
+UTF-8 encoding.  For details, see @rnotation{Text encoding}.
 
 
 @node Warning staff affinities should only decrease
@@ -1409,7 +1409,7 @@ staff by inserting
 
 @noindent
 at its start.  For details, see @qq{Spacing of non-staff lines} in
-@ruser{Flexible vertical spacing within systems}.
+@rnotation{Flexible vertical spacing within systems}.
 
 
 @node Error message unexpected new
@@ -1492,6 +1492,6 @@ is higher than @code{\voiceOne}, etc.).
 @morerefs
 @rlearning{Explicitly instantiating voices},
 @rlearning{Real music example},
-@ruser{Single-staff polyphony},
-@ruser{Collision resolution}.
+@rnotation{Single-staff polyphony},
+@rnotation{Collision resolution}.
 @endmorerefs

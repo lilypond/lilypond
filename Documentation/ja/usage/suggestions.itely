@@ -82,7 +82,7 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 入力ファイルに関するあらゆる問題のデバッグを簡単にします。
 
 @item
-@strong{@ruser{小節と小節番号のチェック}と@ruser{オクターブ チェック}を含めます。}@c
+@strong{@rnotation{小節と小節番号のチェック}と@rnotation{オクターブ チェック}を含めます。}@c
 入力ファイルにこのような@q{チェック}を含めておくことで、@c
 ミスを特定するのが早くなります。@c
 チェックをどのぐらいの頻度で追加するかは、その音楽の複雑さ次第です。@c
@@ -172,7 +172,7 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 それを終えたときに各システムをチェックします。@c
 処理をスピード アップさせるために @code{showLastLength} プロパティや
 @code{showFirstLength} プロパティを使うことになるかもしれません --
-@ruser{Skipping corrected music} を参照してください。
+@rnotation{Skipping corrected music} を参照してください。
 
 @item @code{mBreak = @{ \break @}} を定義して、写している楽譜が@c
 改行するたびに @code{\mBreak} を入力ファイルに挿入します。@c

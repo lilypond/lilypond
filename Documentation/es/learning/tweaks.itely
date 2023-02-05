@@ -198,7 +198,7 @@ a partir de sus nombres.
 
 @morerefs
 Referencia de la notación:
-@ruser{Modificar las propiedades}.
+@rnotation{Modificar las propiedades}.
 
 
 @node Métodos de trucaje
@@ -574,7 +574,7 @@ instrucciones @code{\override}:
 
 @morerefs
 Referencia de la notación:
-@ruser{La instrucción tweak}.
+@rnotation{La instrucción tweak}.
 
 @node El prefijo single
 @unnumberedsubsubsec El prefijo @code{\single}
@@ -1428,7 +1428,7 @@ consiste en que la línea divisoria blanca puede tapar o no tapar
 las líneas del pentagrama a las que cruza.  Podrá observar en
 algunos de los ejemplos que aparecen a continuación, que esto
 sucede de forma impredecible.  Los detalles sobre por qué esto
-ocurre así, y cómo controlarlo, se estudian en @ruser{Pintar los
+ocurre así, y cómo controlarlo, se estudian en @rnotation{Pintar los
 objetos de blanco}; de momento estamos estudiando el color, por lo
 que le rogamos que acepte esta limitación por ahora).
 
@@ -1438,7 +1438,7 @@ debe ir en esa lista.  La lista que requiere es realmente una
 lista de valores en unidades internas, pero para evitar tener que
 saber cuáles son, se ofrecen varias vías para la especificación de
 los colores.  La primera forma es utilizar uno de los colores
-@q{CSS} predefinidos que están relacionados en la @ruser{Lista de
+@q{CSS} predefinidos que están relacionados en la @rnotation{Lista de
 colores}.  Para poner las líneas divisorias de color blanco,
 escribimos:
 
@@ -1543,7 +1543,7 @@ que pasamos anteriormente por alto.
 @code{x11-color}, de nuevo, lleva a cabo una asignación de nombres
 de color predefinidos a valores internos, pero ofrece muchas más
 alternativas que los nombres de CSS, como se ve en
-@ruser{Lista de colores}).  Por ejemplo, el conjunto de colores de
+@rnotation{Lista de colores}).  Por ejemplo, el conjunto de colores de
 X11 incluye una completa gama de tonos de gris, cuyos nombres van
 desde el negro, @code{'grey0}, hasta el blanco, @code{'grey100},
 en pasos de@tie{}1.  Vamos a ilustrar esto estableciendo todos los
@@ -2431,7 +2431,7 @@ de música.  El extensor abarca desde la instrucción
 @code{\startTextSpan} hasta la instrucción @code{\stopTextSpan}, y
 el formado del texto se define por medio de la instrucción
 @code{\override TextSpanner}.  Para ver más detalles, consulte
-@ruser{Extensiones de texto}.
+@rnotation{Extensiones de texto}.
 
 También muestra la manera de crear corchetes de octava alta y
 baja.
@@ -2771,7 +2771,7 @@ entre sí.  Comenzaremos con la letra.
 
 La letra se encuentra en el interior de un sistem, y por tanto las
 instrucciones para aplicarle el espaciado estarán en
-@ruser{Espaciado vertical flexible dentro de los sistemas}.  Allí
+@rnotation{Espaciado vertical flexible dentro de los sistemas}.  Allí
 se dice que el texo son líneas del tipo @qq{no-pauta} y por tanto
 la instrucción para cambiar su espaciado hará referencia a la
 propiedad @code{nonstaff}.  Para separarlas del pentagrama al que
@@ -2927,8 +2927,8 @@ del @code{StaffGrouper}. El espaciado de los pentagramas no
 agrupados (como @code{Lyrics} y @code{Staff}) se controla con las
 variables del @code{VerticalAxisGroup}.  Para ver más detalles,
 consulte
-@ruser{Variables de espaciado de paper verticales flexibles} y
-@ruser{Espaciado vertical flexible dentro de los sistemas}.
+@rnotation{Variables de espaciado de paper verticales flexibles} y
+@rnotation{Espaciado vertical flexible dentro de los sistemas}.
 
 
 @node Colisiones de objetos
@@ -3293,7 +3293,7 @@ qué contexto maneja un determinado objeto.  Puesto que el objeto
 @code{MetronomeMark} se maneja dentro del contexto @code{Score},
 los cambios de propiedades en el contexto @code{Voice} pasarán
 inadvertidos.
-Para ver más detalles, consulte @ruser{Modificar las propiedades}.
+Para ver más detalles, consulte @rnotation{Modificar las propiedades}.
 
 Si la propiedad de relleno @code{padding} de un objeto se
 incrementa cuando dicho objeto se encuentra en una pila de objetos
@@ -3439,9 +3439,9 @@ Esto es mejor que utilizar, por ejemplo, @code{extra-offset},
 porque la línea adicional por encima del silencio se inserta
 automáticamente.
 
-@c @ruser{Engraving ties manually} is not a valid node, so I use another one - fv
+@c @rnotation{Engraving ties manually} is not a valid node, so I use another one - fv
 Consulte la sección @q{Edición manual de las ligaduras} en
-@ruser{Ligaduras de unión} para ver la diferencia entre valores
+@rnotation{Ligaduras de unión} para ver la diferencia entre valores
 exactos e inexactos.
 
 @node La propiedad extra-offset (desplazamiento adicional)
@@ -3517,7 +3517,7 @@ ya se ha seleccionado, y en este caso la propiedad
 @code{positions} no tiene ningún efecto.  Sin embargo, las
 ligaduras de unión, expresión y fraseo @emph{se pueden} colocar y
 conformar de manera muy exacta cuando se necesita.  Para aprender
-la manera de hacerlo, consulte @ruser{Modificación de ligaduras de
+la manera de hacerlo, consulte @rnotation{Modificación de ligaduras de
 unión y de expresión}.
 
 Presentamos otro ejemplo.  Vemos que la barra choca con las
@@ -3947,7 +3947,7 @@ en distintas voces?  Aquí es donde debemos volver a buscar ayuda
 en el manual de Referencia de la notación. Al buscar la palabra
 @qq{merge} (mezcla) en el índice de la Referencia de la notación
 llegamos rápidamente a las instrucciones para mezclar notas con
-distinta cabeza y con o sin puntillo, en @ruser{Resolución de las
+distinta cabeza y con o sin puntillo, en @rnotation{Resolución de las
 colisiones}.  En nuestro ejemplo tenemos que fusionar ambos tipos
 de nota en el transcurso de la sección polifónica del compás 3;
 por tanto, en virtud de la información que aparece en la

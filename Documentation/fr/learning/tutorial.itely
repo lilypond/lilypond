@@ -170,7 +170,7 @@ Glossaire musicologique :
 LilyPond utilise des lettres minuscules pour indiquer les hauteurs.
 Dans les exemples des manuels de LilyPond est utilisée la nomenclature
 batave. Néanmoins, LilyPond prend en charge d'autres dénominations des
-hauteurs -- voir @ruser{Nom des notes dans d'autres langues}.
+hauteurs -- voir @rnotation{Nom des notes dans d'autres langues}.
 Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
 basse -- celle sous le @notation{do medium}.  Leur adjoindre un @samp{'}
 ou un @samp{,} indique une octave supérieure ou inférieure.  Voici une
@@ -452,11 +452,11 @@ déjà vus :
 
 @morerefs
 Manuel de notation :
-@rusernamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
-@rusernamed{Écriture du rythme,@'Ecriture du rythme},
-@rusernamed{Écriture des silences,@'Ecriture des silences},
-@ruser{Gravure du rythme},
-@ruser{Gravure des hauteurs}.
+@rnotationnamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
+@rnotationnamed{Écriture du rythme,@'Ecriture du rythme},
+@rnotationnamed{Écriture des silences,@'Ecriture des silences},
+@rnotation{Gravure du rythme},
+@rnotation{Gravure des hauteurs}.
 @endmorerefs
 
 
@@ -740,7 +740,7 @@ code à partir de « Start cut-&-pastable section ».
 @c remove this? --jm
 @ignore
 Si vous apprenez de cette façon, vous aurez probablement envie
-d'imprimer ou de garder un lien vers @ruser{Aide-mémoire}, tableau
+d'imprimer ou de garder un lien vers @rnotation{Aide-mémoire}, tableau
 qui répertorie les commandes usuelles pour une consultation rapide.
 @end ignore
 
@@ -770,7 +770,7 @@ ne connaissez pas, n'hésitez pas à consulter le
 @strong{Avant de vous lancer dans la réalisation d'une partition
 complète}, lisez le chapitre @ref{Concepts fondamentaux} du manuel
 d'initiation.  Vous pourrez alors vous reporter aux parties qui vous
-intéresseront dans le @rusernamed{Top, Manuel de notation}.
+intéresseront dans le @rnotationnamed{Top, Manuel de notation}.
 
 @item
 @strong{Avant de modifier les réglages par défaut}, consultez le

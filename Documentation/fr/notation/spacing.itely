@@ -554,7 +554,7 @@ Cependant, lorsque la partition fait plusieurs pages, la dernière page
 reprendra dans la mesure du possible l'espacement de la page précédente.
 
 Les manières de modifier des listes associatives font l'objet d'un
-@rusernamed{Modification de listes associatives, chapitre spécifique}.
+@rnotationnamed{Modification de listes associatives, chapitre spécifique}.
 L'exemple suivant indique deux façons de modifier une liste associative.
 La première déclaration intervient sur une seule clé, alors que la
 deuxième redéfinit complètement la variable.
@@ -2407,7 +2407,7 @@ identique à celle des variables du bloc @code{\paper} que nous avons
 examinées au chapitre
 @ref{Variables d'espacement vertical fluctuant}.  Les particularités en
 matière de modification d'une liste associative font l'objet d'un
-@rusernamed{Modification de listes associatives,chapitre particulier}.
+@rnotationnamed{Modification de listes associatives,chapitre particulier}.
 Les propriétés des objets graphiques se règlent avec un @code{\override}
 mentionné dans un bloc @code{\score} ou @code{\layout}, pas dans le bloc
 @code{\paper}.
@@ -3126,7 +3126,7 @@ près de la portée.
 
 Une liste des valeur par défaut pour @code{outside-staff-priority}
 fait l'objet d'une
-@rusernamed{Valeurs par défaut de outside-staff-priority,
+@rnotationnamed{Valeurs par défaut de outside-staff-priority,
 annexe particulière}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -3295,7 +3295,7 @@ réglages par défaut, puis avec des corrections forcées.
 @end lilypond
 
 L'espacement spécifique à la notation proportionnelle fait l'objet d'une
-@rusernamed{Notation proportionnelle,rubrique dédiée}.
+@rnotationnamed{Notation proportionnelle,rubrique dédiée}.
 
 @morerefs
 Essai sur la gravure musicale automatisée :

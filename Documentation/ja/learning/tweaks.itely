@@ -191,7 +191,7 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 
 @morerefs
 記譜法リファレンス:
-@ruser{プロパティを変更する}
+@rnotation{プロパティを変更する}
 
 
 @node 調整手段
@@ -553,7 +553,7 @@ a'4^"Black"
 
 @morerefs
 記譜法リファレンス:
-@ruser{The tweak command}
+@rnotation{The tweak command}
 
 @node single 接頭辞
 @unnumberedsubsubsec @code{\single} 接頭辞
@@ -1400,7 +1400,7 @@ LilyPond に読み込まれます。@c
 譜線を見えたり見えなくしてしまうかもしれないという問題があります。@c
 以下のいくつかの例で、このことを予測することはできないと思うかもしれません。@c
 そうなる理由と、それを制御する方法についての詳細は、@c
-@ruser{Painting objects white} でカバーされています。@c
+@rnotation{Painting objects white} でカバーされています。@c
 しかしここでは色について学んでいるところなので、@c
 オブジェクトを白で描くことの限界を受け入れるだけにしてください。)
 
@@ -1410,7 +1410,7 @@ LilyPond に読み込まれます。@c
 値のリストです。@c
 しかし、内部ユニットの中にある値を知らなくても済むように、@c
 カラーを指定するための手段がいくつか用意されています。@c
-最初の方法は @ruser{List of colors} にある最初の表でリスト アップされている
+最初の方法は @rnotation{List of colors} にある最初の表でリスト アップされている
 @q{標準} のカラーの 1 つを使用する方法です。@c
 小節線を白にするには以下のように記述します:
 
@@ -1442,7 +1442,7 @@ LilyPond に読み込まれます。@c
 
 @funindex x11-color
 
-カラーを変えるための 2 つ目の方法は、@ruser{List of colors} の
+カラーを変えるための 2 つ目の方法は、@rnotation{List of colors} の
 2 番目のリストの中にある X11 カラー名のリストを使用する方法です。@c
 しかしながら、X11 カラー名は関数 @code{x11-color} によって実際の値に@c
 マッピングされます。@c
@@ -2348,7 +2348,7 @@ c'4 c' c' c' |
 スパナは @code{\startTextSpan} コマンドから
 @code{\stopTextSpan} コマンドまで延び、テキストのフォーマットは
 @code{\override TextSpanner} コマンドによって定義されます。@c
-詳細は @ruser{テキスト スパナ} を参照してください。
+詳細は @rnotation{テキスト スパナ} を参照してください。
 
 この例はさらにオッターバ囲みを作成する方法についても示しています。
 
@@ -2675,7 +2675,7 @@ c''2^"Text4" |
 
 歌詞はシステム (訳注: 1 行分の譜のまとまり) 内に配置されています。@c
 そのため、歌詞のスペースを調整するコマンドは@c
-@ruser{システム内部の可変な垂直方向のスペース} にあります。@c
+@rnotation{システム内部の可変な垂直方向のスペース} にあります。@c
 これによると、歌詞は @code{non-staff lines} (譜ではない行) であるため、@c
 このスペースを変更するコマンドは @code{nonstaff} プロパティと関連する@c
 ということが分かります。歌詞と関連している (上の段の) 譜とのスペースを@c
@@ -2820,8 +2820,8 @@ c''2^"Text4" |
 @code{StaffGrouper} の変数によって操作されること、@c
 グループ化されていない譜 (例えば @code{Lyrics} や @code{Staff})
 のスペースは、@code{VerticalAxisGroup} の変数によって操作されることです。@c
-詳しくは、@ruser{Flexible vertical spacing paper variables} と
-@ruser{Flexible vertical spacing within systems} を参照してください。
+詳しくは、@rnotation{Flexible vertical spacing paper variables} と
+@rnotation{Flexible vertical spacing within systems} を参照してください。
 
 @node オブジェクトの衝突
 @section オブジェクトの衝突
@@ -3173,7 +3173,7 @@ d'1 |
 @code{MetronomeMark} オブジェクトは @code{Score} コンテキストの中で@c
 処理されるため、@code{Voice} コンテキストの中でのプロパティの変更は@c
 無視されます。@c
-更に詳細を知りたければ、@ruser{Modifying properties} を参照してください。
+更に詳細を知りたければ、@rnotation{Modifying properties} を参照してください。
 
 @code{outside-staff-priority} に従って配置されているオブジェクトの並びの中の@c
 あるオブジェクトの @code{padding} プロパティが増やされた場合、@c
@@ -3320,7 +3320,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 なぜなら、その休符の上に加線が自動的に挿入されるからです。
 
 正確な値と不正確な値の違いについては、
-@ruser{タイを手動で譜刻する} を参照してください。
+@rnotation{タイを手動で譜刻する} を参照してください。
 
 
 @node extra-offset プロパティ
@@ -3389,7 +3389,7 @@ a'8 \( ( a''16 ) a'' \)
 そのような場合には @code{positions} は効果を持たないからです。@c
 しかしながら、必要があればタイ、スラー、それにフレージング スラーの@c
 位置と形状を非常に正確に設定することが @emph{できます}。@c
-正確な設定を行う方法は @ruser{Modifying ties and slurs} で学習してください。
+正確な設定を行う方法は @rnotation{Modifying ties and slurs} で学習してください。
 
 もう 1 つ例を示します。@c
 連桁がタイと衝突しています:
@@ -3816,7 +3816,7 @@ lhMusic = \relative {
 しかし、異なるボイスの中にある音符をマージするにはどうするのでしょうか？@c
 ここで、助けを求めて記譜法リファレンスに移行する必要があります。@c
 記譜法リファレンスで @qq{merge} を探せばすぐに、@c
-@ruser{Collision resolution} で符頭や付点の付き方が異なる音符を@c
+@rnotation{Collision resolution} で符頭や付点の付き方が異なる音符を@c
 マージするためのコマンドにたどり着きます。@c
 今回の例では、多声部セクションで両方のタイプの音符をマージする
 (異なる符頭を持つ音符のマージと、付点の付き方が異なる音符のマージ)

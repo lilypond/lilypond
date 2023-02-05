@@ -1362,7 +1362,7 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 Am einfachsten können Artikulationszeichen zu Noten
 hinzugefügt werden, indem man zwei musikalische Funktionen
 in einen Kontext einfügt, wie erklärt in
-@ruser{Kontexte erstellen und referenzieren}.  Hier soll jetzt eine musikalische
+@rnotation{Kontexte erstellen und referenzieren}.  Hier soll jetzt eine musikalische
 Funktion entwickelt werden, die das vornimmt.  Daraus ergibt sich
 der zusätzliche Vorteil, dass diese musikalische Funktion eingesetzt
 werden kann, um eine Artikulation (wie etwa eine Fingersatzanweisung)
@@ -1574,7 +1574,7 @@ werden kann, indem Befehle wie etwa
 @code{\override TextScript.extra-offset = ( 1 . -1)}
 benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
 mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Tutorium} und in
-@ruser{Schnittstellen für Programmierer}.
+@rnotation{Schnittstellen für Programmierer}.
 
 Scheme kann auch in einfachen @code{\override}-Befehlen
 benutzt werden:

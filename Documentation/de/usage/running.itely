@@ -926,11 +926,11 @@ nicht möglich sein und die Zeile entweder sehr gedrängt dargestllt
 wird oder über den Seitenrand fließt.}
 
 Die falsche Dauer kann einfach gefunden werden, wenn Taktstrichüberprüfung
-eingesetzt wird, siehe @ruser{Takt- und Taktzahlüberprüfung}.
+eingesetzt wird, siehe @rnotation{Takt- und Taktzahlüberprüfung}.
 
 If you actually intend to have a series of such carry-over measures
 you will need to insert an invisible bar line where you want the
-line to break.  For details, see @ruser{Taktstriche}.
+line to break.  For details, see @rnotation{Taktstriche}.
 
 
 @node Ein zusätzliches System erscheint
@@ -1013,7 +1013,7 @@ letzten Silbe einer @code{lyrics}-Umgebung und der schließenden
 Klammer (@code{@}}).  Ohne diese Trennung wird die Klammer als
 Teil der Silbe gewertet.  Es bietet sich immer an, Leerzeichen vor
 und hinter @emph{jede} Klammer zu setzen.  Wie wichtig das ist, wenn
-Gesangstext eingesetzt wird, siehe @ruser{Eingabe von Text}.
+Gesangstext eingesetzt wird, siehe @rnotation{Eingabe von Text}.
 
 Diese Fehlermeldung kann auch mit einem fehlenden schließenden Anführungszeichen
 (@code{"}) auftreten.  In diesem Fall sollte die begleitende Fehlermeldung
@@ -1041,7 +1041,7 @@ mit einem Semikolon (@code{;}).
 
 Diese Fehlermeldung erscheint in der Kommandozeilenausgabe, wenn die
 Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
-nicht in UTF-8-Kodierung gespeichert wurd.  Siehe auch @ruser{Zeichenkodierung}.
+nicht in UTF-8-Kodierung gespeichert wurd.  Siehe auch @rnotation{Zeichenkodierung}.
 
 
 @node Warnung über absteigende staff affinities
@@ -1059,4 +1059,4 @@ zu Beginn hinzufügt:
 @end example
 
 Zu Einzelheiten siehe @qq{Abstand von Nicht-Notensystemzeilen} in
-@ruser{Flexible vertikale Abstände in Systemgruppen}.
+@rnotation{Flexible vertikale Abstände in Systemgruppen}.

@@ -628,7 +628,7 @@ opción @code{-dsvg-woff}
 Si @var{bool} es @code{#t}, extraer fragmentos de música de la
 partitura.  Requiere que la función @code{clip-regions} esté
 definida dentro del bloque @code{\layout}.  Véase
-@ruser{Extracción de fragmentos de música}.  No se extrae ningún
+@rnotation{Extracción de fragmentos de música}.  No se extrae ningún
 fragmento si se usa con la opción @option{-dno-print-pages}.
 Predetermiadno: @code{#f}.
 
@@ -1418,13 +1418,13 @@ saltos de línea, lo que llevaría a una sola línea de música muy
 comprimida o que se salga de la página.}
 
 La duración incorrecta se puede encontrar fácilmente si se utilizan
-comprobaciones de compás, véase @ruser{Comprobación de compás y de
+comprobaciones de compás, véase @rnotation{Comprobación de compás y de
 número de compás}.
 
 Si realmente queremos tener una serie de estos compases con notas
 solapadas, debemos insertar una línea divisoria invisible donde
 queramos el salto de línea.  Para ver más detalles, consulte
-@ruser{Barras de compás}.
+@rnotation{Barras de compás}.
 
 
 @node Aparece un pentagrama de más
@@ -1487,7 +1487,7 @@ Este mensaje de error aparece en la salida de la consola o en el
 archivo log de registro si un archivo de entrada contiene un
 carácter que no es ASCII y no se ha guardado en la codificación de
 caracteres UTF-8.  Para ver más detalles, consulte
-@ruser{Codificación del texto}.
+@rnotation{Codificación del texto}.
 
 
 @node Advertencia sobre que las afinidades del pentagrama sólo deben decrecer
@@ -1507,7 +1507,7 @@ insertando
 
 @noindent
 al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
-líneas que no son pautas} en @ruser{Espaciado vertical flexible
+líneas que no son pautas} en @rnotation{Espaciado vertical flexible
 dentro de los sistemas}.
 
 
@@ -1599,5 +1599,5 @@ que otra con @code{\voiceOne}, y casos semejantes).
 @morerefs
 @rlearning{Voces explícitas},
 @rlearning{Ejemplos reales de música},
-@ruser{Polifonía en un solo pentagrama},
-@ruser{Resolución de las colisiones}.
+@rnotation{Polifonía en un solo pentagrama},
+@rnotation{Resolución de las colisiones}.

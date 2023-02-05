@@ -65,7 +65,7 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notación}}
+@ifWebLinks{@manualStableNotationSplitNoName-es,@rnotationnamed{Top,Notación}}
 referencia de la sintaxis.
 @details{Notación}
 
@@ -293,7 +293,7 @@ presentan en el Glosario Musical.}
 @divClass{column-right-bottom}
 
 @docLinks{Notación, notation,
-  @rusernamed{Top,Notación},
+  @rnotationnamed{Top,Notación},
   @manualStableNotationSplit-es,
   @manualStableNotationBig-es,
   @manualStableNotationPdf-es}

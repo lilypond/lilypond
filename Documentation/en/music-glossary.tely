@@ -2144,7 +2144,7 @@ FI: ?.
 This is a stub for Common Practice Period (CPP).
 
 @morerefs
-@ruser{Note names in other languages}.
+@rnotation{Note names in other languages}.
 @endmorerefs
 
 
@@ -3782,7 +3782,7 @@ of the piece.
 
 @morerefs
 Internals Reference:
-@ruser{Manual beams}.
+@rnotation{Manual beams}.
 @endmorerefs
 
 
@@ -9466,7 +9466,7 @@ This is a stub for @code{bayati}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9478,7 +9478,7 @@ This is a stub for @code{iraq}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9490,7 +9490,7 @@ This is a stub for @code{kurd}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9502,7 +9502,7 @@ This is a stub for @code{makam}.
 
 @morerefs
 Notation Reference:
-@ruser{Turkish classical music}.
+@rnotation{Turkish classical music}.
 @endmorerefs
 
 
@@ -9514,7 +9514,7 @@ This is a stub for @code{makamlar}.
 
 @morerefs
 Notation Reference:
-@ruser{Turkish classical music}.
+@rnotation{Turkish classical music}.
 @endmorerefs
 
 
@@ -9526,8 +9526,8 @@ This is a stub for @code{maqam}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic music},
-@ruser{Arabic key signatures}.
+@rnotation{Arabic music},
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9539,7 +9539,7 @@ This is a stub for @code{rast}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9551,7 +9551,7 @@ This is a stub for @code{semai}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9563,7 +9563,7 @@ This is a stub for @code{sikah}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 
@@ -9575,7 +9575,7 @@ This is a stub for @code{taqasim}.
 
 @morerefs
 Notation Reference:
-@ruser{Arabic key signatures}.
+@rnotation{Arabic key signatures}.
 @endmorerefs
 
 

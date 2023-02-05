@@ -36,7 +36,7 @@ agli utenti esperti una grande flessibilità nell'organizzare i file come
 preferiscono.  Ma questa flessibilità può creare confusione nei nuovi
 utenti.  Questa sezione spiegherà in parte questa struttura, ma
 sorvolerà su alcuni dettagli in favore della semplicità.  Per una
-descrizione completa del formato di input, si veda @ruser{Struttura del file}.
+descrizione completa del formato di input, si veda @rnotation{Struttura del file}.
 
 @menu
 * Introduzione alla struttura di un file di LilyPond::
@@ -178,8 +178,8 @@ Altri due comandi che non hai incontrato finora sono
 @code{\layout @{ @}} e @code{\midi @{@}}.  Se questi appaiono come
 in figura, LilyPond creerà rispettivamente un output per la stampa
 e uno per il MIDI.  Sono descritti dettagliatamente nella
-Guida alla notazione, in @ruser{Formattazione della partitura}, e
-@ruser{Creazione dell'output MIDI}.
+Guida alla notazione, in @rnotation{Formattazione della partitura}, e
+@rnotation{Creazione dell'output MIDI}.
 
 @cindex partiture, multiple
 @cindex libro, blocco implicito
@@ -212,7 +212,7 @@ che si trova dentro un blocco @code{\score} riguarda solo quel blocco
 blocco @code{\score} (e quindi in un blocco @code{\book}, esplicitamente
 o implicitamente) riguarderà ogni @code{\score} in quel @code{\book}.
 
-Per maggiori dettagli si veda @ruser{Molteplici partiture in un libro}.
+Per maggiori dettagli si veda @rnotation{Molteplici partiture in un libro}.
 
 @cindex variabili
 
@@ -237,12 +237,12 @@ ciò che si trova dopo il segno di uguale) e lo inserisce ovunque si trovi
 altro nome.  Ricordati che puoi usare quasi ogni nome che vuoi, purché esso
 contenga solo caratteri alfabetici e sia diverso dai nomi dei comandi di
 LilyPond.  Le esatte limitazioni relative ai nomi delle variabili sono spiegate
-dettagliatamente in @ruser{Struttura del file}.
+dettagliatamente in @rnotation{Struttura del file}.
 
 
 @morerefs
 Per una definizione completa del formato di input, si veda
-@ruser{Struttura del file}.
+@rnotation{Struttura del file}.
 @endmorerefs
 
 
@@ -351,7 +351,7 @@ interpretati come testo, li facciamo precedere da @code{\lyricmode}.  Come in
 @code{\addlyrics}, questo comando trasforma la modalità di input in modalità
 testo.  Senza di esso, LilyPond cercherebbe di interpretare i contenuti come
 se fossero note, e questo produrrebbe degli errori.  (Sono disponibili molte
-altre modalità di input, si veda @ruser{Modalità di inserimento}.)
+altre modalità di input, si veda @rnotation{Modalità di inserimento}.)
 
 Dunque se aggiungiamo un po' di note e una chiave di basso per la mano
 sinistra, otteniamo un brano musicale vero e proprio:
@@ -388,7 +388,7 @@ di testo si trovi nella stessa posizione orizzontale.
 
 
 @morerefs
-Guida alla notazione: @ruser{Struttura di una partitura}.
+Guida alla notazione: @rnotation{Struttura di una partitura}.
 @endmorerefs
 
 
@@ -460,7 +460,7 @@ predefinita, che è in basso.
 Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
 comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
-e @ruser{Righi ossia}.
+e @rnotation{Righi ossia}.
 @endmorerefs
 
 
@@ -476,16 +476,16 @@ di LilyPond aggiungono elementi quali le articolazioni, le diteggiature, i
 numeri di corda, le legature di portamento e di valore e il testo esplicativo.
 
 L'altezza può essere definita esplicitamente usando il linguaggio di input
-corrente di LilyPond, come è descritto in @ruser{Nomi delle note in altre lingue}.
+corrente di LilyPond, come è descritto in @rnotation{Nomi delle note in altre lingue}.
 L'altezza può essere omessa.  Quando viene omessa, l'altezza di una nota
 corrente sarà identica all'altezza della nota precedente nel file di
-input, vedi @ruser{Durata}.  Attenzione, né @code{r} né @code{s}
+input, vedi @rnotation{Durata}.  Attenzione, né @code{r} né @code{s}
 sono un'altezza.
 
 La durata è composta da un numero e eventualmente da uno o più punti.  Se una
 durata non è definita esplicitamente, la durata di una nota corrente sarà
 identica alla durata della nota, accordo, pausa o pausa spaziatrice precedenti,
-vedi @ruser{Durata}.
+vedi @rnotation{Durata}.
 
 I post-eventi seguono la nota alla quale sono collegati.  Supponiamo di voler
 scrivere un Do di un ottavo con diteggiatura 1, articolazione tenuto, una
@@ -503,9 +503,9 @@ Manuale di apprendimento:
 @ref{Aggiungere il testo}.
 
 Guida alla notazione:
-@ruser{Altezze},
-@ruser{Ritmi},
-@ruser{Segni di espressione}.
+@rnotation{Altezze},
+@rnotation{Ritmi},
+@rnotation{Segni di espressione}.
 @endmorerefs
 
 
@@ -993,7 +993,7 @@ prossima sezione -- si veda la proprietà @code{force-hshift} in
 essere creati @q{attraverso} le voci.}
 
 @morerefs
-Guida alla notazione: @ruser{Più voci}.
+Guida alla notazione: @rnotation{Più voci}.
 @endmorerefs
 
 
@@ -1262,7 +1262,7 @@ produrrà il messaggio di errore
 Manuale di apprendimento:
 @ref{Spostare gli oggetti}.
 
-Guida alla notazione: @ruser{Più voci}.
+Guida alla notazione: @rnotation{Più voci}.
 @endmorerefs
 
 
@@ -1427,7 +1427,7 @@ VerseFour  =
 @end lilypond
 
 @morerefs
-Guida alla notazione: @ruser{Musica vocale}.
+Guida alla notazione: @rnotation{Musica vocale}.
 @endmorerefs
 
 
@@ -1519,7 +1519,7 @@ maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 
 @morerefs
-Guida alla notazione: @ruser{Tutto sui contesti}.
+Guida alla notazione: @rnotation{Tutto sui contesti}.
 @endmorerefs
 
 
@@ -1641,7 +1641,7 @@ nella sezione sul testo, si veda @ref{Voci e musica vocale}.
 
 
 @morerefs
-Guida alla notazione: @ruser{Creazione e citazione di un contesto}.
+Guida alla notazione: @rnotation{Creazione e citazione di un contesto}.
 @endmorerefs
 
 
@@ -2030,8 +2030,8 @@ comandi @code{\set} incorporati nelle asserzioni musicali.
 
 @morerefs
 Guida alla notazione:
-@ruser{Modifica delle impostazioni predefinite di un contesto},
-@ruser{Il comando set}.
+@rnotation{Modifica delle impostazioni predefinite di un contesto},
+@rnotation{Il comando set}.
 
 Guida al funzionamento interno:
 @rinternals{Contexts},
@@ -2193,8 +2193,8 @@ per tutti i contesti di un particolare tipo includendo il comando
 @code{\set} in un blocco @code{\context} nello stesso modo.
 
 @morerefs
-Guida alla notazione: @ruser{Modifica dei componenti aggiuntivi di un contesto},
-@ruser{Modifica delle impostazioni predefinite di un contesto}.
+Guida alla notazione: @rnotation{Modifica dei componenti aggiuntivi di un contesto},
+@rnotation{Modifica delle impostazioni predefinite di un contesto}.
 @endmorerefs
 
 @knownissues
@@ -2961,7 +2961,7 @@ L'allungabilità dei righi può essere controllata con la proprietà
 (gli oggetti grafici vengono comunemente chiamati @q{grob} nella documentazione
 di LilyPond)    -- non preoccuparti dei dettagli in questo momento; in seguito
 verrà fornita una spiegazione approfondita.  I curiosi possono dare
-un'occhiata a @ruser{Panoramica sulla modifica delle proprietà}.
+un'occhiata a @rnotation{Panoramica sulla modifica delle proprietà}.
 In questo caso, vogliamo modificare soltanto la sottoproprietà
 @code{stretchability}.  Se i valori non vengono cambiati si useranno quelli
 predefiniti.  Di nuovo, chi è curioso può trovare i valori predefiniti
@@ -3356,8 +3356,8 @@ Manuale di apprendimento:
 @ref{Organizzare i brani con le variabili}.
 
 Guida alla notazione:
-@ruser{Trasposizione},
-@ruser{Scrittura delle parti},
-@ruser{Pause d'intero},
-@ruser{Inclusione di file LilyPond}.
+@rnotation{Trasposizione},
+@rnotation{Scrittura delle parti},
+@rnotation{Pause d'intero},
+@rnotation{Inclusione di file LilyPond}.
 @endmorerefs

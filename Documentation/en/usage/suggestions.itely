@@ -71,8 +71,8 @@ all of the LilyPond templates contain @code{\version} numbers.
 will make debugging any problems in your input files much simpler.
 
 @item
-@strong{Include @ruser{Bar and bar number checks} as well as
-@ruser{Octave checks}}.  Including @q{checks} of this type in your input
+@strong{Include @rnotation{Bar and bar number checks} as well as
+@rnotation{Octave checks}}.  Including @q{checks} of this type in your input
 files will help pinpoint mistakes more quickly. How often checks are
 added will depend on the complexity of the music being typeset.  For
 simple compositions, checks added at a few at strategic points within
@@ -157,7 +157,7 @@ piece of existing sheet music),
 LilyPond one system at a time (but still only one bar per line of text),
 and check each system when you finish it.  You may use the
 @code{showLastLength} or @code{showFirstLength} properties to speed up
-processing -- see @ruser{Skipping corrected music}.
+processing -- see @rnotation{Skipping corrected music}.
 
 @item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
 in the input file whenever the manuscript has a line break.  This

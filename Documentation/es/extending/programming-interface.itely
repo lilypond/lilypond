@@ -206,12 +206,12 @@ evitar los predicados excesivamente permisivos como
 más específicos.
 
 Para ver una lista de los predicados de tipo disponibles,
-consulte @ruser{Predicados de tipo predefinidos}.
+consulte @rnotation{Predicados de tipo predefinidos}.
 
 @morerefs
 
 Referencia de la notación:
-@ruser{Predicados de tipo predefinidos}.
+@rnotation{Predicados de tipo predefinidos}.
 
 Archivos instalados:
 @file{lily/music-scheme.cc},
@@ -361,12 +361,12 @@ el @var{cuerpo} sea un
 @ref{Bloques de código de LilyPond,bloque de código de LilyPond}.
 
 Para ver una lista de los predicados de tipo disponibles,
-consulte @ruser{Predicados de tipo predefinidos}.
+consulte @rnotation{Predicados de tipo predefinidos}.
 
 @morerefs
 
 Referencia de la notación:
-@ruser{Predicados de tipo predefinidos}.
+@rnotation{Predicados de tipo predefinidos}.
 
 Archivos de inicio:
 @file{lily/music-scheme.cc},
@@ -418,7 +418,7 @@ musicales del nivel superior.
 Una función de sustitución sencilla es una función musical cuya
 expresión musical de salida está escrita en código de LilyPond y
 contiene argumentos de la función en la expresión de salida.
-Están descritas en @ruser{Ejemplos de funciones de sustitución}.
+Están descritas en @rnotation{Ejemplos de funciones de sustitución}.
 
 
 @node Funciones de sustitución intermedias
@@ -947,7 +947,7 @@ El ejemplo siguiente define una instrucción de marcado para
 trazar un rectángulo doble alrededor de un fragmento de texto.
 
 En primer lugar, necesitamos construir un resultado aproximado
-utilizando marcados.  Una consulta a @ruser{Instrucciones de
+utilizando marcados.  Una consulta a @rnotation{Instrucciones de
 marcado de texto} nos muestra que es útil la instrucción
 @code{\box}:
 

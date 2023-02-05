@@ -42,7 +42,7 @@ tota aquesta flexibilitat pot fer que les coses es tornin confuses
 per als nous usuaris.  Aquesta secció us explicarà part d'aquesta
 estructura, però pot obviar certs detalls per simplificar.  Per
 veure una descripció més completa del format d'entrada, consulteu
-@ruser{Estructura del fitxer}.
+@rnotation{Estructura del fitxer}.
 
 
 @menu
@@ -194,8 +194,8 @@ Dues instruccions més que no hem vist són @code{\layout @{ @}}
 i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
 que el LilyPond produeixi una sortida impresa i una sortida MIDI,
 respectivament.  Es descriuen amb tot detall al manual de
-Referència de la notació, a @ruser{Disposició de la partitura}
-i a @ruser{Creació de sortida MIDI}.
+Referència de la notació, a @rnotation{Disposició de la partitura}
+i a @rnotation{Creació de sortida MIDI}.
 
 @cindex partitures, diverses
 @cindex book, bloc implícit
@@ -232,7 +232,7 @@ bloc @code{\score} (que per això està dins d'un bloc
 @code{\score} que estan dins d'aquest @code{\book}.
 
 Per veure més detalls, consulteu
-@ruser{Diverses partitures a un llibre}.
+@rnotation{Diverses partitures a un llibre}.
 
 @cindex variables
 
@@ -261,12 +261,12 @@ caràcters alfabètics i sigui diferent a qualsevol dels noms
 d'instrucció del LilyPond.  Per veure més detalls, consulteu
 @ref{Estalvi de tecleig mitjançant variables i funcions}.  Les
 limitacions exactes que afecten els noms de variable es detallen a
-@ruser{Estructura del fitxer}.
+@rnotation{Estructura del fitxer}.
 
 
 @morerefs
 Per veure una definició completa del format del codi d'entrada,
-consulteu @ruser{Estructura del fitxer}.
+consulteu @rnotation{Estructura del fitxer}.
 
 @node La partitura és una (única) expressió musical composta
 @subsection La partitura és una (única) expressió musical composta
@@ -384,7 +384,7 @@ s'interpreta com a lletra, el precedim amb @code{\lyricmode}.
 Igual que @code{\addlyrics}, això activa el mode d'entrada de
 lletra.  Sense això, el LilyPond intentaria interpretar el
 contingut com a notes, cosa que generaria errors (Hi ha d'altres
-modes, vegeu @ruser{Modes d'entrada}).
+modes, vegeu @rnotation{Modes d'entrada}).
 
 Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
 mà esquerra, ara tenim un fragment musical de debò:
@@ -422,7 +422,7 @@ la mateixa posició horitzontal).
 
 @morerefs
 Referència de la notació:
-@ruser{Estructura d'una partitura}.
+@rnotation{Estructura d'una partitura}.
 
 
 @node Niuat d'expressions musicals
@@ -493,7 +493,7 @@ pentagrama nou s'ha de col·locar per sobre del pentagrama anomenat
 Els fragments d'ossia s'escriuen sovint sense clau i sense
 indicació de compàs, i generalment amb una lletra més petita.  Per
 fer això caldrien més ordres que encara no s'han vist.  Vegeu
-@ref{Mida dels objectes} i @ruser{Pentagrames d'Ossia}.
+@ref{Mida dels objectes} i @rnotation{Pentagrames d'Ossia}.
 
 @node Quant a la impossibilitat de niuar claus i lligadures
 @subsection Quant a la impossibilitat de niuar claus i lligadures
@@ -974,7 +974,7 @@ propietat @code{force-hshift} a
 
 @morerefs
 Referència de la notació:
-@ruser{Veus múltiples}.
+@rnotation{Veus múltiples}.
 
 
 @node Veus explícites
@@ -1220,7 +1220,7 @@ Manual d'aprenentatge:
 @ref{Moviment d'objectes}.
 
 Referència de la notació:
-@ruser{Veus múltiples}.
+@rnotation{Veus múltiples}.
 
 
 @node Veus i música vocal
@@ -1390,7 +1390,7 @@ VerseFour  =
 
 @morerefs
 Referència de la notació:
-@ruser{Música vocal}.
+@rnotation{Música vocal}.
 
 
 @node Contextos i gravadors
@@ -1487,7 +1487,7 @@ altres sense guió ni barra baixa, per exemple:
 
 @morerefs
 Referència de la notació:
-@ruser{Explicació dels contextos}.
+@rnotation{Explicació dels contextos}.
 
 
 @node Creació de contextos
@@ -1608,7 +1608,7 @@ secció sobre la lletra, a @ref{Veus i música vocal}.
 
 @morerefs
 Referència de la notació:
-@ruser{Creació i referenciació dels contextos}.
+@rnotation{Creació i referenciació dels contextos}.
 
 
 @node Explicació dels gravadors
@@ -2027,10 +2027,10 @@ enunciats dins d'un bloc @code{\with}, i mitjançant instruccions
 
 @morerefs
 Referència de la notació:
-@ruser{Canvi dels paràmetres predeterminats dels contextos}.
+@rnotation{Canvi dels paràmetres predeterminats dels contextos}.
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@ruser{L'ordre set}
+@rnotation{L'ordre set}
 
 Referència de funcionament intern:
 @rinternals{Contexts},
@@ -2198,8 +2198,8 @@ particular incloent-hi la instrucció @code{\set} dins d'un bloc
 
 @morerefs
 Referència de la notació:
-@ruser{Modificació dels connectors (plug-ins) de context},
-@ruser{Canvi dels paràmetres predeterminats dels contextos}.
+@rnotation{Modificació dels connectors (plug-ins) de context},
+@rnotation{Canvi dels paràmetres predeterminats dels contextos}.
 
 @knownissues
 Els gravadors @code{Stem_engraver} i @code{Beam_engraver}
@@ -2950,7 +2950,7 @@ reben en general el nom de @q{grob}s a la documentació del
 LilyPond); no us preocupeu de moment dels detalls, ja que això
 s'explica més tard de forma exhaustiva.  Els més curiosos podeu
 donar una ullada a
-@ruser{Panoràmica de la modificació de les propietats}.
+@rnotation{Panoràmica de la modificació de les propietats}.
 En aquest cas volem modificar solament la sub-propietat
 @code{stretchability}.  Un altre cop, els curiosos trobareu els
 valors predeterminats per a la propietat staff-staff-spacing al

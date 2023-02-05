@@ -935,12 +935,12 @@ comprimida o que se surti de la pàgina.}
 
 La duració incorrecta es pot trobar fàcilment si s'utilitzen
 comprovacions de compàs, vegeu
-@ruser{Comprovació de compàs i de número de compàs}.
+@rnotation{Comprovació de compàs i de número de compàs}.
 
 Si realment volem tenir una sèrie d'aquests compassos amb notes
 solapades, hem d'inserir una línia divisòria invisible on volem
 el salt de línia.  Per veure més detalls, consulteu
-@ruser{Barres de compàs}.
+@rnotation{Barres de compàs}.
 
 
 @node Apareix un pentagrama de més
@@ -1026,7 +1026,7 @@ Aquest missatge d'error apareix a la sortida de la consola o al
 fitxer log de registre si un fitxer d'entrada conté un caràcter que
 no és ASCII i no s'ha desat en la codificació de caràcters
 UTF-8.  Per veure més detalls, consulteu
-@ruser{Codificació del text}.
+@rnotation{Codificació del text}.
 
 @node Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
 @unnumberedsubsec Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
@@ -1045,7 +1045,7 @@ dels contextos es comporti com un pentagrama, inserint
 @noindent
 al començament.  Per veure més detalls, consulteu @qq{Espaiat de
 les línies que no són pautes} a
-@ruser{Espaiat vertical flexible dins dels sistemes}.
+@rnotation{Espaiat vertical flexible dins dels sistemes}.
 
 @node Missatge d'error Unexpected new
 @unnumberedsubsec Missatge d'error Unexpected new @code{\new}

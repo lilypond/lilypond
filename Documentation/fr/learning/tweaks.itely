@@ -202,8 +202,8 @@ fonction de son nom.
 
 @morerefs
 Manuel de notation :
-@ruser{Conventions de nommage},
-@ruser{Modification de propriétés}.
+@rnotation{Conventions de nommage},
+@rnotation{Modification de propriétés}.
 @endmorerefs
 
 
@@ -554,7 +554,7 @@ avec la commande @code{\override} :
 
 @morerefs
 Manuel de notation :
-@ruser{La commande d'affinage (tweak)}.
+@rnotation{La commande d'affinage (tweak)}.
 @endmorerefs
 
 
@@ -1395,7 +1395,7 @@ couper ou non les lignes de la portée aux endroits où elles se
 croisent.  Vous verrez dans les exemples ci-dessous que cela peut se
 produire, sans qu'on le sache à l'avance.  Les explications de ce
 phénomène et les solutions pour y remédier sont exposées dans
-@ruser{Blanchiment des objets}.  Pour le moment, acceptons cet
+@rnotation{Blanchiment des objets}.  Pour le moment, acceptons cet
 inconvénient et concentrons-nous sur l'apprentissage de la gestion des
 couleurs.
 
@@ -1404,7 +1404,7 @@ La @code{grob-interface} indique que la valeur de la propriété
 liste est une liste de valeurs en unités internes ; pour éviter
 d'avoir à chercher ce qu'il faut y mettre, il existe différents moyens
 d'indiquer la couleur.  Le premier moyen consiste à utiliser l'une des
-couleurs @emph{CSS} de la première @ruser{Liste des couleurs}.
+couleurs @emph{CSS} de la première @rnotation{Liste des couleurs}.
 Pour mettre les barres de mesure en blanc, on écrit :
 
 @cindex BarLine, exemple de dérogation
@@ -1487,7 +1487,7 @@ est borné par des parenthèses. Il en va de même pour la fonction
 La fonction @code{x11-colors}, elle aussi, convertit les noms
 symboliques de couleur en une liste de valeurs internes, mais elle offre
 plus de choix que les couleurs CSS comme on peut le constater dans la
-@ruser{Liste des couleurs}. Par exemple, elle comporte une échelle de
+@rnotation{Liste des couleurs}. Par exemple, elle comporte une échelle de
 gris qui va du noir (@code{'grey0}) au blanc (@code{'grey100}), avec
 un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
 notre exemple différentes nuances de gris :
@@ -2251,7 +2251,7 @@ propriété commune à tous les objets de rendu.  Par défaut, elle
 est réglée sur @code{#f} pour tous les objets de la portée, et
 porte une valeur numérique appropriée à chacun des objets
 extérieurs à la portée, à mesure qu'ils sont créés.  Une
-@rusernamed{Valeurs par défaut de outside-staff-priority,
+@rnotationnamed{Valeurs par défaut de outside-staff-priority,
 annexe spécifique} recense les différents objets concernés, avec leur
 valeur par défaut.
 
@@ -2313,7 +2313,7 @@ passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
 Pour de plus amples détails, voir
-@ruser{Indication textuelle avec extension}.
+@rnotation{Indication textuelle avec extension}.
 
 Il montre aussi comment créer des marques d'octaviation.
 
@@ -2330,7 +2330,7 @@ de ces objets. Supposons que vous vouliez placer l'indication
 d'octaviation sous le bandeau de texte, dans l'exemple précédent. Tout
 ce que nous devons faire, c'est regarder la priorité de
 @code{OttavaBracket} dans la Référence des propriétés internes ou dans
-@ruser{Valeurs par défaut de outside-staff-priority}, et la ramener à
+@rnotation{Valeurs par défaut de outside-staff-priority}, et la ramener à
 une valeur plus basse que celle de @code{TextSpanner}, en gardant à
 l'esprit que @code{OttavaBracket} est créé dans le contexte
 @code{Staff} :
@@ -2644,7 +2644,7 @@ l'autre.  Commençons par les paroles.
 
 Les paroles résident dans un système ; les commandes dévolues à leur
 espacement sont donc mentionnées à la section
-@ruser{Espacement vertical au sein d'un système}. Nous y constatons que
+@rnotation{Espacement vertical au sein d'un système}. Nous y constatons que
 les paroles sont des lignes de non-portée (@code{non-staff lines}) ; les
 commandes qui gèrent leur espacement font donc référence à la propriété
 @code{nonstaff}.  Les décaler de la portée à laquelle elles sont
@@ -2794,8 +2794,8 @@ regroupement -- un @code{StaffGroup}, tels @code{GrandStaff} ou
 @code{StaffGrouper} ; l'espacement de portées non regroupées (comme
 @code{Lyrics} et @code{Staff}) dépend des variables d'un
 @code{VerticalAxisGroup}.  Voir
-@ruser{Variables d'espacement vertical fluctuant} et
-@ruser{Espacement vertical au sein d'un système} pour de plus amples
+@rnotation{Variables d'espacement vertical fluctuant} et
+@rnotation{Espacement vertical au sein d'un système} pour de plus amples
 détails.
 
 
@@ -3151,7 +3151,7 @@ Vous remarquerez dans le second exemple à quel point il est important de
 préciser le nom du contexte qui contient l'objet.  Puisque l'objet
 @code{MetronomeMark} appartient au contexte @code{Score}, le fait de
 modifier la propriété dans le contexte @code{Voice} passera inaperçu.
-Pour plus de détails, voir @ruser{Modification de propriétés}.
+Pour plus de détails, voir @rnotation{Modification de propriétés}.
 
 Si on augmente la propriété @code{padding} d'un objet alors que celui-ci
 fait partie d'un ensemble d'objets positionnés en fonction de leur
@@ -3293,7 +3293,7 @@ C'est mieux que d'utiliser, par exemple, @code{extra-offset},
 car la ligne supplémentaire au-dessus du silence est insérée
 automatiquement.
 
-Voir @ruser{dessin à main levée de liaisons de tenue}
+Voir @rnotation{dessin à main levée de liaisons de tenue}
 pour ce qui différencie des valeurs exactes des valeurs inexactes.
 
 
@@ -3367,7 +3367,7 @@ parce qu'il n'y a pas de meilleur candidat ; la propriété
 @code{positions} n'est alors d'aucune utilité.  Les liaisons,
 aussi bien de tenue que d'articulation ou de phrasé, peuvent se
 positionner et se dessiner tout en finesse lorsque nécessaire --
-voir à ce sujet @ruser{Modification des liaisons}.
+voir à ce sujet @rnotation{Modification des liaisons}.
 
 Voici un autre exemple. Comme nous pouvons le constater, les barres de
 ligature chevauchent les liaisons de tenue :
@@ -3793,7 +3793,7 @@ Dans le Tutoriel, il est indiqué comment insérer une indication de tempo
 ajouter « Moderato ».  Mais comment faire pour fusionner les notes de
 différentes voix ?  C'est là que le Manuel de notation peut nous venir
 en aide.  Une recherche sur « fusionnement de notes » dans l'index nous
-renvoie au chapitre @ruser{Résolution des collisions}, et plus
+renvoie au chapitre @rnotation{Résolution des collisions}, et plus
 précisément aux commandes permettant de fusionner des notes en fonction
 de leur type et selon qu'elles sont pointées ou non.  Dans notre exemple,
 pour la durée de la polyphonie de la troisième mesure, nous avons besoin

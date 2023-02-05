@@ -233,7 +233,7 @@ Für LilyPond Version @version{}
 @c     @rinternals
 @c     @rlearning
 @c     @rlsr
-@c     @ruser
+@c     @rnotation
 @c     @rprogram
 @c     @rchanges
 @c     @rextend
@@ -274,12 +274,12 @@ Für LilyPond Version @version{}
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Handbuch zum Lernen}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Notationsreferenz}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notationsreferenz}
 @end macro
@@ -391,12 +391,12 @@ Für LilyPond Version @version{}
 @ref{\TEXT\,,\DISPLAY\,learning,Handbuch zum Lernen}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation,Notationsreferenz}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Notationsreferenz}
 @end macro
@@ -503,12 +503,12 @@ Für LilyPond Version @version{}
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Notationsreferenz}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notationsreferenz}
 @end macro
@@ -632,12 +632,12 @@ Für LilyPond Version @version{}
 @ref{\TEXT\,,\DISPLAY\,learning.de,Handbuch zum Lernen}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,,notation.de,Notationsreferenz}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.de,Notationsreferenz}
 @end macro

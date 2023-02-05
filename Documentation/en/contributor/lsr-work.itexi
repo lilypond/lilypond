@@ -215,7 +215,7 @@ Perl version appended to its name, for example
 
 The @option{--sudo} option makes the modules install into a system
 directory, for example @file{/usr/@/lib/@/perl5/@/site_perl/@/...}
--- you need the superuser password for this.  If you don't want to
+-- you need the supernotation password for this.  If you don't want to
 do that for whatever reason, just omit @option{--sudo} and follow
 the instructions shown in @command{cpanm}'s error message to
 install Perl modules locally (i.e., without @command{sudo}

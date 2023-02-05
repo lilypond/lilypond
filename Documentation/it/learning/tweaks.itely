@@ -182,8 +182,8 @@ di oggetti e proprietà dai loro nomi.
 
 @morerefs
 Guida alla notazione:
-@ruser{Convenzioni per i nomi},
-@ruser{Modifica delle proprietà}.
+@rnotation{Convenzioni per i nomi},
+@rnotation{Modifica delle proprietà}.
 @endmorerefs
 
 
@@ -533,7 +533,7 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 
 @morerefs
 Guida alla Notazione:
-@ruser{Il comando tweak}.
+@rnotation{Il comando tweak}.
 @endmorerefs
 
 
@@ -1342,7 +1342,7 @@ di bianco.  (Si tratta di un metodo problematico perché la
 stanghetta bianca può imbiancare o meno le linee del rigo che
 incrocia.  Puoi vedere in alcuni degli esempi successivi che questo
 accade in modo imprevedibile.  I motivi per cui questo accade e il
-modo in cui è possibile controllarlo sono esposti in @ruser{Dipingere gli oggetti di bianco}.
+modo in cui è possibile controllarlo sono esposti in @rnotation{Dipingere gli oggetti di bianco}.
 Ma per il momento stiamo imparando la proprietà color, quindi accettiamo questa limitazione.)
 
 L'interfaccia @code{grob-interface} stabilisce che il valore della
@@ -1351,7 +1351,7 @@ lista.  La lista di cui ha bisogno è in realtà una lista di valori
 in unità interne, ma per evitare di dover imparare quali siano queste
 unità vengono forniti vari modi di specificare un colore.  Il primo
 modo consiste nell'usare uno dei colori @q{CSS} predefiniti elencati
-in @ruser{Elenco dei colori}.  Per rendere bianche le
+in @rnotation{Elenco dei colori}.  Per rendere bianche le
 stanghette scriviamo:
 
 @cindex BarLine, esempio di sovrascrittura
@@ -1454,7 +1454,7 @@ che abbiamo appena saltato.
 
 @code{x11-color} associa i nomi di colore predefiniti a valori interni -- ma
 offre molte più scelta dei nomi CSS, come si può vedere in
-@ruser{Elenco dei colori}.  Per esempio, l'insieme di colori X11 include
+@rnotation{Elenco dei colori}.  Per esempio, l'insieme di colori X11 include
 un'ampia scala di grigi, i cui nomi vanno dal nero, @code{'grey0},
 al bianco, @code{'grey100}, con cadenza di@tie{}1.  Ecco un
 esempio in cui tutti gli oggetti di formattazione sono
@@ -2222,7 +2222,7 @@ definita nell'interfaccia @code{grob-interface} ed è quindi una proprietà di
 tutti gli oggetti di formattazione.  Il valore predefinito è @code{#f} per
 tutti gli oggetti interni al rigo e un valore numerico appropriato, determinato
 al momento della creazione dell'oggetto, per ogni oggetto esterno al rigo.
-Si veda la tabella dettagliata in @ruser{Valori prefefiniti di outside-staff-priority}.
+Si veda la tabella dettagliata in @rnotation{Valori prefefiniti di outside-staff-priority}.
 
 @cindex estensori (spanner)
 @cindex spanner
@@ -2278,7 +2278,7 @@ Questo esempio mostra anche come creare gli estensori (spanner) del testo,
 ovvero testo con delle linee che si estendono sopra una sezione musicale.
 L'estensore si allunga dal comando @code{\startTextSpan} fino al comando
 @code{\stopTextSpan} e il formato del testo è definito dal comando
-@code{\override TextSpanner}.  Per maggiori dettagli si veda @ruser{Estensori del testo}.
+@code{\override TextSpanner}.  Per maggiori dettagli si veda @rnotation{Estensori del testo}.
 
 Mostra anche come si creano le estensioni del segno d'ottava.
 
@@ -2294,7 +2294,7 @@ il posizionamento desiderato, è possibile sovrascrivere la priorità di
 qualsiasi oggetto.  Immaginiamo di voler posizionare l'estensione del segno d'ottava
 sotto l'estensore del testo nell'esempio precedente.  Basta controllare la
 priorità dell'oggetto @code{OttavaBracket} nella tabella in
-@ruser{Valori predefiniti di outside-staff-priority} o nella Guida al
+@rnotation{Valori predefiniti di outside-staff-priority} o nella Guida al
 funzionamento interno e ridurla a un valore inferiore a quello di un
 oggetto @code{TextSpanner}, ricordando che @code{OttavaBracket} è creato
 nel contesto @code{Staff}:
@@ -2603,7 +2603,7 @@ tra testo e note, e tra l'accompagnamento del pianoforte e la linea vocale, e
 minor spazio tra i righi del pianoforte.  Iniziamo dal testo.
 
 Il testo vocale si trova all'interno di un sistema, dunque i comandi per
-modificarne la spaziatura sono descritti in @ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
+modificarne la spaziatura sono descritti in @rnotation{Spaziatura verticale flessibile all'interno dei sistemi}.
 Quel paragrafo ci dice che il testo è costituito da linee che non appartengono
 al rigo (@code{non-staff lines}), quindi il comando per cambiarne la spaziatura
 sarà riferito alla proprietà @code{nonstaff}.  Per allontanarlo dal rigo a cui
@@ -2748,8 +2748,8 @@ da ricordare è che la spaziatura degli oggetti in un contesto @code{StaffGroup}
 variabili spaziali di @code{StaffGrouper}.  La spaziatura relativa ai righi
 non raggruppati (come @code{Lyrics} e @code{Staff}) è regolata dalle variabili
 del @code{VerticalAxisGroup}.  Ulteriori dettagli in
-@ruser{Variabili paper della spaziatura verticale flessibile} e
-@ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
+@rnotation{Variabili paper della spaziatura verticale flessibile} e
+@rnotation{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 
 @node Collisioni tra oggetti
@@ -3097,7 +3097,7 @@ Nota nel secondo esempio come è importante sapere quale contesto
 gestisce un certo oggetto.  Dato che l'oggetto @code{MetronomeMark}
 è regolato dal contesto @code{Score}, le modifiche della proprietà
 nel contesto @code{Voice} non vengono prese in considerazione.  Per
-approfondire l'argomento si veda @ruser{Modifica delle proprietà}.
+approfondire l'argomento si veda @rnotation{Modifica delle proprietà}.
 
 Se la proprietà @code{padding} di un oggetto viene aumentata quando
 quell'oggetto si trova insieme ad altri oggetti disposti secondo la
@@ -3245,9 +3245,9 @@ nuovo valore sarà @w{@code{-10}}.
 
 Questa soluzione è preferibile all'uso di @code{extra-offset}, perché
 il taglio addizionale sopra la pausa è inserito automaticamente.
-@c @ruser{Engraving ties manually} is not a valid node, so I use another one - fb
+@c @rnotation{Engraving ties manually} is not a valid node, so I use another one - fb
 Vedi il frammento «Disegnare manualmente le legature di valore» in
-@ruser{Legature di valore} per la differenza tra valori precisi
+@rnotation{Legature di valore} per la differenza tra valori precisi
 e imprecisi.
 
 @node La proprietà extra-offset
@@ -3320,7 +3320,7 @@ portamento candidate più basse di quella già selezionata, quindi
 in questo caso la proprietà @code{positions} non può produrre
 effetti.  Tuttavia, legature di valore, di portamento e di frase
 @emph{possono} essere posizionate e disegnate in modo molto preciso
-se necessario.  Per sapere come fare si veda @ruser{Modifica di legature di valore e di portamento}.
+se necessario.  Per sapere come fare si veda @rnotation{Modifica di legature di valore e di portamento}.
 
 Ecco un altro esempio.  Vediamo che le travature collidono
 con le legature di valore:
@@ -3724,7 +3724,7 @@ tutorial abbiamo visto come aggiungere un'indicazione di tempo col comando
 ad accorpare le note appartenenti a voci diverse?  Ancora una volta
 dobbiamo rivolgerci alla guida alla Notazione per un aiuto.  Una ricerca
 del termine @qq{accorpare} (in inglese @emph{merge}) nell'indice della guida
-ci porta rapidamente al paragrafo @ruser{Risoluzione delle collisioni}, dove
+ci porta rapidamente al paragrafo @rnotation{Risoluzione delle collisioni}, dove
 troviamo i comandi per allineare le note con teste e punti diversi.  Nel
 nostro esempio abbiamo bisogno di accorpare entrambi i tipi di note per la
 durata della sezione polifonica della terza battuta.  Dunque, usando le

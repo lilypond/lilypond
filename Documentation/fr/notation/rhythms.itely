@@ -1368,7 +1368,7 @@ changé pour un style numérique :
 @end lilypond
 
 Les métriques anciennes font l'objet d'un
-@rusernamed{Métriques anciennes, chapitre particulier}.
+@rnotationnamed{Métriques anciennes, chapitre particulier}.
 
 @cindex métrique par défaut
 @cindex ligature et métrique

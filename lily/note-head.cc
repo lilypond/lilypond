@@ -233,7 +233,7 @@ Note_head::calc_tab_stem_attachment (SCM smob)
 ADD_INTERFACE (Note_head,
                R"(
 A note head.  There are many possible values for @code{style}.  For a complete
-list, see @ruser{Note head styles}.
+list, see @rnotation{Note head styles}.
                )",
 
                /* properties */

@@ -73,7 +73,7 @@ Single bar lines are automatically placed in the music so there is
 no need to add them manually.  Other types of bar lines are added
 using @code{\bar}, for example @code{\bar "||"} for a double bar
 line, or @code{\bar "|."}  for an ending bar line.  For a full
-list of bar lines see @ruser{Bar lines}.
+list of bar lines see @rnotation{Bar lines}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -114,7 +114,7 @@ bar@tie{}3.
 
 @morerefs
 Notation Reference:
-@ruser{Bar and bar number checks}.
+@rnotation{Bar and bar number checks}.
 @endmorerefs
 
 
@@ -169,7 +169,7 @@ expect, a @notation{double sharp} or @notation{double flat} is
 made by adding @samp{isis} or @samp{eses}.  This syntax is derived
 from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other naming schemes for note
-names, see @ruser{Note names in other languages}.
+names, see @rnotation{Note names in other languages}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -267,14 +267,14 @@ effort when typing, but the advantage is that
 @notation{transposing} is easier, and accidentals can be printed
 according to different conventions.  For some examples of how
 accidentals can be printed according to different rules, see
-@ruser{Automatic accidentals}.
+@rnotation{Automatic accidentals}.
 
 @morerefs
 Notation Reference:
-@ruser{Note names in other languages},
-@ruser{Accidentals},
-@ruser{Automatic accidentals},
-@ruser{Key signature}.
+@rnotation{Note names in other languages},
+@rnotation{Accidentals},
+@rnotation{Automatic accidentals},
+@rnotation{Key signature}.
 @endmorerefs
 
 
@@ -383,9 +383,9 @@ of notes.  Slurs and ties can be nested.
 
 @morerefs
 Notation Reference:
-@ruser{Ties},
-@ruser{Slurs},
-@ruser{Phrasing slurs}.
+@rnotation{Ties},
+@rnotation{Slurs},
+@rnotation{Phrasing slurs}.
 @endmorerefs
 
 
@@ -493,9 +493,9 @@ example @code{\f}, ends the (de)crescendo, or the command
 
 @morerefs
 Notation Reference:
-@ruser{Articulations and ornamentations},
-@ruser{Fingering instructions},
-@ruser{Dynamics}.
+@rnotation{Articulations and ornamentations},
+@rnotation{Fingering instructions},
+@rnotation{Dynamics}.
 @endmorerefs
 
 
@@ -526,7 +526,7 @@ Extra formatting may be added with the @code{\markup} command:
 
 @morerefs
 Notation Reference:
-@ruser{Writing text}.
+@rnotation{Writing text}.
 @endmorerefs
 
 
@@ -579,8 +579,8 @@ on again.
 
 @morerefs
 Notation Reference:
-@ruser{Automatic beams},
-@ruser{Manual beams}.
+@rnotation{Automatic beams},
+@rnotation{Manual beams}.
 @endmorerefs
 
 
@@ -678,9 +678,9 @@ with the keyword @code{\appoggiatura} or @code{\acciaccatura}:
 
 @morerefs
 Notation Reference:
-@ruser{Grace notes},
-@ruser{Tuplets},
-@ruser{Upbeats}.
+@rnotation{Grace notes},
+@rnotation{Tuplets},
+@rnotation{Upbeats}.
 @endmorerefs
 
 
@@ -949,8 +949,8 @@ every system and also controls the vertical extent of bar lines.
 
 @morerefs
 Notation Reference:
-@ruser{Keyboard and other multi-staff instruments},
-@ruser{Displaying staves}.
+@rnotation{Keyboard and other multi-staff instruments},
+@rnotation{Displaying staves}.
 @endmorerefs
 
 
@@ -1008,7 +1008,7 @@ with interspersed single notes.
 
 @morerefs
 Notation Reference:
-@ruser{Chorded notes}.
+@rnotation{Chorded notes}.
 @endmorerefs
 
 
@@ -1037,7 +1037,7 @@ Learning Manual:
 @ref{Voices contain music}.
 
 Notation Reference:
-@ruser{Simultaneous notes}.
+@rnotation{Simultaneous notes}.
 @endmorerefs
 
 
@@ -1276,7 +1276,7 @@ factotum}:
 
 @morerefs
 Notation Reference:
-@ruser{Vocal music}.
+@rnotation{Vocal music}.
 @endmorerefs
 
 
@@ -1321,7 +1321,7 @@ for an introduction.
 
 @morerefs
 Notation Reference:
-@ruser{Vocal music}.
+@rnotation{Vocal music}.
 @endmorerefs
 
 
@@ -1395,7 +1395,7 @@ Cello = \new Staff {
 @end lilypond
 
 By convention, variable names consist of alphabetic characters
-only.  For detailed information, see @ruser{File structure}.
+only.  For detailed information, see @rnotation{File structure}.
 
 Variables must be defined @emph{before} the main music
 expression, but may be used as many times as required anywhere after
@@ -1466,7 +1466,7 @@ underneath the version number.
 @noindent
 When the file is processed, the title and composer are printed
 above the music.  More information on titling can be found in
-@ruser{Creating titles headers and footers}.
+@rnotation{Creating titles headers and footers}.
 
 
 @node Absolute note names
@@ -1545,7 +1545,7 @@ and is extremely useful for computer-generated LilyPond files.
 When cutting and pasting melody fragments, absolute mode preserves
 the original octave.
 
-See @ruser{Relative octave entry} for more complex situations.
+See @rnotation{Relative octave entry} for more complex situations.
 
 
 @node After the tutorial
@@ -1555,7 +1555,7 @@ After finishing the tutorial, you should probably try writing a
 piece or two.  Start by adding notes to one of the templates
 (@pxref{Templates}).  If you need any notation that was not
 covered in the tutorial, look at the Notation Reference, starting
-with @ruser{Musical notation}.  If you want to write for an
+with @rnotation{Musical notation}.  If you want to write for an
 instrument ensemble that is not covered in the templates,
 @pxref{Extending the templates}.
 

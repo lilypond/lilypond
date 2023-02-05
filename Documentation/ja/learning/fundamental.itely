@@ -40,7 +40,7 @@ LilyPond の入力フォーマットは非常に自由な形式であり、@c
 このセクションではこの入力ファイルの構造についていくつか説明します。@c
 しかしながら、簡潔さを保つためにいくつかの詳細については@c
 目をつぶるかもしれません。@c
-入力フォーマットについての完全な記述は、@ruser{File structure} を@c
+入力フォーマットについての完全な記述は、@rnotation{File structure} を@c
 参照してください。
 
 @menu
@@ -186,8 +186,8 @@ LilyPond はまるでその音楽表記が上で示されたコマンドで包�
 @code{\midi @{ @}} です。@c
 それらが上記のように記述された場合、LilyPond はそれぞれ譜刻された楽譜と
 MIDI 出力を作り出します。@c
-それらは記譜法リファレンスの @ruser{Score layout} と
-@ruser{Creating MIDI output} で完全に記述されています。
+それらは記譜法リファレンスの @rnotation{Score layout} と
+@rnotation{Creating MIDI output} で完全に記述されています。
 
 @cindex scores, multiple (複数の Score)
 @cindex book block, implicit (暗黙の book ブロック)
@@ -225,7 +225,7 @@ LilyPond は暗黙的に入力コードを @code{\book} ブロックで包み込
 ある) @code{\layout} ブロックはその @code{\book} ブロックの@c
 中にあるすべての @code{\score} に影響を与えます。
 
-詳細は、@ruser{Multiple scores in a book} を参照してください。
+詳細は、@rnotation{Multiple scores in a book} を参照してください。
 
 @cindex variables (変数)
 
@@ -252,11 +252,11 @@ LilyPond がこのファイルを見ると、@code{melody} の値
 異なっている限りは、ほぼどんな名前でも使用できるということを@c
 覚えておいてください。@c
 詳細は、@ref{変数と関数を用いて入力の手間を省く} を参照してください。@c
-変数名の厳密な制限については、@ruser{File structure} で詳述されています。
+変数名の厳密な制限については、@rnotation{File structure} で詳述されています。
 
 
 @morerefs
-入力フォーマットの完全な定義は、@ruser{File structure} を参照してください。
+入力フォーマットの完全な定義は、@rnotation{File structure} を参照してください。
 
 
 @node Score は (単一の) 複合的な音楽表記
@@ -365,7 +365,7 @@ LilyPond 入力ファイルの一般的な構造について見てきました�
 @code{\addlyrics} と同様に、これは入力モードを歌詞に切替間す。@c
 @code{\lyricmode} を記述しなければ、LilyPond は内容を音符と解釈しようとして@c
 エラーを引き起こします。
-(他にもいくつかの入力モードがあります。@ruser{Input modes} を参照してください。)
+(他にもいくつかの入力モードがあります。@rnotation{Input modes} を参照してください。)
 
 では、いくつかの音符を加えて、左手にはヘ音記号を加えます。@c
 これで、実際の楽譜の一部ができます:
@@ -403,7 +403,7 @@ lower  = \relative { b,2 e }
 
 
 @morerefs
-記譜法リファレンス: @ruser{Structure of a score}
+記譜法リファレンス: @rnotation{Structure of a score}
 
 
 @node 音楽表記をネストする
@@ -472,7 +472,7 @@ lower  = \relative { b,2 e }
 オッシアはしばしば音部記号や拍子記号無しで描かれ、@c
 通常は小さなフォントで描かれます。@c
 これらはまだ紹介されていない追加のコマンドを必要とします。@c
-@ref{オブジェクトのサイズ} と @ruser{オッシア譜} を参照してください。
+@ref{オブジェクトのサイズ} と @rnotation{オッシア譜} を参照してください。
 
 @node 入力音符の構造
 @subsection 入力音符の構造
@@ -484,14 +484,14 @@ LilyPond の入力における音符は、順番にピッチ、長さ、@c
 タイ、テキストなどを追加するものです。
 
 ピッチは、現在の音符名の言語
-(@ruser{Note names in other languages} で説明されています)
+(@rnotation{Note names in other languages} で説明されています)
 に基づいて明示的に指定されます。ピッチが省略された場合、その音符の@c
-ピッチは前の音符と同じものになります。@ruser{Durations} を参照してください。@c
+ピッチは前の音符と同じものになります。@rnotation{Durations} を参照してください。@c
 @code{r} や @code{s} はピッチではないことに注意してください。
 
 長さは、数字と省略可能な 1 つ以上のドットからなります。長さが明示的に@c
 指定されない場合、その音符の長さは前の音符、和音、休符、@c
-空白休符と同じものになります。@ruser{Durations} を参照してください。
+空白休符と同じものになります。@rnotation{Durations} を参照してください。
 
 後置イベントはこれらの後に付加するものです。例えば、@c
 c' の 8 分音符に、1 の運指記号、@c
@@ -509,9 +509,9 @@ c' の 8 分音符に、1 の運指記号、@c
 @ref{Adding text}
 
 記譜法リファレンス:
-@ruser{Pitches},
-@ruser{Rhythms},
-@ruser{Expressive marks}
+@rnotation{Pitches},
+@rnotation{Rhythms},
+@rnotation{Expressive marks}
 
 
 @node ネストされない括弧とタイ
@@ -1008,7 +1008,7 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 
 @morerefs
 記譜法リファレンス:
-@ruser{複数のボイス}
+@rnotation{複数のボイス}
 
 
 @node ボイスを明示的にインスタンス化する
@@ -1274,10 +1274,10 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 
 @morerefs
 学習マニュアル:
-@ruser{Moving objects}
+@rnotation{Moving objects}
 
 記譜法リファレンス:
-@ruser{複数のボイス}
+@rnotation{複数のボイス}
 
 
 @node ボイスとボーカル
@@ -1446,7 +1446,7 @@ VerseFour  =
 
 
 @morerefs
-記譜法リファレンス: @ruser{Vocal music}
+記譜法リファレンス: @rnotation{Vocal music}
 @c 声楽
 
 
@@ -1539,7 +1539,7 @@ LilyPond 内部では、これらの規則と情報ビットは@emph{コンテ�
 
 
 @morerefs
-記譜法リファレンス: @ruser{Contexts explained}
+記譜法リファレンス: @rnotation{Contexts explained}
 @c コンテキストの説明
 
 
@@ -1663,7 +1663,7 @@ score ブロックは単一の音楽表記を保持しますが、それに関�
 
 
 @morerefs
-記譜法リファレンス: @ruser{Creating and referencing contexts}
+記譜法リファレンス: @rnotation{Creating and referencing contexts}
 
 
 @node エングラーバの説明
@@ -2079,8 +2079,8 @@ like this:
 
 @morerefs
 記譜法リファレンス:
-@ruser{Changing context default settings},
-@ruser{The set command}
+@rnotation{Changing context default settings},
+@rnotation{The set command}
 
 内部リファレンス:
 @rinternals{Contexts},
@@ -2246,8 +2246,8 @@ like this:
 
 
 @morerefs
-記譜法リファレンス: @ruser{Modifying context plug-ins},
-@ruser{Changing context default settings}
+記譜法リファレンス: @rnotation{Modifying context plug-ins},
+@rnotation{Changing context default settings}
 @c コンテキスト プラグインの変更, コンテキストのデフォルト設定の変更
 
 @knownissues
@@ -3020,7 +3020,7 @@ Voice はこれとは対照的に、あなたの音楽を連続して演奏す�
 と呼ばれることが多いです。)
 今、グラフィカル オブジェクトの詳細について知らなくても心配しないでください。@c
 後で詳しく説明します。@c
-興味があるのなら、@ruser{Overview of modifying properties} を見てください。@c
+興味があるのなら、@rnotation{Overview of modifying properties} を見てください。@c
 今回は、@code{stretchability} サブ-プロパティを変更する必要があるだけです。@c
 さらに興味があるのなら、グラフィカル オブジェクト @code{VerticalAxisGroup}
 の定義を調べていくと、ファイル @file{scm/define-grobs.scm} の中に
@@ -3382,8 +3382,8 @@ R2*3
 @ref{Organizing pieces with variables}.
 
 記譜法リファレンス:
-@ruser{Transpose},
-@ruser{Writing parts},
-@ruser{Full measure rests},
-@ruser{Including LilyPond files}.
+@rnotation{Transpose},
+@rnotation{Writing parts},
+@rnotation{Full measure rests},
+@rnotation{Including LilyPond files}.
 

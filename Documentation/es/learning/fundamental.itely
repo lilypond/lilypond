@@ -38,7 +38,7 @@ toda esta flexibilidad puede hacer que las cosas se vuelvan
 confusas para los nuevos usuarios.  Esta sección le va a explicar
 parte de esta estructura, pero puede obviar ciertos detalles en
 aras de la simplicidad.  Para ver una descripción completa del
-formato de entrada, consulte @ruser{Estructura del archivo}.
+formato de entrada, consulte @rnotation{Estructura del archivo}.
 
 
 @menu
@@ -189,8 +189,8 @@ Dos instrucciones más que no hemos visto aún son @code{\layout @{
 @}} y @code{\midi @{ @}}.  Si aparecen tal y como se muestran
 aquí, hacen que LilyPond produzca una salida impresa y una salida
 MIDI, respectivamente.  Se describen con todo detalle en el
-manual de Referencia de la notación, en @ruser{Disposición de la
-partitura} y en @ruser{Creación de salida MIDI}.
+manual de Referencia de la notación, en @rnotation{Disposición de la
+partitura} y en @rnotation{Creación de salida MIDI}.
 
 @cindex partituras, varias
 @cindex book, bloque implícito
@@ -228,7 +228,7 @@ de un bloque @code{\score} (que por ello está dentro de un bloque
 bloques @code{\score} que están dentro de ese @code{\book}.
 
 Para ver más detalles, consulte
-@ruser{Varias partituras en un libro}.
+@rnotation{Varias partituras en un libro}.
 
 @cindex variables
 
@@ -258,12 +258,12 @@ cualquiera de los nombres de instrucción de LilyPond.  Para ver
 más detalles, consulte
 @ref{Ahorrar tecleo mediante variables y funciones}.  Las
 limitaciones exactas que afectan a los nombres de variable se
-detallan en @ruser{Estructura del archivo}.
+detallan en @rnotation{Estructura del archivo}.
 
 
 @morerefs
 Para ver una definición completa del formato del código de
-entrada, consulte @ruser{Estructura del archivo}.
+entrada, consulte @rnotation{Estructura del archivo}.
 
 
 @node La partitura es una (única) expresión musical compuesta
@@ -386,7 +386,7 @@ se interpreta como letra, lo precedemos por @code{\lyricmode}.
 Como @code{\addlyrics}, esto activa el modo de entrada de letra.
 Sin ello, LilyPond trataría de interpretar el contenido como
 notas, lo que generaría errores (Existen algunos otros modos,
-véase @ruser{Modos de entrada}).
+véase @rnotation{Modos de entrada}).
 
 Así pues, escribiendo algunas notas, y una clave de Fa para la
 mano izquierda, ahora tenemos un fragmento musical de verdad:
@@ -425,7 +425,7 @@ del mismo nivel comienza en la misma posición horizontal).
 
 @morerefs
 Referencia de la notación:
-@ruser{Estructura de una partitura}.
+@rnotation{Estructura de una partitura}.
 
 
 @node Anidado de expresiones musicales
@@ -498,7 +498,7 @@ por debajo.
 Los fragmentos de ossia se escriben a menudo sin clave y sin
 indicación de compás, y generalmente en un tipo más pequeño.
 Esto necesitaría más instrucciones que aún no se han visto.
-Véase @ref{Tamaño de los objetos} y @ruser{Pentagramas de Ossia}.
+Véase @ref{Tamaño de los objetos} y @rnotation{Pentagramas de Ossia}.
 
 @node Estructura de un elemento de nota
 @subsection Estructura de un elemento de nota
@@ -514,17 +514,17 @@ unión y de expresión y textos explicativos.
 
 La altura se puede definir explícitamente usando el lenguaje de
 entrada de LilyPond en su forma actual, como se describe en la
-sección @ruser{Nombres de las notas en otros idiomas}.  La altura
+sección @rnotation{Nombres de las notas en otros idiomas}.  La altura
 se puede omitir.  En el caso de que la altura se omita, la altura
 de la nota será la misma que la de la nota anterior dentro del
-código de entrada, véase @ruser{Duraciones}.  Observe que ni
+código de entrada, véase @rnotation{Duraciones}.  Observe que ni
 @code{r} ni @code{s} son alturas.
 
 La duración consiste en un número y, opcionalmente, uno o más
 puntos ortográficos en el caso de las duraciones con puntillo. Si
 una duración no está definida explícitamente, la duración de la
 nota es la misma que la de la nota, acorde, silencio o silencio de
-separación anteriores, véase @ruser{Duraciones}.
+separación anteriores, véase @rnotation{Duraciones}.
 
 Los post-eventos siguen a la nota a la que están adjuntos.
 Supongamos que queremos una nota Do corchea con una digitación de
@@ -543,9 +543,9 @@ Manual de aprendizaje:
 @ref{Añadir texto}.
 
 Referencia de la notación:
-@ruser{Alturas},
-@ruser{Duraciones},
-@ruser{Expresiones}.
+@rnotation{Alturas},
+@rnotation{Duraciones},
+@rnotation{Expresiones}.
 
 @node Acerca de la no anidabilidad de llaves y ligaduras
 @subsection Acerca de la no anidabilidad de llaves y ligaduras
@@ -1060,7 +1060,7 @@ ligaduras, reguladores, etc.) @q{entre} voces distintas.}
 
 @morerefs
 Referencia de la notación:
-@ruser{Varias voces}.
+@rnotation{Varias voces}.
 
 
 @node Voces explícitas
@@ -1344,7 +1344,7 @@ Manual de aprendizaje:
 @ref{Mover objetos}.
 
 Referencia de la notación:
-@ruser{Varias voces}.
+@rnotation{Varias voces}.
 
 
 @node Voces y música vocal
@@ -1518,7 +1518,7 @@ VerseFour  =
 
 @morerefs
 Referencia de la notación:
-@ruser{Música vocal}.
+@rnotation{Música vocal}.
 
 
 @node Contextos y grabadores
@@ -1621,7 +1621,7 @@ a otras sin guión ni barra baja, por ejemplo:
 
 @morerefs
 Referencia de la notación:
-@ruser{Explicación de los contextos}.
+@rnotation{Explicación de los contextos}.
 
 
 @node Crear contextos
@@ -1748,7 +1748,7 @@ sección acerca de la letra, en @ref{Voces y música vocal}.
 
 @morerefs
 Referencia de la notación:
-@ruser{Crear y referenciar contextos}.
+@rnotation{Crear y referenciar contextos}.
 
 
 @node Explicación de los grabadores
@@ -2182,10 +2182,10 @@ musicales.
 
 @morerefs
 Referencia de la notación:
-@ruser{Cambiar los valores por omisión de los contextos},
+@rnotation{Cambiar los valores por omisión de los contextos},
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@ruser{La instrucción set}.
+@rnotation{La instrucción set}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
@@ -2353,8 +2353,8 @@ bloque @code{\context} de la misma forma.
 
 @morerefs
 Referencia de la notación:
-@ruser{Modificar los complementos (plug-ins) de contexto},
-@ruser{Cambiar los valores por omisión de los contextos}.
+@rnotation{Modificar los complementos (plug-ins) de contexto},
+@rnotation{Cambiar los valores por omisión de los contextos}.
 
 @knownissues
 Los grabadores @code{Stem_engraver} y @code{Beam_engraver} (de
@@ -3136,7 +3136,7 @@ puede controlar con la propiedad @code{staff-staff-spacing} del
 reciben por lo general el nombre de @q{grob}s en la documentación
 de lilypond); no se preocupe por el momento de los detalles, pues
 esto se explica más tarde de forma exhaustiva.  Los más curiosos
-pueden echar un vistazo a @ruser{Panorámica de la modificación de
+pueden echar un vistazo a @rnotation{Panorámica de la modificación de
 las propiedades}.  En este caso, queremos modificar solamente la
 sub-propiedad @code{stretchability}.  Cualquier valor que no se
 modifique, empleará el valor predeterminado. De nuevo, los
@@ -3541,7 +3541,7 @@ Manual de aprendizaje:
 @ref{Organizar las piezas mediante variables}.
 
 Referencia de la notación:
-@ruser{Transposición},
-@ruser{Escritura de las particellas},
-@ruser{Silencios de compás completo},
-@ruser{Inclusión de archivos de LilyPond}.
+@rnotation{Transposición},
+@rnotation{Escritura de las particellas},
+@rnotation{Silencios de compás completo},
+@rnotation{Inclusión de archivos de LilyPond}.

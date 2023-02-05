@@ -580,7 +580,7 @@ in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
 Se @var{bool} è @code{#t}, estrae frammenti musicali da una partitura.  Per
 far ciò è necessario che sia stata definita la funzione @code{clip-regions}
 all'interno del blocco @code{\layout}.  Maggiori informazioni in
-@ruser{Estrarre frammenti musicali}.
+@rnotation{Estrarre frammenti musicali}.
 Nessun frammento verrà estratto se questa opzione è usata insieme
 all'opzione @option{-dno-print-pages}.  Predefinito: @code{#f}.
 
@@ -1387,12 +1387,12 @@ linea, portando a una linea di musica estremamente compressa o
 a musica che esce dalla pagina.}
 
 La durata errata può essere trovata facilmente se si usano i controlli di
-battuta, si veda @ruser{Controlli di battuta e del numero di battuta}.
+battuta, si veda @rnotation{Controlli di battuta e del numero di battuta}.
 
 Se si vuole davvero ottenere una serie di tali misure sovrapposte
 bisogna inserire una barra di divisione invisibile nel punto in cui
 si desidera l'interruzione di linea.  Per i dettagli si veda
-@ruser{Stanghette}.
+@rnotation{Stanghette}.
 
 
 @node Appare un rigo in più
@@ -1448,7 +1448,7 @@ iniziano con un punto e virgola, (@code{;}).
 
 Questo messaggio di errore compare nella console di output o nel file di log file
 se un file di input contiene un carattere non-ASCII e non è stato salvato nella
-codifica UTF-8.  Per dettagli si veda @ruser{Codifica del testo}.
+codifica UTF-8.  Per dettagli si veda @rnotation{Codifica del testo}.
 
 
 @node Avvertimento sul fatto che le affinità del rigo devono solo diminuire
@@ -1467,7 +1467,7 @@ come un rigo inserendo
 
 @noindent
 all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} in
-@ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
+@rnotation{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 @node Messaggio di errore new inaspettato
 @unnumberedsubsec Messaggio di errore @code{\new} inaspettato
@@ -1552,6 +1552,6 @@ naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @morerefs
 @rlearning{Definire esplicitamente le voci},
 @rlearning{Esempio musicale},
-@ruser{Polifonia su un solo rigo},
-@ruser{Risoluzione delle collisioni}.
+@rnotation{Polifonia su un solo rigo},
+@rnotation{Risoluzione delle collisioni}.
 @endmorerefs

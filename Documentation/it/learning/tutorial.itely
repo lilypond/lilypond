@@ -140,7 +140,7 @@ LilyPond usa lettere minuscole per indicare le altezze. I nomi delle note
 in tutti gli esempi di questa sezione usano il sistema di denominazione
 olandese (tasti bianchi del pianoforte sono c, d, e, f, g, a,@tie{}b).  Tuttavia
 LilyPond supporta molti schemi di denominazione diversi come l'@qq{inglese}
-o il @qq{Do fisso} (do, re, mi, @dots{}).  Vedi @ruser{Nomi delle note in altre lingue}.
+o il @qq{Do fisso} (do, re, mi, @dots{}).  Vedi @rnotation{Nomi delle note in altre lingue}.
 Le lettere da @samp{c} a@tie{}@samp{b} denotano le altezze nella
 @qq{piccola ottava} sotto il @notation{Do centrale}.  L'aggiunta dei
 suffissi @samp{'} o @samp{,} indica ottave più alte o più basse.
@@ -404,9 +404,9 @@ Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 
 
 @morerefs
-Guida alla notazione: @ruser{Inserimento delle altezze},
-@ruser{Inserimento delle durate}, @ruser{Inserimento delle pause},
-@ruser{Indicazione di tempo}, @ruser{Chiave}.
+Guida alla notazione: @rnotation{Inserimento delle altezze},
+@rnotation{Inserimento delle durate}, @rnotation{Inserimento delle pause},
+@rnotation{Indicazione di tempo}, @rnotation{Chiave}.
 @endmorerefs
 
 
@@ -712,7 +712,7 @@ ti imbatti in termini musicali che non conosci, cercali nel
 @item
 @strong{Prima di tentare di scrivere un pezzo musicale completo}:
 i @pxref{Concetti fondamentali} di questo manuale.  Dopo puoi dare
-un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
+un'occhiata alle sezioni rilevanti della @rnotationnamed{Top, Guida alla notazione}.
 
 @item
 @strong{Prima di cercare di cambiare l'output predefinito}:

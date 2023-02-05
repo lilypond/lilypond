@@ -67,8 +67,8 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @ruser{Oktavenüberprüfung}, und
-@ruser{Takt- und Taktzahlüberprüfung}.  Wenn Sie hier und da diese
+@item @strong{Benutzen Sie Überprüfungen}: @rnotation{Oktavenüberprüfung}, und
+@rnotation{Takt- und Taktzahlüberprüfung}.  Wenn Sie hier und da diese
 Überprüfungen einfügen, finden Sie einen möglichen Fehler weit
 schneller.  Wie oft aber ist @qq{hier und da}?  Das hängt von der
 Komplexität der Musik ab.  ei einfachen Stücken reicht es vielleicht
@@ -125,7 +125,7 @@ Schreiben Sie ein System ihrer Quelle nach dem anderen
 Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem
 @code{showLastLength}- oder @code{showFirstLength}-Befehl können Sie den Übersetzungsprozess
 beschleunigen. Siehe auch
-@ruser{Korrigierte Musik überspringen}.
+@rnotation{Korrigierte Musik überspringen}.
 
 @item
 Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie

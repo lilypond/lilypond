@@ -655,7 +655,7 @@ automatisiert geschieht.
 
 Wenn aus einer großen Partitur viele kleine Fragmente eingefügt
 werden sollen, kann dazu das @q{clip systems} Feature benutzt werden.
-Siehe @ruser{Notationsfragmente extrahieren}.
+Siehe @rnotation{Notationsfragmente extrahieren}.
 
 
 @node LilyPond-Noten in OpenOffice.org integrieren

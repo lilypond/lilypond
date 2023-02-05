@@ -5,7 +5,7 @@ sous forme de @code{\\markup} que d'événements musicaux indépendants --
 un changement de registre a tendance à intervenir entre des événements
 musicaux réels.  Les registres de basse ne sont pas très standardisés.
 Les différentes commandes disponibles sont regroupées à l'annexe
-@rusernamed{Accordion registers, Registres d'accordéon}.
+@rnotationnamed{Accordion registers, Registres d'accordéon}.
 "
 
   doctitlefr = "Symboles de registre pour accordéon"

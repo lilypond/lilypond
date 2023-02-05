@@ -183,12 +183,12 @@ vermeiden sollte, wenn man eine bestimmmte Verwendung beabsichtigt
 und nicht nur eine Funktion für die allgemeine Verwendung schreibt.
 
 Eine Liste der möglichen vordefinierten Typenprädikte findet sich in
-@ruser{Vordefinierte Typprädikate}.
+@rnotation{Vordefinierte Typprädikate}.
 
 @morerefs
 
 Notationsreferenz
-@ruser{Vordefinierte Typprädikate}.
+@rnotation{Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -322,12 +322,12 @@ In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
 @ref{LilyPond-Codeabschnitte}.
 
 Eine Liste der möglichen Typenprädikate findet sich in
-@ruser{Vordefinierte Typprädikate}.
+@rnotation{Vordefinierte Typprädikate}.
 
 @morerefs
 
 Notationsreferenz:
-@ruser{Vordefinierte Typprädikate}.
+@rnotation{Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -383,7 +383,7 @@ die auf unterschiedliche Konstruktionen angewendet werden können.
 Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren
 musikalische Ausgabe-Funktion im LilyPond-Format geschrieben ist
 und Funktionsargumente in der Ausgabefunktion enthält.  Sie werden
-beschrieben in @ruser{Beispiele der Ersetzungsfunktionen}
+beschrieben in @rnotation{Beispiele der Ersetzungsfunktionen}
 
 
 @node Mittlere Ersetzungsfunktionen
@@ -814,7 +814,7 @@ Das folgende Beispiel definiert einen Beschriftungsbefehl, der einen
 doppelten Kasten um einen Text zeichnet.
 
 Zuerst wollen wir ein annäherndes Ergebnis mit Textbeschriftungen definieren.
-Nach Stöbern in @ruser{Textbeschriftungsbefehle} finden wir den Befehl
+Nach Stöbern in @rnotation{Textbeschriftungsbefehle} finden wir den Befehl
 @code{\box}:
 
 @lilypond[quote,verbatim,ragged-right]

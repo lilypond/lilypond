@@ -84,8 +84,8 @@ ligne, ça ne vaut pas vraiment le coup si l'on doit corriger vos
 fichiers.
 
 @item @strong{Ajoutez des contrôles
-@rusernamed{Vérifications d'octave,d'octaviation} et
-@rusernamed{Vérification des limites et numéros de mesure,de limite ou
+@rnotationnamed{Vérifications d'octave,d'octaviation} et
+@rnotationnamed{Vérification des limites et numéros de mesure,de limite ou
 numéro de mesure}}.  Si vous avez ajouté des contrôles de loin en loin
 et que vous faites une erreur, vous pourrez la retrouver plus
 rapidement.  « De loin en loin », qu'est-ce à dire ?  Cela dépend
@@ -176,7 +176,7 @@ n'entrez qu'un seul système de la partition originale
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
 pour accélérer la compilation -- voir
-@ruser{Ignorer des passages de la partition} ;
+@rnotation{Ignorer des passages de la partition} ;
 
 @item
 définissez @code{mBreak = @{ \break @}} et insérez @code{\mBreak} dans

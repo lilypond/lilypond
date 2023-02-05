@@ -155,7 +155,7 @@ de nota en todos los ejemplos de esta sección usan la nomenclatura
 holandesa, en que las teclas blancas del piano van desde la c (Do)
 hasta la b (Si).  Sin embargo, LilyPond contempla muchos otros
 sistemas para los nombres de las notas, como el inglés o el @q{Do
-fijo} (do-re-mi-...).  Véase @ruser{Nombres de las notas en otros
+fijo} (do-re-mi-...).  Véase @rnotation{Nombres de las notas en otros
 idiomas}.  Las letras desde @code{c} hasta@tie{}@code{b} denotan
 las alturas de las notas de la @q{octava corta} por debajo del
 @notation{Do central}.  Los sufijos @code{'} (apóstrofo)
@@ -448,11 +448,11 @@ anteriores juntos:
 
 @morerefs
 Referencia de la notación:
-@ruser{Escritura de notas},
-@ruser{Escritura de las duraciones (valores rítmicos)},
-@ruser{Escritura de silencios},
-@ruser{Indicación de compás},
-@ruser{Clave}.
+@rnotation{Escritura de notas},
+@rnotation{Escritura de las duraciones (valores rítmicos)},
+@rnotation{Escritura de silencios},
+@rnotation{Indicación de compás},
+@rnotation{Clave}.
 
 
 @node Trabajar sobre los archivos de entrada
@@ -766,7 +766,7 @@ reconoce, búsquelos en el @rglosnamed{Top, Glosario}.
 @strong{Antes de tratar de escribir una pieza completa de música}:
 lea la sección @ref{Conceptos fundamentales} del manual de
 Aprendizaje.  Después, le vendrá bien consultar las secciones
-correspondientes de la @rusernamed{Top, Referencia de la
+correspondientes de la @rnotationnamed{Top, Referencia de la
 notación}.
 
 @item

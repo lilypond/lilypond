@@ -69,7 +69,7 @@ die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-de,@rusernamed{Top,Notation}}
+@ifWebLinks{@manualStableNotationSplitNoName-de,@rnotationnamed{Top,Notation}}
 Syntaxreferenz.
 @details{Notation}
 
@@ -294,7 +294,7 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 @divClass{column-right-bottom}
 
 @docLinks{Notation, notation,
-  @rusernamed{Top,Notation},
+  @rnotationnamed{Top,Notation},
   @manualStableNotationSplit-de,
   @manualStableNotationBig-de,
   @manualStableNotationPdf-de}

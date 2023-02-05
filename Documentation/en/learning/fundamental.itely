@@ -34,7 +34,7 @@ users a lot of flexibility to structure their files however they
 wish.  But this flexibility can make things confusing for new
 users.  This section will explain some of this structure, but may
 gloss over some details in favor of simplicity.  For a complete
-description of the input format, see @ruser{File structure}.
+description of the input format, see @rnotation{File structure}.
 
 @menu
 * Introduction to the LilyPond file structure::
@@ -175,7 +175,7 @@ Two more commands you have not previously seen are @code{\layout}
 and @code{\midi}.  If these appear as shown they will cause
 LilyPond to produce a printed output and a MIDI output,
 respectively.  They are described fully in the Notation Reference
--- @ruser{Score layout}, and @ruser{Creating MIDI output}.
+-- @rnotation{Score layout}, and @rnotation{Creating MIDI output}.
 
 @cindex scores, multiple
 @cindex book block, implicit
@@ -212,7 +212,7 @@ block, but a @code{\layout} block outside of a @code{\score} block
 implicitly) will affect every @code{\score} in that @code{\book}.
 @end itemize
 
-See @ruser{Multiple scores in a book} for details.
+See @rnotation{Multiple scores in a book} for details.
 
 @cindex variables
 
@@ -239,10 +239,10 @@ Remember that you can use almost any name you like as long as it
 contains just alphabetic characters and is distinct from LilyPond
 command names.  For more details, @pxref{Saving typing with
 variables and functions}.  The exact limitations on variable names
-are detailed in @ruser{File structure}.
+are detailed in @rnotation{File structure}.
 
 @morerefs
-For a complete definition of the input format, see @ruser{File
+For a complete definition of the input format, see @rnotation{File
 structure}.
 @endmorerefs
 
@@ -355,7 +355,7 @@ them with @code{\lyricmode}.  Like @code{\addlyrics}, this
 switches the input mode to lyrics.  Without that, LilyPond would
 try to interpret the contents as notes, which would generate
 errors.  (Several other input modes are available, see
-@ruser{Input modes}.)
+@rnotation{Input modes}.)
 
 So, adding a few notes and a bass clef for the left hand, we now
 have a piece of real music:
@@ -392,7 +392,7 @@ on the same horizontal position in your text editor.
 
 @morerefs
 Notation Reference:
-@ruser{Structure of a score}.
+@rnotation{Structure of a score}.
 @endmorerefs
 
 
@@ -457,7 +457,7 @@ which is below.
 Ossia staves are often written without clef and without time
 signature and are usually printed at a smaller size.  Achieving
 this requires further commands, which have not yet been
-introduced.  @xref{Size of objects}, and @ruser{Ossia staves}.
+introduced.  @xref{Size of objects}, and @rnotation{Ossia staves}.
 @endmorerefs
 
 
@@ -472,17 +472,17 @@ LilyPond post-events add things such as articulations, fingerings,
 string numbers, slurs, ties, and explanatory text.
 
 The pitch may be explicitly defined using the current LilyPond
-input language as described in @ruser{Note names in other
+input language as described in @rnotation{Note names in other
 languages}.  The pitch may be omitted.  If the pitch is omitted,
 the pitch of the current note will be the same as the pitch of the
-previous note in the input file, see @ruser{Durations}.  Note that
+previous note in the input file, see @rnotation{Durations}.  Note that
 neither @samp{r} nor @samp{s} (a @dfn{spacer rest}, see
-@ruser{Invisible rests}) is a pitch.
+@rnotation{Invisible rests}) is a pitch.
 
 The duration includes a number and optionally one or more dots.
 If a duration is not explicitly defined, the duration of the
 current note will be the same as the duration of the previous
-note, chord, rest, or spacer rest, see @ruser{Durations}.
+note, chord, rest, or spacer rest, see @rnotation{Durations}.
 
 Post-events follow the note to which they are attached.  Suppose
 we want to have an eighth note c' with a fingering of@tie{}1, a
@@ -501,9 +501,9 @@ Learning Manual:
 @ref{Adding text}.
 
 Notation Reference:
-@ruser{Pitches},
-@ruser{Rhythms},
-@ruser{Expressive marks}.
+@rnotation{Pitches},
+@rnotation{Rhythms},
+@rnotation{Expressive marks}.
 @endmorerefs
 
 
@@ -1003,7 +1003,7 @@ cannot be created @q{across} voices.}
 
 @morerefs
 Notation Reference:
-@ruser{Multiple voices}.
+@rnotation{Multiple voices}.
 @endmorerefs
 
 
@@ -1267,7 +1267,7 @@ Learning Manual:
 @ref{Moving objects}.
 
 Notation Reference:
-@ruser{Multiple voices}.
+@rnotation{Multiple voices}.
 @endmorerefs
 
 
@@ -1432,7 +1432,7 @@ VerseFour  =
 
 @morerefs
 Notation Reference:
-@ruser{Vocal music}.
+@rnotation{Vocal music}.
 @endmorerefs
 
 
@@ -1525,7 +1525,7 @@ preceding word with no hyphen or underscore, e.g.,
 
 @morerefs
 Notation Reference:
-@ruser{Contexts explained}.
+@rnotation{Contexts explained}.
 @endmorerefs
 
 
@@ -1636,7 +1636,7 @@ use in the section on lyrics, see @ref{Voices and vocals}.
 
 @morerefs
 Notation Reference:
-@ruser{Creating and referencing contexts}.
+@rnotation{Creating and referencing contexts}.
 @endmorerefs
 
 
@@ -2023,8 +2023,8 @@ instances of contexts by statements in a @code{\with} block, and by
 
 @morerefs
 Notation Reference:
-@ruser{Changing context default settings},
-@ruser{The set command}.
+@rnotation{Changing context default settings},
+@rnotation{The set command}.
 
 Internals Reference:
 @rinternals{Contexts},
@@ -2188,8 +2188,8 @@ same way.
 
 @morerefs
 Notation Reference:
-@ruser{Modifying context plug-ins},
-@ruser{Changing context default settings}.
+@rnotation{Modifying context plug-ins},
+@rnotation{Changing context default settings}.
 @endmorerefs
 
 @knownissues
@@ -2953,7 +2953,7 @@ Stretchability of staves can be controlled with the
 @code{VerticalAxisGroup} @q{graphical object} (commonly called
 @q{grob}s within the lilypond documentation) -- don't worry about
 the details right now; this is fully explained later.  For the
-curious, have a look at @ruser{Overview of modifying properties}.
+curious, have a look at @rnotation{Overview of modifying properties}.
 In this case, we want to modify the @code{stretchability}
 sub-property only.  Any values not changed will use the default
 value.  Again, for the curious, you can find the default values for
@@ -3347,8 +3347,8 @@ Learning Manual:
 @ref{Organizing pieces with variables}.
 
 Notation Reference:
-@ruser{Transpose},
-@ruser{Writing parts},
-@ruser{Full measure rests},
-@ruser{Including LilyPond files}.
+@rnotation{Transpose},
+@rnotation{Writing parts},
+@rnotation{Full measure rests},
+@rnotation{Including LilyPond files}.
 @endmorerefs

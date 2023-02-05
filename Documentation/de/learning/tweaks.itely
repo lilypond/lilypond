@@ -592,7 +592,7 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 
 @morerefs
 Notationsreferenz:
-@ruser{Der tweak-Befehl}.
+@rnotation{Der tweak-Befehl}.
 
 @node Der single-Präfix
 @unnumberedsubsubsec Der @code{\single}-Präfix
@@ -1475,7 +1475,7 @@ Taktstrich übermalt manchmal die Taktstriche, wo sie sie kreuzt,
 manchmal aber auch nicht.  Sie können in den Beispielen unten
 sehen, dass das nicht vorhersagbar ist.  Die Einzelheiten dazu, warum
 das passiert und wie sie es kontrollieren können, werden dargestellt
-in @ruser{Objekte weiß malen}.  Im Moment wollen wir lernen, wie
+in @rnotation{Objekte weiß malen}.  Im Moment wollen wir lernen, wie
 man mit Farbe arbeitet, akzeptieren Sie bitte an dieser Stelle die
 Beschränkung.)
 
@@ -1485,7 +1485,7 @@ sein soll.  Die Liste, die benötigt wird, ist eine Liste mit Werten in
 internen Einheiten, aber damit Sie nicht wissen müssen, wie diese
 aussehen, gibt es mehrere Wege, Farben anzugeben.  Der erste
 Weg ist es, @qq{normale} Farben zu benutzen, wie sie in der
-Tabelle in @ruser{Liste der Farben} aufgelistet sind.  Beachten Sie,
+Tabelle in @rnotation{Liste der Farben} aufgelistet sind.  Beachten Sie,
 dass die Bezeichnungen auf Englisch sind.  Um die Taktstriche auf
 weiß zu setzen, können Sie schreiben:
 
@@ -1520,7 +1520,7 @@ anderen Variablen dieser Liste abändern.
 
 Die zweite Art die Farbe zu ändern geschieht, indem die Liste
 der X11-Farbbezeichnungen einzusetzen, siehe die zweite Liste
-in @ruser{Liste der Farben}.  Diese Namen werden durch die Funktion
+in @rnotation{Liste der Farben}.  Diese Namen werden durch die Funktion
 @code{x11-color} durch die tatsächlichen internen Farbwerte ersetzt.
 Das geschieht wie folgt:
 
@@ -2470,7 +2470,7 @@ erstreckt.  Der Strecker beginnt mit dem
 @code{\startTextSpan}-Befehl und endet mit dem
 @code{\stopTextSpan}-Befehl, und das Format des Textes
 wird mit dem @code{\override TextSpanner}-Befehl bestimmt.
-Mehr Einzelheiten siehe @ruser{Text mit Verbindungslinien}.
+Mehr Einzelheiten siehe @rnotation{Text mit Verbindungslinien}.
 
 Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
 (Ottava) erstellt werden.
@@ -2807,7 +2807,7 @@ werden.  Fangen wir mit dem Liedtext an.
 
 Gesangstext wird innerhalb eines Systems platziert.  Daher finden sich die
 Befehle zu seiner Platzierung in
-@ruser{Flexible vertikale Abstände in Systemgruppen}.  Dort erfahren wir,
+@rnotation{Flexible vertikale Abstände in Systemgruppen}.  Dort erfahren wir,
 das Gesangstext vom Typ @code{non-staff lines} ist und wir daher die
 Eigenschaft @code{nonstaff} anpassen müssen.  Den Text weiter weg vom
 darüber liegenden System zu schieben verwendet die
@@ -2957,8 +2957,8 @@ Gruppen) durch die Platzierungsvariablen des @code{StaffGrouper}
 kontrolliert wird.  Wohingegen die Abstände von nicht gruppierten
 Systemen (wie @code{Lyrics} und @code{Staff}) von den Variablen der
 @code{VerticalAxisGroup} kontrolliert werden.  Siehe
-@ruser{Flexible vertical spacing paper variables} und
-@ruser{Flexible vertikale Abstände in Systemgruppen} für weitere
+@rnotation{Flexible vertical spacing paper variables} und
+@rnotation{Flexible vertikale Abstände in Systemgruppen} für weitere
 Details.
 
 @node Kollision von Objekten
@@ -3329,7 +3329,7 @@ Im zweiten Beispiel können Sie sehen, wie wichtig es ist den richtigen
 Kontext anzugeben.  Weil das @code{MetronomeMark}-Objekt
 sich im @code{Score}-Kontext befindet, werden Eigenschaftsänderungen
 im @code{Voice}-Kontext einfach ignoriert.  Für mehr Einzelheiten siehe
-@ruser{Eigenschaften verändern}.
+@rnotation{Eigenschaften verändern}.
 
 Wenn die @code{padding}-Eigenschaft eines Objektes erhöht wird, das
 sich in einem Stapel von Objekten befindet, die nach ihrer
@@ -3561,7 +3561,7 @@ Bogen erzeugt, der niedriger läge, als der, den es bereits auswählt.
 In solch einem Fall hat eine Änderung der @code{positions}-Eigenschaft
 keinerlei Auswirkung.  Allerdings @emph{können} Binde-, Legato- und
 Phrasierungsbögen bei Bedarf sehr exakt positioniert und auch geformt
-werden.  Unter @ruser{Bögen verändern} können sie lernen, wie.
+werden.  Unter @rnotation{Bögen verändern} können sie lernen, wie.
 
 Hier noch ein weiteres Beispiel.  Wie zu sehen ist,
 stößt der Balken mit den oberen Bögen zusammen:
@@ -4000,7 +4000,7 @@ verschmolzen?  Hier nehmen wir wieder die Notationsreferenz
 zu Hilfe.  Die Suche nach @qq{Verschmelzen} (engl. merge)
 im Index führt uns zu den Befehlen, um Noten mit
 unterschiedlichen Köpfen und unterschiedlichen Punkten
-zu verschmelzen, in @ruser{Auflösung von Zusammenstößen}.  In unserem
+zu verschmelzen, in @rnotation{Auflösung von Zusammenstößen}.  In unserem
 Beispiel müssen sowohl unterschiedliche Köpfe also auch
 unterschiedliche Punktierung verschmolzen werden, wir
 brauchen also die Befehle

@@ -88,7 +88,7 @@ references_dict = {
     'extending': 'rextend',
     'learning': 'rlearning',
     'music-glossary': 'rglos',
-    'notation': 'ruser',
+    'notation': 'rnotation',
     'snippets': 'rlsr',
     'usage': 'rprogram',
     'internals': 'rinternals',
@@ -168,7 +168,7 @@ else:
         return None
 
 
-ref_re = re.compile('@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|ruser|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
+ref_re = re.compile('@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|rnotation|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
 named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)',
                     re.DOTALL)
 node_include_re = re.compile(r'(?m)^@(node|include)\s+(.+?)$')

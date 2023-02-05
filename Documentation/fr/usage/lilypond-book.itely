@@ -773,7 +773,7 @@ pour les cas où les environnements @code{lilypond} ne font pas appel à
 @item papersize=@var{chaîne}
 Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
 @code{letter}) pour les fragments utilisant @code{\book}. Voir
-@ruser{Formats de papier prédéfinis} pour une liste des différentes
+@rnotation{Formats de papier prédéfinis} pour une liste des différentes
 tailles disponibles.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la

@@ -123,7 +123,7 @@ adapter les modificateurs d'accord ou les exceptions ; voir
 @item
 Les nuances se saisissent de la manière la plus simple. Il est néanmoins
 possible de définir sa
-@rusernamed{Personnalisation des indications de nuance, propre
+@rnotationnamed{Personnalisation des indications de nuance, propre
 indication} sous forme d'objet @emph{markup}. Certaines nuances, comme
 un crescendo, sont affichées sous forme de bandeau et peuvent être
 redéfinies au travers de certaines propriétés telle que
@@ -1199,7 +1199,7 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 
 @morerefs
 Manuel de notation :
-@rusernamed{Font markup,Fonte},
+@rnotationnamed{Font markup,Fonte},
 @ref{Fontes},
 @ref{Indications de reprise manuelles},
 @ref{Personnalisation des indications de nuance}.
@@ -1531,7 +1531,7 @@ Manuel d'initiation :
 @rlearning{Déplacement d'objets}.
 
 Manuel de notation :
-@rusernamed{Markup for text alignment,Alignement},
+@rnotationnamed{Markup for text alignment,Alignement},
 @ref{Indications textuelles}.
 
 Fichiers d'initialisation :
@@ -1698,10 +1698,10 @@ de graphisme.
 
 @morerefs
 Manuel de notation :
-@rusernamed{Markup for text alignment,Alignement},
+@rnotationnamed{Markup for text alignment,Alignement},
 @ref{Annotations éditoriales},
 @ref{Dimensions},
-@rusernamed{Graphical markup,Graphique}.
+@rnotationnamed{Graphical markup,Graphique}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
@@ -1837,7 +1837,7 @@ sont répertoriées à l'annexe @ref{Markup for music and musical symbols}.
 @morerefs
 Manuel de notation :
 @ref{La fonte Emmentaler},
-@rusernamed{Markup for music and musical symbols, Musique},
+@rnotationnamed{Markup for music and musical symbols, Musique},
 @ref{Fontes musicales}.
 
 Fichiers d'initialisation :
@@ -2113,7 +2113,7 @@ Manuel de notation :
 @ref{Notation musicale dans du texte formaté},
 @ref{Rotation des objets},
 @ref{Sélection de la fonte et de la taille},
-@rusernamed{Font markup,Fonte}.
+@rnotationnamed{Font markup,Fonte}.
 @endmorerefs
 
 
@@ -2375,7 +2375,7 @@ un simple appel à @code{set-global-fonts}, comme ici :
 @morerefs
 Manuel de notation :
 @ref{Attribution d'une fonte en particulier},
-@rusernamed{Font markup,Fonte},
+@rnotationnamed{Font markup,Fonte},
 @ref{Changement des fontes musicales},
 @ref{Familles de fontes},
 @ref{Localisation des fontes},

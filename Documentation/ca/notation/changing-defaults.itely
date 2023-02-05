@@ -4714,7 +4714,7 @@ Qualssevol dels glifs de @emph{Feta} usats al tipus de lletra
 Es poden inserir en línia tant imatges en forma @file{EPS} com
 ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
 @code{\postscript} respectivament; vegeu
-@rusernamed{Graphical markup,Grafisme}.
+@rnotationnamed{Graphical markup,Grafisme}.
 
 @morerefs
 Referencia de la notación:
@@ -4722,7 +4722,7 @@ Referencia de la notación:
 @ref{Donar format al text},
 @ref{Ordres de marcatge de text},
 @ref{El tipus de lletra Emmentaler},
-@rusernamed{Graphical markup,Grafisme}.
+@rnotationnamed{Graphical markup,Grafisme}.
 
 
 @node Modificació de les formes

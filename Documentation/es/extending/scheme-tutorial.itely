@@ -1701,7 +1701,7 @@ profundamente usando instrucciones como
 @code{\override TextScript.extra-offset = ( 1 . -1)}.
 Pero tenemos incluso mucho más poder si
 utilizamos Scheme.  Para ver una explicación completa de esto,
-consulte el @ref{Tutorial de Scheme}, y @ruser{Interfaces para programadores}.
+consulte el @ref{Tutorial de Scheme}, y @rnotation{Interfaces para programadores}.
 
 Podemos usar Scheme simplemente para sobreescribir instrucciones con
 @code{\override},

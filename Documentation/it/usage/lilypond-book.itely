@@ -715,7 +715,7 @@ non usano l'opzione @code{ragged-right}.
 @item papersize=@var{stringa}
 Imposta la dimensione del foglio su @var{stringa} (ad esempio, @code{a5} o
 @code{letter}) per i frammenti musicali che usano @code{\book}. Vedi
-@ruser{Formati carta predefiniti} per un elenco delle dimensioni
+@rnotation{Formati carta predefiniti} per un elenco delle dimensioni
 del foglio disponibili.
 
 Questa opzione riguarda l'output LilyPond (ovvero, la dimensione del foglio

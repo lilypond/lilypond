@@ -429,11 +429,11 @@ a l'hora:
 
 @morerefs
 Referència de la notació:
-@ruser{Escriptura de notes},
-@ruser{Escriptura de les duracions (valors rítmics)},
-@ruser{Escriptura dels silencis},
-@ruser{Indicació de compàs},
-@ruser{Clau}.
+@rnotation{Escriptura de notes},
+@rnotation{Escriptura de les duracions (valors rítmics)},
+@rnotation{Escriptura dels silencis},
+@rnotation{Indicació de compàs},
+@rnotation{Clau}.
 
 @node Treball sobre els fitxers d'entrada
 @subsection Treball sobre els fitxers d'entrada
@@ -751,7 +751,7 @@ reconeixeu, busqueu-los al @rglosnamed{Top, Glossari}.
 @strong{Abans d'intentar escriure una peça completa de música}:
 llegiu la secció @ref{Conceptes fonamentals} del manual
 d'Aprenentatge . Després us vindrà bé consultar les seccions
-corresponents de la @rusernamed{Top, Referència de la notació}.
+corresponents de la @rnotationnamed{Top, Referència de la notació}.
 
 @item
 @strong{Abans d'intentar de modificar els resultats predeterminats}:

@@ -245,7 +245,7 @@ Per a la versió del LilyPond @version{}
 @c     @rlearning
 @c     @rlsr
 @c     @rprogram
-@c     @ruser
+@c     @rnotation
 @c     @rchanges
 @c     @rextend
 @c     @rcontrib
@@ -285,12 +285,12 @@ Per a la versió del LilyPond @version{}
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual d'aprenentatge}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Referència de la notació}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Referència de la notació}
 @end macro
@@ -402,12 +402,12 @@ Per a la versió del LilyPond @version{}
 @ref{\TEXT\,,\DISPLAY\,learning,Manual d'aprenentatge}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,notation,Referència de la notació}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Referència de la notació}
 @end macro
@@ -514,12 +514,12 @@ Per a la versió del LilyPond @version{}
 @ref{\TEXT\,,,lilypond-learning,Manual d'aprenentatge}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Referència de la notació}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Referència de la notació}
 @end macro
@@ -643,12 +643,12 @@ Per a la versió del LilyPond @version{}
 @ref{\TEXT\,,\DISPLAY\,learning.es,Manual d'aprenentatge}
 @end macro
 
-@macro ruser{TEXT}
+@macro rnotation{TEXT}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,,notation.es,Referència de la notació}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY}
+@macro rnotationnamed{TEXT,DISPLAY}
 @lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.es,Referència de la notació}
 @end macro

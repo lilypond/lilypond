@@ -135,7 +135,7 @@ LilyPond requires the OTF files, which some distributions do
 not provide.  If they are missing, download and manually extract
 the OTF files to your local @file{~/.fonts/} directory.
 
-For more details on text fonts, please see @ruser{Fonts}.
+For more details on text fonts, please see @rnotation{Fonts}.
 
 @end itemize
 
@@ -979,8 +979,8 @@ make install
 
 If instead, your installation directory is not one that you can
 normally write to (such as the default @file{/usr/local/}, which
-typically is only writeable by the superuser), you will need to
-temporarily become the superuser when running
+typically is only writeable by the supernotation), you will need to
+temporarily become the supernotation when running
 @command{make@tie{}install}:
 
 @example
@@ -994,7 +994,7 @@ or@dots{}
 su -c 'make install'
 @end example
 
-If you don't have superuser privileges, then you need to configure
+If you don't have supernotation privileges, then you need to configure
 the installation directory to one that you can write to, and then
 re-install.  See @ref{Configuring target directories}.
 

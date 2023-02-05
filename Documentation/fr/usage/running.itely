@@ -619,7 +619,7 @@ Format}) avec le moteur @code{svg}.
 Si @var{bool} est déterminé à @code{#t}, extrait des fragments musicaux
 d'une partition.  Ceci requiert que la fonction @code{clip-regions} a
 été définie au sein du bloc @code{\layout} -- voir
-@ruser{Extraction de fragments musicaux}.  Bien entendu, aucun fragment
+@rnotation{Extraction de fragments musicaux}.  Bien entendu, aucun fragment
 ne sera extrait si l'on utilise l'option @option{-dno-print-pages}. La
 valeur par défaut est  @code{#f}.
 
@@ -1425,11 +1425,11 @@ conduit à une musique compressée, voire à un débordement de la page.}
 
 Une erreur de durée sera bien plus facilement localisable si vous
 positionnez régulièrement des contrôles de barre de mesure -- voir
-@ruser{Vérification des limites et numéros de mesure}.
+@rnotation{Vérification des limites et numéros de mesure}.
 
 Si vous tenez absolument à enchaîner de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
-un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour
+un saut de ligne.  Consultez le chapitre @rnotation{Barres de mesure} pour
 plus de détails.
 
 
@@ -1490,7 +1490,7 @@ Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, survient lorsqu'un fichier source contient des
 caractères non ASCII et qu'il n'a pas été enregistré avec un encodage
 UTF-8.  Pour plus de détails, reportez-vous au chapitre
-@ruser{Caractères spéciaux}.
+@rnotation{Caractères spéciaux}.
 
 
 @node staff-affinities devraient aller en ordre décroissant
@@ -1510,7 +1510,7 @@ une portée, à l'aide de l'instruction
 @noindent
 que vous insérerez dès sa création.  Pour plus d'information,
 reportez-vous à la rubrique
-@ruser{Espacement des lignes rattachées à des portées}.
+@rnotation{Espacement des lignes rattachées à des portées}.
 
 
 @node Message d'erreur unexpected new
@@ -1601,6 +1601,6 @@ Manuel d'initiation :
 @rlearning{Exemple concret}.
 
 Manuel de notation :
-@ruser{Polyphonie sur une portée},
-@ruser{Résolution des collisions}.
+@rnotation{Polyphonie sur une portée},
+@rnotation{Résolution des collisions}.
 @endmorerefs

@@ -37,7 +37,7 @@ Quelldateien anzulegen.  Für Neulinge kann diese Flexibilität aber
 erst einmal verwirrend sein.  In diesem Kapitel soll darum ein Teil
 dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung
 auch weggelassen werden.  Für eine komplette Beschreibung des Eingabeformats
-siehe @ruser{Die Dateistruktur}.
+siehe @rnotation{Die Dateistruktur}.
 
 @menu
 * Einführung in die Dateistruktur von LilyPond::
@@ -191,8 +191,8 @@ Zwei bisher noch nicht aufgetauchte Befehle sind
 @code{\layout @{ @}} und @code{\midi @{@}}.  Wenn sie in einer
 Datei vorkommen, führt dies dazu, dass LilyPond eine druckfähige PDF-Datei
 bzw. eine MIDI-Ausgabe erzeugt.  Genauer beschrieben werden sie im
-Benutzerhandbuch -- @ruser{Partiturlayout} und
-@ruser{MIDI-Dateien erstellen}.
+Benutzerhandbuch -- @rnotation{Partiturlayout} und
+@rnotation{MIDI-Dateien erstellen}.
 
 @cindex Partituren, mehrfache
 @cindex book-Abschnitte, implizit
@@ -230,7 +230,7 @@ außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit
 erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf
 alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
 
-Nähere Details finden sich im Abschnitt @ruser{Mehrere Partituren in einem Buch}.
+Nähere Details finden sich im Abschnitt @rnotation{Mehrere Partituren in einem Buch}.
 
 @cindex Variablen
 @cindex Bezeichner
@@ -260,12 +260,12 @@ allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
 Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
 lauten.  Für mehr Information siehe
 @ref{Tipparbeit durch Variablen und Funktionen einsparen}.  Die genauen
-Einschränkungen sind beschrieben in @ruser{Die Dateistruktur}.
+Einschränkungen sind beschrieben in @rnotation{Die Dateistruktur}.
 
 
 @morerefs
 Eine vollständige Definition des Eingabeformats findet sich in
-@ruser{Die Dateistruktur}.
+@rnotation{Die Dateistruktur}.
 
 
 @node Score ist ein (einziger) zusammengesetzter musikalischer Ausdruck
@@ -389,7 +389,7 @@ interpretiert wird, wird ihm @code{\lyricmode} voran gesetzt.  Wie
 gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
 der Variable als Noten zu interpretieren und dabei eine Menge
 Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
-verfügbar, siehe @ruser{Input modes}.)
+verfügbar, siehe @rnotation{Input modes}.)
 
 Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
 für die linke Hand hinzufügen, folgendes Beispiel:
@@ -429,7 +429,7 @@ gleichen Stelle beginnt.
 
 
 @morerefs
-Benutzerhandbuch: @ruser{Struktur einer Partitur}.
+Benutzerhandbuch: @rnotation{Struktur einer Partitur}.
 
 
 @node Musikalische Ausdrücke ineinander verschachteln
@@ -505,7 +505,7 @@ Ossia werden oft ohne Notenschlüssel und Taktangabe gedruckt, meist
 auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch
 nicht vorgestellt wurden.  Siehe @ref{Größe von Objekten}
-und @ruser{Ossia-Systeme}.
+und @rnotation{Ossia-Systeme}.
 
 
 @node Über die Nicht-Schachtelung von Klammern und Bindebögen
@@ -1000,7 +1000,7 @@ nicht von einer Stimme zur anderen erstellt werden.}
 
 
 @morerefs
-Notationsreferenz: @ruser{Mehrere Stimmen}.
+Notationsreferenz: @rnotation{Mehrere Stimmen}.
 
 
 @node Stimmen explizit beginnen
@@ -1260,7 +1260,7 @@ Handbuch zum Lernen:
 @ref{Verschieben von Objekten}.
 
 Notationsreferenz:
-@ruser{Mehrere Stimmen}.
+@rnotation{Mehrere Stimmen}.
 
 
 @node Stimmen und Text
@@ -1438,7 +1438,7 @@ VerseFour  =
 
 
 @morerefs
-Notationsreferenz: @ruser{Notation von Gesang}.
+Notationsreferenz: @rnotation{Notation von Gesang}.
 
 
 @node Kontexte und Engraver
@@ -1545,7 +1545,7 @@ angeschlossen, etwa
 
 
 @morerefs
-Notationsreferenz: @ruser{Was sind Kontexte?}.
+Notationsreferenz: @rnotation{Was sind Kontexte?}.
 
 
 @node Kontexte erstellen
@@ -1675,7 +1675,7 @@ zu Gesangstexten angewandt, siehe @ref{Stimmen und Text}.
 
 
 @morerefs
-Notationsreferenz: @ruser{Kontexte erstellen und referenzieren}.
+Notationsreferenz: @rnotation{Kontexte erstellen und referenzieren}.
 
 
 @node Was sind Engraver?
@@ -2110,8 +2110,8 @@ innerhalb der aktuellen Noten.
 
 @morerefs
 Notationsreferenz:
-@ruser{Die Standardeinstellungen von Kontexten ändern},
-@ruser{Der set-Befehl}.
+@rnotation{Die Standardeinstellungen von Kontexten ändern},
+@rnotation{Der set-Befehl}.
 
 Referenz der Interna:
 @rinternals{Contexts},
@@ -2288,8 +2288,8 @@ einer @code{\context}-Umgebung angewendet wird.
 
 
 @morerefs
-Notationsreferenz: @ruser{Umgebungs-Plugins verändern},
-@ruser{Die Standardeinstellungen von Kontexten ändern}.
+Notationsreferenz: @rnotation{Umgebungs-Plugins verändern},
+@rnotation{Die Standardeinstellungen von Kontexten ändern}.
 
 @knownissues
 Die @code{Stem_engraver} und @code{Beam_engraver} fügen ihre
@@ -3084,7 +3084,7 @@ des @code{VerticalAxisGroup}-@qq{graphischen Objekts} (üblicherweise als
 @qq{Grob} innerhalb der LilyPond-Dokumentation bezeichnet) kontrolliert
 werden.  An dieser Stelle brauchen Sie sich um die Details nicht zu
 sorgen, sie werden später erklärt.  Sehr Neugierige können sich den
-Abschnitt @ruser{Grundlagen zum Verändern von Eigenschaften} anschauen.  Im Moment
+Abschnitt @rnotation{Grundlagen zum Verändern von Eigenschaften} anschauen.  Im Moment
 kann man nicht nur die @code{strechability} (Spreizbarkeit)-Untereigenschaft verändern,
 darum müssen hier auch die anderen Untereigenschaften kopiert werden.  Die
 Standardeinstellungen dieser Untereigenschaften finden sich in der Datei
@@ -3450,7 +3450,7 @@ Handbuch zum Lernen:
 @ref{Stücke durch Variablen organisieren}.
 
 Notationsreferenz:
-@ruser{Transponieren},
-@ruser{Orchesterstimmen erstellen},
-@ruser{Ganztaktpausen},
-@ruser{LilyPond-Dateien einfügen}.
+@rnotation{Transponieren},
+@rnotation{Orchesterstimmen erstellen},
+@rnotation{Ganztaktpausen},
+@rnotation{LilyPond-Dateien einfügen}.

@@ -42,7 +42,7 @@ l'entendent.  Cependant, les nouveaux utilisateurs peuvent parfois se
 perdre en raison de cette souplesse. Cette section présente sommairement
 l'organisation du code LilyPond, en privilégiant la simplicité au
 détriment de certains détails. Vous trouverez une description plus
-complète dans @ruser{Structure de fichier}.
+complète dans @rnotation{Structure de fichier}.
 
 @menu
 * Introduction à la structure de fichier LilyPond::
@@ -192,8 +192,8 @@ Les deux autres commandes -- @code{\layout @{@}} et @code{\midi @{@}}
 pour effet, lorsqu'elles interviennent, de produire une sortie
 imprimable et un fichier MIDI.  Nous nous y intéressons plus
 particulièrement dans le manuel de notation, aux chapitres
-@ruser{Mise en forme de la partition} et
-@ruser{Génération de fichiers MIDI}.
+@rnotation{Mise en forme de la partition} et
+@rnotation{Génération de fichiers MIDI}.
 
 @cindex partitions multiples
 @cindex book,  bloc implicite
@@ -230,7 +230,7 @@ bloc @code{\book} soit explicite ou non, il affectera chacun des
 @code{\score} compris dans ce @code{\book}.
 
 Pour plus de détail à ce sujet, consultez
-@ruser{Plusieurs partitions dans un même ouvrage}.
+@rnotation{Plusieurs partitions dans un même ouvrage}.
 
 @cindex variables
 @cindex identifiants
@@ -263,7 +263,7 @@ plus de détails, voir
 
 @morerefs
 Pour une description complète du format des fichiers d'entrée, voir
-@ruser{Structure de fichier}.
+@rnotation{Structure de fichier}.
 @endmorerefs
 
 
@@ -380,7 +380,7 @@ variable @code{texte} soit bien interprété comme des paroles, nous le
 préfixons d'un @code{\lyricmode}.  Sans cette précaution, LilyPond
 tenterait d'interpréter le contenu de cette variable comme des notes, ce
 qui déclencherait immanquablement des erreurs.  LilyPond dispose de
-différents types de données -- voir @ruser{Modes de saisie} pour plus de
+différents types de données -- voir @rnotation{Modes de saisie} pour plus de
 détails.
 
 Avec quelques notes de plus et une clef de fa, nous pourrions avoir :
@@ -418,7 +418,7 @@ horizontal dans votre éditeur de texte !
 
 @morerefs
 Manuel de notation :
-@ruser{Structure d'une partition}.
+@rnotation{Structure d'une partition}.
 @endmorerefs
 
 
@@ -485,7 +485,7 @@ qui est le comportement par défaut.
 @morerefs
 Les ossias apparaissent souvent sans clef ni métrique, et dans une
 taille plus petite.  Ceci requiert des commandes dont nous n'avons pas
-encore parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
+encore parlé.  Voir @ref{Taille des objets} et @rnotation{Portées d'ossia}.
 @endmorerefs
 
 
@@ -501,16 +501,16 @@ et du texte d'explication.
 
 La hauteur peut être définie explicitement à l'aide de la langue de
 saisie spécifiée comme indiqué dans
-@ruser{Nom des notes dans d'autres langues}. La hauteur peut être omise,
+@rnotation{Nom des notes dans d'autres langues}. La hauteur peut être omise,
 auquel cas la hauteur en cours sera identique à celle de la note
-précédente dans le fichier source -- voir @ruser{Durées}. Notez bien que
+précédente dans le fichier source -- voir @rnotation{Durées}. Notez bien que
 ni @code{r} ni @code{s} ne sont des hauteurs.
 
 La durée comporte un nombre et accessoirement des points. Lorsque la
 durée n'est pas explicitement mentionnée, la durée de la note en cours
 sera identique à celle de la note qui précède, qu'il s'agisse d'une
 note, d'un accord, d'un silence visible ou d'un saut -- voir
-@ruser{Durées}.
+@rnotation{Durées}.
 
 Les postévénements suivent la note à laquelle ils s'attachent. Prenons
 par exemple un @notation{do} croche avec un doigté à 1 et un tenuto,
@@ -528,9 +528,9 @@ Manuel d'initiation :
 @ref{Ajout de texte}.
 
 Manuel de notation :
-@ruser{Hauteurs},
-@ruser{Rythme},
-@ruser{Signes d'interprétation}.
+@rnotation{Hauteurs},
+@rnotation{Rythme},
+@rnotation{Signes d'interprétation}.
 @endmorerefs
 
 
@@ -1023,7 +1023,7 @@ passer d'une voix à l'autre.}
 
 @morerefs
 Manuel de notation :
-@ruser{Plusieurs voix}.
+@rnotation{Plusieurs voix}.
 @endmorerefs
 
 
@@ -1300,7 +1300,7 @@ Manuel d'initiation :
 @ref{Déplacement d'objets}
 
 Manuel de notation :
-@ruser{Plusieurs voix}.
+@rnotation{Plusieurs voix}.
 @endmorerefs
 
 
@@ -1474,7 +1474,7 @@ VerseFour  =
 
 @morerefs
 Manuel de notation :
-@ruser{Musique vocale}.
+@rnotation{Musique vocale}.
 @endmorerefs
 
 
@@ -1568,7 +1568,7 @@ ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 
 @morerefs
 Manuel de notation :
-@ruser{Tout savoir sur les contextes}.
+@rnotation{Tout savoir sur les contextes}.
 @endmorerefs
 
 
@@ -1682,7 +1682,7 @@ référer à ce contexte particulier.
 
 @morerefs
 Manuel de notation :
-@ruser{Création et référencement d'un contexte}.
+@rnotation{Création et référencement d'un contexte}.
 @endmorerefs
 
 
@@ -2086,8 +2086,8 @@ une commande @code{\set} au fil des notes.
 
 @morerefs
 Manuel de notation :
-@ruser{Modification des réglages par défaut d'un contexte},
-@ruser{La commande de fixation (set)}.
+@rnotation{Modification des réglages par défaut d'un contexte},
+@rnotation{La commande de fixation (set)}.
 
 Référence des propriétés internes :
 @rinternals{Contexts},
@@ -2254,8 +2254,8 @@ bloc @code{\context}.
 
 @morerefs
 Manuel de notation :
-@ruser{Modification des greffons de contexte},
-@ruser{Modification des réglages par défaut d'un contexte}.
+@rnotation{Modification des greffons de contexte},
+@rnotation{Modification des réglages par défaut d'un contexte}.
 @endmorerefs
 
 @knownissues
@@ -3024,7 +3024,7 @@ propriété @code{staff-staff-spacing}, attachée à « l'objet graphique »
 l'abréviation @emph{grob} pour @emph{graphical object}.  Pas de
 panique ! Tout ceci sera expliqué plus tard -- pour les curieux,
 jetez un œil au chapitre
-@ruser{Vue d'ensemble de la modification des propriétés}.
+@rnotation{Vue d'ensemble de la modification des propriétés}.
 Revenons à notre propos : nous voulons modifier uniquement la
 sous-propriété @code{stretchability}. Toutes les valeurs qui n'auront
 pas été modifiées garderont leur valeur par défaut. Les impatients
@@ -3386,8 +3386,8 @@ Manuel d'initiation :
 @ref{Organisation du code source avec des variables}.
 
 Manuel de notation :
-@rusernamed{Écriture de parties séparées,@'Ecriture de parties séparées},
-@ruser{Insertion de fichiers LilyPond},
-@ruser{Silences valant une mesure},
-@ruser{Transposition}.
+@rnotationnamed{Écriture de parties séparées,@'Ecriture de parties séparées},
+@rnotation{Insertion de fichiers LilyPond},
+@rnotation{Silences valant une mesure},
+@rnotation{Transposition}.
 @endmorerefs

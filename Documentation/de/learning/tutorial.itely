@@ -175,8 +175,8 @@ Bis auf eine Ausnahme entsprechen sie den deutschen, deshalb wird die
 Voreinstellung von LilyPond für dieses Tutorium beibehalten. Die @emph{Ausnahme}
 ist das h -- in LilyPond muss man anstelle dessen b schreiben! Das
 deutsche b dagegen wird als bes notiert, ein his dagegen würde bis
-geschrieben. Siehe auch @ruser{Versetzungszeichen} und
-@ruser{Notenbezeichnungen in anderen Sprachen}, hier wird beschrieben,
+geschrieben. Siehe auch @rnotation{Versetzungszeichen} und
+@rnotation{Notenbezeichnungen in anderen Sprachen}, hier wird beschrieben,
 wie sich die deutschen Notennamen benutzen lassen.
 @c end addition
 
@@ -439,9 +439,9 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 
 
 @morerefs
-Notationsreferenz: @ruser{Tonhöhen setzen},
-@ruser{Rhythmen eingeben}, @ruser{Pausen eingeben},
-@ruser{Taktangabe}, @ruser{Notenschlüssel}.
+Notationsreferenz: @rnotation{Tonhöhen setzen},
+@rnotation{Rhythmen eingeben}, @rnotation{Pausen eingeben},
+@rnotation{Taktangabe}, @rnotation{Notenschlüssel}.
 
 
 @node Arbeiten an Eingabe-Dateien
@@ -759,7 +759,7 @@ schauen Sie diese im @rglosnamed{Top, Glossar} nach.
 Sie den Abschnitt @ref{Grundbegriffe} im Handbuch zum Lernen.
 Danach können Sie sich die für Ihr Projekt wichtigen Abschnitte
 in der
-@rusernamed{Top, Notationsreferenz} anschauen.
+@rnotationnamed{Top, Notationsreferenz} anschauen.
 
 @item
 @strong{Bevor Sie versuchen, die Standardnotation zu verändern}:

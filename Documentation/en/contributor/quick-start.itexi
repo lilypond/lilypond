@@ -186,8 +186,8 @@ to your national layout.  Therefore open a terminal and run
 sudo dpkg-reconfigure keyboard-configuration
 @end example
 
-@warning{You need superuser rights to change certain aspects of the
-system configuration.  The @command{sudo} tool allows to gain superuser
+@warning{You need supernotation rights to change certain aspects of the
+system configuration.  The @command{sudo} tool allows to gain supernotation
 rights temporarily.  It does show you a warning message on its first
 use that reminds you to use your extended rights carefully.}
 

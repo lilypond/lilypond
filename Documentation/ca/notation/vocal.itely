@@ -2310,7 +2310,7 @@ Fragments de codi:
 
 Es poden imprimir fulls guia d'acords combinant parts vocals i el
 @q{mode d'acords}; aquesta sintaxi s'explica a
-@rusernamed{Chord notation,Notació d'acords}.
+@rnotationnamed{Chord notation,Notació d'acords}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2318,7 +2318,7 @@ Es poden imprimir fulls guia d'acords combinant parts vocals i el
 
 @morerefs
 Referència de la notació:
-@rusernamed{Chord notation,Notació d'acords}.
+@rnotationnamed{Chord notation,Notació d'acords}.
 
 
 @node Música coral

@@ -80,7 +80,7 @@ besoin de les saisir. D'autres types de barre de mesure sont accessibles
 par la commande @code{\bar}, tels que @code{\bar "||"} pour une double
 barre ou @code{\bar "|."} pour la barre finale.  Pour une liste des
 différents styles de barre de mesure, voir
-@ruser{Barres de mesure}.
+@rnotation{Barres de mesure}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -122,8 +122,8 @@ votre attention l'absence du @samp{4} à la troisième mesure.
 
 @morerefs
 Manuel de notation :
-@ruser{Barres de mesure},
-@ruser{Vérification des limites et numéros de mesure}.
+@rnotation{Barres de mesure},
+@rnotation{Vérification des limites et numéros de mesure}.
 @endmorerefs
 
 
@@ -189,7 +189,7 @@ ajouter un @code{d} pour obtenir un dièse, et un @code{b} pour un bémol.
 Le double dièse et le double bémol s'obtiennent en ajoutant
 respectivement @code{dd} et @code{bb}.  Pour en savoir plus sur les
 autres langues disponibles, consultez
-@ruser{Nom des notes dans d'autres langues}.
+@rnotation{Nom des notes dans d'autres langues}.
 @c END DIV
 
 @lilypond[verbatim,quote]
@@ -295,14 +295,14 @@ d'effort dans la phase de saisie, mais cela facilite grandement la
 peuvent ainsi être imprimées suivant plusieurs conventions.  Pour
 connaître les différentes manières dont les altérations accidentelles
 peuvent être imprimées, consultez
-@ruser{Altérations accidentelles automatiques}.
+@rnotation{Altérations accidentelles automatiques}.
 
 @morerefs
 Manuel de notation :
-@ruser{Nom des notes dans d'autres langues},
-@ruser{Altérations},
-@ruser{Altérations accidentelles automatiques},
-@ruser{Armure}.
+@rnotation{Nom des notes dans d'autres langues},
+@rnotation{Altérations},
+@rnotation{Altérations accidentelles automatiques},
+@rnotation{Armure}.
 @endmorerefs
 
 
@@ -429,9 +429,9 @@ enchâssées dans un @emph{legato} ou un phrasé.
 
 @morerefs
 Manuel de notation :
-@ruser{Liaisons de prolongation},
-@ruser{Liaisons d'articulation},
-@ruser{Liaisons de phrasé}.
+@rnotation{Liaisons de prolongation},
+@rnotation{Liaisons d'articulation},
+@rnotation{Liaisons de phrasé}.
 @endmorerefs
 
 
@@ -550,9 +550,9 @@ nuance d'arrivée, par exemple @code{\f}, soit par la commande
 
 @morerefs
 Manuel de notation :
-@ruser{Articulations et ornements},
-@ruser{Doigtés},
-@ruser{Nuances}.
+@rnotation{Articulations et ornements},
+@rnotation{Doigtés},
+@rnotation{Nuances}.
 @endmorerefs
 
 
@@ -584,7 +584,7 @@ Pour mettre en forme du texte, on utilise la commande @code{\markup} :
 
 @morerefs
 Manuel de notation :
-@ruser{Ajout de texte}.
+@rnotation{Ajout de texte}.
 @endmorerefs
 
 
@@ -640,8 +640,8 @@ entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 
 @morerefs
 Manuel de notation :
-@ruser{Barres de ligature automatiques},
-@ruser{Barres de ligature manuelles}.
+@rnotation{Barres de ligature automatiques},
+@rnotation{Barres de ligature manuelles}.
 @endmorerefs
 
 
@@ -744,9 +744,9 @@ expression musicale :
 
 @morerefs
 Manuel de notation :
-@ruser{Notes d'ornement},
-@ruser{N-olets},
-@ruser{Levées}.
+@rnotation{Notes d'ornement},
+@rnotation{N-olets},
+@rnotation{Levées}.
 @endmorerefs
 
 
@@ -1035,8 +1035,8 @@ des barres de mesure.
 
 @morerefs
 Manuel de notation :
-@ruser{Instruments utilisant des portées multiples},
-@ruser{Gravure des portées}.
+@rnotation{Instruments utilisant des portées multiples},
+@rnotation{Gravure des portées}.
 @endmorerefs
 
 
@@ -1095,7 +1095,7 @@ séquence.
 
 @morerefs
 Manuel de notation :
-@ruser{Notes en accords}.
+@rnotation{Notes en accords}.
 @endmorerefs
 
 
@@ -1125,7 +1125,7 @@ Manuel d'initiation :
 @ref{Les voix contiennent la musique}.
 
 Manuel de notation :
-@ruser{Notes simultanées}.
+@rnotation{Notes simultanées}.
 @endmorerefs
 
 
@@ -1361,7 +1361,7 @@ Rossini, où la syllabe @emph{al} est chantée sur la même note que
 
 @morerefs
 Manuel de notation :
-@ruser{Musique vocale}.
+@rnotation{Musique vocale}.
 @endmorerefs
 
 
@@ -1408,7 +1408,7 @@ détaillé plus loin dans
 
 @morerefs
 Manuel de notation :
-@ruser{Musique vocale}.
+@rnotation{Musique vocale}.
 @endmorerefs
 
 
@@ -1488,7 +1488,7 @@ cello = \new Staff {
 
 Par convention, un nom de variable ne comporte que des caractères
 alphabétiques non accentués, aucun nombre ni tiret. Pour de plus amples
-informations, voir @ruser{Structure de fichier}.
+informations, voir @rnotation{Structure de fichier}.
 
 On peut utiliser une variable déjà définie autant de fois que l'on
 veut, y compris dans la définition d'une nouvelle variable ; par
@@ -1563,7 +1563,7 @@ en début de fichier, après le numéro de version.
 Quand LilyPond traite le fichier, le titre et le compositeur sont
 imprimés au début de la partition.  Vous trouverez plus d'informations
 sur les titres à la section
-@ruser{Création de titres et entête ou pied de page}.
+@rnotation{Création de titres et entête ou pied de page}.
 
 
 @node Noms de note absolus
@@ -1679,7 +1679,7 @@ morceau ou deux.  Commencez par copier l'un des modèles types et
 ajoutez-y des notes -- consultez les @ref{Modèles}.  Si vous voulez
 employer une notation que vous n'avez pas trouvée dans le tutoriel,
 consultez le manuel de notation, en commençant par la
-@ruser{Notation musicale générale}.  Si vous désirez écrire pour un
+@rnotation{Notation musicale générale}.  Si vous désirez écrire pour un
 ensemble instrumental non couvert par les modèles, lisez la section
 @ref{Extension des modèles}.
 

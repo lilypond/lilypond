@@ -886,7 +886,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 @cindex music fragments, quoting (楽曲の断片を引用する)
 
 大きなスコアから多くの断片を引用したい場合、クリップ機能を用いることが@c
-できます。@ruser{音楽の断片を抽出する} を参照してください。
+できます。@rnotation{音楽の断片を抽出する} を参照してください。
 
 
 @node 独立した include
@@ -895,7 +895,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 
 出力にある効果を生み出すために、LilyPond に @code{\include} することのできる@c
 ファイルを作っているユーザがいます。以下にあるものは LilyPond に@c
-付属しているものです。@ruser{入力ファイルに取り組む} も参照してください。
+付属しているものです。@rnotation{入力ファイルに取り組む} も参照してください。
 
 @menu
 * MIDI アーティキュレーション::
@@ -913,4 +913,4 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 LilyPond の MIDI 出力を改善しようとするものです。これは (スラーの中に無い)
 音符の長さを、アーティキュレーションに合わせて調整することによって@c
 実現されています。例えば、@q{スタッカート}は音長を半分にし、@q{テヌート}は@c
-音符いっぱいの音長にします。@ruser{Enhancing MIDI output} を参照してください。
+音符いっぱいの音長にします。@rnotation{Enhancing MIDI output} を参照してください。
