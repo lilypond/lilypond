@@ -29,9 +29,6 @@
 #define DIRSEP '@DIRSEP@'
 #define PATHSEP '@PATHSEP@'
 
-/* define if you have some kind of windows platform */
-#define PLATFORM_WINDOWS 0
-
 /* define if you have sys/stat.h */
 #define HAVE_SYS_STAT_H 0
 

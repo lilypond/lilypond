@@ -576,12 +576,10 @@ AC_DEFUN(STEPMAKE_INIT, [
     DIRSEP='/'
     PATHSEP=':'
     LN=ln
-    LN_S='ln -s'
 
     AC_SUBST(program_prefix)
     AC_SUBST(program_suffix)
     AC_SUBST(LN)
-    AC_SUBST(LN_S)
     AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
     AC_DEFINE_UNQUOTED(PATHSEP, ['${PATHSEP}'])
     AC_SUBST(DIRSEP)
@@ -745,20 +743,6 @@ AC_DEFUN(STEPMAKE_TEXMF, [
                 ["mpost (due to a bug in metapost, versions 1.600 <= x < 1.803 are not supported; installed: $ver)"])
         fi
     fi
-
-    AC_MSG_CHECKING(for working metafont mode)
-    modelist='ljfour lj4 lj3 lj2 ljet laserjet'
-    for MFMODE in $modelist; do
-        $METAFONT -progname=mf "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
-        if test -f mfput.tfm; then
-            break;
-        fi
-    done
-    AC_MSG_RESULT($MFMODE)
-
-    rm -f mfput.*
-
-    AC_SUBST(MFMODE)
 ])
 
 
@@ -767,13 +751,11 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_CANONICAL_HOST
     case $host_os in
       *cygwin* )
-        LN_S='cp -r' # Cygwin symbolic links do not work for native apps.
         program_suffix=.exe
         PLATFORM_WINDOWS=yes
         ;;
       *mingw32* )
         LN='cp -r'
-        LN_S='cp -r'
         program_suffix=.exe
         PATHSEP=';'
         PLATFORM_WINDOWS=yes
@@ -785,7 +767,6 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_MSG_RESULT([$PLATFORM_WINDOWS])
 
     AC_SUBST(LN)
-    AC_SUBST(LN_S)
     AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
     AC_DEFINE_UNQUOTED(PATHSEP, ['${PATHSEP}'])
     AC_SUBST(DIRSEP)
