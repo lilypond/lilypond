@@ -27,7 +27,6 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 
-
 MAKE_SCHEME_CALLBACK (Measure_spanner, print, "ly:measure-spanner::print", 1);
 SCM
 Measure_spanner::print (SCM smob)

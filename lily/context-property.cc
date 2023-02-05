@@ -202,7 +202,8 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
    \revert back to it.
   */
 
-  if (type_check_assignment (symbol, new_value, ly_symbol2scm ("backend-type?")))
+  if (type_check_assignment (symbol, new_value,
+                             ly_symbol2scm ("backend-type?")))
     {
       SCM cell = scm_cons (symbol, new_value);
       props_->alist_ = scm_cons (cell, props_->alist_);

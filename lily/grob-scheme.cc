@@ -222,13 +222,12 @@ check_refp (Grob *grob, Grob *refp, Axis a, const char *function)
 {
   if (!grob->has_in_ancestry (refp, a))
     {
-      scm_misc_error (function,
-                      "grob ~a is an invalid refpoint for ~a on ~a axis.\n"
-                      "The refpoint should be an ancestor (direct or indirect) of the grob.",
-                      ly_list (ly_string2scm (grob->name ()),
-                               ly_string2scm (refp->name ()),
-                               ly_string2scm (a == X_AXIS ? "X" : "Y")));
-
+      scm_misc_error (
+        function,
+        "grob ~a is an invalid refpoint for ~a on ~a axis.\n"
+        "The refpoint should be an ancestor (direct or indirect) of the grob.",
+        ly_list (ly_string2scm (grob->name ()), ly_string2scm (refp->name ()),
+                 ly_string2scm (a == X_AXIS ? "X" : "Y")));
     }
 }
 
@@ -285,7 +284,6 @@ Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
 
   return to_scm (sc->relative_coordinate (ref, a));
 }
-
 
 LY_DEFINE (ly_grob_pure_relative_coordinate, "ly:grob-pure-relative-coordinate",
            4, 0, 0, (SCM grob, SCM refp, SCM start, SCM end),

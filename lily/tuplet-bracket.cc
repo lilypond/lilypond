@@ -97,7 +97,8 @@ equal_bounds (Spanner *s1, Spanner *s2)
 bool
 Tuplet_bracket::bracket_basic_visibility (Spanner *me)
 {
-  Spanner *par_beam = unsmob<Spanner> (get_object (me, "beam")); // NB may be null
+  Spanner *par_beam
+    = unsmob<Spanner> (get_object (me, "beam")); // NB may be null
   bool equally_long = equal_bounds (par_beam, me);
   bool bracket_visibility = !(par_beam && equally_long);
 
@@ -114,7 +115,8 @@ Tuplet_bracket::bracket_basic_visibility (Spanner *me)
     {
       bool bracket_over_heads
         = from_scm<bool> (get_property (me, "visible-over-note-heads"));
-      if (bracket_over_heads && !from_scm<bool> (get_property (par_beam, "knee")))
+      if (bracket_over_heads
+          && !from_scm<bool> (get_property (par_beam, "knee")))
         {
           Direction default_dir
             = from_scm<Direction> (get_property (par_beam, "direction"));
@@ -153,7 +155,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Grob *commonx = me->get_system ();
   if (!commonx) // FIXME: ->get_system () should also work before line breaking
     {
-      programming_error ("TupletBracket.X-positions requested before line breaking");
+      programming_error (
+        "TupletBracket.X-positions requested before line breaking");
       return to_scm (Interval (0, 0));
     }
 
@@ -458,7 +461,8 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   Grob *commonx = me->get_system ();
   if (!commonx) // FIXME: ->get_system () should also work before line breaking
     {
-      programming_error ("TupletBracket.positions requested before line breaking");
+      programming_error (
+        "TupletBracket.positions requested before line breaking");
       return;
     }
 
@@ -589,11 +593,13 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
                     {
                       if (Grob *beam = Stem::get_beam (stem))
                         {
-                          beam_positions
-                            = from_scm (get_property (beam, "quantized-positions"),
-                                        Drul_array<Real> (0.0, 0.0));
-                          sub_x0 = robust_relative_extent (beam, commonx, X_AXIS)[LEFT];
-                          sub_x1 = robust_relative_extent (beam, commonx, X_AXIS)[RIGHT];
+                          beam_positions = from_scm (
+                            get_property (beam, "quantized-positions"),
+                            Drul_array<Real> (0.0, 0.0));
+                          sub_x0 = robust_relative_extent (beam, commonx,
+                                                           X_AXIS)[LEFT];
+                          sub_x1 = robust_relative_extent (beam, commonx,
+                                                           X_AXIS)[RIGHT];
                           break;
                         }
                     }
@@ -601,7 +607,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
             }
 
           beam_dy = beam_positions[RIGHT] - beam_positions[LEFT];
-          
+
           if (beam_dy)
             {
               if (!sub_x1)
@@ -619,15 +625,15 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
               if (fabs (*dy) > fabs (max_dy))
                 {
                   if (fabs (*dy * slope) <= fabs (max_dy))
-                   *dy *= slope;
+                    *dy *= slope;
                   else
-                   *dy = max_dy;
+                    *dy = max_dy;
                 }
             }
           else if (fabs (*dy) > fabs (max_dy))
             *dy = max_dy;
         }
-      }
+    }
 
   if (!follow_beam)
     {

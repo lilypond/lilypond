@@ -283,9 +283,10 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
     {
       SCM type_name = Lily::type_name (type);
 
-      warning (_f ("the property '%s' must be of type '%s', ignoring invalid value '%s'",
-                   ly_symbol2string (sym).c_str (), ly_scm2string (type_name).c_str (),
-                   print_scm_val (val).c_str ()));
+      warning (_f (
+        "the property '%s' must be of type '%s', ignoring invalid value '%s'",
+        ly_symbol2string (sym).c_str (), ly_scm2string (type_name).c_str (),
+        print_scm_val (val).c_str ()));
       return false;
     }
   return true;

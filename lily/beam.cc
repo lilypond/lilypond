@@ -369,7 +369,8 @@ Beam::get_accidentals (Grob *me)
           extract_grob_set (last_stem, "note-heads", note_heads);
           for (auto &note_head : note_heads)
             {
-              if (Grob *acc = unsmob<Grob> (get_object (note_head, "accidental-grob")))
+              if (Grob *acc
+                  = unsmob<Grob> (get_object (note_head, "accidental-grob")))
                 accs.push_back (acc);
             }
         }
@@ -385,23 +386,22 @@ Beam::get_gaps (Grob *me, Grob *commonx)
   Drul_array<Real> gap_lengths (gap_length, gap_length);
 
   if ((Stem::duration_log (stems[0])) <= 0)
-      {
-        vector<Grob *> accs = get_accidentals (me);
+    {
+      vector<Grob *> accs = get_accidentals (me);
 
-        if (!accs.empty ())
-          {
-            Interval accs_ext
-              = Axis_group_interface::relative_group_extent (accs, commonx,
-                                                              X_AXIS);
-            if (!accs_ext.is_empty ())
-              {
-                Real accs_length = accs_ext.length ();
-                Real acc_padding 
-                  = from_scm (get_property (me, "accidental-padding"), 1.0);
-                gap_lengths[RIGHT] += accs_length + acc_padding;
-              }
-          }
-      }
+      if (!accs.empty ())
+        {
+          Interval accs_ext = Axis_group_interface::relative_group_extent (
+            accs, commonx, X_AXIS);
+          if (!accs_ext.is_empty ())
+            {
+              Real accs_length = accs_ext.length ();
+              Real acc_padding
+                = from_scm (get_property (me, "accidental-padding"), 1.0);
+              gap_lengths[RIGHT] += accs_length + acc_padding;
+            }
+        }
+    }
   return gap_lengths;
 }
 
@@ -610,7 +610,8 @@ Beam::calc_beam_segments (SCM smob)
                   current.horizontal_[event_dir] += event_dir * seg.width_ / 2;
                   if (seg.gapped_)
                     {
-                      current.horizontal_[event_dir] -= event_dir * gap_lengths[event_dir];
+                      current.horizontal_[event_dir]
+                        -= event_dir * gap_lengths[event_dir];
 
                       if (Stem::is_invisible (seg.stem_))
                         {
@@ -625,7 +626,7 @@ Beam::calc_beam_segments (SCM smob)
                               = event_dir
                                 * std::min (
                                   event_dir * current.horizontal_[event_dir],
-                                  - gap_lengths[event_dir] / 2
+                                  -gap_lengths[event_dir] / 2
                                     + event_dir
                                         * heads[k]->extent (
                                           commonx, X_AXIS)[-event_dir]);

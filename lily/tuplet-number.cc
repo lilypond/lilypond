@@ -41,7 +41,8 @@
   is always placed on the opposite side of this stem.)
 */
 Grob *
-Tuplet_number::select_reference_stem (Spanner *me, std::vector<Grob *> const &cols)
+Tuplet_number::select_reference_stem (Spanner *me,
+                                      std::vector<Grob *> const &cols)
 {
   vsize col_count = cols.size ();
 
@@ -172,7 +173,8 @@ Tuplet_number::knee_position_against_beam (Spanner *me, Grob *ref_stem)
   Grob *commonx = me->get_system ();
   if (!commonx)
     {
-      programming_error ("Tuplet_number::knee_position_against_beam called before line breaking");
+      programming_error ("Tuplet_number::knee_position_against_beam called "
+                         "before line breaking");
       return true;
     }
 
@@ -347,7 +349,8 @@ Tuplet_number::calc_y_offset (SCM smob)
   Grob *commonx = me->get_system ();
   if (!commonx)
     {
-      programming_error ("TupletBracket.Y-offset accessed before line breaking");
+      programming_error (
+        "TupletBracket.Y-offset accessed before line breaking");
       return to_scm (0);
     }
   Real x_coord = me->relative_coordinate (commonx, X_AXIS);

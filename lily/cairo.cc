@@ -955,7 +955,7 @@ Cairo_outputter::paint_image_surface (cairo_surface_t *surface, Real width,
     {
       cairo_save (context ());
       cairo_set_source_rgba (context (), rgba[0], rgba[1], rgba[2], rgba[3]);
-      cairo_rectangle (context (), x, y, width * scale , height * scale);
+      cairo_rectangle (context (), x, y, width * scale, height * scale);
       cairo_fill (context ());
       cairo_restore (context ());
     }

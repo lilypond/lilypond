@@ -57,7 +57,6 @@ const int START_AT_BEGINNING = 0;
 const auto DEFAULT_COMPILE_FLAGS = static_cast<GRegexCompileFlags> (0);
 const auto DEFAULT_MATCH_FLAGS = static_cast<GRegexMatchFlags> (0);
 
-
 // A smob that just owns a pointer to a GLib regex object.
 
 class Regex : public Smob<Regex>
