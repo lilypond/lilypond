@@ -140,14 +140,10 @@ language used to program LilyPond.  Recommended if you are
 an absolute beginner when it comes to programming.
 
 @item
-@uref{https://tutoriel-scheme.readthedocs.io,Learning Scheme for
-LilyPond}: another LilyPond-oriented Scheme tutorial.  Recommended
-if you have some experience with programming in another language.
-
-@item
-@uref{https://extending-lilypond.readthedocs.io,Extending Guide}:
+@uref{https://extending-lilypond.gitlab.io,Extending LilyPond}:
 an external documentation resource about extending LilyPond in
-Scheme.
+Scheme.  It also contains a Scheme tutorial, which is recommended
+if you have some experience with programming in another language.
 
 @item
 @ref{Development}:
