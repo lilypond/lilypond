@@ -967,7 +967,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 	if (!SCM_UNBNDP (sid))
 		return scan_scm_id (sid);
 
-	string msg (_f ("unknown escaped string: `\\%s'", str));
+	string msg (_f ("unknown command: `\\%s'", str));
 	LexerError (msg.c_str ());
 
 	yylval = ly_string2scm (str);
