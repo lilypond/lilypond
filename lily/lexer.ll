@@ -83,7 +83,7 @@ RH 7 fix (?)
 #pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
 #endif
 
-// generated code for yyFlexLexer::LexerInput 
+// generated code for yyFlexLexer::LexerInput
 // contains a std::streamsize to int conversion
 // ignore warning
 #pragma GCC diagnostic ignored "-Wconversion"
@@ -515,7 +515,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
-		return scan_escaped_word (YYText_utf8 () + 1); 
+		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{FRACTION}	{
 		yylval =  scan_fraction (YYText ());
@@ -719,7 +719,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 		return token_type;
 	}
 	[^$#{}\"\\ \t\n\r\f]+ {
-		string s (YYText_utf8 ()); 
+		string s (YYText_utf8 ());
 
 		yylval = ly_string2scm (s);
 		return SYMBOL;
