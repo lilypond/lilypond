@@ -1009,8 +1009,10 @@ The following sets of accidental glyphs are available.
 @node Clef styles
 @appendixsec Clef styles
 
-The following table shows all the clef styles possible (including where
-@emph{middle C} sits relative to the clef).
+The following table shows all the clef styles possible (including
+the cases where @emph{middle@tie{}C} sits relative to the clef).
+For more modification possibilities like ottavation digits,
+@pxref{Clef}.
 
 @cindex treble clef
 @cindex clef, treble
