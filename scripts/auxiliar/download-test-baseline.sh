@@ -17,9 +17,6 @@ wget --quiet -O test-baseline.tar.gz "$ARTIFACT_URL"
 echo "Extracting test-baseline.tar.gz ..."
 tar xf test-baseline.tar.gz
 
-# Temporarily fix up moved location of fonts-urw-base35.
-find . -name "*.eps" -print0 | xargs -0 sed -i "s|/usr/share/fonts/otf/|/usr/share/fonts/opentype/urw-base35/|g"
-
 if [ -z "${GITLAB_CI-}" ]; then
   echo "WARNING: It appears you are running this script outside of GitLab's" >&2
   echo "CI environment! If you want to use the downloaded test-baseline" >&2
