@@ -537,6 +537,9 @@ Downloadable tarballs only available at @uref{https://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
+@item @uref{https://lilypond.org/doc/v2.22/Documentation/web/manuals,
+LilyPond 2.22 Documentation}
+
 @item @uref{https://lilypond.org/doc/v2.20/Documentation/web/manuals,
 LilyPond 2.20 Documentation}
 
