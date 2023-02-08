@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
+    Translation of GIT committish:  9cdf2e29489ceb6788eb0eda5682beeab2ab4021
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -139,6 +139,21 @@ Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 @uref{https://bit.ly/LearnLilyPond,Video Tutorials}:
 Der LilyPond Anwender Ben Lemon hat eine Reihe Video Tutorials in seinem
 Blog veröffentlicht.  Sie wenden sich an Neulinge.
+
+@item
+@uref{https://scheme-book.ursliska.de/introduction/index.html,
+LilyPond Scheme}: ein externes Tutorial zum Lernen von Scheme,
+der Sprache zur Programmierung von LilyPond.  Empfohlen für
+absolute Beginner, was die Programmierung angeht.
+
+@item
+@uref{https://tutoriel-scheme.readthedocs.io,Scheme Lernen für LilyPond}:
+ein weiteres LilyPond-orientiertes Tutorial für Scheme.  Empfohlen
+bei einiger Erfahrung mit der Programmierung in einer anderen Sprache.
+
+@item
+@uref{https://extending-lilypond.readthedocs.io,Extending Guide}:
+eine externe Dokumentation über die Erweiterung von LilyPond in Scheme.
 
 @item
 @ref{Entwicklung}:
@@ -552,6 +567,12 @@ erhältlich.
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{https://lilypond.org/doc/v2.22/Documentation/web/manuals.de.html,
+LilyPond 2.22 Dokumentation} (auf deutsch)
+
+@item @uref{https://lilypond.org/doc/v2.20/Documentation/web/manuals.de.html,
+LilyPond 2.20 Dokumentation} (auf deutsch)
 
 @item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals.de.html,
 LilyPond 2.18 Dokumentation} (auf deutsch)

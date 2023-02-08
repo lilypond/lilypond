@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
+    Translation of GIT committish: 31c968d04ef951fcefe540b1a70d72afd60b473c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -363,7 +363,7 @@ Hier ein Ausschnitt aus @emph{Čáry} von Trevor Bača für Bassflöte Solo.
 
 Verschiedenes Aufführungsmaterial kann aus dem selben Quellcode
 erstellt werden.  Hier ein Ausschnitt aus Händels @emph{Giulio
-Cesare}, gesetzt von @uref{http://nicolas.sceaux.free.fr/,
+Cesare}, gesetzt von @uref{https://editions-nicolas-sceaux.fr/,
 Nicolas Sceaux}, als Partitur, Klavierauszug und eine Geigenstimme.
 
 @exampleImage{sesto-full}
@@ -452,7 +452,7 @@ Fähigkeiten von LilyPond eine individuelle Ausgabe zu erzeugen.
 @subheading Schenker-Graphen
 
 Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
-für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+für einen Artikel im @uref{https://www.linuxjournal.com/article/8364 , Linux Journal}.
 Die Farben wurden zur Verdeutlichung hinzugefügt.
 
 @exampleImage{bach-schenker}
@@ -731,7 +731,7 @@ zur Feier des 350. Geburtstages des Komponisten. Siehe
 @uref{http://www.ascarlatti2010.net}.
 
 @item
-@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} setzte das Werk
+@uref{https://editions-nicolas-sceaux.fr/,Nicolas Sceaux} setzte das Werk
 von Lullys @emph{Armide}, aufgeführt im Jahr 2009 von
 @uref{https://www.mercuryhouston.org/, Mercury Baroque}.
 
@@ -745,7 +745,7 @@ seinem Ensemble in der St. James Church in Manhattan im Jahr 2009. Siehe
 Libretto aus @emph{Affaire étrangère}, eine Oper von
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
 uraufgeführt im Jahr 2009 in der
-@uref{http://www.orchestre-montpellier.com/, Opéra de Montpellier}.
+@uref{https://www.opera-orchestre-montpellier.fr/, Opéra National de Montpellier}.
 
 
 @end itemize
@@ -845,7 +845,7 @@ April 2011
 
 @uref{https://www.linux-magazine.com,Linux Magazine} publiziert einen
 Atikel mit dem Titel
-@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
+@uref{https://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}. Es es eine Einleitung zu MuseScore,
 LilyPond and Chordii.  Die Authorin Carla Schroder schreibt @qq{LilyPond wird
 von der Kommandozeile aus gesteuert, aber lassen Sie sich nicht davon
@@ -873,7 +873,7 @@ Artikel über LilyPond}.
 August 2009
 
 Ann Drinan präsentiert auf der
-@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}-Webseite
+@uref{https://iml.esm.rochester.edu/polyphonic-archive/article/the-role-of-the-orchestra-librarian-as-music-copyist/, Polyphonic.org}-Webseite
 Kommentare von zwei Orchsterbibliothekaren, die sich über die Benutzung von
 Software zur Unterhaltung ihrer Bibliotheken unterhalten.
 
@@ -1093,7 +1093,7 @@ desto mehr mag ich es!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia}-Mitarbeiter
+@subsubheading @uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia}-Mitarbeiter
 
 @qq{Ich hatte so eine Hassliebe zu ihm entwickelt. Liebe, weil
   das erste Notenblatt, das ich gesehen hatte, so gut aussah. Die
@@ -1350,15 +1350,6 @@ Textansicht markiert, wenn man von dort aus druckt.
 @divClass{column-center-top}
 @subheading Browserbasierte Editoren
 
-@subsubheading LilyBin
-@uref{http://lilybin.com/}
-
-Ein webbasierter LilyPond Editor, in dem man die Noten direkt online
-setzen kann, ohne LilyPond vorher installieren zu müssen. Codeschnippsel bleiben
-unter einer eindeutigen URL verfügbar, wie auf so genannten @q{pastebin} Webseiten.
-Der Code ist frei verfügbar unter der MIT-Lizenz, zu finden unter der
-@uref{https://github.com/LilyBin/LilyBin,Entwicklungsseite}.
-
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
@@ -1374,13 +1365,22 @@ Seit 2010 bietet Online Music Editing Tools (OMET) einen fertigen
 LilyPond-Service mit einem eigens ausgelegten Webinterface.
 Eine Registrierung ist erforderlich, aber kostenfrei.
 
-@subsubheading WebLily.net
-@uref{https://www.weblily.net/}
+@divEnd
 
-Eingeführt im Jahr 2009 ist WebLily.net eine der ersten Webdienste basierend
-auf LilyPond und wurde seitdem regelmäßig aktualisiert.
-Der Dienst kann kostenfrei genutzt werden (Registrierung erforderlich) und
-beinhaltet eine klickbare Version von LilyPonds Dokumentation.
+@divClass{column-center-top}
+@subheading Word processor plug-ins
+
+@subheading OOoLilyPond
+
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+Eine Erweiterung für OpenOffice.org, das Dateien für LilyPond innerhalb
+von Dokumenten in Bilder umwandelt.
 
 @divEnd
 
@@ -1533,6 +1533,19 @@ auf Basis des @uref{https://mozart.github.io/, Mozart Programming System}.
 @itemize
 
 @item
+@uref{https://github.com/LilyBin/LilyBin,LilyBin} ist ein webbasierter
+LilyPond Editor, in dem man die Noten direkt online setzen kann, ohne
+LilyPond vorher installieren zu müssen. Codeschnippsel bleiben unter
+einer eindeutigen URL verfügbar, wie auf so genannten @q{pastebin} Webseiten.
+Auch wenn @uref{https://lilybin.com}, wo es gehostet wurde, eingestellt
+wurde, bleibt der Quelltext frei verfügbar unter der MIT-Lizenz, zu finden
+unter der @uref{https://github.com/LilyBin/LilyBin,Entwicklungsseite}.
+
+@item
+@uref{https://www.weblily.net/,WebLily} war einer der ersten Webdienste
+basierend auf LilyPond.
+
+@item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} war
 ein Plugin für den @uref{http://www.jedit.org,jEdit} Text Editor.
 
@@ -1559,12 +1572,6 @@ verfügbar.
 Ableger existieren als
 @uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 und @uref{https://canorus.org,Canorus}.
-
-@item
-@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
-ist eine OpenOffice.org Erweiterung die LilyPond Dateien in Grafiken
-in OpenOffice.org Dokumenten umwandelt.  Es wird zwarnicht mehr weiterentwickelt,
-scheint aber noch mit Version 4 zu laufen.
 
 @item
 @uref{https://launchpad.net/rumor/,Rumor},
