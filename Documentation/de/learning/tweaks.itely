@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8819d7cb0ba2ab359e4aa2276695afb9c1957c42
+    Translation of GIT committish: 31c968d04ef951fcefe540b1a70d72afd60b473c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,6 +121,12 @@ Eigenschaften, die ihre Form bestimmen. Objekte mit solch
 einer erweiterten Gestalt werden als @qq{Strecker} (engl. Spanners)
 bezeichnet.
 
+Strecker können nach ihrer Erzeugung nicht verändert werden.  Dies
+schließt @code{StaffSymbol} und @code{LedgerLineSpanner} ein, die
+sich über die ganze Partitur fortsetzen, außer wenn sie durch den
+Befehlt @code{\stopStaff} beendet und dann mit @code{\startStaff}
+neu erzeugt werden.
+
 Darüber hinaus gibt es @q{abstrakte} Grobs, die selbst keinen Ausdruck
 irgendwelcher Art erzeugen. Vielmehr sammeln sie, positionieren oder
 verwalten andere Grobs.  Typische Beispiele hierfür sind
@@ -174,29 +180,34 @@ Zeichen werden explizit angegeben.
   @tab Naming convention
   @tab Beispiele
 @item Kontexte
-  @tab Aaaa oder AaaaAaaaAaaa
-  @tab Staff, GrandStaff
+  @tab @code{Aaaa} oder @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
 @item Layout-Objekte
-  @tab Aaaa oder AaaaAaaaAaaa
-  @tab Slur, NoteHead
+  @tab @code{Aaaa} oder @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
 @item Engraver
-  @tab Aaaa_aaa_engraver
-  @tab Clef_engraver, Note_heads_engraver
+  @tab @code{Aaaa_aaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
 @item Schnittstellen
-  @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
 @item Kontext-Eigenschaften
-  @tab aaa oder aaaAaaaAaaa
-  @tab alignAboveContext, skipBars
+  @tab @code{aaa} oder @code{aaaAaaaAaaa}
+  @tab @code{alignAboveContext}, @code{skipBars}
 @item Layout-Objekt-Eigenschaften
-  @tab aaa oder aaa-aaa-aaa
-  @tab direction, beam-thickness
+  @tab @code{aaa} oder @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
 @end multitable
 
 Es wird bald ersichtlich werden, dass die Eigenschaften von
 unterschiedlichen Objekttypen mit unterschiedlichen Befehlen
 geändert werden.  Deshalb ist es nützlich, bereits am Namen
 den Typ und die Eigenschaften eines Objekts zu erkennen.
+
+@morerefs
+Notationsreferenz:
+@ruser{Benennungskonventionen},
+@ruser{Eigenschaften verändern}.
 
 
 @node Optimierungsmethoden
@@ -209,7 +220,6 @@ den Typ und die Eigenschaften eines Objekts zu erkennen.
 * Der override-Befehl::
 * Der revert-Befehl::
 * Der once-Präfix::
-* Der overrideProperty-Befehl::
 * Der tweak-Befehl::
 * Der single-Präfix::
 @end menu
@@ -265,14 +275,12 @@ Format zu demonstrieren,
 werden wir hier nur einige einfache Eigenschaften und Werte einsetzen,
 die einfach zu verstehen sind.
 
-LilyPond's hauptsächliche Ausdrücke sind musikalische Dinge wie Noten,
-Notendauern und Markierungen.  Diesen zugrunde liegende Ausdrücke wie
-Zahlen, Zeichenketten und Listen werden im @q{Scheme Modus} verarbeitet.
-Der Präfix @samp{#} leitet diesen Modus ein.  Einige dieser Werte haben
-manchmal eine gültige Repräsentation in LilyPond's Musik Modus, in diesem
-Handbuch werden wir aus Gründen der Einheitlichkeit immer das @samp{#}
-für ihre Eingabe verwenden.  Weiterführende Informationen zu LilyPond's
-Scheme mode finden sie unter @rextend{LilyPond Scheme-Syntax}.
+LilyPond's hauptsächliche Ausdrücke sind musikalische Dinge wie Noten
+und Notendauern, sowie Zeichenketten und Markierungen.  Diesen zugrunde
+liegende Ausdrücke wie Zahlen und Listen werden im @q{Scheme Modus}
+verarbeitet. Der Präfix @samp{#} leitet diesen Modus ein.
+Weiterführende Informationen zu LilyPond's Scheme mode finden Sie
+unter @rextend{LilyPond Scheme-Syntax}.
 
 @code{\override} ist der bei Optimierungen am häufigsten verwendete Befehl.
 Daher wird der Rest dieses Kapitels im Wesentlichen aus Anwendungsbeispielen
@@ -287,9 +295,9 @@ zur Änderung der Farbe von Notenköpfen:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a b c |
 }
 @end lilypond
@@ -328,12 +336,14 @@ wieder auf den Standardwert für die letzten zwei Noten gesetzt.
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a
-  \revert NoteHead.color
+  \once \revert NoteHead.color
   b4 c |
+  \revert NoteHead.color
+  f2 c |
 }
 @end lilypond
 
@@ -384,27 +394,6 @@ einziges musikalisches Ereignis zu beschränken:
   b( c) |
 }
 @end lilypond
-
-Allerdings funktioniert das nicht bei vordefinierten Befehlen wie
-@code{\@dots{}Neutral}, @code{\@dots{}Off} oder @code{\un@dots{}}, weil
-diese intern @code{\revert} verwenden und nicht @code{\override}, sodass
-ein @code{\once} Präfix hier keine Auswirkungen hat.
-
-
-@node Der overrideProperty-Befehl
-@unnumberedsubsubsec Der @code{\overrideProperty}-Befehl
-@translationof The overrideProperty command
-
-@cindex overrideProperty-Befehl
-
-@funindex \overrideProperty
-
-Es gibt eine andere Form des @code{override}-Befehls,
-@code{\overrideProperty} (überschreibe Eigenschaft),
-welcher ab und zu benötigt wird.  Es wird hier nur der
-Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
-in @rextend{Schwierige Korrekturen}.
-@c Maybe explain in a later iteration  -td
 
 
 @node Der tweak-Befehl
@@ -490,8 +479,8 @@ Beispiel zu sehen ist.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 a'4^"Black"
-  -\tweak color #red ^"Red"
-  -\tweak color #green _"Green"
+  -\tweak color "red" ^"Red"
+  -\tweak color "green" _"Green"
 @end lilypond
 
 @noindent
@@ -511,8 +500,8 @@ Layout-Objekte direkt benennt, vorausgesetzt dass LilyPond ihre Herkunft
 bis zu dem ursprünglichen Ereignis zurück verfolgen kann:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-<\tweak Accidental.color #red   cis''4
- \tweak Accidental.color #green es''
+<\tweak Accidental.color "red"   cis''4
+ \tweak Accidental.color "green" es''
  g''>
 @end lilypond
 
@@ -554,7 +543,7 @@ gesetzt wird.
 \relative c'' {
   \tweak direction #up
   \tuplet 3/4 {
-    \tweak color #red
+    \tweak color "red"
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
@@ -607,7 +596,7 @@ machen ist nehmen wir ferner an, wir hätten dafür eine Funktion definiert:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -625,7 +614,7 @@ kommt @code{\single} ins Spiel:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -861,7 +850,7 @@ by: Slur engraver}. Legatobögen werden also in dem Kontext
 erstellt, in dem sich der @code{Slur_engraver} befindet.
 Folgen Sie dem Link zu der @code{Slur_engraver}-Seite.
 Unten auf der Seite steht, dass der @code{Slur_engraver}
-sich in fünf Stimmen-Kontexten befindet, unter anderem
+sich in acht Stimmen-Kontexten befindet, unter anderem
 auch im normalen @code{Voice}-Kontext. Unsere Annahme
 war also richtig. Und weil @code{Voice} einer der Kontexte
 der untersten Ebene ist, welcher eindeutig schon dadurch
@@ -1484,18 +1473,19 @@ eine Liste ist, aber es gibt keine Erklärung, was für eine Liste das
 sein soll.  Die Liste, die benötigt wird, ist eine Liste mit Werten in
 internen Einheiten, aber damit Sie nicht wissen müssen, wie diese
 aussehen, gibt es mehrere Wege, Farben anzugeben.  Der erste
-Weg ist es, @qq{normale} Farben zu benutzen, wie sie in der
-Tabelle in @ruser{Liste der Farben} aufgelistet sind.  Beachten Sie,
-dass die Bezeichnungen auf Englisch sind.  Um die Taktstriche auf
-weiß zu setzen, können Sie schreiben:
+Weg ist es, @qq{CSS}-Farben zu benutzen, wie sie @ruser{Liste der Farben}
+aufgelistet sind.  Beachten Sie, dass die Bezeichnungen auf Englisch sind.
+Um die Taktstriche auf weiß zu setzen, können Sie schreiben:
 
 @cindex Taktstrich, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
+@cindex Farbe, CSS
+@cindex CSS-Farben
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #white
+  \override Staff.BarLine.color = "white"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1505,24 +1495,13 @@ weiß zu setzen, können Sie schreiben:
 @noindent
 und die Taktstriche verschwinden in der Tat.  Beachten Sie,
 dass @emph{white} nicht mit einem Apostroph angeführt
-wird -- es ist kein Symbol, sondern eine @emph{Variable}.
-Wird sie ausgewertet, stellt sie eine Liste mit internen
-Werten zu Verfügung, mit welcher die Farbe auf weiß
-gestellt wird.  Die anderen Farben in der Liste sind auch
-Funktionen.  Um sich zu überzeugen, dass der Befehl auch
-wirklich funktioniert, können Sie die Farbe auf eine der
-anderen Variablen dieser Liste abändern.
-
-@cindex Farben, X11
-@cindex X11-Farben
-
-@funindex x11-color
-
-Die zweite Art die Farbe zu ändern geschieht, indem die Liste
-der X11-Farbbezeichnungen einzusetzen, siehe die zweite Liste
-in @ruser{Liste der Farben}.  Diese Namen werden durch die Funktion
-@code{x11-color} durch die tatsächlichen internen Farbwerte ersetzt.
-Das geschieht wie folgt:
+wird -- es ist kein Symbol, sondern eine Zeichenkette,
+die einer vordefinierten Liste von internen Werten
+zugeordnet ist.  Hier orierntiert LilyPonds Syntax sich
+an @uref{https://www.w3.org/Style/CSS/, CSS}, die oft
+auf Webseiten genutzt werden.  Zusätzlich zu den
+vordefinierten Farben können wir auch hexadezimale Codes
+verwenden:
 
 @cindex Taktstrich, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
@@ -1530,7 +1509,7 @@ Das geschieht wie folgt:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #(x11-color 'white)
+  \override Staff.BarLine.color = "#FFFFFF"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1538,23 +1517,41 @@ Das geschieht wie folgt:
 @end lilypond
 
 @noindent
-In diesem Fall hat die Funktion @code{x11-color} ein Symbol
-als Argument, darum muss dem Symbol ein Apostroph vorangestellt
-werden, damit es nicht als Variable interpretiert wird. Beide
-zusammen müssen in Klammern gesetzt werden.
+Wir könnten diese Farbe auch als Variable definieren
+und dann diese Variable benutzen, um die Eigenschaft
+zu definiren.  Da es sowohl eine LilyPond-Variable
+ein Scheme-Objekt ist, kann es ohne Unterschied mit
+einem Backslash und einem Hash genutzt werden:
 
-@cindex RGB-Farben
+@lilypond[quote,ragged-right,verbatim]
+whiteVar = "#FFFFFF"
+
+\relative {
+  \time 12/16
+  \override Staff.BarLine.color = \whiteVar
+  c''4 b8 c d16 c d8 |
+  \override Staff.BarLine.color = #whiteVar
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+
+@end lilypond
+
 @cindex Farben, RGB
+@cindex RGB-Farben
 
 @funindex rgb-color
 
-Es gibt noch eine weitere Funktion, die RGB-Werte in die
-internen Werte übersetzt -- die @code{rgb-color}-Funktion.  Sie
-braucht drei Argumente, um die Stärke von Rot, Grün und
-Blau darzustellen. Die Werte befinden sich zwischen
-0 und 1.  Um also die Farbe Rot darzustellen, muss der
-Wert der Funktion lauten: @code{(rgb-color 1 0 0)}, weiß
-würde sein: @code{(rgb-color 1 1 1)}.
+Ein weiterer Weg zum Hinzufügen von Farben zu einer Partitur
+ist das Benutzen einer Funktion.  Hier gibt es zwei nützliche
+Funktionen; eine ist die Funktion @code{x11-color}, die wir
+in Kürze sehen werden.  Die andere, @code{rgb-color}, zeigt
+LilyPonds interne Logik: Sie braucht drei Argumente, um die
+Stärke von Rot, Grün und Blau darzustellen. Die Werte befinden
+sich zwischen 0 und 1.  Um also die Farbe Rot darzustellen,
+muss der Wert der Funktion lauten: @code{(rgb-color 1 0 0)},
+weiß würde sein: @code{(rgb-color 1 1 1)}.
+
 
 @cindex Taktstrich, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
@@ -1569,9 +1566,23 @@ würde sein: @code{(rgb-color 1 1 1)}.
 }
 @end lilypond
 
-Schließlich gibt es noch eine Grauskala, die zu den X11-Farben
-gehört.  Sie reicht von schwarz (@code{'grey0}) bis
-weiß (@code{'grey100}), in Einerschritten.  Wir wollen das
+@noindent
+Es ist zu beachten, dass in diesem Fall der gesamte Funktionsaufruf
+in Klammern eingeschlossen werden muss.  Das gleiche kann über die
+Funktion @code{x11-color} gesagt werden, die wir übersprungen haben.
+
+@cindex color, X11
+@cindex X11 colors
+
+@funindex x11-color
+
+@code{x11-color} ordnet ebenfalls vordefinierte Farbnamen
+internen Werten zu -- aber bietet viel mehr Auswahl als
+CSS-Namen, wie in @ruser{Liste der Farben} zu sehen ist.
+
+Die Menge der X11-Farben schließt beispielsweise eine weite
+Grauskala ein, die von schwarz (@code{'grey0}) bis weiß
+(@code{'grey100}) reicht, in Einerschritten.  Wir wollen das
 illustrieren, indem alle Layout-Objekte im Beispiel
 verschiedene Grauschattierungen erhalten:
 
@@ -2371,6 +2382,8 @@ auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
 Wert dem Objekt entsprechend geändert, wenn das Objekt für die
 Notenausgabe erstellt wird.  Die Tabelle unten zeigt die
 Standardwerte für die meistbenutzten @code{outside-staff}-Objekte.
+@c Siehe @ruser{Default values for outside-staff-priority} für
+@c eine vollständige Tabelle.
 
 @cindex spanners
 @cindex Strecker
@@ -2389,6 +2402,8 @@ vertikalen Position von Crescendo-Klammern -- anstatt dessen muss
 welcher womöglich mehrere verbundene Dynamikklammern und Dynamikbezeichnung
 beinhaltet.
 
+@c TODO: remove after putting "Default values for outside-staff-priority"
+@c in the NR appendices
 @multitable @columnfractions .3 .3 .3
 @headitem Layout-Objekt
   @tab Priorität
@@ -2490,6 +2505,7 @@ wollen wir zeigen, wie sich die Oktavierungsklammer unter
 den Textstrecker des vorigen Beispiels setzen lässt.  Wir müssen
 nur die Priorität des
 @code{OttavaBracket}-Objektes in der IR oder der Tabelle oben
+@c TODO: Reference "Default values for outside-staff-priority"
 herausfinden und einen kleineren Wert angeben als der Wert, den
 das @code{TextSpanner}-(Strecker)-Objekt bekommt, wobei noch daran
 zu denken ist, dass @code{OttavaBracket} im @code{Staff}-Kontext
@@ -3467,9 +3483,9 @@ schieben, denn die Pause ist in der zweiten Stimme.  Per
 Standardeinstellung für die zweite Stimme (@code{\voiceTwo},
 also die zweite Stimme in der
 @code{<<@{@dots{}@} \\ @{@dots{}@}>>}-Konstruktion) wird die
-Position auf dem System (@code{staff-position}) auf -4
+Position auf dem System (@code{staff-position}) auf -6
 für @code{MultiMeasureRest}, in unserem Beispiel muss
-es also bspw. auf die Position @w{@code{-8}} gesetzt werden,
+es also bspw. auf die Position @w{@code{-10}} gesetzt werden,
 d.h. vier halbe Notenlinienabstände weiter nach unten:
 
 @cindex MultiMeasureRest, Beispiel zur Veränderung
@@ -3480,13 +3496,16 @@ d.h. vier halbe Notenlinienabstände weiter nach unten:
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
 
 Das ist besser, als etwa @code{extra-offset} zu benutzen, denn
 in unserem Fall wird die Hilfslinie der Pause automatisch gesetzt.
+
+Siehe @ruser{Bindebögen von Hand setzen} zum Unterschied zwischen
+exakten und inexakten Werten.
 
 @node Die extra-offset-Eigenschaft
 @unnumberedsubsubsec Die @code{extra-offset}-Eigenschaft (Genaues Positionieren)

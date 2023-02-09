@@ -1,11 +1,12 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 8819d7cb0ba2ab359e4aa2276695afb9c1957c42
+    Translation of GIT committish: 4c4cff796e86152e97321aa7934ff785f6c5012d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
+
 @documentencoding UTF-8
 @documentlanguage de
 @setfilename lilypond-learning.info
@@ -27,6 +28,8 @@ Diese Datei stellt eine Einleitung für LilyPond Version
 Copyright @copyright{} 1999--2022 bei den Autoren.
 @end macro
 
+@c No dircategory / direntry since info is not translated.
+
 @set FDL
 @include de/macros.itexi
 
@@ -36,42 +39,9 @@ Copyright @copyright{} 1999--2022 bei den Autoren.
 @lilyTitlePage{Learning Manual}
 
 @c TOC -- non-tex
-
-
-@ignore
-@ifhtml
-@ifclear bigpage
-Dieses Dokument ist auch als
-@uref{source/Documentation/learning.de.pdf,PDF} und als
-@uref{source/Documentation/learning-big-page.de.html,eine große Seite}
-verfügbar.
-@end ifclear
-@ifset bigpage
-Dieses Dokument ist auch als
-@uref{source/Documentation/learning.de.pdf,PDF} und als
-@uref{source/Documentation/learning/index.de.html,Separate HTML-Seiten mit Index}
-verfügbar.
-@end ifset
-@end ifhtml
-
-
-@ifnottex
-Das ist des Handbuch zum Erlernen von GNU LilyPond Version @version{}.
-Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
-dieses Handbuchs siehe @ref{Über die Dokumentation}.
-
-@cindex Internetseite
-@cindex URL
-
-Mehr Information unter
-@uref{https://@/lilypond@/.org/}. Auf der Internetseite
-finden sich Kopien dieser und anderer Dokumentationsdateien.
-@end ignore
-
-
 @ifnottex
 @menu
-* Installing::                 Installing LilyPond
+* Installing::                 LilyPond installieren.
 * Tutorium::                   Eine Übung zur Einführung.
 * Übliche Notation::        Die häufigsten Notationsfälle.
 * Grundbegriffe::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.

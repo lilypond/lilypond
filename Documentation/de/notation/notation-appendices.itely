@@ -36,6 +36,7 @@
 * Bezeichner zur Kontextveränderung::
 * Vordefinierte Typprädikate::
 @end menu
+@c TODO: If adding "Default values for outside-staff-priority", put links into LM
 
 @node Liste der Akkordbezeichnungen
 @appendixsec Liste der Akkordbezeichnungen
