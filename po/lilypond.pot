@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.24.0\n"
+"Project-Id-Version: lilypond 2.24.1\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2022-12-13 20:10+0100\n"
+"POT-Creation-Date: 2023-02-10 18:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1578,7 +1578,7 @@ msgstr ""
 #: musicxml2ly.py:2900
 #, python-format
 msgid ""
-"Copyright (c) 2005--2022 by\n"
+"Copyright (c) 2005--2023 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1824,7 +1824,7 @@ msgstr ""
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:143
+#: all-font-metrics.cc:145
 #, c-format
 msgid "cannot find font: `%s'"
 msgstr ""
@@ -2158,22 +2158,22 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: font-config-scheme.cc:159 font-config.cc:87
+#: font-config-scheme.cc:161 font-config.cc:87
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:161 font-config.cc:89
+#: font-config-scheme.cc:163 font-config.cc:89
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:178
+#: font-config-scheme.cc:182
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: font-config-scheme.cc:180
+#: font-config-scheme.cc:184
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
@@ -2907,111 +2907,111 @@ msgstr ""
 msgid "Fitting music on 1 page..."
 msgstr ""
 
-#: open-type-font-scheme.cc:154 open-type-font-scheme.cc:200
-#: open-type-font-scheme.cc:246 open-type-font-scheme.cc:396 pfb-scheme.cc:79
+#: open-type-font-scheme.cc:164 open-type-font-scheme.cc:210
+#: open-type-font-scheme.cc:256 open-type-font-scheme.cc:406 pfb-scheme.cc:79
 #: ttf.cc:493 ttf.cc:542
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:168 open-type-font-scheme.cc:214
-#: open-type-font-scheme.cc:293 pfb-scheme.cc:94 ttf.cc:460 ttf.cc:509
+#: open-type-font-scheme.cc:178 open-type-font-scheme.cc:224
+#: open-type-font-scheme.cc:303 pfb-scheme.cc:94 ttf.cc:460 ttf.cc:509
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:256
+#: open-type-font-scheme.cc:266
 #, c-format
 msgid "cannot open font filename `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:266 open-type-font-scheme.cc:283
-#: open-type-font-scheme.cc:305 open-type-font-scheme.cc:323
-#: open-type-font-scheme.cc:339 open-type-font-scheme.cc:354
+#: open-type-font-scheme.cc:276 open-type-font-scheme.cc:293
+#: open-type-font-scheme.cc:315 open-type-font-scheme.cc:333
+#: open-type-font-scheme.cc:349 open-type-font-scheme.cc:364
 #, c-format
 msgid "cannot read %s of `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:376
+#: open-type-font-scheme.cc:386
 #, c-format
 msgid "font `%s' index %d does not have `CFF' table"
 msgstr ""
 
-#: open-type-font-scheme.cc:406
+#: open-type-font-scheme.cc:416
 #, c-format
 msgid "font `%s': cannot open for reading"
 msgstr ""
 
-#: open-type-font-scheme.cc:416 open-type-font-scheme.cc:432
-#: open-type-font-scheme.cc:450
+#: open-type-font-scheme.cc:426 open-type-font-scheme.cc:442
+#: open-type-font-scheme.cc:460
 #, c-format
 msgid "font `%s': cannot read field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:424
+#: open-type-font-scheme.cc:434
 #, c-format
 msgid "font `%s': not a font collection"
 msgstr ""
 
-#: open-type-font-scheme.cc:442
+#: open-type-font-scheme.cc:452
 #, c-format
 msgid "font `%s': invalid TTC header version"
 msgstr ""
 
-#: open-type-font-scheme.cc:461
+#: open-type-font-scheme.cc:471
 #, c-format
 msgid "font `%s': index %d is too large, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:472
+#: open-type-font-scheme.cc:482
 #, c-format
 msgid "font `%s': cannot read offset of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:488 open-type-font-scheme.cc:526
-#: open-type-font-scheme.cc:548
+#: open-type-font-scheme.cc:498 open-type-font-scheme.cc:536
+#: open-type-font-scheme.cc:558
 #, c-format
 msgid "font `%s': cannot read field `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:498
+#: open-type-font-scheme.cc:508
 #, c-format
 msgid "font `%s': invalid field `sfntVersion' in subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:507
+#: open-type-font-scheme.cc:517
 #, c-format
 msgid "subfont `%s': cannot open for writing"
 msgstr ""
 
-#: open-type-font-scheme.cc:516 open-type-font-scheme.cc:538
-#: open-type-font-scheme.cc:558
+#: open-type-font-scheme.cc:526 open-type-font-scheme.cc:548
+#: open-type-font-scheme.cc:568
 #, c-format
 msgid "subfont `%s': cannot write field `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:585
+#: open-type-font-scheme.cc:595
 #, c-format
 msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:600 open-type-font-scheme.cc:620
-#: open-type-font-scheme.cc:649 open-type-font-scheme.cc:673
+#: open-type-font-scheme.cc:610 open-type-font-scheme.cc:630
+#: open-type-font-scheme.cc:659 open-type-font-scheme.cc:683
 #, c-format
 msgid "subfont `%s': cannot write field `%s' for table `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:610 open-type-font-scheme.cc:630
-#: open-type-font-scheme.cc:659
+#: open-type-font-scheme.cc:620 open-type-font-scheme.cc:640
+#: open-type-font-scheme.cc:669
 #, c-format
 msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:699
+#: open-type-font-scheme.cc:709
 #, c-format
 msgid "font `%s': cannot read table `%s' of subfont %d"
 msgstr ""
 
-#: open-type-font-scheme.cc:708
+#: open-type-font-scheme.cc:718
 #, c-format
 msgid "subfont `%s': cannot write table `%s'"
 msgstr ""
@@ -3579,11 +3579,11 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur-scoring.cc:361
+#: slur-scoring.cc:368
 msgid "no viable slur configuration found"
 msgstr ""
 
-#: slur-scoring.cc:490
+#: slur-scoring.cc:497
 msgid "slur trying to encompass an empty note column."
 msgstr ""
 
