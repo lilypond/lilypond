@@ -73,15 +73,15 @@ from its sources; this gets handled in a later section.
 
 @item
 @uref{https://www.cairographics.org, Cairo}@*
-Use version 1.8.8 or newer.
+Use version 1.16 or newer.
 
 @item
 @uref{https://www.fontconfig.org, FontConfig}@*
-Use version 2.4.0 or newer.
+Use version 2.13 or newer.
 
 @item
 @uref{https://www.freetype.org, FreeType}@*
-Use version 2.3.9 or newer.
+Use version 2.10 or newer.
 
 @item
 @uref{https://www.ghostscript.com, Ghostscript}@*
@@ -90,7 +90,7 @@ Use version 9.03 or newer.
 @item
 @uref{https://gitlab.gnome.org/GNOME/glib/, GLib} (also required
 for Pango)@*
-Use version 2.38 or newer.  Please note that LilyPond requires
+Use version 2.64 or newer.  Please note that LilyPond requires
 @code{GRegex} support in GLib.  In turn, this implies that PCRE,
 the library GLib utilizes for regular expressions, must be built
 with Unicode support.  In PCRE1, the flags
@@ -106,11 +106,11 @@ are not officially supported (yet).
 
 @item
 @uref{http://www.libpng.org/pub/png/libpng.html, libpng}@*
-Use version 1.6.0 or newer.
+Use version 1.6 or newer.
 
 @item
 @uref{https://www.pango.org, Pango}@*
-Use version 1.40 or newer.
+Use version 1.44 or newer.
 
 @item
 @uref{https://www.python.org, Python}@*

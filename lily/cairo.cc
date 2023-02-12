@@ -354,8 +354,7 @@ class Cairo_outputter : public Stencil_sink
   void page_link (SCM target, SCM varx, SCM vary);
   void set_scale (SCM varx, SCM vary);
   void reset_scale ();
-  void metadata (std::string const &key, std::string const &val,
-                 bool user_provided);
+  void metadata (std::string const &key, std::string const &val);
 
 public:
   Cairo_outputter (Cairo_output_format format, std::string const &basename,
@@ -1267,19 +1266,8 @@ Cairo_outputter::page_link (SCM target, SCM varx, SCM vary)
 void
 Cairo_outputter::cairo_link (std::string const &attr)
 {
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
   cairo_tag_begin (context (), CAIRO_TAG_LINK, attr.c_str ());
   cairo_tag_end (context (), CAIRO_TAG_LINK);
-#else
-  (void) attr;
-
-  static bool warned;
-  if (!warned)
-    {
-      warning ("cairo library too old to support links");
-      warned = true;
-    }
-#endif
 }
 
 void
@@ -1309,26 +1297,14 @@ static std::unordered_map<std::string, cairo_pdf_metadata_t> metadata_keys = {
 };
 
 void
-Cairo_outputter::metadata (std::string const &key, std::string const &val,
-                           bool user_provided)
+Cairo_outputter::metadata (std::string const &key, std::string const &val)
 {
   if (format_ == PDF)
     {
       auto it = metadata_keys.find (key);
       assert (it != metadata_keys.end ());
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
       cairo_pdf_surface_set_metadata (surface_->cairo_surface (), it->second,
                                       val.c_str ());
-      (void) user_provided;
-#else
-      static bool warned;
-      if (!warned && user_provided)
-        {
-          warning (_f ("Cairo too old for PDF metadata"));
-          warned = true;
-        }
-      (void) val;
-#endif
     }
 }
 
@@ -1385,10 +1361,10 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
 void
 Cairo_outputter::handle_metadata (SCM module)
 {
-  metadata ("creator", "LilyPond " + version_string (), false);
+  metadata ("creator", "LilyPond " + version_string ());
   if (get_program_option ("deterministic"))
     // Weird; Cairo suppresses the date altogether.
-    metadata ("creationDate", "D:19961006211000+02'00'", false);
+    metadata ("creationDate", "D:19961006211000+02'00'");
 
   if (!ly_is_module (module))
     return;
@@ -1413,7 +1389,7 @@ Cairo_outputter::handle_metadata (SCM module)
         }
 
       if (scm_is_string (val))
-        metadata (k, ly_scm2string (val), true);
+        metadata (k, ly_scm2string (val));
     }
 }
 
@@ -1425,8 +1401,6 @@ Cairo_outputter::handle_outline (Output_def *paper)
 
   if (scm_is_false (ly_get_option (ly_symbol2scm ("outline-bookmarks"))))
     return;
-
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 
   SCM toc_alist = paper->lookup_variable (ly_symbol2scm ("label-alist-table"));
   SCM page_numbers
@@ -1510,13 +1484,6 @@ Cairo_outputter::handle_outline (Output_def *paper)
     }
 
   scm_remember_upto_here (page_numbers);
-
-#else
-
-  (void) paper;
-  debug_output ("Skipping PDF outline, as Cairo is too old.");
-
-#endif // CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 }
 
 SCM
