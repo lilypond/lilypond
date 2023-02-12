@@ -214,7 +214,7 @@ archive 2}
 @end quotation
 @divEnd
 
-@divClass{column-left-top}
+@divClass{column-right-bottom}
 @subheading IRC
 
 Some level of support is provided on our IRC channel,

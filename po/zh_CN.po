@@ -2,23 +2,22 @@
 # Copyright (C) 1998--2020 Han-Wen Nienhuys, Jan Nieuwenhuizen.
 # This file is distributed under the same license as the LilyPond package.
 # Tianze Wang <zwpwjwtz@126.com>, 2021.
-# Boyuan Yang <073plan@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.23.80\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
 "POT-Creation-Date: 2022-10-22 17:37+0200\n"
-"PO-Revision-Date: 2022-10-28 16:31-0400\n"
-"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
+"PO-Revision-Date: 2023-01-21 13:26+0800\n"
+"Last-Translator: Tianze Wang <zwpwjwtz@126.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: book_base.py:46
 #, python-format
@@ -79,7 +78,7 @@ msgstr "兼容性模式下，使用自动转换：%s"
 #: book_snippets.py:467 book_snippets.py:477
 #, python-format
 msgid "ignoring invalid option %s=%s"
-msgstr "忽略无效的选项 %s=%s"
+msgstr "忽略未知的 Lilypond 选项 %s=%s"
 
 #: book_snippets.py:596
 #, python-format
@@ -108,7 +107,7 @@ msgstr "执行“%s”失败（返回状态码 %d）"
 
 #: book_snippets.py:850
 msgid "The ly.error log is as follows:"
-msgstr "ly.error 错误日志如下："
+msgstr "错误日志 ly.error 内容如下："
 
 #: book_snippets.py:981
 #, python-format
@@ -186,7 +185,7 @@ msgstr "\\translator 语法"
 
 #: convertrules.py:198
 msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
-msgstr "\\repeat NUM 音乐记号 -> \\repeat FOLDSTR 音乐记号"
+msgstr "\\repeat NUM 重复 可变重复 -> \\repeat FOLDSTR 重复 可变重复"
 
 #: convertrules.py:228 convertrules.py:736 convertrules.py:1439
 #: convertrules.py:2396
@@ -851,7 +850,7 @@ msgstr "以后将改用 output-attributes（关联列表）。"
 
 #: convertrules.py:4454
 msgid "If independent mark sequences are desired, use multiple Mark_tracking_translators."
-msgstr ""
+msgstr "如果需要多个独立的标记，请使用 Mark_tracking_translators。"
 
 #: convertrules.py:4505
 msgid ""
@@ -876,6 +875,22 @@ msgid ""
 "\n"
 "  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 msgstr ""
+"\n"
+"警告：\n"
+"\n"
+"您的乐谱中barNumberVisibility属性为 #all-bar-numbers-visible，\n"
+"并且设置了BarNumber.break-visibility，但乐谱中并没有 \\bar\"\" 命令。\n"
+"这说明您使用了以下命令来强制在谱表中间显示小节编号。\n"
+"\n"
+" \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
+"  \\override Score.BarNumber.break-visibility = #end-of-line-invisible\n"
+"\n"
+"在Lilypond 2.23.7版本之前，由于技术原因，缺少 \\bar \"\" \n"
+"命令的谱表中无法显示第一个小节的编号，但在2.23.7及之后\n"
+"的版本中此问题已被修正。如果您不需要显示第一个小节的编号，\n"
+"请删除命令\n"
+"\n"
+"  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 
 #: convertrules.py:4638
 msgid ""
@@ -884,6 +899,9 @@ msgid ""
 "has music following \\fine that you want to exclude when it is\n"
 "unfolded, use \\volta to exclude it.\n"
 msgstr ""
+"\n"
+"警告：\\fine不再强制结束乐谱。如果您希望（在乐谱展开后）排除\\fine后面\n"
+"的乐谱，请改用\\volta命令。\n"
 
 #: convertrules.py:4644
 msgid ""
@@ -899,6 +917,16 @@ msgid ""
 "If you are not content with the new default layout, deal with Divisio\n"
 "and Divisio_engraver in the appropriate Staff-aliased context.\n"
 msgstr ""
+"\n"
+"MensuralStaff和VaticanaStaff已改用Divisio_engraver，并将音符分割翻译\n"
+"为Divisio图形对象。\n"
+"\n"
+"在之前的版本中，相应的Voice-aliased上下文会使用Breathing_sign_engraver\n"
+"将音符分割翻译为BreathingSign图形对象。由于对象名称和记号所属层次的变化\n"
+"（音色->谱表），针对旧的布局方案的调整可能部适用于新版本。\n"
+"\n"
+"如果您对新的默认布局不满意，请在相应的Staff-alised上下文中调整Divisio和\n"
+"Divisio_engraver的属性。\n"
 
 #: convertrules.py:4657
 msgid ""
@@ -919,6 +947,18 @@ msgid ""
 "also be used to switch to engraving Divisio grobs instead of BarLine\n"
 "grobs.\n"
 msgstr ""
+"\n"
+"GregorianTranscriptionStaff已使用Bar_engraver将\\divisioMinima、\\divisioMaior\n"
+"和\\divisioMaxima翻译为BarLine图形对象，并使用Divisio_engraver将\\caesura和\\virgula\n"
+"翻译为Divisio图形对象。\n"
+"\n"
+"在之前的版本中，GregorianTranscriptionVoice使用Breathing_sign_engraver\n"
+"将上述命令记为BreathingSign图形对象。由于对象名称和记号所属层次的变化\n"
+"（音色->谱表），针对旧的布局方案的调整可能部适用于新版本。\n"
+"\n"
+"如果您对新的默认布局不满意，请在GregorianTranscriptionStaff这一上下文\n"
+"中调整BarLine、Bar_engraver、Divisio和Divisio_engraver的属性。您也可以\n"
+"用\\EnableGregorianDivisiones命令从BarLine图形对象切换至Divisio图形对象。\n"
 
 #: convertrules.py:4700
 msgid ""
@@ -926,6 +966,8 @@ msgid ""
 "The barAlways property has been removed.  Instead, use\n"
 "forbidBreakBetweenBarLines.\n"
 msgstr ""
+"\n"
+"barAlways属性已被移除。请使用forbidBreakBetweenBarLines。\n"
 
 #: lilylib.py:50
 #, python-format
@@ -981,8 +1023,7 @@ msgid "Unable to convert alteration %s to a lilypond expression"
 msgstr "无法将可变量 %s 转换为 Lilypond 表达式"
 
 #: musicxml.py:116
-#, fuzzy, python-format
-#| msgid "more than one child of class %s, all butthe first will be ignored"
+#, python-format
 msgid "more than one child of class %s, all but the first will be ignored"
 msgstr "%s 类有多个子类，默认采用第一个子类"
 
@@ -1260,30 +1301,26 @@ msgid "format Texinfo output so that Info will look for images of music in DIR"
 msgstr "设置 Texinfo 的输出格式，以便 Info 可以在指定文件夹中查找乐曲图片"
 
 #: lilypond-book.py:184
-#, fuzzy, python-format
-#| msgid "pad left side of music to align music in spite of uneven bar numbers (in mm)"
+#, python-format
 msgid "pad left side of music to align music in spite of uneven bar numbers (in mm) [default: %default]"
-msgstr "当乐曲的小节数为奇数时，填充乐曲左侧空间，使得乐曲内容对齐（单位：毫米）"
+msgstr "当乐曲的小节数为奇数时，填充乐曲左侧空间，使得乐曲内容对齐[默认值：%default]（单位：毫米）"
 
 #: lilypond-book.py:186
 msgid "PAD"
 msgstr "填充值"
 
 #: lilypond-book.py:192
-#, fuzzy, python-format
-#| msgid "Print lilypond log messages according to LOGLEVEL"
+#, python-format
 msgid "print lilypond log messages according to LOGLEVEL [default: %default]"
-msgstr "根据预设的日志等级，显示 Lilypond 日志信息"
+msgstr "根据预设的日志等级，显示 Lilypond 日志信息 [默认值：%default]"
 
 #: lilypond-book.py:200
 msgid "write lily-XXX files to DIR, link into --output dir"
 msgstr "写入 lily-XXX 文件到指定文件夹，并链接到 --output 指定的文件夹下"
 
 #: lilypond-book.py:208
-#, fuzzy
-#| msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
 msgid "print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS [default], DEBUG)"
-msgstr "根据日志级别，输出相应的日志信息（日志级别可以为 NONE， ERROR，WARNING，PROGRESS（默认） 或 DEBUG）"
+msgstr "根据日志级别，输出相应的日志信息（日志级别可以为 NONE， ERROR，WARNING，PROGRESS[默认值] 或 DEBUG）"
 
 #: lilypond-book.py:216
 msgid "write output to DIR"
@@ -1299,7 +1336,7 @@ msgstr "命令"
 
 #: lilypond-book.py:230
 msgid "redirect the lilypond output"
-msgstr "重定向 lilypond 输出"
+msgstr "重定向 LilyPond 输出"
 
 #: lilypond-book.py:236
 msgid "removed; using this option results in an error"
@@ -1322,14 +1359,10 @@ msgid "be verbose"
 msgstr "输出更多信息"
 
 #: lilypond-book.py:280
-#, fuzzy
-#| msgid ""
-#| "run executable PROG instead of latex, or in\n"
-#| "case --pdf option is set instead of pdflatex"
 msgid "run executable PROG instead of latex or, in case --pdf option is set, instead of pdflatex"
 msgstr ""
-"运行指定的程序（而非 latex）；如果使用\n"
-" --pdf 选项指定了程序，则运行该程序（而非 pdflatex）"
+"运行指定的程序（默认值为 latex）\n"
+"如果使用 --pdf 选项指定了程序，则运行该程序（默认值为 pdflatex）"
 
 #: lilypond-book.py:283 lilypond-book.py:289
 msgid "PROG"
@@ -1341,7 +1374,7 @@ msgstr "运行指定的程序（而非 texi2pdf）"
 
 #: lilypond-book.py:294
 msgid "create PDF files for use with pdftex"
-msgstr "使用 pdftex 创建 PDF 文件"
+msgstr "使用pdftex 创建 PDF 文件"
 
 #: lilypond-book.py:342
 #, python-format
@@ -1442,6 +1475,13 @@ msgid ""
 "  -h, --help          show this help\n"
 "  -v, --version       show version\n"
 msgstr ""
+"用法：lilypond-invoke-editor textedit://FILE:LINE:CHAR:COLUMN\n"
+"\n"
+"访问指定文件，并将光标移动到指定位置。\n"
+"\n"
+"选项：\n"
+" -h, --help        显示此帮助\n"
+" -v, --version    显示版本号\n"
 
 #: lilypond-invoke-editor.py:133
 msgid "failed to invoke editor:"
@@ -1716,7 +1756,7 @@ msgstr "目标音高"
 
 #: musicxml2ly.py:3027
 msgid "set pitch to transpose by the interval between pitch 'c' and TOPITCH"
-msgstr "设置要转调的目标音高（原始音高为“c”）"
+msgstr "根据目标音高与\"c\"之间的音程差来转调"
 
 #: musicxml2ly.py:3031
 msgid "BEATS/BEATTYPE"
@@ -1875,7 +1915,7 @@ msgstr "找不到字体：“%s”"
 
 #: alternative-sequence-iterator.cc:94
 msgid "missing volta specification on alternative element"
-msgstr ""
+msgstr "可变重复元素缺少volta记号"
 
 #: apply-context-iterator.cc:43
 msgid "\\applycontext argument is not a procedure"
@@ -1969,65 +2009,64 @@ msgid "removing beam with no stems"
 msgstr "移除没有符干的符尾"
 
 #: breathing-sign.cc:61
-#, fuzzy, c-format
-#| msgid "do not know how to interpret articulation:"
+#, c-format
 msgid "do not know how to interpret breath type: %s"
-msgstr "无法解析发音记号："
+msgstr "无法解析发音记号：%s"
 
 #: cairo.cc:131
 #, c-format
 msgid "Cairo context status '%s'"
-msgstr ""
+msgstr "Cairo上下文状态“%s”"
 
 #: cairo.cc:139
 #, c-format
 msgid "Cairo surface status '%s'"
-msgstr ""
+msgstr "Cairo界面状态“%s”"
 
 #: cairo.cc:202
 #, c-format
 msgid "libpng error: '%s'"
-msgstr "libpng 错误：'%s'"
+msgstr "libpng错误：\"%s\""
 
 #: cairo.cc:204
 msgid "libpng error, no details given."
-msgstr "libpng 错误，无法提供细节。"
+msgstr "libpng出错，且无法提供具体错误信息。"
 
 #: cairo.cc:259
 #, c-format
 msgid "error writing %s"
-msgstr "写入 %s 时出错"
+msgstr "写入%s时出错"
 
 #: cairo.cc:559 cairo.cc:572
-#, fuzzy, c-format
-#| msgid "unknown line-cap-style: ~S"
+#, c-format
 msgid "unknown line-cap-style: %s"
-msgstr "line-cap-style 未知：~S"
+msgstr "line-cap-style 未知：%s"
 
 #: cairo.cc:671
-#, fuzzy, c-format
-#| msgid "Layout output to `~a'..."
+#, c-format
 msgid "Layout output to `%s'...\n"
-msgstr "导出布局至“~a”..."
+msgstr "导出布局至“%s”...\n"
 
 #: cairo.cc:938
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
+"只有PS/EPS支持输出嵌入式EPS。\n"
+"如需输出为其他格式，请使用Ghostscript。"
 
 #: cairo.cc:1018
 msgid "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in other formats"
-msgstr ""
+msgstr "只有PS/EPS支持输出嵌入式EPS。如需输出为其他格式，请使用Ghostscript"
 
 #: cairo.cc:1239
 msgid "Cairo too old for PDF metadata"
-msgstr ""
+msgstr "Cairo版本号过低，不支持PDF元数据"
 
 #: cairo.cc:1413
 #, c-format
 msgid "unknown output format %s"
-msgstr "未知的输出格式 %s"
+msgstr "输出格式 %s 未知"
 
 #: change-iterator.cc:95
 #, c-format
@@ -2035,10 +2074,9 @@ msgid "cannot find context to change to: %s"
 msgstr "找不到合适的上下文来转换为：%s"
 
 #: change-iterator.cc:101
-#, fuzzy, c-format
-#| msgid "cannot find context to change to: %s"
+#, c-format
 msgid "cannot find context to change from: %s"
-msgstr "找不到合适的上下文来转换为：%s"
+msgstr "找不到合适的上下文来转换 %s"
 
 #: chord-tremolo-engraver.cc:87
 msgid "No tremolo to end"
@@ -2103,7 +2141,7 @@ msgstr "找不到换行符“%s”"
 #: directional-element-interface.cc:33
 #, c-format
 msgid "direction of grob %s must be UP or DOWN; using UP"
-msgstr ""
+msgstr "图形对象%s的方向必须为UP或DOWN；默认为UP"
 
 #: dispatcher.cc:89
 msgid "Event class should be a list"
@@ -2118,10 +2156,9 @@ msgid "Already listening to dispatcher, ignoring request"
 msgstr "已经监听了分发器，因此忽略请求"
 
 #: drum-note-engraver.cc:102
-#, fuzzy, c-format
-#| msgid "unrecognized option: `%s'"
+#, c-format
 msgid "unrecognised percussion sign: \"%s\""
-msgstr "无法识别选项：“%s”"
+msgstr "无法识别打击乐记号：“%s”"
 
 #: dynamic-engraver.cc:145
 #, c-format
@@ -2140,50 +2177,47 @@ msgstr "%s 缺少结尾"
 #: engraver.cc:115
 #, c-format
 msgid "grob %s created with disallowed class %s (expected any class in the list %s)"
-msgstr ""
+msgstr "无法创建类型为%2$s的图形对象%1$s（应当为%3$s之一）"
 
 #: engraver.cc:129
 #, c-format
 msgid "meta.classes must be non-empty list, found %s"
-msgstr ""
+msgstr "meta.classes列表不能为空，但实际为%s"
 
 #: engraver.cc:134
 msgid "must have only one element in meta.classes to create a grob without specifying the class"
-msgstr ""
+msgstr "若要在不指定对象类型的情况下创建图形对象，meta.classes至少应包含一个元素。"
 
 #: engraver.cc:147
 #, c-format
 msgid "grob class should be 'Item, 'Spanner or 'Paper_column, found %s"
-msgstr ""
+msgstr "图形对象的类型应当为'Item、'Spanner'或'Paper_column之一，但实际为%s"
 
 #: engraver.cc:177
-#, fuzzy, c-format
-#| msgid "no side-axis setting found for grob %s."
+#, c-format
 msgid "No grob definition found for `%s'."
-msgstr "找不到 grob %s 的 side-axis 设置。"
+msgstr "找不到图形对象“%s”的定义。"
 
 #: engraver.cc:230
 #, c-format
 msgid "sticky grob %s created with a type that does not have the sticky-grob-interface"
-msgstr ""
+msgstr "创建了关联图形对象 %s，但被关联的对象缺少sticky-grob-interface"
 
 #: episema-engraver.cc:69
 msgid "already have an episema"
 msgstr "已存在一个 episema 记号"
 
 #: episema-engraver.cc:70
-#, fuzzy
-#| msgid "beam was started here"
 msgid "episema was started here"
-msgstr "符尾从此处开始"
+msgstr "连续顿音（episema）从此处开始"
 
 #: episema-engraver.cc:81
 msgid "cannot find start of episema"
-msgstr "找不到 episema 起始记号"
+msgstr "找不到连续顿音起始记号"
 
 #: episema-engraver.cc:131
 msgid "unterminated episema"
-msgstr "缺少 episema 终止记号"
+msgstr "缺少连续顿音终止记号"
 
 #: extender-engraver.cc:168 extender-engraver.cc:177
 msgid "unterminated extender"
@@ -2229,7 +2263,7 @@ msgstr "初始化 FontConfig..."
 
 #: font-config.cc:61
 msgid "cannot find fontconfig default config, skipping."
-msgstr ""
+msgstr "找不到默认的fontconfig配置，跳过。"
 
 #: font-config.cc:74
 #, c-format
@@ -2312,16 +2346,16 @@ msgstr "解析乐谱中..."
 
 #: global-context-scheme.cc:112
 msgid "skipping zero-duration score"
-msgstr ""
+msgstr "跳过长度为零的乐谱"
 
 #: global-context-scheme.cc:113
 msgid "to suppress this, consider adding a spacer rest"
-msgstr ""
+msgstr "若要强制解析长度为零的乐谱，请在乐谱中添加一个空白休止符"
 
 #. The top-level music is LyricCombineMusic or something similar.
 #: global-context.cc:143
 msgid "cannot determine music length"
-msgstr "无法确定音乐长度"
+msgstr "无法确定乐谱长度"
 
 #: global-context.cc:194
 #, c-format
@@ -2348,11 +2382,11 @@ msgstr "无法将“\\~”应用到相同音高的音符头部"
 
 #: grob-array.cc:88
 msgid "ly:grob-list->grob-array encountered a non-grob object"
-msgstr ""
+msgstr "ly:grob-list->grob-array 的参数不是图形对象"
 
 #: grob-array.cc:93
 msgid "ly:grob-list->grob-array expected a list"
-msgstr ""
+msgstr "ly:grob-list->grob-array 需要一个列表作为参数"
 
 #: grob-interface.cc:71
 #, c-format
@@ -2362,11 +2396,11 @@ msgstr "未知接口“%s”"
 #: grob-interface.cc:81
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
-msgstr "Grob“%s”没有适合属性“%s”的接口"
+msgstr "图形对象“%s”没有适合属性“%s”的接口"
 
 #: grob-property.cc:79
 msgid "To use grob debug callbacks, configure with --enable-checking"
-msgstr ""
+msgstr "要使用图形对象的调试回调函数（debug callback），请在编译时使用 --enable-checking 配置选项。"
 
 #: grob-scheme.cc:55
 msgid "typecheck failed"
@@ -2378,10 +2412,9 @@ msgid "ignored infinite %s-offset"
 msgstr "忽略无穷大 %s-偏移量"
 
 #: guile-init.cc:101
-#, fuzzy, c-format
-#| msgid "Load lily.scm: %.2f seconds"
+#, c-format
 msgid "(primitive-load-path lily): %.2f seconds"
-msgstr "加载 lily.scm：%.2f 秒"
+msgstr "（primitive-load-path lily）：%.2f 秒"
 
 #: hairpin.cc:62
 msgid "Asking for broken bound padding at a non-broken bound."
@@ -2390,7 +2423,7 @@ msgstr "试图在非中断边界应用中断边界填充。"
 #: hairpin.cc:174
 #, c-format
 msgid "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', setting to '%d'"
-msgstr ""
+msgstr "发夹式记号：方向“%f”对于属性“endpoint-alignments”来说无效，将使用默认值“%d”"
 
 #: hairpin.cc:293
 msgid "decrescendo too small"
@@ -2427,10 +2460,8 @@ msgid "position unknown"
 msgstr "位置未知"
 
 #: jump-engraver.cc:104 jump-engraver.cc:174 jump-engraver.cc:185
-#, fuzzy
-#| msgid "mark label must be a markup object"
 msgid "jump text must be a markup object"
-msgstr "注释标签必须为标记对象"
+msgstr "跳跃文本必须为标记对象"
 
 #: keep-alive-together-engraver.cc:96
 #, c-format
@@ -2646,33 +2677,27 @@ msgstr ""
 
 #: main.cc:131
 msgid "SYM[=VAL]"
-msgstr "符号[=值]"
+msgstr "选项名[=值]"
 
 #: main.cc:132
-#, fuzzy
-#| msgid ""
-#| "set Scheme option SYM to VAL (default: #t);\n"
-#| "use -dhelp for help"
 msgid "set Scheme option SYM to VAL (default: '#t')"
-msgstr ""
-"设置指定的方案选项为指定值（默认值：#t）；\n"
-"使用 -dhelp 以获取更多帮助"
+msgstr "将方案中指定的选项设为指定值（默认值：“#t”）"
 
 #: main.cc:133
 msgid "no-SYM"
-msgstr ""
+msgstr "no-选项名"
 
 #: main.cc:133
 msgid "set Scheme option SYM to '#f'"
-msgstr ""
+msgstr "将方案中指定的选项设为“#f”"
 
 #: main.cc:134
 msgid "help"
-msgstr ""
+msgstr "帮助"
 
 #: main.cc:134
 msgid "show help for Scheme options"
-msgstr ""
+msgstr "显示有关方案选项的帮助"
 
 #: main.cc:135
 msgid "EXPR"
@@ -2762,7 +2787,7 @@ msgstr ""
 #: main.cc:223
 #, c-format
 msgid "%s %s (running Guile %s)"
-msgstr ""
+msgstr "%s %s（运行Guile %s）"
 
 #: main.cc:235
 #, c-format
@@ -2810,10 +2835,9 @@ msgid "linked against Ghostscript:"
 msgstr "链接至 Ghostsciprt："
 
 #: main.cc:373
-#, fuzzy, c-format
-#| msgid "expected %d arguments with jail, found: %u"
+#, c-format
 msgid "expected %d arguments with jail, found: %zu"
-msgstr "切换安全目录需要 %d 个参数，但实际为：%u"
+msgstr "切换安全目录需要 %d 个参数，但实际为：%zu"
 
 #: main.cc:387
 #, c-format
@@ -2930,10 +2954,9 @@ msgid "cannot create temp file: %s: %s"
 msgstr "无法创建临时文件 %s：%s"
 
 #: midi-stream.cc:65
-#, fuzzy, c-format
-#| msgid "error reading font file %s: %s"
+#, c-format
 msgid "error writing MIDI file: %s"
-msgstr "读取字体文件 %s 时出错：%s"
+msgstr "写入MIDI文件时出错：%s"
 
 #: midi-stream.cc:82
 #, c-format
@@ -3170,7 +3193,7 @@ msgstr "无法获取 CFF 名"
 #: open-type-font.cc:360
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
-msgstr ""
+msgstr "字体中缺少与字形 %s 相关的符尾"
 
 #: open-type-font.cc:382
 #, c-format
@@ -3184,7 +3207,7 @@ msgstr "FT_Get_Glyph_Name () 错误：%s"
 
 #: optimal-page-breaking.cc:65
 msgid "page-count must be positive"
-msgstr ""
+msgstr "page-count必须为正数"
 
 #: optimal-page-breaking.cc:87
 msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
@@ -3196,22 +3219,19 @@ msgid "Finding the ideal number of pages..."
 msgstr "计算合适的页数..."
 
 #: optimal-page-breaking.cc:134
-#, fuzzy, c-format
-#| msgid "Fitting music on %d pages..."
+#, c-format
 msgid "Fitting music on %zu pages..."
-msgstr "将乐曲内容调整至 %d 页..."
+msgstr "将乐曲内容调整至 %zu 页..."
 
 #: optimal-page-breaking.cc:137
-#, fuzzy, c-format
-#| msgid "Fitting music on %d or %d pages..."
+#, c-format
 msgid "Fitting music on %zu or %zu pages..."
-msgstr "将乐曲内容调整至 %d 或 %d 页..."
+msgstr "将乐曲内容调整至 %zu 或 %zu 页..."
 
 #: optimal-page-breaking.cc:147 optimal-page-breaking.cc:203
-#, fuzzy, c-format
-#| msgid "trying %d systems"
+#, c-format
 msgid "trying %zu systems"
-msgstr "调整为 %d 个谱表组"
+msgstr "调整为 %zu 个谱表组"
 
 #: optimal-page-breaking.cc:166 optimal-page-breaking.cc:231
 #, c-format
@@ -3224,10 +3244,9 @@ msgid "Drawing systems..."
 msgstr "绘制谱表组..."
 
 #: ottava-engraver.cc:101
-#, fuzzy, c-format
-#| msgid "Could not find ottavation markup for ~a octaves up."
+#, c-format
 msgid "Could not find ottavation markup for %d octaves up."
-msgstr "找不到与上移八度记号 ~a 匹配的八度记号。"
+msgstr "找不到可以表示上移%d度的八度记号。"
 
 #: output-def.cc:229
 msgid "margins do not fit with line-width, setting default values"
@@ -3253,12 +3272,12 @@ msgstr "第 %d 页已被压缩"
 #: page-breaking.cc:1254
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
-msgstr ""
+msgstr "页数太少：%ld（至少%ld页）"
 
 #: page-breaking.cc:1259
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
-msgstr ""
+msgstr "页数太少：%ld（至多%ld页）"
 
 #: page-layout-problem.cc:431
 msgid "A page layout problem has been initiated that cannot accommodate footnotes."
@@ -3279,23 +3298,21 @@ msgstr "staff-affinities 应当为递减值"
 
 #: page-spacing.cc:195
 msgid "tried to space systems on a bad number of pages"
-msgstr ""
+msgstr "指定的页数有误，无法用于容纳谱表组"
 
 #: page-turn-page-breaking.cc:190
-#, fuzzy, c-format
-#| msgid "page-turn-page-breaking: breaking from %d to %d"
+#, c-format
 msgid "page-turn-page-breaking: breaking from %zu to %zu"
-msgstr "page-turn-page-breaking：在第 %d 至第 %d 页之间换页"
+msgstr "page-turn-page-breaking：在第 %zu 至第 %zu 页之间换页"
 
 #: page-turn-page-breaking.cc:244
 msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
 msgstr "无法在单个页面中容纳首页换页符。请尝试将 first-page-number 设为偶数。"
 
 #: page-turn-page-breaking.cc:257
-#, fuzzy, c-format
-#| msgid "Calculating page and line breaks (%d possible page breaks)..."
+#, c-format
 msgid "Calculating page and line breaks (%zu possible page breaks)..."
-msgstr "计算页面和换行符（共有 %d 个可能的换行处）..."
+msgstr "计算页面和换行符（共有 %zu 个可能的换行处）..."
 
 #: page-turn-page-breaking.cc:328
 #, c-format
@@ -3313,16 +3330,14 @@ msgid "\tsystem count: %zu"
 msgstr "\t谱表组数：%zu"
 
 #: page-turn-page-breaking.cc:331
-#, fuzzy, c-format
-#| msgid "\tpage count: %d"
+#, c-format
 msgid "\tpage count: %zu"
-msgstr "\t页数：%d"
+msgstr "\t页数：%zu"
 
 #: page-turn-page-breaking.cc:332
-#, fuzzy, c-format
-#| msgid "\tprevious break: %d"
+#, c-format
 msgid "\tprevious break: %zu"
-msgstr "\t上一个换页符：%d"
+msgstr "\t上一个换页符：%zu"
 
 #: pango-font.cc:247
 #, c-format
@@ -3344,6 +3359,8 @@ msgid ""
 "FT_Get_CID_From_Glyph_Index () error: %s\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
+"FT_Get_CID_From_Glyph_Index () 函数出错：%s\n"
+"跳过字形 U+%04X，文件 %s"
 
 #: pango-font.cc:418
 #, c-format
@@ -3355,21 +3372,19 @@ msgid "FreeType face has no PostScript font name"
 msgstr "FreeType 字体缺少 PostScript 字体名"
 
 #: paper-book.cc:344
-#, fuzzy, c-format
-#| msgid "program option -dpreview not supported by backend `%s'"
+#, c-format
 msgid "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
-msgstr "后端“%s”不支持程序选项 -dpreview"
+msgstr "后端“%s”不支持程序选项 -dclip-systems、-dcrop或-dpreview"
 
 #: paper-book.cc:396
-#, fuzzy, c-format
-#| msgid "program option -dcrop not supported by backend `%s'"
+#, c-format
 msgid "multi-page output not supported by backend `%s'"
-msgstr "后端“%s”不支持程序选项 -dcrop"
+msgstr "后端“%s”不支持多页输出"
 
 #: paper-column.cc:457
 #, c-format
 msgid "refusing to create a grob sticking to Paper_column grob %s; paper columns should not be created from custom engravers."
-msgstr ""
+msgstr "禁止创建关联到Paper_column %s 的图形对象；无法基于自定义标记创建paper column。"
 
 #: paper-outputter.cc:125
 #, c-format
@@ -3386,19 +3401,17 @@ msgid "Preprocessing graphical objects..."
 msgstr "预处理图形对象..."
 
 #: parse-scm.cc:119 parse-scm.cc:156
-#, fuzzy
-#| msgid "GUILE signaled an error for the expression beginning here"
 msgid "Guile signaled an error for the expression beginning here"
-msgstr "GUILE 提示此处的表达式有误"
+msgstr "Guile 提示此处的表达式有误"
 
 #: percent-repeat-engraver.cc:97
 msgid "percent repeat started while another already in progress"
-msgstr ""
+msgstr "percent型的重复记号必须在其他重复记号结束之后才能出现"
 
 #: performance.cc:72
 #, c-format
 msgid "too many MIDI tracks: %zu"
-msgstr ""
+msgstr "MIDI音轨数过多：%zu"
 
 #: performance.cc:76
 msgid "Track..."
@@ -3437,10 +3450,8 @@ msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "找不到钢琴踏板括号的起始记号：“%s”"
 
 #: piano-pedal-performer.cc:90
-#, fuzzy
-#| msgid "cannot find start of piano pedal: `%s'"
 msgid "cannot find start of piano pedal"
-msgstr "找不到钢琴踏板起始记号：“%s”"
+msgstr "找不到钢琴踏板起始记号"
 
 #: program-option-scheme.cc:238
 #, c-format
@@ -3450,7 +3461,7 @@ msgstr "内部选项无效：%s"
 #: property-iterator.cc:67
 #, c-format
 msgid "not a grob name, `%s'"
-msgstr "“%s”不是 grob 名"
+msgstr "“%s”不是图形对象名"
 
 #: relative-octave-check.cc:51
 msgid "Failed octave check, got: "
@@ -3622,19 +3633,18 @@ msgid "errors found, ignoring music expression"
 msgstr "出现错误，将会忽略音乐表达式"
 
 #: script-engraver.cc:116
-#, fuzzy, c-format
-#| msgid "do not know how to interpret articulation:"
+#, c-format
 msgid "do not know how to interpret articulation: %s"
-msgstr "无法解析发音记号："
+msgstr "无法解析发音记号：%s"
 
 #: script-interface.cc:40
 #, c-format
 msgid "script-stencil property must be pair: %s"
-msgstr ""
+msgstr "script-stencil属性必须成对出现：%s"
 
 #: script-interface.cc:59
 msgid "script needs an explicit direction specifier to disambiguate between different glyphs"
-msgstr ""
+msgstr "为了区分不同的字形，脚本中必须明确指定方向"
 
 #. Maybe a callback provided music inconsistent with the
 #. precomputed length.
@@ -3642,19 +3652,19 @@ msgstr ""
 #. iterated in a debug message.
 #: sequential-iterator.cc:140
 msgid "total length of sequential music elements is different than anticipated"
-msgstr ""
+msgstr "音乐元素序列的总长度与预期值不一致"
 
 #. iter_ is !ok earlier than the length of its music predicts.
 #. Mitigate by waiting until the expected time so that the next
 #. element starts in sync.
 #: sequential-iterator.cc:173
 msgid "music is shorter than anticipated"
-msgstr ""
+msgstr "音乐内容短于预期"
 
 #: side-position-interface.cc:486
 #, c-format
 msgid "no side-axis setting found for grob %s."
-msgstr "找不到 grob %s 的 side-axis 设置。"
+msgstr "找不到图形对象 %s 的 side-axis 设置。"
 
 #: skyline.cc:561
 msgid "Cannot have negative horizon padding.  Junking."
@@ -3693,7 +3703,7 @@ msgstr "连音线中包含空的音符列。"
 #: slur.cc:413
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
-msgstr "忽略连音的 grob：%s。您是否忘记设置 avoid slur？"
+msgstr "忽略连音内的图形对象：%s。您是否忘记设置 avoid slur？"
 
 #: source-file.cc:58
 #, c-format
@@ -3750,7 +3760,7 @@ msgstr "路径模版中的路径有误。"
 #: stencil-scheme.cc:474
 #, c-format
 msgid "invalid sequence %c%c in color (characters should be in one of ranges 0-9, a-f, A-F)"
-msgstr ""
+msgstr "颜色记号%c %c格式有误（只能使用0-9、a-f、A-F的字符）"
 
 #: stream-event.cc:112
 #, c-format
@@ -3770,11 +3780,11 @@ msgstr "元素数 %zu"
 #: system.cc:524
 #, c-format
 msgid "Grob count %zu"
-msgstr "Grob 数 %zu"
+msgstr "图形对象数 %zu"
 
 #: system.cc:1033
 msgid "refusing to create a grob sticking to a System grob; systems should not be created from custom engravers."
-msgstr ""
+msgstr "禁止创建关联到谱表组的图形对象；无法基于自定义标记创建谱表组。"
 
 #. TODO: Also print the arguments of the markup!
 #: text-interface.cc:208
@@ -3791,10 +3801,8 @@ msgid "already have a text spanner"
 msgstr "已经存在文本组"
 
 #: text-spanner-engraver.cc:77
-#, fuzzy
-#| msgid "beam was started here"
 msgid "text spanner was started here"
-msgstr "符尾从此处开始"
+msgstr "文本组从此处开始"
 
 #: text-spanner-engraver.cc:126
 msgid "unterminated text spanner"
@@ -3824,11 +3832,11 @@ msgstr "小节内部的时值记号缺少 \\partial 标记"
 
 #: time-signature-performer.cc:93
 msgid "bad baseMoment/beatStructure for MIDI time signature"
-msgstr ""
+msgstr "baseMoment或beatStructure有误，无法翻译为MIDI时值记号"
 
 #: timing-translator.cc:256
 msgid "found music after \\fine"
-msgstr ""
+msgstr "\\fine之后出现音乐内容"
 
 #: translator-ctors.cc:125
 #, c-format
@@ -3838,7 +3846,7 @@ msgstr "translator 未知：“%s”"
 #: translator-group-ctors.cc:40
 #, c-format
 msgid "Couldn't find translator type %s (should be Engraver_group, Performer_group, Score_engraver or Score_performer)"
-msgstr ""
+msgstr "找不到类型为%s的翻译器（应当为Engraver_group、Performer_group、Score_engraver或Score_performer之一）"
 
 #: translator-group.cc:147
 #, c-format
@@ -3879,16 +3887,14 @@ msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
 msgstr "在 VerticalAxisGroup 中忽略 Vertical_align_engraver"
 
 #: vertical-align-engraver.cc:170
-#, fuzzy, c-format
-#| msgid "file not found: %s"
+#, c-format
 msgid "alignAboveContext not found: %s"
-msgstr "找不到文件：%s"
+msgstr "找不到alignAboveContext：%s"
 
 #: vertical-align-engraver.cc:175
-#, fuzzy, c-format
-#| msgid "file not found: %s"
+#, c-format
 msgid "alignBelowContext not found: %s"
-msgstr "找不到文件：%s"
+msgstr "找不到alignBelowContext：%s"
 
 #. fixme: be more verbose.
 #: volta-engraver.cc:317
@@ -3949,7 +3955,7 @@ msgstr "不是键名"
 
 #: parser.yy:2753 parser.yy:2884 parser.yy:2900
 msgid "bad grob property path"
-msgstr "grob 属性路径错误"
+msgstr "图形对象的属性路径错误"
 
 #: parser.yy:2855
 msgid "only \\consists and \\remove take non-string argument."
@@ -3986,13 +3992,11 @@ msgstr "需要在歌词模式中使用歌词"
 #: parser.yy:3320
 #, c-format
 msgid "Re-defining dash%s using a string is deprecated. Please try replacing \"%s\" by \\%s or run convert-ly."
-msgstr ""
+msgstr "使用字符串来重定义dash%s的语法已被弃用。请将“%s”改为\\%s，或使用convert-ly进行转换。"
 
 #: parser.yy:3328
-#, fuzzy
-#| msgid "expecting string or post-event as script definition"
 msgid "expecting post-event as script definition"
-msgstr "脚本定义应当为字符串或 post-event"
+msgstr "脚本定义应当post-event"
 
 #: parser.yy:3505 parser.yy:3572
 msgid "not a duration"
@@ -4008,7 +4012,7 @@ msgstr "应当为数字表示的低音记号"
 
 #: parser.yy:3624
 msgid "Dropping surplus alteration symbols for bass figure."
-msgstr ""
+msgstr "忽略低音音符中的多余符号。"
 
 #: parser.yy:3702
 msgid "have to be in Note mode for notes"
@@ -4060,7 +4064,7 @@ msgstr "忽略孤立的 %s"
 #: parser.yy:4845
 #, c-format
 msgid "deprecated: missing `.' in property path %s"
-msgstr ""
+msgstr "已弃用：属性路径%s中缺少“.”"
 
 #: lexer.ll:208
 msgid "stray UTF-8 BOM encountered"
@@ -4172,10 +4176,9 @@ msgid "Copying to `~a'...\n"
 msgstr "复制到“~a”...\n"
 
 #: backend-library.scm:296
-#, fuzzy, scheme-format
-#| msgid "can't create temp file for ~a after ~a times"
+#, scheme-format
 msgid "can't create temp file in ~a after ~a times"
-msgstr "为 ~a 创建临时文件失败（尝试 ~a 次）"
+msgstr "创建位于 ~a 的临时文件失败（已尝试 ~a 次）"
 
 #: backend-library.scm:332
 #, scheme-format
@@ -4302,7 +4305,7 @@ msgstr "找不到用于属性 ~S 的接口"
 #: document-backend.scm:275
 #, scheme-format
 msgid "unknown Grob interface: ~S"
-msgstr "Grob 接口未知：~S"
+msgstr "未知的图形对象接口：~S"
 
 #: document-context-mods.scm:78
 #, scheme-format
@@ -4471,7 +4474,7 @@ msgstr "字体导出目录“~a”已存在。"
 
 #: framework-ps.scm:753
 msgid "PS backend does not support SVG format"
-msgstr ""
+msgstr "PS后端不支持SVG格式"
 
 #: framework-ps.scm:836
 #, scheme-format
@@ -4484,10 +4487,9 @@ msgid "Updating font into: ~a"
 msgstr "更新字体至：~a"
 
 #: framework-svg.scm:121
-#, fuzzy, scheme-format
-#| msgid "unsupported font format: %s"
+#, scheme-format
 msgid "ignoring unsupported formats ~a"
-msgstr "不支持字体格式：%s"
+msgstr "忽略不支持的格式 ~a"
 
 #: fret-diagrams.scm:33
 #, scheme-format
@@ -4500,10 +4502,9 @@ msgid "String ~a out of range 1-~a, ignoring"
 msgstr "字符串 ~a 超出范围 1-~a，将其忽略"
 
 #: graphviz.scm:65
-#, fuzzy, scheme-format
-#| msgid "Writing graph `~a'..."
+#, scheme-format
 msgid "Writing graph to `~a'...\n"
-msgstr "写入图像“~a”..."
+msgstr "写入图像“~a”...\n"
 
 #: harp-pedals.scm:119
 #, scheme-format
@@ -4553,19 +4554,17 @@ msgstr "乐曲内容不适用于 output-def"
 
 #: lily-library.scm:993
 msgid "version with third number omitted is only allowed for stable releases (when the second number is even)"
-msgstr ""
+msgstr "只有稳定版的版本号可以为两组数字（并且第二组数字必须为偶数）"
 
 #: lily-library.scm:1006
-#, fuzzy, scheme-format
-#| msgid "Invalid version string \"%s\""
+#, scheme-format
 msgid "Invalid version string \"~a\""
-msgstr "版本字符串“%s”无效"
+msgstr "版本字符串“~a”有误"
 
 #: lily-library.scm:1021
-#, fuzzy, scheme-format
-#| msgid "program too old: %s (file requires: %s)"
+#, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
-msgstr "程序版本太低：%s（读取文件需要的版本：%s）"
+msgstr "程序版本太低：~a（读取文件需要的版本：~a）"
 
 #: lily-library.scm:1037
 #, scheme-format
@@ -4577,6 +4576,12 @@ msgid ""
 "  https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly\n"
 "\n"
 msgstr ""
+"\n"
+"注意：编译失败，且\\version太旧。您是否已经使用convert-ly\n"
+"更新了输入文件的语法？\n"
+"\n"
+"  https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly\n"
+"\n"
 
 #: lily-library.scm:1187
 msgid ""
@@ -4598,16 +4603,14 @@ msgid "no \\version statement found, please add~afor future compatibility"
 msgstr "找不到 \\version 语句，请添加 ~a 以兼容未来的软件版本"
 
 #: lily-library.scm:1346
-#, fuzzy, scheme-format
-#| msgid "conflict with event: `%s'"
+#, scheme-format
 msgid "conflict with event: `~a'"
-msgstr "与事件冲突：“%s”"
+msgstr "与事件冲突：“~a”"
 
 #: lily-library.scm:1347
-#, fuzzy, scheme-format
-#| msgid "discarding event: `%s'"
+#, scheme-format
 msgid "discarding event: `~a'"
-msgstr "废除事件：“%s”"
+msgstr "废除事件：“~a”"
 
 #: lily.scm:112
 msgid "call-after-session used after session start"
@@ -4657,7 +4660,7 @@ msgstr "处理失败的文件：~S"
 #: lily.scm:912
 #, scheme-format
 msgid "Processing `~a'\n"
-msgstr "正在处理“~a”\n"
+msgstr "处理“~a”\n"
 
 #: ly-syntax-constructors.scm:27
 #, scheme-format
@@ -4747,14 +4750,12 @@ msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr "重复类型“~S”未知：必须为 volta、unfold、percent 或 tremolo"
 
 #: music-functions.scm:294
-#, fuzzy
-#| msgid "music expected"
 msgid "alternative music expected"
-msgstr "应当为乐曲内容"
+msgstr "缺少可变重复"
 
 #: music-functions.scm:307
 msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr "可选项的数量多于重复次数。多余的可选项将被忽略"
+msgstr "可变重复的数量多于重复次数。多余的可变重复将被忽略"
 
 #: music-functions.scm:411
 #, scheme-format
@@ -4764,7 +4765,7 @@ msgstr "repeat-type ~a 未知，将其忽略。"
 #: music-functions.scm:501
 #, scheme-format
 msgid "bad grob property path ~a"
-msgstr "grob 属性路径 ~a 错误"
+msgstr "图形对象的属性路径 ~a 错误"
 
 #: music-functions.scm:525
 #, scheme-format
@@ -4819,7 +4820,7 @@ msgstr "变音样式未知：~S"
 
 #: music-functions.scm:2502
 msgid "giving up on cloned grob transform"
-msgstr "停止镜像 grob 变换"
+msgstr "停止变换复制后的图形对象"
 
 #: music-functions.scm:2565
 #, scheme-format
@@ -4842,32 +4843,32 @@ msgid "conflicting tag group ~a"
 msgstr "标签组 ~a 冲突"
 
 #: output-lib.scm:479
-#, fuzzy, scheme-format
-#| msgid "dot `%s' not found"
+#, scheme-format
 msgid "dot glyph ~s not found"
-msgstr "找不到点号“%s”"
+msgstr "找不到点号 ~s"
 
 #: output-lib.scm:935
 #, scheme-format
 msgid "no glyph name for alteration ~a in alteration-glyph-name-alist; try defining one in alterationGlyphs"
-msgstr ""
+msgstr "alteration-glyph-name-alis中没有与~a对应的字形名；请尝试在alterationGlyphs中定义一个字形"
 
 #: output-lib.scm:2025
-#, fuzzy, scheme-format
-#| msgid "Senza-misura time signatures are not yet supported!"
+#, scheme-format
 msgid "~a with two line-breaks is not yet supported"
-msgstr "尚不支持自由节拍（Senza-misura）时值记号！"
+msgstr "尚不支持包含两个换行符的~a"
 
 #: output-lib.scm:2344
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
-msgstr ""
+msgstr "因子~a必须为整数。"
 
 #: output-lib.scm:2840
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
+"空间不足，无法显示完整的箭头。\n"
+"请增加'minimum-length或减少'arrow-length。"
 
 #: output-lib.scm:2856
 msgid "Please consider to increase 'minimum-length"
@@ -4876,12 +4877,12 @@ msgstr "请尝试增大 'minimum-length"
 #: output-lib.scm:3173
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
-msgstr ""
+msgstr "measure-division-lines-alist中没有与小节分割~a相应的项"
 
 #: output-lib.scm:3197
 #, scheme-format
 msgid "no entry in measure-division-chord-placement-alist for measure division ~a"
-msgstr ""
+msgstr "measure-division-chord-placement-alist中没有与小节分割~a相应的项"
 
 #: output-ps.scm:283 output-svg.scm:559
 #, scheme-format
@@ -4916,47 +4917,47 @@ msgstr "set-global-staff-size：不在顶层作用域内"
 #. ISO 216 has a tolerance of +- 2mm
 #: paper.scm:130
 msgid "ISO 216, A series"
-msgstr ""
+msgstr "ISO 216, A 系列"
 
 #: paper.scm:142
 msgid "Two extended sizes as defined in DIN 476"
-msgstr ""
+msgstr "与DIN 476一致，包含两种尺寸扩展"
 
 #: paper.scm:145
 msgid "ISO 216, B series"
-msgstr ""
+msgstr "ISO 216, B 系列"
 
 #: paper.scm:157
 msgid "ISO 269, C series"
-msgstr ""
+msgstr "ISO 216, C 系列"
 
 #: paper.scm:169
 msgid "North American paper sizes"
-msgstr ""
+msgstr "北美纸张尺寸"
 
 #: paper.scm:179
 msgid "Sizes by IEEE Printer Working Group, for children's writing"
-msgstr ""
+msgstr "由IEEE打印机工作组，用于儿童书写"
 
 #: paper.scm:183
 msgid "ANSI sizes"
-msgstr ""
+msgstr "ANSI尺寸"
 
 #: paper.scm:192
 msgid "North American architectural sizes"
-msgstr ""
+msgstr "北美建筑图纸尺寸"
 
 #: paper.scm:199
 msgid "Other sizes, including antique sizes still used in the United Kingdom"
-msgstr ""
+msgstr "其他尺寸，包括英国仍在使用的旧标准"
 
 #: paper.scm:222
 msgid "PA4-based sizes"
-msgstr ""
+msgstr "基于PA4的尺寸"
 
 #: paper.scm:234
 msgid "Additional format for use in Southeast Asia and Australia"
-msgstr ""
+msgstr "南亚和澳大利亚部分地区使用的标准"
 
 #: paper.scm:328
 #, scheme-format
@@ -5004,7 +5005,7 @@ msgstr "“anti-alias-factor”必须为小于 8 的正整数"
 
 #: scheme-engravers.scm:229
 msgid "count not ended before another begun"
-msgstr ""
+msgstr "在下一记号开始之前无法结束当前记号"
 
 #: scheme-engravers.scm:264
 msgid "measure count left unfinished"
@@ -5028,24 +5029,20 @@ msgid ""
 "ignoring. If you want to bend an open string, consider to override/tweak the\n"
 "'bend-me property."
 msgstr ""
+"找不到相应的音符，因此忽略此起始记号。\n"
+"如果您希望调整某个开放和弦的弯曲程度，可以重写或修改'bend-me属性。"
 
 #: scheme-engravers.scm:903
-#, fuzzy
-#| msgid "Unknown metronome mark, ignoring"
 msgid "Unbound BendSpanner, ignoring"
-msgstr "节拍器标记未知，将其忽略"
+msgstr "无法确定BendSpanner的边界，将其忽略"
 
 #: scheme-engravers.scm:1578
-#, fuzzy
-#| msgid "unterminated measure spanner"
 msgid "unterminated measure for chord square"
-msgstr "缺少成组小节终止记号"
+msgstr "chord square小节缺少结束记号"
 
 #: scheme-engravers.scm:1711
-#, fuzzy
-#| msgid "no right bound"
 msgid "no highlight to end"
-msgstr "缺少右边界"
+msgstr "缺少高亮起始记号"
 
 #: stencil.scm:718
 msgid "Both angle-increments and radial-increments must be positive numbers."
@@ -5057,10 +5054,9 @@ msgid "assertion failed: ~S"
 msgstr "断言失败：~S"
 
 #: translation-functions.scm:393
-#, fuzzy, scheme-format
-#| msgid "No glyph found for alteration: %s"
+#, scheme-format
 msgid "no accidental glyph found for alteration ~a"
-msgstr "找不到用于表示变化量的字形：%s"
+msgstr "找不到用于变音记号~a的字形"
 
 #: translation-functions.scm:642
 #, scheme-format
