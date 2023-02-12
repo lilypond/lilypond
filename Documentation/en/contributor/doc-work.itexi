@@ -1720,7 +1720,7 @@ Working on LilyPond documentation translations requires the following
 pieces of software, in order to make use of dedicated helper tools:
 
 @itemize
-@item Python 3.5 or higher,
+@item Python 3.8 or higher,
 @item GNU Make,
 @item Gettext,
 @item Git.

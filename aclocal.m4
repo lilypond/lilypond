@@ -562,8 +562,6 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     STEPMAKE_PROGS(TAR, tar, REQUIRED)
 
-    STEPMAKE_PYTHON(REQUIRED, 3.6, 3.99)
-
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
         $MAKE -v 2> /dev/null | grep GNU > /dev/null
         if test "$?" = 1; then
