@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 752e6245d9e9bd6c7628285a043aedfe5b7bab87
+    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -148,7 +148,7 @@ notice en anglais a valeur légale.}
 Vous avez le droit de copier, distribuer et/ou modifier ce document
 selon les termes de la Licence GNU de documentation libre, version 1.1
 ou tout autre version ultérieure publiée par la Free Software
-Foundation, ``sans aucune section invariante''.
+Foundation, ``sans aucune section invariante''.@*
 Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
 @end quotation
 
@@ -165,7 +165,7 @@ Free Documentation License''.
 
 @ifclear FDL
 @copying
-Ce document a été placé dans le domaine public ; en France, les auteurs
+Ce document a été placé dans le domaine public ; en France, les auteurs
 renoncent à tous leurs droits patrimoniaux.
 @end copying
 @end ifclear
