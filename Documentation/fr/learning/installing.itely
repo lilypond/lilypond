@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo;; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 70606224a69f3a7e96aeaf081cb0d1216c3f2cea
+    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -90,9 +90,11 @@ documentation. Si vous voulez une autre version de LilyPond, vous pouvez
 l'indiquer dans Frescobaldi, sans pour autant perdre celle d'origine.
 Pour ce faire, commencez par en récupérer l'archive à partir de la
 @rwebnamed{Téléchargement, page de téléchargement}, puis faites un
-double clic pour la déplier.
+double clic pour la déplier. Si l'image ci-dessous présente la version
+2.23.10, ce n'est que pour les besoins de cette documentation ; vous
+devrez télécharger l'archive de la version @version{}.
 
-@center @sourceimage{linux-6-download-and-unpack-archive,10cm,}
+@center @sourceimage{linux-6-download-and-unpack-archive,14cm,}
 
 Déplacez le dossier alors créé du répertoire de téléchargement à
 l'endroit où vous voulez le garder. Par exemple, placez-le dans votre
@@ -133,24 +135,26 @@ syntaxe de LilyPond.
 Récupérez LilyPond pour Windows à partir de la
 @rwebnamed{Téléchargement, page de téléchargement}. Le fichier est une
 archive ZIP nommée
-@file{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64.zip} (où « mingw »
-signifie que c'est pour Windows) qu'il faut dézipper dans l'explorateur
-de fichiers. Placez le nouveau répertoire
-@code{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64} dans un endroit
-permanent ; peu importe le dossier, il doit simplement ne pas être
-modifié par la suite. Vous pourriez choisir de le placer dans votre
+@file{lilypond-@/@var{x}@.@var{y}.@var{z}-@/mingw-@/x86_64.zip} (où
+« mingw » signifie que c'est pour Windows) qu'il faut dézipper dans
+l'explorateur de fichiers. Placez le nouveau répertoire
+@code{lilypond-@/@var{x}.@var{y}.@var{z}-@/mingw-@/x86_64} dans un
+endroit permanent ; peu importe le dossier, il doit simplement ne pas
+être modifié par la suite. Vous pourriez choisir de le placer dans votre
 répertoire personnel.
 
 Récupérez ensuite la dernière version de Frescobaldi à partir de la
 @uref{https://github.com/frescobaldi/frescobaldi/releases, page de
-téléchargement du projet}. Prenez le fichier @file{.exe}.
+téléchargement du projet}. La version indiquée dans les images
+ci-dessous (3.2) n'est pas forcément la plus récente. Prenez le fichier
+@file{.exe}.
 
 @center @sourceimage{windows-1-frescobaldi-download-github,10cm,}
 
 Double-cliquez sur le fichier téléchargé, ce qui lance l'assistant
 d'installation.
 
-@center @sourceimage{windows-2-frescobaldi-installer,10cm,}
+@center @sourceimage{windows-2-frescobaldi-installer,6cm,}
 
 Acceptez la licence et installez Frescobaldi à l'aide de l'assistant.
 Vous arriverez alor sur un écran de démarrage comme celui-ci :
@@ -163,24 +167,24 @@ Accédez aux préférences de Frescobaldi.
 
 Sélectionnez « Préférences de LilyPond » sur la gauche.
 
-@center @sourceimage{windows-5-frescobaldi-find-lilypond-preferences,15cm,}
+@center @sourceimage{windows-5-frescobaldi-find-lilypond-preferences,13cm,}
 
 Cliquez « Éditer » sur la droite, ce qui ouvre une boîte de dialogue
 pour choisir l'exécutable de LilyPond.
 
-@center @sourceimage{windows-6-frescobaldi-select-lilypond-executable,10cm,}
+@center @sourceimage{windows-6-frescobaldi-select-lilypond-executable,5cm,}
 
 Cliquez sur l'icône dossier et naviguez jusqu'au dossier
-@code{lilypond-@var{x}.@var{y}.@var{z}-mingw-x86_64} que vous avez
+@code{lilypond-@/@var{x}.@var{y}.@var{z}-@/mingw-@/x86_64} que vous avez
 précédemment créé. Dans ce répertoire, ouvrez le dossier
-@file{lilypond-@var{x}.@var{y}.@var{z}}, puis @file{bin}, et enfin
+@file{lilypond-@/@var{x}.@var{y}.@var{z}}, puis @file{bin}, et enfin
 sélectionnez @file{lilypond}.
 
-@center @sourceimage{windows-7-frescobaldi-find-executable-from-explorer,10cm,}
+@center @sourceimage{windows-7-frescobaldi-find-executable-from-explorer,12cm,}
 
 Cliquez alors sur « OK ».
 
-@center @sourceimage{windows-8-frescobaldi-ok,10cm,}
+@center @sourceimage{windows-8-frescobaldi-ok,5cm,}
 
 Cliquez à nouveau sur « OK ».
 
@@ -211,24 +215,26 @@ la syntaxe de LilyPond.
 Récupérez LilyPond pour Windows à partir de la
 @rwebnamed{Téléchargement, page de téléchargement}. Le fichier est une
 archive nommée
-@file{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64.tar.gz} (où
+@file{lilypond-@/@var{x}.@var{y}.@var{z}-@/darwin-@/x86_64.tar.gz} (où
 « darwin » signifie que c'est pour macOS) qu'il faut déplier dans
 l'explorateur de fichiers. Placez le nouveau répertoire
-@code{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64} dans un endroit
-permanent ; peu importe le dossier, il doit simplement ne pas être
-modifié par la suite. Vous pourriez choisir de le placer dans votre
+@code{lilypond-@/@var{x}.@var{y}.@var{z}-@/darwin-@/x86_64} dans un
+endroit permanent ; peu importe le dossier, il doit simplement ne pas
+être modifié par la suite. Vous pourriez choisir de le placer dans votre
 répertoire personnel.
 
 Récupérez ensuite la dernière version de Frescobaldi à partir de la
 @uref{https://github.com/frescobaldi/frescobaldi/releases, page de
-téléchargement du projet}. Prenez le fichier @file{.dmg}.
+téléchargement du projet}. La version indiquée dans les images
+ci-dessous (3.1.3) n'est pas forcément la plus récente. Prenez le
+fichier @file{.dmg}.
 
 @center @sourceimage{macos-1-frescobaldi-download-github,10cm,}
 
 Dans l'explorateur, double-cliquez sur lel fichier pour lancer
 l'installateur. Vous pourriez, à ce moment rencontrer un problème :
 
-@center @sourceimage{macos-2-frescobaldi-cant-be-opened,10cm,}
+@center @sourceimage{macos-2-frescobaldi-cant-be-opened,5cm,}
 
 Ceci est du au fait que le développement de Frescobaldi est réalisé
 indépendamment d'Apple. Ce logiciel est néanmoins sur, mais vous devez
@@ -240,14 +246,14 @@ le dire à Apple. Pour ce faire, commencez par cliquer « Annuler ».
 
 Cliquez alors sur « Ouvrir quand même » @emph{(Open Anyway)}.
 
-@center @sourceimage{macos-4-allow-open-anyway,10cm,}
+@center @sourceimage{macos-4-allow-open-anyway,8cm,}
 
 Ceci conduira à un nouvel avertissement de sécurité, mais vous aurez
 cette fois la possibilité d'accepter. Sélectionnez « Ouvrir ». Encore
 une fois, ne craignez rien, Frescobaldi est absolument inoffensif pour
 votre système.
 
-@center @sourceimage{macos-5-accept-security-warning,10cm,}
+@center @sourceimage{macos-5-accept-security-warning,5cm,}
 
 Maintenant que Frescobaldi est ouvert, accédez aux préférences.
 
@@ -259,7 +265,7 @@ Sélectionnez « Préférences de LilyPond » sur la gauche.
 
 Cliquez « Éditer » sur la droite, ce qui ouvre une nouvelle fenêtre :
 
-@center @sourceimage{macos-8-frescobaldi-edit-lilypond-executable,10cm,}
+@center @sourceimage{macos-8-frescobaldi-edit-lilypond-executable,5cm,}
 
 Cliquez sur l'icône dossier et naviguez jusqu'au dossier
 @code{lilypond-@var{x}.@var{y}.@var{z}-darwin-x86_64} que vous avez
@@ -267,7 +273,7 @@ précédemment créé. Dans ce répertoire, ouvrez le dossier
 @file{lilypond-@var{x}.@var{y}.@var{z}}, puis @file{bin}, et enfin
 sélectionnez @file{lilypond}.
 
-@center @sourceimage{macos-9-frescobaldi-navigate-to-lilypond-executable,10cm,}
+@center @sourceimage{macos-9-frescobaldi-navigate-to-lilypond-executable,12cm,}
 
 Un nouvel avertissement de sécurité est susceptible de se produire
 lorsque vous cliquerez sur « OK ». De nouveau, commencez par cliquer sur
@@ -293,7 +299,7 @@ aux Préférences du système pour autoriser le programme à s'exécuter.
 Finalement, la compilation suivante aboutira et apparaîtra une partition
 minimale.
 
-@center @sourceimage{macos-10-minimal-score,15cm,}
+@center @sourceimage{macos-10-minimal-score,11cm,}
 
 Félicitations, vous venez de créer votre première partition avec
 LilyPond. Passez maintenant au @ref{Tutoriel} pour en apprendre plus sur

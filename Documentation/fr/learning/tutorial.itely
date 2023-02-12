@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 70606224a69f3a7e96aeaf081cb0d1216c3f2cea
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -413,7 +413,8 @@ que le métronome :
 
 @funindex \clef
 
-Glossaire musicologique : @rglos{clef}.
+Glossaire musicologique :
+@rglos{clef}.
 
 La @notation{clef} peut être définie à l'aide de la commande
 @code{\clef} :
@@ -451,7 +452,7 @@ déjà vus :
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotationnamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
 @rnotationnamed{Écriture du rythme,@'Ecriture du rythme},
 @rnotationnamed{Écriture des silences,@'Ecriture des silences},

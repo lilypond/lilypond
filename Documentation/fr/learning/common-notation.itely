@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 70606224a69f3a7e96aeaf081cb0d1216c3f2cea
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -79,8 +79,7 @@ Les simples barres de mesure se placent automatiquement ; nul n'est
 besoin de les saisir. D'autres types de barre de mesure sont accessibles
 par la commande @code{\bar}, tels que @code{\bar "||"} pour une double
 barre ou @code{\bar "|."} pour la barre finale.  Pour une liste des
-différents styles de barre de mesure, voir
-@rnotation{Barres de mesure}.
+différents styles de barre de mesure, voir @rnotation{Barres de mesure}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -116,12 +115,13 @@ Avertissement : échec du contrôle de mesure (barcheck) à 1/2
                    | g4 c g e | c4 r r2 |
 @end example
 
+@noindent
 Si la durée manquante est évitente au vu du rendu musical de cet exemple
 minimaliste, l'avertissement émis en console ne manquera pas de porter à
 votre attention l'absence du @samp{4} à la troisième mesure.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Barres de mesure},
 @rnotation{Vérification des limites et numéros de mesure}.
 @endmorerefs
@@ -175,19 +175,19 @@ Dans de nombreuses langues, un nom de note est constitué d'un nom de
 base correspondant à son degré diatonique dans la gamme de do majeur ou
 mineur (par exemple ré) et d'un qualificatif (ou suffixe) indiquant
 l'@notation{altération} de cette hauteur de base. Dans la notation par
-défaut, on obtient un @notation{dièse} en ajoutant @code{is} au nom de
-la note, et un @notation{bémol} en ajoutant @code{es}. Comme vous pouvez
+défaut, on obtient un @notation{dièse} en ajoutant @samp{is} au nom de
+la note, et un @notation{bémol} en ajoutant @samp{es}. Comme vous pouvez
 vous y attendre, un double dièse ou double bémol s'obtiennent en
-ajoutant @code{isis} ou @code{eses}. Cette syntaxe est dérivée de la
+ajoutant @samp{isis} ou @samp{eses}. Cette syntaxe est dérivée de la
 convention de dénomination des notes dans les langues nordiques et
 germaniques, comme l'allemand ou le hollandais.
 
 @c DIV specific
 Cependant, si vous utilisez la commande @code{\language "italiano"} pour
 entrer les noms de note français au lieu des noms hollandais, il faudra
-ajouter un @code{d} pour obtenir un dièse, et un @code{b} pour un bémol.
+ajouter un @samp{d} pour obtenir un dièse, et un @samp{b} pour un bémol.
 Le double dièse et le double bémol s'obtiennent en ajoutant
-respectivement @code{dd} et @code{bb}.  Pour en savoir plus sur les
+respectivement @samp{dd} et @samp{bb}.  Pour en savoir plus sur les
 autres langues disponibles, consultez
 @rnotation{Nom des notes dans d'autres langues}.
 @c END DIV
@@ -213,7 +213,7 @@ autres langues disponibles, consultez
 @funindex \major
 @funindex \minor
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{key signature,armure},
 @rglosnamed{major,majeur},
 @rglosnamed{minor,mineur}.
@@ -237,7 +237,7 @@ hauteur puis de @code{\major} (majeur) ou @code{\minor} (mineur).
 @unnumberedsubsubsec Attention aux armures et aux hauteurs
 @translationof Warning key signatures and pitches
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{accidental,altération},
 @rglosnamed{key signature,armure},
 @rglosnamed{pitch,hauteur},
@@ -256,8 +256,8 @@ imprimées.  LilyPond comparera chaque hauteur saisie avec l'armure pour
 déterminer s'il est besoin d'imprimer une altération accidentelle.
 
 La commande @code{\key} détermine l'armure, ce qui affectera la
-représentation imprimée, et ne modifiera @b{en aucun cas} la hauteur
-assignée à une note telle qu'un @code{c} que vous aurez saisie.
+représentation imprimée, et ne modifiera @strong{en aucun cas} la
+hauteur assignée à une note telle qu'un @code{c} que vous aurez saisi.
 
 Dans cet exemple,
 
@@ -298,7 +298,7 @@ peuvent être imprimées, consultez
 @rnotation{Altérations accidentelles automatiques}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Nom des notes dans d'autres langues},
 @rnotation{Altérations},
 @rnotation{Altérations accidentelles automatiques},
@@ -332,7 +332,7 @@ Manuel de notation :
 @unnumberedsubsubsec Liaisons de prolongation
 @translationof Ties
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
 
 Pour créer une liaison de prolongation -- parfois aussi appelée
@@ -376,7 +376,7 @@ seule note.  Autrement dit, @samp{c4 a 8 8} sera interprété comme
 @c slur = "il zon" (articulation). jcm
 @c phrasing slur = "ils ont des chapeaux ronds" (phrase). jcm
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{slur,liaison},
 @rglosnamed{phrasing,phrasé}.
 
@@ -411,7 +411,7 @@ phrasés.
 
 @cindex liaisons d'articulation et de prolongation, différences
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{articulation},
 @rglosnamed{slur,liaison},
 @rglosnamed{tie,liaison de tenue}.
@@ -428,7 +428,7 @@ enchâssées dans un @emph{legato} ou un phrasé.
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Liaisons de prolongation},
 @rnotation{Liaisons d'articulation},
 @rnotation{Liaisons de phrasé}.
@@ -457,7 +457,7 @@ suite de la note à laquelle elles s'appliquent.
 @cindex accents
 @cindex staccato
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{articulation}.
 
 Des @notation{articulations} peuvent être ajoutées à une note, au moyen
@@ -549,7 +549,7 @@ nuance d'arrivée, par exemple @code{\f}, soit par la commande
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Articulations et ornements},
 @rnotation{Doigtés},
 @rnotation{Nuances}.
@@ -583,7 +583,7 @@ Pour mettre en forme du texte, on utilise la commande @code{\markup} :
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Ajout de texte}.
 @endmorerefs
 
@@ -598,13 +598,12 @@ Manuel de notation :
 @cindex ligatures manuelles
 @cindex ligatures explicites
 
-@funindex [ ... ]
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
 @funindex \autoBeamOn
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{beam,ligature}.
 
 Toutes les barres de ligature sont dessinées automatiquement :
@@ -639,7 +638,7 @@ entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Barres de ligature automatiques},
 @rnotation{Barres de ligature manuelles}.
 @endmorerefs
@@ -725,7 +724,7 @@ que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 @funindex \appoggiatura
 @funindex acciaccatura
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{grace notes,ornements},
 @rglosnamed{acciaccatura,acciaccature},
 @rglosnamed{appoggiatura,appoggiature}.
@@ -743,7 +742,7 @@ expression musicale :
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Notes d'ornement},
 @rnotation{N-olets},
 @rnotation{Levées}.
@@ -784,7 +783,7 @@ il y a plus d'une voix sur une même portée.
 @end menu
 
 Dans les fichiers source LilyPond, la musique est représentée par ce
-qu'on appelle des @emph{expressions musicales}.  En soi, une seule note
+qu'on appelle des @dfn{expressions musicales}.  En soi, une seule note
 peut constituer une expression musicale :
 
 @lilypond[verbatim,quote,fragment]
@@ -792,7 +791,7 @@ a'4
 @end lilypond
 
 Mettre un groupe de notes entre accolades crée une nouvelle expression
-musicale, appelée @emph{expression musicale composée}.  En voici un
+musicale, appelée @dfn{expression musicale composée}.  En voici un
 exemple avec deux notes :
 
 @lilypond[verbatim,quote]
@@ -859,7 +858,7 @@ de la musique polyphonique.
 @funindex >>
 @funindex << ... >>
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
 Cette technique est utile pour de la musique @notation{polyphonique}.
@@ -947,11 +946,11 @@ chaque partie de la musique constituant une portée.  Ces éléments
 >>
 @end lilypond
 
-La commande @code{\new} introduit un @qq{contexte de notation}.  Un
+La commande @code{\new} introduit un @dfn{contexte de notation}. Un
 contexte de notation est un environnement dans lequel les événements
 musicaux -- comme les notes ou les commandes @code{\clef} -- sont
-interprétés.  Pour des pièces simples, ces contextes sont créés
-automatiquement.  Pour des pièces plus complexes, il est préférable de
+interprétés. Pour des pièces simples, ces contextes sont créés
+automatiquement. Pour des pièces plus complexes, il est préférable de
 spécifier explicitement les contextes, afin de s'assurer que chaque
 fragment aura sa propre portée.
 
@@ -998,7 +997,7 @@ fréquente que la musique polyrythmique.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{brace,accolade},
 @rglosnamed{staff,portée},
 @rglosnamed{system,système}.
@@ -1034,7 +1033,7 @@ les portées au sein d'un @notation{système} qu'au niveau de l'étendue
 des barres de mesure.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Instruments utilisant des portées multiples},
 @rnotation{Gravure des portées}.
 @endmorerefs
@@ -1052,14 +1051,14 @@ Manuel de notation :
 @funindex < ... >
 @funindex q
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{chord,accord}.
 
 Nous avons vu précédemment comment combiner des notes simultanément :
 en les encadrant par des chevrons doubles @code{<<} et @code{>>}.  Pour
 produire des accords simples, c'est-à-dire une superposition de notes
 de même durée, on encadre les hauteurs de notes par des chevrons simples
-@code{<} et @code{>}, et on écrit la durée juste après.
+@code{<} et @code{>}, et on écrit la durée juste après.
 
 @lilypond[verbatim,quote]
 \relative { r4 <c'' e g> <c f a>2 }
@@ -1094,7 +1093,7 @@ séquence.
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Notes en accords}.
 @endmorerefs
 
@@ -1121,10 +1120,10 @@ sujet et préférons vous inciter à consulter les chapitres dédiés à
 l'étude de ces concepts.
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @ref{Les voix contiennent la musique}.
 
-Manuel de notation :
+Manuel de notation :
 @rnotation{Notes simultanées}.
 @endmorerefs
 
@@ -1151,7 +1150,7 @@ Cette section présente l'écriture vocale et les partitions de variété.
 
 @funindex \addlyrics
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{lyrics}.
 
 Prenons une mélodie toute simple, la comptine @emph{Girls and boys
@@ -1360,7 +1359,7 @@ Rossini, où la syllabe @emph{al} est chantée sur la même note que
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Musique vocale}.
 @endmorerefs
 
@@ -1407,7 +1406,7 @@ détaillé plus loin dans
 @ref{Organisation du code source avec des variables}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Musique vocale}.
 @endmorerefs
 
@@ -1490,10 +1489,10 @@ Par convention, un nom de variable ne comporte que des caractères
 alphabétiques non accentués, aucun nombre ni tiret. Pour de plus amples
 informations, voir @rnotation{Structure de fichier}.
 
-On peut utiliser une variable déjà définie autant de fois que l'on
-veut, y compris dans la définition d'une nouvelle variable ; par
-exemple, cela peut servir à saisir un motif qu'une seule fois, même
-s'il se répète un grand nombre de fois dans la pièce.
+On peut utiliser une variable @emph{déjà} définie autant de fois que
+l'on veut, y compris dans la définition d'une nouvelle variable ; par
+exemple, cela peut servir à saisir un motif qu'une seule fois, même s'il
+se répète un grand nombre de fois dans la pièce.
 
 @lilypond[verbatim,quote]
 tripletA = \tuplet 3/2 { c,8 e g }
@@ -1637,11 +1636,11 @@ pas la tierce.
 }
 @end lilypond
 
-Si d'aventure vous faites une erreur d'octaviation, le mode
-@code{\relative} la mettra en évidence : toutes les notes suivantes
-seront placées à la mauvaise octave.  En mode de hauteurs absolues,
-une erreur isolée ne serait pas autant visible, et serait donc plus
-difficile à dénicher.
+Si d'aventure vous faites une erreur d'octaviation (@samp{'} ou
+@samp{,}), le mode @code{\relative} la mettra en évidence : toutes les
+notes suivantes seront placées à la mauvaise octave. En mode de hauteurs
+absolues, une erreur isolée ne serait pas autant visible, et serait donc
+plus difficile à dénicher.
 
 Cependant, le mode de hauteurs absolues reste utile pour les musiques
 où les intervalles sont étendus, et plus encore pour les fichiers
@@ -1675,11 +1674,11 @@ explicitement de la musique relative le fragment en question :
 @translationof After the tutorial
 
 Après avoir parcouru ce tutoriel, vous devriez essayer d'écrire un
-morceau ou deux.  Commencez par copier l'un des modèles types et
-ajoutez-y des notes -- consultez les @ref{Modèles}.  Si vous voulez
+morceau ou deux. Commencez par copier l'un des modèles types et
+ajoutez-y des notes -- consultez les @ref{Modèles}. Si vous voulez
 employer une notation que vous n'avez pas trouvée dans le tutoriel,
 consultez le manuel de notation, en commençant par la
-@rnotation{Notation musicale générale}.  Si vous désirez écrire pour un
+@rnotation{Notation musicale générale}. Si vous désirez écrire pour un
 ensemble instrumental non couvert par les modèles, lisez la section
 @ref{Extension des modèles}.
 

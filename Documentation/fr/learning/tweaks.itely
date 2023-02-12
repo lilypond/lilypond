@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -553,7 +553,7 @@ avec la commande @code{\override} :
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{La commande d'affinage (tweak)}.
 @endmorerefs
 
@@ -611,7 +611,7 @@ pas de convertir des @code{\revert}, @code{\set} ou @code{\unset} en
 @code{\tweak}.
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @ref{La commande tweak},
 @ref{Utilisation de variables dans les retouches}.
 @endmorerefs
@@ -1044,7 +1044,7 @@ et voilà les paroles en italiques.
 espace entre la dernière syllabe et l'accolade fermante.}
 
 @morerefs
-Manuel d'extension :
+Manuel d'extension :
 @rextend{Tutoriel Scheme}.
 @endmorerefs
 
@@ -1118,7 +1118,7 @@ par des parenthèses et précédés par une apostrophe
 @end multitable
 
 @morerefs
-Manuel d'extension :
+Manuel d'extension :
 @rextend{Tutoriel Scheme}.
 @endmorerefs
 
@@ -3443,7 +3443,7 @@ indiqué ici.
 @translationof The force-hshift property
 
 Maintenant, nous sommes prêts à appliquer les dernières corrections à
-l'exemple de Chopin présenté à la fin de @ref{J'entends des Voix}, que
+l'exemple de Chopin présenté à la fin de @ref{J'entends des voix}, que
 nous avions laissé dans cet état :
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3594,7 +3594,7 @@ fa dièse noire pointée qui se fond lui aussi avec la croche de même
 hauteur.  Tout le reste se réduit à une seule voix.  Le plus simple est
 donc de créer temporairement ces trois voix supplémentaires au moment
 opportun.  Si vous avez oublié comment faire, reportez-vous à
-@ref{J'entends des Voix} et @ref{Instanciation explicite des voix}.
+@ref{J'entends des voix} et @ref{Instanciation explicite des voix}.
 Nous opterons ici pour une déclaration explicite des voix du passage
 polyphonique, puisque LilyPond est alors plus performant en matière
 d'évitement des collisions.
@@ -4093,7 +4093,7 @@ voix ; on a alors l'impression que la liaison couvre les deux voix.
 @end lilypond
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @ref{Le préfixe once},
 @ref{La propriété stencil}.
 @endmorerefs
@@ -4175,7 +4175,7 @@ contrairement à la seconde (avec le stencil désactivé) qui la laisse à
 sa place.
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{system,système}.
 @endmorerefs
 

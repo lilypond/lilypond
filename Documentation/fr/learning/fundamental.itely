@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -63,8 +63,10 @@ complète dans @rnotation{Structure de fichier}.
 Un fichier d'entrée LilyPond ressemble à :
 
 @example
-\version @w{"@version{}"}
+\version "@version{}"
+
 \header @{ @}
+
 \score @{
   @var{ @dots{} expression musicale composite @dots{} }  % c'est là qu'est la musique !
   \layout @{ @}
@@ -85,7 +87,7 @@ exemple est un préambule à notre propos.
 @cindex partition
 
 Jusqu'à présent, les exemples que nous avons pu voir ne faisaient pas
-appel à la commande @code{\score@{@}}.  En fait, LilyPond ajoute
+appel à la commande @code{\score}.  En fait, LilyPond ajoute
 automatiquement les commandes nécessaires au traitement d'un code
 simpliste.  LilyPond considère
 
@@ -120,15 +122,15 @@ expression était incluse dans les commandes de notre premier exemple.
 @cindex contextes implicites
 @cindex implicites, contextes
 
-@strong{Attention :}  de nombreux exemples, dans la documentation de
+@strong{Attention :} de nombreux exemples, dans la documentation de
 LilyPond, ne font pas apparaître les commandes @code{\new Staff} ou
-@code{\new Voice}, qui sont créées implicitement.  Ce qui
-n'est pas primordial pour des exemples simples le devient dès que la
-situation se complexifie un tant soit peu.  Le fait de ne pas déclarer
-explicitement un contexte peut alors amener à des résultats quelque peu
-surprenants, comme la création d'une portée supplémentaire et
-indésirable.  La manière de créer explicitement des contextes est
-traitée plus en détails au chapitre @ref{Contextes et graveurs}.
+@code{\new Voice}, qui sont créées implicitement. Ce qui n'est pas
+primordial pour des exemples simples le devient dès que la situation se
+complexifie un tant soit peu. Le fait de ne pas déclarer explicitement
+un contexte peut alors amener à des résultats quelque peu surprenants,
+comme la création d'une portée supplémentaire et indésirable. La manière
+de créer explicitement des contextes est traitée plus en détails au
+chapitre @ref{Contextes et graveurs}.
 
 @warning{Dès lors que votre musique dépasse quelques lignes, nous vous
 engageons fortement à créer explicitement les voix et portées.}
@@ -138,7 +140,7 @@ la commande @code{\score}.
 
 Un bloc @code{\score} doit contenir une et une seule expression
 musicale, exprimée immédiatement à la suite de la commande
-@code{\score}.  Rappelez-vous que cette expression peut être n'importe
+@code{\score}. Rappelez-vous que cette expression peut être n'importe
 quoi, d'une note isolée à un gigantesque
 
 @example
@@ -187,17 +189,17 @@ sont la plupart du temps indépendantes du bloc @code{\score} -- par
 exemple, la commande @code{\header} intervient souvent avant le bloc
 @code{\score}, comme le montre l'exemple ci-dessus.
 
-Les deux autres commandes -- @code{\layout @{@}} et @code{\midi @{@}}
--- que nous n'avons pas détaillées pour l'instant, auront respectivement
-pour effet, lorsqu'elles interviennent, de produire une sortie
-imprimable et un fichier MIDI.  Nous nous y intéressons plus
-particulièrement dans le manuel de notation, aux chapitres
+Les deux autres commandes -- @code{\layout} et @code{\midi} -- que nous
+n'avons pas détaillées pour l'instant, auront respectivement pour effet,
+lorsqu'elles interviennent, de produire une sortie imprimable et un
+fichier MIDI. Nous nous y intéressons plus particulièrement dans le
+manuel de notation, aux chapitres
 @rnotation{Mise en forme de la partition} et
 @rnotation{Génération de fichiers MIDI}.
 
 @cindex partitions multiples
-@cindex book,  bloc implicite
-@cindex implicite, bloc book
+@cindex @emph{book},  bloc implicite
+@cindex implicite, bloc @emph{book}
 
 @funindex \book
 
@@ -212,22 +214,26 @@ pupitre.
 
 En résumé :
 
+@itemize
+@item
 Dès que LilyPond rencontre un bloc @code{\book}, il crée un fichier
 distinct (@file{.pdf} par exemple).  Dans le cas où il n'est pas
 mentionné explicitement, LilyPond regroupera l'intégralité du code dans
 un bloc @code{\book}.
 
+@item
 Tout bloc @code{\score} inclus dans un bloc @code{\book} constitue un
 fragment de musique, par exemple un mouvement d'une symphonie.
 
 @cindex layout, effets selon l'emplacement
-
+@item
 Tout bloc @code{\layout} affecte le bloc @code{\score} ou @code{\book}
 au sein duquel il intervient : si c'est à l'intérieur d'un bloc
 @code{\score}, seul celui-ci en sera affecté.  Dans le cas où le bloc
 @code{\layout} se trouve à l'extérieur du bloc @code{\score}, que le
 bloc @code{\book} soit explicite ou non, il affectera chacun des
 @code{\score} compris dans ce @code{\book}.
+@end itemize
 
 Pour plus de détail à ce sujet, consultez
 @rnotation{Plusieurs partitions dans un même ouvrage}.
@@ -269,7 +275,7 @@ Pour une description complète du format des fichiers d'entrée, voir
 
 @node La partition est une (unique) expression musicale composée
 @subsection La partition est une (unique) expression musicale composée
-@translationof Score is a (single) compound musical expression
+@translationof A score is a (single) compound musical expression
 
 @funindex \score
 
@@ -323,18 +329,18 @@ Nous avons ici attribué des noms aux portées -- @qq{chanteur} et
 habitude qu'il est bon d'adopter dès le départ : vous saurez au
 premier coup d'œil à quoi correspond chaque portée.
 
-Vous vous souvenez que nous avons recours à @code{<<} et @code{>>}
-en lieu et place de @code{@{ @dots{} @}} pour gérer des musiques
-simultanées.  Et, pour le coup, on aimerait @emph{vraiment} que la
-partie vocale et l'accompagnement soient imprimés ensemble@dots{}  Bien
-que faire appel à @code{<< @dots{} >>} ne soit pas réellement nécessaire
+Vous vous souvenez que nous avons recours à @code{<<} et @code{>>} en
+lieu et place de @code{@{ @dots{} @}} pour gérer des musiques
+simultanées. Et, pour le coup, on aimerait @emph{vraiment} que la partie
+vocale et l'accompagnement soient imprimés ensemble@dots{} Bien que
+faire appel à @code{<< @dots{} >>} ne soit pas réellement nécessaire
 pour la portée du chanteur, dans la mesure où elle ne contient qu'une
 seule expression musicale, nous vous recommandons de prendre l'habitude
 de l'encadrer ainsi plutôt que par de simples accolades -- une portée
 peut en effet contenir plusieurs voix, ou bien des notes @strong{et} des
-paroles.  Dans la mesure où nous y ajouterons des paroles, les chevrons
-sont donc obligatoires.  Si vous avez oublié comment ajouter des
-paroles à l'aide de la commande @code{\addlyrics}, relisez le chapitre
+paroles. Dans la mesure où nous y ajouterons des paroles, les chevrons
+sont donc obligatoires. Si vous avez oublié comment ajouter des paroles
+à l'aide de la commande @code{\addlyrics}, relisez le chapitre
 @ref{Écriture de chants simples}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -372,30 +378,30 @@ commencer à écrire
 @}
 @end example
 
-Mais si l'on procédait ainsi, la section @code{\score} deviendrait
-vite assez touffue, et très rapidement on ne s'y retrouverait plus.
-C'est pourquoi on utilisera plutôt des variables, ou identificateurs,
-comme nous l'avons vu plus haut.  Pour s'assurer que le contenu de la
-variable @code{texte} soit bien interprété comme des paroles, nous le
-préfixons d'un @code{\lyricmode}.  Sans cette précaution, LilyPond
-tenterait d'interpréter le contenu de cette variable comme des notes, ce
-qui déclencherait immanquablement des erreurs.  LilyPond dispose de
-différents types de données -- voir @rnotation{Modes de saisie} pour plus de
-détails.
+Mais si l'on procédait ainsi, la section @code{\score} deviendrait vite
+assez touffue, et très rapidement on ne s'y retrouverait plus. C'est
+pourquoi on utilisera plutôt des variables, ou identificateurs, comme
+nous l'avons vu plus haut. Pour s'assurer que le contenu de la variable
+@code{words} soit bien interprété comme des paroles, nous le préfixons
+d'un @code{\lyricmode}. Sans cette précaution, LilyPond tenterait
+d'interpréter le contenu de cette variable comme des notes, ce qui
+déclencherait immanquablement des erreurs. LilyPond dispose de
+différents types de données -- voir @rnotation{Modes de saisie} pour
+plus de détails.
 
 Avec quelques notes de plus et une clef de fa, nous pourrions avoir :
 
 @lilypond[verbatim,quote,ragged-right]
 melody = \relative { r4 d''8\noBeam g, c4 r }
-text   = \lyricmode { And God said, }
-upper  = \relative { <g' d g,>2~ <g d g,> }
+words   = \lyricmode { And God said, }
+upper  = \relative { <g' d g,>2~ <g c, g> }
 lower  = \relative { b,2 e2 }
 
 \score {
   <<
     \new Staff = "singer" <<
       \new Voice = "vocal" { \melody }
-      \addlyrics { \text }
+      \addlyrics { \words }
     >>
     \new PianoStaff = "piano" <<
       \new Staff = "upper" { \upper }
@@ -429,24 +435,21 @@ Manuel de notation :
 @cindex portées, temporaires
 @cindex ossias
 
-Déclarer toutes les portées dès le départ n'est pas une
-obligation ; elles peuvent intervenir temporairement n'importe où
-dans la partition.  Ceci est tout à fait indiqué pour créer des sections
-@rglos{ossia}.  L'exemple suivant illustre la manière de créer
-temporairement une nouvelle portée, l'espace de trois notes :
+Déclarer toutes les portées dès le départ n'est pas une obligation ;
+elles peuvent intervenir temporairement n'importe où dans la partition.
+Ceci est tout à fait indiqué pour créer des sections @rglos{ossia}.
+L'exemple suivant illustre la manière de créer temporairement une
+nouvelle portée, l'espace de trois notes :
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
   \relative {
-    r4 g'8 g c4 c8 d |
-    e4 r8
+    r4 g'8 g c4 c8 e |
     <<
-      { f c c }
-      \new Staff {
-        f8 f c
-      }
+      { c4 c }
+      \new Staff {d4 c }
     >>
-    r4 |
+    r2 |
   }
 }
 @end lilypond
@@ -463,29 +466,29 @@ Une section ossia se placera au dessus de la portée en procédant ainsi :
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "main" {
   \relative {
-    r4 g'8 g c4 c8 d |
-    e4 r8
+    r4 g'8 g c4 c8 e |
     <<
-      { f c c }
+      { c4 c }
       \new Staff \with {
-        alignAboveContext = "main" }
-      { f8 f c }
+        alignAboveContext = "main"
+      } { d4 c }
     >>
-    r4 |
+    r2 |
   }
 }
 @end lilypond
 
 Cet exemple recourt à @code{\with}, que nous verrons en détail plus
-avant.  C'est un moyen de modifier le comportement par défaut d'une
-portée individuelle.  Nous indiquons ici que la nouvelle portée doit se
-placer au-dessus de la portée @qq{principal} plutôt qu'en dessous, ce
-qui est le comportement par défaut.
+avant. C'est un moyen de modifier le comportement par défaut d'une
+portée individuelle. Nous indiquons ici que la nouvelle portée doit se
+placer au-dessus de la portée « main » plutôt qu'en dessous, ce qui est
+le comportement par défaut.
 
 @morerefs
-Les ossias apparaissent souvent sans clef ni métrique, et dans une
-taille plus petite.  Ceci requiert des commandes dont nous n'avons pas
-encore parlé.  Voir @ref{Taille des objets} et @rnotation{Portées d'ossia}.
+Les portées d'ossia apparaissent souvent sans clef ni métrique, et dans
+une taille plus petite. Ceci requiert des commandes dont nous n'avons
+pas encore parlé. Voir @ref{Taille des objets} et
+@rnotation{Portées d'ossia}.
 @endmorerefs
 
 
@@ -493,18 +496,21 @@ encore parlé.  Voir @ref{Taille des objets} et @rnotation{Portées d'ossia}.
 @subsection Structuration de la saisie des notes
 @translationof Structure of a note entry
 
+@cindex postévénement (@emph{post-event})
+
 La saisie d'une note dans LilyPond est constituée d'une hauteur suivie
 d'une durée et, accessoirement, d'un ou plusieurs « postévénements ».
-Les postévénements sont, dans le cadre de LilyPond, des éléments tels
-que des articulations, des doigtés, des numéros de corde, des liaisons
-et du texte d'explication.
+Les postévénements (@emph{post-event} en anglais) sont, dans le cadre de
+LilyPond, des éléments tels que des articulations, des doigtés, des
+numéros de corde, des liaisons et du texte d'explication.
 
 La hauteur peut être définie explicitement à l'aide de la langue de
 saisie spécifiée comme indiqué dans
-@rnotation{Nom des notes dans d'autres langues}. La hauteur peut être omise,
-auquel cas la hauteur en cours sera identique à celle de la note
-précédente dans le fichier source -- voir @rnotation{Durées}. Notez bien que
-ni @code{r} ni @code{s} ne sont des hauteurs.
+@rnotation{Nom des notes dans d'autres langues}. La hauteur peut être
+omise, auquel cas la hauteur en cours sera identique à celle de la note
+précédente dans le fichier source -- voir @rnotation{Durées}. Notez bien
+que ni @samp{r} ni @samp{s} (un saut, voir
+@rnotation{Silences invisibles}) ne sont des hauteurs.
 
 La durée comporte un nombre et accessoirement des points. Lorsque la
 durée n'est pas explicitement mentionnée, la durée de la note en cours
@@ -546,9 +552,10 @@ fichiers LilyPond.  Ils obéissent à des règles différentes qui peuvent
 paraître déroutantes de prime abord.  Avant d'examiner ces règles, voici
 une liste des différents types de crochet :
 
-@c attempt to force this onto a new page
+@c Avoid page break after header line.
 @need 50
-@multitable @columnfractions .3 .7
+@quotation
+@multitable @columnfractions .2 .7
 @headitem Type de crochet
   @tab Fonction
 @item @code{@{ @dots{} @}}
@@ -564,22 +571,24 @@ une liste des différents types de crochet :
 @item @code{[ @dots{} ]}
   @tab Marque le début et la fin d'une ligature manuelle
 @end multitable
+@end quotation
 
+@noindent
 D'autres constructions permettent d'obtenir des lignes regroupant ou en
-travers des notes :  les liaisons de prolongation indiquées par un tilde
-(@code{~}), les marques de n-olet avec @code{\tuplet x/y @{ @dots{} @}},
+travers des notes : les liaisons de prolongation (indiquées par un tilde
+@samp{~}), les marques de n-olet avec @code{\tuplet x/y @{ @dots{} @}},
 ou encore les notes d'ornement avec @code{\grace@{ @dots{} @}}.
 
 En dehors de LilyPond, l'imbrication correcte de différents types de
 crochets exige un strict respect des conventions, telles que
 @code{<< [ @{ ( @dots{} ) @} ] >>}, où les marques de fermeture
 interviennent obligatoirement dans l'ordre exactement inverse à celles
-d'ouverture.  Ceci @strong{doit} être rigoureusement respecté pour les
+d'ouverture. Ceci @strong{doit} être rigoureusement respecté pour les
 trois types de crochets utilisés pour @strong{délimiter} comme l'indique
-le tableau ci-dessus.  Une telle rigueur dans l'imbrication n'est
+le tableau ci-dessus. Une telle rigueur dans l'imbrication n'est
 @strong{pas} requise pour les types de crochets dont la fonction est de
 @strong{marquer}, selon le tableau ci-dessus, lorsqu'il sont utilisés en
-combinaison avec des liaisons de prolongation ou des n-olets.  En effet,
+combinaison avec des liaisons de prolongation ou des n-olets. En effet,
 il ne s'agit pas de crochets ayant pour fonction de borner quelque
 chose ; ils agissent plutôt comme marquant le début de quelque chose et
 sa fin.
@@ -595,10 +604,10 @@ avant la fin de la ligature :
 De manière générale, différents types de crochets, notamment s'ils
 indiquent des n-olets, liaisons de prolongation ou notes d'ornement,
 peuvent se mélanger entre eux.  L'exemple suivant montre une ligature
-qui se prolonge sur un triolet (ligne 1), puis une liaison qui se
-prolonge sur un triolet (ligne 2) et enfin une ligature et une liaison
+qui se prolonge sur un triolet (ligne 1), puis une liaison qui se
+prolonge sur un triolet (ligne 2) et enfin une ligature et une liaison
 qui s'étendent sur un triolet, lui-même lié à un quintolet agrémenté
-d'une liaison de phrasé se poursuivant (lignes 3 et 4).
+d'une liaison de phrasé se poursuivant (lignes 3 et 4).
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -620,15 +629,15 @@ partition est contenue dans des voix (@emph{Voices} en anglais), qui
 se trouvent être le concept fondamental de LilyPond.
 
 @menu
-* J'entends des Voix::
+* J'entends des voix::
 * Instanciation explicite des voix::
 * Voix et paroles::
 @end menu
 
 
-@node J'entends des Voix
-@subsection J'entends des Voix
-@translationof I'm hearing Voices
+@node J'entends des voix
+@subsection J'entends des voix
+@translationof I'm hearing voices
 
 @cindex polyphonie
 @cindex calques (layers)
@@ -641,23 +650,23 @@ se trouvent être le concept fondamental de LilyPond.
 @cindex accords ou voix
 
 Dans une partition gérée par LilyPond, le niveau le plus bas, ou bien
-élémentaire ou fondamental, est le @qq{contexte de voix} -- @emph{Voice
-context} en anglais.  Pour d'autres logiciels, on fait tantôt référence
-à la notion de @qq{couche} ou de @qq{calque}.
+élémentaire ou fondamental, est le @dfn{contexte de voix} -- @emph{Voice
+context} en anglais. Pour d'autres logiciels, on fait tantôt référence à
+la notion de « couche » ou de « calque ».
 
 En réalité, le contexte de voix est le seul à pouvoir contenir de la
-musique.  S'il n'est pas déclaré explicitement, il sera créé
-automatiquement comme nous l'avons vu au début de ce chapitre.  Certains
-instruments, le hautbois par exemple, ne peuvent jouer qu'une seule note
-à la fois.  Nous n'aurons besoin, pour ces instruments monodiques, que
-d'une seule voix.  Les instruments qui, comme le piano, peuvent émettre
-plusieurs sons en même temps sont polyphoniques et nécessitent de
-recourir à plusieurs voix pour gérer efficacement l'alignement des notes
-et rythmes différents.
+musique. Si un contexte @code{Voice} n'est pas déclaré explicitement, il
+sera créé automatiquement comme nous l'avons vu au début de ce chapitre.
+Certains instruments, le hautbois par exemple, ne peuvent jouer qu'une
+seule note à la fois. Nous n'aurons besoin, pour ces instruments
+monodiques, que d'une seule voix. Les instruments qui, comme le piano,
+peuvent émettre plusieurs sons en même temps sont polyphoniques et
+nécessitent de recourir à plusieurs voix pour gérer efficacement
+l'alignement des notes et rythmes différents.
 
 Si une voix unique peut tout à fait contenir plusieurs notes dans un
 accord, à partir de quand aurons-nous vraiment besoin de plusieurs
-voix ?  Considérons déjà ces quatre accords :
+voix ? Considérons déjà ces quatre accords :
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -666,30 +675,31 @@ voix ?  Considérons déjà ces quatre accords :
 }
 @end lilypond
 
-Nous exprimons ici chacun des accords par l'utilisation de
-chevrons gauche et droite simples, @code{< @dots{} >}, puisque nous
-n'avons besoin que d'une seule voix.  Supposons maintenant que le fa
-dièse soit une croche, suivie d'un sol croche -- une note de passage
-vers le la ?  Nous avons alors deux notes qui débutent au même moment,
-mais dont la durée est différente : un ré noire et un fa dièse croche.
-Comment coder cela ?  Dans la mesure où toutes les notes d'un accord
-doivent avoir la même durée, nous ne pouvons pas écrire un accord.  Nous
-ne pouvons pas non plus écrire deux notes séparées, puisqu'elles
-débutent en même temps.  Nous avons alors besoin de deux voix.
+@noindent
+Nous exprimons ici chacun des accords par l'utilisation de chevrons
+gauche et droite simples, @code{< @dots{} >}, puisque nous n'avons
+besoin que d'une seule voix. Supposons maintenant que le fa dièse soit
+une croche, suivie d'un sol croche -- une note de passage vers le la ?
+Nous avons alors deux notes qui débutent au même moment, mais dont la
+durée est différente : un ré noire et un fa dièse croche. Comment coder
+cela ? Dans la mesure où toutes les notes d'un accord doivent avoir la
+même durée, nous ne pouvons pas écrire un accord. Nous ne pouvons pas
+non plus écrire deux notes séparées, puisqu'elles débutent en même
+temps. Nous avons alors besoin de deux voix.
 
 Voyons comment cela se pratique selon la grammaire de LilyPond.
 
 @funindex << \\ >>
 @funindex \\
 
-Le plus sûr moyen de saisir un fragment où plusieurs voix cohabitent
-sur la même portée, consiste à saisir chacune des voix séquentiellement
+Le plus sûr moyen de saisir un fragment où plusieurs voix cohabitent sur
+la même portée, consiste à saisir chacune des voix séquentiellement
 (avec @code{@{ @dots{} @}}), puis à les combiner en simultané à l'aide
-de doubles chevrons gauche/droite, @code{<< @dots{} >>}.  Les fragments
+de doubles chevrons gauche/droite, @code{<< @dots{} >>}. Les fragments
 devront être séparés par une double oblique inversée, @code{\\}, pour
-les affecter à des voix séparées.  Dans le cas contraire, les notes
+les affecter à des voix séparées. Dans le cas contraire, les notes
 seraient toutes affectées à une même voix, ce qui pourrait générer des
-erreurs.  Cette manière de procéder est tout à fait indiquée dans le cas
+erreurs. Cette manière de procéder est tout à fait indiquée dans le cas
 d'une pièce homophonique ne comportant que quelques courts passages de
 polyphonie.
 
@@ -699,11 +709,12 @@ et la liaison :
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   \key g \major
-  %    Voice = "1"             Voice = "2"
+  %    Voice = "1"              Voice = "2"
   << { g'4 fis8( g) a4 g } \\ { d4 d d d }  >>
 }
 @end lilypond
 
+@noindent
 Notez que les hampes de la seconde voix sont dirigées vers le bas.
 
 Autre exemple :
@@ -713,11 +724,12 @@ Autre exemple :
 %    Voice = "1"           Voice = "2"
 << { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
 << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
-<< { a2. r4 }         \\ { fis2. s4 }       >> |
+<< { a2. r4 }         \\ { fis2. r4 }       >> |
 @end lilypond
 
+@noindent
 Le recours à une construction @code{<< \\ >>} particulière à chaque
-mesure n'est pas nécessaire.  Bien qu'on y gagne en lisibilité si chaque
+mesure n'est pas nécessaire. Bien qu'on y gagne en lisibilité si chaque
 mesure ne contient que quelques notes, il est plus judicieux de
 carrément séparer chaque voix :
 
@@ -732,7 +744,7 @@ carrément séparer chaque voix :
   \relative { % Voice = "2"
     d'2 d4 g |
     g4 g g8( a) g4 |
-    fis2. s4 |
+    fis2. r4 |
   }
 >>
 @end lilypond
@@ -745,13 +757,13 @@ Cet exemple ne comporte que deux voix, mais il peut être étendu pour
 traiter trois voix ou plus en ajoutant autant de séparateurs @code{\\}
 que de besoin.
 
-Les contextes @code{Voice} portent les noms @code{"1"}, @code{"2"}, etc.
-Les premiers contextes définissent les voix @emph{extrêmes}, la plus
-haute au contexte @code{"1"}, le plus basse au contexte @code{"2"}.  Les
-voix intermédiaires seront affectées aux contextes @code{"3"} et
-@code{"4"}.  Pour chacun de ces contextes, le positionnement et
-l'orientation des liaisons, hampes, nuances, etc. est définie
-automatiquement.
+Les contextes @code{Voice} créés implicitement par @code{<< \\ >>}
+portent les noms @code{"1"}, @code{"2"}, etc. Les premiers contextes
+définissent les voix @emph{extrêmes}, la plus haute au contexte
+@code{"1"}, la plus basse au contexte @code{"2"}. Les voix
+intermédiaires seront affectées aux contextes @code{"3"} et @code{"4"}.
+Pour chacun de ces contextes, le positionnement et l'orientation des
+liaisons, hampes, nuances, etc. est définie automatiquement.
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
@@ -762,6 +774,10 @@ automatiquement.
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
 }
 @end lilypond
+
+@noindent
+Notez l'utilisation d'un @code{s4} pour insérer un silence invisible,
+et ainsi décaler le début (visible) de la voix @code{"3"}.
 
 @funindex \voices
 Les voix peuvent se saisir dans un ordre différent, comme par exemple du
@@ -783,45 +799,36 @@ dès avant la construction @code{<< @dots{} >>} à l'aide de la commande
 
 Ces voix sont séparées de la voix principale, laquelle contient les
 notes en dehors de la construction @code{<< @dots{} >>} -- que nous
-appellerons @emph{construction simultanée}.  Les liaisons, de
-prolongation ou non, ne peuvent relier des notes que si elles
-appartiennent à la même voix ; elles ne peuvent ni pénétrer une
-construction simultanée, ni en sortir.  Inversement, les voix parallèles
-issues de constructions simultanées apparaissant sur une même portée
-appartiennent à la même voix.  Les autres propriétés liées au contexte
-de voix  s'appliquent tout au long des constructions simultanées.
-Reprenons notre exemple, en affectant une couleur et une allure
-différentes aux notes de chacune des voix.  Vous noterez qu'un
-changement apporté à une voix ne se propage pas aux autres, et qu'il se
-reporte jusqu'au bout, et que la voix aux triangles bleus comporte une
-liaison de prolongation entre deux constructions.
+appellerons @dfn{construction simultanée}. Les liaisons, de prolongation
+ou non, ne peuvent relier des notes que si elles appartiennent à la même
+voix ; elles ne peuvent ni pénétrer une construction simultanée, ni en
+sortir. Inversement, les voix parallèles issues de constructions
+simultanées apparaissant sur une même portée appartiennent à la même
+voix. Les autres propriétés liées au contexte de voix s'appliquent tout
+au long des constructions simultanées. Reprenons notre exemple, en
+affectant une couleur et une allure différentes aux notes de chacune des
+voix. Vous noterez qu'un changement apporté à une voix ne se propage pas
+aux autres, et qu'il se reporte jusqu'au bout, et que la voix aux
+triangles bleus comporte une liaison de prolongation entre deux
+constructions.
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
   % Main voice
   c'16 d e f
   <<  % Bar 1
-    {
-      \voiceOneStyle
-      g4 f e
-    }
+    { \voiceOneStyle g4 f e }
   \\
-    {
-      \voiceTwoStyle
-      r8 e4 d c8~
-    }
+    { \voiceTwoStyle r8 e4 d c8~ }
   >> |
   <<  % Bar 2
-     % Voice 1 continues
+    % Voice 1 continues
     { d2 e }
   \\
-     % Voice 2 continues
+    % Voice 2 continues
     { c8 b16 a b8 g~ 2 }
   \\
-    {
-      \voiceThreeStyle
-      s4 b c2
-    }
+    { \voiceThreeStyle s4 b c2 }
   >> |
 }
 @end lilypond
@@ -832,15 +839,15 @@ liaison de prolongation entre deux constructions.
 @funindex \voiceFourStyle
 @funindex \voiceNeutralStyle
 
-Les commandes @code{\voiceXXXStyle} sont principalement dédiées à une
-utilisation pédagogique, comme l'est ce document.  Elles modifient la
+Les commandes @code{\voice@var{XXX}Style} sont principalement dédiées à
+une utilisation pédagogique, comme l'est ce document. Elles modifient la
 couleur des hampes et ligatures et le style de tête des notes pour
-permettre une meilleure distinction entre les différentes voix.   La
+permettre une meilleure distinction entre les différentes voix. La
 première voix comporte des têtes en losange rouge, la deuxième en
 triangle bleu, la troisième en cercle barré vert, la quatrième (non
-utilisée ici) en croix magenta ;  @code{\voiceNeutralStyle} (non utilisé
-ici) revient au style par défaut.  Nous verrons plus tard comment créer
-de telles commandes.  Voir @ref{Visibilité et couleur des objets} et
+utilisée ici) en croix magenta ; @code{\voiceNeutralStyle} (non utilisé
+ici) revient au style par défaut. Nous verrons plus tard comment créer
+de telles commandes. Voir @ref{Visibilité et couleur des objets} et
 @ref{Utilisation de variables dans les retouches}.
 
 @cindex polyphonie et mode relatif
@@ -852,15 +859,20 @@ celle qui la précède, ou bien par rapport à la première note de l'accord
 qui précède.  Ainsi, dans
 
 @example
-\relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
+\relative c' @{ noteA << <noteB noteC> \\ noteD >> noteE @}
 @end example
 
-@noindent
-@code{noteB} est relative à @code{noteA}                        @*
-@code{noteC} est relative à @code{noteB}, pas à @code{noteA}    @*
+@itemize
+@item
+@code{noteB} est relative à @code{noteA} ;
+@item
+@code{noteC} est relative à @code{noteB}, pas à @code{noteA} ;
+@item
 @code{noteD} est relative à @code{noteB}, pas à @code{noteA} ni
-@code{noteC}                                                    @*
-@code{noteE} est relative à @code{noteD}, pas à @code{noteA}
+@code{noteC} ;
+@item
+@code{noteE} est relative à @code{noteD}, pas à @code{noteA}.
+@end itemize
 
 Une méthode alternative, et qui peut simplifier les choses si les notes
 des différentes voix sont espacées, consiste à placer une commande
@@ -869,7 +881,7 @@ des différentes voix sont espacées, consiste à placer une commande
 @example
 \relative @{ noteA @dots{} @}
 <<
-  \relative @{ < noteB noteC > @dots{} @}
+  \relative @{ <noteB noteC> @dots{} @}
 \\
   \relative @{ noteD @dots{} @}
 >>
@@ -877,25 +889,26 @@ des différentes voix sont espacées, consiste à placer une commande
 @end example
 
 Pour finir, analysons le principe d'utilisation des voix dans une pièce
-complexe.  Nous allons nous concentrer sur les deux premières mesures du
-second des Deux nocturnes, opus 32 de Chopin.  Cet exemple nous servira
-à plusieurs reprises, y compris dans le chapitre suivant, pour illustrer
-certaines techniques de notation.  Aussi, ne prêtez pas trop d'attention
-à ce qui pour l'instant pourrait vous paraître vraiment mystérieux dans
-le code, et intéressons-nous uniquement à ce qui concerne la musique et
-les voix -- ce qui est plus compliqué sera décortiqué plus tard.
+complexe. Nous allons nous concentrer sur les deux premières mesures du
+second des @emph{Deux nocturnes}, opus 32 de Chopin. Cet exemple nous
+servira à plusieurs reprises, y compris dans le chapitre suivant, pour
+illustrer certaines techniques de notation. Aussi, ne prêtez pas trop
+d'attention à ce qui pour l'instant pourrait vous paraître vraiment
+mystérieux dans le code, et intéressons-nous uniquement à ce qui
+concerne la musique et les voix -- ce qui est plus compliqué sera
+décortiqué plus tard.
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4    % No voice three
+  \voices 1,2,4  % No voice three (we want stems down)
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      % Ignore these for now - they are explained later
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
@@ -911,22 +924,22 @@ les voix -- ce qui est plus compliqué sera décortiqué plus tard.
 @end lilypond
 
 La direction des hampes sert souvent à indiquer dans la continuité deux
-lignes mélodiques simultanées.  Ici, les hampes des notes les plus
-hautes vont vers le haut, et celles des notes plus basses vers le
-bas.  C'est une première indication de ce que nous avons eu recours à
-plus d'une voix.
+lignes mélodiques simultanées. Ici, les hampes des notes les plus hautes
+vont vers le haut, et celles des notes plus basses vers le bas. C'est
+une première indication de ce que nous avons eu recours à plus d'une
+voix.
 
 Mais le réel besoin de multiples voix se fait sentir dès lors que
 plusieurs notes qui débutent en même temps ont des durées différentes.
 C'est évident au troisième temps de la première mesure : le la bémol est
-une noire pointée, le fa une noire, et le ré bémol une blanche.  On ne
+une noire pointée, le fa une noire, et le ré bémol une blanche. On ne
 peut les grouper dans un accord, puisque toutes les notes composant un
-accord doivent être de même durée.  On ne peut non plus les écrire
-séquentiellement, puisqu'elles débutent toutes au même instant.  Ce
+accord doivent être de même durée. On ne peut non plus les écrire
+séquentiellement, puisqu'elles débutent toutes au même instant. Ce
 fragment de mesure nécessite trois voix, et une bonne pratique voudrait
 que l'intégralité de la mesure soit sur trois voix, comme ci-dessous où
 nous avons une allure et une couleur différentes aux notes de chacune
-d'entre elles.  Une fois de plus, nous reviendrons plus tard sur le code
+d'entre elles. Une fois de plus, nous reviendrons plus tard sur le code
 que vous ne comprendriez pas.
 
 @c The following should appear as music without code
@@ -934,7 +947,7 @@ que vous ne comprendriez pas.
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4  % No Voice three (we want stems down)
+  \voices 1,2,4  % No voice three (we want stems down)
   <<
     {  % Voice one
       \voiceOneStyle
@@ -942,8 +955,8 @@ que vous ne comprendriez pas.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      % Ignore these for now - they are explained later
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
@@ -958,9 +971,9 @@ que vous ne comprendriez pas.
 }
 @end lilypond
 
-Essayons à présent de coder cette musique en partant de zéro.  Comme
-nous le verrons, certaines difficultés vont se présenter.  Partons de ce
-que nous avons appris : utilisons la construction @code{<< \\ >>} pour
+Essayons à présent de coder cette musique en partant de zéro. Comme nous
+le verrons, certaines difficultés vont se présenter. Partons de ce que
+nous avons appris : utilisons la construction @code{<< \\ >>} pour
 saisir la première mesure dans trois voix :
 
 @lilypond[quote,verbatim,ragged-right]
@@ -982,18 +995,18 @@ saisir la première mesure dans trois voix :
 
 La direction des hampes est attribuée automatiquement : les voix
 impaires portent des hampes vers le haut, les voix paires des hampes
-vers le bas.  Les hampes des voix 1 et 2 sont orientées comme il faut
-mais celles de la voix 3 devraient, dans le cas qui nous occupe, aller
-vers le bas.  Nous pouvons corriger cela en sautant la voix 3 et en
-plaçant la musique dans la voix 4.  Ceci pourrait s'obtenir à l'aide
-d'un @code{\\} supplémentaire, mais nous utiliserons plutôt la commande
+vers le bas. Les hampes des voix 1 et 2 sont orientées comme il faut
+mais celles de la voix 3 devraient, dans le cas qui nous occupe, aller
+vers le bas. Nous pouvons corriger cela en sautant la voix 3 et en
+plaçant la musique dans la voix 4. Ceci pourrait s'obtenir à l'aide d'un
+@code{\\} supplémentaire, mais nous utiliserons plutôt la commande
 @code{\voices} qui, par ailleurs, nous permettrait de saisir les voix
 dans un autre ordre selon notre convenance :
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative {
   \key aes \major
-  \voices 1,2,4   % Omit Voice three
+  \voices 1,2,4   % Omit voice three
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
@@ -1022,7 +1035,7 @@ examinerons ce problème dans un autre chapitre (voir la propriété
 passer d'une voix à l'autre.}
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Plusieurs voix}.
 @endmorerefs
 
@@ -1039,13 +1052,12 @@ Manuel de notation :
 @funindex \new Voice
 @cindex Voice, création de contextes
 
-Les contextes @rinternals{Voice} peuvent être déclarés manuellement
-dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
-utilisant @code{\voiceOne}@dots{} jusqu'à @code{\voiceFour} pour
-assigner des directions de hampes et un déplacement horizontal pour
-chaque partie.  Cette méthode apporte de la clarté pour des partitions
-plus importantes puisqu'elle permet de bien séparer les voix et de leur
-affecter un nom plus parlant.
+Les contextes @rinternals{Voice} peuvent être déclarés manuellement dans
+un bloc @code{<< >>} pour créer de la musique polyphonique, en utilisant
+@code{\voiceOne} jusqu'à @code{\voiceFour} pour assigner des directions
+de hampes et un déplacement horizontal pour chaque partie. Cette méthode
+apporte de la clarté pour des partitions plus importantes puisqu'elle
+permet de bien séparer les voix et de leur affecter un nom plus parlant.
 
 En particulier, la construction @code{<< \\ >>} que nous avons vue
 précédemment :
@@ -1081,14 +1093,14 @@ Toutes deux produiront
 @cindex Voice, retour à un seul contexte
 @cindex retour à un contexte Voice unique
 
-Les commandes @code{\voiceXXX} fixent la direction des hampes, des
+Les commandes @code{\voice@var{XXX}} fixent la direction des hampes, des
 liaisons de prolongation et de phrasé, des articulations, des
 annotations, des points d'augmentation des notes pointées et des
-doigtés.  @code{\voiceOne} et @code{\voiceThree} font pointer ces objets
+doigtés. @code{\voiceOne} et @code{\voiceThree} font pointer ces objets
 vers le haut, alors que @code{\voiceTwo} et @code{\voiceFour} les font
-pointer vers le bas.  Ces commandes génèrent par ailleurs un décalage
+pointer vers le bas. Ces commandes génèrent par ailleurs un décalage
 horizontal de chacune des voix pour éviter tout risque de chevauchement
-entre plusieurs notes.  La commande @code{\oneVoice} les ramène aux
+entre plusieurs notes. La commande @code{\oneVoice} les ramène aux
 critères normaux.
 
 Voyons, à l'aide de ces exemples simples, les effets respectifs de
@@ -1121,14 +1133,14 @@ annotations, liaisons de prolongation ou de phrasé, et sur les nuances.
 @end lilypond
 
 Voyons à présent quatre différentes façons d'exprimer un passage
-polyphonique, à partir d'un exemple de la section précédente.  Chacune
+polyphonique, à partir d'un exemple de la section précédente. Chacune
 d'elles aura ses avantages selon les circonstances.
 
 Une expression séquentielle qui apparaît en premier dans un @code{<< >>}
 -- attention, @strong{pas} dans une construction @code{<< \\ >>} --
-appartient à la voix principale.  Ceci est utile lorsque des voix
+appartient à la voix principale. Ceci est utile lorsque des voix
 supplémentaires apparaissent pendant que la voix principale est jouée.
-Voici une meilleure réalisation de notre exemple.  Les notes colorées et
+Voici une meilleure réalisation de notre exemple. Les notes colorées et
 en croix mettent en évidence le fait que la mélodie principale est
 maintenant dans un seul contexte de voix, ce qui permet d'ajouter une
 liaison de phrasé à l'ensemble.
@@ -1136,7 +1148,7 @@ liaison de phrasé à l'ensemble.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative {
   \voiceOneStyle
-  % The following notes are homophonic
+  % This section is homophonic
   c'16^( d e f
   % Start simultaneous section of three voices
   <<
@@ -1144,15 +1156,13 @@ liaison de phrasé à l'ensemble.
     { g4 f e | d2 e) | }
     % Initiate second voice
     \new Voice {
-      % Set stems, etc., down
-      \voiceTwo
-      r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
+      % Set stems, etc., down
+      \voiceTwo r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
     }
     % Initiate third voice
     \new Voice {
       % Set stems, etc, up
-      \voiceThree
-      s2. | s4 b c2 |
+      \voiceThree s2. | s4 b c2 |
     }
   >>
 }
@@ -1203,13 +1213,11 @@ plus naturelle de saisir la musique :
   <<
     { g4 f e | d2 e) | }
     \new Voice {
-      \voiceTwo
-      r8 e4 d c8~ |
+      \voiceTwo r8 e4 d c8~ |
       <<
         { c8 b16 a b8 g~ 2 | }
         \new Voice {
-          \voiceThree
-          s4 b c2 |
+          \voiceThree s4 b c2 |
         }
       >>
     }
@@ -1217,10 +1225,10 @@ plus naturelle de saisir la musique :
 }
 @end lilypond
 
-@cindex espacement des notes
+@cindex silences invisibles
 
 Cette manière de brièvement imbriquer des voix est bien utile pour de
-courts fragments de musique polyphonique.  Mais lorsqu'une portée est
+courts fragments de musique polyphonique. Mais lorsqu'une portée est
 très souvent polyphonique, on peut y gagner en clarté si l'on utilise
 plusieurs voix sur l'ensemble de cette portée et que l'on positionne des
 silences invisibles pour sauter les moments où il n'y a rien dans cette
@@ -1230,20 +1238,17 @@ voix.
 \new Staff \relative <<
   % Initiate first voice
   \new Voice {
-    \voiceOne
-    c'16^( d e f g4 f e | d2 e2) |
+    \voiceOne c'16^( d e f g4 f e | d2 e) |
   }
   % Initiate second voice
   \new Voice {
     % Set stems, etc, down
-    \voiceTwo
-    s4 r8 e4 d c8 ~ | 8 b16 a b8 g ~ 2 |
+    \voiceTwo s4 r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
   }
   % Initiate third voice
   \new Voice {
     % Set stems, etc, up
-    \voiceThree
-    s1 | s4 b4 c2 |
+    \voiceThree s1 | s4 b c2 |
   }
 >>
 @end lilypond
@@ -1252,10 +1257,10 @@ voix.
 @subsubheading Empilement des notes
 @translationof Note columns
 
-@cindex note column
+@cindex @emph{note column}
 @cindex empilement de notes
 @cindex collisions de notes
-@cindex shift, commandes
+@cindex @emph{shift}, commandes
 @cindex décalage, commandes
 
 @funindex \shiftOff
@@ -1265,23 +1270,23 @@ voix.
 
 Les notes rapprochées d'un accord, ou des notes de différentes voix qui
 tombent ensemble, seront rangées sur deux colonnes, voire plus, pour
-palier d'éventuels chevauchements des têtes.  On appelle cela des
-empilements de notes.  Chaque voix dispose de plusieurs empilements, et
-l'attribution d'un décalage à une voix en particulier s'appliquera à
-l'empilement en question s'il y avait risque de collision.
-Nous en avons une illustration à la deuxième mesure de l'exemple
-ci-dessus : le do de la deuxième voix est décalé à droite du ré de
-la première voix et, dans l'accord final, le do de la troisième voix est
-lui aussi décalé à droite des autres notes.
+palier d'éventuels chevauchements des têtes. On appelle cela des
+@dfn{empilements de notes}. Chaque voix dispose de plusieurs
+empilements, et l'attribution d'un décalage à une voix en particulier
+s'appliquera à l'empilement en question s'il y avait risque de
+collision. Nous en avons une illustration à la deuxième mesure de
+l'exemple ci-dessus : le do de la deuxième voix est décalé à droite du
+ré de la première voix et, dans l'accord final, le do de la troisième
+voix est lui aussi décalé à droite des autres notes.
 
 Les commandes @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} et
 @code{\shiftOff} spécifient le degré nécessaire de décalage qui sera
 appliqué aux notes ou accords de la voix en question afin d'éviter une
-collision.  Par défaut, les voix extérieures -- normalement les
-première et deuxième -- se verront attribuer @code{\shiftOff}, alors
-que les voix intérieures -- trois et quatre -- se verront attribuer
-@code{\shiftOn}.  Lorsqu'un décalage s'applique, les voix un et trois
-iront vers la droite, et les voix deux et quatre vers la gauche.
+collision. Par défaut, les voix extérieures -- normalement les première
+et deuxième -- se verront attribuer @code{\shiftOff}, alors que les voix
+intérieures -- trois et quatre -- se verront attribuer @code{\shiftOn}.
+Lorsqu'un décalage s'applique, les voix un et trois iront vers la
+droite, et les voix deux et quatre vers la gauche.
 
 @code{\shiftOnn} et @code{\shiftOnnn} définissent des degrés augmentés
 de décalage auquel on peut devoir temporairement recourir dans des
@@ -1293,13 +1298,13 @@ aux hampes vers le bas.  Dans le cas où des notes, issues de deux voix
 ayant toutes deux des hampes dans la même direction, se retrouvent au
 même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
 identiques, LilyPond vous le signalera par le message « Cette voix
-requiert un @code{\voiceXx} ou un réglage @code{\shiftXx}  ».
+requiert un @code{\voice@var{Xx}} ou un réglage @code{\shift@var{Xx}} ».
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @ref{Déplacement d'objets}
 
-Manuel de notation :
+Manuel de notation :
 @rnotation{Plusieurs voix}.
 @endmorerefs
 
@@ -1318,13 +1323,13 @@ deux expressions différentes -- des notes et des paroles.
 @cindex Lyrics, création d'un contexte
 @cindex paroles, affectation à une voix
 
-Nous avons déjà abordé la commande @code{\addlyrics@{@}}, qui permet de
-gérer des partitions simples.  Cette technique est cependant
-relativement limitée.  Pour de la musique un peu plus compliquée, il
-vous faudra contenir les paroles dans un contexte @code{Lyrics}, créé
-par la commande @code{\new Lyrics} ; vous relierez ensuite ces paroles
-aux notes grâce à la commande @code{\lyricsto@{@}} et au nom assigné à
-la voix en question.
+Nous avons déjà abordé la commande @code{\addlyrics}, qui permet de
+gérer des partitions simples. Cette technique est cependant relativement
+limitée. Pour de la musique un peu plus compliquée, il vous faudra
+contenir les paroles dans un contexte @code{Lyrics}, créé par la
+commande @code{\new Lyrics} ; vous relierez ensuite ces paroles aux
+notes grâce à la commande @code{\lyricsto} et au nom assigné à la voix
+en question.
 
 @lilypond[quote,verbatim]
 <<
@@ -1342,9 +1347,9 @@ la voix en question.
 @end lilypond
 
 Notez bien que les paroles sont liées à un contexte de voix
-(@code{Voice}), @strong{non} à un contexte de portée (@code{Staff}).  Il
-est donc nécessaire de créer explicitement les contextes @code{Staff}
-et @code{Voice}.
+(@code{Voice}), @strong{non} à un contexte de portée (@code{Staff}). Il
+est donc nécessaire de créer explicitement les contextes @code{Staff} et
+@code{Voice}.
 
 @cindex paroles et ligatures
 @cindex ligatures et paroles
@@ -1355,9 +1360,9 @@ Si la ligature automatique que LilyPond applique par défaut est
 pleinement adaptée en matière de musique instrumentale, il n'en va pas
 de même dans le cas d'une musique associée à des paroles, et pour
 laquelle soit les ligatures sont carrément absentes, soit elles servent
-à indiquer un mélisme -- plusieurs notes pour une même syllabe.
-Dans l'exemple qui suit, nous utilisons la commande @code{\autoBeamOff}
-afin de désactiver les ligatures automatiques.
+à indiquer un mélisme -- plusieurs notes pour une même syllabe. Dans
+l'exemple qui suit, nous utilisons la commande @code{\autoBeamOff} afin
+de désactiver les ligatures automatiques.
 
 @funindex \new ChoirStaff
 @funindex ChoirStaff
@@ -1366,12 +1371,12 @@ afin de désactiver les ligatures automatiques.
 @cindex structure d'une partition vocale
 @cindex chœur, partie de
 
-Nous allons reprendre un extrait de Judas Maccabæus pour illustrer ce
-que cette technique apporte en flexibilité.  Nous commençons par
-utiliser des variables -- ou identificateurs --  afin de séparer de la
-structure de la portée aussi bien la musique que les paroles.  Nous
+Nous allons reprendre un extrait de @emph{Judas Maccabæus} pour
+illustrer ce que cette technique apporte en flexibilité. Nous commençons
+par utiliser des variables -- ou identificateurs -- afin de séparer de
+la structure de la portée aussi bien la musique que les paroles. Nous
 ajoutons par la même occasion un crochet spécifique aux portées pour
-chœur (@code{ChoirStaff}).  Quant aux blocs de paroles, nous les faisons
+chœur (@code{ChoirStaff}). Quant aux blocs de paroles, nous les faisons
 précéder de la commande @code{\lyricmode} pour nous assurer qu'elles
 seront interprétées comme telles, et non comme de la musique.
 
@@ -1415,7 +1420,7 @@ SopTwoLyrics = \lyricmode {
 }
 @end lilypond
 
-Voici donc la structure de base valable pour toute partition vocale.  On
+Voici donc la structure de base valable pour toute partition vocale. On
 peut y ajouter d'autres portées si besoin est, d'autres voix à chaque
 portée, plusieurs couplets aux paroles, et les variables contenant la
 musique peuvent même être stockées dans des fichiers indépendants dès
@@ -1427,13 +1432,13 @@ lors que leur longueur devient conséquente.
 @cindex couplets multiples et musique vocale
 
 Voici maintenant la première ligne d'une hymne pour chœur à quatre voix
-mixtes, comportant quatre couplets.  Les paroles sont ici identiques
-pour les quatre voix.  Vous remarquerez le recours aux variables afin de
+mixtes, comportant quatre couplets. Les paroles sont ici identiques pour
+les quatre voix. Vous remarquerez le recours aux variables afin de
 séparer de la structure de portée aussi bien les notes que les paroles.
 Vous noterez aussi une variable particulière, que nous avons appelée
-@qq{ArmureMetrique}, et qui contient plusieurs commandes que nous
-utiliserons dans les deux portées.  Dans de nombreux autres exemples,
-elle s'appelle @qq{global}.
+@code{keyTime} (armureMetrique), et qui contient plusieurs commandes que
+nous utiliserons dans les deux portées. Dans de nombreux autres
+exemples, elle s'appelle « global ».
 
 @lilypond[quote,verbatim]
 keyTime = { \key c \major \time 4/4 \partial 4 }
@@ -1473,7 +1478,7 @@ VerseFour  =
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Musique vocale}.
 @endmorerefs
 
@@ -1567,7 +1572,7 @@ initiales en capitale et directement accolés les uns aux autres sans
 ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Tout savoir sur les contextes}.
 @endmorerefs
 
@@ -1681,7 +1686,7 @@ Comme nous l'avons déjà vu dans le chapitre consacré aux paroles
 référer à ce contexte particulier.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Création et référencement d'un contexte}.
 @endmorerefs
 
@@ -1768,7 +1773,7 @@ Nous verrons plus avant comment le résultat de LilyPond peut changer
 lorsqu'on modifie l'action des graveurs.
 
 @morerefs
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Engravers and Performers}.
 @endmorerefs
 
@@ -2085,11 +2090,11 @@ chacun des contextes en particulier grâce à un bloc @code{\with} ou bien
 une commande @code{\set} au fil des notes.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Modification des réglages par défaut d'un contexte},
 @rnotation{La commande de fixation (set)}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
 @endmorerefs
@@ -2253,7 +2258,7 @@ d'un type particulier si vous insérez les commandes @code{\set} dans un
 bloc @code{\context}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @rnotation{Modification des greffons de contexte},
 @rnotation{Modification des réglages par défaut d'un contexte}.
 @endmorerefs
@@ -2873,7 +2878,7 @@ quatre définitions de musique, plus une qui contiendra la métrique et
 l'armure :
 
 @example
-\version @w{"@version{}"}
+\version "@version{}"
 \header @{
   title = "Jesu, meine Freude"
   composer = "J S Bach"
@@ -3137,7 +3142,7 @@ PedalOrganMusic = \relative {
 @end lilypond
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{system,système}.
 @endmorerefs
 
