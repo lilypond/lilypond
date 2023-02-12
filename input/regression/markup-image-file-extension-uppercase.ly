@@ -5,5 +5,5 @@
 @code{\\markup \\image} can be uppercased."
 }
 
-\markup \image #Y #30 "lilypond.PNG"
-\markup \image #Y #30 "lilypond.EPS"
+\markup \image #Y #30 "lilypond-uppercase-ext.PNG"
+\markup \image #Y #30 "lilypond-uppercase-ext.EPS"
