@@ -962,6 +962,11 @@ Custom dash patterns for slurs can be defined:
 
 @snippets
 
+@cindex slur, adjusting start and end
+@cindex adjusting start and end, slur
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/adjusting-slur-positions-vertically.ly}
+
 @cindex slurs, double, for legato chords
 @cindex double slurs, for legato chords
 @findex doubleSlurs
