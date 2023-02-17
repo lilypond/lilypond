@@ -481,11 +481,10 @@ def extract_score_structure(part_list, staffinfo):
         if not isinstance(el, musicxml.Part_group):
             return
         group = musicexp.StaffGroup()
-        if hasattr(el, 'number'):
-            id = el.number
-            group.id = id
-            #currentgroups_dict[id] = group
-            # currentgroups.append(id)
+        group_id = getattr(el, 'number', None)
+        if group_id is not None:
+            group.id = group_id
+        # PERF: Avoid the following multiple searches.
         if el.get_maybe_exist_named_child('group-name'):
             group.instrument_name = el.get_maybe_exist_named_child(
                 'group-name').get_text()
@@ -726,21 +725,21 @@ def musicxml_tuplet_to_lily(tuplet_elt, time_modification):
     tsm.display_numerator = tuplet_elt.get_normal_nr()
     tsm.display_denominator = tuplet_elt.get_actual_nr()
 
-    if hasattr(tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
+    if getattr(tuplet_elt, 'bracket', None) == 'no':
         tsm.display_bracket = None
-    elif hasattr(tuplet_elt, 'line-shape') and getattr(tuplet_elt, 'line-shape') == "curved":
+    elif getattr(tuplet_elt, 'line-shape', None) == 'curved':
         tsm.display_bracket = "curved"
     else:
         tsm.display_bracket = "bracket"
 
     display_values = {"none": None, "actual": "actual", "both": "both"}
-    if hasattr(tuplet_elt, "show-number"):
-        tsm.display_number = display_values.get(
-            getattr(tuplet_elt, "show-number"), "actual")
+    show_number = getattr(tuplet_elt, 'show-number', None)
+    if show_number is not None:
+        tsm.display_number = display_values.get(show_number, 'actual')
 
-    if hasattr(tuplet_elt, "show-type"):
-        tsm.display_type = display_values.get(
-            getattr(tuplet_elt, "show-type"), None)
+    show_type = getattr(tuplet_elt, 'show-type', None)
+    if show_type is not None:
+        tsm.display_type = display_values.get(show_type, None)
 
     return tsm
 
@@ -759,9 +758,7 @@ def group_tuplets(music_list, events):
             if music_list[j] == ev_chord:
                 break
             j += 1
-        nr = 0
-        if hasattr(tuplet_elt, 'number'):
-            nr = getattr(tuplet_elt, 'number')
+        nr = getattr(tuplet_elt, 'number', 0)
         if tuplet_elt.type == 'start':
             tuplet_object = musicxml_tuplet_to_lily(
                 tuplet_elt, time_modification)
@@ -822,11 +819,12 @@ def musicxml_time_to_lily(attributes):
     change.fractions = sig
 
     time_elm = attributes.get_maybe_exist_named_child('time')
-    if time_elm and hasattr(time_elm, 'symbol'):
+    symbol = getattr(time_elm, 'symbol', None)
+    if symbol is not None:
         change.style = {'single-number': "'single-digit",
                         'cut': None,
                         'common': None,
-                        'normal': "'()"}.get(time_elm.symbol, "'()")
+                        'normal': "'()"}.get(symbol, "'()")
     else:
         change.style = "'()"
 
@@ -986,13 +984,11 @@ def musicxml_print_to_lily(el):
     #      page-number CDATA #IMPLIED
     #  >
     elts = []
-    if (hasattr(el, "new-system") and conversion_settings.convert_system_breaks):
-        val = getattr(el, "new-system")
-        if val == "yes":
+    if conversion_settings.convert_system_breaks:
+        if getattr(el, 'new-system', None) == 'yes':
             elts.append(musicexp.Break("break"))
-    if hasattr(el, "new-page") and conversion_settings.convert_page_breaks:
-        val = getattr(el, "new-page")
-        if val == "yes":
+    if conversion_settings.convert_page_breaks:
+        if getattr(el, 'new-page', None) == 'yes':
             elts.append(musicexp.Break("pageBreak"))
     child = el.get_maybe_exist_named_child("part-name-display")
     if child:
@@ -1073,27 +1069,24 @@ def musicxml_direction_to_indicator(direction):
 def musicxml_fermata_to_lily_event(mxl_event):
 
     ev = musicexp.ArticulationEvent()
-    txt = mxl_event.get_text()
 
-    # The contents of the element defined the shape, possible are normal, angled and square
-    ev.type = {"angled": "shortfermata",
-               "square": "longfermata"}.get(txt, "fermata")
     fermata_types = {"angled": "shortfermata",
                      "square": "longfermata"}
 
     # MusicXML fermata types can be specified in two different ways:
     # 1. <fermata>angled</fermata> and
     # 2. <fermata type="angled"/> -- both need to be handled.
-    if hasattr(mxl_event, 'type'):
-        fermata_type = fermata_types.get(mxl_event.type, 'fermata')
-    else:
-        fermata_type = fermata_types.get(mxl_event.get_text(), 'fermata')
+    #
+    # TODO: This needs further explanation because
+    # https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/fermata
+    # says that the 'type' attribute is either 'upright' or 'inverted'.  Is this
+    # intended to support XML files written by a non-compliant program?
+    type_attr = getattr(mxl_event, 'type', None)
+    ev.type = fermata_types.get(type_attr or mxl_event.get_text(), 'fermata')
 
-    ev.type = fermata_type
-
-    if hasattr(mxl_event, 'type'):
-        dir = musicxml_direction_to_indicator(mxl_event.type)
-        if dir and options.convert_directions:
+    if options.convert_directions and (type_attr is not None):
+        dir = musicxml_direction_to_indicator(type_attr)
+        if dir:
             ev.force_direction = dir
     return ev
 
@@ -1312,13 +1305,11 @@ def musicxml_articulation_to_lily_event(mxl_event):
 
     # Some articulations use the type attribute, other the placement...
     if options.convert_directions:
-        dir = None
-        if hasattr(mxl_event, 'type'):
-            dir = musicxml_direction_to_indicator(mxl_event.type)
-        if hasattr(mxl_event, 'placement'):
-            dir = musicxml_direction_to_indicator(mxl_event.placement)
-        if dir:
-            ev.force_direction = dir
+        d = musicxml_direction_to_indicator(
+            getattr(mxl_event, 'type', None) or
+            getattr(mxl_event, 'placement', None))
+        if d:
+            ev.force_direction = d
 
     return ev
 
@@ -1413,42 +1404,41 @@ def musicxml_words_to_lily_event(words):
     text = re.sub(' *\n? *$', '', text)
     event.text = text
 
-    if options.convert_directions and hasattr(words, 'default-y'):
-        offset = getattr(words, 'default-y')
-        try:
-            off = int(offset)
-            if off > 0:
-                event.force_direction = 1
-            else:
-                event.force_direction = -1
-        except ValueError:
-            event.force_direction = 0
+    if options.convert_directions:
+        offset = getattr(words, 'default-y', None)
+        if offset is not None:
+            try:
+                off = int(offset)
+                if off > 0:
+                    event.force_direction = 1
+                else:
+                    event.force_direction = -1
+            except ValueError:
+                event.force_direction = 0
 
-    if hasattr(words, 'font-weight'):
-        font_weight = {"normal": '', "bold": '\\bold'}.get(
-            getattr(words, 'font-weight'), '')
-        if font_weight:
-            event.markup += font_weight
+    font_weight = {"normal": '', "bold": '\\bold'}.get(
+        getattr(words, 'font-weight', None), '')
+    if font_weight:
+        event.markup += font_weight
 
-    if hasattr(words, 'font-size'):
-        size = getattr(words, 'font-size')
+    size = getattr(words, 'font-size', None)
+    if size is not None:
         # font_size = font_size_dict.get(size, '')
         font_size = get_font_size(size)
         if font_size:
             event.markup += font_size
 
-    if hasattr(words, 'color'):
-        color = getattr(words, 'color')
+    color = getattr(words, 'color', None)
+    if color is not None:
         rgb = hex_to_color(color)
         if rgb:
             event.markup += "\\with-color #(rgb-color %s %s %s)" % (
                 rgb[0], rgb[1], rgb[2])
 
-    if hasattr(words, 'font-style'):
-        font_style = {"italic": '\\italic'}.get(
-            getattr(words, 'font-style'), '')
-        if font_style:
-            event.markup += font_style
+    font_style = {"italic": '\\italic'}.get(
+        getattr(words, 'font-style', None), '')
+    if font_style:
+        event.markup += font_style
 
     # TODO: How should I best convert the font-family attribute?
 
@@ -1531,10 +1521,8 @@ def musicxml_rehearsal_to_ly_mark(mxl_event):
     if not text:
         return
     # default is boxed rehearsal marks!
-    encl = "box"
-    if hasattr(mxl_event, 'enclosure'):
-        encl = {"none": None, "square": "box", "circle": "circle"}.get(
-            mxl_event.enclosure, None)
+    encl = {"none": None, "square": "box", "circle": "circle"}.get(
+        getattr(mxl_event, 'enclosure', 'square'), None)
     if encl:
         text = "\\%s { %s }" % (encl, text)
     ev = musicexp.MarkEvent("\\markup { %s }" % text)
@@ -1582,8 +1570,9 @@ def musicxml_metronome_to_ly(mxl_event, text_event=None):
         if text_event:
             ev.set_text(text_event.get_text().strip())
 
-        if hasattr(mxl_event, 'parentheses'):
-            ev.set_parentheses(mxl_event.parentheses == "yes")
+        parentheses = getattr(mxl_event, 'parentheses', None)
+        if parentheses is not None:
+            ev.set_parentheses(parentheses == 'yes')
 
         d = musicexp.Duration()
         d.duration_log = utilities.musicxml_duration_to_log(
@@ -1647,8 +1636,10 @@ def musicxml_direction_to_lily(n):
     res = []
     # placement applies to all children!
     dir = None
-    if options.convert_directions and hasattr(n, 'placement'):
-        dir = musicxml_direction_to_indicator(n.placement)
+    if options.convert_directions:
+        placement = getattr(n, 'placement', None)
+        if placement is not None:
+            dir = musicxml_direction_to_indicator(placement)
     dirtype_children = []
     # TODO: The direction-type is used for grouping (e.g. dynamics with text),
     #       so we can't simply flatten them out!
@@ -1976,7 +1967,7 @@ def musicxml_figured_bass_to_lily(n):
         duration = musicxml2ly_conversion.rational_to_lily_duration(length)
         if duration:
             res.set_duration(duration)
-    if hasattr(n, 'parentheses') and n.parentheses == "yes":
+    if getattr(n, 'parentheses', None) == 'yes':
         res.set_parentheses(True)
     return res
 
@@ -2546,9 +2537,9 @@ def musicxml_voice_to_lily_voice(voice):
                     grace_chord = musicexp.ChordEvent()
                     ev_chord.append_grace(grace_chord)
 
-            if hasattr(grace, 'slash') and not is_after_grace:
+            if not is_after_grace:
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
-                if grace.slash == "yes":
+                if getattr(grace, 'slash', None) == 'yes':
                     ev_chord.grace_type = "acciaccatura"
             # now that we have inserted the chord into the grace music, insert
             # everything into that chord instead of the ev_chord
@@ -2859,16 +2850,14 @@ def voices_in_part(part):
 
 def voices_in_part_in_parts(parts):
     """return a Part -> Name -> Voice dictionary"""
-    # don't crash if Part doesn't have an id (that's invalid MusicXML,
-    # but such files are out in the wild!)
     dictionary = {}
     for p in parts:
         voices = voices_in_part(p)
-        if hasattr(p, "id"):
-            dictionary[p.id] = voices
-        else:
-            # TODO: extract correct part id from other sources
-            dictionary[None] = voices
+        # don't crash if Part doesn't have an id (that's invalid MusicXML,
+        # but such files are out in the wild!)
+        # TODO: extract correct part id from other sources
+        part_id = getattr(p, 'id', None)
+        dictionary[part_id] = voices
     return dictionary
 
 
