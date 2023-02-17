@@ -1541,30 +1541,37 @@ by the event corresponding to @var{music} with the syntax:
 \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
 @end example
 
+@c In this and the following footnote examples we use `\markup`
+@c commands to ensure enough vertical space so that footnotes are
+@c not clipped.  This is issue #6128.
+
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "event-based footnotes"
+  \markup \null
   \relative c'' {
-    \footnote #'(-1 . 3) "A note" a4
+    \footnote #'(-1 . 3) "A note." a4
     a4
-    \footnote #'(2 . 2) "A rest" r4
+    \footnote #'(2 . 2) "A rest." r4
     a4
   }
 }
 @end lilypond
 
-Marking a @emph{whole} chord with an event-based footnote is not
-possible: a chord, even one containing just a single note, does
-not produce an actual event of its own.  However, individual
-notes @emph{inside} of the chord can be marked:
+If a chord is marked with an event-based footnote, each chord note
+gets a separate but identical footnote, which is undesired
+normally.  However, it is possible to create footnotes for
+individual notes inside of a chord.
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "event-based footnotes"
+  \markup \null
   \relative c'' {
-    \footnote #'(2 . 3) "Does not work" <a-3>2
-    <\footnote #'(-2 . -3) "Does work" a-3>4
-    <a-3 \footnote #'(3 . 1/2) "Also works" c-5>4
+    \footnote #'(1 . 3) "A chord." <a-3 c-5>2
+    <a-3 \footnote #'(3 . 0.5) "A note in a chord." c-5>4
   }
 }
 @end lilypond
@@ -1584,15 +1591,18 @@ to it.  The syntax is:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "event-based footnotes"
+  \markup \null
   \relative {
-    a'4_\footnote #'(0 . -1) "A slur forced down" (
-    b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
+    a'4_\footnote #'(0 . -1) "A slur forced down." (
+    b8^\footnote #'(1 . 0.5) "A manual beam forced up." [
     b8 ]
     c4 )
-    c-\footnote #'(1 . 1) "Tenuto" --
+    c-\footnote #'(1 . 1) "Tenuto." --
   }
 }
 @end lilypond
+
 
 @subsubsubheading Time-based footnotes
 
@@ -1606,12 +1616,14 @@ is required after the footnote text instead of @var{music}:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "time-based footnotes"
+  \markup \null
   \relative c'' {
-    \footnote #'(-1 . -3) "A flat" Accidental
+    \footnote #'(-1 . -3) "A flat." Accidental
     aes4 c
-    \footnote #'(-1 . 0.5) "Another flat" Accidental
+    \footnote #'(-1 . 0.5) "Another flat." Accidental
     ees
-    \footnote #'(1 . -2) "A stem" Stem
+    \footnote #'(1 . -2) "A stem." Stem
     aes
   }
 }
@@ -1623,10 +1635,13 @@ is attached to all grobs of that type at the current time step:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "time-based footnotes"
+  \markup \null
+  \markup \null
   \relative c' {
-    \footnote #'(-1 . 3) "A flat" Accidental
+    \footnote #'(-1 . 3) "A flat." Accidental
     <ees ges bes>4
-    \footnote #'(2 . 0.5) "Articulation" Script
+    \footnote #'(2 . 0.5) "Articulation." Script
     c'->-.
   }
 }
@@ -1649,11 +1664,13 @@ applied to just the following event:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "time-based footnotes"
+  \markup \null
   \relative c'' {
-    < \footnote #'(1 . -2) "An A" a
-      \single \footnote #'(-1 . -1) "A sharp" Accidental
+    < \footnote #'(1 . -2) "An A." a
+      \single \footnote #'(-1 . -1) "A sharp." Accidental
       cis
-      \single \footnote #'(0.5 . 0.5) "A flat" Accidental
+      \single \footnote #'(0.5 . 0.5) "A flat." Accidental
       ees fis
     >2
   }
@@ -1683,15 +1700,16 @@ context.
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "time-based footnotes"
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
+    \footnote #'(-0.5 . -1) "Meter change." Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) "Chord stem" Stem
+    \footnote #'(1 . -1) "Chord stem." Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
+    \footnote #'(-0.5 . 2) "Bar line." Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
+    \footnote #'(0.5 . -1) "Key change." Staff.KeySignature
     \key c \minor
     q
   }
@@ -1705,15 +1723,17 @@ suppressed:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "footnotes with custom marks"
+  \markup \null
   \relative c' {
     \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
     a'4 b8
     \footnote \markup { \super "$" } #'(0.5 . 1)
-      \markup { \super "$" \italic " The second note" } e
+      \markup { \super "$" \italic " The second note." } e
     c4
     \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
-      \markup { \super "+" \italic " Editorial" } \p
+      \markup { \super "+" \italic " Editorial." } \p
   }
 }
 @end lilypond
@@ -1762,9 +1782,9 @@ For example:
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \auto-footnote "tune" \italic " By me"
+    \auto-footnote "tune" \italic " By me."
     "is shown below.  It is a"
-    \auto-footnote "recent" \italic " Aug 2012"
+    \auto-footnote "recent" \italic " Aug 2012."
     "composition."
   }
   \relative {
@@ -1806,10 +1826,10 @@ Alteratively, ASCII aliases may be used (@pxref{ASCII aliases}):
   \header { tagline = ##f }
   \markup {
     "A simple tune"
-    \footnote "*" \italic "* By me"
+    \footnote "*" \italic "* By me."
     "is shown below.  It is a recent"
     \footnote \super &dagger; \concat {
-      \super &dagger; \italic " Aug 2012"
+      \super &dagger; \italic " Aug 2012."
     }
     "composition."
   }
@@ -1828,11 +1848,11 @@ Unicode character codes may also be used to specify marks
   \markup {
     "A simple tune"
     \footnote \super \char##x00a7 \concat {
-      \super \char##x00a7 \italic " By me"
+      \super \char##x00a7 \italic " By me."
     }
     "is shown below.  It is a recent"
     \footnote \super \char##x00b6 \concat {
-      \super \char##x00b6 \italic " Aug 2012"
+      \super \char##x00b6 \italic " Aug 2012."
     }
     "composition."
   }
