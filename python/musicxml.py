@@ -33,19 +33,20 @@ import musicxml2ly_conversion
 import utilities
 
 class Xml_node(object):
+    _name = 'xml_node'
 
     def __init__(self):
         self._children = []
         self._data = None
-        self._name = 'xml_node'
         self._parent = None
         self._attribute_dict = {}
 
     def get_parent(self):
         return self._parent
 
-    def get_name(self):
-        return self._name
+    @classmethod
+    def get_name(cls):
+        return cls._name
 
     def get_text(self):
         if self._data:
@@ -1791,6 +1792,10 @@ class_dict = {
 }
 
 
+for name, cls in class_dict.items():
+    cls._name = name
+
+
 def name2class_name(name):
     name = name.replace('-', '_')
     name = name.replace('#', 'hash_')
@@ -1805,7 +1810,7 @@ def get_class(name):
     except KeyError:
         pass
     class_name = name2class_name(name)
-    klass = type(class_name, (Music_xml_node,), {})
+    klass = type(class_name, (Music_xml_node,), {'_name': name})
     class_dict[name] = klass
     return klass
 
@@ -1816,10 +1821,8 @@ def lxml_demarshal_node(node):
     # Ignore comment nodes, which are also returned by the etree parser!
     if name is None or node.__class__.__name__ == "_Comment":
         return None
-    klass = get_class(name)
-    py_node = klass()
+    py_node = get_class(name)()
 
-    py_node._name = name
     py_node._data = node.text
     py_node._children = [lxml_demarshal_node(cn) for cn in node.getchildren()]
     py_node._children = [x for x in py_node._children if x]
@@ -1835,11 +1838,7 @@ def lxml_demarshal_node(node):
 
 
 def minidom_demarshal_node(node):
-    name = node.nodeName
-
-    klass = get_class(name)
-    py_node = klass()
-    py_node._name = name
+    py_node = get_class(node.nodeName)()
     py_node._children = [minidom_demarshal_node(cn) for cn in node.childNodes]
     for c in py_node._children:
         c._parent = py_node
