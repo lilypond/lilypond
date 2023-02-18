@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.1\n"
+"Project-Id-Version: lilypond 2.25.2\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-01-21 13:00+0100\n"
+"POT-Creation-Date: 2023-02-18 11:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1951,38 +1951,34 @@ msgstr ""
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:574 cairo.cc:587
+#: cairo.cc:573 cairo.cc:586
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:686
+#: cairo.cc:685
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:994
+#: cairo.cc:993
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1050
+#: cairo.cc:1049
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1089
+#: cairo.cc:1088
 #, c-format
 msgid "error while reading PNG image: %s"
 msgstr ""
 
-#: cairo.cc:1327
-msgid "Cairo too old for PDF metadata"
-msgstr ""
-
-#: cairo.cc:1607
+#: cairo.cc:1574
 #, c-format
 msgid "unknown output format %s"
 msgstr ""
@@ -2445,7 +2441,7 @@ msgstr ""
 msgid "the property '%s' does not exist (perhaps a typing error)"
 msgstr ""
 
-#: lily-guile.cc:286
+#: lily-guile.cc:287
 #, c-format
 msgid "the property '%s' must be of type '%s', ignoring invalid value '%s'"
 msgstr ""
@@ -2793,17 +2789,17 @@ msgstr ""
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:200
-msgid "semibrevis must be followed by another one -> skipping"
+#: mensural-ligature-engraver.cc:205
+msgid "semibrevis must not be followed by a brevis -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:210
+#: mensural-ligature-engraver.cc:215
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
+"and there may be at most two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:229
+#: mensural-ligature-engraver.cc:234
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -2811,7 +2807,7 @@ msgid ""
 "or the ligatura must be LB or SSB"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:386
+#: mensural-ligature-engraver.cc:392
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -3132,11 +3128,11 @@ msgstr ""
 msgid "Could not find ottavation markup for %d octaves up."
 msgstr ""
 
-#: output-def.cc:229
+#: output-def.cc:230
 msgid "margins do not fit with line-width, setting default values"
 msgstr ""
 
-#: output-def.cc:236
+#: output-def.cc:237
 msgid ""
 "systems run off the page due to improper paper settings, setting default "
 "values"
@@ -3993,7 +3989,7 @@ msgstr ""
 
 #: lexer.ll:970
 #, c-format
-msgid "unknown escaped string: `\\%s'"
+msgid "unknown command: `\\%s'"
 msgstr ""
 
 #: lexer.ll:990
@@ -4075,13 +4071,13 @@ msgid ""
 "only."
 msgstr ""
 
-#: bar-line.scm:198
+#: bar-line.scm:204
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:957
+#: bar-line.scm:963
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4155,16 +4151,16 @@ msgstr ""
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:1413
+#: define-note-names.scm:1304
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:1419
+#: define-note-names.scm:1310
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:1421
+#: define-note-names.scm:1312
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -4431,40 +4427,40 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:345
+#: lily-library.scm:341
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:353
+#: lily-library.scm:349
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:404
+#: lily-library.scm:400
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:420
+#: lily-library.scm:416
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:1101
+#: lily-library.scm:1097
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:1114
+#: lily-library.scm:1110
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1129
+#: lily-library.scm:1125
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1145
+#: lily-library.scm:1141
 #, scheme-format
 msgid ""
 "\n"
@@ -4476,29 +4472,29 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1295
+#: lily-library.scm:1291
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1398
+#: lily-library.scm:1394
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1423
+#: lily-library.scm:1419
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1456
+#: lily-library.scm:1452
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1457
+#: lily-library.scm:1453
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
