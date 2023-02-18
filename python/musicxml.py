@@ -281,6 +281,7 @@ class Credit(Xml_node):
             return None
 
     def find_type(self, credits):
+        # PERF: These calls repeat linear searches of the same elements.
         sizes = self.get_font_sizes(credits)
         sizes.sort(reverse=True)
         ys = self.get_default_ys(credits)
@@ -290,25 +291,21 @@ class Credit(Xml_node):
 
         # Words child of the self credit-element
         words = self.get_maybe_exist_named_child('credit-words')
-        size = None
-        x = None
-        y = None
-        halign = None
-        valign = None
-        justify = None
-        if words is not None:
-            if hasattr(words, 'font-size'):
-                size = int(float((getattr(words, 'font-size'))))
-            if hasattr(words, 'default-x'):
-                x = round(float(getattr(words, 'default-x')))
-            if hasattr(words, 'default-y'):
-                y = round(float(getattr(words, 'default-y')))
-            if hasattr(words, 'halign'):
-                halign = getattr(words, 'halign')
-            if hasattr(words, 'valign'):
-                valign = getattr(words, 'valign')
-            if hasattr(words, 'justify'):
-                justify = getattr(words, 'justify')
+        size = getattr(words, 'font-size', None)
+        if size is not None:
+            size = int(float(size))
+        x = getattr(words, 'default-x', None)
+        if x is not None:
+            x = round(float(x))
+        y = getattr(words, 'default-y', None)
+        if y is not None:
+            y = round(float(y))
+        justify = getattr(words, 'justify', None)
+        # TODO: The spec says that if the halign attribute is not present, it
+        # takes its value from the justify attribute.
+        halign = getattr(words, 'halign', None)
+        valign = getattr(words, 'valign', None)
+
         if (size and size == max(sizes) and y and y == max(ys) and
               (justify or halign) and (justify == 'center' or halign == 'center')):
             return 'title'
@@ -343,25 +340,28 @@ class Credit(Xml_node):
         sizes = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words is not None) and hasattr(words, 'font-size')):
-                sizes.append(getattr(words, 'font-size'))
-        return [int(float(size)) for size in sizes]
+            text = getattr(words, 'font-size', None)
+            if text is not None:
+                sizes.append(int(float(text)))
+        return sizes
 
     def get_default_xs(self, credits):
         default_xs = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words is not None) and hasattr(words, 'default-x')):
-                default_xs.append(getattr(words, 'default-x'))
-        return list(map(round, list(map(float, default_xs))))
+            text = getattr(words, 'default-x', None)
+            if text is not None:
+                default_xs.append(round(float(text)))
+        return default_xs
 
     def get_default_ys(self, credits):
         default_ys = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if words is not None and hasattr(words, 'default-y'):
-                default_ys.append(getattr(words, 'default-y'))
-        return list(map(round, list(map(float, default_ys))))
+            text = getattr(words, 'default-y', None)
+            if text is not None:
+                default_ys.append(round(float(text)))
+        return default_ys
 
     def get_text(self):
         words = self.get_maybe_exist_named_child('credit-words')
