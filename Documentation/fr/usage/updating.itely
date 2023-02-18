@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -141,8 +141,8 @@ Vous pouvez convertir tous les fichiers d'un dossier en lançant
 convert-ly -e *.ly
 @end example
 
-Les utilisateurs de Gnu/Linux ou de MacOS X peuvent lancer cette
-commande dans un terminal.  Les utilisateurs de MacOS X disposent d'une
+Les utilisateurs de Gnu/Linux ou de macOS peuvent lancer cette
+commande dans un terminal.  Les utilisateurs de macOS disposent d'une
 entrée spécifique dans le menu : @code{Compile > Update syntax}.
 
 Un utilisateur de Windows lancera la commande
@@ -168,7 +168,7 @@ sources dans le répertoire en cours et dans tous ses sous-répertoires.
 Les fichiers convertis se trouveront à leur emplacement d'origine, tout
 comme les fichiers originels après renommage.  Cette commande, bien
 qu'effective uniquement dans un terminal, devrait être fonctionnelle
-aussi pour les utilisateurs de MacOS X.
+aussi pour les utilisateurs de macOS.
 
 
 Les utilisateurs de windows utiliseront l'instruction

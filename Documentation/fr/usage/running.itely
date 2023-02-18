@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -237,7 +237,8 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 @item @code{-E}, @code{--eps}
 Génère des fichiers EPS.
 
-Cette option est équivalente à @code{-dseparate-page-formats=ps}.
+Cette option est équivalente à
+@code{-dseparate-page-formats=eps -dtall-page-formats=eps}.
 
 @cindex sortie, format
 @cindex format de sortie

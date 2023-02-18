@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -804,6 +804,59 @@ problème.
 @unnumberedsubsec Autres programmes
 @translationof Other programs
 
+L'intégration de partitions LilyPond dans d'autre logiciels requiert que
+@command{lilypond} travaille comme @command{lilypond-book}.
+
+Nous allons voir ici comment générer des images @file{PNG} destinées au
+format en ligne tel le HTML, ainsi que des @file{PDF} ou @file{EPS} pour
+des formats imprimables comme le @file{PDF}.
+
+Les documents PDF sont généralement conçus pour être imprimés, ce qui
+signifie que les partitions d'ampleur doivent être réparties sur
+plusieurs pages. Pour ce faire, @command{lilypond} devra être lancé
+ainsi :
+
+@example
+lilypond -dseparate-page-formats=pdf monfichier.ly
+@end example
+
+@noindent
+Ceci aura pour effet de créer @file{monfichier-1.pdf},
+@file{monfichier-2.pdf}, etc. chacun d'entre eux contenant une seule
+page.
+
+L'incorporation d'images dans un fichier PostScript requiert la création
+de fichiers @file{EPS} à l'aide de l'option
+@code{-dseparate-page-formats=eps}. En pareil cas, on peut aussi vouloir
+spécifier @code{-dno-gs-load-fonts -dinclude-eps-fonts} afin que les
+fichiers @file{EPS} aient un rendu correct s'ils sont copiés sur un
+autre ordinateur.
+
+Les documents HTML ne sont pas destinés à l'impression, il n'est donc
+pas nécessaire de se préoccuper d'éventuelles coupures d'image aux sauts
+de page. On peut donc utiliseer une unique page, qui peut être très
+longue, pour une image représentant l'intégralité d'une partition. Ceci
+s'obtient en lançant
+
+@example
+lilypond -dtall-page-formats=png monfichier.ly
+@end example
+
+@noindent
+qui va générer @file{monfichier.png} contenant toutes les pages de
+@file{monfichier.ly} l'une à la file de l'autre.
+
+La spécification de @code{-dseparate-page-formats} ou
+@code{-dtall-page-formats} désactive les modes de sortie standard
+(fichier unique de plusieurs pages) et les options @code{--formats}
+associées. Ces deux options acceptent en argument la liste des formats
+séparés par des virgules, par exemple
+
+@smallexample
+lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg monfichier.ly
+@end smallexample
+
+
 Pour les nombreux programmes qui sont capables de contenir des images,
 que ce soit au format @file{PNG}, @file{EPS} ou @file{PDF}, mieux vaut
 utiliser @command{lilypond} que @command{lilypond-book}.  Chaque extrait
@@ -811,13 +864,13 @@ devra être généré séparément avant d'être inséré dans votre document.
 Consultez la documentation du logiciel en question quant à l'insertion
 de fichiers provenant d'autres sources.
 
-Les options suivantes vous permettront de réduire notablement les
-contours de l'image LilyPond :
+Les contours de l'image seront notablement réduits grâce à l'option
+@code{-dno-use-paper-size-for-page}, et les réglages suivants vous
+affranchiront des numéros et pied de page qui prennent de la place.
 
 @example
 \paper@{
   indent=0\mm
-  line-width=120\mm
   oddFooterMarkup=##f
   oddHeaderMarkup=##f
   bookTitleMarkup = ##f
@@ -827,26 +880,13 @@ contours de l'image LilyPond :
 @var{@dots{} musique @dots{}}
 @end example
 
-@noindent
-En procédant comme ci-après, vous obtiendrez des images @file{EPS} :
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts monfichier.ly
-@end example
-
-@noindent
-des images @file{PNG} :
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png monfichier.ly
-@end example
-
-@noindent
-ou bien des images @file{PNG} avec transparence :
-
-@smallexample
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
-@end smallexample
+Nous venons de voir comment des pages peuvent être sauvegardées dans des
+fichiers. Cependant, lorsque l'on veut intégrer de la musique à du
+texte, on a rarement besoin de pages entières -- y compris leur numéro,
+marges, etc. -- mais plutôt de lignes de musique. Ceci s'obtient en
+incluant @file{lilypond-book-preamble.ly} avant le fragment musical, ce
+qui aura pour effet d'un bloc @code{\score} de premier niveau sera rendu
+sous formes de lignes de musique au lieu de pages.
 
 @cindex fragments musicaux
 @cindex recopie d'extraits

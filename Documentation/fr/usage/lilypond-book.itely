@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2c13b5ef49e689c809888465e23f874b5c4f62d7
+    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1147,18 +1147,13 @@ de déterminer automatiquement le format -- voir
 @ref{Extensions de nom de fichier}. À l'heure actuelle, @code{texi-html}
 est équivalant à @code{texi}.
 
-@c This complicated detail is not implemented, comment it out -jm
-@ignore
-The @code{texi} document type produces a Texinfo file with music
-fragments in the printed output only.  For getting images in the HTML
-version, the format @code{texi-html} must be used instead.
-@end ignore
-
 @item -F @var{filtre}
 @itemx --filter=@var{filtre}
 Passe les extrait au travers de @var{filtre} avant de traiter le
-fichier.  Cette option permet de, par exemple, appliquer les mises à
-jour de LilyPond aux extraits avant de traiter le fichier :
+fichier. Cette option ne génèrera pas de partition, mais permet
+d'appliquer les mises à jour de LilyPond aux extraits avant de traiter
+le fichier par un nouvel appel à @command{lilypond-book}, cette fois-ci
+sans l'option @option{--filter}. Exemple :
 
 @example
 lilypond-book --filter='convert-ly --from=2.0.0 -' mon-book.tely

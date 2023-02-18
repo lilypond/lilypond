@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 71838b5f233fb9ba9cb590c4b2f74006e1285754
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -333,7 +333,7 @@ faut pour produire @file{ballade.pdf} et @file{ballade.midi} à partir de
 
 La création d'un @code{Makefile} peut se révéler pertinente pour
 certains projets, que ce soit par simple goût personnel ou bien par
-respect de ceux qui pourront accéder à vos sources.  Cette manière de
+respect de ceux qui pourront accéder à vos sources. Cette manière de
 procéder est particulièrement indiquée lorsque vous travaillez sur un
 projet de grande envergure impliquant de nombreuses inclusions de
 fichiers et différentes éditions -- par exemple un conducteur et un
@@ -341,9 +341,9 @@ matériel d'orchestre complet avec la partition pour le chef et une
 partition séparée pour chacun des pupitres -- ou bien si votre projet
 requiert certaines commandes particulières comme @code{lilypond-book}.
 Les @emph{Makefiles} varient tant en complexité qu'en flexibilité selon
-les besoin et les aptitudes de celui qui les crée.  Le programme GNU
-Make est installé par défaut sur les distributions GNU/Linux et sur
-MacOS X, et il en existe une version pour les environnements Windows.
+les besoin et les aptitudes de celui qui les crée. Le programme GNU Make
+est installé par défaut sur les distributions GNU/Linux et sur macOS, et
+il en existe une version pour les environnements Windows.
 
 Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont
 @code{make} est capable -- vous pourrez même en trouver des versions
@@ -351,12 +351,12 @@ françaises à l'aide des moteurs de recherche --, dans la mesure où ce
 qui suit ne donne qu'un bref aperçu de ses possibilités.
 
 Les commandes permettant de définir les règles diffèrent selon la
-plate-forme : si les différents GNU/Linux et MacOS X utilisent
-@code{bash}, Windows utilise @code{cmd}.  Dans le cas de MacOS X,
-vous devrez toutefois configurer votre système de telle sorte qu'il
-utilise l'interpréteur en ligne de commande.  Voici quelques exemples de
-fichier @emph{Makefile}, avec une version pour GNU/Linux ou MacOS et une
-pour Windows.
+plate-forme : si les différents GNU/Linux et macOS utilisent
+@code{bash}, Windows utilise @code{cmd}. Dans le cas de macOS, vous
+devrez toutefois configurer votre système de telle sorte qu'il utilise
+l'interpréteur en ligne de commande. Voici quelques exemples de fichier
+@emph{Makefile}, avec une version pour GNU/Linux ou macOS et une pour
+Windows.
 
 Pour commencer, une pièce à quatre mouvements pour orchestre et dont les
 fichiers sont répartis selon l'arborescence suivante :
@@ -407,7 +407,7 @@ mouvements au format conducteur) et @code{pupitres} (une partition par
 pupitre).  Il contient aussi une cible @code{archive} chargée de générer
 une archive des fichiers source qui pourra être diffusée sur la toile ou
 transmise par courriel.  Voici ce que contiendrait ce @emph{Makefile}
-pour GNU/Linux ou MacOS X.  Ce fichier doit être enregistré sous le nom
+pour GNU/Linux ou macOS.  Ce fichier doit être enregistré sous le nom
 de @code{Makefile} à la racine du projet -- ici @code{Symphonie}.
 
 @warning{Lorsque vous définissez une cible ou une règle sur plusieurs
