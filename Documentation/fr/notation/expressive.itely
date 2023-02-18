@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -606,6 +606,13 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/vertically-aligned-dynamics-and-textscripts.ly}
+
+@cindex vertical, alignement des nuances, rupture
+@cindex alignement vertical, rupture pour les nuances
+@cindex nuances, rupture d'alignement vertical
+@funindex \breakDynamicSpan
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/breaking-vertical-alignment-of-dynamics-and-textscripts.ly}
 
 @cindex nuance, ligne de prolongation, masquage
 @cindex masquage, nuance, ligne de prolongation

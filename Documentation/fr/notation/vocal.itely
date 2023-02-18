@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1261,8 +1261,9 @@ de mesure, il faut ajouter
 @cindex paroles et répétition
 
 La répétition de @i{fragments musicaux} est abordée de manière détaillée
-dans un @rnotationnamed{Répétitions et reprises,chapitre spécifique}.  Nous
-nous intéresserons ici aux moyens d'ajouter des paroles à des reprises.
+dans un @rnotationnamed{Répétitions et reprises,chapitre spécifique}.
+Nous nous intéresserons ici aux moyens d'ajouter des paroles à des
+reprises.
 
 
 @subheading Reprises simples

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -650,7 +650,7 @@ Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Notation musicale dans du texte formaté}.
 
-Morceaux choisis:
+Morceaux choisis :
 @rlsrnamed{Text, Texte}.
 
 Référence des propriétés internes :
@@ -728,10 +728,10 @@ Manuel de notation :
 @ref{Plusieurs partitions dans un même ouvrage},
 @ref{Structure de fichier}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript}.
 @endmorerefs
 
@@ -998,7 +998,7 @@ Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
 @file{scm/markup.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text, Texte}.
 
 Référence des propriétés internes :
@@ -1204,13 +1204,13 @@ Manuel de notation :
 @ref{Indications de reprise manuelles},
 @ref{Personnalisation des indications de nuance}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript}.
 @endmorerefs
 
@@ -1527,20 +1527,20 @@ mode @emph{markup} est disponible à l'annexe
 @ref{Markup for text alignment}.
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Déplacement d'objets}.
 
-Manuel de notation :
+Manuel de notation :
 @rnotationnamed{Markup for text alignment,Alignement},
 @ref{Indications textuelles}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript}.
 @endmorerefs
 
@@ -1603,8 +1603,9 @@ suivant :
 @funindex \pad-around
 
 Certaines directives peuvent nécessiter d'accroître l'espacement autour
-du texte -- voir l'annexe @ref{Markup for text alignment} pour une liste des différentes
-commandes particulières au mode @emph{markup} ainsi que leur description.
+du texte -- voir l'annexe @ref{Markup for text alignment} pour une liste
+des différentes commandes particulières au mode @emph{markup} ainsi que
+leur description.
 
 @lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
@@ -1693,8 +1694,8 @@ c'1^\markup {
 c'
 @end lilypond
 
-L'annexe @ref{Graphical markup} répertorie les différentes commandes en matière
-de graphisme.
+L'annexe @ref{Graphical markup} répertorie les différentes commandes en
+matière de graphisme.
 
 @morerefs
 Manuel de notation :
@@ -1703,14 +1704,14 @@ Manuel de notation :
 @ref{Dimensions},
 @rnotationnamed{Graphical markup,Graphique}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
 @file{scm/stencil.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript}.
 @endmorerefs
 
@@ -1835,20 +1836,20 @@ Les différentes commandes @emph{markup} relatives à la notation musicale
 sont répertoriées à l'annexe @ref{Markup for music and musical symbols}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{La fonte Emmentaler},
 @rnotationnamed{Markup for music and musical symbols, Musique},
 @ref{Fontes musicales}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
 @file{scm/fret-diagrams.scm},
 @file{scm/harp-pedals.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript}.
 @endmorerefs
 
@@ -2228,12 +2229,12 @@ lilypond -dshow-available-fonts
 @noindent
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{Choix des fontes par défaut},
 @ref{Localisation des fontes},
 @ref{Familles de fontes}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 @c A source file gets never installed...

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -65,7 +65,7 @@ traditionnellement la dénomination italienne, étendue dans le fichier
 @file{arabic.ly} par un certain nombre de macros -- voir
 @ref{Musique arabe} pour plus de détails.
 
-@cindex accordage non occidental
+@cindex accordage non-occidental
 @cindex makam
 @cindex makamlar
 @cindex maqam
@@ -100,7 +100,7 @@ Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
 Manuel de notation :
-@ref{Écriture des hauteurs de note},
+@rnotationnamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
 @ref{Musique arabe},
 @ref{Musique classique perse},
 @ref{Musique classique turque},
@@ -133,22 +133,21 @@ arabe.
 @cindex intervalle medium
 @cindex maqam
 
-Jusqu'à nos jours, la musique arabe a principalement été transmise
-comme une tradition orale.  Lorsqu'elle était transcrite, c'était en
-général sous forme de canevas sur lequel le rôle des interprètes était
-d'improviser substantiellement.  La notation occidentale, cependant,
-est de plus en plus utilisée, avec quelques variations, pour transmettre
-et préserver la musique arabe.
+Jusqu'à nos jours, la musique arabe a principalement été transmise comme
+une tradition orale. Lorsqu'elle était transcrite, c'était en général
+sous forme de canevas sur lequel le rôle des interprètes était
+d'improviser substantiellement. La notation occidentale, cependant, est
+de plus en plus utilisée, avec quelques variations, pour transmettre et
+préserver la musique arabe.
 
 Certains éléments de notation musicale occidentale, tels que les
 transcriptions d'accords ou de parties indépendantes, ne sont pas
 nécessaires pour retranscrire les pièces arabes les plus
-traditionnelles.  Il y a cependant quelques besoins spécifiques, tels
-que des intervalles se trouvant entre le demi-ton et le ton qui
-s'ajoutent aux intervalles mineurs ou majeurs utilisés dans la musique
-occidentale.  Il est également nécessaire de regrouper et de noter un
-grand nombre de maqams (modes) différents qui font partie de la musique
-arabe.
+traditionnelles. Il y a cependant quelques besoins spécifiques, tels que
+des intervalles se trouvant entre le demi-ton et le ton qui s'ajoutent
+aux intervalles mineurs ou majeurs utilisés dans la musique occidentale.
+Il est également nécessaire de regrouper et de noter un grand nombre de
+maqams (modes) différents qui font partie de la musique arabe.
 
 En général, la notation de la musique arabe n'essaie pas d'indiquer
 précisément les micro-intervalles intervenant dans la pratique musicale.
@@ -190,38 +189,42 @@ Morceaux choisis :
 @cindex notes, nom en arabe
 @cindex arabe, nom de note
 
-Les noms de note les plus traditionnels en arabe peuvent être très
-longs et ne conviennent pas à l'écriture de la musique.
+Les noms de note les plus traditionnels en arabe -- tels que « rast »,
+« dukah », « sikah », etc. -- peuvent être très longs et ne conviennent
+pas à l'écriture de la musique.
 
-Les noms de note anglais sont accessibles à travers le fichier
-@file{hel-aravic.ly}. Voici comment écrire une gamme arabe
-@notation{rast} :
-
-@lilypond[quote,verbatim]
-\include "hel-arabic.ly"
-\relative {
-\key c \rast
-  c' d eqf f | g a bqf c | c bf a g | f d c
-}
-@end lilypond
-
-On peut aussi utiliser les noms italiens (@code{do, re, mi, fa, sol,
-la, si}) à l'aide du fichier @file{arabic.ly}. Par exemple, voici
-comment on peut écrire la gamme arabe @notation{rast} :
+Les noms de note sont accessibles à travers le fichier @file{arabic.ly}.
+Voici comment écrire une gamme arabe @notation{rast} :
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \relative {
-  do' re misb fa | sol la sisb do | sisb la sol fa | misb re do
+  \key do \rast
+  do' re misb fa | sol la sisb do | sib la sol fa | misb re do
+}
+@end lilypond
+
+Le fichier @file{arabic.ly} utilise les noms italiens, qui constituent
+le standard moderne des musiques arabes et sont largement utilisés par
+les musiciens. Il est toutefois possible de saisir la musique dans une
+autre langue dès lors que celle-ci est spécifiée après l'inclusion de
+@file{arabic.ly}. Par exemple, voici comment on peut écrire la gamme
+arabe @notation{rast} :
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\language "english"
+\relative {
+  \key c \rast
+  c' d eqf f | g a bqf c | bf a g f | eqf d c
 }
 @end lilypond
 
 @noindent
 Le « rast » est une gamme heptatonique qui utilise des quarts de ton et
-est considéré comme la gamme central et la plus importante du « maqamat
+est considéré comme la gamme centrale et la plus importante du « maqamat
 arabe ». Pour une liste exhaustive des gammes arabes disponibles,
-consultez les fichiers @file{hel-arabic.ly} ou @file{arabic.ly} tous
-deux inclus avec LilyPond.
+consultez @ref{Armures arabes}.
 
 L'utilisation des standards occidentaux pour noter la musique non
 occidentale est abordée dans
@@ -251,9 +254,13 @@ l'aspect du demi-bémol dans l'armure.
 
 @morerefs
 Manuel de notation :
+@ref{Armures arabes},
 @ref{Insertion de fichiers LilyPond},
 @ref{Nom des notes dans d'autres langues},
 @ref{Noms des notes et altérations non-occidentaux}.
+
+Fichiers d'initialisation :
+@file{ly/arabic.ly}.
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde}.
@@ -265,18 +272,21 @@ Morceaux choisis :
 @translationof Arabic key signatures
 
 @cindex armure arabe
+@cindex arabe, armure
 
 @c Les balises @notation sont des commandes LilyPond prédéfinies,
 @c elles ne doivent donc pas être traduites. -vv
 
-Outre les armures mineures et majeures, les armures définies dans les
-fichiers @file{arabic.ly} et @file{hel-arabic} déterminent un certain
-nombre de groupes de maqams.
+Outre les armures mineures et majeures, les armures définies dans le
+fichier @file{arabic.ly} déterminent un certain nombre de groupes de
+maqams des plus courants.
 
 En général, un maqam utilise l'armure de son groupe ou d'un groupe
 voisin et diverses altérations accidentelles sont indiquées tout au long
-de la musique. Les maqams arabes autorisent peu de modulations en raison
-de la nature des instruments arabes.
+de la musique. Paar exemple, on trouve rarement le maqam @notation{saba}
+ailleurs que dans un contexte de maqam @notation{bayati}, tout en lui
+ajoutant une seule altération. Les maqams arabes autorisent peu de
+modulations en raison de la nature des instruments arabes.
 
 Par exemple, pour indiquer l'armure d'une pièce en maqam muhayer :
 
@@ -285,7 +295,7 @@ Par exemple, pour indiquer l'armure d'une pièce en maqam muhayer :
 @end example
 
 @noindent
-Ici, @var{re} est la tonalité par défaut du muayer maqam, et
+Ici, @var{re} est la tonalité par défaut du maqam muayer, et
 @notation{bayati} le nom du maqam de base dans le groupe.
 
 Alors que l'armure correspond à un groupe, il est courant que le titre
@@ -327,42 +337,79 @@ courants à leur armure :
   @tab Tonique
   @tab Autres maqams dans le groupe (tonique)
 @item ajam
-  @tab major
+  @tab @code{major}
   @tab sib
   @tab jaharka (fa)
 @item bayati
-  @tab bayati
+  @tab @code{bayati}
   @tab re
   @tab hussaini, muhayer, saba, ushaq, nawa (sol)
 @item hijaz
-  @tab kurd
+  @tab @code{hijaz}
   @tab re
-  @tab shahnaz, shad arban (sol), hijazkar (do)
-@item irakien
-  @tab iraq
+  @tab zanjaran (do)
+@item hijaz kar
+  @tab @code{hijaz_kar}
+  @tab do
+  @tab shahnaz, shad arban (sol)
+@item huzam
+  @tab @code{huzam}
+  @tab misb
+  @tab -
+@item iraq
+  @tab @code{iraq}
   @tab sisb
   @tab -
-@item kurde
-  @tab kurd
+@item kurd
+  @tab @code{kurd}
   @tab re
-  @tab kurde hijazkar (do)
+  @tab hijazkar kurd (do)
 @item nahawand
-  @tab minor
+  @tab @code{minor}
   @tab do
   @tab busalik (re), farah faza (sol)
 @item nakriz
-  @tab mineur
+  @tab @code{nakriz}
   @tab do
   @tab nawa athar, hisar (re)
 @item rast
-  @tab rast
+  @tab @code{rast}
   @tab do
   @tab mahur, yakah (sol)
 @item sikah
-  @tab sikah
+  @tab @code{sikah}
   @tab misb
-  @tab huzam
+  @tab -
 @end multitable
+
+Dans le cas où le maqam requis ne serait pas disponible, il est possible
+de le définir avant de l'utiliser. Voici, par exemple, comment définir
+et utiliser le maqam @notation{zanjaran} :
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+
+% For example on do: do reb mi fa sol la sib do
+% reb and sib are FLAT
+% You can also use SHARP, SEMI-FLAT, SEMI-SHARP
+zanjaran = #`(
+  (0 . ,NATURAL)
+  (1 . ,FLAT)
+  (2 . ,NATURAL)
+  (3 . ,NATURAL)
+  (4 . ,NATURAL)
+  (5 . ,NATURAL)
+  (6 . ,FLAT)
+)
+
+\relative {
+  \key do \zanjaran
+  do' reb mi fa sol la sib do
+}
+@end lilypond
+
+Dans certains cas particuliers, des maqams moins habituels sont définis
+dans le fichier @file{hel-arabic.ly} disponibles avec LilyPond.
 
 @snippets
 
@@ -404,6 +451,7 @@ Morceaux choisis :
 @translationof Arabic time signatures
 
 @cindex métrique arabe
+@cindex arabe, métrique
 @cindex forme semai
 @cindex taqasim
 
@@ -440,8 +488,7 @@ Manuel de notation :
 @ref{Musique sans métrique}.
 
 Fichiers d'initialisation :
-@file{ly/arabic.ly},
-@file{ly/hel-arabic.ly}.
+@file{ly/arabic.ly}.
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde}.
@@ -455,6 +502,7 @@ Morceaux choisis :
 @cindex exemple de musique arabe
 @cindex modèle de musique arabe
 @cindex musique arabe, exemple
+@cindex arabe, exemple de musique
 
 Voici un modèle qui utilise également le début d'un @notation{semai}
 turc courant dans l'éducation musicale arabe, pour illustrer quelques
@@ -486,8 +534,7 @@ chapitre.
 
 @morerefs
 Fichiers d'initialisation :
-@file{ly/arabic.ly},
-@file{ly/hel-arabic.ly}.
+@file{ly/arabic.ly}.
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du mondes}.
@@ -609,10 +656,10 @@ gammes et modes d'occident :@*
 et @notation{artık ikili} (12/9 ou 13/9 de ton).
 
 D'un point de vue de notation moderne, il est pratique d'utiliser les
-positions occidentales des notes sur la portée (do, ré, mi…) avec
-des altérations spéciales qui haussent ou baissent les notes par
-intervalles de 1/9, 4/9, 5/9 et 8/9 de ton.  Ces altérations sont
-définies dans le fichier @file{turkish-makam.ly}.
+positions occidentales des notes sur la portée (do, ré, mi…) avec des
+altérations spéciales qui haussent ou baissent les notes par intervalles
+de 1/9, 4/9, 5/9 et 8/9 de ton. Ces altérations sont définies dans le
+fichier @file{turkish-makam.ly}.
 
 Pour plus d'information sur les formes de notation non-occidentales,
 reportez-vous au chapitre

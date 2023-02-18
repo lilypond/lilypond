@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4265,6 +4265,8 @@ rubrique @ref{Mise en évidence de l'espacement}.
 @translationof Displaying spacing
 
 @cindex espacement, affichage des valeurs
+@cindex débogage, espacement vertical
+@cindex @emph{layout}, débogage
 @funindex annotate-spacing
 
 Le meilleur moyen d'appréhender les différentes variables de

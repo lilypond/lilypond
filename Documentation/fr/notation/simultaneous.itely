@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 11550057d65cb50a866bbfad726809b57643e4fc
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -767,7 +767,7 @@ présentation normale.
 @morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation},
-@rlearning{J'entends des Voix}.
+@rlearning{J'entends des voix}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
@@ -1023,6 +1023,8 @@ are at the same time differently dotted are not clear.
 @node Fusion de silences
 @unnumberedsubsubsec Fusion de silences
 @translationof Merging rests
+
+@cindex silences, fusion
 
 Il est d'usage, lorsque plusieurs voix cohabitent, de fusionner les
 silences qui apparaissent simultanément dans différentes parties.  Ceci

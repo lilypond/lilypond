@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 11550057d65cb50a866bbfad726809b57643e4fc
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -142,10 +142,10 @@ génèrera une portée supplémentaire -- voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
 @morerefs
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 @endmorerefs
@@ -864,7 +864,7 @@ Il existe un formateur prédéfini alternatif de segno qui imprime des signes
 {snippets/alternative-bar-numbering.ly}
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{repeat,répétition},
 @rglos{volta}.
 
@@ -875,10 +875,10 @@ Manuel de notation :
 @ref{Modification des greffons de contexte},
 @ref{Modification des liaisons}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Repeats, Répétitions et reprises}.
 
 Référence des propriétés internes :
@@ -1145,7 +1145,7 @@ Manuel de notation :
 @ref{Indications de repère},
 @ref{Mise en forme du texte}.
 
-Morceaux choisis :
+Morceaux choisis_:
 @rlsrnamed{Repeats, Répétitions et reprises}.
 
 Référence des propriétés internes :
@@ -1273,11 +1273,11 @@ différentes sont remplacées par un double symbole de pourcentage.
 {snippets/isolated-percent-repeats.ly}
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{percent repeat},
 @rglos{simile}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
 Référence des propriétés internes :
@@ -1394,7 +1394,7 @@ utilisée.
 {snippets/cross-staff-tremolos.ly}
 
 @morerefs
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 @endmorerefs
 

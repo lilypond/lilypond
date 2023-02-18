@@ -1,0 +1,10 @@
+%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+  texidocfr = "
+Par défaut, LilyPond utilise des objets @code{DynamicLineSpanner} pour
+aligner verticalement une succession d'objets nuance tels que soufflets
+et indications textuelles. Ceci peut, parfois, ne pas être désirable.
+L'insertion d'un @code{\\breakDynamicSpan}, qui rompt prématurément
+l'étendue de l'alignement, permet de pallier ce désagrément.
+"
+
+  doctitlefr = "Rupture d'alignement des nuances graphiques et textuelles"

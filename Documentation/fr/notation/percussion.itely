@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 94c1522b391896f86ba1cd0340757dd88b8f9586
+    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -238,7 +238,7 @@ down = \drummode {
 
 L'exemple ci-dessus montre une notation polyphonique détaillée.  La
 notation polyphonique abrégée peut être employée -- voir la rubrique
-@rlearning{J'entends des Voix} -- comme ici :
+@rlearning{J'entends des voix} -- comme ici :
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
@@ -485,7 +485,7 @@ dans @ref{Personnalisation de portées de percussion}.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{J'entends des Voix}.
+@rlearning{J'entends des voix}.
 
 Manuel de notation :
 @ref{Personnalisation de portées de percussion}.
@@ -529,8 +529,8 @@ positionnement de la tête de note sur la portée. Cette liste devra alors
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
-\new DrumStaff <<
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+\new DrumStaff \with { drumStyleTable = #(alist->hash-table mydrums) }
+  <<
   \new DrumVoice { \voiceOne \up }
   \new DrumVoice { \voiceTwo \down }
 >>

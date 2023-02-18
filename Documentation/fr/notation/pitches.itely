@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a5cf37bc53f57635bf984ecc2d1c5a067573b87c
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -243,6 +243,18 @@ indépendamment de celui qui l'englobe.
   \relative {
     c'' d e f
   }
+}
+@end lilypond
+
+Pour utiliser le mode absolu au sein d'une expression @code{\relative},
+la musique en hauteurs absolues doit se trouver dans dans un bloc
+@code{\fixed c @{ @dots{}@tie{}@}} ; les hauteurs absolues n'affecteront
+en rien les octaves de la musique relative.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
 }
 @end lilypond
 

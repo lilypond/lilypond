@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 11550057d65cb50a866bbfad726809b57643e4fc
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -658,7 +658,7 @@ de symbole a fini par voir le jour afin de faciliter les instructions
 pour exécuter un morceau.
 
 Une liste des différents symboles est disponible à l'annexe
-@rnotationnamed{Accordion registers, Registre pour arccordéon}.
+@rnotationnamed{Accordion registers, Registres pour arccordéon}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
