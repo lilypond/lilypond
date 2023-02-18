@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
+@subheading LilyPond 2.25.2 released  @emph{February 18, 2023}
+
+We are happy to announce the release of LilyPond 2.25.2. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.1, the current stable
+release.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.24.1 released!  @emph{February 12, 2023}
 
 We are proud to announce the release of GNU LilyPond 2.24.1. LilyPond is a
@@ -24,16 +35,5 @@ can be found at @uref{https://lilypond.org/doc/v2.24/Documentation/changes/}.
 Among others, version 2.24.0 switched to Guile 2.2 and features a completely
 rewritten infrastructure for creating the official packages, finally allowing
 us to offer 64-bit binaries for macOS and Windows.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.25.1 released  @emph{January 21, 2023}
-
-We are happy to announce the release of LilyPond 2.25.1. This is
-termed a development release, but these are usually reliable for
-testing new features and recent bug fixes. However, if you require
-stability, we recommend using version 2.24.0, the current stable
-release.
 
 @newsEnd
