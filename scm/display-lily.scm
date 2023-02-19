@@ -107,9 +107,11 @@ display method will be called."
              (procs (assoc-ref (hashq-ref music-name-to-property-table
                                           music-type '())
                                'display-methods))
-             (result-string (and procs (any (lambda (proc)
-                                              (proc expr))
-                                            procs))))
+             (result (and procs (any (lambda (proc)
+                                       (proc expr))
+                                     procs)))
+             (result-string (if (pair? result) (car result) result))
+             (expr (if (pair? result) (cdr result) expr)))
         (if result-string
             (format #f "~a~a~a"
                     (tag->lily-string expr (post-event? expr))

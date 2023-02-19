@@ -753,6 +753,22 @@ If set to @code{#t}, parenthesize the number for a tied note after a line break.
  '(details parenthesized span-start))
 
 (ly:add-interface
+ 'tempo-mark-interface
+ "A tempo mark"
+ '())
+
+(ly:add-interface
+ 'tempo-line-spanner-interface
+ "Creates @code{TempoLineSpanner}, aligning its elements, probably
+@code{TempoMark}, @code{TempoSpanner} and @code{MetronomeMark}."
+ '())
+
+(ly:add-interface
+ 'tempo-spanner-interface
+ "A tempo spanner"
+ '())
+
+(ly:add-interface
  'text-mark-interface
  "A textual mark."
  '())

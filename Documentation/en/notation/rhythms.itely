@@ -2033,6 +2033,150 @@ Internals Reference:
 @endmorerefs
 
 
+@node Tempo spanners
+@unnumberedsubsubsec Tempo spanners
+
+@cindex tempo
+@cindex tempo mark
+@cindex tempo spanner
+@cindex tempo line spanner
+
+@funindex \tempoSpan
+@funindex \tempoMark
+@funindex \tempoEndMark
+
+Tempo spanners operate at score level by default.  They are
+aligned with any present tempo marks or metronome marks (this is
+done with a @code{TempoLineSpanner} in analogy to how a
+@code{DynamicLineSpanner} operates).  Tempo spanners are started
+with @code{\tempoSpan} and end with the next tempo mark or
+metronome mark (if no follow-up tempo spanner occurs) or run to
+the end of the score.  To set a tempo mark at the end of the score
+or end of line, @code{\tempoEndMark} is provided.  A metronome
+mark ending a tempo spanner at end of score is printed.  If a line
+or score ending mark is used, the property @code{to-barline} needs
+to be set to @code{#f}.
+
+@lilypond[quote,verbatim]
+{
+  \tempo "Allegro" 4 = 120 \tempoSpan
+  b1 b b
+  \tempoMark "end"
+  b
+  \break
+  \override Score.TempoSpanner.to-barline = ##f
+  \tempoMark "rall." \tempoSpan
+  b
+  \tempoMark "poco" \tempoSpan
+  b
+  \tempoMark "a" \tempoSpan
+  b
+  \tempoEndMark "poco"
+  \break
+  \tempo "Adagio" 4 = 60
+  b b
+  \tempoMark "speed up" \tempoSpan
+  b b
+  \tempo "Moderato" 4 = 84
+  \fine
+}
+@end lilypond
+
+If the @code{direction} settings of consecutive tempo line
+spanners differ, the previous one is ended and a new one created.
+
+@lilypond[quote,verbatim]
+{
+  b1
+  \tempoMark "rall."
+  \tempoSpan
+  b b
+  \tempoMark "acc."
+  \tweak direction #DOWN
+  \tempoSpan
+  b b
+  \fine
+}
+@end lilypond
+
+@funindex \breakTempoSpan
+It is also possible to cut off a tempo line spanner manually by
+using @code{\breakTempoSpan}.
+
+@lilypond[quote,verbatim]
+{
+  b1 b b b
+  \tempoMark "Adagio"
+  \tempoSpan
+  \breakTempoSpan
+  b
+  b
+  \tempoMark "Andante"
+  b'''
+  b
+  \fine
+}
+@end lilypond
+
+Additionally, the left or right text property of
+@code{TempoSpanner} may be set.
+@lilypond[quote,verbatim]
+{
+  b1
+  \override Score.TempoSpanner.bound-details.left.text = "start"
+  \override Score.TempoSpanner.bound-details.right.text = "stop"
+  \tempoSpan
+  b b
+  \fine
+}
+@end lilypond
+
+@knownissues
+If text properties are set and tempo or metronome marks are present the
+alignment of the different text parts may not be accurate.
+
+@lilypond[quote,verbatim]
+{
+  b1
+  \tempo "Vivace"
+  \override Score.TempoSpanner.bound-details.left.text = "start"
+  \override Score.TempoSpanner.bound-details.right.text =
+    \markup \box \draw-line #'(0 . -4)
+  \tempoSpan
+  b b b'' b
+  \tempo "Adagio"
+  b
+  \fine
+}
+@end lilypond
+
+This may be cured by setting @code{Score.TempoSpanner.padding} to an
+appropriate value.
+
+@lilypond[quote,verbatim]
+{
+  b1
+  \tempo "Vivace"
+  \override Score.TempoSpanner.padding = #-4.5
+  \override Score.TempoSpanner.bound-details.left.text = "start"
+  \override Score.TempoSpanner.bound-details.right.text =
+    \markup \box \draw-line #'(0 . -4)
+  \tempoSpan
+  b b b'' b
+  \tempo "Adagio"
+  b
+  \fine
+}
+@end lilypond
+
+@morerefs
+Internals Reference:
+@rinternals{TempoMark},
+@rinternals{TempoSpanner},
+@rinternals{TempoLineSpanner}.
+@endmorerefs
+
+
 @node Upbeats
 @subsection Upbeats
 

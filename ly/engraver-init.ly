@@ -767,6 +767,9 @@ run."
   \consists Mark_engraver
   \consists Text_mark_engraver
   \consists Jump_engraver
+  \consists Tempo_mark_engraver
+  \consists Tempo_spanner_engraver
+  \consists Tempo_align_engraver
   \consists Volta_engraver
   \consists Metronome_mark_engraver
   \consists Break_align_engraver

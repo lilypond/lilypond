@@ -272,7 +272,55 @@ be forced to get beamed together:
 @node Expressive mark improvements
 @unnumberedsec Expressive mark improvements
 
-None so far.
+@itemize
+
+@item
+Tempo marks and spanners are now available.  Their engravers
+default to working at @code{Score} level. A @code{TempoSpanner} is
+started with @code{\tempoSpan}.  It ends at next @code{TempoMark},
+@code{MetronomeMark}, or runs to the very end of the score.  To
+set a @code{TempoMark} at end of score the special
+@code{\tempoEndMark} is provided.  The @code{TempoSpanner} is
+aligned with any @code{TempoMark} or @code{MetronomeMark} present
+at start or end by @code{TempoLineSpanner}.  The
+@code{TempoLineSpanner} is broken automatically when consecutive
+tempo spanners have different directions. Manual breaking
+@code{TempoLineSpanner} is possible by using
+@code{\breakTempoSpan}.  This is similar to
+@code{DynamicLineSpanner}.
+
+@lilypond[quote,verbatim]
+{
+  b1 \tempoMark "accelerando" \tempoSpan
+  b1 b b
+  \tempo "Allegro" 4 = 120
+  b'1 b'
+  \fine
+}
+@end lilypond
+
+Additionally, the left or right text of @code{TempoSpanner} may be set.
+
+@lilypond[quote,verbatim]
+{
+  \tempoMark "Allegro"
+  \override Score.TempoSpanner.to-barline = ##f
+  \override Score.TempoSpanner.style = #'dotted-line
+  \override Score.TempoSpanner.dash-period = #1
+  \override Score.TempoSpanner.thickness = 4
+  \override Score.TempoSpanner.padding = -0.05
+  \override Score.TempoSpanner.bound-details.left.text = "accelerando"
+  \override Score.TempoSpanner.bound-details.right.arrow = ##t
+  \override Score.TempoSpanner.bound-details.right.text = "molto "
+  \tempoSpan
+  b'1 b' b' b' b' b''
+  \tempoEndMark "Vivace"
+  \fine
+}
+@end lilypond
+
+@end itemize
+
 
 @node Repeat improvements
 @unnumberedsec Repeat improvements

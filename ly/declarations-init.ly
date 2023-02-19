@@ -79,6 +79,8 @@ noBeam = #(make-music 'BeamForbidEvent)
 beamBreak = #(make-music 'BeamBreakEvent 'beam-break-permission 'force)
 noBeamBreak = #(make-music 'BeamBreakEvent 'beam-break-permission 'forbid)
 glide = #(make-music 'FingerGlideEvent)
+tempoSpan = #(make-music 'TempoSpanEvent)
+
 "|" = #(make-music 'BarCheckEvent)
 "[" = #(make-span-event 'BeamEvent START)
 "]" = #(make-span-event 'BeamEvent STOP)

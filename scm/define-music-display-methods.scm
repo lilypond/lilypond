@@ -147,6 +147,9 @@ expression."
                 str-start
                 str-stop))))
 
+
+(define-display-method TempoSpanEvent (event)
+  "\\tempoSpan")
 (define-display-method HyphenEvent (event)
   " --")
 (define-display-method ExtenderEvent (event)
@@ -163,6 +166,8 @@ expression."
   "\\noBeam")
 (define-display-method StringNumberEvent (event)
   (format #f "\\~a" (ly:music-property event 'string-number)))
+(define-display-method BreakTempoSpanEvent (event)
+  "\\breakTempoSpan")
 (define-display-method BreakDynamicSpanEvent (event)
   "\\breakDynamicSpan")
 (define-post-event-display-method LaissezVibrerEvent (event) #f
@@ -530,6 +535,25 @@ expression."
           (eqv? LEFT (ly:music-property text-mark 'horizontal-direction))))
     (string-append (if is-end-mark "\\textEndMark " "\\textMark ")
                    (value->lily-string text))))
+
+(define-display-method TempoMarkEvent (tempo-mark)
+  (let* ((text (ly:music-property tempo-mark 'text)))
+    (string-append "\\tempoMark " (value->lily-string text))))
+
+(define-extra-display-method TempoMarkEvent (expr)
+  "If `expr` is a \\tempoEndMark, return \"\\tempoEndMark ..."
+  (with-music-match
+   (expr (music 'TempoMarkEvent
+                tweaks ?tweaks
+                text ?text))
+   (and (>= (length ?tweaks) 3)
+        (equal? (take-right ?tweaks 3)
+                '((break-visibility . #(#t #t #f))
+                  (non-musical . #t)
+                  (self-alignment-X . 1)))
+        (cons
+         (string-append "\\tempoEndMark " (value->lily-string ?text))
+         (music-clone expr 'tweaks (drop-right ?tweaks 3))))))
 
 (define-display-method AdHocJumpEvent (jump)
   (let ((text (ly:music-property jump 'text)))

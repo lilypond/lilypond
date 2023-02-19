@@ -2487,6 +2487,23 @@ It returns the created tag group for further reference.")
    (tagGroup tags)
    tags)
 
+tempoEndMark =
+#(define-music-function (text) (markup?)
+   (_i "Create a @code{TempoMark} from @var{text} at the end of a measure or
+end of music.")
+;; This is a convenience function. The used tweaks could be a applied to
+;; \tempoMark separately.
+   (make-music 'TempoMarkEvent
+               'tweaks '((break-visibility . #(#t #t #f))
+                         (non-musical . #t)
+                         (self-alignment-X . 1))
+               'text text))
+
+tempoMark =
+#(define-music-function (text) (markup?)
+   (_i "Create an @code{TempoMark} from @var{text}")
+  (make-music 'TempoMarkEvent 'text text))
+
 temporary =
 #(define-music-function (music) (ly:music?)
    (_i "Make @code{\\override} reversible with @code{\\revert}.

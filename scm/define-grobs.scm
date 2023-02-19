@@ -3782,6 +3782,103 @@ start delimiter.")))))
                  (description . "A @q{note head} (usually a
 digit) in a tablature.  See also @iref{NoteHead}.")))))
 
+    (TempoMark
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (baseline-skip . 2)
+        (break-align-symbols . (clef staff-bar key-signature))
+        (break-visibility . ,end-of-line-invisible)
+        (direction . ,UP)
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        (font-series . bold)
+        (non-musical . #f)
+        (outside-staff-horizontal-padding . 0.2)
+        (outside-staff-priority . 1300)
+        (padding . 0.8)
+        (self-alignment-X . ,LEFT)
+        (side-axis . ,Y)
+        (stencil . ,ly:text-interface::print)
+        (text . ,(grob::calc-property-by-copy 'text))
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (tempo-mark-interface
+                                break-alignable-interface
+                                font-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))
+                 (description . "An arbitrary tempo mark like @q{rall.}.")))))
+
+    (TempoLineSpanner
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (axes . (,Y))
+        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
+        (direction . ,UP)
+        (outside-staff-priority . 1300)
+        (padding . 2.8)
+        (side-axis . ,Y)
+        (vertical-skylines
+          . ,grob::always-vertical-skylines-from-element-stencils)
+        (X-extent . ,ly:axis-group-interface::width)
+        (Y-extent . ,axis-group-interface::height)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Spanner)
+                 (object-callbacks
+                   . ((pure-Y-common
+                        . ,ly:axis-group-interface::calc-pure-y-common)
+                      (pure-relevant-grobs
+                        . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (interfaces . (axis-group-interface
+                                tempo-line-spanner-interface
+                                outside-staff-interface
+                                side-position-interface))
+                 (description . "An auxiliary grob providing a
+vertical baseline to align successive tempo grobs
+(@iref{TempoMark}, @iref{TempoSpanner},
+and @iref{MetronomeMark}).")))))
+
+    (TempoSpanner
+     . (
+        (axes . (,Y))
+        (bound-details . ((left . ((padding . 0.5)
+                                   (stencil-offset . (0 . -0.5))
+                                   (text-padding . 0.8)
+                                   ))
+                          (right . ((padding . 0.5)
+                                    (stencil-offset . (0 . -0.5))
+                                    (text-padding . 0.8)
+                                    ))
+                          ))
+        (dash-fraction . 0.4)
+        (dash-period . 2.0)
+        (direction . ,UP)
+        (font-series . bold)
+        (font-shape . upright)
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
+        (padding . ,tempo-spanner::padding)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
+        (side-axis . ,Y)
+        (staff-padding . 0.8)
+        (stencil . ,tempo-spanner::print)
+        (style . dashed-line)
+        (thickness . 2)
+        (to-barline . #t)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (Y-offset . ,(ly:make-unpure-pure-container tempo-spanner::y-offset 0))
+        (meta . ((class . Spanner)
+                 (interfaces . (tempo-spanner-interface
+                                font-interface
+                                line-interface
+                                horizontal-line-spanner-interface
+                                outside-staff-interface
+                                side-position-interface))
+                 (description . "A tempo spanner")))))
+
     (TextMark
      . (
         (after-line-breaking

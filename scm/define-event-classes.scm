@@ -46,6 +46,7 @@
                     tremolo-event bend-after-event fingering-event
                     glissando-event harmonic-event hyphen-event
                     laissez-vibrer-event mark-event text-mark-event
+                    tempo-mark-event
                     multi-measure-text-event
                     multi-measure-articulation-event
                     non-arpeggiato-event
@@ -75,10 +76,11 @@
                    span-dynamic-event
                    tempo-gradual-change-event
                    staff-span-event text-span-event
+                   tempo-span-event
                    trill-span-event tremolo-span-event
                    tuplet-span-event volta-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
-    (break-span-event . (break-dynamic-span-event))
+    (break-span-event . (break-dynamic-span-event break-tempo-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
     (rhythmic-event . (lyric-event
                        melodic-event general-rest-event

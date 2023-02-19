@@ -1,4 +1,4 @@
-\version "2.27.3"
+\version "2.27.6"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -219,6 +219,8 @@ are reported on the stderr of this run."
 \test ##[ \^ #]						% BendSpanEvent
 \test ##[ c4\bendAfter #3 #]				% BendAfterEvent
 \test ##[ c4\rightHandFinger #1 #]			% StrokeFingerEvent
+\test ##[ \tempoSpan #]			% TempoSpanEvent
+\test ##[ \breakTempoSpan #]		% BreakTempoSpanEvent
 
 \test ##[ \break #]		% LineBreakEvent
 \test ##[ \noBreak #]
@@ -250,6 +252,8 @@ are reported on the stderr of this run."
 \test ##[ \stopGradualTempoChange 4. #400/3 #]
 \test ##[ \jump \markup \italic "Gavotte I D.C." #]	% AdHocJumpEvent
 \test ##[ \sectionLabel \markup \italic "Gavotte" #]	% SectionLabelEvent
+\test ##[ \tempoMark "accelerando" #]			% TempoMarkEvent
+\test ##[ \tempoEndMark "a tempo" #]
 
 %% Segno
 \test ##[ \segnoMark \default #]

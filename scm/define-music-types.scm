@@ -143,6 +143,11 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
         (types . (post-event break-span-event break-dynamic-span-event event))
         ))
 
+    (BreakTempoSpanEvent
+     . ((description . "End an alignment spanner for tempo marks here.")
+        (types . (break-tempo-span-event break-span-event event))
+        ))
+
     (BendAfterEvent
      . ((description . "A drop/@/fall/@/doit jazz articulation.")
         (types . (post-event bend-after-event event))))
@@ -857,6 +862,18 @@ Syntax: @code{\\rightHandFinger @var{text}}")
     (TempoGradualChangeEvent
      . ((description . "Begin a gradual change in tempo.")
         (types . (event span-event tempo-gradual-change-event))
+        ))
+
+    (TempoMarkEvent
+     . ((description . "Insert text as a tempo mark.
+
+Syntax: @code{\\tempoMark} @var{text} or @code{\\tempoEndMark} @var{text}")
+        (types . (tempo-mark-event event))
+        ))
+
+    (TempoSpanEvent
+     . ((description . "Start a tempo spanner. ")
+        (types . (tempo-span-event span-event event))
         ))
 
     (TextMarkEvent

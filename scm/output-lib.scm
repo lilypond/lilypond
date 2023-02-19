@@ -3995,6 +3995,92 @@ for measure division ~a")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tempo spanners
+
+(define-public tempo-spanner::print
+  (lambda (grob)
+    (let* ((bound-left (ly:spanner-bound grob LEFT))
+           (bound-right (ly:spanner-bound grob RIGHT))
+           (bound-left-ext (ly:grob-extent bound-left bound-left X))
+           (bound-left-center (interval-center bound-left-ext))
+           (bound-right-ext (ly:grob-extent bound-right bound-right X))
+           (bound-right-center (interval-center bound-right-ext))
+           (bound-details (ly:grob-property grob 'bound-details))
+           (details-right (assoc-get 'right bound-details))
+           (details-left (assoc-get 'left bound-details))
+           (padding-left (assoc-get 'padding details-left))
+           (padding-right (assoc-get 'padding details-right))
+           (text-padding-left (assoc-get 'text-padding details-left 0.8))
+           (text-padding-right (assoc-get 'text-padding details-right 0.8))
+           (left-text (assoc-get 'text details-left #f))
+           (right-text (assoc-get 'text details-right #f))
+           (additional-right-text-padding
+             (if right-text
+                 (interval-length
+                   (ly:stencil-extent
+                     (grob-interpret-markup grob right-text) X))
+                 0)))
+
+     ;; A little gap between bound-details.left/right.text and the spanner line
+     ;; is provided, controlled by its 'text-padding sub-property.
+     (when left-text
+       (ly:grob-set-nested-property! grob '(bound-details left text)
+         (make-line-markup
+           (list left-text (make-hspace-markup text-padding-left)))))
+     (when right-text
+       (ly:grob-set-nested-property! grob '(bound-details right text)
+         (make-line-markup
+           (list (make-hspace-markup text-padding-right) right-text))))
+
+     ;; Care for proper horizontal padding between bounds and spanner line.
+     ;; If bound-details.left/right.text is set, padding for right text needs to
+     ;; compensate its extent.
+     (ly:grob-set-nested-property! grob '(bound-details left padding)
+       (+ padding-left bound-left-center))
+     (ly:grob-set-nested-property! grob '(bound-details right padding)
+       (+ padding-right bound-right-center additional-right-text-padding))
+
+     ;; Output the final stencil
+     (ly:line-spanner::print grob))))
+
+(define-public tempo-spanner::padding
+  (lambda (grob)
+    "A @code{TempoSpanner} may connect @code{MetronomeMark} resp
+@code{TempoMark}.  The @code{TempoSpanner} itself may have settings for text
+at left or right, too.  Thus, different values for @code{padding} are needed.
+We provide some defaults, though, because of the plethora of possibilities we
+cannot cover all cases, i.e. further adjustments will be needed frequently."
+    (let* ((bound-details (ly:grob-property grob 'bound-details))
+           (details-right (assoc-get 'right bound-details))
+           (details-left (assoc-get 'left bound-details))
+           (left-text (assoc-get 'text details-left #f))
+           (right-text (assoc-get 'text details-right #f))
+           (dir (ly:grob-property grob 'direction))
+           (pad
+             (cond ((and (not left-text) (not right-text))
+                     0.5)
+                   ((and left-text (not right-text))
+                    -0.05)
+                   (else
+                     -0.55))))
+      (* dir pad))))
+
+(define-public (tempo-spanner::y-offset grob)
+  "Vertical offset of a @code{TempoSpanner} relative to its Y-parent, without
+consulting the parent's skyline."
+  (let* ((dir (ly:grob-property grob 'direction))
+         (pad (let ((p (ly:grob-property grob 'padding)))
+                (if (number? p) p 0)))
+         (stil (ly:grob-property grob 'stencil))
+         (ext (if (ly:stencil? stil)
+                  (ly:stencil-extent stil Y)
+                  empty-interval)))
+    (* dir (+ pad
+              (cond ((interval-empty? ext) 0)
+                    ((negative? dir) (cdr ext))
+                    (else (- (car ext))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tuplet brackets
 
 (define-public (ly:tuplet-bracket::calc-potential-beam grob)

@@ -2799,3 +2799,348 @@ style @code{\\rtoe} and its siblings, based on the data in the
    (properties-written . ())
    (description . "This engraver ensures that stanza numbers are neatly
 aligned across all lyrics contexts.")))
+
+(define (Tempo_mark_engraver context)
+  (let ((evt #f)
+        (grob #f))
+    (make-engraver
+     (listeners
+      ((tempo-mark-event this-engraver event)
+       ;; We only accept one TempoMark per timestep.
+       ;; Warn, if multiple ones are entered and drop the additional one(s).
+       (if evt
+           (begin
+            (ly:input-warning
+             (ly:event-property evt 'origin)
+             "conflict with event: `~a'"
+             (car (ly:event-property evt 'class)))
+            (ly:input-warning
+             (ly:event-property event 'origin)
+             "discarding event: `~a'"
+             (car (ly:event-property event 'class))))
+           (set! evt event))))
+     ((process-music this-engraver)
+      (when evt
+       (set! grob (ly:engraver-make-grob this-engraver 'TempoMark evt))
+       (set! evt #f)))
+     ((stop-translation-timestep this-engraver)
+      (when grob
+       (let ((staves (ly:context-property context 'stavesFound)))
+         (ly:grob-set-object!
+          grob
+          'side-support-elements
+          (ly:grob-list->grob-array staves))
+         (set! grob #f)))))))
+
+(ly:register-translator
+ Tempo_mark_engraver 'Tempo_mark_engraver
+ '((events-accepted . (tempo-mark-event))
+   (grobs-created . (TempoMark))
+   (properties-read . (stavesFound))
+   (properties-written . ())
+   (description . "Creates @code{TempoMark}.")))
+
+
+(define (Tempo_spanner_engraver context)
+
+  (define (tempo-end-mark? grob)
+    (and
+      grob
+      (grob::has-interface grob 'tempo-mark-interface)
+      (equal? (ly:grob-property grob 'break-visibility) #(#t #t #f))
+      (ly:grob-property grob 'non-musical #f)
+      (positive? (ly:grob-property grob 'self-alignment-X))))
+
+  (let ((tempo-span #f)
+        (tempo-finished #f)
+        (previous-tempo-spanner #f)
+        (tempo-span-evt #f)
+        (tempo-break-evt #f)
+        (bar-line #f)
+        (curr-tempo-mark #f)
+        (curr-metronome-mark #f)
+        (mm #f))
+     (make-engraver
+      (listeners
+        ((tempo-span-event this-engraver event)
+          (set! tempo-span-evt event))
+        ((break-tempo-span-event this-engraver event)
+          (set! tempo-break-evt #t)))
+      (acknowledgers
+        ((metronome-mark-interface this-engraver grob source-engraver)
+          (set! mm grob)
+          (set! curr-metronome-mark grob))
+        ((tempo-mark-interface this-engraver grob source-engraver)
+          (set! curr-tempo-mark grob))
+        ((bar-line-interface this-engraver grob source-engraver)
+         (set! bar-line grob)))
+      ((process-music this-engraver)
+       (when tempo-span-evt
+         (set! tempo-span
+               (ly:engraver-make-grob
+                 this-engraver 'TempoSpanner tempo-span-evt))))
+      ((process-acknowledged this-engraver)
+        ;; Set right bound.
+        ;; If 'to-barline is set and a measure BarLine is present, to BarLine
+        ;; otherwise to MetronomeMark or TempoMark if present.
+        ;; Otherwise, see `finalize`
+        (when (and tempo-finished
+                   (null? (ly:spanner-bound tempo-finished RIGHT))
+                   (or curr-metronome-mark curr-tempo-mark))
+          (ly:spanner-set-bound! tempo-finished RIGHT
+            (or (and (equal? (ly:context-property context 'measurePosition)
+                             ZERO-MOMENT)
+                     (ly:grob-property tempo-finished 'to-barline #f)
+                     bar-line)
+                ;; Prefer `tempoEndMark` over metronome-mark over simple
+                ;; tempo-mark
+                (if (tempo-end-mark? curr-tempo-mark)
+                    curr-tempo-mark
+                    #f)
+                curr-metronome-mark
+                curr-tempo-mark))
+          (ly:engraver-announce-end-grob this-engraver tempo-finished '())
+          ;; Maintain 'spanner-broken
+          ;;
+          ;; If the line of a tempo spanner is hidden, end the alignment spanner
+          ;; early: this allows tempo marks to be spaced individually instead of
+          ;; being linked together.
+          ;; (Analogous to dynamics, see comment in dynamic-engraver.cc)
+          ;;
+          ;; Always do so if a break-tempo-span-event is present.
+          (when (or (eq? (ly:grob-property tempo-finished 'style) 'none)
+                    tempo-break-evt)
+            (ly:grob-set-property! tempo-finished 'spanner-broken #t))
+          ;; `tempo-finished` may not be available later, thus store the ready
+          ;; TempoSpanner and clear `tempo-break-evt` in
+          ;; `stop-translation-timestep`.
+          (set! previous-tempo-spanner tempo-finished)
+          (set! tempo-finished #f)
+          (set! bar-line #f)))
+      ((stop-translation-timestep this-engraver)
+        (when (and previous-tempo-spanner tempo-break-evt)
+          (set! tempo-break-evt #f))
+        (when (and (not tempo-span) (not tempo-finished))
+          (set! curr-tempo-mark #f)
+          (set! curr-metronome-mark #f))
+        ;; Maintain 'spanner-broken
+        (when (and tempo-span tempo-break-evt)
+          (ly:grob-set-property! tempo-span 'spanner-broken #t)
+          (set! tempo-break-evt #f))
+        ;; Set left bound to TempoMark, MetronomeMark or NonMusicalPaperColumn
+        (when (and tempo-span (null? (ly:spanner-bound tempo-span LEFT)))
+          (ly:spanner-set-bound! tempo-span LEFT
+            ;; Do not use an tempo-end-mark for left bound
+            (or (if (tempo-end-mark? curr-tempo-mark)
+                    #f
+                    curr-tempo-mark)
+                curr-metronome-mark
+                (ly:context-property context 'currentCommandColumn)))
+          (set! curr-metronome-mark #f)
+          (set! curr-tempo-mark #f)
+          (set! tempo-finished tempo-span)
+          (set! tempo-span #f)
+          (set! tempo-span-evt #f)))
+      ((finalize this-engraver)
+        (let ((ccm (ly:context-current-moment context))
+              (ccc (ly:context-property context 'currentCommandColumn)))
+          ;; Workaround to get MetronomeMark printed, if it is last in score
+          (when (and mm (equal? (grob::when mm) ccm))
+            (ly:grob-set-property! mm 'break-visibility #(#t #t #t))
+            (ly:grob-set-property! mm 'self-alignment-X RIGHT)
+            (ly:grob-set-property! mm 'non-musical #t)
+            (ly:grob-set-parent! mm X ccc))
+          ;; Set right bound of a not terminated TempoSpanner to
+          ;; NonMusicalPaperColumn
+          (when (and tempo-finished
+                     (null? (ly:spanner-bound tempo-finished RIGHT)))
+             (ly:spanner-set-bound! tempo-finished RIGHT ccc)
+             (ly:engraver-announce-end-grob this-engraver tempo-finished '())
+             (when tempo-break-evt
+               (ly:grob-set-property! tempo-finished 'spanner-broken #t)
+               (set! tempo-break-evt #f))
+             (set! tempo-finished #f))
+          (set! bar-line #f)
+          (set! curr-metronome-mark #f))))))
+
+(ly:register-translator
+ Tempo_spanner_engraver 'Tempo_spanner_engraver
+ '((grobs-created . (TempoSpanner))
+   (events-accepted . (tempo-span-event break-tempo-span-event))
+   (properties-read . (currentMusicalColumn measurePosition))
+   (properties-written . ())
+   (description . "Creates @code{TempoSpanner}, connecting @code{TempoMark}
+or @code{MetronomeMark}")))
+
+
+(define (Tempo_align_engraver context)
+
+  (define (no-grob-move-y grob)
+    (ly:grob-set-property! grob 'outside-staff-priority '())
+    (ly:grob-set-property! grob 'padding '())
+    (ly:grob-set-property! grob 'Y-offset '()))
+
+  (let ((metronome-mark #f)
+        (tempo-mark #f)
+        (tempo-spanner #f)
+        (prev-tempo-spanner #f)
+        (tempo-spanner-dir #f)
+        (tempo-line-span #f)
+        (tempo-line-span-dir #f))
+
+    (make-engraver
+
+      (acknowledgers
+        ((tempo-mark-interface this-engraver grob source-engraver)
+         (set! tempo-mark grob))
+        ((metronome-mark-interface this-engraver grob source-engraver)
+          (set! metronome-mark grob))
+        ((tempo-spanner-interface this-engraver grob source-engraver)
+          (set! tempo-spanner grob)
+          (set! tempo-spanner-dir (ly:grob-property grob 'direction))))
+      ((process-acknowledged this-engraver)
+        ;; Don't touch tempo or metronome mark if neither TempoLineSpanner nor
+        ;; TempoSpanner is present.
+        (when (and (not tempo-line-span) (not tempo-spanner))
+          (set! tempo-mark #f)
+          (set! metronome-mark #f))
+        ;; Continue an already started TempoLineSpanner. Or end and restart
+        ;; if direction changes or the break-flag is set.
+        (when (and tempo-line-span prev-tempo-spanner tempo-spanner)
+          (if (or (not (equal? tempo-spanner-dir tempo-line-span-dir))
+                  (ly:grob-property prev-tempo-spanner 'spanner-broken #f))
+              (let ((ccc (ly:context-property context 'currentCommandColumn)))
+                (ly:spanner-set-bound! tempo-line-span RIGHT
+                  (or metronome-mark tempo-mark ccc))
+                (ly:engraver-announce-end-grob
+                  this-engraver
+                  tempo-line-span
+                  (ly:grob-property (or metronome-mark tempo-mark ccc) 'cause))
+                (set! tempo-line-span
+                      (ly:engraver-make-grob
+                        this-engraver
+                        'TempoLineSpanner
+                        tempo-spanner))
+                (ly:spanner-set-bound! tempo-line-span LEFT
+                  (or tempo-mark metronome-mark ccc))
+                (set! tempo-line-span-dir
+                      (ly:grob-property tempo-spanner 'direction))
+                (ly:grob-set-property!
+                  tempo-line-span 'direction tempo-spanner-dir)
+                ;; Adding 'elements
+                (ly:axis-group-interface::add-element
+                  tempo-line-span tempo-spanner)
+                (when tempo-mark
+                  (no-grob-move-y tempo-mark)
+                  (ly:axis-group-interface::add-element
+                    tempo-line-span tempo-mark))
+                (when metronome-mark
+                  (no-grob-move-y metronome-mark)
+                  (ly:axis-group-interface::add-element
+                    tempo-line-span metronome-mark))
+                (set! prev-tempo-spanner tempo-spanner)
+                (set! tempo-spanner #f)
+                (set! tempo-mark #f)
+                (set! metronome-mark #f)
+                (set! tempo-line-span-dir #f))
+              ;; For not broken TempoLineSpanner, fill 'elements.
+              (begin
+                ;; Adding 'elements
+                (ly:axis-group-interface::add-element
+                  tempo-line-span tempo-spanner)
+                (when tempo-mark
+                  (no-grob-move-y tempo-mark)
+                  (ly:axis-group-interface::add-element
+                    tempo-line-span tempo-mark))
+                (when metronome-mark
+                  (no-grob-move-y metronome-mark)
+                  (ly:axis-group-interface::add-element
+                    tempo-line-span metronome-mark))
+                (set! prev-tempo-spanner tempo-spanner)
+                (set! tempo-spanner #f)
+                (set! tempo-mark #f)
+                (set! metronome-mark #f))))
+
+        ;; End TempoLineSpanner at a mark, otherwise let run to the very end
+        (when (and tempo-line-span
+                   (not tempo-spanner)
+                   prev-tempo-spanner
+                   (or metronome-mark tempo-mark))
+          (ly:spanner-set-bound!
+            tempo-line-span RIGHT (or metronome-mark tempo-mark))
+          (ly:engraver-announce-end-grob
+            this-engraver
+            tempo-line-span
+            (ly:grob-property (or metronome-mark tempo-mark) 'cause))
+          ;; Adding to 'elements
+          (when
+            (not (ly:grob-property prev-tempo-spanner 'spanner-broken #f))
+            (when tempo-mark
+              (no-grob-move-y tempo-mark)
+              (ly:axis-group-interface::add-element
+                tempo-line-span tempo-mark))
+            (when metronome-mark
+              (no-grob-move-y metronome-mark)
+              (ly:axis-group-interface::add-element
+                tempo-line-span metronome-mark)))
+          (set! prev-tempo-spanner #f)
+          (set! tempo-spanner-dir #f)
+          (set! metronome-mark #f)
+          (set! tempo-mark #f)
+          (set! tempo-line-span-dir #f)
+          (set! tempo-line-span #f))
+
+        ;; Start TempoLineSpanner
+        (when (and (not tempo-line-span) tempo-spanner)
+          (let ((ccc (ly:context-property context 'currentCommandColumn))
+                (t-l-sp
+                  (ly:engraver-make-grob
+                    this-engraver
+                    'TempoLineSpanner
+                    tempo-spanner)))
+            ;; Take direction of TempoLineSpanner from TempoSpanner
+            (ly:grob-set-property! t-l-sp 'direction tempo-spanner-dir)
+            (set! tempo-line-span-dir tempo-spanner-dir)
+            (ly:spanner-set-bound!
+              t-l-sp LEFT (or tempo-mark metronome-mark ccc))
+            ;; Adding to 'elements
+            (ly:axis-group-interface::add-element t-l-sp tempo-spanner)
+            (when tempo-mark
+              (no-grob-move-y tempo-mark)
+              (ly:axis-group-interface::add-element t-l-sp tempo-mark))
+            (when metronome-mark
+              (no-grob-move-y metronome-mark)
+              (ly:axis-group-interface::add-element t-l-sp metronome-mark))
+            (set! tempo-line-span t-l-sp)
+            (set! tempo-mark #f)
+            (set! metronome-mark #f)
+            (set! prev-tempo-spanner tempo-spanner)
+            (set! tempo-spanner #f))))
+
+      ((stop-translation-timestep this-engraver)
+        ;; Don't touch tempo or metronome mark if neither TempoLineSpanner nor
+        ;; TempoSpanner is present.
+        (when (and (not tempo-line-span) (not tempo-spanner))
+          (set! tempo-mark #f)
+          (set! metronome-mark #f)))
+
+      ((finalize this-engraver)
+        ;; A TempoLineSpanner without finishing mark runs to the very end of
+        ;; the score, i.e terminate it at final NonMusicalPaperColumn.
+        (when (and tempo-line-span
+              (null? (ly:spanner-bound tempo-line-span RIGHT)))
+          (let ((ccc (ly:context-property context 'currentCommandColumn)))
+            (ly:spanner-set-bound! tempo-line-span RIGHT ccc)
+            (ly:engraver-announce-end-grob
+              this-engraver
+              tempo-line-span
+              (ly:grob-property ccc 'cause))))))))
+
+(ly:register-translator
+ Tempo_align_engraver 'Tempo_align_engraver
+ '((events-accepted . (break-tempo-span-event))
+   (grobs-created . (TempoLineSpanner))
+   (properties-read . (currentCommandColumn))
+   (properties-written . ())
+   (description . "Align tempo mark, tempo spanner and metronome mark on a
+horizontal line.")))
