@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+  Translation of GIT committish: 2ee272f827166e92f827cdac4cb15f748ad9293f
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -1268,6 +1268,8 @@ Voici les différents jeux de glyphes d'altération.
 
 Le tableau suivant répertorie tous les styles de clef disponibles
 ainsi que la position du @emph{do médium} par rapport à la clef.
+Certaines modifications, comme les indications d'octaviation, sont
+mentionnées dans @ref{Clefs}.
 
 @cindex treble, clef
 @cindex clef treble
