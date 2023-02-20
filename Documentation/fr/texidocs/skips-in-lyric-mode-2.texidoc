@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a3fd5364fc4f247579da0ed2bfea887ab37285c6
+%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
   texidocfr = "
 Sachant qu'un @code{s} au sein d'un bloc @code{\\lyricmode} est
 interprété non comme de l'espace mais comme une syllabe, l'utilisation

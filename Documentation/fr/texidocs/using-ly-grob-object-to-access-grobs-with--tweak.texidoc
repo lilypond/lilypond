@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a3fd5364fc4f247579da0ed2bfea887ab37285c6
+%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
   texidocfr = "
 Certains objets graphiques ne sont accessibles que par le biais d'un
 @emph{callback} à partir d'un autre @code{grob}. Ils sont normalement
