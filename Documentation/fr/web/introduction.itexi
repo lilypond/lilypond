@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: fb8b017169997c87598f98dd7942fa51e5598549
+   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -306,7 +306,7 @@ C'est d'ailleurs ce que font déjà certains outils sur la toile.
 @c VO Excellent support
 
 LilyPond fonctionne sur les plateformes les plus courantes : GNU/Linux,
-MacOS X et Windows.  Le logiciel est accompagné d'une large
+macOS et Windows.  Le logiciel est accompagné d'une large
 documentation et des centaines d'exemples.  Une communauté active répond
 aux questions via les listes d'utilisateurs, en particulier la liste
 anglophone et la liste francophone, tandis que l'équipe de développement
@@ -1369,7 +1369,7 @@ La politique de GNU interdit de mentionner des logiciels non-libres, en
 vertu de quoi aucun lien vers de tels logiciel n'apparaît.
 
 C'est le cas, en particulier, pour :
-- l'interface LilyPond TextMate (éditeur payant pour MacOS).
+- l'interface LilyPond TextMate (éditeur payant pour macOS).
 
 @end ignore
 
@@ -1393,7 +1393,7 @@ Il dispose d'une visionneuse PDF, d'un assistant de création de
 partition et beaucoup de fonctionnalités d'édition -- pointer-cliquer,
 coloration syntaxique et auto-complétion.  Frescobaldi est écrit en
 Python et PyQt4 ; il fonctionne actuellement sur la plupart des systèmes
-d'exploitation (GNU/Linux, MacOS X et Windows).
+d'exploitation (GNU/Linux, macOS et Windows).
 
 
 @subsubheading Denemo
@@ -1417,6 +1417,40 @@ leur édition en mode graphique.
 Un déplacement du curseur dans le fichier LilyPond sera répercuté dans
 la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 évidence.
+
+@subsubheading Spontini-Editor
+
+@imageClickable{screenshot-spontini-small,png,
+  (click to enlarge),screenshot-spontini,png,right}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{https://github.com/paopre/Spontini}
+
+Spontini-Editor est un éditeur graphique combinéà une interface
+textuelle qui permet d'accélérer la création et l'affinage graphique de
+partitions complexes créées par LilyPond grâce à deux fonctionnalités
+majeures :
+
+@enumerate
+
+@item
+Il permet de positionner des objets musicaux (articulations, textes,
+indication de pédale, courbes, crochets, etc.) à l'aide de la souris.
+Une foisle positionnement effectué, l'éditeur de texte indique les
+modifications du fichier sourcce.
+
+@item
+Il aide à la création de partition pianistique en permettant la saisie
+des notes sous forme tabulaire et fournit des outils rapides pour les
+notations inter-portées.
+
+@end enumerate
+
+Il fonctionne aussi bien en tant qu'application indépendante qu'en mode
+client-serveur.
 
 @divEnd
 
@@ -1525,7 +1559,7 @@ chapitre @rprogram{LilyPond et les éditeurs de texte}.
 @subsubheading TeXShop
 @uref{https://pages.uoregon.edu/koch/texshop/}
 
-L'éditeur TeXShop pour MacOS X peut être muni d'une extension pour
+L'éditeur TeXShop pour macOS peut être muni d'une extension pour
 lancer LilyPond, @command{lilypond-book} et @command{convert-ly},
 disponible à
 @example
