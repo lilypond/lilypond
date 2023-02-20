@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 2ee272f827166e92f827cdac4cb15f748ad9293f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,14 +157,11 @@ LilyPond. Sa lecture sera profitable à tous ceux qui n'ont jamais
 osé programmer.
 
 @item
-@uref{https://tutoriel-scheme.readthedocs.io,Apprendre Scheme pour
-LilyPond} : un autre tutoriel, celui-ci disponible en français
-(mais également en anglais).
-
-@item
 @uref{https://extending-lilypond.readthedocs.io,Guide d'extension} : une
 ressource externe de documentation en anglais sur l'utilisation de
-Scheme pour étendre les fonctionnalités de LilyPond.
+Scheme pour étendre les fonctionnalités de LilyPond. Y est aussi
+disponible un tutoriel Scheme, dont la lecture est recommandée à ceux
+ayant déjà un expérience de programmation dans d'autres langages.
 
 @item
 @ref{Développement} :

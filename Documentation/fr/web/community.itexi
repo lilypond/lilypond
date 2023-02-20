@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 2ee272f827166e92f827cdac4cb15f748ad9293f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -239,7 +239,7 @@ archive@tie{}2},
 @divEnd
 
 
-@divClass{column-left-top}
+@divClass{column-right-top}
 @subheading IRC
 
 Vous pouvez obtenir quelque support au travers de notre canal IRC :
