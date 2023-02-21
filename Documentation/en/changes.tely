@@ -4,7 +4,7 @@
 
 @dircategory LilyPond -- the music typesetter
 @direntry
-* Changes: (lilypond-changes).          News since version 2.22.
+* Changes: (lilypond-changes).          News since version 2.24.
 @end direntry
 
 @include en/macros.itexi
