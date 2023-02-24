@@ -634,8 +634,8 @@ created using the @code{\parenthesize} command, see @ref{Parentheses}.
     <<
       {
         hh8[ 8] <hh sn> hh16
-        \parenthesize sn  hh
-        \parenthesize sn  hh8 <hh sn> hh
+        \parenthesize sn hh
+        \parenthesize sn hh8 <hh sn> hh
       } \\
       {
         bd4 r4 bd8 8 r8 bd

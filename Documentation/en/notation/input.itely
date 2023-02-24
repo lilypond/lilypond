@@ -1345,7 +1345,7 @@ Here is a list of all predefined procedures available for use with
 @item @code{\should-print-page-numbers-global} @tab  Print page numbers in the book?
   @footnote{@code{\should-@/print-@/page-@/numbers-@/global} can differ from
   @code{\should-@/print-@/page-@/number} for the first page in the book,
-  depending on the @code{print-@/first-@/page-@/number} setting  of the
+  depending on the @code{print-@/first-@/page-@/number} setting of the
   @code{\paper} block.}
 @item @code{\should-print-page-number} @tab Print the number of the current page?
 @item @code{\should-print-all-headers} @tab Is @code{print-all-headers} true?

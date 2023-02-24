@@ -2026,7 +2026,7 @@ changed:
 Like @code{associatedVoice}, @code{includeGraceNotes} needs to be
 set at latest one syllable before the one which is to be put under a
 grace note.  In the case of a grace note at the very beginning of a
-piece of music, using  a @code{\with}, or a @code{\context} block
+piece of music, using a @code{\with}, or a @code{\context} block
 within @code{\layout}, is recommended:
 
 @lilypond[verbatim,ragged-right,quote]

@@ -92,7 +92,7 @@ Internals Reference:
 >> > > alarm just went off.  I'm
 I knew it would... And leaving out some of them is perfectly fine
 with me. I do think that a list like this, with the main contexts and a
-brief description of  what they do (perhaps also with a note about what
+brief description of what they do (perhaps also with a note about what
 default behavior is associated with each of them, but this may be
 unmanageable), should be there, and then we could simply list the
 remaining ones without further explanation and with links to the IR.

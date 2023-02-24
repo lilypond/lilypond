@@ -2639,7 +2639,7 @@ The following example demonstrates the use of Kievan ligatures:
   <<
     \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
-        e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \fine
+        e2 \[ e4( d4 ) \] \[ c4( d e d ) \] e1 \fine
     }
     \new Lyrics \lyricsto "melody" {
       Га -- врі -- и -- лу
@@ -2804,7 +2804,7 @@ Staff@/.forbidBreakBetweenBarLines = ##f}.
 
 A common type of transcription is recitativic chant where the
 repeated notes are indicated with a single breve.  The text to
-the recitation tone can  be dealt with in two different ways:
+the recitation tone can be dealt with in two different ways:
 either set as a single, left-aligned syllable:
 
 @lilypond[verbatim,ragged-right]
@@ -2905,13 +2905,13 @@ spiritus = \relative {
   \time 1/4
   \override Lyrics.LyricText.X-extent  = #'(0 . 3)
   d'4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
-  d4 f8 g g8 d f g a g f4 g8 a a4  s
+  d4 f8 g g8 d f g a g f4 g8 a a4 s
   \tuplet 3/2 { g8 f d } e f g a g4
 }
 
 spirLyr = \lyricmode {
-  Spi -- ri -- _ _ tus  _ Do -- mi -- ni  _ re -- ple -- _ vit _
-  or -- _ bem _  ter -- ra -- _ rum, al -- _ _ le -- _ lu
+  Spi -- ri -- _ _ tus _ Do -- mi -- ni _ re -- ple -- _ vit _
+  or -- _ bem _ ter -- ra -- _ rum, al -- _ _ le -- _ lu
   -- _ ia.
 }
 \score {

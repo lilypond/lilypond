@@ -13,7 +13,7 @@
 @section Staff notation
 
 @c The line width is a bit of a hack to allow space for the
-@c  instrument names.
+@c instrument names.
 @lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 This section explains how to influence the appearance of staves,

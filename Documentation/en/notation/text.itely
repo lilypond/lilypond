@@ -1020,7 +1020,7 @@ It can be set relative to its previous value.
 \relative b' {
   b1_\markup { \larger Sinfonia }
   b1^\markup { \smaller da }
-  b1-\markup { \magnify #0.6  camera }
+  b1-\markup { \magnify #0.6 camera }
 }
 @end lilypond
 

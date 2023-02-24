@@ -450,7 +450,7 @@ mus = {
   \override FingerGlideSpanner.style = #'stub-both
   \mus
   <>^"dashed-line"
-  \override  FingerGlideSpanner.style = #'dashed-line
+  \override FingerGlideSpanner.style = #'dashed-line
   \mus
   \break
   <>^"dotted-line"

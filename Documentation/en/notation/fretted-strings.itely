@@ -1647,7 +1647,7 @@ mychords = \chordmode {
 
 Different fret diagrams for the same chord name can be stored using different
 octaves of pitches.  The different octave should be at least two octaves
-above or below the default octave, because the octaves above and  below the
+above or below the default octave, because the octaves above and below the
 default octave are used for transposing fretboards.
 
 @lilypond[verbatim, ragged-right, quote]

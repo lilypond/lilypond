@@ -565,7 +565,7 @@ used to avoid printing doubled rests.
 
 @lilypond[quote,verbatim]
 <<
-  \relative { r8 g'' g  g g f16 ees f8 d }
+  \relative { r8 g'' g g g f16 ees f8 d }
   \\
   \relative { ees'8 r ees r d r d r }
   \\
