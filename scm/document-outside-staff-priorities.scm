@@ -17,10 +17,12 @@
 
 (define outside-staff-priorities-doc-string
   (format #f
-          "@multitable {@code{CenteredBarNumberLineSpanner}} {Priority}
+          "@indentedBlock
+@multitable {@code{BassFigureAlignmentPositioning}} {Priority}
 @headitem Grob @tab Priority
 ~a
 @end multitable
+@endIndentedBlock
 "
           (string-join
            (map
