@@ -568,7 +568,7 @@ Provided that the duration of the final alternative is zero, the
 automatic mark is suppressed, allowing a section label to be set
 instead.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,line-width=12.0\cm]
 music = \fixed c' {
   f1
   \repeat segno 2 {
