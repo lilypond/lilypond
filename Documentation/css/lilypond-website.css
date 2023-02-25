@@ -39,6 +39,10 @@ h1, h2, h3, h4, h5 {
   margin: 1em 10px;
 }
 
+dt {
+  margin: 0.5em;
+}
+
 li {
   margin-right: 1em;
 }

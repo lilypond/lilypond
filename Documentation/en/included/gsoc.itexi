@@ -1,9 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c
 @c This file is part of community.itexi
-@c It's been moved here to reduce maintenance burden on translators.  It's up
-@c to translators the choice of translating this section of community.itexi or
-@c not (as GSoC students are required to speak english, a translated page is
-@c not needed).
+@c
+@c It's been moved here to reduce maintenance burden on
+@c translators.  It's up to translators the choice of translating
+@c this section of community.itexi or not (as GSoC participants
+@c are required to speak English, a translated page is not
+@c needed).
 
 @c Current proposals for Google Summer of Code
 @macro gsocCurrent
@@ -11,18 +14,20 @@
 @divClass{column-center-top}
 @subheading What is Google Summer of Code?
 
-@uref{https://summerofcode.withgoogle.com/, GSoC} is a global program
-that offers students stipends to write code for free software and open
-source projects during the summer.  For three months students work to
-complete a given task as part of the project's community and under the
+@uref{https://summerofcode.withgoogle.com/, GSoC} is a global
+program that offers stipends to contributors to write code for
+free software and open source projects.  Within a flexible time
+frame of three months or more, contributors work to complete a
+given task as part of the project's community and under the
 guidance of experienced mentors.  The program is an excellent
-opportunity for students to gain experience with real-world software
-development and make a contribution that benefits everyone.  It brings
-new contributors to LilyPond and enables students who are already
-involved to become more involved.  LilyPond participates in GSoC as part
-of the @uref{https://www.gnu.org/, GNU project}.
+opportunity for students and non-professionals to gain experience
+with real-world software development and make a contribution that
+benefits everyone.  It brings new contributors to LilyPond and
+enables people who are already involved to become more involved.
+LilyPond participates in GSoC as part of the
+@uref{https://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012, 2015, 2016, 2017 and 2020.  This
+We had GSoC participants in 2012, 2015, 2016, 2017 and 2020.  This
 site is current for the 2023 program.
 
 @divEnd
@@ -30,50 +35,69 @@ site is current for the 2023 program.
 @divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Project Ideas List
 
-Below is a list of GSoC project ideas (last update: May 2017), but
-if you have other ideas for a project you may complete within the three
-months of the program you're welcome to make a suggestion on our
-developer mailing list (see @ref{Contact}).  There are a number of areas
-where LilyPond could be improved, and our development team is always
-willing to help those who would like to tackle a project similar to
-those listed below.  As mentor availability varies from project to
-project and from year to year it is wise to get in touch with us as
-early as possible.
+Below is a list of GSoC project ideas, but if you have other ideas
+for a project you are welcome to make a suggestion on our
+developer mailing list (@pxref{Contact}).  There are a number of
+areas where LilyPond could be improved, and our development team
+is always willing to help those who would like to tackle a project
+similar to those listed below.  As mentor availability varies from
+project to project and from year to year it is wise to get in
+touch with us as early as possible.
 
-Per 2018 we have installed the new role of @qq{Community Mentor}.  We aim
-at assigning one Community Mentor to each active project who is
-@emph{not} responsible for discussing the implementation or reviewing
-the code.  Instead they will on the one hand discuss the @emph{design}
-of the planned features from the (power) user perspective, and they
-will look after the communication between student and mentor, and
-between the two and the community.
+Note that we also have @qq{Community Mentors}.  We aim at
+assigning one Community Mentor to each active project who is
+@emph{not} responsible for discussing the implementation or
+reviewing the code.  Instead they will on the one hand discuss the
+@emph{design} of the planned features from the (power) user
+perspective, and they will look after the communication between
+participant and mentor, and between the two and the community.
 
 A full list of all the current open issues can be found
 @uref{https://gitlab.com/lilypond/lilypond/-/issues, here}.
 
 
-@subsubheading Adding variants of font glyphs
+@subsubheading Adding more glyphs to LilyPond's Emmentaler music font
 
-@divClass{keep-bullets}
-@itemize
+@table @b
 
-@item
-Adding @q{on} and @q{between} staff-line variants.
+@item More SMuFL glyphs
+The @uref{https://www.w3.org/, World Wide Web (W3C) consortium}
+has been maintaining the
+@uref{https://w3c.github.io/smufl/latest/index.html, Standard
+Music Font Layout (SMuFL)} with a reference font called
+@uref{https://github.com/steinbergmedia/bravura, Bravura} since a
+few years; this font contains a large amount of glyphs not part of
+LilyPond's Emmentaler music font.  A mapping between LilyPond
+glyph names and SMuFL glyph names and encoding can be found in
+@uref{https://wolfgangsta.github.io/emmentaler-bravura/, this
+ongoing project}.
 
-@item
-Shorter and narrower variants of some glyphs for example, accidentals.
-Another, more specific example could be an ancient notation breve
-notehead coming in two variants one with a small or big @q{hole} within
-it.
+@item @q{On} and @q{between} staff-line variants
+For some glyphs it would be beneficial to have different glyphs,
+depending on whether they sit on a staff line or between two staff
+lines.  Examples are
+@uref{https://lilypond.org/doc/v2.24/Documentation/notation/note-heads#shape-note-heads,
+shaped note heads}.
 
-@end itemize
-@divEnd
+@item Shorter and narrower variants of some glyphs
+For tight typesetting situations (i.e., only a small amount of
+horizontal space is available) it would help to have glyph
+variants that need less horizontal space, for example narrower
+accidentals
+(@uref{https://gitlab.com/lilypond/lilypond/-/issues/2141, issues
+#2141ff}).  Another, more specific example could be an ancient
+notation breve notehead coming in two variants (with a smaller or
+bigger @q{hole}).
 
-@emph{Difficulty:} easy
+@end table
 
-@emph{Requirements:} MetaFont, C++, good eye for details
+@emph{Difficulty:} easy to medium
+
+@emph{Requirements:} MetaFont/MetaPost, C++, good eye for details
 
 @emph{Recommended knowledge:} basic LilyPond knowledge
+
+@emph{Size:} 175h/350h, depending on the selected sub-tasks
 
 @emph{Mentor:} Werner Lemberg
 
@@ -94,7 +118,7 @@ Working in this project will mainly be done in the
 
 @emph{Difficulty:} easy to hard (depending on the targeted improvements)
 
-@emph{Size of project:} @emph{to be defined}
+@emph{Size of project:} 175h/350h
 
 @emph{Requirements:} Python, MusicXML
 
@@ -103,15 +127,16 @@ Working in this project will mainly be done in the
 
 @subsubheading Fix Beaming Patterns/Beam Subdivisions and Tuplets
 
-Subdivision is an important way to improve the readability of beamed
-music.  However, despite several attempts at fixing it LilyPond still
-does not always produce correct results.  In order to properly fix this
-issue it seems necessary to rewrite the responsible code from the ground
-up.  Much work has already been done assessing the issue (see
+Subdivision is an important way to improve the readability of
+beamed music.  However, despite several attempts at fixing it
+LilyPond still does not always produce correct results.  In order
+to properly fix this issue it seems necessary to rewrite the
+responsible code from the ground up.  Much work has already been
+done assessing the issue (see
 @uref{https://lists.gnu.org/archive/html/lilypond-devel/2017-11/msg00037.html,
 this discussion} and
-@uref{https://openlilylib.org/public/beam-subdivisions.pdf, this
-work-in-progress document}).
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/5547, issue
+#5547}).
 
 In the course of this assessment it has been found that LilyPond's
 conception of @emph{tuplets} is somewhat flawed as well (see
@@ -120,7 +145,7 @@ this discussion}), and that this has to be fixed as well.
 
 @emph{Difficulty:} medium
 
-@emph{Size of project:} @emph{to be defined}
+@emph{Size of project:} 350h
 
 @emph{Requirements:} C++
 
@@ -132,27 +157,28 @@ of timing issues
 
 @subsubheading Support for Style Sheets
 
-LilyPond's engraving output can be tweaked to the least detail, and one
-important addition in recent years was the ability to use alternative
-notation fonts.  It is possible to create reusable modules for @qq{house
-styles}, but this project aims at bringing this to a new level by creating
-a convenient extension package with support for creating, applying,
-and sharing modular style sheets.  We are looking for a hierarchical
-structure that allows to mix and match style elements for @qq{house} (e.g.,
-@qq{my-personal-style}, @qq{client-a}, @qq{client-b}, etc.@:), score type, paper
-size etc.
+LilyPond's engraving output can be tweaked to the least detail,
+and one important addition in recent years was the ability to use
+alternative notation fonts.  It is possible to create reusable
+modules for @qq{house styles}, but this project aims at bringing
+this to a new level by creating a convenient extension package
+with support for creating, applying, and sharing modular style
+sheets.  We are looking for a hierarchical structure that allows
+to mix and match style elements for @qq{house} (e.g.,
+@qq{my-personal-style}, @qq{client-a}, @qq{client-b}, etc.@:),
+score type, paper size, etc.
 
 Work can be built upon the existing
 @uref{https://github.com/openlilylib/notation-fonts, notation-fonts}
 openLilyLib package.  We would like to see a further improvement of the
-loading mechanism for notation fonts (for example a better separation
+loading mechanism for notation fonts (for example, a better separation
 of loading notation and text fonts) as part of the project, and optionally
 (this would involve working on Lilypond's C++ code) support for notation
 fonts that are installed system-wide.
 
 @emph{Difficulty:} medium
 
-@emph{Size of project:} @emph{to be defined}
+@emph{Size of project:} 175h/350h
 
 @emph{Requirements:} Scheme, aesthetic competence
 
@@ -170,20 +196,23 @@ fonts that are installed system-wide.
 @divClass{column-center-middle-color2}
 @subheading Information for Applicants/Participants
 
+@strong{For all GSoC issues related to LilyPond, please contact
+our @q{lilypond-devel} mailing list (@pxref{Contact})!}
+
 In order to have a satisfying experience with GSoC applicants are
 strongly advised to thoroughly read the following recommendations.  Some
 of these are relevant for the application process, others for the time
 within the project.
 
+@divClass{keep-bullets}
 @itemize
 
 @item
-Read all applicable information on the program's website, particularly
-the
+Read all applicable information on the program's website,
+particularly the
 @uref{https://developers.google.com/open-source/gsoc/resources/manual,
-students' manual}.  Make sure you fulfil all of Google's prerequisites
-and are willing to join the program as a full-time commitment over the
-coding period of three months.
+students' manual}.  Make sure you fulfill all of Google's
+prerequisites and are willing to join the program as specified.
 
 @item
 Please get in touch with us as soon as possible if you are interested in
@@ -202,15 +231,14 @@ evaluation of your application.  If we have to decide between different
 applicants there may be various aspects to consider.
 
 @item
-Integration in the LilyPond community is a fundamental part of GSoC, and
-we expect our students to make substantial efforts to become community
-members.  Within the @emph{bonding period} we expect you to write a blog
-post about your project (either on @uref{https://lilypondblog.org, Scores
-of Beauty} or on any other blog) and to be active on our mailing lists,
-introducing yourself but also communicating about unrelated tasks.  This
-goes beyond the mere setting up of a working environment and
-familiarizing yourself with the relevant code, but we think it is
-crucial for the GSoC project to be mutually satisfying.
+Integration in the LilyPond community is a fundamental part of
+GSoC, and we expect our participators to make substantial efforts
+to become community members.  Within the @emph{bonding period} we
+expect you to be active on our mailing lists, introducing yourself
+but also communicating about unrelated tasks.  This goes beyond
+the mere setting up of a working environment and familiarizing
+yourself with the relevant code, but we think it is crucial for
+the GSoC project to be mutually satisfying.
 
 @item
 If you are accepted to the program you will have one mentor explicitly
@@ -235,6 +263,7 @@ able to properly assess your code by only @emph{reading} it without the
 opportunity to apply it in a real example.
 
 @end itemize
+@divEnd
 
 There is a list of inactive projects in the @ref{Attic}.  We list
 projects there that are still considered valuable but for which there
