@@ -301,22 +301,19 @@ class Credit(Xml_node):
         if y is not None:
             y = round(float(y))
         justify = getattr(words, 'justify', None)
-        # TODO: The spec says that if the halign attribute is not present, it
-        # takes its value from the justify attribute.
-        halign = getattr(words, 'halign', None)
+        # The spec says that if the halign attribute is not present, it takes
+        # its value from the justify attribute.
+        halign = getattr(words, 'halign', justify)
         valign = getattr(words, 'valign', None)
 
         if (size and size == max(sizes) and y and y == max(ys) and
-              (justify or halign) and (justify == 'center' or halign == 'center')):
+            (halign == 'center')):
             return 'title'
-        elif (y and y > min(ys) and y < max(ys) and (justify or halign) and
-              (justify == 'center' or halign == 'center')):
+        elif (y and y > min(ys) and y < max(ys) and (halign == 'center')):
             return 'subtitle'
-        elif ((justify or halign) and (justify == 'left' or halign == 'left') and
-              (not x or x == min(xs))):
+        elif ((halign == 'left') and (not x or x == min(xs))):
             return 'lyricist'
-        elif ((justify or halign) and (justify == 'right' or halign == 'right')
-              and (not x or x == max(xs))):
+        elif ((halign == 'right') and (not x or x == max(xs))):
             return 'composer'
         elif size and size == min(sizes) and y == min(ys):
             return 'rights'
