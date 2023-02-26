@@ -351,7 +351,19 @@ Volta_engraver::process_music ()
             }
 
           if (!layer.spanner_)
-            layer.spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+            {
+              layer.spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+
+              // Set the vertical order of the layers by adjusting
+              // outside-staff-priority.
+              if (layer_no)
+                {
+                  SCM sym = ly_symbol2scm ("outside-staff-priority");
+                  SCM pri = get_property (layer.spanner_, sym);
+                  set_property (layer.spanner_, sym,
+                                scm_difference (pri, to_scm (layer_no)));
+                }
+            }
 
           Axis_group_interface::add_element (layer.spanner_, layer.bracket_);
         }
