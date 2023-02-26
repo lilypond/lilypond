@@ -1,16 +1,15 @@
+\version "2.18.0"
 
-\version "2.17.10"
 \header {
-
-  texidoc = "It is possible to associate
-fingerings uniquely with notes. This makes it possible to add
-horizontal fingerings to notes. Fingering defaults to not clearing
-flags and stems unless there is a collision or a beam.
+  texidoc = "
+It is possible to associate fingerings uniquely with notes.  This
+makes it possible to add horizontal fingerings to notes.
+Fingering defaults to not clearing flags and stems unless there
+is a collision or a beam.
 "
-
 }
-\layout { ragged-right= ##t }
 
+\layout { ragged-right = ##t }
 
 
 \relative c'{
@@ -38,10 +37,4 @@ flags and stems unless there is a collision or a beam.
 
   \set fingeringOrientations = #'(right)
   < c-1  e-2 g-3 b-5 > 8
-
 }
-
-
-
-
-
