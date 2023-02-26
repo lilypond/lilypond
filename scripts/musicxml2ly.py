@@ -3211,11 +3211,11 @@ def print_ly_additional_definitions(printer, filename=None):
         printer.newline()
     printer.newline()
 
-# Read in the tree from the given I/O object (either file or string) and
+# Read in the tree from the given I/O object (file name, file, or bytes) and
 # demarshall it using the classes from the musicxml.py file
-
-
 def read_xml(io_object, use_lxml):
+    if isinstance(io_object, bytes):
+        io_object = io.BytesIO(io_object)
     if use_lxml:
         import lxml.etree
         tree = lxml.etree.parse(io_object)
@@ -3230,7 +3230,7 @@ def read_xml(io_object, use_lxml):
 
 
 def read_musicxml(filename, compressed, use_lxml):
-    raw_string = None
+    raw_bytes = None
     if compressed:
         if filename == "-":
             ly.progress(
@@ -3250,10 +3250,10 @@ def read_musicxml(filename, compressed, use_lxml):
             ly.progress(
                 _("Input file %s is compressed, extracting raw MusicXML data") % filename, True)
             z = zipfile.ZipFile(filename, "r")
-        container_xml = z.read("META-INF/container.xml").decode("utf-8")
+        container_xml = z.read("META-INF/container.xml")
         if not container_xml:
             return None
-        container = read_xml(io.StringIO(container_xml), use_lxml)
+        container = read_xml(container_xml, use_lxml)
         if not container:
             return None
         rootfiles = container.get_maybe_exist_named_child('rootfiles')
@@ -3264,10 +3264,10 @@ def read_musicxml(filename, compressed, use_lxml):
         if len(rootfile_list) > 0:
             mxml_file = getattr(rootfile_list[0], 'full-path', None)
         if mxml_file:
-            raw_string = z.read(mxml_file).decode('utf-8')
+            raw_bytes = z.read(mxml_file)
 
-    if raw_string:
-        io_object = io.StringIO(raw_string)
+    if raw_bytes is not None:
+        io_object = raw_bytes
     elif filename == "-":
         io_object = sys.stdin
     else:
