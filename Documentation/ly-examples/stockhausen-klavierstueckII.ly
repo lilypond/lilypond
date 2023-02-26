@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.24.0"
 
 
 \paper {
@@ -9,7 +9,7 @@
 
 % This function makes all tuplet brackets horizontal.
 horizontalTuplets =
-  \override TupletBracket #'stencil =
+  \override TupletBracket.stencil =
     #(lambda (grob)
        (let* ((pos (ly:grob-property grob 'positions))
               (dir (ly:grob-property grob 'direction))
