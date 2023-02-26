@@ -30,12 +30,21 @@ if [ -z $LILYPOND_BUILD_DIR ]; then
 fi
 
 ### update manuals
-find Documentation/ -path 'Documentation/snippets' -prune -o -name out -prune \
-  -o -name 'out-*' -prune -o -name '*.itely' -print \
+find Documentation/ \
+     -path 'Documentation/snippets' -prune \
+     -o -name out -prune \
+     -o -name 'out-*' -prune \
+     -o -name '*.itely' -print \
   | xargs $LILYPOND_BUILD_DIR/out/bin/convert-ly -e -d "$@"
 
 ### update .ly files
-# don't look in . otherwise it'll find stuff in build/ !
-find Documentation/ input/ ly/ -name out -prune -o -name 'out-*' -prune \
-  -o \( -name '*.ly' -o -name '*.ily' \) -print \
+# Don't look into `.`, otherwise it will find stuff in `build/`!
+# Also exclude files that intentionally don't have (correct)
+# `\version` statements.
+find Documentation/ input/ ly/ \
+     -name out -prune \
+     -o -name 'out-*' -prune \
+     -o -name version-incomplete-bad.ly -prune \
+     -o -name included.ily -prune \
+     -o \( -name '*.ly' -o -name '*.ily' \) -print \
   | xargs $LILYPOND_BUILD_DIR/out/bin/convert-ly -e -d "$@"
