@@ -1,4 +1,4 @@
-\version "2.23.5"
+\version "2.23.13"
 
 \header {
   texidoc = "Lyrics can be structured using repeats and @code{\\fine}.
