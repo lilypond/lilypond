@@ -118,22 +118,20 @@ Use version 3.8 or newer.
 
 @item
 Text fonts@*
-By default, LilyPond attempts to use the following text fonts,
-in descending order:
+By default, LilyPond uses the families C059, Nimbus Mono PS, and
+Nimbus Sans of the URW++ package.
 
-@itemize
-@item
-The families C059, Nimbus Mono PS, and Nimbus Sans of the
-URW++ package.
+Some distributions do not provide these fonts' OTF files.  If they are
+missing, download and manually extract the OTF files to your local
+@file{~/.fonts/} directory.
 
-@item
-The families Cursor, Heros, and Schola of the TeX Gyre package.
-
-@end itemize
-
-LilyPond requires the OTF files, which some distributions do
-not provide.  If they are missing, download and manually extract
-the OTF files to your local @file{~/.fonts/} directory.
+Some languages, such as Vietnamese, do not have glyphs in the URW++
+fonts.  When a glyph is not found in those fonts, LilyPond attempts
+to fall back to the families Cursor, Heros, and Schola of the TeX Gyre
+package.  Note for downstream packagers: while packaging the URW++ fonts
+is important in order to make (most) LilyPond files render the same across
+environments, packaging the TeX Gyre fonts is optional; you can make
+them an optional dependency, for example.
 
 For more details on text fonts, please see @rnotation{Fonts}.
 
