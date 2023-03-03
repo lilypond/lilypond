@@ -37,9 +37,29 @@ class Xml_node(object):
 
     def __init__(self):
         self._children = []
+        self._content = {} # certain children are here instead of _children
         self._data = None
-        self._parent = None
         self._attribute_dict = {}
+
+    def __contains__(self, key):
+        return key in self._content
+
+    # Xml_node presents itself as a dictionary of children keyed by MusicXML
+    # element name.  The class variable max_occurs_by_child specifies which
+    # elements to track with this dictionary.
+    #
+    # When maxOccurs is 1, a successful lookup accesses the child node.  For
+    # optional elements, the lookup may fail.
+    #
+    # When maxOccurs is 2 (meaning not limited) the lookup accesses a list of
+    # child nodes, which may be empty.  The class specifying maxOccurs 2 is
+    # responsible for initializing an empty list in its instances so that the
+    # lookup cannot fail.
+    def __getitem__(self, key):
+        return self._content[key]
+
+    def get(self, key, default_value=None):
+        return self._content.get(key, default_value)
 
     def get_parent(self):
         return self._parent
@@ -1786,19 +1806,45 @@ def get_class(name):
     return klass
 
 
-def minidom_demarshal_node(node):
-    py_node = get_class(node.nodeName)()
-    py_node._children = [minidom_demarshal_node(cn) for cn in node.childNodes]
-    for c in py_node._children:
-        c._parent = py_node
+def minidom_demarshal_node(node, py_parent=None):
+    name = node.nodeName
+    cls = get_class(name)
 
-    if node.attributes:
-        for(nm, value) in list(node.attributes.items()):
+    # For certain leaf elements of the schema, instead of creating a full child
+    # node, we just create a value.
+    try:
+        value = cls.minidom_demarshal_to_value(node)
+        # TODO: Create lists when max_occurs > 1?
+        assert type(py_parent).max_occurs_by_child[name] == 1
+        py_parent._content[name] = value
+        return
+    except AttributeError: # minidom_demarshal_to_value not in cls
+        pass
+
+    # Create a node
+    py_node = cls()
+    py_node._parent = py_parent
+    py_node._children = [minidom_demarshal_node(cn, py_node)
+                         for cn in node.childNodes]
+
+    attributes = node.attributes
+    if attributes:
+        for nm, value in attributes.items():
             py_node.__dict__[nm] = value
             py_node._attribute_dict[nm] = value
 
-    py_node._data = None
-    if node.nodeType == node.TEXT_NODE and node.data:
+    if node.nodeType == node.TEXT_NODE:
         py_node._data = node.data
+
+    try:
+        max_occurs = type(py_parent).max_occurs_by_child[name]
+    except (AttributeError, KeyError):
+        max_occurs = None
+
+    if max_occurs == 1:
+        py_parent._content[name] = py_node
+    elif max_occurs == 2: # unlimited
+        # The parent's constructor is required to initialize an empty list.
+        py_parent._content[name].append(py_node)
 
     return py_node
