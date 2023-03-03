@@ -666,27 +666,26 @@ class Stem(Music_xml_node):
         'down': 'stemDown',
         'up': 'stemUp',
         'double': None,  # TODO: Implement
-        'none': 'stemNeutral'
+        'none': 'stemNeutral' # FIXME: 'none' should omit the stem
     }
 
     def to_stem_event(self):
-        values = []
-        value = self.stem_value_dict.get(self.get_text(), None)
-        stem_value = musicexp.StemEvent()
-        if value:
-            stem_value.value = value
-            values.append(stem_value)
-        return values
+        value = self.stem_value_dict.get(self.get_text())
+        if value is not None:
+            event = musicexp.StemEvent()
+            event.value = value
+            return event
+        return None
 
     def to_stem_style_event(self):
-        styles = []
-        style_elm = musicexp.StemstyleEvent()
         color = getattr(self, 'color', None)
         if color is not None:
-            style_elm.color = utilities.hex_to_color(color)
-        if style_elm.color is not None:
-            styles.append(style_elm)
-        return styles
+            color = utilities.hex_to_color(color)
+            if color is not None:
+                event = musicexp.StemstyleEvent()
+                event.color = color
+                return event
+        return None
 
 
 class Notehead(Music_xml_node):
@@ -749,6 +748,7 @@ class Note(Measure_element):
         'pitch': 1,
         'rest': 1,
         'staff': 1,
+        'stem': 1,
         'type': 1,
         'unpitched': 1,
         'voice': 1,
@@ -791,20 +791,6 @@ class Note(Measure_element):
         noteheads = self.get_named_children('notehead')
         for nh in noteheads:
             styles = nh.to_lily_object()
-            for style in styles:
-                event.add_associated_event(style)
-
-    def set_stem_directions(self, event):
-        stems = self.get_named_children('stem')
-        for stem in stems:
-            values = stem.to_stem_event()
-            for v in values:
-                event.add_associated_event(v)
-
-    def set_stem_style(self, event):
-        stems = self.get_named_children('stem')
-        for stem in stems:
-            styles = stem.to_stem_style_event()
             for style in styles:
                 event.add_associated_event(style)
 
@@ -885,9 +871,16 @@ class Note(Measure_element):
             event.duration = self.initialize_duration()
 
         self.set_notehead_style(event)
-        self.set_stem_style(event)
-        if convert_stem_directions:
-            self.set_stem_directions(event)
+
+        stem = self.get('stem')
+        if stem is not None:
+            v = stem.to_stem_style_event()
+            if v is not None:
+                event.add_associated_event(v)
+            if convert_stem_directions:
+                v = stem.to_stem_event()
+                if v is not None:
+                    event.add_associated_event(v)
 
         return event
 
