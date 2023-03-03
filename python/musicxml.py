@@ -745,6 +745,7 @@ class Note(Measure_element):
         'chord': 1,
         'duration': 1,
         'grace': 1,
+        'notehead': 1,
         'pitch': 1,
         'rest': 1,
         'staff': 1,
@@ -786,13 +787,6 @@ class Note(Measure_element):
 
     def get_factor(self):
         return 1
-
-    def set_notehead_style(self, event):
-        noteheads = self.get_named_children('notehead')
-        for nh in noteheads:
-            styles = nh.to_lily_object()
-            for style in styles:
-                event.add_associated_event(style)
 
     def initialize_duration(self):
         from musicexp import Duration
@@ -870,7 +864,10 @@ class Note(Measure_element):
         if event:
             event.duration = self.initialize_duration()
 
-        self.set_notehead_style(event)
+        notehead = self.get('notehead')
+        if notehead is not None:
+            for v in notehead.to_lily_object():
+                event.add_associated_event(v)
 
         stem = self.get('stem')
         if stem is not None:
