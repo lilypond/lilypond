@@ -505,10 +505,6 @@ Sets the output verbosity to @var{LOGLEVEL}. Possible values are
 @code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and
 @code{DEBUG}.
 
-@item --lxml
-use the lxml.etree Python package for XML-parsing; uses less memory and
-cpu time.
-
 @item -m, --midi
 activate the midi block in the @var{.ly} file.
 

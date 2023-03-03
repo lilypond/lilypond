@@ -1789,28 +1789,6 @@ def get_class(name):
     return klass
 
 
-def lxml_demarshal_node(node):
-    name = node.tag
-
-    # Ignore comment nodes, which are also returned by the etree parser!
-    if name is None or node.__class__.__name__ == "_Comment":
-        return None
-    py_node = get_class(name)()
-
-    py_node._data = node.text
-    py_node._children = [lxml_demarshal_node(cn) for cn in node.getchildren()]
-    py_node._children = [x for x in py_node._children if x]
-
-    for c in py_node._children:
-        c._parent = py_node
-
-    for(k, v) in list(node.items()):
-        py_node.__dict__[k] = v
-        py_node._attribute_dict[k] = v
-
-    return py_node
-
-
 def minidom_demarshal_node(node):
     py_node = get_class(node.nodeName)()
     py_node._children = [minidom_demarshal_node(cn) for cn in node.childNodes]
@@ -1827,12 +1805,3 @@ def minidom_demarshal_node(node):
         py_node._data = node.data
 
     return py_node
-
-
-if __name__ == '__main__':
-    import lxml.etree
-
-    tree = lxml.etree.parse('beethoven.xml')
-    mxl_tree = lxml_demarshal_node(tree.getroot())
-    ks = sorted(class_dict.keys())
-    print('\n'.join(ks))

@@ -2917,10 +2917,10 @@ information.""") % 'lilypond')
                  help=_("be verbose"))
 
     p.add_option('', '--lxml',
-                 action="store_true",
-                 default=False,
-                 dest="use_lxml",
-                 help=_("use lxml.etree; uses less memory and cpu time"))
+                 action="callback",
+                 callback=lambda option, opt_str, value, parser:
+                 ly.warning(_('--lxml is obsolete, ignoring')),
+                 help=_("obsolete"))
 
     p.add_option('-z', '--compressed',
                  action="store_true",
@@ -3213,23 +3213,16 @@ def print_ly_additional_definitions(printer, filename=None):
 
 # Read in the tree from the given I/O object (file name, file, or bytes) and
 # demarshall it using the classes from the musicxml.py file
-def read_xml(io_object, use_lxml):
+def read_xml(io_object):
     if isinstance(io_object, bytes):
         io_object = io.BytesIO(io_object)
-    if use_lxml:
-        import lxml.etree
-        tree = lxml.etree.parse(io_object)
-        mxl_tree = musicxml.lxml_demarshal_node(tree.getroot())
-        return mxl_tree
-    else:
-        from xml.dom import minidom, Node
-        doc = minidom.parse(io_object)
-        node = doc.documentElement
-        return musicxml.minidom_demarshal_node(node)
-    return None
+    from xml.dom import minidom, Node
+    doc = minidom.parse(io_object)
+    node = doc.documentElement
+    return musicxml.minidom_demarshal_node(node)
 
 
-def read_musicxml(filename, compressed, use_lxml):
+def read_musicxml(filename, compressed):
     raw_bytes = None
     if compressed:
         if filename == "-":
@@ -3253,7 +3246,7 @@ def read_musicxml(filename, compressed, use_lxml):
         container_xml = z.read("META-INF/container.xml")
         if not container_xml:
             return None
-        container = read_xml(container_xml, use_lxml)
+        container = read_xml(container_xml)
         if not container:
             return None
         rootfiles = container.get_maybe_exist_named_child('rootfiles')
@@ -3273,7 +3266,7 @@ def read_musicxml(filename, compressed, use_lxml):
     else:
         io_object = filename
 
-    return read_xml(io_object, use_lxml)
+    return read_xml(io_object)
 
 
 def convert(filename, options):
@@ -3282,7 +3275,7 @@ def convert(filename, options):
     else:
         ly.progress(_("Reading MusicXML from %s ...") % filename, True)
 
-    tree = read_musicxml(filename, options.compressed, options.use_lxml)
+    tree = read_musicxml(filename, options.compressed)
     score_information = extract_score_information(tree)
     paper_information = extract_paper_information(tree)
 
