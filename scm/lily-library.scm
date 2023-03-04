@@ -1354,7 +1354,8 @@ print a warning and set an optional @var{default}."
        (not (ly-type? val))))
 
 (define-public scm->string
-  (let ((newline-and-space-regex (ly:make-regex "\n ")))
+  (let ((newline-and-space-regex (ly:make-regex "\n "))
+        (procedure-hex-at-regex (ly:make-regex "#<procedure [0-9a-f]+ at")))
     (lambda (val)
       (let* ((quote-style (if (string? val)
                               'double
@@ -1365,18 +1366,23 @@ print a warning and set an optional @var{default}."
                                            (not (ly-type? val))))
                                   'single
                                   'none)))
-             ;; don't confuse users with #<procedure ...> syntax
+             ;; Try to not confuse users with #<procedure ...> syntax, if the
+             ;; procedure has a name. If it cannot be avoided, remove the
+             ;; hexadecimal address to ensure reproducible builds.
              (str (if (and (procedure? val)
                            (symbol? (procedure-name val)))
                       (symbol->string (procedure-name val))
-                      (call-with-output-string
-                       (if (pretty-printable? val)
-                           ;; property values in PDF hit margin after 64 columns
-                           (lambda (port)
-                             (pretty-print val port #:width (case quote-style
-                                                              ((single) 63)
-                                                              (else 64))))
-                           (lambda (port) (display val port)))))))
+                      (ly:regex-replace
+                       procedure-hex-at-regex
+                       (call-with-output-string
+                        (if (pretty-printable? val)
+                            ;; property values in PDF hit margin after 64 columns
+                            (lambda (port)
+                              (pretty-print val port #:width (case quote-style
+                                                               ((single) 63)
+                                                               (else 64))))
+                            (lambda (port) (display val port))))
+                       "#<procedure at"))))
         (case quote-style
           ((single) (string-append
                      "'"
