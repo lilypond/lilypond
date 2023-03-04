@@ -587,8 +587,7 @@ def extract_score_structure(part_list, staffinfo):
 def musicxml_partial_to_lily(partial_len):
     if partial_len > 0:
         p = musicexp.Partial()
-        p.partial = musicxml2ly_conversion.rational_to_lily_duration(
-            partial_len)
+        p.partial = musicexp.Duration.from_fraction(partial_len)
         return p
     else:
         return None
@@ -1964,9 +1963,7 @@ def musicxml_figured_bass_to_lily(n):
         # apply the duration to res
         length = Fraction(int(dur.get_text()), n._divisions) * Fraction(1, 4)
         res.set_real_duration(length)
-        duration = musicxml2ly_conversion.rational_to_lily_duration(length)
-        if duration:
-            res.set_duration(duration)
+        res.set_duration(musicexp.Duration.from_fraction(length))
     if getattr(n, 'parentheses', None) == 'yes':
         res.set_parentheses(True)
     return res
@@ -2044,7 +2041,7 @@ class LilyPondVoiceBuilder:
         layout_information.set_context_item('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest()
         lenfrac = self.measure_length
-        r.duration = musicxml2ly_conversion.rational_to_lily_duration(lenfrac)
+        r.duration = musicexp.Duration.from_fraction(lenfrac)
         r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append(r)
         self.begin_moment = self.end_moment
@@ -2132,45 +2129,31 @@ class LilyPondVoiceBuilder:
         self.add_barline(b)
 
     def jumpto(self, moment):
-        if not self.stay_here:
-            current_end = self.end_moment + self.pending_multibar
-            diff = moment - current_end
+        if self.stay_here:
+            return
 
-            if diff < 0:
-                ly.warning(_('Negative skip %s (from position %s to %s)') %
-                            (diff, current_end, moment))
-                diff = 0
-
-            if diff > 0 and not(self.ignore_skips and moment == 0):
-                skip = musicexp.SkipEvent()
-                duration_factor = 1
-                duration_log = {
-                    2: 1, 4: 2, 8: 3, 16: 4, 32: 5, 64: 6, 128: 7, 256: 8,
-                    512: 9
-                }.get(getattr(diff, 'denominator', 1), 0)
-                duration_dots = 0
-                # TODO: Use the time signature for skips, too. Problem: The skip
-                #       might not start at a measure boundary!
-                if duration_log > 0:  # denominator is a power of 2...
-                    if diff.numerator == 3:
-                        duration_log -= 1
-                        duration_dots = 1
-                    else:
-                        duration_factor = diff.numerator
-                else:
-                    # for skips of a whole or more, or for denominators that are
-                    # not powers of two, simply use s1*factor
-                    duration_factor = diff
-                skip.duration.duration_log = duration_log
-                skip.duration.factor = duration_factor
-                skip.duration.dots = duration_dots
-
-                evc = musicexp.ChordEvent()
-                evc.elements.append(skip)
-                self.add_music(evc, diff, False)
-
-            if diff > 0 and moment == 0:
+        current_end = self.end_moment + self.pending_multibar
+        diff = moment - current_end
+        if diff > 0:
+            if self.ignore_skips and (moment == 0):
+                # TODO: This seems convoluted and fragile.  LilyPond regression
+                # tests still pass without this block, so what's the problem? is
+                # test coverage lacking or is ignore_skips bogus?
                 self.ignore_skips = False
+                return
+
+            # TODO: Use the time signature for skips, too. Problem: The
+            #       skip might not start at a measure boundary!
+            skip = musicexp.SkipEvent()
+            skip.duration.set_from_fraction(diff)
+
+            evc = musicexp.ChordEvent()
+            evc.elements.append(skip)
+            self.add_music(evc, diff, False)
+
+        elif diff < 0:
+            ly.warning(_('Negative skip %s (from position %s to %s)') %
+                        (diff, current_end, moment))
 
     def last_event_chord(self, starting_at):
         value = None

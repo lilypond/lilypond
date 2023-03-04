@@ -176,6 +176,41 @@ class Duration:
         self.dots = 0
         self.factor = 1
 
+    @classmethod
+    def from_fraction(cls, length):
+        """Create a Duration from a Fraction or int"""
+        dur = Duration()
+        dur.set_from_fraction(length)
+        return dur
+
+    def set_from_fraction(self, length):
+        """Set this Duration from a Fraction or int"""
+        try: # assume length is a Fraction
+            d = length.denominator
+            if d > 1:
+                dlog = d.bit_length() - 1
+                if (1 << dlog) == d: # d is a power of 2
+                    # TODO: Handling n % 3 == 0 (with factor = n // 3) improved
+                    # code readability for a real-world sample score with a mix
+                    # of 2/4, 3/4, 4/4, 6/4, 6/8, and 12/8 time signatures.
+                    n = length.numerator
+                    if n == 3: # e.g., s1. rather than s2*3
+                        self.duration_log = dlog - 1
+                        self.dots = 1
+                        self.factor = 1
+                        return
+                    else: # e.g., s8*5
+                        self.duration_log = dlog
+                        self.dots = 0
+                        self.factor = n
+                        return
+        except AttributeError: # length is an int (probably)
+            pass
+        # e.g., s1*length
+        self.duration_log = 0
+        self.dots = 0
+        self.factor = length
+
     def lisp_expression(self):
         return '(ly:make-duration %d %d %s)' % (self.duration_log,
                                                 self.dots,

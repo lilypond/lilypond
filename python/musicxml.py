@@ -777,7 +777,6 @@ class Note(Measure_element):
                 event.add_associated_event(style)
 
     def initialize_duration(self):
-        from musicxml2ly_conversion import rational_to_lily_duration
         from musicexp import Duration
         # if the note has no Type child, then that method returns None. In that case,
         # use the <duration> tag instead. If that doesn't exist, either -> Error
@@ -797,7 +796,7 @@ class Note(Measure_element):
             return d
         else:
             if self._duration > 0:
-                return rational_to_lily_duration(self._duration)
+                return Duration.from_fraction(self._duration)
             else:
                 self.message(
                     _("Encountered note at %s without type and duration(=%s)")
