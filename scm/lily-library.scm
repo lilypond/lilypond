@@ -1369,20 +1369,22 @@ print a warning and set an optional @var{default}."
              ;; Try to not confuse users with #<procedure ...> syntax, if the
              ;; procedure has a name. If it cannot be avoided, remove the
              ;; hexadecimal address to ensure reproducible builds.
-             (str (if (and (procedure? val)
-                           (symbol? (procedure-name val)))
-                      (symbol->string (procedure-name val))
-                      (ly:regex-replace
-                       procedure-hex-at-regex
-                       (call-with-output-string
-                        (if (pretty-printable? val)
-                            ;; property values in PDF hit margin after 64 columns
-                            (lambda (port)
-                              (pretty-print val port #:width (case quote-style
-                                                               ((single) 63)
-                                                               (else 64))))
-                            (lambda (port) (display val port))))
-                       "#<procedure at"))))
+             (str (cond
+                   ((and (procedure? val) (symbol? (procedure-name val)))
+                    (symbol->string (procedure-name val)))
+                   ((hash-table? val) "#<hash-table>")
+                   (else
+                    (ly:regex-replace
+                     procedure-hex-at-regex
+                     (call-with-output-string
+                      (if (pretty-printable? val)
+                          ;; property values in PDF hit margin after 64 columns
+                          (lambda (port)
+                            (pretty-print val port #:width (case quote-style
+                                                             ((single) 63)
+                                                             (else 64))))
+                          (lambda (port) (display val port))))
+                     "#<procedure at")))))
         (case quote-style
           ((single) (string-append
                      "'"
