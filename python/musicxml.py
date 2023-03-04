@@ -789,7 +789,11 @@ class Note(Measure_element):
             # Grace notes by specification have duration 0, so no time modification
             # factor is possible. It even messes up the output with *0/1
             if not self.get_maybe_exist_typed_child(Grace):
-                d.factor = self._duration / d.get_length()
+                nominal_duration = d.get_length()
+                actual_duration = self._duration
+                if actual_duration != nominal_duration:
+                    # actual is likely already a Fraction, but just in case:
+                    d.factor = Fraction(actual_duration) / nominal_duration
             return d
         else:
             if self._duration > 0:
