@@ -69,14 +69,14 @@ def rule(version, message):
     return dec
 
 
-@rule((0, 1, 9), _('\\header { key = concat + with + operator }'))
+@rule((0, 1, 9), r'\header { key = concat + with + operator }')
 def conv(s):
     if re.search('\\\\multi', s):
         stderr_write(NOT_SMART % "\\multi")
     return s
 
 
-@rule((0, 1, 19), _('deprecated %s') % '\\octave')
+@rule((0, 1, 19), r'deprecated \octave')
 def conv(s):
     if re.search('\\\\octave', s):
         stderr_write(NOT_SMART % "\\octave")
@@ -85,7 +85,7 @@ def conv(s):
     return s
 
 
-@rule((0, 1, 20), _('deprecated \\textstyle, new \\key syntax'))
+@rule((0, 1, 20), r'deprecated \textstyle, new \key syntax')
 def conv(s):
     s = re.sub('\\\\textstyle([^;]+);',
                  '\\\\property Lyrics . textstyle = \\1', s)
@@ -101,7 +101,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 0), _("bump version for release"))
+@rule((1, 0, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -114,7 +114,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 2), _('\\header { key = concat + with + operator }'))
+@rule((1, 0, 2), r'\header { key = concat + with + operator }')
 def conv(s):
     if re.search('\\\\header', s):
         stderr_write(NOT_SMART % _("new \\header format"))
@@ -195,7 +195,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 18), _('\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative'))
+@rule((1, 0, 18), r'\repeat NUM Music Alternative -> \repeat FOLDSTR Music Alternative')
 def conv(s):
     if re.search('\\\\repeat', s):
         stderr_write(NOT_SMART % "\\repeat")
@@ -225,7 +225,7 @@ def conv(s):
     return s
 
 
-@rule((1, 1, 52), _('deprecate %s') % '\\grouping')
+@rule((1, 1, 52), r'deprecate \grouping')
 def conv(s):
     s = re.sub('\\\\grouping[^;]*;', '', s)
     return s
@@ -299,7 +299,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 23), _('deprecate %s ') % '\\repetitions')
+@rule((1, 3, 23), r'deprecate \repetitions')
 def conv(s):
     if re.search('\\\\repetitions', s):
         stderr_write(NOT_SMART % "\\repetitions")
@@ -345,7 +345,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 42), _('Staff_margin_engraver deprecated, use Instrument_name_engraver'))
+@rule((1, 3, 42), 'Staff_margin_engraver deprecated, use Instrument_name_engraver')
 def conv(s):
     s = re.sub('Staff_margin_engraver', 'Instrument_name_engraver', s)
     return s
@@ -396,7 +396,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 93), _('change property definition case (eg. onevoice -> oneVoice)'))
+@rule((1, 3, 93), 'change property definition case (eg. onevoice -> oneVoice)')
 def conv(s):
     # Ugh, but meaning of \stemup changed too
     # maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
@@ -561,7 +561,7 @@ def regularize_id(s):
     return s
 
 
-@rule((1, 3, 117), _('identifier names: %s') % '$!foo_bar_123 -> xfooBarABC')
+@rule((1, 3, 117), 'identifier names: $!foo_bar_123 -> xfooBarABC')
 def conv(s):
     def regularize_dollar_reference(match):
         return regularize_id(match.group(1))
@@ -601,7 +601,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 138), _('point-and-click argument changed to procedure.'))
+@rule((1, 3, 138), 'point-and-click argument changed to procedure')
 def conv(s):
     s = re.sub('point-and-click +#t',
                  'point-and-click line-column-location', s)
@@ -645,7 +645,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 146), _('semicolons removed'))
+@rule((1, 3, 146), 'semicolons removed')
 def conv(s):
     s = re.sub('\\\\key[ \t]*;', r'\\key \\default;', s)
     s = re.sub('\\\\mark[ \t]*;', r'\\mark \\default;', s)
@@ -688,7 +688,7 @@ def conv(s):
 
 
 # 40 ?
-@rule((1, 5, 40), _('%s property names') % 'breakAlignOrder')
+@rule((1, 5, 40), 'breakAlignOrder property names')
 def conv(s):
 
     def func(match):
@@ -733,7 +733,7 @@ def conv(s):
     return s
 
 
-@rule((1, 5, 58), _('deprecate %s') % 'textNonEmpty')
+@rule((1, 5, 58), 'deprecate textNonEmpty')
 def conv(s):
     s = re.sub('textNonEmpty *= *##t',
                  "TextScript \\\\set #'no-spacing-rods = ##f", s)
@@ -760,7 +760,7 @@ def conv(s):
     return s
 
 
-@rule((1, 5, 67), _('automaticMelismata turned on by default'))
+@rule((1, 5, 67), 'automaticMelismata turned on by default')
 def conv(s):
     if re.search(r'\addlyrics', s) \
             and re.search('automaticMelismata', s) is None:
@@ -1016,7 +1016,7 @@ def conv(s):
     return s
 
 
-@rule((1, 7, 19), _("remove %s") % "GraceContext")
+@rule((1, 7, 19), "remove GraceContext")
 def conv(s):
     if re.search(r'\\GraceContext', s):
         stderr_write(NOT_SMART % "GraceContext")
@@ -1051,7 +1051,7 @@ def conv(s):
     return s
 
 
-@rule((1, 7, 24), _("cluster syntax"))
+@rule((1, 7, 24), "cluster syntax")
 def conv(s):
     if re.search(r'-(start|stop)Cluster', s):
         stderr_write(NOT_SMART % _("cluster syntax"))
@@ -1061,7 +1061,7 @@ def conv(s):
     return s
 
 
-@rule((1, 7, 28), _("new Pedal style syntax"))
+@rule((1, 7, 28), "new Pedal style syntax")
 def conv(s):
     s = re.sub(r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\(override|set) *#'pedal-type *",
                  r"\\property Staff.pedal\1Style ", s)
@@ -1332,8 +1332,8 @@ def conv_relative(s):
     return s
 
 
-@rule((1, 9, 0), _("""New relative mode,
-Postfix articulations, new text markup syntax, new chord syntax."""))
+@rule((1, 9, 0), """New relative mode,
+Postfix articulations, new text markup syntax, new chord syntax""")
 def conv(s):
     s = re.sub(r"#'\(\)", "@SCM_EOL@", s)
     s = conv_relative(s)
@@ -1345,7 +1345,7 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 1), _("Remove - before articulation"))
+@rule((1, 9, 1), "Remove - before articulation")
 def conv(s):
     if re.search("font-style", s):
         stderr_write(NOT_SMART % "font-style")
@@ -1380,8 +1380,7 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 3), (_("%s misspelling") % "\\acciaccatura") +
-      ", fingerHorizontalDirection -> fingeringOrientations")
+@rule((1, 9, 3), r"\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations")
 def conv(s):
     s = re.sub('accacciatura',
                  'acciaccatura', s)
@@ -1399,7 +1398,7 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 4), _('Swap < > and << >>'))
+@rule((1, 9, 4), 'Swap < > and << >>')
 def conv(s):
     if re.search('\\figures', s):
         warning(_("attempting automatic \\figures conversion.  Check results!"))
@@ -1436,7 +1435,7 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 6), _('deprecate %s') % 'ly:get-font')
+@rule((1, 9, 6), 'deprecate ly:get-font')
 def conv(s):
     if re.search("ly:get-font", s):
         stderr_write(NOT_SMART % "ly:get-font")
@@ -1455,8 +1454,8 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 7), _('''use symbolic constants for alterations,
-remove \\outputproperty, move ly:verbose into ly:get-option'''))
+@rule((1, 9, 7), r'''use symbolic constants for alterations,
+remove \outputproperty, move ly:verbose into ly:get-option''')
 def conv(s):
     def sub_alteration(m):
         alt = m.group(3)
@@ -1534,7 +1533,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 4), _("removal of automaticMelismata; use melismaBusyProperties instead."))
+@rule((2, 1, 4), "removal of automaticMelismata; use melismaBusyProperties instead")
 def conv(s):
     def func(match):
         c = match.group(1)
@@ -1642,7 +1641,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 17), _("\\partcombine syntax change to \\newpartcombine"))
+@rule((2, 1, 17), r"\partcombine syntax change to \newpartcombine")
 def conv(s):
 
     if re.search(r'\\partcombine', s):
@@ -1667,8 +1666,8 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 19), _("""Drum notation changes, Removing \\chordmodifiers, \\notenames.
-Harmonic notes. Thread context removed. Lyrics context removed."""))
+@rule((2, 1, 19), r"""Drum notation changes, Removing \chordmodifiers, \notenames.
+Harmonic notes. Thread context removed. Lyrics context removed""")
 def conv(s):
     if re.search('include "drumpitch', s):
         stderr_write(_("Drums found. Enclose drum notes in \\drummode"))
@@ -1714,13 +1713,12 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 21), """molecule-callback -> print-function,
+@rule((2, 1, 21), r"""molecule-callback -> print-function,
 brew_molecule -> print
 brew-new-markup-molecule -> Text_item::print
 LyricsVoice -> Lyrics
-tupletInvisible -> TupletBracket \\set #'transparent
-%s.
-""" % (_("remove %s") % "Grob::preset_extent"))
+tupletInvisible -> TupletBracket \set #'transparent
+remove Grob::preset_extent""")
 def conv(s):
     s = re.sub(r'molecule-callback', 'print-function', s)
     s = re.sub(r'brew_molecule', 'print', s)
@@ -1766,7 +1764,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 23), _("Property setting syntax in \\translator{ }"))
+@rule((2, 1, 23), r"Property setting syntax in \translator{ }")
 def conv(s):
     def subst_in_trans(match):
         s = match.group(0)
@@ -1805,7 +1803,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 25), _("Scheme grob function renaming"))
+@rule((2, 1, 25), "Scheme grob function renaming")
 def conv(s):
     s = re.sub(r'ly:get-spanner-bound', 'ly:spanner-get-bound', s)
     s = re.sub(r'ly:get-extent', 'ly:grob-extent', s)
@@ -1839,7 +1837,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 26), _("More Scheme function renaming"))
+@rule((2, 1, 26), "More Scheme function renaming")
 def conv(s):
     s = re.sub('ly:set-grob-property!', 'ly:grob-set-property!', s)
     s = re.sub('ly:set-mus-property!', 'ly:music-set-property!', s)
@@ -1941,7 +1939,7 @@ def conv(s):
     return s
 
 
-@rule((2, 2, 0), _("bump version for release"))
+@rule((2, 2, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -1974,7 +1972,7 @@ textheight is no longer used.
     return s
 
 
-@rule((2, 3, 4), _('remove %s') % '\\notes')
+@rule((2, 3, 4), r'remove \notes')
 def conv(s):
     s = re.sub(r'\\notes\b', '', s)
     return s
@@ -2043,8 +2041,8 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 16), _('''\\foo -> \\foomode (for chords, notes, etc.)
-fold \\new FooContext \\foomode into \\foo.'''))
+@rule((2, 3, 16), r'''\foo -> \foomode (for chords, notes, etc.)
+fold \new FooContext \foomode into \foo''')
 def conv(s):
     s = re.sub(r'\\chords\b', r'\\chordmode', s)
     s = re.sub(r'\\lyrics\b', r'\\lyricmode', s)
@@ -2102,7 +2100,7 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 24), _('''regularize other identifiers'''))
+@rule((2, 3, 24), '''regularize other identifiers''')
 def conv(s):
     def sub(m):
         return regularize_id(m.group(1))
@@ -2118,7 +2116,7 @@ def conv(s):
     return s
 
 
-@rule((2, 4, 0), _("bump version for release"))
+@rule((2, 4, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -2172,7 +2170,7 @@ def conv(s):
     return s
 
 
-@rule((2, 5, 13), _('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
+@rule((2, 5, 13), r'\encoding: smart recode latin1..utf-8. Remove ly:point-and-click')
 def conv(s):
     def func(match):
         encoding = match.group(1)
@@ -2200,7 +2198,7 @@ def conv(s):
     return s
 
 
-@rule((2, 5, 17), _('remove %s') % 'ly:stencil-set-extent!')
+@rule((2, 5, 17), 'remove ly:stencil-set-extent!')
 def conv(s):
     if re.search("ly:stencil-set-extent!", s):
         stderr_write(NOT_SMART % "ly:stencil-set-extent!")
@@ -2221,7 +2219,7 @@ def conv(s):
     return s
 
 
-@rule((2, 5, 21), _('warn about auto beam settings'))
+@rule((2, 5, 21), 'warn about auto beam settings')
 def conv(s):
     if re.search("(override-|revert-)auto-beam-setting", s)\
        or re.search("autoBeamSettings", s):
@@ -2242,7 +2240,7 @@ def conv(s):
     return s
 
 
-@rule((2, 6, 0), _("bump version for release"))
+@rule((2, 6, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -2342,7 +2340,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 14), _('Remove callbacks property, deprecate XY-extent-callback.'))
+@rule((2, 7, 14), 'Remove callbacks property, deprecate XY-extent-callback')
 def conv(s):
     s = re.sub(r"\\override +([A-Z.a-z]+) #'callbacks",
                  r"\\override \1", s)
@@ -2363,7 +2361,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 15), _('Use grob closures iso. XY-offset-callbacks.'))
+@rule((2, 7, 15), 'Use grob closures iso. XY-offset-callbacks')
 def conv(s):
     if re.search('[XY]-offset-callbacks', s):
         stderr_write(NOT_SMART % "[XY]-offset-callbacks")
@@ -2393,7 +2391,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 24), _('deprecate %s') % 'number-visibility')
+@rule((2, 7, 24), 'deprecate number-visibility')
 def conv(s):
     s = re.sub(r"#'number-visibility",
                  "#'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead\n",
@@ -2435,7 +2433,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 32), _(r"foobar -> foo-bar for \paper, \layout"))
+@rule((2, 7, 32), r"foobar -> foo-bar for \paper, \layout")
 def conv(s):
     identifier_subs = [
         ('inputencoding', 'input-encoding'),
@@ -2547,7 +2545,7 @@ def conv(s):
     return s
 
 
-@rule((2, 9, 16), _("deprecate \\tempo in \\midi"))
+@rule((2, 9, 16), r"deprecate \tempo in \midi")
 def conv(s):
 
     def sub_tempo(m):
@@ -2584,7 +2582,7 @@ def conv(s):
     return s
 
 
-@rule((2, 10, 0), _("bump version for release"))
+@rule((2, 10, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -2604,7 +2602,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 5), _("deprecate cautionary-style. Use AccidentalCautionary properties"))
+@rule((2, 11, 5), "deprecate cautionary-style. Use AccidentalCautionary properties")
 def conv(s):
     s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'smaller",
                  "AccidentalCautionary #'font-size = #-2", s)
@@ -2617,7 +2615,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 6), _("Rename accidental glyphs, use glyph-name-alist."))
+@rule((2, 11, 6), "Rename accidental glyphs, use glyph-name-alist")
 def conv(s):
 
     def sub_acc_name(m):
@@ -2721,7 +2719,7 @@ def conv(s):
 
 
 @rule((2, 11, 35), """scripts.caesura -> scripts.caesura.curved.
-""" + _("Use #'style not #'dash-fraction to select solid/dashed lines."))
+Use #'style not #'dash-fraction to select solid/dashed lines""")
 def conv(s):
     s = re.sub(r"scripts\.caesura",
                  r"scripts.caesura.curved", s)
@@ -2767,8 +2765,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 50), _("metronomeMarkFormatter uses text markup as second argument,\n\
-fret diagram properties moved to fret-diagram-details."))
+@rule((2, 11, 50), """metronomeMarkFormatter uses text markup as second argument,
+fret diagram properties moved to fret-diagram-details""")
 def conv(s):
     # warning 1/2: metronomeMarkFormatter uses text markup as second argument
     if re.search('metronomeMarkFormatter', s):
@@ -2899,9 +2897,8 @@ def conv(s):
     return s
 
 
-@rule((2, 12, 0),
-      _("Syntax changes for \\addChordShape and \\chord-shape") + "\n" +
-      _("bump version for release"))
+@rule((2, 12, 0), r"""Syntax changes for \addChordShape and \chord-shape
+bump version for release""")
 def conv(s):
     if re.search(r'\\addChordShape', s):
         stderr_write(NOT_SMART % "addChordShape")
@@ -2916,8 +2913,7 @@ def conv(s):
     return s
 
 
-@rule((2, 12, 3),
-      _("Remove oldaddlyrics"))
+@rule((2, 12, 3), "Remove oldaddlyrics")
 def conv(s):
     if re.search(r'\\oldaddlyrics', s):
         stderr_write(NOT_SMART % "oldaddlyrics")
@@ -2928,8 +2924,8 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 0), _("keySignature property not reversed any more\n\
-MIDI 47: orchestral strings -> orchestral harp"))
+@rule((2, 13, 0), """keySignature property not reversed any more
+MIDI 47: orchestral strings -> orchestral harp""")
 def conv(s):
     if re.search(r'\set Staff.keySignature', s):
         stderr_write(NOT_SMART % "Staff.keySignature")
@@ -2939,10 +2935,9 @@ longer in reversed order.\n"))
     return s
 
 
-@rule((2, 13, 1),
-      _("\\bar \".\" now produces a thick barline\n\
-ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n\
-Dash parameters for slurs and ties are now in dash-definition"))
+@rule((2, 13, 1), r"""\bar "." now produces a thick barline
+ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time
+Dash parameters for slurs and ties are now in dash-definition""")
 def conv(s):
     if re.search(r'\\bar\s*"\."', s):
         stderr_write(NOT_SMART % "\\bar \".\"")
@@ -2959,18 +2954,17 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 4),
-      _("Autobeaming rules have changed.  override-auto-beam-setting and\n\
-revert-auto-beam-setting have been eliminated.\n\
-\\overrideBeamSettings has been added.\n\
-beatGrouping has been eliminated.\n\
-Different settings for vertical layout.\n\
-ly:system-start-text::print -> system-start-text::print\n\
-Beam #'thickness -> Beam #'beam-thickness\n\
-ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n\
-ly:ambitus::print -> ambitus::print\n\
-Explicit dynamics context definition from `Piano centered dynamics'\n\
-template replaced by new `Dynamics' context."))
+@rule((2, 13, 4), r"""Autobeaming rules have changed.  override-auto-beam-setting and
+revert-auto-beam-setting have been eliminated.
+\overrideBeamSettings has been added.
+beatGrouping has been eliminated.
+Different settings for vertical layout.
+ly:system-start-text::print -> system-start-text::print
+Beam #'thickness -> Beam #'beam-thickness
+ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil
+ly:ambitus::print -> ambitus::print
+Explicit dynamics context definition from `Piano centered dynamics'
+template replaced by new 'Dynamics' context""")
 def conv(s):
     if re.search("override-auto-beam-setting", s):
         stderr_write(NOT_SMART % "override-auto-beam-setting")
@@ -3002,11 +2996,10 @@ you must now specify the distances between staves rather than the offset of stav
     return s
 
 
-@rule((2, 13, 10),
-      _("Remove obsolete engravers/translators: Note_swallow_translator,\n\
-Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n\
-Swallow_performer and String_number_engraver.\n\
-New vertical spacing variables."))
+@rule((2, 13, 10), """Remove obsolete engravers/translators: Note_swallow_translator,
+Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,
+Swallow_performer and String_number_engraver.
+New vertical spacing variables""")
 def conv(s):
     s = re.sub(r'\\(consists|remove)\s+"*(Swallow_(engraver|performer)|'
                  '(Note|Rest|Skip_event)_swallow_translator|String_number_engraver)"*',
@@ -3041,14 +3034,12 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 16),
-      _("Unify fetaNumber and fetaDynamic encodings"))
+@rule((2, 13, 16), "Unify fetaNumber and fetaDynamic encodings")
 def conv(s):
     return re.sub(r'\bfeta(Number|Dynamic)', 'fetaText', s)
 
 
-@rule((2, 13, 18),
-      _("\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"))
+@rule((2, 13, 18), r"\RemoveEmpty*StaffContext -> \*Staff \RemoveEmptyStaves")
 def conv(s):
     s = re.sub(r"\\RemoveEmpty(|Drum|Rhythmic|Tab)StaffContext",
                  r"\\\1Staff \\RemoveEmptyStaves",
@@ -3059,8 +3050,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 20),
-      _("\\cresc etc. are now postfix operators"))
+@rule((2, 13, 20), r"\cresc etc. are now postfix operators")
 def conv(s):
     s = re.sub(r'\\(cresc|dim|endcresc|enddim)\b', r'\\deprecated\1', s)
     return s
@@ -3073,9 +3063,9 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 29),
-      _("Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n\
-\"accordion.accEtcbase\" -> \"accordion.etcbass\""))
+@rule((2, 13, 29), r'''Eliminate beamSettings, beatLength, \setBeatGrouping,
+\overrideBeamSettings and \revertBeamSettings.
+"accordion.accEtcbase" -> "accordion.etcbass"''')
 def conv(s):
     def sub_acc(m):
         d = {
@@ -3115,9 +3105,9 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 31),
-      _("Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n\
-Deprecate negative dash-period for hidden lines: use #'style = #'none instead."))
+@rule((2, 13, 31), """Woodwind diagrams: Move size, thickness, and graphic
+from argument list to properties.
+Deprecate negative dash-period for hidden lines: use #'style = #'none instead""")
 def conv(s):
     if re.search(r'woodwind-diagram', s):
         stderr_write(NOT_SMART % "woodwind-diagrams")
@@ -3130,9 +3120,8 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 36),
-      _("Rename vertical spacing variables.\n\
-Add fretboard-table argument to savePredefinedFretboard."))
+@rule((2, 13, 36), """Rename vertical spacing variables.
+Add fretboard-table argument to savePredefinedFretboard""")
 def conv(s):
     s = re.sub('after-title-spacing',           'markup-system-spacing', s)
     s = re.sub('before-title-spacing',          'score-markup-spacing',  s)
@@ -3149,8 +3138,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 39),
-      _("Rename vertical spacing grob properties."))
+@rule((2, 13, 39), "Rename vertical spacing grob properties")
 def conv(s):
     # this rule also converts default-next-staff-spacing:
     s = re.sub('next-staff-spacing',
@@ -3172,8 +3160,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 40),
-      _("Remove \\paper variables head-separation and foot-separation."))
+@rule((2, 13, 40), r"Remove \paper variables head-separation and foot-separation")
 def conv(s):
     if re.search(r'head-separation', s):
         stderr_write(NOT_SMART % "head-separation")
@@ -3187,9 +3174,8 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 42),
-      _("Rename space to basic-distance in various spacing alists.\n\
-Remove HarmonicParenthesesItem grob."))
+@rule((2, 13, 42), """Rename space to basic-distance in various spacing alists.
+Remove HarmonicParenthesesItem grob""")
 def conv(s):
     s = re.sub(
         r'\(space\s+\.\s+([0-9]*\.?[0-9]*)\)', r'(basic-distance . \1)', s)
@@ -3204,18 +3190,16 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 44),
-      _("Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings.\n"))
+@rule((2, 13, 44), "Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings")
 def conv(s):
     s = re.sub(
         r"\\(override|revert)TimeSignatureSettings(\s+[^#]*)(#[^#]*)#", r"\\\1TimeSignatureSettings\2#", s)
     return s
 
 
-@rule((2, 13, 46),
-      _("Change stringTunings from a list of semitones to a list of pitches.\n"
-          "Change tenor and baritone ukulele names in string tunings.\n"
-          "Generate messages for manual conversion of vertical spacing if required."))
+@rule((2, 13, 46), """Change stringTunings from a list of semitones to a list of pitches.
+Change tenor and baritone ukulele names in string tunings.
+Generate messages for manual conversion of vertical spacing if required""")
 def conv(s):
     def semitones2pitch(semitones):
         steps = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6]
@@ -3264,8 +3248,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 48),
-      _("Replace bar-size with bar-extent."))
+@rule((2, 13, 48), "Replace bar-size with bar-extent")
 def conv(s):
     def size_as_extent(matchobj):
         half = "%g" % (float(matchobj.group(1)) / 2)
@@ -3276,8 +3259,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 51),
-      _("Woodwind diagrams: Changes to the clarinet diagram."))
+@rule((2, 13, 51), "Woodwind diagrams: Changes to the clarinet diagram")
 def conv(s):
     if re.search(r'\\woodwind-diagram\s*#[^#]*clarinet\s', s):
         stderr_write(NOT_SMART % "woodwind-diagrams")
@@ -3287,14 +3269,12 @@ def conv(s):
     return s
 
 
-@rule((2, 14, 0),
-      _("bump version for release"))
+@rule((2, 14, 0), "bump version for release")
 def conv(s):
     return s
 
 
-@rule((2, 15, 7),
-      _("Handling of non-automatic footnotes."))
+@rule((2, 15, 7), "Handling of non-automatic footnotes")
 def conv(s):
     if re.search(r'\\footnote', s):
         stderr_write(NOT_SMART % "\\footnote")
@@ -3304,8 +3284,7 @@ def conv(s):
     return s
 
 
-@rule((2, 15, 9),
-      _("Change in internal property for MultiMeasureRest"))
+@rule((2, 15, 9), "Change in internal property for MultiMeasureRest")
 def conv(s):
     if re.search(r'use-breve-rest', s):
         stderr_write(NOT_SMART % "use-breve-rest")
@@ -3315,8 +3294,7 @@ def conv(s):
     return s
 
 
-@rule((2, 15, 10),
-      _("Creation of a Flag grob and moving of certain Stem properties to this grob"))
+@rule((2, 15, 10), "Creation of a Flag grob and moving of certain Stem properties to this grob")
 def conv(s):
     s = re.sub(r"Stem\s+#'flag-style", r"Flag #'style", s)
     s = re.sub(r"Stem\s+#'stroke-style", r"Flag #'stroke-style", s)
@@ -3560,8 +3538,7 @@ def conv(s):
     return s
 
 
-@rule((2, 16, 0),
-      _("bump version for release"))
+@rule((2, 16, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -3809,7 +3786,7 @@ def conv(s):
     return s
 
 
-@rule((2, 17, 20), _(r"Flag.transparent and Flag.color inherit from Stem"))
+@rule((2, 17, 20), r"Flag.transparent and Flag.color inherit from Stem")
 def conv(s):
     s = re.sub(r"(((?:\\once\s*)?)\\override\s+((?:\w+\.)?)Stem\.(transparent|color)\s*=\s*(#\S+))\s+\2\\override\s+\3Flag\.\4\s*=\s*\5",
                  r"\1", s)
@@ -3908,8 +3885,7 @@ def conv(s):
     return s
 
 
-@rule((2, 18, 0),
-      _("bump version for release"))
+@rule((2, 18, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -4282,7 +4258,7 @@ def conv(s):
     return s
 
 
-@rule((2, 22, 0), _("bump version for release"))
+@rule((2, 22, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -4745,7 +4721,8 @@ is the opposite of the convention used previously.
         stderr_write(UPDATE_MANUALLY)
     return s
 
-@rule((2, 24, 0), _("bump version for release"))
+
+@rule((2, 24, 0), "bump version for release")
 def conv(s):
     return s
 
@@ -4785,12 +4762,6 @@ should be replaced with
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
-# concatenate them into a single "conv" function;
+#   concatenate them into a single "conv" function
 #
-# - enclose strings to be localized with `_(' and  `)';
-#
-# - write rule for bumping major stable version with
-#
-#     _ ("bump version for release")
-#
-# as exact description.
+# - enclose strings to be localized with `_(' and  `)'
