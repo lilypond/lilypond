@@ -94,7 +94,7 @@ def conv(s):
     return s
 
 
-@rule((0, 1, 21), '\\musical_pitch -> \\musicalpitch, \\meter -> \\time')
+@rule((0, 1, 21), r'\musical_pitch -> \musicalpitch, \meter -> \time')
 def conv(s):
     s = re.sub('\\\\musical_pitch', '\\\\musicalpitch', s)
     s = re.sub('\\\\meter', '\\\\time', s)
@@ -106,7 +106,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 1), '\\accidentals -> \\keysignature, specialaccidentals -> keyoctaviation')
+@rule((1, 0, 1), r'\accidentals -> \keysignature, specialaccidentals -> keyoctaviation')
 def conv(s):
     s = re.sub('\\\\accidentals', '\\\\keysignature', s)
     s = re.sub('specialaccidentals *= *1', 'keyoctaviation = 0', s)
@@ -121,7 +121,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 3), '\\melodic -> \\notes')
+@rule((1, 0, 3), r'\melodic -> \notes')
 def conv(s):
     s = re.sub('\\\\melodic([^a-zA-Z])', '\\\\notes\\1', s)
     return s
@@ -141,7 +141,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 6), 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }')
+@rule((1, 0, 6), r'foo = \translator {\type .. } ->\translator {\type ..; foo; }')
 def conv(s):
     if re.search('[a-zA-Z]+ = *\\translator', s):
         stderr_write(NOT_SMART % _("\\translator syntax"))
@@ -149,13 +149,13 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 7), '\\lyric -> \\lyrics')
+@rule((1, 0, 7), r'\lyric -> \lyrics')
 def conv(s):
     s = re.sub('\\\\lyrics*', '\\\\lyrics', s)
     return s
 
 
-@rule((1, 0, 10), '[2/3 ]1/1 -> \\times 2/3 ')
+@rule((1, 0, 10), r'[2/3 ]1/1 -> \times 2/3 ')
 def conv(s):
     s = re.sub('\\\\\\[/3+', '\\\\times 2/3 { ', s)
     s = re.sub('\\[/3+', '\\\\times 2/3 { [', s)
@@ -185,7 +185,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 16), '\\type -> \\context, textstyle -> textStyle')
+@rule((1, 0, 16), r'\type -> \context, textstyle -> textStyle')
 def conv(s):
     s = re.sub('\\\\type([^\n]*engraver)', '\\\\TYPE\\1', s)
     s = re.sub('\\\\type([^\n]*performer)', '\\\\TYPE\\1', s)
@@ -231,7 +231,7 @@ def conv(s):
     return s
 
 
-@rule((1, 1, 55), '\\wheel -> \\coda')
+@rule((1, 1, 55), r'\wheel -> \coda')
 def conv(s):
     s = re.sub('\\\\wheel', '\\\\coda', s)
     return s
@@ -268,7 +268,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 4), '\\cadenza -> \\cadenza{On|Off}')
+@rule((1, 3, 4), r'\cadenza -> \cadenza{On|Off}')
 def conv(s):
     s = re.sub('\\\\cadenza *0 *;', '\\\\cadenzaOff', s)
     s = re.sub('\\\\cadenza *1 *;', '\\\\cadenzaOn', s)
@@ -329,7 +329,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 39), '\\key A ;  ->\\key a;')
+@rule((1, 3, 39), r'\key A ;  ->\key a;')
 def conv(s):
     def replace(match):
         return '\\key %s;' % match.group(1).lower()
@@ -338,7 +338,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 41), '[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }')
+@rule((1, 3, 41), r'[:16 c4 d4 ] -> \repeat "tremolo" 2 { c16 d16 }')
 def conv(s):
     if re.search('\\[:', s):
         stderr_write(NOT_SMART % _("new tremolo format"))
@@ -371,7 +371,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 68), 'latexheaders = "\\input global" -> latexheaders = "global"')
+@rule((1, 3, 68), r'latexheaders = "\input global" -> latexheaders = "global"')
 def conv(s):
     s = re.sub(r'latexheaders *= *"\\\\input ',
                  'latexheaders = "',
@@ -514,7 +514,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 102), 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
+@rule((1, 3, 102), r'beamAutoEnd -> autoBeamSettings \push (end * * * *)')
 def conv(s):
     s = re.sub('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))',
                  'autoBeamSettings \\\\push #\'(end 1 \\1 * *) = \\2', s)
@@ -527,7 +527,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 111), '\\push -> \\override, \\pop -> \\revert')
+@rule((1, 3, 111), r'\push -> \override, \pop -> \revert')
 def conv(s):
     s = re.sub('\\\\push', '\\\\override', s)
     s = re.sub('\\\\pop', '\\\\revert', s)
@@ -588,7 +588,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 122), 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch')
+@rule((1, 3, 122), r'drarnChords -> chordChanges, \musicalpitch -> \pitch')
 def conv(s):
     s = re.sub('drarnChords', 'chordChanges', s)
     s = re.sub(r'\\musicalpitch', r'\\pitch', s)
@@ -925,14 +925,14 @@ def conv(s):
     return s
 
 
-@rule((1, 7, 5), '\\transpose TO -> \\transpose FROM  TO')
+@rule((1, 7, 5), r'\transpose TO -> \transpose FROM  TO')
 def conv(s):
     s = re.sub(r"\\transpose", r"\\transpose c'", s)
     s = re.sub(r"\\transpose c' *([a-z]+)'", r"\\transpose c \1", s)
     return s
 
 
-@rule((1, 7, 6), r'note\\script -> note-\script')
+@rule((1, 7, 6), r'note\script -> note-\script')
 def conv(s):
     kws = ['arpeggio',
            'sustainDown',
@@ -1364,7 +1364,7 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 2), "\\newcontext -> \\new")
+@rule((1, 9, 2), r"\newcontext -> \new")
 def conv(s):
     s = re.sub('ly:set-context-property',
                  'ly:set-context-property!', s)
@@ -1552,20 +1552,20 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 7), "\\translator Staff -> \\change Staff")
+@rule((2, 1, 7), r"\translator Staff -> \change Staff")
 def conv(s):
     s = re.sub(r"\\translator\s+([a-zA-Z]+)", r"\\change \1", s)
     return s
 
 
-@rule((2, 1, 10), "\\newaddlyrics -> \\lyricsto")
+@rule((2, 1, 10), r"\newaddlyrics -> \lyricsto")
 def conv(s):
     s = re.sub(r"\\newaddlyrics", r"\\lyricsto", s)
     return s
 
 
-@rule((2, 1, 11), """\\include "paper16.ly" -> #(set-staff-size 16)
-\\note #3 #1 #1 -> \\note #"8." #1
+@rule((2, 1, 11), r"""\include "paper16.ly" -> #(set-staff-size 16)
+\note #3 #1 #1 -> \note #"8." #1
 """)
 def conv(s):
     s = re.sub(r'\\include\s*"paper([0-9]+)(-init)?.ly"',
@@ -1621,7 +1621,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 16), '\\musicglyph #"accidentals-NUM" -> \\sharp/flat/etc.')
+@rule((2, 1, 16), r'\musicglyph #"accidentals-NUM" -> \sharp/flat/etc.')
 def conv(s):
     def sub_acc(m):
         d = {
@@ -1657,9 +1657,8 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 18), """\\newpartcombine -> \\partcombine,
-\\autochange Staff -> \\autochange
-""")
+@rule((2, 1, 18), r"""\newpartcombine -> \partcombine,
+\autochange Staff -> \autochange""")
 def conv(s):
     s = re.sub(r'\\newpartcombine', r'\\partcombine', s)
     s = re.sub(r'\\autochange\s+Staff', r'\\autochange ', s)
@@ -1734,11 +1733,10 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 22), """%s
-        \\set A.B = #C , \\unset A.B
-        \\override A.B #C = #D, \\revert A.B #C
-
-""" % _("new syntax for property settings:"))
+@rule((2, 1, 22), r"""new syntax for property settings:
+  \set A.B = #C , \unset A.B
+  \override A.B #C = #D, \revert A.B #C
+""")
 def conv(s):
     s = re.sub(r'(\\property[^=]+)=\s*([-0-9]+)',
                  r'\1= #\2', s)
@@ -1872,8 +1870,8 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 28), """make-music-by-name -> make-music,
-new syntax for setting \\arpeggioBracket""")
+@rule((2, 1, 28), r"""make-music-by-name -> make-music,
+new syntax for setting \arpeggioBracket""")
 def conv(s):
     s = re.sub(r'make-music-by-name', 'make-music', s)
     s = re.sub(r"\\override\s+.*Arpeggio\s+#.print-function\s+=\s+\\arpeggioBracket",
@@ -1881,14 +1879,14 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 29), '\\center -> \\center-align, \\translator -> \\context')
+@rule((2, 1, 29), r'\center -> \center-align, \translator -> \context')
 def conv(s):
     s = re.sub(r'\\center([^-])', r'\\center-align\1', s)
     s = re.sub(r'\\translator', r'\\context', s)
     return s
 
 
-@rule((2, 1, 30), '''\\threeq{flat,sharp} -> \\sesqui{flat,sharp}
+@rule((2, 1, 30), r'''\threeq{flat,sharp} -> \sesqui{flat,sharp}
 ly:get-mutable-properties -> ly:mutable-music-properties
 centralCPosition -> middleCPosition
 ly:unset-context-property -> ly:context-unset-property
@@ -1911,7 +1909,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 31), 'remove \\alias Timing')
+@rule((2, 1, 31), r'remove \alias Timing')
 def conv(s):
     s = re.sub(r'\\alias\s*"?Timing"?', '', s)
     return s
@@ -1944,12 +1942,12 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 1), '\\apply -> \\applymusic')
+@rule((2, 3, 1), r'\apply -> \applymusic')
 def conv(s):
     return re.sub(r'\\apply\b', r'\\applymusic', s)
 
 
-@rule((2, 3, 2), '\\FooContext -> \\Foo')
+@rule((2, 3, 2), r'\FooContext -> \Foo')
 def conv(s):
     if re.search('textheight', s):
         stderr_write(NOT_SMART % "textheight")
@@ -1984,7 +1982,7 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 8), 'remove \\consistsend, strip \\lyrics from \\lyricsto.')
+@rule((2, 3, 8), r'remove \consistsend, strip \lyrics from \lyricsto')
 def conv(s):
     s = re.sub(r'\\consistsend', r'\\consists', s)
     s = re.sub(r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
@@ -1999,7 +1997,7 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 10), '\\addlyrics -> \\oldaddlyrics, \\newlyrics -> \\addlyrics')
+@rule((2, 3, 10), r'\addlyrics -> \oldaddlyrics, \newlyrics -> \addlyrics')
 def conv(s):
     s = re.sub(r'\\addlyrics', r'\\oldaddlyrics', s)
     s = re.sub(r'\\newlyrics', r'\\addlyrics', s)
@@ -2009,15 +2007,15 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 11), '\\setMmRestFermata -> ^\\fermataMarkup')
+@rule((2, 3, 11), r'\setMmRestFermata -> ^\fermataMarkup')
 def conv(s):
     s = re.sub(r'\\setMmRestFermata\s+(R[0-9.*/]*)',
                  r'\1^\\fermataMarkup', s)
     return s
 
 
-@rule((2, 3, 12), '''\\newpage -> \\pageBreak, junk \\script{up,down,both},
-soloADue -> printPartCombineTexts, #notes-to-clusters -> \\makeClusters
+@rule((2, 3, 12), r'''\newpage -> \pageBreak, junk \script{up,down,both},
+soloADue -> printPartCombineTexts, #notes-to-clusters -> \makeClusters
 ''')
 def conv(s):
     s = re.sub(r'\\newpage', r'\\pageBreak', s)
@@ -2059,8 +2057,8 @@ def conv(s):
     return s
 
 
-@rule((2, 3, 17), '''slurBoth -> slurNeutral, stemBoth -> stemNeutral, etc.
-\\applymusic #(remove-tag 'foo) -> \\removeWithTag 'foo''')
+@rule((2, 3, 17), r'''slurBoth -> slurNeutral, stemBoth -> stemNeutral, etc.
+\applymusic #(remove-tag 'foo) -> \removeWithTag 'foo''')
 def conv(s):
     s = re.sub(
         r'(slur|stem|phrasingSlur|tie|dynamic|dots|tuplet|arpeggio|)Both', r'\1Neutral', s)
@@ -2121,7 +2119,7 @@ def conv(s):
     return s
 
 
-@rule((2, 5, 0), '\\quote -> \\quoteDuring')
+@rule((2, 5, 0), r'\quote -> \quoteDuring')
 def conv(s):
     s = re.sub(r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
                  r'\\quoteDuring #"\1" { \\skip \2 }',
@@ -2289,7 +2287,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 10), '\\applyxxx -> \\applyXxx')
+@rule((2, 7, 10), r'\applyxxx -> \applyXxx')
 def conv(s):
     s = re.sub(r'\\applyoutput', r'\\applyOutput', s)
     s = re.sub(r'\\applycontext', r'\\applyContext', s)
@@ -2416,7 +2414,7 @@ def conv(s):
     return s
 
 
-@rule((2, 7, 30), "\\epsfile")
+@rule((2, 7, 30), r"\epsfile")
 def conv(s):
     s = re.sub(r'\\epsfile *#"', r'\\epsfile #X #10 #"', s)
     return s
@@ -2506,7 +2504,7 @@ def conv(s):
     return s
 
 
-@rule((2, 9, 6), "\\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla ")
+@rule((2, 9, 6), r"\context Foo \applyOutput #bla -> \applyOutput #'Foo #bla ")
 def conv(s):
     s = re.sub(
         r'\\context\s+"?([a-zA-Z]+)"?\s*\\applyOutput', r"\\applyOutput #'\1", s)
@@ -2521,7 +2519,7 @@ def conv(s):
     return s
 
 
-@rule((2, 9, 11), "\\set tupletNumberFormatFunction -> \\override #'text = ")
+@rule((2, 9, 11), r"\set tupletNumberFormatFunction -> \override #'text = ")
 def conv(s):
     s = re.sub(r"""(\\set\s)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#denominator-tuplet-formatter""",
                  r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-denominator-text""", s)
@@ -2733,8 +2731,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 38), """\\setEasyHeads -> \\easyHeadsOn, \\fatText -> \\textLengthOn,
-\\emptyText -> \\textLengthOff""")
+@rule((2, 11, 38), r"""\setEasyHeads -> \easyHeadsOn, \fatText -> \textLengthOn,
+\emptyText -> \textLengthOff""")
 def conv(s):
     s = re.sub(r"setEasyHeads", r"easyHeadsOn", s)
     s = re.sub(r"fatText", r"textLengthOn", s)
@@ -2742,7 +2740,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 46), "\\set hairpinToBarline -> \\override Hairpin #'to-barline")
+@rule((2, 11, 46), r"\set hairpinToBarline -> \override Hairpin #'to-barline")
 def conv(s):
     s = re.sub(r"\\set\s+([a-zA-Z]+)\s*.\s*hairpinToBarline\s*=\s*##([tf]+)",
                  r"\\override \1.Hairpin #'to-barline = ##\2", s)
@@ -2759,7 +2757,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 48), "\\compressMusic -> \\scaleDurations")
+@rule((2, 11, 48), r"\compressMusic -> \scaleDurations")
 def conv(s):
     s = re.sub(r"compressMusic", r"scaleDurations", s)
     return s
@@ -2797,13 +2795,13 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 51), "\\octave -> \\octaveCheck, \\arpeggioUp -> \\arpeggioArrowUp,\n\
-\\arpeggioDown -> \\arpeggioArrowDown, \\arpeggioNeutral -> \\arpeggioNormal,\n\
-\\setTextCresc -> \\crescTextCresc, \\setTextDecresc -> \\dimTextDecresc,\n\
-\\setTextDecr -> \\dimTextDecr, \\setTextDim -> \\dimTextDim,\n\
-\\setHairpinCresc -> \\crescHairpin, \\setHairpinDecresc -> \\dimHairpin,\n\
-\\sustainUp -> \\sustainOff, \\sustainDown -> \\sustainOn\n\
-\\sostenutoDown -> \\sostenutoOn, \\sostenutoUp -> \\sostenutoOff")
+@rule((2, 11, 51), r"""\octave -> \octaveCheck, \arpeggioUp -> \arpeggioArrowUp,
+\arpeggioDown -> \arpeggioArrowDown, \arpeggioNeutral -> \arpeggioNormal,
+\setTextCresc -> \crescTextCresc, \setTextDecresc -> \dimTextDecresc,
+\setTextDecr -> \dimTextDecr, \setTextDim -> \dimTextDim,
+\setHairpinCresc -> \crescHairpin, \setHairpinDecresc -> \dimHairpin,
+\sustainUp -> \sustainOff, \sustainDown -> \sustainOn
+\sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff""")
 def conv(s):
     s = re.sub(r"\\octave(?![a-zA-Z])", r"\\octaveCheck", s)
     s = re.sub(r"arpeggioUp", r"arpeggioArrowUp", s)
@@ -2822,7 +2820,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 52), "\\setHairpinDim -> \\dimHairpin")
+@rule((2, 11, 52), r"\setHairpinDim -> \dimHairpin")
 def conv(s):
     s = s.replace("setHairpinDim", "dimHairpin")
     return s
@@ -2837,8 +2835,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 55), "#(set-octavation oct) -> \\ottava #oct,\n\
-\\put-adjacent markup axis dir markup -> \\put-adjacent axis dir markup markup")
+@rule((2, 11, 55), r"""#(set-octavation oct) -> \ottava #oct,
+\put-adjacent markup axis dir markup -> \put-adjacent axis dir markup markup""")
 def conv(s):
     s = re.sub(r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", s)
     if re.search('put-adjacent', s):
@@ -2849,7 +2847,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 57), "\\center-align -> \\center-column, \\hcenter -> \\center-align")
+@rule((2, 11, 57), r"\center-align -> \center-column, \hcenter -> \center-align")
 def conv(s):
     s = re.sub(r"([\\:]+)center-align", r"\1center-column", s)
     s = re.sub(r"hcenter(\s+)", r"center-align\1", s)
@@ -2869,7 +2867,7 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 62), "makam-init.ly -> makam.ly, \\bigger -> \\larger")
+@rule((2, 11, 62), r"makam-init.ly -> makam.ly, \bigger -> \larger")
 def conv(s):
     s = re.sub(r'\\include(\s+)"makam-init.ly"',
                  r'\\include\1"makam.ly"', s)
