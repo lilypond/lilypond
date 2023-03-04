@@ -3849,14 +3849,17 @@ def conv(s):
     return s
 
 
+staff_padding_warning = _(r"""
+staff-padding now controls the distance to the baseline, not the nearest point.
+""")
+
 @rule((2, 17, 27), r'''\stringTuning \notemode -> \stringTuning''')
 def conv(s):
     s = re.sub(r"\\stringTuning\s*\\notemode(\s*)@?\{\s*(.*?)\s*@?\}",
                  r"\\stringTuning\1\2", s)
     if re.search(r'[^-\w]staff-padding[^-\w]', s):
         stderr_write(NOT_SMART % "staff-padding")
-        stderr_write(
-            _("Staff-padding now controls the distance to the baseline, not the nearest point."))
+        stderr_write(staff_padding_warning);
     return s
 
 
@@ -4140,6 +4143,11 @@ def conv(s):
     return s
 
 
+id_grob_property_warning = _(r"""
+Previously the "id" grob property (string) was used for SVG output.
+Now "output-attributes" (association list) is used instead.
+""")
+
 @rule((2, 19, 49), r"""id -> output-attributes.id or output-attributes
 for \tweak, \override, \overrideProperty, and \revert""")
 def conv(s):
@@ -4153,10 +4161,7 @@ def conv(s):
     automatic = r"(\\(?:tweak|override|overrideProperty|revert)\s+" + path + r")id"
     if re.search(manual_edits, s):
         stderr_write(NOT_SMART % "\"output-attributes\"")
-        stderr_write(
-            _("Previously the \"id\" grob property (string) was used for SVG output.") + "\n")
-        stderr_write(
-            _("Now \"output-attributes\" (association list) is used instead.") + "\n")
+        stderr_write(id_grob_property_warning)
         stderr_write(UPDATE_MANUALLY)
 
     # First, for manual editing cases we convert 'id' to 'output-attributes'
@@ -4427,14 +4432,18 @@ def conv(s):
         s = re.sub(complete_pattern, replacement, s)
     return s
 
-@rule((2, 23, 5), r"""
+
+mark_sequences_warning = _(r"""
+If independent mark sequences are desired, use multiple Mark_tracking_translators.
+""")
+
+@rule((2, 23, 5), """
 Mark_tracking_translator
 """)
 def conv(s):
     if re.search(r'\\consists\s+"?Mark_engraver"?', s):
         stderr_write(NOT_SMART % "\\consists Mark_engraver")
-        stderr_write(_("If independent mark sequences are desired, use multiple Mark_tracking_translators."))
-        stderr_write('\n')
+        stderr_write(mark_sequences_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
 
