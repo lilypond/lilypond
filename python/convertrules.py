@@ -141,7 +141,7 @@ def conv(s):
     return s
 
 
-@rule((1, 0, 6), r'foo = \translator {\type .. } ->\translator {\type ..; foo; }')
+@rule((1, 0, 6), r'foo = \translator {\type .. } -> \translator {\type ..; foo; }')
 def conv(s):
     if re.search('[a-zA-Z]+ = *\\translator', s):
         stderr_write(NOT_SMART % _("\\translator syntax"))
@@ -484,7 +484,7 @@ def conv(s):
 # TODO: add lots of these
 
 
-@rule((1, 3, 98), 'CONTEXT.textStyle -> GROB.#font-style ')
+@rule((1, 3, 98), 'CONTEXT.textStyle -> GROB.#font-style')
 def conv(s):
     s = re.sub('\\\\property *"?Voice"? *[.] *"?textStyle"? *= *"([^"]*)"',
                  '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', s)
@@ -573,7 +573,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 120), 'paper_xxx -> paperXxxx, pedalup -> pedalUp.')
+@rule((1, 3, 120), 'paper_xxx -> paperXxxx, pedalup -> pedalUp')
 def conv(s):
     def regularize_paper(match):
         return regularize_id(match.group(1))
@@ -608,7 +608,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 138), 'followThread -> followVoice.')
+@rule((1, 3, 138), 'followThread -> followVoice')
 def conv(s):
     s = re.sub('followThread', 'followVoice', s)
     s = re.sub('Thread.FollowThread', 'Voice.VoiceFollower', s)
@@ -616,7 +616,7 @@ def conv(s):
     return s
 
 
-@rule((1, 3, 139), 'font-point-size -> font-design-size.')
+@rule((1, 3, 139), 'font-point-size -> font-design-size')
 def conv(s):
     s = re.sub('font-point-size', 'font-design-size', s)
     return s
@@ -855,7 +855,8 @@ def subst_csp_inline(match):
     return '#(ly-export (make-event-chord (list %s)))' % subst_ev_name(match)
 
 
-@rule((1, 7, 2), r'\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )')
+@rule((1, 7, 2), r'''\spanrequest -> #(make-span-event ... ),
+\script -> #(make-articulation ... )''')
 def conv(s):
     s = re.sub(
         r' *= *\\spanrequest *([^ ]+) *"([^"]+)"', subst_definition_ev_name, s)
@@ -1380,7 +1381,8 @@ def conv(s):
     return s
 
 
-@rule((1, 9, 3), r"\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations")
+@rule((1, 9, 3), r"""\acciaccatura misspelling,
+fingerHorizontalDirection -> fingeringOrientations""")
 def conv(s):
     s = re.sub('accacciatura',
                  'acciaccatura', s)
@@ -1483,7 +1485,7 @@ Please hand-edit, using
 
   \applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)
 
-as a substitution text.""") % (m.group(1), m.group(2)))
+as a substitution text""") % (m.group(1), m.group(2)))
         raise FatalConversionError()
 
     if re.search("ly:(make-pitch|pitch-alteration)", s) \
@@ -1915,7 +1917,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 33), 'breakAlignOrder -> break-align-orders.')
+@rule((2, 1, 33), 'breakAlignOrder -> break-align-orders')
 def conv(s):
     s = re.sub(r"(\\set\s+)?(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
                  r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
@@ -1923,7 +1925,7 @@ def conv(s):
     return s
 
 
-@rule((2, 1, 34), 'set-paper-size -> set-default-paper-size.')
+@rule((2, 1, 34), 'set-paper-size -> set-default-paper-size')
 def conv(s):
     s = re.sub(r"\(set-paper-size",
                  "(set-default-paper-size", s)
@@ -2161,14 +2163,15 @@ def conv(s):
     return s
 
 
-@rule((2, 5, 12), r'\set Slur #\'dashed = #X -> \slurDashed')
+@rule((2, 5, 12), r"\set Slur #'dashed = #X -> \slurDashed")
 def conv(s):
     s = re.sub(r"\\override\s+(Voice\.)?Slur #'dashed\s*=\s*#\d*(\.\d+)?",
                  r"\\slurDashed", s)
     return s
 
 
-@rule((2, 5, 13), r'\encoding: smart recode latin1..utf-8. Remove ly:point-and-click')
+@rule((2, 5, 13), r'''\encoding: smart recode latin1..utf-8.
+Remove ly:point-and-click''')
 def conv(s):
     def func(match):
         encoding = match.group(1)
@@ -2369,7 +2372,7 @@ def conv(s):
 
 
 @rule((2, 7, 18), r"""bassFigureFormatFunction -> figuredBassFormatter
-deprecate alignBassFigureAccidentals.
+deprecate alignBassFigureAccidentals
 """)
 def conv(s):
     s = re.sub('bassFigureFormatFunction', 'figuredBassFormatter', s)
@@ -2600,7 +2603,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 5), "deprecate cautionary-style. Use AccidentalCautionary properties")
+@rule((2, 11, 5), """deprecate cautionary-style.
+Use AccidentalCautionary properties""")
 def conv(s):
     s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'smaller",
                  "AccidentalCautionary #'font-size = #-2", s)
@@ -2676,8 +2680,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 15), "TextSpanner #'edge-height -> #'bound-details #'right/left #'text = ...\n\
-Remove 'forced-distance for fixed spacing between staves in a PianoStaff.")
+@rule((2, 11, 15), """TextSpanner #'edge-height -> #'bound-details #'right/left #'text = ...
+Remove 'forced-distance for fixed spacing between staves in a PianoStaff""")
 def conv(s):
     def sub_edge_height(m):
         s = ''
@@ -2875,8 +2879,8 @@ def conv(s):
     return s
 
 
-@rule((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup,\n\
-InnerStaffGroup -> StaffGroup, InnerChoirStaff -> ChoirStaff")
+@rule((2, 11, 64), """systemSeparatorMarkup -> system-separator-markup,
+InnerStaffGroup -> StaffGroup, InnerChoirStaff -> ChoirStaff""")
 def conv(s):
     s = re.sub(r'systemSeparatorMarkup', r'system-separator-markup', s)
     if re.search(r'\\InnerStaffGroup', s):
@@ -2952,8 +2956,8 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 4), r"""Autobeaming rules have changed.  override-auto-beam-setting and
-revert-auto-beam-setting have been eliminated.
+@rule((2, 13, 4), r"""Autobeaming rules have changed.  override-auto-beam-setting
+and revert-auto-beam-setting have been eliminated.
 \overrideBeamSettings has been added.
 beatGrouping has been eliminated.
 Different settings for vertical layout.
@@ -3054,8 +3058,7 @@ def conv(s):
     return s
 
 
-@rule((2, 13, 27),
-      ("interval-translate -> coord-translate"))
+@rule((2, 13, 27), "interval-translate -> coord-translate")
 def conv(s):
     s = re.sub('interval-translate', 'coord-translate', s)
     return s
@@ -3322,8 +3325,8 @@ def conv(s):
     return s
 
 
-@rule((2, 15, 17), "\\markuplines -> \\markuplist\n\
-Change Beam broken slope syntax.")
+@rule((2, 15, 17), r"""\markuplines -> \markuplist
+Change Beam broken slope syntax""")
 def conv(s):
     s = re.sub(r"""
 \\markuplines( +)([^ ].*)
@@ -3559,7 +3562,6 @@ def conv(s):
 
 barstring = r"(\\bar|whichBar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
 
-
 @rule((2, 17, 5), r"New bar line interface")
 def conv(s):
     s = re.sub(barstring + r'"\|:"', '\\1\\2".|:"', s)
@@ -3656,7 +3658,7 @@ def conv(s):
         num = int(m.group(1))
         den = int(m.group(2))
 
-# if den is no power of 2, don't even try to use an unscaled duration
+        # if den is no power of 2, don't even try to use an unscaled duration
         if (den & (den - 1)) != 0:
             return r"\tupletSpan 1*%d/%d" % (num, den)
 
@@ -3739,8 +3741,7 @@ def conv(s):
     return s
 
 
-@rule((2, 17, 18),
-      "Rename OctavateEight to ClefModifier, rename related properties.")
+@rule((2, 17, 18), "Rename OctavateEight to ClefModifier, rename related properties.")
 def conv(s):
     s = re.sub('OctavateEight',
                  'ClefModifier',                   s)
@@ -3805,9 +3806,9 @@ def conv(s):
     #  complete syntax has a large number of variants, and this is quite
     #  unlikely to occur in other contexts
     s = re.sub(r"(=\s*[0-9]+\s*)~(\s*[0-9]+\s)", r"\1-\2", s)
-# Match strings, and articulation shorthands that end in -^_
-# so that we leave alone -| in quoted strings and c4--|
 
+    # Match strings, and articulation shorthands that end in -^_
+    # so that we leave alone -| in quoted strings and c4--|
     def subnonstring(m):
         if m.group(1):
             return m.group(1)+"!"
@@ -3869,8 +3870,8 @@ def conv(s):
     s = re.sub("(\r?\n?[ \t]*\\\\(?:consists|remove)\\s*)(\"?)Dynamic_engraver\\2",
                  r"\1\2New_dynamic_engraver\2\1\2Dynamic_align_engraver\2",
                  s)
-# Should we warn about any remaining Dynamic_engraver?  Possibly it
-# will do the job just fine.
+    # Should we warn about any remaining Dynamic_engraver?  Possibly it
+    # will do the job just fine.
     s = re.sub("New_dynamic_engraver", "Dynamic_engraver", s)
     return s
 
@@ -3918,11 +3919,11 @@ def conv(s):
     s = re.sub(r'\bthin-kern\b', 'segno-kern', s)
     return s
 
+
 # before_id is written in a manner where it will only substantially
 # (rather than as a lookbefore assertion) match material that could
 # not be part of a previous id.  In that manner, one replacement does
 # not inhibit an immediately adjacent replacement.
-
 
 before_id = r'(?:^|(?<!\\)(?:\\\\)+|(?<=[^-_\\a-zA-Z])|(?<=[^a-zA-Z][-_]))'
 
@@ -4378,6 +4379,7 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+
 trill_pitch_group_re = r"""TrillPitchGroup\.
 (
   font # recognize all font-something properties
@@ -4447,8 +4449,8 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
-dash_abbreviations = ["Hat", "Plus", "Dash", "Bang", "Larger", "Dot", "Underscore"]
 
+dash_abbreviations = ["Hat", "Plus", "Dash", "Bang", "Larger", "Dot", "Underscore"]
 
 markup2string_warning = _("""
 The signature of the markup->string Scheme function changed.  Calls with
@@ -4506,6 +4508,7 @@ def conv(s):
     s = s.replace("ly:grob-spanned-rank-interval", "ly:grob-spanned-column-rank-interval")
     return s
 
+
 bar_numbers_warning = _(r"""
 Warning:
 
@@ -4539,6 +4542,7 @@ def conv(s):
     ):
         stderr_write(bar_numbers_warning)
     return s
+
 
 @rule((2, 23, 8), r"""
 scripts.augmentum -> dots.dotvaticana
@@ -4589,12 +4593,13 @@ measureBarType to #'() or a valid bar type.
 
 @rule((2, 23, 10), r"""
 automaticBars = ##f -> measureBarType = #'()
-\\bar "-" -> \\bar ""
+\bar "-" -> \bar ""
 BarType = "-" -> BarType = ""
 \featherDurations #(ly:make-moment x/y) -> \featherDurations x/y
-\consists Chord_name_engraver -> \consists Chord_name_engraver \consists Current_chord_text_engraver
-\remove Chord_name_engraver -> \remove Chord_name_engraver \remove Current_chord_text_engraver
-)
+\consists Chord_name_engraver -> \consists Chord_name_engraver
+                                 \consists Current_chord_text_engraver
+\remove Chord_name_engraver -> \remove Chord_name_engraver
+                               \remove Current_chord_text_engraver
 """)
 def conv(s):
     s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
@@ -4624,6 +4629,7 @@ def conv(s):
                  s)
     return s
 
+
 @rule((2, 23, 11), r"""
 \bar "B" -> \bar "B-|" for B in { .| .|: [|: S S.|: }
 """)
@@ -4642,6 +4648,7 @@ def conv(s):
     # which is more insistent.
     s = convert_overrides_to_dots(s)
     return s
+
 
 fine_iteration_warning = _(r"""
 Warning: \fine no longer enforces the end of the music.  If your piece
@@ -4705,6 +4712,7 @@ def conv(s):
          stderr_write(UPDATE_MANUALLY)
     return s
 
+
 remove_bar_always_warning = _(r"""
 The barAlways property has been removed.  Instead, use
 forbidBreakBetweenBarLines.
@@ -4742,6 +4750,7 @@ def conv(s):
 @rule((2, 24, 0), "bump version for release")
 def conv(s):
     return s
+
 
 @rule((2, 25, 0), r"""
 \override Staff.StaffSymbol.line-positions = #'() ->
