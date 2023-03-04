@@ -4245,7 +4245,7 @@ def conv(s):
     s = re.sub(r"\\fermataMarkup", r"\\fermata", s)
     s = re.sub(r"\\(compress|expand)FullBarRests", r"\\\1EmptyMeasures", s)
     if re.search(r"#(banter|jazz)-chordnames", s):
-        stderr_write(NOT_SMART % "alternative chord naming functions")
+        stderr_write(NOT_SMART % _("alternative chord naming functions"))
         stderr_write(UPDATE_MANUALLY)
     return s
 
@@ -4260,6 +4260,16 @@ def conv(s):
 def conv(s):
     return s
 
+
+multi_measure_rest_warning = _(r"""
+Instead of (for example)
+  \markup \override #'(multi-measure-rest . #t) \rest-by-number #0 #0
+use
+  \markup \multi-measure-rest-by-number #1
+
+The argument of \multi-measure-rest-by-number is the number of measures
+the multi-measure rest lasts.
+""")
 
 @rule((2, 23, 1), r"""
 combine u/d variants of triangle, do, re, and ti noteheads
@@ -4282,20 +4292,12 @@ def conv(s):
         # for a normal rest and \rest with \override #'(multi-measure-rest . #t)
         # somewhere else.
         stderr_write(NOT_SMART % r"\override #'(multi-measure-rest . #t) \rest-by-number")
-        stderr_write(r"""
-Instead of (for example)
-  \markup \override #'(multi-measure-rest . #t) \rest-by-number #0 #0
-use
-  \markup \multi-measure-rest-by-number #1
-
-The argument of \multi-measure-rest-by-number is the number of measures
-the multi-measure rest lasts.
-""")
+        stderr_write(multi_measure_rest_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
 
 
-melody_engraver_warning = r"""
+melody_engraver_warning = _(r"""
 If you had
 
   \override Stem.neutral-direction = #DOWN
@@ -4313,7 +4315,7 @@ and
 
   \set suspendMelodyDecisions = ##f
 
-"""
+""")
 
 @rule((2, 23, 2), r"""
 warn about behavior change of Melody_engraver with Stem.neutral-direction
@@ -4341,7 +4343,7 @@ def conv(s):
     typical_usage = r'({})\s+{}'.format(melody_engraver, neutral_dir_override)
     s = re.sub(typical_usage, r"\1", s)
     if re.search(neutral_dir, s) and re.search('Melody_engraver', s):
-        stderr_write(NOT_SMART % "Stem.neutral-direction with Melody_engraver")
+        stderr_write(NOT_SMART % _("Stem.neutral-direction with Melody_engraver"))
         stderr_write(melody_engraver_warning)
         stderr_write(UPDATE_MANUALLY)
 
@@ -4349,12 +4351,13 @@ def conv(s):
                r'(lily \1)', s)
     return s
 
-round_filled_polygon_warning = r"""
+
+round_filled_polygon_warning = _(r"""
 ly:round-filled-polygon was renamed to ly:round-polygon and now takes
 an additional optional parameter specifying whether the polygon is filled.
 The default value of the extroversion optional parameter was changed from
 -1 to 0.
-"""
+""")
 
 @rule((2, 23, 3), r"""
 glyph-name-alist -> alteration-glyph-name-alist
@@ -4438,7 +4441,7 @@ def conv(s):
 dash_abbreviations = ["Hat", "Plus", "Dash", "Bang", "Larger", "Dot", "Underscore"]
 
 
-markup2string_warning = """
+markup2string_warning = _("""
 The signature of the markup->string Scheme function changed.  Calls with
 just one argument are not affected.  Calls using the second optional
 argument, the list of header modules, should be changed from
@@ -4449,7 +4452,7 @@ to
 
   (markup->string <markup> #:props (headers-property-alist-chain <header list>))
 
-"""
+""")
 
 @rule((2, 23, 6), r"""
 defaultBarType -> measureBarType
@@ -4550,12 +4553,13 @@ def conv(s):
                r'', s)
     return s
 
-percent_x_off_warning = r"""
+
+percent_x_off_warning = _(r"""
 The X-offset property of PercentRepeat is no longer relative to the
 default position (centered), but to the left of the span within
 which the object is centered.  Overrides/tweaks to PercentRepeat.X-offset
 should be updated.
-"""
+""")
 
 @rule((2, 23, 9), r"""
 ly:percent-repeat-item-interface::xxx -> ly:percent-repeat-interface::xxx
@@ -4567,6 +4571,12 @@ def conv(s):
         stderr_write(percent_x_off_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
+
+
+automatic_bars_warning = _(r"""
+The automaticBars property has been removed.  Instead, set
+measureBarType to #'() or a valid bar type.
+""")
 
 @rule((2, 23, 10), r"""
 automaticBars = ##f -> measureBarType = #'()
@@ -4580,11 +4590,8 @@ BarType = "-" -> BarType = ""
 def conv(s):
     s = re.sub(r"automaticBars\s*=\s*##f", r"measureBarType = #'()", s)
     if "automaticBars" in s:
-        stderr_write(NOT_SMART % "advanced use of automaticBars")
-        stderr_write("""
-The automaticBars property has been removed.  Instead, set
-measureBarType to #'() or a valid bar type.
-""")
+        stderr_write(NOT_SMART % _("advanced use of automaticBars"))
+        stderr_write(automatic_bars_warning)
         stderr_write(UPDATE_MANUALLY)
     s = re.sub(r'\\bar\s*"-"', r'\\bar ""', s)
     s = re.sub(r'BarType\s*=\s*"-"', r'BarType = ""', s)
@@ -4674,17 +4681,17 @@ def conv(s):
     s = re.sub(r'barAlways\s*=\s*##f', r'forbidBreakBetweenBarLines = ##t', s)
     if ('\\fine' in s) and (('\\repeat segno' in s) or
                             ('\\repeat volta' in s)):
-        stderr_write(NOT_SMART % "music following \\fine")
+        stderr_write(NOT_SMART % _(r"music following \fine"))
         stderr_write(fine_iteration_warning)
         stderr_write(UPDATE_MANUALLY)
     if re.search(r"GregorianTranscription(Staff|Voice)", s) and \
         (("BreathingSign" in s) or ("Breathing_sign_engraver" in s)):
-         stderr_write(NOT_SMART % "BreathingSign to BarLine or Divisio")
+         stderr_write(NOT_SMART % _("BreathingSign to BarLine or Divisio"))
          stderr_write(new_modern_divisio_grob_warning)
          stderr_write(UPDATE_MANUALLY)
     if re.search(r"(Mensural|Vaticana)(Staff|Voice)", s) and \
         (("BreathingSign" in s) or ("Breathing_sign_engraver" in s)):
-         stderr_write(NOT_SMART % "BreathingSign to Divisio")
+         stderr_write(NOT_SMART % _("BreathingSign to Divisio"))
          stderr_write(new_ancient_divisio_grob_warning)
          stderr_write(UPDATE_MANUALLY)
     return s
@@ -4701,21 +4708,24 @@ Remove barAlways
 def conv(s):
     s = re.sub(r"filtered-map", "(@ (srfi srfi-1) filter-map)", s)
     if "barAlways" in s:
-        stderr_write(NOT_SMART % "advanced use of barAlways")
+        stderr_write(NOT_SMART % _("advanced use of barAlways"))
         stderr_write(remove_bar_always_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
+
+
+skylines_for_stencil_warning = _(r"""
+The second argument to ly:skylines-for-stencil is now the 'horizon axis',
+which is the opposite of the convention used previously.
+""")
 
 @rule((2, 23, 14), r"""
 changed convention for ly:skylines-for-stencil second argument
 """)
 def conv(s):
     if "ly:skylines-for-stencil" in s:
-        stderr_write(NOT_SMART % "ly:skylines-for-stencil second argument")
-        stderr_write("""
-The second argument to ly:skylines-for-stencil is now the 'horizon axis', which
-is the opposite of the convention used previously.
-""")
+        stderr_write(NOT_SMART % _("ly:skylines-for-stencil second argument"))
+        stderr_write(skylines_for_stencil_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
 
@@ -4734,14 +4744,8 @@ def conv(s):
                s)
     return s
 
-@rule((2, 25, 1), r"""
-string-regexp-substitute removal
-(uniqued-alist x '()) -> (uniqued-alist x)
-""")
-def conv(s):
-    if "string-regexp-substitute" in s:
-        stderr_write(NOT_SMART % "string-regexp-substitute")
-        stderr_write(r"""
+
+string_regexp_substitute_warning = _(r"""
 The string-regexp-substitute function has been removed.  A call
 
   (string-regexp-substitute pattern replacement str)
@@ -4750,10 +4754,23 @@ should be replaced with
 
   (ly:regex-replace (ly:make-regex pattern) str replacement)
 """)
+
+uniqued_list_warning = _(r"""
+uniqued-alist no longer needs to take '() as its second argument.
+""")
+
+@rule((2, 25, 1), r"""
+string-regexp-substitute removal
+(uniqued-alist x '()) -> (uniqued-alist x)
+""")
+def conv(s):
+    if "string-regexp-substitute" in s:
+        stderr_write(NOT_SMART % "string-regexp-substitute")
+        stderr_write(string_regexp_substitute_warning)
         stderr_write(UPDATE_MANUALLY)
     if "uniqued-alist" in s:
         stderr_write(NOT_SMART % "uniqued-alist")
-        stderr_write("uniqued-alist no longer needs to take '() as its second argument\n")
+        stderr_write(uniqued_list_warning)
         stderr_write(UPDATE_MANUALLY)
     return s
 
