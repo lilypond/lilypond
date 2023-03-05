@@ -1255,7 +1255,6 @@ voix.
 
 
 @subsubheading Empilement des notes
-@translationof Note columns
 
 @cindex @emph{note column}
 @cindex empilement de notes
@@ -1974,7 +1973,6 @@ commande @code{\markup} permet aussi de spécifier du texte.
 
 
 @subsubheading Définition des propriétés de contexte avec @code{\with}
-@translationof Setting context properties with @code{\with}
 
 @funindex \with
 
@@ -2025,7 +2023,6 @@ revenir à la nouvelle valeur par défaut.
 
 
 @subsubheading Définition des propriétés de contexte avec @code{\context}
-@translationof Setting context properties with @code{\context}
 
 @cindex propriétés d'un contexte, définition avec \context
 
@@ -2120,7 +2117,6 @@ pratique est dans quelques cas fort utile.
 
 
 @subsubheading Modification d'un seul contexte
-@translationof Changing a single context
 
 Nous utilisons, pour supprimer un graveur d'un contexte, la commande
 @code{\with} dès la création du-dit contexte, comme nous l'avons vu dans
@@ -2206,7 +2202,6 @@ les notes de toutes les voix de la portée :
 
 
 @subsubheading Modification de tous les contextes d'un même type
-@translationof Changing all contexts of the same type
 
 @funindex \layout
 

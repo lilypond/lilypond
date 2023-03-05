@@ -161,7 +161,6 @@ fournira grâce à LilyPond @file{racine-violon.pdf} et
 
 
 @unnumberedsubsubsec Utilisation de LilyPond avec les fonctionnalités standard de l'interpréteur
-@translationof Using LilyPond with standard shell features
 
 Dans la mesure où LilyPond est une application qui fonctionne en ligne
 de commande, les fonctionnalités de l'interpréteur utilisé pour lancer

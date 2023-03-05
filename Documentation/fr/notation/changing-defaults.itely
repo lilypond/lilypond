@@ -1186,7 +1186,6 @@ Manuel de notation :
 
 
 @unnumberedsubsubsec Généralités en matière de définition d'un contexte
-@translationof Context definition overview
 
 @cindex contexte, création
 @cindex graveur, affectation à un contexte
@@ -1414,7 +1413,6 @@ Référence des propriétés internes :
 
 
 @unnumberedsubsubsec Création de contextes en MIDI
-@translationof New contexts in MIDI
 
 @cindex contexte, définition pour le MIDI
 @cindex MIDI, définition de contexte
@@ -1477,7 +1475,6 @@ Le contexte @code{ImproVoice} sera alors fonctionnel pour la sortie MIDI.
 
 
 @unnumberedsubsubsec Remplacement du contexte @code{Score}
-@translationof Replacing the Score context
 
 @cindex @code{Score}, remplacement du contexte
 @cindex contexte de niveau @code{Score}

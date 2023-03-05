@@ -51,7 +51,6 @@ charge la saisie.
 
 
 @subsubsubheading Mode accords
-@translationof VO Chord mode
 
 @funindex \chordmode
 @funindex \chords
@@ -72,7 +71,6 @@ contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
 
 
 @subsubsubheading Mode percussions
-@translationof Drum mode
 
 @funindex \drummode
 @funindex \drums
@@ -92,7 +90,6 @@ symbolique sur une portée de percussions -- voir
 
 
 @subsubsubheading Mode figures
-@translationof Figure mode
 
 @funindex \figuremode
 @funindex \figures
@@ -112,7 +109,6 @@ forme symbolique dans le contexte @code{FiguredBass} -- voir
 
 
 @subsubsubheading Modes frets et tablatures
-@translationof Fret and tab modes
 
 Il n'existe pas de mode spécifique pour saisir des symboles de fret ou
 de tablature.
@@ -130,7 +126,6 @@ accord puis rendus dans un contexte @code{FretBoards} -- voir
 
 
 @subsubsubheading Mode paroles
-@translationof Lyrics mode
 
 @funindex \lyricmode
 @funindex \lyrics
@@ -153,7 +148,6 @@ précédemment saisie -- voir @ref{Durée automatique des syllabes}.
 
 
 @subsubsubheading Mode @emph{markup}
-@translationof Markup mode
 
 @funindex \markup
 
@@ -163,7 +157,6 @@ voir @ref{Commandes pour markup}.
 
 
 @subsubsubheading Mode notes
-@translationof Note mode
 
 @funindex \notemode
 
@@ -3581,7 +3574,6 @@ Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 
 
 @subsubheading Instructions d'installation
-@translationof Installation Instructions
 
 @itemize
 @item
@@ -3652,7 +3644,6 @@ qu'à propos des conditions d'utilisation.
 
 
 @subsubheading Autres fontes musicales
-@translationof Other notation fonts
 
 Si vous disposez d'autres fontes musicales telles que
 @file{@var{nomfonte}-*.otf}, @file{@var{nomfonte}-*.svg} et
