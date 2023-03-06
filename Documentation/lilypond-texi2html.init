@@ -934,12 +934,16 @@ sub get_navigation_button
     my $button = shift;
 
     my $text = $NAVIGATION_TEXT{$button};
+    my $name = $Texi2HTML::NODE{$button};
+    if ($name ne 'Top') {
+        $name = $Texi2HTML::THIS_ELEMENT->{$button}->{'text_nonumber'};
+    }
     if (($button eq 'Back') or ($button eq 'FastBack')) {
-        $text = $text . $Texi2HTML::NODE{$button} . ' ';
+        $text = $text . $name . ' ';
     } elsif (($button eq 'Forward') or ($button eq 'FastForward')) {
-        $text = ' ' . $Texi2HTML::NODE{$button} . $text;
+        $text = ' ' . $name . $text;
     } elsif ($button eq 'Up') {
-        $text = $text . ': ' . $Texi2HTML::NODE{$button} . ' ';
+        $text = $text . ': ' . $name . ' ';
     }
 
     my $attributes = '';
