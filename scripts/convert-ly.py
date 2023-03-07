@@ -153,6 +153,12 @@ def get_option_parser():
                  dest="backup_numbered",
                  default='')
 
+    p.add_option('-v', '--verbose',
+                 help=_("print rule descriptions during conversion"),
+                 action='store_true',
+                 dest='verbose',
+                 default=False)
+
     p.add_option('-w', '--warranty', help=_("show warranty and copyright"),
                  action='store_true',
                  ),
@@ -194,11 +200,16 @@ string and the number of errors."""
     errors = 0
     try:
         for x in conv_list:
-            if x != conv_list[-1]:
-                ly.progress(tup_to_str(x[0]), newline=False)
-                ly.progress(', ', newline=False)
-            else:
+            if global_options.verbose:
+                from textwrap import indent
                 ly.progress(tup_to_str(x[0]))
+                ly.progress(indent(x[2].strip(), '  '))
+            else:
+                if x != conv_list[-1]:
+                    ly.progress(tup_to_str(x[0]), newline=False)
+                    ly.progress(', ', newline=False)
+                else:
+                    ly.progress(tup_to_str(x[0]))
             newstr = x[1](s)
             last_conversion = x[0]
             if newstr != s:
