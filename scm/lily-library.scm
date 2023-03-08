@@ -903,15 +903,6 @@ regex @code{(a+)|(b+)}), @code{#f} is returned."
           (make-string 1 (integer->char (+ 65 (modulo i 26))))
           (string-encode-integer (quotient i 26))))))
 
-(define (number->octal-string x)
-  (let* ((n (inexact->exact x))
-         (n64 (quotient n 64))
-         (n8 (quotient (- n (* n64 64)) 8)))
-    (string-append
-     (number->string n64)
-     (number->string n8)
-     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
-
 (define-public (ly:number-pair->string c)
   (string-append (ly:number->string (car c)) " "
                  (ly:number->string (cdr c))))
