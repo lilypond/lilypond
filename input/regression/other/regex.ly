@@ -5,11 +5,6 @@
 functions."
 }
 
-#(define-syntax-rule (assert condition)
-   (when (not condition)
-     (ly:error "assertion ~s failed in test input/regression/other/regex.ly"
-               'condition)))
-
 #(assert (equal? "\\*\\+\\$" (ly:regex-quote "*+$")))
 
 #(assert (ly:regex-exec (ly:make-regex (ly:regex-quote "*+$"))

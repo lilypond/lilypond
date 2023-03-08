@@ -53,6 +53,26 @@
 (define-public INFINITY-INT 1000000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; assert macro
+
+(define-syntax-public assert
+  (lambda (sintax)
+    "Use @code{(assert @var{condition})} or
+@code{(assert @var{condition} @var{extra-failure-message})} to check that
+@var{condition} is true, and raise an error otherwise. Use this for
+conditions that should always be true, barring bugs; raise a more informative
+error if protecting against a user error."
+    (syntax-case sintax ()
+      ((assert condition)
+       #'(when (not condition)
+           (error (format #f "assertion ~s failed"
+                          'condition))))
+      ((assert condition message)
+       #'(when (not condition)
+           (error (format #f "assertion ~s failed with message: ~a"
+                          'condition message)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
 
 (define-public INF-MOMENT (ly:make-moment +inf.0))

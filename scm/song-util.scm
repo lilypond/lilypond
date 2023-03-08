@@ -34,13 +34,6 @@
 ;; Iff true, enable a lot of debugging output
 (define-public *debug* #f)
 
-(define-macro (assert condition . data)
-  (if *debug*
-      `(if (not ,condition)
-           (error "Assertion failed" (quote ,condition) ,@data))
-      #f))
-(export assert)
-
 (define-macro (debug message object)
   (if *debug*
       `(debug* ,message ,object)

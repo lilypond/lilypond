@@ -182,12 +182,6 @@ is then separated.
 <!ATTLIST pitch octave ( -1 | -2 | 0 | 1 ) #REQUIRED >")
 
 
-;; should use macro
-(define (assert x)
-  (if x
-      #t
-      (ly:error (G_ "assertion failed: ~S") x)))
-
 (define (re-sub re to string)
   (ly:regex-replace (ly:make-regex re)
                     string
