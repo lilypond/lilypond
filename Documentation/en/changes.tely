@@ -199,6 +199,17 @@ command for EPS images.
 the difference between using @code{\image} and @code{\epsfile} is
 that @code{\image} adds a white background by default, while
 @code{\epsfile} does not.
+
+@item
+The new @code{\qr-code} markup command inserts a QR code of the
+specified size for the specified URL.  This can be used to link
+to, e.g., the website of a composer or publisher, the LilyPond
+source files for the score, recordings, etc.
+
+@lilypond[verbatim,quote]
+\markup \qr-code #10 "https://lilypond.org"
+@end lilypond
+
 @end itemize
 
 

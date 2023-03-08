@@ -112,7 +112,8 @@
 
 (use-modules (ice-9 receive)
              (ice-9 control)
-             (ice-9 match))
+             (ice-9 match)
+             ((lily qr-code) #:select (qr-encode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; utility functions
@@ -659,6 +660,78 @@ in the PDF backend.
          (link-expr `(page-link ,page-number ,xextent ,yextent)))
 
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
+
+(define-markup-command (qr-code layout props width str) (non-negative-number? string?)
+  #:properties ((error-correction-level 'low)
+                (quiet-zone-size 4))
+  #:category other
+  "
+@cindex QR code
+@cindex URL link, as QR code
+@cindex hyperlink, as QR code
+
+Insert a QR code for the given string, usually a URL.
+
+@lilypond[verbatim,quote]
+\\markup \\vcenter {
+  \\center-column { Engraved with LilyPond }
+  \\hspace #1.5
+  \\qr-code #10.0 \"https://lilypond.org\"
+}
+@end lilypond
+
+The @var{error-correction-level} property can be set to one of the symbols
+@code{low}, @code{medium}, @code{quarter} and @code{high}.  The higher
+the level of error correction is, the more the QR code contains redundancy,
+potentially helping detectors, e.g., in poor lighting conditions; however,
+a higher correction level also makes the code denser.
+
+@lilypond[verbatim,quote]
+\\markup \\vcenter {
+  \\center-column { Engraved with LilyPond }
+  \\hspace #1.5
+  \\override #'(error-correction-level . high)
+    \\qr-code #10.0 \"https://lilypond.org\"
+}
+@end lilypond
+
+The @var{quiet-zone-size} property specifies the width of the @qq{quiet zone},
+namely the white area around the QR code.  It is expressed as a multiple of the
+width of one little square inside the QR code.  Use at least 4 for best results.
+"
+  (let ((arr (catch 'qr-code-error
+                    (lambda ()
+                      (qr-encode str error-correction-level))
+                    (lambda (_key)
+                      ;; a warning has already been emitted
+                      #f))))
+    (if arr
+        (match-let*
+            (((size _size) (array-dimensions arr))
+             (square-width (/ width size))
+             (square (make-filled-box-stencil `(0 . ,square-width)
+                                              `(0 . ,square-width)))
+             (rows (array->list arr))
+             (main-qr-stencil
+              (apply ly:stencil-add
+                     (index-map
+                      (lambda (i row)
+                        (apply ly:stencil-add
+                               (index-map
+                                (lambda (j is-black)
+                                  (let* ((color (if is-black black white))
+                                         (colored-square (stencil-with-color square color))
+                                         (offset (cons (* j square-width)
+                                                       (* (- size 1 i) square-width))))
+                                    (ly:stencil-translate colored-square offset)))
+                                row)))
+                      rows))))
+          (centered-stencil
+           (stencil-pad-around
+            (* square-width quiet-zone-size)
+            main-qr-stencil)))
+        empty-stencil)))
+
 
 (define-public (book-first-page layout props)
   "Return the @code{'first-page-number} of the entire book."

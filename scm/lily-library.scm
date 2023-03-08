@@ -24,7 +24,8 @@
  (ice-9 receive)
  (oop goops)
  (ice-9 textual-ports)
- ((ice-9 binary-ports) #:select (open-bytevector-output-port)))
+ ((ice-9 binary-ports) #:select (open-bytevector-output-port))
+ ((ice-9 arrays) #:select (array-copy)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -621,6 +622,90 @@ the parts (with the separators removed) as a list of lists.  Example:
             (if (null? tail)
                 tail
                 (split-list-by-separator (cdr tail) pred))))))
+
+(define (make-padding lst len filler . fillers)
+  (take (apply circular-list filler fillers)
+        (max 0 (- len (length lst)))))
+
+(define-public (list-pad-right lst len filler . fillers)
+  "Pad @var{lst} on the right by appending elements until its length
+is at least @var{len}. The elements are taken from the variadic
+arguments.  For example:
+
+@example
+(list-pad-right '(a b c) 10 'd 'e)
+@result{} (a b c d e d e d e d)
+@end example"
+  (append lst (apply make-padding lst len filler fillers)))
+
+(define-public (list-pad-left lst len filler . fillers)
+  "Same as @code{list-pad-right}, but add padding on the left."
+  (append (apply make-padding lst len filler fillers) lst))
+
+(define-public (split-list-by-group-lengths lst groups)
+  "Split list into groups whose lengths are given in @var{groups}.
+For example:
+
+@example
+(split-list-by-group-lengths '(a b c d e f) '(3 2 1)
+@result{} ((a b c) (d e) (f))
+@end example"
+  (let ((lst-len (length lst))
+        (groups-len (apply + groups)))
+    (unless (eqv? lst-len groups-len)
+      (error (format #f "split-list-by-group-lengths: length of list is ~a but \
+total length of all groups is ~a" lst-len groups-len))))
+  (let loop ((lst lst) (groups groups) (acc '()))
+    (if (null? lst)
+        (reverse! acc)
+        (match-let (((len . groups-rest) groups))
+          (receive (group lst-rest)
+              (split-at lst len)
+            (loop lst-rest groups-rest (cons group acc)))))))
+
+(define-public (flat-zip-longest . lsts)
+  "Return a list made of the first element from the first list, then the first element
+from the second list, @dots{}, the second element from the first list, @dots{}, until
+all lists are exhausted.  For example:
+
+@example
+(flat-zip-longest '(a b c d) '(e f) '(g h i)) @result{} '(a e g b f h c i d)
+@end example"
+  (let loop ((generator (apply circular-list lsts))
+             (acc '()))
+    (match-let (((first-group . cyclic-rest) generator))
+      (match first-group
+        ((x . rest)
+         (set-car! generator rest)
+         (loop cyclic-rest (cons x acc)))
+        (()
+         (if (eq? generator cyclic-rest)
+             (reverse! acc)
+             (begin
+               ;; erase this element
+               (set-car! generator (car cyclic-rest))
+               (set-cdr! generator (cdr cyclic-rest))
+               (loop generator acc))))))))
+
+(define-public (index-map f . lsts)
+"Applies @var{f} to corresponding elements of @var{lists}, just as @code{map},
+providing an additional counter starting at zero.  @var{f} needs to have the
+counter in its arguments.  For example:
+
+@example
+(index-map (lambda (i elt)
+             (format #f \"~s is the element at index ~a\" elt i))
+           '(a b c d e))
+@end example"
+   (let loop ((lsts lsts)
+              (acc '())
+              (i 0))
+     (if (any null? lsts)
+         (reverse! acc)
+         (loop (map cdr lsts)
+               (cons (apply f i (map car lsts))
+                     acc)
+               (1+ i)))))
 
 (define-public (fold-values proc lst . inits)
   "A variant of @code{fold} that works on one list only, but allows
@@ -1298,6 +1383,23 @@ siblings?"
       0
       (if (< x 0) -1 1)))
 
+(define-public (minmax/cmp cmp arg . args)
+  "Like @code{min} or @code{max}, but applies to any type of values, comparing them
+with @var{cmp} instead of @code{<} or @code{>}. For example:
+
+@example
+(minmax/cmp (comparator-from-key string-length <) \"a\" \"aa\" \"aaa\")
+@result{} \"a\"
+(minmax/cmp (comparator-from-key string-length >) \"a\" \"aa\" \"aaa\")
+@result{} \"aaa\"
+@end example
+"
+  (let loop ((args (cons arg args))
+             (best arg))
+    (match args
+      (() best)
+      ((arg . args) (loop args (if (cmp arg best) arg best))))))
+
 (define*-public (binary-search start end getter target-val
                                #:key (mode 'last-less-than-or-equal))
   (_i "Bisect between the integers @var{start} and @var{end}, both ends inclusive, to
@@ -1336,6 +1438,75 @@ greater than or equal to @var{target-val}.")
                     (loop start compare)
                     ;; compare is not among those values, refine lower searching bound.
                     (loop (1+ compare) end))))))))
+
+(define*-public (int->bit-list n #:optional pad-length)
+  "Return the representation of @var{n} in binary, as a list of booleans.
+
+If the optional argument @var{pad-length} is given, the list is padded
+with leading zeros to make it at least this long."
+  (let ((bits (map (lambda (i)
+                     (logbit? i n))
+                   (reverse (iota (integer-length n))))))
+    (if pad-length
+        (list-pad-left bits pad-length #f)
+        bits)))
+
+(define-public (bit-list->int bit-list)
+  "Convert the given list of booleans to the number that it represents in binary."
+  (let loop ((bits (reverse bit-list)) (n 0) (i 1))
+    (match bits
+      (() n)
+      ((b . rest) (loop rest (if b (+ n i) n) (* 2 i))))))
+
+(define-public (byte-list->bit-list byte-list)
+  "Convert a list of bytes (integers between 0 and 255) into a list of bits
+(booleans)."
+  (append-map (lambda (byte)
+                (int->bit-list byte 8))
+              byte-list))
+
+(define-public (bit-list->byte-list bit-list)
+  "Convert the given list of bits (booleans), whose length must be
+a multiple of@tie{}8, into a list of bytes (integers between 0 and 255)."
+  (let loop ((bit-list bit-list) (acc '()))
+    (if (null? bit-list)
+        (reverse! acc)
+        (receive (byte after)
+            (split-at bit-list 8)
+          (loop after (cons (bit-list->int byte) acc))))))
+
+(define-public (array-copy/subarray! src dst . offsets)
+  "Similar to @code{array-copy}, but takes extra parameters for the
+start of a subarray where to copy.  For example:
+
+@example
+(let ((arr (make-array 'a 4 4))
+      (to-copy (make-array 'b 2 2)))
+  (array-copy/subarray! to-copy arr 2 1)
+  arr)
+@result{}
+#2((a a a a)
+   (a a a a)
+   (a b b a)
+   (a b b a))
+@end example"
+  (let ((dst-view (apply make-shared-array
+                         dst
+                         (lambda indices
+                           (map + indices offsets))
+                         (array-shape src))))
+    (array-copy! src dst-view)))
+
+(define-public (matrix-rotate-counterclockwise matrix)
+  "Return a copy of @var{matrix} rotated counterclockwise.
+@var{matrix} is a 2-dimensional array without non-zero lower
+bounds in its shape."
+  (match-let (((width height) (array-dimensions matrix)))
+    (array-copy (make-shared-array matrix
+                                   (match-lambda*
+                                     ((row column)
+                                      (list column (- width row 1))))
+                                   width height))))
 
 (define-public ((comparator-from-key key cmp) a b)
   "Return a comparator function that applies @var{key} to the two
