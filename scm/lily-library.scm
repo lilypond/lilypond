@@ -1298,20 +1298,44 @@ siblings?"
       0
       (if (< x 0) -1 1)))
 
-(define-public (binary-search start end getter target-val)
-  (_i "Find the index between @var{start} and @var{end} (an integer)
-which produces the closest match to @var{target-val} if
-applied to function @var{getter}.")
-  (if (<= end start)
-      start
-      (let* ((compare (quotient (+ start end) 2))
-             (get-val (getter compare)))
-        (cond
-         ((< target-val get-val)
-          (set! end (1- compare)))
-         ((< get-val target-val)
-          (set! start (1+ compare))))
-        (binary-search start end getter target-val))))
+(define*-public (binary-search start end getter target-val
+                               #:key (mode 'last-less-than-or-equal))
+  (_i "Bisect between the integers @var{start} and @var{end}, both ends inclusive, to
+find an integer @var{i} such that @code{(getter i)} is close to
+@var{target-val}.  @var{getter} should be weakly increasing (in the mathematical
+sense), and @var{target-val} should be between @code{(getter start)} and
+@code{(getter end)} (included).  The optional keyword argument @code{mode}
+specifies how the result is determined exactly.  With
+@code{'last-less-than-or-equal}, which is the default, the result @var{i} is the
+last @var{i} such that @code{(getter i)} is less than or equal to
+@code{target-val}.  Alternatively, if @code{#:mode 'first-greater-than-or-equal}
+is passed, the result is the first @var{i} such that @code{(getter i)} is
+greater than or equal to @var{target-val}.")
+  (unless (or (eq? mode 'last-less-than-or-equal)
+              (eq? mode 'first-greater-than-or-equal))
+    (error "binary-search: invalid mode, expecting 'last-less-than-or-equal or \
+'first-greater-than-or-equal" mode))
+  (let* ((default-mode? (eq? mode 'last-less-than-or-equal))
+         ;; Which rounding mode is used matters for the last iteration
+         (quotient-func (if default-mode? ceiling-quotient floor-quotient)))
+    (let loop ((start start) (end end))
+      (if (<= end start)
+          start
+          (let* ((compare (quotient-func (+ start end) 2))
+                 (get-val (getter compare)))
+            (if default-mode?
+                (if (<= get-val target-val)
+                    ;; compare is among the values we're searching the last of,
+                    ;; so we can increase the start of our search range to compare.
+                    (loop compare end)
+                    ;; compare is not among those values. We can refine our upper
+                    ;; searching bound to one less.
+                    (loop start (1- compare)))
+                (if (>= get-val target-val)
+                    ;; compare is among the values we're searching the first of.
+                    (loop start compare)
+                    ;; compare is not among those values, refine lower searching bound.
+                    (loop (1+ compare) end))))))))
 
 (define-public ((comparator-from-key key cmp) a b)
   "Return a comparator function that applies @var{key} to the two
